@@ -27,14 +27,11 @@ __d(
     }
     function c(e, t) {
       return e == null || t == null || t === 0
-        ? s._(/*BTDS*/ "Syncing messages")
-        : s._(
-            /*BTDS*/ '_j{"*":{"*":"Syncing messages {processed message count} \\\/ {total message count}"}}',
-            [
-              s._param("processed message count", e, [0]),
-              s._param("total message count", t, [0]),
-            ],
-          );
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "", [
+            s._param("processed message count", e, [0]),
+            s._param("total message count", t, [0]),
+          ]);
     }
     ((l.getOfflineResumeProgress = u), (l.getSyncingMessagesLabel = c));
   },

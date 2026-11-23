@@ -7,7 +7,7 @@ __d(
       u = 4,
       c = Object.freeze({ top: 0, bottom: 8, left: 16, right: 16 }),
       d = 4,
-      m = s._(/*BTDS*/ "N\/A"),
+      m = s._(/*BTDS*/ ""),
       p = " - ",
       _ = 16,
       f = 8;

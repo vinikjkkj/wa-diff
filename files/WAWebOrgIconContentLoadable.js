@@ -4,23 +4,17 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebOrgIconContent.react",
-          )
-            .__setRef("WAWebOrgIconContentLoadable")
-            .load();
-          return e;
-        }),
-        "OrgIconContent",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")("WAWebOrgIconContent.react")
+          .__setRef("WAWebOrgIconContentLoadable")
+          .load();
+        return e;
+      }, "OrgIconContent"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function () {

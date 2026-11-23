@@ -13,7 +13,6 @@ __d(
     "WAWebNewsletterInsightsJob",
     "WAWebNewsletterMetricUtils",
     "WAWebNewsletterRoleDataProcessors",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -79,66 +78,56 @@ __d(
         t
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (!o("WAWebChatGetters").getIsNewsletter(t))
-            throw (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[getAndUpdateNewsletterInsights] non-newsletter chat",
-                    ])),
-                )
-                .tags("newsletter")
-                .sendLogs("getting-insights-for-non-newsletter"),
-              r("err")("getting-insights-for-non-newsletter")
-            );
-          if (
-            o("WAWebNewsletterGatingUtils").canFetchProducerInsights(
-              t.newsletterMetadata,
+    async function m(t, n) {
+      if (!o("WAWebChatGetters").getIsNewsletter(t))
+        throw (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[getAndUpdateNewsletterInsights] non-newsletter chat",
+                ])),
             )
-          ) {
-            var a = n(),
-              i = o("WAWebNewsletterMetricUtils").getUniqueMetricRequests(a),
-              l = o("WAJids").toNewsletterJid(t.id.toJid()),
-              s = { newsletterJid: l, requestedMetrics: i },
-              u = yield o("WAWebNewsletterInsightsJob").getNewsletterInsights(
-                s,
+            .tags("newsletter")
+            .sendLogs("getting-insights-for-non-newsletter"),
+          r("err")("getting-insights-for-non-newsletter")
+        );
+      if (
+        o("WAWebNewsletterGatingUtils").canFetchProducerInsights(
+          t.newsletterMetadata,
+        )
+      ) {
+        var a = n(),
+          i = o("WAWebNewsletterMetricUtils").getUniqueMetricRequests(a),
+          l = o("WAJids").toNewsletterJid(t.id.toJid()),
+          s = { newsletterJid: l, requestedMetrics: i },
+          u = await o("WAWebNewsletterInsightsJob").getNewsletterInsights(s),
+          c = u.dataStatus,
+          d = u.lastUpdateTime,
+          m = u.metricValueMap,
+          p = a.map(function (e) {
+            return e.process(m);
+          }),
+          _ = p.reduce(
+            function (e, t) {
+              return babelHelpers.extends({}, e, t);
+            },
+            {
+              id: t.id,
+              rangeStart: o("WAWebNewsletterMetricUtils").getInsightPeriodStart(
+                d,
               ),
-              c = u.dataStatus,
-              d = u.lastUpdateTime,
-              m = u.metricValueMap,
-              p = a.map(function (e) {
-                return e.process(m);
-              }),
-              _ = p.reduce(
-                function (e, t) {
-                  return babelHelpers.extends({}, e, t);
-                },
-                {
-                  id: t.id,
-                  rangeStart: o(
-                    "WAWebNewsletterMetricUtils",
-                  ).getInsightPeriodStart(d),
-                  rangeEnd: d,
-                  dataStatus: c,
-                },
-              );
-            yield o(
-              "WAWebNewsletterBridgeApi",
-            ).NewsletterBridgeApi.updateNewsletterInsights({
-              newsletter: t,
-              insights: _,
-            });
-          }
-        })),
-        p.apply(this, arguments)
-      );
+              rangeEnd: d,
+              dataStatus: c,
+            },
+          );
+        await o(
+          "WAWebNewsletterBridgeApi",
+        ).NewsletterBridgeApi.updateNewsletterInsights({
+          newsletter: t,
+          insights: _,
+        });
+      }
     }
     ((l.populateNewsletterTileInsights = s),
       (l.populateNewsletterTabInsights = c));

@@ -28,11 +28,37 @@ __d(
             .replace(/<\/?ignore-for-memory\b[^>]*>/gi, "")
             .replace(/<\/?suppress-notification\b[^>]*>/gi, "")
             .replace(/<\/?interviewer-optout\b[^>]*>/gi, "")
+            .replace(/<\/?collapse-sections\b[^>]*>/gi, "")
             .replace(
               /<scorecard-report\b[^>]*>[\s\S]*?<\/scorecard-report>/gi,
               "",
             )
             .replace(/<a2ui\b[^>]*>[\s\S]*?<\/a2ui>/gi, "")
+            .replace(
+              /<verification-callout\b[^>]*>[\s\S]*?<\/verification-callout>/gi,
+              "",
+            )
+            .replace(
+              /<verification-manual-handoff\b[^>]*>[\s\S]*?<\/verification-manual-handoff>/gi,
+              "",
+            )
+            .replace(
+              /<verification-challenge-choices\b[^>]*>[\s\S]*?<\/verification-challenge-choices>/gi,
+              "",
+            )
+            .replace(/<ixt-a2ui\b[^>]*>[\s\S]*?<\/ixt-a2ui>/gi, "")
+            .replace(
+              /<creative-compass-ideas\b[^>]*>(?:[\s\S]*?<\/creative-compass-ideas>)?/gi,
+              "",
+            )
+            .replace(
+              /<creative-compass(?=[\s>])[^>]*>[\s\S]*?<\/creative-compass>/gi,
+              "",
+            )
+            .replace(
+              /<workspace(?=[\s/>])[^>]*>(?:[\s\S]*?<\/workspace>)?/gi,
+              "",
+            )
             .replace(/\*\*(.+?)\*\*/g, "$1")
             .replace(/^#{1,6}\s+/gm, "")
             .replace(/\n{3,}/g, "\n\n")

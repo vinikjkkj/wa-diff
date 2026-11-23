@@ -95,6 +95,7 @@ __d(
         (u.whatsapp = d.WHATSAPP_POSITIONS),
         (u.oculus = d.OCULUS_POSITIONS),
         (u.threads = d.THREADS_POSITIONS),
+        (u.streaming_services = d.STREAMING_SERVICES_POSITIONS),
         u),
       ),
       v = [

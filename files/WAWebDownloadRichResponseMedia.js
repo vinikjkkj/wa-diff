@@ -7,7 +7,6 @@ __d(
     "WAWebFetchRichResponseMediaBytes",
     "WAWebHttpExtendedFetch",
     "WAWebStartMediaDownloadQpl",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -15,88 +14,64 @@ __d(
     "use strict";
     var e,
       s = 3e4;
-    function u(e, t, n) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          yield o(
-            "WAWebFetchRichResponseMediaBytes",
-          ).fetchRichResponseMediaBytes(e, t, n);
-        })),
-        c.apply(this, arguments)
+    async function u(e, t, n) {
+      await o("WAWebFetchRichResponseMediaBytes").fetchRichResponseMediaBytes(
+        e,
+        t,
+        n,
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.cancelSignal,
-            i = t.fileLength,
-            l = t.lifecycleSignal,
-            s = t.onProgress,
-            u = t.url,
-            c = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-              entryPoint: "DownloadRichResponseMedia",
-            });
-          c.addAnnotations({ string: { richResponseLane: "artifact" } });
-          var d = p();
-          try {
-            return yield r("WARaceSignal")(
-              [l, a, d.signal],
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = yield o("WAWebHttpExtendedFetch").extendedFetch(u, {
-                      onHeadersReceived: function () {
-                        d.restart();
-                      },
-                      onProgress: function (t) {
-                        d.restart();
-                        var e = t.lengthComputable ? t.total : i;
-                        s(f(t.loaded, e));
-                      },
-                      signal: e,
-                    });
-                    if (!t.ok)
-                      throw r("err")(
-                        "artifact download rejected with status " + t.status,
-                      );
-                    var n = yield t.blob();
-                    return (c.endSuccess(), n);
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
+    async function c(t) {
+      var n = t.cancelSignal,
+        a = t.fileLength,
+        i = t.lifecycleSignal,
+        l = t.onProgress,
+        s = t.url,
+        u = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+          entryPoint: "DownloadRichResponseMedia",
+        });
+      u.addAnnotations({ string: { richResponseLane: "artifact" } });
+      var c = d();
+      try {
+        return await r("WARaceSignal")([i, n, c.signal], async function (e) {
+          var t = await o("WAWebHttpExtendedFetch").extendedFetch(s, {
+            onHeadersReceived: function () {
+              c.restart();
+            },
+            onProgress: function (t) {
+              c.restart();
+              var e = t.lengthComputable ? t.total : a;
+              l(p(t.loaded, e));
+            },
+            signal: e,
+          });
+          if (!t.ok)
+            throw r("err")(
+              "artifact download rejected with status " + t.status,
             );
-          } catch (t) {
-            var m = r("getErrorSafe")(t);
-            return m.name === o("WAAbortError").ABORT_ERROR
-              ? (_(c, l, a, d.signal), null)
-              : (c.endFailWithError("download_failed", m.message),
-                o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "rich response: artifact download failed",
-                      ])),
-                  )
-                  .catching(m)
-                  .sendLogs("rich-response-artifact-download-failed"),
-                null);
-          } finally {
-            d.clear();
-          }
-        })),
-        m.apply(this, arguments)
-      );
+          var n = await t.blob();
+          return (u.endSuccess(), n);
+        });
+      } catch (t) {
+        var _ = r("getErrorSafe")(t);
+        return _.name === o("WAAbortError").ABORT_ERROR
+          ? (m(u, i, n, c.signal), null)
+          : (u.endFailWithError("download_failed", _.message),
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "rich response: artifact download failed",
+                  ])),
+              )
+              .catching(_)
+              .sendLogs("rich-response-artifact-download-failed"),
+            null);
+      } finally {
+        c.clear();
+      }
     }
-    function p() {
+    function d() {
       var e = new AbortController(),
         t = null,
         n = function () {
@@ -110,7 +85,7 @@ __d(
         };
       return (r(), { clear: n, restart: r, signal: e.signal });
     }
-    function _(e, t, n, r) {
+    function m(e, t, n, r) {
       n.aborted
         ? e.endCancel()
         : r.aborted
@@ -119,10 +94,10 @@ __d(
             ? e.endFailWithError("download_unmounted", "download_unmounted")
             : e.endFailWithError("download_aborted", "download_aborted");
     }
-    function f(e, t) {
+    function p(e, t) {
       return t == null || t <= 0 ? null : Math.min(e / t, 1);
     }
-    ((l.downloadRichResponseMedia = u), (l.downloadRichResponseArtifact = d));
+    ((l.downloadRichResponseMedia = u), (l.downloadRichResponseArtifact = c));
   },
   98,
 );

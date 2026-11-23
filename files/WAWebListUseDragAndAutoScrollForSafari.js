@@ -3,7 +3,6 @@ __d(
   [
     "WAStartAnimationLoop",
     "react",
-    "react-compiler-runtime",
     "useWAWebStableCallback",
     "useWAWebThrottledCallback",
   ],
@@ -46,53 +45,27 @@ __d(
       return { handleDragOver: c, forceStop: d };
     }
     function g(e) {
-      var t = o("react-compiler-runtime").c(15),
-        n;
-      t[0] !== e ? ((n = f(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
-      var a = n,
-        i = r("useWAWebThrottledCallback")(a.handleDragOver, d),
-        l;
-      t[2] !== e || t[3] !== i
-        ? ((l = function () {
-            e.addEventListener("dragover", i);
-          }),
-          (t[2] = e),
-          (t[3] = i),
-          (t[4] = l))
-        : (l = t[4]);
-      var s = r("useWAWebStableCallback")(l),
-        c;
-      t[5] !== e || t[6] !== a || t[7] !== i
-        ? ((c = function () {
-            (e.removeEventListener("dragover", i), i.cancel(), a.forceStop());
-          }),
-          (t[5] = e),
-          (t[6] = a),
-          (t[7] = i),
-          (t[8] = c))
-        : (c = t[8]);
-      var m = r("useWAWebStableCallback")(c),
-        p,
-        _;
-      (t[9] !== m
-        ? ((p = function () {
-            return m;
-          }),
-          (_ = [m]),
-          (t[9] = m),
-          (t[10] = p),
-          (t[11] = _))
-        : ((p = t[10]), (_ = t[11])),
-        u(p, _));
-      var g;
+      var t = c(
+          function () {
+            return f(e);
+          },
+          [e],
+        ),
+        n = r("useWAWebThrottledCallback")(t.handleDragOver, d),
+        o = r("useWAWebStableCallback")(function () {
+          e.addEventListener("dragover", n);
+        }),
+        a = r("useWAWebStableCallback")(function () {
+          (e.removeEventListener("dragover", n), n.cancel(), t.forceStop());
+        });
       return (
-        t[12] !== s || t[13] !== m
-          ? ((g = { removeDragScroll: m, addDragScroll: s }),
-            (t[12] = s),
-            (t[13] = m),
-            (t[14] = g))
-          : (g = t[14]),
-        g
+        u(
+          function () {
+            return a;
+          },
+          [a],
+        ),
+        { removeDragScroll: a, addDragScroll: o }
       );
     }
     ((l.EMPTY_SCROLL_EVENTS = _), (l.useDragAndAutoScrollForSafari = g));

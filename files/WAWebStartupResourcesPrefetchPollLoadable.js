@@ -1,24 +1,15 @@
 __d(
   "WAWebStartupResourcesPrefetchPollLoadable",
-  [
-    "JSResourceForInteraction",
-    "WAWebLazyLoadedRetriable",
-    "WAWebNoop",
-    "asyncToGeneratorRuntime",
-    "gkx",
-  ],
+  ["JSResourceForInteraction", "WAWebLazyLoadedRetriable", "WAWebNoop", "gkx"],
   function (t, n, r, o, a, i, l) {
-    var e = r("WAWebLazyLoadedRetriable")(
-      n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-        var e = yield r("JSResourceForInteraction")(
-          "WAWebStartupResourcesPrefetchPoll",
-        )
-          .__setRef("WAWebStartupResourcesPrefetchPollLoadable")
-          .load();
-        return e.startStartupResourcesPrefetchPoll;
-      }),
-      "WAWebStartupResourcesPrefetchPoll",
-    );
+    var e = r("WAWebLazyLoadedRetriable")(async function () {
+      var e = await r("JSResourceForInteraction")(
+        "WAWebStartupResourcesPrefetchPoll",
+      )
+        .__setRef("WAWebStartupResourcesPrefetchPollLoadable")
+        .load();
+      return e.startStartupResourcesPrefetchPoll;
+    }, "WAWebStartupResourcesPrefetchPoll");
     function s() {
       r("gkx")("27710") &&
         e()

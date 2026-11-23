@@ -13,37 +13,28 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = d(),
-            n = yield o("WAComms").sendSmaxStanza(t, e),
-            r = c(n, t);
-          if (r.success)
-            return {
-              name: "GetCountryCodeResponseGetCountryCodeResponse",
-              value: r.value,
-            };
-          var a = u(n, t);
-          if (a.success)
-            return { name: "GetCountryCodeResponseError", value: a.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("GetCountryCode", {
-              GetCountryCodeResponse: r,
-              Error: a,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e) {
+      var t = c(),
+        n = await o("WAComms").sendSmaxStanza(t, e),
+        r = u(n, t);
+      if (r.success)
+        return {
+          name: "GetCountryCodeResponseGetCountryCodeResponse",
+          value: r.value,
+        };
+      var a = s(n, t);
+      if (a.success)
+        return { name: "GetCountryCodeResponseError", value: a.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetCountryCode", {
+          GetCountryCodeResponse: r,
+          Error: a,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -53,7 +44,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = m(r.value);
+      var i = d(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -62,7 +53,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "country_code");
@@ -79,7 +70,7 @@ __d(
           )
         : i;
     }
-    function d() {
+    function c() {
       var e = o("WASmaxOutMdBaseIQGetRequestMixin").mergeBaseIQGetRequestMixin(
         o("WASmaxJsx").smax(
           "iq",
@@ -91,7 +82,7 @@ __d(
       );
       return e;
     }
-    function m(e) {
+    function d(e) {
       var t = o("WASmaxInMdIQErrorBadRequestMixin").parseIQErrorBadRequestMixin(
         e,
       );
@@ -115,10 +106,10 @@ __d(
           );
     }
     ((l.sendGetCountryCodeRPC = e),
-      (l.parseGetCountryCodeResponseError = u),
-      (l.parseGetCountryCodeResponseGetCountryCodeResponse = c),
-      (l.makeGetCountryCodeRequest = d),
-      (l.parseCountryCodeErrors = m));
+      (l.parseGetCountryCodeResponseError = s),
+      (l.parseGetCountryCodeResponseGetCountryCodeResponse = u),
+      (l.makeGetCountryCodeRequest = c),
+      (l.parseCountryCodeErrors = d));
   },
   98,
 );

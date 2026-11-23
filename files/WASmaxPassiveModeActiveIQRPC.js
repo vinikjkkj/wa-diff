@@ -10,30 +10,18 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = c(),
-            n = yield o("WAComms").sendSmaxStanza(t, e),
-            r = u(n, t);
-          if (r.success)
-            return { name: "ActiveIQResponseSuccess", value: r.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("ActiveIQ", {
-              Success: r,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e) {
+      var t = u(),
+        n = await o("WAComms").sendSmaxStanza(t, e),
+        r = s(n, t);
+      if (r.success) return { name: "ActiveIQResponseSuccess", value: r.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("ActiveIQ", { Success: r }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "active");
@@ -64,7 +52,7 @@ __d(
         ? o("WAResultOrError").makeResult({ type: l.value, from: s.value })
         : s;
     }
-    function c() {
+    function u() {
       var e = o("WASmaxJsx").smax(
         "iq",
         {
@@ -78,8 +66,8 @@ __d(
       return e;
     }
     ((l.sendActiveIQRPC = e),
-      (l.parseActiveIQResponseSuccess = u),
-      (l.makeActiveIQRequest = c));
+      (l.parseActiveIQResponseSuccess = s),
+      (l.makeActiveIQRequest = u));
   },
   98,
 );

@@ -3,95 +3,85 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Button text is too long");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Please enter a valid phone number");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Please enter a valid URL");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Button");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(
-        /*BTDS*/ "Include a button to help customers take action quickly.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function p(e) {
-      return String(
-        e != null ? s._(/*BTDS*/ "View item") : s._(/*BTDS*/ "View catalog"),
-      );
+      return String(e != null ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""));
     }
     function _() {
-      return s._(/*BTDS*/ "Your attachment already has a button.");
+      return s._(/*BTDS*/ "");
     }
     function f() {
-      return s._(/*BTDS*/ "Add button");
+      return s._(/*BTDS*/ "");
     }
     function g() {
-      return s._(/*BTDS*/ "Custom reply");
+      return s._(/*BTDS*/ "");
     }
     function h() {
-      return s._(/*BTDS*/ "Create a 1-tap response");
+      return s._(/*BTDS*/ "");
     }
     function y() {
-      return s._(/*BTDS*/ "Phone call");
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(/*BTDS*/ "Start a WhatsApp call to you");
+      return s._(/*BTDS*/ "");
     }
     function b() {
-      return s._(/*BTDS*/ "Website");
+      return s._(/*BTDS*/ "");
     }
     function v() {
-      return s._(/*BTDS*/ "Link out to your business online");
+      return s._(/*BTDS*/ "");
     }
     function S() {
-      return s._(/*BTDS*/ "Button & reply text");
+      return s._(/*BTDS*/ "");
     }
     function R() {
-      return s._(/*BTDS*/ "Phone number");
+      return s._(/*BTDS*/ "");
     }
     function L() {
-      return s._(/*BTDS*/ "Button text");
+      return s._(/*BTDS*/ "");
     }
     function E() {
-      return s._(/*BTDS*/ "URL");
+      return s._(/*BTDS*/ "");
     }
     function k() {
-      return s._(
-        /*BTDS*/ 'Let customers reply to your message with a specified response. Enter text for the button and reply, for example "Tell me more!".',
-      );
+      return s._(/*BTDS*/ "");
     }
     function I() {
-      return s._(
-        /*BTDS*/ 'Starts a call to a number. Enter the number and text for the button, for example "Call for details".',
-      );
+      return s._(/*BTDS*/ "");
     }
     function T() {
-      return s._(/*BTDS*/ "Add website button");
+      return s._(/*BTDS*/ "");
     }
     function D() {
-      return s._(/*BTDS*/ "Add phone call button");
+      return s._(/*BTDS*/ "");
     }
     function x() {
-      return s._(/*BTDS*/ "Add custom reply button");
+      return s._(/*BTDS*/ "");
     }
     function $() {
-      return s._(/*BTDS*/ "Save");
+      return s._(/*BTDS*/ "");
     }
     function P() {
-      return s._(
-        /*BTDS*/ "Allow Meta to use link tracking to report this message's website clicks. If not checked, the website clicks won't be counted or shown.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function N() {
-      return s._(/*BTDS*/ "Button removed");
+      return s._(/*BTDS*/ "");
     }
     function M() {
-      return s._(/*BTDS*/ "Button updated");
+      return s._(/*BTDS*/ "");
     }
     ((l.getDisplayTextTooLongError = e),
       (l.getInvalidPhoneFormatError = u),

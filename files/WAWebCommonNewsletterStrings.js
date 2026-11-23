@@ -24,14 +24,14 @@ __d(
       return (
         t === void 0 && (t = !1),
         e >= Math.pow(10, 6)
-          ? s._(/*BTDS*/ '_j{"*":"{number} followers","_1":"1 follower"}', [
+          ? s._(/*BTDS*/ "", [
               s._plural(
                 t ? e : c(e),
                 "number",
                 t ? r("WAWebL10N").n(e) : r("WAWebL10N").d(e),
               ),
             ])
-          : s._(/*BTDS*/ '_j{"*":"{number} followers","_1":"1 follower"}', [
+          : s._(/*BTDS*/ "", [
               s._plural(
                 t ? e : c(e),
                 "number",
@@ -45,44 +45,42 @@ __d(
       switch (e) {
         case o("WAWebNewsletterDirectoryFilterUtils")
           .NewsletterDirectoryFilterType.Recommended:
-          return s._(/*BTDS*/ "Explore");
+          return s._(/*BTDS*/ "");
         case o("WAWebNewsletterDirectoryFilterUtils")
           .NewsletterDirectoryFilterType.Trending:
-          return s._(/*BTDS*/ "Most active");
+          return s._(/*BTDS*/ "");
         case o("WAWebNewsletterDirectoryFilterUtils")
           .NewsletterDirectoryFilterType.Featured:
-          return s._(/*BTDS*/ "Featured");
+          return s._(/*BTDS*/ "");
         case o("WAWebNewsletterDirectoryFilterUtils")
           .NewsletterDirectoryFilterType.New:
-          return s._(/*BTDS*/ "New");
+          return s._(/*BTDS*/ "");
         case o("WAWebNewsletterDirectoryFilterUtils")
           .NewsletterDirectoryFilterType.Popular:
-          return s._(/*BTDS*/ "Popular");
+          return s._(/*BTDS*/ "");
         case o("WAWebNewsletterDirectoryFilterUtils")
           .NewsletterDirectoryFilterType.Country:
-          return s._(/*BTDS*/ "Region");
+          return s._(/*BTDS*/ "");
       }
     }
     function p(e) {
-      return s._(/*BTDS*/ "Search in {directory_category_name}", [
-        s._param("directory_category_name", e.name),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("directory_category_name", e.name)]);
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _() {
-      return s._(/*BTDS*/ "Find channels");
+      return s._(/*BTDS*/ "");
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f() {
-      return s._(/*BTDS*/ "Create channel");
+      return s._(/*BTDS*/ "");
     }
     f.displayName = f.name + " [from " + i.id + "]";
     function g() {
-      return s._(/*BTDS*/ "Check your internet connection and try again.");
+      return s._(/*BTDS*/ "");
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h() {
-      return s._(/*BTDS*/ "Delete channel");
+      return s._(/*BTDS*/ "");
     }
     h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
@@ -91,73 +89,54 @@ __d(
         r = e.searchText;
       return t
         ? n > 0
-          ? s._(
-              /*BTDS*/ '_j{"*":"Loading, showing {number} channels on the screen.","_1":"Loading, showing 1 channel on the screen."}',
-              [s._plural(n, "number")],
-            )
-          : s._(/*BTDS*/ "Loading channels.")
+          ? s._(/*BTDS*/ "", [s._plural(n, "number")])
+          : s._(/*BTDS*/ "")
         : n === 0
-          ? s._(/*BTDS*/ "No channels found.")
+          ? s._(/*BTDS*/ "")
           : o("WAXplatTrim").trim(r) !== ""
-            ? s._(
-                /*BTDS*/ '_j{"*":"Search results: {number} channels found. Scroll to load more.","_1":"Search results: 1 channel found. Scroll to load more."}',
-                [s._plural(n, "number")],
-              )
-            : s._(
-                /*BTDS*/ '_j{"*":"Find channels list, showing {number} channels on the screen. Scroll to load more.","_1":"Find channels list, showing 1 channel on the screen. Scroll to load more."}',
-                [s._plural(n, "number")],
-              );
+            ? s._(/*BTDS*/ "", [s._plural(n, "number")])
+            : s._(/*BTDS*/ "", [s._plural(n, "number")]);
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e, t) {
       return e === "create"
-        ? s._(/*BTDS*/ "Create channel")
+        ? s._(/*BTDS*/ "")
         : e === "directory"
           ? _()
           : t != null
-            ? s._(/*BTDS*/ "View update")
-            : s._(/*BTDS*/ "View channel");
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
     }
     C.displayName = C.name + " [from " + i.id + "]";
     function b() {
-      return s._(/*BTDS*/ "Unfollow channel");
+      return s._(/*BTDS*/ "");
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v() {
-      return s._(/*BTDS*/ "Copy link");
+      return s._(/*BTDS*/ "");
     }
     v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      return s._(/*BTDS*/ 'Start growing "{channel_name}"', [
-        s._param("channel_name", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("channel_name", e)]);
     }
     S.displayName = S.name + " [from " + i.id + "]";
     function R(e) {
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ 'You created this channel, "{channel_name}".', [
-            s._param("channel_name", e),
-          ])
-        : s._(/*BTDS*/ 'You created this channel, "{channel_name}"', [
-            s._param("channel_name", e),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("channel_name", e)])
+        : s._(/*BTDS*/ "", [s._param("channel_name", e)]);
     }
     function L(e) {
-      return s._(/*BTDS*/ '_j{"*":"{number} invited","_1":"1 invited"}', [
-        s._plural(e, "number"),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(e, "number")]);
     }
     L.displayName = L.name + " [from " + i.id + "]";
     function E() {
-      return s._(/*BTDS*/ "Revoke invite");
+      return s._(/*BTDS*/ "");
     }
     E.displayName = E.name + " [from " + i.id + "]";
     function k(e) {
-      return s._(/*BTDS*/ "{contact-name} is no longer an admin.", [
-        s._param("contact-name", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("contact-name", e)]);
     }
     k.displayName = k.name + " [from " + i.id + "]";
     function I(e) {
@@ -165,7 +144,7 @@ __d(
         case o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Admin:
           return r("WAWebFbtCommon")("Admin");
         case o("WAWebCommonNewsletterEnums").NewsletterMembershipType.Owner:
-          return s._(/*BTDS*/ "Owner");
+          return s._(/*BTDS*/ "");
         default:
           return null;
       }
@@ -182,167 +161,127 @@ __d(
     }
     function D() {
       return o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
-        ? s._(
-            /*BTDS*/ "Admins can send updates, change the channel profile and see your phone number or username. {=m2}.",
-            [
-              s._implicitParam(
-                "=m2",
-                u.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                  href: o("WAWebFaqUrl").getNewsletterAdminInviteFaqUrlV2(),
-                  children: s._(/*BTDS*/ "Learn more"),
-                }),
-              ),
-            ],
-          )
-        : s._(
-            /*BTDS*/ "Admins can send updates, change the channel profile and see your phone number. {=m2}.",
-            [
-              s._implicitParam(
-                "=m2",
-                u.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                  href: o("WAWebFaqUrl").getNewsletterAdminInviteFaqUrlV2(),
-                  children: s._(/*BTDS*/ "Learn more"),
-                }),
-              ),
-            ],
-          );
+        ? s._(/*BTDS*/ "", [
+            s._implicitParam(
+              "=m2",
+              u.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                href: o("WAWebFaqUrl").getNewsletterAdminInviteFaqUrlV2(),
+                children: s._(/*BTDS*/ ""),
+              }),
+            ),
+          ])
+        : s._(/*BTDS*/ "", [
+            s._implicitParam(
+              "=m2",
+              u.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                href: o("WAWebFaqUrl").getNewsletterAdminInviteFaqUrlV2(),
+                children: s._(/*BTDS*/ ""),
+              }),
+            ),
+          ]);
     }
     D.displayName = D.name + " [from " + i.id + "]";
     function x() {
-      return s._(
-        /*BTDS*/ "Only contacts who have you in their address book will receive your invite.",
-      );
+      return s._(/*BTDS*/ "");
     }
     x.displayName = x.name + " [from " + i.id + "]";
     function $() {
-      return s._(/*BTDS*/ "Transfer ownership");
+      return s._(/*BTDS*/ "");
     }
     $.displayName = $.name + " [from " + i.id + "]";
     function P() {
-      return s._(/*BTDS*/ "Explore more");
+      return s._(/*BTDS*/ "");
     }
     P.displayName = P.name + " [from " + i.id + "]";
     function N(e) {
-      return s._(/*BTDS*/ '_j{"*":"Last {number} days","_1":"Last 1 day"}', [
-        s._plural(e, "number", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(e, "number", e)]);
     }
     N.displayName = N.name + " [from " + i.id + "]";
     function M(e) {
-      return s._(
-        /*BTDS*/ '_j{"*":"over last {number} days","_1":"over last 1 day"}',
-        [s._plural(e, "number", e)],
-      );
+      return s._(/*BTDS*/ "", [s._plural(e, "number", e)]);
     }
     M.displayName = M.name + " [from " + i.id + "]";
     function w() {
       return {
-        name: s._(/*BTDS*/ "Follows"),
-        description: s._(
-          /*BTDS*/ "The number of times WhatsApp accounts followed your channel in the last 30 days.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         key: "follows",
       };
     }
     function A() {
       return {
-        name: s._(/*BTDS*/ "Net follows"),
-        description: s._(
-          /*BTDS*/ "The number of follows minus the number of unfollows of your channel in the last 30 days, including unfollows resulting from WhatsApp account deletion.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         key: "net-follows",
       };
     }
     function F() {
       return {
-        name: s._(/*BTDS*/ "Unfollows"),
-        description: s._(
-          /*BTDS*/ "The number of times WhatsApp accounts unfollowed your channel in the last 30 days, including unfollows resulting from WhatsApp account deletion.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         key: "unfollows",
       };
     }
     function O() {
       return {
-        name: s._(/*BTDS*/ "Accounts reached"),
-        description: s._(
-          /*BTDS*/ "The number of WhatsApp accounts who have viewed any of your updates at least once. This does not include multiple views by the same accounts.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         key: "accounts-reached",
       };
     }
     function B(e) {
       return {
-        name: s._(/*BTDS*/ "Accounts reached"),
-        description: s._(
-          /*BTDS*/ '_j{"*":"Unique accounts reached in the previous {number} days.","_1":"Unique accounts reached in the previous 1 day."}',
-          [s._plural(e, "number", e)],
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ "", [s._plural(e, "number", e)]),
         key: "accounts-reached",
       };
     }
     function W(e) {
       return {
-        name: s._(/*BTDS*/ "Followers and non-followers"),
-        description: s._(
-          /*BTDS*/ '_j{"*":"Unique accounts reached in the previous {number} days grouped by whether the viewer follows the channel.","_1":"Unique accounts reached in the previous 1 day grouped by whether the viewer follows the channel."}',
-          [s._plural(e, "number", e)],
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ "", [s._plural(e, "number", e)]),
         key: "reach-followers-and-non-followers",
       };
     }
     function q(e) {
       return {
-        name: s._(/*BTDS*/ "Top countries or regions"),
-        description: s._(
-          /*BTDS*/ '_j{"*":"Unique accounts reached in the previous {number} days grouped by country, subject to existing privacy thresholds and limits.","_1":"Unique accounts reached in the previous 1 day grouped by country, subject to existing privacy thresholds and limits."}',
-          [s._plural(e, "number", e)],
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ "", [s._plural(e, "number", e)]),
         key: "reach-top-countries",
       };
     }
     function U() {
       return {
-        name: s._(/*BTDS*/ "Followers"),
-        description: s._(
-          /*BTDS*/ "The number of followers who have viewed any of your updates at least once.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         key: "followers",
       };
     }
     function V() {
       return {
-        name: s._(/*BTDS*/ "Non-followers"),
-        description: s._(
-          /*BTDS*/ "The number of non-followers who have viewed any of your updates at least once, by opening your channel through links, browsing or searching.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         key: "non-followers",
       };
     }
     function H() {
       return {
-        name: s._(/*BTDS*/ "Top regions"),
-        description: s._(
-          /*BTDS*/ "The regions with the highest concentration of reached WhatsApp accounts with a phone number registered in those regions.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         key: "reach-top-regions",
       };
     }
     function G() {
       return {
-        name: s._(/*BTDS*/ "Top regions"),
-        description: s._(
-          /*BTDS*/ "The regions with the highest concentration of your followers with a phone number registered in those regions.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         key: "follower-top-regions",
       };
     }
     function z() {
       return {
-        name: s._(/*BTDS*/ "Total followers"),
-        description: s._(
-          /*BTDS*/ "The total number of WhatsApp accounts following your channel.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         key: "total-followers",
       };
     }
@@ -350,16 +289,11 @@ __d(
       var e = o("WAWebABProps").getABPropConfigValue(
         "channels_producer_insights_min_followers",
       );
-      return s._(
-        /*BTDS*/ '_j{"*":"Insights are available after reaching {number} followers.","_1":"Insights are available after reaching 1 follower."}',
-        [s._plural(e, "number", e)],
-      );
+      return s._(/*BTDS*/ "", [s._plural(e, "number", e)]);
     }
     j.displayName = j.name + " [from " + i.id + "]";
     function K() {
-      return s._(
-        /*BTDS*/ "To protect consumer privacy, accounts reached below 100 are not displayed.",
-      );
+      return s._(/*BTDS*/ "");
     }
     ((K.displayName = K.name + " [from " + i.id + "]"),
       (l.roundToThousands = c),

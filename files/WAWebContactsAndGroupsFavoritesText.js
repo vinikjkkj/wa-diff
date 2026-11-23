@@ -6,43 +6,43 @@ __d(
       return o(
         "WAWebL10NIsUsingSupportedBritishEnglishLocale",
       ).isUsingSupportedBritishEnglishLocale()
-        ? s._(/*BTDS*/ "Favourites")
-        : s._(/*BTDS*/ "Favorites");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function u() {
       return o(
         "WAWebL10NIsUsingSupportedBritishEnglishLocale",
       ).isUsingSupportedBritishEnglishLocale()
-        ? s._(/*BTDS*/ "Add to favourites")
-        : s._(/*BTDS*/ "Add to Favorites");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function c() {
       return o(
         "WAWebL10NIsUsingSupportedBritishEnglishLocale",
       ).isUsingSupportedBritishEnglishLocale()
-        ? s._(/*BTDS*/ "Remove from favourites")
-        : s._(/*BTDS*/ "Remove from Favorites");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function d() {
       return o(
         "WAWebL10NIsUsingSupportedBritishEnglishLocale",
       ).isUsingSupportedBritishEnglishLocale()
-        ? s._(/*BTDS*/ "Added to favourites")
-        : s._(/*BTDS*/ "Added to Favorites");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function m() {
       return o(
         "WAWebL10NIsUsingSupportedBritishEnglishLocale",
       ).isUsingSupportedBritishEnglishLocale()
-        ? s._(/*BTDS*/ "Removed from favourites")
-        : s._(/*BTDS*/ "Removed from Favorites");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function p() {
       return o(
         "WAWebL10NIsUsingSupportedBritishEnglishLocale",
       ).isUsingSupportedBritishEnglishLocale()
-        ? s._(/*BTDS*/ "Couldn't update favourites. Try again.")
-        : s._(/*BTDS*/ "Couldn't update Favorites. Try again.");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     ((l.getFavoritesText = e),
       (l.getAddToFavoritesText = u),

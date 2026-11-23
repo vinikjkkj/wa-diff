@@ -37,9 +37,7 @@ __d(
               )
             : e.kind !== "none" &&
               o("WAWebToastManager").ToastManager.open(
-                u.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Can't open this yet"),
-                }),
+                u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
               ));
     }
     l.openHatchSpace = c;

@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchJarvisMedia",
-  ["WAWebFetchRichResponseMediaBytes", "asyncToGeneratorRuntime"],
+  ["WAWebFetchRichResponseMediaBytes"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "jarvis-media://",
@@ -8,7 +8,7 @@ __d(
     function u(e) {
       if (e == null) return null;
       var t = e.forwarded;
-      return t != null ? y(t.media) : p(e.url) ? y(C(e.encryptedMedia)) : null;
+      return t != null ? h(t.media) : p(e.url) ? h(y(e.encryptedMedia)) : null;
     }
     function c(e) {
       return (e == null ? void 0 : e.forwarded) != null &&
@@ -35,21 +35,13 @@ __d(
       var t = e == null ? void 0 : e.thumbnailJpegB64;
       return t != null ? "data:image/jpeg;base64," + t : null;
     }
-    function f(e, t, n) {
-      return g.apply(this, arguments);
+    async function f(e, t, n) {
+      var r = await o(
+        "WAWebFetchRichResponseMediaBytes",
+      ).fetchRichResponseMediaBytes(e.descriptor, t, n);
+      return r == null ? void 0 : r.blob;
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o(
-            "WAWebFetchRichResponseMediaBytes",
-          ).fetchRichResponseMediaBytes(e.descriptor, t, n);
-          return r == null ? void 0 : r.blob;
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e, t) {
+    function g(e, t) {
       return babelHelpers.extends({}, e, {
         fileMetadata: new Map(
           Array.from(e.fileMetadata, function (e) {
@@ -66,10 +58,10 @@ __d(
         ),
       });
     }
-    function y(e) {
+    function h(e) {
       return e != null ? { descriptor: e } : null;
     }
-    function C(e) {
+    function y(e) {
       return e == null
         ? null
         : {
@@ -78,11 +70,11 @@ __d(
             filehash: e.filehash,
             mediaKey: e.mediaKey,
             mediaKeyTimestamp: Math.floor(e.mediaKeyTimestampMs / s),
-            mediaType: b(e.mediaType, e.mimeType),
+            mediaType: C(e.mediaType, e.mimeType),
             mimetype: e.mimeType,
           };
     }
-    function b(e, t) {
+    function C(e, t) {
       var n =
         e === "image" || e === "sticker" || e === "xma-image"
           ? "image"
@@ -110,7 +102,7 @@ __d(
       (l.isHatchJarvisMediaUrl = p),
       (l.getHatchJarvisThumbnailUrl = _),
       (l.downloadHatchJarvisFile = f),
-      (l.toForwardedHatchJarvisPayload = h));
+      (l.toForwardedHatchJarvisPayload = g));
   },
   98,
 );

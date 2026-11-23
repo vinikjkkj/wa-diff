@@ -8,7 +8,6 @@ __d(
     "WAWebPhoneNumberSearch",
     "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -17,20 +16,14 @@ __d(
         return e.apply(this, arguments) || this;
       }
       babelHelpers.inheritsLoose(t, e);
-      var r = t.prototype;
+      var n = t.prototype;
       return (
-        (r.getNextMsgs = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.count,
-              n = e.msgKeyAnchor;
-            return o("WAWebMsgQueryUtils").getVoipCallLogMsgs(t, n);
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (r.filterMsgs = function (t, n) {
+        (n.getNextMsgs = async function (t) {
+          var e = t.count,
+            n = t.msgKeyAnchor;
+          return o("WAWebMsgQueryUtils").getVoipCallLogMsgs(e, n);
+        }),
+        (n.filterMsgs = function (t, n) {
           var e = t.filter(function (e) {
             var t,
               n = e.callParticipants;

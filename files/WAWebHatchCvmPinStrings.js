@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "Too many attempts. Please try again later.");
+      return s._(/*BTDS*/ "");
     }
     l.hatchCvmPinTooManyAttemptsText = e;
   },

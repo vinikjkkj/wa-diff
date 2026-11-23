@@ -1,7 +1,6 @@
 __d(
   "WAWebQbmMessageClickLogEvent",
   [
-    "Promise",
     "WAWebABProps",
     "WAWebChatThreadLogging",
     "WAWebFrontendContactGetters",
@@ -12,24 +11,22 @@ __d(
     "WAWebQbmMessageClickWamEvent",
     "WAWebWamEnumQbmMessageClickButtonClickedType",
     "WAWebWamEnumThumbnailType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = {
-        cta_url: (s = o("WAWebWamEnumQbmMessageClickButtonClickedType"))
+      s = {
+        cta_url: (e = o("WAWebWamEnumQbmMessageClickButtonClickedType"))
           .QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.URL,
-        quick_reply: s.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.QUICK_REPLY,
-        cta_call: s.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.PHONE_NUMBER,
-        cta_copy: s.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.COPY_CODE,
-        cta_catalog: s.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.CATALOG,
-        mpm: s.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.MPM,
-        galaxy_message: s.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.FLOW,
-        cta_app: s.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.APP,
+        quick_reply: e.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.QUICK_REPLY,
+        cta_call: e.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.PHONE_NUMBER,
+        cta_copy: e.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.COPY_CODE,
+        cta_catalog: e.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.CATALOG,
+        mpm: e.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.MPM,
+        galaxy_message: e.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.FLOW,
+        cta_app: e.QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.APP,
       };
-    function c(e) {
+    function u(e) {
       var t = e.interactivePayload;
       if ((t == null ? void 0 : t.messageParamsJson) == null) return !1;
       try {
@@ -44,99 +41,74 @@ __d(
         return !1;
       }
     }
-    function d(e) {
-      return c(e)
+    function c(e) {
+      return u(e)
         ? o("WAWebWamEnumThumbnailType").THUMBNAIL_TYPE.CUSTOM
         : o("WAWebMsgGetters").getThumbnailHQ(e) != null
           ? o("WAWebWamEnumThumbnailType").THUMBNAIL_TYPE.HQ
           : o("WAWebWamEnumThumbnailType").THUMBNAIL_TYPE.MEDIA_BASED;
     }
-    function m(e, t) {
+    function d(e, t) {
       if (t != null) {
         var n;
-        return (n = u[t]) != null
+        return (n = s[t]) != null
           ? n
           : o("WAWebWamEnumQbmMessageClickButtonClickedType")
               .QBM_MESSAGE_CLICK_BUTTON_CLICKED_TYPE.OTHER;
       }
       return e;
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function m(e) {
+      var t = e.buttonClickedType,
+        n = e.chat,
+        r = e.msg,
+        a = e.nativeFlowName;
+      if (
+        o("WAWebABProps").getABPropConfigValue(
+          "web_biz_quality_telemetry_message_clicks_enabled",
+        )
+      ) {
+        var i = o("WAWebQBMLoggerBuilder").getQbmMessageTypeStrForLogging(r);
+        o("WAWebQBMLoggerBuilder").isQbmMessageTypeLoggingEnabled(i) &&
+          (o("WAWebABProps").getABPropConfigValue(
+            "inapp_signup_m1_logging_enabled",
+          ) &&
+            (await o(
+              "WAWebInAppSignupInfoStore",
+            ).ensureInAppSignupInfoHydrated()),
+          new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(r, n)
+            .addCommonFields()
+            .addAttributionFields()
+            .addIasFields()
+            .log(async function (e) {
+              var l = d(t, a),
+                s = o("WAWebFrontendContactGetters").getIsMyContact(n.contact),
+                u = await Promise.all([
+                  o("WAWebChatThreadLogging").getMessageIDHMAC(r.id.toString()),
+                  o("WAWebChatThreadLogging").getChatThreadIDHMAC(
+                    n.id.toString(),
+                  ),
+                  o("WAWebP2PPillsThreadOriginStore").getPillQbmFields(
+                    n.accountLid,
+                  ),
+                ]),
+                m = u[0],
+                p = u[1],
+                _ = u[2];
+              new (o("WAWebQbmMessageClickWamEvent").QbmMessageClickWamEvent)(
+                babelHelpers.extends({}, e, _, {
+                  messageTypeStr: i,
+                  isInsubContact: s,
+                  buttonClickedType: l,
+                  thumbnailType: c(r),
+                  messageIdHmac: m != null ? m : void 0,
+                  threadIdHmac: p != null ? p : void 0,
+                }),
+              ).commit();
+            }));
+      }
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.buttonClickedType,
-            a = t.chat,
-            i = t.msg,
-            l = t.nativeFlowName;
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "web_biz_quality_telemetry_message_clicks_enabled",
-            )
-          ) {
-            var s = o("WAWebQBMLoggerBuilder").getQbmMessageTypeStrForLogging(
-              i,
-            );
-            o("WAWebQBMLoggerBuilder").isQbmMessageTypeLoggingEnabled(s) &&
-              (o("WAWebABProps").getABPropConfigValue(
-                "inapp_signup_m1_logging_enabled",
-              ) &&
-                (yield o(
-                  "WAWebInAppSignupInfoStore",
-                ).ensureInAppSignupInfoHydrated()),
-              new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(i, a)
-                .addCommonFields()
-                .addAttributionFields()
-                .addIasFields()
-                .log(
-                  (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t) {
-                        var u = m(r, l),
-                          c = o("WAWebFrontendContactGetters").getIsMyContact(
-                            a.contact,
-                          ),
-                          p = yield (e || (e = n("Promise"))).all([
-                            o("WAWebChatThreadLogging").getMessageIDHMAC(
-                              i.id.toString(),
-                            ),
-                            o("WAWebChatThreadLogging").getChatThreadIDHMAC(
-                              a.id.toString(),
-                            ),
-                            o(
-                              "WAWebP2PPillsThreadOriginStore",
-                            ).getPillQbmFields(a.accountLid),
-                          ]),
-                          _ = p[0],
-                          f = p[1],
-                          g = p[2];
-                        new (o(
-                          "WAWebQbmMessageClickWamEvent",
-                        ).QbmMessageClickWamEvent)(
-                          babelHelpers.extends({}, t, g, {
-                            messageTypeStr: s,
-                            isInsubContact: c,
-                            buttonClickedType: u,
-                            thumbnailType: d(i),
-                            messageIdHmac: _ != null ? _ : void 0,
-                            threadIdHmac: f != null ? f : void 0,
-                          }),
-                        ).commit();
-                      },
-                    );
-                    return function (e) {
-                      return t.apply(this, arguments);
-                    };
-                  })(),
-                ));
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    l.logQbmMessageClick = p;
+    l.logQbmMessageClick = m;
   },
   98,
 );

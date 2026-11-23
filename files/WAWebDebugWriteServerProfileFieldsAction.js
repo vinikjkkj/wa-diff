@@ -1,31 +1,20 @@
 __d(
   "WAWebDebugWriteServerProfileFieldsAction",
   [
-    "Promise",
     "WAWebContactManagerCustomerProfileQuery",
     "WAWebContactManagerCustomerProfileUpsertMutation",
     "WAWebCustomerOrderPreferences",
     "WAWebCustomerProfileBirthday",
     "WAWebDebugLidInput",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
+    async function e(e) {
+      return await o(
+        "WAWebContactManagerCustomerProfileQuery",
+      ).fetchCustomerProfile(o("WAWebDebugLidInput").parseLidChatJid(e));
+    }
     function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return yield o(
-            "WAWebContactManagerCustomerProfileQuery",
-          ).fetchCustomerProfile(o("WAWebDebugLidInput").parseLidChatJid(e));
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e) {
       var t, n, r, a, i, l, s, u;
       return {
         acquisitionSource:
@@ -47,14 +36,14 @@ __d(
         ),
       };
     }
-    function d(e, t) {
-      var n = c(e),
+    function u(e, t) {
+      var n = s(e),
         r = [];
       return (
         t.email !== n.email && r.push({ field: "email", value: t.email }),
         t.address !== n.address &&
           r.push({ field: "address", value: t.address }),
-        t.birthdayIso !== n.birthdayIso && r.push(_(t.birthdayIso)),
+        t.birthdayIso !== n.birthdayIso && r.push(d(t.birthdayIso)),
         t.confirmedAppointmentDate !== n.confirmedAppointmentDate &&
           r.push({
             field: "confirmedAppointmentDate",
@@ -83,28 +72,17 @@ __d(
         r
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    async function c(e, t) {
+      var n = o("WAWebDebugLidInput").parseLidChatJid(e);
+      await t.reduce(function (e, t) {
+        return e.then(function () {
+          return o(
+            "WAWebContactManagerCustomerProfileUpsertMutation",
+          ).upsertCustomerProfileFieldToServer(n, t);
+        });
+      }, Promise.resolve());
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = o("WAWebDebugLidInput").parseLidChatJid(t);
-          yield r.reduce(
-            function (e, t) {
-              return e.then(function () {
-                return o(
-                  "WAWebContactManagerCustomerProfileUpsertMutation",
-                ).upsertCustomerProfileFieldToServer(a, t);
-              });
-            },
-            (e || (e = n("Promise"))).resolve(),
-          );
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
+    function d(e) {
       if (e === "") return { field: "birthday", value: null, storedDob: null };
       var t = o("WAWebCustomerProfileBirthday").parseBirthdayFromIso(e);
       if (t == null)
@@ -115,10 +93,10 @@ __d(
         );
       return { field: "birthday", value: t, storedDob: e };
     }
-    ((l.readServerProfileForDebug = s),
-      (l.formFromProfile = c),
-      (l.changedProfileFieldUpdates = d),
-      (l.writeServerProfileFieldsForDebug = m));
+    ((l.readServerProfileForDebug = e),
+      (l.formFromProfile = s),
+      (l.changedProfileFieldUpdates = u),
+      (l.writeServerProfileFieldsForDebug = c));
   },
   98,
 );

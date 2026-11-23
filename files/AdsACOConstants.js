@@ -1,10 +1,10 @@
 __d(
   "AdsACOConstants",
-  ["AdsPromotedObjectTypes", "immutable"],
+  ["$InternalEnum", "AdsPromotedObjectTypes", "immutable"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = Object.freeze({
+      s = n("$InternalEnum")({
         ACO_DEFAULT_FORMATS_SELECTED_TIP_ID: "aco_default_formats_selected_tip",
         ACO_DYNAMIC_TEXT_TIP_ID: "aco_dynamic_text_tip",
         ACO_DYNAMIC_VIDEO_TIP_ID: "aco_dynamic_video_tip",

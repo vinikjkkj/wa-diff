@@ -47,9 +47,9 @@ __d(
       if (i == null || l == null) return null;
       var c = (P(t) - P(n)) / u;
       return c === 0
-        ? s._(/*BTDS*/ "Today ({date})", [s._param("date", i)])
+        ? s._(/*BTDS*/ "", [s._param("date", i)])
         : c === 1
-          ? s._(/*BTDS*/ "Tomorrow ({date})", [s._param("date", i)])
+          ? s._(/*BTDS*/ "", [s._param("date", i)])
           : l;
     }
     function v(t) {

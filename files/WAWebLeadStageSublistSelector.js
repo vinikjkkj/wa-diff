@@ -1,54 +1,41 @@
 __d(
   "WAWebLeadStageSublistSelector",
   [
-    "Promise",
     "WAWebDBLabelAssociationDatabaseApi",
     "WAWebDBLabelSublistDatabaseApi",
     "WAWebLeadListConstants",
     "WAWebSchemaLabel",
     "WAWebSchemaLabelAssociation",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r,
-            a = yield o(
-              "WAWebDBLabelAssociationDatabaseApi",
-            ).queryLocalLabelAssociations([
-              {
-                associationId: t,
-                type: o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid,
-              },
-            ]),
-            i = yield (e || (e = n("Promise"))).all(
-              a.map(function (e) {
-                return o("WAWebSchemaLabel").getLabelTable().get(e.labelId);
-              }),
-            ),
-            l = i.some(function (e) {
-              return o("WAWebLeadListConstants").isLeadListPredefinedId(
-                e == null ? void 0 : e.predefinedId,
-              );
-            });
-          if (!l) return null;
-          var s = yield o(
-            "WAWebDBLabelSublistDatabaseApi",
-          ).getLabelSublistByChat(
-            o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID,
-            t,
+    async function e(e) {
+      var t,
+        n = await o(
+          "WAWebDBLabelAssociationDatabaseApi",
+        ).queryLocalLabelAssociations([
+          {
+            associationId: e,
+            type: o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid,
+          },
+        ]),
+        r = await Promise.all(
+          n.map(function (e) {
+            return o("WAWebSchemaLabel").getLabelTable().get(e.labelId);
+          }),
+        ),
+        a = r.some(function (e) {
+          return o("WAWebLeadListConstants").isLeadListPredefinedId(
+            e == null ? void 0 : e.predefinedId,
           );
-          return (r = s == null ? void 0 : s.subListId) != null ? r : null;
-        })),
-        u.apply(this, arguments)
+        });
+      if (!a) return null;
+      var i = await o("WAWebDBLabelSublistDatabaseApi").getLabelSublistByChat(
+        o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID,
+        e,
       );
+      return (t = i == null ? void 0 : i.subListId) != null ? t : null;
     }
-    l.getLeadStageForChatFromSublist = s;
+    l.getLeadStageForChatFromSublist = e;
   },
   98,
 );

@@ -6,7 +6,6 @@ __d(
     "WAWebChatStickerStatusEligibility",
     "WAWebChatStickerStatusToast",
     "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,34 +23,24 @@ __d(
         forwardToMyStatus: c,
         postsTypedTextWhenOnlyMyStatusIsPicked: !0,
       };
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n;
-          try {
-            n = yield s();
-          } catch (t) {
-            (o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[chat-sticker-forward-to-my-status] could not load the forward to My status action",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("chat-sticker-forward-to-my-status-load-failed"),
-              o(
-                "WAWebChatStickerStatusToast",
-              ).showChatStickerStatusFailedToast());
-            return;
-          }
-          yield n(t);
-        })),
-        d.apply(this, arguments)
-      );
+    async function c(t) {
+      var n;
+      try {
+        n = await s();
+      } catch (t) {
+        (o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[chat-sticker-forward-to-my-status] could not load the forward to My status action",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("chat-sticker-forward-to-my-status-load-failed"),
+          o("WAWebChatStickerStatusToast").showChatStickerStatusFailedToast());
+        return;
+      }
+      await n(t);
     }
     l.default = u;
   },

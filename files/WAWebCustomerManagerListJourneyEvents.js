@@ -629,21 +629,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
       });
     }
-    function ge(e, t, n) {
-      o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
-        extraAttributes: { from_view: e, trigger: n },
-        surface: o("WAWebCustomerManagerWamLogging").viewSurface(e),
-        userActionTarget:
-          t === "list"
-            ? o("WAWebCustomerManagerSMBUserJourneyTypes").UserActionTarget
-                .VIEW_CHANGE_LIST
-            : o("WAWebCustomerManagerSMBUserJourneyTypes").UserActionTarget
-                .VIEW_CHANGE_PIPELINE,
-        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-          .SMB_USER_ACTION_TYPE_ENUM.CLICK,
-      });
-    }
-    function he(e, t) {
+    function ge(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { from_view: e },
         surface: o("WAWebCustomerManagerWamLogging").viewSurface(e),
@@ -652,12 +638,12 @@ __d(
             ? o("WAWebCustomerManagerSMBUserJourneyTypes").UserActionTarget
                 .VIEW_TOGGLE_LIST
             : o("WAWebCustomerManagerSMBUserJourneyTypes").UserActionTarget
-                .VIEW_TOGGLE_PIPELINE,
+                .CUSTOMER_MANAGER_PIPELINE_CLICK,
         userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function ye(e, t, n) {
+    function he(e, t, n) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { query_length: e, result_count: t },
         surface: o("WAWebCustomerManagerWamLogging").viewSurface(n),
@@ -667,7 +653,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.SEARCH,
       });
     }
-    function Ce(e, t) {
+    function ye(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: t,
         surface: o("WAWebCustomerManagerWamLogging").viewSurface(e),
@@ -676,7 +662,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.SEARCH,
       });
     }
-    function be(e, t, n) {
+    function Ce(e, t, n) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: {
           new_stage: t,
@@ -690,7 +676,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.EDIT,
       });
     }
-    function ve(e) {
+    function be(e) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: e,
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -700,7 +686,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.API,
       });
     }
-    function Se() {
+    function ve() {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
           .CUSTOMER_MANAGER_LIST,
@@ -709,7 +695,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function Re() {
+    function Se() {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
           .CUSTOMER_MANAGER_LIST,
@@ -718,7 +704,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function Le(e) {
+    function Re(e) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { dismiss_method: e },
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -728,7 +714,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
       });
     }
-    function Ee(e) {
+    function Le(e) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         surface: o("WAWebCustomerManagerWamLogging").viewSurface(e),
         userActionTarget: "lists_editor",
@@ -736,7 +722,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
       });
     }
-    function ke(e, t) {
+    function Ee(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { direction: e, page_index: t },
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -746,7 +732,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function Ie() {
+    function ke() {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
           .CUSTOMER_MANAGER_ACTIONS_MENU,
@@ -754,7 +740,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });
     }
-    function Te(e) {
+    function Ie(e) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: { option: e },
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -764,7 +750,7 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.CLICK,
       });
     }
-    function De(e, t) {
+    function Te(e, t) {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         extraAttributes: t,
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
@@ -774,12 +760,22 @@ __d(
           .SMB_USER_ACTION_TYPE_ENUM.API,
       });
     }
-    function xe() {
+    function De() {
       o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
           .CUSTOMER_MANAGER_ACTIONS_MENU,
         userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
           .SMB_USER_ACTION_TYPE_ENUM.DISMISS,
+      });
+    }
+    function xe(e) {
+      o("WAWebCustomerManagerWamLogging").logCustomerManagerJourney({
+        extraAttributes: e,
+        surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
+          .CUSTOMER_MANAGER_LIST,
+        userActionTarget: "customer_manager_list_change",
+        userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
+          .SMB_USER_ACTION_TYPE_ENUM.WRITE,
       });
     }
     ((l.viewList = e),
@@ -845,21 +841,21 @@ __d(
       (l.clickBulkSelectStage = pe),
       (l.viewViewSwitcher = _e),
       (l.dismissViewSwitcher = fe),
-      (l.changeView = ge),
-      (l.clickToggleView = he),
-      (l.searchList = ye),
-      (l.clearSearch = Ce),
-      (l.editLeadStage = be),
-      (l.leadStageSaveResult = ve),
-      (l.clickListsIntroContinueList = Se),
-      (l.clickListsIntroSettings = Re),
-      (l.dismissListsIntro = Le),
-      (l.dismissListsEditor = Ee),
-      (l.clickListPager = ke),
-      (l.viewActionsMenu = Ie),
-      (l.clickActionsMenuOption = Te),
-      (l.hideContactResult = De),
-      (l.dismissActionsMenu = xe));
+      (l.clickToggleView = ge),
+      (l.searchList = he),
+      (l.clearSearch = ye),
+      (l.editLeadStage = Ce),
+      (l.leadStageSaveResult = be),
+      (l.clickListsIntroContinueList = ve),
+      (l.clickListsIntroSettings = Se),
+      (l.dismissListsIntro = Re),
+      (l.dismissListsEditor = Le),
+      (l.clickListPager = Ee),
+      (l.viewActionsMenu = ke),
+      (l.clickActionsMenuOption = Ie),
+      (l.hideContactResult = Te),
+      (l.dismissActionsMenu = De),
+      (l.listChangeResult = xe));
   },
   98,
 );

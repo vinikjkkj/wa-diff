@@ -1,33 +1,18 @@
 __d(
   "WASmaxPresenceSubscribeRPC",
-  [
-    "WAComms",
-    "WASmaxAttrs",
-    "WASmaxJsx",
-    "WASmaxMixins",
-    "WAWap",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAComms", "WASmaxAttrs", "WASmaxJsx", "WASmaxMixins", "WAWap"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      var t = s(e);
+      await o("WAComms").castSmaxStanza(t);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = u(e);
-          yield o("WAComms").castSmaxStanza(t);
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       var t = e.presenceTo,
         n = e.presenceName,
         r = e.presenceContext,
         a = e.tCTokenMixinArgs,
         i = o("WASmaxMixins").optionalMerge(
-          d,
+          c,
           o("WASmaxJsx").smax("presence", {
             type: "subscribe",
             to: o("WAWap").JID(t),
@@ -38,13 +23,13 @@ __d(
         );
       return i;
     }
-    function c(e) {
+    function u(e) {
       var t = e.tctokenT,
         n = e.privacyTokenContentsMixinArgs,
         r = o("WASmaxJsx").smax(
           "smax$any",
           null,
-          p(
+          m(
             o("WASmaxJsx").smax("tctoken", {
               t: o("WASmaxAttrs").OPTIONAL(o("WAWap").INT, t),
             }),
@@ -53,20 +38,20 @@ __d(
         );
       return r;
     }
-    function d(e, t) {
-      var n = c(t);
+    function c(e, t) {
+      var n = u(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function m(e) {
+    function d(e) {
       var t = e.anyElementValue,
         n = o("WASmaxJsx").smax("smax$any", null, t);
       return n;
     }
-    function p(e, t) {
-      var n = m(t);
+    function m(e, t) {
+      var n = d(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    ((l.sendSubscribeRPC = e), (l.makeSubscribeRequest = u));
+    ((l.sendSubscribeRPC = e), (l.makeSubscribeRequest = s));
   },
   98,
 );

@@ -16,10 +16,8 @@ __d(
         type: "reach_frequency_ad_formats",
         key: "CANVAS",
         adFormatType: "canvas",
-        label: s._(/*BTDS*/ "Instant Experience"),
-        description: s._(
-          /*BTDS*/ "Images or videos for mobile feeds and Instagram Stories only",
-        ),
+        label: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         iconWhenSelected: "/images/ads/createflow/Canvas_Image_Blue.png",
         iconWhenUnselected: "/images/ads/createflow/Canvas_Image.png",
         getAdFormats: function (t, n, o, a) {
@@ -61,12 +59,12 @@ __d(
             "instagram/shop_tab",
             "instagram/explore_home",
             "instagram/search",
-            "messenger/inbox",
             "messenger/story",
             "whatsapp/status",
             "oculus/vr_apps",
             "oculus/rewarded_video",
             "threads/stream",
+            "threads/permalink",
           ];
           return (
             t != null &&

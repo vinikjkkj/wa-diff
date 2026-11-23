@@ -4,7 +4,6 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAPromiseTimeout",
-    "asyncToGeneratorRuntime",
     "cr:19085",
     "getErrorSafe",
   ],
@@ -15,53 +14,45 @@ __d(
       c = r("JSResourceForInteraction")("WAWebLabyrinthDebugStorage").__setRef(
         "WAWebLabyrinthLogout",
       );
-    function d() {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          p();
-          try {
-            var e = yield o("WAPromiseTimeout").promiseTimeout(c.load(), u),
-              t = e.destroy;
-            yield t();
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "destroyStorage: loading Labyrinth debug storage failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("labyrinth-debug-storage-load-failed");
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p() {
+    async function d() {
+      m();
       try {
-        var t;
-        (t = _()) == null || t.stopLabyrinthCompanionOnboarding();
+        var t = await o("WAPromiseTimeout").promiseTimeout(c.load(), u),
+          n = t.destroy;
+        await n();
       } catch (t) {
         o("WALogger")
           .ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[labyrinth-companion-onboarding] stop failed",
+                "destroyStorage: loading Labyrinth debug storage failed",
               ])),
           )
           .catching(r("getErrorSafe")(t))
+          .sendLogs("labyrinth-debug-storage-load-failed");
+      }
+    }
+    function m() {
+      try {
+        var e;
+        (e = p()) == null || e.stopLabyrinthCompanionOnboarding();
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[labyrinth-companion-onboarding] stop failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
           .sendLogs("labyrinth-companion-onboarding-stop-failed");
       }
     }
-    function _() {
+    function p() {
       return n("cr:19085");
     }
     ((l.clearLabyrinthAtLogout = d),
-      (l.stopLabyrinthCompanionOnboardingIfEnabled = p));
+      (l.stopLabyrinthCompanionOnboardingIfEnabled = m));
   },
   98,
 );

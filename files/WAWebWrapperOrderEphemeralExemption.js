@@ -29,22 +29,14 @@ __d(
       var e = r("justknobx")._("8068");
       return o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
         ? e
-          ? s._(
-              /*BTDS*/ "Disappearing messages are turned on in this chat. This payment request won't disappear because it contains purchase information.",
-            )
-          : s._(
-              /*BTDS*/ "Disappearing messages are turned on in this chat. This charge request will not disappear because it contains purchase information.",
-            )
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "")
         : e
-          ? s._(
-              /*BTDS*/ "Disappearing messages are turned on in this chat. This order won't disappear because it contains purchase information.",
-            )
-          : s._(
-              /*BTDS*/ "Disappearing messages are turned on in this chat. This order will not disappear because it contains purchase information.",
-            );
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Learn more");
+      return s._(/*BTDS*/ "");
     }
     ((l.isMessageExemptedFromDisappearing = e),
       (l.getOrderEphemeralExemptionInfoString = u),

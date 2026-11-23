@@ -1,7 +1,6 @@
 __d(
   "WAWebDBBotMsgOrphanProvider",
   [
-    "Promise",
     "WALogger",
     "WAWebBotGating",
     "WAWebBotGroupGatingUtils",
@@ -10,7 +9,6 @@ __d(
     "WAWebMessageAddOnType",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "requireDeferred",
   ],
@@ -26,11 +24,10 @@ __d(
       f,
       g,
       h,
-      y,
-      C = r("requireDeferred")("WAWebReprocessOrphanBotMsg").__setRef(
+      y = r("requireDeferred")("WAWebReprocessOrphanBotMsg").__setRef(
         "WAWebDBBotMsgOrphanProvider",
       ),
-      b = {
+      C = {
         type: o("WAWebMessageAddOnType").MessageAddOnType.BotMsmsg,
         matches: function (t) {
           return (
@@ -46,126 +43,106 @@ __d(
           return !1;
         },
         processOrphansForNewMsg: function (t, n) {
-          return v(n);
+          return b(n);
         },
       };
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = R(e),
-            a = t.heldOrphanMsgKeys,
-            i = t.orphans;
-          if (
-            (a.length > 0 &&
-              o("WALogger")
-                .WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[BotMsgOrphanProvider] gate off, keeping ",
-                      " orphan(s) unreplayed",
-                    ])),
-                  a.length,
-                )
-                .tags("messaging")
-                .sendLogs("bot-orphan-skipped-gate-off", { sampling: 0.01 }),
-            i.length === 0)
-          )
-            return { retainedOrphanMsgKeys: a };
-          var l;
-          try {
-            var s = yield C.load();
-            l = s.reprocessOrphanBotMsg;
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[BotMsgOrphanProvider] could not load the replay helper",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("bot-orphan-replay-helper-load-failed"),
-              {
-                retainedOrphanMsgKeys: [].concat(
-                  a,
-                  i.map(function (e) {
-                    return e.msgKey;
-                  }),
-                ),
-              }
-            );
-          }
-          var u = [].concat(i).sort($(x(i))),
-            c = new Set(),
-            d = new Map();
-          return (
-            yield u.reduce(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e, t) {
-                    yield e;
-                    try {
-                      var n = t.msgKey,
-                        a = t.parsedMsgPayload,
-                        i = E(t, d);
-                      if (i != null) {
-                        i === "held" && c.add(n);
-                        return;
-                      }
-                      var s = yield k(t, l);
-                      (s.retain && c.add(n),
-                        !s.replayed &&
-                          (a == null ? void 0 : a.botEditType) ===
-                            o("WAWebBotTypes").BotMsgEditType.FIRST &&
-                          T(t, s, d));
-                    } catch (e) {
-                      var u, m;
-                      (o("WALogger")
-                        .ERROR(
-                          _ ||
-                            (_ = babelHelpers.taggedTemplateLiteralLoose([
-                              "[BotMsgOrphanProvider] re-processing failed for ",
-                              "",
-                            ])),
-                          D(t.msgKey),
-                        )
-                        .catching(r("getErrorSafe")(e))
-                        .sendLogs("bot-orphan-reprocess-failed"),
-                        c.add(t.msgKey));
-                      var p =
-                        (u = t.parsedMsgPayload) == null || (u = u.id) == null
-                          ? void 0
-                          : u.id;
-                      ((m = t.parsedMsgPayload) == null
-                        ? void 0
-                        : m.botEditType) ===
-                        o("WAWebBotTypes").BotMsgEditType.FIRST &&
-                        p != null &&
-                        !d.has(p) &&
-                        d.set(p, "held");
-                    }
-                  },
-                );
-                return function (t, n) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              (y || (y = n("Promise"))).resolve(),
+    async function b(t) {
+      var n = v(t),
+        a = n.heldOrphanMsgKeys,
+        i = n.orphans;
+      if (
+        (a.length > 0 &&
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BotMsgOrphanProvider] gate off, keeping ",
+                  " orphan(s) unreplayed",
+                ])),
+              a.length,
+            )
+            .tags("messaging")
+            .sendLogs("bot-orphan-skipped-gate-off", { sampling: 0.01 }),
+        i.length === 0)
+      )
+        return { retainedOrphanMsgKeys: a };
+      var l;
+      try {
+        var c = await y.load();
+        l = c.reprocessOrphanBotMsg;
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BotMsgOrphanProvider] could not load the replay helper",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("bot-orphan-replay-helper-load-failed"),
+          {
+            retainedOrphanMsgKeys: [].concat(
+              a,
+              i.map(function (e) {
+                return e.msgKey;
+              }),
             ),
-            { retainedOrphanMsgKeys: [].concat(a, Array.from(c)) }
-          );
-        })),
-        S.apply(this, arguments)
+          }
+        );
+      }
+      var d = [].concat(i).sort(T(I(i))),
+        m = new Set(),
+        p = new Map();
+      return (
+        await d.reduce(async function (e, t) {
+          await e;
+          try {
+            var n = t.msgKey,
+              a = t.parsedMsgPayload,
+              i = R(t, p);
+            if (i != null) {
+              i === "held" && m.add(n);
+              return;
+            }
+            var s = await L(t, l);
+            (s.retain && m.add(n),
+              !s.replayed &&
+                (a == null ? void 0 : a.botEditType) ===
+                  o("WAWebBotTypes").BotMsgEditType.FIRST &&
+                E(t, s, p));
+          } catch (e) {
+            var c, d;
+            (o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[BotMsgOrphanProvider] re-processing failed for ",
+                    "",
+                  ])),
+                k(t.msgKey),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("bot-orphan-reprocess-failed"),
+              m.add(t.msgKey));
+            var _ =
+              (c = t.parsedMsgPayload) == null || (c = c.id) == null
+                ? void 0
+                : c.id;
+            ((d = t.parsedMsgPayload) == null ? void 0 : d.botEditType) ===
+              o("WAWebBotTypes").BotMsgEditType.FIRST &&
+              _ != null &&
+              !p.has(_) &&
+              p.set(_, "held");
+          }
+        }, Promise.resolve()),
+        { retainedOrphanMsgKeys: [].concat(a, Array.from(m)) }
       );
     }
-    function R(e) {
+    function v(e) {
       if (o("WAWebBotGating").isBotOrphanMsgEnabled())
         return { heldOrphanMsgKeys: [], orphans: e };
-      var t = e.filter(L),
+      var t = e.filter(S),
         n =
           t.length > 0 &&
           o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
@@ -183,37 +160,37 @@ __d(
         orphans: n,
       };
     }
-    function L(t) {
+    function S(e) {
       try {
-        return r("WAWebMsgKey").fromString(t.msgKey).remote.isGroup();
-      } catch (n) {
+        return r("WAWebMsgKey").fromString(e.msgKey).remote.isGroup();
+      } catch (t) {
         return (
           o("WALogger")
             .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[BotMsgOrphanProvider] could not parse the key of orphan ",
                   ", holding it as a direct orphan",
                 ])),
-              D(t.msgKey),
+              k(e.msgKey),
             )
-            .catching(r("getErrorSafe")(n))
+            .catching(r("getErrorSafe")(t))
             .tags("messaging")
             .sendLogs("bot-orphan-key-parse-failed", { sampling: 0.01 }),
           !1
         );
       }
     }
-    function E(e, t) {
+    function R(e, t) {
       var n;
-      if (O(e) === M) return null;
+      if (w(e) === $) return null;
       var r = (n = e.parsedMsgPayload) == null ? void 0 : n.botEditTargetId;
       return r == null
         ? (t.size > 0 &&
             o("WALogger")
               .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "[BotMsgOrphanProvider] edit has no stream id, it cannot be gated on its head",
                   ])),
               )
@@ -222,69 +199,61 @@ __d(
           null)
         : t.get(r);
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    async function L(e, t) {
+      var n,
+        a,
+        i = e.parsedMsgPayload,
+        l = i == null ? void 0 : i.botOrphanStanza,
+        s =
+          (n = i == null || (a = i.id) == null ? void 0 : a.id) != null
+            ? n
+            : k(e.msgKey);
+      if (l == null)
+        return (
+          o("WALogger")
+            .WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BotMsgOrphanProvider] discarding orphan with no replayable stanza ",
+                  "",
+                ])),
+              s,
+            )
+            .tags("messaging")
+            .sendLogs("bot-orphan-unrecoverable", { sampling: 0.01 }),
+          { replayed: !1, retain: !1 }
+        );
+      try {
+        o("WALogger")
+          .LOG(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "[BotMsgOrphanProvider] re-processing orphan stanza ",
+                "",
+              ])),
+            s,
+          )
+          .tags("messaging");
+        var u = await t(s, l);
+        return { replayed: u === "replayed", retain: u === "retryable" };
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BotMsgOrphanProvider] re-processing failed for stanza ",
+                  "",
+                ])),
+              s,
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("bot-orphan-reprocess-failed"),
+          { replayed: !1, retain: !0 }
+        );
+      }
     }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a,
-            i = e.parsedMsgPayload,
-            l = i == null ? void 0 : i.botOrphanStanza,
-            s =
-              (n = i == null || (a = i.id) == null ? void 0 : a.id) != null
-                ? n
-                : D(e.msgKey);
-          if (l == null)
-            return (
-              o("WALogger")
-                .WARN(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[BotMsgOrphanProvider] discarding orphan with no replayable stanza ",
-                      "",
-                    ])),
-                  s,
-                )
-                .tags("messaging")
-                .sendLogs("bot-orphan-unrecoverable", { sampling: 0.01 }),
-              { replayed: !1, retain: !1 }
-            );
-          try {
-            o("WALogger")
-              .LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BotMsgOrphanProvider] re-processing orphan stanza ",
-                    "",
-                  ])),
-                s,
-              )
-              .tags("messaging");
-            var u = yield t(s, l);
-            return { replayed: u === "replayed", retain: u === "retryable" };
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "[BotMsgOrphanProvider] re-processing failed for stanza ",
-                      "",
-                    ])),
-                  s,
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("bot-orphan-reprocess-failed"),
-              { replayed: !1, retain: !0 }
-            );
-          }
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(e, t, n) {
+    function E(e, t, n) {
       var r,
         a,
         i,
@@ -294,7 +263,7 @@ __d(
               ? void 0
               : a.id) != null
             ? r
-            : D(e.msgKey),
+            : k(e.msgKey),
         s =
           (i = e.parsedMsgPayload) == null || (i = i.id) == null
             ? void 0
@@ -302,8 +271,8 @@ __d(
       (s == null
         ? o("WALogger")
             .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[BotMsgOrphanProvider] failed stream head has no stanza id, its edits cannot be gated",
                 ])),
             )
@@ -312,8 +281,8 @@ __d(
         : n.set(s, t.retain ? "held" : "dead"),
         o("WALogger")
           .WARN(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
                 "[BotMsgOrphanProvider] stream head ",
                 " did not replay (",
                 ")",
@@ -324,16 +293,16 @@ __d(
           .tags("messaging")
           .sendLogs("bot-orphan-stream-head-unreplayed", { sampling: 0.01 }));
     }
-    function D(e) {
+    function k(e) {
       var t;
       return (t = e.split("_")[2]) != null ? t : "unknown";
     }
-    function x(e) {
+    function I(e) {
       var t = new Set(),
         n = new Set();
       for (var r of e) {
         var a,
-          i = O(r);
+          i = w(r);
         ((a = r.parsedMsgPayload) == null ? void 0 : a.botSenderTimestampMs) ==
         null
           ? n.add(i)
@@ -345,8 +314,8 @@ __d(
         l.length > 0 &&
           o("WALogger")
             .WARN(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "[BotMsgOrphanProvider] ranks ",
                   " have a row without a sender timestamp, ordering them by arrival",
                 ])),
@@ -356,19 +325,19 @@ __d(
         t
       );
     }
-    function $(e) {
+    function T(e) {
       return function (t, n) {
-        var r = O(t),
-          o = r - O(n);
+        var r = w(t),
+          o = r - w(n);
         if (o !== 0) return o;
         if (e.has(r)) {
-          var a = P(t) - P(n);
+          var a = D(t) - D(n);
           if (a !== 0) return a;
         }
-        return N(t) - N(n);
+        return x(t) - x(n);
       };
     }
-    function P(e) {
+    function D(e) {
       var t, n;
       return (t =
         (n = e.parsedMsgPayload) == null ? void 0 : n.botSenderTimestampMs) !=
@@ -376,7 +345,7 @@ __d(
         ? t
         : 0;
     }
-    function N(e) {
+    function x(e) {
       var t, n;
       return (t =
         (n = e.parsedMsgPayload) == null ? void 0 : n.clientReceivedTsMillis) !=
@@ -384,25 +353,25 @@ __d(
         ? t
         : Number.MAX_SAFE_INTEGER;
     }
-    var M = 0,
-      w = 1,
-      A = 2,
-      F = 3;
-    function O(e) {
+    var $ = 0,
+      P = 1,
+      N = 2,
+      M = 3;
+    function w(e) {
       var t = e.parsedMsgPayload;
-      if (t == null) return F;
+      if (t == null) return M;
       var n = t.botEditType;
-      if (n == null) return F;
+      if (n == null) return M;
       var r = o("WAWebBotTypes").BotMsgEditType.cast(n);
       return r == null
-        ? F
+        ? M
         : r === o("WAWebBotTypes").BotMsgEditType.INNER
-          ? w
+          ? P
           : r === o("WAWebBotTypes").BotMsgEditType.LAST
-            ? A
+            ? N
             : r === o("WAWebBotTypes").BotMsgEditType.FIRST ||
                 r === o("WAWebBotTypes").BotMsgEditType.FULL
-              ? M
+              ? $
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -410,7 +379,7 @@ __d(
                   );
                 })();
     }
-    ((l.botMsgOrphanProvider = b), (l.processBotMsgOrphans = v));
+    ((l.botMsgOrphanProvider = C), (l.processBotMsgOrphans = b));
   },
   98,
 );

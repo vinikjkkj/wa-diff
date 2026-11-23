@@ -6,13 +6,17 @@ __d(
     "ApiAdObjectTypes",
     "FBLogger",
     "adsConvertAdObjectRecordToPlainJS",
+    "qex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
       var t,
         n = (t = e.creative) == null ? void 0 : t.object_type,
-        a = r("adsConvertAdObjectRecordToPlainJS")(e);
+        a =
+          r("qex")._("3278") === !0
+            ? e
+            : r("adsConvertAdObjectRecordToPlainJS")(e);
       switch (n) {
         case r("ApiAdObjectTypes").PHOTO:
           return o(

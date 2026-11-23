@@ -6,23 +6,19 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebBizBroadcastNewBroadcastFlowRouter.react",
-          )
-            .__setRef("WAWebBizBroadcastNewBroadcastFlowLoadable")
-            .load();
-          return e;
-        }),
-        "BizBroadcastNewBroadcastFlowRouter",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebBizBroadcastNewBroadcastFlowRouter.react",
+        )
+          .__setRef("WAWebBizBroadcastNewBroadcastFlowLoadable")
+          .load();
+        return e;
+      }, "BizBroadcastNewBroadcastFlowRouter"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

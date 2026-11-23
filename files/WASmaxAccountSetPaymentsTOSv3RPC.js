@@ -15,34 +15,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = m(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return { name: "SetPaymentsTOSv3ResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "SetPaymentsTOSv3ResponseError", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("SetPaymentsTOSv3", {
-              Success: a,
-              Error: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = d(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return { name: "SetPaymentsTOSv3ResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "SetPaymentsTOSv3ResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("SetPaymentsTOSv3", {
+          Success: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -51,7 +42,7 @@ __d(
         "WASmaxInAccountIQErrorResponseMixin",
       ).parseIQErrorResponseMixin(e, t);
       if (!a.success) return a;
-      var i = d(r.value);
+      var i = c(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -60,7 +51,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "accept_pay");
@@ -83,7 +74,7 @@ __d(
         "WASmaxInAccountIQResultResponseMixin",
       ).parseIQResultResponseMixin(e, t);
       if (!l.success) return l;
-      var s = h(r.value);
+      var s = g(r.value);
       return s.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
@@ -97,7 +88,7 @@ __d(
           )
         : s;
     }
-    function d(e) {
+    function c(e) {
       var t = o(
         "WASmaxInAccountIQErrorInternalServerErrorMixin",
       ).parseIQErrorInternalServerErrorMixin(e);
@@ -106,19 +97,19 @@ __d(
           name: "IQErrorInternalServerError",
           value: t.value,
         });
-      var n = g(e);
+      var n = f(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorServiceUnavailable",
           value: n.value,
         });
-      var r = f(e);
+      var r = _(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorPayUpgradeRequired",
           value: r.value,
         });
-      var a = _(e);
+      var a = p(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorConfigMismatch",
@@ -132,7 +123,7 @@ __d(
           name: "IQErrorForbidden",
           value: i.value,
         });
-      var l = p(e);
+      var l = m(e);
       return l.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorBadRequest",
@@ -151,15 +142,15 @@ __d(
             [t, n, r, a, i, l],
           );
     }
-    function m(e) {
+    function d(e) {
       var t = e.acceptPayTosVersion,
         n =
           e.setPaymentsTOSv3BRConsumerOrSetPaymentsTOSv3UPIConsumerOrSetPaymentsTOSv3USConsumerPaymentsTOSv3MixinGroupArgs,
-        r = E(
+        r = L(
           o("WASmaxJsx").smax(
             "iq",
             null,
-            k(
+            E(
               o("WASmaxJsx").smax("accept_pay", {
                 version: "3",
                 tos_version: o("WAWap").INT(t),
@@ -170,7 +161,7 @@ __d(
         );
       return r;
     }
-    function p(e) {
+    function m(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -190,7 +181,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function _(e) {
+    function p(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -210,7 +201,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function f(e) {
+    function _(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -230,7 +221,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function g(e) {
+    function f(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -250,20 +241,20 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function h(e) {
-      var t = C(e);
+    function g(e) {
+      var t = y(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "SetPaymentsTOSv3BRConsumerPaymentsTOSv3Response",
           value: t.value,
         });
-      var n = v(e);
+      var n = b(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "SetPaymentsTOSv3UPIConsumerPaymentsTOSv3Response",
           value: n.value,
         });
-      var r = R(e);
+      var r = S(e);
       return r.success
         ? o("WAResultOrError").makeResult({
             name: "SetPaymentsTOSv3USConsumerPaymentsTOSv3Response",
@@ -279,15 +270,15 @@ __d(
             [t, n, r],
           );
     }
-    function y(e) {
+    function h(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "additional_notice");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").attrStringEnum(e, "notice", A);
+      var n = o("WASmaxParseUtils").attrStringEnum(e, "notice", w);
       return n.success
         ? o("WAResultOrError").makeResult({ notice: n.value })
         : n;
     }
-    function C(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "accept_pay");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -302,7 +293,7 @@ __d(
         "additional_notice",
         1,
         10,
-        y,
+        h,
       );
       return r.success
         ? o("WAResultOrError").makeResult({
@@ -311,15 +302,15 @@ __d(
           })
         : r;
     }
-    function b(e) {
+    function C(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "additional_notice");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").attrStringEnum(e, "notice", F);
+      var n = o("WASmaxParseUtils").attrStringEnum(e, "notice", A);
       return n.success
         ? o("WAResultOrError").makeResult({ notice: n.value })
         : n;
     }
-    function v(e) {
+    function b(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "accept_pay");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -334,7 +325,7 @@ __d(
         "additional_notice",
         1,
         10,
-        b,
+        C,
       );
       return r.success
         ? o("WAResultOrError").makeResult({
@@ -343,7 +334,7 @@ __d(
           })
         : r;
     }
-    function S(e) {
+    function v(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "additional_notice");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -356,7 +347,7 @@ __d(
         ? o("WAResultOrError").makeResult({ notice: n.value })
         : n;
     }
-    function R(e) {
+    function S(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "accept_pay");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -371,7 +362,7 @@ __d(
         "additional_notice",
         1,
         10,
-        S,
+        v,
       );
       return r.success
         ? o("WAResultOrError").makeResult({
@@ -380,8 +371,8 @@ __d(
           })
         : r;
     }
-    function L() {
-      var e = B(
+    function R() {
+      var e = O(
         o("WASmaxJsx").smax("iq", {
           to: o("WAWap").S_WHATSAPP_NET,
           xmlns: "urn:xmpp:whatsapp:account",
@@ -389,107 +380,107 @@ __d(
       );
       return e;
     }
-    function E(e) {
-      var t = L();
+    function L(e) {
+      var t = R();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function k(e, t) {
+    function E(e, t) {
       if (t.setPaymentsTOSv3BRConsumerPaymentsTOSv3)
-        return D(e, t.setPaymentsTOSv3BRConsumerPaymentsTOSv3);
+        return T(e, t.setPaymentsTOSv3BRConsumerPaymentsTOSv3);
       if (t.setPaymentsTOSv3UPIConsumerPaymentsTOSv3)
-        return P(e, t.setPaymentsTOSv3UPIConsumerPaymentsTOSv3);
+        return $(e, t.setPaymentsTOSv3UPIConsumerPaymentsTOSv3);
       if (t.setPaymentsTOSv3USConsumerPaymentsTOSv3)
-        return w(e, t.setPaymentsTOSv3USConsumerPaymentsTOSv3);
+        return M(e, t.setPaymentsTOSv3USConsumerPaymentsTOSv3);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function I(e) {
+    function k(e) {
       var t = e.additionalNoticeNotice,
         n = o("WASmaxJsx").smax("additional_notice", {
           notice: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function T(e) {
+    function I(e) {
       var t = e.additionalNoticeArgs,
         n = o("WASmaxJsx").smax(
           "accept_pay",
           { service: "FBPAY" },
-          o("WASmaxChildren").REPEATED_CHILD(I, t, 1, 10),
+          o("WASmaxChildren").REPEATED_CHILD(k, t, 1, 10),
         );
       return n;
     }
-    function D(e, t) {
-      var n = T(t);
+    function T(e, t) {
+      var n = I(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function x(e) {
+    function D(e) {
       var t = e.additionalNoticeNotice,
         n = o("WASmaxJsx").smax("additional_notice", {
           notice: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function $(e) {
+    function x(e) {
       var t = e.additionalNoticeArgs,
         n = o("WASmaxJsx").smax(
           "accept_pay",
           { service: "UPI" },
-          o("WASmaxChildren").REPEATED_CHILD(x, t, 1, 10),
+          o("WASmaxChildren").REPEATED_CHILD(D, t, 1, 10),
         );
       return n;
     }
-    function P(e, t) {
-      var n = $(t);
+    function $(e, t) {
+      var n = x(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function N() {
+    function P() {
       var e = o("WASmaxJsx").smax("additional_notice", {
         notice: "us_pay_tos",
       });
       return e;
     }
-    function M(e) {
+    function N(e) {
       var t = e.additionalNoticeCount,
         n = o("WASmaxJsx").smax(
           "accept_pay",
           { service: "FBPAY" },
-          o("WASmaxChildren").REPEATED_CHILD_COUNT(N, t, 1, 10),
+          o("WASmaxChildren").REPEATED_CHILD_COUNT(P, t, 1, 10),
         );
       return n;
     }
-    function w(e, t) {
-      var n = M(t);
+    function M(e, t) {
+      var n = N(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    var A = {
+    var w = {
         br_p2p_consent: "br_p2p_consent",
         br_pay_privacy_policy: "br_pay_privacy_policy",
         br_pay_tos: "br_pay_tos",
         br_pay_wa_tos: "br_pay_wa_tos",
       },
-      F = {
+      A = {
         pay_tos_v3: "pay_tos_v3",
         upi_pay_privacy_policy: "upi_pay_privacy_policy",
       };
-    function O() {
+    function F() {
       var e = o("WASmaxJsx").smax("iq", {
         id: o("WAWap").generateId(),
         type: "set",
       });
       return e;
     }
-    function B(e) {
-      var t = O();
+    function O(e) {
+      var t = F();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
     ((l.sendSetPaymentsTOSv3RPC = e),
-      (l.parseSetPaymentsTOSv3ResponseError = u),
-      (l.parseSetPaymentsTOSv3ResponseSuccess = c),
-      (l.makeSetPaymentsTOSv3Request = m),
-      (l.ENUM_BRP2PCONSENT_BRPAYPRIVACYPOLICY_BRPAYTOS_BRPAYWATOS = A),
-      (l.ENUM_PAYTOSV3_UPIPAYPRIVACYPOLICY = F));
+      (l.parseSetPaymentsTOSv3ResponseError = s),
+      (l.parseSetPaymentsTOSv3ResponseSuccess = u),
+      (l.makeSetPaymentsTOSv3Request = d),
+      (l.ENUM_BRP2PCONSENT_BRPAYPRIVACYPOLICY_BRPAYTOS_BRPAYWATOS = w),
+      (l.ENUM_PAYTOSV3_UPIPAYPRIVACYPOLICY = A));
   },
   98,
 );

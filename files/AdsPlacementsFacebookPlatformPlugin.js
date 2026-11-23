@@ -24,7 +24,6 @@ __d(
     "AdsReelsTrendingAdsPlacementUtils",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
     "AdsUEditorCampaignPlacementSetActionFlux",
-    "gkx",
     "immutable",
     "meta-brand-facebook-filled-20",
     "meta-brand-facebook-outline-16",
@@ -33,28 +32,22 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = r("immutable").OrderedSet([
-      r("AdsPlacementsFacebookFeedsPositionPlugin"),
-      r("AdsPlacementsFacebookProfileFeedPositionPlugin"),
-      r("AdsPlacementsFacebookInstantArticlePositionPlugin"),
-      r("AdsPlacementsFacebookInstreamVideosPositionPlugin"),
-      r("AdsPlacementsFacebookRightColumnPositionPlugin"),
-      r("AdsPlacementsFacebookVideoFeedsPositionPlugin"),
-      r("AdsPlacementsFacebookMarketplacePositionPlugin"),
-      r("AdsPlacementsFacebookStoryPositionPlugin"),
-      r("AdsPlacementsFacebookReelsOverlayPositionPlugin"),
-      r("AdsPlacementsFacebookSearchPositionPlugin"),
-      r("AdsPlacementsFacebookGroupTabPositionPlugin"),
-      r("AdsPlacementsFacebookBizDiscoFeedPositionPlugin"),
-      r("AdsPlacementsFacebookFbReelsPositionPlugin"),
-      r("AdsPlacementsFacebookNotificationPositionPlugin"),
-    ]);
-    function u(e, t) {
-      var n =
-        e.isTopicEnabledForFBReels === !0 ||
-        e.isCountryEnabledForFBReels === !0;
-      return e.isReelsTrendingAds === !0 && (n || t);
-    }
-    var c = {
+        r("AdsPlacementsFacebookFeedsPositionPlugin"),
+        r("AdsPlacementsFacebookProfileFeedPositionPlugin"),
+        r("AdsPlacementsFacebookInstantArticlePositionPlugin"),
+        r("AdsPlacementsFacebookInstreamVideosPositionPlugin"),
+        r("AdsPlacementsFacebookRightColumnPositionPlugin"),
+        r("AdsPlacementsFacebookVideoFeedsPositionPlugin"),
+        r("AdsPlacementsFacebookMarketplacePositionPlugin"),
+        r("AdsPlacementsFacebookStoryPositionPlugin"),
+        r("AdsPlacementsFacebookReelsOverlayPositionPlugin"),
+        r("AdsPlacementsFacebookSearchPositionPlugin"),
+        r("AdsPlacementsFacebookGroupTabPositionPlugin"),
+        r("AdsPlacementsFacebookBizDiscoFeedPositionPlugin"),
+        r("AdsPlacementsFacebookFbReelsPositionPlugin"),
+        r("AdsPlacementsFacebookNotificationPositionPlugin"),
+      ]),
+      u = {
         type: "placements/platform",
         key: "facebook",
         apiPublisherPlatform: "facebook",
@@ -93,9 +86,8 @@ __d(
             case o("AdsCampaignPlacementAddDataActionFlux").actionType:
               return o("AdsMutators").mutateEach(t, e.ids, function (t) {
                 var n,
-                  a = r("gkx")("11580"),
-                  i = u(e.eligibilityInformation, a),
-                  l = i
+                  a = e.eligibilityInformation.isReelsTrendingAds === !0,
+                  i = a
                     ? babelHelpers.extends({}, e.eligibilityInformation, {
                         capabilities: o(
                           "AdsReelsTrendingAdsPlacementUtils",
@@ -104,28 +96,28 @@ __d(
                         ),
                       })
                     : e.eligibilityInformation,
-                  s =
+                  l =
                     (n = t.targeting) == null
                       ? void 0
                       : n.get(r("AdsAPITargetFields").FACEBOOK_POSITIONS),
-                  c = s != null && !s.includes("facebook_reels");
-                if (i && (!a || !c))
+                  s = l != null && !l.includes("facebook_reels");
+                if (a && !s)
                   return o("AdsPlacementAPISpecWriterUtils").addGroup(
                     t,
                     "facebook/fb_reels",
-                    l,
+                    i,
                     r("AdsAPITargetFields").FACEBOOK_POSITIONS,
                     "facebook",
                   );
-                if (i) return t;
-                var d = o(
+                if (a) return t;
+                var u = o(
                   "AdsPlacementAPISpecWriterUtils",
-                ).addPublisherPlatform(t, "facebook", l);
+                ).addPublisherPlatform(t, "facebook", i);
                 return (
-                  (d = o(
+                  (u = o(
                     "AdsPlacementAPISpecWriterUtils",
-                  ).removeMessengerThreadPlacement(d, l)),
-                  d
+                  ).removeMessengerThreadPlacement(u, i)),
+                  u
                 );
               });
             case o("AdsUEditorCampaignPlacementRemoveActionFlux").actionType:
@@ -146,8 +138,8 @@ __d(
           return t;
         },
       },
-      d = c;
-    l.default = d;
+      c = u;
+    l.default = c;
   },
   98,
 );

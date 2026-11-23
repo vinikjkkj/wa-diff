@@ -30,41 +30,41 @@ __d(
       d = { seeRule: { color: "x1v5yvga", cursor: "x1ypdohk", $$css: !0 } };
     function m() {
       var e = o("WAWebToast.react").genId(),
-        t = s._(/*BTDS*/ "Couldn't request review");
+        t = s._(/*BTDS*/ "");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );
     }
     function p() {
       var e = o("WAWebToast.react").genId(),
-        t = s._(/*BTDS*/ "Review requested");
+        t = s._(/*BTDS*/ "");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );
     }
     function _() {
       var e = o("WAWebToast.react").genId(),
-        t = s._(/*BTDS*/ "Couldn't get reference number");
+        t = s._(/*BTDS*/ "");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );
     }
     function f() {
       var e = o("WAWebToast.react").genId(),
-        t = s._(/*BTDS*/ "Status deleted");
+        t = s._(/*BTDS*/ "");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );
     }
     function g() {
       var e = o("WAWebToast.react").genId(),
-        t = s._(/*BTDS*/ "Couldn't delete status. Please try again.");
+        t = s._(/*BTDS*/ "");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );
     }
     function h(e) {
-      return s._(/*BTDS*/ "Date requested: {review_request_date}", [
+      return s._(/*BTDS*/ "", [
         s._param(
           "review_request_date",
           o("WAWebDSADateUtils").getDSADateDisplayString(e.toString()),
@@ -95,8 +95,8 @@ __d(
                   "WAWebCommonNewsletterIntegrityStrings",
                 ).getStatusReviewCompletedString()
             : e === "PENDING"
-              ? s._(/*BTDS*/ "Update in review")
-              : s._(/*BTDS*/ "Update review completed");
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "");
         case o("WAWebCommonNewsletterEnums").EnforcementType.ADMIN_PROFILE:
           return e === "PENDING"
             ? o(
@@ -147,7 +147,7 @@ __d(
                 ).getStatusReviewCompletedString();
           switch (e) {
             case "PENDING":
-              return s._(/*BTDS*/ "Update in review");
+              return s._(/*BTDS*/ "");
             case "REJECT":
             case "SUCCESS":
             case "CONTENT_UNAVAILABLE":
@@ -168,7 +168,7 @@ __d(
                 ).getStatusReviewCompletedString();
           switch (e) {
             case "PENDING":
-              return s._(/*BTDS*/ "Update in review");
+              return s._(/*BTDS*/ "");
             case "REJECT":
             case "SUCCESS":
             case "CONTENT_UNAVAILABLE":
@@ -226,71 +226,53 @@ __d(
       }
     }
     function v(e, t) {
-      if (e === "CONTENT_UNAVAILABLE")
-        return s._(
-          /*BTDS*/ "Your review is closed as this status is no longer available on your channel. It may have expired after 24 hours, or been deleted by a channel admin.",
-        );
+      if (e === "CONTENT_UNAVAILABLE") return s._(/*BTDS*/ "");
       if (t === o("WAWebCommonNewsletterEnums").EnforcementType.VIOLATING_MSG)
         switch (e) {
           case "PENDING":
-            return s._(
-              /*BTDS*/ "Our Support team is reviewing your status. You will hear back within a few days.",
-            );
+            return s._(/*BTDS*/ "");
           case "REJECT":
-            return s._(
-              /*BTDS*/ "Our Support team has confirmed this status doesn't follow our {=m2}.",
-              [
-                s._implicitParam(
-                  "=m2",
-                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                    onClick: o("WAWebNewsletterDSAModals.react")
-                      .logChannelGuidelinesClick,
-                    children: s._(/*BTDS*/ "Channels Guidelines"),
-                  }),
-                ),
-              ],
-            );
-          case "SUCCESS":
-            return s._(
-              /*BTDS*/ "Our Support team determined this status follows our {=m2}.",
-              [
-                s._implicitParam(
-                  "=m2",
-                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                    onClick: o("WAWebNewsletterDSAModals.react")
-                      .logChannelGuidelinesClick,
-                    children: s._(/*BTDS*/ "Channels Guidelines"),
-                  }),
-                ),
-              ],
-            );
-        }
-      switch (e) {
-        case "PENDING":
-          return s._(
-            /*BTDS*/ "Your status is being reviewed. You will hear back within a few days.",
-          );
-        case "REJECT":
-          return s._(
-            /*BTDS*/ "Your status has not been restored. The rights holder has not released their claim.",
-          );
-        case "SUCCESS":
-          return s._(
-            /*BTDS*/ "Your status has been restored. The rights holder has released their claim, and determined this status follows our {=m2}.",
-            [
+            return s._(/*BTDS*/ "", [
               s._implicitParam(
                 "=m2",
                 c.jsx(o("WAWebExternalLink.react").ExternalLink, {
                   href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
                   onClick: o("WAWebNewsletterDSAModals.react")
                     .logChannelGuidelinesClick,
-                  children: s._(/*BTDS*/ "Channels Guidelines"),
+                  children: s._(/*BTDS*/ ""),
                 }),
               ),
-            ],
-          );
+            ]);
+          case "SUCCESS":
+            return s._(/*BTDS*/ "", [
+              s._implicitParam(
+                "=m2",
+                c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                  href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                  onClick: o("WAWebNewsletterDSAModals.react")
+                    .logChannelGuidelinesClick,
+                  children: s._(/*BTDS*/ ""),
+                }),
+              ),
+            ]);
+        }
+      switch (e) {
+        case "PENDING":
+          return s._(/*BTDS*/ "");
+        case "REJECT":
+          return s._(/*BTDS*/ "");
+        case "SUCCESS":
+          return s._(/*BTDS*/ "", [
+            s._implicitParam(
+              "=m2",
+              c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                onClick: o("WAWebNewsletterDSAModals.react")
+                  .logChannelGuidelinesClick,
+                children: s._(/*BTDS*/ ""),
+              }),
+            ),
+          ]);
       }
     }
     function S(e) {
@@ -327,32 +309,23 @@ __d(
           .GEOSUSPEND_INFORM: {
           switch (t) {
             case "PENDING":
-              return s._(
-                /*BTDS*/ "Your update is being reviewed. You will hear back within a few days.",
-              );
+              return s._(/*BTDS*/ "");
             case "REJECT":
-              return s._(
-                /*BTDS*/ "Your update has not been restored. The rights holder has not released their claim.",
-              );
+              return s._(/*BTDS*/ "");
             case "SUCCESS":
-              return s._(
-                /*BTDS*/ "Your update has been restored. The rights holder has released their claim, and determined this update follows our {=m2}.",
-                [
-                  s._implicitParam(
-                    "=m2",
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                      onClick: o("WAWebNewsletterDSAModals.react")
-                        .logChannelGuidelinesClick,
-                      children: s._(/*BTDS*/ "Channels Guidelines"),
-                    }),
-                  ),
-                ],
-              );
+              return s._(/*BTDS*/ "", [
+                s._implicitParam(
+                  "=m2",
+                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                    onClick: o("WAWebNewsletterDSAModals.react")
+                      .logChannelGuidelinesClick,
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]);
             case "CONTENT_UNAVAILABLE":
-              return s._(
-                /*BTDS*/ "Your review is closed as this update is no longer available on your channel. It may have expired after 30 days, or been deleted by a channel admin.",
-              );
+              return s._(/*BTDS*/ "");
           }
           break;
         }
@@ -364,43 +337,33 @@ __d(
               ).getChannelInReviewString();
             case "REJECT":
               return (n == null ? void 0 : n.length) !== 0
-                ? s._(
-                    /*BTDS*/ "Your channel is still closed in these countries: {list_of_suspended_country}. Our Support team has confirmed this channel doesn't follow our {=m5} or local laws.",
-                    [
-                      s._param("list_of_suspended_country", d),
-                      s._implicitParam(
-                        "=m5",
-                        c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                          href: o(
-                            "WAWebFaqUrl",
-                          ).getNewsletterGuidelinesFaqUrl(),
-                          onClick: o("WAWebNewsletterDSAModals.react")
-                            .logChannelGuidelinesClick,
-                          children: s._(/*BTDS*/ "Channels Guidelines"),
-                        }),
-                      ),
-                    ],
-                  )
+                ? s._(/*BTDS*/ "", [
+                    s._param("list_of_suspended_country", d),
+                    s._implicitParam(
+                      "=m5",
+                      c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                        href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                        onClick: o("WAWebNewsletterDSAModals.react")
+                          .logChannelGuidelinesClick,
+                        children: s._(/*BTDS*/ ""),
+                      }),
+                    ),
+                  ])
                 : null;
             case "SUCCESS":
               return (n == null ? void 0 : n.length) !== 0
-                ? s._(
-                    /*BTDS*/ "Your channel has been reopened in these countries: {list_of_suspended_country}. Our Support team has determined this channel follows our {=m5}.",
-                    [
-                      s._param("list_of_suspended_country", d),
-                      s._implicitParam(
-                        "=m5",
-                        c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                          href: o(
-                            "WAWebFaqUrl",
-                          ).getNewsletterGuidelinesFaqUrl(),
-                          onClick: o("WAWebNewsletterDSAModals.react")
-                            .logChannelGuidelinesClick,
-                          children: s._(/*BTDS*/ "Channels Guidelines"),
-                        }),
-                      ),
-                    ],
-                  )
+                ? s._(/*BTDS*/ "", [
+                    s._param("list_of_suspended_country", d),
+                    s._implicitParam(
+                      "=m5",
+                      c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                        href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                        onClick: o("WAWebNewsletterDSAModals.react")
+                          .logChannelGuidelinesClick,
+                        children: s._(/*BTDS*/ ""),
+                      }),
+                    ),
+                  ])
                 : null;
           }
           break;
@@ -408,75 +371,56 @@ __d(
         case o("WAWebCommonNewsletterEnums").EnforcementType.VIOLATING_MSG: {
           switch (t) {
             case "PENDING":
-              return s._(
-                /*BTDS*/ "Our Support team is reviewing your update. You will hear back within a few days.",
-              );
+              return s._(/*BTDS*/ "");
             case "REJECT":
-              return s._(
-                /*BTDS*/ "Our Support team has confirmed this update doesn't follow our {=m2}.",
-                [
-                  s._implicitParam(
-                    "=m2",
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                      onClick: o("WAWebNewsletterDSAModals.react")
-                        .logChannelGuidelinesClick,
-                      children: s._(/*BTDS*/ "Channels Guidelines"),
-                    }),
-                  ),
-                ],
-              );
+              return s._(/*BTDS*/ "", [
+                s._implicitParam(
+                  "=m2",
+                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                    onClick: o("WAWebNewsletterDSAModals.react")
+                      .logChannelGuidelinesClick,
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]);
             case "SUCCESS":
-              return s._(
-                /*BTDS*/ "Our Support team determined this update follows our {=m2}.",
-                [
-                  s._implicitParam(
-                    "=m2",
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                      onClick: o("WAWebNewsletterDSAModals.react")
-                        .logChannelGuidelinesClick,
-                      children: s._(/*BTDS*/ "Channels Guidelines"),
-                    }),
-                  ),
-                ],
-              );
+              return s._(/*BTDS*/ "", [
+                s._implicitParam(
+                  "=m2",
+                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                    onClick: o("WAWebNewsletterDSAModals.react")
+                      .logChannelGuidelinesClick,
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]);
             case "CONTENT_UNAVAILABLE":
-              return s._(
-                /*BTDS*/ "Your review is closed as this update is no longer available on your channel. It may have expired after 30 days, or been deleted by a channel admin.",
-              );
+              return s._(/*BTDS*/ "");
           }
           break;
         }
         case o("WAWebCommonNewsletterEnums").EnforcementType.SUSPEND_INFORM: {
           switch (t) {
             case "PENDING":
-              return s._(
-                /*BTDS*/ "Your update is being reviewed. You will hear back within a few days.",
-              );
+              return s._(/*BTDS*/ "");
             case "REJECT":
-              return s._(
-                /*BTDS*/ "Your update has not been restored. The rights holder has not released their claim.",
-              );
+              return s._(/*BTDS*/ "");
             case "SUCCESS":
-              return s._(
-                /*BTDS*/ "Your update has been restored. The rights holder has released their claim, and determined this update follows our {=m2}.",
-                [
-                  s._implicitParam(
-                    "=m2",
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                      onClick: o("WAWebNewsletterDSAModals.react")
-                        .logChannelGuidelinesClick,
-                      children: s._(/*BTDS*/ "Channels Guidelines"),
-                    }),
-                  ),
-                ],
-              );
+              return s._(/*BTDS*/ "", [
+                s._implicitParam(
+                  "=m2",
+                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                    onClick: o("WAWebNewsletterDSAModals.react")
+                      .logChannelGuidelinesClick,
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]);
             case "CONTENT_UNAVAILABLE":
-              return s._(
-                /*BTDS*/ "Your review is closed as this update is no longer available on your channel. It may have expired after 30 days, or been deleted by a channel admin.",
-              );
+              return s._(/*BTDS*/ "");
           }
           break;
         }
@@ -487,75 +431,61 @@ __d(
                 "WAWebCommonNewsletterIntegrityStrings",
               ).getChannelInReviewString();
             case "REJECT":
-              return s._(
-                /*BTDS*/ "Your channel is still closed. Our Support team has confirmed this channel doesn't follow our {=m2}.",
-                [
-                  s._implicitParam(
-                    "=m2",
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                      onClick: o("WAWebNewsletterDSAModals.react")
-                        .logChannelGuidelinesClick,
-                      children: s._(/*BTDS*/ "Channels Guidelines"),
-                    }),
-                  ),
-                ],
-              );
+              return s._(/*BTDS*/ "", [
+                s._implicitParam(
+                  "=m2",
+                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                    onClick: o("WAWebNewsletterDSAModals.react")
+                      .logChannelGuidelinesClick,
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]);
             case "SUCCESS":
-              return s._(
-                /*BTDS*/ "Your channel has been reopened. Our WhatsApp team has determined this channel follows our {=m2}.",
-                [
-                  s._implicitParam(
-                    "=m2",
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                      onClick: o("WAWebNewsletterDSAModals.react")
-                        .logChannelGuidelinesClick,
-                      children: s._(/*BTDS*/ "Channels Guidelines"),
-                    }),
-                  ),
-                ],
-              );
+              return s._(/*BTDS*/ "", [
+                s._implicitParam(
+                  "=m2",
+                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                    onClick: o("WAWebNewsletterDSAModals.react")
+                      .logChannelGuidelinesClick,
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]);
           }
           break;
         }
         case o("WAWebCommonNewsletterEnums").EnforcementType.ADMIN_PROFILE: {
           switch (t) {
             case "PENDING":
-              return s._(
-                /*BTDS*/ "Our Support team is reviewing the channel admin profile. You will hear back within a few days.",
-              );
+              return s._(/*BTDS*/ "");
             case "REJECT":
-              return s._(
-                /*BTDS*/ "This channel admin profile does not follow our {=m2} on {violation_category_text}",
-                [
-                  s._param("violation_category_text", R(i)),
-                  s._implicitParam(
-                    "=m2",
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                      onClick: o("WAWebNewsletterDSAModals.react")
-                        .logChannelGuidelinesClick,
-                      children: s._(/*BTDS*/ "Channels Guidelines"),
-                    }),
-                  ),
-                ],
-              );
+              return s._(/*BTDS*/ "", [
+                s._param("violation_category_text", R(i)),
+                s._implicitParam(
+                  "=m2",
+                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                    onClick: o("WAWebNewsletterDSAModals.react")
+                      .logChannelGuidelinesClick,
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]);
             case "SUCCESS":
-              return s._(
-                /*BTDS*/ "The channel admin profile has been restored. Our Support team has determined it follows our {=m2}.",
-                [
-                  s._implicitParam(
-                    "=m2",
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                      onClick: o("WAWebNewsletterDSAModals.react")
-                        .logChannelGuidelinesClick,
-                      children: s._(/*BTDS*/ "Channels Guidelines"),
-                    }),
-                  ),
-                ],
-              );
+              return s._(/*BTDS*/ "", [
+                s._implicitParam(
+                  "=m2",
+                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                    onClick: o("WAWebNewsletterDSAModals.react")
+                      .logChannelGuidelinesClick,
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]);
           }
           break;
         }
@@ -563,40 +493,32 @@ __d(
           .PROFILE_PICTURE_DELETION: {
           switch (t) {
             case "PENDING":
-              return s._(
-                /*BTDS*/ "Our Support team is reviewing your profile picture. You will hear back within a few days.",
-              );
+              return s._(/*BTDS*/ "");
             case "REJECT":
-              return s._(
-                /*BTDS*/ "Your profile picture does not follow our {=m2} on {violation_category_text}",
-                [
-                  s._param("violation_category_text", R(i)),
-                  s._implicitParam(
-                    "=m2",
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                      onClick: o("WAWebNewsletterDSAModals.react")
-                        .logChannelGuidelinesClick,
-                      children: s._(/*BTDS*/ "Channels Guidelines"),
-                    }),
-                  ),
-                ],
-              );
+              return s._(/*BTDS*/ "", [
+                s._param("violation_category_text", R(i)),
+                s._implicitParam(
+                  "=m2",
+                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                    onClick: o("WAWebNewsletterDSAModals.react")
+                      .logChannelGuidelinesClick,
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]);
             case "SUCCESS":
-              return s._(
-                /*BTDS*/ "Your profile picture has been restored. Our Support team has determined this channel follows our {=m2}.",
-                [
-                  s._implicitParam(
-                    "=m2",
-                    c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                      href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                      onClick: o("WAWebNewsletterDSAModals.react")
-                        .logChannelGuidelinesClick,
-                      children: s._(/*BTDS*/ "Channels Guidelines"),
-                    }),
-                  ),
-                ],
-              );
+              return s._(/*BTDS*/ "", [
+                s._implicitParam(
+                  "=m2",
+                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                    onClick: o("WAWebNewsletterDSAModals.react")
+                      .logChannelGuidelinesClick,
+                    children: s._(/*BTDS*/ ""),
+                  }),
+                ),
+              ]);
           }
           break;
         }
@@ -609,78 +531,52 @@ __d(
         ).getNewsletterGenericViolationPolicyString();
       switch (e) {
         case "ADULT_SEXUAL_EXPLOITATION":
-          return s._(
-            /*BTDS*/ "showing or promoting sexual exploitation or violence.",
-          );
+          return s._(/*BTDS*/ "");
         case "ADULT_SEXUAL_SOLICITATION":
-          return s._(
-            /*BTDS*/ "sexually explicit content or arranging commercial sexual services.",
-          );
+          return s._(/*BTDS*/ "");
         case "BULLYING_AND_HARASSMENT":
-          return s._(/*BTDS*/ "threats, intimidation, or harassment.");
+          return s._(/*BTDS*/ "");
         case "CHILD_SEXUAL_EXPLOITATION":
-          return s._(
-            /*BTDS*/ "content that could endanger children, shows child abuse, or sexually exploits children.",
-          );
+          return s._(/*BTDS*/ "");
         case "COORDINATING_HARM_AND_PROMOTING_CRIME":
-          return s._(
-            /*BTDS*/ "encouraging, promoting or helping coordinate harm or crime.",
-          );
+          return s._(/*BTDS*/ "");
         case "CYBERSECURITY":
-          return s._(/*BTDS*/ "cybersecurity risks that could harm others.");
+          return s._(/*BTDS*/ "");
         case "DANGEROUS_INDIVIDUALS_AND_ORGS":
-          return s._(
-            /*BTDS*/ "showing support for terrorist, hate, and criminal groups or individuals.",
-          );
+          return s._(/*BTDS*/ "");
         case "FRAUD_AND_DECEPTION":
-          return s._(/*BTDS*/ "engaging in fraud or scams.");
+          return s._(/*BTDS*/ "");
         case "GRAPHIC_VIOLENCE":
-          return s._(/*BTDS*/ "excessively violent or graphic content.");
+          return s._(/*BTDS*/ "");
         case "HARMFUL_HEALTH":
-          return s._(/*BTDS*/ "content that could cause harm to people.");
+          return s._(/*BTDS*/ "");
         case "HATE":
-          return s._(
-            /*BTDS*/ "threatening, hateful, or racially offensive content.",
-          );
+          return s._(/*BTDS*/ "");
         case "HUMAN_EXPLOITATION":
-          return s._(
-            /*BTDS*/ "promoting or facilitating human trafficking or exploitation, violence, or sexual exploitation.",
-          );
+          return s._(/*BTDS*/ "");
         case "INTELLECTUALPROPERTY_RIGHTS":
-          return s._(/*BTDS*/ "infringement of intellectual property rights.");
+          return s._(/*BTDS*/ "");
         case "PLATFORM_POLICY":
-          return s._(
-            /*BTDS*/ "legally acceptable use for international compliance.",
-          );
+          return s._(/*BTDS*/ "");
         case "PORN":
-          return s._(/*BTDS*/ "graphic or sexual content.");
+          return s._(/*BTDS*/ "");
         case "PRIVACY_VIOLATION":
-          return s._(/*BTDS*/ "privacy risks and misrepresentation.");
+          return s._(/*BTDS*/ "");
         case "REGULATED_GOODS":
-          return s._(
-            /*BTDS*/ "buying, selling, or exchanging regulated or restricted goods.",
-          );
+          return s._(/*BTDS*/ "");
         case "SPAM":
-          return s._(/*BTDS*/ "spam and cybersecurity risks.");
+          return s._(/*BTDS*/ "");
         case "SSI":
-          return s._(
-            /*BTDS*/ "content that could encourage suicide or self-injury.",
-          );
+          return s._(/*BTDS*/ "");
         case "VIOLENCE_AND_INCITEMENT":
-          return s._(
-            /*BTDS*/ "encouraging violence or physical harm, or threats to public safety.",
-          );
+          return s._(/*BTDS*/ "");
         case "IP_COUNTERFEIT_REPORTED":
         case "IP_TRADEMARK_REPORTED":
-          return s._(
-            /*BTDS*/ "infringement of intellectual property rights, including our policies on trademark.",
-          );
+          return s._(/*BTDS*/ "");
         case "IP_COPYRIGHT_REPORTED":
-          return s._(
-            /*BTDS*/ "infringement of intellectual property rights, including our policies on copyright.",
-          );
+          return s._(/*BTDS*/ "");
         case "IP_REPEAT_INFRINGEMENT_REPORTED":
-          return s._(/*BTDS*/ "infringement of intellectual property rights.");
+          return s._(/*BTDS*/ "");
         case "SUICIDE_OR_SELFINJURY":
         case "HATESPEECH":
         case "UNKNOWN":
@@ -691,21 +587,18 @@ __d(
       }
     }
     function L(e) {
-      return s._(
-        /*BTDS*/ "Some updates shared by this channel don't follow our {=m1} on {violation_category_text}",
-        [
-          s._param("violation_category_text", R(e)),
-          s._implicitParam(
-            "=m1",
-            c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-              href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-              onClick: o("WAWebNewsletterDSAModals.react")
-                .logChannelGuidelinesClick,
-              children: s._(/*BTDS*/ "Channels Guidelines"),
-            }),
-          ),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("violation_category_text", R(e)),
+        s._implicitParam(
+          "=m1",
+          c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+            href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+            onClick: o("WAWebNewsletterDSAModals.react")
+              .logChannelGuidelinesClick,
+            children: s._(/*BTDS*/ ""),
+          }),
+        ),
+      ]);
     }
     L.displayName = L.name + " [from " + i.id + "]";
     function E(t) {
@@ -739,7 +632,7 @@ __d(
             c.jsx(r("WDSTextualLink.react"), {
               onClick: n,
               testid: "enforcement-policy-see-details-link",
-              children: s._(/*BTDS*/ "See details"),
+              children: s._(/*BTDS*/ ""),
             }),
           ],
         });
@@ -752,7 +645,7 @@ __d(
             onClick: C,
             xstyle: d.seeRule,
             href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-            children: s._(/*BTDS*/ "See rule"),
+            children: s._(/*BTDS*/ ""),
           }),
         ],
       });
@@ -761,141 +654,112 @@ __d(
     function k(e, t, n) {
       return n === !0
         ? t != null
-          ? s._(
-              /*BTDS*/ "This status contains copyrighted material from {rights_holder_name}. {=m4}",
-              [
-                s._param("rights_holder_name", t.name),
-                s._implicitParam(
-                  "=m4",
-                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                    onClick: C,
-                    xstyle: d.seeRule,
-                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                    children: s._(/*BTDS*/ "See rule"),
-                  }),
-                ),
-              ],
-            )
-          : s._(
-              /*BTDS*/ "This status doesn't follow our Channel Guidelines on {violation_category_text} {=m4}",
-              [
-                s._param("violation_category_text", R(e)),
-                s._implicitParam(
-                  "=m4",
-                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                    onClick: C,
-                    xstyle: d.seeRule,
-                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                    children: s._(/*BTDS*/ "See rule"),
-                  }),
-                ),
-              ],
-            )
+          ? s._(/*BTDS*/ "", [
+              s._param("rights_holder_name", t.name),
+              s._implicitParam(
+                "=m4",
+                c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                  onClick: C,
+                  xstyle: d.seeRule,
+                  href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                  children: s._(/*BTDS*/ ""),
+                }),
+              ),
+            ])
+          : s._(/*BTDS*/ "", [
+              s._param("violation_category_text", R(e)),
+              s._implicitParam(
+                "=m4",
+                c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                  onClick: C,
+                  xstyle: d.seeRule,
+                  href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                  children: s._(/*BTDS*/ ""),
+                }),
+              ),
+            ])
         : t != null
-          ? s._(
-              /*BTDS*/ "This update contains copyrighted material from {rights_holder_name}. {=m4}",
-              [
-                s._param("rights_holder_name", t.name),
-                s._implicitParam(
-                  "=m4",
-                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                    onClick: C,
-                    xstyle: d.seeRule,
-                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                    children: s._(/*BTDS*/ "See rule"),
-                  }),
-                ),
-              ],
-            )
-          : s._(
-              /*BTDS*/ "This update doesn't follow our Channel Guidelines on {violation_category_text} {=m4}",
-              [
-                s._param("violation_category_text", R(e)),
-                s._implicitParam(
-                  "=m4",
-                  c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-                    onClick: C,
-                    xstyle: d.seeRule,
-                    href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-                    children: s._(/*BTDS*/ "See rule"),
-                  }),
-                ),
-              ],
-            );
+          ? s._(/*BTDS*/ "", [
+              s._param("rights_holder_name", t.name),
+              s._implicitParam(
+                "=m4",
+                c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                  onClick: C,
+                  xstyle: d.seeRule,
+                  href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                  children: s._(/*BTDS*/ ""),
+                }),
+              ),
+            ])
+          : s._(/*BTDS*/ "", [
+              s._param("violation_category_text", R(e)),
+              s._implicitParam(
+                "=m4",
+                c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+                  onClick: C,
+                  xstyle: d.seeRule,
+                  href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+                  children: s._(/*BTDS*/ ""),
+                }),
+              ),
+            ]);
     }
     function I(e) {
-      return s._(
-        /*BTDS*/ "Your profile picture does not follow our {=m2} on {violation_category_text}",
-        [
-          s._param("violation_category_text", R(e)),
-          s._implicitParam(
-            "=m2",
-            c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-              href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-              onClick: o("WAWebNewsletterDSAModals.react")
-                .logChannelGuidelinesClick,
-              children: s._(/*BTDS*/ "Channels Guidelines"),
-            }),
-          ),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("violation_category_text", R(e)),
+        s._implicitParam(
+          "=m2",
+          c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+            href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+            onClick: o("WAWebNewsletterDSAModals.react")
+              .logChannelGuidelinesClick,
+            children: s._(/*BTDS*/ ""),
+          }),
+        ),
+      ]);
     }
     I.displayName = I.name + " [from " + i.id + "]";
     function T(e) {
-      return s._(
-        /*BTDS*/ "This channel admin profile does not follow our {=m2} on {violation_category_text}",
-        [
-          s._param("violation_category_text", R(e)),
-          s._implicitParam(
-            "=m2",
-            c.jsx(o("WAWebExternalLink.react").ExternalLink, {
-              href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
-              onClick: o("WAWebNewsletterDSAModals.react")
-                .logChannelGuidelinesClick,
-              children: s._(/*BTDS*/ "Channels Guidelines"),
-            }),
-          ),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("violation_category_text", R(e)),
+        s._implicitParam(
+          "=m2",
+          c.jsx(o("WAWebExternalLink.react").ExternalLink, {
+            href: o("WAWebFaqUrl").getNewsletterGuidelinesFaqUrl(),
+            onClick: o("WAWebNewsletterDSAModals.react")
+              .logChannelGuidelinesClick,
+            children: s._(/*BTDS*/ ""),
+          }),
+        ),
+      ]);
     }
     T.displayName = T.name + " [from " + i.id + "]";
     function D(e) {
       return e.reportStatus === "PENDING" || e.appeal.state === "PENDING"
-        ? s._(/*BTDS*/ "Report in review")
-        : s._(/*BTDS*/ "Report reviewed");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     D.displayName = D.name + " [from " + i.id + "]";
     function x(e) {
       var t = e.reportContentData;
       return t.reportContentType === "status"
         ? e.newsletterName != null
-          ? s._(
-              /*BTDS*/ "You reported a channel status shared by {channel_name}",
-              [s._param("channel_name", e.newsletterName)],
-            )
-          : s._(/*BTDS*/ "You reported a channel status")
+          ? s._(/*BTDS*/ "", [s._param("channel_name", e.newsletterName)])
+          : s._(/*BTDS*/ "")
         : t.reportContentType === "response" &&
             o(
               "WAWebNewsletterGatingUtils",
             ).isNewsletterIntegrityQuestionsM1Enabled() === !0
           ? t.notifyName != null
-            ? s._(
-                /*BTDS*/ "You reported a channel question response from {sender_name}",
-                [s._param("sender_name", t.notifyName)],
-              )
-            : s._(/*BTDS*/ "You reported a response to a channel question")
+            ? s._(/*BTDS*/ "", [s._param("sender_name", t.notifyName)])
+            : s._(/*BTDS*/ "")
           : t.reportContentType === "message"
             ? e.newsletterName != null
-              ? s._(
-                  /*BTDS*/ "You reported an update shared by {channel_name}",
-                  [s._param("channel_name", e.newsletterName)],
-                )
-              : s._(/*BTDS*/ "You reported an update shared by a channel")
+              ? s._(/*BTDS*/ "", [s._param("channel_name", e.newsletterName)])
+              : s._(/*BTDS*/ "")
             : e.newsletterName != null
-              ? s._(/*BTDS*/ "You reported {channel_name}", [
-                  s._param("channel_name", e.newsletterName),
-                ])
-              : s._(/*BTDS*/ "You reported a channel");
+              ? s._(/*BTDS*/ "", [s._param("channel_name", e.newsletterName)])
+              : s._(/*BTDS*/ "");
     }
     function $(e) {
       if (e.newsletterName == null)
@@ -1071,10 +935,8 @@ __d(
             learnMoreUrl: o(
               "WAWebContactFormsUrl",
             ).getReportContentUSNCIIFormUrl(),
-            bannerText: s._(
-              /*BTDS*/ "In the US, you can create a detailed report for something that contains intimate imagery.",
-            ),
-            actionText: s._(/*BTDS*/ "Fill in form"),
+            bannerText: s._(/*BTDS*/ ""),
+            actionText: s._(/*BTDS*/ ""),
             showViewReport: !1,
           }
         : o(
@@ -1083,9 +945,7 @@ __d(
           ? {
               learnMoreUrl:
                 o("WAWebFaqUrl").getReportUnlawfulContentWebFaqUrl(),
-              bannerText: s._(
-                /*BTDS*/ "You can send an additional report for unlawful content.",
-              ),
+              bannerText: s._(/*BTDS*/ ""),
               actionText: r("WAWebFbtCommon")("Learn more"),
               showViewReport: !0,
             }
@@ -1094,9 +954,7 @@ __d(
                 learnMoreUrl: o(
                   "WAWebContactFormsUrl",
                 ).getReportContentUKFormUrl(n),
-                bannerText: s._(
-                  /*BTDS*/ "You can send an additional report for unlawful content.",
-                ),
+                bannerText: s._(/*BTDS*/ ""),
                 actionText: r("WAWebFbtCommon")("Learn more"),
                 showViewReport: !1,
               }
@@ -1109,10 +967,8 @@ __d(
                   learnMoreUrl: o(
                     "WAWebContactFormsUrl",
                   ).getReportContentAUSFormUrl(n, N),
-                  bannerText: s._(
-                    /*BTDS*/ "You can send an additional report under the Australian Online Safety Act.",
-                  ),
-                  actionText: s._(/*BTDS*/ "Learn more"),
+                  bannerText: s._(/*BTDS*/ ""),
+                  actionText: s._(/*BTDS*/ ""),
                   showViewReport: !1,
                 }
               : null;

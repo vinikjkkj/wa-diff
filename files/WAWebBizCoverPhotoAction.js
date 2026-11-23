@@ -24,10 +24,8 @@ __d(
         i = t.toastId,
         l = i === void 0 ? o("WAWebActionToast.react").genId() : i,
         c = t.ts,
-        d = new (o("WAWebActionToast.react").ActionType)(
-          s._(/*BTDS*/ "Setting cover photo"),
-        ),
-        _ = s._(/*BTDS*/ "Couldn't set cover photo"),
+        d = new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")),
+        _ = s._(/*BTDS*/ ""),
         f = o("WAWebBusinessProfileJob")
           .sendCoverPhoto(n, c, a)
           .catch(function (t) {
@@ -55,7 +53,7 @@ __d(
                   e.status >= 400)
                 )
                   return new (o("WAWebActionToast.react").ActionType)(_, {
-                    actionText: s._(/*BTDS*/ "Try again"),
+                    actionText: s._(/*BTDS*/ ""),
                     actionHandler: function () {
                       return p({ id: n, metaHmac: a, toastId: l, ts: c });
                     },
@@ -69,8 +67,8 @@ __d(
               o("WAWebABProps").getABPropConfigValue(
                 "smb_temp_cover_photo_privacy_messaging",
               )
-                ? (e = s._(/*BTDS*/ "Your cover photo is now public"))
-                : (e = s._(/*BTDS*/ "Cover photo set")),
+                ? (e = s._(/*BTDS*/ ""))
+                : (e = s._(/*BTDS*/ "")),
               new (o("WAWebActionToast.react").ActionType)(e)
             );
           });
@@ -88,10 +86,8 @@ __d(
     function _(e, t) {
       t === void 0 && (t = o("WAWebActionToast.react").genId());
       var n = o("WAWebBusinessProfileJob").deleteCoverPhoto(e),
-        a = new (o("WAWebActionToast.react").ActionType)(
-          s._(/*BTDS*/ "Removing cover photo"),
-        ),
-        i = s._(/*BTDS*/ "Couldn't remove cover photo"),
+        a = new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")),
+        i = s._(/*BTDS*/ ""),
         l = n
           .catch(function (e) {
             throw (
@@ -110,7 +106,7 @@ __d(
               function (n) {
                 if (n.status >= 400)
                   return new (o("WAWebActionToast.react").ActionType)(i, {
-                    actionText: s._(/*BTDS*/ "Try again"),
+                    actionText: s._(/*BTDS*/ ""),
                     actionHandler: function () {
                       return _(e, t);
                     },
@@ -120,7 +116,7 @@ __d(
           )
           .then(function () {
             return new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Cover photo removed"),
+              s._(/*BTDS*/ ""),
             );
           });
       return (

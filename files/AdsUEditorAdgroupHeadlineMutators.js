@@ -12,7 +12,6 @@ __d(
     "AdsUnifiedCreativeAPIFields",
     "FBLogger",
     "immutable",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -32,6 +31,10 @@ __d(
           var m;
           d = r("immutable").Map(((m = {}), (m.text = d), m));
         }
+        if (d == null)
+          throw r("FBLogger")("am_feature_pac").mustfixThrow(
+            "[PAC] First headline must exist",
+          );
         s = u(s, t, n, d);
       }
       return s;
@@ -47,7 +50,7 @@ __d(
           a.get("text"),
         );
       return (
-        r("justknobx")._("3917") ? (l = b(l, t, a, i)) : (l = C(l, t, a, i)),
+        (l = C(l, t, a, i)),
         o("AdsAssetFeedMutationUtils").removeDuplicateAssets(
           l,
           t,
@@ -104,10 +107,7 @@ __d(
               "text",
               a,
             )),
-            e instanceof r("immutable").Map &&
-              (r("justknobx")._("3917")
-                ? (d = b(d, t, e, l))
-                : (d = C(d, t, e, l))),
+            e instanceof r("immutable").Map && (d = C(d, t, e, l)),
             (d = o("AdsAssetFeedMutationUtils").setAssetAdLabelAtIndex(
               d,
               t,
@@ -119,52 +119,52 @@ __d(
       });
       var h = f.index,
         y = f.rule,
-        v = y.get("title_label"),
-        S = _.set(
+        b = y.get("title_label"),
+        v = _.set(
           h,
           y.set("title_label", r("immutable").Map(((c = {}), (c.name = g), c))),
         );
       if (
         ((d = r(
           "AdsAdgroupRecordAccessors",
-        ).creative.asset_feed_spec.asset_customization_rules.set(S, d)),
-        v != null)
+        ).creative.asset_feed_spec.asset_customization_rules.set(v, d)),
+        b != null)
       ) {
-        var R;
-        if (!(v instanceof r("immutable").Map))
+        var S;
+        if (!(b instanceof r("immutable").Map))
           throw r("FBLogger")("am_feature_pac").mustfixThrow(
             "[PAC] labelFieldToRemove has to be an Immutable.Map",
           );
         for (
-          var L = v.get("name"),
-            E = o("AdsAssetFeedFieldUtils").getAssetEntryForLabel(
-              (R = d.creative) == null || (R = R.asset_feed_spec) == null
+          var R = b.get("name"),
+            L = o("AdsAssetFeedFieldUtils").getAssetEntryForLabel(
+              (S = d.creative) == null || (S = S.asset_feed_spec) == null
                 ? void 0
-                : R.titles,
-              L,
+                : S.titles,
+              R,
               "text",
             ).index;
-          typeof E == "number" && E >= 0;
+          typeof L == "number" && L >= 0;
         ) {
-          var k,
-            I = o("AdsAssetFeedMutationUtils").isolateAssetWithLabel(
+          var E,
+            k = o("AdsAssetFeedMutationUtils").isolateAssetWithLabel(
               d,
               t,
               r("AdsUnifiedCreativeAPIFields").headline,
-              E,
+              L,
               "adlabels",
-              L,
+              R,
             ),
-            T = I.adgroupWithIsolatedAsset,
-            D = I.isolatedAssetIndex;
+            I = k.adgroupWithIsolatedAsset,
+            T = k.isolatedAssetIndex;
           ((d = r("AdsAdgroupRecordAccessors")
-            .creative.asset_feed_spec.titles.at(D)
-            .delete(T)),
-            (E = o("AdsAssetFeedFieldUtils").getAssetEntryForLabel(
-              (k = d.creative) == null || (k = k.asset_feed_spec) == null
+            .creative.asset_feed_spec.titles.at(T)
+            .delete(I)),
+            (L = o("AdsAssetFeedFieldUtils").getAssetEntryForLabel(
+              (E = d.creative) == null || (E = E.asset_feed_spec) == null
                 ? void 0
-                : k.titles,
-              L,
+                : E.titles,
+              R,
               "text",
             ).index));
         }
@@ -339,77 +339,6 @@ __d(
     }
     function C(e, t, n, a) {
       if (n == null) return e;
-      var i = e,
-        l = n.get("asset_source");
-      l != null &&
-        (i = o("AdsAssetFeedMutationUtils").setAssetFieldAtIndex(
-          i,
-          t,
-          r("AdsUnifiedCreativeAPIFields").headline,
-          a,
-          "asset_source",
-          l,
-        ));
-      var s = n.get("uuid");
-      if (
-        (s != null &&
-          (i = o("AdsAssetFeedMutationUtils").setAssetFieldAtIndex(
-            i,
-            t,
-            r("AdsUnifiedCreativeAPIFields").headline,
-            a,
-            "uuid",
-            s,
-          )),
-        !r("justknobx")._("1921"))
-      ) {
-        var u = n.get("text_gen_original_text");
-        u != null &&
-          (i = o("AdsAssetFeedMutationUtils").setAssetFieldAtIndex(
-            i,
-            t,
-            r("AdsUnifiedCreativeAPIFields").headline,
-            a,
-            "text_gen_original_text",
-            u,
-          ));
-        var c = n.get("text_gen_input_text");
-        c != null &&
-          (i = o("AdsAssetFeedMutationUtils").setAssetFieldAtIndex(
-            i,
-            t,
-            r("AdsUnifiedCreativeAPIFields").headline,
-            a,
-            "text_gen_input_text",
-            c,
-          ));
-      }
-      var d = n.get("action_type");
-      d != null &&
-        (i = o("AdsAssetFeedMutationUtils").setAssetFieldAtIndex(
-          i,
-          t,
-          r("AdsUnifiedCreativeAPIFields").headline,
-          a,
-          "action_type",
-          d,
-        ));
-      var m = n.get("language");
-      return (
-        m != null &&
-          (i = o("AdsAssetFeedMutationUtils").setAssetFieldAtIndex(
-            i,
-            t,
-            r("AdsUnifiedCreativeAPIFields").headline,
-            a,
-            "language",
-            m,
-          )),
-        i
-      );
-    }
-    function b(e, t, n, a) {
-      if (n == null) return e;
       var i = e;
       return (
         o(
@@ -429,30 +358,27 @@ __d(
         i
       );
     }
-    function v(e, t, n) {
-      (n === void 0 && (n = !1),
-        e != null &&
-          o(
-            "AdsAssetFeedMutationUtils",
-          ).PAC_DOF_TO_DOF_ALLOWED_TITLE_ASSET_FIELDS.forEach(function (r) {
-            if (!(r in t && !n)) {
-              var o = e.get(r);
-              o != null && typeof o == "string" && (t[r] = o);
-            }
-          }));
+    function b(e, t) {
+      e != null &&
+        o(
+          "AdsAssetFeedMutationUtils",
+        ).PAC_DOF_TO_DOF_ALLOWED_TITLE_ASSET_FIELDS.forEach(function (n) {
+          if (!(n in t)) {
+            var r = e.get(n);
+            r != null && typeof r == "string" && (t[n] = r);
+          }
+        });
     }
     ((l.addPlacementCustomizationHeadline = e),
       (l.getDefaultPlacementHeadlineAssetAndIndex = d),
-      (l.getDefaultHeadlineLabelFromTargetRules = m),
       (l.getHeadlineAssetsFromLabel = p),
       (l.getDefaultPlacementHeadlineAssets = _),
       (l.getDefaultPlacementHeadlineAssetsText = f),
       (l.copyDefaultPlacementHeadline = g),
       (l.copyDefaultPlacementHeadlines = h),
       (l.removeAdlabelFromHeadlineAssetGivenAdlabel = y),
-      (l.copyTextGenRelatedFields = C),
-      (l.copyHeadlineFieldsToIndex = b),
-      (l.copyHeadlineFieldsToFieldMap = v));
+      (l.copyHeadlineFieldsToIndex = C),
+      (l.copyHeadlineFieldsToFieldMap = b));
   },
   98,
 );

@@ -10,8 +10,7 @@ __d(
     "AdsChildAttachmentsUtils",
     "AdsCreativeFlexAssetUtils",
     "AdsDynamicAdsUtils",
-    "AdsPCAUnificationUtils",
-    "AdsPCAUnifiedFormatEligibilityUtils",
+    "AdsPCAConsolidationUtils",
     "AdsPromotedObjectTypes",
     "AdsUEditorAdgroupAdObjectsUtils",
     "AdsUEditorAdgroupCreativeFormat",
@@ -51,97 +50,89 @@ __d(
         DirectDuplication: "Direct Duplication",
         DirectCreation: "Direct Creation",
       });
-    function c(e, t) {
-      return (
-        (e &&
-          !o(
-            "AdsPCAUnificationUtils",
-          ).AdsIsPcaUnificationWs1ScaledAlphaOrBetaGKEnabled()) ||
-        t
-      );
-    }
-    function d(e) {
+    function c(e) {
       var t,
-        n = e.adgroup,
-        a = e.campaign,
-        i = e.campaignGroup,
-        l = i.objective,
-        s = c(
-          o("AdsPCAUnificationUtils").isPcaUnificationEnabled(i),
-          o("AdsPCAUnifiedFormatEligibilityUtils").isEligiblePCAUnifiedAdgroup(
-            n,
-          ),
-        );
-      if (s)
-        return {
-          isEligible: !1,
-          reason: "pca_unification_enabled_without_sa_off_gk",
-        };
-      var u = a.conversion_locations;
-      if (u != null && u === r("AdsPromotedObjectTypes").MOBILE_APP)
+        n = e.campaign,
+        a = e.campaignGroup,
+        i = a.objective,
+        l = n.conversion_locations;
+      if (l != null && l === r("AdsPromotedObjectTypes").MOBILE_APP)
         return { isEligible: !1, reason: "app_only_campaign_not_supported" };
-      var d = [
+      var s = [
           r("AdsAPIObjectives").PRODUCT_CATALOG_SALES,
           r("AdsAPIObjectives").CONVERSIONS,
           r("AdsAPIObjectives").OUTCOME_SALES,
         ],
-        m =
-          d.find(function (e) {
-            return e === l;
+        u =
+          s.find(function (e) {
+            return e === i;
           }) != null;
-      if (!m) return { isEligible: !1, reason: "objective_not_supported:" + l };
-      var p = (t = a.promoted_object) == null ? void 0 : t.custom_event_type,
-        _ = [
+      if (!u) return { isEligible: !1, reason: "objective_not_supported:" + i };
+      var c = (t = n.promoted_object) == null ? void 0 : t.custom_event_type,
+        m = [
           "PURCHASE",
           "ADD_TO_CART",
           "ADD_TO_WISHLIST",
           "INITIATED_CHECKOUT",
           "CONTENT_VIEW",
         ],
-        h =
-          _.find(function (e) {
-            return e === p;
+        p =
+          m.find(function (e) {
+            return e === c;
           }) != null;
-      if (!h)
+      if (!p)
         return {
           isEligible: !1,
-          reason: "custom_event_type_not_supported:" + (p != null ? p : "null"),
+          reason: "custom_event_type_not_supported:" + (c != null ? c : "null"),
         };
-      if (!o("NativeCommerceExperienceAdsUtils").isWebsiteCampaign(a))
+      if (!o("NativeCommerceExperienceAdsUtils").isWebsiteCampaign(n))
         return { isEligible: !1, reason: "not_website_campaign" };
-      var y = g(e);
+      var _ = g(e);
+      if (!_.isSupported) {
+        var h;
+        return {
+          isEligible: !1,
+          reason:
+            "adgroup_format_not_supported:" +
+            ((h = _.reason) != null ? h : "unknown"),
+        };
+      }
+      var y = f(e);
       if (!y.isSupported) {
         var C;
         return {
           isEligible: !1,
           reason:
-            "adgroup_format_not_supported:" +
+            "ad_creative_feature_not_supported:" +
             ((C = y.reason) != null ? C : "unknown"),
         };
       }
-      var b = f(e);
-      if (!b.isSupported) {
-        var v;
+      var b =
+        n.optimization_goal ===
+          r("AdsAPIOptimizationGoals").OFFSITE_CONVERSIONS ||
+        n.optimization_goal === r("AdsAPIOptimizationGoals").VALUE;
+      if (!b)
         return {
           isEligible: !1,
-          reason:
-            "ad_creative_feature_not_supported:" +
-            ((v = b.reason) != null ? v : "unknown"),
+          reason: "optimization_goal_not_supported:" + n.optimization_goal,
         };
-      }
-      var S =
-        a.optimization_goal ===
-          r("AdsAPIOptimizationGoals").OFFSITE_CONVERSIONS ||
-        a.optimization_goal === r("AdsAPIOptimizationGoals").VALUE;
-      return S
-        ? { isEligible: !0, reason: null }
-        : {
-            isEligible: !1,
-            reason: "optimization_goal_not_supported:" + a.optimization_goal,
-          };
+      var v =
+        i === r("AdsAPIObjectives").CONVERSIONS ||
+        i === r("AdsAPIObjectives").OUTCOME_SALES;
+      return v && !o("AdsPCAConsolidationUtils").isPCAVariation(n) && d(n)
+        ? { isEligible: !1, reason: "web_and_app_not_supported" }
+        : { isEligible: !0, reason: null };
+    }
+    function d(e) {
+      var t,
+        n =
+          (t = e.promoted_object) == null || (t = t.omnichannel_object) == null
+            ? void 0
+            : t.app;
+      return n == null ? !1 : Array.isArray(n) ? n.length > 0 : n.size > 0;
     }
     function m(e, t) {
-      var n = d(e);
+      var n = c(e);
       if (!n.isEligible) return !1;
       var a = o("AdsDynamicAdsUtils").isDynamicAd(e.adgroup),
         i = o("AdsUEditorAdgroupAdObjectsUtils").getCreativeFormat(e, !1);
@@ -156,79 +147,64 @@ __d(
                 i === r("AdsUEditorAdgroupCreativeFormat").SINGLE_VIDEO))
           );
     }
-    function p(e, t, n, a, i, l) {
-      var s,
-        u,
-        d,
-        m = e.adgroup,
-        p = e.campaign,
-        _ = e.campaignGroup,
-        f =
+    function p(e, t, n, o, a, i) {
+      var l,
+        s,
+        u = e.adgroup,
+        c = e.campaign,
+        m = e.campaignGroup,
+        p =
           (n === "app" && t == null) ||
           t === "deeplink_with_web_fallback" ||
           t === "automatic",
-        h =
-          (s = p.promoted_object) == null || (s = s.omnichannel_object) == null
+        _ = d(c) && t == null,
+        f =
+          ((l = u.creative) == null ||
+          (l = l.template_url_spec) == null ||
+          (l = l.config) == null
             ? void 0
-            : s.app,
-        y = h != null && h.size > 0,
-        C = y && t == null,
-        b =
-          ((u = m.creative) == null ||
-          (u = u.template_url_spec) == null ||
-          (u = u.config) == null
-            ? void 0
-            : u.app_id) != null && t == null;
-      if (!(!f && !C && !b)) {
-        var v = c(
-          o("AdsPCAUnificationUtils").isPcaUnificationEnabled(_),
-          o("AdsPCAUnifiedFormatEligibilityUtils").isEligiblePCAUnifiedAdgroup(
-            m,
-          ),
-        );
-        if (!v) {
-          var S = p.conversion_locations;
-          if (!(S != null && S === r("AdsPromotedObjectTypes").MOBILE_APP)) {
-            var R = _.objective,
-              L = [
-                r("AdsAPIObjectives").PRODUCT_CATALOG_SALES,
-                r("AdsAPIObjectives").CONVERSIONS,
-                r("AdsAPIObjectives").OUTCOME_SALES,
-              ];
+            : l.app_id) != null && t == null;
+      if (!(!p && !_ && !f)) {
+        var h = c.conversion_locations;
+        if (!(h != null && h === r("AdsPromotedObjectTypes").MOBILE_APP)) {
+          var y = m.objective,
+            C = [
+              r("AdsAPIObjectives").PRODUCT_CATALOG_SALES,
+              r("AdsAPIObjectives").CONVERSIONS,
+              r("AdsAPIObjectives").OUTCOME_SALES,
+            ];
+          if (
+            C.find(function (e) {
+              return e === y;
+            }) != null
+          ) {
+            var b =
+              (s = c.promoted_object) == null ? void 0 : s.custom_event_type;
+            if (b == null) {
+              var v;
+              b =
+                (v = c.promoted_object) == null ||
+                (v = v.omnichannel_object) == null ||
+                (v = v.pixel) == null ||
+                (v = v.first()) == null
+                  ? void 0
+                  : v.toJS().custom_event_type;
+            }
+            var S = ["PURCHASE"];
             if (
-              L.find(function (e) {
-                return e === R;
+              S.find(function (e) {
+                return e === b;
               }) != null
             ) {
-              var E =
-                (d = p.promoted_object) == null ? void 0 : d.custom_event_type;
-              if (E == null) {
-                var k;
-                E =
-                  (k = p.promoted_object) == null ||
-                  (k = k.omnichannel_object) == null ||
-                  (k = k.pixel) == null ||
-                  (k = k.first()) == null
-                    ? void 0
-                    : k.toJS().custom_event_type;
-              }
-              var I = ["PURCHASE"];
-              if (
-                I.find(function (e) {
-                  return e === E;
-                }) != null
-              ) {
-                var T = g(e);
-                T.isSupported &&
-                  ((p.optimization_goal !==
-                    r("AdsAPIOptimizationGoals").OFFSITE_CONVERSIONS &&
-                    p.optimization_goal !==
-                      r("AdsAPIOptimizationGoals").VALUE) ||
-                    a == null ||
-                    !a.includes("OFFSITE_IAB_CHECKOUT_ENABLED") ||
-                    (i != null && l != null && i !== l) ||
-                    r("qex")._("1531"));
-              }
+              var R = g(e);
+              R.isSupported &&
+                ((c.optimization_goal !==
+                  r("AdsAPIOptimizationGoals").OFFSITE_CONVERSIONS &&
+                  c.optimization_goal !== r("AdsAPIOptimizationGoals").VALUE) ||
+                  o == null ||
+                  !o.includes("OFFSITE_IAB_CHECKOUT_ENABLED") ||
+                  (a != null && i != null && a !== i) ||
+                  r("qex")._("1531"));
             }
           }
         }
@@ -274,9 +250,12 @@ __d(
         return o("NativeCommerceExperienceAdsUtils")
           .NativeCommerceExperienceOptinIneligibilityReason
           .OFFSITE_IAB_CHECKOUT;
-      y(t, n, r);
+      C(t, n, r);
     }
-    function y(e, t, n) {
+    function y() {
+      return !r("gkx")("4862");
+    }
+    function C(e, t, n) {
       var r;
       if (t == null)
         return o("NativeCommerceExperienceAdsUtils")
@@ -286,20 +265,20 @@ __d(
         (r = n.get(t)) == null || (r = r.getValue()) == null
           ? void 0
           : r.catalogID;
-      return e !== a
+      return e !== a && y()
         ? o("NativeCommerceExperienceAdsUtils")
             .NativeCommerceExperienceOptinIneligibilityReason
             .CATALOG_NOT_MATCHING
         : null;
     }
-    function C(e, t) {
-      return e !== t
+    function b(e, t) {
+      return e !== t && y()
         ? o("NativeCommerceExperienceAdsUtils")
             .NativeCommerceExperienceOptinIneligibilityReason
             .CATALOG_NOT_MATCHING
         : null;
     }
-    function b(e) {
+    function v(e) {
       if (e == null) return !0;
       var t = [
         r("AdCampaignDestination").WEBSITE,
@@ -311,7 +290,7 @@ __d(
         }) != null
       );
     }
-    function v(e) {
+    function S(e) {
       var t;
       return (
         ((t = e.creative) == null || (t = t.destination_spec) == null
@@ -319,7 +298,7 @@ __d(
           : t.destination_type) === "WEBSITE_AND_SHOP"
       );
     }
-    function S(e, t, n) {
+    function R(e, t, n) {
       var o = r(
         "AdsAdgroupRecordAccessors",
       ).creative.destination_spec.native_commerce_experience.shop.enroll_status.set(
@@ -335,16 +314,16 @@ __d(
     }
     ((l.SAOffDefaultingTrigger = s),
       (l.ShopsAdsEntryPoint = u),
-      (l.isSAOffDisabledForPCAU = c),
-      (l.isEligibleForOffsiteCheckoutShopsAds = d),
+      (l.isEligibleForOffsiteCheckoutShopsAds = c),
       (l.shouldShowSAOffOptInForLastCard = m),
       (l.logSAOffWebAndAppExposure = p),
       (l.shouldShowSAOffOptIn = h),
-      (l.shouldShowSAOffOptInForDynamicAds = y),
-      (l.shouldShowSAOffOptInForPCAU = C),
-      (l.isWebsiteDestinationType = b),
-      (l.adgroupHasWebsiteAndShopDestinationSpec = v),
-      (l.updateShopAdSpec = S));
+      (l.isCatalogMismatchIneligibilityEnforced = y),
+      (l.shouldShowSAOffOptInForDynamicAds = C),
+      (l.shouldShowSAOffOptInForPCAU = b),
+      (l.isWebsiteDestinationType = v),
+      (l.adgroupHasWebsiteAndShopDestinationSpec = S),
+      (l.updateShopAdSpec = R));
   },
   98,
 );

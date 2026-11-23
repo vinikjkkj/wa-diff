@@ -1,7 +1,6 @@
 __d(
   "WAWebLidAwareContactsDB",
   [
-    "Promise",
     "WALogger",
     "WAWebApiContact",
     "WAWebContactsDbLidMigrationUtils",
@@ -9,7 +8,6 @@ __d(
     "WAWebStorageCrashAnnotations",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "err",
     "nullthrows",
@@ -27,9 +25,8 @@ __d(
         "phoneNumber",
         "phoneNumberCreatedAt",
         "pnContactHash",
-      ],
-      _;
-    function f(e) {
+      ];
+    function _(e) {
       var t,
         n = r("WAWebWid").isStringLid(e)
           ? null
@@ -53,450 +50,340 @@ __d(
                 : o("WAWebContactsDbLidMigrationUtils").removeLidOnlyCols(t, e);
             });
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    async function f(e, t) {
+      var n = await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+        .getContactTable()
+        .all(e, t);
+      return o("WAWebContactsDbLidMigrationUtils").replacePnRowsWithLidData(n);
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-            .getContactTable()
-            .all(e, t);
-          return o("WAWebContactsDbLidMigrationUtils").replacePnRowsWithLidData(
-            n,
-          );
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
+    function g(e) {
       return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable()
         .clear(e);
     }
-    function C(e, t, n) {
-      return b.apply(this, arguments);
+    async function h(e, t, n) {
+      if (e[0] === "contactHash") {
+        var a = await Promise.all([
+            o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+              .getContactTable()
+              .equals(e, t, n),
+            o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+              .getContactTable()
+              .equals(["pnContactHash"], t, n),
+          ]),
+          i = a[0],
+          l = a[1],
+          s = new Map();
+        return (
+          l == null ||
+            l.forEach(function (e) {
+              if (r("WAWebWid").isStringLid(e.id)) {
+                var t = e.contactHash,
+                  n = e.id,
+                  a = e.phoneNumber,
+                  i = e.phoneNumberCreatedAt,
+                  l = e.pnContactHash,
+                  u = babelHelpers.objectWithoutPropertiesLoose(e, p),
+                  c = o("WAWebApiContact").getPnIfLidIsLatestMapping(
+                    o("WAWebWidFactory").createUserLidOrThrow(n),
+                  );
+                if (c != null) {
+                  var d = c.toJid();
+                  s.set(
+                    d,
+                    babelHelpers.extends({}, u, {
+                      id: d,
+                      contactHash: e.pnContactHash,
+                    }),
+                  );
+                }
+              }
+            }),
+          s.size === 0 &&
+            (i == null ||
+              i.map(function (e) {
+                return s.set(e.id, e);
+              })),
+          Array.from(s.values())
+        );
+      }
+      var u = await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+        .getContactTable()
+        .equals(e, t, n);
+      return o("WAWebContactsDbLidMigrationUtils").replacePnRowsWithLidData(u);
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          if (e[0] === "contactHash") {
-            var i = yield (_ || (_ = n("Promise"))).all([
-                o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-                  .getContactTable()
-                  .equals(e, t, a),
-                o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-                  .getContactTable()
-                  .equals(["pnContactHash"], t, a),
-              ]),
-              l = i[0],
-              s = i[1],
-              u = new Map();
-            return (
-              s == null ||
-                s.forEach(function (e) {
-                  if (r("WAWebWid").isStringLid(e.id)) {
-                    var t = e.contactHash,
-                      n = e.id,
-                      a = e.phoneNumber,
-                      i = e.phoneNumberCreatedAt,
-                      l = e.pnContactHash,
-                      s = babelHelpers.objectWithoutPropertiesLoose(e, p),
-                      c = o("WAWebApiContact").getPnIfLidIsLatestMapping(
-                        o("WAWebWidFactory").createUserLidOrThrow(n),
-                      );
-                    if (c != null) {
-                      var d = c.toJid();
-                      u.set(
-                        d,
-                        babelHelpers.extends({}, s, {
-                          id: d,
-                          contactHash: e.pnContactHash,
-                        }),
-                      );
-                    }
-                  }
-                }),
-              u.size === 0 &&
-                (l == null ||
-                  l.map(function (e) {
-                    return u.set(e.id, e);
-                  })),
-              Array.from(u.values())
-            );
-          }
-          var c = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-            .getContactTable()
-            .equals(e, t, a);
-          return o("WAWebContactsDbLidMigrationUtils").replacePnRowsWithLidData(
-            c,
-          );
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e) {
+    function y(e) {
       return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable()
         .create(e);
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          for (
-            var r = o(
-                "WAWebContactsDbLidMigrationUtils",
-              ).maybeReplacePhoneNumbersWithLatestLids(e),
-              a = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-                .getContactTable()
-                .bulkGet(r, t),
-              i = [],
-              l = 0;
-            l < e.length;
-            l++
-          ) {
-            var s = e[l],
-              u = a[l];
-            u == null || u.id === s
-              ? i.push(u)
-              : i.push(
-                  o("WAWebContactsDbLidMigrationUtils").removeLidOnlyCols(u, s),
-                );
-          }
-          return (_ || (_ = n("Promise"))).resolve(i);
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e, t) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            e.some(function (e) {
-              return r("WAWebWid").isStringLid(e);
-            })
-          )
-            throw r("err")("Expected phone contact keys");
-          var n = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+    async function C(e, t) {
+      for (
+        var n = o(
+            "WAWebContactsDbLidMigrationUtils",
+          ).maybeReplacePhoneNumbersWithLatestLids(e),
+          r = await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
             .getContactTable()
-            .bulkGet(e, t);
-          if (
-            n.length !== e.length ||
-            n.some(function (t, n) {
-              return t != null && t.id !== e[n];
-            })
-          )
-            throw r("err")("Incomplete physical phone contact lookup");
-          return n;
-        })),
-        E.apply(this, arguments)
-      );
+            .bulkGet(n, t),
+          a = [],
+          i = 0;
+        i < e.length;
+        i++
+      ) {
+        var l = e[i],
+          s = r[i];
+        s == null || s.id === l
+          ? a.push(s)
+          : a.push(
+              o("WAWebContactsDbLidMigrationUtils").removeLidOnlyCols(s, l),
+            );
+      }
+      return Promise.resolve(a);
     }
-    function k(e) {
+    async function b(e, t) {
+      if (
+        e.some(function (e) {
+          return r("WAWebWid").isStringLid(e);
+        })
+      )
+        throw r("err")("Expected phone contact keys");
+      var n = await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+        .getContactTable()
+        .bulkGet(e, t);
+      if (
+        n.length !== e.length ||
+        n.some(function (t, n) {
+          return t != null && t.id !== e[n];
+        })
+      )
+        throw r("err")("Incomplete physical phone contact lookup");
+      return n;
+    }
+    function v(e) {
       return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable()
         .anyOf(["phoneNumber"], e, { shouldDecrypt: !1 });
     }
-    function I(e, t, n) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = o("WAWebContactsDbLidMigrationUtils").getAlternateRowUpdates(
-              e,
-              t,
-            ),
-            i =
-              a != null
-                ? o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-                    .getContactTable()
-                    .merge(a.id, a, r)
-                : (_ || (_ = n("Promise"))).resolve();
-          yield (_ || (_ = n("Promise"))).all([
-            o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-              .getContactTable()
-              .merge(e, t, r),
-            i,
-          ]);
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    function D(e, t) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = o("WAWebContactsDbLidMigrationUtils").getAlternateRowUpdates(
-              e,
-              t,
-            ),
-            a =
-              r != null
-                ? o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-                    .getContactTable()
-                    .createOrMerge(r.id, r)
-                : (_ || (_ = n("Promise"))).resolve();
-          yield (_ || (_ = n("Promise"))).all([
-            o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-              .getContactTable()
-              .createOrMerge(e, t),
-            a,
-          ]);
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e, t) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          a === void 0 && (a = "n/a");
-          var i = self.performance.now();
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "bulkCreateOrMerge [",
-                "]: ",
-                " changes",
-              ])),
-            a,
-            t.length,
-          );
-          try {
-            if (t.length === 0) return (_ || (_ = n("Promise"))).resolve();
-            var l = r("compactMap")(t, function (e) {
-              return o(
-                "WAWebContactsDbLidMigrationUtils",
-              ).getAlternateRowUpdates(r("nullthrows")(e.id), e);
-            });
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "bulkCreateOrMerge [",
-                  "]: ",
-                  " alternate rows",
-                ])),
-              a,
-              l.length,
-            );
-            var c = [].concat(t, l);
-            return (
-              o(
-                "WAWebStorageCrashAnnotations",
-              ).annotateCrashWithBulkWriteCaller(a, c),
-              yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+    async function S(e, t, n) {
+      var r = o("WAWebContactsDbLidMigrationUtils").getAlternateRowUpdates(
+          e,
+          t,
+        ),
+        a =
+          r != null
+            ? o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
                 .getContactTable()
-                .bulkCreateOrMerge(c)
-            );
-          } finally {
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "bulkCreateOrMerge [",
-                  "]: ",
-                  " changes: ",
-                  "ms",
-                ])),
-              a,
-              t.length,
-              Math.round(self.performance.now() - i),
-            );
-          }
-        })),
-        P.apply(this, arguments)
+                .merge(r.id, r, n)
+            : Promise.resolve();
+      await Promise.all([
+        o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+          .getContactTable()
+          .merge(e, t, n),
+        a,
+      ]);
+    }
+    async function R(e, t) {
+      var n = o("WAWebContactsDbLidMigrationUtils").getAlternateRowUpdates(
+          e,
+          t,
+        ),
+        r =
+          n != null
+            ? o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+                .getContactTable()
+                .createOrMerge(n.id, n)
+            : Promise.resolve();
+      await Promise.all([
+        o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+          .getContactTable()
+          .createOrMerge(e, t),
+        r,
+      ]);
+    }
+    async function L(t, n) {
+      n === void 0 && (n = "n/a");
+      var a = self.performance.now();
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "bulkCreateOrMerge [",
+            "]: ",
+            " changes",
+          ])),
+        n,
+        t.length,
       );
+      try {
+        if (t.length === 0) return Promise.resolve();
+        var i = r("compactMap")(t, function (e) {
+          return o("WAWebContactsDbLidMigrationUtils").getAlternateRowUpdates(
+            r("nullthrows")(e.id),
+            e,
+          );
+        });
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "bulkCreateOrMerge [",
+              "]: ",
+              " alternate rows",
+            ])),
+          n,
+          i.length,
+        );
+        var l = [].concat(t, i);
+        return (
+          o("WAWebStorageCrashAnnotations").annotateCrashWithBulkWriteCaller(
+            n,
+            l,
+          ),
+          await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+            .getContactTable()
+            .bulkCreateOrMerge(l)
+        );
+      } finally {
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "bulkCreateOrMerge [",
+              "]: ",
+              " changes: ",
+              "ms",
+            ])),
+          n,
+          t.length,
+          Math.round(self.performance.now() - a),
+        );
+      }
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
-    }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = "n/a");
-          var a = self.performance.now();
-          o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "bulkMergeOnly [",
-                "]: ",
-                " changes",
-              ])),
+    async function E(e, t) {
+      t === void 0 && (t = "n/a");
+      var n = self.performance.now();
+      o("WALogger").LOG(
+        c ||
+          (c = babelHelpers.taggedTemplateLiteralLoose([
+            "bulkMergeOnly [",
+            "]: ",
+            " changes",
+          ])),
+        t,
+        e.length,
+      );
+      try {
+        if (e.length === 0) return Promise.resolve();
+        var a = r("compactMap")(e, function (e) {
+          return o("WAWebContactsDbLidMigrationUtils").getAlternateRowUpdates(
+            r("nullthrows")(e.id),
+            e,
+          );
+        });
+        o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "bulkMergeOnly [",
+              "]: ",
+              " alternate rows",
+            ])),
+          t,
+          a.length,
+        );
+        var i = [].concat(e, a);
+        return (
+          o("WAWebStorageCrashAnnotations").annotateCrashWithBulkWriteCaller(
             t,
-            e.length,
-          );
-          try {
-            if (e.length === 0) return (_ || (_ = n("Promise"))).resolve();
-            var i = r("compactMap")(e, function (e) {
-              return o(
-                "WAWebContactsDbLidMigrationUtils",
-              ).getAlternateRowUpdates(r("nullthrows")(e.id), e);
-            });
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "bulkMergeOnly [",
-                  "]: ",
-                  " alternate rows",
-                ])),
-              t,
-              i.length,
-            );
-            var l = [].concat(e, i);
-            return (
-              o(
-                "WAWebStorageCrashAnnotations",
-              ).annotateCrashWithBulkWriteCaller(t, l),
-              yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-                .getContactTable()
-                .bulkMergeOnly(l)
-            );
-          } finally {
-            o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "bulkMergeOnly [",
-                  "]: ",
-                  " changes: ",
-                  "ms",
-                ])),
-              t,
-              e.length,
-              Math.round(self.performance.now() - a),
-            );
-          }
-        })),
-        M.apply(this, arguments)
-      );
+            i,
+          ),
+          await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+            .getContactTable()
+            .bulkMergeOnly(i)
+        );
+      } finally {
+        o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "bulkMergeOnly [",
+              "]: ",
+              " changes: ",
+              "ms",
+            ])),
+          t,
+          e.length,
+          Math.round(self.performance.now() - n),
+        );
+      }
     }
-    function w(e) {
+    function k(e) {
       return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable()
         .bulkRemove(e);
     }
-    function A(e) {
+    function I(e) {
       return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable()
         .remove(e);
     }
-    function F(e, t) {
-      return O.apply(this, arguments);
+    async function T(e, t) {
+      var n = await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+        .getContactTable()
+        .lessThan(e, t);
+      return o("WAWebContactsDbLidMigrationUtils").replacePnRowsWithLidData(n);
     }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-            .getContactTable()
-            .lessThan(e, t);
-          return o("WAWebContactsDbLidMigrationUtils").replacePnRowsWithLidData(
-            n,
-          );
-        })),
-        O.apply(this, arguments)
-      );
+    async function D(e, t, n) {
+      var r = await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+        .getContactTable()
+        .greaterThan(e, t, n);
+      return o("WAWebContactsDbLidMigrationUtils").replacePnRowsWithLidData(r);
     }
-    function B(e, t, n) {
-      return W.apply(this, arguments);
+    async function x(e, t) {
+      var n = await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+        .getContactTable()
+        .anyOf(e, t);
+      return o("WAWebContactsDbLidMigrationUtils").replacePnRowsWithLidData(n);
     }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-            .getContactTable()
-            .greaterThan(e, t, n);
-          return o("WAWebContactsDbLidMigrationUtils").replacePnRowsWithLidData(
-            r,
-          );
-        })),
-        W.apply(this, arguments)
-      );
-    }
-    function q(e, t) {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-            .getContactTable()
-            .anyOf(e, t);
-          return o("WAWebContactsDbLidMigrationUtils").replacePnRowsWithLidData(
-            n,
-          );
-        })),
-        U.apply(this, arguments)
-      );
-    }
-    function V(e) {
+    function $(e) {
       o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable()
         .setUpdateListener(e);
     }
-    function H() {
+    function P() {
       return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
         .getContactTable()
         .count();
     }
-    function G() {
-      return z.apply(this, arguments);
+    async function N() {
+      return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+        .getContactTable()
+        .allPrimaryKeys();
     }
-    function z() {
-      return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-            .getContactTable()
-            .allPrimaryKeys();
-        })),
-        z.apply(this, arguments)
-      );
+    async function M(e, t) {
+      return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+        .getContactTable()
+        .equalsPrimaryKeys(e, t);
     }
-    function j(e, t) {
-      return K.apply(this, arguments);
-    }
-    function K() {
-      return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-            .getContactTable()
-            .equalsPrimaryKeys(e, t);
-        })),
-        K.apply(this, arguments)
-      );
-    }
-    var Q = {
-      get: f,
-      all: g,
-      allPrimaryKeys: G,
-      clear: y,
-      equals: C,
-      equalsPrimaryKeys: j,
-      create: v,
-      bulkGet: S,
-      bulkGetPhysicalPhoneRows: L,
-      anyOfPhysicalPhoneMappingRows: k,
-      merge: I,
-      createOrMerge: D,
-      bulkCreateOrMerge: $,
-      bulkMergeOnly: N,
-      bulkRemove: w,
-      remove: A,
-      lessThan: F,
-      greaterThan: B,
-      anyOf: q,
-      setUpdateListener: V,
-      count: H,
+    var w = {
+      get: _,
+      all: f,
+      allPrimaryKeys: N,
+      clear: g,
+      equals: h,
+      equalsPrimaryKeys: M,
+      create: y,
+      bulkGet: C,
+      bulkGetPhysicalPhoneRows: b,
+      anyOfPhysicalPhoneMappingRows: v,
+      merge: S,
+      createOrMerge: R,
+      bulkCreateOrMerge: L,
+      bulkMergeOnly: E,
+      bulkRemove: k,
+      remove: I,
+      lessThan: T,
+      greaterThan: D,
+      anyOf: x,
+      setUpdateListener: $,
+      count: P,
     };
-    l.default = Q;
+    l.default = w;
   },
   98,
 );

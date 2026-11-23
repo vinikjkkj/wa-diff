@@ -6,73 +6,57 @@ __d(
     "WAWebEBLabyrinthWaWasmReactorSingleton",
     "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t,
-              n = o("WALongInt").decimalStringToLongInt(
-                e.virtualDeviceBaseEpochId,
+    async function e(e) {
+      try {
+        var t,
+          n = o("WALongInt").decimalStringToLongInt(e.virtualDeviceBaseEpochId),
+          a = o("WALongInt").decimalStringToLongInt(e.activeEpochId);
+        return await o(
+          "WAWebEBLabyrinthWaWasmReactorSingleton",
+        ).labyrinthWaCommand(
+          {
+            InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
+            ResultSpec: o("WAWebLabyrinthWaWasm.pb").PrepareAddDeviceOutputSpec,
+            validateResult: s,
+          },
+          {
+            prepareAddDeviceInput: {
+              recoveryCode: e.recoveryCode,
+              userId: o("WALongInt").decimalStringToLongInt(
+                e.waCanonicalUserFbid,
               ),
-              a = o("WALongInt").decimalStringToLongInt(e.activeEpochId);
-            return yield o(
-              "WAWebEBLabyrinthWaWasmReactorSingleton",
-            ).labyrinthWaCommand(
-              {
-                InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
-                ResultSpec: o("WAWebLabyrinthWaWasm.pb")
-                  .PrepareAddDeviceOutputSpec,
-                validateResult: u,
-              },
-              {
-                prepareAddDeviceInput: {
-                  recoveryCode: e.recoveryCode,
-                  userId: o("WALongInt").decimalStringToLongInt(
-                    e.waCanonicalUserFbid,
-                  ),
-                  encryptedSecretValuesJson: e.encryptedSecretValuesJson,
-                  virtualDeviceBaseEpochId: n,
-                  activeEpochId: a,
-                  syncEpochs: ((t = e.syncEpochs) != null ? t : []).map(
-                    function (e) {
-                      return {
-                        epochId: o("WALongInt").decimalStringToLongInt(
-                          e.epochId,
-                        ),
-                        epochAnonId: e.epochAnonId,
-                        encryptedEpochKey: e.encryptedEpochKey,
-                        senderAuthPubKey: e.senderAuthPubKey,
-                        nextEpochId:
-                          e.nextEpochId == null
-                            ? null
-                            : o("WALongInt").decimalStringToLongInt(
-                                e.nextEpochId,
-                              ),
-                      };
-                    },
-                  ),
+              encryptedSecretValuesJson: e.encryptedSecretValuesJson,
+              virtualDeviceBaseEpochId: n,
+              activeEpochId: a,
+              syncEpochs: ((t = e.syncEpochs) != null ? t : []).map(
+                function (e) {
+                  return {
+                    epochId: o("WALongInt").decimalStringToLongInt(e.epochId),
+                    epochAnonId: e.epochAnonId,
+                    encryptedEpochKey: e.encryptedEpochKey,
+                    senderAuthPubKey: e.senderAuthPubKey,
+                    nextEpochId:
+                      e.nextEpochId == null
+                        ? null
+                        : o("WALongInt").decimalStringToLongInt(e.nextEpochId),
+                  };
                 },
-              },
-            );
-          } catch (e) {
-            return o("WAResultOrError").makeError({
-              error: r("getErrorSafe")(e),
-              kind: "exception",
-            });
-          }
-        })),
-        s.apply(this, arguments)
-      );
+              ),
+            },
+          },
+        );
+      } catch (e) {
+        return o("WAResultOrError").makeError({
+          error: r("getErrorSafe")(e),
+          kind: "exception",
+        });
+      }
     }
-    function u(e) {
+    function s(e) {
       var t = e.error,
         n = e.success;
       return t != null
@@ -82,9 +66,9 @@ __d(
           })
         : n == null
           ? o("WAResultOrError").makeError({ kind: "missing-output" })
-          : c(n);
+          : u(n);
     }
-    function c(e) {
+    function u(e) {
       if (e.supportedEncryptionVersions.length === 0)
         return o("WAResultOrError").makeError({ kind: "missing-output" });
       var t = o("WAWebLabyrinthOpaqueTypes").parseEpochAnonId(
@@ -92,15 +76,15 @@ __d(
       );
       return t.success
         ? o("WAResultOrError").makeResult({
-            localState: d(e, t.value),
-            enrollment: m(e),
+            localState: c(e, t.value),
+            enrollment: d(e),
           })
         : o("WAResultOrError").makeError({
             error: t.error.message,
             kind: "wasm-output-error",
           });
     }
-    function d(e, t) {
+    function c(e, t) {
       var n,
         r = e.currentEpoch,
         a = e.deviceKeys,
@@ -126,7 +110,7 @@ __d(
         mailboxRootSalt: n.makeMailboxRootSalt(i),
       };
     }
-    function m(e) {
+    function d(e) {
       var t,
         n = e.clientVersion,
         r = e.deviceEpochHmac,
@@ -159,7 +143,7 @@ __d(
         clientVersion: t.makeClientVersion(n),
       };
     }
-    ((l.prepareAddDeviceWasm = e), (l.validatePreparedAddDevice = c));
+    ((l.prepareAddDeviceWasm = e), (l.validatePreparedAddDevice = u));
   },
   98,
 );

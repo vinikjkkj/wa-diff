@@ -2,7 +2,6 @@ __d(
   "WAWebStickerSearchCollection",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebBaseCollection",
@@ -12,126 +11,122 @@ __d(
     "WAWebSearchFirstPartyStickersAction",
     "WAWebStickerGetters",
     "WAWebStickerModel",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = 6,
-      d = r("JSResourceForInteraction")(
+      u = 6,
+      c = r("JSResourceForInteraction")(
         "WAWebSearchGiphyStickersAction",
       ).__setRef("WAWebStickerSearchCollection"),
-      m = {
+      d = {
         HAPPY: [
-          "\uD83D\uDE02",
-          "\uD83E\uDD23",
-          "\uD83D\uDE00",
-          "\uD83D\uDE01",
-          "\uD83D\uDE06",
-          "\uD83D\uDE42",
-          "\uD83D\uDE07",
+          "\u{1F602}",
+          "\u{1F923}",
+          "\u{1F600}",
+          "\u{1F601}",
+          "\u{1F606}",
+          "\u{1F642}",
+          "\u{1F607}",
           "\u263A\uFE0F",
-          "\uD83D\uDE04",
-          "\uD83D\uDE03",
+          "\u{1F604}",
+          "\u{1F603}",
         ],
         LOVE: [
-          "\uD83D\uDE0D",
-          "\uD83D\uDE18",
+          "\u{1F60D}",
+          "\u{1F618}",
           "\u2764\uFE0F",
-          "\uD83D\uDC95",
-          "\uD83E\uDD70",
-          "\uD83D\uDE17",
-          "\uD83D\uDE19",
-          "\uD83D\uDE3B",
-          "\uD83D\uDC69\u200D\u2764\uFE0F\u200D\uD83D\uDC69",
-          "\uD83D\uDC90",
-          "\uD83D\uDC8C",
-          "\uD83D\uDC9B",
-          "\uD83D\uDC9A",
-          "\uD83D\uDC99",
-          "\uD83D\uDC9C",
-          "\uD83D\uDC93",
-          "\uD83D\uDC98",
-          "\uD83D\uDC8F",
-          "\uD83D\uDC91",
-          "\uD83C\uDF39",
-          "\uD83E\uDD1F",
-          "\uD83C\uDFE9",
+          "\u{1F495}",
+          "\u{1F970}",
+          "\u{1F617}",
+          "\u{1F619}",
+          "\u{1F63B}",
+          "\u{1F469}\u200D\u2764\uFE0F\u200D\u{1F469}",
+          "\u{1F490}",
+          "\u{1F48C}",
+          "\u{1F49B}",
+          "\u{1F49A}",
+          "\u{1F499}",
+          "\u{1F49C}",
+          "\u{1F493}",
+          "\u{1F498}",
+          "\u{1F48F}",
+          "\u{1F491}",
+          "\u{1F339}",
+          "\u{1F91F}",
+          "\u{1F3E9}",
         ],
         GREETINGS: [
-          "\uD83D\uDC4B",
-          "\uD83D\uDE02",
-          "\uD83E\uDD23",
-          "\uD83D\uDE4F",
+          "\u{1F44B}",
+          "\u{1F602}",
+          "\u{1F923}",
+          "\u{1F64F}",
           "\u270B",
-          "\uD83E\uDDD5",
-          "\uD83D\uDEB6\u200D\u2640\uFE0F",
-          "\uD83D\uDEB6",
-          "\uD83D\uDC60",
-          "\uD83E\uDD7E",
-          "\uD83D\uDE48",
-          "\uD83E\uDD9B",
-          "\uD83C\uDF3A",
+          "\u{1F9D5}",
+          "\u{1F6B6}\u200D\u2640\uFE0F",
+          "\u{1F6B6}",
+          "\u{1F460}",
+          "\u{1F97E}",
+          "\u{1F648}",
+          "\u{1F99B}",
+          "\u{1F33A}",
           "\u26A1",
-          "\uD83C\uDFAF",
-          "\uD83D\uDE84",
-          "\uD83D\uDE85",
-          "\uD83D\uDC92",
-          "\uD83D\uDED5",
-          "\uD83D\uDEE3\uFE0F",
-          "\uD83D\uDD49\uFE0F",
-          "\uD83D\uDD0A",
+          "\u{1F3AF}",
+          "\u{1F684}",
+          "\u{1F685}",
+          "\u{1F492}",
+          "\u{1F6D5}",
+          "\u{1F6E3}\uFE0F",
+          "\u{1F549}\uFE0F",
+          "\u{1F50A}",
         ],
         SAD: [
-          "\uD83D\uDE2D",
-          "\uD83D\uDE14",
-          "\uD83D\uDE22",
-          "\uD83D\uDE1E",
-          "\uD83D\uDE1F",
-          "\uD83D\uDE15",
-          "\uD83D\uDE41",
+          "\u{1F62D}",
+          "\u{1F614}",
+          "\u{1F622}",
+          "\u{1F61E}",
+          "\u{1F61F}",
+          "\u{1F615}",
+          "\u{1F641}",
           "\u2639\uFE0F",
-          "\uD83D\uDE16",
-          "\uD83D\uDE2B",
-          "\uD83D\uDE29",
-          "\uD83E\uDD7A",
-          "\uD83D\uDE25",
-          "\uD83D\uDE13",
-          "\uD83D\uDE2A",
-          "\uD83D\uDE3F",
-          "\uD83D\uDCA7",
-          "\uD83D\uDC94",
+          "\u{1F616}",
+          "\u{1F62B}",
+          "\u{1F629}",
+          "\u{1F97A}",
+          "\u{1F625}",
+          "\u{1F613}",
+          "\u{1F62A}",
+          "\u{1F63F}",
+          "\u{1F4A7}",
+          "\u{1F494}",
         ],
         ANGRY: [
-          "\uD83D\uDE20",
-          "\uD83D\uDE21",
-          "\uD83D\uDE24",
-          "\uD83D\uDC7A",
-          "\uD83D\uDCA2",
-          "\uD83D\uDDEF\uFE0F",
-          "\uD83D\uDC7F",
+          "\u{1F620}",
+          "\u{1F621}",
+          "\u{1F624}",
+          "\u{1F47A}",
+          "\u{1F4A2}",
+          "\u{1F5EF}\uFE0F",
+          "\u{1F47F}",
         ],
         CELEBRATE: [
-          "\uD83E\uDD73",
-          "\uD83E\uDD42",
-          "\uD83C\uDF88",
-          "\uD83C\uDF8A",
-          "\uD83C\uDF89",
+          "\u{1F973}",
+          "\u{1F942}",
+          "\u{1F388}",
+          "\u{1F38A}",
+          "\u{1F389}",
         ],
       };
-    function p(e, t) {
+    function m(e, t) {
       var n,
         r = e.toUpperCase(),
-        a = m[r],
+        a = d[r],
         i =
           a != null
             ? o("WAWebEmoji").EmojiUtil.splitEmojis(a.join(""))
             : r === "HAHA" && t
-              ? o("WAWebEmoji").EmojiUtil.splitEmojis(
-                  "\uD83D\uDE02\uD83E\uDD23",
-                )
+              ? o("WAWebEmoji").EmojiUtil.splitEmojis("\u{1F602}\u{1F923}")
               : null;
       return (n =
         i != null
@@ -152,12 +147,12 @@ __d(
         ? n
         : [];
     }
-    function _(e) {
+    function p(e) {
       (o("WAWebStickerGetters").clearStickerGetterCacheFor(e),
         e.externalUrl != null && e.delete());
     }
-    var f = (function (t) {
-      function a() {
+    var _ = (function (t) {
+      function n() {
         for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
           r[o] = arguments[o];
         return (
@@ -171,10 +166,10 @@ __d(
             babelHelpers.assertThisInitialized(e)
         );
       }
-      babelHelpers.inheritsLoose(a, t);
-      var i = a.prototype;
+      babelHelpers.inheritsLoose(n, t);
+      var a = n.prototype;
       return (
-        (i.remove = function (n, r) {
+        (a.remove = function (n, r) {
           var e = t.prototype.remove.call(this, n, r);
           return (
             e.forEach(function (e) {
@@ -184,160 +179,154 @@ __d(
             e
           );
         }),
-        (i.reset = function () {
+        (a.reset = function () {
           var e;
           ((e = this.$StickerSearchCollectionImpl$p_4) == null || e.abort(),
             (this.$StickerSearchCollectionImpl$p_4 = null),
-            this.$StickerSearchCollectionImpl$p_2.forEach(_),
+            this.$StickerSearchCollectionImpl$p_2.forEach(p),
             (this.$StickerSearchCollectionImpl$p_2 = []),
             this.forEach(function (e) {
               return o("WAWebStickerGetters").clearStickerGetterCacheFor(e);
             }),
             t.prototype.reset.call(this));
         }),
-        (i.isFetchingData = function () {
+        (a.isFetchingData = function () {
           return this.$StickerSearchCollectionImpl$p_5;
         }),
-        (i.hasFetchedData = function () {
+        (a.hasFetchedData = function () {
           return this.$StickerSearchCollectionImpl$p_3;
         }),
-        (i.setStartFetching = function () {
+        (a.setStartFetching = function () {
           ((this.$StickerSearchCollectionImpl$p_5 = !0),
             this.trigger("start_fetching"));
         }),
-        (i.setStopFetching = function () {
+        (a.setStopFetching = function () {
           ((this.$StickerSearchCollectionImpl$p_5 = !1),
             this.trigger("stop_fetching"));
         }),
-        (i.search = (function () {
-          var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (a) {
-            t.prototype.delete.call(this);
-            var i = new AbortController();
-            this.$StickerSearchCollectionImpl$p_4 = i;
-            var l = i.signal,
-              c = a.trim();
-            if (c === "") {
-              this.setStopFetching();
-              return;
-            }
-            var m = o("WAWebABProps").getABPropConfigValue(
-                "web_giphy_sticker_search_enabled",
-              ),
-              f = (m ? "giphy" : "1p") + ":" + c,
-              g = this.$StickerSearchCollectionImpl$p_1.get(f);
-            if (g != null) {
-              (this.add(g),
-                (this.$StickerSearchCollectionImpl$p_3 = !0),
-                this.setStopFetching());
-              return;
-            }
-            var h = p(c, m);
-            if (!m && h.length === 0) {
-              this.setStopFetching();
-              return;
-            }
-            this.setStartFetching();
-            var y = !1,
-              C =
-                h.length > 0
-                  ? o("WAWebSearchFirstPartyStickersAction")
-                      .searchFirstPartyStickers(h, { signal: l })
-                      .catch(function (t) {
-                        return (
-                          (y = !0),
-                          l.aborted ||
-                            o("WALogger")
-                              .WARN(
-                                e ||
-                                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                                    "First-party sticker search failed",
-                                  ])),
-                              )
-                              .catching(r("getErrorSafe")(t))
-                              .sendLogs("sticker-search-request-failed"),
-                          []
-                        );
-                      })
-                  : (u || (u = n("Promise"))).resolve([]),
-              b = yield (u || (u = n("Promise"))).all([
-                C,
-                m
-                  ? d
-                      .load()
-                      .then(function (e) {
-                        var t = e.searchGiphyStickers;
-                        return t(c, l, function () {
-                          y = !0;
-                        });
-                      })
-                      .catch(function (e) {
-                        return (
-                          (y = !0),
-                          l.aborted ||
-                            o("WALogger")
-                              .WARN(
-                                s ||
-                                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                                    "Giphy sticker search unavailable",
-                                  ])),
-                              )
-                              .catching(r("getErrorSafe")(e))
-                              .sendLogs("giphy-sticker-search-unavailable"),
-                          []
-                        );
-                      })
-                  : (u || (u = n("Promise"))).resolve([]),
-              ]),
-              v = b[0],
-              S = b[1],
-              R = r("WAWebInterlaceStickerSearchResults")(v, S);
-            if (l.aborted) {
-              R.forEach(_);
-              return;
-            }
-            (this.$StickerSearchCollectionImpl$p_6(f, R, y),
-              (this.$StickerSearchCollectionImpl$p_3 = !0),
-              this.add(R),
-              this.setStopFetching());
-          });
-          function i(e) {
-            return a.apply(this, arguments);
+        (a.search = async function (a) {
+          t.prototype.delete.call(this);
+          var n = new AbortController();
+          this.$StickerSearchCollectionImpl$p_4 = n;
+          var i = n.signal,
+            l = a.trim();
+          if (l === "") {
+            this.setStopFetching();
+            return;
           }
-          return i;
-        })()),
-        (i.searchMood = function (t) {
+          var u = o("WAWebABProps").getABPropConfigValue(
+              "web_giphy_sticker_search_enabled",
+            ),
+            d = (u ? "giphy" : "1p") + ":" + l,
+            _ = this.$StickerSearchCollectionImpl$p_1.get(d);
+          if (_ != null) {
+            (this.add(_),
+              (this.$StickerSearchCollectionImpl$p_3 = !0),
+              this.setStopFetching());
+            return;
+          }
+          var f = m(l, u);
+          if (!u && f.length === 0) {
+            this.setStopFetching();
+            return;
+          }
+          this.setStartFetching();
+          var g = !1,
+            h =
+              f.length > 0
+                ? o("WAWebSearchFirstPartyStickersAction")
+                    .searchFirstPartyStickers(f, { signal: i })
+                    .catch(function (t) {
+                      return (
+                        (g = !0),
+                        i.aborted ||
+                          o("WALogger")
+                            .WARN(
+                              e ||
+                                (e = babelHelpers.taggedTemplateLiteralLoose([
+                                  "First-party sticker search failed",
+                                ])),
+                            )
+                            .catching(r("getErrorSafe")(t))
+                            .sendLogs("sticker-search-request-failed"),
+                        []
+                      );
+                    })
+                : Promise.resolve([]),
+            y = await Promise.all([
+              h,
+              u
+                ? c
+                    .load()
+                    .then(function (e) {
+                      var t = e.searchGiphyStickers;
+                      return t(l, i, function () {
+                        g = !0;
+                      });
+                    })
+                    .catch(function (e) {
+                      return (
+                        (g = !0),
+                        i.aborted ||
+                          o("WALogger")
+                            .WARN(
+                              s ||
+                                (s = babelHelpers.taggedTemplateLiteralLoose([
+                                  "Giphy sticker search unavailable",
+                                ])),
+                            )
+                            .catching(r("getErrorSafe")(e))
+                            .sendLogs("giphy-sticker-search-unavailable"),
+                        []
+                      );
+                    })
+                : Promise.resolve([]),
+            ]),
+            C = y[0],
+            b = y[1],
+            v = r("WAWebInterlaceStickerSearchResults")(C, b);
+          if (i.aborted) {
+            v.forEach(p);
+            return;
+          }
+          (this.$StickerSearchCollectionImpl$p_6(d, v, g),
+            (this.$StickerSearchCollectionImpl$p_3 = !0),
+            this.add(v),
+            this.setStopFetching());
+        }),
+        (a.searchMood = function (t) {
           return this.search(t);
         }),
-        (i.delete = function () {
+        (a.delete = function () {
           (this.$StickerSearchCollectionImpl$p_1.forEach(function (e) {
-            e.forEach(_);
+            e.forEach(p);
           }),
             t.prototype.delete.call(this),
             this.$StickerSearchCollectionImpl$p_1.clear(),
             (this.$StickerSearchCollectionImpl$p_3 = !1),
             (this.$StickerSearchCollectionImpl$p_5 = !1));
         }),
-        (i.$StickerSearchCollectionImpl$p_6 = function (t, n, r) {
+        (a.$StickerSearchCollectionImpl$p_6 = function (t, n, r) {
           if (r) this.$StickerSearchCollectionImpl$p_2 = n;
           else {
-            if (this.$StickerSearchCollectionImpl$p_1.size >= c) {
+            if (this.$StickerSearchCollectionImpl$p_1.size >= u) {
               var e = this.$StickerSearchCollectionImpl$p_1.keys().next().value;
               if (e != null) {
                 var o;
                 ((o = this.$StickerSearchCollectionImpl$p_1.get(e)) == null ||
-                  o.forEach(_),
+                  o.forEach(p),
                   this.$StickerSearchCollectionImpl$p_1.delete(e));
               }
             }
             this.$StickerSearchCollectionImpl$p_1.set(t, n);
           }
         }),
-        a
+        n
       );
     })(o("WAWebBaseCollection").BaseCollection);
-    f.model = o("WAWebStickerModel").StickerModel;
-    var g = new f();
-    l.StickerSearchCollection = g;
+    _.model = o("WAWebStickerModel").StickerModel;
+    var f = new _();
+    l.StickerSearchCollection = f;
   },
   98,
 );

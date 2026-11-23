@@ -33,7 +33,19 @@ __d(
           : (u = n("MarketingMessagesHighTrustDataStoreLoadedQuery.graphql")),
       _ = (function (e) {
         function t() {
-          return e.call(this, c || (c = r("AdsDataAtom"))) || this;
+          return (
+            e.call(
+              this,
+              c || (c = r("AdsDataAtom")),
+              void 0,
+              void 0,
+              function (e) {
+                return function (n, r) {
+                  e(n, r);
+                };
+              },
+            ) || this
+          );
         }
         babelHelpers.inheritsLoose(t, e);
         var n = t.prototype;

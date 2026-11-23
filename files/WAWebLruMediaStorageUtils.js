@@ -1,6 +1,6 @@
 __d(
   "WAWebLruMediaStorageUtils",
-  ["invariant", "WAWebIdb", "WAWebStorage", "asyncToGeneratorRuntime", "err"],
+  ["invariant", "WAWebIdb", "WAWebStorage", "err"],
   function (t, n, r, o, a, i, l, s) {
     var e = "lru-media-storage-idb",
       u = null;
@@ -11,24 +11,16 @@ __d(
     function d() {
       return (u != null || s(0, 56300), u);
     }
-    function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (u == null)
-            throw r("err")(
-              "[lru-media-storage-idb] Storage should be created first before being destroyed",
-            );
-          try {
-            yield u.purge();
-          } finally {
-            u = null;
-          }
-        })),
-        p.apply(this, arguments)
-      );
+    async function m() {
+      if (u == null)
+        throw r("err")(
+          "[lru-media-storage-idb] Storage should be created first before being destroyed",
+        );
+      try {
+        await u.purge();
+      } finally {
+        u = null;
+      }
     }
     (c(), (l.getStorage = d), (l.destroyStorage = m));
   },

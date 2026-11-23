@@ -1,35 +1,28 @@
 __d(
   "WAWebCrosspostingJob",
-  [
-    "WAWebEligibilityCheckHelper",
-    "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebEligibilityCheckHelper", "WAWebOrchestratorNonPersistedJob"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.caption,
-        r = e.destinations,
-        a = e.statusBlob,
-        i = e.statusKey,
-        l = e.statusTimestamp;
+        n = e.destinations,
+        r = e.statusBlob,
+        a = e.statusKey,
+        i = e.statusTimestamp;
       return o("WAWebOrchestratorNonPersistedJob")
-        .createNonPersistedJob(
-          "crosspostStatus",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            try {
-              var e = yield a.arrayBuffer();
-              yield o("WAWebEligibilityCheckHelper").initiateCrossposting({
-                statusTimestamp: l,
-                statusKey: i,
-                destinations: r,
-                statusBlob: e,
-                caption: t,
-              });
-            } catch (e) {
-              throw e;
-            }
-          }),
-        )
+        .createNonPersistedJob("crosspostStatus", async function () {
+          try {
+            var e = await r.arrayBuffer();
+            await o("WAWebEligibilityCheckHelper").initiateCrossposting({
+              statusTimestamp: i,
+              statusKey: a,
+              destinations: n,
+              statusBlob: e,
+              caption: t,
+            });
+          } catch (e) {
+            throw e;
+          }
+        })
         .waitUntilCompleted();
     }
     l.crosspostStatus = e;

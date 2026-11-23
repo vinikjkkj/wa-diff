@@ -7,44 +7,34 @@ __d(
     "WAWebPollsPollVoteCollection",
     "WAWebReactionsCollection",
     "WAWebSendReadReceiptJob",
-    "asyncToGeneratorRuntime",
     "err",
     "react",
-    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useCallback;
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      var t = Array.from(e.values()).flat();
+      if (t.length !== 0) {
+        await o("WAWebSendReadReceiptJob").sendAddOnReadReceipts(t);
+        var n = new Map();
+        for (var r of e) {
+          var a = r[0],
+            i = r[1];
+          n.set(
+            a,
+            i.map(function (e) {
+              var t = e.msgKey;
+              return t;
+            }),
+          );
+        }
+        await o("WAWebMarkAddOnsAsReadJob").markAddOnsAsReadJob(n);
+      }
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = Array.from(e.values()).flat();
-          if (t.length !== 0) {
-            yield o("WAWebSendReadReceiptJob").sendAddOnReadReceipts(t);
-            var n = new Map();
-            for (var r of e) {
-              var a = r[0],
-                i = r[1];
-              n.set(
-                a,
-                i.map(function (e) {
-                  var t = e.msgKey;
-                  return t;
-                }),
-              );
-            }
-            yield o("WAWebMarkAddOnsAsReadJob").markAddOnsAsReadJob(n);
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
+    function c(e) {
       for (var t of e) {
         var n = t[0],
           a = t[1];
@@ -76,42 +66,33 @@ __d(
         }
       }
     }
-    function m() {
-      var e = o("react-compiler-runtime").c(5),
-        t = r("useLazyRef")(p),
-        n;
-      e[0] !== t
-        ? ((n = function () {
+    function d() {
+      var e = r("useLazyRef")(function () {
+          return new Map();
+        }),
+        t = s(
+          function () {
             !document.hasFocus() ||
-              t.current.size === 0 ||
-              (u(t.current), (t.current = new Map()));
-          }),
-          (e[0] = t),
-          (e[1] = n))
-        : (n = e[1]);
-      var a = n,
-        i;
-      e[2] !== a || e[3] !== t
-        ? ((i = function (n) {
-            var e,
-              r = n.addOns,
-              o = n.addOnType,
-              i = t.current.get(o);
-            (i == null && ((i = []), t.current.set(o, i)),
-              (e = i).push.apply(e, r),
-              a());
-          }),
-          (e[2] = a),
-          (e[3] = t),
-          (e[4] = i))
-        : (i = e[4]);
-      var l = i;
-      return (o("useWAWebListener").useListener(window, "focus", a), l);
+              e.current.size === 0 ||
+              (u(e.current), (e.current = new Map()));
+          },
+          [e],
+        ),
+        n = s(
+          function (n) {
+            var r,
+              o = n.addOns,
+              a = n.addOnType,
+              i = e.current.get(a);
+            (i == null && ((i = []), e.current.set(a, i)),
+              (r = i).push.apply(r, o),
+              t());
+          },
+          [t, e],
+        );
+      return (o("useWAWebListener").useListener(window, "focus", t), n);
     }
-    function p() {
-      return new Map();
-    }
-    ((l.markAddOnsAsReadUiAction = d), (l.useMarkAddOnsAsRead = m));
+    ((l.markAddOnsAsReadUiAction = c), (l.useMarkAddOnsAsRead = d));
   },
   98,
 );

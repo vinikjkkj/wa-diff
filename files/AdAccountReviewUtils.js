@@ -9,13 +9,10 @@ __d(
     "GeoFlexbox.react",
     "GeoIcon.react",
     "GeoStatusIndicator.react",
-    "Promise",
     "RelayHooks",
-    "asyncToGeneratorRuntime",
     "geoMargin",
     "meta-brand-dot-filled-12",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useGeoTheme",
   ],
@@ -24,96 +21,77 @@ __d(
     var e,
       u,
       c,
-      d,
-      m = d || (d = o("react")),
-      p = d,
-      _ = p.useEffect,
-      f = p.useState;
-    function g(e, t) {
+      d = c || (c = o("react")),
+      m = c,
+      p = m.useEffect,
+      _ = m.useState;
+    function f(e, t) {
       return e == null || t == null
         ? null
-        : m.jsx(r("GeoBaseText.react"), {
+        : d.jsx(r("GeoBaseText.react"), {
             color: "placeholder",
             size: "value",
-            children: s._(
-              /*BTDS*/ "Daily spend limit: {lower_limit} \u2192 {upper_limit}",
-              [s._param("lower_limit", e), s._param("upper_limit", t)],
-            ),
+            children: s._(/*BTDS*/ "", [
+              s._param("lower_limit", e),
+              s._param("upper_limit", t),
+            ]),
           });
     }
-    g.displayName = g.name + " [from " + i.id + "]";
-    function h(e, t) {
+    f.displayName = f.name + " [from " + i.id + "]";
+    function g(e, t) {
       return t == null && e == null
         ? null
-        : m.jsx(r("GeoBaseText.react"), {
+        : d.jsx(r("GeoBaseText.react"), {
             color: "placeholder",
             size: "value",
-            children: s._(/*BTDS*/ "Updated to {upper_limit}", [
+            children: s._(/*BTDS*/ "", [
               s._param("upper_limit", e != null ? e : t),
             ]),
           });
     }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y(e) {
+    g.displayName = g.name + " [from " + i.id + "]";
+    function h(e) {
       return e == null
         ? null
-        : m.jsx(r("GeoBaseText.react"), {
+        : d.jsx(r("GeoBaseText.react"), {
             color: "placeholder",
             size: "value",
-            children: s._(/*BTDS*/ "Remains at {lower_limit}", [
-              s._param("lower_limit", e),
-            ]),
+            children: s._(/*BTDS*/ "", [s._param("lower_limit", e)]),
           });
     }
-    y.displayName = y.name + " [from " + i.id + "]";
-    function C(e, t) {
-      return m.jsx(r("GeoBaseText.react"), {
+    h.displayName = h.name + " [from " + i.id + "]";
+    function y(e, t) {
+      return d.jsx(r("GeoBaseText.react"), {
         color: "placeholder",
         size: "value",
-        children: s._(
-          /*BTDS*/ "Daily spend limit: {lower_limit} \u2192 {upper_limit}",
-          [s._param("lower_limit", e), s._param("upper_limit", t)],
-        ),
+        children: s._(/*BTDS*/ "", [
+          s._param("lower_limit", e),
+          s._param("upper_limit", t),
+        ]),
       });
     }
-    C.displayName = C.name + " [from " + i.id + "]";
-    function b(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.currentStatus,
-        r = e.finalLimit,
-        a = e.lowerLimit,
-        i = e.upperLimit;
-      if (n === "IN_REVIEW") {
-        var l;
-        t[0] !== a || t[1] !== i
-          ? ((l = g(a, i)), (t[0] = a), (t[1] = i), (t[2] = l))
-          : (l = t[2]);
-        var s = l;
-        if (s != null) return s;
+    y.displayName = y.name + " [from " + i.id + "]";
+    function C(e) {
+      var t = e.currentStatus,
+        n = e.finalLimit,
+        r = e.lowerLimit,
+        o = e.upperLimit;
+      if (t === "IN_REVIEW") {
+        var a = f(r, o);
+        if (a != null) return a;
       }
-      if (n === "ACTIVE") {
-        var u;
-        t[3] !== r || t[4] !== i
-          ? ((u = h(r, i)), (t[3] = r), (t[4] = i), (t[5] = u))
-          : (u = t[5]);
-        var c = u;
-        if (c != null) return c;
+      if (t === "ACTIVE") {
+        var i = g(n, o);
+        if (i != null) return i;
       }
-      if (n === "RESTRICTED") {
-        var d;
-        t[6] !== a ? ((d = y(a)), (t[6] = a), (t[7] = d)) : (d = t[7]);
-        var m = d;
-        if (m != null) return m;
+      if (t === "RESTRICTED") {
+        var l = h(r);
+        if (l != null) return l;
       }
-      var p;
-      return (
-        t[8] !== a || t[9] !== i
-          ? ((p = C(a, i)), (t[8] = a), (t[9] = i), (t[10] = p))
-          : (p = t[10]),
-        p
-      );
+      return y(r, o);
     }
-    var v = {
+    C.displayName = C.name + " [from " + i.id + "]";
+    var b = {
       cardContainer: {
         marginBottom: "xod5an3",
         marginTop: "x14vqqas",
@@ -121,319 +99,211 @@ __d(
         $$css: !0,
       },
     };
-    function S(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.status,
-        a;
-      n === "ACTIVE" ? (a = "active") : (a = "error");
-      var i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = { className: "x1p8j9ns" }), (t[0] = i))
-        : (i = t[0]);
-      var l;
+    function v(e) {
+      var t = e.status,
+        n;
       return (
-        t[1] !== a
-          ? ((l = m.jsx(
-              "div",
-              babelHelpers.extends({}, i, {
-                children: m.jsx(r("GeoStatusIndicator.react"), {
-                  density: "dense",
-                  status: a,
-                  variant: "filled",
+        t === "ACTIVE" ? (n = "active") : (n = "error"),
+        d.jsx("div", {
+          className: "x1p8j9ns",
+          children: d.jsx(r("GeoStatusIndicator.react"), {
+            density: "dense",
+            status: n,
+            variant: "filled",
+          }),
+        })
+      );
+    }
+    v.displayName = v.name + " [from " + i.id + "]";
+    function S(e) {
+      var t = e.dataTestId,
+        n = e.displayAccountName,
+        a = e.lowerLimit,
+        i = r("useGeoTheme")(),
+        l = i.selectBorderRadius,
+        c = i.selectElevation;
+      return d.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          (u || (u = r("stylex"))).props(
+            c({ level: 1 }),
+            l({ context: "addon" }),
+            b.cardContainer,
+          ),
+          {
+            children: d.jsx(r("GeoFlexbox.react"), {
+              "data-testid": void 0,
+              children: d.jsx(r("GeoFlexbox.react"), {
+                alignItems: "start",
+                direction: "row",
+                xstyle: r("geoMargin").all12,
+                children: d.jsxs(r("GeoFlexbox.react"), {
+                  direction: "column",
+                  children: [
+                    d.jsx(r("GeoBaseText.react"), {
+                      color: "heading",
+                      display: "truncate",
+                      showTruncationTooltip: !0,
+                      size: "header3",
+                      children: n,
+                    }),
+                    d.jsxs(r("GeoFlexbox.react"), {
+                      alignItems: "center",
+                      direction: "row",
+                      xstyle: r("geoMargin").top4,
+                      children: [
+                        d.jsxs(d.Fragment, {
+                          children: [
+                            d.jsx(v, { status: "RESTRICTED" }),
+                            d.jsx(r("GeoBaseText.react"), {
+                              color: "heading",
+                              size: "value",
+                              children: s._(/*BTDS*/ ""),
+                            }),
+                            d.jsx(r("GeoIcon.react"), {
+                              color: "placeholder",
+                              icon: o("meta-brand-dot-filled-12")
+                                .metaBrandDotFilled12,
+                            }),
+                          ],
+                        }),
+                        a != null &&
+                          d.jsx(r("GeoBaseText.react"), {
+                            color: "placeholder",
+                            size: "value",
+                            children: s._(/*BTDS*/ "", [
+                              s._param("lower_limit", a),
+                            ]),
+                          }),
+                      ],
+                    }),
+                  ],
                 }),
               }),
-            )),
-            (t[1] = a),
-            (t[2] = l))
-          : (l = t[2]),
-        l
+            }),
+          },
+        ),
       );
     }
-    function R(e) {
-      var t = o("react-compiler-runtime").c(20),
-        n = e.dataTestId,
-        a = e.displayAccountName,
-        i = e.lowerLimit,
-        l = r("useGeoTheme")(),
-        u = l.selectBorderRadius,
-        d = l.selectElevation,
-        p;
-      t[0] !== u || t[1] !== d
-        ? ((p = (c || (c = r("stylex"))).props(
-            d({ level: 1 }),
-            u({ context: "addon" }),
-            v.cardContainer,
-          )),
-          (t[0] = u),
-          (t[1] = d),
-          (t[2] = p))
-        : (p = t[2]);
-      var _;
-      t[3] !== a
-        ? ((_ = m.jsx(r("GeoBaseText.react"), {
-            color: "heading",
-            display: "truncate",
-            showTruncationTooltip: !0,
-            size: "header3",
-            children: a,
-          })),
-          (t[3] = a),
-          (t[4] = _))
-        : (_ = t[4]);
-      var f;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = m.jsx(S, { status: "RESTRICTED" })), (t[5] = f))
-        : (f = t[5]);
-      var g;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = m.jsxs(m.Fragment, {
+    S.displayName = S.name + " [from " + i.id + "]";
+    function R() {
+      var e = _(0),
+        t = e[0],
+        n = e[1],
+        r = [
+          s._(/*BTDS*/ ""),
+          s._(/*BTDS*/ ""),
+          s._(/*BTDS*/ ""),
+          s._(/*BTDS*/ ""),
+        ];
+      return (
+        p(
+          function () {
+            if (t < r.length - 1) {
+              var e = window.setInterval(function () {
+                n(function (e) {
+                  return e + 1;
+                });
+              }, 8e3);
+              return function () {
+                window.clearInterval(e);
+              };
+            }
+          },
+          [t, r.length],
+        ),
+        r[t]
+      );
+    }
+    function L(e) {
+      var t = e.isDailySpendLimitFlow,
+        n = t === void 0 ? !1 : t,
+        o = e.status;
+      return o === "ACTIVE"
+        ? d.jsxs(d.Fragment, {
             children: [
-              f,
-              m.jsx(r("GeoBaseText.react"), {
+              d.jsx(v, { status: "ACTIVE" }),
+              d.jsx(r("GeoBaseText.react"), {
                 color: "heading",
                 size: "value",
-                children: s._(/*BTDS*/ "Not eligible"),
-              }),
-              m.jsx(r("GeoIcon.react"), {
-                color: "placeholder",
-                icon: o("meta-brand-dot-filled-12").metaBrandDotFilled12,
+                children: n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
               }),
             ],
-          })),
-          (t[6] = g))
-        : (g = t[6]);
-      var h;
-      t[7] !== i
-        ? ((h =
-            i != null &&
-            m.jsx(r("GeoBaseText.react"), {
-              color: "placeholder",
-              size: "value",
-              children: s._(/*BTDS*/ "Remains at {lower_limit}", [
-                s._param("lower_limit", i),
-              ]),
-            })),
-          (t[7] = i),
-          (t[8] = h))
-        : (h = t[8]);
-      var y;
-      t[9] !== h
-        ? ((y = m.jsxs(r("GeoFlexbox.react"), {
-            alignItems: "center",
-            direction: "row",
-            xstyle: r("geoMargin").top4,
-            children: [g, h],
-          })),
-          (t[9] = h),
-          (t[10] = y))
-        : (y = t[10]);
-      var C;
-      t[11] !== _ || t[12] !== y
-        ? ((C = m.jsx(r("GeoFlexbox.react"), {
-            alignItems: "start",
-            direction: "row",
-            xstyle: r("geoMargin").all12,
-            children: m.jsxs(r("GeoFlexbox.react"), {
-              direction: "column",
-              children: [_, y],
-            }),
-          })),
-          (t[11] = _),
-          (t[12] = y),
-          (t[13] = C))
-        : (C = t[13]);
-      var b;
-      t[14] !== n || t[15] !== C
-        ? ((b = m.jsx(r("GeoFlexbox.react"), {
-            "data-testid": void 0,
-            children: C,
-          })),
-          (t[14] = n),
-          (t[15] = C),
-          (t[16] = b))
-        : (b = t[16]);
-      var R;
-      return (
-        t[17] !== p || t[18] !== b
-          ? ((R = m.jsx("div", babelHelpers.extends({}, p, { children: b }))),
-            (t[17] = p),
-            (t[18] = b),
-            (t[19] = R))
-          : (R = t[19]),
-        R
-      );
+          })
+        : o === "RESTRICTED" || o === "IN_REVIEW"
+          ? d.jsxs(d.Fragment, {
+              children: [
+                d.jsx(v, { status: "RESTRICTED" }),
+                d.jsx(r("GeoBaseText.react"), {
+                  color: "heading",
+                  size: "value",
+                  children: n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
+                }),
+              ],
+            })
+          : null;
     }
-    function L() {
-      var e = o("react-compiler-runtime").c(4),
-        t = f(0),
-        n = t[0],
-        r = t[1],
-        a;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [
-            s._(/*BTDS*/ "Checking eligibility..."),
-            s._(/*BTDS*/ "Reviewing options..."),
-            s._(/*BTDS*/ "Making decisions..."),
-            s._(/*BTDS*/ "Completing request..."),
-          ]),
-          (e[0] = a))
-        : (a = e[0]);
-      var i = a,
-        l,
-        u;
-      return (
-        e[1] !== n
-          ? ((l = function () {
-              if (n < i.length - 1) {
-                var e = window.setInterval(function () {
-                  r(E);
-                }, 8e3);
-                return function () {
-                  window.clearInterval(e);
-                };
-              }
-            }),
-            (u = [n, i.length]),
-            (e[1] = n),
-            (e[2] = l),
-            (e[3] = u))
-          : ((l = e[2]), (u = e[3])),
-        _(l, u),
-        i[n]
-      );
-    }
-    function E(e) {
-      return e + 1;
-    }
-    function k(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.isDailySpendLimitFlow,
-        a = e.status,
-        i = n === void 0 ? !1 : n;
-      if (a === "ACTIVE") {
-        var l;
-        t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((l = m.jsx(S, { status: "ACTIVE" })), (t[0] = l))
-          : (l = t[0]);
-        var u;
-        return (
-          t[1] !== i
-            ? ((u = m.jsxs(m.Fragment, {
-                children: [
-                  l,
-                  m.jsx(r("GeoBaseText.react"), {
-                    color: "heading",
-                    size: "value",
-                    children: i
-                      ? s._(/*BTDS*/ "Eligible")
-                      : s._(/*BTDS*/ "Active"),
-                  }),
-                ],
-              })),
-              (t[1] = i),
-              (t[2] = u))
-            : (u = t[2]),
-          u
-        );
-      } else if (a === "RESTRICTED" || a === "IN_REVIEW") {
-        var c;
-        t[3] === Symbol.for("react.memo_cache_sentinel")
-          ? ((c = m.jsx(S, { status: "RESTRICTED" })), (t[3] = c))
-          : (c = t[3]);
-        var d;
-        return (
-          t[4] !== i
-            ? ((d = m.jsxs(m.Fragment, {
-                children: [
-                  c,
-                  m.jsx(r("GeoBaseText.react"), {
-                    color: "heading",
-                    size: "value",
-                    children: i
-                      ? s._(/*BTDS*/ "Failed")
-                      : s._(/*BTDS*/ "Restricted"),
-                  }),
-                ],
-              })),
-              (t[4] = i),
-              (t[5] = d))
-            : (d = t[5]),
-          d
-        );
-      }
-      return null;
-    }
-    var I =
+    L.displayName = L.name + " [from " + i.id + "]";
+    var E =
         e !== void 0
           ? e
           : (e = n(
               "AdAccountReviewUtilsFetchMAIBAAccountReviewStatusQuery.graphql",
             )),
-      T = new Map(),
-      D = new Map();
-    function x(e, t) {
-      return $.apply(this, arguments);
+      k = new Map(),
+      I = new Map();
+    async function T(e, t) {
+      var n,
+        r = await o("RelayHooks")
+          .fetchQuery(e, E, { accountReviewTrackerId: t })
+          .toPromise(),
+        a =
+          r == null || (n = r.xfb_maiba_account_status_review) == null
+            ? void 0
+            : n.review_status;
+      return a != null ? a : "IN_REVIEW";
     }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r = yield o("RelayHooks")
-              .fetchQuery(e, I, { accountReviewTrackerId: t })
-              .toPromise(),
-            a =
-              r == null || (n = r.xfb_maiba_account_status_review) == null
-                ? void 0
-                : n.review_status;
-          return a != null ? a : "IN_REVIEW";
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e, t) {
-      var n = o("react-compiler-runtime").c(2),
-        r = o("RelayHooks").useRelayEnvironment();
+    function D(e) {
+      var t = o("RelayHooks").useRelayEnvironment();
       if (e == null) return null;
-      if (t != null) return t;
-      var a = "" + e,
-        i;
-      n[0] !== a ? ((i = T.get(a)), (n[0] = a), (n[1] = i)) : (i = n[1]);
-      var l = i;
-      if (l != null) return l;
-      var s = D.get(a);
-      throw (s == null && (s = N(r, e)), s);
+      var n = "" + e,
+        r = k.get(n);
+      if (r != null) return r;
+      var a = I.get(n);
+      throw (a == null && (a = x(t, e)), a);
     }
-    function N(e, t) {
-      var o = "" + t,
-        a = T.get(o);
-      if (a != null) return (u || (u = n("Promise"))).resolve(a);
-      var i = D.get(o);
+    function x(e, t) {
+      var n = "" + t,
+        o = k.get(n);
+      if (o != null) return Promise.resolve(o);
+      var a = I.get(n);
       return (
-        i == null &&
-          ((i = x(e, t)
+        a == null &&
+          ((a = T(e, t)
             .then(function (e) {
-              return (T.set(o, e), D.delete(o), e);
+              return (k.set(n, e), I.delete(n), e);
             })
             .catch(function (e) {
               r("FBLogger")("axp_maiba_foundations_ux")
                 .catching(e)
                 .warn("Failed to fetch account review status");
               var t = "IN_REVIEW";
-              return (T.set(o, t), D.delete(o), t);
+              return (k.set(n, t), I.delete(n), t);
             })),
-          D.set(o, i)),
-        i
+          I.set(n, a)),
+        a
       );
     }
-    function M(e, t, n, r, a, i, l) {
+    function $(e, t, n, r, a, i) {
       e != null &&
         e !== "IN_REVIEW" &&
         (r === !0
           ? ((e === "ACTIVE" && n) || (e === "RESTRICTED" && !n)) &&
             o("AdsHelpTrayUILogger").logALRStatusMismatchWithAdAccountForDSL(
               a,
+              void 0,
               i,
-              l,
               e != null ? e : null,
               t != null ? t : "",
               r,
@@ -443,18 +313,18 @@ __d(
             e === "RESTRICTED" &&
             o("AdsHelpTrayUILogger").logALRStatusMismatchWithAdAccountForDORA(
               a,
+              void 0,
               i,
-              l,
               e != null ? e : null,
               t != null ? t : "",
             ));
     }
-    ((l.DailySpendLimitContent = b),
-      (l.DSLNotEligibleComponent = R),
-      (l.useRotatingReviewText = L),
-      (l.ReviewStatusContent = k),
-      (l.useAccountStatusFromDB = P),
-      (l.logDslDoraErrorScenarios = M));
+    ((l.DailySpendLimitContent = C),
+      (l.DSLNotEligibleComponent = S),
+      (l.useRotatingReviewText = R),
+      (l.ReviewStatusContent = L),
+      (l.useAccountStatusFromDB = D),
+      (l.logDslDoraErrorScenarios = $));
   },
   226,
 );

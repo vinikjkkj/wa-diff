@@ -8,6 +8,7 @@ __d(
     "AdsPlacementAPISpecWriterUtils",
     "AdsPlacementPlatformLabelConstant",
     "AdsPlacementsThreadsFeedPositionPlugin",
+    "AdsPlacementsThreadsPermalinkPositionPlugin",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
     "AdsUEditorCampaignPlacementSetActionFlux",
     "gkx",
@@ -43,6 +44,7 @@ __d(
         placementPreviewImage: e(),
         positions: r("immutable").OrderedSet([
           r("AdsPlacementsThreadsFeedPositionPlugin"),
+          r("AdsPlacementsThreadsPermalinkPositionPlugin"),
         ]),
         adsetReducer: function (t, n) {
           var e,

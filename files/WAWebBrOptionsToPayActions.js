@@ -176,13 +176,8 @@ __d(
     }
     function m(e, t, n) {
       return {
-        label: s._(/*BTDS*/ "Options to pay"),
-        menu: {
-          title: s._(/*BTDS*/ "Options to pay"),
-          items: e,
-          isEligible: t,
-          onRender: n,
-        },
+        label: s._(/*BTDS*/ ""),
+        menu: { title: s._(/*BTDS*/ ""), items: e, isEligible: t, onRender: n },
         testid: "br-options-to-pay-button",
       };
     }
@@ -375,11 +370,11 @@ __d(
     }
     function v(e) {
       return e === "pix"
-        ? s._(/*BTDS*/ "Pix code")
+        ? s._(/*BTDS*/ "")
         : e === "payment_link"
-          ? s._(/*BTDS*/ "Payment link")
+          ? s._(/*BTDS*/ "")
           : e === "boleto"
-            ? s._(/*BTDS*/ "Boleto code")
+            ? s._(/*BTDS*/ "")
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

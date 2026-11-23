@@ -1,7 +1,6 @@
 __d(
   "WAWebCallLogSync",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebProtobufSyncAction.pb",
@@ -15,12 +14,11 @@ __d(
     "WAWebVoipActionWriteCallLogSync",
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _;
-    function f(t) {
+    var e, s, u, c, d, m, p;
+    function _(t) {
       var n = t.callCreatorJid,
         r = t.fromMe,
         a = t.peerJid,
@@ -39,7 +37,7 @@ __d(
             .sendLogs("call-log-sync-non-user-creator"),
           i);
     }
-    var g = (function (e) {
+    var f = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -51,152 +49,131 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.getVersion = function () {
+          (n.getVersion = function () {
             return 1;
           }),
-          (a.getAction = function () {
+          (n.getAction = function () {
             return o("WAWebSyncdConst").Actions.CallLog;
           }),
-          (a.applyMutations = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  r = 0,
-                  a = 0,
-                  i = 0,
-                  l = yield (_ || (_ = n("Promise"))).all(
-                    e.map(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            try {
-                              if (e.operation === "set") {
-                                var n,
-                                  l = e.value,
-                                  s = (n = l.callLogAction) != null ? n : {},
-                                  u = s.callLogRecord;
-                                if (!u)
-                                  return (
-                                    r++,
-                                    o(
-                                      "WAWebSyncdIndexUtils",
-                                    ).malformedActionValue(t.collectionName)
-                                  );
-                                var c = o(
-                                  "WAWebUserPrefsMultiDevice",
-                                ).getPairingTimestamp();
-                                if (c != null) {
-                                  var d = o(
-                                    "WATimeUtils",
-                                  ).castMilliSecondsToUnixTime(e.timestamp);
-                                  d > o("WATimeUtils").castToUnixTime(c) &&
-                                    (yield o(
-                                      "WAWebVoipActionWriteCallLogSync",
-                                    ).generateCallLogFromCallSyncRecord({
-                                      callLogRecord: u,
-                                    }),
-                                    a++);
-                                }
-                                return {
-                                  actionState:
-                                    o("WAWebSyncdConst").SyncActionState
-                                      .Success,
-                                };
-                              } else if (e.operation === "remove")
-                                return {
-                                  actionState:
-                                    o("WAWebSyncdConst").SyncActionState
-                                      .Success,
-                                };
-                              return (
-                                i++,
-                                {
-                                  actionState:
-                                    o("WAWebSyncdConst").SyncActionState
-                                      .Unsupported,
-                                }
-                              );
-                            } catch (e) {
-                              return {
-                                actionState:
-                                  o("WAWebSyncdConst").SyncActionState.Failed,
-                              };
-                            }
-                          },
+          (n.applyMutations = async function (t) {
+            var e = this,
+              n = 0,
+              r = 0,
+              a = 0,
+              i = await Promise.all(
+                t.map(async function (t) {
+                  try {
+                    if (t.operation === "set") {
+                      var i,
+                        l = t.value,
+                        s = (i = l.callLogAction) != null ? i : {},
+                        u = s.callLogRecord;
+                      if (!u)
+                        return (
+                          n++,
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            e.collectionName,
+                          )
                         );
-                        return function (t) {
-                          return e.apply(this, arguments);
-                        };
-                      })(),
-                    ),
-                  );
-                return (
-                  r === 1
-                    ? o("WALogger").WARN(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: malformed mutation",
-                          ])),
-                      )
-                    : r > 1 &&
-                      o("WALogger").WARN(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: ",
-                            " malformed mutations",
-                          ])),
-                        r,
-                      ),
-                  a === 1
-                    ? o("WALogger").LOG(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: successfully applied",
-                          ])),
-                      )
-                    : a > 1 &&
-                      o("WALogger").LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: ",
-                            " successfully applied",
-                          ])),
-                        a,
-                      ),
-                  i === 1
-                    ? o("WALogger").WARN(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: operation not supported",
-                          ])),
-                      )
-                    : i > 1 &&
-                      o("WALogger").WARN(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
-                            "call log sync: ",
-                            " operations not supported",
-                          ])),
-                        i,
-                      ),
-                  l
-                );
-              },
+                      var c = o(
+                        "WAWebUserPrefsMultiDevice",
+                      ).getPairingTimestamp();
+                      if (c != null) {
+                        var d = o("WATimeUtils").castMilliSecondsToUnixTime(
+                          t.timestamp,
+                        );
+                        d > o("WATimeUtils").castToUnixTime(c) &&
+                          (await o(
+                            "WAWebVoipActionWriteCallLogSync",
+                          ).generateCallLogFromCallSyncRecord({
+                            callLogRecord: u,
+                          }),
+                          r++);
+                      }
+                      return {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Success,
+                      };
+                    } else if (t.operation === "remove")
+                      return {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Success,
+                      };
+                    return (
+                      a++,
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Unsupported,
+                      }
+                    );
+                  } catch (e) {
+                    return {
+                      actionState: o("WAWebSyncdConst").SyncActionState.Failed,
+                    };
+                  }
+                }),
+              );
+            return (
+              n === 1
+                ? o("WALogger").WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: malformed mutation",
+                      ])),
+                  )
+                : n > 1 &&
+                  o("WALogger").WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: ",
+                        " malformed mutations",
+                      ])),
+                    n,
+                  ),
+              r === 1
+                ? o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: successfully applied",
+                      ])),
+                  )
+                : r > 1 &&
+                  o("WALogger").LOG(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: ",
+                        " successfully applied",
+                      ])),
+                    r,
+                  ),
+              a === 1
+                ? o("WALogger").WARN(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: operation not supported",
+                      ])),
+                  )
+                : a > 1 &&
+                  o("WALogger").WARN(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "call log sync: ",
+                        " operations not supported",
+                      ])),
+                    a,
+                  ),
+              i
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.getCallLogMutation = function (t, n) {
+          }),
+          (n.getCallLogMutation = function (t, n) {
             var e,
               a,
               i,
               l,
               s,
-              u = f(n).toJid(),
+              u = _(n).toJid(),
               c = n.fromMe ? "0" : "1",
               d = n.callId,
               m = n.participantEntries.map(function (e) {
@@ -232,11 +209,11 @@ __d(
                   : o("WAWebProtobufSyncAction.pb").CallLogRecord$CallType
                       .SCHEDULED_CALL,
               },
-              _ = { callLogAction: { callLogRecord: p } };
+              f = { callLogAction: { callLogRecord: p } };
             return o("WAWebSyncdActionUtils").buildPendingMutation({
               collection: this.collectionName,
               indexArgs: [u, d, c],
-              value: _,
+              value: f,
               version: this.getVersion(),
               operation: o("WAWebProtobufsServerSync.pb")
                 .SyncdMutation$SyncdOperation.SET,
@@ -247,8 +224,8 @@ __d(
           t
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      h = new g();
-    l.default = h;
+      g = new f();
+    l.default = g;
   },
   98,
 );

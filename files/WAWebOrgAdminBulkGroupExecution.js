@@ -1,6 +1,6 @@
 __d(
   "WAWebOrgAdminBulkGroupExecution",
-  ["WALogger", "WAWebBoolFunc", "asyncToGeneratorRuntime", "getErrorSafe"],
+  ["WALogger", "WAWebBoolFunc", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e) {
@@ -16,49 +16,29 @@ __d(
         totalGroupCount: e,
       };
     }
-    function c(e, t, n, r) {
-      return d.apply(this, arguments);
+    async function c(e, t, n, r) {
+      r === void 0 && (r = o("WAWebBoolFunc").returnFalse);
+      var a = [];
+      return (await d(e, 0, t, a, n, r), h(a, e.length));
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            r === void 0 && (r = o("WAWebBoolFunc").returnFalse);
-            var a = [];
-            return (yield m(e, 0, t, a, n, r), b(a, e.length));
-          },
-        )),
-        d.apply(this, arguments)
-      );
+    async function d(e, t, n, r, o, a) {
+      var i = e[t];
+      if (i != null) {
+        var l = await p(i, n);
+        if ((r.push(l), l.status === "association_failed" || a())) {
+          (r.push.apply(
+            r,
+            e.slice(t + 1).map(function (e) {
+              return g(e, "not_attempted");
+            }),
+          ),
+            m(o, h(r, e.length)));
+          return;
+        }
+        (m(o, h(r, e.length)), await d(e, t + 1, n, r, o, a));
+      }
     }
-    function m(e, t, n, r, o, a) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o, a) {
-            var i = e[t];
-            if (i != null) {
-              var l = yield f(i, n);
-              if ((r.push(l), l.status === "association_failed" || a())) {
-                (r.push.apply(
-                  r,
-                  e.slice(t + 1).map(function (e) {
-                    return C(e, "not_attempted");
-                  }),
-                ),
-                  _(o, b(r, e.length)));
-                return;
-              }
-              (_(o, b(r, e.length)), yield m(e, t + 1, n, r, o, a));
-            }
-          },
-        )),
-        p.apply(this, arguments)
-      );
-    }
-    function _(t, n) {
+    function m(t, n) {
       try {
         t(n);
       } catch (t) {
@@ -73,90 +53,78 @@ __d(
           .sendLogs("org-admin-bulk-create-progress-failed");
       }
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    async function p(e, t) {
+      var n;
+      try {
+        n = await t({
+          full: null,
+          members: e.members,
+          subject: e.name,
+          thumb: null,
+        });
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "Org admin bulk group creation failed unexpectedly",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("org-admin-bulk-create-group-failed"),
+          g(e, "unexpected_failure")
+        );
+      }
+      return (function (t) {
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.status === "association_failed"
+        )
+          return f(e);
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.status === "create_failed"
+        )
+          return g(e, "create_failed");
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.status === "in_progress"
+        )
+          return g(e, "operation_busy");
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.status === "success" &&
+          "addedMemberCount" in t &&
+          "emailInviteNotSentMembers" in t &&
+          "emailInviteSentCount" in t &&
+          "failedMemberCount" in t &&
+          "invitedMemberCount" in t &&
+          "runParticipantFollowUp" in t
+        ) {
+          var n = t.addedMemberCount,
+            r = t.emailInviteNotSentMembers,
+            o = t.emailInviteSentCount,
+            a = t.failedMemberCount,
+            i = t.invitedMemberCount,
+            l = t.runParticipantFollowUp;
+          return _({
+            addedMemberCount: n,
+            emailInviteNotSentCount: r.length,
+            emailInviteSentCount: o,
+            failedMemberCount: a,
+            group: e,
+            invitedMemberCount: i,
+            runParticipantFollowUp: l,
+          });
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            t,
+        );
+      })(n);
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
-          try {
-            n = yield t({
-              full: null,
-              members: e.members,
-              subject: e.name,
-              thumb: null,
-            });
-          } catch (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "Org admin bulk group creation failed unexpectedly",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("org-admin-bulk-create-group-failed"),
-              C(e, "unexpected_failure")
-            );
-          }
-          return (function (t) {
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.status === "association_failed"
-            )
-              return y(e);
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.status === "create_failed"
-            )
-              return C(e, "create_failed");
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.status === "in_progress"
-            )
-              return C(e, "operation_busy");
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.status === "success" &&
-              "addedMemberCount" in t &&
-              "emailInviteNotSentMembers" in t &&
-              "emailInviteSentCount" in t &&
-              "failedMemberCount" in t &&
-              "invitedMemberCount" in t &&
-              "runParticipantFollowUp" in t
-            ) {
-              var n = t.addedMemberCount,
-                r = t.emailInviteNotSentMembers,
-                o = t.emailInviteSentCount,
-                a = t.failedMemberCount,
-                i = t.invitedMemberCount,
-                l = t.runParticipantFollowUp;
-              return h({
-                addedMemberCount: n,
-                emailInviteNotSentCount: r.length,
-                emailInviteSentCount: o,
-                failedMemberCount: a,
-                group: e,
-                invitedMemberCount: i,
-                runParticipantFollowUp: l,
-              });
-            }
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                t,
-            );
-          })(n);
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
+    function _(e) {
       var t = e.addedMemberCount,
         n = e.emailInviteNotSentCount,
         r = e.emailInviteSentCount,
@@ -175,7 +143,7 @@ __d(
         status: "success",
       };
     }
-    function y(e) {
+    function f(e) {
       return {
         addedMemberCount: 0,
         emailInviteNotSentCount: 0,
@@ -187,7 +155,7 @@ __d(
         status: "association_failed",
       };
     }
-    function C(e, t) {
+    function g(e, t) {
       return {
         addedMemberCount: 0,
         emailInviteNotSentCount: 0,
@@ -199,7 +167,7 @@ __d(
         status: t,
       };
     }
-    function b(e, t) {
+    function h(e, t) {
       return e.reduce(function (e, n) {
         return {
           addedMemberCount: e.addedMemberCount + n.addedMemberCount,

@@ -7,7 +7,6 @@ __d(
     "WAWebNewsletterModelUtils",
     "WAWebNewsletterQueues",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -19,15 +18,15 @@ __d(
     function d(e) {
       return m(e, !0);
     }
-    function m(t, a) {
+    function m(t, n) {
       return o("WAWebNewsletterQueues").newsletterCreationQueue.enqueue(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var n = a
-            ? yield o("WAWebNewsletterCreateJob").createNewsletter(t, {
+        async function () {
+          var a = n
+            ? await o("WAWebNewsletterCreateJob").createNewsletter(t, {
                 preserveServerResultOnLocalHydrationFailure: !0,
               })
-            : yield o("WAWebNewsletterCreateJob").createNewsletter(t);
-          if (n == null)
+            : await o("WAWebNewsletterCreateJob").createNewsletter(t);
+          if (a == null)
             return (
               o("WALogger")
                 .ERROR(
@@ -39,15 +38,15 @@ __d(
                 .tags("newsletter"),
               null
             );
-          var i = n.msgs,
-            l = n.newsletter;
-          if (!a) {
+          var i = a.msgs,
+            l = a.newsletter;
+          if (!n) {
             var c = o("WAWebNewsletterModelUtils").mapNewsletterToModels(l),
               d = c.chat,
               m = c.metadata,
               p = c.pic;
             return (
-              yield o(
+              await o(
                 "WAWebNewsletterBridgeApi",
               ).NewsletterBridgeApi.joinNewsletter({
                 newsletter: d,
@@ -89,7 +88,7 @@ __d(
               throw r("err")(
                 "Hydrated newsletter Wid does not match server result",
               );
-            yield o(
+            await o(
               "WAWebNewsletterBridgeApi",
             ).NewsletterBridgeApi.joinNewsletter({
               newsletter: g,
@@ -110,7 +109,7 @@ __d(
               .sendLogs("newsletter-create-local-hydration-fail");
           }
           return _;
-        }),
+        },
       );
     }
     ((l.createNewsletterAction = c),

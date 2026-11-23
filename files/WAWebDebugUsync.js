@@ -62,7 +62,6 @@ __d(
     }
     u.doc = "Send an usync devices query to a list of lids";
     function c(e) {
-      r("vulture")("1POeWKBmZCINq-yNbogaJTir-20=");
       var t = e.map(function (e) {
         return e.includes("@")
           ? o("WAWebWidFactory").createWid(e)

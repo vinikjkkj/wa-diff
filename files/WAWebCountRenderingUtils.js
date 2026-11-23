@@ -6,12 +6,8 @@ __d(
       if (e >= t) {
         var o = t - 1;
         return n === "missed_call"
-          ? s._(/*BTDS*/ '_j{"*":"{maxCount}+"}', [
-              s._param("maxCount", o.toString(), [0, o]),
-            ])
-          : s._(/*BTDS*/ '_j{"*":"{maxCount}+"}', [
-              s._param("maxCount", o.toString(), [0, o]),
-            ]);
+          ? s._(/*BTDS*/ "", [s._param("maxCount", o.toString(), [0, o])])
+          : s._(/*BTDS*/ "", [s._param("maxCount", o.toString(), [0, o])]);
       } else if (e > 0) return r("WAWebL10N").n(e);
       return null;
     }

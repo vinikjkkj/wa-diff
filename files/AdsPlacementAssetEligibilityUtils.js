@@ -38,17 +38,15 @@ __d(
     "AdsPlacementsInstagramProfileReelsPositionPlugin",
     "AdsPlacementsInstagramReelsPositionPlugin",
     "AdsPlacementsInstagramStoryPositionPlugin",
-    "AdsPlacementsMessengerInboxPositionPlugin",
     "AdsPlacementsMessengerStoryPositionPlugin",
     "AdsPlacementsThreadsFeedPositionPlugin",
     "AdsPlacementsWhatsAppMarketingMessagePositionPlugin",
     "AdsPlacementsWhatsAppStatusPositionPlugin",
     "AdsPromotedObjectTypes",
-    "AdsUEditorMessagingDestinationUtils",
     "AppAdsPlayablesUtils",
+    "ClickToMessageAdDestinationUtils",
     "WAMOStatusAdsManagerUtils",
     "adsCampaignGetOfferStateType",
-    "adsConvertAdObjectRecordToPlainJS",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -205,7 +203,6 @@ __d(
       return !P(e) && x(t);
     }
     function k(e) {
-      var t = r("adsConvertAdObjectRecordToPlainJS")(e);
       return !1;
     }
     function I(e, t, n) {
@@ -324,7 +321,7 @@ __d(
         e === r("AdsPromotedObjectTypes").WEBSITE_AND_IN_STORE ||
         e === r("AdsPromotedObjectTypes").WEBSITE_APP_AND_IN_STORE ||
         e === r("AdsPromotedObjectTypes").LEAD_FORM_MESSENGER ||
-        o("AdsUEditorMessagingDestinationUtils").isMultiDestination(t) ||
+        o("ClickToMessageAdDestinationUtils").isMultiDestination(t) ||
         e === r("AdsPromotedObjectTypes").PRODUCT_SET ||
         e === r("AdsPromotedObjectTypes").WEBSITE_AND_INSTANT_FORM ||
         e === r("AdsPromotedObjectTypes").WEBSITE_AND_PHONE_CALL
@@ -351,9 +348,9 @@ __d(
           return !1;
       }
     }
-    function A(e, t) {
-      var n = e.platform;
-      switch (n) {
+    function A(e, t, n) {
+      var r = e.platform;
+      switch (r) {
         case "facebook":
           return o(
             "AdsPlacementAssetCarouselUtils",
@@ -374,6 +371,10 @@ __d(
           return o(
             "AdsPlacementAssetCarouselUtils",
           ).getIsValidPlatformCarouselWhatsAppPosition([e.position], t);
+        case "threads":
+          return o(
+            "AdsPlacementAssetCarouselUtils",
+          ).getIsValidPlatformCarouselThreadsPosition([e.position], n);
         default:
           return !1;
       }
@@ -434,7 +435,6 @@ __d(
           r("AdsPlacementsInstagramStoryPositionPlugin").key,
           r("AdsPlacementsInstagramReelsPositionPlugin").key,
           r("AdsPlacementsInstagramProfileReelsPositionPlugin").key,
-          r("AdsPlacementsMessengerInboxPositionPlugin").key,
           r("AdsPlacementsMessengerStoryPositionPlugin").key,
           r("AdsPlacementsAudienceNetworkClassicPositionPlugin").key,
           r("AdsPlacementsAudienceNetworkInstreamVideoPositionPlugin").key,

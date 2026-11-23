@@ -42,11 +42,22 @@ __d(
     function d() {
       return r("gkx")("19623") ? u("947345") : u("556723");
     }
-    var m = {
+    function m(e) {
+      return e.promotedObjectType === r("AdsPromotedObjectTypes").DONATION
+        ? o("AdsPlacementIneligibilityReason").createDonationReason()
+        : e.promotedObjectType === r("AdsPromotedObjectTypes").GROUP
+          ? o("AdsPlacementIneligibilityReason").createGroupPromotionReason()
+          : e.promotedObjectType === r("AdsPromotedObjectTypes").IMAGINATION
+            ? o("AdsPlacementIneligibilityReason").createImaginationReason()
+            : e.destinationType === r("AdCampaignDestination").FACEBOOK_LIVE
+              ? o("AdsPlacementIneligibilityReason").createFacebookLiveReason()
+              : null;
+    }
+    var p = {
         type: "placements/position",
         key: "instagram/story",
         name: r("AdsPlacementPositionLabelConstant").story,
-        nameWithPlatform: s._(/*BTDS*/ "Instagram Stories"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION.STORY,
           imageCrop: r("AdImageSpecCropKeys")["90x160"],
@@ -71,7 +82,7 @@ __d(
             ),
             n = o(
               "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-            ).getSOOBundleParentIneligibilityReason(m, t);
+            ).getSOOBundleParentIneligibilityReason(p, t);
           if (n != null) return n;
           if (
             t.spec &&
@@ -173,38 +184,24 @@ __d(
             t,
             !0,
           );
-          return s != null
-            ? s
-            : t.promotedObjectType === r("AdsPromotedObjectTypes").DONATION
-              ? o("AdsPlacementIneligibilityReason").createDonationReason()
-              : t.promotedObjectType === r("AdsPromotedObjectTypes").GROUP
-                ? o(
-                    "AdsPlacementIneligibilityReason",
-                  ).createGroupPromotionReason()
-                : t.promotedObjectType ===
-                    r("AdsPromotedObjectTypes").IMAGINATION
-                  ? o(
-                      "AdsPlacementIneligibilityReason",
-                    ).createImaginationReason()
-                  : t.destinationType ===
-                      r("AdCampaignDestination").FACEBOOK_LIVE
-                    ? o(
-                        "AdsPlacementIneligibilityReason",
-                      ).createFacebookLiveReason()
-                    : o(
-                          "AdsUnifiedProfileVisitUtils",
-                        ).getIsIGPositionCondtionallyDisabledForUnifiedProfileVisits(
-                          e,
-                          t.promotedObjectType,
-                          t.destinationType,
-                          t.optimizationGoal,
-                        )
-                      ? o(
-                          "AdsUnifiedProfileVisitUtils",
-                        ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
-                          t.destinationType,
-                        )
-                      : null;
+          if (s != null) return s;
+          var u = m(t);
+          return u != null
+            ? u
+            : o(
+                  "AdsUnifiedProfileVisitUtils",
+                ).getIsIGPositionCondtionallyDisabledForUnifiedProfileVisits(
+                  e,
+                  t.promotedObjectType,
+                  t.destinationType,
+                  t.optimizationGoal,
+                )
+              ? o(
+                  "AdsUnifiedProfileVisitUtils",
+                ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
+                  t.destinationType,
+                )
+              : null;
         },
         isInactiveByDefault: function (t) {
           var e = o("AdsODAXUtils").maybeTranslateObjective(
@@ -303,8 +300,8 @@ __d(
           return t;
         },
       },
-      p = m;
-    l.default = p;
+      _ = p;
+    l.default = _;
   },
   226,
 );

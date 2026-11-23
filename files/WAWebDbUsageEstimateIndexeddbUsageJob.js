@@ -22,7 +22,7 @@ __d(
               "WAWebEstimateIndexeddbUsageApi",
             ).getEstimatedIndexedDbUsage(e);
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.LOW },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.LOW },
         )
         .waitUntilCompleted({
           printTables: r,
@@ -39,7 +39,7 @@ __d(
               "WAWebEstimateIndexeddbUsageApi",
             ).shouldMonitorDbStorageUsage();
           },
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.BEST_EFFORT },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT },
         )
         .waitUntilCompleted();
     }

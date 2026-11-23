@@ -2,45 +2,41 @@ __d(
   "WAWebGroupMembershipFormStoredRequests",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WAWebBackendRuntime",
     "WAWebGroupInviteService",
     "WAWebGroupMembershipFormDevStore",
     "WAWebGroupMembershipFormGating",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
-    "react-compiler-runtime",
     "useWAWebAsyncRetry",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = (c || (c = o("react"))).useEffect,
-      m = r("JSResourceForInteraction")(
+      c = (u || (u = o("react"))).useEffect,
+      d = r("JSResourceForInteraction")(
         "WAWebGroupMembershipFormRequestStore",
       ).__setRef("WAWebGroupMembershipFormStoredRequests"),
-      p = new Set();
-    function _() {
-      p.forEach(function (e) {
+      m = new Set();
+    function p() {
+      m.forEach(function (e) {
         return e();
       });
     }
-    function f(e) {
+    function _(e) {
       return (
-        p.add(e),
+        m.add(e),
         function () {
-          p.delete(e);
+          m.delete(e);
         }
       );
     }
-    function g(e) {
+    function f(e) {
       return o("WAWebGroupMembershipFormDevStore").isGMFDevMode()
-        ? (u || (u = n("Promise"))).resolve(
+        ? Promise.resolve(
             e.type === "group"
               ? o(
                   "WAWebGroupMembershipFormDevStore",
@@ -53,55 +49,47 @@ __d(
           ? o("WAWebBackendRuntime")
               .runtime(o("WAWebGroupInviteService").GroupInviteService)
               .getGroupMembershipFormStoredRequest(e)
-          : m.load().then(function (t) {
+          : d.load().then(function (t) {
               var n = t.getGroupMembershipFormStoredRequest;
               return n(e);
             });
     }
-    function h(e, t) {
+    function g(e, t) {
       (o("WAWebGroupMembershipFormDevStore").setDevStoredMembershipFormRequest(
         e,
         t,
       ),
-        _());
+        p());
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    async function h(t) {
+      try {
+        if (o("WAWebGroupMembershipFormDevStore").isGMFDevMode())
+          o(
+            "WAWebGroupMembershipFormDevStore",
+          ).setDevStoredMembershipFormRequest(t, null);
+        else if (o("WAWebBackendRuntime").isWebDiBackendEnabled())
+          await o("WAWebBackendRuntime")
+            .runtime(o("WAWebGroupInviteService").GroupInviteService)
+            .deleteGroupMembershipFormStoredRequest(t);
+        else {
+          var n = await d.load(),
+            a = n.deleteGroupMembershipFormStoredRequest;
+          await a(t);
+        }
+      } catch (t) {
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[GMF] clearing the stored request failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("gmf-clear-stored-request-failed");
+      }
+      p();
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            if (o("WAWebGroupMembershipFormDevStore").isGMFDevMode())
-              o(
-                "WAWebGroupMembershipFormDevStore",
-              ).setDevStoredMembershipFormRequest(e, null);
-            else if (o("WAWebBackendRuntime").isWebDiBackendEnabled())
-              yield o("WAWebBackendRuntime")
-                .runtime(o("WAWebGroupInviteService").GroupInviteService)
-                .deleteGroupMembershipFormStoredRequest(e);
-            else {
-              var t = yield m.load(),
-                n = t.deleteGroupMembershipFormStoredRequest;
-              yield n(e);
-            }
-          } catch (e) {
-            o("WALogger")
-              .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[GMF] clearing the stored request failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("gmf-clear-stored-request-failed");
-          }
-          _();
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t) {
+    function y(e, t) {
       var n;
       if (!o("WAWebGroupMembershipFormDevStore").isGMFDevMode()) return !1;
       var r =
@@ -112,7 +100,7 @@ __d(
           : n.key;
       return r == null
         ? !1
-        : (h(e.groupId, {
+        : (g(e.groupId, {
             inviteCode: e.inviteCode,
             answers: t,
             requestId: e.requestId,
@@ -120,96 +108,68 @@ __d(
           }),
           !0);
     }
-    function v(e) {
-      var t = o("react-compiler-runtime").c(12),
-        a;
-      t[0] !== e
-        ? ((a =
-            o(
-              "WAWebGroupMembershipFormGating",
-            ).isGroupMembershipFormJoinEnabled() && e != null),
-          (t[0] = e),
-          (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l;
-      t[2] !== i || t[3] !== e
-        ? ((l =
-            i && (e == null ? void 0 : e.type) === "group"
-              ? e.groupId.toString()
-              : null),
-          (t[2] = i),
-          (t[3] = e),
-          (t[4] = l))
-        : (l = t[4]);
-      var s = l,
-        c =
-          i && (e == null ? void 0 : e.type) === "inviteCode"
+    function C(e) {
+      var t =
+          o(
+            "WAWebGroupMembershipFormGating",
+          ).isGroupMembershipFormJoinEnabled() && e != null,
+        n =
+          t && (e == null ? void 0 : e.type) === "group"
+            ? e.groupId.toString()
+            : null,
+        a =
+          t && (e == null ? void 0 : e.type) === "inviteCode"
             ? e.inviteCode
             : null,
-        m,
-        p;
-      t[5] !== s || t[6] !== c
-        ? ((m = function () {
+        i = r("useWAWebAsyncRetry")(
+          function () {
             var e = null;
             return (
-              s != null
+              n != null
                 ? (e = {
                     type: "group",
                     groupId: o("WAWebWidFactory").asGroupWidOrThrow(
-                      o("WAWebWidFactory").createWid(s),
+                      o("WAWebWidFactory").createWid(n),
                     ),
                   })
-                : c != null && (e = { type: "inviteCode", inviteCode: c }),
+                : a != null && (e = { type: "inviteCode", inviteCode: a }),
               e == null
-                ? (u || (u = n("Promise"))).resolve(null)
-                : g(e).catch(S)
+                ? Promise.resolve(null)
+                : f(e).catch(function (e) {
+                    return (
+                      o("WALogger")
+                        .WARN(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "[GMF] stored request read failed",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(e))
+                        .sendLogs("gmf-stored-request-read-failed"),
+                      null
+                    );
+                  })
             );
-          }),
-          (p = [s, c]),
-          (t[5] = s),
-          (t[6] = c),
-          (t[7] = m),
-          (t[8] = p))
-        : ((m = t[7]), (p = t[8]));
-      var _ = r("useWAWebAsyncRetry")(m, p),
-        h = _.retry,
-        y = _.value,
-        C,
-        b;
+          },
+          [n, a],
+        ),
+        l = i.retry,
+        u = i.value;
       return (
-        t[9] !== h
-          ? ((C = function () {
-              return f(h);
-            }),
-            (b = [h]),
-            (t[9] = h),
-            (t[10] = C),
-            (t[11] = b))
-          : ((C = t[10]), (b = t[11])),
-        d(C, b),
-        y
+        c(
+          function () {
+            return _(l);
+          },
+          [l],
+        ),
+        u
       );
     }
-    function S(t) {
-      return (
-        o("WALogger")
-          .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[GMF] stored request read failed",
-              ])),
-          )
-          .catching(r("getErrorSafe")(t))
-          .sendLogs("gmf-stored-request-read-failed"),
-        null
-      );
-    }
-    ((l.fetchStoredGroupMembershipFormRequest = g),
-      (l.saveDevStoredGroupMembershipFormRequest = h),
-      (l.clearStoredGroupMembershipFormRequest = y),
-      (l.resubmitStoredGroupMembershipFormRequest = b),
-      (l.useStoredGroupMembershipFormRequest = v));
+    ((l.fetchStoredGroupMembershipFormRequest = f),
+      (l.saveDevStoredGroupMembershipFormRequest = g),
+      (l.clearStoredGroupMembershipFormRequest = h),
+      (l.resubmitStoredGroupMembershipFormRequest = y),
+      (l.useStoredGroupMembershipFormRequest = C));
   },
   98,
 );

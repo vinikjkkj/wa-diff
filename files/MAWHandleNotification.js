@@ -1,15 +1,12 @@
 __d(
   "MAWHandleNotification",
   [
-    "FBLogger",
-    "MAWMpsGating",
     "Promise",
     "WAAPI",
     "WAArmadilloMiTransportAdminMessage.pb",
     "WABuildMpsPayload",
     "WALogger",
     "WAMPSFlushable",
-    "WAProtocolQueue",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -54,30 +51,6 @@ __d(
       }
     }
     function m(e) {
-      switch (e.type) {
-        case "group":
-          return {
-            jid: e.notification.groupJid,
-            notification: e,
-            priority: o("WAProtocolQueue").WAProtocolQueuePriorityLow,
-            stanzaId: e.stanzaId,
-            type: "notification",
-          };
-        case "thread":
-          return {
-            jid: e.notification.chatJid,
-            notification: e,
-            priority: o("WAProtocolQueue").WAProtocolQueuePriorityLow,
-            stanzaId: e.stanzaId,
-            type: "notification",
-          };
-        default:
-          throw r("FBLogger")("messenger_web").mustfixThrow(
-            "Received unsupported notification type: " + e.type,
-          );
-      }
-    }
-    function p(e) {
       c(e);
       var t = d(e);
       if (!t) return (u || (u = n("Promise"))).resolve(e.ack());
@@ -93,14 +66,14 @@ __d(
             "memberAddMode" in l
           ) {
             var s = l.memberAddMode,
-              p = l,
-              _ = p.groupJid,
-              f = p.participant;
-            f != null &&
+              m = l,
+              p = m.groupJid,
+              _ = m.participant;
+            _ != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupMemberAddType(
+                  p,
                   _,
-                  f,
                   s === "admin_add"
                     ? o("WAArmadilloMiTransportAdminMessage.pb")
                         .MiTransportAdminMessage$GroupMembershipAddModeChanged$Mode
@@ -121,18 +94,19 @@ __d(
             l.type === "subject" &&
             "subject" in l
           ) {
-            var g = l.subject,
-              h = l,
-              y = h.groupJid,
-              C = h.participant,
-              b = h.ts;
-            g != null &&
+            var f = l.subject,
+              g = l,
+              h = g.groupJid,
+              y = g.participant,
+              C = g.ts;
+            f != null &&
+              y != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupNameChangedMsg(
+                  h,
                   y,
+                  f,
                   C,
-                  g,
-                  b,
                   i,
                 ),
                 function () {},
@@ -152,16 +126,16 @@ __d(
             l.type === "promote" &&
             "participants" in l
           ) {
-            var v = l.participants,
-              S = l,
-              R = S.groupJid,
-              L = S.participant;
-            L != null &&
+            var b = l.participants,
+              v = l,
+              S = v.groupJid,
+              R = v.participant;
+            R != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupAdminChangedMsg(
+                  S,
                   R,
-                  L,
-                  v.map(function (e) {
+                  b.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")
@@ -179,16 +153,16 @@ __d(
             l.type === "demote" &&
             "participants" in l
           ) {
-            var E = l.participants,
-              k = l,
-              I = k.groupJid,
-              T = k.participant;
-            T != null &&
+            var L = l.participants,
+              E = l,
+              k = E.groupJid,
+              I = E.participant;
+            I != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupAdminChangedMsg(
+                  k,
                   I,
-                  T,
-                  E.map(function (e) {
+                  L.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")
@@ -206,16 +180,16 @@ __d(
             l.type === "remove" &&
             "participants" in l
           ) {
-            var D = l.participants,
-              x = l,
-              $ = x.groupJid,
-              P = x.participant;
-            P != null &&
+            var T = l.participants,
+              D = l,
+              x = D.groupJid,
+              $ = D.participant;
+            $ != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupParticipantsChanged(
+                  x,
                   $,
-                  P,
-                  D.map(function (e) {
+                  T.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")
@@ -234,16 +208,16 @@ __d(
             l.type === "add" &&
             "participants" in l
           ) {
-            var N = l.participants,
-              M = l,
-              w = M.groupJid,
-              A = M.participant;
-            A != null &&
+            var P = l.participants,
+              N = l,
+              M = N.groupJid,
+              w = N.participant;
+            w != null &&
               o("WAMPSFlushable").mpsFlushable.enqueue(
                 o("WABuildMpsPayload").buildMpsGroupParticipantsChanged(
+                  M,
                   w,
-                  A,
-                  N.map(function (e) {
+                  P.map(function (e) {
                     return e.user;
                   }),
                   o("WAArmadilloMiTransportAdminMessage.pb")
@@ -263,13 +237,9 @@ __d(
           );
         }
       }
-      return (
-        o("MAWMpsGating").isFullMpsEnabled() ||
-          o("WAProtocolQueue").pqFlushable.enqueue(m(t)),
-        (u || (u = n("Promise"))).resolve(e.ack())
-      );
+      return (u || (u = n("Promise"))).resolve(e.ack());
     }
-    l.notificationHandler = p;
+    l.notificationHandler = m;
   },
   98,
 );

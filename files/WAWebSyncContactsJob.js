@@ -10,7 +10,6 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsMultiDevice",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
     "nullthrows",
@@ -21,85 +20,66 @@ __d(
       u,
       c = 86400,
       d = 60;
-    function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
+    async function m() {
+      var t = await r("WAWebLidAwareContactsDB").equals(
+          ["isContactSyncCompleted"],
+          0,
+        ),
+        n = t.map(function (e) {
+          return o("WAWebWidFactory").createWid(e.id);
+        });
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield r("WAWebLidAwareContactsDB").equals(
-              ["isContactSyncCompleted"],
-              0,
-            ),
-            n = t.map(function (e) {
-              return o("WAWebWidFactory").createWid(e.id);
-            });
-          return (
+        o("WALogger")
+          .LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "sync dirty contacts, found ",
+                " contacts to sync",
+              ])),
+            n.length,
+          )
+          .tags("contact-sync"),
+        o("WAWebContactSyncApi").syncContactListInChunks({
+          contactIds: n,
+          shouldDelayBetweenChunks: !0,
+          mode: "query",
+        })
+      );
+    }
+    async function p() {
+      ((await o(
+        "WAWebUserPrefsMultiDevice",
+      ).getShouldCheckContactSyncStatus()) &&
+        self.setTimeout(function () {
+          if (r("justknobx")._("6839") && !o("WAComms").isCommsInitialized()) {
             o("WALogger")
               .LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "sync dirty contacts, found ",
-                    " contacts to sync",
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[contact-sync] comms not initialized, skipping dirty contact sync",
                   ])),
-                n.length,
               )
-              .tags("contact-sync"),
-            o("WAWebContactSyncApi").syncContactListInChunks({
-              contactIds: n,
-              shouldDelayBetweenChunks: !0,
-              mode: "query",
-            })
-          );
-        })),
-        p.apply(this, arguments)
-      );
+              .tags("contact-sync");
+            return;
+          }
+          m().catch(function (e) {
+            o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "runSyncDirtyContactsJob: contact sync failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .tags("non-sad", "contact-sync")
+              .sendLogs("runSyncDirtyContactsJob: contact sync failed");
+          });
+        }, d * 1e3),
+        await o(
+          "WAWebUserPrefsAppStateSync",
+        ).setShouldCheckContactSyncStatus());
     }
     function _() {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          ((yield o(
-            "WAWebUserPrefsMultiDevice",
-          ).getShouldCheckContactSyncStatus()) &&
-            self.setTimeout(function () {
-              if (
-                r("justknobx")._("6839") &&
-                !o("WAComms").isCommsInitialized()
-              ) {
-                o("WALogger")
-                  .LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[contact-sync] comms not initialized, skipping dirty contact sync",
-                      ])),
-                  )
-                  .tags("contact-sync");
-                return;
-              }
-              m().catch(function (e) {
-                o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "runSyncDirtyContactsJob: contact sync failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .tags("non-sad", "contact-sync")
-                  .sendLogs("runSyncDirtyContactsJob: contact sync failed");
-              });
-            }, d * 1e3),
-            yield o(
-              "WAWebUserPrefsAppStateSync",
-            ).setShouldCheckContactSyncStatus());
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g() {
       var e,
         t =
           (e = r("nullthrows")(r("WAWebLocalStorage")).getItem(
@@ -109,7 +89,7 @@ __d(
             : c;
       return parseInt(String(t), 10);
     }
-    ((l.runSyncDirtyContactsJob = _), (l.getContactSyncRefreshSeconds = g));
+    ((l.runSyncDirtyContactsJob = p), (l.getContactSyncRefreshSeconds = _));
   },
   98,
 );

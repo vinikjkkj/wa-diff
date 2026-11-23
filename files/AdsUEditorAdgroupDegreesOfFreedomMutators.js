@@ -6,15 +6,18 @@ __d(
     function e(e, t) {
       var n, o, a, i;
       if (t.transformations == null || t.transformations.isEmpty()) return e;
-      var l = r(
-        "AdsAdgroupRecordAccessors",
-      ).creative.degrees_of_freedom_spec.degrees_of_freedom_type.set(
-        "USER_ENROLLED_NON_DCO",
-        e,
-      );
+      var l =
+        t.target === "text" && u(e)
+          ? e
+          : r(
+              "AdsAdgroupRecordAccessors",
+            ).creative.degrees_of_freedom_spec.degrees_of_freedom_type.set(
+              "USER_ENROLLED_NON_DCO",
+              e,
+            );
       switch (t.target) {
         case "image":
-          return u(
+          return c(
             l,
             (n = e.creative) == null || (n = n.degrees_of_freedom_spec) == null
               ? void 0
@@ -24,7 +27,7 @@ __d(
               .image_transformation_types,
           );
         case "video":
-          return u(
+          return c(
             l,
             (o = e.creative) == null || (o = o.degrees_of_freedom_spec) == null
               ? void 0
@@ -34,7 +37,7 @@ __d(
               .video_transformation_types,
           );
         case "text":
-          return u(
+          return c(
             l,
             (a = e.creative) == null || (a = a.degrees_of_freedom_spec) == null
               ? void 0
@@ -44,7 +47,7 @@ __d(
               .text_transformation_types,
           );
         case "stories":
-          return u(
+          return c(
             l,
             (i = e.creative) == null || (i = i.degrees_of_freedom_spec) == null
               ? void 0
@@ -58,51 +61,46 @@ __d(
       }
     }
     function s(e, t) {
-      var n, o, a, i, l;
-      if (t == null) return m(e);
-      if (
-        ((n = e.creative) == null || (n = n.degrees_of_freedom_spec) == null
-          ? void 0
-          : n.degrees_of_freedom_type) === "USER_ENROLLED_AUTOFLOW"
-      )
-        return e;
+      var n, o, a, i;
+      if (t == null) return p(e);
+      if (u(e) && t.target !== "text") return e;
       switch (t.target) {
         case "image":
-          return c(
+          return d(
             e,
-            (o = e.creative) == null || (o = o.degrees_of_freedom_spec) == null
+            (n = e.creative) == null || (n = n.degrees_of_freedom_spec) == null
               ? void 0
-              : o.image_transformation_types,
+              : n.image_transformation_types,
             t.transformations,
             r("AdsAdgroupRecordAccessors").creative.degrees_of_freedom_spec
               .image_transformation_types,
           );
         case "video":
-          return c(
+          return d(
             e,
-            (a = e.creative) == null || (a = a.degrees_of_freedom_spec) == null
+            (o = e.creative) == null || (o = o.degrees_of_freedom_spec) == null
               ? void 0
-              : a.video_transformation_types,
+              : o.video_transformation_types,
             t.transformations,
             r("AdsAdgroupRecordAccessors").creative.degrees_of_freedom_spec
               .video_transformation_types,
           );
         case "text":
-          return c(
+          return d(
             e,
-            (i = e.creative) == null || (i = i.degrees_of_freedom_spec) == null
+            (a = e.creative) == null || (a = a.degrees_of_freedom_spec) == null
               ? void 0
-              : i.text_transformation_types,
+              : a.text_transformation_types,
             t.transformations,
             r("AdsAdgroupRecordAccessors").creative.degrees_of_freedom_spec
               .text_transformation_types,
           );
         case "stories":
-          return c(
+          return d(
             e,
-            (l = e.creative) == null || (l = l.degrees_of_freedom_spec) == null
+            (i = e.creative) == null || (i = i.degrees_of_freedom_spec) == null
               ? void 0
-              : l.stories_transformation_types,
+              : i.stories_transformation_types,
             t.transformations,
             r("AdsAdgroupRecordAccessors").creative.degrees_of_freedom_spec
               .stories_transformation_types,
@@ -111,13 +109,21 @@ __d(
           return e;
       }
     }
-    function u(e, t, n, o) {
+    function u(e) {
+      var t;
+      return (
+        ((t = e.creative) == null || (t = t.degrees_of_freedom_spec) == null
+          ? void 0
+          : t.degrees_of_freedom_type) === "USER_ENROLLED_AUTOFLOW"
+      );
+    }
+    function c(e, t, n, o) {
       if (n == null || n.isEmpty()) return e;
       var a = (t != null ? t : r("immutable").List()).toOrderedSet(),
         i = a.concat(n).toList();
       return o.set(i, e);
     }
-    function c(e, t, n, o) {
+    function d(e, t, n, o) {
       if (n && n.isEmpty()) return e;
       var a;
       if (n == null) a = r("immutable").List();
@@ -125,9 +131,9 @@ __d(
         var i = (t != null ? t : r("immutable").List()).toOrderedSet();
         a = i.subtract(n).toList();
       }
-      return a.isEmpty() ? d(o.delete(e)) : o.set(a, e);
+      return a.isEmpty() ? m(o.delete(e)) : o.set(a, e);
     }
-    function d(e) {
+    function m(e) {
       var t,
         n,
         r,
@@ -156,9 +162,11 @@ __d(
           (o = o.degrees_of_freedom_spec) == null
             ? void 0
             : o.text_transformation_types;
-      return a == null && i == null && l == null && s == null ? m(e) : e;
+      return a == null && i == null && l == null && s == null && !u(e)
+        ? p(e)
+        : e;
     }
-    function m(e) {
+    function p(e) {
       var t,
         n = e,
         o = !!(

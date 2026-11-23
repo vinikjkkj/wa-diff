@@ -86,6 +86,7 @@ __d(
               socketId: l,
             });
           case "Group":
+          case "DeliverGroupStatus":
             return f({
               from: p.value.from,
               aggregate: {
@@ -124,51 +125,54 @@ __d(
           s = t.deliverBizRolesMixin,
           u = t.deliverPaidConversationAggregatedMixin,
           d = t.id,
-          m = t.individualOrGroupOrDeliverStatusOrBroadcastMixinGroup,
-          p = t.listItem,
-          g = t.recipientMixin,
+          m = t.listItem,
+          p = t.recipientMixin,
+          g = t.senderAggregatedStyleChatType,
           h = t.senderAggregatedStyleReceiptType,
           y = [d].concat(
-            p.map(function (e) {
+            m.map(function (e) {
               return e.id;
             }),
           );
-        switch (m.name) {
+        switch (g.name) {
           case "Individual":
             return _({
               aggregate: {
                 aggregatedType: "sender",
-                receiptSender: m.value.from,
+                receiptSender: g.value.from,
                 stanzaIds: y,
               },
               receiptType: h,
               makeAck: r,
               offline: a,
               serverTs: i,
-              recipient: g == null ? void 0 : g.recipient,
+              recipient: p == null ? void 0 : p.recipient,
               socketId: l,
             });
           case "Group":
+          case "DeliverGroupStatus":
             return f({
-              from: m.value.from,
+              from: g.value.from,
               aggregate: {
                 aggregatedType: "sender",
                 stanzaIds: y,
                 receiptSender: o("WAJids").unsafeCoerceToDeviceJid(
-                  m.value.participant,
+                  g.value.participant,
                 ),
               },
               receiptType: h,
               makeAck: r,
               offline: a,
               serverTs: i,
-              recipient: g == null ? void 0 : g.recipient,
+              recipient: p == null ? void 0 : p.recipient,
               socketId: l,
             });
           case "DeliverStatus":
             break;
           case "Broadcast":
             break;
+          default:
+            g.name;
         }
         return (c || (c = n("Promise"))).resolve(
           o("WAResultOrError").makeResult(r()),
@@ -249,7 +253,7 @@ __d(
             var P = v.value,
               N = P.id,
               M =
-                P.individualWithRecipientOrGroupOrDeliverStatusOrBroadcastMixinGroup,
+                P.individualWithRecipientOrDeliverGroupStatusOrGroupOrDeliverStatusOrBroadcastMixinGroup,
               w = P.listItem,
               A = P.type,
               F = { value: { type: A }, name: "SenderType" },
@@ -260,6 +264,7 @@ __d(
               );
             switch (M.name) {
               case "Group":
+              case "DeliverGroupStatus":
                 return f({
                   aggregate: {
                     aggregatedType: "sender",
@@ -294,6 +299,8 @@ __d(
                   recipient: M.value.recipient,
                   socketId: a,
                 });
+              default:
+                M.name;
             }
             break;
           }
@@ -309,7 +316,7 @@ __d(
             var B = v.value,
               W = B.id,
               q =
-                B.individualWithRecipientOrGroupOrDeliverStatusOrBroadcastMixinGroup,
+                B.individualWithRecipientOrDeliverGroupStatusOrGroupOrDeliverStatusOrBroadcastMixinGroup,
               U = B.senderTypeOrRetryMixinGroup;
             switch (q.name) {
               case "IndividualWithRecipient":
@@ -327,6 +334,7 @@ __d(
                   socketId: a,
                 });
               case "Group":
+              case "DeliverGroupStatus":
                 return f({
                   from: q.value.from,
                   aggregate: {

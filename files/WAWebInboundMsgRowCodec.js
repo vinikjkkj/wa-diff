@@ -1,27 +1,24 @@
 __d(
   "WAWebInboundMsgRowCodec",
   [
-    "Promise",
     "WACustomError",
     "WAWap",
     "WAWebHandleMsgParser",
     "WAWebQuarantineActionUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n = e.call(this, t) || this),
-            (n.name = "InboundMsgRowCodecError"),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(o("WACustomError").CustomError);
-    function u(e) {
+    var e = (function (e) {
+      function t(t) {
+        var n;
+        return (
+          (n = e.call(this, t) || this),
+          (n.name = "InboundMsgRowCodecError"),
+          n
+        );
+      }
+      return (babelHelpers.inheritsLoose(t, e), t);
+    })(o("WACustomError").CustomError);
+    function s(e) {
       var t = e.clientReceivedTsMillis,
         n = e.intake,
         r = e.isGroupStatusStanza,
@@ -43,38 +40,30 @@ __d(
         },
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function u(t) {
+      var n;
+      if (t.version !== 1 && t.version !== 2)
+        throw new e("unknown inbound row version " + t.version);
+      var r = await o("WAWap").decodeStanza(t.stanza.slice(), f),
+        a = o("WAWebHandleMsgParser").incomingMsgParser.parse(r);
+      if (a.error) throw new e("persisted stanza no longer parses");
+      var i = a.success;
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          if (e.version !== 1 && e.version !== 2)
-            throw new s("unknown inbound row version " + e.version);
-          var n = yield o("WAWap").decodeStanza(e.stanza.slice(), y),
-            r = o("WAWebHandleMsgParser").incomingMsgParser.parse(n);
-          if (r.error) throw new s("persisted stanza no longer parses");
-          var a = r.success;
-          return (
-            e.isGroupStatusStanza && (a.msgMeta.isGroupStatus = !0),
-            e.isStatusStanza && (a.msgMeta.isStatusStanza = !0),
-            (a.msgInfo.clientReceivedTsMillis = e.clientReceivedTsMillis),
-            (a.msgInfo.msgProcessStartTsMillis = e.msgProcessStartTsMillis),
-            f(a.msgInfo, e.intake),
-            {
-              input: a,
-              parts: e.parts.map(function (e) {
-                return g(a.encs, e);
-              }),
-              placeholder: (t = e.placeholder) != null ? t : null,
-            }
-          );
-        })),
-        d.apply(this, arguments)
+        t.isGroupStatusStanza && (i.msgMeta.isGroupStatus = !0),
+        t.isStatusStanza && (i.msgMeta.isStatusStanza = !0),
+        (i.msgInfo.clientReceivedTsMillis = t.clientReceivedTsMillis),
+        (i.msgInfo.msgProcessStartTsMillis = t.msgProcessStartTsMillis),
+        m(i.msgInfo, t.intake),
+        {
+          input: i,
+          parts: t.parts.map(function (e) {
+            return p(i.encs, e);
+          }),
+          placeholder: (n = t.placeholder) != null ? n : null,
+        }
       );
     }
-    function m(e, t) {
+    function c(e, t) {
       return {
         kind: "stanza",
         handler: t,
@@ -82,20 +71,12 @@ __d(
         version: 1,
       };
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function d(t) {
+      if (t.version !== 1)
+        throw new e("unknown inbound row version " + t.version);
+      return o("WAWap").decodeStanza(t.stanza.slice(), f);
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.version !== 1)
-            throw new s("unknown inbound row version " + e.version);
-          return o("WAWap").decodeStanza(e.stanza.slice(), y);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t) {
+    function m(e, t) {
       var n = t.hostedBizEncStateMismatch,
         r = t.offline,
         o = t.senderOrRecipientAccountTypeHosted;
@@ -103,21 +84,21 @@ __d(
         n && (e.hostedBizEncStateMismatch = !0),
         o && (e.senderOrRecipientAccountTypeHosted = !0));
     }
-    function g(e, t) {
-      var n = t.encIndex,
-        r = t.plaintext,
-        o = t.quarantineAction,
-        a = t.scheduledMsgViewMode,
-        i = e[n];
-      if (i == null) throw new s("persisted part refers to missing enc " + n);
+    function p(t, n) {
+      var r = n.encIndex,
+        o = n.plaintext,
+        a = n.quarantineAction,
+        i = n.scheduledMsgViewMode,
+        l = t[r];
+      if (l == null) throw new e("persisted part refers to missing enc " + r);
       return {
-        enc: i,
-        plaintext: r,
-        quarantineAction: h(o),
-        scheduledMsgViewMode: a,
+        enc: l,
+        plaintext: o,
+        quarantineAction: _(a),
+        scheduledMsgViewMode: i,
       };
     }
-    function h(e) {
+    function _(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -146,17 +127,15 @@ __d(
         );
       })(e);
     }
-    function y() {
-      return (e || (e = n("Promise"))).reject(
-        new s("persisted stanza is compressed"),
-      );
+    function f() {
+      return Promise.reject(new e("persisted stanza is compressed"));
     }
-    ((l.InboundMsgRowCodecError = s),
-      (l.encodeInboundMsgRow = u),
-      (l.decodeInboundMsgRow = c),
-      (l.encodeInboundStanzaRow = m),
-      (l.decodeInboundStanzaRow = p),
-      (l.applyInboundMsgIntakeState = f));
+    ((l.InboundMsgRowCodecError = e),
+      (l.encodeInboundMsgRow = s),
+      (l.decodeInboundMsgRow = u),
+      (l.encodeInboundStanzaRow = c),
+      (l.decodeInboundStanzaRow = d),
+      (l.applyInboundMsgIntakeState = m));
   },
   98,
 );

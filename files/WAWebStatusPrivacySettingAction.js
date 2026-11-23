@@ -4,69 +4,35 @@ __d(
     "WAWebStatusSetAndSyncPrivacy",
     "WAWebUserPrefsStatus",
     "WAWebUserPrefsStatusType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return s.apply(this, arguments);
+    async function e() {
+      return o("WAWebUserPrefsStatus").getStatusPrivacySettingConfig();
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebUserPrefsStatus").getStatusPrivacySettingConfig();
-        })),
-        s.apply(this, arguments)
-      );
+    async function s(e) {
+      return o("WAWebStatusSetAndSyncPrivacy").setAndSyncStatusPrivacy({
+        setting: o("WAWebUserPrefsStatusType").StatusPrivacySettingType
+          .AllowList,
+        list: e,
+      });
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      return o("WAWebStatusSetAndSyncPrivacy").setAndSyncStatusPrivacy({
+        setting: o("WAWebUserPrefsStatusType").StatusPrivacySettingType
+          .DenyList,
+        list: e,
+      });
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebStatusSetAndSyncPrivacy").setAndSyncStatusPrivacy({
-            setting: o("WAWebUserPrefsStatusType").StatusPrivacySettingType
-              .AllowList,
-            list: e,
-          });
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebStatusSetAndSyncPrivacy").setAndSyncStatusPrivacy({
-            setting: o("WAWebUserPrefsStatusType").StatusPrivacySettingType
-              .DenyList,
-            list: e,
-          });
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebStatusSetAndSyncPrivacy").setAndSyncStatusPrivacy({
-            setting: o("WAWebUserPrefsStatusType").StatusPrivacySettingType
-              .Contact,
-            list: [],
-          });
-        })),
-        _.apply(this, arguments)
-      );
+    async function c() {
+      return o("WAWebStatusSetAndSyncPrivacy").setAndSyncStatusPrivacy({
+        setting: o("WAWebUserPrefsStatusType").StatusPrivacySettingType.Contact,
+        list: [],
+      });
     }
     ((l.getStatusPrivacySetting = e),
-      (l.setStatusPrivacyAllowList = u),
-      (l.setStatusPrivacyDenyList = d),
-      (l.setStatusPrivacyContact = p));
+      (l.setStatusPrivacyAllowList = s),
+      (l.setStatusPrivacyDenyList = u),
+      (l.setStatusPrivacyContact = c));
   },
   98,
 );

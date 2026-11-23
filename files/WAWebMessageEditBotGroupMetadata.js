@@ -1,7 +1,6 @@
 __d(
   "WAWebMessageEditBotGroupMetadata",
   [
-    "Promise",
     "WALogger",
     "WAWebBotGroupGatingUtils",
     "WAWebBotMetadataProtoUtils",
@@ -12,128 +11,111 @@ __d(
     "WAWebResolveGroupAgentParticipants",
     "WAWebSchemaGroupMetadata",
     "WAWebSchemaParticipant",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e, t, n) {
+    var e, s;
+    function u(e, t, n) {
       var r,
         o,
         a = { id: e.id, mentionedJidList: n },
         i = [
-          y(a, e),
-          b(a, t.messageContextInfo),
-          b(
+          f(a, e),
+          h(a, t.messageContextInfo),
+          h(
             a,
             (r = t.protocolMessage) == null || (r = r.editedMessage) == null
               ? void 0
               : r.messageContextInfo,
           ),
         ];
-      return (o = i.find(S)) != null ? o : {};
+      return (o = i.find(C)) != null ? o : {};
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            r,
-            a,
-            i,
-            l = e.id.remote.toString(),
-            s = yield (u || (u = n("Promise"))).all([
-              o("WAWebSchemaParticipant").getParticipantTable().get(l),
-              o("WAWebSchemaGroupMetadata").getGroupMetadataTable().get(l),
-            ]),
-            c = s[0],
-            d = s[1],
-            m = yield o(
-              "WAWebResolveGroupAgentParticipants",
-            ).resolveGroupAgentParticipants(
-              (t = c == null ? void 0 : c.participants) != null ? t : [],
-            ),
-            p = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
-              {
-                messageContextInfo: {
-                  botMetadata: {
-                    botGroupMetadata: o(
-                      "WAWebGenerateBotGroupMetadata",
-                    ).generateBotGroupMetadata(
-                      (r = e.botGroupParticipant) != null
-                        ? r
-                        : o(
-                            "WAWebBotGroupGatingUtils",
-                          ).getSendGroupBotParticipant(d),
-                    ),
-                  },
-                },
+    async function c(e) {
+      var t,
+        n,
+        r,
+        a,
+        i = e.id.remote.toString(),
+        l = await Promise.all([
+          o("WAWebSchemaParticipant").getParticipantTable().get(i),
+          o("WAWebSchemaGroupMetadata").getGroupMetadataTable().get(i),
+        ]),
+        s = l[0],
+        u = l[1],
+        c = await o(
+          "WAWebResolveGroupAgentParticipants",
+        ).resolveGroupAgentParticipants(
+          (t = s == null ? void 0 : s.participants) != null ? t : [],
+        ),
+        d = o("WAWebGenerateBotGroupMetadata").addGroupAgentBotMetadata(
+          {
+            messageContextInfo: {
+              botMetadata: {
+                botGroupMetadata: o(
+                  "WAWebGenerateBotGroupMetadata",
+                ).generateBotGroupMetadata(
+                  (n = e.botGroupParticipant) != null
+                    ? n
+                    : o("WAWebBotGroupGatingUtils").getSendGroupBotParticipant(
+                        u,
+                      ),
+                ),
               },
-              m,
-            ),
-            _ = p.messageContextInfo,
-            f =
-              (a =
-                _ == null ||
-                (i = _.botMetadata) == null ||
-                (i = i.botGroupMetadata) == null
-                  ? void 0
-                  : i.participantsMetadata) != null
-                ? a
-                : [];
-          return b(
-            e,
-            C(
-              f.flatMap(function (e) {
-                var t = e.botFbid;
-                return t != null ? [t] : [];
-              }),
-            ),
-          );
-        })),
-        m.apply(this, arguments)
+            },
+          },
+          c,
+        ),
+        m = d.messageContextInfo,
+        p =
+          (r =
+            m == null ||
+            (a = m.botMetadata) == null ||
+            (a = a.botGroupMetadata) == null
+              ? void 0
+              : a.participantsMetadata) != null
+            ? r
+            : [];
+      return h(
+        e,
+        g(
+          p.flatMap(function (e) {
+            var t = e.botFbid;
+            return t != null ? [t] : [];
+          }),
+        ),
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function d(t) {
+      if (
+        !t.id.remote.isGroup() ||
+        !o("WAWebMsgGetters").getIsSentByMeFromWeb(t)
+      )
+        return t;
+      try {
+        var n = await c(t),
+          a = n.botGroupParticipant,
+          i = n.botGroupParticipants;
+        return babelHelpers.extends({}, t, {
+          botGroupParticipant: a != null ? a : null,
+          botGroupParticipants: i != null ? i : null,
+        });
+      } catch (n) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[message-edit] own edit BotGroupMetadata failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(n))
+            .sendLogs("message-edit-own-bot-group-metadata-failed"),
+          t
+        );
+      }
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !e.id.remote.isGroup() ||
-            !o("WAWebMsgGetters").getIsSentByMeFromWeb(e)
-          )
-            return e;
-          try {
-            var t = yield d(e),
-              n = t.botGroupParticipant,
-              a = t.botGroupParticipants;
-            return babelHelpers.extends({}, e, {
-              botGroupParticipant: n != null ? n : null,
-              botGroupParticipants: a != null ? a : null,
-            });
-          } catch (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[message-edit] own edit BotGroupMetadata failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("message-edit-own-bot-group-metadata-failed"),
-              e
-            );
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t, n) {
+    function m(e, t, n) {
       var r, o;
       if (t.id.remote.isGroup()) {
         var a = n.botResponseTargetId != null;
@@ -144,28 +126,28 @@ __d(
             (o = n.botGroupParticipants) != null ? o : null));
       }
     }
-    function g(t) {
-      t.forEach(function (t) {
-        var n = t.editedMsgData,
-          a = t.isLatest,
-          i = t.parentMsg;
-        if (!(!a || n.botGroupParticipants === void 0))
+    function p(e) {
+      e.forEach(function (e) {
+        var t = e.editedMsgData,
+          n = e.isLatest,
+          a = e.parentMsg;
+        if (!(!n || t.botGroupParticipants === void 0))
           try {
-            h(i.id, n.botGroupParticipants, n.botGroupParticipant);
-          } catch (t) {
+            _(a.id, t.botGroupParticipants, t.botGroupParticipant);
+          } catch (e) {
             o("WALogger")
               .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "[message-edit] bot group gossip cache update failed",
                   ])),
               )
-              .catching(r("getErrorSafe")(t))
+              .catching(r("getErrorSafe")(e))
               .sendLogs("message-edit-bot-group-gossip-cache-failed");
           }
       });
     }
-    function h(e, t, n) {
+    function _(e, t, n) {
       var r = o("WAWebMsmsgMsgSecretCache").createBotGroupGossipData(t, n);
       [e, o("WAWebLidMigrationUtils").getAlternateMsgKey(e)].forEach(
         function (e) {
@@ -189,20 +171,20 @@ __d(
         },
       );
     }
-    function y(e, t) {
-      var n = v(t);
+    function f(e, t) {
+      var n = y(t);
       if (n.botGroupParticipants == null) return n;
-      var r = b(
+      var r = h(
         e,
-        C(
+        g(
           n.botGroupParticipants.map(function (e) {
             return e.user;
           }),
         ),
       );
-      return S(r) ? r : n;
+      return C(r) ? r : n;
     }
-    function C(e) {
+    function g(e) {
       return {
         botMetadata: {
           botGroupMetadata: {
@@ -214,7 +196,7 @@ __d(
         threadId: [],
       };
     }
-    function b(e, t) {
+    function h(e, t) {
       var n,
         r = {
           id: e.id,
@@ -222,12 +204,12 @@ __d(
         };
       return (
         o("WAWebBotMetadataProtoUtils").parseBotMetadataProto(r, t, !0),
-        v(r)
+        y(r)
       );
     }
-    function v(e) {
+    function y(e) {
       var t, n;
-      return S(e)
+      return C(e)
         ? {
             botGroupParticipant: (t = e.botGroupParticipant) != null ? t : null,
             botGroupParticipants:
@@ -235,14 +217,14 @@ __d(
           }
         : {};
     }
-    function S(e) {
+    function C(e) {
       return e.botGroupParticipant != null || e.botGroupParticipants != null;
     }
-    ((l.getReceivedEditBotGroupMetadata = c),
-      (l.getOwnEditBotGroupMetadata = d),
-      (l.addOwnEditBotGroupMetadata = p),
-      (l.applyEditedBotGroupMetadata = f),
-      (l.updateBotGroupGossipCache = g));
+    ((l.getReceivedEditBotGroupMetadata = u),
+      (l.getOwnEditBotGroupMetadata = c),
+      (l.addOwnEditBotGroupMetadata = d),
+      (l.applyEditedBotGroupMetadata = m),
+      (l.updateBotGroupGossipCache = p));
   },
   98,
 );

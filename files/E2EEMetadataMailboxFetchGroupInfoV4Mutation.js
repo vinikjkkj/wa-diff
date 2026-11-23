@@ -3,7 +3,6 @@ __d(
   [
     "E2EEMetadataMailboxFetchGroupInfoV4Mutation.graphql",
     "FBLogger",
-    "asyncToGeneratorRuntime",
     "createWorkerMutation",
   ],
   function (t, n, r, o, a, i, l) {
@@ -13,23 +12,15 @@ __d(
         e !== void 0
           ? e
           : (e = n("E2EEMetadataMailboxFetchGroupInfoV4Mutation.graphql"));
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("createWorkerMutation")(s),
-            n = t[0],
-            o = yield n({ input: e });
-          if (o == null)
-            throw r("FBLogger")("wmi").mustfixThrow(
-              "Failed to fetch E2EE metadata mailbox group info from MI (V4)",
-            );
-          return o;
-        })),
-        c.apply(this, arguments)
-      );
+    async function u(e) {
+      var t = r("createWorkerMutation")(s),
+        n = t[0],
+        o = await n({ input: e });
+      if (o == null)
+        throw r("FBLogger")("wmi").mustfixThrow(
+          "Failed to fetch E2EE metadata mailbox group info from MI (V4)",
+        );
+      return o;
     }
     l.fetchGroupInfoFromMIOverGraphQLV4 = u;
   },

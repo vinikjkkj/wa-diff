@@ -17,24 +17,24 @@ __d(
         f = e.requestSent,
         g = f === void 0 ? !1 : f;
       if (a instanceof o("WAWebBackendErrors").ServerStatusCodeError) {
-        if (a.status === 426) return s._(/*BTDS*/ "Update");
+        if (a.status === 426) return s._(/*BTDS*/ "");
         if (a.status === 406) return r("WAWebFbtCommon")("OK");
       }
       return m
-        ? s._(/*BTDS*/ "Revoke invite")
+        ? s._(/*BTDS*/ "")
         : l
           ? i === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(/*BTDS*/ "View community")
-            : s._(/*BTDS*/ "View group")
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
           : i === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(/*BTDS*/ "Join community")
+            ? s._(/*BTDS*/ "")
             : c
-              ? s._(/*BTDS*/ "Message group owner")
+              ? s._(/*BTDS*/ "")
               : _ || (i === o("WAWebGroupType").GroupType.LINKED_SUBGROUP && n)
                 ? g
-                  ? s._(/*BTDS*/ "Cancel request")
-                  : s._(/*BTDS*/ "Request to join")
-                : s._(/*BTDS*/ "Join group");
+                  ? s._(/*BTDS*/ "")
+                  : s._(/*BTDS*/ "")
+                : s._(/*BTDS*/ "");
     }
     l.getGroupInviteActionText = e;
   },

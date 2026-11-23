@@ -4,7 +4,6 @@ __d(
     "WATimeUtils",
     "WAWebBuildConstants",
     "WAWebStartupResourcesPrefetch",
-    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,19 +17,16 @@ __d(
     }
     function d(t) {
       (m(),
-        (s = self.setTimeout(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var n,
-              r =
-                (n = yield o(
-                  "WAWebStartupResourcesPrefetch",
-                ).prefetchStartupResources(t)) != null
-                  ? n
-                  : t;
-            e && d(r);
-          }),
-          o("WATimeUtils").HOUR_MILLISECONDS,
-        )));
+        (s = self.setTimeout(async function () {
+          var n,
+            r =
+              (n = await o(
+                "WAWebStartupResourcesPrefetch",
+              ).prefetchStartupResources(t)) != null
+                ? n
+                : t;
+          e && d(r);
+        }, o("WATimeUtils").HOUR_MILLISECONDS)));
     }
     function m() {
       s != null && (self.clearTimeout(s), (s = null));

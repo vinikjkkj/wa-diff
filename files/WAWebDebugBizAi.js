@@ -21,16 +21,14 @@ __d(
       p = "Name\nMock customer\n",
       _ = null;
     function f(e) {
-      (r("vulture")("r7Jlb1ulf7rZZGpdqmcRwo8X8xw="),
-        o("WAWebOpenBizAiHubDeeplink").openBizAiHubDeeplink(
-          o("WAWebBizAiHubDeeplinkScheme").BIZ_AI_HUB_DEEPLINK_SCHEME + "/" + e,
-        ));
+      o("WAWebOpenBizAiHubDeeplink").openBizAiHubDeeplink(
+        o("WAWebBizAiHubDeeplinkScheme").BIZ_AI_HUB_DEEPLINK_SCHEME + "/" + e,
+      );
     }
     function g() {
-      (r("vulture")("IewoAA1fAv_cfsAPn0LjD4pdpFY="),
-        o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-          u.jsx(r("WAWebBizAiKnowledgeReviewDrawerLoadable.react"), {}),
-        ));
+      o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+        u.jsx(r("WAWebBizAiKnowledgeReviewDrawerLoadable.react"), {}),
+      );
     }
     ((g.doc =
       "biz-ai-hub deeplink: open Knowledge Review drawer (/review-knowledge)"),
@@ -46,7 +44,7 @@ __d(
     ((y.doc = "biz-ai-hub deeplink: open Appointments drawer (/appointments)"),
       (y.paramsToExecute = []));
     function C() {
-      (r("vulture")("_ZuIzajj_SarQ4pNeL8bTfUGHD4="), f("business-info"));
+      f("business-info");
     }
     ((C.doc =
       "biz-ai-hub deeplink: open Business info drawer (/business-info)"),

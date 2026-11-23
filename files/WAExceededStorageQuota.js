@@ -41,8 +41,8 @@ __d(
       }
     }
     function f(e) {
-      e.addEventListener("abort", function (e) {
-        var t = e.target.error;
+      e.addEventListener("abort", function () {
+        var t = e.error;
         v(t) && m(!0);
       });
     }
@@ -52,39 +52,39 @@ __d(
     function C() {
       return new (e || (e = n("Promise")))(function (e) {
         var t = indexedDB.open(g);
-        ((t.onerror = function (t) {
-          var n = b(t.target.error, "db-open-failure");
+        ((t.onerror = function () {
+          var n = b(t.error, "db-open-failure");
           e(n);
         }),
-          (t.onupgradeneeded = function (e) {
-            var t = e.target.result;
-            t.createObjectStore(h);
+          (t.onupgradeneeded = function () {
+            var e = t.result;
+            e.createObjectStore(h);
           }),
-          (t.onsuccess = function (t) {
-            var n = t.target.result,
+          (t.onsuccess = function () {
+            var n = t.result,
               r = n.transaction([h], "readwrite");
             ((r.oncomplete = function () {
               e(o("WAResultOrError").makeResult("storage-quota-sufficient"));
             }),
-              (r.onerror = function (t) {
-                var n = b(t.target.error, "transaction-failure");
-                e(n);
+              (r.onerror = function () {
+                var t = b(r.error, "transaction-failure");
+                e(t);
               }),
-              (r.onabort = function (t) {
-                var n = b(t.target.error, "transaction-abort");
-                e(n);
+              (r.onabort = function () {
+                var t = b(r.error, "transaction-abort");
+                e(t);
               }));
             var a = r.objectStore(h),
               i = new Blob([new Uint8Array(1024)]),
               l = a.add(i, y);
-            ((l.onerror = function (t) {
-              var n = b(t.target.error, "write-faiure");
-              e(n);
+            ((l.onerror = function () {
+              var t = b(l.error, "write-faiure");
+              e(t);
             }),
               (l.onsuccess = function () {
                 var t = a.delete(y);
-                ((t.onerror = function (t) {
-                  var n = b(t.target.error, "delete-failure");
+                ((t.onerror = function () {
+                  var n = b(t.error, "delete-failure");
                   e(n);
                 }),
                   (t.onsuccess = function () {}));

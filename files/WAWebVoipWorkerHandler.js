@@ -1,6 +1,11 @@
 __d(
   "WAWebVoipWorkerHandler",
-  ["WAWebVoipNativeStackTraceLogger", "WAWebVoipWasmHeapBuffer", "err"],
+  [
+    "WAWebVoipIncomingSignalingFromHeap",
+    "WAWebVoipNativeStackTraceLogger",
+    "WAWebVoipWasmHeapBuffer",
+    "err",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
@@ -61,64 +66,131 @@ __d(
         }
       }
     }
-    function f(t, n, a) {
+    function f(e, t, n, r, o) {
+      return t === "handleIncomingSignalingOfferFromHeap"
+        ? e.handleIncomingSignalingOfferFromHeap(
+            r,
+            o,
+            d(n.msgPlatform),
+            d(n.msgVersion),
+            d(n.msgEStr),
+            d(n.msgTStr),
+            p(n.msgOffline),
+            p(n.isOfferNotContact),
+            d(n.peerJid),
+            d(n.participantJid),
+          )
+        : t === "handleIncomingSignalingMessageFromHeap"
+          ? e.handleIncomingSignalingMessageFromHeap(
+              r,
+              o,
+              d(n.msgPlatform),
+              d(n.msgVersion),
+              d(n.msgEStr),
+              d(n.msgTStr),
+              p(n.msgOffline),
+              d(n.peerJid),
+              d(n.participantJid),
+              p(n.isTransferNotContact),
+            )
+          : t === "handleIncomingSignalingAckFromHeap"
+            ? e.handleIncomingSignalingAckFromHeap(
+                r,
+                o,
+                d(n.ackInfoError),
+                d(n.ackInfoType),
+                d(n.peerJid),
+              )
+            : t === "handleIncomingSignalingReceiptFromHeap"
+              ? e.handleIncomingSignalingReceiptFromHeap(r, o, d(n.peerJid))
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      t,
+                  );
+                })();
+    }
+    function g(e, t, n) {
+      var a = n.frame;
+      if (!(a instanceof ArrayBuffer))
+        throw r("err")(
+          "voip: [WorkerHandler] " + t + " needs an ArrayBuffer frame",
+        );
+      var i = o("WAWebVoipIncomingSignalingFromHeap").callWithFrameOnHeap(
+        e,
+        a,
+        function (r, o) {
+          return f(e, t, n, r, o);
+        },
+      );
+      if (i == null)
+        throw r("err")(
+          "voip: [WorkerHandler] " +
+            t +
+            " could not copy the frame to the wasm heap, len=" +
+            a.byteLength,
+        );
+      return i;
+    }
+    function h(t, n, a) {
       e: {
-        if (n === "setHideMyIp") {
+        var i = n;
+        if (i === "setHideMyIp") {
           t.setHideMyIp(p(a.hideMyIp));
           return;
         }
-        if (n === "setOwnOtherDeviceJids") {
-          var i = e(t, a.ownOtherDeviceJids);
+        if (i === "setOwnOtherDeviceJids") {
+          var l = e(t, a.ownOtherDeviceJids);
           try {
-            t.setOwnOtherDeviceJids(i);
+            t.setOwnOtherDeviceJids(l);
           } finally {
-            i.delete();
+            l.delete();
           }
           return;
         }
-        if (n === "notifyWebP2PChannelReady") {
+        if (i === "notifyWebP2PChannelReady") {
           t.notifyWebP2PChannelReady(p(a.active), p(a.useIPv6));
           return;
         }
-        if (n === "voipInit") {
+        if (i === "voipInit") {
           (_(t, a.abProps),
             t.setABPropString("self_country_code", d(a.selfCountryCode)),
             t.setABPropString(
               "self_abprop_bucket_id_list",
               d(a.selfAbpropBucketIdList),
             ));
-          var l = t.initVoipStack(d(a.selfJid), d(a.selfUserJid), d(a.selfLid));
-          if (l !== 0)
-            throw r("err")("voip: initVoipStack failed with status " + l);
+          var f = t.initVoipStack(d(a.selfJid), d(a.selfUserJid), d(a.selfLid));
+          if (f !== 0)
+            throw r("err")("voip: initVoipStack failed with status " + f);
           return;
         }
-        if (n === "startCall") {
-          var f = e(t, a.deviceJids),
-            g = u(t, a.tcToken);
+        if (i === "startCall") {
+          var h = e(t, a.deviceJids),
+            y = u(t, a.tcToken);
           try {
             t.startVoipCall(
               d(a.peerJid),
-              f,
+              h,
               d(a.callId),
               p(a.useVideo),
               d(a.phoneNumberJid),
               p(a.isFromDialer),
-              g,
+              y,
             );
           } finally {
-            (f.delete(), g.delete());
+            (h.delete(), y.delete());
           }
           return;
         }
-        if (n === "startGroupCall") {
-          var h = e(t, a.pnUserJids),
-            y = e(t, a.lidUserJids),
-            C = e(t, a.deviceJidsCsv);
+        if (i === "startGroupCall") {
+          var C = e(t, a.pnUserJids),
+            b = e(t, a.lidUserJids),
+            v = e(t, a.deviceJidsCsv);
           try {
             return t.startVoipGroupCall(
-              h,
-              y,
               C,
+              b,
+              v,
               d(a.callId),
               p(a.useVideo),
               d(a.groupJid),
@@ -131,37 +203,39 @@ __d(
               d(a.username),
             );
           } finally {
-            (h.delete(), y.delete(), C.delete());
+            (C.delete(), b.delete(), v.delete());
           }
           break e;
         }
-        if (n === "acceptCall") {
+        if (i === "acceptCall") {
           t.acceptCall(p(a.isMicEnabled), p(a.isCameraEnabled));
           return;
         }
-        if (n === "rejectCall") {
-          t.rejectCall();
+        if (i === "rejectCallWithEndReason") {
+          t.rejectCallWithEndReason(m(a.endReason));
           return;
         }
-        if (n === "screenCall") return t.screenCall(p(a.isAutomatic));
-        if (n === "acceptMediaOnly") return t.acceptMediaOnly();
-        if (n === "commitAccept") return t.commitAccept();
-        if (n === "screeningPromptFinished") return t.screeningPromptFinished();
-        if (n === "getScreeningRecordingInfo")
+        if (i === "screenCall") return t.screenCall(p(a.isAutomatic));
+        if (i === "acceptMediaOnly") return t.acceptMediaOnly();
+        if (i === "commitAccept") return t.commitAccept();
+        if (i === "screeningPromptFinished") return t.screeningPromptFinished();
+        if (i === "getScreeningRecordingInfo")
           return t.getScreeningRecordingInfo();
-        if (n === "endCall") {
+        if (i === "endCall") {
           t.endCall(m(a.endCallReason), p(a.sendTerminate));
           return;
         }
-        if (n === "transferCallStart")
+        if (i === "transferCallStart")
           return t.transferCallStart(
             d(a.rootCallId),
             d(a.rootCallCreator),
             d(a.peerActiveDevice),
             d(a.callId),
             p(a.hasVideo),
+            p(a.mute),
+            p(a.cameraOff),
           );
-        if (n === "rejectCallWithoutCallContext") {
+        if (i === "rejectCallWithoutCallContext") {
           t.rejectCallWithoutCallContext(
             d(a.callId),
             p(a.isGroupCall),
@@ -173,18 +247,18 @@ __d(
           );
           return;
         }
-        if (n === "joinOngoingCall") {
-          var b = e(t, a.groupParticipantsPnUserJid),
-            v = e(t, a.groupParticipantsLidUserJid),
-            S = e(t, a.groupParticipantsDeviceJidsCsv);
+        if (i === "joinOngoingCall") {
+          var S = e(t, a.groupParticipantsPnUserJid),
+            R = e(t, a.groupParticipantsLidUserJid),
+            L = e(t, a.groupParticipantsDeviceJidsCsv);
           try {
             return t.joinVoipOngoingCall(
               d(a.callId),
               d(a.callCreatorJid),
               d(a.initialPeerJid),
-              b,
-              v,
               S,
+              R,
+              L,
               p(a.hasVideo),
               d(a.groupJid),
               m(a.initialGroupTransactionId),
@@ -198,11 +272,11 @@ __d(
               p(a.isDeviceSwitch),
             );
           } finally {
-            (b.delete(), v.delete(), S.delete());
+            (S.delete(), R.delete(), L.delete());
           }
           break e;
         }
-        if (n === "startVoiceChat")
+        if (i === "startVoiceChat")
           return t.startVoipVoiceChat(
             d(a.callId),
             d(a.groupJid),
@@ -210,15 +284,15 @@ __d(
             m(a.groupSize),
             p(a.mute),
           );
-        if (n === "joinVoiceChat") {
-          var R = [];
+        if (i === "joinVoiceChat") {
+          var E = [];
           try {
             return t.joinVoipVoiceChat(
               d(a.callId),
               d(a.callCreatorJid),
-              e(t, a.groupParticipantsPnUserJid, R),
-              e(t, a.groupParticipantsLidUserJid, R),
-              e(t, a.groupParticipantsDeviceJidsCsv, R),
+              e(t, a.groupParticipantsPnUserJid, E),
+              e(t, a.groupParticipantsLidUserJid, E),
+              e(t, a.groupParticipantsDeviceJidsCsv, E),
               d(a.groupJid),
               m(a.initialGroupTransactionId),
               p(a.callCreatorIsNotContact),
@@ -227,16 +301,16 @@ __d(
               p(a.isDeviceSwitch),
             );
           } finally {
-            R.forEach(function (e) {
+            E.forEach(function (e) {
               return e.delete();
             });
           }
           break e;
         }
-        if (n === "sendWaveAll") return t.sendWaveAll();
-        if (n === "extendVoiceChatTimeout")
+        if (i === "sendWaveAll") return t.sendWaveAll();
+        if (i === "extendVoiceChatTimeout")
           return t.extendVoiceChatTimeout(m(a.extensionMs));
-        if (n === "previewCallLink")
+        if (i === "previewCallLink")
           return t.previewCallLink(
             d(a.token),
             p(a.videoEnabled),
@@ -244,8 +318,8 @@ __d(
             d(a.username),
             p(a.videoMuted),
           );
-        if (n === "joinCallLink") return t.joinCallLink();
-        if (n === "previewAndJoinCallLink")
+        if (i === "joinCallLink") return t.joinCallLink();
+        if (i === "previewAndJoinCallLink")
           return t.previewAndJoinCallLink(
             d(a.token),
             p(a.videoEnabled),
@@ -254,8 +328,8 @@ __d(
             p(a.videoMuted),
             d(a.pushName),
           );
-        if (n === "handleIncomingSignalingOffer") {
-          var L = u(t, a.tcToken);
+        if (i === "handleIncomingSignalingOffer") {
+          var k = u(t, a.tcToken);
           try {
             t.handleIncomingSignalingOffer(
               d(a.b64Stanza),
@@ -266,15 +340,15 @@ __d(
               p(a.msgOffline),
               p(a.isOfferNotContact),
               d(a.peerJid),
-              L,
+              k,
             );
           } finally {
-            L.delete();
+            k.delete();
           }
           return;
         }
-        if (n === "handleIncomingSignalingMessage") {
-          var E = u(t, a.tcToken);
+        if (i === "handleIncomingSignalingMessage") {
+          var I = u(t, a.tcToken);
           try {
             t.handleIncomingSignalingMessage(
               d(a.b64Stanza),
@@ -284,168 +358,184 @@ __d(
               d(a.msgTStr),
               p(a.msgOffline),
               d(a.peerJid),
-              E,
+              I,
             );
           } finally {
-            E.delete();
+            I.delete();
           }
           return;
         }
-        if (n === "handleIncomingSignalingAck") {
-          var k = u(t, a.tcToken);
+        if (i === "handleIncomingSignalingAck") {
+          var T = u(t, a.tcToken);
           try {
             t.handleIncomingSignalingAck(
               d(a.b64Stanza),
               d(a.ackInfoError),
               d(a.ackInfoType),
               d(a.peerJid),
-              k,
+              T,
             );
           } finally {
-            k.delete();
+            T.delete();
           }
           return;
         }
-        if (n === "handleIncomingSignalingReceipt") {
-          var I = u(t, a.tcToken);
+        if (i === "handleIncomingSignalingReceipt") {
+          var D = u(t, a.tcToken);
           try {
-            t.handleIncomingSignalingReceipt(d(a.b64Stanza), d(a.peerJid), I);
+            t.handleIncomingSignalingReceipt(d(a.b64Stanza), d(a.peerJid), D);
           } finally {
-            I.delete();
+            D.delete();
           }
           return;
         }
-        if (n === "resendOfferOnDecryptionFailure") {
+        if (
+          i === "handleIncomingSignalingOfferFromHeap" ||
+          i === "handleIncomingSignalingMessageFromHeap" ||
+          i === "handleIncomingSignalingAckFromHeap" ||
+          i === "handleIncomingSignalingReceiptFromHeap"
+        ) {
+          var x = i;
+          return g(t, x, a);
+        }
+        if (i === "resendOfferOnDecryptionFailure") {
           t.resendOfferOnDecryptionFailure(d(a.peerJid), d(a.callId));
           return;
         }
-        if (n === "resendEncRekeyRetry") {
+        if (i === "resendEncRekeyRetry") {
           t.resendEncRekeyRetry(d(a.peerJid), m(a.retryCount));
           return;
         }
-        if (n === "handleOnTransportMessage") {
-          var T = a.packet;
-          if (T instanceof ArrayBuffer) {
-            var D = new Uint8Array(T),
-              x = o("WAWebVoipWasmHeapBuffer").ensureHeapBuffer(
+        if (i === "handleOnTransportMessage") {
+          var $ = a.packet;
+          if ($ instanceof ArrayBuffer) {
+            var P = new Uint8Array($),
+              N = o("WAWebVoipWasmHeapBuffer").ensureHeapBuffer(
                 t,
                 c,
-                D.byteLength,
+                P.byteLength,
               );
-            if (x === 0) return;
-            (t.GROWABLE_HEAP_U8().set(D, x),
-              t.handleOnMessageFromHeap(x, D.byteLength, d(a.ip), m(a.port)));
+            if (N === 0) return;
+            (t.GROWABLE_HEAP_U8().set(P, N),
+              t.handleOnMessageFromHeap(N, P.byteLength, d(a.ip), m(a.port)));
           }
           return;
         }
-        if (n === "markRelayConnected") {
+        if (i === "markRelayConnected") {
           t.markRelayConnected(d(a.ip), m(a.port));
           return;
         }
-        if (n === "setCallMute") return t.setCallMute(p(a.enable));
-        if (n === "setCallVideoMute") return t.setCallVideoMute(p(a.enable));
-        if (n === "videoStreamPause") return t.videoStreamPause();
-        if (n === "videoStreamResume") return t.videoStreamResume();
-        if (n === "broadcastVideoState") return t.broadcastVideoState();
-        if (n === "sendReaction") {
+        if (i === "logTsEventStringData")
+          return t.tsLoggerLogEventStringData(
+            m(a.eventId),
+            d(a.eventValue),
+            p(a.ignoreDupe),
+          );
+        if (i === "setCallMute") return t.setCallMute(p(a.enable));
+        if (i === "setCallVideoMute") return t.setCallVideoMute(p(a.enable));
+        if (i === "videoStreamPause") return t.videoStreamPause();
+        if (i === "videoStreamResume") return t.videoStreamResume();
+        if (i === "broadcastVideoState") return t.broadcastVideoState();
+        if (i === "sendReaction") {
           t.sendReaction(d(a.reaction));
           return;
         }
-        if (n === "raiseHand") {
+        if (i === "raiseHand") {
           t.raiseHand(p(a.isHandRaised));
           return;
         }
-        if (n === "notifyUiViewChange")
+        if (i === "sendCapiDtmfTone") return t.sendCapiDtmfTone(d(a.tone));
+        if (i === "notifyUiViewChange")
           return t.notifyUiViewChange(m(a.viewMode), d(a.pinnedPeerJid));
-        if (n === "requestVideoUpgrade") return t.requestVideoUpgrade();
-        if (n === "getCallInfo") return t.getCallInfo();
-        if (n === "acceptPeerVideo") return t.acceptPeerVideo(d(a.jid));
-        if (n === "requestPeerMute") return t.requestPeerMute(d(a.peerJid));
-        if (n === "removeCallParticipant")
+        if (i === "requestVideoUpgrade") return t.requestVideoUpgrade();
+        if (i === "getCallInfo") return t.getCallInfo();
+        if (i === "acceptPeerVideo") return t.acceptPeerVideo(d(a.jid));
+        if (i === "requestPeerMute") return t.requestPeerMute(d(a.peerJid));
+        if (i === "removeCallParticipant")
           return t.removeCallParticipant(d(a.peerJid));
-        if (n === "waitingRoomAdmit") return t.waitingRoomAdmit(d(a.peerJid));
-        if (n === "waitingRoomDeny") return t.waitingRoomDeny(d(a.peerJid));
-        if (n === "waitingRoomAdmitAll") return t.waitingRoomAdmitAll();
-        if (n === "waitingRoomToggleActiveCall")
+        if (i === "waitingRoomAdmit") return t.waitingRoomAdmit(d(a.peerJid));
+        if (i === "waitingRoomDeny") return t.waitingRoomDeny(d(a.peerJid));
+        if (i === "waitingRoomAdmitAll") return t.waitingRoomAdmitAll();
+        if (i === "waitingRoomToggleActiveCall")
           return t.waitingRoomToggleActiveCall(p(a.enabled));
-        if (n === "startScreenShare") return t.startScreenShare();
-        if (n === "stopScreenShare") return t.stopScreenShare();
-        if (n === "startVideoPreview")
+        if (i === "startScreenShare") return t.startScreenShare();
+        if (i === "stopScreenShare") return t.stopScreenShare();
+        if (i === "startVideoPreview")
           return t.startVideoPreview(d(a.callId), d(a.selfJid));
-        if (n === "requestKeyFrame") return t.requestKeyFrame(d(a.userJid));
-        if (n === "requestAuxiliaryKeyFrame")
+        if (i === "requestKeyFrame") return t.requestKeyFrame(d(a.userJid));
+        if (i === "requestAuxiliaryKeyFrame")
           return t.requestAuxiliaryKeyFrame(d(a.userJid));
-        if (n === "updateParticipantsRxSubscription") {
-          var $ = e(t, a.participantJids),
-            P = s(t, a.videoQualities);
+        if (i === "updateParticipantsRxSubscription") {
+          var M = e(t, a.participantJids),
+            w = s(t, a.videoQualities);
           try {
-            return t.updateParticipantsRxSubscription($, P);
+            return t.updateParticipantsRxSubscription(M, w);
           } finally {
-            ($.delete(), P.delete());
+            (M.delete(), w.delete());
           }
           break e;
         }
-        if (n === "updateNetworkMedium") {
+        if (i === "updateNetworkMedium") {
           t.updateNetworkMedium(m(a.networkMedium), 0);
           return;
         }
-        if (n === "getNetworkConditionerState") {
-          var N = t.isTxNetworkConditionerOn(),
-            M = t.isRxNetworkConditionerOn(),
-            w = null,
-            A = null;
+        if (i === "getNetworkConditionerState") {
+          var A = t.isTxNetworkConditionerOn(),
+            F = t.isRxNetworkConditionerOn(),
+            O = null,
+            B = null;
           return (
-            N && (w = t.getCurrentTxNetworkConditionerParameters()),
-            M && (A = t.getCurrentRxNetworkConditionerParameters()),
-            { isTxOn: N, isRxOn: M, txParams: w, rxParams: A }
+            A && (O = t.getCurrentTxNetworkConditionerParameters()),
+            F && (B = t.getCurrentRxNetworkConditionerParameters()),
+            { isTxOn: A, isRxOn: F, txParams: O, rxParams: B }
           );
           break e;
         }
-        if (n === "getShortStatisticString") return t.getShortStatisticString();
-        if (n === "getDebugStatisticString") return t.getDebugStatisticString();
-        if (n === "getVoipParam") return t.getVoipParam(d(a.paramPath));
-        if (n === "cleanupUnfinishedCallStats") {
+        if (i === "getShortStatisticString") return t.getShortStatisticString();
+        if (i === "getDebugStatisticString") return t.getDebugStatisticString();
+        if (i === "getVoipParam") return t.getVoipParam(d(a.paramPath));
+        if (i === "cleanupUnfinishedCallStats") {
           t.cleanupUnfinishedCallStats();
           return;
         }
-        if (n === "isWebP2PEnabled") return t.isWebP2PEnabled(d(a.callId));
-        if (n === "inviteToCall") {
-          var F = e(t, a.deviceJids);
+        if (i === "isWebP2PEnabled") return t.isWebP2PEnabled(d(a.callId));
+        if (i === "inviteToCall") {
+          var W = e(t, a.deviceJids);
           try {
             return t.inviteToCall(
               d(a.invitedParticipantPnUserJid),
               d(a.invitedParticipantLidUserJid),
-              F,
+              W,
             );
           } finally {
-            F.delete();
+            W.delete();
           }
           break e;
         }
-        if (n === "sendWave") {
-          var O = e(t, a.deviceJids);
+        if (i === "sendWave") {
+          var q = e(t, a.deviceJids);
           try {
             return t.sendWave(
               d(a.participantPnUserJid),
               d(a.participantLidUserJid),
-              O,
+              q,
             );
           } finally {
-            O.delete();
+            q.delete();
           }
           break e;
         }
-        if (n === "checkOngoingCalls") {
-          var B = e(t, a.callIds),
-            W = e(t, a.callCreatorJids);
+        if (i === "checkOngoingCalls") {
+          var U = e(t, a.callIds),
+            V = e(t, a.callCreatorJids);
           try {
-            t.checkOngoingCalls(B, W);
+            t.checkOngoingCalls(U, V);
           } finally {
-            (B.delete(), W.delete());
+            (U.delete(), V.delete());
           }
           return;
         }
-        if (n === "sendWebP2PTransport") {
+        if (i === "sendWebP2PTransport") {
           t.sendWebP2PTransport(
             d(a.callId),
             d(a.ufrag),
@@ -459,7 +549,7 @@ __d(
         throw r("err")("voip: [WorkerHandler] Unknown method: " + n);
       }
     }
-    function g(e, t) {
+    function y(e, t) {
       ((e.onmessage = function (n) {
         var r = n.data;
         if (!(r == null || typeof r != "object")) {
@@ -468,7 +558,7 @@ __d(
             l = r.args != null && typeof r.args == "object" ? r.args : {};
           r.notifyStart === !0 && e.postMessage({ id: a, started: !0 });
           try {
-            var s = f(t, i, l);
+            var s = h(t, i, l);
             a !== -1 && e.postMessage({ id: a, result: s, error: void 0 });
           } catch (n) {
             o("WAWebVoipNativeStackTraceLogger").logNativeStackTrace(t, n);
@@ -479,7 +569,7 @@ __d(
       }),
         e.start());
     }
-    l.setupVoipRpcOnPort = g;
+    l.setupVoipRpcOnPort = y;
   },
   98,
 );

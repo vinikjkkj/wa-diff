@@ -44,9 +44,7 @@ __d(
     }
     function d() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Couldn't add access. Try again."),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     ((l.grantHatchConnectorScope = c), (l.openHatchScopeGrantFailedToast = d));

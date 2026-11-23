@@ -12,33 +12,23 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = d(),
-            n = yield o("WAComms").sendSmaxStanza(t, e),
-            r = c(n, t);
-          if (r.success)
-            return { name: "GetRefResponseSuccess", value: r.value };
-          var a = u(n, t);
-          if (a.success) return { name: "GetRefResponseError", value: a.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("GetRef", {
-              Success: r,
-              Error: a,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e) {
+      var t = c(),
+        n = await o("WAComms").sendSmaxStanza(t, e),
+        r = u(n, t);
+      if (r.success) return { name: "GetRefResponseSuccess", value: r.value };
+      var a = s(n, t);
+      if (a.success) return { name: "GetRefResponseError", value: a.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetRef", {
+          Success: r,
+          Error: a,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -60,7 +50,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "ref");
@@ -77,7 +67,7 @@ __d(
           )
         : i;
     }
-    function d() {
+    function c() {
       var e = o("WASmaxOutMdBaseIQGetRequestMixin").mergeBaseIQGetRequestMixin(
         o("WASmaxJsx").smax(
           "iq",
@@ -88,9 +78,9 @@ __d(
       return e;
     }
     ((l.sendGetRefRPC = e),
-      (l.parseGetRefResponseError = u),
-      (l.parseGetRefResponseSuccess = c),
-      (l.makeGetRefRequest = d));
+      (l.parseGetRefResponseError = s),
+      (l.parseGetRefResponseSuccess = u),
+      (l.makeGetRefRequest = c));
   },
   98,
 );

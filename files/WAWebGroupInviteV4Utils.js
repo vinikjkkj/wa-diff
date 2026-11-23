@@ -1,26 +1,24 @@
 __d(
   "WAWebGroupInviteV4Utils",
   [
-    "Promise",
     "WALogger",
     "WAWebInviteV4QueryGroupAction",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(t, r) {
+    var e;
+    function s(t, n) {
       if (t.revokeGroupsV4AddInvitePromise)
         return t.revokeGroupsV4AddInvitePromise;
-      var a = o("WAWebWidToJid").widToGroupJid(t.id),
-        i = t.pendingParticipants,
-        l = (s || (s = n("Promise"))).resolve();
+      var r = o("WAWebWidToJid").widToGroupJid(t.id),
+        a = t.pendingParticipants,
+        i = Promise.resolve();
       return (
-        (l = o("WAWebInviteV4QueryGroupAction").revokeGroupInviteV4(r, a)),
-        (t.revokeGroupsV4AddInvitePromise = l
+        (i = o("WAWebInviteV4QueryGroupAction").revokeGroupInviteV4(n, r)),
+        (t.revokeGroupsV4AddInvitePromise = i
           .then(function (e) {
-            return (e.status >= 200 && e.status < 300 && i.remove(r), e.status);
+            return (e.status >= 200 && e.status < 300 && a.remove(n), e.status);
           })
           .catch(function (t) {
             return (
@@ -38,25 +36,17 @@ __d(
           }))
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebInviteV4QueryGroupAction",
-          ).getPendingParticipants(e.id);
-          t.forEach(function (t) {
-            e.pendingParticipants.add({
-              id: o("WAWebWidFactory").createUserWidOrThrow(t),
-            });
-          });
-        })),
-        d.apply(this, arguments)
+    async function u(e) {
+      var t = await o("WAWebInviteV4QueryGroupAction").getPendingParticipants(
+        e.id,
       );
+      t.forEach(function (t) {
+        e.pendingParticipants.add({
+          id: o("WAWebWidFactory").createUserWidOrThrow(t),
+        });
+      });
     }
-    ((l.revokeGroupsV4AddInvite = u), (l.queryGroupsV4PendingInvite = c));
+    ((l.revokeGroupsV4AddInvite = s), (l.queryGroupsV4PendingInvite = u));
   },
   98,
 );

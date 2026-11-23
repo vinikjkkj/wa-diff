@@ -1,7 +1,6 @@
 __d(
   "WAWebStatusSnapshot",
   [
-    "Promise",
     "WABackoffUtils",
     "WACustomError",
     "WALogger",
@@ -11,7 +10,7 @@ __d(
     "WAWebMsgModelUtils",
     "WAWebStatusCollection",
     "WAWebStatusGatingUtils",
-    "asyncToGeneratorRuntime",
+    "WAWebStatusListOrder",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -20,8 +19,7 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = (function (e) {
+      p = (function (e) {
         function t(t) {
           var n;
           return (
@@ -32,7 +30,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError),
-      f = (function (e) {
+      _ = (function (e) {
         function t(t) {
           var n;
           return (
@@ -43,7 +41,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError),
-      g = (function (e) {
+      f = (function (e) {
         function t(t) {
           var n;
           return (
@@ -54,18 +52,28 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError),
-      h = function (r) {
+      g = function (n) {
         var t = this,
-          a = r.continuousPlay,
-          i = a === void 0 ? !1 : a,
-          l = r.msgKey,
-          h = r.prioritizeInitialStatus,
-          y = h === void 0 ? !1 : h,
-          C = r.status;
+          r = n.continuousPlay,
+          a = r === void 0 ? !1 : r,
+          i = n.msgKey,
+          l = n.prioritizeInitialStatus,
+          g = l === void 0 ? !1 : l,
+          h = n.status;
         if (
-          ((this.$2 = function (e, n) {
-            var r = t.$6().map(function (e) {
-                return t.$4(e);
+          ((this.$2 = function (e) {
+            if (!o("WAWebStatusGatingUtils").isStatusViewerRefreshM4Enabled())
+              return null;
+            var n = o("WAWebStatusListOrder").getStatusListOrder();
+            return n.includes(e)
+              ? n.map(function (e) {
+                  return t.$5(e);
+                })
+              : null;
+          }),
+          (this.$3 = function (e, n) {
+            var r = t.$7().map(function (e) {
+                return t.$5(e);
               }),
               a = r.findIndex(function (t) {
                 return t.status === e;
@@ -79,23 +87,23 @@ __d(
                   (r = [].concat(r.slice(a), r.slice(0, a))),
                 r);
           }),
-          (this.$3 = function (e, n) {
-            var r = t.$6();
+          (this.$4 = function (e, n) {
+            var r = t.$7();
             return n
               ? [e].concat(r).map(function (e) {
-                  return t.$4(e);
+                  return t.$5(e);
                 })
               : r.length > 0 &&
                   r.length >=
                     o("WAWebStatusGatingUtils").statusChainUnseenMinPog() &&
                   o("WAWebStatusGatingUtils").isStatusAddUnseenAtEndEnabled()
                 ? [e].concat(r).map(function (e) {
-                    return t.$4(e);
+                    return t.$5(e);
                   })
-                : [t.$4(e)];
+                : [t.$5(e)];
           }),
           (this.getChainableContactStatuses = function () {
-            return t.$6().filter(function (e) {
+            return t.$7().filter(function (e) {
               return !o("WAWebContactGetters").getIsMe(e.contact);
             });
           }),
@@ -106,10 +114,10 @@ __d(
               }),
             );
             e.forEach(function (e) {
-              n.has(e) || (t.statuses.push(t.$4(e)), n.add(e));
+              n.has(e) || (t.statuses.push(t.$5(e)), n.add(e));
             });
           }),
-          (this.$6 = function () {
+          (this.$7 = function () {
             return o("WAWebStatusCollection")
               .StatusCollection.getUnexpired({ containsAnyUnreadStatus: !0 })
               .filter(function (e) {
@@ -118,7 +126,7 @@ __d(
                 );
               });
           }),
-          (this.$4 = function (e) {
+          (this.$5 = function (e) {
             var n = e.msgs.getModelsArray();
             return {
               status: e,
@@ -131,7 +139,7 @@ __d(
           (this.$1 = function (e) {
             return new Set(o("WAWebMsgModelUtils").getReadMsgKeys(e));
           }),
-          (this.$5 = function () {
+          (this.$6 = function () {
             var n = 0,
               r = 0,
               a = 0;
@@ -153,51 +161,39 @@ __d(
                 a,
               ));
           }),
-          (this.getFirstUnread = function (e, r, a) {
-            var i = t.statuses.findIndex(function (t) {
+          (this.getFirstUnread = function (e, n, r) {
+            var a = t.statuses.findIndex(function (t) {
               return t.status === e;
             });
-            if (i !== -1) {
-              var l = t.statuses[i],
-                u = l.readMsgKeys,
-                c;
-              return a
-                ? ((c = l.msgs
-                    ? l.msgs.findIndex(function (e) {
-                        return a && e.id.toString() === a.toString();
+            if (a !== -1) {
+              var i = t.statuses[a],
+                l = i.readMsgKeys,
+                u;
+              return r
+                ? ((u = i.msgs
+                    ? i.msgs.findIndex(function (e) {
+                        return r && e.id.toString() === r.toString();
                       })
                     : -1),
-                  c >= 0
-                    ? (p || (p = n("Promise"))).resolve({
-                        msgIdx: c,
-                        statusIdx: i,
-                      })
-                    : (p || (p = n("Promise"))).reject(new _()))
-                : ((c = l.msgs
-                    ? l.msgs.findIndex(function (e) {
-                        return !u.has(e.id.toString());
+                  u >= 0
+                    ? Promise.resolve({ msgIdx: u, statusIdx: a })
+                    : Promise.reject(new p()))
+                : ((u = i.msgs
+                    ? i.msgs.findIndex(function (e) {
+                        return !l.has(e.id.toString());
                       })
                     : -1),
-                  c === -1 && e.msgs.msgLoadState.noEarlierMsgs
-                    ? (r ? (c = 0) : (c = l.msgs.length - 1),
-                      (p || (p = n("Promise"))).resolve({
-                        msgIdx: c,
-                        statusIdx: i,
-                      }))
-                    : c !== -1
-                      ? (p || (p = n("Promise"))).resolve({
-                          msgIdx: c,
-                          statusIdx: i,
-                        })
-                      : l.unreadCount === 0 && r && l.msgs.length > 0
-                        ? (p || (p = n("Promise"))).resolve({
-                            msgIdx: 0,
-                            statusIdx: i,
-                          })
+                  u === -1 && e.msgs.msgLoadState.noEarlierMsgs
+                    ? (n ? (u = 0) : (u = i.msgs.length - 1),
+                      Promise.resolve({ msgIdx: u, statusIdx: a }))
+                    : u !== -1
+                      ? Promise.resolve({ msgIdx: u, statusIdx: a })
+                      : i.unreadCount === 0 && n && i.msgs.length > 0
+                        ? Promise.resolve({ msgIdx: 0, statusIdx: a })
                         : t
-                            .$7(e)
+                            .$8(e)
                             .then(function () {
-                              return t.getFirstUnread(e, r, a);
+                              return t.getFirstUnread(e, n, r);
                             })
                             .catch(function (e) {
                               throw (
@@ -210,11 +206,11 @@ __d(
                                       ])),
                                   String(e),
                                 ),
-                                new _()
+                                new p()
                               );
                             }));
             }
-            return (p || (p = n("Promise"))).reject(new _());
+            return Promise.reject(new p());
           }),
           (this.hasNext = function (e) {
             var n = t.statuses[e.statusIdx];
@@ -223,15 +219,15 @@ __d(
               : e.statusIdx + 1 < t.statuses.length;
           }),
           (this.getNext = function (e) {
-            var r = t.statuses[e.statusIdx],
-              a = r.status;
-            if (e.msgIdx + 1 < r.totalCount && e.msgIdx + 1 < r.msgs.length)
-              return (p || (p = n("Promise"))).resolve({
+            var n = t.statuses[e.statusIdx],
+              r = n.status;
+            if (e.msgIdx + 1 < n.totalCount && e.msgIdx + 1 < n.msgs.length)
+              return Promise.resolve({
                 msgIdx: e.msgIdx + 1,
                 statusIdx: e.statusIdx,
               });
-            if (e.msgIdx + 1 < r.totalCount)
-              return a.msgs.msgLoadState.noEarlierMsgs
+            if (e.msgIdx + 1 < n.totalCount)
+              return r.msgs.msgLoadState.noEarlierMsgs
                 ? (o("WALogger").WARN(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -239,8 +235,8 @@ __d(
                         "/",
                         " msgs, noEarlierMsgs, re-syncing",
                       ])),
-                    r.msgs.length,
-                    r.totalCount,
+                    n.msgs.length,
+                    n.totalCount,
                   ),
                   o("WAWebStatusCollection")
                     .StatusCollection.sync()
@@ -254,9 +250,9 @@ __d(
                         String(e),
                       );
                     }),
-                  (p || (p = n("Promise"))).reject(new _()))
+                  Promise.reject(new p()))
                 : t
-                    .$7(a)
+                    .$8(r)
                     .then(function () {
                       return t.getNext(e);
                     })
@@ -275,43 +271,40 @@ __d(
                         var r = t.statuses[e.statusIdx + 1].status;
                         return t.getFirstUnread(r, !0);
                       }
-                      throw new _();
+                      throw new p();
                     });
             if (e.statusIdx + 1 < t.statuses.length) {
-              var i = t.statuses[e.statusIdx + 1].status;
-              return t.getFirstUnread(i, !0);
+              var a = t.statuses[e.statusIdx + 1].status;
+              return t.getFirstUnread(a, !0);
             }
-            return (p || (p = n("Promise"))).reject(new _());
+            return Promise.reject(new p());
           }),
           (this.hasPrev = function (e) {
             return e.msgIdx > 0 ? !0 : e.statusIdx > 0;
           }),
           (this.getPrev = function (e) {
             if (e.msgIdx > 0)
-              return (p || (p = n("Promise"))).resolve({
+              return Promise.resolve({
                 msgIdx: e.msgIdx - 1,
                 statusIdx: e.statusIdx,
               });
             if (e.statusIdx > 0) {
-              var r = t.statuses[e.statusIdx - 1].status;
-              return t.getFirstUnread(r, !1);
+              var n = t.statuses[e.statusIdx - 1].status;
+              return t.getFirstUnread(n, !1);
             }
-            return (p || (p = n("Promise"))).reject(new _());
+            return Promise.reject(new p());
           }),
-          (this.statusAt = function (e, r) {
-            var a = t.statuses[e.statusIdx],
-              i = a.status;
-            return r < a.msgs.length
-              ? (p || (p = n("Promise"))).resolve({
-                  msgIdx: r,
-                  statusIdx: e.statusIdx,
-                })
-              : i.msgs.msgLoadState.noEarlierMsgs
-                ? (p || (p = n("Promise"))).reject(new _())
+          (this.statusAt = function (e, n) {
+            var r = t.statuses[e.statusIdx],
+              a = r.status;
+            return n < r.msgs.length
+              ? Promise.resolve({ msgIdx: n, statusIdx: e.statusIdx })
+              : a.msgs.msgLoadState.noEarlierMsgs
+                ? Promise.reject(new p())
                 : t
-                    .$7(i)
+                    .$8(a)
                     .then(function () {
-                      return t.statusAt(e, r);
+                      return t.statusAt(e, n);
                     })
                     .catch(function (e) {
                       throw (
@@ -323,86 +316,74 @@ __d(
                             ])),
                           String(e),
                         ),
-                        new _()
+                        new p()
                       );
                     });
           }),
-          (this.$7 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var r = yield o("WAPromiseLoop").promiseLoop(
-                  (function () {
-                    var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (n, r, a) {
-                        var i = o("WAPromiseDelays").delayMs(
-                          o("WABackoffUtils").expBackoff(a, 12e4, 1e3, 0.1),
-                        );
-                        try {
-                          yield e.loadMore();
-                          var l = t.statuses.findIndex(function (t) {
-                            return t.status === e;
-                          });
-                          if (l !== -1) {
-                            var s = t.statuses[l],
-                              u = s.totalCount,
-                              c = e.msgs.getModelsArray().slice(0, u),
-                              d = t.$1(c);
-                            ((s.msgs = c),
-                              (s.readMsgKeys = new Set(
-                                [].concat(s.readMsgKeys, d),
-                              )),
-                              n(!0));
-                          } else if (a >= 4) n(!1);
-                          else return i;
-                        } catch (e) {
-                          if (a >= 4) n(!1);
-                          else return i;
-                        }
-                      },
-                    );
-                    return function (e, t, n) {
-                      return r.apply(this, arguments);
-                    };
-                  })(),
+          (this.$8 = async function (e) {
+            var n = await o("WAPromiseLoop").promiseLoop(
+              async function (n, r, a) {
+                var i = o("WAPromiseDelays").delayMs(
+                  o("WABackoffUtils").expBackoff(a, 12e4, 1e3, 0.1),
                 );
-                if (!r) throw new f();
+                try {
+                  await e.loadMore();
+                  var l = t.statuses.findIndex(function (t) {
+                    return t.status === e;
+                  });
+                  if (l !== -1) {
+                    var s = t.statuses[l],
+                      u = s.totalCount,
+                      c = e.msgs.getModelsArray().slice(0, u),
+                      d = t.$1(c);
+                    ((s.msgs = c),
+                      (s.readMsgKeys = new Set([].concat(s.readMsgKeys, d))),
+                      n(!0));
+                  } else if (a >= 4) n(!1);
+                  else return i;
+                } catch (e) {
+                  if (a >= 4) n(!1);
+                  else return i;
+                }
               },
             );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })()),
-          l)
+            if (!n) throw new _();
+          }),
+          i)
         ) {
-          var b = C.msgs.getModelsArray().find(function (e) {
-            return l && e.id.toString() === l.toString();
+          var y = h.msgs.getModelsArray().find(function (e) {
+            return i && e.id.toString() === i.toString();
           });
-          if (!b) throw new g();
+          if (!y) throw new f();
           this.statuses = [
             {
-              status: C,
+              status: h,
               totalCount: 1,
               unreadCount: 0,
-              msgs: [b],
-              readMsgKeys: this.$1([b]),
+              msgs: [y],
+              readMsgKeys: this.$1([y]),
             },
           ];
-        } else
-          i &&
-          (!o("WAWebContactGetters").getIsMe(C.contact) || y) &&
-          !o("WAWebContactGetters").getCalculatedStatusMute(C.contact)
-            ? (this.statuses =
-                C.unreadCount > 0 &&
-                !o("WAWebContactGetters").getIsMe(C.contact)
-                  ? this.$2(C, y)
-                  : this.$3(C, y))
-            : (this.statuses = [this.$4(C)]);
-        this.$5();
+        } else if (
+          a &&
+          (!o("WAWebContactGetters").getIsMe(h.contact) || g) &&
+          !o("WAWebContactGetters").getCalculatedStatusMute(h.contact)
+        ) {
+          var C = g ? null : this.$2(h);
+          this.statuses =
+            C != null
+              ? C
+              : h.unreadCount > 0 &&
+                  !o("WAWebContactGetters").getIsMe(h.contact)
+                ? this.$3(h, g)
+                : this.$4(h, g);
+        } else this.statuses = [this.$5(h)];
+        this.$6();
       };
-    ((l.InvalidStatusIterator = _),
-      (l.StatusLoadingError = f),
-      (l.StatusMsgNotFound = g),
-      (l.StatusSnapshot = h));
+    ((l.InvalidStatusIterator = p),
+      (l.StatusLoadingError = _),
+      (l.StatusMsgNotFound = f),
+      (l.StatusSnapshot = g));
   },
   98,
 );

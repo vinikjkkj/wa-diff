@@ -56,12 +56,7 @@ __d(
           ])),
       ),
         o("WAWebToastManager").ToastManager.open(
-          m.jsx(o("WAWebToast.react").Toast, {
-            id: p,
-            msg: s._(
-              /*BTDS*/ "Your microphone may not be working. Try switching to a different microphone.",
-            ),
-          }),
+          m.jsx(o("WAWebToast.react").Toast, { id: p, msg: s._(/*BTDS*/ "") }),
         ));
     }
     ((l.MICROPHONE_SILENCE_TOAST_ID = p),

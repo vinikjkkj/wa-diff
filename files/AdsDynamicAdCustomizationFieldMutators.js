@@ -289,11 +289,6 @@ __d(
     }
     ((l.removeAllCanvasLink = u),
       (l.updateCustomizationSpecForLanguage = d),
-      (l.updatePrimaryLanguageFieldsForCollection = m),
-      (l.updatePrimaryLanguageFieldsForNonCollection = p),
-      (l.updatePrimaryLanguageFieldsInChildAttachments = _),
-      (l.updateWithOverrideValue = f),
-      (l.updateWithOverrideValueRecursive = g),
       (l.updatePrimaryLanguageFields = y),
       (l.fixTemplateDataForAssetFeedMMDALegacyFields = C));
   },

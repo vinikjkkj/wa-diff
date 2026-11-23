@@ -3,6 +3,7 @@ __d(
   [
     "Promise",
     "WAWebVoipQplHelpers",
+    "WAWebVoipWasmArtifactRegistry",
     "WAWebVoipWebWasmWorkerResource",
     "WorkerBundleResource",
     "WorkerClient",
@@ -12,9 +13,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e = ["type", "__name"],
       s,
-      u,
-      c = r("bx").getURL(r("bx")("78864"), { cacheBreaker: "1776243829738" }),
-      d = (function () {
+      u = "f9d8480ba3868dbf87f2e3e645cb38e6e3201f24d08e5d360be29c5b0d8640a6",
+      c = null,
+      d = r("bx").getURL(r("bx")("78864"), { cacheBreaker: "1795223910914" }),
+      m = (function () {
         var t =
           typeof document != "undefined" && document.currentScript
             ? document.currentScript.src
@@ -23,34 +25,34 @@ __d(
           var i = this;
           a === void 0 && (a = {});
           function l() {
-            return (W.buffer != z.buffer && ne(), z);
-          }
-          function d() {
-            return (W.buffer != z.buffer && ne(), j);
+            return (q.buffer != j.buffer && re(), j);
           }
           function m() {
-            return (W.buffer != z.buffer && ne(), K);
+            return (q.buffer != j.buffer && re(), K);
           }
           function p() {
-            return (W.buffer != z.buffer && ne(), Q);
+            return (q.buffer != j.buffer && re(), Q);
           }
           function _() {
-            return (W.buffer != z.buffer && ne(), X);
+            return (q.buffer != j.buffer && re(), X);
           }
           function f() {
-            return (W.buffer != z.buffer && ne(), Y);
+            return (q.buffer != j.buffer && re(), Y);
           }
           function g() {
-            return (W.buffer != z.buffer && ne(), J);
+            return (q.buffer != j.buffer && re(), J);
           }
           function h() {
-            return (W.buffer != z.buffer && ne(), te);
+            return (q.buffer != j.buffer && re(), Z);
           }
-          var y = a,
-            C,
-            b;
-          ((y.ready = new (u || (u = n("Promise")))(function (e, t) {
-            ((C = e), (b = t));
+          function y() {
+            return (q.buffer != j.buffer && re(), ne);
+          }
+          var C = a;
+          o("WAWebVoipWasmArtifactRegistry").recordSelectedVoipWasmUri(d);
+          var b, v;
+          ((C.ready = new (s || (s = n("Promise")))(function (e, t) {
+            ((b = e), (v = t));
           })),
             [
               "_malloc",
@@ -70,16 +72,19 @@ __d(
               "_on_call_event_js_sync",
               "_wasm_throw_ml_abort",
               "_set_ml_inference_flag",
-              "_patch_abort_for_ml_inference",
-              "_get_persistent_directory_path_js",
+              "_write_persistent_directory_path_js",
               "_get_bwe_ml_model_path_js",
+              "_get_ml_model_path_for_type_js",
               "_get_random_bytes_js",
               "_is_participant_known_contact_js",
               "_renderVideoFrame_js",
               "_sendSignalingXMPP_js_sync",
               "_fflush",
+              "_loggingCallback_js_sync",
               "_call_sendto",
               "___indirect_function_table",
+              "__ZN5folly15SharedMutexImplILb1EvNSt3__26atomicENS_24SharedMutexPolicyDefaultEE25wakeRegisteredWaitersImplERjj",
+              "__ZN5folly15SharedMutexImplILb0EvNSt3__26atomicENS_24SharedMutexPolicyDefaultEE25wakeRegisteredWaitersImplERjj",
               "_call_init_capture_driver_js_sync",
               "_call_start_capture_js_sync",
               "_call_stop_capture_js_sync",
@@ -91,7 +96,6 @@ __d(
               "_call_stop_desktop_capture_js_sync",
               "_call_start_video_capture_js_sync",
               "_call_stop_video_capture_js_sync",
-              "_loggingCallback_js_sync",
               "__embind_initialize_bindings",
               "__emscripten_check_mailbox",
               "___start_em_js",
@@ -100,17 +104,17 @@ __d(
               "___stop_em_asm",
               "onRuntimeInitialized",
             ].forEach(function (e) {
-              Object.getOwnPropertyDescriptor(y.ready, e) ||
-                Object.defineProperty(y.ready, e, {
+              Object.getOwnPropertyDescriptor(C.ready, e) ||
+                Object.defineProperty(C.ready, e, {
                   get: function () {
-                    return ke(
+                    return Ie(
                       "You are getting " +
                         e +
                         " on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js",
                     );
                   },
                   set: function () {
-                    return ke(
+                    return Ie(
                       "You are setting " +
                         e +
                         " on the Promise object, instead of the instance. Use .then() to get called back with the instance, see the MODULARIZE docs in src/settings.js",
@@ -118,30 +122,30 @@ __d(
                   },
                 });
             }));
-          var v = Object.assign({}, y),
-            S = [],
-            R = "./this.program",
-            L = function (t, n) {
+          var S = Object.assign({}, C),
+            R = [],
+            L = "./this.program",
+            E = function (t, n) {
               throw n;
             },
-            E = typeof window == "object",
-            k = typeof importScripts == "function",
-            I =
+            k = typeof window == "object",
+            I = typeof importScripts == "function",
+            T =
               typeof process == "object" &&
               typeof process.versions == "object" &&
               typeof process.versions.node == "string",
-            T = !E && !I && !k;
-          if (y.ENVIRONMENT)
+            D = !k && !T && !I;
+          if (C.ENVIRONMENT)
             throw new Error(
               "Module.ENVIRONMENT has been deprecated. To force the environment, use the ENVIRONMENT compile-time option (for example, -sENVIRONMENT=web or -sENVIRONMENT=node)",
             );
-          var D = y.ENVIRONMENT_IS_PTHREAD || !1,
-            x = "";
-          function $(e) {
-            return y.locateFile ? y.locateFile(e, x) : x + e;
+          var x = C.ENVIRONMENT_IS_PTHREAD || !1,
+            $ = "";
+          function P(e) {
+            return C.locateFile ? C.locateFile(e, $) : $ + e;
           }
-          var P, N, M, w;
-          if (T) {
+          var N, M, w, A;
+          if (D) {
             if (
               (typeof process == "object" && typeof n == "function") ||
               typeof window == "object" ||
@@ -150,38 +154,38 @@ __d(
               throw new Error(
                 "not compiled for this environment (did you build to HTML and try to run it not on the web, or set ENVIRONMENT to something - like node - and run it someplace else - like on the web?)",
               );
-            (typeof read != "undefined" && (P = read),
-              (M = function (t) {
+            (typeof read != "undefined" && (N = read),
+              (w = function (t) {
                 if (typeof readbuffer == "function")
                   return new Uint8Array(readbuffer(t));
                 var e = read(t, "binary");
-                return (G(typeof e == "object"), e);
+                return (z(typeof e == "object"), e);
               }),
-              (N = function (t, n, r) {
+              (M = function (t, n, r) {
                 setTimeout(function () {
-                  return n(M(t));
+                  return n(w(t));
                 });
               }),
               typeof clearTimeout == "undefined" &&
                 (globalThis.clearTimeout = function (e) {}),
               typeof setTimeout == "undefined" &&
                 (globalThis.setTimeout = function (e) {
-                  return typeof e == "function" ? e() : ke();
+                  return typeof e == "function" ? e() : Ie();
                 }),
               typeof scriptArgs != "undefined"
-                ? (S = scriptArgs)
-                : typeof arguments != "undefined" && (S = arguments),
+                ? (R = scriptArgs)
+                : typeof arguments != "undefined" && (R = arguments),
               typeof quit == "function" &&
-                (L = function (t, n) {
+                (E = function (t, n) {
                   throw (
                     setTimeout(function () {
-                      if (!(n instanceof gt)) {
+                      if (!(n instanceof ht)) {
                         var e = n;
                         (n &&
                           typeof n == "object" &&
                           n.stack &&
                           (e = [n, n.stack]),
-                          F("exiting due to exception: " + e));
+                          O("exiting due to exception: " + e));
                       }
                       quit(t);
                     }),
@@ -193,20 +197,20 @@ __d(
                 (console.log = print),
                 (console.warn = console.error =
                   typeof printErr != "undefined" ? printErr : print)));
-          } else if (E || k) {
+          } else if (k || I) {
             if (
-              (k
-                ? (x = self.location.href)
+              (I
+                ? ($ = self.location.href)
                 : typeof document != "undefined" &&
                   document.currentScript &&
-                  (x = document.currentScript.src),
-              t && (x = t),
-              x.indexOf("blob:") !== 0
-                ? (x = x.substr(
+                  ($ = document.currentScript.src),
+              t && ($ = t),
+              $.indexOf("blob:") !== 0
+                ? ($ = $.substr(
                     0,
-                    x.replace(/[?#].*/, "").lastIndexOf("/") + 1,
+                    $.replace(/[?#].*/, "").lastIndexOf("/") + 1,
                   ))
-                : (x = ""),
+                : ($ = ""),
               !(
                 typeof window == "object" || typeof importScripts == "function"
               ))
@@ -214,12 +218,12 @@ __d(
               throw new Error(
                 "not compiled for this environment (did you build to HTML and try to run it not on the web, or set ENVIRONMENT to something - like node - and run it someplace else - like on the web?)",
               );
-            ((P = function (t) {
+            ((N = function (t) {
               var e = new XMLHttpRequest();
               return (e.open("GET", t, !1), e.send(null), e.responseText);
             }),
-              k &&
-                (M = function (t) {
+              I &&
+                (w = function (t) {
                   var e = new XMLHttpRequest();
                   return (
                     e.open("GET", t, !1),
@@ -228,7 +232,7 @@ __d(
                     new Uint8Array(e.response)
                   );
                 }),
-              (N = function (t, n, r) {
+              (M = function (t, n, r) {
                 var e = new XMLHttpRequest();
                 (e.open("GET", t, !0),
                   (e.responseType = "arraybuffer"),
@@ -242,171 +246,171 @@ __d(
                   (e.onerror = r),
                   e.send(null));
               }),
-              (w = function (t) {
+              (A = function (t) {
                 return (document.title = t);
               }));
           } else throw new Error("environment detection error");
-          var A = y.print || console.log.bind(console),
-            F = y.printErr || console.error.bind(console);
-          (Object.assign(y, v),
-            (v = null),
-            Fi(),
-            y.arguments && (S = y.arguments),
-            We("arguments", "arguments_"),
-            y.thisProgram && (R = y.thisProgram),
-            We("thisProgram", "thisProgram"),
-            y.quit && (L = y.quit),
-            We("quit", "quit_"),
-            G(
-              typeof y.memoryInitializerPrefixURL == "undefined",
+          var F = C.print || console.log.bind(console),
+            O = C.printErr || console.error.bind(console);
+          (Object.assign(C, S),
+            (S = null),
+            $i(),
+            C.arguments && (R = C.arguments),
+            qe("arguments", "arguments_"),
+            C.thisProgram && (L = C.thisProgram),
+            qe("thisProgram", "thisProgram"),
+            C.quit && (E = C.quit),
+            qe("quit", "quit_"),
+            z(
+              typeof C.memoryInitializerPrefixURL == "undefined",
               "Module.memoryInitializerPrefixURL option was removed, use Module.locateFile instead",
             ),
-            G(
-              typeof y.pthreadMainPrefixURL == "undefined",
+            z(
+              typeof C.pthreadMainPrefixURL == "undefined",
               "Module.pthreadMainPrefixURL option was removed, use Module.locateFile instead",
             ),
-            G(
-              typeof y.cdInitializerPrefixURL == "undefined",
+            z(
+              typeof C.cdInitializerPrefixURL == "undefined",
               "Module.cdInitializerPrefixURL option was removed, use Module.locateFile instead",
             ),
-            G(
-              typeof y.filePackagePrefixURL == "undefined",
+            z(
+              typeof C.filePackagePrefixURL == "undefined",
               "Module.filePackagePrefixURL option was removed, use Module.locateFile instead",
             ),
-            G(
-              typeof y.read == "undefined",
+            z(
+              typeof C.read == "undefined",
               "Module.read option was removed (modify read_ in JS)",
             ),
-            G(
-              typeof y.readAsync == "undefined",
+            z(
+              typeof C.readAsync == "undefined",
               "Module.readAsync option was removed (modify readAsync in JS)",
             ),
-            G(
-              typeof y.readBinary == "undefined",
+            z(
+              typeof C.readBinary == "undefined",
               "Module.readBinary option was removed (modify readBinary in JS)",
             ),
-            G(
-              typeof y.setWindowTitle == "undefined",
+            z(
+              typeof C.setWindowTitle == "undefined",
               "Module.setWindowTitle option was removed (modify setWindowTitle in JS)",
             ),
-            G(
-              typeof y.TOTAL_MEMORY == "undefined",
+            z(
+              typeof C.TOTAL_MEMORY == "undefined",
               "Module.TOTAL_MEMORY has been renamed Module.INITIAL_MEMORY",
             ),
-            We("asm", "wasmExports"),
-            We("read", "read_"),
-            We("readAsync", "readAsync"),
-            We("readBinary", "readBinary"),
-            We("setWindowTitle", "setWindowTitle"),
-            G(
-              E || k || I,
+            qe("asm", "wasmExports"),
+            qe("read", "read_"),
+            qe("readAsync", "readAsync"),
+            qe("readBinary", "readBinary"),
+            qe("setWindowTitle", "setWindowTitle"),
+            z(
+              k || I || T,
               "Pthreads do not work in this environment yet (need Web Workers, or an alternative to them)",
             ),
-            G(
-              !I,
+            z(
+              !T,
               "node environment detected but not enabled at build time.  Add 'node' to `-sENVIRONMENT` to enable.",
             ),
-            G(
-              !T,
+            z(
+              !D,
               "shell environment detected but not enabled at build time.  Add 'shell' to `-sENVIRONMENT` to enable.",
             ));
-          var O;
-          (y.wasmBinary && (O = y.wasmBinary), We("wasmBinary", "wasmBinary"));
-          var B = y.noExitRuntime || !0;
-          (We("noExitRuntime", "noExitRuntime"),
+          var B;
+          (C.wasmBinary && (B = C.wasmBinary), qe("wasmBinary", "wasmBinary"));
+          var W = C.noExitRuntime || !0;
+          (qe("noExitRuntime", "noExitRuntime"),
             typeof WebAssembly != "object" &&
-              ke("no native wasm support detected"));
-          var W,
-            q,
+              Ie("no native wasm support detected"));
+          var q,
             U,
-            V = !1,
-            H;
-          function G(e, t) {
-            e || ke("Assertion failed" + (t ? ": " + t : ""));
+            V,
+            H = !1,
+            G;
+          function z(e, t) {
+            e || Ie("Assertion failed" + (t ? ": " + t : ""));
           }
-          var z, j, K, Q, X, Y, J, Z, ee, te;
-          function ne() {
-            var e = W.buffer;
-            ((y.HEAP8 = z = new Int8Array(e)),
-              (y.HEAP16 = K = new Int16Array(e)),
-              (y.HEAP32 = X = new Int32Array(e)),
-              (y.HEAPU8 = j = new Uint8Array(e)),
-              (y.HEAPU16 = Q = new Uint16Array(e)),
-              (y.HEAPU32 = Y = new Uint32Array(e)),
-              (y.HEAPF32 = J = new Float32Array(e)),
-              (y.HEAPF64 = te = new Float64Array(e)),
-              (y.HEAP64 = Z = new BigInt64Array(e)),
-              (y.HEAPU64 = ee = new BigUint64Array(e)));
+          var j, K, Q, X, Y, J, Z, ee, te, ne;
+          function re() {
+            var e = q.buffer;
+            ((C.HEAP8 = j = new Int8Array(e)),
+              (C.HEAP16 = Q = new Int16Array(e)),
+              (C.HEAP32 = Y = new Int32Array(e)),
+              (C.HEAPU8 = K = new Uint8Array(e)),
+              (C.HEAPU16 = X = new Uint16Array(e)),
+              (C.HEAPU32 = J = new Uint32Array(e)),
+              (C.HEAPF32 = Z = new Float32Array(e)),
+              (C.HEAPF64 = ne = new Float64Array(e)),
+              (C.HEAP64 = ee = new BigInt64Array(e)),
+              (C.HEAPU64 = te = new BigUint64Array(e)));
           }
-          (G(
-            !y.STACK_SIZE,
+          (z(
+            !C.STACK_SIZE,
             "STACK_SIZE can no longer be set at runtime.  Use -sSTACK_SIZE at link time",
           ),
-            G(
+            z(
               typeof Int32Array != "undefined" &&
                 typeof Float64Array != "undefined" &&
                 Int32Array.prototype.subarray != null &&
                 Int32Array.prototype.set != null,
               "JS engine does not provide full typed array support",
             ));
-          var re = y.INITIAL_MEMORY || 16777216;
+          var oe = C.INITIAL_MEMORY || 11534336;
           if (
-            (We("INITIAL_MEMORY", "INITIAL_MEMORY"),
-            G(
-              re >= 10485760,
+            (qe("INITIAL_MEMORY", "INITIAL_MEMORY"),
+            z(
+              oe >= 1048576,
               "INITIAL_MEMORY should be larger than STACK_SIZE, was " +
-                re +
-                "! (STACK_SIZE=10485760)",
+                oe +
+                "! (STACK_SIZE=1048576)",
             ),
-            D)
+            x)
           )
-            W = y.wasmMemory;
-          else if (y.wasmMemory) W = y.wasmMemory;
+            q = C.wasmMemory;
+          else if (C.wasmMemory) q = C.wasmMemory;
           else if (
-            ((W = new WebAssembly.Memory({
-              initial: re / 65536,
+            ((q = new WebAssembly.Memory({
+              initial: oe / 65536,
               maximum: 2147483648 / 65536,
               shared: !0,
             })),
-            !(W.buffer instanceof SharedArrayBuffer))
+            !(q.buffer instanceof SharedArrayBuffer))
           )
             throw (
-              F(
+              O(
                 "requested a shared WebAssembly.Memory but the returned buffer is not a SharedArrayBuffer, indicating that while the browser has SharedArrayBuffer it does not have WebAssembly threads support - you may need to set a flag",
               ),
-              I &&
-                F(
+              T &&
+                O(
                   "(on node you may need: --experimental-wasm-threads --experimental-wasm-bulk-memory and/or recent version)",
                 ),
               Error("bad memory")
             );
-          (ne(), (re = W.buffer.byteLength), G(re % 65536 === 0));
-          var oe;
-          function ae() {
-            var e = sl();
-            (G((e & 3) == 0),
-              e == 0 && (e += 4),
-              (f()[e >> 2] = 34821223),
-              (f()[(e + 4) >> 2] = 2310721022),
-              (f()[0] = 1668509029));
-          }
+          (re(), (oe = q.buffer.byteLength), z(oe % 65536 === 0));
+          var ae;
           function ie() {
-            if (!V) {
-              var e = sl();
+            var e = il();
+            (z((e & 3) == 0),
+              e == 0 && (e += 4),
+              (g()[e >> 2] = 34821223),
+              (g()[(e + 4) >> 2] = 2310721022),
+              (g()[0] = 1668509029));
+          }
+          function le() {
+            if (!H) {
+              var e = il();
               e == 0 && (e += 4);
-              var t = f()[e >> 2],
-                n = f()[(e + 4) >> 2];
+              var t = g()[e >> 2],
+                n = g()[(e + 4) >> 2];
               ((t != 34821223 || n != 2310721022) &&
-                ke(
+                Ie(
                   "Stack overflow! Stack cookie has been overwritten at " +
-                    tn(e) +
+                    nn(e) +
                     ", expected hex dwords 0x89BACDFE and 0x2135467, but received " +
-                    tn(n) +
+                    nn(n) +
                     " " +
-                    tn(t),
+                    nn(t),
                 ),
-                f()[0] != 1668509029 &&
-                  ke(
+                g()[0] != 1668509029 &&
+                  Ie(
                     "Runtime error: The application has corrupted its heap memory area (address zero)!",
                   ));
             }
@@ -417,46 +421,43 @@ __d(
             if (((e[0] = 25459), t[0] !== 115 || t[1] !== 99))
               throw "Runtime error: expected the system to be little-endian! (Run with -sSUPPORT_BIG_ENDIAN to bypass)";
           })();
-          var le = [],
-            se = [],
+          var se = [],
             ue = [],
-            ce = !1,
-            de = 0;
-          function me() {
-            return B || de > 0;
-          }
+            ce = [],
+            de = !1,
+            me = 0;
           function pe() {
-            if ((G(!D), y.preRun))
-              for (
-                typeof y.preRun == "function" && (y.preRun = [y.preRun]);
-                y.preRun.length;
-              )
-                ge(y.preRun.shift());
-            on(le);
+            return W || me > 0;
           }
           function _e() {
-            (G(!ce),
-              (ce = !0),
-              !D &&
-                (ie(),
-                !y.noFSInit && !Qt.init.initialized && Qt.init(),
-                (Qt.ignorePermissions = !1),
-                Mt.init(),
-                on(se)));
+            if ((z(!x), C.preRun))
+              for (
+                typeof C.preRun == "function" && (C.preRun = [C.preRun]);
+                C.preRun.length;
+              )
+                he(C.preRun.shift());
+            an(se);
           }
           function fe() {
-            if ((ie(), !D)) {
-              if (y.postRun)
-                for (
-                  typeof y.postRun == "function" && (y.postRun = [y.postRun]);
-                  y.postRun.length;
-                )
-                  ye(y.postRun.shift());
-              on(ue);
-            }
+            (z(!de),
+              (de = !0),
+              !x &&
+                (le(),
+                !C.noFSInit && !Xt.init.initialized && Xt.init(),
+                (Xt.ignorePermissions = !1),
+                wt.init(),
+                an(ue)));
           }
-          function ge(e) {
-            le.unshift(e);
+          function ge() {
+            if ((le(), !x)) {
+              if (C.postRun)
+                for (
+                  typeof C.postRun == "function" && (C.postRun = [C.postRun]);
+                  C.postRun.length;
+                )
+                  Ce(C.postRun.shift());
+              an(ce);
+            }
           }
           function he(e) {
             se.unshift(e);
@@ -464,127 +465,130 @@ __d(
           function ye(e) {
             ue.unshift(e);
           }
-          (G(
+          function Ce(e) {
+            ce.unshift(e);
+          }
+          (z(
             Math.imul,
             "This browser does not support Math.imul(), build with LEGACY_VM_SUPPORT or POLYFILL_OLD_MATH_FUNCTIONS to add in a polyfill",
           ),
-            G(
+            z(
               Math.fround,
               "This browser does not support Math.fround(), build with LEGACY_VM_SUPPORT or POLYFILL_OLD_MATH_FUNCTIONS to add in a polyfill",
             ),
-            G(
+            z(
               Math.clz32,
               "This browser does not support Math.clz32(), build with LEGACY_VM_SUPPORT or POLYFILL_OLD_MATH_FUNCTIONS to add in a polyfill",
             ),
-            G(
+            z(
               Math.trunc,
               "This browser does not support Math.trunc(), build with LEGACY_VM_SUPPORT or POLYFILL_OLD_MATH_FUNCTIONS to add in a polyfill",
             ));
-          var Ce = 0,
-            be = null,
+          var be = 0,
             ve = null,
-            Se = {};
-          function Re(e) {
+            Se = null,
+            Re = {};
+          function Le(e) {
             for (var t = e; ; ) {
-              if (!Se[e]) return e;
+              if (!Re[e]) return e;
               e = t + Math.random();
             }
           }
-          function Le(e) {
-            (Ce++,
-              y.monitorRunDependencies && y.monitorRunDependencies(Ce),
+          function Ee(e) {
+            (be++,
+              C.monitorRunDependencies && C.monitorRunDependencies(be),
               e
-                ? (G(!Se[e]),
-                  (Se[e] = 1),
-                  be === null &&
+                ? (z(!Re[e]),
+                  (Re[e] = 1),
+                  ve === null &&
                     typeof setInterval != "undefined" &&
-                    (be = setInterval(function () {
-                      if (V) {
-                        (clearInterval(be), (be = null));
+                    (ve = setInterval(function () {
+                      if (H) {
+                        (clearInterval(ve), (ve = null));
                         return;
                       }
                       var e = !1;
-                      for (var t in Se)
+                      for (var t in Re)
                         (e ||
-                          ((e = !0), F("still waiting on run dependencies:")),
-                          F("dependency: " + t));
-                      e && F("(end of list)");
+                          ((e = !0), O("still waiting on run dependencies:")),
+                          O("dependency: " + t));
+                      e && O("(end of list)");
                     }, 1e4)))
-                : F("warning: run dependency added without ID"));
-          }
-          function Ee(e) {
-            if (
-              (Ce--,
-              y.monitorRunDependencies && y.monitorRunDependencies(Ce),
-              e
-                ? (G(Se[e]), delete Se[e])
-                : F("warning: run dependency removed without ID"),
-              Ce == 0 && (be !== null && (clearInterval(be), (be = null)), ve))
-            ) {
-              var t = ve;
-              ((ve = null), t());
-            }
+                : O("warning: run dependency added without ID"));
           }
           function ke(e) {
-            (y.onAbort && y.onAbort(e),
+            if (
+              (be--,
+              C.monitorRunDependencies && C.monitorRunDependencies(be),
+              e
+                ? (z(Re[e]), delete Re[e])
+                : O("warning: run dependency removed without ID"),
+              be == 0 && (ve !== null && (clearInterval(ve), (ve = null)), Se))
+            ) {
+              var t = Se;
+              ((Se = null), t());
+            }
+          }
+          function Ie(e) {
+            (C.onAbort && C.onAbort(e),
               (e = "Aborted(" + e + ")"),
-              F(e),
-              (V = !0),
-              (H = 1));
+              O(e),
+              (H = !0),
+              (G = 1));
             var t = new WebAssembly.RuntimeError(e);
-            throw (b(t), t);
+            throw (v(t), t);
           }
-          var Ie = "data:application/octet-stream;base64,";
-          function Te(e) {
-            return e.startsWith(Ie);
-          }
+          var Te = "data:application/octet-stream;base64,";
           function De(e) {
-            return e.startsWith("file://");
+            return e.startsWith(Te);
           }
           function xe(e) {
+            return e.startsWith("file://");
+          }
+          function $e(e) {
             return function () {
-              G(
-                ce,
+              z(
+                de,
                 "native function `" +
                   e +
                   "` called before runtime initialization",
               );
-              var t = q[e];
+              var t = U[e];
               return (
-                G(t, "exported native function `" + e + "` not found"),
+                z(t, "exported native function `" + e + "` not found"),
                 t.apply(null, arguments)
               );
             };
           }
-          var $e = (function (e) {
+          var Pe = (function (e) {
               function t() {
                 return e.apply(this, arguments) || this;
               }
               return (babelHelpers.inheritsLoose(t, e), t);
             })(babelHelpers.wrapNativeSuper(Error)),
-            Pe = (function (e) {
+            Ne = (function (e) {
               function t() {
                 return e.apply(this, arguments) || this;
               }
               return (babelHelpers.inheritsLoose(t, e), t);
-            })($e),
-            Ne = (function (e) {
+            })(Pe),
+            Me = (function (e) {
               function t(t) {
                 var n;
                 ((n = e.call(this, t) || this), (n.excPtr = t));
-                var r = cn(t);
+                var r = dn(t);
                 return ((n.name = r[0]), (n.message = r[1]), n);
               }
               return (babelHelpers.inheritsLoose(t, e), t);
-            })($e),
-            Me = c;
-          function we(e) {
-            if (e == Me && O) return new Uint8Array(O);
-            if (M) return M(e);
+            })(Pe),
+            we = d;
+          function Ae(e) {
+            if (e == we && B) return new Uint8Array(B);
+            if (w) return w(e);
             throw "both async and sync fetching of the wasm failed";
           }
-          function Ae(e) {
-            return !O && (E || k) && typeof fetch == "function"
+          function Fe(e) {
+            return !B && (k || I) && typeof fetch == "function"
               ? fetch(e, { credentials: "same-origin" })
                   .then(function (t) {
                     if (!t.ok)
@@ -592,14 +596,14 @@ __d(
                     return t.arrayBuffer();
                   })
                   .catch(function () {
-                    return we(e);
+                    return Ae(e);
                   })
-              : (u || (u = n("Promise"))).resolve().then(function () {
-                  return we(e);
+              : (s || (s = n("Promise"))).resolve().then(function () {
+                  return Ae(e);
                 });
           }
-          function Fe(e, t, n) {
-            return Ae(e)
+          function Oe(e, t, n) {
+            return Fe(e)
               .then(function (e) {
                 return WebAssembly.instantiate(e, t);
               })
@@ -607,45 +611,45 @@ __d(
                 return e;
               })
               .then(n, function (e) {
-                (F("failed to asynchronously prepare wasm: " + e),
-                  De(Me) &&
-                    F(
+                (O("failed to asynchronously prepare wasm: " + e),
+                  xe(we) &&
+                    O(
                       "warning: Loading from a file URI (" +
-                        Me +
+                        we +
                         ") is not supported in most browsers. See https://emscripten.org/docs/getting_started/FAQ.html#how-do-i-run-a-local-webserver-for-testing-why-does-my-program-stall-in-downloading-or-preparing",
                     ),
-                  ke(e));
+                  Ie(e));
               });
           }
-          function Oe(e, t, n, r) {
+          function Be(e, t, n, r) {
             return !e &&
               typeof WebAssembly.instantiateStreaming == "function" &&
-              !Te(t) &&
+              !De(t) &&
               typeof fetch == "function"
               ? fetch(t, { credentials: "same-origin" }).then(function (e) {
                   var o = WebAssembly.instantiateStreaming(e, n);
                   return o.then(r, function (e) {
                     return (
-                      F("wasm streaming compile failed: " + e),
-                      F("falling back to ArrayBuffer instantiation"),
-                      Fe(t, n, r)
+                      O("wasm streaming compile failed: " + e),
+                      O("falling back to ArrayBuffer instantiation"),
+                      Oe(t, n, r)
                     );
                   });
                 })
-              : Fe(t, n, r);
+              : Oe(t, n, r);
           }
-          function Be() {
-            var e = { env: Oi, wasi_snapshot_preview1: Oi };
+          function We() {
+            var e = { env: Pi, wasi_snapshot_preview1: Pi };
             function t(e, t) {
               var n = e.exports;
               return (
-                (q = n),
-                pn(q._emscripten_tls_init),
-                (oe = q.__indirect_function_table),
-                G(oe, "table not found in wasm exports"),
-                he(q.__wasm_call_ctors),
-                (U = t),
-                Ee("wasm-instantiate"),
+                (U = n),
+                _n(U._emscripten_tls_init),
+                (ae = U.__indirect_function_table),
+                z(ae, "table not found in wasm exports"),
+                ye(U.__wasm_call_ctors),
+                (V = t),
+                ke("wasm-instantiate"),
                 o("WAWebVoipQplHelpers").voipInitQplAddPoint(
                   o("WAWebVoipQplHelpers").VoipInitQplPoint.WASM_FETCH_END,
                 ),
@@ -655,43 +659,43 @@ __d(
             (o("WAWebVoipQplHelpers").voipInitQplAddPoint(
               o("WAWebVoipQplHelpers").VoipInitQplPoint.WASM_FETCH_START,
             ),
-              Le("wasm-instantiate"));
-            var n = y;
+              Ee("wasm-instantiate"));
+            var n = C;
             function r(e) {
-              (G(
-                y === n,
+              (z(
+                C === n,
                 "the Module object should not be replaced during async compilation - perhaps the order of HTML elements is wrong?",
               ),
                 (n = null),
                 t(e.instance, e.module));
             }
-            if (y.instantiateWasm)
+            if (C.instantiateWasm)
               try {
-                return y.instantiateWasm(e, t);
+                return C.instantiateWasm(e, t);
               } catch (e) {
-                (F("Module.instantiateWasm callback failed with error: " + e),
-                  b(e));
+                (O("Module.instantiateWasm callback failed with error: " + e),
+                  v(e));
               }
-            return (Oe(O, Me, e, r).catch(b), {});
+            return (Be(B, we, e, r).catch(v), {});
           }
-          function We(e, t, n) {
+          function qe(e, t, n) {
             (n === void 0 && (n = !0),
-              Object.getOwnPropertyDescriptor(y, e) ||
-                Object.defineProperty(y, e, {
+              Object.getOwnPropertyDescriptor(C, e) ||
+                Object.defineProperty(C, e, {
                   configurable: !0,
                   get: function () {
                     var r = n
                       ? " (the initial value can be provided on Module, but after startup the value is only looked for on a local variable of that name)"
                       : "";
-                    ke(
+                    Ie(
                       "`Module." + e + "` has been replaced by `" + t + "`" + r,
                     );
                   },
                 }));
           }
-          function qe(e) {
-            Object.getOwnPropertyDescriptor(y, e) &&
-              ke(
+          function Ue(e) {
+            Object.getOwnPropertyDescriptor(C, e) &&
+              Ie(
                 "`Module." +
                   e +
                   "` was supplied but `" +
@@ -699,7 +703,7 @@ __d(
                   "` not included in INCOMING_MODULE_JS_API",
               );
           }
-          function Ue(e) {
+          function Ve(e) {
             return (
               e === "FS_createPath" ||
               e === "FS_createDataFile" ||
@@ -711,17 +715,17 @@ __d(
               e === "removeRunDependency"
             );
           }
-          function Ve(e, t) {
+          function He(e, t) {
             typeof globalThis != "undefined" &&
               Object.defineProperty(globalThis, e, {
                 configurable: !0,
                 get: function () {
-                  _n("`" + e + "` is not longer defined by emscripten. " + t);
+                  fn("`" + e + "` is not longer defined by emscripten. " + t);
                 },
               });
           }
-          Ve("buffer", "Please use HEAP8.buffer or wasmMemory.buffer");
-          function He(e) {
+          He("buffer", "Please use HEAP8.buffer or wasmMemory.buffer");
+          function Ge(e) {
             (typeof globalThis != "undefined" &&
               !Object.getOwnPropertyDescriptor(globalThis, e) &&
               Object.defineProperty(globalThis, e, {
@@ -735,38 +739,35 @@ __d(
                   (n.startsWith("_") || (n = "$" + e),
                     (t +=
                       " (e.g. -sDEFAULT_LIBRARY_FUNCS_TO_INCLUDE='" + n + "')"),
-                    Ue(e) &&
+                    Ve(e) &&
                       (t +=
                         ". Alternatively, forcing filesystem support (-sFORCE_FILESYSTEM) can export this for you"),
-                    _n(t));
+                    fn(t));
                 },
               }),
-              Ge(e));
+              ze(e));
           }
-          function Ge(e) {
-            Object.getOwnPropertyDescriptor(y, e) ||
-              Object.defineProperty(y, e, {
+          function ze(e) {
+            Object.getOwnPropertyDescriptor(C, e) ||
+              Object.defineProperty(C, e, {
                 configurable: !0,
                 get: function () {
                   var t =
                     "'" +
                     e +
                     "' was not exported. add it to EXPORTED_RUNTIME_METHODS (see the Emscripten FAQ)";
-                  (Ue(e) &&
+                  (Ve(e) &&
                     (t +=
                       ". Alternatively, forcing filesystem support (-sFORCE_FILESYSTEM) can export this for you"),
-                    ke(t));
+                    Ie(t));
                 },
               });
           }
-          function ze(e) {
+          function je(e) {
             console.warn.apply(console, arguments);
           }
-          var je = {
-            1315419: function () {
-              return Date.now();
-            },
-            1315442: function (t, n) {
+          var Ke = {
+            1518082: function (t, n) {
               var e =
                 "voip: [WasmTimestampCalibration] backgrounding detected: skew_old=" +
                 t.toFixed(1) +
@@ -780,142 +781,169 @@ __d(
                 message: e,
               });
             },
+            1518369: function () {
+              return Date.now();
+            },
+            1518392: function () {
+              typeof Xt != "undefined" &&
+                Xt.syncfs &&
+                Xt.syncfs(!1, function (e) {});
+            },
           };
-          function Ke(e, t) {
-            var n = t ? Xt(t) : "";
+          function Qe(e, t) {
+            var n = t ? Yt(t) : "";
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.onCallEvent({
               eventType: e,
               userData: "",
               eventDataJson: n,
             });
           }
-          function Qe(e) {
+          function Xe(e) {
+            if (e && !self.__mlAbortPatched) {
+              self.__mlAbortPatched = !0;
+              var t = Ie;
+              Ie = function (n) {
+                if (self.__inMLInference && C._wasm_throw_ml_abort) {
+                  (C.onAbort && C.onAbort(n), (n = "Aborted(" + n + ")"), O(n));
+                  var e = $t(n) + 1,
+                    r = fl(),
+                    o = hl(e);
+                  (zn(n, o, e), C._wasm_throw_ml_abort(o), gl(r));
+                  return;
+                }
+                t(n);
+              };
+            }
             self.__inMLInference = e;
           }
-          function Xe() {
-            var e = ke;
-            ke = function (n) {
-              if (self.__inMLInference && y._wasm_throw_ml_abort) {
-                (y.onAbort && y.onAbort(n), (n = "Aborted(" + n + ")"), F(n));
-                var t = xt(n) + 1,
-                  r = hl(),
-                  o = Cl(t);
-                (Bn(n, o, t), y._wasm_throw_ml_abort(o), yl(r));
-                return;
-              }
-              e(n);
-            };
-          }
-          function Ye() {
-            var e =
+          function Ye(e, t) {
+            if (!e || t <= 0) return 0;
+            var n =
               self.WhatsAppVoipWasmWorkerCompatibleCallbacks.getPersistentDirectoryPath();
-            if (e) {
-              var t = xt(e) + 1,
-                n = Ui(t);
-              return (Bn(e, n, t), n);
+            if (n) {
+              var r = $t(n) + 1;
+              return (zn(n, e, t), r);
             }
-            return null;
+            return 0;
           }
           function Je(e) {
-            var t = e ? Xt(e) : null,
+            var t = e ? Yt(e) : null,
               n =
                 self.WhatsAppVoipWasmWorkerCompatibleCallbacks.getBweModelPath({
                   versionName: t,
                 });
             if (n) {
-              var r = xt(n) + 1,
-                o = Ui(r);
-              return (Bn(n, o, r), o);
+              var r = $t(n) + 1,
+                o = Oi(r);
+              return (zn(n, o, r), o);
             }
             return null;
           }
           function Ze(e, t) {
+            var n = t ? Yt(t) : null,
+              r =
+                self.WhatsAppVoipWasmWorkerCompatibleCallbacks.getMLModelPathForType(
+                  { modelType: e, versionName: n },
+                );
+            if (r) {
+              var o = $t(r) + 1,
+                a = Oi(o);
+              return (zn(r, a, o), a);
+            }
+            return null;
+          }
+          function et(e, t) {
             if (t == null) {
               var n = new Error("get_random_bytes_js: rawBytesPtr is null");
               throw (n.stack, n);
             }
             var r = new Uint8Array(e),
               o = self.crypto.getRandomValues(r);
-            pi(o, t);
+            Si(o, t);
           }
-          function et(e) {
-            var t = Xt(e);
+          function tt(e) {
+            var t = Yt(e);
             return self.WhatsAppVoipWasmWorkerCompatibleCallbacks.isParticipantKnownContact(
               { jid: t },
             );
           }
-          function tt(e, t, n, r, o, a, i, l, s) {
-            var u = d(),
-              c = new Uint8Array(n);
-            c.set(u.subarray(t, t + n));
-            var m = Xt(e);
-            self.WhatsAppVoipWasmWorkerCompatibleCallbacks &&
-              self.WhatsAppVoipWasmWorkerCompatibleCallbacks
-                .onVideoFrameWasmToJs &&
+          function nt(e, t, n, r, o, a, i, l, s, u) {
+            if (
+              !self.WhatsAppVoipWasmWorkerCompatibleCallbacks ||
+              !self.WhatsAppVoipWasmWorkerCompatibleCallbacks
+                .onVideoFrameWasmToJs
+            )
+              return 1;
+            var c = m(),
+              d = new Uint8Array(n);
+            d.set(c.subarray(t, t + n));
+            var p = Yt(e);
+            return (
               self.WhatsAppVoipWasmWorkerCompatibleCallbacks.onVideoFrameWasmToJs(
                 {
-                  userJid: m,
-                  frameBuffer: c.buffer,
+                  userJid: p,
+                  frameBuffer: d.buffer,
                   width: r,
                   height: o,
                   orientation: a,
                   format: i,
                   timestamp: l,
                   isKeyFrame: s,
+                  isScreenShare: u,
                 },
-              );
+              ),
+              0
+            );
           }
-          function nt(e, t, n, r) {
-            var o = d(),
+          function rt(e, t, n, r) {
+            var o = m(),
               a = new Uint8Array(r);
             a.set(o.subarray(n, n + r));
-            var i = Xt(t),
-              l = Xt(e);
+            var i = Yt(t),
+              l = Yt(e);
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.onSignalingXmpp({
               peerJid: l,
               callId: i,
               xmlPayload: a,
             });
           }
-          function rt(e, t, n, r) {
-            var o = d(),
-              a = o.length;
-            if (e < 0 || e >= a || t < 0 || e + t > a)
-              return (
-                ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: call_sendto: Invalid buffer access - buf: ",
-                      ", len: ",
-                      ", heapSize: ",
-                      "",
-                    ])),
-                  e,
-                  t,
-                  a,
-                ),
-                -1
-              );
-            var i = o.subarray(e, e + t);
+          function ot(e, t) {
+            var n = t ? Yt(t).trim() : "";
+            self.WhatsAppVoipWasmWorkerCompatibleCallbacks.loggingCallback({
+              level: e,
+              message: n,
+            });
+          }
+          function at(e, t, n, r, o) {
+            var a = m(),
+              i = a.length;
+            if (e < 0 || e >= i || t < 0 || e + t > i) return -1;
+            var l = a.subarray(e, e + t);
             return self.WhatsAppVoipWasmWorkerCompatibleCallbacks.sendDataToRelay(
-              { data: i, len: t, ip: Xt(n), port: r },
+              { data: l, len: t, ip: Yt(n), port: r, copyBeforePost: o !== 0 },
             );
           }
-          function ot(e, t, n, r) {
+          function it(e, t, n, r, o, a) {
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.initCaptureDriverJS({
               sample_rate: e,
               channels: t,
               bits_per_sample: n,
               frames_per_chunk: r,
+              device_type: o,
+              auto_gain_control: !!a,
             });
           }
-          function at() {
-            self.WhatsAppVoipWasmWorkerCompatibleCallbacks.startCaptureJS();
+          function lt(e) {
+            self.WhatsAppVoipWasmWorkerCompatibleCallbacks.startCaptureJS({
+              device_type: e,
+            });
           }
-          function it() {
-            self.WhatsAppVoipWasmWorkerCompatibleCallbacks.stopCaptureJS();
+          function st(e) {
+            self.WhatsAppVoipWasmWorkerCompatibleCallbacks.stopCaptureJS({
+              device_type: e,
+            });
           }
-          function lt(e, t, n, r) {
+          function ut(e, t, n, r) {
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.initPlaybackDriverJS(
               {
                 sample_rate: e,
@@ -925,53 +953,46 @@ __d(
               },
             );
           }
-          function st() {
+          function ct() {
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.startPlaybackJS();
           }
-          function ut() {
+          function dt() {
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.stopPlaybackJS();
           }
-          function ct() {
+          function mt() {
             return self.WhatsAppVoipWasmWorkerCompatibleCallbacks.getBrowserAudioProcessingStatus();
           }
-          function dt(e, t, n) {
+          function pt(e, t, n) {
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.startDesktopCaptureJS(
               { width: e, height: t, max_fps: n },
             );
           }
-          function mt() {
+          function _t() {
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.stopDesktopCaptureJS();
           }
-          function pt(e, t, n, r, o) {
+          function ft(e, t, n, r, o) {
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.startVideoCaptureJS({
-              camera_id: Xt(e),
+              camera_id: Yt(e),
               width: t,
               height: n,
               max_fps: r,
               isAVUpgrade: !!o,
             });
           }
-          function _t() {
+          function gt() {
             self.WhatsAppVoipWasmWorkerCompatibleCallbacks.stopVideoCaptureJS();
           }
-          function ft(e, t) {
-            var n = t ? Xt(t).trim() : "";
-            self.WhatsAppVoipWasmWorkerCompatibleCallbacks.loggingCallback({
-              level: e,
-              message: n,
-            });
-          }
-          function gt(e) {
+          function ht(e) {
             ((this.name = "ExitStatus"),
               (this.message = "Program terminated with exit(" + e + ")"),
               (this.status = e));
           }
-          var ht = function (t) {
+          var yt = function (t) {
             (t.terminate(),
               t.removeAllMessageListeners("cmd"),
               t.addMessageListener("cmd", function (e) {
                 var n = e.cmd;
-                F(
+                O(
                   'received "' +
                     n +
                     '" command from terminated worker: ' +
@@ -979,51 +1000,51 @@ __d(
                 );
               }));
           };
-          function yt(e) {
-            (G(
-              !D,
+          function Ct(e) {
+            (z(
+              !x,
               "Internal Error! killThread() can only ever be called from main application thread!",
             ),
-              G(e, "Internal Error! Null pthread_ptr in killThread!"));
-            var t = rn.pthreads[e];
-            (delete rn.pthreads[e],
-              ht(t),
-              ul(e),
-              rn.runningWorkers.splice(rn.runningWorkers.indexOf(t), 1),
+              z(e, "Internal Error! Null pthread_ptr in killThread!"));
+            var t = on.pthreads[e];
+            (delete on.pthreads[e],
+              yt(t),
+              ll(e),
+              on.runningWorkers.splice(on.runningWorkers.indexOf(t), 1),
               (t.pthread_ptr = 0));
           }
-          function Ct(e) {
-            (G(
-              !D,
+          function bt(e) {
+            (z(
+              !x,
               "Internal Error! cancelThread() can only ever be called from main application thread!",
             ),
-              G(e, "Internal Error! Null pthread_ptr in cancelThread!"));
-            var t = rn.pthreads[e];
+              z(e, "Internal Error! Null pthread_ptr in cancelThread!"));
+            var t = on.pthreads[e];
             t.postMessage({ cmd: "cancel", type: "cmd" });
           }
-          function bt(e) {
-            (G(
-              !D,
+          function vt(e) {
+            (z(
+              !x,
               "Internal Error! cleanupThread() can only ever be called from main application thread!",
             ),
-              G(e, "Internal Error! Null pthread_ptr in cleanupThread!"));
-            var t = rn.pthreads[e];
-            (G(t), rn.returnWorkerToPool(t));
+              z(e, "Internal Error! Null pthread_ptr in cleanupThread!"));
+            var t = on.pthreads[e];
+            (z(t), on.returnWorkerToPool(t));
           }
-          var vt = function (t, n) {
-            return (d().fill(0, t, t + n), t);
+          var St = function (t, n) {
+            return (m().fill(0, t, t + n), t);
           };
-          function St(e) {
-            (G(
-              !D,
+          function Rt(e) {
+            (z(
+              !x,
               "Internal Error! spawnThread() can only ever be called from main application thread!",
             ),
-              G(e.pthread_ptr, "Internal error, no pthread ptr!"));
-            var t = rn.getNewWorker();
+              z(e.pthread_ptr, "Internal error, no pthread ptr!"));
+            var t = on.getNewWorker();
             if (!t) return 6;
-            (G(!t.pthread_ptr, "Internal error!"),
-              rn.runningWorkers.push(t),
-              (rn.pthreads[e.pthread_ptr] = t),
+            (z(!t.pthread_ptr, "Internal error!"),
+              on.runningWorkers.push(t),
+              (on.pthreads[e.pthread_ptr] = t),
               (t.pthread_ptr = e.pthread_ptr));
             var n = {
               cmd: "run",
@@ -1039,7 +1060,7 @@ __d(
               0
             );
           }
-          var Rt = {
+          var Lt = {
               isAbs: function (t) {
                 return t.charAt(0) === "/";
               },
@@ -1061,10 +1082,10 @@ __d(
                 return t;
               },
               normalize: function (t) {
-                var e = Rt.isAbs(t),
+                var e = Lt.isAbs(t),
                   n = t.substr(-1) === "/";
                 return (
-                  (t = Rt.normalizeArray(
+                  (t = Lt.normalizeArray(
                     t.split("/").filter(function (e) {
                       return !!e;
                     }),
@@ -1076,7 +1097,7 @@ __d(
                 );
               },
               dirname: function (t) {
-                var e = Rt.splitPath(t),
+                var e = Lt.splitPath(t),
                   n = e[0],
                   r = e[1];
                 return !n && !r
@@ -1085,19 +1106,19 @@ __d(
               },
               basename: function (t) {
                 if (t === "/") return "/";
-                ((t = Rt.normalize(t)), (t = t.replace(/\/$/, "")));
+                ((t = Lt.normalize(t)), (t = t.replace(/\/$/, "")));
                 var e = t.lastIndexOf("/");
                 return e === -1 ? t : t.substr(e + 1);
               },
               join: function () {
                 var e = Array.prototype.slice.call(arguments);
-                return Rt.normalize(e.join("/"));
+                return Lt.normalize(e.join("/"));
               },
               join2: function (t, n) {
-                return Rt.normalize(t + "/" + n);
+                return Lt.normalize(t + "/" + n);
               },
             },
-            Lt = function () {
+            Et = function () {
               if (
                 typeof crypto == "object" &&
                 typeof crypto.getRandomValues == "function"
@@ -1108,30 +1129,30 @@ __d(
                     e
                   );
                 };
-              ke(
+              Ie(
                 "no cryptographic support found for randomDevice. consider polyfilling it if you want to use something insecure like Math.random(), e.g. put this in a --pre-js: var crypto = { getRandomValues: (array) => { for (var i = 0; i < array.length; i++) array[i] = (Math.random()*256)|0 } };",
               );
             },
-            Et = function (t) {
-              return (Et = Lt())(t);
+            kt = function (t) {
+              return (kt = Et())(t);
             },
-            kt = {
+            It = {
               resolve: function () {
                 for (
                   var e = "", t = !1, n = arguments.length - 1;
                   n >= -1 && !t;
                   n--
                 ) {
-                  var r = n >= 0 ? arguments[n] : Qt.cwd();
+                  var r = n >= 0 ? arguments[n] : Xt.cwd();
                   if (typeof r != "string")
                     throw new TypeError(
                       "Arguments to path.resolve must be strings",
                     );
                   if (!r) return "";
-                  ((e = r + "/" + e), (t = Rt.isAbs(r)));
+                  ((e = r + "/" + e), (t = Lt.isAbs(r)));
                 }
                 return (
-                  (e = Rt.normalizeArray(
+                  (e = Lt.normalizeArray(
                     e.split("/").filter(function (e) {
                       return !!e;
                     }),
@@ -1141,7 +1162,7 @@ __d(
                 );
               },
               relative: function (t, n) {
-                ((t = kt.resolve(t).substr(1)), (n = kt.resolve(n).substr(1)));
+                ((t = It.resolve(t).substr(1)), (n = It.resolve(n).substr(1)));
                 function e(e) {
                   for (var t = 0; t < e.length && e[t] === ""; t++);
                   for (var n = e.length - 1; n >= 0 && e[n] === ""; n--);
@@ -1164,13 +1185,13 @@ __d(
                 return ((s = s.concat(o.slice(i))), s.join("/"));
               },
             },
-            It =
+            Tt =
               typeof TextDecoder != "undefined"
                 ? new TextDecoder("utf8")
                 : void 0,
-            Tt = function (t, n, r) {
+            Dt = function (t, n, r) {
               for (var e = n + r, o = n; t[o] && !(o >= e); ) ++o;
-              if (o - n > 16 && t.buffer && It) return It.decode(t.slice(n, o));
+              if (o - n > 16 && t.buffer && Tt) return Tt.decode(t.slice(n, o));
               for (var a = ""; n < o; ) {
                 var i = t[n++];
                 if (!(i & 128)) {
@@ -1187,9 +1208,9 @@ __d(
                   ((i & 240) == 224
                     ? (i = ((i & 15) << 12) | (l << 6) | s)
                     : ((i & 248) != 240 &&
-                        _n(
+                        fn(
                           "Invalid UTF-8 leading byte " +
-                            tn(i) +
+                            nn(i) +
                             " encountered when deserializing a UTF-8 string in wasm memory to a JS string!",
                         ),
                       (i =
@@ -1210,8 +1231,8 @@ __d(
               }
               return a;
             },
-            Dt = [],
-            xt = function (t) {
+            xt = [],
+            $t = function (t) {
               for (var e = 0, n = 0; n < t.length; ++n) {
                 var r = t.charCodeAt(n);
                 r <= 127
@@ -1224,8 +1245,8 @@ __d(
               }
               return e;
             },
-            $t = function (t, n, r, o) {
-              if ((G(typeof t == "string"), !(o > 0))) return 0;
+            Pt = function (t, n, r, o) {
+              if ((z(typeof t == "string"), !(o > 0))) return 0;
               for (var e = r, a = r + o - 1, i = 0; i < t.length; ++i) {
                 var l = t.charCodeAt(i);
                 if (l >= 55296 && l <= 57343) {
@@ -1246,9 +1267,9 @@ __d(
                 } else {
                   if (r + 3 >= a) break;
                   (l > 1114111 &&
-                    _n(
+                    fn(
                       "Invalid Unicode code point " +
-                        tn(l) +
+                        nn(l) +
                         " encountered when serializing a JS string to a UTF-8 string in wasm memory! (Valid unicode code points should be in range 0-0x10FFFF).",
                     ),
                     (n[r++] = 240 | (l >> 18)),
@@ -1259,14 +1280,14 @@ __d(
               }
               return ((n[r] = 0), r - e);
             };
-          function Pt(e, t, n) {
-            var r = n > 0 ? n : xt(e) + 1,
+          function Nt(e, t, n) {
+            var r = n > 0 ? n : $t(e) + 1,
               o = new Array(r),
-              a = $t(e, o, 0, o.length);
+              a = Pt(e, o, 0, o.length);
             return (t && (o.length = a), o);
           }
-          var Nt = function () {
-              if (!Dt.length) {
+          var Mt = function () {
+              if (!xt.length) {
                 var e = null;
                 if (
                   (typeof window != "undefined" &&
@@ -1278,22 +1299,22 @@ __d(
                   !e)
                 )
                   return null;
-                Dt = Pt(e, !0);
+                xt = Nt(e, !0);
               }
-              return Dt.shift();
+              return xt.shift();
             },
-            Mt = {
+            wt = {
               ttys: [],
               init: function () {},
               shutdown: function () {},
               register: function (t, n) {
-                ((Mt.ttys[t] = { input: [], output: [], ops: n }),
-                  Qt.registerDevice(t, Mt.stream_ops));
+                ((wt.ttys[t] = { input: [], output: [], ops: n }),
+                  Xt.registerDevice(t, wt.stream_ops));
               },
               stream_ops: {
                 open: function (t) {
-                  var e = Mt.ttys[t.node.rdev];
-                  if (!e) throw new Qt.ErrnoError(43);
+                  var e = wt.ttys[t.node.rdev];
+                  if (!e) throw new Xt.ErrnoError(43);
                   ((t.tty = e), (t.seekable = !1));
                 },
                 close: function (t) {
@@ -1304,15 +1325,15 @@ __d(
                 },
                 read: function (t, n, r, o, a) {
                   if (!t.tty || !t.tty.ops.get_char)
-                    throw new Qt.ErrnoError(60);
+                    throw new Xt.ErrnoError(60);
                   for (var e = 0, i = 0; i < o; i++) {
                     var l;
                     try {
                       l = t.tty.ops.get_char(t.tty);
                     } catch (e) {
-                      throw new Qt.ErrnoError(29);
+                      throw new Xt.ErrnoError(29);
                     }
-                    if (l === void 0 && e === 0) throw new Qt.ErrnoError(6);
+                    if (l === void 0 && e === 0) throw new Xt.ErrnoError(6);
                     if (l == null) break;
                     (e++, (n[r + i] = l));
                   }
@@ -1320,29 +1341,29 @@ __d(
                 },
                 write: function (t, n, r, o, a) {
                   if (!t.tty || !t.tty.ops.put_char)
-                    throw new Qt.ErrnoError(60);
+                    throw new Xt.ErrnoError(60);
                   try {
                     for (var e = 0; e < o; e++)
                       t.tty.ops.put_char(t.tty, n[r + e]);
                   } catch (e) {
-                    throw new Qt.ErrnoError(29);
+                    throw new Xt.ErrnoError(29);
                   }
                   return (o && (t.node.timestamp = Date.now()), e);
                 },
               },
               default_tty_ops: {
                 get_char: function (t) {
-                  return Nt();
+                  return Mt();
                 },
                 put_char: function (t, n) {
                   n === null || n === 10
-                    ? (A(Tt(t.output, 0)), (t.output = []))
+                    ? (F(Dt(t.output, 0)), (t.output = []))
                     : n != 0 && t.output.push(n);
                 },
                 fsync: function (t) {
                   t.output &&
                     t.output.length > 0 &&
-                    (A(Tt(t.output, 0)), (t.output = []));
+                    (F(Dt(t.output, 0)), (t.output = []));
                 },
                 ioctl_tcgets: function (t) {
                   return {
@@ -1366,97 +1387,97 @@ __d(
               default_tty1_ops: {
                 put_char: function (t, n) {
                   n === null || n === 10
-                    ? (F(Tt(t.output, 0)), (t.output = []))
+                    ? (O(Dt(t.output, 0)), (t.output = []))
                     : n != 0 && t.output.push(n);
                 },
                 fsync: function (t) {
                   t.output &&
                     t.output.length > 0 &&
-                    (F(Tt(t.output, 0)), (t.output = []));
+                    (O(Dt(t.output, 0)), (t.output = []));
                 },
               },
             },
-            wt = function (t, n) {
+            At = function (t, n) {
               return (
-                G(n, "alignment argument is required"),
+                z(n, "alignment argument is required"),
                 Math.ceil(t / n) * n
               );
             },
-            At = function (t) {
-              t = wt(t, 65536);
-              var e = Ji(65536, t);
-              return e ? vt(e, t) : 0;
+            Ft = function (t) {
+              t = At(t, 65536);
+              var e = Xi(65536, t);
+              return e ? St(e, t) : 0;
             },
-            Ft = {
+            Ot = {
               ops_table: null,
               mount: function (t) {
-                return Ft.createNode(null, "/", 16895, 0);
+                return Ot.createNode(null, "/", 16895, 0);
               },
               createNode: function (t, n, r, o) {
-                if (Qt.isBlkdev(r) || Qt.isFIFO(r)) throw new Qt.ErrnoError(63);
-                Ft.ops_table ||
-                  (Ft.ops_table = {
+                if (Xt.isBlkdev(r) || Xt.isFIFO(r)) throw new Xt.ErrnoError(63);
+                Ot.ops_table ||
+                  (Ot.ops_table = {
                     dir: {
                       node: {
-                        getattr: Ft.node_ops.getattr,
-                        setattr: Ft.node_ops.setattr,
-                        lookup: Ft.node_ops.lookup,
-                        mknod: Ft.node_ops.mknod,
-                        rename: Ft.node_ops.rename,
-                        unlink: Ft.node_ops.unlink,
-                        rmdir: Ft.node_ops.rmdir,
-                        readdir: Ft.node_ops.readdir,
-                        symlink: Ft.node_ops.symlink,
+                        getattr: Ot.node_ops.getattr,
+                        setattr: Ot.node_ops.setattr,
+                        lookup: Ot.node_ops.lookup,
+                        mknod: Ot.node_ops.mknod,
+                        rename: Ot.node_ops.rename,
+                        unlink: Ot.node_ops.unlink,
+                        rmdir: Ot.node_ops.rmdir,
+                        readdir: Ot.node_ops.readdir,
+                        symlink: Ot.node_ops.symlink,
                       },
-                      stream: { llseek: Ft.stream_ops.llseek },
+                      stream: { llseek: Ot.stream_ops.llseek },
                     },
                     file: {
                       node: {
-                        getattr: Ft.node_ops.getattr,
-                        setattr: Ft.node_ops.setattr,
+                        getattr: Ot.node_ops.getattr,
+                        setattr: Ot.node_ops.setattr,
                       },
                       stream: {
-                        llseek: Ft.stream_ops.llseek,
-                        read: Ft.stream_ops.read,
-                        write: Ft.stream_ops.write,
-                        allocate: Ft.stream_ops.allocate,
-                        mmap: Ft.stream_ops.mmap,
-                        msync: Ft.stream_ops.msync,
+                        llseek: Ot.stream_ops.llseek,
+                        read: Ot.stream_ops.read,
+                        write: Ot.stream_ops.write,
+                        allocate: Ot.stream_ops.allocate,
+                        mmap: Ot.stream_ops.mmap,
+                        msync: Ot.stream_ops.msync,
                       },
                     },
                     link: {
                       node: {
-                        getattr: Ft.node_ops.getattr,
-                        setattr: Ft.node_ops.setattr,
-                        readlink: Ft.node_ops.readlink,
+                        getattr: Ot.node_ops.getattr,
+                        setattr: Ot.node_ops.setattr,
+                        readlink: Ot.node_ops.readlink,
                       },
                       stream: {},
                     },
                     chrdev: {
                       node: {
-                        getattr: Ft.node_ops.getattr,
-                        setattr: Ft.node_ops.setattr,
+                        getattr: Ot.node_ops.getattr,
+                        setattr: Ot.node_ops.setattr,
                       },
-                      stream: Qt.chrdev_stream_ops,
+                      stream: Xt.chrdev_stream_ops,
                     },
                   });
-                var e = Qt.createNode(t, n, r, o);
+                var e = Xt.createNode(t, n, r, o);
                 return (
-                  Qt.isDir(e.mode)
-                    ? ((e.node_ops = Ft.ops_table.dir.node),
-                      (e.stream_ops = Ft.ops_table.dir.stream),
+                  Xt.isDir(e.mode)
+                    ? ((e.node_ops = Ot.ops_table.dir.node),
+                      (e.stream_ops = Ot.ops_table.dir.stream),
                       (e.contents = {}))
-                    : Qt.isFile(e.mode)
-                      ? ((e.node_ops = Ft.ops_table.file.node),
-                        (e.stream_ops = Ft.ops_table.file.stream),
+                    : Xt.isFile(e.mode)
+                      ? ((e.node_ops = Ot.ops_table.file.node),
+                        (e.stream_ops = Ot.ops_table.file.stream),
                         (e.usedBytes = 0),
                         (e.contents = null))
-                      : Qt.isLink(e.mode)
-                        ? ((e.node_ops = Ft.ops_table.link.node),
-                          (e.stream_ops = Ft.ops_table.link.stream))
-                        : Qt.isChrdev(e.mode) &&
-                          ((e.node_ops = Ft.ops_table.chrdev.node),
-                          (e.stream_ops = Ft.ops_table.chrdev.stream)),
+                      : Xt.isLink(e.mode)
+                        ? ((e.node_ops = Ot.ops_table.link.node),
+                          (e.stream_ops = Ot.ops_table.link.stream))
+                        : Xt.isChrdev(e.mode) &&
+                          ((e.node_ops = Ot.ops_table.chrdev.node),
+                          (e.stream_ops = Ot.ops_table.chrdev.stream)),
                   (e.timestamp = Date.now()),
                   t && ((t.contents[n] = e), (t.timestamp = e.timestamp)),
                   e
@@ -1496,18 +1517,18 @@ __d(
                 getattr: function (t) {
                   var e = {};
                   return (
-                    (e.dev = Qt.isChrdev(t.mode) ? t.id : 1),
+                    (e.dev = Xt.isChrdev(t.mode) ? t.id : 1),
                     (e.ino = t.id),
                     (e.mode = t.mode),
                     (e.nlink = 1),
                     (e.uid = 0),
                     (e.gid = 0),
                     (e.rdev = t.rdev),
-                    Qt.isDir(t.mode)
+                    Xt.isDir(t.mode)
                       ? (e.size = 4096)
-                      : Qt.isFile(t.mode)
+                      : Xt.isFile(t.mode)
                         ? (e.size = t.usedBytes)
-                        : Qt.isLink(t.mode)
+                        : Xt.isLink(t.mode)
                           ? (e.size = t.link.length)
                           : (e.size = 0),
                     (e.atime = new Date(t.timestamp)),
@@ -1521,22 +1542,22 @@ __d(
                 setattr: function (t, n) {
                   (n.mode !== void 0 && (t.mode = n.mode),
                     n.timestamp !== void 0 && (t.timestamp = n.timestamp),
-                    n.size !== void 0 && Ft.resizeFileStorage(t, n.size));
+                    n.size !== void 0 && Ot.resizeFileStorage(t, n.size));
                 },
                 lookup: function (t, n) {
-                  throw Qt.genericErrors[44];
+                  throw Xt.genericErrors[44];
                 },
                 mknod: function (t, n, r, o) {
-                  return Ft.createNode(t, n, r, o);
+                  return Ot.createNode(t, n, r, o);
                 },
                 rename: function (t, n, r) {
-                  if (Qt.isDir(t.mode)) {
+                  if (Xt.isDir(t.mode)) {
                     var e;
                     try {
-                      e = Qt.lookupNode(n, r);
+                      e = Xt.lookupNode(n, r);
                     } catch (e) {}
                     if (e)
-                      for (var o in e.contents) throw new Qt.ErrnoError(55);
+                      for (var o in e.contents) throw new Xt.ErrnoError(55);
                   }
                   (delete t.parent.contents[t.name],
                     (t.parent.timestamp = Date.now()),
@@ -1549,8 +1570,8 @@ __d(
                   (delete t.contents[n], (t.timestamp = Date.now()));
                 },
                 rmdir: function (t, n) {
-                  var e = Qt.lookupNode(t, n);
-                  for (var r in e.contents) throw new Qt.ErrnoError(55);
+                  var e = Xt.lookupNode(t, n);
+                  for (var r in e.contents) throw new Xt.ErrnoError(55);
                   (delete t.contents[n], (t.timestamp = Date.now()));
                 },
                 readdir: function (t) {
@@ -1561,11 +1582,11 @@ __d(
                   return e;
                 },
                 symlink: function (t, n, r) {
-                  var e = Ft.createNode(t, n, 41471, 0);
+                  var e = Ot.createNode(t, n, 41471, 0);
                   return ((e.link = r), e);
                 },
                 readlink: function (t) {
-                  if (!Qt.isLink(t.mode)) throw new Qt.ErrnoError(28);
+                  if (!Xt.isLink(t.mode)) throw new Xt.ErrnoError(28);
                   return t.link;
                 },
               },
@@ -1574,14 +1595,14 @@ __d(
                   var e = t.node.contents;
                   if (a >= t.node.usedBytes) return 0;
                   var i = Math.min(t.node.usedBytes - a, o);
-                  if ((G(i >= 0), i > 8 && e.subarray))
+                  if ((z(i >= 0), i > 8 && e.subarray))
                     n.set(e.subarray(a, a + i), r);
                   else for (var l = 0; l < i; l++) n[r + l] = e[a + l];
                   return i;
                 },
                 write: function (t, n, r, o, a, i) {
                   if (
-                    (G(!(n instanceof ArrayBuffer)),
+                    (z(!(n instanceof ArrayBuffer)),
                     n.buffer === l().buffer && (i = !1),
                     !o)
                   )
@@ -1593,7 +1614,7 @@ __d(
                   ) {
                     if (i)
                       return (
-                        G(
+                        z(
                           a === 0,
                           "canOwn must imply no weird position inside the file",
                         ),
@@ -1611,7 +1632,7 @@ __d(
                       return (e.contents.set(n.subarray(r, r + o), a), o);
                   }
                   if (
-                    (Ft.expandFileStorage(e, a + o),
+                    (Ot.expandFileStorage(e, a + o),
                     e.contents.subarray && n.subarray)
                   )
                     e.contents.set(n.subarray(r, r + o), a);
@@ -1624,19 +1645,19 @@ __d(
                     (r === 1
                       ? (e += t.position)
                       : r === 2 &&
-                        Qt.isFile(t.node.mode) &&
+                        Xt.isFile(t.node.mode) &&
                         (e += t.node.usedBytes),
                     e < 0)
                   )
-                    throw new Qt.ErrnoError(28);
+                    throw new Xt.ErrnoError(28);
                   return e;
                 },
                 allocate: function (t, n, r) {
-                  (Ft.expandFileStorage(t.node, n + r),
+                  (Ot.expandFileStorage(t.node, n + r),
                     (t.node.usedBytes = Math.max(t.node.usedBytes, n + r)));
                 },
                 mmap: function (t, n, r, o, a) {
-                  if (!Qt.isFile(t.node.mode)) throw new Qt.ErrnoError(43);
+                  if (!Xt.isFile(t.node.mode)) throw new Xt.ErrnoError(43);
                   var e,
                     i,
                     s = t.node.contents;
@@ -1649,66 +1670,66 @@ __d(
                           ? (s = s.subarray(r, r + n))
                           : (s = Array.prototype.slice.call(s, r, r + n))),
                       (i = !0),
-                      (e = At(n)),
+                      (e = Ft(n)),
                       !e)
                     )
-                      throw new Qt.ErrnoError(48);
+                      throw new Xt.ErrnoError(48);
                     l().set(s, e);
                   }
                   return { ptr: e, allocated: i };
                 },
                 msync: function (t, n, r, o, a) {
-                  return (Ft.stream_ops.write(t, n, 0, o, r, !1), 0);
+                  return (Ot.stream_ops.write(t, n, 0, o, r, !1), 0);
                 },
               },
             },
-            Ot = function (t, n, r, o) {
-              var e = o ? "" : Re("al " + t);
-              (N(
+            Bt = function (t, n, r, o) {
+              var e = o ? "" : Le("al " + t);
+              (M(
                 t,
                 function (r) {
-                  (G(
+                  (z(
                     r,
                     'Loading data file "' + t + '" failed (no arrayBuffer).',
                   ),
                     n(new Uint8Array(r)),
-                    e && Ee(e));
+                    e && ke(e));
                 },
                 function (e) {
                   if (r) r();
                   else throw 'Loading data file "' + t + '" failed.';
                 },
               ),
-                e && Le(e));
+                e && Ee(e));
             },
-            Bt = y.preloadPlugins || [];
-          function Wt(e, t, n, r) {
-            typeof La != "undefined" && La.init();
+            Wt = C.preloadPlugins || [];
+          function qt(e, t, n, r) {
+            typeof Ma != "undefined" && Ma.init();
             var o = !1;
             return (
-              Bt.forEach(function (a) {
+              Wt.forEach(function (a) {
                 o || (a.canHandle(t) && (a.handle(e, t, n, r), (o = !0)));
               }),
               o
             );
           }
-          function qt(e, t, n, r, o, a, i, l, s, u) {
-            var c = t ? kt.resolve(Rt.join2(e, t)) : e,
-              d = Re("cp " + c);
+          function Ut(e, t, n, r, o, a, i, l, s, u) {
+            var c = t ? It.resolve(Lt.join2(e, t)) : e,
+              d = Le("cp " + c);
             function m(n) {
               function m(n) {
                 (u && u(),
-                  l || Qt.createDataFile(e, t, n, r, o, s),
+                  l || Xt.createDataFile(e, t, n, r, o, s),
                   a && a(),
-                  Ee(d));
+                  ke(d));
               }
-              Wt(n, c, m, function () {
-                (i && i(), Ee(d));
+              qt(n, c, m, function () {
+                (i && i(), ke(d));
               }) || m(n);
             }
-            (Le(d),
+            (Ee(d),
               typeof n == "string"
-                ? Ot(
+                ? Bt(
                     n,
                     function (e) {
                       return m(e);
@@ -1717,18 +1738,18 @@ __d(
                   )
                 : m(n));
           }
-          function Ut(e) {
+          function Vt(e) {
             var t = { r: 0, "r+": 2, w: 577, "w+": 578, a: 1089, "a+": 1090 },
               n = t[e];
             if (typeof n == "undefined")
               throw new Error("Unknown file open mode: " + e);
             return n;
           }
-          function Vt(e, t) {
+          function Ht(e, t) {
             var n = 0;
             return (e && (n |= 365), t && (n |= 146), n);
           }
-          var Ht = {
+          var Gt = {
               dbs: {},
               indexedDB: (function (e) {
                 function t() {
@@ -1750,38 +1771,38 @@ __d(
                       window.mozIndexedDB ||
                       window.webkitIndexedDB ||
                       window.msIndexedDB),
-                  G(e, "IDBFS used, but indexedDB not supported"),
+                  z(e, "IDBFS used, but indexedDB not supported"),
                   e
                 );
               }),
               DB_VERSION: 21,
               DB_STORE_NAME: "FILE_DATA",
               mount: function (t) {
-                return Ft.mount.apply(null, arguments);
+                return Ot.mount.apply(null, arguments);
               },
               syncfs: function (t, n, r) {
-                Ht.getLocalSet(t, function (e, o) {
+                Gt.getLocalSet(t, function (e, o) {
                   if (e) return r(e);
-                  Ht.getRemoteSet(t, function (e, t) {
+                  Gt.getRemoteSet(t, function (e, t) {
                     if (e) return r(e);
                     var a = n ? t : o,
                       i = n ? o : t;
-                    Ht.reconcile(a, i, r);
+                    Gt.reconcile(a, i, r);
                   });
                 });
               },
               quit: function () {
-                (Object.values(Ht.dbs).forEach(function (e) {
+                (Object.values(Gt.dbs).forEach(function (e) {
                   return e.close();
                 }),
-                  (Ht.dbs = {}));
+                  (Gt.dbs = {}));
               },
               getDB: function (t, n) {
-                var e = Ht.dbs[t];
+                var e = Gt.dbs[t];
                 if (e) return n(null, e);
                 var r;
                 try {
-                  r = Ht.indexedDB().open(t, Ht.DB_VERSION);
+                  r = Gt.indexedDB().open(t, Gt.DB_VERSION);
                 } catch (e) {
                   return n(e);
                 }
@@ -1790,14 +1811,14 @@ __d(
                   var t = e.target.result,
                     n = e.target.transaction,
                     r;
-                  (t.objectStoreNames.contains(Ht.DB_STORE_NAME)
-                    ? (r = n.objectStore(Ht.DB_STORE_NAME))
-                    : (r = t.createObjectStore(Ht.DB_STORE_NAME)),
+                  (t.objectStoreNames.contains(Gt.DB_STORE_NAME)
+                    ? (r = n.objectStore(Gt.DB_STORE_NAME))
+                    : (r = t.createObjectStore(Gt.DB_STORE_NAME)),
                     r.indexNames.contains("timestamp") ||
                       r.createIndex("timestamp", "timestamp", { unique: !1 }));
                 }),
                   (r.onsuccess = function () {
-                    ((e = r.result), (Ht.dbs[t] = e), n(null, e));
+                    ((e = r.result), (Gt.dbs[t] = e), n(null, e));
                   }),
                   (r.onerror = function (e) {
                     (n(e.target.error), e.preventDefault());
@@ -1810,11 +1831,11 @@ __d(
                 }
                 function o(e) {
                   return function (t) {
-                    return Rt.join2(e, t);
+                    return Lt.join2(e, t);
                   };
                 }
                 for (
-                  var a = Qt.readdir(t.mountpoint)
+                  var a = Xt.readdir(t.mountpoint)
                     .filter(r)
                     .map(o(t.mountpoint));
                   a.length;
@@ -1822,26 +1843,26 @@ __d(
                   var i = a.pop(),
                     l;
                   try {
-                    l = Qt.stat(i);
+                    l = Xt.stat(i);
                   } catch (e) {
                     return n(e);
                   }
-                  (Qt.isDir(l.mode) &&
-                    a.push.apply(a, Qt.readdir(i).filter(r).map(o(i))),
+                  (Xt.isDir(l.mode) &&
+                    a.push.apply(a, Xt.readdir(i).filter(r).map(o(i))),
                     (e[i] = { timestamp: l.mtime }));
                 }
                 return n(null, { type: "local", entries: e });
               },
               getRemoteSet: function (t, n) {
                 var e = {};
-                Ht.getDB(t.mountpoint, function (t, r) {
+                Gt.getDB(t.mountpoint, function (t, r) {
                   if (t) return n(t);
                   try {
-                    var o = r.transaction([Ht.DB_STORE_NAME], "readonly");
+                    var o = r.transaction([Gt.DB_STORE_NAME], "readonly");
                     o.onerror = function (e) {
                       (n(e.target.error), e.preventDefault());
                     };
-                    var a = o.objectStore(Ht.DB_STORE_NAME),
+                    var a = o.objectStore(Gt.DB_STORE_NAME),
                       i = a.index("timestamp");
                     i.openKeyCursor().onsuccess = function (t) {
                       var o = t.target.result;
@@ -1857,15 +1878,15 @@ __d(
               loadLocalEntry: function (t, n) {
                 var e, r;
                 try {
-                  var o = Qt.lookupPath(t);
-                  ((r = o.node), (e = Qt.stat(t)));
+                  var o = Xt.lookupPath(t);
+                  ((r = o.node), (e = Xt.stat(t)));
                 } catch (e) {
                   return n(e);
                 }
-                return Qt.isDir(e.mode)
+                return Xt.isDir(e.mode)
                   ? n(null, { timestamp: e.mtime, mode: e.mode })
-                  : Qt.isFile(e.mode)
-                    ? ((r.contents = Ft.getFileDataAsTypedArray(r)),
+                  : Xt.isFile(e.mode)
+                    ? ((r.contents = Ot.getFileDataAsTypedArray(r)),
                       n(null, {
                         timestamp: e.mtime,
                         mode: e.mode,
@@ -1875,11 +1896,11 @@ __d(
               },
               storeLocalEntry: function (t, n, r) {
                 try {
-                  if (Qt.isDir(n.mode)) Qt.mkdirTree(t, n.mode);
-                  else if (Qt.isFile(n.mode))
-                    Qt.writeFile(t, n.contents, { canOwn: !0 });
+                  if (Xt.isDir(n.mode)) Xt.mkdirTree(t, n.mode);
+                  else if (Xt.isFile(n.mode))
+                    Xt.writeFile(t, n.contents, { canOwn: !0 });
                   else return r(new Error("node type not supported"));
-                  (Qt.chmod(t, n.mode), Qt.utime(t, n.timestamp, n.timestamp));
+                  (Xt.chmod(t, n.mode), Xt.utime(t, n.timestamp, n.timestamp));
                 } catch (e) {
                   return r(e);
                 }
@@ -1887,10 +1908,10 @@ __d(
               },
               removeLocalEntry: function (t, n) {
                 try {
-                  var e = Qt.stat(t);
-                  Qt.isDir(e.mode)
-                    ? Qt.rmdir(t)
-                    : Qt.isFile(e.mode) && Qt.unlink(t);
+                  var e = Xt.stat(t);
+                  Xt.isDir(e.mode)
+                    ? Xt.rmdir(t)
+                    : Xt.isFile(e.mode) && Xt.unlink(t);
                 } catch (e) {
                   return n(e);
                 }
@@ -1947,8 +1968,8 @@ __d(
                   return r(null);
                 var l = !1,
                   s = t.type === "remote" ? t.db : n.db,
-                  u = s.transaction([Ht.DB_STORE_NAME], "readwrite"),
-                  c = u.objectStore(Ht.DB_STORE_NAME);
+                  u = s.transaction([Gt.DB_STORE_NAME], "readwrite"),
+                  c = u.objectStore(Gt.DB_STORE_NAME);
                 function d(e) {
                   if (e && !l) return ((l = !0), r(e));
                 }
@@ -1960,13 +1981,13 @@ __d(
                   }),
                   o.sort().forEach(function (e) {
                     n.type === "local"
-                      ? Ht.loadRemoteEntry(c, e, function (t, n) {
+                      ? Gt.loadRemoteEntry(c, e, function (t, n) {
                           if (t) return d(t);
-                          Ht.storeLocalEntry(e, n, d);
+                          Gt.storeLocalEntry(e, n, d);
                         })
-                      : Ht.loadLocalEntry(e, function (t, n) {
+                      : Gt.loadLocalEntry(e, function (t, n) {
                           if (t) return d(t);
-                          Ht.storeRemoteEntry(c, e, n, d);
+                          Gt.storeRemoteEntry(c, e, n, d);
                         });
                   }),
                   a
@@ -1974,12 +1995,12 @@ __d(
                     .reverse()
                     .forEach(function (e) {
                       n.type === "local"
-                        ? Ht.removeLocalEntry(e, d)
-                        : Ht.removeRemoteEntry(c, e, d);
+                        ? Gt.removeLocalEntry(e, d)
+                        : Gt.removeRemoteEntry(c, e, d);
                     }));
               },
             },
-            Gt = {
+            zt = {
               0: "Success",
               1: "Arg list too long",
               2: "Permission denied",
@@ -2100,23 +2121,23 @@ __d(
               148: "No medium (in tape drive)",
               156: "Level 2 not synchronized",
             },
-            zt = {};
-          function jt(e) {
+            jt = {};
+          function Kt(e) {
             return (
-              _n(
+              fn(
                 "warning: build with -sDEMANGLE_SUPPORT to link in libcxxabi demangling",
               ),
               e
             );
           }
-          function Kt(e) {
+          function Qt(e) {
             var t = /\b_Z[\w\d_]+/g;
             return e.replace(t, function (e) {
-              var t = jt(e);
+              var t = Kt(e);
               return e === t ? e : t + " [" + e + "]";
             });
           }
-          var Qt = {
+          var Xt = {
               root: null,
               mounts: [],
               devices: {},
@@ -2131,16 +2152,16 @@ __d(
               filesystems: null,
               syncFSRequests: 0,
               lookupPath: function (t, n) {
-                if ((n === void 0 && (n = {}), (t = kt.resolve(t)), !t))
+                if ((n === void 0 && (n = {}), (t = It.resolve(t)), !t))
                   return { path: "", node: null };
                 var e = { follow_mount: !0, recurse_count: 0 };
                 if (((n = Object.assign(e, n)), n.recurse_count > 8))
-                  throw new Qt.ErrnoError(32);
+                  throw new Xt.ErrnoError(32);
                 for (
                   var r = t.split("/").filter(function (e) {
                       return !!e;
                     }),
-                    o = Qt.root,
+                    o = Xt.root,
                     a = "/",
                     i = 0;
                   i < r.length;
@@ -2149,27 +2170,27 @@ __d(
                   var l = i === r.length - 1;
                   if (l && n.parent) break;
                   if (
-                    ((o = Qt.lookupNode(o, r[i])),
-                    (a = Rt.join2(a, r[i])),
-                    Qt.isMountpoint(o) &&
+                    ((o = Xt.lookupNode(o, r[i])),
+                    (a = Lt.join2(a, r[i])),
+                    Xt.isMountpoint(o) &&
                       (!l || (l && n.follow_mount)) &&
                       (o = o.mounted.root),
                     !l || n.follow)
                   )
-                    for (var s = 0; Qt.isLink(o.mode); ) {
-                      var u = Qt.readlink(a);
-                      a = kt.resolve(Rt.dirname(a), u);
-                      var c = Qt.lookupPath(a, {
+                    for (var s = 0; Xt.isLink(o.mode); ) {
+                      var u = Xt.readlink(a);
+                      a = It.resolve(Lt.dirname(a), u);
+                      var c = Xt.lookupPath(a, {
                         recurse_count: n.recurse_count + 1,
                       });
-                      if (((o = c.node), s++ > 40)) throw new Qt.ErrnoError(32);
+                      if (((o = c.node), s++ > 40)) throw new Xt.ErrnoError(32);
                     }
                 }
                 return { path: a, node: o };
               },
               getPath: function (t) {
                 for (var e; ; ) {
-                  if (Qt.isRoot(t)) {
+                  if (Xt.isRoot(t)) {
                     var n = t.mount.mountpoint;
                     return e
                       ? n[n.length - 1] !== "/"
@@ -2183,17 +2204,17 @@ __d(
               hashName: function (t, n) {
                 for (var e = 0, r = 0; r < n.length; r++)
                   e = ((e << 5) - e + n.charCodeAt(r)) | 0;
-                return ((t + e) >>> 0) % Qt.nameTable.length;
+                return ((t + e) >>> 0) % Xt.nameTable.length;
               },
               hashAddNode: function (t) {
-                var e = Qt.hashName(t.parent.id, t.name);
-                ((t.name_next = Qt.nameTable[e]), (Qt.nameTable[e] = t));
+                var e = Xt.hashName(t.parent.id, t.name);
+                ((t.name_next = Xt.nameTable[e]), (Xt.nameTable[e] = t));
               },
               hashRemoveNode: function (t) {
-                var e = Qt.hashName(t.parent.id, t.name);
-                if (Qt.nameTable[e] === t) Qt.nameTable[e] = t.name_next;
+                var e = Xt.hashName(t.parent.id, t.name);
+                if (Xt.nameTable[e] === t) Xt.nameTable[e] = t.name_next;
                 else
-                  for (var n = Qt.nameTable[e]; n; ) {
+                  for (var n = Xt.nameTable[e]; n; ) {
                     if (n.name_next === t) {
                       n.name_next = t.name_next;
                       break;
@@ -2202,25 +2223,25 @@ __d(
                   }
               },
               lookupNode: function (t, n) {
-                var e = Qt.mayLookup(t);
-                if (e) throw new Qt.ErrnoError(e, t);
+                var e = Xt.mayLookup(t);
+                if (e) throw new Xt.ErrnoError(e, t);
                 for (
-                  var r = Qt.hashName(t.id, n), o = Qt.nameTable[r];
+                  var r = Xt.hashName(t.id, n), o = Xt.nameTable[r];
                   o;
                   o = o.name_next
                 ) {
                   var a = o.name;
                   if (o.parent.id === t.id && a === n) return o;
                 }
-                return Qt.lookup(t, n);
+                return Xt.lookup(t, n);
               },
               createNode: function (t, n, r, o) {
-                G(typeof t == "object");
-                var e = new Qt.FSNode(t, n, r, o);
-                return (Qt.hashAddNode(e), e);
+                z(typeof t == "object");
+                var e = new Xt.FSNode(t, n, r, o);
+                return (Xt.hashAddNode(e), e);
               },
               destroyNode: function (t) {
-                Qt.hashRemoveNode(t);
+                Xt.hashRemoveNode(t);
               },
               isRoot: function (t) {
                 return t === t.parent;
@@ -2254,7 +2275,7 @@ __d(
                 return (t & 512 && (e += "w"), e);
               },
               nodePermissions: function (t, n) {
-                return Qt.ignorePermissions
+                return Xt.ignorePermissions
                   ? 0
                   : (n.includes("r") && !(t.mode & 292)) ||
                       (n.includes("w") && !(t.mode & 146)) ||
@@ -2263,64 +2284,64 @@ __d(
                     : 0;
               },
               mayLookup: function (t) {
-                var e = Qt.nodePermissions(t, "x");
+                var e = Xt.nodePermissions(t, "x");
                 return e || (t.node_ops.lookup ? 0 : 2);
               },
               mayCreate: function (t, n) {
                 try {
-                  var e = Qt.lookupNode(t, n);
+                  var e = Xt.lookupNode(t, n);
                   return 20;
                 } catch (e) {}
-                return Qt.nodePermissions(t, "wx");
+                return Xt.nodePermissions(t, "wx");
               },
               mayDelete: function (t, n, r) {
                 var e;
                 try {
-                  e = Qt.lookupNode(t, n);
+                  e = Xt.lookupNode(t, n);
                 } catch (e) {
                   return e.errno;
                 }
-                var o = Qt.nodePermissions(t, "wx");
+                var o = Xt.nodePermissions(t, "wx");
                 if (o) return o;
                 if (r) {
-                  if (!Qt.isDir(e.mode)) return 54;
-                  if (Qt.isRoot(e) || Qt.getPath(e) === Qt.cwd()) return 10;
-                } else if (Qt.isDir(e.mode)) return 31;
+                  if (!Xt.isDir(e.mode)) return 54;
+                  if (Xt.isRoot(e) || Xt.getPath(e) === Xt.cwd()) return 10;
+                } else if (Xt.isDir(e.mode)) return 31;
                 return 0;
               },
               mayOpen: function (t, n) {
                 return t
-                  ? Qt.isLink(t.mode)
+                  ? Xt.isLink(t.mode)
                     ? 32
-                    : Qt.isDir(t.mode) &&
-                        (Qt.flagsToPermissionString(n) !== "r" || n & 512)
+                    : Xt.isDir(t.mode) &&
+                        (Xt.flagsToPermissionString(n) !== "r" || n & 512)
                       ? 31
-                      : Qt.nodePermissions(t, Qt.flagsToPermissionString(n))
+                      : Xt.nodePermissions(t, Xt.flagsToPermissionString(n))
                   : 44;
               },
               MAX_OPEN_FDS: 4096,
               nextfd: function () {
-                for (var e = 0; e <= Qt.MAX_OPEN_FDS; e++)
-                  if (!Qt.streams[e]) return e;
-                throw new Qt.ErrnoError(33);
+                for (var e = 0; e <= Xt.MAX_OPEN_FDS; e++)
+                  if (!Xt.streams[e]) return e;
+                throw new Xt.ErrnoError(33);
               },
               getStreamChecked: function (t) {
-                var e = Qt.getStream(t);
-                if (!e) throw new Qt.ErrnoError(8);
+                var e = Xt.getStream(t);
+                if (!e) throw new Xt.ErrnoError(8);
                 return e;
               },
               getStream: function (t) {
-                return Qt.streams[t];
+                return Xt.streams[t];
               },
               createStream: function (t, n) {
                 return (
                   n === void 0 && (n = -1),
-                  Qt.FSStream ||
-                    ((Qt.FSStream = function () {
+                  Xt.FSStream ||
+                    ((Xt.FSStream = function () {
                       this.shared = {};
                     }),
-                    (Qt.FSStream.prototype = {}),
-                    Object.defineProperties(Qt.FSStream.prototype, {
+                    (Xt.FSStream.prototype = {}),
+                    Object.defineProperties(Xt.FSStream.prototype, {
                       object: {
                         get: function () {
                           return this.node;
@@ -2361,24 +2382,24 @@ __d(
                         },
                       },
                     })),
-                  (t = Object.assign(new Qt.FSStream(), t)),
-                  n == -1 && (n = Qt.nextfd()),
+                  (t = Object.assign(new Xt.FSStream(), t)),
+                  n == -1 && (n = Xt.nextfd()),
                   (t.fd = n),
-                  (Qt.streams[n] = t),
+                  (Xt.streams[n] = t),
                   t
                 );
               },
               closeStream: function (t) {
-                Qt.streams[t] = null;
+                Xt.streams[t] = null;
               },
               chrdev_stream_ops: {
                 open: function (t) {
-                  var e = Qt.getDevice(t.node.rdev);
+                  var e = Xt.getDevice(t.node.rdev);
                   ((t.stream_ops = e.stream_ops),
                     t.stream_ops.open && t.stream_ops.open(t));
                 },
                 llseek: function () {
-                  throw new Qt.ErrnoError(70);
+                  throw new Xt.ErrnoError(70);
                 },
               },
               major: function (t) {
@@ -2391,10 +2412,10 @@ __d(
                 return (t << 8) | n;
               },
               registerDevice: function (t, n) {
-                Qt.devices[t] = { stream_ops: n };
+                Xt.devices[t] = { stream_ops: n };
               },
               getDevice: function (t) {
-                return Qt.devices[t];
+                return Xt.devices[t];
               },
               getMounts: function (t) {
                 for (var e = [], n = [t]; n.length; ) {
@@ -2405,17 +2426,17 @@ __d(
               },
               syncfs: function (t, n) {
                 (typeof t == "function" && ((n = t), (t = !1)),
-                  Qt.syncFSRequests++,
-                  Qt.syncFSRequests > 1 &&
-                    F(
+                  Xt.syncFSRequests++,
+                  Xt.syncFSRequests > 1 &&
+                    O(
                       "warning: " +
-                        Qt.syncFSRequests +
+                        Xt.syncFSRequests +
                         " FS.syncfs operations in flight at once, probably just doing extra work",
                     ));
-                var e = Qt.getMounts(Qt.root.mount),
+                var e = Xt.getMounts(Xt.root.mount),
                   r = 0;
                 function o(e) {
-                  return (G(Qt.syncFSRequests > 0), Qt.syncFSRequests--, n(e));
+                  return (z(Xt.syncFSRequests > 0), Xt.syncFSRequests--, n(e));
                 }
                 function a(t) {
                   if (t) return a.errored ? void 0 : ((a.errored = !0), o(t));
@@ -2431,12 +2452,12 @@ __d(
                 var e = r === "/",
                   o = !r,
                   a;
-                if (e && Qt.root) throw new Qt.ErrnoError(10);
+                if (e && Xt.root) throw new Xt.ErrnoError(10);
                 if (!e && !o) {
-                  var i = Qt.lookupPath(r, { follow_mount: !1 });
-                  if (((r = i.path), (a = i.node), Qt.isMountpoint(a)))
-                    throw new Qt.ErrnoError(10);
-                  if (!Qt.isDir(a.mode)) throw new Qt.ErrnoError(54);
+                  var i = Xt.lookupPath(r, { follow_mount: !1 });
+                  if (((r = i.path), (a = i.node), Xt.isMountpoint(a)))
+                    throw new Xt.ErrnoError(10);
+                  if (!Xt.isDir(a.mode)) throw new Xt.ErrnoError(54);
                 }
                 var l = { type: t, opts: n, mountpoint: r, mounts: [] },
                   s = t.mount(l);
@@ -2444,38 +2465,38 @@ __d(
                   (s.mount = l),
                   (l.root = s),
                   e
-                    ? (Qt.root = s)
+                    ? (Xt.root = s)
                     : a && ((a.mounted = l), a.mount && a.mount.mounts.push(l)),
                   s
                 );
               },
               unmount: function (t) {
-                var e = Qt.lookupPath(t, { follow_mount: !1 });
-                if (!Qt.isMountpoint(e.node)) throw new Qt.ErrnoError(28);
+                var e = Xt.lookupPath(t, { follow_mount: !1 });
+                if (!Xt.isMountpoint(e.node)) throw new Xt.ErrnoError(28);
                 var n = e.node,
                   r = n.mounted,
-                  o = Qt.getMounts(r);
-                (Object.keys(Qt.nameTable).forEach(function (e) {
-                  for (var t = Qt.nameTable[e]; t; ) {
+                  o = Xt.getMounts(r);
+                (Object.keys(Xt.nameTable).forEach(function (e) {
+                  for (var t = Xt.nameTable[e]; t; ) {
                     var n = t.name_next;
-                    (o.includes(t.mount) && Qt.destroyNode(t), (t = n));
+                    (o.includes(t.mount) && Xt.destroyNode(t), (t = n));
                   }
                 }),
                   (n.mounted = null));
                 var a = n.mount.mounts.indexOf(r);
-                (G(a !== -1), n.mount.mounts.splice(a, 1));
+                (z(a !== -1), n.mount.mounts.splice(a, 1));
               },
               lookup: function (t, n) {
                 return t.node_ops.lookup(t, n);
               },
               mknod: function (t, n, r) {
-                var e = Qt.lookupPath(t, { parent: !0 }),
+                var e = Xt.lookupPath(t, { parent: !0 }),
                   o = e.node,
-                  a = Rt.basename(t);
-                if (!a || a === "." || a === "..") throw new Qt.ErrnoError(28);
-                var i = Qt.mayCreate(o, a);
-                if (i) throw new Qt.ErrnoError(i);
-                if (!o.node_ops.mknod) throw new Qt.ErrnoError(63);
+                  a = Lt.basename(t);
+                if (!a || a === "." || a === "..") throw new Xt.ErrnoError(28);
+                var i = Xt.mayCreate(o, a);
+                if (i) throw new Xt.ErrnoError(i);
+                if (!o.node_ops.mknod) throw new Xt.ErrnoError(63);
                 return o.node_ops.mknod(o, a, n, r);
               },
               create: function (t, n) {
@@ -2483,7 +2504,7 @@ __d(
                   (n = n !== void 0 ? n : 438),
                   (n &= 4095),
                   (n |= 32768),
-                  Qt.mknod(t, n, 0)
+                  Xt.mknod(t, n, 0)
                 );
               },
               mkdir: function (t, n) {
@@ -2491,7 +2512,7 @@ __d(
                   (n = n !== void 0 ? n : 511),
                   (n &= 1023),
                   (n |= 16384),
-                  Qt.mknod(t, n, 0)
+                  Xt.mknod(t, n, 0)
                 );
               },
               mkdirTree: function (t, n) {
@@ -2499,7 +2520,7 @@ __d(
                   if (e[o]) {
                     r += "/" + e[o];
                     try {
-                      Qt.mkdir(r, n);
+                      Xt.mkdir(r, n);
                     } catch (e) {
                       if (e.errno != 20) throw e;
                     }
@@ -2509,205 +2530,205 @@ __d(
                 return (
                   typeof r == "undefined" && ((r = n), (n = 438)),
                   (n |= 8192),
-                  Qt.mknod(t, n, r)
+                  Xt.mknod(t, n, r)
                 );
               },
               symlink: function (t, n) {
-                if (!kt.resolve(t)) throw new Qt.ErrnoError(44);
-                var e = Qt.lookupPath(n, { parent: !0 }),
+                if (!It.resolve(t)) throw new Xt.ErrnoError(44);
+                var e = Xt.lookupPath(n, { parent: !0 }),
                   r = e.node;
-                if (!r) throw new Qt.ErrnoError(44);
-                var o = Rt.basename(n),
-                  a = Qt.mayCreate(r, o);
-                if (a) throw new Qt.ErrnoError(a);
-                if (!r.node_ops.symlink) throw new Qt.ErrnoError(63);
+                if (!r) throw new Xt.ErrnoError(44);
+                var o = Lt.basename(n),
+                  a = Xt.mayCreate(r, o);
+                if (a) throw new Xt.ErrnoError(a);
+                if (!r.node_ops.symlink) throw new Xt.ErrnoError(63);
                 return r.node_ops.symlink(r, o, t);
               },
               rename: function (t, n) {
-                var e = Rt.dirname(t),
-                  r = Rt.dirname(n),
-                  o = Rt.basename(t),
-                  a = Rt.basename(n),
+                var e = Lt.dirname(t),
+                  r = Lt.dirname(n),
+                  o = Lt.basename(t),
+                  a = Lt.basename(n),
                   i,
                   l,
                   s;
                 if (
-                  ((i = Qt.lookupPath(t, { parent: !0 })),
+                  ((i = Xt.lookupPath(t, { parent: !0 })),
                   (l = i.node),
-                  (i = Qt.lookupPath(n, { parent: !0 })),
+                  (i = Xt.lookupPath(n, { parent: !0 })),
                   (s = i.node),
                   !l || !s)
                 )
-                  throw new Qt.ErrnoError(44);
-                if (l.mount !== s.mount) throw new Qt.ErrnoError(75);
-                var u = Qt.lookupNode(l, o),
-                  c = kt.relative(t, r);
-                if (c.charAt(0) !== ".") throw new Qt.ErrnoError(28);
-                if (((c = kt.relative(n, e)), c.charAt(0) !== "."))
-                  throw new Qt.ErrnoError(55);
+                  throw new Xt.ErrnoError(44);
+                if (l.mount !== s.mount) throw new Xt.ErrnoError(75);
+                var u = Xt.lookupNode(l, o),
+                  c = It.relative(t, r);
+                if (c.charAt(0) !== ".") throw new Xt.ErrnoError(28);
+                if (((c = It.relative(n, e)), c.charAt(0) !== "."))
+                  throw new Xt.ErrnoError(55);
                 var d;
                 try {
-                  d = Qt.lookupNode(s, a);
+                  d = Xt.lookupNode(s, a);
                 } catch (e) {}
                 if (u !== d) {
-                  var m = Qt.isDir(u.mode),
-                    p = Qt.mayDelete(l, o, m);
-                  if (p) throw new Qt.ErrnoError(p);
-                  if (((p = d ? Qt.mayDelete(s, a, m) : Qt.mayCreate(s, a)), p))
-                    throw new Qt.ErrnoError(p);
-                  if (!l.node_ops.rename) throw new Qt.ErrnoError(63);
-                  if (Qt.isMountpoint(u) || (d && Qt.isMountpoint(d)))
-                    throw new Qt.ErrnoError(10);
-                  if (s !== l && ((p = Qt.nodePermissions(l, "w")), p))
-                    throw new Qt.ErrnoError(p);
-                  Qt.hashRemoveNode(u);
+                  var m = Xt.isDir(u.mode),
+                    p = Xt.mayDelete(l, o, m);
+                  if (p) throw new Xt.ErrnoError(p);
+                  if (((p = d ? Xt.mayDelete(s, a, m) : Xt.mayCreate(s, a)), p))
+                    throw new Xt.ErrnoError(p);
+                  if (!l.node_ops.rename) throw new Xt.ErrnoError(63);
+                  if (Xt.isMountpoint(u) || (d && Xt.isMountpoint(d)))
+                    throw new Xt.ErrnoError(10);
+                  if (s !== l && ((p = Xt.nodePermissions(l, "w")), p))
+                    throw new Xt.ErrnoError(p);
+                  Xt.hashRemoveNode(u);
                   try {
                     l.node_ops.rename(u, s, a);
                   } catch (e) {
                     throw e;
                   } finally {
-                    Qt.hashAddNode(u);
+                    Xt.hashAddNode(u);
                   }
                 }
               },
               rmdir: function (t) {
-                var e = Qt.lookupPath(t, { parent: !0 }),
+                var e = Xt.lookupPath(t, { parent: !0 }),
                   n = e.node,
-                  r = Rt.basename(t),
-                  o = Qt.lookupNode(n, r),
-                  a = Qt.mayDelete(n, r, !0);
-                if (a) throw new Qt.ErrnoError(a);
-                if (!n.node_ops.rmdir) throw new Qt.ErrnoError(63);
-                if (Qt.isMountpoint(o)) throw new Qt.ErrnoError(10);
-                (n.node_ops.rmdir(n, r), Qt.destroyNode(o));
+                  r = Lt.basename(t),
+                  o = Xt.lookupNode(n, r),
+                  a = Xt.mayDelete(n, r, !0);
+                if (a) throw new Xt.ErrnoError(a);
+                if (!n.node_ops.rmdir) throw new Xt.ErrnoError(63);
+                if (Xt.isMountpoint(o)) throw new Xt.ErrnoError(10);
+                (n.node_ops.rmdir(n, r), Xt.destroyNode(o));
               },
               readdir: function (t) {
-                var e = Qt.lookupPath(t, { follow: !0 }),
+                var e = Xt.lookupPath(t, { follow: !0 }),
                   n = e.node;
-                if (!n.node_ops.readdir) throw new Qt.ErrnoError(54);
+                if (!n.node_ops.readdir) throw new Xt.ErrnoError(54);
                 return n.node_ops.readdir(n);
               },
               unlink: function (t) {
-                var e = Qt.lookupPath(t, { parent: !0 }),
+                var e = Xt.lookupPath(t, { parent: !0 }),
                   n = e.node;
-                if (!n) throw new Qt.ErrnoError(44);
-                var r = Rt.basename(t),
-                  o = Qt.lookupNode(n, r),
-                  a = Qt.mayDelete(n, r, !1);
-                if (a) throw new Qt.ErrnoError(a);
-                if (!n.node_ops.unlink) throw new Qt.ErrnoError(63);
-                if (Qt.isMountpoint(o)) throw new Qt.ErrnoError(10);
-                (n.node_ops.unlink(n, r), Qt.destroyNode(o));
+                if (!n) throw new Xt.ErrnoError(44);
+                var r = Lt.basename(t),
+                  o = Xt.lookupNode(n, r),
+                  a = Xt.mayDelete(n, r, !1);
+                if (a) throw new Xt.ErrnoError(a);
+                if (!n.node_ops.unlink) throw new Xt.ErrnoError(63);
+                if (Xt.isMountpoint(o)) throw new Xt.ErrnoError(10);
+                (n.node_ops.unlink(n, r), Xt.destroyNode(o));
               },
               readlink: function (t) {
-                var e = Qt.lookupPath(t),
+                var e = Xt.lookupPath(t),
                   n = e.node;
-                if (!n) throw new Qt.ErrnoError(44);
-                if (!n.node_ops.readlink) throw new Qt.ErrnoError(28);
-                return kt.resolve(Qt.getPath(n.parent), n.node_ops.readlink(n));
+                if (!n) throw new Xt.ErrnoError(44);
+                if (!n.node_ops.readlink) throw new Xt.ErrnoError(28);
+                return It.resolve(Xt.getPath(n.parent), n.node_ops.readlink(n));
               },
               stat: function (t, n) {
-                var e = Qt.lookupPath(t, { follow: !n }),
+                var e = Xt.lookupPath(t, { follow: !n }),
                   r = e.node;
-                if (!r) throw new Qt.ErrnoError(44);
-                if (!r.node_ops.getattr) throw new Qt.ErrnoError(63);
+                if (!r) throw new Xt.ErrnoError(44);
+                if (!r.node_ops.getattr) throw new Xt.ErrnoError(63);
                 return r.node_ops.getattr(r);
               },
               lstat: function (t) {
-                return Qt.stat(t, !0);
+                return Xt.stat(t, !0);
               },
               chmod: function (t, n, r) {
                 var e;
                 if (typeof t == "string") {
-                  var o = Qt.lookupPath(t, { follow: !r });
+                  var o = Xt.lookupPath(t, { follow: !r });
                   e = o.node;
                 } else e = t;
-                if (!e.node_ops.setattr) throw new Qt.ErrnoError(63);
+                if (!e.node_ops.setattr) throw new Xt.ErrnoError(63);
                 e.node_ops.setattr(e, {
                   mode: (n & 4095) | (e.mode & -4096),
                   timestamp: Date.now(),
                 });
               },
               lchmod: function (t, n) {
-                Qt.chmod(t, n, !0);
+                Xt.chmod(t, n, !0);
               },
               fchmod: function (t, n) {
-                var e = Qt.getStreamChecked(t);
-                Qt.chmod(e.node, n);
+                var e = Xt.getStreamChecked(t);
+                Xt.chmod(e.node, n);
               },
               chown: function (t, n, r, o) {
                 var e;
                 if (typeof t == "string") {
-                  var a = Qt.lookupPath(t, { follow: !o });
+                  var a = Xt.lookupPath(t, { follow: !o });
                   e = a.node;
                 } else e = t;
-                if (!e.node_ops.setattr) throw new Qt.ErrnoError(63);
+                if (!e.node_ops.setattr) throw new Xt.ErrnoError(63);
                 e.node_ops.setattr(e, { timestamp: Date.now() });
               },
               lchown: function (t, n, r) {
-                Qt.chown(t, n, r, !0);
+                Xt.chown(t, n, r, !0);
               },
               fchown: function (t, n, r) {
-                var e = Qt.getStreamChecked(t);
-                Qt.chown(e.node, n, r);
+                var e = Xt.getStreamChecked(t);
+                Xt.chown(e.node, n, r);
               },
               truncate: function (t, n) {
-                if (n < 0) throw new Qt.ErrnoError(28);
+                if (n < 0) throw new Xt.ErrnoError(28);
                 var e;
                 if (typeof t == "string") {
-                  var r = Qt.lookupPath(t, { follow: !0 });
+                  var r = Xt.lookupPath(t, { follow: !0 });
                   e = r.node;
                 } else e = t;
-                if (!e.node_ops.setattr) throw new Qt.ErrnoError(63);
-                if (Qt.isDir(e.mode)) throw new Qt.ErrnoError(31);
-                if (!Qt.isFile(e.mode)) throw new Qt.ErrnoError(28);
-                var o = Qt.nodePermissions(e, "w");
-                if (o) throw new Qt.ErrnoError(o);
+                if (!e.node_ops.setattr) throw new Xt.ErrnoError(63);
+                if (Xt.isDir(e.mode)) throw new Xt.ErrnoError(31);
+                if (!Xt.isFile(e.mode)) throw new Xt.ErrnoError(28);
+                var o = Xt.nodePermissions(e, "w");
+                if (o) throw new Xt.ErrnoError(o);
                 e.node_ops.setattr(e, { size: n, timestamp: Date.now() });
               },
               ftruncate: function (t, n) {
-                var e = Qt.getStreamChecked(t);
-                if ((e.flags & 2097155) === 0) throw new Qt.ErrnoError(28);
-                Qt.truncate(e.node, n);
+                var e = Xt.getStreamChecked(t);
+                if ((e.flags & 2097155) === 0) throw new Xt.ErrnoError(28);
+                Xt.truncate(e.node, n);
               },
               utime: function (t, n, r) {
-                var e = Qt.lookupPath(t, { follow: !0 }),
+                var e = Xt.lookupPath(t, { follow: !0 }),
                   o = e.node;
                 o.node_ops.setattr(o, { timestamp: Math.max(n, r) });
               },
               open: function (t, n, r) {
-                if (t === "") throw new Qt.ErrnoError(44);
-                ((n = typeof n == "string" ? Ut(n) : n),
+                if (t === "") throw new Xt.ErrnoError(44);
+                ((n = typeof n == "string" ? Vt(n) : n),
                   (r = typeof r == "undefined" ? 438 : r),
                   n & 64 ? (r = (r & 4095) | 32768) : (r = 0));
                 var e;
                 if (typeof t == "object") e = t;
                 else {
-                  t = Rt.normalize(t);
+                  t = Lt.normalize(t);
                   try {
-                    var o = Qt.lookupPath(t, { follow: !(n & 131072) });
+                    var o = Xt.lookupPath(t, { follow: !(n & 131072) });
                     e = o.node;
                   } catch (e) {}
                 }
                 var a = !1;
                 if (n & 64)
                   if (e) {
-                    if (n & 128) throw new Qt.ErrnoError(20);
-                  } else ((e = Qt.mknod(t, r, 0)), (a = !0));
-                if (!e) throw new Qt.ErrnoError(44);
+                    if (n & 128) throw new Xt.ErrnoError(20);
+                  } else ((e = Xt.mknod(t, r, 0)), (a = !0));
+                if (!e) throw new Xt.ErrnoError(44);
                 if (
-                  (Qt.isChrdev(e.mode) && (n &= -513),
-                  n & 65536 && !Qt.isDir(e.mode))
+                  (Xt.isChrdev(e.mode) && (n &= -513),
+                  n & 65536 && !Xt.isDir(e.mode))
                 )
-                  throw new Qt.ErrnoError(54);
+                  throw new Xt.ErrnoError(54);
                 if (!a) {
-                  var i = Qt.mayOpen(e, n);
-                  if (i) throw new Qt.ErrnoError(i);
+                  var i = Xt.mayOpen(e, n);
+                  if (i) throw new Xt.ErrnoError(i);
                 }
-                (n & 512 && !a && Qt.truncate(e, 0), (n &= -131713));
-                var l = Qt.createStream({
+                (n & 512 && !a && Xt.truncate(e, 0), (n &= -131713));
+                var l = Xt.createStream({
                   node: e,
-                  path: Qt.getPath(e),
+                  path: Xt.getPath(e),
                   flags: n,
                   seekable: !0,
                   position: 0,
@@ -2717,22 +2738,22 @@ __d(
                 });
                 return (
                   l.stream_ops.open && l.stream_ops.open(l),
-                  y.logReadFiles &&
+                  C.logReadFiles &&
                     !(n & 1) &&
-                    (Qt.readFiles || (Qt.readFiles = {}),
-                    t in Qt.readFiles || (Qt.readFiles[t] = 1)),
+                    (Xt.readFiles || (Xt.readFiles = {}),
+                    t in Xt.readFiles || (Xt.readFiles[t] = 1)),
                   l
                 );
               },
               close: function (t) {
-                if (Qt.isClosed(t)) throw new Qt.ErrnoError(8);
+                if (Xt.isClosed(t)) throw new Xt.ErrnoError(8);
                 t.getdents && (t.getdents = null);
                 try {
                   t.stream_ops.close && t.stream_ops.close(t);
                 } catch (e) {
                   throw e;
                 } finally {
-                  Qt.closeStream(t.fd);
+                  Xt.closeStream(t.fd);
                 }
                 t.fd = null;
               },
@@ -2740,10 +2761,10 @@ __d(
                 return t.fd === null;
               },
               llseek: function (t, n, r) {
-                if (Qt.isClosed(t)) throw new Qt.ErrnoError(8);
+                if (Xt.isClosed(t)) throw new Xt.ErrnoError(8);
                 if (!t.seekable || !t.stream_ops.llseek)
-                  throw new Qt.ErrnoError(70);
-                if (r != 0 && r != 1 && r != 2) throw new Qt.ErrnoError(28);
+                  throw new Xt.ErrnoError(70);
+                if (r != 0 && r != 1 && r != 2) throw new Xt.ErrnoError(28);
                 return (
                   (t.position = t.stream_ops.llseek(t, n, r)),
                   (t.ungotten = []),
@@ -2751,49 +2772,49 @@ __d(
                 );
               },
               read: function (t, n, r, o, a) {
-                if ((G(r >= 0), o < 0 || a < 0)) throw new Qt.ErrnoError(28);
-                if (Qt.isClosed(t)) throw new Qt.ErrnoError(8);
-                if ((t.flags & 2097155) === 1) throw new Qt.ErrnoError(8);
-                if (Qt.isDir(t.node.mode)) throw new Qt.ErrnoError(31);
-                if (!t.stream_ops.read) throw new Qt.ErrnoError(28);
+                if ((z(r >= 0), o < 0 || a < 0)) throw new Xt.ErrnoError(28);
+                if (Xt.isClosed(t)) throw new Xt.ErrnoError(8);
+                if ((t.flags & 2097155) === 1) throw new Xt.ErrnoError(8);
+                if (Xt.isDir(t.node.mode)) throw new Xt.ErrnoError(31);
+                if (!t.stream_ops.read) throw new Xt.ErrnoError(28);
                 var e = typeof a != "undefined";
                 if (!e) a = t.position;
-                else if (!t.seekable) throw new Qt.ErrnoError(70);
+                else if (!t.seekable) throw new Xt.ErrnoError(70);
                 var i = t.stream_ops.read(t, n, r, o, a);
                 return (e || (t.position += i), i);
               },
               write: function (t, n, r, o, a, i) {
-                if ((G(r >= 0), o < 0 || a < 0)) throw new Qt.ErrnoError(28);
-                if (Qt.isClosed(t)) throw new Qt.ErrnoError(8);
-                if ((t.flags & 2097155) === 0) throw new Qt.ErrnoError(8);
-                if (Qt.isDir(t.node.mode)) throw new Qt.ErrnoError(31);
-                if (!t.stream_ops.write) throw new Qt.ErrnoError(28);
-                t.seekable && t.flags & 1024 && Qt.llseek(t, 0, 2);
+                if ((z(r >= 0), o < 0 || a < 0)) throw new Xt.ErrnoError(28);
+                if (Xt.isClosed(t)) throw new Xt.ErrnoError(8);
+                if ((t.flags & 2097155) === 0) throw new Xt.ErrnoError(8);
+                if (Xt.isDir(t.node.mode)) throw new Xt.ErrnoError(31);
+                if (!t.stream_ops.write) throw new Xt.ErrnoError(28);
+                t.seekable && t.flags & 1024 && Xt.llseek(t, 0, 2);
                 var e = typeof a != "undefined";
                 if (!e) a = t.position;
-                else if (!t.seekable) throw new Qt.ErrnoError(70);
+                else if (!t.seekable) throw new Xt.ErrnoError(70);
                 var l = t.stream_ops.write(t, n, r, o, a, i);
                 return (e || (t.position += l), l);
               },
               allocate: function (t, n, r) {
-                if (Qt.isClosed(t)) throw new Qt.ErrnoError(8);
-                if (n < 0 || r <= 0) throw new Qt.ErrnoError(28);
-                if ((t.flags & 2097155) === 0) throw new Qt.ErrnoError(8);
-                if (!Qt.isFile(t.node.mode) && !Qt.isDir(t.node.mode))
-                  throw new Qt.ErrnoError(43);
-                if (!t.stream_ops.allocate) throw new Qt.ErrnoError(138);
+                if (Xt.isClosed(t)) throw new Xt.ErrnoError(8);
+                if (n < 0 || r <= 0) throw new Xt.ErrnoError(28);
+                if ((t.flags & 2097155) === 0) throw new Xt.ErrnoError(8);
+                if (!Xt.isFile(t.node.mode) && !Xt.isDir(t.node.mode))
+                  throw new Xt.ErrnoError(43);
+                if (!t.stream_ops.allocate) throw new Xt.ErrnoError(138);
                 t.stream_ops.allocate(t, n, r);
               },
               mmap: function (t, n, r, o, a) {
                 if ((o & 2) !== 0 && (a & 2) === 0 && (t.flags & 2097155) !== 2)
-                  throw new Qt.ErrnoError(2);
-                if ((t.flags & 2097155) === 1) throw new Qt.ErrnoError(2);
-                if (!t.stream_ops.mmap) throw new Qt.ErrnoError(43);
+                  throw new Xt.ErrnoError(2);
+                if ((t.flags & 2097155) === 1) throw new Xt.ErrnoError(2);
+                if (!t.stream_ops.mmap) throw new Xt.ErrnoError(43);
                 return t.stream_ops.mmap(t, n, r, o, a);
               },
               msync: function (t, n, r, o, a) {
                 return (
-                  G(r >= 0),
+                  z(r >= 0),
                   t.stream_ops.msync ? t.stream_ops.msync(t, n, r, o, a) : 0
                 );
               },
@@ -2801,7 +2822,7 @@ __d(
                 return 0;
               },
               ioctl: function (t, n, r) {
-                if (!t.stream_ops.ioctl) throw new Qt.ErrnoError(59);
+                if (!t.stream_ops.ioctl) throw new Xt.ErrnoError(59);
                 return t.stream_ops.ioctl(t, n, r);
               },
               readFile: function (t, n) {
@@ -2813,50 +2834,50 @@ __d(
                 )
                   throw new Error('Invalid encoding type "' + n.encoding + '"');
                 var e,
-                  r = Qt.open(t, n.flags),
-                  o = Qt.stat(t),
+                  r = Xt.open(t, n.flags),
+                  o = Xt.stat(t),
                   a = o.size,
                   i = new Uint8Array(a);
                 return (
-                  Qt.read(r, i, 0, a, 0),
+                  Xt.read(r, i, 0, a, 0),
                   n.encoding === "utf8"
-                    ? (e = Tt(i, 0))
+                    ? (e = Dt(i, 0))
                     : n.encoding === "binary" && (e = i),
-                  Qt.close(r),
+                  Xt.close(r),
                   e
                 );
               },
               writeFile: function (t, n, r) {
                 (r === void 0 && (r = {}), (r.flags = r.flags || 577));
-                var e = Qt.open(t, r.flags, r.mode);
+                var e = Xt.open(t, r.flags, r.mode);
                 if (typeof n == "string") {
-                  var o = new Uint8Array(xt(n) + 1),
-                    a = $t(n, o, 0, o.length);
-                  Qt.write(e, o, 0, a, void 0, r.canOwn);
+                  var o = new Uint8Array($t(n) + 1),
+                    a = Pt(n, o, 0, o.length);
+                  Xt.write(e, o, 0, a, void 0, r.canOwn);
                 } else if (ArrayBuffer.isView(n))
-                  Qt.write(e, n, 0, n.byteLength, void 0, r.canOwn);
+                  Xt.write(e, n, 0, n.byteLength, void 0, r.canOwn);
                 else throw new Error("Unsupported data type");
-                Qt.close(e);
+                Xt.close(e);
               },
               cwd: function () {
-                return Qt.currentPath;
+                return Xt.currentPath;
               },
               chdir: function (t) {
-                var e = Qt.lookupPath(t, { follow: !0 });
-                if (e.node === null) throw new Qt.ErrnoError(44);
-                if (!Qt.isDir(e.node.mode)) throw new Qt.ErrnoError(54);
-                var n = Qt.nodePermissions(e.node, "x");
-                if (n) throw new Qt.ErrnoError(n);
-                Qt.currentPath = e.path;
+                var e = Xt.lookupPath(t, { follow: !0 });
+                if (e.node === null) throw new Xt.ErrnoError(44);
+                if (!Xt.isDir(e.node.mode)) throw new Xt.ErrnoError(54);
+                var n = Xt.nodePermissions(e.node, "x");
+                if (n) throw new Xt.ErrnoError(n);
+                Xt.currentPath = e.path;
               },
               createDefaultDirectories: function () {
-                (Qt.mkdir("/tmp"),
-                  Qt.mkdir("/home"),
-                  Qt.mkdir("/home/web_user"));
+                (Xt.mkdir("/tmp"),
+                  Xt.mkdir("/home"),
+                  Xt.mkdir("/home/web_user"));
               },
               createDefaultDevices: function () {
-                (Qt.mkdir("/dev"),
-                  Qt.registerDevice(Qt.makedev(1, 3), {
+                (Xt.mkdir("/dev"),
+                  Xt.registerDevice(Xt.makedev(1, 3), {
                     read: function () {
                       return 0;
                     },
@@ -2864,34 +2885,34 @@ __d(
                       return o;
                     },
                   }),
-                  Qt.mkdev("/dev/null", Qt.makedev(1, 3)),
-                  Mt.register(Qt.makedev(5, 0), Mt.default_tty_ops),
-                  Mt.register(Qt.makedev(6, 0), Mt.default_tty1_ops),
-                  Qt.mkdev("/dev/tty", Qt.makedev(5, 0)),
-                  Qt.mkdev("/dev/tty1", Qt.makedev(6, 0)));
+                  Xt.mkdev("/dev/null", Xt.makedev(1, 3)),
+                  wt.register(Xt.makedev(5, 0), wt.default_tty_ops),
+                  wt.register(Xt.makedev(6, 0), wt.default_tty1_ops),
+                  Xt.mkdev("/dev/tty", Xt.makedev(5, 0)),
+                  Xt.mkdev("/dev/tty1", Xt.makedev(6, 0)));
                 var e = new Uint8Array(1024),
                   t = 0,
                   n = function () {
-                    return (t === 0 && (t = Et(e).byteLength), e[--t]);
+                    return (t === 0 && (t = kt(e).byteLength), e[--t]);
                   };
-                (Qt.createDevice("/dev", "random", n),
-                  Qt.createDevice("/dev", "urandom", n),
-                  Qt.mkdir("/dev/shm"),
-                  Qt.mkdir("/dev/shm/tmp"));
+                (Xt.createDevice("/dev", "random", n),
+                  Xt.createDevice("/dev", "urandom", n),
+                  Xt.mkdir("/dev/shm"),
+                  Xt.mkdir("/dev/shm/tmp"));
               },
               createSpecialDirectories: function () {
-                Qt.mkdir("/proc");
-                var e = Qt.mkdir("/proc/self");
-                (Qt.mkdir("/proc/self/fd"),
-                  Qt.mount(
+                Xt.mkdir("/proc");
+                var e = Xt.mkdir("/proc/self");
+                (Xt.mkdir("/proc/self/fd"),
+                  Xt.mount(
                     {
                       mount: function () {
-                        var t = Qt.createNode(e, "fd", 16895, 73);
+                        var t = Xt.createNode(e, "fd", 16895, 73);
                         return (
                           (t.node_ops = {
                             lookup: function (t, n) {
                               var e = +n,
-                                r = Qt.getStreamChecked(e),
+                                r = Xt.getStreamChecked(e),
                                 o = {
                                   parent: null,
                                   mount: { mountpoint: "fake" },
@@ -2913,87 +2934,87 @@ __d(
                   ));
               },
               createStandardStreams: function () {
-                (y.stdin
-                  ? Qt.createDevice("/dev", "stdin", y.stdin)
-                  : Qt.symlink("/dev/tty", "/dev/stdin"),
-                  y.stdout
-                    ? Qt.createDevice("/dev", "stdout", null, y.stdout)
-                    : Qt.symlink("/dev/tty", "/dev/stdout"),
-                  y.stderr
-                    ? Qt.createDevice("/dev", "stderr", null, y.stderr)
-                    : Qt.symlink("/dev/tty1", "/dev/stderr"));
-                var e = Qt.open("/dev/stdin", 0),
-                  t = Qt.open("/dev/stdout", 1),
-                  n = Qt.open("/dev/stderr", 1);
-                (G(e.fd === 0, "invalid handle for stdin (" + e.fd + ")"),
-                  G(t.fd === 1, "invalid handle for stdout (" + t.fd + ")"),
-                  G(n.fd === 2, "invalid handle for stderr (" + n.fd + ")"));
+                (C.stdin
+                  ? Xt.createDevice("/dev", "stdin", C.stdin)
+                  : Xt.symlink("/dev/tty", "/dev/stdin"),
+                  C.stdout
+                    ? Xt.createDevice("/dev", "stdout", null, C.stdout)
+                    : Xt.symlink("/dev/tty", "/dev/stdout"),
+                  C.stderr
+                    ? Xt.createDevice("/dev", "stderr", null, C.stderr)
+                    : Xt.symlink("/dev/tty1", "/dev/stderr"));
+                var e = Xt.open("/dev/stdin", 0),
+                  t = Xt.open("/dev/stdout", 1),
+                  n = Xt.open("/dev/stderr", 1);
+                (z(e.fd === 0, "invalid handle for stdin (" + e.fd + ")"),
+                  z(t.fd === 1, "invalid handle for stdout (" + t.fd + ")"),
+                  z(n.fd === 2, "invalid handle for stderr (" + n.fd + ")"));
               },
               ensureErrnoError: function () {
-                Qt.ErrnoError ||
-                  ((Qt.ErrnoError = function (t, n) {
+                Xt.ErrnoError ||
+                  ((Xt.ErrnoError = function (t, n) {
                     ((this.name = "ErrnoError"),
                       (this.node = n),
                       (this.setErrno = function (e) {
                         this.errno = e;
-                        for (var t in zt)
-                          if (zt[t] === e) {
+                        for (var t in jt)
+                          if (jt[t] === e) {
                             this.code = t;
                             break;
                           }
                       }),
                       this.setErrno(t),
-                      (this.message = Gt[t]),
+                      (this.message = zt[t]),
                       this.stack &&
                         (Object.defineProperty(this, "stack", {
                           value: new Error().stack,
                           writable: !0,
                         }),
-                        (this.stack = Kt(this.stack))));
+                        (this.stack = Qt(this.stack))));
                   }),
-                  (Qt.ErrnoError.prototype = new Error()),
-                  (Qt.ErrnoError.prototype.constructor = Qt.ErrnoError),
+                  (Xt.ErrnoError.prototype = new Error()),
+                  (Xt.ErrnoError.prototype.constructor = Xt.ErrnoError),
                   [44].forEach(function (e) {
-                    ((Qt.genericErrors[e] = new Qt.ErrnoError(e)),
-                      (Qt.genericErrors[e].stack =
+                    ((Xt.genericErrors[e] = new Xt.ErrnoError(e)),
+                      (Xt.genericErrors[e].stack =
                         "<generic error, no stack>"));
                   }));
               },
               staticInit: function () {
-                (Qt.ensureErrnoError(),
-                  (Qt.nameTable = new Array(4096)),
-                  Qt.mount(Ft, {}, "/"),
-                  Qt.createDefaultDirectories(),
-                  Qt.createDefaultDevices(),
-                  Qt.createSpecialDirectories(),
-                  (Qt.filesystems = { MEMFS: Ft, IDBFS: Ht }));
+                (Xt.ensureErrnoError(),
+                  (Xt.nameTable = new Array(4096)),
+                  Xt.mount(Ot, {}, "/"),
+                  Xt.createDefaultDirectories(),
+                  Xt.createDefaultDevices(),
+                  Xt.createSpecialDirectories(),
+                  (Xt.filesystems = { MEMFS: Ot, IDBFS: Gt }));
               },
               init: function (t, n, r) {
-                (G(
-                  !Qt.init.initialized,
+                (z(
+                  !Xt.init.initialized,
                   "FS.init was previously called. If you want to initialize later with custom parameters, remove any earlier calls (note that one is automatically added to the generated code)",
                 ),
-                  (Qt.init.initialized = !0),
-                  Qt.ensureErrnoError(),
-                  (y.stdin = t || y.stdin),
-                  (y.stdout = n || y.stdout),
-                  (y.stderr = r || y.stderr),
-                  Qt.createStandardStreams());
+                  (Xt.init.initialized = !0),
+                  Xt.ensureErrnoError(),
+                  (C.stdin = t || C.stdin),
+                  (C.stdout = n || C.stdout),
+                  (C.stderr = r || C.stderr),
+                  Xt.createStandardStreams());
               },
               quit: function () {
-                ((Qt.init.initialized = !1), Gi(0));
-                for (var e = 0; e < Qt.streams.length; e++) {
-                  var t = Qt.streams[e];
-                  t && Qt.close(t);
+                ((Xt.init.initialized = !1), Bi(0));
+                for (var e = 0; e < Xt.streams.length; e++) {
+                  var t = Xt.streams[e];
+                  t && Xt.close(t);
                 }
               },
               findObject: function (t, n) {
-                var e = Qt.analyzePath(t, n);
+                var e = Xt.analyzePath(t, n);
                 return e.exists ? e.object : null;
               },
               analyzePath: function (t, n) {
                 try {
-                  var e = Qt.lookupPath(t, { follow: !n });
+                  var e = Xt.lookupPath(t, { follow: !n });
                   t = e.path;
                 } catch (e) {}
                 var r = {
@@ -3008,12 +3029,12 @@ __d(
                   parentObject: null,
                 };
                 try {
-                  var e = Qt.lookupPath(t, { parent: !0 });
+                  var e = Xt.lookupPath(t, { parent: !0 });
                   ((r.parentExists = !0),
                     (r.parentPath = e.path),
                     (r.parentObject = e.node),
-                    (r.name = Rt.basename(t)),
-                    (e = Qt.lookupPath(t, { follow: !n })),
+                    (r.name = Lt.basename(t)),
+                    (e = Xt.lookupPath(t, { follow: !n })),
                     (r.exists = !0),
                     (r.path = e.path),
                     (r.object = e.node),
@@ -3025,13 +3046,13 @@ __d(
                 return r;
               },
               createPath: function (t, n, r, o) {
-                t = typeof t == "string" ? t : Qt.getPath(t);
+                t = typeof t == "string" ? t : Xt.getPath(t);
                 for (var e = n.split("/").reverse(); e.length; ) {
                   var a = e.pop();
                   if (a) {
-                    var i = Rt.join2(t, a);
+                    var i = Lt.join2(t, a);
                     try {
-                      Qt.mkdir(i);
+                      Xt.mkdir(i);
                     } catch (e) {}
                     t = i;
                   }
@@ -3039,17 +3060,17 @@ __d(
                 return i;
               },
               createFile: function (t, n, r, o, a) {
-                var e = Rt.join2(typeof t == "string" ? t : Qt.getPath(t), n),
-                  i = Vt(o, a);
-                return Qt.create(e, i);
+                var e = Lt.join2(typeof t == "string" ? t : Xt.getPath(t), n),
+                  i = Ht(o, a);
+                return Xt.create(e, i);
               },
               createDataFile: function (t, n, r, o, a, i) {
                 var e = n;
                 t &&
-                  ((t = typeof t == "string" ? t : Qt.getPath(t)),
-                  (e = n ? Rt.join2(t, n) : t));
-                var l = Vt(o, a),
-                  s = Qt.create(e, l);
+                  ((t = typeof t == "string" ? t : Xt.getPath(t)),
+                  (e = n ? Lt.join2(t, n) : t));
+                var l = Ht(o, a),
+                  s = Xt.create(e, l);
                 if (r) {
                   if (typeof r == "string") {
                     for (
@@ -3060,21 +3081,21 @@ __d(
                       u[c] = r.charCodeAt(c);
                     r = u;
                   }
-                  Qt.chmod(s, l | 146);
-                  var m = Qt.open(s, 577);
-                  (Qt.write(m, r, 0, r.length, 0, i),
-                    Qt.close(m),
-                    Qt.chmod(s, l));
+                  Xt.chmod(s, l | 146);
+                  var m = Xt.open(s, 577);
+                  (Xt.write(m, r, 0, r.length, 0, i),
+                    Xt.close(m),
+                    Xt.chmod(s, l));
                 }
                 return s;
               },
               createDevice: function (t, n, r, o) {
-                var e = Rt.join2(typeof t == "string" ? t : Qt.getPath(t), n),
-                  a = Vt(!!r, !!o);
-                Qt.createDevice.major || (Qt.createDevice.major = 64);
-                var i = Qt.makedev(Qt.createDevice.major++, 0);
+                var e = Lt.join2(typeof t == "string" ? t : Xt.getPath(t), n),
+                  a = Ht(!!r, !!o);
+                Xt.createDevice.major || (Xt.createDevice.major = 64);
+                var i = Xt.makedev(Xt.createDevice.major++, 0);
                 return (
-                  Qt.registerDevice(i, {
+                  Xt.registerDevice(i, {
                     open: function (t) {
                       t.seekable = !1;
                     },
@@ -3087,9 +3108,9 @@ __d(
                         try {
                           s = r();
                         } catch (e) {
-                          throw new Qt.ErrnoError(29);
+                          throw new Xt.ErrnoError(29);
                         }
-                        if (s === void 0 && e === 0) throw new Qt.ErrnoError(6);
+                        if (s === void 0 && e === 0) throw new Xt.ErrnoError(6);
                         if (s == null) break;
                         (e++, (n[o + l] = s));
                       }
@@ -3100,12 +3121,12 @@ __d(
                         try {
                           o(n[r + e]);
                         } catch (e) {
-                          throw new Qt.ErrnoError(29);
+                          throw new Xt.ErrnoError(29);
                         }
                       return (a && (t.node.timestamp = Date.now()), e);
                     },
                   }),
-                  Qt.mkdev(e, a, i)
+                  Xt.mkdev(e, a, i)
                 );
               },
               forceLoadFile: function (t) {
@@ -3114,12 +3135,12 @@ __d(
                   throw new Error(
                     "Lazy loading should have been performed (contents set) in createLazyFile, but it was not. Lazy loading only works in web workers. Use --embed-file or --preload-file in emcc on the main thread.",
                   );
-                if (P)
+                if (N)
                   try {
-                    ((t.contents = Pt(P(t.url), !0)),
+                    ((t.contents = Nt(N(t.url), !0)),
                       (t.usedBytes = t.contents.length));
                   } catch (e) {
-                    throw new Qt.ErrnoError(29);
+                    throw new Xt.ErrnoError(29);
                   }
                 else
                   throw new Error(
@@ -3198,7 +3219,7 @@ __d(
                           );
                         return e.response !== void 0
                           ? new Uint8Array(e.response || [])
-                          : Pt(e.responseText || "", !0);
+                          : Nt(e.responseText || "", !0);
                       },
                       s = this;
                     (s.setDataGetter(function (e) {
@@ -3217,7 +3238,7 @@ __d(
                         ((i = t = 1),
                         (t = this.getter(0).length),
                         (i = t),
-                        A(
+                        F(
                           "LazyFiles on gzip forces download of the whole file when length is accessed",
                         )),
                       (this._length = t),
@@ -3226,7 +3247,7 @@ __d(
                   }),
                   typeof XMLHttpRequest != "undefined")
                 ) {
-                  if (!k)
+                  if (!I)
                     throw "Cannot do synchronous binary XHRs outside webworkers in modern browsers. Use --embed-file or --preload-file in emcc";
                   var i = new e();
                   Object.defineProperties(i, {
@@ -3249,7 +3270,7 @@ __d(
                   });
                   var s = { isDevice: !1, contents: i };
                 } else var s = { isDevice: !1, url: r };
-                var u = Qt.createFile(t, n, s, o, a);
+                var u = Xt.createFile(t, n, s, o, a);
                 (s.contents
                   ? (u.contents = s.contents)
                   : s.url && ((u.contents = null), (u.url = s.url)),
@@ -3265,26 +3286,26 @@ __d(
                 d.forEach(function (e) {
                   var t = u.stream_ops[e];
                   c[e] = function () {
-                    return (Qt.forceLoadFile(u), t.apply(null, arguments));
+                    return (Xt.forceLoadFile(u), t.apply(null, arguments));
                   };
                 });
                 function m(e, t, n, r, o) {
                   var a = e.node.contents;
                   if (o >= a.length) return 0;
                   var i = Math.min(a.length - o, r);
-                  if ((G(i >= 0), a.slice))
+                  if ((z(i >= 0), a.slice))
                     for (var l = 0; l < i; l++) t[n + l] = a[o + l];
                   else for (var l = 0; l < i; l++) t[n + l] = a.get(o + l);
                   return i;
                 }
                 return (
                   (c.read = function (e, t, n, r, o) {
-                    return (Qt.forceLoadFile(u), m(e, t, n, r, o));
+                    return (Xt.forceLoadFile(u), m(e, t, n, r, o));
                   }),
                   (c.mmap = function (e, t, n, r, o) {
-                    Qt.forceLoadFile(u);
-                    var a = At(t);
-                    if (!a) throw new Qt.ErrnoError(48);
+                    Xt.forceLoadFile(u);
+                    var a = Ft(t);
+                    if (!a) throw new Xt.ErrnoError(48);
                     return (m(e, l(), a, t, n), { ptr: a, allocated: !0 });
                   }),
                   (u.stream_ops = c),
@@ -3292,48 +3313,48 @@ __d(
                 );
               },
               absolutePath: function () {
-                ke(
+                Ie(
                   "FS.absolutePath has been removed; use PATH_FS.resolve instead",
                 );
               },
               createFolder: function () {
-                ke("FS.createFolder has been removed; use FS.mkdir instead");
+                Ie("FS.createFolder has been removed; use FS.mkdir instead");
               },
               createLink: function () {
-                ke("FS.createLink has been removed; use FS.symlink instead");
+                Ie("FS.createLink has been removed; use FS.symlink instead");
               },
               joinPath: function () {
-                ke("FS.joinPath has been removed; use PATH.join instead");
+                Ie("FS.joinPath has been removed; use PATH.join instead");
               },
               mmapAlloc: function () {
-                ke(
+                Ie(
                   "FS.mmapAlloc has been replaced by the top level function mmapAlloc",
                 );
               },
               standardizePath: function () {
-                ke(
+                Ie(
                   "FS.standardizePath has been removed; use PATH.normalize instead",
                 );
               },
             },
-            Xt = function (t, n) {
-              return (G(typeof t == "number"), t ? Tt(d(), t, n) : "");
+            Yt = function (t, n) {
+              return (z(typeof t == "number"), t ? Dt(m(), t, n) : "");
             },
-            Yt = {
+            Jt = {
               DEFAULT_POLLMASK: 5,
               calculateAt: function (t, n, r) {
-                if (Rt.isAbs(n)) return n;
+                if (Lt.isAbs(n)) return n;
                 var e;
-                if (t === -100) e = Qt.cwd();
+                if (t === -100) e = Xt.cwd();
                 else {
-                  var o = Yt.getStreamFromFD(t);
+                  var o = Jt.getStreamFromFD(t);
                   e = o.path;
                 }
                 if (n.length == 0) {
-                  if (!r) throw new Qt.ErrnoError(44);
+                  if (!r) throw new Xt.ErrnoError(44);
                   return e;
                 }
-                return Rt.join2(e, n);
+                return Lt.join2(e, n);
               },
               doStat: function (t, n, r) {
                 try {
@@ -3342,94 +3363,94 @@ __d(
                   if (
                     e &&
                     e.node &&
-                    Rt.normalize(n) !== Rt.normalize(Qt.getPath(e.node))
+                    Lt.normalize(n) !== Lt.normalize(Xt.getPath(e.node))
                   )
                     return -54;
                   throw e;
                 }
-                ((_()[r >> 2] = e.dev),
-                  (_()[(r + 4) >> 2] = e.mode),
-                  (f()[(r + 8) >> 2] = e.nlink),
-                  (_()[(r + 12) >> 2] = e.uid),
-                  (_()[(r + 16) >> 2] = e.gid),
-                  (_()[(r + 20) >> 2] = e.rdev),
-                  (Z[(r + 24) >> 3] = BigInt(e.size)),
-                  (_()[(r + 32) >> 2] = 4096),
-                  (_()[(r + 36) >> 2] = e.blocks));
+                ((f()[r >> 2] = e.dev),
+                  (f()[(r + 4) >> 2] = e.mode),
+                  (g()[(r + 8) >> 2] = e.nlink),
+                  (f()[(r + 12) >> 2] = e.uid),
+                  (f()[(r + 16) >> 2] = e.gid),
+                  (f()[(r + 20) >> 2] = e.rdev),
+                  (ee[(r + 24) >> 3] = BigInt(e.size)),
+                  (f()[(r + 32) >> 2] = 4096),
+                  (f()[(r + 36) >> 2] = e.blocks));
                 var o = e.atime.getTime(),
                   a = e.mtime.getTime(),
                   i = e.ctime.getTime();
                 return (
-                  (Z[(r + 40) >> 3] = BigInt(Math.floor(o / 1e3))),
-                  (f()[(r + 48) >> 2] = (o % 1e3) * 1e3),
-                  (Z[(r + 56) >> 3] = BigInt(Math.floor(a / 1e3))),
-                  (f()[(r + 64) >> 2] = (a % 1e3) * 1e3),
-                  (Z[(r + 72) >> 3] = BigInt(Math.floor(i / 1e3))),
-                  (f()[(r + 80) >> 2] = (i % 1e3) * 1e3),
-                  (Z[(r + 88) >> 3] = BigInt(e.ino)),
+                  (ee[(r + 40) >> 3] = BigInt(Math.floor(o / 1e3))),
+                  (g()[(r + 48) >> 2] = (o % 1e3) * 1e3),
+                  (ee[(r + 56) >> 3] = BigInt(Math.floor(a / 1e3))),
+                  (g()[(r + 64) >> 2] = (a % 1e3) * 1e3),
+                  (ee[(r + 72) >> 3] = BigInt(Math.floor(i / 1e3))),
+                  (g()[(r + 80) >> 2] = (i % 1e3) * 1e3),
+                  (ee[(r + 88) >> 3] = BigInt(e.ino)),
                   0
                 );
               },
               doMsync: function (t, n, r, o, a) {
-                if (!Qt.isFile(n.node.mode)) throw new Qt.ErrnoError(43);
+                if (!Xt.isFile(n.node.mode)) throw new Xt.ErrnoError(43);
                 if (o & 2) return 0;
-                var e = d().slice(t, t + r);
-                Qt.msync(n, e, a, r, o);
+                var e = m().slice(t, t + r);
+                Xt.msync(n, e, a, r, o);
               },
               varargs: void 0,
               get: function () {
-                (G(Yt.varargs != null), (Yt.varargs += 4));
-                var e = _()[(Yt.varargs - 4) >> 2];
+                (z(Jt.varargs != null), (Jt.varargs += 4));
+                var e = f()[(Jt.varargs - 4) >> 2];
                 return e;
               },
               getStr: function (t) {
-                var e = Xt(t);
+                var e = Yt(t);
                 return e;
               },
               getStreamFromFD: function (t) {
-                var e = Qt.getStreamChecked(t);
+                var e = Xt.getStreamChecked(t);
                 return e;
               },
             };
-          function Jt(e) {
-            if (D) return Na(1, 1, e);
-            ((H = e),
-              me() ||
-                (rn.terminateAllThreads(), y.onExit && y.onExit(e), (V = !0)),
-              L(e, new gt(e)));
+          function Zt(e) {
+            if (x) return Sa(1, 1, e);
+            ((G = e),
+              pe() ||
+                (on.terminateAllThreads(), C.onExit && C.onExit(e), (H = !0)),
+              E(e, new ht(e)));
           }
-          var Zt = function (t, n) {
-              if (((H = t), Ku(), D)) throw (G(!n), ln(t), "unwind");
-              if (me() && !n) {
+          var en = function (t, n) {
+              if (((G = t), pc(), x)) throw (z(!n), sn(t), "unwind");
+              if (pe() && !n) {
                 var e =
                   "program exited (with status: " +
                   t +
                   "), but keepRuntimeAlive() is set (counter=" +
-                  de +
+                  me +
                   ") due to an async operation, so halting execution but not exiting the runtime or preventing further async execution (you can use emscripten_force_exit, if you want to force a true shutdown)";
-                (b(e), F(e));
+                (v(e), O(e));
               }
-              Jt(t);
+              Zt(t);
             },
-            en = Zt,
-            tn = function (t) {
+            tn = en,
+            nn = function (t) {
               return (
-                G(typeof t == "number"),
+                z(typeof t == "number"),
                 (t >>>= 0),
                 "0x" + t.toString(16).padStart(8, "0")
               );
             },
-            nn = function (t) {
-              if (t instanceof gt || t == "unwind") return H;
-              (ie(),
+            rn = function (t) {
+              if (t instanceof ht || t == "unwind") return G;
+              (le(),
                 t instanceof WebAssembly.RuntimeError &&
-                  bl() <= 0 &&
-                  F(
-                    "Stack overflow detected.  You can try increasing -sSTACK_SIZE (currently set to 10485760)",
+                  yl() <= 0 &&
+                  O(
+                    "Stack overflow detected.  You can try increasing -sSTACK_SIZE (currently set to 1048576)",
                   ),
-                L(1, t));
+                E(1, t));
             },
-            rn = {
+            on = {
               unusedWorkers: [],
               runningWorkers: [],
               tlsInitFunctions: [],
@@ -3439,22 +3460,22 @@ __d(
                 function e() {
                   var e = 0;
                   return (
-                    ce && typeof Xi != "undefined" && (e = Xi()),
-                    "w:" + (y.workerID || 0) + ",t:" + tn(e) + ": "
+                    de && typeof qi != "undefined" && (e = qi()),
+                    "w:" + (C.workerID || 0) + ",t:" + nn(e) + ": "
                   );
                 }
-                var t = ze;
-                ze = function (r) {
+                var t = je;
+                je = function (r) {
                   return t(e() + r);
                 };
               },
               init: function () {
-                (rn.debugInit(), D ? rn.initWorker() : rn.initMainThread());
+                (on.debugInit(), x ? on.initWorker() : on.initMainThread());
               },
               initMainThread: function () {
                 var e =
-                  typeof y.pthreadPoolSizeOverride == "number"
-                    ? y.pthreadPoolSizeOverride
+                  typeof C.pthreadPoolSizeOverride == "number"
+                    ? C.pthreadPoolSizeOverride
                     : 20;
                 for (
                   o("WAWebVoipQplHelpers").voipInitQplAddPoint(
@@ -3463,65 +3484,112 @@ __d(
                   );
                   e--;
                 )
-                  rn.allocateUnusedWorker();
-                ge(function () {
-                  (Le("loading-workers"),
-                    rn.loadWasmModuleToAllWorkers(function () {
-                      return (
-                        Ee("loading-workers"),
-                        o("WAWebVoipQplHelpers").voipInitQplAddPoint(
-                          o("WAWebVoipQplHelpers").VoipInitQplPoint
-                            .WORKER_POOL_ALLOC_END,
-                        )
-                      );
-                    }));
+                  on.allocateUnusedWorker();
+                he(function () {
+                  Ee("loading-workers");
+                  var e = 15e3,
+                    t = !1,
+                    n = function (a) {
+                      if (!t) {
+                        ((t = !0), clearTimeout(r));
+                        var n = 0;
+                        try {
+                          if (a) {
+                            var i = [],
+                              l = [];
+                            for (var s of on.unusedWorkers)
+                              s.loaded ? i.push(s) : l.push(s);
+                            for (var s of l)
+                              try {
+                                yt(s);
+                              } catch (e) {
+                                O(
+                                  "voip: ThreadPoolManager: failed to terminate timed-out pthread worker " +
+                                    s.workerID +
+                                    ": " +
+                                    e,
+                                );
+                              }
+                            ((n = l.length),
+                              (on.unusedWorkers = i),
+                              O(
+                                "voip: ThreadPoolManager: pthread worker prewarm timed out after " +
+                                  e +
+                                  "ms; continuing with " +
+                                  i.length +
+                                  " ready workers",
+                              ));
+                          }
+                        } finally {
+                          (ke("loading-workers"),
+                            o("WAWebVoipQplHelpers").voipInitQplAddPoint(
+                              o("WAWebVoipQplHelpers").VoipInitQplPoint
+                                .WORKER_POOL_ALLOC_END,
+                              {
+                                bool: { worker_pool_alloc_timed_out: a },
+                                int: {
+                                  worker_pool_ready_count:
+                                    on.unusedWorkers.length,
+                                  worker_pool_timed_out_count: n,
+                                },
+                              },
+                            ));
+                        }
+                      }
+                    },
+                    r = setTimeout(function () {
+                      return n(!0);
+                    }, e);
+                  on.loadWasmModuleToAllWorkers(function () {
+                    return n(!1);
+                  });
                 });
               },
               initWorker: function () {
-                B = !1;
+                W = !1;
               },
               setExitStatus: function (t) {
-                H = t;
+                G = t;
               },
               terminateAllThreads__deps: ["$terminateWorker"],
               terminateAllThreads: function () {
-                G(
-                  !D,
+                z(
+                  !x,
                   "Internal Error! terminateAllThreads() can only ever be called from main application thread!",
                 );
-                for (var e of rn.runningWorkers) ht(e);
-                for (var e of rn.unusedWorkers) ht(e);
-                ((rn.unusedWorkers = []),
-                  (rn.runningWorkers = []),
-                  (rn.pthreads = []));
+                for (var e of on.runningWorkers) yt(e);
+                for (var e of on.unusedWorkers) yt(e);
+                ((on.unusedWorkers = []),
+                  (on.runningWorkers = []),
+                  (on.pthreads = []));
               },
               returnWorkerToPool: function (t) {
                 var e = t.pthread_ptr;
-                (delete rn.pthreads[e],
-                  rn.unusedWorkers.push(t),
-                  rn.runningWorkers.splice(rn.runningWorkers.indexOf(t), 1),
+                (delete on.pthreads[e],
+                  on.unusedWorkers.push(t),
+                  on.runningWorkers.splice(on.runningWorkers.indexOf(t), 1),
                   (t.pthread_ptr = 0),
-                  ul(e));
+                  ll(e));
               },
               receiveObjectTransfer: function (t) {},
               threadInitTLS: function () {
-                rn.tlsInitFunctions.forEach(function (e) {
+                on.tlsInitFunctions.forEach(function (e) {
                   return e();
                 });
               },
               loadWasmModuleToWorker: function (o) {
-                return new (u || (u = n("Promise")))(function (n) {
+                return new (s || (s = n("Promise")))(function (n) {
                   (o.addMessageListener("cmd", function (e) {
                     var t = e,
                       r = t.cmd;
-                    if (t.targetThread && t.targetThread != Xi()) {
-                      var a = rn.pthreads[t.targetThread];
+                    if (t.targetThread && t.targetThread != qi()) {
+                      var a = on.pthreads[t.targetThread];
                       a
                         ? a.postMessage(
                             babelHelpers.extends({}, t, { type: "cmd" }),
                             t.transferList,
                           )
-                        : F(
+                        : O(
                             'Internal error! Worker sent a message "' +
                               r +
                               '" to target pthread ' +
@@ -3530,34 +3598,58 @@ __d(
                           );
                       return;
                     }
-                    r === "checkMailbox"
-                      ? Ho()
-                      : r === "spawnThread"
-                        ? St(t)
-                        : r === "cleanupThread"
-                          ? bt(t.thread)
-                          : r === "killThread"
-                            ? yt(t.thread)
-                            : r === "cancelThread"
-                              ? Ct(t.thread)
-                              : r === "loaded"
-                                ? ((o.loaded = !0), n(o))
-                                : r === "alert"
-                                  ? alert(
-                                      "Thread " + t.threadId + ": " + t.text,
-                                    )
-                                  : t.target === "setimmediate"
-                                    ? o.postMessage(
-                                        babelHelpers.extends({}, t, {
-                                          type: "cmd",
-                                        }),
-                                      )
-                                    : r === "callHandler"
-                                      ? y[t.handler].apply(y, t.args)
-                                      : r &&
-                                        F(
-                                          "worker sent an unknown command " + r,
-                                        );
+                    if (r === "checkMailbox") Zo();
+                    else if (r === "spawnThread") Rt(t);
+                    else if (r === "cleanupThread") vt(t.thread);
+                    else if (r === "killThread") Ct(t.thread);
+                    else if (r === "cancelThread") bt(t.thread);
+                    else if (
+                      r === "wasmGlueBuildMismatch" ||
+                      r === "pinnedWasmGlueLoadFailed"
+                    ) {
+                      var i =
+                        r === "wasmGlueBuildMismatch"
+                          ? "voip: worker glue build mismatch source=" +
+                            t.source +
+                            " expected=" +
+                            t.expectedBuildSha +
+                            " actual=" +
+                            t.actualBuildSha
+                          : "voip: pinned worker glue load failed: " + t.error;
+                      if (cc && typeof C.onPthreadGlueFailure == "function")
+                        C.onPthreadGlueFailure(
+                          r === "wasmGlueBuildMismatch"
+                            ? {
+                                kind: "build_mismatch",
+                                actualBuildSha: t.actualBuildSha,
+                                expectedBuildSha: t.expectedBuildSha,
+                                source: t.source,
+                              }
+                            : {
+                                kind: "pinned_load_failed",
+                                error: t.error,
+                                workerID: o.workerID,
+                              },
+                        );
+                      else
+                        try {
+                          Ie(i);
+                        } catch (e) {}
+                    } else
+                      r === "wasmGlueBuildSkewObserved"
+                        ? typeof C.onWasmGlueBuildSkewObserved == "function" &&
+                          C.onWasmGlueBuildSkewObserved(t)
+                        : r === "loaded"
+                          ? ((o.loaded = !0), n(o))
+                          : r === "alert"
+                            ? alert("Thread " + t.threadId + ": " + t.text)
+                            : t.target === "setimmediate"
+                              ? o.postMessage(
+                                  babelHelpers.extends({}, t, { type: "cmd" }),
+                                )
+                              : r === "callHandler"
+                                ? C[t.handler].apply(C, t.args)
+                                : r && O("worker sent an unknown command " + r);
                   }),
                     o.addMessageListener(
                       "waWasmWorkerCompatibleCallback",
@@ -3573,8 +3665,8 @@ __d(
                       throw (
                         o.pthread_ptr &&
                           (t =
-                            "Pthread " + tn(o.pthread_ptr) + " sent an error!"),
-                        F(
+                            "Pthread " + nn(o.pthread_ptr) + " sent an error!"),
+                        O(
                           t +
                             " " +
                             e.filename +
@@ -3586,35 +3678,40 @@ __d(
                         e
                       );
                     }),
-                    G(
-                      W instanceof WebAssembly.Memory,
+                    z(
+                      q instanceof WebAssembly.Memory,
                       "WebAssembly memory should have been loaded by now!",
                     ),
-                    G(
-                      U instanceof WebAssembly.Module,
+                    z(
+                      V instanceof WebAssembly.Module,
                       "WebAssembly Module should have been loaded by now!",
                     ));
                   var r = [],
                     a = ["onExit", "onAbort", "print", "printErr"];
                   for (var l of a)
-                    Object.prototype.hasOwnProperty.call(y, l) && r.push(l);
-                  ((o.workerID = rn.nextWorkerID++),
+                    Object.prototype.hasOwnProperty.call(C, l) && r.push(l);
+                  ((o.workerID = on.nextWorkerID++),
                     o.postMessage({
                       cmd: "load",
                       handlers: r,
-                      urlOrBlob: y.mainScriptUrlOrBlob || t,
-                      wasmMemory: W,
-                      wasmModule: U,
+                      urlOrBlob: C.mainScriptUrlOrBlob || t,
+                      wasmMemory: q,
+                      wasmModule: V,
                       workerID: o.workerID,
                       wasmVariant: "prod-lab",
+                      expectedBuildSha: u,
+                      pinnedWorkerGlueUrl:
+                        C.pinWorkerGlue === !0 && typeof c == "string"
+                          ? c
+                          : null,
                       type: "cmd",
                     }));
                 });
               },
               loadWasmModuleToAllWorkers: function (t) {
-                if (D) return t();
-                var e = (u || (u = n("Promise"))).all(
-                  rn.unusedWorkers.map(rn.loadWasmModuleToWorker),
+                if (x) return t();
+                var e = (s || (s = n("Promise"))).all(
+                  on.unusedWorkers.map(on.loadWasmModuleToWorker),
                 );
                 e.then(t);
               },
@@ -3628,126 +3725,131 @@ __d(
                   "WAWebVoipWebWasmWorker",
                 )),
                   o("WorkerClient").init(e),
-                  rn.unusedWorkers.push(e));
+                  on.unusedWorkers.push(e));
               },
               getNewWorker: function () {
                 return (
-                  rn.unusedWorkers.length == 0 &&
-                    (F(
+                  on.unusedWorkers.length == 0 &&
+                    (O(
                       "Tried to spawn a new thread, but the thread pool is exhausted.\nThis might result in a deadlock unless some threads eventually exit or the code explicitly breaks out to the event loop.\nIf you want to increase the pool size, use setting `-sPTHREAD_POOL_SIZE=...`.\nIf you want to throw an explicit error instead of the risk of deadlocking in those cases, use setting `-sPTHREAD_POOL_SIZE_STRICT=2`.",
                     ),
-                    rn.allocateUnusedWorker(),
-                    rn.loadWasmModuleToWorker(rn.unusedWorkers[0])),
-                  rn.unusedWorkers.pop()
+                    on.allocateUnusedWorker(),
+                    on.loadWasmModuleToWorker(on.unusedWorkers[0])),
+                  on.unusedWorkers.pop()
                 );
               },
             };
-          y.PThread = rn;
-          var on = function (t) {
-            for (; t.length > 0; ) t.shift()(y);
+          C.PThread = on;
+          var an = function (t) {
+            for (; t.length > 0; ) t.shift()(C);
           };
-          function an() {
-            var e = Xi(),
-              t = _()[(e + 52) >> 2],
-              n = _()[(e + 56) >> 2],
+          function ln() {
+            var e = qi(),
+              t = f()[(e + 52) >> 2],
+              n = f()[(e + 56) >> 2],
               r = t - n;
-            (G(t != 0),
-              G(r != 0),
-              G(t > r, "stackHigh must be higher then stackLow"),
-              fl(t, r),
-              yl(t),
-              ae());
+            (z(t != 0),
+              z(r != 0),
+              z(t > r, "stackHigh must be higher then stackLow"),
+              pl(t, r),
+              gl(t),
+              ie());
           }
-          y.establishStackSpace = an;
-          function ln(e) {
-            if (D) return Na(2, 0, e);
-            en(e);
+          C.establishStackSpace = ln;
+          function sn(e) {
+            if (x) return Sa(2, 0, e);
+            tn(e);
           }
-          var sn = function (t) {
-              var e = hl(),
+          var un = function (t) {
+              var e = fl(),
                 n = t();
-              return (yl(e), n);
+              return (gl(e), n);
             },
-            un = function (t) {
-              return sn(function () {
-                var e = Cl(4),
-                  n = Cl(4);
-                Rl(t, e, n);
-                var r = f()[e >> 2],
-                  o = f()[n >> 2],
-                  a = Xt(r);
-                Vi(r);
+            cn = function (t) {
+              return un(function () {
+                var e = hl(4),
+                  n = hl(4);
+                Cl(t, e, n);
+                var r = g()[e >> 2],
+                  o = g()[n >> 2],
+                  a = Yt(r);
+                Fi(r);
                 var i;
-                return (o && ((i = Xt(o)), Vi(o)), [a, i]);
+                return (o && ((i = Yt(o)), Fi(o)), [a, i]);
               });
             };
-          function cn(e) {
-            return un(e);
+          function dn(e) {
+            return cn(e);
           }
-          y.getExceptionMessage = cn;
-          var dn = function (t) {
-            return oe.get(t);
+          C.getExceptionMessage = dn;
+          var mn = function (t) {
+            return ae.get(t);
           };
-          function mn(e, t) {
-            var n = dn(e)(t);
-            ie();
+          function pn(e, t) {
+            var n = mn(e)(t);
+            le();
             function r(e) {
-              me() ? rn.setExitStatus(e) : cl(e);
+              pe() ? on.setExitStatus(e) : sl(e);
             }
             r(n);
           }
-          y.invokeEntryPoint = mn;
-          function pn(e) {
-            rn.tlsInitFunctions.push(e);
+          C.invokeEntryPoint = pn;
+          function _n(e) {
+            on.tlsInitFunctions.push(e);
           }
-          var _n = function (t) {
-              (_n.shown || (_n.shown = {}),
-                _n.shown[t] || ((_n.shown[t] = 1), F(t)));
+          var fn = function (t) {
+              (fn.shown || (fn.shown = {}),
+                fn.shown[t] || ((fn.shown[t] = 1), O(t)));
             },
-            fn = function (t, n, r, o) {
-              ke(
+            gn = function (t, n, r, o) {
+              Ie(
                 "Assertion failed: " +
-                  Xt(t) +
+                  Yt(t) +
                   ", at: " +
                   [
-                    n ? Xt(n) : "unknown filename",
+                    n ? Yt(n) : "unknown filename",
                     r,
-                    o ? Xt(o) : "unknown function",
+                    o ? Yt(o) : "unknown function",
                   ],
               );
             },
-            gn = [],
-            hn = 0;
-          function yn(e) {
-            var t = new vn(e);
+            hn = [],
+            yn = 0;
+          function Cn(e) {
+            var t = new Rn(e);
             return (
-              t.get_caught() || (t.set_caught(!0), hn--),
+              t.get_caught() || (t.set_caught(!0), yn--),
               t.set_rethrown(!1),
-              gn.push(t),
-              Sl(t.excPtr),
+              hn.push(t),
+              ji(t.excPtr),
               t.get_exception_ptr()
             );
           }
-          var Cn = 0;
           function bn() {
-            (ml(0, 0), G(gn.length > 0));
-            var e = gn.pop();
-            (vl(e.excPtr), (Cn = 0));
+            if (!hn.length) return 0;
+            var e = hn[hn.length - 1];
+            return (ji(e.excPtr), e.excPtr);
           }
-          function vn(e) {
+          var vn = 0;
+          function Sn() {
+            (cl(0, 0), z(hn.length > 0));
+            var e = hn.pop();
+            (Ki(e.excPtr), (vn = 0));
+          }
+          function Rn(e) {
             ((this.excPtr = e),
               (this.ptr = e - 24),
               (this.set_type = function (e) {
-                f()[(this.ptr + 4) >> 2] = e;
+                g()[(this.ptr + 4) >> 2] = e;
               }),
               (this.get_type = function () {
-                return f()[(this.ptr + 4) >> 2];
+                return g()[(this.ptr + 4) >> 2];
               }),
               (this.set_destructor = function (e) {
-                f()[(this.ptr + 8) >> 2] = e;
+                g()[(this.ptr + 8) >> 2] = e;
               }),
               (this.get_destructor = function () {
-                return f()[(this.ptr + 8) >> 2];
+                return g()[(this.ptr + 8) >> 2];
               }),
               (this.set_caught = function (e) {
                 ((e = e ? 1 : 0), (l()[(this.ptr + 12) >> 0] = e));
@@ -3767,124 +3869,130 @@ __d(
                   this.set_destructor(t));
               }),
               (this.set_adjusted_ptr = function (e) {
-                f()[(this.ptr + 16) >> 2] = e;
+                g()[(this.ptr + 16) >> 2] = e;
               }),
               (this.get_adjusted_ptr = function () {
-                return f()[(this.ptr + 16) >> 2];
+                return g()[(this.ptr + 16) >> 2];
               }),
               (this.get_exception_ptr = function () {
-                var e = El(this.get_type());
-                if (e) return f()[this.excPtr >> 2];
+                var e = vl(this.get_type());
+                if (e) return g()[this.excPtr >> 2];
                 var t = this.get_adjusted_ptr();
                 return t !== 0 ? t : this.excPtr;
               }));
           }
-          function Sn(e) {
-            throw (Cn || (Cn = new Ne(e)), Cn);
+          function Ln(e) {
+            throw (vn || (vn = new Me(e)), vn);
           }
-          var Rn = function (t) {
-              var e = Cn && Cn.excPtr;
-              if (!e) return (pl(0), 0);
-              var n = new vn(e);
+          var En = function (t) {
+              var e = vn && vn.excPtr;
+              if (!e) return (dl(0), 0);
+              var n = new Rn(e);
               n.set_adjusted_ptr(e);
               var r = n.get_type();
-              if (!r) return (pl(0), e);
+              if (!r) return (dl(0), e);
               for (var o in t) {
                 var a = t[o];
                 if (a === 0 || a === r) break;
                 var i = n.ptr + 16;
-                if (Ll(a, r, i)) return (pl(a), e);
+                if (bl(a, r, i)) return (dl(a), e);
               }
-              return (pl(r), e);
+              return (dl(r), e);
             },
-            Ln = function () {
-              return Rn([]);
+            kn = function () {
+              return En([]);
             },
-            En = function (t) {
-              return Rn([t]);
+            In = function (t) {
+              return En([t]);
             },
-            kn = function (t, n) {
-              return Rn([t, n]);
+            Tn = function (t, n) {
+              return En([t, n]);
             };
-          function In(e) {
-            var t = new vn(e).get_exception_ptr();
+          function Dn(e) {
+            var t = new Rn(e).get_exception_ptr();
             return t;
           }
-          function Tn() {
-            var e = gn.pop();
-            e || ke("no exception to throw");
+          function xn() {
+            var e = hn.pop();
+            e || Ie("no exception to throw");
             var t = e.excPtr;
             throw (
               e.get_rethrown() ||
-                (gn.push(e), e.set_rethrown(!0), e.set_caught(!1), hn++),
-              (Cn = new Ne(t)),
-              Cn
+                (hn.push(e), e.set_rethrown(!0), e.set_caught(!1), yn++),
+              (vn = new Me(t)),
+              vn
             );
           }
-          function Dn(e, t, n) {
-            var r = new vn(e);
-            throw (r.init(t, n), (Cn = new Ne(e)), hn++, Cn);
-          }
-          function xn() {
-            return hn;
-          }
           function $n(e) {
-            (tl(e, !k, 1, !E, 10485760, !1), rn.threadInitTLS());
+            if (e) {
+              var t = new Rn(e);
+              (hn.push(t), t.set_rethrown(!0), xn());
+            }
           }
-          function Pn(e) {
-            D
+          function Pn(e, t, n) {
+            var r = new Rn(e);
+            throw (r.init(t, n), (vn = new Me(e)), yn++, vn);
+          }
+          function Nn() {
+            return yn;
+          }
+          function Mn(e) {
+            (Zi(e, !I, 1, !k, 1048576, !1), on.threadInitTLS());
+          }
+          function wn(e) {
+            x
               ? postMessage({ cmd: "cleanupThread", thread: e, type: "cmd" })
-              : bt(e);
+              : vt(e);
           }
-          function Nn(e, t, n, r) {
-            return D ? Na(3, 1, e, t, n, r) : Mn(e, t, n, r);
+          function An(e, t, n, r) {
+            return x ? Sa(3, 1, e, t, n, r) : Fn(e, t, n, r);
           }
-          function Mn(e, t, n, r) {
+          function Fn(e, t, n, r) {
             if (typeof SharedArrayBuffer == "undefined")
               return (
-                F(
+                O(
                   "Current environment does not support SharedArrayBuffer, pthreads are not available!",
                 ),
                 6
               );
             var o = [],
               a = 0;
-            if (D && (o.length === 0 || a)) return Nn(e, t, n, r);
+            if (x && (o.length === 0 || a)) return An(e, t, n, r);
             var i = {
               startRoutine: n,
               pthread_ptr: e,
               arg: r,
               transferList: o,
             };
-            return D
+            return x
               ? ((i.cmd = "spawnThread"),
                 postMessage(babelHelpers.extends({}, i, { type: "cmd" }), o),
                 0)
-              : St(i);
+              : Rt(i);
           }
-          function wn(e) {
-            if (D) return Na(4, 1, e);
+          function On(e) {
+            if (x) return Sa(4, 1, e);
             try {
-              return ((e = Yt.getStr(e)), Qt.chdir(e), 0);
+              return ((e = Jt.getStr(e)), Xt.chdir(e), 0);
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          var An = function (t) {
-            return ((_()[zi() >> 2] = t), t);
+          var Bn = function (t) {
+            return ((f()[Wi() >> 2] = t), t);
           };
-          function Fn(e, t, n) {
-            if (D) return Na(5, 1, e, t, n);
-            Yt.varargs = n;
+          function Wn(e, t, n) {
+            if (x) return Sa(5, 1, e, t, n);
+            Jt.varargs = n;
             try {
-              var r = Yt.getStreamFromFD(e);
+              var r = Jt.getStreamFromFD(e);
               switch (t) {
                 case 0: {
-                  var o = Yt.get();
+                  var o = Jt.get();
                   if (o < 0) return -28;
                   var a;
-                  return ((a = Qt.createStream(r, o)), a.fd);
+                  return ((a = Xt.createStream(r, o)), a.fd);
                 }
                 case 1:
                 case 2:
@@ -3892,13 +4000,13 @@ __d(
                 case 3:
                   return r.flags;
                 case 4: {
-                  var o = Yt.get();
+                  var o = Jt.get();
                   return ((r.flags |= o), 0);
                 }
                 case 5: {
-                  var o = Yt.get(),
+                  var o = Jt.get(),
                     i = 0;
-                  return ((m()[(o + i) >> 1] = 2), 0);
+                  return ((p()[(o + i) >> 1] = 2), 0);
                 }
                 case 6:
                 case 7:
@@ -3907,43 +4015,70 @@ __d(
                 case 8:
                   return -28;
                 case 9:
-                  return (An(28), -1);
+                  return (Bn(28), -1);
                 default:
                   return -28;
               }
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          function On(e, t) {
-            if (D) return Na(6, 1, e, t);
+          function qn(e, t) {
+            if (x) return Sa(6, 1, e, t);
             try {
-              var n = Yt.getStreamFromFD(e);
-              return Yt.doStat(Qt.stat, n.path, t);
+              var n = Jt.getStreamFromFD(e);
+              return Jt.doStat(Xt.stat, n.path, t);
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          var Bn = function (t, n, r) {
+          var Un = 9007199254740992,
+            Vn = -9007199254740992;
+          function Hn(e) {
+            return e < Vn || e > Un ? NaN : Number(e);
+          }
+          function Gn(e, t) {
+            if (x) return Sa(7, 1, e, t);
+            t = Hn(t);
+            try {
+              return isNaN(t) ? 61 : (Xt.ftruncate(e, t), 0);
+            } catch (e) {
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
+              return -e.errno;
+            }
+          }
+          var zn = function (t, n, r) {
             return (
-              G(
+              z(
                 typeof r == "number",
                 "stringToUTF8(str, outPtr, maxBytesToWrite) is missing the third parameter that specifies the length of the output buffer!",
               ),
-              $t(t, d(), n, r)
+              Pt(t, m(), n, r)
             );
           };
-          function Wn(e, t, n) {
-            if (D) return Na(7, 1, e, t, n);
+          function jn(e, t) {
+            if (x) return Sa(8, 1, e, t);
             try {
-              var r = Yt.getStreamFromFD(e);
-              r.getdents || (r.getdents = Qt.readdir(r.path));
+              if (t === 0) return -28;
+              var n = Xt.cwd(),
+                r = $t(n) + 1;
+              return t < r ? -68 : (zn(n, e, t), r);
+            } catch (e) {
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
+              return -e.errno;
+            }
+          }
+          function Kn(e, t, n) {
+            if (x) return Sa(9, 1, e, t, n);
+            try {
+              var r = Jt.getStreamFromFD(e);
+              r.getdents || (r.getdents = Xt.readdir(r.path));
               for (
                 var o = 280,
                   a = 0,
-                  i = Qt.llseek(r, 0, 1),
+                  i = Xt.llseek(r, 0, 1),
                   s = Math.floor(i / o);
                 s < r.getdents.length && a + o <= n;
               ) {
@@ -3952,39 +4087,39 @@ __d(
                   d = r.getdents[s];
                 if (d === ".") ((u = r.node.id), (c = 4));
                 else if (d === "..") {
-                  var p = Qt.lookupPath(r.path, { parent: !0 });
-                  ((u = p.node.id), (c = 4));
+                  var m = Xt.lookupPath(r.path, { parent: !0 });
+                  ((u = m.node.id), (c = 4));
                 } else {
-                  var _ = Qt.lookupNode(r.node, d);
+                  var _ = Xt.lookupNode(r.node, d);
                   ((u = _.id),
-                    (c = Qt.isChrdev(_.mode)
+                    (c = Xt.isChrdev(_.mode)
                       ? 2
-                      : Qt.isDir(_.mode)
+                      : Xt.isDir(_.mode)
                         ? 4
-                        : Qt.isLink(_.mode)
+                        : Xt.isLink(_.mode)
                           ? 10
                           : 8));
                 }
-                (G(u),
-                  (Z[(t + a) >> 3] = BigInt(u)),
-                  (Z[(t + a + 8) >> 3] = BigInt((s + 1) * o)),
-                  (m()[(t + a + 16) >> 1] = 280),
+                (z(u),
+                  (ee[(t + a) >> 3] = BigInt(u)),
+                  (ee[(t + a + 8) >> 3] = BigInt((s + 1) * o)),
+                  (p()[(t + a + 16) >> 1] = 280),
                   (l()[(t + a + 18) >> 0] = c),
-                  Bn(d, t + a + 19, 256),
+                  zn(d, t + a + 19, 256),
                   (a += o),
                   (s += 1));
               }
-              return (Qt.llseek(r, s * o, 0), a);
+              return (Xt.llseek(r, s * o, 0), a);
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          function qn(e, t, n) {
-            if (D) return Na(8, 1, e, t, n);
-            Yt.varargs = n;
+          function Qn(e, t, n) {
+            if (x) return Sa(10, 1, e, t, n);
+            Jt.varargs = n;
             try {
-              var r = Yt.getStreamFromFD(e);
+              var r = Jt.getStreamFromFD(e);
               switch (t) {
                 case 21509:
                   return r.tty ? 0 : -59;
@@ -3992,11 +4127,11 @@ __d(
                   if (!r.tty) return -59;
                   if (r.tty.ops.ioctl_tcgets) {
                     var o = r.tty.ops.ioctl_tcgets(r),
-                      a = Yt.get();
-                    ((_()[a >> 2] = o.c_iflag || 0),
-                      (_()[(a + 4) >> 2] = o.c_oflag || 0),
-                      (_()[(a + 8) >> 2] = o.c_cflag || 0),
-                      (_()[(a + 12) >> 2] = o.c_lflag || 0));
+                      a = Jt.get();
+                    ((f()[a >> 2] = o.c_iflag || 0),
+                      (f()[(a + 4) >> 2] = o.c_oflag || 0),
+                      (f()[(a + 8) >> 2] = o.c_cflag || 0),
+                      (f()[(a + 12) >> 2] = o.c_lflag || 0));
                     for (var i = 0; i < 32; i++)
                       l()[(a + i + 17) >> 0] = o.c_cc[i] || 0;
                     return 0;
@@ -4013,44 +4148,44 @@ __d(
                   if (!r.tty) return -59;
                   if (r.tty.ops.ioctl_tcsets) {
                     for (
-                      var a = Yt.get(),
-                        s = _()[a >> 2],
-                        u = _()[(a + 4) >> 2],
-                        c = _()[(a + 8) >> 2],
-                        d = _()[(a + 12) >> 2],
-                        p = [],
+                      var a = Jt.get(),
+                        s = f()[a >> 2],
+                        u = f()[(a + 4) >> 2],
+                        c = f()[(a + 8) >> 2],
+                        d = f()[(a + 12) >> 2],
+                        m = [],
                         i = 0;
                       i < 32;
                       i++
                     )
-                      p.push(l()[(a + i + 17) >> 0]);
+                      m.push(l()[(a + i + 17) >> 0]);
                     return r.tty.ops.ioctl_tcsets(r.tty, t, {
                       c_iflag: s,
                       c_oflag: u,
                       c_cflag: c,
                       c_lflag: d,
-                      c_cc: p,
+                      c_cc: m,
                     });
                   }
                   return 0;
                 }
                 case 21519: {
                   if (!r.tty) return -59;
-                  var a = Yt.get();
-                  return ((_()[a >> 2] = 0), 0);
+                  var a = Jt.get();
+                  return ((f()[a >> 2] = 0), 0);
                 }
                 case 21520:
                   return r.tty ? -28 : -59;
                 case 21531: {
-                  var a = Yt.get();
-                  return Qt.ioctl(r, t, a);
+                  var a = Jt.get();
+                  return Xt.ioctl(r, t, a);
                 }
                 case 21523: {
                   if (!r.tty) return -59;
                   if (r.tty.ops.ioctl_tiocgwinsz) {
-                    var f = r.tty.ops.ioctl_tiocgwinsz(r.tty),
-                      a = Yt.get();
-                    ((m()[a >> 1] = f[0]), (m()[(a + 2) >> 1] = f[1]));
+                    var _ = r.tty.ops.ioctl_tiocgwinsz(r.tty),
+                      a = Jt.get();
+                    ((p()[a >> 1] = _[0]), (p()[(a + 2) >> 1] = _[1]));
                   }
                   return 0;
                 }
@@ -4062,177 +4197,186 @@ __d(
                   return -28;
               }
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          function Un(e, t) {
-            if (D) return Na(9, 1, e, t);
+          function Xn(e, t) {
+            if (x) return Sa(11, 1, e, t);
             try {
-              return ((e = Yt.getStr(e)), Yt.doStat(Qt.lstat, e, t));
+              return ((e = Jt.getStr(e)), Jt.doStat(Xt.lstat, e, t));
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          function Vn(e, t, n) {
-            if (D) return Na(10, 1, e, t, n);
+          function Yn(e, t, n) {
+            if (x) return Sa(12, 1, e, t, n);
             try {
               return (
-                (t = Yt.getStr(t)),
-                (t = Yt.calculateAt(e, t)),
-                (t = Rt.normalize(t)),
+                (t = Jt.getStr(t)),
+                (t = Jt.calculateAt(e, t)),
+                (t = Lt.normalize(t)),
                 t[t.length - 1] === "/" && (t = t.substr(0, t.length - 1)),
-                Qt.mkdir(t, n, 0),
+                Xt.mkdir(t, n, 0),
                 0
               );
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          function Hn(e, t, n, r) {
-            if (D) return Na(11, 1, e, t, n, r);
+          function Jn(e, t, n, r) {
+            if (x) return Sa(13, 1, e, t, n, r);
             try {
-              t = Yt.getStr(t);
+              t = Jt.getStr(t);
               var o = r & 256,
                 a = r & 4096;
               return (
                 (r = r & -6401),
-                G(!r, "unknown flags in __syscall_newfstatat: " + r),
-                (t = Yt.calculateAt(e, t, a)),
-                Yt.doStat(o ? Qt.lstat : Qt.stat, t, n)
+                z(!r, "unknown flags in __syscall_newfstatat: " + r),
+                (t = Jt.calculateAt(e, t, a)),
+                Jt.doStat(o ? Xt.lstat : Xt.stat, t, n)
               );
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          function Gn(e, t, n, r) {
-            if (D) return Na(12, 1, e, t, n, r);
-            Yt.varargs = r;
+          function Zn(e, t, n, r) {
+            if (x) return Sa(14, 1, e, t, n, r);
+            Jt.varargs = r;
             try {
-              ((t = Yt.getStr(t)), (t = Yt.calculateAt(e, t)));
-              var o = r ? Yt.get() : 0;
-              return Qt.open(t, n, o).fd;
+              ((t = Jt.getStr(t)), (t = Jt.calculateAt(e, t)));
+              var o = r ? Jt.get() : 0;
+              return Xt.open(t, n, o).fd;
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          function zn(e, t) {
-            if (D) return Na(13, 1, e, t);
+          function er(e) {
+            if (x) return Sa(15, 1, e);
             try {
-              return ((e = Yt.getStr(e)), Yt.doStat(Qt.stat, e, t));
+              return ((e = Jt.getStr(e)), Xt.rmdir(e), 0);
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          function jn(e, t, n) {
-            if (D) return Na(14, 1, e, t, n);
+          function tr(e, t) {
+            if (x) return Sa(16, 1, e, t);
+            try {
+              return ((e = Jt.getStr(e)), Jt.doStat(Xt.stat, e, t));
+            } catch (e) {
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
+              return -e.errno;
+            }
+          }
+          function nr(e, t, n) {
+            if (x) return Sa(17, 1, e, t, n);
             try {
               return (
-                (t = Yt.getStr(t)),
-                (t = Yt.calculateAt(e, t)),
+                (t = Jt.getStr(t)),
+                (t = Jt.calculateAt(e, t)),
                 n === 0
-                  ? Qt.unlink(t)
+                  ? Xt.unlink(t)
                   : n === 512
-                    ? Qt.rmdir(t)
-                    : ke("Invalid flags passed to unlinkat"),
+                    ? Xt.rmdir(t)
+                    : Ie("Invalid flags passed to unlinkat"),
                 0
               );
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          function Kn(e) {
+          function rr(e) {
             if (e === null) return "null";
             var t = typeof e;
             return t === "object" || t === "array" || t === "function"
               ? e.toString()
               : "" + e;
           }
-          function Qn() {
+          function or() {
             for (var e = new Array(256), t = 0; t < 256; ++t)
               e[t] = String.fromCharCode(t);
-            Xn = e;
+            ar = e;
           }
-          var Xn = void 0;
-          function Yn(e) {
-            for (var t = "", n = e; d()[n]; ) t += Xn[d()[n++]];
+          var ar = void 0;
+          function ir(e) {
+            for (var t = "", n = e; m()[n]; ) t += ar[m()[n++]];
             return t;
           }
-          var Jn = {},
-            Zn = {},
-            er = {},
-            tr = void 0;
-          function nr(e) {
-            throw new tr(e);
+          var lr = {},
+            sr = {},
+            ur = {},
+            cr = void 0;
+          function dr(e) {
+            throw new cr(e);
           }
-          var rr = void 0;
-          function or(e) {
-            throw new rr(e);
+          var mr = void 0;
+          function pr(e) {
+            throw new mr(e);
           }
-          function ar(e, t, n) {
+          function _r(e, t, n) {
             e.forEach(function (e) {
-              er[e] = t;
+              ur[e] = t;
             });
             function r(t) {
               var r = n(t);
-              r.length !== e.length && or("Mismatched type converter count");
-              for (var o = 0; o < e.length; ++o) lr(e[o], r[o]);
+              r.length !== e.length && pr("Mismatched type converter count");
+              for (var o = 0; o < e.length; ++o) gr(e[o], r[o]);
             }
             var o = new Array(t.length),
               a = [],
               i = 0;
             (t.forEach(function (e, t) {
-              Object.prototype.hasOwnProperty.call(Zn, e)
-                ? (o[t] = Zn[e])
+              Object.prototype.hasOwnProperty.call(sr, e)
+                ? (o[t] = sr[e])
                 : (a.push(e),
-                  Object.prototype.hasOwnProperty.call(Jn, e) || (Jn[e] = []),
-                  Jn[e].push(function () {
-                    ((o[t] = Zn[e]), ++i, i === a.length && r(o));
+                  Object.prototype.hasOwnProperty.call(lr, e) || (lr[e] = []),
+                  lr[e].push(function () {
+                    ((o[t] = sr[e]), ++i, i === a.length && r(o));
                   }));
             }),
               a.length === 0 && r(o));
           }
-          function ir(e, t, n) {
+          function fr(e, t, n) {
             n === void 0 && (n = {});
             var r = t.name;
             if (
               (e ||
-                nr(
+                dr(
                   'type "' +
                     r +
                     '" must have a positive integer typeid pointer',
                 ),
-              Object.prototype.hasOwnProperty.call(Zn, e))
+              Object.prototype.hasOwnProperty.call(sr, e))
             ) {
               if (n.ignoreDuplicateRegistrations) return;
-              nr("Cannot register type '" + r + "' twice");
+              dr("Cannot register type '" + r + "' twice");
             }
             if (
-              ((Zn[e] = t),
-              delete er[e],
-              Object.prototype.hasOwnProperty.call(Jn, e))
+              ((sr[e] = t),
+              delete ur[e],
+              Object.prototype.hasOwnProperty.call(lr, e))
             ) {
-              var o = Jn[e];
-              (delete Jn[e],
+              var o = lr[e];
+              (delete lr[e],
                 o.forEach(function (e) {
                   return e();
                 }));
             }
           }
-          function lr(e, t, n) {
+          function gr(e, t, n) {
             if ((n === void 0 && (n = {}), !("argPackAdvance" in t)))
               throw new TypeError(
                 "registerType registeredInstance requires argPackAdvance",
               );
-            return ir(e, t, n);
+            return fr(e, t, n);
           }
-          function sr(e, t, n) {
+          function hr(e, t, n) {
             switch (t) {
               case 0:
                 return n
@@ -4240,42 +4384,42 @@ __d(
                       return l()[t];
                     }
                   : function (t) {
-                      return d()[t];
+                      return m()[t];
                     };
               case 1:
                 return n
                   ? function (t) {
-                      return m()[t >> 1];
+                      return p()[t >> 1];
                     }
                   : function (t) {
-                      return p()[t >> 1];
+                      return _()[t >> 1];
                     };
               case 2:
                 return n
                   ? function (t) {
-                      return _()[t >> 2];
+                      return f()[t >> 2];
                     }
                   : function (t) {
-                      return f()[t >> 2];
+                      return g()[t >> 2];
                     };
               case 3:
                 return n
                   ? function (t) {
-                      return Z[t >> 3];
+                      return ee[t >> 3];
                     }
                   : function (t) {
-                      return ee[t >> 3];
+                      return te[t >> 3];
                     };
               default:
                 throw new TypeError("Unknown integer type: " + e);
             }
           }
-          function ur(e, t, n, r, o) {
-            t = Yn(t);
-            var a = cr(n),
+          function yr(e, t, n, r, o) {
+            t = ir(t);
+            var a = Cr(n),
               i = t.indexOf("u") != -1;
             (i && (o = (BigInt(1) << BigInt(64)) - BigInt(1)),
-              lr(e, {
+              gr(e, {
                 name: t,
                 fromWireType: function (t) {
                   return t;
@@ -4283,12 +4427,12 @@ __d(
                 toWireType: function (n, a) {
                   if (typeof a != "bigint" && typeof a != "number")
                     throw new TypeError(
-                      'Cannot convert "' + Kn(a) + '" to ' + this.name,
+                      'Cannot convert "' + rr(a) + '" to ' + this.name,
                     );
                   if (a < r || a > o)
                     throw new TypeError(
                       'Passing a number "' +
-                        Kn(a) +
+                        rr(a) +
                         '" from JS side to C/C++ side to an argument of type "' +
                         t +
                         '", which is outside the valid range [' +
@@ -4300,11 +4444,11 @@ __d(
                   return a;
                 },
                 argPackAdvance: 8,
-                readValueFromPointer: sr(t, a, !i),
+                readValueFromPointer: hr(t, a, !i),
                 destructorFunction: null,
               }));
           }
-          function cr(e) {
+          function Cr(e) {
             switch (e) {
               case 1:
                 return 0;
@@ -4318,10 +4462,10 @@ __d(
                 throw new TypeError("Unknown type size: " + e);
             }
           }
-          function dr(e, t, n, r, o) {
-            var a = cr(n);
-            ((t = Yn(t)),
-              lr(e, {
+          function br(e, t, n, r, o) {
+            var a = Cr(n);
+            ((t = ir(t)),
+              gr(e, {
                 name: t,
                 fromWireType: function (t) {
                   return !!t;
@@ -4333,8 +4477,8 @@ __d(
                 readValueFromPointer: function (r) {
                   var e;
                   if (n === 1) e = l();
-                  else if (n === 2) e = m();
-                  else if (n === 4) e = _();
+                  else if (n === 2) e = p();
+                  else if (n === 4) e = f();
                   else throw new TypeError("Unknown boolean type size: " + t);
                   return this.fromWireType(e[r >> a]);
                 },
@@ -4342,8 +4486,8 @@ __d(
                 jsType: "boolean",
               }));
           }
-          function mr(e) {
-            if (!(this instanceof Br) || !(e instanceof Br)) return !1;
+          function vr(e) {
+            if (!(this instanceof Kr) || !(e instanceof Kr)) return !1;
             for (
               var t = this.$$.ptrType.registeredClass,
                 n = this.$$.ptr,
@@ -4355,7 +4499,7 @@ __d(
             for (; r.baseClass; ) ((o = r.upcast(o)), (r = r.baseClass));
             return t === r && n === o;
           }
-          function pr(e) {
+          function Sr(e) {
             return {
               count: e.count,
               deleteScheduled: e.deleteScheduled,
@@ -4366,84 +4510,84 @@ __d(
               smartPtrType: e.smartPtrType,
             };
           }
-          function _r(e) {
+          function Rr(e) {
             function t(e) {
               return e.$$.ptrType.registeredClass.name;
             }
-            nr(t(e) + " instance already deleted");
+            dr(t(e) + " instance already deleted");
           }
-          var fr = !1;
-          function gr(e) {}
-          function hr(e) {
+          var Lr = !1;
+          function Er(e) {}
+          function kr(e) {
             e.smartPtr
               ? e.smartPtrType.rawDestructor(e.smartPtr)
               : e.ptrType.registeredClass.rawDestructor(e.ptr);
           }
-          function yr(e) {
+          function Ir(e) {
             e.count.value -= 1;
             var t = e.count.value === 0;
-            t && hr(e);
+            t && kr(e);
           }
-          function Cr(e, t, n) {
+          function Tr(e, t, n) {
             if (t === n) return e;
             if (n.baseClass === void 0) return null;
-            var r = Cr(e, t, n.baseClass);
+            var r = Tr(e, t, n.baseClass);
             return r === null ? null : n.downcast(r);
           }
-          var br = {};
-          function vr() {
-            return Object.keys(Tr).length;
+          var Dr = {};
+          function xr() {
+            return Object.keys(Fr).length;
           }
-          function Sr() {
+          function $r() {
             var e = [];
-            for (var t in Tr)
-              Object.prototype.hasOwnProperty.call(Tr, t) && e.push(Tr[t]);
+            for (var t in Fr)
+              Object.prototype.hasOwnProperty.call(Fr, t) && e.push(Fr[t]);
             return e;
           }
-          var Rr = [];
-          function Lr() {
-            for (; Rr.length; ) {
-              var e = Rr.pop();
+          var Pr = [];
+          function Nr() {
+            for (; Pr.length; ) {
+              var e = Pr.pop();
               ((e.$$.deleteScheduled = !1), e.delete());
             }
           }
-          var Er = void 0;
-          function kr(e) {
-            ((Er = e), Rr.length && Er && Er(Lr));
+          var Mr = void 0;
+          function wr(e) {
+            ((Mr = e), Pr.length && Mr && Mr(Nr));
           }
-          function Ir() {
-            ((y.getInheritedInstanceCount = vr),
-              (y.getLiveInheritedInstances = Sr),
-              (y.flushPendingDeletes = Lr),
-              (y.setDelayFunction = kr));
+          function Ar() {
+            ((C.getInheritedInstanceCount = xr),
+              (C.getLiveInheritedInstances = $r),
+              (C.flushPendingDeletes = Nr),
+              (C.setDelayFunction = wr));
           }
-          var Tr = {};
-          function Dr(e, t) {
+          var Fr = {};
+          function Or(e, t) {
             for (
-              t === void 0 && nr("ptr should not be undefined");
+              t === void 0 && dr("ptr should not be undefined");
               e.baseClass;
             )
               ((t = e.upcast(t)), (e = e.baseClass));
             return t;
           }
-          function xr(e, t) {
-            return ((t = Dr(e, t)), Tr[t]);
+          function Br(e, t) {
+            return ((t = Or(e, t)), Fr[t]);
           }
-          function $r(e, t) {
+          function Wr(e, t) {
             (!t.ptrType || !t.ptr) &&
-              or("makeClassHandle requires ptr and ptrType");
+              pr("makeClassHandle requires ptr and ptrType");
             var n = !!t.smartPtrType,
               r = !!t.smartPtr;
             return (
-              n !== r && or("Both smartPtrType and smartPtr must be specified"),
+              n !== r && pr("Both smartPtrType and smartPtr must be specified"),
               (t.count = { value: 1 }),
-              Nr(Object.create(e, { $$: { value: t } }))
+              Ur(Object.create(e, { $$: { value: t } }))
             );
           }
-          function Pr(e) {
+          function qr(e) {
             var t = this.getPointee(e);
             if (!t) return (this.destructor(e), null);
-            var n = xr(this.registeredClass, t);
+            var n = Br(this.registeredClass, t);
             if (n !== void 0) {
               if (n.$$.count.value === 0)
                 return ((n.$$.ptr = t), (n.$$.smartPtr = e), n.clone());
@@ -4452,47 +4596,47 @@ __d(
             }
             function o() {
               return this.isSmartPointer
-                ? $r(this.registeredClass.instancePrototype, {
+                ? Wr(this.registeredClass.instancePrototype, {
                     ptrType: this.pointeeType,
                     ptr: t,
                     smartPtrType: this,
                     smartPtr: e,
                   })
-                : $r(this.registeredClass.instancePrototype, {
+                : Wr(this.registeredClass.instancePrototype, {
                     ptrType: this,
                     ptr: e,
                   });
             }
             var a = this.registeredClass.getActualType(t),
-              i = br[a];
+              i = Dr[a];
             if (!i) return o.call(this);
             var l;
             this.isConst ? (l = i.constPointerType) : (l = i.pointerType);
-            var s = Cr(t, this.registeredClass, l.registeredClass);
+            var s = Tr(t, this.registeredClass, l.registeredClass);
             return s === null
               ? o.call(this)
               : this.isSmartPointer
-                ? $r(l.registeredClass.instancePrototype, {
+                ? Wr(l.registeredClass.instancePrototype, {
                     ptrType: l,
                     ptr: s,
                     smartPtrType: this,
                     smartPtr: e,
                   })
-                : $r(l.registeredClass.instancePrototype, {
+                : Wr(l.registeredClass.instancePrototype, {
                     ptrType: l,
                     ptr: s,
                   });
           }
-          var Nr = function (t) {
+          var Ur = function (t) {
             return typeof FinalizationRegistry == "undefined"
-              ? ((Nr = function (t) {
+              ? ((Ur = function (t) {
                   return t;
                 }),
                 t)
-              : ((fr = new FinalizationRegistry(function (e) {
-                  (e.leakWarning.stack.replace(/^Error: /, ""), yr(e.$$));
+              : ((Lr = new FinalizationRegistry(function (e) {
+                  (e.leakWarning.stack.replace(/^Error: /, ""), Ir(e.$$));
                 })),
-                (Nr = function (t) {
+                (Ur = function (t) {
                   var e = t.$$,
                     n = !!e.smartPtr;
                   if (n) {
@@ -4502,75 +4646,75 @@ __d(
                       "Embind found a leaked C++ instance " +
                         o.name +
                         " <" +
-                        tn(e.ptr) +
+                        nn(e.ptr) +
                         ">.\nWe'll free it automatically in this case, but this functionality is not reliable across various environments.\nMake sure to invoke .delete() manually once you're done with the instance instead.\nOriginally allocated",
                     )),
                       "captureStackTrace" in Error &&
-                        Error.captureStackTrace(r.leakWarning, Pr),
-                      fr.register(t, r, t));
+                        Error.captureStackTrace(r.leakWarning, qr),
+                      Lr.register(t, r, t));
                   }
                   return t;
                 }),
-                (gr = function (t) {
-                  return fr.unregister(t);
+                (Er = function (t) {
+                  return Lr.unregister(t);
                 }),
-                Nr(t));
+                Ur(t));
           };
-          function Mr() {
-            if ((this.$$.ptr || _r(this), this.$$.preservePointerOnDelete))
+          function Vr() {
+            if ((this.$$.ptr || Rr(this), this.$$.preservePointerOnDelete))
               return ((this.$$.count.value += 1), this);
-            var e = Nr(
+            var e = Ur(
               Object.create(Object.getPrototypeOf(this), {
-                $$: { value: pr(this.$$) },
+                $$: { value: Sr(this.$$) },
               }),
             );
             return ((e.$$.count.value += 1), (e.$$.deleteScheduled = !1), e);
           }
-          function wr() {
-            (this.$$.ptr || _r(this),
+          function Hr() {
+            (this.$$.ptr || Rr(this),
               this.$$.deleteScheduled &&
                 !this.$$.preservePointerOnDelete &&
-                nr("Object already scheduled for deletion"),
-              gr(this),
-              yr(this.$$),
+                dr("Object already scheduled for deletion"),
+              Er(this),
+              Ir(this.$$),
               this.$$.preservePointerOnDelete ||
                 ((this.$$.smartPtr = void 0), (this.$$.ptr = void 0)));
           }
-          function Ar() {
+          function Gr() {
             return !this.$$.ptr;
           }
-          function Fr() {
+          function zr() {
             return (
-              this.$$.ptr || _r(this),
+              this.$$.ptr || Rr(this),
               this.$$.deleteScheduled &&
                 !this.$$.preservePointerOnDelete &&
-                nr("Object already scheduled for deletion"),
-              Rr.push(this),
-              Rr.length === 1 && Er && Er(Lr),
+                dr("Object already scheduled for deletion"),
+              Pr.push(this),
+              Pr.length === 1 && Mr && Mr(Nr),
               (this.$$.deleteScheduled = !0),
               this
             );
           }
-          function Or() {
-            ((Br.prototype.isAliasOf = mr),
-              (Br.prototype.clone = Mr),
-              (Br.prototype.delete = wr),
-              (Br.prototype.isDeleted = Ar),
-              (Br.prototype.deleteLater = Fr));
+          function jr() {
+            ((Kr.prototype.isAliasOf = vr),
+              (Kr.prototype.clone = Vr),
+              (Kr.prototype.delete = Hr),
+              (Kr.prototype.isDeleted = Gr),
+              (Kr.prototype.deleteLater = zr));
           }
-          function Br() {}
-          var Wr = 48,
-            qr = 57;
-          function Ur(e) {
+          function Kr() {}
+          var Qr = 48,
+            Xr = 57;
+          function Yr(e) {
             if (e === void 0) return "_unknown";
             e = e.replace(/[^a-zA-Z0-9_]/g, "$");
             var t = e.charCodeAt(0);
-            return t >= Wr && t <= qr ? "_" + e : e;
+            return t >= Qr && t <= Xr ? "_" + e : e;
           }
-          function Vr(e, t) {
+          function Jr(e, t) {
             var n;
             return (
-              (e = Ur(e)),
+              (e = Yr(e)),
               ((n = {}),
               (n[e] = function () {
                 return t.apply(this, arguments);
@@ -4578,7 +4722,7 @@ __d(
               n)[e]
             );
           }
-          function Hr(e, t, n) {
+          function Zr(e, t, n) {
             if (e[t].overloadTable === void 0) {
               var r = e[t];
               ((e[t] = function () {
@@ -4587,7 +4731,7 @@ __d(
                     e[t].overloadTable,
                     arguments.length,
                   ) ||
-                    nr(
+                    dr(
                       "Function '" +
                         n +
                         "' called with an invalid number of arguments (" +
@@ -4603,23 +4747,23 @@ __d(
                 (e[t].overloadTable[r.argCount] = r));
             }
           }
-          function Gr(e, t, n) {
-            Object.prototype.hasOwnProperty.call(y, e)
+          function eo(e, t, n) {
+            Object.prototype.hasOwnProperty.call(C, e)
               ? ((n === void 0 ||
-                  (y[e].overloadTable !== void 0 &&
-                    y[e].overloadTable[n] !== void 0)) &&
-                  nr("Cannot register public name '" + e + "' twice"),
-                Hr(y, e, e),
-                Object.prototype.hasOwnProperty.call(y, n) &&
-                  nr(
+                  (C[e].overloadTable !== void 0 &&
+                    C[e].overloadTable[n] !== void 0)) &&
+                  dr("Cannot register public name '" + e + "' twice"),
+                Zr(C, e, e),
+                Object.prototype.hasOwnProperty.call(C, n) &&
+                  dr(
                     "Cannot register multiple overloads of a function with the same number of arguments (" +
                       n +
                       ")!",
                   ),
-                (y[e].overloadTable[n] = t))
-              : ((y[e] = t), n !== void 0 && (y[e].numArguments = n));
+                (C[e].overloadTable[n] = t))
+              : ((C[e] = t), n !== void 0 && (C[e].numArguments = n));
           }
-          function zr(e, t, n, r, o, a, i, l) {
+          function to(e, t, n, r, o, a, i, l) {
             ((this.name = e),
               (this.constructor = t),
               (this.instancePrototype = n),
@@ -4630,10 +4774,10 @@ __d(
               (this.downcast = l),
               (this.pureVirtualFunctions = []));
           }
-          function jr(e, t, n) {
+          function no(e, t, n) {
             for (; t !== n; )
               (t.upcast ||
-                nr(
+                dr(
                   "Expected null or instance of " +
                     n.name +
                     ", got an instance of " +
@@ -4643,42 +4787,42 @@ __d(
                 (t = t.baseClass));
             return e;
           }
-          function Kr(e, t) {
+          function ro(e, t) {
             if (t === null)
               return (
-                this.isReference && nr("null is not a valid " + this.name),
+                this.isReference && dr("null is not a valid " + this.name),
                 0
               );
-            (t.$$ || nr('Cannot pass "' + Kn(t) + '" as a ' + this.name),
+            (t.$$ || dr('Cannot pass "' + rr(t) + '" as a ' + this.name),
               t.$$.ptr ||
-                nr(
+                dr(
                   "Cannot pass deleted object as a pointer of type " +
                     this.name,
                 ));
             var n = t.$$.ptrType.registeredClass,
-              r = jr(t.$$.ptr, n, this.registeredClass);
+              r = no(t.$$.ptr, n, this.registeredClass);
             return r;
           }
-          function Qr(e, t) {
+          function oo(e, t) {
             var n;
             if (t === null)
               return (
-                this.isReference && nr("null is not a valid " + this.name),
+                this.isReference && dr("null is not a valid " + this.name),
                 this.isSmartPointer
                   ? ((n = this.rawConstructor()),
                     e !== null && e.push(this.rawDestructor, n),
                     n)
                   : 0
               );
-            (t.$$ || nr('Cannot pass "' + Kn(t) + '" as a ' + this.name),
+            (t.$$ || dr('Cannot pass "' + rr(t) + '" as a ' + this.name),
               t.$$.ptr ||
-                nr(
+                dr(
                   "Cannot pass deleted object as a pointer of type " +
                     this.name,
                 ),
               !this.isConst &&
                 t.$$.ptrType.isConst &&
-                nr(
+                dr(
                   "Cannot convert argument of type " +
                     (t.$$.smartPtrType
                       ? t.$$.smartPtrType.name
@@ -4688,17 +4832,17 @@ __d(
                 ));
             var r = t.$$.ptrType.registeredClass;
             if (
-              ((n = jr(t.$$.ptr, r, this.registeredClass)), this.isSmartPointer)
+              ((n = no(t.$$.ptr, r, this.registeredClass)), this.isSmartPointer)
             )
               switch (
                 (t.$$.smartPtr === void 0 &&
-                  nr("Passing raw pointer to smart pointer is illegal"),
+                  dr("Passing raw pointer to smart pointer is illegal"),
                 this.sharingPolicy)
               ) {
                 case 0:
                   t.$$.smartPtrType === this
                     ? (n = t.$$.smartPtr)
-                    : nr(
+                    : dr(
                         "Cannot convert argument of type " +
                           (t.$$.smartPtrType
                             ? t.$$.smartPtrType.name
@@ -4716,7 +4860,7 @@ __d(
                     var o = t.clone();
                     ((n = this.rawShare(
                       n,
-                      So.toHandle(function () {
+                      $o.toHandle(function () {
                         o.delete();
                       }),
                     )),
@@ -4724,54 +4868,54 @@ __d(
                   }
                   break;
                 default:
-                  nr("Unsupporting sharing policy");
+                  dr("Unsupporting sharing policy");
               }
             return n;
           }
-          function Xr(e, t) {
+          function ao(e, t) {
             if (t === null)
               return (
-                this.isReference && nr("null is not a valid " + this.name),
+                this.isReference && dr("null is not a valid " + this.name),
                 0
               );
-            (t.$$ || nr('Cannot pass "' + Kn(t) + '" as a ' + this.name),
+            (t.$$ || dr('Cannot pass "' + rr(t) + '" as a ' + this.name),
               t.$$.ptr ||
-                nr(
+                dr(
                   "Cannot pass deleted object as a pointer of type " +
                     this.name,
                 ),
               t.$$.ptrType.isConst &&
-                nr(
+                dr(
                   "Cannot convert argument of type " +
                     t.$$.ptrType.name +
                     " to parameter type " +
                     this.name,
                 ));
             var n = t.$$.ptrType.registeredClass,
-              r = jr(t.$$.ptr, n, this.registeredClass);
+              r = no(t.$$.ptr, n, this.registeredClass);
             return r;
           }
-          function Yr(e) {
-            return this.fromWireType(_()[e >> 2]);
+          function io(e) {
+            return this.fromWireType(f()[e >> 2]);
           }
-          function Jr(e) {
+          function lo(e) {
             return (this.rawGetPointee && (e = this.rawGetPointee(e)), e);
           }
-          function Zr(e) {
+          function so(e) {
             this.rawDestructor && this.rawDestructor(e);
           }
-          function eo(e) {
+          function uo(e) {
             e !== null && e.delete();
           }
-          function to() {
-            ((no.prototype.getPointee = Jr),
-              (no.prototype.destructor = Zr),
-              (no.prototype.argPackAdvance = 8),
-              (no.prototype.readValueFromPointer = Yr),
-              (no.prototype.deleteObject = eo),
-              (no.prototype.fromWireType = Pr));
+          function co() {
+            ((mo.prototype.getPointee = lo),
+              (mo.prototype.destructor = so),
+              (mo.prototype.argPackAdvance = 8),
+              (mo.prototype.readValueFromPointer = io),
+              (mo.prototype.deleteObject = uo),
+              (mo.prototype.fromWireType = qr));
           }
-          function no(e, t, n, r, o, a, i, l, s, u, c) {
+          function mo(e, t, n, r, o, a, i, l, s, u, c) {
             ((this.name = e),
               (this.registeredClass = t),
               (this.isReference = n),
@@ -4785,31 +4929,31 @@ __d(
               (this.rawDestructor = c),
               !o && t.baseClass === void 0
                 ? r
-                  ? ((this.toWireType = Kr), (this.destructorFunction = null))
-                  : ((this.toWireType = Xr), (this.destructorFunction = null))
-                : (this.toWireType = Qr));
+                  ? ((this.toWireType = ro), (this.destructorFunction = null))
+                  : ((this.toWireType = ao), (this.destructorFunction = null))
+                : (this.toWireType = oo));
           }
-          function ro(e, t, n) {
-            (Object.prototype.hasOwnProperty.call(y, e) ||
-              or("Replacing nonexistant public symbol"),
-              y[e].overloadTable !== void 0 && n !== void 0
-                ? (y[e].overloadTable[n] = t)
-                : ((y[e] = t), (y[e].argCount = n)));
+          function po(e, t, n) {
+            (Object.prototype.hasOwnProperty.call(C, e) ||
+              pr("Replacing nonexistant public symbol"),
+              C[e].overloadTable !== void 0 && n !== void 0
+                ? (C[e].overloadTable[n] = t)
+                : ((C[e] = t), (C[e].argCount = n)));
           }
-          function oo(e, t) {
-            e = Yn(e);
+          function _o(e, t) {
+            e = ir(e);
             function n() {
-              return dn(t);
+              return mn(t);
             }
             var r = n();
             return (
               typeof r != "function" &&
-                nr("unknown function pointer with signature " + e + ": " + t),
+                dr("unknown function pointer with signature " + e + ": " + t),
               r
             );
           }
-          function ao(e, t) {
-            var n = Vr(t, function (e) {
+          function fo(e, t) {
+            var n = Jr(t, function (e) {
               ((this.name = t), (this.message = e));
               var n = new Error(e).stack;
               n !== void 0 &&
@@ -4827,50 +4971,50 @@ __d(
               n
             );
           }
-          var io = void 0;
-          function lo(e) {
-            var t = Zi(e),
-              n = Yn(t);
-            return (Vi(t), n);
+          var go = void 0;
+          function ho(e) {
+            var t = Yi(e),
+              n = ir(t);
+            return (Fi(t), n);
           }
-          function so(e, t) {
+          function yo(e, t) {
             var n = [],
               r = {};
             function o(e) {
-              if (!r[e] && !Zn[e]) {
-                if (er[e]) {
-                  er[e].forEach(o);
+              if (!r[e] && !sr[e]) {
+                if (ur[e]) {
+                  ur[e].forEach(o);
                   return;
                 }
                 (n.push(e), (r[e] = !0));
               }
             }
-            throw (t.forEach(o), new io(e + ": " + n.map(lo).join([", "])));
+            throw (t.forEach(o), new go(e + ": " + n.map(ho).join([", "])));
           }
-          function uo(e, t, n, r, o, a, i, l, s, u, c, d, m) {
-            ((c = Yn(c)),
-              (a = oo(o, a)),
-              l && (l = oo(i, l)),
-              u && (u = oo(s, u)),
-              (m = oo(d, m)));
-            var p = Ur(c);
-            (Gr(p, function () {
-              so("Cannot construct " + c + " due to unbound types", [r]);
+          function Co(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+            ((c = ir(c)),
+              (a = _o(o, a)),
+              l && (l = _o(i, l)),
+              u && (u = _o(s, u)),
+              (m = _o(d, m)));
+            var p = Yr(c);
+            (eo(p, function () {
+              yo("Cannot construct " + c + " due to unbound types", [r]);
             }),
-              ar([e, t, n], r ? [r] : [], function (t) {
+              _r([e, t, n], r ? [r] : [], function (t) {
                 t = t[0];
                 var n, o;
                 r
                   ? ((n = t.registeredClass), (o = n.instancePrototype))
-                  : (o = Br.prototype);
-                var i = Vr(p, function () {
+                  : (o = Kr.prototype);
+                var i = Jr(p, function () {
                     if (Object.getPrototypeOf(this) !== s)
-                      throw new tr("Use 'new' to construct " + c);
+                      throw new cr("Use 'new' to construct " + c);
                     if (d.constructor_body === void 0)
-                      throw new tr(c + " has no accessible constructor");
+                      throw new cr(c + " has no accessible constructor");
                     var e = d.constructor_body[arguments.length];
                     if (e === void 0)
-                      throw new tr(
+                      throw new cr(
                         "Tried to invoke ctor of " +
                           c +
                           " with invalid number of parameters (" +
@@ -4883,39 +5027,39 @@ __d(
                   }),
                   s = Object.create(o, { constructor: { value: i } });
                 i.prototype = s;
-                var d = new zr(c, i, s, m, n, a, l, u);
+                var d = new to(c, i, s, m, n, a, l, u);
                 d.baseClass &&
                   (d.baseClass.__derivedClasses === void 0 &&
                     (d.baseClass.__derivedClasses = []),
                   d.baseClass.__derivedClasses.push(d));
-                var _ = new no(c, d, !0, !1, !1),
-                  f = new no(c + "*", d, !1, !1, !1),
-                  g = new no(c + " const*", d, !1, !0, !1);
+                var _ = new mo(c, d, !0, !1, !1),
+                  f = new mo(c + "*", d, !1, !1, !1),
+                  g = new mo(c + " const*", d, !1, !0, !1);
                 return (
-                  (br[e] = { pointerType: f, constPointerType: g }),
-                  ro(p, i),
+                  (Dr[e] = { pointerType: f, constPointerType: g }),
+                  po(p, i),
                   [_, f, g]
                 );
               }));
           }
-          function co(e, t) {
-            for (var n = [], r = 0; r < e; r++) n.push(f()[(t + r * 4) >> 2]);
+          function bo(e, t) {
+            for (var n = [], r = 0; r < e; r++) n.push(g()[(t + r * 4) >> 2]);
             return n;
           }
-          function mo(e) {
+          function vo(e) {
             for (; e.length; ) {
               var t = e.pop(),
                 n = e.pop();
               n(t);
             }
           }
-          function po(e, t, n, r, o, a) {
+          function So(e, t, n, r, o, a) {
             var i = t.length;
             (i < 2 &&
-              nr(
+              dr(
                 "argTypes array size mismatch! Must at least get return value and 'this' types!",
               ),
-              G(!a, "Async bindings are only supported with JSPI."));
+              z(!a, "Async bindings are only supported with JSPI."));
             for (
               var l = t[1] !== null && n !== null, s = !1, u = 1;
               u < t.length;
@@ -4932,7 +5076,7 @@ __d(
               _ = [];
             return function () {
               (arguments.length !== d &&
-                nr(
+                dr(
                   "function " +
                     e +
                     " called with " +
@@ -4950,7 +5094,7 @@ __d(
                 ((m[a] = t[a + 2].toWireType(_, arguments[a])), p.push(m[a]));
               var i = r.apply(null, p);
               function u(e) {
-                if (s) mo(_);
+                if (s) vo(_);
                 else
                   for (var r = l ? 1 : 2; r < t.length; r++) {
                     var o = r === 1 ? n : m[r - 2];
@@ -4962,11 +5106,11 @@ __d(
               return u(i);
             };
           }
-          function _o(e, t, n, r, o, a) {
-            G(t > 0);
-            var i = co(t, n);
-            ((o = oo(r, o)),
-              ar([], [e], function (e) {
+          function Ro(e, t, n, r, o, a) {
+            z(t > 0);
+            var i = bo(t, n);
+            ((o = _o(r, o)),
+              _r([], [e], function (e) {
                 e = e[0];
                 var n = "constructor " + e.name;
                 if (
@@ -4974,7 +5118,7 @@ __d(
                     (e.registeredClass.constructor_body = []),
                   e.registeredClass.constructor_body[t - 1] !== void 0)
                 )
-                  throw new tr(
+                  throw new cr(
                     "Cannot register multiple constructors with identical number of parameters (" +
                       (t - 1) +
                       ") for class '" +
@@ -4983,15 +5127,15 @@ __d(
                   );
                 return (
                   (e.registeredClass.constructor_body[t - 1] = function () {
-                    so(
+                    yo(
                       "Cannot construct " + e.name + " due to unbound types",
                       i,
                     );
                   }),
-                  ar([], i, function (r) {
+                  _r([], i, function (r) {
                     return (
                       r.splice(1, 0, null),
-                      (e.registeredClass.constructor_body[t - 1] = po(
+                      (e.registeredClass.constructor_body[t - 1] = So(
                         n,
                         r,
                         null,
@@ -5005,17 +5149,17 @@ __d(
                 );
               }));
           }
-          function fo(e, t, n, r, o, a, i, l, s) {
-            var u = co(n, r);
-            ((t = Yn(t)),
-              (a = oo(o, a)),
-              ar([], [e], function (e) {
+          function Lo(e, t, n, r, o, a, i, l, s) {
+            var u = bo(n, r);
+            ((t = ir(t)),
+              (a = _o(o, a)),
+              _r([], [e], function (e) {
                 e = e[0];
                 var r = e.name + "." + t;
                 (t.startsWith("@@") && (t = Symbol[t.substring(2)]),
                   l && e.registeredClass.pureVirtualFunctions.push(t));
                 function o() {
-                  so("Cannot call " + r + " due to unbound types", u);
+                  yo("Cannot call " + r + " due to unbound types", u);
                 }
                 var c = e.registeredClass.instancePrototype,
                   d = c[t];
@@ -5025,9 +5169,9 @@ __d(
                     d.className !== e.name &&
                     d.argCount === n - 2)
                     ? ((o.argCount = n - 2), (o.className = e.name), (c[t] = o))
-                    : (Hr(c, t, r), (c[t].overloadTable[n - 2] = o)),
-                  ar([], u, function (o) {
-                    var l = po(r, o, e, a, i, s);
+                    : (Zr(c, t, r), (c[t].overloadTable[n - 2] = o)),
+                  _r([], u, function (o) {
+                    var l = So(r, o, e, a, i, s);
                     return (
                       c[t].overloadTable === void 0
                         ? ((l.argCount = n - 2), (c[t] = l))
@@ -5039,11 +5183,11 @@ __d(
                 );
               }));
           }
-          function go() {
-            Object.assign(ho.prototype, {
+          function Eo() {
+            Object.assign(ko.prototype, {
               get: function (t) {
                 return (
-                  G(this.allocated[t] !== void 0, "invalid handle: " + t),
+                  z(this.allocated[t] !== void 0, "invalid handle: " + t),
                   this.allocated[t]
                 );
               },
@@ -5055,39 +5199,39 @@ __d(
                 return ((this.allocated[e] = t), e);
               },
               free: function (t) {
-                (G(this.allocated[t] !== void 0),
+                (z(this.allocated[t] !== void 0),
                   (this.allocated[t] = void 0),
                   this.freelist.push(t));
               },
             });
           }
-          function ho() {
+          function ko() {
             ((this.allocated = [void 0]), (this.freelist = []));
           }
-          var yo = new ho();
-          function Co(e) {
-            e >= yo.reserved && --yo.get(e).refcount === 0 && yo.free(e);
+          var Io = new ko();
+          function To(e) {
+            e >= Io.reserved && --Io.get(e).refcount === 0 && Io.free(e);
           }
-          function bo() {
-            for (var e = 0, t = yo.reserved; t < yo.allocated.length; ++t)
-              yo.allocated[t] !== void 0 && ++e;
+          function Do() {
+            for (var e = 0, t = Io.reserved; t < Io.allocated.length; ++t)
+              Io.allocated[t] !== void 0 && ++e;
             return e;
           }
-          function vo() {
-            (yo.allocated.push(
+          function xo() {
+            (Io.allocated.push(
               { value: void 0 },
               { value: null },
               { value: !0 },
               { value: !1 },
             ),
-              (yo.reserved = yo.allocated.length),
-              (y.count_emval_handles = bo));
+              (Io.reserved = Io.allocated.length),
+              (C.count_emval_handles = Do));
           }
-          var So = {
+          var $o = {
             toValue: function (t) {
               return (
-                t || nr("Cannot use deleted val. handle = " + t),
-                yo.get(t).value
+                t || dr("Cannot use deleted val. handle = " + t),
+                Io.get(t).value
               );
             },
             toHandle: function (t) {
@@ -5101,44 +5245,44 @@ __d(
                 case !1:
                   return 4;
                 default:
-                  return yo.allocate({ refcount: 1, value: t });
+                  return Io.allocate({ refcount: 1, value: t });
               }
             },
           };
-          function Ro(e, t) {
-            ((t = Yn(t)),
-              lr(e, {
+          function Po(e, t) {
+            ((t = ir(t)),
+              gr(e, {
                 name: t,
                 fromWireType: function (t) {
-                  var e = So.toValue(t);
-                  return (Co(t), e);
+                  var e = $o.toValue(t);
+                  return (To(t), e);
                 },
                 toWireType: function (t, n) {
-                  return So.toHandle(n);
+                  return $o.toHandle(n);
                 },
                 argPackAdvance: 8,
-                readValueFromPointer: Yr,
+                readValueFromPointer: io,
                 destructorFunction: null,
               }));
           }
-          function Lo(e, t) {
+          function No(e, t) {
             switch (t) {
               case 2:
                 return function (e) {
-                  return this.fromWireType(g()[e >> 2]);
+                  return this.fromWireType(h()[e >> 2]);
                 };
               case 3:
                 return function (e) {
-                  return this.fromWireType(h()[e >> 3]);
+                  return this.fromWireType(y()[e >> 3]);
                 };
               default:
                 throw new TypeError("Unknown float type: " + e);
             }
           }
-          function Eo(e, t, n) {
-            var r = cr(n);
-            ((t = Yn(t)),
-              lr(e, {
+          function Mo(e, t, n) {
+            var r = Cr(n);
+            ((t = ir(t)),
+              gr(e, {
                 name: t,
                 fromWireType: function (t) {
                   return t;
@@ -5146,34 +5290,34 @@ __d(
                 toWireType: function (t, n) {
                   if (typeof n != "number" && typeof n != "boolean")
                     throw new TypeError(
-                      "Cannot convert " + Kn(n) + " to " + this.name,
+                      "Cannot convert " + rr(n) + " to " + this.name,
                     );
                   return n;
                 },
                 argPackAdvance: 8,
-                readValueFromPointer: Lo(t, r),
+                readValueFromPointer: No(t, r),
                 destructorFunction: null,
                 jsType: "number",
               }));
           }
-          function ko(e, t, n, r, o, a, i) {
-            var l = co(t, n);
-            ((e = Yn(e)),
-              (o = oo(r, o)),
-              Gr(
+          function wo(e, t, n, r, o, a, i) {
+            var l = bo(t, n);
+            ((e = ir(e)),
+              (o = _o(r, o)),
+              eo(
                 e,
                 function () {
-                  so("Cannot call " + e + " due to unbound types", l);
+                  yo("Cannot call " + e + " due to unbound types", l);
                 },
                 t - 1,
               ),
-              ar([], l, function (n) {
+              _r([], l, function (n) {
                 var r = [n[0], null].concat(n.slice(1));
                 return (
-                  ro(e, po(e, r, null, o, a, i), t - 1),
-                  y.__WA_INVOKER_FUNCS == null &&
-                    (y.__WA_INVOKER_FUNCS = new Map()),
-                  y.__WA_INVOKER_FUNCS.set(e, {
+                  po(e, So(e, r, null, o, a, i), t - 1),
+                  C.__WA_INVOKER_FUNCS == null &&
+                    (C.__WA_INVOKER_FUNCS = new Map()),
+                  C.__WA_INVOKER_FUNCS.set(e, {
                     argTypes: n.slice(1),
                     returnType: n[0],
                   }),
@@ -5181,9 +5325,9 @@ __d(
                 );
               }));
           }
-          function Io(e, t, n, r, o) {
-            ((t = Yn(t)), o === -1 && (o = 4294967295));
-            var a = cr(n),
+          function Ao(e, t, n, r, o) {
+            ((t = ir(t)), o === -1 && (o = 4294967295));
+            var a = Cr(n),
               i = function (t) {
                 return t;
               };
@@ -5196,11 +5340,11 @@ __d(
             var s = t.includes("unsigned"),
               u = function (n, a) {
                 if (typeof n != "number" && typeof n != "boolean")
-                  throw new TypeError('Cannot convert "' + Kn(n) + '" to ' + a);
+                  throw new TypeError('Cannot convert "' + rr(n) + '" to ' + a);
                 if (n < r || n > o)
                   throw new TypeError(
                     'Passing a number "' +
-                      Kn(n) +
+                      rr(n) +
                       '" from JS side to C/C++ side to an argument of type "' +
                       t +
                       '", which is outside the valid range [' +
@@ -5218,17 +5362,17 @@ __d(
               : (c = function (t, n) {
                   return (u(n, this.name), n);
                 }),
-              lr(e, {
+              gr(e, {
                 name: t,
                 fromWireType: i,
                 toWireType: c,
                 argPackAdvance: 8,
-                readValueFromPointer: sr(t, a, r !== 0),
+                readValueFromPointer: hr(t, a, r !== 0),
                 destructorFunction: null,
                 jsType: "number",
               }));
           }
-          function To(e, t, n) {
+          function Fo(e, t, n) {
             var r = [
                 Int8Array,
                 Uint8Array,
@@ -5244,13 +5388,13 @@ __d(
               o = r[t];
             function a(e) {
               e = e >> 2;
-              var t = f(),
+              var t = g(),
                 n = t[e],
                 r = t[e + 1];
               return new o(t.buffer, r, n);
             }
-            ((n = Yn(n)),
-              lr(
+            ((n = ir(n)),
+              gr(
                 e,
                 {
                   name: n,
@@ -5261,31 +5405,31 @@ __d(
                 { ignoreDuplicateRegistrations: !0 },
               ));
           }
-          function Do(e, t) {
-            t = Yn(t);
+          function Oo(e, t) {
+            t = ir(t);
             var n = t === "std::string";
-            lr(e, {
+            gr(e, {
               name: t,
               fromWireType: function (t) {
-                var e = f()[t >> 2],
+                var e = g()[t >> 2],
                   r = t + 4,
                   o;
                 if (n)
                   for (var a = r, i = 0; i <= e; ++i) {
                     var l = r + i;
-                    if (i == e || d()[l] == 0) {
+                    if (i == e || m()[l] == 0) {
                       var s = l - a,
-                        u = Xt(a, s);
+                        u = Yt(a, s);
                       (o === void 0 ? (o = u) : ((o += "\0"), (o += u)),
                         (a = l + 1));
                     }
                   }
                 else {
                   for (var c = new Array(e), i = 0; i < e; ++i)
-                    c[i] = String.fromCharCode(d()[r + i]);
+                    c[i] = String.fromCharCode(m()[r + i]);
                   o = c.join("");
                 }
-                return (Vi(t), o);
+                return (Fi(t), o);
               },
               toWireType: function (t, r) {
                 r instanceof ArrayBuffer && (r = new Uint8Array(r));
@@ -5295,59 +5439,59 @@ __d(
                   r instanceof Uint8Array ||
                   r instanceof Uint8ClampedArray ||
                   r instanceof Int8Array ||
-                  nr("Cannot pass non-string to std::string"),
-                  n && o ? (e = xt(r)) : (e = r.length));
-                var a = Ui(4 + e + 1),
+                  dr("Cannot pass non-string to std::string"),
+                  n && o ? (e = $t(r)) : (e = r.length));
+                var a = Oi(4 + e + 1),
                   i = a + 4;
-                if (((f()[a >> 2] = e), n && o)) Bn(r, i, e + 1);
+                if (((g()[a >> 2] = e), n && o)) zn(r, i, e + 1);
                 else if (o)
                   for (var l = 0; l < e; ++l) {
                     var s = r.charCodeAt(l);
                     (s > 255 &&
-                      (Vi(i),
-                      nr(
+                      (Fi(i),
+                      dr(
                         "String has UTF-16 code units that do not fit in 8 bits",
                       )),
-                      (d()[i + l] = s));
+                      (m()[i + l] = s));
                   }
-                else for (var l = 0; l < e; ++l) d()[i + l] = r[l];
-                return (t !== null && t.push(Vi, a), a);
+                else for (var l = 0; l < e; ++l) m()[i + l] = r[l];
+                return (t !== null && t.push(Fi, a), a);
               },
               argPackAdvance: 8,
-              readValueFromPointer: Yr,
+              readValueFromPointer: io,
               destructorFunction: function (t) {
-                Vi(t);
+                Fi(t);
               },
               jsType: "string",
             });
           }
-          var xo =
+          var Bo =
               typeof TextDecoder != "undefined"
                 ? new TextDecoder("utf-16le")
                 : void 0,
-            $o = function (t, n) {
-              G(
+            Wo = function (t, n) {
+              z(
                 t % 2 == 0,
                 "Pointer passed to UTF16ToString must be aligned to two bytes!",
               );
-              for (var e = t, r = e >> 1, o = r + n / 2; !(r >= o) && p()[r]; )
+              for (var e = t, r = e >> 1, o = r + n / 2; !(r >= o) && _()[r]; )
                 ++r;
-              if (((e = r << 1), e - t > 32 && xo))
-                return xo.decode(d().slice(t, e));
+              if (((e = r << 1), e - t > 32 && Bo))
+                return Bo.decode(m().slice(t, e));
               for (var a = "", i = 0; !(i >= n / 2); ++i) {
-                var l = m()[(t + i * 2) >> 1];
+                var l = p()[(t + i * 2) >> 1];
                 if (l == 0) break;
                 a += String.fromCharCode(l);
               }
               return a;
             },
-            Po = function (t, n, r) {
+            qo = function (t, n, r) {
               if (
-                (G(
+                (z(
                   n % 2 == 0,
                   "Pointer passed to stringToUTF16 must be aligned to two bytes!",
                 ),
-                G(
+                z(
                   typeof r == "number",
                   "stringToUTF16(str, outPtr, maxBytesToWrite) is missing the third parameter that specifies the length of the output buffer!",
                 ),
@@ -5362,20 +5506,20 @@ __d(
                 ++a
               ) {
                 var i = t.charCodeAt(a);
-                ((m()[n >> 1] = i), (n += 2));
+                ((p()[n >> 1] = i), (n += 2));
               }
-              return ((m()[n >> 1] = 0), n - e);
+              return ((p()[n >> 1] = 0), n - e);
             },
-            No = function (t) {
+            Uo = function (t) {
               return t.length * 2;
             },
-            Mo = function (t, n) {
-              G(
+            Vo = function (t, n) {
+              z(
                 t % 4 == 0,
                 "Pointer passed to UTF32ToString must be aligned to four bytes!",
               );
               for (var e = 0, r = ""; !(e >= n / 4); ) {
-                var o = _()[(t + e * 4) >> 2];
+                var o = f()[(t + e * 4) >> 2];
                 if (o == 0) break;
                 if ((++e, o >= 65536)) {
                   var a = o - 65536;
@@ -5387,13 +5531,13 @@ __d(
               }
               return r;
             },
-            wo = function (t, n, r) {
+            Ho = function (t, n, r) {
               if (
-                (G(
+                (z(
                   n % 4 == 0,
                   "Pointer passed to stringToUTF32 must be aligned to four bytes!",
                 ),
-                G(
+                z(
                   typeof r == "number",
                   "stringToUTF32(str, outPtr, maxBytesToWrite) is missing the third parameter that specifies the length of the output buffer!",
                 ),
@@ -5407,41 +5551,41 @@ __d(
                   var l = t.charCodeAt(++a);
                   i = (65536 + ((i & 1023) << 10)) | (l & 1023);
                 }
-                if (((_()[n >> 2] = i), (n += 4), n + 4 > o)) break;
+                if (((f()[n >> 2] = i), (n += 4), n + 4 > o)) break;
               }
-              return ((_()[n >> 2] = 0), n - e);
+              return ((f()[n >> 2] = 0), n - e);
             },
-            Ao = function (t) {
+            Go = function (t) {
               for (var e = 0, n = 0; n < t.length; ++n) {
                 var r = t.charCodeAt(n);
                 (r >= 55296 && r <= 57343 && ++n, (e += 4));
               }
               return e;
             },
-            Fo = function (t, n, r) {
-              r = Yn(r);
+            zo = function (t, n, r) {
+              r = ir(r);
               var e, o, a, i, l;
               (n === 2
-                ? ((e = $o),
-                  (o = Po),
-                  (i = No),
+                ? ((e = Wo),
+                  (o = qo),
+                  (i = Uo),
                   (a = function () {
-                    return p();
+                    return _();
                   }),
                   (l = 1))
                 : n === 4 &&
-                  ((e = Mo),
-                  (o = wo),
-                  (i = Ao),
+                  ((e = Vo),
+                  (o = Ho),
+                  (i = Go),
                   (a = function () {
-                    return f();
+                    return g();
                   }),
                   (l = 2)),
-                lr(t, {
+                gr(t, {
                   name: r,
                   fromWireType: function (r) {
                     for (
-                      var t = f()[r >> 2], o = a(), i, s = r + 4, u = 0;
+                      var t = g()[r >> 2], o = a(), i, s = r + 4, u = 0;
                       u <= t;
                       ++u
                     ) {
@@ -5453,30 +5597,30 @@ __d(
                           (s = c + n));
                       }
                     }
-                    return (Vi(r), i);
+                    return (Fi(r), i);
                   },
                   toWireType: function (t, a) {
                     typeof a != "string" &&
-                      nr("Cannot pass non-string to C++ string type " + r);
+                      dr("Cannot pass non-string to C++ string type " + r);
                     var e = i(a),
-                      s = Ui(4 + e + n);
+                      s = Oi(4 + e + n);
                     return (
-                      (f()[s >> 2] = e >> l),
+                      (g()[s >> 2] = e >> l),
                       o(a, s + 4, e + n),
-                      t !== null && t.push(Vi, s),
+                      t !== null && t.push(Fi, s),
                       s
                     );
                   },
                   argPackAdvance: 8,
-                  readValueFromPointer: Yr,
+                  readValueFromPointer: io,
                   destructorFunction: function (t) {
-                    Vi(t);
+                    Fi(t);
                   },
                 }));
             };
-          function Oo(e, t) {
-            ((t = Yn(t)),
-              lr(e, {
+          function jo(e, t) {
+            ((t = ir(t)),
+              gr(e, {
                 isVoid: !0,
                 name: t,
                 argPackAdvance: 0,
@@ -5485,64 +5629,64 @@ __d(
                 jsType: "void",
               }));
           }
-          var Bo = !0,
-            Wo = function () {
-              return Bo;
+          var Ko = !0,
+            Qo = function () {
+              return Ko;
             },
-            qo = function () {
-              if (!me())
+            Xo = function () {
+              if (!pe())
                 try {
-                  D ? cl(H) : en(H);
+                  x ? sl(G) : tn(G);
                 } catch (e) {
-                  nn(e);
+                  rn(e);
                 }
             },
-            Uo = function (t) {
-              if (V) {
-                F(
+            Yo = function (t) {
+              if (H) {
+                O(
                   "user callback triggered after runtime exited or application aborted.  Ignoring.",
                 );
                 return;
               }
               try {
-                (t(), qo());
+                (t(), Xo());
               } catch (e) {
-                nn(e);
+                rn(e);
               }
             };
-          function Vo(e) {
+          function Jo(e) {
             if (typeof Atomics.waitAsync == "function") {
-              var t = Atomics.waitAsync(_(), e >> 2, e);
-              (G(t.async), t.value.then(Ho));
+              var t = Atomics.waitAsync(f(), e >> 2, e);
+              (z(t.async), t.value.then(Zo));
               var n = e + 128;
-              Atomics.store(_(), n >> 2, 1);
+              Atomics.store(f(), n >> 2, 1);
             }
           }
-          y.__emscripten_thread_mailbox_await = Vo;
-          var Ho = function () {
-            var e = Xi();
+          C.__emscripten_thread_mailbox_await = Jo;
+          var Zo = function () {
+            var e = qi();
             e &&
-              (Vo(e),
-              Uo(function () {
-                return dl();
+              (Jo(e),
+              Yo(function () {
+                return ul();
               }));
           };
-          y.checkMailbox = Ho;
-          var Go = function (t, n, r) {
+          C.checkMailbox = Zo;
+          var ea = function (t, n, r) {
             if (t == n)
               setTimeout(function () {
-                return Ho();
+                return Zo();
               });
-            else if (D)
+            else if (x)
               postMessage({
                 targetThread: t,
                 cmd: "checkMailbox",
                 type: "cmd",
               });
             else {
-              var e = rn.pthreads[t];
+              var e = on.pthreads[t];
               if (!e) {
-                F(
+                O(
                   "Cannot send message to thread with ID " +
                     t +
                     ", unknown thread ID!",
@@ -5552,181 +5696,188 @@ __d(
               e.postMessage({ cmd: "checkMailbox", type: "cmd" });
             }
           };
-          function zo(e, t, n) {
+          function ta(e, t, n) {
             return (
-              F(
+              O(
                 "emscripten_set_offscreencanvas_size: Build with -sOFFSCREENCANVAS_SUPPORT=1 to enable transferring canvases to pthreads.",
               ),
               -1
             );
           }
-          function jo(e) {}
-          var Ko = function () {
-            throw new Pe();
+          function na(e) {}
+          var ra = function () {
+            throw new Ne();
           };
-          function Qo(e) {
-            e > 4 && (yo.get(e).refcount += 1);
+          function oa(e) {
+            e > 4 && (Io.get(e).refcount += 1);
           }
-          function Xo(e, t) {
-            var n = Zn[e];
-            return (n === void 0 && nr(t + " has unknown type " + lo(e)), n);
+          function aa(e, t) {
+            var n = sr[e];
+            return (n === void 0 && dr(t + " has unknown type " + ho(e)), n);
           }
-          function Yo(e, t) {
-            e = Xo(e, "_emval_take_value");
+          function ia(e, t) {
+            e = aa(e, "_emval_take_value");
             var n = e.readValueFromPointer(t);
-            return So.toHandle(n);
+            return $o.toHandle(n);
           }
-          var Jo = 9007199254740992,
-            Zo = -9007199254740992;
-          function ea(e) {
-            return e < Zo || e > Jo ? NaN : Number(e);
-          }
-          function ta(e, t) {
-            ((e = ea(e)), (t = ea(t)));
+          function la(e, t) {
+            ((e = Hn(e)), (t = Hn(t)));
             var n = new Date(e * 1e3);
-            ((_()[t >> 2] = n.getUTCSeconds()),
-              (_()[(t + 4) >> 2] = n.getUTCMinutes()),
-              (_()[(t + 8) >> 2] = n.getUTCHours()),
-              (_()[(t + 12) >> 2] = n.getUTCDate()),
-              (_()[(t + 16) >> 2] = n.getUTCMonth()),
-              (_()[(t + 20) >> 2] = n.getUTCFullYear() - 1900),
-              (_()[(t + 24) >> 2] = n.getUTCDay()));
+            ((f()[t >> 2] = n.getUTCSeconds()),
+              (f()[(t + 4) >> 2] = n.getUTCMinutes()),
+              (f()[(t + 8) >> 2] = n.getUTCHours()),
+              (f()[(t + 12) >> 2] = n.getUTCDate()),
+              (f()[(t + 16) >> 2] = n.getUTCMonth()),
+              (f()[(t + 20) >> 2] = n.getUTCFullYear() - 1900),
+              (f()[(t + 24) >> 2] = n.getUTCDay()));
             var r = Date.UTC(n.getUTCFullYear(), 0, 1, 0, 0, 0, 0),
               o = ((n.getTime() - r) / (1e3 * 60 * 60 * 24)) | 0;
-            _()[(t + 28) >> 2] = o;
+            f()[(t + 28) >> 2] = o;
           }
-          var na = function (t) {
+          var sa = function (t) {
               return t % 4 === 0 && (t % 100 !== 0 || t % 400 === 0);
             },
-            ra = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335],
-            oa = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334],
-            aa = function (t) {
-              var e = na(t.getFullYear()),
-                n = e ? ra : oa,
+            ua = [0, 31, 60, 91, 121, 152, 182, 213, 244, 274, 305, 335],
+            ca = [0, 31, 59, 90, 120, 151, 181, 212, 243, 273, 304, 334],
+            da = function (t) {
+              var e = sa(t.getFullYear()),
+                n = e ? ua : ca,
                 r = n[t.getMonth()] + t.getDate() - 1;
               return r;
             };
-          function ia(e, t) {
-            ((e = ea(e)), (t = ea(t)));
+          function ma(e, t) {
+            ((e = Hn(e)), (t = Hn(t)));
             var n = new Date(e * 1e3);
-            ((_()[t >> 2] = n.getSeconds()),
-              (_()[(t + 4) >> 2] = n.getMinutes()),
-              (_()[(t + 8) >> 2] = n.getHours()),
-              (_()[(t + 12) >> 2] = n.getDate()),
-              (_()[(t + 16) >> 2] = n.getMonth()),
-              (_()[(t + 20) >> 2] = n.getFullYear() - 1900),
-              (_()[(t + 24) >> 2] = n.getDay()));
-            var r = aa(n) | 0;
-            ((_()[(t + 28) >> 2] = r),
-              (_()[(t + 36) >> 2] = -(n.getTimezoneOffset() * 60)));
+            ((f()[t >> 2] = n.getSeconds()),
+              (f()[(t + 4) >> 2] = n.getMinutes()),
+              (f()[(t + 8) >> 2] = n.getHours()),
+              (f()[(t + 12) >> 2] = n.getDate()),
+              (f()[(t + 16) >> 2] = n.getMonth()),
+              (f()[(t + 20) >> 2] = n.getFullYear() - 1900),
+              (f()[(t + 24) >> 2] = n.getDay()));
+            var r = da(n) | 0;
+            ((f()[(t + 28) >> 2] = r),
+              (f()[(t + 36) >> 2] = -(n.getTimezoneOffset() * 60)));
             var o = new Date(n.getFullYear(), 0, 1),
               a = new Date(n.getFullYear(), 6, 1).getTimezoneOffset(),
               i = o.getTimezoneOffset(),
               l = (a != i && n.getTimezoneOffset() == Math.min(i, a)) | 0;
-            _()[(t + 32) >> 2] = l;
+            f()[(t + 32) >> 2] = l;
           }
-          var la = function (t) {
-            t = ea(t);
+          var pa = function (t) {
+            t = Hn(t);
             var e = (function () {
               var e = new Date(
-                  _()[(t + 20) >> 2] + 1900,
-                  _()[(t + 16) >> 2],
-                  _()[(t + 12) >> 2],
-                  _()[(t + 8) >> 2],
-                  _()[(t + 4) >> 2],
-                  _()[t >> 2],
+                  f()[(t + 20) >> 2] + 1900,
+                  f()[(t + 16) >> 2],
+                  f()[(t + 12) >> 2],
+                  f()[(t + 8) >> 2],
+                  f()[(t + 4) >> 2],
+                  f()[t >> 2],
                   0,
                 ),
-                n = _()[(t + 32) >> 2],
+                n = f()[(t + 32) >> 2],
                 r = e.getTimezoneOffset(),
                 o = new Date(e.getFullYear(), 0, 1),
                 a = new Date(e.getFullYear(), 6, 1).getTimezoneOffset(),
                 i = o.getTimezoneOffset(),
                 l = Math.min(i, a);
-              if (n < 0) _()[(t + 32) >> 2] = +(a != i && l == r);
+              if (n < 0) f()[(t + 32) >> 2] = +(a != i && l == r);
               else if (n > 0 != (l == r)) {
                 var s = Math.max(i, a),
                   u = n > 0 ? l : s;
                 e.setTime(e.getTime() + (u - r) * 6e4);
               }
-              _()[(t + 24) >> 2] = e.getDay();
-              var c = aa(e) | 0;
+              f()[(t + 24) >> 2] = e.getDay();
+              var c = da(e) | 0;
               return (
-                (_()[(t + 28) >> 2] = c),
-                (_()[t >> 2] = e.getSeconds()),
-                (_()[(t + 4) >> 2] = e.getMinutes()),
-                (_()[(t + 8) >> 2] = e.getHours()),
-                (_()[(t + 12) >> 2] = e.getDate()),
-                (_()[(t + 16) >> 2] = e.getMonth()),
-                (_()[(t + 20) >> 2] = e.getYear()),
+                (f()[(t + 28) >> 2] = c),
+                (f()[t >> 2] = e.getSeconds()),
+                (f()[(t + 4) >> 2] = e.getMinutes()),
+                (f()[(t + 8) >> 2] = e.getHours()),
+                (f()[(t + 12) >> 2] = e.getDate()),
+                (f()[(t + 16) >> 2] = e.getMonth()),
+                (f()[(t + 20) >> 2] = e.getYear()),
                 e.getTime() / 1e3
               );
             })();
             return BigInt(e);
           };
-          function sa(e, t, n, r, o, a, i) {
-            if (D) return Na(15, 1, e, t, n, r, o, a, i);
-            ((e = ea(e)), (o = ea(o)), (a = ea(a)), (i = ea(i)));
+          function _a(e, t, n, r, o, a, i) {
+            if (x) return Sa(18, 1, e, t, n, r, o, a, i);
+            ((e = Hn(e)), (o = Hn(o)), (a = Hn(a)), (i = Hn(i)));
             try {
               if (isNaN(o)) return 61;
-              var l = Yt.getStreamFromFD(r),
-                s = Qt.mmap(l, e, o, t, n),
+              var l = Jt.getStreamFromFD(r),
+                s = Xt.mmap(l, e, o, t, n),
                 u = s.ptr;
-              return ((_()[a >> 2] = s.allocated), (f()[i >> 2] = u), 0);
+              return ((f()[a >> 2] = s.allocated), (g()[i >> 2] = u), 0);
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          function ua(e, t, n, r, o, a) {
-            if (D) return Na(16, 1, e, t, n, r, o, a);
-            ((e = ea(e)), (t = ea(t)), (a = ea(a)));
+          function fa(e, t, n, r, o, a) {
+            if (x) return Sa(19, 1, e, t, n, r, o, a);
+            ((e = Hn(e)), (t = Hn(t)), (a = Hn(a)));
+            try {
+              return isNaN(a)
+                ? 61
+                : (Jt.doMsync(e, Jt.getStreamFromFD(o), t, r, a), 0);
+            } catch (e) {
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
+              return -e.errno;
+            }
+          }
+          function ga(e, t, n, r, o, a) {
+            if (x) return Sa(20, 1, e, t, n, r, o, a);
+            ((e = Hn(e)), (t = Hn(t)), (a = Hn(a)));
             try {
               if (isNaN(a)) return 61;
-              var i = Yt.getStreamFromFD(o);
-              (n & 2 && Yt.doMsync(e, i, t, r, a), Qt.munmap(i));
+              var i = Jt.getStreamFromFD(o);
+              (n & 2 && Jt.doMsync(e, i, t, r, a), Xt.munmap(i));
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return -e.errno;
             }
           }
-          var ca = function (t) {
-              var e = xt(t) + 1,
-                n = Ui(e);
-              return (n && Bn(t, n, e), n);
+          var ha = function (t) {
+              var e = $t(t) + 1,
+                n = Oi(e);
+              return (n && zn(t, n, e), n);
             },
-            da = function (t, n, r) {
+            ya = function (t, n, r) {
               var e = new Date().getFullYear(),
                 o = new Date(e, 0, 1),
                 a = new Date(e, 6, 1),
                 i = o.getTimezoneOffset(),
                 l = a.getTimezoneOffset(),
                 s = Math.max(i, l);
-              ((f()[t >> 2] = s * 60), (_()[n >> 2] = +(i != l)));
+              ((g()[t >> 2] = s * 60), (f()[n >> 2] = +(i != l)));
               function u(e) {
                 var t = e.toTimeString().match(/\(([A-Za-z ]+)\)$/);
                 return t ? t[1] : "GMT";
               }
               var c = u(o),
                 d = u(a),
-                m = ca(c),
-                p = ca(d);
+                m = ha(c),
+                p = ha(d);
               l < i
-                ? ((f()[r >> 2] = m), (f()[(r + 4) >> 2] = p))
-                : ((f()[r >> 2] = p), (f()[(r + 4) >> 2] = m));
+                ? ((g()[r >> 2] = m), (g()[(r + 4) >> 2] = p))
+                : ((g()[r >> 2] = p), (g()[(r + 4) >> 2] = m));
             },
-            ma = function () {
-              ke("native code called abort()");
+            Ca = function () {
+              Ie("native code called abort()");
             },
-            pa = [],
-            _a = function (t, n) {
-              (G(Array.isArray(pa)), G(n % 16 == 0), (pa.length = 0));
+            ba = [],
+            va = function (t, n) {
+              (z(Array.isArray(ba)), z(n % 16 == 0), (ba.length = 0));
               var e;
-              for (n >>= 2; (e = d()[t++]); ) {
+              for (n >>= 2; (e = m()[t++]); ) {
                 var r = String.fromCharCode(e),
                   o = ["d", "f", "i"];
                 (o.push("j"),
-                  G(
+                  z(
                     o.includes(r),
                     "Invalid character " +
                       e +
@@ -5737,65 +5888,103 @@ __d(
                       '], and do not specify "v" for void return argument.',
                   ),
                   (n += (e != 105) & n),
-                  pa.push(e == 105 ? _()[n] : (e == 106 ? Z : h())[n++ >> 1]),
+                  ba.push(e == 105 ? f()[n] : (e == 106 ? ee : y())[n++ >> 1]),
                   ++n);
               }
-              return pa;
+              return ba;
+            };
+          function Sa(e, t) {
+            var n = arguments.length - 2,
+              r = arguments,
+              o = 19;
+            if (n > o)
+              throw (
+                "proxyToMainThread: Too many arguments " +
+                n +
+                " to proxied function idx=" +
+                e +
+                ", maximum supported is " +
+                o
+              );
+            return un(function () {
+              for (
+                var o = n * 2, a = hl(o * 8), i = a >> 3, l = 0;
+                l < n;
+                l++
+              ) {
+                var s = r[2 + l];
+                typeof s == "bigint"
+                  ? ((ee[i + 2 * l] = BigInt(1)), (ee[i + 2 * l + 1] = s))
+                  : ((ee[i + 2 * l] = BigInt(0)), (y()[i + 2 * l + 1] = s));
+              }
+              return rl(e, o, a, t);
+            });
+          }
+          var Ra = function (t, n, r, o) {
+              var e = va(n, r);
+              return x
+                ? Sa.apply(null, [-1 - t, o].concat(e))
+                : (Object.prototype.hasOwnProperty.call(Ke, t) ||
+                    Ie("No EM_ASM constant found at address " + t),
+                  Ke[t].apply(null, e));
             },
-            fa = function (t, n, r) {
-              var e = _a(n, r);
+            La = function (t, n, r) {
+              return Ra(t, n, r, 0);
+            },
+            Ea = function (t, n, r) {
+              var e = va(n, r);
               return (
-                Object.prototype.hasOwnProperty.call(je, t) ||
-                  ke("No EM_ASM constant found at address " + t),
-                je[t].apply(null, e)
+                Object.prototype.hasOwnProperty.call(Ke, t) ||
+                  Ie("No EM_ASM constant found at address " + t),
+                Ke[t].apply(null, e)
               );
             },
-            ga = function (t, n, r) {
-              return fa(t, n, r);
+            ka = function (t, n, r) {
+              return Ea(t, n, r);
             },
-            ha = function (t, n, r) {
-              return fa(t, n, r);
+            Ia = function (t, n, r) {
+              return Ea(t, n, r);
             },
-            ya = function () {
-              de += 1;
+            Ta = function () {
+              me += 1;
             },
-            Ca = function () {
-              (G(de > 0), (de -= 1));
+            Da = function () {
+              (z(me > 0), (me -= 1));
             },
-            ba = function (t, n) {
+            xa = function (t, n) {
               return (
-                ya(),
+                Ta(),
                 setTimeout(function () {
-                  (Ca(), Uo(t));
+                  (Da(), Yo(t));
                 }, n)
               );
             };
-          function va(e, t) {
+          function $a(e, t) {
             if (
-              ((La.mainLoop.timingMode = e),
-              (La.mainLoop.timingValue = t),
-              !La.mainLoop.func)
+              ((Ma.mainLoop.timingMode = e),
+              (Ma.mainLoop.timingValue = t),
+              !Ma.mainLoop.func)
             )
               return (
-                F(
+                O(
                   "emscripten_set_main_loop_timing: Cannot set timing mode for main loop since a main loop does not exist! Call emscripten_set_main_loop first to set one up.",
                 ),
                 1
               );
             if (
-              (La.mainLoop.running || (ya(), (La.mainLoop.running = !0)),
+              (Ma.mainLoop.running || (Ta(), (Ma.mainLoop.running = !0)),
               e == 0)
             )
-              ((La.mainLoop.scheduler = function () {
-                var e = Math.max(0, La.mainLoop.tickStartTime + t - Sa()) | 0;
-                setTimeout(La.mainLoop.runner, e);
+              ((Ma.mainLoop.scheduler = function () {
+                var e = Math.max(0, Ma.mainLoop.tickStartTime + t - Pa()) | 0;
+                setTimeout(Ma.mainLoop.runner, e);
               }),
-                (La.mainLoop.method = "timeout"));
+                (Ma.mainLoop.method = "timeout"));
             else if (e == 1)
-              ((La.mainLoop.scheduler = function () {
-                La.requestAnimationFrame(La.mainLoop.runner);
+              ((Ma.mainLoop.scheduler = function () {
+                Ma.requestAnimationFrame(Ma.mainLoop.runner);
               }),
-                (La.mainLoop.method = "rAF"));
+                (Ma.mainLoop.method = "rAF"));
             else if (e == 2) {
               if (typeof setImmediate == "undefined") {
                 var n = [],
@@ -5807,9 +5996,9 @@ __d(
                 (addEventListener("message", o, !0),
                   (setImmediate = function (t) {
                     (n.push(t),
-                      k
-                        ? (y.setImmediates === void 0 && (y.setImmediates = []),
-                          y.setImmediates.push(t),
+                      I
+                        ? (C.setImmediates === void 0 && (C.setImmediates = []),
+                          C.setImmediates.push(t),
                           postMessage({ target: r, type: "cmd" }))
                         : postMessage(
                             babelHelpers.extends({}, r, { type: "cmd" }),
@@ -5817,98 +6006,98 @@ __d(
                           ));
                   }));
               }
-              ((La.mainLoop.scheduler = function () {
-                setImmediate(La.mainLoop.runner);
+              ((Ma.mainLoop.scheduler = function () {
+                setImmediate(Ma.mainLoop.runner);
               }),
-                (La.mainLoop.method = "immediate"));
+                (Ma.mainLoop.method = "immediate"));
             }
             return 0;
           }
-          var Sa;
-          Sa = function () {
+          var Pa;
+          Pa = function () {
             return performance.timeOrigin + performance.now();
           };
-          function Ra(e, t, n, r, o) {
-            (G(
-              !La.mainLoop.func,
+          function Na(e, t, n, r, o) {
+            (z(
+              !Ma.mainLoop.func,
               "emscripten_set_main_loop: there can only be one main loop function at once: call emscripten_cancel_main_loop to cancel the previous one before setting a new one with different parameters.",
             ),
-              (La.mainLoop.func = e),
-              (La.mainLoop.arg = r));
-            var a = La.mainLoop.currentlyRunningMainloop;
+              (Ma.mainLoop.func = e),
+              (Ma.mainLoop.arg = r));
+            var a = Ma.mainLoop.currentlyRunningMainloop;
             function i() {
-              return a < La.mainLoop.currentlyRunningMainloop ? (Ca(), !1) : !0;
+              return a < Ma.mainLoop.currentlyRunningMainloop ? (Da(), !1) : !0;
             }
             if (
-              ((La.mainLoop.running = !1),
-              (La.mainLoop.runner = function () {
-                if (!V) {
-                  if (La.mainLoop.queue.length > 0) {
+              ((Ma.mainLoop.running = !1),
+              (Ma.mainLoop.runner = function () {
+                if (!H) {
+                  if (Ma.mainLoop.queue.length > 0) {
                     var t = Date.now(),
-                      n = La.mainLoop.queue.shift();
-                    if ((n.func(n.arg), La.mainLoop.remainingBlockers)) {
-                      var r = La.mainLoop.remainingBlockers,
+                      n = Ma.mainLoop.queue.shift();
+                    if ((n.func(n.arg), Ma.mainLoop.remainingBlockers)) {
+                      var r = Ma.mainLoop.remainingBlockers,
                         o = r % 1 == 0 ? r - 1 : Math.floor(r);
                       n.counted
-                        ? (La.mainLoop.remainingBlockers = o)
+                        ? (Ma.mainLoop.remainingBlockers = o)
                         : ((o = o + 0.5),
-                          (La.mainLoop.remainingBlockers = (8 * r + o) / 9));
+                          (Ma.mainLoop.remainingBlockers = (8 * r + o) / 9));
                     }
                     if (
-                      (A(
+                      (F(
                         'main loop blocker "' +
                           n.name +
                           '" took ' +
                           (Date.now() - t) +
                           " ms",
                       ),
-                      La.mainLoop.updateStatus(),
+                      Ma.mainLoop.updateStatus(),
                       !i())
                     )
                       return;
-                    setTimeout(La.mainLoop.runner, 0);
+                    setTimeout(Ma.mainLoop.runner, 0);
                     return;
                   }
                   if (i()) {
                     if (
-                      ((La.mainLoop.currentFrameNumber =
-                        (La.mainLoop.currentFrameNumber + 1) | 0),
-                      La.mainLoop.timingMode == 1 &&
-                        La.mainLoop.timingValue > 1 &&
-                        La.mainLoop.currentFrameNumber %
-                          La.mainLoop.timingValue !=
+                      ((Ma.mainLoop.currentFrameNumber =
+                        (Ma.mainLoop.currentFrameNumber + 1) | 0),
+                      Ma.mainLoop.timingMode == 1 &&
+                        Ma.mainLoop.timingValue > 1 &&
+                        Ma.mainLoop.currentFrameNumber %
+                          Ma.mainLoop.timingValue !=
                           0)
                     ) {
-                      La.mainLoop.scheduler();
+                      Ma.mainLoop.scheduler();
                       return;
                     } else
-                      La.mainLoop.timingMode == 0 &&
-                        (La.mainLoop.tickStartTime = Sa());
-                    (La.mainLoop.method === "timeout" &&
-                      y.ctx &&
-                      (_n(
+                      Ma.mainLoop.timingMode == 0 &&
+                        (Ma.mainLoop.tickStartTime = Pa());
+                    (Ma.mainLoop.method === "timeout" &&
+                      C.ctx &&
+                      (fn(
                         "Looks like you are rendering without using requestAnimationFrame for the main loop. You should use 0 for the frame rate in emscripten_set_main_loop in order to use requestAnimationFrame, as that can greatly improve your frame rates!",
                       ),
-                      (La.mainLoop.method = "")),
-                      La.mainLoop.runIter(e),
-                      ie(),
+                      (Ma.mainLoop.method = "")),
+                      Ma.mainLoop.runIter(e),
+                      le(),
                       i() &&
                         (typeof SDL == "object" &&
                           SDL.audio &&
                           SDL.audio.queueNewAudioData &&
                           SDL.audio.queueNewAudioData(),
-                        La.mainLoop.scheduler()));
+                        Ma.mainLoop.scheduler()));
                   }
                 }
               }),
               o ||
-                (t && t > 0 ? va(0, 1e3 / t) : va(1, 1),
-                La.mainLoop.scheduler()),
+                (t && t > 0 ? $a(0, 1e3 / t) : $a(1, 1),
+                Ma.mainLoop.scheduler()),
               n)
             )
               throw "unwind";
           }
-          var La = {
+          var Ma = {
             mainLoop: {
               running: !1,
               scheduler: null,
@@ -5921,38 +6110,38 @@ __d(
               currentFrameNumber: 0,
               queue: [],
               pause: function () {
-                ((La.mainLoop.scheduler = null),
-                  La.mainLoop.currentlyRunningMainloop++);
+                ((Ma.mainLoop.scheduler = null),
+                  Ma.mainLoop.currentlyRunningMainloop++);
               },
               resume: function () {
-                La.mainLoop.currentlyRunningMainloop++;
-                var e = La.mainLoop.timingMode,
-                  t = La.mainLoop.timingValue,
-                  n = La.mainLoop.func;
-                ((La.mainLoop.func = null),
-                  Ra(n, 0, !1, La.mainLoop.arg, !0),
-                  va(e, t),
-                  La.mainLoop.scheduler());
+                Ma.mainLoop.currentlyRunningMainloop++;
+                var e = Ma.mainLoop.timingMode,
+                  t = Ma.mainLoop.timingValue,
+                  n = Ma.mainLoop.func;
+                ((Ma.mainLoop.func = null),
+                  Na(n, 0, !1, Ma.mainLoop.arg, !0),
+                  $a(e, t),
+                  Ma.mainLoop.scheduler());
               },
               updateStatus: function () {
-                if (y.setStatus) {
-                  var e = y.statusMessage || "Please wait...",
-                    t = La.mainLoop.remainingBlockers,
-                    n = La.mainLoop.expectedBlockers;
+                if (C.setStatus) {
+                  var e = C.statusMessage || "Please wait...",
+                    t = Ma.mainLoop.remainingBlockers,
+                    n = Ma.mainLoop.expectedBlockers;
                   t
                     ? t < n
-                      ? y.setStatus(e + " (" + (n - t) + "/" + n + ")")
-                      : y.setStatus(e)
-                    : y.setStatus("");
+                      ? C.setStatus(e + " (" + (n - t) + "/" + n + ")")
+                      : C.setStatus(e)
+                    : C.setStatus("");
                 }
               },
               runIter: function (t) {
-                if (!V) {
-                  if (y.preMainLoop) {
-                    var e = y.preMainLoop();
+                if (!H) {
+                  if (C.preMainLoop) {
+                    var e = C.preMainLoop();
                     if (e === !1) return;
                   }
-                  (Uo(t), y.postMainLoop && y.postMainLoop());
+                  (Yo(t), C.postMainLoop && C.postMainLoop());
                 }
               },
             },
@@ -5961,55 +6150,55 @@ __d(
             moduleContextCreatedCallbacks: [],
             workers: [],
             init: function () {
-              if (La.initted) return;
-              La.initted = !0;
+              if (Ma.initted) return;
+              Ma.initted = !0;
               var e = {};
               ((e.canHandle = function (t) {
-                return !y.noImageDecoding && /\.(jpg|jpeg|png|bmp)$/i.test(t);
+                return !C.noImageDecoding && /\.(jpg|jpeg|png|bmp)$/i.test(t);
               }),
                 (e.handle = function (t, n, r, o) {
-                  var e = new Blob([t], { type: La.getMimetype(n) });
+                  var e = new Blob([t], { type: Ma.getMimetype(n) });
                   e.size !== t.length &&
                     (e = new Blob([new Uint8Array(t).buffer], {
-                      type: La.getMimetype(n),
+                      type: Ma.getMimetype(n),
                     }));
                   var a = URL.createObjectURL(e);
-                  G(
+                  z(
                     typeof a == "string",
                     "createObjectURL must return a url as a string",
                   );
                   var i = new Image();
                   ((i.onload = function () {
-                    G(i.complete, "Image " + n + " could not be decoded");
+                    z(i.complete, "Image " + n + " could not be decoded");
                     var e = document.createElement("canvas");
                     ((e.width = i.width), (e.height = i.height));
                     var o = e.getContext("2d");
                     (o.drawImage(i, 0, 0),
-                      (Mi[n] = e),
+                      (Ti[n] = e),
                       URL.revokeObjectURL(a),
                       r && r(t));
                   }),
                     (i.onerror = function (e) {
-                      (A("Image " + a + " could not be decoded"), o && o());
+                      (F("Image " + a + " could not be decoded"), o && o());
                     }),
                     (i.src = a));
                 }),
-                Bt.push(e));
+                Wt.push(e));
               var t = {};
               ((t.canHandle = function (t) {
                 return (
-                  !y.noAudioDecoding &&
+                  !C.noAudioDecoding &&
                   t.substr(-4) in { ".ogg": 1, ".wav": 1, ".mp3": 1 }
                 );
               }),
                 (t.handle = function (t, n, r, o) {
                   var e = !1;
                   function a(o) {
-                    e || ((e = !0), (wi[n] = o), r && r(t));
+                    e || ((e = !0), (Di[n] = o), r && r(t));
                   }
-                  var i = new Blob([t], { type: La.getMimetype(n) }),
+                  var i = new Blob([t], { type: Ma.getMimetype(n) }),
                     l = URL.createObjectURL(i);
-                  G(
+                  z(
                     typeof l == "string",
                     "createObjectURL must return a url as a string",
                   );
@@ -6023,7 +6212,7 @@ __d(
                   ),
                     (s.onerror = function (o) {
                       if (e) return;
-                      F(
+                      O(
                         "warning: browser could not fully decode audio " +
                           n +
                           ", trying slower base64 approach",
@@ -6056,19 +6245,19 @@ __d(
                         a(s));
                     }),
                     (s.src = l),
-                    ba(function () {
+                    xa(function () {
                       a(s);
                     }, 1e4));
                 }),
-                Bt.push(t));
+                Wt.push(t));
               function n() {
-                La.pointerLock =
-                  document.pointerLockElement === y.canvas ||
-                  document.mozPointerLockElement === y.canvas ||
-                  document.webkitPointerLockElement === y.canvas ||
-                  document.msPointerLockElement === y.canvas;
+                Ma.pointerLock =
+                  document.pointerLockElement === C.canvas ||
+                  document.mozPointerLockElement === C.canvas ||
+                  document.webkitPointerLockElement === C.canvas ||
+                  document.msPointerLockElement === C.canvas;
               }
-              var r = y.canvas;
+              var r = C.canvas;
               r &&
                 ((r.requestPointerLock =
                   r.requestPointerLock ||
@@ -6087,19 +6276,19 @@ __d(
                 document.addEventListener("mozpointerlockchange", n, !1),
                 document.addEventListener("webkitpointerlockchange", n, !1),
                 document.addEventListener("mspointerlockchange", n, !1),
-                y.elementPointerLock &&
+                C.elementPointerLock &&
                   r.addEventListener(
                     "click",
                     function (e) {
-                      !La.pointerLock &&
-                        y.canvas.requestPointerLock &&
-                        (y.canvas.requestPointerLock(), e.preventDefault());
+                      !Ma.pointerLock &&
+                        C.canvas.requestPointerLock &&
+                        (C.canvas.requestPointerLock(), e.preventDefault());
                     },
                     !1,
                   ));
             },
             createContext: function (t, n, r, o) {
-              if (n && y.ctx && t == y.canvas) return y.ctx;
+              if (n && C.ctx && t == C.canvas) return C.ctx;
               var e, a;
               if (n) {
                 var i = { antialias: !1, alpha: !1, majorVersion: 1 };
@@ -6111,17 +6300,17 @@ __d(
               return e
                 ? (r &&
                     (n ||
-                      G(
+                      z(
                         typeof GLctx == "undefined",
                         "cannot set in module if GLctx is used, but we are a non-GL context that would replace it",
                       ),
-                    (y.ctx = e),
+                    (C.ctx = e),
                     n && GL.makeContextCurrent(a),
-                    (y.useWebGL = n),
-                    La.moduleContextCreatedCallbacks.forEach(function (e) {
+                    (C.useWebGL = n),
+                    Ma.moduleContextCreatedCallbacks.forEach(function (e) {
                       return e();
                     }),
-                    La.init()),
+                    Ma.init()),
                   e)
                 : null;
             },
@@ -6130,36 +6319,36 @@ __d(
             lockPointer: void 0,
             resizeCanvas: void 0,
             requestFullscreen: function (t, n) {
-              ((La.lockPointer = t),
-                (La.resizeCanvas = n),
-                typeof La.lockPointer == "undefined" && (La.lockPointer = !0),
-                typeof La.resizeCanvas == "undefined" &&
-                  (La.resizeCanvas = !1));
-              var e = y.canvas;
+              ((Ma.lockPointer = t),
+                (Ma.resizeCanvas = n),
+                typeof Ma.lockPointer == "undefined" && (Ma.lockPointer = !0),
+                typeof Ma.resizeCanvas == "undefined" &&
+                  (Ma.resizeCanvas = !1));
+              var e = C.canvas;
               function r() {
-                La.isFullscreen = !1;
+                Ma.isFullscreen = !1;
                 var t = e.parentNode;
                 ((document.fullscreenElement ||
                   document.mozFullScreenElement ||
                   document.msFullscreenElement ||
                   document.webkitFullscreenElement ||
                   document.webkitCurrentFullScreenElement) === t
-                  ? ((e.exitFullscreen = La.exitFullscreen),
-                    La.lockPointer && e.requestPointerLock(),
-                    (La.isFullscreen = !0),
-                    La.resizeCanvas
-                      ? La.setFullscreenCanvasSize()
-                      : La.updateCanvasDimensions(e))
+                  ? ((e.exitFullscreen = Ma.exitFullscreen),
+                    Ma.lockPointer && e.requestPointerLock(),
+                    (Ma.isFullscreen = !0),
+                    Ma.resizeCanvas
+                      ? Ma.setFullscreenCanvasSize()
+                      : Ma.updateCanvasDimensions(e))
                   : (t.parentNode.insertBefore(e, t),
                     t.parentNode.removeChild(t),
-                    La.resizeCanvas
-                      ? La.setWindowedCanvasSize()
-                      : La.updateCanvasDimensions(e)),
-                  y.onFullScreen && y.onFullScreen(La.isFullscreen),
-                  y.onFullscreen && y.onFullscreen(La.isFullscreen));
+                    Ma.resizeCanvas
+                      ? Ma.setWindowedCanvasSize()
+                      : Ma.updateCanvasDimensions(e)),
+                  C.onFullScreen && C.onFullScreen(Ma.isFullscreen),
+                  C.onFullscreen && C.onFullscreen(Ma.isFullscreen));
               }
-              La.fullscreenHandlersInstalled ||
-                ((La.fullscreenHandlersInstalled = !0),
+              Ma.fullscreenHandlersInstalled ||
+                ((Ma.fullscreenHandlersInstalled = !0),
                 document.addEventListener("fullscreenchange", r, !1),
                 document.addEventListener("mozfullscreenchange", r, !1),
                 document.addEventListener("webkitfullscreenchange", r, !1),
@@ -6188,12 +6377,12 @@ __d(
                 o.requestFullscreen());
             },
             requestFullScreen: function () {
-              ke(
+              Ie(
                 "Module.requestFullScreen has been replaced by Module.requestFullscreen (without a capital S)",
               );
             },
             exitFullscreen: function () {
-              if (!La.isFullscreen) return !1;
+              if (!Ma.isFullscreen) return !1;
               var e =
                 document.exitFullscreen ||
                 document.cancelFullScreen ||
@@ -6206,9 +6395,9 @@ __d(
             nextRAF: 0,
             fakeRequestAnimationFrame: function (t) {
               var e = Date.now();
-              if (La.nextRAF === 0) La.nextRAF = e + 1e3 / 60;
-              else for (; e + 2 >= La.nextRAF; ) La.nextRAF += 1e3 / 60;
-              var n = Math.max(La.nextRAF - e, 0);
+              if (Ma.nextRAF === 0) Ma.nextRAF = e + 1e3 / 60;
+              else for (; e + 2 >= Ma.nextRAF; ) Ma.nextRAF += 1e3 / 60;
+              var n = Math.max(Ma.nextRAF - e, 0);
               setTimeout(t, n);
             },
             requestAnimationFrame: (function (e) {
@@ -6226,17 +6415,17 @@ __d(
                 requestAnimationFrame(e);
                 return;
               }
-              var t = La.fakeRequestAnimationFrame;
+              var t = Ma.fakeRequestAnimationFrame;
               t(e);
             }),
             safeSetTimeout: function (t, n) {
-              return ba(t, n);
+              return xa(t, n);
             },
             safeRequestAnimationFrame: function (t) {
               return (
-                ya(),
-                La.requestAnimationFrame(function () {
-                  (Ca(), Uo(t));
+                Ta(),
+                Ma.requestAnimationFrame(function () {
+                  (Da(), Yo(t));
                 })
               );
             },
@@ -6301,20 +6490,20 @@ __d(
             touches: {},
             lastTouches: {},
             calculateMouseEvent: function (t) {
-              if (La.pointerLock)
+              if (Ma.pointerLock)
                 (t.type != "mousemove" && "mozMovementX" in t
-                  ? (La.mouseMovementX = La.mouseMovementY = 0)
-                  : ((La.mouseMovementX = La.getMovementX(t)),
-                    (La.mouseMovementY = La.getMovementY(t))),
+                  ? (Ma.mouseMovementX = Ma.mouseMovementY = 0)
+                  : ((Ma.mouseMovementX = Ma.getMovementX(t)),
+                    (Ma.mouseMovementY = Ma.getMovementY(t))),
                   typeof SDL != "undefined"
-                    ? ((La.mouseX = SDL.mouseX + La.mouseMovementX),
-                      (La.mouseY = SDL.mouseY + La.mouseMovementY))
-                    : ((La.mouseX += La.mouseMovementX),
-                      (La.mouseY += La.mouseMovementY)));
+                    ? ((Ma.mouseX = SDL.mouseX + Ma.mouseMovementX),
+                      (Ma.mouseY = SDL.mouseY + Ma.mouseMovementY))
+                    : ((Ma.mouseX += Ma.mouseMovementX),
+                      (Ma.mouseY += Ma.mouseMovementY)));
               else {
-                var e = y.canvas.getBoundingClientRect(),
-                  n = y.canvas.width,
-                  r = y.canvas.height,
+                var e = C.canvas.getBoundingClientRect(),
+                  n = C.canvas.width,
+                  r = C.canvas.height,
                   o =
                     typeof window.scrollX != "undefined"
                       ? window.scrollX
@@ -6324,7 +6513,7 @@ __d(
                       ? window.scrollY
                       : window.pageYOffset;
                 if (
-                  (G(
+                  (z(
                     typeof o != "undefined" && typeof a != "undefined",
                     "Unable to retrieve scroll position, mouse positions likely broken.",
                   ),
@@ -6339,13 +6528,13 @@ __d(
                   ((l = l * (n / e.width)), (s = s * (r / e.height)));
                   var u = { x: l, y: s };
                   if (t.type === "touchstart")
-                    ((La.lastTouches[i.identifier] = u),
-                      (La.touches[i.identifier] = u));
+                    ((Ma.lastTouches[i.identifier] = u),
+                      (Ma.touches[i.identifier] = u));
                   else if (t.type === "touchend" || t.type === "touchmove") {
-                    var c = La.touches[i.identifier];
+                    var c = Ma.touches[i.identifier];
                     (c || (c = u),
-                      (La.lastTouches[i.identifier] = c),
-                      (La.touches[i.identifier] = u));
+                      (Ma.lastTouches[i.identifier] = c),
+                      (Ma.touches[i.identifier] = u));
                   }
                   return;
                 }
@@ -6353,39 +6542,39 @@ __d(
                   m = t.pageY - (a + e.top);
                 ((d = d * (n / e.width)),
                   (m = m * (r / e.height)),
-                  (La.mouseMovementX = d - La.mouseX),
-                  (La.mouseMovementY = m - La.mouseY),
-                  (La.mouseX = d),
-                  (La.mouseY = m));
+                  (Ma.mouseMovementX = d - Ma.mouseX),
+                  (Ma.mouseMovementY = m - Ma.mouseY),
+                  (Ma.mouseX = d),
+                  (Ma.mouseY = m));
               }
             },
             resizeListeners: [],
             updateResizeListeners: function () {
-              var e = y.canvas;
-              La.resizeListeners.forEach(function (t) {
+              var e = C.canvas;
+              Ma.resizeListeners.forEach(function (t) {
                 return t(e.width, e.height);
               });
             },
             setCanvasSize: function (t, n, r) {
-              var e = y.canvas;
-              (La.updateCanvasDimensions(e, t, n),
-                r || La.updateResizeListeners());
+              var e = C.canvas;
+              (Ma.updateCanvasDimensions(e, t, n),
+                r || Ma.updateResizeListeners());
             },
             windowedWidth: 0,
             windowedHeight: 0,
             setFullscreenCanvasSize: function () {
               if (typeof SDL != "undefined") {
-                var e = f()[SDL.screen >> 2];
-                ((e = e | 8388608), (_()[SDL.screen >> 2] = e));
+                var e = g()[SDL.screen >> 2];
+                ((e = e | 8388608), (f()[SDL.screen >> 2] = e));
               }
-              (La.updateCanvasDimensions(y.canvas), La.updateResizeListeners());
+              (Ma.updateCanvasDimensions(C.canvas), Ma.updateResizeListeners());
             },
             setWindowedCanvasSize: function () {
               if (typeof SDL != "undefined") {
-                var e = f()[SDL.screen >> 2];
-                ((e = e & -8388609), (_()[SDL.screen >> 2] = e));
+                var e = g()[SDL.screen >> 2];
+                ((e = e & -8388609), (f()[SDL.screen >> 2] = e));
               }
-              (La.updateCanvasDimensions(y.canvas), La.updateResizeListeners());
+              (Ma.updateCanvasDimensions(C.canvas), Ma.updateResizeListeners());
             },
             updateCanvasDimensions: function (t, n, r) {
               n && r
@@ -6394,11 +6583,11 @@ __d(
               var e = n,
                 o = r;
               if (
-                (y.forcedAspectRatio &&
-                  y.forcedAspectRatio > 0 &&
-                  (e / o < y.forcedAspectRatio
-                    ? (e = Math.round(o * y.forcedAspectRatio))
-                    : (o = Math.round(e / y.forcedAspectRatio))),
+                (C.forcedAspectRatio &&
+                  C.forcedAspectRatio > 0 &&
+                  (e / o < C.forcedAspectRatio
+                    ? (e = Math.round(o * C.forcedAspectRatio))
+                    : (o = Math.round(e / C.forcedAspectRatio))),
                 (document.fullscreenElement ||
                   document.mozFullScreenElement ||
                   document.msFullscreenElement ||
@@ -6409,7 +6598,7 @@ __d(
                 var a = Math.min(screen.width / e, screen.height / o);
                 ((e = Math.round(e * a)), (o = Math.round(o * a)));
               }
-              La.resizeCanvas
+              Ma.resizeCanvas
                 ? (t.width != e && (t.width = e),
                   t.height != o && (t.height = o),
                   typeof t.style != "undefined" &&
@@ -6425,89 +6614,62 @@ __d(
                         t.style.removeProperty("height"))));
             },
           };
-          function Ea(e, t, n) {
+          function wa(e, t, n) {
             function r() {
-              dn(e)(t);
+              mn(e)(t);
             }
-            n >= 0 ? ba(r, n) : La.safeRequestAnimationFrame(r);
+            n >= 0 ? xa(r, n) : Ma.safeRequestAnimationFrame(r);
           }
-          function ka() {
-            k ||
-              _n(
+          function Aa() {
+            I ||
+              fn(
                 "Blocking on the main thread is very dangerous, see https://emscripten.org/docs/porting/pthreads.html#blocking-on-the-main-browser-thread",
               );
           }
-          var Ia = function (t) {
-            (G(typeof t == "number"), Xt(t));
+          var Fa = function (t) {
+            (z(typeof t == "number"), Yt(t));
           };
-          function Ta() {
+          function Oa() {
             return Date.now();
           }
-          var Da = function () {
-              throw (ya(), "unwind");
+          var Ba = function () {
+              throw (Ta(), "unwind");
             },
-            xa = function () {
+            Wa = function () {
               return 2147483648;
             },
-            $a = function () {
-              return xa();
+            qa = function () {
+              return Wa();
             };
-          function Pa() {
+          function Ua() {
             return navigator.hardwareConcurrency;
           }
-          function Na(e, t) {
-            var n = arguments.length - 2,
-              r = arguments,
-              o = 19;
-            if (n > o)
-              throw (
-                "proxyToMainThread: Too many arguments " +
-                n +
-                " to proxied function idx=" +
-                e +
-                ", maximum supported is " +
-                o
-              );
-            return sn(function () {
-              for (
-                var o = n * 2, a = Cl(o * 8), i = a >> 3, l = 0;
-                l < n;
-                l++
-              ) {
-                var s = r[2 + l];
-                typeof s == "bigint"
-                  ? ((Z[i + 2 * l] = BigInt(1)), (Z[i + 2 * l + 1] = s))
-                  : ((Z[i + 2 * l] = BigInt(0)), (h()[i + 2 * l + 1] = s));
-              }
-              return al(e, o, a, t);
-            });
-          }
-          var Ma = [];
-          function wa(e, t, n, r) {
-            ((rn.currentProxiedOperationCallerThread = t),
+          var Va = [];
+          function Ha(e, t, n, r) {
+            ((on.currentProxiedOperationCallerThread = t),
               (n /= 2),
-              (Ma.length = n));
+              (Va.length = n));
             for (var o = r >> 3, a = 0; a < n; a++)
-              Z[o + 2 * a]
-                ? (Ma[a] = Z[o + 2 * a + 1])
-                : (Ma[a] = h()[o + 2 * a + 1]);
+              ee[o + 2 * a]
+                ? (Va[a] = ee[o + 2 * a + 1])
+                : (Va[a] = y()[o + 2 * a + 1]);
             var i = e < 0,
-              l = i ? je[-e - 1] : Ai[e];
+              l = i ? Ke[-e - 1] : xi[e];
             return (
-              G(
+              z(
                 l.length == n,
                 "Call args mismatch in emscripten_receive_on_main_thread_js",
               ),
-              l.apply(null, Ma)
+              l.apply(null, Va)
             );
           }
-          var Aa = function (t) {
-              var e = W.buffer,
+          var Ga = function (t) {
+              var e = q.buffer,
                 n = (t - e.byteLength + 65535) >>> 16;
               try {
-                return (W.grow(n), ne(), 1);
+                return (q.grow(n), re(), 1);
               } catch (n) {
-                F(
+                O(
                   "growMemory: Attempted to grow heap from " +
                     e.byteLength +
                     " bytes to " +
@@ -6517,13 +6679,13 @@ __d(
                 );
               }
             },
-            Fa = function (t) {
-              var e = d().length;
+            za = function (t) {
+              var e = m().length;
               if (((t >>>= 0), t <= e)) return !1;
-              var n = xa();
+              var n = Wa();
               if (t > n)
                 return (
-                  F(
+                  O(
                     "Cannot enlarge memory, asked to go up to " +
                       t +
                       " bytes, but the limit is " +
@@ -6543,11 +6705,11 @@ __d(
                 var a = e * (1 + 0.2 / o);
                 a = Math.min(a, t + 100663296);
                 var i = Math.min(n, r(Math.max(t, a), 65536)),
-                  l = Aa(i);
+                  l = Ga(i);
                 if (l) return !0;
               }
               return (
-                F(
+                O(
                   "Failed to grow the heap from " +
                     e +
                     " bytes to " +
@@ -6557,14 +6719,14 @@ __d(
                 !1
               );
             },
-            Oa = Ca,
-            Ba = ya,
-            Wa = {},
-            qa = function () {
-              return R || "./this.program";
+            ja = Da,
+            Ka = Ta,
+            Qa = {},
+            Xa = function () {
+              return L || "./this.program";
             },
-            Ua = function () {
-              if (!Ua.strings) {
+            Ya = function () {
+              if (!Ya.strings) {
                 var e =
                     (
                       (typeof navigator == "object" &&
@@ -6579,135 +6741,160 @@ __d(
                     PWD: "/",
                     HOME: "/home/web_user",
                     LANG: e,
-                    _: qa(),
+                    _: Xa(),
                   };
-                for (var n in Wa)
-                  Wa[n] === void 0 ? delete t[n] : (t[n] = Wa[n]);
+                for (var n in Qa)
+                  Qa[n] === void 0 ? delete t[n] : (t[n] = Qa[n]);
                 var r = [];
                 for (var n in t) r.push(n + "=" + t[n]);
-                Ua.strings = r;
+                Ya.strings = r;
               }
-              return Ua.strings;
+              return Ya.strings;
             },
-            Va = function (t, n) {
+            Ja = function (t, n) {
               for (var e = 0; e < t.length; ++e)
-                (G(t.charCodeAt(e) === (t.charCodeAt(e) & 255)),
+                (z(t.charCodeAt(e) === (t.charCodeAt(e) & 255)),
                   (l()[n++ >> 0] = t.charCodeAt(e)));
               l()[n >> 0] = 0;
             };
-          function Ha(e, t) {
-            if (D) return Na(17, 1, e, t);
+          function Za(e, t) {
+            if (x) return Sa(21, 1, e, t);
             var n = 0;
             return (
-              Ua().forEach(function (r, o) {
+              Ya().forEach(function (r, o) {
                 var a = t + n;
-                ((f()[(e + o * 4) >> 2] = a), Va(r, a), (n += r.length + 1));
+                ((g()[(e + o * 4) >> 2] = a), Ja(r, a), (n += r.length + 1));
               }),
               0
             );
           }
-          function Ga(e, t) {
-            if (D) return Na(18, 1, e, t);
-            var n = Ua();
-            f()[e >> 2] = n.length;
+          function ei(e, t) {
+            if (x) return Sa(22, 1, e, t);
+            var n = Ya();
+            g()[e >> 2] = n.length;
             var r = 0;
             return (
               n.forEach(function (e) {
                 r += e.length + 1;
               }),
-              (f()[t >> 2] = r),
+              (g()[t >> 2] = r),
               0
             );
           }
-          function za(e) {
-            if (D) return Na(19, 1, e);
+          function ti(e) {
+            if (x) return Sa(23, 1, e);
             try {
-              var t = Yt.getStreamFromFD(e);
-              return (Qt.close(t), 0);
+              var t = Jt.getStreamFromFD(e);
+              return (Xt.close(t), 0);
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return e.errno;
             }
           }
-          var ja = function (t, n, r, o) {
+          var ni = function (t, n, r, o) {
             for (var e = 0, a = 0; a < r; a++) {
-              var i = f()[n >> 2],
-                s = f()[(n + 4) >> 2];
+              var i = g()[n >> 2],
+                s = g()[(n + 4) >> 2];
               n += 8;
-              var u = Qt.read(t, l(), i, s, o);
+              var u = Xt.read(t, l(), i, s, o);
               if (u < 0) return -1;
               if (((e += u), u < s)) break;
               typeof o != "undefined" && (o += u);
             }
             return e;
           };
-          function Ka(e, t, n, r, o) {
-            if (D) return Na(20, 1, e, t, n, r, o);
-            ((t = ea(t)), (n = ea(n)), (r = ea(r)), (o = ea(o)));
+          function ri(e, t, n, r, o) {
+            if (x) return Sa(24, 1, e, t, n, r, o);
+            ((t = Hn(t)), (n = Hn(n)), (r = Hn(r)), (o = Hn(o)));
             try {
               if (isNaN(r)) return 61;
-              var a = Yt.getStreamFromFD(e),
-                i = ja(a, t, n, r);
-              return ((f()[o >> 2] = i), 0);
+              var a = Jt.getStreamFromFD(e),
+                i = ni(a, t, n, r);
+              return ((g()[o >> 2] = i), 0);
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return e.errno;
             }
           }
-          function Qa(e, t, n, r) {
-            if (D) return Na(21, 1, e, t, n, r);
-            try {
-              var o = Yt.getStreamFromFD(e),
-                a = ja(o, t, n);
-              return ((f()[r >> 2] = a), 0);
-            } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
-              return e.errno;
-            }
-          }
-          function Xa(e, t, n, r) {
-            if (D) return Na(22, 1, e, t, n, r);
-            ((t = ea(t)), (r = ea(r)));
-            try {
-              if (isNaN(t)) return 61;
-              var o = Yt.getStreamFromFD(e);
-              return (
-                Qt.llseek(o, t, n),
-                (Z[r >> 3] = BigInt(o.position)),
-                o.getdents && t === 0 && n === 0 && (o.getdents = null),
-                0
-              );
-            } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
-              return e.errno;
-            }
-          }
-          var Ya = function (t, n, r, o) {
+          var oi = function (t, n, r, o) {
             for (var e = 0, a = 0; a < r; a++) {
-              var i = f()[n >> 2],
-                s = f()[(n + 4) >> 2];
+              var i = g()[n >> 2],
+                s = g()[(n + 4) >> 2];
               n += 8;
-              var u = Qt.write(t, l(), i, s, o);
+              var u = Xt.write(t, l(), i, s, o);
               if (u < 0) return -1;
               ((e += u), typeof o != "undefined" && (o += u));
             }
             return e;
           };
-          function Ja(e, t, n, r) {
-            if (D) return Na(23, 1, e, t, n, r);
+          function ai(e, t, n, r, o) {
+            if (x) return Sa(25, 1, e, t, n, r, o);
+            ((t = Hn(t)), (n = Hn(n)), (r = Hn(r)), (o = Hn(o)));
             try {
-              var o = Yt.getStreamFromFD(e),
-                a = Ya(o, t, n);
-              return ((f()[r >> 2] = a), 0);
+              if (isNaN(r)) return 61;
+              var a = Jt.getStreamFromFD(e),
+                i = oi(a, t, n, r);
+              return ((g()[o >> 2] = i), 0);
             } catch (e) {
-              if (typeof Qt == "undefined" || e.name !== "ErrnoError") throw e;
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
               return e.errno;
             }
           }
-          var Za = function (t, n) {
-              return (Et(d().subarray(t, t + n)), 0);
+          function ii(e, t, n, r) {
+            if (x) return Sa(26, 1, e, t, n, r);
+            try {
+              var o = Jt.getStreamFromFD(e),
+                a = ni(o, t, n);
+              return ((g()[r >> 2] = a), 0);
+            } catch (e) {
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
+              return e.errno;
+            }
+          }
+          function li(e, t, n, r) {
+            if (x) return Sa(27, 1, e, t, n, r);
+            ((t = Hn(t)), (r = Hn(r)));
+            try {
+              if (isNaN(t)) return 61;
+              var o = Jt.getStreamFromFD(e);
+              return (
+                Xt.llseek(o, t, n),
+                (ee[r >> 3] = BigInt(o.position)),
+                o.getdents && t === 0 && n === 0 && (o.getdents = null),
+                0
+              );
+            } catch (e) {
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
+              return e.errno;
+            }
+          }
+          function si(e) {
+            if (x) return Sa(28, 1, e);
+            try {
+              var t = Jt.getStreamFromFD(e);
+              return t.stream_ops && t.stream_ops.fsync
+                ? t.stream_ops.fsync(t)
+                : 0;
+            } catch (e) {
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
+              return e.errno;
+            }
+          }
+          function ui(e, t, n, r) {
+            if (x) return Sa(29, 1, e, t, n, r);
+            try {
+              var o = Jt.getStreamFromFD(e),
+                a = oi(o, t, n);
+              return ((g()[r >> 2] = a), 0);
+            } catch (e) {
+              if (typeof Xt == "undefined" || e.name !== "ErrnoError") throw e;
+              return e.errno;
+            }
+          }
+          var ci = function (t, n) {
+              return (kt(m().subarray(t, t + n)), 0);
             },
-            ei = function (t) {
+            di = function (t) {
               for (var e = t.split("."), n = 0; n < 4; n++) {
                 var r = Number(e[n]);
                 if (isNaN(r)) return null;
@@ -6715,10 +6902,10 @@ __d(
               }
               return (e[0] | (e[1] << 8) | (e[2] << 16) | (e[3] << 24)) >>> 0;
             },
-            ti = function (t) {
+            mi = function (t) {
               return parseInt(t);
             },
-            ni = function (t) {
+            pi = function (t) {
               var e,
                 n,
                 r,
@@ -6736,9 +6923,9 @@ __d(
                     ? ((t = t.replace(new RegExp("[.]", "g"), ":")),
                       (e = t.split(":")),
                       (e[e.length - 4] =
-                        ti(e[e.length - 4]) + ti(e[e.length - 3]) * 256),
+                        mi(e[e.length - 4]) + mi(e[e.length - 3]) * 256),
                       (e[e.length - 3] =
-                        ti(e[e.length - 2]) + ti(e[e.length - 1]) * 256),
+                        mi(e[e.length - 2]) + mi(e[e.length - 1]) * 256),
                       (e = e.slice(0, e.length - 2)))
                     : (e = t.split(":")),
                   r = 0,
@@ -6751,7 +6938,7 @@ __d(
                   if (e[n] === "Z") {
                     for (o = 0; o < 8 - e.length + 1; o++) i[n + o] = 0;
                     r = o - 1;
-                  } else i[n + r] = ji(parseInt(e[n], 16));
+                  } else i[n + r] = Vi(parseInt(e[n], 16));
                 else i[n + r] = e[n];
               return [
                 (i[1] << 16) | i[0],
@@ -6760,66 +6947,60 @@ __d(
                 (i[7] << 16) | i[6],
               ];
             },
-            ri = {
+            _i = {
               address_map: { id: 1, addrs: {}, names: {} },
               lookup_name: function (t) {
-                var e = ei(t);
-                if (e !== null || ((e = ni(t)), e !== null)) return t;
+                var e = di(t);
+                if (e !== null || ((e = pi(t)), e !== null)) return t;
                 var n;
-                if (ri.address_map.addrs[t]) n = ri.address_map.addrs[t];
+                if (_i.address_map.addrs[t]) n = _i.address_map.addrs[t];
                 else {
-                  var r = ri.address_map.id++;
-                  (G(r < 65535, "exceeded max address mappings of 65535"),
+                  var r = _i.address_map.id++;
+                  (z(r < 65535, "exceeded max address mappings of 65535"),
                     (n = "172.29." + (r & 255) + "." + (r & 65280)),
-                    (ri.address_map.names[n] = t),
-                    (ri.address_map.addrs[t] = n));
+                    (_i.address_map.names[n] = t),
+                    (_i.address_map.addrs[t] = n));
                 }
                 return n;
               },
               lookup_addr: function (t) {
-                return ri.address_map.names[t] ? ri.address_map.names[t] : null;
+                return _i.address_map.names[t] ? _i.address_map.names[t] : null;
               },
             },
-            oi = function (t) {
-              var e = Ui(20),
-                n = ca(t);
-              f()[e >> 2] = n;
-              var r = Ui(4);
-              ((f()[r >> 2] = 0), (f()[(e + 4) >> 2] = r));
+            fi = function (t) {
+              var e = Oi(20),
+                n = ha(t);
+              g()[e >> 2] = n;
+              var r = Oi(4);
+              ((g()[r >> 2] = 0), (g()[(e + 4) >> 2] = r));
               var o = 2;
-              ((_()[(e + 8) >> 2] = o), (_()[(e + 12) >> 2] = 4));
-              var a = Ui(12);
+              ((f()[(e + 8) >> 2] = o), (f()[(e + 12) >> 2] = 4));
+              var a = Oi(12);
               return (
-                (f()[a >> 2] = a + 8),
-                (f()[(a + 4) >> 2] = 0),
-                (_()[(a + 8) >> 2] = ei(ri.lookup_name(t))),
-                (f()[(e + 16) >> 2] = a),
+                (g()[a >> 2] = a + 8),
+                (g()[(a + 4) >> 2] = 0),
+                (f()[(a + 8) >> 2] = di(_i.lookup_name(t))),
+                (g()[(e + 16) >> 2] = a),
                 e
               );
             };
-          function ai(e) {
-            return D ? Na(24, 1, e) : oi(Xt(e));
+          function gi(e) {
+            return x ? Sa(30, 1, e) : fi(Yt(e));
           }
-          function ii(e) {
+          function hi(e) {
             return e;
           }
-          function li() {
-            (F("missing function: pj_sock_accept"), ke(-1));
-          }
-          function si() {
-            (F("missing function: pj_sock_connect"), ke(-1));
-          }
-          var ui = function (t, n) {
+          var yi = function (t, n) {
               for (var e = 0, r = 0; r <= n; e += t[r++]);
               return e;
             },
-            ci = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-            di = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
-            mi = function (t, n) {
+            Ci = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+            bi = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
+            vi = function (t, n) {
               for (var e = new Date(t.getTime()); n > 0; ) {
-                var r = na(e.getFullYear()),
+                var r = sa(e.getFullYear()),
                   o = e.getMonth(),
-                  a = (r ? ci : di)[o];
+                  a = (r ? Ci : bi)[o];
                 if (n > a - e.getDate())
                   ((n -= a - e.getDate() + 1),
                     e.setDate(1),
@@ -6830,29 +7011,29 @@ __d(
               }
               return e;
             },
-            pi = function (t, n) {
-              (G(
+            Si = function (t, n) {
+              (z(
                 t.length >= 0,
                 "writeArrayToMemory array must have a length (should be an array or typed array)",
               ),
                 l().set(t, n));
             },
-            _i = function (t, n, r, o) {
-              var e = _()[(o + 40) >> 2],
+            Ri = function (t, n, r, o) {
+              var e = f()[(o + 40) >> 2],
                 a = {
-                  tm_sec: _()[o >> 2],
-                  tm_min: _()[(o + 4) >> 2],
-                  tm_hour: _()[(o + 8) >> 2],
-                  tm_mday: _()[(o + 12) >> 2],
-                  tm_mon: _()[(o + 16) >> 2],
-                  tm_year: _()[(o + 20) >> 2],
-                  tm_wday: _()[(o + 24) >> 2],
-                  tm_yday: _()[(o + 28) >> 2],
-                  tm_isdst: _()[(o + 32) >> 2],
-                  tm_gmtoff: _()[(o + 36) >> 2],
-                  tm_zone: e ? Xt(e) : "",
+                  tm_sec: f()[o >> 2],
+                  tm_min: f()[(o + 4) >> 2],
+                  tm_hour: f()[(o + 8) >> 2],
+                  tm_mday: f()[(o + 12) >> 2],
+                  tm_mon: f()[(o + 16) >> 2],
+                  tm_year: f()[(o + 20) >> 2],
+                  tm_wday: f()[(o + 24) >> 2],
+                  tm_yday: f()[(o + 28) >> 2],
+                  tm_isdst: f()[(o + 32) >> 2],
+                  tm_gmtoff: f()[(o + 36) >> 2],
+                  tm_zone: e ? Yt(e) : "",
                 },
-                i = Xt(r),
+                i = Yt(r),
                 l = {
                   "%c": "%a %b %d %H:%M:%S %Y",
                   "%D": "%m/%d/%y",
@@ -6930,7 +7111,7 @@ __d(
                   r
                 );
               }
-              function f(e) {
+              function _(e) {
                 switch (e.getDay()) {
                   case 0:
                     return new Date(e.getFullYear() - 1, 11, 29);
@@ -6949,11 +7130,11 @@ __d(
                 }
               }
               function g(e) {
-                var t = mi(new Date(e.tm_year + 1900, 0, 1), e.tm_yday),
+                var t = vi(new Date(e.tm_year + 1900, 0, 1), e.tm_yday),
                   n = new Date(t.getFullYear(), 0, 4),
                   r = new Date(t.getFullYear() + 1, 0, 4),
-                  o = f(n),
-                  a = f(r);
+                  o = _(n),
+                  a = _(r);
                 return p(o, t) <= 0
                   ? p(a, t) <= 0
                     ? t.getFullYear() + 1
@@ -6999,7 +7180,7 @@ __d(
                 "%j": function (t) {
                   return m(
                     t.tm_mday +
-                      ui(na(t.tm_year + 1900) ? ci : di, t.tm_mon - 1),
+                      yi(sa(t.tm_year + 1900) ? Ci : bi, t.tm_mon - 1),
                     3,
                   );
                 },
@@ -7035,12 +7216,12 @@ __d(
                   if (((t.tm_wday + 371 - t.tm_yday - 2) % 7 <= 2 && e++, e)) {
                     if (e == 53) {
                       var r = (t.tm_wday + 371 - t.tm_yday) % 7;
-                      r != 4 && (r != 3 || !na(t.tm_year)) && (e = 1);
+                      r != 4 && (r != 3 || !sa(t.tm_year)) && (e = 1);
                     }
                   } else {
                     e = 52;
                     var n = (t.tm_wday + 7 - t.tm_yday - 1) % 7;
-                    (n == 4 || (n == 5 && na((t.tm_year % 400) - 1))) && e++;
+                    (n == 4 || (n == 5 && sa((t.tm_year % 400) - 1))) && e++;
                   }
                   return m(e, 2);
                 },
@@ -7077,196 +7258,59 @@ __d(
               for (var s in h)
                 i.includes(s) && (i = i.replace(new RegExp(s, "g"), h[s](a)));
               i = i.replace(/\0\0/g, "%");
-              var y = Pt(i, !1);
-              return y.length > n ? 0 : (pi(y, t), y.length - 1);
+              var y = Nt(i, !1);
+              return y.length > n ? 0 : (Si(y, t), y.length - 1);
             },
-            fi = function (t, n, r, o, a) {
-              return _i(t, n, r, o);
+            Li = function (t, n, r, o, a) {
+              return Ri(t, n, r, o);
             };
-          function gi(e) {
-            var t = y["_" + e];
-            return (
-              G(
-                t,
-                "Cannot call unknown function " +
-                  e +
-                  ", make sure it is exported",
-              ),
-              t
-            );
-          }
-          var hi = function (t) {
-              var e = xt(t) + 1,
-                n = Cl(e);
-              return (Bn(t, n, e), n);
-            },
-            yi = function (t, n, r, o, a) {
-              var e = {
-                string: function (t) {
-                  var e = 0;
-                  return (t != null && t !== 0 && (e = hi(t)), e);
-                },
-                array: function (t) {
-                  var e = Cl(t.length);
-                  return (pi(t, e), e);
-                },
-              };
-              function i(e) {
-                return n === "string" ? Xt(e) : n === "boolean" ? !!e : e;
-              }
-              var l = gi(t),
-                s = [],
-                u = 0;
-              if ((G(n !== "array", 'Return type should not be "array".'), o))
-                for (var c = 0; c < o.length; c++) {
-                  var d = e[r[c]];
-                  d ? (u === 0 && (u = hl()), (s[c] = d(o[c]))) : (s[c] = o[c]);
-                }
-              var m = l.apply(null, s);
-              function p(e) {
-                return (u !== 0 && yl(u), i(e));
-              }
-              return ((m = p(m)), m);
-            };
-          function Ci(e, t, n, r) {
-            return function () {
-              return yi(e, t, n, arguments, r);
-            };
-          }
-          function bi(e, t) {
-            (G(e < 16384),
-              e < 128 ? t.push(e) : t.push((e % 128) | 128, e >> 7));
-          }
-          function vi(e) {
-            for (
-              var t = { i: "i32", j: "i64", f: "f32", d: "f64", p: "i32" },
-                n = { parameters: [], results: e[0] == "v" ? [] : [t[e[0]]] },
-                r = 1;
-              r < e.length;
-              ++r
-            )
-              (G(e[r] in t, "invalid signature char: " + e[r]),
-                n.parameters.push(t[e[r]]));
-            return n;
-          }
-          function Si(e, t) {
-            var n = e.slice(0, 1),
-              r = e.slice(1),
-              o = { i: 127, p: 127, j: 126, f: 125, d: 124 };
-            (t.push(96), bi(r.length, t));
-            for (var a = 0; a < r.length; ++a)
-              (G(r[a] in o, "invalid signature char: " + r[a]),
-                t.push(o[r[a]]));
-            n == "v" ? t.push(0) : t.push(1, o[n]);
-          }
-          function Ri(e, t) {
-            if (typeof WebAssembly.Function == "function")
-              return new WebAssembly.Function(vi(t), e);
-            var n = [1];
-            Si(t, n);
-            var r = [0, 97, 115, 109, 1, 0, 0, 0, 1];
-            (bi(n.length, r),
-              r.push.apply(r, n),
-              r.push(2, 7, 1, 1, 101, 1, 102, 0, 0, 7, 5, 1, 1, 102, 0, 0));
-            var o = new WebAssembly.Module(new Uint8Array(r)),
-              a = new WebAssembly.Instance(o, { e: { f: e } }),
-              i = a.exports.f;
-            return i;
-          }
-          function Li(e, t) {
-            if (Ei)
-              for (var n = e; n < e + t; n++) {
-                var r = dn(n);
-                r && Ei.set(r, n);
-              }
-          }
-          var Ei = void 0;
-          function ki(e) {
-            return (
-              Ei || ((Ei = new WeakMap()), Li(0, oe.length)),
-              Ei.get(e) || 0
-            );
-          }
-          var Ii = [];
-          function Ti() {
-            if (Ii.length) return Ii.pop();
-            try {
-              oe.grow(1);
-            } catch (e) {
-              throw e instanceof RangeError
-                ? "Unable to grow wasm table. Set ALLOW_TABLE_GROWTH."
-                : e;
-            }
-            return oe.length - 1;
-          }
-          var Di = function (t, n) {
-            return oe.set(t, n);
-          };
-          function xi(e, t) {
-            G(typeof e != "undefined");
-            var n = ki(e);
-            if (n) return n;
-            var r = Ti();
-            try {
-              Di(r, e);
-            } catch (n) {
-              if (!(n instanceof TypeError)) throw n;
-              G(
-                typeof t != "undefined",
-                "Missing signature argument to addFunction: " + e,
-              );
-              var o = Ri(e, t);
-              Di(r, o);
-            }
-            return (Ei.set(e, r), r);
-          }
-          rn.init();
-          var $i = function (t, n, r, o) {
+          on.init();
+          var Ei = function (t, n, r, o) {
               (t || (t = this),
                 (this.parent = t),
                 (this.mount = t.mount),
                 (this.mounted = null),
-                (this.id = Qt.nextInode++),
+                (this.id = Xt.nextInode++),
                 (this.name = n),
                 (this.mode = r),
                 (this.node_ops = {}),
                 (this.stream_ops = {}),
                 (this.rdev = o));
             },
-            Pi = 365,
-            Ni = 146;
-          (Object.defineProperties($i.prototype, {
+            ki = 365,
+            Ii = 146;
+          (Object.defineProperties(Ei.prototype, {
             read: {
               get: function () {
-                return (this.mode & Pi) === Pi;
+                return (this.mode & ki) === ki;
               },
               set: function (t) {
-                t ? (this.mode |= Pi) : (this.mode &= ~Pi);
+                t ? (this.mode |= ki) : (this.mode &= ~ki);
               },
             },
             write: {
               get: function () {
-                return (this.mode & Ni) === Ni;
+                return (this.mode & Ii) === Ii;
               },
               set: function (t) {
-                t ? (this.mode |= Ni) : (this.mode &= ~Ni);
+                t ? (this.mode |= Ii) : (this.mode &= ~Ii);
               },
             },
             isFolder: {
               get: function () {
-                return Qt.isDir(this.mode);
+                return Xt.isDir(this.mode);
               },
             },
             isDevice: {
               get: function () {
-                return Qt.isChrdev(this.mode);
+                return Xt.isChrdev(this.mode);
               },
             },
           }),
-            (Qt.FSNode = $i),
-            (Qt.createPreloadedFile = qt),
-            Qt.staticInit(),
-            (zt = {
+            (Xt.FSNode = Ei),
+            (Xt.createPreloadedFile = Ut),
+            Xt.staticInit(),
+            (jt = {
               EPERM: 63,
               ENOENT: 44,
               ESRCH: 71,
@@ -7389,8 +7433,8 @@ __d(
               EOWNERDEAD: 62,
               ESTRPIPE: 135,
             }),
-            Qn(),
-            (tr = y.BindingError =
+            or(),
+            (cr = C.BindingError =
               (function (e) {
                 function t(t) {
                   var n;
@@ -7402,7 +7446,7 @@ __d(
                 }
                 return (babelHelpers.inheritsLoose(t, e), t);
               })(babelHelpers.wrapNativeSuper(Error))),
-            (rr = y.InternalError =
+            (mr = C.InternalError =
               (function (e) {
                 function t(t) {
                   var n;
@@ -7414,821 +7458,885 @@ __d(
                 }
                 return (babelHelpers.inheritsLoose(t, e), t);
               })(babelHelpers.wrapNativeSuper(Error))),
-            Or(),
-            Ir(),
-            to(),
-            (io = y.UnboundTypeError = ao(Error, "UnboundTypeError")),
-            go(),
-            vo(),
-            (y.requestFullscreen = function (t, n) {
-              La.requestFullscreen(t, n);
+            jr(),
+            Ar(),
+            co(),
+            (go = C.UnboundTypeError = fo(Error, "UnboundTypeError")),
+            Eo(),
+            xo(),
+            (C.requestFullscreen = function (t, n) {
+              Ma.requestFullscreen(t, n);
             }),
-            (y.requestFullScreen = function () {
-              La.requestFullScreen();
+            (C.requestFullScreen = function () {
+              Ma.requestFullScreen();
             }),
-            (y.requestAnimationFrame = function (t) {
-              La.requestAnimationFrame(t);
+            (C.requestAnimationFrame = function (t) {
+              Ma.requestAnimationFrame(t);
             }),
-            (y.setCanvasSize = function (t, n, r) {
-              La.setCanvasSize(t, n, r);
+            (C.setCanvasSize = function (t, n, r) {
+              Ma.setCanvasSize(t, n, r);
             }),
-            (y.pauseMainLoop = function () {
-              La.mainLoop.pause();
+            (C.pauseMainLoop = function () {
+              Ma.mainLoop.pause();
             }),
-            (y.resumeMainLoop = function () {
-              La.mainLoop.resume();
+            (C.resumeMainLoop = function () {
+              Ma.mainLoop.resume();
             }),
-            (y.getUserMedia = function () {
-              La.getUserMedia();
+            (C.getUserMedia = function () {
+              Ma.getUserMedia();
             }),
-            (y.createContext = function (t, n, r, o) {
-              return La.createContext(t, n, r, o);
+            (C.createContext = function (t, n, r, o) {
+              return Ma.createContext(t, n, r, o);
             }));
-          var Mi = {},
-            wi = {},
-            Ai = [
+          var Ti = {},
+            Di = {},
+            xi = [
               null,
-              Jt,
-              ln,
-              Nn,
-              wn,
-              Fn,
+              Zt,
+              sn,
+              An,
               On,
               Wn,
               qn,
-              Un,
-              Vn,
-              Hn,
               Gn,
-              zn,
               jn,
-              sa,
-              ua,
-              Ha,
-              Ga,
-              za,
-              Ka,
-              Qa,
-              Xa,
-              Ja,
+              Kn,
+              Qn,
+              Xn,
+              Yn,
+              Jn,
+              Zn,
+              er,
+              tr,
+              nr,
+              _a,
+              fa,
+              ga,
+              Za,
+              ei,
+              ti,
+              ri,
               ai,
+              ii,
+              li,
+              si,
+              ui,
+              gi,
             ];
-          function Fi() {
-            qe("fetchSettings");
+          function $i() {
+            Ue("fetchSettings");
           }
-          var Oi = {
-              __assert_fail: fn,
-              __cxa_begin_catch: yn,
-              __cxa_end_catch: bn,
-              __cxa_find_matching_catch_2: Ln,
-              __cxa_find_matching_catch_3: En,
-              __cxa_find_matching_catch_4: kn,
-              __cxa_get_exception_ptr: In,
-              __cxa_rethrow: Tn,
-              __cxa_throw: Dn,
-              __cxa_uncaught_exceptions: xn,
-              __emscripten_init_main_thread_js: $n,
-              __emscripten_thread_cleanup: Pn,
-              __pthread_create_js: Mn,
-              __resumeException: Sn,
-              __syscall_chdir: wn,
-              __syscall_fcntl64: Fn,
-              __syscall_fstat64: On,
-              __syscall_getdents64: Wn,
-              __syscall_ioctl: qn,
-              __syscall_lstat64: Un,
-              __syscall_mkdirat: Vn,
-              __syscall_newfstatat: Hn,
-              __syscall_openat: Gn,
-              __syscall_stat64: zn,
-              __syscall_unlinkat: jn,
-              _embind_register_bigint: ur,
-              _embind_register_bool: dr,
-              _embind_register_class: uo,
-              _embind_register_class_constructor: _o,
-              _embind_register_class_function: fo,
-              _embind_register_emval: Ro,
-              _embind_register_float: Eo,
-              _embind_register_function: ko,
-              _embind_register_integer: Io,
-              _embind_register_memory_view: To,
-              _embind_register_std_string: Do,
-              _embind_register_std_wstring: Fo,
-              _embind_register_void: Oo,
-              _emscripten_get_now_is_monotonic: Wo,
-              _emscripten_notify_mailbox_postmessage: Go,
-              _emscripten_set_offscreencanvas_size: zo,
-              _emscripten_thread_mailbox_await: Vo,
-              _emscripten_thread_set_strongref: jo,
-              _emscripten_throw_longjmp: Ko,
-              _emval_decref: Co,
-              _emval_incref: Qo,
-              _emval_take_value: Yo,
-              _gmtime_js: ta,
-              _localtime_js: ia,
-              _mktime_js: la,
-              _mmap_js: sa,
-              _munmap_js: ua,
-              _tzset_js: da,
-              abort: ma,
-              call_init_capture_driver_js_sync: ot,
-              call_init_playback_driver_js_sync: lt,
-              call_sendto: rt,
-              call_start_capture_js_sync: at,
-              call_start_desktop_capture_js_sync: dt,
-              call_start_playback_js_sync: st,
-              call_start_video_capture_js_sync: pt,
-              call_stop_capture_js_sync: it,
-              call_stop_desktop_capture_js_sync: mt,
-              call_stop_playback_js_sync: ut,
-              call_stop_video_capture_js_sync: _t,
-              emscripten_asm_const_double: ga,
-              emscripten_asm_const_int: ha,
-              emscripten_async_call: Ea,
-              emscripten_check_blocking_allowed: ka,
-              emscripten_console_error: Ia,
-              emscripten_date_now: Ta,
-              emscripten_exit_with_live_runtime: Da,
-              emscripten_get_heap_max: $a,
-              emscripten_get_now: Sa,
-              emscripten_num_logical_cores: Pa,
-              emscripten_receive_on_main_thread_js: wa,
-              emscripten_resize_heap: Fa,
-              emscripten_runtime_keepalive_pop: Oa,
-              emscripten_runtime_keepalive_push: Ba,
-              environ_get: Ha,
-              environ_sizes_get: Ga,
-              exit: en,
-              fd_close: za,
-              fd_pread: Ka,
-              fd_read: Qa,
-              fd_seek: Xa,
-              fd_write: Ja,
+          var Pi = {
+              __assert_fail: gn,
+              __cxa_begin_catch: Cn,
+              __cxa_current_primary_exception: bn,
+              __cxa_end_catch: Sn,
+              __cxa_find_matching_catch_2: kn,
+              __cxa_find_matching_catch_3: In,
+              __cxa_find_matching_catch_4: Tn,
+              __cxa_get_exception_ptr: Dn,
+              __cxa_rethrow: xn,
+              __cxa_rethrow_primary_exception: $n,
+              __cxa_throw: Pn,
+              __cxa_uncaught_exceptions: Nn,
+              __emscripten_init_main_thread_js: Mn,
+              __emscripten_thread_cleanup: wn,
+              __pthread_create_js: Fn,
+              __resumeException: Ln,
+              __syscall_chdir: On,
+              __syscall_fcntl64: Wn,
+              __syscall_fstat64: qn,
+              __syscall_ftruncate64: Gn,
+              __syscall_getcwd: jn,
+              __syscall_getdents64: Kn,
+              __syscall_ioctl: Qn,
+              __syscall_lstat64: Xn,
+              __syscall_mkdirat: Yn,
+              __syscall_newfstatat: Jn,
+              __syscall_openat: Zn,
+              __syscall_rmdir: er,
+              __syscall_stat64: tr,
+              __syscall_unlinkat: nr,
+              _embind_register_bigint: yr,
+              _embind_register_bool: br,
+              _embind_register_class: Co,
+              _embind_register_class_constructor: Ro,
+              _embind_register_class_function: Lo,
+              _embind_register_emval: Po,
+              _embind_register_float: Mo,
+              _embind_register_function: wo,
+              _embind_register_integer: Ao,
+              _embind_register_memory_view: Fo,
+              _embind_register_std_string: Oo,
+              _embind_register_std_wstring: zo,
+              _embind_register_void: jo,
+              _emscripten_get_now_is_monotonic: Qo,
+              _emscripten_notify_mailbox_postmessage: ea,
+              _emscripten_set_offscreencanvas_size: ta,
+              _emscripten_thread_mailbox_await: Jo,
+              _emscripten_thread_set_strongref: na,
+              _emscripten_throw_longjmp: ra,
+              _emval_decref: To,
+              _emval_incref: oa,
+              _emval_take_value: ia,
+              _gmtime_js: la,
+              _localtime_js: ma,
+              _mktime_js: pa,
+              _mmap_js: _a,
+              _msync_js: fa,
+              _munmap_js: ga,
+              _tzset_js: ya,
+              abort: Ca,
+              call_init_capture_driver_js_sync: it,
+              call_init_playback_driver_js_sync: ut,
+              call_sendto: at,
+              call_start_capture_js_sync: lt,
+              call_start_desktop_capture_js_sync: pt,
+              call_start_playback_js_sync: ct,
+              call_start_video_capture_js_sync: ft,
+              call_stop_capture_js_sync: st,
+              call_stop_desktop_capture_js_sync: _t,
+              call_stop_playback_js_sync: dt,
+              call_stop_video_capture_js_sync: gt,
+              emscripten_asm_const_async_on_main_thread: La,
+              emscripten_asm_const_double: ka,
+              emscripten_asm_const_int: Ia,
+              emscripten_async_call: wa,
+              emscripten_check_blocking_allowed: Aa,
+              emscripten_console_error: Fa,
+              emscripten_date_now: Oa,
+              emscripten_exit_with_live_runtime: Ba,
+              emscripten_get_heap_max: qa,
+              emscripten_get_now: Pa,
+              emscripten_num_logical_cores: Ua,
+              emscripten_receive_on_main_thread_js: Ha,
+              emscripten_resize_heap: za,
+              emscripten_runtime_keepalive_pop: ja,
+              emscripten_runtime_keepalive_push: Ka,
+              environ_get: Za,
+              environ_sizes_get: ei,
+              exit: tn,
+              fd_close: ti,
+              fd_pread: ri,
+              fd_pwrite: ai,
+              fd_read: ii,
+              fd_seek: li,
+              fd_sync: si,
+              fd_write: ui,
               get_bwe_ml_model_path_js: Je,
-              get_persistent_directory_path_js: Ye,
-              get_random_bytes_js: Ze,
-              getentropy: Za,
-              gethostbyname: ai,
-              invoke_d: Mu,
-              invoke_diii: Wu,
-              invoke_fii: vs,
-              invoke_fiii: Bu,
-              invoke_i: Dl,
-              invoke_ii: $l,
-              invoke_iid: $u,
-              invoke_iidi: Au,
-              invoke_iidii: Su,
-              invoke_iidjjjidjjjdjjji: ds,
-              invoke_iidjjjii: Cs,
-              invoke_iidjjjiii: ps,
-              invoke_iif: ou,
-              invoke_iiffiii: Rs,
-              invoke_iiffiiiii: Ss,
-              invoke_iifi: au,
-              invoke_iii: Pl,
-              invoke_iiii: Ml,
-              invoke_iiiidd: ku,
-              invoke_iiiifiii: Ts,
-              invoke_iiiifiiiiii: $s,
-              invoke_iiiii: Bl,
-              invoke_iiiiid: Fu,
-              invoke_iiiiii: Hl,
-              invoke_iiiiiii: wl,
-              invoke_iiiiiiii: Ul,
-              invoke_iiiiiiiii: Fl,
-              invoke_iiiiiiiiii: ql,
-              invoke_iiiiiiiiiiffiii: Ls,
-              invoke_iiiiiiiiiii: es,
-              invoke_iiiiiiiiiiii: xs,
-              invoke_iiiiiiiiiiiiffiii: Is,
-              invoke_iiiiiiiiiiiii: Ps,
-              invoke_iiiiiiiiiiiiii: Ql,
-              invoke_iiiiiiiiiiiiiiffiiiii: Ds,
-              invoke_iiiiiiiiiiiiiii: Nu,
-              invoke_iiiiiiiiiiiiiiiffiiiii: Es,
-              invoke_iiiiiiiiiiiiiiiiiffiiiii: ks,
-              invoke_iiiiiiiiiiiiiiiiii: Xl,
-              invoke_iiiiiiiiiiji: os,
-              invoke_iiiiiiiiij: zs,
-              invoke_iiiiiiiij: Vs,
-              invoke_iiiiiiij: ws,
-              invoke_iiiiiiijjii: eu,
-              invoke_iiiiiij: Hs,
-              invoke_iiiiiijiiii: js,
-              invoke_iiiiiijjijiiiiiiiiii: nu,
-              invoke_iiiiij: yu,
-              invoke_iiiiijjii: hs,
-              invoke_iiiiijjiii: ys,
-              invoke_iiiiijjjii: fs,
-              invoke_iiiiijjjiii: gs,
-              invoke_iiiij: qs,
-              invoke_iiiijiii: bu,
-              invoke_iiiijiiji: us,
-              invoke_iiiijjii: bs,
-              invoke_iiiijjiii: _s,
-              invoke_iiij: Ws,
-              invoke_iiijddddddd: _u,
-              invoke_iiiji: rs,
-              invoke_iiijii: ts,
-              invoke_iiijiiji: ss,
-              invoke_iiijji: ls,
-              invoke_iiijjiiii: uu,
-              invoke_iij: Zs,
-              invoke_iiji: Iu,
-              invoke_iijii: Gs,
-              invoke_iijiii: hu,
-              invoke_iijijijiji: xu,
-              invoke_iijj: du,
-              invoke_iijjjiiii: lu,
-              invoke_iijjjj: iu,
-              invoke_iijjjji: pu,
-              invoke_ij: vu,
-              invoke_iji: Tu,
-              invoke_j: Yl,
-              invoke_ji: Ns,
-              invoke_jii: tu,
-              invoke_jiii: Wl,
-              invoke_jiiii: Ou,
-              invoke_jiiiiiiii: Us,
-              invoke_jiiiiiji: Ks,
-              invoke_jiij: mu,
-              invoke_jij: ru,
-              invoke_v: Nl,
-              invoke_vd: wu,
-              invoke_vi: Al,
+              get_ml_model_path_for_type_js: Ze,
+              get_random_bytes_js: et,
+              getentropy: ci,
+              gethostbyname: gi,
+              invoke_d: ec,
+              invoke_ddi: wu,
+              invoke_diii: ac,
+              invoke_fi: lu,
+              invoke_fii: Cs,
+              invoke_fiii: oc,
+              invoke_fiiiiii: Lu,
+              invoke_i: Ml,
+              invoke_id: uu,
+              invoke_idi: Bs,
+              invoke_ii: kl,
+              invoke_iid: Fs,
+              invoke_iidi: Ws,
+              invoke_iidii: iu,
+              invoke_iidjjjidjjjdjjji: us,
+              invoke_iidjjjii: hs,
+              invoke_iidjjjiii: ds,
+              invoke_iiffiii: vs,
+              invoke_iiffiiiii: bs,
+              invoke_iifi: pu,
+              invoke_iifii: Ru,
+              invoke_iifiii: su,
+              invoke_iii: Il,
+              invoke_iiid: Yu,
+              invoke_iiifi: Eu,
+              invoke_iiii: Ll,
+              invoke_iiiidd: $u,
+              invoke_iiiifiii: ks,
+              invoke_iiiifiiiiii: Ds,
+              invoke_iiiii: Nl,
+              invoke_iiiiid: nc,
+              invoke_iiiiii: Fl,
+              invoke_iiiiiii: xl,
+              invoke_iiiiiiiddiiid: ju,
+              invoke_iiiiiiii: Al,
+              invoke_iiiiiiiidi: Qu,
+              invoke_iiiiiiiifii: au,
+              invoke_iiiiiiiii: wl,
+              invoke_iiiiiiiiii: Ol,
+              invoke_iiiiiiiiiiffiii: Ss,
+              invoke_iiiiiiiiiii: Wl,
+              invoke_iiiiiiiiiiii: Bl,
+              invoke_iiiiiiiiiiiiffiii: Es,
+              invoke_iiiiiiiiiiiii: xs,
+              invoke_iiiiiiiiiiiiii: jl,
+              invoke_iiiiiiiiiiiiiiffiiiii: Is,
+              invoke_iiiiiiiiiiiiiii: Ms,
+              invoke_iiiiiiiiiiiiiiiffiiiii: Rs,
+              invoke_iiiiiiiiiiiiiiii: zl,
+              invoke_iiiiiiiiiiiiiiiiiffiiiii: Ls,
+              invoke_iiiiiiiiiiiiiiiiii: Kl,
+              invoke_iiiiiiiiiiiiiiiiiiiiiiiiiiii: zu,
+              invoke_iiiiiiiiiiji: ns,
+              invoke_iiiiiiiiij: qu,
+              invoke_iiiiiiiiijiiiiiiiiii: Nu,
+              invoke_iiiiiiiij: Bu,
+              invoke_iiiiiiij: Ys,
+              invoke_iiiiiiijjii: Pu,
+              invoke_iiiiiij: Us,
+              invoke_iiiiiijiiii: Uu,
+              invoke_iiiiij: Ju,
+              invoke_iiiiiji: Au,
+              invoke_iiiiijjii: fs,
+              invoke_iiiiijjiii: gs,
+              invoke_iiiiijjjii: ps,
+              invoke_iiiiijjjiii: _s,
+              invoke_iiiij: Ns,
+              invoke_iiiijiii: ku,
+              invoke_iiiijiiji: ls,
+              invoke_iiiijjii: ys,
+              invoke_iiiijjiii: ms,
+              invoke_iiij: Ks,
+              invoke_iiijddddddd: gu,
+              invoke_iiiji: ts,
+              invoke_iiijii: Zl,
+              invoke_iiijiiji: is,
+              invoke_iiijji: as,
+              invoke_iiijjiiii: Cu,
+              invoke_iij: Ps,
+              invoke_iiji: xu,
+              invoke_iijii: Wu,
+              invoke_iijiii: nu,
+              invoke_iijijijiji: Gu,
+              invoke_iijj: ou,
+              invoke_iijjjiiii: hu,
+              invoke_iijjjj: _u,
+              invoke_iijjjji: fu,
+              invoke_ij: eu,
+              invoke_iji: Os,
+              invoke_j: Ql,
+              invoke_ji: Jl,
+              invoke_jii: qs,
+              invoke_jiii: As,
+              invoke_jiiii: rc,
+              invoke_jiiiii: Hu,
+              invoke_jiiiiiiii: Ou,
+              invoke_jiiiiiji: Vu,
+              invoke_jiij: vu,
+              invoke_jij: Js,
+              invoke_jj: Vs,
+              invoke_v: Tl,
+              invoke_vd: Zu,
+              invoke_vi: $l,
               invoke_vid: Du,
-              invoke_viddjjii: su,
-              invoke_vif: Ms,
-              invoke_vii: xl,
-              invoke_viid: Cu,
-              invoke_viif: Uu,
-              invoke_viii: Tl,
-              invoke_viiii: Ol,
-              invoke_viiiii: Vl,
-              invoke_viiiiii: Kl,
-              invoke_viiiiiidiii: is,
-              invoke_viiiiiii: jl,
-              invoke_viiiiiiiddiii: ns,
-              invoke_viiiiiiii: zl,
-              invoke_viiiiiiiii: Gl,
-              invoke_viiiiiiiiii: as,
-              invoke_viiiiiiiiiiii: Bs,
-              invoke_viiiiiiiiiiiii: Lu,
-              invoke_viiiiiiiiiiiiiii: qu,
-              invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: fu,
-              invoke_viiiiiiij: Ru,
-              invoke_viiiiiji: Pu,
-              invoke_viiij: Qs,
-              invoke_viiiji: cs,
-              invoke_viij: Os,
-              invoke_viiji: Xs,
-              invoke_viijii: Ys,
-              invoke_viijiiii: Js,
-              invoke_viijj: Eu,
-              invoke_viijjdiii: ms,
-              invoke_vij: As,
-              invoke_viji: gu,
-              invoke_vijiiiii: Jl,
-              invoke_vijj: Fs,
-              invoke_vijji: cu,
-              invoke_vjiiiiii: Zl,
-              is_participant_known_contact_js: et,
-              llvm_eh_typeid_for: ii,
-              loggingCallback_js_sync: ft,
-              memory: W || y.wasmMemory,
-              on_call_event_js_sync: Ke,
-              patch_abort_for_ml_inference: Xe,
-              pj_sock_accept: li,
-              pj_sock_connect: si,
-              query_browser_audio_processing_status_js_sync: ct,
-              renderVideoFrame_js: tt,
-              sendSignalingXMPP_js_sync: nt,
-              set_ml_inference_flag: Qe,
-              strftime_l: fi,
+              invoke_viddjjii: yu,
+              invoke_vif: ru,
+              invoke_viff: Qs,
+              invoke_vii: Dl,
+              invoke_viid: lc,
+              invoke_viiddd: tc,
+              invoke_viidi: Ku,
+              invoke_viif: Xs,
+              invoke_viii: El,
+              invoke_viiii: Pl,
+              invoke_viiiii: Ul,
+              invoke_viiiiii: ql,
+              invoke_viiiiiidiii: os,
+              invoke_viiiiiii: Gl,
+              invoke_viiiiiiiddiii: es,
+              invoke_viiiiiiii: Hl,
+              invoke_viiiiiiiii: Vl,
+              invoke_viiiiiiiiii: rs,
+              invoke_viiiiiiiiiiii: zs,
+              invoke_viiiiiiiiiiiii: cu,
+              invoke_viiiiiiiiiiiiiii: ic,
+              invoke_viiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: mu,
+              invoke_viiiiiiij: du,
+              invoke_viiiiij: Hs,
+              invoke_viiiiiji: Xu,
+              invoke_viiiij: Gs,
+              invoke_viiiijiiii: Ts,
+              invoke_viiij: Mu,
+              invoke_viiiji: ss,
+              invoke_viij: js,
+              invoke_viiji: Su,
+              invoke_viijii: Iu,
+              invoke_viijiiii: Tu,
+              invoke_viijj: Fu,
+              invoke_viijjdiii: cs,
+              invoke_viijji: ws,
+              invoke_vij: $s,
+              invoke_viji: tu,
+              invoke_vijiiiii: Xl,
+              invoke_vijj: Zs,
+              invoke_vijji: bu,
+              invoke_vjiiiiii: Yl,
+              is_participant_known_contact_js: tt,
+              llvm_eh_typeid_for: hi,
+              loggingCallback_js_sync: ot,
+              memory: q || C.wasmMemory,
+              on_call_event_js_sync: Qe,
+              query_browser_audio_processing_status_js_sync: mt,
+              renderVideoFrame_js: nt,
+              sendSignalingXMPP_js_sync: rt,
+              set_ml_inference_flag: Xe,
+              strftime_l: Li,
+              write_persistent_directory_path_js: Ye,
             },
-            Bi = Be(),
-            Wi = xe("__wasm_call_ctors"),
-            qi = xe("__cxa_free_exception"),
-            Ui = (y._malloc = xe("malloc")),
-            Vi = (y._free = xe("free")),
-            Hi = (y._wasm_throw_ml_abort = xe("wasm_throw_ml_abort")),
-            Gi = (y._fflush = xe("fflush")),
-            zi = xe("__errno_location"),
-            ji = xe("htons"),
-            Ki = xe("htonl"),
-            Qi = xe("ntohs"),
-            Xi = (y._pthread_self = function () {
-              return (Xi = y._pthread_self = q.pthread_self)();
+            Ni = We(),
+            Mi = $e("__wasm_call_ctors"),
+            wi = $e("__cxa_free_exception"),
+            Ai = (C._wasm_throw_ml_abort = $e("wasm_throw_ml_abort")),
+            Fi = (C._free = $e("free")),
+            Oi = (C._malloc = $e("malloc")),
+            Bi = (C._fflush = $e("fflush")),
+            Wi = $e("__errno_location"),
+            qi = (C._pthread_self = function () {
+              return (qi = C._pthread_self = U.pthread_self)();
             }),
-            Yi = (y.__emscripten_tls_init = xe("_emscripten_tls_init")),
-            Ji = xe("emscripten_builtin_memalign"),
-            Zi = xe("__getTypeName"),
-            el = (y.__embind_initialize_bindings = xe(
+            Ui = $e("ntohs"),
+            Vi = $e("htons"),
+            Hi = $e("htonl"),
+            Gi =
+              (C.__ZN5folly15SharedMutexImplILb1EvNSt3__26atomicENS_24SharedMutexPolicyDefaultEE25wakeRegisteredWaitersImplERjj =
+                $e(
+                  "_ZN5folly15SharedMutexImplILb1EvNSt3__26atomicENS_24SharedMutexPolicyDefaultEE25wakeRegisteredWaitersImplERjj",
+                )),
+            zi =
+              (C.__ZN5folly15SharedMutexImplILb0EvNSt3__26atomicENS_24SharedMutexPolicyDefaultEE25wakeRegisteredWaitersImplERjj =
+                $e(
+                  "_ZN5folly15SharedMutexImplILb0EvNSt3__26atomicENS_24SharedMutexPolicyDefaultEE25wakeRegisteredWaitersImplERjj",
+                )),
+            ji = $e("__cxa_increment_exception_refcount"),
+            Ki = $e("__cxa_decrement_exception_refcount"),
+            Qi = (C.__emscripten_tls_init = $e("_emscripten_tls_init")),
+            Xi = $e("emscripten_builtin_memalign"),
+            Yi = $e("__getTypeName"),
+            Ji = (C.__embind_initialize_bindings = $e(
               "_embind_initialize_bindings",
             )),
-            tl = (y.__emscripten_thread_init = xe("_emscripten_thread_init")),
-            nl = (y.__emscripten_thread_crashed = xe(
+            Zi = (C.__emscripten_thread_init = $e("_emscripten_thread_init")),
+            el = (C.__emscripten_thread_crashed = $e(
               "_emscripten_thread_crashed",
             )),
-            rl = xe("emscripten_main_thread_process_queued_calls"),
-            ol = xe("emscripten_main_runtime_thread_id"),
-            al = xe("_emscripten_run_in_main_runtime_thread_js"),
-            il = xe("emscripten_dispatch_to_thread_"),
-            ll = function () {
-              return (ll = q.emscripten_stack_get_base)();
+            tl = $e("emscripten_main_thread_process_queued_calls"),
+            nl = $e("emscripten_main_runtime_thread_id"),
+            rl = $e("_emscripten_run_in_main_runtime_thread_js"),
+            ol = $e("emscripten_dispatch_to_thread_"),
+            al = function () {
+              return (al = U.emscripten_stack_get_base)();
             },
-            sl = function () {
-              return (sl = q.emscripten_stack_get_end)();
+            il = function () {
+              return (il = U.emscripten_stack_get_end)();
             },
-            ul = xe("_emscripten_thread_free_data"),
-            cl = (y.__emscripten_thread_exit = xe("_emscripten_thread_exit")),
-            dl = (y.__emscripten_check_mailbox = xe(
+            ll = $e("_emscripten_thread_free_data"),
+            sl = (C.__emscripten_thread_exit = $e("_emscripten_thread_exit")),
+            ul = (C.__emscripten_check_mailbox = $e(
               "_emscripten_check_mailbox",
             )),
-            ml = xe("setThrew"),
-            pl = xe("setTempRet0"),
+            cl = $e("setThrew"),
+            dl = $e("setTempRet0"),
+            ml = function () {
+              return (ml = U.emscripten_stack_init)();
+            },
+            pl = function (t, n) {
+              return (pl = U.emscripten_stack_set_limits)(t, n);
+            },
             _l = function () {
-              return (_l = q.emscripten_stack_init)();
+              return (_l = U.emscripten_stack_get_free)();
             },
-            fl = function (t, n) {
-              return (fl = q.emscripten_stack_set_limits)(t, n);
+            fl = $e("stackSave"),
+            gl = $e("stackRestore"),
+            hl = $e("stackAlloc"),
+            yl = function () {
+              return (yl = U.emscripten_stack_get_current)();
             },
-            gl = function () {
-              return (gl = q.emscripten_stack_get_free)();
-            },
-            hl = xe("stackSave"),
-            yl = xe("stackRestore"),
-            Cl = xe("stackAlloc"),
-            bl = function () {
-              return (bl = q.emscripten_stack_get_current)();
-            },
-            vl = xe("__cxa_decrement_exception_refcount"),
-            Sl = xe("__cxa_increment_exception_refcount"),
-            Rl = (y.___get_exception_message = xe("__get_exception_message")),
-            Ll = xe("__cxa_can_catch"),
-            El = xe("__cxa_is_pointer_type"),
-            kl = (y.___start_em_js = 1310124),
-            Il = (y.___stop_em_js = 1315419);
-          function Tl(e, t, n, r) {
-            var o = hl();
+            Cl = (C.___get_exception_message = $e("__get_exception_message")),
+            bl = $e("__cxa_can_catch"),
+            vl = $e("__cxa_is_pointer_type"),
+            Sl = (C.___start_em_js = 1512140),
+            Rl = (C.___stop_em_js = 1518082);
+          function Ll(e, t, n, r) {
+            var o = fl();
             try {
-              dn(e)(t, n, r);
+              return mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Dl(e) {
-            var t = hl();
+          function El(e, t, n, r) {
+            var o = fl();
             try {
-              return dn(e)();
+              mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(t), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function xl(e, t, n) {
-            var r = hl();
+          function kl(e, t) {
+            var n = fl();
             try {
-              dn(e)(t, n);
+              return mn(e)(t);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(n), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Il(e, t, n) {
+            var r = fl();
+            try {
+              return mn(e)(t, n);
+            } catch (e) {
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Tl(e) {
+            var t = fl();
+            try {
+              mn(e)();
+            } catch (e) {
+              if ((gl(t), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Dl(e, t, n) {
+            var r = fl();
+            try {
+              mn(e)(t, n);
+            } catch (e) {
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function xl(e, t, n, r, o, a, i) {
+            var l = fl();
+            try {
+              return mn(e)(t, n, r, o, a, i);
+            } catch (e) {
+              if ((gl(l), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
           function $l(e, t) {
-            var n = hl();
+            var n = fl();
             try {
-              return dn(e)(t);
+              mn(e)(t);
             } catch (e) {
-              if ((yl(n), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(n), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Pl(e, t, n) {
-            var r = hl();
+          function Pl(e, t, n, r, o) {
+            var a = fl();
             try {
-              return dn(e)(t, n);
+              mn(e)(t, n, r, o);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Nl(e) {
-            var t = hl();
+          function Nl(e, t, n, r, o) {
+            var a = fl();
             try {
-              dn(e)();
+              return mn(e)(t, n, r, o);
             } catch (e) {
-              if ((yl(t), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ml(e, t, n, r) {
-            var o = hl();
+          function Ml(e) {
+            var t = fl();
             try {
-              return dn(e)(t, n, r);
+              return mn(e)();
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(t), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function wl(e, t, n, r, o, a, i) {
-            var l = hl();
+          function wl(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
             try {
-              return dn(e)(t, n, r, o, a, i);
+              return mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(l), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Al(e, t) {
-            var n = hl();
+          function Al(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              dn(e)(t);
+              return mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(n), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Fl(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function Fl(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ol(e, t, n, r, o) {
-            var a = hl();
+          function Ol(e, t, n, r, o, a, i, l, s, u) {
+            var c = fl();
             try {
-              dn(e)(t, n, r, o);
+              return mn(e)(t, n, r, o, a, i, l, s, u);
             } catch (e) {
-              if ((yl(a), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(c), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Bl(e, t, n, r, o) {
-            var a = hl();
+          function Bl(e, t, n, r, o, a, i, l, s, u, c, d) {
+            var m = fl();
             try {
-              return dn(e)(t, n, r, o);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c, d);
             } catch (e) {
-              if ((yl(a), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(m), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Wl(e, t, n, r) {
-            var o = hl();
+          function Wl(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = fl();
             try {
-              return dn(e)(t, n, r);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              return (ml(1, 0), BigInt(0));
+              if ((gl(d), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ql(e, t, n, r, o, a, i, l, s, u) {
-            var c = hl();
+          function ql(e, t, n, r, o, a, i) {
+            var l = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u);
+              mn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((yl(c), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(l), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ul(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function Ul(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l);
+              mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Vl(e, t, n, r, o, a) {
-            var i = hl();
+          function Vl(e, t, n, r, o, a, i, l, s, u) {
+            var c = fl();
             try {
-              dn(e)(t, n, r, o, a);
+              mn(e)(t, n, r, o, a, i, l, s, u);
             } catch (e) {
-              if ((yl(i), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(c), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Hl(e, t, n, r, o, a) {
-            var i = hl();
+          function Hl(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
             try {
-              return dn(e)(t, n, r, o, a);
+              mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(i), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Gl(e, t, n, r, o, a, i, l, s, u) {
-            var c = hl();
+          function Gl(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l, s, u);
+              mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(c), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function zl(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function zl(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
+            var g = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(g), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function jl(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function jl(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
+            var _ = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(_), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Kl(e, t, n, r, o, a, i) {
-            var l = hl();
+          function Kl(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g, h) {
+            var y = fl();
             try {
-              dn(e)(t, n, r, o, a, i);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g, h);
             } catch (e) {
-              if ((yl(l), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(y), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ql(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
-            var _ = hl();
+          function Ql(e) {
+            var t = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p);
+              return mn(e)();
             } catch (e) {
-              if ((yl(_), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(t), !(e instanceof Pe))) throw e;
+              return (cl(1, 0), BigInt(0));
             }
           }
-          function Xl(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g, h) {
-            var y = hl();
+          function Xl(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g, h);
+              mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(y), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Yl(e) {
-            var t = hl();
+          function Yl(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              return dn(e)();
+              mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(t), !(e instanceof $e))) throw e;
-              return (ml(1, 0), BigInt(0));
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Jl(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function Jl(e, t) {
+            var n = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(n), !(e instanceof Pe))) throw e;
+              return (cl(1, 0), BigInt(0));
             }
           }
-          function Zl(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function Zl(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function es(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = hl();
+          function es(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+            var p = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c);
+              mn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
             } catch (e) {
-              if ((yl(d), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(p), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ts(e, t, n, r, o, a) {
-            var i = hl();
+          function ts(e, t, n, r, o) {
+            var a = fl();
             try {
-              return dn(e)(t, n, r, o, a);
+              return mn(e)(t, n, r, o);
             } catch (e) {
-              if ((yl(i), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ns(e, t, n, r, o, a, i, l, s, u, c, d, m) {
-            var p = hl();
+          function ns(e, t, n, r, o, a, i, l, s, u, c, d) {
+            var m = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c, d);
             } catch (e) {
-              if ((yl(p), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(m), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function rs(e, t, n, r, o) {
-            var a = hl();
+          function rs(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = fl();
             try {
-              return dn(e)(t, n, r, o);
+              mn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((yl(a), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(d), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function os(e, t, n, r, o, a, i, l, s, u, c, d) {
-            var m = hl();
+          function os(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c, d);
+              mn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((yl(m), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(d), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function as(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = hl();
+          function as(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l, s, u, c);
+              return mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(d), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function is(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = hl();
+          function is(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l, s, u, c);
+              return mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(d), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ls(e, t, n, r, o, a) {
-            var i = hl();
+          function ls(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
             try {
-              return dn(e)(t, n, r, o, a);
+              return mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(i), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ss(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function ss(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l);
+              mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function us(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function us(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
+            var g = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(g), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function cs(e, t, n, r, o, a) {
-            var i = hl();
+          function cs(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
             try {
-              dn(e)(t, n, r, o, a);
+              mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(i), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ds(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
-            var g = hl();
+          function ds(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
+              return mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(g), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
           function ms(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+            var u = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ps(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function ps(e, t, n, r, o, a, i, l, s, u) {
+            var c = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t, n, r, o, a, i, l, s, u);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(c), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function _s(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function _s(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(d), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function fs(e, t, n, r, o, a, i, l, s, u) {
-            var c = hl();
+          function fs(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u);
+              return mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(c), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function gs(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = hl();
+          function gs(e, t, n, r, o, a, i, l, s, u) {
+            var c = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c);
+              return mn(e)(t, n, r, o, a, i, l, s, u);
             } catch (e) {
-              if ((yl(d), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(c), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function hs(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function hs(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ys(e, t, n, r, o, a, i, l, s, u) {
-            var c = hl();
+          function ys(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u);
+              return mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(c), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Cs(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function Cs(e, t, n) {
+            var r = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t, n);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function bs(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function bs(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function vs(e, t, n) {
-            var r = hl();
+          function vs(e, t, n, r, o, a, i) {
+            var l = fl();
             try {
-              return dn(e)(t, n);
+              return mn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(l), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ss(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function Ss(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _) {
+            var f = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(f), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Rs(e, t, n, r, o, a, i) {
-            var l = hl();
-            try {
-              return dn(e)(t, n, r, o, a, i);
-            } catch (e) {
-              if ((yl(l), !(e instanceof $e))) throw e;
-              ml(1, 0);
-            }
-          }
-          function Ls(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _) {
-            var f = hl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _);
-            } catch (e) {
-              if ((yl(f), !(e instanceof $e))) throw e;
-              ml(1, 0);
-            }
-          }
-          function Es(
+          function Rs(
             e,
             t,
             n,
@@ -8252,9 +8360,9 @@ __d(
             b,
             v,
           ) {
-            var S = hl();
+            var S = fl();
             try {
-              return dn(e)(
+              return mn(e)(
                 t,
                 n,
                 r,
@@ -8278,11 +8386,11 @@ __d(
                 v,
               );
             } catch (e) {
-              if ((yl(S), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(S), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ks(
+          function Ls(
             e,
             t,
             n,
@@ -8308,9 +8416,9 @@ __d(
             S,
             R,
           ) {
-            var L = hl();
+            var L = fl();
             try {
-              return dn(e)(
+              return mn(e)(
                 t,
                 n,
                 r,
@@ -8336,29 +8444,29 @@ __d(
                 R,
               );
             } catch (e) {
-              if ((yl(L), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(L), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Is(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g) {
-            var h = hl();
+          function Es(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g) {
+            var h = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f, g);
             } catch (e) {
-              if ((yl(h), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(h), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ts(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function ks(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ds(
+          function Is(
             e,
             t,
             n,
@@ -8381,9 +8489,9 @@ __d(
             C,
             b,
           ) {
-            var v = hl();
+            var v = fl();
             try {
-              return dn(e)(
+              return mn(e)(
                 t,
                 n,
                 r,
@@ -8406,403 +8514,353 @@ __d(
                 b,
               );
             } catch (e) {
-              if ((yl(v), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(v), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function xs(e, t, n, r, o, a, i, l, s, u, c, d) {
-            var m = hl();
+          function Ts(e, t, n, r, o, a, i, l, s, u) {
+            var c = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c, d);
+              mn(e)(t, n, r, o, a, i, l, s, u);
             } catch (e) {
-              if ((yl(m), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(c), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function $s(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = hl();
+          function Ds(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((yl(d), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(d), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ps(e, t, n, r, o, a, i, l, s, u, c, d, m) {
-            var p = hl();
+          function xs(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+            var p = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
             } catch (e) {
-              if ((yl(p), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(p), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ns(e, t) {
-            var n = hl();
+          function $s(e, t, n) {
+            var r = fl();
             try {
-              return dn(e)(t);
+              mn(e)(t, n);
             } catch (e) {
-              if ((yl(n), !(e instanceof $e))) throw e;
-              return (ml(1, 0), BigInt(0));
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ms(e, t, n) {
-            var r = hl();
+          function Ps(e, t, n) {
+            var r = fl();
             try {
-              dn(e)(t, n);
+              return mn(e)(t, n);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ws(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function Ns(e, t, n, r, o) {
+            var a = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t, n, r, o);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function As(e, t, n) {
-            var r = hl();
+          function Ms(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _) {
+            var f = fl();
             try {
-              dn(e)(t, n);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(f), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Fs(e, t, n, r) {
-            var o = hl();
+          function ws(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              dn(e)(t, n, r);
+              mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Os(e, t, n, r) {
-            var o = hl();
+          function As(e, t, n, r) {
+            var o = fl();
             try {
-              dn(e)(t, n, r);
+              return mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              return (cl(1, 0), BigInt(0));
             }
           }
-          function Bs(e, t, n, r, o, a, i, l, s, u, c, d, m) {
-            var p = hl();
+          function Fs(e, t, n) {
+            var r = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
+              return mn(e)(t, n);
             } catch (e) {
-              if ((yl(p), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Os(e, t, n) {
+            var r = fl();
+            try {
+              return mn(e)(t, n);
+            } catch (e) {
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Bs(e, t, n) {
+            var r = fl();
+            try {
+              return mn(e)(t, n);
+            } catch (e) {
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
           function Ws(e, t, n, r) {
-            var o = hl();
+            var o = fl();
             try {
-              return dn(e)(t, n, r);
+              return mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function qs(e, t, n, r, o) {
-            var a = hl();
+          function qs(e, t, n) {
+            var r = fl();
             try {
-              return dn(e)(t, n, r, o);
+              return mn(e)(t, n);
             } catch (e) {
-              if ((yl(a), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              return (cl(1, 0), BigInt(0));
             }
           }
-          function Us(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function Us(e, t, n, r, o, a, i) {
+            var l = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              return (ml(1, 0), BigInt(0));
+              if ((gl(l), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Vs(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function Vs(e, t) {
+            var n = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(n), !(e instanceof Pe))) throw e;
+              return (cl(1, 0), BigInt(0));
             }
           }
           function Hs(e, t, n, r, o, a, i) {
-            var l = hl();
+            var l = fl();
             try {
-              return dn(e)(t, n, r, o, a, i);
+              mn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((yl(l), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(l), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Gs(e, t, n, r, o) {
-            var a = hl();
+          function Gs(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              return dn(e)(t, n, r, o);
+              mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(a), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function zs(e, t, n, r, o, a, i, l, s, u) {
-            var c = hl();
+          function zs(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+            var p = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u);
+              mn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
             } catch (e) {
-              if ((yl(c), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(p), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function js(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = hl();
+          function js(e, t, n, r) {
+            var o = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c);
+              mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(d), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ks(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function Ks(e, t, n, r) {
+            var o = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              return (ml(1, 0), BigInt(0));
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Qs(e, t, n, r, o) {
-            var a = hl();
+          function Qs(e, t, n, r) {
+            var o = fl();
             try {
-              dn(e)(t, n, r, o);
+              mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(a), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Xs(e, t, n, r, o) {
-            var a = hl();
+          function Xs(e, t, n, r) {
+            var o = fl();
             try {
-              dn(e)(t, n, r, o);
+              mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(a), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ys(e, t, n, r, o, a) {
-            var i = hl();
+          function Ys(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              dn(e)(t, n, r, o, a);
+              return mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(i), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Js(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function Js(e, t, n) {
+            var r = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t, n);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              return (cl(1, 0), BigInt(0));
             }
           }
-          function Zs(e, t, n) {
-            var r = hl();
+          function Zs(e, t, n, r) {
+            var o = fl();
             try {
-              return dn(e)(t, n);
+              mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function eu(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = hl();
+          function eu(e, t) {
+            var n = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c);
+              return mn(e)(t);
             } catch (e) {
-              if ((yl(d), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(n), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function tu(e, t, n) {
-            var r = hl();
+          function tu(e, t, n, r) {
+            var o = fl();
             try {
-              return dn(e)(t, n);
+              mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              return (ml(1, 0), BigInt(0));
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function nu(
-            e,
-            t,
-            n,
-            r,
-            o,
-            a,
-            i,
-            l,
-            s,
-            u,
-            c,
-            d,
-            m,
-            p,
-            _,
-            f,
-            g,
-            h,
-            y,
-            C,
-          ) {
-            var b = hl();
+          function nu(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              return dn(e)(
-                t,
-                n,
-                r,
-                o,
-                a,
-                i,
-                l,
-                s,
-                u,
-                c,
-                d,
-                m,
-                p,
-                _,
-                f,
-                g,
-                h,
-                y,
-                C,
-              );
+              return mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(b), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
           function ru(e, t, n) {
-            var r = hl();
+            var r = fl();
             try {
-              return dn(e)(t, n);
+              mn(e)(t, n);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              return (ml(1, 0), BigInt(0));
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ou(e, t, n) {
-            var r = hl();
+          function ou(e, t, n, r) {
+            var o = fl();
             try {
-              return dn(e)(t, n);
+              return mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function au(e, t, n, r) {
-            var o = hl();
+          function au(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = fl();
             try {
-              return dn(e)(t, n, r);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(d), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function iu(e, t, n, r, o, a) {
-            var i = hl();
+          function iu(e, t, n, r, o) {
+            var a = fl();
             try {
-              return dn(e)(t, n, r, o, a);
+              return mn(e)(t, n, r, o);
             } catch (e) {
-              if ((yl(i), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function lu(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function lu(e, t) {
+            var n = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(n), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function su(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function su(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function uu(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function uu(e, t) {
+            var n = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(n), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function cu(e, t, n, r, o) {
-            var a = hl();
+          function cu(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
+            var _ = fl();
             try {
-              dn(e)(t, n, r, o);
+              mn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p);
             } catch (e) {
-              if ((yl(a), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(_), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function du(e, t, n, r) {
-            var o = hl();
+          function du(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
             try {
-              return dn(e)(t, n, r);
+              mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function mu(e, t, n, r) {
-            var o = hl();
-            try {
-              return dn(e)(t, n, r);
-            } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              return (ml(1, 0), BigInt(0));
-            }
-          }
-          function pu(e, t, n, r, o, a, i) {
-            var l = hl();
-            try {
-              return dn(e)(t, n, r, o, a, i);
-            } catch (e) {
-              if ((yl(l), !(e instanceof $e))) throw e;
-              ml(1, 0);
-            }
-          }
-          function _u(e, t, n, r, o, a, i, l, s, u, c) {
-            var d = hl();
-            try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c);
-            } catch (e) {
-              if ((yl(d), !(e instanceof $e))) throw e;
-              ml(1, 0);
-            }
-          }
-          function fu(
+          function mu(
             e,
             t,
             n,
@@ -8836,9 +8894,9 @@ __d(
             x,
             $,
           ) {
-            var P = hl();
+            var P = fl();
             try {
-              dn(e)(
+              mn(e)(
                 t,
                 n,
                 r,
@@ -8872,266 +8930,558 @@ __d(
                 $,
               );
             } catch (e) {
-              if ((yl(P), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(P), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function gu(e, t, n, r) {
-            var o = hl();
+          function pu(e, t, n, r) {
+            var o = fl();
             try {
-              dn(e)(t, n, r);
+              return mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function hu(e, t, n, r, o, a) {
-            var i = hl();
+          function _u(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              return dn(e)(t, n, r, o, a);
+              return mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(i), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function yu(e, t, n, r, o, a) {
-            var i = hl();
+          function fu(e, t, n, r, o, a, i) {
+            var l = fl();
             try {
-              return dn(e)(t, n, r, o, a);
+              return mn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((yl(i), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(l), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Cu(e, t, n, r) {
-            var o = hl();
+          function gu(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = fl();
             try {
-              dn(e)(t, n, r);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(d), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function bu(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function hu(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function vu(e, t) {
-            var n = hl();
+          function yu(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              return dn(e)(t);
+              mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(n), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Cu(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
+            try {
+              return mn(e)(t, n, r, o, a, i, l, s);
+            } catch (e) {
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function bu(e, t, n, r, o) {
+            var a = fl();
+            try {
+              mn(e)(t, n, r, o);
+            } catch (e) {
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function vu(e, t, n, r) {
+            var o = fl();
+            try {
+              return mn(e)(t, n, r);
+            } catch (e) {
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              return (cl(1, 0), BigInt(0));
             }
           }
           function Su(e, t, n, r, o) {
-            var a = hl();
+            var a = fl();
             try {
-              return dn(e)(t, n, r, o);
+              mn(e)(t, n, r, o);
             } catch (e) {
-              if ((yl(a), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ru(e, t, n, r, o, a, i, l, s) {
-            var u = hl();
+          function Ru(e, t, n, r, o) {
+            var a = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l, s);
+              return mn(e)(t, n, r, o);
             } catch (e) {
-              if ((yl(u), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Lu(e, t, n, r, o, a, i, l, s, u, c, d, m, p) {
-            var _ = hl();
+          function Lu(e, t, n, r, o, a, i) {
+            var l = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p);
+              return mn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((yl(_), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(l), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
           function Eu(e, t, n, r, o) {
-            var a = hl();
+            var a = fl();
             try {
-              dn(e)(t, n, r, o);
+              return mn(e)(t, n, r, o);
             } catch (e) {
-              if ((yl(a), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function ku(e, t, n, r, o, a) {
-            var i = hl();
+          function ku(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              return dn(e)(t, n, r, o, a);
+              return mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(i), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Iu(e, t, n, r) {
-            var o = hl();
+          function Iu(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              return dn(e)(t, n, r);
+              mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Tu(e, t, n) {
-            var r = hl();
+          function Tu(e, t, n, r, o, a, i, l) {
+            var s = fl();
             try {
-              return dn(e)(t, n);
+              mn(e)(t, n, r, o, a, i, l);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
           function Du(e, t, n) {
-            var r = hl();
+            var r = fl();
             try {
-              dn(e)(t, n);
+              mn(e)(t, n);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function xu(e, t, n, r, o, a, i, l, s, u) {
-            var c = hl();
+          function xu(e, t, n, r) {
+            var o = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u);
+              return mn(e)(t, n, r);
             } catch (e) {
-              if ((yl(c), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function $u(e, t, n) {
-            var r = hl();
+          function $u(e, t, n, r, o, a) {
+            var i = fl();
             try {
-              return dn(e)(t, n);
+              return mn(e)(t, n, r, o, a);
             } catch (e) {
-              if ((yl(r), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Pu(e, t, n, r, o, a, i, l) {
-            var s = hl();
+          function Pu(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((yl(s), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(d), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Nu(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _) {
-            var f = hl();
+          function Nu(
+            e,
+            t,
+            n,
+            r,
+            o,
+            a,
+            i,
+            l,
+            s,
+            u,
+            c,
+            d,
+            m,
+            p,
+            _,
+            f,
+            g,
+            h,
+            y,
+            C,
+          ) {
+            var b = fl();
             try {
-              return dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _);
+              return mn(e)(
+                t,
+                n,
+                r,
+                o,
+                a,
+                i,
+                l,
+                s,
+                u,
+                c,
+                d,
+                m,
+                p,
+                _,
+                f,
+                g,
+                h,
+                y,
+                C,
+              );
             } catch (e) {
-              if ((yl(f), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(b), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Mu(e) {
-            var t = hl();
+          function Mu(e, t, n, r, o) {
+            var a = fl();
             try {
-              return dn(e)();
+              mn(e)(t, n, r, o);
             } catch (e) {
-              if ((yl(t), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function wu(e, t) {
-            var n = hl();
+          function wu(e, t, n) {
+            var r = fl();
             try {
-              dn(e)(t);
+              return mn(e)(t, n);
             } catch (e) {
-              if ((yl(n), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(r), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Au(e, t, n, r) {
-            var o = hl();
+          function Au(e, t, n, r, o, a, i) {
+            var l = fl();
             try {
-              return dn(e)(t, n, r);
+              return mn(e)(t, n, r, o, a, i);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(l), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Fu(e, t, n, r, o, a) {
-            var i = hl();
+          function Fu(e, t, n, r, o) {
+            var a = fl();
             try {
-              return dn(e)(t, n, r, o, a);
+              mn(e)(t, n, r, o);
             } catch (e) {
-              if ((yl(i), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Ou(e, t, n, r, o) {
-            var a = hl();
+          function Ou(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
             try {
-              return dn(e)(t, n, r, o);
+              return mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(a), !(e instanceof $e))) throw e;
-              return (ml(1, 0), BigInt(0));
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              return (cl(1, 0), BigInt(0));
             }
           }
-          function Bu(e, t, n, r) {
-            var o = hl();
+          function Bu(e, t, n, r, o, a, i, l, s) {
+            var u = fl();
             try {
-              return dn(e)(t, n, r);
+              return mn(e)(t, n, r, o, a, i, l, s);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(u), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Wu(e, t, n, r) {
-            var o = hl();
+          function Wu(e, t, n, r, o) {
+            var a = fl();
             try {
-              return dn(e)(t, n, r);
+              return mn(e)(t, n, r, o);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function qu(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
-            var g = hl();
+          function qu(e, t, n, r, o, a, i, l, s, u) {
+            var c = fl();
             try {
-              dn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
+              return mn(e)(t, n, r, o, a, i, l, s, u);
             } catch (e) {
-              if ((yl(g), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(c), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          function Uu(e, t, n, r) {
-            var o = hl();
+          function Uu(e, t, n, r, o, a, i, l, s, u, c) {
+            var d = fl();
             try {
-              dn(e)(t, n, r);
+              return mn(e)(t, n, r, o, a, i, l, s, u, c);
             } catch (e) {
-              if ((yl(o), !(e instanceof $e))) throw e;
-              ml(1, 0);
+              if ((gl(d), !(e instanceof Pe))) throw e;
+              cl(1, 0);
             }
           }
-          ((y.keepRuntimeAlive = me),
-            (y.wasmMemory = W),
-            (y.GROWABLE_HEAP_U8 = d),
-            (y.GROWABLE_HEAP_F32 = g),
-            (y.ccall = yi),
-            (y.cwrap = Ci),
-            (y.addFunction = xi),
-            (y.writeArrayToMemory = pi),
-            (y.ExitStatus = gt),
-            (y.FS = Qt),
-            (y.PThread = rn),
-            (y.registeredTypes = Zn));
-          var Vu = [
+          function Vu(e, t, n, r, o, a, i, l) {
+            var s = fl();
+            try {
+              return mn(e)(t, n, r, o, a, i, l);
+            } catch (e) {
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              return (cl(1, 0), BigInt(0));
+            }
+          }
+          function Hu(e, t, n, r, o, a) {
+            var i = fl();
+            try {
+              return mn(e)(t, n, r, o, a);
+            } catch (e) {
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              return (cl(1, 0), BigInt(0));
+            }
+          }
+          function Gu(e, t, n, r, o, a, i, l, s, u) {
+            var c = fl();
+            try {
+              return mn(e)(t, n, r, o, a, i, l, s, u);
+            } catch (e) {
+              if ((gl(c), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function zu(
+            e,
+            t,
+            n,
+            r,
+            o,
+            a,
+            i,
+            l,
+            s,
+            u,
+            c,
+            d,
+            m,
+            p,
+            _,
+            f,
+            g,
+            h,
+            y,
+            C,
+            b,
+            v,
+            S,
+            R,
+            L,
+            E,
+            k,
+            I,
+          ) {
+            var T = fl();
+            try {
+              return mn(e)(
+                t,
+                n,
+                r,
+                o,
+                a,
+                i,
+                l,
+                s,
+                u,
+                c,
+                d,
+                m,
+                p,
+                _,
+                f,
+                g,
+                h,
+                y,
+                C,
+                b,
+                v,
+                S,
+                R,
+                L,
+                E,
+                k,
+                I,
+              );
+            } catch (e) {
+              if ((gl(T), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function ju(e, t, n, r, o, a, i, l, s, u, c, d, m) {
+            var p = fl();
+            try {
+              return mn(e)(t, n, r, o, a, i, l, s, u, c, d, m);
+            } catch (e) {
+              if ((gl(p), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Ku(e, t, n, r, o) {
+            var a = fl();
+            try {
+              mn(e)(t, n, r, o);
+            } catch (e) {
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Qu(e, t, n, r, o, a, i, l, s, u) {
+            var c = fl();
+            try {
+              return mn(e)(t, n, r, o, a, i, l, s, u);
+            } catch (e) {
+              if ((gl(c), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Xu(e, t, n, r, o, a, i, l) {
+            var s = fl();
+            try {
+              mn(e)(t, n, r, o, a, i, l);
+            } catch (e) {
+              if ((gl(s), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Yu(e, t, n, r) {
+            var o = fl();
+            try {
+              return mn(e)(t, n, r);
+            } catch (e) {
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Ju(e, t, n, r, o, a) {
+            var i = fl();
+            try {
+              return mn(e)(t, n, r, o, a);
+            } catch (e) {
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function Zu(e, t) {
+            var n = fl();
+            try {
+              mn(e)(t);
+            } catch (e) {
+              if ((gl(n), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function ec(e) {
+            var t = fl();
+            try {
+              return mn(e)();
+            } catch (e) {
+              if ((gl(t), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function tc(e, t, n, r, o, a) {
+            var i = fl();
+            try {
+              mn(e)(t, n, r, o, a);
+            } catch (e) {
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function nc(e, t, n, r, o, a) {
+            var i = fl();
+            try {
+              return mn(e)(t, n, r, o, a);
+            } catch (e) {
+              if ((gl(i), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function rc(e, t, n, r, o) {
+            var a = fl();
+            try {
+              return mn(e)(t, n, r, o);
+            } catch (e) {
+              if ((gl(a), !(e instanceof Pe))) throw e;
+              return (cl(1, 0), BigInt(0));
+            }
+          }
+          function oc(e, t, n, r) {
+            var o = fl();
+            try {
+              return mn(e)(t, n, r);
+            } catch (e) {
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function ac(e, t, n, r) {
+            var o = fl();
+            try {
+              return mn(e)(t, n, r);
+            } catch (e) {
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function ic(e, t, n, r, o, a, i, l, s, u, c, d, m, p, _, f) {
+            var g = fl();
+            try {
+              mn(e)(t, n, r, o, a, i, l, s, u, c, d, m, p, _, f);
+            } catch (e) {
+              if ((gl(g), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          function lc(e, t, n, r) {
+            var o = fl();
+            try {
+              mn(e)(t, n, r);
+            } catch (e) {
+              if ((gl(o), !(e instanceof Pe))) throw e;
+              cl(1, 0);
+            }
+          }
+          ((C.keepRuntimeAlive = pe),
+            (C.wasmMemory = q),
+            (C.GROWABLE_HEAP_U8 = m),
+            (C.GROWABLE_HEAP_F32 = h),
+            (C.ExitStatus = ht),
+            (C.FS = Xt),
+            (C.PThread = on),
+            (C.registeredTypes = sr));
+          var sc = [
             "writeI53ToI64",
             "writeI53ToI64Clamped",
             "writeI53ToI64Signaling",
@@ -9149,18 +9499,29 @@ __d(
             "getCallstack",
             "emscriptenLog",
             "convertPCtoSourceLocation",
-            "runMainThreadEmAsm",
             "jstoi_s",
             "listenOnce",
             "autoResumeAudioContext",
             "getDynCaller",
             "dynCall",
+            "setWasmTableEntry",
             "asmjsMangle",
             "getNativeTypeSize",
             "STACK_SIZE",
             "STACK_ALIGN",
             "POINTER_SIZE",
             "ASSERTIONS",
+            "getCFunc",
+            "ccall",
+            "cwrap",
+            "uleb128Encode",
+            "sigToWasmTypes",
+            "generateFuncType",
+            "convertJsFunctionToWasm",
+            "getEmptyTableSlot",
+            "updateTableMap",
+            "getFunctionAddress",
+            "addFunction",
             "removeFunction",
             "reallyNegative",
             "unSign",
@@ -9169,6 +9530,7 @@ __d(
             "formatString",
             "intArrayToString",
             "AsciiToString",
+            "stringToUTF8OnStack",
             "registerKeyEventCallback",
             "maybeCStringToJsString",
             "findEventTarget",
@@ -9272,8 +9634,8 @@ __d(
             "emval_allocateDestructors",
             "emval_addMethodCaller",
           ];
-          Vu.forEach(He);
-          var Hu = [
+          sc.forEach(Ge);
+          var uc = [
             "run",
             "addOnPreRun",
             "addOnInit",
@@ -9342,9 +9704,9 @@ __d(
             "readEmAsmArgsArray",
             "readEmAsmArgs",
             "runEmAsmFunction",
+            "runMainThreadEmAsm",
             "jstoi_q",
             "getExecutableName",
-            "setWasmTableEntry",
             "getWasmTableEntry",
             "handleException",
             "runtimeKeepalivePush",
@@ -9357,16 +9719,8 @@ __d(
             "mmapAlloc",
             "handleAllocatorInit",
             "HandleAllocator",
-            "getCFunc",
-            "uleb128Encode",
-            "sigToWasmTypes",
-            "generateFuncType",
-            "convertJsFunctionToWasm",
             "freeTableIndexes",
             "functionsInTableMap",
-            "getEmptyTableSlot",
-            "updateTableMap",
-            "getFunctionAddress",
             "setValue",
             "getValue",
             "PATH",
@@ -9387,7 +9741,7 @@ __d(
             "stringToUTF32",
             "lengthBytesUTF32",
             "stringToNewUTF8",
-            "stringToUTF8OnStack",
+            "writeArrayToMemory",
             "JSEvents",
             "specialHTMLTargets",
             "currentFullscreenStrategy",
@@ -9532,88 +9886,89 @@ __d(
             "emval_registeredMethods",
             "IDBFS",
           ];
-          Hu.forEach(Ge);
-          var Gu;
-          ve = function e() {
-            (Gu || ju(), Gu || (ve = e));
+          uc.forEach(ze);
+          var cc;
+          Se = function e() {
+            (cc || mc(), cc || (Se = e));
           };
-          function zu() {
-            (G(!D), _l(), ae());
+          function dc() {
+            (z(!x), ml(), ie());
           }
-          function ju() {
-            if (Ce > 0) return;
-            if ((D || zu(), D)) {
-              (C(y), _e(), startWorker(y));
+          function mc() {
+            if (be > 0) return;
+            if ((x || dc(), x)) {
+              (b(C), fe(), startWorker(C));
               return;
             }
-            if ((pe(), Ce > 0)) return;
+            if ((_e(), be > 0)) return;
             function e() {
-              Gu ||
-                ((Gu = !0),
-                (y.calledRun = !0),
-                !V &&
-                  (_e(),
-                  C(y),
-                  y.onRuntimeInitialized && y.onRuntimeInitialized(),
-                  G(
-                    !y._main,
+              cc ||
+                ((cc = !0),
+                (C.calledRun = !0),
+                !H &&
+                  (fe(),
+                  b(C),
+                  C.onRuntimeInitialized && C.onRuntimeInitialized(),
+                  z(
+                    !C._main,
                     'compiled without a main, but one is present. if you added it from JS, use Module["onRuntimeInitialized"]',
                   ),
-                  fe()));
+                  ge()));
             }
-            (y.setStatus
-              ? (y.setStatus("Running..."),
+            (C.setStatus
+              ? (C.setStatus("Running..."),
                 setTimeout(function () {
                   (setTimeout(function () {
-                    y.setStatus("");
+                    C.setStatus("");
                   }, 1),
                     e());
                 }, 1))
               : e(),
-              ie());
+              le());
           }
-          function Ku() {
-            var e = A,
-              t = F,
+          function pc() {
+            var e = F,
+              t = O,
               n = !1;
-            A = F = function (t) {
+            F = O = function (t) {
               n = !0;
             };
             try {
-              (Gi(0),
+              (Bi(0),
                 ["stdout", "stderr"].forEach(function (e) {
-                  var t = Qt.analyzePath("/dev/" + e);
+                  var t = Xt.analyzePath("/dev/" + e);
                   if (t) {
                     var r = t.object,
                       o = r.rdev,
-                      a = Mt.ttys[o];
+                      a = wt.ttys[o];
                     a && a.output && a.output.length && (n = !0);
                   }
                 }));
             } catch (e) {}
-            ((A = e),
-              (F = t),
+            ((F = e),
+              (O = t),
               n &&
-                _n(
+                fn(
                   "stdio streams had content in them that was not flushed. you should set EXIT_RUNTIME to 1 (see the Emscripten FAQ), or make sure to emit a newline when you printf etc.",
                 ));
           }
-          if (y.preInit)
+          if (C.preInit)
             for (
-              typeof y.preInit == "function" && (y.preInit = [y.preInit]);
-              y.preInit.length > 0;
+              typeof C.preInit == "function" && (C.preInit = [C.preInit]);
+              C.preInit.length > 0;
             )
-              y.preInit.pop()();
-          return (ju(), a.ready);
+              C.preInit.pop()();
+          return (mc(), a.ready);
         };
       })();
-    typeof l == "object" && typeof i == "object"
-      ? (i.exports = d)
-      : typeof define == "function" &&
-        define.amd &&
-        define([], function () {
-          return d;
-        });
+    ((m.BUILD_SHA = u),
+      typeof l == "object" && typeof i == "object"
+        ? (i.exports = m)
+        : typeof define == "function" &&
+          define.amd &&
+          define([], function () {
+            return m;
+          }));
   },
   34,
 );

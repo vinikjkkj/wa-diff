@@ -6,107 +6,53 @@ __d(
     "WebBloksDialogMinificationKeys",
     "WebBloksStyle",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(20),
+      var t,
         n = e.node,
-        a = n.get(o("WebBloksDialogMinificationKeys").DIALOG_BUTTON_APPEARANCE),
-        i;
-      t[0] !== n
-        ? ((i = n.get(
-            o("WebBloksDialogMinificationKeys").DIALOG_BUTTON_TESTING_ID,
-          )),
-          (t[0] = n),
-          (t[1] = i))
-        : (i = t[1]);
-      var l = i,
-        u;
-      t[2] !== n
-        ? ((u = n.get(o("WebBloksDialogMinificationKeys").DIALOG_BUTTON_TEXT)),
-          (t[2] = n),
-          (t[3] = u))
-        : (u = t[3]);
-      var d = u,
-        m;
-      t[4] !== n
-        ? ((m = n.getExpression(
-            o("WebBloksDialogMinificationKeys").DIALOG_BUTTON_ON_CLICK,
-          )),
-          (t[4] = n),
-          (t[5] = m))
-        : (m = t[5]);
-      var p = m,
-        _ = o("WebBloksComponentContext").useWebBloksContext(),
-        f = _.bloksContext,
-        g = _.executeCatch,
-        h = _.objectSet,
-        y = _.ownerContext,
-        C;
-      t[6] !== f ||
-      t[7] !== g ||
-      t[8] !== n ||
-      t[9] !== h.navigationManager ||
-      t[10] !== p ||
-      t[11] !== y
-        ? ((C = function (t) {
-            (t.preventDefault(),
-              t.stopPropagation(),
-              h.navigationManager.pop(),
-              p != null &&
-                (y ? y.executeCatch(p.getValue(), [n, f]) : g(n, p, [n, f])));
-          }),
-          (t[6] = f),
-          (t[7] = g),
-          (t[8] = n),
-          (t[9] = h.navigationManager),
-          (t[10] = p),
-          (t[11] = y),
-          (t[12] = C))
-        : (C = t[12]);
-      var b = C,
-        v;
-      e: switch (a) {
-        case "destructive": {
-          v = c.destructive;
-          break e;
-        }
-        case "cancel": {
-          v = c.cancel;
-          break e;
-        }
+        a = n.get(
+          (t = o("WebBloksDialogMinificationKeys")).DIALOG_BUTTON_APPEARANCE,
+        ),
+        i = n.get(t.DIALOG_BUTTON_TESTING_ID),
+        l = n.get(t.DIALOG_BUTTON_TEXT),
+        u = n.getExpression(t.DIALOG_BUTTON_ON_CLICK),
+        d = o("WebBloksComponentContext").useWebBloksContext(),
+        m = d.bloksContext,
+        p = d.executeCatch,
+        _ = d.objectSet,
+        f = d.ownerContext,
+        g = function (t) {
+          (t.preventDefault(),
+            t.stopPropagation(),
+            _.navigationManager.pop(),
+            u != null &&
+              (f ? f.executeCatch(u.getValue(), [n, m]) : p(n, u, [n, m])));
+        },
+        h;
+      switch (a) {
+        case "destructive":
+          h = c.destructive;
+          break;
+        case "cancel":
+          h = c.cancel;
+          break;
         case "default":
         default:
-          v = c.default;
+          h = c.default;
+          break;
       }
-      var S;
-      t[13] !== v
-        ? ((S = o("WebBloksStyle").classNames(c.button, v)),
-          (t[13] = v),
-          (t[14] = S))
-        : (S = t[14]);
-      var R;
-      return (
-        t[15] !== b || t[16] !== S || t[17] !== l || t[18] !== d
-          ? ((R = s.jsx(r("WebBloksAbstractButton"), {
-              className: S,
-              accessibility_label: d,
-              onClick: b,
-              title: d,
-              "data-testid": void 0,
-            })),
-            (t[15] = b),
-            (t[16] = S),
-            (t[17] = l),
-            (t[18] = d),
-            (t[19] = R))
-          : (R = t[19]),
-        R
-      );
+      return s.jsx(r("WebBloksAbstractButton"), {
+        className: o("WebBloksStyle").classNames(c.button, h),
+        accessibility_label: l,
+        onClick: g,
+        title: l,
+        "data-testid": void 0,
+      });
     }
+    u.displayName = u.name + " [from " + i.id + "]";
     var c = o("WebBloksStyle").createStyles({
       button: function (t) {
         var e;

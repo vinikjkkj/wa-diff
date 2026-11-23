@@ -1,44 +1,21 @@
 __d(
   "WAWebCoexV2RetryMarkerStore",
-  [
-    "WAWebModelStorageUtils",
-    "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
-    "err",
-  ],
+  ["WAWebModelStorageUtils", "WAWebWidFactory", "err"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = u(e, t);
-          return o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["message-info"],
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e[0];
-                    if ((yield t.get(a)) == null)
-                      throw r("err")(
-                        "[coexv2] missing agent message-info row for retry marker",
-                      );
-                    yield t.merge(a, { hasAdditionalRetryTargets: !0 });
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
+    async function e(e, t) {
+      var n = s(e, t);
+      return o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(["message-info"], async function (e) {
+          var t = e[0];
+          if ((await t.get(n)) == null)
+            throw r("err")(
+              "[coexv2] missing agent message-info row for retry marker",
             );
-        })),
-        s.apply(this, arguments)
-      );
+          await t.merge(n, { hasAdditionalRetryTargets: !0 });
+        });
     }
-    function u(e, t) {
+    function s(e, t) {
       return [
         e.toString(),
         o("WAWebWidFactory").asUserWidOrThrow(t).toString(),

@@ -1,7 +1,6 @@
 __d(
   "WAWebQbmThreadLevelActionLogEvent",
   [
-    "Promise",
     "WAWebABProps",
     "WAWebChatThreadLogging",
     "WAWebFrontendContactGetters",
@@ -13,114 +12,92 @@ __d(
     "WAWebQbmThreadLevelActionWamEvent",
     "WAWebWamEnumThreadActionEntryPoint",
     "WAWebWamEnumThreadLevelAction",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = [
-        "bodyUrlCountInt",
-        "bodyUrlUniqueCountInt",
-        "buttonValueJsonArray",
-        "ctaUrlUniqueCountInt",
-        "isBroadcastMessage",
-        "messageFieldJsonArray",
-        "messageIdHmac",
-        "submessageFieldJsonArray",
-        "urlUniqueCountInt",
-      ],
-      s;
-    function u(e, t) {
-      return c.apply(this, arguments);
+      "bodyUrlCountInt",
+      "bodyUrlUniqueCountInt",
+      "buttonValueJsonArray",
+      "ctaUrlUniqueCountInt",
+      "isBroadcastMessage",
+      "messageFieldJsonArray",
+      "messageIdHmac",
+      "submessageFieldJsonArray",
+      "urlUniqueCountInt",
+    ];
+    async function s(t, n) {
+      var r = t.blockEntryPoint,
+        a = t.chat,
+        i = t.isBulkAction,
+        l = t.threadActionEntryPoint,
+        s = t.threadLevelAction;
+      if (
+        !(
+          a == null ||
+          (a.contact.isBusiness !== !0 && a.contact.isEnterprise !== !0)
+        )
+      ) {
+        var u = n.businessMsg,
+          c = n.didUserReply,
+          d = n.lastMsg,
+          m = n.threadAge,
+          p = o("WAWebQbmThreadContext").getThreadCreationTimeFromAge(m),
+          _ = u != null ? u : d;
+        if (_ != null) {
+          o("WAWebABProps").getABPropConfigValue(
+            "inapp_signup_m1_logging_enabled",
+          ) &&
+            (await o(
+              "WAWebInAppSignupInfoStore",
+            ).ensureInAppSignupInfoHydrated());
+          var f = new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(_, a);
+          (u != null ? f.addCommonFields() : f.addChatFields(),
+            f.addIasFields().log(async function (t) {
+              var n = await Promise.all([
+                  o("WAWebChatThreadLogging").getChatThreadIDHMAC(
+                    a.id.toString(),
+                  ),
+                  o("WAWebP2PPillsThreadOriginStore").getPillQbmFields(
+                    a.accountLid,
+                  ),
+                ]),
+                u = n[0],
+                d = n[1],
+                m = t.bodyUrlCountInt,
+                _ = t.bodyUrlUniqueCountInt,
+                f = t.buttonValueJsonArray,
+                g = t.ctaUrlUniqueCountInt,
+                h = t.isBroadcastMessage,
+                y = t.messageFieldJsonArray,
+                C = t.messageIdHmac,
+                b = t.submessageFieldJsonArray,
+                v = t.urlUniqueCountInt,
+                S = babelHelpers.objectWithoutPropertiesLoose(t, e),
+                R = babelHelpers.extends({}, S, d, {
+                  didUserReply: c,
+                  isBulkAction: i != null ? i : !1,
+                  isInsubContact: o(
+                    "WAWebFrontendContactGetters",
+                  ).getIsMyContact(a.contact),
+                  isMuted: o("WAWebMuteGetters").getIsMuted(a.mute),
+                  threadActionEntryPoint: o(
+                    "WAWebWamEnumThreadActionEntryPoint",
+                  ).THREAD_ACTION_ENTRY_POINT[l],
+                  threadCreationTime: p != null ? p : void 0,
+                  threadIdHmac: u != null ? u : void 0,
+                  threadLevelAction: o("WAWebWamEnumThreadLevelAction")
+                    .THREAD_LEVEL_ACTION[s],
+                }),
+                L = new (o(
+                  "WAWebQbmThreadLevelActionWamEvent",
+                ).QbmThreadLevelActionWamEvent)();
+              (L.set(R), r != null && (L.blockEntryPoint = r), L.commit());
+            }));
+        }
+      }
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = t.blockEntryPoint,
-            i = t.chat,
-            l = t.isBulkAction,
-            u = t.threadActionEntryPoint,
-            c = t.threadLevelAction;
-          if (
-            !(
-              i == null ||
-              (i.contact.isBusiness !== !0 && i.contact.isEnterprise !== !0)
-            )
-          ) {
-            var d = r.businessMsg,
-              m = r.didUserReply,
-              p = r.lastMsg,
-              _ = r.threadAge,
-              f = o("WAWebQbmThreadContext").getThreadCreationTimeFromAge(_),
-              g = d != null ? d : p;
-            if (g != null) {
-              o("WAWebABProps").getABPropConfigValue(
-                "inapp_signup_m1_logging_enabled",
-              ) &&
-                (yield o(
-                  "WAWebInAppSignupInfoStore",
-                ).ensureInAppSignupInfoHydrated());
-              var h = new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(g, i);
-              (d != null ? h.addCommonFields() : h.addChatFields(),
-                h.addIasFields().log(
-                  (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t) {
-                        var r = yield (s || (s = n("Promise"))).all([
-                            o("WAWebChatThreadLogging").getChatThreadIDHMAC(
-                              i.id.toString(),
-                            ),
-                            o(
-                              "WAWebP2PPillsThreadOriginStore",
-                            ).getPillQbmFields(i.accountLid),
-                          ]),
-                          d = r[0],
-                          p = r[1],
-                          _ = t.bodyUrlCountInt,
-                          g = t.bodyUrlUniqueCountInt,
-                          h = t.buttonValueJsonArray,
-                          y = t.ctaUrlUniqueCountInt,
-                          C = t.isBroadcastMessage,
-                          b = t.messageFieldJsonArray,
-                          v = t.messageIdHmac,
-                          S = t.submessageFieldJsonArray,
-                          R = t.urlUniqueCountInt,
-                          L = babelHelpers.objectWithoutPropertiesLoose(t, e),
-                          E = babelHelpers.extends({}, L, p, {
-                            didUserReply: m,
-                            isBulkAction: l != null ? l : !1,
-                            isInsubContact: o(
-                              "WAWebFrontendContactGetters",
-                            ).getIsMyContact(i.contact),
-                            isMuted: o("WAWebMuteGetters").getIsMuted(i.mute),
-                            threadActionEntryPoint: o(
-                              "WAWebWamEnumThreadActionEntryPoint",
-                            ).THREAD_ACTION_ENTRY_POINT[u],
-                            threadCreationTime: f != null ? f : void 0,
-                            threadIdHmac: d != null ? d : void 0,
-                            threadLevelAction: o(
-                              "WAWebWamEnumThreadLevelAction",
-                            ).THREAD_LEVEL_ACTION[c],
-                          }),
-                          k = new (o(
-                            "WAWebQbmThreadLevelActionWamEvent",
-                          ).QbmThreadLevelActionWamEvent)();
-                        (k.set(E),
-                          a != null && (k.blockEntryPoint = a),
-                          k.commit());
-                      },
-                    );
-                    return function (e) {
-                      return t.apply(this, arguments);
-                    };
-                  })(),
-                ));
-            }
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    l.logQbmThreadLevelAction = u;
+    l.logQbmThreadLevelAction = s;
   },
   98,
 );

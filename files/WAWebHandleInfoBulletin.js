@@ -16,7 +16,6 @@ __d(
     "WAWebParseThreadMetadata",
     "WAWebThreadMetadata",
     "WAWebTos",
-    "asyncToGeneratorRuntime",
     "cr:1175",
     "getErrorSafe",
   ],
@@ -190,120 +189,109 @@ __d(
         }
         return null;
       });
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = f.parse(e);
-          if (t.error)
-            throw (
-              o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                t.error.toString(),
-              ),
-              t.error
-            );
-          var n = t.success;
-          if (!n) {
+    async function g(e) {
+      var t = f.parse(e);
+      if (t.error)
+        throw (
+          o("WALogger").ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            t.error.toString(),
+          ),
+          t.error
+        );
+      var n = t.success;
+      if (!n) {
+        o("WALogger").WARN(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "handleInfoBulletin unrecognized info bulletin",
+            ])),
+        );
+        return;
+      }
+      switch (n.type) {
+        case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.DIRTY:
+          if (!_) {
             o("WALogger").WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "handleInfoBulletin unrecognized info bulletin",
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "handleInfoBulletin dirty bits not supported",
                 ])),
             );
             return;
           }
-          switch (n.type) {
-            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.DIRTY:
-              if (!_) {
-                o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "handleInfoBulletin dirty bits not supported",
-                    ])),
-                );
-                return;
-              }
-              return (yield _(n), "NO_ACK");
-            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.ROUTING:
-              return (
-                yield o("WAWebHandleRoutingInfo").handleRoutingInfo(n),
-                "NO_ACK"
-              );
-            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.OFFLINE:
-              return (
-                o("WAWebOfflineHandler")
-                  .OfflineMessageHandler.processOfflineIb(n.count)
-                  .catch(function (e) {
-                    o("WALogger")
-                      .ERROR(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "handleInfoBulletin processOfflineIb failed",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("offline-ib-failed", { sampling: 0.01 });
-                  }),
-                o(
-                  "WAWebHandleReportServerSyncNotification",
-                ).reportOfflineNotifications(),
-                o("WAWebMessageDedupUtils").maybeClearPendingMessages(n.count),
-                "NO_ACK"
-              );
-            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.OFFLINE_PREVIEW:
-              return (
-                yield o(
-                  "WAWebOfflineHandler",
-                ).OfflineMessageHandler.processOfflinePreviewIb(n.count),
-                "NO_ACK"
-              );
-            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.TOS:
-              return (
-                o("WAWebTos")
-                  .TosManager.maybeUpdateServer(n.noticeIds)
-                  .catch(function (e) {
-                    o("WALogger")
-                      .ERROR(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "handleInfoBulletin maybeUpdateServer failed",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("tos-update-failed", { sampling: 0.01 });
-                  }),
-                "NO_ACK"
-              );
-            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.THREAD_META:
-              return (
-                o("WAWebThreadMetadata").setOfflineThreadMeta(n.threadMeta),
-                "NO_ACK"
-              );
-            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.CLIENT_EXPIRATION:
-              return (
-                yield o(
-                  "WAWebHandleServerClientExpiration",
-                ).handleServerClientExpiration(n.newClientExpirationTime),
-                "NO_ACK"
-              );
-            case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.RECOVERY_NONCE:
-              return (
-                r("WAWebHandleRecoveryNonceIB")(n.code, n.useCase),
-                "NO_ACK"
-              );
-            default:
-              return;
-          }
-        })),
-        h.apply(this, arguments)
-      );
+          return (await _(n), "NO_ACK");
+        case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.ROUTING:
+          return (
+            await o("WAWebHandleRoutingInfo").handleRoutingInfo(n),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.OFFLINE:
+          return (
+            o("WAWebOfflineHandler")
+              .OfflineMessageHandler.processOfflineIb(n.count)
+              .catch(function (e) {
+                o("WALogger")
+                  .ERROR(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "handleInfoBulletin processOfflineIb failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("offline-ib-failed", { sampling: 0.01 });
+              }),
+            o(
+              "WAWebHandleReportServerSyncNotification",
+            ).reportOfflineNotifications(),
+            o("WAWebMessageDedupUtils").maybeClearPendingMessages(n.count),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.OFFLINE_PREVIEW:
+          return (
+            await o(
+              "WAWebOfflineHandler",
+            ).OfflineMessageHandler.processOfflinePreviewIb(n.count),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.TOS:
+          return (
+            o("WAWebTos")
+              .TosManager.maybeUpdateServer(n.noticeIds)
+              .catch(function (e) {
+                o("WALogger")
+                  .ERROR(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "handleInfoBulletin maybeUpdateServer failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("tos-update-failed", { sampling: 0.01 });
+              }),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.THREAD_META:
+          return (
+            o("WAWebThreadMetadata").setOfflineThreadMeta(n.threadMeta),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.CLIENT_EXPIRATION:
+          return (
+            await o(
+              "WAWebHandleServerClientExpiration",
+            ).handleServerClientExpiration(n.newClientExpirationTime),
+            "NO_ACK"
+          );
+        case o("WAWebHandleInfoBulletinTypes").INFO_TYPE.RECOVERY_NONCE:
+          return (r("WAWebHandleRecoveryNonceIB")(n.code, n.useCase), "NO_ACK");
+        default:
+          return;
+      }
     }
     l.default = g;
   },

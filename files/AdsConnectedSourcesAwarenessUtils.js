@@ -13,7 +13,14 @@ __d(
       return s(t) && e();
     }
     function c(e, t) {
-      return u(t) && e !== "site_links";
+      return !(
+        !u(t) ||
+        e === "site_links" ||
+        ((e === "combinedWebsiteHighlights" ||
+          e === "website_media" ||
+          e === "website_summary") &&
+          r("gkx")("4541"))
+      );
     }
     function d(e, t) {
       return (

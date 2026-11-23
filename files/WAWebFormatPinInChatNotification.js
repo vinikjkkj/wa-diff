@@ -33,8 +33,8 @@ __d(
         return o(
           "WAWebSystemMessageGatingUtils",
         ).systemMessageTerminalPeriodsEnabled()
-          ? s._(/*BTDS*/ "You pinned a message.")
-          : s._(/*BTDS*/ "You pinned a message");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
       var l = o("WAWebSystemMsgContactName").getSystemMsgContactName(
         o("WAWebFrontendMsgGetters").getChat(e),
         o("WAWebContactCollection").ContactCollection.gadd(a),
@@ -42,12 +42,8 @@ __d(
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ "{contact-name} pinned a message.", [
-            s._param("contact-name", l),
-          ])
-        : s._(/*BTDS*/ "{contact-name} pinned a message", [
-            s._param("contact-name", l),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("contact-name", l)])
+        : s._(/*BTDS*/ "", [s._param("contact-name", l)]);
     }
     l.formatPinInChatNotification = e;
   },

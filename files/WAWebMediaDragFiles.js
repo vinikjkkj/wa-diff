@@ -1,7 +1,6 @@
 __d(
   "WAWebMediaDragFiles",
   [
-    "Promise",
     "WALogger",
     "WAWebActiveIntegrityHoldout",
     "WAWebCreateFile",
@@ -16,14 +15,12 @@ __d(
     "WAWebMsgType",
     "WAWebODS",
     "WAWebWamEnumWebcRmrReasonCode",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = new Map([
+      s = new Map([
         [
           o("WAWebMsgType").MSG_TYPE.IMAGE,
           {
@@ -49,31 +46,31 @@ __d(
           },
         ],
       ]);
-    function c(e) {
+    function u(e) {
       var t,
-        n = u.get(e.type);
+        n = s.get(e.type);
       return (
         n != null &&
         e.isGif !== !0 &&
-        !R(e.type, (t = e.mediaData) == null ? void 0 : t.mimetype) &&
+        !b(e.type, (t = e.mediaData) == null ? void 0 : t.mimetype) &&
         o("WAWebDragAndDropGatingUtils").isDragAndDropCapabilityEnabled(
           n.capability,
         ) &&
-        d(e)
+        c(e)
       );
     }
-    function d(e) {
+    function c(e) {
       return (
         e.mediaData != null &&
         o("WAWebMsgActionCanDownloadMsg").canDownloadMsg(e, !0)
       );
     }
-    function m(e) {
-      if (!u.has(e.type) || !d(e)) return null;
-      var t = C(e, v(e.mediaData));
-      return t != null && b(e) ? t : null;
+    function d(e) {
+      if (!s.has(e.type) || !c(e)) return null;
+      var t = g(e, y(e.mediaData));
+      return t != null && h(e) ? t : null;
     }
-    function p(e) {
+    function m(e) {
       return (
         o("WAWebForwardDrag").isForwardDrag(e) &&
         o("WAWebDragAndDropGatingUtils").isDragAndDropCapabilityEnabled(
@@ -81,64 +78,48 @@ __d(
         )
       );
     }
-    function _(e) {
-      if (e == null || !p(e)) return null;
+    function p(e) {
+      if (e == null || !m(e)) return null;
       r("WAWebODS").incr("web.drag_and_drop.drag_to_chat.drop");
       var t = o("WAWebForwardDrag").takeForwardDragMsgs(e);
-      return (s || (s = n("Promise"))).all(t.map(f)).then(function (e) {
+      return Promise.all(t.map(_)).then(function (e) {
         var n = e.filter(Boolean);
         return n.length === t.length ? n : [];
       });
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    async function _(t) {
+      if (!u(t)) return null;
+      try {
+        var n = g(t, await f(t));
+        return n != null && !b(t.type, n.type) ? n : null;
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "media drag: the dragged media could not be downloaded",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t)),
+          null
+        );
+      }
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (!c(t)) return null;
-          try {
-            var n = C(t, yield h(t));
-            return n != null && !R(t.type, n.type) ? n : null;
-          } catch (t) {
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "media drag: the dragged media could not be downloaded",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t)),
-              null
-            );
-          }
-        })),
-        g.apply(this, arguments)
-      );
+    async function f(e) {
+      var t = y(e.mediaData);
+      return t != null
+        ? t
+        : (await e.downloadMedia({
+            downloadEvenIfExpensive: !0,
+            isUserInitiated: !0,
+            rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
+              .SEND_TO_CHAT,
+          }),
+          y(e.mediaData));
     }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = v(e.mediaData);
-          return t != null
-            ? t
-            : (yield e.downloadMedia({
-                downloadEvenIfExpensive: !0,
-                isUserInitiated: !0,
-                rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
-                  .WEBC_RMR_REASON_CODE.SEND_TO_CHAT,
-              }),
-              v(e.mediaData));
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e, t) {
-      return t != null && S(e.type, t.type)
+    function g(e, t) {
+      return t != null && C(e.type, t.type)
         ? o("WAWebCreateFile").createFile(
             [t],
             o("WAWebFilenameManager").getDefaultName(e),
@@ -146,14 +127,14 @@ __d(
           )
         : null;
     }
-    function b(e) {
+    function h(e) {
       return (
         !r("justknobx")._("8497") ||
         !o("WAWebHarmfulFileWarningGate").shouldShowHarmfulFileWarning(e) ||
         o("WAWebActiveIntegrityHoldout").isSuppressedByActiveIntegrityHoldout()
       );
     }
-    function v(e) {
+    function y(e) {
       if (e == null) return null;
       var t = e.filehash,
         n = e.mediaBlob;
@@ -163,13 +144,13 @@ __d(
           ? n
           : o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(t);
     }
-    function S(e, t) {
-      var n = u.get(e);
+    function C(e, t) {
+      var n = s.get(e);
       return n == null
         ? !1
         : n.mimePrefix == null || t.startsWith(n.mimePrefix);
     }
-    function R(e, t) {
+    function b(e, t) {
       return (
         e === o("WAWebMsgType").MSG_TYPE.DOCUMENT &&
         t != null &&
@@ -177,12 +158,12 @@ __d(
           o("WAWebFileUtils").FILETYPE.DOCUMENT
       );
     }
-    ((l.isDraggableMediaMsg = c),
-      (l.canTakeMediaOut = d),
-      (l.getCachedMediaFile = m),
-      (l.isMediaDrag = p),
-      (l.takeMediaDragFiles = _),
-      (l.isHarmfulFileAllowed = b));
+    ((l.isDraggableMediaMsg = u),
+      (l.canTakeMediaOut = c),
+      (l.getCachedMediaFile = d),
+      (l.isMediaDrag = m),
+      (l.takeMediaDragFiles = p),
+      (l.isHarmfulFileAllowed = h));
   },
   98,
 );

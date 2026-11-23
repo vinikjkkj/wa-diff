@@ -11,99 +11,87 @@ __d(
     "WAWebLidMappingUsernameLearnUtils",
     "WAWebPhashUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n, r) {
-      return s.apply(this, arguments);
-    }
-    function s() {
+    async function e(e, t, n, a) {
+      var i = null,
+        l = r("WAWebGroupMetadataCollection").get(n);
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = null,
-              l = r("WAWebGroupMetadataCollection").get(n);
-            return (
-              l &&
-                (i = yield o("WAWebPhashUtils").phashV1(
-                  l.participants.map(function (e) {
-                    return e.id;
-                  }),
-                )),
-              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebGroupInviteService").GroupInviteService,
-                  ).queryGroupInviteV4
-                : o("WAWebGroupInviteV4QueryJoinJob").queryGroupInviteV4)({
-                from: a,
-                inviteCode: e,
-                inviteCodeExp: t,
-                inviteGrp: n,
-                phash: i,
-              })
-                .then(function (e) {
-                  if (e.phashMatch === !0)
-                    return { status: 200, phashMatch: !0 };
-                  if (e.groupMetadata != null) {
-                    var t = babelHelpers.extends({}, e.groupMetadata);
-                    return (
-                      o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                        ? o("WAWebBackendRuntime").runtime(
-                            o("WAWebLidMappingService").LidMappingService,
-                          ).processParsedGroupInfosForLidMappingAndUsernames
-                        : o("WAWebLidMappingUsernameLearnUtils")
-                            .processParsedGroupInfosForLidMappingAndUsernames
-                    )([t]).then(function () {
-                      return t;
-                    });
-                  }
-                  return { status: e.status };
-                })
-                .then(function (e) {
-                  if (e.status != null && e.status > 0) return e;
-                  if (e.id != null)
-                    return (
-                      o("WAWebContactCollection").ContactCollection.gadd(e.id),
-                      e
-                    );
-                  var t = r("WAWebGroupMetadataCollection").assertGet(
-                      o("WAWebWidFactory").createWidFromWidLike(n),
-                    ),
-                    a = o("WAWebChatCollection").ChatCollection.assertGet(t.id)
-                      .contact.name;
-                  return {
-                    id: t.id,
-                    owner: t.owner,
-                    creation: t.creation,
-                    desc: t.desc,
-                    descId: t.descId,
-                    descOwner: t.descOwner,
-                    descTime: t.descTime,
-                    restrict: t.restrict,
-                    announce: t.announce,
-                    ephemeralDuration: t.ephemeralDuration,
-                    membershipApprovalMode: t.membershipApprovalMode,
-                    reportToAdminMode: t.reportToAdminMode,
-                    growthLockExpiration: t.growthLockExpiration,
-                    growthLockType: t.growthLockType,
-                    noFrequentlyForwarded: t.noFrequentlyForwarded,
-                    subject: a,
-                    participants: t.participants.map(function (e) {
-                      return {
-                        id: e.id,
-                        isAdmin: e.isAdmin,
-                        isSuperAdmin: e.isSuperAdmin,
-                      };
-                    }),
-                  };
-                })
-            );
-          },
-        )),
-        s.apply(this, arguments)
+        l &&
+          (i = await o("WAWebPhashUtils").phashV1(
+            l.participants.map(function (e) {
+              return e.id;
+            }),
+          )),
+        (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebGroupInviteService").GroupInviteService,
+            ).queryGroupInviteV4
+          : o("WAWebGroupInviteV4QueryJoinJob").queryGroupInviteV4)({
+          from: a,
+          inviteCode: e,
+          inviteCodeExp: t,
+          inviteGrp: n,
+          phash: i,
+        })
+          .then(function (e) {
+            if (e.phashMatch === !0) return { status: 200, phashMatch: !0 };
+            if (e.groupMetadata != null) {
+              var t = babelHelpers.extends({}, e.groupMetadata);
+              return (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebLidMappingService").LidMappingService,
+                    ).processParsedGroupInfosForLidMappingAndUsernames
+                  : o("WAWebLidMappingUsernameLearnUtils")
+                      .processParsedGroupInfosForLidMappingAndUsernames
+              )([t]).then(function () {
+                return t;
+              });
+            }
+            return { status: e.status };
+          })
+          .then(function (e) {
+            if (e.status != null && e.status > 0) return e;
+            if (e.id != null)
+              return (
+                o("WAWebContactCollection").ContactCollection.gadd(e.id),
+                e
+              );
+            var t = r("WAWebGroupMetadataCollection").assertGet(
+                o("WAWebWidFactory").createWidFromWidLike(n),
+              ),
+              a = o("WAWebChatCollection").ChatCollection.assertGet(t.id)
+                .contact.name;
+            return {
+              id: t.id,
+              owner: t.owner,
+              creation: t.creation,
+              desc: t.desc,
+              descId: t.descId,
+              descOwner: t.descOwner,
+              descTime: t.descTime,
+              restrict: t.restrict,
+              announce: t.announce,
+              ephemeralDuration: t.ephemeralDuration,
+              membershipApprovalMode: t.membershipApprovalMode,
+              reportToAdminMode: t.reportToAdminMode,
+              growthLockExpiration: t.growthLockExpiration,
+              growthLockType: t.growthLockType,
+              noFrequentlyForwarded: t.noFrequentlyForwarded,
+              subject: a,
+              participants: t.participants.map(function (e) {
+                return {
+                  id: e.id,
+                  isAdmin: e.isAdmin,
+                  isSuperAdmin: e.isSuperAdmin,
+                };
+              }),
+            };
+          })
       );
     }
-    function u(e) {
+    function s(e) {
       var t = e.from,
         n = e.inviteCode,
         r = e.inviteCodeExp,
@@ -115,7 +103,7 @@ __d(
         inviteGrp: a,
       });
     }
-    ((l.queryGroupInviteV4Info = e), (l.joinGroupViaInviteV4 = u));
+    ((l.queryGroupInviteV4Info = e), (l.joinGroupViaInviteV4 = s));
   },
   98,
 );

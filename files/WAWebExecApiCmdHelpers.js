@@ -1,7 +1,6 @@
 __d(
   "WAWebExecApiCmdHelpers",
   [
-    "Promise",
     "WAWebContactUtils",
     "WAWebCreateFile",
     "WAWebDeepLinkOpenWamEvent",
@@ -22,15 +21,13 @@ __d(
     "WAWebWamEnumDefaultProtocolResultType",
     "WAWebWidFactory",
     "WAWebWindowsDefaultProtocolActivationWamEvent",
-    "asyncToGeneratorRuntime",
     "nullthrows",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = s || (s = o("react"));
-    function c(e, t) {
+      s = e || (e = o("react"));
+    function u(e, t) {
       e === !0 &&
         new (o(
           "WAWebWindowsDefaultProtocolActivationWamEvent",
@@ -42,7 +39,7 @@ __d(
                 .DEFAULT_PROTOCOL_RESULT_TYPE.NAVIGATION_FAILURE,
         }).commit();
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = function (r) {
         var n = r.chat;
         self.setTimeout(function () {
@@ -51,7 +48,7 @@ __d(
           ),
             t && o("WAWebUpdateUtmAction").addUtmToChat(n.id, t),
             o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-              u.jsx(
+              s.jsx(
                 o("WAWebProductDetailsFlowLoadable").ProductDetailsFlowLoadable,
                 { chat: n, catalogOwnerJid: e },
               ),
@@ -71,7 +68,7 @@ __d(
         }, 100);
       };
       o("WAWebModalManager").ModalManager.open(
-        u.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
+        s.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
           target: { wid: o("WAWebWidFactory").createWid(e) },
           onSuccess: n,
           msgText: null,
@@ -79,7 +76,7 @@ __d(
         { transition: "modal-flow" },
       );
     }
-    function m(e, t, n) {
+    function d(e, t, n) {
       var r = o("WAWebProductCatalogContext").buildProductCatalogContext(
           new (o("WAWebProductCatalogSession").ProductCatalogSession)(),
           o("WAWebContactUtils").getMaybeBizPlatformForLogging(e),
@@ -92,7 +89,7 @@ __d(
             (o("WAWebUtilsLogQplEvents").qplStartProductView("Deeplink"),
               n && o("WAWebUpdateUtmAction").addUtmToChat(a.id, n),
               o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-                u.jsx(
+                s.jsx(
                   o("WAWebProductDetailsFlowLoadable")
                     .ProductDetailsFlowLoadable,
                   {
@@ -110,7 +107,7 @@ __d(
           }, 100);
         };
       o("WAWebModalManager").ModalManager.open(
-        u.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
+        s.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
           target: { wid: o("WAWebWidFactory").createWid(e) },
           onSuccess: a,
           msgText: null,
@@ -118,7 +115,7 @@ __d(
         { transition: "modal-flow" },
       );
     }
-    function p(e) {
+    function m(e) {
       var t = e.customUrl,
         n = e.invalidUsernameKey,
         a = e.phone,
@@ -141,7 +138,7 @@ __d(
             ? { username: r("nullthrows")(l), usernameKey: s }
             : { username: r("nullthrows")(l), invalidUsernameKey: n };
     }
-    function _(e) {
+    function p(e) {
       var t = e.campaign,
         n = e.deepLinkSessionId,
         r = e.deepLinkType,
@@ -158,7 +155,7 @@ __d(
         campaign: t != null ? t : void 0,
       }).commit();
     }
-    function f(e) {
+    function _(e) {
       var t = e.chatId,
         n = e.deepLinkType,
         a = e.isExternal,
@@ -171,7 +168,7 @@ __d(
           partnerToken: i,
         }).finally(r("WAWebNoop"));
     }
-    function g(e, t) {
+    function f(e, t) {
       var n = e.headers.get("content-disposition");
       if (n != null) {
         var r = /filename[^;=\n]*=(([\'\"]).*?\2|[^;\n]*)/,
@@ -180,33 +177,24 @@ __d(
       }
       return t;
     }
-    function h(t) {
-      return (e || (e = n("Promise"))).all(
-        t.map(
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield window.fetch(e),
-                  r = yield n.blob(),
-                  a = n.headers.get("Content-Type") || r.type,
-                  i = g(n, t.toString() + "." + a);
-                return o("WAWebCreateFile").createFile([r], i, { type: a });
-              },
-            );
-            return function (t, n) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        ),
+    function g(e) {
+      return Promise.all(
+        e.map(async function (e, t) {
+          var n = await window.fetch(e),
+            r = await n.blob(),
+            a = n.headers.get("Content-Type") || r.type,
+            i = f(n, t.toString() + "." + a);
+          return o("WAWebCreateFile").createFile([r], i, { type: a });
+        }),
       );
     }
-    ((l.logDefaultProtocolNavigation = c),
-      (l.openChatAndCatalog = d),
-      (l.openChatAndProduct = m),
-      (l.getOpenChatFlowProps = p),
-      (l.submitDeepLinkOpenWamEvent = _),
-      (l.externalCtxAuthoriseWAChatIfEnabled = f),
-      (l.downloadAttachments = h));
+    ((l.logDefaultProtocolNavigation = u),
+      (l.openChatAndCatalog = c),
+      (l.openChatAndProduct = d),
+      (l.getOpenChatFlowProps = m),
+      (l.submitDeepLinkOpenWamEvent = p),
+      (l.externalCtxAuthoriseWAChatIfEnabled = _),
+      (l.downloadAttachments = g));
   },
   98,
 );

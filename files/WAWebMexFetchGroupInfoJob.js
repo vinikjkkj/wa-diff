@@ -19,7 +19,6 @@ __d(
     "WAWebSuspendAppealStatusType",
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -35,89 +34,63 @@ __d(
         s !== void 0
           ? s
           : (s = n("WAWebMexFetchGroupInfoJobAcp2Query.graphql"));
-    function g(e) {
-      return h.apply(this, arguments);
+    async function g(e) {
+      var t = e.groupId,
+        n = e.includeMembershipForm,
+        r = e.participantsPhash,
+        a = e.queryContext;
+      return o("WAWebNewsletterRpcUtils").runWithBackoff(async function () {
+        var e = {
+            id: t,
+            query_context: a,
+            include_username: o(
+              "WAWebUsernameGatingUtils",
+            ).usernameDisplayedEnabled(),
+            include_membership_form: n,
+            participants_phash: r,
+          },
+          i = o("WAWebLimitSharingGatingUtils").isAcp2GroupEnabled()
+            ? await o("WAWebMexClient").fetchQuery(f, e)
+            : await o("WAWebMexClient").fetchQuery(_, e);
+        return (
+          o("WALogger")
+            .LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[MEX][GROUP] fetched get group info for ",
+                  "",
+                ])),
+              t,
+            )
+            .tags("GQL", "MEX"),
+          i
+        );
+      });
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.groupId,
-            r = e.includeMembershipForm,
-            a = e.participantsPhash,
-            i = e.queryContext;
-          return o("WAWebNewsletterRpcUtils").runWithBackoff(
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = {
-                  id: t,
-                  query_context: i,
-                  include_username: o(
-                    "WAWebUsernameGatingUtils",
-                  ).usernameDisplayedEnabled(),
-                  include_membership_form: r,
-                  participants_phash: a,
-                },
-                n = o("WAWebLimitSharingGatingUtils").isAcp2GroupEnabled()
-                  ? yield o("WAWebMexClient").fetchQuery(f, e)
-                  : yield o("WAWebMexClient").fetchQuery(_, e);
-              return (
-                o("WALogger")
-                  .LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[MEX][GROUP] fetched get group info for ",
-                        "",
-                      ])),
-                    t,
-                  )
-                  .tags("GQL", "MEX"),
-                n
-              );
-            }),
-          );
-        })),
-        h.apply(this, arguments)
-      );
+    async function h(e) {
+      var t = e.groupId,
+        n = e.includeMembershipForm,
+        r = n === void 0 ? !1 : n,
+        o = e.participantsPhash,
+        a = e.queryContext,
+        i = v(a),
+        l = await g({
+          groupId: t,
+          includeMembershipForm: r,
+          queryContext: i,
+          participantsPhash: o,
+        });
+      if (l != null) return C(l, r);
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    async function y(e) {
+      var t = await h({
+        groupId: e.toString(),
+        includeMembershipForm: !0,
+        queryContext: "interactive",
+      });
+      return t == null ? void 0 : t.membershipForm;
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.groupId,
-            n = e.includeMembershipForm,
-            r = n === void 0 ? !1 : n,
-            o = e.participantsPhash,
-            a = e.queryContext,
-            i = L(a),
-            l = yield g({
-              groupId: t,
-              includeMembershipForm: r,
-              queryContext: i,
-              participantsPhash: o,
-            });
-          if (l != null) return S(l, r);
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield y({
-            groupId: e.toString(),
-            includeMembershipForm: !0,
-            queryContext: "interactive",
-          });
-          return t == null ? void 0 : t.membershipForm;
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e, t) {
+    function C(e, t) {
       var n,
         a,
         i,
@@ -130,10 +103,10 @@ __d(
         h,
         y,
         C,
-        b,
         v,
-        S,
         L,
+        E,
+        k,
         I,
         T,
         D,
@@ -193,17 +166,17 @@ __d(
         ie = (y = U.properties) == null ? void 0 : y.member_add_mode,
         le = (C = U.properties) == null ? void 0 : C.member_link_mode,
         se =
-          (b = U.properties) == null
-            ? void 0
-            : b.member_share_group_history_mode,
-        ue =
           (v = U.properties) == null
             ? void 0
-            : v.membership_approval_mode_enabled,
-        ce = (S = U.properties) == null ? void 0 : S.support,
+            : v.member_share_group_history_mode,
+        ue =
+          (L = U.properties) == null
+            ? void 0
+            : L.membership_approval_mode_enabled,
+        ce = (E = U.properties) == null ? void 0 : E.support,
         de = U.state,
         me = U.subject,
-        pe = (L = U.subject) == null || (L = L.creator) == null ? void 0 : L.pn,
+        pe = (k = U.subject) == null || (k = k.creator) == null ? void 0 : k.pn,
         _e = V
           ? (I = U.subject) == null ||
             (I = I.creator) == null ||
@@ -281,7 +254,7 @@ __d(
                 creatorUsername: K,
                 subject: me.value,
                 creation: Number(G),
-                participants: k(ge, Y),
+                participants: R(ge, Y),
                 subjectTime: Number(me == null ? void 0 : me.creation_time),
                 subjectOwner:
                   (me == null || ($e = me.creator) == null ? void 0 : $e.id) !=
@@ -323,7 +296,7 @@ __d(
                     : void 0,
                 afterReadDuration: ne ? te : void 0,
                 membershipApprovalMode: ue != null ? ue : !1,
-                memberAddMode: E(ie),
+                memberAddMode: S(ie),
               },
               Be !== d && Be !== c
                 ? {
@@ -339,12 +312,12 @@ __d(
                   }
                 : void 0,
               {
-                suspended: de === R.SUSPENDED,
+                suspended: de === b.SUSPENDED,
                 suspendAppealStatus: o(
                   "WAWebSuspendAppealStatusType",
                 ).toSuspendAppealStatus(ke),
                 suspendAppealUpdateTime: Ie != null ? Ie : null,
-                terminated: de === R.TERMINATED ? !0 : void 0,
+                terminated: de === b.TERMINATED ? !0 : void 0,
                 isLidAddressingMode: oe,
                 reportToAdminMode: J != null ? J : !1,
                 isParentGroupClosed: he === !0,
@@ -388,12 +361,12 @@ __d(
         return We;
       }
     }
-    var R = {
+    var b = {
       ACTIVE: "ACTIVE",
       TERMINATED: "NON_EXISTENT",
       SUSPENDED: "SUSPENDED",
     };
-    function L(e) {
+    function v(e) {
       return e === "interactive" || e === "enter_group_info"
         ? "INTERACTIVE"
         : e === "missing_participant_identification"
@@ -407,7 +380,7 @@ __d(
                 );
               })();
     }
-    function E(e) {
+    function S(e) {
       switch (e) {
         case "ADMIN_ADD":
           return o("WAWebSchemaGroupMetadata").MemberAddMode.ADMIN_ADD;
@@ -417,7 +390,7 @@ __d(
           return o("WAWebSchemaGroupMetadata").MemberAddMode.ADMIN_ADD;
       }
     }
-    function k(e, t) {
+    function R(e, t) {
       if (e) return [];
       if (t == null)
         throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
@@ -465,7 +438,7 @@ __d(
         });
       return r;
     }
-    ((l.mexGetGroupInfo = y), (l.mexFetchGroupMembershipFormFromGroupInfo = b));
+    ((l.mexGetGroupInfo = h), (l.mexFetchGroupMembershipFormFromGroupInfo = y));
   },
   98,
 );

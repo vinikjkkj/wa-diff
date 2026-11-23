@@ -1,52 +1,53 @@
 __d(
   "AdsPERouterHelper",
-  ["URI"],
+  ["ExecutionEnvironment", "URI"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = null,
-      u = !1,
+      s,
+      u = null,
       c = !1,
       d = !1,
-      m = null,
-      p = (function () {
+      m = !1,
+      p = null,
+      _ = (function () {
         function t() {
           ((this.$1 = null), (this.$2 = null));
         }
         var n = t.prototype;
         return (
           (n.setConfig = function (t) {
-            m = t;
+            p = t;
           }),
           (n.getConfig = function () {
-            return m || {};
+            return p || {};
           }),
           (n.isInitialized = function () {
-            return u;
-          }),
-          (n.markAsInitialized = function () {
-            u = !0;
-          }),
-          (n.isLoadingSettings = function () {
             return c;
           }),
-          (n.setLoadingSettings = function (t) {
-            c = t;
+          (n.markAsInitialized = function () {
+            c = !0;
           }),
-          (n.hasLoadingFilters = function () {
+          (n.isLoadingSettings = function () {
             return d;
           }),
+          (n.setLoadingSettings = function (t) {
+            d = t;
+          }),
+          (n.hasLoadingFilters = function () {
+            return m;
+          }),
           (n.markAsFiltersLoaded = function () {
-            d = !0;
+            m = !0;
           }),
           (n.setInitialParams = function (t) {
-            s = t;
+            u = t;
           }),
           (n.getInitialParams = function () {
-            return s;
+            return u;
           }),
           (n.getInitialStateLogInfo = function () {
-            var e = s || {},
+            var e = u || {},
               t = e.initial_route;
             return {
               bootloaded_route: e.bootloaded_route,
@@ -57,8 +58,11 @@ __d(
             };
           }),
           (n.getEventLogInfo = function () {
-            var t = window.location.href,
-              n = this.$2;
+            var t;
+            (e || (e = r("ExecutionEnvironment"))).canUseDOM
+              ? (t = window.location.href)
+              : (t = (s || (s = r("URI"))).getRequestURI().toString());
+            var n = this.$2;
             if (t === this.$1 && n != null) return n;
             var o = this.getRouter(),
               a =
@@ -71,12 +75,7 @@ __d(
                   })
                   .filter(Boolean)
                   .toArray(),
-              i = {
-                client_uri: (e || (e = r("URI"))).normalize(
-                  window.location.href,
-                ),
-                routes: a,
-              };
+              i = { client_uri: (s || (s = r("URI"))).normalize(t), routes: a };
             return ((this.$2 = i), (this.$1 = t), i);
           }),
           (n.getRouter = function () {
@@ -96,8 +95,8 @@ __d(
           t
         );
       })(),
-      _ = new p();
-    l.default = _;
+      f = new _();
+    l.default = f;
   },
   98,
 );

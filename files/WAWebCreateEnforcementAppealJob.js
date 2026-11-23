@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebMexCreateEnforcementAppealJob",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -14,9 +13,9 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "createEnforcementAppeal",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             try {
-              return yield o(
+              return await o(
                 "WAWebMexCreateEnforcementAppealJob",
               ).mexCreateEnforcementAppeal(t);
             } catch (t) {
@@ -32,7 +31,7 @@ __d(
                 t
               );
             }
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();

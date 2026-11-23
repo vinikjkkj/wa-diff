@@ -36,7 +36,11 @@ __d(
         AD_LIFT_RECALL_OPTIMIZATION_GOAL: "ad_lift_recall_optimization_goal",
         AD_OBJECTIVE: "ad_objective",
         AD_SET_BUDGET_SHARING_GUIDANCE: "ad_set_budget_sharing_guidance",
+        ADD_10_OR_MORE_CREATIVES_TO_CAMPAIGN:
+          "add_10_or_more_creatives_to_adset",
         ADD_FUNDS_TO_RUN_CAMPAIGN: "add_funds_to_run_campaign",
+        ADOPT_3P_MTA_CLICKS_VIEWS_MEASUREMENT:
+          "adopt_3p_mta_clicks_views_measurement",
         ADOPT_CATALOG_TO_RUN_PRODUCT_CENTRIC_ADS:
           "adopt_catalog_to_run_product_centric_ads",
         ADOPT_CLICK_TO_FLOWS: "adopt_click_to_flows",
@@ -51,6 +55,8 @@ __d(
         ADOPT_IN_APP_PURCHASE_VO_V2: "adopt_in_app_purchase_vo_v2",
         ADOPT_INBOX_QUESTIONS_IN_ADS_MANAGER_CTM:
           "adopt_inbox_questions_in_ads_manager_ctm",
+        ADOPT_INCREMENTAL_OR_CUSTOM_ATTRIBUTION:
+          "adopt_incremental_or_custom_attribution",
         ADOPT_INSTANT_EXPERIENCE_DESTINATION:
           "adopt_instant_experience_destination",
         ADOPT_PRODUCT_EXTENSIONS_CHILD: "adopt_product_extensions_child",
@@ -157,6 +163,18 @@ __d(
         BLENDED_ADS_FOR_SHOPS_ADS_DUPLICATION:
           "blended_ads_for_shops_ads_duplication",
         BPBAA_WITH_CAPI_UPSELL: "bpbaa_with_capi_upsell",
+        BRAND_ADVERTISER_ADOPT_CORE_6_PLACEMENTS:
+          "brand_advertiser_adopt_core_6_placements",
+        BRAND_ADVERTISER_ADOPT_CORE_6_PLACEMENTS_WITHOUT_ACDP_LASER_V2:
+          "brand_advertiser_adopt_core_6_placements_without_acdp_laser_v2",
+        ZIJI_TEST_NO_ACDP_LASER_2: "ziji_test_no_acdp_laser_2",
+        BRAND_ADVERTISER_ADOPT_SHORT_FORM_VIDEO:
+          "brand_advertiser_adopt_short_form_video",
+        BRAND_ADVERTISER_ADOPT_SHORT_FORM_VIDEO_WITHOUT_ACDP_LASER_V2:
+          "brand_advertiser_adopt_short_form_video_without_acdp_laser_v2",
+        ZIJI_TEST_NO_ACDP_LASER_3: "ziji_test_no_acdp_laser_3",
+        BRAND_ADVERTISER_INCREASE_CA_OR_LAL_SPEND:
+          "brand_advertiser_increase_ca_or_lal_spend",
         BRAND_ADVERTISER_VIDEO_FORMAT_ADS: "brand_advertiser_video_format_ads",
         BROAD_TARGETING: "broad_targeting",
         BROADGEO_AM_UPSELL_GUIDANCE: "broadgeo_am_upsell_guidance",
@@ -177,10 +195,12 @@ __d(
         CAPI_CRM_GUIDANCE_V2: "capi_crm_guidance_v2",
         CAPI_CRM_SETUP: "capi_crm_setup",
         CAPI_EVENT_COVERAGE: "capi_event_coverage",
+        CAPI_EVENT_COVERAGE_V2: "capi_event_coverage_v2",
         CAPI_PENETRATION: "capi_penetration",
         CAPI_PERFORMANCE_MATCH_KEY: "capi_performance_match_key",
         CAPI_PERFORMANCE_MATCH_KEY_V2: "capi_performance_match_key_v2",
         CAPI_PERFORMANCE_MATCH_KEY_V3: "capi_performance_match_key_v3",
+        CAPI_PERFORMANCE_MATCH_KEY_V4: "capi_performance_match_key_v4",
         CASH_REWARDS_OPT_IN: "cash_rewards_opt_in",
         CATALOG_DYNAMIC_MEDIA: "catalog_dynamic_media",
         CATALOG_MATCH_RATE: "catalog_match_rate",
@@ -200,12 +220,18 @@ __d(
         CONVERSION_LEADS_OPTIMIZATION_INTEGRATED:
           "conversion_leads_optimization_integrated",
         CONVERSION_LEADS_OPTIMIZATION_V2: "conversion_leads_optimization_v2",
+        CONVERSION_VOLUME_TO_REV_VALUE_OPT_V2:
+          "conversion_volume_to_rev_value_opt_v2",
         CONVERT_APP_WEB_FALLBACK_TO_A_DESTINATION:
           "convert_app_web_fallback_to_a_destination",
         CONVERT_CTX_REPLIES_TO_CTX_LEADS: "convert_ctx_replies_to_ctx_leads",
         CONVERT_CTX_REPLIES_TO_CTX_PURCHASE:
           "convert_ctx_replies_to_ctx_purchase",
         CONVERT_IG_PROFILE_VISIT_TO_PTWA: "convert_ig_profile_visit_to_ptwa",
+        CONVERT_INSTANT_FORM_LO_TO_LEAD_GEN_PLUS:
+          "convert_instant_form_lo_to_lead_gen_plus",
+        CONVERT_ONSITE_LO_TO_ONSITE_QLO_CAPI_CRM:
+          "convert_onsite_lo_to_onsite_qlo_capi_crm",
         COST_GOAL: "cost_goal",
         COST_GOAL_BUDGET_LIMITED: "cost_goal_budget_limited",
         COST_GOAL_CPA_LIMITED: "cost_goal_cpa_limited",
@@ -233,6 +259,7 @@ __d(
         CTM_LEADS_OPTIMIZATION_UPSELL: "ctm_leads_optimization_upsell",
         CTM_LO_ODAX_PHASE_2: "ctm_lo_odax_phase_2",
         CTM_PO_ODAX_PHASE_2: "ctm_po_odax_phase_2",
+        CTM_PURCHASE_CA_EXCLUSION: "ctm_purchase_ca_exclusion",
         CTM_VO_ODAX_PHASE_2: "ctm_vo_odax_phase_2",
         CTX_BUDGET_OPTIMIZATION: "ctx_budget_optimization",
         CTX_CREATION_PACKAGE: "ctx_creation_package",
@@ -246,6 +273,7 @@ __d(
         CTX_HVS: "ctx_hvs",
         CTX_HVS_V2: "ctx_hvs_v2",
         CTX_MULTI_MESSAGE_DESTINATION: "ctx_multi_message_destination",
+        CTX_OUTCOME_FORECASTER: "ctx_outcome_forecaster",
         CTX_PRODUCT_EXTENSION_DUPLICATION: "ctx_product_extension_duplication",
         CTX_SABR_CBO: "ctx_sabr_cbo",
         CTX_SABR_NON_CBO: "ctx_sabr_non_cbo",
@@ -270,6 +298,7 @@ __d(
         DELIVERY_WARNING: "delivery_warning",
         DUPLICATE_HIGH_PERFORMING_CAMPAIGN:
           "duplicate_high_performing_campaign",
+        DUPLICATE_LWI_CAMPAIGN: "duplicate_lwi_campaign",
         DYNAMIC_ADVANTAGE_CAMPAIGN_BUDGET: "dynamic_advantage_campaign_budget",
         ECOSYSTEM_BID_REDUCE_L1_CARDINALITY:
           "ecosystem_bid_reduce_l1_cardinality",
@@ -284,6 +313,9 @@ __d(
         EVC_WEB_DUPLICATION_UPGRADE: "evc_web_duplication_upgrade",
         EXPERIMENTATION_FRAMEWORK_TEST: "experimentation_framework_test",
         F2_CONVERSION_LOCATION: "f2_conversion_location",
+        FLEXIBLE_BUDGET_SHARING_WITHOUT_ACDP_LASER_V2:
+          "flexible_budget_sharing_without_acdp_laser_v2",
+        ZIJI_TEST_NO_ACDP_LASER_1: "ziji_test_no_acdp_laser_1",
         FRAGMENTATION: "fragmentation",
         FRAGMENTATION_RESOLUTION_UPDATE: "fragmentation_resolution_update",
         FRAGMENTATION_V2: "fragmentation_v2",
@@ -377,6 +409,8 @@ __d(
         PARTNERSHIP_ADS: "partnership_ads",
         PARTNERSHIP_ADS_DYNAMIC_HEADER: "partnership_ads_dynamic_header",
         PAYMENT_METHOD: "payment_method",
+        PERFORM_CHANNEL_LIFT_STUDY_FOR_FIRST_TIME:
+          "perform_channel_lift_study_for_first_time",
         PERFORMANT_CREATIVE_REELS_OPT_IN: "performant_creative_reels_opt_in",
         PERFORMANT_CREATIVE_REELS_OPT_IN_V2:
           "performant_creative_reels_opt_in_v2",
@@ -469,6 +503,8 @@ __d(
         TAILORED_LEAD_AD_CAMPAIGN: "tailored_lead_ad_campaign",
         TAILORED_MESSAGES_CAMPAIGN: "tailored_messages_campaign",
         TARGETING_CREATIVE_FRAGMENTATION: "targeting_creative_fragmentation",
+        TEST_GENERAL_UGP_GUIDANCE: "test_general_ugp_guidance",
+        TEST_SGP_MIGRATE_TO_UGP: "test_sgp_migrate_to_ugp",
         THIVIYA_SALES_GUIDANCE_E2E_TEST: "thiviya_sales_guidance_e2e_test",
         THREECO_WEB_PLUS_APP_APLUSD: "threeco_web_plus_app_aplusd",
         THREECO_WEB_PLUS_APP_UPSELL: "threeco_web_plus_app_upsell",
@@ -502,6 +538,8 @@ __d(
         WA_MESSAGING_PARTNERS: "wa_messaging_partners",
         WA_MESSAGING_PARTNERS_V2: "wa_messaging_partners_v2",
         WEB_APP_CONVERSION: "web_app_conversion",
+        WEB_APP_PURCHASE_TO_WEB_APP_IN_STORE:
+          "web_app_purchase_to_web_app_in_store",
         WEB_ENGAGED_VIEW_CONVERSIONS: "web_engaged_view_conversions",
         WEBSITE_AND_CALLS_UPSELL: "website_and_calls_upsell",
         WEBSITE_AND_INSTANT_FORM_L2: "website_and_instant_form_l2",

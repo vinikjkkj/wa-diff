@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipScreeningPrompt",
   [
-    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebAudioDeviceManager",
@@ -9,98 +8,78 @@ __d(
     "WAWebL10N",
     "WAWebMediaHostsUtil",
     "WAWebURLUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = "/wa/static/network_resource",
-      m = "nw_media",
-      p = "screening_audio_hint_",
-      _ = "call_screening_voicemail_beep_",
-      f = "en",
-      g = 15e3,
-      h = 25e3,
-      y = null,
-      C = 0;
-    function b() {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          S();
-          var e = ++C,
-            t = E();
-          o(
-            "WAWebCallScreeningJourneyLogger",
-          ).CallScreeningJourneyLogger.onPromptStarted(
-            t.locale === f && t.waLocale !== f,
-          );
-          var r = !1,
-            a,
-            i = new (c || (c = n("Promise")))(function (t) {
-              a = window.setTimeout(function () {
-                (e === C &&
-                  (o("WALogger")
-                    .WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: screening prompt timed out",
-                        ])),
-                    )
-                    .sendLogs("voip-screening-prompt-timed-out"),
-                  (r = !0),
-                  S()),
-                  t(!1));
-              }, h);
-            });
-          try {
-            var l = yield (c || (c = n("Promise"))).race([R(e, t.locale), i]);
-            return (
-              l
-                ? o(
-                    "WAWebCallScreeningJourneyLogger",
-                  ).CallScreeningJourneyLogger.onPromptCompleted()
-                : (r || e === C) &&
-                  o(
-                    "WAWebCallScreeningJourneyLogger",
-                  ).CallScreeningJourneyLogger.onPromptFailed(),
-              l
-            );
-          } finally {
-            window.clearTimeout(a);
-          }
-        })),
-        v.apply(this, arguments)
+      c = "/wa/static/network_resource",
+      d = "nw_media",
+      m = "screening_audio_hint_",
+      p = "call_screening_voicemail_beep_",
+      _ = "en",
+      f = 15e3,
+      g = 25e3,
+      h = null,
+      y = 0;
+    async function C() {
+      b();
+      var t = ++y,
+        n = S();
+      o(
+        "WAWebCallScreeningJourneyLogger",
+      ).CallScreeningJourneyLogger.onPromptStarted(
+        n.locale === _ && n.waLocale !== _,
       );
+      var r = !1,
+        a,
+        i = new Promise(function (n) {
+          a = window.setTimeout(function () {
+            (t === y &&
+              (o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: screening prompt timed out",
+                    ])),
+                )
+                .sendLogs("voip-screening-prompt-timed-out"),
+              (r = !0),
+              b()),
+              n(!1));
+          }, g);
+        });
+      try {
+        var l = await Promise.race([v(t, n.locale), i]);
+        return (
+          l
+            ? o(
+                "WAWebCallScreeningJourneyLogger",
+              ).CallScreeningJourneyLogger.onPromptCompleted()
+            : (r || t === y) &&
+              o(
+                "WAWebCallScreeningJourneyLogger",
+              ).CallScreeningJourneyLogger.onPromptFailed(),
+          l
+        );
+      } finally {
+        window.clearTimeout(a);
+      }
+    }
+    function b() {
+      var e;
+      (y++, (e = h) == null || e.finish(!1));
+    }
+    async function v(e, t) {
+      var n = await o("WAWebMediaHostsUtil").getStaticMediaHostName(),
+        r = function (r) {
+          return e === y ? E(L(n, r)) : Promise.resolve(!1);
+        },
+        a = R();
+      return (await r("" + m + t)) && (a == null || (await r(a)));
     }
     function S() {
-      var e;
-      (C++, (e = y) == null || e.finish(!1));
-    }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield o("WAWebMediaHostsUtil").getStaticMediaHostName(),
-            a = function (o) {
-              return e === C
-                ? T(I(r, o))
-                : (c || (c = n("Promise"))).resolve(!1);
-            },
-            i = k();
-          return (yield a("" + p + t)) && (i == null || (yield a(i)));
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E() {
       var e,
         t = r("WAWebL10N")
           .getNormalizedLocale()
@@ -117,81 +96,73 @@ __d(
               return e === t;
             })) != null
             ? e
-            : f;
+            : _;
       return { locale: n, waLocale: t };
     }
-    function k() {
+    function R() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "call_screening_voicemail_beep_tone",
       );
-      return e > 0 ? "" + _ + e : null;
+      return e > 0 ? "" + p + e : null;
     }
-    function I(e, t) {
-      return r("WAWebURLUtils").build("" + e + d, { cat: m, id: t });
+    function L(e, t) {
+      return r("WAWebURLUtils").build("" + e + c, { cat: d, id: t });
     }
-    function T(t) {
-      return new (c || (c = n("Promise")))(function (n) {
-        var a = new Audio(t),
-          i = window.setTimeout(function () {
-            return s(!1);
-          }, g),
-          l = { audio: a, finish: s };
-        function s(e) {
-          y === l &&
-            ((y = null),
-            window.clearTimeout(i),
-            (a.onended = null),
-            (a.onerror = null),
-            a.pause(),
-            n(e));
+    function E(e) {
+      return new Promise(function (t) {
+        var n = new Audio(e),
+          a = window.setTimeout(function () {
+            return l(!1);
+          }, f),
+          i = { audio: n, finish: l };
+        function l(e) {
+          h === i &&
+            ((h = null),
+            window.clearTimeout(a),
+            (n.onended = null),
+            (n.onerror = null),
+            n.pause(),
+            t(e));
         }
-        ((y = l),
-          (a.onended = function () {
-            return s(!0);
+        ((h = i),
+          (n.onended = function () {
+            return l(!0);
           }),
-          (a.onerror = function () {
-            return s(!1);
+          (n.onerror = function () {
+            return l(!1);
           }),
-          D(a)
+          k(n)
             .then(function () {
-              return y === l ? a.play() : void 0;
+              return h === i ? n.play() : void 0;
             })
-            .catch(function (t) {
-              y === l &&
+            .catch(function (e) {
+              h === i &&
                 (o("WALogger")
                   .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: screening prompt clip failed to play",
                       ])),
                   )
-                  .catching(r("getErrorSafe")(t))
+                  .catching(r("getErrorSafe")(e))
                   .sendLogs("voip-screening-prompt-play-failed"),
-                s(!1));
+                l(!1));
             }));
       });
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    async function k(e) {
+      (await o("WAWebAudioDeviceManager").applyPreferredAudioOutputSink(
+        e,
+        "voip:ScreeningPrompt",
+      )) ||
+        o("WALogger").WARN(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: screening prompt plays on the default output",
+            ])),
+        );
     }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield o("WAWebAudioDeviceManager").applyPreferredAudioOutputSink(
-            e,
-            "voip:ScreeningPrompt",
-          )) ||
-            o("WALogger").WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: screening prompt plays on the default output",
-                ])),
-            );
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    ((l.playScreeningPrompt = b), (l.stopScreeningPrompt = S));
+    ((l.playScreeningPrompt = C), (l.stopScreeningPrompt = b));
   },
   98,
 );

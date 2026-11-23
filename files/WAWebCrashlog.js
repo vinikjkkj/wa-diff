@@ -2,7 +2,6 @@ __d(
   "WAWebCrashlog",
   [
     "$InternalEnum",
-    "Promise",
     "WALogger",
     "WAThrottle",
     "WAWebBoolFunc",
@@ -28,7 +27,6 @@ __d(
     "WAWebWamEnumCrashType",
     "WAWebWamEnumLogType",
     "WAWebWebcMinorEventLogWamEvent",
-    "asyncToGeneratorRuntime",
     "cr:17160",
     "cr:4722",
     "err",
@@ -70,33 +68,32 @@ __d(
       F,
       O,
       B,
-      W,
-      q;
-    function U(e) {
-      return new (q || (q = n("Promise")))(function (t) {
+      W;
+    function q(e) {
+      return new Promise(function (t) {
         return self.setTimeout(t, e);
       });
     }
-    var V,
+    var U,
+      V,
       H,
       G,
-      z,
-      j = n("$InternalEnum")({ CRASHLOG: "crashlog", SUPPORT: "support" }),
-      K = "server-requested",
-      Q = "manual-upload",
-      X = "user-report",
-      Y = n("$InternalEnum")({ ONLY_EXCEPTION: "only_exception" }),
-      J = 100,
-      Z = new Map(),
-      ee = 0,
-      te = {
+      z = n("$InternalEnum")({ CRASHLOG: "crashlog", SUPPORT: "support" }),
+      j = "server-requested",
+      K = "manual-upload",
+      Q = "user-report",
+      X = n("$InternalEnum")({ ONLY_EXCEPTION: "only_exception" }),
+      Y = 100,
+      J = new Map(),
+      Z = 0,
+      ee = {
         shouldHitCheckEndpoint: (W = o("WAWebBoolFunc")).returnFalse,
         expectedCodes: [],
         appendToFormDataForCheck: function (t) {},
         appendToFormDataForUpload: function (t, n) {},
         shouldUseLightWeightLogs: W.returnFalse,
       },
-      ne = {
+      te = {
         shouldHitCheckEndpoint: W.returnTrue,
         expectedCodes: [200, 403],
         appendToFormDataForCheck: function (t, n) {
@@ -105,7 +102,7 @@ __d(
         appendToFormDataForUpload: function (t, n) {},
         shouldUseLightWeightLogs: W.returnFalse,
       },
-      re = {
+      ne = {
         shouldHitCheckEndpoint: W.returnTrue,
         expectedCodes: [200, 403],
         appendToFormDataForCheck: function (t, n) {
@@ -114,14 +111,14 @@ __d(
         },
         appendToFormDataForUpload: function (t, n) {
           n &&
-            n.upload === Y.ONLY_EXCEPTION &&
+            n.upload === X.ONLY_EXCEPTION &&
             t.append("exception_only_upload", "true");
         },
         shouldUseLightWeightLogs: function (t) {
-          return t ? t.upload === Y.ONLY_EXCEPTION : !1;
+          return t ? t.upload === X.ONLY_EXCEPTION : !1;
         },
       };
-    function oe(e) {
+    function re(e) {
       return e === o("WALogger").SendLogsType.UNCAUGHT_EXCEPTION ||
         e === o("WALogger").SendLogsType.UNCAUGHT_EXCEPTION_SAD
         ? ["uncaught_error"]
@@ -151,7 +148,7 @@ __d(
                   );
                 })();
     }
-    function ae(e) {
+    function oe(e) {
       var t = [];
       return (
         e.voipActivity != null && t.push("voip_activity:" + e.voipActivity),
@@ -164,7 +161,7 @@ __d(
         t
       );
     }
-    function ie(e) {
+    function ae(e) {
       switch (e) {
         case o("WALogger").SendLogsType.UNCAUGHT_EXCEPTION_SAD:
           return o("WAWebWamEnumCrashType").CRASH_TYPE.UNHANDLED_EXCEPTION;
@@ -182,7 +179,7 @@ __d(
           return o("WAWebWamEnumCrashType").CRASH_TYPE.CRASH;
       }
     }
-    function le(e) {
+    function ie(e) {
       switch (e) {
         case o("WALogger").SendLogsType.COUNTING_STAT:
           return o("WAWebWamEnumLogType").LOG_TYPE.COUNTING_STAT;
@@ -198,11 +195,14 @@ __d(
           return o("WAWebWamEnumLogType").LOG_TYPE.UNCATEGORIZED;
       }
     }
-    function se(e, t, n) {
-      return (!r("gkx")("26258") && e) || n ? te : t ? re : ne;
+    function le(e, t, n) {
+      return (!r("gkx")("26258") && e) || n ? ee : t ? ne : te;
     }
-    var ue = 72e5,
-      ce = o("WAThrottle").throttle(ye, ue, { trailing: !1 });
+    var se = 72e5,
+      ue = o("WAThrottle").throttle(ge, se, { trailing: !1 });
+    function ce(e) {
+      U = e;
+    }
     function de(e) {
       V = e;
     }
@@ -212,549 +212,520 @@ __d(
     function pe(e) {
       G = e;
     }
-    function _e(e) {
-      z = e;
-    }
-    function fe(e) {
-      return ge.apply(this, arguments);
-    }
-    function ge() {
-      return (
-        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.reason,
-            i = a === void 0 ? "reason-unspecified" : a,
-            l = t.immediate,
-            d = l === void 0 ? !1 : l,
-            g = t.logType,
-            h = g === void 0 ? j.CRASHLOG : g,
-            y = t.isHighPri,
-            C = y === void 0 ? !1 : y,
-            b = t.hasTaggedMessage,
-            v = b === void 0 ? !1 : b,
-            S = t.ticketId,
-            R = t.clientSamplingRate,
-            L = R === void 0 ? 1 : R,
-            E = t.tags,
-            k = E === void 0 ? [] : E,
-            I = t.fromTimestamp,
-            T = t.sendLogsType,
-            D = T === void 0 ? o("WALogger").SendLogsType.UNCATEGORIZED : T,
-            x = t.bugId,
-            $ = t.isReporter,
-            P = $ === void 0 ? !1 : $,
-            N = t.requireFreshFileId,
-            M = N === void 0 ? !1 : N;
-          if (r("WAWebBrokerGlobalAppState").isLogoutInProgress)
-            return (q || (q = n("Promise"))).resolve();
-          h === j.SUPPORT && (yield o("WAWebPriorLogs").printAllPriorLogs());
-          var w = k,
-            A = H != null && H();
-          if (
-            (A && (w = w.concat("web-joined-beta")),
-            o("WAWebRuntimeEnvironmentUtils").isWorker() &&
-              (w = w.concat("service-worker")),
-            (w = w.concat(oe(D))),
-            Z.size <= J)
-          ) {
-            var F = Z.get(i);
-            F ? F.count++ : Z.set(i, { count: 1, uploaded: !1 });
+    async function _e(t) {
+      var n = t.reason,
+        a = n === void 0 ? "reason-unspecified" : n,
+        i = t.immediate,
+        l = i === void 0 ? !1 : i,
+        d = t.logType,
+        g = d === void 0 ? z.CRASHLOG : d,
+        h = t.isHighPri,
+        y = h === void 0 ? !1 : h,
+        C = t.hasTaggedMessage,
+        b = C === void 0 ? !1 : C,
+        v = t.ticketId,
+        S = t.clientSamplingRate,
+        R = S === void 0 ? 1 : S,
+        L = t.tags,
+        E = L === void 0 ? [] : L,
+        k = t.fromTimestamp,
+        I = t.sendLogsType,
+        T = I === void 0 ? o("WALogger").SendLogsType.UNCATEGORIZED : I,
+        D = t.bugId,
+        x = t.isReporter,
+        $ = x === void 0 ? !1 : x,
+        P = t.requireFreshFileId,
+        N = P === void 0 ? !1 : P;
+      if (r("WAWebBrokerGlobalAppState").isLogoutInProgress)
+        return Promise.resolve();
+      g === z.SUPPORT && (await o("WAWebPriorLogs").printAllPriorLogs());
+      var M = E,
+        w = V != null && V();
+      if (
+        (w && (M = M.concat("web-joined-beta")),
+        o("WAWebRuntimeEnvironmentUtils").isWorker() &&
+          (M = M.concat("service-worker")),
+        (M = M.concat(re(T))),
+        J.size <= Y)
+      ) {
+        var A = J.get(a);
+        A ? A.count++ : J.set(a, { count: 1, uploaded: !1 });
+      }
+      var F = o("WALogger").SadSendLogsTypes.has(T);
+      if (F) {
+        M = M.concat("sad");
+        try {
+          var O,
+            B,
+            W = ae(T),
+            q = new (o("WAWebCrashLogWamEvent").CrashLogWamEvent)({
+              crashReason: a,
+              crashType: W,
+              crashCount:
+                (O = (B = J.get(a)) == null ? void 0 : B.count) != null ? O : 0,
+              crashApplicationState:
+                document.visibilityState === "visible"
+                  ? o("WAWebWamEnumCrashApplicationState")
+                      .CRASH_APPLICATION_STATE.FOREGROUND
+                  : o("WAWebWamEnumCrashApplicationState")
+                      .CRASH_APPLICATION_STATE.BACKGROUND,
+            });
+          (W === o("WAWebWamEnumCrashType").CRASH_TYPE.ANR &&
+            (q.crashTimeout = 5),
+            M.length && (q.crashContext = M.join(",")));
+          var U = o("WAWebCrashContextUtils").getCrashEventAppContext(W);
+          (U != null && (q.appContext = U),
+            q.commitAndWaitForFlush().catch(function (t) {
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "wa:uploadLogs error during crashLog wam commit: ",
+                    "",
+                  ])),
+                t,
+              );
+            }));
+        } catch (e) {
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "wa:uploadLogs error logging crashLog wam event: ",
+                "",
+              ])),
+            e,
+          );
+        }
+      } else
+        try {
+          var H,
+            G,
+            K = new (o(
+              "WAWebWebcMinorEventLogWamEvent",
+            ).WebcMinorEventLogWamEvent)();
+          ((K.logReason = a),
+            (K.logType = ie(T)),
+            M.length && (K.logContext = M.join(",")),
+            (K.logCount =
+              (H = (G = J.get(a)) == null ? void 0 : G.count) != null ? H : 0),
+            K.commitAndWaitForFlush().catch(function (e) {
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "wa:uploadLogs error during minorEvent wam commit: ",
+                    "",
+                  ])),
+                e,
+              );
+            }));
+        } catch (e) {
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "wa:uploadLogs error logging minorEvent wam event: ",
+                "",
+              ])),
+            e,
+          );
+        }
+      if (o("WAWebLoggerUtils").isWaitingForUpload()) return Promise.resolve();
+      o("WAWebLoggerUtils").setWaitingForUpload(!0);
+      var Q = !F;
+      if (
+        (R > 0 && R < 1 && (M = M.concat(["sampled", R.toString()])),
+        Q && r("gkx")("26258")
+          ? o("WAWebLoggerUtils").passesSamplingPerUser(R, a, ye())
+          : o("WAWebLoggerUtils").passesSampling(R))
+      ) {
+        var X = ge;
+        if (!y) {
+          r("gkx")("26259") && (M = M.concat(["intern"]));
+          var Z = J.get(a);
+          if (Z != null && Z.uploaded) {
+            (o("WALogger").LOG(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "wa:uploadLogs reason already uploaded, skipping",
+                ])),
+            ),
+              o("WAWebLoggerUtils").setWaitingForUpload(!1));
+            return;
           }
-          var O = o("WALogger").SadSendLogsTypes.has(D);
-          if (O) {
-            w = w.concat("sad");
-            try {
-              var B,
-                W,
-                U = ie(D),
-                V = new (o("WAWebCrashLogWamEvent").CrashLogWamEvent)({
-                  crashReason: i,
-                  crashType: U,
-                  crashCount:
-                    (B = (W = Z.get(i)) == null ? void 0 : W.count) != null
-                      ? B
-                      : 0,
-                  crashApplicationState:
-                    document.visibilityState === "visible"
-                      ? o("WAWebWamEnumCrashApplicationState")
-                          .CRASH_APPLICATION_STATE.FOREGROUND
-                      : o("WAWebWamEnumCrashApplicationState")
-                          .CRASH_APPLICATION_STATE.BACKGROUND,
-                });
-              (U === o("WAWebWamEnumCrashType").CRASH_TYPE.ANR &&
-                (V.crashTimeout = 5),
-                w.length && (V.crashContext = w.join(",")));
-              var G = o("WAWebCrashContextUtils").getCrashEventAppContext(U);
-              (G != null && (V.appContext = G),
-                V.commitAndWaitForFlush().catch(function (t) {
-                  o("WALogger").LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "wa:uploadLogs error during crashLog wam commit: ",
-                        "",
-                      ])),
-                    t,
-                  );
-                }));
-            } catch (e) {
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "wa:uploadLogs error logging crashLog wam event: ",
-                    "",
+          (Z && (Z.uploaded = !0),
+            J.size >
+              o("WAWebCrashlogConstants")
+                .UNIQUE_UPLOADS_ALLOWED_BEFORE_THROTTLE &&
+              (o("WALogger").LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "wa:uploadLogs using throttle",
                   ])),
-                e,
-              );
-            }
-          } else
-            try {
-              var z,
-                Q,
-                X = new (o(
-                  "WAWebWebcMinorEventLogWamEvent",
-                ).WebcMinorEventLogWamEvent)();
-              ((X.logReason = i),
-                (X.logType = le(D)),
-                w.length && (X.logContext = w.join(",")),
-                (X.logCount =
-                  (z = (Q = Z.get(i)) == null ? void 0 : Q.count) != null
-                    ? z
-                    : 0),
-                X.commitAndWaitForFlush().catch(function (e) {
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "wa:uploadLogs error during minorEvent wam commit: ",
-                        "",
-                      ])),
-                    e,
-                  );
-                }));
-            } catch (e) {
-              o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "wa:uploadLogs error logging minorEvent wam event: ",
-                    "",
-                  ])),
-                e,
-              );
-            }
-          if (o("WAWebLoggerUtils").isWaitingForUpload())
-            return (q || (q = n("Promise"))).resolve();
-          o("WAWebLoggerUtils").setWaitingForUpload(!0);
-          var Y = !O;
-          if (
-            (L > 0 && L < 1 && (w = w.concat(["sampled", L.toString()])),
-            Y && r("gkx")("26258")
-              ? o("WAWebLoggerUtils").passesSamplingPerUser(L, i, ve())
-              : o("WAWebLoggerUtils").passesSampling(L))
-          ) {
-            var ee = ye;
-            if (!C) {
-              r("gkx")("26259") && (w = w.concat(["intern"]));
-              var te = Z.get(i);
-              if (te != null && te.uploaded) {
-                (o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "wa:uploadLogs reason already uploaded, skipping",
-                    ])),
-                ),
-                  o("WAWebLoggerUtils").setWaitingForUpload(!1));
-                return;
-              }
-              (te && (te.uploaded = !0),
-                Z.size >
-                  o("WAWebCrashlogConstants")
-                    .UNIQUE_UPLOADS_ALLOWED_BEFORE_THROTTLE &&
-                  (o("WALogger").LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "wa:uploadLogs using throttle",
-                      ])),
-                  ),
-                  (ee = ce)));
-            }
-            var ne = se(C, v, i === K);
-            try {
-              var re = yield he(
-                ee,
-                {
-                  isHighPri: C,
-                  immediate: d,
-                  logType: h,
-                  ticketId: S,
-                  uploadStrategy: ne,
-                  tags: w,
-                  reason: i,
-                  hasTaggedMessage: v,
-                  fromTimestamp: I,
-                  bugId: x,
-                  isReporter: P,
-                },
-                M,
-              );
-              return (o("WAWebLoggerUtils").setWaitingForUpload(!1), re);
-            } catch (e) {
-              (o("WAWebLoggerUtils").setWaitingForUpload(!1),
-                o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "wa:uploadLogs error uploading: ",
-                      "",
-                    ])),
-                  e,
-                ));
-              return;
-            }
-          } else
-            (o("WAWebLoggerUtils").setWaitingForUpload(!1),
-              o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "[crashlog] upload client sampling check rate: ",
-                    " prevented upload",
-                  ])),
-                L,
-              ));
-        })),
-        ge.apply(this, arguments)
-      );
+              ),
+              (X = ue)));
+        }
+        var ee = le(y, b, a === j);
+        try {
+          var te = await fe(
+            X,
+            {
+              isHighPri: y,
+              immediate: l,
+              logType: g,
+              ticketId: v,
+              uploadStrategy: ee,
+              tags: M,
+              reason: a,
+              hasTaggedMessage: b,
+              fromTimestamp: k,
+              bugId: D,
+              isReporter: $,
+            },
+            N,
+          );
+          return (o("WAWebLoggerUtils").setWaitingForUpload(!1), te);
+        } catch (e) {
+          (o("WAWebLoggerUtils").setWaitingForUpload(!1),
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "wa:uploadLogs error uploading: ",
+                  "",
+                ])),
+              e,
+            ));
+          return;
+        }
+      } else
+        (o("WAWebLoggerUtils").setWaitingForUpload(!1),
+          o("WALogger").LOG(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "[crashlog] upload client sampling check rate: ",
+                " prevented upload",
+              ])),
+            R,
+          ));
     }
-    function he(e, t, r) {
-      var o = ee,
-        a = e(t);
-      return !r || ee !== o
-        ? a
-        : (q || (q = n("Promise"))).resolve(a).then(function () {});
+    function fe(e, t, n) {
+      var r = Z,
+        o = e(t);
+      return !n || Z !== r ? o : Promise.resolve(o).then(function () {});
     }
-    function ye(e) {
-      return Ce.apply(this, arguments);
-    }
-    function Ce() {
-      return (
-        (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            a,
-            i,
-            l = e.isHighPri,
-            s = l === void 0 ? !1 : l,
-            u = e.immediate,
-            c = e.logType,
-            d = e.ticketId,
-            m = e.uploadStrategy,
-            p = e.tags,
-            _ = p === void 0 ? [] : p,
-            f = e.reason,
-            B = f === void 0 ? "reason-unspecified" : f,
-            W = e.hasTaggedMessage,
-            H = W === void 0 ? !1 : W,
-            j = e.fromTimestamp,
-            Q = e.bugId,
-            X = e.isReporter,
-            Y = X === void 0 ? !1 : X;
-          ee++;
-          var J = V != null ? V() : { platform: void 0, ref: void 0 };
-          (o("WALogger").LOG(
-            g ||
-              (g = babelHelpers.taggedTemplateLiteralLoose([
-                "==================================================",
+    async function ge(e) {
+      var t,
+        a,
+        i,
+        l = e.isHighPri,
+        s = l === void 0 ? !1 : l,
+        u = e.immediate,
+        c = e.logType,
+        d = e.ticketId,
+        m = e.uploadStrategy,
+        p = e.tags,
+        _ = p === void 0 ? [] : p,
+        f = e.reason,
+        B = f === void 0 ? "reason-unspecified" : f,
+        W = e.hasTaggedMessage,
+        V = W === void 0 ? !1 : W,
+        z = e.fromTimestamp,
+        K = e.bugId,
+        Q = e.isReporter,
+        X = Q === void 0 ? !1 : Q;
+      Z++;
+      var Y = U != null ? U() : { platform: void 0, ref: void 0 };
+      (o("WALogger").LOG(
+        g ||
+          (g = babelHelpers.taggedTemplateLiteralLoose([
+            "==================================================",
+          ])),
+      ),
+        o("WALogger").LOG(
+          h ||
+            (h = babelHelpers.taggedTemplateLiteralLoose([
+              "wa:uploadLogs ref: ",
+              "",
+            ])),
+          (t = Y.ref) != null ? t : "no conn",
+        ),
+        o("WALogger").LOG(
+          y ||
+            (y = babelHelpers.taggedTemplateLiteralLoose([
+              "wa:uploadLogs userAgent: ",
+              "",
+            ])),
+          navigator.userAgent,
+        ),
+        o("WALogger").LOG(
+          C ||
+            (C = babelHelpers.taggedTemplateLiteralLoose([
+              "wa:uploadLogs platform: ",
+              "",
+            ])),
+          (a = Y.platform) != null ? a : "no platform",
+        ),
+        o("WALogger").LOG(
+          b ||
+            (b = babelHelpers.taggedTemplateLiteralLoose([
+              "wa:uploadLogs webPlatform: ",
+              "",
+            ])),
+          o("WAWebCrashlogConstants").CLB_PLATFORM,
+        ),
+        o("WALogger").LOG(
+          v ||
+            (v = babelHelpers.taggedTemplateLiteralLoose([
+              "wa:uploadLogs is guest user: ",
+              "",
+            ])),
+          r("WAWebEnvironment").isGuest,
+        ),
+        o("WALogger").LOG(
+          S ||
+            (S = babelHelpers.taggedTemplateLiteralLoose([
+              "wa:uploadLogs appId: ",
+              "",
+            ])),
+          o("WAWebCrashlogConstants").FB_APP_ID,
+        ),
+        o("WALogger").LOG(
+          R ||
+            (R = babelHelpers.taggedTemplateLiteralLoose([
+              "wa:uploadLogs url: ",
+              "",
+            ])),
+          location.href,
+        ),
+        o("WALogger").LOG(
+          L ||
+            (L = babelHelpers.taggedTemplateLiteralLoose([
+              "wa:uploadLogs distribution: ",
+              "",
+            ])),
+          o("WAWebCrashlogUserAgent").getDistribution(),
+        ),
+        o("WALogger").LOG(
+          E ||
+            (E = babelHelpers.taggedTemplateLiteralLoose([
+              "wa:uploadLogs buildId: ",
+              "",
+            ])),
+          o("WAWebCrashlogConstants").BUILD_ID,
+        ),
+        o("WALogger").LOG(
+          k ||
+            (k = babelHelpers.taggedTemplateLiteralLoose([
+              "wa:uploadLogs version: ",
+              "",
+            ])),
+          o("WAWebBuildConstants").VERSION_BASE,
+        ),
+        o("WALogger").LOG(
+          I ||
+            (I = babelHelpers.taggedTemplateLiteralLoose([
+              "wa:uploadLogs pushPhase: ",
+              "",
+            ])),
+          o("WAWebBuildConstants").PUSH_PHASE,
+        ),
+        V &&
+          o("WALogger").LOG(
+            T ||
+              (T = babelHelpers.taggedTemplateLiteralLoose([
+                "wa:uploadLogs hasTaggedMessage",
               ])),
           ),
+        o("WALogger").LOG(
+          D ||
+            (D = babelHelpers.taggedTemplateLiteralLoose([
+              "reason for logs: ",
+              "",
+            ])),
+          B,
+        ),
+        o("WALogger").LOG(
+          x || (x = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+          o("WAWebLoggerOptimizer").END_OF_UPLOAD,
+        ),
+        await q(u ? 0 : 1e3));
+      var J;
+      if (m.shouldHitCheckEndpoint()) {
+        var ee = Ce({ isHighPri: s });
+        m.appendToFormDataForCheck(ee, B);
+        var te = be(c);
+        if (
+          ((J = await self.fetch(te, { method: "POST", body: ee })),
+          !m.expectedCodes.includes(J.status))
+        ) {
+          var ne = "";
+          try {
+            ne = await J.text();
+          } catch (e) {
+            ne = "(failed to read response body)";
+          }
+          (o("WALogger").LOG(
+            $ ||
+              ($ = babelHelpers.taggedTemplateLiteralLoose([
+                "Crashlog:doUpload code of ",
+                " from ",
+                " was unexpected, expected values are: ",
+                "",
+              ])),
+            J.status,
+            o("WAWebCrashlogConstants").CLB_CHECK_URL,
+            m.expectedCodes.toString(),
+          ),
             o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
-                  "wa:uploadLogs ref: ",
+              P ||
+                (P = babelHelpers.taggedTemplateLiteralLoose([
+                  "Crashlog:doUpload check response body: ",
                   "",
                 ])),
-              (t = J.ref) != null ? t : "no conn",
-            ),
-            o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
-                  "wa:uploadLogs userAgent: ",
-                  "",
-                ])),
-              navigator.userAgent,
-            ),
-            o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
-                  "wa:uploadLogs platform: ",
-                  "",
-                ])),
-              (a = J.platform) != null ? a : "no platform",
-            ),
-            o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "wa:uploadLogs webPlatform: ",
-                  "",
-                ])),
-              o("WAWebCrashlogConstants").CLB_PLATFORM,
-            ),
-            o("WALogger").LOG(
-              v ||
-                (v = babelHelpers.taggedTemplateLiteralLoose([
-                  "wa:uploadLogs is guest user: ",
-                  "",
-                ])),
-              r("WAWebEnvironment").isGuest,
-            ),
-            o("WALogger").LOG(
-              S ||
-                (S = babelHelpers.taggedTemplateLiteralLoose([
-                  "wa:uploadLogs appId: ",
-                  "",
-                ])),
-              o("WAWebCrashlogConstants").FB_APP_ID,
-            ),
-            o("WALogger").LOG(
-              R ||
-                (R = babelHelpers.taggedTemplateLiteralLoose([
-                  "wa:uploadLogs url: ",
-                  "",
-                ])),
-              location.href,
-            ),
-            o("WALogger").LOG(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "wa:uploadLogs distribution: ",
-                  "",
-                ])),
-              o("WAWebCrashlogUserAgent").getDistribution(),
-            ),
-            o("WALogger").LOG(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
-                  "wa:uploadLogs buildId: ",
-                  "",
-                ])),
-              o("WAWebCrashlogConstants").BUILD_ID,
-            ),
-            o("WALogger").LOG(
-              k ||
-                (k = babelHelpers.taggedTemplateLiteralLoose([
-                  "wa:uploadLogs version: ",
-                  "",
-                ])),
-              o("WAWebBuildConstants").VERSION_BASE,
-            ),
-            o("WALogger").LOG(
-              I ||
-                (I = babelHelpers.taggedTemplateLiteralLoose([
-                  "wa:uploadLogs pushPhase: ",
-                  "",
-                ])),
-              o("WAWebBuildConstants").PUSH_PHASE,
-            ),
-            H &&
-              o("WALogger").LOG(
-                T ||
-                  (T = babelHelpers.taggedTemplateLiteralLoose([
-                    "wa:uploadLogs hasTaggedMessage",
-                  ])),
-              ),
-            o("WALogger").LOG(
-              D ||
-                (D = babelHelpers.taggedTemplateLiteralLoose([
-                  "reason for logs: ",
-                  "",
-                ])),
-              B,
-            ),
-            o("WALogger").LOG(
-              x || (x = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-              o("WAWebLoggerOptimizer").END_OF_UPLOAD,
-            ),
-            yield U(u ? 0 : 1e3));
-          var Z;
-          if (m.shouldHitCheckEndpoint()) {
-            var te = Se({ isHighPri: s });
-            m.appendToFormDataForCheck(te, B);
-            var ne = Re(c);
-            if (
-              ((Z = yield self.fetch(ne, { method: "POST", body: te })),
-              !m.expectedCodes.includes(Z.status))
-            ) {
-              var re = "";
-              try {
-                re = yield Z.text();
-              } catch (e) {
-                re = "(failed to read response body)";
-              }
-              (o("WALogger").LOG(
-                $ ||
-                  ($ = babelHelpers.taggedTemplateLiteralLoose([
-                    "Crashlog:doUpload code of ",
-                    " from ",
-                    " was unexpected, expected values are: ",
-                    "",
-                  ])),
-                Z.status,
-                o("WAWebCrashlogConstants").CLB_CHECK_URL,
-                m.expectedCodes.toString(),
-              ),
-                o("WALogger").LOG(
-                  P ||
-                    (P = babelHelpers.taggedTemplateLiteralLoose([
-                      "Crashlog:doUpload check response body: ",
-                      "",
-                    ])),
-                  re,
-                ));
-              var oe = r("WAWebBrowserInfo")();
-              o("WALogger").LOG(
-                N ||
-                  (N = babelHelpers.taggedTemplateLiteralLoose([
-                    "Crashlog:doUpload check request agent: ",
-                    "",
-                  ])),
-                o("WAWebCrashlogUserAgent").getLogUserAgent({
-                  device: oe.os,
-                  browser: oe.ua,
-                  appVersion: o("WAWebBuildConstants").VERSION_BASE,
-                }),
-              );
-              return;
-            }
-            if (Z.status === 403) {
-              o("WALogger").LOG(
-                M ||
-                  (M = babelHelpers.taggedTemplateLiteralLoose([
-                    "Crashlog:doUpload aborting crashlog upload due to 403 check response",
-                  ])),
-              );
-              return;
-            }
-          } else
-            o("WALogger").LOG(
-              w ||
-                (w = babelHelpers.taggedTemplateLiteralLoose([
-                  "Crashlog:doUpload skipping sampling check",
-                ])),
-            );
-          var ie = null;
-          if (Z)
-            try {
-              var le;
-              if (
-                ((ie = JSON.parse(yield Z.text())),
-                ((le = ie) == null || (le = le.config) == null
-                  ? void 0
-                  : le.sampling) != null &&
-                  (ie.config.sampling === 0 ||
-                    Math.random() * ie.config.sampling > 1))
-              ) {
-                o("WALogger").LOG(
-                  A ||
-                    (A = babelHelpers.taggedTemplateLiteralLoose([
-                      "Crashlog:doUpload server configured sampling check w/rate: ",
-                      " prevented upload",
-                    ])),
-                  ie.config.sampling,
-                );
-                return;
-              }
-            } catch (e) {
-              o("WALogger").LOG(
-                F ||
-                  (F = babelHelpers.taggedTemplateLiteralLoose([
-                    "Crashlog:failed to parse response from upload check ",
-                    ", will perform default upload",
-                  ])),
-                String(e),
-              );
-            }
-          var se = Se({ isHighPri: s });
-          m.appendToFormDataForUpload(se, ie);
-          var ue = o("WAWebLoggerImpl").Logger.getLogs(
-            m.shouldUseLightWeightLogs(ie),
-            B === K ? 0 : j,
+              ne,
+            ));
+          var re = r("WAWebBrowserInfo")();
+          o("WALogger").LOG(
+            N ||
+              (N = babelHelpers.taggedTemplateLiteralLoose([
+                "Crashlog:doUpload check request agent: ",
+                "",
+              ])),
+            o("WAWebCrashlogUserAgent").getLogUserAgent({
+              device: re.os,
+              browser: re.ua,
+              appVersion: o("WAWebBuildConstants").VERSION_BASE,
+            }),
           );
-          if (B === K) {
-            var ce;
-            n("cr:17160") == null ||
-              (ce = n("cr:17160").WAWebWindowsGetBridge()) == null ||
-              (ce = ce.getDebugFeatures()) == null ||
-              ce.sendAdminLogs();
-          }
-          var de =
-              B === K
-                ? null
-                : n("cr:17160") == null ||
-                    (i = n("cr:17160").WAWebWindowsGetBridge()) == null ||
-                    (i = i.getDebugFeatures()) == null
-                  ? void 0
-                  : i.requestNativeLogs(),
-            me = yield (q || (q = n("Promise"))).all([ue, de]),
-            pe = me[0],
-            _e = me[1];
-          (r("justknobx")._("7009") ? !r("gkx")("9092") : r("gkx")("26258")) &&
-            (pe = pe.map(o("WAWebLogLineSanitizer").sanitizeLine));
-          var fe = pe.join("\n"),
-            ge = new Blob([fe], { type: "text/plain" });
-          if ((se.append("file", ge, "logs.txt"), _e != null)) {
-            var he = new Blob([_e], { type: "text/plain" });
-            se.append(
-              "secondary_log_files[windows_hybrid]",
-              he,
-              "native_logs.txt",
+          return;
+        }
+        if (J.status === 403) {
+          o("WALogger").LOG(
+            M ||
+              (M = babelHelpers.taggedTemplateLiteralLoose([
+                "Crashlog:doUpload aborting crashlog upload due to 403 check response",
+              ])),
+          );
+          return;
+        }
+      } else
+        o("WALogger").LOG(
+          w ||
+            (w = babelHelpers.taggedTemplateLiteralLoose([
+              "Crashlog:doUpload skipping sampling check",
+            ])),
+        );
+      var ae = null;
+      if (J)
+        try {
+          var ie;
+          if (
+            ((ae = JSON.parse(await J.text())),
+            ((ie = ae) == null || (ie = ie.config) == null
+              ? void 0
+              : ie.sampling) != null &&
+              (ae.config.sampling === 0 ||
+                Math.random() * ae.config.sampling > 1))
+          ) {
+            o("WALogger").LOG(
+              A ||
+                (A = babelHelpers.taggedTemplateLiteralLoose([
+                  "Crashlog:doUpload server configured sampling check w/rate: ",
+                  " prevented upload",
+                ])),
+              ae.config.sampling,
             );
+            return;
           }
-          if (G != null) {
-            var ye = G();
-            if (ye != null) {
-              var Ce = new Blob([JSON.stringify(ye)], { type: "text/plain" });
-              se.append(
-                "secondary_log_files[pathfinder]",
-                Ce,
-                "pathfinder_trace.json",
-              );
-            }
-          }
-          var be = _;
-          Q != null &&
-            (se.append("bug_id", Q), Y && (be = be.concat("is_reporter")));
-          var ve = z != null ? z() : null;
-          (ve != null &&
-            (se.append("call_id", ve.callId), (be = be.concat(ae(ve)))),
-            be.length && se.append("tags", be.join(",")),
-            r("isStringNullOrEmpty")(d) || se.append("ticket_id", d));
-          var Ee = Le(c),
-            ke = yield self.fetch(Ee, { method: "POST", body: se });
-          if (ke.status !== 200) {
-            var Ie = "";
-            try {
-              Ie = yield ke.text();
-            } catch (e) {
-              Ie = "(failed to read response body)";
-            }
-            throw (
-              o("WALogger").LOG(
-                O ||
-                  (O = babelHelpers.taggedTemplateLiteralLoose([
-                    "Crashlog:doUpload upload response body: ",
-                    "",
-                  ])),
-                Ie,
-              ),
-              r("err")(
-                "Status code of " +
-                  ke.status +
-                  " from " +
-                  Ee +
-                  " was unexpected, expected 200",
-              )
-            );
-          }
-          return ke.headers.get("X-Uploaded-File-Id");
-        })),
-        Ce.apply(this, arguments)
+        } catch (e) {
+          o("WALogger").LOG(
+            F ||
+              (F = babelHelpers.taggedTemplateLiteralLoose([
+                "Crashlog:failed to parse response from upload check ",
+                ", will perform default upload",
+              ])),
+            String(e),
+          );
+        }
+      var le = Ce({ isHighPri: s });
+      m.appendToFormDataForUpload(le, ae);
+      var se = o("WAWebLoggerImpl").Logger.getLogs(
+        m.shouldUseLightWeightLogs(ae),
+        B === j ? 0 : z,
       );
+      if (B === j) {
+        var ue;
+        n("cr:17160") == null ||
+          (ue = n("cr:17160").WAWebWindowsGetBridge()) == null ||
+          (ue = ue.getDebugFeatures()) == null ||
+          ue.sendAdminLogs();
+      }
+      var ce =
+          B === j
+            ? null
+            : n("cr:17160") == null ||
+                (i = n("cr:17160").WAWebWindowsGetBridge()) == null ||
+                (i = i.getDebugFeatures()) == null
+              ? void 0
+              : i.requestNativeLogs(),
+        de = await Promise.all([se, ce]),
+        me = de[0],
+        pe = de[1];
+      (r("justknobx")._("7009") ? !r("gkx")("9092") : r("gkx")("26258")) &&
+        (me = me.map(o("WAWebLogLineSanitizer").sanitizeLine));
+      var _e = me.join(`
+`),
+        fe = new Blob([_e], { type: "text/plain" });
+      if ((le.append("file", fe, "logs.txt"), pe != null)) {
+        var ge = new Blob([pe], { type: "text/plain" });
+        le.append("secondary_log_files[windows_hybrid]", ge, "native_logs.txt");
+      }
+      if (H != null) {
+        var he = H();
+        if (he != null) {
+          var ye = new Blob([JSON.stringify(he)], { type: "text/plain" });
+          le.append(
+            "secondary_log_files[pathfinder]",
+            ye,
+            "pathfinder_trace.json",
+          );
+        }
+      }
+      var Se = _;
+      K != null &&
+        (le.append("bug_id", K), X && (Se = Se.concat("is_reporter")));
+      var Re = G != null ? G() : null;
+      (Re != null &&
+        (le.append("call_id", Re.callId), (Se = Se.concat(oe(Re)))),
+        Se.length && le.append("tags", Se.join(",")),
+        r("isStringNullOrEmpty")(d) || le.append("ticket_id", d));
+      var Le = ve(c),
+        Ee = await self.fetch(Le, { method: "POST", body: le });
+      if (Ee.status !== 200) {
+        var ke = "";
+        try {
+          ke = await Ee.text();
+        } catch (e) {
+          ke = "(failed to read response body)";
+        }
+        throw (
+          o("WALogger").LOG(
+            O ||
+              (O = babelHelpers.taggedTemplateLiteralLoose([
+                "Crashlog:doUpload upload response body: ",
+                "",
+              ])),
+            ke,
+          ),
+          r("err")(
+            "Status code of " +
+              Ee.status +
+              " from " +
+              Le +
+              " was unexpected, expected 200",
+          )
+        );
+      }
+      return Ee.headers.get("X-Uploaded-File-Id");
     }
-    function be(e) {
+    function he(e) {
       if (n("cr:4722") != null) {
         var t = new Blob([n("cr:4722").Profiler.export()], {
           type: "text/plain",
@@ -762,7 +733,7 @@ __d(
         e.append("attachment", t, "profiler_data.txt");
       }
     }
-    function ve() {
+    function ye() {
       var e =
         (o("WAWebRuntimeEnvironmentUtils").isWorker() &&
           !o("WAWebGlobals").areGlobalsReady()) ||
@@ -771,12 +742,12 @@ __d(
           : o("WAWebUserUtils").getMeDeviceOrThrow();
       return e ? e.toString() : o("WAWebUserPrefsMeUser").getUnknownId();
     }
-    function Se(e) {
+    function Ce(e) {
       var t = e.isHighPri,
         n = new FormData();
       ((!r("gkx")("26258") || t) && n.append("forced", "true"),
         r("gkx")("9092") && n.append("is_internal", "true"),
-        n.append("from_jid", ve()));
+        n.append("from_jid", ye()));
       var a = r("WAWebBrowserInfo")(),
         i = o("WAWebCrashlogUserAgent").getLogUserAgent({
           device: a.os,
@@ -790,7 +761,7 @@ __d(
         n
       );
     }
-    function Re(e) {
+    function be(e) {
       return r("WAWebURLUtils").build(
         o("WAWebCrashlogConstants").CLB_CHECK_URL,
         {
@@ -799,7 +770,7 @@ __d(
         },
       );
     }
-    function Le(e) {
+    function ve(e) {
       var t = {
         type: String(e),
         access_token: o("WAWebCrashlogConstants").CLB_TOKEN,
@@ -814,60 +785,52 @@ __d(
         r("WAWebURLUtils").build(o("WAWebCrashlogConstants").CLB_URL, t)
       );
     }
-    function Ee(e, t) {
-      return ke.apply(this, arguments);
+    async function Se(e, t) {
+      if (!o("WAWebLoggerImpl").Logger.isTakeOver)
+        try {
+          var n,
+            a = e,
+            i = (n = t == null ? void 0 : t.sampling) != null ? n : 1;
+          (t == null ? void 0 : t.separateEmployeeLog) !== !1 &&
+            r("gkx")("9092") &&
+            ((a = e + "-employee"),
+            (t == null ? void 0 : t.employeeSampling) != null &&
+              (i = t.employeeSampling));
+          var l = await _e({
+            reason: a,
+            hasTaggedMessage: !0,
+            clientSamplingRate: i,
+            tags: t == null ? void 0 : t.tags,
+            sendLogsType: t == null ? void 0 : t.sendLogsType,
+            requireFreshFileId: t == null ? void 0 : t.requireFreshFileId,
+          });
+          return l;
+        } catch (e) {
+          o("WALogger").ERROR(
+            B ||
+              (B = babelHelpers.taggedTemplateLiteralLoose([
+                "Crash log sendLogs failed, ",
+                "",
+              ])),
+            e,
+          );
+          return;
+        }
     }
-    function ke() {
-      return (
-        (ke = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!o("WAWebLoggerImpl").Logger.isTakeOver)
-            try {
-              var n,
-                a = e,
-                i = (n = t == null ? void 0 : t.sampling) != null ? n : 1;
-              (t == null ? void 0 : t.separateEmployeeLog) !== !1 &&
-                r("gkx")("9092") &&
-                ((a = e + "-employee"),
-                (t == null ? void 0 : t.employeeSampling) != null &&
-                  (i = t.employeeSampling));
-              var l = yield fe({
-                reason: a,
-                hasTaggedMessage: !0,
-                clientSamplingRate: i,
-                tags: t == null ? void 0 : t.tags,
-                sendLogsType: t == null ? void 0 : t.sendLogsType,
-                requireFreshFileId: t == null ? void 0 : t.requireFreshFileId,
-              });
-              return l;
-            } catch (e) {
-              o("WALogger").ERROR(
-                B ||
-                  (B = babelHelpers.taggedTemplateLiteralLoose([
-                    "Crash log sendLogs failed, ",
-                    "",
-                  ])),
-                e,
-              );
-              return;
-            }
-        })),
-        ke.apply(this, arguments)
-      );
+    function Re() {
+      (ue.cancel(), J.clear());
     }
-    function Ie() {
-      (ce.cancel(), Z.clear());
-    }
-    ((l.LogType = j),
-      (l.SERVER_REQUESTED = K),
-      (l.MANUAL_UPLOAD = Q),
-      (l.USER_REPORT = X),
-      (l.registerCrashlogUploadInformationalLoggingFunction = de),
-      (l.registerCrashlogUploadIsUserInExternalBetaFunction = me),
-      (l.registerPathfinderTraceCallback = pe),
-      (l.registerCrashlogVoipContextCallback = _e),
-      (l.upload = fe),
-      (l.sendLogs = Ee),
-      (l.reset = Ie));
+    ((l.LogType = z),
+      (l.SERVER_REQUESTED = j),
+      (l.MANUAL_UPLOAD = K),
+      (l.USER_REPORT = Q),
+      (l.registerCrashlogUploadInformationalLoggingFunction = ce),
+      (l.registerCrashlogUploadIsUserInExternalBetaFunction = de),
+      (l.registerPathfinderTraceCallback = me),
+      (l.registerCrashlogVoipContextCallback = pe),
+      (l.upload = _e),
+      (l.sendLogs = Se),
+      (l.reset = Re));
   },
   98,
 );

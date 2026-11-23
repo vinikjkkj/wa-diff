@@ -3,7 +3,7 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Couldn't open profile. Try again.");
+      return s._(/*BTDS*/ "");
     }
     l.getRetryProfileErrorMessage = e;
   },

@@ -8,7 +8,6 @@ __d(
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebRunJobStepsNonPersisted",
     "WAWebScheduledOperations",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -68,20 +67,12 @@ __d(
     function m() {
       return o("WAWebJobsMigrationGating").isServicedJobsEnabled();
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield r("WAWebPersistedJobInitializers")[e.type]();
-          yield o("WAWebRunJobStepsNonPersisted").runJobStepsNonPersisted(
-            e.type,
-            t,
-            e.args,
-          );
-        })),
-        _.apply(this, arguments)
+    async function p(e) {
+      var t = await r("WAWebPersistedJobInitializers")[e.type]();
+      await o("WAWebRunJobStepsNonPersisted").runJobStepsNonPersisted(
+        e.type,
+        t,
+        e.args,
       );
     }
     ((l.runServicedJob = s), (l.runServicedJobToCompletion = u));

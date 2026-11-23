@@ -1,7 +1,6 @@
 __d(
   "WAWebCallLogPreviewCounts",
   [
-    "Promise",
     "WAAbortError",
     "WALogger",
     "WAPromiseDelays",
@@ -17,26 +16,24 @@ __d(
     "WAWebUIListener",
     "WAWebVoipCallsTabCallInfoUtils",
     "WAWebVoipCallsTabPanelManager",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = 200,
-      c = 2,
-      d = 250,
-      m = new Map(),
-      p = [
+      s = 200,
+      u = 2,
+      c = 250,
+      d = new Map(),
+      m = [
         "callOutcome",
         "finalCallOutcome",
         "isVideoCall",
         "callSilenceReason",
         "subtype",
       ],
-      _ = (function () {
+      p = (function () {
         function t() {
           var t = this;
-          ((this.$1 = m),
+          ((this.$1 = d),
             (this.$2 = []),
             (this.$3 = new Set()),
             (this.$4 = []),
@@ -61,7 +58,7 @@ __d(
                       t.$7++,
                       (n = t.$6) == null || n.abort(),
                       (t.$2 = []),
-                      (t.$1 = m));
+                      (t.$1 = d));
                   }
                 }
               );
@@ -71,7 +68,7 @@ __d(
                 var n = t.$7,
                   r = new AbortController();
                 ((t.$6 = r),
-                  (t.$5 = g(r.signal)
+                  (t.$5 = f(r.signal)
                     .then(function (e) {
                       n === t.$7 && ((t.$2 = e), t.$13());
                     })
@@ -147,7 +144,7 @@ __d(
                 this.$10,
               ),
             ].concat(
-              p.map(function (t) {
+              m.map(function (t) {
                 return new (o("WAWebUIListener").Listener)(
                   o("WAWebMsgCollection").MsgCollection,
                   "change:" + t,
@@ -208,34 +205,25 @@ __d(
           t
         );
       })(),
-      f = new _();
-    function g(e, t) {
+      _ = new p();
+    function f(e, t) {
       return (
         t === void 0 && (t = 0),
         e.aborted
-          ? (s || (s = n("Promise"))).reject(o("WAAbortError").ABORT_ERROR)
+          ? Promise.reject(o("WAAbortError").ABORT_ERROR)
           : r("WAPromiseRaceAbort")(
-              o("WAWebMsgQueryUtils").getVoipCallLogMsgs(u, null),
+              o("WAWebMsgQueryUtils").getVoipCallLogMsgs(s, null),
               e,
-            ).catch(
-              (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (n) {
-                    if (e.aborted || t >= c) throw n;
-                    return (
-                      yield o("WAPromiseDelays").delayMs(d * Math.pow(2, t), e),
-                      g(e, t + 1)
-                    );
-                  },
-                );
-                return function (e) {
-                  return r.apply(this, arguments);
-                };
-              })(),
-            )
+            ).catch(async function (n) {
+              if (e.aborted || t >= u) throw n;
+              return (
+                await o("WAPromiseDelays").delayMs(c * Math.pow(2, t), e),
+                f(e, t + 1)
+              );
+            })
       );
     }
-    l.previewCounts = f;
+    l.previewCounts = _;
   },
   98,
 );

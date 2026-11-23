@@ -1,11 +1,6 @@
 __d(
   "WAWebStatusLinkFormatMutator",
-  [
-    "WAWebLinkFormatMutator",
-    "WAWebLongLinkMutatorComponent.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebLinkFormatMutator", "WAWebLongLinkMutatorComponent.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -68,34 +63,24 @@ __d(
         : r("WAWebLongLinkMutatorComponent.react");
     }
     function y(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.children,
-        a = e.dataTab,
-        i = e.link,
-        l = e.selectable,
-        u = e.xstyle,
-        c = r("WAWebLinkFormatMutator").useWAWebReclassifiedLink(i),
-        d;
-      return (
-        t[0] !== n || t[1] !== c || t[2] !== a || t[3] !== l || t[4] !== u
-          ? ((d = s.jsx(r("WAWebLongLinkMutatorComponent.react"), {
-              xstyle: u,
-              selectable: l,
-              link: c,
-              dataTab: a,
-              children: n,
-            })),
-            (t[0] = n),
-            (t[1] = c),
-            (t[2] = a),
-            (t[3] = l),
-            (t[4] = u),
-            (t[5] = d))
-          : (d = t[5]),
-        d
-      );
+      var t = e.children,
+        n = e.dataTab,
+        o = e.link,
+        a = e.selectable,
+        i = e.xstyle,
+        l = r("WAWebLinkFormatMutator").useWAWebReclassifiedLink(o);
+      return s.jsx(r("WAWebLongLinkMutatorComponent.react"), {
+        xstyle: i,
+        selectable: a,
+        link: l,
+        dataTab: n,
+        children: t,
+      });
     }
-    ((l.cleanUrl = _), (l.redactUrl = f), (l.StatusLink = g));
+    ((y.displayName = y.name + " [from " + i.id + "]"),
+      (l.cleanUrl = _),
+      (l.redactUrl = f),
+      (l.StatusLink = g));
   },
   98,
 );

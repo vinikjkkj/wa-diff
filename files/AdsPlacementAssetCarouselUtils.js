@@ -43,11 +43,20 @@ __d(
             ).WHATSAPP_POSITIONS.includes(e);
       });
     }
+    function m(e, t) {
+      return (
+        t &&
+        e.every(function (e) {
+          return e === "threads_stream";
+        })
+      );
+    }
     ((l.getIsValidPlatformCarouselInstagramPosition = e),
       (l.getIsValidPlatformCarouselFacebookPosition = s),
       (l.getIsValidPlatformCarouselMessengerPosition = u),
       (l.getIsValidPlatformCarouselAudienceNetworkPosition = c),
-      (l.getIsValidPlatformCarouselWhatsAppPosition = d));
+      (l.getIsValidPlatformCarouselWhatsAppPosition = d),
+      (l.getIsValidPlatformCarouselThreadsPosition = m));
   },
   98,
 );

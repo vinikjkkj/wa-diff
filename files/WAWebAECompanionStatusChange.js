@@ -13,7 +13,6 @@ __d(
     "WAWebEventEmitter",
     "WAWebMobilePlatforms",
     "WAWebWamEnumAutomaticEventsTargetComponentEnum",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -39,57 +38,46 @@ __d(
         }
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    async function b(t, n) {
+      if (!(!o("WAWebMobilePlatforms").isSMB() || g != null)) {
+        if (!v(t)) {
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "changeAECompanionStatus: not allowed, turnOn=",
+                "",
+              ])),
+            String(t),
+          ),
+            E() !== t && L(t, !1));
+          return;
+        }
+        (D({ type: "inFlight", turnOn: t }),
+          o("WAWebAECompanionJourneyLogging").logAECompanionJourneyApi(
+            n,
+            t
+              ? o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
+                  .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM.AE_ONBOARDING_START
+              : o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
+                  .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM.AE_OFFBOARDING_START,
+          ));
+        var r = await S(t);
+        o("WAWebAECompanionJourneyLogging").logAECompanionJourneyApi(
+          n,
+          t
+            ? o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
+                .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM.AE_ONBOARDING_FINISH
+            : o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
+                .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM.AE_OFFBOARDING_FINISH,
+          r.type === "success"
+            ? { result: "success" }
+            : { result: "fail", error: r.reason },
+        );
+        var a = r.type === "success";
+        (await R(), a ? k(t) : x(), L(t, a));
+      }
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!(!o("WAWebMobilePlatforms").isSMB() || g != null)) {
-            if (!S(e)) {
-              (o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "changeAECompanionStatus: not allowed, turnOn=",
-                    "",
-                  ])),
-                String(e),
-              ),
-                T() !== e && I(e, !1));
-              return;
-            }
-            (N({ type: "inFlight", turnOn: e }),
-              o("WAWebAECompanionJourneyLogging").logAECompanionJourneyApi(
-                t,
-                e
-                  ? o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
-                      .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM
-                      .AE_ONBOARDING_START
-                  : o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
-                      .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM
-                      .AE_OFFBOARDING_START,
-              ));
-            var n = yield R(e);
-            o("WAWebAECompanionJourneyLogging").logAECompanionJourneyApi(
-              t,
-              e
-                ? o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
-                    .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM.AE_ONBOARDING_FINISH
-                : o("WAWebWamEnumAutomaticEventsTargetComponentEnum")
-                    .AUTOMATIC_EVENTS_TARGET_COMPONENT_ENUM
-                    .AE_OFFBOARDING_FINISH,
-              n.type === "success"
-                ? { result: "success" }
-                : { result: "fail", error: n.reason },
-            );
-            var r = n.type === "success";
-            (yield E(), r ? D(e) : M(), I(e, r));
-          }
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
+    function v(e) {
       return e
         ? o(
             "WAWebAECompanionEligibilityReaders",
@@ -98,90 +86,72 @@ __d(
             "WAWebAECompanionEligibilityReaders",
           ).isAECompanionOffboardingAvailable();
     }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = e
-              ? yield o("WAWebAECompanionOnboardMutation").onboardAECompanion()
-              : yield o(
-                  "WAWebAECompanionOffboardMutation",
-                ).offboardAECompanion();
-            return t.type === "failed"
-              ? (t.reason !== "request_failed" &&
-                  o("WALogger")
-                    .WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "changeAECompanionStatus: not sent, ",
-                          ", turnOn=",
-                          "",
-                        ])),
-                      t.reason,
-                      String(e),
-                    )
-                    .sendLogs("ae-companion-status-change-not-sent"),
-                { type: "failed", reason: t.reason })
-              : t.value
-                ? { type: "success" }
-                : (o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "changeAECompanionStatus: not applied, turnOn=",
-                        "",
-                      ])),
-                    String(e),
-                  ),
-                  { type: "failed", reason: "not_applied" });
-          } catch (t) {
-            return (
+    async function S(e) {
+      try {
+        var t = e
+          ? await o("WAWebAECompanionOnboardMutation").onboardAECompanion()
+          : await o("WAWebAECompanionOffboardMutation").offboardAECompanion();
+        return t.type === "failed"
+          ? (t.reason !== "request_failed" &&
               o("WALogger")
-                .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "changeAECompanionStatus: request failed, turnOn=",
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "changeAECompanionStatus: not sent, ",
+                      ", turnOn=",
                       "",
                     ])),
+                  t.reason,
                   String(e),
                 )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("ae-companion-status-change-failed"),
-              { type: "failed", reason: "threw" }
-            );
-          }
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E() {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            yield o("WAWebCoexStateSyncCoordinator").requestCoexStateRefresh(
-              "status_change",
-            );
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "changeAECompanionStatus: refresh failed",
+                .sendLogs("ae-companion-status-change-not-sent"),
+            { type: "failed", reason: t.reason })
+          : t.value
+            ? { type: "success" }
+            : (o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "changeAECompanionStatus: not applied, turnOn=",
+                    "",
                   ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("ae-companion-status-refresh-failed");
-          }
-        })),
-        k.apply(this, arguments)
-      );
+                String(e),
+              ),
+              { type: "failed", reason: "not_applied" });
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "changeAECompanionStatus: request failed, turnOn=",
+                  "",
+                ])),
+              String(e),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("ae-companion-status-change-failed"),
+          { type: "failed", reason: "threw" }
+        );
+      }
     }
-    function I(e, t) {
+    async function R() {
+      try {
+        await o("WAWebCoexStateSyncCoordinator").requestCoexStateRefresh(
+          "status_change",
+        );
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "changeAECompanionStatus: refresh failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("ae-companion-status-refresh-failed");
+      }
+    }
+    function L(e, t) {
       o("WAWebAECompanionResultToast.react").openAECompanionResultToast(
         (function (e) {
           if (Array.isArray(e) && e.length === 2 && e[0] === !0 && e[1] === !0)
@@ -199,7 +169,7 @@ __d(
         })([e, t]),
       );
     }
-    function T() {
+    function E() {
       var e;
       return (
         ((e = o("WAWebCoexProductStateStore").getCoexProductState()) == null
@@ -209,66 +179,58 @@ __d(
             )) === !0
       );
     }
-    function D(t) {
-      N({ type: "settling", turnOn: t });
-      var n = h;
-      (o("WAWebCoexProductStateStore").subscribeToCoexProductStateChanges(P),
+    function k(e) {
+      D({ type: "settling", turnOn: e });
+      var t = h;
+      (o("WAWebCoexProductStateStore").subscribeToCoexProductStateChanges(T),
         window.setTimeout(function () {
-          n === h &&
-            x(n, t).catch(function (t) {
+          t === h &&
+            I(t, e).catch(function (e) {
               o("WALogger")
                 .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
                       "changeAECompanionStatus: settle refresh threw",
                     ])),
                 )
-                .catching(r("getErrorSafe")(t))
+                .catching(r("getErrorSafe")(e))
                 .sendLogs("ae-companion-status-settle-refresh-threw");
             });
         }, _),
-        P());
+        T());
     }
-    function x(e, t) {
-      return $.apply(this, arguments);
+    async function I(e, t) {
+      (await R(),
+        o("WALogger")
+          .WARN(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "changeAECompanionStatus: not settled in time, turnOn=",
+                ", caughtUp=",
+                "",
+              ])),
+            String(t),
+            String(E() === t),
+          )
+          .sendLogs("ae-companion-status-settle-timed-out"),
+        e === h && x());
     }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (yield E(),
-            o("WALogger")
-              .WARN(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "changeAECompanionStatus: not settled in time, turnOn=",
-                    ", caughtUp=",
-                    "",
-                  ])),
-                String(t),
-                String(T() === t),
-              )
-              .sendLogs("ae-companion-status-settle-timed-out"),
-            e === h && M());
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P() {
+    function T() {
       var e = g;
-      (e == null ? void 0 : e.type) === "settling" && T() === e.turnOn && M();
+      (e == null ? void 0 : e.type) === "settling" && E() === e.turnOn && x();
     }
-    function N(e) {
+    function D(e) {
       ((h += 1),
         o("WAWebCoexProductStateStore").unsubscribeFromCoexProductStateChanges(
-          P,
+          T,
         ),
         (g = e),
         f.trigger("change"));
     }
-    function M() {
+    function x() {
       ((h += 1),
         o("WAWebCoexProductStateStore").unsubscribeFromCoexProductStateChanges(
-          P,
+          T,
         ),
         g != null && ((g = null), f.trigger("change")));
     }

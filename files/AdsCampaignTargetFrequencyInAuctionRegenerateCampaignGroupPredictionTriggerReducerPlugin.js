@@ -8,60 +8,51 @@ __d(
     "AdsFrequencyControlGKUtils",
     "AdsPECampaignGroupSelectors",
     "AdsPECampaignSelectors",
-    "Laminar",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
-        reduce: o("Laminar").withFluxSelectors(
-          {
-            account: r("AdsAccountStore").getSelectedAccount,
-            frequencyOptions: r(
-              "AdsAuctionFrequencyControlProvider",
-            ).toFluxSelector(),
-          },
-          function (e, t, n) {
-            var a = n.account,
-              i = n.frequencyOptions;
-            if (
-              !o(
-                "AdsFrequencyControlGKUtils",
-              ).isAccountEligibleForTargetFrequencyAuctionCBOWriteExperience()
-            )
-              return e;
-            var l = r(
-                "AdsCampaignCombinedListStore",
-              ).getCampaignIDsSelector_DEPRECATED(),
-              s = o("AdsPECampaignGroupSelectors").getAllByFieldsSelector(),
-              u = function (t) {
-                return s(t, {
-                  frequency_control_specs: null,
-                  lifetime_budget: null,
-                  objective: null,
-                });
-              },
-              c = o("AdsPECampaignSelectors").getAllByFieldsSelector(),
-              d = function (t) {
-                return c(t, {
-                  end_time: null,
-                  optimization_goal: null,
-                  placement: null,
-                  promoted_object: null,
-                  start_time: null,
-                  targeting: null,
-                });
-              };
-            return o(
-              "AdsCampaignTargetFrequencyInAuctionRegenerateCampaignGroupPredictionTriggerReducerUtils",
-            ).handleReduce(e, t, {
-              account: a,
-              campaignDataGetter: d,
-              campaignGroupDataGetter: u,
-              campaignIDsGetter: l,
-              frequencyOptions: i,
-            });
-          },
-        ),
+        reduce: function (t, n) {
+          if (
+            !o(
+              "AdsFrequencyControlGKUtils",
+            ).isAccountEligibleForTargetFrequencyAuctionCBOWriteExperience()
+          )
+            return t;
+          var e = r("AdsAccountStore").getSelectedAccount(),
+            a = r("AdsAuctionFrequencyControlProvider").toFluxSelector()(),
+            i = r(
+              "AdsCampaignCombinedListStore",
+            ).getCampaignIDsSelector_DEPRECATED(),
+            l = o("AdsPECampaignGroupSelectors").getAllByFieldsSelector(),
+            s = function (t) {
+              return l(t, {
+                frequency_control_specs: null,
+                lifetime_budget: null,
+                objective: null,
+              });
+            },
+            u = o("AdsPECampaignSelectors").getAllByFieldsSelector(),
+            c = function (t) {
+              return u(t, {
+                end_time: null,
+                optimization_goal: null,
+                placement: null,
+                promoted_object: null,
+                start_time: null,
+                targeting: null,
+              });
+            };
+          return o(
+            "AdsCampaignTargetFrequencyInAuctionRegenerateCampaignGroupPredictionTriggerReducerUtils",
+          ).handleReduce(t, n, {
+            account: e,
+            campaignDataGetter: c,
+            campaignGroupDataGetter: s,
+            campaignIDsGetter: i,
+            frequencyOptions: a,
+          });
+        },
       },
       s = e;
     l.default = s;

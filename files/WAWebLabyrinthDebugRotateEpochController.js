@@ -11,7 +11,6 @@ __d(
     "WAWebLabyrinthEncodeEpochAnonId",
     "WAWebLabyrinthWasmRotateEpoch",
     "WAWebRotateLabyrinthEpochJob",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -27,187 +26,165 @@ __d(
       _,
       f,
       g = "Only the client that created the backup can rotate its epoch";
-    function h() {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o(
-              "WAWebLabyrinthDebugDeviceStateUtils",
-            ).requireDebugState(
-              o("WAWebLabyrinthDebugLoadForRotateEpoch").loadForRotateEpoch,
-            ),
-            n = t.epochStorageAuthPrivateKey,
-            a = t.vdDeviceId;
-          if (a == null || n == null) throw r("err")(g);
-          var i = t.currentEpoch.serverEpochId,
-            l = yield o(
-              "WAWebFetchLabyrinthEpochDevicesJob",
-            ).fetchLabyrinthEpochDevices();
-          if (l.epochId !== i)
-            throw r("err")(
-              "Labyrinth epoch membership is for a different epoch than the one being rotated",
-            );
-          var _ = t.ebDeviceId;
-          if (
-            !l.devices.some(function (e) {
-              return e.deviceId === _;
-            })
-          )
-            throw r("err")(
-              "Labyrinth epoch membership does not include this device, so it cannot open the new epoch",
-            );
-          var f = l.devices.map(function (e) {
-              return {
-                deviceId: e.deviceId,
-                epochStoragePublicKey: C(e.epochStoragePublicKey),
-                epochStoragePublicKeySig: C(e.epochStoragePublicKeySig),
-                devicePublicKey: C(e.devicePublicKey),
-                prevDeviceEpochHmac: C(e.deviceEpochHmac),
-              };
-            }),
-            h = yield o("WAWebLabyrinthWasmRotateEpoch").rotateEpochWasm({
-              currentEpochRootKey: t.currentEpoch.epochRootKey,
-              currentEpochAnonId: t.currentEpoch.epochAnonId,
-              currentEpochFbid: i,
-              epochStorageAuthPrivateKey: n,
-              members: f,
-            });
-          if (!h.success)
-            return (
-              o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Debug][Labyrinth] rotateEpochWasm failed",
-                  ])),
-              ),
-              h
-            );
-          (o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[Debug][Labyrinth] rotateEpochWasm success",
+    async function h() {
+      var t = await o("WAWebLabyrinthDebugDeviceStateUtils").requireDebugState(
+          o("WAWebLabyrinthDebugLoadForRotateEpoch").loadForRotateEpoch,
+        ),
+        n = t.epochStorageAuthPrivateKey,
+        a = t.vdDeviceId;
+      if (a == null || n == null) throw r("err")(g);
+      var i = t.currentEpoch.serverEpochId,
+        l = await o(
+          "WAWebFetchLabyrinthEpochDevicesJob",
+        ).fetchLabyrinthEpochDevices();
+      if (l.epochId !== i)
+        throw r("err")(
+          "Labyrinth epoch membership is for a different epoch than the one being rotated",
+        );
+      var _ = t.ebDeviceId;
+      if (
+        !l.devices.some(function (e) {
+          return e.deviceId === _;
+        })
+      )
+        throw r("err")(
+          "Labyrinth epoch membership does not include this device, so it cannot open the new epoch",
+        );
+      var f = l.devices.map(function (e) {
+          return {
+            deviceId: e.deviceId,
+            epochStoragePublicKey: y(e.epochStoragePublicKey),
+            epochStoragePublicKeySig: y(e.epochStoragePublicKeySig),
+            devicePublicKey: y(e.devicePublicKey),
+            prevDeviceEpochHmac: y(e.deviceEpochHmac),
+          };
+        }),
+        h = await o("WAWebLabyrinthWasmRotateEpoch").rotateEpochWasm({
+          currentEpochRootKey: t.currentEpoch.epochRootKey,
+          currentEpochAnonId: t.currentEpoch.epochAnonId,
+          currentEpochFbid: i,
+          epochStorageAuthPrivateKey: n,
+          members: f,
+        });
+      if (!h.success)
+        return (
+          o("WALogger").ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[Debug][Labyrinth] rotateEpochWasm failed",
               ])),
           ),
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Debug][Labyrinth] start rotateLabyrinthEpoch GQL request",
+          h
+        );
+      (o("WALogger").LOG(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "[Debug][Labyrinth] rotateEpochWasm success",
+          ])),
+      ),
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[Debug][Labyrinth] start rotateLabyrinthEpoch GQL request",
+            ])),
+        ));
+      try {
+        var v = await o("WAWebRotateLabyrinthEpochJob").rotateLabyrinthEpoch(
+            b({
+              currentEpochId: i,
+              members: f,
+              openerDeviceId: _,
+              wasmResult: h.value,
+            }),
+          ),
+          S = v.wa_labyrinth_rotate_epoch;
+        e: {
+          var R = S;
+          if (
+            ((typeof R == "object" && R !== null) || typeof R == "function") &&
+            R.__typename === "WALabyrinthRotateEpochData"
+          ) {
+            var L,
+              E = R;
+            (o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Debug][Labyrinth] rotateLabyrinthEpoch GQL request success",
                 ])),
-            ));
-          try {
-            var y = yield o(
-                "WAWebRotateLabyrinthEpochJob",
-              ).rotateLabyrinthEpoch(
-                S({
-                  currentEpochId: i,
-                  members: f,
-                  openerDeviceId: _,
-                  wasmResult: h.value,
-                }),
-              ),
-              v = y.wa_labyrinth_rotate_epoch;
-            e: {
-              var R = v;
-              if (
-                ((typeof R == "object" && R !== null) ||
-                  typeof R == "function") &&
-                R.__typename === "WALabyrinthRotateEpochData"
-              ) {
-                var L,
-                  E = R;
-                (o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Debug][Labyrinth] rotateLabyrinthEpoch GQL request success",
-                    ])),
-                ),
-                  yield b(h.value, (L = E.new_epoch_id) != null ? L : null));
-                break e;
-              }
-              if (
-                ((typeof R == "object" && R !== null) ||
-                  typeof R == "function") &&
-                R.__typename === "WALabyrinthRotateEpochError"
-              ) {
-                var k = R;
-                o("WALogger").ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Debug][Labyrinth] rotateLabyrinthEpoch GQL request failed",
-                    ])),
-                );
-                break e;
-              }
-              {
-                o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Debug][Labyrinth] rotate epoch GQL response",
-                    ])),
-                );
-                break e;
-              }
-            }
-            return o("WAResultOrError").makeResult(v);
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Debug][Labyrinth] rotateLabyrinthEpoch GQL request failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e)),
-              e
-            );
+            ),
+              await C(h.value, (L = E.new_epoch_id) != null ? L : null));
+            break e;
           }
-        })),
-        y.apply(this, arguments)
-      );
+          if (
+            ((typeof R == "object" && R !== null) || typeof R == "function") &&
+            R.__typename === "WALabyrinthRotateEpochError"
+          ) {
+            var k = R;
+            o("WALogger").ERROR(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Debug][Labyrinth] rotateLabyrinthEpoch GQL request failed",
+                ])),
+            );
+            break e;
+          }
+          {
+            o("WALogger").LOG(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Debug][Labyrinth] rotate epoch GQL response",
+                ])),
+            );
+            break e;
+          }
+        }
+        return o("WAResultOrError").makeResult(S);
+      } catch (e) {
+        throw (
+          o("WALogger")
+            .ERROR(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Debug][Labyrinth] rotateLabyrinthEpoch GQL request failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e)),
+          e
+        );
+      }
     }
-    function C(e) {
+    function y(e) {
       if (!e.success) throw e.error;
       return e.value;
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    async function C(e, t) {
+      if (t == null) {
+        o("WALogger").ERROR(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "[Debug][Labyrinth] rotate response is missing new_epoch_id; nothing persisted",
+            ])),
+        );
+        return;
+      }
+      var n = await o(
+        "WAWebLabyrinthDebugDeviceStateStore",
+      ).rotateLabyrinthDebugDeviceStateToEpoch({
+        epochAnonId: e.newEpochAnonId,
+        epochRootKey: e.newEpochRootKey,
+        serverEpochId: t,
+      });
+      n.success ||
+        o("WALogger")
+          .ERROR(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "[Debug][Labyrinth] failed to persist the rotated epoch",
+              ])),
+          )
+          .catching(n.error.error);
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t == null) {
-            o("WALogger").ERROR(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Debug][Labyrinth] rotate response is missing new_epoch_id; nothing persisted",
-                ])),
-            );
-            return;
-          }
-          var n = yield o(
-            "WAWebLabyrinthDebugDeviceStateStore",
-          ).rotateLabyrinthDebugDeviceStateToEpoch({
-            epochAnonId: e.newEpochAnonId,
-            epochRootKey: e.newEpochRootKey,
-            serverEpochId: t,
-          });
-          n.success ||
-            o("WALogger")
-              .ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Debug][Labyrinth] failed to persist the rotated epoch",
-                  ])),
-              )
-              .catching(n.error.error);
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
+    function b(e) {
       var t = e.currentEpochId,
         n = e.members,
         a = e.openerDeviceId,

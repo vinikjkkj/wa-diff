@@ -9,7 +9,6 @@ __d(
     "WAWebWWAISuggestionStateMachine",
     "err",
     "react",
-    "react-compiler-runtime",
     "useWAWebUnmountSignal",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,65 +19,54 @@ __d(
       d = u.useReducer,
       m = u.useRef;
     function p() {
-      var t = o("react-compiler-runtime").c(16),
-        n = d(
+      var t = d(
           o("WAWebWWAISuggestionStateMachine").wwaiReducer,
           o("WAWebWWAISuggestionStateMachine").INITIAL_STATE,
         ),
-        a = n[0],
-        i = n[1],
-        l = r("useWAWebUnmountSignal")(),
-        s;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = new Map()), (t[0] = s))
-        : (s = t[0]);
-      var u = m(s),
-        c = m(""),
-        p = m("rephrase"),
-        g;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = function () {
-            for (var e of u.current.values()) e.cancelled = !0;
-            u.current.clear();
-          }),
-          (t[1] = g))
-        : (g = t[1]);
-      var h = g,
-        y;
-      t[2] !== l.aborted
-        ? ((y = function (n, a) {
-            var t = o("WAWebWWAICacheStore").getCachedSuggestions(n, a);
-            if (t != null) {
-              i({
+        n = t[0],
+        a = t[1],
+        i = r("useWAWebUnmountSignal")(),
+        l = m(new Map()),
+        s = m(""),
+        u = m("rephrase"),
+        p = c(function () {
+          for (var e of l.current.values()) e.cancelled = !0;
+          l.current.clear();
+        }, []),
+        f = c(
+          function (t, n) {
+            var s = o("WAWebWWAICacheStore").getCachedSuggestions(t, n);
+            if (s != null) {
+              a({
                 type: "RECEIVE_SUGGESTIONS",
-                suggestions: t,
+                suggestions: s,
                 inProgress: !1,
               });
               return;
             }
-            var s = n + ":" + a;
-            if (u.current.has(s)) {
-              i({ type: "START_LOADING", tone: a });
+            var c = t + ":" + n;
+            if (l.current.has(c)) {
+              a({ type: "START_LOADING", tone: n });
               return;
             }
-            i({ type: "START_LOADING", tone: a });
-            var c = { cancelled: !1 };
-            (u.current.set(s, c),
+            a({ type: "START_LOADING", tone: n });
+            var d = { cancelled: !1 };
+            (l.current.set(c, d),
               o("WAWebWWAISendRequest")
-                .sendWWAIRequest(n, a, [])
+                .sendWWAIRequest(t, n, [])
                 .then(function (e) {
-                  (f(u, s, c),
-                    !c.cancelled &&
+                  (_(l, c, d),
+                    !d.cancelled &&
                       (e.suggestions.length > 0 &&
                         o("WAWebWWAICacheStore").cacheSuggestions(
+                          t,
                           n,
-                          a,
                           e.suggestions,
                         ),
-                      !(l.aborted || p.current !== a) &&
+                      !(i.aborted || u.current !== n) &&
                         (e.suggestions.length === 0
-                          ? i({ type: "RECEIVE_EMPTY" })
-                          : i({
+                          ? a({ type: "RECEIVE_EMPTY" })
+                          : a({
                               type: "RECEIVE_SUGGESTIONS",
                               suggestions: e.suggestions,
                               inProgress: e.inProgress,
@@ -86,7 +74,7 @@ __d(
                 })
                 .catch(function (t) {
                   if (
-                    (f(u, s, c), !(c.cancelled || l.aborted || p.current !== a))
+                    (_(l, c, d), !(d.cancelled || i.aborted || u.current !== n))
                   ) {
                     o("WALogger")
                       .ERROR(
@@ -97,83 +85,58 @@ __d(
                       )
                       .catching(t instanceof Error ? t : r("err")(String(t)))
                       .sendLogs("wwai-request-failed");
-                    var n =
+                    var s =
                       t instanceof Error && t.message.includes("timeout")
                         ? "timeout"
                         : "unknown";
-                    i({ type: "RECEIVE_ERROR", errorType: n });
+                    a({ type: "RECEIVE_ERROR", errorType: s });
                   }
                 }));
-          }),
-          (t[2] = l.aborted),
-          (t[3] = y))
-        : (y = t[3]);
-      var C = y,
-        b;
-      t[4] !== C
-        ? ((b = function (t) {
-            ((c.current = t), (p.current = "rephrase"));
-            var e = o("WAWebWWAINUXState").hasSeenWWAINux();
-            (i({ type: "OPEN_TRAY", hasSeenNux: e }), e && C(t, "rephrase"));
-          }),
-          (t[4] = C),
-          (t[5] = b))
-        : (b = t[5]);
-      var v = b,
-        S;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((S = function () {
-            (h(), i({ type: "CLOSE_TRAY" }));
-          }),
-          (t[6] = S))
-        : (S = t[6]);
-      var R = S,
-        L;
-      t[7] !== C
-        ? ((L = function (t, n) {
-            ((p.current = n),
-              t !== c.current && (h(), (c.current = t)),
-              i({ type: "CHANGE_TONE", tone: n }),
-              C(t, n));
-          }),
-          (t[7] = C),
-          (t[8] = L))
-        : (L = t[8]);
-      var E = L,
-        k = _,
-        I;
-      t[9] !== C
-        ? ((I = function (t) {
-            (i({ type: "ACCEPT_NUX" }), C(t, "rephrase"));
-          }),
-          (t[9] = C),
-          (t[10] = I))
-        : (I = t[10]);
-      var T = I,
-        D;
-      return (
-        t[11] !== T || t[12] !== E || t[13] !== v || t[14] !== a
-          ? ((D = {
-              state: a,
-              openTray: v,
-              closeTray: R,
-              changeTone: E,
-              selectSuggestion: k,
-              acceptNux: T,
-            }),
-            (t[11] = T),
-            (t[12] = E),
-            (t[13] = v),
-            (t[14] = a),
-            (t[15] = D))
-          : (D = t[15]),
-        D
-      );
+          },
+          [i.aborted],
+        ),
+        g = c(
+          function (e) {
+            ((s.current = e), (u.current = "rephrase"));
+            var t = o("WAWebWWAINUXState").hasSeenWWAINux();
+            (a({ type: "OPEN_TRAY", hasSeenNux: t }), t && f(e, "rephrase"));
+          },
+          [f],
+        ),
+        h = c(
+          function () {
+            (p(), a({ type: "CLOSE_TRAY" }));
+          },
+          [p],
+        ),
+        y = c(
+          function (e, t) {
+            ((u.current = t),
+              e !== s.current && (p(), (s.current = e)),
+              a({ type: "CHANGE_TONE", tone: t }),
+              f(e, t));
+          },
+          [f, p],
+        ),
+        C = c(function (e) {
+          o("WAWebWWAILogging").logSuggestionAccepted(e.tone);
+        }, []),
+        b = c(
+          function (e) {
+            (a({ type: "ACCEPT_NUX" }), f(e, "rephrase"));
+          },
+          [f],
+        );
+      return {
+        state: n,
+        openTray: g,
+        closeTray: h,
+        changeTone: y,
+        selectSuggestion: C,
+        acceptNux: b,
+      };
     }
-    function _(e) {
-      o("WAWebWWAILogging").logSuggestionAccepted(e.tone);
-    }
-    function f(e, t, n) {
+    function _(e, t, n) {
       e.current.get(t) === n && e.current.delete(t);
     }
     l.useWWAISuggestions = p;

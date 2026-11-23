@@ -3,6 +3,8 @@ __d(
   [
     "AdCampaignGroup-ad_object_field_error_spec-resolver",
     "GraphQLIncludeAdgroupActiveStudies.relayprovider",
+    "GraphQLIncludeIsCreativeTesting.relayprovider",
+    "GraphQLIncludeNormalizedCampaignGroupDailyBudget.relayprovider",
   ],
   function (t, n, r, o, a, i) {
     "use strict";
@@ -30,6 +32,27 @@ __d(
           storageKey: null,
         },
         a = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "budget_value",
+          storageKey: null,
+        },
+        i = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "budget_value_type",
+          storageKey: null,
+        },
+        l = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "is_enabled",
+          storageKey: null,
+        },
+        s = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -97,6 +120,16 @@ __d(
               defaultValue: null,
               kind: "LocalArgument",
               name: "__relay_internal__pv__GraphQLIncludeAdgroupActiveStudiesrelayprovider",
+            },
+            {
+              defaultValue: null,
+              kind: "LocalArgument",
+              name: "__relay_internal__pv__GraphQLIncludeIsCreativeTestingrelayprovider",
+            },
+            {
+              defaultValue: null,
+              kind: "LocalArgument",
+              name: "__relay_internal__pv__GraphQLIncludeNormalizedCampaignGroupDailyBudgetrelayprovider",
             },
           ],
           kind: "Operation",
@@ -201,6 +234,16 @@ __d(
                               {
                                 alias: null,
                                 args: null,
+                                concreteType: "AdsAutoScaleConfig",
+                                kind: "LinkedField",
+                                name: "auto_scale_config",
+                                plural: !1,
+                                selections: [a, i, l],
+                                storageKey: null,
+                              },
+                              {
+                                alias: null,
+                                args: null,
                                 kind: "ScalarField",
                                 name: "automation_unified_campaign_type",
                                 storageKey: null,
@@ -253,7 +296,7 @@ __d(
                                     name: "client_app_id",
                                     storageKey: null,
                                   },
-                                  a,
+                                  s,
                                   {
                                     alias: null,
                                     args: null,
@@ -338,6 +381,13 @@ __d(
                                 alias: null,
                                 args: null,
                                 kind: "ScalarField",
+                                name: "budget_scaling_is_active",
+                                storageKey: null,
+                              },
+                              {
+                                alias: null,
+                                args: null,
+                                kind: "ScalarField",
                                 name: "budget_strategy",
                                 storageKey: null,
                               },
@@ -410,6 +460,28 @@ __d(
                                 storageKey: null,
                               },
                               {
+                                condition:
+                                  "__relay_internal__pv__GraphQLIncludeNormalizedCampaignGroupDailyBudgetrelayprovider",
+                                kind: "Condition",
+                                passingValue: !0,
+                                selections: [
+                                  {
+                                    alias: null,
+                                    args: null,
+                                    kind: "ScalarField",
+                                    name: "daily_budget_normalized_safe_value_str",
+                                    storageKey: null,
+                                  },
+                                  {
+                                    alias: null,
+                                    args: null,
+                                    kind: "ScalarField",
+                                    name: "spend_cap_safe_value_str",
+                                    storageKey: null,
+                                  },
+                                ],
+                              },
+                              {
                                 alias: null,
                                 args: null,
                                 kind: "ScalarField",
@@ -446,17 +518,17 @@ __d(
                                     storageKey: null,
                                   },
                                   {
-                                    alias: null,
+                                    alias: "interval_days",
                                     args: null,
                                     kind: "ScalarField",
-                                    name: "interval_days",
+                                    name: "interval_days_non_null",
                                     storageKey: null,
                                   },
                                   {
-                                    alias: null,
+                                    alias: "max_frequency",
                                     args: null,
                                     kind: "ScalarField",
-                                    name: "max_frequency",
+                                    name: "max_frequency_non_null",
                                     storageKey: null,
                                   },
                                   {
@@ -513,10 +585,32 @@ __d(
                                 storageKey: null,
                               },
                               {
+                                condition:
+                                  "__relay_internal__pv__GraphQLIncludeIsCreativeTestingrelayprovider",
+                                kind: "Condition",
+                                passingValue: !0,
+                                selections: [
+                                  {
+                                    alias: null,
+                                    args: null,
+                                    kind: "ScalarField",
+                                    name: "is_creative_testing",
+                                    storageKey: null,
+                                  },
+                                ],
+                              },
+                              {
                                 alias: null,
                                 args: null,
                                 kind: "ScalarField",
                                 name: "is_direct_send_campaign",
+                                storageKey: null,
+                              },
+                              {
+                                alias: null,
+                                args: null,
+                                kind: "ScalarField",
+                                name: "is_hp1_enabled",
                                 storageKey: null,
                               },
                               {
@@ -531,6 +625,13 @@ __d(
                                 args: null,
                                 kind: "ScalarField",
                                 name: "is_odax_campaign_group",
+                                storageKey: null,
+                              },
+                              {
+                                alias: null,
+                                args: null,
+                                kind: "ScalarField",
+                                name: "is_omni_custom_conversion_test_campaign",
                                 storageKey: null,
                               },
                               {
@@ -700,7 +801,7 @@ __d(
                                     name: "offline_conversion_data_set_id",
                                     storageKey: null,
                                   },
-                                  a,
+                                  s,
                                   {
                                     alias: null,
                                     args: null,
@@ -782,6 +883,13 @@ __d(
                                     alias: null,
                                     args: null,
                                     kind: "ScalarField",
+                                    name: "ads_signal_source_type",
+                                    storageKey: null,
+                                  },
+                                  {
+                                    alias: null,
+                                    args: null,
+                                    kind: "ScalarField",
                                     name: "lead_ads_offsite_conversion_type",
                                     storageKey: null,
                                   },
@@ -825,6 +933,13 @@ __d(
                                 name: "source_campaign_group",
                                 plural: !1,
                                 selections: [t, e],
+                                storageKey: null,
+                              },
+                              {
+                                alias: null,
+                                args: null,
+                                kind: "ScalarField",
+                                name: "rf_campaign_type",
                                 storageKey: null,
                               },
                               {
@@ -919,13 +1034,7 @@ __d(
                                 name: "time_suggestion",
                                 plural: !1,
                                 selections: [
-                                  {
-                                    alias: null,
-                                    args: null,
-                                    kind: "ScalarField",
-                                    name: "is_enabled",
-                                    storageKey: null,
-                                  },
+                                  l,
                                   {
                                     alias: null,
                                     args: null,
@@ -949,20 +1058,8 @@ __d(
                                         name: "time_end",
                                         storageKey: null,
                                       },
-                                      {
-                                        alias: null,
-                                        args: null,
-                                        kind: "ScalarField",
-                                        name: "budget_value_type",
-                                        storageKey: null,
-                                      },
-                                      {
-                                        alias: null,
-                                        args: null,
-                                        kind: "ScalarField",
-                                        name: "budget_value",
-                                        storageKey: null,
-                                      },
+                                      i,
+                                      a,
                                       {
                                         alias: null,
                                         args: null,
@@ -1151,6 +1248,12 @@ __d(
           providedVariables: {
             __relay_internal__pv__GraphQLIncludeAdgroupActiveStudiesrelayprovider:
               n("GraphQLIncludeAdgroupActiveStudies.relayprovider"),
+            __relay_internal__pv__GraphQLIncludeIsCreativeTestingrelayprovider:
+              n("GraphQLIncludeIsCreativeTesting.relayprovider"),
+            __relay_internal__pv__GraphQLIncludeNormalizedCampaignGroupDailyBudgetrelayprovider:
+              n(
+                "GraphQLIncludeNormalizedCampaignGroupDailyBudget.relayprovider",
+              ),
           },
         },
       };

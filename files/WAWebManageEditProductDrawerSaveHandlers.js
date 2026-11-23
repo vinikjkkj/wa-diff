@@ -33,7 +33,7 @@ __d(
             o("WAWebProductCatalogContext").getProductCatalogContext(n),
             r.statusCode,
           );
-      var m = s._(/*BTDS*/ "Couldn't save changes");
+      var m = s._(/*BTDS*/ "");
       if (
         r instanceof o("WAWebBackendErrors").CatalogEditServerError &&
         r.errors != null
@@ -52,19 +52,13 @@ __d(
         r.errors.map(function (e) {
           (e.name === "media" &&
             e.reason === "duplicate" &&
-            c(
-              s._(
-                /*BTDS*/ "Two or more images are the same. Delete any duplicates and try again.",
-              ),
-            ),
+            c(s._(/*BTDS*/ "")),
             (e.name === "retailer_id" || e.name === "retailer-id") &&
               e.reason === "duplicate" &&
-              d(s._(/*BTDS*/ "Item code must be unique.")),
+              d(s._(/*BTDS*/ "")),
             e.name === "currency" &&
               e.reason === "invalid-data" &&
-              (m = s._(
-                /*BTDS*/ "Price can't be shown in your country. Delete the price you entered.",
-              )));
+              (m = s._(/*BTDS*/ "")));
         });
       }
       o("WDSToastImperativeHost").showWDSToast({ message: m });
@@ -88,7 +82,7 @@ __d(
         })
         .catch(function () {
           o("WDSToastImperativeHost").showWDSToast({
-            message: s._(/*BTDS*/ "Couldn't delete item"),
+            message: s._(/*BTDS*/ ""),
           });
         });
     }
@@ -110,9 +104,7 @@ __d(
               o("WAWebProductCatalogContext").getProductCatalogContext(n),
             ),
         o("WDSToastImperativeHost").showWDSToast({
-          message: a
-            ? s._(/*BTDS*/ "Item saved")
-            : s._(/*BTDS*/ "Changes saved"),
+          message: a ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
         }),
         l(r),
         a != null && (i == null || i()));

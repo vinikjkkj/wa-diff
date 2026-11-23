@@ -1,13 +1,11 @@
 __d(
   "WAWebSizeLruObjectStore",
   [
-    "Promise",
     "WALogger",
     "WAPromiseLoop",
     "WAPromiseQueue",
     "WAShiftTimer",
     "WAWebAbstractStore",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "nullthrows",
@@ -19,149 +17,126 @@ __d(
       u,
       c,
       d,
-      m,
-      p = (function (t) {
-        function a(a, i) {
-          var l;
+      m = (function (t) {
+        function n(n, a) {
+          var i;
           if (
-            ((l = t.call(this) || this),
-            (l.$SizeLruObjectStore$p_10 = new (o(
+            ((i = t.call(this) || this),
+            (i.$SizeLruObjectStore$p_10 = new (o(
               "WAPromiseQueue",
             ).PromiseQueueMap)()),
-            (l.$SizeLruObjectStore$p_11 = function () {
-              if (l.$SizeLruObjectStore$p_9) return l.$SizeLruObjectStore$p_9;
-              var t = l.open().then(function () {
-                return o("WAPromiseLoop").promiseLoop(
-                  (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t) {
-                        var a = function () {
-                            ((l.$SizeLruObjectStore$p_9 = null), t());
-                          },
-                          i = l.getCurrentSize();
-                        if (i == null || i <= l.$SizeLruObjectStore$p_5) {
-                          a();
-                          return;
-                        }
-                        var s = yield l.queryOneByIndex(
-                            l.$SizeLruObjectStore$p_3,
-                          ),
-                          u = l.getCurrentSize(),
-                          c = l.$SizeLruObjectStore$p_5;
-                        if (u == null || u <= c) {
-                          a();
-                          return;
-                        }
-                        if (s == null)
-                          return (
-                            n("asyncToGeneratorRuntime").asyncToGenerator(
-                              function* () {
-                                var t = yield l.count();
-                                o("WALogger")
-                                  .WARN(
-                                    e ||
-                                      (e =
-                                        babelHelpers.taggedTemplateLiteralLoose(
-                                          [
-                                            "[SizeLruObjectStore] _purge: no row, size=",
-                                            ">",
-                                            ", cnt=",
-                                            "",
-                                          ],
-                                        )),
-                                    u,
-                                    c,
-                                    t,
-                                  )
-                                  .sendLogs("size-lru-store-invalid-empty");
-                              },
-                            )(),
-                            (m || (m = n("Promise"))).reject(
-                              r("err")(
-                                "Query returned no result but currentSize > maxSize",
-                              ),
-                            )
-                          );
-                        var d = s[l.$SizeLruObjectStore$p_2];
-                        return l.del(d);
-                      },
-                    );
-                    return function (e) {
-                      return t.apply(this, arguments);
-                    };
-                  })(),
-                );
-              });
-              return (l.$SizeLruObjectStore$p_9 = t);
-            }),
-            (l.$SizeLruObjectStore$p_12 = function () {
-              l.$SizeLruObjectStore$p_8.debounce(2e3);
-            }),
-            (l.doPut = function (e, t) {
-              return l.$SizeLruObjectStore$p_10.enqueue(
-                e,
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  if (t[l.$SizeLruObjectStore$p_2] !== e)
-                    throw r("err")("The key you provide does not match.");
-                  var n = yield l.$SizeLruObjectStore$p_1.get(e),
-                    o = n == null ? 0 : l.$SizeLruObjectStore$p_13(n),
-                    a = l.$SizeLruObjectStore$p_13(t),
-                    i = a - o,
-                    s = yield l.$SizeLruObjectStore$p_1.put(e, t);
-                  return (
-                    (l.$SizeLruObjectStore$p_6 =
-                      r("nullthrows")(l.getCurrentSize()) + i),
-                    l.$SizeLruObjectStore$p_12(),
-                    s
-                  );
-                }),
-              );
-            }),
-            (l.doDel = function (e) {
-              return l.$SizeLruObjectStore$p_10.enqueue(
-                e,
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  var t = yield l.$SizeLruObjectStore$p_1.get(e);
-                  if (t != null) {
-                    try {
-                      yield l.$SizeLruObjectStore$p_7(e, t);
-                    } catch (e) {
-                      var n = r("getErrorSafe")(e);
-                      throw (
+            (i.$SizeLruObjectStore$p_11 = function () {
+              if (i.$SizeLruObjectStore$p_9) return i.$SizeLruObjectStore$p_9;
+              var t = i.open().then(function () {
+                return o("WAPromiseLoop").promiseLoop(async function (t) {
+                  var n = function () {
+                      ((i.$SizeLruObjectStore$p_9 = null), t());
+                    },
+                    a = i.getCurrentSize();
+                  if (a == null || a <= i.$SizeLruObjectStore$p_5) {
+                    n();
+                    return;
+                  }
+                  var l = await i.queryOneByIndex(i.$SizeLruObjectStore$p_3),
+                    s = i.getCurrentSize(),
+                    u = i.$SizeLruObjectStore$p_5;
+                  if (s == null || s <= u) {
+                    n();
+                    return;
+                  }
+                  if (l == null)
+                    return (
+                      (async function () {
+                        var t = await i.count();
                         o("WALogger")
                           .WARN(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "SizeLRUObjectStore: _dispose error: ",
+                            e ||
+                              (e = babelHelpers.taggedTemplateLiteralLoose([
+                                "[SizeLruObjectStore] _purge: no row, size=",
+                                ">",
+                                ", cnt=",
                                 "",
                               ])),
-                            n.message,
+                            s,
+                            u,
+                            t,
                           )
-                          .sendLogs("size-lru-store-dispose-error"),
-                        n
-                      );
-                    }
-                    (yield l.$SizeLruObjectStore$p_1.del(e),
-                      (l.$SizeLruObjectStore$p_6 =
-                        r("nullthrows")(l.getCurrentSize()) -
-                        l.$SizeLruObjectStore$p_13(t)));
-                  }
-                }),
-              );
+                          .sendLogs("size-lru-store-invalid-empty");
+                      })(),
+                      Promise.reject(
+                        r("err")(
+                          "Query returned no result but currentSize > maxSize",
+                        ),
+                      )
+                    );
+                  var c = l[i.$SizeLruObjectStore$p_2];
+                  return i.del(c);
+                });
+              });
+              return (i.$SizeLruObjectStore$p_9 = t);
             }),
-            (l.$SizeLruObjectStore$p_1 = a),
-            (l.$SizeLruObjectStore$p_2 = i.primaryIndex),
-            (l.$SizeLruObjectStore$p_3 = i.dateIndex),
-            (l.$SizeLruObjectStore$p_4 = i.sizeIndex),
-            i.maxSize < 0)
+            (i.$SizeLruObjectStore$p_12 = function () {
+              i.$SizeLruObjectStore$p_8.debounce(2e3);
+            }),
+            (i.doPut = function (e, t) {
+              return i.$SizeLruObjectStore$p_10.enqueue(e, async function () {
+                if (t[i.$SizeLruObjectStore$p_2] !== e)
+                  throw r("err")("The key you provide does not match.");
+                var n = await i.$SizeLruObjectStore$p_1.get(e),
+                  o = n == null ? 0 : i.$SizeLruObjectStore$p_13(n),
+                  a = i.$SizeLruObjectStore$p_13(t),
+                  l = a - o,
+                  s = await i.$SizeLruObjectStore$p_1.put(e, t);
+                return (
+                  (i.$SizeLruObjectStore$p_6 =
+                    r("nullthrows")(i.getCurrentSize()) + l),
+                  i.$SizeLruObjectStore$p_12(),
+                  s
+                );
+              });
+            }),
+            (i.doDel = function (e) {
+              return i.$SizeLruObjectStore$p_10.enqueue(e, async function () {
+                var t = await i.$SizeLruObjectStore$p_1.get(e);
+                if (t != null) {
+                  try {
+                    await i.$SizeLruObjectStore$p_7(e, t);
+                  } catch (e) {
+                    var n = r("getErrorSafe")(e);
+                    throw (
+                      o("WALogger")
+                        .WARN(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "SizeLRUObjectStore: _dispose error: ",
+                              "",
+                            ])),
+                          n.message,
+                        )
+                        .sendLogs("size-lru-store-dispose-error"),
+                      n
+                    );
+                  }
+                  (await i.$SizeLruObjectStore$p_1.del(e),
+                    (i.$SizeLruObjectStore$p_6 =
+                      r("nullthrows")(i.getCurrentSize()) -
+                      i.$SizeLruObjectStore$p_13(t)));
+                }
+              });
+            }),
+            (i.$SizeLruObjectStore$p_1 = n),
+            (i.$SizeLruObjectStore$p_2 = a.primaryIndex),
+            (i.$SizeLruObjectStore$p_3 = a.dateIndex),
+            (i.$SizeLruObjectStore$p_4 = a.sizeIndex),
+            a.maxSize < 0)
           )
             throw r("err")("Cannot set max size to a negative number");
           return (
-            (l.$SizeLruObjectStore$p_5 = Math.floor(i.maxSize)),
-            (l.$SizeLruObjectStore$p_7 = i.dispose),
-            (l.$SizeLruObjectStore$p_8 = new (o("WAShiftTimer").ShiftTimer)(
+            (i.$SizeLruObjectStore$p_5 = Math.floor(a.maxSize)),
+            (i.$SizeLruObjectStore$p_7 = a.dispose),
+            (i.$SizeLruObjectStore$p_8 = new (o("WAShiftTimer").ShiftTimer)(
               function () {
-                l.$SizeLruObjectStore$p_11().catch(function (e) {
+                i.$SizeLruObjectStore$p_11().catch(function (e) {
                   o("WALogger").WARN(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -173,23 +148,21 @@ __d(
                 });
               },
             )),
-            l
+            i
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.getCurrentSize = function () {
+          (a.getCurrentSize = function () {
             return this.$SizeLruObjectStore$p_6;
           }),
-          (i.getMaxSize = function () {
+          (a.getMaxSize = function () {
             return this.$SizeLruObjectStore$p_5;
           }),
-          (i.setMaxSize = function (t) {
+          (a.setMaxSize = function (t) {
             return t < 0
-              ? (m || (m = n("Promise"))).reject(
-                  r("err")("Cannot set size to a negative number"),
-                )
+              ? Promise.reject(r("err")("Cannot set size to a negative number"))
               : ((this.$SizeLruObjectStore$p_5 = Math.floor(t)),
                 this.$SizeLruObjectStore$p_8.cancel(),
                 this.$SizeLruObjectStore$p_11().catch(function (e) {
@@ -203,11 +176,11 @@ __d(
                   );
                 }));
           }),
-          (i.putObject = function (t) {
+          (a.putObject = function (t) {
             var e = t[this.$SizeLruObjectStore$p_2];
             return this.put(e, t);
           }),
-          (i.$SizeLruObjectStore$p_13 = function (t) {
+          (a.$SizeLruObjectStore$p_13 = function (t) {
             var e = t[this.$SizeLruObjectStore$p_4];
             return typeof e != "number" || e < 0
               ? (o("WALogger").WARN(
@@ -223,71 +196,51 @@ __d(
                 0)
               : e;
           }),
-          (i.doGet = function (t) {
+          (a.doGet = function (t) {
             return this.$SizeLruObjectStore$p_1.get(t);
           }),
-          (i.queryOneByIndex = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$SizeLruObjectStore$p_1.queryByIndex(e, {
-                  limit: 1,
-                });
-                return t.length === 0 ? null : t[0];
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.doQueryByIndex = function (t, n) {
+          (a.queryOneByIndex = async function (t) {
+            var e = await this.$SizeLruObjectStore$p_1.queryByIndex(t, {
+              limit: 1,
+            });
+            return e.length === 0 ? null : e[0];
+          }),
+          (a.doQueryByIndex = function (t, n) {
             return this.$SizeLruObjectStore$p_1.queryByIndex(t, n);
           }),
-          (i.doGetAll = function () {
+          (a.doGetAll = function () {
             return this.$SizeLruObjectStore$p_1.getAll();
           }),
-          (i.doClear = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (this.$SizeLruObjectStore$p_8.cancel(),
-                yield this.$SizeLruObjectStore$p_1.clear(),
-                (this.$SizeLruObjectStore$p_6 = 0));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.doCount = function () {
+          (a.doClear = async function () {
+            (this.$SizeLruObjectStore$p_8.cancel(),
+              await this.$SizeLruObjectStore$p_1.clear(),
+              (this.$SizeLruObjectStore$p_6 = 0));
+          }),
+          (a.doCount = function () {
             return this.$SizeLruObjectStore$p_1.count();
           }),
-          (i.doOpen = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this;
-              if (
-                (yield this.$SizeLruObjectStore$p_1.open(),
-                this.$SizeLruObjectStore$p_6 == null)
-              ) {
-                var t = yield this.$SizeLruObjectStore$p_1.doGetAll();
-                this.$SizeLruObjectStore$p_6 = r("sumBy")(t, function (t) {
-                  return e.$SizeLruObjectStore$p_13(t);
-                });
-              }
-            });
-            function t() {
-              return e.apply(this, arguments);
+          (a.doOpen = async function () {
+            var e = this;
+            if (
+              (await this.$SizeLruObjectStore$p_1.open(),
+              this.$SizeLruObjectStore$p_6 == null)
+            ) {
+              var t = await this.$SizeLruObjectStore$p_1.doGetAll();
+              this.$SizeLruObjectStore$p_6 = r("sumBy")(t, function (t) {
+                return e.$SizeLruObjectStore$p_13(t);
+              });
             }
-            return t;
-          })()),
-          (i.doClose = function () {
+          }),
+          (a.doClose = function () {
             return (
               (this.$SizeLruObjectStore$p_6 = null),
               this.$SizeLruObjectStore$p_1.close()
             );
           }),
-          a
+          n
         );
       })(r("WAWebAbstractStore"));
-    l.default = p;
+    l.default = m;
   },
   98,
 );

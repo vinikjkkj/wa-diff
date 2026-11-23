@@ -1,7 +1,6 @@
 __d(
   "WAConcurrentBucketJobQueue",
   [
-    "Promise",
     "WABase64",
     "WACryptoDependencies",
     "WACustomError",
@@ -11,7 +10,6 @@ __d(
     "WAMetrics",
     "WAPromiseDelays",
     "WAPromiseTimeout",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "nullthrows",
@@ -21,20 +19,19 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = 30,
-      m = new Map([
+      c = 30,
+      d = new Map([
         [o("WAJobOrchestratorTypes").JobPriority.HIGH, 5],
         [o("WAJobOrchestratorTypes").JobPriority.LOW, 1],
       ]);
-    function p(e) {
+    function m(e) {
       var t = new Uint8Array(e);
       return (
         o("WACryptoDependencies").getCrypto().getRandomValues(t),
         o("WABase64").encodeB64(t)
       );
     }
-    var _ = (function () {
+    var p = (function () {
       function t() {
         ((this.$1 = !1),
           (this.$2 = 0),
@@ -46,9 +43,9 @@ __d(
           (this.$8 = !1),
           (this.$10 = 0));
       }
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.init = function (t, n) {
+        (n.init = function (t, n) {
           var e, a, i, l, s, u;
           if (this.$1)
             throw r("err")(
@@ -57,7 +54,7 @@ __d(
           ((this.$4 =
             (e = t == null ? void 0 : t.bestEffortWaitTimeoutSec) != null
               ? e
-              : d),
+              : c),
             (this.$2 = t.maxConcurrency),
             (this.$3 = t.maxConcurrency),
             (this.$9 = n),
@@ -65,7 +62,7 @@ __d(
             (this.$6 = new Map(this.$7)),
             (this.$5 = new Map()),
             (this.$10 = Date.now()));
-          var c = new (o("WAJobPriorityBucket").BaseJobBucket)({
+          var d = new (o("WAJobPriorityBucket").BaseJobBucket)({
               jobMaxConcurrencyMap:
                 (a = t.maxConcurrencyPerJob) != null ? a : {},
             }),
@@ -85,8 +82,8 @@ __d(
               jobMaxConcurrencyMap:
                 (u = t.maxConcurrencyPerJob) != null ? u : {},
             });
-          (this.$5.set(o("WAJobOrchestratorTypes").JobPriority.UI_ACTION, c),
-            this.$5.set(o("WAJobOrchestratorTypes").JobPriority.HIGH, c),
+          (this.$5.set(o("WAJobOrchestratorTypes").JobPriority.UI_ACTION, d),
+            this.$5.set(o("WAJobOrchestratorTypes").JobPriority.HIGH, d),
             this.$5.set(o("WAJobOrchestratorTypes").JobPriority.OFFLINE, _),
             this.$5.set(
               o("WAJobOrchestratorTypes").JobPriority.HISTORY_SYNC,
@@ -96,7 +93,7 @@ __d(
             this.$5.set(o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT, p),
             (this.$1 = !0));
         }),
-        (a.updateConfig = function (n, r) {
+        (n.updateConfig = function (n, r) {
           ((this.$3 += n.maxConcurrency - this.$2),
             (this.$2 = n.maxConcurrency),
             this.$5.forEach(function (e) {
@@ -115,23 +112,23 @@ __d(
                 ])),
             ));
         }),
-        (a.isInitialized = function () {
+        (n.isInitialized = function () {
           return this.$1;
         }),
-        (a.clearQueue = function () {
+        (n.clearQueue = function () {
           if (!this.$1)
             throw r("err")("WAConcurrentBucketJobQueue not initialized");
           this.$5.forEach(function (e) {
             return e.clear();
           });
         }),
-        (a.clearQueueByPriority = function (t) {
+        (n.clearQueueByPriority = function (t) {
           var e;
           if (!this.$1)
             throw r("err")("WAConcurrentBucketJobQueue not initialized");
           (e = this.$5.get(t)) == null || e.clearWaitingTasks();
         }),
-        (a.getIntStats = function () {
+        (n.getIntStats = function () {
           var e = this,
             t = function (n) {
               var t,
@@ -154,7 +151,7 @@ __d(
             ),
           };
         }),
-        (a.getStringStats = function () {
+        (n.getStringStats = function () {
           var e = this,
             t = function (n) {
               var t,
@@ -184,26 +181,26 @@ __d(
             ),
           };
         }),
-        (a.enqueue = function (t, a, i, l) {
+        (n.enqueue = function (t, n, a, i) {
           var e,
-            s,
-            u = this;
+            l,
+            s = this;
           if (!this.$1)
-            return (c || (c = n("Promise"))).reject(
+            return Promise.reject(
               r("err")("WAConcurrentBucketJobQueue not initialized"),
             );
-          var d,
-            m,
-            _ = new (c || (c = n("Promise")))(function (e, t) {
-              ((d = e), (m = t));
+          var u,
+            c,
+            d = new Promise(function (e, t) {
+              ((u = e), (c = t));
             }),
-            f = babelHelpers.extends(
+            p = babelHelpers.extends(
               { priority: o("WAJobOrchestratorTypes").DEFAULT_JOB_PRIORITY },
-              i,
+              a,
             ),
-            g = this.getJobBucketByType(f.priority);
-          if (!g)
-            return (c || (c = n("Promise"))).reject(
+            _ = this.getJobBucketByType(p.priority);
+          if (!_)
+            return Promise.reject(
               r("err")(
                 "WAConcurrentBucketJobQueue no bucket for job with name " +
                   t +
@@ -213,93 +210,88 @@ __d(
           (o("WAMetrics")
             .getEventLoopDelay()
             .then(function (e) {
-              l != null &&
-                l.isActive() &&
-                (l == null ||
-                  l.addPoint("measure_event_loop_delay", {
+              i != null &&
+                i.isActive() &&
+                (i == null ||
+                  i.addPoint("measure_event_loop_delay", {
                     int: { eventLoopDelay: e },
                   }));
             }),
-            l == null ||
-              l.addPoint("scheduling_job", {
+            i == null ||
+              i.addPoint("scheduling_job", {
                 string: babelHelpers.extends({}, this.getStringStats(), {
-                  priority: f.priority,
+                  priority: p.priority,
                 }),
                 int: babelHelpers.extends({}, this.getIntStats(), {
                   maxTimeoutMs:
-                    (e = i == null ? void 0 : i.maxTimeoutMs) != null ? e : 0,
+                    (e = a == null ? void 0 : a.maxTimeoutMs) != null ? e : 0,
                 }),
               }));
-          var h =
-              f.priority +
+          var f =
+              p.priority +
               "-" +
               t +
               "-" +
-              ((s = i == null ? void 0 : i.jobId) != null ? s : p(8)),
-            y = g.add(
-              t,
-              f,
-              h,
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                try {
-                  u.$9.logJobStarted(h);
-                  var e = yield u.$14(a(), i == null ? void 0 : i.maxTimeoutMs);
-                  (u.$9.logJobCompleted(h), d(e));
-                } catch (e) {
-                  (e instanceof o("WACustomError").TimeoutError
-                    ? u.$9.logJobTimeout(h)
-                    : u.$9.logJobError(h),
-                    m(e));
-                }
-              }),
-            );
+              ((l = a == null ? void 0 : a.jobId) != null ? l : m(8)),
+            g = _.add(t, p, f, async function () {
+              try {
+                s.$9.logJobStarted(f);
+                var e = await s.$14(n(), a == null ? void 0 : a.maxTimeoutMs);
+                (s.$9.logJobCompleted(f), u(e));
+              } catch (e) {
+                (e instanceof o("WACustomError").TimeoutError
+                  ? s.$9.logJobTimeout(f)
+                  : s.$9.logJobError(f),
+                  c(e));
+              }
+            });
           return (
             this.$9.logJobCreated({
-              jobId: h,
+              jobId: f,
               jobName: t,
-              jobPriority: f.priority,
-              pendingJobsCount: g.count(),
+              jobPriority: p.priority,
+              pendingJobsCount: _.count(),
             }),
-            i &&
-              i.priority ===
+            a &&
+              a.priority ===
                 o("WAJobOrchestratorTypes").JobPriority.UI_ACTION &&
-              this.$15(y),
+              this.$15(g),
             this.$16(),
-            _
+            d
           );
         }),
-        (a.getAvailableThreadsCount = function () {
+        (n.getAvailableThreadsCount = function () {
           return this.$3;
         }),
-        (a.getJobQuotaConfig = function () {
+        (n.getJobQuotaConfig = function () {
           return this.$7;
         }),
-        (a.getRemainingJobCountMap = function () {
+        (n.getRemainingJobCountMap = function () {
           return this.$6;
         }),
-        (a.getJobBucketByType = function (t) {
+        (n.getJobBucketByType = function (t) {
           return this.$5.get(t);
         }),
-        (a.getSnapshot = function (t) {
+        (n.getSnapshot = function (t) {
           var e = this.getJobBucketByType(t);
           return e ? e.getStats() : null;
         }),
-        (a.$12 = function (t) {
+        (n.$12 = function (t) {
           var e;
           return (
-            t ? (e = new Map(t)) : (e = new Map(m)),
+            t ? (e = new Map(t)) : (e = new Map(d)),
             e.set(o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT, 0),
             e
           );
         }),
-        (a.$17 = function (t) {
+        (n.$17 = function (t) {
           var e;
           return (e = this.$6.get(t)) != null ? e : 0;
         }),
-        (a.$18 = function () {
+        (n.$18 = function () {
           this.$6 = new Map(this.$7);
         }),
-        (a.$19 = function (t) {
+        (n.$19 = function (t) {
           var e = this;
           t === void 0 && (t = !0);
           var n = 0,
@@ -322,7 +314,7 @@ __d(
                 : r
           );
         }),
-        (a.$20 = function (t, n) {
+        (n.$20 = function (t, n) {
           var e,
             r = this;
           function a(e, t) {
@@ -350,11 +342,11 @@ __d(
           }
           return s > 0 && u != null && a(u, this.$4) ? !1 : n;
         }),
-        (a.$21 = function (t) {
+        (n.$21 = function (t) {
           var e = this.$22(t);
           return r("nullthrows")(this.$5.get(e));
         }),
-        (a.$22 = function (t) {
+        (n.$22 = function (t) {
           var e = t.split("-")[0],
             n = o("WAJobOrchestratorTypes").JobPriority.cast(e);
           if (!n)
@@ -364,11 +356,11 @@ __d(
             );
           return n;
         }),
-        (a.$23 = function (t) {
+        (n.$23 = function (t) {
           var e = this.$22(t);
           this.$17(e) > 0 ? this.$6.set(e, this.$17(e) - 1) : this.$6.set(e, 0);
         }),
-        (a.$16 = function () {
+        (n.$16 = function () {
           for (var e = this; this.$3 > 0; ) {
             var t = this.$19(),
               n = t == null ? void 0 : t.next();
@@ -378,7 +370,7 @@ __d(
             });
           }
         }),
-        (a.$13 = function (t) {
+        (n.$13 = function (t) {
           var e = this;
           (t == null ? void 0 : t.applyNow) === !0 &&
             (this.$6.forEach(function (t, n) {
@@ -387,7 +379,7 @@ __d(
             }),
             this.$24());
         }),
-        (a.$24 = function () {
+        (n.$24 = function () {
           var e = this;
           this.$8 ||
             ((this.$8 = !0),
@@ -409,55 +401,49 @@ __d(
                     .sendLogs("job-orchestrator-config-redispatch-failed"));
               }));
         }),
-        (a.$14 = function (t, n) {
+        (n.$14 = function (t, n) {
           return n !== void 0 ? o("WAPromiseTimeout").promiseTimeout(t, n) : t;
         }),
-        (a.$15 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = this,
-              n = this.$21(e.jobId);
-            (this.$3--, n.markJobTaskPending(e));
-            var r = e.jobId,
-              a = e.jobName,
-              i = e.run;
-            try {
-              var l;
-              yield this.$14(
-                i(),
-                ((l = e.jobInfo) == null ? void 0 : l.maxTimeoutMs) === void 0
-                  ? o("WAJobOrchestratorTypes").DEFAULT_JOB_TIMEOUT_MS
-                  : void 0,
-              );
-            } catch (e) {
-              if (e instanceof o("WACustomError").TimeoutError)
-                (this.$9.logJobTimeout(r),
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[job-orchestator]: ",
-                        " exceeding the timeout, release the thread.",
-                      ])),
-                    a,
-                  ));
-              else throw e;
-            } finally {
-              (this.$3++,
-                n.markJobTaskDone(r),
-                this.$3 > 0 &&
-                  setTimeout(function () {
-                    return t.$16();
-                  }, 0));
-            }
-          });
-          function t(t) {
-            return e.apply(this, arguments);
+        (n.$15 = async function (t) {
+          var e = this,
+            n = this.$21(t.jobId);
+          (this.$3--, n.markJobTaskPending(t));
+          var r = t.jobId,
+            a = t.jobName,
+            i = t.run;
+          try {
+            var l;
+            await this.$14(
+              i(),
+              ((l = t.jobInfo) == null ? void 0 : l.maxTimeoutMs) === void 0
+                ? o("WAJobOrchestratorTypes").DEFAULT_JOB_TIMEOUT_MS
+                : void 0,
+            );
+          } catch (e) {
+            if (e instanceof o("WACustomError").TimeoutError)
+              (this.$9.logJobTimeout(r),
+                o("WALogger").LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[job-orchestator]: ",
+                      " exceeding the timeout, release the thread.",
+                    ])),
+                  a,
+                ));
+            else throw e;
+          } finally {
+            (this.$3++,
+              n.markJobTaskDone(r),
+              this.$3 > 0 &&
+                setTimeout(function () {
+                  return e.$16();
+                }, 0));
           }
-          return t;
-        })()),
+        }),
         t
       );
     })();
-    l.WAConcurrentBucketJobQueue = _;
+    l.WAConcurrentBucketJobQueue = p;
   },
   98,
 );

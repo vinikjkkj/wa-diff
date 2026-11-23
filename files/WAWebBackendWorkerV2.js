@@ -1,21 +1,26 @@
 __d(
   "WAWebBackendWorkerV2",
   [
-    "Promise",
     "WAComms",
+    "WACrossPortalStateBridge",
     "WAJids",
     "WALogger",
     "WAResolvable",
     "WAResultOrError",
     "WATransferableResult",
+    "WAUrlSpoofChecksWasmInstance",
     "WAWebBackendApi",
     "WAWebBackendEventBusWorker",
     "WAWebBackendEventBusWorkerCompatible",
     "WAWebBackendWorkerABPropsCache",
     "WAWebBackendWorkerBridge",
     "WAWebBackendWorkerRegistrationState",
+    "WAWebBackgroundPauseState",
+    "WAWebBizBroadcastProAudienceWorkerBridge",
     "WAWebCallsOnlyGating",
     "WAWebCheckOrphanMutationsWorker",
+    "WAWebClientPayloadForLoginWorker",
+    "WAWebClientPayloadForLoginWorkerCompatible",
     "WAWebCommsBackendWorkerHandlers",
     "WAWebCrashlogWorker",
     "WAWebDbEncryptionKey",
@@ -50,6 +55,7 @@ __d(
     "WAWebRegisterPassiveTasksForConnectWorkerCompatible",
     "WAWebRunInTransaction",
     "WAWebSchemaVersions",
+    "WAWebSuspiciousLinkMetrics",
     "WAWebSyncdOrphanWorkerCompatible",
     "WAWebUpdateMmSignalSharingExpirationWindowWorker",
     "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
@@ -58,53 +64,48 @@ __d(
     "WAWebUserPrefsScreenLockWorker",
     "WAWebUserPrefsScreenLockWorkerCompatible",
     "WAWebWorkerQplProxy",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s,
-      u,
-      c,
-      d,
-      m,
-      p = (m = r("requireDeferred"))("WACryptoAesCbc").__setRef(
+    var e, s, u, c, d, m;
+    function p(e) {
+      throw new TypeError('"' + e + '" is read-only');
+    }
+    var _ = (m = r("requireDeferred"))("WACryptoAesCbc").__setRef(
         "WAWebBackendWorkerV2",
       ),
-      _ = m("WACryptoHmac").__setRef("WAWebBackendWorkerV2"),
-      f = m("WACryptoSha256").__setRef("WAWebBackendWorkerV2"),
-      g = m("WAWebBackendWorkerEncryptAndUploadDep").__setRef(
+      f = m("WACryptoHmac").__setRef("WAWebBackendWorkerV2"),
+      g = m("WACryptoSha256").__setRef("WAWebBackendWorkerV2"),
+      h = m("WAWebBackendWorkerEncryptAndUploadDep").__setRef(
         "WAWebBackendWorkerV2",
       ),
-      h = m("WAWebBackendWorkerMediaHostsWorkerDep").__setRef(
+      y = m("WAWebBackendWorkerMediaHostsWorkerDep").__setRef(
         "WAWebBackendWorkerV2",
       ),
-      y = m("WAWebCryptoDecryptMediaWorker").__setRef("WAWebBackendWorkerV2"),
-      C = m("WAWebDeviceSyncBackendWorker").__setRef("WAWebBackendWorkerV2"),
-      b = m("WAWebHistorySyncBackendWorkerV2").__setRef("WAWebBackendWorkerV2"),
-      v = m("WAWebHistorySyncProgress").__setRef("WAWebBackendWorkerV2"),
-      S = m("WAWebNetworkStatusWorker").__setRef("WAWebBackendWorkerV2"),
+      C = m("WAWebCryptoDecryptMediaWorker").__setRef("WAWebBackendWorkerV2"),
+      b = m("WAWebDeviceSyncBackendWorker").__setRef("WAWebBackendWorkerV2"),
+      v = m("WAWebHistorySyncBackendWorkerV2").__setRef("WAWebBackendWorkerV2"),
+      S = m("WAWebLabyrinthShadowBackendWorker").__setRef(
+        "WAWebBackendWorkerV2",
+      ),
       R = new (o("WAResolvable").Resolvable)(),
       L = new (o("WAResolvable").Resolvable)(),
       E = new (o("WAResolvable").Resolvable)(),
-      k = (d || (d = n("Promise")))
-        .all([R.promise, L.promise, E.promise])
-        .then(function () {}),
-      I = !1;
-    function T() {
+      k = Promise.all([R.promise, L.promise, E.promise]).then(function () {});
+    function I() {
       try {
         var t = function () {
-            return (d || (d = n("Promise"))).resolve();
+            return Promise.resolve();
           },
-          a = r("WAWebNoop");
+          n = r("WAWebNoop");
         (o("WAWebLogger").initializeWAWebLogger(
           function (e, n) {
             return t(e, n);
           },
           function (e) {
-            return a(e);
+            return n(e);
           },
         ),
           o("WALogger").LOG(
@@ -113,29 +114,35 @@ __d(
                 "WAWebBackendWorker(inside) starts",
               ])),
           ));
-        var i = o("WAWebBackendWorkerBridge").createBridge([
+        var a = o("WAWebBackendWorkerBridge").createBridge([
+          {
+            namespace: "businessBroadcastProAudience",
+            handlers: o(
+              "WAWebBizBroadcastProAudienceWorkerBridge",
+            ).createProAudienceWorkerHandlers(k),
+          },
           {
             namespace: "historySync",
             handlers: {
-              processV2: (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e.chunkInfo,
-                      n = e.data;
-                    if (!I) {
-                      I = !0;
-                      var r = yield v.load();
-                      r.initHistorySyncProgressListeners();
-                    }
-                    var o = yield b.load();
-                    return o.processHistorySync(t, n, { isReady: k });
-                  },
-                );
-                function t(t) {
-                  return e.apply(this, arguments);
-                }
-                return t;
-              })(),
+              processV2: async function (t) {
+                var e = t.chunkInfo,
+                  n = t.data,
+                  r = t.omittedMetadataEnabled,
+                  o = await v.load();
+                return o.processHistorySync(e, n, {
+                  isReady: k,
+                  omittedMetadataEnabled: r,
+                });
+              },
+            },
+          },
+          {
+            namespace: "labyrinthShadow",
+            handlers: {
+              run: async function (t) {
+                var e = await S.load();
+                return e.runLabyrinthShadowInWorker(t, { isReady: k });
+              },
             },
           },
           {
@@ -143,7 +150,7 @@ __d(
             handlers: {
               decodeSignedKeyIndexBytesBatch: function (t) {
                 var e = t.items;
-                return C.load().then(function (t) {
+                return b.load().then(function (t) {
                   return t.decodeSignedKeyIndexBytesBatch(e);
                 });
               },
@@ -152,33 +159,25 @@ __d(
           {
             namespace: "crypto",
             handlers: {
-              aesCbcDecrypt: (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = e.ciphertext,
-                      n = e.encKey,
-                      r = e.iv,
-                      a = yield p.load(),
-                      i = yield a.aesCbcDecrypt(n, r, t);
-                    return o("WATransferableResult").withTransferables(i, [i]);
-                  },
-                );
-                function t(t) {
-                  return e.apply(this, arguments);
-                }
-                return t;
-              })(),
+              aesCbcDecrypt: async function (t) {
+                var e = t.ciphertext,
+                  n = t.encKey,
+                  r = t.iv,
+                  a = await _.load(),
+                  i = await a.aesCbcDecrypt(n, r, e);
+                return o("WATransferableResult").withTransferables(i, [i]);
+              },
               hmacSha256: function (t) {
                 var e = t.data,
                   n = t.macKey,
                   r = t.truncateLength;
-                return _.load().then(function (t) {
+                return f.load().then(function (t) {
                   return t.hmacSha256(n, e, r);
                 });
               },
               sha256Base64: function (t) {
                 var e = t.data;
-                return f.load().then(function (t) {
+                return g.load().then(function (t) {
                   return t.sha256Base64(e);
                 });
               },
@@ -230,40 +229,38 @@ __d(
             },
           },
           {
-            namespace: "networkStatusSync",
-            handlers: {
-              updateNetworkStatus: function (t) {
-                var e = t.online;
-                S.load().then(function (t) {
-                  return t.networkStatusWorker.acceptUpdate(e);
-                });
-              },
-            },
-          },
-          {
             namespace: "registrationState",
             handlers: {
               markUnregistered: o("WAWebBackendWorkerRegistrationState")
                 .markUnregistered,
             },
           },
+          {
+            namespace: "backgroundPauseSync",
+            handlers: {
+              updateBackgroundPause: function (t) {
+                var e = t.paused;
+                o("WAWebBackgroundPauseState").backgroundPauseState.set(e);
+              },
+            },
+          },
         ]);
         (o("WAComms").setCommsFactory(function (e, t, n) {
           return new (o("WAComms").Comms)(e, t, n, function (e, t) {
-            i.fireAndForget("mainthread_comms", "onSocketStateChange", {
+            a.fireAndForget("mainthread_comms", "onSocketStateChange", {
               isConnected: e,
               socketId: t,
             });
           });
         }),
-          i.setHandlers(
+          a.setHandlers(
             "comms",
             o("WAWebCommsBackendWorkerHandlers").createCommsWorkerHandlers(
-              i,
+              a,
               E.promise,
             ),
           ),
-          o("WAWebBackendWorkerBridge").attachBridgeToPortal(i, D(), [
+          o("WAWebBackendWorkerBridge").attachBridgeToPortal(a, T(), [
             "abPropsExposure",
             "qpl",
             "event",
@@ -271,6 +268,7 @@ __d(
             "backendEventBus",
             "mainthread_callbacks",
             "mainthread_crashlog",
+            "mainthread_suspiciousLinkMetrics",
             "mainthread_fblogger",
             "mainthread_jobmanager",
             "mainthread_mediaHostsSync",
@@ -284,152 +282,134 @@ __d(
             "mainthread_noiseInfo",
             "mainthread_userPrefsScreenLock",
             "mainthread_comms",
+            "mainthread_crossPortalState",
             "mainthread_passiveMode",
+            "mainthread_clientPayload",
             "mainthread_pageloadqpl",
           ]),
-          o("WAWebBackendApi").setApi(i),
-          (t = o("WAWebCrashlogWorker").createSendLogsWorker(i)),
-          (a = o("WAWebFBLoggerWorker").createLogToFBLoggerWorker(i)),
-          i.setHandlers("media", {
-            decryptMedia: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = e.ciphertextHmac,
-                    n = e.encKey,
-                    r = e.expectedPlaintextHash,
-                    a = e.iv,
-                    i = e.macKey,
-                    l = e.serializedDownloadQpl,
-                    s = self.performance.now(),
-                    u =
-                      l == null
-                        ? null
-                        : o("WAWebWorkerQplProxy").createWorkerQplProxy(l);
-                  u == null || u.addPoint("compound_worker_module_load_start");
-                  var c = yield y.load();
-                  u == null || u.addPoint("compound_worker_module_load_end");
-                  var d = yield c({
-                      ciphertextHmac: t,
-                      encKey: n,
-                      expectedPlaintextHash: r,
-                      iv: a,
-                      macKey: i,
-                    }),
-                    m = self.performance.now() - s;
-                  return o("WATransferableResult").withTransferables(
-                    { plaintext: d, workerDurationMs: m },
-                    [d],
-                  );
-                },
+          o("WAWebSuspiciousLinkMetrics").configureSuspiciousLinkMetrics(
+            "dedicated",
+            function (e) {
+              var t = e.count,
+                n = e.metric;
+              return a.sendAndReceive(
+                "mainthread_suspiciousLinkMetrics",
+                "commit",
+                { count: t, metric: n },
               );
-              function t(t) {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
-            encryptAndUpload: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = yield g.load(),
-                    n = t.getEncryptAndUpload(i),
-                    a = n.encryptAndUpload;
-                  try {
-                    return o("WAResultOrError").makeResult(yield a(e));
-                  } catch (e) {
-                    return o("WAResultOrError").makeError(
-                      o("WAWebDeserializeBridgedError").serializeBridgedError(
-                        e instanceof Error ? e : r("err")(String(e)),
-                      ),
-                    );
-                  }
-                },
+            },
+          ),
+          o("WAWebBackendApi").setApi(a),
+          (t = o("WAWebCrashlogWorker").createSendLogsWorker(a)),
+          (n = o("WAWebFBLoggerWorker").createLogToFBLoggerWorker(a)),
+          a.setHandlers("media", {
+            decryptMedia: async function (t) {
+              var e = t.ciphertextHmac,
+                n = t.encKey,
+                r = t.expectedPlaintextHash,
+                a = t.iv,
+                i = t.macKey,
+                l = t.serializedDownloadQpl,
+                s = self.performance.now(),
+                u =
+                  l == null
+                    ? null
+                    : o("WAWebWorkerQplProxy").createWorkerQplProxy(l);
+              u == null || u.addPoint("compound_worker_module_load_start");
+              var c = await C.load();
+              u == null || u.addPoint("compound_worker_module_load_end");
+              var d = await c({
+                  ciphertextHmac: e,
+                  encKey: n,
+                  expectedPlaintextHash: r,
+                  iv: a,
+                  macKey: i,
+                }),
+                m = self.performance.now() - s;
+              return o("WATransferableResult").withTransferables(
+                { plaintext: d, workerDurationMs: m },
+                [d],
               );
-              function t(t) {
-                return e.apply(this, arguments);
+            },
+            encryptAndUpload: async function (t) {
+              var e = await h.load(),
+                n = e.getEncryptAndUpload(a),
+                i = n.encryptAndUpload;
+              try {
+                return o("WAResultOrError").makeResult(await i(t));
+              } catch (e) {
+                return o("WAResultOrError").makeError(
+                  o("WAWebDeserializeBridgedError").serializeBridgedError(
+                    e instanceof Error ? e : r("err")(String(e)),
+                  ),
+                );
               }
-              return t;
-            })(),
-            abortUpload: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = e.uploadId,
-                    n = yield g.load(),
-                    r = n.getEncryptAndUpload(i),
-                    o = r.abortUpload;
-                  o(t);
-                },
-              );
-              function t(t) {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
+            },
+            abortUpload: async function (t) {
+              var e = t.uploadId,
+                n = await h.load(),
+                r = n.getEncryptAndUpload(a),
+                o = r.abortUpload;
+              o(e);
+            },
           }),
-          i.setHandlers("mediaHostsSync", {
-            snapshot: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = e.data,
-                    n = yield h.load();
-                  return n.getMediaHostsWorker(i).acceptSnapshot(t);
-                },
-              );
-              function t(t) {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
+          a.setHandlers("mediaHostsSync", {
+            snapshot: async function (t) {
+              var e = t.data,
+                n = await y.load();
+              return n.getMediaHostsWorker(a).acceptSnapshot(e);
+            },
           }),
           o("WAWebHandleSingleMsgWorkerCompatible").setInstance(
-            o("WAWebHandleSingleMsgWorker").createHandleSingleMsgWorker(i),
+            o("WAWebHandleSingleMsgWorker").createHandleSingleMsgWorker(a),
           ),
           o("WAWebSyncdOrphanWorkerCompatible").setInstance(
             o(
               "WAWebCheckOrphanMutationsWorker",
-            ).createCheckOrphanMutationsWorker(i),
+            ).createCheckOrphanMutationsWorker(a),
           ),
           o("WAWebMessageInsertDebugPlaceholderWorkerCompatible").setInstance(
             o(
               "WAWebMaybeInsertDebugPlaceholderWorker",
-            ).createMaybeInsertDebugPlaceholderWorker(i),
+            ).createMaybeInsertDebugPlaceholderWorker(a),
           ),
           o(
             "WAWebUpdateMmSignalSharingExpirationWindowWorkerCompatible",
           ).setInstance(
             o(
               "WAWebUpdateMmSignalSharingExpirationWindowWorker",
-            ).createUpdateMmSignalSharingExpirationWindowWorker(i),
+            ).createUpdateMmSignalSharingExpirationWindowWorker(a),
           ),
           o("WAWebPersistedJobManagerWorkerCompatible").setInstance(
             o(
               "WAWebPersistedJobManagerWorkerBridge",
-            ).createPersistedJobManagerWorkerBridge(i),
+            ).createPersistedJobManagerWorkerBridge(a),
           ),
           o("WAWebGetMessageCache").setMessageCache(
             o(
               "WAWebMessageProcessorCacheWorker",
-            ).createMessageCacheWorkerBridge(i),
+            ).createMessageCacheWorkerBridge(a),
           ),
           o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible").setInstance(
             o(
               "WAWebMsgProcessReporterWorker",
-            ).createMsgProcessReporterWorkerBridge(i),
+            ).createMsgProcessReporterWorkerBridge(a),
           ),
           o("WAWebIdentityChangeApiWorkerCompatible").setInstance(
             o(
               "WAWebIdentityChangeApiWorker",
-            ).createIdentityChangeApiWorkerBridge(i),
+            ).createIdentityChangeApiWorkerBridge(a),
           ),
           o("WAWebNoiseInfoWorkerCompatible").setInstance(
-            o("WAWebNoiseInfoWorker").createNoiseInfoWorkerBridge(i),
+            o("WAWebNoiseInfoWorker").createNoiseInfoWorkerBridge(a),
           ),
           o("WAWebUserPrefsScreenLockWorkerCompatible").setInstance(
             o(
               "WAWebUserPrefsScreenLockWorker",
-            ).createUserPrefsScreenLockWorkerBridge(i),
+            ).createUserPrefsScreenLockWorkerBridge(a),
           ),
           o("WAWebPageLoadLogging").setImpl(
-            o("WAWebPageLoadLoggingWorker").createPageLoadLoggingWorker(i),
+            o("WAWebPageLoadLoggingWorker").createPageLoadLoggingWorker(a),
           ),
           o("WAWebDeprecatedSendIqWorkerCompatible").setInstance(
             o("WAWebDeprecatedSendIqWorker").deprecatedSendIqWorker,
@@ -437,96 +417,123 @@ __d(
           o("WAWebRegisterPassiveTasksForConnectWorkerCompatible").setInstance(
             o(
               "WAWebRegisterPassiveTasksForConnectWorker",
-            ).createRegisterPassiveTasksForConnectWorker(i),
+            ).createRegisterPassiveTasksForConnectWorker(a),
+          ),
+          o("WAWebClientPayloadForLoginWorkerCompatible").setInstance(
+            o(
+              "WAWebClientPayloadForLoginWorker",
+            ).createClientPayloadForLoginWorker(a),
           ));
-        var l = new (r("WAWebBackendEventBusWorker"))(i);
-        (i.setNamespaceHandler(
+        var i = new (r("WAWebBackendEventBusWorker"))(a);
+        (a.setNamespaceHandler(
           "backendEventBusSync",
-          l.getBackendEventBusSyncHandler(),
+          i.getBackendEventBusSyncHandler(),
         ),
-          o("WAWebBackendEventBusWorkerCompatible").setBackendEventBus(l),
-          i.setHandlers("workerInit", {
-            setup: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = e.dbInit,
-                    a = e.eventBusSyncState,
-                    i = e.globals;
-                  try {
-                    var u, c;
-                    l.setState(a);
-                    var m = o("WAJids").interpretAndValidateJid(i.deviceJid);
-                    if (m.jidType !== "phoneDevice")
-                      throw r("err")(
-                        "globals: deviceJid is not a phoneDevice jid",
-                      );
-                    var p = m.deviceJid,
-                      _ = o("WAJids").extractUserJid(p);
-                    (o("WAWebGlobals").setGlobals({
-                      jidUtils: o("WAJids").createJidUtils({
-                        platform: "whatsapp",
-                      }),
-                      myJids: { deviceJid: p, userJid: _ },
-                      lidDeviceJid: (u = i.lidDeviceJid) != null ? u : "",
-                      displayName: (c = i.displayName) != null ? c : "",
-                      runInTransaction: o("WAWebRunInTransaction")
-                        .runInTransaction,
-                    }),
-                      o("WAWebGlobals").setAllowHistorySyncPutAllowDuplicate(
-                        i.allowHistorySyncPutAllowDuplicate,
-                      ),
-                      o("WAWebCallsOnlyGating").initCallsOnlyModeFromWorkerInit(
-                        i.callsOnly,
-                      ),
-                      o(
-                        "WAWebJobsMigrationGating",
-                      ).initJobsMigrationGatesFromWorkerInit(
-                        i.jobsMigrationGates,
-                      ),
-                      o("WAWebSchemaVersions").setSchemaVersions(
-                        t.versionsToSet,
-                      ),
-                      yield (d || (d = n("Promise"))).all([
-                        o("WAWebDbEncryptionKey").DbEncKeyStore.init(t.salt),
-                        n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* () {
-                            (yield o(
-                              "WAWebModelStorageInitialize",
-                            ).initializeWithoutGKs(),
-                              yield o(
-                                "WAWebUserPrefsIndexedDBStorage",
-                              ).userPrefsIdb.init());
-                            var e = yield o(
-                              "WAWebUserPrefsGeneral",
-                            ).getLastMobilePlatform();
-                            e != null &&
-                              (yield o(
-                                "WAWebMobilePlatforms",
-                              ).setMobilePlatform(e, !1));
-                          },
-                        )(),
-                        o("WAWebOffdStorage").initialize(),
-                      ]),
-                      E.resolve());
-                  } catch (e) {
-                    (o("WALogger")
-                      .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "WAWebBackendWorker init fails",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("backend-worker-init-fails"),
-                      E.reject(e));
-                  }
-                },
-              );
-              function t(t) {
-                return e.apply(this, arguments);
+          o("WAWebBackendEventBusWorkerCompatible").setBackendEventBus(i),
+          a.setHandlers("workerInit", {
+            setup: async function (t) {
+              var e = t.dbInit,
+                n = t.eventBusSyncState,
+                a = t.globals;
+              try {
+                var l, u;
+                i.setState(n);
+                var c =
+                  a.deviceJid == null
+                    ? null
+                    : o("WAJids").interpretAndValidateJid(a.deviceJid);
+                if (c != null && c.jidType !== "phoneDevice")
+                  throw r("err")("globals: deviceJid is not a phoneDevice jid");
+                if (c == null) {
+                  var d,
+                    m = o("WAJids").interpretAndValidateJid(
+                      (d = a.lidDeviceJid) != null ? d : "",
+                    );
+                  if (m.jidType !== "lidDevice")
+                    throw r("err")(
+                      "globals: PN-less setup requires a LID device jid",
+                    );
+                }
+                (o("WAWebGlobals").setGlobals({
+                  jidUtils: o("WAJids").createJidUtils({
+                    platform: "whatsapp",
+                  }),
+                  myJids:
+                    c == null
+                      ? void 0
+                      : {
+                          deviceJid: c.deviceJid,
+                          userJid: o("WAJids").extractUserJid(c.deviceJid),
+                        },
+                  lidDeviceJid: (l = a.lidDeviceJid) != null ? l : "",
+                  displayName: (u = a.displayName) != null ? u : "",
+                  runInTransaction: o("WAWebRunInTransaction").runInTransaction,
+                }),
+                  o("WAWebGlobals").setAllowHistorySyncPutAllowDuplicate(
+                    a.allowHistorySyncPutAllowDuplicate,
+                  ),
+                  o("WAWebCallsOnlyGating").initCallsOnlyModeFromWorkerInit(
+                    a.callsOnly,
+                  ),
+                  o(
+                    "WAWebJobsMigrationGating",
+                  ).initJobsMigrationGatesFromWorkerInit(a.jobsMigrationGates),
+                  o("WAWebSchemaVersions").setSchemaVersions(e.versionsToSet),
+                  await Promise.all([
+                    o("WAWebDbEncryptionKey").DbEncKeyStore.init(e.salt),
+                    (async function () {
+                      (await o(
+                        "WAWebModelStorageInitialize",
+                      ).initializeWithoutGKs(),
+                        await o(
+                          "WAWebUserPrefsIndexedDBStorage",
+                        ).userPrefsIdb.init());
+                      var e = await o(
+                        "WAWebUserPrefsGeneral",
+                      ).getLastMobilePlatform();
+                      e != null &&
+                        (await o("WAWebMobilePlatforms").setMobilePlatform(
+                          e,
+                          !1,
+                        ));
+                    })(),
+                    o("WAWebOffdStorage").initialize(),
+                  ]),
+                  E.resolve());
+              } catch (e) {
+                (o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "WAWebBackendWorker init fails",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("backend-worker-init-fails"),
+                  E.reject(e));
               }
-              return t;
-            })(),
+            },
+            setSuspiciousHostChecksModule: function (t) {
+              var e = t.wasmModule;
+              try {
+                o(
+                  "WAUrlSpoofChecksWasmInstance",
+                ).initializeSuspiciousHostChecks(e);
+              } catch (e) {
+                (o("WAWebSuspiciousLinkMetrics").recordSuspiciousLinkMetric(
+                  "init-exception",
+                ),
+                  o("WALogger")
+                    .ERROR(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "Host-check init failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e))
+                    .sendLogs("suspicious-host-checks-init-failed"));
+              }
+            },
             setAbProps: function (t) {
               var e = t.abProps;
               try {
@@ -539,52 +546,45 @@ __d(
                 R.reject(e);
               }
             },
-            setDbFinalKey: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = e.dbFinalKey;
-                  try {
-                    (yield o(
-                      "WAWebDbEncryptionKey",
-                    ).DbEncKeyStore.waitForInit(),
-                      yield o(
-                        "WAWebDbEncryptionKey",
-                      ).DbEncKeyStore.generateFinalDbEncryptionAndFtsKey(
-                        t.salt,
-                      ),
-                      L.resolve());
-                  } catch (e) {
-                    L.reject(e);
-                  }
-                },
-              );
-              function t(t) {
-                return e.apply(this, arguments);
+            setDbFinalKey: async function (t) {
+              var e = t.dbFinalKey;
+              try {
+                (await o("WAWebDbEncryptionKey").DbEncKeyStore.waitForInit(),
+                  await o(
+                    "WAWebDbEncryptionKey",
+                  ).DbEncKeyStore.generateFinalDbEncryptionAndFtsKey(e.salt),
+                  L.resolve());
+              } catch (e) {
+                L.reject(e);
               }
-              return t;
-            })(),
+            },
           }),
-          o("WAWebWorkerQplProxy").initWorkerQplProxy(i),
-          o("WAWebBackendWorkerABPropsCache").initializeWorkerABProps(i),
+          o("WAWebWorkerQplProxy").initWorkerQplProxy(a),
+          o("WACrossPortalStateBridge").startCrossPortalStateBridgeSync(
+            a,
+            "crossPortalState",
+            "mainthread_crossPortalState",
+          ),
+          o("WAWebBackendWorkerABPropsCache").initializeWorkerABProps(a),
           o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.setSyncCallback(
             function (e) {
               switch (e.action) {
                 case "set":
-                  i.fireAndForget("userPrefsFromWorker", "syncSet", {
+                  a.fireAndForget("userPrefsFromWorker", "syncSet", {
                     key: e.key,
                     value: e.value,
                   });
                   break;
                 case "remove":
-                  i.fireAndForget("userPrefsFromWorker", "syncRemove", {
+                  a.fireAndForget("userPrefsFromWorker", "syncRemove", {
                     key: e.key,
                   });
                   break;
                 case "clear":
-                  i.fireAndForget("userPrefsFromWorker", "syncClear", void 0);
+                  a.fireAndForget("userPrefsFromWorker", "syncClear", void 0);
                   break;
                 case "bulkSet":
-                  i.fireAndForget("userPrefsFromWorker", "syncBulkSet", {
+                  a.fireAndForget("userPrefsFromWorker", "syncBulkSet", {
                     entries: e.entries,
                   });
                   break;
@@ -596,16 +596,16 @@ __d(
             message: "worker_started",
           }),
           o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "WAWebBackendWorker(inside) ends",
               ])),
           ));
       } catch (e) {
         (o("WALogger")
           .ERROR(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "WAWebBackendWorker start fails",
               ])),
           )
@@ -617,7 +617,7 @@ __d(
           }));
       }
     }
-    function D() {
+    function T() {
       var e = null,
         t = {
           onmessage: e,
@@ -635,7 +635,7 @@ __d(
         t
       );
     }
-    l.default = T;
+    l.default = I;
   },
   98,
 );

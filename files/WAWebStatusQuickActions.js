@@ -18,7 +18,7 @@ __d(
           id: "text_status",
           Icon: r("WDSIconIcEdit.react"),
           label: function () {
-            return s._(/*BTDS*/ "Text status");
+            return s._(/*BTDS*/ "");
           },
           onClick: function () {
             o("WAWebModalManager").ModalManager.openMedia(
@@ -35,7 +35,7 @@ __d(
           id: "photo_video",
           Icon: r("WDSIconIcPhotoCamera.react"),
           label: function () {
-            return s._(/*BTDS*/ "Photo and video");
+            return s._(/*BTDS*/ "");
           },
           onClick: function () {
             o("WAWebModalManager").ModalManager.open(

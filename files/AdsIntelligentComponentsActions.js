@@ -1,9 +1,11 @@
 __d(
   "AdsIntelligentComponentsActions",
   [
+    "AYMTTipDismissalNotifier",
     "AdsIntelligentComponentsClickMessageAction",
     "AdsIntelligentComponentsCloseMessageAction",
     "AdsIntelligentComponentsCompleteTourAction",
+    "AdsIntelligentComponentsMessageContentStore",
     "AdsIntelligentComponentsMessagesLoadErrorAction",
     "AdsIntelligentComponentsMessagesLoadedAction",
     "AdsIntelligentComponentsMountingBatchAction",
@@ -22,7 +24,7 @@ __d(
             (r("AdsIntelligentComponentsMountingBatchAction").dispatch(
               { changes: e },
               {
-                line: "39",
+                line: "42",
                 module: "AdsIntelligentComponentsActions.js",
                 moduleID: i.id,
               },
@@ -38,7 +40,7 @@ __d(
       r("AdsIntelligentComponentsMessagesLoadErrorAction").dispatch(
         { params: e, error: t },
         {
-          line: "55",
+          line: "58",
           module: "AdsIntelligentComponentsActions.js",
           moduleID: i.id,
         },
@@ -48,7 +50,7 @@ __d(
       r("AdsIntelligentComponentsMessagesLoadedAction").dispatch(
         { params: e, loadedData: t },
         {
-          line: "65",
+          line: "68",
           module: "AdsIntelligentComponentsActions.js",
           moduleID: i.id,
         },
@@ -59,7 +61,7 @@ __d(
         r("AdsIntelligentComponentsResetMessagesCapAction").dispatch(
           {},
           {
-            line: "73",
+            line: "76",
             module: "AdsIntelligentComponentsActions.js",
             moduleID: i.id,
           },
@@ -89,7 +91,7 @@ __d(
         r("AdsIntelligentComponentsCloseMessageAction").dispatch(
           { messageID: e, messageFormat: t, step: n },
           {
-            line: "106",
+            line: "109",
             module: "AdsIntelligentComponentsActions.js",
             moduleID: i.id,
           },
@@ -100,28 +102,37 @@ __d(
         r("AdsIntelligentComponentsClickMessageAction").dispatch(
           { messageID: e, shouldClose: t },
           {
-            line: "114",
+            line: "117",
             module: "AdsIntelligentComponentsActions.js",
             moduleID: i.id,
           },
         ));
     }
-    function f(e, t) {
+    function f(e) {
+      var t;
+      o("AYMTTipDismissalNotifier").notifyTipDismissalAfterDispatch(
+        (t = r("AdsIntelligentComponentsMessageContentStore").getAYMTTip(e)) ==
+          null || (t = t.aymt_data) == null
+          ? void 0
+          : t.tip_id,
+      );
+    }
+    function g(e, t) {
       (t === void 0 && (t = !0),
         r("AdsIntelligentComponentsCompleteTourAction").dispatch(
           { messageID: e, shouldClose: t },
           {
-            line: "121",
+            line: "133",
             module: "AdsIntelligentComponentsActions.js",
             moduleID: i.id,
           },
         ));
     }
-    function g(e, t) {
+    function h(e, t) {
       r("AdsIntelligentComponentsTourStepAction").dispatch(
         { messageID: e, step: t },
         {
-          line: "128",
+          line: "140",
           module: "AdsIntelligentComponentsActions.js",
           moduleID: i.id,
         },
@@ -134,8 +145,9 @@ __d(
       (l.unmount = m),
       (l.closeMessage = p),
       (l.clickMessage = _),
-      (l.completeTour = f),
-      (l.tourStep = g));
+      (l.notifySequencedMessageEnded = f),
+      (l.completeTour = g),
+      (l.tourStep = h));
   },
   98,
 );

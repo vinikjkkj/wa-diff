@@ -14,7 +14,6 @@ __d(
     "WAWebUsernameTypes",
     "WDSConfirmDialog.react",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -43,7 +42,7 @@ __d(
         };
       o("WDSDialogBridge").openWDSDialog(
         u.jsx(r("WDSConfirmDialog.react"), {
-          confirmLabel: s._(/*BTDS*/ "Save"),
+          confirmLabel: s._(/*BTDS*/ ""),
           onConfirm: function () {
             return l(!0);
           },
@@ -52,10 +51,7 @@ __d(
           },
           open: !0,
           testid: "contacts-and-groups-save-contacts-confirm",
-          title: s._(
-            /*BTDS*/ '_j{"*":"Save {count} contacts?","_1":"Save 1 contact?"}',
-            [s._plural(e.length, "count")],
-          ),
+          title: s._(/*BTDS*/ "", [s._plural(e.length, "count")]),
         }),
       );
     }
@@ -68,44 +64,31 @@ __d(
         o(
           "WAWebBulkAddContactsModal.react",
         ).openBulkAddContactsModalForContacts(e, {
-          getSuccessToastText: y,
+          getSuccessToastText: h,
           onSaved: function () {
             ((r = !0), t());
           },
         }));
     }
     function p(e, t) {
-      var r = 0,
-        a = o("WAWebContactsAndGroupsOneByOne")
-          .runOneByOne(
-            _(e),
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = yield f(e);
-                  r += t;
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-          )
+      var n = 0,
+        r = o("WAWebContactsAndGroupsOneByOne")
+          .runOneByOne(_(e), async function (e) {
+            var t = await f(e);
+            n += t;
+          })
           .then(function () {
             return (
-              r === 0 && t(),
-              new (o("WAWebActionToast.react").ActionType)(h(r, e.length - r))
+              n === 0 && t(),
+              new (o("WAWebActionToast.react").ActionType)(g(n, e.length - n))
             );
           });
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebActionToast.react").ActionToast, {
           initialAction: new (o("WAWebActionToast.react").ActionType)(
-            s._(
-              /*BTDS*/ '_j{"*":"Saving {count} contacts","_1":"Saving 1 contact"}',
-              [s._plural(e.length, "count")],
-            ),
+            s._(/*BTDS*/ "", [s._plural(e.length, "count")]),
           ),
-          pendingAction: a,
+          pendingAction: r,
         }),
       );
     }
@@ -120,68 +103,54 @@ __d(
         );
       return t;
     }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
+    async function f(e) {
+      var t = [],
+        n = [];
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [],
-            n = [];
-          return (
-            e.forEach(function (e) {
-              var r = o(
-                "WAWebGroupBulkAddContactsEligibility",
-              ).getBulkAddSaveTarget(e);
-              if (r != null) {
-                var a = o(
-                  "WAWebGroupBulkAddContactsEligibility",
-                ).getBulkAddContactName(e, r);
-                r.type === "username"
-                  ? n.push({
-                      firstName: a,
-                      lastName: "",
-                      lid: r.lid,
-                      username: o("WAWebUsernameTypes").serializeUsername(
-                        r.username,
-                      ),
-                    })
-                  : t.push({
-                      firstName: a,
-                      lastName: "",
-                      phoneNumber: r.phoneNumber.user,
-                      syncToAddressbook: !1,
-                    });
-              }
-            }),
-            yield o("WAWebSaveContactAction").saveContactBatchAction(t, n),
-            t.length + n.length
-          );
-        })),
-        g.apply(this, arguments)
+        e.forEach(function (e) {
+          var r = o(
+            "WAWebGroupBulkAddContactsEligibility",
+          ).getBulkAddSaveTarget(e);
+          if (r != null) {
+            var a = o(
+              "WAWebGroupBulkAddContactsEligibility",
+            ).getBulkAddContactName(e, r);
+            r.type === "username"
+              ? n.push({
+                  firstName: a,
+                  lastName: "",
+                  lid: r.lid,
+                  username: o("WAWebUsernameTypes").serializeUsername(
+                    r.username,
+                  ),
+                })
+              : t.push({
+                  firstName: a,
+                  lastName: "",
+                  phoneNumber: r.phoneNumber.user,
+                  syncToAddressbook: !1,
+                });
+          }
+        }),
+        await o("WAWebSaveContactAction").saveContactBatchAction(t, n),
+        t.length + n.length
       );
     }
-    function h(e, t) {
+    function g(e, t) {
       return t === 0
-        ? y(e)
+        ? h(e)
         : e === 0
-          ? s._(
-              /*BTDS*/ '_j{"*":"Couldn\'t save {count} contacts","_1":"Couldn\'t save 1 contact"}',
-              [s._plural(t, "count")],
-            )
-          : s._(
-              /*BTDS*/ '_j{"*":{"*":"{savedCount} contacts saved. Couldn\'t save {notSavedCount} contacts.","_1":"{savedCount} contacts saved. Couldn\'t save 1 contact."},"_1":{"*":"1 contact saved. Couldn\'t save {notSavedCount} contacts.","_1":"1 contact saved. Couldn\'t save 1 contact."}}',
-              [s._plural(e, "savedCount"), s._plural(t, "notSavedCount")],
-            );
+          ? s._(/*BTDS*/ "", [s._plural(t, "count")])
+          : s._(/*BTDS*/ "", [
+              s._plural(e, "savedCount"),
+              s._plural(t, "notSavedCount"),
+            ]);
     }
-    h.displayName = h.name + " [from " + i.id + "]";
-    function y(e) {
-      return s._(
-        /*BTDS*/ '_j{"*":"{number} contacts saved","_1":"1 contact saved"}',
-        [s._plural(e, "number")],
-      );
+    g.displayName = g.name + " [from " + i.id + "]";
+    function h(e) {
+      return s._(/*BTDS*/ "", [s._plural(e, "number")]);
     }
-    ((y.displayName = y.name + " [from " + i.id + "]"),
+    ((h.displayName = h.name + " [from " + i.id + "]"),
       (l.getContactsToSave = c),
       (l.saveContactsFromContactsAndGroups = d));
   },

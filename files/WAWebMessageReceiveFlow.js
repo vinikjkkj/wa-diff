@@ -1,6 +1,6 @@
 __d(
   "WAWebMessageReceiveFlow",
-  ["WAComms", "WAWebBoolFunc", "WAWebNullFunc", "asyncToGeneratorRuntime"],
+  ["WAComms", "WAWebBoolFunc", "WAWebNullFunc"],
   function (t, n, r, o, a, i, l) {
     var e = [
         "rx_queue_wait_ms",
@@ -111,111 +111,79 @@ __d(
       });
     }
     function R(e, t) {
-      var r = 0,
+      var n = 0,
+        r = 0,
         o = 0,
-        a = 0,
-        i = 0;
-      function l(e) {
-        return s.apply(this, arguments);
-      }
-      function s() {
-        return (
-          (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = self.performance.now(),
-              n = yield e();
-            return [n, self.performance.now() - t];
-          })),
-          s.apply(this, arguments)
-        );
+        a = 0;
+      async function i(e) {
+        var t = self.performance.now(),
+          n = await e();
+        return [n, self.performance.now() - t];
       }
       return {
-        timeDecrypt: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield l(e),
-              n = t[0],
-              o = t[1];
-            return ((r += o), i++, n);
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        timeProcess: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield l(e),
-              n = t[0],
-              r = t[1];
-            return ((o += r), n);
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        timeSignalFlush: (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            u.addPoint(e, "signal_flush_start");
-            var n = yield l(t),
-              r = n[1];
-            ((a += r), u.addPoint(e, "signal_flush_end"));
-          });
-          function r(e) {
-            return t.apply(this, arguments);
-          }
-          return r;
-        })(),
+        timeDecrypt: async function (t) {
+          var e = await i(t),
+            r = e[0],
+            o = e[1];
+          return ((n += o), a++, r);
+        },
+        timeProcess: async function (t) {
+          var e = await i(t),
+            n = e[0],
+            o = e[1];
+          return ((r += o), n);
+        },
+        timeSignalFlush: async function (n) {
+          u.addPoint(e, "signal_flush_start");
+          var t = await i(n),
+            r = t[1];
+          ((o += r), u.addPoint(e, "signal_flush_end"));
+        },
         finish: function () {
           (u.annotate(e, {
             int: {
-              decrypt_ms: Math.round(r),
-              decrypted_enc_count: i,
-              process_ms: Math.round(o),
+              decrypt_ms: Math.round(n),
+              decrypted_enc_count: a,
+              process_ms: Math.round(r),
             },
           }),
             t &&
               u.addToOfflineResumeTotals({
-                rx_decrypt_ms: r,
-                rx_decrypted_enc_count: i,
-                rx_process_ms: o,
-                rx_signal_flush_ms: a,
+                rx_decrypt_ms: n,
+                rx_decrypted_enc_count: a,
+                rx_process_ms: r,
+                rx_signal_flush_ms: o,
               }));
         },
       };
     }
-    function L(e, t, r) {
-      var a,
-        i = self.performance.now(),
-        l = (a = o("WAComms").getComms()) == null ? void 0 : a.socketId;
-      return (function () {
-        var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
-          var a;
-          (u.addPoint(e, "queue_wait_end"),
-            u.annotate(
-              e,
-              E(
-                ((a = o("WAComms").getComms()) == null
-                  ? void 0
-                  : a.socketId) !== l,
-                n,
-              ),
+    function L(e, t, n) {
+      var r,
+        a = self.performance.now(),
+        i = (r = o("WAComms").getComms()) == null ? void 0 : r.socketId;
+      return async function (r) {
+        var l;
+        (u.addPoint(e, "queue_wait_end"),
+          u.annotate(
+            e,
+            E(
+              ((l = o("WAComms").getComms()) == null ? void 0 : l.socketId) !==
+                i,
+              r,
             ),
-            t && u.addToOfflineResumeTotals(k(self.performance.now() - i, n)));
-          try {
-            var s = yield r();
-            return (u.addPoint(e, "handler_end"), s);
-          } catch (t) {
-            throw (
-              u.addPoint(e, "handler_end"),
-              u.endWithFailure(e, "handler_error"),
-              t
-            );
-          }
-        });
-        return function (e) {
-          return a.apply(this, arguments);
-        };
-      })();
+          ),
+          t && u.addToOfflineResumeTotals(k(self.performance.now() - a, r)));
+        try {
+          var s = await n();
+          return (u.addPoint(e, "handler_end"), s);
+        } catch (t) {
+          throw (
+            u.addPoint(e, "handler_end"),
+            u.endWithFailure(e, "handler_error"),
+            t
+          );
+        }
+      };
     }
     function E(e, t) {
       return t == null
@@ -237,38 +205,18 @@ __d(
             rx_tick_wait_ms: t.tickWaitMs,
           };
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
+    async function I(e, t) {
+      var n = await t;
+      return (u.settleQueue(e, n != null), n);
     }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield t;
-          return (u.settleQueue(e, n != null), n);
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    function D(e, t, n, r) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            r === void 0 && (r = "immediate");
-            try {
-              yield t;
-            } catch (t) {
-              throw (u.endWithFailure(e, "receipt_failed"), t);
-            }
-            u.endWithReceipt(e, {
-              string: { decrypt_result: n, receipt_path: r },
-            });
-          },
-        )),
-        x.apply(this, arguments)
-      );
+    async function T(e, t, n, r) {
+      r === void 0 && (r = "immediate");
+      try {
+        await t;
+      } catch (t) {
+        throw (u.endWithFailure(e, "receipt_failed"), t);
+      }
+      u.endWithReceipt(e, { string: { decrypt_result: n, receipt_path: r } });
     }
     ((l.OFFLINE_RESUME_TOTAL_KEYS = e),
       (l.setMessageReceiveFlowTracker = c),
@@ -285,7 +233,7 @@ __d(
       (l.endMessageReceiveWithTakeover = v),
       (l.failMessageReceiveCheckpoint = S),
       (l.startMessageReceiveDecryptTimer = R),
-      (l.trackMessageReceiveReceipt = D));
+      (l.trackMessageReceiveReceipt = T));
   },
   98,
 );

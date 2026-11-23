@@ -1,7 +1,6 @@
 __d(
   "WAWebCustomerManagerImportSaveAction",
   [
-    "Promise",
     "WALogger",
     "WAPromiseQueue",
     "WATimeUtils",
@@ -24,7 +23,6 @@ __d(
     "WAWebSaveContactAction",
     "WAWebSyncContactJob",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -43,16 +41,15 @@ __d(
       y,
       C,
       b,
-      v,
-      S = 10,
-      R = 50,
-      L = 20,
-      E = 60,
-      k = T(E);
-    function I(e, t) {
-      return k(e, t);
+      v = 10,
+      S = 50,
+      R = 20,
+      L = 60,
+      E = I(L);
+    function k(e, t) {
+      return E(e, t);
     }
-    function T(e, t) {
+    function I(e, t) {
       var n;
       t === void 0 && (t = {});
       var r = new (o("WAPromiseQueue").PromiseQueue)(),
@@ -64,7 +61,7 @@ __d(
         l = o(
           "WAWebCustomerManagerImportRateLimiter",
         ).createContactSaveRetryBudget(
-          L,
+          R,
           (n = t.now) != null
             ? n
             : function () {
@@ -76,160 +73,150 @@ __d(
           "WAWebCustomerManagerImportProgress",
         ).createImportProgressReporter(e.length, a, n, t.now);
         return r.enqueue(function () {
-          return D(e, a, i, l);
+          return T(e, a, i, l);
         });
       };
     }
-    function D(e, t, n, r) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i) {
-            a.beginChecking();
-            var l = o(
-                "WAWebCustomerManagerImportPhoneRowMerge",
-              ).mergeImportedPhoneRows(e),
-              s = l.contacts,
-              u = l.sourceRowCounts,
-              c,
-              d;
-            try {
-              ((c = $(s)),
-                (d = yield w(c)),
-                (c = c.filter(function (e) {
-                  return d.has(e);
-                })));
-            } catch (t) {
-              return (
-                o("WALogger")
-                  .WARN(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "[cm:import] save stopped before writing contacts",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(t))
-                  .sendLogs("cm-import-save-preflight-failed"),
-                a.stopBeforeSave(),
-                {
-                  failureCount: e.length,
-                  preflightFailed: !0,
-                  savedContacts: [],
-                  successCount: 0,
-                }
-              );
-            }
-            a.ready(c.length, $e(c, u));
-            var m = G(c, d),
-              p = m.batchable,
-              _ = m.individual,
-              h = { rateLimited: !1, retries: i },
-              y = function (t) {
-                return h.rateLimited
-                  ? (v || (v = n("Promise"))).resolve(
-                      o("WAWebCustomerManagerImportProgress").failImportBatch(
-                        t,
-                        u,
-                        a,
-                        r("err")("[cm:import] contact save rate-limited"),
-                      ),
-                    )
-                  : null;
-              },
-              C = yield U(p, t.batchSize(R), function (e) {
-                var t;
-                return (t = y(
-                  e.map(function (e) {
-                    var t = e.contact;
-                    return t;
-                  }),
-                )) != null
-                  ? t
-                  : o("WAWebCustomerManagerImportProgress").runImportBatch(
-                      e.map(function (e) {
-                        var t = e.contact;
-                        return t;
-                      }),
-                      u,
-                      a,
-                      function () {
-                        return De(e, function (e, t) {
-                          return z(e, t, function (e) {
-                            return K(e, t, h);
-                          });
-                        });
-                      },
-                    );
-              }),
-              b = yield U(_, t.batchSize(S), function (e) {
-                var t;
-                return (t = y(e)) != null
-                  ? t
-                  : o("WAWebCustomerManagerImportProgress").runImportBatch(
-                      e,
-                      u,
-                      a,
-                      function () {
-                        return (v || (v = n("Promise"))).allSettled(
-                          e.map(function (e) {
-                            return P(e, d.get(e), h);
-                          }),
-                        );
-                      },
-                    );
-              }),
-              L = q(
-                _,
-                b,
-                d,
-                u,
-                q(
-                  p.map(function (e) {
-                    var t = e.contact;
-                    return t;
-                  }),
-                  C,
-                  d,
-                  u,
-                  {
-                    failureCount: e.length - $e(c, u),
-                    savedContacts: [],
-                    successCount: 0,
-                  },
+    async function T(t, n, a, i) {
+      a.beginChecking();
+      var l = o(
+          "WAWebCustomerManagerImportPhoneRowMerge",
+        ).mergeImportedPhoneRows(t),
+        u = l.contacts,
+        c = l.sourceRowCounts,
+        d,
+        m;
+      try {
+        ((d = D(u)),
+          (m = await P(d)),
+          (d = d.filter(function (e) {
+            return m.has(e);
+          })));
+      } catch (n) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] save stopped before writing contacts",
+                ])),
+            )
+            .catching(r("getErrorSafe")(n))
+            .sendLogs("cm-import-save-preflight-failed"),
+          a.stopBeforeSave(),
+          {
+            failureCount: t.length,
+            preflightFailed: !0,
+            savedContacts: [],
+            successCount: 0,
+          }
+        );
+      }
+      a.ready(d.length, ue(d, c));
+      var p = O(d, m),
+        _ = p.batchable,
+        f = p.individual,
+        g = { rateLimited: !1, retries: i },
+        h = function (t) {
+          return g.rateLimited
+            ? Promise.resolve(
+                o("WAWebCustomerManagerImportProgress").failImportBatch(
+                  t,
+                  c,
+                  a,
+                  r("err")("[cm:import] contact save rate-limited"),
                 ),
-              );
-            return (
-              o("WALogger")
-                .LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] save complete: ",
-                      " ok, ",
-                      " failed",
-                    ])),
-                  L.successCount,
-                  L.failureCount,
-                )
-                .sendLogs("cm-import-save-complete"),
-              babelHelpers.extends({}, L, {
-                savedContacts: [].concat(L.savedContacts).sort(function (e, t) {
-                  return e.rowIndex - t.rowIndex;
+              )
+            : null;
+        },
+        y = await A(_, n.batchSize(S), function (e) {
+          var t;
+          return (t = h(
+            e.map(function (e) {
+              var t = e.contact;
+              return t;
+            }),
+          )) != null
+            ? t
+            : o("WAWebCustomerManagerImportProgress").runImportBatch(
+                e.map(function (e) {
+                  var t = e.contact;
+                  return t;
                 }),
-              })
-            );
-          },
-        )),
-        x.apply(this, arguments)
+                c,
+                a,
+                function () {
+                  return se(e, function (e, t) {
+                    return B(e, t, function (e) {
+                      return W(e, t, g);
+                    });
+                  });
+                },
+              );
+        }),
+        C = await A(f, n.batchSize(v), function (e) {
+          var t;
+          return (t = h(e)) != null
+            ? t
+            : o("WAWebCustomerManagerImportProgress").runImportBatch(
+                e,
+                c,
+                a,
+                function () {
+                  return Promise.allSettled(
+                    e.map(function (e) {
+                      return x(e, m.get(e), g);
+                    }),
+                  );
+                },
+              );
+        }),
+        b = w(
+          f,
+          C,
+          m,
+          c,
+          w(
+            _.map(function (e) {
+              var t = e.contact;
+              return t;
+            }),
+            y,
+            m,
+            c,
+            {
+              failureCount: t.length - ue(d, c),
+              savedContacts: [],
+              successCount: 0,
+            },
+          ),
+        );
+      return (
+        o("WALogger")
+          .LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[cm:import] save complete: ",
+                " ok, ",
+                " failed",
+              ])),
+            b.successCount,
+            b.failureCount,
+          )
+          .sendLogs("cm-import-save-complete"),
+        babelHelpers.extends({}, b, {
+          savedContacts: [].concat(b.savedContacts).sort(function (e, t) {
+            return e.rowIndex - t.rowIndex;
+          }),
+        })
       );
     }
-    function $(t) {
-      var n = new Map(),
-        r = 0;
+    function D(e) {
+      var t = new Map(),
+        n = 0;
       return (
-        t.forEach(function (e) {
-          var t,
+        e.forEach(function (e) {
+          var r,
             a = e.lid;
           if (
             a == null ||
@@ -237,32 +224,32 @@ __d(
               e.phone,
             ) === ""
           ) {
-            r++;
+            n++;
             return;
           }
-          var i = (t = n.get(a)) != null ? t : [];
-          (i.push(e), n.set(a, i));
+          var i = (r = t.get(a)) != null ? r : [];
+          (i.push(e), t.set(a, i));
         }),
-        r > 0 &&
+        n > 0 &&
           o("WALogger")
             .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[cm:import] skipping ",
                   " reviewed rows without a resolvable account or phone",
                 ])),
-              r,
+              n,
             )
             .sendLogs("cm-import-reviewed-row-dropped"),
-        Array.from(n.values()).flatMap(function (e) {
+        Array.from(t.values()).flatMap(function (e) {
           return e.length === 1
             ? e
             : (e.forEach(function (e) {
                 var t = e.rowIndex;
                 o("WALogger")
                   .WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[cm:import] conflicting reviewed account for row ",
                         "",
                       ])),
@@ -274,24 +261,16 @@ __d(
         })
       );
     }
-    function P(e, t, n) {
-      return N.apply(this, arguments);
+    async function x(e, t, n) {
+      var r = $(e, t),
+        o = await se([r], function (e, t) {
+          return z(e, t, n);
+        }),
+        a = o[0];
+      if (a.status === "rejected") throw a.reason;
+      return a.value;
     }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = M(e, t),
-            o = yield De([r], function (e, t) {
-              return re(e, t, n);
-            }),
-            a = o[0];
-          if (a.status === "rejected") throw a.reason;
-          return a.value;
-        })),
-        N.apply(this, arguments)
-      );
-    }
-    function M(e, t) {
+    function $(e, t) {
       var n,
         r,
         a,
@@ -314,196 +293,152 @@ __d(
           (a = t == null ? void 0 : t.wasNewProfile) != null ? a : !0,
       };
     }
-    function w(e) {
-      return A.apply(this, arguments);
-    }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield B(e);
-          if (t == null)
-            throw r("err")(
-              "Imported customer profile existence lookup unavailable",
-            );
-          var a = yield U(
-              e,
-              R,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    try {
-                      yield o("WAWebSyncContactJob").syncContactListJob(
-                        e.map(function (e) {
-                          return o("WAWebWidFactory").createUserWidOrThrow(
-                            o(
-                              "WAWebContactImportFileProcessor",
-                            ).normalizePhoneNumber(e.phone) + "@c.us",
-                          );
-                        }),
-                        !1,
-                        "query",
-                      );
-                    } catch (t) {
-                      return e.map(function () {
-                        return { status: "rejected", reason: t };
-                      });
-                    }
-                    return (v || (v = n("Promise"))).allSettled(
-                      e.map(
-                        (function () {
-                          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                            function* (e) {
-                              var t = e.lid;
-                              return t != null
-                                ? F(o("WAWebJidToWid").lidUserJidToUserLid(t))
-                                : { savedContactName: null, wasNewContact: !1 };
-                            },
-                          );
-                          return function (t) {
-                            return e.apply(this, arguments);
-                          };
-                        })(),
-                      ),
-                    );
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-            i = new Map();
-          return (
-            e.forEach(function (e, n) {
-              var l = a[n];
-              if (l.status === "rejected") {
-                o("WALogger")
-                  .WARN(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "[cm:import] saved contact state unavailable for row ",
-                        "",
-                      ])),
-                    e.rowIndex,
-                  )
-                  .catching(r("getErrorSafe")(l.reason))
-                  .sendLogs("cm-import-contact-state-unavailable");
-                return;
-              }
-              var s = e.lid;
-              s != null &&
-                i.set(e, {
-                  chatJid: s,
-                  savedContactName: l.value.savedContactName,
-                  wasNewContact: l.value.wasNewContact,
-                  wasNewProfile: !t.has(s),
-                });
-            }),
-            i
-          );
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F(e) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            a = yield o("WAWebApiContact").getContactRecord(e);
-          if (a == null)
-            throw r("err")("[cm:import] saved contact state unavailable");
-          return o("WAWebCustomerManagerContactTypeQuery").isSavedContact(a)
-            ? {
-                savedContactName:
-                  ((t = a.name) == null ? void 0 : t.trim()) ||
-                  ((n = a.shortName) == null ? void 0 : n.trim()) ||
-                  null,
-                wasNewContact: !1,
-              }
-            : { savedContactName: null, wasNewContact: !0 };
-        })),
-        O.apply(this, arguments)
-      );
-    }
-    function B(e) {
-      return W.apply(this, arguments);
-    }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Set(
-            e.flatMap(function (e) {
-              var t = e.lid;
-              return t == null ? [] : [t];
-            }),
-          );
-          if (t.size === 0) return new Set();
+    async function P(e) {
+      var t = await M(e);
+      if (t == null)
+        throw r("err")(
+          "Imported customer profile existence lookup unavailable",
+        );
+      var n = await A(e, S, async function (e) {
           try {
-            var n = yield o(
-              "WAWebCustomerManagerImportExistingCustomerDetector",
-            ).fetchExistingProfileLids(Array.from(t));
-            if (n == null)
-              throw r("err")(
-                "Imported customer profile existence lookup incomplete",
-              );
-            return n;
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] profile existence lookup failed for ",
-                      " candidates; saving stopped",
-                    ])),
-                  t.size,
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("cm-import-profile-existence-lookup-failed"),
-              null
+            await o("WAWebSyncContactJob").syncContactListJob(
+              e.map(function (e) {
+                return o("WAWebWidFactory").createUserWidOrThrow(
+                  o("WAWebContactImportFileProcessor").normalizePhoneNumber(
+                    e.phone,
+                  ) + "@c.us",
+                );
+              }),
+              !1,
+              "query",
             );
+          } catch (t) {
+            return e.map(function () {
+              return { status: "rejected", reason: t };
+            });
           }
-        })),
-        W.apply(this, arguments)
+          return Promise.allSettled(
+            e.map(async function (e) {
+              var t = e.lid;
+              return t != null
+                ? N(o("WAWebJidToWid").lidUserJidToUserLid(t))
+                : { savedContactName: null, wasNewContact: !1 };
+            }),
+          );
+        }),
+        a = new Map();
+      return (
+        e.forEach(function (e, i) {
+          var l = n[i];
+          if (l.status === "rejected") {
+            o("WALogger")
+              .WARN(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[cm:import] saved contact state unavailable for row ",
+                    "",
+                  ])),
+                e.rowIndex,
+              )
+              .catching(r("getErrorSafe")(l.reason))
+              .sendLogs("cm-import-contact-state-unavailable");
+            return;
+          }
+          var s = e.lid;
+          s != null &&
+            a.set(e, {
+              chatJid: s,
+              savedContactName: l.value.savedContactName,
+              wasNewContact: l.value.wasNewContact,
+              wasNewProfile: !t.has(s),
+            });
+        }),
+        a
       );
     }
-    function q(e, t, n, a, i) {
+    async function N(e) {
+      var t,
+        n,
+        a = await o("WAWebApiContact").getContactRecord(e);
+      if (a == null)
+        throw r("err")("[cm:import] saved contact state unavailable");
+      return o("WAWebCustomerManagerContactTypeQuery").isSavedContact(a)
+        ? {
+            savedContactName:
+              ((t = a.name) == null ? void 0 : t.trim()) ||
+              ((n = a.shortName) == null ? void 0 : n.trim()) ||
+              null,
+            wasNewContact: !1,
+          }
+        : { savedContactName: null, wasNewContact: !0 };
+    }
+    async function M(e) {
+      var t = new Set(
+        e.flatMap(function (e) {
+          var t = e.lid;
+          return t == null ? [] : [t];
+        }),
+      );
+      if (t.size === 0) return new Set();
+      try {
+        var n = await o(
+          "WAWebCustomerManagerImportExistingCustomerDetector",
+        ).fetchExistingProfileLids(Array.from(t));
+        if (n == null)
+          throw r("err")(
+            "Imported customer profile existence lookup incomplete",
+          );
+        return n;
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] profile existence lookup failed for ",
+                  " candidates; saving stopped",
+                ])),
+              t.size,
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("cm-import-profile-existence-lookup-failed"),
+          null
+        );
+      }
+    }
+    function w(e, t, n, a, i) {
       var l = [],
         s = i.failureCount,
-        c = i.successCount;
+        u = i.successCount;
       return (
         t.forEach(function (t, i) {
-          var d,
-            m = e[i],
-            p = m.rowIndex,
-            _ = (d = a.get(p)) != null ? d : 1;
+          var c,
+            d = e[i],
+            m = d.rowIndex,
+            _ = (c = a.get(m)) != null ? c : 1;
           if (t.status === "fulfilled") {
-            var f = n.get(m);
+            var f = n.get(d);
             (f != null &&
               (t.value.wasNewContact ||
                 (f.wasNewProfile && t.value.profileResult === "written")) &&
               l.push({
                 chatJid: f.chatJid,
-                rowIndex: p,
+                rowIndex: m,
                 wasNewContact: t.value.wasNewContact,
                 wasNewProfile:
                   f.wasNewProfile && t.value.profileResult === "written",
               }),
-              (c += _));
+              (u += _));
             return;
           }
           (o("WALogger")
             .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "[cm:import] save failed for row ",
                   "",
                 ])),
-              p,
+              m,
             )
             .catching(r("getErrorSafe")(t.reason))
             .sendLogs("cm-import-save-row-failed"),
@@ -512,41 +447,29 @@ __d(
         {
           failureCount: s,
           savedContacts: [].concat(i.savedContacts, l),
-          successCount: c,
+          successCount: u,
         }
       );
     }
-    function U(e, t, n, r, o) {
-      return V.apply(this, arguments);
+    async function A(e, t, n, r, o) {
+      if ((r === void 0 && (r = 0), o === void 0 && (o = []), r >= e.length))
+        return o;
+      var a = e.slice(r, r + t),
+        i = await n(a);
+      return A(e, t, n, r + t, [].concat(o, i));
     }
-    function V() {
-      return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o) {
-            if (
-              (r === void 0 && (r = 0), o === void 0 && (o = []), r >= e.length)
-            )
-              return o;
-            var a = e.slice(r, r + t),
-              i = yield n(a);
-            return U(e, t, n, r + t, [].concat(o, i));
-          },
-        )),
-        V.apply(this, arguments)
-      );
-    }
-    function H(e, t, r) {
-      return U(e, t, function (e) {
-        return (v || (v = n("Promise"))).allSettled(e.map(r));
+    function F(e, t, n) {
+      return A(e, t, function (e) {
+        return Promise.allSettled(e.map(n));
       });
     }
-    function G(e, t) {
+    function O(e, t) {
       var n = [],
         r = [];
       return (
         e.forEach(function (e) {
           try {
-            n.push(M(e, t.get(e)));
+            n.push($(e, t.get(e)));
           } catch (t) {
             r.push(e);
           }
@@ -554,137 +477,103 @@ __d(
         { batchable: n, individual: r }
       );
     }
-    function z(e, t, n) {
-      return j.apply(this, arguments);
-    }
-    function j() {
-      return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var o = yield se(e),
-            a = yield H(
-              e.map(function (e, t) {
-                return t;
-              }),
-              S,
-              (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (n) {
-                    if (!(yield ie(e[n], t))) return !1;
-                    var r = o[n];
-                    if (r.status === "rejected") throw r.reason;
-                    return !0;
-                  },
-                );
-                return function (e) {
-                  return r.apply(this, arguments);
-                };
-              })(),
-            ),
-            i = e.filter(function (e, t) {
-              var n = a[t];
-              return n.status === "fulfilled" && n.value;
-            }),
-            l = yield r(i, t),
-            s = 0;
-          return a.map(function (e) {
-            return e.status === "rejected"
-              ? e
-              : e.value
-                ? l[s++]
-                : { status: "fulfilled", value: void 0 };
-          });
-        })),
-        j.apply(this, arguments)
-      );
-    }
-    function K(e, t, n) {
-      return Q.apply(this, arguments);
-    }
-    function Q() {
-      return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (e.length === 0) return [];
-          var r = yield X(e, t, n);
-          return Ie(r, function (t) {
-            return se(
-              t.map(function (t) {
-                return e[t];
-              }),
-            );
-          });
-        })),
-        Q.apply(this, arguments)
-      );
-    }
-    function X(e, t, n, r) {
-      return Y.apply(this, arguments);
-    }
-    function Y() {
-      return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if ((r === void 0 && (r = !1), e.length === 0)) return [];
-            if (n.rateLimited)
-              return J(e, "[cm:import] contact save rate-limited");
-            var a = r ? n.retries.take() : null;
-            if (r && a == null) return Z(e);
-            try {
-              return (
-                yield o("WAWebSaveContactAction").saveContactBatchAction(
-                  e.map(function (e) {
-                    var t,
-                      n,
-                      r,
-                      o = e.input;
-                    return {
-                      firstName: (t = o.firstName) != null ? t : "",
-                      lastName: (n = o.lastName) != null ? n : "",
-                      phoneNumber: (r = o.phoneNumber) != null ? r : "",
-                      syncToAddressbook: !1,
-                    };
-                  }),
-                ),
-                e.map(function () {
-                  return { status: "fulfilled", value: void 0 };
-                })
-              );
-            } catch (t) {
-              var i = ee(t, e, n, a);
-              if (i != null) return i;
-            }
-            return te(e, t, n);
+    async function B(e, t, n) {
+      var r = await Q(e),
+        o = await F(
+          e.map(function (e, t) {
+            return t;
+          }),
+          v,
+          async function (n) {
+            if (!(await K(e[n], t))) return !1;
+            var o = r[n];
+            if (o.status === "rejected") throw o.reason;
+            return !0;
           },
-        )),
-        Y.apply(this, arguments)
-      );
+        ),
+        a = e.filter(function (e, t) {
+          var n = o[t];
+          return n.status === "fulfilled" && n.value;
+        }),
+        i = await n(a, t),
+        l = 0;
+      return o.map(function (e) {
+        return e.status === "rejected"
+          ? e
+          : e.value
+            ? i[l++]
+            : { status: "fulfilled", value: void 0 };
+      });
     }
-    function J(e, t) {
+    async function W(e, t, n) {
+      if (e.length === 0) return [];
+      var r = await q(e, t, n);
+      return le(r, function (t) {
+        return Q(
+          t.map(function (t) {
+            return e[t];
+          }),
+        );
+      });
+    }
+    async function q(e, t, n, r) {
+      if ((r === void 0 && (r = !1), e.length === 0)) return [];
+      if (n.rateLimited) return U(e, "[cm:import] contact save rate-limited");
+      var a = r ? n.retries.take() : null;
+      if (r && a == null) return V(e);
+      try {
+        return (
+          await o("WAWebSaveContactAction").saveContactBatchAction(
+            e.map(function (e) {
+              var t,
+                n,
+                r,
+                o = e.input;
+              return {
+                firstName: (t = o.firstName) != null ? t : "",
+                lastName: (n = o.lastName) != null ? n : "",
+                phoneNumber: (r = o.phoneNumber) != null ? r : "",
+                syncToAddressbook: !1,
+              };
+            }),
+          ),
+          e.map(function () {
+            return { status: "fulfilled", value: void 0 };
+          })
+        );
+      } catch (t) {
+        var i = H(t, e, n, a);
+        if (i != null) return i;
+      }
+      return G(e, t, n);
+    }
+    function U(e, t) {
       return e.map(function () {
         return { status: "rejected", reason: r("err")(t) };
       });
     }
-    function Z(e) {
+    function V(e) {
       return (
         o("WALogger")
           .WARN(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "[cm:import] contact save retries exhausted; failing ",
                 " rows",
               ])),
             e.length,
           )
           .sendLogs("cm-import-save-retries-exhausted"),
-        J(e, "[cm:import] contact save retries exhausted")
+        U(e, "[cm:import] contact save retries exhausted")
       );
     }
-    function ee(e, t, n, a) {
+    function H(e, t, n, a) {
       return o("WAWebCustomerManagerImportRateLimiter").isUsyncRateLimit(e)
         ? ((n.rateLimited = !0),
           o("WALogger")
             .ERROR(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[cm:import] contact save rate-limited for ",
                   " rows; skipping the import's remaining contact saves",
                 ])),
@@ -692,35 +581,35 @@ __d(
             )
             .catching(r("getErrorSafe")(e))
             .sendLogs("cm-import-save-batch-rate-limited"),
-          J(t, "[cm:import] contact save rate-limited"))
+          U(t, "[cm:import] contact save rate-limited"))
         : e instanceof o("WAWebSaveContactAction").NetworkUnavailable
           ? (a != null && n.retries.refund(a),
             o("WALogger")
               .WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "[cm:import] contact save failed offline for ",
                     " rows",
                   ])),
                 t.length,
               )
               .sendLogs("cm-import-save-batch-offline"),
-            J(t, "[cm:import] contact save failed offline"))
+            U(t, "[cm:import] contact save failed offline"))
           : t.length === 1
             ? (o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "[cm:import] contact save failed for 1 row",
                     ])),
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("cm-import-save-row-contact-failed"),
-              J(t, "[cm:import] contact save failed"))
+              U(t, "[cm:import] contact save failed"))
             : (o("WALogger")
                 .ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
                       "[cm:import] batched contact save failed for ",
                       " rows; retrying them in halves",
                     ])),
@@ -730,247 +619,197 @@ __d(
                 .sendLogs("cm-import-save-batch-fallback"),
               null);
     }
-    function te(e, t, n) {
-      return ne.apply(this, arguments);
-    }
-    function ne() {
-      return (
-        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            var o = yield H(e, S, function (e) {
-                return ie(e, t);
-              }),
-              a = e.flatMap(function (e, t) {
-                var n = o[t];
-                return n.status === "fulfilled" && n.value ? [t] : [];
-              }),
-              i = Math.ceil(a.length / 2),
-              l = a.slice(0, i),
-              s = a.slice(i),
-              u = yield X(
-                l.map(function (t) {
-                  return e[t];
-                }),
-                t,
-                n,
-                !0,
-              ),
-              c = yield X(
-                s.map(function (t) {
-                  return e[t];
-                }),
-                t,
-                n,
-                !0,
-              ),
-              d = new Map(
-                [].concat(
-                  l.map(function (e, t) {
-                    return [e, u[t]];
-                  }),
-                  s.map(function (e, t) {
-                    return [e, c[t]];
-                  }),
+    async function G(e, t, n) {
+      var o = await F(e, v, function (e) {
+          return K(e, t);
+        }),
+        a = e.flatMap(function (e, t) {
+          var n = o[t];
+          return n.status === "fulfilled" && n.value ? [t] : [];
+        }),
+        i = Math.ceil(a.length / 2),
+        l = a.slice(0, i),
+        s = a.slice(i),
+        u = await q(
+          l.map(function (t) {
+            return e[t];
+          }),
+          t,
+          n,
+          !0,
+        ),
+        c = await q(
+          s.map(function (t) {
+            return e[t];
+          }),
+          t,
+          n,
+          !0,
+        ),
+        d = new Map(
+          [].concat(
+            l.map(function (e, t) {
+              return [e, u[t]];
+            }),
+            s.map(function (e, t) {
+              return [e, c[t]];
+            }),
+          ),
+        );
+      return e.map(function (e, t) {
+        var n,
+          a = o[t];
+        return a.status === "rejected"
+          ? a
+          : (n = d.get(t)) != null
+            ? n
+            : {
+                status: "rejected",
+                reason: r("err")(
+                  "[cm:import] batched contact save outcome uncertain",
                 ),
-              );
-            return e.map(function (e, t) {
-              var n,
-                a = o[t];
-              return a.status === "rejected"
-                ? a
-                : (n = d.get(t)) != null
-                  ? n
-                  : {
-                      status: "rejected",
-                      reason: r("err")(
-                        "[cm:import] batched contact save outcome uncertain",
-                      ),
-                    };
-            });
-          },
-        )),
-        ne.apply(this, arguments)
-      );
+              };
+      });
     }
-    function re(e, t, r) {
-      return z(
-        e,
-        t,
-        (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield ke(e, function (e) {
-              return oe(e, r);
-            });
-            return Ie(t, function (t) {
-              return se(
-                t.map(function (t) {
-                  return e[t];
-                }),
-              );
-            });
-          });
-          return function (t) {
-            return e.apply(this, arguments);
-          };
-        })(),
-      );
+    function z(e, t, n) {
+      return B(e, t, async function (e) {
+        var t = await ie(e, function (e) {
+          return j(e, n);
+        });
+        return le(t, function (t) {
+          return Q(
+            t.map(function (t) {
+              return e[t];
+            }),
+          );
+        });
+      });
     }
-    function oe(e, t) {
-      return ae.apply(this, arguments);
+    async function j(e, t) {
+      if (t.rateLimited)
+        throw r("err")("[cm:import] contact save rate-limited");
+      try {
+        await o("WAWebCustomerManagerCreateCustomerRecord").saveCustomerContact(
+          e,
+        );
+      } catch (e) {
+        throw (
+          o("WAWebCustomerManagerImportRateLimiter").isUsyncRateLimit(e) &&
+            (t.rateLimited = !0),
+          e
+        );
+      }
     }
-    function ae() {
-      return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t.rateLimited)
-            throw r("err")("[cm:import] contact save rate-limited");
-          try {
-            yield o(
-              "WAWebCustomerManagerCreateCustomerRecord",
-            ).saveCustomerContact(e);
-          } catch (e) {
-            throw (
-              o("WAWebCustomerManagerImportRateLimiter").isUsyncRateLimit(e) &&
-                (t.rateLimited = !0),
-              e
-            );
-          }
-        })),
-        ae.apply(this, arguments)
-      );
+    async function K(e, t) {
+      if (!e.wasNewContact) return !1;
+      var n = await N(e.input.profileWid);
+      return n.wasNewContact
+        ? !0
+        : (t.set(e.contact, X(e, n.savedContactName)), !1);
     }
-    function ie(e, t) {
-      return le.apply(this, arguments);
-    }
-    function le() {
-      return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!e.wasNewContact) return !1;
-          var n = yield F(e.input.profileWid);
-          return n.wasNewContact
-            ? !0
-            : (t.set(e.contact, ce(e, n.savedContactName)), !1);
-        })),
-        le.apply(this, arguments)
-      );
-    }
-    function se(e) {
-      return ue.apply(this, arguments);
-    }
-    function ue() {
-      return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o(
-                "WAWebCustomerManagerImportPhoneIdentity",
-              ).resolveImportedPhoneContacts(
-                e
-                  .filter(function (e) {
-                    var t = e.wasNewContact;
-                    return t;
-                  })
-                  .map(function (e) {
-                    var t = e.contact;
-                    return t;
-                  }),
-              ),
-              n = new Map(
-                t.map(function (e) {
-                  return [
-                    o("WAWebContactImportFileProcessor").normalizePhoneNumber(
-                      e.phone,
-                    ),
-                    e.lid,
-                  ];
-                }),
-              );
-            return e.map(function (e) {
-              var t = e.contact,
-                a = e.input,
-                i = e.wasNewContact;
-              return !i ||
-                n.get(
-                  o("WAWebContactImportFileProcessor").normalizePhoneNumber(
-                    t.phone,
-                  ),
-                ) === a.profileWid.toString()
-                ? { status: "fulfilled", value: void 0 }
-                : {
-                    status: "rejected",
-                    reason: r("err")(
-                      "[cm:import] phone no longer matches reviewed customer",
-                    ),
-                  };
-            });
-          } catch (t) {
-            return (
-              o("WALogger")
-                .WARN(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] phone identity check failed for ",
-                      " rows; rejecting them",
-                    ])),
-                  e.length,
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("cm-import-identity-check-failed"),
-              e.map(function () {
-                return {
-                  status: "rejected",
-                  reason: r("err")("[cm:import] phone identity check failed"),
-                };
+    async function Q(e) {
+      try {
+        var t = await o(
+            "WAWebCustomerManagerImportPhoneIdentity",
+          ).resolveImportedPhoneContacts(
+            e
+              .filter(function (e) {
+                var t = e.wasNewContact;
+                return t;
               })
-            );
-          }
-        })),
-        ue.apply(this, arguments)
-      );
+              .map(function (e) {
+                var t = e.contact;
+                return t;
+              }),
+          ),
+          n = new Map(
+            t.map(function (e) {
+              return [
+                o("WAWebContactImportFileProcessor").normalizePhoneNumber(
+                  e.phone,
+                ),
+                e.lid,
+              ];
+            }),
+          );
+        return e.map(function (e) {
+          var t = e.contact,
+            a = e.input,
+            i = e.wasNewContact;
+          return !i ||
+            n.get(
+              o("WAWebContactImportFileProcessor").normalizePhoneNumber(
+                t.phone,
+              ),
+            ) === a.profileWid.toString()
+            ? { status: "fulfilled", value: void 0 }
+            : {
+                status: "rejected",
+                reason: r("err")(
+                  "[cm:import] phone no longer matches reviewed customer",
+                ),
+              };
+        });
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] phone identity check failed for ",
+                  " rows; rejecting them",
+                ])),
+              e.length,
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("cm-import-identity-check-failed"),
+          e.map(function () {
+            return {
+              status: "rejected",
+              reason: r("err")("[cm:import] phone identity check failed"),
+            };
+          })
+        );
+      }
     }
-    function ce(e, t) {
+    function X(e, t) {
       return babelHelpers.extends({}, e, {
         profileName: t != null ? t : e.profileName,
         savedContactName: t,
         wasNewContact: !1,
       });
     }
-    function de(e) {
-      return me.apply(this, arguments);
+    async function Y(e) {
+      if (e.length === 0) return [];
+      try {
+        var t = await o("WAWebCustomerDataFieldSaver").createCustomersIfAbsent(
+          e,
+          { skipLeadArtifacts: !0 },
+        );
+        return t.map(J);
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] batched profile create failed for ",
+                  " rows",
+                ])),
+              e.length,
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("cm-import-save-profile-batch-failed"),
+          e.map(function () {
+            return {
+              status: "rejected",
+              reason: r("err")("[cm:import] batched profile create failed"),
+            };
+          })
+        );
+      }
     }
-    function me() {
-      return (
-        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length === 0) return [];
-          try {
-            var t = yield o(
-              "WAWebCustomerDataFieldSaver",
-            ).createCustomersIfAbsent(e, { skipLeadArtifacts: !0 });
-            return t.map(pe);
-          } catch (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] batched profile create failed for ",
-                      " rows",
-                    ])),
-                  e.length,
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("cm-import-save-profile-batch-failed"),
-              e.map(function () {
-                return {
-                  status: "rejected",
-                  reason: r("err")("[cm:import] batched profile create failed"),
-                };
-              })
-            );
-          }
-        })),
-        me.apply(this, arguments)
-      );
-    }
-    function pe(e) {
+    function J(e) {
       return e === "unresolved"
         ? {
             status: "rejected",
@@ -980,364 +819,262 @@ __d(
           }
         : { status: "fulfilled", value: e };
     }
-    function _e(e, t) {
-      return fe.apply(this, arguments);
-    }
-    function fe() {
+    async function Z(e, t) {
+      var n,
+        r,
+        a =
+          e.input.leadStage != null
+            ? await o(
+                "WAWebCustomerManagerImportLeadMerge",
+              ).readImportedLeadState(e.input.chatJid)
+            : null;
       return (
-        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a =
-              e.input.leadStage != null
-                ? yield o(
-                    "WAWebCustomerManagerImportLeadMerge",
-                  ).readImportedLeadState(e.input.chatJid)
-                : null;
-          return (
-            yield o(
-              "WAWebCustomerManagerImportProfileMerge",
-            ).fillMissingImportedProfileFields(e.input, t, {
-              canBackfillLeadStage: (a == null ? void 0 : a.isMember) === !0,
-              leadStageToBackfill:
-                (n = a == null ? void 0 : a.stage) != null
-                  ? n
-                  : e.input.leadStage,
-              profileName:
-                (r = e.savedContactName) != null
-                  ? r
-                  : o(
-                      "WAWebCustomerManagerImportRecordInput",
-                    ).getImportedCustomerName(e.contact),
-            }),
-            "existing"
-          );
-        })),
-        fe.apply(this, arguments)
-      );
-    }
-    function ge(e, t) {
-      return he.apply(this, arguments);
-    }
-    function he() {
-      return (
-        (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.input.leadStage;
-          if (
-            n != null &&
-            (yield o(
-              "WAWebCustomerManagerImportLeadMerge",
-            ).isImportedLeadStageEligible(e.input.chatJid))
-          ) {
-            var a = t && e.wasNewContact && e.wasNewProfile,
-              i = yield o(
-                "WAWebContactManagerCustomerProfileQuery",
-              ).fetchCustomerProfile(e.input.chatJid);
-            if (i == null)
-              throw r("err")(
-                "[cm:import] customer profile disappeared before Lead update",
-              );
-            yield o(
-              "WAWebCustomerManagerImportLeadMerge",
-            ).reconcileImportedLeadArtifacts(e.input.chatJid, i.leadStage, a);
-          }
-        })),
-        he.apply(this, arguments)
-      );
-    }
-    function ye(e, t) {
-      return Ce.apply(this, arguments);
-    }
-    function Ce() {
-      return (
-        (Ce = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = e.map(function (e, t) {
-              return t;
-            }),
-            i = t.map(function (e) {
-              return e.status === "fulfilled" ? e.value : null;
-            }),
-            l = a.filter(function (e) {
-              return i[e] == null;
-            }),
-            s = a.filter(function (e) {
-              return i[e] != null;
-            }),
-            u = yield be(e, l, t),
-            c = l.filter(function (e) {
-              var t = u.get(e);
-              return (
-                (t == null ? void 0 : t.status) === "fulfilled" &&
-                t.value === "existing"
-              );
-            }),
-            d = [].concat(s, c),
-            m = yield H(
-              d,
-              S,
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var n;
-                    return _e(
-                      e[t],
-                      (n = i[t]) != null
-                        ? n
-                        : yield o(
-                            "WAWebContactManagerCustomerProfileQuery",
-                          ).fetchCustomerProfile(e[t].input.chatJid),
-                    );
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            );
-          return (
-            d.forEach(function (e, t) {
-              u.set(e, m[t]);
-            }),
-            a.map(function (e) {
-              var t = u.get(e);
-              return t != null
-                ? t
-                : {
-                    status: "rejected",
-                    reason: r("err")("Missing profile result"),
-                  };
-            })
-          );
-        })),
-        Ce.apply(this, arguments)
-      );
-    }
-    function be(e, t, n) {
-      return ve.apply(this, arguments);
-    }
-    function ve() {
-      return (
-        (ve = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            var r = yield H(t, S, function (t) {
-                return Re(e[t], n[t]);
-              }),
-              o = yield de(
-                r.flatMap(function (e) {
-                  return e.status === "fulfilled" ? [e.value] : [];
-                }),
-              ),
-              a = new Map(),
-              i = 0;
-            return (
-              t.forEach(function (e, t) {
-                var n = r[t];
-                a.set(e, n.status === "fulfilled" ? o[i++] : n);
-              }),
-              a
-            );
-          },
-        )),
-        ve.apply(this, arguments)
-      );
-    }
-    function Se(e) {
-      return H(
-        e,
-        S,
-        (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.input,
-              n = e.wasNewProfile,
-              r = yield o(
-                "WAWebCustomerManagerCreateCustomerRecord",
-              ).readProfileForGuardedBirthday(t);
-            return r != null || n
+        await o(
+          "WAWebCustomerManagerImportProfileMerge",
+        ).fillMissingImportedProfileFields(e.input, t, {
+          canBackfillLeadStage: (a == null ? void 0 : a.isMember) === !0,
+          leadStageToBackfill:
+            (n = a == null ? void 0 : a.stage) != null ? n : e.input.leadStage,
+          profileName:
+            (r = e.savedContactName) != null
               ? r
               : o(
+                  "WAWebCustomerManagerImportRecordInput",
+                ).getImportedCustomerName(e.contact),
+        }),
+        "existing"
+      );
+    }
+    async function ee(e, t) {
+      var n = e.input.leadStage;
+      if (
+        n != null &&
+        (await o(
+          "WAWebCustomerManagerImportLeadMerge",
+        ).isImportedLeadStageEligible(e.input.chatJid))
+      ) {
+        var a = t && e.wasNewContact && e.wasNewProfile,
+          i = await o(
+            "WAWebContactManagerCustomerProfileQuery",
+          ).fetchCustomerProfile(e.input.chatJid);
+        if (i == null)
+          throw r("err")(
+            "[cm:import] customer profile disappeared before Lead update",
+          );
+        await o(
+          "WAWebCustomerManagerImportLeadMerge",
+        ).reconcileImportedLeadArtifacts(e.input.chatJid, i.leadStage, a);
+      }
+    }
+    async function te(e, t) {
+      var n = e.map(function (e, t) {
+          return t;
+        }),
+        a = t.map(function (e) {
+          return e.status === "fulfilled" ? e.value : null;
+        }),
+        i = n.filter(function (e) {
+          return a[e] == null;
+        }),
+        l = n.filter(function (e) {
+          return a[e] != null;
+        }),
+        s = await ne(e, i, t),
+        u = i.filter(function (e) {
+          var t = s.get(e);
+          return (
+            (t == null ? void 0 : t.status) === "fulfilled" &&
+            t.value === "existing"
+          );
+        }),
+        c = [].concat(l, u),
+        d = await F(c, v, async function (t) {
+          var n;
+          return Z(
+            e[t],
+            (n = a[t]) != null
+              ? n
+              : await o(
                   "WAWebContactManagerCustomerProfileQuery",
-                ).fetchCustomerProfile(t.chatJid);
-          });
-          return function (t) {
-            return e.apply(this, arguments);
-          };
-        })(),
-      );
-    }
-    function Re(e, t) {
-      return Le.apply(this, arguments);
-    }
-    function Le() {
+                ).fetchCustomerProfile(e[t].input.chatJid),
+          );
+        });
       return (
-        (Le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n =
-              e.input.leadStage != null
-                ? yield o(
-                    "WAWebCustomerManagerImportLeadMerge",
-                  ).readImportedLeadState(e.input.chatJid)
-                : null,
-            r = null;
-          if (n != null)
-            if (n.isMember) {
-              var a;
-              r = (a = n.stage) != null ? a : e.input.leadStage;
-            } else
-              e.wasNewContact && e.wasNewProfile && (r = e.input.leadStage);
-          return {
-            chatJid: e.input.chatJid,
-            extraFields: babelHelpers.extends(
-              {},
-              o(
-                "WAWebCustomerManagerCreateCustomerRecord",
-              ).buildCustomerProfileFields(
-                e.input,
-                t.status === "fulfilled" ? t.value : null,
-              ),
-              { name: e.profileName },
-            ),
-            leadStage: r,
-          };
-        })),
-        Le.apply(this, arguments)
+        c.forEach(function (e, t) {
+          s.set(e, d[t]);
+        }),
+        n.map(function (e) {
+          var t = s.get(e);
+          return t != null
+            ? t
+            : {
+                status: "rejected",
+                reason: r("err")("Missing profile result"),
+              };
+        })
       );
     }
-    function Ee(e) {
+    async function ne(e, t, n) {
+      var r = await F(t, v, function (t) {
+          return oe(e[t], n[t]);
+        }),
+        o = await Y(
+          r.flatMap(function (e) {
+            return e.status === "fulfilled" ? [e.value] : [];
+          }),
+        ),
+        a = new Map(),
+        i = 0;
+      return (
+        t.forEach(function (e, t) {
+          var n = r[t];
+          a.set(e, n.status === "fulfilled" ? o[i++] : n);
+        }),
+        a
+      );
+    }
+    function re(e) {
+      return F(e, v, async function (e) {
+        var t = e.input,
+          n = e.wasNewProfile,
+          r = await o(
+            "WAWebCustomerManagerCreateCustomerRecord",
+          ).readProfileForGuardedBirthday(t);
+        return r != null || n
+          ? r
+          : o("WAWebContactManagerCustomerProfileQuery").fetchCustomerProfile(
+              t.chatJid,
+            );
+      });
+    }
+    async function oe(e, t) {
+      var n =
+          e.input.leadStage != null
+            ? await o(
+                "WAWebCustomerManagerImportLeadMerge",
+              ).readImportedLeadState(e.input.chatJid)
+            : null,
+        r = null;
+      if (n != null)
+        if (n.isMember) {
+          var a;
+          r = (a = n.stage) != null ? a : e.input.leadStage;
+        } else e.wasNewContact && e.wasNewProfile && (r = e.input.leadStage);
+      return {
+        chatJid: e.input.chatJid,
+        extraFields: babelHelpers.extends(
+          {},
+          o(
+            "WAWebCustomerManagerCreateCustomerRecord",
+          ).buildCustomerProfileFields(
+            e.input,
+            t.status === "fulfilled" ? t.value : null,
+          ),
+          { name: e.profileName },
+        ),
+        leadStage: r,
+      };
+    }
+    function ae(e) {
       return e.flatMap(function (e, t) {
         return e.status === "fulfilled" ? [t] : [];
       });
     }
-    function ke(e, t) {
-      return H(
-        e,
-        S,
-        (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            yield t(e.input);
-          });
-          return function (t) {
-            return e.apply(this, arguments);
-          };
-        })(),
+    function ie(e, t) {
+      return F(e, v, async function (e) {
+        await t(e.input);
+      });
+    }
+    async function le(e, t) {
+      var n = ae(e),
+        r = await t(n),
+        o = [].concat(e);
+      return (
+        n.forEach(function (e, t) {
+          var n = r[t];
+          n.status === "rejected" && (o[e] = n);
+        }),
+        o
       );
     }
-    function Ie(e, t) {
-      return Te.apply(this, arguments);
-    }
-    function Te() {
+    async function se(e, t) {
+      var n = await re(e),
+        r = n.map(function (e) {
+          return e.status === "fulfilled"
+            ? { status: "fulfilled", value: "written" }
+            : e;
+        }),
+        a = new Map();
+      r = await le(r, function (n) {
+        return t(
+          n.map(function (t) {
+            return e[t];
+          }),
+          a,
+        );
+      });
+      var i = e.map(function (e) {
+        var t;
+        return (t = a.get(e.contact)) != null ? t : e;
+      });
+      r = await le(r, function (e) {
+        return ie(
+          e.map(function (e) {
+            return i[e];
+          }),
+          o("WAWebCustomerManagerCreateCustomerRecord").createCustomerChat,
+        );
+      });
+      var l = ae(r),
+        s = await te(
+          l.map(function (e) {
+            return i[e];
+          }),
+          l.map(function (e) {
+            return n[e];
+          }),
+        );
       return (
-        (Te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = Ee(e),
-            r = yield t(n),
-            o = [].concat(e);
-          return (
-            n.forEach(function (e, t) {
-              var n = r[t];
-              n.status === "rejected" && (o[e] = n);
+        l.forEach(function (e, t) {
+          r[e] = s[t];
+        }),
+        (r = await le(r, function (e) {
+          return F(e, v, async function (e) {
+            var t = r[e],
+              n = t.status === "fulfilled" && t.value === "written";
+            return ee(i[e], n);
+          });
+        })),
+        (r = await le(r, function (e) {
+          return ie(
+            e.map(function (e) {
+              return i[e];
             }),
-            o
+            o("WAWebCustomerManagerImportNoteMerge").writeMissingImportedNote,
           );
         })),
-        Te.apply(this, arguments)
+        r.map(function (e, t) {
+          return e.status === "fulfilled"
+            ? {
+                status: "fulfilled",
+                value: {
+                  profileResult: e.value,
+                  wasNewContact: i[t].wasNewContact,
+                },
+              }
+            : e;
+        })
       );
     }
-    function De(e, t) {
-      return xe.apply(this, arguments);
-    }
-    function xe() {
-      return (
-        (xe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield Se(e),
-            a = r.map(function (e) {
-              return e.status === "fulfilled"
-                ? { status: "fulfilled", value: "written" }
-                : e;
-            }),
-            i = new Map();
-          a = yield Ie(a, function (n) {
-            return t(
-              n.map(function (t) {
-                return e[t];
-              }),
-              i,
-            );
-          });
-          var l = e.map(function (e) {
-            var t;
-            return (t = i.get(e.contact)) != null ? t : e;
-          });
-          a = yield Ie(a, function (e) {
-            return ke(
-              e.map(function (e) {
-                return l[e];
-              }),
-              o("WAWebCustomerManagerCreateCustomerRecord").createCustomerChat,
-            );
-          });
-          var s = Ee(a),
-            u = yield ye(
-              s.map(function (e) {
-                return l[e];
-              }),
-              s.map(function (e) {
-                return r[e];
-              }),
-            );
-          return (
-            s.forEach(function (e, t) {
-              a[e] = u[t];
-            }),
-            (a = yield Ie(a, function (e) {
-              return H(
-                e,
-                S,
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = a[e],
-                        n = t.status === "fulfilled" && t.value === "written";
-                      return ge(l[e], n);
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              );
-            })),
-            (a = yield Ie(a, function (e) {
-              return ke(
-                e.map(function (e) {
-                  return l[e];
-                }),
-                o("WAWebCustomerManagerImportNoteMerge")
-                  .writeMissingImportedNote,
-              );
-            })),
-            a.map(function (e, t) {
-              return e.status === "fulfilled"
-                ? {
-                    status: "fulfilled",
-                    value: {
-                      profileResult: e.value,
-                      wasNewContact: l[t].wasNewContact,
-                    },
-                  }
-                : e;
-            })
-          );
-        })),
-        xe.apply(this, arguments)
-      );
-    }
-    function $e(e, t) {
+    function ue(e, t) {
       return e.reduce(function (e, n) {
         var r;
         return e + ((r = t.get(n.rowIndex)) != null ? r : 1);
       }, 0);
     }
-    ((l.IMPORT_ROWS_PER_MINUTE = E),
-      (l.saveImportedContacts = I),
-      (l.createCustomerManagerImporter = T));
+    ((l.IMPORT_ROWS_PER_MINUTE = L),
+      (l.saveImportedContacts = k),
+      (l.createCustomerManagerImporter = I));
   },
   98,
 );

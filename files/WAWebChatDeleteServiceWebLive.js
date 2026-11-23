@@ -2,40 +2,38 @@ __d(
   "WAWebChatDeleteServiceWebLive",
   [
     "JSResourceForInteraction",
-    "WAWebBackendServiceModule",
+    "Promise",
     "WAWebChatDeleteService",
     "WebDi.Async",
   ],
   function (t, n, r, o, a, i, l) {
-    var e = r("JSResourceForInteraction")("WAWebChatClearBridge").__setRef(
+    var e,
+      s = r("JSResourceForInteraction")("WAWebChatClearBridge").__setRef(
         "WAWebChatDeleteServiceWebLive",
       ),
-      s = r("JSResourceForInteraction")("WAWebChatDeleteBridge").__setRef(
+      u = r("JSResourceForInteraction")("WAWebChatDeleteBridge").__setRef(
         "WAWebChatDeleteServiceWebLive",
       ),
-      u = {
-        sendClear: function (n, r, a) {
-          return o("WebDi.Async").fromPromiseNoAbort(function () {
-            return o("WAWebBackendServiceModule")
-              .loadModule(e)
-              .then(function (e) {
-                var t = e.sendClear;
-                return t(n, r, a);
+      c = o("WAWebChatDeleteService").ChatDeleteService.make(function* () {
+        var t = yield* o("WebDi.Async").fromPromise(function () {
+            return (e || (e = n("Promise"))).all([s.load(), u.load()]);
+          }),
+          r = t[0].sendClear,
+          a = t[1].sendConversationDelete,
+          i = {
+            sendClear: function (t, n, a) {
+              return o("WebDi.Async").fromPromise(function () {
+                return r(t, n, a);
               });
-          });
-        },
-        sendConversationDelete: function (t) {
-          return o("WebDi.Async").fromPromiseNoAbort(function () {
-            return o("WAWebBackendServiceModule")
-              .loadModule(s)
-              .then(function (e) {
-                var n = e.sendConversationDelete;
-                return n(t);
+            },
+            sendConversationDelete: function (t) {
+              return o("WebDi.Async").fromPromise(function () {
+                return a(t);
               });
-          });
-        },
-      },
-      c = o("WAWebChatDeleteService").ChatDeleteService.of(u);
+            },
+          };
+        return i;
+      });
     l.ChatDeleteServiceWebLive = c;
   },
   98,

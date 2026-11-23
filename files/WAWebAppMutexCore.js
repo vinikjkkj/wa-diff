@@ -2,7 +2,6 @@ __d(
   "WAWebAppMutexCore",
   [
     "fbt",
-    "Promise",
     "WACustomError",
     "WAFilteredCatch",
     "WALogger",
@@ -13,7 +12,6 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebUserPrefsTabMutex",
     "WAWebVoipGatingUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -31,9 +29,8 @@ __d(
       b,
       v,
       S,
-      R,
-      L = 6e5,
-      E = {
+      R = 6e5,
+      L = {
         INIT: "init",
         PING: "ping",
         PONG: "pong",
@@ -42,7 +39,7 @@ __d(
         ACTIVE_CALL_RESPONSE: "active-call-response",
         FOCUS_REQUEST: "focus-request",
       },
-      k = (function () {
+      E = (function () {
         function t(e) {
           var t = this;
           ((this.$3 = !1),
@@ -53,124 +50,116 @@ __d(
             (this.$13 = function () {
               t.$15();
               var e = Date.now();
-              (o("WAWebUserPrefsTabMutex").setMutex((t.$1 = E.INIT + "_" + e)),
-                (t.$2 = r("WAWebAlarm").setLocalTimeout(t.$13, e + L)));
+              (o("WAWebUserPrefsTabMutex").setMutex((t.$1 = L.INIT + "_" + e)),
+                (t.$2 = r("WAWebAlarm").setLocalTimeout(t.$13, e + R)));
             }),
             (this.$9 = e));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.hasShownCallTakeoverModal = function () {
+          (n.hasShownCallTakeoverModal = function () {
             return this.$8;
           }),
-          (a.waitForCompletion = function () {
+          (n.waitForCompletion = function () {
             return this.$7.promise;
           }),
-          (a.setShouldLaunchSocket = function (t) {
+          (n.setShouldLaunchSocket = function (t) {
             this.$6 = t;
           }),
-          (a.init = function (t) {
+          (n.init = function (t) {
             var e = this;
             if (
               (t === void 0 && (t = 0),
               this.$4 && o("WAWebUserPrefsTabMutex").currentTabHasMutex())
             )
-              return (R || (R = n("Promise"))).resolve(!1);
+              return Promise.resolve(!1);
             if (this.$5 != null) return this.$5;
-            var r = this.$10(t);
+            var n = this.$10(t);
             return (
-              (this.$5 = r),
-              r.then(
+              (this.$5 = n),
+              n.then(
                 function () {
-                  return e.$11(r);
+                  return e.$11(n);
                 },
                 function () {
-                  return e.$11(r);
+                  return e.$11(n);
                 },
               ),
-              r
+              n
             );
           }),
-          (a.$10 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                this.$3 ||
-                  (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
-                    "acquire_mutex",
-                  ),
-                  (this.$3 = !0));
-                var n = t + 1;
-                if (n > 3)
-                  return (
-                    o("WALogger").LOG(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[app] AppMutex init generation: ",
-                          "",
-                        ])),
-                      n,
-                    ),
-                    !0
-                  );
-                var r = o("WAWebUserPrefsTabMutex").getNoTakeover();
-                o("WAWebUserPrefsTabMutex").setNoTakeover();
-                var a = yield this.$12();
-                if (a) {
-                  var i, l;
-                  return (
-                    this.$13(),
-                    o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                      "acquire_mutex",
-                    ),
-                    this.$6 && (yield this.$9.onAcquired()),
-                    (this.$4 = !0),
-                    this.$7.resolve(),
-                    (i = (l = this.$9).onAcquiredComplete) == null || i.call(l),
-                    !1
-                  );
-                }
-                if (this.$9.shouldPreventTakeoverOnActiveCall()) {
-                  var s = yield this.$14();
-                  if (s)
-                    return (
-                      o("WALogger").LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "app:init: Other tab has active call, setting flag",
-                          ])),
-                      ),
-                      (this.$8 = !0),
-                      !0
-                    );
-                }
-                if (r)
-                  return (
-                    o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[app] AppMutex init no take over",
-                        ])),
-                    ),
-                    !0
-                  );
-                throw n;
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
+          (n.$10 = async function (n) {
+            this.$3 ||
+              (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+                "acquire_mutex",
+              ),
+              (this.$3 = !0));
+            var t = n + 1;
+            if (t > 3)
+              return (
+                o("WALogger").LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[app] AppMutex init generation: ",
+                      "",
+                    ])),
+                  t,
+                ),
+                !0
+              );
+            var r = o("WAWebUserPrefsTabMutex").getNoTakeover();
+            o("WAWebUserPrefsTabMutex").setNoTakeover();
+            var a = await this.$12();
+            if (a) {
+              var i, l;
+              return (
+                this.$13(),
+                o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                  "acquire_mutex",
+                ),
+                this.$6 && (await this.$9.onAcquired()),
+                (this.$4 = !0),
+                this.$7.resolve(),
+                (i = (l = this.$9).onAcquiredComplete) == null || i.call(l),
+                !1
+              );
             }
-            return r;
-          })()),
-          (a.$11 = function (t) {
+            if (this.$9.shouldPreventTakeoverOnActiveCall()) {
+              var s = await this.$14();
+              if (s)
+                return (
+                  o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "app:init: Other tab has active call, setting flag",
+                      ])),
+                  ),
+                  (this.$8 = !0),
+                  !0
+                );
+            }
+            if (r)
+              return (
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[app] AppMutex init no take over",
+                    ])),
+                ),
+                !0
+              );
+            throw t;
+          }),
+          (n.$11 = function (t) {
             this.$5 === t && (this.$5 = null);
           }),
-          (a.takeoverLocal = function (t) {
+          (n.takeoverLocal = function (t) {
             var e = this;
             return o("WAWebUserPrefsTabMutex").getMutex()
               ? (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
                   "mutex_takeover",
                 ),
-                o("WAWebUserPrefsTabMutex").setMutex(E.TAKEOVER),
+                o("WAWebUserPrefsTabMutex").setMutex(L.TAKEOVER),
                 o("WAPromiseTimeout")
                   .promiseTimeout(
                     r("WAWebEventsWaitForEvent")(
@@ -223,26 +212,26 @@ __d(
                   }))
               : this.init(t);
           }),
-          (a.unloadMutex = function () {
+          (n.unloadMutex = function () {
             var e = o("WAWebUserPrefsTabMutex").getMutex();
             e &&
               this.$1 &&
               e.includes(this.$1) &&
               o("WAWebUserPrefsTabMutex").removeMutex();
           }),
-          (a.storagePong = function (t) {
+          (n.storagePong = function (t) {
             if (o("WAWebUserPrefsTabMutex").mutexFilter(t)) {
               var e = o("WAWebUserPrefsTabMutex").parseMutex(t.newValue);
               if (e) {
-                if (e === E.TAKEOVER)
+                if (e === L.TAKEOVER)
                   return (
                     this.$15(),
                     o("WAWebUserPrefsTabMutex").localTakeoverSuccess(),
                     !0
                   );
-                if (e.indexOf(E.PING) === 0)
-                  o("WAWebUserPrefsTabMutex").setMutex(E.PONG + Math.random());
-                else if (e.indexOf(E.CHECK_ACTIVE_CALL) === 0) {
+                if (e.indexOf(L.PING) === 0)
+                  o("WAWebUserPrefsTabMutex").setMutex(L.PONG + Math.random());
+                else if (e.indexOf(L.CHECK_ACTIVE_CALL) === 0) {
                   if (o("WAWebVoipGatingUtils").isCallingEnabled()) {
                     var n = this.$9.hasActiveCall();
                     (o("WALogger").LOG(
@@ -254,11 +243,11 @@ __d(
                       n,
                     ),
                       o("WAWebUserPrefsTabMutex").setMutex(
-                        E.ACTIVE_CALL_RESPONSE + "_" + String(n),
+                        L.ACTIVE_CALL_RESPONSE + "_" + String(n),
                       ));
                   }
                 } else
-                  e.indexOf(E.FOCUS_REQUEST) === 0 &&
+                  e.indexOf(L.FOCUS_REQUEST) === 0 &&
                     o("WAWebVoipGatingUtils").isCallingEnabled() &&
                     (o("WALogger").LOG(
                       _ ||
@@ -270,21 +259,21 @@ __d(
               }
             }
           }),
-          (a.$15 = function () {
+          (n.$15 = function () {
             this.$2 != null && r("WAWebAlarm").clearTimeout(this.$2);
           }),
-          (a.$12 = function () {
+          (n.$12 = function () {
             var e = o("WAWebUserPrefsTabMutex").getMutex();
             if (e) {
               (o("WAWebPageLoadLogging").startPageLoadQplMeasure("mutex_ping"),
                 (e += ""));
               var t = 1e3;
               if (e.indexOf("_") > 0) {
-                var a = e.split("."),
-                  i = parseInt(a[a.length - 1], 10);
-                if (Number.isFinite(i)) {
-                  var l = Date.now() - L * 1.5;
-                  i < l &&
+                var n = e.split("."),
+                  a = parseInt(n[n.length - 1], 10);
+                if (Number.isFinite(a)) {
+                  var i = Date.now() - R * 1.5;
+                  a < i &&
                     (o("WALogger").LOG(
                       f ||
                         (f = babelHelpers.taggedTemplateLiteralLoose([
@@ -294,7 +283,7 @@ __d(
                     (t = 1e3));
                 }
               }
-              var s = o("WAPromiseTimeout")
+              var l = o("WAPromiseTimeout")
                 .promiseTimeout(
                   r("WAWebEventsWaitForEvent")(
                     window,
@@ -337,27 +326,27 @@ __d(
                   ),
                 );
               return (
-                s.finally(function () {
+                l.finally(function () {
                   return o("WAWebPageLoadLogging").endPageLoadQplMeasure(
                     "mutex_ping",
                   );
                 }),
-                o("WAWebUserPrefsTabMutex").setMutex(E.PING + Math.random()),
-                s
+                o("WAWebUserPrefsTabMutex").setMutex(L.PING + Math.random()),
+                l
               );
             }
-            return (R || (R = n("Promise"))).resolve(!0);
+            return Promise.resolve(!0);
           }),
-          (a.$14 = function () {
+          (n.$14 = function () {
             var e = o("WAWebUserPrefsTabMutex").getMutex();
-            if (!e) return (R || (R = n("Promise"))).resolve(!1);
+            if (!e) return Promise.resolve(!1);
             var t = o("WAPromiseTimeout")
               .promiseTimeout(
                 r("WAWebEventsWaitForEvent")(window, "storage", function (e) {
                   return (
                     o("WAWebUserPrefsTabMutex").mutexFilter(e) &&
                     e.newValue != null &&
-                    e.newValue.indexOf(E.ACTIVE_CALL_RESPONSE) >= 0
+                    e.newValue.indexOf(L.ACTIVE_CALL_RESPONSE) >= 0
                   );
                 }),
                 2e3,
@@ -368,7 +357,7 @@ __d(
                   n = o("WAWebUserPrefsTabMutex").parseMutex(
                     (t = e.newValue) != null ? t : "",
                   );
-                if (n && n.indexOf(E.ACTIVE_CALL_RESPONSE) === 0) {
+                if (n && n.indexOf(L.ACTIVE_CALL_RESPONSE) === 0) {
                   var r = n.split("_")[1] === "true";
                   return (
                     o("WALogger").LOG(
@@ -402,12 +391,12 @@ __d(
               );
             return (
               o("WAWebUserPrefsTabMutex").setMutex(
-                E.CHECK_ACTIVE_CALL + Math.random(),
+                L.CHECK_ACTIVE_CALL + Math.random(),
               ),
               t
             );
           }),
-          (a.requestFocusOnOtherTab = function () {
+          (n.requestFocusOnOtherTab = function () {
             var e = this;
             (o("WALogger").LOG(
               b ||
@@ -433,7 +422,7 @@ __d(
                     })
                 : this.$17());
           }),
-          (a.$17 = function () {
+          (n.$17 = function () {
             (o("WALogger").LOG(
               S ||
                 (S = babelHelpers.taggedTemplateLiteralLoose([
@@ -441,19 +430,17 @@ __d(
                 ])),
             ),
               o("WAWebUserPrefsTabMutex").setMutex(
-                E.FOCUS_REQUEST + Math.random(),
+                L.FOCUS_REQUEST + Math.random(),
               ));
           }),
-          (a.$16 = function () {
+          (n.$16 = function () {
             Notification !== void 0 &&
               Notification.permission === "granted" &&
               this.$18();
           }),
-          (a.$18 = function () {
-            var e = new Notification(s._(/*BTDS*/ "WhatsApp Web").toString(), {
-              body: s
-                ._(/*BTDS*/ "You have an active call in this window")
-                .toString(),
+          (n.$18 = function () {
+            var e = new Notification(s._(/*BTDS*/ "").toString(), {
+              body: s._(/*BTDS*/ "").toString(),
               requireInteraction: !0,
               tag: "wa-web-call-active",
             });
@@ -467,7 +454,7 @@ __d(
           t
         );
       })();
-    l.WAWebAppMutexCore = k;
+    l.WAWebAppMutexCore = E;
   },
   226,
 );

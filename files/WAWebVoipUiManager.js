@@ -429,14 +429,10 @@ __d(
                     : "",
                 P = (T = t.isVideo) != null ? T : !1,
                 N = P
-                  ? r("fbs")._(
-                      /*BTDS*/ "Incoming video call from {caller_name}",
-                      [r("fbs")._param("caller_name", $)],
-                    )
-                  : r("fbs")._(
-                      /*BTDS*/ "Incoming voice call from {caller_name}",
-                      [r("fbs")._param("caller_name", $)],
-                    );
+                  ? r("fbs")._(/*BTDS*/ "", [r("fbs")._param("caller_name", $)])
+                  : r("fbs")._(/*BTDS*/ "", [
+                      r("fbs")._param("caller_name", $),
+                    ]);
               (j == null || j(),
                 (j = o("WAWebPwaDocumentMetadataUtils").startDocumentTitleFlash(
                   J(N.toString(), P),

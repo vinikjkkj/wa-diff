@@ -12,125 +12,76 @@ __d(
     "WDSDialogBridge",
     "WDSIconIcDescriptionFilled.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebGdprRequest",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = o("react-compiler-runtime").c(22),
-        n = e.newsletterBodyText,
-        a = e.onRequestSuccess,
-        i = e.otherPendingRequestsExist,
-        l = e.report,
-        s = o("useWAWebGdprRequest").useGdprRequest(l, i),
-        c = s[0],
-        _ = s[1],
-        f;
-      t[0] !== _ || t[1] !== a
-        ? ((f = function (t) {
-            return _(t).then(function (e) {
-              e.success && a();
-            });
-          }),
-          (t[0] = _),
-          (t[1] = a),
-          (t[2] = f))
-        : (f = t[2]);
-      var g = f,
-        h;
-      t[3] !== g || t[4] !== l
-        ? ((h = function () {
-            return g().catch(
-              o("WAFilteredCatch").filteredCatch(
-                o("WAWebGdprErrors").PendingGdprRequestsError,
-                function () {
-                  o("WDSDialogBridge").openWDSDialog(
-                    u.jsx(r("WAWebGdprRequestOverrideModal.react"), {
-                      onConfirm: function () {
-                        return g(!0).then(d);
-                      },
-                      requestedReport: l,
-                    }),
-                  );
-                },
-              ),
-            );
-          }),
-          (t[3] = g),
-          (t[4] = l),
-          (t[5] = h))
-        : (h = t[5]);
-      var y = h,
-        C;
-      t[6] !== l ? ((C = m(l)), (t[6] = l), (t[7] = C)) : (C = t[7]);
-      var b = C,
-        v;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((v = "x178xt8z x13fuv20 xx42vgk xso031l x1q0q8m5 x120ee7l"),
-          (t[8] = v))
-        : (v = t[8]);
-      var S;
-      t[9] !== l ? ((S = p(l)), (t[9] = l), (t[10] = S)) : (S = t[10]);
-      var R;
-      t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = u.jsx(r("WDSIconIcDescriptionFilled.react"), {
-            height: 24,
-            testid: "settings-document",
-            width: 24,
-          })),
-          (t[11] = R))
-        : (R = t[11]);
-      var L;
-      t[12] !== b || t[13] !== y || t[14] !== c || t[15] !== S
-        ? ((L = u.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
-            className: v,
+      var t = e.newsletterBodyText,
+        n = e.onRequestSuccess,
+        a = e.otherPendingRequestsExist,
+        i = e.report,
+        l = o("useWAWebGdprRequest").useGdprRequest(i, a),
+        s = l[0],
+        c = l[1],
+        p = function (t) {
+          return c(t).then(function (e) {
+            e.success && n();
+          });
+        },
+        _ = function () {
+          return p().catch(
+            o("WAFilteredCatch").filteredCatch(
+              o("WAWebGdprErrors").PendingGdprRequestsError,
+              function () {
+                o("WDSDialogBridge").openWDSDialog(
+                  u.jsx(r("WAWebGdprRequestOverrideModal.react"), {
+                    onConfirm: function () {
+                      return p(!0).then(function () {
+                        o("WAWebCmd").Cmd.trigger("refresh_gdpr");
+                      });
+                    },
+                    requestedReport: i,
+                  }),
+                );
+              },
+            ),
+          );
+        },
+        f = d(i);
+      return u.jsxs(u.Fragment, {
+        children: [
+          u.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
+            className: "x178xt8z x13fuv20 xx42vgk xso031l x1q0q8m5 x120ee7l",
             color: "dark",
-            disabled: c,
-            testid: S,
-            icon: R,
-            onClick: y,
-            children: b,
-          })),
-          (t[12] = b),
-          (t[13] = y),
-          (t[14] = c),
-          (t[15] = S),
-          (t[16] = L))
-        : (L = t[16]);
-      var E;
-      t[17] !== n
-        ? ((E = u.jsx(r("WAWebGdprRequestAccountInfoSettingsFooterNotice"), {
-            newsletterBodyText: n,
+            disabled: s,
+            testid: m(i),
+            icon: u.jsx(r("WDSIconIcDescriptionFilled.react"), {
+              height: 24,
+              testid: "settings-document",
+              width: 24,
+            }),
+            onClick: _,
+            children: f,
+          }),
+          u.jsx(r("WAWebGdprRequestAccountInfoSettingsFooterNotice"), {
+            newsletterBodyText: t,
             isPending: !1,
-          })),
-          (t[17] = n),
-          (t[18] = E))
-        : (E = t[18]);
-      var k;
-      return (
-        t[19] !== L || t[20] !== E
-          ? ((k = u.jsxs(u.Fragment, { children: [L, E] })),
-            (t[19] = L),
-            (t[20] = E),
-            (t[21] = k))
-          : (k = t[21]),
-        k
-      );
+          }),
+        ],
+      });
     }
-    function d() {
-      o("WAWebCmd").Cmd.trigger("refresh_gdpr");
-    }
-    function m(e) {
+    c.displayName = c.name + " [from " + i.id + "]";
+    function d(e) {
       switch (e) {
         case o("WAWebGdprConstants").ReportType.Account:
-          return s._(/*BTDS*/ "Request report");
+          return s._(/*BTDS*/ "");
         case o("WAWebGdprConstants").ReportType.Newsletters:
-          return s._(/*BTDS*/ "Request Channels report");
+          return s._(/*BTDS*/ "");
       }
     }
-    function p(e) {
+    function m(e) {
       switch (e) {
         case o("WAWebGdprConstants").ReportType.Account:
           return "request-gdpr-report-button-account";

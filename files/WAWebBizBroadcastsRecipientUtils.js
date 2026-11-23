@@ -10,12 +10,11 @@ __d(
     "WAWebContactGetters",
     "WAWebFrontendContactGetters",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = _(e);
-      return t == null ? null : g(t);
+      var t = p(e);
+      return t == null ? null : f(t);
     }
     function s(t) {
       var n;
@@ -27,7 +26,7 @@ __d(
       var t = new Map(
         e.map(function (e) {
           var t;
-          return [e, (t = _(e)) != null ? t : e];
+          return [e, (t = p(e)) != null ? t : e];
         }),
       );
       return [].concat(e).sort(function (e, n) {
@@ -49,30 +48,22 @@ __d(
         return (
           (!n && s(e).toLowerCase().includes(o)) ||
           (a !== "" &&
-            ((t = (r = f(e)) == null ? void 0 : r.user) != null
+            ((t = (r = _(e)) == null ? void 0 : r.user) != null
               ? t
               : ""
             ).includes(a))
         );
       });
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    async function d(e) {
+      var t = await o("WAWebAudienceResolver").resolveAudienceExpression(e),
+        n = t.length;
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebAudienceResolver").resolveAudienceExpression(e),
-            n = t.length;
-          return (
-            n >= o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS &&
-            n <= o("WAWebBizBroadcastRecipientLimitCommon").getRecipientLimit()
-          );
-        })),
-        m.apply(this, arguments)
+        n >= o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS &&
+        n <= o("WAWebBizBroadcastRecipientLimitCommon").getRecipientLimit()
       );
     }
-    function p(e) {
+    function m(e) {
       try {
         var t,
           n = o("WAWebWidFactory").createUserWidOrThrow(
@@ -91,17 +82,17 @@ __d(
         return null;
       }
     }
-    function _(e) {
-      if (g(e) != null) return e;
+    function p(e) {
+      if (f(e) != null) return e;
       if (!e.id.isLid()) return null;
-      var t = f(e),
+      var t = _(e),
         n =
           t == null
             ? null
             : o("WAWebContactCollection").ContactCollection.get(t);
-      return n != null && g(n) != null ? n : null;
+      return n != null && f(n) != null ? n : null;
     }
-    function f(e) {
+    function _(e) {
       var t;
       return e.id.isLid()
         ? (t = e.phoneNumber) != null
@@ -109,7 +100,7 @@ __d(
           : o("WAWebApiContact").getAlternateUserWid(e.id)
         : e.id;
     }
-    function g(e) {
+    function f(e) {
       var t = o("WAWebContactGetters").getName(e),
         n = t == null ? void 0 : t.trim();
       return n == null || n === "" ? null : n;
@@ -125,7 +116,7 @@ __d(
       (l.sortByRecipientPickerName = u),
       (l.filterByRecipientPickerQuery = c),
       (l.isPredicateEligibleForSuggestedCard = d),
-      (l.getContactByUserId = p));
+      (l.getContactByUserId = m));
   },
   98,
 );

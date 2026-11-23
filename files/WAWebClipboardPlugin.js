@@ -3,138 +3,88 @@ __d(
   [
     "Lexical",
     "LexicalComposerContext",
-    "Promise",
     "WAWebCopyPasteClipboard",
     "WAWebDataTransfer",
     "WAWebLexicalUtils",
-    "asyncToGeneratorRuntime",
     "cr:6842",
-    "react-compiler-runtime",
     "useWAWebLexicalEvent",
     "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = o("Lexical").createCommand(),
-      u = /\r?\n|\r/g;
-    function c(t) {
-      var a = o("react-compiler-runtime").c(14),
-        i = t.ignoreLineBreakOnPaste,
+    var e = o("Lexical").createCommand(),
+      s = /\r?\n|\r/g;
+    function u(t) {
+      var a = t.ignoreLineBreakOnPaste,
+        i = a === void 0 ? !1 : a,
         l = t.onFiles,
-        c = t.onTextPaste,
-        p = t.pasteFromHTML,
-        _ = i === void 0 ? !1 : i,
-        f = p === void 0 ? !1 : p,
-        h = o("LexicalComposerContext").useLexicalComposerContext(),
-        y = h[0],
-        C;
-      a[0] !== y || a[1] !== l || a[2] !== c || a[3] !== f
-        ? ((C = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                if (
-                  (t.preventDefault(), t.stopPropagation(), !!t.clipboardData)
-                ) {
-                  var a = new (r("WAWebDataTransfer"))(t.clipboardData);
-                  if (g(a)) {
-                    l == null || l(a);
-                    return;
-                  }
-                  var i = yield (e || (e = n("Promise"))).all([
-                      a.getText([
-                        o("WAWebCopyPasteClipboard").APP_TEXT_MIMETYPE,
-                      ]),
-                      a.getText(["text/html"]),
-                      a.getText(["text/plain"]),
-                    ]),
-                    u = i[0],
-                    d = i[1],
-                    m = i[2],
-                    p;
-                  (u != null
-                    ? (p = u)
-                    : d != null && f && n("cr:6842")
-                      ? (p = n("cr:6842")(d))
-                      : m != null && (p = m),
-                    p != null &&
-                      (c == null ? void 0 : c(p)) !== !0 &&
-                      y.dispatchCommand(s, p));
-                }
-              },
-            );
-            return function (n) {
-              return t.apply(this, arguments);
-            };
-          })()),
-          (a[0] = y),
-          (a[1] = l),
-          (a[2] = c),
-          (a[3] = f),
-          (a[4] = C))
-        : (C = a[4]);
-      var b = r("useWAWebStableCallback")(C),
-        v;
-      a[5] !== y || a[6] !== _
-        ? ((v = function (t) {
-            var e;
-            (_ ? (e = [t.replace(u, "")]) : (e = t.split(u)),
-              y.update(function () {
-                var t = o("WAWebLexicalUtils").$getRangeSelection();
-                t &&
-                  (t.isCollapsed() || t.removeText(),
-                  e.forEach(function (e, n) {
-                    var r = n === 0;
-                    (r || t.insertParagraph(), t.insertText(e));
-                  }));
-              }));
-          }),
-          (a[5] = y),
-          (a[6] = _),
-          (a[7] = v))
-        : (v = a[7]);
-      var S = r("useWAWebStableCallback")(v),
-        R;
-      (a[8] !== y
-        ? ((R = function (t) {
-            return t instanceof ClipboardEvent
-              ? (t.preventDefault(), t.stopPropagation(), d(t), m(y), !0)
-              : !1;
-          }),
-          (a[8] = y),
-          (a[9] = R))
-        : (R = a[9]),
-        o("useWAWebLexicalEvent").useLexicalCommandListener(
-          y,
-          o("Lexical").CUT_COMMAND,
-          R,
-        ));
-      var L;
-      (a[10] !== b
-        ? ((L = function (t) {
-            return (b(t), !0);
-          }),
-          (a[10] = b),
-          (a[11] = L))
-        : (L = a[11]),
-        o("useWAWebLexicalEvent").useLexicalCommandListener(
-          y,
-          o("Lexical").PASTE_COMMAND,
-          L,
-        ));
-      var E;
+        u = t.onTextPaste,
+        m = t.pasteFromHTML,
+        p = m === void 0 ? !1 : m,
+        _ = o("LexicalComposerContext").useLexicalComposerContext(),
+        g = _[0],
+        h = r("useWAWebStableCallback")(async function (t) {
+          if ((t.preventDefault(), t.stopPropagation(), !!t.clipboardData)) {
+            var a = new (r("WAWebDataTransfer"))(t.clipboardData);
+            if (f(a)) {
+              l == null || l(a);
+              return;
+            }
+            var i = await Promise.all([
+                a.getText([o("WAWebCopyPasteClipboard").APP_TEXT_MIMETYPE]),
+                a.getText(["text/html"]),
+                a.getText(["text/plain"]),
+              ]),
+              s = i[0],
+              c = i[1],
+              d = i[2],
+              m;
+            (s != null
+              ? (m = s)
+              : c != null && p && n("cr:6842")
+                ? (m = n("cr:6842")(c))
+                : d != null && (m = d),
+              m != null &&
+                (u == null ? void 0 : u(m)) !== !0 &&
+                g.dispatchCommand(e, m));
+          }
+        }),
+        y = r("useWAWebStableCallback")(function (e) {
+          var t;
+          (i ? (t = [e.replace(s, "")]) : (t = e.split(s)),
+            g.update(function () {
+              var e = o("WAWebLexicalUtils").$getRangeSelection();
+              e &&
+                (e.isCollapsed() || e.removeText(),
+                t.forEach(function (t, n) {
+                  var r = n === 0;
+                  (r || e.insertParagraph(), e.insertText(t));
+                }));
+            }));
+        });
       return (
-        a[12] !== S
-          ? ((E = function (t) {
-              return (S(t), !0);
-            }),
-            (a[12] = S),
-            (a[13] = E))
-          : (E = a[13]),
-        o("useWAWebLexicalEvent").useLexicalCommandListener(y, s, E),
+        o("useWAWebLexicalEvent").useLexicalCommandListener(
+          g,
+          o("Lexical").CUT_COMMAND,
+          function (e) {
+            return e instanceof ClipboardEvent
+              ? (e.preventDefault(), e.stopPropagation(), c(e), d(g), !0)
+              : !1;
+          },
+        ),
+        o("useWAWebLexicalEvent").useLexicalCommandListener(
+          g,
+          o("Lexical").PASTE_COMMAND,
+          function (e) {
+            return (h(e), !0);
+          },
+        ),
+        o("useWAWebLexicalEvent").useLexicalCommandListener(g, e, function (e) {
+          return (y(e), !0);
+        }),
         null
       );
     }
-    function d(e) {
+    function c(e) {
       var t = e.clipboardData,
         n = e.currentTarget;
       if (!(!(n instanceof HTMLElement) || !t)) {
@@ -151,30 +101,30 @@ __d(
         } catch (e) {}
       }
     }
-    function m(e) {
+    function d(e) {
       e.update(function (e) {
         var t = o("WAWebLexicalUtils").$getRangeSelection();
         t && t.removeText();
       });
     }
-    var p = "urn:schemas-microsoft-com:office",
-      _ = "urn:schemas-microsoft-com:office:excel",
-      f = "<meta name=ProgId content=PowerPoint.Slide>";
-    function g(e) {
+    var m = "urn:schemas-microsoft-com:office",
+      p = "urn:schemas-microsoft-com:office:excel",
+      _ = "<meta name=ProgId content=PowerPoint.Slide>";
+    function f(e) {
       if (!e.hasFiles()) return !1;
       if (e.hasType("text/html")) {
         var t = e.getData("text/html");
         if (t) {
-          var n = t.includes(f);
+          var n = t.includes(_);
           if (n) return !1;
-          var r = t.includes(p),
-            o = t.includes(_);
+          var r = t.includes(m),
+            o = t.includes(p);
           if (r && !o) return !1;
         }
       }
       return !0;
     }
-    ((l.PASTE_TEXT_COMMAND = s), (l.ClipboardPlugin = c));
+    ((l.PASTE_TEXT_COMMAND = e), (l.ClipboardPlugin = u));
   },
   98,
 );

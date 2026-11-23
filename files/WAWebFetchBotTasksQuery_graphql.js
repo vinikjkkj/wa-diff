@@ -1,0 +1,246 @@
+__d(
+  "WAWebFetchBotTasksQuery.graphql",
+  ["WAWebFetchBotTasksQuery_facebookRelayOperation"],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = [
+          { defaultValue: null, kind: "LocalArgument", name: "first" },
+          { defaultValue: null, kind: "LocalArgument", name: "statuses" },
+          { defaultValue: null, kind: "LocalArgument", name: "suggestedLimit" },
+          { defaultValue: null, kind: "LocalArgument", name: "surface" },
+        ],
+        t = [
+          { kind: "Variable", name: "first", variableName: "first" },
+          { kind: "Variable", name: "statuses", variableName: "statuses" },
+          { kind: "Variable", name: "surface", variableName: "surface" },
+        ],
+        r = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "is_server_enabled",
+          storageKey: null,
+        },
+        o = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        a = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "prompt",
+          storageKey: null,
+        },
+        i = [
+          o,
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "title",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "natural_language_schedule",
+            storageKey: null,
+          },
+          a,
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "reminder_type",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "recurrence_frequency",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "recurrence_interval",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "timezone",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "status",
+            storageKey: null,
+          },
+        ],
+        l = [
+          { kind: "Variable", name: "limit", variableName: "suggestedLimit" },
+        ],
+        s = [
+          o,
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "display_label",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "subtitle",
+            storageKey: null,
+          },
+          a,
+        ];
+      return {
+        fragment: {
+          argumentDefinitions: e,
+          kind: "Fragment",
+          metadata: null,
+          name: "WAWebFetchBotTasksQuery",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: "XFBGenAIMetaAIRemindersConnection",
+              kind: "LinkedField",
+              name: "xfb_gen_ai_meta_ai_reminders",
+              plural: !1,
+              selections: [
+                r,
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "XFBGenAIMetaAIRemindersEdge",
+                  kind: "LinkedField",
+                  name: "edges",
+                  plural: !0,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBGenAIMetaAIReminder",
+                      kind: "LinkedField",
+                      name: "node",
+                      plural: !1,
+                      selections: [
+                        {
+                          kind: "InlineDataFragmentSpread",
+                          name: "WAWebFetchBotTasks_reminder",
+                          selections: i,
+                          args: null,
+                          argumentDefinitions: [],
+                        },
+                      ],
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: l,
+                  concreteType: "XFBGenAIMetaAIReminderPromptStarter",
+                  kind: "LinkedField",
+                  name: "suggested_tasks",
+                  plural: !0,
+                  selections: [
+                    {
+                      kind: "InlineDataFragmentSpread",
+                      name: "WAWebFetchBotTasks_suggestion",
+                      selections: s,
+                      args: null,
+                      argumentDefinitions: [],
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+          type: "Query",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: e,
+          kind: "Operation",
+          name: "WAWebFetchBotTasksQuery",
+          selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: "XFBGenAIMetaAIRemindersConnection",
+              kind: "LinkedField",
+              name: "xfb_gen_ai_meta_ai_reminders",
+              plural: !1,
+              selections: [
+                r,
+                {
+                  alias: null,
+                  args: null,
+                  concreteType: "XFBGenAIMetaAIRemindersEdge",
+                  kind: "LinkedField",
+                  name: "edges",
+                  plural: !0,
+                  selections: [
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBGenAIMetaAIReminder",
+                      kind: "LinkedField",
+                      name: "node",
+                      plural: !1,
+                      selections: i,
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: l,
+                  concreteType: "XFBGenAIMetaAIReminderPromptStarter",
+                  kind: "LinkedField",
+                  name: "suggested_tasks",
+                  plural: !0,
+                  selections: s,
+                  storageKey: null,
+                },
+              ],
+              storageKey: null,
+            },
+          ],
+        },
+        params: {
+          id: n("WAWebFetchBotTasksQuery_facebookRelayOperation"),
+          metadata: {},
+          name: "WAWebFetchBotTasksQuery",
+          operationKind: "query",
+          text: null,
+        },
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

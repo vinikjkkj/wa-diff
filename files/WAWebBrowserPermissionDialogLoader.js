@@ -5,7 +5,6 @@ __d(
     "WAPromiseDelays",
     "WAWebBrowserPermissionModalOptions",
     "WAWebModalManager",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,20 +13,20 @@ __d(
       s,
       u = 5e3;
     function c(t) {
-      var a = t.getResource,
-        i = t.logPrefix,
-        l = t.onLoadFailed,
-        c = !1;
-      function d() {
-        c || ((c = !0), l());
+      var n = t.getResource,
+        a = t.logPrefix,
+        i = t.onLoadFailed,
+        l = !1;
+      function c() {
+        l || ((l = !0), i());
       }
-      return n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-        var t = a(),
-          n = t.getModuleIfRequired();
-        if (n != null) return n;
-        if (c) return null;
+      return async function () {
+        var t = n(),
+          i = t.getModuleIfRequired();
+        if (i != null) return i;
+        if (l) return null;
         try {
-          return yield o("WAPromiseDelays").withTimeout(
+          return await o("WAPromiseDelays").withTimeout(
             t.load(),
             u,
             function () {
@@ -38,9 +37,9 @@ __d(
                       "",
                       ": [PermissionDialog] loading timed out",
                     ])),
-                  i,
+                  a,
                 ),
-                d(),
+                c(),
                 null
               );
             },
@@ -54,14 +53,14 @@ __d(
                     "",
                     ": [PermissionDialog] loading failed",
                   ])),
-                i,
+                a,
               )
               .catching(r("getErrorSafe")(e)),
-            d(),
+            c(),
             null
           );
         }
-      });
+      };
     }
     function d(e) {
       var t = !1;

@@ -68,10 +68,10 @@ __d(
     }
     function h(e) {
       return e === "CREATOR"
-        ? s._(/*BTDS*/ "Owner")
+        ? s._(/*BTDS*/ "")
         : e === "ADMIN"
           ? r("WAWebFbtCommon")("Admin")
-          : s._(/*BTDS*/ "Member");
+          : s._(/*BTDS*/ "");
     }
     function y(t) {
       if (d.has(t)) return d.get(t);

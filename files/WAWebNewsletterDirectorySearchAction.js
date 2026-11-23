@@ -1,7 +1,6 @@
 __d(
   "WAWebNewsletterDirectorySearchAction",
   [
-    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebGetNewsletterDirectoryChats",
@@ -10,7 +9,6 @@ __d(
     "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterMetadataGetters",
     "WAWebNewsletterValidationUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["skipSubscribedNewsletters"],
@@ -23,189 +21,151 @@ __d(
       _,
       f,
       g,
-      h,
-      y;
-    function C(e) {
+      h;
+    function y(e) {
       var t = e.newsletterMetadata;
       return t != null && o("WAWebNewsletterMetadataGetters").getIsPreview(t);
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    async function C(e) {
+      var t = e.categories,
+        n = e.countryCodes,
+        r = e.cursorToken,
+        a = e.searchText,
+        i = e.skipSubscribedNewsletters,
+        l = e.view,
+        s = o("WAWebABProps").getABPropConfigValue(
+          "channels_directory_page_size",
+        );
+      return a.trim() !== ""
+        ? S({
+            searchText: a,
+            limit: s,
+            cursorToken: r,
+            categories: t,
+            skipSubscribedNewsletters: i,
+          })
+        : v({
+            view: l,
+            limit: s,
+            countryCodes: n,
+            cursorToken: r,
+            categories: t,
+            skipSubscribedNewsletters: i,
+          });
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.categories,
-            n = e.countryCodes,
-            r = e.cursorToken,
-            a = e.searchText,
-            i = e.skipSubscribedNewsletters,
-            l = e.view,
-            s = o("WAWebABProps").getABPropConfigValue(
-              "channels_directory_page_size",
-            );
-          return a.trim() !== ""
-            ? k({
-                searchText: a,
-                limit: s,
-                cursorToken: r,
-                categories: t,
-                skipSubscribedNewsletters: i,
-              })
-            : L({
-                view: l,
-                limit: s,
-                countryCodes: n,
-                cursorToken: r,
-                categories: t,
-                skipSubscribedNewsletters: i,
-              });
-        })),
-        v.apply(this, arguments)
+    async function b(e) {
+      o("WALogger").LOG(
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
+            "[newsletters][getSimilarNewslettersAction] Start",
+          ])),
       );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[newsletters][getSimilarNewslettersAction] Start",
-              ])),
-          );
-          try {
-            var t,
-              n = yield o(
-                "WAWebNewsletterDirectorySearchJob",
-              ).getSimilarNewsletters({
-                newsletterId: o(
-                  "WAWebNewsletterValidationUtils",
-                ).toNewsletterJidOrThrow(e.id.toString()),
-                limit: o("WAWebABProps").getABPropConfigValue(
-                  "similar_channels_max_limit",
-                ),
+      try {
+        var t,
+          n = await o(
+            "WAWebNewsletterDirectorySearchJob",
+          ).getSimilarNewsletters({
+            newsletterId: o(
+              "WAWebNewsletterValidationUtils",
+            ).toNewsletterJidOrThrow(e.id.toString()),
+            limit: o("WAWebABProps").getABPropConfigValue(
+              "similar_channels_max_limit",
+            ),
+          }),
+          r = await o(
+            "WAWebGetNewsletterDirectoryChats",
+          ).getDirectoryNewsletterChats(n, { skipSubscribedNewsletters: !1 });
+        return (
+          (t = e.newsletterMetadata) == null ||
+            t.set(
+              "similarNewsletters",
+              r.map(function (e) {
+                return e.id;
               }),
-              r = yield o(
-                "WAWebGetNewsletterDirectoryChats",
-              ).getDirectoryNewsletterChats(n, {
-                skipSubscribedNewsletters: !1,
-              });
-            return (
-              (t = e.newsletterMetadata) == null ||
-                t.set(
-                  "similarNewsletters",
-                  r.map(function (e) {
-                    return e.id;
-                  }),
-                ),
-              o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[newsletters][getSimilarNewslettersAction] End",
-                  ])),
-              ),
-              r
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[newsletters][getSimilarNewslettersAction] failed",
-                    ])),
-                )
-                .sendLogs("failed-to-retrieve-similar-newsletters"),
-              []
-            );
-          }
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "[newsletters][getNewsletterDirectoryListAction] Start",
-              ])),
-          );
-          var n = t.skipSubscribedNewsletters,
-            r = babelHelpers.objectWithoutPropertiesLoose(t, e),
-            a = yield o(
-              "WAWebNewsletterDirectorySearchJob",
-            ).getNewsletterDirectoryList(r),
-            i = a.newsletters,
-            l = a.pageInfo,
-            s = yield o(
-              "WAWebGetNewsletterDirectoryChats",
-            ).getDirectoryNewsletterChats(i, { skipSubscribedNewsletters: n });
-          o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
-                "[newsletters][getNewsletterDirectoryListAction] End",
-              ])),
-          );
-          var u = s.reduce(
-              function (e, t) {
-                return (
-                  C(t) ? e.notSubscribed.push(t) : e.subscribed.push(t),
-                  e
-                );
-              },
-              { subscribed: [], notSubscribed: [] },
             ),
-            c = u.notSubscribed,
-            d = u.subscribed;
-          return { pageInfo: l, newsletters: c, subscribedNewsletters: d };
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
           o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
-                "[newsletters][getNewsletterDirectorSearchResultsAction] Start",
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[newsletters][getSimilarNewslettersAction] End",
               ])),
-          );
-          var t = e.skipSubscribedNewsletters,
-            n = babelHelpers.objectWithoutPropertiesLoose(e, s),
-            r = yield o(
-              "WAWebNewsletterDirectorySearchJob",
-            ).getNewsletterDirectorySearchResults(n),
-            a = r.newsletters,
-            i = r.pageInfo,
-            l = yield o(
-              "WAWebGetNewsletterDirectoryChats",
-            ).getDirectoryNewsletterChats(a, { skipSubscribedNewsletters: t });
-          return (
-            o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "[newsletters][getNewsletterDirectorSearchResultsAction] End",
+          ),
+          r
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[newsletters][getSimilarNewslettersAction] failed",
                 ])),
-            ),
-            { pageInfo: i, newsletters: l, subscribedNewsletters: [] }
-          );
-        })),
-        I.apply(this, arguments)
+            )
+            .sendLogs("failed-to-retrieve-similar-newsletters"),
+          []
+        );
+      }
+    }
+    async function v(t) {
+      o("WALogger").LOG(
+        m ||
+          (m = babelHelpers.taggedTemplateLiteralLoose([
+            "[newsletters][getNewsletterDirectoryListAction] Start",
+          ])),
+      );
+      var n = t.skipSubscribedNewsletters,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        a = await o(
+          "WAWebNewsletterDirectorySearchJob",
+        ).getNewsletterDirectoryList(r),
+        i = a.newsletters,
+        l = a.pageInfo,
+        s = await o(
+          "WAWebGetNewsletterDirectoryChats",
+        ).getDirectoryNewsletterChats(i, { skipSubscribedNewsletters: n });
+      o("WALogger").LOG(
+        p ||
+          (p = babelHelpers.taggedTemplateLiteralLoose([
+            "[newsletters][getNewsletterDirectoryListAction] End",
+          ])),
+      );
+      var u = s.reduce(
+          function (e, t) {
+            return (y(t) ? e.notSubscribed.push(t) : e.subscribed.push(t), e);
+          },
+          { subscribed: [], notSubscribed: [] },
+        ),
+        c = u.notSubscribed,
+        d = u.subscribed;
+      return { pageInfo: l, newsletters: c, subscribedNewsletters: d };
+    }
+    async function S(e) {
+      o("WALogger").LOG(
+        _ ||
+          (_ = babelHelpers.taggedTemplateLiteralLoose([
+            "[newsletters][getNewsletterDirectorSearchResultsAction] Start",
+          ])),
+      );
+      var t = e.skipSubscribedNewsletters,
+        n = babelHelpers.objectWithoutPropertiesLoose(e, s),
+        r = await o(
+          "WAWebNewsletterDirectorySearchJob",
+        ).getNewsletterDirectorySearchResults(n),
+        a = r.newsletters,
+        i = r.pageInfo,
+        l = await o(
+          "WAWebGetNewsletterDirectoryChats",
+        ).getDirectoryNewsletterChats(a, { skipSubscribedNewsletters: t });
+      return (
+        o("WALogger").LOG(
+          f ||
+            (f = babelHelpers.taggedTemplateLiteralLoose([
+              "[newsletters][getNewsletterDirectorSearchResultsAction] End",
+            ])),
+        ),
+        { pageInfo: i, newsletters: l, subscribedNewsletters: [] }
       );
     }
-    function T(e) {
+    function R(e) {
       return {
         countryCode: e,
         categories: o(
@@ -217,82 +177,57 @@ __d(
         ),
       };
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    async function L(e) {
+      var t = await o(
+        "WAWebNewsletterDirectorySearchJob",
+      ).getNewsletterDirectoryCategoriesPreview(R(e));
+      return t.map(function (e) {
+        return e.category;
+      });
     }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebNewsletterDirectorySearchJob",
-          ).getNewsletterDirectoryCategoriesPreview(T(e));
-          return t.map(function (e) {
-            return e.category;
-          });
-        })),
-        x.apply(this, arguments)
+    async function E(e) {
+      o("WALogger").LOG(
+        g ||
+          (g = babelHelpers.taggedTemplateLiteralLoose([
+            "[getNewsletterDirectoryCategoriesPreviewAction] Start",
+          ])),
       );
-    }
-    function $(e) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WALogger").LOG(
-            g ||
-              (g = babelHelpers.taggedTemplateLiteralLoose([
-                "[getNewsletterDirectoryCategoriesPreviewAction] Start",
-              ])),
-          );
-          var t = yield o(
-              "WAWebNewsletterDirectorySearchJob",
-            ).getNewsletterDirectoryCategoriesPreview(T(e)),
-            r = yield (y || (y = n("Promise"))).all(
-              t.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = yield o(
-                        "WAWebGetNewsletterDirectoryChats",
-                      ).getDirectoryNewsletterChats(e.newsletters, {
-                        skipSubscribedNewsletters: !1,
-                      });
-                      return (
-                        t.sort(function (e, t) {
-                          var n = C(e) ? 1 : 0,
-                            r = C(t) ? 1 : 0;
-                          return r - n;
-                        }),
-                        { category: e.category, newsletters: t }
-                      );
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
+      var t = await o(
+          "WAWebNewsletterDirectorySearchJob",
+        ).getNewsletterDirectoryCategoriesPreview(R(e)),
+        n = await Promise.all(
+          t.map(async function (e) {
+            var t = await o(
+              "WAWebGetNewsletterDirectoryChats",
+            ).getDirectoryNewsletterChats(e.newsletters, {
+              skipSubscribedNewsletters: !1,
+            });
+            return (
+              t.sort(function (e, t) {
+                var n = y(e) ? 1 : 0,
+                  r = y(t) ? 1 : 0;
+                return r - n;
+              }),
+              { category: e.category, newsletters: t }
             );
-          return (
-            o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
-                  "[getNewsletterDirectoryCategoriesPreviewAction] End",
-                ])),
-            ),
-            r
-          );
-        })),
-        P.apply(this, arguments)
+          }),
+        );
+      return (
+        o("WALogger").LOG(
+          h ||
+            (h = babelHelpers.taggedTemplateLiteralLoose([
+              "[getNewsletterDirectoryCategoriesPreviewAction] End",
+            ])),
+        ),
+        n
       );
     }
-    ((l.fetchNewsletterDirectories = b),
-      (l.getSimilarNewslettersAction = S),
-      (l.getNewsletterDirectoryListAction = L),
-      (l.getNewsletterDirectorySearchResultsAction = k),
-      (l.getNewsletterDirectoryCategoriesAction = D),
-      (l.getNewsletterDirectoryCategoriesPreviewAction = $));
+    ((l.fetchNewsletterDirectories = C),
+      (l.getSimilarNewslettersAction = b),
+      (l.getNewsletterDirectoryListAction = v),
+      (l.getNewsletterDirectorySearchResultsAction = S),
+      (l.getNewsletterDirectoryCategoriesAction = L),
+      (l.getNewsletterDirectoryCategoriesPreviewAction = E));
   },
   98,
 );

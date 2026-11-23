@@ -1,7 +1,6 @@
 __d(
   "WAWebBusinessProfileCollection",
   [
-    "Promise",
     "WALogger",
     "WAWebApiBusinessProfile",
     "WAWebBizBusinessProfileAction",
@@ -16,128 +15,118 @@ __d(
     "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = "catalog_exists",
-      d = (function (t) {
-        function a() {
+      u = "catalog_exists",
+      c = (function (t) {
+        function n() {
           return t.apply(this, arguments) || this;
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.findImpl = function (t) {
+          (a.findImpl = function (t) {
             return this.$BusinessProfileCollectionImpl$p_1(t, {
               queryCatalog: !0,
             });
           }),
-          (i._update = function (t, n) {
+          (a._update = function (t, n) {
             return this.$BusinessProfileCollectionImpl$p_1(t, {
               queryCatalog: !1,
               getMerchantCompliance:
                 n == null ? void 0 : n.getMerchantCompliance,
             });
           }),
-          (i.$BusinessProfileCollectionImpl$p_1 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, r) {
-                var a = r.getMerchantCompliance,
-                  i = r.queryCatalog,
-                  l = this.gadd(t);
-                if (!l.id.isUserNotPSA() || l.id.isFbidBot())
-                  return (u || (u = n("Promise"))).resolve({ id: t });
-                var c = o("WAWebBizBusinessProfileAction").queryBusinessProfile(
-                    [{ wid: l.id, tag: l.tag }],
-                    a,
-                  ),
-                  d = yield c;
-                if (!Array.isArray(d))
-                  return (
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "Received invalid business profile response",
-                        ])),
-                    ),
-                    null
-                  );
-                if (d.length === 0)
-                  return (
-                    o("WALogger").LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[BusinessProfile] #findAndParse: not found ",
-                          "",
-                        ])),
-                      String(t),
-                    ),
-                    { id: t }
-                  );
-                var m = d[0],
-                  p = m.tag,
-                  _ = m.wid,
-                  f = { id: _, tag: p, dataSource: "server" },
-                  g = m.profile;
-                if (g) {
-                  var h = o("WAWebContactCollection").ContactCollection.get(t);
-                  h &&
-                    !h.isContactSyncCompleted &&
-                    (h.set("isBusiness", !0),
-                    h.set("forcedBusinessUpdateFromServer", !0));
-                  var y = o("WAWebBusinessProfileUtils").parseBusinessProfile({
-                      id: m.wid,
-                      profile: g,
-                      queryCatalog: i,
-                    }),
-                    C = l.dataSource === "placeholder" ? null : l.automatedType,
-                    b = y.automatedType;
-                  yield o(
-                    "WAWebHandleBizBotAutomatedTypeAction",
-                  ).handleBizBotAutomatedTypeTransition(l.id, C, b);
-                  var v =
-                      l.dataSource === "placeholder"
-                        ? null
-                        : l.welcomeMsgProtocolMode,
-                    S = y.welcomeMsgProtocolMode;
-                  return (
-                    yield o(
-                      "WAWebHandleBizBotWelcomeMsgProtocolModeAction",
-                    ).handleBizBotWelcomeMsgProtocolModeTransition(l.id, v, S),
-                    yield o(
-                      "WAWebApiBusinessProfile",
-                    ).createOrMergeBusinessProfileRecordLidAware({
-                      id: f.id,
-                      automatedType: y.automatedType,
-                      welcomeMsgProtocolMode: y.welcomeMsgProtocolMode,
-                      prompts: y.prompts,
-                      commands: y.commands,
-                      commandsDescription: y.commandsDescription,
-                      pills: g.pills,
-                    }),
-                    babelHelpers.extends({}, y, f)
-                  );
-                }
-                return f;
-              },
-            );
-            function r(e, n) {
-              return t.apply(this, arguments);
+          (a.$BusinessProfileCollectionImpl$p_1 = async function (n, r) {
+            var t = r.getMerchantCompliance,
+              a = r.queryCatalog,
+              i = this.gadd(n);
+            if (!i.id.isUserNotPSA() || i.id.isFbidBot())
+              return Promise.resolve({ id: n });
+            var l = o("WAWebBizBusinessProfileAction").queryBusinessProfile(
+                [{ wid: i.id, tag: i.tag }],
+                t,
+              ),
+              u = await l;
+            if (!Array.isArray(u))
+              return (
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "Received invalid business profile response",
+                    ])),
+                ),
+                null
+              );
+            if (u.length === 0)
+              return (
+                o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[BusinessProfile] #findAndParse: not found ",
+                      "",
+                    ])),
+                  String(n),
+                ),
+                { id: n }
+              );
+            var c = u[0],
+              d = c.tag,
+              m = c.wid,
+              p = { id: m, tag: d, dataSource: "server" },
+              _ = c.profile;
+            if (_) {
+              var f = o("WAWebContactCollection").ContactCollection.get(n);
+              f &&
+                !f.isContactSyncCompleted &&
+                (f.set("isBusiness", !0),
+                f.set("forcedBusinessUpdateFromServer", !0));
+              var g = o("WAWebBusinessProfileUtils").parseBusinessProfile({
+                  id: c.wid,
+                  profile: _,
+                  queryCatalog: a,
+                }),
+                h = i.dataSource === "placeholder" ? null : i.automatedType,
+                y = g.automatedType;
+              await o(
+                "WAWebHandleBizBotAutomatedTypeAction",
+              ).handleBizBotAutomatedTypeTransition(i.id, h, y);
+              var C =
+                  i.dataSource === "placeholder"
+                    ? null
+                    : i.welcomeMsgProtocolMode,
+                b = g.welcomeMsgProtocolMode;
+              return (
+                await o(
+                  "WAWebHandleBizBotWelcomeMsgProtocolModeAction",
+                ).handleBizBotWelcomeMsgProtocolModeTransition(i.id, C, b),
+                await o(
+                  "WAWebApiBusinessProfile",
+                ).createOrMergeBusinessProfileRecordLidAware({
+                  id: p.id,
+                  automatedType: g.automatedType,
+                  welcomeMsgProtocolMode: g.welcomeMsgProtocolMode,
+                  prompts: g.prompts,
+                  commands: g.commands,
+                  commandsDescription: g.commandsDescription,
+                  pills: _.pills,
+                }),
+                babelHelpers.extends({}, g, p)
+              );
             }
-            return r;
-          })()),
-          (i.fetchBizProfile = function (t) {
+            return p;
+          }),
+          (a.fetchBizProfile = function (t) {
             var e = this.get(t);
             return (e && e.markStale(), this.find(t));
           }),
-          (i.getValid = function (t) {
+          (a.getValid = function (t) {
             var e = this.get(t);
             if (e != null && e.isValid()) return e;
           }),
-          (i.getMeBusinessProfile = function () {
+          (a.getMeBusinessProfile = function () {
             var e;
             for (var t of [
               o("WAWebUserUtils").getMeLidUserOrThrow(),
@@ -152,14 +141,14 @@ __d(
               }
             return e;
           }),
-          (i.markProfileAsStale = function (t) {
+          (a.markProfileAsStale = function (t) {
             var e;
             (e = this.get(t)) == null || e.markStale();
           }),
-          (i.hasBusinessProfileInCache = function (t) {
+          (a.hasBusinessProfileInCache = function (t) {
             return !!this.get(t);
           }),
-          (i.convertBusinessProfileIdForLidMigration = function (t) {
+          (a.convertBusinessProfileIdForLidMigration = function (t) {
             var e =
               t instanceof r("WAWebWid")
                 ? t
@@ -170,12 +159,12 @@ __d(
             }
             return e;
           }),
-          a
+          n
         );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    d.model = o("WAWebBusinessProfileModel").BusinessProfile;
-    var m = new d();
-    ((l.CATALOG_EXISTS = c), (l.BusinessProfileCollection = m));
+    c.model = o("WAWebBusinessProfileModel").BusinessProfile;
+    var d = new c();
+    ((l.CATALOG_EXISTS = u), (l.BusinessProfileCollection = d));
   },
   98,
 );

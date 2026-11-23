@@ -6,7 +6,6 @@ __d(
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -35,38 +34,30 @@ __d(
             : null,
       };
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length === 0) return { type: "success", value: [] };
-          if (
-            (yield r("WAWebNetworkStatus").waitIfOffline(),
-            !o("WAWebCanonicalUtils").isCanonicalPresent())
-          )
-            return { type: "canonical-unavailable" };
-          try {
-            var t,
-              n = yield o("WAWebRelayClient").fetchQuery(
-                s,
-                { ids: e },
-                { environmentType: "whatsapp_web" },
-              ),
-              a =
-                (t = n == null ? void 0 : n.xfb_fetch_genai_personas) != null
-                  ? t
-                  : [];
-            return { type: "success", value: a.filter(Boolean).map(u) };
-          } catch (e) {
-            return e instanceof o("WAWebGraphQLServerError").GraphQLServerError
-              ? { type: "graphql-error", error: e }
-              : { type: "error" };
-          }
-        })),
-        d.apply(this, arguments)
-      );
+    async function c(e) {
+      if (e.length === 0) return { type: "success", value: [] };
+      if (
+        (await r("WAWebNetworkStatus").waitIfOffline(),
+        !o("WAWebCanonicalUtils").isCanonicalPresent())
+      )
+        return { type: "canonical-unavailable" };
+      try {
+        var t,
+          n = await o("WAWebRelayClient").fetchQuery(
+            s,
+            { ids: e },
+            { environmentType: "whatsapp_web" },
+          ),
+          a =
+            (t = n == null ? void 0 : n.xfb_fetch_genai_personas) != null
+              ? t
+              : [];
+        return { type: "success", value: a.filter(Boolean).map(u) };
+      } catch (e) {
+        return e instanceof o("WAWebGraphQLServerError").GraphQLServerError
+          ? { type: "graphql-error", error: e }
+          : { type: "error" };
+      }
     }
     l.fetchBotProfilesGQL = c;
   },

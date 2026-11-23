@@ -8,15 +8,15 @@ __d(
         ? o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled()
-          ? s._(/*BTDS*/ "This community is no longer available.")
-          : s._(/*BTDS*/ "This community is no longer available")
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "")
         : o("WAWebChatGroupUtils").isSupportGroup(t)
-          ? s._(/*BTDS*/ "This chat has been closed")
+          ? s._(/*BTDS*/ "")
           : (o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled() &&
-              s._(/*BTDS*/ "This group has ended.")) ||
-            s._(/*BTDS*/ "This group has ended");
+              s._(/*BTDS*/ "")) ||
+            s._(/*BTDS*/ "");
     }
     l.formatDeleteNotification = e;
   },

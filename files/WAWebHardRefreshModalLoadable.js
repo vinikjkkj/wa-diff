@@ -6,23 +6,19 @@ __d(
     "WAWebLoadable",
     "WAWebLoadingConfirmPopup.react",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebHardRefreshModal.react",
-          )
-            .__setRef("WAWebHardRefreshModalLoadable")
-            .load();
-          return e;
-        }),
-        "HardRefreshModal",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebHardRefreshModal.react",
+        )
+          .__setRef("WAWebHardRefreshModalLoadable")
+          .load();
+        return e;
+      }, "HardRefreshModal"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

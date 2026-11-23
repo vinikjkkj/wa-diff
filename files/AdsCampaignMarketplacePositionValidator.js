@@ -53,39 +53,36 @@ __d(
             );
           }),
           (n.validate = function (t) {
-            var e = t.account,
-              n = t.campaign,
-              a = t.eligibilityInfo;
-            if (!a) return [];
-            var i = [],
-              l = a.spec,
-              s;
+            var e = t.campaign,
+              n = t.eligibilityInfo;
+            if (!n) return [];
+            var a = [],
+              i = n.spec,
+              l;
             if (r("justknobx")._("4365")) {
-              var c = n.placement_soft_opt_out;
-              s = o(
+              var s = e.placement_soft_opt_out;
+              l = o(
                 "AdsPlacementSoftOptOutValidatorsUtils",
               ).isFacebookPositionActiveInSpecOrSoftOptOut(
-                l,
+                i,
                 "feed",
-                c,
-                a.objective,
+                s,
+                n.objective,
               );
             } else
-              s = r("adsPlacementAPISpecReaderIsActiveFacebookPosition")(
-                l,
+              l = r("adsPlacementAPISpecReaderIsActiveFacebookPosition")(
+                i,
                 "feed",
               );
-            var d = r("gkx")("22358");
+            var c = r("gkx")("22358");
             return (
-              !s &&
-                !d &&
-                i.push(
+              !l &&
+                !c &&
+                a.push(
                   new (r("AdsError"))(
                     1815698,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "To use Facebook Marketplace, please also select the Facebook Feeds placement.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       cta: r("AdsErrorsCTAStrings").ADD_FACEBOOK_NEWS_FEED_CTA,
@@ -95,7 +92,7 @@ __d(
                     },
                   ),
                 ),
-              i
+              a
             );
           }),
           t

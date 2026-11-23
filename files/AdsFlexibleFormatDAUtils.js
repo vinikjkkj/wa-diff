@@ -48,7 +48,8 @@ __d(
           null,
         i = !r("isTruthy")(e.created_time);
       return (
-        (i ||
+        (r("gkx")("14457") ||
+          i ||
           a ||
           !o("AdsAssetFeedUtils").isFormatAutomationAdgroupFromRecord(e)) &&
         s(e)

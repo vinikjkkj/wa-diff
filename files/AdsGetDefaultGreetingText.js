@@ -9,15 +9,13 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    function e(e, t, n, a) {
-      (n === void 0 && (n = !1),
-        a === void 0 && (a = !1),
-        r("isStringNullOrEmpty")(e) &&
-          r("FBLogger")("ctx_ads_greeting_text_suggestion")
-            .blameToPreviousFrame()
-            .warn("No page_id is provided in destination %s", t));
-      var i = r("isWhatsAppOrInstagramOrComboDestination")(t);
-      return r("isStringNullOrEmpty")(e) || i
+    function e(e, t) {
+      r("isStringNullOrEmpty")(e) &&
+        r("FBLogger")("ctx_ads_greeting_text_suggestion")
+          .blameToPreviousFrame()
+          .warn("No page_id is provided in destination %s", t);
+      var n = r("isWhatsAppOrInstagramOrComboDestination")(t);
+      return r("isStringNullOrEmpty")(e) || n
         ? String(o("AdsMessengerConstants").DEFAULT_GREETING_TEXT_NEW_DESIGN)
         : String(
             o("AdsMessengerConstants")
@@ -37,9 +35,7 @@ __d(
     function c(e) {
       return (
         e === void 0 && (e = !1),
-        e
-          ? s._(/*BTDS*/ "Get started").toString()
-          : s._(/*BTDS*/ "Join now").toString()
+        e ? s._(/*BTDS*/ "").toString() : s._(/*BTDS*/ "").toString()
       );
     }
     ((l.getDefaultGreetingText = e),

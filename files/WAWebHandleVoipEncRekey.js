@@ -1,98 +1,88 @@
 __d(
   "WAWebHandleVoipEncRekey",
   [
-    "Promise",
     "WALogger",
     "WAWebHandleMsgTypes",
     "WAWebVoipStackInterface",
     "WAWebVoipValidateAndDecryptEnc",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d;
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a;
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[handleVoipEncRekey] enc_rekey from ",
-                " call=",
-                "",
-              ])),
-            t.peer_jid.toString(),
-            (a = t.call_id) != null ? a : "unknown",
-          );
-          var i = yield (d || (d = n("Promise"))).all([
-              o("WAWebVoipValidateAndDecryptEnc").validateAndDecryptEnc(r, t),
-              o("WAWebVoipStackInterface").getVoipStackInterface(),
-            ]),
-            l = i[0],
-            m = l.result,
-            p = l.retryCount,
-            _ = i[1];
-          switch (
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[handleVoipEncRekey] e2e res=",
-                  " retry=",
-                  " stack=",
+    var e, s, u, c;
+    async function d(t, n) {
+      var r;
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "[handleVoipEncRekey] enc_rekey from ",
+            " call=",
+            "",
+          ])),
+        t.peer_jid.toString(),
+        (r = t.call_id) != null ? r : "unknown",
+      );
+      var a = await Promise.all([
+          o("WAWebVoipValidateAndDecryptEnc").validateAndDecryptEnc(n, t),
+          o("WAWebVoipStackInterface").getVoipStackInterface(),
+        ]),
+        i = a[0],
+        l = i.result,
+        d = i.retryCount,
+        m = a[1];
+      switch (
+        (o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[handleVoipEncRekey] e2e res=",
+              " retry=",
+              " stack=",
+              "",
+            ])),
+          String(l),
+          String(d != null ? d : 0),
+          String(m != null),
+        ),
+        l)
+      ) {
+        case o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS:
+          if (m == null)
+            o("WALogger").ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[handleVoipEncRekey] stack null, enc_rekey dropped peer=",
                   "",
                 ])),
-              String(m),
-              String(p != null ? p : 0),
-              String(_ != null),
-            ),
-            m)
-          ) {
-            case o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS:
-              if (_ == null)
-                o("WALogger").ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[handleVoipEncRekey] stack null, enc_rekey dropped peer=",
-                      "",
-                    ])),
-                  t.peer_jid.toString(),
-                );
-              else {
-                var f;
-                (yield _.handleIncomingSignalingMessage({
-                  msgE: t.e,
-                  msgOffline: (f = t.is_offline) != null ? f : !1,
-                  msgPlatform: t.peer_platform,
-                  msgT: t.t,
-                  msgVersion: t.peer_app_version,
-                  peerJid: t.peer_jid.toString(),
-                  tcToken: void 0,
-                  xmlNode: r,
-                }),
-                  o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[handleVoipEncRekey] forwarded to WASM stack +",
-                      ])),
-                  ));
-              }
-              break;
-            default:
-              break;
+              t.peer_jid.toString(),
+            );
+          else {
+            var p;
+            (await m.handleIncomingSignalingMessage({
+              msgE: t.e,
+              msgOffline: (p = t.is_offline) != null ? p : !1,
+              msgPlatform: t.peer_platform,
+              msgT: t.t,
+              msgVersion: t.peer_app_version,
+              peerJid: t.peer_jid.toString(),
+              tcToken: void 0,
+              xmlNode: n,
+            }),
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[handleVoipEncRekey] forwarded to WASM stack +",
+                  ])),
+              ));
           }
-          return {
-            shouldRetry: m === o("WAWebHandleMsgTypes").E2EProcessResult.RETRY,
-            retryCount: p,
-          };
-        })),
-        p.apply(this, arguments)
-      );
+          break;
+        default:
+          break;
+      }
+      return {
+        shouldRetry: l === o("WAWebHandleMsgTypes").E2EProcessResult.RETRY,
+        retryCount: d,
+      };
     }
-    l.handleVoipEncRekey = m;
+    l.handleVoipEncRekey = d;
   },
   98,
 );

@@ -13,7 +13,6 @@ __d(
     "WAWebSchemaMessage",
     "WAWebUserPrefsHistorySync",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "isEmptyObject",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,47 +23,31 @@ __d(
       d,
       m = new Map(),
       p = { disableRequestSending: !1, failureCount: 0 };
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(e) {
+      var t = o("WAWebDBMessageUtils").beginningOfChat(e),
+        n = o("WAWebDBMessageUtils").endOfChat(e),
+        r = await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .between(["internalId"], t, n, {
+            limit: 1,
+            reverse: !1,
+            shouldDecrypt: !1,
+          });
+      return r.length === 0 ? null : r[0];
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebDBMessageUtils").beginningOfChat(e),
-            n = o("WAWebDBMessageUtils").endOfChat(e),
-            r = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .between(["internalId"], t, n, {
-                limit: 1,
-                reverse: !1,
-                shouldDecrypt: !1,
-              });
-          return r.length === 0 ? null : r[0];
-        })),
-        f.apply(this, arguments)
-      );
+    async function f(e) {
+      var t = await _(e);
+      return t != null
+        ? o("WAWebDBMessageSerialization").messageFromDbRow(t)
+        : null;
     }
     function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield _(e);
-          return t != null
-            ? o("WAWebDBMessageSerialization").messageFromDbRow(t)
-            : null;
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
       (o("WAWebBackendApi").frontendFireAndForget("successHistorySyncOd", {
         chatId: e,
       }),
-        b());
+        y());
     }
-    function C(t) {
+    function h(t) {
       o("WAWebBackendApi").frontendFireAndForget("errorHistorySyncOd", {
         chatId: t,
       });
@@ -97,72 +80,62 @@ __d(
                     "[rdu] re-enable history sync on demand.",
                   ])),
               ),
-              b());
+              y());
           }).onOrAfter(l));
       }
     }
-    function b() {
+    function y() {
       ((p.disableRequestSending = !1),
         (p.failureCount = 0),
         (p.firstFailureRequestTimeStampSec = void 0));
     }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebUserPrefsHistorySync",
-          ).getHistoryInitialSyncBoundary();
-          if (t == null || r("isEmptyObject")(t)) {
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[rdu] cannot delete chat ",
-                  " from initial sync boundary.",
-                ])),
-              e.toLogString(),
-            );
-            return;
-          }
-          var n = e.toJid();
-          if (o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat()) {
-            var a = yield o("WAWebApiChatCommon").getChatRecord(e);
-            (a == null ? void 0 : a.historyChatId) != null &&
-              (n = o("WAWebWidFactory").createWid(a.historyChatId).toJid());
-          }
-          if ((t == null ? void 0 : t[n]) == null) {
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[rdu] cannot delete chat ",
-                  " from initial sync boundary.",
-                ])),
-              e.toLogString(),
-            );
-            return;
-          }
-          (o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "[rdu] delete chat ",
-                " from initial sync boundary",
-              ])),
-            e.toLogString(),
-          ),
-            delete t[n],
-            o("WAWebUserPrefsHistorySync").setHistoryInitialSyncBoundary(t));
-        })),
-        S.apply(this, arguments)
-      );
+    async function C(e) {
+      var t = o("WAWebUserPrefsHistorySync").getHistoryInitialSyncBoundary();
+      if (t == null || r("isEmptyObject")(t)) {
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[rdu] cannot delete chat ",
+              " from initial sync boundary.",
+            ])),
+          e.toLogString(),
+        );
+        return;
+      }
+      var n = e.toJid();
+      if (o("WAWebHistorySyncLidChatGating").isForcedHistoryLidChat()) {
+        var a = await o("WAWebApiChatCommon").getChatRecord(e);
+        (a == null ? void 0 : a.historyChatId) != null &&
+          (n = o("WAWebWidFactory").createWid(a.historyChatId).toJid());
+      }
+      if ((t == null ? void 0 : t[n]) == null) {
+        o("WALogger").LOG(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "[rdu] cannot delete chat ",
+              " from initial sync boundary.",
+            ])),
+          e.toLogString(),
+        );
+        return;
+      }
+      (o("WALogger").LOG(
+        d ||
+          (d = babelHelpers.taggedTemplateLiteralLoose([
+            "[rdu] delete chat ",
+            " from initial sync boundary",
+          ])),
+        e.toLogString(),
+      ),
+        delete t[n],
+        o("WAWebUserPrefsHistorySync").setHistoryInitialSyncBoundary(t));
     }
     ((l.inFlightHistorySyncOnDemandRequests = m),
       (l.historySyncOnDemandRequestsFailureRecord = p),
-      (l.getOldestMsgInChatFromDB = g),
-      (l.handleHistorySyncOnDemandSuccess = y),
-      (l.handleHistorySyncOnDemandFailure = C),
-      (l.deleteChatFromInitialSyncBoundary = v));
+      (l.getOldestMsgInChatFromDB = f),
+      (l.handleHistorySyncOnDemandSuccess = g),
+      (l.handleHistorySyncOnDemandFailure = h),
+      (l.deleteChatFromInitialSyncBoundary = C));
   },
   98,
 );

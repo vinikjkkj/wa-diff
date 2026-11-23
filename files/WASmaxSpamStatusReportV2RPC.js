@@ -21,34 +21,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = d(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return { name: "StatusReportV2ResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "StatusReportV2ResponseError", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("StatusReportV2", {
-              Success: a,
-              Error: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = c(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return { name: "StatusReportV2ResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "StatusReportV2ResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("StatusReportV2", {
+          Success: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -75,7 +66,7 @@ __d(
         "error",
       );
       if (!s.success) return s;
-      var u = m(r.value);
+      var u = d(r.value);
       return u.success
         ? o("WAResultOrError").makeResult({
             from: l.value,
@@ -85,7 +76,7 @@ __d(
           })
         : u;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -117,7 +108,7 @@ __d(
         reportIdMixin: s.success ? s.value : null,
       });
     }
-    function d(e) {
+    function c(e) {
       var t = e.entitySubjectMixinArgs,
         n = e.spamListJid,
         r = e.statusFrom,
@@ -132,7 +123,7 @@ __d(
                 o("WASmaxJsx").smax(
                   "spam_list",
                   { jid: o("WAWap").JID(n) },
-                  _(
+                  p(
                     o("WASmaxJsx").smax("status", {
                       from: o("WASmaxAttrs").OPTIONAL(o("WAWap").USER_JID, r),
                     }),
@@ -147,7 +138,7 @@ __d(
         );
       return i;
     }
-    function m(e) {
+    function d(e) {
       var t = o(
         "WASmaxInSpamIQErrorInternalServerErrorMixin",
       ).parseIQErrorInternalServerErrorMixin(e);
@@ -191,11 +182,11 @@ __d(
             [t, n, r, a],
           );
     }
-    function p(e) {
+    function m(e) {
       var t = e.statusServerId,
         n = e.statusT,
         r = e.statusNewsletterTextOrMediaMixinGroupArgs,
-        a = f(
+        a = _(
           o("WASmaxJsx").smax("status", {
             server_id: o("WAWap").INT(t),
             t: o("WAWap").INT(n),
@@ -204,25 +195,25 @@ __d(
         );
       return a;
     }
-    function _(e, t) {
-      var n = p(t);
+    function p(e, t) {
+      var n = m(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function f(e, t) {
-      if (t.statusNewsletterText) return C(e, t.statusNewsletterText);
-      if (t.statusNewsletterMedia) return h(e, t.statusNewsletterMedia);
+    function _(e, t) {
+      if (t.statusNewsletterText) return y(e, t.statusNewsletterText);
+      if (t.statusNewsletterMedia) return g(e, t.statusNewsletterMedia);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function g(e) {
+    function f(e) {
       var t = e.plaintextMediatype,
         n = e.newsletterPlaintextPayloadMixinArgs,
-        r = R(
+        r = S(
           o("WASmaxJsx").smax(
             "status",
             null,
-            v(
+            b(
               o("WASmaxJsx").smax("plaintext", {
                 mediatype: o("WAWap").CUSTOM_STRING(t),
               }),
@@ -232,54 +223,54 @@ __d(
         );
       return r;
     }
-    function h(e, t) {
-      var n = g(t);
+    function g(e, t) {
+      var n = f(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function y(e) {
+    function h(e) {
       var t = e.newsletterPlaintextPayloadMixinArgs,
-        n = E(
+        n = L(
           o("WASmaxJsx").smax(
             "status",
             null,
-            v(o("WASmaxJsx").smax("plaintext", null), t),
+            b(o("WASmaxJsx").smax("plaintext", null), t),
           ),
         );
       return n;
     }
-    function C(e, t) {
-      var n = y(t);
+    function y(e, t) {
+      var n = h(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function b(e) {
+    function C(e) {
       var t = e.plaintextElementValue,
         n = o("WASmaxJsx").smax("plaintext", null, t);
       return n;
     }
-    function v(e, t) {
-      var n = b(t);
+    function b(e, t) {
+      var n = C(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function S() {
+    function v() {
       var e = o("WASmaxJsx").smax("status", { type: "media" });
       return e;
     }
-    function R(e) {
-      var t = S();
+    function S(e) {
+      var t = v();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function L() {
+    function R() {
       var e = o("WASmaxJsx").smax("status", { type: "text" });
       return e;
     }
-    function E(e) {
-      var t = L();
+    function L(e) {
+      var t = R();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
     ((l.sendStatusReportV2RPC = e),
-      (l.parseStatusReportV2ResponseError = u),
-      (l.parseStatusReportV2ResponseSuccess = c),
-      (l.makeStatusReportV2Request = d));
+      (l.parseStatusReportV2ResponseError = s),
+      (l.parseStatusReportV2ResponseSuccess = u),
+      (l.makeStatusReportV2Request = c));
   },
   98,
 );

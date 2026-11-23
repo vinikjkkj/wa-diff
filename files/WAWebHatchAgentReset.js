@@ -7,7 +7,6 @@ __d(
     "WAWebHatchVmConnection",
     "WAWebHatchVmTransport",
     "WAWebNullFunc",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -24,106 +23,77 @@ __d(
       var e = o("WAWebHatchVmConnection").getHatchVmAccountGeneration();
       if (f != null && f.generation === e) return f.promise;
       var t = h(e)
-        .then(E, k)
+        .then(S, R)
         .finally(function () {
           var e;
           ((e = f) == null ? void 0 : e.promise) === t && (f = null);
         });
       return ((f = { generation: e, promise: t }), t);
     }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield o("WAWebHatchDataControls").isHatchOffline();
-          if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t)
-            return u;
-          if (n) return _;
-          var r = yield o("WAWebHatchVmConnection")
-            .connectHatchVmApi()
-            .catch(o("WAWebNullFunc").returnNull);
-          if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t)
-            return u;
-          if (r == null) return C(t);
-          var a = yield r.exchange(
-            "POST",
-            o("WAWebHatchVmTransport").JarvisPaths.AGENT_RESET,
-            { timeoutMs: e },
-          );
-          return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t
-            ? u
-            : v(a, t);
-        })),
-        y.apply(this, arguments)
+    async function h(t) {
+      var n = await o("WAWebHatchDataControls").isHatchOffline();
+      if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t)
+        return u;
+      if (n) return _;
+      var r = await o("WAWebHatchVmConnection")
+        .connectHatchVmApi()
+        .catch(o("WAWebNullFunc").returnNull);
+      if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t)
+        return u;
+      if (r == null) return y(t);
+      var a = await r.exchange(
+        "POST",
+        o("WAWebHatchVmTransport").JarvisPaths.AGENT_RESET,
+        { timeoutMs: e },
       );
+      return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== t
+        ? u
+        : C(a, t);
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    async function y(e) {
+      var t = await o("WAWebHatchDataControls").isHatchOffline();
+      return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== e
+        ? u
+        : t
+          ? _
+          : p;
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebHatchDataControls").isHatchOffline();
-          return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== e
-            ? u
-            : t
-              ? _
-              : p;
-        })),
-        b.apply(this, arguments)
-      );
+    async function C(e, t) {
+      return (function (e) {
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.kind === "response" &&
+          "body" in e &&
+          "statusCode" in e
+        ) {
+          var n = e.body,
+            r = e.statusCode;
+          return b(r, n);
+        }
+        if (
+          ((typeof e == "object" && e !== null) || typeof e == "function") &&
+          e.kind === "failure" &&
+          e.reason === "NO_CHANNEL"
+        )
+          return y(t);
+        if (
+          (((typeof e == "object" && e !== null) || typeof e == "function") &&
+            e.kind === "failure") ||
+          (((typeof e == "object" && e !== null) || typeof e == "function") &&
+            e.kind === "rejected") ||
+          (((typeof e == "object" && e !== null) || typeof e == "function") &&
+            e.kind === "unreadable")
+        )
+          return d;
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(e);
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (function (e) {
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "response" &&
-              "body" in e &&
-              "statusCode" in e
-            ) {
-              var n = e.body,
-                r = e.statusCode;
-              return R(r, n);
-            }
-            if (
-              ((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-              e.kind === "failure" &&
-              e.reason === "NO_CHANNEL"
-            )
-              return C(t);
-            if (
-              (((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-                e.kind === "failure") ||
-              (((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-                e.kind === "rejected") ||
-              (((typeof e == "object" && e !== null) ||
-                typeof e == "function") &&
-                e.kind === "unreadable")
-            )
-              return d;
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                e,
-            );
-          })(e);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t) {
+    function b(e, t) {
       return e >= 200 && e < 300
-        ? L(t)
+        ? v(t)
           ? c
           : d
         : e === s
@@ -132,7 +102,7 @@ __d(
             ? p
             : d;
     }
-    function L(e) {
+    function v(e) {
       try {
         return (
           o("WAWebHatchJsonReaders").readBool(
@@ -144,7 +114,7 @@ __d(
         return !1;
       }
     }
-    function E(e) {
+    function S(e) {
       var t = (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -181,7 +151,7 @@ __d(
       })(e);
       return (t != null && o("WAWebHatchLogging").logHatchDataControls(t), e);
     }
-    function k(e) {
+    function R(e) {
       throw (
         o("WAWebHatchLogging").logHatchDataControls({
           action: "agent_reset_error",

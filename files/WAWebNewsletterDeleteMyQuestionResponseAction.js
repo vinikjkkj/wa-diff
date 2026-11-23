@@ -1,42 +1,29 @@
 __d(
   "WAWebNewsletterDeleteMyQuestionResponseAction",
-  [
-    "WALogger",
-    "WAWebNewsletterDeleteMyQuestionResponseJob",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["WALogger", "WAWebNewsletterDeleteMyQuestionResponseJob", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            return yield o(
-              "WAWebNewsletterDeleteMyQuestionResponseJob",
-            ).deleteMyNewsletterQuestionResponse(t);
-          } catch (t) {
-            var n = r("getErrorSafe")(t);
-            throw (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[deleteMyNewsletterQuestionResponseAction] delete response failed",
-                    ])),
-                )
-                .catching(n)
-                .tags("newsletter", "questions")
-                .sendLogs("newsletter-failed-to-delete-my-question-response"),
-              n
-            );
-          }
-        })),
-        u.apply(this, arguments)
-      );
+    async function s(t) {
+      try {
+        return await o(
+          "WAWebNewsletterDeleteMyQuestionResponseJob",
+        ).deleteMyNewsletterQuestionResponse(t);
+      } catch (t) {
+        var n = r("getErrorSafe")(t);
+        throw (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[deleteMyNewsletterQuestionResponseAction] delete response failed",
+                ])),
+            )
+            .catching(n)
+            .tags("newsletter", "questions")
+            .sendLogs("newsletter-failed-to-delete-my-question-response"),
+          n
+        );
+      }
     }
     l.deleteMyNewsletterQuestionResponseAction = s;
   },

@@ -209,21 +209,16 @@ __d(
                 l10nBodyTextInstance: o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-                  ? s._(/*BTDS*/ "{name} changed to {new_number}.", [
+                  ? s._(/*BTDS*/ "", [
                       s._param("name", C),
                       s._param("new_number", I),
                     ])
-                  : s._(/*BTDS*/ "{name} changed to {new_number}", [
+                  : s._(/*BTDS*/ "", [
                       s._param("name", C),
                       s._param("new_number", I),
                     ]),
               }
-            : {
-                l10nBodyTextInstance: s._(
-                  /*BTDS*/ "{name} changed their phone number to a new number.",
-                  [s._param("name", C)],
-                ),
-              };
+            : { l10nBodyTextInstance: s._(/*BTDS*/ "", [s._param("name", C)]) };
         }
         case "create":
           return {
@@ -264,38 +259,23 @@ __d(
                 l10nBodyTextInstance: o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-                  ? s._(/*BTDS*/ "You joined via an invite link.")
-                  : s._(/*BTDS*/ "You joined via an invite link"),
+                  ? s._(/*BTDS*/ "")
+                  : s._(/*BTDS*/ ""),
               }
             : {
                 l10nBodyTextInstance: o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-                  ? s._(/*BTDS*/ "{name} joined via an invite link.", [
-                      s._param("name", R),
-                    ])
-                  : s._(/*BTDS*/ "{name} joined via an invite link", [
-                      s._param("name", R),
-                    ]),
+                  ? s._(/*BTDS*/ "", [s._param("name", R)])
+                  : s._(/*BTDS*/ "", [s._param("name", R)]),
               };
         case "revoke_invite":
           return o("WAWebSystemMessagesUtils").isMe(c)
-            ? {
-                l10nBodyTextInstance: m
-                  ? s._(/*BTDS*/ "You reset this group's invite link")
-                  : s._(
-                      /*BTDS*/ "You reset this group's invite link. Click to view the new invite link",
-                    ),
-              }
+            ? { l10nBodyTextInstance: m ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "") }
             : {
                 l10nBodyTextInstance: m
-                  ? s._(/*BTDS*/ "{name} reset this group's invite link", [
-                      s._param("name", v),
-                    ])
-                  : s._(
-                      /*BTDS*/ "{name} reset this group's invite link. Click to view the new invite link",
-                      [s._param("name", v)],
-                    ),
+                  ? s._(/*BTDS*/ "", [s._param("name", v)])
+                  : s._(/*BTDS*/ "", [s._param("name", v)]),
               };
         case "description":
           return {
@@ -336,58 +316,32 @@ __d(
         case "no_frequently_forwarded":
           return _ === "on"
             ? o("WAWebSystemMessagesUtils").isMe(c)
-              ? {
-                  l10nBodyTextInstance: s._(
-                    /*BTDS*/ "You changed this group's settings to not allow messages that have been forwarded many times.",
-                  ),
-                }
+              ? { l10nBodyTextInstance: s._(/*BTDS*/ "") }
               : {
-                  l10nBodyTextInstance: s._(
-                    /*BTDS*/ "{name} changed this group's settings to not allow messages that have been forwarded many times.",
-                    [s._param("name", v)],
-                  ),
+                  l10nBodyTextInstance: s._(/*BTDS*/ "", [s._param("name", v)]),
                 }
             : o("WAWebSystemMessagesUtils").isMe(c)
-              ? {
-                  l10nBodyTextInstance: s._(
-                    /*BTDS*/ "You changed this group's settings to allow messages that have been forwarded many times.",
-                  ),
-                }
+              ? { l10nBodyTextInstance: s._(/*BTDS*/ "") }
               : {
-                  l10nBodyTextInstance: s._(
-                    /*BTDS*/ "{name} changed this group's settings to allow messages that have been forwarded many times.",
-                    [s._param("name", v)],
-                  ),
+                  l10nBodyTextInstance: s._(/*BTDS*/ "", [s._param("name", v)]),
                 };
         case "announce_msg_bounce":
-          return {
-            l10nBodyTextInstance: s._(
-              /*BTDS*/ "Only admins can message this group.",
-            ),
-          };
+          return { l10nBodyTextInstance: s._(/*BTDS*/ "") };
         case "v4_add_invite_sent":
           return {
             l10nBodyTextInstance: o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-              ? s._(/*BTDS*/ "You invited {participants}.", [
-                  s._param("participants", L),
-                ])
-              : s._(/*BTDS*/ "You invited {participants}", [
-                  s._param("participants", L),
-                ]),
+              ? s._(/*BTDS*/ "", [s._param("participants", L)])
+              : s._(/*BTDS*/ "", [s._param("participants", L)]),
           };
         case "v4_add_invite_join":
           return {
             l10nBodyTextInstance: o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-              ? s._(/*BTDS*/ "{participants} joined using your invite.", [
-                  s._param("participants", L),
-                ])
-              : s._(/*BTDS*/ "{participants} joined using your invite", [
-                  s._param("participants", L),
-                ]),
+              ? s._(/*BTDS*/ "", [s._param("participants", L)])
+              : s._(/*BTDS*/ "", [s._param("participants", L)]),
           };
         case "ephemeral":
           return {
@@ -399,33 +353,15 @@ __d(
         case "default_sub_group_promote":
         case "default_sub_group_demote":
           return o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(y)
-            ? {
-                l10nBodyTextInstance: m
-                  ? s._(/*BTDS*/ "Community members have changed")
-                  : s._(
-                      /*BTDS*/ "Community members have changed. Click to view",
-                    ),
-              }
-            : {
-                l10nBodyTextInstance: m
-                  ? s._(/*BTDS*/ "Group members have changed")
-                  : s._(/*BTDS*/ "Group members have changed. Click to view"),
-              };
+            ? { l10nBodyTextInstance: m ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "") }
+            : { l10nBodyTextInstance: m ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "") };
         case "growth_locked":
           return {
-            l10nBodyTextInstance: m
-              ? s._(/*BTDS*/ "Invite via link became unavailable")
-              : s._(
-                  /*BTDS*/ "Invite via link became unavailable. Click to learn more",
-                ),
+            l10nBodyTextInstance: m ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
           };
         case "growth_unlocked":
           return {
-            l10nBodyTextInstance: m
-              ? s._(/*BTDS*/ "Invite via link became available again")
-              : s._(
-                  /*BTDS*/ "Invite via link became available again. Click to view the new invite link.",
-                ),
+            l10nBodyTextInstance: m ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
           };
         case "linked_group_join":
         case "parent_group_link":
@@ -527,13 +463,7 @@ __d(
           };
         case "ephemeral_keep_in_chat":
           return {
-            l10nBodyTextInstance: m
-              ? s._(
-                  /*BTDS*/ "Disappearing messages now support keeping messages in the chat.",
-                )
-              : s._(
-                  /*BTDS*/ "Disappearing messages now support keeping messages in the chat. Click to learn more.",
-                ),
+            l10nBodyTextInstance: m ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
           };
         case "membership_approval_mode":
         case "membership_approval_request":
@@ -592,11 +522,7 @@ __d(
           var P,
             N = !!((P = y.groupMetadata) != null && P.participants.iAmAdmin());
           return N
-            ? {
-                l10nBodyTextInstance: s._(
-                  /*BTDS*/ "Multiple people have joined using a group link",
-                ),
-              }
+            ? { l10nBodyTextInstance: s._(/*BTDS*/ "") }
             : { l10nBodyTextInstance: null };
         }
         case "created_subgroup_suggestion":
@@ -651,11 +577,7 @@ __d(
           break;
         }
         case "hidden_group":
-          return {
-            l10nBodyTextInstance: s._(
-              /*BTDS*/ "You set the group visibility to hidden",
-            ),
-          };
+          return { l10nBodyTextInstance: s._(/*BTDS*/ "") };
         case "group_default_reactions":
           return {
             l10nBodyTextInstance: r(

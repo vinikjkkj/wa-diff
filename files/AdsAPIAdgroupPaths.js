@@ -7,7 +7,9 @@ __d(
     "AdgroupReviewConfigField",
     "AdsAPIAdAssetFeedAdditionalDataFields",
     "AdsAPIAdAssetFeedCallAdsConfigurationFields",
+    "AdsAPIAdAssetFeedF2MDWebsiteEntryPointFields",
     "AdsAPIAdAssetFeedFields",
+    "AdsAPIAdAssetFeedInstantBookConfigurationFields",
     "AdsAPIAdAssetFeedLeadGenConfigurationFields",
     "AdsAPIAdAssetFeedLeadGenMultiDestinationFields",
     "AdsAPIAdAssetFeedPromotionalMetadataCouponCodesFields",
@@ -36,6 +38,7 @@ __d(
     "AdsAPITargetFields",
     "AdsAdgroupMetatdataSpecField",
     "AdsCreativeAudiencePairingPersonaFields",
+    "AdsMRLSettingsFields",
     "ApiAdCreativeAdDisclaimerFields",
     "ApiAdCreativeAppExpContainerFields",
     "ApiAdCreativeAppExpSellingPointsFields",
@@ -56,6 +59,7 @@ __d(
     "ApiAdCreativeDestinationOptimizationFields",
     "ApiAdCreativeDestinationScreenshotSpecFields",
     "ApiAdCreativeDestinationSpecFields",
+    "ApiAdCreativeDynamicDataRefreshSpecFields",
     "ApiAdCreativeFeaturedOfferingSpecFields",
     "ApiAdCreativeFields",
     "ApiAdCreativeGenerativeAssetColorOverlayFields",
@@ -68,10 +72,13 @@ __d(
     "ApiAdCreativeGenerativeAssetVideoFields",
     "ApiAdCreativeGuidanceMetadataFields",
     "ApiAdCreativeImageOverlaySpecFields",
+    "ApiAdCreativeImageTemplateSpecFields",
     "ApiAdCreativeInstagramBrandedContentFields",
     "ApiAdCreativeInteractiveComponentSpecFields",
+    "ApiAdCreativeLandingPageLongformFields",
     "ApiAdCreativeLiveVideoDestinationFields",
     "ApiAdCreativeLiveVideoReminderFields",
+    "ApiAdCreativeMediaOptimizationSpecFields",
     "ApiAdCreativeMediaSourcingSpecFields",
     "ApiAdCreativeMessageDestinationFields",
     "ApiAdCreativePlatformCustomizationFields",
@@ -125,9 +132,11 @@ __d(
       d,
       m,
       p,
-      _ = [
+      _,
+      f = [
         { pathKeys: [], expandsTo: r("AdsAPIAdgroupFields") },
         { pathKeys: ["BID_INFO"], expandsTo: r("AdsAPIBidInfoFields") },
+        { pathKeys: ["MRL_SETTINGS"], expandsTo: r("AdsMRLSettingsFields") },
         { pathKeys: ["CREATIVE"], expandsTo: r("ApiAdCreativeFields") },
         {
           pathKeys: ["CREATIVE", "AD_DISCLAIMER_SPEC"],
@@ -172,6 +181,14 @@ __d(
           expandsTo: r("AdsAPIAdAssetFeedCallAdsConfigurationFields"),
         },
         {
+          pathKeys: [
+            "CREATIVE",
+            "ASSET_FEED_SPEC",
+            "INSTANT_BOOK_CONFIGURATION",
+          ],
+          expandsTo: r("AdsAPIAdAssetFeedInstantBookConfigurationFields"),
+        },
+        {
           pathKeys: ["CREATIVE", "ASSET_FEED_SPEC", "LEAD_GEN_CONFIGURATION"],
           expandsTo: r("AdsAPIAdAssetFeedLeadGenConfigurationFields"),
         },
@@ -182,6 +199,14 @@ __d(
             "LEAD_GEN_MULTI_DESTINATION",
           ],
           expandsTo: r("AdsAPIAdAssetFeedLeadGenMultiDestinationFields"),
+        },
+        {
+          pathKeys: [
+            "CREATIVE",
+            "ASSET_FEED_SPEC",
+            "F2_MD_WEBSITE_ENTRY_POINT",
+          ],
+          expandsTo: r("AdsAPIAdAssetFeedF2MDWebsiteEntryPointFields"),
         },
         {
           pathKeys: ["CREATIVE", "ASSET_FEED_SPEC", "UPCOMING_EVENT_METADATA"],
@@ -228,6 +253,52 @@ __d(
           pathKeys: [
             "CREATIVE",
             "CREATIVE_SOURCING_SPEC",
+            "DYNAMIC_DATA_REFRESH_SPEC",
+          ],
+          expandsTo: r("ApiAdCreativeDynamicDataRefreshSpecFields"),
+        },
+        {
+          pathKeys: [
+            "CREATIVE",
+            "CREATIVE_SOURCING_SPEC",
+            "DYNAMIC_DATA_REFRESH_SPEC",
+            "WEBSITE_IMAGES",
+          ],
+          expandsTo: s,
+        },
+        {
+          pathKeys: [
+            "CREATIVE",
+            "CREATIVE_SOURCING_SPEC",
+            "DYNAMIC_DATA_REFRESH_SPEC",
+            "WEBSITE_IMAGES",
+            "ACTION_METADATA",
+          ],
+          expandsTo: u,
+        },
+        {
+          pathKeys: [
+            "CREATIVE",
+            "CREATIVE_SOURCING_SPEC",
+            "DYNAMIC_DATA_REFRESH_SPEC",
+            "WEBSITE_SUMMARY",
+          ],
+          expandsTo: s,
+        },
+        {
+          pathKeys: [
+            "CREATIVE",
+            "CREATIVE_SOURCING_SPEC",
+            "DYNAMIC_DATA_REFRESH_SPEC",
+            "WEBSITE_SUMMARY",
+            "ACTION_METADATA",
+          ],
+          expandsTo: u,
+        },
+        {
+          pathKeys: [
+            "CREATIVE",
+            "CREATIVE_SOURCING_SPEC",
             "DYNAMIC_SITE_LINKS_SPEC",
           ],
           expandsTo: s,
@@ -254,6 +325,19 @@ __d(
             "CREATIVE",
             "CREATIVE_SOURCING_SPEC",
             "SITE_LINKS_DATA_CONSENTED",
+            "ACTION_METADATA",
+          ],
+          expandsTo: u,
+        },
+        {
+          pathKeys: ["CREATIVE", "CREATIVE_SOURCING_SPEC", "UGC_SPEC"],
+          expandsTo: s,
+        },
+        {
+          pathKeys: [
+            "CREATIVE",
+            "CREATIVE_SOURCING_SPEC",
+            "UGC_SPEC",
             "ACTION_METADATA",
           ],
           expandsTo: u,
@@ -273,6 +357,15 @@ __d(
             "PRODUCT_MEDIA_METADATA_SPEC",
           ],
           expandsTo: r("ApiAdCreativeProductMediaMetadataSpecFields"),
+        },
+        {
+          pathKeys: [
+            "CREATIVE",
+            "CREATIVE_SOURCING_SPEC",
+            "PRODUCT_MEDIA_METADATA_SPEC",
+            "IMAGE_TEMPLATE_SPEC",
+          ],
+          expandsTo: r("ApiAdCreativeImageTemplateSpecFields"),
         },
         {
           pathKeys: [
@@ -324,6 +417,15 @@ __d(
             "ACTION_METADATA",
           ],
           expandsTo: u,
+        },
+        {
+          pathKeys: [
+            "CREATIVE",
+            "CREATIVE_SOURCING_SPEC",
+            "WEBSITE_SUMMARY_SPEC",
+            "LANDING_PAGE_LONGFORM",
+          ],
+          expandsTo: r("ApiAdCreativeLandingPageLongformFields"),
         },
         {
           pathKeys: [
@@ -401,6 +503,16 @@ __d(
             "APP_INFO_SPEC",
             "RATINGS_AND_REVIEWS",
             "ACTION_METADATA",
+          ],
+          expandsTo: u,
+        },
+        {
+          pathKeys: [
+            "CREATIVE",
+            "CREATIVE_SOURCING_SPEC",
+            "APP_INFO_SPEC",
+            "RATINGS_AND_REVIEWS",
+            "REVIEWS_ACTION_METADATA",
           ],
           expandsTo: u,
         },
@@ -2125,6 +2237,25 @@ __d(
           expandsTo: m,
         },
         {
+          pathKeys: [
+            "CREATIVE",
+            "DESTINATION_SPEC",
+            "NATIVE_COMMERCE_EXPERIENCE",
+            "SHOPPING_EXPERIENCE",
+          ],
+          expandsTo: d,
+        },
+        {
+          pathKeys: [
+            "CREATIVE",
+            "DESTINATION_SPEC",
+            "NATIVE_COMMERCE_EXPERIENCE",
+            "SHOPPING_EXPERIENCE",
+            "ACTION_METADATA",
+          ],
+          expandsTo: m,
+        },
+        {
           pathKeys: ["CREATIVE", "APP_EXPERIENCE_SPEC"],
           expandsTo: r("ApiAdCreativeAppExperienceSpecFields"),
         },
@@ -2153,15 +2284,23 @@ __d(
         },
         {
           pathKeys: ["CREATIVE", "APP_EXPERIENCE_SPEC", "DETAILS_TO_AD_LAYOUT"],
-          expandsTo: r("ApiAdCreativeAppExpContainerFields"),
+          expandsTo: (_ = r("ApiAdCreativeAppExpContainerFields")),
         },
         {
           pathKeys: ["CREATIVE", "APP_EXPERIENCE_SPEC", "REVEAL_DETAILS"],
-          expandsTo: r("ApiAdCreativeAppExpContainerFields"),
+          expandsTo: _,
         },
         {
           pathKeys: ["CREATIVE", "APP_EXPERIENCE_SPEC", "SHOW_SPOTLIGHTS"],
-          expandsTo: r("ApiAdCreativeAppExpContainerFields"),
+          expandsTo: _,
+        },
+        {
+          pathKeys: ["CREATIVE", "APP_EXPERIENCE_SPEC", "AD_EXTENSIONS"],
+          expandsTo: _,
+        },
+        {
+          pathKeys: ["CREATIVE", "APP_EXPERIENCE_SPEC", "COLLECTION"],
+          expandsTo: _,
         },
         {
           pathKeys: ["CREATIVE", "TEMPLATE_URL_SPEC"],
@@ -2250,6 +2389,10 @@ __d(
           expandsTo: r("AdsAPICreativeAutomationSpecFields"),
         },
         {
+          pathKeys: ["CREATIVE", "MEDIA_OPTIMIZATION_SPEC"],
+          expandsTo: r("ApiAdCreativeMediaOptimizationSpecFields"),
+        },
+        {
           pathKeys: ["CREATIVE", "MEDIA_SOURCING_SPEC"],
           expandsTo: r("ApiAdCreativeMediaSourcingSpecFields"),
         },
@@ -2332,9 +2475,9 @@ __d(
           expandsTo: r("ApiAdCreativeBizAICapabilityFields"),
         },
       ],
-      f = r("generatePaths")(_),
-      g = f;
-    l.default = g;
+      g = r("generatePaths")(f),
+      h = g;
+    l.default = h;
   },
   98,
 );

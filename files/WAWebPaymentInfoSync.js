@@ -8,7 +8,6 @@ __d(
     "WAWebSyncdAction",
     "WAWebSyncdConst",
     "WAWebSyncdIndexUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -16,7 +15,7 @@ __d(
       u,
       c,
       d = (function (t) {
-        function r() {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -26,110 +25,100 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (a.getVersion = function () {
+          (r.getVersion = function () {
             return 7;
           }),
-          (a.getAction = function () {
+          (r.getAction = function () {
             return o("WAWebSyncdConst").Actions.PaymentInfo;
           }),
-          (a.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var n = this;
-                if (o("WAWebMobilePlatforms").isSMB() !== !0)
+          (r.applyMutations = async function (n) {
+            var t = this;
+            if (o("WAWebMobilePlatforms").isSMB() !== !0)
+              return (
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "payment info sync: operation not supported, app is not SMB",
+                    ])),
+                ),
+                n.map(function () {
+                  return {
+                    actionState:
+                      o("WAWebSyncdConst").SyncActionState.Unsupported,
+                  };
+                })
+              );
+            if (
+              o("WAWebABProps").getABPropConfigValue(
+                "order_details_payment_instructions_sync_enabled",
+              ) !== !0
+            )
+              return (
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "payment info sync: unsupported, ABProp not passed",
+                    ])),
+                ),
+                n.map(function () {
+                  return {
+                    actionState:
+                      o("WAWebSyncdConst").SyncActionState.Unsupported,
+                  };
+                })
+              );
+            var r = 0,
+              a = 0,
+              i = n.map(function (e) {
+                var n;
+                if (e.operation !== "set")
                   return (
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "payment info sync: operation not supported, app is not SMB",
-                        ])),
-                    ),
-                    t.map(function () {
-                      return {
-                        actionState:
-                          o("WAWebSyncdConst").SyncActionState.Unsupported,
-                      };
-                    })
+                    r++,
+                    {
+                      actionState:
+                        o("WAWebSyncdConst").SyncActionState.Unsupported,
+                    }
                   );
-                if (
-                  o("WAWebABProps").getABPropConfigValue(
-                    "order_details_payment_instructions_sync_enabled",
-                  ) !== !0
-                )
-                  return (
-                    o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "payment info sync: unsupported, ABProp not passed",
-                        ])),
-                    ),
-                    t.map(function () {
-                      return {
-                        actionState:
-                          o("WAWebSyncdConst").SyncActionState.Unsupported,
-                      };
-                    })
-                  );
-                var r = 0,
-                  a = 0,
-                  i = t.map(function (e) {
-                    var t;
-                    if (e.operation !== "set")
-                      return (
-                        r++,
-                        {
-                          actionState:
-                            o("WAWebSyncdConst").SyncActionState.Unsupported,
-                        }
-                      );
-                    var i =
-                      (t = e.value.paymentInfoAction) == null ? void 0 : t.cpi;
-                    return typeof i != "string"
-                      ? (a++,
-                        o("WAWebSyncdIndexUtils").malformedActionValue(
-                          n.collectionName,
-                        ))
-                      : (o("WAWebBackendApi").frontendFireAndForget(
-                          "setCPIInfo",
-                          { cpiInfo: i },
-                        ),
-                        {
-                          actionState:
-                            o("WAWebSyncdConst").SyncActionState.Success,
-                        });
-                  });
-                return (
-                  r > 0 &&
-                    o("WALogger").WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "payment info sync: ",
-                          " operations not supported",
-                        ])),
-                      r,
-                    ),
-                  a > 0 &&
-                    o("WALogger").WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "cpi payment info sync: ",
-                          " malformed mutations",
-                        ])),
-                      a,
-                    ),
-                  i
-                );
-              },
+                var i =
+                  (n = e.value.paymentInfoAction) == null ? void 0 : n.cpi;
+                return typeof i != "string"
+                  ? (a++,
+                    o("WAWebSyncdIndexUtils").malformedActionValue(
+                      t.collectionName,
+                    ))
+                  : (o("WAWebBackendApi").frontendFireAndForget("setCPIInfo", {
+                      cpiInfo: i,
+                    }),
+                    {
+                      actionState: o("WAWebSyncdConst").SyncActionState.Success,
+                    });
+              });
+            return (
+              r > 0 &&
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "payment info sync: ",
+                      " operations not supported",
+                    ])),
+                  r,
+                ),
+              a > 0 &&
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "cpi payment info sync: ",
+                      " malformed mutations",
+                    ])),
+                  a,
+                ),
+              i
             );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          r
+          }),
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
       m = new d();

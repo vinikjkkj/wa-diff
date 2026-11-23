@@ -11,6 +11,7 @@ __d(
     "AdsWebsiteAdgroupSpecPathPluginCommon",
     "ApiAdObjectTypes",
     "adsConvertAdObjectRecordToPlainJS",
+    "qex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -33,7 +34,10 @@ __d(
             : r("AdsAdgroupCombinedFieldMappings").LINK_MAPPING;
     }
     function u(e, t, n) {
-      var a = r("adsConvertAdObjectRecordToPlainJS")(e),
+      var a =
+          r("qex")._("3278") === !0
+            ? e
+            : r("adsConvertAdObjectRecordToPlainJS")(e),
         i = o("AdsAPIAdgroupRecordUtils").getObjectType(e);
       switch (i) {
         case r("ApiAdObjectTypes").SHARE:

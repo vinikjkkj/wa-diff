@@ -30,13 +30,13 @@ __d(
     "AdsUnifiedProfileVisitUtils",
     "AdsVideoBuyingStoreUtils",
     "AdsWhatsAppPlacementUtils",
+    "FacebookReelsBrandVideoUtils",
     "FacebookReelsOverlayStoreUtils",
     "WebPixelRatio",
     "adsIGLoginPlacementUtils",
     "adsPlacementAPISpecReaderIsActiveFacebookPosition",
     "bx",
     "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-    "gkx",
     "immutable",
   ],
   function (t, n, r, o, a, i, l) {
@@ -50,16 +50,35 @@ __d(
       ).getReelOverlayPlatformPositionFbt();
     }
     function u(e) {
-      return o(
-        "FacebookReelsOverlayStoreUtils",
-      ).isBrandVideoReelsOverlayDisabled(e.adgroup, e.optimizationGoal);
+      return o("FacebookReelsBrandVideoUtils").isBrandVideoReelsOverlayDisabled(
+        e.adgroup,
+        e.optimizationGoal,
+      );
     }
-    function c() {
+    function c(e) {
+      switch (e) {
+        case r("AdsPromotedObjectTypes").DONATION:
+          return o("AdsPlacementIneligibilityReason").createDonationReason();
+        case r("AdsPromotedObjectTypes").GROUP:
+          return o(
+            "AdsPlacementIneligibilityReason",
+          ).createGroupPromotionReason();
+        case r("AdsPromotedObjectTypes").IMAGINATION:
+          return o("AdsPlacementIneligibilityReason").createImaginationReason();
+        case r("AdsPromotedObjectTypes").REMINDER:
+          return o(
+            "AdsPlacementIneligibilityReason",
+          ).createReminderPromotionReason();
+        default:
+          return null;
+      }
+    }
+    function d() {
       return o("WebPixelRatio").get() >= 2
         ? r("bx").getURL(r("bx")("50881"))
         : r("bx").getURL(r("bx")("50880"));
     }
-    var d = {
+    var m = {
         type: "placements/position",
         key: "facebook/reels_overlay",
         name: e(),
@@ -76,8 +95,8 @@ __d(
           videoCrop: "9:16",
         },
         apiPosition: "facebook_reels_overlay",
-        placementImage: c(),
-        placementPreviewImage: c(),
+        placementImage: d(),
+        placementPreviewImage: d(),
         platformKey: "facebook",
         getPlacementSpecificPreviewInfo: function () {
           return o(
@@ -111,7 +130,7 @@ __d(
           if (a) return a;
           var i = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(d, t);
+          ).getSOOBundleParentIneligibilityReason(m, t);
           if (i != null) return i;
           if (t.isReelsTrendingAds === !0)
             return o(
@@ -128,183 +147,143 @@ __d(
             ),
             s = o("AdsFacebookReelsOverlayConfig").ELIGIBLE_OBJECTIVES,
             u = r("AdsAccountStore").getSelectedAccount().getValue();
-          return t.spec &&
+          if (
+            t.spec &&
             o("AdsPlacementAPISpecReaderUtils").isOnlyActiveDevicePlatform(
               t.spec,
               r("AdsAPIDevicePlatform").CONNECTED_TV,
             )
-            ? o("AdsPlacementIneligibilityReason").createDevicePlatformReason(
-                r("AdsAPIDevicePlatform").CONNECTED_TV,
-              )
-            : s.has(l)
-              ? (l === r("AdsAPIObjectives").LINK_CLICKS ||
-                  l === r("AdsAPIObjectives").CONVERSIONS) &&
-                t.promotedObjectType === r("AdsPromotedObjectTypes").MOBILE_APP
-                ? o("AdsPlacementIneligibilityReason").createAppReason()
-                : o(
-                      "AdsVideoBuyingStoreUtils",
-                    ).checkIfPlacementPositionValidForBuyingOption(
-                      babelHelpers.extends({}, t, { objective: l }),
-                      "facebook_reels_overlay",
-                    )
-                  ? o("AdsAppUtilsShared").isFacebookDesktopURL(
-                      t.objectStoreURL,
-                    )
-                    ? o("AdsPlacementIneligibilityReason").createGenericReason()
-                    : t.destinationType ===
-                        r("AdCampaignDestination").INSTAGRAM_LIVE
-                      ? o(
-                          "AdsPlacementIneligibilityReason",
-                        ).createInstagramLiveReason()
-                      : o(
-                            "adsIGLoginPlacementUtils",
-                          ).getShouldDisableFBPlacementForIGLoginUsers(
-                            t.account,
-                          )
-                        ? o(
-                            "AdsPlacementIneligibilityReason",
-                          ).createIGLoginReason()
-                        : o(
-                              "AdsUnifiedProfileVisitUtils",
-                            ).getIsPositionAlwaysDisabledForProfileVisits(
-                              l,
-                              t.promotedObjectType,
-                            )
-                          ? o(
-                              "AdsUnifiedProfileVisitUtils",
-                            ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
-                              t.destinationType,
-                            )
-                          : o(
-                                "AdsPlacementEligibilityInfoUtils",
-                              ).isIneligibleWithMobileOnlyObjectives(
-                                babelHelpers.extends({}, t, { objective: l }),
-                              ) ||
-                              (t.spec.device_platforms &&
-                                !(
-                                  (e = t.spec.device_platforms) != null &&
-                                  e.includes(r("AdsAPIDevicePlatform").MOBILE)
-                                ))
-                            ? o(
-                                "AdsPlacementIneligibilityReason",
-                              ).createDevicePlatformReason(
-                                r("AdsAPIDevicePlatform").DESKTOP,
-                              )
-                            : o(
-                                  "AdsPlacementOmnichannelUtils",
-                                ).isIneligibleForOmnichannelAd(
-                                  babelHelpers.extends({}, t, { objective: l }),
-                                )
-                              ? o(
-                                  "AdsPlacementIneligibilityReason",
-                                ).createOmnichannelReason()
-                              : r("AdsAppUtils").isCanvasAppObjective(
-                                    l,
-                                    t.promotedObjectType,
-                                  )
-                                ? o(
-                                    "AdsPlacementIneligibilityReason",
-                                  ).createCanvasAppReason()
-                                : t.promotedObjectType !==
-                                      r("AdsPromotedObjectTypes").MESSENGER &&
-                                    l === r("AdsAPIObjectives").MESSAGES
-                                  ? o(
-                                      "AdsPlacementIneligibilityReason",
-                                    ).createMessengerReason(t.objective)
-                                  : t.promotedObjectType ===
-                                        r("AdsPromotedObjectTypes").INSTAGRAM &&
-                                      (l ===
-                                        r("AdsAPIObjectives").CONVERSIONS ||
-                                        t.objective ===
-                                          r("AdsAPIObjectives").LINK_CLICKS)
-                                    ? o(
-                                        "AdsPlacementIneligibilityReason",
-                                      ).createInstagramDirectReason(t.objective)
-                                    : o(
-                                          "AdsInstagramLeadGenPlacementUtils",
-                                        ).isInstagramLeadGenDestinationSelected(
-                                          babelHelpers.extends({}, t, {
-                                            objective: l,
-                                          }),
-                                        )
-                                      ? o(
-                                          "AdsPlacementIneligibilityReason",
-                                        ).createInstagramLeadGenReason(
-                                          t.objective,
-                                        )
-                                      : t.containsOffer === !0
-                                        ? o(
-                                            "AdsPlacementIneligibilityReason",
-                                          ).createOfferOptionReason(t.objective)
-                                        : o(
-                                              "AdsWhatsAppPlacementUtils",
-                                            ).isIneligibleForFBReelsOverlay(
-                                              u,
-                                              babelHelpers.extends({}, t, {
-                                                objective: l,
-                                              }),
-                                            )
-                                          ? o(
-                                              "AdsPlacementIneligibilityReason",
-                                            ).createWhatsAppReason(t.objective)
-                                          : t.directInstallDevices === !0
-                                            ? o(
-                                                "AdsPlacementIneligibilityReason",
-                                              ).createDirectInstallReason()
-                                            : r(
-                                                  "AdsAppUrlUtils",
-                                                ).isInstantGameURL(
-                                                  t.objectStoreURL,
-                                                )
-                                              ? o(
-                                                  "AdsPlacementIneligibilityReason",
-                                                ).createInstantGameReason()
-                                              : t.promotedObjectType ===
-                                                  r("AdsPromotedObjectTypes")
-                                                    .DONATION
-                                                ? o(
-                                                    "AdsPlacementIneligibilityReason",
-                                                  ).createDonationReason()
-                                                : t.promotedObjectType ===
-                                                    r("AdsPromotedObjectTypes")
-                                                      .GROUP
-                                                  ? o(
-                                                      "AdsPlacementIneligibilityReason",
-                                                    ).createGroupPromotionReason()
-                                                  : t.promotedObjectType ===
-                                                      r(
-                                                        "AdsPromotedObjectTypes",
-                                                      ).IMAGINATION
-                                                    ? o(
-                                                        "AdsPlacementIneligibilityReason",
-                                                      ).createImaginationReason()
-                                                    : t.promotedObjectType ===
-                                                        r(
-                                                          "AdsPromotedObjectTypes",
-                                                        ).REMINDER
-                                                      ? o(
-                                                          "AdsPlacementIneligibilityReason",
-                                                        ).createReminderPromotionReason()
-                                                      : t.destinationType ===
-                                                          r(
-                                                            "AdCampaignDestination",
-                                                          ).FACEBOOK_LIVE
-                                                        ? o(
-                                                            "AdsPlacementIneligibilityReason",
-                                                          ).createFacebookLiveReason()
-                                                        : (n =
-                                                              t.isClickToMPAds) !=
-                                                              null && n
-                                                          ? o(
-                                                              "AdsPlacementIneligibilityReason",
-                                                            ).createGenericReason()
-                                                          : null
-                  : o(
-                      "AdsPlacementIneligibilityReason",
-                    ).createOptimizationGoalReason()
-              : o("AdsPlacementIneligibilityReason").createObjectiveReason(
-                  t.objective,
-                );
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createDevicePlatformReason(
+              r("AdsAPIDevicePlatform").CONNECTED_TV,
+            );
+          if (!s.has(l))
+            return o("AdsPlacementIneligibilityReason").createObjectiveReason(
+              t.objective,
+            );
+          if (
+            (l === r("AdsAPIObjectives").LINK_CLICKS ||
+              l === r("AdsAPIObjectives").CONVERSIONS) &&
+            t.promotedObjectType === r("AdsPromotedObjectTypes").MOBILE_APP
+          )
+            return o("AdsPlacementIneligibilityReason").createAppReason();
+          if (
+            !o(
+              "AdsVideoBuyingStoreUtils",
+            ).checkIfPlacementPositionValidForBuyingOption(
+              babelHelpers.extends({}, t, { objective: l }),
+              "facebook_reels_overlay",
+            )
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createOptimizationGoalReason();
+          if (o("AdsAppUtilsShared").isFacebookDesktopURL(t.objectStoreURL))
+            return o("AdsPlacementIneligibilityReason").createGenericReason();
+          if (t.destinationType === r("AdCampaignDestination").INSTAGRAM_LIVE)
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstagramLiveReason();
+          if (
+            o(
+              "adsIGLoginPlacementUtils",
+            ).getShouldDisableFBPlacementForIGLoginUsers(t.account)
+          )
+            return o("AdsPlacementIneligibilityReason").createIGLoginReason();
+          if (
+            o(
+              "AdsUnifiedProfileVisitUtils",
+            ).getIsPositionAlwaysDisabledForProfileVisits(
+              l,
+              t.promotedObjectType,
+            )
+          )
+            return o(
+              "AdsUnifiedProfileVisitUtils",
+            ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
+              t.destinationType,
+            );
+          if (
+            o(
+              "AdsPlacementEligibilityInfoUtils",
+            ).isIneligibleWithMobileOnlyObjectives(
+              babelHelpers.extends({}, t, { objective: l }),
+            ) ||
+            (t.spec.device_platforms &&
+              !(
+                (e = t.spec.device_platforms) != null &&
+                e.includes(r("AdsAPIDevicePlatform").MOBILE)
+              ))
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createDevicePlatformReason(r("AdsAPIDevicePlatform").DESKTOP);
+          if (
+            o("AdsPlacementOmnichannelUtils").isIneligibleForOmnichannelAd(
+              babelHelpers.extends({}, t, { objective: l }),
+            )
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createOmnichannelReason();
+          if (r("AdsAppUtils").isCanvasAppObjective(l, t.promotedObjectType))
+            return o("AdsPlacementIneligibilityReason").createCanvasAppReason();
+          if (
+            t.promotedObjectType !== r("AdsPromotedObjectTypes").MESSENGER &&
+            l === r("AdsAPIObjectives").MESSAGES
+          )
+            return o("AdsPlacementIneligibilityReason").createMessengerReason(
+              t.objective,
+            );
+          if (
+            t.promotedObjectType === r("AdsPromotedObjectTypes").INSTAGRAM &&
+            (l === r("AdsAPIObjectives").CONVERSIONS ||
+              t.objective === r("AdsAPIObjectives").LINK_CLICKS)
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstagramDirectReason(t.objective);
+          if (
+            o(
+              "AdsInstagramLeadGenPlacementUtils",
+            ).isInstagramLeadGenDestinationSelected(
+              babelHelpers.extends({}, t, { objective: l }),
+            )
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstagramLeadGenReason(t.objective);
+          if (t.containsOffer === !0)
+            return o("AdsPlacementIneligibilityReason").createOfferOptionReason(
+              t.objective,
+            );
+          if (
+            o("AdsWhatsAppPlacementUtils").isIneligibleForFBReelsOverlay(
+              u,
+              babelHelpers.extends({}, t, { objective: l }),
+            )
+          )
+            return o("AdsPlacementIneligibilityReason").createWhatsAppReason(
+              t.objective,
+            );
+          if (t.directInstallDevices === !0)
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createDirectInstallReason();
+          if (r("AdsAppUrlUtils").isInstantGameURL(t.objectStoreURL))
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstantGameReason();
+          var d = c(t.promotedObjectType);
+          return d != null
+            ? d
+            : t.destinationType === r("AdCampaignDestination").FACEBOOK_LIVE
+              ? o("AdsPlacementIneligibilityReason").createFacebookLiveReason()
+              : (n = t.isClickToMPAds) != null && n
+                ? o("AdsPlacementIneligibilityReason").createGenericReason()
+                : null;
         },
         isInactiveByDefault: function () {
           return !1;
@@ -322,25 +301,23 @@ __d(
             t.spec,
             r("AdsAPIDevicePlatform").MOBILE,
           );
-          if (n) {
-            var a = r("gkx")("2702");
-            o(
-              "FacebookReelsOverlayStoreUtils",
-            ).incontentCreativeGuideExperiment()
-              ? (a || e.push("previews/facebook_reels_banner_fullscreen_ios"),
-                e.push("previews/facebook_reels_banner_fullscreen_mobile"),
-                o(
-                  "FacebookReelsOverlayStoreUtils",
-                ).incontentPreviewsDemandV2() ||
-                  e.push("previews/facebook_reels_banner"))
-              : (o(
-                  "FacebookReelsOverlayStoreUtils",
-                ).incontentPreviewsDemandV2() ||
-                  e.push("previews/facebook_reels_banner"),
-                e.push("previews/facebook_reels_banner_fullscreen_mobile"),
-                a || e.push("previews/facebook_reels_banner_fullscreen_ios"));
-          }
-          return r("immutable").OrderedSet(e);
+          return (
+            n &&
+              (o(
+                "FacebookReelsOverlayStoreUtils",
+              ).incontentCreativeGuideExperiment()
+                ? (e.push("previews/facebook_reels_banner_fullscreen_mobile"),
+                  o(
+                    "FacebookReelsOverlayStoreUtils",
+                  ).incontentPreviewsDemandV2() ||
+                    e.push("previews/facebook_reels_banner"))
+                : (o(
+                    "FacebookReelsOverlayStoreUtils",
+                  ).incontentPreviewsDemandV2() ||
+                    e.push("previews/facebook_reels_banner"),
+                  e.push("previews/facebook_reels_banner_fullscreen_mobile"))),
+            r("immutable").OrderedSet(e)
+          );
         },
         getDefaultPreview: function (t) {
           if (u(t)) return null;
@@ -351,10 +328,8 @@ __d(
           if (e)
             return o(
               "FacebookReelsOverlayStoreUtils",
-            ).incontentCreativeGuideExperiment()
-              ? r("gkx")("2702")
-                ? "previews/facebook_reels_banner_fullscreen_mobile"
-                : "previews/facebook_reels_banner_fullscreen_ios"
+            ).incontentPreviewsDemandV2()
+              ? "previews/facebook_reels_banner_fullscreen_mobile"
               : "previews/facebook_reels_banner";
         },
         adsetValidators: [
@@ -367,7 +342,7 @@ __d(
             a != null &&
             (e = a.eligibilityInformation) != null &&
             e.capabilities &&
-            !d.isEnabled(a.eligibilityInformation.capabilities)
+            !m.isEnabled(a.eligibilityInformation.capabilities)
           )
             return t;
           switch (a.type) {
@@ -423,8 +398,8 @@ __d(
         parentPlacements: r("immutable").OrderedSet(["facebook/feed"]),
         childPlacements: r("immutable").OrderedSet([]),
       },
-      m = d;
-    l.default = m;
+      p = m;
+    l.default = p;
   },
   98,
 );

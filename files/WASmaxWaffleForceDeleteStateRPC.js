@@ -18,34 +18,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = m(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return { name: "ForceDeleteStateResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "ForceDeleteStateResponseError", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("ForceDeleteState", {
-              Success: a,
-              Error: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = d(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return { name: "ForceDeleteStateResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "ForceDeleteStateResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("ForceDeleteState", {
+          Success: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -55,7 +46,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = p(r.value);
+      var i = m(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -64,7 +55,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -72,12 +63,12 @@ __d(
       ).parseIQResultResponseMixin(e, t);
       return (r.success, r);
     }
-    function d(e) {
+    function c(e) {
       var t = e.onlyIfSuspendedElementValue,
         n = o("WASmaxJsx").smax("only_if_suspended", null, t);
       return n;
     }
-    function m(e) {
+    function d(e) {
       var t = e.onlyIfSuspendedArgs,
         n = e.timestampElementValue,
         r = o(
@@ -91,12 +82,12 @@ __d(
               to: o("WAWap").S_WHATSAPP_NET,
             },
             o("WASmaxJsx").smax("timestamp", null, o("WAWap").INT(n)),
-            o("WASmaxChildren").OPTIONAL_CHILD(d, t),
+            o("WASmaxChildren").OPTIONAL_CHILD(c, t),
           ),
         );
       return r;
     }
-    function p(e) {
+    function m(e) {
       var t = o(
         "WASmaxInWaffleIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -159,9 +150,9 @@ __d(
           );
     }
     ((l.sendForceDeleteStateRPC = e),
-      (l.parseForceDeleteStateResponseError = u),
-      (l.parseForceDeleteStateResponseSuccess = c),
-      (l.makeForceDeleteStateRequest = m));
+      (l.parseForceDeleteStateResponseError = s),
+      (l.parseForceDeleteStateResponseSuccess = u),
+      (l.makeForceDeleteStateRequest = d));
   },
   98,
 );

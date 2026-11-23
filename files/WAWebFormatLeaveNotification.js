@@ -16,24 +16,24 @@ __d(
           ? (o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled() &&
-              s._(/*BTDS*/ "You left.")) ||
-            s._(/*BTDS*/ "You left")
+              s._(/*BTDS*/ "")) ||
+            s._(/*BTDS*/ "")
           : (o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled() &&
-              s._(/*BTDS*/ "{user_name} left.", [s._param("user_name", n)])) ||
-            s._(/*BTDS*/ "{user_name} left", [s._param("user_name", n)])
+              s._(/*BTDS*/ "", [s._param("user_name", n)])) ||
+            s._(/*BTDS*/ "", [s._param("user_name", n)])
         : t === o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(/*BTDS*/ "This community is no longer available.")
-            : s._(/*BTDS*/ "This community is no longer available")
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
           : o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-            ? s._(/*BTDS*/ "This group has ended.")
-            : s._(/*BTDS*/ "This group has ended");
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
     }
     l.formatLeaveNotification = e;
   },

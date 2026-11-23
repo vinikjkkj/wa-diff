@@ -1,21 +1,19 @@
 __d(
   "WebToXFeatureGating",
   [
-    "AdCampaignDestination",
     "AdsAPIAdgroupRecordUtils",
     "AdsAPICampaignRecordUtils",
     "AdsAPIObjectives",
     "AdsAPIOptimizationGoals",
     "AdsBrandAwarenessUtils",
-    "AdsInterfacesLogger",
     "AdsODAXUtils",
     "AdsPageStore",
     "AdsPageUtils",
     "AdsPromotedObjectTypes",
-    "AdsUEditorMessagingDestinationUtils",
     "AdsWebToWhatsAppBudgetRecommendationUtils",
     "AdsWebsiteExtensionTypeUtils",
     "CTXChatBuilderFeatureGating",
+    "ClickToMessageAdDestinationUtils",
     "CtxAdvertiserQeHbtExposureFalcoEvent",
     "CtxBudgetGuidanceLongTermHoldoutUtils",
     "CurrentAdAccount",
@@ -28,9 +26,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 10,
-      s = 10,
-      u = 0.75;
-    function c(e) {
+      s = 0.75;
+    function u(e) {
       return (
         e === r("AdsAPIObjectives").OUTCOME_SALES ||
         e === r("AdsAPIObjectives").LINK_CLICKS ||
@@ -38,133 +35,85 @@ __d(
         e === r("AdsAPIObjectives").OUTCOME_AWARENESS
       );
     }
-    function d(e, t) {
+    function c(e, t) {
       t === void 0 && (t = !0);
-      var n = c(e);
+      var n = u(e);
       return n ? (t ? r("gkx")("9446") === !0 : r("gkx")("9454") === !0) : !1;
     }
-    function m(e, t, n, r, o, a) {
+    function d(e, t, n, r, o, a) {
       return (
         o === void 0 && (o = !0),
         a === void 0 && (a = !1),
-        e && G(t, n, r) ? (a === !0 || o ? d(t, !0) : d(t, !1)) : !1
+        e && j(t, n, r) ? (a === !0 || o ? c(t, !0) : c(t, !1)) : !1
       );
     }
-    function p(t, n, a, i) {
-      var l;
-      if (r("gkx")("10667") === !0) return !0;
-      var s = t != null ? r("AdsPageStore").getLoadObject(t).getValue() : null,
-        u = o("AdsAPIAdgroupRecordUtils").isWebToMessengerAd(n);
-      if (u) return !0;
-      var c = (l = s == null ? void 0 : s.messenger_sends_l28) != null ? l : 0;
-      return c >= e ? !0 : w(!0);
+    function m(e, t, n, r) {
+      return (r === void 0 && (r = !1), p(e, t, n) && g(e, !1, t, null, !r));
     }
-    function _(e) {
-      if ((e === void 0 && (e = !0), r("gkx")("11835") === !0)) return !0;
-      if (e) return r("gkx")("11946") === !0;
-      var t = r("gkx")("11803") === !0;
-      return (
-        r("CtxAdvertiserQeHbtExposureFalcoEvent").log(function () {
-          var e;
-          return {
-            condition: t ? "test" : "control",
-            feature_name: "wtm_enable_l3_catalog_ad",
-            hbt_name: "h2_train_1_am_mid_adacc_w998_hbt",
-            unit_id: (e = r("CurrentAdAccount").getID()) != null ? e : "",
-            unit_type: "ad_account_id",
-          };
-        }),
-        t
-      );
-    }
-    function f(e, t, n, r, o, a, i, l) {
-      return (
-        l === void 0 && (l = !1),
-        g(e, t, n) && C(e, !1, t, null, n, r, o, a, i, !l)
-      );
-    }
-    function g(e, t, n) {
+    function p(e, t, n) {
       return n === null || e == null
         ? !1
         : e === r("AdsAPIObjectives").OUTCOME_SALES &&
             t === r("AdsPromotedObjectTypes").PRODUCT_SET &&
             n === "PRODUCT_SET_AND_WEBSITE";
     }
-    function h(e, t, n, r) {
-      var a,
-        i = e.objective,
-        l = o("AdsAPICampaignRecordUtils").getPromotedObjectType(i, t),
-        s = o("AdsPageUtils").getPageID(n),
-        u =
-          (a = n.creative) == null || (a = a.asset_feed_spec) == null
-            ? void 0
-            : a.message_extensions,
-        c = n.account_id,
-        d = n.id,
-        m = o("WebToWhatsappUtils").isWebToWhatsAppEligibleForCatalogAds(
-          i,
-          l,
+    function _(e, t, n) {
+      var r = e.objective,
+        a = o("AdsAPICampaignRecordUtils").getPromotedObjectType(r, t),
+        i = o("WebToWhatsappUtils").isWebToWhatsAppEligibleForCatalogAds(
           r,
+          a,
+          n,
           !1,
         ),
-        p = f(i, l, r, s, u, c, d, !1);
-      return m || p;
+        l = m(r, a, n, !1);
+      return i || l;
     }
-    function y(e, t, n, r, a) {
-      var i, l;
+    function f(e, t, n, r, a) {
       (r === void 0 && (r = !0), a === void 0 && (a = !1));
-      var s = e.objective,
-        u = o(
+      var i = e.objective,
+        l = o(
           "AdsAPIAdgroupRecordUtils",
         ).isFlexibleFormatAdOrCreativeAssetGroup(n),
-        c = o("AdsAPICampaignRecordUtils").getPromotedObjectType(s, t),
-        d = o("AdsODAXUtils").maybeTranslateObjective(
+        s = o("AdsAPICampaignRecordUtils").getPromotedObjectType(i, t),
+        u = o("AdsODAXUtils").maybeTranslateObjective(
           e.objective,
-          c,
+          s,
           t.optimization_goal,
-        ),
-        m = (i = t.promoted_object) == null ? void 0 : i.variation,
-        p = o("AdsPageUtils").getPageID(n),
-        _ =
-          (l = n.creative) == null || (l = l.asset_feed_spec) == null
-            ? void 0
-            : l.message_extensions,
-        f = n.account_id,
-        g = n.id;
-      return C(s, u, c, d, m, p, _, f, g, r, a);
+        );
+      return g(i, l, s, u, r, a);
     }
-    function C(t, n, o, a, i, l, s, u, f, h, y) {
-      var C;
-      if ((h === void 0 && (h = !0), y === void 0 && (y = !1), !c(t)))
+    function g(e, t, n, r, o, a) {
+      if ((o === void 0 && (o = !0), a === void 0 && (a = !1), !u(e)))
         return !1;
-      var b = !1;
-      p(l, s, u, f) && (b = !0);
-      var v = h || !b,
-        S = !1;
-      g(t, o, i)
-        ? (S = _(h))
-        : n && G(t, a, o)
-          ? (S = m(n, t, a, o, v, y))
-          : (S = d(t, v));
-      var R = l != null ? r("AdsPageStore").getLoadObject(l).getValue() : null,
-        L = (C = R == null ? void 0 : R.messenger_sends_l28) != null ? C : 0;
-      return (L < e && S && w(h), b && S);
+      var i = !1;
+      return (t && j(e, r, n) ? (i = d(t, e, r, n, o, a)) : (i = c(e, o)), i);
     }
-    function b(e, t) {
-      return e === r("AdsAPIObjectives").OUTCOME_TRAFFIC ||
+    function h(e) {
+      return (
+        e === r("AdsAPIObjectives").OUTCOME_TRAFFIC ||
         e === r("AdsAPIObjectives").LINK_CLICKS
+      );
+    }
+    function y(e) {
+      return e === r("AdsAPIObjectives").OUTCOME_LEADS;
+    }
+    function C(e) {
+      return h(e) || y(e);
+    }
+    function b(e) {
+      return e === r("AdsAPIObjectives").OUTCOME_SALES || h(e);
+    }
+    function v(e, t) {
+      return C(e)
         ? !0
         : t === r("AdsAPIOptimizationGoals").OFFSITE_CONVERSIONS ||
             t === r("AdsAPIOptimizationGoals").RETURN_ON_AD_SPEND;
     }
-    function v(e) {
-      return (
-        e === r("AdsAPIObjectives").OUTCOME_SALES ||
-        e === r("AdsAPIObjectives").LINK_CLICKS ||
-        e === r("AdsAPIObjectives").OUTCOME_TRAFFIC
-      );
-    }
     function S(e) {
+      return e === r("AdsAPIObjectives").OUTCOME_SALES || C(e);
+    }
+    function R(e) {
       e === void 0 && (e = !0);
       var t = r("gkx")("22369") === !0;
       return t
@@ -173,28 +122,28 @@ __d(
           : r("qex")._("4599") === !0
         : !1;
     }
-    function R(e) {
+    function L(e) {
       return (
         e === r("AdsAPIOptimizationGoals").LANDING_PAGE_VIEWS ||
         e === r("AdsAPIOptimizationGoals").LINK_CLICKS
       );
     }
-    function L(e, t) {
-      return (
-        t === void 0 && (t = !0),
-        R(e) ? (t ? r("qex")._("4806") === !0 : r("qex")._("4807") === !0) : !1
-      );
-    }
     function E(e, t) {
       return (
         t === void 0 && (t = !0),
-        v(e) ? (t ? r("gkx")("6644") === !0 : r("gkx")("7071") === !0) : !1
+        L(e) ? (t ? r("qex")._("4806") === !0 : r("qex")._("4807") === !0) : !1
       );
     }
-    function k(e, t, n, r) {
-      return e && G(t, n, r);
+    function k(e, t) {
+      return (
+        t === void 0 && (t = !0),
+        S(e) ? (t ? r("gkx")("6644") === !0 : r("gkx")("7071") === !0) : !1
+      );
     }
-    function I(
+    function I(e, t, n, r) {
+      return e && j(t, n, r);
+    }
+    function T(
       e,
       t,
       n,
@@ -218,199 +167,198 @@ __d(
       v,
       S,
       R,
+      L,
     ) {
       r("WebToXAdsUnifiedFalcoEvent").log(function () {
-        var r, L, E;
+        var r, E, k;
         return {
           event: "wtd_eligibility_check",
           ad_account_id: e.account_id,
           ad_group_id: e.id,
           ad_page_id: t != null ? t : "",
-          event_info:
-            "eligible:" +
-            String(m) +
-            ",existing_wtd_ad:" +
-            String(o) +
-            ",objective:" +
-            (a != null ? a : "") +
-            ",optimization_goal:" +
-            (i != null ? i : "") +
-            ",l28_ig_sends:" +
-            ((r = n == null ? void 0 : n.toString()) != null ? r : "") +
-            ",passes_override_gk:" +
-            String(s) +
-            ",passes_eligibility_gk:" +
-            String(l) +
-            ",sales_primary_objective:" +
-            String(u) +
-            ",ig_spend_l28:" +
-            ((L = c == null ? void 0 : c.toString()) != null ? L : "") +
-            ",total_spend_l28:" +
-            ((E = d == null ? void 0 : d.toString()) != null ? E : "") +
-            ",ig_share:" +
-            (p != null ? p.toFixed(4) : "") +
-            ",ig_share_threshold:" +
-            _.toString() +
-            ",is_ig_heavy:" +
-            String(f) +
-            ",traffic_qe_enabled:" +
-            (g != null ? String(g) : "") +
-            ",has_linked_ig:" +
-            String(h) +
-            ",is_iabp:" +
-            String(y) +
-            ",has_fb_placement:" +
-            String(C) +
-            ",has_ig_placement:" +
-            String(b) +
-            ",is_ig_only:" +
-            String(v) +
-            ",cas_expansion_qe_enabled:" +
-            (S != null ? String(S) : "") +
-            ",non_oc_qe_enabled:" +
-            (R != null ? String(R) : ""),
+          event_info: [
+            "eligible:" + String(m),
+            "existing_wtd_ad:" + String(o),
+            "objective:" + (a != null ? a : ""),
+            "optimization_goal:" + (i != null ? i : ""),
+            "l28_ig_sends:" +
+              ((r = n == null ? void 0 : n.toString()) != null ? r : ""),
+            "passes_override_gk:" + String(s),
+            "passes_eligibility_gk:" + String(l),
+            "sales_primary_objective:" + String(u),
+            "ig_spend_l28:" +
+              ((E = c == null ? void 0 : c.toString()) != null ? E : ""),
+            "total_spend_l28:" +
+              ((k = d == null ? void 0 : d.toString()) != null ? k : ""),
+            "ig_share:" + (p != null ? p.toFixed(4) : ""),
+            "ig_share_threshold:" + _.toString(),
+            "is_ig_heavy:" + String(f),
+            "traffic_qe_enabled:" + (g != null ? String(g) : ""),
+            "has_linked_ig:" + String(h),
+            "is_iabp:" + String(y),
+            "has_fb_placement:" + String(C),
+            "has_ig_placement:" + String(b),
+            "is_ig_only:" + String(v),
+            "cas_expansion_qe_enabled:" + (S != null ? String(S) : ""),
+            "non_oc_qe_enabled:" + (R != null ? String(R) : ""),
+            "leads_qe_enabled:" + (L != null ? String(L) : ""),
+          ].join(","),
         };
       });
     }
-    function T(e, t) {
-      var n, a, i;
-      if (
-        t !== r("AdsAPIObjectives").OUTCOME_TRAFFIC &&
-        t !== r("AdsAPIObjectives").LINK_CLICKS
-      )
-        return { igShare: null, igShareThreshold: u, isIGHeavy: !1 };
-      var l = o("AdsPageUtils").getPageID(e),
-        s = l != null ? r("AdsPageStore").getLoadObject(l).getValue() : null,
-        c =
-          (n = s == null ? void 0 : s.external_legal_budget_l28) != null
+    function D(e) {
+      var t = null;
+      return (
+        h(e) ? (t = r("qex")._("772")) : y(e) && (t = r("qex")._("1740")),
+        t != null ? t : s
+      );
+    }
+    function x(e) {
+      return h(e)
+        ? r("qex")._("799") === !0
+        : y(e)
+          ? r("qex")._("1741") === !0
+          : !1;
+    }
+    function $(e) {
+      h(e) ? r("qex")._("1532") : y(e) && r("qex")._("1827");
+    }
+    function P(e, t) {
+      var n, a;
+      if (!C(t)) return { igShare: null, igShareThreshold: s, isIGHeavy: !1 };
+      var i = o("AdsPageUtils").getPageID(e),
+        l = i != null ? r("AdsPageStore").getLoadObject(i).getValue() : null,
+        u =
+          (n = l == null ? void 0 : l.external_legal_budget_l28) != null
             ? n
             : 0,
-        d =
-          (a = s == null ? void 0 : s.instagram_external_legal_budget_l28) !=
+        c =
+          (a = l == null ? void 0 : l.instagram_external_legal_budget_l28) !=
           null
             ? a
             : 0,
-        m = (i = r("qex")._("772")) != null ? i : u,
-        p = c > 0 ? d / c : null,
-        _ = p != null && p > m;
-      return { igShare: p, igShareThreshold: m, isIGHeavy: _ };
+        d = D(t),
+        m = u > 0 ? c / u : null,
+        p = m != null && m > d;
+      return { igShare: m, igShareThreshold: d, isIGHeavy: p };
     }
-    function D(e, t) {
-      return (
-        t === void 0 && (t = !0),
-        e.isIGHeavy
-          ? t
-            ? r("qex")._("799") === !0
-            : r("qex")._("1532") === !0
-          : !1
-      );
+    function N(e, t) {
+      return t.isIGHeavy && x(e);
     }
-    function x(e, t, n, a, i) {
-      var l, u, c;
-      a === void 0 && (a = !0);
+    function M(t, n, a, i, l) {
+      var s, u, c;
+      i === void 0 && (i = !0);
       var d = r("gkx")("7672") === !0,
         m = r("gkx")("7198") === !0,
-        p = o("AdsPageUtils").getPageID(e),
+        p = o("AdsPageUtils").getPageID(t),
         _ = p != null ? r("AdsPageStore").getLoadObject(p).getValue() : null,
-        f = o("AdsAPIAdgroupRecordUtils").isWebToIGDAd(e),
+        f = o("AdsAPIAdgroupRecordUtils").isWebToIGDAd(t),
         g =
           (_ == null ? void 0 : _.ad_account_primary_objective) ===
           r("AdsAPIObjectives").OUTCOME_SALES,
-        h = T(e, t),
-        y = h.isIGHeavy ? r("qex")._("799") === !0 : null,
-        C =
-          (_ == null || (l = _.connected_instagram_account) == null
+        C = P(t, n),
+        k = N(n, C),
+        I = h(n) && C.isIGHeavy ? k : null,
+        D = y(n) && C.isIGHeavy ? k : null,
+        x =
+          (_ == null || (s = _.connected_instagram_account) == null
             ? void 0
-            : l.user_igid) != null,
-        E = (_ == null ? void 0 : _.is_instagram_account_backed_page) === !0,
-        k = m ? null : r("qex")._("4596") === !0,
-        x = R(n) ? r("qex")._("4806") === !0 : null,
-        $ =
-          i == null || (u = i.targeting) == null
+            : s.user_igid) != null,
+        M = (_ == null ? void 0 : _.is_instagram_account_backed_page) === !0,
+        w = m ? null : r("qex")._("4596") === !0,
+        A = L(a) ? r("qex")._("4806") === !0 : null,
+        F =
+          l == null || (u = l.targeting) == null
             ? void 0
             : u.publisher_platforms,
-        P = $ == null ? !0 : $.includes("facebook"),
-        N = $ == null ? !0 : $.includes("instagram"),
-        M = N && !P;
+        O = F == null ? !0 : F.includes("facebook"),
+        B = F == null ? !0 : F.includes("instagram"),
+        W = B && !O;
       if (d)
         return (
-          I(
-            e,
+          T(
+            t,
             p,
             _ == null ? void 0 : _.connected_ig_sends_l28,
             f,
-            t,
             n,
+            a,
             m,
             d,
             g,
             _ == null ? void 0 : _.instagram_external_legal_budget_l28,
             _ == null ? void 0 : _.external_legal_budget_l28,
             !0,
-            h.igShare,
-            h.igShareThreshold,
-            h.isIGHeavy,
-            y,
-            C,
-            E,
-            P,
-            N,
-            M,
-            k,
+            C.igShare,
+            C.igShareThreshold,
+            C.isIGHeavy,
+            I,
             x,
+            M,
+            O,
+            B,
+            W,
+            w,
+            A,
+            D,
           ),
           !0
         );
-      var w =
+      var q =
           (c = _ == null ? void 0 : _.connected_ig_sends_l28) != null ? c : 0,
-        A = !1;
-      w >= 1 && (A = r("qex")._("2385") === !0);
-      var F = A ? 1 : s,
-        O = w >= F,
-        B = v(t),
-        W = b(t, n),
-        q = W || L(n),
-        U = B && q && O,
-        V = m || S(),
-        H = V && U && (g || D(h, a)),
-        G = g || (h.isIGHeavy && y === !0);
+        U = !1;
+      q >= 1 && (U = r("qex")._("2385") === !0);
+      var V = U ? 1 : e,
+        H = q >= V,
+        G = S(n),
+        z = v(n, a),
+        j = z || E(a),
+        K = G && j && H,
+        Q = m || R(),
+        X = Q && K,
+        Y = g && b(n),
+        J = Y || k,
+        Z = C.isIGHeavy && !Y,
+        ee = X && J;
       return (
-        !a && !m && U && G && S(!1),
-        !a && !W && B && O && V && G && L(n, !1),
-        I(
-          e,
+        !i && X && Z && $(n),
+        !i && !m && K && J && R(!1),
+        !i && !z && G && H && Q && J && E(a, !1),
+        T(
+          t,
           p,
           _ == null ? void 0 : _.connected_ig_sends_l28,
           f,
-          t,
           n,
+          a,
           m,
           d,
           g,
           _ == null ? void 0 : _.instagram_external_legal_budget_l28,
           _ == null ? void 0 : _.external_legal_budget_l28,
-          H,
-          h.igShare,
-          h.igShareThreshold,
-          h.isIGHeavy,
-          y,
-          C,
-          E,
-          P,
-          N,
-          M,
-          k,
+          ee,
+          C.igShare,
+          C.igShareThreshold,
+          C.isIGHeavy,
+          I,
           x,
+          M,
+          O,
+          B,
+          W,
+          w,
+          A,
+          D,
         ),
-        H
+        ee
       );
     }
-    function $(e) {
+    function w(e) {
       var t,
         n = (t = r("gkx")("25277")) != null ? t : !1;
-      return (P(n, e), n);
+      return (A(n, e), n);
     }
-    function P(e, t) {
+    function A(e, t) {
       if (t != null) {
         var n = r("gkx")("11835");
         n === !1 &&
@@ -425,7 +373,7 @@ __d(
           });
       }
     }
-    function N(e, t, n, r) {
+    function F(e, t, n, r) {
       r === void 0 && (r = !0);
       var a = e.objective,
         i = o(
@@ -436,28 +384,33 @@ __d(
           e.objective,
           l,
           t.optimization_goal,
-        );
-      return !x(n, a, t.optimization_goal, r, t) || (i && !k(i, a, s, l))
-        ? !1
-        : E(a, r);
+        ),
+        u = !i || I(i, a, s, l);
+      if (y(a)) {
+        var c =
+          u &&
+          k(a) &&
+          s != null &&
+          o("AdsWebsiteExtensionTypeUtils").isWebsiteExtensionsRadioListEnabled(
+            a,
+            s,
+            t,
+          );
+        if (!c) return !1;
+      }
+      return !M(n, a, t.optimization_goal, r, t) || !u ? !1 : k(a, r);
     }
-    function M() {
+    function O() {
       return r("gkx")("11067") === !0;
     }
-    function w(e) {
-      return (
-        e === void 0 && (e = !1),
-        e ? r("gkx")("24201") === !0 : r("gkx")("24203") === !0
-      );
-    }
-    function A(e, t) {
+    function B(e, t) {
       if (e) {
         var n = r("gkx")("14102") === !0;
-        return (O(n, t), n);
+        return (q(n, t), n);
       }
       return r("gkx")("14152") === !0;
     }
-    function F(e, t) {
+    function W(e, t) {
       if (t != null) {
         var n = r("gkx")("15748");
         n === !0 &&
@@ -472,7 +425,7 @@ __d(
           });
       }
     }
-    function O(e, t) {
+    function q(e, t) {
       if (t != null) {
         var n = r("gkx")("15748");
         n === !0 &&
@@ -487,50 +440,44 @@ __d(
           });
       }
     }
-    function B(e, t) {
+    function U(e, t) {
       if (e) {
         var n = r("gkx")("14102") === !0;
-        return (F(n, t), n);
+        return (W(n, t), n);
       }
       return r("gkx")("14152") === !0;
     }
-    function W(e) {
+    function V(e) {
       return e ? r("qex")._("3598") === !0 : r("qex")._("3599") === !0;
     }
-    function q(e) {
+    function H(e) {
       return e ? r("qex")._("3600") === !0 : r("qex")._("3601") === !0;
     }
-    function U(e) {
-      return (
-        e === void 0 && (e = !0),
-        e ? r("gkx")("1565") : r("gkx")("2809")
-      );
-    }
-    function V(e) {
+    function G(e) {
       return e ? r("qex")._("4765") === !0 : r("qex")._("4766") === !0;
     }
-    function H(e, t, n) {
-      var r = z(!1);
-      return G(e, t, n) && r;
+    function z(e, t, n) {
+      var r = K(!1);
+      return j(e, t, n) && r;
     }
-    function G(e, t, n) {
+    function j(e, t, n) {
       return (
         t === r("AdsAPIObjectives").CONVERSIONS &&
         e === r("AdsAPIObjectives").OUTCOME_SALES &&
         n === r("AdsPromotedObjectTypes").PIXEL
       );
     }
-    function z(e, t) {
+    function K(e, t) {
       var n = !0,
         o = r("gkx")("3887") === !0;
       return (
         e
-          ? o && ((n = r("gkx")("3929") === !0), j(n, t))
+          ? o && ((n = r("gkx")("3929") === !0), Q(n, t))
           : o && (n = r("gkx")("3970") === !0),
         n
       );
     }
-    function j(e, t) {
+    function Q(e, t) {
       if (t != null) {
         var n = r("gkx")("11865") === !0;
         n === !0 &&
@@ -546,24 +493,7 @@ __d(
           });
       }
     }
-    function K(e, t, n, o, a) {
-      var i,
-        l = "",
-        s = "";
-      (e != null && (l = e == null ? void 0 : e.toLowerCase()),
-        t != null && (s = t == null ? void 0 : t.toLowerCase()),
-        r("AdsInterfacesLogger").log({
-          eventName: o,
-          data:
-            ((i = {}),
-            (i.ad_account_id = a),
-            (i.new_value = l),
-            (i.old_value = s),
-            (i.page_id = n != null ? n : ""),
-            i),
-        }));
-    }
-    function Q(e, t) {
+    function X(e, t) {
       return (
         (e === r("AdsAPIObjectives").OUTCOME_SALES ||
           e === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT ||
@@ -573,22 +503,20 @@ __d(
           t === r("AdsPromotedObjectTypes").WEBSITE)
       );
     }
-    function X(e, t, n, a) {
+    function Y(e, t, n, a) {
       if (
         !e ||
-        o("AdsUEditorMessagingDestinationUtils").isClickToMessageAdDestination(
-          t,
-        )
+        o("ClickToMessageAdDestinationUtils").isClickToMessageAdDestination(t)
       )
         return !1;
       if (o("ShopsAdsOffsiteCheckoutAdsUtils").isWebsiteDestinationType(t)) {
         if (o("AdsBrandAwarenessUtils").isBrandObjective(n)) return !1;
         var i = r("gkx")("14102");
-        return (Y(i, a), i);
+        return (J(i, a), i);
       }
       return !1;
     }
-    function Y(e, t) {
+    function J(e, t) {
       if (t != null) {
         var n = r("gkx")("15748");
         n === !0 &&
@@ -603,14 +531,14 @@ __d(
           });
       }
     }
-    function J(e, t, n) {
+    function Z(e, t, n) {
       return o(
         "AdsWebToWhatsAppBudgetRecommendationUtils",
       ).isEligibleCampaignForWTWAZO(e, t) === !1
         ? !1
-        : Z(n);
+        : ee(n);
     }
-    function Z(e) {
+    function ee(e) {
       if (!e) return r("gkx")("22328") === !0;
       var t = r("gkx")("11835"),
         n = r("gkx")("22329");
@@ -628,14 +556,6 @@ __d(
           }),
         n
       );
-    }
-    function ee(e, t, n, r) {
-      return e == null ||
-        o(
-          "AdsWebToWhatsAppBudgetRecommendationUtils",
-        ).isEligibleCampaignForWTWAZO(t, n) === !1
-        ? !1
-        : te(r, "WebToXFeatureGating");
     }
     function te(e, t) {
       return (
@@ -677,31 +597,21 @@ __d(
     function re(e) {
       return e ? r("qex")._("3894") === !0 : r("qex")._("3924") === !0;
     }
-    function oe() {
-      return r("qex")._("4225") === !0;
+    function oe(e) {
+      if (r("gkx")("20279")) {
+        var t = r("gkx")("25278");
+        return (ie(t, e), t);
+      }
+      return !1;
     }
     function ae(e) {
-      var t = [
-        r("AdCampaignDestination").FACEBOOK_PAGE,
-        r("AdCampaignDestination").ON_PAGE,
-      ];
-      return e != null && t.includes(e) && oe();
-    }
-    function ie(e) {
       if (r("gkx")("20279")) {
         var t = r("gkx")("25278");
-        return (se(t, e), t);
+        return (ie(t, e), t);
       }
       return !1;
     }
-    function le(e) {
-      if (r("gkx")("20279")) {
-        var t = r("gkx")("25278");
-        return (se(t, e), t);
-      }
-      return !1;
-    }
-    function se(e, t) {
+    function ie(e, t) {
       if (t != null) {
         var n = r("gkx")("11835");
         n === !1 &&
@@ -716,10 +626,10 @@ __d(
           });
       }
     }
-    function ue(e) {
+    function le(e) {
       e != null;
     }
-    function ce(e, t) {
+    function se(e, t) {
       if (t != null) {
         var n = r("gkx")("11835");
         n === !1 &&
@@ -734,33 +644,33 @@ __d(
           });
       }
     }
-    function de(e) {
+    function ue(e) {
       if (!e) return r("gkx")("12056") === !0;
       var t = r("gkx")("12083");
       return t;
     }
-    function me(e) {
+    function ce(e) {
       return e ? r("gkx")("1426") === !0 : r("gkx")("995") === !0;
     }
-    function pe(e) {
+    function de(e) {
       return (
         e === void 0 && (e = !1),
         e ? r("gkx")("2088") === !0 : r("gkx")("2550") === !0
       );
     }
-    function _e(e) {
+    function me(e) {
       return (
         e === void 0 && (e = !1),
         e ? r("gkx")("8065") === !0 : r("gkx")("8626") === !0
       );
     }
-    function fe() {
+    function pe() {
       return r("qex")._("2521") === !0;
     }
-    function ge() {
+    function _e() {
       return r("qex")._("3396") === !0;
     }
-    function he(e, t) {
+    function fe(e, t) {
       if (t != null) {
         var n = r("gkx")("11835");
         n === !1 &&
@@ -775,56 +685,32 @@ __d(
           });
       }
     }
-    function ye(e) {
+    function ge(e) {
       var t = r("gkx")("11835");
-      if (t === !0) return fe();
+      if (t === !0) return pe();
       var n = r("gkx")("25279");
-      return (he(n === !0, e), n === !0);
+      return (fe(n === !0, e), n === !0);
     }
-    function Ce(e, t) {
-      var n = r("gkx")("469");
-      if (n === !0) return !0;
-      var o = r("gkx")("11835");
-      return o === !0 ? be(e) : ve(e, t);
+    function he(e) {
+      return r("gkx")("7672")
+        ? !0
+        : e
+          ? r("qex")._("3482") === !0
+          : r("qex")._("3520") === !0;
     }
-    function be(e) {
-      return r("gkx")("10544") === !0
-        ? e
-          ? r("gkx")("11695") === !0
-          : r("gkx")("14626") === !0
-        : !0;
-    }
-    function ve(e, t) {
-      if (r("gkx")("10544") === !0) {
-        var n = e ? r("gkx")("9194") === !0 : r("gkx")("10714") === !0;
-        return (e && Se(n, t), n);
-      }
-      return !0;
-    }
-    function Se(e, t) {
-      var n = r("gkx")("12254");
-      t != null &&
-        !n &&
-        r("CtxAdvertiserQeHbtExposureFalcoEvent").log(function () {
-          return {
-            condition: e ? "test" : "control",
-            feature_name: "wtwa_chat_builder",
-            hbt_name: "h126_wave4_ptwa_hbt_h2_rerun",
-            unit_id: t,
-            unit_type: "ad_account_id",
-          };
-        });
-    }
-    function Re(e) {
+    function ye(e) {
       return e ? r("gkx")("9211") === !0 : r("gkx")("9286") === !0;
     }
-    function Le(e) {
+    function Ce(e) {
       return e ? r("qex")._("3823") === !0 : r("qex")._("3836") === !0;
     }
-    function Ee(e) {
+    function be(e) {
+      return e ? r("qex")._("4803") === !0 : r("qex")._("5104") === !0;
+    }
+    function ve(e) {
       return e ? r("qex")._("3961") === !0 : r("qex")._("3486") === !0;
     }
-    function ke(e, t) {
+    function Se(e, t) {
       return o("CTXChatBuilderFeatureGating").enableMessageTemplateForWTD(
         o("AdsWebsiteExtensionTypeUtils").getSelectedMessageExtensiontype(e),
         null,
@@ -832,7 +718,7 @@ __d(
         t,
       );
     }
-    function Ie(e, t) {
+    function Re(e, t) {
       var n = t == null ? void 0 : t.whatsapp_numbers_info;
       if (e != null && n != null && n.length > 0) {
         var r = n.find(function (t) {
@@ -851,84 +737,74 @@ __d(
             (t == null ? void 0 : t.whatsapp_smb_device) === "SMBI"))
       );
     }
-    function Te() {
+    function Le() {
       return r("qex")._("4013") != null;
     }
-    function De() {
-      return r("qex")._("2986") === !0;
-    }
-    function xe() {
+    function Ee() {
       return r("gkx")("20056");
     }
-    function $e() {
+    function ke() {
       return r("gkx")("4033");
     }
-    function Pe() {
-      return !1;
+    function Ie() {
+      return r("gkx")("27926");
     }
-    ((l.isWTMEligibleObjective = c),
-      (l.checkWebToMessengerQE = d),
-      (l.shouldEnableWebToMFlexibleFormat = m),
-      (l.shouldEnableWTMCatalogAds = _),
-      (l.isWebToMessengerEligibleForCatalogAds = f),
-      (l.isWebToXEligibleForCatalogAds = g),
-      (l.shouldShowWTXForL3CatalogAds = h),
-      (l.enableWebToM = y),
-      (l.checkWebToIGQE = E),
-      (l.shouldEnableWebToDFlexibleFormat = k),
-      (l.checkPassesWebToIGDTargetingCriteria = x),
-      (l.checkWtwaUpsellInDuplication = $),
-      (l.enableWebToIGD = N),
-      (l.isWebToWAActiveAdvertiser = M),
-      (l.isAudienceExpansionEnabled = w),
-      (l.shouldEnableSuggestedPostForOC = A),
-      (l.suggestedPostExposureLoggingForPE = F),
-      (l.suggestedPostExposureLoggingForOC = O),
-      (l.shouldEnableSuggestedPostForPostEngagement = B),
-      (l.shouldEnableSuggestedPostForThruPlay = W),
-      (l.shouldEnableSuggestedPostForAwareness = q),
-      (l.checkWebToWAMultinumberQE = U),
-      (l.shouldEnableWebToWhatsAppFirstMessageTemplate = V),
-      (l.shouldEnableFlexibleFormatForWebsiteExtensions = H),
-      (l.shouldEnableWTXFlexibleFormat = G),
-      (l.shouldEnableWebToWhatsAppFlexibleFormat = z),
-      (l.exposeWTWAFlexibleFormatToExposureTable = j),
-      (l.unifiedDefaultingDefaultingShadowLogging = K),
-      (l.isEligibleForWTXDefaultingAnyObjective = Q),
-      (l.enableMultiPhotoWebCTAExpansion = X),
-      (l.multiPhotoPostEnablementExposureLogging = Y),
-      (l.enableWTWAZOBudgetDefaultInCBOFlow = J),
-      (l.enableWTWAZOBudgetDefaultInCBOFlowQE = Z),
-      (l.enableWTWAZOBudgetDefaultInNonCBOFlow = ee),
+    ((l.isWTMEligibleObjective = u),
+      (l.checkWebToMessengerQE = c),
+      (l.shouldEnableWebToMFlexibleFormat = d),
+      (l.isWebToMessengerEligibleForCatalogAds = m),
+      (l.isWebToXEligibleForCatalogAds = p),
+      (l.shouldShowWTXForL3CatalogAds = _),
+      (l.enableWebToM = f),
+      (l.isWTDLeadsObjective = y),
+      (l.checkWebToIGQE = k),
+      (l.shouldEnableWebToDFlexibleFormat = I),
+      (l.checkPassesWebToIGDTargetingCriteria = M),
+      (l.checkWtwaUpsellInDuplication = w),
+      (l.enableWebToIGD = F),
+      (l.isWebToWAActiveAdvertiser = O),
+      (l.shouldEnableSuggestedPostForOC = B),
+      (l.suggestedPostExposureLoggingForPE = W),
+      (l.suggestedPostExposureLoggingForOC = q),
+      (l.shouldEnableSuggestedPostForPostEngagement = U),
+      (l.shouldEnableSuggestedPostForThruPlay = V),
+      (l.shouldEnableSuggestedPostForAwareness = H),
+      (l.shouldEnableWebToWhatsAppFirstMessageTemplate = G),
+      (l.shouldEnableFlexibleFormatForWebsiteExtensions = z),
+      (l.shouldEnableWebToWhatsAppFlexibleFormat = K),
+      (l.exposeWTWAFlexibleFormatToExposureTable = Q),
+      (l.isEligibleForWTXDefaultingAnyObjective = X),
+      (l.enableMultiPhotoWebCTAExpansion = Y),
+      (l.multiPhotoPostEnablementExposureLogging = J),
+      (l.enableWTWAZOBudgetDefaultInCBOFlow = Z),
+      (l.enableWTWAZOBudgetDefaultInCBOFlowQE = ee),
       (l.enableWTWAZOBudgetDefaultInNonCBOFlowQE = te),
       (l.enableWTWAPostPublishZORecommendation = ne),
       (l.shouldEnableWTXBudgetCreativeCombinedWarning = re),
-      (l.enableProfileToMessenger = oe),
-      (l.isEligibleForProfileToMessenger = ae),
-      (l.isInAdsManagerCTAWEblinkPrefillQETest1or2 = ie),
-      (l.isInAdsManagerCTAWEblinkPrefillQETest2 = le),
-      (l.existingPostPrefillExposureLogging = se),
-      (l.trafficPrefillExposureLogging = ue),
-      (l.salesPrefillExposureLogging = ce),
-      (l.enableWTWASABRBudgeInNonCBOFlowQE = de),
-      (l.enableWTWASABRBudgeInCBOFlowQE = me),
-      (l.isInWtwaSabrNewModelExperiment = pe),
-      (l.isInWtwaSabrNewModelCbo = _e),
-      (l.isInAdsManagerIGPostCTAWeblinkDefaultingQE = fe),
-      (l.isInAdsManagerIGPostCTAWeblinkDefaultingFrequentQE = ge),
-      (l.igExistingPostPrefillExposureLogging = he),
-      (l.isInAdsManagerIGExistingPostWeblinkPrefillEnabled = ye),
-      (l.enableWTWAMessageTemplateQE = Ce),
-      (l.enableWTXNonSalesMessageTemplate = Re),
-      (l.enableWTDFollowUp = Le),
-      (l.enableWTDChatBuilderDefaultExpanded = Ee),
-      (l.isMessagingTemplateEnabledForWTD = ke),
-      (l.isPersonalOrSMBWANumber = Ie),
-      (l.isInWTMPFRExperiment = Te),
-      (l.enableWTMDefaultingExpansion = De),
-      (l.isAdAccountOptedOutOfWTMDefaulting = xe),
-      (l.isAdAccountExcludedFromWTXDefaulting = $e),
-      (l.isWTXGenAIChatBuilderEnabled = Pe));
+      (l.isInAdsManagerCTAWEblinkPrefillQETest1or2 = oe),
+      (l.isInAdsManagerCTAWEblinkPrefillQETest2 = ae),
+      (l.existingPostPrefillExposureLogging = ie),
+      (l.trafficPrefillExposureLogging = le),
+      (l.salesPrefillExposureLogging = se),
+      (l.enableWTWASABRBudgeInNonCBOFlowQE = ue),
+      (l.enableWTWASABRBudgeInCBOFlowQE = ce),
+      (l.isInWtwaSabrNewModelExperiment = de),
+      (l.isInWtwaSabrNewModelCbo = me),
+      (l.isInAdsManagerIGPostCTAWeblinkDefaultingQE = pe),
+      (l.isInAdsManagerIGPostCTAWeblinkDefaultingFrequentQE = _e),
+      (l.igExistingPostPrefillExposureLogging = fe),
+      (l.isInAdsManagerIGExistingPostWeblinkPrefillEnabled = ge),
+      (l.enablePTWAMessageTemplateQE = he),
+      (l.enableWTXNonSalesMessageTemplate = ye),
+      (l.enableWTDFollowUp = Ce),
+      (l.enableWTMFollowUp = be),
+      (l.enableWTDChatBuilderDefaultExpanded = ve),
+      (l.isMessagingTemplateEnabledForWTD = Se),
+      (l.isPersonalOrSMBWANumber = Re),
+      (l.isInWTMPFRExperiment = Le),
+      (l.isAdAccountOptedOutOfWTMDefaulting = Ee),
+      (l.isAdAccountExcludedFromWTXDefaulting = ke),
+      (l.isAdAccountInWTXDefaultingBacktest = Ie));
   },
   98,
 );

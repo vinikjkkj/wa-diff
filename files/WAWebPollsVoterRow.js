@@ -25,7 +25,6 @@ __d(
     "WAWebPollsPollVoteModel",
     "WAWebTextSizeUtils",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebContactFormattedUsernameOrPhoneByChat",
     "useWAWebContactValues",
@@ -40,90 +39,40 @@ __d(
       d = { marginInlineStart9: { marginInlineStart: "x1y3qizg", $$css: !0 } },
       m = 0;
     function p(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = e.vote,
-        r = n.time * 1e3,
-        a;
-      t[0] !== r
-        ? ((a = c.jsx(y, { timestamp: r })), (t[0] = r), (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l;
-      t[2] !== i || t[3] !== n
-        ? ((l = c.jsx(_, { vote: n, fallbackNode: i })),
-          (t[2] = i),
-          (t[3] = n),
-          (t[4] = l))
-        : (l = t[4]);
-      var s = l,
-        u = n.contact != null ? i : null,
-        d;
-      return (
-        t[5] !== s || t[6] !== u || t[7] !== n.id
-          ? ((d = c.jsx(C, {
-              primary: s,
-              primaryDetail: null,
-              id: n.id,
-              secondary: u,
-            })),
-            (t[5] = s),
-            (t[6] = u),
-            (t[7] = n.id),
-            (t[8] = d))
-          : (d = t[8]),
-        d
-      );
+      var t = e.vote,
+        n = c.jsx(y, { timestamp: t.time * 1e3 }),
+        r = c.jsx(_, { vote: t, fallbackNode: n });
+      return c.jsx(C, {
+        primary: r,
+        primaryDetail: null,
+        id: t.id,
+        secondary: t.contact != null ? n : null,
+      });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.fallbackNode,
-        r = e.vote,
-        a = r.contact;
-      if (a == null) return n;
-      var i;
-      return (
-        t[0] !== a || t[1] !== n
-          ? ((i = c.jsx(f, { contact: a, fallbackNode: n })),
-            (t[0] = a),
-            (t[1] = n),
-            (t[2] = i))
-          : (i = t[2]),
-        i
-      );
+      var t = e.fallbackNode,
+        n = e.vote,
+        r = n.contact;
+      return r == null ? t : c.jsx(f, { contact: r, fallbackNode: t });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.contact,
-        r = e.fallbackNode,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [
-            o("WAWebFrontendContactGetters").getFormattedName,
-            o("WAWebFrontendContactGetters").getIsMyContact,
-            o("WAWebContactGetters").getIsMe,
-          ]),
-          (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebContactValues").useContactValues(n.id, a),
-        l = i[0],
-        s = i[1],
-        u = i[2],
-        d;
-      return (
-        t[1] !== r || t[2] !== l || t[3] !== u || t[4] !== s
-          ? ((d =
-              s || u
-                ? c.jsx(h, { formattedUserName: l, accessibleUserName: null })
-                : r),
-            (t[1] = r),
-            (t[2] = l),
-            (t[3] = u),
-            (t[4] = s),
-            (t[5] = d))
-          : (d = t[5]),
-        d
-      );
+      var t = e.contact,
+        n = e.fallbackNode,
+        r = o("useWAWebContactValues").useContactValues(t.id, [
+          o("WAWebFrontendContactGetters").getFormattedName,
+          o("WAWebFrontendContactGetters").getIsMyContact,
+          o("WAWebContactGetters").getIsMe,
+        ]),
+        a = r[0],
+        i = r[1],
+        l = r[2];
+      return i || l
+        ? c.jsx(h, { formattedUserName: a, accessibleUserName: null })
+        : n;
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g(t) {
       var n,
         a = t.onOpenContactInfo,
@@ -271,116 +220,57 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.accessibleUserName,
-        r = e.formattedUserName,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = o("WAWebTextSizeUtils").getWAWebTextSizeStyles()), (t[0] = a))
-        : (a = t[0]);
-      var i = a,
-        l = i.pollDetailsOptionTextSize,
-        s;
-      return (
-        t[1] !== n || t[2] !== r
-          ? ((s = c.jsx(o("WAWebEmojiText.react").EmojiText, {
-              direction: "auto",
-              text: r,
-              ariaLabel: n,
-              titlify: !0,
-              ellipsify: !0,
-              xstyle: l,
-            })),
-            (t[1] = n),
-            (t[2] = r),
-            (t[3] = s))
-          : (s = t[3]),
-        s
-      );
+      var t = e.accessibleUserName,
+        n = e.formattedUserName,
+        r = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
+        a = r.pollDetailsOptionTextSize;
+      return c.jsx(o("WAWebEmojiText.react").EmojiText, {
+        direction: "auto",
+        text: n,
+        ariaLabel: t,
+        titlify: !0,
+        ellipsify: !0,
+        xstyle: a,
+      });
     }
+    h.displayName = h.name + " [from " + i.id + "]";
     function y(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.timestamp,
-        a,
-        i,
-        l;
-      if (t[0] !== n) {
-        var u = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
-          d = u.pollDetailsOptionTextSize;
-        ((a = o("WAWebClock").Clock.relativeDateAndTimeStr(n / 1e3)),
-          (i = a),
-          (l = (s || (s = r("stylex"))).props(d)),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = i),
-          (t[3] = l));
-      } else ((a = t[1]), (i = t[2]), (l = t[3]));
-      var m;
-      return (
-        t[4] !== a || t[5] !== i || t[6] !== l
-          ? ((m = c.jsx(
-              "span",
-              babelHelpers.extends({ title: i }, l, { children: a }),
-            )),
-            (t[4] = a),
-            (t[5] = i),
-            (t[6] = l),
-            (t[7] = m))
-          : (m = t[7]),
-        m
+      var t = e.timestamp,
+        n = o("WAWebTextSizeUtils").getWAWebTextSizeStyles(),
+        a = n.pollDetailsOptionTextSize,
+        i = o("WAWebClock").Clock.relativeDateAndTimeStr(t / 1e3);
+      return c.jsx(
+        "span",
+        babelHelpers.extends({ title: i }, (s || (s = r("stylex"))).props(a), {
+          children: i,
+        }),
       );
     }
+    y.displayName = y.name + " [from " + i.id + "]";
     function C(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.id,
-        a = e.onClick,
-        i = e.primary,
-        l = e.primaryDetail,
-        s = e.secondary,
-        u = a != null,
-        m = !u,
-        p;
-      t[0] !== n
-        ? ((p = c.jsx(o("WAWebDetailImage.react").DetailImage, {
-            xstyle: d.marginInlineStart9,
-            id: n,
-            size: o("WAWebDetailImage.react").DetailImageSize.ExtraSmall,
-          })),
-          (t[0] = n),
-          (t[1] = p))
-        : (p = t[1]);
-      var _;
-      return (
-        t[2] !== u ||
-        t[3] !== a ||
-        t[4] !== i ||
-        t[5] !== l ||
-        t[6] !== s ||
-        t[7] !== m ||
-        t[8] !== p
-          ? ((_ = c.jsx(r("WAWebChatCell.react"), {
-              contextEnabled: o("WAWebBoolFunc").returnFalse,
-              handleKeyboardClick: u,
-              idle: m,
-              image: p,
-              onClick: a,
-              primary: i,
-              primaryDetail: l,
-              secondary: s,
-              theme: "chat-info",
-            })),
-            (t[2] = u),
-            (t[3] = a),
-            (t[4] = i),
-            (t[5] = l),
-            (t[6] = s),
-            (t[7] = m),
-            (t[8] = p),
-            (t[9] = _))
-          : (_ = t[9]),
-        _
-      );
+      var t = e.id,
+        n = e.onClick,
+        a = e.primary,
+        i = e.primaryDetail,
+        l = e.secondary,
+        s = n != null;
+      return c.jsx(r("WAWebChatCell.react"), {
+        contextEnabled: o("WAWebBoolFunc").returnFalse,
+        handleKeyboardClick: s,
+        idle: !s,
+        image: c.jsx(o("WAWebDetailImage.react").DetailImage, {
+          xstyle: d.marginInlineStart9,
+          id: t,
+          size: o("WAWebDetailImage.react").DetailImageSize.ExtraSmall,
+        }),
+        onClick: n,
+        primary: a,
+        primaryDetail: i,
+        secondary: l,
+        theme: "chat-info",
+      });
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     function b(e, t, n, r) {
       return r == null
         ? o("WAWebOpenGroupAgentProfile.react").openGroupAgentProfile(
@@ -397,30 +287,18 @@ __d(
           );
     }
     function v(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.onOpenContactInfo,
-        r = e.onOpenGroupAgentProfile,
-        a = e.vote,
-        i;
-      return (
-        t[0] !== n || t[1] !== r || t[2] !== a
-          ? ((i =
-              a instanceof o("WAWebPollsPollVoteModel").PollVote
-                ? c.jsx(g, {
-                    vote: a,
-                    onOpenContactInfo: n,
-                    onOpenGroupAgentProfile: r,
-                  })
-                : c.jsx(p, { vote: a })),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a),
-            (t[3] = i))
-          : (i = t[3]),
-        i
-      );
+      var t = e.onOpenContactInfo,
+        n = e.onOpenGroupAgentProfile,
+        r = e.vote;
+      return r instanceof o("WAWebPollsPollVoteModel").PollVote
+        ? c.jsx(g, {
+            vote: r,
+            onOpenContactInfo: t,
+            onOpenGroupAgentProfile: n,
+          })
+        : c.jsx(p, { vote: r });
     }
-    l.default = v;
+    ((v.displayName = v.name + " [from " + i.id + "]"), (l.default = v));
   },
   98,
 );

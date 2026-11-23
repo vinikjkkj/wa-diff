@@ -10,8 +10,8 @@ __d(
     "AdsODAXUtils",
     "AdsPERouterHelper",
     "AdsPromotedObjectTypes",
-    "AdsUEditorMessagingDestinationUtils",
     "CTXDynamicBudgetNonCBOUtils",
+    "ClickToMessageAdDestinationUtils",
     "CtxBudgetGuidanceLongTermHoldoutUtils",
     "gkx",
     "qex",
@@ -66,16 +66,22 @@ __d(
         e === r("AdsAPIOptimizationGoals").MESSAGING_PURCHASE_CONVERSION
       );
     }
-    function f(e, t, n) {
+    function f() {
+      return r("gkx")("8309") ? !0 : r("qex")._("1784") === !0;
+    }
+    function g() {
+      return r("gkx")("8380") ? !0 : r("qex")._("1807") === !0;
+    }
+    function h(e, t, n) {
       if (e) return !1;
       var r = o(
-          "AdsUEditorMessagingDestinationUtils",
+          "ClickToMessageAdDestinationUtils",
         ).isClickToMessageAdDestination(t),
         a = _(n),
         i = o("AdsDFOBudgetGuidanceUtils").isEligibleCampaignForDFOSABRZO(t, n);
       return (a && r) || i;
     }
-    function g(e) {
+    function y(e) {
       if ((e === void 0 && (e = !0), e)) {
         var t,
           n,
@@ -101,7 +107,7 @@ __d(
       }
       return e ? r("qex")._("4884") === !0 : r("qex")._("4885") === !0;
     }
-    function h(e, t, n) {
+    function C(e, t, n) {
       return (
         e === void 0 && (e = !1),
         t === void 0 && (t = "enableCTXAMSABRZOWithWACombinedBudgetGuidanceQE"),
@@ -111,7 +117,7 @@ __d(
         ).isCtxBudgetGuidanceLongTermHoldoutEnabled(e, t, n)
       );
     }
-    function y(e, t, n) {
+    function b(e, t, n) {
       return (
         e === void 0 && (e = !0),
         t === void 0 && (t = "CTXCBOBudgetGuidance"),
@@ -121,17 +127,17 @@ __d(
         ).isCtxBudgetGuidanceLongTermHoldoutEnabled(e, t, n)
       );
     }
-    function C(e, t) {
+    function v(e, t) {
       var n = _(t);
       return e === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT && n;
     }
-    function b(e) {
+    function S(e) {
       return e ? r("qex")._("673") === !0 : r("qex")._("689") === !0;
     }
-    function v(e, t) {
+    function R(e, t) {
       var n;
       (e === void 0 && (e = !1), t === void 0 && (t = "default"));
-      var o = b(!1);
+      var o = S(!1);
       return (
         r("AdsInterfacesLogger").log({
           eventName: "ctx_dynamic_budget_exposure_event",
@@ -142,13 +148,13 @@ __d(
             (n.is_active = e),
             n),
         }),
-        r("gkx")("5754") ? !0 : b(e)
+        r("gkx")("5754") ? !0 : S(e)
       );
     }
-    function S() {
+    function L() {
       return r("gkx")("5754") ? !0 : r("qex")._("1562") === !0;
     }
-    function R(e, t, n, r) {
+    function E(e, t, n, r) {
       return (
         t === void 0 && (t = !1),
         n === void 0 && (n = "default"),
@@ -156,11 +162,14 @@ __d(
         o("AdsDFOBudgetGuidanceUtils").isLeadsOptimizationGoal(r)
           ? !1
           : e
-            ? v(t, n)
+            ? R(t, n)
             : o(
                 "CTXDynamicBudgetNonCBOUtils",
               ).enableCTXDynamicBudgetRecommendationNonCBO(t, n)
       );
+    }
+    function k() {
+      return r("gkx")("27941");
     }
     ((l.enableDisablementCTXZOGeneralCard = e),
       (l.enableSMCTATrafficWebsite = s),
@@ -170,14 +179,17 @@ __d(
       (l.enableL1CTXUnifiedCreation = m),
       (l.shouldDefaultMessengerInSalesForMessageCTAMessagingResponsive = p),
       (l.isCTXOptimizationGoal = _),
-      (l.eligibleCTXAMSABRZOCombinedBudgetGuidance = f),
-      (l.enableCTXAMSABRZOWithWACombinedBudgetGuidanceCreationPackagesQE = g),
-      (l.enableCTXAMSABRZOWithWACombinedBudgetGuidanceQE = h),
-      (l.enableCTXCBOBudgetGuidanceQE = y),
-      (l.eligibleCTXAMCBOBudgetGuidance = C),
-      (l.enableCTXDynamicBudgetRecommendationCBO = v),
-      (l.isInExperimentCTXDynamicBudgetRecommendationCBO = S),
-      (l.isEligibleForCTXDynamicBudgetDefaulting = R));
+      (l.enableCTXOutcomeForecasterQE = f),
+      (l.isInExperimentCTXOutcomeForecasterQE = g),
+      (l.eligibleCTXAMSABRZOCombinedBudgetGuidance = h),
+      (l.enableCTXAMSABRZOWithWACombinedBudgetGuidanceCreationPackagesQE = y),
+      (l.enableCTXAMSABRZOWithWACombinedBudgetGuidanceQE = C),
+      (l.enableCTXCBOBudgetGuidanceQE = b),
+      (l.eligibleCTXAMCBOBudgetGuidance = v),
+      (l.enableCTXDynamicBudgetRecommendationCBO = R),
+      (l.isInExperimentCTXDynamicBudgetRecommendationCBO = L),
+      (l.isEligibleForCTXDynamicBudgetDefaulting = E),
+      (l.enableCTXLifetimeBudgetDurationRelayStartTime = k));
   },
   98,
 );

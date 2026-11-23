@@ -5,7 +5,6 @@ __d(
     "WAWebBizAiSmartComposerLogEvents",
     "getErrorSafe",
     "react",
-    "react-compiler-runtime",
     "useWAWebOnUnmount",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,23 +23,17 @@ __d(
       C = new WeakMap(),
       b = new WeakMap();
     function v(t) {
-      var n = o("react-compiler-runtime").c(4),
-        a = t.children,
-        i;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = new Set()), (n[0] = i))
-        : (i = n[0]);
-      var l = p(i),
-        s;
-      (n[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((s = function () {
-            var t = C.get(l);
-            C.delete(l);
+      var n = t.children,
+        a = p(new Set());
+      return (
+        r("useWAWebOnUnmount")(
+          d(function () {
+            var t = C.get(a);
+            C.delete(a);
             for (var n of t != null ? t : [])
               try {
                 n();
               } catch (t) {
-                var a = t;
                 o("WALogger")
                   .ERROR(
                     e ||
@@ -48,27 +41,19 @@ __d(
                         "[SmartComposer] session-exit handler failed",
                       ])),
                   )
-                  .catching(r("getErrorSafe")(a))
+                  .catching(r("getErrorSafe")(t))
                   .sendLogs(
                     "biz-ai-smart-composer-session-exit-handler-failed",
                   );
               }
-            var i = f.get(l);
-            i != null && (f.delete(l), i.onExit(i.card));
-          }),
-          (n[1] = s))
-        : (s = n[1]),
-        r("useWAWebOnUnmount")(s));
-      var c;
-      return (
-        n[2] !== a
-          ? ((c = u.jsx(g.Provider, { value: l, children: a })),
-            (n[2] = a),
-            (n[3] = c))
-          : (c = n[3]),
-        c
+            var i = f.get(a);
+            i != null && (f.delete(a), i.onExit(i.card));
+          }, []),
+        ),
+        u.jsx(g.Provider, { value: a, children: n })
       );
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S() {
       return m(g);
     }

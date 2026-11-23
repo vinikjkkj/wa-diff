@@ -1,7 +1,6 @@
 __d(
   "WAWebCompanionRegUtils",
   [
-    "Promise",
     "WALogger",
     "WAPromiseDelays",
     "WAShiftTimer",
@@ -25,7 +24,6 @@ __d(
     "WAWebWamDeviceLinkReporter",
     "WAWebWamEnumMdLinkDeviceCompanionStage",
     "WAWebWorkerStorage",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -37,171 +35,136 @@ __d(
       p,
       _,
       f,
-      g,
+      g = !1,
       h = !1,
-      y = !1,
-      C = 1e3,
-      b = 6e4 * 3;
-    function v() {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+      y = 1e3,
+      C = 6e4 * 3;
+    async function b() {
+      o("WALogger")
+        .LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[history sync][initial bootstrap] timeout fired",
+            ])),
+        )
+        .tags("history-sync");
+      try {
+        var t = o("WAWebUserPrefsHistorySync").getHistorySyncStatus();
+        (o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[history-sync] historySyncStatus before logout: ",
+              "",
+            ])),
+          JSON.stringify(t),
+        ),
           o("WALogger")
-            .LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[history sync][initial bootstrap] timeout fired",
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "logout due to initial history sync timeout",
                 ])),
             )
-            .tags("history-sync");
-          try {
-            var e = o("WAWebUserPrefsHistorySync").getHistorySyncStatus();
-            (o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[history-sync] historySyncStatus before logout: ",
-                  "",
-                ])),
-              JSON.stringify(e),
-            ),
-              o("WALogger")
-                .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "logout due to initial history sync timeout",
-                    ])),
-                )
-                .tags("bootstrap", "history-sync", "logout")
-                .sendLogs("companion-reg-history-sync-timeout-logout", {
-                  sampling: 0.1,
-                }),
-              yield o("WAPromiseDelays").delayMs(5e3));
-          } catch (e) {}
-          (o("WAWebCoreActionsODS").isPageLoadComplete() ||
-            (o("WAWebCoreActionsODS").logPageLoadError(),
-            r("WAWebODS").incr("web.page_load.error.history_sync_incomplete")),
-            o("WAWebAppTracker").AppTracker.stop(
-              o("WAWebAppTracker").AppTrackerType.CriticalSync,
-            ),
-            o("WAWebCoreActionsODS").logSessionForcedLogout(),
-            o("WAWebSocketLogoutJob").socketLogout(
-              o("WAWebLogoutReasonConstants").LogoutReason.HistorySyncTimeout,
-            ));
-        })),
-        S.apply(this, arguments)
-      );
+            .tags("bootstrap", "history-sync", "logout")
+            .sendLogs("companion-reg-history-sync-timeout-logout", {
+              sampling: 0.1,
+            }),
+          await o("WAPromiseDelays").delayMs(5e3));
+      } catch (e) {}
+      (o("WAWebCoreActionsODS").isPageLoadComplete() ||
+        (o("WAWebCoreActionsODS").logPageLoadError(),
+        r("WAWebODS").incr("web.page_load.error.history_sync_incomplete")),
+        o("WAWebAppTracker").AppTracker.stop(
+          o("WAWebAppTracker").AppTrackerType.CriticalSync,
+        ),
+        o("WAWebCoreActionsODS").logSessionForcedLogout(),
+        o("WAWebSocketLogoutJob").socketLogout(
+          o("WAWebLogoutReasonConstants").LogoutReason.HistorySyncTimeout,
+        ));
     }
-    function R() {
-      ((h = !1),
-        (y = !1),
+    function v() {
+      ((g = !1),
+        (h = !1),
         o("WAWebLabyrinthLogout").stopLabyrinthCompanionOnboardingIfEnabled());
     }
-    function L() {
-      return E.apply(this, arguments);
+    async function S() {
+      g ||
+        h ||
+        (await o("WAWebWamDeviceLinkReporter").setDeviceLinkPairStage(
+          o("WAWebWamEnumMdLinkDeviceCompanionStage")
+            .MD_LINK_DEVICE_COMPANION_STAGE.FIRST_CONNECT,
+        ),
+        (g = !0),
+        await o("WAWebAdvSignatureApi").clearADVSecretKey(),
+        await o("WAWebUserPrefsGeneral").resetLoginCounter(),
+        o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered());
+    }
+    async function R(e) {
+      if (!(g || h)) {
+        ((h = !0),
+          o("WAWebLabyrinthLogout").stopLabyrinthCompanionOnboardingIfEnabled(),
+          o("WAWebMdSessionIdCache").clearMdSessionId(),
+          await o("WAWebAdvSignatureApi").clearADVSecretKey());
+        var t = await r("WAWebClearCredentials")(),
+          n = t || (await L());
+        o("WAWebReloadAfterLogout").reloadAfterLogout(n, e);
+      }
+    }
+    async function L() {
+      try {
+        await Promise.all([
+          o("WAWebModelStorage").destroy(),
+          o("WAWebQplStorage").destroy(),
+          o("WAWebWorkerStorage").destroy(),
+        ]);
+      } catch (e) {
+        return (
+          e instanceof Error
+            ? o("WALogger")
+                .WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[storage] destroyPreLoginStorage failed",
+                    ])),
+                )
+                .catching(e)
+            : o("WALogger").WARN(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[storage] destroyPreLoginStorage failed",
+                  ])),
+              ),
+          !0
+        );
+      }
+      return !1;
     }
     function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          h ||
-            y ||
-            (yield o("WAWebWamDeviceLinkReporter").setDeviceLinkPairStage(
-              o("WAWebWamEnumMdLinkDeviceCompanionStage")
-                .MD_LINK_DEVICE_COMPANION_STAGE.FIRST_CONNECT,
-            ),
-            (h = !0),
-            yield o("WAWebAdvSignatureApi").clearADVSecretKey(),
-            yield o("WAWebUserPrefsGeneral").resetLoginCounter(),
-            o("WAWebUserPrefsIsLoggedIn").setIsConnectedAsRegistered());
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!(h || y)) {
-            ((y = !0),
-              o(
-                "WAWebLabyrinthLogout",
-              ).stopLabyrinthCompanionOnboardingIfEnabled(),
-              o("WAWebMdSessionIdCache").clearMdSessionId(),
-              yield o("WAWebAdvSignatureApi").clearADVSecretKey());
-            var t = yield r("WAWebClearCredentials")(),
-              n = t || (yield T());
-            o("WAWebReloadAfterLogout").reloadAfterLogout(n, e);
-          }
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T() {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            yield (g || (g = n("Promise"))).all([
-              o("WAWebModelStorage").destroy(),
-              o("WAWebQplStorage").destroy(),
-              o("WAWebWorkerStorage").destroy(),
-            ]);
-          } catch (e) {
-            return (
-              e instanceof Error
-                ? o("WALogger")
-                    .WARN(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
-                          "[storage] destroyPreLoginStorage failed",
-                        ])),
-                    )
-                    .catching(e)
-                : o("WALogger").WARN(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "[storage] destroyPreLoginStorage failed",
-                      ])),
-                  ),
-              !0
-            );
-          }
-          return !1;
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x() {
       new (o("WAShiftTimer").ShiftTimer)(function () {
-        k();
-      }).onOrAfter(C);
+        R();
+      }).onOrAfter(y);
     }
-    var $;
-    function P() {
-      $ == null &&
-        (($ = self.setTimeout(v, b)),
+    var k;
+    function I() {
+      k == null &&
+        ((k = self.setTimeout(b, C)),
         o("WALogger")
           .LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
                 "[history sync][initial bootstrap] timeout armed for ",
                 "ms",
               ])),
-            b,
+            C,
           )
           .tags("history-sync"),
         o("WAWebBackendEventBus").BackendEventBus.onInitialChatHistorySynced(
           function () {
-            (self.clearTimeout($),
+            (self.clearTimeout(k),
               o("WALogger")
                 .LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "[history sync][initial bootstrap] timeout cleared",
                     ])),
                 )
@@ -209,19 +172,19 @@ __d(
           },
         ));
     }
-    function N() {
+    function T() {
       var e = o("WATimeUtils").unixTimeMs();
       (o("WALogger").LOG(
-        u ||
-          (u = babelHelpers.taggedTemplateLiteralLoose([
+        _ ||
+          (_ = babelHelpers.taggedTemplateLiteralLoose([
             "[history sync][reg] begin device pairing latency measurement",
           ])),
       ),
         o("WAWebBackendEventBus").BackendEventBus.onCriticalSyncDone(
           function () {
             o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[history sync][reg] main screen unblocked in ",
                   "ms",
                 ])),
@@ -230,12 +193,12 @@ __d(
           },
         ));
     }
-    ((l.resetCompanionReg = R),
-      (l.startLogin = L),
-      (l.startLogout = k),
-      (l.logoutAfterValidationFail = x),
-      (l.startInitialHistorySyncTimeout = P),
-      (l.initDevicePairingLatencyMeasurement = N));
+    ((l.resetCompanionReg = v),
+      (l.startLogin = S),
+      (l.startLogout = R),
+      (l.logoutAfterValidationFail = E),
+      (l.startInitialHistorySyncTimeout = I),
+      (l.initDevicePairingLatencyMeasurement = T));
   },
   98,
 );

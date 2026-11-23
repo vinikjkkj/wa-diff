@@ -1,7 +1,6 @@
 __d(
   "WAWebGroupHistoryParticipantStateHydration",
   [
-    "Promise",
     "WALogger",
     "WAWebBackendRuntime",
     "WAWebGroupHistoryParticipantJob",
@@ -10,83 +9,73 @@ __d(
     "WAWebGroupMetadataCollection",
     "WAWebGroupStoreService",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = new Set();
+      s = new Set();
+    function u(e) {
+      return d(e);
+    }
     function c(e) {
-      return m(e);
+      return d(e);
     }
     function d(e) {
-      return m(e);
-    }
-    function m(e) {
       var t;
       try {
         t = o("WAWebWidFactory").asGroupWidOrThrow(e);
       } catch (e) {
-        return (s || (s = n("Promise"))).resolve();
+        return Promise.resolve();
       }
-      var a = t.toString();
-      if (u.has(a)) return (s || (s = n("Promise"))).resolve();
-      var i = r("WAWebGroupMetadataCollection").get(t);
-      if (i == null) return (s || (s = n("Promise"))).resolve();
-      u.add(a);
-      var l = i.participants;
+      var n = t.toString();
+      if (s.has(n)) return Promise.resolve();
+      var a = r("WAWebGroupMetadataCollection").get(t);
+      if (a == null) return Promise.resolve();
+      s.add(n);
+      var i = a.participants;
       return (
-        l.on("bulk_add", function () {
-          p(t, l);
+        i.on("bulk_add", function () {
+          m(t, i);
         }),
-        p(t, l)
+        m(t, i)
       );
+    }
+    async function m(t, n) {
+      try {
+        var a = await (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebGroupStoreService").GroupStoreService,
+              ).getGroupHistoryParticipantMetadataForGroup
+            : o("WAWebGroupHistoryParticipantJob")
+                .getGroupHistoryParticipantMetadataForGroup
+        )(t);
+        if (a == null || a.size === 0) return;
+        for (var i of n.getModelsArray()) {
+          var l = o(
+            "WAWebGroupHistoryParticipantJob",
+          ).toGroupHistoryParticipantKey(i.id);
+          if (l != null) {
+            var s = a.get(l);
+            s != null && p(i, s);
+          }
+        }
+      } catch (n) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[group-history] hydrate send state failed for ",
+                "",
+              ])),
+            t.toString(),
+          )
+          .catching(r("getErrorSafe")(n))
+          .sendLogs("group-history-participant-state-hydrate-failed");
+      }
     }
     function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          try {
-            var a = yield (
-              o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebGroupStoreService").GroupStoreService,
-                  ).getGroupHistoryParticipantMetadataForGroup
-                : o("WAWebGroupHistoryParticipantJob")
-                    .getGroupHistoryParticipantMetadataForGroup
-            )(t);
-            if (a == null || a.size === 0) return;
-            for (var i of n.getModelsArray()) {
-              var l = o(
-                "WAWebGroupHistoryParticipantJob",
-              ).toGroupHistoryParticipantKey(i.id);
-              if (l != null) {
-                var s = a.get(l);
-                s != null && f(i, s);
-              }
-            }
-          } catch (n) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[group-history] hydrate send state failed for ",
-                    "",
-                  ])),
-                t.toString(),
-              )
-              .catching(r("getErrorSafe")(n))
-              .sendLogs("group-history-participant-state-hydrate-failed");
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t) {
       (o("WAWebGroupHistoryPostJoinEligibility").isAlreadyReceivedState(
         t.groupHistorySentState,
       ) &&
@@ -99,7 +88,7 @@ __d(
           t.joinTime > 0 &&
           e.set({ joinTime: t.joinTime }));
     }
-    function g(e, t) {
+    function _(e, t) {
       var n,
         a =
           (n = r("WAWebGroupMetadataCollection").get(e)) == null
@@ -123,9 +112,9 @@ __d(
               : e;
           });
     }
-    ((l.initializeGroupHistoryStateForChat = c),
-      (l.prefetchGroupHistoryStateForChat = d),
-      (l.guardGroupHistorySentStateDowngrade = g));
+    ((l.initializeGroupHistoryStateForChat = u),
+      (l.prefetchGroupHistoryStateForChat = c),
+      (l.guardGroupHistorySentStateDowngrade = _));
   },
   98,
 );

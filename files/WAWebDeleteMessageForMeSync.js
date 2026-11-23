@@ -1,7 +1,6 @@
 __d(
   "WAWebDeleteMessageForMeSync",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebAddonProcessDeleteForMe",
@@ -24,7 +23,6 @@ __d(
     "WAWebUiRuntime",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "nullthrows",
   ],
@@ -37,32 +35,23 @@ __d(
       m,
       p,
       _,
-      f,
-      g;
-    function h(e) {
-      return y.apply(this, arguments);
+      f;
+    async function g(e) {
+      return e.isNewsletter()
+        ? o("WAWebWidToJid").widToNewsletterJid(e)
+        : e.isBroadcast()
+          ? o("WAWebWidToJid").widToBroadcastJid(e)
+          : o("WAWebWidToJid").widToChatJid(
+              o("WAWebWidFactory").createWid(
+                await o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
+                  e,
+                  o("WAWebSyncdConst").Actions.DeleteMessageForMe,
+                ),
+              ),
+            );
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return e.isNewsletter()
-            ? o("WAWebWidToJid").widToNewsletterJid(e)
-            : e.isBroadcast()
-              ? o("WAWebWidToJid").widToBroadcastJid(e)
-              : o("WAWebWidToJid").widToChatJid(
-                  o("WAWebWidFactory").createWid(
-                    yield o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
-                      e,
-                      o("WAWebSyncdConst").Actions.DeleteMessageForMe,
-                    ),
-                  ),
-                );
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    var C = (function (t) {
-      function a() {
+    var h = (function (t) {
+      function n() {
         for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
           r[a] = arguments[a];
         return (
@@ -73,311 +62,272 @@ __d(
             babelHelpers.assertThisInitialized(e)
         );
       }
-      babelHelpers.inheritsLoose(a, t);
-      var i = a.prototype;
+      babelHelpers.inheritsLoose(n, t);
+      var a = n.prototype;
       return (
-        (i.getVersion = function () {
+        (a.getVersion = function () {
           return 3;
         }),
-        (i.getAction = function () {
+        (a.getAction = function () {
           return o("WAWebSyncdConst").Actions.DeleteMessageForMe;
         }),
-        (i.applyMutations = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = this;
-            o("WAWebCurrentUser").isEmployee() &&
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "syncd: after apply delete message for me",
-                  ])),
-              );
-            var a = [],
-              i = yield o(
-                "WAWebSyncdResolveMessages",
-              ).resolveMessagesForMutations(e),
-              l = i.incomingRemoteToLocalChatId,
-              h = i.messagesInDB;
-            o("WAWebCurrentUser").isEmployee() &&
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "syncd: after cache for delete message for me",
-                  ])),
-              );
-            var y = 0,
-              C = yield (g || (g = n("Promise"))).all(
-                e.map(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
+        (a.applyMutations = async function (t) {
+          var e = this;
+          o("WAWebCurrentUser").isEmployee() &&
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "syncd: after apply delete message for me",
+                ])),
+            );
+          var n = [],
+            a = await o(
+              "WAWebSyncdResolveMessages",
+            ).resolveMessagesForMutations(t),
+            i = a.incomingRemoteToLocalChatId,
+            l = a.messagesInDB;
+          o("WAWebCurrentUser").isEmployee() &&
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "syncd: after cache for delete message for me",
+                ])),
+            );
+          var g = 0,
+            h = await Promise.all(
+              t.map(async function (t) {
+                try {
+                  if (t.operation === "set") {
+                    var a = t.indexParts,
+                      s = a[1],
+                      u = a[2],
+                      m = a[3],
+                      p = a[4];
+                    if (!s || !u || !m || !p) {
+                      if (o("WAWebCurrentUser").isEmployee()) {
+                        var _ = s ? "" : "remote",
+                          f = u ? "" : "externalID",
+                          h = m ? "" : "fromMe",
+                          y = p ? "" : "participant";
+                        o("WALogger")
+                          .ERROR(
+                            c ||
+                              (c = babelHelpers.taggedTemplateLiteralLoose([
+                                "[syncd] deleteForMe bad index: ",
+                                " ",
+                                " ",
+                                " ",
+                                "",
+                              ])),
+                            _,
+                            f,
+                            h,
+                            y,
+                          )
+                          .sendLogs("missing-index-props-delete-for-me");
+                      }
+                      return e.malformedActionIndex();
+                    }
+                    var C = i.get(s),
+                      b = o("WAWebSyncdIndexUtils").syncKeyToMsgKey(s, u, m, p);
+                    if (!b)
+                      return (
+                        o("WAWebCurrentUser").isEmployee() &&
+                          o("WALogger")
+                            .ERROR(
+                              d ||
+                                (d = babelHelpers.taggedTemplateLiteralLoose([
+                                  "syncd: malformed index for delete message for me sync.",
+                                ])),
+                            )
+                            .sendLogs("invalid-index-delete-for-me"),
+                        e.malformedActionIndex()
+                      );
+                    if (C == null)
+                      return {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Orphan,
+                        orphanModel: {
+                          modelId: b.toString(),
+                          modelType: o("WAWebSyncdConst").SyncModelType.Msg,
+                        },
+                      };
+                    var v = r("nullthrows")(
+                        o("WAWebSyncdIndexUtils").syncKeyToMsgKey(C, u, m, p),
+                      ),
+                      S = l.find(function (e) {
+                        return e.startsWith(
+                          o(
+                            "WAWebSyncdIndexUtils",
+                          ).msgKeyToDbIdWithoutFromMeParticipant(v),
+                        );
+                      });
+                    if (S == null) {
+                      var R = await o(
+                        "WAWebAddonProcessDeleteForMe",
+                      ).hasDeleteAddonForMe(v);
+                      if (R == null) {
+                        var L = o("WAWebLidMigrationUtils").getAlternateMsgKey(
+                          v,
+                        );
+                        L != null &&
+                          (R = await o(
+                            "WAWebAddonProcessDeleteForMe",
+                          ).hasDeleteAddonForMe(L));
+                      }
+                      if (R != null)
                         try {
-                          if (e.operation === "set") {
-                            var n = e.indexParts,
-                              i = n[1],
-                              s = n[2],
-                              u = n[3],
-                              m = n[4];
-                            if (!i || !s || !u || !m) {
-                              if (o("WAWebCurrentUser").isEmployee()) {
-                                var p = i ? "" : "remote",
-                                  _ = s ? "" : "externalID",
-                                  f = u ? "" : "fromMe",
-                                  g = m ? "" : "participant";
-                                o("WALogger")
-                                  .ERROR(
-                                    c ||
-                                      (c =
-                                        babelHelpers.taggedTemplateLiteralLoose(
-                                          [
-                                            "[syncd] deleteForMe bad index: ",
-                                            " ",
-                                            " ",
-                                            " ",
-                                            "",
-                                          ],
-                                        )),
-                                    p,
-                                    _,
-                                    f,
-                                    g,
-                                  )
-                                  .sendLogs(
-                                    "missing-index-props-delete-for-me",
-                                  );
-                              }
-                              return t.malformedActionIndex();
-                            }
-                            var C = l.get(i),
-                              b = o("WAWebSyncdIndexUtils").syncKeyToMsgKey(
-                                i,
-                                s,
-                                u,
-                                m,
-                              );
-                            if (!b)
-                              return (
-                                o("WAWebCurrentUser").isEmployee() &&
-                                  o("WALogger")
-                                    .ERROR(
-                                      d ||
-                                        (d =
-                                          babelHelpers.taggedTemplateLiteralLoose(
-                                            [
-                                              "syncd: malformed index for delete message for me sync.",
-                                            ],
-                                          )),
-                                    )
-                                    .sendLogs("invalid-index-delete-for-me"),
-                                t.malformedActionIndex()
-                              );
-                            if (C == null)
-                              return {
-                                actionState:
-                                  o("WAWebSyncdConst").SyncActionState.Orphan,
-                                orphanModel: {
-                                  modelId: b.toString(),
-                                  modelType:
-                                    o("WAWebSyncdConst").SyncModelType.Msg,
-                                },
-                              };
-                            var v = r("nullthrows")(
-                                o("WAWebSyncdIndexUtils").syncKeyToMsgKey(
-                                  C,
-                                  s,
-                                  u,
-                                  m,
-                                ),
-                              ),
-                              S = h.find(function (e) {
-                                return e.startsWith(
-                                  o(
-                                    "WAWebSyncdIndexUtils",
-                                  ).msgKeyToDbIdWithoutFromMeParticipant(v),
-                                );
-                              });
-                            if (S == null) {
-                              var R = yield o(
-                                "WAWebAddonProcessDeleteForMe",
-                              ).hasDeleteAddonForMe(v);
-                              if (R == null) {
-                                var L = o(
-                                  "WAWebLidMigrationUtils",
-                                ).getAlternateMsgKey(v);
-                                L != null &&
-                                  (R = yield o(
-                                    "WAWebAddonProcessDeleteForMe",
-                                  ).hasDeleteAddonForMe(L));
-                              }
-                              if (R != null)
-                                try {
-                                  return (
-                                    yield o(
-                                      "WAWebAddonProcessDeleteForMe",
-                                    ).processDeleteForMeSingle(R),
-                                    {
-                                      actionState:
-                                        o("WAWebSyncdConst").SyncActionState
-                                          .Success,
-                                    }
-                                  );
-                                } catch (e) {}
-                              return {
-                                actionState:
-                                  o("WAWebSyncdConst").SyncActionState.Orphan,
-                                orphanModel: {
-                                  modelId: b.toString(),
-                                  modelType:
-                                    o("WAWebSyncdConst").SyncModelType.Msg,
-                                },
-                              };
-                            }
-                            return (
-                              a.push(S),
-                              yield o("WAWebBackendApi").frontendSendAndReceive(
-                                "deleteMessageFromCollectionForSync",
-                                { msgKey: S },
-                              ),
-                              {
-                                actionState:
-                                  o("WAWebSyncdConst").SyncActionState.Success,
-                              }
-                            );
-                          }
                           return (
-                            y++,
+                            await o(
+                              "WAWebAddonProcessDeleteForMe",
+                            ).processDeleteForMeSingle(R),
                             {
                               actionState:
-                                o("WAWebSyncdConst").SyncActionState
-                                  .Unsupported,
+                                o("WAWebSyncdConst").SyncActionState.Success,
                             }
                           );
-                        } catch (e) {
-                          return {
-                            actionState:
-                              o("WAWebSyncdConst").SyncActionState.Failed,
-                          };
-                        }
-                      },
+                        } catch (e) {}
+                      return {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Orphan,
+                        orphanModel: {
+                          modelId: b.toString(),
+                          modelType: o("WAWebSyncdConst").SyncModelType.Msg,
+                        },
+                      };
+                    }
+                    return (
+                      n.push(S),
+                      await o("WAWebBackendApi").frontendSendAndReceive(
+                        "deleteMessageFromCollectionForSync",
+                        { msgKey: S },
+                      ),
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Success,
+                      }
                     );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              );
-            if (
-              (y > 0 &&
-                o("WALogger").WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "delete_message_for_me_sync: ",
-                      " operations not supported",
-                    ])),
-                  y,
-                ),
-              o("WAWebCurrentUser").isEmployee())
-            ) {
-              var v,
-                S,
-                R,
-                L,
-                E = b(C);
-              (o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "syncd: deleteForMe mutations=",
-                    " success=",
-                    " orphan=",
-                    " failed=",
-                    " malformed=",
-                    "",
-                  ])),
-                e.length,
-                (v = E.get(o("WAWebSyncdConst").SyncActionState.Success)) !=
-                  null
-                  ? v
-                  : 0,
-                (S = E.get(o("WAWebSyncdConst").SyncActionState.Orphan)) != null
-                  ? S
-                  : 0,
-                (R = E.get(o("WAWebSyncdConst").SyncActionState.Failed)) != null
-                  ? R
-                  : 0,
-                (L = E.get(o("WAWebSyncdConst").SyncActionState.Malformed)) !=
-                  null
-                  ? L
-                  : 0,
-              ),
-                o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "syncd: before deleting messages",
-                    ])),
-                ));
-            }
-            if (a.length > 0) {
-              yield o("WAWebDBMessageDelete").removeMessagesFromHistory(a);
-              var k = new Set();
-              a.forEach(function (e) {
-                return k.add(r("WAWebMsgKey").fromString(e).remote.toString());
-              });
-              var I = Array.from(k.values()).join(",").toString();
-              (o("WAWebUiRuntime").isWebDiUiEnabled()
-                ? o("WAWebUiRuntime")
-                    .uiRuntime(o("WAWebReactionUiService").ReactionUiService)
-                    .deleteModelsForLastAddOnPreview(a)
-                : o("WAWebBackendApi").frontendFireAndForget(
-                    "deleteModelsForLastAddOnPreview",
-                    { messagesIds: a },
-                  ),
-                yield o("WAWebRequestDeleteAddOns").requestDeleteAddOns(I, a));
-            }
-            return (
-              o("WAWebCurrentUser").isEmployee() &&
-                o("WALogger").LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "syncd: after deleting messages",
-                    ])),
-                ),
-              C
+                  }
+                  return (
+                    g++,
+                    {
+                      actionState:
+                        o("WAWebSyncdConst").SyncActionState.Unsupported,
+                    }
+                  );
+                } catch (e) {
+                  return {
+                    actionState: o("WAWebSyncdConst").SyncActionState.Failed,
+                  };
+                }
+              }),
             );
-          });
-          function t(t) {
-            return e.apply(this, arguments);
+          if (
+            (g > 0 &&
+              o("WALogger").WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "delete_message_for_me_sync: ",
+                    " operations not supported",
+                  ])),
+                g,
+              ),
+            o("WAWebCurrentUser").isEmployee())
+          ) {
+            var C,
+              b,
+              v,
+              S,
+              R = y(h);
+            (o("WALogger").LOG(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "syncd: deleteForMe mutations=",
+                  " success=",
+                  " orphan=",
+                  " failed=",
+                  " malformed=",
+                  "",
+                ])),
+              t.length,
+              (C = R.get(o("WAWebSyncdConst").SyncActionState.Success)) != null
+                ? C
+                : 0,
+              (b = R.get(o("WAWebSyncdConst").SyncActionState.Orphan)) != null
+                ? b
+                : 0,
+              (v = R.get(o("WAWebSyncdConst").SyncActionState.Failed)) != null
+                ? v
+                : 0,
+              (S = R.get(o("WAWebSyncdConst").SyncActionState.Malformed)) !=
+                null
+                ? S
+                : 0,
+            ),
+              o("WALogger").LOG(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: before deleting messages",
+                  ])),
+              ));
           }
-          return t;
-        })()),
-        (i.resolveConflicts = function (t, a) {
+          if (n.length > 0) {
+            await o("WAWebDBMessageDelete").removeMessagesFromHistory(n);
+            var L = new Set();
+            n.forEach(function (e) {
+              return L.add(r("WAWebMsgKey").fromString(e).remote.toString());
+            });
+            var E = Array.from(L.values()).join(",").toString();
+            (o("WAWebUiRuntime").isWebDiUiEnabled()
+              ? o("WAWebUiRuntime")
+                  .uiRuntime(o("WAWebReactionUiService").ReactionUiService)
+                  .deleteModelsForLastAddOnPreview(n)
+              : o("WAWebBackendApi").frontendFireAndForget(
+                  "deleteModelsForLastAddOnPreview",
+                  { messagesIds: n },
+                ),
+              await o("WAWebRequestDeleteAddOns").requestDeleteAddOns(E, n));
+          }
+          return (
+            o("WAWebCurrentUser").isEmployee() &&
+              o("WALogger").LOG(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: after deleting messages",
+                  ])),
+              ),
+            h
+          );
+        }),
+        (a.resolveConflicts = function (t, n) {
           var e,
-            i,
-            l = o("decodeProtobuf").decodeProtobuf(
+            a,
+            i = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
               t.binarySyncAction,
             ),
-            s = o("decodeProtobuf").decodeProtobuf(
+            l = o("decodeProtobuf").decodeProtobuf(
               o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-              a.binarySyncData,
+              n.binarySyncData,
             ).value,
-            u = r("nullthrows")(
-              (e = l.deleteMessageForMeAction) == null ? void 0 : e.deleteMedia,
+            s = r("nullthrows")(
+              (e = i.deleteMessageForMeAction) == null ? void 0 : e.deleteMedia,
             ),
-            c = r("nullthrows")(
-              s == null || (i = s.deleteMessageForMeAction) == null
+            u = r("nullthrows")(
+              l == null || (a = l.deleteMessageForMeAction) == null
                 ? void 0
-                : i.deleteMedia,
+                : a.deleteMedia,
             );
-          return !c && u
-            ? (g || (g = n("Promise"))).resolve(
+          return !u && s
+            ? Promise.resolve(
                 o("WAWebSyncdConst").ConflictResolutionState.SkipRemote,
               )
-            : (g || (g = n("Promise"))).resolve(
+            : Promise.resolve(
                 o("WAWebSyncdConst").ConflictResolutionState
                   .SkipRemoteAndDropLocal,
               );
         }),
-        (i.buildDeleteForMeMutation = function (n) {
+        (a.buildDeleteForMeMutation = function (n) {
           var t = n.deleteMedia,
             r = n.messageTimestamp,
             a = n.timestamp,
@@ -396,43 +346,34 @@ __d(
             action: this.getAction(),
           });
         }),
-        (i.getDeleteForMeMutations = function (t, r) {
+        (a.getDeleteForMeMutations = function (t, n) {
           var e = this,
-            a = o("WATimeUtils").unixTimeMs();
-          return (g || (g = n("Promise"))).all(
-            t.map(
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var n = t.id.remote,
-                      i = o("WAWebMsgGetters").getSender(t),
-                      l = i ? o("WAWebWidToJid").widToUserJid(i) : null,
-                      s = yield h(n);
-                    return e.buildDeleteForMeMutation({
-                      timestamp: a,
-                      deleteMedia: r,
-                      messageTimestamp: o("WAWebMsgGetters").getT(t),
-                      remoteJid: s,
-                      id: t.id.id,
-                      fromMe: t.id.fromMe,
-                      participant:
-                        o("WAWebMsgGetters").getIsGroupMsg(t) && !t.id.fromMe
-                          ? l
-                          : null,
-                    });
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            ),
+            r = o("WATimeUtils").unixTimeMs();
+          return Promise.all(
+            t.map(async function (t) {
+              var a = t.id.remote,
+                i = o("WAWebMsgGetters").getSender(t),
+                l = i ? o("WAWebWidToJid").widToUserJid(i) : null,
+                s = await g(a);
+              return e.buildDeleteForMeMutation({
+                timestamp: r,
+                deleteMedia: n,
+                messageTimestamp: o("WAWebMsgGetters").getT(t),
+                remoteJid: s,
+                id: t.id.id,
+                fromMe: t.id.fromMe,
+                participant:
+                  o("WAWebMsgGetters").getIsGroupMsg(t) && !t.id.fromMe
+                    ? l
+                    : null,
+              });
+            }),
           );
         }),
-        a
+        n
       );
     })(o("WAWebSyncdAction").MessageSyncdActionBase);
-    function b(e) {
+    function y(e) {
       var t = new Map();
       for (var n of e) {
         var r,
@@ -441,8 +382,8 @@ __d(
       }
       return t;
     }
-    var v = new C();
-    l.default = v;
+    var C = new h();
+    l.default = C;
   },
   98,
 );

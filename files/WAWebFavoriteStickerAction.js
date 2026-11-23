@@ -14,7 +14,6 @@ __d(
     "WAWebStickerModel",
     "WAWebStickerPremiumStatus",
     "WAWebUploadExternalStickerAction",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -77,27 +76,14 @@ __d(
     function g(e) {
       if (e.externalUrl != null) {
         o("WAWebUploadExternalStickerAction")
-          .withExternalStickerSelection(
-            e,
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  yield o(
-                    "WAWebUploadExternalStickerAction",
-                  ).uploadExternalSticker(e);
-                  var t = new (o("WAWebStickerModel").StickerModel)(
-                    e.toDbData(),
-                  );
-                  ((t.mediaData.accessibilityLabel =
-                    e.mediaData.accessibilityLabel),
-                    g(t));
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-          )
+          .withExternalStickerSelection(e, async function (e) {
+            await o("WAWebUploadExternalStickerAction").uploadExternalSticker(
+              e,
+            );
+            var t = new (o("WAWebStickerModel").StickerModel)(e.toDbData());
+            ((t.mediaData.accessibilityLabel = e.mediaData.accessibilityLabel),
+              g(t));
+          })
           .catch(function (e) {
             (o("WALogger")
               .ERROR(

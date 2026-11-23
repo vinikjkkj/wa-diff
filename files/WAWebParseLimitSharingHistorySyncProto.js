@@ -7,41 +7,31 @@ __d(
     "WAWebMsgType",
     "WAWebProtobufsWeb.pb",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      return s.apply(this, arguments);
+    async function e(e, t) {
+      if (
+        !o("WAWebLimitSharingGatingUtils").isOpusEnabled() &&
+        e.messageStubType ===
+          o("WAWebProtobufsWeb.pb").WebMessageInfo$StubType.CHANGE_LIMIT_SHARING
+      ) {
+        var n = e.messageStubParameters,
+          r = n[0],
+          a = n[1],
+          i = n[2],
+          l = {
+            sharingLimited: r === "true",
+            limitSharingSettingTimestamp: Number(e.messageTimestamp) * 1e3,
+            trigger: o(
+              "WAWebLimitSharingPropMappingUtils",
+            ).getLimitSharingTriggerFromHistorySyncStubParameter(a),
+          },
+          u = s(l, i ? o("WAWebWidFactory").createWid(i) : void 0);
+        await c(t, u);
+      }
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !o("WAWebLimitSharingGatingUtils").isOpusEnabled() &&
-            e.messageStubType ===
-              o("WAWebProtobufsWeb.pb").WebMessageInfo$StubType
-                .CHANGE_LIMIT_SHARING
-          ) {
-            var n = e.messageStubParameters,
-              r = n[0],
-              a = n[1],
-              i = n[2],
-              l = {
-                sharingLimited: r === "true",
-                limitSharingSettingTimestamp: Number(e.messageTimestamp) * 1e3,
-                trigger: o(
-                  "WAWebLimitSharingPropMappingUtils",
-                ).getLimitSharingTriggerFromHistorySyncStubParameter(a),
-              },
-              s = u(l, i ? o("WAWebWidFactory").createWid(i) : void 0);
-            yield d(t, s);
-          }
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e, t) {
+    function s(e, t) {
       return {
         sharingLimited: e == null ? void 0 : e.sharingLimited,
         trigger: e == null ? void 0 : e.trigger,
@@ -50,7 +40,7 @@ __d(
         initiatedBy: t,
       };
     }
-    function c(e) {
+    function u(e) {
       var t,
         n,
         r = e.limitSharingMessage,
@@ -64,22 +54,14 @@ __d(
           : n.protocolMessage
         : o;
     }
+    async function c(e, t) {
+      ((e.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
+        (e.subtype = o(
+          "WAWebCommonMsgSubtypeTypes",
+        ).MsgSubtype.LimitSharingSystemMessage),
+        (e.limitSharing = t));
+    }
     function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          ((e.type = o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE),
-            (e.subtype = o(
-              "WAWebCommonMsgSubtypeTypes",
-            ).MsgSubtype.LimitSharingSystemMessage),
-            (e.limitSharing = t));
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
       return {
         enabled: e == null ? void 0 : e.enabled,
         trigger: e == null ? void 0 : e.trigger,
@@ -88,7 +70,7 @@ __d(
         initiatedBy: t,
       };
     }
-    function _(e) {
+    function m(e) {
       var t,
         n,
         r = e.acp2SettingMessage,
@@ -103,10 +85,10 @@ __d(
         : o;
     }
     ((l.parseLimitSharingFromProtocolHistorySyncMessage = e),
-      (l.getLimitSharingFromEnvelope = u),
-      (l.getLimitSharingEnvelopeFromProtobuf = c),
-      (l.getAcp2SettingFromEnvelope = p),
-      (l.getAcp2EnvelopeFromProtobuf = _));
+      (l.getLimitSharingFromEnvelope = s),
+      (l.getLimitSharingEnvelopeFromProtobuf = u),
+      (l.getAcp2SettingFromEnvelope = d),
+      (l.getAcp2EnvelopeFromProtobuf = m));
   },
   98,
 );

@@ -35,10 +35,7 @@ __d(
         )
       )
         return null;
-      if (a == null)
-        return s._(/*BTDS*/ "{agent_name}, a Muse agent, was added", [
-          s._param("agent_name", n),
-        ]);
+      if (a == null) return s._(/*BTDS*/ "", [s._param("agent_name", n)]);
       var d =
         r ===
           o("WAWebGroupAgentAddAttribution").GroupAgentAddAttribution.OWNER ||
@@ -48,20 +45,16 @@ __d(
             : t.user) === c.creatorLid);
       return o("WAWebSystemMessagesUtils").isMe(a)
         ? d
-          ? s._(/*BTDS*/ "You added {agent_name}, your Muse agent", [
-              s._param("agent_name", n),
-            ])
-          : s._(/*BTDS*/ "You added {agent_name}, a Muse agent", [
-              s._param("agent_name", n),
-            ])
+          ? s._(/*BTDS*/ "", [s._param("agent_name", n)])
+          : s._(/*BTDS*/ "", [s._param("agent_name", n)])
         : i == null
           ? null
           : d
-            ? s._(
-                /*BTDS*/ "{owner_name} added {agent_name}, their Muse agent",
-                [s._param("owner_name", i), s._param("agent_name", n)],
-              )
-            : s._(/*BTDS*/ "{user_name} added {agent_name}, a Muse agent", [
+            ? s._(/*BTDS*/ "", [
+                s._param("owner_name", i),
+                s._param("agent_name", n),
+              ])
+            : s._(/*BTDS*/ "", [
                 s._param("user_name", i),
                 s._param("agent_name", n),
               ]);

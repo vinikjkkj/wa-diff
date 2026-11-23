@@ -1,6 +1,6 @@
 __d(
   "AdsInstagramActorIDUtils",
-  ["FBLogger"],
+  ["AdsInstagramUserIdMigrationUtils", "FBLogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -47,7 +47,11 @@ __d(
         o || a
       );
     }
-    ((l.getInstagramActorID = e), (l.getInstagramUserID = s));
+    ((l.hasOtherAccountOnRoot = o(
+      "AdsInstagramUserIdMigrationUtils",
+    ).hasOtherAccountOnRoot),
+      (l.getInstagramActorID = e),
+      (l.getInstagramUserID = s));
   },
   98,
 );

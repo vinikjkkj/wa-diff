@@ -13,7 +13,6 @@ __d(
     "WAWebWaffleLifecycleWamLogger",
     "WAWebWamEnumWaffleLifecycleLinkStateType",
     "WAWebWamEnumWaffleLifecycleTraceSourceType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -24,147 +23,129 @@ __d(
       m = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       );
-    function p() {
-      return _.apply(this, arguments);
+    async function p() {
+      try {
+        await o("WAPromiseTimeout").promiseTimeout(
+          (async function () {
+            (await o("WAWebAccountLinkingAPI").ping(),
+              await o("WAWebAccountLinkingAPI").fetchServiceData());
+          })(),
+          d,
+        );
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[WAFFLE] ACCOUNT_LINKED resync failed: ",
+                "",
+              ])),
+            t,
+          )
+          .tags("waffle", "account-linking", "linked")
+          .sendLogs("waffle-linked-resync-failed", { sampling: 0.01 });
+      }
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            yield o("WAPromiseTimeout").promiseTimeout(
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                (yield o("WAWebAccountLinkingAPI").ping(),
-                  yield o("WAWebAccountLinkingAPI").fetchServiceData());
-              })(),
-              d,
-            );
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[WAFFLE] ACCOUNT_LINKED resync failed: ",
-                    "",
-                  ])),
-                t,
-              )
-              .tags("waffle", "account-linking", "linked")
-              .sendLogs("waffle-linked-resync-failed", { sampling: 0.01 });
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WASmaxWaffleWFNotificationRPC").parseWFNotificationRequest(
-            e,
+    async function _(e) {
+      var t = o("WASmaxWaffleWFNotificationRPC").parseWFNotificationRequest(e);
+      if (t.success) {
+        var n = o(
+          "WAWebAccountLinkingConstants",
+        ).AccountLinkingNotificationEvent.cast(
+          t.value.notificationMetadataEvent,
+        );
+        if (n == null) {
+          o("WALogger").ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[WAFFLE] Failed to parse account linking notification",
+              ])),
           );
-          if (t.success) {
-            var n = o(
-              "WAWebAccountLinkingConstants",
-            ).AccountLinkingNotificationEvent.cast(
-              t.value.notificationMetadataEvent,
+          return;
+        }
+        switch (n) {
+          case o("WAWebAccountLinkingConstants").AccountLinkingNotificationEvent
+            .STATE_SUSPENDED:
+            (o("WAWebWaffleLifecycleWamLogger").logNotification({
+              linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
+                .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.PAUSED,
+              traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_LINKED,
+            }),
+              await o("WAWebAccountLinkingHandler").handlePausedState());
+            break;
+          case o("WAWebAccountLinkingConstants").AccountLinkingNotificationEvent
+            .STATE_DELETED:
+            (o("WAWebWaffleLifecycleWamLogger").logPurge({
+              traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
+            }),
+              o(
+                "WAWebMetaAiWaffleAuthTokenCache",
+              ).clearMetaAiWaffleAuthTokenBlobCache());
+            try {
+              await m.purgeWaffleData();
+            } finally {
+              await o(
+                "WAWebSubscriptionAgeGating",
+              ).invalidateSubscriptionAgeVerdict();
+            }
+            break;
+          case o("WAWebAccountLinkingConstants").AccountLinkingNotificationEvent
+            .CLIENT_RESYNC:
+            (o("WAWebWaffleLifecycleWamLogger").logNotification({
+              traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_RESYNC,
+            }),
+              await o("WAWebAccountLinkingHandler").handleResyncState(
+                t.value.notificationMetadataSyncDelay,
+              ));
+            break;
+          case o("WAWebAccountLinkingConstants").AccountLinkingNotificationEvent
+            .ACCOUNT_UNLINKED: {
+            var r = o("WAWebAccountLinkingConstants").AccountUnlinkType.cast(
+              t.value.notificationMetadataType,
             );
-            if (n == null) {
-              o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[WAFFLE] Failed to parse account linking notification",
-                  ])),
-              );
-              return;
-            }
-            switch (n) {
-              case o("WAWebAccountLinkingConstants")
-                .AccountLinkingNotificationEvent.STATE_SUSPENDED:
-                (o("WAWebWaffleLifecycleWamLogger").logNotification({
-                  linkState: o("WAWebWamEnumWaffleLifecycleLinkStateType")
-                    .WAFFLE_LIFECYCLE_LINK_STATE_TYPE.PAUSED,
-                  traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
-                    .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_LINKED,
-                }),
-                  yield o("WAWebAccountLinkingHandler").handlePausedState());
-                break;
-              case o("WAWebAccountLinkingConstants")
-                .AccountLinkingNotificationEvent.STATE_DELETED:
-                (o("WAWebWaffleLifecycleWamLogger").logPurge({
-                  traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
-                    .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
-                }),
-                  o(
-                    "WAWebMetaAiWaffleAuthTokenCache",
-                  ).clearMetaAiWaffleAuthTokenBlobCache());
-                try {
-                  yield m.purgeWaffleData();
-                } finally {
-                  yield o(
-                    "WAWebSubscriptionAgeGating",
-                  ).invalidateSubscriptionAgeVerdict();
-                }
-                break;
-              case o("WAWebAccountLinkingConstants")
-                .AccountLinkingNotificationEvent.CLIENT_RESYNC:
-                (o("WAWebWaffleLifecycleWamLogger").logNotification({
-                  traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
-                    .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_RESYNC,
-                }),
-                  yield o("WAWebAccountLinkingHandler").handleResyncState(
-                    t.value.notificationMetadataSyncDelay,
-                  ));
-                break;
-              case o("WAWebAccountLinkingConstants")
-                .AccountLinkingNotificationEvent.ACCOUNT_UNLINKED: {
-                var r = o(
-                  "WAWebAccountLinkingConstants",
-                ).AccountUnlinkType.cast(t.value.notificationMetadataType);
-                (o("WAWebWaffleLifecycleWamLogger").logNotification({
-                  traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
-                    .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
-                }),
-                  yield o("WAWebAccountLinkingHandler").handleUnlinkedState(r));
-                break;
-              }
-              case o("WAWebAccountLinkingConstants")
-                .AccountLinkingNotificationEvent.ACCOUNT_LINKED:
-                (o("WAWebWaffleLifecycleWamLogger").logNotification({
-                  traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
-                    .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_LINKED,
-                }),
-                  yield o(
-                    "WAWebSubscriptionAgeGating",
-                  ).invalidateSubscriptionAgeVerdict(),
-                  t.value.notificationMetadataClientResync === "true" &&
-                    (yield p(),
-                    yield o(
-                      "WAWebSubscriptionAgeGating",
-                    ).invalidateSubscriptionAgeVerdict()));
-                break;
-              default:
-                o("WALogger").ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[WAFFLE] Unhandled account linking notification event",
-                    ])),
-                );
-                break;
-            }
-          } else
+            (o("WAWebWaffleLifecycleWamLogger").logNotification({
+              traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_UNLINKED,
+            }),
+              await o("WAWebAccountLinkingHandler").handleUnlinkedState(r));
+            break;
+          }
+          case o("WAWebAccountLinkingConstants").AccountLinkingNotificationEvent
+            .ACCOUNT_LINKED:
+            (o("WAWebWaffleLifecycleWamLogger").logNotification({
+              traceSource: o("WAWebWamEnumWaffleLifecycleTraceSourceType")
+                .WAFFLE_LIFECYCLE_TRACE_SOURCE_TYPE.NOTIFICATION_LINKED,
+            }),
+              await o(
+                "WAWebSubscriptionAgeGating",
+              ).invalidateSubscriptionAgeVerdict(),
+              t.value.notificationMetadataClientResync === "true" &&
+                (await p(),
+                await o(
+                  "WAWebSubscriptionAgeGating",
+                ).invalidateSubscriptionAgeVerdict()));
+            break;
+          default:
             o("WALogger").ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WAFFLE] Failed to parse account linking notification",
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[WAFFLE] Unhandled account linking notification event",
                 ])),
             );
-        })),
-        g.apply(this, arguments)
-      );
+            break;
+        }
+      } else
+        o("WALogger").ERROR(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "[WAFFLE] Failed to parse account linking notification",
+            ])),
+        );
     }
-    l.handleAccountLinkingNotification = f;
+    l.handleAccountLinkingNotification = _;
   },
   98,
 );

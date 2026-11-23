@@ -11,43 +11,31 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = d(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = u(r, n);
-          if (a.success)
-            return {
-              name: "WaitingRoomToggleCallLinkResponseWaitingRoomToggleCallLinkAck",
-              value: a.value,
-            };
-          var i = c(r, n);
-          if (i.success)
-            return {
-              name: "WaitingRoomToggleCallLinkResponseWaitingRoomToggleCallLinkNack",
-              value: i.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "WaitingRoomToggleCallLink",
-              {
-                WaitingRoomToggleCallLinkAck: a,
-                WaitingRoomToggleCallLinkNack: i,
-              },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = c(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = s(r, n);
+      if (a.success)
+        return {
+          name: "WaitingRoomToggleCallLinkResponseWaitingRoomToggleCallLinkAck",
+          value: a.value,
+        };
+      var i = u(r, n);
+      if (i.success)
+        return {
+          name: "WaitingRoomToggleCallLinkResponseWaitingRoomToggleCallLinkNack",
+          value: i.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing(
+          "WaitingRoomToggleCallLink",
+          { WaitingRoomToggleCallLinkAck: a, WaitingRoomToggleCallLinkNack: i },
+        ),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -110,7 +98,7 @@ __d(
           })
         : m;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -166,7 +154,7 @@ __d(
           })
         : m;
     }
-    function d(e) {
+    function c(e) {
       var t,
         n = e.waitingRoomToggleEnabled,
         r = e.waitingRoomToggleLinkToken,
@@ -184,10 +172,10 @@ __d(
     }
     ((l.sendWaitingRoomToggleCallLinkRPC = e),
       (l.parseWaitingRoomToggleCallLinkResponseWaitingRoomToggleCallLinkAck =
-        u),
+        s),
       (l.parseWaitingRoomToggleCallLinkResponseWaitingRoomToggleCallLinkNack =
-        c),
-      (l.makeWaitingRoomToggleCallLinkRequest = d));
+        u),
+      (l.makeWaitingRoomToggleCallLinkRequest = c));
   },
   98,
 );

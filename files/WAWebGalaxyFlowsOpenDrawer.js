@@ -24,7 +24,7 @@ __d(
         var i = babelHelpers.extends({}, r, {
             isResponseFlow: r.flowResponseMessage != null,
           }),
-          l = s._(/*BTDS*/ "No response to display");
+          l = s._(/*BTDS*/ "");
         r.isResponseFlow && m(r)
           ? o("WAWebToastManager").ToastManager.open(
               u.jsx(o("WAWebToast.react").Toast, { msg: l }),

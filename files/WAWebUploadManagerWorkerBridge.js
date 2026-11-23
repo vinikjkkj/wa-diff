@@ -12,7 +12,6 @@ __d(
     "WAWebMainThreadUploadManagerHandler",
     "WAWebMmsClient",
     "WAWebUploadManagerBase",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -34,85 +33,74 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.encryptAndUpload = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = e.blob;
-                e.uploadQpl.addAnnotations({
-                  bool: {
-                    worker_bridge_ready: o(
-                      "WAWebBackendWorkerClient",
-                    ).isBackendWorkerBridgeReady(),
-                  },
-                });
-                var a = yield r("WAPromiseRaceAbort")(
-                  o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
-                  e.signal,
-                );
-                e.uploadQpl.addPoint("worker_bridge_acquired");
-                var i = o("WAWebUploadManagerBase").getNextUploadId();
-                if (e.signal.aborted)
-                  throw new (o("WAAbortError").AbortError)();
-                o(
-                  "WAWebMainThreadUploadManagerHandler",
-                ).registerUploadCallbacks(
-                  i,
-                  babelHelpers.extends({}, t, {
-                    handleUploadProgress: function (r) {
-                      (t.handleUploadProgress(r),
-                        e.onProgress == null ||
-                          e.onProgress(
-                            new ProgressEvent("progress", { loaded: r }),
-                            0,
-                          ));
-                    },
-                  }),
-                );
-                var l = function () {
-                  a.fireAndForget("media", "abortUpload", { uploadId: i });
-                };
-                e.signal.addEventListener("abort", l, { once: !0 });
-                var s = function () {
-                  return o(
-                    "WAWebMainThreadUploadManagerHandler",
-                  ).unregisterUploadCallbacks(i);
-                };
-                try {
-                  var u = a.sendAndReceive("media", "encryptAndUpload", {
-                    blob: n,
-                    type: e.type,
-                    mediaKey: e.mediaKey,
-                    mediaKeyTimestamp: e.mediaKeyTimestamp,
-                    userUploadAttemptCount: e.userUploadAttemptCount,
-                    forwardedFromWeb: e.forwardedFromWeb,
-                    uploadOrigin: e.uploadOrigin,
-                    isViewOnce: e.isViewOnce,
-                    isHdPhoto: e.isHdPhoto,
-                    token: e.token,
-                    uploadId: i,
-                    mediaId: t.mediaId,
-                    serializedUploadQpl: o(
-                      "WAWebMainThreadQplHandler",
-                    ).serializeQplForBridge(e.uploadQpl),
-                  });
-                  u.then(s, s);
-                  var c = yield r("WAPromiseRaceAbort")(u, e.signal);
-                  if (c.success) return c.value;
-                  throw o(
-                    "WAWebDeserializeBridgedError",
-                  ).deserializeBridgedError(c.error);
-                } finally {
-                  e.signal.removeEventListener("abort", l);
-                }
+          (n.encryptAndUpload = async function (t, n) {
+            var e = t.blob;
+            t.uploadQpl.addAnnotations({
+              bool: {
+                worker_bridge_ready: o(
+                  "WAWebBackendWorkerClient",
+                ).isBackendWorkerBridgeReady(),
               },
+            });
+            var a = await r("WAPromiseRaceAbort")(
+              o("WAWebBackendWorkerClient").getBackendWorkerBridge(),
+              t.signal,
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
+            t.uploadQpl.addPoint("worker_bridge_acquired");
+            var i = o("WAWebUploadManagerBase").getNextUploadId();
+            if (t.signal.aborted) throw new (o("WAAbortError").AbortError)();
+            o("WAWebMainThreadUploadManagerHandler").registerUploadCallbacks(
+              i,
+              babelHelpers.extends({}, n, {
+                handleUploadProgress: function (r) {
+                  (n.handleUploadProgress(r),
+                    t.onProgress == null ||
+                      t.onProgress(
+                        new ProgressEvent("progress", { loaded: r }),
+                        0,
+                      ));
+                },
+              }),
+            );
+            var l = function () {
+              a.fireAndForget("media", "abortUpload", { uploadId: i });
+            };
+            t.signal.addEventListener("abort", l, { once: !0 });
+            var s = function () {
+              return o(
+                "WAWebMainThreadUploadManagerHandler",
+              ).unregisterUploadCallbacks(i);
+            };
+            try {
+              var u = a.sendAndReceive("media", "encryptAndUpload", {
+                blob: e,
+                type: t.type,
+                mediaKey: t.mediaKey,
+                mediaKeyTimestamp: t.mediaKeyTimestamp,
+                userUploadAttemptCount: t.userUploadAttemptCount,
+                forwardedFromWeb: t.forwardedFromWeb,
+                uploadOrigin: t.uploadOrigin,
+                isViewOnce: t.isViewOnce,
+                isHdPhoto: t.isHdPhoto,
+                token: t.token,
+                uploadId: i,
+                mediaId: n.mediaId,
+                serializedUploadQpl: o(
+                  "WAWebMainThreadQplHandler",
+                ).serializeQplForBridge(t.uploadQpl),
+              });
+              u.then(s, s);
+              var c = await r("WAPromiseRaceAbort")(u, t.signal);
+              if (c.success) return c.value;
+              throw o("WAWebDeserializeBridgedError").deserializeBridgedError(
+                c.error,
+              );
+            } finally {
+              t.signal.removeEventListener("abort", l);
             }
-            return t;
-          })()),
+          }),
           t
         );
       })(o("WAWebUploadManagerBase").UploadManagerBase),

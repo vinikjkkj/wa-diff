@@ -7,7 +7,6 @@ __d(
     "WAWebHatchPermissionsFailureReason",
     "WAWebHatchVmConnection",
     "WAWebHatchVmTransport",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -38,11 +37,11 @@ __d(
     }
     function _(e, t) {
       var n;
-      return x("set_default", ((n = {}), (n[e] = t), (n.reason = m[e]), n));
+      return D("set_default", ((n = {}), (n[e] = t), (n.reason = m[e]), n));
     }
     function f(e, t) {
       var n;
-      return x("set_protocol", { protocols: ((n = {}), (n[e] = t), n) });
+      return D("set_protocol", { protocols: ((n = {}), (n[e] = t), n) });
     }
     function g() {
       return I(
@@ -92,7 +91,7 @@ __d(
       );
     }
     function b(e, t, n, r, o) {
-      return P("set_scoped_mode", function (a) {
+      return x("set_scoped_mode", function (a) {
         return a.scopedPermissionSetMode(e.scopeType, e.id, {
           connector: t,
           display_name: e.displayName,
@@ -103,7 +102,7 @@ __d(
       });
     }
     function v(e, t) {
-      return P("set_mode", function (n) {
+      return x("set_mode", function (n) {
         return n.activePermissionSetMode({
           kind: e.kind,
           mode: t,
@@ -112,7 +111,7 @@ __d(
       });
     }
     function S(e) {
-      return P(
+      return x(
         "revoke",
         function (t) {
           return t.permissionRevoke({ kind: e.kind, permission_id: e.id });
@@ -121,7 +120,7 @@ __d(
       );
     }
     function R() {
-      return P("reset", function (e) {
+      return x("reset", function (e) {
         return e.permissionsReset();
       });
     }
@@ -172,118 +171,81 @@ __d(
         })
       );
     }
-    function I(e, t, r) {
-      var a = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
-        i = [],
-        l = new Set(),
-        c = (function () {
-          var d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
-            var d = yield T(
-              e,
-              function (e) {
-                return e.activePermissions(t(n), { timeoutMs: s });
-              },
-              r,
-            );
-            if (d.kind !== "ok") return d;
-            if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== a)
-              return q(e, "account_changed", "generic");
-            i.push.apply(i, d.value.entries);
-            var m = d.value.nextCursor;
-            return m == null
-              ? { kind: "ok", value: i }
-              : l.has(m) || l.size + 1 >= u
-                ? q(e, "pagination", "generic")
-                : (l.add(m), c(m));
-          });
-          return function (t) {
-            return d.apply(this, arguments);
-          };
-        })();
-      return c(null);
-    }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return M(e, yield w(e, t, { retry: !0 }), n);
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e, t) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield w(e, function (e) {
-            return e.permissionSetSettings(t);
-          });
-          return M(
+    function I(e, t, n) {
+      var r = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
+        a = [],
+        i = new Set(),
+        l = async function (d) {
+          var c = await T(
             e,
+            function (e) {
+              return e.activePermissions(t(d), { timeoutMs: s });
+            },
             n,
-            o("WAWebHatchPermissionsDecoder").decodeHatchPermissionSettings,
           );
-        })),
-        $.apply(this, arguments)
+          if (c.kind !== "ok") return c;
+          if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== r)
+            return A(e, "account_changed", "generic");
+          a.push.apply(a, c.value.entries);
+          var m = c.value.nextCursor;
+          return m == null
+            ? { kind: "ok", value: a }
+            : i.has(m) || i.size + 1 >= u
+              ? A(e, "pagination", "generic")
+              : (i.add(m), l(m));
+        };
+      return l(null);
+    }
+    async function T(e, t, n) {
+      return $(e, await P(e, t, { retry: !0 }), n);
+    }
+    async function D(e, t) {
+      var n = await P(e, function (e) {
+        return e.permissionSetSettings(t);
+      });
+      return $(
+        e,
+        n,
+        o("WAWebHatchPermissionsDecoder").decodeHatchPermissionSettings,
       );
     }
-    function P(e, t, n) {
-      return N.apply(this, arguments);
+    async function x(e, t, n) {
+      var r = await P(e, t, n);
+      return r.kind === "ok" ? { kind: "ok", value: null } : r;
     }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield w(e, t, n);
-          return r.kind === "ok" ? { kind: "ok", value: null } : r;
-        })),
-        N.apply(this, arguments)
-      );
-    }
-    function M(e, t, n) {
+    function $(e, t, n) {
       if (t.kind !== "ok") return t;
       var r = n(t.value);
       return r == null
-        ? q(e, "malformed", "generic")
+        ? A(e, "malformed", "generic")
         : { kind: "ok", value: r };
     }
-    function w(e, t, n) {
-      return A.apply(this, arguments);
+    async function P(e, t, n) {
+      var r, a;
+      try {
+        a = await o("WAWebHatchVmConnection").connectHatchVmApi();
+      } catch (t) {
+        return A(e, "connect_failed", "offline");
+      }
+      if (a == null) return A(e, "no_session", "offline");
+      var i = await w(a, t);
+      if (
+        (((r = i) == null ? void 0 : r.kind) === "Failure" &&
+          (n == null ? void 0 : n.retry) === !0 &&
+          (i = await w(a, t)),
+        i == null)
+      )
+        return A(e, "exchange_failed", "generic");
+      var l = i.kind === "Rejected" ? i.statusCode : null;
+      return l === 409
+        ? { kind: "conflict" }
+        : l === 404 && (n == null ? void 0 : n.goneIsDone) === !0
+          ? { kind: "ok", value: null }
+          : i.kind === "Ok"
+            ? { kind: "ok", value: i.value }
+            : A(e, i.kind.toLowerCase(), N(i));
     }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r, a;
-          try {
-            a = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-          } catch (t) {
-            return q(e, "connect_failed", "offline");
-          }
-          if (a == null) return q(e, "no_session", "offline");
-          var i = yield B(a, t);
-          if (
-            (((r = i) == null ? void 0 : r.kind) === "Failure" &&
-              (n == null ? void 0 : n.retry) === !0 &&
-              (i = yield B(a, t)),
-            i == null)
-          )
-            return q(e, "exchange_failed", "generic");
-          var l = i.kind === "Rejected" ? i.statusCode : null;
-          return l === 409
-            ? { kind: "conflict" }
-            : l === 404 && (n == null ? void 0 : n.goneIsDone) === !0
-              ? { kind: "ok", value: null }
-              : i.kind === "Ok"
-                ? { kind: "ok", value: i.value }
-                : q(e, i.kind.toLowerCase(), F(i));
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F(e) {
+    function N(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -291,7 +253,7 @@ __d(
           "statusCode" in e
         ) {
           var t = e.statusCode;
-          if (O(t))
+          if (M(t))
             return o(
               "WAWebHatchPermissionsFailureReason",
             ).hatchPermissionsHttpFailureReason(t);
@@ -308,25 +270,17 @@ __d(
             : "generic";
       })(e);
     }
-    function O(e) {
+    function M(e) {
       return e != null && (e < 200 || e >= 300);
     }
-    function B(e, t) {
-      return W.apply(this, arguments);
+    async function w(e, t) {
+      try {
+        return await t(e);
+      } catch (e) {
+        return null;
+      }
     }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            return yield t(e);
-          } catch (e) {
-            return null;
-          }
-        })),
-        W.apply(this, arguments)
-      );
-    }
-    function q(t, n, r) {
+    function A(t, n, r) {
       return (
         o("WALogger")
           .WARN(

@@ -4,22 +4,22 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e;
     function u() {
-      return s._(/*BTDS*/ "Video & voice");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Microphone");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Camera");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(/*BTDS*/ "Speakers");
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(/*BTDS*/ "Camera, microphone & speakers");
+      return s._(/*BTDS*/ "");
     }
     function _() {
-      return s._(/*BTDS*/ "Enhance video quality");
+      return s._(/*BTDS*/ "");
     }
     var f = {
         step: (e = o("WAWebSettingsConst")).SettingsSteps.WinDevicesSettings,

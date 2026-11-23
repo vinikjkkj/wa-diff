@@ -1,11 +1,6 @@
 __d(
   "WAWebUseCartProductQuantity",
-  [
-    "WAWebCartCollection",
-    "react",
-    "react-compiler-runtime",
-    "useWAWebEventTargetValue",
-  ],
+  ["WAWebCartCollection", "react", "useWAWebEventTargetValue"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useMemo,
@@ -48,43 +43,35 @@ __d(
         );
       };
     function m(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n;
-      t[0] !== e ? ((n = u(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
-      var a = n,
-        i;
-      t[2] !== a || t[3] !== e.id
-        ? ((i = function () {
-            return c(e.id.toString(), a);
-          }),
-          (t[2] = a),
-          (t[3] = e.id),
-          (t[4] = i))
-        : (i = t[4]);
-      var l;
-      return (
-        t[5] !== e.id ? ((l = [e.id]), (t[5] = e.id), (t[6] = l)) : (l = t[6]),
-        r("useWAWebEventTargetValue")(a, "change:cartItemCollection", i, l)
+      var t = s(
+        function () {
+          return u(e);
+        },
+        [e],
+      );
+      return r("useWAWebEventTargetValue")(
+        t,
+        "change:cartItemCollection",
+        function () {
+          return c(e.id.toString(), t);
+        },
+        [e.id],
       );
     }
     function p(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n;
-      t[0] !== e ? ((n = u(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
-      var a = n,
-        i;
-      t[2] !== a || t[3] !== e
-        ? ((i = function () {
-            return d(e, a);
-          }),
-          (t[2] = a),
-          (t[3] = e),
-          (t[4] = i))
-        : (i = t[4]);
-      var l;
-      return (
-        t[5] !== e ? ((l = [e]), (t[5] = e), (t[6] = l)) : (l = t[6]),
-        r("useWAWebEventTargetValue")(a, "change:cartItemCollection", i, l)
+      var t = s(
+        function () {
+          return u(e);
+        },
+        [e],
+      );
+      return r("useWAWebEventTargetValue")(
+        t,
+        "change:cartItemCollection",
+        function () {
+          return d(e, t);
+        },
+        [e],
       );
     }
     ((l.useCartProductQuantity = m), (l.useCartProductQuantityMultiple = p));

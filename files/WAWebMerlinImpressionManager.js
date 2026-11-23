@@ -2,7 +2,6 @@ __d(
   "WAWebMerlinImpressionManager",
   [
     "MerlinImpressionManager",
-    "Promise",
     "WAWebBizVpvPairFields",
     "WAWebChannelDiscoveryVisibilityTrackingWamEvent",
     "WAWebChannelMessageVisibilityTrackingWamEvent",
@@ -12,27 +11,25 @@ __d(
     "WAWebPaidMessageVpvImpressionWamEvent",
     "WAWebStatusPostImpressionWamEvent",
     "WAWebUnifiedSession",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = {},
-      c = new Set([
-        (s = o("WAWebMediaTypes")).OUTWARD_TYPES.STICKER,
-        s.OUTWARD_TYPES.IMAGE,
-        s.OUTWARD_TYPES.PTV,
-        s.OUTWARD_TYPES.VIDEO,
+      s = {},
+      u = new Set([
+        (e = o("WAWebMediaTypes")).OUTWARD_TYPES.STICKER,
+        e.OUTWARD_TYPES.IMAGE,
+        e.OUTWARD_TYPES.PTV,
+        e.OUTWARD_TYPES.VIDEO,
       ]);
-    function d(e) {
+    function c(e) {
       var t = e.enter_ts,
         n = e.exit_ts,
         r = e.itemId,
         a = e.visibilityData,
         i = a.aiProvenanceLabelEnabled,
         l = a.aiProvenanceLabelShown,
-        s = a.channelUserType,
+        u = a.channelUserType,
         c = a.cid,
         d = a.isOriginalAuthor,
         m = a.isStarredPost,
@@ -42,9 +39,9 @@ __d(
         o(
           "WAWebNewsletterGatingUtils",
         ).isNewsletterVPVMessageVisibilityLoggingEnabled() &&
-        !(p != null && !g(p))
+        !(p != null && !f(p))
       ) {
-        var f = function () {
+        var g = function () {
           var e,
             t = new (o(
               "WAWebChannelMessageVisibilityTrackingWamEvent",
@@ -59,23 +56,23 @@ __d(
                 ).UnifiedSessionManager.getSessionId()) != null
                   ? e
                   : void 0,
-              channelUserType: s,
+              channelUserType: u,
               aiProvenanceLabelShown: l,
               aiProvenanceLabelEnabled: i,
             });
           t.commit();
         };
-        o("MerlinImpressionManager").logVisibilityTimestamps(t, n, r, u, f);
+        o("MerlinImpressionManager").logVisibilityTimestamps(t, n, r, s, g);
       }
     }
-    function m(e) {
+    function d(e) {
       var t = e.discoveryData,
         n = t.cid,
         r = t.country,
         a = t.discoverySurface,
         i = t.newsletterDirectorySectionIndex,
         l = t.newsletterDirectorySectionName,
-        s = t.newsletterDirectorySessionId,
+        u = t.newsletterDirectorySessionId,
         c = t.newsletterEventUnit,
         d = t.newsletterIndex,
         m = t.pillSelected,
@@ -90,7 +87,7 @@ __d(
               "WAWebChannelDiscoveryVisibilityTrackingWamEvent",
             ).ChannelDiscoveryVisibilityTrackingWamEvent)({
               cid: n,
-              channelDirectorySessionId: s,
+              channelDirectorySessionId: u,
               similarChannelsSessionId: p,
               channelCategoryIndex: i,
               channelIndex: d,
@@ -108,219 +105,217 @@ __d(
             });
           t.commit();
         };
-        o("MerlinImpressionManager").logVisibilityTimestamps(_, f, g, u, h);
+        o("MerlinImpressionManager").logVisibilityTimestamps(_, f, g, s, h);
       }
     }
-    function p(e) {
+    function m(e) {
       var t,
-        r = e.enter_ts,
-        a = e.exit_ts,
-        i = e.itemId,
-        l = e.statusViewTime,
-        s = e.visibilityData,
-        c = s.aiProvenanceLabelEnabled,
-        d = s.aiProvenanceLabelShown,
-        m = s.channelStatusId,
-        p = s.channelUserType,
-        _ = s.cid,
-        f = s.encryptedStatusIdPromise,
-        g = s.entryMethod,
-        h = s.isCloseSharingPost,
-        y = s.isFirstView,
-        C = s.isLastStatus,
-        b = s.isPosterBiz,
-        v = s.isResharable,
-        S = s.isReshare,
-        R = s.isSelfView,
-        L = s.isSubImpression,
-        E = s.isSuccessfulView,
-        k = s.mediaType,
-        I = s.musicBlocked,
-        T = s.pairedMediaType,
-        D = s.psaCampaignId,
-        x = s.psaLinkAvailable,
-        $ = s.statusCategory,
-        P = s.statusContainsMusic,
-        N = s.statusContainsQuestion,
-        M = s.statusContentType,
-        w = s.statusGroupIdPromise,
-        A = s.statusItemViewResult,
-        F = s.statusLoadTime,
-        O = s.statusPogIndex,
-        B = s.statusPosterIdPromise,
-        W = s.statusPostIndex,
-        q = s.statusPostPlaybackDuration,
-        U = s.statusViewEntrypoint,
-        V = s.statusViewerSessionId,
-        H = s.statusViewExitMethod,
-        G = s.updatesTabSessionId,
-        z = s.urlStatusType,
-        j = s.userRidPromise,
-        K = s.viewSequenceIndex,
-        Q = (t = H == null ? void 0 : H()) != null ? t : void 0,
-        X = function () {
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e,
-              t = yield f,
-              n = yield j,
-              r = yield B,
-              a = yield w,
-              i = new (o(
+        n = e.enter_ts,
+        r = e.exit_ts,
+        a = e.itemId,
+        i = e.statusViewTime,
+        l = e.visibilityData,
+        u = l.aiProvenanceLabelEnabled,
+        c = l.aiProvenanceLabelShown,
+        d = l.channelStatusId,
+        m = l.channelUserType,
+        p = l.cid,
+        _ = l.encryptedStatusIdPromise,
+        f = l.entryMethod,
+        g = l.isCloseSharingPost,
+        h = l.isFirstView,
+        y = l.isLastStatus,
+        C = l.isPosterBiz,
+        b = l.isResharable,
+        v = l.isReshare,
+        S = l.isSelfView,
+        R = l.isSubImpression,
+        L = l.isSuccessfulView,
+        E = l.mediaType,
+        k = l.musicBlocked,
+        I = l.pairedMediaType,
+        T = l.psaCampaignId,
+        D = l.psaLinkAvailable,
+        x = l.statusCategory,
+        $ = l.statusContainsMusic,
+        P = l.statusContainsQuestion,
+        N = l.statusContentType,
+        M = l.statusGroupIdPromise,
+        w = l.statusItemViewResult,
+        A = l.statusLoadTime,
+        F = l.statusPogIndex,
+        O = l.statusPosterIdPromise,
+        B = l.statusPostIndex,
+        W = l.statusPostPlaybackDuration,
+        q = l.statusViewEntrypoint,
+        U = l.statusViewerSessionId,
+        V = l.statusViewExitMethod,
+        H = l.updatesTabSessionId,
+        G = l.urlStatusType,
+        z = l.userRidPromise,
+        j = l.viewSequenceIndex,
+        K = (t = V == null ? void 0 : V()) != null ? t : void 0,
+        Q = function () {
+          (async function (e) {
+            var t = await _,
+              n = await z,
+              r = await O,
+              a = await M,
+              l = new (o(
                 "WAWebStatusPostImpressionWamEvent",
               ).StatusPostImpressionWamEvent)({
                 statusId: t,
                 statusPosterHashId: n != null ? n : void 0,
                 statusPosterId: r != null ? r : void 0,
                 statusGroupId: a != null ? a : void 0,
-                statusContentType: M,
-                statusMediaType: k,
-                isSelfView: R,
-                isSubImpression: L,
-                statusViewEntrypoint: U,
-                statusViewTime: l,
+                statusContentType: N,
+                statusMediaType: E,
+                isSelfView: S,
+                isSubImpression: R,
+                statusViewEntrypoint: q,
+                statusViewTime: i,
                 unifiedSessionId:
                   (e = o(
                     "WAWebUnifiedSession",
                   ).UnifiedSessionManager.getSessionId()) != null
                     ? e
                     : void 0,
-                updatesTabSessionId: G,
-                statusViewerSessionId: V,
-                statusPogIndex: O,
-                statusPostIndex: W,
-                isFirstView: y,
-                isLastStatus: C,
-                isCloseSharingPost: h,
-                isPosterBiz: b,
+                updatesTabSessionId: H,
+                statusViewerSessionId: U,
+                statusPogIndex: F,
+                statusPostIndex: B,
+                isFirstView: h,
+                isLastStatus: y,
+                isCloseSharingPost: g,
+                isPosterBiz: C,
                 isViewedInLandscape: !1,
-                psaLinkAvailable: x,
-                statusCategory: $,
-                statusPostPlaybackDuration: q,
-                statusContainsMusic: P,
-                musicBlocked: I,
-                psaCampaignId: D != null ? D : void 0,
-                statusLoadTime: F == null ? void 0 : F(),
-                urlStatusType: z == null ? void 0 : z(),
-                statusContainsQuestion: N,
-                isSuccessfulView: E(),
-                statusItemViewResult: A(),
-                entryMethod: g,
-                statusViewExitMethod: Q,
-                viewSequenceIndex: K(),
-                isResharable: v,
-                isReshare: S,
-                pairedMediaType: T != null ? T : void 0,
-                cid: _ != null ? _ : void 0,
-                channelStatusId: m != null ? m : void 0,
-                channelUserType: p != null ? p : void 0,
-                aiProvenanceLabelShown: d,
-                aiProvenanceLabelEnabled: c,
+                psaLinkAvailable: D,
+                statusCategory: x,
+                statusPostPlaybackDuration: W,
+                statusContainsMusic: $,
+                musicBlocked: k,
+                psaCampaignId: T != null ? T : void 0,
+                statusLoadTime: A == null ? void 0 : A(),
+                urlStatusType: G == null ? void 0 : G(),
+                statusContainsQuestion: P,
+                isSuccessfulView: L(),
+                statusItemViewResult: w(),
+                entryMethod: f,
+                statusViewExitMethod: K,
+                viewSequenceIndex: j(),
+                isResharable: b,
+                isReshare: v,
+                pairedMediaType: I != null ? I : void 0,
+                cid: p != null ? p : void 0,
+                channelStatusId: d != null ? d : void 0,
+                channelUserType: m != null ? m : void 0,
+                aiProvenanceLabelShown: c,
+                aiProvenanceLabelEnabled: u,
               });
-            i.commit();
+            l.commit();
           })();
         };
-      o("MerlinImpressionManager").logVisibilityTimestamps(r, a, i, u, X);
+      o("MerlinImpressionManager").logVisibilityTimestamps(n, r, a, s, Q);
     }
-    var _ = {};
-    function f(t) {
-      var r = t.enter_ts,
-        a = t.exit_ts,
-        i = t.itemId,
-        l = t.visibilityData,
-        s = l.bodyUrlCountInt,
-        u = l.bodyUrlUniqueCountInt,
-        c = l.buttonValueJsonArray,
-        d = l.chatId,
-        m = l.chatsFolderType,
-        p = l.clientReceivedTsMillis,
-        f = l.contactType,
-        g = l.ctaUrlUniqueCountInt,
-        h = l.decisionId,
-        y = l.hsmTagStr,
-        C = l.isBroadcastMessage,
-        b = l.isInsubContact,
-        v = l.isMuted,
-        S = l.messageBodyType,
-        R = l.messageBubbleHeightPx,
-        L = l.messageBubbleWidthPx,
-        E = l.messageFieldJsonArray,
-        k = l.messageId,
-        I = l.mmCarouselCardIndex,
-        T = l.qbmFlag,
-        D = l.readReceiptsEnabled,
-        x = l.serverTimestamp,
-        $ = l.submessageFieldJsonArray,
-        P = l.urlUniqueCountInt,
-        N = function (r) {
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var t,
-              a = Date.now(),
-              i = yield (e || (e = n("Promise"))).all([
-                o("WAWebChatThreadLogging").getMessageIDHMAC(k),
-                o("WAWebChatThreadLogging").getChatThreadIDHMAC(d),
+    var p = {};
+    function _(e) {
+      var t = e.enter_ts,
+        n = e.exit_ts,
+        r = e.itemId,
+        a = e.visibilityData,
+        i = a.bodyUrlCountInt,
+        l = a.bodyUrlUniqueCountInt,
+        s = a.buttonValueJsonArray,
+        u = a.chatId,
+        c = a.chatsFolderType,
+        d = a.clientReceivedTsMillis,
+        m = a.contactType,
+        _ = a.ctaUrlUniqueCountInt,
+        f = a.decisionId,
+        g = a.hsmTagStr,
+        h = a.isBroadcastMessage,
+        y = a.isInsubContact,
+        C = a.isMuted,
+        b = a.messageBodyType,
+        v = a.messageBubbleHeightPx,
+        S = a.messageBubbleWidthPx,
+        R = a.messageFieldJsonArray,
+        L = a.messageId,
+        E = a.mmCarouselCardIndex,
+        k = a.qbmFlag,
+        I = a.readReceiptsEnabled,
+        T = a.serverTimestamp,
+        D = a.submessageFieldJsonArray,
+        x = a.urlUniqueCountInt,
+        $ = function (t) {
+          (async function (e) {
+            var n = Date.now(),
+              r = await Promise.all([
+                o("WAWebChatThreadLogging").getMessageIDHMAC(L),
+                o("WAWebChatThreadLogging").getChatThreadIDHMAC(u),
               ]),
-              l = i[0],
-              _ = i[1],
-              N = Math.round((a - x * 1e3) / 1e3),
-              M = p != null ? Math.round((a - p) / 1e3) : void 0,
-              w = r.map(function (e) {
+              a = r[0],
+              p = r[1],
+              $ = Math.round((n - T * 1e3) / 1e3),
+              P = d != null ? Math.round((n - d) / 1e3) : void 0,
+              N = t.map(function (e) {
                 return [e.enter, e.exit];
               }),
-              A = JSON.stringify({ 0: w, 50: w, 100: w }),
-              F = new (o(
+              M = JSON.stringify({ 0: N, 50: N, 100: N }),
+              w = new (o(
                 "WAWebPaidMessageVpvImpressionWamEvent",
               ).PaidMessageVpvImpressionWamEvent)({
-                vpvJsonObject: A,
-                messageIdHmac: l != null ? l : void 0,
-                threadIdHmac: _ != null ? _ : void 0,
+                vpvJsonObject: M,
+                messageIdHmac: a != null ? a : void 0,
+                threadIdHmac: p != null ? p : void 0,
                 unifiedSessionId:
-                  (t = o(
+                  (e = o(
                     "WAWebUnifiedSession",
                   ).UnifiedSessionManager.getSessionId()) != null
-                    ? t
+                    ? e
                     : void 0,
-                qbmFlag: T != null ? T : void 0,
-                contactType: f != null ? f : void 0,
-                hsmTagStr: y != null ? y : void 0,
-                decisionId: h != null ? h : void 0,
-                readReceiptsEnabled: D,
-                chatsFolderType: m,
-                isMuted: v,
-                isBroadcastMessage: C,
-                isInsubContact: b,
-                deltaTime: N,
-                deltaTimeReceived: M,
-                messageFieldJsonArray: E,
-                submessageFieldJsonArray: $,
-                buttonValueJsonArray: c,
-                bodyUrlCountInt: s,
-                bodyUrlUniqueCountInt: u,
-                ctaUrlUniqueCountInt: g,
-                urlUniqueCountInt: P,
-                messageBodyType: S != null ? S : void 0,
-                mmCarouselCardIndex: I != null ? I : void 0,
-                messageBubbleWidthPx: L != null ? L : void 0,
-                messageBubbleHeightPx: R != null ? R : void 0,
+                qbmFlag: k != null ? k : void 0,
+                contactType: m != null ? m : void 0,
+                hsmTagStr: g != null ? g : void 0,
+                decisionId: f != null ? f : void 0,
+                readReceiptsEnabled: I,
+                chatsFolderType: c,
+                isMuted: C,
+                isBroadcastMessage: h,
+                isInsubContact: y,
+                deltaTime: $,
+                deltaTimeReceived: P,
+                messageFieldJsonArray: R,
+                submessageFieldJsonArray: D,
+                buttonValueJsonArray: s,
+                bodyUrlCountInt: i,
+                bodyUrlUniqueCountInt: l,
+                ctaUrlUniqueCountInt: _,
+                urlUniqueCountInt: x,
+                messageBodyType: b != null ? b : void 0,
+                mmCarouselCardIndex: E != null ? E : void 0,
+                messageBubbleWidthPx: S != null ? S : void 0,
+                messageBubbleHeightPx: v != null ? v : void 0,
               });
-            (o("WAWebBizVpvPairFields").applyBizVpvPairFields(F, d),
-              F.commit());
+            (o("WAWebBizVpvPairFields").applyBizVpvPairFields(w, u),
+              w.commit());
           })();
         };
-      o("MerlinImpressionManager").logVisibilityTimestamps(r, a, i, _, N);
+      o("MerlinImpressionManager").logVisibilityTimestamps(t, n, r, p, $);
     }
-    function g(e) {
+    function f(e) {
       var t = e.isGif,
         n = e.mediaStage,
         r = e.type;
       return !(
-        (c.has(r) || t) &&
+        (u.has(r) || t) &&
         n !== o("WAWebMediaTypes").MediaDataStage.RESOLVED
       );
     }
-    ((l.logNewsletterMessageVisibility = d),
-      (l.logNewsletterDiscoveryVisibility = m),
-      (l.logStatusVisibility = p),
-      (l.logBizMessageVisibility = f));
+    ((l.logNewsletterMessageVisibility = c),
+      (l.logNewsletterDiscoveryVisibility = d),
+      (l.logStatusVisibility = m),
+      (l.logBizMessageVisibility = _));
   },
   98,
 );

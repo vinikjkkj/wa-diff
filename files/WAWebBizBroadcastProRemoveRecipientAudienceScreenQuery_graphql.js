@@ -8,11 +8,48 @@ __d(
     "use strict";
     var e = (function () {
       var e = [
+          { defaultValue: null, kind: "LocalArgument", name: "audienceId" },
           { defaultValue: null, kind: "LocalArgument", name: "caId" },
           { defaultValue: null, kind: "LocalArgument", name: "first" },
         ],
-        t = { kind: "Variable", name: "first", variableName: "first" },
-        r = [{ kind: "Variable", name: "ca_id", variableName: "caId" }, t];
+        t = [{ kind: "Variable", name: "id", variableName: "audienceId" }],
+        r = {
+          kind: "InlineFragment",
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "name",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "subscriber_size",
+              storageKey: null,
+            },
+          ],
+          type: "AdCustomAudience",
+          abstractKey: null,
+        },
+        o = { kind: "Variable", name: "first", variableName: "first" },
+        a = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "__typename",
+          storageKey: null,
+        },
+        i = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        l = [{ kind: "Variable", name: "ca_id", variableName: "caId" }, o];
       return {
         fragment: {
           argumentDefinitions: e,
@@ -21,9 +58,25 @@ __d(
           name: "WAWebBizBroadcastProRemoveRecipientAudienceScreenQuery",
           selections: [
             {
+              alias: null,
+              args: t,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "node",
+              plural: !1,
+              selections: [
+                {
+                  fragment: r,
+                  kind: "AliasedInlineFragmentSpread",
+                  name: "audience",
+                },
+              ],
+              storageKey: null,
+            },
+            {
               args: [
                 { kind: "Variable", name: "caId", variableName: "caId" },
-                t,
+                o,
               ],
               kind: "FragmentSpread",
               name: "WAWebBizBroadcastProRemoveRecipientAudienceList_query",
@@ -38,6 +91,16 @@ __d(
           kind: "Operation",
           name: "WAWebBizBroadcastProRemoveRecipientAudienceScreenQuery",
           selections: [
+            {
+              alias: null,
+              args: t,
+              concreteType: null,
+              kind: "LinkedField",
+              name: "node",
+              plural: !1,
+              selections: [a, r, i],
+              storageKey: null,
+            },
             {
               alias: null,
               args: null,
@@ -61,13 +124,7 @@ __d(
                       name: "is_custom_param_restricted_for_first_party_paid_messaging",
                       storageKey: null,
                     },
-                    {
-                      alias: null,
-                      args: null,
-                      kind: "ScalarField",
-                      name: "id",
-                      storageKey: null,
-                    },
+                    i,
                   ],
                   storageKey: null,
                 },
@@ -76,7 +133,7 @@ __d(
             },
             {
               alias: null,
-              args: r,
+              args: l,
               concreteType: "XFBWhatsappSubscriberListMembersConnection",
               kind: "LinkedField",
               name: "xfb_whatsapp_subscriber_list_members",
@@ -112,13 +169,7 @@ __d(
                           name: "phone_number",
                           storageKey: null,
                         },
-                        {
-                          alias: null,
-                          args: null,
-                          kind: "ScalarField",
-                          name: "__typename",
-                          storageKey: null,
-                        },
+                        a,
                       ],
                       storageKey: null,
                     },
@@ -162,7 +213,7 @@ __d(
             },
             {
               alias: null,
-              args: r,
+              args: l,
               filters: ["ca_id"],
               handle: "connection",
               key: "WAWebBizBroadcastProRemoveRecipientAudienceList_xfb_whatsapp_subscriber_list_members",

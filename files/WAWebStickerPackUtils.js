@@ -1,7 +1,6 @@
 __d(
   "WAWebStickerPackUtils",
   [
-    "Promise",
     "WAMediaCalculateFilehash",
     "WAWebApiParse",
     "WAWebCanvasUtils",
@@ -10,88 +9,70 @@ __d(
     "WAWebMediaLoad",
     "WAWebStickerModel",
     "WAWebStickerPackConstants",
-    "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e instanceof Blob ? e : e.getBlob();
-          if (t == null) throw r("err")("blob is null");
-          return o("WAWebMediaBoundedUnzip").unzipBlobWithLimits(
-            t,
-            o("WAWebMediaBoundedUnzip").STICKER_PACK_ZIP_LIMITS,
-          );
-        })),
-        u.apply(this, arguments)
+    async function e(e) {
+      var t = e instanceof Blob ? e : e.getBlob();
+      if (t == null) throw r("err")("blob is null");
+      return o("WAWebMediaBoundedUnzip").unzipBlobWithLimits(
+        t,
+        o("WAWebMediaBoundedUnzip").STICKER_PACK_ZIP_LIMITS,
       );
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    async function s(t, n) {
+      var r = n.stickers,
+        a = n.trayIconFileName,
+        i = await e(t),
+        l = [],
+        s = async function () {
+          var e = u[0],
+            t = u[1];
+          if (e === a) return 1;
+          if (t instanceof Uint8Array) {
+            var n,
+              i = t.buffer,
+              s = await o("WAMediaCalculateFilehash").calculateFilehash(i),
+              c =
+                r == null
+                  ? void 0
+                  : r.find(function (t) {
+                      return t.fileName === e;
+                    }),
+              d =
+                (n = c == null ? void 0 : c.mimetype) != null
+                  ? n
+                  : "image/webp";
+            o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(
+              s,
+              new Blob([i], { type: d }),
+            );
+            var m = new (o("WAWebStickerModel").StickerModel)({
+              mimetype: d,
+              width: 250,
+              height: 250,
+              filehash: s,
+              id: s,
+              directPath: "",
+              mediaKey: "",
+              encFilehash: "",
+              mediaKeyTimestamp: 0,
+            });
+            if (c != null) {
+              var p, _;
+              m.mediaData.set({
+                isLottie: (p = c.isLottie) != null ? p : !1,
+                isAnimated: (_ = c.isAnimated) != null ? _ : !1,
+              });
+            }
+            l.push(m);
+          }
+        };
+      for (var u of Object.entries(i)) await s();
+      return l;
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.stickers,
-            r = t.trayIconFileName,
-            a = yield s(e),
-            i = [],
-            l = function* () {
-              var e = u[0],
-                t = u[1];
-              if (e === r) return 1;
-              if (t instanceof Uint8Array) {
-                var a,
-                  l = t.buffer,
-                  s = yield o("WAMediaCalculateFilehash").calculateFilehash(l),
-                  c =
-                    n == null
-                      ? void 0
-                      : n.find(function (t) {
-                          return t.fileName === e;
-                        }),
-                  d =
-                    (a = c == null ? void 0 : c.mimetype) != null
-                      ? a
-                      : "image/webp";
-                o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(
-                  s,
-                  new Blob([l], { type: d }),
-                );
-                var m = new (o("WAWebStickerModel").StickerModel)({
-                  mimetype: d,
-                  width: 250,
-                  height: 250,
-                  filehash: s,
-                  id: s,
-                  directPath: "",
-                  mediaKey: "",
-                  encFilehash: "",
-                  mediaKeyTimestamp: 0,
-                });
-                if (c != null) {
-                  var p, _;
-                  m.mediaData.set({
-                    isLottie: (p = c.isLottie) != null ? p : !1,
-                    isAnimated: (_ = c.isAnimated) != null ? _ : !1,
-                  });
-                }
-                i.push(m);
-              }
-            };
-          for (var u of Object.entries(a)) yield* l();
-          return i;
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
+    function u(e) {
       if (o("WAWebApiParse").isStickerPackURL(e)) {
         var t = new URL(e),
           n = t.pathname.split("/"),
@@ -101,103 +82,77 @@ __d(
         return i;
       }
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          a === void 0 &&
-            (a = o("WAWebStickerPackConstants").STICKER_GRID_COUNT);
-          var i = o("WAWebCanvasUtils").createCanvas(
+    async function c(e, t) {
+      t === void 0 && (t = o("WAWebStickerPackConstants").STICKER_GRID_COUNT);
+      var n = o("WAWebCanvasUtils").createCanvas(
+          o("WAWebStickerPackConstants").THUMBNAIL_LENGTH,
+          o("WAWebStickerPackConstants").THUMBNAIL_WIDTH,
+        ),
+        a = r("nullthrows")(n.getContext("2d")),
+        i = e.slice(0, t);
+      if (i.length < t) {
+        var l = await d(i[0]);
+        return (
+          l != null &&
+            a.drawImage(
+              l,
+              0,
+              0,
               o("WAWebStickerPackConstants").THUMBNAIL_LENGTH,
               o("WAWebStickerPackConstants").THUMBNAIL_WIDTH,
             ),
-            l = r("nullthrows")(i.getContext("2d")),
-            s = t.slice(0, a);
-          if (s.length < a) {
-            var u = yield f(s[0]);
-            return (
-              u != null &&
-                l.drawImage(
-                  u,
-                  0,
-                  0,
-                  o("WAWebStickerPackConstants").THUMBNAIL_LENGTH,
-                  o("WAWebStickerPackConstants").THUMBNAIL_WIDTH,
-                ),
-              i
-            );
-          }
-          var c = yield (e || (e = n("Promise"))).all(
-            s.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e, t) {
-                    var n = yield f(e);
-                    return n != null ? { image: n, index: t } : null;
-                  },
-                );
-                return function (t, n) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-          );
-          for (var d of c)
-            if (d != null) {
-              var m = d.image,
-                p = d.index,
-                _ = p % 2,
-                g = Math.floor(p / 2),
-                h =
-                  o("WAWebStickerPackConstants").PADDING +
-                  _ *
-                    (o("WAWebStickerPackConstants").IMAGE_LENGTH +
-                      o("WAWebStickerPackConstants").GRID_GAP),
-                y =
-                  o("WAWebStickerPackConstants").PADDING +
-                  g *
-                    (o("WAWebStickerPackConstants").IMAGE_WIDTH +
-                      o("WAWebStickerPackConstants").GRID_GAP);
-              l.drawImage(
-                m,
-                h,
-                y,
-                o("WAWebStickerPackConstants").IMAGE_LENGTH,
-                o("WAWebStickerPackConstants").IMAGE_WIDTH,
-              );
-            }
-          return i;
-        })),
-        _.apply(this, arguments)
+          n
+        );
+      }
+      var s = await Promise.all(
+        i.map(async function (e, t) {
+          var n = await d(e);
+          return n != null ? { image: n, index: t } : null;
+        }),
       );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e == null) return null;
-          var t = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
-            e.mediaData.filehash,
+      for (var u of s)
+        if (u != null) {
+          var c = u.image,
+            m = u.index,
+            p = m % 2,
+            _ = Math.floor(m / 2),
+            f =
+              o("WAWebStickerPackConstants").PADDING +
+              p *
+                (o("WAWebStickerPackConstants").IMAGE_LENGTH +
+                  o("WAWebStickerPackConstants").GRID_GAP),
+            g =
+              o("WAWebStickerPackConstants").PADDING +
+              _ *
+                (o("WAWebStickerPackConstants").IMAGE_WIDTH +
+                  o("WAWebStickerPackConstants").GRID_GAP);
+          a.drawImage(
+            c,
+            f,
+            g,
+            o("WAWebStickerPackConstants").IMAGE_LENGTH,
+            o("WAWebStickerPackConstants").IMAGE_WIDTH,
           );
-          if (t == null) return null;
-          var n = window.URL.createObjectURL(t);
-          try {
-            return yield o("WAWebMediaLoad").loadImage(n);
-          } finally {
-            window.URL.revokeObjectURL(n);
-          }
-        })),
-        g.apply(this, arguments)
-      );
+        }
+      return n;
     }
-    ((l.unzipStickerPackMedia = s),
-      (l.decompressStickerPackMedia = c),
-      (l.extractStickerPackIdFromUrl = m),
-      (l.generateStickerGridThumbnail = p));
+    async function d(e) {
+      if (e == null) return null;
+      var t = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
+        e.mediaData.filehash,
+      );
+      if (t == null) return null;
+      var n = window.URL.createObjectURL(t);
+      try {
+        return await o("WAWebMediaLoad").loadImage(n);
+      } finally {
+        window.URL.revokeObjectURL(n);
+      }
+    }
+    ((l.unzipStickerPackMedia = e),
+      (l.decompressStickerPackMedia = s),
+      (l.extractStickerPackIdFromUrl = u),
+      (l.generateStickerGridThumbnail = c));
   },
   98,
 );

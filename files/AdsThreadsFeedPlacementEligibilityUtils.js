@@ -13,18 +13,26 @@ __d(
     "AdsPlacementsThreadsFeedPositionPlugin",
     "AdsPromotedObjectTypes",
     "AdsWhatsAppPlacementUtils",
-    "IGAdsSensitiveVerticalsUtils",
+    "ClickToMessageDestinationTypes",
     "gkx",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
       var t,
         n,
-        a = r("gkx")("8558"),
-        i = e.objective === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT,
+        a,
+        i =
+          e.objective === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT ||
+          e.objective === r("AdsAPIObjectives").LINK_CLICKS ||
+          e.objective === r("AdsAPIObjectives").OUTCOME_SALES,
         l = o(
+          "ClickToMessageDestinationTypes",
+        ).MESSAGING_APP_DESTINATION_TYPES.has(
+          (t = e.destinationType) != null ? t : "",
+        ),
+        u = i && l && r("gkx")("8558"),
+        c = o(
           "AdsPlacementConfigObjectiveEligibilityUtils",
         ).getObjectiveIneligibilityReasonForPlacementType(
           "threads",
@@ -32,8 +40,8 @@ __d(
           e,
           !0,
         );
-      if (l != null && !(i && a)) return [l, "objective_disabled"];
-      var u = o(
+      if (c != null && !u) return [c, "objective_disabled"];
+      var d = o(
         "AdsPlacementConfigOptimizationGoalEligibilityUtils",
       ).getOptimizationGoalIneligibilityReasonForPlacementType(
         "threads",
@@ -41,9 +49,9 @@ __d(
         e,
         !0,
       );
-      if (u != null && !(i && a)) return [u, "optimization_goal_disabled"];
-      var c = e.buyingType,
-        d = e.spec;
+      if (d != null && !u) return [d, "optimization_goal_disabled"];
+      var m = e.buyingType,
+        p = e.spec;
       if (e.containsDCO === !0)
         return [o("AdsPlacementIneligibilityReason").createDCOReason(), "dco"];
       if (e.containsOffer === !0)
@@ -54,10 +62,10 @@ __d(
           "offer_option",
         ];
       if (
-        d.device_platforms &&
+        p.device_platforms &&
         !(
-          (t = d.device_platforms) != null &&
-          t.includes(r("AdsAPIDevicePlatform").MOBILE)
+          (n = p.device_platforms) != null &&
+          n.includes(r("AdsAPIDevicePlatform").MOBILE)
         )
       )
         return [
@@ -66,7 +74,7 @@ __d(
           ),
           "desktop",
         ];
-      if (!a) {
+      if (!r("gkx")("8558")) {
         if (o("AdsWhatsAppPlacementUtils").isIneligibleForThreadsFeed(e))
           return [
             o("AdsPlacementIneligibilityReason").createWhatsAppReason(
@@ -106,10 +114,10 @@ __d(
           o("AdsPlacementIneligibilityReason").createInstagramLiveReason(),
           "instagram_live_disabled",
         ];
-      if (c !== r("AdsBuyingTypes").AUCTION)
+      if (m !== r("AdsBuyingTypes").AUCTION)
         return [
           o("AdsPlacementIneligibilityReason").createBuyingTypeReason(
-            c,
+            m,
             r("AdsPlacementsThreadsFeedPositionPlugin").key,
           ),
           "buying_type_not_auction",
@@ -127,31 +135,27 @@ __d(
           o("AdsPlacementIneligibilityReason").createReminderPromotionReason(),
           "reminder_promotion_disabled",
         ];
-      var m = r("AdsAppUtils").isAppEngagementObjective(
+      var _ = r("AdsAppUtils").isAppEngagementObjective(
         e.objective,
         e.promotedObjectType,
       );
       if (
         !(
-          (n = o("AdsInstagramSupportedObjectives").supportedObjectives.get(
+          (a = o("AdsInstagramSupportedObjectives").supportedObjectives.get(
             "threads_stream",
-          )) != null && n.includes(o("AdsAPIObjectives").MOBILE_APP_ENGAGEMENT)
+          )) != null && a.includes(o("AdsAPIObjectives").MOBILE_APP_ENGAGEMENT)
         ) &&
-        m
+        _
       )
         return [
           o("AdsPlacementIneligibilityReason").createMobileAppReason(),
           "app_installs_engagement",
         ];
-      var p = s();
-      return p ? [p, "sensitive_vertical"] : [null, "is eligible"];
+      var f = s();
+      return f ? [f, "sensitive_vertical"] : [null, "is eligible"];
     }
     function s() {
-      return r("justknobx")._("3577") || r("gkx")("11870")
-        ? null
-        : r("IGAdsSensitiveVerticalsUtils").is_gsi
-          ? o("AdsPlacementIneligibilityReason").createGenericReason()
-          : null;
+      return null;
     }
     var u = { getIneligibilityReason: e },
       c = u;

@@ -13,34 +13,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = d(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return { name: "ChatBlockSetResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "ChatBlockSetResponseServerError", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("ChatBlockSet", {
-              Success: a,
-              ServerError: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = c(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return { name: "ChatBlockSetResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "ChatBlockSetResponseServerError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("ChatBlockSet", {
+          Success: a,
+          ServerError: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -57,7 +48,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "blocking");
@@ -78,9 +69,9 @@ __d(
           )
         : i;
     }
-    function d(e) {
+    function c(e) {
       var t = e.blockingAction,
-        n = p(
+        n = m(
           o("WASmaxJsx").smax(
             "iq",
             { to: o("WAWap").S_WHATSAPP_NET, xmlns: "w:comms:chat" },
@@ -91,21 +82,21 @@ __d(
         );
       return n;
     }
-    function m() {
+    function d() {
       var e = o("WASmaxJsx").smax("iq", {
         id: o("WAWap").generateId(),
         type: "set",
       });
       return e;
     }
-    function p(e) {
-      var t = m();
+    function m(e) {
+      var t = d();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
     ((l.sendChatBlockSetRPC = e),
-      (l.parseChatBlockSetResponseServerError = u),
-      (l.parseChatBlockSetResponseSuccess = c),
-      (l.makeChatBlockSetRequest = d));
+      (l.parseChatBlockSetResponseServerError = s),
+      (l.parseChatBlockSetResponseSuccess = u),
+      (l.makeChatBlockSetRequest = c));
   },
   98,
 );

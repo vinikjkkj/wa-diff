@@ -46,9 +46,12 @@ __d(
             if (u) {
               var n,
                 r = u.getMessageState(t);
-              if (r)
-                for (var o in r)
-                  o !== "id" && (e += " - " + o + ": " + JSON.stringify(r[o]));
+              if (r) {
+                var o = r;
+                for (var a in o)
+                  a !== "id" &&
+                    (e += " - " + a + ": " + String(JSON.stringify(o[a])));
+              }
               e +=
                 " - invisibleReason: " +
                 ((n = u.getInvisibleReasonForMessage(t)) != null ? n : "");

@@ -14,83 +14,68 @@ __d(
     "WAWebSharableEventStorageEnums",
     "WAWebSharableEventTiming",
     "WAWebVoipCallLinkUrl",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")("WAWebGuestEventsCalendarUtils")
-            .__setRef("WAWebSharableEventAddToCalendarAction")
-            .load();
-        }),
-        "WAWebGuestEventsCalendarUtils",
-      ),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")(
-            "WAWebSharableEventAddToCalendarUserJourneyLogger",
-          )
-            .__setRef("WAWebSharableEventAddToCalendarAction")
-            .load();
-        }),
-        "WAWebSharableEventAddToCalendarUserJourneyLogger",
-      );
-    function c(e, t) {
-      return d.apply(this, arguments);
+      s = r("WAWebLazyLoadedRetriable")(async function () {
+        return r("JSResourceForInteraction")("WAWebGuestEventsCalendarUtils")
+          .__setRef("WAWebSharableEventAddToCalendarAction")
+          .load();
+      }, "WAWebGuestEventsCalendarUtils"),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        return r("JSResourceForInteraction")(
+          "WAWebSharableEventAddToCalendarUserJourneyLogger",
+        )
+          .__setRef("WAWebSharableEventAddToCalendarAction")
+          .load();
+      }, "WAWebSharableEventAddToCalendarUserJourneyLogger");
+    async function c(t, n) {
+      if (
+        o(
+          "WAWebSharableEventGatingUtils",
+        ).isEventsV2OnCompanionEnabledForAction("add-to-calendar")
+      ) {
+        try {
+          var a = await s(),
+            i = a.downloadGuestEventCalendarICSFile,
+            l = a.getGuestEventCalendarDetails,
+            c = a.getGuestEventCalendarICSFile,
+            d = l(
+              {
+                description: f(t),
+                endTsSec: o(
+                  "WAWebSharableEventTiming",
+                ).computeSharableEventEffectiveEndTsSec(t),
+                eventLinkToken: t.id,
+                eventType: "full",
+                locationAddress: t.locationAddress,
+                locationLat: t.locationLatitude,
+                locationLong: t.locationLongitude,
+                locationName: t.locationName,
+                locationRegion: null,
+                startTsSec: t.startTsSec,
+                title: t.name,
+              },
+              o("WAWebGuestCoreConsts").GuestMobilePlatform.UNKNOWN,
+            );
+          i(c(d));
+        } catch (t) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event][calendar] building the .ics file failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t));
+          return;
+        }
+        var m = await u().catch(o("WAWebNullFunc").returnNull);
+        m == null || m.logSharableEventAddedToCalendar(t.id, n);
+      }
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (
-            o(
-              "WAWebSharableEventGatingUtils",
-            ).isEventsV2OnCompanionEnabledForAction("add-to-calendar")
-          ) {
-            try {
-              var a = yield s(),
-                i = a.downloadGuestEventCalendarICSFile,
-                l = a.getGuestEventCalendarDetails,
-                c = a.getGuestEventCalendarICSFile,
-                d = l(
-                  {
-                    description: g(t),
-                    endTsSec: o(
-                      "WAWebSharableEventTiming",
-                    ).computeSharableEventEffectiveEndTsSec(t),
-                    eventLinkToken: t.id,
-                    eventType: "full",
-                    locationAddress: t.locationAddress,
-                    locationLat: t.locationLatitude,
-                    locationLong: t.locationLongitude,
-                    locationName: t.locationName,
-                    locationRegion: null,
-                    startTsSec: t.startTsSec,
-                    title: t.name,
-                  },
-                  o("WAWebGuestCoreConsts").GuestMobilePlatform.UNKNOWN,
-                );
-              i(c(d));
-            } catch (t) {
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[sharable_event][calendar] building the .ics file failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t));
-              return;
-            }
-            var m = yield u().catch(o("WAWebNullFunc").returnNull);
-            m == null || m.logSharableEventAddedToCalendar(t.id, n);
-          }
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e, t) {
+    function d(e, t) {
       return Math.min(
         t,
         e +
@@ -99,7 +84,7 @@ __d(
           ),
       );
     }
-    function p(e, t, n) {
+    function m(e, t, n) {
       return (
         o("WAWebSharableEventGatingUtils").isEventsV2OnCompanionEnabled() &&
         o("WAWebSharableEventGatingUtils").isSharableEventAddToCalendarEnabled(
@@ -107,7 +92,7 @@ __d(
         ) &&
         !t.isCanceled &&
         n <
-          m(
+          d(
             t.startTsSec,
             o("WAWebSharableEventTiming").computeSharableEventEffectiveEndTsSec(
               t,
@@ -115,7 +100,7 @@ __d(
           )
       );
     }
-    function _(e) {
+    function p(e) {
       var t,
         n,
         a = r("WAWebSharableEventInviteCoerceTimestampSeconds")(
@@ -128,7 +113,7 @@ __d(
         o("WAWebSharableEventInviteStatus").isSharableEventInviteAccessLost(
           e.sharableEventInviteStatus,
         ) ||
-        !p(
+        !m(
           o("WAWebSharableEventGatingUtils")
             .SharableEventAddToCalendarEntryPoint.MessageContextMenu,
           {
@@ -153,7 +138,7 @@ __d(
             callLink: e.sharableEventInviteCallLink,
           };
     }
-    function f(e, t) {
+    function _(e, t) {
       return c(
         {
           id: e.eventId,
@@ -172,7 +157,7 @@ __d(
         t,
       );
     }
-    function g(e) {
+    function f(e) {
       var t,
         n,
         r =
@@ -185,17 +170,17 @@ __d(
                     .SharableEventCallLinkMediaType.Voice,
               ),
         a = (n = e.description) == null ? void 0 : n.trim();
-      return [a, r]
-        .filter(function (e) {
-          return e != null && e !== "";
-        })
-        .join("\n\n");
+      return [a, r].filter(function (e) {
+        return e != null && e !== "";
+      }).join(`
+
+`);
     }
     ((l.addSharableEventToCalendar = c),
-      (l.getSharableEventAddToCalendarHiddenTsSec = m),
-      (l.canAddSharableEventToCalendar = p),
-      (l.getSharableEventInviteMenuCalendarFields = _),
-      (l.addSharableEventInviteToCalendar = f));
+      (l.getSharableEventAddToCalendarHiddenTsSec = d),
+      (l.canAddSharableEventToCalendar = m),
+      (l.getSharableEventInviteMenuCalendarFields = p),
+      (l.addSharableEventInviteToCalendar = _));
   },
   98,
 );

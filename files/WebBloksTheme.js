@@ -1,6 +1,6 @@
 __d(
   "WebBloksTheme",
-  ["WebBloksStyle", "react", "react-compiler-runtime"],
+  ["WebBloksStyle", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -33,44 +33,28 @@ __d(
       },
       C = s.createContext(y);
     function b(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.children,
-        r = e.initialTheme,
-        a = r != null ? r : _.light,
-        i,
-        l;
-      (t[0] !== a
-        ? ((i = function () {
-            h(a);
-          }),
-          (l = [a]),
-          (t[0] = a),
-          (t[1] = i),
-          (t[2] = l))
-        : ((i = t[1]), (l = t[2])),
-        d(i, l));
-      var u;
-      t[3] !== a
-        ? ((u = {
-            getTheme: function () {
-              return a;
-            },
-          }),
-          (t[3] = a),
-          (t[4] = u))
-        : (u = t[4]);
-      var c = u,
-        m;
-      return (
-        t[5] !== n || t[6] !== c
-          ? ((m = s.jsx(C.Provider, { value: c, children: n })),
-            (t[5] = n),
-            (t[6] = c),
-            (t[7] = m))
-          : (m = t[7]),
-        m
+      var t = e.children,
+        n = e.initialTheme,
+        r = n != null ? n : _.light;
+      d(
+        function () {
+          h(r);
+        },
+        [r],
       );
+      var o = p(
+        function () {
+          return {
+            getTheme: function () {
+              return r;
+            },
+          };
+        },
+        [r],
+      );
+      return s.jsx(C.Provider, { value: o, children: t });
     }
+    b.displayName = b.name + " [from " + i.id + "]";
     function v() {
       return c(C);
     }
@@ -100,31 +84,21 @@ __d(
       return e === _.dark ? k : E;
     }
     function L(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.children,
-        r = e.theme,
-        a;
-      t[0] !== r
-        ? ((a = {
-            getTheme: function () {
-              return r;
-            },
-          }),
-          (t[0] = r),
-          (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l;
-      return (
-        t[2] !== n || t[3] !== i
-          ? ((l = s.jsx(C.Provider, { value: i, children: n })),
-            (t[2] = n),
-            (t[3] = i),
-            (t[4] = l))
-          : (l = t[4]),
-        l
-      );
+      var t = e.children,
+        n = e.theme,
+        r = p(
+          function () {
+            return {
+              getTheme: function () {
+                return n;
+              },
+            };
+          },
+          [n],
+        );
+      return s.jsx(C.Provider, { value: r, children: t });
     }
+    L.displayName = L.name + " [from " + i.id + "]";
     var E,
       k,
       I = {

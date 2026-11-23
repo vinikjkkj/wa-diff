@@ -27,7 +27,6 @@ __d(
     "WAWebWamMemoryStat",
     "WAWebWamOfflineResumeReporter",
     "WAWebWorkerSafeBackendApi",
-    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -69,9 +68,9 @@ __d(
             ).ResumeType.Blocking),
             this.$10());
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.$10 = function () {
+          (n.$10 = function () {
             ((this.offlineMessagePreviewCounter = -1),
               (this.$2 = 0),
               (this.$3 = 0),
@@ -79,7 +78,7 @@ __d(
               (this.$5 = null),
               (this.$1 = o("WAWebOfflineResumeConst").ResumeStatus.INIT));
           }),
-          (a.$11 = function (n) {
+          (n.$11 = function (n) {
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -92,7 +91,7 @@ __d(
             ),
               (this.$1 = n));
           }),
-          (a.setStatus_TESTONLY = function (t) {
+          (n.setStatus_TESTONLY = function (t) {
             (o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -105,7 +104,7 @@ __d(
             ),
               (this.$1 = t));
           }),
-          (a.processOfflinePreview = function (t) {
+          (n.processOfflinePreview = function (t) {
             if (
               (o(
                 "WAWebWamOfflineResumeReporter",
@@ -235,7 +234,7 @@ __d(
               this.$13();
             }
           }),
-          (a.getOfflineDeliveryProgress = function () {
+          (n.getOfflineDeliveryProgress = function () {
             return this.$4
               ? 100
               : this.offlineMessagePreviewCounter === -1
@@ -249,147 +248,136 @@ __d(
                       100,
                     );
           }),
-          (a.getProcessedOfflineMessageCount = function () {
+          (n.getProcessedOfflineMessageCount = function () {
             return Math.min(
               this.$2,
               Math.max(this.offlineMessagePreviewCounter, 0),
             );
           }),
-          (a.processOfflineSessionComplete = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t,
-                  n = this,
-                  r = e;
-                if (
-                  (self.setTimeout(function () {
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "updateChatSortListener",
-                      { enable: !0 },
-                    );
-                  }, 3e3),
-                  (t = this.$7) == null || t.cancel(),
-                  (this.$7 = null),
-                  o(
-                    "WAWebBackendEventBus",
-                  ).BackendEventBus.triggerOfflineProcessReady(),
-                  o("WALogger").LOG(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "[offline-resume][blocking] start handling offline stanza",
-                      ])),
-                  ),
-                  this.$1 ===
-                    o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE)
-                ) {
-                  (o(
-                    "WAWebWamOfflineResumeReporter",
-                  ).OfflineResumeReporter.logLastStanzaT(),
-                    o(
-                      "WAWebWamOfflineResumeReporter",
-                    ).OfflineResumeReporter.commit());
-                  return;
-                } else if (
-                  this.$1 ===
-                  o("WAWebOfflineResumeConst").ResumeStatus.RESUME_WITH_OPEN_TAB
-                ) {
-                  (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() ||
-                    (yield o(
-                      "WAWebMessageQueue",
-                    ).waitForLegacyOnlineMessageQueue()),
-                    yield o(
-                      "WAWebInboundMsgPersistedQueueAdapter",
-                    ).waitForInboundMsgDrainIdle(),
-                    yield o("WAWebApiPendingDeviceSync").doPendingDeviceSync(),
-                    this.$11(
-                      o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE,
-                    ),
-                    o("WAWebThreadMetadata").resetThreadMeta(),
-                    o(
-                      "WAWebBackendEventBus",
-                    ).BackendEventBus.triggerOfflineDeliveryEnd(),
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "updateChatSortListener",
-                      { enable: !0 },
-                    ));
-                  return;
-                }
-                return (
-                  (this.$5 = r > 0),
-                  (this.$4 = r === 0),
-                  (this.$6 = 0),
-                  self.setTimeout(function () {
-                    n.$6 >
-                      o("WAWebOfflineResumeConst").OFFLINE_STANZA_COUNT_LIMIT &&
-                      (o("WALogger").WARN(
-                        g ||
-                          (g = babelHelpers.taggedTemplateLiteralLoose([
-                            "[offline-resume][blocking] ",
-                            " received after offline completion marker. Refreshing window due to potential server issue.",
-                          ])),
-                        n.$6,
-                      ),
-                      o("WAWebOfflineResumeUtils").refreshWindow(
-                        "stanzas_after_complete_blocking",
-                      ));
-                  }, o("WAWebOfflineResumeConst").OFFLINE_STANZA_COUNT_CHECK_TIMEOUT_MS),
-                  o("WAWebBackendApi").frontendFireAndForget(
-                    "triggerOfflineProgressUpdateFromBridge",
-                    {},
-                  ),
-                  this.$11(o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE),
-                  this.$14()
+          (n.processOfflineSessionComplete = async function (t) {
+            var e,
+              n = this,
+              r = t;
+            if (
+              (self.setTimeout(function () {
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "updateChatSortListener",
+                  { enable: !0 },
                 );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+              }, 3e3),
+              (e = this.$7) == null || e.cancel(),
+              (this.$7 = null),
+              o(
+                "WAWebBackendEventBus",
+              ).BackendEventBus.triggerOfflineProcessReady(),
+              o("WALogger").LOG(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "[offline-resume][blocking] start handling offline stanza",
+                  ])),
+              ),
+              this.$1 === o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE)
+            ) {
+              (o(
+                "WAWebWamOfflineResumeReporter",
+              ).OfflineResumeReporter.logLastStanzaT(),
+                o(
+                  "WAWebWamOfflineResumeReporter",
+                ).OfflineResumeReporter.commit());
+              return;
+            } else if (
+              this.$1 ===
+              o("WAWebOfflineResumeConst").ResumeStatus.RESUME_WITH_OPEN_TAB
+            ) {
+              (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() ||
+                (await o(
+                  "WAWebMessageQueue",
+                ).waitForLegacyOnlineMessageQueue()),
+                await o(
+                  "WAWebInboundMsgPersistedQueueAdapter",
+                ).waitForInboundMsgDrainIdle(),
+                await o("WAWebApiPendingDeviceSync").doPendingDeviceSync(),
+                this.$11(o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE),
+                o("WAWebThreadMetadata").resetThreadMeta(),
+                o(
+                  "WAWebBackendEventBus",
+                ).BackendEventBus.triggerOfflineDeliveryEnd(),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "updateChatSortListener",
+                  { enable: !0 },
+                ));
+              return;
             }
-            return t;
-          })()),
-          (a.isResumeFromRestartComplete = function () {
+            return (
+              (this.$5 = r > 0),
+              (this.$4 = r === 0),
+              (this.$6 = 0),
+              self.setTimeout(function () {
+                n.$6 >
+                  o("WAWebOfflineResumeConst").OFFLINE_STANZA_COUNT_LIMIT &&
+                  (o("WALogger").WARN(
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                        "[offline-resume][blocking] ",
+                        " received after offline completion marker. Refreshing window due to potential server issue.",
+                      ])),
+                    n.$6,
+                  ),
+                  o("WAWebOfflineResumeUtils").refreshWindow(
+                    "stanzas_after_complete_blocking",
+                  ));
+              }, o("WAWebOfflineResumeConst").OFFLINE_STANZA_COUNT_CHECK_TIMEOUT_MS),
+              o("WAWebBackendApi").frontendFireAndForget(
+                "triggerOfflineProgressUpdateFromBridge",
+                {},
+              ),
+              this.$11(o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE),
+              this.$14()
+            );
+          }),
+          (n.isResumeFromRestartComplete = function () {
             return (
               this.$1 !==
                 o("WAWebOfflineResumeConst").ResumeStatus.RESUME_ON_RESTART &&
               this.$1 !== o("WAWebOfflineResumeConst").ResumeStatus.INIT
             );
           }),
-          (a.isResumeOnSocketDisconnectInProgress = function () {
+          (n.isResumeOnSocketDisconnectInProgress = function () {
             return (
               this.$1 ===
               o("WAWebOfflineResumeConst").ResumeStatus.RESUME_WITH_OPEN_TAB
             );
           }),
-          (a.isResumeFromRestartInProgress = function () {
+          (n.isResumeFromRestartInProgress = function () {
             return (
               this.$1 !== o("WAWebOfflineResumeConst").ResumeStatus.INIT &&
               !o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd
             );
           }),
-          (a.isResumeComplete = function () {
+          (n.isResumeComplete = function () {
             return (
               this.$1 === o("WAWebOfflineResumeConst").ResumeStatus.COMPLETE
             );
           }),
-          (a.getHasMessagesToDownload = function () {
+          (n.getHasMessagesToDownload = function () {
             return this.$5;
           }),
-          (a.getFinishedDownloading = function () {
+          (n.getFinishedDownloading = function () {
             return this.getOfflineDeliveryProgress() === 100;
           }),
-          (a.shouldUseOfflineResumeScreen = function () {
+          (n.shouldUseOfflineResumeScreen = function () {
             return this.offlineMessagePreviewCounter > this.$2;
           }),
-          (a.processDecryptResult = function (t) {
+          (n.processDecryptResult = function (t) {
             (this.$13(),
               (this.$2 += 1),
               t === o("WAWebHandleMsgTypes").E2EProcessResult.RETRY &&
                 (this.$3 += 1));
           }),
-          (a.offlineStanzaReceivedAfterComplete = function () {
+          (n.offlineStanzaReceivedAfterComplete = function () {
             this.isResumeFromRestartComplete() && (this.$6 += 1);
           }),
-          (a.newOfflineStanza = function (t, n) {
+          (n.newOfflineStanza = function (t, n) {
             (this.$13(),
               o(
                 "WAWebWamOfflineResumeReporter",
@@ -398,16 +386,16 @@ __d(
                 "WAWebWamOfflineResumeReporter",
               ).OfflineResumeReporter.logOldestStanzaTime(t));
           }),
-          (a.getResumeUIProgressBarType = function () {
+          (n.getResumeUIProgressBarType = function () {
             return o("WAWebOfflineResumeTypes").ResumeUIProgressBarType.None;
           }),
-          (a.$13 = function () {
+          (n.$13 = function () {
             this.$7 &&
               this.$7.onOrAfter(
                 o("WAWebOfflineResumeConst").OFFLINE_STANZA_TIMEOUT_MS,
               );
           }),
-          (a.$12 = function (t, n) {
+          (n.$12 = function (t, n) {
             var e,
               r = this;
             ((e = this.$7) == null || e.cancel(),
@@ -453,182 +441,161 @@ __d(
                 o("WAWebOfflineResumeConst").OFFLINE_STANZA_TIMEOUT_MS,
               ));
           }),
-          (a.$14 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+          (n.$14 = async function () {
+            (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+              "waitForOfflineMessageQueue",
+            ),
+              o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
+                o("WAWebOfflineSyncQplSession").OfflineSyncPoint
+                  .QueueDrainStart,
+              ),
+              await (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()
+                ? o("WAWebOneQueue").waitForOneQueueOfflineWorkProcessed()
+                : o("WAWebMessageQueue").waitForLegacyOfflineMessageQueue()),
+              o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
+                o("WAWebOfflineSyncQplSession").OfflineSyncPoint.QueueDrainEnd,
+              ),
+              o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() &&
+                (await o("WAWebOneQueue").waitForOneQueueOfflineWorkDrained()),
+              o("WAWebPageLoadLogging").endPageLoadQplMeasure(
                 "waitForOfflineMessageQueue",
               ),
-                o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
-                  o("WAWebOfflineSyncQplSession").OfflineSyncPoint
-                    .QueueDrainStart,
-                ),
-                yield o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()
-                  ? o("WAWebOneQueue").waitForOneQueueOfflineWorkProcessed()
-                  : o("WAWebMessageQueue").waitForLegacyOfflineMessageQueue(),
-                o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
-                  o("WAWebOfflineSyncQplSession").OfflineSyncPoint
-                    .QueueDrainEnd,
-                ),
-                o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() &&
-                  (yield o(
-                    "WAWebOneQueue",
-                  ).waitForOneQueueOfflineWorkDrained()),
-                o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                  "waitForOfflineMessageQueue",
-                ),
-                yield o(
-                  "WAWebInboundMsgPersistedQueueAdapter",
-                ).isInboundMsgPersistedQueueRegistered()
-                  ? this.$15()
-                  : this.$16(),
-                o("WAWebThreadMetadata").resetThreadMeta(),
-                o(
-                  "WAWebBackendEventBus",
-                ).BackendEventBus.triggerOfflineDeliveryEnd(),
-                o("WAWebAppTracker").AppTracker.stop(
-                  o("WAWebAppTracker").AppTrackerType.BlockingOR,
-                ),
-                o("WAWebUserPrefsGeneral")
-                  .setOfflinePushCount(0)
-                  .catch(function (e) {
-                    o("WALogger")
-                      .ERROR(
-                        b ||
-                          (b = babelHelpers.taggedTemplateLiteralLoose([
-                            "[offline-resume][blocking] setOfflinePushCount failed: ",
-                            "",
-                          ])),
-                        e,
-                      )
-                      .sendLogs("blocking-offline-resume-push-count", {
-                        sampling: 0.01,
-                      });
-                  }),
-                o("WAWebWamOfflineResumeReporter")
-                  .OfflineResumeReporter.commit()
-                  .catch(function (e) {
-                    o("WALogger")
-                      .ERROR(
-                        v ||
-                          (v = babelHelpers.taggedTemplateLiteralLoose([
-                            "[offline-resume][blocking] OfflineResumeReporter.commit failed: ",
-                            "",
-                          ])),
-                        e,
-                      )
-                      .sendLogs("blocking-offline-resume-reporter-commit", {
-                        sampling: 0.01,
-                      });
-                  }),
-                o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-                  "processAllOrphanPaymentNotifications",
-                ),
-                o("WAWebChatThreadLogging")
-                  .uploadChatThreadLoggingEvents()
-                  .catch(function (e) {
-                    o("WALogger")
-                      .ERROR(
-                        S ||
-                          (S = babelHelpers.taggedTemplateLiteralLoose([
-                            "[offline-resume][blocking] uploadChatThreadLoggingEvents failed: ",
-                            "",
-                          ])),
-                        e,
-                      )
-                      .sendLogs("blocking-offline-resume-upload-ctl", {
-                        sampling: 0.01,
-                      });
-                  }),
-                r("WAWebBrokerGlobalAppState").initOrUpdateTracking(
-                  o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
-                ),
-                o("WAWebWamMemoryStat").setCurrentMemoryScenario(
-                  o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
-                ),
-                self.setTimeout(function () {
-                  o("WAWebApiPendingDeviceSync")
-                    .doPendingDeviceSync()
-                    .catch(function (e) {
-                      o("WALogger")
-                        .ERROR(
-                          R ||
-                            (R = babelHelpers.taggedTemplateLiteralLoose([
-                              "[offline-resume][blocking] doPendingDeviceSync failed: ",
-                              "",
-                            ])),
-                          e,
-                        )
-                        .sendLogs("blocking-offline-resume-device-sync", {
-                          sampling: 0.01,
-                        });
+              await (o(
+                "WAWebInboundMsgPersistedQueueAdapter",
+              ).isInboundMsgPersistedQueueRegistered()
+                ? this.$15()
+                : this.$16()),
+              o("WAWebThreadMetadata").resetThreadMeta(),
+              o(
+                "WAWebBackendEventBus",
+              ).BackendEventBus.triggerOfflineDeliveryEnd(),
+              o("WAWebAppTracker").AppTracker.stop(
+                o("WAWebAppTracker").AppTrackerType.BlockingOR,
+              ),
+              o("WAWebUserPrefsGeneral")
+                .setOfflinePushCount(0)
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      b ||
+                        (b = babelHelpers.taggedTemplateLiteralLoose([
+                          "[offline-resume][blocking] setOfflinePushCount failed: ",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .sendLogs("blocking-offline-resume-push-count", {
+                      sampling: 0.01,
                     });
-                }, o("WAWebOfflineResumeConst").OFFLINE_DEVICE_SYNC_DELAY),
-                o("WALogger").LOG(
-                  L ||
-                    (L = babelHelpers.taggedTemplateLiteralLoose([
-                      "[offline-resume][blocking] cancel progress bar timer",
-                    ])),
-                ),
-                this.$8.forceRunNow(),
-                this.$8.cancel());
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$15 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (o(
-                "WAWebWamOfflineResumeReporter",
-              ).OfflineResumeReporter.logLastStanzaT(),
-                yield o(
-                  "WAWebInboundMsgPersistedQueueAdapter",
-                ).waitForInboundMsgStartupChatsDrained(T),
-                yield o(
-                  "WAWebInboundMsgPersistedQueueAdapter",
-                ).pauseInboundMsgDrainUntilMainStreamReady(),
-                this.$17(),
-                yield this.$18(!1),
-                yield o(
-                  "WAWebInboundMsgPersistedQueueAdapter",
-                ).waitForInboundMsgDrainIdle(),
-                yield o("WAWebOfflineResumeUtils").clearOfflineSnapShot(),
-                yield o(
-                  "WAWebOfflineResumeUtils",
-                ).updatePeerReceiptsAfterMainScreen(),
-                this.$19());
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$16 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (yield o(
+                }),
+              o("WAWebWamOfflineResumeReporter")
+                .OfflineResumeReporter.commit()
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      v ||
+                        (v = babelHelpers.taggedTemplateLiteralLoose([
+                          "[offline-resume][blocking] OfflineResumeReporter.commit failed: ",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .sendLogs("blocking-offline-resume-reporter-commit", {
+                      sampling: 0.01,
+                    });
+                }),
+              o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+                "processAllOrphanPaymentNotifications",
+              ),
+              o("WAWebChatThreadLogging")
+                .uploadChatThreadLoggingEvents()
+                .catch(function (e) {
+                  o("WALogger")
+                    .ERROR(
+                      S ||
+                        (S = babelHelpers.taggedTemplateLiteralLoose([
+                          "[offline-resume][blocking] uploadChatThreadLoggingEvents failed: ",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .sendLogs("blocking-offline-resume-upload-ctl", {
+                      sampling: 0.01,
+                    });
+                }),
+              r("WAWebBrokerGlobalAppState").initOrUpdateTracking(
+                o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
+              ),
+              o("WAWebWamMemoryStat").setCurrentMemoryScenario(
+                o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
+              ),
+              self.setTimeout(function () {
+                o("WAWebApiPendingDeviceSync")
+                  .doPendingDeviceSync()
+                  .catch(function (e) {
+                    o("WALogger")
+                      .ERROR(
+                        R ||
+                          (R = babelHelpers.taggedTemplateLiteralLoose([
+                            "[offline-resume][blocking] doPendingDeviceSync failed: ",
+                            "",
+                          ])),
+                        e,
+                      )
+                      .sendLogs("blocking-offline-resume-device-sync", {
+                        sampling: 0.01,
+                      });
+                  });
+              }, o("WAWebOfflineResumeConst").OFFLINE_DEVICE_SYNC_DELAY),
+              o("WALogger").LOG(
+                L ||
+                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                    "[offline-resume][blocking] cancel progress bar timer",
+                  ])),
+              ),
+              this.$8.forceRunNow(),
+              this.$8.cancel());
+          }),
+          (n.$15 = async function () {
+            (o(
+              "WAWebWamOfflineResumeReporter",
+            ).OfflineResumeReporter.logLastStanzaT(),
+              await o(
+                "WAWebInboundMsgPersistedQueueAdapter",
+              ).waitForInboundMsgStartupChatsDrained(T),
+              await o(
+                "WAWebInboundMsgPersistedQueueAdapter",
+              ).pauseInboundMsgDrainUntilMainStreamReady(),
+              this.$17(),
+              await this.$18(!1),
+              await o(
                 "WAWebInboundMsgPersistedQueueAdapter",
               ).waitForInboundMsgDrainIdle(),
-                this.$17(),
-                o("WAWebPageLoadLogging").startPageLoadQplMeasure(
-                  "clearOfflineSnapShot",
-                ),
-                yield o("WAWebOfflineResumeUtils").clearOfflineSnapShot(),
-                o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                  "clearOfflineSnapShot",
-                ),
-                this.$19(),
-                o(
-                  "WAWebWamOfflineResumeReporter",
-                ).OfflineResumeReporter.logLastStanzaT(),
-                yield this.$18(!0));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$17 = function () {
+              await o("WAWebOfflineResumeUtils").clearOfflineSnapShot(),
+              await o(
+                "WAWebOfflineResumeUtils",
+              ).updatePeerReceiptsAfterMainScreen(),
+              this.$19());
+          }),
+          (n.$16 = async function () {
+            (await o(
+              "WAWebInboundMsgPersistedQueueAdapter",
+            ).waitForInboundMsgDrainIdle(),
+              this.$17(),
+              o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+                "clearOfflineSnapShot",
+              ),
+              await o("WAWebOfflineResumeUtils").clearOfflineSnapShot(),
+              o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                "clearOfflineSnapShot",
+              ),
+              this.$19(),
+              o(
+                "WAWebWamOfflineResumeReporter",
+              ).OfflineResumeReporter.logLastStanzaT(),
+              await this.$18(!0));
+          }),
+          (n.$17 = function () {
             ((this.$4 = !0),
               o("WAWebBackendApi").frontendFireAndForget(
                 "triggerOfflineProgressUpdateFromBridge",
@@ -647,7 +614,7 @@ __d(
               ),
               (this.$3 = 0));
           }),
-          (a.$19 = function () {
+          (n.$19 = function () {
             (o("WALogger").LOG(
               k ||
                 (k = babelHelpers.taggedTemplateLiteralLoose([
@@ -672,25 +639,17 @@ __d(
                     });
                 }));
           }),
-          (a.$18 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
-                  "loadMainScreen",
-                ),
-                  yield o("WAWebOfflineResumeUtils").loadMainScreen({
-                    shouldUpdateReceipts: e,
-                  }),
-                  o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                    "loadMainScreen",
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          (n.$18 = async function (t) {
+            (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+              "loadMainScreen",
+            ),
+              await o("WAWebOfflineResumeUtils").loadMainScreen({
+                shouldUpdateReceipts: t,
+              }),
+              o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+                "loadMainScreen",
+              ));
+          }),
           t
         );
       })();

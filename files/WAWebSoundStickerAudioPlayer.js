@@ -1,7 +1,6 @@
 __d(
   "WAWebSoundStickerAudioPlayer",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebDownloadManager",
@@ -16,45 +15,43 @@ __d(
     "WAWebSoundStickerUtils",
     "WAWebStartMediaDownloadQpl",
     "WAWebUserPrefsGeneral",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = 1e6,
-      d = 20,
-      m = 300 * 1e3,
-      p = new Set(),
+      u = 1e6,
+      c = 20,
+      d = 300 * 1e3,
+      m = new Set(),
+      p = new Map(),
       _ = new Map(),
       f = new Map(),
       g = new Map(),
-      h = new Map(),
-      y = null,
-      C = 0,
-      b = null;
-    function v() {
-      return y;
+      h = null,
+      y = 0,
+      C = null;
+    function b() {
+      return h;
     }
-    function S(e) {
+    function v(e) {
       return (
-        p.add(e),
+        m.add(e),
         function () {
-          p.delete(e);
+          m.delete(e);
         }
       );
     }
-    function R(t, n) {
+    function S(t, n) {
       var a = n.onStart,
         i = n.onUnavailable,
         l = t.id.toString();
-      if (y === l) {
-        k();
+      if (h === l) {
+        E();
         return;
       }
-      k();
+      E();
       var s = t.stickerAudio,
         u = s == null ? void 0 : s.filehash;
       if (
@@ -66,21 +63,21 @@ __d(
         i();
         return;
       }
-      var c = ++C,
+      var c = ++y,
         d = new Audio();
-      I(l);
+      k(l);
       var m = function () {
-          c === C && (k(), i());
+          c === y && (E(), i());
         },
-        p = f.get(u);
+        p = _.get(u);
       if (p != null) {
-        T({ attempt: c, audio: d, url: p, onStart: a, fail: m });
+        I({ attempt: c, audio: d, url: p, onStart: a, fail: m });
         return;
       }
       (d.load(),
-        D(t, s, { isPreload: !1 }).then(
+        T(t, s, { isPreload: !1 }).then(
           function (e) {
-            c === C && T({ attempt: c, audio: d, url: e, onStart: a, fail: m });
+            c === y && I({ attempt: c, audio: d, url: e, onStart: a, fail: m });
           },
           function (t) {
             (o("WALogger")
@@ -97,12 +94,12 @@ __d(
           },
         ));
     }
-    function L(e) {
+    function R(e) {
       var t = e.stickerAudio,
         n = t == null ? void 0 : t.filehash;
       t == null ||
         n == null ||
-        N(n) ||
+        $(n) ||
         !o("WAWebSoundStickerGating").isSoundStickerPlaybackEnabled() ||
         !o("WAWebSoundStickerUtils").isSoundStickerPlayable(e) ||
         !o("WAWebUserPrefsGeneral").getAutoDownloadAudio() ||
@@ -110,7 +107,7 @@ __d(
         t.size >=
           o("WAWebMediaAutoDownloadQueue").AUDIO_AUTO_DOWNLOAD_SIZE_LIMIT ||
         !o("WAWebMsgModelPropUtils").isTrustedForAutoDownload(e) ||
-        D(e, t, { isPreload: !0 }).catch(function (e) {
+        T(e, t, { isPreload: !0 }).catch(function (e) {
           (o("WALogger")
             .WARN(
               s ||
@@ -121,37 +118,37 @@ __d(
               r("getErrorSafe")(e).message,
             )
             .sendLogs("sound-sticker-prefetch-failed", { sampling: 0.01 }),
-            g.set(n, o("WATimeUtils").unixTimeMs()));
+            f.set(n, o("WATimeUtils").unixTimeMs()));
         });
     }
-    function E(e) {
+    function L(e) {
       var t;
       return (
-        h.set(e, ((t = h.get(e)) != null ? t : 0) + 1),
+        g.set(e, ((t = g.get(e)) != null ? t : 0) + 1),
         function () {
           var t,
-            n = ((t = h.get(e)) != null ? t : 1) - 1;
+            n = ((t = g.get(e)) != null ? t : 1) - 1;
           if (n > 0) {
-            h.set(e, n);
+            g.set(e, n);
             return;
           }
-          (h.delete(e), y === e && k());
+          (g.delete(e), h === e && E());
         }
       );
     }
-    function k() {
-      C++;
-      var e = b;
-      ((b = null), e == null || e.release(), I(null));
+    function E() {
+      y++;
+      var e = C;
+      ((C = null), e == null || e.release(), k(null));
     }
-    function I(e) {
-      y !== e &&
-        ((y = e),
-        p.forEach(function (e) {
+    function k(e) {
+      h !== e &&
+        ((h = e),
+        m.forEach(function (e) {
           return e();
         }));
     }
-    function T(e) {
+    function I(e) {
       var t = e.attempt,
         n = e.audio,
         r = e.fail,
@@ -160,12 +157,12 @@ __d(
         l = o("WAWebPttAudioChannels").MainAudioChannel.registerMedia(n),
         s = function () {
           var e;
-          ((e = b) == null ? void 0 : e.attempt) === t && k();
+          ((e = C) == null ? void 0 : e.attempt) === t && E();
         };
       (n.addEventListener("ended", s),
         n.addEventListener("pause", s),
         n.addEventListener("error", r),
-        (b = {
+        (C = {
           attempt: t,
           audio: n,
           release: function () {
@@ -180,134 +177,115 @@ __d(
         a(),
         n.play().catch(r));
     }
-    function D(e, t, o) {
-      var a = o.isPreload,
-        i = t.filehash;
-      if (i == null)
-        return (u || (u = n("Promise"))).reject(r("err")("missing filehash"));
-      var l = _.get(i);
-      if (l != null)
-        return l.isPreload && !a
-          ? l.promise.catch(function () {
-              return D(e, t, { isPreload: !1 });
+    function T(e, t, n) {
+      var o = n.isPreload,
+        a = t.filehash;
+      if (a == null) return Promise.reject(r("err")("missing filehash"));
+      var i = p.get(a);
+      if (i != null)
+        return i.isPreload && !o
+          ? i.promise.catch(function () {
+              return T(e, t, { isPreload: !1 });
             })
-          : l.promise;
-      var s = x(e, t, i, a).then(function (e) {
-        return (g.delete(i), f.set(i, e), M(), e);
+          : i.promise;
+      var l = D(e, t, a, o).then(function (e) {
+        return (f.delete(a), _.set(a, e), P(), e);
       });
       return (
-        s.catch(function () {
+        l.catch(function () {
           var e;
-          ((e = _.get(i)) == null ? void 0 : e.promise) === s && _.delete(i);
+          ((e = p.get(a)) == null ? void 0 : e.promise) === l && p.delete(a);
         }),
-        _.set(i, { isPreload: a, promise: s }),
-        s
+        p.set(a, { isPreload: o, promise: l }),
+        l
       );
     }
-    function x(e, t, n, r) {
-      return $.apply(this, arguments);
+    async function D(e, t, n, a) {
+      if (t.size > u) throw r("err")("clip too large");
+      var i = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+          entryPoint: "DownloadSoundStickerAudio",
+        }),
+        l;
+      try {
+        l = await o(
+          "WAWebDownloadManager",
+        ).downloadManager.downloadAndMaybeDecrypt({
+          directPath: t.directPath,
+          encFilehash: t.encFilehash,
+          filehash: n,
+          mediaKey: t.mediaKey,
+          mediaKeyTimestamp: t.mediaKeyTimestamp,
+          mimetype: t.mimetype,
+          isMimetypeAllowed: o("WAWebSoundStickerUtils")
+            .isSoundStickerAudioMimetype,
+          signal: new AbortController().signal,
+          type: e.id.remote.isNewsletter()
+            ? o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_AUDIO
+            : o("WAWebMmsMediaTypes").MEDIA_TYPES.AUDIO,
+          userDownloadAttemptCount: 0,
+          isPreload: a,
+          downloadQpl: i,
+          downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(e),
+        });
+      } catch (e) {
+        throw (
+          i.endFailWithError("download_failed", r("getErrorSafe")(e).message),
+          e
+        );
+      }
+      if (l.byteLength > u)
+        throw (
+          i.endFail("invalid_sticker_audio", {
+            string: { earlyExitReason: "invalid_sticker_audio" },
+          }),
+          r("err")("invalid clip")
+        );
+      var s;
+      try {
+        s = await o("WAWebSoundStickerAudioValidation").checkSoundStickerAudio({
+          input: l,
+          mimetype: t.mimetype,
+          downloadQpl: i,
+        });
+      } catch (e) {
+        throw (
+          i.endFailWithError(
+            "invalid_sticker_audio",
+            r("getErrorSafe")(e).message,
+          ),
+          e
+        );
+      }
+      var c;
+      try {
+        c = await x(s);
+      } catch (e) {
+        throw (
+          i.endFailWithError("transcode_failed", r("getErrorSafe")(e).message),
+          e
+        );
+      }
+      return (i.endSuccess(), URL.createObjectURL(c));
     }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            if (t.size > c) throw r("err")("clip too large");
-            var i = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-                entryPoint: "DownloadSoundStickerAudio",
-              }),
-              l;
-            try {
-              l = yield o(
-                "WAWebDownloadManager",
-              ).downloadManager.downloadAndMaybeDecrypt({
-                directPath: t.directPath,
-                encFilehash: t.encFilehash,
-                filehash: n,
-                mediaKey: t.mediaKey,
-                mediaKeyTimestamp: t.mediaKeyTimestamp,
-                mimetype: t.mimetype,
-                isMimetypeAllowed: o("WAWebSoundStickerUtils")
-                  .isSoundStickerAudioMimetype,
-                signal: new AbortController().signal,
-                type: e.id.remote.isNewsletter()
-                  ? o("WAWebMmsMediaTypes").MEDIA_TYPES.NEWSLETTER_AUDIO
-                  : o("WAWebMmsMediaTypes").MEDIA_TYPES.AUDIO,
-                userDownloadAttemptCount: 0,
-                isPreload: a,
-                downloadQpl: i,
-                downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(e),
-              });
-            } catch (e) {
-              throw (
-                i.endFailWithError(
-                  "download_failed",
-                  r("getErrorSafe")(e).message,
-                ),
-                e
-              );
-            }
-            if (l.byteLength > c)
-              throw (
-                i.endFail("invalid_sticker_audio", {
-                  string: { earlyExitReason: "invalid_sticker_audio" },
-                }),
-                r("err")("invalid clip")
-              );
-            var s;
-            try {
-              s = yield o(
-                "WAWebSoundStickerAudioValidation",
-              ).checkSoundStickerAudio({
-                input: l,
-                mimetype: t.mimetype,
-                downloadQpl: i,
-              });
-            } catch (e) {
-              throw (
-                i.endFailWithError(
-                  "invalid_sticker_audio",
-                  r("getErrorSafe")(e).message,
-                ),
-                e
-              );
-            }
-            var u;
-            try {
-              u = yield P(s);
-            } catch (e) {
-              throw (
-                i.endFailWithError(
-                  "transcode_failed",
-                  r("getErrorSafe")(e).message,
-                ),
-                e
-              );
-            }
-            return (i.endSuccess(), URL.createObjectURL(u));
-          },
-        )),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e) {
+    function x(e) {
       var t = e.audio,
         n = e.mimetype;
       return o("WAWebMediaLoad").transcode(new Blob([t], { type: n }), n);
     }
-    function N(e) {
-      var t = g.get(e);
-      return t != null && o("WATimeUtils").unixTimeMs() - t < m;
+    function $(e) {
+      var t = f.get(e);
+      return t != null && o("WATimeUtils").unixTimeMs() - t < d;
     }
-    function M() {
-      for (var e of f) {
+    function P() {
+      for (var e of _) {
         var t = e[0],
           n = e[1];
-        if (f.size <= d) return;
-        (_.delete(t), f.delete(t), w(n));
+        if (_.size <= c) return;
+        (p.delete(t), _.delete(t), N(n));
       }
     }
-    function w(e) {
-      var t = b;
+    function N(e) {
+      var t = C;
       if (t == null || t.audio.src !== e) {
         URL.revokeObjectURL(e);
         return;
@@ -320,13 +298,13 @@ __d(
       (t.audio.addEventListener("ended", n),
         t.audio.addEventListener("pause", n));
     }
-    ((l.MAX_STICKER_AUDIO_BYTES = c),
-      (l.getPlayingSoundStickerKey = v),
-      (l.subscribeToSoundStickerPlayback = S),
-      (l.toggleSoundSticker = R),
-      (l.prefetchSoundSticker = L),
-      (l.retainSoundStickerView = E),
-      (l.stopSoundSticker = k));
+    ((l.MAX_STICKER_AUDIO_BYTES = u),
+      (l.getPlayingSoundStickerKey = b),
+      (l.subscribeToSoundStickerPlayback = v),
+      (l.toggleSoundSticker = S),
+      (l.prefetchSoundSticker = R),
+      (l.retainSoundStickerView = L),
+      (l.stopSoundSticker = E));
   },
   98,
 );

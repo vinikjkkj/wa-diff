@@ -14,7 +14,6 @@ __d(
     "WAWebSharableEventServerError",
     "WAWebSharableEventViewerState",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -22,45 +21,37 @@ __d(
       u = 300,
       c = 0,
       d = null;
-    function m(e) {
-      return p.apply(this, arguments);
+    async function m(e) {
+      var t;
+      if (
+        !o(
+          "WAWebSharableEventGatingUtils",
+        ).isEventsV2OnCompanionEnabledForAction("open-link")
+      ) {
+        o(
+          "WAWebOpenSharableEventInviteNotSupportedModalAction",
+        ).openSharableEventInviteNotSupportedModal();
+        return;
+      }
+      var n = ++c;
+      (t = d) == null || t.close();
+      var r = g(function () {
+        c === n && c++;
+      });
+      d = r;
+      var a;
+      try {
+        a = await o(
+          "WAWebSharableEventLinkPreviewJob",
+        ).fetchSharableEventLinkPreview(e);
+      } catch (t) {
+        if ((r.close(), c !== n)) return;
+        _(e, t);
+        return;
+      }
+      (r.close(), c === n && p(a, e));
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          if (
-            !o(
-              "WAWebSharableEventGatingUtils",
-            ).isEventsV2OnCompanionEnabledForAction("open-link")
-          ) {
-            o(
-              "WAWebOpenSharableEventInviteNotSupportedModalAction",
-            ).openSharableEventInviteNotSupportedModal();
-            return;
-          }
-          var n = ++c;
-          (t = d) == null || t.close();
-          var r = h(function () {
-            c === n && c++;
-          });
-          d = r;
-          var a;
-          try {
-            a = yield o(
-              "WAWebSharableEventLinkPreviewJob",
-            ).fetchSharableEventLinkPreview(e);
-          } catch (t) {
-            if ((r.close(), c !== n)) return;
-            f(e, t);
-            return;
-          }
-          (r.close(), c === n && _(a, e));
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(t, n) {
+    function p(t, n) {
       var r = t.event,
         a = t.hasViewerInvitation,
         i =
@@ -89,10 +80,10 @@ __d(
           },
         ));
     }
-    function f(e, t) {
+    function _(e, t) {
       var n = o("WAWebSharableEventServerError").getSharableEventError(t),
         r = n.kind;
-      if (g(r)) {
+      if (f(r)) {
         (o("WALogger").WARN(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -116,7 +107,7 @@ __d(
           m(e);
         }));
     }
-    function g(e) {
+    function f(e) {
       return (
         e ===
           o("WAWebSharableEventServerError").SharableEventErrorKind
@@ -128,7 +119,7 @@ __d(
           o("WAWebSharableEventServerError").SharableEventErrorKind.Unauthorized
       );
     }
-    function h(e) {
+    function g(e) {
       var t = !1,
         n = self.setTimeout(function () {
           ((t = !0),

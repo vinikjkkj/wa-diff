@@ -4,66 +4,46 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "Budget");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Not available");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Target audience");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Maximum price");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(
-        /*BTDS*/ "Set the highest price you\u2019re willing to pay per broadcast.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(/*BTDS*/ "Maximum price");
+      return s._(/*BTDS*/ "");
     }
     function _(e) {
-      return s._(
-        /*BTDS*/ "Suggested budget is {suggested budget} based on your audience size.",
-        [s._param("suggested budget", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("suggested budget", e)]);
     }
     function f(e) {
-      return s._(
-        /*BTDS*/ "{cost} is the default cost to send a broadcast to customers in your selected region.",
-        [s._param("cost", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("cost", e)]);
     }
     function g(e) {
-      return s._(
-        /*BTDS*/ "To reach more customers, set a maximum price higher than {cost}.",
-        [s._param("cost", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("cost", e)]);
     }
     function h(e) {
-      return s._(
-        /*BTDS*/ "Maximum price can\u2019t be more than {maxBid} for this account.",
-        [s._param("maxBid", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("maxBid", e)]);
     }
     function y() {
-      return s._(
-        /*BTDS*/ "Review your maximum price for the updated currency.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(/*BTDS*/ "Maximum price is required");
+      return s._(/*BTDS*/ "");
     }
     function b(e) {
-      return s._(/*BTDS*/ "Maximum price must be above {minimum}", [
-        s._param("minimum", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("minimum", e)]);
     }
     function v(e) {
-      return s._(/*BTDS*/ "Budget price must be above {minimum}", [
-        s._param("minimum", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("minimum", e)]);
     }
     ((l.getBudgetSectionTitle = e),
       (l.getSummaryValueUnavailableLabel = u),

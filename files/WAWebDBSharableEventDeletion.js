@@ -1,72 +1,50 @@
 __d(
   "WAWebDBSharableEventDeletion",
-  [
-    "Promise",
-    "WATimeUtils",
-    "WAWebDBSharableEvent",
-    "WAWebModelStorageUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WATimeUtils", "WAWebDBSharableEvent", "WAWebModelStorageUtils"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = new Map();
-    function u(e) {
-      return c.apply(this, arguments);
+    var e = new Map();
+    async function s(t) {
+      var n = o("WATimeUtils").monotonicTime();
+      (t.forEach(function (t) {
+        return e.set(t, n);
+      }),
+        !(
+          t.length === 0 ||
+          !o("WAWebDBSharableEvent").canUseSharableEventStorage()
+        ) &&
+          (await o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(
+              [
+                o("WAWebDBSharableEvent").SHARABLE_EVENT_TABLE,
+                o("WAWebDBSharableEvent").SHARABLE_EVENT_INVITEE_TABLE,
+                o("WAWebDBSharableEvent").SHARABLE_EVENT_CHANGE_TABLE,
+                o("WAWebDBSharableEvent")
+                  .SHARABLE_EVENT_INVITE_LINK_TOKEN_TABLE,
+              ],
+              async function (e) {
+                var n = e[0],
+                  r = e[1],
+                  o = e[2],
+                  a = e[3],
+                  i = n,
+                  l = r,
+                  s = o,
+                  u = a;
+                await Promise.all([
+                  i.bulkRemove(t),
+                  l.bulkRemoveByIndex(["eventId"], [].concat(t)),
+                  s.bulkRemove(t),
+                  u.bulkRemove(t),
+                ]);
+              },
+            )));
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = o("WATimeUtils").monotonicTime();
-          (t.forEach(function (e) {
-            return s.set(e, r);
-          }),
-            !(
-              t.length === 0 ||
-              !o("WAWebDBSharableEvent").canUseSharableEventStorage()
-            ) &&
-              (yield o("WAWebModelStorageUtils")
-                .getStorage()
-                .lock(
-                  [
-                    o("WAWebDBSharableEvent").SHARABLE_EVENT_TABLE,
-                    o("WAWebDBSharableEvent").SHARABLE_EVENT_INVITEE_TABLE,
-                    o("WAWebDBSharableEvent").SHARABLE_EVENT_CHANGE_TABLE,
-                    o("WAWebDBSharableEvent")
-                      .SHARABLE_EVENT_INVITE_LINK_TOKEN_TABLE,
-                  ],
-                  (function () {
-                    var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (r) {
-                        var o = r[0],
-                          a = r[1],
-                          i = r[2],
-                          l = r[3],
-                          s = o,
-                          u = a,
-                          c = i,
-                          d = l;
-                        yield (e || (e = n("Promise"))).all([
-                          s.bulkRemove(t),
-                          u.bulkRemoveByIndex(["eventId"], [].concat(t)),
-                          c.bulkRemove(t),
-                          d.bulkRemove(t),
-                        ]);
-                      },
-                    );
-                    return function (e) {
-                      return r.apply(this, arguments);
-                    };
-                  })(),
-                )));
-        })),
-        c.apply(this, arguments)
-      );
+    function u(t, n) {
+      var r = e.get(t);
+      return r != null && r >= n;
     }
-    function d(e, t) {
-      var n = s.get(e);
-      return n != null && n >= t;
-    }
-    ((l.deleteSharableEventsLocally = u), (l.wasSharableEventDeletedSince = d));
+    ((l.deleteSharableEventsLocally = s), (l.wasSharableEventDeletedSince = u));
   },
   98,
 );

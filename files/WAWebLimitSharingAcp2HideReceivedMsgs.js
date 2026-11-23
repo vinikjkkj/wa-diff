@@ -13,7 +13,6 @@ __d(
     "WAWebMsgDataUtils",
     "WAWebParseLimitSharingHistorySyncProto",
     "WAWebProtobufsE2E.pb",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,163 +33,111 @@ __d(
         o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP,
       ]),
       _ = 5e3;
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
+    async function f(t) {
+      var n = t.messageType,
+        r = t.msgs,
+        a = t.proto;
+      if (
+        !p.has(n) ||
+        r.length === 0 ||
+        !o("WAWebLimitSharingGatingUtils").isAcp2Enabled() ||
+        (a != null && v(a))
+      )
+        return r;
+      var i = r[0].id.remote;
+      if (!(await y(i))) return r;
+      var l = S(r);
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.messageType,
-            r = t.msgs,
-            a = t.proto;
-          if (
-            !p.has(n) ||
-            r.length === 0 ||
-            !o("WAWebLimitSharingGatingUtils").isAcp2Enabled() ||
-            (a != null && I(a))
+        l != null && (await R(i.toString(), l)),
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[acp2] hid ",
+                " message(s) received in a restricted chat",
+              ])),
+            r.length,
           )
-            return r;
-          var i = r[0].id.remote;
-          if (!(yield v(i))) return r;
-          var l = T(r);
-          return (
-            l != null && (yield D(i.toString(), l)),
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[acp2] hid ",
-                    " message(s) received in a restricted chat",
-                  ])),
-                r.length,
-              )
-              .sendLogs("acp2-restricted-chat-msg-hidden", { sampling: 0.01 }),
-            []
-          );
-        })),
-        g.apply(this, arguments)
+          .sendLogs("acp2-restricted-chat-msg-hidden", { sampling: 0.01 }),
+        []
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    async function g(e) {
+      var t = e.chatWid,
+        n = e.messageType,
+        r = e.t;
+      return !p.has(n) ||
+        !o("WAWebLimitSharingGatingUtils").isAcp2Enabled() ||
+        !(await y(t))
+        ? !1
+        : (await R(t.toString(), r),
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[acp2] hid a scheduled message received in a restricted chat",
+                ])),
+            )
+            .sendLogs("acp2-restricted-chat-msg-hidden", { sampling: 0.01 }),
+          !0);
     }
-    function y() {
+    async function h(e) {
+      var t = e.chatWid,
+        n = e.messageType;
+      return !p.has(n) || !o("WAWebLimitSharingGatingUtils").isAcp2Enabled()
+        ? !1
+        : y(t);
+    }
+    async function y(e) {
+      var t = e.toString(),
+        n = await b(t),
+        r = n
+          ? o("WAWebLimitSharingProtoUtils").getPendingLimitSharingUpdate(t)
+          : o("WAWebLimitSharingProtoUtils").getPendingAcp2Update(t);
+      return (!n && r == null) ||
+        !o("WAWebLimitSharingGatingUtils").isAcp2EnabledForWid(e)
+        ? !1
+        : r == null
+          ? !0
+          : C(t, r);
+    }
+    async function C(e, t) {
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chatWid,
-            n = e.messageType,
-            r = e.t;
-          return !p.has(n) ||
-            !o("WAWebLimitSharingGatingUtils").isAcp2Enabled() ||
-            !(yield v(t))
-            ? !1
-            : (yield D(t.toString(), r),
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[acp2] hid a scheduled message received in a restricted chat",
-                    ])),
-                )
-                .sendLogs("acp2-restricted-chat-msg-hidden", {
-                  sampling: 0.01,
-                }),
-              !0);
-        })),
-        y.apply(this, arguments)
+        await o("WAPromiseTimeout")
+          .promiseTimeout(t, _)
+          .catch(function () {
+            o("WALogger").WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[acp2] pending update wait timed out",
+                ])),
+            );
+          }),
+        b(e)
       );
     }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chatWid,
-            n = e.messageType;
-          return !p.has(n) || !o("WAWebLimitSharingGatingUtils").isAcp2Enabled()
-            ? !1
-            : v(t);
-        })),
-        b.apply(this, arguments)
-      );
+    async function b(e) {
+      try {
+        var t,
+          n = await o("WAWebLimitSharingModelUtils").getChat(e);
+        return (
+          (n == null || (t = n.acp2Setting) == null ? void 0 : t.enabled) === !0
+        );
+      } catch (e) {
+        return (
+          o("WALogger").WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[acp2] restriction check failed, keeping the message: ",
+                "",
+              ])),
+            e,
+          ),
+          !1
+        );
+      }
     }
     function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.toString(),
-            n = yield E(t),
-            r = n
-              ? o("WAWebLimitSharingProtoUtils").getPendingLimitSharingUpdate(t)
-              : o("WAWebLimitSharingProtoUtils").getPendingAcp2Update(t);
-          return (!n && r == null) ||
-            !o("WAWebLimitSharingGatingUtils").isAcp2EnabledForWid(e)
-            ? !1
-            : r == null
-              ? !0
-              : R(t, r);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (
-            yield o("WAPromiseTimeout")
-              .promiseTimeout(t, _)
-              .catch(function () {
-                o("WALogger").WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[acp2] pending update wait timed out",
-                    ])),
-                );
-              }),
-            E(e)
-          );
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t,
-              n = yield o("WAWebLimitSharingModelUtils").getChat(e);
-            return (
-              (n == null || (t = n.acp2Setting) == null
-                ? void 0
-                : t.enabled) === !0
-            );
-          } catch (e) {
-            return (
-              o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[acp2] restriction check failed, keeping the message: ",
-                    "",
-                  ])),
-                e,
-              ),
-              !1
-            );
-          }
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e) {
       var t,
         n,
         r,
@@ -216,7 +163,7 @@ __d(
         return e != null && m.has(e);
       });
     }
-    function T(e) {
+    function S(e) {
       var t = null;
       for (var n of e)
         o("WAWebMsgDataUtils").eventTypeFromMsgType(n) !==
@@ -226,42 +173,24 @@ __d(
           (t = n.t);
       return t;
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              ["chat"],
-              (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (n) {
-                    var r = n[0],
-                      o = yield r.get(e, !1);
-                    return o == null || (o.t != null && o.t >= t)
-                      ? !1
-                      : (yield r.createOrMerge(e, { id: e, t: t }), !0);
-                  },
-                );
-                return function (e) {
-                  return r.apply(this, arguments);
-                };
-              })(),
-            );
-          r &&
-            o("WAWebBackendApi").frontendFireAndForget("updateChatToLatest", {
-              chatIdToLatestUpdates: [{ id: e, t: t }],
-            });
-        })),
-        x.apply(this, arguments)
-      );
+    async function R(e, t) {
+      var n = await o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(["chat"], async function (n) {
+          var r = n[0],
+            o = await r.get(e, !1);
+          return o == null || (o.t != null && o.t >= t)
+            ? !1
+            : (await r.createOrMerge(e, { id: e, t }), !0);
+        });
+      n &&
+        o("WAWebBackendApi").frontendFireAndForget("updateChatToLatest", {
+          chatIdToLatestUpdates: [{ id: e, t }],
+        });
     }
     ((l.hideMsgsReceivedInAcp2RestrictedChat = f),
-      (l.hideScheduledMsgInAcp2RestrictedChat = h),
-      (l.wouldHideMsgInAcp2RestrictedChat = C));
+      (l.hideScheduledMsgInAcp2RestrictedChat = g),
+      (l.wouldHideMsgInAcp2RestrictedChat = h));
   },
   98,
 );

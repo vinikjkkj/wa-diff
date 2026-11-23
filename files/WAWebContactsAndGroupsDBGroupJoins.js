@@ -7,7 +7,6 @@ __d(
     "WAWebMsgType",
     "WAWebSchemaMessage",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "invite",
@@ -22,68 +21,52 @@ __d(
         "linked_group_join",
         "v4_add_invite_join",
       ]);
-    function c(e, t) {
-      return d.apply(this, arguments);
+    async function c(e, t) {
+      var n = await o("WAWebSchemaMessage")
+        .getMessageTable()
+        .between(
+          ["messageRangeIndex"],
+          o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
+            e,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
+            t,
+          ),
+          o("WAWebDBMessageStoreUtils").endOfMessageRange(
+            e,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
+          ),
+          { lowerInclusive: !0 },
+        );
+      return p(n);
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebSchemaMessage")
-            .getMessageTable()
-            .between(
-              ["messageRangeIndex"],
-              o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
-                e,
-                o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
-                t,
-              ),
-              o("WAWebDBMessageStoreUtils").endOfMessageRange(
-                e,
-                o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
-              ),
-              { lowerInclusive: !0 },
-            );
-          return f(n);
-        })),
-        d.apply(this, arguments)
+    async function d(e, t) {
+      var n = await o("WAWebSchemaMessage")
+        .getMessageTable()
+        .between(
+          ["messageRangeIndex"],
+          o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
+            e,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
+            t,
+          ),
+          o("WAWebDBMessageStoreUtils").endOfMessageRange(
+            e,
+            o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
+          ),
+          { limit: s, lowerInclusive: !0, reverse: !0 },
+        );
+      return m(
+        n
+          .filter(function (e) {
+            return e.type === o("WAWebMsgType").MSG_TYPE.GP2;
+          })
+          .map(function (e) {
+            return o("WAWebDBMessageSerialization").messageFromDbRow(e);
+          }),
+        o("WAWebUserUtils").isMeAccount,
       );
     }
     function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebSchemaMessage")
-            .getMessageTable()
-            .between(
-              ["messageRangeIndex"],
-              o("WAWebDBMessageStoreUtils").beginningOfMessageRange(
-                e,
-                o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
-                t,
-              ),
-              o("WAWebDBMessageStoreUtils").endOfMessageRange(
-                e,
-                o("WAWebDBMessageRangeIndex").MessagePropertyType.SystemMessage,
-              ),
-              { limit: s, lowerInclusive: !0, reverse: !0 },
-            );
-          return _(
-            n
-              .filter(function (e) {
-                return e.type === o("WAWebMsgType").MSG_TYPE.GP2;
-              })
-              .map(function (e) {
-                return o("WAWebDBMessageSerialization").messageFromDbRow(e);
-              }),
-            o("WAWebUserUtils").isMeAccount,
-          );
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t) {
       var n = null;
       return (
         e.forEach(function (e) {
@@ -102,7 +85,7 @@ __d(
         n
       );
     }
-    function f(t) {
+    function p(t) {
       var n = 0,
         r = 0;
       return (
@@ -124,9 +107,9 @@ __d(
     }
     ((l.INVITE_LINK_JOIN_SUBTYPE = e),
       (l.getGroupJoinsSince = c),
-      (l.getMyGroupJoinSince = m),
-      (l.findMyGroupJoin = _),
-      (l.countGroupJoins = f));
+      (l.getMyGroupJoinSince = d),
+      (l.findMyGroupJoin = m),
+      (l.countGroupJoins = p));
   },
   98,
 );

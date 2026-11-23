@@ -12,9 +12,7 @@ __d(
       u = e || (e = o("react"));
     function c() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "AI response settings updated"),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function d() {
@@ -24,8 +22,8 @@ __d(
     }
     function m() {
       return r("WAWebNetworkStatus").online
-        ? s._(/*BTDS*/ "Something went wrong")
-        : s._(/*BTDS*/ "Check your internet connection and try again");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     ((l.showResponseSettingsSuccessToast = c),
       (l.showResponseSettingsErrorToast = d));

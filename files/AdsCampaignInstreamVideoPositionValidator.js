@@ -9,7 +9,6 @@ __d(
     "AdsErrorsCTAStrings",
     "AdsInstreamVideoValidationUtils",
     "AdsPlacementSoftOptOutValidatorsUtils",
-    "FacebookReelsOverlayStoreUtils",
     "InstreamOnlyAuctionContextualTargetingUtils",
     "gkx",
   ],
@@ -56,22 +55,16 @@ __d(
                 n.objective,
               ),
               c = i == null ? void 0 : i.contextual_targeting_categories,
-              d =
-                o(
-                  "FacebookReelsOverlayStoreUtils",
-                ).instreamSkipBundleCheckGK() ||
-                o("AdsInstreamVideoValidationUtils").getIsInstreamOnlyAllowed(
-                  n,
-                );
+              d = o("AdsInstreamVideoValidationUtils").getIsInstreamOnlyAllowed(
+                n,
+              );
             !s &&
               !d &&
               a.push(
                 new (r("AdsError"))(
                   1815468,
                   u._(function (e, t) {
-                    return e._(
-                      /*BTDS*/ "To use Facebook In-Stream Reel, please also select the Facebook News Feeds placement.",
-                    );
+                    return e._(/*BTDS*/ "");
                   }, {}),
                   {
                     cta: r("AdsErrorsCTAStrings").ADD_FACEBOOK_NEWS_FEED_CTA,
@@ -90,9 +83,7 @@ __d(
                   new (r("AdsError"))(
                     2490235,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "Missing publisher topic: Select a specific publisher topic for your in-stream ad placement.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       cta: r("AdsErrorsCTAStrings")
@@ -120,9 +111,7 @@ __d(
             return new (r("AdsError"))(
               2490284,
               u._(function (e, t) {
-                return e._(
-                  /*BTDS*/ "The Topics You Selected For In-Stream Only Contextual Targeting are Invalid",
-                );
+                return e._(/*BTDS*/ "");
               }, {}),
               {
                 level: r("AdsError").Level.WARN,

@@ -16,7 +16,8 @@ __d(
       return e(t, "SAVED_MESSAGES_PANE");
     }
     function c(e) {
-      return JSON.stringify(e);
+      var t;
+      return (t = JSON.stringify(e)) != null ? t : "";
     }
     ((i.getTipParams = l),
       (i.getFAQParams = s),

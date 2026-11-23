@@ -1,7 +1,6 @@
 __d(
   "WAWebInboundMsgPersistedQueue",
   [
-    "Promise",
     "QPLFlow",
     "WALogger",
     "WAResolvable",
@@ -17,7 +16,6 @@ __d(
     "WAWebPersistedQueueQpl",
     "WAWebSendOfflineDeliveryReceiptJob",
     "WAWebSignalStateOneQueueFlushable",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,49 +25,42 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = 3,
-      f = [],
-      g = 0,
-      h = [],
-      y = (p || (p = n("Promise"))).resolve(),
-      C = 0,
-      b = !1,
-      v = [],
+      p = 3,
+      _ = [],
+      f = 0,
+      g = [],
+      h = Promise.resolve(),
+      y = 0,
+      C = !1,
+      b = [],
+      v = 0,
       S = 0,
-      R = 0,
-      L = new Set(),
-      E = p.resolve(),
-      k = !1,
-      I = {
-        flush: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (o("WAWebInboundMsgDrain").isInboundMsgDrainBatchBuffering() ||
-              o(
-                "WAWebInboundMsgMessageWriter",
-              ).inboundMsgMessageWriter.createSnapshot(),
-              !k &&
-                (yield X(),
-                x() &&
-                  o("WAWebInboundMsgQueueODS").logInboundMsgSignalStateHeld()));
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+      R = new Set(),
+      L = Promise.resolve(),
+      E = !1,
+      k = {
+        flush: async function () {
+          (o("WAWebInboundMsgDrain").isInboundMsgDrainBatchBuffering() ||
+            o(
+              "WAWebInboundMsgMessageWriter",
+            ).inboundMsgMessageWriter.createSnapshot(),
+            !E &&
+              (await V(),
+              D() &&
+                o("WAWebInboundMsgQueueODS").logInboundMsgSignalStateHeld()));
+        },
       };
-    function T(e) {
+    function I(e) {
       var t = e.entity,
         n = e.prepared,
         r = e.receipt,
         a = e.stanzaId;
-      if (k) {
+      if (E) {
         (o("WAWebInboundMsgQueueODS").logInboundMsgStoppedRowsDropped(1),
           o("WAWebMessageReceiveFlow").endMessageReceiveWithTakeover([a]));
         return;
       }
-      f.push({
+      _.push({
         entity: babelHelpers.extends({}, t, {
           queueId: o("WAWebPersistedQueueIds").nextPersistedQueueId(),
         }),
@@ -81,164 +72,143 @@ __d(
         stanzaId: a,
       });
     }
+    function T() {
+      return f > 0;
+    }
     function D() {
-      return g > 0;
+      return E || _.length > 0 || f > 0 || v > 0 || S > 0;
     }
     function x() {
-      return k || f.length > 0 || g > 0 || S > 0 || R > 0;
-    }
-    function $() {
-      ((k = !0),
+      ((E = !0),
         o("WAWebInboundMsgQueueODS").logInboundMsgQueueStopped(
-          f.length + v.length,
+          _.length + b.length,
         ),
         o("WAWebMessageReceiveFlow").endMessageReceiveWithTakeover(
-          [].concat(f, v, h).map(function (e) {
+          [].concat(_, b, g).map(function (e) {
             var t = e.stanzaId;
             return t;
           }),
         ),
-        (h = []),
-        (f = []),
-        (v = []),
-        (S = 0));
+        (g = []),
+        (_ = []),
+        (b = []),
+        (v = 0));
     }
-    function P() {
-      return N.apply(this, arguments);
+    async function $() {
+      if (
+        (await V(),
+        await o("WAWebInboundMsgDrain").waitForInboundMsgDrainIdle(),
+        !(S > 0))
+      ) {
+        if (v === 0) {
+          await L;
+          return;
+        }
+        var e = new (o("WAResolvable").Resolvable)();
+        (R.add(e), await Promise.race([L, e.promise]), R.delete(e));
+      }
     }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+    async function P() {
+      var t = g.filter(function (e) {
+        var t = e.signalStateWrite;
+        return o("WAWebSignalStateOneQueueFlushable").isSignalStateWriteDurable(
+          t,
+        );
+      });
+      g = g.filter(function (e) {
+        var t = e.signalStateWrite;
+        return !o(
+          "WAWebSignalStateOneQueueFlushable",
+        ).isSignalStateWriteDurable(t);
+      });
+      var n = o(
+          "WAWebInboundMsgMessageWriter",
+        ).inboundMsgMessageWriter.takeWrittenReceipts(),
+        a = n.filter(function (e) {
+          var t = e.duplicateMsgReceiptInfo;
+          return t == null;
+        });
+      N(
+        n.filter(function (e) {
+          var t = e.duplicateMsgReceiptInfo;
+          return t != null;
+        }),
+      );
+      var i = [];
+      (t.forEach(function (e) {
+        var t = e.receipt,
+          n = e.stanzaId;
+        e: {
+          var r = t;
           if (
-            (yield X(),
-            yield o("WAWebInboundMsgDrain").waitForInboundMsgDrainIdle(),
-            !(R > 0))
+            ((typeof r == "object" && r !== null) || typeof r == "function") &&
+            r.kind === "immediate" &&
+            r.onceDrained === !0 &&
+            "send" in r
           ) {
-            if (S === 0) {
-              yield E;
-              return;
-            }
-            var e = new (o("WAResolvable").Resolvable)();
-            (L.add(e),
-              yield (p || (p = n("Promise"))).race([E, e.promise]),
-              L.delete(e));
+            var o = r.send;
+            M(o, n);
+            break e;
           }
-        })),
-        N.apply(this, arguments)
-      );
-    }
-    function M() {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = h.filter(function (e) {
-            var t = e.signalStateWrite;
-            return o(
-              "WAWebSignalStateOneQueueFlushable",
-            ).isSignalStateWriteDurable(t);
-          });
-          h = h.filter(function (e) {
-            var t = e.signalStateWrite;
-            return !o(
-              "WAWebSignalStateOneQueueFlushable",
-            ).isSignalStateWriteDurable(t);
-          });
-          var t = o(
-              "WAWebInboundMsgMessageWriter",
-            ).inboundMsgMessageWriter.takeWrittenReceipts(),
-            a = t.filter(function (e) {
-              var t = e.duplicateMsgReceiptInfo;
-              return t == null;
-            });
-          A(
-            t.filter(function (e) {
-              var t = e.duplicateMsgReceiptInfo;
-              return t != null;
-            }),
+          if (
+            ((typeof r == "object" && r !== null) || typeof r == "function") &&
+            r.kind === "immediate" &&
+            "send" in r
+          ) {
+            var l = r.send;
+            i.push({ receiptCount: 1, sent: l() });
+            break e;
+          }
+          if (
+            ((typeof r == "object" && r !== null) || typeof r == "function") &&
+            r.kind === "aggregated" &&
+            "receiptInfo" in r
+          ) {
+            var s = r.receiptInfo;
+            a.push({ receiptInfo: s });
+            break e;
+          }
+          throw Error(
+            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+              r,
           );
-          var i = [];
-          (e.forEach(function (e) {
-            var t = e.receipt,
-              n = e.stanzaId;
-            e: {
-              var r = t;
-              if (
-                ((typeof r == "object" && r !== null) ||
-                  typeof r == "function") &&
-                r.kind === "immediate" &&
-                r.onceDrained === !0 &&
-                "send" in r
-              ) {
-                var o = r.send;
-                F(o, n);
-                break e;
-              }
-              if (
-                ((typeof r == "object" && r !== null) ||
-                  typeof r == "function") &&
-                r.kind === "immediate" &&
-                "send" in r
-              ) {
-                var l = r.send;
-                i.push({ receiptCount: 1, sent: l() });
-                break e;
-              }
-              if (
-                ((typeof r == "object" && r !== null) ||
-                  typeof r == "function") &&
-                r.kind === "aggregated" &&
-                "receiptInfo" in r
-              ) {
-                var s = r.receiptInfo;
-                a.push({ receiptInfo: s });
-                break e;
-              }
-              throw Error(
-                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  r,
-              );
-            }
-          }),
-            a.length > 0 && i.push({ receiptCount: a.length, sent: W(a) }));
-          var l = yield (p || (p = n("Promise"))).allSettled(
-            i.map(function (e) {
-              var t = e.sent;
-              return t;
-            }),
-          );
-          l.forEach(function (e, t) {
-            e.status === "rejected" &&
-              (o("WAWebInboundMsgQueueODS").logInboundMsgReceiptFailed(
-                i[t].receiptCount,
-              ),
-              o("WALogger")
-                .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[inbound-msg-queue] receipt failed after commit",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e.reason))
-                .tags("messaging"));
-          });
-        })),
-        w.apply(this, arguments)
+        }
+      }),
+        a.length > 0 && i.push({ receiptCount: a.length, sent: A(a) }));
+      var l = await Promise.allSettled(
+        i.map(function (e) {
+          var t = e.sent;
+          return t;
+        }),
       );
+      l.forEach(function (t, n) {
+        t.status === "rejected" &&
+          (o("WAWebInboundMsgQueueODS").logInboundMsgReceiptFailed(
+            i[n].receiptCount,
+          ),
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[inbound-msg-queue] receipt failed after commit",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t.reason))
+            .tags("messaging"));
+      });
     }
-    function A(t) {
-      if (t.length !== 0) {
-        o("WAWebInboundMsgQueueODS").logInboundMsgDuplicatesDeferred(t.length);
-        var n = t
+    function N(e) {
+      if (e.length !== 0) {
+        o("WAWebInboundMsgQueueODS").logInboundMsgDuplicatesDeferred(e.length);
+        var t = e
           .map(function (e) {
             var t = e.duplicateMsgReceiptInfo;
             return t == null ? void 0 : t.externalId;
           })
           .filter(Boolean);
-        O(n)
+        w(t)
           .then(function () {
-            return W(t);
+            return A(e);
           })
           .then(function (e) {
             e.length > 0 &&
@@ -246,31 +216,31 @@ __d(
                 e.length,
               );
           })
-          .catch(function (n) {
+          .catch(function (t) {
             (o("WAWebInboundMsgQueueODS").logInboundMsgDuplicateReceiptsFailed(
-              t.length,
+              e.length,
             ),
               o("WALogger")
                 .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[inbound-msg-queue] duplicate receipts failed",
                     ])),
                 )
-                .catching(r("getErrorSafe")(n))
+                .catching(r("getErrorSafe")(t))
                 .tags("messaging"));
           });
       }
     }
-    function F(e, t) {
-      O([t])
+    function M(e, t) {
+      w([t])
         .then(e)
         .catch(function (e) {
           (o("WAWebInboundMsgQueueODS").logInboundMsgReceiptFailed(1),
             o("WALogger")
               .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "[inbound-msg-queue] receipt held for the drain failed",
                   ])),
               )
@@ -278,157 +248,121 @@ __d(
               .tags("messaging"));
         });
     }
-    function O(e) {
-      return B.apply(this, arguments);
+    async function w(e) {
+      var t = globalThis.performance.now();
+      await $();
+      var n = globalThis.performance.now() - t;
+      e.forEach(function (e) {
+        return o("WAWebMessageReceiveFlow").addMessageReceiveInboundDrainWait(
+          e,
+          n,
+        );
+      });
     }
-    function B() {
-      return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = globalThis.performance.now();
-          yield P();
-          var n = globalThis.performance.now() - t;
-          e.forEach(function (e) {
-            return o(
-              "WAWebMessageReceiveFlow",
-            ).addMessageReceiveInboundDrainWait(e, n);
+    async function A(e) {
+      var t = e
+          .map(function (e) {
+            var t, n, r;
+            return (t = (n = e.receiptInfo) == null ? void 0 : n.externalId) !=
+              null
+              ? t
+              : (r = e.duplicateMsgReceiptInfo) == null
+                ? void 0
+                : r.externalId;
+          })
+          .filter(Boolean),
+        n = await o("WAWebSendOfflineDeliveryReceiptJob")
+          .sendAggregateOfflineReceipts(e, { waitForDanglingReceiptWrite: !1 })
+          .catch(function (e) {
+            throw (
+              o("WAWebMessageReceiveFlow").failMessageReceiveCheckpoint(t),
+              e
+            );
           });
-        })),
-        B.apply(this, arguments)
-      );
-    }
-    function W(e) {
-      return q.apply(this, arguments);
-    }
-    function q() {
       return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e
-              .map(function (e) {
-                var t, n, r;
-                return (t =
-                  (n = e.receiptInfo) == null ? void 0 : n.externalId) != null
-                  ? t
-                  : (r = e.duplicateMsgReceiptInfo) == null
-                    ? void 0
-                    : r.externalId;
-              })
-              .filter(Boolean),
-            n = yield o("WAWebSendOfflineDeliveryReceiptJob")
-              .sendAggregateOfflineReceipts(e, {
-                waitForDanglingReceiptWrite: !1,
-              })
-              .catch(function (e) {
-                throw (
-                  o("WAWebMessageReceiveFlow").failMessageReceiveCheckpoint(t),
-                  e
-                );
-              });
-          return (
-            o("WAWebMessageReceiveFlow").endMessageReceiveWithNack(n),
-            o("WAWebMessageReceiveFlow").endMessageReceiveWithAggregatedReceipt(
-              t.filter(function (e) {
-                return !n.includes(e);
-              }),
-              { batchSize: e.length },
-            ),
-            n
-          );
-        })),
-        q.apply(this, arguments)
+        o("WAWebMessageReceiveFlow").endMessageReceiveWithNack(n),
+        o("WAWebMessageReceiveFlow").endMessageReceiveWithAggregatedReceipt(
+          t.filter(function (e) {
+            return !n.includes(e);
+          }),
+          { batchSize: e.length },
+        ),
+        n
       );
     }
-    function U() {
-      ((b = !0),
+    function F() {
+      ((C = !0),
         o("WAWebInboundMsgQueueODS").logInboundMsgFallbackInPlace(),
         o("WALogger")
           .ERROR(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[inbound-msg-queue] commits keep failing, writing messages in place",
               ])),
           )
           .tags("messaging")
           .sendLogs("inbound-msg-fallback-in-place"),
-        V());
+        O());
     }
-    function V() {
+    function O() {
       var e;
-      ((e = v).push.apply(e, f),
-        (S += f.length),
-        (f = []),
-        (E = E.then(H).then(j).catch(Q)));
+      ((e = b).push.apply(e, _),
+        (v += _.length),
+        (_ = []),
+        (L = L.then(B).then(q).catch(U)));
     }
-    function H() {
-      return G.apply(this, arguments);
+    async function B() {
+      await o("WAWebInboundMsgDrain").waitForInboundMsgDrainIdle();
+      var e = b.shift();
+      if (!(e == null || E)) {
+        var t = await o("WAWebInboundMsgDrain").applyInboundMsgInPlace(
+          e.entity,
+          W,
+        );
+        if (E) {
+          o("WAWebMessageReceiveFlow").endMessageReceiveWithTakeover([
+            e.stanzaId,
+          ]);
+          return;
+        }
+        (v--,
+          t &&
+            g.push({
+              receipt: e.receipt,
+              signalStateWrite: e.signalStateWrite,
+              stanzaId: e.stanzaId,
+            }),
+          await B());
+      }
     }
-    function G() {
-      return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebInboundMsgDrain").waitForInboundMsgDrainIdle();
-          var e = v.shift();
-          if (!(e == null || k)) {
-            var t = yield o("WAWebInboundMsgDrain").applyInboundMsgInPlace(
-              e.entity,
-              z,
-            );
-            if (k) {
-              o("WAWebMessageReceiveFlow").endMessageReceiveWithTakeover([
-                e.stanzaId,
-              ]);
-              return;
-            }
-            (S--,
-              t &&
-                h.push({
-                  receipt: e.receipt,
-                  signalStateWrite: e.signalStateWrite,
-                  stanzaId: e.stanzaId,
-                }),
-              yield H());
-          }
-        })),
-        G.apply(this, arguments)
-      );
-    }
-    function z(e) {
-      (R++,
-        L.forEach(function (e) {
+    function W(e) {
+      (S++,
+        R.forEach(function (e) {
           return e.resolve();
         }));
       var t = function () {
-        return (R--, j());
+        return (S--, q());
       };
-      e.then(t, t).catch(Q);
+      e.then(t, t).catch(U);
     }
-    function j() {
-      return K.apply(this, arguments);
+    async function q() {
+      E ||
+        v > 0 ||
+        S > 0 ||
+        (await o("WAWebOneQueue")
+          .getWAWebOneQueue()
+          .enqueue(
+            function () {
+              return Promise.resolve();
+            },
+            { flush: !0, operationType: "wa_web_inbound_msg_in_place_flush" },
+          ));
     }
-    function K() {
-      return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          k ||
-            S > 0 ||
-            R > 0 ||
-            (yield o("WAWebOneQueue")
-              .getWAWebOneQueue()
-              .enqueue(
-                function () {
-                  return (p || (p = n("Promise"))).resolve();
-                },
-                {
-                  flush: !0,
-                  operationType: "wa_web_inbound_msg_in_place_flush",
-                },
-              ));
-        })),
-        K.apply(this, arguments)
-      );
-    }
-    function Q(e) {
+    function U(e) {
       o("WALogger")
         .ERROR(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
               "[inbound-msg-queue] writing rows in place failed",
             ])),
         )
@@ -436,129 +370,120 @@ __d(
         .tags("messaging")
         .sendLogs("inbound-msg-in-place-write-failed");
     }
-    function X() {
-      var e = y.then(Y);
-      return ((y = e.then(r("WAWebNoop"), r("WAWebNoop"))), e);
+    function V() {
+      var e = h.then(H);
+      return ((h = e.then(r("WAWebNoop"), r("WAWebNoop"))), e);
     }
-    function Y() {
-      return J.apply(this, arguments);
-    }
-    function J() {
-      return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (k || f.length === 0) return !1;
-          if (b) return (V(), !1);
-          var e = f;
-          f = [];
-          var t = o("QPLFlow").startQPLFlow(
-              o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
-              {
-                annotations: {
-                  bool: { isPQ: !0 },
-                  string: { operationType: "inbound_commit" },
-                },
-                timeoutInMs: o("WAWebPersistedQueueQpl")
-                  .PERSISTED_QUEUE_TIMEOUT_MS,
-              },
-            ),
-            n = e.map(function (e) {
-              var t = e.stanzaId;
-              return t;
-            });
-          (o("WAWebMessageReceiveFlow").markMessageReceiveCheckpoint(
-            n,
-            "inbound_commit_start",
-          ),
-            g++);
-          try {
-            yield o("QPLFlow").endWith(t, function () {
-              return (
-                o("WAWebInboundMsgQueuePref").markInboundMsgQueueMayHaveRows(),
-                o("WAWebInboundMsgQueueStore").putNewInboundMsgs(
-                  t,
-                  e.map(function (e) {
-                    var t = e.entity;
-                    return t;
-                  }),
-                )
-              );
-            });
-          } catch (t) {
-            return k
-              ? (o("WAWebInboundMsgQueueODS").logInboundMsgStoppedRowsDropped(
-                  e.length,
-                ),
-                o("WAWebMessageReceiveFlow").endMessageReceiveWithTakeover(n),
-                !1)
-              : (o("WAWebInboundMsgQueueODS").logInboundMsgCommitFailed(),
-                (f = [].concat(e, f)),
-                o("WALogger")
-                  .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[inbound-msg-queue] commit failed, keeping ",
-                        " rows for the next flush",
-                      ])),
-                    e.length,
-                  )
-                  .catching(r("getErrorSafe")(t))
-                  .tags("messaging")
-                  .sendLogs("inbound-msg-commit-failed", { sampling: 0.01 }),
-                ++C >= _ && U(),
-                !1);
-          } finally {
-            (g--,
-              o("WAWebMessageReceiveFlow").markMessageReceiveCheckpoint(
-                n,
-                "inbound_commit_end",
-              ));
-          }
-          if (
-            ((C = 0),
-            o("WAWebInboundMsgQueueODS").logInboundMsgsCommitted(e.length),
-            k)
-          )
-            o("WAWebMessageReceiveFlow").endMessageReceiveWithTakeover(n);
-          else {
-            var a;
-            (o("WAWebMessageReceiveFlow").handOffMessageReceiveWrites(n),
-              (a = h).push.apply(
-                a,
-                e.map(function (e) {
-                  var t = e.receipt,
-                    n = e.signalStateWrite,
-                    r = e.stanzaId;
-                  return { receipt: t, signalStateWrite: n, stanzaId: r };
-                }),
-              ));
-          }
+    async function H() {
+      if (E || _.length === 0) return !1;
+      if (C) return (O(), !1);
+      var e = _;
+      _ = [];
+      var t = o("QPLFlow").startQPLFlow(
+          o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
+          {
+            annotations: {
+              bool: { isPQ: !0 },
+              string: { operationType: "inbound_commit" },
+            },
+            timeoutInMs: o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_TIMEOUT_MS,
+          },
+        ),
+        n = e.map(function (e) {
+          var t = e.stanzaId;
+          return t;
+        });
+      (o("WAWebMessageReceiveFlow").markMessageReceiveCheckpoint(
+        n,
+        "inbound_commit_start",
+      ),
+        f++);
+      try {
+        await o("QPLFlow").endWith(t, function () {
           return (
-            o("WAWebInboundMsgDrain").onInboundMsgCommitted(
+            o("WAWebInboundMsgQueuePref").markInboundMsgQueueMayHaveRows(),
+            o("WAWebInboundMsgQueueStore").putNewInboundMsgs(
+              t,
               e.map(function (e) {
                 var t = e.entity;
                 return t;
               }),
-              new Map(
-                e.flatMap(function (e) {
-                  var t = e.entity,
-                    n = e.prepared;
-                  return n != null ? [[t.queueId, n]] : [];
-                }),
-              ),
-            ),
-            !0
+            )
           );
-        })),
-        J.apply(this, arguments)
+        });
+      } catch (t) {
+        return E
+          ? (o("WAWebInboundMsgQueueODS").logInboundMsgStoppedRowsDropped(
+              e.length,
+            ),
+            o("WAWebMessageReceiveFlow").endMessageReceiveWithTakeover(n),
+            !1)
+          : (o("WAWebInboundMsgQueueODS").logInboundMsgCommitFailed(),
+            (_ = [].concat(e, _)),
+            o("WALogger")
+              .ERROR(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[inbound-msg-queue] commit failed, keeping ",
+                    " rows for the next flush",
+                  ])),
+                e.length,
+              )
+              .catching(r("getErrorSafe")(t))
+              .tags("messaging")
+              .sendLogs("inbound-msg-commit-failed", { sampling: 0.01 }),
+            ++y >= p && F(),
+            !1);
+      } finally {
+        (f--,
+          o("WAWebMessageReceiveFlow").markMessageReceiveCheckpoint(
+            n,
+            "inbound_commit_end",
+          ));
+      }
+      if (
+        ((y = 0),
+        o("WAWebInboundMsgQueueODS").logInboundMsgsCommitted(e.length),
+        E)
+      )
+        o("WAWebMessageReceiveFlow").endMessageReceiveWithTakeover(n);
+      else {
+        var a;
+        (o("WAWebMessageReceiveFlow").handOffMessageReceiveWrites(n),
+          (a = g).push.apply(
+            a,
+            e.map(function (e) {
+              var t = e.receipt,
+                n = e.signalStateWrite,
+                r = e.stanzaId;
+              return { receipt: t, signalStateWrite: n, stanzaId: r };
+            }),
+          ));
+      }
+      return (
+        o("WAWebInboundMsgDrain").onInboundMsgCommitted(
+          e.map(function (e) {
+            var t = e.entity;
+            return t;
+          }),
+          new Map(
+            e.flatMap(function (e) {
+              var t = e.entity,
+                n = e.prepared;
+              return n != null ? [[t.queueId, n]] : [];
+            }),
+          ),
+        ),
+        !0
       );
     }
-    ((l.inboundMsgPersistedQueueFlushable = I),
-      (l.queueInboundMsgRow = T),
-      (l.isInboundMsgCommitInFlight = D),
-      (l.hasUnwrittenInboundMsgs = x),
-      (l.stopInboundMsgCommits = $),
-      (l.waitForEarlierInboundMsgs = P),
-      (l.sendCommittedInboundMsgReceipts = M));
+    ((l.inboundMsgPersistedQueueFlushable = k),
+      (l.queueInboundMsgRow = I),
+      (l.isInboundMsgCommitInFlight = T),
+      (l.hasUnwrittenInboundMsgs = D),
+      (l.stopInboundMsgCommits = x),
+      (l.waitForEarlierInboundMsgs = $),
+      (l.sendCommittedInboundMsgReceipts = P));
   },
   98,
 );

@@ -12,75 +12,54 @@ __d(
       u = e || (e = o("react"));
     function c() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Something went wrong"),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function d() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(
-            /*BTDS*/ "This content can't be saved. Edit it and try again.",
-          ),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function m() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Deleted") }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function p() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "File deleted"),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function _(e) {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(
-            /*BTDS*/ '_j{"*":"{number} files added","_1":"File added"}',
-            [s._plural(e, "number")],
-          ),
+          msg: s._(/*BTDS*/ "", [s._plural(e, "number")]),
         }),
       );
     }
     function f() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(
-            /*BTDS*/ "Your AI agent is adding info from the links you shared. Check Knowledge later.",
-          ),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function g() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Deleted AI knowledge"),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function h() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Product info deleted"),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function y() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Example response deleted"),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function C() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "Updated") }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function b() {

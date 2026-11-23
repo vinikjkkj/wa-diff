@@ -5,7 +5,6 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebModelStorageVersions",
     "WAWebSchemaSharableEvent",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -52,46 +51,20 @@ __d(
           )
       );
     }
-    function g() {
-      return h.apply(this, arguments);
+    async function g() {
+      return _()
+        ? o("WAWebSchemaSharableEvent").getSharableEventTable().all()
+        : [];
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return _()
-            ? o("WAWebSchemaSharableEvent").getSharableEventTable().all()
-            : [];
-        })),
-        h.apply(this, arguments)
-      );
+    async function h(e) {
+      return _()
+        ? o("WAWebSchemaSharableEvent").getSharableEventTable().get(e)
+        : null;
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return _()
-            ? o("WAWebSchemaSharableEvent").getSharableEventTable().get(e)
-            : null;
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b() {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return _()
-            ? o("WAWebSchemaSharableEvent")
-                .getSharableEventTable()
-                .allPrimaryKeys()
-            : [];
-        })),
-        v.apply(this, arguments)
-      );
+    async function y() {
+      return _()
+        ? o("WAWebSchemaSharableEvent").getSharableEventTable().allPrimaryKeys()
+        : [];
     }
     ((l.SHARABLE_EVENT_TABLE = s),
       (l.SHARABLE_EVENT_INVITEE_TABLE = u),
@@ -101,8 +74,8 @@ __d(
       (l.canUseSharableEventStorage = _),
       (l.canUseSharableEventInviteMessageStorage = f),
       (l.getSharableEvents = g),
-      (l.getSharableEvent = y),
-      (l.getSharableEventIds = b));
+      (l.getSharableEvent = h),
+      (l.getSharableEventIds = y));
   },
   98,
 );

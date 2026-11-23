@@ -1,6 +1,6 @@
 __d(
   "WAWebUseRollerCounter",
-  ["react", "react-compiler-runtime", "useWAWebDebouncedCallback"],
+  ["react", "useWAWebDebouncedCallback"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -8,36 +8,19 @@ __d(
       c = s.useState,
       d = 50;
     function m(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = c(e),
-        a = n[0],
-        i = n[1],
-        l = c(null),
-        s = l[0],
-        m = l[1],
-        p = u(null);
-      p.current == null && (p.current = a);
-      var _;
-      t[0] !== e
-        ? ((_ = function () {
-            (p.current != null && p.current !== e && (i(e), m(p.current)),
-              (p.current = null));
-          }),
-          (t[0] = e),
-          (t[1] = _))
-        : (_ = t[1]);
-      var f = r("useWAWebDebouncedCallback")(_, d);
-      e != null && f();
-      var g;
-      return (
-        t[2] !== a || t[3] !== s
-          ? ((g = { currentValueProp: a, previousValueProp: s }),
-            (t[2] = a),
-            (t[3] = s),
-            (t[4] = g))
-          : (g = t[4]),
-        g
-      );
+      var t = c(e),
+        n = t[0],
+        o = t[1],
+        a = c(null),
+        i = a[0],
+        l = a[1],
+        s = u(null);
+      s.current == null && (s.current = n);
+      var m = r("useWAWebDebouncedCallback")(function () {
+        (s.current != null && s.current !== e && (o(e), l(s.current)),
+          (s.current = null));
+      }, d);
+      return (e != null && m(), { currentValueProp: n, previousValueProp: i });
     }
     l.useRollerCounter = m;
   },

@@ -6,7 +6,6 @@ __d(
     "AdsDefaultBudget",
     "AdsDuplicationUtils",
     "AdsEditingCampaignEditorContext",
-    "AdsInterfacesLogger",
     "AdsLoadObjectUtils",
     "AdsMessagesCampaignBudgetPluginEndDateCommon",
     "AdsPECampaignSelectors",
@@ -22,46 +21,32 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      var t,
-        n = o(
+    function e() {
+      var e = o(
           "adsUEditorCampaignCTXBudgetDurationRecommendationSelectors",
         ).shouldEnableCTXBudgetDurationDefaultQEParamsSelector(
           r("AdsEditingCampaignEditorContext"),
         ),
-        a = n.destinationType,
-        i = n.isCBOEnabled,
-        l = n.pageID,
+        t = e.destinationType,
+        n = e.isCBOEnabled,
+        a = e.pageID,
+        i = o(
+          "adsUEditorCampaignCTXBudgetDurationRecommendationSelectors",
+        ).shouldEnableCTXBudgetDurationDefaultQEParamsSelector(
+          r("AdsEditingCampaignEditorContext"),
+        ),
+        l = i.optimizationGoal,
         s = o(
-          "adsUEditorCampaignCTXBudgetDurationRecommendationSelectors",
-        ).shouldEnableCTXBudgetDurationDefaultQEParamsSelector(
-          r("AdsEditingCampaignEditorContext"),
-        ),
-        u = s.optimizationGoal;
-      r("isTruthy")(e) && (u = e);
-      var c = o(
-        "ClickToMessageCTMAdoptionFeatureGating",
-      ).eligibleCTXAMSABRZOCombinedBudgetGuidance(i, a, u);
-      if (!c) return null;
-      var p = o(
+          "ClickToMessageCTMAdoptionFeatureGating",
+        ).eligibleCTXAMSABRZOCombinedBudgetGuidance(n, t, l);
+      if (!s) return null;
+      var u = o(
           "AdsClickToMessageSABRBudgetDefaultStoreUtils",
-        ).getCTXSimilarAdvertiserBudgetRecommendationByDestination(l, a, u),
-        _ = o(
+        ).getCTXSimilarAdvertiserBudgetRecommendationByDestination(a, t, l),
+        c = o(
           "AdsClickToMessageSABRBudgetDefaultStoreUtils",
-        ).getSabrBudgetAndConversionForExperiment(p).budget;
-      return (
-        r("AdsInterfacesLogger").log({
-          eventName: "ctxmd_sabr_daily_budget_default_usd_value",
-          data:
-            ((t = {}),
-            (t.page_id = l),
-            (t.bulk_edit_value = _),
-            (t.campaign_destination_type = a),
-            (t.is_duplicated_object = d()),
-            t),
-        }),
-        r("isTruthy")(_) ? ((_ = Number(_)), (_ = m(_)), _) : null
-      );
+        ).getSabrBudgetAndConversionForExperiment(u).budget;
+      return r("isTruthy")(c) ? ((c = Number(c)), (c = m(c)), c) : null;
     }
     function s(t, n) {
       var a =
@@ -81,51 +66,57 @@ __d(
       }
       return null;
     }
-    function u(e, t, n, a, i) {
+    function u(e, t, n, a, i, l, s) {
       i === void 0 && (i = !1);
-      var l = null,
-        s = o(
+      var u = null,
+        c = o(
           "adsUEditorCampaignCTXBudgetDurationRecommendationSelectors",
         ).shouldEnableCTXBudgetDurationDefaultQEParamsSelector(
           r("AdsEditingCampaignEditorContext"),
         ),
-        u = s.isCBOEnabled,
-        c = o(
+        d = c.isCBOEnabled,
+        p = o(
           "ClickToMessageCTMAdoptionFeatureGating",
-        ).eligibleCTXAMSABRZOCombinedBudgetGuidance(u, n, a);
-      if (!c) return null;
-      var d = o(
+        ).eligibleCTXAMSABRZOCombinedBudgetGuidance(d, n, a);
+      if (!p) return null;
+      var _ = o(
         "AdsClickToMessageSABRBudgetDefaultStoreUtils",
-      ).getCTXSimilarAdvertiserBudgetRecommendationByDestination(t, n, a);
+      ).getCTXSimilarAdvertiserBudgetRecommendationByDestination(t, n, a, l, s);
       if (
-        ((l = Number(
+        ((u = Number(
           o(
             "AdsClickToMessageSABRBudgetDefaultStoreUtils",
-          ).getSabrBudgetAndConversionForExperiment(d, i).budget,
+          ).getSabrBudgetAndConversionForExperiment(_, i).budget,
         )),
-        r("isTruthy")(l))
+        r("isTruthy")(u))
       ) {
-        var p = m(l),
-          _ = r("adsCampaignConvertUSDBudgetToCurrency")(e.currency, p);
+        var f = m(u),
+          g = r("adsCampaignConvertUSDBudgetToCurrency")(e.currency, f);
         return o(
           "SABRBudgetRoundDownMarketingAdoptionUtils",
         ).isInSabrBudgetRoundDownMarketingAdoption(!0)
           ? o(
               "SABRBudgetRoundDownMarketingAdoptionUtils",
-            ).applyMarketingRoundDown(_)
-          : _;
+            ).applyMarketingRoundDown(g)
+          : g;
       }
       return null;
     }
-    function c() {
-      var e = o(
-        "adsUEditorCampaignCTXBudgetDurationRecommendationSelectors",
-      ).startDateSelector(r("AdsEditingCampaignEditorContext"));
-      if (r("isTruthy")(e)) {
-        var t = o(
+    function c(e) {
+      var t = o(
+        "ClickToMessageCTMAdoptionFeatureGating",
+      ).enableCTXLifetimeBudgetDurationRelayStartTime()
+        ? o(
+            "adsUEditorCampaignCTXBudgetDurationRecommendationSelectors",
+          ).getStartDateFromStartTime(e)
+        : o(
+            "adsUEditorCampaignCTXBudgetDurationRecommendationSelectors",
+          ).startDateSelector(r("AdsEditingCampaignEditorContext"));
+      if (r("isTruthy")(t)) {
+        var n = o(
           "AdsMessagesCampaignBudgetPluginEndDateCommon",
-        ).getMessagesDefaultEndDate(e);
-        return Math.floor(r("adsCampaignGetCampaignDayCount")(e, t));
+        ).getMessagesDefaultEndDate(t);
+        return Math.floor(r("adsCampaignGetCampaignDayCount")(t, n));
       }
       return null;
     }

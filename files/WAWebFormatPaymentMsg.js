@@ -8,40 +8,28 @@ __d(
         ? o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled()
-          ? s._(/*BTDS*/ "You invited {otherUser} to use payments.", [
-              s._param("otherUser", t),
-            ])
-          : s._(/*BTDS*/ "You invited {otherUser} to use payments", [
-              s._param("otherUser", t),
-            ])
+          ? s._(/*BTDS*/ "", [s._param("otherUser", t)])
+          : s._(/*BTDS*/ "", [s._param("otherUser", t)])
         : o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-          ? s._(/*BTDS*/ "{otherUser} invited you to use payments.", [
-              s._param("otherUser", t),
-            ])
-          : s._(/*BTDS*/ "{otherUser} invited you to use payments", [
-              s._param("otherUser", t),
-            ]);
+          ? s._(/*BTDS*/ "", [s._param("otherUser", t)])
+          : s._(/*BTDS*/ "", [s._param("otherUser", t)]);
     }
     function u(e) {
       return e === "send"
-        ? s._(/*BTDS*/ "Sent to you")
+        ? s._(/*BTDS*/ "")
         : e === "request"
-          ? s._(/*BTDS*/ "Requested from you")
+          ? s._(/*BTDS*/ "")
           : null;
     }
     function c(e, t) {
       return t == null || t === ""
         ? null
         : e === "send"
-          ? s._(/*BTDS*/ "Sent to {receiverName}", [
-              s._param("receiverName", t),
-            ])
+          ? s._(/*BTDS*/ "", [s._param("receiverName", t)])
           : e === "request"
-            ? s._(/*BTDS*/ "Requested from {receiverName}", [
-                s._param("receiverName", t),
-              ])
+            ? s._(/*BTDS*/ "", [s._param("receiverName", t)])
             : null;
     }
     ((l.formatPaymentInviteMessageText = e),

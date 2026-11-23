@@ -78,17 +78,11 @@ __d(
       var r = g(t, e),
         o = f(t, e);
       return r && o
-        ? s._(
-            /*BTDS*/ "Greeting names only appear in Messenger and Instagram. People that open ads that click to WhatsApp will see a greeting without their name.",
-          )
+        ? s._(/*BTDS*/ "")
         : r
-          ? s._(
-              /*BTDS*/ "Greeting names only appear in Messenger. People that open ads that click to WhatsApp will see a greeting without their name.",
-            )
+          ? s._(/*BTDS*/ "")
           : o
-            ? s._(
-                /*BTDS*/ "Greeting names only appear in Instagram. People that open ads that click to WhatsApp will see a greeting without their name.",
-              )
+            ? s._(/*BTDS*/ "")
             : null;
     }
     function y(e, t) {

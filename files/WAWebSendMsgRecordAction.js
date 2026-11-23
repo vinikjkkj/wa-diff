@@ -1,7 +1,6 @@
 __d(
   "WAWebSendMsgRecordAction",
   [
-    "Promise",
     "WAErrors",
     "WAFilteredCatch",
     "WALogger",
@@ -65,7 +64,6 @@ __d(
     "WAWebWamMsgUtils",
     "WAWebWebcMessageSendWamEvent",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
     "requireDeferred",
@@ -81,11 +79,10 @@ __d(
       _,
       f,
       g,
-      h,
-      y = r("requireDeferred")("WAWebSendMsgJob").__setRef(
+      h = r("requireDeferred")("WAWebSendMsgJob").__setRef(
         "WAWebSendMsgRecordAction",
       ),
-      C = new Map([
+      y = new Map([
         ["AggregateError", "AggregateError"],
         ["Error", "Error"],
         ["EvalError", "EvalError"],
@@ -95,88 +92,65 @@ __d(
         ["TypeError", "TypeError"],
         ["URIError", "URIError"],
       ]);
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n;
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose(["sendMsgRecord"])),
-          );
-          var r = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
-            t,
-            o("WAWebMessageSendReporterFrontendDeps")
-              .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
-          );
-          r.sendReporter =
-            (n = r.sendReporter) != null ? n : r.createSendReporter();
-          var a = t.id.remote,
-            i = yield o("WAWebFindChatAction").findExistingChat(
-              a,
-              "sendMsgRecord",
-            );
-          if (
-            i.contact.isEnterprise &&
-            !o("WAWebMsgGetters").getIsGroupMsg(t)
-          ) {
-            var l = o("WAWebUpdateUtmAction").getUtmForChat(a);
-            l != null && o("WAWebUtmBizUtils").isUtmValid(i, l) && (t.utm = l);
-          }
-          return ((t.isNewMsg = !0), $({ type: "message", data: t }, i, r));
-        })),
-        v.apply(this, arguments)
+    async function C(t) {
+      var n;
+      o("WALogger").LOG(
+        e || (e = babelHelpers.taggedTemplateLiteralLoose(["sendMsgRecord"])),
       );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebSendMsgMetricReporter").createAddonMetricReporter(
-              e,
-              o("WAWebMessageSendReporterFrontendDeps")
-                .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
-            ),
-            n = yield o("WAWebFindChatAction").findExistingChat(
-              e.id.remote,
-              "sendMsgRecord",
-            );
-          return $({ type: "addon", data: e }, n, t);
-        })),
-        R.apply(this, arguments)
+      var r = o("WAWebSendMsgMetricReporter").createMsgModelMetricReporter(
+        t,
+        o("WAWebMessageSendReporterFrontendDeps")
+          .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
       );
+      r.sendReporter =
+        (n = r.sendReporter) != null ? n : r.createSendReporter();
+      var a = t.id.remote,
+        i = await o("WAWebFindChatAction").findExistingChat(a, "sendMsgRecord");
+      if (i.contact.isEnterprise && !o("WAWebMsgGetters").getIsGroupMsg(t)) {
+        var l = o("WAWebUpdateUtmAction").getUtmForChat(a);
+        l != null && o("WAWebUtmBizUtils").isUtmValid(i, l) && (t.utm = l);
+      }
+      return ((t.isNewMsg = !0), T({ type: "message", data: t }, i, r));
     }
-    var L = new Set([
-        (h = o("WAWebMsgType")).MSG_TYPE.POLL_UPDATE,
-        h.MSG_TYPE.MESSAGE_EDIT_ENCRYPTED,
-        h.MSG_TYPE.POLL_EDIT_ENCRYPTED,
-        h.MSG_TYPE.EVENT_EDIT_ENCRYPTED,
-        h.MSG_TYPE.EVENT_RESPONSE,
+    async function b(e) {
+      var t = o("WAWebSendMsgMetricReporter").createAddonMetricReporter(
+          e,
+          o("WAWebMessageSendReporterFrontendDeps")
+            .MAIN_WEB_MESSAGE_SEND_REPORTER_FRONTEND_DEPS,
+        ),
+        n = await o("WAWebFindChatAction").findExistingChat(
+          e.id.remote,
+          "sendMsgRecord",
+        );
+      return T({ type: "addon", data: e }, n, t);
+    }
+    var v = new Set([
+        (g = o("WAWebMsgType")).MSG_TYPE.POLL_UPDATE,
+        g.MSG_TYPE.MESSAGE_EDIT_ENCRYPTED,
+        g.MSG_TYPE.POLL_EDIT_ENCRYPTED,
+        g.MSG_TYPE.EVENT_EDIT_ENCRYPTED,
+        g.MSG_TYPE.EVENT_RESPONSE,
       ]),
-      E = new Set([h.MSG_TYPE.POLL_UPDATE, h.MSG_TYPE.EVENT_RESPONSE]);
-    function k(e, t) {
+      S = new Set([g.MSG_TYPE.POLL_UPDATE, g.MSG_TYPE.EVENT_RESPONSE]);
+    function R(e, t) {
       return r("WAWebWid").isGroup(t)
         ? e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
-          ? D(e.data)
-          : x(e.data)
+          ? k(e.data)
+          : I(e.data)
         : !1;
     }
-    function I(e) {
+    function L(e) {
       return e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
         ? e.data.subtype !==
             o("WAWebCommonMsgSubtypeTypes").MsgSubtype.MessageEdit
-        : T(e.data);
+        : E(e.data);
     }
-    function T(e) {
+    function E(e) {
       return e.kind === o("WAWebMsgType").MsgKind.PollVoteDecrypted
         ? e.selectedOptionLocalIds.length > 0
-        : E.has(e.type);
+        : S.has(e.type);
     }
-    function D(e) {
+    function k(e) {
       return e.forwardedFromWeb === !0
         ? !1
         : e.subtype ===
@@ -184,7 +158,7 @@ __d(
             (e.type !== o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
               e.type !== o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT);
     }
-    function x(e) {
+    function I(e) {
       return e.type === o("WAWebMsgType").MSG_TYPE.REACTION
         ? e.reactionText !== o("WAWebReactionsBEUtils").REVOKED_REACTION_TEXT
         : e.kind === o("WAWebMsgType").MsgKind.PollVoteDecrypted
@@ -193,431 +167,405 @@ __d(
             ? e.pinMessageType ===
               o("WAWebProtobufsE2E.pb").Message$PinInChatMessage$Type
                 .PIN_FOR_ALL
-            : L.has(e.type);
+            : v.has(e.type);
     }
-    function $(e, t, n) {
-      return P.apply(this, arguments);
-    }
-    function P() {
+    async function T(e, t, n) {
+      var a = e.data,
+        i = r("nullthrows")(a.to),
+        l = a.id,
+        f = l.remote;
+      r("WAWebWid").isGroup(f) &&
+        (await r("WAWebGroupMetadataCollection").find(f));
+      var g =
+          a.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+          ["sender_revoke", "admin_revoke"].includes(a.subtype),
+        h = x(a),
+        C =
+          a.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+          a.subtype ===
+            o("WAWebCommonMsgSubtypeTypes").MsgSubtype.EphemeralSetting,
+        b =
+          o("WAWebMsgGetters").getIsReaction(a) &&
+          a.reactionText === o("WAWebReactionsBEUtils").REVOKED_REACTION_TEXT;
+      if (
+        !o("WAWebMsgGetters").getIsGroupMsg(a) &&
+        !g &&
+        !b &&
+        o("WAWebBlocklistCollection").BlocklistCollection.get(i)
+      )
+        return Promise.reject(
+          new (r("WAWebContactBlockedErrorAction"))(
+            "Contact is blocked",
+            o("WAWebContactCollection").ContactCollection.assertGet(i),
+          ),
+        );
+      if (
+        o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(t) &&
+        a.subtype !== "sender_revoke"
+      ) {
+        var v;
+        if (
+          (o("WALogger").WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "model:msg:createRecord blocked send in ACP2-restricted chat: ",
+                "",
+              ])),
+            a.id.toString(),
+          ),
+          (v = n.sendReporter) == null ||
+            v.postFailure({
+              result: o("WAWebWamEnumMessageSendResultType")
+                .MESSAGE_SEND_RESULT_TYPE.ERROR_SEND_PRECONDITION_FAILED,
+              isTerminal: !0,
+              qplFailReason: "acp2_send_blocked",
+            }),
+          (n.sendReporter = null),
+          e.type === "message")
+        ) {
+          var S = {
+            isSendFailure: !0,
+            ack: o("WAWebAck").ACK.FAILED,
+            errorCode: o("WAWebErrorType").SendFailureErrorCode.Acp2Restricted,
+          };
+          ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebMessageStoreService").MessageStoreService,
+              ).updateMessageTable
+            : o("WAWebDBUpdateMessageTable").updateMessageTable)(l, S),
+            e.data.set(S),
+            o(
+              "WAWebAddOnsUpdateSendStatesAction",
+            ).updateAddOnSendStatesForMsgAction(e.data, S));
+        } else await o("WAWebAddonSendProcess").markAddonSendFailed(e.data);
+        return {
+          messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
+            .ERROR_UNKNOWN,
+          failureReason: "acp2_send_blocked",
+        };
+      }
+      var E;
+      (g ||
+        (E = new (o("WAWebWebcMessageSendWamEvent").WebcMessageSendWamEvent)({
+          messageType: o("WAWebWamMsgUtils").getWamMessageType(a),
+          messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(a),
+          messageIsForward: !!a.isForwarded,
+        })),
+        h ||
+          (D(t, e),
+          o("WAWebUpdateUnreadChatAction").sendSeen({
+            chat: t,
+            threadId: o("WAWebBotGating").isAiChatThreadsEnabled()
+              ? o("WAWebThreadMsgUtils").getMsgAiThread(a)
+              : void 0,
+          })),
+        R(e, f) &&
+          (L(e)
+            ? o("WAWebMetaAiOpenGroupNux").maybeShowGroupAgentNuxes(t)
+            : o(
+                "WAWebGroupAgentNonInitiatorNux",
+              ).maybeShowGroupAgentNonInitiatorNux(t)));
+      var k;
+      if (
+        r("WAWebWid").isGroup(f) &&
+        a.messageSecret == null &&
+        o("WAWebSendMsgChatActionUtils").hasGroupAgentParticipant(t)
+      ) {
+        var I = self.crypto.getRandomValues(new Uint8Array(32));
+        e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
+          ? (e.data.set({ messageSecret: I }),
+            await o("WAWebDBProcessMessage").updateExistingMessages(
+              [o("WAWebMsgDataFromModel").msgDataFromMsgModel(e.data)],
+              f,
+            ))
+          : (k = babelHelpers.extends({}, e.data, { messageSecret: I }));
+      }
       return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          var i = e.data,
-            l = r("nullthrows")(i.to),
-            f = i.id,
-            h = f.remote;
-          r("WAWebWid").isGroup(h) &&
-            (yield r("WAWebGroupMetadataCollection").find(h));
-          var y =
-              i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
-              ["sender_revoke", "admin_revoke"].includes(i.subtype),
-            b = M(i),
-            v =
-              i.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
-              i.subtype ===
-                o("WAWebCommonMsgSubtypeTypes").MsgSubtype.EphemeralSetting,
-            S =
-              o("WAWebMsgGetters").getIsReaction(i) &&
-              i.reactionText ===
-                o("WAWebReactionsBEUtils").REVOKED_REACTION_TEXT;
-          if (
-            !o("WAWebMsgGetters").getIsGroupMsg(i) &&
-            !y &&
-            !S &&
-            o("WAWebBlocklistCollection").BlocklistCollection.get(l)
-          )
-            return (g || (g = n("Promise"))).reject(
-              new (r("WAWebContactBlockedErrorAction"))(
-                "Contact is blocked",
-                o("WAWebContactCollection").ContactCollection.assertGet(l),
-              ),
-            );
-          if (
-            o("WAWebLimitSharingGatingUtils").isChatAcp2Restricted(t) &&
-            i.subtype !== "sender_revoke"
-          ) {
-            var R;
-            if (
-              (o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "model:msg:createRecord blocked send in ACP2-restricted chat: ",
-                    "",
-                  ])),
-                i.id.toString(),
-              ),
-              (R = a.sendReporter) == null ||
-                R.postFailure({
-                  result: o("WAWebWamEnumMessageSendResultType")
-                    .MESSAGE_SEND_RESULT_TYPE.ERROR_SEND_PRECONDITION_FAILED,
-                  isTerminal: !0,
-                  qplFailReason: "acp2_send_blocked",
-                }),
-              (a.sendReporter = null),
-              e.type === "message")
-            ) {
-              var L = {
-                isSendFailure: !0,
-                ack: o("WAWebAck").ACK.FAILED,
-                errorCode:
-                  o("WAWebErrorType").SendFailureErrorCode.Acp2Restricted,
-              };
-              ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebMessageStoreService").MessageStoreService,
-                  ).updateMessageTable
-                : o("WAWebDBUpdateMessageTable").updateMessageTable)(f, L),
-                e.data.set(L),
+        e.type !== "addon" &&
+          a.type !== o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT &&
+          !h &&
+          !g &&
+          o("WAWebMsgCollection").MsgCollection.trigger("new_msg_sent"),
+        Promise.resolve()
+          .then(function () {
+            return e.type === "message"
+              ? $(e.data, n)
+              : o("WAWebAddonSendProcess").sendAddonProcess(
+                  k != null ? k : e.data,
+                  n,
+                );
+          })
+          .then(async function (n) {
+            var r =
+              l.fromMe && o("WAWebUserUtils").isMePrimary(f)
+                ? o("WAWebAck").ACK.READ
+                : o("WAWebAck").ACK.SENT;
+            return (
+              e.type === "message" &&
+                (e.data.updateAck(r),
                 o(
                   "WAWebAddOnsUpdateSendStatesAction",
-                ).updateAddOnSendStatesForMsgAction(e.data, L));
-            } else yield o("WAWebAddonSendProcess").markAddonSendFailed(e.data);
-            return {
-              messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
-                .ERROR_UNKNOWN,
-              failureReason: "acp2_send_blocked",
-            };
-          }
-          var E;
-          (y ||
-            (E = new (o(
-              "WAWebWebcMessageSendWamEvent",
-            ).WebcMessageSendWamEvent)({
-              messageType: o("WAWebWamMsgUtils").getWamMessageType(i),
-              messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(i),
-              messageIsForward: !!i.isForwarded,
-            })),
-            b ||
-              (N(t, e),
-              o("WAWebUpdateUnreadChatAction").sendSeen({
-                chat: t,
-                threadId: o("WAWebBotGating").isAiChatThreadsEnabled()
-                  ? o("WAWebThreadMsgUtils").getMsgAiThread(i)
-                  : void 0,
-              })),
-            k(e, h) &&
-              (I(e)
-                ? o("WAWebMetaAiOpenGroupNux").maybeShowGroupAgentNuxes(t)
-                : o(
-                    "WAWebGroupAgentNonInitiatorNux",
-                  ).maybeShowGroupAgentNonInitiatorNux(t)));
-          var T;
-          if (
-            r("WAWebWid").isGroup(h) &&
-            i.messageSecret == null &&
-            o("WAWebSendMsgChatActionUtils").hasGroupAgentParticipant(t)
-          ) {
-            var D = self.crypto.getRandomValues(new Uint8Array(32));
-            e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
-              ? (e.data.set({ messageSecret: D }),
-                yield o("WAWebDBProcessMessage").updateExistingMessages(
-                  [o("WAWebMsgDataFromModel").msgDataFromMsgModel(e.data)],
-                  h,
-                ))
-              : (T = babelHelpers.extends({}, e.data, { messageSecret: D }));
-          }
-          return (
-            e.type !== "addon" &&
-              i.type !== o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT &&
-              !b &&
-              !y &&
-              o("WAWebMsgCollection").MsgCollection.trigger("new_msg_sent"),
-            (g || (g = n("Promise")))
-              .resolve()
-              .then(function () {
-                return e.type === "message"
-                  ? w(e.data, a)
-                  : o("WAWebAddonSendProcess").sendAddonProcess(
-                      T != null ? T : e.data,
-                      a,
-                    );
-              })
-              .then(
-                (function () {
-                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      var r =
-                        f.fromMe && o("WAWebUserUtils").isMePrimary(h)
-                          ? o("WAWebAck").ACK.READ
-                          : o("WAWebAck").ACK.SENT;
-                      return (
-                        e.type === "message" &&
-                          (e.data.updateAck(r),
-                          o(
-                            "WAWebAddOnsUpdateSendStatesAction",
-                          ).maybeUpdateAddOnAckForMsgAction(e.data, r)),
-                        o(
-                          "WAWebBotTypingIndicatorAfterSend",
-                        ).maybeGenBotTypingIndicatorMessage(t, i),
-                        E && (E.markMessageSendT(), E.commit()),
-                        y ||
-                          o(
-                            "WAWebSingleEmojiDailyUtils",
-                          ).maybeIncrementSingleEmojiDailyStatsCount(i),
-                        i.utm != null &&
-                          o("WAWebUpdateUtmAction").clearUtmAfterMessageSent(h),
-                        b ||
-                          o(
-                            "WAWebVoipInCallMessageSendLogger",
-                          ).logInCallMessageSendIfNeeded(t),
-                        yield o(
-                          "WAWebMsgUtilsBridge",
-                        ).logMessageSendForChatThreadLogging(i),
-                        [
-                          o("WAWebMsgType").MSG_TYPE.PROTOCOL,
-                          o("WAWebMsgType").MSG_TYPE.REACTION,
-                          o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT,
-                        ].includes(i.type) || (t.lastReceivedKey = f),
-                        !y &&
-                          !b &&
-                          o(
-                            "WAWebOutgoingMessageTone",
-                          ).playOutgoingMessageTone(),
-                        o("WAWebExternalCtxConfig").isCtxLoggingEnabled() &&
-                          o(
-                            "WAWebExternalEntryPointPrefs",
-                          ).deleteExternalEntryPoint(h),
-                        {
-                          messageSendResult: o("WAWebSendMsgResultAction")
-                            .SendMsgResult.OK,
-                          t: n.t,
-                          count: n.count,
-                        }
-                      );
-                    },
-                  );
-                  return function (e) {
-                    return r.apply(this, arguments);
-                  };
-                })(),
-              )
-              .then(function (t) {
-                if (
-                  t.messageSendResult ===
-                    o("WAWebSendMsgResultAction").SendMsgResult.OK &&
-                  e.type === "message"
-                ) {
-                  var n = e.data.afterReadDuration;
-                  if (
-                    n != null &&
-                    n > 0 &&
-                    o("WAWebAfterReadUtils").isAfterReadEnabled() &&
-                    !v
-                  ) {
-                    var r = o("WATimeUtils").unixTime() + n;
-                    ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                      ? o("WAWebBackendRuntime").runtime(
-                          o("WAWebMessageStoreService").MessageStoreService,
-                        ).updateMessageTable
-                      : o("WAWebDBUpdateMessageTable").updateMessageTable)(f, {
-                      expiredTimestamp: r,
-                    }),
-                      e.data.set({ expiredTimestamp: r }));
-                  }
-                }
-                return t;
-              })
-              .catch(
-                o("WAFilteredCatch").filteredCatch(
-                  o("WAWebBackendErrors").ServerStatusCodeError,
-                  function (e) {
-                    var t;
-                    return (
-                      e.status !== 408 &&
-                        o("WALogger")
-                          .ERROR(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
-                                "Phone responded ",
-                                "",
-                              ])),
-                            e.status,
-                          )
-                          .sendLogs("send-not-200"),
-                      (t = a.sendReporter) == null ||
-                        t.postFailure({
-                          result: o("WAWebWamEnumMessageSendResultType")
-                            .MESSAGE_SEND_RESULT_TYPE.ERROR_NETWORK,
-                          isTerminal: !1,
-                          qplFailReason: "server_status_code_error",
-                        }),
-                      (a.sendReporter = null),
-                      {
-                        messageSendResult: o("WAWebSendMsgResultAction")
-                          .SendMsgResult.ERROR_NETWORK,
-                        failureReason: "server_status_code_error",
-                      }
-                    );
-                  },
-                ),
-              )
-              .catch(
-                o("WAFilteredCatch").filteredCatch(
-                  o("WAErrors").BufferTooLargeError,
-                  function () {
-                    var e;
-                    return (
-                      (e = a.sendReporter) == null ||
-                        e.postFailure({
-                          result: o("WAWebWamEnumMessageSendResultType")
-                            .MESSAGE_SEND_RESULT_TYPE.ERROR_PAYLOAD_TOO_BIG,
-                          isTerminal: !0,
-                          qplFailReason: "buffer_too_large",
-                        }),
-                      (a.sendReporter = null),
-                      {
-                        messageSendResult: o("WAWebSendMsgResultAction")
-                          .SendMsgResult.ERROR_UNKNOWN,
-                        failureReason: "buffer_too_large",
-                      }
-                    );
-                  },
-                ),
-              )
-              .catch(
-                o("WAFilteredCatch").filteredCatch(
-                  o("WAWebHandleMsgError").MessageValidationError,
-                  function () {
-                    var e;
-                    return (
-                      (e = a.sendReporter) == null ||
-                        e.postFailure({
-                          result: o("WAWebWamEnumMessageSendResultType")
-                            .MESSAGE_SEND_RESULT_TYPE.ERROR_INVALID_PROTOBUF,
-                          isTerminal: !0,
-                          qplFailReason: "message_validation_error",
-                        }),
-                      (a.sendReporter = null),
-                      {
-                        messageSendResult: o("WAWebSendMsgResultAction")
-                          .SendMsgResult.ERROR_UNKNOWN,
-                        failureReason: "message_validation_error",
-                      }
-                    );
-                  },
-                ),
-              )
-              .catch(
-                o("WAFilteredCatch").filteredCatch(
-                  o("WAWebHandleMsgError").AeaSendBlockedError,
-                  function () {
-                    var e;
-                    return (
-                      (e = a.sendReporter) == null ||
-                        e.postFailure({
-                          result: o("WAWebWamEnumMessageSendResultType")
-                            .MESSAGE_SEND_RESULT_TYPE
-                            .AEA_SEND_RECONCILATION_FAILURE,
-                          isTerminal: !0,
-                          qplFailReason: "aea_send_reconciliation_failure",
-                        }),
-                      (a.sendReporter = null),
-                      {
-                        messageSendResult: o("WAWebSendMsgResultAction")
-                          .SendMsgResult.ERROR_UNKNOWN,
-                        failureReason: "aea_send_reconciliation_failure",
-                      }
-                    );
-                  },
-                ),
-              )
-              .catch(
-                o("WAFilteredCatch").filteredCatch(
-                  o("WAWebHandleMsgError").MessageSentAckError,
-                  function (e) {
-                    var t;
-                    return (
-                      o("WALogger").WARN(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "model:msg:createRecord dropped msg: ",
+                ).maybeUpdateAddOnAckForMsgAction(e.data, r)),
+              o(
+                "WAWebBotTypingIndicatorAfterSend",
+              ).maybeGenBotTypingIndicatorMessage(t, a),
+              E && (E.markMessageSendT(), E.commit()),
+              g ||
+                o(
+                  "WAWebSingleEmojiDailyUtils",
+                ).maybeIncrementSingleEmojiDailyStatsCount(a),
+              a.utm != null &&
+                o("WAWebUpdateUtmAction").clearUtmAfterMessageSent(f),
+              h ||
+                o(
+                  "WAWebVoipInCallMessageSendLogger",
+                ).logInCallMessageSendIfNeeded(t),
+              await o("WAWebMsgUtilsBridge").logMessageSendForChatThreadLogging(
+                a,
+              ),
+              [
+                o("WAWebMsgType").MSG_TYPE.PROTOCOL,
+                o("WAWebMsgType").MSG_TYPE.REACTION,
+                o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT,
+              ].includes(a.type) || (t.lastReceivedKey = l),
+              !g &&
+                !h &&
+                o("WAWebOutgoingMessageTone").playOutgoingMessageTone(),
+              o("WAWebExternalCtxConfig").isCtxLoggingEnabled() &&
+                o("WAWebExternalEntryPointPrefs").deleteExternalEntryPoint(f),
+              {
+                messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
+                  .OK,
+                t: n.t,
+                count: n.count,
+              }
+            );
+          })
+          .then(function (t) {
+            if (
+              t.messageSendResult ===
+                o("WAWebSendMsgResultAction").SendMsgResult.OK &&
+              e.type === "message"
+            ) {
+              var n = e.data.afterReadDuration;
+              if (
+                n != null &&
+                n > 0 &&
+                o("WAWebAfterReadUtils").isAfterReadEnabled() &&
+                !C
+              ) {
+                var r = o("WATimeUtils").unixTime() + n;
+                ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebMessageStoreService").MessageStoreService,
+                    ).updateMessageTable
+                  : o("WAWebDBUpdateMessageTable").updateMessageTable)(l, {
+                  expiredTimestamp: r,
+                }),
+                  e.data.set({ expiredTimestamp: r }));
+              }
+            }
+            return t;
+          })
+          .catch(
+            o("WAFilteredCatch").filteredCatch(
+              o("WAWebBackendErrors").ServerStatusCodeError,
+              function (e) {
+                var t;
+                return (
+                  e.status !== 408 &&
+                    o("WALogger")
+                      .ERROR(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "Phone responded ",
                             "",
                           ])),
-                        i.id.toString(),
-                      ),
-                      o("WALogger")
-                        .ERROR(
-                          d ||
-                            (d = babelHelpers.taggedTemplateLiteralLoose([
-                              "Got error",
-                            ])),
-                        )
-                        .catching(e)
-                        .sendLogs("send-msg-server-nack-error"),
-                      (t = a.sendReporter) == null ||
-                        t.postFailure({
-                          result: o("WAWebWamEnumMessageSendResultType")
-                            .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
-                          isTerminal: !0,
-                          qplFailReason: "message_sent_ack_error",
-                        }),
-                      (a.sendReporter = null),
-                      {
-                        messageSendResult: o("WAWebSendMsgResultAction")
-                          .SendMsgResult.ERROR_UNKNOWN,
-                        failureReason: "message_sent_ack_error",
-                        ackErrorCode: e.ackErrorCode,
-                      }
-                    );
-                  },
-                ),
-              )
-              .catch(function (t) {
-                var n,
-                  l,
-                  s = r("getErrorSafe")(t);
-                return (
-                  o("WALogger").WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "model:msg:createRecord dropped msg: ",
-                        "",
-                      ])),
-                    i.id.toString(),
-                  ),
-                  e.type === "message"
-                    ? o("WALogger")
-                        .ERROR(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
-                              "Got error",
-                            ])),
-                        )
-                        .catching(s)
-                        .tags("messaging")
-                        .sendLogs("send-msg-error")
-                    : o("WALogger")
-                        .ERROR(
-                          _ ||
-                            (_ = babelHelpers.taggedTemplateLiteralLoose([
-                              "Got error",
-                            ])),
-                        )
-                        .catching(s)
-                        .tags("messaging", "addons")
-                        .sendLogs("send-addon-error: " + i.type),
-                  (n = a.sendReporter) == null ||
-                    n.postFailure({
+                        e.status,
+                      )
+                      .sendLogs("send-not-200"),
+                  (t = n.sendReporter) == null ||
+                    t.postFailure({
                       result: o("WAWebWamEnumMessageSendResultType")
-                        .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
-                      isTerminal: !0,
-                      qplFailReason: "unknown_error",
+                        .MESSAGE_SEND_RESULT_TYPE.ERROR_NETWORK,
+                      isTerminal: !1,
+                      qplFailReason: "server_status_code_error",
                     }),
-                  (a.sendReporter = null),
+                  (n.sendReporter = null),
+                  {
+                    messageSendResult: o("WAWebSendMsgResultAction")
+                      .SendMsgResult.ERROR_NETWORK,
+                    failureReason: "server_status_code_error",
+                  }
+                );
+              },
+            ),
+          )
+          .catch(
+            o("WAFilteredCatch").filteredCatch(
+              o("WAErrors").BufferTooLargeError,
+              function () {
+                var e;
+                return (
+                  (e = n.sendReporter) == null ||
+                    e.postFailure({
+                      result: o("WAWebWamEnumMessageSendResultType")
+                        .MESSAGE_SEND_RESULT_TYPE.ERROR_PAYLOAD_TOO_BIG,
+                      isTerminal: !0,
+                      qplFailReason: "buffer_too_large",
+                    }),
+                  (n.sendReporter = null),
                   {
                     messageSendResult: o("WAWebSendMsgResultAction")
                       .SendMsgResult.ERROR_UNKNOWN,
-                    failureReason: "unknown_error",
-                    failureErrorName:
-                      (l = C.get(s.name)) != null ? l : "other_error",
+                    failureReason: "buffer_too_large",
                   }
                 );
-              })
-          );
-        })),
-        P.apply(this, arguments)
+              },
+            ),
+          )
+          .catch(
+            o("WAFilteredCatch").filteredCatch(
+              o("WAWebHandleMsgError").MessageValidationError,
+              function () {
+                var e;
+                return (
+                  (e = n.sendReporter) == null ||
+                    e.postFailure({
+                      result: o("WAWebWamEnumMessageSendResultType")
+                        .MESSAGE_SEND_RESULT_TYPE.ERROR_INVALID_PROTOBUF,
+                      isTerminal: !0,
+                      qplFailReason: "message_validation_error",
+                    }),
+                  (n.sendReporter = null),
+                  {
+                    messageSendResult: o("WAWebSendMsgResultAction")
+                      .SendMsgResult.ERROR_UNKNOWN,
+                    failureReason: "message_validation_error",
+                  }
+                );
+              },
+            ),
+          )
+          .catch(
+            o("WAFilteredCatch").filteredCatch(
+              o("WAWebHandleMsgError").AeaSendBlockedError,
+              function () {
+                var e;
+                return (
+                  (e = n.sendReporter) == null ||
+                    e.postFailure({
+                      result: o("WAWebWamEnumMessageSendResultType")
+                        .MESSAGE_SEND_RESULT_TYPE
+                        .AEA_SEND_RECONCILATION_FAILURE,
+                      isTerminal: !0,
+                      qplFailReason: "aea_send_reconciliation_failure",
+                    }),
+                  (n.sendReporter = null),
+                  {
+                    messageSendResult: o("WAWebSendMsgResultAction")
+                      .SendMsgResult.ERROR_UNKNOWN,
+                    failureReason: "aea_send_reconciliation_failure",
+                  }
+                );
+              },
+            ),
+          )
+          .catch(
+            o("WAFilteredCatch").filteredCatch(
+              o("WAWebHandleMsgError").MessageSentAckError,
+              function (e) {
+                var t;
+                return (
+                  o("WALogger").WARN(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "model:msg:createRecord dropped msg: ",
+                        "",
+                      ])),
+                    a.id.toString(),
+                  ),
+                  o("WALogger")
+                    .ERROR(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "Got error",
+                        ])),
+                    )
+                    .catching(e)
+                    .sendLogs("send-msg-server-nack-error"),
+                  (t = n.sendReporter) == null ||
+                    t.postFailure({
+                      result: o("WAWebWamEnumMessageSendResultType")
+                        .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
+                      isTerminal: !0,
+                      qplFailReason: "message_sent_ack_error",
+                    }),
+                  (n.sendReporter = null),
+                  {
+                    messageSendResult: o("WAWebSendMsgResultAction")
+                      .SendMsgResult.ERROR_UNKNOWN,
+                    failureReason: "message_sent_ack_error",
+                    ackErrorCode: e.ackErrorCode,
+                  }
+                );
+              },
+            ),
+          )
+          .catch(function (t) {
+            var i,
+              l,
+              s = r("getErrorSafe")(t);
+            return (
+              o("WALogger").WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "model:msg:createRecord dropped msg: ",
+                    "",
+                  ])),
+                a.id.toString(),
+              ),
+              e.type === "message"
+                ? o("WALogger")
+                    .ERROR(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "Got error",
+                        ])),
+                    )
+                    .catching(s)
+                    .tags("messaging")
+                    .sendLogs("send-msg-error")
+                : o("WALogger")
+                    .ERROR(
+                      _ ||
+                        (_ = babelHelpers.taggedTemplateLiteralLoose([
+                          "Got error",
+                        ])),
+                    )
+                    .catching(s)
+                    .tags("messaging", "addons")
+                    .sendLogs("send-addon-error: " + a.type),
+              (i = n.sendReporter) == null ||
+                i.postFailure({
+                  result: o("WAWebWamEnumMessageSendResultType")
+                    .MESSAGE_SEND_RESULT_TYPE.ERROR_UNKNOWN,
+                  isTerminal: !0,
+                  qplFailReason: "unknown_error",
+                }),
+              (n.sendReporter = null),
+              {
+                messageSendResult: o("WAWebSendMsgResultAction").SendMsgResult
+                  .ERROR_UNKNOWN,
+                failureReason: "unknown_error",
+                failureErrorName:
+                  (l = y.get(s.name)) != null ? l : "other_error",
+              }
+            );
+          })
       );
     }
-    function N(e, t) {
+    function D(e, t) {
       !e.isTrusted() &&
         (t.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon ||
           o("WAWebIsUserInitiatedOutgoingMsg").isUserInitiatedOutgoingMsg(
@@ -625,106 +573,98 @@ __d(
           )) &&
         r("WAWebSendNotSpamAction")(e).catch(r("WAWebNoop"));
     }
-    function M(e) {
+    function x(e) {
       return (
         o("WAWebSilentProtocolMsg").isSilentProtocolMsg(e) ||
         o("WAWebSilentPaymentMsg").isSilentPaymentMsg(e)
       );
     }
-    function w(e, t) {
-      return A.apply(this, arguments);
-    }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
-          e.isForwarded &&
-            (n = o("WAWebMsgUtilsBridge").createMessageForwardMetric(e));
-          try {
-            var r = yield y.load(),
-              a = r.encryptAndSendMsg,
-              i = yield a(
-                {
-                  type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
-                  data: e,
-                },
-                t,
-              );
-            if (
-              (n && n.then(o("WAWebMsgUtilsBridge").logMessageMetric),
-              i.error != null)
-            )
-              throw new (o("WAWebHandleMsgError").MessageSentAckError)(i.error);
-            return { t: parseInt(String(i.t), 10), count: i.count };
-          } catch (t) {
-            o("WALogger")
-              .WARN(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "sendMsgRecord: send failure, msg: ",
-                    "",
-                  ])),
-                e.id.toString(),
-              )
-              .tags("messaging");
-            var l = { isSendFailure: !0 };
-            throw (
-              t instanceof o("WAWebHandleMsgError").AeaSendBlockedError
-                ? (l = babelHelpers.extends({}, l, {
-                    ack: o("WAWebAck").ACK.FAILED,
-                  }))
-                : t instanceof o("WAWebHandleMsgError").MessageSentAckError &&
-                  ((l = babelHelpers.extends({}, l, {
-                    ack: o("WAWebAck").ACK.FAILED,
-                  })),
-                  t.ackErrorCode ===
-                    o("WAWebHandleMsgError").MessageSentAckErrorCode
-                      .NewChatMessagesCapped &&
-                    ((l = babelHelpers.extends({}, l, {
-                      errorCode:
-                        o("WAWebErrorType").SendFailureErrorCode
-                          .UserReachedMaxMonthlyLimitForNewMessages,
-                    })),
-                    o(
-                      "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
-                    ).isIndividualNewChatMessageCappingEnabled() &&
-                      (yield o(
-                        "WAWebIndividualNewChatMessageCappingLimitUtils",
-                      ).resetCappingStatus(
-                        o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType
-                          .CAPPED,
+    async function $(e, t) {
+      var n;
+      e.isForwarded &&
+        (n = o("WAWebMsgUtilsBridge").createMessageForwardMetric(e));
+      try {
+        var r = await h.load(),
+          a = r.encryptAndSendMsg,
+          i = await a(
+            {
+              type: o("WAWebSendMsgTypes").SendMessageRecordType.Message,
+              data: e,
+            },
+            t,
+          );
+        if (
+          (n && n.then(o("WAWebMsgUtilsBridge").logMessageMetric),
+          i.error != null)
+        )
+          throw new (o("WAWebHandleMsgError").MessageSentAckError)(i.error);
+        return { t: parseInt(String(i.t), 10), count: i.count };
+      } catch (t) {
+        o("WALogger")
+          .WARN(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "sendMsgRecord: send failure, msg: ",
+                "",
+              ])),
+            e.id.toString(),
+          )
+          .tags("messaging");
+        var l = { isSendFailure: !0 };
+        throw (
+          t instanceof o("WAWebHandleMsgError").AeaSendBlockedError
+            ? (l = babelHelpers.extends({}, l, {
+                ack: o("WAWebAck").ACK.FAILED,
+              }))
+            : t instanceof o("WAWebHandleMsgError").MessageSentAckError &&
+              ((l = babelHelpers.extends({}, l, {
+                ack: o("WAWebAck").ACK.FAILED,
+              })),
+              t.ackErrorCode ===
+                o("WAWebHandleMsgError").MessageSentAckErrorCode
+                  .NewChatMessagesCapped &&
+                ((l = babelHelpers.extends({}, l, {
+                  errorCode:
+                    o("WAWebErrorType").SendFailureErrorCode
+                      .UserReachedMaxMonthlyLimitForNewMessages,
+                })),
+                o(
+                  "WAWebIndividualNewChatMessageCappingLimitGatingUtils",
+                ).isIndividualNewChatMessageCappingEnabled() &&
+                  (await o(
+                    "WAWebIndividualNewChatMessageCappingLimitUtils",
+                  ).resetCappingStatus(
+                    o("WAWebUserPrefsTypes").NewChatMessageCappingStatusType
+                      .CAPPED,
+                  ),
+                  o("WAWebCmd").Cmd.newChatMessageCappingStateChange(),
+                  new (o("WAWebMessageCappingWamEvent").MessageCappingWamEvent)(
+                    {
+                      messageCappingActionType: o(
+                        "WAWebWamEnumMessageCappingActionType",
+                      ).MESSAGE_CAPPING_ACTION_TYPE.API,
+                      userActionTarget: "nack_received",
+                      extraAttributes: JSON.stringify(
+                        o(
+                          "WAWebIndividualNewChatMessageCappingLimitUtils",
+                        ).getCappingData() || {},
                       ),
-                      o("WAWebCmd").Cmd.newChatMessageCappingStateChange(),
-                      new (o(
-                        "WAWebMessageCappingWamEvent",
-                      ).MessageCappingWamEvent)({
-                        messageCappingActionType: o(
-                          "WAWebWamEnumMessageCappingActionType",
-                        ).MESSAGE_CAPPING_ACTION_TYPE.API,
-                        userActionTarget: "nack_received",
-                        extraAttributes: JSON.stringify(
-                          o(
-                            "WAWebIndividualNewChatMessageCappingLimitUtils",
-                          ).getCappingData() || {},
-                        ),
-                      }).commit()))),
-              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebMessageStoreService").MessageStoreService,
-                  ).updateMessageTable
-                : o("WAWebDBUpdateMessageTable").updateMessageTable)(e.id, l),
-              e.set(l),
-              o(
-                "WAWebAddOnsUpdateSendStatesAction",
-              ).updateAddOnSendStatesForMsgAction(e, l),
-              t
-            );
-          }
-        })),
-        A.apply(this, arguments)
-      );
+                    },
+                  ).commit()))),
+          (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebMessageStoreService").MessageStoreService,
+              ).updateMessageTable
+            : o("WAWebDBUpdateMessageTable").updateMessageTable)(e.id, l),
+          e.set(l),
+          o(
+            "WAWebAddOnsUpdateSendStatesAction",
+          ).updateAddOnSendStatesForMsgAction(e, l),
+          t
+        );
+      }
     }
-    ((l.sendMsgRecord = b), (l.sendAddonRecord = S));
+    ((l.sendMsgRecord = C), (l.sendAddonRecord = b));
   },
   98,
 );

@@ -12,7 +12,6 @@ __d(
     "WAWebViewMode.flow",
     "WAWebVoipActionUncountUnresolvedPlaceholder",
     "WAWebVoipCallLogPlaceholderTracker",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -60,43 +59,35 @@ __d(
           return e.abort();
         });
     }
-    function p() {
-      return _.apply(this, arguments);
+    async function p() {
+      var e = await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .all({
+            index: ["isCallLogMsg"],
+            reverse: !0,
+            limit: u,
+            shouldDecrypt: !1,
+          }),
+        t = e.filter(_).map(function (e) {
+          return r("WAWebMsgKey").fromString(e.id);
+        });
+      t.length === 0 ||
+        !o(
+          "WAWebVoipCallLogPlaceholderTracker",
+        ).isOfflineCallLogOrderingEnabled() ||
+        (o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip] sweeping ",
+              " unresolved placeholders",
+            ])),
+          t.length,
+        ),
+        await o(
+          "WAWebVoipActionUncountUnresolvedPlaceholder",
+        ).checkUnresolvedPlaceholdersNow(t));
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .all({
-                index: ["isCallLogMsg"],
-                reverse: !0,
-                limit: u,
-                shouldDecrypt: !1,
-              }),
-            t = e.filter(f).map(function (e) {
-              return r("WAWebMsgKey").fromString(e.id);
-            });
-          t.length === 0 ||
-            !o(
-              "WAWebVoipCallLogPlaceholderTracker",
-            ).isOfflineCallLogOrderingEnabled() ||
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip] sweeping ",
-                  " unresolved placeholders",
-                ])),
-              t.length,
-            ),
-            yield o(
-              "WAWebVoipActionUncountUnresolvedPlaceholder",
-            ).checkUnresolvedPlaceholdersNow(t));
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
+    function _(e) {
       return (
         e.viewMode ===
           o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME &&

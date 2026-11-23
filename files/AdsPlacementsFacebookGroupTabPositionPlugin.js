@@ -31,7 +31,6 @@ __d(
     "adsIGLoginPlacementUtils",
     "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
     "immutable",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l, s, u) {
     "use strict";
@@ -43,12 +42,25 @@ __d(
         (e[c.CONVERSIONS] = "ENABLE_CONVERSIONS_FOR_FB_GROUP_TAB_ADS"),
         (e[c.LINK_CLICKS] = "ENABLE_LINK_CLICK_FOR_FB_GROUP_TAB_ADS"),
         (e[c.REACH] = "ENABLE_REACH_FOR_FB_GROUP_TAB_ADS"),
-        e),
-      p = {
+        e);
+    function p(e) {
+      return e === r("AdsPromotedObjectTypes").DONATION
+        ? o("AdsPlacementIneligibilityReason").createDonationReason()
+        : e === r("AdsPromotedObjectTypes").GROUP
+          ? o("AdsPlacementIneligibilityReason").createGroupPromotionReason()
+          : e === r("AdsPromotedObjectTypes").IMAGINATION
+            ? o("AdsPlacementIneligibilityReason").createImaginationReason()
+            : e === r("AdsPromotedObjectTypes").REMINDER
+              ? o(
+                  "AdsPlacementIneligibilityReason",
+                ).createReminderPromotionReason()
+              : null;
+    }
+    var _ = {
         type: "placements/position",
         key: "facebook/group_tab",
         name: r("AdsPlacementPositionLabelConstant").groups_feed,
-        nameWithPlatform: s._(/*BTDS*/ "Facebook Groups feed"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION
             .FB_GROUPS_FEED,
@@ -70,7 +82,7 @@ __d(
           if (e) return e;
           var n = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(p, t);
+          ).getSOOBundleParentIneligibilityReason(_, t);
           if (n != null) return n;
           if (t.isReelsTrendingAds === !0)
             return o(
@@ -134,27 +146,15 @@ __d(
             ).createInstagramLeadGenReason(t.objective);
           if (t.containsDCO === !0)
             return o("AdsPlacementIneligibilityReason").createDCOReason();
-          if (t.promotedObjectType === r("AdsPromotedObjectTypes").DONATION)
-            return o("AdsPlacementIneligibilityReason").createDonationReason();
-          if (t.promotedObjectType === r("AdsPromotedObjectTypes").GROUP)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createGroupPromotionReason();
-          if (t.promotedObjectType === r("AdsPromotedObjectTypes").IMAGINATION)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createImaginationReason();
-          if (t.promotedObjectType === r("AdsPromotedObjectTypes").REMINDER)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createReminderPromotionReason();
-          var s = d.filter(function (e) {
+          var s = p(t.promotedObjectType);
+          if (s != null) return s;
+          var u = d.filter(function (e) {
             var n = m[e];
             return n != null
               ? r("AdsAccountUtils").hasCapabilityFromList(t.capabilities, n)
               : !1;
           });
-          return s.includes(a)
+          return u.includes(a)
             ? t.optimizationGoal ===
               r("AdsAPIOptimizationGoals").INCREMENTAL_OFFSITE_CONVERSIONS
               ? o(
@@ -236,9 +236,6 @@ __d(
             "groups_feed",
           );
         },
-        isInactiveByDefault: function (t) {
-          return (r("vulture")("RS9JIkrjFE7Tly-g6ZqJAhAIfI8="), !1);
-        },
         adsetValidators: [r("AdsCampaignGroupTabPositionValidator")],
         getPreviews: function (t) {
           var e = ["previews/facebook_group_tab"];
@@ -249,7 +246,7 @@ __d(
         },
         adsetReducer: function (t, n) {
           var e = n.action;
-          if (!p.isEnabled(e.eligibilityInformation.capabilities)) return t;
+          if (!_.isEnabled(e.eligibilityInformation.capabilities)) return t;
           switch (e.type) {
             case o("AdsUEditorCampaignPlacementSetActionFlux").actionType:
               return e.removeGroups.includes("facebook/group_tab")
@@ -303,8 +300,8 @@ __d(
         parentPlacements: r("immutable").OrderedSet(["facebook/feed"]),
         childPlacements: r("immutable").OrderedSet([]),
       },
-      _ = p;
-    l.default = _;
+      f = _;
+    l.default = f;
   },
   226,
 );

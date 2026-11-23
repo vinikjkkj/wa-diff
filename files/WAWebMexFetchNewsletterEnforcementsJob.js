@@ -7,7 +7,6 @@ __d(
     "WAWebLocaleModules",
     "WAWebMexClient",
     "WAWebMexFetchNewsletterEnforcementsJobQuery.graphql",
-    "asyncToGeneratorRuntime",
     "filterNulls",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,171 +15,158 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebMexFetchNewsletterEnforcementsJobQuery.graphql"));
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = { newsletter_id: e, locale: t },
-            a = yield o("WAWebMexClient").fetchQuery(s, n),
-            i = a == null ? void 0 : a.xwa2_channel_enforcements;
-          if (i == null) return null;
-          var l = {
-            profilePictureDeletions: [],
-            suspensions: [],
-            violatingMessages: [],
-            geoSuspensions: [],
-            adminProfiles: [],
-          };
-          if (i.admin_profiles != null) {
-            var u = [];
-            (i.admin_profiles.forEach(function (e) {
-              var t;
-              if (!m(e)) {
-                var n = _(
-                    e,
+    async function u(e, t) {
+      var n = { newsletter_id: e, locale: t },
+        a = await o("WAWebMexClient").fetchQuery(s, n),
+        i = a == null ? void 0 : a.xwa2_channel_enforcements;
+      if (i == null) return null;
+      var l = {
+        profilePictureDeletions: [],
+        suspensions: [],
+        violatingMessages: [],
+        geoSuspensions: [],
+        adminProfiles: [],
+      };
+      if (i.admin_profiles != null) {
+        var u = [];
+        (i.admin_profiles.forEach(function (e) {
+          var t;
+          if (!d(e)) {
+            var n = p(
+                e,
+                o("WAWebCommonNewsletterEnums").EnforcementType.ADMIN_PROFILE,
+              ),
+              r =
+                (t = e.enforcement_extra_data) == null
+                  ? void 0
+                  : t.enforcement_target_data;
+            if (
+              (r == null ? void 0 : r.id) != null ||
+              (r == null ? void 0 : r.name) != null
+            ) {
+              var a, i;
+              n.enforcementExtraData = babelHelpers.extends(
+                {},
+                n.enforcementExtraData,
+                {
+                  adminProfileData: {
+                    id: r.id,
+                    name: r.name,
+                    pictureId: (a = r.picture) == null ? void 0 : a.id,
+                    pictureDirectPath:
+                      (i = r.picture) == null ? void 0 : i.direct_path,
+                  },
+                },
+              );
+            }
+            u.push(n);
+          }
+        }),
+          (l.adminProfiles = u));
+      }
+      if (i.profile_picture_deletions != null) {
+        var m = [];
+        (i.profile_picture_deletions.forEach(function (e) {
+          d(e) ||
+            m.push(
+              p(
+                e,
+                o("WAWebCommonNewsletterEnums").EnforcementType
+                  .PROFILE_PICTURE_DELETION,
+              ),
+            );
+        }),
+          (l.profilePictureDeletions = m));
+      }
+      if (i.suspensions != null) {
+        var _ = [];
+        (i.suspensions.forEach(function (e) {
+          var t;
+          if (!d(e)) {
+            var n = p(
+              e,
+              o("WAWebCommonNewsletterEnums").EnforcementType.SUSPEND,
+            );
+            ((n.enforcementType =
+              ((t = n.enforcementExtraData) == null
+                ? void 0
+                : t.enforcementTargetData) != null
+                ? o("WAWebCommonNewsletterEnums").EnforcementType.SUSPEND_INFORM
+                : o("WAWebCommonNewsletterEnums").EnforcementType.SUSPEND),
+              _.push(n));
+          }
+        }),
+          (l.suspensions = _));
+      }
+      if (i.violating_messages != null) {
+        var f = [];
+        (i.violating_messages.forEach(function (e) {
+          if (!d(e.base_enforcement_data)) {
+            var t = c(e.content_data);
+            t != null &&
+              f.push(
+                babelHelpers.extends(
+                  {},
+                  p(
+                    e.base_enforcement_data,
                     o("WAWebCommonNewsletterEnums").EnforcementType
-                      .ADMIN_PROFILE,
+                      .VIOLATING_MSG,
                   ),
-                  r =
-                    (t = e.enforcement_extra_data) == null
+                  { violatingContentData: t },
+                ),
+              );
+          }
+        }),
+          (l.violatingMessages = f));
+      }
+      var g = i.geosuspensions;
+      if (g != null) {
+        var h = [];
+        await o("WAWebLocaleModules")
+          .getCountryData()
+          .then(function (e) {
+            g.forEach(function (t) {
+              var n, a, i;
+              if (!d(t.base_enforcement_data)) {
+                var l =
+                    (n = t.country_codes) == null
                       ? void 0
-                      : t.enforcement_target_data;
-                if (
-                  (r == null ? void 0 : r.id) != null ||
-                  (r == null ? void 0 : r.name) != null
-                ) {
-                  var a, i;
-                  n.enforcementExtraData = babelHelpers.extends(
-                    {},
-                    n.enforcementExtraData,
-                    {
-                      adminProfileData: {
-                        id: r.id,
-                        name: r.name,
-                        pictureId: (a = r.picture) == null ? void 0 : a.id,
-                        pictureDirectPath:
-                          (i = r.picture) == null ? void 0 : i.direct_path,
-                      },
-                    },
-                  );
-                }
-                u.push(n);
-              }
-            }),
-              (l.adminProfiles = u));
-          }
-          if (i.profile_picture_deletions != null) {
-            var c = [];
-            (i.profile_picture_deletions.forEach(function (e) {
-              m(e) ||
-                c.push(
-                  _(
-                    e,
-                    o("WAWebCommonNewsletterEnums").EnforcementType
-                      .PROFILE_PICTURE_DELETION,
-                  ),
+                      : n.map(function (t) {
+                          var n = o("WAWebAsISOCountryCode").asISOCountryCode(
+                              t,
+                            ),
+                            r = e[t.toUpperCase()];
+                          return n != null && r != null
+                            ? { countryCode: n, countryName: r }
+                            : null;
+                        }),
+                  s;
+                l != null && (s = r("filterNulls")(l));
+                var u = p(
+                  t.base_enforcement_data,
+                  o("WAWebCommonNewsletterEnums").EnforcementType.GEOSUSPEND,
                 );
-            }),
-              (l.profilePictureDeletions = c));
-          }
-          if (i.suspensions != null) {
-            var p = [];
-            (i.suspensions.forEach(function (e) {
-              var t;
-              if (!m(e)) {
-                var n = _(
-                  e,
-                  o("WAWebCommonNewsletterEnums").EnforcementType.SUSPEND,
-                );
-                ((n.enforcementType =
-                  ((t = n.enforcementExtraData) == null
+                ((u.enforcementType =
+                  ((a = u.enforcementExtraData) == null
                     ? void 0
-                    : t.enforcementTargetData) != null
+                    : a.enforcementTargetData) != null
                     ? o("WAWebCommonNewsletterEnums").EnforcementType
-                        .SUSPEND_INFORM
-                    : o("WAWebCommonNewsletterEnums").EnforcementType.SUSPEND),
-                  p.push(n));
+                        .GEOSUSPEND_INFORM
+                    : o("WAWebCommonNewsletterEnums").EnforcementType
+                        .GEOSUSPEND),
+                  s != null &&
+                    ((i = s) == null ? void 0 : i.length) > 0 &&
+                    h.push(babelHelpers.extends({}, u, { countryCodes: s })));
               }
-            }),
-              (l.suspensions = p));
-          }
-          if (i.violating_messages != null) {
-            var f = [];
-            (i.violating_messages.forEach(function (e) {
-              if (!m(e.base_enforcement_data)) {
-                var t = d(e.content_data);
-                t != null &&
-                  f.push(
-                    babelHelpers.extends(
-                      {},
-                      _(
-                        e.base_enforcement_data,
-                        o("WAWebCommonNewsletterEnums").EnforcementType
-                          .VIOLATING_MSG,
-                      ),
-                      { violatingContentData: t },
-                    ),
-                  );
-              }
-            }),
-              (l.violatingMessages = f));
-          }
-          var g = i.geosuspensions;
-          if (g != null) {
-            var h = [];
-            yield o("WAWebLocaleModules")
-              .getCountryData()
-              .then(function (e) {
-                g.forEach(function (t) {
-                  var n, a, i;
-                  if (!m(t.base_enforcement_data)) {
-                    var l =
-                        (n = t.country_codes) == null
-                          ? void 0
-                          : n.map(function (t) {
-                              var n = o(
-                                  "WAWebAsISOCountryCode",
-                                ).asISOCountryCode(t),
-                                r = e[t.toUpperCase()];
-                              return n != null && r != null
-                                ? { countryCode: n, countryName: r }
-                                : null;
-                            }),
-                      s;
-                    l != null && (s = r("filterNulls")(l));
-                    var u = _(
-                      t.base_enforcement_data,
-                      o("WAWebCommonNewsletterEnums").EnforcementType
-                        .GEOSUSPEND,
-                    );
-                    ((u.enforcementType =
-                      ((a = u.enforcementExtraData) == null
-                        ? void 0
-                        : a.enforcementTargetData) != null
-                        ? o("WAWebCommonNewsletterEnums").EnforcementType
-                            .GEOSUSPEND_INFORM
-                        : o("WAWebCommonNewsletterEnums").EnforcementType
-                            .GEOSUSPEND),
-                      s != null &&
-                        ((i = s) == null ? void 0 : i.length) > 0 &&
-                        h.push(
-                          babelHelpers.extends({}, u, { countryCodes: s }),
-                        ));
-                  }
-                });
-              })
-              .finally(function () {
-                l.geoSuspensions = h;
-              });
-          }
-          return l;
-        })),
-        c.apply(this, arguments)
-      );
+            });
+          })
+          .finally(function () {
+            l.geoSuspensions = h;
+          });
+      }
+      return l;
     }
-    function d(e) {
+    function c(e) {
       return e == null
         ? null
         : e.server_id != null
@@ -197,14 +183,14 @@ __d(
               }
             : null;
     }
-    function m(e) {
+    function d(e) {
       return (
         e.appeal_creation_time == null &&
         e.appeal_state !== "NOT_APPEALED" &&
         e.appeal_state !== "NON_APPEALABLE"
       );
     }
-    function p(e) {
+    function m(e) {
       if (e == null) return null;
       var t = e == null ? void 0 : e.ip_violation_report_data,
         n = e == null ? void 0 : e.enforcement_target_data,
@@ -255,7 +241,7 @@ __d(
         s
       );
     }
-    function _(e, t) {
+    function p(e, t) {
       var n,
         r,
         a,
@@ -284,7 +270,7 @@ __d(
         enforcementId: e.enforcement_id,
         enforcementType: t,
         enforcementSource: (i = e.enforcement_source) != null ? i : null,
-        enforcementExtraData: p(e.enforcement_extra_data),
+        enforcementExtraData: m(e.enforcement_extra_data),
         enforcementPolicyInformation:
           l != null
             ? {

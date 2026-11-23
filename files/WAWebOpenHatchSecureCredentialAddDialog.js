@@ -5,7 +5,6 @@ __d(
     "WDSDialogBridge",
     "WDSDialogDismissRegistry",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -47,28 +46,22 @@ __d(
       );
     }
     function m(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        r = e.onDismissedByManager,
-        a,
-        i;
+      var t = e.children,
+        n = e.onDismissedByManager;
       return (
-        t[0] !== r
-          ? ((a = function () {
-              return r != null
-                ? o("WDSDialogDismissRegistry").registerDialogDismissHandler(r)
-                : void 0;
-            }),
-            (i = [r]),
-            (t[0] = r),
-            (t[1] = a),
-            (t[2] = i))
-          : ((a = t[1]), (i = t[2])),
-        u(a, i),
-        n
+        u(
+          function () {
+            return n != null
+              ? o("WDSDialogDismissRegistry").registerDialogDismissHandler(n)
+              : void 0;
+          },
+          [n],
+        ),
+        t
       );
     }
-    l.openHatchSecureCredentialAddDialog = d;
+    ((m.displayName = m.name + " [from " + i.id + "]"),
+      (l.openHatchSecureCredentialAddDialog = d));
   },
   98,
 );

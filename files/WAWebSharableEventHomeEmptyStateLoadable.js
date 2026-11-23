@@ -5,22 +5,18 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")(
-            "WAWebSharableEventHomeEmptyState.react",
-          )
-            .__setRef("WAWebSharableEventHomeEmptyStateLoadable")
-            .load();
-        }),
-        "WAWebSharableEventHomeEmptyState",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        return r("JSResourceForInteraction")(
+          "WAWebSharableEventHomeEmptyState.react",
+        )
+          .__setRef("WAWebSharableEventHomeEmptyStateLoadable")
+          .load();
+      }, "WAWebSharableEventHomeEmptyState"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

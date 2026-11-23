@@ -1,7 +1,6 @@
 __d(
   "WAWebOrgRequestContactAction",
   [
-    "Promise",
     "WALogger",
     "WAWebOrgBridgeApi",
     "WAWebOrgCollection",
@@ -11,67 +10,63 @@ __d(
     "WAWebOrgMemberLidEligibility",
     "WAWebOrgMembershipUsyncJob",
     "WAWebOrgRefreshListAction",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
+      c = new Set(),
       d = new Set(),
       m = new Set(),
-      p = new Set(),
-      _ = new Map(),
-      f = null,
-      g = 0;
-    function h(e) {
-      return e == null ? (c || (c = n("Promise"))).resolve() : y([e]);
+      p = new Map(),
+      _ = null,
+      f = 0;
+    function g(e) {
+      return e == null ? Promise.resolve() : h([e]);
     }
-    function y(e) {
-      if (!o("WAWebOrgGatingUtils").isOrgsEnabled())
-        return (c || (c = n("Promise"))).resolve();
+    function h(e) {
+      if (!o("WAWebOrgGatingUtils").isOrgsEnabled()) return Promise.resolve();
       var t = e.filter(function (e) {
           return (
             o("WAWebOrgMemberLidEligibility").parseWAWebOrgMemberLidUser(e) !=
             null
           );
         }),
-        r = t.filter(function (e) {
-          return !p.has(e);
+        n = t.filter(function (e) {
+          return !m.has(e);
         });
-      return r.length === 0
-        ? f != null
-          ? f
-          : (c || (c = n("Promise"))).resolve()
-        : (r.forEach(function (e) {
-            m.has(e) || d.add(e);
+      return n.length === 0
+        ? _ != null
+          ? _
+          : Promise.resolve()
+        : (n.forEach(function (e) {
+            d.has(e) || c.add(e);
           }),
-          S());
+          v());
+    }
+    function y(e) {
+      e.forEach(function (e) {
+        (m.add(e), p.delete(e));
+      });
     }
     function C(e) {
       e.forEach(function (e) {
-        (p.add(e), _.delete(e));
+        return m.delete(e);
       });
     }
-    function b(e) {
-      e.forEach(function (e) {
-        return p.delete(e);
-      });
+    function b() {
+      ((c = new Set()),
+        (d = new Set()),
+        (m = new Set()),
+        (p = new Map()),
+        (_ = null),
+        (f = 0));
     }
     function v() {
-      ((d = new Set()),
-        (m = new Set()),
-        (p = new Set()),
-        (_ = new Map()),
-        (f = null),
-        (g = 0));
-    }
-    function S() {
-      if (f == null) {
-        var t = (c || (c = n("Promise")))
-          .resolve()
-          .then(R)
+      if (_ == null) {
+        var t = Promise.resolve()
+          .then(S)
           .catch(function (t) {
             o("WALogger")
               .ERROR(
@@ -84,165 +79,131 @@ __d(
               .sendLogs("org-affiliations-resolution-failed");
           })
           .finally(function () {
-            (f === t && (f = null), d.size > 0 && S());
+            (_ === t && (_ = null), c.size > 0 && v());
           });
-        f = t;
+        _ = t;
       }
-      return f;
+      return _;
     }
-    function R() {
-      return L.apply(this, arguments);
+    async function S() {
+      await o("WAWebOrgRefreshListAction").whenOrgListReady();
+      var e = Array.from(c);
+      ((c = new Set()),
+        e.forEach(function (e) {
+          return d.add(e);
+        }));
+      try {
+        var t = await R(
+          e.filter(function (e) {
+            return !m.has(e);
+          }),
+        );
+        if (t && (await L())) {
+          y(e);
+          return;
+        }
+        await k(e.filter(E));
+      } finally {
+        e.forEach(function (e) {
+          return d.delete(e);
+        });
+      }
     }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebOrgRefreshListAction").whenOrgListReady();
-          var e = Array.from(d);
-          ((d = new Set()),
-            e.forEach(function (e) {
-              return m.add(e);
-            }));
-          try {
-            var t = yield E(
-              e.filter(function (e) {
-                return !p.has(e);
-              }),
+    async function R(e) {
+      if (e.length === 0) return !0;
+      try {
+        var t = await o("WAWebOrgMembershipUsyncJob").loadStoredOrgMemberships(
+          e,
+        );
+        return (
+          o("WAWebOrgBridgeApi").applyOrgContactRows({
+            createModels: !0,
+            lids: e,
+            rows: t,
+          }),
+          !0
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[org-affiliations] stored memberships read failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("org-affiliations-cache-read-failed"),
+          !1
+        );
+      }
+    }
+    async function L() {
+      var e = o("WAWebOrgCollection")
+          .OrgCollection.getModelsArray()
+          .map(function (e) {
+            return e.id;
+          }),
+        t = await Promise.all(
+          e.map(function (e) {
+            return (
+              o("WAWebOrgFetchDirectoryAction").isOrgDirectoryLoaded(e) ||
+              o("WAWebOrgDirectorySyncJob").isStoredOrgDirectoryFresh(e)
             );
-            if (t && (yield I())) {
-              C(e);
-              return;
-            }
-            yield x(e.filter(D));
-          } finally {
-            e.forEach(function (e) {
-              return m.delete(e);
-            });
-          }
-        })),
-        L.apply(this, arguments)
-      );
+          }),
+        );
+      return t.every(Boolean);
     }
     function E(e) {
-      return k.apply(this, arguments);
+      var t = p.get(e);
+      return !m.has(e) && (t == null || t <= Date.now());
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length === 0) return !0;
-          try {
-            var t = yield o(
-              "WAWebOrgMembershipUsyncJob",
-            ).loadStoredOrgMemberships(e);
-            return (
-              o("WAWebOrgBridgeApi").applyOrgContactRows({
-                createModels: !0,
-                lids: e,
-                rows: t,
-              }),
-              !0
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[org-affiliations] stored memberships read failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("org-affiliations-cache-read-failed"),
-              !1
-            );
-          }
-        })),
-        k.apply(this, arguments)
-      );
+    async function k(e) {
+      if (e.length !== 0) {
+        var t = await o("WAWebOrgMembershipUsyncJob").syncOrgMemberships(e),
+          n = t.rows,
+          r = t.statusByLid,
+          a = e.filter(function (e) {
+            var t;
+            return ((t = r.get(e)) == null ? void 0 : t.status) === "answered";
+          });
+        (o("WAWebOrgBridgeApi").applyOrgContactRows({
+          createModels: !0,
+          lids: a,
+          rows: n,
+        }),
+          r.forEach(function (e, t) {
+            return I(t, e);
+          }));
+        var i = e.filter(function (e) {
+          var t;
+          return ((t = r.get(e)) == null ? void 0 : t.status) === "retry";
+        }).length;
+        ((f += e.length),
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[org-affiliations] usync people=",
+                " answered=",
+                " retrying=",
+                " session=",
+                "",
+              ])),
+            e.length,
+            a.length,
+            i,
+            f,
+          ));
+      }
     }
-    function I() {
-      return T.apply(this, arguments);
+    function I(e, t) {
+      t.status === "retry" ? p.set(e, Date.now() + t.backoffMs) : y([e]);
     }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebOrgCollection")
-              .OrgCollection.getModelsArray()
-              .map(function (e) {
-                return e.id;
-              }),
-            t = yield (c || (c = n("Promise"))).all(
-              e.map(function (e) {
-                return (
-                  o("WAWebOrgFetchDirectoryAction").isOrgDirectoryLoaded(e) ||
-                  o("WAWebOrgDirectorySyncJob").isStoredOrgDirectoryFresh(e)
-                );
-              }),
-            );
-          return t.every(Boolean);
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    function D(e) {
-      var t = _.get(e);
-      return !p.has(e) && (t == null || t <= Date.now());
-    }
-    function x(e) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0) {
-            var t = yield o("WAWebOrgMembershipUsyncJob").syncOrgMemberships(e),
-              n = t.rows,
-              r = t.statusByLid,
-              a = e.filter(function (e) {
-                var t;
-                return (
-                  ((t = r.get(e)) == null ? void 0 : t.status) === "answered"
-                );
-              });
-            (o("WAWebOrgBridgeApi").applyOrgContactRows({
-              createModels: !0,
-              lids: a,
-              rows: n,
-            }),
-              r.forEach(function (e, t) {
-                return P(t, e);
-              }));
-            var i = e.filter(function (e) {
-              var t;
-              return ((t = r.get(e)) == null ? void 0 : t.status) === "retry";
-            }).length;
-            ((g += e.length),
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[org-affiliations] usync people=",
-                    " answered=",
-                    " retrying=",
-                    " session=",
-                    "",
-                  ])),
-                e.length,
-                a.length,
-                i,
-                g,
-              ));
-          }
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e, t) {
-      t.status === "retry" ? _.set(e, Date.now() + t.backoffMs) : C([e]);
-    }
-    ((l.requestOrgContact = h),
-      (l.requestOrgContacts = y),
-      (l.markOrgContactsChecked = C),
-      (l.uncheckOrgContacts = b),
-      (l.resetOrgRequestContactAction = v));
+    ((l.requestOrgContact = g),
+      (l.requestOrgContacts = h),
+      (l.markOrgContactsChecked = y),
+      (l.uncheckOrgContacts = C),
+      (l.resetOrgRequestContactAction = b));
   },
   98,
 );

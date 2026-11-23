@@ -1,7 +1,6 @@
 __d(
   "WAWebCustomerManagerLocalMembershipQuery",
   [
-    "Promise",
     "WALogger",
     "WAWebCTWAConstants",
     "WAWebDetectedOutcomeLabelConstants",
@@ -14,126 +13,97 @@ __d(
     "WAWebSyncdActionUtils",
     "WAWebSyncdConst",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = { status: "unresolved", error: null },
-      c = [
+      s = { status: "unresolved", error: null },
+      u = [
         o("WAWebSyncdConst").SyncActionState.Failed,
         o("WAWebSyncdConst").SyncActionState.Orphan,
         o("WAWebSyncdConst").SyncActionState.Unsupported,
       ];
-    function d(e) {
-      return m.apply(this, arguments);
+    async function c(t) {
+      var n = t.candidates,
+        a = t.selection;
+      try {
+        var i = await m();
+        if (i == null) return s;
+        if (n.length === 0)
+          return { status: "ready", contactIds: [], version: i };
+        var l = _(n);
+        if (l == null) return s;
+        var u = await o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(["label", "label-association"], function () {
+              return d(l, a);
+            }),
+          c = await m();
+        if (u == null || c == null || c !== i) return s;
+        var p = l.ids.filter(function (e) {
+          return a.kind === "list" ? u.has(e) : !u.has(e);
+        });
+        return { status: "ready", contactIds: p, version: c };
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[CustomerManager] local membership read failed",
+                ])),
+            )
+            .sendLogs("customer_manager_local_membership_read_failed"),
+          { status: "unresolved", error: r("getErrorSafe")(t) }
+        );
+      }
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.candidates,
-            a = t.selection;
-          try {
-            var i = yield f();
-            if (i == null) return u;
-            if (n.length === 0)
-              return { status: "ready", contactIds: [], version: i };
-            var l = y(n);
-            if (l == null) return u;
-            var s = yield o("WAWebModelStorageUtils")
-                .getStorage()
-                .lock(["label", "label-association"], function () {
-                  return p(l, a);
-                }),
-              c = yield f();
-            if (s == null || c == null || c !== i) return u;
-            var d = l.ids.filter(function (e) {
-              return a.kind === "list" ? s.has(e) : !s.has(e);
-            });
-            return { status: "ready", contactIds: d, version: c };
-          } catch (t) {
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[CustomerManager] local membership read failed",
-                    ])),
-                )
-                .sendLogs("customer_manager_local_membership_read_failed"),
-              { status: "unresolved", error: r("getErrorSafe")(t) }
+    async function d(e, t) {
+      var n = f(await o("WAWebSchemaLabel").getLabelTable().all());
+      if (n == null) return null;
+      var r = g(n, t),
+        a = new Set();
+      if (r.length > 0) {
+        var i = await Promise.all(
+          r.map(function (e) {
+            return o("WAWebSchemaLabelAssociation")
+              .getLabelAssociationTable()
+              .equals(["labelId"], e);
+          }),
+        );
+        for (var l of i.flat())
+          if (
+            l.type === o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid
+          ) {
+            var s = e.ownersByAlias.get(
+              o("WAWebWidFactory").createWid(l.associationId).toString(),
             );
+            s != null && a.add(s);
           }
-        })),
-        m.apply(this, arguments)
-      );
+      }
+      return a;
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    async function m() {
+      var e = await Promise.all([
+          o("WAWebGetCollectionVersion").getCollectionVersionInTransaction(
+            o("WAWebSyncdConst").CollectionName.Regular,
+          ),
+          o("WAWebGetSyncAction").getSyncActionsByActionStatesInTransaction(u),
+        ]),
+        t = e[0],
+        n = e[1],
+        r = t == null ? void 0 : t.version;
+      return r == null ||
+        !Number.isSafeInteger(r) ||
+        r < 0 ||
+        (t == null ? void 0 : t.state) !==
+          o("WAWebSyncdConst").CollectionSyncState.UpToDate ||
+        (t == null ? void 0 : t.isCollectionInMacMismatchFatal) === !0 ||
+        n.some(p)
+        ? null
+        : r;
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = C(yield o("WAWebSchemaLabel").getLabelTable().all());
-          if (r == null) return null;
-          var a = b(r, t),
-            i = new Set();
-          if (a.length > 0) {
-            var l = yield (s || (s = n("Promise"))).all(
-              a.map(function (e) {
-                return o("WAWebSchemaLabelAssociation")
-                  .getLabelAssociationTable()
-                  .equals(["labelId"], e);
-              }),
-            );
-            for (var u of l.flat())
-              if (
-                u.type ===
-                o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid
-              ) {
-                var c = e.ownersByAlias.get(
-                  o("WAWebWidFactory").createWid(u.associationId).toString(),
-                );
-                c != null && i.add(c);
-              }
-          }
-          return i;
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f() {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (s || (s = n("Promise"))).all([
-              o("WAWebGetCollectionVersion").getCollectionVersionInTransaction(
-                o("WAWebSyncdConst").CollectionName.Regular,
-              ),
-              o("WAWebGetSyncAction").getSyncActionsByActionStatesInTransaction(
-                c,
-              ),
-            ]),
-            t = e[0],
-            r = e[1],
-            a = t == null ? void 0 : t.version;
-          return a == null ||
-            !Number.isSafeInteger(a) ||
-            a < 0 ||
-            (t == null ? void 0 : t.state) !==
-              o("WAWebSyncdConst").CollectionSyncState.UpToDate ||
-            (t == null ? void 0 : t.isCollectionInMacMismatchFatal) === !0 ||
-            r.some(h)
-            ? null
-            : a;
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
+    function p(e) {
       if (e.collection !== o("WAWebSyncdConst").CollectionName.Regular)
         return !1;
       var t = e.action;
@@ -150,7 +120,7 @@ __d(
         t === o("WAWebSyncdConst").Actions.LabelJid
       );
     }
-    function y(e) {
+    function _(e) {
       var t = new Map(),
         n = new Set();
       for (var r of e) {
@@ -168,7 +138,7 @@ __d(
       }
       return { ids: Array.from(n), ownersByAlias: t };
     }
-    function C(e) {
+    function f(e) {
       var t = new Map(),
         n = new Map();
       for (var r of e)
@@ -208,7 +178,7 @@ __d(
         leadId: n.get(o("WAWebLeadListConstants").LEAD_LIST_PREDEFINED_ID),
       };
     }
-    function b(e, t) {
+    function g(e, t) {
       var n = e.byRawId,
         r = e.leadId;
       return Array.from(n).flatMap(function (e) {
@@ -244,7 +214,7 @@ __d(
         return a ? [n] : [];
       });
     }
-    l.queryCustomerManagerLocalMembership = d;
+    l.queryCustomerManagerLocalMembership = c;
   },
   98,
 );

@@ -39,7 +39,7 @@ __d(
               ),
         R = [
           ((i = {}),
-          (i.title = s._(/*BTDS*/ "I'd like to learn more").toString()),
+          (i.title = s._(/*BTDS*/ "").toString()),
           (i.content_type = "text"),
           (i.response_type = null),
           i),

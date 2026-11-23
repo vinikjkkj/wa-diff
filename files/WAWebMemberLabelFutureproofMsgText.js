@@ -5,13 +5,7 @@ __d(
     function e(e) {
       var t = e.msg,
         n = o("WAWebMsgGetters").getIsSentByMe(t);
-      return n
-        ? s._(
-            /*BTDS*/ "Your member tag edit couldn't load. Open your member tag on your phone to view it.",
-          )
-        : s._(
-            /*BTDS*/ "This member tag edit couldn't load. Open your member tag on your phone to view it.",
-          );
+      return n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

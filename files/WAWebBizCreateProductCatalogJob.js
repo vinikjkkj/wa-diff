@@ -8,67 +8,44 @@ __d(
     "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s() {
-      return u.apply(this, arguments);
+    async function s() {
+      var t,
+        n = o("WAWebUserUtils").getMeUserOrThrow(),
+        r = await o("WAWebBizCatalogManagementCreateCatalog").createCatalog({
+          product_catalog: {
+            biz_jid:
+              (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                n,
+              )) != null
+                ? t
+                : n.toJid(),
+          },
+          platform: "WEB",
+        });
+      r.type !== "success" &&
+        (r.type === "graphql-error"
+          ? o(
+              "WAWebMaybeThrowCatalogErrors",
+            ).maybeThrowLocalErrorForCatalogQuery(r.error)
+          : r.type,
+        o("WALogger").WARN(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "createProductCatalogGraphQL: unhandled error ",
+              "",
+            ])),
+          JSON.stringify(r),
+        ));
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t,
-            n = o("WAWebUserUtils").getMeUserOrThrow(),
-            r = yield o("WAWebBizCatalogManagementCreateCatalog").createCatalog(
-              {
-                product_catalog: {
-                  biz_jid:
-                    (t = o(
-                      "WAWebGetFormattedCatalogJid",
-                    ).getFormattedCatalogJid(n)) != null
-                      ? t
-                      : n.toJid(),
-                },
-                platform: "WEB",
-              },
-            );
-          r.type !== "success" &&
-            (r.type === "graphql-error"
-              ? o(
-                  "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(r.error)
-              : r.type,
-            o("WALogger").WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "createProductCatalogGraphQL: unhandled error ",
-                  "",
-                ])),
-              JSON.stringify(r),
-            ));
-        })),
-        u.apply(this, arguments)
-      );
+    async function u() {
+      if (o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
+        throw new (o("WAWebBackendErrors").E451)();
+      return s();
     }
-    function c() {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            o(
-              "WAWebBizCatalogGatingUtils",
-            ).commerceFeaturesDisabledBySanctions()
-          )
-            throw new (o("WAWebBackendErrors").E451)();
-          return s();
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    l.createProductCatalog = c;
+    l.createProductCatalog = u;
   },
   98,
 );

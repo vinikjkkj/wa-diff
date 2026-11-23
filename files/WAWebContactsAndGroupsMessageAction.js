@@ -6,7 +6,6 @@ __d(
     "WAWebContactsAndGroupsPageEvents",
     "WDSDialogBridge",
     "react",
-    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebOnUnmount",
   ],
@@ -34,36 +33,25 @@ __d(
       );
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        a = e.contact,
-        i = u(!0),
-        l;
-      (t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = function () {
-            i.current = !1;
-          }),
-          (t[0] = l))
-        : (l = t[0]),
+      var t = e.children,
+        n = e.contact,
+        a = u(!0);
+      return (
         o("useWAWebListener").useListener(
           o("WAWebContactsAndGroupsPageEvents").contactsAndGroupsPageEvents,
           "close",
-          l,
-        ));
-      var s;
-      return (
-        t[1] !== a
-          ? ((s = function () {
-              i.current && c(a);
-            }),
-            (t[1] = a),
-            (t[2] = s))
-          : (s = t[2]),
-        r("useWAWebOnUnmount")(s),
-        n
+          function () {
+            a.current = !1;
+          },
+        ),
+        r("useWAWebOnUnmount")(function () {
+          a.current && c(n);
+        }),
+        t
       );
     }
-    l.openContactsAndGroupsMessage = c;
+    ((d.displayName = d.name + " [from " + i.id + "]"),
+      (l.openContactsAndGroupsMessage = c));
   },
   98,
 );

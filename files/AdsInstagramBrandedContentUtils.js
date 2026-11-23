@@ -10,6 +10,19 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
+      var t = r(
+        "AdsAdgroupRecordAccessors",
+      ).creative.branded_content_boosting_type.get(e);
+      return (
+        r("AdsAdgroupRecordAccessors").creative.branded_content.get(e) !=
+          null &&
+        r(
+          "AdsAdgroupRecordAccessors",
+        ).creative.branded_content.promoted_page_id.get(e) != null &&
+        (t === "SPONSOR_BOOST" || t === "SPONSOR_INLINE")
+      );
+    }
+    function s(e) {
       return (
         e === r("AdsAPIObjectives").LINK_CLICKS ||
         e === r("AdsAPIObjectives").POST_ENGAGEMENT ||
@@ -24,7 +37,7 @@ __d(
         e === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES
       );
     }
-    function s(e) {
+    function u(e) {
       return (
         e === r("AdsAPIObjectives").LINK_CLICKS ||
         e === r("AdsAPIObjectives").BRAND_AWARENESS ||
@@ -38,7 +51,7 @@ __d(
         e === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES
       );
     }
-    function u(e, t) {
+    function c(e, t) {
       var n;
       if (e == null) return null;
       var r = t(e);
@@ -48,7 +61,7 @@ __d(
           : n.id
         : null;
     }
-    function c(e, t) {
+    function d(e, t) {
       var n;
       if (e == null) return null;
       var r = t(e);
@@ -62,7 +75,7 @@ __d(
           )
         : null;
     }
-    function d(e, t) {
+    function m(e, t) {
       var n = t;
       if (r("isFalsey")(n)) {
         var o, a, i, l, s, u;
@@ -92,7 +105,7 @@ __d(
         "AdsAdgroupRecordAccessors",
       ).creative.branded_content.promoted_page_id.set(n, e);
     }
-    var m = function (t, n) {
+    var p = function (t, n) {
       var e,
         o = t;
       return (
@@ -103,16 +116,17 @@ __d(
           ? (o = r(
               "AdsAdgroupRecordAccessors",
             ).creative.branded_content.promoted_page_id.delete(o))
-          : (o = d(o, n)),
+          : (o = m(o, n)),
         o
       );
     };
-    ((l.isValidIgBrandedContentObjective = e),
-      (l.isValidIgBrandedContentStoryObjective = s),
-      (l.getInstagramAccountIDFromPage = u),
-      (l.getInstagramUserIDFromPage = c),
-      (l.setPromotedPageIDforL1Ads = d),
-      (l.updatePromotedPageIDForPartnershipAd = m));
+    ((l.isSponsorBrandedContentAd = e),
+      (l.isValidIgBrandedContentObjective = s),
+      (l.isValidIgBrandedContentStoryObjective = u),
+      (l.getInstagramAccountIDFromPage = c),
+      (l.getInstagramUserIDFromPage = d),
+      (l.setPromotedPageIDforL1Ads = m),
+      (l.updatePromotedPageIDForPartnershipAd = p));
   },
   98,
 );

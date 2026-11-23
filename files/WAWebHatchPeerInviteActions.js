@@ -11,7 +11,6 @@ __d(
     "WAWebOpenHatchChatAction",
     "WAWebRequestHatchConnectors",
     "WDSToastImperativeHost",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -35,174 +34,126 @@ __d(
       R = 10,
       L = "hatch-peer-invite-open",
       E = { detail: "account_changed", kind: "Failure" };
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
+    async function k(t) {
+      var n = N("open", function (e, n) {
+        return e.peerInviteOpen(t, n, { timeoutMs: C });
+      }).then(o("WAWebHatchPeerInvite").decodeHatchPeerInviteOpenResult);
+      A(t, n);
+      var r = await n;
       return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = O("open", function (t, n) {
-            return t.peerInviteOpen(e, n, { timeoutMs: C });
-          }).then(o("WAWebHatchPeerInvite").decodeHatchPeerInviteOpenResult);
-          U(e, t);
-          var n = yield t;
-          return (
-            o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "hatch-peer-invite: open outcome=",
-                  "",
-                ])),
-              n.outcome,
-            ),
-            A(n) && F(),
-            n
-          );
-        })),
-        I.apply(this, arguments)
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "hatch-peer-invite: open outcome=",
+              "",
+            ])),
+          r.outcome,
+        ),
+        $(r) && P(),
+        r
       );
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    async function I(e, t) {
+      return (await T(e, t)).outcome;
     }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (yield x(e, t)).outcome;
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e, t) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebHatchPeerInviteUrl").getHatchPeerInviteFragment(e);
-          if (n == null) return { museId: null, outcome: "invalid" };
-          var r = yield O(
-              "accept",
-              function (e, t) {
-                return e.peerInviteAccept(n, t, { timeoutMs: b });
-              },
-              t,
-            ),
-            a = o("WAWebHatchPeerInvite").decodeHatchPeerInviteAcceptResult(r),
-            i = o("WAWebHatchPeerInvite").readHatchPeerInviteAcceptedMuseId(r);
-          return (
-            o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "hatch-peer-invite: accept outcome=",
-                  "",
-                ])),
-              a,
-            ),
-            r.kind === "Ok" && i == null
-              ? (o("WALogger")
-                  .WARN(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "hatch-peer-invite: accept answered without muse_id",
-                      ])),
-                  )
-                  .sendLogs("hatch-peer-invite-accept-unacknowledged"),
-                { museId: null, outcome: a })
-              : (G(
-                  o("WAWebHatchPeerInvite").readHatchPeerInvitePresentedIn(r),
-                ) && z(),
-                { museId: i, outcome: a })
-          );
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e, t) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = o("WAWebBoolFunc").returnTrue);
-          try {
-            if (!t()) return null;
-            var n = yield o(
-              "WAWebHatchVmConnection",
-            ).connectHatchVmApiWithResult(new AbortController().signal);
-            return n.kind === "ready" ? yield M(n.api, e, null, 1, t) : null;
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-peer-invite: contacts read threw",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("hatch-peer-invite-contacts-threw"),
-              null
-            );
-          }
-        })),
-        N.apply(this, arguments)
-      );
-    }
-    function M(e, t, n, r, o) {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            if (!a()) return null;
-            var i = yield e.peerContacts(S, n, { timeoutMs: v });
-            if (i.kind !== "Ok")
-              return (
-                o("WALogger").WARN(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-peer-invite: contacts read refused kind=",
-                      "",
-                    ])),
-                  i.kind,
-                ),
-                null
-              );
-            var l = o("WAWebHatchPeerInvite").readHatchPeerContactStatus(
-              i.value,
-              t,
-            );
-            if (l !== "absent") return l === "verified";
-            var s = o("WAWebHatchPeerInvite").readHatchPeerContactsCursor(
-              i.value,
-            );
-            return s != null && r < R ? M(e, t, s, r + 1, a) : !1;
+    async function T(e, t) {
+      var n = o("WAWebHatchPeerInviteUrl").getHatchPeerInviteFragment(e);
+      if (n == null) return { museId: null, outcome: "invalid" };
+      var r = await N(
+          "accept",
+          function (e, t) {
+            return e.peerInviteAccept(n, t, { timeoutMs: b });
           },
-        )),
-        w.apply(this, arguments)
+          t,
+        ),
+        a = o("WAWebHatchPeerInvite").decodeHatchPeerInviteAcceptResult(r),
+        i = o("WAWebHatchPeerInvite").readHatchPeerInviteAcceptedMuseId(r);
+      return (
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "hatch-peer-invite: accept outcome=",
+              "",
+            ])),
+          a,
+        ),
+        r.kind === "Ok" && i == null
+          ? (o("WALogger")
+              .WARN(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "hatch-peer-invite: accept answered without muse_id",
+                  ])),
+              )
+              .sendLogs("hatch-peer-invite-accept-unacknowledged"),
+            { museId: null, outcome: a })
+          : (B(o("WAWebHatchPeerInvite").readHatchPeerInvitePresentedIn(r)) &&
+              W(),
+            { museId: i, outcome: a })
       );
     }
-    function A(e) {
+    async function D(e, t) {
+      t === void 0 && (t = o("WAWebBoolFunc").returnTrue);
+      try {
+        if (!t()) return null;
+        var n = await o("WAWebHatchVmConnection").connectHatchVmApiWithResult(
+          new AbortController().signal,
+        );
+        return n.kind === "ready" ? await x(n.api, e, null, 1, t) : null;
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-peer-invite: contacts read threw",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("hatch-peer-invite-contacts-threw"),
+          null
+        );
+      }
+    }
+    async function x(e, t, n, r, a) {
+      if (!a()) return null;
+      var i = await e.peerContacts(S, n, { timeoutMs: v });
+      if (i.kind !== "Ok")
+        return (
+          o("WALogger").WARN(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "hatch-peer-invite: contacts read refused kind=",
+                "",
+              ])),
+            i.kind,
+          ),
+          null
+        );
+      var l = o("WAWebHatchPeerInvite").readHatchPeerContactStatus(i.value, t);
+      if (l !== "absent") return l === "verified";
+      var s = o("WAWebHatchPeerInvite").readHatchPeerContactsCursor(i.value);
+      return s != null && r < R ? x(e, t, s, r + 1, a) : !1;
+    }
+    function $(e) {
       return (
         e.outcome === "posted" &&
         (e.presentedIn === "whatsapp" || e.presentedIn == null)
       );
     }
-    function F() {
-      var t = !1;
+    function P() {
+      var e = !1;
       o("WAWebOpenHatchChatAction")
         .openHatchChat(function () {
-          t = !0;
+          e = !0;
         })
         .then(
           function () {
-            t ||
+            e ||
               o("WALogger")
                 .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "hatch-peer-invite: the Muse chat did not open",
                     ])),
                 )
@@ -211,8 +162,8 @@ __d(
           function (e) {
             o("WALogger")
               .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "hatch-peer-invite: opening the Muse chat failed",
                   ])),
               )
@@ -221,77 +172,65 @@ __d(
           },
         );
     }
-    function O(e, t, n) {
-      return B.apply(this, arguments);
+    async function N(e, t, n) {
+      n === void 0 && (n = o("WAWebBoolFunc").returnTrue);
+      try {
+        if (!n()) return E;
+        var a = await o("WAWebHatchVmConnection").connectHatchVmApiWithResult(
+          new AbortController().signal,
+        );
+        if (!n()) return E;
+        if (a.kind !== "ready") return w(e, "no_vm_" + a.failure);
+        var i = await o(
+          "WAWebRequestHatchConnectors",
+        ).readHatchWhatsAppSessionId(a.api);
+        if (!n()) return E;
+        if (i == null)
+          return w(e, o("WAWebHatchPeerInvite").HATCH_PEER_INVITE_NO_SESSION);
+        var l = await t(a.api, i);
+        if (l.kind !== "Ok") M(e, l);
+        else {
+          var s;
+          o("WALogger").LOG(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "hatch-peer-invite: ",
+                " answered session_id=sent presented_in=",
+                "",
+              ])),
+            e,
+            (s = o("WAWebHatchPeerInvite").readHatchPeerInvitePresentedIn(l)) !=
+              null
+              ? s
+              : "none",
+          );
+        }
+        return l;
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-peer-invite: ",
+                  " threw",
+                ])),
+              e,
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("hatch-peer-invite-" + e + "-threw"),
+          { detail: "threw", kind: "Failure" }
+        );
+      }
     }
-    function B() {
-      return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          n === void 0 && (n = o("WAWebBoolFunc").returnTrue);
-          try {
-            if (!n()) return E;
-            var a = yield o(
-              "WAWebHatchVmConnection",
-            ).connectHatchVmApiWithResult(new AbortController().signal);
-            if (!n()) return E;
-            if (a.kind !== "ready") return q(e, "no_vm_" + a.failure);
-            var i = yield o(
-              "WAWebRequestHatchConnectors",
-            ).readHatchWhatsAppSessionId(a.api);
-            if (!n()) return E;
-            if (i == null)
-              return q(
-                e,
-                o("WAWebHatchPeerInvite").HATCH_PEER_INVITE_NO_SESSION,
-              );
-            var l = yield t(a.api, i);
-            if (l.kind !== "Ok") W(e, l);
-            else {
-              var s;
-              o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "hatch-peer-invite: ",
-                    " answered session_id=sent presented_in=",
-                    "",
-                  ])),
-                e,
-                (s = o("WAWebHatchPeerInvite").readHatchPeerInvitePresentedIn(
-                  l,
-                )) != null
-                  ? s
-                  : "none",
-              );
-            }
-            return l;
-          } catch (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-peer-invite: ",
-                      " threw",
-                    ])),
-                  e,
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("hatch-peer-invite-" + e + "-threw"),
-              { detail: "threw", kind: "Failure" }
-            );
-          }
-        })),
-        B.apply(this, arguments)
-      );
-    }
-    function W(e, t) {
+    function M(e, t) {
       var n = t.kind === "Rejected" ? t : { errorCode: null, statusCode: null },
         r = n.errorCode,
         a = n.statusCode;
       o("WALogger")
         .ERROR(
-          c ||
-            (c = babelHelpers.taggedTemplateLiteralLoose([
+          h ||
+            (h = babelHelpers.taggedTemplateLiteralLoose([
               "hatch-peer-invite: ",
               " refused kind=",
               " status=",
@@ -305,12 +244,12 @@ __d(
         )
         .sendLogs("hatch-peer-invite-" + e + "-refused");
     }
-    function q(e, t) {
+    function w(e, t) {
       return (
         o("WALogger")
           .ERROR(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
                 "hatch-peer-invite: ",
                 " not sent reason=",
                 "",
@@ -322,11 +261,11 @@ __d(
         { detail: t, kind: "Failure" }
       );
     }
-    function U(e, t) {
+    function A(e, t) {
       var n = null,
         a = t.then(
           function (e) {
-            if (((n = e), !V(e)))
+            if (((n = e), !F(e)))
               throw r("err")("hatch-peer-invite: open " + e.outcome);
           },
           function (e) {
@@ -342,7 +281,7 @@ __d(
             var t;
             return ((t = n) == null ? void 0 : t.outcome) === "failed"
               ? {
-                  label: s._(/*BTDS*/ "Try again"),
+                  label: s._(/*BTDS*/ ""),
                   onPress: function () {
                     return void k(e);
                   },
@@ -351,49 +290,43 @@ __d(
           },
           dedupId: L,
           message: function () {
-            return n == null ? s._(/*BTDS*/ "Opening invite\u2026") : H(n);
+            return n == null ? s._(/*BTDS*/ "") : O(n);
           },
           process: a,
           type: "loading",
         }));
     }
-    function V(e) {
+    function F(e) {
       return e.outcome === "posted" || e.outcome === "already_paired";
     }
-    function H(e) {
+    function O(e) {
       return ((typeof e == "object" && e !== null) || typeof e == "function") &&
         e.outcome === "posted" &&
         (e.presentedIn === "app" || e.presentedIn === "other")
-        ? j()
+        ? q()
         : ((typeof e == "object" && e !== null) || typeof e == "function") &&
             e.outcome === "posted"
-          ? s._(/*BTDS*/ "Invite opened")
+          ? s._(/*BTDS*/ "")
           : ((typeof e == "object" && e !== null) || typeof e == "function") &&
               e.outcome === "already_paired"
-            ? s._(/*BTDS*/ "Your Muse is already connected with this Muse")
+            ? s._(/*BTDS*/ "")
             : ((typeof e == "object" && e !== null) ||
                   typeof e == "function") &&
                 e.outcome === "expired"
-              ? s._(
-                  /*BTDS*/ "This invite link has expired. Ask for a new link.",
-                )
+              ? s._(/*BTDS*/ "")
               : ((typeof e == "object" && e !== null) ||
                     typeof e == "function") &&
                   e.outcome === "invalid" &&
                   e.reason === "pending_request"
-                ? s._(
-                    /*BTDS*/ "You already have a pending request from this person",
-                  )
+                ? s._(/*BTDS*/ "")
                 : ((typeof e == "object" && e !== null) ||
                       typeof e == "function") &&
                     e.outcome === "invalid"
-                  ? s._(
-                      /*BTDS*/ "This invite link isn't valid. Ask for a new link.",
-                    )
+                  ? s._(/*BTDS*/ "")
                   : ((typeof e == "object" && e !== null) ||
                         typeof e == "function") &&
                       e.outcome === "failed"
-                    ? s._(/*BTDS*/ "Your Muse couldn't open this invite")
+                    ? s._(/*BTDS*/ "")
                     : (function () {
                         throw Error(
                           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -401,19 +334,19 @@ __d(
                         );
                       })();
     }
-    function G(e) {
+    function B(e) {
       return e === "app" || e === "other";
     }
-    function z() {
-      o("WDSToastImperativeHost").showWDSToast({ message: j() });
+    function W() {
+      o("WDSToastImperativeHost").showWDSToast({ message: q() });
     }
-    function j() {
-      return s._(/*BTDS*/ "The invite opened in your Muse app");
+    function q() {
+      return s._(/*BTDS*/ "");
     }
     ((l.openHatchPeerInviteInMuse = k),
-      (l.acceptHatchPeerInvite = T),
-      (l.acceptHatchPeerInviteWithMuseId = x),
-      (l.readHatchPeerContactVerified = P));
+      (l.acceptHatchPeerInvite = I),
+      (l.acceptHatchPeerInviteWithMuseId = T),
+      (l.readHatchPeerContactVerified = D));
   },
   226,
 );

@@ -5,42 +5,25 @@ __d(
     "WebBloksConstants",
     "WebBloksModel",
     "WebBloksUtils",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "bk.components.BKSTextInputFormatter",
       s = o("WebBloksModel").defineWebBloksAttributeKey("$");
     function u(t) {
-      var n = o("react-compiler-runtime").c(5),
-        r = o("WebBloksComponentContext").useWebBloksContext(),
-        a = r.executeCatch,
-        i;
-      n[0] !== t
-        ? ((i = o("WebBloksUtils").findExtension(
-            t.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
-            e,
-          )),
-          (n[0] = t),
-          (n[1] = i))
-        : (i = n[1]);
-      var l = i,
-        u;
-      return (
-        n[2] !== a || n[3] !== l
-          ? ((u = function (t) {
-              var e = l == null ? void 0 : l.getExpression(s);
-              if (l != null && e != null) {
-                var n = a(l, e, [t]);
-                if (typeof n == "string") return n;
-              }
-              return t;
-            }),
-            (n[2] = a),
-            (n[3] = l),
-            (n[4] = u))
-          : (u = n[4]),
-        u
-      );
+      var n = o("WebBloksComponentContext").useWebBloksContext(),
+        r = n.executeCatch,
+        a = o("WebBloksUtils").findExtension(
+          t.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
+          e,
+        );
+      return function (e) {
+        var t = a == null ? void 0 : a.getExpression(s);
+        if (a != null && t != null) {
+          var n = r(a, t, [e]);
+          if (typeof n == "string") return n;
+        }
+        return e;
+      };
     }
     l.useBKSTextInputFormatter = u;
   },

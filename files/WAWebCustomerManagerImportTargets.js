@@ -22,7 +22,7 @@ __d(
           ]),
           canonicalHeader: "Source",
           getLabel: function () {
-            return s._(/*BTDS*/ "Acquisition source");
+            return s._(/*BTDS*/ "");
           },
         },
         address: {
@@ -38,7 +38,7 @@ __d(
           ]),
           canonicalHeader: "Address",
           getLabel: function () {
-            return s._(/*BTDS*/ "Address");
+            return s._(/*BTDS*/ "");
           },
         },
         birthday: {
@@ -52,7 +52,7 @@ __d(
           ]),
           canonicalHeader: "Birthday",
           getLabel: function () {
-            return s._(/*BTDS*/ "Birthday");
+            return s._(/*BTDS*/ "");
           },
         },
         email: {
@@ -69,7 +69,7 @@ __d(
           ]),
           canonicalHeader: "Email",
           getLabel: function () {
-            return s._(/*BTDS*/ "Email");
+            return s._(/*BTDS*/ "");
           },
         },
         firstName: {
@@ -77,21 +77,21 @@ __d(
             .FIRST_NAME_HEADER_ALIASES,
           canonicalHeader: "First name",
           getLabel: function () {
-            return s._(/*BTDS*/ "First name");
+            return s._(/*BTDS*/ "");
           },
         },
         fullName: {
           aliases: u.FULL_NAME_HEADER_ALIASES,
           canonicalHeader: "Full name",
           getLabel: function () {
-            return s._(/*BTDS*/ "Full name");
+            return s._(/*BTDS*/ "");
           },
         },
         lastName: {
           aliases: u.LAST_NAME_HEADER_ALIASES,
           canonicalHeader: "Last name",
           getLabel: function () {
-            return s._(/*BTDS*/ "Last name");
+            return s._(/*BTDS*/ "");
           },
         },
         lastOrder: {
@@ -105,7 +105,7 @@ __d(
           ]),
           canonicalHeader: "Last order",
           getLabel: function () {
-            return s._(/*BTDS*/ "Last order");
+            return s._(/*BTDS*/ "");
           },
         },
         leadStage: {
@@ -119,7 +119,7 @@ __d(
           ]),
           canonicalHeader: "Lead stage",
           getLabel: function () {
-            return s._(/*BTDS*/ "Lead stage");
+            return s._(/*BTDS*/ "");
           },
         },
         notes: {
@@ -138,14 +138,14 @@ __d(
           ]),
           canonicalHeader: "Notes",
           getLabel: function () {
-            return s._(/*BTDS*/ "Notes");
+            return s._(/*BTDS*/ "");
           },
         },
         phone: {
           aliases: u.PHONE_HEADER_ALIASES,
           canonicalHeader: "Phone number",
           getLabel: function () {
-            return s._(/*BTDS*/ "Phone number (required)");
+            return s._(/*BTDS*/ "");
           },
         },
       },

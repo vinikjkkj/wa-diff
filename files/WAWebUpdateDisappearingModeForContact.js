@@ -6,65 +6,56 @@ __d(
     "WAWebBackendApi",
     "WAWebDBUpdateContactTable",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    async function s(t) {
+      var n = t.contactId,
+        r = t.newDuration,
+        a = t.newEphemeralityDisabled,
+        i = t.newSettingTimestamp,
+        l = o("WAWebWidFactory").createUserWidOrThrow(n.user, n.server),
+        s = await o("WAWebApiContact").getContactRecord(l);
+      if (s) {
+        var c = u({
+          contact: s,
+          newDuration: r,
+          newEphemeralityDisabled: a,
+          newSettingTimestamp: i,
+        });
+        if (c) {
+          var d = c.contactChange,
+            m = c.effectiveDuration,
+            p = c.effectiveSettingTimestamp,
+            _ = c.ephemeralityDisabledInFrontend;
+          (await o("WAWebDBUpdateContactTable").updateContactTable(l, d),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "updateDisappearingMode",
+              {
+                disappearingModeDuration: m,
+                disappearingModeSettingTimestamp: p,
+                contactId: l,
+                isEphemeralityDisabled: _,
+              },
+            ),
+            o("WALogger")
+              .LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "updateDisappearingMode: Contact=",
+                    " updated, new duration=",
+                    " t=",
+                    ".",
+                  ])),
+                l.toLogString(),
+                m,
+                p,
+              )
+              .tags("DM", "DDM"));
+        }
+      }
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.contactId,
-            r = t.newDuration,
-            a = t.newEphemeralityDisabled,
-            i = t.newSettingTimestamp,
-            l = o("WAWebWidFactory").createUserWidOrThrow(n.user, n.server),
-            s = yield o("WAWebApiContact").getContactRecord(l);
-          if (s) {
-            var u = c({
-              contact: s,
-              newDuration: r,
-              newEphemeralityDisabled: a,
-              newSettingTimestamp: i,
-            });
-            if (u) {
-              var d = u.contactChange,
-                m = u.effectiveDuration,
-                p = u.effectiveSettingTimestamp,
-                _ = u.ephemeralityDisabledInFrontend;
-              (yield o("WAWebDBUpdateContactTable").updateContactTable(l, d),
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "updateDisappearingMode",
-                  {
-                    disappearingModeDuration: m,
-                    disappearingModeSettingTimestamp: p,
-                    contactId: l,
-                    isEphemeralityDisabled: _,
-                  },
-                ),
-                o("WALogger")
-                  .LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "updateDisappearingMode: Contact=",
-                        " updated, new duration=",
-                        " t=",
-                        ".",
-                      ])),
-                    l.toLogString(),
-                    m,
-                    p,
-                  )
-                  .tags("DM", "DDM"));
-            }
-          }
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e) {
+    function u(e) {
       var t,
         n = e.contact,
         r = e.newDuration,

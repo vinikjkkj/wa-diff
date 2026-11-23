@@ -8,7 +8,6 @@ __d(
     "WAWebMsgProcessingApiUtils",
     "WAWebPostIncomingMessageDropMetric",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,57 +20,49 @@ __d(
         ? null
         : t;
     }
-    function c(e, t, n) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          var i;
-          try {
-            var l;
-            i =
-              (l = yield o("WAWebApiContact").getContactRecord(a)) == null
-                ? void 0
-                : l.isHosted;
-          } catch (n) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] failed to read peer hosted state",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(n))
-                .sendLogs("coexv2-peer-hosted-state-read-failed"),
-              o(
-                "WAWebPostIncomingMessageDropMetric",
-              ).postIncomingMessageDropDBOperationFailed(t),
-              o("WAWebCreateNackFromStanza").NackReason.DBOperationFailed
-            );
-          }
-          return i === !1
-            ? (o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] relay dropped: peer is not hosted",
-                    ])),
-                )
-                .sendLogs("coexv2-relay-peer-not-hosted"),
-              o(
-                "WAWebPostIncomingMessageDropMetric",
-              ).postIncomingMessageDropForCoexV2RelayOrHostedCompanion(
-                t,
-                o("WAWebMsgProcessingApiUtils").getFrom(n),
-              ),
-              o("WAWebCreateNackFromStanza").NackReason
-                .InvalidHostedCompanionStanza)
-            : null;
-        })),
-        d.apply(this, arguments)
-      );
+    async function c(t, n, a) {
+      var i;
+      try {
+        var l;
+        i =
+          (l = await o("WAWebApiContact").getContactRecord(a)) == null
+            ? void 0
+            : l.isHosted;
+      } catch (n) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] failed to read peer hosted state",
+                ])),
+            )
+            .catching(r("getErrorSafe")(n))
+            .sendLogs("coexv2-peer-hosted-state-read-failed"),
+          o(
+            "WAWebPostIncomingMessageDropMetric",
+          ).postIncomingMessageDropDBOperationFailed(t),
+          o("WAWebCreateNackFromStanza").NackReason.DBOperationFailed
+        );
+      }
+      return i === !1
+        ? (o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] relay dropped: peer is not hosted",
+                ])),
+            )
+            .sendLogs("coexv2-relay-peer-not-hosted"),
+          o(
+            "WAWebPostIncomingMessageDropMetric",
+          ).postIncomingMessageDropForCoexV2RelayOrHostedCompanion(
+            t,
+            o("WAWebMsgProcessingApiUtils").getFrom(n),
+          ),
+          o("WAWebCreateNackFromStanza").NackReason
+            .InvalidHostedCompanionStanza)
+        : null;
     }
     ((l.getCoexV2PeerRelaySender = u), (l.checkCoexV2PeerRelayAdmission = c));
   },

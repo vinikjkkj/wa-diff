@@ -7,7 +7,6 @@ __d(
     "AdsAPIPromotablePostPaths",
     "AdsError",
     "AdsPlannerPlanTypeUtils",
-    "getByPath",
   ],
   function (t, n, r, o, a, i, l, s, u, c) {
     "use strict";
@@ -16,15 +15,13 @@ __d(
         key: "VIDEO_360",
         flag: "video360Flag",
         value: 512,
-        label: c._(/*BTDS*/ "360 video"),
+        label: c._(/*BTDS*/ ""),
         getErrors: function () {
           return [
             new (r("AdsError"))(
               1885468,
               u._(function (e, t) {
-                return e._(
-                  /*BTDS*/ "360 Video isn't available with the reservation buying type.",
-                );
+                return e._(/*BTDS*/ "");
               }, {}),
               {
                 level: r("AdsError").Level.WARN,
@@ -55,20 +52,18 @@ __d(
             "instagram/shop_tab",
             "whatsapp/status",
             "messenger/story",
-            "messenger/inbox",
             "oculus/vr_apps",
             "oculus/rewarded_video",
             "threads/stream",
+            "threads/permalink",
           ];
         },
         getNewCampaignState: function (t, n, r, o, a) {
           return n;
         },
         isIncompatibleWithPost: function (t) {
-          var e = r("getByPath")(t, r("AdsAPIPromotablePostPaths").TYPE);
-          return e !== "video"
-            ? !1
-            : !!r("getByPath")(t, r("AdsAPIPromotablePostPaths").IS_SPHERICAL);
+          var e = t.type;
+          return e !== "video" ? !1 : t.is_spherical === !0;
         },
         isRequired: function (t, n, r) {
           return o("AdsPlannerPlanTypeUtils").getDoesPlanSupportNonVideoFormats(

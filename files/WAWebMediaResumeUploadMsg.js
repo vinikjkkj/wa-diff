@@ -1,7 +1,6 @@
 __d(
   "WAWebMediaResumeUploadMsg",
   [
-    "Promise",
     "WALogger",
     "WAWebAck",
     "WAWebFrontendMsgGetters",
@@ -13,20 +12,18 @@ __d(
     "WAWebMmsMediaTypes",
     "WAWebMsgGetters",
     "WAWebSendMsgChatAction",
-    "asyncToGeneratorRuntime",
     "err",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = r("requireDeferred")("WAWebNewsletterSendMsgAction").__setRef(
+      s = r("requireDeferred")("WAWebNewsletterSendMsgAction").__setRef(
         "WAWebMediaResumeUploadMsg",
       );
-    function c(t) {
-      var a,
-        i = t.mediaObject;
-      if (!i)
+    function u(t) {
+      var n,
+        a = t.mediaObject;
+      if (!a)
         return (
           o("WALogger")
             .ERROR(
@@ -40,23 +37,23 @@ __d(
               t.type,
             )
             .sendLogs("media-fault: resumeUploadMsg msg without mediaObject"),
-          (s || (s = n("Promise"))).resolve()
+          Promise.resolve()
         );
-      i.userUploadAttemptCount++;
-      var l = i.filehash,
-        c =
-          l != null &&
-          (a = o("WAWebMediaInMemoryKeyCache").MediaKeyCache.get(l)) != null
-            ? a
+      a.userUploadAttemptCount++;
+      var i = a.filehash,
+        l =
+          i != null &&
+          (n = o("WAWebMediaInMemoryKeyCache").MediaKeyCache.get(i)) != null
+            ? n
             : void 0;
       t.ack = o("WAWebAck").ACK.CLOCK;
-      var d = o("WAWebMsgGetters").getIsNewsletterMsg(t)
+      var u = o("WAWebMsgGetters").getIsNewsletterMsg(t)
           ? o("WAWebMediaMmsV4Upload").uploadUnencryptedMedia
           : o("WAWebMediaMmsV4Upload").uploadMedia,
-        m = d({
+        c = u({
           mimetype: t.mimetype,
-          mediaObject: i,
-          mediaKeyInfo: c,
+          mediaObject: a,
+          mediaKeyInfo: l,
           mediaType: o("WAWebMmsMediaTypes").getMsgMediaType(t),
           forwardedFromWeb: !!t.forwardedFromWeb,
           uploadOrigin: r("WAWebMediaGetUploadOriginForChat")(
@@ -64,62 +61,53 @@ __d(
           ),
           fileOrigin: null,
           isViewOnce: !!t.isViewOnce,
-        }).then(
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var n = e.mediaEntry;
-                if (
-                  (l != null &&
-                    o("WAWebMediaInMemoryKeyCache").MediaKeyCache.delete(l),
-                  !n)
-                )
-                  throw r("err")("upload failed: media entry was not created");
-                i.userUploadAttemptCount = 0;
-                var a = {
-                  deprecatedMms3Url: n.deprecatedMms3Url,
-                  directPath: n.directPath,
-                  filehash: i.filehash,
-                  size: i.size,
-                  streamingSidecar: n.sidecar,
-                  firstFrameSidecar: n.firstFrameSidecar,
-                };
-                return (
-                  n instanceof o("WAWebMediaEntry").EncryptedMediaEntry
-                    ? ((a.mediaKey = n.mediaKey),
-                      (a.mediaKeyTimestamp = n.mediaKeyTimestamp),
-                      (a.encFilehash = n.encFilehash))
-                    : n instanceof o("WAWebMediaEntry").UnencryptedMediaEntry &&
-                      (a.mediaHandle = n.handle),
-                  yield r("WAWebMediaUpdateMsg")(t, a),
-                  t
-                );
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        ),
-        p = o("WAWebMsgGetters").getIsNewsletterMsg(t)
-          ? u.load().then(function (e) {
+        }).then(async function (e) {
+          var n = e.mediaEntry;
+          if (
+            (i != null &&
+              o("WAWebMediaInMemoryKeyCache").MediaKeyCache.delete(i),
+            !n)
+          )
+            throw r("err")("upload failed: media entry was not created");
+          a.userUploadAttemptCount = 0;
+          var l = {
+            deprecatedMms3Url: n.deprecatedMms3Url,
+            directPath: n.directPath,
+            filehash: a.filehash,
+            size: a.size,
+            streamingSidecar: n.sidecar,
+            firstFrameSidecar: n.firstFrameSidecar,
+          };
+          return (
+            n instanceof o("WAWebMediaEntry").EncryptedMediaEntry
+              ? ((l.mediaKey = n.mediaKey),
+                (l.mediaKeyTimestamp = n.mediaKeyTimestamp),
+                (l.encFilehash = n.encFilehash))
+              : n instanceof o("WAWebMediaEntry").UnencryptedMediaEntry &&
+                (l.mediaHandle = n.handle),
+            await r("WAWebMediaUpdateMsg")(t, l),
+            t
+          );
+        }),
+        d = o("WAWebMsgGetters").getIsNewsletterMsg(t)
+          ? s.load().then(function (e) {
               return e.sendNewsletterMediaMsg(
                 o("WAWebFrontendMsgGetters").getChat(t),
                 t,
                 function () {
-                  return m;
+                  return c;
                 },
               );
             })
           : o("WAWebSendMsgChatAction").resendMsgToChat(
               o("WAWebFrontendMsgGetters").getChat(t),
-              m,
+              c,
             );
-      return p.catch(function () {
+      return d.catch(function () {
         t.ack = o("WAWebAck").ACK.FAILED;
       });
     }
-    l.resumeUploadMsg = c;
+    l.resumeUploadMsg = u;
   },
   98,
 );

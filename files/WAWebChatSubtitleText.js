@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "End-to-end encrypted");
+      return s._(/*BTDS*/ "");
     }
     l.e2eChatSubtitleText = e;
   },

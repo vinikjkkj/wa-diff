@@ -1,24 +1,18 @@
 __d(
   "WAWebOrgLazyActions",
-  [
-    "JSResourceForInteraction",
-    "WALogger",
-    "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
-  ],
+  ["JSResourceForInteraction", "WALogger", "WAWebLazyLoadedRetriable"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
       c,
       d,
-      m,
-      p = (m = r("WAWebLazyLoadedRetriable"))(
-        (d = n("asyncToGeneratorRuntime")).asyncToGenerator(function* () {
+      m = (d = r("WAWebLazyLoadedRetriable"))(
+        async function () {
           return r("JSResourceForInteraction")("WAWebOrgRequestContactAction")
             .__setRef("WAWebOrgLazyActions")
             .load();
-        }),
+        },
         "OrgRequestContactAction",
         {
           onFinalFailure: function (n) {
@@ -34,12 +28,12 @@ __d(
           },
         },
       ),
-      _ = m(
-        d.asyncToGenerator(function* () {
+      p = d(
+        async function () {
           return r("JSResourceForInteraction")("WAWebOrgFetchDirectoryAction")
             .__setRef("WAWebOrgLazyActions")
             .load();
-        }),
+        },
         "OrgFetchDirectoryAction",
         {
           onFinalFailure: function (t) {
@@ -55,12 +49,12 @@ __d(
           },
         },
       ),
-      f = m(
-        d.asyncToGenerator(function* () {
+      _ = d(
+        async function () {
           return r("JSResourceForInteraction")("WAWebOrgSearchMembersAction")
             .__setRef("WAWebOrgLazyActions")
             .load();
-        }),
+        },
         "OrgMemberSearch",
         {
           onFinalFailure: function (t) {
@@ -76,12 +70,12 @@ __d(
           },
         },
       ),
-      g = m(
-        d.asyncToGenerator(function* () {
+      f = d(
+        async function () {
           return r("JSResourceForInteraction")("WAWebOrgMemberSourceQuery")
             .__setRef("WAWebOrgLazyActions")
             .load();
-        }),
+        },
         "OrgMemberSourceQuery",
         {
           onFinalFailure: function (t) {
@@ -97,10 +91,10 @@ __d(
           },
         },
       );
-    ((l.loadOrgRequestContactAction = p),
-      (l.loadOrgFetchDirectoryAction = _),
-      (l.loadOrgSearchMembersAction = f),
-      (l.loadOrgMemberSourceQuery = g));
+    ((l.loadOrgRequestContactAction = m),
+      (l.loadOrgFetchDirectoryAction = p),
+      (l.loadOrgSearchMembersAction = _),
+      (l.loadOrgMemberSourceQuery = f));
   },
   98,
 );

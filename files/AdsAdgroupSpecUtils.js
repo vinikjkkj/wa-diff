@@ -276,7 +276,7 @@ __d(
               ? void 0
               : n.videos;
         return r
-          ? r.toJS
+          ? "toJS" in r
             ? r.isEmpty()
               ? []
               : Array.from(

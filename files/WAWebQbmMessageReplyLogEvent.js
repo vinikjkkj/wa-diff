@@ -1,7 +1,6 @@
 __d(
   "WAWebQbmMessageReplyLogEvent",
   [
-    "Promise",
     "WAWebABProps",
     "WAWebBizMessageAttributionFields",
     "WAWebChatThreadLogging",
@@ -17,117 +16,90 @@ __d(
     "WAWebQbmThreadMsgs",
     "WAWebQuotedMsgModelUtils",
     "WAWebUserPrefsGeneral",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
+    async function e(e, t) {
+      var n,
+        r = e.chat,
+        a = e.reactionParentMsg,
+        i = e.replyMessageType,
+        l = e.replyMsg;
+      if (!(r.contact.isBusiness !== !0 && r.contact.isEnterprise !== !0)) {
+        var u =
+            t != null
+              ? t
+              : await o("WAWebQbmThreadMsgs").findLastIncomingMsgInStorage(r),
+          c = (n = u != null ? u : l) != null ? n : a;
+        if (c != null) {
+          o("WAWebABProps").getABPropConfigValue(
+            "inapp_signup_m1_logging_enabled",
+          ) &&
+            (await o(
+              "WAWebInAppSignupInfoStore",
+            ).ensureInAppSignupInfoHydrated());
+          var d = new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(c, r);
+          (u != null
+            ? d.addCommonFields().addAttributionFields()
+            : d.addChatFields(),
+            d.addIasFields().log(async function (e) {
+              var t,
+                n =
+                  l != null
+                    ? (t = o("WAWebQuotedMsgModelUtils").getQuotedMsgObj(l)) ==
+                      null
+                      ? void 0
+                      : t.unsafe()
+                    : null,
+                a = await Promise.all([
+                  l != null
+                    ? o("WAWebChatThreadLogging").getMessageIDHMAC(
+                        l.id.toString(),
+                      )
+                    : null,
+                  o("WAWebChatThreadLogging").getChatThreadIDHMAC(
+                    r.id.toString(),
+                  ),
+                  o("WAWebP2PPillsThreadOriginStore").getPillQbmFields(
+                    r.accountLid,
+                  ),
+                  o("WAWebQbmThreadContext").getThreadCreationTime(
+                    r,
+                    l == null ? void 0 : l.t,
+                  ),
+                ]),
+                u = a[0],
+                c = a[1],
+                m = a[2],
+                p = a[3];
+              new (o("WAWebQbmMessageReplyWamEvent").QbmMessageReplyWamEvent)(
+                babelHelpers.extends({}, e, m, s(d, n), {
+                  isInsubContact: o(
+                    "WAWebFrontendContactGetters",
+                  ).getIsMyContact(r.contact),
+                  isMuted: o("WAWebMuteGetters").getIsMuted(r.mute),
+                  messageHasButton:
+                    e.buttonValueJsonArray != null &&
+                    e.buttonValueJsonArray !== "[]",
+                  messageHasUrl:
+                    l != null &&
+                    o(
+                      "WAWebBizMessageAttributionFields",
+                    ).extractBizMessageAttribution(l).urlUniqueCountInt > 0,
+                  messageIdHmac: u != null ? u : void 0,
+                  readReceiptsEnabled:
+                    o("WAWebUserPrefsGeneral").getUserPrivacySettings()
+                      .readReceipts !== o("WAWebPrivacySettings").ALL_NONE.none,
+                  replyMessageType: i,
+                  threadCreationTime: p != null ? p : void 0,
+                  threadIdHmac: c != null ? c : void 0,
+                }),
+              ).commit();
+            }));
+        }
+      }
+    }
     function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a,
-            i = t.chat,
-            l = t.reactionParentMsg,
-            s = t.replyMessageType,
-            u = t.replyMsg;
-          if (!(i.contact.isBusiness !== !0 && i.contact.isEnterprise !== !0)) {
-            var d =
-                r != null
-                  ? r
-                  : yield o("WAWebQbmThreadMsgs").findLastIncomingMsgInStorage(
-                      i,
-                    ),
-              m = (a = d != null ? d : u) != null ? a : l;
-            if (m != null) {
-              o("WAWebABProps").getABPropConfigValue(
-                "inapp_signup_m1_logging_enabled",
-              ) &&
-                (yield o(
-                  "WAWebInAppSignupInfoStore",
-                ).ensureInAppSignupInfoHydrated());
-              var p = new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(m, i);
-              (d != null
-                ? p.addCommonFields().addAttributionFields()
-                : p.addChatFields(),
-                p.addIasFields().log(
-                  (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t) {
-                        var r,
-                          a =
-                            u != null
-                              ? (r = o(
-                                  "WAWebQuotedMsgModelUtils",
-                                ).getQuotedMsgObj(u)) == null
-                                ? void 0
-                                : r.unsafe()
-                              : null,
-                          l = yield (e || (e = n("Promise"))).all([
-                            u != null
-                              ? o("WAWebChatThreadLogging").getMessageIDHMAC(
-                                  u.id.toString(),
-                                )
-                              : null,
-                            o("WAWebChatThreadLogging").getChatThreadIDHMAC(
-                              i.id.toString(),
-                            ),
-                            o(
-                              "WAWebP2PPillsThreadOriginStore",
-                            ).getPillQbmFields(i.accountLid),
-                            o("WAWebQbmThreadContext").getThreadCreationTime(
-                              i,
-                              u == null ? void 0 : u.t,
-                            ),
-                          ]),
-                          d = l[0],
-                          m = l[1],
-                          _ = l[2],
-                          f = l[3];
-                        new (o(
-                          "WAWebQbmMessageReplyWamEvent",
-                        ).QbmMessageReplyWamEvent)(
-                          babelHelpers.extends({}, t, _, c(p, a), {
-                            isInsubContact: o(
-                              "WAWebFrontendContactGetters",
-                            ).getIsMyContact(i.contact),
-                            isMuted: o("WAWebMuteGetters").getIsMuted(i.mute),
-                            messageHasButton:
-                              t.buttonValueJsonArray != null &&
-                              t.buttonValueJsonArray !== "[]",
-                            messageHasUrl:
-                              u != null &&
-                              o(
-                                "WAWebBizMessageAttributionFields",
-                              ).extractBizMessageAttribution(u)
-                                .urlUniqueCountInt > 0,
-                            messageIdHmac: d != null ? d : void 0,
-                            readReceiptsEnabled:
-                              o(
-                                "WAWebUserPrefsGeneral",
-                              ).getUserPrivacySettings().readReceipts !==
-                              o("WAWebPrivacySettings").ALL_NONE.none,
-                            replyMessageType: s,
-                            threadCreationTime: f != null ? f : void 0,
-                            threadIdHmac: m != null ? m : void 0,
-                          }),
-                        ).commit();
-                      },
-                    );
-                    return function (e) {
-                      return t.apply(this, arguments);
-                    };
-                  })(),
-                ));
-            }
-          }
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e, t) {
       var n;
       return t == null
         ? {}
@@ -144,7 +116,7 @@ __d(
             quotedMessageType: t.type,
           };
     }
-    l.logQbmMessageReply = s;
+    l.logQbmMessageReply = e;
   },
   98,
 );

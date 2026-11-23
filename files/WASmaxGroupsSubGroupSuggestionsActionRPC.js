@@ -24,46 +24,37 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = E(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = h(r, n);
-          if (a.success)
-            return {
-              name: "SubGroupSuggestionsActionResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "SubGroupSuggestionsActionResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "SubGroupSuggestionsActionResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "SubGroupSuggestionsAction",
-              { Success: a, ClientError: i, ServerError: l },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = L(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = g(r, n);
+      if (a.success)
+        return {
+          name: "SubGroupSuggestionsActionResponseSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "SubGroupSuggestionsActionResponseClientError",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "SubGroupSuggestionsActionResponseServerError",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing(
+          "SubGroupSuggestionsAction",
+          { Success: a, ClientError: i, ServerError: l },
+        ),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -73,7 +64,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = T(r.value);
+      var i = I(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -82,7 +73,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -91,15 +82,15 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "sub_group_suggestion");
       if (!t.success) return t;
-      var n = k(e);
+      var n = E(e);
       if (!n.success) return n;
       var r = o(
           "WASmaxInGroupsGroupCreatorUsernameMixin",
         ).parseGroupCreatorUsernameMixin(e),
-        a = y(e);
+        a = h(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends({}, n.value, {
           groupCreatorUsernameMixin: r.success ? r.value : null,
@@ -107,7 +98,7 @@ __d(
         }),
       );
     }
-    function m(e) {
+    function d(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "approve");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").mapChildrenWithTag(
@@ -115,21 +106,21 @@ __d(
         "sub_group_suggestion",
         1,
         1e3,
-        d,
+        c,
       );
       return n.success
         ? o("WAResultOrError").makeResult({ subGroupSuggestion: n.value })
         : n;
     }
-    function p(e) {
+    function m(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "sub_group_suggestion");
       if (!t.success) return t;
-      var n = k(e);
+      var n = E(e);
       if (!n.success) return n;
       var r = o(
           "WASmaxInGroupsGroupCreatorUsernameMixin",
         ).parseGroupCreatorUsernameMixin(e),
-        a = N(e),
+        a = P(e),
         i = o("WASmaxInGroupsIdentityMixin").parseIdentityMixin(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends({}, n.value, {
@@ -141,7 +132,7 @@ __d(
         }),
       );
     }
-    function _(e) {
+    function p(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "reject");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").mapChildrenWithTag(
@@ -149,18 +140,18 @@ __d(
         "sub_group_suggestion",
         1,
         1e3,
-        p,
+        m,
       );
       return n.success
         ? o("WAResultOrError").makeResult({ subGroupSuggestion: n.value })
         : n;
     }
-    function f(e) {
+    function _(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "sub_group_suggestion");
       if (!t.success) return t;
-      var n = I(e);
+      var n = k(e);
       if (!n.success) return n;
-      var r = N(e),
+      var r = P(e),
         a = o("WASmaxInGroupsIdentityMixin").parseIdentityMixin(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends({}, n.value, {
@@ -171,7 +162,7 @@ __d(
         }),
       );
     }
-    function g(e) {
+    function f(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "cancel");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").mapChildrenWithTag(
@@ -179,13 +170,13 @@ __d(
         "sub_group_suggestion",
         1,
         1e3,
-        f,
+        _,
       );
       return n.success
         ? o("WAResultOrError").makeResult({ subGroupSuggestion: n.value })
         : n;
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -193,11 +184,11 @@ __d(
         "sub_group_suggestions_action",
       );
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "approve", m);
+      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "approve", d);
       if (!a.success) return a;
-      var i = o("WASmaxParseUtils").optionalChildWithTag(r.value, "reject", _);
+      var i = o("WASmaxParseUtils").optionalChildWithTag(r.value, "reject", p);
       if (!i.success) return i;
-      var l = o("WASmaxParseUtils").optionalChildWithTag(r.value, "cancel", g);
+      var l = o("WASmaxParseUtils").optionalChildWithTag(r.value, "cancel", f);
       if (!l.success) return l;
       var s = o(
         "WASmaxInGroupsIQResultResponseMixin",
@@ -215,32 +206,32 @@ __d(
         }),
       );
     }
-    function y(e) {
-      var t = N(e);
+    function h(e) {
+      var t = P(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "SubGroupSuggestionsActionSubGroupSuggestionNotFound",
           value: t.value,
         });
-      var n = P(e);
+      var n = $(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "SubGroupSuggestionsActionSubGroupSuggestionConflict",
           value: n.value,
         });
-      var r = $(e);
+      var r = x(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "SubGroupSuggestionsActionSubGroupResourceConstraint",
           value: r.value,
         });
-      var a = x(e);
+      var a = D(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "SubGroupSuggestionsActionSubGroupPendingGroupAddsError",
           value: a.value,
         });
-      var i = D(e);
+      var i = T(e);
       return i.success
         ? o("WAResultOrError").makeResult({
             name: "SubGroupSuggestionsActionSubGroupCreationInternalServerError",
@@ -258,46 +249,46 @@ __d(
             [t, n, r, a, i],
           );
     }
-    function C(e) {
-      var t = w(o("WASmaxJsx").smax("sub_group_suggestion", null), e);
+    function y(e) {
+      var t = M(o("WASmaxJsx").smax("sub_group_suggestion", null), e);
       return t;
     }
-    function b(e) {
+    function C(e) {
       var t = e.subGroupSuggestionArgs,
         n = o("WASmaxJsx").smax(
           "approve",
           null,
-          o("WASmaxChildren").REPEATED_CHILD(C, t, 1, 1e3),
+          o("WASmaxChildren").REPEATED_CHILD(y, t, 1, 1e3),
         );
       return n;
     }
-    function v(e) {
-      var t = w(o("WASmaxJsx").smax("sub_group_suggestion", null), e);
+    function b(e) {
+      var t = M(o("WASmaxJsx").smax("sub_group_suggestion", null), e);
       return t;
     }
-    function S(e) {
+    function v(e) {
       var t = e.subGroupSuggestionArgs,
         n = o("WASmaxJsx").smax(
           "reject",
           null,
-          o("WASmaxChildren").REPEATED_CHILD(v, t, 1, 1e3),
+          o("WASmaxChildren").REPEATED_CHILD(b, t, 1, 1e3),
         );
       return n;
     }
-    function R(e) {
-      var t = F(o("WASmaxJsx").smax("sub_group_suggestion", null), e);
+    function S(e) {
+      var t = A(o("WASmaxJsx").smax("sub_group_suggestion", null), e);
       return t;
     }
-    function L(e) {
+    function R(e) {
       var t = e.subGroupSuggestionArgs,
         n = o("WASmaxJsx").smax(
           "cancel",
           null,
-          o("WASmaxChildren").REPEATED_CHILD(R, t, 1, 1e3),
+          o("WASmaxChildren").REPEATED_CHILD(S, t, 1, 1e3),
         );
       return n;
     }
-    function E(e) {
+    function L(e) {
       var t = e.approveArgs,
         n = e.rejectArgs,
         r = e.cancelArgs,
@@ -308,21 +299,21 @@ __d(
             o("WASmaxJsx").smax(
               "sub_group_suggestions_action",
               null,
-              o("WASmaxChildren").OPTIONAL_CHILD(b, t),
-              o("WASmaxChildren").OPTIONAL_CHILD(S, n),
-              o("WASmaxChildren").OPTIONAL_CHILD(L, r),
+              o("WASmaxChildren").OPTIONAL_CHILD(C, t),
+              o("WASmaxChildren").OPTIONAL_CHILD(v, n),
+              o("WASmaxChildren").OPTIONAL_CHILD(R, r),
             ),
           ),
           e,
         );
       return a;
     }
-    function k(e) {
+    function E(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "sub_group_suggestion");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrUserJid(e, "creator");
       if (!n.success) return n;
-      var r = I(e);
+      var r = k(e);
       if (!r.success) return r;
       var a = o(
         "WASmaxInGroupsGroupCreatorPhoneNumberMixin",
@@ -333,13 +324,13 @@ __d(
         }),
       );
     }
-    function I(e) {
+    function k(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "sub_group_suggestion");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrGroupJid(e, "jid");
       return n.success ? o("WAResultOrError").makeResult({ jid: n.value }) : n;
     }
-    function T(e) {
+    function I(e) {
       var t = o(
         "WASmaxInGroupsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -392,7 +383,7 @@ __d(
             [t, n, r, a, i],
           );
     }
-    function D(e) {
+    function T(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "sub_group_suggestion");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -405,7 +396,7 @@ __d(
         ? o("WAResultOrError").makeResult({ error: n.value })
         : n;
     }
-    function x(e) {
+    function D(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "sub_group_suggestion");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -418,7 +409,7 @@ __d(
         ? o("WAResultOrError").makeResult({ error: n.value })
         : n;
     }
-    function $(e) {
+    function x(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "sub_group_suggestion");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -431,7 +422,7 @@ __d(
         ? o("WAResultOrError").makeResult({ error: n.value })
         : n;
     }
-    function P(e) {
+    function $(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "sub_group_suggestion");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -444,7 +435,7 @@ __d(
         ? o("WAResultOrError").makeResult({ error: n.value })
         : n;
     }
-    function N(e) {
+    function P(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "sub_group_suggestion");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -457,12 +448,12 @@ __d(
         ? o("WAResultOrError").makeResult({ error: n.value })
         : n;
     }
-    function M(e) {
+    function N(e) {
       var t = e.subGroupSuggestionCreator,
         n = e.groupCreatorPhoneNumberMixinArgs,
         r = o("WASmaxMixins").optionalMerge(
-          B,
-          F(
+          O,
+          A(
             o("WASmaxJsx").smax("sub_group_suggestion", {
               creator: o("WAWap").USER_JID(t),
             }),
@@ -472,35 +463,35 @@ __d(
         );
       return r;
     }
-    function w(e, t) {
-      var n = M(t);
+    function M(e, t) {
+      var n = N(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function A(e) {
+    function w(e) {
       var t = e.subGroupSuggestionJid,
         n = o("WASmaxJsx").smax("sub_group_suggestion", {
           jid: o("WAWap").GROUP_JID(t),
         });
       return n;
     }
-    function F(e, t) {
-      var n = A(t);
+    function A(e, t) {
+      var n = w(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function O(e) {
+    function F(e) {
       var t = e.anyCreatorPn,
         n = o("WASmaxJsx").smax("smax$any", { creator_pn: o("WAWap").JID(t) });
       return n;
     }
-    function B(e, t) {
-      var n = O(t);
+    function O(e, t) {
+      var n = F(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.sendSubGroupSuggestionsActionRPC = e),
-      (l.parseSubGroupSuggestionsActionResponseClientError = u),
-      (l.parseSubGroupSuggestionsActionResponseServerError = c),
-      (l.parseSubGroupSuggestionsActionResponseSuccess = h),
-      (l.makeSubGroupSuggestionsActionRequest = E));
+      (l.parseSubGroupSuggestionsActionResponseClientError = s),
+      (l.parseSubGroupSuggestionsActionResponseServerError = u),
+      (l.parseSubGroupSuggestionsActionResponseSuccess = g),
+      (l.makeSubGroupSuggestionsActionRequest = L));
   },
   98,
 );

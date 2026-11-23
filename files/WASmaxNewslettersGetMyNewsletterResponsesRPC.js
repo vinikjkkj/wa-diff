@@ -15,46 +15,38 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success)
-            return {
-              name: "GetMyNewsletterResponsesResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "GetMyNewsletterResponsesResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "GetMyNewsletterResponsesResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "GetMyNewsletterResponses",
-              { Success: a, ClientError: i, ServerError: l },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success)
+        return {
+          name: "GetMyNewsletterResponsesResponseSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "GetMyNewsletterResponsesResponseClientError",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "GetMyNewsletterResponsesResponseServerError",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetMyNewsletterResponses", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -66,7 +58,7 @@ __d(
           })
         : r;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -100,7 +92,7 @@ __d(
           })
         : u;
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "question_response");
       if (!t.success) return t;
       var n = o(
@@ -116,7 +108,7 @@ __d(
         }),
       );
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -149,23 +141,23 @@ __d(
         2147476647,
       );
       if (!u.success) return u;
-      var c = o("WASmaxParseUtils").mapChildrenWithTag(
+      var d = o("WASmaxParseUtils").mapChildrenWithTag(
         r.value,
         "question_response",
         0,
         100,
-        d,
+        c,
       );
-      return c.success
+      return d.success
         ? o("WAResultOrError").makeResult({
             from: l.value,
             type: s.value,
             myQuestionResponsesServerId: u.value,
-            myQuestionResponsesQuestionResponse: c.value,
+            myQuestionResponsesQuestionResponse: d.value,
           })
-        : c;
+        : d;
     }
-    function p(e) {
+    function m(e) {
       var t = e.myQuestionResponsesServerId,
         n = o(
           "WASmaxOutNewslettersNewsletterIQGetRequestMixin",
@@ -182,10 +174,10 @@ __d(
       return n;
     }
     ((l.sendGetMyNewsletterResponsesRPC = e),
-      (l.parseGetMyNewsletterResponsesResponseClientError = u),
-      (l.parseGetMyNewsletterResponsesResponseServerError = c),
-      (l.parseGetMyNewsletterResponsesResponseSuccess = m),
-      (l.makeGetMyNewsletterResponsesRequest = p));
+      (l.parseGetMyNewsletterResponsesResponseClientError = s),
+      (l.parseGetMyNewsletterResponsesResponseServerError = u),
+      (l.parseGetMyNewsletterResponsesResponseSuccess = d),
+      (l.makeGetMyNewsletterResponsesRequest = m));
   },
   98,
 );

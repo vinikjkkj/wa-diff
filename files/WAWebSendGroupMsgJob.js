@@ -14,7 +14,6 @@ __d(
     "WAWebProtobufsE2E.pb",
     "WAWebSchemaMessageInfo",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,69 +27,61 @@ __d(
     function m(e) {
       return !e.isLid();
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function p(e) {
+      var t = e.editedMsgKey,
+        n = e.groupId,
+        r = e.isAdmin,
+        a = e.isLidAddressingMode,
+        i = e.keptMessageKey,
+        l = e.msgRecord,
+        s = e.participantRecord,
+        u = e.revokeMsgKey,
+        p = await o(
+          "WAWebApiParticipantStore",
+        ).getGroupSenderKeyListFromParticipantRecord(n, s),
+        f = p.skDistribList,
+        C = p.skList,
+        b = a || _(l, r),
+        v = b ? d : m,
+        S = {
+          type: c.SKMSG,
+          senderKeyList: {
+            skList: C.filter(v),
+            skDistribList: f.filter(v),
+            rotateKey: !1,
+          },
+        };
+      if (o("WAWebMsgGetters").getSubtype(l.data) === "sender_revoke") {
+        var R =
+            !r &&
+            o("WAWebABProps").getABPropConfigValue(
+              "send_cag_member_revokes_as_GDM",
+            ),
+          L =
+            u == null
+              ? null
+              : await g(u, S.senderKeyList, {
+                  forceDirectMessage: R,
+                  normalizeAddressingModeFn: function (t) {
+                    return t;
+                  },
+                });
+        return L != null ? L : S;
+      }
+      if (o("WAWebMsgGetters").getType(l.data) === "keep_in_chat") {
+        var E = !r,
+          k = i == null ? null : await h(i, S.senderKeyList, E);
+        return k != null ? k : S;
+      }
+      return t
+        ? y(t, S.senderKeyList, {
+            normalizeAddressingModeFn: function (t) {
+              return t;
+            },
+          })
+        : S;
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.editedMsgKey,
-            n = e.groupId,
-            r = e.isAdmin,
-            a = e.isLidAddressingMode,
-            i = e.keptMessageKey,
-            l = e.msgRecord,
-            s = e.participantRecord,
-            u = e.revokeMsgKey,
-            p = yield o(
-              "WAWebApiParticipantStore",
-            ).getGroupSenderKeyListFromParticipantRecord(n, s),
-            _ = p.skDistribList,
-            g = p.skList,
-            h = a || f(l, r),
-            C = h ? d : m,
-            v = {
-              type: c.SKMSG,
-              senderKeyList: {
-                skList: g.filter(C),
-                skDistribList: _.filter(C),
-                rotateKey: !1,
-              },
-            };
-          if (o("WAWebMsgGetters").getSubtype(l.data) === "sender_revoke") {
-            var R =
-                !r &&
-                o("WAWebABProps").getABPropConfigValue(
-                  "send_cag_member_revokes_as_GDM",
-                ),
-              L =
-                u == null
-                  ? null
-                  : yield y(u, v.senderKeyList, {
-                      forceDirectMessage: R,
-                      normalizeAddressingModeFn: function (t) {
-                        return t;
-                      },
-                    });
-            return L != null ? L : v;
-          }
-          if (o("WAWebMsgGetters").getType(l.data) === "keep_in_chat") {
-            var E = !r,
-              k = i == null ? null : yield b(i, v.senderKeyList, E);
-            return k != null ? k : v;
-          }
-          return t
-            ? S(t, v.senderKeyList, {
-                normalizeAddressingModeFn: function (t) {
-                  return t;
-                },
-              })
-            : v;
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t) {
+    function _(e, t) {
       var n = e.data,
         a = n.keepType,
         i = n.subtype,
@@ -190,138 +181,102 @@ __d(
       if (t) return !1;
       throw r("err")("CAG - non-admin trying to send a regular message");
     }
-    function g(e, t, n, r, o, a) {
-      return h.apply(this, arguments);
+    async function f(e, t, n, r, a, i) {
+      var l = await o(
+          "WAWebApiParticipantStore",
+        ).getGroupSenderKeyListFromParticipantRecord(e, t),
+        s = { senderKeyList: l, type: c.SKMSG },
+        u = function (t) {
+          return t.map(o("WAWebLidMigrationUtils").toAddressingModeFactory(a));
+        };
+      if (n) {
+        var d = await g(n, l, {
+          forceDirectMessage: !1,
+          normalizeAddressingModeFn: u,
+        });
+        return d != null ? d : s;
+      }
+      return r
+        ? y(r, l, { normalizeAddressingModeFn: u })
+        : i != null && i.length > 0
+          ? o(
+              "WAWebGroupHistorySendGroupMsgJobUtils",
+            ).getGroupSendListForGroupHistoryBundle(
+              i.map(o("WAWebWidFactory").createWid),
+              l,
+              { normalizeAddressingModeFn: u, isLidAddressingMode: a },
+            )
+          : s;
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i) {
-            var l = yield o(
-                "WAWebApiParticipantStore",
-              ).getGroupSenderKeyListFromParticipantRecord(e, t),
-              s = { senderKeyList: l, type: c.SKMSG },
-              u = function (t) {
-                return t.map(
-                  o("WAWebLidMigrationUtils").toAddressingModeFactory(a),
-                );
-              };
-            if (n) {
-              var d = yield y(n, l, {
-                forceDirectMessage: !1,
-                normalizeAddressingModeFn: u,
-              });
-              return d != null ? d : s;
-            }
-            return r
-              ? S(r, l, { normalizeAddressingModeFn: u })
-              : i != null && i.length > 0
-                ? o(
-                    "WAWebGroupHistorySendGroupMsgJobUtils",
-                  ).getGroupSendListForGroupHistoryBundle(
-                    i.map(o("WAWebWidFactory").createWid),
-                    l,
-                    { normalizeAddressingModeFn: u, isLidAddressingMode: a },
-                  )
-                : s;
-          },
-        )),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o("WAWebSchemaMessageInfo")
-              .getMessageInfoTable()
-              .equals(["msgKey"], String(e)),
-            a = Array.from(
-              new Map(
-                r
-                  .map(function (e) {
-                    return o("WAWebWidFactory").createWid(e.receiverUserJid);
-                  })
-                  .map(function (e) {
-                    return [String(e), e];
-                  }),
-              ).values(),
-            );
-          if (a.length === 0) return null;
-          var i = t.skDistribList,
-            l = t.skList,
-            s = new Set(
-              []
-                .concat(i, l)
-                .map(o("WAWebWidFactory").asUserWidOrThrow)
-                .map(String),
-            ),
-            u = a.filter(function (e) {
-              var t = o("WAWebApiContact").getAlternateUserWid(
-                o("WAWebWidFactory").asUserWidOrThrow(e),
-              );
-              return !s.has(String(e)) && !(t != null && s.has(String(t)));
-            }),
-            d = n
-              .normalizeAddressingModeFn(
-                u.filter(function (e) {
-                  return !e.isFbidBot();
-                }),
-              )
-              .filter(Boolean);
-          if (n.forceDirectMessage === !1 && d.length === 0) return null;
-          var m = yield o("WAWebDBDeviceListFanout").getFanOutList({ wids: d });
-          return { type: c.DIRECT, deviceList: [].concat(m, l, i) };
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o("WAWebSchemaMessageInfo")
-            .getMessageInfoTable()
-            .equals(["msgKey"], String(e));
-          if (r.length === 0) return null;
-          var a = t.skDistribList,
-            i = t.skList,
-            l = new Set(
-              a.concat(i).map(function (e) {
-                return String(o("WAWebWidFactory").asUserWidOrThrow(e));
-              }),
-            ),
-            s = r
-              .filter(function (e) {
-                return !l.has(e.receiverUserJid);
-              })
+    async function g(e, t, n) {
+      var r = await o("WAWebSchemaMessageInfo")
+          .getMessageInfoTable()
+          .equals(["msgKey"], String(e)),
+        a = Array.from(
+          new Map(
+            r
               .map(function (e) {
                 return o("WAWebWidFactory").createWid(e.receiverUserJid);
-              });
-          if (s.length === 0 && n !== !0) return null;
-          var u = yield o("WAWebDBDeviceListFanout").getFanOutList({ wids: s }),
-            d = [].concat(u, i, a);
-          return { type: c.DIRECT, deviceList: d };
-        })),
-        v.apply(this, arguments)
-      );
+              })
+              .map(function (e) {
+                return [String(e), e];
+              }),
+          ).values(),
+        );
+      if (a.length === 0) return null;
+      var i = t.skDistribList,
+        l = t.skList,
+        s = new Set(
+          []
+            .concat(i, l)
+            .map(o("WAWebWidFactory").asUserWidOrThrow)
+            .map(String),
+        ),
+        u = a.filter(function (e) {
+          var t = o("WAWebApiContact").getAlternateUserWid(
+            o("WAWebWidFactory").asUserWidOrThrow(e),
+          );
+          return !s.has(String(e)) && !(t != null && s.has(String(t)));
+        }),
+        d = n
+          .normalizeAddressingModeFn(
+            u.filter(function (e) {
+              return !e.isFbidBot();
+            }),
+          )
+          .filter(Boolean);
+      if (n.forceDirectMessage === !1 && d.length === 0) return null;
+      var m = await o("WAWebDBDeviceListFanout").getFanOutList({ wids: d });
+      return { type: c.DIRECT, deviceList: [].concat(m, l, i) };
     }
-    function S(e, t, n) {
-      return R.apply(this, arguments);
+    async function h(e, t, n) {
+      var r = await o("WAWebSchemaMessageInfo")
+        .getMessageInfoTable()
+        .equals(["msgKey"], String(e));
+      if (r.length === 0) return null;
+      var a = t.skDistribList,
+        i = t.skList,
+        l = new Set(
+          a.concat(i).map(function (e) {
+            return String(o("WAWebWidFactory").asUserWidOrThrow(e));
+          }),
+        ),
+        s = r
+          .filter(function (e) {
+            return !l.has(e.receiverUserJid);
+          })
+          .map(function (e) {
+            return o("WAWebWidFactory").createWid(e.receiverUserJid);
+          });
+      if (s.length === 0 && n !== !0) return null;
+      var u = await o("WAWebDBDeviceListFanout").getFanOutList({ wids: s }),
+        d = [].concat(u, i, a);
+      return { type: c.DIRECT, deviceList: d };
     }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return { type: c.SKMSG, senderKeyList: t };
-        })),
-        R.apply(this, arguments)
-      );
+    async function y(e, t, n) {
+      return { type: c.SKMSG, senderKeyList: t };
     }
-    function L(t, n) {
+    function C(t, n) {
       var r = n.isLidAddressingMode === !0 ? d : m;
       e: {
         var a = t;
@@ -408,9 +363,9 @@ __d(
     }
     ((l.GROUP_MSG_TYPE = c),
       (l.getCagMessageSendList = p),
-      (l.getMessageSendList = g),
-      (l.getGroupSendListForRevoke = y),
-      (l.filterIncorrectlyAddressedDevices = L));
+      (l.getMessageSendList = f),
+      (l.getGroupSendListForRevoke = g),
+      (l.filterIncorrectlyAddressedDevices = C));
   },
   98,
 );

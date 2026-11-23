@@ -64,57 +64,31 @@ __d(
       })(e);
     }
     function u() {
-      return s
-        ._(/*BTDS*/ "Your event has been suspended for violating our policies")
-        .toString();
+      return s._(/*BTDS*/ "").toString();
     }
     function c(e) {
       return e == null || e === ""
-        ? s._(/*BTDS*/ "A guest is now on WhatsApp.").toString()
-        : s
-            ._(/*BTDS*/ "{guestName} is now on WhatsApp.", [
-              s._param("guestName", e),
-            ])
-            .toString();
+        ? s._(/*BTDS*/ "").toString()
+        : s._(/*BTDS*/ "", [s._param("guestName", e)]).toString();
     }
     function d(e) {
-      return s
-        ._(/*BTDS*/ "updated \ud83d\uddd3 {eventName}", [
-          s._param("eventName", e),
-        ])
-        .toString();
+      return s._(/*BTDS*/ "", [s._param("eventName", e)]).toString();
     }
     function m(e) {
-      return s
-        ._(/*BTDS*/ "canceled \ud83d\uddd3 {eventName}", [
-          s._param("eventName", e),
-        ])
-        .toString();
+      return s._(/*BTDS*/ "", [s._param("eventName", e)]).toString();
     }
     function p(e, t) {
       return e ===
         o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus.Going
-        ? s
-            ._(/*BTDS*/ "\ud83d\uddd3 Going to {eventName}", [
-              s._param("eventName", t),
-            ])
-            .toString()
+        ? s._(/*BTDS*/ "", [s._param("eventName", t)]).toString()
         : e ===
             o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
               .Maybe
-          ? s
-              ._(/*BTDS*/ "\ud83d\uddd3 Maybe going to {eventName}", [
-                s._param("eventName", t),
-              ])
-              .toString()
+          ? s._(/*BTDS*/ "", [s._param("eventName", t)]).toString()
           : e ===
               o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
                 .NotGoing
-            ? s
-                ._(/*BTDS*/ "\ud83d\uddd3 Not going to {eventName}", [
-                  s._param("eventName", t),
-                ])
-                .toString()
+            ? s._(/*BTDS*/ "", [s._param("eventName", t)]).toString()
             : e ===
                 o("WAWebSharableEventStorageEnums")
                   .SharableEventStoredRsvpStatus.NoResponse
@@ -130,7 +104,7 @@ __d(
       return e ===
         o("WAWebSharableEventNotificationConstants").SharableEventReminderType
           .EventStarted
-        ? s._(/*BTDS*/ "\ud83d\uddd3 starts now").toString()
+        ? s._(/*BTDS*/ "").toString()
         : e ===
             o("WAWebSharableEventNotificationConstants")
               .SharableEventReminderType.EventStartingSoon
@@ -158,15 +132,15 @@ __d(
           : e ===
               o("WAWebSharableEventNotificationConstants")
                 .SharableEventReminderLeadTimeBucket.OneHour
-            ? s._(/*BTDS*/ "\ud83d\uddd3 starts in 1 hour").toString()
+            ? s._(/*BTDS*/ "").toString()
             : e ===
                 o("WAWebSharableEventNotificationConstants")
                   .SharableEventReminderLeadTimeBucket.OneDay
-              ? s._(/*BTDS*/ "\ud83d\uddd3 starts in 1 day").toString()
+              ? s._(/*BTDS*/ "").toString()
               : e ===
                   o("WAWebSharableEventNotificationConstants")
                     .SharableEventReminderLeadTimeBucket.ThreeDays
-                ? s._(/*BTDS*/ "\ud83d\uddd3 starts in 3 days").toString()
+                ? s._(/*BTDS*/ "").toString()
                 : (function () {
                     throw Error(
                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -175,11 +149,7 @@ __d(
                   })();
     }
     function g(e) {
-      return s
-        ._(/*BTDS*/ "\ud83d\uddd3 starts in {minutes} min", [
-          s._param("minutes", e),
-        ])
-        .toString();
+      return s._(/*BTDS*/ "", [s._param("minutes", e)]).toString();
     }
     ((l.formatSharableEventBody = e),
       (l.guestJoinedWaNotificationBody = c),

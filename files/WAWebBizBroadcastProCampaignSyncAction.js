@@ -1,111 +1,96 @@
 __d(
   "WAWebBizBroadcastProCampaignSyncAction",
   [
-    "Promise",
     "WALogger",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBroadcastCampaignSync",
     "WAWebProtobufSyncAction.pb",
     "WAWebSyncdCoreApi",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = {
-        ACTIVE: (c = o("WAWebProtobufSyncAction.pb"))
+      c = {
+        ACTIVE: (u = o("WAWebProtobufSyncAction.pb"))
           .SyncActionValue$BusinessBroadcastCampaignBBProStatus.BB_PRO_ACTIVE,
         COMPLETED:
-          c.SyncActionValue$BusinessBroadcastCampaignBBProStatus
+          u.SyncActionValue$BusinessBroadcastCampaignBBProStatus
             .BB_PRO_COMPLETED,
         IN_DRAFT:
-          c.SyncActionValue$BusinessBroadcastCampaignBBProStatus
+          u.SyncActionValue$BusinessBroadcastCampaignBBProStatus
             .BB_PRO_IN_DRAFT,
         IN_REVIEW:
-          c.SyncActionValue$BusinessBroadcastCampaignBBProStatus
+          u.SyncActionValue$BusinessBroadcastCampaignBBProStatus
             .BB_PRO_IN_REVIEW,
         NOT_SENDING:
-          c.SyncActionValue$BusinessBroadcastCampaignBBProStatus
+          u.SyncActionValue$BusinessBroadcastCampaignBBProStatus
             .BB_PRO_NOT_SENDING,
-        OFF: c.SyncActionValue$BusinessBroadcastCampaignBBProStatus.BB_PRO_OFF,
+        OFF: u.SyncActionValue$BusinessBroadcastCampaignBBProStatus.BB_PRO_OFF,
         PROCESSING:
-          c.SyncActionValue$BusinessBroadcastCampaignBBProStatus
+          u.SyncActionValue$BusinessBroadcastCampaignBBProStatus
             .BB_PRO_PROCESSING,
         REJECTED:
-          c.SyncActionValue$BusinessBroadcastCampaignBBProStatus
+          u.SyncActionValue$BusinessBroadcastCampaignBBProStatus
             .BB_PRO_REJECTED,
         SCHEDULED:
-          c.SyncActionValue$BusinessBroadcastCampaignBBProStatus
+          u.SyncActionValue$BusinessBroadcastCampaignBBProStatus
             .BB_PRO_SCHEDULED,
         SENDING_LIMITED:
-          c.SyncActionValue$BusinessBroadcastCampaignBBProStatus
+          u.SyncActionValue$BusinessBroadcastCampaignBBProStatus
             .BB_PRO_SENDING_LIMITED,
       };
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.broadcastJid,
-            a = e.campaignId,
-            i = e.campaignName,
-            l = e.createTimestamp,
-            c = e.customAudienceFbid,
-            d = e.deliveryStatus,
-            m = e.messageId;
-          if (
-            o(
-              "WAWebBizBroadcastDeviceCapabilityCommon",
-            ).getPrimarySupportsBusinessBroadcastPro()
-          ) {
-            var p = o("WAWebUserUtils").getMaybeMeDeviceId();
-            if (p == null) {
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "Skipping BB Pro campaign SyncD because this device has no device ID",
-                    ])),
-                )
-                .sendLogs("bb-pro-campaign-sync-device-id-missing");
-              return;
-            }
-            var f = _(d),
-              g = babelHelpers.extends(
-                {},
-                f == null ? {} : { bbProStatus: f },
-                {
-                  broadcastJid: t,
-                  createTimestamp: l,
-                  customAudienceFbid: c,
-                  deviceId: p,
-                  msgId: m,
-                  name: i,
-                },
-              ),
-              h = r("WAWebBroadcastCampaignSync").getCampaignMutation(a, g, l);
-            yield o("WAWebSyncdCoreApi").lockForSync([], [h], function () {
-              return (u || (u = n("Promise"))).resolve();
-            });
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(t) {
-      if (t == null) return null;
-      var n = String(t),
-        r = d[n];
-      return r != null
-        ? r
-        : (o("WALogger")
+    async function d(t) {
+      var n = t.broadcastJid,
+        a = t.campaignId,
+        i = t.campaignName,
+        l = t.createTimestamp,
+        s = t.customAudienceFbid,
+        u = t.deliveryStatus,
+        c = t.messageId;
+      if (
+        o(
+          "WAWebBizBroadcastDeviceCapabilityCommon",
+        ).getPrimarySupportsBusinessBroadcastPro()
+      ) {
+        var d = o("WAWebUserUtils").getMaybeMeDeviceId();
+        if (d == null) {
+          o("WALogger")
             .WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Skipping BB Pro campaign SyncD because this device has no device ID",
+                ])),
+            )
+            .sendLogs("bb-pro-campaign-sync-device-id-missing");
+          return;
+        }
+        var p = m(u),
+          _ = babelHelpers.extends({}, p == null ? {} : { bbProStatus: p }, {
+            broadcastJid: n,
+            createTimestamp: l,
+            customAudienceFbid: s,
+            deviceId: d,
+            msgId: c,
+            name: i,
+          }),
+          f = r("WAWebBroadcastCampaignSync").getCampaignMutation(a, _, l);
+        await o("WAWebSyncdCoreApi").lockForSync([], [f], function () {
+          return Promise.resolve();
+        });
+      }
+    }
+    function m(e) {
+      if (e == null) return null;
+      var t = String(e),
+        n = c[t];
+      return n != null
+        ? n
+        : (o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "Encountered missing or unexpected BB Pro delivery status for SyncD",
                 ])),
             )
@@ -113,7 +98,7 @@ __d(
             .sendLogs("bb-pro-campaign-sync-status-unexpected"),
           null);
     }
-    l.syncBizBroadcastProCampaignCreated = m;
+    l.syncBizBroadcastProCampaignCreated = d;
   },
   98,
 );

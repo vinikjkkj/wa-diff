@@ -6,22 +6,13 @@ __d(
     "WAWebVoipMainThreadLockArm",
     "WAWebVoipMainThreadLockFixes",
     "WAWebVoipMainThreadLockODS",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      return s.apply(this, arguments);
+    async function e(e, t, n) {
+      var o = s(e);
+      return await r("WAWebVoipJsWorkerThread").create(t, n, o);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var o = u(e);
-          return yield r("WAWebVoipJsWorkerThread").create(t, n, o);
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       return (
         o("WAWebVoipMainThreadLockFixes").readMainThreadLockFix(
           "jsworker_create",
@@ -32,7 +23,7 @@ __d(
         ),
         {
           caller: e,
-          initState: c(),
+          initState: u(),
           onNativeStartFinished: function (t) {
             return o(
               "WAWebVoipMainThreadLockODS",
@@ -41,7 +32,7 @@ __d(
         }
       );
     }
-    function c() {
+    function u() {
       return o(
         "WAWebVoipInitEventEmitter",
       ).VoipInitEventEmitter.getIsVoipInited()
@@ -52,7 +43,7 @@ __d(
           ? "in_flight"
           : "not_started";
     }
-    ((l.createJsWorkerThread = e), (l.readJsWorkerCreateContext = u));
+    ((l.createJsWorkerThread = e), (l.readJsWorkerCreateContext = s));
   },
   98,
 );

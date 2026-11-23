@@ -1,16 +1,16 @@
 __d(
   "AdsUEditorAdgroupAudiosAdsMutators",
   [
-    "$InternalEnum",
-    "AdsAdgroupCreationAudiosLoggerUtil",
+    "AdsAPlusCStickyOptOutUtils",
     "AdsAdgroupRecordAccessors",
     "AdsAssetFeedUtils",
     "AdsAutomaticFlowUtils",
     "AdsChildAttachmentsUtils",
     "AdsClientAdAssetFeedSpecFields",
     "AdsCollectionsAdUtils",
+    "AdsCreativeEnrollmentDefaultOnStoreUtils",
     "AdsInstagramReelErrorUtils",
-    "AdsUEditorMessagingDestinationUtils",
+    "ClickToMessageAdDestinationUtils",
     "ShopsAdsOffsiteCheckoutAdsUtils",
     "adsConvertAdObjectRecordToPlainJS",
     "immutable",
@@ -19,74 +19,47 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = function (t) {
-        return (
-          !o("AdsChildAttachmentsUtils").isCarouselAd(t) &&
-          !o("AdsCollectionsAdUtils").isCollectionsAd(t.creative) &&
-          !o("AdsAssetFeedUtils").isRegularDCOAdgroupFromRecord(t)
-        );
-      },
-      s = n("$InternalEnum")({
-        SHOP_AD: "shop_ad",
-        DCO_AD: "dco_ad",
-        PLACEMENT: "placement",
-        NULL_ADOBJECT: "null_adobject",
-        NOT_APLUSC_ELIGIBLE: "not_aplusc_eligible",
-        AD_FORMAT: "ad_format",
-      });
-    function u(e, t, n) {
-      var a, i, l, u;
+      return (
+        !o("AdsChildAttachmentsUtils").isCarouselAd(t) &&
+        !o("AdsCollectionsAdUtils").isCollectionsAd(t.creative) &&
+        !o("AdsAssetFeedUtils").isRegularDCOAdgroupFromRecord(t)
+      );
+    };
+    function s(e, t) {
+      var n, a, i, l;
       if (
-        o("AdsUEditorMessagingDestinationUtils").isClickToMessageAdDestination(
+        o("ClickToMessageAdDestinationUtils").isClickToMessageAdDestination(
           t == null ? void 0 : t.destination_type,
-        )
-      )
-        return !1;
-      if (
+        ) ||
         o(
           "ShopsAdsOffsiteCheckoutAdsUtils",
-        ).adgroupHasWebsiteAndShopDestinationSpec(e)
+        ).adgroupHasWebsiteAndShopDestinationSpec(e) ||
+        o("AdsAssetFeedUtils").isRegularDCOAdgroupFromRecord(e)
       )
-        return (
-          o(
-            "AdsAdgroupCreationAudiosLoggerUtil",
-          ).logOnCreateAdAudiosInitialOptInIneligibility(e.id, s.SHOP_AD),
-          !1
-        );
-      if (o("AdsAssetFeedUtils").isRegularDCOAdgroupFromRecord(e))
-        return (
-          o(
-            "AdsAdgroupCreationAudiosLoggerUtil",
-          ).logOnCreateAdAudiosInitialOptInIneligibility(e.id, s.DCO_AD),
-          !1
-        );
-      var c = r("immutable").List(
-          (a =
-            t == null || (i = t.targeting) == null
+        return !1;
+      var s = r("immutable").List(
+          (n =
+            t == null || (a = t.targeting) == null
               ? void 0
-              : i.facebook_positions) != null
-            ? a
+              : a.facebook_positions) != null
+            ? n
             : r("immutable").List(),
         ),
-        d = r("immutable").List(
-          (l =
-            t == null || (u = t.targeting) == null
+        u = r("immutable").List(
+          (i =
+            t == null || (l = t.targeting) == null
               ? void 0
-              : u.instagram_positions) != null
-            ? l
+              : l.instagram_positions) != null
+            ? i
             : [],
         ),
-        m = c == null ? void 0 : c.contains("facebook_reels"),
-        p = d == null ? void 0 : d.contains("stream"),
-        _ = d == null ? void 0 : d.contains("reels"),
-        f = d == null ? void 0 : d.contains("story");
-      return _ || f || m || p || n === !0
-        ? !0
-        : (o(
-            "AdsAdgroupCreationAudiosLoggerUtil",
-          ).logOnCreateAdAudiosInitialOptInIneligibility(e.id, s.PLACEMENT),
-          !1);
+        c = s == null ? void 0 : s.contains("facebook_reels"),
+        d = u == null ? void 0 : u.contains("stream"),
+        m = u == null ? void 0 : u.contains("reels"),
+        p = u == null ? void 0 : u.contains("story");
+      return !!(m || p || c || d);
     }
-    function c(e) {
+    function u(e) {
       var t = e;
       if (o("AdsAssetFeedUtils").getAdgroupIsAudioSwap(e) !== !0) {
         var n = r("immutable").Map({ is_audio_swap: !0, type: "random" }),
@@ -100,7 +73,7 @@ __d(
       }
       return t;
     }
-    function d(e) {
+    function c(e) {
       var t = e;
       return (
         o("AdsAssetFeedUtils").getAdgroupIsAudioSwap(e) === !0 &&
@@ -110,14 +83,16 @@ __d(
         t
       );
     }
-    function m(e, t, n, r, a, i) {
-      return i === !0 ||
-        !u(t, n, a) ||
-        o("AdsAssetFeedUtils").getIsAudiosAdgroupOptedOut(t)
-        ? t
-        : p(e, t, r);
-    }
-    function p(t, n, a) {
+    function d(t, n, a) {
+      if (
+        o("AdsAPlusCStickyOptOutUtils").isAPlusCFeatureStickyOptedOut(
+          "audio",
+        ) ||
+        o(
+          "AdsCreativeEnrollmentDefaultOnStoreUtils",
+        ).isCreativeEnrollmentDefaultOnVetoedForSelectedAccount("audio")
+      )
+        return n;
       var i = n,
         l =
           o("AdsChildAttachmentsUtils").isCarouselAd(n) ||
@@ -135,22 +110,9 @@ __d(
           i,
         );
       }
-      return (
-        o(
-          "AdsAdgroupCreationAudiosLoggerUtil",
-        ).logOnCreateAdAudiosInitialOptInIneligibility(
-          n.id,
-          JSON.stringify({
-            null_adobject: a == null,
-            ad_format: !l,
-            not_aplusc_eligible: !s,
-            should_update_audios: l || s,
-          }),
-        ),
-        i
-      );
+      return i;
     }
-    function _(e) {
+    function m(e) {
       var t,
         n = e,
         o =
@@ -160,7 +122,7 @@ __d(
               : t.audios,
           ).size === 1;
       return (
-        f(r("adsConvertAdObjectRecordToPlainJS")(e))
+        p(r("adsConvertAdObjectRecordToPlainJS")(e))
           ? (n = r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.delete(
               n,
             ))
@@ -171,7 +133,7 @@ __d(
         n
       );
     }
-    function f(e) {
+    function p(e) {
       var t, n;
       return ((t = e.creative) == null ? void 0 : t.asset_feed_spec) == null
         ? !1
@@ -194,7 +156,7 @@ __d(
             })
           : !1;
     }
-    function g(e) {
+    function _(e) {
       var t,
         n =
           (t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -208,7 +170,7 @@ __d(
           })
         : r("immutable").List();
     }
-    function h(e, t) {
+    function f(e, t) {
       if (t.size === 0) return e;
       var n = e;
       return (
@@ -219,7 +181,7 @@ __d(
         n
       );
     }
-    function y(e, t, n) {
+    function g(e, t, n) {
       var o = e,
         a = r("immutable").Map({ type: t });
       t === "selected" &&
@@ -235,7 +197,7 @@ __d(
         o
       );
     }
-    function C(e, t) {
+    function h(e, t) {
       var n = r(
           "AdsAdgroupRecordAccessors",
         ).creative.asset_feed_spec.audios.get(e),
@@ -254,7 +216,7 @@ __d(
         s
       );
     }
-    function b(e, t, n) {
+    function y(e, t, n) {
       var a = e,
         i = r("immutable").Map({});
       n != null &&
@@ -277,18 +239,17 @@ __d(
         a
       );
     }
-    ((l.isEligibleForAudios = u),
-      (l.maybeSetAudioSwap = c),
-      (l.maybeRemoveAudioSwap = d),
-      (l.maybeSetAudios = m),
-      (l.updateAdgroupWithAudioSpec = p),
-      (l.removeAudiosField = _),
-      (l.isAdgroupUsingOnlyAudiosAssetFeedFromRecord = f),
-      (l.getAudioDataSpecField = g),
-      (l.updateAFSAudioSpecField = h),
-      (l.maybeUpdateAudios = y),
-      (l.maybeResetAudios = C),
-      (l.updateAudiosForSwap = b));
+    ((l.isEligibleForAudios = s),
+      (l.maybeSetAudioSwap = u),
+      (l.maybeRemoveAudioSwap = c),
+      (l.updateAdgroupWithAudioSpec = d),
+      (l.removeAudiosField = m),
+      (l.isAdgroupUsingOnlyAudiosAssetFeedFromRecord = p),
+      (l.getAudioDataSpecField = _),
+      (l.updateAFSAudioSpecField = f),
+      (l.maybeUpdateAudios = g),
+      (l.maybeResetAudios = h),
+      (l.updateAudiosForSwap = y));
   },
   98,
 );

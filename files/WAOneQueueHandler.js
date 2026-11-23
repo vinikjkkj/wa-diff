@@ -6,9 +6,11 @@ __d(
     function e(e) {
       return function (t, n) {
         var r = {
-          offline: t.attrs.offline ? parseInt(t.attrs.offline, 10) : null,
+          offline: t.attrs.offline
+            ? parseInt(String(t.attrs.offline), 10)
+            : null,
           serverTs: t.attrs.t
-            ? o("WATimeUtils").castToUnixTime(parseInt(t.attrs.t, 10))
+            ? o("WATimeUtils").castToUnixTime(parseInt(String(t.attrs.t), 10))
             : null,
           tag: t.tag,
         };

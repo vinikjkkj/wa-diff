@@ -38,13 +38,9 @@ __d(
     function d(e) {
       switch (e.subtype) {
         case "ciphertext":
-          return s._(
-            /*BTDS*/ "Waiting for this payment message's note. This may take a while.",
-          );
+          return s._(/*BTDS*/ "");
         case "futureproof":
-          return s._(
-            /*BTDS*/ "This payment message has a note, but your version of WhatsApp doesn't support viewing it.",
-          );
+          return s._(/*BTDS*/ "");
         case "send": {
           var t,
             n =
@@ -57,7 +53,7 @@ __d(
                     amount: e.paymentAmount1000,
                     currency: e.paymentCurrency,
                   })
-                : s._(/*BTDS*/ "Payment").toString();
+                : s._(/*BTDS*/ "").toString();
           return r + n;
         }
         case "request": {
@@ -72,7 +68,7 @@ __d(
                     amount: e.paymentAmount1000,
                     currency: e.paymentCurrency,
                   })
-                : s._(/*BTDS*/ "Payment").toString();
+                : s._(/*BTDS*/ "").toString();
           return l + i;
         }
         case "invite":
@@ -80,9 +76,7 @@ __d(
             e.id,
           );
         default:
-          return s._(
-            /*BTDS*/ "Payment message. Open WhatsApp on your phone to view.",
-          );
+          return s._(/*BTDS*/ "");
       }
     }
     function m(e) {
@@ -94,7 +88,7 @@ __d(
       }
       return (
         o("WAWebVcardGetNameFromParsed").vcardGetNameFromParsed(e[0]) ||
-        s._(/*BTDS*/ "Contact")
+        s._(/*BTDS*/ "")
       );
     }
     ((l.maskSpoilersWithOptions = e),

@@ -1,11 +1,6 @@
 __d(
   "WAWebVoipCameraRequestLifetime",
-  [
-    "WAAbortError",
-    "WAPromiseRaceAbort",
-    "WAWebNullFunc",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAAbortError", "WAPromiseRaceAbort", "WAWebNullFunc"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = o("WAWebNullFunc").returnNull;
@@ -26,19 +21,11 @@ __d(
       if (c(e))
         throw new (o("WAAbortError").AbortError)("Camera request stopped");
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          d(t);
-          var n = t.abortSignal,
-            o = yield r("WAPromiseRaceAbort")(e(), n);
-          return (d(t), o);
-        })),
-        p.apply(this, arguments)
-      );
+    async function m(e, t) {
+      d(t);
+      var n = t.abortSignal,
+        o = await r("WAPromiseRaceAbort")(e(), n);
+      return (d(t), o);
     }
     ((l.registerCameraCaptureOwnerFactory = s),
       (l.getCameraCaptureOwner = u),

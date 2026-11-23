@@ -137,18 +137,13 @@ __d(
                   s._(
                     2016062,
                     function (e) {
-                      return e._(
-                        /*BTDS*/ "One or more selected ads have incompatible carousel cards.",
-                      );
+                      return e._(/*BTDS*/ "");
                     },
                     function (e, t) {
-                      return e._(
-                        /*BTDS*/ "Field {field} on card index {cardIndex} is not supported by selected ads.",
-                        [
-                          e._param("field", t.field),
-                          e._param("cardIndex", t.cardIndex),
-                        ],
-                      );
+                      return e._(/*BTDS*/ "", [
+                        e._param("field", t.field),
+                        e._param("cardIndex", t.cardIndex),
+                      ]);
                     },
                     { field: e.name, cardIndex: r },
                   ),

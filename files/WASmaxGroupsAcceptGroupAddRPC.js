@@ -25,51 +25,36 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return {
-              name: "AcceptGroupAddResponseGroupJoinRequestSuccess",
-              value: a.value,
-            };
-          var i = m(r, n);
-          if (i.success)
-            return { name: "AcceptGroupAddResponseSuccess", value: i.value };
-          var l = u(r, n);
-          if (l.success)
-            return {
-              name: "AcceptGroupAddResponseClientError",
-              value: l.value,
-            };
-          var s = d(r, n);
-          if (s.success)
-            return {
-              name: "AcceptGroupAddResponseServerError",
-              value: s.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("AcceptGroupAdd", {
-              GroupJoinRequestSuccess: a,
-              Success: i,
-              ClientError: l,
-              ServerError: s,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return {
+          name: "AcceptGroupAddResponseGroupJoinRequestSuccess",
+          value: a.value,
+        };
+      var i = d(r, n);
+      if (i.success)
+        return { name: "AcceptGroupAddResponseSuccess", value: i.value };
+      var l = s(r, n);
+      if (l.success)
+        return { name: "AcceptGroupAddResponseClientError", value: l.value };
+      var p = c(r, n);
+      if (p.success)
+        return { name: "AcceptGroupAddResponseServerError", value: p.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("AcceptGroupAdd", {
+          GroupJoinRequestSuccess: a,
+          Success: i,
+          ClientError: l,
+          ServerError: p,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -79,7 +64,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = _(r.value);
+      var i = p(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -88,7 +73,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -101,7 +86,7 @@ __d(
       ).parseIQResultResponseMixin(e, t);
       return (a.success, a);
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -110,7 +95,7 @@ __d(
       );
       return (r.success, r);
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -118,7 +103,7 @@ __d(
       ).parseIQResultResponseMixin(e, t);
       return (r.success, r);
     }
-    function p(e) {
+    function m(e) {
       var t = e.acceptCode,
         n = e.acceptExpiration,
         r = e.acceptAdmin,
@@ -136,7 +121,7 @@ __d(
         );
       return a;
     }
-    function _(e) {
+    function p(e) {
       var t = o(
         "WASmaxInGroupsIQErrorAlreadyExistsMixin",
       ).parseIQErrorAlreadyExistsMixin(e);
@@ -258,11 +243,11 @@ __d(
           );
     }
     ((l.sendAcceptGroupAddRPC = e),
-      (l.parseAcceptGroupAddResponseClientError = u),
-      (l.parseAcceptGroupAddResponseGroupJoinRequestSuccess = c),
-      (l.parseAcceptGroupAddResponseServerError = d),
-      (l.parseAcceptGroupAddResponseSuccess = m),
-      (l.makeAcceptGroupAddRequest = p));
+      (l.parseAcceptGroupAddResponseClientError = s),
+      (l.parseAcceptGroupAddResponseGroupJoinRequestSuccess = u),
+      (l.parseAcceptGroupAddResponseServerError = c),
+      (l.parseAcceptGroupAddResponseSuccess = d),
+      (l.makeAcceptGroupAddRequest = m));
   },
   98,
 );

@@ -13,34 +13,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = m(),
-            n = yield o("WAComms").sendSmaxStanza(t, e),
-            r = d(n, t);
-          if (r.success)
-            return { name: "GetPixBankListResponseSuccess", value: r.value };
-          var a = u(n, t);
-          if (a.success)
-            return { name: "GetPixBankListResponseError", value: a.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("GetPixBankList", {
-              Success: r,
-              Error: a,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e) {
+      var t = d(),
+        n = await o("WAComms").sendSmaxStanza(t, e),
+        r = c(n, t);
+      if (r.success)
+        return { name: "GetPixBankListResponseSuccess", value: r.value };
+      var a = s(n, t);
+      if (a.success)
+        return { name: "GetPixBankListResponseError", value: a.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetPixBankList", {
+          Success: r,
+          Error: a,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -48,7 +39,7 @@ __d(
       ).parseIQErrorGenericResponseMixin(e, t);
       return (r.success, r);
     }
-    function c(e) {
+    function u(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "bank");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "bank_name");
@@ -85,7 +76,7 @@ __d(
           })
         : u;
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "account");
@@ -108,21 +99,21 @@ __d(
         "WASmaxInBrPaymentIQResultResponseMixin",
       ).parseIQResultResponseMixin(e, t);
       if (!s.success) return s;
-      var u = o("WASmaxParseUtils").mapChildrenWithTag(
+      var c = o("WASmaxParseUtils").mapChildrenWithTag(
         a.value,
         "bank",
         0,
         1e3,
-        c,
+        u,
       );
-      return u.success
+      return c.success
         ? o("WAResultOrError").makeResult(
-            babelHelpers.extends({}, s.value, { accountBanksBank: u.value }),
+            babelHelpers.extends({}, s.value, { accountBanksBank: c.value }),
           )
-        : u;
+        : c;
     }
-    function m() {
-      var e = _(
+    function d() {
+      var e = p(
         o("WASmaxJsx").smax(
           "iq",
           { to: o("WAWap").S_WHATSAPP_NET, xmlns: "w:pay" },
@@ -131,21 +122,21 @@ __d(
       );
       return e;
     }
-    function p() {
+    function m() {
       var e = o("WASmaxJsx").smax("iq", {
         id: o("WAWap").generateId(),
         type: "get",
       });
       return e;
     }
-    function _(e) {
-      var t = p();
+    function p(e) {
+      var t = m();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
     ((l.sendGetPixBankListRPC = e),
-      (l.parseGetPixBankListResponseError = u),
-      (l.parseGetPixBankListResponseSuccess = d),
-      (l.makeGetPixBankListRequest = m));
+      (l.parseGetPixBankListResponseError = s),
+      (l.parseGetPixBankListResponseSuccess = c),
+      (l.makeGetPixBankListRequest = d));
   },
   98,
 );

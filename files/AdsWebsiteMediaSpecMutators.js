@@ -1,6 +1,6 @@
 __d(
   "AdsWebsiteMediaSpecMutators",
-  ["AdsAdgroupRecordAccessors", "AdsMutators"],
+  ["AdsAdgroupRecordAccessors", "AdsMutators", "justknobx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -19,7 +19,16 @@ __d(
         ),
       )(e);
     }
-    l.resetWebsiteMediaSpec = e;
+    function s(e) {
+      return r("justknobx")._("7643")
+        ? e
+        : r(
+            "AdsAdgroupRecordAccessors",
+          ).creative.creative_sourcing_spec.website_media_spec.adex_had_data.set(
+            !0,
+          )(e);
+    }
+    ((l.resetWebsiteMediaSpec = e), (l.markLegacyWebsiteMediaHadData = s));
   },
   98,
 );

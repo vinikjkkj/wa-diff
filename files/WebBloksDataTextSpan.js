@@ -6,7 +6,6 @@ __d(
     "WebBloksModel",
     "WebBloksStyle",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -16,43 +15,25 @@ __d(
       d = o("WebBloksModel").defineWebBloksAttributeKey("&"),
       m = o("WebBloksModel").defineWebBloksAttributeKey("(");
     function p(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = e.externalStyle,
-        r = e.node,
-        a;
-      t[0] !== r ? ((a = r.get(u)), (t[0] = r), (t[1] = a)) : (a = t[1]);
-      var i = a,
-        l;
-      t[2] !== r ? ((l = r.get(c)), (t[2] = r), (t[3] = l)) : (l = t[3]);
-      var p = l,
-        _ = r.get(m),
-        f = o("WebBloksStyle").useStyle(r, n),
-        g = f.wrapper,
-        h = o("WebBloksComponentContext").useWebBloksContext(),
-        y = h.renderNode,
-        C = _ != null ? y(_) : r.get(d),
-        b = o("WebBloksDataTextSpanUtils").useWebBloksBaseTextSpanProps(
-          i,
+      var t = e.externalStyle,
+        n = e.node,
+        r = n.get(u),
+        a = n.get(c),
+        i = n.get(m),
+        l = o("WebBloksStyle").useStyle(n, t),
+        p = l.wrapper,
+        _ = o("WebBloksComponentContext").useWebBloksContext(),
+        f = _.renderNode,
+        g = i != null ? f(i) : n.get(d),
+        h = o("WebBloksDataTextSpanUtils").useWebBloksBaseTextSpanProps(
           r,
           n,
-          p,
-        ),
-        v;
-      t[4] !== C || t[5] !== b
-        ? ((v = s.jsx("span", babelHelpers.extends({}, b, { children: C }))),
-          (t[4] = C),
-          (t[5] = b),
-          (t[6] = v))
-        : (v = t[6]);
-      var S;
-      return (
-        t[7] !== v || t[8] !== g
-          ? ((S = g(v)), (t[7] = v), (t[8] = g), (t[9] = S))
-          : (S = t[9]),
-        S
-      );
+          t,
+          a,
+        );
+      return p(s.jsx("span", babelHelpers.extends({}, h, { children: g })));
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

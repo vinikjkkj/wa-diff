@@ -1,48 +1,20 @@
 __d(
   "WebBloksAnchorTagExtensionHandlerUtils",
-  [
-    "WebBloksConstants",
-    "WebBloksModel",
-    "WebBloksUtils",
-    "react-compiler-runtime",
-  ],
+  ["WebBloksConstants", "WebBloksModel", "WebBloksUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "bk.components.AnchorTagExtension",
       s = o("WebBloksModel").defineWebBloksAttributeKey("#"),
       u = o("WebBloksModel").defineWebBloksAttributeKey("$");
     function c(t) {
-      var n = o("react-compiler-runtime").c(7),
-        r,
-        a,
-        i;
-      if (n[0] !== t) {
-        i = Symbol.for("react.early_return_sentinel");
-        e: {
-          var l = o("WebBloksUtils").findExtension(
-            t.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
-            e,
-          );
-          if (!l) {
-            i = null;
-            break e;
-          }
-          ((r = l.get(s)), (a = l.get(u)));
-        }
-        ((n[0] = t), (n[1] = r), (n[2] = a), (n[3] = i));
-      } else ((r = n[1]), (a = n[2]), (i = n[3]));
-      if (i !== Symbol.for("react.early_return_sentinel")) return i;
-      var c = a,
-        d;
-      return (
-        n[4] !== r || n[5] !== c
-          ? ((d = { href: r, tabIndex: 0, preferNativeNavigation: c }),
-            (n[4] = r),
-            (n[5] = c),
-            (n[6] = d))
-          : (d = n[6]),
-        d
+      var n = o("WebBloksUtils").findExtension(
+        t.get(o("WebBloksConstants").EXTENSIONS_ATTRIBUTE_KEY),
+        e,
       );
+      if (!n) return null;
+      var r = n.get(s),
+        a = n.get(u);
+      return { href: r, tabIndex: 0, preferNativeNavigation: a };
     }
     l.useWebBloksAnchorTagExtensionProps = c;
   },

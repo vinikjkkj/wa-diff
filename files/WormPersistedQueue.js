@@ -1,13 +1,6 @@
 __d(
   "WormPersistedQueue",
-  [
-    "FBLogger",
-    "WAPubSub",
-    "WATimeUtils",
-    "asyncToGeneratorRuntime",
-    "err",
-    "getErrorSafe",
-  ],
+  ["FBLogger", "WAPubSub", "WATimeUtils", "err", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = function () {
@@ -24,55 +17,43 @@ __d(
           (this.name = e),
           (this.store = t));
       }
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.attachStoreRunner = function (t) {
+        (n.attachStoreRunner = function (t) {
           this.$3 = t;
         }),
-        (a.isReady = function () {
+        (n.isReady = function () {
           return this.$3 != null;
         }),
-        (a.subscribe = function (t) {
+        (n.subscribe = function (t) {
           return this.$2.subscribe(t);
         }),
-        (a.add = function (t) {
+        (n.add = function (t) {
           return this.put(t);
         }),
-        (a.put = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            e.length !== 0 &&
-              (yield this.$4("put").write(this.$5("put"), function (t) {
-                return t.bulkPut(e);
-              }),
-              this.$2.publish({ type: "new_entities" }));
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.ack = function (t) {
+        (n.put = async function (t) {
+          t.length !== 0 &&
+            (await this.$4("put").write(this.$5("put"), function (e) {
+              return e.bulkPut(t);
+            }),
+            this.$2.publish({ type: "new_entities" }));
+        }),
+        (n.ack = function (t) {
           return this.delete(t);
         }),
-        (a.delete = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            e.length !== 0 &&
-              (yield this.$4("delete").write(this.$5("delete"), function (t) {
-                return t.bulkDelete(e);
-              }),
-              yield this.$6());
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.read = function (t) {
+        (n.delete = async function (t) {
+          t.length !== 0 &&
+            (await this.$4("delete").write(this.$5("delete"), function (e) {
+              return e.bulkDelete(t);
+            }),
+            await this.$6());
+        }),
+        (n.read = function (t) {
           return this.$4("read").read(this.$5("read"), function (e) {
             return e.readAll(t);
           });
         }),
-        (a.readFromIndex = function (t, n) {
+        (n.readFromIndex = function (t, n) {
           return this.$4("readFromIndex").read(
             this.$5("readIndex"),
             function (e) {
@@ -80,7 +61,7 @@ __d(
             },
           );
         }),
-        (a.readFromIndexRange = function (t, n, r) {
+        (n.readFromIndexRange = function (t, n, r) {
           return this.$4("readFromIndexRange").read(
             this.$5("readIndexRange"),
             function (e) {
@@ -88,7 +69,7 @@ __d(
             },
           );
         }),
-        (a.getAllFromIndexRange = function (t, n, r) {
+        (n.getAllFromIndexRange = function (t, n, r) {
           return this.$4("getAllFromIndexRange").read(
             this.$5("getAllIndexRange"),
             function (e) {
@@ -96,7 +77,7 @@ __d(
             },
           );
         }),
-        (a.getFromIndex = function (t, n) {
+        (n.getFromIndex = function (t, n) {
           return this.$4("getFromIndex").read(
             this.$5("getByIndex"),
             function (e) {
@@ -104,12 +85,12 @@ __d(
             },
           );
         }),
-        (a.count = function () {
+        (n.count = function () {
           return this.$4("count").read(this.$5("count"), function (e) {
             return e.count();
           });
         }),
-        (a.$4 = function (t) {
+        (n.$4 = function (t) {
           var e = this.$3;
           if (e == null)
             throw r("err")(
@@ -121,39 +102,26 @@ __d(
             );
           return e;
         }),
-        (a.$5 = function (t) {
+        (n.$5 = function (t) {
           return "WormPersistedQueue:" + this.name + ":" + t;
         }),
-        (a.$6 = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            if (!(o("WATimeUtils").unixTimeMs() - this.$1 <= s))
-              try {
-                (yield this.$4("clearIfEmpty").write(
-                  this.$5("clearIfEmpty"),
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var t = yield e.readAll({ limit: 1 });
-                        t.length === 0 && (yield e.clear());
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-                  (this.$1 = o("WATimeUtils").unixTimeMs()));
-              } catch (t) {
-                e()
-                  .catching(r("getErrorSafe")(t))
-                  .mustfix("Error during WormPersistedQueue cleanup");
-              }
-          });
-          function a() {
-            return t.apply(this, arguments);
-          }
-          return a;
-        })()),
+        (n.$6 = async function () {
+          if (!(o("WATimeUtils").unixTimeMs() - this.$1 <= s))
+            try {
+              (await this.$4("clearIfEmpty").write(
+                this.$5("clearIfEmpty"),
+                async function (e) {
+                  var t = await e.readAll({ limit: 1 });
+                  t.length === 0 && (await e.clear());
+                },
+              ),
+                (this.$1 = o("WATimeUtils").unixTimeMs()));
+            } catch (t) {
+              e()
+                .catching(r("getErrorSafe")(t))
+                .mustfix("Error during WormPersistedQueue cleanup");
+            }
+        }),
         t
       );
     })();

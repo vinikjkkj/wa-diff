@@ -1,20 +1,12 @@
 __d(
   "WASmaxUnifiedSessionShareRPC",
-  ["WAComms", "WASmaxJsx", "WAWap", "asyncToGeneratorRuntime"],
+  ["WAComms", "WASmaxJsx", "WAWap"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      var t = s(e);
+      await o("WAComms").castSmaxStanza(t);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = u(e);
-          yield o("WAComms").castSmaxStanza(t);
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       var t = e.unifiedSessionId,
         n = o("WASmaxJsx").smax(
           "ib",
@@ -25,7 +17,7 @@ __d(
         );
       return n;
     }
-    ((l.sendShareRPC = e), (l.makeShareRequest = u));
+    ((l.sendShareRPC = e), (l.makeShareRequest = s));
   },
   98,
 );

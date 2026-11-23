@@ -8,7 +8,6 @@ __d(
     "WAWebGraphQLServerError",
     "WAWebLinkedAccountsGQLQuery.graphql",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -70,201 +69,168 @@ __d(
         }
       }
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    async function m(e) {
+      try {
+        return (
+          await self.fetch(
+            o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint(),
+            {
+              cache: "no-store",
+              credentials: "omit",
+              method: "HEAD",
+              mode: "no-cors",
+              signal: e,
+            },
+          ),
+          "reachable"
+        );
+      } catch (t) {
+        return e.aborted ? "timeout" : "unreachable";
+      }
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            return (
-              yield self.fetch(
-                o("WAWebGraphQLConstants").generateFacebookGraphqlEndpoint(),
-                {
-                  cache: "no-store",
-                  credentials: "omit",
-                  method: "HEAD",
-                  mode: "no-cors",
-                  signal: e,
-                },
-              ),
-              "reachable"
-            );
-          } catch (t) {
-            return e.aborted ? "timeout" : "unreachable";
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e &&
-            o(
-              "WAWebAdvertiseEntryPointQplHelpers",
-            ).advertiseEntryPointQplAddPoint(
-              o("WAWebAdvertiseEntryPointQplHelpers")
-                .AdvertiseEntryPointQplPoint.FETCH_TOKEN_START,
-            );
-          try {
-            return yield o("WAWebFetchAdAccountToken").fetchToken();
-          } catch (e) {
-            throw (
-              o(
-                "WAWebAdvertiseEntryPointQplHelpers",
-              ).advertiseEntryPointQplRecordFailureReason("fetch_token_threw"),
-              e
-            );
-          } finally {
-            e &&
-              o(
-                "WAWebAdvertiseEntryPointQplHelpers",
-              ).advertiseEntryPointQplAddPoint(
-                o("WAWebAdvertiseEntryPointQplHelpers")
-                  .AdvertiseEntryPointQplPoint.FETCH_TOKEN_END,
-              );
-          }
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g() {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield y();
-          return e == null ? null : e.accounts;
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    var y = (function () {
-      var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-        var t = o(
+    async function p(e) {
+      e &&
+        o("WAWebAdvertiseEntryPointQplHelpers").advertiseEntryPointQplAddPoint(
+          o("WAWebAdvertiseEntryPointQplHelpers").AdvertiseEntryPointQplPoint
+            .FETCH_TOKEN_START,
+        );
+      try {
+        return await o("WAWebFetchAdAccountToken").fetchToken();
+      } catch (e) {
+        throw (
+          o(
             "WAWebAdvertiseEntryPointQplHelpers",
-          ).advertiseEntryPointQplBeginAttempt(),
-          r = yield _(t);
-        if (r.type !== "success")
-          return (
-            o(
-              "WAWebAdvertiseEntryPointQplHelpers",
-            ).advertiseEntryPointQplRecordFailureReason(r.type),
-            c(r.type),
-            null
-          );
-        var a = r.type === "success" ? r.token : void 0;
-        t &&
+          ).advertiseEntryPointQplRecordFailureReason("fetch_token_threw"),
+          e
+        );
+      } finally {
+        e &&
           o(
             "WAWebAdvertiseEntryPointQplHelpers",
           ).advertiseEntryPointQplAddPoint(
             o("WAWebAdvertiseEntryPointQplHelpers").AdvertiseEntryPointQplPoint
-              .LINKED_ACCOUNTS_QUERY_START,
+              .FETCH_TOKEN_END,
           );
-        var i = !1,
-          l = self.performance.now();
-        return o("WAWebRelayClient")
-          .fetchQuery(
-            e !== void 0 ? e : (e = n("WAWebLinkedAccountsGQLQuery.graphql")),
-            {},
-            { accessToken: a, environmentType: "facebook" },
-          )
-          .then(function (e) {
-            var n, r;
-            ((i = !0),
-              t &&
-                o(
-                  "WAWebAdvertiseEntryPointQplHelpers",
-                ).advertiseEntryPointQplAddPoint(
-                  o("WAWebAdvertiseEntryPointQplHelpers")
-                    .AdvertiseEntryPointQplPoint.LINKED_ACCOUNTS_QUERY_END,
-                ));
-            var a =
-              e == null || (n = e.xfb_wa_biz_linked_accounts) == null
-                ? void 0
-                : n.linked_accounts;
-            if (!a)
-              return (
-                o(
-                  "WAWebAdvertiseEntryPointQplHelpers",
-                ).advertiseEntryPointQplRecordFailureReason(
-                  (e == null ? void 0 : e.xfb_wa_biz_linked_accounts) == null
-                    ? "linked_accounts_root_null"
-                    : "linked_accounts_missing",
-                ),
-                null
-              );
-            var l = [a.fb_page, a.wa_ad_identity].every(C),
-              s = [];
-            if ((r = a.fb_page) != null && r.ad_status) {
-              var u,
-                c,
-                d = {
-                  type: "facebook",
-                  id:
-                    (u = (c = a.fb_page) == null ? void 0 : c.id) != null
-                      ? u
-                      : "",
-                  hasCreatedAd: a.fb_page.ad_status.has_created_ad === !0,
-                  hasActiveLinkedAd:
-                    a.fb_page.ad_status.has_active_ctwa_ad === !0,
-                };
-              s.push(d);
-            }
-            if (a.wa_ad_identity) {
-              var m,
-                p,
-                _,
-                f = {
-                  type: "whatsapp",
-                  id: (m = a.wa_ad_identity.id) != null ? m : "",
-                  hasCreatedAd:
-                    ((p = a.wa_ad_identity.ad_status) == null
-                      ? void 0
-                      : p.has_created_ad) === !0,
-                  hasActiveLinkedAd:
-                    ((_ = a.wa_ad_identity.ad_status) == null
-                      ? void 0
-                      : _.has_active_ctwa_ad) === !0,
-                };
-              s.push(f);
-            }
-            return { accounts: { accounts: s }, pageInfoComplete: l };
-          })
-          .catch(function (e) {
-            throw (
+      }
+    }
+    async function _() {
+      var e = await f();
+      return e == null ? null : e.accounts;
+    }
+    var f = async function () {
+      var t = o(
+          "WAWebAdvertiseEntryPointQplHelpers",
+        ).advertiseEntryPointQplBeginAttempt(),
+        r = await p(t);
+      if (r.type !== "success")
+        return (
+          o(
+            "WAWebAdvertiseEntryPointQplHelpers",
+          ).advertiseEntryPointQplRecordFailureReason(r.type),
+          c(r.type),
+          null
+        );
+      var a = r.type === "success" ? r.token : void 0;
+      t &&
+        o("WAWebAdvertiseEntryPointQplHelpers").advertiseEntryPointQplAddPoint(
+          o("WAWebAdvertiseEntryPointQplHelpers").AdvertiseEntryPointQplPoint
+            .LINKED_ACCOUNTS_QUERY_START,
+        );
+      var i = !1,
+        l = self.performance.now();
+      return o("WAWebRelayClient")
+        .fetchQuery(
+          e !== void 0 ? e : (e = n("WAWebLinkedAccountsGQLQuery.graphql")),
+          {},
+          { accessToken: a, environmentType: "facebook" },
+        )
+        .then(function (e) {
+          var n, r;
+          ((i = !0),
+            t &&
+              o(
+                "WAWebAdvertiseEntryPointQplHelpers",
+              ).advertiseEntryPointQplAddPoint(
+                o("WAWebAdvertiseEntryPointQplHelpers")
+                  .AdvertiseEntryPointQplPoint.LINKED_ACCOUNTS_QUERY_END,
+              ));
+          var a =
+            e == null || (n = e.xfb_wa_biz_linked_accounts) == null
+              ? void 0
+              : n.linked_accounts;
+          if (!a)
+            return (
               o(
                 "WAWebAdvertiseEntryPointQplHelpers",
               ).advertiseEntryPointQplRecordFailureReason(
-                "linked_accounts_query_threw",
-                (i ? "response_handler_" : "") + u(e),
-                {
-                  elapsedMs: Math.round(self.performance.now() - l),
-                  isOnline: self.navigator.onLine,
-                },
+                (e == null ? void 0 : e.xfb_wa_biz_linked_accounts) == null
+                  ? "linked_accounts_root_null"
+                  : "linked_accounts_missing",
               ),
-              !i && e instanceof TypeError && d(),
-              t &&
-                o(
-                  "WAWebAdvertiseEntryPointQplHelpers",
-                ).advertiseEntryPointQplAddPoint(
-                  o("WAWebAdvertiseEntryPointQplHelpers")
-                    .AdvertiseEntryPointQplPoint.LINKED_ACCOUNTS_QUERY_FAIL,
-                ),
-              e
+              null
             );
-          });
-      });
-      return function () {
-        return t.apply(this, arguments);
-      };
-    })();
-    function C(e) {
+          var l = [a.fb_page, a.wa_ad_identity].every(g),
+            s = [];
+          if ((r = a.fb_page) != null && r.ad_status) {
+            var u,
+              c,
+              d = {
+                type: "facebook",
+                id:
+                  (u = (c = a.fb_page) == null ? void 0 : c.id) != null
+                    ? u
+                    : "",
+                hasCreatedAd: a.fb_page.ad_status.has_created_ad === !0,
+                hasActiveLinkedAd:
+                  a.fb_page.ad_status.has_active_ctwa_ad === !0,
+              };
+            s.push(d);
+          }
+          if (a.wa_ad_identity) {
+            var m,
+              p,
+              _,
+              f = {
+                type: "whatsapp",
+                id: (m = a.wa_ad_identity.id) != null ? m : "",
+                hasCreatedAd:
+                  ((p = a.wa_ad_identity.ad_status) == null
+                    ? void 0
+                    : p.has_created_ad) === !0,
+                hasActiveLinkedAd:
+                  ((_ = a.wa_ad_identity.ad_status) == null
+                    ? void 0
+                    : _.has_active_ctwa_ad) === !0,
+              };
+            s.push(f);
+          }
+          return { accounts: { accounts: s }, pageInfoComplete: l };
+        })
+        .catch(function (e) {
+          throw (
+            o(
+              "WAWebAdvertiseEntryPointQplHelpers",
+            ).advertiseEntryPointQplRecordFailureReason(
+              "linked_accounts_query_threw",
+              (i ? "response_handler_" : "") + u(e),
+              {
+                elapsedMs: Math.round(self.performance.now() - l),
+                isOnline: self.navigator.onLine,
+              },
+            ),
+            !i && e instanceof TypeError && d(),
+            t &&
+              o(
+                "WAWebAdvertiseEntryPointQplHelpers",
+              ).advertiseEntryPointQplAddPoint(
+                o("WAWebAdvertiseEntryPointQplHelpers")
+                  .AdvertiseEntryPointQplPoint.LINKED_ACCOUNTS_QUERY_FAIL,
+              ),
+            e
+          );
+        });
+    };
+    function g(e) {
       var t;
       return (
         e == null ||
@@ -274,7 +240,7 @@ __d(
             "boolean")
       );
     }
-    ((l.queryLinkedAccountsGQL = g), (l.queryLinkedAccountsResultGQL = y));
+    ((l.queryLinkedAccountsGQL = _), (l.queryLinkedAccountsResultGQL = f));
   },
   98,
 );

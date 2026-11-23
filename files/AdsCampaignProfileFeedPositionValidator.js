@@ -62,9 +62,7 @@ __d(
                   new (r("AdsError"))(
                     2490438,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "To use Facebook Profile Feed, please also select the Facebook Feeds placement.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       cta: r("AdsErrorsCTAStrings").ADD_FACEBOOK_NEWS_FEED_CTA,

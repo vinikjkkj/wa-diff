@@ -20,11 +20,9 @@ __d(
     "ExecutionEnvironment",
     "FBLogger",
     "MWChatInteraction",
-    "Promise",
     "RouterViewTypes",
     "SiteData",
     "absoluteToRelative",
-    "asyncToGeneratorRuntime",
     "buildCometErrorRoute",
     "buildCometRouter.shared",
     "buildCometRouterDispatcher",
@@ -77,9 +75,8 @@ __d(
       u,
       c,
       d,
-      m,
-      p = (m || (m = o("react"))).startTransition;
-    function _(e) {
+      m = (d || (d = o("react"))).startTransition;
+    function p(e) {
       var t;
       if ((e == null ? void 0 : e.type) !== "valid_route") return !0;
       var n =
@@ -89,7 +86,7 @@ __d(
           : !0;
       return n;
     }
-    function f(e, t) {
+    function _(e, t) {
       var n, r;
       if ((e == null ? void 0 : e.type) !== "valid_route") return !0;
       var o =
@@ -102,60 +99,60 @@ __d(
           : !0;
       return o;
     }
-    function g(t, a) {
+    function f(t, a) {
       var i = t.defaultTransparentPushViewTarget,
         l = t.disableTimeSpentLogging,
-        m = t.initialActorID,
-        g = t.initialBackgroundRoute,
-        h = t.initialBackgroundTimeSpentMetadata,
-        y = t.initialLoadTraceId,
-        C = t.initialRootRoute,
-        b = t.initialTimeSpentMetadata,
-        v = t.makeCometRouteContainer,
-        S = v === void 0 ? r("makeCometRouteEntryPointContainer") : v,
-        R = t.pushViewStackLimit,
-        L = t.cometRouterConstantsOverride,
-        E = t.disableReactTransition,
-        k = E === void 0 ? !1 : E,
-        I = t.disableQPLLogging,
-        T = I === void 0 ? !1 : I,
-        D = t.navigationQPLEvent,
-        x = t.persistentParameters,
-        $ = x === void 0 ? [] : x,
-        P = t.preloadEntrypoint,
-        N = P === void 0 ? r("cometRouterPreloadEntrypoint") : P,
-        M = t.relayEnvironmentFactory,
-        w = t.scrollRestorationBehavior,
-        A = w === void 0 ? "manual" : w,
-        F = t.uiComponents,
-        O = t.VCConfigOverride,
-        B = t.siteCleanQueryParams,
-        W = t.hooks,
-        q = t.warnUsageOutsideOfComet,
-        U = q === void 0 ? !0 : q,
-        V = t.navigationNamespace,
-        H =
-          (F == null ? void 0 : F.ErrorRoot) ===
-            r("CometRouterErrorRoot_MISSING_FIXME") || F == null
+        d = t.initialActorID,
+        f = t.initialBackgroundRoute,
+        g = t.initialBackgroundTimeSpentMetadata,
+        h = t.initialLoadTraceId,
+        y = t.initialRootRoute,
+        C = t.initialTimeSpentMetadata,
+        b = t.makeCometRouteContainer,
+        v = b === void 0 ? r("makeCometRouteEntryPointContainer") : b,
+        S = t.pushViewStackLimit,
+        R = t.cometRouterConstantsOverride,
+        L = t.disableReactTransition,
+        E = L === void 0 ? !1 : L,
+        k = t.disableQPLLogging,
+        I = k === void 0 ? !1 : k,
+        T = t.navigationQPLEvent,
+        D = t.persistentParameters,
+        x = D === void 0 ? [] : D,
+        $ = t.preloadEntrypoint,
+        P = $ === void 0 ? r("cometRouterPreloadEntrypoint") : $,
+        N = t.relayEnvironmentFactory,
+        M = t.scrollRestorationBehavior,
+        w = M === void 0 ? "manual" : M,
+        A = t.uiComponents,
+        F = t.VCConfigOverride,
+        O = t.siteCleanQueryParams,
+        B = t.hooks,
+        W = t.warnUsageOutsideOfComet,
+        q = W === void 0 ? !0 : W,
+        U = t.navigationNamespace,
+        V =
+          (A == null ? void 0 : A.ErrorRoot) ===
+            r("CometRouterErrorRoot_MISSING_FIXME") || A == null
             ? void 0
-            : F.ErrorRoot,
+            : A.ErrorRoot,
+        H = {},
         G = {},
-        z = {},
-        j = r("cometRouterCreatePersistentParamsManager")(
-          [].concat(r("persistentQueryParams"), $),
+        z = r("cometRouterCreatePersistentParamsManager")(
+          [].concat(r("persistentQueryParams"), x),
         ),
+        j = null,
         K = null,
         Q = null,
         X = null,
-        Y = null,
-        J = 0,
+        Y = 0,
+        J = null,
         Z = null,
-        ee = null,
-        te = new Set(),
-        ne = babelHelpers.extends({}, r("cometRouterConstants"), L),
-        re = D != null ? D : r("CometNavigationTracingQPLEvents").navigation,
-        oe = o("buildCometRouter.shared").buildCometRouterShared(
-          m != null ? m : r("CurrentUser").getID(),
+        ee = new Set(),
+        te = babelHelpers.extends({}, r("cometRouterConstants"), R),
+        ne = T != null ? T : r("CometNavigationTracingQPLEvents").navigation,
+        re = o("buildCometRouter.shared").buildCometRouterShared(
+          d != null ? d : r("CurrentUser").getID(),
           {
             hasNoMemoryConcern: r("CometRouterMemoryUtils").hasNoMemoryConcern,
             updateAndInformMaintainedTabs:
@@ -163,20 +160,20 @@ __d(
                 ? void 0
                 : n("cr:20394").updateAndInformMaintainedTabs,
           },
-          k,
+          E,
         ),
-        ae = oe.routerStatusManager,
-        ie = oe.maintainedStateManager,
-        le = oe.defaultContext,
-        se = null,
-        ue = !1,
-        ce = function () {
-          return r("getNonNullRouterState")(K);
+        oe = re.routerStatusManager,
+        ae = re.maintainedStateManager,
+        ie = re.defaultContext,
+        le = null,
+        se = !1,
+        ue = function () {
+          return r("getNonNullRouterState")(j);
         },
-        de = oe.setMaintainedState;
-      function me(e, t) {
-        oe.setCurrentRouterState(e, {
-          currentRouterState: K,
+        ce = re.setMaintainedState;
+      function de(t, o) {
+        re.setCurrentRouterState(t, {
+          currentRouterState: j,
           debugUtils: {
             setTabKeyToRouteKeyMap:
               n("cr:20394") == null
@@ -186,43 +183,43 @@ __d(
               n("cr:20394") == null ? void 0 : n("cr:20394").updateInfo,
           },
           getRouteKey: function () {
-            var e,
-              t,
-              n = (u || (u = r("ExecutionEnvironment"))).canUseDOM
-                ? (e = ee) == null
+            var t,
+              n,
+              o = (e || (e = r("ExecutionEnvironment"))).canUseDOM
+                ? (t = Z) == null
                   ? void 0
-                  : e.getState()
+                  : t.getState()
                 : null;
-            return (t = n == null ? void 0 : n.key) != null
-              ? t
-              : ne.INIT_ROUTE_KEY;
+            return (n = o == null ? void 0 : o.key) != null
+              ? n
+              : te.INIT_ROUTE_KEY;
           },
-          keyToRouteStateMap: G,
-          preventMaintain: t,
-          setMaintainedState: de,
+          keyToRouteStateMap: H,
+          preventMaintain: o,
+          setMaintainedState: ce,
           updateCurrentRouterState: function (t, n) {
-            ((K = t), (Q = n));
+            ((j = t), (K = n));
           },
         });
       }
-      function pe() {
-        return (u || (u = r("ExecutionEnvironment"))).canUseDOM ? _e : null;
+      function me() {
+        return (e || (e = r("ExecutionEnvironment"))).canUseDOM ? pe : null;
       }
-      function _e() {
-        var e;
+      function pe() {
+        var t;
         if (
-          ((Z = null),
+          ((J = null),
           !o("cometRouterPopStateInterceptor").popStateInterceptorDidHandle())
         ) {
-          var t = (u || (u = r("ExecutionEnvironment"))).canUseDOM
-              ? (e = ee) == null
+          var n = (e || (e = r("ExecutionEnvironment"))).canUseDOM
+              ? (t = Z) == null
                 ? void 0
-                : e.getState()
+                : t.getState()
               : null,
-            n = t == null ? void 0 : t.key;
-          if (n == null || !G[n]) {
-            Ne.withContext({
-              from: o("buildCometRouter.shared").getDispatchedFrom(ce),
+            i = n == null ? void 0 : n.key;
+          if (i == null || !H[i]) {
+            xe.withContext({
+              from: o("buildCometRouter.shared").getDispatchedFrom(ue),
             }).go(
               "" +
                 window.location.pathname +
@@ -232,55 +229,55 @@ __d(
             );
             return;
           }
-          ae.startNavigation();
-          var i = G[n],
-            l = r(
+          oe.startNavigation();
+          var l = H[i],
+            s = r(
               "cometRouterSetOriginalReferrerWithNavigationTypeAndInteraction",
-            )(r("getTopMostRoute")(ce()), i, "popstate", T),
-            s = l,
-            c = s.pushViewStack;
-          if (c != null && te.has(c[c.length - 1].key)) return Te();
-          if (z[n]) {
-            var m = z[n];
-            l = babelHelpers.extends({}, l, { focusReturnRef: m });
+            )(r("getTopMostRoute")(ue()), l, "popstate", I),
+            c = s,
+            d = c.pushViewStack;
+          if (d != null && ee.has(d[d.length - 1].key)) return Ee();
+          if (G[i]) {
+            var m = G[i];
+            s = babelHelpers.extends({}, s, { focusReturnRef: m });
           }
-          var p = r("getTopMostRoute")(l),
-            _ = r("getTopMostRouteInfo")(l),
+          var p = r("getTopMostRoute")(s),
+            _ = r("getTopMostRouteInfo")(s),
             f = function () {
               var e = function (t) {
-                (ie.isMaintained(
+                (ae.isMaintained(
                   o("buildCometRouter.shared").getMaintainKey(p),
                 ) &&
                   (t == null || t.addMetadata("maintained", "true")),
-                  K &&
-                    K.pushViewStack &&
-                    (l.pushViewStack == null ||
-                      K.pushViewStack.length > l.pushViewStack.length) &&
+                  j &&
+                    j.pushViewStack &&
+                    (s.pushViewStack == null ||
+                      j.pushViewStack.length > s.pushViewStack.length) &&
                     (t == null || t.addMetadata("closed_push_view", 1)));
                 var e = r("getInstanceIdentifierFromRoute")(p);
                 if (
                   (e != null && (t == null || t.setInstanceIdentifier(e)),
                   t == null || t.addMetadata("navigation_event", "onPopState"),
                   t == null || t.addMetadata("navigation_source", "popState"),
-                  fe(l, null, t, !1, null),
-                  n !== ne.INIT_ROUTE_KEY && _.skipNotifyServer !== !0)
+                  _e(s, null, t, !1, null),
+                  i !== te.INIT_ROUTE_KEY && _.skipNotifyServer !== !0)
                 ) {
-                  var i,
-                    s =
-                      _ == null || (i = _.referrer) == null
+                  var n,
+                    l =
+                      _ == null || (n = _.referrer) == null
                         ? void 0
-                        : i.actorID;
+                        : n.actorID;
                   r("performRouteConsistencyPingback")(
                     p.url,
                     p,
-                    s,
+                    l,
                     function () {
-                      return n !== Q;
+                      return i !== K;
                     },
                     function (e) {
-                      Ne.withContext({
+                      xe.withContext({
                         from: o("buildCometRouter.shared").getDispatchedFrom(
-                          ce,
+                          ue,
                         ),
                       }).go(e.url, {
                         navigationType: "popstate",
@@ -290,47 +287,47 @@ __d(
                       });
                     },
                     a,
-                    H,
+                    V,
                   );
                 }
               };
-              if (T) e(null);
+              if (I) e(null);
               else {
                 var t,
-                  i = Ie != null ? Ie : (d || (d = r("performanceNow")))();
-                ((Ie = null),
+                  n = Le != null ? Le : (u || (u = r("performanceNow")))();
+                ((Le = null),
                   o("CometNavigationTracing").traceNavigation(
                     p.url,
                     p,
-                    i,
+                    n,
                     e,
                     (t = _.navigationInteractionID) != null ? t : void 0,
-                    re,
-                    O,
-                    V,
+                    ne,
+                    F,
+                    U,
                   ));
               }
             };
-          if (Q != null) {
-            var g = o("cometRouterUnloadHookUtils").runUnloadHooks(ce(), i);
-            if (g != null && se != null) {
+          if (K != null) {
+            var g = o("cometRouterUnloadHookUtils").runUnloadHooks(ue(), l);
+            if (g != null && le != null) {
               var h = function () {
                 var e;
-                (e = ee) == null ||
+                (e = Z) == null ||
                   e.pushState(
-                    [{ key: Q != null ? Q : " No route key" }, null, X],
+                    [{ key: K != null ? K : " No route key" }, null, Q],
                     !1,
                   );
               };
-              return Le(g, h, f);
+              return ve(g, h, f);
             }
           }
           f();
         }
       }
-      function fe(e, t, a, i, s, u) {
-        (u === void 0 && (u = !1),
-          oe.loadingDone(
+      function _e(e, t, a, i, s, c) {
+        (c === void 0 && (c = !1),
+          re.loadingDone(
             e,
             {
               onAfterStateUpdate: function (t) {
@@ -339,7 +336,7 @@ __d(
                     a.addMarkerPoint(
                       "RouterState_Updated",
                       "AppTiming",
-                      (d || (d = r("performanceNow")))(),
+                      (u || (u = r("performanceNow")))(),
                     ),
                   l !== !0)
                 ) {
@@ -355,28 +352,28 @@ __d(
                 }
               },
               onBeforeStateUpdate: function () {
-                Y && (Y.cancel(), (Y = null));
+                X && (X.cancel(), (X = null));
               },
               onStateUpdateCommitted: function () {
                 a == null ||
                   a.addMarkerPoint(
                     "RouterState_Committed",
                     "AppTiming",
-                    (d || (d = r("performanceNow")))(),
+                    (u || (u = r("performanceNow")))(),
                   );
               },
-              setCurrentRouterState: me,
+              setCurrentRouterState: de,
             },
             t,
             i,
             s,
-            u,
+            c,
           ));
       }
-      function ge(e) {
+      function fe(e) {
         var t;
-        te.add(e);
-        var n = ce(),
+        ee.add(e);
+        var n = ue(),
           r =
             (t = n.pushViewStack) == null
               ? void 0
@@ -384,543 +381,482 @@ __d(
                   return t.key !== e;
                 }),
           a =
-            ae.getCurrentStatus() ===
+            oe.getCurrentStatus() ===
             o("CometRouter.flow").RouterStatus.NO_ACTIVE_NAVIGATION;
-        (fe(
+        (_e(
           babelHelpers.extends({}, n, { pushViewStack: r }),
           null,
           null,
           !1,
           null,
         ),
-          a && oe.markNavigationAsCommitted(n.routeKey));
+          a && re.markNavigationAsCommitted(n.routeKey));
       }
-      function he(e) {
-        return r("cometRouterPrefetchRouteDefinition")(e, a, H);
+      function ge(e) {
+        return r("cometRouterPrefetchRouteDefinition")(e, a, V);
       }
-      function ye(e, t, n) {
-        var o = babelHelpers.extends({}, le, n);
-        return r("cometRouterPreloadRouteCode")(e, t, o, ce(), a, H);
+      function he(e, t, n) {
+        var o = babelHelpers.extends({}, ie, n);
+        return r("cometRouterPreloadRouteCode")(e, t, o, ue(), a, V);
       }
-      function Ce(e, t, n, i) {
+      function ye(e, t, n, i) {
         (t === void 0 && (t = { navigationType: "navigation", replace: !1 }),
           i === void 0 && (i = {}));
-        var l = babelHelpers.extends({}, le, i);
+        var l = babelHelpers.extends({}, ie, i);
         return (
-          (Y = r("cometRouterPrefetchRouteQueries")(
+          (X = r("cometRouterPrefetchRouteQueries")(
             e,
             t,
             l,
-            ce,
+            ue,
             a,
+            P,
             N,
-            M,
-            H,
-            S,
+            V,
+            v,
             n,
             function (e) {
-              return ie.getMaintainableWithKey(
+              return ae.getMaintainableWithKey(
                 o("buildCometRouter.shared").getMaintainKey(e),
               );
             },
           )),
-          Y
+          X
         );
       }
-      function be(e, t, n, r) {
-        return ve.apply(this, arguments);
-      }
-      function ve() {
-        return (
-          (ve = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (t, a, i, l) {
-              i === void 0 && (i = Object.freeze({}));
-              var s = babelHelpers.extends({}, le, l),
-                u = r("normalizeCometRouterUrl")(t);
-              yield new (e || (e = n("Promise")))(function (e) {
-                var t = function (t) {
-                  i.traceApi != null || T
-                    ? t(i.traceApi)
-                    : o("CometNavigationTracing").traceNavigation(
-                        u,
-                        a,
-                        i.eventTimestamp,
-                        t,
-                        void 0,
-                        re,
-                        O,
-                        V,
-                      );
-                };
-                t(function (t) {
-                  e(Se(u, a, i, s, t));
-                });
-              });
-            },
-          )),
-          ve.apply(this, arguments)
-        );
-      }
-      function Se(e, t, n, r, o) {
-        return Re.apply(this, arguments);
-      }
-      function Re() {
-        return (
-          (Re = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, l, s) {
-              var u,
-                c = o("ConstUriUtils").getUri(e);
-              if (
-                (c != null &&
-                  c.getPath() === "/undefined" &&
-                  r("FBLogger")("comet_infra").mustfix(
-                    "/undefined was passed a url to the Comet Router. Please make sure you're building a URL using RouteBuilders",
-                    "comet_infra",
-                  ),
-                !r("isCometRouterUrl")(e))
-              ) {
-                r("FBLogger")("comet_infra")
-                  .addToCategoryKey("non_comet_route_url")
-                  .debug(
-                    "Cannot use Comet Router to navigate to a non-router URL",
-                  );
-                return;
-              }
-              if (ue) {
-                s == null || s.cancelTrace("dropped", !0);
-                return;
-              }
-              var m =
-                W == null || W.onBeforeNavigation == null
-                  ? void 0
-                  : W.onBeforeNavigation(e);
-              if (m != null && m.handled) {
-                s == null || s.cancelTrace("dropped", !0);
-                return;
-              }
-              var g = oe.prepareNavigationContext(e, n, l, {
-                  getCurrentRouterState: ce,
-                }),
-                h = g.dispatchedFrom,
-                y = g.navigationKey,
-                C = g.previousRouterState,
-                b = g.url,
-                v = r("cometRouterAdjustExtraConfigForRoute")(
-                  b,
+      async function Ce(e, t, n, a) {
+        n === void 0 && (n = Object.freeze({}));
+        var i = babelHelpers.extends({}, ie, a),
+          l = r("normalizeCometRouterUrl")(e);
+        await new Promise(function (e) {
+          var r = function (r) {
+            n.traceApi != null || I
+              ? r(n.traceApi)
+              : o("CometNavigationTracing").traceNavigation(
                   l,
-                  g.extras,
-                  C,
-                ),
-                L = t != null ? t : a.getRoute(b),
-                E =
-                  ne.RELOAD_RESOURCE_THRESHOLD >= 0 &&
-                  Date.now() - ne.RESOURCE_LOAD_EPOCH >
-                    ne.RELOAD_RESOURCE_THRESHOLD,
-                I =
-                  (u =
-                    L == null
-                      ? void 0
-                      : L.navigatonForcedRefreshNavigationCountThreshold) !=
-                  null
-                    ? u
-                    : ne.NAVIGATION_COUNT_THRESHOLD,
-                D = I >= 0 && J >= I,
-                x = null,
-                $ = _(L),
-                P = ne.REFRESH_ON_CLIENT_CONSISTENCY
-                  ? r("ClientConsistency").getPendingRefresh()
-                  : null;
-              if (
-                ($
-                  ? P != null
-                    ? f(L, P) &&
-                      ((x = P), r("CometClientConsistency").logRefreshOnNav(x))
-                    : D
-                      ? (x = "navigation_limit")
-                      : E && (x = "session_time_limit")
-                  : (x = null),
-                x != null &&
-                  r("SiteData").push_phase === "TS" &&
-                  !f(L, x) &&
-                  (x = null),
-                x != null)
-              ) {
-                if (
-                  (s == null ||
-                    s.setTracePolicy(L == null ? void 0 : L.tracePolicy),
-                  (L == null ? void 0 : L.type) === "valid_route")
-                ) {
-                  var w = L.canonicalRouteName;
-                  w != null &&
-                    (s == null || s.addMetadata("canonical_route", w));
-                }
-                return (
-                  s == null || s.cancelTrace("refresh:" + x, !0),
-                  r("cometRouterNavigateOnWindow")(
-                    j.getUrlWithPersistentParams(b),
-                    x,
-                    v.replace,
-                  )
-                );
-              }
-              var A = v.force,
-                F = v.linkRef,
-                O = v.navigationType,
-                q = v.onNavigate_DEPRECATED_FIXME,
-                U = v.onNavigationTransitioning,
-                V = v.onTransitionOptimistic,
-                K = v.passthroughProps,
-                Y = v.previousActorID,
-                Z = v.productAttributionUpdateProps,
-                re = v.replace,
-                le = re === void 0 ? !1 : re,
-                de = v.skipNotifyServer,
-                me = de === void 0 ? !1 : de,
-                pe = v.target,
-                _e = v.traceParams,
-                he = { key: y };
-              function ye(e, t, n) {
-                var a = j.getUrlWithPersistentParams(e),
-                  i = "",
-                  l = o("ConstUriUtils").getUri(a);
-                if (l != null) {
-                  var s,
-                    u = r("cometRouterCleanURLSearchParameters")(l, t, B);
-                  i = (s = u == null ? void 0 : u.toString()) != null ? s : "";
-                }
-                if (n) {
-                  var c;
-                  (c = ee) == null || c.replaceState([he, null, i], !1);
-                } else {
-                  var d;
-                  (d = ee) == null || d.pushState([he, null, i], !1);
-                }
-                X = a;
-              }
-              if (
-                (F != null && Q != null && (z[Q] = F),
-                (G[y] = C),
-                s == null ||
-                  s.addMetadata("comet_env", r("SiteData").comet_env),
-                s == null ||
-                  s.addMarkerPoint(
-                    "RouterState_FetchRouteStart",
-                    "AppTiming",
-                    (d || (d = r("performanceNow")))(),
-                  ),
-                (L == null ? void 0 : L.type) === "valid_route")
-              )
-                (s == null ||
-                  s.addMarkerPoint(
-                    "RouterState_FetchRouteEnd",
-                    "AppTiming",
-                    (d || (d = r("performanceNow")))(),
-                  ),
-                  Ee(L, e),
-                  !me && Re(L));
-              else {
-                s == null || s.addMetadata("unfetched_rd", 1);
-                var Ce = ae.fetchingRoute();
-                try {
-                  var be,
-                    ve = yield a.fetchForNavigation(
-                      e,
-                      Y,
-                      (be = r("getTopMostRoute")(C)) == null
-                        ? void 0
-                        : be.tracePolicy,
-                      H,
-                    );
-                  s == null ||
-                    s.addMarkerPoint(
-                      "RouterState_FetchRouteEnd",
-                      "AppTiming",
-                      (d || (d = r("performanceNow")))(),
-                    );
-                  var Se = ve.route;
-                  Ce.canceled
-                    ? q == null || q(!1)
-                    : Se.type !== "valid_route"
-                      ? (s == null || s.cancelTrace("invalid_route", !0),
-                        r("cometRouterNavigateOnWindow")(
-                          Se.url,
-                          "unmatched",
-                          le,
-                        ),
-                        ae.resetRouterStatus(),
-                        q == null || q(!0))
-                      : (Ee(
-                          Se,
-                          e,
-                          !1,
-                          ve.initialTimeSpentMetaData,
-                          ve.backgroundInitialTimeSpentMetaData,
-                        ),
-                        Re(Se));
-                } catch (t) {
-                  (Ce.canceled
-                    ? q == null || q(!1)
-                    : Ee(r("buildCometErrorRoute")(e, H), e),
-                    r("FBLogger")("comet_infra")
-                      .catching(r("getErrorSafe")(t))
-                      .mustfix(
-                        "An error occured fetching a comet route for url: %s",
-                        e,
-                      ));
-                }
-              }
-              function Re(t) {
-                r("performRouteConsistencyPingback")(
-                  e,
                   t,
-                  Y,
-                  function () {
-                    return y !== Q;
-                  },
-                  function (t) {
-                    return Ee(t, e, !0);
-                  },
-                  a,
-                  H,
+                  n.eventTimestamp,
+                  r,
+                  void 0,
+                  ne,
+                  F,
+                  U,
                 );
-              }
-              function Ee(e, t, n, u, c) {
-                var d, m, f, g, b;
-                (n === void 0 && (n = !1),
-                  o("cometRouterSubdomainUtils").checkSubdomainMismatch(e));
-                var L = r("getInstanceIdentifierFromRoute")(e);
-                (L != null && (s == null || s.setInstanceIdentifier(L)),
-                  s == null || s.setTracePolicy(e.tracePolicy));
-                var E = r("cometRouterSelectNavigation")(e, pe, h, ce(), a, i),
-                  I = E.target,
-                  D = I.route,
-                  x = I.view,
-                  $ = (d = E.modal) != null ? d : {},
-                  P = $.route,
-                  w = $.view,
-                  F = c != null ? c : u,
-                  B = c != null ? u : null,
-                  W =
-                    (m = N(
-                      E,
-                      F != null ? F : null,
-                      B != null ? B : null,
-                      M,
-                      v,
-                      function (e) {
-                        return ie.getMaintainableWithKey(
-                          o("buildCometRouter.shared").getMaintainKey(e),
-                        );
-                      },
-                      ce,
-                      S,
-                    )) != null
-                      ? m
-                      : {},
-                  G = W.mainEntryPointContainer,
-                  z = W.mainTimeSpentMetaData,
-                  j = W.modalEntryPointContainer,
-                  Q = W.modalTimeSpentMetaData;
-                (((f = x == null ? void 0 : x.allResources) != null ? f : [])
-                  .concat(
-                    (g = w == null ? void 0 : w.allResources) != null ? g : [],
-                  )
-                  .forEach(function (e) {
-                    return e.preload();
-                  }),
-                  r("Bootloader").forceFlush());
-                var X = r("cometRouterIsNavigationRefresh")(
-                  P != null ? P : D,
-                  ce(),
-                );
-                (X && (s == null || s.addMetadata("refresh", 1)),
-                  ie.isMaintained(
-                    o("buildCometRouter.shared").getMaintainKey(D),
-                  ) &&
-                    (s == null || s.addMetadata("maintained", "true")),
-                  D.params.thread_key != null &&
-                    s != null &&
-                    o("MWChatInteraction").set(
-                      String(D.params.thread_key),
-                      s.getTraceId(),
-                    ),
-                  D.params.folder_id != null &&
-                    D.params.thread_key == null &&
-                    (s == null || s.addMetadata("is_community", !0)));
-                var Y = o("buildCometRouter.shared").buildRouteInfoExtras(
-                    D,
-                    z,
-                    P,
-                    Q,
-                    E,
-                    l,
-                    {
-                      entryPointContainer: G,
-                      getCurrentRouterState: ce,
-                      maintainedStateManager: ie,
-                      modalEntryPointContainer: j,
-                      navigationInteractionID: T
-                        ? void 0
-                        : r(
-                            "CometHeroLogging",
-                          ).genHeroInteractionUUIDAndMarkStart(
-                            s == null ? void 0 : s.getTraceId(),
-                          ),
-                      navigationType: O,
-                      passthroughProps: K,
-                      previousRouterState: C,
-                      skipNotifyServer: me,
-                    },
-                  ),
-                  ee = Y.mainRouteInfoExtras,
-                  ne = Y.modalRouteInfoExtras,
-                  re,
-                  oe =
-                    e.canonicalUrl != null && e.canonicalUrl !== ""
-                      ? e.canonicalUrl
-                      : (b = e.url) != null
-                        ? b
-                        : t;
-                try {
-                  if (
-                    ((re = r("cometRouterReducer")(
-                      y,
-                      C,
-                      {
-                        __type: E.action,
-                        payload: {
-                          dispatchedFrom: h,
-                          productAttributionUpdateProps: Z,
-                          pushViewStackLimit: R,
-                          routeInfoExtras: ee,
-                          to: D,
-                          wasHistoryReplaced: le || n,
-                        },
-                      },
-                      te,
-                      ge,
-                    )),
-                    P != null && ne != null)
-                  ) {
-                    var ae =
-                      E.action === "loadTab"
-                        ? "rootView"
-                        : E.action === "loadHosted"
-                          ? "hostedView"
-                          : "pushView";
-                    re = r("cometRouterReducer")(
-                      y,
-                      re,
-                      {
-                        __type: "addPushView",
-                        payload: {
-                          dispatchedFrom: ae,
-                          productAttributionUpdateProps: Z,
-                          pushViewStackLimit: R,
-                          routeInfoExtras: ne,
-                          to: P,
-                          wasHistoryReplaced: !1,
-                        },
-                      },
-                      te,
-                      ge,
-                    );
-                  }
-                } catch (e) {
-                  (r("FBLogger")("comet_infra")
-                    .catching(r("getErrorSafe")(e))
-                    .mustfix(
-                      "Error determining router state, redirecting to Comet Error page",
-                    ),
-                    (re = r("cometRouterBuildErrorRouteState")(
-                      C,
-                      y,
-                      oe,
-                      ne != null ? ne : ee,
-                      h,
-                      H,
-                    )));
-                }
-                var ue = o("RouterViewTypes").actionToViewType[E.action];
-                if (
-                  (s == null || s.addMetadata("view_type", ue), ue === "hosted")
-                ) {
-                  var de;
-                  s == null ||
-                    s.addMetadata(
-                      "host_route",
-                      (de = re.main.route.tracePolicy) != null ? de : "",
-                    );
-                }
-                E.action === "addPushView" &&
-                  re.pushViewStack != null &&
-                  (s == null ||
-                    s.addMetadata("push_view_count", re.pushViewStack.length));
-                for (var he in _e) s == null || s.addMetadata(he, _e[he]);
-                var Ce = function () {
-                    var t = e.canonicalRouteName;
-                    (t != null &&
-                      (s == null || s.addMetadata("canonical_route", t)),
-                      pe !== "self" &&
-                        _(e) &&
-                        (J++,
-                        r("CometRouterMemoryUtils").logNavigationCount(J)),
-                      ye(oe, e.stripParams, le || n),
-                      fe(
-                        re,
-                        q,
-                        s,
-                        !0,
-                        U,
-                        v == null ? void 0 : v.preventMaintain,
-                      ));
-                  },
-                  be = o("cometRouterUnloadHookUtils").runUnloadHooks(
-                    ce(),
-                    re,
-                    A,
-                  );
-                if (A !== !0 && be != null && se != null) {
-                  var ve = function () {
-                      q == null || q(!1);
-                    },
-                    Se = function () {
-                      var e = function () {
-                        (V == null || V(), Ce());
-                      };
-                      k
-                        ? e()
-                        : p(function () {
-                            e();
-                          });
-                    };
-                  return (
-                    s == null ||
-                      s.addMetadata("onbeforeunload_dialog_triggered", 1),
-                    s == null || s.cancelTrace("dropped", !0),
-                    Le(be, ve, Se)
-                  );
-                }
-                Ce();
-              }
-            },
-          )),
-          Re.apply(this, arguments)
-        );
+          };
+          r(function (r) {
+            e(be(l, t, n, i, r));
+          });
+        });
       }
-      function Le(e, t, n) {
-        var o = se;
+      async function be(e, t, n, l, s) {
+        var c,
+          d = o("ConstUriUtils").getUri(e);
+        if (
+          (d != null &&
+            d.getPath() === "/undefined" &&
+            r("FBLogger")("comet_infra").mustfix(
+              "/undefined was passed a url to the Comet Router. Please make sure you're building a URL using RouteBuilders",
+              "comet_infra",
+            ),
+          !r("isCometRouterUrl")(e))
+        ) {
+          r("FBLogger")("comet_infra")
+            .addToCategoryKey("non_comet_route_url")
+            .debug("Cannot use Comet Router to navigate to a non-router URL");
+          return;
+        }
+        if (se) {
+          s == null || s.cancelTrace("dropped", !0);
+          return;
+        }
+        var f =
+          B == null || B.onBeforeNavigation == null
+            ? void 0
+            : B.onBeforeNavigation(e);
+        if (f != null && f.handled) {
+          s == null || s.cancelTrace("dropped", !0);
+          return;
+        }
+        var g = re.prepareNavigationContext(e, n, l, {
+            getCurrentRouterState: ue,
+          }),
+          h = g.dispatchedFrom,
+          y = g.navigationKey,
+          C = g.previousRouterState,
+          b = g.url,
+          R = r("cometRouterAdjustExtraConfigForRoute")(b, l, g.extras, C),
+          L = t != null ? t : a.getRoute(b),
+          k =
+            te.RELOAD_RESOURCE_THRESHOLD >= 0 &&
+            Date.now() - te.RESOURCE_LOAD_EPOCH > te.RELOAD_RESOURCE_THRESHOLD,
+          T =
+            (c =
+              L == null
+                ? void 0
+                : L.navigatonForcedRefreshNavigationCountThreshold) != null
+              ? c
+              : te.NAVIGATION_COUNT_THRESHOLD,
+          D = T >= 0 && Y >= T,
+          x = null,
+          $ = p(L),
+          M = te.REFRESH_ON_CLIENT_CONSISTENCY
+            ? r("ClientConsistency").getPendingRefresh()
+            : null;
+        if (
+          ($
+            ? M != null
+              ? _(L, M) &&
+                ((x = M), r("CometClientConsistency").logRefreshOnNav(x))
+              : D
+                ? (x = "navigation_limit")
+                : k && (x = "session_time_limit")
+            : (x = null),
+          x != null &&
+            r("SiteData").push_phase === "TS" &&
+            !_(L, x) &&
+            (x = null),
+          x != null)
+        ) {
+          if (
+            (s == null || s.setTracePolicy(L == null ? void 0 : L.tracePolicy),
+            (L == null ? void 0 : L.type) === "valid_route")
+          ) {
+            var w = L.canonicalRouteName;
+            w != null && (s == null || s.addMetadata("canonical_route", w));
+          }
+          return (
+            s == null || s.cancelTrace("refresh:" + x, !0),
+            r("cometRouterNavigateOnWindow")(
+              z.getUrlWithPersistentParams(b),
+              x,
+              R.replace,
+            )
+          );
+        }
+        var A = R.force,
+          F = R.linkRef,
+          W = R.navigationType,
+          q = R.onNavigate_DEPRECATED_FIXME,
+          U = R.onNavigationTransitioning,
+          j = R.onTransitionOptimistic,
+          X = R.passthroughProps,
+          J = R.previousActorID,
+          ne = R.productAttributionUpdateProps,
+          ie = R.replace,
+          ce = ie === void 0 ? !1 : ie,
+          de = R.skipNotifyServer,
+          me = de === void 0 ? !1 : de,
+          pe = R.target,
+          ge = R.traceParams,
+          he = { key: y };
+        function ye(e, t, n) {
+          var a = z.getUrlWithPersistentParams(e),
+            i = "",
+            l = o("ConstUriUtils").getUri(a);
+          if (l != null) {
+            var s,
+              u = r("cometRouterCleanURLSearchParameters")(l, t, O);
+            i = (s = u == null ? void 0 : u.toString()) != null ? s : "";
+          }
+          if (n) {
+            var c;
+            (c = Z) == null || c.replaceState([he, null, i], !1);
+          } else {
+            var d;
+            (d = Z) == null || d.pushState([he, null, i], !1);
+          }
+          Q = a;
+        }
+        if (
+          (F != null && K != null && (G[K] = F),
+          (H[y] = C),
+          s == null || s.addMetadata("comet_env", r("SiteData").comet_env),
+          s == null ||
+            s.addMarkerPoint(
+              "RouterState_FetchRouteStart",
+              "AppTiming",
+              (u || (u = r("performanceNow")))(),
+            ),
+          (L == null ? void 0 : L.type) === "valid_route")
+        )
+          (s == null ||
+            s.addMarkerPoint(
+              "RouterState_FetchRouteEnd",
+              "AppTiming",
+              (u || (u = r("performanceNow")))(),
+            ),
+            Ee(L, e),
+            !me && Le(L));
+        else {
+          s == null || s.addMetadata("unfetched_rd", 1);
+          var Ce = oe.fetchingRoute();
+          try {
+            var be,
+              Se = await a.fetchForNavigation(
+                e,
+                J,
+                (be = r("getTopMostRoute")(C)) == null
+                  ? void 0
+                  : be.tracePolicy,
+                V,
+              );
+            s == null ||
+              s.addMarkerPoint(
+                "RouterState_FetchRouteEnd",
+                "AppTiming",
+                (u || (u = r("performanceNow")))(),
+              );
+            var Re = Se.route;
+            Ce.canceled
+              ? q == null || q(!1)
+              : Re.type !== "valid_route"
+                ? (s == null || s.cancelTrace("invalid_route", !0),
+                  r("cometRouterNavigateOnWindow")(Re.url, "unmatched", ce),
+                  oe.resetRouterStatus(),
+                  q == null || q(!0))
+                : (Ee(
+                    Re,
+                    e,
+                    !1,
+                    Se.initialTimeSpentMetaData,
+                    Se.backgroundInitialTimeSpentMetaData,
+                  ),
+                  Le(Re));
+          } catch (t) {
+            (Ce.canceled
+              ? q == null || q(!1)
+              : Ee(r("buildCometErrorRoute")(e, V), e),
+              r("FBLogger")("comet_infra")
+                .catching(r("getErrorSafe")(t))
+                .mustfix(
+                  "An error occured fetching a comet route for url: %s",
+                  e,
+                ));
+          }
+        }
+        function Le(t) {
+          r("performRouteConsistencyPingback")(
+            e,
+            t,
+            J,
+            function () {
+              return y !== K;
+            },
+            function (t) {
+              return Ee(t, e, !0);
+            },
+            a,
+            V,
+          );
+        }
+        function Ee(e, t, n, u, c) {
+          var d, _, f, g, b;
+          (n === void 0 && (n = !1),
+            o("cometRouterSubdomainUtils").checkSubdomainMismatch(e));
+          var L = r("getInstanceIdentifierFromRoute")(e);
+          (L != null && (s == null || s.setInstanceIdentifier(L)),
+            s == null || s.setTracePolicy(e.tracePolicy));
+          var k = r("cometRouterSelectNavigation")(e, pe, h, ue(), a, i),
+            T = k.target,
+            D = T.route,
+            x = T.view,
+            $ = (d = k.modal) != null ? d : {},
+            M = $.route,
+            w = $.view,
+            F = c != null ? c : u,
+            O = c != null ? u : null,
+            B =
+              (_ = P(
+                k,
+                F != null ? F : null,
+                O != null ? O : null,
+                N,
+                R,
+                function (e) {
+                  return ae.getMaintainableWithKey(
+                    o("buildCometRouter.shared").getMaintainKey(e),
+                  );
+                },
+                ue,
+                v,
+              )) != null
+                ? _
+                : {},
+            H = B.mainEntryPointContainer,
+            G = B.mainTimeSpentMetaData,
+            z = B.modalEntryPointContainer,
+            K = B.modalTimeSpentMetaData;
+          (((f = x == null ? void 0 : x.allResources) != null ? f : [])
+            .concat((g = w == null ? void 0 : w.allResources) != null ? g : [])
+            .forEach(function (e) {
+              return e.preload();
+            }),
+            r("Bootloader").forceFlush());
+          var Q = r("cometRouterIsNavigationRefresh")(M != null ? M : D, ue());
+          (Q && (s == null || s.addMetadata("refresh", 1)),
+            ae.isMaintained(o("buildCometRouter.shared").getMaintainKey(D)) &&
+              (s == null || s.addMetadata("maintained", "true")),
+            D.params.thread_key != null &&
+              s != null &&
+              o("MWChatInteraction").set(
+                String(D.params.thread_key),
+                s.getTraceId(),
+              ),
+            D.params.folder_id != null &&
+              D.params.thread_key == null &&
+              (s == null || s.addMetadata("is_community", !0)));
+          var J = o("buildCometRouter.shared").buildRouteInfoExtras(
+              D,
+              G,
+              M,
+              K,
+              k,
+              l,
+              {
+                entryPointContainer: H,
+                getCurrentRouterState: ue,
+                maintainedStateManager: ae,
+                modalEntryPointContainer: z,
+                navigationInteractionID: I
+                  ? void 0
+                  : r("CometHeroLogging").genHeroInteractionUUIDAndMarkStart(
+                      s == null ? void 0 : s.getTraceId(),
+                    ),
+                navigationType: W,
+                passthroughProps: X,
+                previousRouterState: C,
+                skipNotifyServer: me,
+              },
+            ),
+            Z = J.mainRouteInfoExtras,
+            te = J.modalRouteInfoExtras,
+            re,
+            oe =
+              e.canonicalUrl != null && e.canonicalUrl !== ""
+                ? e.canonicalUrl
+                : (b = e.url) != null
+                  ? b
+                  : t;
+          try {
+            if (
+              ((re = r("cometRouterReducer")(
+                y,
+                C,
+                {
+                  __type: k.action,
+                  payload: {
+                    dispatchedFrom: h,
+                    productAttributionUpdateProps: ne,
+                    pushViewStackLimit: S,
+                    routeInfoExtras: Z,
+                    to: D,
+                    wasHistoryReplaced: ce || n,
+                  },
+                },
+                ee,
+                fe,
+              )),
+              M != null && te != null)
+            ) {
+              var ie =
+                k.action === "loadTab"
+                  ? "rootView"
+                  : k.action === "loadHosted"
+                    ? "hostedView"
+                    : "pushView";
+              re = r("cometRouterReducer")(
+                y,
+                re,
+                {
+                  __type: "addPushView",
+                  payload: {
+                    dispatchedFrom: ie,
+                    productAttributionUpdateProps: ne,
+                    pushViewStackLimit: S,
+                    routeInfoExtras: te,
+                    to: M,
+                    wasHistoryReplaced: !1,
+                  },
+                },
+                ee,
+                fe,
+              );
+            }
+          } catch (e) {
+            (r("FBLogger")("comet_infra")
+              .catching(r("getErrorSafe")(e))
+              .mustfix(
+                "Error determining router state, redirecting to Comet Error page",
+              ),
+              (re = r("cometRouterBuildErrorRouteState")(
+                C,
+                y,
+                oe,
+                te != null ? te : Z,
+                h,
+                V,
+              )));
+          }
+          var se = o("RouterViewTypes").actionToViewType[k.action];
+          if ((s == null || s.addMetadata("view_type", se), se === "hosted")) {
+            var de;
+            s == null ||
+              s.addMetadata(
+                "host_route",
+                (de = re.main.route.tracePolicy) != null ? de : "",
+              );
+          }
+          k.action === "addPushView" &&
+            re.pushViewStack != null &&
+            (s == null ||
+              s.addMetadata("push_view_count", re.pushViewStack.length));
+          for (var he in ge) s == null || s.addMetadata(he, ge[he]);
+          var Ce = function () {
+              var t = e.canonicalRouteName;
+              (t != null && (s == null || s.addMetadata("canonical_route", t)),
+                pe !== "self" &&
+                  p(e) &&
+                  (Y++, r("CometRouterMemoryUtils").logNavigationCount(Y)),
+                ye(oe, e.stripParams, ce || n),
+                _e(re, q, s, !0, U, R == null ? void 0 : R.preventMaintain));
+            },
+            be = o("cometRouterUnloadHookUtils").runUnloadHooks(ue(), re, A);
+          if (A !== !0 && be != null && le != null) {
+            var Se = function () {
+                q == null || q(!1);
+              },
+              Re = function () {
+                var e = function () {
+                  (j == null || j(), Ce());
+                };
+                E
+                  ? e()
+                  : m(function () {
+                      e();
+                    });
+              };
+            return (
+              s == null || s.addMetadata("onbeforeunload_dialog_triggered", 1),
+              s == null || s.cancelTrace("dropped", !0),
+              ve(be, Se, Re)
+            );
+          }
+          Ce();
+        }
+      }
+      function ve(e, t, n) {
+        var o = le;
         if (o == null) {
           r("FBLogger")("comet_infra").warn(
             "No onBeforeUnload Listener but ran onBeforeUnload hooks",
           );
           return;
         }
-        ue = !0;
+        se = !0;
         var a = !1,
           i = function (t) {
             return function () {
-              (t(), (a = !0), (ue = !1));
+              (t(), (a = !0), (se = !1));
             };
           },
           l = i(t),
@@ -946,20 +882,20 @@ __d(
           y = e.warnMessage,
           C = f != null ? c(f, t) : l;
         return o(
-          _ != null ? _ : s._(/*BTDS*/ "Leave Page"),
+          _ != null ? _ : s._(/*BTDS*/ ""),
           p != null ? c(p, n) : u,
-          g != null ? g : s._(/*BTDS*/ "Stay on Page"),
+          g != null ? g : s._(/*BTDS*/ ""),
           C,
-          h != null ? h : s._(/*BTDS*/ "Leave page?"),
+          h != null ? h : s._(/*BTDS*/ ""),
           d != null ? d : y,
           m != null ? c(m, t) : C,
         );
       }
-      function Ee(e) {
+      function Se(e) {
         window.requestAnimationFrame(function () {
           window.requestAnimationFrame(function () {
-            if (Z !== null && Z === e) {
-              var t = ce(),
+            if (J !== null && J === e) {
+              var t = ue(),
                 n = t.hosted,
                 o = t.main,
                 a = t.pushViewStack,
@@ -974,23 +910,23 @@ __d(
           });
         });
       }
-      function ke(e) {
+      function Re(e) {
         if (e < 0) {
           var t;
-          ((Z = r("uuidv4")()), (t = ee) == null || t.go(e));
+          ((J = r("uuidv4")()), (t = Z) == null || t.go(e));
           var n = function () {
-            return Ee(Z);
+            return Se(J);
           };
-          r("setTimeout")(n, ne.POP_STATE_TIMEOUT);
+          r("setTimeout")(n, te.POP_STATE_TIMEOUT);
         } else {
           var o;
-          (o = ee) == null || o.go(e);
+          (o = Z) == null || o.go(e);
         }
       }
-      var Ie = null;
-      function Te(e) {
+      var Le = null;
+      function Ee(e) {
         var t, n, r;
-        ((Ie =
+        ((Le =
           (t =
             (n = e == null ? void 0 : e.eventTimestamp) != null
               ? n
@@ -999,79 +935,84 @@ __d(
                 : r.timeStamp) != null
             ? t
             : null),
-          ke(-1));
+          Re(-1));
       }
-      function De() {
+      function ke() {
         o("buildCometRouter.shared").popPushView(
-          ce,
+          ue,
           function (e, t) {
-            return Ne.goTo(e, t);
+            return xe.goTo(e, t);
           },
           {
             getCurrentRouteStep: function () {
               var e, t;
-              return (e =
-                (t = ee) == null ? void 0 : t.getCurrentRouteStep()) != null
+              return (e = (t = Z) == null ? void 0 : t.getCurrentRouteStep()) !=
+                null
                 ? e
                 : 0;
             },
-            go: ke,
+            go: Re,
           },
         );
       }
-      function xe(e) {
+      function Ie(e) {
         return (
-          (se = e),
+          (le = e),
           {
             cancel: function () {
-              se === e && (se = null);
+              le === e && (le = null);
             },
           }
         );
       }
-      function $e(e) {
-        var t;
+      function Te(t) {
+        var i;
         if (
           (r("cometRouterLogger").log({
             eventName: o("CometRouterLogEventUtils").CometRouterLoggingEvent
               .INIT_ROUTER_START,
           }),
-          D == null &&
-            !T &&
+          T == null &&
+            !I &&
             r("FBLogger")("comet_infra", "qpl_initial_load_undefined").info(
               "No %s QPL event set for trace policy '%s'. Falling back to default.",
               "NAVIGATION",
-              C.tracePolicy,
+              y.tracePolicy,
             ),
           !r("gkx")("20935") &&
-            U &&
+            q &&
             r("FBLogger")("comet_infra")
               .addToCategoryKey("runtime_site_is_not_comet_in_router")
               .mustfix(
                 "CometRouter should only be used in Comet! Using it in Blue may cause unexpected behavior.",
               ),
-          (u || (u = r("ExecutionEnvironment"))).canUseDOM)
+          (e || (e = r("ExecutionEnvironment"))).canUseDOM)
         ) {
-          var i = "",
-            l = o("ConstUriUtils").getUri(window.location.href);
-          if (l != null) {
-            var s = r("cometRouterCleanURLSearchParameters")(
-              l,
-              e.stripParams,
-              B,
+          var l = "",
+            s = o("ConstUriUtils").getUri(window.location.href);
+          if (s != null) {
+            var u = r("cometRouterCleanURLSearchParameters")(
+              s,
+              t.stripParams,
+              O,
             );
-            s != null && (j.setPersistentParams(s), (i = s.toString()));
+            u != null && (z.setPersistentParams(u), (l = u.toString()));
           }
           if (
-            ((ee = o("CometHistoryManager").createHistoryManager(
-              { scrollRestorationBehavior: A },
-              [{ key: ne.INIT_ROUTE_KEY }, null, i],
-              pe(),
+            ((Z = o("CometHistoryManager").createHistoryManager(
+              { scrollRestorationBehavior: w },
+              [{ key: te.INIT_ROUTE_KEY }, null, l],
+              me(),
             )),
-            C.isResolvedRedirect === !0)
+            y.isResolvedRedirect === !0)
           )
             try {
-              ee.replaceState([{ key: ne.INIT_ROUTE_KEY }, null, C.url], !1);
+              var m = y.url;
+              if (!r("gkx")("29872")) {
+                var p = window.location.hash;
+                p !== "" && !m.includes("#") && (m += p);
+              }
+              Z.replaceState([{ key: te.INIT_ROUTE_KEY }, null, m], !1);
             } catch (e) {
               r("FBLogger")(
                 "comet_infra",
@@ -1082,92 +1023,92 @@ __d(
                   "Failed to update URL bar after server-resolved initial-load redirect.",
                 );
             }
-          (n("cr:20394") == null || n("cr:20394").registerHistoryManager(ee),
+          (n("cr:20394") == null || n("cr:20394").registerHistoryManager(Z),
             window.addEventListener(
               "beforeunload",
               o("cometRouterUnloadHookUtils").createOnBeforeUnloadEventHandler(
-                ce,
+                ue,
               ),
             ),
             r("promiseDone")(
-              a.fetchRoute(e.url, H).then(function (e) {
+              a.fetchRoute(t.url, V).then(function (e) {
                 e.onNavigationCallback && e.onNavigationCallback(e);
               }),
             ));
         }
-        var d =
+        var _ =
             typeof (c || (c = r("performance"))).getEntriesByType == "function"
               ? (c || (c = r("performance"))).getEntriesByType("navigation")[0]
               : null,
-          p =
-            (d == null ? void 0 : d.type) === "reload" ||
-            ((t = (c || (c = r("performance"))).navigation) == null
+          b =
+            (_ == null ? void 0 : _.type) === "reload" ||
+            ((i = (c || (c = r("performance"))).navigation) == null
               ? void 0
-              : t.type) === "reload"
+              : i.type) === "reload"
               ? "reload"
               : "initial",
-          _ = {
+          S = {
             getEnvironmentProviderForRoute: function (t) {
-              return r("cometRouterBuildEnvironmentProviderFromRoute")(t, m, M);
+              return r("cometRouterBuildEnvironmentProviderFromRoute")(t, d, N);
             },
-            makeCometRouteContainer: S,
+            makeCometRouteContainer: v,
           };
-        (me(
+        (de(
           r("cometRouterBuildInitialRouterState")(
-            g != null ? g : C,
-            y,
-            g != null ? h : b,
-            g != null ? C : null,
-            g != null ? b : null,
-            _,
-            (u || (u = r("ExecutionEnvironment"))).canUseDOM
+            f != null ? f : y,
+            h,
+            f != null ? g : C,
+            f != null ? y : null,
+            f != null ? C : null,
+            S,
+            (e || (e = r("ExecutionEnvironment"))).canUseDOM
               ? document.referrer
               : null,
-            p,
-            (u || (u = r("ExecutionEnvironment"))).canUseDOM
-              ? ne.INIT_ROUTE_KEY
+            b,
+            (e || (e = r("ExecutionEnvironment"))).canUseDOM
+              ? te.INIT_ROUTE_KEY
               : "initial_ssr",
-            T,
+            I,
           ),
         ),
-          n("cr:20394") == null || n("cr:20394").setAllMaps(G),
+          n("cr:20394") == null || n("cr:20394").setAllMaps(H),
           r("cometRouterLogger").log({
             eventName: o("CometRouterLogEventUtils").CometRouterLoggingEvent
               .INIT_ROUTER_END,
-            routerState: ce(),
+            routerState: ue(),
           }));
       }
-      var Pe = oe.createRouterDispatcher({
-          go: be,
-          goBack: Te,
-          popPushView: De,
-          prefetchRouteDefinition: he,
-          prefetchRouteQueries: Ce,
-          preloadRouteCode: ye,
+      var De = re.createRouterDispatcher({
+          go: Ce,
+          goBack: Ee,
+          popPushView: ke,
+          prefetchRouteDefinition: ge,
+          prefetchRouteQueries: ye,
+          preloadRouteCode: he,
         }),
-        Ne = r("returnDispatcherWithLogging")(
-          new (o("buildCometRouterDispatcher").Dispatcher)(Pe),
-          ce,
+        xe = r("returnDispatcherWithLogging")(
+          new (o("buildCometRouterDispatcher").Dispatcher)(De),
+          ue,
         );
-      n("cr:20394") == null || n("cr:20394").registerDispatcher(Ne);
-      var Me = window.location.href,
-        we = Me != null && Me !== "" ? r("absoluteToRelative")(Me) : C.url,
-        Ae = babelHelpers.extends({}, C, { url: we });
-      $e(Ae);
-      var Fe = {
-        dispatcher: Ne,
-        getCurrentRouterState: ce,
-        getCurrentRouterStatus: oe.routerStatusManager.getCurrentStatus,
-        getMaintainedRouteState: ie.getMaintainedState,
-        listen: oe.addListener,
-        markNavigationAsCommitted_INTERNAL_ONLY: oe.markNavigationAsCommitted,
-        setUnloadListener: xe,
+      n("cr:20394") == null || n("cr:20394").registerDispatcher(xe);
+      var $e = window.location.href,
+        Pe = $e != null && $e !== "" ? r("absoluteToRelative")($e) : y.url,
+        Ne = babelHelpers.extends({}, y, { url: Pe });
+      Te(Ne);
+      var Me = {
+        dispatcher: xe,
+        getCurrentRouterState: ue,
+        getCurrentRouterStatus: re.routerStatusManager.getCurrentStatus,
+        getMaintainedRouteState: ae.getMaintainedState,
+        listen: re.addListener,
+        markNavigationAsCommitted_INTERNAL_ONLY: re.markNavigationAsCommitted,
+        setUnloadListener: Ie,
         store: a,
       };
-      return (o("currentCometRouterInstance").register(Fe), Fe);
+      return (o("currentCometRouterInstance").register(Me), Me);
     }
-    var h = g;
-    l.default = h;
+    var g = f;
+    l.default = g;
   },
   226,
 );

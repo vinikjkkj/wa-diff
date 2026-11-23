@@ -184,11 +184,11 @@ __d(
             void 0,
           );
         }),
-        (t.triggerSocketStreamDisconnected = function () {
+        (t.triggerSocketStreamDisconnected = function (t) {
           this.$1.fireAndForget(
             "backendEventBus",
             "triggerSocketStreamDisconnected",
-            void 0,
+            { reason: t },
           );
         }),
         (t.triggerOpenSocketStream = function () {

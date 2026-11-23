@@ -85,98 +85,71 @@ __d(
         : y(L, k);
     }
     function c() {
-      return s._(/*BTDS*/ "Message history was sent");
+      return s._(/*BTDS*/ "");
     }
     function d(e) {
-      return s._(
-        /*BTDS*/ "Couldn't download message history that {sender contact name} sent you",
-        [s._param("sender contact name", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("sender contact name", e)]);
     }
     function m(e) {
-      return s._(
-        /*BTDS*/ "{sender contact name} also sent you message history, which you already got from someone else",
-        [s._param("sender contact name", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("sender contact name", e)]);
     }
     function p(e) {
-      return s._(
-        /*BTDS*/ "Downloading message history that {sender contact name} sent you",
-        [s._param("sender contact name", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("sender contact name", e)]);
     }
     function _(e, t) {
-      return s._(
-        /*BTDS*/ "You sent {name of the group history receiver} message history that starts on {timestamp}",
-        [
-          s._param("name of the group history receiver", e),
-          s._param("timestamp", t),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("name of the group history receiver", e),
+        s._param("timestamp", t),
+      ]);
     }
     function f(e, t, n) {
-      return s._(
-        /*BTDS*/ "You sent {name of the group history receiver} and {name of the second group history receiver} message history that starts on {timestamp}",
-        [
-          s._param("name of the group history receiver", e),
-          s._param("name of the second group history receiver", t),
-          s._param("timestamp", n),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("name of the group history receiver", e),
+        s._param("name of the second group history receiver", t),
+        s._param("timestamp", n),
+      ]);
     }
     function g(e, t, n) {
-      return s._(
-        /*BTDS*/ '_j{"*":"You sent {name of the group history receiver} and {number} others message history that starts on {timestamp}","_1":"You sent {name of the group history receiver} and 1 other message history that starts on {timestamp}"}',
-        [
-          s._plural(t, "number", r("WAWebL10N").n(t)),
-          s._param("name of the group history receiver", e),
-          s._param("timestamp", n),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._plural(t, "number", r("WAWebL10N").n(t)),
+        s._param("name of the group history receiver", e),
+        s._param("timestamp", n),
+      ]);
     }
     function h(e, t) {
-      return s._(
-        /*BTDS*/ "{author name} sent you message history that starts on {timestamp}. Some messages may not be available",
-        [s._param("author name", e), s._param("timestamp", t)],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("author name", e),
+        s._param("timestamp", t),
+      ]);
     }
     function y(e, t) {
-      return s._(
-        /*BTDS*/ "{author name} sent you message history that starts on {timestamp}",
-        [s._param("author name", e), s._param("timestamp", t)],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("author name", e),
+        s._param("timestamp", t),
+      ]);
     }
     function C(e, t, n) {
-      return s._(
-        /*BTDS*/ "You sent {name of the group history receiver} message history that starts on {timestamp}. {name of the non-history receiver} didn't receive history",
-        [
-          s._param("name of the group history receiver", e),
-          s._param("timestamp", t),
-          s._param("name of the non-history receiver", n),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("name of the group history receiver", e),
+        s._param("timestamp", t),
+        s._param("name of the non-history receiver", n),
+      ]);
     }
     function b(e, t, n, r) {
-      return s._(
-        /*BTDS*/ "You sent {name of the group history receiver} and {name of the second group history receiver} message history that starts on {timestamp}. {name of the non-history receiver} didn't receive history",
-        [
-          s._param("name of the group history receiver", e),
-          s._param("name of the second group history receiver", t),
-          s._param("timestamp", n),
-          s._param("name of the non-history receiver", r),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("name of the group history receiver", e),
+        s._param("name of the second group history receiver", t),
+        s._param("timestamp", n),
+        s._param("name of the non-history receiver", r),
+      ]);
     }
     function v(e, t, n, o) {
-      return s._(
-        /*BTDS*/ '_j{"*":"You sent {name of the group history receiver} and {number} others message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history","_1":"You sent {name of the group history receiver} and 1 other message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history"}',
-        [
-          s._plural(t, "number", r("WAWebL10N").n(t)),
-          s._param("name of the group history receiver", e),
-          s._param("timestamp", n),
-          s._param("name of the non-history receiver", o),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._plural(t, "number", r("WAWebL10N").n(t)),
+        s._param("name of the group history receiver", e),
+        s._param("timestamp", n),
+        s._param("name of the non-history receiver", o),
+      ]);
     }
     function S(e, t) {
       if (e.length === 0) return null;

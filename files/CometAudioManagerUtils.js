@@ -11,6 +11,14 @@ __d(
             t.controller.setVolume(t.newVolume);
       },
       s = function (t, n, r) {
+        return Array.from(r).every(function (e) {
+          var r;
+          return (
+            ((r = n.get(e)) == null ? void 0 : r.controller) === t.controller
+          );
+        });
+      },
+      u = function (t, n, r) {
         var e = r.get(t);
         e &&
           e.forEach(function (e) {
@@ -18,7 +26,7 @@ __d(
             t && t.controller.setMuted(!0, "audio_manager_initiated");
           });
       },
-      u = {
+      c = {
         consumeAndExecuteAudioActions: function (n, r) {
           var t = function (t, r) {
             var e = n.get(t.reason) || 0,
@@ -32,67 +40,63 @@ __d(
           }
           (o.clear(), (r.length = 0));
         },
-        persistMutedAndVolumeStateForLocalAudioScope: function (t, n, o) {
+        persistMutedAndVolumeStateForLocalAudioScope: function (t, n, r) {
           var e = t.audioLocalScope,
-            a = t.symbol;
+            o = t.symbol;
           if (e != null) {
-            var i = !1;
-            for (var l of n) {
-              var s = l[0],
-                u = l[1];
-              if (u.audioLocalScope === e) {
-                var c = s === a,
+            var a = !1;
+            for (var i of n) {
+              var l = i[0],
+                s = i[1];
+              if (s.audioLocalScope === e) {
+                var u = l === o,
+                  c =
+                    u &&
+                    (s.lastMuteReason === "user_initiated" ||
+                      s.lastMuteReason === "audio_manager_initiated"),
                   d =
-                    c &&
-                    (u.lastMuteReason === "user_initiated" ||
-                      u.lastMuteReason === "audio_manager_initiated"),
-                  m =
-                    u.lastMuteReason === "reels_transition_phase_initiated" ||
-                    u.lastMuteReason === "story_transition_phase_initiated" ||
-                    u.lastMuteReason === "tahoe_transition_phase_initiated" ||
-                    u.lastMuteReason === "vdd_transition_phase_initiated";
-                if (!d && !m && u.muted !== e.muted) {
-                  i = !0;
+                    s.lastMuteReason === "reels_transition_phase_initiated" ||
+                    s.lastMuteReason === "story_transition_phase_initiated" ||
+                    s.lastMuteReason === "tahoe_transition_phase_initiated" ||
+                    s.lastMuteReason === "vdd_transition_phase_initiated";
+                if (!c && !d && s.muted !== e.muted) {
+                  a = !0;
                   break;
                 }
-                var p =
-                  u.previousVolume != null && u.previousVolume !== u.volume;
-                if (!p && u.volume !== e.volume) {
-                  i = !0;
+                var m =
+                  s.previousVolume != null && s.previousVolume !== s.volume;
+                if (!m && s.volume !== e.volume) {
+                  a = !0;
                   break;
                 }
               }
             }
-            if (i)
-              for (var _ of n) {
-                var f = _[0],
-                  g = _[1];
+            if (a)
+              for (var p of n) {
+                var _ = p[0],
+                  f = p[1];
                 {
-                  if (g.audioLocalScope !== e) continue;
-                  var h = f === a,
+                  if (f.audioLocalScope !== e) continue;
+                  var g = _ === o,
+                    h =
+                      g &&
+                      (f.lastMuteReason === "user_initiated" ||
+                        f.lastMuteReason === "audio_manager_initiated"),
                     y =
-                      h &&
-                      (g.lastMuteReason === "user_initiated" ||
-                        g.lastMuteReason === "audio_manager_initiated"),
-                    C =
-                      g.lastMuteReason === "reels_transition_phase_initiated" ||
-                      g.lastMuteReason === "story_transition_phase_initiated" ||
-                      g.lastMuteReason === "tahoe_transition_phase_initiated" ||
-                      g.lastMuteReason === "vdd_transition_phase_initiated";
-                  !y &&
-                    !C &&
-                    g.muted !== e.muted &&
-                    (o != null &&
-                      !e.muted &&
-                      !g.paused &&
-                      r("gkx")("11495") &&
-                      o.add(f),
-                    g.controller.setMuted(e.muted, "audio_manager_initiated"));
-                  var b =
-                    g.previousVolume != null && g.previousVolume !== g.volume;
-                  !b &&
-                    g.volume !== e.volume &&
-                    g.controller.setVolume(e.volume);
+                      f.lastMuteReason === "reels_transition_phase_initiated" ||
+                      f.lastMuteReason === "story_transition_phase_initiated" ||
+                      f.lastMuteReason === "tahoe_transition_phase_initiated" ||
+                      f.lastMuteReason === "vdd_transition_phase_initiated";
+                  !h &&
+                    !y &&
+                    f.muted !== e.muted &&
+                    (r != null && !e.muted && !f.paused && r.add(_),
+                    f.controller.setMuted(e.muted, "audio_manager_initiated"));
+                  var C =
+                    f.previousVolume != null && f.previousVolume !== f.volume;
+                  !C &&
+                    f.volume !== e.volume &&
+                    f.controller.setVolume(e.volume);
                 }
               }
           }
@@ -216,14 +220,14 @@ __d(
           var e = t.lastMuteReason,
             i = t.lastPlayReason,
             l = t.muted,
-            s = t.paused,
-            u = t.symbol,
-            c = a != null && a.has(u) && e === "audio_manager_initiated" && !s;
-          ((!l || s) && (a == null || a.delete(u)),
-            !l && !s && !o.has(u)
+            u = t.paused,
+            c = t.symbol,
+            d = a != null && a.has(c) && e === "audio_manager_initiated" && !u;
+          ((!l || u) && (a == null || a.delete(c)),
+            !l && !u && !o.has(c)
               ? o.size > 0
                 ? e === "user_initiated" ||
-                  (i === "user_initiated" && !c) ||
+                  (i === "user_initiated" && !d) ||
                   e === "costreaming_switch_stream_initiated" ||
                   e === "reels_transition_phase_initiated" ||
                   e === "story_transition_phase_initiated" ||
@@ -238,37 +242,39 @@ __d(
                       }
                       o.delete(e);
                     }),
-                    o.add(u))
-                  : (r("FBLogger")("comet_video_player").warn(
-                      "CometAudioManager: audio %s became unmuted (lastMuteReason=%s, lastPlayReason=%s) while %s other audio(s) were already playing; muting it to preserve single-audio playback",
-                      u,
-                      e != null ? e : "unknown",
-                      i != null ? i : "unknown",
-                      String(o.size),
-                    ),
-                    t.controller.setMuted(!0, "audio_manager_initiated"))
-                : o.add(u)
-              : o.has(u) && (l || s) && o.delete(u));
+                    o.add(c))
+                  : s(t, n, o) && r("gkx")("16471")
+                    ? (o.clear(), o.add(c))
+                    : (r("FBLogger")("comet_video_player").warn(
+                        "CometAudioManager: audio %s became unmuted (lastMuteReason=%s, lastPlayReason=%s) while %s other audio(s) were already playing; muting it to preserve single-audio playback",
+                        c,
+                        e != null ? e : "unknown",
+                        i != null ? i : "unknown",
+                        String(o.size),
+                      ),
+                      t.controller.setMuted(!0, "audio_manager_initiated"))
+                : o.add(c)
+              : o.has(c) && (l || u) && o.delete(c));
         },
         updateCurrentPlayingAudioGroup: function (t, n, r, o, a) {
           var e = t.groupID,
             i = t.lastMuteReason,
             l = t.lastPlayReason,
-            u = t.muted,
+            s = t.muted,
             c = t.paused,
             d = o.get(e);
-          !u && !c && !a.has(e)
+          !s && !c && !a.has(e)
             ? a.size > 0
               ? i === "user_initiated" || l === "user_initiated"
                 ? (a.forEach(function (e) {
                     var t = o.get(e);
-                    (t && (t.setAllowSound(!1), s(e, n, r)), a.delete(e));
+                    (t && (t.setAllowSound(!1), u(e, n, r)), a.delete(e));
                   }),
                   a.add(e),
                   d == null || d.setAllowSound(!0))
-                : d && (d.setAllowSound(!1), s(e, n, r))
+                : d && (d.setAllowSound(!1), u(e, n, r))
               : (d == null || d.setAllowSound(!0), a.add(e))
-            : a.has(e) && (u || c) && a.delete(e);
+            : a.has(e) && (s || c) && a.delete(e);
         },
         updateCurrentPlayingAudioIgnoreLastReason: function (t, n, r) {
           var e = t.muted,
@@ -298,7 +304,7 @@ __d(
               );
         },
       };
-    l.CometAudioManagerUtils = u;
+    l.CometAudioManagerUtils = c;
   },
   98,
 );

@@ -21,19 +21,15 @@ __d(
         a = (t = e.options.callLogCount) != null ? t : 1;
       return a <= 1 || o === ""
         ? o
-        : s._(
-            /*BTDS*/ '_j{"*":"{call-log-entry-text} ({call-logs-merged-count})"}',
-            [
-              s._param("call-logs-merged-count", r("WAWebL10N").n(a), [0, a]),
-              s._param("call-log-entry-text", o),
-            ],
-          );
+        : s._(/*BTDS*/ "", [
+            s._param("call-logs-merged-count", r("WAWebL10N").n(a), [0, a]),
+            s._param("call-log-entry-text", o),
+          ]);
     }
     function u(e) {
       var t = e.msg,
         n = e.options;
-      if (o("WAWebMsgGetters").getIsCallSilenced(t))
-        return s._(/*BTDS*/ "Silenced unknown caller");
+      if (o("WAWebMsgGetters").getIsCallSilenced(t)) return s._(/*BTDS*/ "");
       var r = g(t.subtype);
       if (r != null) return r;
       var a = o("WAWebMsgGetters").getCallOutcome(t);
@@ -68,8 +64,8 @@ __d(
       return n == null
         ? null
         : n.isVideoCall
-          ? s._(/*BTDS*/ "Video call \u2022 On another device")
-          : s._(/*BTDS*/ "Voice call \u2022 On another device");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     function d(e) {
       var t = o("WAWebMsgGetters").getCallParticipants(e),
@@ -102,43 +98,33 @@ __d(
     }
     function m(e, t, n) {
       return t
-        ? s._(/*BTDS*/ "Group call \u2022 In call")
+        ? s._(/*BTDS*/ "")
         : n
-          ? s._(/*BTDS*/ "Group call \u2022 You left")
+          ? s._(/*BTDS*/ "")
           : o("WAWebMsgGetters").getIsSentByMe(e)
             ? null
-            : s._(/*BTDS*/ "Group call \u2022 You're invited");
+            : s._(/*BTDS*/ "");
     }
     function p(e) {
-      return e
-        ? s._(/*BTDS*/ "Video call \u2022 In call")
-        : s._(/*BTDS*/ "Voice call \u2022 In call");
+      return e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function _(e) {
-      return e
-        ? s._(/*BTDS*/ "Video call \u2022 Ringing")
-        : s._(/*BTDS*/ "Voice call \u2022 Ringing");
+      return e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function f(e, t) {
       return e
-        ? s._(
-            /*BTDS*/ '_j{"*":"Video call \\u2022 {joined-count} joined","_1":"Video call \\u2022 1 joined"}',
-            [s._plural(t, "joined-count")],
-          )
-        : s._(
-            /*BTDS*/ '_j{"*":"Voice call \\u2022 {joined-count} joined","_1":"Voice call \\u2022 1 joined"}',
-            [s._plural(t, "joined-count")],
-          );
+        ? s._(/*BTDS*/ "", [s._plural(t, "joined-count")])
+        : s._(/*BTDS*/ "", [s._plural(t, "joined-count")]);
     }
     function g(e) {
       switch (e) {
         case "miss":
-          return s._(/*BTDS*/ "Missed voice call");
+          return s._(/*BTDS*/ "");
         case "miss_video":
-          return s._(/*BTDS*/ "Missed video call");
+          return s._(/*BTDS*/ "");
         case "miss_group":
         case "miss_group_video":
-          return s._(/*BTDS*/ "Missed group call");
+          return s._(/*BTDS*/ "");
       }
     }
     function h(e) {
@@ -147,15 +133,15 @@ __d(
         r = e.isVideoCall;
       return n
         ? t
-          ? s._(/*BTDS*/ "Missed group call")
+          ? s._(/*BTDS*/ "")
           : r
-            ? s._(/*BTDS*/ "Missed video call")
-            : s._(/*BTDS*/ "Missed voice call")
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
         : t
-          ? s._(/*BTDS*/ "Group call")
+          ? s._(/*BTDS*/ "")
           : r
-            ? s._(/*BTDS*/ "Video call")
-            : s._(/*BTDS*/ "Voice call");
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

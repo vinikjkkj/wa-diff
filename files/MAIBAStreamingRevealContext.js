@@ -1,6 +1,6 @@
 __d(
   "MAIBAStreamingRevealContext",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -16,20 +16,11 @@ __d(
       },
       p = c(m);
     function _(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        r = e.value,
-        a;
-      return (
-        t[0] !== n || t[1] !== r
-          ? ((a = s.jsx(p.Provider, { value: r, children: n })),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = e.children,
+        n = e.value;
+      return s.jsx(p.Provider, { value: n, children: t });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f() {
       return d(p);
     }

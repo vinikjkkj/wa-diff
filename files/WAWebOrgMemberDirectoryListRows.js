@@ -3,27 +3,33 @@ __d(
   ["WAWebOrgMemberDirectoryPickerUtils"],
   function (t, n, r, o, a, i, l) {
     var e = 72,
-      s = 40;
-    function u(t) {
-      var n = [],
-        r = null;
-      for (var a of t) {
-        var i = o(
+      s = 66,
+      u = 40;
+    function c(t, n) {
+      var r = [],
+        a = null;
+      for (var i of t) {
+        var l = o(
           "WAWebOrgMemberDirectoryPickerUtils",
-        ).getDirectoryMemberLetter(a.member);
-        (i !== r &&
-          (n.push({
+        ).getDirectoryMemberLetter(i.member);
+        (l !== a &&
+          (r.push({
             type: "letter",
-            letter: i,
-            height: s,
-            itemKey: "letter_" + i,
+            letter: l,
+            height: u,
+            itemKey: "letter_" + i.key,
           }),
-          (r = i)),
-          n.push({ type: "member", row: a, height: e, itemKey: a.member.id }));
+          (a = l)),
+          r.push({
+            type: "member",
+            row: i,
+            height: n === "compact" ? s : e,
+            itemKey: i.key,
+          }));
       }
-      return n;
+      return r;
     }
-    l.toDirectoryRows = u;
+    l.toDirectoryRows = c;
   },
   98,
 );

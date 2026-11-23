@@ -60,7 +60,7 @@ __d(
     }
     function d(e, t) {
       return {
-        label: s._(/*BTDS*/ "Open Details Drawer"),
+        label: s._(/*BTDS*/ ""),
         onClick: function () {
           var n = p(e);
           n != null &&
@@ -74,7 +74,7 @@ __d(
     }
     function m(e) {
       return {
-        label: s._(/*BTDS*/ "View details"),
+        label: s._(/*BTDS*/ ""),
         onClick: function () {
           var t = p(e);
           if (t != null) {

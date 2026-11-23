@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleGroupNotificationV2",
   [
-    "Promise",
     "WALogger",
     "WAWap",
     "WAWebBackendApi",
@@ -29,15 +28,14 @@ __d(
     "WAWebMessageQueueTimeout",
     "WAWebShouldTriggerQueryGroupInfo",
     "WAWebUpdateDbForGroupActionApi",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e, t) {
-      return L(e, t) != null;
+    var e, s, u, c, d;
+    function m(e, t) {
+      return b(e, t) != null;
     }
-    function _(e) {
+    function p(e) {
       return o("WAWap").wap("ack", {
         to: o("WAWebCommsWapMd").GROUP_JID(e.chatId),
         id: o("WAWap").CUSTOM_STRING(e.externalId),
@@ -48,97 +46,67 @@ __d(
           : o("WAWap").DROP_ATTR,
       });
     }
-    _.displayName = _.name + " [from " + i.id + "]";
-    function f(e, t) {
-      return g.apply(this, arguments);
+    p.displayName = p.name + " [from " + i.id + "]";
+    async function _(e, t) {
+      var n = await h(e, function () {
+          return f(e, t);
+        }),
+        r = n.written;
+      return (await r, p(e));
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield b(e, function () {
-              return h(e, t);
-            }),
-            r = n.written;
-          return (yield r, _(e));
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e, t) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (yield o(
-            "WAWebLidMappingUsernameLearnUtils",
-          ).processParsedGroupNotificationForLidMappingAndUsernames({
-            notification: e,
-            flushImmediately: !t,
+    async function f(t, n) {
+      (await o(
+        "WAWebLidMappingUsernameLearnUtils",
+      ).processParsedGroupNotificationForLidMappingAndUsernames({
+        notification: t,
+        flushImmediately: !n,
+      }),
+        await Promise.all(
+          t.actions.map(async function (e) {
+            e.actionType ===
+              o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+                .REMOVE &&
+              (await o(
+                "WAWebMemberLabelGroupRemoveHandler",
+              ).handleMemberLabelUpdatesOnGroupParticipantRemoval(t, e));
           }),
-            yield (m || (m = n("Promise"))).all(
-              e.actions.map(
-                (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t) {
-                      t.actionType ===
-                        o("WAWebHandleGroupNotificationConst")
-                          .GROUP_NOTIFICATION_TAG.REMOVE &&
-                        (yield o(
-                          "WAWebMemberLabelGroupRemoveHandler",
-                        ).handleMemberLabelUpdatesOnGroupParticipantRemoval(
-                          e,
-                          t,
-                        ));
-                    },
-                  );
-                  return function (e) {
-                    return t.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ));
-          var r = L(e, t);
-          return r == null
-            ? (o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "no handler for group notification ",
-                    "",
-                  ])),
-                e.chatId.toLogString(),
-              ),
-              { written: (m || (m = n("Promise"))).resolve() })
-            : S(e, r);
-        })),
-        y.apply(this, arguments)
-      );
+        ));
+      var r = b(t, n);
+      return r == null
+        ? (o("WALogger").WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "no handler for group notification ",
+                "",
+              ])),
+            t.chatId.toLogString(),
+          ),
+          { written: Promise.resolve() })
+        : C(t, r);
     }
-    var C = new Map();
-    function b(e, t) {
-      var r;
+    var g = new Map();
+    function h(e, t) {
+      var n;
       if (
         !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
-        !e.actions.some(v)
+        !e.actions.some(y)
       )
         return t();
-      var a = e.chatId.toString(),
-        i = (
-          (r = C.get(a)) != null ? r : (m || (m = n("Promise"))).resolve()
-        ).then(t),
-        l = i.then(
+      var r = e.chatId.toString(),
+        a = ((n = g.get(r)) != null ? n : Promise.resolve()).then(t),
+        i = a.then(
           function () {},
           function () {},
         );
       return (
-        C.set(a, l),
-        l.then(function () {
-          C.get(a) === l && C.delete(a);
+        g.set(r, i),
+        i.then(function () {
+          g.get(r) === i && g.delete(r);
         }),
-        i
+        a
       );
     }
-    function v(e) {
+    function y(e) {
       return (
         (e.actionType ===
           o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG.ADD ||
@@ -151,434 +119,335 @@ __d(
         })
       );
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
+    async function C(e, t) {
+      var n = await o(
+          "WAWebGroupAgentDeletedChat",
+        ).isAgentChangeInDeletedGroupChatForActions(e.chatId, e.actions),
+        r = null;
+      try {
+        r = n
+          ? null
+          : await o(
+              "WAWebBotGroupBackendUtils",
+            ).genE2EENoticeMsgAfterLastAgentRemoved({
+              meta: e,
+              actions: e.actions,
+            });
+      } catch (e) {
+        o("WALogger")
+          .LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[system msg][v2] end-to-end encryption notice generation failed with ",
+                "",
+              ])),
+            e,
+          )
+          .sendLogs("group-notification-v2-e2ee-notice-generation-error");
+      }
+      var a = await Promise.all([
+          t.writeSystemMessages(r, n),
+          t.writeGroupInfoUpdates(),
+        ]),
+        i = a[0];
+      return i;
     }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield o(
-              "WAWebGroupAgentDeletedChat",
-            ).isAgentChangeInDeletedGroupChatForActions(e.chatId, e.actions),
-            a = null;
-          try {
-            a = r
-              ? null
-              : yield o(
-                  "WAWebBotGroupBackendUtils",
-                ).genE2EENoticeMsgAfterLastAgentRemoved({
-                  meta: e,
-                  actions: e.actions,
-                });
-          } catch (e) {
-            o("WALogger")
-              .LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[system msg][v2] end-to-end encryption notice generation failed with ",
-                    "",
-                  ])),
-                e,
-              )
-              .sendLogs("group-notification-v2-e2ee-notice-generation-error");
-          }
-          var i = yield (m || (m = n("Promise"))).all([
-              t.writeSystemMessages(a, r),
-              t.writeGroupInfoUpdates(),
-            ]),
-            l = i[0];
-          return l;
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e, t) {
-      var r = [],
-        a = !1;
-      for (var i of e.actions) {
-        var l = s(e, i);
-        if (l == null) return null;
-        r.push(l);
+    function b(e, t) {
+      var n = [],
+        r = !1;
+      for (var a of e.actions) {
+        var i = l(e, a);
+        if (i == null) return null;
+        n.push(i);
       }
       return {
-        writeSystemMessages: (function () {
-          var o = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (o, i) {
-              var l = yield (m || (m = n("Promise"))).all(
-                  r.map(function (e) {
-                    return e.writeSystemMessages(i);
-                  }),
-                ),
-                s = a && o != null ? yield E(e, t, o) : null;
-              return {
-                written: m
-                  .all(
-                    [].concat(
-                      l.map(function (e) {
-                        var t = e.written;
-                        return t;
-                      }),
-                      [s == null ? void 0 : s.written],
-                    ),
-                  )
-                  .then(function () {}),
-              };
-            },
-          );
-          function i(e, t) {
-            return o.apply(this, arguments);
-          }
-          return i;
-        })(),
-        writeGroupInfoUpdates: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            yield (m || (m = n("Promise"))).all(
-              r.map(function (e) {
-                return e.writeGroupInfoUpdates();
+        writeSystemMessages: async function (a, i) {
+          var o = await Promise.all(
+              n.map(function (e) {
+                return e.writeSystemMessages(i);
               }),
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+            ),
+            l = r && a != null ? await v(e, t, a) : null;
+          return {
+            written: Promise.all(
+              [].concat(
+                o.map(function (e) {
+                  var t = e.written;
+                  return t;
+                }),
+                [l == null ? void 0 : l.written],
+              ),
+            ).then(function () {}),
+          };
+        },
+        writeGroupInfoUpdates: async function () {
+          await Promise.all(
+            n.map(function (e) {
+              return e.writeGroupInfoUpdates();
+            }),
+          );
+        },
       };
-      function s(e, r) {
-        return r.actionType ===
+      function l(e, n) {
+        return n.actionType ===
           o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
             .CREATE ||
-          r.actionType ===
+          n.actionType ===
             o("WAWebGroupType").GROUP_ACTIONS.GROUP_REACTION_SETTINGS
           ? null
           : {
-              writeGroupInfoUpdates: (function () {
-                var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    if (
-                      (r.actionType ===
-                        o("WAWebHandleGroupNotificationConst")
-                          .GROUP_NOTIFICATION_TAG.ADD ||
-                        r.actionType ===
-                          o("WAWebHandleGroupNotificationConst")
-                            .GROUP_NOTIFICATION_TAG.REMOVE) &&
-                      (yield o(
-                        "WAWebShouldTriggerQueryGroupInfo",
-                      ).shouldTriggerQueryGroupInfo({
-                        groupWid: e.chatId,
-                        action: r,
-                      }))
-                    ) {
-                      yield o(
-                        "WAWebGroupDatabaseJob",
-                      ).markGroupParticipantStaleJob(e.chatId);
-                      return;
-                    }
-                    yield o(
-                      "WAWebUpdateDbForGroupActionApi",
-                    ).updateDBForGroupAction(e, r, t);
-                    var n = yield o(
-                      "WAWebGroupHistoryParticipantJob",
-                    ).enrichGroupActionWithStoredHistoryState(e.chatId, r);
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "updateModelForGroupAction",
-                      { groupMeta: e, groupAction: n },
-                    );
-                  },
-                );
-                function i() {
-                  return a.apply(this, arguments);
+              writeGroupInfoUpdates: async function () {
+                if (
+                  (n.actionType ===
+                    o("WAWebHandleGroupNotificationConst")
+                      .GROUP_NOTIFICATION_TAG.ADD ||
+                    n.actionType ===
+                      o("WAWebHandleGroupNotificationConst")
+                        .GROUP_NOTIFICATION_TAG.REMOVE) &&
+                  (await o(
+                    "WAWebShouldTriggerQueryGroupInfo",
+                  ).shouldTriggerQueryGroupInfo({
+                    groupWid: e.chatId,
+                    action: n,
+                  }))
+                ) {
+                  await o("WAWebGroupDatabaseJob").markGroupParticipantStaleJob(
+                    e.chatId,
+                  );
+                  return;
                 }
-                return i;
-              })(),
-              writeSystemMessages: (function () {
-                var i = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (n) {
-                    var i = yield T(e, r, n),
-                      l = yield M({
-                        chatId: e.chatId,
-                        shouldProcessOffline: t,
-                        shouldSkip: function () {
-                          return o(
-                            "WAWebHandleGroupNotificationConst",
-                          ).shouldSkipGenMsg(e, r);
-                        },
-                        systemMessages: i,
-                      });
-                    return (
-                      l.inserted &&
-                        r.actionType ===
-                          o("WAWebHandleGroupNotificationConst")
-                            .GROUP_NOTIFICATION_TAG.REMOVE &&
-                        (a = !0),
-                      l
-                    );
-                  },
+                await o(
+                  "WAWebUpdateDbForGroupActionApi",
+                ).updateDBForGroupAction(e, n, t);
+                var r = await o(
+                  "WAWebGroupHistoryParticipantJob",
+                ).enrichGroupActionWithStoredHistoryState(e.chatId, n);
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "updateModelForGroupAction",
+                  { groupMeta: e, groupAction: r },
                 );
-                function l(e) {
-                  return i.apply(this, arguments);
-                }
-                return l;
-              })(),
+              },
+              writeSystemMessages: async function (i) {
+                var a = await R(e, n, i),
+                  l = await k({
+                    chatId: e.chatId,
+                    shouldProcessOffline: t,
+                    shouldSkip: function () {
+                      return o(
+                        "WAWebHandleGroupNotificationConst",
+                      ).shouldSkipGenMsg(e, n);
+                    },
+                    systemMessages: a,
+                  });
+                return (
+                  l.inserted &&
+                    n.actionType ===
+                      o("WAWebHandleGroupNotificationConst")
+                        .GROUP_NOTIFICATION_TAG.REMOVE &&
+                    (r = !0),
+                  l
+                );
+              },
             };
       }
     }
-    function E(e, t, n) {
-      return k.apply(this, arguments);
+    async function v(e, t, n) {
+      try {
+        var r = await k({
+            chatId: e.chatId,
+            shouldProcessOffline: t,
+            shouldSkip: function () {
+              return Promise.resolve(!1);
+            },
+            systemMessages: [n],
+          }),
+          o = r.written;
+        return { written: o.catch(S) };
+      } catch (e) {
+        return (S(e), { written: Promise.resolve() });
+      }
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          try {
-            var o = yield M({
-                chatId: e.chatId,
-                shouldProcessOffline: t,
-                shouldSkip: function () {
-                  return (m || (m = n("Promise"))).resolve(!1);
-                },
-                systemMessages: [r],
-              }),
-              a = o.written;
-            return { written: a.catch(I) };
-          } catch (e) {
-            return (I(e), { written: (m || (m = n("Promise"))).resolve() });
-          }
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(t) {
+    function S(e) {
       o("WALogger")
         .LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "[system msg][v2] end-to-end encryption notice write failed with ",
               "",
             ])),
-          t,
+          e,
         )
         .sendLogs("group-notification-v2-e2ee-notice-write-error");
     }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = [];
-          if (
-            (t.actionType ===
-              o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
-                .ADD ||
-              t.actionType ===
-                o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
-                  .REMOVE) &&
-            (yield o(
-              "WAWebShouldTriggerQueryGroupInfo",
-            ).shouldTriggerQueryGroupInfo({ groupWid: e.chatId, action: t }))
-          )
-            return [];
-          if (
-            t.actionType ===
-            o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG.ADD
-          ) {
-            var a = yield o(
-                "WAWebHandleGroupNotificationConst",
-              ).notAlreadyInGroup(e.chatId, t.participants),
-              i = a.filter(function (e) {
-                var t = e.id,
-                  n = e.phoneNumber;
-                return !t.isLid() || n != null;
-              });
-            if (
-              i.length > 0 &&
-              (o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[system message][v2] eligibleParticipants = ",
-                    " - ADD",
-                  ])),
-                i.length,
-              ),
-              (r = yield x(e, t, n ? [] : i)),
-              o(
-                "WAWebBotGroupGatingUtils",
-              ).isOpenGroupBotParticipantAddEnabled() ||
-                o(
-                  "WAWebBotGroupGatingUtils",
-                ).isTEEGroupBotParticipantAddEnabled())
-            ) {
-              var l =
-                o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(
-                  i,
-                );
-              (l.includeOpenMetabot || l.includeTeeMetabot) &&
-                o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
-                  id: e.chatId,
-                  actionType: o("WAWebHandleGroupNotificationConst")
-                    .GROUP_NOTIFICATION_TAG.ADD,
-                });
-            }
-          } else if (
-            t.actionType !==
-              o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
-                .CREATE &&
-            (o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[system msg][v2] genSystemNotificationsImpl ",
-                  "",
-                ])),
-              t.actionType,
-            ),
-            n ||
-              (r =
-                t.actionType ===
-                o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
-                  .REMOVE
-                  ? yield P(e, t)
-                  : [
-                      yield o("WAWebGroupSystemMsg").genGroupNotificationMsg({
-                        meta: e,
-                        action: t,
-                        dbIsStale: !0,
-                      }),
-                    ]),
-            (o(
-              "WAWebBotGroupGatingUtils",
-            ).isOpenGroupBotParticipantAddEnabled() ||
-              o(
-                "WAWebBotGroupGatingUtils",
-              ).isTEEGroupBotParticipantAddEnabled()) &&
-              t.actionType ===
-                o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
-                  .REMOVE)
-          ) {
-            var s = o(
-              "WAWebBotUtils",
-            ).participantListIncludeOpenOrTeeGroupBotWid(t.participants);
-            (s.includeOpenMetabot || s.includeTeeMetabot) &&
-              o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
-                id: e.chatId,
-                actionType: o("WAWebHandleGroupNotificationConst")
-                  .GROUP_NOTIFICATION_TAG.REMOVE,
-              });
-          }
-          return r.filter(Boolean);
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e, t, n) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (n.length === 0) return [];
-          var r = yield o(
-              "WAWebGroupAgentPrivacyNotice",
-            ).genGroupAgentPrivacyNoticeMsgsForAdd({
-              chatId: e.chatId,
-              addedParticipantIds: n.map(function (e) {
-                var t = e.id;
-                return t;
-              }),
-              meta: e,
-            }),
-            a = yield o(
-              "WAWebGroupAgentAddSystemMsgs",
-            ).genGroupAddNotificationMsgs({
-              meta: e,
-              action: babelHelpers.extends({}, t, { participants: n }),
-              dbIsStale: !0,
+    async function R(e, t, n) {
+      var r = [];
+      if (
+        (t.actionType ===
+          o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG.ADD ||
+          t.actionType ===
+            o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+              .REMOVE) &&
+        (await o(
+          "WAWebShouldTriggerQueryGroupInfo",
+        ).shouldTriggerQueryGroupInfo({ groupWid: e.chatId, action: t }))
+      )
+        return [];
+      if (
+        t.actionType ===
+        o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG.ADD
+      ) {
+        var a = await o("WAWebHandleGroupNotificationConst").notAlreadyInGroup(
+            e.chatId,
+            t.participants,
+          ),
+          i = a.filter(function (e) {
+            var t = e.id,
+              n = e.phoneNumber;
+            return !t.isLid() || n != null;
+          });
+        if (
+          i.length > 0 &&
+          (o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[system message][v2] eligibleParticipants = ",
+                " - ADD",
+              ])),
+            i.length,
+          ),
+          (r = await L(e, t, n ? [] : i)),
+          o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() ||
+            o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled())
+        ) {
+          var l =
+            o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(i);
+          (l.includeOpenMetabot || l.includeTeeMetabot) &&
+            o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
+              id: e.chatId,
+              actionType: o("WAWebHandleGroupNotificationConst")
+                .GROUP_NOTIFICATION_TAG.ADD,
             });
-          return o(
-            "WAWebGroupAgentPrivacyNotice",
-          ).orderGroupAgentNoticesAndRows(
-            [].concat(
-              r,
-              yield o(
-                "WAWebGroupAgentPrivacyNotice",
-              ).genMetaAiGroupNoticeMsgsForAdd({
-                addedParticipants: n,
-                meta: e,
-              }),
-            ),
-            a,
-          );
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e, t) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o(
-            "WAWebGroupAgentRemovalSystemMsgs",
-          ).genGroupAgentRemovalMsgs({ meta: e, action: t, dbIsStale: !0 });
-          return [].concat(
-            n != null
-              ? n
+        }
+      } else if (
+        t.actionType !==
+          o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+            .CREATE &&
+        (o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "[system msg][v2] genSystemNotificationsImpl ",
+              "",
+            ])),
+          t.actionType,
+        ),
+        n ||
+          (r =
+            t.actionType ===
+            o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG.REMOVE
+              ? await E(e, t)
               : [
-                  yield o("WAWebGroupSystemMsg").genGroupNotificationMsg({
+                  await o("WAWebGroupSystemMsg").genGroupNotificationMsg({
                     meta: e,
                     action: t,
                     dbIsStale: !0,
                   }),
-                ],
-          );
-        })),
-        N.apply(this, arguments)
+                ]),
+        (o("WAWebBotGroupGatingUtils").isOpenGroupBotParticipantAddEnabled() ||
+          o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled()) &&
+          t.actionType ===
+            o("WAWebHandleGroupNotificationConst").GROUP_NOTIFICATION_TAG
+              .REMOVE)
+      ) {
+        var s = o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(
+          t.participants,
+        );
+        (s.includeOpenMetabot || s.includeTeeMetabot) &&
+          o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
+            id: e.chatId,
+            actionType: o("WAWebHandleGroupNotificationConst")
+              .GROUP_NOTIFICATION_TAG.REMOVE,
+          });
+      }
+      return r.filter(Boolean);
+    }
+    async function L(e, t, n) {
+      if (n.length === 0) return [];
+      var r = await o(
+          "WAWebGroupAgentPrivacyNotice",
+        ).genGroupAgentPrivacyNoticeMsgsForAdd({
+          chatId: e.chatId,
+          addedParticipantIds: n.map(function (e) {
+            var t = e.id;
+            return t;
+          }),
+          meta: e,
+        }),
+        a = await o("WAWebGroupAgentAddSystemMsgs").genGroupAddNotificationMsgs(
+          {
+            meta: e,
+            action: babelHelpers.extends({}, t, { participants: n }),
+            dbIsStale: !0,
+          },
+        );
+      return o("WAWebGroupAgentPrivacyNotice").orderGroupAgentNoticesAndRows(
+        [].concat(
+          r,
+          await o(
+            "WAWebGroupAgentPrivacyNotice",
+          ).genMetaAiGroupNoticeMsgsForAdd({ addedParticipants: n, meta: e }),
+        ),
+        a,
       );
     }
-    function M(e) {
+    async function E(e, t) {
+      var n = await o(
+        "WAWebGroupAgentRemovalSystemMsgs",
+      ).genGroupAgentRemovalMsgs({ meta: e, action: t, dbIsStale: !0 });
+      return [].concat(
+        n != null
+          ? n
+          : [
+              await o("WAWebGroupSystemMsg").genGroupNotificationMsg({
+                meta: e,
+                action: t,
+                dbIsStale: !0,
+              }),
+            ],
+      );
+    }
+    function k(e) {
       var t = e.chatId,
-        a = e.shouldProcessOffline,
-        i = e.shouldSkip,
-        l = e.systemMessages,
+        n = e.shouldProcessOffline,
+        a = e.shouldSkip,
+        i = e.systemMessages,
+        l = function () {},
         s = function () {},
-        u = function () {},
-        c = new (m || (m = n("Promise")))(function (e, t) {
-          ((s = e), (u = t));
+        u = new Promise(function (e, t) {
+          ((l = e), (s = t));
         });
       return (
         o("WAWebMessageQueue")
           .onMessageQueue({
             chatWid: t,
-            isOffline: a,
+            isOffline: n,
             msgCategory: null,
-            action: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* () {
-                  var e;
-                  try {
-                    if (yield i()) {
-                      s({
-                        inserted: !1,
-                        written: (m || (m = n("Promise"))).resolve(),
-                      });
-                      return;
-                    }
-                    e = d(l);
-                  } catch (e) {
-                    u(e);
-                    return;
-                  }
-                  return (
-                    s({ inserted: l.length > 0, written: e }),
-                    a ? (m || (m = n("Promise"))).resolve() : e
-                  );
-                },
-              );
-              function t() {
-                return e.apply(this, arguments);
+            action: async function () {
+              var e;
+              try {
+                if (await a()) {
+                  l({ inserted: !1, written: Promise.resolve() });
+                  return;
+                }
+                e = c(i);
+              } catch (e) {
+                s(e);
+                return;
               }
-              return t;
-            })(),
+              return (
+                l({ inserted: i.length > 0, written: e }),
+                n ? Promise.resolve() : e
+              );
+            },
           })
           .catch(function (e) {
             return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
@@ -586,12 +455,12 @@ __d(
               "group_notification_v2",
             );
           }),
-        c
+        u
       );
-      function d(e) {
+      function c(e) {
         return e.length === 0
-          ? (m || (m = n("Promise"))).resolve()
-          : a
+          ? Promise.resolve()
+          : n
             ? (o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
                 e.forEach(function (e) {
                   o("WAWebBackendApi").frontendFireAndForget(
@@ -611,23 +480,21 @@ __d(
               ? o(
                   "WAWebHandleGroupNotificationAction",
                 ).writeOnlineSystemNotifications(e)
-              : (m || (m = n("Promise")))
-                  .all(
-                    e.map(function (e) {
-                      return o(
-                        "WAWebHandleSingleMsgWorkerCompatible",
-                      ).handleSingleMsg({
-                        chatId: e.from,
-                        newMsg: e,
-                        handleSingleMsgOrigin: "handleGroupNotificationV2",
-                      });
-                    }),
-                  )
-                  .then(function () {});
+              : Promise.all(
+                  e.map(function (e) {
+                    return o(
+                      "WAWebHandleSingleMsgWorkerCompatible",
+                    ).handleSingleMsg({
+                      chatId: e.from,
+                      newMsg: e,
+                      handleSingleMsgOrigin: "handleGroupNotificationV2",
+                    });
+                  }),
+                ).then(function () {});
       }
     }
-    ((l.isGroupNotificationOptimizationEligible = p),
-      (l.handleGroupNotificationV2 = f));
+    ((l.isGroupNotificationOptimizationEligible = m),
+      (l.handleGroupNotificationV2 = _));
   },
   98,
 );

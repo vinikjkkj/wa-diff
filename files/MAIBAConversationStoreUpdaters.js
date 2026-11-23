@@ -6,13 +6,15 @@ __d(
     "MAIBAChatMessageDebuggingUtils",
     "MAIBAChatThreadQuery.graphql",
     "MAIBALocalConversationStore",
+    "MAIBAPlatformThreadRecordID",
     "MAIBAThreadsInboxConstants",
     "react-relay",
     "relay-runtime",
+    "relay-runtime/store/RelayStoreUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e = s._(/*BTDS*/ "New chat");
+    var e = s._(/*BTDS*/ "");
     function u(e, t) {
       var n = o("relay-runtime").getRequest(r("MAIBAChatThreadQuery.graphql")),
         a = {
@@ -37,7 +39,7 @@ __d(
         .setValue(Date.now(), "last_send_timestamp_ms")
         .setValue("ACTIVE", "thread_status")
         .setValue(n, "linked_ad_account");
-      (i != null && l.setValue(i, "entry_point"), a !== !0 && f(t, n, l));
+      (i != null && l.setValue(i, "entry_point"), a !== !0 && h(t, n, l));
       var s = o("react-relay").ConnectionHandler.getConnectionID(
           l.getDataID(),
           "MAIBAMessageListFragment__maiba_messages",
@@ -85,7 +87,18 @@ __d(
           .getRoot()
           .setLinkedRecord(l, "fetch__XFBMAIBAConversation", { id: r }));
     }
-    function d(e, t) {
+    function d(e, t, n) {
+      var r = e.getRoot();
+      if (r.getLinkedRecord("fetch__XFBMAIBAConversation", { id: n }) == null) {
+        var o = e.get("client:conversation:" + n);
+        if (o != null) {
+          r.setLinkedRecord(o, "fetch__XFBMAIBAConversation", { id: n });
+          return;
+        }
+        c(e, t, n, !0, null);
+      }
+    }
+    function m(e, t) {
       var n,
         r =
           (n = e.getRoot()) == null
@@ -99,22 +112,26 @@ __d(
           )
         : null;
     }
-    function m(e, t) {
-      var n,
-        r =
-          (n = e.getRoot()) == null
+    function p(e, t, n, r) {
+      var a,
+        i =
+          (a = e.getRoot()) == null
             ? void 0
-            : n.getLinkedRecord("maiba_viewer");
-      return r
+            : a.getLinkedRecord("maiba_viewer");
+      return i
         ? o("react-relay").ConnectionHandler.getConnection(
-            r,
+            i,
             o("MAIBAThreadsInboxConstants")
               .FAB_MINI_INBOX_UNREAD_THREAD_LIST_KEY,
-            { current_ad_account_id: t },
+            {
+              current_ad_account_id: t,
+              entry_point: n,
+              thread_scope: r != null ? r : null,
+            },
           )
         : null;
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = e.getLinkedRecords("edges");
       if (n != null)
         for (var r of n) {
@@ -124,44 +141,75 @@ __d(
         }
       return null;
     }
-    function _(e, t, n, r, a, i) {
-      var l = m(e, t);
-      if (l != null) {
-        var s = p(l, n);
+    function f(e, t, n) {
+      for (var r of ["display_title", "last_message_snippet"])
+        t.getValue(r) === void 0 && t.setValue(null, r);
+      if (t.getLinkedRecord("proactive_task_origin") === void 0)
+        t.setValue(null, "proactive_task_origin");
+      else {
+        var a = t.getLinkedRecord("proactive_task_origin");
+        if (a != null)
+          for (var i of ["notification_category", "template_key", "use_case"])
+            a.getValue(i) === void 0 && a.setValue(null, i);
+      }
+      t.getValue("is_handover_active") === void 0 &&
+        t.setValue(!1, "is_handover_active");
+      var l = t.getLinkedRecord("async_task_execution");
+      n != null
+        ? (l == null &&
+            ((l = e.create(
+              o("relay-runtime").generateClientID(
+                t.getDataID(),
+                "async_task_execution",
+              ),
+              "MAIBAAsyncTaskExecution",
+            )),
+            t.setLinkedRecord(l, "async_task_execution")),
+          l.setValue(n, "action_needed"))
+        : l === void 0 && t.setValue(null, "async_task_execution");
+    }
+    function g(e, t, n, r, a, i, l, s, u) {
+      var c = p(e, t, l != null ? l : null, s);
+      if (c != null) {
+        var d = _(c, n);
         if (!r) {
-          s != null &&
-            o("react-relay").ConnectionHandler.deleteNode(l, s.getDataID());
+          d != null &&
+            o("react-relay").ConnectionHandler.deleteNode(c, d.getDataID());
           return;
         }
-        if (s != null) {
-          (s.setValue(!0, "is_unread"),
-            a != null && s.setValue(a, "last_message_snippet"));
+        if (d != null) {
+          (f(e, d, u),
+            d.setValue(!0, "is_unread"),
+            a != null && d.setValue(a, "last_message_snippet"),
+            l != null && d.setValue(l, "entry_point"));
           return;
         }
-        var u = d(e, t),
-          c = u != null ? p(u, n) : null;
-        (c == null &&
-          ((c = e.create(
+        var g = m(e, t),
+          h = g != null ? _(g, n) : null;
+        (h == null &&
+          ((h = e.create(
             "client:maiba_fab_unread_thread_node:" + n,
             "XFBMAIBAGenAICharmanderConversation",
           )),
-          c.setValue(n, "external_conversation_id"),
-          c.setValue(Date.now(), "last_send_timestamp_ms"),
-          c.setValue(t, "linked_ad_account"),
-          i != null && c.setValue(i, "display_title")),
-          c.setValue(!0, "is_unread"),
-          a != null && c.setValue(a, "last_message_snippet"));
-        var _ = o("react-relay").ConnectionHandler.createEdge(
+          h.setValue(n, "external_conversation_id"),
+          h.setValue(Date.now(), "last_send_timestamp_ms"),
+          h.setValue(t, "linked_ad_account"),
+          i != null && h.setValue(i, "display_title"),
+          l != null && h.setValue(l, "entry_point")),
+          f(e, h, u),
+          h.setValue(!0, "is_unread"),
+          a != null && h.setValue(a, "last_message_snippet"));
+        var y = o("react-relay").ConnectionHandler.createEdge(
           e,
-          l,
           c,
+          h,
           "XFBMAIBAViewerFieldsMaibaThreadListEdge",
         );
-        o("react-relay").ConnectionHandler.insertEdgeBefore(l, _);
+        o("react-relay").ConnectionHandler.insertEdgeBefore(c, y);
       }
     }
-    function f(e, t, n) {
-      var r = d(e, t);
+    function h(e, t, n) {
+      var r = m(e, t);
       if (r) {
         var a = o("react-relay").ConnectionHandler.createEdge(
           e,
@@ -172,9 +220,9 @@ __d(
         o("react-relay").ConnectionHandler.insertEdgeBefore(r, a);
       }
     }
-    function g(e, t, n) {
+    function y(e, t, n) {
       o("MAIBALocalConversationStore").unregisterMAIBALocalConversation(t, n);
-      var r = d(e, t);
+      var r = m(e, t);
       if (r) {
         var a = r.getLinkedRecords("edges");
         if (a)
@@ -193,42 +241,51 @@ __d(
           }
       }
     }
-    function h(e, t, n, r, a) {
+    function C(e, t, n, r, a) {
       (o("MAIBALocalConversationStore").registerMAIBALocalConversation(t, n),
         e.commitUpdate(function (e) {
           c(e, t, n, r, a);
         }),
         u(e, n));
     }
-    function y(e, t, n) {
+    function b(e, t, n) {
       e.commitUpdate(function (e) {
         var o = e
           .getRoot()
           .getLinkedRecord("fetch__XFBMAIBAConversation", { id: n });
         o != null
-          ? b(e, t, n, o)
+          ? S(e, t, n, o)
           : r("FBLogger")("axp_maiba_foundations_ux").warn(
               "insertConversationIntoThreadList: conversation not found for externalConversationId: %s",
               n,
             );
       });
     }
-    function C(e, t, n, r, o, a, i, l, s) {
-      var u = e
-        .getRoot()
-        .getLinkedRecord("fetch__XFBMAIBAConversation", { id: t });
-      (r != null && (u == null || u.setValue(r, "display_title")),
-        n != null && (u == null || u.setValue(n, "id")),
-        o != null && (u == null || u.setValue(o, "thread_status")),
-        a != null && (u == null || u.setValue(a, "exists_serverside")),
-        i === !0 &&
-          (u == null || u.setValue(Date.now(), "last_send_timestamp_ms")),
-        s != null &&
-          (u == null || u.setValue(s, "is_conversation_eligible_for_csat")),
-        u != null && l != null && b(e, l, t, u));
+    function v(e, t, n, r, a, i, l, s, u) {
+      var c = e
+          .getRoot()
+          .getLinkedRecord("fetch__XFBMAIBAConversation", { id: t }),
+        d = e.get(
+          o("MAIBAPlatformThreadRecordID").maibaGeoPlatformThreadRecordID(t),
+        );
+      if (
+        (r != null && (c == null || c.setValue(r, "display_title")),
+        n != null && (c == null || c.setValue(n, "id")),
+        a != null && (c == null || c.setValue(a, "thread_status")),
+        a != null && (d == null || d.setValue(a, "thread_status")),
+        i != null && (c == null || c.setValue(i, "exists_serverside")),
+        l === !0)
+      ) {
+        var m = Date.now();
+        (c == null || c.setValue(m, "last_send_timestamp_ms"),
+          d == null || d.setValue(m, "last_send_timestamp_ms"));
+      }
+      (u != null &&
+        (c == null || c.setValue(u, "is_conversation_eligible_for_csat")),
+        c != null && s != null && S(e, s, t, c));
     }
-    function b(e, t, n, r) {
-      var a = d(e, t);
+    function S(e, t, n, r) {
+      var a = m(e, t);
       if (a != null) {
         var i = a.getLinkedRecords("edges");
         if (i != null)
@@ -249,7 +306,7 @@ __d(
         o("react-relay").ConnectionHandler.insertEdgeBefore(a, u);
       }
     }
-    function v(e, t) {
+    function R(e, t) {
       var n = t.adAccountId,
         r = t.conversationId;
       e.commitUpdate(function (e) {
@@ -261,24 +318,27 @@ __d(
           (t = e
             .getRoot()
             .getLinkedRecord("fetch__XFBMAIBAConversation", { id: r }))),
-          t != null && b(e, n, r, t));
+          t != null && S(e, n, r, t));
       });
     }
-    function S(e, t, n) {
-      var r = e.getRoot(),
-        o = [
-          t != null
-            ? 'maiba_unread_thread_count(current_ad_account_id:"' + t + '")'
-            : "maiba_unread_thread_count(current_ad_account_id:null)",
-        ];
-      t != null &&
-        o.push("maiba_unread_thread_count(current_ad_account_id:null)");
-      for (var a of o) {
-        var i = r.getValue(a);
-        typeof i == "number" && r.setValue(Math.max(0, i + n), a);
+    function L(e, t, n, r, o) {
+      var a = e.getRoot(),
+        i = new Set([E(t)]);
+      (t != null && i.add(E(null)),
+        r != null && (i.add(E(t, r)), t != null && i.add(E(null, r))),
+        o != null && i.add(E(t, null, String(o))));
+      for (var l of i) {
+        var s = a.getValue(l);
+        typeof s == "number" && a.setValue(Math.max(0, s + n), l);
       }
     }
-    function R(e, t, n) {
+    function E(e, t, n) {
+      return o("relay-runtime/store/RelayStoreUtils").getStableStorageKey(
+        "maiba_unread_thread_count",
+        { current_ad_account_id: e, entry_point: t, thread_scope: n },
+      );
+    }
+    function k(e, t, n) {
       var r = e.getRoot(),
         o = [
           t != null
@@ -296,80 +356,84 @@ __d(
         typeof i == "number" && r.setValue(Math.max(0, i + n), a);
       }
     }
-    function L(e, t, n, r, a, i) {
-      var l,
-        s = e
+    function I(e, t, n, r, a, i, l, s, u, c) {
+      var d,
+        f = e
           .getRoot()
           .getLinkedRecord("fetch__XFBMAIBAConversation", { id: n }),
-        u = ((l = s) == null ? void 0 : l.getValue("is_unread")) === !0;
-      if (s == null) {
-        var c = d(e, t),
-          f = c != null ? p(c, n) : null;
-        f != null && (u = f.getValue("is_unread") === !0);
+        h =
+          u != null
+            ? u
+            : ((d = f) == null ? void 0 : d.getValue("is_unread")) === !0;
+      if (f == null) {
+        var y = m(e, t),
+          C = y != null ? _(y, n) : null;
+        C != null && (h = C.getValue("is_unread") === !0);
       }
-      if (!u) {
-        var g = m(e, t),
-          h = g != null ? p(g, n) : null;
-        h != null && (u = h.getValue("is_unread") === !0);
+      if (!h) {
+        var b = p(e, t, l != null ? l : null, s),
+          v = b != null ? _(b, n) : null;
+        v != null && (h = v.getValue("is_unread") === !0);
       }
-      s != null
-        ? s.setValue(r, "is_unread")
+      f != null
+        ? f.setValue(r, "is_unread")
         : r &&
-          ((s = e.create(
+          ((f = e.create(
             "client:fetch__XFBMAIBAConversation:" + n,
             "XFBMAIBAConversation",
           )),
-          s.setValue(n, "id"),
-          s.setValue(r, "is_unread"),
+          f.setValue(n, "id"),
+          f.setValue(r, "is_unread"),
           e
             .getRoot()
-            .setLinkedRecord(s, "fetch__XFBMAIBAConversation", { id: n }));
-      var y = r !== u;
-      (y && S(e, t, r ? 1 : -1), _(e, t, n, r, a, i));
-      var C = d(e, t);
-      if (C == null) return y;
-      var b = C.getLinkedRecords("edges");
-      if (b == null) return y;
-      for (var v of b) {
-        var R = v == null ? void 0 : v.getLinkedRecord("node");
-        if (R != null && R.getValue("external_conversation_id") === n)
-          return (R.setValue(r, "is_unread"), y);
+            .setLinkedRecord(f, "fetch__XFBMAIBAConversation", { id: n }));
+      var S = r !== h;
+      (S && L(e, t, r ? 1 : -1, l, s), g(e, t, n, r, a, i, l, s, c));
+      var R = m(e, t);
+      if (R == null) return S;
+      var E = R.getLinkedRecords("edges");
+      if (E == null) return S;
+      for (var k of E) {
+        var I = k == null ? void 0 : k.getLinkedRecord("node");
+        if (I != null && I.getValue("external_conversation_id") === n)
+          return (I.setValue(r, "is_unread"), S);
       }
-      if (!r) return y;
-      var L = "client:maiba_thread_list_node:" + n,
-        E = e.create(L, "XFBMAIBAConversation");
-      (E.setValue(n, "external_conversation_id"), E.setValue(r, "is_unread"));
-      var k = o("react-relay").ConnectionHandler.createEdge(
+      if (!r) return S;
+      var T = "client:maiba_thread_list_node:" + n,
+        D = e.create(T, "XFBMAIBAConversation");
+      (D.setValue(n, "external_conversation_id"), D.setValue(r, "is_unread"));
+      var x = o("react-relay").ConnectionHandler.createEdge(
         e,
-        C,
-        E,
+        R,
+        D,
         "XFBMAIBAViewerFieldsMaibaThreadListEdge",
       );
-      return (o("react-relay").ConnectionHandler.insertEdgeBefore(C, k), y);
+      return (o("react-relay").ConnectionHandler.insertEdgeBefore(R, x), S);
     }
-    var E = "client:maiba_fab_promo";
-    function k(e, t, n, r) {
+    var T = "client:maiba_fab_promo";
+    function D(e, t, n, r) {
       var a,
-        i = m(e, t);
+        i = p(e, t, null);
       if (i == null) {
-        S(e, t, 1);
+        L(e, t, 1);
         return;
       }
-      var l = "client:maiba_fab_promo_thread_node:" + E,
+      var l = "client:maiba_fab_promo_thread_node:" + T,
         s =
           (a = e.get(l)) != null
             ? a
             : e.create(l, "XFBMAIBAGenAICharmanderConversation");
       if (
-        (s.setValue(E, "external_conversation_id"),
+        (f(e, s),
+        s.setValue(T, "external_conversation_id"),
         s.setValue(!0, "is_unread"),
         s.setValue(Date.now(), "last_send_timestamp_ms"),
         s.setValue(t, "linked_ad_account"),
         n != null && s.setValue(n, "display_title"),
         r != null && s.setValue(r, "last_message_snippet"),
-        p(i, E) == null)
+        _(i, T) == null)
       ) {
-        S(e, t, 1);
+        L(e, t, 1);
         var u = o("react-relay").ConnectionHandler.createEdge(
           e,
           i,
@@ -379,39 +443,58 @@ __d(
         o("react-relay").ConnectionHandler.insertEdgeBefore(i, u);
       }
     }
-    function I(e, t) {
-      var n = d(e, t);
-      if (n != null) {
-        var r = n.getLinkedRecords("edges");
-        if (r != null)
-          for (var o of r) {
-            var a = o == null ? void 0 : o.getLinkedRecord("node");
-            if (a != null && a.getValue("is_unread") === !0) {
-              a.setValue(!1, "is_unread");
-              var i = a.getValue("external_conversation_id");
-              if (typeof i == "string") {
-                var l = e
+    function x(e, t, n) {
+      var r = n != null ? String(n) : null,
+        o = 0,
+        a = m(e, t);
+      if (a != null) {
+        var i = a.getLinkedRecords("edges");
+        if (i != null)
+          for (var l of i) {
+            var s = l == null ? void 0 : l.getLinkedRecord("node"),
+              u = s == null ? void 0 : s.getValue("entry_point"),
+              c = u === null || typeof u == "string",
+              d = u === "SEYMOUR" || u === "SEYMOUR_SCHEDULED_TASK",
+              _ =
+                r == null ||
+                r === "ALL" ||
+                (r === "ORDINARY" && c && !d) ||
+                (r === "CMO_ALL" && d) ||
+                (r === "CMO_SCHEDULED_TASK" && u === "SEYMOUR_SCHEDULED_TASK");
+            if (s != null && _ && s.getValue("is_unread") === !0) {
+              (s.setValue(!1, "is_unread"), o++);
+              var f = s.getValue("external_conversation_id");
+              if (typeof f == "string") {
+                var g = e
                   .getRoot()
-                  .getLinkedRecord("fetch__XFBMAIBAConversation", { id: i });
-                l == null || l.setValue(!1, "is_unread");
+                  .getLinkedRecord("fetch__XFBMAIBAConversation", { id: f });
+                g == null || g.setValue(!1, "is_unread");
               }
             }
           }
       }
-      var s = e.getRoot(),
-        u =
-          t != null
-            ? 'maiba_unread_thread_count(current_ad_account_id:"' + t + '")'
-            : "maiba_unread_thread_count(current_ad_account_id:null)";
-      (s.setValue(0, u),
-        t != null &&
-          s.setValue(
-            0,
-            "maiba_unread_thread_count(current_ad_account_id:null)",
-          ));
+      if (r != null) {
+        var h = p(e, t, null, r);
+        h == null || h.setLinkedRecords([], "edges");
+      }
+      var y = e.getRoot();
+      if (r != null) {
+        var C = E(t, null, r);
+        if ((y.setValue(0, C), o > 0)) {
+          var b = new Set([E(t)]);
+          t != null && b.add(E(null));
+          for (var v of b) {
+            var S = y.getValue(v);
+            typeof S == "number" && y.setValue(Math.max(0, S - o), v);
+          }
+        }
+        return;
+      }
+      var R = E(t);
+      (y.setValue(0, R), t != null && y.setValue(0, E(null)));
     }
-    function T(e, t, n) {
-      var r = d(e, t);
+    function $(e, t, n) {
+      var r = m(e, t);
       if (r) {
         var o = r.getLinkedRecords("edges");
         if (o)
@@ -427,19 +510,20 @@ __d(
       return !1;
     }
     ((l.NEW_CHAT_LABEL = e),
-      (l.deleteConversationRecord = g),
-      (l.createRecordsForNewConversation = h),
-      (l.insertConversationIntoThreadList = y),
-      (l.updateConversationRecord = C),
-      (l.ensureConversationInThreadList = b),
-      (l.ensureNewConversationInThreadListOnSend = v),
-      (l.updateUnreadThreadCount = S),
-      (l.updateReminderUnreadThreadCount = R),
-      (l.updateThreadIsUnreadInThreadList = L),
-      (l.MAIBA_FAB_PROMO_MINI_INBOX_ROW_KEY = E),
-      (l.insertPromoThreadIntoMiniInbox = k),
-      (l.markAllThreadsAsReadInThreadList = I),
-      (l.isThreadUnreadInConnection = T));
+      (l.ensureMAIBALocalConversationRecord = d),
+      (l.deleteConversationRecord = y),
+      (l.createRecordsForNewConversation = C),
+      (l.insertConversationIntoThreadList = b),
+      (l.updateConversationRecord = v),
+      (l.ensureConversationInThreadList = S),
+      (l.ensureNewConversationInThreadListOnSend = R),
+      (l.updateUnreadThreadCount = L),
+      (l.updateReminderUnreadThreadCount = k),
+      (l.updateThreadIsUnreadInThreadList = I),
+      (l.MAIBA_FAB_PROMO_MINI_INBOX_ROW_KEY = T),
+      (l.insertPromoThreadIntoMiniInbox = D),
+      (l.markAllThreadsAsReadInThreadList = x),
+      (l.isThreadUnreadInConnection = $));
   },
   226,
 );

@@ -216,23 +216,24 @@ __d(
         m = t.isMenuOpenOnOtherMsg,
         p = t.isMinimalMode,
         _ = t.isSentByMe,
-        f = t.tailOverride,
-        g = _ || !p,
-        h = u && d;
+        f = t.showChevron,
+        g = t.tailOverride,
+        h = _ || !p,
+        y = u && d;
       return (e || (e = r("stylex")))(
         o("WAWebSystemMessageStyles.stylex").systemMessageStyles.message,
-        c.teeLockHoverInset,
+        f && c.teeLockHoverInset,
         i && !m && c.hoverTintTrigger,
         o("WAWebABProps").getABPropConfigValue("wa_web_highlight_me_mention") &&
           c.messageHighlightMention,
-        h &&
+        y &&
           o("WDSFocusStateStyles").WDSFocusStateStyles.genericFocusPersistent,
-        h && c.messageFocused,
-        s && f === "left" && c.messageTailOverrideStart,
-        s && f === "right" && c.messageTailOverrideEnd,
+        y && c.messageFocused,
+        s && g === "left" && c.messageTailOverrideStart,
+        s && g === "right" && c.messageTailOverrideEnd,
         c.messageChat,
         l && c.messageCode,
-        g && a,
+        h && a,
         n &&
           o("WAWebVibrantOutgoingOverrides.stylex").vibrantOutgoingLiteralStyles
             .root,

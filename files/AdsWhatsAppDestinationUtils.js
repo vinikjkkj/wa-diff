@@ -21,27 +21,7 @@ __d(
         i === r("AdsAPIObjectives").VIDEO_VIEWS
       );
     }
-    function s(e) {
-      var t = babelHelpers.extends({}, e);
-      return (
-        (t.isWAChecked = !1),
-        t.isIGDChecked === !1 &&
-          t.isMSGRChecked === !1 &&
-          (t.isMSGRChecked = !0),
-        t
-      );
-    }
-    function u(e) {
-      var t = babelHelpers.extends({}, e);
-      return (
-        (t.isIGDChecked = !1),
-        t.isWAChecked === !1 &&
-          t.isMSGRChecked === !1 &&
-          (t.isMSGRChecked = !0),
-        t
-      );
-    }
-    function c(e, t) {
+    function s(e, t) {
       var n =
         e.length > 0 &&
         e.every(function (e) {
@@ -55,9 +35,7 @@ __d(
       return n ? r("AdCampaignDestination").WHATSAPP : null;
     }
     ((l.isEligibleForL1WhatsAppDestination = e),
-      (l.getWhatsAppExcludedDestinationState = s),
-      (l.getInstagramDirectExcludedDestinationState = u),
-      (l.maybeGetDestinationTypeForCTWAAwareness = c));
+      (l.maybeGetDestinationTypeForCTWAAwareness = s));
   },
   98,
 );

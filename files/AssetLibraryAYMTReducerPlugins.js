@@ -60,22 +60,22 @@ __d(
       };
     function d(e, t) {
       var n,
-        o = e.client_side_rendering_params,
-        a = e.client_side_react_props;
-      return new (r("AssetLibraryAYMTTip"))({
-        body: o.tip_body,
+        a = e.client_side_rendering_params,
+        i = e.client_side_react_props;
+      return o("AssetLibraryAYMTTip").makeAssetLibraryAYMTTip({
+        body: a.tip_body,
         channelID: r("nullthrows")(t.channel_id),
-        image: o.tip_image,
-        imageURI: o.tip_image_uri,
-        primaryButtonAction: o.actions.primary.tip_link,
-        primaryButtonText: o.actions.primary.tip_action_label,
-        primaryButtonIcon: a.primary_action_icon,
-        secondaryButtonAction: o.actions.secondary.tip_link,
-        secondaryButtonText: o.actions.secondary.tip_action_label,
+        image: a.tip_image,
+        imageURI: a.tip_image_uri,
+        primaryButtonAction: a.actions.primary.tip_link,
+        primaryButtonText: a.actions.primary.tip_action_label,
+        primaryButtonIcon: i.primary_action_icon,
+        secondaryButtonAction: a.actions.secondary.tip_link,
+        secondaryButtonText: a.actions.secondary.tip_action_label,
         tipID: r("nullthrows")(t.tip_id),
-        title: o.tip_title,
-        isVideoCreative: (n = a.is_video_creative) != null ? n : !1,
-        videoURI: a.tip_video_uri,
+        title: a.tip_title,
+        isVideoCreative: (n = i.is_video_creative) != null ? n : !1,
+        videoURI: i.tip_video_uri,
       });
     }
     ((l.onTipsRequested = s), (l.onTipsLoaded = u), (l.onHideTips = c));

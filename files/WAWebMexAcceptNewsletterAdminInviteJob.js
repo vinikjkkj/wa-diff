@@ -4,7 +4,6 @@ __d(
     "WAWebMexAcceptNewsletterAdminInviteJobMutation.graphql",
     "WAWebMexClient",
     "WAWebNewsletterRpcUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -12,29 +11,13 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebMexAcceptNewsletterAdminInviteJobMutation.graphql"));
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      return o("WAWebNewsletterRpcUtils").runWithBackoff(function () {
+        return c(e);
+      });
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebNewsletterRpcUtils").runWithBackoff(function () {
-            return d(e);
-          });
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebMexClient").fetchQuery(s, { newsletter_id: e });
-        })),
-        m.apply(this, arguments)
-      );
+    async function c(e) {
+      await o("WAWebMexClient").fetchQuery(s, { newsletter_id: e });
     }
     l.acceptNewsletterAdminInvite = u;
   },

@@ -19,9 +19,8 @@ __d(
       u,
       c = u || (u = o("react"));
     function d() {
-      (r("vulture")("yWV8UUYBMjpU-SZJM2FNRNYJoL0="),
-        o("WAWebUserPrefsGeneral").getSystemThemeMode() &&
-          o("WAWebUserPrefsGeneral").setSystemThemeMode(!1),
+      (o("WAWebUserPrefsGeneral").getSystemThemeMode() &&
+        o("WAWebUserPrefsGeneral").setSystemThemeMode(!1),
         o("WAWebThemeContext").setTheme(
           o("WAWebThemeContext").isDarkTheme() ? "light" : "dark",
         ));

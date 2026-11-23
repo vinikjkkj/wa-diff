@@ -6,6 +6,7 @@ __d(
     "AdsLeadsLifetimeDefaultedDurationExperimentUtils",
     "CampaignDefaultBudgetConfig",
     "gkx",
+    "justknobx",
     "qex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,8 +18,9 @@ __d(
       return !(!e() || r("gkx")("10063") === !0);
     }
     function u(e, t) {
-      return e === r("AdsAPIObjectives").LINK_CLICKS ||
-        e === r("AdsAPIObjectives").OUTCOME_TRAFFIC
+      return (e === r("AdsAPIObjectives").LINK_CLICKS ||
+        e === r("AdsAPIObjectives").OUTCOME_TRAFFIC) &&
+        r("justknobx")._("7209")
         ? t
           ? r("qex")._("2192") === !0
           : r("qex")._("2193") === !0
@@ -71,7 +73,12 @@ __d(
             : r("CampaignDefaultBudgetConfig").campaign_length_days;
     }
     function f(e, t) {
-      return t === "lifetime" && m(e);
+      return (
+        t === "lifetime" &&
+        e !== r("AdsAPIObjectives").LINK_CLICKS &&
+        e !== r("AdsAPIObjectives").OUTCOME_TRAFFIC &&
+        m(e)
+      );
     }
     ((l.isSevenDayLifetimeDurationEnabledForObjective = m),
       (l.getLifetimeDefaultDurationDays = _),

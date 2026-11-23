@@ -49,6 +49,7 @@ __d(
     var d = r("immutable").Map({
         "100x100": "SQUARE",
         "160x90": "HORIZONTAL",
+        "400x500": "VERTICAL",
         "90x160": "FULLSCREEN_VERTICAL",
       }),
       m = r("immutable").Map({
@@ -60,6 +61,7 @@ __d(
         ((e = {}),
         (e["1:1"] = "100x100"),
         (e["16:9"] = "160x90"),
+        (e["4:5"] = "400x500"),
         (e["9:16"] = "90x160"),
         e),
       ),
@@ -106,27 +108,27 @@ __d(
     function y(e) {
       return e ? r("gkx")("21801") : r("gkx")("21802");
     }
-    function C(e) {
-      return e ? r("gkx")("20590") : r("gkx")("20635");
+    function C() {
+      return r("gkx")("20635");
     }
     function b(e) {
       return e ? r("gkx")("9323") : r("gkx")("9347");
     }
-    function v(e, t) {
-      return e !== !0 ? !1 : t ? r("gkx")("841") : r("gkx")("1164");
+    function v(e) {
+      return e !== !0 ? !1 : r("gkx")("1164");
     }
-    function S(e, t) {
-      return e !== !0 ? !1 : t ? r("gkx")("1271") : r("gkx")("1342");
+    function S(e) {
+      return e !== !0 ? !1 : r("gkx")("1342");
     }
-    function R(e, t) {
-      return e !== !0 ? !1 : t ? r("gkx")("7811") : r("gkx")("7832");
+    function R(e) {
+      return e !== !0 ? !1 : r("gkx")("7811");
     }
     function L() {
       var e = r("qex")._("1566");
       return e != null ? e : 0;
     }
-    function E(e) {
-      return r("justknobx")._("3522") && y(e);
+    function E() {
+      return y("silent");
     }
     function k(e) {
       return e ? r("gkx")("16196") : r("gkx")("23154");
@@ -137,66 +139,75 @@ __d(
     function T(e) {
       return e ? r("gkx")("5123") : r("gkx")("5352");
     }
-    function D(e) {
-      return e ? r("gkx")("23926") : r("gkx")("23928");
+    function D() {
+      return r("gkx")("23928");
     }
     function x() {
-      return r("justknobx")._("5575");
+      return !1;
     }
     function $() {
-      return r("justknobx")._("2284");
+      return !0;
     }
-    function P(e) {
-      return x() ? !1 : D(e);
+    function P() {
+      return x() ? !1 : D();
     }
     function N() {
       return !r("justknobx")._("4949");
     }
-    function M(e, t) {
-      return e !== !0 ? !1 : t ? r("gkx")("25341") : r("gkx")("25342");
+    function M(e) {
+      return e !== !0 ? !1 : r("gkx")("25342");
     }
     function w(e) {
       return e ? r("gkx")("25991") : r("gkx")("25992");
     }
-    function A(e, t, n, a) {
-      var i,
-        l,
-        s =
-          e == null || (i = e.images) == null
+    function A() {
+      return !r("justknobx")._("3220");
+    }
+    function F(e) {
+      return e ? r("gkx")("6223") : r("gkx")("6315");
+    }
+    function O(e, t) {
+      return !e || !A() ? !1 : F(t);
+    }
+    function B(e, t, n, r) {
+      var a,
+        i,
+        l =
+          e == null || (a = e.images) == null
             ? void 0
-            : i
+            : a
                 .map(function (e) {
                   var n = e.hash,
-                    i = e.url,
-                    l = o("AdsImageIDUtils").getImageID({
-                      accountID: a,
+                    a = e.url,
+                    i = o("AdsImageIDUtils").getImageID({
+                      accountID: r,
                       hash: n,
-                      url: i,
+                      url: a,
                     });
-                  if (l == null) return null;
-                  var s = t(l).map(function (e) {
+                  if (i == null) return null;
+                  var l = t(i).map(function (e) {
                       return e.getTyped();
                     }),
-                    u = r("justknobx")._("2268") ? c(a, n, i) : null,
-                    d = { type: "image", id: u != null ? u : l },
-                    m = babelHelpers.extends({}, d, {
-                      asset: s,
+                    s = c(r, n, a),
+                    u = { type: "image", id: s != null ? s : i },
+                    d = babelHelpers.extends({}, u, {
+                      asset: l,
                       crops: null,
                       trimmingParams: null,
                     });
-                  return m;
+                  return d;
                 })
                 .filter(Boolean),
-        u = new Set(),
-        d =
-          e == null || (l = e.videos) == null
+        s = new Set(),
+        u =
+          e == null || (i = e.videos) == null
             ? void 0
-            : l
+            : i
                 .map(function (e) {
                   var t = e == null ? void 0 : e.original_video_id;
                   if (t != null && t !== "") {
-                    if (u.has(t)) return null;
-                    u.add(t);
+                    if (s.has(t)) return null;
+                    s.add(t);
                     var r = n(t),
                       o = { type: "video", id: t },
                       a = babelHelpers.extends({}, o, {
@@ -208,19 +219,19 @@ __d(
                   } else {
                     var i,
                       l,
-                      s = e == null ? void 0 : e.video_id;
-                    if (s == null) return null;
-                    var c = n(s),
+                      u = e == null ? void 0 : e.video_id;
+                    if (u == null) return null;
+                    var c = n(u),
                       d =
                         (i =
                           (l = c.croppedFromVideoID) != null
                             ? l
                             : c.trimmedFromVideoID) != null
                           ? i
-                          : s;
-                    if (u.has(d)) return null;
-                    u.add(d);
-                    var m = d === s ? c : n(d),
+                          : u;
+                    if (s.has(d)) return null;
+                    s.add(d);
+                    var m = d === u ? c : n(d),
                       p = { type: "video", id: d },
                       _ = babelHelpers.extends({}, p, {
                         asset: m,
@@ -231,14 +242,14 @@ __d(
                   }
                 })
                 .filter(Boolean);
-      return { images: s, videos: d };
+      return { images: l, videos: u };
     }
-    function F(e, t) {
+    function W(e, t) {
       return e.filter(function (e) {
         return e != null && (e == null ? void 0 : e.type) === t;
       });
     }
-    function O(e) {
+    function q(e) {
       var t, n;
       return (e == null ? void 0 : e.type) === "image"
         ? (t = o("AdsImageIDUtils").getImageHashFromID(
@@ -252,7 +263,7 @@ __d(
           ? void 0
           : e.id;
     }
-    function B(e) {
+    function U(e) {
       return e;
     }
     ((l.areImageIDsEqual = s),
@@ -281,10 +292,11 @@ __d(
       (l.isEligibleForMultiMediaThumbnailUpload = N),
       (l.isEligibleForLocalUploadsAutoSelect = M),
       (l.isEligibleForVariantMapping = w),
-      (l.getMultiMediaAssetsFromMediaSourcingSpecType = A),
-      (l.getSelectedMultiMediaWithSpecificType = F),
-      (l.getAssetID = O),
-      (l.isMMVariantMappingShadowModeEnabled = B));
+      (l.isEligibleForPerVariantPlacements = O),
+      (l.getMultiMediaAssetsFromMediaSourcingSpecType = B),
+      (l.getSelectedMultiMediaWithSpecificType = W),
+      (l.getAssetID = q),
+      (l.isMMVariantMappingShadowModeEnabled = U));
   },
   98,
 );

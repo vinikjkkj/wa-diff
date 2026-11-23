@@ -17,7 +17,6 @@ __d(
     "WAWebUpdateDisappearingModeForContact",
     "WAWebUserPrefsGeneral",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "justknobx",
     "requireDeferred",
   ],
@@ -66,17 +65,17 @@ __d(
       _ = null,
       f = null,
       g = new (r("WAPromiseCache"))(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        async function () {
           try {
-            var t = yield o("WAWebQueryPrivacySettingsJob").getPrivacy(),
+            var t = await o("WAWebQueryPrivacySettingsJob").getPrivacy(),
               n = babelHelpers.extends({}, t),
               r = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
               a = r.phoneNumberSharing;
             (a != null && (n.phoneNumberSharing = a),
               o("WAWebUserPrefsGeneral").setUserPrivacySettings(n));
-            var i = yield s.load(),
+            var i = await s.load(),
               l = i.syncPrivacyDisallowedLists,
-              u = yield l([
+              u = await l([
                 o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
                   .About,
                 o("WAWebSchemaPrivacyDisallowedList").PrivacyDisallowedListType
@@ -100,7 +99,7 @@ __d(
               t
             );
           }
-        }),
+        },
         {
           maxCached: 1,
           maxAge: m,
@@ -149,25 +148,15 @@ __d(
         );
       });
     }
-    function b() {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o(
-            "WAWebQueryDisappearingModeJob",
-          ).queryDisappearingMode();
-          yield o(
-            "WAWebUpdateDisappearingModeForContact",
-          ).updateDisappearingModeForContact({
-            contactId: o("WAWebUserUtils").getMeLidUserOrThrow(),
-            newDuration: e.duration,
-            newSettingTimestamp: e.t,
-          });
-        })),
-        v.apply(this, arguments)
-      );
+    async function b() {
+      var e = await o("WAWebQueryDisappearingModeJob").queryDisappearingMode();
+      await o(
+        "WAWebUpdateDisappearingModeForContact",
+      ).updateDisappearingModeForContact({
+        contactId: o("WAWebUserUtils").getMeLidUserOrThrow(),
+        newDuration: e.duration,
+        newSettingTimestamp: e.t,
+      });
     }
     ((l.AccountSyncType = u),
       (l.getDevices = c),

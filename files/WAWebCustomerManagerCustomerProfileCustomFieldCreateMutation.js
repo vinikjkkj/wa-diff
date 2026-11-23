@@ -6,7 +6,6 @@ __d(
     "WAWebCustomerManagerProfileRequest",
     "WAWebRelayClient",
     "XFBWACustomerProfileCustomFieldType.facebook",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,34 +16,25 @@ __d(
           : (e = n(
               "WAWebCustomerManagerCustomerProfileCustomFieldCreateMutation.graphql",
             ));
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = d(e),
-            r = yield o(
-              "WAWebCustomerManagerProfileRequest",
-            ).runCustomerProfileRequest(
-              "custom field create",
-              function (e) {
-                return o("WAWebRelayClient").commitMutation(s, { input: n }, e);
-              },
-              { rateLimitSurface: "write" },
-            );
-          return p(
-            r == null ||
-              (t = r.xfb_wa_create_customer_profile_custom_field) == null
-              ? void 0
-              : t.wa_customer_profile_custom_field,
-          );
-        })),
-        c.apply(this, arguments)
+    async function u(e) {
+      var t,
+        n = c(e),
+        r = await o(
+          "WAWebCustomerManagerProfileRequest",
+        ).runCustomerProfileRequest(
+          "custom field create",
+          function (e) {
+            return o("WAWebRelayClient").commitMutation(s, { input: n }, e);
+          },
+          { rateLimitSurface: "write" },
+        );
+      return m(
+        r == null || (t = r.xfb_wa_create_customer_profile_custom_field) == null
+          ? void 0
+          : t.wa_customer_profile_custom_field,
       );
     }
-    function d(e) {
+    function c(e) {
       var t,
         n,
         o = e.name.trim();
@@ -69,11 +59,11 @@ __d(
       return {
         currency: e.type === "MONEY" && (n = e.currency) != null ? n : void 0,
         enum_values: a,
-        field_type: m(e.type),
+        field_type: d(e.type),
         name: o,
       };
     }
-    function m(e) {
+    function d(e) {
       var t = r("XFBWACustomerProfileCustomFieldType.facebook").cast(e);
       if (t == null)
         throw r("err")(
@@ -81,7 +71,7 @@ __d(
         );
       return t;
     }
-    function p(e) {
+    function m(e) {
       var t = o(
         "WAWebCustomerManagerCustomerProfileDecoders",
       ).decodeCustomFieldDefinition(e);

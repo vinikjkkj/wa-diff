@@ -7,8 +7,8 @@ __d(
     "MAIBASurfaceContext",
     "isMAIBAUnifiedThreadsEnabled",
     "react",
-    "react-compiler-runtime",
     "useFetchAdAccounts",
+    "useMAIBAL4AdAccountContext",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -19,162 +19,110 @@ __d(
       d = c.useContext,
       m = c.useEffect,
       p = c.useMemo,
-      _ = c.useRef,
-      f = {
-        onAdAccountSelected: function () {},
-        selectedAdAccount: {
-          account_status: null,
-          currency: null,
-          id: null,
-          name: null,
-        },
-        shouldShowL4AccountSelectorPage: !1,
-        shouldShowL4AccountSwitcher: !1,
-      },
-      g = u.createContext(null);
-    function h(e) {
+      _ = c.useRef;
+    function f(e) {
       var t,
-        n = o("react-compiler-runtime").c(22),
-        a = e.children,
-        i = e.currentAdAccountID,
+        n = e.children,
+        a = e.currentAdAccountID,
+        i = e.customAnalyticsBusinessID,
         l = e.isUserLoggedInToAdAccount,
-        s = e.onAdAccountSelected,
-        c = e.shouldFallbackToRandomAccount,
-        p = c === void 0 ? !1 : c,
-        f = o("MAIBASurfaceContext").useMAIBASurfaceContext(),
-        h = f.autoLoggingTool,
-        y;
-      n[0] !== h
-        ? ((y = o("MAIBASurfaceConfig").isMBSSurfaceTool(h)),
-          (n[0] = h),
-          (n[1] = y))
-        : (y = n[1]);
-      var C = y,
-        b = h === "Facebook Ad Center",
-        v = h === "Business Support",
-        S = h === "WhatsApp Manager" || h === "WA Manager Marketing Campaign",
-        R = h === "DIRECT_SUPPORT",
-        L = d(r("BSHSharedAdAccountContext")),
-        E =
-          v && (t = L == null ? void 0 : L.currentAdAccountID) != null ? t : i,
-        k = v ? !1 : l,
-        I = o("useFetchAdAccounts").useInitialAdAccountSelection(E, k, p, C, b),
-        T = I.adAccount,
-        D = I.initialFetchedCount;
-      !k &&
-        D === 0 &&
+        s = e.l4QueryFetchKey,
+        c = e.onAdAccountSelected,
+        f = e.shouldFallbackToRandomAccount,
+        g = f === void 0 ? !1 : f,
+        h = o("MAIBASurfaceContext").useMAIBASurfaceContext(),
+        y = h.autoLoggingTool,
+        C = o("MAIBASurfaceConfig").isMBSSurfaceTool(y),
+        b = y === "Facebook Ad Center",
+        v = y === "Business Support",
+        S = y === "WhatsApp Manager" || y === "WA Manager Marketing Campaign",
+        R = y === "DIRECT_SUPPORT",
+        L = y === "Monetization Manager",
+        E = d(r("BSHSharedAdAccountContext")),
+        k =
+          v && (t = E == null ? void 0 : E.currentAdAccountID) != null ? t : a,
+        I = v || i != null ? !1 : l,
+        T = o("useFetchAdAccounts").useInitialAdAccountSelection(
+          k,
+          I,
+          g,
+          C,
+          b,
+          s,
+          i,
+        ),
+        D = T.adAccount,
+        x = T.adAccountOptions,
+        $ = T.initialFetchedCount;
+      !I &&
+        $ === 0 &&
+        i == null &&
         r("FBLogger")("MAIBA L4 Ad account context").warn(
           "No ad account found",
         );
-      var x = _(s),
-        $,
-        P;
-      (n[2] !== s
-        ? (($ = function () {
-            x.current = s;
-          }),
-          (P = [s]),
-          (n[2] = s),
-          (n[3] = $),
-          (n[4] = P))
-        : (($ = n[3]), (P = n[4])),
-        m($, P));
+      var P = _(c);
+      m(
+        function () {
+          P.current = c;
+        },
+        [c],
+      );
       var N = o("useFetchAdAccounts").useCommitAccountPayload(),
-        M = L == null ? void 0 : L.onAdAccountSelected,
-        w;
-      n[5] !== (T == null ? void 0 : T.id) ||
-      n[6] !== k ||
-      n[7] !== D ||
-      n[8] !== R ||
-      n[9] !== S
-        ? ((w =
-            !S &&
-            !R &&
-            !r("isMAIBAUnifiedThreadsEnabled")() &&
-            (T == null ? void 0 : T.id) == null &&
-            !k &&
-            D > 1),
-          (n[5] = T == null ? void 0 : T.id),
-          (n[6] = k),
-          (n[7] = D),
-          (n[8] = R),
-          (n[9] = S),
-          (n[10] = w))
-        : (w = n[10]);
-      var A = w,
-        F =
-          !S &&
-          !R &&
-          (b || v || (!k && (T == null ? void 0 : T.id) != null)) &&
-          D > 1,
-        O;
-      n[11] !== N || n[12] !== M
-        ? ((O = function (t) {
-            (N(t), x.current(t.id), M == null || M(t.id));
-          }),
-          (n[11] = N),
-          (n[12] = M),
-          (n[13] = O))
-        : (O = n[13]);
-      var B;
-      n[14] !== T || n[15] !== A || n[16] !== F || n[17] !== O
-        ? ((B = {
-            onAdAccountSelected: O,
-            selectedAdAccount: T,
-            shouldShowL4AccountSelectorPage: A,
-            shouldShowL4AccountSwitcher: F,
-          }),
-          (n[14] = T),
-          (n[15] = A),
-          (n[16] = F),
-          (n[17] = O),
-          (n[18] = B))
-        : (B = n[18]);
-      var W = B,
-        q;
-      return (
-        n[19] !== a || n[20] !== W
-          ? ((q = u.jsx(g.Provider, { value: W, children: a })),
-            (n[19] = a),
-            (n[20] = W),
-            (n[21] = q))
-          : (q = n[21]),
-        q
+        M = E == null ? void 0 : E.onAdAccountSelected,
+        w = p(
+          function () {
+            var e =
+                !S &&
+                !R &&
+                !L &&
+                !r("isMAIBAUnifiedThreadsEnabled")() &&
+                x == null &&
+                (D == null ? void 0 : D.id) == null &&
+                !I &&
+                $ > 1,
+              t =
+                !S &&
+                !R &&
+                !L &&
+                (b ||
+                  v ||
+                  x != null ||
+                  (!I && (D == null ? void 0 : D.id) != null)) &&
+                $ > 1;
+            return {
+              adAccountOptions: x,
+              onAdAccountSelected: function (t) {
+                (N(t), P.current(t.id), M == null || M(t.id));
+              },
+              selectedAdAccount: D,
+              shouldShowL4AccountSelectorPage: e,
+              shouldShowL4AccountSwitcher: t,
+            };
+          },
+          [D, x, N, I, $, v, R, b, L, S, M],
+        );
+      return u.jsx(
+        o("useMAIBAL4AdAccountContext").MAIBAL4AdAccountContext.Provider,
+        { value: w, children: n },
       );
     }
-    function y(t) {
-      var n = o("react-compiler-runtime").c(7),
-        r,
-        a;
-      n[0] !== t
-        ? ((r = t.children),
-          (a = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = r),
-          (n[2] = a))
-        : ((r = n[1]), (a = n[2]));
-      var i = d(g),
-        l;
-      return (
-        n[3] !== r || n[4] !== i || n[5] !== a
-          ? ((l =
-              i != null
-                ? u.jsx(g.Provider, { value: i, children: r })
-                : u.jsx(h, babelHelpers.extends({}, a, { children: r }))),
-            (n[3] = r),
-            (n[4] = i),
-            (n[5] = a),
-            (n[6] = l))
-          : (l = n[6]),
-        l
-      );
+    f.displayName = f.name + " [from " + i.id + "]";
+    function g(t) {
+      var n = t.children,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        a = d(o("useMAIBAL4AdAccountContext").MAIBAL4AdAccountContext);
+      return a != null
+        ? u.jsx(
+            o("useMAIBAL4AdAccountContext").MAIBAL4AdAccountContext.Provider,
+            { value: a, children: n },
+          )
+        : u.jsx(f, babelHelpers.extends({}, r, { children: n }));
     }
-    function C() {
-      var e;
-      return (e = d(g)) != null ? e : f;
-    }
-    ((l.MAIBAL4AdAccountContextProvider = y),
-      (l.useMAIBAL4AdAccountContext = C));
+    ((g.displayName = g.name + " [from " + i.id + "]"),
+      (l.MAIBAL4AdAccountContextProvider = g),
+      (l.useMAIBAL4AdAccountContext = o(
+        "useMAIBAL4AdAccountContext",
+      ).useMAIBAL4AdAccountContext));
   },
   98,
 );

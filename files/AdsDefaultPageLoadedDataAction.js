@@ -22,6 +22,13 @@ __d(
         return [];
       },
       "ADS.DEFAULT_PAGE.LOADED",
+      void 0,
+      void 0,
+      function (e) {
+        return function (n, r) {
+          e(n, r);
+        };
+      },
     );
     a.exports = e;
   },

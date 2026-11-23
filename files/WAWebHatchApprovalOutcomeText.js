@@ -9,17 +9,17 @@ __d(
       return m(e)
         ? e.record.outcomeLabel
         : e.outcome === "allowed"
-          ? s._(/*BTDS*/ "Allowed")
+          ? s._(/*BTDS*/ "")
           : e.outcome === "always_allowed"
-            ? s._(/*BTDS*/ "Always allowed")
+            ? s._(/*BTDS*/ "")
             : e.outcome === "auto_allowed"
-              ? s._(/*BTDS*/ "Auto allowed")
+              ? s._(/*BTDS*/ "")
               : e.outcome === "denied"
-                ? s._(/*BTDS*/ "Denied")
+                ? s._(/*BTDS*/ "")
                 : e.outcome === "always_denied"
-                  ? s._(/*BTDS*/ "Always denied")
+                  ? s._(/*BTDS*/ "")
                   : e.outcome === "timed_out"
-                    ? s._(/*BTDS*/ "Timed out")
+                    ? s._(/*BTDS*/ "")
                     : e.outcome === null || e.outcome === void 0
                       ? null
                       : (function () {

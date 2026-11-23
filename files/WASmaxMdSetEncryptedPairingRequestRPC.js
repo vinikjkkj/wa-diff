@@ -9,34 +9,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = c(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = u(r, n);
-          if (a.success)
-            return {
-              name: "SetEncryptedPairingRequestResponseSuccess",
-              value: a.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "SetEncryptedPairingRequest",
-              { Success: a },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = u(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = s(r, n);
+      if (a.success)
+        return {
+          name: "SetEncryptedPairingRequestResponseSuccess",
+          value: a.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing(
+          "SetEncryptedPairingRequest",
+          { Success: a },
+        ),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInMdIQResultResponseMixin").parseIQResultResponseMixin(
@@ -45,7 +36,7 @@ __d(
       );
       return (r.success, r);
     }
-    function c(e) {
+    function u(e) {
       var t = e.encryptedPairingRequestElementValue,
         n = o("WASmaxOutMdBaseIQSetRequestMixin").mergeBaseIQSetRequestMixin(
           o("WASmaxJsx").smax(
@@ -57,8 +48,8 @@ __d(
       return n;
     }
     ((l.sendSetEncryptedPairingRequestRPC = e),
-      (l.parseSetEncryptedPairingRequestResponseSuccess = u),
-      (l.makeSetEncryptedPairingRequestRequest = c));
+      (l.parseSetEncryptedPairingRequestResponseSuccess = s),
+      (l.makeSetEncryptedPairingRequestRequest = u));
   },
   98,
 );

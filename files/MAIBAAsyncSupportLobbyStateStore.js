@@ -1,6 +1,6 @@
 __d(
   "MAIBAAsyncSupportLobbyStateStore",
-  ["FBLogger", "react", "react-compiler-runtime"],
+  ["FBLogger", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -26,12 +26,15 @@ __d(
           : 2;
     }
     function C(e, t) {
-      var n = /^\d+$/;
-      return n.test(e) && n.test(t)
-        ? e.length === t.length
-          ? e.localeCompare(t)
-          : e.length - t.length
-        : e.localeCompare(t);
+      var n = e.operationCreatedTime,
+        r = t.operationCreatedTime;
+      if (n == null || r == null) return 0;
+      var o = /^\d+$/;
+      return o.test(n) && o.test(r)
+        ? n.length === r.length
+          ? n.localeCompare(r)
+          : n.length - r.length
+        : n.localeCompare(r);
     }
     function b(e) {
       return e.operationType !== f
@@ -50,6 +53,7 @@ __d(
         e.content === t.content &&
         e.draftId === t.draftId &&
         e.fragmentId === t.fragmentId &&
+        e.operationCreatedTime === t.operationCreatedTime &&
         e.operationId === t.operationId &&
         e.operationType === t.operationType &&
         e.operationVersion === t.operationVersion &&
@@ -116,9 +120,7 @@ __d(
                   ? void 0
                   : a.terminalContinuationConsumed,
           });
-        (a != null &&
-          a.operationId !== t.operationId &&
-          C(a.operationId, t.operationId) > 0) ||
+        (a != null && a.operationId !== t.operationId && C(a, t) > 0) ||
           (a != null &&
             a.operationId === t.operationId &&
             h(a.status) > h(t.status)) ||
@@ -144,7 +146,8 @@ __d(
         g,
         h,
         y,
-        C = (n = S(t, "async_tool_request_id")) != null ? n : e;
+        C,
+        b = (n = S(t, "async_tool_request_id")) != null ? n : e;
       k(e, {
         adAccountId: (r = S(t, "ad_account_id")) != null ? r : void 0,
         adIds: (o = S(t, "ad_ids")) != null ? o : void 0,
@@ -154,18 +157,20 @@ __d(
         content: (s = S(t, "content")) != null ? s : void 0,
         draftId: (u = S(t, "ad_draft_id")) != null ? u : void 0,
         fragmentId: (c = S(t, "fragment_id")) != null ? c : void 0,
-        operationId: C,
+        operationCreatedTime:
+          (d = S(t, "operation_created_time")) != null ? d : void 0,
+        operationId: b,
         operationType:
-          (d = S(t, "operation_type")) != null ? d : "dora_failed_payment",
-        operationVersion: (m = S(t, "operation_version")) != null ? m : void 0,
-        publishId: (p = S(t, "publish_id")) != null ? p : void 0,
+          (m = S(t, "operation_type")) != null ? m : "dora_failed_payment",
+        operationVersion: (p = S(t, "operation_version")) != null ? p : void 0,
+        publishId: (_ = S(t, "publish_id")) != null ? _ : void 0,
         remediationContextId:
-          (_ = S(t, "remediation_context_id")) != null ? _ : void 0,
-        stageKey: (f = S(t, "stage_key")) != null ? f : "review_in_progress",
-        status: (g = S(t, "status")) != null ? g : "IN_PROGRESS",
+          (f = S(t, "remediation_context_id")) != null ? f : void 0,
+        stageKey: (g = S(t, "stage_key")) != null ? g : "review_in_progress",
+        status: (h = S(t, "status")) != null ? h : "IN_PROGRESS",
         terminalContinuationConsumed:
-          (h = R(t, "terminal_continuation_consumed")) != null ? h : void 0,
-        title: (y = S(t, "title")) != null ? y : void 0,
+          (y = R(t, "terminal_continuation_consumed")) != null ? y : void 0,
+        title: (C = S(t, "title")) != null ? C : void 0,
       });
     }
     function T(e, t) {
@@ -207,47 +212,19 @@ __d(
       return e == null ? p : (t = c.get(e)) != null ? t : p;
     }
     function N(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n;
-      return (
-        t[0] !== e
-          ? ((n = function () {
-              return $(e);
-            }),
-            (t[0] = e),
-            (t[1] = n))
-          : (n = t[1]),
-        s(x, n)
-      );
+      return s(x, function () {
+        return $(e);
+      });
     }
     function M(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n;
-      return (
-        t[0] !== e
-          ? ((n = function () {
-              return P(e);
-            }),
-            (t[0] = e),
-            (t[1] = n))
-          : (n = t[1]),
-        s(x, n)
-      );
+      return s(x, function () {
+        return P(e);
+      });
     }
     function w(e, t) {
-      var n = o("react-compiler-runtime").c(3),
-        r;
-      return (
-        n[0] !== e || n[1] !== t
-          ? ((r = function () {
-              return t == null || d.get(e) === t;
-            }),
-            (n[0] = e),
-            (n[1] = t),
-            (n[2] = r))
-          : (r = n[2]),
-        s(x, r)
-      );
+      return s(x, function () {
+        return t == null || d.get(e) === t;
+      });
     }
     ((l.applyAsyncSupportLobbyState = k),
       (l.applyAsyncSupportLobbyStatePayload = T),

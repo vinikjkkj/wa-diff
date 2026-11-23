@@ -31,7 +31,7 @@ __d(
         o("WAWebComposeBoxActions").ComposeBoxActions.focus(e));
     }
     function u() {
-      var e = s._(/*BTDS*/ "I want to create a space about").toString();
+      var e = s._(/*BTDS*/ "").toString();
       return e + " ";
     }
     l.prefillHatchCreateSpacePrompt = e;

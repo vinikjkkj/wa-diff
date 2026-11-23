@@ -32,9 +32,7 @@ __d(
       e != null &&
         (o("WAWebCopyToClipboard").copyTextToClipboard(e),
         o("WAWebToastManager").ToastManager.open(
-          u.jsx(o("WAWebToast.react").Toast, {
-            msg: s._(/*BTDS*/ "Code copied"),
-          }),
+          u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
         ));
     }
     function p(e) {

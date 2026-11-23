@@ -13,7 +13,6 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgModel",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
   ],
@@ -23,33 +22,25 @@ __d(
         NO_MEDIA_ENTRY:
           "sendGalaxyMediaMsg:upload failed: media entry was not created",
       };
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      var t = o("WAWebUserUtils").getMeLidUserOrThrow(),
+        n = new (r("WAWebMsgKey"))({
+          from: t,
+          to: t,
+          id: await r("WAWebMsgKey").newId(),
+          selfDir: "out",
+        });
+      return {
+        author: t,
+        id: n,
+        from: t,
+        to: t,
+        t: o("WATimeUtils").unixTime(),
+        local: !0,
+        type: e.type,
+      };
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserUtils").getMeLidUserOrThrow(),
-            n = new (r("WAWebMsgKey"))({
-              from: t,
-              to: t,
-              id: yield r("WAWebMsgKey").newId(),
-              selfDir: "out",
-            });
-          return {
-            author: t,
-            id: n,
-            from: t,
-            to: t,
-            t: o("WATimeUtils").unixTime(),
-            local: !0,
-            type: e.type,
-          };
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
+    function c(e) {
       var t = e.body,
         n = e.mediaResultEntry,
         a = e.mmsThumbnailData,
@@ -80,69 +71,59 @@ __d(
         a,
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    async function d(t) {
+      var n = t.collectionId,
+        a = t.maxFileSizeBytes,
+        i = t.media,
+        l = t.options;
+      try {
+        var d = await u(i),
+          m = r("WAWebMediaPrepMediaProps")(i.mediaPrep, l).then(function (e) {
+            return babelHelpers.extends({}, d, e, { type: e.type });
+          }),
+          p = babelHelpers.extends({}, await m, {
+            id: d.id,
+            from: d.from,
+            author: d.author,
+          }),
+          _ = new (o("WAWebMsgModel").Msg)(p);
+        (o(
+          "WAWebGalaxyFlowMediaEditorCollection",
+        ).GalaxyFlowMediaEditorCollection.addMsg(n, _, a),
+          await _.waitForPrep());
+        var f = await (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebMediaUploadService").MediaUploadService,
+                ).uploadMediaWithPrep
+              : o("WAWebMediaUploadMediaWithPrep").uploadMediaWithPrep
+          )(_, l),
+          g = f.body,
+          h = f.mediaResult.mediaEntry,
+          y = f.mmsThumbnailData;
+        if (!h) throw r("err")(s.NO_MEDIA_ENTRY);
+        var C = c({
+          body: g,
+          mediaResultEntry: h,
+          mmsThumbnailData: y,
+          msg: _,
+        });
+        await r("WAWebMediaUpdateMsg")(_, C);
+      } catch (t) {
+        throw (
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "sendGalaxyMediaMsg: error while sending message: ",
+                "",
+              ])),
+            t,
+          ),
+          t
+        );
+      }
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.collectionId,
-            a = t.maxFileSizeBytes,
-            i = t.media,
-            l = t.options;
-          try {
-            var c = yield u(i),
-              m = r("WAWebMediaPrepMediaProps")(i.mediaPrep, l).then(
-                function (e) {
-                  return babelHelpers.extends({}, c, e, { type: e.type });
-                },
-              ),
-              p = babelHelpers.extends({}, yield m, {
-                id: c.id,
-                from: c.from,
-                author: c.author,
-              }),
-              _ = new (o("WAWebMsgModel").Msg)(p);
-            (o(
-              "WAWebGalaxyFlowMediaEditorCollection",
-            ).GalaxyFlowMediaEditorCollection.addMsg(n, _, a),
-              yield _.waitForPrep());
-            var f = yield (
-                o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                  ? o("WAWebBackendRuntime").runtime(
-                      o("WAWebMediaUploadService").MediaUploadService,
-                    ).uploadMediaWithPrep
-                  : o("WAWebMediaUploadMediaWithPrep").uploadMediaWithPrep
-              )(_, l),
-              g = f.body,
-              h = f.mediaResult.mediaEntry,
-              y = f.mmsThumbnailData;
-            if (!h) throw r("err")(s.NO_MEDIA_ENTRY);
-            var C = d({
-              body: g,
-              mediaResultEntry: h,
-              mmsThumbnailData: y,
-              msg: _,
-            });
-            yield r("WAWebMediaUpdateMsg")(_, C);
-          } catch (t) {
-            throw (
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "sendGalaxyMediaMsg: error while sending message: ",
-                    "",
-                  ])),
-                t,
-              ),
-              t
-            );
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    l.sendGalaxyMediaMsg = m;
+    l.sendGalaxyMediaMsg = d;
   },
   98,
 );

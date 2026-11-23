@@ -1,7 +1,6 @@
 __d(
   "WAWebSocketLogoutStorageUtils",
   [
-    "Promise",
     "WAWebFtsClient",
     "WAWebFtsStorage",
     "WAWebJobsStorage",
@@ -11,35 +10,25 @@ __d(
     "WAWebOffdStorage",
     "WAWebQplStorage",
     "WAWebWorkerStorage",
-    "asyncToGeneratorRuntime",
     "cr:10201",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
-      return u.apply(this, arguments);
+    async function e() {
+      var e = [
+        o("WAWebModelStorage").destroy(),
+        o("WAWebLruMediaStorageUtils").destroyStorage(),
+      ];
+      (e.push(o("WAWebFtsStorage").destroy()),
+        e.push(o("WAWebOffdStorage").destroy()),
+        e.push(o("WAWebJobsStorage").destroy()),
+        e.push(o("WAWebQplStorage").destroy()),
+        e.push(o("WAWebFtsClient").ftsClient.clearInitializationPromises()),
+        e.push(o("WAWebFtsClient").ftsClient.destroyExternalStorage()),
+        e.push(o("WAWebLabyrinthLogout").clearLabyrinthAtLogout()),
+        e.push(o("WAWebWorkerStorage").destroy()),
+        await Promise.all(e));
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = [
-            o("WAWebModelStorage").destroy(),
-            o("WAWebLruMediaStorageUtils").destroyStorage(),
-          ];
-          (t.push(o("WAWebFtsStorage").destroy()),
-            t.push(o("WAWebOffdStorage").destroy()),
-            t.push(o("WAWebJobsStorage").destroy()),
-            t.push(o("WAWebQplStorage").destroy()),
-            t.push(o("WAWebFtsClient").ftsClient.clearInitializationPromises()),
-            t.push(o("WAWebFtsClient").ftsClient.destroyExternalStorage()),
-            t.push(o("WAWebLabyrinthLogout").clearLabyrinthAtLogout()),
-            t.push(o("WAWebWorkerStorage").destroy()),
-            yield (e || (e = n("Promise"))).all(t));
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    l.destroyStorage = s;
+    l.destroyStorage = e;
   },
   98,
 );

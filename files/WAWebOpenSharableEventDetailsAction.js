@@ -8,7 +8,6 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebSharableEventDetailsFlowLoadable",
     "WAWebSharableEventGatingUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -35,39 +34,28 @@ __d(
         ),
         m(e));
     }
-    var d = r("WAWebLazyLoadedRetriable")(
-      n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-        return r("JSResourceForInteraction")("WAWebMarkSharableEventSeenAction")
-          .__setRef("WAWebOpenSharableEventDetailsAction")
-          .load();
-      }),
-      "WAWebMarkSharableEventSeenAction",
-    );
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            var n = yield d(),
-              a = n.markSharableEventSeen;
-            yield a(t);
-          } catch (n) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event][unseen] eventId=",
-                    " loading mark-seen failed",
-                  ])),
-                t,
-              )
-              .catching(r("getErrorSafe")(n));
-          }
-        })),
-        p.apply(this, arguments)
-      );
+    var d = r("WAWebLazyLoadedRetriable")(async function () {
+      return r("JSResourceForInteraction")("WAWebMarkSharableEventSeenAction")
+        .__setRef("WAWebOpenSharableEventDetailsAction")
+        .load();
+    }, "WAWebMarkSharableEventSeenAction");
+    async function m(t) {
+      try {
+        var n = await d(),
+          a = n.markSharableEventSeen;
+        await a(t);
+      } catch (n) {
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][unseen] eventId=",
+                " loading mark-seen failed",
+              ])),
+            t,
+          )
+          .catching(r("getErrorSafe")(n));
+      }
     }
     l.openSharableEventDetails = c;
   },

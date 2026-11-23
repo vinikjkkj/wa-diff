@@ -15,7 +15,6 @@ __d(
     "WAWebSchemaOmittedConversationMetadata",
     "WAWebSyncGatingUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -41,122 +40,105 @@ __d(
         "unknown",
       ];
     function d(e) {
-      return _(e, o("WAWebDBMessageUtils").beginningOfChat(e));
+      return p(e, o("WAWebDBMessageUtils").beginningOfChat(e));
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
-          if (
-            t.syncType !==
-            o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
-              .ON_DEMAND
-          )
-            return null;
-          var r = t.peerDataRequestChatId;
-          if (
-            e.syncType !==
-              o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
-                .ON_DEMAND ||
-            e.conversations.length !== 1 ||
-            t.peerDataRequestSessionId == null ||
-            r == null ||
-            !s()
-          )
-            return null;
-          var a = yield o(
-              "WAWebOmittedConversationMetadataStore",
-            ).getCurrentOmittedMetadataSnapshot(),
-            i = yield o("WAWebSchemaOmittedConversationMetadata")
-              .getOmittedConversationMetadataTable()
-              .get(
-                o(
-                  "WAWebOmittedConversationMetadataIdentity",
-                ).parseOmittedMetadataChatJid(r),
-              );
-          if (
-            a == null ||
-            (i == null ? void 0 : i.kind) !== "metadata" ||
-            i.snapshotId !== a.snapshotId
-          )
-            return null;
-          var l = o(
-              "WAWebOmittedConversationMetadataIdentity",
-            ).getStoredOmittedMetadataIdentity(i),
-            u = e.conversations[0],
-            c = o(
-              "WAWebOmittedConversationMetadataIdentity",
-            ).parseOmittedMetadataChatJid(u.id);
-          if (c !== l.historyId && c !== l.accountLid) return null;
-          var m =
-            (n = l.accountLid) != null
-              ? n
-              : o("WAJids").validateLidUserJid(l.historyId);
-          if (
-            u.accountLid != null &&
+    async function m(e, t) {
+      var n;
+      if (
+        t.syncType !==
+        o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType.ON_DEMAND
+      )
+        return null;
+      var r = t.peerDataRequestChatId;
+      if (
+        e.syncType !==
+          o("WAWebProtobufsHistorySync.pb").HistorySync$HistorySyncType
+            .ON_DEMAND ||
+        e.conversations.length !== 1 ||
+        t.peerDataRequestSessionId == null ||
+        r == null ||
+        !s()
+      )
+        return null;
+      var a = await o(
+          "WAWebOmittedConversationMetadataStore",
+        ).getCurrentOmittedMetadataSnapshot(),
+        i = await o("WAWebSchemaOmittedConversationMetadata")
+          .getOmittedConversationMetadataTable()
+          .get(
             o(
               "WAWebOmittedConversationMetadataIdentity",
-            ).parseOmittedMetadataAccountLid(u.accountLid) !== m
-          )
-            return null;
-          var p = yield o("WAWebSchemaChat")
-              .getChatTable()
-              .bulkGet(
-                [l.accountLid, l.historyId].filter(Boolean).map(function (e) {
-                  return o("WAWebWidFactory").createWid(e).toString();
-                }),
-              ),
-            _ = p.find(function (e) {
-              return (
-                e != null &&
-                o(
-                  "WAWebOmittedConversationMetadataIdentity",
-                ).metadataMatchesChat(l, e)
-              );
-            });
-          return _ == null ||
-            (yield d(o("WAWebWidFactory").createWid(_.id))) == null
-            ? null
-            : _;
-        })),
-        p.apply(this, arguments)
-      );
+            ).parseOmittedMetadataChatJid(r),
+          );
+      if (
+        a == null ||
+        (i == null ? void 0 : i.kind) !== "metadata" ||
+        i.snapshotId !== a.snapshotId
+      )
+        return null;
+      var l = o(
+          "WAWebOmittedConversationMetadataIdentity",
+        ).getStoredOmittedMetadataIdentity(i),
+        u = e.conversations[0],
+        c = o(
+          "WAWebOmittedConversationMetadataIdentity",
+        ).parseOmittedMetadataChatJid(u.id);
+      if (c !== l.historyId && c !== l.accountLid) return null;
+      var m =
+        (n = l.accountLid) != null
+          ? n
+          : o("WAJids").validateLidUserJid(l.historyId);
+      if (
+        u.accountLid != null &&
+        o(
+          "WAWebOmittedConversationMetadataIdentity",
+        ).parseOmittedMetadataAccountLid(u.accountLid) !== m
+      )
+        return null;
+      var p = await o("WAWebSchemaChat")
+          .getChatTable()
+          .bulkGet(
+            [l.accountLid, l.historyId].filter(Boolean).map(function (e) {
+              return o("WAWebWidFactory").createWid(e).toString();
+            }),
+          ),
+        _ = p.find(function (e) {
+          return (
+            e != null &&
+            o("WAWebOmittedConversationMetadataIdentity").metadataMatchesChat(
+              l,
+              e,
+            )
+          );
+        });
+      return _ == null ||
+        (await d(o("WAWebWidFactory").createWid(_.id))) == null
+        ? null
+        : _;
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .between(
-                ["internalId"],
-                t,
-                o("WAWebDBMessageUtils").endOfChat(e),
-                { limit: u, reverse: !1, shouldDecrypt: !1 },
-              ),
-            i = a.find(function (e) {
-              return (
-                e.t > 0 &&
-                !o("WAWebMsgType").SYSTEM_MESSAGE_TYPES.includes(e.type) &&
-                !c.includes(e.type)
-              );
-            });
-          if (i != null)
-            return {
-              id: r("WAWebMsgKey").fromString(i.id),
-              timestampMs: i.t * 1e3,
-            };
-          var l = (n = a[a.length - 1]) == null ? void 0 : n.internalId;
-          return a.length < u || l == null ? null : _(e, l + "\0");
-        })),
-        f.apply(this, arguments)
-      );
+    async function p(e, t) {
+      var n,
+        a = await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .between(["internalId"], t, o("WAWebDBMessageUtils").endOfChat(e), {
+            limit: u,
+            reverse: !1,
+            shouldDecrypt: !1,
+          }),
+        i = a.find(function (e) {
+          return (
+            e.t > 0 &&
+            !o("WAWebMsgType").SYSTEM_MESSAGE_TYPES.includes(e.type) &&
+            !c.includes(e.type)
+          );
+        });
+      if (i != null)
+        return {
+          id: r("WAWebMsgKey").fromString(i.id),
+          timestampMs: i.t * 1e3,
+        };
+      var l = (n = a[a.length - 1]) == null ? void 0 : n.internalId;
+      return a.length < u || l == null ? null : p(e, l + "\0");
     }
     ((l.isOmittedHistorySyncOnDemandEnabled = e),
       (l.isOmittedHistorySyncOnDemandSupported = s),

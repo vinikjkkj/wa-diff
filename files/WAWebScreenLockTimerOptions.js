@@ -8,29 +8,25 @@ __d(
       return [
         {
           value: o("WATimeUtils").MINUTE_SECONDS,
-          label: s._(/*BTDS*/ "After 1 minute"),
-          summaryText: s._(/*BTDS*/ "After 1 minute"),
+          label: s._(/*BTDS*/ ""),
+          summaryText: s._(/*BTDS*/ ""),
         },
-        {
-          value: u,
-          label: s._(/*BTDS*/ "After 15 minutes"),
-          summaryText: s._(/*BTDS*/ "After 15 minutes"),
-        },
+        { value: u, label: s._(/*BTDS*/ ""), summaryText: s._(/*BTDS*/ "") },
         {
           value: o("WATimeUtils").HOUR_SECONDS,
-          label: s._(/*BTDS*/ "After 1 hour"),
-          summaryText: s._(/*BTDS*/ "After 1 hour"),
+          label: s._(/*BTDS*/ ""),
+          summaryText: s._(/*BTDS*/ ""),
         },
         {
           value: 8 * o("WATimeUtils").HOUR_SECONDS,
-          label: s._(/*BTDS*/ "After 8 hours"),
-          summaryText: s._(/*BTDS*/ "After 8 hours"),
+          label: s._(/*BTDS*/ ""),
+          summaryText: s._(/*BTDS*/ ""),
         },
       ];
     }
     function d(t) {
       var n, a;
-      if (t === 0) return s._(/*BTDS*/ "Require password to unlock WhatsApp");
+      if (t === 0) return s._(/*BTDS*/ "");
       var i =
         (n = c().find(function (e) {
           return e.value === t;

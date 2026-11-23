@@ -10,66 +10,50 @@ __d(
     "WAWebToastManager",
     "justknobx",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
       c = e.useEffect;
     function d(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n,
-        r;
-      (t[0] !== e
-        ? ((n = function () {
-            for (var t in e) {
-              var n = e[t];
-              n != null &&
-                o("WAWebToastManager").ToastManager.open(
-                  u.jsx(o("WAWebToast.react").Toast, {
-                    id: t + n.toString(),
-                    msg: n,
-                    action: {
-                      actionText: s._(/*BTDS*/ "OK"),
-                      dismiss: !0,
-                      theme: "success",
-                    },
-                  }),
-                );
-            }
-          }),
-          (r = [e]),
-          (t[0] = e),
-          (t[1] = n),
-          (t[2] = r))
-        : ((n = t[1]), (r = t[2])),
-        c(n, r));
+      c(
+        function () {
+          for (var t in e) {
+            var n = e[t];
+            n != null &&
+              o("WAWebToastManager").ToastManager.open(
+                u.jsx(o("WAWebToast.react").Toast, {
+                  id: t + n.toString(),
+                  msg: n,
+                  action: {
+                    actionText: s._(/*BTDS*/ ""),
+                    dismiss: !0,
+                    theme: "success",
+                  },
+                }),
+              );
+          }
+        },
+        [e],
+      );
     }
     function m() {
-      return s._(/*BTDS*/ "Enter a valid number");
+      return s._(/*BTDS*/ "");
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p() {
-      return s._(/*BTDS*/ "Enter a positive number");
+      return s._(/*BTDS*/ "");
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
       return r("justknobx")._("8427")
-        ? s._(/*BTDS*/ "{input_label} can't be more than 100\u0025", [
-            s._param("input_label", e),
-          ])
-        : s._(/*BTDS*/ "{input_label} cannot be more than 100\u0025", [
-            s._param("input_label", e),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("input_label", e)])
+        : s._(/*BTDS*/ "", [s._param("input_label", e)]);
     }
     function f(e) {
       return r("justknobx")._("8427")
-        ? s._(/*BTDS*/ "{input_label} can't be more than the subtotal", [
-            s._param("input_label", e),
-          ])
-        : s._(/*BTDS*/ "{input_label} cannot be more than subtotal", [
-            s._param("input_label", e),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("input_label", e)])
+        : s._(/*BTDS*/ "", [s._param("input_label", e)]);
     }
     function g(e) {
       var t = e.currency,

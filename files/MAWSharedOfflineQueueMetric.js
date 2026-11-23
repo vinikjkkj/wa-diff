@@ -146,11 +146,15 @@ __d(
                   break;
                 }
                 case "connection-lost": {
-                  var s;
+                  var s,
+                    u,
+                    d = (s = n.streamError) != null ? s : "none";
                   (c.INFO(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "Connection Lost. Time taken: ",
+                        "Connection Lost (",
+                        ", stream error: ",
+                        "). Time taken: ",
                         " sec;\n          expected: ",
                         " with ",
                         " messages;\n          entities: ",
@@ -158,6 +162,8 @@ __d(
                         ";\n          messages: ",
                         "",
                       ])),
+                    n.reason,
+                    d,
                     o("WATimeUtils").performanceAbsoluteNow() / 1e3 - t.$2,
                     t.$9.total,
                     t.$9.messages,
@@ -177,9 +183,10 @@ __d(
                         isError: !0,
                       },
                     ),
-                    (s = t.$3) == null ||
-                      s.endFail("connection-lost", {
+                    (u = t.$3) == null ||
+                      u.endFail("connection-lost", {
                         bool: { isConnectionLost: !0 },
+                        string: { disconnectReason: n.reason, streamError: d },
                       }),
                     (t.$3 = null));
                   break;

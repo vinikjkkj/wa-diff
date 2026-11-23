@@ -15,46 +15,38 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = _(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return {
-              name: "GetDisclosureStageByIdsResponseClientSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "GetDisclosureStageByIdsResponseClientError",
-              value: i.value,
-            };
-          var l = m(r, n);
-          if (l.success)
-            return {
-              name: "GetDisclosureStageByIdsResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "GetDisclosureStageByIds",
-              { ClientSuccess: a, ClientError: i, ServerError: l },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = p(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return {
+          name: "GetDisclosureStageByIdsResponseClientSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "GetDisclosureStageByIdsResponseClientError",
+          value: i.value,
+        };
+      var l = d(r, n);
+      if (l.success)
+        return {
+          name: "GetDisclosureStageByIdsResponseServerError",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetDisclosureStageByIds", {
+          ClientSuccess: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -75,7 +67,7 @@ __d(
           )
         : i;
     }
-    function c(e) {
+    function u(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "notice");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(e, "t", 0, void 0);
@@ -106,7 +98,7 @@ __d(
           )
         : i;
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -118,7 +110,7 @@ __d(
         "notice",
         0,
         1 / 0,
-        c,
+        u,
       );
       return a.success
         ? o("WAResultOrError").makeResult(
@@ -126,7 +118,7 @@ __d(
           )
         : a;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -146,7 +138,7 @@ __d(
           )
         : i;
     }
-    function p(e) {
+    function m(e) {
       var t = e.getDisclosureStageByIdId,
         n = e.getDisclosureStageByIdT,
         r = o("WASmaxJsx").smax("get_disclosure_stage_by_id", {
@@ -155,7 +147,7 @@ __d(
         });
       return r;
     }
-    function _(e) {
+    function p(e) {
       var t = e.getDisclosureStageByIdArgs,
         n = o(
           "WASmaxOutUserNoticeBaseIQGetRequestMixin",
@@ -163,16 +155,16 @@ __d(
           o("WASmaxJsx").smax(
             "iq",
             { to: o("WAWap").S_WHATSAPP_NET, xmlns: "tos" },
-            o("WASmaxChildren").REPEATED_CHILD(p, t, 0, 1 / 0),
+            o("WASmaxChildren").REPEATED_CHILD(m, t, 0, 1 / 0),
           ),
         );
       return n;
     }
     ((l.sendGetDisclosureStageByIdsRPC = e),
-      (l.parseGetDisclosureStageByIdsResponseClientError = u),
-      (l.parseGetDisclosureStageByIdsResponseClientSuccess = d),
-      (l.parseGetDisclosureStageByIdsResponseServerError = m),
-      (l.makeGetDisclosureStageByIdsRequest = _));
+      (l.parseGetDisclosureStageByIdsResponseClientError = s),
+      (l.parseGetDisclosureStageByIdsResponseClientSuccess = c),
+      (l.parseGetDisclosureStageByIdsResponseServerError = d),
+      (l.makeGetDisclosureStageByIdsRequest = p));
   },
   98,
 );

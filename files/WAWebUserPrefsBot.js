@@ -1,28 +1,31 @@
 __d(
   "WAWebUserPrefsBot",
   [
+    "WALogger",
+    "WAWebPonyfillsCryptoRandomUUID",
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebUserPrefsDeviceCapabilities",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
+    "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    function e() {
+    var e, s;
+    function u() {
       var e = r("WAWebUserPrefsStore").get(
           o("WAWebUserPrefsKeys").MD_KEYS.BOT_LIST_LAST_REQUESTED_TIMESTAMP,
         ),
         t = typeof e == "number" ? e : 0;
       return t;
     }
-    function s(e) {
+    function c(e) {
       r("WAWebUserPrefsStore").set(
         o("WAWebUserPrefsKeys").MD_KEYS.BOT_LIST_LAST_REQUESTED_TIMESTAMP,
         e,
       );
     }
-    function u() {
+    function d() {
       var e,
         t = o(
           "WAWebUserPrefsDeviceCapabilities",
@@ -32,35 +35,26 @@ __d(
         : o("WAWebProtobufsDeviceCapabilities.pb")
             .DeviceCapabilities$AiThread$SupportLevel.NONE;
     }
-    function c() {
+    function m() {
       return (
         o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
           o("WAWebUserPrefsKeys").KEYS.WA_WEB_HAS_EVER_HAD_META_AI_THREAD,
         ) === !0
       );
     }
-    function d() {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    async function p() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
-            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            c()
-              ? !1
-              : (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                  o("WAWebUserPrefsKeys").KEYS
-                    .WA_WEB_HAS_EVER_HAD_META_AI_THREAD,
-                  !0,
-                ),
-                !0)
-          );
-        })),
-        m.apply(this, arguments)
+        await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+        m()
+          ? !1
+          : (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+              o("WAWebUserPrefsKeys").KEYS.WA_WEB_HAS_EVER_HAD_META_AI_THREAD,
+              !0,
+            ),
+            !0)
       );
     }
-    function p() {
+    function _() {
       var e;
       return (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_THREAD_LIST_LAST_SYNC_TS,
@@ -68,13 +62,13 @@ __d(
         ? e
         : 0;
     }
-    function _(e) {
+    function f(e) {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_THREAD_LIST_LAST_SYNC_TS,
         e,
       );
     }
-    function f() {
+    function g() {
       var e;
       return (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
@@ -82,21 +76,72 @@ __d(
         ? e
         : 0;
     }
-    function g(e) {
+    function h(e) {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
         o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_BOT_SESSION_LAST_CLEANUP_TS,
         e,
       );
     }
-    ((l.getBotListLastRequestedTimestamp = e),
-      (l.setBotListLastRequestedTimestamp = s),
-      (l.getPrimaryAiThreadSupportLevelFromLocalStorage = u),
-      (l.hasEverHadMetaAiThread = c),
-      (l.markHasEverHadMetaAiThread = d),
-      (l.getMetaAiThreadListLastSyncTs = p),
-      (l.setMetaAiThreadListLastSyncTs = _),
-      (l.getMetaAiBotSessionLastCleanupTs = f),
-      (l.setMetaAiBotSessionLastCleanupTs = g));
+    function y() {
+      return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+        o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_SESSION_ID,
+      );
+    }
+    function C(t) {
+      var n = y();
+      if (n != null) return n;
+      t !== "meta_ai_entry" &&
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[meta ai session] ",
+                " found no session and started one",
+              ])),
+            t,
+          )
+          .sendLogs("meta-ai-session-started-outside-entry");
+      var a = r("WAWebPonyfillsCryptoRandomUUID")();
+      return (
+        o("WAWebUserPrefsIndexedDBStorage")
+          .userPrefsIdb.set(
+            o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_SESSION_ID,
+            a,
+          )
+          .catch(v),
+        a
+      );
+    }
+    function b() {
+      return o("WAWebUserPrefsIndexedDBStorage")
+        .userPrefsIdb.remove(
+          o("WAWebUserPrefsKeys").KEYS.WA_WEB_META_AI_SESSION_ID,
+        )
+        .catch(v);
+    }
+    function v(e) {
+      o("WALogger")
+        .WARN(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[meta ai session] failed to store the session ID",
+            ])),
+        )
+        .catching(r("getErrorSafe")(e))
+        .sendLogs("meta-ai-session-id-write-failed");
+    }
+    ((l.getBotListLastRequestedTimestamp = u),
+      (l.setBotListLastRequestedTimestamp = c),
+      (l.getPrimaryAiThreadSupportLevelFromLocalStorage = d),
+      (l.hasEverHadMetaAiThread = m),
+      (l.markHasEverHadMetaAiThread = p),
+      (l.getMetaAiThreadListLastSyncTs = _),
+      (l.setMetaAiThreadListLastSyncTs = f),
+      (l.getMetaAiBotSessionLastCleanupTs = g),
+      (l.setMetaAiBotSessionLastCleanupTs = h),
+      (l.getMetaAiSessionId = y),
+      (l.getOrCreateMetaAiSessionId = C),
+      (l.clearMetaAiSessionId = b));
   },
   98,
 );

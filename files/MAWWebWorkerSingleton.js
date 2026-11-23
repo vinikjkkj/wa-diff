@@ -6,19 +6,19 @@ __d(
     "MAWInit",
     "MAWMIC",
     "MAWStartupLoggingUtils",
+    "MAWTraceSharedWorkerBootstrap",
     "MAWWaitForBackendSetup",
+    "MAWWorkerBundleResource",
+    "MAWWorkerHealthStatus",
     "MAWWorkerWatchdogRecovery",
     "MawSharedWorkerV4Gating",
-    "Promise",
     "SharedWorkerBundleResource",
     "SharedWorkerMigrationUtils",
     "SharedWorkerV4MigrationUtils",
     "SharedWorkerV4Resource",
     "WAResolvable",
     "WebWorkerV2Resource",
-    "asyncToGeneratorRuntime",
     "clearTimeout",
-    "cr:6600",
     "err",
     "getErrorSafe",
     "gkx",
@@ -28,286 +28,245 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = null,
-      u = function (t) {
-        s = t;
+    var e = null,
+      s = function (n) {
+        e = n;
       },
-      c = function () {
-        return s;
+      u = function () {
+        return e;
       },
-      d = g,
-      m = new (o("WAResolvable").Resolvable)(),
-      p = null;
-    function _() {
+      c = _,
+      d = new (o("WAResolvable").Resolvable)(),
+      m = null;
+    function p() {
       return o("shouldUseMAWSharedWorker").shouldUseMAWSharedWorker()
-        ? (e || (e = n("Promise")))
-            .all([
-              o("SharedWorkerMigrationUtils").isStatusLockHeld(
-                n("cr:6600").name,
-              ),
-              o("SharedWorkerV4MigrationUtils").isV4WorkerRunning(
-                n("cr:6600").name,
-              ),
-            ])
-            .then(function (e) {
-              var t = e[0],
-                n = e[1];
-              return t || n;
-            })
-        : (e || (e = n("Promise"))).resolve(p !== null);
+        ? Promise.all([
+            o("SharedWorkerMigrationUtils").isStatusLockHeld(
+              r("MAWWorkerBundleResource").name,
+            ),
+            o("SharedWorkerV4MigrationUtils").isV4WorkerRunning(
+              r("MAWWorkerBundleResource").name,
+            ),
+          ]).then(function (e) {
+            var t = e[0],
+              n = e[1];
+            return t || n;
+          })
+        : Promise.resolve(m !== null);
     }
-    function f() {
-      var t = {
-        isSharedWorker: o(
-          "shouldUseMAWSharedWorker",
-        ).shouldUseMAWSharedWorker(),
-        nativeLocksSupported: o(
-          "SharedWorkerMigrationUtils",
-        ).supportsNativeWebLocks(),
-        workerCreationPromiseExists: p !== null,
-      };
-      if (t.isSharedWorker !== !0)
-        return (e || (e = n("Promise"))).resolve(
-          t.workerCreationPromiseExists === !0
-            ? { data: t, tag: "dedicated_exists" }
-            : { data: t, tag: "dedicated_not_exists" },
-        );
-      if (t.nativeLocksSupported !== !0)
-        return (e || (e = n("Promise"))).resolve({
-          data: t,
-          tag: "shared_unknown_locks_not_supported",
-        });
-      var r = o("MAWWaitForBackendSetup").getCurrentWorkerID();
-      return (e || (e = n("Promise")))
-        .all([
-          o("SharedWorkerMigrationUtils").isStatusLockHeld(n("cr:6600").name),
-          r != null
-            ? o("SharedWorkerMigrationUtils").isWorkerIdStatusLockHeld(
-                n("cr:6600").name,
-                r,
-              )
-            : (e || (e = n("Promise"))).resolve(!1),
-          o("SharedWorkerV4MigrationUtils").isV4WorkerRunning(
-            n("cr:6600").name,
-          ),
-        ])
-        .then(function (e) {
-          var n = e[0],
-            r = e[1],
-            o = e[2];
-          return (
-            (t.sharedLockHeld = n),
-            (t.workerIdLockHeld = r),
-            (t.v4Running = o),
-            n && r
-              ? { data: t, tag: "shared_exists_and_connected" }
-              : n
-                ? { data: t, tag: "shared_exists_not_connected" }
-                : r
-                  ? { data: t, tag: "shared_only_unique_lock_held" }
-                  : o
-                    ? { data: t, tag: "shared_v4_running" }
-                    : { data: t, tag: "shared_not_exists" }
-          );
-        });
+    function _() {
+      y(null);
+    }
+    function f(e) {
+      var t = o("MAWWaitForBackendSetup").getCurrentWorkerID();
+      t == null || t !== e || g();
     }
     function g() {
-      p = null;
+      (o("MAWWaitForBackendSetup").setCurrentWorker(null),
+        _(),
+        o("MAWWaitForBackendSetup").resetBackendSetup(),
+        o("MAWInit").MAWInit.logPoint("reset_current_worker"),
+        o("MAWMIC").addPoint("reset_current_worker"));
     }
     function h(e) {
-      var t = p;
-      return t
-        ? (o("MAWMIC").addPoint(e + "_wait_on_worker_creation"),
+      var t = m;
+      if (t)
+        return (
+          o("MAWMIC").addPoint(e + "_wait_on_worker_creation"),
           o("MAWInit").MAWInit.logPoint(e + "_wait_on_worker_creation"),
-          t)
-        : (o("MAWInit").MAWInit.logPoint(e + "_create_worker_start"),
-          o("MAWMIC").addPoint(e + "_create_worker_start"),
-          r("gkx")("4766"),
-          (p = (
-            o("shouldUseMAWSharedWorker").shouldUseMAWSharedWorker()
-              ? y(e)
-              : C().then(function (e) {
-                  return { worker: e, workerID: "dedicated" };
-                })
-          ).then(
-            function (t) {
-              var n = t.worker,
-                r = t.workerID;
-              return (
-                o("MAWMIC").addPoint(e + "_create_worker_end"),
-                o("MAWInit").MAWInit.logPoint(e + "_create_worker_end"),
-                { worker: n, workerID: r }
-              );
-            },
-            function (e) {
-              throw ((p = null), e);
-            },
-          )),
-          p);
+          t
+        );
+      (o("MAWInit").MAWInit.logPoint(e + "_create_worker_start"),
+        o("MAWMIC").addPoint(e + "_create_worker_start"),
+        r("gkx")("4766"));
+      var n = (
+        o("shouldUseMAWSharedWorker").shouldUseMAWSharedWorker()
+          ? C(e)
+          : b().then(function (e) {
+              return { worker: e, workerID: "dedicated" };
+            })
+      ).then(
+        function (t) {
+          var n = t.worker,
+            r = t.workerID;
+          return (
+            o("MAWMIC").addPoint(e + "_create_worker_end"),
+            o("MAWInit").MAWInit.logPoint(e + "_create_worker_end"),
+            { worker: n, workerID: r }
+          );
+        },
+        function (e) {
+          throw (y(null), e);
+        },
+      );
+      return (y(n), n);
     }
     function y(e) {
+      ((m = e),
+        o("MAWWorkerHealthStatus").markWorkerCreationPromiseExists(e !== null));
+    }
+    function C(e) {
       var t = function (t, n, o) {
         r("promiseDone")(
-          m.promise.then(function () {
-            return d(t, n, o);
+          d.promise.then(function () {
+            return c(t, n, o);
           }),
         );
       };
       o("MAWWorkerWatchdogRecovery").setRecoveryForWatchdog(t);
-      var a = new (r("Deferred"))(),
-        i = (function () {
-          var i = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var i = yield o("SharedWorkerV4MigrationUtils").isV2WorkerRunning(
-              n("cr:6600").name,
-            );
-            if (
-              (o("MAWMIC").addBoolAnnotation("v2WorkerAlive", i),
-              !i &&
-                "SharedWorker" in window &&
-                o("SharedWorkerMigrationUtils").supportsNativeWebLocks() &&
-                o("MawSharedWorkerV4Gating").isWorkerV4())
-            ) {
-              o("MAWMIC").addBoolAnnotation("workerV4", !0);
-              try {
-                var l = yield o("SharedWorkerV4Resource").createSharedWorkerV4(
-                    n("cr:6600"),
-                    t,
-                    {
-                      onQPLEvent: o("MAWStartupLoggingUtils")
-                        .logSharedWorkerQPLEvents,
-                      reason: e,
-                    },
-                  ),
-                  s = l.worker,
-                  c = l.workerID,
-                  d = l.workerType;
-                return (
-                  u(s),
-                  o("MAWMIC").addPoint("shared_worker_v4_created"),
-                  o("MAWMIC").addStringAnnotation("workerID", c),
-                  o("MAWMIC").addStringAnnotation("workerType", d),
-                  s.addEventListener("error", function (e) {
-                    o("MAWStartupLoggingUtils").logWorkerError(
-                      "Shared Worker V4",
-                      e,
-                      "",
-                    );
-                  }),
-                  { worker: s.port, workerID: c }
-                );
-              } catch (e) {
-                (o("MAWMIC").addPoint("shared_worker_v4_fallback_to_v2"),
-                  r("FBLogger")("wmi")
-                    .catching(r("getErrorSafe")(e))
-                    .mustfix("shared worker v4 init failed"));
-              }
-            }
-            yield o("SharedWorkerV4MigrationUtils").detectAndTerminateV4Worker(
-              n("cr:6600").name,
-            );
-            var m = o(
-              "SharedWorkerBundleResource",
-            ).createPushSafeSharedWebWorkerV2Async(n("cr:6600"), t, {
-              onQPLEvent: o("MAWStartupLoggingUtils").logSharedWorkerQPLEvents,
-              reason: e,
-            });
-            return m.then(function (e) {
-              (u(e), o("MAWMIC").addPoint("shared_worker_bundle_created"));
-              var t = r("setTimeout")(function () {
-                  (o("MAWMIC").addPoint("shared_worker_connection_ack_timeout"),
-                    a.reject(r("err")("Worker connection ack timeout")));
-                }, 1e4),
-                n = function (n) {
-                  var e, i, l;
-                  if (
-                    typeof n.data == "object" &&
-                    ((e = n.data) == null ? void 0 : e.type) ===
-                      "connection-ack" &&
-                    typeof ((i = n.data) == null ? void 0 : i.response) ==
-                      "object" &&
-                    typeof ((l = n.data) == null || (l = l.response) == null
-                      ? void 0
-                      : l.from) == "string"
-                  ) {
-                    var s,
-                      u,
-                      c =
-                        typeof ((s = n.data) == null || (s = s.response) == null
-                          ? void 0
-                          : s.workerID) == "string"
-                          ? (u = n.data) == null || (u = u.response) == null
-                            ? void 0
-                            : u.workerID
-                          : void 0;
-                    c != null
-                      ? (o("MAWMIC").addPoint(
-                          "shared_worker_workerID_received",
-                        ),
-                        o("MAWMIC").addStringAnnotation("workerID", c),
-                        t != null && r("clearTimeout")(t),
-                        a.resolve(c))
-                      : (o("MAWMIC").addPoint(
-                          "shared_worker_null_workerID_received",
-                        ),
-                        o("MAWMIC").addStringAnnotation("workerID", "unknown"));
-                  }
-                };
+      var n = new (r("Deferred"))(),
+        a = async function () {
+          var a = await o("SharedWorkerV4MigrationUtils").isV2WorkerRunning(
+            r("MAWWorkerBundleResource").name,
+          );
+          if (
+            (o("MAWMIC").addBoolAnnotation("v2WorkerAlive", a),
+            !a &&
+              "SharedWorker" in window &&
+              o("SharedWorkerMigrationUtils").supportsNativeWebLocks() &&
+              o("MawSharedWorkerV4Gating").isWorkerV4())
+          ) {
+            o("MAWMIC").addBoolAnnotation("workerV4", !0);
+            try {
+              var i = await o("SharedWorkerV4Resource").createSharedWorkerV4(
+                  r("MAWWorkerBundleResource"),
+                  t,
+                  {
+                    onQPLEvent: o("MAWStartupLoggingUtils")
+                      .logSharedWorkerQPLEvents,
+                    reason: e,
+                  },
+                ),
+                l = i.worker,
+                u = i.workerID,
+                c = i.workerType;
               return (
-                e.port.addEventListener("message", n),
-                e.port.postMessage({ type: "ww-connection-ack" }),
-                e.addEventListener("error", function (e) {
+                s(l),
+                o("MAWMIC").addPoint("shared_worker_v4_created"),
+                o("MAWMIC").addStringAnnotation("workerID", u),
+                o("MAWMIC").addStringAnnotation("workerType", c),
+                l.addEventListener("error", function (e) {
                   o("MAWStartupLoggingUtils").logWorkerError(
-                    "Shared Worker",
+                    "Shared Worker V4",
                     e,
                     "",
                   );
                 }),
-                a.getPromise().then(function (t) {
-                  return { worker: e.port, workerID: t };
-                })
+                { worker: l.port, workerID: u }
               );
-            });
+            } catch (e) {
+              (o("MAWMIC").addPoint("shared_worker_v4_fallback_to_v2"),
+                r("FBLogger")("wmi")
+                  .catching(r("getErrorSafe")(e))
+                  .mustfix("shared worker v4 init failed"));
+            }
+          }
+          await o("SharedWorkerV4MigrationUtils").detectAndTerminateV4Worker(
+            r("MAWWorkerBundleResource").name,
+          );
+          var d = o("MAWTraceSharedWorkerBootstrap").traceSharedWorkerBootstrap(
+            e,
+            function (n) {
+              return o(
+                "SharedWorkerBundleResource",
+              ).createPushSafeSharedWebWorkerV2Async(
+                r("MAWWorkerBundleResource"),
+                t,
+                { onQPLEvent: n, reason: e },
+              );
+            },
+          );
+          return d.then(function (e) {
+            (s(e), o("MAWMIC").addPoint("shared_worker_bundle_created"));
+            var t = r("setTimeout")(function () {
+                (o("MAWMIC").addPoint("shared_worker_connection_ack_timeout"),
+                  n.reject(r("err")("Worker connection ack timeout")));
+              }, 1e4),
+              a = function (a) {
+                var e, i, l;
+                if (
+                  typeof a.data == "object" &&
+                  ((e = a.data) == null ? void 0 : e.type) ===
+                    "connection-ack" &&
+                  typeof ((i = a.data) == null ? void 0 : i.response) ==
+                    "object" &&
+                  typeof ((l = a.data) == null || (l = l.response) == null
+                    ? void 0
+                    : l.from) == "string"
+                ) {
+                  var s,
+                    u,
+                    c =
+                      typeof ((s = a.data) == null || (s = s.response) == null
+                        ? void 0
+                        : s.workerID) == "string"
+                        ? (u = a.data) == null || (u = u.response) == null
+                          ? void 0
+                          : u.workerID
+                        : void 0;
+                  c != null
+                    ? (o("MAWMIC").addPoint("shared_worker_workerID_received"),
+                      o("MAWMIC").addStringAnnotation("workerID", c),
+                      t != null && r("clearTimeout")(t),
+                      n.resolve(c))
+                    : (o("MAWMIC").addPoint(
+                        "shared_worker_null_workerID_received",
+                      ),
+                      o("MAWMIC").addStringAnnotation("workerID", "unknown"));
+                }
+              };
+            return (
+              e.port.addEventListener("message", a),
+              e.port.postMessage({ type: "ww-connection-ack" }),
+              e.addEventListener("error", function (e) {
+                o("MAWStartupLoggingUtils").logWorkerError(
+                  "Shared Worker",
+                  e,
+                  "",
+                );
+              }),
+              n.getPromise().then(function (t) {
+                return { worker: e.port, workerID: t };
+              })
+            );
           });
-          return function () {
-            return i.apply(this, arguments);
-          };
-        })();
+        };
       return o("SharedWorkerV4MigrationUtils").withWorkerInitLock(
-        n("cr:6600").name,
-        i,
+        r("MAWWorkerBundleResource").name,
+        a,
       );
     }
-    function C() {
-      return (e || (e = n("Promise")))
-        .resolve(
-          o("WebWorkerV2Resource").createDedicatedV2WebWorker(n("cr:6600")),
-        )
-        .then(function (e) {
-          var t = e.url,
-            n = e.worker;
-          return (
-            (n.onerror = function (e) {
-              return o("MAWStartupLoggingUtils").logWorkerError(
-                "Dedicated Worker",
-                e,
-                t,
-              );
-            }),
-            o("MAWStartupLoggingUtils").setImportScriptsErrorListener(n),
-            n
-          );
-        });
+    function b() {
+      return Promise.resolve(
+        o("WebWorkerV2Resource").createDedicatedV2WebWorker(
+          r("MAWWorkerBundleResource"),
+        ),
+      ).then(function (e) {
+        var t = e.url,
+          n = e.worker;
+        return (
+          (n.onerror = function (e) {
+            return o("MAWStartupLoggingUtils").logWorkerError(
+              "Dedicated Worker",
+              e,
+              t,
+            );
+          }),
+          o("MAWStartupLoggingUtils").setImportScriptsErrorListener(n),
+          n
+        );
+      });
     }
-    function b(e) {
-      ((d = e), m.resolve());
+    function v(e) {
+      ((c = e), d.resolve());
     }
-    ((l.getSharedWorkerInstance__TEST_ONLY = c),
-      (l.doesWorkerExist = _),
-      (l.getWorkerHealthStatus = f),
-      (l.resetWorkerCreation = g),
+    ((l.getSharedWorkerInstance__TEST_ONLY = u),
+      (l.doesWorkerExist = p),
+      (l.resetWorkerCreation = _),
+      (l.resetCurrentWorkerWithId = f),
+      (l.resetCurrentWorkerSkipIdCheck = g),
       (l.createWorkerIfNone = h),
-      (l.setOnCloseForWorkerInstance = b));
+      (l.setOnCloseForWorkerInstance = v));
   },
   98,
 );

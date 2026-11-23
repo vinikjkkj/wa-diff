@@ -21,15 +21,13 @@ __d(
         key: "STORIES_CAROUSEL",
         flag: "storiesCarouselFlag",
         value: 2048,
-        label: c._(/*BTDS*/ "Stories carousel"),
+        label: c._(/*BTDS*/ ""),
         getErrors: function () {
           return [
             new (r("AdsError"))(
               2238012,
               u._(function (e, t) {
-                return e._(
-                  /*BTDS*/ "If you select the Stories Carousel ad format, you can only upload Instagram Stories Carousel creative to your ad set.",
-                );
+                return e._(/*BTDS*/ "");
               }, {}),
               {
                 level: r("AdsError").Level.WARN,
@@ -62,6 +60,7 @@ __d(
             "oculus/vr_apps",
             "oculus/rewarded_video",
             "threads/stream",
+            "threads/permalink",
           ];
         },
         getNewCampaignState: function (t, n, a, i, l) {

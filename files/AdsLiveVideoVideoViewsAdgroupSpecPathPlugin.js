@@ -1,6 +1,7 @@
 __d(
   "AdsLiveVideoVideoViewsAdgroupSpecPathPlugin",
   [
+    "AdsAPIAdgroupRecordUtils",
     "AdsAPIObjectives",
     "AdsAdgroupChildAttachmentsFieldMappings",
     "AdsAdgroupCombinedFieldMappings",
@@ -17,7 +18,9 @@ __d(
           promotedObjectType: "LIVE_VIDEO",
         },
         getCombinedFieldMappings: function (t) {
-          return r("AdsAdgroupCombinedFieldMappings").LINK_MAPPING;
+          return o("AdsAPIAdgroupRecordUtils").isExistingPostAd(t)
+            ? r("AdsAdgroupCombinedFieldMappings").STATUS_MAPPING
+            : r("AdsAdgroupCombinedFieldMappings").LINK_MAPPING;
         },
         getDefaultCallToActionType: function (t) {
           return "WATCH_LIVE_VIDEO";

@@ -1,7 +1,6 @@
 __d(
   "WAWebInboundMsgMessageWriter",
   [
-    "Promise",
     "WALogger",
     "WAResolvable",
     "WAShiftTimer",
@@ -13,14 +12,12 @@ __d(
     "WAWebNoop",
     "WAWebPromiseQueue",
     "WAWebSignalStateOneQueueFlushable",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = (function () {
+      u = (function () {
         function t() {
           var e = this;
           ((this.$1 = []),
@@ -33,111 +30,107 @@ __d(
             (this.$6 = !1),
             (this.$7 = []));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.addMessages = function (t, r) {
-            var e, a;
+          (n.addMessages = function (t, n) {
+            var e, r;
             if (
-              (r === void 0 && (r = !1), t.length === 0 && this.$1.length === 0)
+              (n === void 0 && (n = !1), t.length === 0 && this.$1.length === 0)
             )
-              return (u || (u = n("Promise"))).resolve();
-            var i = o(
+              return Promise.resolve();
+            var a = o(
               "WAWebSignalStateOneQueueFlushable",
             ).getNextSignalStateWrite();
             (e = this.$1).push.apply(
               e,
               t.map(function (e) {
-                return { entry: e, signalStateWrite: i };
+                return { entry: e, signalStateWrite: a };
               }),
             );
-            var l =
-              (a = this.$3) != null ? a : new (o("WAResolvable").Resolvable)();
+            var i =
+              (r = this.$3) != null ? r : new (o("WAResolvable").Resolvable)();
             if (
-              ((this.$3 = l),
-              (this.$6 = r),
-              r ||
+              ((this.$3 = i),
+              (this.$6 = n),
+              n ||
                 this.$1.length >=
                   o("WAWebMessageBatchWriter").getMessageBatchMaxSize())
             )
-              return (this.createSnapshot(), l.promise);
-            var s = o("WAWebMessageBatchWriter").getMessageBatchTimeoutMs();
+              return (this.createSnapshot(), i.promise);
+            var l = o("WAWebMessageBatchWriter").getMessageBatchTimeoutMs();
             return (
-              s > 0 && !this.$5.isScheduled() && this.$5.onOrBefore(s),
-              l.promise
+              l > 0 && !this.$5.isScheduled() && this.$5.onOrBefore(l),
+              i.promise
             );
           }),
-          (a.addAdditionalInfo = function (t, n) {
+          (n.addAdditionalInfo = function (t, n) {
             if ((n === void 0 && (n = !1), this.$2.push(t), n)) {
               var e = this.$2;
               ((this.$2 = []),
                 o("WAWebMessageBatchWriter").processMsgAdditionalInfo(e));
             }
           }),
-          (a.holdCheckpointUntilMessageStaged = function () {
+          (n.holdCheckpointUntilMessageStaged = function () {
             return r("WAWebNoop");
           }),
-          (a.isFailClosed = function () {
+          (n.isFailClosed = function () {
             return !1;
           }),
-          (a.createSnapshot = function () {
+          (n.createSnapshot = function () {
             var t = this,
-              a = this.$1,
-              i = this.$2,
-              l = this.$3;
+              n = this.$1,
+              a = this.$2,
+              i = this.$3;
             if (
               ((this.$1 = []),
               (this.$2 = []),
               (this.$3 = null),
               this.$5.isScheduled() && this.$5.cancel(),
-              a.length === 0)
+              n.length === 0)
             ) {
-              (d(i), l == null || l.resolve());
+              (c(a), i == null || i.resolve());
               return;
             }
-            var u = a.map(function (e) {
+            var l = n.map(function (e) {
                 var t = e.entry;
                 return t;
               }),
-              c = o("WAWebMessageBatchWriter").getCheckpointStanzaIds(u).all,
-              p = o(
+              u = o("WAWebMessageBatchWriter").getCheckpointStanzaIds(l).all,
+              m = o(
                 "WAWebMessageReceiveFlow",
-              ).withoutHandedOffMessageReceiveWrites(c);
-            (this.$4.enqueue(
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var n;
-                try {
-                  yield o("WAWebMessageBatchWriter").writeMessageBatch(u, p);
-                } catch (t) {
-                  (o("WALogger")
-                    .WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[inbound-msg-writer] a batch of ",
-                          " failed to be written",
-                        ])),
-                      u.length,
-                    )
-                    .catching(r("getErrorSafe")(t))
-                    .tags("messaging"),
-                    o("WAWebMessageReceiveFlow").failMessageReceiveCheckpoint(
-                      p,
-                    ),
-                    l == null || l.reject(t));
-                  return;
-                }
-                ((n = t.$7).push.apply(
-                  n,
-                  a.filter(function (e) {
-                    var t = e.entry;
-                    return m(t);
-                  }),
-                ),
-                  d(i),
-                  l == null || l.resolve());
-              }),
-            ),
+              ).withoutHandedOffMessageReceiveWrites(u);
+            (this.$4.enqueue(async function () {
+              var s;
+              try {
+                await o("WAWebMessageBatchWriter").writeMessageBatch(l, m);
+              } catch (t) {
+                (o("WALogger")
+                  .WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[inbound-msg-writer] a batch of ",
+                        " failed to be written",
+                      ])),
+                    l.length,
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .tags("messaging"),
+                  o("WAWebMessageReceiveFlow").failMessageReceiveCheckpoint(m),
+                  i == null || i.reject(t));
+                return;
+              }
+              ((s = t.$7).push.apply(
+                s,
+                n.filter(function (e) {
+                  var t = e.entry;
+                  return d(t);
+                }),
+              ),
+                c(a),
+                i == null || i.resolve());
+            }),
               o("WAWebMessageBatchWriter")
-                .handleChangedAddressingMode(u, function () {
+                .handleChangedAddressingMode(l, function () {
                   return !t.$6;
                 })
                 .catch(function (e) {
@@ -153,26 +146,26 @@ __d(
                     .sendLogs("inbound-msg-changed-addressing-mode-failed");
                 }));
           }),
-          (a.writeSignalState = function (t) {
+          (n.writeSignalState = function (t) {
             return o(
               "WAWebSignalStateOneQueueFlushable",
             ).writeSignalStateAfterInboundMsgRows();
           }),
-          (a.checkpointQueueWait = function () {
+          (n.checkpointQueueWait = function () {
             return this.$4.wait();
           }),
-          (a.checkpointQueueSize = function () {
-            return (u || (u = n("Promise"))).resolve(this.$4.size());
+          (n.checkpointQueueSize = function () {
+            return Promise.resolve(this.$4.size());
           }),
-          (a.size = function () {
-            return (u || (u = n("Promise"))).resolve(this.$1.length);
+          (n.size = function () {
+            return Promise.resolve(this.$1.length);
           }),
-          (a.startAfter = function (t) {
+          (n.startAfter = function (t) {
             this.$4.enqueue(function () {
               return t.catch(r("WAWebNoop"));
             });
           }),
-          (a.takeWrittenReceipts = function () {
+          (n.takeWrittenReceipts = function () {
             var e = this.$7
               .filter(function (e) {
                 var t = e.signalStateWrite;
@@ -197,33 +190,33 @@ __d(
           t
         );
       })();
-    function d(e) {
+    function c(e) {
       e.length > 0 && o("WAWebMessageBatchWriter").processMsgAdditionalInfo(e);
     }
-    function m(e) {
+    function d(e) {
       var t = e.duplicateMsgReceiptInfo,
         n = e.msg,
         r = e.receiptInfo;
       return n == null && (r != null || t != null);
     }
-    var p = new c(),
-      _ = !1;
-    function f() {
-      (p.startAfter(
-        o("WAWebMessageProcessorCache").messageProcessorCache.replaceWith(p),
+    var m = new u(),
+      p = !1;
+    function _() {
+      (m.startAfter(
+        o("WAWebMessageProcessorCache").messageProcessorCache.replaceWith(m),
       ),
-        o("WAWebGetMessageCache").setMessageCache(p),
-        (_ = !0),
+        o("WAWebGetMessageCache").setMessageCache(m),
+        (p = !0),
         o(
           "WAWebDecryptsOutsideInboundMsgRows",
         ).noteDecryptOutsideInboundMsgRows());
     }
-    function g() {
-      return _ ? p : o("WAWebMessageProcessorCache").messageProcessorCache;
+    function f() {
+      return p ? m : o("WAWebMessageProcessorCache").messageProcessorCache;
     }
-    ((l.inboundMsgMessageWriter = p),
-      (l.installInboundMsgMessageWriter = f),
-      (l.getInboundMsgDrainMessageCache = g));
+    ((l.inboundMsgMessageWriter = m),
+      (l.installInboundMsgMessageWriter = _),
+      (l.getInboundMsgDrainMessageCache = f));
   },
   98,
 );

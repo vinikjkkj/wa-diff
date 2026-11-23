@@ -11,108 +11,75 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "uniqueBy",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 64,
       s = 10080 * 60 * 1e3;
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = o("WATimeUtils").unixTimeMs(),
-            a = r("uniqueBy")(
-              t.flatMap(function (e) {
-                var t = C(e, n);
-                return t != null ? [t] : [];
-              }),
-              function (e) {
+    async function u(t) {
+      var n = o("WATimeUtils").unixTimeMs(),
+        a = r("uniqueBy")(
+          t.flatMap(function (e) {
+            var t = f(e, n);
+            return t != null ? [t] : [];
+          }),
+          function (e) {
+            var t = e.msgKey;
+            return t;
+          },
+        );
+      if (a.length !== 0) {
+        var i = new Set(
+          a.map(function (e) {
+            var t = e.msgKey;
+            return t;
+          }),
+        );
+        await m(function (t) {
+          return []
+            .concat(
+              t.filter(function (e) {
                 var t = e.msgKey;
-                return t;
-              },
-            );
-          if (a.length !== 0) {
-            var i = new Set(
-              a.map(function (e) {
-                var t = e.msgKey;
-                return t;
+                return !i.has(t);
               }),
-            );
-            yield f(function (t) {
-              return []
-                .concat(
-                  t.filter(function (e) {
-                    var t = e.msgKey;
-                    return !i.has(t);
-                  }),
-                  a,
-                )
-                .slice(-e);
-            });
-          }
-        })),
-        c.apply(this, arguments)
+              a,
+            )
+            .slice(-e);
+        });
+      }
+    }
+    async function c(e) {
+      var t = new Set(
+        e.map(function (e) {
+          return e.id.toString();
+        }),
       );
+      await m(function (e) {
+        var n = e.filter(function (e) {
+          var n = e.msgKey;
+          return !t.has(n);
+        });
+        return n.length === e.length ? e : n;
+      });
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    async function d(e) {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Set(
-            e.map(function (e) {
-              return e.id.toString();
-            }),
-          );
-          yield f(function (e) {
-            var n = e.filter(function (e) {
-              var n = e.msgKey;
-              return !t.has(n);
-            });
-            return n.length === e.length ? e : n;
-          });
-        })),
-        m.apply(this, arguments)
+        await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+        p()
+          .filter(function (t) {
+            var n = t.paymentMsgId;
+            return e == null || e.has(n);
+          })
+          .map(g)
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function m(e) {
+      await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
+      var t = p(),
+        n = e(t);
+      n !== t && (await _(n));
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (
-            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            h()
-              .filter(function (t) {
-                var n = t.paymentMsgId;
-                return e == null || e.has(n);
-              })
-              .map(b)
-          );
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var t = h(),
-            n = e(t);
-          n !== t && (yield y(n));
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h() {
+    function p() {
       var e,
         t = o("WATimeUtils").unixTimeMs() - s;
       return (
@@ -127,7 +94,7 @@ __d(
         return n > t;
       });
     }
-    function y(e) {
+    function _(e) {
       return e.length === 0
         ? o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(
             o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
@@ -139,7 +106,7 @@ __d(
             [].concat(e),
           );
     }
-    function C(e, t) {
+    function f(e, t) {
       var n,
         r,
         a = o(
@@ -167,7 +134,7 @@ __d(
             to: e.to.toString(),
           };
     }
-    function b(e) {
+    function g(e) {
       var t = e.from,
         n = e.fromMe,
         a = e.id,
@@ -207,8 +174,8 @@ __d(
     ((l.MAX_PENDING_UPDATES = e),
       (l.PENDING_UPDATE_TTL_MS = s),
       (l.savePendingBrazilPaymentStateUpdates = u),
-      (l.removePendingBrazilPaymentStateUpdates = d),
-      (l.getPendingBrazilPaymentStateUpdateMsgs = p));
+      (l.removePendingBrazilPaymentStateUpdates = c),
+      (l.getPendingBrazilPaymentStateUpdateMsgs = d));
   },
   98,
 );

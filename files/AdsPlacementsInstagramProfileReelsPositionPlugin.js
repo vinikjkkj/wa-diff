@@ -38,7 +38,7 @@ __d(
         type: "placements/position",
         key: "instagram/profile_reels",
         name: r("AdsPlacementPositionLabelConstant").profile_reels,
-        nameWithPlatform: s._(/*BTDS*/ "Instagram profile reels"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION.IG_REELS,
           imageCrop: r("AdImageSpecCropKeys")["90x160"],

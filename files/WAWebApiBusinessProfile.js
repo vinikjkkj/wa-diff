@@ -2,140 +2,80 @@ __d(
   "WAWebApiBusinessProfile",
   [
     "invariant",
-    "Promise",
     "WALogger",
     "WAWebBotTypes",
     "WAWebLidMigrationUtils",
     "WAWebSchemaBusinessProfile",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e, u, c, d, m;
-    function p(e) {
-      return _.apply(this, arguments);
+    var e, u, c, d;
+    async function m(e) {
+      return o("WAWebSchemaBusinessProfile").getBusinessProfileTable().get(e);
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaBusinessProfile")
-            .getBusinessProfileTable()
-            .get(e);
-        })),
-        _.apply(this, arguments)
+    async function p(e) {
+      var t = o("WAWebWidFactory").createWid(e);
+      t.isLid() || s(0, 86986);
+      var n = await m(e);
+      if (n == null) {
+        var r = o("WAWebLidMigrationUtils").toPn(t);
+        if (r != null) {
+          var a = r.toString(),
+            i = await m(a);
+          if (i != null) return babelHelpers.extends({}, i, { id: e });
+        }
+      }
+      return n;
+    }
+    async function _(e) {
+      var t = o("WAWebWidFactory").createWid(e),
+        n = o("WAWebLidMigrationUtils").toLid(t);
+      if (n != null) {
+        var r = await m(n.toString());
+        if (r != null) return babelHelpers.extends({}, r, { id: e });
+      }
+      return m(e);
+    }
+    async function f(e) {
+      return o("WAWebWidFactory").createWid(e).isLid() ? p(e) : _(e);
+    }
+    async function g(e) {
+      var t = b(e);
+      await o("WAWebSchemaBusinessProfile")
+        .getBusinessProfileTable()
+        .createOrMerge(t.id, t);
+    }
+    async function h(e) {
+      var t,
+        n = e.id,
+        r = o("WAWebLidMigrationUtils").getPnAndLidToUpdate(n),
+        a = (t = e.pills) != null ? t : r.length > 1 ? await y(r) : void 0;
+      return Promise.all(
+        r.map(function (t) {
+          return g(babelHelpers.extends({}, e, { id: t, pills: a }));
+        }),
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebWidFactory").createWid(e);
-          t.isLid() || s(0, 86986);
-          var n = yield p(e);
-          if (n == null) {
-            var r = o("WAWebLidMigrationUtils").toPn(t);
-            if (r != null) {
-              var a = r.toString(),
-                i = yield p(a);
-              if (i != null) return babelHelpers.extends({}, i, { id: e });
-            }
-          }
-          return n;
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebWidFactory").createWid(e),
-            n = o("WAWebLidMigrationUtils").toLid(t);
-          if (n != null) {
-            var r = yield p(n.toString());
-            if (r != null) return babelHelpers.extends({}, r, { id: e });
-          }
-          return p(e);
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebWidFactory").createWid(e).isLid() ? f(e) : h(e);
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = T(e);
-          yield o("WAWebSchemaBusinessProfile")
-            .getBusinessProfileTable()
-            .createOrMerge(t.id, t);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            r = e.id,
-            a = o("WAWebLidMigrationUtils").getPnAndLidToUpdate(r),
-            i = (t = e.pills) != null ? t : a.length > 1 ? yield E(a) : void 0;
-          return (m || (m = n("Promise"))).all(
-            a.map(function (t) {
-              return v(babelHelpers.extends({}, e, { id: t, pills: i }));
+    async function y(e) {
+      var t,
+        n,
+        r = await o("WAWebSchemaBusinessProfile")
+          .getBusinessProfileTable()
+          .bulkGet(
+            e.map(function (e) {
+              return e.toString();
             }),
           );
-        })),
-        L.apply(this, arguments)
-      );
+      return (t =
+        (n = r.find(function (e) {
+          return (e == null ? void 0 : e.pills) != null;
+        })) == null
+          ? void 0
+          : n.pills) != null
+        ? t
+        : void 0;
     }
-    function E(e) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            r = yield o("WAWebSchemaBusinessProfile")
-              .getBusinessProfileTable()
-              .bulkGet(
-                e.map(function (e) {
-                  return e.toString();
-                }),
-              );
-          return (t =
-            (n = r.find(function (e) {
-              return (e == null ? void 0 : e.pills) != null;
-            })) == null
-              ? void 0
-              : n.pills) != null
-            ? t
-            : void 0;
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(t) {
+    function C(t) {
       var n = t.commandsDescription,
         r = o("WAWebWidFactory").createWid(t.id),
         a = o("WAWebBotTypes").BizBotAutomatedType.cast(t.automatedType),
@@ -203,7 +143,7 @@ __d(
         commandsDescription: n,
       };
     }
-    function T(e) {
+    function b(e) {
       var t = e.commandsDescription,
         n = e.id.toString(),
         r;
@@ -224,10 +164,10 @@ __d(
         e.pills != null ? { pills: e.pills } : null,
       );
     }
-    ((l.getBusinessProfileRow = p),
-      (l.getBusinessProfileRowLidAware = C),
-      (l.createOrMergeBusinessProfileRecordLidAware = R),
-      (l.businessProfileFromDbRow = I));
+    ((l.getBusinessProfileRow = m),
+      (l.getBusinessProfileRowLidAware = f),
+      (l.createOrMergeBusinessProfileRecordLidAware = h),
+      (l.businessProfileFromDbRow = C));
   },
   98,
 );

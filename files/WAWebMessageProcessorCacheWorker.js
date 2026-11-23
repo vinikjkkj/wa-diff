@@ -1,7 +1,7 @@
 __d(
   "WAWebMessageProcessorCacheWorker",
-  [],
-  function (t, n, r, o, a, i) {
+  ["WAWebNoop"],
+  function (t, n, r, o, a, i, l) {
     function e(e) {
       return {
         addMessages: function (n, r) {
@@ -18,6 +18,12 @@ __d(
         },
         createSnapshot: function () {
           e.fireAndForget("mainthread_messagecache", "createSnapshot", void 0);
+        },
+        holdCheckpointUntilMessageStaged: function () {
+          return r("WAWebNoop");
+        },
+        isFailClosed: function () {
+          return !1;
         },
         writeSignalState: function (n) {
           return e.sendAndReceive(
@@ -45,7 +51,7 @@ __d(
         },
       };
     }
-    i.createMessageCacheWorkerBridge = e;
+    l.createMessageCacheWorkerBridge = e;
   },
-  66,
+  98,
 );

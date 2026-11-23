@@ -1,90 +1,55 @@
 __d(
   "WAWebDBStoreRevokeMsgs",
-  [
-    "Promise",
-    "WAWebBackendApi",
-    "WAWebNoop",
-    "WAWebSchemaMessage",
-    "asyncToGeneratorRuntime",
-    "cr:375",
-  ],
+  ["WAWebBackendApi", "WAWebNoop", "WAWebSchemaMessage", "cr:375"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = (e = n("cr:375")) != null ? e : {},
-      c = u.ftsLightClient,
-      d = 20;
-    function m(e) {
-      return p.apply(this, arguments);
+      s = (e = n("cr:375")) != null ? e : {},
+      u = s.ftsLightClient,
+      c = 20;
+    async function d(e) {
+      var t = [],
+        n = [],
+        a = e.map(async function (e) {
+          var r = await m(e),
+            a = r.pluginLinkMsgIds,
+            i = r.pluginLinkMsgIdsRowIds;
+          ((t = [].concat(t, a)),
+            (n = [].concat(n, i)),
+            await o("WAWebSchemaMessage").getMessageTable().bulkRemove(t));
+        });
+      (await Promise.all(a),
+        u == null || u.purge(n).catch(r("WAWebNoop")),
+        o("WAWebBackendApi").frontendFireAndForget(
+          "deleteAssociatedBotCarouselMsgs",
+          { msgKeys: t },
+        ));
     }
-    function p() {
+    async function m(e) {
+      var t = [],
+        n = [],
+        r = e.internalId,
+        a = e.targetId,
+        i = r.split("_")[0];
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [],
-            a = [],
-            i = e.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var n = yield _(e),
-                      r = n.pluginLinkMsgIds,
-                      i = n.pluginLinkMsgIdsRowIds;
-                    ((t = [].concat(t, r)),
-                      (a = [].concat(a, i)),
-                      yield o("WAWebSchemaMessage")
-                        .getMessageTable()
-                        .bulkRemove(t));
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            );
-          (yield (s || (s = n("Promise"))).all(i),
-            c == null || c.purge(a).catch(r("WAWebNoop")),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "deleteAssociatedBotCarouselMsgs",
-              { msgKeys: t },
-            ));
-        })),
-        p.apply(this, arguments)
+        await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .between(
+            ["internalId"],
+            r,
+            i + "_g",
+            { reverse: !1, limit: c, shouldDecrypt: !1 },
+            function (e) {
+              if (e.botResponseTargetId === a)
+                (t.push(e.id), n.push(String(e.rowId)));
+              else return !0;
+              return !1;
+            },
+          ),
+        { pluginLinkMsgIds: t, pluginLinkMsgIdsRowIds: n }
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [],
-            n = [],
-            r = e.internalId,
-            a = e.targetId,
-            i = r.split("_")[0];
-          return (
-            yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .between(
-                ["internalId"],
-                r,
-                i + "_g",
-                { reverse: !1, limit: d, shouldDecrypt: !1 },
-                function (e) {
-                  if (e.botResponseTargetId === a)
-                    (t.push(e.id), n.push(String(e.rowId)));
-                  else return !0;
-                  return !1;
-                },
-              ),
-            { pluginLinkMsgIds: t, pluginLinkMsgIdsRowIds: n }
-          );
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    ((l.findAndDeleteAssociatedPluginMsg = m),
-      (l.findAssociatedPluginMsgs = _));
+    ((l.findAndDeleteAssociatedPluginMsg = d),
+      (l.findAssociatedPluginMsgs = m));
   },
   98,
 );

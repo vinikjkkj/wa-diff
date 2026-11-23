@@ -3,9 +3,9 @@ __d(
   [
     "WALogger",
     "WAWebHatchBrowserTask",
+    "WAWebHatchBrowserTaskState",
     "WAWebHatchVmConnection",
     "WAWebHatchVmTransport",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -16,121 +16,116 @@ __d(
       d,
       m,
       p = 3e4,
-      _ = 10 * 1024 * 1024;
-    function f() {
-      return g.apply(this, arguments);
-    }
-    function g() {
+      _ = 10 * 1024 * 1024,
+      f = new Set(),
+      g = 0;
+    async function h() {
+      var t = g,
+        n = await v(function (e) {
+          return e.computerContext({ timeoutMs: p });
+        });
+      if (n.kind !== "Ok") {
+        var r = S(n);
+        return r === "http.403"
+          ? { kind: "computerDisabled" }
+          : (o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-computer/list-browser-tasks-failed reason=",
+                  "",
+                ])),
+              r,
+            ),
+            { kind: "failed", reason: r });
+      }
+      var a = o("WAWebHatchBrowserTask").decodeHatchBrowserTasks(n.value);
+      if (a == null)
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-computer/list-browser-tasks-failed reason=malformedResponse",
+                ])),
+            )
+            .sendLogs("hatch-computer-list-browser-tasks-failed"),
+          { kind: "failed", reason: "malformedResponse" }
+        );
+      var i = t === g ? C(a.malformedCount, a.malformedIDs) : 0;
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield C(function (e) {
-            return e.computerContext({ timeoutMs: p });
-          });
-          if (t.kind !== "Ok") {
-            var n = v(t);
-            return n === "http.403"
-              ? { kind: "computerDisabled" }
-              : (o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-computer/list-browser-tasks-failed reason=",
-                      "",
-                    ])),
-                  n,
-                ),
-                { kind: "failed", reason: n });
-          }
-          var r = o("WAWebHatchBrowserTask").decodeHatchBrowserTasks(t.value);
-          return r == null
-            ? (o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-computer/list-browser-tasks-failed reason=malformedResponse",
-                    ])),
-                )
-                .sendLogs("hatch-computer-list-browser-tasks-failed"),
-              { kind: "failed", reason: "malformedResponse" })
-            : (r.malformedCount > 0 &&
-                o("WALogger")
-                  .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "hatch-computer/list-browser-tasks-dropped malformed=",
-                        "",
-                      ])),
-                    r.malformedCount,
-                  )
-                  .sendLogs("hatch-computer-list-browser-tasks-dropped"),
-              { kind: "ok", tasks: r.tasks });
-        })),
-        g.apply(this, arguments)
+        i > 0 &&
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-computer/list-browser-tasks-dropped malformed=",
+                  "",
+                ])),
+              i,
+            )
+            .sendLogs("hatch-computer-list-browser-tasks-dropped"),
+        { kind: "ok", tasks: a.tasks }
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    async function y(e) {
+      var t = o("WAWebHatchVmTransport").JarvisPaths.COMPUTER_SCREENSHOT(e);
+      if (t == null)
+        return (
+          o("WALogger")
+            .WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-computer/load-screenshot-failed reason=invalidPath",
+                ])),
+            )
+            .sendLogs("hatch-computer-load-screenshot-failed"),
+          null
+        );
+      var n = await v(function (e) {
+        return e.computerScreenshot(t, { timeoutMs: p });
+      });
+      return n.kind !== "Ok"
+        ? (o("WALogger")
+            .WARN(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-computer/load-screenshot-failed reason=",
+                  "",
+                ])),
+              S(n),
+            )
+            .sendLogs("hatch-computer-load-screenshot-failed"),
+          null)
+        : n.value.length > _
+          ? (o("WALogger")
+              .WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "hatch-computer/load-screenshot-failed reason=responseTooLarge",
+                  ])),
+              )
+              .sendLogs("hatch-computer-load-screenshot-failed"),
+            null)
+          : n.value;
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebHatchVmTransport").JarvisPaths.COMPUTER_SCREENSHOT(e);
-          if (t == null)
-            return (
-              o("WALogger")
-                .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-computer/load-screenshot-failed reason=invalidPath",
-                    ])),
-                )
-                .sendLogs("hatch-computer-load-screenshot-failed"),
-              null
-            );
-          var n = yield C(function (e) {
-            return e.computerScreenshot(t, { timeoutMs: p });
-          });
-          return n.kind !== "Ok"
-            ? (o("WALogger")
-                .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-computer/load-screenshot-failed reason=",
-                      "",
-                    ])),
-                  v(n),
-                )
-                .sendLogs("hatch-computer-load-screenshot-failed"),
-              null)
-            : n.value.length > _
-              ? (o("WALogger")
-                  .WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "hatch-computer/load-screenshot-failed reason=responseTooLarge",
-                      ])),
-                  )
-                  .sendLogs("hatch-computer-load-screenshot-failed"),
-                null)
-              : n.value;
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
+    function C(e, t) {
+      var n = e - t.length;
+      for (var r of t) {
+        var a = o("WAWebHatchBrowserTaskState").normalizedBrowserTaskID(r);
+        f.has(a) || (f.add(a), n++);
+      }
+      return n;
     }
     function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-          if (t == null) return { kind: "NoSession" };
-          var n = yield e(t);
-          return n.kind === "Failure" ? e(t) : n;
-        })),
-        b.apply(this, arguments)
-      );
+      (g++, f.clear());
     }
-    function v(e) {
+    async function v(e) {
+      var t = await o("WAWebHatchVmConnection").connectHatchVmApi();
+      if (t == null) return { kind: "NoSession" };
+      var n = await e(t);
+      return n.kind === "Failure" ? e(t) : n;
+    }
+    function S(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -166,8 +161,10 @@ __d(
         );
       })(e);
     }
-    ((l.requestHatchBrowserTasks = f),
-      (l.requestHatchBrowserTaskScreenshot = h));
+    ((l.requestHatchBrowserTasks = h),
+      (l.requestHatchBrowserTaskScreenshot = y),
+      (l.unreportedMalformedCount = C),
+      (l.resetLoggedMalformedBrowserTaskIDs = b));
   },
   98,
 );

@@ -5,19 +5,13 @@ __d(
     function e(e) {
       switch (e) {
         case o("WAWebProtobufsWeb.pb").WebMessageInfo$BizPrivacyStatus.E2EE:
-          return s._(
-            /*BTDS*/ "This message was secured with end-to-end encryption.",
-          );
+          return s._(/*BTDS*/ "");
         case o("WAWebProtobufsWeb.pb").WebMessageInfo$BizPrivacyStatus.BSP:
-          return s._(
-            /*BTDS*/ "This business worked with other companies to manage this message.",
-          );
+          return s._(/*BTDS*/ "");
         case o("WAWebProtobufsWeb.pb").WebMessageInfo$BizPrivacyStatus
           .BSP_AND_FB:
         case o("WAWebProtobufsWeb.pb").WebMessageInfo$BizPrivacyStatus.FB:
-          return s._(
-            /*BTDS*/ "This business used a secure service from Meta to manage this message.",
-          );
+          return s._(/*BTDS*/ "");
       }
     }
     l.getBizPrivacyInfoString = e;

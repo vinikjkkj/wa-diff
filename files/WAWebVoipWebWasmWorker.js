@@ -17,7 +17,6 @@ __d(
     "WAWebVoipWebWasmLoader.worker",
     "WorkerMessagePort",
     "WorkerSelf",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
     "requireDeferred",
@@ -30,65 +29,47 @@ __d(
       s = r("requireDeferred")(
         "WAWebVoipWebWasmLoader_ProdLabvideo_internal.worker",
       ).__setRef("WAWebVoipWebWasmWorker");
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(t) {
+      var n = t === "prod-lab" ? e : t === "prod-labvideo" ? s : null;
+      return n != null ? n.load() : r("WAWebVoipWebWasmLoader.worker");
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t === "prod-lab" ? e : t === "prod-labvideo" ? s : null;
-          return n != null ? n.load() : r("WAWebVoipWebWasmLoader.worker");
-        })),
-        c.apply(this, arguments)
+    async function c(e, t, n) {
+      return o("WAWebVoipWasmWorkerGlueResolver").resolveWorkerGlueForLoad(
+        self,
+        o("WAWebVoipWasmWorkerGlueResolver").resolveHasteWorkerGlue(await u(e)),
+        t,
+        n,
+        {
+          now: function () {
+            return Date.now();
+          },
+          onPinnedImportStart: function (t) {
+            d(babelHelpers.extends({}, t, { pinnedImport: "started" }));
+          },
+          sleep: o("WAPromiseDelays").delayMs,
+        },
       );
     }
-    function d(e, t, n) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return o("WAWebVoipWasmWorkerGlueResolver").resolveWorkerGlueForLoad(
-            self,
-            o("WAWebVoipWasmWorkerGlueResolver").resolveHasteWorkerGlue(
-              yield u(e),
-            ),
-            t,
-            n,
-            {
-              now: function () {
-                return Date.now();
-              },
-              onPinnedImportStart: function (t) {
-                p(babelHelpers.extends({}, t, { pinnedImport: "started" }));
-              },
-              sleep: o("WAPromiseDelays").delayMs,
-            },
-          );
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
-      _.postMessage(
+    function d(e) {
+      m.postMessage(
         babelHelpers.extends(
           { type: "cmd", cmd: "wasmGlueBuildSkewObserved" },
           e,
         ),
       );
     }
-    var _ = new (o("WorkerMessagePort").WorkerSyncedMessagePort)(
+    var m = new (o("WorkerMessagePort").WorkerSyncedMessagePort)(
       self,
       "VoipWebWasmWorker",
     );
     (o("WAWebLoggerWorker").initializeWAWebLogger(),
-      o("WorkerSelf").init(_),
+      o("WorkerSelf").init(m),
       (self.WhatsAppVoipWasmWorkerCompatibleCallbacks = {
         onSignalingXmpp: function (t) {
           var e = t.callId,
             n = t.peerJid,
             r = t.xmlPayload;
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "onSignalingXmpp",
             peerJid: n,
@@ -100,7 +81,7 @@ __d(
           var e = t.eventDataJson,
             n = t.eventType,
             r = t.userData;
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "onCallEvent",
             eventType: n,
@@ -109,27 +90,37 @@ __d(
           });
         },
         sendDataToRelay: function (t) {
-          var e = t.data,
-            n = t.ip,
-            r = t.len,
-            a = t.port;
+          var e = t.copyBeforePost,
+            n = t.data,
+            r = t.ip,
+            a = t.len,
+            i = t.port;
           try {
-            var i = o(
+            var l = o(
               "WAWebVoipJsWorkerMessageHandler",
-            ).trySendDirectOnTransferredChannel(n, a, e);
-            if (i) return;
+            ).trySendDirectOnTransferredChannel(r, i, n);
+            if (l) return;
           } catch (e) {}
-          _.postMessage({
-            type: "waWasmWorkerCompatibleCallback",
-            __name: "sendDataToRelay",
-            data: e,
-            len: r,
-            ip: n,
-            port: a,
-          });
+          var s = n,
+            u = [];
+          if (e === !0) {
+            var c = n.slice();
+            ((s = c), (u = [c.buffer]));
+          }
+          m.postMessage(
+            {
+              type: "waWasmWorkerCompatibleCallback",
+              __name: "sendDataToRelay",
+              data: s,
+              len: a,
+              ip: r,
+              port: i,
+            },
+            u,
+          );
         },
         loggingCallback: function (t) {
-          _.postMessage(
+          m.postMessage(
             babelHelpers.extends(
               {
                 type: "waWasmWorkerCompatibleCallback",
@@ -140,7 +131,7 @@ __d(
           );
         },
         initCaptureDriverJS: function (t) {
-          _.postMessage(
+          m.postMessage(
             babelHelpers.extends(
               {
                 type: "waWasmWorkerCompatibleCallback",
@@ -151,19 +142,19 @@ __d(
           );
         },
         startCaptureJS: function () {
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "startCaptureJS",
           });
         },
         stopCaptureJS: function () {
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "stopCaptureJS",
           });
         },
         initPlaybackDriverJS: function (t) {
-          _.postMessage(
+          m.postMessage(
             babelHelpers.extends(
               {
                 type: "waWasmWorkerCompatibleCallback",
@@ -174,19 +165,19 @@ __d(
           );
         },
         startPlaybackJS: function () {
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "startPlaybackJS",
           });
         },
         stopPlaybackJS: function () {
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "stopPlaybackJS",
           });
         },
         startVideoCaptureJS: function (t) {
-          _.postMessage(
+          m.postMessage(
             babelHelpers.extends(
               {
                 type: "waWasmWorkerCompatibleCallback",
@@ -197,7 +188,7 @@ __d(
           );
         },
         stopVideoCaptureJS: function () {
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "stopVideoCaptureJS",
           });
@@ -212,7 +203,7 @@ __d(
             l = t.timestamp,
             s = t.userJid,
             u = t.width;
-          _.postMessage(
+          m.postMessage(
             {
               type: "waWasmWorkerCompatibleCallback",
               __name: "onVideoFrameWasmToJs",
@@ -234,7 +225,7 @@ __d(
             n = t.height,
             r = t.orientation,
             o = t.width;
-          _.postMessage(
+          m.postMessage(
             {
               type: "waWasmWorkerCompatibleCallback",
               __name: "onSelfPreviewVideoFrameWasmToJs",
@@ -247,7 +238,7 @@ __d(
           );
         },
         startDesktopCaptureJS: function (t) {
-          _.postMessage(
+          m.postMessage(
             babelHelpers.extends(
               {
                 type: "waWasmWorkerCompatibleCallback",
@@ -258,13 +249,13 @@ __d(
           );
         },
         stopDesktopCaptureJS: function () {
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "stopDesktopCaptureJS",
           });
         },
         dataChannelStateCallback: function (t) {
-          _.postMessage(
+          m.postMessage(
             babelHelpers.extends(
               {
                 type: "waWasmWorkerCompatibleCallback",
@@ -316,7 +307,7 @@ __d(
                 }));
             },
             postMessage: function (t) {
-              _.postMessage(t);
+              m.postMessage(t);
             },
           });
         },
@@ -347,7 +338,7 @@ __d(
               });
             },
             postMessage: function (t) {
-              _.postMessage(t);
+              m.postMessage(t);
             },
           });
         },
@@ -380,59 +371,59 @@ __d(
                 a;
         },
         videoFrameConsumed: function () {
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "videoFrameConsumed",
           });
         },
         videoCaptureFrameTick: function () {
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "videoCaptureFrameTick",
           });
         },
         videoEncodedFrameTick: function () {
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "videoEncodedFrameTick",
           });
         },
         videoCaptureFpsReset: function () {
-          _.postMessage({
+          m.postMessage({
             type: "waWasmWorkerCompatibleCallback",
             __name: "videoCaptureFpsReset",
           });
         },
       }));
-    var f = {},
-      g = !1;
-    function h(e, t) {
+    var p = {},
+      _ = !1;
+    function f(e, t) {
       if (!e) {
         var n = new Error("Assertion failed: " + t);
         throw (n.stack, n);
       }
     }
-    function y() {
+    function g() {
       for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
         t[n] = arguments[n];
       var r = t.slice().join(" ");
     }
-    function C() {
+    function h() {
       for (var e, t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
         r[o] = arguments[o];
       var a = r.slice().join(" ");
       postMessage({
         cmd: "alert",
         text: a,
-        threadId: (e = (t = f)._pthread_self) == null ? void 0 : e.call(t),
+        threadId: (e = (t = p)._pthread_self) == null ? void 0 : e.call(t),
       });
     }
-    var b = y;
-    self.alert = C;
-    var v;
-    ((f.instantiateWasm = function (e, t) {
-      var n = r("nullthrows")(f.wasmModule);
-      f.wasmModule = null;
+    var y = g;
+    self.alert = h;
+    var C;
+    ((p.instantiateWasm = function (e, t) {
+      var n = r("nullthrows")(p.wasmModule);
+      p.wasmModule = null;
       var o = new WebAssembly.Instance(n, e);
       return t(o);
     }),
@@ -440,30 +431,30 @@ __d(
         var t;
         throw (t = e.reason) != null ? t : e;
       }));
-    var S = 2;
-    function R() {
+    var b = 2;
+    function v() {
       try {
         var e, t, n;
-        ((e = f.wasmMemory) == null || e.grow(0),
-          (t = (n = f).GROWABLE_HEAP_U8) == null || t.call(n));
+        ((e = p.wasmMemory) == null || e.grow(0),
+          (t = (n = p).GROWABLE_HEAP_U8) == null || t.call(n));
       } catch (e) {}
     }
-    function L(e) {
+    function S(e) {
       return e instanceof RangeError;
     }
-    function E(e) {
-      var t = f.__emscripten_thread_mailbox_await;
+    function R(e) {
+      var t = p.__emscripten_thread_mailbox_await;
       if (t != null)
-        for (var n = 0; n <= S; n++)
+        for (var n = 0; n <= b; n++)
           try {
             t(e);
             return;
           } catch (e) {
-            if (!L(e) || n === S) throw e;
-            R();
+            if (!S(e) || n === b) throw e;
+            v();
           }
     }
-    function k(e) {
+    function L(e) {
       try {
         if (
           typeof e == "object" &&
@@ -471,7 +462,7 @@ __d(
           "excPtr" in e &&
           typeof e.excPtr == "number"
         ) {
-          var t = f.getExceptionMessage;
+          var t = p.getExceptionMessage;
           if (t != null) {
             var n = t(e.excPtr),
               r = n[0],
@@ -503,66 +494,66 @@ __d(
               String(e.stack),
           });
       } catch (e) {
-        b("Failed to log native stack trace: " + String(e));
+        y("Failed to log native stack trace: " + String(e));
       }
     }
-    function I(e) {
+    function E(e) {
       try {
         if (e.cmd === "load") {
           var t = e.expectedBuildSha,
-            a = e.handlers,
-            i = e.pinnedWorkerGlueUrl,
-            l = e.wasmMemory,
-            s = e.wasmModule,
-            u = e.wasmVariant,
-            c = e.workerID,
-            m = [],
-            y = function (t) {
-              m.push(t);
+            n = e.handlers,
+            a = e.pinnedWorkerGlueUrl,
+            i = e.wasmMemory,
+            l = e.wasmModule,
+            s = e.wasmVariant,
+            u = e.workerID,
+            g = [],
+            h = function (t) {
+              g.push(t);
             };
-          (_.removeMessageListener("cmd", I), _.addMessageListener("cmd", y));
-          var C = !1,
+          (m.removeMessageListener("cmd", E), m.addMessageListener("cmd", h));
+          var b = !1,
             S = !1,
-            L = function () {
-              if (C && S) {
-                _.postMessage({ type: "cmd", cmd: "loaded" });
-                for (var e of m) I(e);
-                (_.removeMessageListener("cmd", y),
-                  _.addMessageListener("cmd", I));
+            k = function () {
+              if (b && S) {
+                m.postMessage({ type: "cmd", cmd: "loaded" });
+                for (var e of g) E(e);
+                (m.removeMessageListener("cmd", h),
+                  m.addMessageListener("cmd", E));
               }
             };
           ((self.startWorker = function (e) {
-            ((f = e), (C = !0), L());
+            ((p = e), (b = !0), k());
           }),
-            (f.wasmModule = s));
-          var T = function (t) {
-            f[t] = function () {
+            (p.wasmModule = l));
+          var I = function (t) {
+            p[t] = function () {
               for (
                 var e = arguments.length, n = new Array(e), r = 0;
                 r < e;
                 r++
               )
                 n[r] = arguments[r];
-              _.postMessage({
+              m.postMessage({
                 type: "cmd",
                 cmd: "callHandler",
                 callHandler: { handler: t, args: n },
               });
             };
           };
-          for (var D of a) T(D);
-          ((f.wasmMemory = l),
-            (f.buffer = f.wasmMemory.buffer),
-            (f.workerID = c),
-            (f.ENVIRONMENT_IS_PTHREAD = !0),
-            (f.onAbort = function (e) {
-              b("[VoIP WASM] onAbort: " + String(e));
+          for (var T of n) I(T);
+          ((p.wasmMemory = i),
+            (p.buffer = p.wasmMemory.buffer),
+            (p.workerID = u),
+            (p.ENVIRONMENT_IS_PTHREAD = !0),
+            (p.onAbort = function (e) {
+              y("[VoIP WASM] onAbort: " + String(e));
             }),
-            d(u, t, i)
+            c(s, t, a)
               .catch(function (e) {
                 throw (
-                  i != null &&
-                    _.postMessage({
+                  a != null &&
+                    m.postMessage({
                       type: "cmd",
                       cmd: "pinnedWasmGlueLoadFailed",
                       error: String(r("getErrorSafe")(e).message),
@@ -581,7 +572,7 @@ __d(
                     "WAWebVoipWasmWorkerGlueResolver",
                   ).shouldRefuseWasmGlueBuildMismatch(r)
                 ) {
-                  _.postMessage(
+                  m.postMessage(
                     babelHelpers.extends(
                       { type: "cmd", cmd: "wasmGlueBuildMismatch" },
                       r,
@@ -601,7 +592,7 @@ __d(
                   "WAWebVoipWasmWorkerGlueResolver",
                 ).getWasmGlueBuildSkewReport(e);
                 return (
-                  i != null && p(i),
+                  i != null && d(i),
                   self.WhatsAppVoipWasmWorkerCompatibleCallbacks.loggingCallback(
                     {
                       level: 3,
@@ -615,114 +606,105 @@ __d(
                         ).describeWorkerGlueSkew(e),
                     },
                   ),
-                  n.loader(f)
+                  n.loader(p)
                 );
               })
-              .then(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      ((v = e), (S = !0), L());
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              )
+              .then(async function (e) {
+                ((C = e), (S = !0), k());
+              })
               .catch(function (e) {
-                b(
+                y(
                   "[VoIP WASM] worker load aborted: " +
                     r("getErrorSafe")(e).message,
                 );
               }));
         } else if (e.cmd === "run") {
-          var x,
+          var D,
+            x,
             $,
             P,
             N,
             M,
-            w,
-            A = e.pthread_ptr;
+            w = e.pthread_ptr;
           if (
-            (R(),
-            (x = ($ = f).__emscripten_thread_init) == null ||
-              x.call($, A, 0, 0, 1),
-            E(A),
-            h(!!A, "pthread_ptr is required in event " + e.cmd),
-            (P = (N = f).establishStackSpace) == null || P.call(N),
-            (M = f.PThread) == null || M.receiveObjectTransfer(e),
-            (w = f.PThread) == null || w.threadInitTLS(),
-            !g)
+            (v(),
+            (D = (x = p).__emscripten_thread_init) == null ||
+              D.call(x, w, 0, 0, 1),
+            R(w),
+            f(!!w, "pthread_ptr is required in event " + e.cmd),
+            ($ = (P = p).establishStackSpace) == null || $.call(P),
+            (N = p.PThread) == null || N.receiveObjectTransfer(e),
+            (M = p.PThread) == null || M.threadInitTLS(),
+            !_)
           ) {
-            var F, O;
-            ((F = (O = f).__embind_initialize_bindings) == null || F.call(O),
-              (g = !0));
+            var A, F;
+            ((A = (F = p).__embind_initialize_bindings) == null || A.call(F),
+              (_ = !0));
           }
           try {
-            var B, W;
-            (B = (W = f).invokeEntryPoint) == null ||
-              B.call(W, e.start_routine, e.arg);
+            var O, B;
+            (O = (B = p).invokeEntryPoint) == null ||
+              O.call(B, e.start_routine, e.arg);
           } catch (e) {
             if (e !== "unwind") throw e;
           }
         } else if (e.cmd === "cancel") {
-          var q, U;
-          if ((q = (U = f)._pthread_self) != null && q.call(U)) {
-            var V, H;
-            (V = (H = f).__emscripten_thread_exit) == null || V.call(H, -1);
+          var W, q;
+          if ((W = (q = p)._pthread_self) != null && W.call(q)) {
+            var U, V;
+            (U = (V = p).__emscripten_thread_exit) == null || U.call(V, -1);
           }
         } else if (e.target !== "setimmediate")
           if (e.cmd === "checkMailbox") {
-            if (g) {
-              var G, z;
-              (G = (z = f).checkMailbox) == null || G.call(z);
+            if (_) {
+              var H, G;
+              (H = (G = p).checkMailbox) == null || H.call(G);
             }
           } else
             e.cmd === "jsWorkerCmd"
-              ? o("WAWebVoipJsWorkerMessageHandler").handleJsWorkerMessage(v, e)
+              ? o("WAWebVoipJsWorkerMessageHandler").handleJsWorkerMessage(C, e)
               : e.cmd &&
-                (b("worker.js received unknown command " + e.cmd), b(e));
+                (y("worker.js received unknown command " + e.cmd), y(e));
       } catch (e) {
-        var j = r("getErrorSafe")(e);
+        var z = r("getErrorSafe")(e);
         if (
-          (b(
+          (y(
             "worker.js onmessage() captured an uncaught exception: " +
               String(e),
           ),
-          j.stack && b(j.stack),
-          k(e),
-          f.__emscripten_thread_crashed)
+          z.stack && y(z.stack),
+          L(e),
+          p.__emscripten_thread_crashed)
         ) {
-          var K, Q;
-          (K = (Q = f).__emscripten_thread_crashed) == null || K.call(Q);
+          var j, K;
+          (j = (K = p).__emscripten_thread_crashed) == null || j.call(K);
         }
         if (e instanceof WebAssembly.RuntimeError)
-          b("[VoIP WASM] RuntimeError suppressed: " + e.message);
+          y("[VoIP WASM] RuntimeError suppressed: " + e.message);
         else throw e;
       }
     }
-    (_.addMessageListener("cmd", I),
-      _.addMessageListener("jsWorkerCmd", function (e) {
+    (m.addMessageListener("cmd", E),
+      m.addMessageListener("jsWorkerCmd", function (e) {
         try {
-          o("WAWebVoipJsWorkerMessageHandler").handleJsWorkerMessage(v, e);
+          o("WAWebVoipJsWorkerMessageHandler").handleJsWorkerMessage(C, e);
         } catch (e) {
           throw (
-            b(
+            y(
               "worker.js jsWorkerCmd handler captured an uncaught exception: " +
                 String(e),
             ),
             e != null &&
               typeof e == "object" &&
               "stack" in e &&
-              b(String(e.stack)),
-            k(e),
+              y(String(e.stack)),
+            L(e),
             e
           );
         }
       }));
-    function T() {}
-    l.default = T;
+    function k() {}
+    l.default = k;
   },
   98,
 );

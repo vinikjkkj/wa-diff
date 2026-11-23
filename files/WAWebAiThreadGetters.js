@@ -31,13 +31,13 @@ __d(
             )
           ) {
             if (o("WAWebBotGating").isDefaultThreadRoutingEnabled())
-              return s._(/*BTDS*/ "Meta AI");
+              return s._(/*BTDS*/ "");
             if (!r("isStringNotNullAndNotWhitespaceOnly")(n))
-              return s._(/*BTDS*/ "Older chats");
+              return s._(/*BTDS*/ "");
           }
           return r("isStringNotNullAndNotWhitespaceOnly")(n)
             ? n
-            : s._(/*BTDS*/ "Untitled chat");
+            : s._(/*BTDS*/ "");
         },
         [p, _],
       );

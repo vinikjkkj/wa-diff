@@ -54,7 +54,7 @@ __d(
         type: "placements/position",
         key: "instagram/shop_tab",
         name: r("AdsPlacementPositionLabelConstant").shop,
-        nameWithPlatform: s._(/*BTDS*/ "Instagram Shop"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION.IG_SHOP_TAB,
           imageCrop: r("AdImageSpecCropKeys")["100x100"],

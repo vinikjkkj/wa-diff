@@ -7,6 +7,7 @@ __d(
     "AdsAssetFeedFieldUtils",
     "AdsLeadGenAdGroupUtils",
     "AdsMessageExtensionType",
+    "immutable",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -91,7 +92,17 @@ __d(
       return n === "instagram_message";
     }
     function g(e) {
-      var t = u(e);
+      var t;
+      if (e instanceof r("immutable").Iterable) t = u(e);
+      else {
+        var n,
+          o,
+          a =
+            (n = e.creative) == null || (n = n.asset_feed_spec) == null
+              ? void 0
+              : n.message_extensions;
+        t = Array.isArray(a) ? s((o = a[0]) == null ? void 0 : o.type) : null;
+      }
       return t == null
         ? !1
         : t === "whatsapp" ||

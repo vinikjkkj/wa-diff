@@ -18,7 +18,6 @@ __d(
     "WAWebSearchTheWebCommonUtils",
     "WAWebSearchTheWebEventLogger",
     "WAWebWamEnumStwInteraction",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
   ],
@@ -26,9 +25,7 @@ __d(
     "use strict";
     var e;
     function u() {
-      return r("justknobx")._("8427")
-        ? s._(/*BTDS*/ "Couldn't search for this image. Try again.")
-        : s._(/*BTDS*/ "Something went wrong. Try again.");
+      return r("justknobx")._("8427") ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function c(e) {
       var t,
@@ -56,115 +53,103 @@ __d(
       });
     }
     function d(t) {
-      var a = t.imageFilehash,
-        i = t.msgText,
-        l = t.msgUrls,
-        s = new Map();
+      var n = t.imageFilehash,
+        a = t.msgText,
+        i = t.msgUrls,
+        l = new Map();
       if (
-        l.length > 0 &&
+        i.length > 0 &&
         o("WAWebSTWGatingUtils").isSearchTheWebURLSearchEnabled()
       ) {
-        var c = l[0].href;
-        s.set(o("WAWebSearchTheWebCommonUtils").SearchType.URL, {
+        var s = i[0].href;
+        l.set(o("WAWebSearchTheWebCommonUtils").SearchType.URL, {
           handleSearchAction: function (t) {
             (o("WAWebSearchTheWebEventLogger").logSTWEvent(t),
               o("WAWebExternalLink.react").openExternalLink(
-                o("WAWebSTWText").createUrlSearchLink(c),
+                o("WAWebSTWText").createUrlSearchLink(s),
               ));
           },
         });
       }
-      if (a != null) {
-        var d = a;
-        if (o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(d)) {
-          var p = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
-            d,
+      if (n != null) {
+        var c = n;
+        if (o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(c)) {
+          var d = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
+            c,
           );
-          p != null &&
-            s.set(o("WAWebSearchTheWebCommonUtils").SearchType.IMAGE, {
-              handleSearchAction: function (a) {
-                o("WAWebSearchTheWebEventLogger").logSTWEvent(a);
-                function t(e) {
-                  return i.apply(this, arguments);
+          d != null &&
+            l.set(o("WAWebSearchTheWebCommonUtils").SearchType.IMAGE, {
+              handleSearchAction: function (n) {
+                o("WAWebSearchTheWebEventLogger").logSTWEvent(n);
+                async function t(t) {
+                  try {
+                    if (!r("WAWebNetworkStatus").online)
+                      throw (
+                        o(
+                          "WAWebSearchTheWebCommonUtils",
+                        ).showSearchFailureToast(
+                          o(
+                            "WAWebSearchTheWebCommonUtils",
+                          ).getNoInternetToastMsg(),
+                        ),
+                        new (o("WAWebMiscErrors").GoogleLensApiError)(
+                          o("WAWebSTWImage").LensApiErrorType
+                            .NO_INTERNET_CONNECTION,
+                        )
+                      );
+                    var a = await o("WAWebSTWImage").getImageSearchUrl(t);
+                    if (a == null)
+                      throw new (o("WAWebMiscErrors").GoogleLensApiError)(
+                        o("WAWebSTWImage").LensApiErrorType.NO_REDIRECT_URL,
+                      );
+                    if (a.includes("consent"))
+                      throw new (o("WAWebMiscErrors").GoogleLensApiError)(
+                        o("WAWebSTWImage").LensApiErrorType.CONSENT_FORM_IN_URL,
+                      );
+                    ((n.stwInteraction = o(
+                      "WAWebWamEnumStwInteraction",
+                    ).STW_INTERACTION.IMAGE_SEARCH_REDIRECT),
+                      o("WAWebSearchTheWebEventLogger").logSTWEvent(n),
+                      o("WAWebExternalLink.react").openExternalLink(a));
+                  } catch (t) {
+                    ((n.stwInteraction = o(
+                      "WAWebWamEnumStwInteraction",
+                    ).STW_INTERACTION.IMAGE_SEARCH_FAILED),
+                      (n.stwLensApiErrorType = o(
+                        "WAWebSTWImage",
+                      ).getImageSearchWamErrorType(r("getErrorSafe")(t))),
+                      o("WAWebSearchTheWebEventLogger").logSTWEvent(n),
+                      o("WAWebSearchTheWebCommonUtils").showSearchFailureToast(
+                        u(),
+                      ),
+                      o("WALogger")
+                        .ERROR(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "Error while running image seach on web",
+                            ])),
+                        )
+                        .tags("STW"));
+                  }
                 }
-                function i() {
-                  return (
-                    (i = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t) {
-                        try {
-                          if (!r("WAWebNetworkStatus").online)
-                            throw (
-                              o(
-                                "WAWebSearchTheWebCommonUtils",
-                              ).showSearchFailureToast(
-                                o(
-                                  "WAWebSearchTheWebCommonUtils",
-                                ).getNoInternetToastMsg(),
-                              ),
-                              new (o("WAWebMiscErrors").GoogleLensApiError)(
-                                o("WAWebSTWImage").LensApiErrorType
-                                  .NO_INTERNET_CONNECTION,
-                              )
-                            );
-                          var n = yield o("WAWebSTWImage").getImageSearchUrl(t);
-                          if (n == null)
-                            throw new (o("WAWebMiscErrors").GoogleLensApiError)(
-                              o("WAWebSTWImage").LensApiErrorType
-                                .NO_REDIRECT_URL,
-                            );
-                          if (n.includes("consent"))
-                            throw new (o("WAWebMiscErrors").GoogleLensApiError)(
-                              o("WAWebSTWImage").LensApiErrorType
-                                .CONSENT_FORM_IN_URL,
-                            );
-                          ((a.stwInteraction = o(
-                            "WAWebWamEnumStwInteraction",
-                          ).STW_INTERACTION.IMAGE_SEARCH_REDIRECT),
-                            o("WAWebSearchTheWebEventLogger").logSTWEvent(a),
-                            o("WAWebExternalLink.react").openExternalLink(n));
-                        } catch (t) {
-                          ((a.stwInteraction = o(
-                            "WAWebWamEnumStwInteraction",
-                          ).STW_INTERACTION.IMAGE_SEARCH_FAILED),
-                            (a.stwLensApiErrorType = o(
-                              "WAWebSTWImage",
-                            ).getImageSearchWamErrorType(r("getErrorSafe")(t))),
-                            o("WAWebSearchTheWebEventLogger").logSTWEvent(a),
-                            o(
-                              "WAWebSearchTheWebCommonUtils",
-                            ).showSearchFailureToast(u()),
-                            o("WALogger")
-                              .ERROR(
-                                e ||
-                                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                                    "Error while running image seach on web",
-                                  ])),
-                              )
-                              .tags("STW"));
-                        }
-                      },
-                    )),
-                    i.apply(this, arguments)
-                  );
-                }
-                return t(p);
+                return t(d);
               },
             });
         }
       }
       return (
-        i != null &&
+        a != null &&
           o("WAWebSTWGatingUtils").isSearchTheWebTextSearchEnabled() &&
-          m(i, l) &&
-          s.set(o("WAWebSearchTheWebCommonUtils").SearchType.TEXT, {
+          m(a, i) &&
+          l.set(o("WAWebSearchTheWebCommonUtils").SearchType.TEXT, {
             handleSearchAction: function (t) {
               (o("WAWebSearchTheWebEventLogger").logSTWEvent(t),
                 o("WAWebExternalLink.react").openExternalLink(
-                  o("WAWebSTWText").createTextSearchLink(i),
+                  o("WAWebSTWText").createTextSearchLink(a),
                 ));
             },
           }),
-        s
+        l
       );
     }
     function m(e, t) {

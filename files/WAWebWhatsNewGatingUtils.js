@@ -9,7 +9,6 @@ __d(
     "WAWebWhatsNewContent",
     "WAWebWhatsNewNux",
     "WAWebWorkFeature",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -28,39 +27,29 @@ __d(
       );
     }
     var u = 3e3;
-    function c() {
-      return d.apply(this, arguments);
+    async function c() {
+      return !o("WAWebMobilePlatforms").isSMB() ||
+        !o("WAWebWhatsNewContent").hasBizAgentWhatsNewHighlight() ||
+        o("WAWebBizAiLargeScreensGateModel").isBizAiLargeScreensGateEnabled()
+        ? !0
+        : (await o("WAPromiseDelays").delayMs(u),
+          o(
+            "WAWebBizAiLargeScreensGateModel",
+          ).isBizAiLargeScreensGateEnabled());
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return !o("WAWebMobilePlatforms").isSMB() ||
-            !o("WAWebWhatsNewContent").hasBizAgentWhatsNewHighlight() ||
-            o(
-              "WAWebBizAiLargeScreensGateModel",
-            ).isBizAiLargeScreensGateEnabled()
-            ? !0
-            : (yield o("WAPromiseDelays").delayMs(u),
-              o(
-                "WAWebBizAiLargeScreensGateModel",
-              ).isBizAiLargeScreensGateEnabled());
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    var m = 30,
-      p = 15;
-    function _() {
+    var d = 30,
+      m = 15;
+    function p() {
       return o("WAWebABProps").getABPropConfigValue(
         "web_whats_new_auto_modal_short_cooldown",
       ) === !0
-        ? p
-        : m;
+        ? m
+        : d;
     }
     ((l.shouldShowWhatsNewAutoModalOnLaunch = e),
       (l.isWhatsNewAutoModalEnabled = s),
       (l.resolveWhatsNewBizAgentEligible = c),
-      (l.getWhatsNewAutoModalCooldownDays = _));
+      (l.getWhatsNewAutoModalCooldownDays = p));
   },
   98,
 );

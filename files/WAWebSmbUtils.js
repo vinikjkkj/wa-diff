@@ -19,11 +19,11 @@ __d(
             : c(e == null ? void 0 : e.hours);
         case o("WAWebBusinessProfileTypes").BUSINESS_HOUR_MODES
           .APPOINTMENT_ONLY:
-          return s._(/*BTDS*/ "By appointment only");
+          return s._(/*BTDS*/ "");
         case o("WAWebBusinessProfileTypes").BUSINESS_HOUR_MODES.OPEN_24H:
-          return s._(/*BTDS*/ "Open 24 hours");
+          return s._(/*BTDS*/ "");
         default:
-          return s._(/*BTDS*/ "Closed");
+          return s._(/*BTDS*/ "");
       }
     }
     function c(e) {
@@ -46,15 +46,12 @@ __d(
           r = t.minutesToTime(e[0][1]),
           a = t.minutesToTime(e[1][0]),
           i = t.minutesToTime(e[1][1]);
-        return s._(
-          /*BTDS*/ "{openTime} - {closeTime} and {additionalOpenTime} - {additionalCloseTime}",
-          [
-            s._param("openTime", n),
-            s._param("closeTime", r),
-            s._param("additionalOpenTime", a),
-            s._param("additionalCloseTime", i),
-          ],
-        );
+        return s._(/*BTDS*/ "", [
+          s._param("openTime", n),
+          s._param("closeTime", r),
+          s._param("additionalOpenTime", a),
+          s._param("additionalCloseTime", i),
+        ]);
       }
       return "";
     }

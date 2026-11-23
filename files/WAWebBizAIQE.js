@@ -1,7 +1,6 @@
 __d(
   "WAWebBizAIQE",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebBizAIQEEventBus",
@@ -15,7 +14,6 @@ __d(
     "WAWebCmd",
     "WAWebMobilePlatforms",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,64 +21,62 @@ __d(
       s,
       u,
       c,
-      d,
-      m = e !== void 0 ? e : (e = n("WAWebBizAIQEQuery.graphql")),
-      p = s !== void 0 ? s : (s = n("WAWebBizAIQEExposureMutation.graphql")),
-      _ = ["add"].concat(o("WAWebBizAiAgentStatusUtils").ONBOARDING_EVENTS),
+      d = e !== void 0 ? e : (e = n("WAWebBizAIQEQuery.graphql")),
+      m = s !== void 0 ? s : (s = n("WAWebBizAIQEExposureMutation.graphql")),
+      p = ["add"].concat(o("WAWebBizAiAgentStatusUtils").ONBOARDING_EVENTS),
+      _ = new Map(),
       f = new Map(),
       g = new Map(),
-      h = new Map(),
-      y = null,
-      C = 0,
-      b = [],
-      v = null,
-      S = 0,
-      R = new Map(),
-      L = 0,
+      h = null,
+      y = 0,
+      C = [],
+      b = null,
+      v = 0,
+      S = new Map(),
+      R = 0,
+      L = !1,
       E = !1,
-      k = !1,
-      I = 10;
-    function T(e) {
-      if (!(e.length === 0 || b.length > 0)) {
-        b = e;
+      k = 10;
+    function I(e) {
+      if (!(e.length === 0 || C.length > 0)) {
+        C = e;
         var t = o("WAWebBizAIQESnapshot").readBizAIQESnapshot();
         if (t != null && o("WAWebBizAIQESnapshot").isRecentBizAIQESnapshot(t)) {
-          v = t.onboarded;
+          b = t.onboarded;
           var n = o("WAWebBizAiAgentStatusUtils").getAiAgentOnboardingState();
-          (n == null || n === t.onboarded) && V(t.values);
+          (n == null || n === t.onboarded) && U(t.values);
         }
-        (o("WAWebCmd").Cmd.on("offline_delivery_end_from_bridge", F),
-          O(),
-          o("WAWebCmd").Cmd.isOfflineDeliveryEnd && F());
+        (o("WAWebCmd").Cmd.on("offline_delivery_end_from_bridge", A),
+          F(),
+          o("WAWebCmd").Cmd.isOfflineDeliveryEnd && A());
       }
+    }
+    function T(e) {
+      var t;
+      return (t = D(e)) != null ? t : !1;
     }
     function D(e) {
       var t;
-      return (t = x(e)) != null ? t : !1;
-    }
-    function x(e) {
-      var t;
-      if (!o("WAWebBizAiAgentGating").isBizAIQEClientEnabled() || y === !1)
+      if (!o("WAWebBizAiAgentGating").isBizAIQEClientEnabled() || h === !1)
         return null;
-      var n = M(e),
-        r = g.get(n);
-      return r != null ? r.value : (t = f.get(n)) != null ? t : null;
+      var n = N(e),
+        r = f.get(n);
+      return r != null ? r.value : (t = _.get(n)) != null ? t : null;
     }
-    function $(e, t, a) {
-      if ((O(), W(t), !t || !A()))
-        return (d || (d = n("Promise"))).resolve("skipped");
-      var i = M(e),
-        l = h.get(i);
-      if (l != null) return l;
-      var s = C,
-        c = ++L,
-        m = a(e)
+    function x(e, t, n) {
+      if ((F(), B(t), !t || !w())) return Promise.resolve("skipped");
+      var a = N(e),
+        i = g.get(a);
+      if (i != null) return i;
+      var l = y,
+        s = ++R,
+        c = n(e)
           .then(function (e) {
             var t, n;
-            return s !== C
+            return l !== y
               ? "skipped"
-              : P(
-                  i,
+              : $(
+                  a,
                   (t =
                     e == null ||
                     (n =
@@ -90,12 +86,12 @@ __d(
                       : n.value) != null
                     ? t
                     : null,
-                  c,
+                  s,
                 );
           })
           .catch(function (e) {
             return (
-              s === C && h.delete(i),
+              l === y && g.delete(a),
               o("WALogger")
                 .WARN(
                   u ||
@@ -105,90 +101,90 @@ __d(
                 )
                 .catching(r("getErrorSafe")(e))
                 .sendLogs("maiba-web-qe-exposure-failed"),
-              s === C ? "retry" : "skipped"
+              l === y ? "retry" : "skipped"
             );
           });
-      return (h.set(i, m), m);
+      return (g.set(a, c), c);
     }
-    function P(e, t, n) {
+    function $(e, t, n) {
       if (t == null) {
         var r;
-        (h.delete(e),
-          n >= ((r = R.get(e)) != null ? r : 0) &&
-            g.set(e, { value: null, request: n }));
-      } else g.set(e, { value: t, request: n });
+        (g.delete(e),
+          n >= ((r = S.get(e)) != null ? r : 0) &&
+            f.set(e, { value: null, request: n }));
+      } else f.set(e, { value: t, request: n });
       return (
         o("WAWebBizAIQEEventBus").BizAIQEEventBus.trigger("updated"),
         t == null ? "retry" : "complete"
       );
     }
-    function N() {
-      return C;
+    function P() {
+      return y;
     }
-    function M(e) {
+    function N(e) {
       var t = e.param,
         n = e.universe;
       return n + ":" + t;
     }
-    function w() {
+    function M() {
       (o("WAWebBizAIQEPrefetch").cancelBizAIQEPrefetch(),
-        o("WAWebCmd").Cmd.off("offline_delivery_end_from_bridge", F),
-        _.forEach(function (e) {
+        o("WAWebCmd").Cmd.off("offline_delivery_end_from_bridge", A),
+        p.forEach(function (e) {
           o("WAWebBusinessProfileCollection").BusinessProfileCollection.off(
             e,
-            B,
+            O,
           );
         }),
+        _.clear(),
         f.clear(),
         g.clear(),
-        h.clear(),
-        R.clear(),
-        (y = null),
-        (C += 1),
-        (b = []),
-        (v = null),
-        (S = ++L),
-        (E = !1),
-        (k = !1));
+        S.clear(),
+        (h = null),
+        (y += 1),
+        (C = []),
+        (b = null),
+        (v = ++R),
+        (L = !1),
+        (E = !1));
     }
-    function A() {
+    function w() {
       return (
         o("WAWebMobilePlatforms").isSMB() &&
         o("WAWebBizAiAgentGating").isBizAIQEClientEnabled()
       );
     }
-    function F() {
+    function A() {
       if (o("WAWebBizAiAgentStatusUtils").getAiAgentOnboardingState() == null) {
-        k = !0;
+        E = !0;
         return;
       }
-      ((k = !1), U(o("WAWebBizAIQESnapshot").readBizAIQESnapshot()) || q());
+      ((E = !1), q(o("WAWebBizAIQESnapshot").readBizAIQESnapshot()) || W());
     }
-    function O() {
-      E ||
-        ((E = !0),
-        _.forEach(function (e) {
+    function F() {
+      L ||
+        ((L = !0),
+        p.forEach(function (e) {
           o("WAWebBusinessProfileCollection").BusinessProfileCollection.on(
             e,
-            B,
+            O,
           );
         }));
     }
-    function B() {
+    function O() {
       var e = o("WAWebBizAiAgentStatusUtils").getAiAgentOnboardingState();
-      e != null && (W(e), b.length !== 0 && (k ? F() : v !== e && q()));
+      e != null && (B(e), C.length !== 0 && (E ? A() : b !== e && W()));
     }
-    function W(e) {
-      if (!(e == null || y === e)) {
-        var t = y != null || (v != null && v !== e);
-        ((y = e),
+    function B(e) {
+      if (!(e == null || h === e)) {
+        var t = h != null || (b != null && b !== e);
+        ((h = e),
           t &&
             (o("WAWebBizAIQEPrefetch").cancelBizAIQEPrefetch(),
-            (C += 1),
-            (S = ++L),
+            (y += 1),
+            (v = ++R),
+            _.clear(),
             f.clear(),
             g.clear(),
-            h.clear(),
             r("WAWebUserPrefsStore").setUser(
               o("WAWebBizAIQESnapshot").BIZ_AI_QE_SNAPSHOT_KEY,
               null,
@@ -196,149 +192,140 @@ __d(
           o("WAWebBizAIQEEventBus").BizAIQEEventBus.trigger("updated"));
       }
     }
-    function q() {
-      if (o("WAWebCmd").Cmd.isOfflineDeliveryEnd && A()) {
+    function W() {
+      if (o("WAWebCmd").Cmd.isOfflineDeliveryEnd && w()) {
         var e = o("WAWebBizAiAgentStatusUtils").getAiAgentOnboardingState();
         if (e == null) {
-          k = !0;
+          E = !0;
           return;
         }
-        (W(e), (v = e), H(b, e));
+        (B(e), (b = e), V(C, e));
       }
     }
-    function U(e) {
+    function q(e) {
       return (
         e != null &&
         o("WAWebBizAIQESnapshot").isRecentBizAIQESnapshot(e) &&
         e.onboarded != null &&
         e.onboarded ===
           o("WAWebBizAiAgentStatusUtils").getAiAgentOnboardingState() &&
-        b.every(function (t) {
-          return e.ids.has(M(t));
+        C.every(function (t) {
+          return e.ids.has(N(t));
         })
       );
     }
-    function V(e, t, n) {
+    function U(e, t, n) {
       (t === void 0 && (t = 0),
         n === void 0 && (n = new Set(e.keys())),
-        (f = e),
+        (_ = e),
         e.forEach(function (e, r) {
-          var o = g.get(r);
+          var o = f.get(r);
           n.has(r) &&
             o != null &&
             o.value == null &&
             o.request < t &&
-            g.delete(r);
+            f.delete(r);
         }),
         o("WAWebBizAIQEEventBus").BizAIQEEventBus.trigger("updated"));
     }
-    function H(e, t) {
-      return G.apply(this, arguments);
-    }
-    function G() {
-      return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = ++L;
-          ((S = a), o("WAWebBizAIQEPrefetch").cancelBizAIQEPrefetch());
-          var i = C;
-          try {
-            var l = yield (d || (d = n("Promise"))).all(
-              z(e).map(function (e) {
-                return o("WAWebBizAIQEPrefetch").fetchBizAIQEPrefetch(
-                  m,
-                  {
-                    params: e.map(function (e) {
-                      var t = e.param,
-                        n = e.universe;
-                      return { universe: n, param: t };
-                    }),
-                  },
-                  function () {
-                    return a === S;
-                  },
-                );
-              }),
+    async function V(e, t) {
+      var n = ++R;
+      ((v = n), o("WAWebBizAIQEPrefetch").cancelBizAIQEPrefetch());
+      var a = y;
+      try {
+        var i = await Promise.all(
+          H(e).map(function (e) {
+            return o("WAWebBizAIQEPrefetch").fetchBizAIQEPrefetch(
+              d,
+              {
+                params: e.map(function (e) {
+                  var t = e.param,
+                    n = e.universe;
+                  return { universe: n, param: t };
+                }),
+              },
+              function () {
+                return n === v;
+              },
             );
-            if (
-              a !== S ||
-              i !== C ||
-              l.every(function (e) {
-                return e == null;
-              })
-            )
-              return;
-            var s = {};
-            f.forEach(function (e, t) {
-              s[t] = e;
-            });
-            var u = new Set();
-            (l
-              .flatMap(function (e) {
-                var t;
-                return (t =
-                  e == null
-                    ? void 0
-                    : e.xfb_meta_ai_biz_agent_wa_web_experiments) != null
-                  ? t
-                  : [];
-              })
-              .forEach(function (e) {
-                var t = e == null ? void 0 : e.universe,
-                  n = e == null ? void 0 : e.param;
-                if (t != null && n != null) {
-                  var r,
-                    o = M({ universe: t, param: n });
-                  (u.add(o),
-                    (s[o] =
-                      (r = e == null ? void 0 : e.value) != null ? r : null));
-                }
-              }),
-              r("WAWebUserPrefsStore").setUser(
-                o("WAWebBizAIQESnapshot").BIZ_AI_QE_SNAPSHOT_KEY,
-                babelHelpers.extends(
-                  { values: s, onboarded: t, ts: o("WATimeUtils").unixTime() },
-                  e.every(function (e) {
-                    return u.has(M(e));
-                  }) &&
-                    Object.keys(s).every(function (e) {
-                      return u.has(e);
-                    })
-                    ? {}
-                    : { ids: Array.from(u) },
-                ),
-              ),
-              u.forEach(function (e) {
-                return R.set(e, a);
-              }),
-              V(o("WAWebBizAIQESnapshot").parseBizAIQEValues(s), a, u));
-          } catch (e) {
-            o("WALogger")
-              .WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BizAI] QE prefetch failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("maiba-web-qe-prefetch-failed");
-          }
-        })),
-        G.apply(this, arguments)
-      );
+          }),
+        );
+        if (
+          n !== v ||
+          a !== y ||
+          i.every(function (e) {
+            return e == null;
+          })
+        )
+          return;
+        var l = {};
+        _.forEach(function (e, t) {
+          l[t] = e;
+        });
+        var s = new Set();
+        (i
+          .flatMap(function (e) {
+            var t;
+            return (t =
+              e == null
+                ? void 0
+                : e.xfb_meta_ai_biz_agent_wa_web_experiments) != null
+              ? t
+              : [];
+          })
+          .forEach(function (e) {
+            var t = e == null ? void 0 : e.universe,
+              n = e == null ? void 0 : e.param;
+            if (t != null && n != null) {
+              var r,
+                o = N({ universe: t, param: n });
+              (s.add(o),
+                (l[o] = (r = e == null ? void 0 : e.value) != null ? r : null));
+            }
+          }),
+          r("WAWebUserPrefsStore").setUser(
+            o("WAWebBizAIQESnapshot").BIZ_AI_QE_SNAPSHOT_KEY,
+            babelHelpers.extends(
+              { values: l, onboarded: t, ts: o("WATimeUtils").unixTime() },
+              e.every(function (e) {
+                return s.has(N(e));
+              }) &&
+                Object.keys(l).every(function (e) {
+                  return s.has(e);
+                })
+                ? {}
+                : { ids: Array.from(s) },
+            ),
+          ),
+          s.forEach(function (e) {
+            return S.set(e, n);
+          }),
+          U(o("WAWebBizAIQESnapshot").parseBizAIQEValues(l), n, s));
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[BizAI] QE prefetch failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("maiba-web-qe-prefetch-failed");
+      }
     }
-    function z(e) {
-      for (var t = [], n = 0; n < e.length; n += I) t.push(e.slice(n, n + I));
+    function H(e) {
+      for (var t = [], n = 0; n < e.length; n += k) t.push(e.slice(n, n + k));
       return t;
     }
-    ((l.EXPOSURE_MUTATION = p),
+    ((l.EXPOSURE_MUTATION = m),
       (l.BizAIQEEventBus = o("WAWebBizAIQEEventBus").BizAIQEEventBus),
-      (l.prefetchBizAIQEWithoutExposure = T),
-      (l.getBizAIQEWithoutExposure = D),
-      (l.getBizAIQEValueWithoutExposure = x),
-      (l.logBizAIQEExposure = $),
-      (l.getBizAIQEExposureGeneration = N),
-      (l.getBizAIQEId = M),
-      (l.resetBizAIQEForTest = w));
+      (l.prefetchBizAIQEWithoutExposure = I),
+      (l.getBizAIQEWithoutExposure = T),
+      (l.getBizAIQEValueWithoutExposure = D),
+      (l.logBizAIQEExposure = x),
+      (l.getBizAIQEExposureGeneration = P),
+      (l.getBizAIQEId = N),
+      (l.resetBizAIQEForTest = M));
   },
   98,
 );

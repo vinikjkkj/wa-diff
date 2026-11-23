@@ -5,6 +5,7 @@ __d(
     "AdsAdgroupRecordAccessors",
     "AdsAssetFeedFieldUtils",
     "AdsAssetFeedUtils",
+    "AdsCreativeFlexAssetUtils",
     "AdsMultiMediaUtils",
     "AdsUEditorSelectorUtils",
     "AdsUnifiedCreativeAPIFieldFactory",
@@ -32,6 +33,10 @@ __d(
       if (
         o("AdsMultiMediaUtils").isPrimaryMediaDestinationCustomizationEnabled(
           "silent",
+        ) &&
+        o("AdsCreativeFlexAssetUtils").hasMultiMediaAssetsOfSource(
+          e,
+          "multi_media",
         )
       ) {
         var n,

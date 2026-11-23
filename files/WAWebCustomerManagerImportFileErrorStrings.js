@@ -13,27 +13,24 @@ __d(
       c = "duplicate_headers";
     function d(e) {
       return e === u
-        ? s._(/*BTDS*/ "CSV file is too large")
+        ? s._(/*BTDS*/ "")
         : e === c
-          ? s._(/*BTDS*/ "Duplicate column names")
-          : s._(/*BTDS*/ "File format issue");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(/*BTDS*/ "Try again");
+      return s._(/*BTDS*/ "");
     }
     function p(t) {
       return t === u
-        ? s._(
-            /*BTDS*/ "Choose a CSV file that is {maximum file size} or smaller, then try again.",
-            [
-              s._param(
-                "maximum file size",
-                o("WAWebL10nFilesize").getL10nFilesize(e),
-              ),
-            ],
-          )
+        ? s._(/*BTDS*/ "", [
+            s._param(
+              "maximum file size",
+              o("WAWebL10nFilesize").getL10nFilesize(e),
+            ),
+          ])
         : t === c
-          ? s._(/*BTDS*/ "Give each column a unique name and try again.")
+          ? s._(/*BTDS*/ "")
           : t instanceof
               o("WAWebContactImportCSVValidation")
                 .WAWebContactImportCSVFormatError
@@ -49,20 +46,17 @@ __d(
                   var t = e.actualColumnCount,
                     n = e.expectedColumnCount,
                     o = e.physicalRow;
-                  return s._(
-                    /*BTDS*/ "Row {row number} has the wrong number of columns. Expected {expected column count}; found {actual column count}. Fix the row and try again.",
-                    [
-                      s._param("row number", r("intlNumUtils").formatNumber(o)),
-                      s._param(
-                        "expected column count",
-                        r("intlNumUtils").formatNumber(n),
-                      ),
-                      s._param(
-                        "actual column count",
-                        r("intlNumUtils").formatNumber(t),
-                      ),
-                    ],
-                  );
+                  return s._(/*BTDS*/ "", [
+                    s._param("row number", r("intlNumUtils").formatNumber(o)),
+                    s._param(
+                      "expected column count",
+                      r("intlNumUtils").formatNumber(n),
+                    ),
+                    s._param(
+                      "actual column count",
+                      r("intlNumUtils").formatNumber(t),
+                    ),
+                  ]);
                 }
                 if (
                   ((typeof e == "object" && e !== null) ||
@@ -71,10 +65,9 @@ __d(
                   e.reason === "invalid_quotes"
                 ) {
                   var a = e.physicalRow;
-                  return s._(
-                    /*BTDS*/ "Row {row number} has a quotation mark in the wrong place. Fix the row and try again.",
-                    [s._param("row number", r("intlNumUtils").formatNumber(a))],
-                  );
+                  return s._(/*BTDS*/ "", [
+                    s._param("row number", r("intlNumUtils").formatNumber(a)),
+                  ]);
                 }
                 if (
                   ((typeof e == "object" && e !== null) ||
@@ -83,10 +76,9 @@ __d(
                   e.reason === "missing_quotes"
                 ) {
                   var i = e.physicalRow;
-                  return s._(
-                    /*BTDS*/ "Row {row number} has an unclosed quotation mark. Close it and try again.",
-                    [s._param("row number", r("intlNumUtils").formatNumber(i))],
-                  );
+                  return s._(/*BTDS*/ "", [
+                    s._param("row number", r("intlNumUtils").formatNumber(i)),
+                  ]);
                 }
                 if (
                   ((typeof e == "object" && e !== null) ||
@@ -99,14 +91,11 @@ __d(
                   var l = e.actualLineEnding,
                     u = e.expectedLineEnding,
                     c = e.physicalRow;
-                  return s._(
-                    /*BTDS*/ "Row {row number} uses {actual line ending} line endings, but earlier rows use {expected line ending}. Save the CSV with consistent line endings and try again.",
-                    [
-                      s._param("row number", r("intlNumUtils").formatNumber(c)),
-                      s._param("actual line ending", l),
-                      s._param("expected line ending", u),
-                    ],
-                  );
+                  return s._(/*BTDS*/ "", [
+                    s._param("row number", r("intlNumUtils").formatNumber(c)),
+                    s._param("actual line ending", l),
+                    s._param("expected line ending", u),
+                  ]);
                 }
                 if (
                   ((typeof e == "object" && e !== null) ||
@@ -121,21 +110,18 @@ __d(
                     m = e.expectedColumnCount,
                     p = e.physicalRow,
                     f = e.separator;
-                  return s._(
-                    /*BTDS*/ "Row {row number} does not match the {separator type} header. Expected {expected column count}; found {actual column count}. Fix the separators and try again.",
-                    [
-                      s._param("row number", r("intlNumUtils").formatNumber(p)),
-                      s._param("separator type", _(f)),
-                      s._param(
-                        "expected column count",
-                        r("intlNumUtils").formatNumber(m),
-                      ),
-                      s._param(
-                        "actual column count",
-                        r("intlNumUtils").formatNumber(d),
-                      ),
-                    ],
-                  );
+                  return s._(/*BTDS*/ "", [
+                    s._param("row number", r("intlNumUtils").formatNumber(p)),
+                    s._param("separator type", _(f)),
+                    s._param(
+                      "expected column count",
+                      r("intlNumUtils").formatNumber(m),
+                    ),
+                    s._param(
+                      "actual column count",
+                      r("intlNumUtils").formatNumber(d),
+                    ),
+                  ]);
                 }
                 if (
                   ((typeof e == "object" && e !== null) ||
@@ -144,25 +130,22 @@ __d(
                   e.reason === "parse_error"
                 ) {
                   var g = e.physicalRow;
-                  return s._(
-                    /*BTDS*/ "The CSV has invalid formatting near row {row number}. Fix the row and try again.",
-                    [s._param("row number", r("intlNumUtils").formatNumber(g))],
-                  );
+                  return s._(/*BTDS*/ "", [
+                    s._param("row number", r("intlNumUtils").formatNumber(g)),
+                  ]);
                 }
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
                     e,
                 );
               })(t.issue)
-            : s._(
-                /*BTDS*/ "The file does not match the required format. Check the column headers and try again.",
-              );
+            : s._(/*BTDS*/ "");
     }
     function _(e) {
       return e === "semicolon"
-        ? s._(/*BTDS*/ "semicolon-separated")
+        ? s._(/*BTDS*/ "")
         : e === "tab"
-          ? s._(/*BTDS*/ "tab-separated")
+          ? s._(/*BTDS*/ "")
           : (function () {
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

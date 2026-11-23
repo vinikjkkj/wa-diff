@@ -71,7 +71,7 @@ __d(
           );
         return new (r("WAWebQuickReplyModel"))({
           id: n,
-          shortcut: s._(/*BTDS*/ "Hours").toString(),
+          shortcut: s._(/*BTDS*/ "").toString(),
           message: a,
           count: -1,
           keywords: [],
@@ -84,7 +84,7 @@ __d(
         var t = o("WAWebQuickReplyEnum").QuickReplyTypes.PROFILE_SMART_DEFAULT;
         return new (r("WAWebQuickReplyModel"))({
           id: t,
-          shortcut: s._(/*BTDS*/ "Profile").toString(),
+          shortcut: s._(/*BTDS*/ "").toString(),
           message: o("WAWebFrontendContactGetters").getDisplayName(e),
           count: -1,
           keywords: [],
@@ -104,16 +104,13 @@ __d(
           n =
             e.address != null && e.address !== ""
               ? e.address
-              : s._(/*BTDS*/ "Map location"),
+              : s._(/*BTDS*/ ""),
           a = "\uD83D\uDCCD";
         return new (r("WAWebQuickReplyModel"))({
           id: t,
-          shortcut: s._(/*BTDS*/ "Address").toString(),
+          shortcut: s._(/*BTDS*/ "").toString(),
           message: s
-            ._(/*BTDS*/ "{pinEmoji} {address}", [
-              s._param("pinEmoji", a),
-              s._param("address", n),
-            ])
+            ._(/*BTDS*/ "", [s._param("pinEmoji", a), s._param("address", n)])
             .toString(),
           count: -1,
           keywords: [],
@@ -143,7 +140,7 @@ __d(
             .PIX_KEY_SMART_DEFAULT;
           return new (r("WAWebQuickReplyModel"))({
             id: t,
-            shortcut: s._(/*BTDS*/ "Pix").toString(),
+            shortcut: s._(/*BTDS*/ "").toString(),
             message: o("WAWebBrazilPixKeyFormattingUtils").getFormattedPixKey(
               e.key,
               e.key_type,

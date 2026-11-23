@@ -17,7 +17,6 @@ __d(
     "WAWebWindowsHybridBridgeFactory",
     "WAWebWindowsHybridBridgeInitiator",
     "WAWebWindowsNativeVoipParsers",
-    "asyncToGeneratorRuntime",
     "cr:16754",
     "err",
     "getErrorSafe",
@@ -221,96 +220,84 @@ __d(
                 C,
               );
         },
-        transferCallStart: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.callId,
-              n = e.hasVideo,
-              a = e.peerActiveDevice,
-              i = e.rootCallCreator,
-              l = e.rootCallId;
-            try {
-              var s,
-                u = yield (s = o(
-                  "WAWebWindowsHybridBridgeFactory",
-                ).getWindowsBridge(
-                  r("WAWebWindowsHybridBridgeInitiator")
-                    .WAWebVoipStackInterfaceWindows,
-                )) == null ||
-                (s = s.voip) == null ||
-                s.transferCallStart == null
-                  ? void 0
-                  : s.transferCallStart({
-                      callId: t,
-                      hasVideo: n,
-                      peerActiveDevice: a,
-                      rootCallCreator: i,
-                      rootCallId: l,
-                    });
-              return u == null
-                ? (o("WALogger").WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: transferCallStart: not supported by this native build",
-                      ])),
-                  ),
-                  N)
-                : u;
-            } catch (e) {
-              return (
-                o("WALogger")
-                  .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: transferCallStart: bridge call failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("voip-windows-transfer-call-start-failed"),
-                N
-              );
-            }
-          });
-          function t(t) {
-            return e.apply(this, arguments);
+        transferCallStart: async function (t) {
+          var e = t.callId,
+            n = t.hasVideo,
+            a = t.peerActiveDevice,
+            i = t.rootCallCreator,
+            l = t.rootCallId;
+          try {
+            var s,
+              u = await ((s = o(
+                "WAWebWindowsHybridBridgeFactory",
+              ).getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator")
+                  .WAWebVoipStackInterfaceWindows,
+              )) == null ||
+              (s = s.voip) == null ||
+              s.transferCallStart == null
+                ? void 0
+                : s.transferCallStart({
+                    callId: e,
+                    hasVideo: n,
+                    peerActiveDevice: a,
+                    rootCallCreator: i,
+                    rootCallId: l,
+                  }));
+            return u == null
+              ? (o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: transferCallStart: not supported by this native build",
+                    ])),
+                ),
+                N)
+              : u;
+          } catch (e) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: transferCallStart: bridge call failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("voip-windows-transfer-call-start-failed"),
+              N
+            );
           }
-          return t;
-        })(),
-        openCallTransferLobby: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            try {
-              var t;
-              return (
-                (yield (t = o(
-                  "WAWebWindowsHybridBridgeFactory",
-                ).getWindowsBridge(
-                  r("WAWebWindowsHybridBridgeInitiator")
-                    .WAWebVoipStackInterfaceWindows,
-                )) == null ||
-                (t = t.voip) == null ||
-                t.openCallTransferLobby == null
-                  ? void 0
-                  : t.openCallTransferLobby(e)) === !0
-              );
-            } catch (e) {
-              return (
-                o("WALogger")
-                  .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: openCallTransferLobby: bridge call failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("voip-windows-open-call-transfer-lobby-failed"),
-                !1
-              );
-            }
-          });
-          function t(t) {
-            return e.apply(this, arguments);
+        },
+        openCallTransferLobby: async function (t) {
+          try {
+            var e;
+            return (
+              (await ((e = o(
+                "WAWebWindowsHybridBridgeFactory",
+              ).getWindowsBridge(
+                r("WAWebWindowsHybridBridgeInitiator")
+                  .WAWebVoipStackInterfaceWindows,
+              )) == null ||
+              (e = e.voip) == null ||
+              e.openCallTransferLobby == null
+                ? void 0
+                : e.openCallTransferLobby(t))) === !0
+            );
+          } catch (e) {
+            return (
+              o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: openCallTransferLobby: bridge call failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("voip-windows-open-call-transfer-lobby-failed"),
+              !1
+            );
           }
-          return t;
-        })(),
+        },
         simulateNativeAnr: function (t, n) {
           var e,
             a =
@@ -592,47 +579,37 @@ __d(
                 chatJid: t,
               }));
           },
-          onRequestDeviceJidList: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                o("WALogger").LOG(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: onRequestDeviceJidList",
-                    ])),
-                );
-                var t = o("WAWebWidFactory").createWid(String(e));
-                yield o("WAWebAdvSyncDeviceListApi").syncDeviceList({
-                  wids: [t],
-                  context: "voip",
-                  phash: null,
-                });
-                var n = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob([
-                  t,
-                ]);
-                t.isLid() &&
-                  n.some(function (e) {
-                    return !e.isLid();
-                  }) &&
-                  (n = n.map(function (e) {
-                    var t;
-                    return e.isLid()
-                      ? e
-                      : (t = o("WAWebLidMigrationUtils").toLid(e)) != null
-                        ? t
-                        : e;
-                  }));
-                var r = n.map(function (e) {
-                  return e.toString({ legacy: !0, formatIncludeDevice: !0 });
-                });
-                return r;
-              },
+          onRequestDeviceJidList: async function (t) {
+            o("WALogger").LOG(
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: onRequestDeviceJidList",
+                ])),
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
+            var e = o("WAWebWidFactory").createWid(String(t));
+            await o("WAWebAdvSyncDeviceListApi").syncDeviceList({
+              wids: [e],
+              context: "voip",
+              phash: null,
+            });
+            var n = await o("WAWebSendMsgDatabaseJob").getFanOutListJob([e]);
+            e.isLid() &&
+              n.some(function (e) {
+                return !e.isLid();
+              }) &&
+              (n = n.map(function (e) {
+                var t;
+                return e.isLid()
+                  ? e
+                  : (t = o("WAWebLidMigrationUtils").toLid(e)) != null
+                    ? t
+                    : e;
+              }));
+            var r = n.map(function (e) {
+              return e.toString({ legacy: !0, formatIncludeDevice: !0 });
+            });
+            return r;
+          },
           onCallAgain: function (t, n) {
             o("WALogger").LOG(
               L ||
@@ -666,66 +643,50 @@ __d(
                   );
                 }));
           },
-          onRequestPhoneNumberJid: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t,
-                  n,
-                  r = o("WAWebWidFactory").createWid(String(e));
-                return (
-                  o("WALogger").LOG(
-                    I ||
-                      (I = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: onRequestPhoneNumberJid",
-                      ])),
-                  ),
-                  r.isUser() || (r = o("WAWebWidFactory").asUserWidOrThrow(r)),
-                  r.isLid()
-                    ? (t =
-                        (n = o("WAWebLidMigrationUtils").toPn(r)) == null
-                          ? void 0
-                          : n.toString()) != null
-                      ? t
-                      : ""
-                    : r.toString()
-                );
-              },
+          onRequestPhoneNumberJid: async function (t) {
+            var e,
+              n,
+              r = o("WAWebWidFactory").createWid(String(t));
+            return (
+              o("WALogger").LOG(
+                I ||
+                  (I = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: onRequestPhoneNumberJid",
+                  ])),
+              ),
+              r.isUser() || (r = o("WAWebWidFactory").asUserWidOrThrow(r)),
+              r.isLid()
+                ? (e =
+                    (n = o("WAWebLidMigrationUtils").toPn(r)) == null
+                      ? void 0
+                      : n.toString()) != null
+                  ? e
+                  : ""
+                : r.toString()
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
-          onRequestLidJid: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t,
-                  n,
-                  r = o("WAWebWidFactory").createWid(String(e));
-                return (
-                  o("WALogger").LOG(
-                    T ||
-                      (T = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: onRequestLidJid",
-                      ])),
-                  ),
-                  r.isUser() || (r = o("WAWebWidFactory").asUserWidOrThrow(r)),
-                  r.isLid()
-                    ? r.toString()
-                    : (t =
-                          (n = o("WAWebLidMigrationUtils").toLid(r)) == null
-                            ? void 0
-                            : n.toString()) != null
-                      ? t
-                      : ""
-                );
-              },
+          },
+          onRequestLidJid: async function (t) {
+            var e,
+              n,
+              r = o("WAWebWidFactory").createWid(String(t));
+            return (
+              o("WALogger").LOG(
+                T ||
+                  (T = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: onRequestLidJid",
+                  ])),
+              ),
+              r.isUser() || (r = o("WAWebWidFactory").asUserWidOrThrow(r)),
+              r.isLid()
+                ? r.toString()
+                : (e =
+                      (n = o("WAWebLidMigrationUtils").toLid(r)) == null
+                        ? void 0
+                        : n.toString()) != null
+                  ? e
+                  : ""
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
+          },
           onRequestJoinCall: function (t) {
             (o("WALogger").LOG(
               D ||

@@ -1,10 +1,6 @@
 __d(
   "WAWebCoexCallingFirstTimeAlertUtils",
-  [
-    "WAWebUserPrefsIndexedDBStorage",
-    "WAWebUserPrefsMultiDevice",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebUserPrefsIndexedDBStorage", "WAWebUserPrefsMultiDevice"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "WACoexSMBCallingFirstTimeAlertShown",
@@ -12,24 +8,16 @@ __d(
     function u() {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(e) === !0;
     }
-    function c() {
-      return d.apply(this, arguments);
+    async function c() {
+      await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(e, !0);
     }
     function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(e, !0);
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m() {
       var e = o(
         "WAWebUserPrefsMultiDevice",
       ).getIsHostedMeAccountFromLocalStorage();
       return e ? !u() : !1;
     }
-    function p(e) {
+    function m(e) {
       var t,
         n =
           (t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(s)) != null
@@ -37,34 +25,25 @@ __d(
             : [];
       return n.includes(e);
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    async function p(e) {
+      var t,
+        n =
+          (t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(s)) != null
+            ? t
+            : [];
+      n.includes(e) ||
+        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+          s,
+          [].concat(n, [e]),
+        ));
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n =
-              (t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(s)) !=
-              null
-                ? t
-                : [];
-          n.includes(e) ||
-            (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-              s,
-              [].concat(n, [e]),
-            ));
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
-      return t ? !p(e) : !1;
+    function _(e, t) {
+      return t ? !m(e) : !1;
     }
     ((l.markCoexCallingSMBFirstTimeAlertShown = c),
-      (l.shouldShowCoexCallingSMBFirstTimeAlert = m),
-      (l.markCoexCallingConsumerFirstTimeAlertShownForThread = _),
-      (l.shouldShowCoexCallingConsumerFirstTimeAlert = g));
+      (l.shouldShowCoexCallingSMBFirstTimeAlert = d),
+      (l.markCoexCallingConsumerFirstTimeAlertShownForThread = p),
+      (l.shouldShowCoexCallingConsumerFirstTimeAlert = _));
   },
   98,
 );

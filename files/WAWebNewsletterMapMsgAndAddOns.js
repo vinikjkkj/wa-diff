@@ -1,96 +1,75 @@
 __d(
   "WAWebNewsletterMapMsgAndAddOns",
   [
-    "Promise",
     "WAWebBackendApi",
     "WAWebNewsletterDBUtils",
     "WAWebNewsletterMsgUtils",
     "WAWebPollOptionHashUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = yield o("WAWebBackendApi").frontendSendAndReceive(
-            "findMsgKeyFromServerId",
-            { from: t, serverId: r },
-          );
-          if (a != null) return (e || (e = n("Promise"))).resolve(a);
-          var i = yield o("WAWebNewsletterDBUtils").getMessageByServerId(
-            r,
-            t.toJid(),
-          );
-          return i == null ? void 0 : i.id;
-        })),
-        u.apply(this, arguments)
+    async function e(e, t) {
+      var n = await o("WAWebBackendApi").frontendSendAndReceive(
+        "findMsgKeyFromServerId",
+        { from: e, serverId: t },
       );
-    }
-    function c(e, t, n) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r,
-            a,
-            i,
-            l,
-            u,
-            c,
-            d,
-            _,
-            f =
-              (r = e.newsletterReactionsMixin) == null
-                ? void 0
-                : r.reactionsReaction,
-            g = (a = e.newsletterPollVotesMixin) == null ? void 0 : a.votesVote,
-            h = o("WAWebNewsletterMsgUtils").mapNewsletterMsgToMsgData({
-              from: t,
-              hasReaction:
-                ((i = f == null ? void 0 : f.length) != null ? i : 0) > 0,
-              lastUpdateFromServerTs: n,
-              message: e,
-            }),
-            y =
-              (l = h == null ? void 0 : h.id) != null
-                ? l
-                : yield s(t, e.serverId),
-            C = o("WAWebNewsletterMsgUtils").getNewsletterViewCount(
-              e.newsletterViewsCountViewsOrDeprecatedMixinGroup,
-            ),
-            b =
-              (u =
-                (c = e.newsletterForwardsCountMixin) == null
-                  ? void 0
-                  : c.forwardsCountCount) != null
-                ? u
-                : 0,
-            v =
-              (d =
-                (_ = e.newsletterResponsesCountMixin) == null
-                  ? void 0
-                  : _.responsesCountCount) != null
-                ? d
-                : 0;
-          return {
-            msgData: h,
-            reactionData: m(f, y, n),
-            pollVoteData: p(g, y, n),
-            id: y,
-            viewCount: C,
-            questionResponsesCount: v,
-            forwardsCount: b,
-          };
-        })),
-        d.apply(this, arguments)
+      if (n != null) return Promise.resolve(n);
+      var r = await o("WAWebNewsletterDBUtils").getMessageByServerId(
+        t,
+        e.toJid(),
       );
+      return r == null ? void 0 : r.id;
     }
-    function m(e, t, n) {
+    async function s(t, n, r) {
+      var a,
+        i,
+        l,
+        s,
+        d,
+        m,
+        p,
+        _,
+        f =
+          (a = t.newsletterReactionsMixin) == null
+            ? void 0
+            : a.reactionsReaction,
+        g = (i = t.newsletterPollVotesMixin) == null ? void 0 : i.votesVote,
+        h = o("WAWebNewsletterMsgUtils").mapNewsletterMsgToMsgData({
+          from: n,
+          hasReaction:
+            ((l = f == null ? void 0 : f.length) != null ? l : 0) > 0,
+          lastUpdateFromServerTs: r,
+          message: t,
+        }),
+        y =
+          (s = h == null ? void 0 : h.id) != null ? s : await e(n, t.serverId),
+        C = o("WAWebNewsletterMsgUtils").getNewsletterViewCount(
+          t.newsletterViewsCountViewsOrDeprecatedMixinGroup,
+        ),
+        b =
+          (d =
+            (m = t.newsletterForwardsCountMixin) == null
+              ? void 0
+              : m.forwardsCountCount) != null
+            ? d
+            : 0,
+        v =
+          (p =
+            (_ = t.newsletterResponsesCountMixin) == null
+              ? void 0
+              : _.responsesCountCount) != null
+            ? p
+            : 0;
+      return {
+        msgData: h,
+        reactionData: u(f, y, r),
+        pollVoteData: c(g, y, r),
+        id: y,
+        viewCount: C,
+        questionResponsesCount: v,
+        forwardsCount: b,
+      };
+    }
+    function u(e, t, n) {
       return t != null && e != null && e.length > 0
         ? {
             parentMsgKey: t,
@@ -101,7 +80,7 @@ __d(
           }
         : null;
     }
-    function p(e, t, n) {
+    function c(e, t, n) {
       return t == null || e == null || e.length === 0
         ? null
         : {
@@ -115,7 +94,7 @@ __d(
             }, new Map()),
           };
     }
-    l.mapMsgAndAddOns = c;
+    l.mapMsgAndAddOns = s;
   },
   98,
 );

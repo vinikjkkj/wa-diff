@@ -1,7 +1,6 @@
 __d(
   "WAWebAdvDeviceInfoCheckJob",
   [
-    "Promise",
     "WAJids",
     "WALogger",
     "WATimeUtils",
@@ -18,7 +17,6 @@ __d(
     "WAWebSocketLogoutJob",
     "WAWebUserUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,61 +26,52 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = 25 * o("WATimeUtils").HOUR_SECONDS,
-      f = (function () {
+      p = 25 * o("WATimeUtils").HOUR_SECONDS,
+      _ = (function () {
         function t(e) {
           this.advToSystemBridge = e;
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.run = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[adv] running device info check with t=",
-                      "",
-                    ])),
-                  t,
-                );
-                var n = this.advToSystemBridge,
-                  a = yield n.getUsersForExpiration(t),
-                  i = a.usersCloseToExpiration,
-                  l = a.usersExpired;
-                (n.removeCompanions(l).catch(function (e) {
-                  return o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "Failed to remove companions",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e))
-                    .sendLogs("adv-remove-companions-failed");
-                }),
-                  n.sendADVStoredTimestampExpiredEvents(l, t));
-                var u = Array.from(l.keys())
-                  .concat(Array.from(i.keys()))
-                  .filter(function (e) {
-                    return !n.canRemoveUserDevices(e);
-                  });
-                return (
-                  n.sendOrQueueDeviceUsyncQuery(u).catch(function (e) {}),
-                  n.recordLocalTimestamp()
-                );
-              },
+          (n.run = async function (n) {
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[adv] running device info check with t=",
+                  "",
+                ])),
+              n,
             );
-            function a(e) {
-              return t.apply(this, arguments);
-            }
-            return a;
-          })()),
+            var t = this.advToSystemBridge,
+              a = await t.getUsersForExpiration(n),
+              i = a.usersCloseToExpiration,
+              l = a.usersExpired;
+            (t.removeCompanions(l).catch(function (e) {
+              return o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "Failed to remove companions",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("adv-remove-companions-failed");
+            }),
+              t.sendADVStoredTimestampExpiredEvents(l, n));
+            var u = Array.from(l.keys())
+              .concat(Array.from(i.keys()))
+              .filter(function (e) {
+                return !t.canRemoveUserDevices(e);
+              });
+            return (
+              t.sendOrQueueDeviceUsyncQuery(u).catch(function (e) {}),
+              t.recordLocalTimestamp()
+            );
+          }),
           t
         );
       })(),
-      g = (function () {
+      f = (function () {
         function e() {}
         var t = e.prototype;
         return (
@@ -96,50 +85,39 @@ __d(
               "num_days_before_device_expiry_check",
             );
           }),
-          (t.getUsersForExpiration = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  n = yield o("WAWebApiDeviceList").getAllDeviceLists(),
-                  r = yield o(
-                    "WAWebLastADVCheckTimeApi",
-                  ).getLastADVDeviceInfoCheckTime(),
-                  a =
-                    this.getNumDaysKeyIndexListExpiration() *
-                    o("WATimeUtils").DAY_SECONDS,
-                  i = new Map(),
-                  l = new Map();
-                return (
-                  n.forEach(function (n) {
-                    n.deleted ||
-                      R(n) ||
-                      (L(e, a, n, r)
-                        ? i.set(
-                            o("WAWebWidFactory").createUserWidOrThrow(n.id),
-                            n,
-                          )
-                        : E({
-                            currentTs: e,
-                            deviceListRow: n,
-                            numSecondsCloseExpiration:
-                              a -
-                              t.getNumDaysBeforeDeviceExpiryCheck() *
-                                o("WATimeUtils").DAY_SECONDS,
-                          }) &&
-                          l.set(
-                            o("WAWebWidFactory").createUserWidOrThrow(n.id),
-                            n,
-                          ));
-                  }),
-                  { usersExpired: i, usersCloseToExpiration: l }
-                );
-              },
+          (t.getUsersForExpiration = async function (t) {
+            var e = this,
+              n = await o("WAWebApiDeviceList").getAllDeviceLists(),
+              r = await o(
+                "WAWebLastADVCheckTimeApi",
+              ).getLastADVDeviceInfoCheckTime(),
+              a =
+                this.getNumDaysKeyIndexListExpiration() *
+                o("WATimeUtils").DAY_SECONDS,
+              i = new Map(),
+              l = new Map();
+            return (
+              n.forEach(function (n) {
+                n.deleted ||
+                  v(n) ||
+                  (S(t, a, n, r)
+                    ? i.set(o("WAWebWidFactory").createUserWidOrThrow(n.id), n)
+                    : R({
+                        currentTs: t,
+                        deviceListRow: n,
+                        numSecondsCloseExpiration:
+                          a -
+                          e.getNumDaysBeforeDeviceExpiryCheck() *
+                            o("WATimeUtils").DAY_SECONDS,
+                      }) &&
+                      l.set(
+                        o("WAWebWidFactory").createUserWidOrThrow(n.id),
+                        n,
+                      ));
+              }),
+              { usersExpired: i, usersCloseToExpiration: l }
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          }),
           (t.sendADVStoredTimestampExpiredEvents = function (t, n) {
             var e = this;
             t.forEach(function (t) {
@@ -158,37 +136,27 @@ __d(
               }
             });
           }),
-          (t.sendOrQueueDeviceUsyncQuery = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return (
-                  yield o(
-                    "WAWebApiPendingDeviceSync",
-                  ).addUserToPendingDeviceSync(
-                    e.map(function (e) {
-                      return e.toString();
-                    }),
-                  ),
-                  o("WAWebApiPendingDeviceSync").doPendingDeviceSync()
-                );
-              },
+          (t.sendOrQueueDeviceUsyncQuery = async function (t) {
+            return (
+              await o("WAWebApiPendingDeviceSync").addUserToPendingDeviceSync(
+                t.map(function (e) {
+                  return e.toString();
+                }),
+              ),
+              o("WAWebApiPendingDeviceSync").doPendingDeviceSync()
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          }),
           (t.canRemoveUserDevices = function (t) {
             return !1;
           }),
           (t.removeCompanions = function (t) {
             var e = Array.from(t.entries()),
-              r = e.some(function (e) {
+              n = e.some(function (e) {
                 var t = e[0],
                   n = e[1];
-                return k(t);
+                return L(t);
               });
-            return r &&
+            return n &&
               o("WAWebABProps").getABPropConfigValue(
                 "web_adv_logout_on_self_device_list_expired",
               )
@@ -211,8 +179,8 @@ __d(
                 o("WAWebSocketLogoutJob").socketLogout(
                   o("WAWebLogoutReasonConstants").LogoutReason.InvalidAdvStatus,
                 ),
-                (p || (p = n("Promise"))).resolve())
-              : (p || (p = n("Promise"))).all(
+                Promise.resolve())
+              : Promise.all(
                   Array.from(t.entries(), function (e) {
                     var t = e[0],
                       n = e[1];
@@ -223,95 +191,79 @@ __d(
                 );
           }),
           (t.recordLocalTimestamp = function () {
-            return (p || (p = n("Promise"))).resolve();
+            return Promise.resolve();
           }),
           e
         );
       })(),
-      h = "advDeviceInfoCheck",
-      y;
-    function C() {
-      return b.apply(this, arguments);
+      g = "advDeviceInfoCheck",
+      h;
+    async function y() {
+      h != null && (self.clearTimeout(h), (h = null));
+      var e = o("WATimeUtils").unixTimeWithoutClockSkewCorrection(),
+        t = await o("WAWebLastADVCheckTimeApi").getLastADVDeviceInfoCheckTime(),
+        n = 0,
+        a = function () {
+          return Promise.resolve();
+        };
+      (t != null &&
+        ((n = Math.max(o("WATimeUtils").DAY_SECONDS - (e - t), 0)),
+        (a = function () {
+          return b();
+        })),
+        (h = self.setTimeout(async function () {
+          try {
+            await a();
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "error running the adv device check job",
+                  ])),
+              )
+              .tags("automated-device-verification");
+          }
+          h = null;
+          var e = o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
+          (o("WAWebLastADVCheckTimeApi").setLastADVDeviceInfoCheckTime(e),
+            o("WAWebApiTasksScheduledTime")
+              .updateTaskScheduledTime(g, o("WATimeUtils").castToUnixTime(e))
+              .catch(function (e) {
+                return o("WALogger")
+                  .ERROR(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "Failed to update task scheduled time",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("adv-update-task-scheduled-time-failed");
+              }),
+            await y());
+        }, n * 1e3)));
     }
+    var C;
     function b() {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          y != null && (self.clearTimeout(y), (y = null));
-          var e = o("WATimeUtils").unixTimeWithoutClockSkewCorrection(),
-            t = yield o(
-              "WAWebLastADVCheckTimeApi",
-            ).getLastADVDeviceInfoCheckTime(),
-            a = 0,
-            i = function () {
-              return (p || (p = n("Promise"))).resolve();
-            };
-          (t != null &&
-            ((a = Math.max(o("WATimeUtils").DAY_SECONDS - (e - t), 0)),
-            (i = function () {
-              return S();
-            })),
-            (y = self.setTimeout(
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                try {
-                  yield i();
-                } catch (e) {
-                  o("WALogger")
-                    .ERROR(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "error running the adv device check job",
-                        ])),
-                    )
-                    .tags("automated-device-verification");
-                }
-                y = null;
-                var e = o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
-                (o("WAWebLastADVCheckTimeApi").setLastADVDeviceInfoCheckTime(e),
-                  o("WAWebApiTasksScheduledTime")
-                    .updateTaskScheduledTime(
-                      h,
-                      o("WATimeUtils").castToUnixTime(e),
-                    )
-                    .catch(function (e) {
-                      return o("WALogger")
-                        .ERROR(
-                          m ||
-                            (m = babelHelpers.taggedTemplateLiteralLoose([
-                              "Failed to update task scheduled time",
-                            ])),
-                        )
-                        .catching(r("getErrorSafe")(e))
-                        .sendLogs("adv-update-task-scheduled-time-failed");
-                    }),
-                  yield C());
-              }),
-              a * 1e3,
-            )));
-        })),
-        b.apply(this, arguments)
+        C == null && (C = new _(new f())),
+        C.run(o("WATimeUtils").unixTimeWithoutClockSkewCorrection())
       );
     }
-    var v;
-    function S() {
-      return (
-        v == null && (v = new f(new g())),
-        v.run(o("WATimeUtils").unixTimeWithoutClockSkewCorrection())
-      );
-    }
-    function R(e) {
+    function v(e) {
       return (
         e.devices.length === 1 &&
         e.devices[0].id === o("WAJids").DEFAULT_DEVICE_ID
       );
     }
-    function L(e, t, n, r) {
+    function S(e, t, n, r) {
       return e - n.timestamp >= t
         ? !0
         : n.expectedTsUpdateTs != null
-          ? e - n.expectedTsUpdateTs >= _ && n.expectedTsLastDeviceJobTs !== r
+          ? e - n.expectedTsUpdateTs >= p && n.expectedTsLastDeviceJobTs !== r
           : !1;
     }
-    function E(e) {
+    function R(e) {
       var t = e.currentTs,
         n = e.deviceListRow,
         r = e.numSecondsCloseExpiration;
@@ -321,14 +273,14 @@ __d(
           ? n.expectedTs > n.timestamp
           : !1;
     }
-    function k(e) {
+    function L(e) {
       return o("WAWebUserUtils").isMeAccount(e)
         ? o("WAWebABProps").getABPropConfigValue("web_self_adv_daily_use_lid")
           ? e.equals(o("WAWebUserUtils").getMeLidUserOrThrow())
           : !0
         : !1;
     }
-    ((l.AdvToSystemBridgeImpl = g), (l.scheduleAdvDeviceInfoCheck = C));
+    ((l.AdvToSystemBridgeImpl = f), (l.scheduleAdvDeviceInfoCheck = y));
   },
   98,
 );

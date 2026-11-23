@@ -8,6 +8,7 @@ __d(
           RingtoneScreen: [
             7608,
             {
+              dedupKey: [8, e.TYPES.INTEGER],
               premiumRingtonesDownloadedCount: [1, e.TYPES.INTEGER],
               ringtoneChangeApplied: [2, e.TYPES.BOOLEAN],
               ringtoneId: [3, e.TYPES.STRING],

@@ -25,7 +25,7 @@ __d(
         type: "placements/position",
         key: "facebook/notification",
         name: r("AdsPlacementPositionLabelConstant").notification,
-        nameWithPlatform: s._(/*BTDS*/ "Facebook Notifications"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           imageCrop: r("AdImageSpecCropKeys")["100x100"],
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION

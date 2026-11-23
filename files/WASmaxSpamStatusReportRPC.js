@@ -23,34 +23,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = m(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return { name: "StatusReportResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "StatusReportResponseError", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("StatusReport", {
-              Success: a,
-              Error: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = d(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return { name: "StatusReportResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "StatusReportResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("StatusReport", {
+          Success: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -87,7 +78,7 @@ __d(
           })
         : u;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -120,7 +111,7 @@ __d(
         reportIdMixin: s.success ? s.value : null,
       });
     }
-    function d(e) {
+    function c(e) {
       var t = e.messageFrom,
         n = e.messageRecipientMixinArgs,
         r = o("WASmaxMixins").optionalMerge(
@@ -133,7 +124,7 @@ __d(
         );
       return r;
     }
-    function m(e) {
+    function d(e) {
       var t,
         n = e.messageArgs,
         r = e.fRXMixinArgs,
@@ -159,7 +150,7 @@ __d(
                       o("WASmaxJsx").smax(
                         "spam_list",
                         { jid: o("WAWap").JID(i) },
-                        o("WASmaxChildren").REPEATED_CHILD(d, n, 1, 2),
+                        o("WASmaxChildren").REPEATED_CHILD(c, n, 1, 2),
                       ),
                       l,
                     ),
@@ -176,9 +167,9 @@ __d(
       return u;
     }
     ((l.sendStatusReportRPC = e),
-      (l.parseStatusReportResponseError = u),
-      (l.parseStatusReportResponseSuccess = c),
-      (l.makeStatusReportRequest = m));
+      (l.parseStatusReportResponseError = s),
+      (l.parseStatusReportResponseSuccess = u),
+      (l.makeStatusReportRequest = d));
   },
   98,
 );

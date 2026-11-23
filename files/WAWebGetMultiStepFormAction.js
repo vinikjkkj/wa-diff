@@ -32,7 +32,7 @@ __d(
                   : a.buttonParamsJson,
               )) != null
                 ? r
-                : s._(/*BTDS*/ "Open form"),
+                : s._(/*BTDS*/ ""),
             disabled: l === !0,
             onClick: function () {
               var t,

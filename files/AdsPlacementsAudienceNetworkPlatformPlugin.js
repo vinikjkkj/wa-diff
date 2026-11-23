@@ -11,10 +11,8 @@ __d(
     "AdsPlacementsAudienceNetworkClassicPositionPlugin",
     "AdsPlacementsAudienceNetworkInstreamVideoPositionPlugin",
     "AdsPlacementsAudienceNetworkRewardedVideoPositionPlugin",
-    "AdsPlacementsCtvInstreamVideoPositionPlugin",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
     "AdsUEditorCampaignPlacementSetActionFlux",
-    "VultureJSDeadComponent.react",
     "gkx",
     "immutable",
     "meta-brand-audience-network-filled-20",
@@ -41,22 +39,17 @@ __d(
           .metaBrandAudienceNetworkOutline16,
         placementPreviewImage: r("gkx")("7201") ? u("1115261") : u("939866"),
         placementPreviewReactComponent: function () {
-          return c.jsx(r("VultureJSDeadComponent.react"), {
-            name: "AdsPlacementAudienceNetworkInfoSection",
-          });
+          return c.jsx(c.Fragment, {});
         },
         isEnabled: function () {
           return !0;
         },
         positions: r("immutable").OrderedSet([
           r("AdsPlacementsAudienceNetworkClassicPositionPlugin"),
-          r("AdsPlacementsCtvInstreamVideoPositionPlugin"),
           r("AdsPlacementsAudienceNetworkInstreamVideoPositionPlugin"),
           r("AdsPlacementsAudienceNetworkRewardedVideoPositionPlugin"),
         ]),
-        placementInfo: s._(
-          /*BTDS*/ "Extend your reach by showing ads to the same target audience on other mobile apps and websites.",
-        ),
+        placementInfo: s._(/*BTDS*/ ""),
         adsetReducer: function (t, n) {
           var e = n.action;
           switch (e.type) {

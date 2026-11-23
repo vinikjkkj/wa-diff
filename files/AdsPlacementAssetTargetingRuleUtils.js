@@ -349,12 +349,13 @@ __d(
     }
     function w(e, t) {
       var n = e.findIndex(function (e) {
-        var n = N(e).toJS(),
-          o = r("immutable").Set(r("immutable").fromJS(t.toJS())),
-          a = r("immutable").fromJS(n);
-        return o.isSubset(a);
-      });
-      return n >= 0 ? { rule: e.get(n), index: n } : null;
+          var n = N(e).toJS(),
+            o = r("immutable").Set(r("immutable").fromJS(t.toJS())),
+            a = r("immutable").fromJS(n);
+          return o.isSubset(a);
+        }),
+        o = n >= 0 ? e.get(n) : null;
+      return o != null ? { rule: o, index: n } : null;
     }
     function A(e, t) {
       return e == null
@@ -375,7 +376,7 @@ __d(
         );
       var i = a.first(),
         l = i.get("customization_spec"),
-        u = c(l),
+        u = c(l instanceof r("immutable").Map ? l : null),
         d = u.filter(function (e) {
           return o(
             "AdsPlacementAssetEligibilityUtils",
@@ -425,8 +426,11 @@ __d(
         throw r("FBLogger")("am_feature_pac").mustfixThrow(
           "[PAC] TargetingRules should exist",
         );
-      var i = M(a, t);
-      return i != null ? f(i.rule, n) : V(e, n);
+      var i = Array.isArray(a) ? r("immutable").fromJS(a) : a,
+        l = M(i, t);
+      if (l != null) return f(l.rule, n);
+      var s = x(i);
+      return s != null ? f(s, n) : "";
     }
     function W(e) {
       var t = o("AdsPlacementAssetUtils").getAssetGroupsFromFormats(
@@ -530,7 +534,6 @@ __d(
       (l.campaignTargetingToTargetingRulesTargeting = E),
       (l.hasDefaultCoverage = k),
       (l.getDefaultTargetRule = I),
-      (l.getDefaultTargetRule_RELAY = T),
       (l.hasCustomizationForAssetGroups = D),
       (l.getDefaultRuleOrRuleWithMostPlacements = x),
       (l.getDefaultRuleOrRuleWithMostPlacements_RELAY = $),

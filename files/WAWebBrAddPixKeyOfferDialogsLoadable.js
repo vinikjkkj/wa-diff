@@ -4,22 +4,18 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")(
-            "WAWebBrAddPixKeyOfferDialogs.react",
-          )
-            .__setRef("WAWebBrAddPixKeyOfferDialogsLoadable")
-            .load();
-        }),
-        "BrAddPixKeyOfferDialogs",
-      );
+      s = r("WAWebLazyLoadedRetriable")(async function () {
+        return r("JSResourceForInteraction")(
+          "WAWebBrAddPixKeyOfferDialogs.react",
+        )
+          .__setRef("WAWebBrAddPixKeyOfferDialogsLoadable")
+          .load();
+      }, "BrAddPixKeyOfferDialogs");
     function u(e, t, n) {
       return d(function (r) {
         return r.openAddPixKeyLimitDialog(e, t, n);

@@ -1,7 +1,6 @@
 __d(
   "WAWebContactsAndGroupsNewMedia",
   [
-    "Promise",
     "WALogger",
     "WAWebBackendRuntime",
     "WAWebChatCollection",
@@ -15,31 +14,29 @@ __d(
     "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebPonyfillsIdleCallback",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = 50,
-      c = 5,
-      d = 20,
+      s = 50,
+      u = 5,
+      c = 20,
+      d = o(
+        "WAWebContactsAndGroupsSession",
+      ).createContactsAndGroupsSessionValue(null),
       m = o(
         "WAWebContactsAndGroupsSession",
       ).createContactsAndGroupsSessionValue(null),
-      p = o(
+      p = new Map(),
+      _ = o(
         "WAWebContactsAndGroupsSession",
-      ).createContactsAndGroupsSessionValue(null),
-      _ = new Map(),
-      f = o(
-        "WAWebContactsAndGroupsSession",
-      ).createContactsAndGroupsSessionValue(_),
-      g = new (r("WAWebEventEmitter"))();
-    function h() {
-      return m.get();
+      ).createContactsAndGroupsSessionValue(p),
+      f = new (r("WAWebEventEmitter"))();
+    function g() {
+      return d.get();
     }
-    function y(t) {
+    function h(t) {
       var n,
         a,
         i = o(
@@ -47,26 +44,26 @@ __d(
         ).getContactsAndGroupsLastSeenBeforeThisVisit();
       if (
         !(
-          ((n = m.get()) == null ? void 0 : n.lastSeen) === i ||
-          ((a = p.get()) == null ? void 0 : a.lastSeen) === i
+          ((n = d.get()) == null ? void 0 : n.lastSeen) === i ||
+          ((a = m.get()) == null ? void 0 : a.lastSeen) === i
         )
       ) {
         var l = { lastSeen: i };
-        (p.set(l), f.set(_));
+        (m.set(l), _.set(p));
         var s = o("WAWebContactsAndGroupsNewMediaRules").getNewMediaSince(i, t);
         o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
-          R(s, t)
+          S(s, t)
             .then(function (e) {
-              if (p.get() === l) {
-                p.set(null);
-                var n = Array.from(f.get().values());
-                (f.set(_),
-                  m.set(v({ keys: e, lastSeen: i, since: s }, n, t)),
-                  g.trigger("change"));
+              if (m.get() === l) {
+                m.set(null);
+                var n = Array.from(_.get().values());
+                (_.set(p),
+                  d.set(b({ keys: e, lastSeen: i, since: s }, n, t)),
+                  f.trigger("change"));
               }
             })
             .catch(function (t) {
-              (p.get() === l && (p.set(null), f.set(_)),
+              (m.get() === l && (m.set(null), _.set(p)),
                 o("WALogger")
                   .WARN(
                     e ||
@@ -79,16 +76,16 @@ __d(
         });
       }
     }
-    function C(e, t) {
-      if (p.get() != null) {
-        f.set(new Map(f.get()).set(e.id.toString(), e));
+    function y(e, t) {
+      if (m.get() != null) {
+        _.set(new Map(_.get()).set(e.id.toString(), e));
         return;
       }
-      var n = m.get(),
-        r = n != null ? v(n, [e], t) : null;
-      r != null && r !== n && (m.set(r), g.trigger("change"));
+      var n = d.get(),
+        r = n != null ? b(n, [e], t) : null;
+      r != null && r !== n && (d.set(r), f.trigger("change"));
     }
-    function b(e, t) {
+    function C(e, t) {
       return r("compactMap")(e.keys, function (n) {
         var r = o(
             "WAWebContactsAndGroupsSuggestionDismissals",
@@ -112,10 +109,10 @@ __d(
           : null;
       });
     }
-    function v(e, t, n) {
+    function b(e, t, n) {
       var r = t
         .filter(function (t) {
-          return S(t, e.since, n);
+          return v(t, e.since, n);
         })
         .map(function (e) {
           return e.id.toString();
@@ -125,11 +122,11 @@ __d(
         });
       return r.length > 0
         ? babelHelpers.extends({}, e, {
-            keys: [].concat(r.reverse(), e.keys).slice(0, d),
+            keys: [].concat(r.reverse(), e.keys).slice(0, c),
           })
         : e;
     }
-    function S(e, t, n) {
+    function v(e, t, n) {
       var r = o("WAWebChatCollection").ChatCollection.get(
         o("WAWebMsgGetters").getId(e).remote,
       );
@@ -139,115 +136,88 @@ __d(
         o("WAWebContactsAndGroupsNewMediaRules").isNewMediaMsg(e, t, n)
       );
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield (s || (s = n("Promise"))).all([
-              E(
-                function (t) {
-                  return o("WAWebDBMessageFindLocal").getAllMediaMessages(
-                    u,
-                    t,
-                    "before",
-                    e,
-                  );
-                },
-                e,
+    async function S(e, t) {
+      var n = await Promise.all([
+          R(
+            function (t) {
+              return o("WAWebDBMessageFindLocal").getAllMediaMessages(
+                s,
                 t,
-              ),
-              E(
-                function (e) {
-                  return (
-                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                      ? o("WAWebBackendRuntime").runtime(
-                          o("WAWebMessageQueryService").MessageQueryService,
-                        ).getAllDocsMessages
-                      : o("WAWebDBMessageFindLocal").getAllDocsMessages
-                  )({ chat: null, count: u, direction: "before", msgKey: e });
-                },
+                "before",
                 e,
-                t,
-              ),
-            ]),
-            a = r[0],
-            i = r[1],
-            l = Array.from(
-              new Map(
-                [].concat(a, i).map(function (e) {
-                  return [e.id.toString(), e];
-                }),
-              ).values(),
-            )
-              .sort(function (e, t) {
-                return (
-                  o("WAWebMsgGetters").getT(t) - o("WAWebMsgGetters").getT(e)
-                );
-              })
-              .slice(0, d),
-            c = l.filter(function (e) {
-              return o("WAWebMsgCollection").MsgCollection.get(e.id) == null;
-            });
-          return (
-            c.length > 0 &&
-              (yield o(
-                "WAWebMsgCollection",
-              ).MsgCollection.processMultipleMessages(
-                void 0,
-                c,
-                { add: "search" },
-                "msgCollectionGetAllMedia",
-              )),
-            l.map(function (e) {
-              return e.id.toString();
-            })
-          );
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e, t, n) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = [],
-            i = (function () {
-              var l = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (n, l) {
-                  var s = yield e(n);
-                  a.push.apply(
-                    a,
-                    s.filter(function (e) {
-                      return S(e, t, r);
-                    }),
-                  );
-                  var c = s[s.length - 1];
-                  c != null &&
-                    s.length === u &&
-                    o("WAWebMsgGetters").getT(c) >= t &&
-                    a.length < d &&
-                    l > 1 &&
-                    (yield i(c.id, l - 1));
-                },
               );
-              return function (t, n) {
-                return l.apply(this, arguments);
-              };
-            })();
-          return (yield i(null, c), a);
-        })),
-        k.apply(this, arguments)
+            },
+            e,
+            t,
+          ),
+          R(
+            function (e) {
+              return (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebMessageQueryService").MessageQueryService,
+                    ).getAllDocsMessages
+                  : o("WAWebDBMessageFindLocal").getAllDocsMessages
+              )({ chat: null, count: s, direction: "before", msgKey: e });
+            },
+            e,
+            t,
+          ),
+        ]),
+        r = n[0],
+        a = n[1],
+        i = Array.from(
+          new Map(
+            [].concat(r, a).map(function (e) {
+              return [e.id.toString(), e];
+            }),
+          ).values(),
+        )
+          .sort(function (e, t) {
+            return o("WAWebMsgGetters").getT(t) - o("WAWebMsgGetters").getT(e);
+          })
+          .slice(0, c),
+        l = i.filter(function (e) {
+          return o("WAWebMsgCollection").MsgCollection.get(e.id) == null;
+        });
+      return (
+        l.length > 0 &&
+          (await o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
+            void 0,
+            l,
+            { add: "search" },
+            "msgCollectionGetAllMedia",
+          )),
+        i.map(function (e) {
+          return e.id.toString();
+        })
       );
     }
-    ((l.newMediaChanges = g),
-      (l.getNewMediaVisit = h),
-      (l.requestNewMedia = y),
-      (l.addNewMedia = C),
-      (l.getNewMedia = b));
+    async function R(e, t, n) {
+      var r = [],
+        a = async function (l, u) {
+          var i = await e(l);
+          r.push.apply(
+            r,
+            i.filter(function (e) {
+              return v(e, t, n);
+            }),
+          );
+          var d = i[i.length - 1];
+          d != null &&
+            i.length === s &&
+            o("WAWebMsgGetters").getT(d) >= t &&
+            r.length < c &&
+            u > 1 &&
+            (await a(d.id, u - 1));
+        };
+      return (await a(null, u), r);
+    }
+    ((l.newMediaChanges = f),
+      (l.getNewMediaVisit = g),
+      (l.requestNewMedia = h),
+      (l.addNewMedia = y),
+      (l.getNewMedia = C));
   },
   98,
 );

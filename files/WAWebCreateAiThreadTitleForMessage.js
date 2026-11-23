@@ -16,14 +16,14 @@ __d(
       var n = t.type;
       switch (n) {
         case o("WAWebMsgType").MSG_TYPE.IMAGE:
-          return r("fbs")._(/*BTDS*/ "New image").toString();
+          return r("fbs")._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.VIDEO:
-          return r("fbs")._(/*BTDS*/ "New video").toString();
+          return r("fbs")._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.AUDIO:
         case o("WAWebMsgType").MSG_TYPE.PTT:
-          return r("fbs")._(/*BTDS*/ "New audio").toString();
+          return r("fbs")._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
-          return r("fbs")._(/*BTDS*/ "New document").toString();
+          return r("fbs")._(/*BTDS*/ "").toString();
         default:
           o("WALogger")
             .WARN(

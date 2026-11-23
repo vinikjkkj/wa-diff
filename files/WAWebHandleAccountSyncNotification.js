@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleAccountSyncNotification",
   [
-    "Promise",
     "WADeprecatedWapParser",
     "WAJids",
     "WALogger",
@@ -34,11 +33,10 @@ __d(
     "WAWebUsernameTypes",
     "WAWebWidFactory",
     "WAWebWorkerSafeBackendApi",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e) {
+    var e, s, u;
+    function c(e) {
       var t,
         n = e.maybeChild("key-index-list"),
         r =
@@ -83,7 +81,7 @@ __d(
         });
       return a.length === 0 ? null : { deviceList: a, keyIndex: r };
     }
-    var m = new (r("WADeprecatedWapParser"))(
+    var d = new (r("WADeprecatedWapParser"))(
       "incomingAccountSyncNotification",
       function (e) {
         e.assertTag("notification");
@@ -115,7 +113,7 @@ __d(
                   ? void 0
                   : s.attrString("content")
                 : void 0,
-            c = a.hasAttr("ephemeral_duration_sec")
+            d = a.hasAttr("ephemeral_duration_sec")
               ? a.attrInt("ephemeral_duration_sec")
               : void 0,
             m = a.hasAttr("last_update_time")
@@ -127,7 +125,7 @@ __d(
               action: i,
               text: l,
               emoji: u,
-              ephemeralDurationSeconds: c,
+              ephemeralDurationSeconds: d,
               lastUpdateTime: m,
             },
             t,
@@ -142,7 +140,7 @@ __d(
             return babelHelpers.extends(
               {
                 type: o("WAWebAccountSyncJob").AccountSyncType.DEVICES,
-                devices: d(e.child("devices")),
+                devices: c(e.child("devices")),
               },
               t,
             );
@@ -257,326 +255,243 @@ __d(
         throw e.createParseError("notification type not supported");
       },
     );
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.devices,
-            r = t.wid,
-            a = o("WAWebUserUtils").getMeLidUserOrThrow(),
-            i = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          if (!o("WAWebUserUtils").isMeAccount(r))
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "wid-is-not-self",
-                    ])),
-                )
-                .sendLogs("wid-is-not-self"),
-              [{ wid: r, devices: n }]
-            );
-          var l = [{ wid: a, devices: n }];
-          return (i != null && l.push({ wid: i, devices: n }), l);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = m.parse(e);
-          if (t.error)
-            return (
-              o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                t.error.toString(),
-              ),
-              (c || (c = n("Promise"))).reject(t.error)
-            );
-          var r = t.success,
-            a = o("WAWap").wap("ack", {
-              id: o("WAWap").CUSTOM_STRING(r.stanzaId),
-              to: o("WAWebCommsWapMd").JID(r.from),
-              class: "notification",
-              type: "account_sync",
-            });
-          e: {
-            if (r.type === o("WAWebAccountSyncJob").AccountSyncType.STATUS)
-              break e;
-            if (
-              r.type === o("WAWebAccountSyncJob").AccountSyncType.TEXT_STATUS
-            ) {
-              yield o(
-                "WAWebTextStatusAccountSyncNotification",
-              ).applyTextStatusAccountSync(r);
-              break e;
-            }
-            if (r.type === o("WAWebAccountSyncJob").AccountSyncType.DEVICES)
-              return h(r, a);
-            if (r.type === o("WAWebAccountSyncJob").AccountSyncType.PICTURE) {
-              yield o("WAWebAccountSyncJob").getAndUpdateProfilePicture();
-              break e;
-            }
-            if (r.type === o("WAWebAccountSyncJob").AccountSyncType.PRIVACY) {
-              yield R(r.from);
-              break e;
-            }
-            if (r.type === o("WAWebAccountSyncJob").AccountSyncType.BLOCKLIST) {
-              (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
-                r.usernames != null &&
-                (yield o("WAWebSetUsernameJob").setUsernamesJob(r.usernames)),
-                o("WAWebFetchAndUpdateBlocklistJob").fetchAndUpdateBlocklist(
-                  "notification",
-                ));
-              break e;
-            }
-            if (
-              r.type === o("WAWebAccountSyncJob").AccountSyncType.OPTOUTLIST
-            ) {
-              yield C(r);
-              break e;
-            }
-            if (r.type === o("WAWebAccountSyncJob").AccountSyncType.TOS) {
-              r.notices &&
-                o("WAWebAccountSyncJob").updateTosStateFromAccountSync(
-                  r.notices,
-                );
-              break e;
-            }
-            if (
-              r.type ===
-              o("WAWebAccountSyncJob").AccountSyncType.DISAPPEARING_MODE
-            ) {
-              yield E(r);
-              break e;
-            }
-            if (r.type === o("WAWebAccountSyncJob").AccountSyncType.NOTICE) {
-              yield v(r);
-              break e;
-            }
-            if (r.type === o("WAWebAccountSyncJob").AccountSyncType.USER) {
-              r.isAiAvailable === !0 &&
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Receieved account sync notification for Ai Available",
-                    ])),
-                );
-              break e;
-            }
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                r.type,
-            );
-          }
-          return a;
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e, t) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            o(
-              "WAWebOfflineHandler",
-            ).OfflineMessageHandler.isResumeFromRestartComplete()
-          ) {
-            if (
-              o(
-                "WAWebOfflineHandler",
-              ).OfflineMessageHandler.isResumeOnSocketDisconnectInProgress()
+    async function m(t) {
+      var n = t.devices,
+        r = t.wid,
+        a = o("WAWebUserUtils").getMeLidUserOrThrow(),
+        i = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      if (!o("WAWebUserUtils").isMeAccount(r))
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "wid-is-not-self",
+                ])),
             )
-              return (
-                yield o("WAWebApiPendingDeviceSync").addUserToPendingDeviceSync(
-                  [e.from.toString()],
-                ),
-                t
-              );
-          } else
-            return (
-              o(
-                "WAWebOfflineDeviceCache",
-              ).OfflinePendingDeviceCache.addOfflinePendingDevice(
-                e.from.toString(),
-                t,
-              ),
-              "NO_ACK"
+            .sendLogs("wid-is-not-self"),
+          [{ wid: r, devices: n }]
+        );
+      var l = [{ wid: a, devices: n }];
+      return (i != null && l.push({ wid: i, devices: n }), l);
+    }
+    async function p(e) {
+      var t = d.parse(e);
+      if (t.error)
+        return (
+          o("WALogger").ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            t.error.toString(),
+          ),
+          Promise.reject(t.error)
+        );
+      var n = t.success,
+        r = o("WAWap").wap("ack", {
+          id: o("WAWap").CUSTOM_STRING(n.stanzaId),
+          to: o("WAWebCommsWapMd").JID(n.from),
+          class: "notification",
+          type: "account_sync",
+        });
+      e: {
+        if (n.type === o("WAWebAccountSyncJob").AccountSyncType.STATUS) break e;
+        if (n.type === o("WAWebAccountSyncJob").AccountSyncType.TEXT_STATUS) {
+          await o(
+            "WAWebTextStatusAccountSyncNotification",
+          ).applyTextStatusAccountSync(n);
+          break e;
+        }
+        if (n.type === o("WAWebAccountSyncJob").AccountSyncType.DEVICES)
+          return _(n, r);
+        if (n.type === o("WAWebAccountSyncJob").AccountSyncType.PICTURE) {
+          await o("WAWebAccountSyncJob").getAndUpdateProfilePicture();
+          break e;
+        }
+        if (n.type === o("WAWebAccountSyncJob").AccountSyncType.PRIVACY) {
+          await h(n.from);
+          break e;
+        }
+        if (n.type === o("WAWebAccountSyncJob").AccountSyncType.BLOCKLIST) {
+          (o("WAWebUsernameGatingUtils").usernameDisplayedEnabled() &&
+            n.usernames != null &&
+            (await o("WAWebSetUsernameJob").setUsernamesJob(n.usernames)),
+            o("WAWebFetchAndUpdateBlocklistJob").fetchAndUpdateBlocklist(
+              "notification",
+            ));
+          break e;
+        }
+        if (n.type === o("WAWebAccountSyncJob").AccountSyncType.OPTOUTLIST) {
+          await f(n);
+          break e;
+        }
+        if (n.type === o("WAWebAccountSyncJob").AccountSyncType.TOS) {
+          n.notices &&
+            o("WAWebAccountSyncJob").updateTosStateFromAccountSync(n.notices);
+          break e;
+        }
+        if (
+          n.type === o("WAWebAccountSyncJob").AccountSyncType.DISAPPEARING_MODE
+        ) {
+          await y(n);
+          break e;
+        }
+        if (n.type === o("WAWebAccountSyncJob").AccountSyncType.NOTICE) {
+          await g(n);
+          break e;
+        }
+        if (n.type === o("WAWebAccountSyncJob").AccountSyncType.USER) {
+          n.isAiAvailable === !0 &&
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "Receieved account sync notification for Ai Available",
+                ])),
             );
-          var n = e.devices;
-          if (n) {
-            var r,
-              a,
-              i = yield p({
-                wid: o("WAWebWidFactory").asUserWidOrThrow(e.from),
-                devices: n,
-              });
-            yield o("WAWebAdvHandlerApi").handleADVDeviceSyncResult(i);
-            var l = new Set(
-              (r =
-                (a = n.deviceList) == null
-                  ? void 0
-                  : a.map(function (e) {
-                      return e.id;
-                    })) != null
-                ? r
-                : [],
-            );
-            yield o(
-              "WAWebBizBroadcastDeviceRemovalCleanup",
-            ).cleanupCampaignsWithInvalidDevices(l);
-          } else yield o("WAWebAccountSyncJob").getDevices("notification");
-          return t;
-        })),
-        y.apply(this, arguments)
-      );
+          break e;
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            n.type,
+        );
+      }
+      return r;
     }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMultiDevice").getOptOutListHash(),
-            r = e.dhash,
-            a = e.list,
-            i = e.prevDhash;
-          if (t !== i) {
-            o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-              "updateOptOutList",
-            );
-            return;
-          } else
-            r != null &&
-              (a == null ||
-                a.forEach(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var t = e.action,
-                          n = e.biz_jid,
-                          r = t === "block",
-                          a = o("WAWebJidToWid").userJidToUserWid(n);
-                        yield o(
-                          "WAWebWorkerSafeBackendApi",
-                        ).workerSafeFireAndForget(
-                          "updateOptOutListModelInCollection",
-                          { targetWid: a, isBlocked: r },
-                        );
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              yield o("WAWebUserPrefsMultiDevice").setOptOutlistHash(r));
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.noticeId,
-            n = e.noticeStage,
-            r = e.noticeTimestamp,
-            a = e.noticeVersion;
-          if (t != null && t !== "" && n != null && a != null && r != null) {
-            var i = n === o("WAWebPDFNTypes").NOTICE_STAGES.PDFN_ACCEPTED;
-            (yield o(
-              "WAWebUserDisclosureCollection",
-            ).UserDisclosureCollection.updateNoticeStage({
-              id: t,
-              accepted: i,
-              policyVersion: a,
-            }),
-              o("WAWebAccountSyncJob").updateTosStateFromAccountSync([
-                {
-                  id: t,
-                  state: i,
-                  timestamp: o("WATimeUtils").castToUnixTime(r),
-                },
-              ]));
-          }
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebUpdateAllPrivacySettings",
-          ).forceUpdateAllPrivacySettings(e);
+    async function _(e, t) {
+      if (
+        o(
+          "WAWebOfflineHandler",
+        ).OfflineMessageHandler.isResumeFromRestartComplete()
+      ) {
+        if (
           o(
-            "WAWebBackendEventBus",
-          ).BackendEventBus.triggerAccountSyncForPrivacy(
-            babelHelpers.extends({}, t, {
-              privacySettings: o(
-                "WAWebUserPrefsGeneral",
-              ).getUserPrivacySettings(),
-            }),
+            "WAWebOfflineHandler",
+          ).OfflineMessageHandler.isResumeOnSocketDisconnectInProgress()
+        )
+          return (
+            await o("WAWebApiPendingDeviceSync").addUserToPendingDeviceSync([
+              e.from.toString(),
+            ]),
+            t
           );
-        })),
-        L.apply(this, arguments)
+      } else
+        return (
+          o(
+            "WAWebOfflineDeviceCache",
+          ).OfflinePendingDeviceCache.addOfflinePendingDevice(
+            e.from.toString(),
+            t,
+          ),
+          "NO_ACK"
+        );
+      var n = e.devices;
+      if (n) {
+        var r,
+          a,
+          i = await m({
+            wid: o("WAWebWidFactory").asUserWidOrThrow(e.from),
+            devices: n,
+          });
+        await o("WAWebAdvHandlerApi").handleADVDeviceSyncResult(i);
+        var l = new Set(
+          (r =
+            (a = n.deviceList) == null
+              ? void 0
+              : a.map(function (e) {
+                  return e.id;
+                })) != null
+            ? r
+            : [],
+        );
+        await o(
+          "WAWebBizBroadcastDeviceRemovalCleanup",
+        ).cleanupCampaignsWithInvalidDevices(l);
+      } else await o("WAWebAccountSyncJob").getDevices("notification");
+      return t;
+    }
+    async function f(e) {
+      var t = o("WAWebUserPrefsMultiDevice").getOptOutListHash(),
+        n = e.dhash,
+        r = e.list,
+        a = e.prevDhash;
+      if (t !== a) {
+        o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+          "updateOptOutList",
+        );
+        return;
+      } else
+        n != null &&
+          (r == null ||
+            r.forEach(async function (e) {
+              var t = e.action,
+                n = e.biz_jid,
+                r = t === "block",
+                a = o("WAWebJidToWid").userJidToUserWid(n);
+              await o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+                "updateOptOutListModelInCollection",
+                { targetWid: a, isBlocked: r },
+              );
+            }),
+          await o("WAWebUserPrefsMultiDevice").setOptOutlistHash(n));
+    }
+    async function g(e) {
+      var t = e.noticeId,
+        n = e.noticeStage,
+        r = e.noticeTimestamp,
+        a = e.noticeVersion;
+      if (t != null && t !== "" && n != null && a != null && r != null) {
+        var i = n === o("WAWebPDFNTypes").NOTICE_STAGES.PDFN_ACCEPTED;
+        (await o(
+          "WAWebUserDisclosureCollection",
+        ).UserDisclosureCollection.updateNoticeStage({
+          id: t,
+          accepted: i,
+          policyVersion: a,
+        }),
+          o("WAWebAccountSyncJob").updateTosStateFromAccountSync([
+            { id: t, state: i, timestamp: o("WATimeUtils").castToUnixTime(r) },
+          ]));
+      }
+    }
+    async function h(e) {
+      var t = await o(
+        "WAWebUpdateAllPrivacySettings",
+      ).forceUpdateAllPrivacySettings(e);
+      o("WAWebBackendEventBus").BackendEventBus.triggerAccountSyncForPrivacy(
+        babelHelpers.extends({}, t, {
+          privacySettings: o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
+        }),
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    async function y(e) {
+      var t = e.action,
+        n = e.from,
+        r = e.disappearingModeDuration,
+        a = e.disappearingModeSettingTimestamp;
+      if (t === "modify") {
+        var i = await o("WAWebGetDisappearingModeJob").getDisappearingMode(
+          n,
+          o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.DM_FORCE_REFRESH,
+        );
+        i.error == null &&
+          i.disappearingModeDuration != null &&
+          i.disappearingModeSettingTimestamp != null &&
+          ((r = i.disappearingModeDuration),
+          (a = i.disappearingModeSettingTimestamp));
+      }
+      r != null &&
+        a != null &&
+        (await o(
+          "WAWebUpdateDisappearingModeForContact",
+        ).updateDisappearingModeForContact({
+          contactId: n,
+          newDuration: r,
+          newSettingTimestamp: a,
+        }));
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.action,
-            n = e.from,
-            r = e.disappearingModeDuration,
-            a = e.disappearingModeSettingTimestamp;
-          if (t === "modify") {
-            var i = yield o("WAWebGetDisappearingModeJob").getDisappearingMode(
-              n,
-              o("WAWebContactSyncLogger").SYNC_REQUEST_ORIGIN.DM_FORCE_REFRESH,
-            );
-            i.error == null &&
-              i.disappearingModeDuration != null &&
-              i.disappearingModeSettingTimestamp != null &&
-              ((r = i.disappearingModeDuration),
-              (a = i.disappearingModeSettingTimestamp));
-          }
-          r != null &&
-            a != null &&
-            (yield o(
-              "WAWebUpdateDisappearingModeForContact",
-            ).updateDisappearingModeForContact({
-              contactId: n,
-              newDuration: r,
-              newSettingTimestamp: a,
-            }));
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    l.handleAccountSyncNotification = f;
+    l.handleAccountSyncNotification = p;
   },
   98,
 );

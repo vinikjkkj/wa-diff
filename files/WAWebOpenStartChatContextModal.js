@@ -2,7 +2,6 @@ __d(
   "WAWebOpenStartChatContextModal",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WAPromiseTimeout",
     "WAWebApiContactUsernameFields",
@@ -16,7 +15,6 @@ __d(
     "WAWebNoop",
     "WAWebStartChatContextLogging",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "once",
     "react",
@@ -25,102 +23,94 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = c || (c = o("react")),
-      m = 5e3,
-      p = 3e3;
-    function _() {
+      c = u || (u = o("react")),
+      d = 5e3,
+      m = 3e3;
+    function p() {
       return r("JSResourceForInteraction")("WAWebStartChatContextModal.react")
         .__setRef("WAWebOpenStartChatContextModal")
         .load();
     }
-    function f() {
-      _().catch(r("WAWebNoop"));
+    function _() {
+      p().catch(r("WAWebNoop"));
+    }
+    async function f(e) {
+      var t = e.entryPoint,
+        n = e.joinDateMs,
+        a = e.onBeforeOpen,
+        i = e.signal,
+        l = e.wid,
+        s = o("WAWebContactCollection").ContactCollection.gadd(l),
+        u = await Promise.all([
+          o("WAPromiseTimeout").promiseTimeout(p(), d),
+          h(s),
+        ]),
+        m = u[0],
+        _ = u[1];
+      if ((i == null ? void 0 : i.aborted) === !0) return "dismiss";
+      var f = { entryPoint: t, isBusiness: s.isBusiness === !0 },
+        C = function (t) {
+          return o("WAWebStartChatContextLogging").logStartChatContextUiAction(
+            t,
+            f,
+          );
+        };
+      return new Promise(function (e) {
+        var t = !1,
+          l = !1,
+          u = r("once")(function (n, r) {
+            ((l = !0),
+              i == null || i.removeEventListener("abort", d),
+              t && C(g(n)),
+              r && o("WDSDialogBridge").closeWDSDialog(),
+              o("WAWebModalManager").ModalManager.setForceRequestFocusMedia(
+                null,
+                "modal",
+              ),
+              e(n));
+          }),
+          d = function () {
+            return u("dismiss", t);
+          };
+        (i == null || i.addEventListener("abort", d),
+          a == null || a(),
+          !l &&
+            (o("WAWebModalManager").ModalManager.setForceRequestFocusMedia(
+              !1,
+              "modal",
+            ),
+            o("WDSDialogBridge").openWDSDialog(
+              c.jsx(m, {
+                commonGroupName: _.commonGroupName,
+                commonGroupsCount: _.commonGroupsCount,
+                contact: s,
+                countryName: _.countryName,
+                joinDateMs: n,
+                onCancel: function () {
+                  return u("cancel", !0);
+                },
+                onContinue: function () {
+                  return u("continue", !0);
+                },
+                onDismiss: function () {
+                  return u("dismiss", !0);
+                },
+                onGroupsInCommon: function () {
+                  (C("GROUPS_IN_COMMON_TAPPED"), u("dismiss", !0), y(s));
+                },
+                onLearnMore: function () {
+                  return C("LEARN_MORE_TAPPED");
+                },
+                onUnmount: function () {
+                  return u("dismiss", !1);
+                },
+              }),
+            ),
+            (t = !0),
+            C("BOTTOM_SHEET_OPENED")));
+      });
     }
     function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.entryPoint,
-            a = e.joinDateMs,
-            i = e.onBeforeOpen,
-            l = e.signal,
-            s = e.wid,
-            c = o("WAWebContactCollection").ContactCollection.gadd(s),
-            p = yield (u || (u = n("Promise"))).all([
-              o("WAPromiseTimeout").promiseTimeout(_(), m),
-              C(c),
-            ]),
-            f = p[0],
-            g = p[1];
-          if ((l == null ? void 0 : l.aborted) === !0) return "dismiss";
-          var h = { entryPoint: t, isBusiness: c.isBusiness === !0 },
-            b = function (t) {
-              return o(
-                "WAWebStartChatContextLogging",
-              ).logStartChatContextUiAction(t, h);
-            };
-          return new u(function (e) {
-            var t = !1,
-              n = !1,
-              s = r("once")(function (r, a) {
-                ((n = !0),
-                  l == null || l.removeEventListener("abort", u),
-                  t && b(y(r)),
-                  a && o("WDSDialogBridge").closeWDSDialog(),
-                  o("WAWebModalManager").ModalManager.setForceRequestFocusMedia(
-                    null,
-                    "modal",
-                  ),
-                  e(r));
-              }),
-              u = function () {
-                return s("dismiss", t);
-              };
-            (l == null || l.addEventListener("abort", u),
-              i == null || i(),
-              !n &&
-                (o("WAWebModalManager").ModalManager.setForceRequestFocusMedia(
-                  !1,
-                  "modal",
-                ),
-                o("WDSDialogBridge").openWDSDialog(
-                  d.jsx(f, {
-                    commonGroupName: g.commonGroupName,
-                    commonGroupsCount: g.commonGroupsCount,
-                    contact: c,
-                    countryName: g.countryName,
-                    joinDateMs: a,
-                    onCancel: function () {
-                      return s("cancel", !0);
-                    },
-                    onContinue: function () {
-                      return s("continue", !0);
-                    },
-                    onDismiss: function () {
-                      return s("dismiss", !0);
-                    },
-                    onGroupsInCommon: function () {
-                      (b("GROUPS_IN_COMMON_TAPPED"), s("dismiss", !0), v(c));
-                    },
-                    onLearnMore: function () {
-                      return b("LEARN_MORE_TAPPED");
-                    },
-                    onUnmount: function () {
-                      return s("dismiss", !1);
-                    },
-                  }),
-                ),
-                (t = !0),
-                b("BOTTOM_SHEET_OPENED")));
-          });
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
       return e === "continue"
         ? "CONTINUE_TO_CHAT_BTN"
         : e === "cancel"
@@ -134,44 +124,36 @@ __d(
                 );
               })();
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    async function h(e) {
+      var t,
+        n = await Promise.all([
+          b(C(e)),
+          e.isBusiness
+            ? null
+            : b(
+                o(
+                  "WAWebGetPrioritizedCommonGroupsAction",
+                ).getPrioritizedCommonGroups(e),
+              ),
+        ]),
+        r = n[0],
+        a = n[1];
+      return {
+        commonGroupName:
+          (a == null || (t = a.priority) == null ? void 0 : t.group) != null
+            ? o("WAWebGetPrioritizedCommonGroupsAction").getCommonGroupTitle(
+                a.priority.group,
+              )
+            : null,
+        commonGroupsCount: e.isBusiness
+          ? null
+          : a == null
+            ? void 0
+            : a.commonGroups.length,
+        countryName: r,
+      };
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            r = yield (u || (u = n("Promise"))).all([
-              L(S(e)),
-              e.isBusiness
-                ? null
-                : L(
-                    o(
-                      "WAWebGetPrioritizedCommonGroupsAction",
-                    ).getPrioritizedCommonGroups(e),
-                  ),
-            ]),
-            a = r[0],
-            i = r[1];
-          return {
-            commonGroupName:
-              (i == null || (t = i.priority) == null ? void 0 : t.group) != null
-                ? o(
-                    "WAWebGetPrioritizedCommonGroupsAction",
-                  ).getCommonGroupTitle(i.priority.group)
-                : null,
-            commonGroupsCount: e.isBusiness
-              ? null
-              : i == null
-                ? void 0
-                : i.commonGroups.length,
-            countryName: a,
-          };
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(t) {
+    function y(t) {
       o("WAWebFindChatAction")
         .findOrCreateLatestChat(t.id, "debugOpenChatFlow")
         .then(function (e) {
@@ -193,31 +175,23 @@ __d(
             .sendLogs("start-chat-context-groups-in-common-open-failed");
         });
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    async function C(e) {
+      var t = await o(
+        "WAWebApiContactUsernameFields",
+      ).getOrFetchContactUsernameCountryCode(e.id);
+      if (t == null) return null;
+      var n = await o("WAWebApiContactUsernameFields")
+        .getOrFetchMeContactUsernameCountryCode()
+        .catch(v);
+      return n === t &&
+        !o("WAWebFMXGatingUtils").isFmxPersistentCountryTrustSignalEnabled()
+        ? null
+        : o("WAWebCountriesUtils").getCountryNameFromCountryCode(t);
     }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebApiContactUsernameFields",
-          ).getOrFetchContactUsernameCountryCode(e.id);
-          if (t == null) return null;
-          var n = yield o("WAWebApiContactUsernameFields")
-            .getOrFetchMeContactUsernameCountryCode()
-            .catch(E);
-          return n === t &&
-            !o("WAWebFMXGatingUtils").isFmxPersistentCountryTrustSignalEnabled()
-            ? null
-            : o("WAWebCountriesUtils").getCountryNameFromCountryCode(t);
-        })),
-        R.apply(this, arguments)
-      );
+    function b(e) {
+      return o("WAPromiseTimeout").promiseTimeout(e, m).catch(v);
     }
-    function L(e) {
-      return o("WAPromiseTimeout").promiseTimeout(e, p).catch(E);
-    }
-    function E(e) {
+    function v(e) {
       return (
         o("WALogger")
           .WARN(
@@ -230,7 +204,7 @@ __d(
         null
       );
     }
-    ((l.preloadStartChatContextModal = f), (l.openStartChatContextModal = g));
+    ((l.preloadStartChatContextModal = _), (l.openStartChatContextModal = f));
   },
   98,
 );

@@ -21,7 +21,7 @@ __d(
       );
     }
     function p() {
-      return s._(/*BTDS*/ "Sent with a different timer");
+      return s._(/*BTDS*/ "");
     }
     function _(e) {
       return (
@@ -84,70 +84,53 @@ __d(
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
           .SettingChangeByOthers && t != null
-        ? s._(/*BTDS*/ "{person-name} turned off disappearing messages.", [
-            s._param("person-name", t),
-          ])
+        ? s._(/*BTDS*/ "", [s._param("person-name", t)])
         : e ===
             o("WAWebEphemeralFbtKicTypes").EphemeralStringType
               .SettingChangeByYou
-          ? s._(/*BTDS*/ "You turned off disappearing messages.")
+          ? s._(/*BTDS*/ "")
           : e ===
               o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                 .SettingChangeByUnknown
-            ? s._(/*BTDS*/ "Disappearing messages were turned off.")
+            ? s._(/*BTDS*/ "")
             : e ===
                   o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                     .SettingChangeByOthersAsAdmin && t != null
-              ? s._(
-                  /*BTDS*/ "{person-name} turned off disappearing messages. {dm-action}",
-                  [
-                    s._param("person-name", t),
+              ? s._(/*BTDS*/ "", [
+                  s._param("person-name", t),
+                  s._param(
+                    "dm-action",
+                    o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
+                  ),
+                ])
+              : e ===
+                  o("WAWebEphemeralFbtKicTypes").EphemeralStringType
+                    .SettingChangeByYouAsAdmin
+                ? s._(/*BTDS*/ "", [
                     s._param(
                       "dm-action",
                       o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                     ),
-                  ],
-                )
-              : e ===
-                  o("WAWebEphemeralFbtKicTypes").EphemeralStringType
-                    .SettingChangeByYouAsAdmin
-                ? s._(
-                    /*BTDS*/ "You turned off disappearing messages. {dm-action}",
-                    [
+                  ])
+                : e ===
+                    o("WAWebEphemeralFbtKicTypes").EphemeralStringType
+                      .SettingChangeByUnknownAsAdmin
+                  ? s._(/*BTDS*/ "", [
                       s._param(
                         "dm-action",
                         o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                       ),
-                    ],
-                  )
-                : e ===
-                    o("WAWebEphemeralFbtKicTypes").EphemeralStringType
-                      .SettingChangeByUnknownAsAdmin
-                  ? s._(
-                      /*BTDS*/ "Disappearing messages were turned off. {dm-action}",
-                      [
-                        s._param(
-                          "dm-action",
-                          o(
-                            "WAWebEphemeralCTAFbt",
-                          ).getDmActionChangeSettingFbt(),
-                        ),
-                      ],
-                    )
+                    ])
                   : e ===
                       o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                         .Duration
-                    ? s._(/*BTDS*/ "Off")
+                    ? s._(/*BTDS*/ "")
                     : e ===
                         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                           .OutOfSyncInfo
                       ? r("justknobx")._("8068")
-                        ? s._(
-                            /*BTDS*/ "This message won't disappear from the chat. The sender may be on an old version of WhatsApp.",
-                          )
-                        : s._(
-                            /*BTDS*/ "This message will not disappear from the chat. The sender may be on an old version of WhatsApp.",
-                          )
+                        ? s._(/*BTDS*/ "")
+                        : s._(/*BTDS*/ "")
                       : (o("WALogger")
                           .ERROR(
                             u ||
@@ -165,126 +148,91 @@ __d(
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
           .SettingChangeByOthers && n != null
-        ? s._(
-            /*BTDS*/ '_j{"*":"{person-name} turned on disappearing messages. New messages will disappear from this chat {number_of_seconds} seconds after they\'re sent, except when kept.","_1":"{person-name} turned on disappearing messages. New messages will disappear from this chat 1 second after they\'re sent, except when kept."}',
-            [s._plural(t, "number_of_seconds"), s._param("person-name", n)],
-          )
+        ? s._(/*BTDS*/ "", [
+            s._plural(t, "number_of_seconds"),
+            s._param("person-name", n),
+          ])
         : e ===
             o("WAWebEphemeralFbtKicTypes").EphemeralStringType
               .SettingChangeByYou
-          ? s._(
-              /*BTDS*/ '_j{"*":"You turned on disappearing messages. New messages will disappear from this chat {number_of_seconds} seconds after they\'re sent, except when kept.","_1":"You turned on disappearing messages. New messages will disappear from this chat 1 second after they\'re sent, except when kept."}',
-              [s._plural(t, "number_of_seconds")],
-            )
+          ? s._(/*BTDS*/ "", [s._plural(t, "number_of_seconds")])
           : e ===
               o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                 .SettingChangeByUnknown
-            ? s._(
-                /*BTDS*/ '_j{"*":"Disappearing messages were turned on. New messages will disappear from this chat {number_of_seconds} seconds after they\'re sent, except when kept.","_1":"Disappearing messages were turned on. New messages will disappear from this chat 1 second after they\'re sent, except when kept."}',
-                [s._plural(t, "number_of_seconds")],
-              )
+            ? s._(/*BTDS*/ "", [s._plural(t, "number_of_seconds")])
             : e ===
                   o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                     .SettingChangeByOthersAsAdmin && n != null
-              ? s._(
-                  /*BTDS*/ '_j{"*":"{person-name} turned on disappearing messages. New messages will disappear from this chat {number_of_seconds} seconds after they\'re sent, except when kept. {dm-action}","_1":"{person-name} turned on disappearing messages. New messages will disappear from this chat 1 second after they\'re sent, except when kept. {dm-action}"}',
-                  [
+              ? s._(/*BTDS*/ "", [
+                  s._plural(t, "number_of_seconds"),
+                  s._param("person-name", n),
+                  s._param(
+                    "dm-action",
+                    o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
+                  ),
+                ])
+              : e ===
+                  o("WAWebEphemeralFbtKicTypes").EphemeralStringType
+                    .SettingChangeByYouAsAdmin
+                ? s._(/*BTDS*/ "", [
                     s._plural(t, "number_of_seconds"),
-                    s._param("person-name", n),
                     s._param(
                       "dm-action",
                       o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                     ),
-                  ],
-                )
-              : e ===
-                  o("WAWebEphemeralFbtKicTypes").EphemeralStringType
-                    .SettingChangeByYouAsAdmin
-                ? s._(
-                    /*BTDS*/ '_j{"*":"You turned on disappearing messages. New messages will disappear from this chat {number_of_seconds} seconds after they\'re sent, except when kept. {dm-action}","_1":"You turned on disappearing messages. New messages will disappear from this chat 1 second after they\'re sent, except when kept. {dm-action}"}',
-                    [
+                  ])
+                : e ===
+                    o("WAWebEphemeralFbtKicTypes").EphemeralStringType
+                      .SettingChangeByUnknownAsAdmin
+                  ? s._(/*BTDS*/ "", [
                       s._plural(t, "number_of_seconds"),
                       s._param(
                         "dm-action",
                         o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                       ),
-                    ],
-                  )
-                : e ===
-                    o("WAWebEphemeralFbtKicTypes").EphemeralStringType
-                      .SettingChangeByUnknownAsAdmin
-                  ? s._(
-                      /*BTDS*/ '_j{"*":"Disappearing messages were turned on. New messages will disappear from this chat {number_of_seconds} seconds after they\'re sent, except when kept. {dm-action}","_1":"Disappearing messages were turned on. New messages will disappear from this chat 1 second after they\'re sent, except when kept. {dm-action}"}',
-                      [
-                        s._plural(t, "number_of_seconds"),
-                        s._param(
-                          "dm-action",
-                          o(
-                            "WAWebEphemeralCTAFbt",
-                          ).getDmActionChangeSettingFbt(),
-                        ),
-                      ],
-                    )
+                    ])
                   : e ===
                       o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                         .Duration
-                    ? s._(
-                        /*BTDS*/ '_j{"*":"{number_of_seconds} seconds","_1":"1 second"}',
-                        [s._plural(t, "number_of_seconds")],
-                      )
+                    ? s._(/*BTDS*/ "", [s._plural(t, "number_of_seconds")])
                     : e ===
                         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                           .OutOfSyncInfo
-                      ? s._(
-                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number_of_seconds} seconds.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 second."}',
-                          [s._plural(t, "number_of_seconds")],
-                        )
+                      ? s._(/*BTDS*/ "", [s._plural(t, "number_of_seconds")])
                       : e ===
                           o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                             .Explanation
-                        ? s._(
-                            /*BTDS*/ '_j{"*":"New messages will disappear from this chat {number_of_seconds} seconds after they\'re sent, except when kept.","_1":"New messages will disappear from this chat 1 second after they\'re sent, except when kept."}',
-                            [s._plural(t, "number_of_seconds")],
-                          )
+                        ? s._(/*BTDS*/ "", [s._plural(t, "number_of_seconds")])
                         : e ===
                             o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                               .ModeChangeByOthers
                           ? r
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"{person-name} uses a default timer for disappearing messages in new chats. New messages will disappear from this chat {number_of_seconds} seconds after they\'re sent, except when kept. {dm-action}","_1":"{person-name} uses a default timer for disappearing messages in new chats. New messages will disappear from this chat 1 second after they\'re sent, except when kept. {dm-action}"}',
-                                [
-                                  s._plural(t, "number_of_seconds"),
-                                  s._param("person-name", n),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionSetOwnTimerFbt(),
-                                  ),
-                                ],
-                              )
-                            : s._(
-                                /*BTDS*/ '_j{"*":"{person-name} uses a default timer for disappearing messages in new chats. New messages will disappear from this chat {number_of_seconds} seconds after they\'re sent, except when kept. Click to learn more.","_1":"{person-name} uses a default timer for disappearing messages in new chats. New messages will disappear from this chat 1 second after they\'re sent, except when kept. Click to learn more."}',
-                                [
-                                  s._plural(t, "number_of_seconds"),
-                                  s._param("person-name", n),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number_of_seconds"),
+                                s._param("person-name", n),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionSetOwnTimerFbt(),
+                                ),
+                              ])
+                            : s._(/*BTDS*/ "", [
+                                s._plural(t, "number_of_seconds"),
+                                s._param("person-name", n),
+                              ])
                           : e ===
                                 o("WAWebEphemeralFbtKicTypes")
                                   .EphemeralStringType.ModeChangeByYou && r
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"You use a default timer for disappearing messages in new chats. New messages will disappear from this chat {number_of_seconds} seconds after they\'re sent, except when kept. {dm-action}","_1":"You use a default timer for disappearing messages in new chats. New messages will disappear from this chat 1 second after they\'re sent, except when kept. {dm-action}"}',
-                                [
-                                  s._plural(t, "number_of_seconds"),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionChangeDefaultTimerFbt(),
-                                  ),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number_of_seconds"),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionChangeDefaultTimerFbt(),
+                                ),
+                              ])
                             : (o("WALogger")
                                 .ERROR(
                                   c ||
@@ -305,126 +253,91 @@ __d(
       return e ===
         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
           .SettingChangeByOthers && n != null
-        ? s._(
-            /*BTDS*/ '_j{"*":"{person-name} turned on disappearing messages. New messages will disappear from this chat {number_of_minutes} minutes after they\'re sent, except when kept.","_1":"{person-name} turned on disappearing messages. New messages will disappear from this chat 1 minute after they\'re sent, except when kept."}',
-            [s._plural(t, "number_of_minutes"), s._param("person-name", n)],
-          )
+        ? s._(/*BTDS*/ "", [
+            s._plural(t, "number_of_minutes"),
+            s._param("person-name", n),
+          ])
         : e ===
             o("WAWebEphemeralFbtKicTypes").EphemeralStringType
               .SettingChangeByYou
-          ? s._(
-              /*BTDS*/ '_j{"*":"You turned on disappearing messages. New messages will disappear from this chat {number_of_minutes} minutes after they\'re sent, except when kept.","_1":"You turned on disappearing messages. New messages will disappear from this chat 1 minute after they\'re sent, except when kept."}',
-              [s._plural(t, "number_of_minutes")],
-            )
+          ? s._(/*BTDS*/ "", [s._plural(t, "number_of_minutes")])
           : e ===
               o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                 .SettingChangeByUnknown
-            ? s._(
-                /*BTDS*/ '_j{"*":"Disappearing messages were turned on. New messages will disappear from this chat {number_of_minutes} minutes after they\'re sent, except when kept.","_1":"Disappearing messages were turned on. New messages will disappear from this chat 1 minute after they\'re sent, except when kept."}',
-                [s._plural(t, "number_of_minutes")],
-              )
+            ? s._(/*BTDS*/ "", [s._plural(t, "number_of_minutes")])
             : e ===
                   o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                     .SettingChangeByOthersAsAdmin && n != null
-              ? s._(
-                  /*BTDS*/ '_j{"*":"{person-name} turned on disappearing messages. New messages will disappear from this chat {number_of_minutes} minutes after they\'re sent, except when kept. {dm-action}","_1":"{person-name} turned on disappearing messages. New messages will disappear from this chat 1 minute after they\'re sent, except when kept. {dm-action}"}',
-                  [
+              ? s._(/*BTDS*/ "", [
+                  s._plural(t, "number_of_minutes"),
+                  s._param("person-name", n),
+                  s._param(
+                    "dm-action",
+                    o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
+                  ),
+                ])
+              : e ===
+                  o("WAWebEphemeralFbtKicTypes").EphemeralStringType
+                    .SettingChangeByYouAsAdmin
+                ? s._(/*BTDS*/ "", [
                     s._plural(t, "number_of_minutes"),
-                    s._param("person-name", n),
                     s._param(
                       "dm-action",
                       o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                     ),
-                  ],
-                )
-              : e ===
-                  o("WAWebEphemeralFbtKicTypes").EphemeralStringType
-                    .SettingChangeByYouAsAdmin
-                ? s._(
-                    /*BTDS*/ '_j{"*":"You turned on disappearing messages. New messages will disappear from this chat {number_of_minutes} minutes after they\'re sent, except when kept. {dm-action}","_1":"You turned on disappearing messages. New messages will disappear from this chat 1 minute after they\'re sent, except when kept. {dm-action}"}',
-                    [
+                  ])
+                : e ===
+                    o("WAWebEphemeralFbtKicTypes").EphemeralStringType
+                      .SettingChangeByUnknownAsAdmin
+                  ? s._(/*BTDS*/ "", [
                       s._plural(t, "number_of_minutes"),
                       s._param(
                         "dm-action",
                         o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                       ),
-                    ],
-                  )
-                : e ===
-                    o("WAWebEphemeralFbtKicTypes").EphemeralStringType
-                      .SettingChangeByUnknownAsAdmin
-                  ? s._(
-                      /*BTDS*/ '_j{"*":"Disappearing messages were turned on. New messages will disappear from this chat {number_of_minutes} minutes after they\'re sent, except when kept. {dm-action}","_1":"Disappearing messages were turned on. New messages will disappear from this chat 1 minute after they\'re sent, except when kept. {dm-action}"}',
-                      [
-                        s._plural(t, "number_of_minutes"),
-                        s._param(
-                          "dm-action",
-                          o(
-                            "WAWebEphemeralCTAFbt",
-                          ).getDmActionChangeSettingFbt(),
-                        ),
-                      ],
-                    )
+                    ])
                   : e ===
                       o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                         .Duration
-                    ? s._(
-                        /*BTDS*/ '_j{"*":"{number_of_minutes} minutes","_1":"1 minute"}',
-                        [s._plural(t, "number_of_minutes")],
-                      )
+                    ? s._(/*BTDS*/ "", [s._plural(t, "number_of_minutes")])
                     : e ===
                         o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                           .OutOfSyncInfo
-                      ? s._(
-                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number_of_minutes} minutes.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 minute."}',
-                          [s._plural(t, "number_of_minutes")],
-                        )
+                      ? s._(/*BTDS*/ "", [s._plural(t, "number_of_minutes")])
                       : e ===
                           o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                             .Explanation
-                        ? s._(
-                            /*BTDS*/ '_j{"*":"New messages will disappear from this chat {number_of_minutes} minutes after they\'re sent, except when kept.","_1":"New messages will disappear from this chat 1 minute after they\'re sent, except when kept."}',
-                            [s._plural(t, "number_of_minutes")],
-                          )
+                        ? s._(/*BTDS*/ "", [s._plural(t, "number_of_minutes")])
                         : e ===
                             o("WAWebEphemeralFbtKicTypes").EphemeralStringType
                               .ModeChangeByOthers
                           ? r
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"{person-name} uses a default timer for disappearing messages in new chats. New messages will disappear from this chat {number_of_minutes} minutes after they\'re sent, except when kept. {dm-action}","_1":"{person-name} uses a default timer for disappearing messages in new chats. New messages will disappear from this chat 1 minute after they\'re sent, except when kept. {dm-action}"}',
-                                [
-                                  s._plural(t, "number_of_minutes"),
-                                  s._param("person-name", n),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionSetOwnTimerFbt(),
-                                  ),
-                                ],
-                              )
-                            : s._(
-                                /*BTDS*/ '_j{"*":"{person-name} uses a default timer for disappearing messages in new chats. New messages will disappear from this chat {number_of_minutes} minutes after they\'re sent, except when kept. Click to learn more.","_1":"{person-name} uses a default timer for disappearing messages in new chats. New messages will disappear from this chat 1 minute after they\'re sent, except when kept. Click to learn more."}',
-                                [
-                                  s._plural(t, "number_of_minutes"),
-                                  s._param("person-name", n),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number_of_minutes"),
+                                s._param("person-name", n),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionSetOwnTimerFbt(),
+                                ),
+                              ])
+                            : s._(/*BTDS*/ "", [
+                                s._plural(t, "number_of_minutes"),
+                                s._param("person-name", n),
+                              ])
                           : e ===
                                 o("WAWebEphemeralFbtKicTypes")
                                   .EphemeralStringType.ModeChangeByYou && r
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"You use a default timer for disappearing messages in new chats. New messages will disappear from this chat {number_of_minutes} minutes after they\'re sent, except when kept. {dm-action}","_1":"You use a default timer for disappearing messages in new chats. New messages will disappear from this chat 1 minute after they\'re sent, except when kept. {dm-action}"}',
-                                [
-                                  s._plural(t, "number_of_minutes"),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionChangeDefaultTimerFbt(),
-                                  ),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number_of_minutes"),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionChangeDefaultTimerFbt(),
+                                ),
+                              ])
                             : (o("WALogger")
                                 .ERROR(
                                   d ||
@@ -442,12 +355,9 @@ __d(
     }
     function v(e) {
       var t = o("WAWebContactCollection").ContactCollection.assertGet(e);
-      if (o("WAWebContactGetters").getIsMe(t))
-        return s._(/*BTDS*/ "Kept by you");
+      if (o("WAWebContactGetters").getIsMe(t)) return s._(/*BTDS*/ "");
       var n = o("WAWebFrontendContactGetters").getFormattedName(t);
-      return s._(/*BTDS*/ "Kept by {person-name}", [
-        s._param("person-name", n),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("person-name", n)]);
     }
     ((l.getDisappearingMessageOutOfSyncDifferentBody = m),
       (l.getDisappearingMessageOutOfSyncDifferentTitle = p),

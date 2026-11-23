@@ -1,136 +1,116 @@
 __d(
   "WAWebServerLeadStageRepull",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebApplyServerLeadStageJob",
     "WAWebContactManagerCustomerProfilesQuery",
     "WAWebCustomerManagerGating",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = "WACustomerManagerLeadStageLastPull",
-      d = "WACustomerManagerLeadStageLastActive",
-      m = 3 * o("WATimeUtils").DAY_SECONDS,
-      p = new Set(["labels_syncing", "no_lead_list"]),
-      _ = null,
-      f = null;
-    function g() {
+      u = "WACustomerManagerLeadStageLastPull",
+      c = "WACustomerManagerLeadStageLastActive",
+      d = 3 * o("WATimeUtils").DAY_SECONDS,
+      m = new Set(["labels_syncing", "no_lead_list"]),
+      p = null,
+      _ = null;
+    function f() {
       !o("WAWebCustomerManagerGating").customerManagerEnabled() ||
-        _ != null ||
-        (y(),
-        (_ = self.setInterval(function () {
-          y();
+        p != null ||
+        (h(),
+        (p = self.setInterval(function () {
+          h();
         }, o("WATimeUtils").HOUR_MILLISECONDS)));
     }
-    function h() {
+    function g() {
       return (
-        f == null &&
-          (f = v().finally(function () {
-            f = null;
+        _ == null &&
+          (_ = C().finally(function () {
+            _ = null;
           })),
-        f
+        _
       );
     }
-    function y() {
-      return C.apply(this, arguments);
+    async function h() {
+      var e = o("WATimeUtils").unixTime(),
+        t = v(c);
+      (r("WAWebUserPrefsStore").setUser(c, e),
+        !(
+          !o("WAWebCustomerManagerGating").customerManagerEnabled() || !y(e, t)
+        ) && (await g()));
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WATimeUtils").unixTime(),
-            t = L(d);
-          (r("WAWebUserPrefsStore").setUser(d, e),
-            !(
-              !o("WAWebCustomerManagerGating").customerManagerEnabled() ||
-              !b(e, t)
-            ) && (yield h()));
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t) {
-      var n = L(c);
+    function y(e, t) {
+      var n = v(u);
       return (
         n == null ||
-        e - n > m ||
+        e - n > d ||
         (t != null && e - t > o("WATimeUtils").DAY_SECONDS)
       );
     }
-    function v() {
-      return S.apply(this, arguments);
+    async function C() {
+      var t = o("WATimeUtils").unixTime();
+      try {
+        var n = await o(
+          "WAWebContactManagerCustomerProfilesQuery",
+        ).fetchCompleteCustomerProfileRecords();
+        if (n == null) return;
+        var a = await b(n);
+        if (
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[customer_manager] lead stage re-pull: ",
+                "",
+              ])),
+            a.join(","),
+          ),
+          a.some(function (e) {
+            return m.has(e);
+          }))
+        )
+          return;
+        r("WAWebUserPrefsStore").setUser(u, t);
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[customer_manager] lead stage re-pull failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e));
+      }
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WATimeUtils").unixTime();
-          try {
-            var n = yield o(
-              "WAWebContactManagerCustomerProfilesQuery",
-            ).fetchCompleteCustomerProfileRecords();
-            if (n == null) return;
-            var a = yield R(n);
-            if (
-              (o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[customer_manager] lead stage re-pull: ",
-                    "",
-                  ])),
-                a.join(","),
-              ),
-              a.some(function (e) {
-                return p.has(e);
-              }))
-            )
-              return;
-            r("WAWebUserPrefsStore").setUser(c, t);
-          } catch (e) {
-            o("WALogger")
-              .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[customer_manager] lead stage re-pull failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e));
-          }
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
+    function b(e) {
       var t = [];
-      for (var r of e) {
-        var a = r.chatJid,
-          i = r.leadStage;
-        i != null &&
+      for (var n of e) {
+        var r = n.chatJid,
+          a = n.leadStage;
+        a != null &&
           t.push(
             o("WAWebApplyServerLeadStageJob")
               .applyServerLeadStageJob({
-                threadLid: String(a),
-                leadStageId: String(i),
+                threadLid: String(r),
+                leadStageId: String(a),
               })
               .catch(function () {
                 return "failed";
               }),
           );
       }
-      return (u || (u = n("Promise"))).all(t);
+      return Promise.all(t);
     }
-    function L(e) {
+    function v(e) {
       var t = r("WAWebUserPrefsStore").getUser(e);
       return typeof t == "number" ? t : null;
     }
-    ((l.startServerLeadStageRepull = g),
-      (l.repullServerLeadStages = h),
-      (l.maybeRepullServerLeadStages = y));
+    ((l.startServerLeadStageRepull = f),
+      (l.repullServerLeadStages = g),
+      (l.maybeRepullServerLeadStages = h));
   },
   98,
 );

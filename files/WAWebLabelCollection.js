@@ -38,11 +38,11 @@ __d(
     function h(e, t, n) {
       if (n === f.CREATE)
         return e === g.IN_PROGRESS
-          ? s._(/*BTDS*/ "Creating list")
+          ? s._(/*BTDS*/ "")
           : e === g.SUCCESS
-            ? s._(/*BTDS*/ "List created")
+            ? s._(/*BTDS*/ "")
             : e === g.ERROR
-              ? s._(/*BTDS*/ "List could not be created")
+              ? s._(/*BTDS*/ "")
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -52,20 +52,20 @@ __d(
       if (t)
         switch (e) {
           case g.IN_PROGRESS:
-            return s._(/*BTDS*/ "Adding to list");
+            return s._(/*BTDS*/ "");
           case g.SUCCESS:
-            return s._(/*BTDS*/ "Added to list");
+            return s._(/*BTDS*/ "");
           case g.ERROR:
-            return s._(/*BTDS*/ "Could not be added to list");
+            return s._(/*BTDS*/ "");
         }
       else
         switch (e) {
           case g.IN_PROGRESS:
-            return s._(/*BTDS*/ "Updating list");
+            return s._(/*BTDS*/ "");
           case g.SUCCESS:
-            return s._(/*BTDS*/ "List updated");
+            return s._(/*BTDS*/ "");
           case g.ERROR:
-            return s._(/*BTDS*/ "List could not be updated");
+            return s._(/*BTDS*/ "");
         }
     }
     var y = (function (t) {

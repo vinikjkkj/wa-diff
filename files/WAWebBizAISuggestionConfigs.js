@@ -17,92 +17,84 @@ __d(
     function e() {
       return [
         {
-          exampleQuestion: s._(/*BTDS*/ "What does your business do or sell?"),
+          exampleQuestion: s._(/*BTDS*/ ""),
           fieldKey: "description",
-          fieldLabel: s._(/*BTDS*/ "Business description"),
+          fieldLabel: s._(/*BTDS*/ ""),
           icon: r("WDSIconIcStore.react"),
           knowledgeType: "DESCRIPTION",
-          sampleLabel: s._(/*BTDS*/ "How to describe your business"),
+          sampleLabel: s._(/*BTDS*/ ""),
         },
         {
-          exampleQuestion: s._(/*BTDS*/ "Where is your business located?"),
+          exampleQuestion: s._(/*BTDS*/ ""),
           fieldKey: "address",
-          fieldLabel: s._(/*BTDS*/ "Business address"),
+          fieldLabel: s._(/*BTDS*/ ""),
           icon: r("WDSIconIcLocationOn.react"),
           knowledgeType: "ADDRESS",
-          sampleLabel: s._(/*BTDS*/ "Your location"),
+          sampleLabel: s._(/*BTDS*/ ""),
         },
         {
-          exampleQuestion: s._(
-            /*BTDS*/ "When is your business open or closed?",
-          ),
+          exampleQuestion: s._(/*BTDS*/ ""),
           fieldKey: "business_hours",
-          fieldLabel: s._(/*BTDS*/ "Business hours"),
+          fieldLabel: s._(/*BTDS*/ ""),
           icon: r("WDSIconIcSchedule.react"),
           knowledgeType: "BUSINESS_HOURS",
-          sampleLabel: s._(/*BTDS*/ "Your business hours"),
+          sampleLabel: s._(/*BTDS*/ ""),
         },
         {
-          exampleQuestion: s._(/*BTDS*/ "How can someone make a purchase?"),
+          exampleQuestion: s._(/*BTDS*/ ""),
           fieldKey: "purchase_info",
-          fieldLabel: s._(/*BTDS*/ "Purchasing info"),
+          fieldLabel: s._(/*BTDS*/ ""),
           icon: r("WDSIconIcShoppingCart.react"),
           knowledgeType: "PURCHASE_INFO",
-          sampleLabel: s._(/*BTDS*/ "How to purchase"),
+          sampleLabel: s._(/*BTDS*/ ""),
         },
         {
-          exampleQuestion: s._(/*BTDS*/ "What payment methods do you accept?"),
+          exampleQuestion: s._(/*BTDS*/ ""),
           fieldKey: "payment_methods",
-          fieldLabel: s._(/*BTDS*/ "Payment methods"),
+          fieldLabel: s._(/*BTDS*/ ""),
           icon: r("WDSIconIcPayments.react"),
           knowledgeType: "PAYMENT_METHODS",
-          sampleLabel: s._(/*BTDS*/ "Payment methods you accept"),
+          sampleLabel: s._(/*BTDS*/ ""),
         },
         {
-          exampleQuestion: s._(
-            /*BTDS*/ "What's your policy about returns or exchanges?",
-          ),
+          exampleQuestion: s._(/*BTDS*/ ""),
           fieldKey: "return_policy",
-          fieldLabel: s._(/*BTDS*/ "Return policy"),
+          fieldLabel: s._(/*BTDS*/ ""),
           icon: r("WDSIconIcSyncAlt.react"),
           knowledgeType: "RETURN_POLICY",
-          sampleLabel: s._(/*BTDS*/ "How to make returns"),
+          sampleLabel: s._(/*BTDS*/ ""),
         },
         {
-          exampleQuestion: s._(
-            /*BTDS*/ "What kinds of discounts do you offer?",
-          ),
+          exampleQuestion: s._(/*BTDS*/ ""),
           fieldKey: "discount_policy",
-          fieldLabel: s._(/*BTDS*/ "Discount info"),
+          fieldLabel: s._(/*BTDS*/ ""),
           icon: r("WDSIconIcRedeem.react"),
           knowledgeType: "DISCOUNT_POLICY",
-          sampleLabel: s._(/*BTDS*/ "Discounts you offer"),
+          sampleLabel: s._(/*BTDS*/ ""),
         },
         {
-          exampleQuestion: s._(/*BTDS*/ "What's your email address?"),
+          exampleQuestion: s._(/*BTDS*/ ""),
           fieldKey: "email",
-          fieldLabel: s._(/*BTDS*/ "Business email"),
+          fieldLabel: s._(/*BTDS*/ ""),
           icon: r("WDSIconIcMail.react"),
           knowledgeType: "EMAIL",
-          sampleLabel: s._(/*BTDS*/ "Your email"),
+          sampleLabel: s._(/*BTDS*/ ""),
         },
         {
-          exampleQuestion: s._(/*BTDS*/ "What's your business website?"),
+          exampleQuestion: s._(/*BTDS*/ ""),
           fieldKey: "website",
-          fieldLabel: s._(/*BTDS*/ "Website"),
+          fieldLabel: s._(/*BTDS*/ ""),
           icon: r("WDSIconIcPublic.react"),
           knowledgeType: "WEBSITE",
-          sampleLabel: s._(/*BTDS*/ "Your website"),
+          sampleLabel: s._(/*BTDS*/ ""),
         },
         {
-          exampleQuestion: s._(
-            /*BTDS*/ "What should customers know about shipping and delivery?",
-          ),
+          exampleQuestion: s._(/*BTDS*/ ""),
           fieldKey: "shipping_policy",
-          fieldLabel: s._(/*BTDS*/ "Shipping info"),
+          fieldLabel: s._(/*BTDS*/ ""),
           icon: r("WDSIconIcDirectionsBoat.react"),
           knowledgeType: "SHIPPING_POLICY",
-          sampleLabel: s._(/*BTDS*/ "Your shipping policy"),
+          sampleLabel: s._(/*BTDS*/ ""),
         },
       ];
     }
@@ -125,9 +117,7 @@ __d(
         : null;
     }
     function m(e) {
-      return u.includes(e)
-        ? s._(/*BTDS*/ "Add business info")
-        : s._(/*BTDS*/ "Add purchasing info");
+      return u.includes(e) ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     ((l.getFilteredSuggestions = c),
       (l.getSuggestionByKnowledgeType = d),

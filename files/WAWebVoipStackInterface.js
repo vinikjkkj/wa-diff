@@ -2,7 +2,6 @@ __d(
   "WAWebVoipStackInterface",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebABPropsCache",
@@ -14,7 +13,6 @@ __d(
     "WAWebVoipInitEventEmitter",
     "WAWebVoipInitReliabilityGates",
     "WAWebVoipWaitForRequiredModule",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -25,53 +23,52 @@ __d(
       u,
       c,
       d,
-      m,
-      p = "WAWebVoipStackInterfaceImpl",
-      _ = 3e4,
-      f = null,
-      g,
-      h = null,
-      y = "WAWebVoipStackInterfaceImpl",
-      C = "wa_web_voip_stack_interface",
-      b = !1,
-      v = null;
-    function S() {
+      m = "WAWebVoipStackInterfaceImpl",
+      p = 3e4,
+      _ = null,
+      f,
+      g = null,
+      h = "WAWebVoipStackInterfaceImpl",
+      y = "wa_web_voip_stack_interface",
+      C = !1,
+      b = null;
+    function v() {
       return (
-        h == null &&
-          (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        g == null &&
+          (g = (async function () {
             return !r("WAWebEnvironment").isWindows ||
-              (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
+              (await o("WAWebABPropsCache").waitForABPropConfigsReady(),
               o("WAWebVoipGatingUtils").isWinHybridPlusEnabled())
               ? !1
               : o("WAWebABProps").getABPropConfigValue(
                   "web_voip_runtime_stack_selection_enabled",
                 ) === !0;
           })()),
-        h
+        g
       );
+    }
+    function S() {
+      return h;
     }
     function R() {
       return y;
     }
     function L() {
-      return C;
-    }
-    function E() {
       return (
-        g == null &&
-          (g = r("JSResourceForInteraction")(
+        f == null &&
+          (f = r("JSResourceForInteraction")(
             "WAWebVoipStackInterfaceLoadTelemetry",
           )
             .__setRef("WAWebVoipStackInterface")
             .load()
             .catch(function (e) {
-              throw ((g = null), e);
+              throw ((f = null), e);
             })),
-        g
+        f
       );
     }
-    function k(t) {
-      E()
+    function E(t) {
+      L()
         .then(t)
         .catch(function (t) {
           o("WALogger")
@@ -84,102 +81,85 @@ __d(
             .catching(r("getErrorSafe")(t));
         });
     }
-    function I() {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: getVoipStackInterface awaiting lazy bundle",
-              ])),
-          );
-          var e = yield S();
-          ((y = e
-            ? "WAWebVoipStackInterfaceWindows"
-            : "WAWebVoipStackInterfaceImpl"),
-            (C = e
-              ? "wa_web_voip_stack_interface_windows"
-              : "wa_web_voip_stack_interface"));
-          var t = e
-              ? r("JSResourceForInteraction")("WAWebVoipStackInterfaceWindows")
-                  .__setRef("WAWebVoipStackInterface")
-                  .load()
-              : D(),
-            a = null,
-            i = new (m || (m = n("Promise")))(function (e, t) {
-              a = self.setTimeout(function () {
-                ((a = null),
-                  t(r("err")("voip stack interface load timed out")));
-              }, _);
-            });
-          try {
-            return yield (m || (m = n("Promise"))).race([t, i]);
-          } finally {
-            a != null && self.clearTimeout(a);
-          }
-        })),
-        T.apply(this, arguments)
+    async function k() {
+      o("WALogger").LOG(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "voip: getVoipStackInterface awaiting lazy bundle",
+          ])),
       );
+      var e = await v();
+      ((h = e
+        ? "WAWebVoipStackInterfaceWindows"
+        : "WAWebVoipStackInterfaceImpl"),
+        (y = e
+          ? "wa_web_voip_stack_interface_windows"
+          : "wa_web_voip_stack_interface"));
+      var t = e
+          ? r("JSResourceForInteraction")("WAWebVoipStackInterfaceWindows")
+              .__setRef("WAWebVoipStackInterface")
+              .load()
+          : I(),
+        n = null,
+        a = new Promise(function (e, t) {
+          n = self.setTimeout(function () {
+            ((n = null), t(r("err")("voip stack interface load timed out")));
+          }, p);
+        });
+      try {
+        return await Promise.race([t, a]);
+      } finally {
+        n != null && self.clearTimeout(n);
+      }
     }
-    function D() {
+    function I() {
       if (
-        !$() &&
+        !D() &&
         !o("WAWebVoipInitReliabilityGates").isVoipInitChunkFixEnabled()
       )
         return r("JSResourceForInteraction")("WAWebVoipStackInterfaceImpl")
           .__setRef("WAWebVoipStackInterface")
           .load();
-      y = "WAWebVoipDeferredBootStackInterface";
+      h = "WAWebVoipDeferredBootStackInterface";
       var e = r("JSResourceForInteraction")(
           "WAWebVoipDeferredBootStackInterface",
         ).__setRef("WAWebVoipStackInterface"),
         t = e.getModuleIfRequired();
       return t != null
-        ? (m || (m = n("Promise"))).resolve(t)
-        : e.load().catch(
-            (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  o("WALogger")
-                    .WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: stack interface bundle load rejected, waiting for its code",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(t));
-                  var n = yield x(function () {
-                    return o(
-                      "WAWebVoipWaitForRequiredModule",
-                    ).waitForRequiredModule(e, _);
-                  });
-                  if (n == null) throw t;
-                  return n;
-                },
+        ? Promise.resolve(t)
+        : e.load().catch(async function (t) {
+            o("WALogger")
+              .WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: stack interface bundle load rejected, waiting for its code",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t));
+            var n = await T(function () {
+              return o("WAWebVoipWaitForRequiredModule").waitForRequiredModule(
+                e,
+                p,
               );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })(),
-          );
+            });
+            if (n == null) throw t;
+            return n;
+          });
     }
-    function x(e) {
+    function T(e) {
       return o("WAWebVoipInitReliabilityGates").isVoipInitChunkFixEnabled()
-        ? (v != null || (v = e()), v)
+        ? (b != null || (b = e()), b)
         : e();
     }
-    function $() {
+    function D() {
       try {
         return o("WAWebVoipBootInitDecision").isDeferredVoipBootInitEnabled();
       } catch (e) {
         return (
           o("WALogger")
             .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: stack interface deferred-boot gate failed",
                 ])),
             )
@@ -188,91 +168,75 @@ __d(
         );
       }
     }
-    function P(e) {
+    function x(e) {
       e &&
         o("WAWebVoipInitReliabilityGates").isVoipInitChunkFixEnabled() &&
         o("WAWebBackendApi").frontendFireAndForget("markVoipChunkUnavailable");
     }
-    var N = r("WAWebLazyLoadedRetriable")(I, p, {
+    var $ = r("WAWebLazyLoadedRetriable")(k, m, {
       onAttemptFailure: function () {
-        (navigator.onLine === !1 && (b = !0),
-          k(function (e) {
+        (navigator.onLine === !1 && (C = !0),
+          E(function (e) {
             e.logVoipStackInterfaceLoadAttemptFailure();
           }));
       },
       onFinalFailure: function (t, n) {
-        var e = !b && navigator.onLine !== !1;
-        ((b = !1),
-          k(function (e) {
+        var e = !C && navigator.onLine !== !1;
+        ((C = !1),
+          E(function (e) {
             e.logVoipStackInterfaceLoadRetryExhausted();
           }),
           o("WALogger")
             .ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: stack load failed comp=",
                   " mod=",
                   " res=",
                   " attempts=",
                   "",
                 ])),
-              p,
+              m,
+              S(),
               R(),
-              L(),
               n,
             )
             .catching(t)
             .sendLogs("voip-stack-interface-lazy-load-failed"),
-          P(e));
+          x(e));
       },
       onRetrySuccess: function () {
-        ((b = !1),
-          k(function (e) {
+        ((C = !1),
+          E(function (e) {
             e.logVoipStackInterfaceLoadRetrySuccess();
           }));
       },
     });
-    function M() {
-      return w.apply(this, arguments);
+    async function P() {
+      o("WAWebVoipGatingUtils").isVoipDownloadEnabled() && (await k());
     }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WAWebVoipGatingUtils").isVoipDownloadEnabled() && (yield I());
-        })),
-        w.apply(this, arguments)
-      );
+    async function N() {
+      if (!o("WAWebVoipGatingUtils").isVoipDownloadEnabled()) return null;
+      var e = await $(),
+        t = e.createWAWebVoipStackInterface,
+        n = e.getVoipStackInterfaceImpl;
+      if (n != null) return ((_ = n()), M(_), _);
+      if (t == null)
+        throw r("err")("voip stack interface module has no factory");
+      return (_ == null && (_ = t()), _);
     }
-    function A() {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!o("WAWebVoipGatingUtils").isVoipDownloadEnabled()) return null;
-          var e = yield N(),
-            t = e.createWAWebVoipStackInterface,
-            n = e.getVoipStackInterfaceImpl;
-          if (n != null) return ((f = n()), O(f), f);
-          if (t == null)
-            throw r("err")("voip stack interface module has no factory");
-          return (f == null && (f = t()), f);
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    function O(e) {
+    function M(e) {
       e.type === "web" &&
         o(
           "WAWebVoipInitEventEmitter",
         ).VoipInitEventEmitter.markVoipWebStackCreated(Date.now());
     }
-    function B() {
-      return f;
+    function w() {
+      return _;
     }
-    ((l.prefetchVoipStackInterfaceModule = M),
-      (l.getVoipStackInterface = A),
-      (l.getCachedVoipStackInterface = B));
+    ((l.prefetchVoipStackInterfaceModule = P),
+      (l.getVoipStackInterface = N),
+      (l.getCachedVoipStackInterface = w));
   },
   98,
 );

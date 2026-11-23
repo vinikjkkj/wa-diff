@@ -1,39 +1,21 @@
 __d(
   "WebBloksFieldset",
-  [
-    "WebBloksComponentContext",
-    "WebBloksConstants",
-    "WebBloksStyle",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WebBloksComponentContext", "WebBloksConstants", "WebBloksStyle", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.node,
-        r = o("WebBloksComponentContext").useWebBloksContext(),
-        a = r.renderChildren,
-        i;
-      t[0] !== n || t[1] !== a
-        ? ((i = a(
-            n.getSubNodes(o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY),
-          )),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = i))
-        : (i = t[2]);
-      var l;
-      return (
-        t[3] !== i
-          ? ((l = s.jsx("fieldset", { className: c.fieldset, children: i })),
-            (t[3] = i),
-            (t[4] = l))
-          : (l = t[4]),
-        l
-      );
+      var t = e.node,
+        n = o("WebBloksComponentContext").useWebBloksContext(),
+        r = n.renderChildren;
+      return s.jsx("fieldset", {
+        className: c.fieldset,
+        children: r(
+          t.getSubNodes(o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY),
+        ),
+      });
     }
+    u.displayName = u.name + " [from " + i.id + "]";
     var c = o("WebBloksStyle").createStyles({
       fieldset: { border: "none", margin: 0, padding: 0 },
     });

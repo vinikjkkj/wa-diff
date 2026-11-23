@@ -1,42 +1,34 @@
 __d(
   "WAWebDBPollsRemoveVoteOptions",
-  ["WAWebLidMigrationUtils", "asyncToGeneratorRuntime"],
+  ["WAWebLidMigrationUtils"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      return s.apply(this, arguments);
+    async function e(e, t, n) {
+      var r = o("WAWebLidMigrationUtils").getAlternateMsgKey(t),
+        a = await e.anyOf(
+          ["parentMsgKey"],
+          r != null ? [t.toString(), r.toString()] : [t.toString()],
+        ),
+        i = a
+          .filter(function (e) {
+            return (
+              s(e.selectedOptionLocalIds, n) ||
+              s(e.lastSuccessfulSelectedOptionLocalIds, n)
+            );
+          })
+          .map(function (e) {
+            var t = e.lastSuccessfulSelectedOptionLocalIds;
+            return babelHelpers.extends(
+              {},
+              e,
+              { selectedOptionLocalIds: u(e.selectedOptionLocalIds, n) },
+              t != null
+                ? { lastSuccessfulSelectedOptionLocalIds: u(t, n) }
+                : null,
+            );
+          });
+      i.length > 0 && (await e.bulkCreateOrReplace(i));
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = o("WAWebLidMigrationUtils").getAlternateMsgKey(t),
-            a = yield e.anyOf(
-              ["parentMsgKey"],
-              r != null ? [t.toString(), r.toString()] : [t.toString()],
-            ),
-            i = a
-              .filter(function (e) {
-                return (
-                  u(e.selectedOptionLocalIds, n) ||
-                  u(e.lastSuccessfulSelectedOptionLocalIds, n)
-                );
-              })
-              .map(function (e) {
-                var t = e.lastSuccessfulSelectedOptionLocalIds;
-                return babelHelpers.extends(
-                  {},
-                  e,
-                  { selectedOptionLocalIds: c(e.selectedOptionLocalIds, n) },
-                  t != null
-                    ? { lastSuccessfulSelectedOptionLocalIds: c(t, n) }
-                    : null,
-                );
-              });
-          i.length > 0 && (yield e.bulkCreateOrReplace(i));
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e, t) {
+    function s(e, t) {
       return (
         e != null &&
         new Uint8Array(e).some(function (e) {
@@ -44,7 +36,7 @@ __d(
         })
       );
     }
-    function c(e, t) {
+    function u(e, t) {
       return new Uint8Array(e).filter(function (e) {
         return !t.has(e);
       }).buffer;

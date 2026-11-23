@@ -12,7 +12,6 @@ __d(
     "WAWebSharableEventWamErrorType",
     "WAWebSharableEventWamFields",
     "WAWebWamEnumEventV2CreationActionType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
@@ -119,36 +118,26 @@ __d(
         e
       );
     })();
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
+    async function s(e) {
+      if (e == null) return {};
+      var t = e.id.isGroup(),
+        n = {
+          eventV2CreationIsFrom1x1Chat: !t,
+          eventV2CreationIsFromGroupChat: t,
+        },
+        r = await o("WAWebChatThreadLogging")
+          .getChatThreadID(e.id.toJid())
+          .catch(o("WAWebNullFunc").returnNull);
+      r != null && (n.threadId = r);
+      var a = e.groupMetadata;
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e == null) return {};
-          var t = e.id.isGroup(),
-            n = {
-              eventV2CreationIsFrom1x1Chat: !t,
-              eventV2CreationIsFromGroupChat: t,
-            },
-            r = yield o("WAWebChatThreadLogging")
-              .getChatThreadID(e.id.toJid())
-              .catch(o("WAWebNullFunc").returnNull);
-          r != null && (n.threadId = r);
-          var a = e.groupMetadata;
-          return (
-            t &&
-              a != null &&
-              ((n.groupTypeClient = o(
-                "WAWebGroupType",
-              ).groupTypeToGroupTypeClient(
-                o("WAWebGroupMetadataGetters").getGroupType(a),
-              )),
-              (n.groupSize = a.size > 0 ? a.size : a.participants.length)),
-            n
-          );
-        })),
-        u.apply(this, arguments)
+        t &&
+          a != null &&
+          ((n.groupTypeClient = o("WAWebGroupType").groupTypeToGroupTypeClient(
+            o("WAWebGroupMetadataGetters").getGroupType(a),
+          )),
+          (n.groupSize = a.size > 0 ? a.size : a.participants.length)),
+        n
       );
     }
     l.SharableEventCreationUserJourney = e;

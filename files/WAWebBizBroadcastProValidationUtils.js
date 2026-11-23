@@ -15,10 +15,7 @@ __d(
       return t === ""
         ? { status: e.VALID }
         : t === "." || !/^\d*\.?\d*$/.test(t)
-          ? {
-              status: e.INVALID,
-              errorMessage: s._(/*BTDS*/ "Please enter a valid number"),
-            }
+          ? { status: e.INVALID, errorMessage: s._(/*BTDS*/ "") }
           : { status: e.VALID };
     }
     function d(e, t) {

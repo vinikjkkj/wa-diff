@@ -16,7 +16,7 @@ __d(
           n = e.title,
           a =
             n === void 0
-              ? s._(/*BTDS*/ "{=m0} can't show this message.", [
+              ? s._(/*BTDS*/ "", [
                   s._implicitParam(
                     "=m0",
                     u.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
@@ -26,10 +26,7 @@ __d(
                 ])
               : n,
           i = e.body,
-          l =
-            i === void 0
-              ? s._(/*BTDS*/ "Use WhatsApp on your phone to view it.")
-              : i;
+          l = i === void 0 ? s._(/*BTDS*/ "") : i;
         o("WAWebModalManager").ModalManager.open(
           u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
             tsNavigationData: {

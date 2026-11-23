@@ -1,67 +1,85 @@
 __d(
   "WAWebCallLinkCometRoot",
   [
+    "BaseContextualLayerAnchorRoot.react",
     "WAWebCallLinkLandingPage.react",
     "WAWebModalManagerImplWrapper.react",
     "WAWebReceiverAppRoot.react",
     "WAWebUim",
+    "WDSThemes",
     "buildWAWebCometRoot",
     "react",
-    "react-compiler-runtime",
+    "stylex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = e || (e = o("react")),
-      u = e.useEffect,
-      c = "video",
-      d = "",
-      m = [];
-    function p() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      (e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = []), (e[0] = t))
-        : (t = e[0]),
-        u(_, t));
+      s,
+      u = s || (s = o("react")),
+      c = s.useEffect,
+      d = "video",
+      m = null,
+      p = "",
+      _ = !1,
+      f = [],
+      g = null;
+    function h() {
+      c(function () {
+        var e = o("WAWebUim").setupUimListeners();
+        return e;
+      }, []);
     }
-    function _() {
-      var e = o("WAWebUim").setupUimListeners();
-      return e;
-    }
-    function f() {
-      var e = o("react-compiler-runtime").c(1);
-      p();
-      var t;
+    function y() {
       return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = s.jsxs(o("WAWebReceiverAppRoot.react").WAWebReceiverAppRoot, {
-              children: [
-                s.jsx(r("WAWebCallLinkLandingPage.react"), {
-                  callType: c,
-                  idHash: d,
-                  locales: m,
-                }),
-                s.jsx(
-                  o("WAWebModalManagerImplWrapper.react")
-                    .ModalManagerImplWrapper,
-                  { type: o("WAWebModalManagerImplWrapper.react").ModalType },
+        h(),
+        u.jsx(
+          "div",
+          babelHelpers.extends(
+            {},
+            (e || (e = r("stylex"))).props(o("WDSThemes").WDSLightTheme),
+            {
+              children: u.jsx(r("BaseContextualLayerAnchorRoot.react"), {
+                children: u.jsxs(
+                  o("WAWebReceiverAppRoot.react").WAWebReceiverAppRoot,
+                  {
+                    children: [
+                      u.jsx(r("WAWebCallLinkLandingPage.react"), {
+                        callType: d,
+                        errorReason: m,
+                        idHash: p,
+                        isGuestRedirectEnabled: _,
+                        locales: f,
+                        signedClearStaleVCUrl: g,
+                      }),
+                      u.jsx(
+                        o("WAWebModalManagerImplWrapper.react")
+                          .ModalManagerImplWrapper,
+                        {
+                          type: o("WAWebModalManagerImplWrapper.react")
+                            .ModalType,
+                        },
+                      ),
+                    ],
+                  },
                 ),
-              ],
-            })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
+              }),
+            },
+          ),
+        )
       );
     }
-    function g(e) {
-      var t;
-      ((c = e.callType),
-        (d = e.idHash),
-        (m = (t = e.locales) != null ? t : []),
-        r("buildWAWebCometRoot")(f, { elementId: e.elementId }));
+    y.displayName = y.name + " [from " + i.id + "]";
+    function C(e) {
+      var t, n, o;
+      ((d = e.callType),
+        (m = (t = e.errorReason) != null ? t : null),
+        (p = e.idHash),
+        (_ = e.isGuestRedirectEnabled),
+        (f = (n = e.locales) != null ? n : []),
+        (g = (o = e.signedClearStaleVCUrl) != null ? o : null),
+        r("buildWAWebCometRoot")(y, { elementId: e.elementId }));
     }
-    ((l.WAWebCallLinkCometRoot = f), (l.init = g));
+    ((l.WAWebCallLinkCometRoot = y), (l.init = C));
   },
   98,
 );

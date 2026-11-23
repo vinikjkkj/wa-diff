@@ -1,14 +1,12 @@
 __d(
   "WAWebBotReplaceMentionWidsWithPushnames",
   [
-    "Promise",
     "WALogger",
     "WAWebApiContact",
     "WAWebBotGroupGatingUtils",
     "WAWebBotUtils",
     "WAWebSchemaBotProfile",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "escapeRegex",
     "getErrorSafe",
   ],
@@ -16,9 +14,8 @@ __d(
     "use strict";
     var e,
       s,
-      u,
-      c = "Meta AI",
-      d = [
+      u = "Meta AI",
+      c = [
         function (e) {
           var t,
             n,
@@ -120,7 +117,7 @@ __d(
               };
         },
       ];
-    function m(e, t) {
+    function d(e, t) {
       if (e === "" || t.size === 0) return e;
       var n = [].concat(Array.from(t.keys())).sort(function (e, t) {
           return t.length - e.length;
@@ -134,52 +131,44 @@ __d(
         return (n = t.get(e)) != null ? n : e;
       });
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          r === void 0 && (r = "pushnameOrVerifiedName");
-          var a = new Map(),
-            i = e != null ? e : [],
-            l = i.filter(o("WAWebBotUtils").isWidStandardGroupAgentFbidWid),
-            s = i.filter(function (e) {
-              return (
-                !o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e) &&
-                !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e)
-              );
-            });
-          i.filter(o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid).forEach(
-            function (e) {
-              a.set("@" + e.user, "@" + c);
-            },
+    async function m(e, t, n) {
+      n === void 0 && (n = "pushnameOrVerifiedName");
+      var r = new Map(),
+        a = e != null ? e : [],
+        i = a.filter(o("WAWebBotUtils").isWidStandardGroupAgentFbidWid),
+        l = a.filter(function (e) {
+          return (
+            !o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid(e) &&
+            !o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e)
           );
-          var d = yield (u || (u = n("Promise"))).all([
-              s.length > 0 ? o("WAWebApiContact").bulkGetContactRecord(s) : [],
-              l.length > 0 ? g(l) : [],
-            ]),
-            m = d[0],
-            p = d[1];
-          (s.forEach(function (e, t) {
-            var n = f(e, m[t], r);
-            n != null && n !== "" && a.set("@" + e.user, "@" + n);
-          }),
-            l.forEach(function (e, t) {
-              var n = p[t];
-              n != null && n !== "" && a.set("@" + e.user, "@" + n);
-            }));
-          for (var _ of t != null ? t : []) {
-            var h = _.groupJid,
-              y = _.groupSubject;
-            y != null && y !== "" && a.set("@" + h.toString(), "@" + y);
-          }
-          return a;
-        })),
-        _.apply(this, arguments)
+        });
+      a.filter(o("WAWebBotUtils").isWidOpenGroupMetaBotFbidWid).forEach(
+        function (e) {
+          r.set("@" + e.user, "@" + u);
+        },
       );
+      var s = await Promise.all([
+          l.length > 0 ? o("WAWebApiContact").bulkGetContactRecord(l) : [],
+          i.length > 0 ? _(i) : [],
+        ]),
+        c = s[0],
+        d = s[1];
+      (l.forEach(function (e, t) {
+        var o = p(e, c[t], n);
+        o != null && o !== "" && r.set("@" + e.user, "@" + o);
+      }),
+        i.forEach(function (e, t) {
+          var n = d[t];
+          n != null && n !== "" && r.set("@" + e.user, "@" + n);
+        }));
+      for (var m of t != null ? t : []) {
+        var f = m.groupJid,
+          g = m.groupSubject;
+        g != null && g !== "" && r.set("@" + f.toString(), "@" + g);
+      }
+      return r;
     }
-    function f(e, t, n) {
+    function p(e, t, n) {
       return n === "pushname" && !e.isBot()
         ? t == null
           ? void 0
@@ -187,42 +176,34 @@ __d(
         : (t == null ? void 0 : t.pushname) ||
             (t == null ? void 0 : t.verifiedName);
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    async function _(t) {
+      try {
+        var n = await o("WAWebSchemaBotProfile")
+          .getBotProfileTable()
+          .bulkGet(
+            t.map(function (e) {
+              return e.toString();
+            }),
+          );
+        return n.map(function (e) {
+          return e == null ? void 0 : e.name;
+        });
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[botReplaceMentionWidsWithPushnames] bot profile read failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("bot-mention-agent-profile-read-failed"),
+          []
+        );
+      }
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o("WAWebSchemaBotProfile")
-              .getBotProfileTable()
-              .bulkGet(
-                e.map(function (e) {
-                  return e.toString();
-                }),
-              );
-            return t.map(function (e) {
-              return e == null ? void 0 : e.name;
-            });
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[botReplaceMentionWidsWithPushnames] bot profile read failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("bot-mention-agent-profile-read-failed"),
-              []
-            );
-          }
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    var y = [
+    var f = [
       "viewOnceMessage",
       "viewOnceMessageV2",
       "viewOnceMessageV2Extension",
@@ -231,20 +212,20 @@ __d(
       "groupMentionedMessage",
       "spoilerMessage",
     ];
-    function C(e) {
-      for (var t of d) {
+    function g(e) {
+      for (var t of c) {
         var n = t(e);
         if (n != null) return n;
       }
-      return b(e);
+      return h(e);
     }
-    function b(e) {
+    function h(e) {
       var t = function (n) {
           var t = e[n],
             r = t == null ? void 0 : t.message;
           if (t != null && r != null) {
             var o = babelHelpers.extends({}, r),
-              a = C(o);
+              a = g(o);
             if (a != null)
               return {
                 v: babelHelpers.extends({}, a, {
@@ -257,97 +238,87 @@ __d(
           }
         },
         n;
-      for (var r of y) if (((n = t(r)), n)) return n.v;
+      for (var r of f) if (((n = t(r)), n)) return n.v;
       return null;
     }
-    function v(e, t) {
-      var n = C(e);
+    function y(e, t) {
+      var n = g(e);
       if (n != null) {
-        var r = m(n.text, t);
+        var r = d(n.text, t);
         r !== n.text && n.apply(r, null);
       }
     }
-    function S(e, t) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n, r;
-          if (t != null) {
-            var a = C(e);
-            if (a != null) {
-              var i =
-                a.quotedMessage != null
-                  ? (n = C(babelHelpers.extends({}, a.quotedMessage))) == null
-                    ? void 0
-                    : n.mentionedJids
-                  : null;
-              if (
-                !(
-                  (t.length === 0 &&
-                    ((r = i == null ? void 0 : i.length) != null ? r : 0) ===
-                      0) ||
-                  !o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled()
-                )
-              ) {
-                var l = E(t, L(i));
-                if (l.length !== 0) {
-                  var s = yield p(l, null, "pushname");
-                  if (s.size !== 0) {
-                    var u = new Set(
-                        t.map(function (e) {
-                          return "@" + e.user;
-                        }),
-                      ),
-                      c = new Map(
-                        Array.from(s).filter(function (e) {
-                          var t = e[0];
-                          return u.has(t);
-                        }),
-                      ),
-                      d = m(a.text, c),
-                      _ = null;
-                    (a.quotedMessage != null &&
-                      ((_ = babelHelpers.extends({}, a.quotedMessage)),
-                      v(_, s)),
-                      (d !== a.text || _ != null) && a.apply(d, _));
-                  }
-                }
+    async function C(e, t) {
+      var n, r;
+      if (t != null) {
+        var a = g(e);
+        if (a != null) {
+          var i =
+            a.quotedMessage != null
+              ? (n = g(babelHelpers.extends({}, a.quotedMessage))) == null
+                ? void 0
+                : n.mentionedJids
+              : null;
+          if (
+            !(
+              (t.length === 0 &&
+                ((r = i == null ? void 0 : i.length) != null ? r : 0) === 0) ||
+              !o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled()
+            )
+          ) {
+            var l = v(t, b(i));
+            if (l.length !== 0) {
+              var s = await m(l, null, "pushname");
+              if (s.size !== 0) {
+                var u = new Set(
+                    t.map(function (e) {
+                      return "@" + e.user;
+                    }),
+                  ),
+                  c = new Map(
+                    Array.from(s).filter(function (e) {
+                      var t = e[0];
+                      return u.has(t);
+                    }),
+                  ),
+                  p = d(a.text, c),
+                  _ = null;
+                (a.quotedMessage != null &&
+                  ((_ = babelHelpers.extends({}, a.quotedMessage)), y(_, s)),
+                  (p !== a.text || _ != null) && a.apply(p, _));
               }
             }
           }
-        })),
-        R.apply(this, arguments)
-      );
+        }
+      }
     }
-    function L(t) {
-      var n = [],
-        a = [];
-      for (var i of t != null ? t : [])
+    function b(e) {
+      var t = [],
+        n = [];
+      for (var a of e != null ? e : [])
         try {
-          var l = o("WAWebWidFactory").createWid(i);
-          (l.isUser() || l.isBot()) && n.push(l);
+          var i = o("WAWebWidFactory").createWid(a);
+          (i.isUser() || i.isBot()) && t.push(i);
         } catch (e) {
-          a.push(e);
+          n.push(e);
         }
       return (
-        a.length > 0 &&
+        n.length > 0 &&
           o("WALogger")
             .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[botReplaceMentionWidsWithPushnames] skipped ",
                   " invalid quoted mention jids",
                 ])),
-              a.length,
+              n.length,
             )
-            .catching(r("getErrorSafe")(a[0]))
+            .catching(r("getErrorSafe")(n[0]))
             .sendLogs("bot-mention-quoted-jid-invalid"),
-        n
+        t
       );
     }
-    function E(e, t) {
+    function v(e, t) {
       var n = new Map();
       return (
         [].concat(e, t).forEach(function (e) {
@@ -356,10 +327,10 @@ __d(
         Array.from(n.values())
       );
     }
-    ((l.replaceMentionsInText = m),
-      (l.buildMentionMap = p),
-      (l.replaceMentionsInMsgText = v),
-      (l.replaceMentionWidsWithPushnames = S));
+    ((l.replaceMentionsInText = d),
+      (l.buildMentionMap = m),
+      (l.replaceMentionsInMsgText = y),
+      (l.replaceMentionWidsWithPushnames = C));
   },
   98,
 );

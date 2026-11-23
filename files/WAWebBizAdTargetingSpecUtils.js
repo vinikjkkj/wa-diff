@@ -90,11 +90,7 @@ __d(
       );
     }
     function y(e) {
-      return e === u
-        ? s._(/*BTDS*/ "Men")
-        : e === c
-          ? s._(/*BTDS*/ "Women")
-          : null;
+      return e === u ? s._(/*BTDS*/ "") : e === c ? s._(/*BTDS*/ "") : null;
     }
     function C(t) {
       var n,

@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipVideoEffectsProcessor",
   [
-    "Promise",
     "WALogger",
     "WAWebVoipBackgroundBlurStrength",
     "WAWebVoipBackgroundImages",
@@ -15,7 +14,6 @@ __d(
     "WAWebVoipVideoEffectsWorkerResource",
     "WorkerBundleResource",
     "WorkerMessagePort",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -42,16 +40,15 @@ __d(
       E,
       k,
       I,
-      T,
-      D = 15e3,
-      x = 1e3,
-      $ = 2 * x,
-      P = 15,
-      N = 1e3,
-      M = 5 * 6e4,
-      w = 3e4,
-      A = 1e3;
-    function F() {
+      T = 15e3,
+      D = 1e3,
+      x = 2 * D,
+      $ = 15,
+      P = 1e3,
+      N = 5 * 6e4,
+      M = 3e4,
+      w = 1e3;
+    function A() {
       return new (o("WorkerMessagePort").WorkerMessagePort)(
         o("WorkerBundleResource").createDedicatedWebWorker(
           r("WAWebVoipVideoEffectsWorkerResource"),
@@ -59,7 +56,7 @@ __d(
         "WAWebVoipVideoEffectsWorker",
       );
     }
-    function O() {
+    function F() {
       var e = r("WAWebVoipVideoEffectsAssetsConfig"),
         t = {
           modelUrl: e.model_url,
@@ -70,10 +67,10 @@ __d(
         throw r("err")("missing effects asset urls");
       return t;
     }
-    function B() {
+    function O() {
       return self.performance.now();
     }
-    function W() {
+    function B() {
       var e = o("WAWebVoipVideoEffectsState").getVideoEffectsSnapshot(),
         t = e.blur,
         n = e.image;
@@ -81,7 +78,7 @@ __d(
         ? { kind: "image", id: n }
         : { kind: "blur", strength: t };
     }
-    function q() {
+    function W() {
       var e = o("WAWebVoipVideoEffectsState").getVideoEffectsSnapshot(),
         t = e.blur,
         n = e.image;
@@ -92,7 +89,7 @@ __d(
           )
         : t;
     }
-    function U() {
+    function q() {
       var e = o("WAWebVoipVideoEffectsState").getVideoEffectsSnapshot(),
         t = e.blur,
         n = e.image;
@@ -100,18 +97,18 @@ __d(
         ? 0
         : t;
     }
-    function V(e, t) {
+    function U(e, t) {
       return e.kind === "blur"
         ? t.kind === "blur" && t.strength === e.strength
         : t.kind === "image" && t.id === e.id;
     }
-    function H() {
+    function V() {
       return (
         o("WAWebVoipVideoEffectsState").isVideoEffectsRequested() &&
         o("WAWebVoipVideoEffectsAvailability").isVideoEffectsAvailable()
       );
     }
-    var G = (function () {
+    var H = (function () {
         function t() {
           ((this.$1 = null),
             (this.$2 = !1),
@@ -139,16 +136,16 @@ __d(
               "WAWebVoipVideoEffectsOverloadDetector",
             ).WAWebVoipVideoEffectsOverloadDetector)()));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.shouldProcess = function () {
+          (n.shouldProcess = function () {
             var e = this,
-              t = B(),
+              t = O(),
               n = t - this.$8;
             ((this.$8 = t),
               this.$4 ||
                 ((this.$4 = !0),
-                (this.$3 = H()),
+                (this.$3 = V()),
                 o("WAWebVoipVideoEffectsState").subscribeToVideoEffects(
                   function () {
                     return e.$22();
@@ -162,55 +159,53 @@ __d(
             var r = this.$5;
             return (
               (this.$5 = !0),
-              (n >= M || (this.$6 && (n > N || this.$7))) && this.$24(),
+              (n >= N || (this.$6 && (n > P || this.$7))) && this.$24(),
               this.$25(),
               r || this.$26(),
               this.$3 ? ((this.$9 = t), this.$2) : !1
             );
           }),
-          (a.process = function (a) {
+          (n.process = function (n) {
             var t = this,
-              i = this.$1;
-            if (i == null || !this.$2 || !this.$3)
-              return (T || (T = n("Promise"))).resolve(a);
-            if (this.$12.size > 0)
-              return (a.close(), (T || (T = n("Promise"))).resolve(null));
-            var l = this.$13++,
-              u = B();
-            return new (T || (T = n("Promise")))(function (n) {
-              var c = { resolve: n, sentAtMs: u, timeoutId: 0 },
-                d = function (a) {
-                  if (t.$12.get(l) === c) {
-                    if (!a && B() - u > $) {
+              a = this.$1;
+            if (a == null || !this.$2 || !this.$3) return Promise.resolve(n);
+            if (this.$12.size > 0) return (n.close(), Promise.resolve(null));
+            var i = this.$13++,
+              l = O();
+            return new Promise(function (u) {
+              var c = { resolve: u, sentAtMs: l, timeoutId: 0 },
+                d = function (r) {
+                  if (t.$12.get(i) === c) {
+                    if (!r && O() - l > x) {
                       c.timeoutId = self.setTimeout(function () {
                         return d(!0);
-                      }, x);
+                      }, D);
                       return;
                     }
-                    (t.$12.delete(l),
-                      n(null),
+                    (t.$12.delete(i),
+                      u(null),
                       o("WALogger").WARN(
                         e ||
                           (e = babelHelpers.taggedTemplateLiteralLoose([
                             "voip: [effects] frame not processed within ",
                             " ms",
                           ])),
-                        x,
+                        D,
                       ),
                       t.$27("failed"));
                   }
                 };
               ((c.timeoutId = self.setTimeout(function () {
                 return d(!1);
-              }, x)),
-                t.$12.set(l, c));
+              }, D)),
+                t.$12.set(i, c));
               try {
-                i.postMessage({ type: "processFrame", id: l, frame: a }, [a]);
+                a.postMessage({ type: "processFrame", id: i, frame: n }, [n]);
               } catch (e) {
                 (self.clearTimeout(c.timeoutId),
-                  t.$12.delete(l),
-                  a.close(),
-                  n(null),
+                  t.$12.delete(i),
+                  n.close(),
+                  u(null),
                   o("WALogger")
                     .ERROR(
                       s ||
@@ -223,16 +218,16 @@ __d(
               }
             });
           }),
-          (a.recordCallEnd = function () {
+          (n.recordCallEnd = function () {
             this.$4 && ((this.$6 = !0), this.$28());
           }),
-          (a.recordCallStart = function () {
+          (n.recordCallStart = function () {
             this.$7 = this.$6;
           }),
-          (a.$25 = function () {
-            !this.$3 && H() && this.$22();
+          (n.$25 = function () {
+            !this.$3 && V() && this.$22();
           }),
-          (a.$22 = function () {
+          (n.$22 = function () {
             if (
               o("WAWebVoipVideoEffectsState").isVideoEffectsRequested() &&
               o("WAWebVoipVideoEffectsAvailability").isVideoEffectsTooSlow()
@@ -243,14 +238,14 @@ __d(
             var e = this.$1,
               t = this.$15;
             e != null && t != null && this.$29(e, t);
-            var n = H();
+            var n = V();
             n !== this.$3 &&
-              ((this.$3 = n), n && (this.$9 = B()), this.$30(), this.$26());
+              ((this.$3 = n), n && (this.$9 = O()), this.$30(), this.$26());
           }),
-          (a.$31 = function () {
+          (n.$31 = function () {
             return this.$3 && this.$5;
           }),
-          (a.$26 = function () {
+          (n.$26 = function () {
             var e = this;
             if ((this.$28(), !this.$31())) {
               (this.$32(),
@@ -270,19 +265,19 @@ __d(
                         "voip: [effects] effects worker not ready within ",
                         " ms",
                       ])),
-                    D,
+                    T,
                   ),
                   e.$27("start_timeout"));
-              }, D)),
+              }, T)),
               o("WAWebVoipVideoEffectsState").setVideoEffectsStatus("starting"),
               this.$1 == null && this.$31() && this.$33());
           }),
-          (a.$33 = function () {
+          (n.$33 = function () {
             var e = this;
             o("WAWebVoipVideoEffectsODS").logVideoEffects("worker_start");
             var t;
             try {
-              t = F();
+              t = A();
             } catch (e) {
               (o("WALogger")
                 .ERROR(
@@ -296,7 +291,7 @@ __d(
               return;
             }
             this.$1 = t;
-            var n = B();
+            var n = O();
             (o("WALogger").LOG(
               d ||
                 (d = babelHelpers.taggedTemplateLiteralLoose([
@@ -307,7 +302,7 @@ __d(
                 if (e.$1 === t) {
                   var n;
                   try {
-                    n = O();
+                    n = F();
                   } catch (t) {
                     (o("WALogger")
                       .ERROR(
@@ -338,7 +333,7 @@ __d(
                         "), gpu=",
                         "",
                       ])),
-                    Math.round(B() - n),
+                    Math.round(O() - n),
                     Math.round(i),
                     s,
                     a,
@@ -420,7 +415,7 @@ __d(
                 e.$14 = 0;
                 var s = e.$36(a, r);
                 if (s != null) {
-                  var u = B();
+                  var u = O();
                   e.$20.recordProcessed(u, {
                     roundTripMs: u - s,
                     segmented: l,
@@ -429,7 +424,7 @@ __d(
                 }
                 (e.$30(),
                   l &&
-                    e.$21.record(i, B()) &&
+                    e.$21.record(i, O()) &&
                     (o("WALogger").WARN(
                       g ||
                         (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -443,10 +438,10 @@ __d(
                   a = n.id;
                 e.$1 === t &&
                   (e.$36(a, null),
-                  e.$20.recordFailed(B()),
+                  e.$20.recordFailed(O()),
                   e.$30(),
                   e.$14++,
-                  e.$14 >= P &&
+                  e.$14 >= $ &&
                     (o("WALogger").WARN(
                       h ||
                         (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -508,28 +503,28 @@ __d(
                   e.$27(e.$2 ? "failed" : "start_error"));
               }));
           }),
-          (a.$29 = function (t, n) {
-            if (!V(n, W())) {
+          (n.$29 = function (t, n) {
+            if (!U(n, B())) {
               this.$34(t);
               return;
             }
             if (this.$17) {
-              var e = U();
+              var e = q();
               e !== this.$18 &&
                 ((this.$18 = e),
                 t.postMessage({ type: "setImageBlur", strength: e }));
-            } else !this.$16 && q() !== this.$19 && this.$37(t);
+            } else !this.$16 && W() !== this.$19 && this.$37(t);
           }),
-          (a.$34 = function (t) {
-            var e = W(),
+          (n.$34 = function (t) {
+            var e = B(),
               n = this.$15 == null;
             ((this.$15 = e),
               (this.$17 = !1),
               (e.kind === "blur" || n) && this.$37(t),
               e.kind === "image" && this.$38(t, e));
           }),
-          (a.$37 = function (t) {
-            var e = q(),
+          (n.$37 = function (t) {
+            var e = W(),
               n = {
                 kind: "blur",
                 level: o("WAWebVoipBackgroundBlurStrength").getNearestBlurLevel(
@@ -539,105 +534,92 @@ __d(
               };
             (t.postMessage({ type: "setEffect", effect: n }), (this.$19 = e));
           }),
-          (a.$38 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = this,
-                  a = function () {
-                    return n.$1 === e && n.$15 === t;
-                  };
-                this.$16 = !0;
-                var i, l;
-                try {
-                  ((i = yield o("WAWebVoipBackgroundImages").getBackgroundImage(
-                    t.id,
-                  )),
-                    (l = a() ? yield j(i) : []));
-                } catch (n) {
-                  if (!a()) return;
-                  ((this.$16 = !1),
-                    o("WAWebVoipBackgroundImages").isBackgroundImageUnusable(
-                      t.id,
-                    )
-                      ? (o("WALogger")
-                          .WARN(
-                            S ||
-                              (S = babelHelpers.taggedTemplateLiteralLoose([
-                                "voip: [effects] background ",
-                                " can't be shown, blurring instead",
-                              ])),
-                            t.id,
-                          )
-                          .catching(r("getErrorSafe")(n)),
-                        o(
-                          "WAWebVoipVideoEffectsState",
-                        ).blurInsteadOfBackgroundImage())
-                      : (o("WALogger")
-                          .WARN(
-                            R ||
-                              (R = babelHelpers.taggedTemplateLiteralLoose([
-                                "voip: [effects] background ",
-                                " didn't load, blurring until it does",
-                              ])),
-                            t.id,
-                          )
-                          .catching(r("getErrorSafe")(n)),
-                        this.$37(e)));
-                  return;
-                }
-                var s = function () {
-                  for (var e of l) e.close();
-                };
-                if (!a()) {
-                  s();
-                  return;
-                }
-                this.$16 = !1;
-                var u = U(),
-                  c = {
-                    blur: u,
-                    columns: i.columns,
-                    kind: "image",
-                    rows: i.rows,
-                    tiles: l,
-                  };
-                try {
-                  e.postMessage(
-                    { type: "setEffect", effect: c },
-                    Array.from(l),
-                  );
-                } catch (e) {
-                  (s(),
-                    o("WALogger")
-                      .ERROR(
-                        L ||
-                          (L = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [effects] could not send background ",
-                            " to the worker",
+          (n.$38 = async function (t, n) {
+            var e = this,
+              a = function () {
+                return e.$1 === t && e.$15 === n;
+              };
+            this.$16 = !0;
+            var i, l;
+            try {
+              ((i = await o("WAWebVoipBackgroundImages").getBackgroundImage(
+                n.id,
+              )),
+                (l = a() ? await z(i) : []));
+            } catch (e) {
+              if (!a()) return;
+              ((this.$16 = !1),
+                o("WAWebVoipBackgroundImages").isBackgroundImageUnusable(n.id)
+                  ? (o("WALogger")
+                      .WARN(
+                        S ||
+                          (S = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [effects] background ",
+                            " can't be shown, blurring instead",
                           ])),
-                        t.id,
+                        n.id,
                       )
-                      .catching(r("getErrorSafe")(e)));
-                  return;
-                }
-                ((this.$17 = !0),
-                  (this.$18 = u),
-                  o("WALogger").LOG(
-                    E ||
-                      (E = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [effects] showing background ",
-                        "",
-                      ])),
-                    t.id,
-                  ));
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+                      .catching(r("getErrorSafe")(e)),
+                    o(
+                      "WAWebVoipVideoEffectsState",
+                    ).blurInsteadOfBackgroundImage())
+                  : (o("WALogger")
+                      .WARN(
+                        R ||
+                          (R = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [effects] background ",
+                            " didn't load, blurring until it does",
+                          ])),
+                        n.id,
+                      )
+                      .catching(r("getErrorSafe")(e)),
+                    this.$37(t)));
+              return;
             }
-            return t;
-          })()),
-          (a.$23 = function (t) {
+            var s = function () {
+              for (var e of l) e.close();
+            };
+            if (!a()) {
+              s();
+              return;
+            }
+            this.$16 = !1;
+            var u = q(),
+              c = {
+                blur: u,
+                columns: i.columns,
+                kind: "image",
+                rows: i.rows,
+                tiles: l,
+              };
+            try {
+              t.postMessage({ type: "setEffect", effect: c }, Array.from(l));
+            } catch (e) {
+              (s(),
+                o("WALogger")
+                  .ERROR(
+                    L ||
+                      (L = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [effects] could not send background ",
+                        " to the worker",
+                      ])),
+                    n.id,
+                  )
+                  .catching(r("getErrorSafe")(e)));
+              return;
+            }
+            ((this.$17 = !0),
+              (this.$18 = u),
+              o("WALogger").LOG(
+                E ||
+                  (E = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [effects] showing background ",
+                    "",
+                  ])),
+                n.id,
+              ));
+          }),
+          (n.$23 = function (t) {
             var e = this.$1,
               n = this.$15;
             e != null &&
@@ -647,7 +629,7 @@ __d(
               !this.$17 &&
               this.$38(e, n);
           }),
-          (a.$36 = function (t, n) {
+          (n.$36 = function (t, n) {
             var e = this.$12.get(t);
             return e == null
               ? (n == null || n.close(), null)
@@ -656,10 +638,10 @@ __d(
                 e.resolve(n),
                 e.sentAtMs);
           }),
-          (a.$30 = function () {
+          (n.$30 = function () {
             !this.$3 && this.$12.size === 0 && this.$39(this.$20.take());
           }),
-          (a.$39 = function (t) {
+          (n.$39 = function (t) {
             if (t != null) {
               var e = function (t) {
                 return t.toFixed(1);
@@ -690,14 +672,14 @@ __d(
               );
             }
           }),
-          (a.$27 = function (t) {
+          (n.$27 = function (t) {
             var e = this.$31();
             (this.$35(),
               e
                 ? o("WAWebVoipVideoEffectsState").stopVideoEffects(t)
                 : this.$26());
           }),
-          (a.$35 = function () {
+          (n.$35 = function () {
             this.$39(this.$20.take());
             var e = this.$1;
             ((this.$1 = null),
@@ -717,7 +699,7 @@ __d(
               }),
               e == null || e.close());
           }),
-          (a.$28 = function () {
+          (n.$28 = function () {
             var e = this,
               t =
                 this.$1 != null ||
@@ -728,22 +710,22 @@ __d(
             t && this.$11 == null
               ? (this.$11 = self.setInterval(function () {
                   return e.$40();
-                }, A))
+                }, w))
               : !t &&
                 this.$11 != null &&
                 (self.clearInterval(this.$11), (this.$11 = null));
           }),
-          (a.$40 = function () {
-            var e = B();
+          (n.$40 = function () {
+            var e = O();
             (this.$39(this.$20.takeIfDue(e)),
               this.$5 &&
                 this.$12.size === 0 &&
-                e - this.$8 > N &&
+                e - this.$8 > P &&
                 ((this.$5 = !1), this.$39(this.$20.take()), this.$26()),
-              !this.$5 && (this.$6 || e - this.$8 >= M) && this.$24(),
+              !this.$5 && (this.$6 || e - this.$8 >= N) && this.$24(),
               this.$1 != null &&
                 !this.$31() &&
-                e - this.$9 > w &&
+                e - this.$9 > M &&
                 (o("WALogger").LOG(
                   I ||
                     (I = babelHelpers.taggedTemplateLiteralLoose([
@@ -757,46 +739,38 @@ __d(
                 this.$26()),
               this.$28());
           }),
-          (a.$24 = function () {
+          (n.$24 = function () {
             ((this.$6 = !1),
               (this.$7 = !1),
               o(
                 "WAWebVoipVideoEffectsState",
               ).restoreRememberedVideoEffectsChoice());
           }),
-          (a.$32 = function () {
+          (n.$32 = function () {
             this.$10 != null &&
               (self.clearTimeout(this.$10), (this.$10 = null));
           }),
           t
         );
       })(),
-      z = new G();
-    function j(e) {
-      return K.apply(this, arguments);
+      G = new H();
+    async function z(e) {
+      var t = await Promise.allSettled(
+          e.tiles.map(function (e) {
+            return createImageBitmap(e);
+          }),
+        ),
+        n = t.flatMap(function (e) {
+          return e.status === "fulfilled" ? [e.value] : [];
+        });
+      for (var o of t)
+        if (o.status === "rejected") {
+          for (var a of n) a.close();
+          throw r("getErrorSafe")(o.reason);
+        }
+      return n;
     }
-    function K() {
-      return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (T || (T = n("Promise"))).allSettled(
-              e.tiles.map(function (e) {
-                return createImageBitmap(e);
-              }),
-            ),
-            o = t.flatMap(function (e) {
-              return e.status === "fulfilled" ? [e.value] : [];
-            });
-          for (var a of t)
-            if (a.status === "rejected") {
-              for (var i of o) i.close();
-              throw r("getErrorSafe")(a.reason);
-            }
-          return o;
-        })),
-        K.apply(this, arguments)
-      );
-    }
-    ((l.WAWebVoipVideoEffectsProcessor = G), (l.videoEffectsProcessor = z));
+    ((l.WAWebVoipVideoEffectsProcessor = H), (l.videoEffectsProcessor = G));
   },
   98,
 );

@@ -15,24 +15,24 @@ __d(
           )
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "CLABE");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy CLABE");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "CLABE copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[d(c.UprPaymentAccountType.QR_CODE, c.UprIdentifierType.QRIS)] = {
           label: function () {
-            return s._(/*BTDS*/ "QRIS");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy QR code");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "QR code copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[
@@ -42,13 +42,13 @@ __d(
           )
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "Phone number");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy phone number");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "Phone number copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[
@@ -58,13 +58,13 @@ __d(
           )
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "Account number");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy account number");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "Account number copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[
@@ -74,13 +74,13 @@ __d(
           )
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "Phone number");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy phone number");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "Phone number copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[
@@ -90,50 +90,50 @@ __d(
           )
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "Phone number");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy phone number");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "Phone number copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[d(c.UprPaymentAccountType.BANK_ACCOUNT, c.UprIdentifierType.EMAIL)] =
           {
             label: function () {
-              return s._(/*BTDS*/ "Email");
+              return s._(/*BTDS*/ "");
             },
             copyLabel: function () {
-              return s._(/*BTDS*/ "Copy email");
+              return s._(/*BTDS*/ "");
             },
             copySuccessToast: function () {
-              return s._(/*BTDS*/ "Email copied");
+              return s._(/*BTDS*/ "");
             },
           }),
         (e[
           d(c.UprPaymentAccountType.DIGITAL_WALLET, c.UprIdentifierType.EMAIL)
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "Email");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy email");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "Email copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[d(c.UprPaymentAccountType.BANK_ACCOUNT, c.UprIdentifierType.IBAN)] =
           {
             label: function () {
-              return s._(/*BTDS*/ "IBAN");
+              return s._(/*BTDS*/ "");
             },
             copyLabel: function () {
-              return s._(/*BTDS*/ "Copy IBAN");
+              return s._(/*BTDS*/ "");
             },
             copySuccessToast: function () {
-              return s._(/*BTDS*/ "IBAN copied");
+              return s._(/*BTDS*/ "");
             },
           }),
         (e[
@@ -143,13 +143,13 @@ __d(
           )
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "Account number");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy account number");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "Account number copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[
@@ -159,13 +159,13 @@ __d(
           )
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "Account number");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy account number");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "Account number copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[
@@ -175,59 +175,59 @@ __d(
           )
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "Account number");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy account number");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "Account number copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[d(c.UprPaymentAccountType.BANK_ACCOUNT, c.UprIdentifierType.FPSID)] =
           {
             label: function () {
-              return s._(/*BTDS*/ "FPS ID");
+              return s._(/*BTDS*/ "");
             },
             copyLabel: function () {
-              return s._(/*BTDS*/ "Copy FPS ID");
+              return s._(/*BTDS*/ "");
             },
             copySuccessToast: function () {
-              return s._(/*BTDS*/ "FPS ID copied");
+              return s._(/*BTDS*/ "");
             },
           }),
         (e[d(c.UprPaymentAccountType.BANK_ACCOUNT, c.UprIdentifierType.CBU)] = {
           label: function () {
-            return s._(/*BTDS*/ "CBU");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy CBU");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "CBU copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[d(c.UprPaymentAccountType.DIGITAL_WALLET, c.UprIdentifierType.CVU)] =
           {
             label: function () {
-              return s._(/*BTDS*/ "CVU");
+              return s._(/*BTDS*/ "");
             },
             copyLabel: function () {
-              return s._(/*BTDS*/ "Copy CVU");
+              return s._(/*BTDS*/ "");
             },
             copySuccessToast: function () {
-              return s._(/*BTDS*/ "CVU copied");
+              return s._(/*BTDS*/ "");
             },
           }),
         (e[d(c.UprPaymentAccountType.BANK_ACCOUNT, c.UprIdentifierType.CCI)] = {
           label: function () {
-            return s._(/*BTDS*/ "CCI");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy CCI");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "CCI copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[
@@ -237,13 +237,13 @@ __d(
           )
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "Document ID");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy document ID");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "Document ID copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[
@@ -253,13 +253,13 @@ __d(
           )
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "National ID");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy national ID");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "National ID copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[
@@ -269,35 +269,35 @@ __d(
           )
         ] = {
           label: function () {
-            return s._(/*BTDS*/ "Branch code");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy branch code");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "Branch code copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[d(c.UprPaymentAccountType.BANK_ACCOUNT, c.UprIdentifierType.RUC)] = {
           label: function () {
-            return s._(/*BTDS*/ "RUC");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy RUC");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "RUC copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[d(c.UprPaymentAccountType.BANK_ACCOUNT, c.UprIdentifierType.RUT)] = {
           label: function () {
-            return s._(/*BTDS*/ "RUT");
+            return s._(/*BTDS*/ "");
           },
           copyLabel: function () {
-            return s._(/*BTDS*/ "Copy RUT");
+            return s._(/*BTDS*/ "");
           },
           copySuccessToast: function () {
-            return s._(/*BTDS*/ "RUT copied");
+            return s._(/*BTDS*/ "");
           },
         }),
         e),
@@ -328,13 +328,13 @@ __d(
         r = t.sentence;
       return {
         label: function () {
-          return s._(/*BTDS*/ "{method}", [s._param("method", n)]);
+          return s._(/*BTDS*/ "", [s._param("method", n)]);
         },
         copyLabel: function () {
-          return s._(/*BTDS*/ "Copy {method}", [s._param("method", r)]);
+          return s._(/*BTDS*/ "", [s._param("method", r)]);
         },
         copySuccessToast: function () {
-          return s._(/*BTDS*/ "{method} copied", [s._param("method", r)]);
+          return s._(/*BTDS*/ "", [s._param("method", r)]);
         },
       };
     }

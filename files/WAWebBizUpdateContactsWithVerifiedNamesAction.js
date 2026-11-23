@@ -6,7 +6,6 @@ __d(
     "WAWebContactCollection",
     "WAWebHandleMsgTypes",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -40,48 +39,40 @@ __d(
         }
       }
     }
-    function s() {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = (yield o(
-            "WAWebApiVerifiedBusinessName",
-          ).getAllVerifiedNames()).map(function (e) {
-            var t = e.id,
-              n = e.isApi,
-              a = e.isSmb,
-              i = e.level,
-              l = e.name,
-              s = e.privacyMode;
-            return {
-              id: o("WAWebWidFactory").createUserWidOrThrow(t),
-              name: l,
-              level: i,
-              isApi: n,
-              isSmb: a,
-              privacyMode: s
-                ? {
-                    actualActors: r("nullthrows")(
-                      o("WAWebHandleMsgTypes").ActualActorsEnumType.cast(
-                        s.actualActors,
-                      ),
-                    ),
-                    hostStorage: r("nullthrows")(
-                      o("WAWebHandleMsgTypes").HostStorageEnumType.cast(
-                        s.hostStorage,
-                      ),
-                    ),
-                    privacyModeTs: s.privacyModeTs,
-                  }
-                : null,
-            };
-          });
-          e(t, o("WAWebContactCollection").ContactCollection.toArray());
-        })),
-        u.apply(this, arguments)
-      );
+    async function s() {
+      var t = (
+        await o("WAWebApiVerifiedBusinessName").getAllVerifiedNames()
+      ).map(function (e) {
+        var t = e.id,
+          n = e.isApi,
+          a = e.isSmb,
+          i = e.level,
+          l = e.name,
+          s = e.privacyMode;
+        return {
+          id: o("WAWebWidFactory").createUserWidOrThrow(t),
+          name: l,
+          level: i,
+          isApi: n,
+          isSmb: a,
+          privacyMode: s
+            ? {
+                actualActors: r("nullthrows")(
+                  o("WAWebHandleMsgTypes").ActualActorsEnumType.cast(
+                    s.actualActors,
+                  ),
+                ),
+                hostStorage: r("nullthrows")(
+                  o("WAWebHandleMsgTypes").HostStorageEnumType.cast(
+                    s.hostStorage,
+                  ),
+                ),
+                privacyModeTs: s.privacyModeTs,
+              }
+            : null,
+        };
+      });
+      e(t, o("WAWebContactCollection").ContactCollection.toArray());
     }
     ((l.updateContactsWithVerifiedNames = e),
       (l.applyContactBusinessProps = s));

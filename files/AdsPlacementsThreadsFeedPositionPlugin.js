@@ -30,11 +30,16 @@ __d(
     function e() {
       return r("gkx")("19623") ? u("947346") : u("841197");
     }
-    var c = {
+    function c() {
+      return r("gkx")("15112")
+        ? r("immutable").OrderedSet([])
+        : r("immutable").OrderedSet(["instagram/stream"]);
+    }
+    var d = {
         type: "placements/position",
         key: "threads/stream",
         name: r("AdsPlacementPositionLabelConstant").threads_stream,
-        nameWithPlatform: s._(/*BTDS*/ "Threads feed"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION
             .THREADS_FEED,
@@ -52,7 +57,7 @@ __d(
           if (e) return e;
           var n = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(c, t);
+          ).getSOOBundleParentIneligibilityReason(d, t);
           if (n != null) return n;
           if (t.isReelsTrendingAds === !0)
             return o(
@@ -137,7 +142,7 @@ __d(
         getDefaultPreview: function () {
           return "previews/threads_stream";
         },
-        parentPlacements: r("immutable").OrderedSet(["instagram/stream"]),
+        parentPlacements: c(),
         childPlacements: r("immutable").OrderedSet([]),
         adsetReducer: function (t, n) {
           var e = n.action;
@@ -192,8 +197,8 @@ __d(
           return t;
         },
       },
-      d = c;
-    l.default = d;
+      m = d;
+    l.default = m;
   },
   226,
 );

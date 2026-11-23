@@ -2,6 +2,7 @@ __d(
   "MAIBAChatAppReducerPlugin",
   [
     "CSS",
+    "ExecutionEnvironment",
     "MAIBAChatAppStore",
     "MAIBAChatAppUtils",
     "MAIBAChatConstants",
@@ -9,10 +10,10 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = {
-        reduce: function (t, n) {
-          var e,
-            a,
+    var e,
+      s = {
+        reduce: function (n, a) {
+          var t,
             i,
             l,
             s,
@@ -45,198 +46,202 @@ __d(
             w,
             A,
             F,
-            O = t.chatWindowWidth,
-            B = t.entrypoint,
-            W = t.isMAIBAChatAppOpen,
-            q = t.selectedChatState,
-            U = t.isFullScreen,
-            V = t.surfaceMode,
-            H = t.shouldAutoExpandThreadList;
-          switch ((e = n.windowAction) == null ? void 0 : e.actionType) {
+            O,
+            B = n.chatWindowWidth,
+            W = n.entrypoint,
+            q = n.isMAIBAChatAppOpen,
+            U = n.selectedChatState,
+            V = n.isFullScreen,
+            H = n.surfaceMode,
+            G = n.shouldAutoExpandThreadList;
+          switch ((t = a.windowAction) == null ? void 0 : t.actionType) {
             case "open":
-              ((W = !0),
-                (U =
-                  (a =
-                    (i = n.windowAction) == null ? void 0 : i.isFullScreen) !=
-                  null
-                    ? a
-                    : U),
+              ((q = !0),
                 (V =
-                  (l = (s = n.windowAction) == null ? void 0 : s.surfaceMode) !=
+                  (i =
+                    (l = a.windowAction) == null ? void 0 : l.isFullScreen) !=
                   null
-                    ? l
+                    ? i
                     : V),
                 (H =
-                  (u =
-                    (c = n.windowAction) == null
+                  (s = (u = a.windowAction) == null ? void 0 : u.surfaceMode) !=
+                  null
+                    ? s
+                    : H),
+                (G =
+                  (c =
+                    (d = a.windowAction) == null
                       ? void 0
-                      : c.shouldAutoExpandThreadList) != null
-                    ? u
-                    : H));
+                      : d.shouldAutoExpandThreadList) != null
+                    ? c
+                    : G));
               break;
             case "close":
-              ((W = !1), (V = "none"));
+              ((q = !1), (H = "none"));
               break;
             case "toggle":
-              t.isMAIBAChatAppOpen &&
-              (((d = t.selectedChatState) == null
+              n.isMAIBAChatAppOpen &&
+              (((m = n.selectedChatState) == null
                 ? void 0
-                : d.externalConversationId) == null ||
-                t.selectedChatState.externalConversationId === "")
-                ? ((W = !1), (V = "none"))
-                : ((W = !0), (q = {}));
+                : m.externalConversationId) == null ||
+                n.selectedChatState.externalConversationId === "")
+                ? ((q = !1), (H = "none"))
+                : ((q = !0), (U = {}));
               break;
             case "resize":
-              ((O =
-                (m =
-                  (p = n.windowAction) == null ? void 0 : p.chatWindowWidth) !=
+              ((B =
+                (p =
+                  (_ = a.windowAction) == null ? void 0 : _.chatWindowWidth) !=
                 null
-                  ? m
-                  : O),
-                (U =
-                  (_ =
-                    (f = n.windowAction) == null ? void 0 : f.isFullScreen) !=
-                  null
-                    ? _
-                    : U),
+                  ? p
+                  : B),
                 (V =
-                  (g = (h = n.windowAction) == null ? void 0 : h.surfaceMode) !=
+                  (f =
+                    (g = a.windowAction) == null ? void 0 : g.isFullScreen) !=
                   null
-                    ? g
+                    ? f
                     : V),
                 (H =
-                  (y =
-                    (C = n.windowAction) == null
+                  (h = (y = a.windowAction) == null ? void 0 : y.surfaceMode) !=
+                  null
+                    ? h
+                    : H),
+                (G =
+                  (C =
+                    (b = a.windowAction) == null
                       ? void 0
-                      : C.shouldAutoExpandThreadList) != null
-                    ? y
-                    : H));
+                      : b.shouldAutoExpandThreadList) != null
+                    ? C
+                    : G));
               break;
             case "noopUpdate":
-              ((W =
-                (b =
-                  (v = n.windowAction) == null
+              ((q =
+                (v =
+                  (S = a.windowAction) == null
                     ? void 0
-                    : v.isMAIBAChatAppOpen) != null
-                  ? b
-                  : W),
-                (O =
-                  (S =
-                    (R = n.windowAction) == null
+                    : S.isMAIBAChatAppOpen) != null
+                  ? v
+                  : q),
+                (B =
+                  (R =
+                    (L = a.windowAction) == null
                       ? void 0
-                      : R.chatWindowWidth) != null
-                    ? S
-                    : O),
-                (U =
-                  (L =
-                    (E = n.windowAction) == null ? void 0 : E.isFullScreen) !=
-                  null
-                    ? L
-                    : U),
+                      : L.chatWindowWidth) != null
+                    ? R
+                    : B),
                 (V =
-                  (k = (I = n.windowAction) == null ? void 0 : I.surfaceMode) !=
+                  (E =
+                    (k = a.windowAction) == null ? void 0 : k.isFullScreen) !=
                   null
-                    ? k
+                    ? E
                     : V),
                 (H =
-                  (T =
-                    (D = n.windowAction) == null
+                  (I = (T = a.windowAction) == null ? void 0 : T.surfaceMode) !=
+                  null
+                    ? I
+                    : H),
+                (G =
+                  (D =
+                    (x = a.windowAction) == null
                       ? void 0
-                      : D.shouldAutoExpandThreadList) != null
-                    ? T
-                    : H));
+                      : x.shouldAutoExpandThreadList) != null
+                    ? D
+                    : G));
               break;
             default:
               break;
           }
-          var G =
-            (x = ($ = n.chatAction) == null ? void 0 : $.selectedChatState) !=
+          var z =
+            ($ = (P = a.chatAction) == null ? void 0 : P.selectedChatState) !=
             null
-              ? x
+              ? $
               : {};
-          switch ((P = n.chatAction) == null ? void 0 : P.actionType) {
+          switch ((N = a.chatAction) == null ? void 0 : N.actionType) {
             case "open":
-              ((B = o("MAIBAChatAppUtils").getMAIBAEntrypointForOpenAction(
-                (N = n.chatAction) == null ? void 0 : N.entrypoint,
-                t.entrypoint,
-                G.isExplicitNewThread,
+              ((W = o("MAIBAChatAppUtils").getMAIBAEntrypointForOpenAction(
+                (M = a.chatAction) == null ? void 0 : M.entrypoint,
+                n.entrypoint,
+                z.isExplicitNewThread,
               )),
-                (q = {
-                  entrypointOverride: G.entrypointOverride,
-                  externalConversationId: G.externalConversationId,
-                  initialSelectedAssets: G.initialSelectedAssets,
-                  isExplicitNewThread: G.isExplicitNewThread,
+                (U = {
+                  entrypointOverride: z.entrypointOverride,
+                  externalConversationId: z.externalConversationId,
+                  initialSelectedAssets: z.initialSelectedAssets,
+                  isExplicitNewThread: z.isExplicitNewThread,
                   linkedAdAccountId:
-                    (M = G.linkedAdAccountId) != null
-                      ? M
-                      : G.externalConversationId == null
-                        ? (w =
-                            (A = t.selectedChatState) == null
+                    (w = z.linkedAdAccountId) != null
+                      ? w
+                      : z.externalConversationId == null
+                        ? (A =
+                            (F = n.selectedChatState) == null
                               ? void 0
-                              : A.linkedAdAccountId) != null
-                          ? w
+                              : F.linkedAdAccountId) != null
+                          ? A
                           : r("getMAIBAPageAdAccountID")()
                         : null,
                   pendingExternalConversationId:
-                    G.pendingExternalConversationId,
-                  pendingUserInput: G.pendingUserInput,
-                  pfrAdObjectIDs: G.pfrAdObjectIDs,
-                  pfrAdObjectTree: G.pfrAdObjectTree,
-                  showConsentDisclaimer: G.showConsentDisclaimer,
-                  showMAIBAChatDisclosure: G.showMAIBAChatDisclosure,
+                    z.pendingExternalConversationId,
+                  pendingUserInput: z.pendingUserInput,
+                  pfrAdObjectIDs: z.pfrAdObjectIDs,
+                  pfrAdObjectTree: z.pfrAdObjectTree,
+                  showConsentDisclaimer: z.showConsentDisclaimer,
+                  showMAIBAChatDisclosure: z.showMAIBAChatDisclosure,
                 }),
-                G.externalConversationId !==
-                  ((F = t.selectedChatState) == null
+                z.externalConversationId !==
+                  ((O = n.selectedChatState) == null
                     ? void 0
-                    : F.externalConversationId) &&
-                  V === "canvas" &&
-                  (V = "none"));
+                    : O.externalConversationId) &&
+                  H === "canvas" &&
+                  (H = "none"));
               break;
             default:
               break;
           }
-          (V === "canvas" && !U && (V = "none"),
-            V === "workspace" && U && (V = "none"));
-          var z = {
-              chatWindowWidth: W
-                ? O
+          (H === "canvas" && !V && (H = "none"),
+            H === "workspace" && V && (H = "none"));
+          var j = {
+              chatWindowWidth: q
+                ? B
                 : o("MAIBAChatConstants").DEFAULT_CHAT_WINDOW_WIDTH,
-              entrypoint: B,
-              isFullScreen: U,
-              isMAIBAChatAppOpen: W,
-              selectedChatState: q,
-              shouldAutoExpandThreadList: H,
-              surfaceMode: W ? V : "none",
+              entrypoint: W,
+              isFullScreen: V,
+              isMAIBAChatAppOpen: q,
+              selectedChatState: U,
+              shouldAutoExpandThreadList: G,
+              surfaceMode: q ? H : "none",
               noopUpdated: !0,
             },
-            j = o("MAIBAChatAppUtils").getMAIBAChatWindowWidthForState(z);
+            K = o("MAIBAChatAppUtils").getMAIBAChatWindowWidthForState(j);
           if (
+            (e || (e = r("ExecutionEnvironment"))).canUseDOM &&
             document.body &&
             o("MAIBAChatAppStore").shouldUseLaminarForMAIBA()
           ) {
-            var K;
+            var Q;
             (o("CSS").conditionClass(
               document.body,
               "has-maibachat",
-              o("MAIBAChatAppUtils").isMAIBANormalSidePanelState(z),
+              o("MAIBAChatAppUtils").isMAIBANormalSidePanelState(j) &&
+                !o("MAIBAChatAppStore").isMAIBAChatDockedByHost(),
             ),
-              ((K = n.windowAction) == null ? void 0 : K.actionType) ===
+              ((Q = a.windowAction) == null ? void 0 : Q.actionType) ===
                 "resize" &&
+                !o("MAIBAChatAppStore").isMAIBAChatDockedByHost() &&
                 document.documentElement.style.setProperty(
                   "--ads-maiba-chat-window-width",
-                  j + "px",
+                  K + "px",
                 ));
           }
-          var Q = babelHelpers.extends({}, z, { chatWindowWidth: j });
+          var X = babelHelpers.extends({}, j, { chatWindowWidth: K });
           return (
             o("MAIBAChatAppStore").shouldUseLaminarForMAIBA() &&
-              o("MAIBAChatAppUtils").storeMAIBAChatAppStateToSessionStorage(Q),
-            Q
+              o("MAIBAChatAppUtils").storeMAIBAChatAppStateToSessionStorage(X),
+            X
           );
         },
       },
-      s = e;
-    l.default = s;
+      u = s;
+    l.default = u;
   },
   98,
 );

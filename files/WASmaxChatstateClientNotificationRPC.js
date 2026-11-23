@@ -7,28 +7,19 @@ __d(
     "WASmaxMixinGroupExhaustiveError",
     "WASmaxMixins",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      var t = s(e);
+      await o("WAComms").castSmaxStanza(t);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = u(e);
-          yield o("WAComms").castSmaxStanza(t);
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       var t = e.chatstateTo,
         n = e.internalTestMixinArgs,
         r = e.stateTypesArgs,
-        a = m(
+        a = d(
           o("WASmaxMixins").optionalMerge(
-            d,
+            c,
             o("WASmaxJsx").smax("chatstate", { to: o("WAWap").JID(t) }),
             n,
           ),
@@ -36,7 +27,7 @@ __d(
         );
       return a;
     }
-    function c(e) {
+    function u(e) {
       var t = e.testConfig,
         n = o("WASmaxJsx").smax(
           "smax$any",
@@ -47,18 +38,18 @@ __d(
         );
       return n;
     }
-    function d(e, t) {
-      var n = c(t);
+    function c(e, t) {
+      var n = u(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function m(e, t) {
-      if (t.composing) return _(e, t.composing);
-      if (t.isPaused) return g(e);
+    function d(e, t) {
+      if (t.composing) return p(e, t.composing);
+      if (t.isPaused) return f(e);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function p(e) {
+    function m(e) {
       var t = e.hasComposingMediaAudio,
         n = o("WASmaxJsx").smax(
           "chatstate",
@@ -69,11 +60,11 @@ __d(
         );
       return n;
     }
-    function _(e, t) {
-      var n = p(t);
+    function p(e, t) {
+      var n = m(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function f() {
+    function _() {
       var e = o("WASmaxJsx").smax(
         "chatstate",
         null,
@@ -81,11 +72,11 @@ __d(
       );
       return e;
     }
-    function g(e) {
-      var t = f();
+    function f(e) {
+      var t = _();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    ((l.sendClientNotificationRPC = e), (l.makeClientNotificationRequest = u));
+    ((l.sendClientNotificationRPC = e), (l.makeClientNotificationRequest = s));
   },
   98,
 );

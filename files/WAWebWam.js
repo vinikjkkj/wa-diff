@@ -1,7 +1,6 @@
 __d(
   "WAWebWam",
   [
-    "Promise",
     "SiteData",
     "WALogger",
     "WAResolvable",
@@ -39,7 +38,6 @@ __d(
     "WAWebWamRuntimeProvider",
     "WAWebWamStorage",
     "WAWebWamUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "gkx",
     "isStringNullOrEmpty",
@@ -59,19 +57,18 @@ __d(
       _,
       f,
       g,
-      h,
-      y = r("requireDeferred")("WAWebUploadPrivateStatsBackend").__setRef(
+      h = r("requireDeferred")("WAWebUploadPrivateStatsBackend").__setRef(
         "WAWebWam",
       ),
-      C,
+      y,
+      C = [],
       b = [],
-      v = [],
-      S = !1,
-      R = "1",
-      L = { commit: k(O), set: k(U), resumeJobs: k(j), initialize: k(V) };
-    function E() {
+      v = !1,
+      S = "1",
+      R = { commit: E(F), set: E(q), resumeJobs: E(G), initialize: E(U) };
+    function L() {
       for (
-        b = o("WAWebWamGlobals").PrivateStatsAllIds.map(function (e) {
+        C = o("WAWebWamGlobals").PrivateStatsAllIds.map(function (e) {
           return e.key;
         }),
           o("WAWebWamPrivateStats")
@@ -85,7 +82,7 @@ __d(
               );
             }),
           o("WAWebWamInterop").startWamStore(),
-          C = new (o("WAShiftTimer").ShiftTimer)(function (e) {
+          y = new (o("WAShiftTimer").ShiftTimer)(function (e) {
             var t =
               !r("WAWebEnvironment").isGuest &&
               !o("WAWebUserPrefsTabMutex").currentTabHasMutex() &&
@@ -99,7 +96,7 @@ __d(
               );
               return;
             }
-            K(e).catch(function (e) {
+            z(e).catch(function (e) {
               o("WALogger").LOG(
                 u ||
                   (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -108,39 +105,39 @@ __d(
               );
             });
           }),
-          o("WAWebWamRuntimeProvider").setWamRuntime(L);
-        v.length;
+          o("WAWebWamRuntimeProvider").setWamRuntime(R);
+        b.length;
       ) {
-        var t = v.pop();
+        var t = b.pop();
         t && t();
       }
-      S = !0;
+      v = !0;
     }
-    function k(e) {
+    function E(e) {
       return function () {
         for (var t = arguments.length, n = new Array(t), r = 0; r < t; r++)
           n[r] = arguments[r];
-        if (S) return e.apply(void 0, n);
-        v.push(function () {
+        if (v) return e.apply(void 0, n);
+        b.push(function () {
           e.apply(void 0, n);
         });
       };
     }
-    var I = {},
-      T = 0,
-      D = [],
+    var k = {},
+      I = 0,
+      T = [],
+      D = !1,
       x = !1,
-      $ = !1,
-      P = null;
-    function N() {
+      $ = null;
+    function P() {
       var e,
-        t = (e = P) == null ? void 0 : e.abKey2;
+        t = (e = $) == null ? void 0 : e.abKey2;
       return t == null ? null : String(t);
     }
-    var M = new (o("WAResolvable").Resolvable)(),
-      w = !1,
-      A = !1;
-    function F(e, t) {
+    var N = new (o("WAResolvable").Resolvable)(),
+      M = !1,
+      w = !1;
+    function A(e, t) {
       if (!o("WAWebWamFalcoABProps").isFalcoLoggingEnabled())
         return { handled: !1, shouldUseLegacyBridge: !1 };
       var n = o("WAWebWamFalcoBatchRouter").resolveWamFalcoRoute(e);
@@ -156,8 +153,8 @@ __d(
               shouldUseLegacyBridge: !1,
             };
     }
-    function O(e, t) {
-      var a;
+    function F(e, t) {
+      var n;
       if (
         (t === void 0 && (t = !1), e.commitTime != null && e.commitTime !== 0)
       )
@@ -170,39 +167,39 @@ __d(
               ])),
             e.$className,
           ),
-          (h || (h = n("Promise"))).resolve()
+          Promise.resolve()
         );
       e.wamChannel;
-      var i = F(e, t);
-      if (i.handled) return (W(e), (h || (h = n("Promise"))).resolve());
-      var l =
-          (a = o("WAWebEventSampling").getClientEventSamplingWeight(e.id)) !=
+      var a = A(e, t);
+      if (a.handled) return (B(e), Promise.resolve());
+      var i =
+          (n = o("WAWebEventSampling").getClientEventSamplingWeight(e.id)) !=
           null
-            ? a
+            ? n
             : e.weight,
-        s = l !== 0 && Math.random() * l > 1;
+        l = i !== 0 && Math.random() * i > 1;
       if (
-        (i.shouldUseLegacyBridge &&
-          o("WAWebWamFalcoLogger").logEventToFalcoBridge(e, s),
-        s || o("WAWebWamFalcoABProps").isWamLoggingDisabled())
+        (a.shouldUseLegacyBridge &&
+          o("WAWebWamFalcoLogger").logEventToFalcoBridge(e, l),
+        l || o("WAWebWamFalcoABProps").isWamLoggingDisabled())
       )
         return (
           (e.commitTime =
             o("WATimeUtils").unixTimeWithoutClockSkewCorrection()),
-          (h || (h = n("Promise"))).resolve()
+          Promise.resolve()
         );
-      (B(e), W(e), o("WAWebWamUtils").maybeForwardWamEventToJestE2e(e));
-      var u;
+      (O(e), B(e), o("WAWebWamUtils").maybeForwardWamEventToJestE2e(e));
+      var s;
       return (
         e.wamChannel === "realtime"
-          ? (u = r("justknobx")._("4680") ? "realtime" : "all")
+          ? (s = r("justknobx")._("4680") ? "realtime" : "all")
           : r("WAWebEnvironment").isGuest || t
-            ? (u = "all")
-            : (u = "none"),
-        G({ job: e, flushWamBuffers: u })
+            ? (s = "all")
+            : (s = "none"),
+        V({ job: e, flushWamBuffers: s })
       );
     }
-    function B(e) {
+    function O(e) {
       e.wamChannel !== "private" &&
         o("WAWebWamCodegenUtils").getWamDedupKeyFieldId(e.id) != null &&
         o("WAWebABPropsCache").isABPropConfigsReady() &&
@@ -210,11 +207,11 @@ __d(
           o("WAWebWamFalcoModes").FALCO_MODE_WAM_OR_FALCO &&
         e.setWamDedupKey(r("WAWebFalcoCanonicalDedupKey")() - Math.pow(2, 52));
     }
-    function W(e, t) {
+    function B(e, t) {
       e.commitTime =
         t != null ? t : o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
     }
-    function q(e, t) {
+    function W(e, t) {
       e.name === "memClass"
         ? o("WAWebBrowserApi").setMemClassOverride(
             typeof t == "number" ? t : null,
@@ -224,478 +221,387 @@ __d(
             typeof t == "string" ? t : null,
           );
     }
-    function U(e, t) {
+    function q(e, t) {
       return (
         o("WAWebWamUtils").maybeForwardWamAttributeToJestE2e(e.name, String(t)),
-        q(e, t),
-        G({ job: [e, t], flushWamBuffers: "none" })
+        W(e, t),
+        V({ job: [e, t], flushWamBuffers: "none" })
       );
     }
-    function V() {
-      return H.apply(this, arguments);
-    }
-    function H() {
+    async function U() {
+      var e;
+      if ($) return Promise.resolve($);
+      var t = r("WAWebBrowserInfo")(),
+        n = babelHelpers.extends(
+          {
+            appVersion: o("WAWebBuildConstants")
+              .VERSION_BASE_WITH_WINDOWS_BUILD,
+            appBuild: o("WAWebWamUtils").getAppBuild(),
+            platform: o("WAWebWamEnumPlatformType").PLATFORM_TYPE.WEBCLIENT,
+            webcWebArch: te(),
+            appIsBetaRelease: await o("WAWebWamUtils").getAppIsBetaRelease(),
+            browser: t.name || null,
+            browserVersion: t.ua || null,
+            deviceName: t.os || null,
+            deviceVersion: t.version || null,
+            osVersion: t.version || null,
+            memClass: o("WAWebBrowserApi").getMemClass(),
+            numCpu: o("WAWebBrowserApi").getNumCpu(),
+            webcEnv: o("WAWebWamUtils").getWamEnv(),
+            webcTabId: o("WAWebUserPrefsTabMutex").THIS_TAB,
+            webcWebPlatform: o("WAWebWamEnumWebcWebPlatformType")
+              .WEBC_WEB_PLATFORM_TYPE[o("WAWebWamPlatform").getWamPlatform()],
+            ocVersion: o("WAWebIsOfficialClient").isOfficialClient ? 1 : 0,
+            deviceClassification: o("WAWebWamEnumDeviceClassification")
+              .DEVICE_CLASSIFICATION.DESKTOP,
+            webcRevision: r("SiteData").client_revision,
+            abKey2:
+              (e = o("WAWebABPropsLocalStorage").getABKey()) != null ? e : "",
+          },
+          r("WAWebEnvironment").isGuest
+            ? o("WAWebGuestCoreWamUtils").getGuestWamOverrides()
+            : {},
+        );
       return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
-          if (P) return (h || (h = n("Promise"))).resolve(P);
-          var t = r("WAWebBrowserInfo")(),
-            a = babelHelpers.extends(
-              {
-                appVersion: o("WAWebBuildConstants")
-                  .VERSION_BASE_WITH_WINDOWS_BUILD,
-                appBuild: o("WAWebWamUtils").getAppBuild(),
-                platform: o("WAWebWamEnumPlatformType").PLATFORM_TYPE.WEBCLIENT,
-                webcWebArch: de(),
-                appIsBetaRelease:
-                  yield o("WAWebWamUtils").getAppIsBetaRelease(),
-                browser: t.name || null,
-                browserVersion: t.ua || null,
-                deviceName: t.os || null,
-                deviceVersion: t.version || null,
-                osVersion: t.version || null,
-                memClass: o("WAWebBrowserApi").getMemClass(),
-                numCpu: o("WAWebBrowserApi").getNumCpu(),
-                webcEnv: o("WAWebWamUtils").getWamEnv(),
-                webcTabId: o("WAWebUserPrefsTabMutex").THIS_TAB,
-                webcWebPlatform: o("WAWebWamEnumWebcWebPlatformType")
-                  .WEBC_WEB_PLATFORM_TYPE[
-                  o("WAWebWamPlatform").getWamPlatform()
-                ],
-                ocVersion: o("WAWebIsOfficialClient").isOfficialClient ? 1 : 0,
-                deviceClassification: o("WAWebWamEnumDeviceClassification")
-                  .DEVICE_CLASSIFICATION.DESKTOP,
-                webcRevision: r("SiteData").client_revision,
-                abKey2:
-                  (e = o("WAWebABPropsLocalStorage").getABKey()) != null
-                    ? e
-                    : "",
-              },
-              r("WAWebEnvironment").isGuest
-                ? o("WAWebGuestCoreWamUtils").getGuestWamOverrides()
-                : {},
-            );
-          return (
-            (P = a),
-            (o("WAWebWamGlobals").Global.commitOnSet = !1),
-            o("WAWebWamGlobals").Global.set(P),
-            (o("WAWebWamGlobals").Global.commitOnSet = !0),
-            Object.keys(a).forEach(function (e) {
-              return o("WAWebWamUtils").maybeForwardWamAttributeToJestE2e(
-                e,
-                String(a[e]),
-              );
-            }),
-            a
+        ($ = n),
+        (o("WAWebWamGlobals").Global.commitOnSet = !1),
+        o("WAWebWamGlobals").Global.set($),
+        (o("WAWebWamGlobals").Global.commitOnSet = !0),
+        Object.keys(n).forEach(function (e) {
+          return o("WAWebWamUtils").maybeForwardWamAttributeToJestE2e(
+            e,
+            String(n[e]),
           );
-        })),
-        H.apply(this, arguments)
+        }),
+        n
       );
     }
-    function G(e) {
+    function V(e) {
       var t = e.flushWamBuffers,
         n = e.job;
       return (
-        D.push(n),
-        x
+        T.push(n),
+        D
           ? t !== "none"
-            ? ((w = !1),
-              (A = !0),
+            ? ((M = !1),
+              (w = !0),
               self.setTimeout(function () {
-                return C.forceRunNow(t);
+                return y.forceRunNow(t);
               }, 1))
-            : C.onOrBefore(
+            : y.onOrBefore(
                 o("WAWebWamUtils").getInMemoryBufferingDurationInSecs() * 1e3,
               )
           : t === "realtime" && r("justknobx")._("3237")
             ? self.setTimeout(function () {
-                return C.forceRunNow("realtime");
+                return y.forceRunNow("realtime");
               }, 1)
-            : t !== "none" && (C.cancel(), (w = !0), (A = !1)),
-        M.promise
+            : t !== "none" && (y.cancel(), (M = !0), (w = !1)),
+        N.promise
       );
     }
-    function z() {
-      ((x = !1), C.cancel());
-      var e = M;
-      return ((M = new (o("WAResolvable").Resolvable)()), e);
+    function H() {
+      ((D = !1), y.cancel());
+      var e = N;
+      return ((N = new (o("WAResolvable").Resolvable)()), e);
     }
-    function j() {
-      ((x = !0),
-        (A = !1),
-        D.length > 0 &&
-          C.onOrBefore(
+    function G() {
+      ((D = !0),
+        (w = !1),
+        T.length > 0 &&
+          y.onOrBefore(
             o("WAWebWamUtils").getInMemoryBufferingDurationInSecs() * 1e3,
           ),
-        w && ((w = !1), (A = !0), C.forceRunNow()));
+        M && ((M = !1), (w = !0), y.forceRunNow()));
     }
-    function K(e) {
-      return Q.apply(this, arguments);
-    }
-    function Q() {
-      return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = A,
-            a = !(e === "realtime" && r("justknobx")._("3237")),
-            i = a ? z() : null,
-            l,
-            s;
-          if (e === "realtime") {
-            l = ["realtime"];
-            var u = D.reduce(
-              function (e, t) {
-                var n = e[0],
-                  r = e[1];
-                return (
-                  !Array.isArray(t) && t.wamChannel === "realtime"
-                    ? n.push(t)
-                    : r.push(t),
-                  [n, r]
-                );
-              },
-              [[], []],
+    async function z(e) {
+      var t = w,
+        n = !(e === "realtime" && r("justknobx")._("3237")),
+        a = n ? H() : null,
+        i,
+        l;
+      if (e === "realtime") {
+        i = ["realtime"];
+        var s = T.reduce(
+          function (e, t) {
+            var n = e[0],
+              r = e[1];
+            return (
+              !Array.isArray(t) && t.wamChannel === "realtime"
+                ? n.push(t)
+                : r.push(t),
+              [n, r]
             );
-            ((s = u[0]), (D = u[1]));
-          } else
-            ((l = ["regular", "realtime", "none"].concat(b)),
-              (s = [].concat(D)),
-              (D = []));
-          try {
-            var c = yield V();
-            if (e !== "realtime") {
-              var d = yield o("WAWebWamPrivateStats").maybeRotatePsIds();
-              yield (h || (h = n("Promise"))).all(
-                d.map(function (e) {
-                  return X(e, c);
-                }),
-              );
-            }
-            yield (h || (h = n("Promise"))).all(
-              l.map(function (e) {
-                return ne({
-                  forceFlushBuffers: t,
-                  key: e,
-                  localScopeLockedInGlobals: c,
-                  toBeExecuted: s,
-                });
-              }),
-            );
-          } finally {
-            a && (i == null || i.resolve(), j());
-          }
-        })),
-        Q.apply(this, arguments)
-      );
-    }
-    function X(e, t) {
-      return Y.apply(this, arguments);
-    }
-    function Y() {
-      return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (yield oe(e, t), (I[e] = yield J(e, t)), I[e]);
-        })),
-        Y.apply(this, arguments)
-      );
-    }
-    function J(e, t) {
-      return Z.apply(this, arguments);
-    }
-    function Z() {
-      return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return new (o("WAWebWamLibContext").WamContext)(
-            e,
-            yield r("WAWebWamStorage").getNextSequenceNumberForStream(R),
-            t,
+          },
+          [[], []],
+        );
+        ((l = s[0]), (T = s[1]));
+      } else
+        ((i = ["regular", "realtime", "none"].concat(C)),
+          (l = [].concat(T)),
+          (T = []));
+      try {
+        var u = await U();
+        if (e !== "realtime") {
+          var c = await o("WAWebWamPrivateStats").maybeRotatePsIds();
+          await Promise.all(
+            c.map(function (e) {
+              return j(e, u);
+            }),
           );
-        })),
-        Z.apply(this, arguments)
+        }
+        await Promise.all(
+          i.map(function (e) {
+            return X({
+              forceFlushBuffers: t,
+              key: e,
+              localScopeLockedInGlobals: u,
+              toBeExecuted: l,
+            });
+          }),
+        );
+      } finally {
+        n && (a == null || a.resolve(), G());
+      }
+    }
+    async function j(e, t) {
+      return (await Y(e, t), (k[e] = await K(e, t)), k[e]);
+    }
+    async function K(e, t) {
+      return new (o("WAWebWamLibContext").WamContext)(
+        e,
+        await r("WAWebWamStorage").getNextSequenceNumberForStream(S),
+        t,
       );
     }
-    function ee(e, t) {
-      return te.apply(this, arguments);
+    async function Q(e, t) {
+      var n,
+        r = (n = k[e]) != null ? n : await K(e, t);
+      return ((k[e] = r), r);
     }
-    function te() {
-      return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r = (n = I[e]) != null ? n : yield J(e, t);
-          return ((I[e] = r), r);
-        })),
-        te.apply(this, arguments)
-      );
-    }
-    function ne(e) {
-      return re.apply(this, arguments);
-    }
-    function re() {
-      return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.forceFlushBuffers,
-            n = e.key,
-            a = e.localScopeLockedInGlobals,
-            i = e.toBeExecuted,
-            l = o("WAWebWamUtils").getChannelFromBufferKey(n),
-            s;
-          try {
-            s = yield ee(n, a);
-          } catch (e) {
-            var u,
-              c = r("getErrorSafe")(e);
-            o("WALogger").WARN(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[wam] executePendingForContext failed to get context ",
-                  "",
-                ])),
-              String((u = c.stack) != null ? u : c),
-            );
+    async function X(e) {
+      var t = e.forceFlushBuffers,
+        n = e.key,
+        a = e.localScopeLockedInGlobals,
+        i = e.toBeExecuted,
+        l = o("WAWebWamUtils").getChannelFromBufferKey(n),
+        s;
+      try {
+        s = await Q(n, a);
+      } catch (e) {
+        var u,
+          c = r("getErrorSafe")(e);
+        o("WALogger").WARN(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "[wam] executePendingForContext failed to get context ",
+              "",
+            ])),
+          String((u = c.stack) != null ? u : c),
+        );
+        return;
+      }
+      try {
+        for (var p = 0; p < i.length; p++) {
+          if (s.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE) {
+            var _ = await j(n, a);
+            if (_ == null) break;
+            s = _;
+          }
+          var f = i[p];
+          if (Array.isArray(f)) {
+            var h = f[0],
+              y = f[1],
+              C = l === "realtime" ? "regular" : l;
+            h.channels.includes(C) &&
+              ((a[h.name] = y), s.set(h.id, y), W(h, y));
+          } else {
+            var g = f;
+            (((g.wamChannel === "regular" || g.wamChannel === "realtime") &&
+              g.wamChannel === l) ||
+              (g.wamChannel === "private" &&
+                n ===
+                  o("WAWebWamPrivateStats").getPrivateStatsKeyFromInt(
+                    g.privateStatsIdInt,
+                  ))) &&
+              s.write(g);
+          }
+        }
+        var b = o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
+        if (
+          s.eventsWritten > 0 &&
+          (t ||
+            s.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE ||
+            b >= I + o("WAWebWamUtils").getBufferRotateIntervalInSecs() ||
+            !x)
+        ) {
+          var v = o("WAWebUserPrefsIsLoggedIn").isLoggedIn();
+          if (!v) {
+            s.buffer.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE
+              ? (k[n] = null)
+              : await Y(n, a);
             return;
           }
-          try {
-            for (var p = 0; p < i.length; p++) {
-              if (s.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE) {
-                var _ = yield X(n, a);
-                if (_ == null) break;
-                s = _;
-              }
-              var f = i[p];
-              if (Array.isArray(f)) {
-                var h = f[0],
-                  y = f[1],
-                  C = l === "realtime" ? "regular" : l;
-                h.channels.includes(C) &&
-                  ((a[h.name] = y), s.set(h.id, y), q(h, y));
-              } else {
-                var g = f;
-                (((g.wamChannel === "regular" || g.wamChannel === "realtime") &&
-                  g.wamChannel === l) ||
-                  (g.wamChannel === "private" &&
-                    n ===
-                      o("WAWebWamPrivateStats").getPrivateStatsKeyFromInt(
-                        g.privateStatsIdInt,
-                      ))) &&
-                  s.write(g);
-              }
-            }
-            var b = o("WATimeUtils").unixTimeWithoutClockSkewCorrection();
-            if (
-              s.eventsWritten > 0 &&
-              (t ||
-                s.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE ||
-                b >= T + o("WAWebWamUtils").getBufferRotateIntervalInSecs() ||
-                !$)
-            ) {
-              var v = o("WAWebUserPrefsIsLoggedIn").isLoggedIn();
-              if (!v) {
-                s.buffer.size() > o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE
-                  ? (I[n] = null)
-                  : yield oe(n, a);
-                return;
-              }
-              yield ie(n);
-            } else yield oe(n, a);
-          } catch (e) {
-            var S,
-              R = r("getErrorSafe")(e);
-            (o("WALogger").WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[wam] _executePending error ",
-                  "",
-                ])),
-              String((S = R.stack) != null ? S : R),
-            ),
-              o("WAWebCrashlog").upload({ reason: "wam-error" }),
-              new (o("WAWebWamClientErrorsWamEvent").WamClientErrorsWamEvent)({
-                wamClientBufferDropErrorCount: 1,
-              }).commit(),
-              (I[n] = null));
-          }
-        })),
-        re.apply(this, arguments)
-      );
+          await J(n);
+        } else await Y(n, a);
+      } catch (e) {
+        var S,
+          R = r("getErrorSafe")(e);
+        (o("WALogger").WARN(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "[wam] _executePending error ",
+              "",
+            ])),
+          String((S = R.stack) != null ? S : R),
+        ),
+          o("WAWebCrashlog").upload({ reason: "wam-error" }),
+          new (o("WAWebWamClientErrorsWamEvent").WamClientErrorsWamEvent)({
+            wamClientBufferDropErrorCount: 1,
+          }).commit(),
+          (k[n] = null));
+      }
     }
-    function oe(e, t) {
-      return ae.apply(this, arguments);
-    }
-    function ae() {
-      return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (I[e]) {
-            var n = I[e].stringBuffer();
-            if (n) {
-              var a = r("nullthrows")(I[e]).unsavedPortion;
-              if (!(a && a.eventsWritten === 0)) {
-                var i = r("nullthrows")(I[e]).saveKey;
-                try {
-                  if (a) {
-                    var l = yield r("WAWebWamStorage").update(i, e, n);
-                    if (!I[e]) return;
-                    if (l) r("nullthrows")(I[e]).unsavedPortion = yield J(e, t);
-                    else {
-                      ((I[e] = I[e].unsavedPortion), yield oe(e, t));
-                      return;
-                    }
-                  } else {
-                    if ((yield r("WAWebWamStorage").add(i, e, n), !I[e]))
-                      return;
-                    r("nullthrows")(I[e]).unsavedPortion = yield J(e, t);
-                  }
-                } catch (e) {
-                  var s = r("getErrorSafe")(e);
-                  o("WALogger").WARN(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[wam] save WamStorage failed to save ",
-                        "",
-                      ])),
-                    String(s),
-                  );
+    async function Y(e, t) {
+      if (k[e]) {
+        var n = k[e].stringBuffer();
+        if (n) {
+          var a = r("nullthrows")(k[e]).unsavedPortion;
+          if (!(a && a.eventsWritten === 0)) {
+            var i = r("nullthrows")(k[e]).saveKey;
+            try {
+              if (a) {
+                var l = await r("WAWebWamStorage").update(i, e, n);
+                if (!k[e]) return;
+                if (l) r("nullthrows")(k[e]).unsavedPortion = await K(e, t);
+                else {
+                  ((k[e] = k[e].unsavedPortion), await Y(e, t));
+                  return;
                 }
+              } else {
+                if ((await r("WAWebWamStorage").add(i, e, n), !k[e])) return;
+                r("nullthrows")(k[e]).unsavedPortion = await K(e, t);
               }
-            }
-          }
-        })),
-        ae.apply(this, arguments)
-      );
-    }
-    function ie(e) {
-      return le.apply(this, arguments);
-    }
-    function le() {
-      return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          try {
-            t = yield r("WAWebWamStorage").deleteAll(e);
-          } catch (e) {
-            var a = r("getErrorSafe")(e);
-            ((t = {}),
+            } catch (e) {
+              var s = r("getErrorSafe")(e);
               o("WALogger").WARN(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[wam] sendAllLogs failed to read because ",
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[wam] save WamStorage failed to save ",
                     "",
                   ])),
-                String(a),
-              ));
+                String(s),
+              );
+            }
           }
-          var i = t;
-          if (I[e]) {
-            I[e].unsavedPortion &&
-              !(I[e].saveKey in i) &&
-              (I[e] = I[e].unsavedPortion);
-            var l = r("nullthrows")(I[e]).saveKey;
-            i[l] = r("nullthrows")(I[e]).stringBuffer();
-          }
-          var s = yield (h || (h = n("Promise"))).all(
-              Object.entries(i).map(function (t) {
-                var n = t[0],
-                  r = t[1];
-                return se(r, n, o("WAWebWamUtils").getChannelFromBufferKey(e));
+        }
+      }
+    }
+    async function J(e) {
+      var t;
+      try {
+        t = await r("WAWebWamStorage").deleteAll(e);
+      } catch (e) {
+        var n = r("getErrorSafe")(e);
+        ((t = {}),
+          o("WALogger").WARN(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "[wam] sendAllLogs failed to read because ",
+                "",
+              ])),
+            String(n),
+          ));
+      }
+      var a = t;
+      if (k[e]) {
+        k[e].unsavedPortion &&
+          !(k[e].saveKey in a) &&
+          (k[e] = k[e].unsavedPortion);
+        var i = r("nullthrows")(k[e]).saveKey;
+        a[i] = r("nullthrows")(k[e]).stringBuffer();
+      }
+      var l = await Promise.all(
+          Object.entries(a).map(function (t) {
+            var n = t[0],
+              r = t[1];
+            return Z(r, n, o("WAWebWamUtils").getChannelFromBufferKey(e));
+          }),
+        ),
+        s = l.filter(Boolean);
+      if (
+        (s.length !== l.length &&
+          ((I = o("WATimeUtils").unixTimeWithoutClockSkewCorrection()),
+          (x = !0)),
+        k[e] && !s.includes(k[e].saveKey) && (k[e] = null),
+        s.length !== 0)
+      ) {
+        var u = r("sumBy")(s, function (e) {
+          return a[e].length;
+        });
+        u < o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE
+          ? await Promise.all(
+              s.map(async function (t) {
+                try {
+                  await r("WAWebWamStorage").add(t, e, a[t]);
+                } catch (e) {
+                  o("WALogger").WARN(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "sendAllLogs: adding to WamStorage failed",
+                      ])),
+                  );
+                }
               }),
-            ),
-            u = s.filter(Boolean);
-          if (
-            (u.length !== s.length &&
-              ((T = o("WATimeUtils").unixTimeWithoutClockSkewCorrection()),
-              ($ = !0)),
-            I[e] && !u.includes(I[e].saveKey) && (I[e] = null),
-            u.length !== 0)
-          ) {
-            var c = r("sumBy")(u, function (e) {
-              return i[e].length;
-            });
-            c < o("WAWebWamConstants").WAM_MAX_BUFFER_SIZE
-              ? yield (h || (h = n("Promise"))).all(
-                  u.map(
-                    (function () {
-                      var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (t) {
-                          try {
-                            yield r("WAWebWamStorage").add(t, e, i[t]);
-                          } catch (e) {
-                            o("WALogger").WARN(
-                              f ||
-                                (f = babelHelpers.taggedTemplateLiteralLoose([
-                                  "sendAllLogs: adding to WamStorage failed",
-                                ])),
-                            );
-                          }
-                        },
-                      );
-                      return function (e) {
-                        return t.apply(this, arguments);
-                      };
-                    })(),
-                  ),
-                )
-              : ((I[e] = null),
-                new (o("WAWebWamClientErrorsWamEvent").WamClientErrorsWamEvent)(
-                  { wamClientBufferDropErrorCount: 1 },
-                ).commit(),
-                o("WALogger").WARN(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "wam dropped ",
-                      " buffers! (",
-                      " bytes)",
-                    ])),
-                  u.length,
-                  c,
-                ));
-          }
-        })),
-        le.apply(this, arguments)
-      );
+            )
+          : ((k[e] = null),
+            new (o("WAWebWamClientErrorsWamEvent").WamClientErrorsWamEvent)({
+              wamClientBufferDropErrorCount: 1,
+            }).commit(),
+            o("WALogger").WARN(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "wam dropped ",
+                  " buffers! (",
+                  " bytes)",
+                ])),
+              s.length,
+              u,
+            ));
+      }
     }
-    function se(e, t, n) {
-      return ue.apply(this, arguments);
+    async function Z(e, t, n) {
+      return e === "" || e[0] === "["
+        ? Promise.resolve()
+        : o("WAWebWamUtils").isWamBufferTooBigToUpload(e)
+          ? (new (o("WAWebWamClientErrorsWamEvent").WamClientErrorsWamEvent)({
+              wamClientBufferDropErrorCount: 1,
+            }).commit(),
+            Promise.resolve())
+          : n === "private"
+            ? h.load().then(function (n) {
+                return n(e, t);
+              })
+            : r("WAWebUploadStatsBackend")(e, t);
     }
-    function ue() {
-      return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a) {
-            return e === "" || e[0] === "["
-              ? (h || (h = n("Promise"))).resolve()
-              : o("WAWebWamUtils").isWamBufferTooBigToUpload(e)
-                ? (new (o(
-                    "WAWebWamClientErrorsWamEvent",
-                  ).WamClientErrorsWamEvent)({
-                    wamClientBufferDropErrorCount: 1,
-                  }).commit(),
-                  (h || (h = n("Promise"))).resolve())
-                : a === "private"
-                  ? y.load().then(function (n) {
-                      return n(e, t);
-                    })
-                  : r("WAWebUploadStatsBackend")(e, t);
-          },
-        )),
-        ue.apply(this, arguments)
-      );
-    }
-    var ce = new Map([
+    var ee = new Map([
       ["sandcastle", "dev"],
       ["trunkstable", "C1"],
     ]);
-    function de() {
+    function te() {
       var e = r("gkx")("26256");
       if (e) return "jest-e2e";
       if (!r("isStringNullOrEmpty")(o("WAWebBuildConstants").PUSH_PHASE)) {
         var t;
-        return (t = ce.get(o("WAWebBuildConstants").PUSH_PHASE)) != null
+        return (t = ee.get(o("WAWebBuildConstants").PUSH_PHASE)) != null
           ? t
           : o("WAWebBuildConstants").PUSH_PHASE;
       }
     }
-    ((l.Wam = L),
-      (l.initWamRuntime = E),
-      (l.getSerializedAbKey2 = N),
-      (l.sendAllLogs = ie),
-      (l.getPushPhase = de));
+    ((l.Wam = R),
+      (l.initWamRuntime = L),
+      (l.getSerializedAbKey2 = P),
+      (l.sendAllLogs = J),
+      (l.getPushPhase = te));
   },
   98,
 );

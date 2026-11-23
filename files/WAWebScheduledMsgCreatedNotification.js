@@ -15,7 +15,6 @@ __d(
     "WAWebUnscheduleMsgAction",
     "WAWebWamEnumScheduledMessageEntrypoint",
     "WDSIconIcSchedule.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -31,23 +30,23 @@ __d(
           $$css: !0,
         },
       };
-    function m(t, a) {
-      var i = o(
+    function m(t, n) {
+      var a = o(
           "WAWebSystemMessageGatingUtils",
         ).systemMessageActionTextStylingEnabled()
-          ? s._(/*BTDS*/ "You scheduled a message")
-          : s._(/*BTDS*/ "You scheduled a message. Click to view"),
-        l = r("WAWebFormatCTAText")({
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ ""),
+        i = r("WAWebFormatCTAText")({
           type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION,
           subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
             .ScheduledMessageCreated,
         }),
-        u = c.jsx(r("WDSIconIcSchedule.react"), {
+        l = c.jsx(r("WDSIconIcSchedule.react"), {
           height: 14,
           width: 14,
           xstyle: d.icon,
         }),
-        m = function () {
+        u = function () {
           (o("WAWebScheduledMsgActionLogger").logScheduledMsgViewListForChat(
             t,
             o("WAWebWamEnumScheduledMessageEntrypoint")
@@ -69,43 +68,31 @@ __d(
                       n,
                     );
                   },
-                  onDeleteMessage: (function () {
-                    var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (n) {
-                        try {
-                          yield o(
-                            "WAWebUnscheduleMsgAction",
-                          ).unscheduleMsgAction(
-                            o("WAJids").unsafeCoerceToChatJid(t.id.toJid()),
-                            n,
-                          );
-                        } catch (t) {
-                          (o("WALogger")
-                            .ERROR(
-                              e ||
-                                (e = babelHelpers.taggedTemplateLiteralLoose([
-                                  "Failed to unschedule message: ",
-                                  "",
-                                ])),
-                              t,
-                            )
-                            .sendLogs("unschedule-msg-fail"),
-                            a({
-                              type: "error",
-                              message: s._(/*BTDS*/ "Couldn't delete message"),
-                            }));
-                        }
-                      },
-                    );
-                    return function (e) {
-                      return r.apply(this, arguments);
-                    };
-                  })(),
+                  onDeleteMessage: async function (a) {
+                    try {
+                      await o("WAWebUnscheduleMsgAction").unscheduleMsgAction(
+                        o("WAJids").unsafeCoerceToChatJid(t.id.toJid()),
+                        a,
+                      );
+                    } catch (t) {
+                      (o("WALogger")
+                        .ERROR(
+                          e ||
+                            (e = babelHelpers.taggedTemplateLiteralLoose([
+                              "Failed to unschedule message: ",
+                              "",
+                            ])),
+                          t,
+                        )
+                        .sendLogs("unschedule-msg-fail"),
+                        n({ type: "error", message: s._(/*BTDS*/ "") }));
+                    }
+                  },
                 },
               ),
             ));
         };
-      return { text: i, ctaText: l, icon: u, handleClick: m };
+      return { text: a, ctaText: i, icon: l, handleClick: u };
     }
     l.getScheduledMsgCreatedNotification = m;
   },

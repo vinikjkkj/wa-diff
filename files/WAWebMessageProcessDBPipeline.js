@@ -1,14 +1,12 @@
 __d(
   "WAWebMessageProcessDBPipeline",
   [
-    "Promise",
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
     "WAWebHandleOrphansForNewMsg",
     "WAWebMessageProcessorCache",
     "WAWebWamWorkerOfflineProcessReporter",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,9 +14,8 @@ __d(
       s,
       u,
       c,
-      d,
-      m = 1e4;
-    function p(e) {
+      d = 1e4;
+    function m(e) {
       var t;
       try {
         t = o("WAWebMessageProcessorCache").messageProcessorCache.addMessages(
@@ -28,24 +25,16 @@ __d(
           e.flushImmediatly,
         );
       } catch (e) {
-        var r = (d || (d = n("Promise"))).reject(e);
-        return { done: r, written: r };
+        var n = Promise.reject(e);
+        return { done: n, written: n };
       }
-      return { done: _(e, t), written: t };
+      return { done: p(e, t), written: t };
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    async function p(e, t) {
+      var n = await _(t);
+      e.flushImmediatly && n && f(e.msgData, e.uiNotified);
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield g(t);
-          e.flushImmediatly && n && h(e.msgData, e.uiNotified);
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(t) {
+    function _(t) {
       return t
         .then(function () {
           return (
@@ -74,82 +63,64 @@ __d(
           );
         });
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    async function f(e, t) {
+      try {
+        (t.isSettled || (await g(t.promise)),
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "process msgs orphans ",
+                "",
+              ])),
+            e.length,
+          ),
+          await Promise.all(
+            e.map(function (e) {
+              return o("WAWebHandleOrphansForNewMsg").handleOrphansForNewMsg(e);
+            }),
+          ));
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "processMsgDataDBPipeline: draining orphans failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .tags("messaging")
+          .sendLogs("orphan-drain-failed", { sampling: 0.01 });
+      }
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            (t.isSettled || (yield C(t.promise)),
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "process msgs orphans ",
-                    "",
-                  ])),
-                e.length,
-              ),
-              yield (d || (d = n("Promise"))).all(
-                e.map(function (e) {
-                  return o(
-                    "WAWebHandleOrphansForNewMsg",
-                  ).handleOrphansForNewMsg(e);
-                }),
-              ));
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "processMsgDataDBPipeline: draining orphans failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .tags("messaging")
-              .sendLogs("orphan-drain-failed", { sampling: 0.01 });
-          }
-        })),
-        y.apply(this, arguments)
-      );
+    async function g(e) {
+      try {
+        await o("WAPromiseTimeout").promiseTimeout(
+          e,
+          d,
+          "orphan drain waiting on UI notification",
+        );
+      } catch (e) {
+        var t =
+          e instanceof o("WACustomError").TimeoutError
+            ? "timed out"
+            : "rejected";
+        o("WALogger")
+          .ERROR(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "processMsgDataDBPipeline: UI notification ",
+                ", draining anyway",
+              ])),
+            t,
+          )
+          .catching(r("getErrorSafe")(e))
+          .tags("messaging")
+          .sendLogs("orphan-drain-ui-notification-unsettled", {
+            sampling: 0.1,
+          });
+      }
     }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            yield o("WAPromiseTimeout").promiseTimeout(
-              e,
-              m,
-              "orphan drain waiting on UI notification",
-            );
-          } catch (e) {
-            var t =
-              e instanceof o("WACustomError").TimeoutError
-                ? "timed out"
-                : "rejected";
-            o("WALogger")
-              .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "processMsgDataDBPipeline: UI notification ",
-                    ", draining anyway",
-                  ])),
-                t,
-              )
-              .catching(r("getErrorSafe")(e))
-              .tags("messaging")
-              .sendLogs("orphan-drain-ui-notification-unsettled", {
-                sampling: 0.1,
-              });
-          }
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    l.processMsgDataDBPipeline = p;
+    l.processMsgDataDBPipeline = m;
   },
   98,
 );

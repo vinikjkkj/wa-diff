@@ -5,15 +5,14 @@ __d(
     "WAWebNewsletterGetQuestionResponsesQuery",
     "WAWebNewsletterQuestionResponsesUtils",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterQuestionResponses",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var n = yield o(
+          async function () {
+            var n = await o(
               "WAWebNewsletterGetQuestionResponsesQuery",
             ).getQuestionResponsesQuery(e);
             return n.questionResponsesQuestionResponse.map(function (e) {
@@ -26,7 +25,7 @@ __d(
                 questionServerId: n.questionResponsesServerId,
               });
             });
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();

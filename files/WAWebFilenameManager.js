@@ -21,7 +21,7 @@ __d(
           ? ((t =
               s((e.filename || "").trim()) ||
               s((e.caption || "").trim()) ||
-              r("fbs")._(/*BTDS*/ "Untitled").toString()),
+              r("fbs")._(/*BTDS*/ "").toString()),
             (t = d(t, e)))
           : e.type === o("WAWebMsgType").MSG_TYPE.VCARD
             ? ((t = (e.vcardFormattedName || "").trim() || m(e)), (t = d(t, e)))

@@ -1,38 +1,23 @@
 __d(
   "WAWebComposeBoxEmployeeExtensionGate",
-  [
-    "WAWebSelfReminderGating",
-    "react",
-    "react-compiler-runtime",
-    "useWAWebABPropConfigValue",
-  ],
+  ["WAWebSelfReminderGating", "react", "useWAWebABPropConfigValue"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useSyncExternalStore;
     function u() {
-      var e = o("react-compiler-runtime").c(3),
-        t =
+      var e =
           o("useWAWebABPropConfigValue").useABPropConfigValue(
             "web_employee_slash_commands_enabled",
           ) === !0,
-        n = s(
+        t = s(
           o("WAWebSelfReminderGating")
             .subscribeToEmployeeCommandExtensionAccess,
           o("WAWebSelfReminderGating").isEmployeeCommandExtensionAllowed,
-        ),
-        r;
-      return (
-        e[0] !== n || e[1] !== t
-          ? ((r = o("WAWebSelfReminderGating").isEmployeeCommandsEnabled({
-              isSlashCommandsPropOn: t,
-              isExtensionAllowed: n,
-            })),
-            (e[0] = n),
-            (e[1] = t),
-            (e[2] = r))
-          : (r = e[2]),
-        r
-      );
+        );
+      return o("WAWebSelfReminderGating").isEmployeeCommandsEnabled({
+        isSlashCommandsPropOn: e,
+        isExtensionAllowed: t,
+      });
     }
     l.useIsEmployeeComposerExtensionAllowed = u;
   },

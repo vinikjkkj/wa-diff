@@ -2,7 +2,6 @@ __d(
   "WAWebNotificationsCallNotification",
   [
     "fbt",
-    "Promise",
     "WAWebABProps",
     "WAWebBaseNotification",
     "WAWebCallNotificationActions",
@@ -37,26 +36,24 @@ __d(
     "WAWebWamEnumNotificationTypeEnum",
     "WAWebWid",
     "WAWebWidFormat",
-    "asyncToGeneratorRuntime",
     "bx",
     "fbs",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e,
-      u = r("bx").getURL(r("bx")("9555")),
-      c = new Map();
-    function d(e) {
+    var e = r("bx").getURL(r("bx")("9555")),
+      u = new Map();
+    function c(e) {
       var t = e.wid.toString(),
-        n = c.get(t);
+        n = u.get(t);
       (n != null &&
         n !== e.msgId &&
         (o(
           "WAWebNotificationController",
         ).WANotificationController.closeOrCancelNotification("call:" + t),
-        y(n)),
-        c.set(t, e.msgId),
-        h(e.msgId));
-      var r = new _(e);
+        h(n)),
+        u.set(t, e.msgId),
+        g(e.msgId));
+      var r = new p(e);
       return (
         r.recordSkipReason(),
         o(
@@ -64,7 +61,7 @@ __d(
         ).WANotificationController.triggerNotification(r)
       );
     }
-    function m(e) {
+    function d(e) {
       (e &&
         o(
           "WAWebNotificationController",
@@ -73,19 +70,19 @@ __d(
         ),
         o("WAWebCallRingtone").stopCallRingtone());
     }
-    function p(e, t) {
+    function m(e, t) {
       if (e) {
         var n = e.toString(),
-          r = c.get(n);
+          r = u.get(n);
         if (t != null && r != null && t !== r) return;
         (o(
           "WAWebNotificationController",
         ).WANotificationController.closeOrCancelNotification("call:" + n),
-          r != null && (y(r), c.delete(n)));
+          r != null && (h(r), u.delete(n)));
       }
       o("WAWebCallRingtone").stopCallRingtone();
     }
-    var _ = (function (e) {
+    var p = (function (e) {
       function t(t) {
         var n,
           r = t.groupCallParticipants,
@@ -112,9 +109,9 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.shouldMute = function (t) {
+        (n.shouldMute = function (t) {
           var e, n, a;
           if (!this.wid || !this.msgId || this.isSilenced)
             return r("WAWebNotificationMuteReason").GlobalMute;
@@ -134,45 +131,37 @@ __d(
             ? r("WAWebNotificationMuteReason").MutedChat
             : null;
         }),
-        (a.buildKey = function () {
+        (n.buildKey = function () {
           return "call:" + this.wid.toString();
         }),
-        (a.matchesChat = function (t) {
+        (n.matchesChat = function (t) {
           return r("WAWebWid").equals.apply(
             r("WAWebWid"),
             o("WAWebLidMigrationUtils").toCommonAddressingMode(this.wid, t.id),
           );
         }),
-        (a.getChatKind = function () {
+        (n.getChatKind = function () {
           return this.isGroup
             ? o("WAWebChatFlowTypes").ChatKindType.Group
             : o("WAWebChatFlowTypes").ChatKindType.Chat;
         }),
-        (a.getIcon = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return T({
-              abortSignal: this.abortController.signal,
-              groupCallParticipants: this.groupCallParticipants,
-              groupJid: this.groupJid,
-              isGroup: this.isGroup,
-              wid: this.wid,
-            });
+        (n.getIcon = async function () {
+          return I({
+            abortSignal: this.abortController.signal,
+            groupCallParticipants: this.groupCallParticipants,
+            groupJid: this.groupJid,
+            isGroup: this.isGroup,
+            wid: this.wid,
           });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.getBannerOptions = function () {
-          var e = E(this.wid);
+        }),
+        (n.getBannerOptions = function () {
+          var e = L(this.wid);
           if (this.isGroup && o("WAWebVoipGatingUtils").isCallingEnabled())
             return this.$WACallNotification$p_1(e);
-          var t = r("fbs")
-            ._(/*BTDS*/ "Incoming call, check your phone to answer")
-            .toString();
+          var t = r("fbs")._(/*BTDS*/ "").toString();
           return (
             o("WAWebVoipGatingUtils").isCallingEnabled() &&
-              (t = k(this.isVideo, !1) + this.$WACallNotification$p_2()),
+              (t = E(this.isVideo, !1) + this.$WACallNotification$p_2()),
             babelHelpers.extends(
               {
                 wid: this.wid,
@@ -189,25 +178,21 @@ __d(
             )
           );
         }),
-        (a.$WACallNotification$p_2 = function () {
+        (n.$WACallNotification$p_2 = function () {
           return this.isVideo
-            ? r("fbs")._(/*BTDS*/ "Incoming video call").toString()
-            : L(this.wid)
-              ? r("fbs")
-                  ._(
-                    /*BTDS*/ "Screen this call on your phone. You can still answer or decline here.",
-                  )
-                  .toString()
-              : r("fbs")._(/*BTDS*/ "Incoming voice call").toString();
+            ? r("fbs")._(/*BTDS*/ "").toString()
+            : R(this.wid)
+              ? r("fbs")._(/*BTDS*/ "").toString()
+              : r("fbs")._(/*BTDS*/ "").toString();
         }),
-        (a.recordSkipReason = function () {
+        (n.recordSkipReason = function () {
           var e = this.$WACallNotification$p_5();
           e != null &&
             o(
               "WAWebVoipIncomingCallNotificationStateStore",
             ).recordIncomingCallNotificationSkipped(this.msgId, e);
         }),
-        (a.$WACallNotification$p_5 = function () {
+        (n.$WACallNotification$p_5 = function () {
           return this.isSilenced
             ? o("WAWebWamEnumIncomingCallNotificationStateType")
                 .INCOMING_CALL_NOTIFICATION_STATE_TYPE
@@ -221,9 +206,9 @@ __d(
                 ? o("WAWebWamEnumIncomingCallNotificationStateType")
                     .INCOMING_CALL_NOTIFICATION_STATE_TYPE
                     .INCOMING_CALL_NOTIFICATION_STATE_TAB_ACTIVE
-                : f();
+                : _();
         }),
-        (a.$WACallNotification$p_3 = function () {
+        (n.$WACallNotification$p_3 = function () {
           var e = this,
             t = function (n) {
               return o(
@@ -254,8 +239,8 @@ __d(
             },
           };
         }),
-        (a.$WACallNotification$p_4 = function () {
-          return g()
+        (n.$WACallNotification$p_4 = function () {
+          return f()
             ? {
                 showViaServiceWorker: !0,
                 data: { callId: this.msgId },
@@ -263,33 +248,25 @@ __d(
                   {
                     action: o("WAWebCallNotificationActions")
                       .ACCEPT_CALL_ACTION,
-                    title: r("fbs")._(/*BTDS*/ "Accept").toString(),
+                    title: r("fbs")._(/*BTDS*/ "").toString(),
                   },
                   {
                     action: o("WAWebCallNotificationActions")
                       .DECLINE_CALL_ACTION,
-                    title: r("fbs")._(/*BTDS*/ "Decline").toString(),
+                    title: r("fbs")._(/*BTDS*/ "").toString(),
                   },
                 ],
               }
             : {};
         }),
-        (a.$WACallNotification$p_1 = function (t) {
+        (n.$WACallNotification$p_1 = function (t) {
           var e,
-            n = I(this.groupJid, this.groupCallParticipants).toString(),
+            n = k(this.groupJid, this.groupCallParticipants).toString(),
             r =
-              k(this.isVideo, !1) +
+              E(this.isVideo, !1) +
               (this.isVideo
-                ? s
-                    ._(/*BTDS*/ "Incoming video call from {caller_name}", [
-                      s._param("caller_name", t),
-                    ])
-                    .toString()
-                : s
-                    ._(/*BTDS*/ "Incoming voice call from {caller_name}", [
-                      s._param("caller_name", t),
-                    ])
-                    .toString());
+                ? s._(/*BTDS*/ "", [s._param("caller_name", t)]).toString()
+                : s._(/*BTDS*/ "", [s._param("caller_name", t)]).toString());
           return babelHelpers.extends(
             {
               wid: (e = this.groupJid) != null ? e : this.wid,
@@ -305,7 +282,7 @@ __d(
             this.$WACallNotification$p_4(),
           );
         }),
-        (a.shouldShowBanner = function () {
+        (n.shouldShowBanner = function () {
           return o("WAWebVoipGatingUtils").isWinHybridPlusEnabled() ||
             (o("WAWebNotificationHelpers").appIsActive() &&
               !o("WAWebVoipGatingUtils").isCallingEnabled()) ||
@@ -316,7 +293,7 @@ __d(
               ).MuteCollection.getGlobalCallNotifications() &&
                 o("WAWebVoipGatingUtils").isWebCallingUiEnabled();
         }),
-        (a.shouldPlaySound = function () {
+        (n.shouldPlaySound = function () {
           return e.prototype.shouldPlaySound.call(this)
             ? o(
                 "WAWebMuteCollection",
@@ -327,45 +304,39 @@ __d(
                 o("WAWebVoipGatingUtils").isWebCallingUiEnabled()
             : !1;
         }),
-        (a.playsSoundBeforeBanner = function () {
+        (n.playsSoundBeforeBanner = function () {
           return !0;
         }),
-        (a.playSound = function () {
+        (n.playSound = function () {
           o("WAWebVoipGatingUtils").isCallingEnabled()
             ? o("WAWebCallRingtone").playCallRingtone()
             : o("WAWebNotificationTone").playNotification();
         }),
-        (a.afterBannerShown = function (n) {
+        (n.afterBannerShown = function (n) {
           var t = this;
           (e.prototype.afterBannerShown.call(this, n),
             o(
               "WAWebVoipIncomingCallNotificationStateStore",
             ).recordIncomingCallNotificationShown(this.msgId),
             n.waitForClose().then(function () {
-              var e = c.get(t.wid.toString());
+              var e = u.get(t.wid.toString());
               (e == null || e === t.msgId) &&
                 o("WAWebCallRingtone").stopCallRingtone();
             }));
         }),
-        (a.getNotificationDeliveryWamEventData = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return {
-              uiNotificationType: this.isVideo
-                ? o("WAWebWamEnumNotificationTypeEnum").NOTIFICATION_TYPE_ENUM
-                    .INCOMING_VIDEO_CALL
-                : o("WAWebWamEnumNotificationTypeEnum").NOTIFICATION_TYPE_ENUM
-                    .INCOMING_VOICE_CALL,
-            };
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (n.getNotificationDeliveryWamEventData = async function () {
+          return {
+            uiNotificationType: this.isVideo
+              ? o("WAWebWamEnumNotificationTypeEnum").NOTIFICATION_TYPE_ENUM
+                  .INCOMING_VIDEO_CALL
+              : o("WAWebWamEnumNotificationTypeEnum").NOTIFICATION_TYPE_ENUM
+                  .INCOMING_VOICE_CALL,
+          };
+        }),
         t
       );
     })(o("WAWebBaseNotification").WABaseNotification);
-    function f() {
+    function _() {
       var e,
         t = (e = window.Notification) == null ? void 0 : e.permission;
       return t == null
@@ -385,7 +356,7 @@ __d(
                 .INCOMING_CALL_NOTIFICATION_STATE_NOTIFICATIONS_OFF_IN_WA
             : null;
     }
-    function g() {
+    function f() {
       var e;
       return (
         o("WAWebVoipGatingUtils").areRichCallNotificationsEnabled() &&
@@ -395,7 +366,7 @@ __d(
         ((e = navigator.serviceWorker) == null ? void 0 : e.controller) != null
       );
     }
-    function h(e) {
+    function g(e) {
       var t = navigator.serviceWorker;
       t != null &&
         t.controller &&
@@ -407,7 +378,7 @@ __d(
           )
           .catch(r("WAWebNoop"));
     }
-    function y(e) {
+    function h(e) {
       var t = navigator.serviceWorker;
       t != null &&
         t.controller &&
@@ -419,7 +390,7 @@ __d(
           )
           .catch(r("WAWebNoop"));
     }
-    var C = (function (e) {
+    var y = (function (e) {
       function t(t) {
         var n,
           r = t.groupCallParticipants,
@@ -445,9 +416,9 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.shouldMute = function (t) {
+        (n.shouldMute = function (t) {
           var e, n, a;
           if (!this.wid || !this.msgId)
             return r("WAWebNotificationMuteReason").GlobalMute;
@@ -467,53 +438,39 @@ __d(
             ? r("WAWebNotificationMuteReason").MutedChat
             : null;
         }),
-        (a.buildKey = function () {
+        (n.buildKey = function () {
           return "missed_call:" + this.wid.toString();
         }),
-        (a.matchesChat = function (t) {
+        (n.matchesChat = function (t) {
           return r("WAWebWid").equals.apply(
             r("WAWebWid"),
             o("WAWebLidMigrationUtils").toCommonAddressingMode(this.wid, t.id),
           );
         }),
-        (a.getChatKind = function () {
+        (n.getChatKind = function () {
           return this.isGroup
             ? o("WAWebChatFlowTypes").ChatKindType.Group
             : o("WAWebChatFlowTypes").ChatKindType.Chat;
         }),
-        (a.getIcon = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return T({
-              abortSignal: this.abortController.signal,
-              groupCallParticipants: this.groupCallParticipants,
-              groupJid: this.groupJid,
-              isGroup: this.isGroup,
-              wid: this.wid,
-            });
+        (n.getIcon = async function () {
+          return I({
+            abortSignal: this.abortController.signal,
+            groupCallParticipants: this.groupCallParticipants,
+            groupJid: this.groupJid,
+            isGroup: this.isGroup,
+            wid: this.wid,
           });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.getBannerOptions = function () {
-          var e = E(this.wid);
+        }),
+        (n.getBannerOptions = function () {
+          var e = L(this.wid);
           if (this.isGroup) {
             var t,
-              n = I(this.groupJid, this.groupCallParticipants).toString(),
+              n = k(this.groupJid, this.groupCallParticipants).toString(),
               o =
-                k(this.isVideo, !0) +
+                E(this.isVideo, !0) +
                 (this.isVideo
-                  ? s
-                      ._(/*BTDS*/ "Missed video call from {caller_name}", [
-                        s._param("caller_name", e),
-                      ])
-                      .toString()
-                  : s
-                      ._(/*BTDS*/ "Missed voice call from {caller_name}", [
-                        s._param("caller_name", e),
-                      ])
-                      .toString());
+                  ? s._(/*BTDS*/ "", [s._param("caller_name", e)]).toString()
+                  : s._(/*BTDS*/ "", [s._param("caller_name", e)]).toString());
             return {
               wid: (t = this.groupJid) != null ? t : this.wid,
               msgId: this.msgId,
@@ -525,10 +482,10 @@ __d(
             };
           }
           var a =
-            k(this.isVideo, !0) +
+            E(this.isVideo, !0) +
             (this.isVideo
-              ? r("fbs")._(/*BTDS*/ "Missed video call").toString()
-              : r("fbs")._(/*BTDS*/ "Missed voice call").toString());
+              ? r("fbs")._(/*BTDS*/ "").toString()
+              : r("fbs")._(/*BTDS*/ "").toString());
           return {
             wid: this.wid,
             msgId: this.msgId,
@@ -539,51 +496,45 @@ __d(
             onClick: this.$WAMissedCallNotification$p_1,
           };
         }),
-        (a.shouldShowBanner = function () {
+        (n.shouldShowBanner = function () {
           return e.prototype.shouldShowBanner.call(this)
             ? o(
                 "WAWebMuteCollection",
               ).MuteCollection.getGlobalCallNotifications()
             : !1;
         }),
-        (a.shouldPlaySound = function () {
+        (n.shouldPlaySound = function () {
           return e.prototype.shouldPlaySound.call(this)
             ? o(
                 "WAWebMuteCollection",
               ).MuteCollection.getGlobalCallNotifications()
             : !1;
         }),
-        (a.playSound = function () {
+        (n.playSound = function () {
           o("WAWebNotificationTone").playNotification();
         }),
-        (a.getNotificationDeliveryWamEventData = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return {
-              uiNotificationType: this.isVideo
-                ? o("WAWebWamEnumNotificationTypeEnum").NOTIFICATION_TYPE_ENUM
-                    .MISSED_VIDEO_CALL
-                : o("WAWebWamEnumNotificationTypeEnum").NOTIFICATION_TYPE_ENUM
-                    .MISSED_VOICE_CALL,
-            };
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (n.getNotificationDeliveryWamEventData = async function () {
+          return {
+            uiNotificationType: this.isVideo
+              ? o("WAWebWamEnumNotificationTypeEnum").NOTIFICATION_TYPE_ENUM
+                  .MISSED_VIDEO_CALL
+              : o("WAWebWamEnumNotificationTypeEnum").NOTIFICATION_TYPE_ENUM
+                  .MISSED_VOICE_CALL,
+          };
+        }),
         t
       );
     })(o("WAWebBaseNotification").WABaseNotification);
-    function b(e) {
+    function C(e) {
       return o(
         "WAWebNotificationController",
-      ).WANotificationController.triggerNotification(new C(e));
+      ).WANotificationController.triggerNotification(new y(e));
     }
-    function v() {
+    function b() {
       o("WAWebVoipGatingUtils").areRichCallNotificationsEnabled() &&
         o("WAWebNotificationIconUtils").preloadWhatsAppBadge();
     }
-    var S = (function (e) {
+    var v = (function (e) {
       function t(t) {
         var n,
           r = t.isSilenced,
@@ -598,9 +549,9 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.shouldMute = function (t) {
+        (n.shouldMute = function (t) {
           var e, n;
           if (!this.wid || !this.msgId || this.isSilenced)
             return r("WAWebNotificationMuteReason").GlobalMute;
@@ -618,61 +569,53 @@ __d(
             ? r("WAWebNotificationMuteReason").MutedChat
             : null;
         }),
-        (a.buildKey = function () {
+        (n.buildKey = function () {
           return "screened_call:" + this.wid.toString();
         }),
-        (a.matchesChat = function (t) {
+        (n.matchesChat = function (t) {
           return r("WAWebWid").equals.apply(
             r("WAWebWid"),
             o("WAWebLidMigrationUtils").toCommonAddressingMode(this.wid, t.id),
           );
         }),
-        (a.getChatKind = function () {
+        (n.getChatKind = function () {
           return o("WAWebChatFlowTypes").ChatKindType.Chat;
         }),
-        (a.getIcon = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-              this.wid,
-              this.abortController.signal,
-              o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.getBannerOptions = function () {
+        (n.getIcon = async function () {
+          return o("WAWebNotificationIconUtils").getNotificationIconByWid(
+            this.wid,
+            this.abortController.signal,
+            o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
+          );
+        }),
+        (n.getBannerOptions = function () {
           return {
             wid: this.wid,
             msgId: this.msgId,
             tag: "screened_" + this.msgId,
-            title: E(this.wid),
-            body: r("fbs")
-              ._(/*BTDS*/ "Screening call on your phone")
-              .toString(),
+            title: L(this.wid),
+            body: r("fbs")._(/*BTDS*/ "").toString(),
           };
         }),
-        (a.shouldShowBanner = function () {
+        (n.shouldShowBanner = function () {
           return e.prototype.shouldShowBanner.call(this)
             ? o(
                 "WAWebMuteCollection",
               ).MuteCollection.getGlobalCallNotifications()
             : !1;
         }),
-        (a.shouldPlaySound = function () {
+        (n.shouldPlaySound = function () {
           return !1;
         }),
         t
       );
     })(o("WAWebBaseNotification").WABaseNotification);
-    function R(e) {
+    function S(e) {
       return o(
         "WAWebNotificationController",
-      ).WANotificationController.triggerNotification(new S(e));
+      ).WANotificationController.triggerNotification(new v(e));
     }
-    function L(e) {
+    function R(e) {
       return (
         o("WAWebVoipCallScreeningEligibility").isCallerEligibleForScreening(
           e,
@@ -682,13 +625,13 @@ __d(
         ) >= 1
       );
     }
-    function E(e) {
+    function L(e) {
       var t = o("WAWebContactCollection").ContactCollection.get(e);
       return t == null
         ? o("WAWebWidFormat").widToFormattedUser(e)
         : o("WAWebFrontendContactGetters").getFormattedName(t);
     }
-    function k(e, t) {
+    function E(e, t) {
       return !o("WAWebUA").UA.hasEmoji ||
         !o("WAWebABProps").getABPropConfigValue(
           "wa_web_calling_notification_icons_enabled",
@@ -696,7 +639,7 @@ __d(
         ? ""
         : o("WAWebVoipCallEmoji").getCallEmoji(e, t) + " ";
     }
-    function I(e, t) {
+    function k(e, t) {
       if (e != null) {
         var n = r("WAWebGroupMetadataCollection").get(e);
         if ((n == null ? void 0 : n.subject) != null && n.subject !== "")
@@ -713,62 +656,54 @@ __d(
             a,
             !0,
           )
-        : r("fbs")._(/*BTDS*/ "Group call");
+        : r("fbs")._(/*BTDS*/ "");
     }
-    function T(e) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!o("WAWebVoipGatingUtils").areRichCallNotificationsEnabled())
-            return x(e);
-          var t =
-              Date.now() +
-              o("WAWebNotificationIconUtils").NOTIFICATION_ICON_TIMEOUT_MS,
-            n = yield x(e);
-          return o("WAWebNotificationIconUtils").addWhatsAppBadgeToIcon(
-            n,
-            t - Date.now(),
-          );
-        })),
-        D.apply(this, arguments)
+    async function I(e) {
+      if (!o("WAWebVoipGatingUtils").areRichCallNotificationsEnabled())
+        return T(e);
+      var t =
+          Date.now() +
+          o("WAWebNotificationIconUtils").NOTIFICATION_ICON_TIMEOUT_MS,
+        n = await T(e);
+      return o("WAWebNotificationIconUtils").addWhatsAppBadgeToIcon(
+        n,
+        t - Date.now(),
       );
     }
-    function x(t) {
-      var r = t.abortSignal,
-        a = t.groupCallParticipants,
-        i = t.groupJid,
-        l = t.isGroup,
-        s = t.wid;
-      if (l) {
-        if (i != null)
+    function T(t) {
+      var n = t.abortSignal,
+        r = t.groupCallParticipants,
+        a = t.groupJid,
+        i = t.isGroup,
+        l = t.wid;
+      if (i) {
+        if (a != null)
           return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-            i,
-            r,
-            u,
+            a,
+            n,
+            e,
           );
-        var c = a == null ? void 0 : a[0];
-        return c != null
+        var s = r == null ? void 0 : r[0];
+        return s != null
           ? o("WAWebNotificationIconUtils").getNotificationIconByWid(
-              c,
-              r,
+              s,
+              n,
               o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
             )
-          : (e || (e = n("Promise"))).resolve(u);
+          : Promise.resolve(e);
       }
       return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-        s,
-        r,
+        l,
+        n,
         o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
       );
     }
-    ((l.showCallNotification = d),
-      (l.silenceCallNotification = m),
-      (l.cancelCallNotification = p),
-      (l.showMissedCallNotification = b),
-      (l.preloadCallNotificationBadge = v),
-      (l.showScreenedCallNotification = R));
+    ((l.showCallNotification = c),
+      (l.silenceCallNotification = d),
+      (l.cancelCallNotification = m),
+      (l.showMissedCallNotification = C),
+      (l.preloadCallNotificationBadge = b),
+      (l.showScreenedCallNotification = S));
   },
   226,
 );

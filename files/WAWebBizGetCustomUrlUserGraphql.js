@@ -4,55 +4,42 @@ __d(
     "WAWebBizGetCustomUrlUserGraphqlQuery.graphql",
     "WAWebGraphQLServerError",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    async function s(t) {
+      return o("WAWebRelayClient")
+        .fetchQuery(
+          e !== void 0
+            ? e
+            : (e = n("WAWebBizGetCustomUrlUserGraphqlQuery.graphql")),
+          { data: { custom_url: { path: t } } },
+        )
+        .then(u)
+        .catch(function (e) {
+          if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
+            var t, n, r, a;
+            return {
+              type: "graphql-error",
+              errorCode:
+                (t = (n = e.source) == null ? void 0 : n.errors[0].code) != null
+                  ? t
+                  : 0,
+              errorText:
+                (r = (a = e.source) == null ? void 0 : a.errors[0].message) !=
+                null
+                  ? r
+                  : "",
+            };
+          }
+          return {
+            type: "graphql-error",
+            errorCode: 0,
+            errorText: "unknown error",
+          };
+        });
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          return o("WAWebRelayClient")
-            .fetchQuery(
-              e !== void 0
-                ? e
-                : (e = n("WAWebBizGetCustomUrlUserGraphqlQuery.graphql")),
-              { data: { custom_url: { path: t } } },
-            )
-            .then(c)
-            .catch(function (e) {
-              if (
-                e instanceof o("WAWebGraphQLServerError").GraphQLServerError
-              ) {
-                var t, n, r, a;
-                return {
-                  type: "graphql-error",
-                  errorCode:
-                    (t = (n = e.source) == null ? void 0 : n.errors[0].code) !=
-                    null
-                      ? t
-                      : 0,
-                  errorText:
-                    (r =
-                      (a = e.source) == null ? void 0 : a.errors[0].message) !=
-                    null
-                      ? r
-                      : "",
-                };
-              }
-              return {
-                type: "graphql-error",
-                errorCode: 0,
-                errorText: "unknown error",
-              };
-            });
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e) {
+    function u(e) {
       var t, n;
       if (
         !(e != null && (t = e.xwa_custom_url_get_user) != null && t.success)
@@ -69,7 +56,7 @@ __d(
               : o.error_text;
         return {
           type: "error",
-          errorCode: d(a),
+          errorCode: c(a),
           errorText: i != null ? i : "",
         };
       }
@@ -87,7 +74,7 @@ __d(
           }
         : { type: "success", user: { jid: l } };
     }
-    function d(e) {
+    function c(e) {
       return e === "CODE_404"
         ? 404
         : e === "CODE_400"
@@ -98,7 +85,7 @@ __d(
               ? 500
               : 0;
     }
-    ((l.queryCustomUrlUser = s), (l.parseResponse = c));
+    ((l.queryCustomUrlUser = s), (l.parseResponse = u));
   },
   98,
 );

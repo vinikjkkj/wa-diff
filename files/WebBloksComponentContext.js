@@ -8,7 +8,6 @@ __d(
     "WebBloksScriptExecutor",
     "WebBloksUtils",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -113,15 +112,7 @@ __d(
     });
     var _ = d(null);
     function f() {
-      var e = o("react-compiler-runtime").c(2),
-        t = m(_),
-        n;
-      return (
-        e[0] !== t
-          ? ((n = o("WebBloksUtils").nullthrows(t)), (e[0] = t), (e[1] = n))
-          : (n = e[1]),
-        n
-      );
+      return o("WebBloksUtils").nullthrows(m(_));
     }
     ((l.WebBloksComponentContext = p),
       (l.WebBloksComponentContextContext = _),

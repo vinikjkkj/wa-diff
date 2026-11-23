@@ -3,13 +3,13 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Not saved");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Chatted this week");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Online");
+      return s._(/*BTDS*/ "");
     }
     ((l.getNotSavedLabel = e),
       (l.getChattedThisWeekLabel = u),

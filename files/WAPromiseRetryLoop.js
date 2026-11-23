@@ -1,12 +1,10 @@
 __d(
   "WAPromiseRetryLoop",
   [
-    "Promise",
     "WALogger",
     "WAPromiseBackoffs",
     "WAPromiseDelays",
     "WAResolvable",
-    "asyncToGeneratorRuntime",
     "err",
     "gkx",
   ],
@@ -22,8 +20,7 @@ __d(
       _,
       f,
       g,
-      h,
-      y = (function () {
+      h = (function () {
         function t(e) {
           var t = this;
           ((this.$2 = new (o("WAResolvable").Resolvable)()),
@@ -36,15 +33,15 @@ __d(
             }),
             (this.$1 = e));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.resetTimeoutAfter = function (t) {
+          (n.resetTimeoutAfter = function (t) {
             this.$4 = Date.now() + t;
           }),
-          (a.cancelReset = function () {
+          (n.cancelReset = function () {
             this.$4 = null;
           }),
-          (a.reset = function () {
+          (n.reset = function () {
             this.$2.resolveWasCalled() ||
               (o("WALogger").LOG(
                 e ||
@@ -58,7 +55,7 @@ __d(
               this.$6.resolve(),
               this.$7());
           }),
-          (a.start = function () {
+          (n.start = function () {
             this.$2.resolveWasCalled() ||
               (o("WALogger").LOG(
                 s ||
@@ -79,7 +76,7 @@ __d(
               this.$6.resolve(),
               this.$7());
           }),
-          (a.pauseOnNextIteration = function () {
+          (n.pauseOnNextIteration = function () {
             (o("WALogger").LOG(
               c ||
                 (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -89,7 +86,7 @@ __d(
               this.$6.resolve(),
               (this.$6 = new (o("WAResolvable").Resolvable)()));
           }),
-          (a.unpause = function () {
+          (n.unpause = function () {
             (this.$6.resolveWasCalled() ||
               o("WALogger").LOG(
                 d ||
@@ -99,15 +96,15 @@ __d(
               ),
               this.$6.resolve());
           }),
-          (a.$7 = function () {
+          (n.$7 = function () {
             var e = this,
               t = this.$1,
-              a = this.$5,
-              i = o("WAPromiseBackoffs").createTimer(this.$1.timer);
-            i();
-            var l = function () {
+              n = this.$5,
+              a = o("WAPromiseBackoffs").createTimer(this.$1.timer);
+            a();
+            var i = function () {
                 return e.$1.isPauseEnabled !== !0
-                  ? (h || (h = n("Promise"))).resolve()
+                  ? Promise.resolve()
                   : (e.$6.resolveWasCalled() ||
                       o("WALogger").LOG(
                         m ||
@@ -117,14 +114,14 @@ __d(
                       ),
                     e.$6.promise);
               },
-              s = function () {
-                if (!e.$2.resolveWasCalled() && a === e.$5) {
-                  var n = Date.now();
+              l = function () {
+                if (!e.$2.resolveWasCalled() && n === e.$5) {
+                  var r = Date.now();
                   return (
                     (e.$3 = (0, t.code)(e.endWithValue).then(function () {
                       if (!e.$2.resolveWasCalled()) {
-                        var r = t.resetDelay;
-                        (((r !== void 0 && Date.now() >= n + r) ||
+                        var n = t.resetDelay;
+                        (((n !== void 0 && Date.now() >= r + n) ||
                           (e.$4 != null && e.$4 <= Date.now())) &&
                           (o("WALogger").LOG(
                             p ||
@@ -134,9 +131,9 @@ __d(
                               ])),
                             t.name,
                           ),
-                          (i = o("WAPromiseBackoffs").createTimer(e.$1.timer))),
+                          (a = o("WAPromiseBackoffs").createTimer(e.$1.timer))),
                           (e.$4 = null));
-                        var a = i();
+                        var s = a();
                         return (
                           o("WALogger").LOG(
                             _ ||
@@ -146,9 +143,9 @@ __d(
                                 "ms",
                               ])),
                             t.name,
-                            a,
+                            s,
                           ),
-                          o("WAPromiseDelays").delayMs(a).then(l).then(s)
+                          o("WAPromiseDelays").delayMs(s).then(i).then(l)
                         );
                       }
                     })),
@@ -156,66 +153,59 @@ __d(
                   );
                 }
               },
-              u = (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    for (;;) {
-                      if (e.$2.resolveWasCalled() || a !== e.$5) return;
-                      var n = Date.now();
-                      if (
-                        (yield t.code.call(void 0, e.endWithValue),
-                        e.$2.resolveWasCalled())
-                      )
-                        return;
-                      var r = t.resetDelay;
-                      (((r !== void 0 && Date.now() >= n + r) ||
-                        (e.$4 != null && e.$4 <= Date.now())) &&
-                        (o("WALogger").LOG(
-                          f ||
-                            (f = babelHelpers.taggedTemplateLiteralLoose([
-                              "PromiseRetryLoop: resetting ",
-                              "",
-                            ])),
-                          t.name,
-                        ),
-                        (i = o("WAPromiseBackoffs").createTimer(e.$1.timer))),
-                        (e.$4 = null));
-                      var s = i();
-                      (o("WALogger").LOG(
-                        g ||
-                          (g = babelHelpers.taggedTemplateLiteralLoose([
-                            "PromiseRetryLoop: retrying ",
-                            " in ",
-                            "ms",
-                          ])),
-                        t.name,
-                        s,
-                      ),
-                        yield o("WAPromiseDelays").delayMs(s),
-                        yield l());
-                    }
-                  },
-                );
-                return function () {
-                  return r.apply(this, arguments);
-                };
-              })();
+              s = async function () {
+                for (;;) {
+                  if (e.$2.resolveWasCalled() || n !== e.$5) return;
+                  var r = Date.now();
+                  if (
+                    (await t.code.call(void 0, e.endWithValue),
+                    e.$2.resolveWasCalled())
+                  )
+                    return;
+                  var l = t.resetDelay;
+                  (((l !== void 0 && Date.now() >= r + l) ||
+                    (e.$4 != null && e.$4 <= Date.now())) &&
+                    (o("WALogger").LOG(
+                      f ||
+                        (f = babelHelpers.taggedTemplateLiteralLoose([
+                          "PromiseRetryLoop: resetting ",
+                          "",
+                        ])),
+                      t.name,
+                    ),
+                    (a = o("WAPromiseBackoffs").createTimer(e.$1.timer))),
+                    (e.$4 = null));
+                  var s = a();
+                  (o("WALogger").LOG(
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                        "PromiseRetryLoop: retrying ",
+                        " in ",
+                        "ms",
+                      ])),
+                    t.name,
+                    s,
+                  ),
+                    await o("WAPromiseDelays").delayMs(s),
+                    await i());
+                }
+              };
             r("gkx")("9841")
-              ? (this.$3 = (h || (h = n("Promise"))).resolve().then(u))
-              : (this.$3 = (h || (h = n("Promise"))).resolve().then(s));
+              ? (this.$3 = Promise.resolve().then(s))
+              : (this.$3 = Promise.resolve().then(l));
           }),
-          (a.promise = function () {
+          (n.promise = function () {
             var e = this;
             return this.$2.resolveWasCalled()
               ? this.$2.promise
               : this.$3
-                ? (h || (h = n("Promise"))).race([
+                ? Promise.race([
                     this.$2.promise,
                     this.$3.then(function () {
                       return e.$2.promise;
                     }),
                   ])
-                : (h || (h = n("Promise"))).reject(
+                : Promise.reject(
                     r("err")(
                       "PromiseRetryLoop " +
                         this.$1.name +
@@ -226,7 +216,7 @@ __d(
           t
         );
       })();
-    l.PromiseRetryLoop = y;
+    l.PromiseRetryLoop = h;
   },
   98,
 );

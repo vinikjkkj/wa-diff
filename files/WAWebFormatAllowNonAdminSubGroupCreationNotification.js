@@ -13,17 +13,11 @@ __d(
         a = !!((n = e.groupMetadata) != null && n.participants.iAmAdmin());
       return r
         ? a
-          ? s._(
-              /*BTDS*/ "Everyone in this community can now add groups. Click to change.",
-            )
-          : s._(/*BTDS*/ "Everyone in this community can now add groups.")
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "")
         : a
-          ? s._(
-              /*BTDS*/ "Only community admins can add groups. Members can suggest groups for admin approval. Click to change.",
-            )
-          : s._(
-              /*BTDS*/ "Only community admins can add groups. Members can suggest groups for admin approval.",
-            );
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

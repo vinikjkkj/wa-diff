@@ -208,15 +208,15 @@ __d(
                       : void 0,
                   })),
               D = new (o("WAWebActionToast.react").ActionType)(
-                s._(/*BTDS*/ "Muting chat"),
+                s._(/*BTDS*/ ""),
               );
             E === "group"
               ? (D = new (o("WAWebActionToast.react").ActionType)(
-                  s._(/*BTDS*/ "Muting group"),
+                  s._(/*BTDS*/ ""),
                 ))
               : E === "newsletter" &&
                 (D = new (o("WAWebActionToast.react").ActionType)(
-                  s._(/*BTDS*/ "Muting channel"),
+                  s._(/*BTDS*/ ""),
                 ));
             var x = C != null ? C : o("WAWebActionToast.react").genId(),
               $ = T.catch(function (e) {
@@ -226,18 +226,18 @@ __d(
                       "models:Mute:mute dropped",
                     ])),
                 );
-                var n = s._(/*BTDS*/ "Couldn't mute chat.");
+                var n = s._(/*BTDS*/ "");
                 if (
                   (E === "group"
-                    ? (n = s._(/*BTDS*/ "Couldn't mute group."))
+                    ? (n = s._(/*BTDS*/ ""))
                     : E === "newsletter" &&
                       (D = new (o("WAWebActionToast.react").ActionType)(
-                        s._(/*BTDS*/ "Couldn't mute channel"),
+                        s._(/*BTDS*/ ""),
                       )),
                   !r("WAWebWid").isNewsletter(t.id))
                 )
                   throw new (o("WAWebActionToast.react").ActionType)(n, {
-                    actionText: s._(/*BTDS*/ "Try again."),
+                    actionText: s._(/*BTDS*/ ""),
                     actionHandler: function () {
                       return t.mute({
                         expiration: v,
@@ -249,16 +249,15 @@ __d(
                   });
               }).then(function (e) {
                 if (e.status === 200) {
-                  var n = s._(/*BTDS*/ "Chat muted");
+                  var n = s._(/*BTDS*/ "");
                   return (
                     E === "group"
-                      ? (n = s._(/*BTDS*/ "Group muted"))
-                      : E === "newsletter" &&
-                        (n = s._(/*BTDS*/ "Channel muted")),
+                      ? (n = s._(/*BTDS*/ ""))
+                      : E === "newsletter" && (n = s._(/*BTDS*/ "")),
                     p
                       ? new (o("WAWebActionToast.react").ActionType)(n)
                       : new (o("WAWebActionToast.react").ActionType)(n, {
-                          actionText: s._(/*BTDS*/ "Undo"),
+                          actionText: s._(/*BTDS*/ ""),
                           actionHandler: function () {
                             return r("WAWebWid").isNewsletter(t.id)
                               ? o(
@@ -283,14 +282,14 @@ __d(
                 } else if (e.status >= 400)
                   throw E === "newsletter"
                     ? new (o("WAWebActionToast.react").ActionType)(
-                        s._(/*BTDS*/ "Couldn't mute channel"),
+                        s._(/*BTDS*/ ""),
                       )
                     : E === "group"
                       ? new (o("WAWebActionToast.react").ActionType)(
-                          s._(/*BTDS*/ "Couldn't mute group."),
+                          s._(/*BTDS*/ ""),
                         )
                       : new (o("WAWebActionToast.react").ActionType)(
-                          s._(/*BTDS*/ "Couldn't mute chat."),
+                          s._(/*BTDS*/ ""),
                         );
               });
             return (
@@ -440,15 +439,15 @@ __d(
                     expiration: 0,
                   })),
               v = new (o("WAWebActionToast.react").ActionType)(
-                s._(/*BTDS*/ "Unmuting chat"),
+                s._(/*BTDS*/ ""),
               );
             f === "group"
               ? (v = new (o("WAWebActionToast.react").ActionType)(
-                  s._(/*BTDS*/ "Unmuting group"),
+                  s._(/*BTDS*/ ""),
                 ))
               : f === "newsletter" &&
                 (v = new (o("WAWebActionToast.react").ActionType)(
-                  s._(/*BTDS*/ "Unmuting channel"),
+                  s._(/*BTDS*/ ""),
                 ));
             var S = m != null ? m : o("WAWebActionToast.react").genId(),
               L = this.promises.unmute
@@ -459,16 +458,15 @@ __d(
                         "models:Mute:unmute dropped",
                       ])),
                   );
-                  var n = s._(/*BTDS*/ "Couldn't unmute chat.");
+                  var n = s._(/*BTDS*/ "");
                   if (
                     (f === "group"
-                      ? (n = s._(/*BTDS*/ "Couldn't unmute group."))
-                      : f === "newsletter" &&
-                        (n = s._(/*BTDS*/ "Couldn't unmute channel.")),
+                      ? (n = s._(/*BTDS*/ ""))
+                      : f === "newsletter" && (n = s._(/*BTDS*/ "")),
                     !r("WAWebWid").isNewsletter(e.id))
                   )
                     throw new (o("WAWebActionToast.react").ActionType)(n, {
-                      actionText: s._(/*BTDS*/ "Try again."),
+                      actionText: s._(/*BTDS*/ ""),
                       actionHandler: function () {
                         return e.unmute({ sendDevice: u, toastId: S });
                       },
@@ -478,14 +476,14 @@ __d(
                   if (t.status === 200) {
                     if (f === "group")
                       return new (o("WAWebActionToast.react").ActionType)(
-                        s._(/*BTDS*/ "Group unmuted"),
+                        s._(/*BTDS*/ ""),
                       );
                     if (f === "newsletter") {
-                      var n = s._(/*BTDS*/ "Channel unmuted");
+                      var n = s._(/*BTDS*/ "");
                       return l
                         ? new (o("WAWebActionToast.react").ActionType)(n)
                         : new (o("WAWebActionToast.react").ActionType)(n, {
-                            actionText: s._(/*BTDS*/ "Undo"),
+                            actionText: s._(/*BTDS*/ ""),
                             actionHandler: function () {
                               return o(
                                 "WAWebNewsletterUpdateUserSettingsAction",
@@ -506,19 +504,19 @@ __d(
                           });
                     }
                     return new (o("WAWebActionToast.react").ActionType)(
-                      s._(/*BTDS*/ "Chat unmuted"),
+                      s._(/*BTDS*/ ""),
                     );
                   } else if (t.status >= 400)
                     throw f === "newsletter"
                       ? new (o("WAWebActionToast.react").ActionType)(
-                          s._(/*BTDS*/ "Couldn't unmute channel"),
+                          s._(/*BTDS*/ ""),
                         )
                       : f === "group"
                         ? new (o("WAWebActionToast.react").ActionType)(
-                            s._(/*BTDS*/ "Couldn't unmute group."),
+                            s._(/*BTDS*/ ""),
                           )
                         : new (o("WAWebActionToast.react").ActionType)(
-                            s._(/*BTDS*/ "Couldn't unmute chat."),
+                            s._(/*BTDS*/ ""),
                           );
                 });
             return (

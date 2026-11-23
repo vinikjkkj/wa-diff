@@ -2,7 +2,6 @@ __d(
   "WAWebBizBroadcastsAudienceUtils",
   [
     "fbt",
-    "Promise",
     "WALogger",
     "WAWebAudienceExpressionTypes",
     "WAWebBizBroadcastAudienceDuplicateCheck",
@@ -17,14 +16,12 @@ __d(
     "WAWebFbtCommon",
     "WAWebWidToJid",
     "WDSToastImperativeHost",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
-      u,
-      c = 100;
-    function d() {
+      u = 100;
+    function c() {
       var e = o("WAWebChatCollection").ChatCollection.filter(function (e) {
         return o("WAWebChatGetters").getIsBroadcast(e) && !e.id.isStatus();
       });
@@ -62,7 +59,7 @@ __d(
         );
       });
     }
-    function m(e) {
+    function d(e) {
       var t = e.action,
         n = e.audienceListItem,
         a = e.onRefreshAudienceList,
@@ -99,14 +96,14 @@ __d(
         message: l,
       });
     }
-    function p() {
+    function m() {
       o("WDSToastImperativeHost").showWDSToast({
         message: o(
           "WAWebBizBroadcastsCreationStrings",
         ).getAudienceCreatedToastLabel(),
       });
     }
-    function _(e, t, n, a) {
+    function p(e, t, n, a) {
       o("WDSToastImperativeHost").showWDSToast({
         action: {
           label: r("WAWebFbtCommon")("Undo"),
@@ -123,7 +120,7 @@ __d(
         ).getAudienceUpdatedToastLabel(),
       });
     }
-    function f(e, t) {
+    function _(e, t) {
       o("WDSToastImperativeHost").showWDSToast({
         action: { label: r("WAWebFbtCommon")("Undo"), onPress: t },
         message: o(
@@ -131,7 +128,7 @@ __d(
         ).getEditErrorSuccessToastLabel(e),
       });
     }
-    function g(e, t) {
+    function f(e, t) {
       o("WDSToastImperativeHost").showWDSToast({
         action: { label: r("WAWebFbtCommon")("Undo"), onPress: t },
         message: o(
@@ -139,7 +136,7 @@ __d(
         ).getDeleteAllErrorsSuccessToastLabel(e),
       });
     }
-    function h(e, t) {
+    function g(e, t) {
       o("WDSToastImperativeHost").showWDSToast({
         action: { label: r("WAWebFbtCommon")("Undo"), onPress: t },
         message: o(
@@ -147,7 +144,7 @@ __d(
         ).getDeleteErrorSuccessToastLabel(e),
       });
     }
-    function y(e, t) {
+    function h(e, t) {
       if (e == null) return "";
       var n = o("WAWebBizBroadcastsAudienceStrings").getDurationLabelForDays(t);
       return e === "inactive_chats"
@@ -160,7 +157,7 @@ __d(
               .toString()
           : "";
     }
-    function C(e) {
+    function y(e) {
       if (e == null || e.length === 0) return "";
       var t = [];
       for (var n of e) {
@@ -177,105 +174,79 @@ __d(
       var i = e.length - t.length;
       return i > 0
         ? s
-            ._(/*BTDS*/ "{names} and {count} more", [
+            ._(/*BTDS*/ "", [
               s._param("names", t.join(", ")),
               s._param("count", i),
             ])
             .toString()
         : t.join(", ");
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
-    }
-    function v() {
+    async function C(t, n) {
+      var a = [],
+        i = [],
+        l = o(
+          "WAWebBizBroadcastAudienceDuplicateCheck",
+        ).createImportAudienceDuplicateCheck(),
+        s = l.countSavedAudience,
+        u = l.markSaveFailed;
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i = [],
-            l = [],
-            s = o(
-              "WAWebBizBroadcastAudienceDuplicateCheck",
-            ).createImportAudienceDuplicateCheck(),
-            c = s.countSavedAudience,
-            d = s.markSaveFailed;
+        await t.reduce(async function (t, l) {
           return (
-            yield t.reduce(
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t, n) {
-                    return (
-                      yield t,
-                      S(n, c, a)
-                        .then(function (e) {
-                          l.push(e);
-                        })
-                        .catch(function (t) {
-                          (d(),
-                            i.push(n),
-                            o("WALogger")
-                              .ERROR(
-                                e ||
-                                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                                    "Failed to save smart-import audience",
-                                  ])),
-                              )
-                              .catching(r("getErrorSafe")(t))
-                              .sendLogs(
-                                "business-broadcast-smart-import-segment-save-failed",
-                              ));
-                        })
-                    );
-                  },
-                );
-                return function (e, n) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-              (u || (u = n("Promise"))).resolve(),
-            ),
-            { failedAudiences: i, savedAudiences: l }
+            await t,
+            b(l, s, n)
+              .then(function (e) {
+                i.push(e);
+              })
+              .catch(function (t) {
+                (u(),
+                  a.push(l),
+                  o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "Failed to save smart-import audience",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(t))
+                    .sendLogs(
+                      "business-broadcast-smart-import-segment-save-failed",
+                    ));
+              })
           );
-        })),
-        v.apply(this, arguments)
+        }, Promise.resolve()),
+        { failedAudiences: a, savedAudiences: i }
       );
     }
-    function S(e, t, n) {
-      return R.apply(this, arguments);
+    async function b(e, t, n) {
+      var r = e.contacts.map(function (e) {
+          return { lid: e.lid, phone: e.phone };
+        }),
+        a = e.name.trim(),
+        i = await o("WAWebBroadcastListAction").createBroadcastListAction({
+          broadcastListName: a,
+          contacts: r,
+          creationDuplicateCheck: { countSavedAudience: t, entryPoint: n },
+        });
+      return {
+        audienceExpression: o("WAWebAudienceExpressionTypes")
+          .DEFAULT_AUDIENCE_EXPRESSION,
+        broadcastJid: i,
+        lastBroadcastTimestamp: null,
+        name: a,
+        recipientCount: r.length,
+      };
     }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = e.contacts.map(function (e) {
-              return { lid: e.lid, phone: e.phone };
-            }),
-            a = e.name.trim(),
-            i = yield o("WAWebBroadcastListAction").createBroadcastListAction({
-              broadcastListName: a,
-              contacts: r,
-              creationDuplicateCheck: { countSavedAudience: t, entryPoint: n },
-            });
-          return {
-            audienceExpression: o("WAWebAudienceExpressionTypes")
-              .DEFAULT_AUDIENCE_EXPRESSION,
-            broadcastJid: i,
-            lastBroadcastTimestamp: null,
-            name: a,
-            recipientCount: r.length,
-          };
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    ((l.MAX_AUDIENCE_NAME_LENGTH = c),
-      (l.getBroadcastChatsAsAudiences = d),
-      (l.showCreateAudienceSuccessToast = m),
-      (l.showAudienceCreatedWithoutChatToast = p),
-      (l.showUpdateAudienceSuccessToast = _),
-      (l.showImportAudienceEditContactSuccessToast = f),
-      (l.showImportAudienceDeleteAllContactsSuccessToast = g),
-      (l.showImportAudienceDeleteErrorSuccessToast = h),
-      (l.buildAudienceNameForCard = y),
-      (l.buildAudienceNameFromRecipients = C),
-      (l.persistAudienceDraftsSequentially = b));
+    ((l.MAX_AUDIENCE_NAME_LENGTH = u),
+      (l.getBroadcastChatsAsAudiences = c),
+      (l.showCreateAudienceSuccessToast = d),
+      (l.showAudienceCreatedWithoutChatToast = m),
+      (l.showUpdateAudienceSuccessToast = p),
+      (l.showImportAudienceEditContactSuccessToast = _),
+      (l.showImportAudienceDeleteAllContactsSuccessToast = f),
+      (l.showImportAudienceDeleteErrorSuccessToast = g),
+      (l.buildAudienceNameForCard = h),
+      (l.buildAudienceNameFromRecipients = y),
+      (l.persistAudienceDraftsSequentially = C));
   },
   226,
 );

@@ -11,32 +11,21 @@ __d(
     "WAWebPsBufferUploadWamEvent",
     "WAWebWamEnumApplicationState",
     "WAWebWamEnumPsBufferUploadResult",
-    "asyncToGeneratorRuntime",
     "privateStatsUpload",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e, t) {
-      var r = new Uint8Array(o("WABase64").decodeB64(e));
-      return d(
-        t,
-        (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var n = yield o(
-                "privateStatsUpload",
-              ).upload_UNSAFE_INTERNAL_DO_NOT_USE(
-                [{ key: t, content: r }],
-                o("WAWebIssuePrivateStatsToken").getToken,
-              ),
-              a = n.metrics,
-              i = n.uploadedBufferKeys;
-            (a.map(c), i.length === 0 && e(t), e(void 0));
-          });
-          return function (t) {
-            return e.apply(this, arguments);
-          };
-        })(),
-      );
+      var n = new Uint8Array(o("WABase64").decodeB64(e));
+      return d(t, async function (e) {
+        var r = await o("privateStatsUpload").upload_UNSAFE_INTERNAL_DO_NOT_USE(
+            [{ key: t, content: n }],
+            o("WAWebIssuePrivateStatsToken").getToken,
+          ),
+          a = r.metrics,
+          i = r.uploadedBufferKeys;
+        (a.map(c), i.length === 0 && e(t), e(void 0));
+      });
     }
     function u(e) {
       return e === "success"
@@ -81,39 +70,27 @@ __d(
             : o("WAWebWamEnumApplicationState").APPLICATION_STATE.BACKGROUND,
       }).commit();
     }
-    function d(t, a) {
-      return o("WAPromiseLoop").promiseLoop(
-        (function () {
-          var i = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (n, i, l) {
-              var s = o("WAPromiseDelays").delayMs(
-                o("WABackoffUtils").expBackoff(l, 12e4, 1e3, 0.1),
-              );
-              try {
-                return (
-                  yield r("WAWebNetworkStatus").waitIfOffline(),
-                  yield a(n)
-                );
-              } catch (r) {
-                return l > 1
-                  ? (o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[wam] sendLogs failure error: ",
-                          "",
-                        ])),
-                      String(r),
-                    ),
-                    n(t))
-                  : s;
-              }
-            },
-          );
-          return function (e, t, n) {
-            return i.apply(this, arguments);
-          };
-        })(),
-      );
+    function d(t, n) {
+      return o("WAPromiseLoop").promiseLoop(async function (a, i, l) {
+        var s = o("WAPromiseDelays").delayMs(
+          o("WABackoffUtils").expBackoff(l, 12e4, 1e3, 0.1),
+        );
+        try {
+          return (await r("WAWebNetworkStatus").waitIfOffline(), await n(a));
+        } catch (n) {
+          return l > 1
+            ? (o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[wam] sendLogs failure error: ",
+                    "",
+                  ])),
+                String(n),
+              ),
+              a(t))
+            : s;
+        }
+      });
     }
     l.default = s;
   },

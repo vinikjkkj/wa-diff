@@ -10,7 +10,7 @@ __d(
         t.value,
         "validation_policy",
         o("WASmaxInMessageDeliverEnums")
-          .ENUM_DROPINVALIDREPORTINGTOKEN_DROPMISSINGREPORTINGTOKEN,
+          .ENUM_DROPALL_DROPINVALIDREPORTINGTOKEN_DROPMISSINGREPORTINGTOKEN_LOGMISSINGREPORTINGTOKEN,
       );
       return n.success
         ? o("WAResultOrError").makeResult({

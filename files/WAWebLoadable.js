@@ -1,6 +1,6 @@
 __d(
   "WAWebLoadable",
-  ["react", "react-compiler-runtime", "react-loadable"],
+  ["react", "react-loadable"],
   function (t, n, r, o, a, i, l) {
     var e = ["forwardedRefDoNotUse"],
       s = ["ref"],
@@ -8,13 +8,13 @@ __d(
       c = u || (u = o("react"));
     function d(t) {
       var n = t.loader,
-        a = t.loading,
-        i = t.renderLoadingImmediately,
-        l = i === void 0 ? !1 : i,
+        o = t.loading,
+        a = t.renderLoadingImmediately,
+        l = a === void 0 ? !1 : a,
         u = r("react-loadable")({
           loader: n,
           loading: function (t) {
-            return !t.pastDelay && !l ? null : a(t);
+            return !t.pastDelay && !l ? null : o(t);
           },
           render: function (n, r) {
             var t = r.forwardedRefDoNotUse,
@@ -23,31 +23,11 @@ __d(
           },
         });
       function d(e) {
-        var t = o("react-compiler-runtime").c(6),
-          n,
-          r;
-        t[0] !== e
-          ? ((r = e.ref),
-            (n = babelHelpers.objectWithoutPropertiesLoose(e, s)),
-            (t[0] = e),
-            (t[1] = n),
-            (t[2] = r))
-          : ((n = t[1]), (r = t[2]));
-        var a;
-        return (
-          t[3] !== n || t[4] !== r
-            ? ((a = c.jsx(
-                u,
-                babelHelpers.extends({ forwardedRefDoNotUse: r }, n),
-              )),
-              (t[3] = n),
-              (t[4] = r),
-              (t[5] = a))
-            : (a = t[5]),
-          a
-        );
+        var t = e.ref,
+          n = babelHelpers.objectWithoutPropertiesLoose(e, s);
+        return c.jsx(u, babelHelpers.extends({ forwardedRefDoNotUse: t }, n));
       }
-      return d;
+      return ((d.displayName = d.name + " [from " + i.id + "]"), d);
     }
     l.default = d;
   },

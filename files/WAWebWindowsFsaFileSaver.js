@@ -4,17 +4,19 @@ __d(
     "fbt",
     "WAAbortError",
     "WALogger",
+    "WAPromiseEach",
     "WAWebFileSaver",
     "WAWebFileSaverDownloadData",
     "WAWebFilenameManager",
+    "WAWebHarmfulFileWarningGate",
     "WAWebMimeTypes",
     "WAWebODS",
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWindowsGatingUtils",
     "WAWebWindowsMediaFilesMetrics",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
+    "justknobx",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -41,115 +43,92 @@ __d(
                 )
                 .catching(r("getErrorSafe")(t))
                 .sendLogs("fsa-save-as-unexpected"),
-                L());
+                b());
             }),
             !0)
           : (o("WAWebWindowsMediaFilesMetrics").incrSaveAsLegacyAttempt(), !1)
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(e) {
+      var t = await f(e);
+      t != null && (await g(e, t));
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield g(e);
-          t != null && (yield y(e, t));
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebFilenameManager").getDefaultName(e),
-            n = S(e);
-          try {
-            return yield showSaveFilePicker(
-              n != null ? { suggestedName: t, types: n } : { suggestedName: t },
-            );
-          } catch (t) {
-            var a = r("getErrorSafe")(t);
-            return a.name === o("WAAbortError").ABORT_ERROR
-              ? (r("WAWebODS").incr("web.windows.fsa_save_as.cancelled"), null)
-              : (o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[fsa-save-as] showSaveFilePicker unavailable, falling back to legacy download",
-                      ])),
-                  )
-                  .catching(a)
-                  .sendLogs("fsa-save-as-picker-failed"),
-                r("WAWebODS").incr("web.windows.fsa_save_as.fallback"),
-                o("WAWebFileSaver").FileSaver.initDownload(e),
-                null);
-          }
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n = yield o(
-                "WAWebFileSaverDownloadData",
-              ).getMultiMsgDownloadData(e, !0),
-              a = n.blob;
-            if (a == null) {
-              var i = new Error("No blob available to save");
-              throw (i.stack, i);
-            }
-            (yield b(t, a),
-              r("WAWebODS").incr("web.windows.fsa_save_as.saved"),
-              o("WAWebWindowsMediaFilesMetrics").incrSaveAsFsaSuccess(),
-              R());
-          } catch (e) {
-            var l = r("getErrorSafe")(e);
-            if (l.name === o("WAAbortError").ABORT_ERROR) {
-              r("WAWebODS").incr("web.windows.fsa_save_as.cancelled");
-              return;
-            }
-            (o("WALogger")
+    async function f(e) {
+      var t = o("WAWebFilenameManager").getDefaultName(e),
+        n = y(e);
+      try {
+        return await showSaveFilePicker(
+          n != null ? { suggestedName: t, types: n } : { suggestedName: t },
+        );
+      } catch (t) {
+        var a = r("getErrorSafe")(t);
+        return o("WAAbortError").isAbortError(a)
+          ? (r("WAWebODS").incr("web.windows.fsa_save_as.cancelled"), null)
+          : (o("WALogger")
               .ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[fsa-save-as] Failed to write file after picker",
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[fsa-save-as] showSaveFilePicker unavailable, falling back to legacy download",
                   ])),
               )
-              .catching(l)
-              .sendLogs("fsa-save-as-write-failed"),
-              r("WAWebODS").incr("web.windows.fsa_save_as.failed"),
-              L());
-          }
-        })),
-        C.apply(this, arguments)
-      );
+              .catching(a)
+              .sendLogs("fsa-save-as-picker-failed"),
+            r("WAWebODS").incr("web.windows.fsa_save_as.fallback"),
+            o("WAWebFileSaver").FileSaver.initDownload(e),
+            null);
+      }
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    async function g(e, t) {
+      try {
+        var n = await o("WAWebFileSaverDownloadData").getMultiMsgDownloadData(
+            e,
+            !0,
+          ),
+          a = n.blob,
+          i = n.messages;
+        if (
+          (r("justknobx")._("8497") &&
+            (await o("WAPromiseEach").promiseEach(
+              i,
+              o("WAWebHarmfulFileWarningGate").confirmHarmfulFileIfNeeded,
+            )),
+          a == null)
+        ) {
+          var l = new Error("No blob available to save");
+          throw (l.stack, l);
+        }
+        (await h(t, a),
+          r("WAWebODS").incr("web.windows.fsa_save_as.saved"),
+          o("WAWebWindowsMediaFilesMetrics").incrSaveAsFsaSuccess(),
+          C());
+      } catch (e) {
+        var s = r("getErrorSafe")(e);
+        if (o("WAAbortError").isAbortError(s)) {
+          r("WAWebODS").incr("web.windows.fsa_save_as.cancelled");
+          return;
+        }
+        (o("WALogger")
+          .ERROR(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[fsa-save-as] Failed to write file after picker",
+              ])),
+          )
+          .catching(s)
+          .sendLogs("fsa-save-as-write-failed"),
+          r("WAWebODS").incr("web.windows.fsa_save_as.failed"),
+          b());
+      }
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield e.createWritable();
-          try {
-            yield n.write(t);
-          } finally {
-            yield n.close();
-          }
-        })),
-        v.apply(this, arguments)
-      );
+    async function h(e, t) {
+      var n = await e.createWritable();
+      try {
+        await n.write(t);
+      } finally {
+        await n.close();
+      }
     }
-    function S(e) {
+    function y(e) {
       var t,
         n = e.mimetype;
       if (n == null || n === "") return null;
@@ -158,18 +137,14 @@ __d(
         ? null
         : [{ accept: ((t = {}), (t[n] = [r]), t), description: n }];
     }
-    function R() {
+    function C() {
       o("WAWebToastManager").ToastManager.open(
-        m.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "File saved") }),
+        m.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
-    function L() {
+    function b() {
       o("WAWebToastManager").ToastManager.open(
-        m.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(
-            /*BTDS*/ "Couldn't save. Check your connection and try again.",
-          ),
-        }),
+        m.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     ((l.trySaveAs = p), (l.saveAsWithPicker = _));

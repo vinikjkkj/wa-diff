@@ -4,11 +4,12 @@ __d(
     "AdsManagerLiveData",
     "AdsMgmtPreloadingUtils",
     "GraphQLIncludeAdgroupActiveStudies.relayprovider",
+    "GraphQLIncludeIsCreativeTesting.relayprovider",
+    "GraphQLIncludeNormalizedCampaignGroupDailyBudget.relayprovider",
     "RelayPrefetchedStreamCache",
     "adsRelayHackPreloadersCreatePreloadingConfig",
     "adsRelayHackPreloadersMatchesIDsSubsetPreloader",
     "arrayContainsArray",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -43,6 +44,13 @@ __d(
         u = {
           __relay_internal__pv__GraphQLIncludeAdgroupActiveStudiesrelayprovider:
             r("GraphQLIncludeAdgroupActiveStudies.relayprovider").get(),
+          __relay_internal__pv__GraphQLIncludeIsCreativeTestingrelayprovider: r(
+            "GraphQLIncludeIsCreativeTesting.relayprovider",
+          ).get(),
+          __relay_internal__pv__GraphQLIncludeNormalizedCampaignGroupDailyBudgetrelayprovider:
+            r(
+              "GraphQLIncludeNormalizedCampaignGroupDailyBudget.relayprovider",
+            ).get(),
         };
       return o("RelayPrefetchedStreamCache").subscribe(
         e,
@@ -87,7 +95,7 @@ __d(
       babelHelpers.extends(
         {
           getCustomSubscription: u,
-          ignoreCriticalErrors: r("gkx")("1355"),
+          ignoreCriticalErrors: !0,
           ignoreIfServerDidntBeatJSExecution: !1,
           isScenarioOngoing: o("AdsMgmtPreloadingUtils").isScenarioOngoing,
           raceServerPreloader: !1,

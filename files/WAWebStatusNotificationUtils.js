@@ -17,9 +17,7 @@ __d(
       var t = o("WAWebMsgGetters").getSender(e);
       if (t == null) {
         o("WAWebToastManager").ToastManager.open(
-          u.jsx(o("WAWebToast.react").Toast, {
-            msg: s._(/*BTDS*/ "Sender not found"),
-          }),
+          u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
         );
         return;
       }
@@ -28,9 +26,7 @@ __d(
         .then(function (t) {
           var n = function () {
             o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
-                msg: s._(/*BTDS*/ "Status update not found"),
-              }),
+              u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
             );
           };
           o("WAWebModalManager").ModalManager.openMedia(

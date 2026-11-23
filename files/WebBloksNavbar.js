@@ -12,7 +12,6 @@ __d(
     "WebBloksTheme",
     "WebBloksUtils",
     "react",
-    "react-compiler-runtime",
     "useClickablePropsForWebBloks",
   ],
   function (t, n, r, o, a, i, l) {
@@ -140,165 +139,93 @@ __d(
       }
     }
     function w(e) {
-      var t = o("react-compiler-runtime").c(37),
-        n = e.node,
-        a = o("WebBloksComponentContext").useWebBloksContext(),
-        i = a.executeCatch,
-        l = a.isLoadingNode,
-        u = a.objectSet,
-        p = a.ownerContext,
-        _ = a.renderNode,
+      var t = e.node,
+        n = o("WebBloksComponentContext").useWebBloksContext(),
+        a = n.executeCatch,
+        i = n.isLoadingNode,
+        l = n.objectSet,
+        p = n.ownerContext,
+        _ = n.renderNode,
         f = o("WebBloksEnvironmentContext").useDataBloksName(),
-        g = u.navigationManager,
-        h;
-      t[0] !== n ? ((h = n.get(c)), (t[0] = n), (t[1] = h)) : (h = t[1]);
-      var y = h,
-        C = n.get(d),
-        b;
-      t[2] !== n ? ((b = n.get(m)), (t[2] = n), (t[3] = b)) : (b = t[3]);
-      var v = b,
-        S;
-      if (
-        t[4] !== y ||
-        t[5] !== i ||
-        t[6] !== l ||
-        t[7] !== n ||
-        t[8] !== u ||
-        t[9] !== p ||
-        t[10] !== _
-      ) {
-        e: {
-          var R = [],
-            L = null;
-          if (y == null) {
-            S = { titleBloksNode: null, trailingButtons: R };
-            break e;
-          }
-          for (var E of y) {
-            var k = M(E),
-              I = k.custom_title_parseresult,
-              T = k.right_buttons,
-              D = k.trailing_buttons;
-            if (I != null) {
-              var x = void 0;
-              l && p
-                ? (x = p.executeCatch(I.getValue(), []))
-                : (x = i(n, I, []));
-              var $ = o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(
-                u,
-                o("WebBloksUtils").cast(x),
-                { isModal: !1, isEmbedded: !0 },
-              );
-              L = s.jsx(r("WebBloksScreenHost"), { screen: $ });
+        g = l.navigationManager,
+        h = t.get(c),
+        y = t.get(d),
+        C = t.get(m),
+        b = u(
+          function () {
+            var e = [],
+              n = null;
+            if (h == null) return { titleBloksNode: n, trailingButtons: e };
+            for (var u of h) {
+              var c = M(u),
+                d = c.custom_title_parseresult,
+                m = c.right_buttons,
+                f = c.trailing_buttons;
+              if (d != null) {
+                var g = void 0;
+                i && p
+                  ? (g = p.executeCatch(d.getValue(), []))
+                  : (g = a(t, d, []));
+                var y = o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(
+                  l,
+                  o("WebBloksUtils").cast(g),
+                  { isModal: !1, isEmbedded: !0 },
+                );
+                n = s.jsx(r("WebBloksScreenHost"), { screen: y });
+              }
+              if (f !== void 0)
+                for (var C of f) e.push(s.jsx(A, { node: C }, C.clientId));
+              if (m !== void 0) for (var b of m) e.push(_(b));
             }
-            if (D !== void 0)
-              for (var P of D) R.push(s.jsx(A, { node: P }, P.clientId));
-            if (T !== void 0) for (var w of T) R.push(_(w));
-          }
-          var F;
-          (t[12] !== L || t[13] !== R
-            ? ((F = { titleBloksNode: L, trailingButtons: R }),
-              (t[12] = L),
-              (t[13] = R),
-              (t[14] = F))
-            : (F = t[14]),
-            (S = F));
-        }
-        ((t[4] = y),
-          (t[5] = i),
-          (t[6] = l),
-          (t[7] = n),
-          (t[8] = u),
-          (t[9] = p),
-          (t[10] = _),
-          (t[11] = S));
-      } else S = t[11];
-      var O = S,
-        B = O.titleBloksNode,
-        W = O.trailingButtons;
-      if (C === !0) return null;
-      var q = g.getScreenCount() > 1,
-        U = q && W.length === 0,
-        V;
-      t[15] !== f || t[16] !== n.styleId
-        ? ((V = f(n.styleId)), (t[15] = f), (t[16] = n.styleId), (t[17] = V))
-        : (V = t[17]);
-      var H;
-      t[18] === Symbol.for("react.memo_cache_sentinel")
-        ? ((H = o("WebBloksStyle").classNames(
+            return { titleBloksNode: n, trailingButtons: e };
+          },
+          [h, a, i, t, l, p, _],
+        ),
+        v = b.titleBloksNode,
+        S = b.trailingButtons;
+      if (y === !0) return null;
+      var R = g.getScreenCount() > 1,
+        L = R && S.length === 0;
+      return s.jsxs(
+        "div",
+        babelHelpers.extends({}, f(t.styleId), {
+          className: o("WebBloksStyle").classNames(
             o("WebBloksStyle").WebBloksStyles.container,
             N.root,
-          )),
-          (t[18] = H))
-        : (H = t[18]);
-      var G = U ? N.titleContainerMargin : null,
-        z;
-      t[19] !== G
-        ? ((z = o("WebBloksStyle").classNames(
-            o("WebBloksStyle").WebBloksStyles.container,
-            N.titleContainer,
-            G,
-          )),
-          (t[19] = G),
-          (t[20] = z))
-        : (z = t[20]);
-      var j;
-      t[21] !== g || t[22] !== q
-        ? ((j = q
-            ? s.jsx(r("WebBloksNavbarBackButton"), {
-                onClick: function () {
-                  return g.pop();
-                },
-              })
-            : null),
-          (t[21] = g),
-          (t[22] = q),
-          (t[23] = j))
-        : (j = t[23]);
-      var K = B != null ? B : v,
-        Q;
-      t[24] !== K
-        ? ((Q = s.jsx("div", { className: N.title, children: K })),
-          (t[24] = K),
-          (t[25] = Q))
-        : (Q = t[25]);
-      var X;
-      t[26] !== Q || t[27] !== z || t[28] !== j
-        ? ((X = s.jsxs("div", { className: z, children: [j, Q] })),
-          (t[26] = Q),
-          (t[27] = z),
-          (t[28] = j),
-          (t[29] = X))
-        : (X = t[29]);
-      var Y;
-      t[30] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Y = o("WebBloksStyle").classNames(
-            o("WebBloksStyle").WebBloksStyles.container,
-            N.trailingButtons,
-          )),
-          (t[30] = Y))
-        : (Y = t[30]);
-      var J;
-      t[31] !== W
-        ? ((J = s.jsx("div", { className: Y, children: W })),
-          (t[31] = W),
-          (t[32] = J))
-        : (J = t[32]);
-      var Z;
-      return (
-        t[33] !== X || t[34] !== J || t[35] !== V
-          ? ((Z = s.jsxs(
-              "div",
-              babelHelpers.extends({}, V, { className: H, children: [X, J] }),
-            )),
-            (t[33] = X),
-            (t[34] = J),
-            (t[35] = V),
-            (t[36] = Z))
-          : (Z = t[36]),
-        Z
+          ),
+          children: [
+            s.jsxs("div", {
+              className: o("WebBloksStyle").classNames(
+                o("WebBloksStyle").WebBloksStyles.container,
+                N.titleContainer,
+                L ? N.titleContainerMargin : null,
+              ),
+              children: [
+                R
+                  ? s.jsx(r("WebBloksNavbarBackButton"), {
+                      onClick: function () {
+                        return g.pop();
+                      },
+                    })
+                  : null,
+                s.jsx("div", {
+                  className: N.title,
+                  children: v != null ? v : C,
+                }),
+              ],
+            }),
+            s.jsx("div", {
+              className: o("WebBloksStyle").classNames(
+                o("WebBloksStyle").WebBloksStyles.container,
+                N.trailingButtons,
+              ),
+              children: S,
+            }),
+          ],
+        }),
       );
     }
+    w.displayName = w.name + " [from " + i.id + "]";
     function A(e) {
       var t = e.node,
         n = o("WebBloksEnvironmentContext").useDataBloksName(),

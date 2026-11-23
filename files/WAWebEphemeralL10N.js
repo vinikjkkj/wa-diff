@@ -66,56 +66,39 @@ __d(
     }
     function y(e, t) {
       return e === _.SettingChangeByOthers && t != null
-        ? s._(/*BTDS*/ "{name} turned off disappearing messages.", [
-            s._param("name", t),
-          ])
+        ? s._(/*BTDS*/ "", [s._param("name", t)])
         : e === _.SettingChangeByYou
-          ? s._(/*BTDS*/ "You turned off disappearing messages.")
+          ? s._(/*BTDS*/ "")
           : e === _.SettingChangeByUnknown
-            ? s._(/*BTDS*/ "Disappearing messages were turned off.")
+            ? s._(/*BTDS*/ "")
             : e === _.SettingChangeByOthersAsAdmin && t != null
-              ? s._(
-                  /*BTDS*/ "{name} turned off disappearing messages. {dm-action}",
-                  [
-                    s._param("name", t),
+              ? s._(/*BTDS*/ "", [
+                  s._param("name", t),
+                  s._param(
+                    "dm-action",
+                    o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
+                  ),
+                ])
+              : e === _.SettingChangeByYouAsAdmin
+                ? s._(/*BTDS*/ "", [
                     s._param(
                       "dm-action",
                       o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                     ),
-                  ],
-                )
-              : e === _.SettingChangeByYouAsAdmin
-                ? s._(
-                    /*BTDS*/ "You turned off disappearing messages. {dm-action}",
-                    [
+                  ])
+                : e === _.SettingChangeByUnknownAsAdmin
+                  ? s._(/*BTDS*/ "", [
                       s._param(
                         "dm-action",
                         o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                       ),
-                    ],
-                  )
-                : e === _.SettingChangeByUnknownAsAdmin
-                  ? s._(
-                      /*BTDS*/ "Disappearing messages were turned off. {dm-action}",
-                      [
-                        s._param(
-                          "dm-action",
-                          o(
-                            "WAWebEphemeralCTAFbt",
-                          ).getDmActionChangeSettingFbt(),
-                        ),
-                      ],
-                    )
+                    ])
                   : e === _.Duration
-                    ? s._(/*BTDS*/ "Off")
+                    ? s._(/*BTDS*/ "")
                     : e === _.OutOfSyncInfo
                       ? r("justknobx")._("8068")
-                        ? s._(
-                            /*BTDS*/ "This message won't disappear from the chat. The sender may be on an old version of WhatsApp.",
-                          )
-                        : s._(
-                            /*BTDS*/ "This message will not disappear from the chat. The sender may be on an old version of WhatsApp.",
-                          )
+                        ? s._(/*BTDS*/ "")
+                        : s._(/*BTDS*/ "")
                       : (o("WALogger")
                           .ERROR(
                             u ||
@@ -132,107 +115,69 @@ __d(
       var a = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled(),
         i = r("WAWebL10N").n(t);
       return e === _.SettingChangeByOthers && n != null
-        ? s._(
-            /*BTDS*/ '_j{"*":"{name} turned on disappearing messages. All new messages will disappear from this chat {number} seconds after they\'re sent.","_1":"{name} turned on disappearing messages. All new messages will disappear from this chat 1 second after they\'re sent."}',
-            [s._plural(t, "number"), s._param("name", n)],
-          )
+        ? s._(/*BTDS*/ "", [s._plural(t, "number"), s._param("name", n)])
         : e === _.SettingChangeByYou
-          ? s._(
-              /*BTDS*/ '_j{"*":"You turned on disappearing messages. All new messages will disappear from this chat {number} seconds after they\'re sent.","_1":"You turned on disappearing messages. All new messages will disappear from this chat 1 second after they\'re sent."}',
-              [s._plural(t, "number")],
-            )
+          ? s._(/*BTDS*/ "", [s._plural(t, "number")])
           : e === _.SettingChangeByUnknown
-            ? s._(
-                /*BTDS*/ '_j{"*":"Disappearing messages were turned on. All new messages will disappear from this chat {number} seconds after they\'re sent.","_1":"Disappearing messages were turned on. All new messages will disappear from this chat 1 second after they\'re sent."}',
-                [s._plural(t, "number")],
-              )
+            ? s._(/*BTDS*/ "", [s._plural(t, "number")])
             : e === _.SettingChangeByOthersAsAdmin && n != null
-              ? s._(
-                  /*BTDS*/ '_j{"*":"{name} turned on disappearing messages. All new messages will disappear from this chat {number} seconds after they\'re sent. {dm-action}","_1":"{name} turned on disappearing messages. All new messages will disappear from this chat 1 second after they\'re sent. {dm-action}"}',
-                  [
+              ? s._(/*BTDS*/ "", [
+                  s._plural(t, "number"),
+                  s._param("name", n),
+                  s._param(
+                    "dm-action",
+                    o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
+                  ),
+                ])
+              : e === _.SettingChangeByYouAsAdmin
+                ? s._(/*BTDS*/ "", [
                     s._plural(t, "number"),
-                    s._param("name", n),
                     s._param(
                       "dm-action",
                       o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                     ),
-                  ],
-                )
-              : e === _.SettingChangeByYouAsAdmin
-                ? s._(
-                    /*BTDS*/ '_j{"*":"You turned on disappearing messages. All new messages will disappear from this chat {number} seconds after they\'re sent. {dm-action}","_1":"You turned on disappearing messages. All new messages will disappear from this chat 1 second after they\'re sent. {dm-action}"}',
-                    [
+                  ])
+                : e === _.SettingChangeByUnknownAsAdmin
+                  ? s._(/*BTDS*/ "", [
                       s._plural(t, "number"),
                       s._param(
                         "dm-action",
                         o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                       ),
-                    ],
-                  )
-                : e === _.SettingChangeByUnknownAsAdmin
-                  ? s._(
-                      /*BTDS*/ '_j{"*":"Disappearing messages were turned on. All new messages will disappear from this chat {number} seconds after they\'re sent. {dm-action}","_1":"Disappearing messages were turned on. All new messages will disappear from this chat 1 second after they\'re sent. {dm-action}"}',
-                      [
-                        s._plural(t, "number"),
-                        s._param(
-                          "dm-action",
-                          o(
-                            "WAWebEphemeralCTAFbt",
-                          ).getDmActionChangeSettingFbt(),
-                        ),
-                      ],
-                    )
+                    ])
                   : e === _.Duration
-                    ? s._(
-                        /*BTDS*/ '_j{"*":"{number} seconds","_1":"1 second"}',
-                        [s._plural(t, "number")],
-                      )
+                    ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                     : e === _.OutOfSyncInfo
-                      ? s._(
-                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number} seconds.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 second."}',
-                          [s._plural(t, "number")],
-                        )
+                      ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                       : e === _.Explanation
-                        ? s._(
-                            /*BTDS*/ '_j{"*":"All new messages will disappear from this chat {number} seconds after they\'re sent.","_1":"All new messages will disappear from this chat 1 second after they\'re sent."}',
-                            [s._plural(t, "number")],
-                          )
+                        ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                         : e === _.ModeChangeByOthers
                           ? a
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} seconds after they\'re sent. {dm-action}","_1":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat 1 second after they\'re sent. {dm-action}"}',
-                                [
-                                  s._plural(t, "number"),
-                                  s._param("name", n),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionSetOwnTimerFbt(),
-                                  ),
-                                ],
-                              )
-                            : s._(
-                                /*BTDS*/ '_j{"*":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} seconds after they\'re sent. Click to learn more.","_1":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} second after they\'re sent. Click to learn more."}',
-                                [
-                                  s._plural(t),
-                                  s._param("name", n),
-                                  s._param("number", i),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number"),
+                                s._param("name", n),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionSetOwnTimerFbt(),
+                                ),
+                              ])
+                            : s._(/*BTDS*/ "", [
+                                s._plural(t),
+                                s._param("name", n),
+                                s._param("number", i),
+                              ])
                           : e === _.ModeChangeByYou && a
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"You use a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} seconds after they\'re sent. {dm-action}","_1":"You use a default timer for disappearing messages in new chats. All new messages will disappear from this chat 1 second after they\'re sent. {dm-action}"}',
-                                [
-                                  s._plural(t, "number"),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionChangeDefaultTimerFbt(),
-                                  ),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number"),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionChangeDefaultTimerFbt(),
+                                ),
+                              ])
                             : (o("WALogger")
                                 .ERROR(
                                   c ||
@@ -252,107 +197,69 @@ __d(
       var a = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled(),
         i = r("WAWebL10N").n(t);
       return e === _.SettingChangeByOthers && n != null
-        ? s._(
-            /*BTDS*/ '_j{"*":"{name} turned on disappearing messages. All new messages will disappear from this chat {number} minutes after they\'re sent.","_1":"{name} turned on disappearing messages. All new messages will disappear from this chat 1 minute after they\'re sent."}',
-            [s._plural(t, "number"), s._param("name", n)],
-          )
+        ? s._(/*BTDS*/ "", [s._plural(t, "number"), s._param("name", n)])
         : e === _.SettingChangeByYou
-          ? s._(
-              /*BTDS*/ '_j{"*":"You turned on disappearing messages. All new messages will disappear from this chat {number} minutes after they\'re sent.","_1":"You turned on disappearing messages. All new messages will disappear from this chat 1 minute after they\'re sent."}',
-              [s._plural(t, "number")],
-            )
+          ? s._(/*BTDS*/ "", [s._plural(t, "number")])
           : e === _.SettingChangeByUnknown
-            ? s._(
-                /*BTDS*/ '_j{"*":"Disappearing messages were turned on. All new messages will disappear from this chat {number} minutes after they\'re sent.","_1":"Disappearing messages were turned on. All new messages will disappear from this chat 1 minute after they\'re sent."}',
-                [s._plural(t, "number")],
-              )
+            ? s._(/*BTDS*/ "", [s._plural(t, "number")])
             : e === _.SettingChangeByOthersAsAdmin && n != null
-              ? s._(
-                  /*BTDS*/ '_j{"*":"{name} turned on disappearing messages. All new messages will disappear from this chat {number} minutes after they\'re sent. {dm-action}","_1":"{name} turned on disappearing messages. All new messages will disappear from this chat 1 minute after they\'re sent. {dm-action}"}',
-                  [
+              ? s._(/*BTDS*/ "", [
+                  s._plural(t, "number"),
+                  s._param("name", n),
+                  s._param(
+                    "dm-action",
+                    o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
+                  ),
+                ])
+              : e === _.SettingChangeByYouAsAdmin
+                ? s._(/*BTDS*/ "", [
                     s._plural(t, "number"),
-                    s._param("name", n),
                     s._param(
                       "dm-action",
                       o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                     ),
-                  ],
-                )
-              : e === _.SettingChangeByYouAsAdmin
-                ? s._(
-                    /*BTDS*/ '_j{"*":"You turned on disappearing messages. All new messages will disappear from this chat {number} minutes after they\'re sent. {dm-action}","_1":"You turned on disappearing messages. All new messages will disappear from this chat 1 minute after they\'re sent. {dm-action}"}',
-                    [
+                  ])
+                : e === _.SettingChangeByUnknownAsAdmin
+                  ? s._(/*BTDS*/ "", [
                       s._plural(t, "number"),
                       s._param(
                         "dm-action",
                         o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                       ),
-                    ],
-                  )
-                : e === _.SettingChangeByUnknownAsAdmin
-                  ? s._(
-                      /*BTDS*/ '_j{"*":"Disappearing messages were turned on. All new messages will disappear from this chat {number} minutes after they\'re sent. {dm-action}","_1":"Disappearing messages were turned on. All new messages will disappear from this chat 1 minute after they\'re sent. {dm-action}"}',
-                      [
-                        s._plural(t, "number"),
-                        s._param(
-                          "dm-action",
-                          o(
-                            "WAWebEphemeralCTAFbt",
-                          ).getDmActionChangeSettingFbt(),
-                        ),
-                      ],
-                    )
+                    ])
                   : e === _.Duration
-                    ? s._(
-                        /*BTDS*/ '_j{"*":"{number} minutes","_1":"1 minute"}',
-                        [s._plural(t, "number")],
-                      )
+                    ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                     : e === _.OutOfSyncInfo
-                      ? s._(
-                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number} minutes.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 minute."}',
-                          [s._plural(t, "number")],
-                        )
+                      ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                       : e === _.Explanation
-                        ? s._(
-                            /*BTDS*/ '_j{"*":"All new messages will disappear from this chat {number} minutes after they\'re sent.","_1":"All new messages will disappear from this chat 1 minute after they\'re sent."}',
-                            [s._plural(t, "number")],
-                          )
+                        ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                         : e === _.ModeChangeByOthers
                           ? a
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} minutes after they\'re sent. {dm-action}","_1":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat 1 minute after they\'re sent. {dm-action}"}',
-                                [
-                                  s._plural(t, "number"),
-                                  s._param("name", n),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionSetOwnTimerFbt(),
-                                  ),
-                                ],
-                              )
-                            : s._(
-                                /*BTDS*/ '_j{"*":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} minutes after they\'re sent. Click to learn more.","_1":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} minute after they\'re sent. Click to learn more."}',
-                                [
-                                  s._plural(t),
-                                  s._param("name", n),
-                                  s._param("number", i),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number"),
+                                s._param("name", n),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionSetOwnTimerFbt(),
+                                ),
+                              ])
+                            : s._(/*BTDS*/ "", [
+                                s._plural(t),
+                                s._param("name", n),
+                                s._param("number", i),
+                              ])
                           : e === _.ModeChangeByYou && a
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"You use a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} minutes after they\'re sent. {dm-action}","_1":"You use a default timer for disappearing messages in new chats. All new messages will disappear from this chat 1 minute after they\'re sent. {dm-action}"}',
-                                [
-                                  s._plural(t, "number"),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionChangeDefaultTimerFbt(),
-                                  ),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number"),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionChangeDefaultTimerFbt(),
+                                ),
+                              ])
                             : (o("WALogger")
                                 .ERROR(
                                   d ||
@@ -372,106 +279,69 @@ __d(
       var a = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled(),
         i = r("WAWebL10N").n(t);
       return e === _.SettingChangeByOthers && n != null
-        ? s._(
-            /*BTDS*/ '_j{"*":"{name} turned on disappearing messages. All new messages will disappear from this chat {number} hours after they\'re sent.","_1":"{name} turned on disappearing messages. All new messages will disappear from this chat 1 hour after they\'re sent."}',
-            [s._plural(t, "number"), s._param("name", n)],
-          )
+        ? s._(/*BTDS*/ "", [s._plural(t, "number"), s._param("name", n)])
         : e === _.SettingChangeByYou
-          ? s._(
-              /*BTDS*/ '_j{"*":"You turned on disappearing messages. All new messages will disappear from this chat {number} hours after they\'re sent.","_1":"You turned on disappearing messages. All new messages will disappear from this chat 1 hour after they\'re sent."}',
-              [s._plural(t, "number")],
-            )
+          ? s._(/*BTDS*/ "", [s._plural(t, "number")])
           : e === _.SettingChangeByUnknown
-            ? s._(
-                /*BTDS*/ '_j{"*":"Disappearing messages were turned on. All new messages will disappear from this chat {number} hours after they\'re sent.","_1":"Disappearing messages were turned on. All new messages will disappear from this chat 1 hour after they\'re sent."}',
-                [s._plural(t, "number")],
-              )
+            ? s._(/*BTDS*/ "", [s._plural(t, "number")])
             : e === _.SettingChangeByOthersAsAdmin && n != null
-              ? s._(
-                  /*BTDS*/ '_j{"*":"{name} turned on disappearing messages. All new messages will disappear from this chat {number} hours after they\'re sent. {dm-action}","_1":"{name} turned on disappearing messages. All new messages will disappear from this chat 1 hour after they\'re sent. {dm-action}"}',
-                  [
+              ? s._(/*BTDS*/ "", [
+                  s._plural(t, "number"),
+                  s._param("name", n),
+                  s._param(
+                    "dm-action",
+                    o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
+                  ),
+                ])
+              : e === _.SettingChangeByYouAsAdmin
+                ? s._(/*BTDS*/ "", [
                     s._plural(t, "number"),
-                    s._param("name", n),
                     s._param(
                       "dm-action",
                       o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                     ),
-                  ],
-                )
-              : e === _.SettingChangeByYouAsAdmin
-                ? s._(
-                    /*BTDS*/ '_j{"*":"You turned on disappearing messages. All new messages will disappear from this chat {number} hours after they\'re sent. {dm-action}","_1":"You turned on disappearing messages. All new messages will disappear from this chat 1 hour after they\'re sent. {dm-action}"}',
-                    [
+                  ])
+                : e === _.SettingChangeByUnknownAsAdmin
+                  ? s._(/*BTDS*/ "", [
                       s._plural(t, "number"),
                       s._param(
                         "dm-action",
                         o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                       ),
-                    ],
-                  )
-                : e === _.SettingChangeByUnknownAsAdmin
-                  ? s._(
-                      /*BTDS*/ '_j{"*":"Disappearing messages were turned on. All new messages will disappear from this chat {number} hours after they\'re sent. {dm-action}","_1":"Disappearing messages were turned on. All new messages will disappear from this chat 1 hour after they\'re sent. {dm-action}"}',
-                      [
-                        s._plural(t, "number"),
-                        s._param(
-                          "dm-action",
-                          o(
-                            "WAWebEphemeralCTAFbt",
-                          ).getDmActionChangeSettingFbt(),
-                        ),
-                      ],
-                    )
+                    ])
                   : e === _.Duration
-                    ? s._(/*BTDS*/ '_j{"*":"{number} hours","_1":"1 hour"}', [
-                        s._plural(t, "number"),
-                      ])
+                    ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                     : e === _.OutOfSyncInfo
-                      ? s._(
-                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number} hours.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 hour."}',
-                          [s._plural(t, "number")],
-                        )
+                      ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                       : e === _.Explanation
-                        ? s._(
-                            /*BTDS*/ '_j{"*":"All new messages will disappear from this chat {number} hours after they\'re sent.","_1":"All new messages will disappear from this chat 1 hour after they\'re sent."}',
-                            [s._plural(t, "number")],
-                          )
+                        ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                         : e === _.ModeChangeByOthers
                           ? a
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} hours after they\'re sent. {dm-action}","_1":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat 1 hour after they\'re sent. {dm-action}"}',
-                                [
-                                  s._plural(t, "number"),
-                                  s._param("name", n),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionSetOwnTimerFbt(),
-                                  ),
-                                ],
-                              )
-                            : s._(
-                                /*BTDS*/ '_j{"*":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} hours after they\'re sent. Click to learn more.","_1":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} hour after they\'re sent. Click to learn more."}',
-                                [
-                                  s._plural(t),
-                                  s._param("name", n),
-                                  s._param("number", i),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number"),
+                                s._param("name", n),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionSetOwnTimerFbt(),
+                                ),
+                              ])
+                            : s._(/*BTDS*/ "", [
+                                s._plural(t),
+                                s._param("name", n),
+                                s._param("number", i),
+                              ])
                           : e === _.ModeChangeByYou && a
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"You use a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} hours after they\'re sent. {dm-action}","_1":"You use a default timer for disappearing messages in new chats. All new messages will disappear from this chat 1 hour after they\'re sent. {dm-action}"}',
-                                [
-                                  s._plural(t, "number"),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionChangeDefaultTimerFbt(),
-                                  ),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number"),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionChangeDefaultTimerFbt(),
+                                ),
+                              ])
                             : (o("WALogger")
                                 .ERROR(
                                   m ||
@@ -491,106 +361,69 @@ __d(
       var a = o("WAWebMiscGatingUtils").isDefaultDisappearingMessagesEnabled(),
         i = r("WAWebL10N").n(t);
       return e === _.SettingChangeByOthers && n != null
-        ? s._(
-            /*BTDS*/ '_j{"*":"{name} turned on disappearing messages. All new messages will disappear from this chat {number} days after they\'re sent.","_1":"{name} turned on disappearing messages. All new messages will disappear from this chat 1 day after they\'re sent."}',
-            [s._plural(t, "number"), s._param("name", n)],
-          )
+        ? s._(/*BTDS*/ "", [s._plural(t, "number"), s._param("name", n)])
         : e === _.SettingChangeByYou
-          ? s._(
-              /*BTDS*/ '_j{"*":"You turned on disappearing messages. All new messages will disappear from this chat {number} days after they\'re sent.","_1":"You turned on disappearing messages. All new messages will disappear from this chat 1 day after they\'re sent."}',
-              [s._plural(t, "number")],
-            )
+          ? s._(/*BTDS*/ "", [s._plural(t, "number")])
           : e === _.SettingChangeByUnknown
-            ? s._(
-                /*BTDS*/ '_j{"*":"Disappearing messages were turned on. All new messages will disappear from this chat {number} days after they\'re sent.","_1":"Disappearing messages were turned on. All new messages will disappear from this chat 1 day after they\'re sent."}',
-                [s._plural(t, "number")],
-              )
+            ? s._(/*BTDS*/ "", [s._plural(t, "number")])
             : e === _.SettingChangeByOthersAsAdmin && n != null
-              ? s._(
-                  /*BTDS*/ '_j{"*":"{name} turned on disappearing messages. All new messages will disappear from this chat {number} days after they\'re sent. {dm-action}","_1":"{name} turned on disappearing messages. All new messages will disappear from this chat 1 day after they\'re sent. {dm-action}"}',
-                  [
+              ? s._(/*BTDS*/ "", [
+                  s._plural(t, "number"),
+                  s._param("name", n),
+                  s._param(
+                    "dm-action",
+                    o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
+                  ),
+                ])
+              : e === _.SettingChangeByYouAsAdmin
+                ? s._(/*BTDS*/ "", [
                     s._plural(t, "number"),
-                    s._param("name", n),
                     s._param(
                       "dm-action",
                       o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                     ),
-                  ],
-                )
-              : e === _.SettingChangeByYouAsAdmin
-                ? s._(
-                    /*BTDS*/ '_j{"*":"You turned on disappearing messages. All new messages will disappear from this chat {number} days after they\'re sent. {dm-action}","_1":"You turned on disappearing messages. All new messages will disappear from this chat 1 day after they\'re sent. {dm-action}"}',
-                    [
+                  ])
+                : e === _.SettingChangeByUnknownAsAdmin
+                  ? s._(/*BTDS*/ "", [
                       s._plural(t, "number"),
                       s._param(
                         "dm-action",
                         o("WAWebEphemeralCTAFbt").getDmActionChangeSettingFbt(),
                       ),
-                    ],
-                  )
-                : e === _.SettingChangeByUnknownAsAdmin
-                  ? s._(
-                      /*BTDS*/ '_j{"*":"Disappearing messages were turned on. All new messages will disappear from this chat {number} days after they\'re sent. {dm-action}","_1":"Disappearing messages were turned on. All new messages will disappear from this chat 1 day after they\'re sent. {dm-action}"}',
-                      [
-                        s._plural(t, "number"),
-                        s._param(
-                          "dm-action",
-                          o(
-                            "WAWebEphemeralCTAFbt",
-                          ).getDmActionChangeSettingFbt(),
-                        ),
-                      ],
-                    )
+                    ])
                   : e === _.Duration
-                    ? s._(/*BTDS*/ '_j{"*":"{number} days","_1":"1 day"}', [
-                        s._plural(t, "number"),
-                      ])
+                    ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                     : e === _.OutOfSyncInfo
-                      ? s._(
-                          /*BTDS*/ '_j{"*":"There was a disappearing message timer conflict. This message will disappear after {number} days.","_1":"There was a disappearing message timer conflict. This message will disappear after 1 day."}',
-                          [s._plural(t, "number")],
-                        )
+                      ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                       : e === _.Explanation
-                        ? s._(
-                            /*BTDS*/ '_j{"*":"All new messages will disappear from this chat {number} days after they\'re sent.","_1":"All new messages will disappear from this chat 1 day after they\'re sent."}',
-                            [s._plural(t, "number")],
-                          )
+                        ? s._(/*BTDS*/ "", [s._plural(t, "number")])
                         : e === _.ModeChangeByOthers
                           ? a
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} days after they\'re sent. {dm-action}","_1":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat 1 day after they\'re sent. {dm-action}"}',
-                                [
-                                  s._plural(t, "number"),
-                                  s._param("name", n),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionSetOwnTimerFbt(),
-                                  ),
-                                ],
-                              )
-                            : s._(
-                                /*BTDS*/ '_j{"*":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} days after they\'re sent. Click to learn more.","_1":"{name} uses a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} day after they\'re sent. Click to learn more."}',
-                                [
-                                  s._plural(t),
-                                  s._param("name", n),
-                                  s._param("number", i),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number"),
+                                s._param("name", n),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionSetOwnTimerFbt(),
+                                ),
+                              ])
+                            : s._(/*BTDS*/ "", [
+                                s._plural(t),
+                                s._param("name", n),
+                                s._param("number", i),
+                              ])
                           : e === _.ModeChangeByYou && a
-                            ? s._(
-                                /*BTDS*/ '_j{"*":"You use a default timer for disappearing messages in new chats. All new messages will disappear from this chat {number} days after they\'re sent. {dm-action}","_1":"You use a default timer for disappearing messages in new chats. All new messages will disappear from this chat 1 day after they\'re sent. {dm-action}"}',
-                                [
-                                  s._plural(t, "number"),
-                                  s._param(
-                                    "dm-action",
-                                    o(
-                                      "WAWebEphemeralCTAFbt",
-                                    ).getDmActionChangeDefaultTimerFbt(),
-                                  ),
-                                ],
-                              )
+                            ? s._(/*BTDS*/ "", [
+                                s._plural(t, "number"),
+                                s._param(
+                                  "dm-action",
+                                  o(
+                                    "WAWebEphemeralCTAFbt",
+                                  ).getDmActionChangeDefaultTimerFbt(),
+                                ),
+                              ])
                             : (o("WALogger")
                                 .ERROR(
                                   p ||

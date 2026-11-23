@@ -38,7 +38,7 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.E2E_NOTIFICATION: {
           r("WAWebWid").isCAPISupportAccount(a == null ? void 0 : a.remote)
             ? (h = null)
-            : (h = s._(/*BTDS*/ "Learn more"));
+            : (h = s._(/*BTDS*/ ""));
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.GP2: {
@@ -58,20 +58,20 @@ __d(
         }
         case o("WAWebMsgType").MSG_TYPE.PROTOCOL: {
           _ === "event_edit_decrypted"
-            ? (h = s._(/*BTDS*/ "See event"))
+            ? (h = s._(/*BTDS*/ ""))
             : (_ === "limit_sharing_system_message" ||
                 _ === "acp2_system_message") &&
               (h = r("WAWebFbtCommon")("Learn more"));
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_DECRYPTED: {
-          h = s._(/*BTDS*/ "View poll");
+          h = s._(/*BTDS*/ "");
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION: {
           _ ===
             o("WAWebCommonMsgSubtypeTypes").MsgSubtype
-              .ScheduledMessageCreated && (h = s._(/*BTDS*/ "View"));
+              .ScheduledMessageCreated && (h = s._(/*BTDS*/ ""));
           break;
         }
         case o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE: {
@@ -81,7 +81,7 @@ __d(
             ? (h = r("WAWebFbtCommon")("Learn more"))
             : (_ === "biz_per_customer_3pd_data_share_opt_in" ||
                 _ === "biz_per_customer_3pd_data_share_opt_out") &&
-              (h = s._(/*BTDS*/ "Manage"));
+              (h = s._(/*BTDS*/ ""));
           break;
         }
       }
@@ -139,15 +139,15 @@ __d(
       switch (f) {
         case "growth_unlocked":
         case "revoke_invite":
-          return s._(/*BTDS*/ "View the new invite link");
+          return s._(/*BTDS*/ "");
         case "add":
-          return s._(/*BTDS*/ "View members");
+          return s._(/*BTDS*/ "");
         case "description":
         case "parent_group_description":
         case "initial_pHash_mismatch":
         case "default_sub_group_promote":
         case "default_sub_group_demote":
-          return s._(/*BTDS*/ "View");
+          return s._(/*BTDS*/ "");
         case "growth_locked":
         case "hidden_group":
           return r("WAWebFbtCommon")("Learn more");
@@ -162,7 +162,7 @@ __d(
             o(
               "WAWebGroupMembershipFormSystemMessageUtils",
             ).canChangeGroupMembershipFormFromMsg(i)
-            ? s._(/*BTDS*/ "Change")
+            ? s._(/*BTDS*/ "")
             : null;
         case "membership_approval_mode":
           return o(
@@ -170,7 +170,7 @@ __d(
           ).GroupSettingChangeSystemMessageIsAdmin.cast(
             g == null || (t = g[1]) == null ? void 0 : t.toString(),
           ) === o("WAWebGroupType").GroupSettingChangeSystemMessageIsAdmin.Admin
-            ? s._(/*BTDS*/ "Change")
+            ? s._(/*BTDS*/ "")
             : null;
         case "ephemeral_keep_in_chat":
           return r("WAWebFbtCommon")("Learn more");
@@ -184,9 +184,9 @@ __d(
             ? r("WAWebFbtCommon")("Learn more")
             : null;
         case "join_flood_notification":
-          return a !== !0 ? null : s._(/*BTDS*/ "Manage members");
+          return a !== !0 ? null : s._(/*BTDS*/ "");
         case "created_subgroup_suggestion":
-          return s._(/*BTDS*/ "Approve or reject");
+          return s._(/*BTDS*/ "");
         default:
           return null;
       }
@@ -195,8 +195,8 @@ __d(
       return o(
         "WAWebGroupGatingUtils",
       ).isPersistentPendingJoinRequestsBannerEnabled()
-        ? s._(/*BTDS*/ "Review request")
-        : s._(/*BTDS*/ "Review");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
@@ -274,7 +274,7 @@ __d(
           : null;
     }
     function _() {
-      return s._(/*BTDS*/ "Send message history");
+      return s._(/*BTDS*/ "");
     }
     ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = c));
   },

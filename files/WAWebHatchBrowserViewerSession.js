@@ -10,7 +10,6 @@ __d(
     "WAWebHatchBrowserRFBFilter",
     "WAWebHatchBrowserTaskClient",
     "WAWebHatchBrowserViewerStream",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -50,9 +49,9 @@ __d(
               },
             )));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.getState = function () {
+          (n.getState = function () {
             var e = this.$9 && this.$10 == null && !this.$11,
               t = this.$5.getState();
             return {
@@ -66,7 +65,7 @@ __d(
               isLoading: !e && this.$10 == null && !this.$11,
             };
           }),
-          (a.openChannel = function () {
+          (n.openChannel = function () {
             var e = this;
             this.$16();
             var t = new (r("WAWebHatchBrowserRFBChannel"))(
@@ -104,43 +103,37 @@ __d(
               t
             );
           }),
-          (a.handleConnected = function (t) {
+          (n.handleConnected = function (t) {
             this.$8 !== t || this.$7 == null || ((this.$9 = !0), this.$15());
           }),
-          (a.handlePageFailure = function (t, n) {
+          (n.handlePageFailure = function (t, n) {
             this.$8 === t &&
               (this.$16(), this.$20({ kind: "cannotOpen", detail: n }));
           }),
-          (a.toggleControl = function () {
+          (n.toggleControl = function () {
             o("WAWebHatchBrowserControl").isDriving(this.$5.getState())
               ? this.$5.releaseControl()
               : this.$5.takeControl(this.$2);
           }),
-          (a.releaseControl = function () {
+          (n.releaseControl = function () {
             this.$5.releaseControl();
           }),
-          (a.stop = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var t = yield this.$4.stopUntilSettled(this.$2);
-              return t === "failed"
-                ? (o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "hatch-browser-viewer/stop-failed",
-                      ])),
-                  ),
-                  !1)
-                : (this.$21(), !0);
-            });
-            function r() {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (a.close = function () {
+          (n.stop = async function () {
+            var t = await this.$4.stopUntilSettled(this.$2);
+            return t === "failed"
+              ? (o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-browser-viewer/stop-failed",
+                    ])),
+                ),
+                !1)
+              : (this.$21(), !0);
+          }),
+          (n.close = function () {
             ((this.$12 = !0), this.$16(), this.$5.close());
           }),
-          (a.$17 = function (t) {
+          (n.$17 = function (t) {
             var e = this.$7;
             if (e != null) {
               var n = this.$6.filter(t, this.getState().chrome.isInputEnabled);
@@ -151,7 +144,7 @@ __d(
               (this.$23(), e.write(n.bytes));
             }
           }),
-          (a.$22 = function (t) {
+          (n.$22 = function (t) {
             (o("WALogger").WARN(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -168,7 +161,7 @@ __d(
                 detail: t.kind + " type=" + t.messageType,
               }));
           }),
-          (a.$23 = function () {
+          (n.$23 = function () {
             var e = this.$6.getSuppressedTypes();
             e.size !== this.$14 &&
               ((this.$14 = e.size),
@@ -181,7 +174,7 @@ __d(
                 Array.from(e).join(","),
               ));
           }),
-          (a.$19 = function (t, n) {
+          (n.$19 = function (t, n) {
             var e = this.$13;
             ((this.$13 += n.length),
               Math.floor(e / m) !== Math.floor(this.$13 / m) &&
@@ -195,7 +188,7 @@ __d(
                 ),
               t.received(n));
           }),
-          (a.$18 = function (t, n) {
+          (n.$18 = function (t, n) {
             if (
               ((this.$7 = null),
               (this.$9 = !1),
@@ -216,25 +209,25 @@ __d(
               this.$20(f(n)),
               t.failed());
           }),
-          (a.$20 = function (t) {
+          (n.$20 = function (t) {
             this.$10 != null ||
               this.$11 ||
               ((this.$10 = t), this.$5.releaseControl(), this.$15());
           }),
-          (a.$21 = function () {
+          (n.$21 = function () {
             ((this.$11 = !0),
               (this.$10 = null),
               this.$16(),
               this.$5.close(),
               this.$15());
           }),
-          (a.$16 = function () {
+          (n.$16 = function () {
             var e;
             ((e = this.$7) == null || e.close(),
               (this.$7 = null),
               (this.$9 = !1));
           }),
-          (a.$15 = function () {
+          (n.$15 = function () {
             this.$12 || this.$3(this.getState());
           }),
           t

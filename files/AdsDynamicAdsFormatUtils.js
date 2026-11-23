@@ -1,10 +1,23 @@
 __d(
   "AdsDynamicAdsFormatUtils",
-  ["AdsLinkPostFormat", "AdsUEditorAdgroupCreativeFormat"],
+  [
+    "AdsLinkPostFormat",
+    "AdsSensitiveVerticalUtils",
+    "AdsUEditorAdgroupCreativeFormat",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      var t = c(e);
+    function e() {
+      return !0;
+    }
+    function s() {
+      return (
+        !o("AdsSensitiveVerticalUtils").isAccountInSensitiveVerticals() &&
+        !o("AdsSensitiveVerticalUtils").isAdAccountOnBig6AgencyBlocklist()
+      );
+    }
+    function u(e) {
+      var t = m(e);
       switch (t) {
         case "collection_video":
           return r("AdsLinkPostFormat").COLLECTIONS;
@@ -19,13 +32,13 @@ __d(
           return r("AdsLinkPostFormat").MULTIPLE;
       }
     }
-    function s(t) {
-      return e(t) === r("AdsLinkPostFormat").SINGLE;
-    }
-    function u(t) {
-      return e(t) === r("AdsLinkPostFormat").MULTIPLE;
-    }
     function c(e) {
+      return u(e) === r("AdsLinkPostFormat").SINGLE;
+    }
+    function d(e) {
+      return u(e) === r("AdsLinkPostFormat").MULTIPLE;
+    }
+    function m(e) {
       var t,
         n =
           e == null ||
@@ -57,7 +70,7 @@ __d(
       }
       return n;
     }
-    function d(e) {
+    function p(e) {
       switch (e) {
         case "single_image":
           return r("AdsUEditorAdgroupCreativeFormat").SINGLE_IMAGE;
@@ -74,11 +87,13 @@ __d(
           return;
       }
     }
-    ((l.getDynamicAdLinkPostFormat = e),
-      (l.getIsDynamicAdSingleMediaFormat = s),
-      (l.getIsDynamicAdCarouselMediaFormat = u),
-      (l.getAdgroupFormatOption = c),
-      (l.getAdsUEditorAdgroupCreativeFormatForFormatOption = d));
+    ((l.passGKForSingleVideoTransformation = e),
+      (l.isDASingleVideoTransformationEnabledByDefault = s),
+      (l.getDynamicAdLinkPostFormat = u),
+      (l.getIsDynamicAdSingleMediaFormat = c),
+      (l.getIsDynamicAdCarouselMediaFormat = d),
+      (l.getAdgroupFormatOption = m),
+      (l.getAdsUEditorAdgroupCreativeFormatForFormatOption = p));
   },
   98,
 );

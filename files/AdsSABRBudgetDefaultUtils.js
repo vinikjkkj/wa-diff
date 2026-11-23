@@ -5,7 +5,8 @@ __d(
     "AdsAPIObjectiveIntEnumUtils",
     "AdsAPIObjectives",
     "AdsAPIOptimizationGoals",
-    "AdsUEditorMessagingDestinationUtils",
+    "AdsUnifiedSabrModelLogging",
+    "ClickToMessageAdDestinationUtils",
     "gkx",
     "justknobx",
     "qex",
@@ -16,13 +17,7 @@ __d(
     function s(e) {
       return e === "Mid" || e === "Low" || e === "Tail";
     }
-    function u(e) {
-      if (!r("justknobx")._("844")) return !1;
-      e ? r("qex")._("5809") : r("qex")._("5810");
-      var t = e ? r("qex")._("5811") : r("qex")._("5812");
-      return t != null ? t : !1;
-    }
-    function c(e, t, n) {
+    function u(e, t, n) {
       var r = o("AdsAPIObjectiveIntEnumUtils").convertAPIObjectiveToInt(t),
         a = null;
       if (e != null)
@@ -49,27 +44,33 @@ __d(
         }
       return a;
     }
-    var d = n("$InternalEnum")({
+    var c = n("$InternalEnum")({
       SABR: "sabr",
       SABR_VERTICAL_FALLBACK: "sabr_vertical_fallback",
       STICKY_SETTING_FALLBACK: "sticky_setting_fallback",
     });
-    function m(e) {
+    function d(e) {
       return e === "sabr_vertical_fallback"
-        ? d.SABR_VERTICAL_FALLBACK
+        ? c.SABR_VERTICAL_FALLBACK
         : e === "sticky_setting_fallback"
-          ? d.STICKY_SETTING_FALLBACK
-          : d.SABR;
+          ? c.STICKY_SETTING_FALLBACK
+          : (e != null &&
+              e !== "" &&
+              e !== "sabr" &&
+              o("AdsUnifiedSabrModelLogging").logUnmappedSabrRecommendationType(
+                e,
+              ),
+            c.SABR);
     }
-    function p(e, t, n, r) {
+    function m(e, t, n, r) {
       if (r != null && !s(r))
-        return { budget: null, recommendationType: d.SABR };
+        return { budget: null, recommendationType: c.SABR };
       var a = o("AdsAPIObjectiveIntEnumUtils").convertAPIObjectiveToInt(t),
         i = null,
-        l = d.SABR;
+        l = c.SABR;
       if (e != null)
         if (n) {
-          var u, c;
+          var u, m;
           i =
             (u = e.sabr_budget_l3) == null ||
             (u = u.find(function (e) {
@@ -78,13 +79,13 @@ __d(
               ? void 0
               : u.budget;
           var p =
-            (c = e.recommendation_type_l3) == null ||
-            (c = c.find(function (e) {
+            (m = e.recommendation_type_l3) == null ||
+            (m = m.find(function (e) {
               return e.objective === a;
             })) == null
               ? void 0
-              : c.recommendation_type;
-          l = m(p);
+              : m.recommendation_type;
+          l = d(p);
         } else {
           var _, f;
           i =
@@ -101,18 +102,40 @@ __d(
             })) == null
               ? void 0
               : f.recommendation_type;
-          l = m(g);
+          l = d(g);
         }
       return { budget: i, recommendationType: l };
     }
-    function _(e, t, n) {
+    function p(e, t, n) {
       var o;
       if (t == null) return e;
       var a =
         (o = n ? r("qex")._("2238") : r("qex")._("2335")) != null ? o : !1;
       return a ? t : e;
     }
-    function f(e, t) {
+    var _ = new Set([
+      (e = r("AdsAPIObjectives")).APP_INSTALLS,
+      e.OUTCOME_ENGAGEMENT,
+    ]);
+    function f(e) {
+      return e != null && !_.has(e);
+    }
+    function g(e, t) {
+      var n;
+      return f(t) && (n = e ? r("qex")._("2496") : r("qex")._("2517")) != null
+        ? n
+        : !1;
+    }
+    function h(e) {
+      y(!0, e);
+    }
+    function y(e, t) {
+      var n;
+      return f(t) && (n = e ? r("qex")._("3493") : r("qex")._("3789")) != null
+        ? n
+        : !1;
+    }
+    function C(e, t) {
       if (
         t == null ||
         (t !== r("AdsAPIObjectives").LINK_CLICKS &&
@@ -129,51 +152,51 @@ __d(
       }
       return e ? r("gkx")("11307") : r("gkx")("11313");
     }
-    var g = new Set([
-      (e = r("AdsAPIObjectives")).OUTCOME_SALES,
+    var b = new Set([
+      e.OUTCOME_SALES,
       e.LINK_CLICKS,
       e.OUTCOME_LEADS,
       e.OUTCOME_AWARENESS,
       e.APP_INSTALLS,
     ]);
-    function h(e) {
-      return e == null ? !1 : g.has(e);
+    function v(e) {
+      return e == null ? !1 : b.has(e);
     }
-    var y = new Set([
+    var S = new Set([
       r("AdsAPIOptimizationGoals").CONVERSATIONS,
       r("AdsAPIOptimizationGoals").MESSAGING_PURCHASE_CONVERSION,
       r("AdsAPIOptimizationGoals").REPLIES,
     ]);
-    function C(e, t) {
+    function R(e, t) {
       return e == null
         ? !1
         : !!(
-            y.has(e) ||
+            S.has(e) ||
             (t != null &&
               o(
-                "AdsUEditorMessagingDestinationUtils",
+                "ClickToMessageAdDestinationUtils",
               ).isClickToMessageAdDestination(t))
           );
     }
-    function b(e, t, n, o) {
-      if ((t != null && !h(t)) || C(n, o)) return !1;
-      var a = e ? r("gkx")("3533") : r("gkx")("3758");
-      return a ? !0 : u(e);
+    function L(e, t, n, r) {
+      return !((t != null && !v(t)) || R(n, r));
     }
-    function v(e, t, n, o) {
-      if ((t != null && !h(t)) || C(n, o)) return !1;
-      var a = e ? r("gkx")("3533") : r("gkx")("3758");
-      return a ? !0 : u(e);
+    function E(e, t, n, r) {
+      return !((t != null && !v(t)) || R(n, r));
     }
-    ((l.getDefaultSabrBudget = c),
-      (l.SabrRecommendationType = d),
-      (l.getDefaultSabrBudgetV2 = p),
-      (l.selectSabrBudgetTier = _),
-      (l.isSABRBudgetDefaultingEnabled = f),
-      (l.isObjectiveEligibleForSABRV2 = h),
-      (l.isOptimizationGoalExcludedFromSABRV2 = C),
-      (l.isSABRBudgetDefaultingV2Enabled = b),
-      (l.isSABRGuidanceAndDefaultingCombinedEnabled = v));
+    ((l.getDefaultSabrBudget = u),
+      (l.SabrRecommendationType = c),
+      (l.getDefaultSabrBudgetV2 = m),
+      (l.selectSabrBudgetTier = p),
+      (l.isObjectiveEligibleForUnifiedSabrModel = f),
+      (l.isSeasonalityArmEnabled = g),
+      (l.logUnifiedSabrModelExposure = h),
+      (l.isUnifiedSabrModelEnabled = y),
+      (l.isSABRBudgetDefaultingEnabled = C),
+      (l.isObjectiveEligibleForSABRV2 = v),
+      (l.isOptimizationGoalExcludedFromSABRV2 = R),
+      (l.isSABRBudgetDefaultingV2Enabled = L),
+      (l.isSABRGuidanceAndDefaultingCombinedEnabled = E));
   },
   98,
 );

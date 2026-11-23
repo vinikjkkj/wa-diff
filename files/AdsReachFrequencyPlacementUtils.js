@@ -76,19 +76,12 @@ __d(
         "facebook/search",
         "facebook/right_column",
         "facebook/stories",
-        "messenger/inbox",
         "facebook/group_tab",
       ]),
       _ = ["facebook/", "audience_network/"],
-      f = s._(
-        /*BTDS*/ "This placement isn't available with no non-canvas ad formats.",
-      ),
-      g = s._(
-        /*BTDS*/ "Stories carousel ad format is only compatible with instagram stories placement.",
-      ),
-      h = s._(
-        /*BTDS*/ "This placement isn't available with no eligible ad formats provided.",
-      );
+      f = s._(/*BTDS*/ ""),
+      g = s._(/*BTDS*/ ""),
+      h = s._(/*BTDS*/ "");
     function y(e, t) {
       if (t.buyingType !== r("AdsBuyingTypes").RESERVED) return null;
       if (t.isMetaMomentMaker === !0 && !m.contains(e))
@@ -98,7 +91,7 @@ __d(
       if (!R(e, t))
         return t.buyingType === r("AdsBuyingTypes").AUCTION
           ? o("AdsPlacementIneligibilityReason").createCustomReason(
-              s._(/*BTDS*/ "Predictions for this placement aren't available."),
+              s._(/*BTDS*/ ""),
             )
           : o("AdsPlacementIneligibilityReason").createBuyingTypeReason(
               r("AdsBuyingTypes").RESERVED,
@@ -109,15 +102,12 @@ __d(
       )(e, t);
       if (n.length)
         return o("AdsPlacementIneligibilityReason").createCustomReason(
-          s._(
-            /*BTDS*/ "This placement isn't available with {unsupported_formats} format.",
-            [
-              s._param(
-                "unsupported_formats",
-                r("adsReachFrequencyCreativeFormatGetFormatLabels")(n, !0),
-              ),
-            ],
-          ),
+          s._(/*BTDS*/ "", [
+            s._param(
+              "unsupported_formats",
+              r("adsReachFrequencyCreativeFormatGetFormatLabels")(n, !0),
+            ),
+          ]),
         );
       var a = S(e, t);
       return (
@@ -131,12 +121,11 @@ __d(
     }
     function C(e, t, n, a, i, l, s) {
       (i === void 0 && (i = !1), s === void 0 && (s = !1));
-      var u =
-          i && s
-            ? o(
-                "AdsReelsTrendingAdsPlacementUtils",
-              ).getCapabilitiesWithRTAFBReelsDefault(n)
-            : n,
+      var u = i
+          ? o(
+              "AdsReelsTrendingAdsPlacementUtils",
+            ).getCapabilitiesWithRTAFBReelsDefault(n)
+          : n,
         c,
         d;
       t == null
@@ -161,13 +150,12 @@ __d(
           optimizationGoal: c,
           promotedObjectType: d,
           isReelsTrendingAds: i,
-          isCountryEnabledForFBReels: s,
+          isHp1: s,
           accountPlacementExclusions: l != null ? l : void 0,
         },
         p = r("AdsPlacementUtils").getDefaultCampaignPlacement(m);
       if (
         (i &&
-          s &&
           (p = o(
             "AdsReelsTrendingAdsPlacementUtils",
           ).getPlacementWithRTAFBReelsDefault(p)),
@@ -251,7 +239,6 @@ __d(
         case "facebook/right_column":
         case "facebook/stories":
         case "facebook/video_feeds":
-        case "messenger/inbox":
         case "messenger/story":
           if (!r("adsReachFrequencyAdFormatsUtilsGetHasNonCanvasAdFormats")(n))
             return o("AdsPlacementIneligibilityReason").createCustomReason(f);

@@ -8,138 +8,119 @@ __d(
       return [
         {
           keyType: (e = o("WAWebUserPrefsTypes")).PixKeyType.PHONE,
-          label: s._(/*BTDS*/ "Phone number"),
+          label: s._(/*BTDS*/ ""),
         },
-        { keyType: e.PixKeyType.CPF, label: s._(/*BTDS*/ "CPF") },
-        { keyType: e.PixKeyType.EMAIL, label: s._(/*BTDS*/ "Email") },
-        { keyType: e.PixKeyType.EVP, label: s._(/*BTDS*/ "Random key") },
+        { keyType: e.PixKeyType.CPF, label: s._(/*BTDS*/ "") },
+        { keyType: e.PixKeyType.EMAIL, label: s._(/*BTDS*/ "") },
+        { keyType: e.PixKeyType.EVP, label: s._(/*BTDS*/ "") },
       ];
     }
     function u() {
-      return s._(
-        /*BTDS*/ "You can control who sees your Pix key and enable passkey for added security.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Everyone");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "My contacts");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(/*BTDS*/ "My contacts except...");
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(/*BTDS*/ "Nobody");
+      return s._(/*BTDS*/ "");
     }
     function _() {
-      return s._(/*BTDS*/ "Who can see my Pix key");
+      return s._(/*BTDS*/ "");
     }
     function f(e) {
-      return s._(
-        /*BTDS*/ "{recipient_name} will be able to copy your Pix key or code from the chat.",
-        [s._param("recipient_name", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("recipient_name", e)]);
     }
     function g() {
-      return s._(/*BTDS*/ "Request payment");
+      return s._(/*BTDS*/ "");
     }
     function h(e) {
-      return s._(
-        /*BTDS*/ "{customer_name} will be able to copy your Pix key from the chat.",
-        [s._param("customer_name", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("customer_name", e)]);
     }
     function y() {
-      return s._(/*BTDS*/ "Send Pix key");
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(
-        /*BTDS*/ "Everyone in this group will be able to copy your Pix key from the chat.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function b(e) {
-      return e ? s._(/*BTDS*/ "Pix code sent") : s._(/*BTDS*/ "Pix key sent");
+      return e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function v(e, t) {
       return t
-        ? s._(/*BTDS*/ "Your Pix code was sent to {recipient_name}.", [
-            s._param("recipient_name", e),
-          ])
-        : s._(/*BTDS*/ "Your Pix key was sent to {recipient_name}.", [
-            s._param("recipient_name", e),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("recipient_name", e)])
+        : s._(/*BTDS*/ "", [s._param("recipient_name", e)]);
     }
     function S() {
-      return s._(/*BTDS*/ "View in chat");
+      return s._(/*BTDS*/ "");
     }
     function R() {
-      return s._(/*BTDS*/ "Done");
+      return s._(/*BTDS*/ "");
     }
     function L() {
-      return s._(/*BTDS*/ "Share your Pix");
+      return s._(/*BTDS*/ "");
     }
     function E() {
-      return s._(/*BTDS*/ "Delete Pix key?");
+      return s._(/*BTDS*/ "");
     }
     function k() {
-      return s._(
-        /*BTDS*/ "You'll always be able to add a Pix key later if you delete it.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function I() {
-      return s._(/*BTDS*/ "Delete");
+      return s._(/*BTDS*/ "");
     }
     function T() {
-      return s._(/*BTDS*/ "Pix key deleted");
+      return s._(/*BTDS*/ "");
     }
     function D() {
-      return s._(/*BTDS*/ "Couldn't delete Pix key. Please try again.");
+      return s._(/*BTDS*/ "");
     }
     function x(e) {
-      return s._(
-        /*BTDS*/ '_j{"*":"{number} contacts excluded","_1":"1 contact excluded"}',
-        [s._plural(e, "number")],
-      );
+      return s._(/*BTDS*/ "", [s._plural(e, "number")]);
     }
     function $() {
-      return s._(/*BTDS*/ "Transactions");
+      return s._(/*BTDS*/ "");
     }
     function P() {
-      return s._(/*BTDS*/ "See all");
+      return s._(/*BTDS*/ "");
     }
     function N() {
-      return s._(/*BTDS*/ "Completed");
+      return s._(/*BTDS*/ "");
     }
     function M() {
-      return s._(/*BTDS*/ "Pending");
+      return s._(/*BTDS*/ "");
     }
     function w() {
-      return s._(/*BTDS*/ "Failed");
+      return s._(/*BTDS*/ "");
     }
     function A() {
-      return s._(/*BTDS*/ "You requested");
+      return s._(/*BTDS*/ "");
     }
     function F() {
-      return s._(/*BTDS*/ "They requested");
+      return s._(/*BTDS*/ "");
     }
     function O() {
-      return s._(/*BTDS*/ "No transactions yet");
+      return s._(/*BTDS*/ "");
     }
     function B() {
-      return s._(/*BTDS*/ "All");
+      return s._(/*BTDS*/ "");
     }
     function W() {
-      return s._(/*BTDS*/ "You requested");
+      return s._(/*BTDS*/ "");
     }
     function q() {
-      return s._(/*BTDS*/ "Others requested");
+      return s._(/*BTDS*/ "");
     }
     function U() {
-      return s._(/*BTDS*/ "From");
+      return s._(/*BTDS*/ "");
     }
     function V() {
-      return s._(/*BTDS*/ "To");
+      return s._(/*BTDS*/ "");
     }
     ((l.getConsumerPixKeyTypeOptions = e),
       (l.getConsumerAddPixKeySubtitle = u),

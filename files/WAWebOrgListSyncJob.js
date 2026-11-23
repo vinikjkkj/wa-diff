@@ -1,57 +1,35 @@
 __d(
   "WAWebOrgListSyncJob",
-  [
-    "WALogger",
-    "WAWebDBOrg",
-    "WAWebOrgAdminGraphQL",
-    "WAWebSchemaOrg",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAWebDBOrg", "WAWebOrgAdminGraphQL", "WAWebSchemaOrg"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s() {
       return o("WAWebDBOrg").getOrgs();
     }
-    function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    async function u() {
+      var t = await o("WAWebOrgAdminGraphQL").loadOrgAdminOrgs(),
+        n = await o("WAWebDBOrg").replaceOrgs(t.map(m));
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o("WAWebOrgAdminGraphQL").loadOrgAdminOrgs(),
-            n = yield o("WAWebDBOrg").replaceOrgs(t.map(_));
-          return (
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[org-list] stored orgs=",
-                  "",
-                ])),
-              n.length,
-            ),
-            n
-          );
-        })),
-        c.apply(this, arguments)
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[org-list] stored orgs=",
+              "",
+            ])),
+          n.length,
+        ),
+        n
       );
     }
-    function d(e) {
+    function c(e) {
       return o("WAWebDBOrg").clearOrgDirectories(e);
     }
+    async function d(e) {
+      var t = await o("WAWebDBOrg").putOrgs([m(e)]),
+        n = t[0];
+      return n;
+    }
     function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebDBOrg").putOrgs([_(e)]),
-            n = t[0];
-          return n;
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
       return {
         description: e.description,
         iconFullUrl: e.iconLargeURI,
@@ -64,16 +42,16 @@ __d(
         name: e.name,
         orgId: e.id,
         orgUpdatedTsUsec: e.orgUpdatedTsUsec,
-        viewerRole: f(e.viewerRole),
+        viewerRole: p(e.viewerRole),
       };
     }
-    function f(e) {
+    function p(e) {
       return e == null ? null : o("WAWebSchemaOrg").OrgMemberRole.cast(e);
     }
     ((l.loadStoredOrgs = s),
       (l.syncOrgList = u),
-      (l.clearHiddenOrgDirectories = d),
-      (l.storeServerOrg = m));
+      (l.clearHiddenOrgDirectories = c),
+      (l.storeServerOrg = d));
   },
   98,
 );

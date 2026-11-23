@@ -5,6 +5,7 @@ __d(
     "AdsPlacementAPISpecReaderUtils",
     "AdsPlacementRawSpecUtils",
     "enumObjectKeys",
+    "observeRuntimeType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -26,7 +27,13 @@ __d(
         e),
       c = r("enumObjectKeys")(u);
     function d(e) {
-      if (!(!e || !e.targeting)) {
+      if (
+        (r("observeRuntimeType")(
+          e,
+          "AdsCampaignPlacementsFieldsValueHelper.fixPlacementsDestructive.campaign",
+        ),
+        !(!e || !e.targeting))
+      ) {
         var t = e.targeting,
           n = o("AdsPlacementRawSpecUtils").isRawPlacementSpecAutomatic(
             o(

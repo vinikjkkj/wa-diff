@@ -1,12 +1,6 @@
 __d(
   "WAWebBusinessAdCreationUtils",
-  [
-    "WALogger",
-    "WAWebQueryLinkedAccountNonceJob",
-    "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
-    "err",
-  ],
+  ["WALogger", "WAWebQueryLinkedAccountNonceJob", "WAWebUserUtils", "err"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -38,70 +32,61 @@ __d(
           h + a.toString()
         );
       };
-    function R(e) {
-      return L.apply(this, arguments);
+    async function R(t) {
+      var n = t.activeAccountInfo,
+        a = t.flowId,
+        i = t.sourceAdCreation,
+        l = new URLSearchParams();
+      l.append(g, "boosted_message");
+      var s = n === "not-linked" ? void 0 : n.id;
+      s != null && l.append(m, s);
+      var c = { flow_id: a },
+        d = JSON.stringify(c),
+        h;
+      switch (t.sourceAdCreation) {
+        case "whatsapp_smb_web_catalog":
+        case "whatsapp_smb_web_catalog_product":
+          h = {
+            whatsapp_media_source_type: "catalog",
+            whatsapp_catalog_product_ids: [t.productId],
+          };
+          break;
+        default:
+          (t.sourceAdCreation,
+            (h = { whatsapp_media_source_type: "new_content_creation" }));
+          break;
+      }
+      var y = JSON.stringify(h);
+      (l.append(_, i), l.append(f, btoa(d)), l.append(p, btoa(y)));
+      var C = n !== "not-linked" && n.type === "whatsapp",
+        b = C && n !== "not-linked" && n.hasCreatedAd,
+        v = n !== "not-linked" && n.hasFacebookPage;
+      if (!v || b) {
+        var R = await o("WAWebQueryLinkedAccountNonceJob").queryNonce();
+        if (R == null)
+          throw (
+            o("WALogger").ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[ctwa] AdCreation URL Nonce is null",
+                ])),
+            ),
+            r("err")("[ctwa] AdCreation URL Nonce is null")
+          );
+        return S({
+          adCreationUrl: u + l.toString(),
+          nonce: R,
+          pageId: s,
+          phoneNumber: o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE().user,
+        });
+      }
+      return u + l.toString();
     }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.activeAccountInfo,
-            n = e.flowId,
-            a = e.sourceAdCreation,
-            i = new URLSearchParams();
-          i.append(g, "boosted_message");
-          var l = t === "not-linked" ? void 0 : t.id;
-          l != null && i.append(m, l);
-          var c = { flow_id: n },
-            d = JSON.stringify(c),
-            h;
-          switch (e.sourceAdCreation) {
-            case "whatsapp_smb_web_catalog":
-            case "whatsapp_smb_web_catalog_product":
-              h = {
-                whatsapp_media_source_type: "catalog",
-                whatsapp_catalog_product_ids: [e.productId],
-              };
-              break;
-            default:
-              (e.sourceAdCreation,
-                (h = { whatsapp_media_source_type: "new_content_creation" }));
-              break;
-          }
-          var y = JSON.stringify(h);
-          (i.append(_, a), i.append(f, btoa(d)), i.append(p, btoa(y)));
-          var C = t !== "not-linked" && t.type === "whatsapp",
-            b = C && t !== "not-linked" && t.hasCreatedAd,
-            v = t !== "not-linked" && t.hasFacebookPage;
-          if (!v || b) {
-            var R = yield o("WAWebQueryLinkedAccountNonceJob").queryNonce();
-            if (R == null)
-              throw (
-                o("WALogger").ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[ctwa] AdCreation URL Nonce is null",
-                    ])),
-                ),
-                r("err")("[ctwa] AdCreation URL Nonce is null")
-              );
-            return S({
-              adCreationUrl: u + i.toString(),
-              nonce: R,
-              pageId: l,
-              phoneNumber:
-                o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE().user,
-            });
-          }
-          return u + i.toString();
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e, t) {
+    function L(e, t) {
       return c + e.id + d + t;
     }
-    function k(t) {
-      switch (t) {
+    function E(e) {
+      switch (e) {
         case "business_home_qp_card":
           return "whatsapp_smb_web_business_tools_top_card";
         case "banner":
@@ -109,20 +94,20 @@ __d(
         default:
           return (
             o("WALogger").WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "getAdCreationTypeFromCampaignType: unknown campaign type: ",
                   "",
                 ])),
-              t,
+              e,
             ),
             "whatsapp_smb_web_ad_creation_home_banner"
           );
       }
     }
     ((l.getWhatsappAdCreationUrl = R),
-      (l.getWhatsappManageAdsUrl = E),
-      (l.getAdCreationTypeFromCampaignType = k));
+      (l.getWhatsappManageAdsUrl = L),
+      (l.getAdCreationTypeFromCampaignType = E));
   },
   98,
 );

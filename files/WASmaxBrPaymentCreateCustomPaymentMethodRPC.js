@@ -17,40 +17,31 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = d(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return {
-              name: "CreateCustomPaymentMethodResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "CreateCustomPaymentMethodResponseIQErrorWithCodeAndReason",
-              value: i.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "CreateCustomPaymentMethod",
-              { Success: a, IQErrorWithCodeAndReason: i },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = c(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return {
+          name: "CreateCustomPaymentMethodResponseSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "CreateCustomPaymentMethodResponseIQErrorWithCodeAndReason",
+          value: i.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing(
+          "CreateCustomPaymentMethod",
+          { Success: a, IQErrorWithCodeAndReason: i },
+        ),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -58,7 +49,7 @@ __d(
       ).parseIQErrorGenericResponseMixin(e, t);
       return (r.success, r);
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "account");
@@ -96,7 +87,7 @@ __d(
           )
         : u;
     }
-    function d(e) {
+    function c(e) {
       var t,
         n = e.accountDeviceId,
         r = e.signedChallengeMixinArgs,
@@ -120,7 +111,7 @@ __d(
                   country: "BR",
                 },
                 o("WASmaxMixins").optionalMerge(
-                  p,
+                  m,
                   o("WASmaxJsx").smax("custom_payment_method", {
                     type: t.CUSTOM_STRING(a),
                     update: o("WASmaxAttrs").OPTIONAL(t.CUSTOM_STRING, i),
@@ -136,19 +127,19 @@ __d(
         );
       return c;
     }
-    function m(e) {
+    function d(e) {
       var t = o("WASmaxJsx").smax(
         "smax$any",
         null,
-        g(o("WASmaxJsx").smax("metadata_info", null), e),
+        f(o("WASmaxJsx").smax("metadata_info", null), e),
       );
       return t;
     }
-    function p(e, t) {
-      var n = m(t);
+    function m(e, t) {
+      var n = d(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function _(e) {
+    function p(e) {
       var t = e.metadataKey,
         n = e.metadataValue,
         r = o("WASmaxJsx").smax("metadata", {
@@ -157,23 +148,23 @@ __d(
         });
       return r;
     }
-    function f(e) {
+    function _(e) {
       var t = e.metadataArgs,
         n = o("WASmaxJsx").smax(
           "smax$any",
           null,
-          o("WASmaxChildren").REPEATED_CHILD(_, t, 1, 5),
+          o("WASmaxChildren").REPEATED_CHILD(p, t, 1, 5),
         );
       return n;
     }
-    function g(e, t) {
-      var n = f(t);
+    function f(e, t) {
+      var n = _(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.sendCreateCustomPaymentMethodRPC = e),
-      (l.parseCreateCustomPaymentMethodResponseIQErrorWithCodeAndReason = u),
-      (l.parseCreateCustomPaymentMethodResponseSuccess = c),
-      (l.makeCreateCustomPaymentMethodRequest = d));
+      (l.parseCreateCustomPaymentMethodResponseIQErrorWithCodeAndReason = s),
+      (l.parseCreateCustomPaymentMethodResponseSuccess = u),
+      (l.makeCreateCustomPaymentMethodRequest = c));
   },
   98,
 );

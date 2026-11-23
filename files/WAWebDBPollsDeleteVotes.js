@@ -1,42 +1,28 @@
 __d(
   "WAWebDBPollsDeleteVotes",
-  [
-    "Promise",
-    "WAWebDBMessageDelete",
-    "WAWebPollsVotesSchema",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebDBMessageDelete", "WAWebPollsVotesSchema"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    async function e(e) {
+      var t = await o("WAWebPollsVotesSchema")
+        .getTable()
+        .anyOf(["parentMsgKey"], e);
+      if (t.length !== 0) {
+        var n = t.map(function (e) {
+            return e.msgKey;
+          }),
+          r = t.map(function (e) {
+            return [e.parentMsgKey, e.sender];
+          }),
+          a = await Promise.allSettled([
+            o("WAWebDBMessageDelete").removeMessagesFromHistory(n, {
+              deleteAssociatedMsgs: !1,
+            }),
+            o("WAWebPollsVotesSchema").getTable().bulkRemove(r),
+          ]);
+        for (var i of a) if (i.status === "rejected") throw i.reason;
+      }
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = yield o("WAWebPollsVotesSchema")
-            .getTable()
-            .anyOf(["parentMsgKey"], t);
-          if (r.length !== 0) {
-            var a = r.map(function (e) {
-                return e.msgKey;
-              }),
-              i = r.map(function (e) {
-                return [e.parentMsgKey, e.sender];
-              }),
-              l = yield (e || (e = n("Promise"))).allSettled([
-                o("WAWebDBMessageDelete").removeMessagesFromHistory(a, {
-                  deleteAssociatedMsgs: !1,
-                }),
-                o("WAWebPollsVotesSchema").getTable().bulkRemove(i),
-              ]);
-            for (var s of l) if (s.status === "rejected") throw s.reason;
-          }
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    l.deleteVotesByParentMsgKeys = s;
+    l.deleteVotesByParentMsgKeys = e;
   },
   98,
 );

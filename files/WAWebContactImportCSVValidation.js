@@ -1,172 +1,152 @@
 __d(
   "WAWebContactImportCSVValidation",
-  [
-    "Promise",
-    "WAWebContactImportCSVParsingUtils",
-    "WAWebContactImportTypedError",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebContactImportCSVParsingUtils", "WAWebContactImportTypedError"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = (function (e) {
-        function t(t) {
-          var n;
-          return (
-            (n =
-              e.call(
-                this,
-                o("WAWebContactImportTypedError").FileError.FORMAT,
-              ) || this),
-            (n.issue = t),
-            n
-          );
-        }
-        return (babelHelpers.inheritsLoose(t, e), t);
-      })(o("WAWebContactImportTypedError").WAWebContactImportTypedError);
-    function u(e, t, n, r) {
-      return c.apply(this, arguments);
+    var e = (function (e) {
+      function t(t) {
+        var n;
+        return (
+          (n =
+            e.call(this, o("WAWebContactImportTypedError").FileError.FORMAT) ||
+            this),
+          (n.issue = t),
+          n
+        );
+      }
+      return (babelHelpers.inheritsLoose(t, e), t);
+    })(o("WAWebContactImportTypedError").WAWebContactImportTypedError);
+    async function s(e, t, n, r) {
+      if ((r === void 0 && (r = {}), !y(t)))
+        return { result: t, separator: null };
+      var a = r.fullFileProbe === !0,
+        i = a ? e : e.slice(0, _),
+        l = a ? void 0 : f,
+        s = await Promise.all(
+          h.map(function (e) {
+            return u(i, e, l, n);
+          }),
+        ),
+        c = [],
+        d = [];
+      for (var m of s)
+        m.status === "failed"
+          ? d.push(m.error)
+          : m.candidate != null &&
+            c.push({ candidate: m.candidate, result: m.result });
+      if (d.length === s.length) throw d[0];
+      var p = c.length === 1 ? c[0] : null;
+      return p == null
+        ? { result: t, separator: null }
+        : {
+            result: a
+              ? p.result
+              : await o("WAWebContactImportCSVParsingUtils").loadPapaParse(
+                  e,
+                  p.candidate.delimiter,
+                ),
+            separator: p.candidate.separator,
+          };
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, r, a, i) {
-            if ((i === void 0 && (i = {}), !v(r)))
-              return { result: r, separator: null };
-            var l = i.fullFileProbe === !0,
-              s = l ? t : t.slice(0, h),
-              u = l ? void 0 : y,
-              c = yield (e || (e = n("Promise"))).all(
-                b.map(function (e) {
-                  return d(s, e, u, a);
-                }),
-              ),
-              m = [],
-              p = [];
-            for (var _ of c)
-              _.status === "failed"
-                ? p.push(_.error)
-                : _.candidate != null &&
-                  m.push({ candidate: _.candidate, result: _.result });
-            if (p.length === c.length) throw p[0];
-            var f = m.length === 1 ? m[0] : null;
-            return f == null
-              ? { result: r, separator: null }
-              : {
-                  result: l
-                    ? f.result
-                    : yield o(
-                        "WAWebContactImportCSVParsingUtils",
-                      ).loadPapaParse(t, f.candidate.delimiter),
-                  separator: f.candidate.separator,
-                };
-          },
-        )),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t, n, r) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            try {
-              var a = yield o(
-                  "WAWebContactImportCSVParsingUtils",
-                ).loadPapaParse(e, t.delimiter, n),
-                i = r(a.data, t.delimiter, a.errors.some(g));
-              return {
-                candidate: i != null && i.data.length >= C ? t : null,
-                result: a,
-                status: "completed",
-              };
-            } catch (e) {
-              return { error: e, status: "failed" };
-            }
-          },
-        )),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
-      var n,
-        r = D(e),
-        o = S(r, t.meta.delimiter);
-      if (o != null) throw new s(o);
-      var a = t.errors.find(g);
-      if (a != null) {
-        var i = T(r, t.meta.delimiter),
-          l = a.index != null ? x(r.slice(0, a.index)) + 1 : 1,
-          u = a.row,
-          c = a.index == null && u != null && (n = i[u]) != null ? n : l;
-        throw new s(f(a, c));
+    async function u(e, t, n, r) {
+      try {
+        var a = await o("WAWebContactImportCSVParsingUtils").loadPapaParse(
+            e,
+            t.delimiter,
+            n,
+          ),
+          i = r(a.data, t.delimiter, a.errors.some(p));
+        return {
+          candidate: i != null && i.data.length >= g ? t : null,
+          result: a,
+          status: "completed",
+        };
+      } catch (e) {
+        return { error: e, status: "failed" };
       }
     }
-    function _(e, t, n, r) {
-      r === void 0 && (r = null);
-      var o = t.data,
-        a = o[n];
-      if (a != null)
+    function c(t, n) {
+      var r,
+        o = k(t),
+        a = C(o, n.meta.delimiter);
+      if (a != null) throw new e(a);
+      var i = n.errors.find(p);
+      if (i != null) {
+        var l = E(o, n.meta.delimiter),
+          s = i.index != null ? I(o.slice(0, i.index)) + 1 : 1,
+          u = i.row,
+          c = i.index == null && u != null && (r = l[u]) != null ? r : s;
+        throw new e(m(i, c));
+      }
+    }
+    function d(t, n, r, o) {
+      o === void 0 && (o = null);
+      var a = n.data,
+        i = a[r];
+      if (i != null)
         for (
-          var i = D(e), l = T(i, t.meta.delimiter), u = n + 1;
-          u < o.length;
+          var l = k(t), s = E(l, n.meta.delimiter), u = r + 1;
+          u < a.length;
           u++
         ) {
           var c,
-            d = o[u];
-          if (!($(d) || d.length === a.length)) {
-            var m = (c = l[u]) != null ? c : u + 1;
-            throw r != null
-              ? new s({
+            d = a[u];
+          if (!(T(d) || d.length === i.length)) {
+            var m = (c = s[u]) != null ? c : u + 1;
+            throw o != null
+              ? new e({
                   actualColumnCount: d.length,
-                  expectedColumnCount: a.length,
+                  expectedColumnCount: i.length,
                   physicalRow: m,
                   reason: "separator_column_count",
-                  separator: r,
+                  separator: o,
                 })
-              : new s({
+              : new e({
                   actualColumnCount: d.length,
-                  expectedColumnCount: a.length,
+                  expectedColumnCount: i.length,
                   physicalRow: m,
                   reason: "column_count",
                 });
           }
         }
     }
-    function f(e, t) {
+    function m(e, t) {
       return e.code === "InvalidQuotes"
         ? { physicalRow: t, reason: "invalid_quotes" }
         : e.code === "MissingQuotes"
           ? { physicalRow: t, reason: "missing_quotes" }
           : { physicalRow: t, reason: "parse_error" };
     }
-    function g(e) {
+    function p(e) {
       return e.type !== "FieldMismatch" && e.code !== "UndetectableDelimiter";
     }
-    var h = 64 * 1024,
-      y = 100,
-      C = 2,
-      b = [
+    var _ = 64 * 1024,
+      f = 100,
+      g = 2,
+      h = [
         { delimiter: "	", separator: "tab" },
         { delimiter: ";", separator: "semicolon" },
       ];
-    function v(e) {
+    function y(e) {
       return e.errors.some(function (e) {
         return e.code === "UndetectableDelimiter";
       });
     }
-    function S(e, t) {
+    function C(e, t) {
       for (var n = !0, r = null, o = 1, a = 0; a < e.length; a++) {
         var i = e[a];
         if (i === '"') {
           if (!n) return { physicalRow: o, reason: "invalid_quotes" };
-          var l = R(e, a + 1, o, t);
+          var l = b(e, a + 1, o, t);
           if (l.issue != null) return l.issue;
           ((a = l.endIndex), (o = l.physicalRow), (n = !1));
-        } else if (i === "\r" || i === "\n") {
-          var s = I(e, a);
+        } else if (
+          i === "\r" ||
+          i ===
+            `
+`
+        ) {
+          var s = L(e, a);
           if (s.endIndex < e.length - 1) {
             if (r == null) r = s.lineEnding;
             else if (s.lineEnding !== r)
@@ -178,22 +158,33 @@ __d(
               };
           }
           ((a = s.endIndex), o++, (n = !0));
-        } else E(e, a, t) ? ((a += t.length - 1), (n = !0)) : (n = !1);
+        } else S(e, a, t) ? ((a += t.length - 1), (n = !0)) : (n = !1);
       }
       return null;
     }
-    function R(e, t, n, r) {
+    function b(e, t, n, r) {
       for (var o = n, a = t; a < e.length; a++) {
         var i = e[a];
-        if (i === "\r" || i === "\n") ((a = k(e, a)), o++);
+        if (
+          i === "\r" ||
+          i ===
+            `
+`
+        )
+          ((a = R(e, a)), o++);
         else if (i === '"') {
           if (e[a + 1] === '"') {
             a++;
             continue;
           }
-          var l = L(e, a + 1, r),
+          var l = v(e, a + 1, r),
             s = e[l];
-          return s != null && !E(e, l, r) && s !== "\r" && s !== "\n"
+          return s != null &&
+            !S(e, l, r) &&
+            s !== "\r" &&
+            s !==
+              `
+`
             ? {
                 endIndex: a,
                 issue: { physicalRow: o, reason: "invalid_quotes" },
@@ -208,24 +199,26 @@ __d(
         physicalRow: o,
       };
     }
-    function L(e, t, n) {
-      for (var r = t; !E(e, r, n) && (e[r] === " " || e[r] === "	"); ) r++;
+    function v(e, t, n) {
+      for (var r = t; !S(e, r, n) && (e[r] === " " || e[r] === "	"); ) r++;
       return r;
     }
-    function E(e, t, n) {
+    function S(e, t, n) {
       return n !== "" && e.startsWith(n, t);
     }
-    function k(e, t) {
-      return I(e, t).endIndex;
+    function R(e, t) {
+      return L(e, t).endIndex;
     }
-    function I(e, t) {
+    function L(e, t) {
       return e[t] === "\r"
-        ? e[t + 1] === "\n"
+        ? e[t + 1] ===
+          `
+`
           ? { endIndex: t + 1, lineEnding: "CRLF" }
           : { endIndex: t, lineEnding: "CR" }
         : { endIndex: t, lineEnding: "LF" };
     }
-    function T(e, t) {
+    function E(e, t) {
       for (var n = [1], r = !0, o = !1, a = 1, i = 0; i < e.length; i++) {
         var l = e[i];
         o
@@ -233,31 +226,38 @@ __d(
             ? e[i + 1] === '"'
               ? i++
               : (o = !1)
-            : (l === "\r" || l === "\n") && ((i = k(e, i)), a++)
-          : l === "\r" || l === "\n"
-            ? ((i = k(e, i)), a++, n.push(a), (r = !0))
+            : (l === "\r" ||
+                l ===
+                  `
+`) &&
+              ((i = R(e, i)), a++)
+          : l === "\r" ||
+              l ===
+                `
+`
+            ? ((i = R(e, i)), a++, n.push(a), (r = !0))
             : l === t
               ? (r = !0)
               : (l === '"' && r && (o = !0), (r = !1));
       }
       return n;
     }
-    function D(e) {
+    function k(e) {
       return e.charCodeAt(0) === 65279 ? e.slice(1) : e;
     }
-    function x(e) {
+    function I(e) {
       var t = e.match(/\r\n|\r|\n/g);
       return t == null ? 0 : t.length;
     }
-    function $(e) {
+    function T(e) {
       return e.every(function (e) {
         return e.trim() === "";
       });
     }
-    ((l.WAWebContactImportCSVFormatError = s),
-      (l.recoverUndetectableCSVDelimiter = u),
-      (l.validateCSVParseResult = p),
-      (l.validateCSVColumnCounts = _));
+    ((l.WAWebContactImportCSVFormatError = e),
+      (l.recoverUndetectableCSVDelimiter = s),
+      (l.validateCSVParseResult = c),
+      (l.validateCSVColumnCounts = d));
   },
   98,
 );

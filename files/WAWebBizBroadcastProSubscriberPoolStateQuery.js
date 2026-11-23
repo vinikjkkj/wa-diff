@@ -7,7 +7,6 @@ __d(
     "WAWebBizBroadcastProRecipientNameRestriction",
     "WAWebBizBroadcastProSubscriberPoolStateQuery.graphql",
     "react",
-    "react-compiler-runtime",
     "useWAWebCallbackOnce",
   ],
   function (t, n, r, o, a, i, l) {
@@ -39,44 +38,38 @@ __d(
     function C(e) {
       var t,
         n,
-        a = o("react-compiler-runtime").c(3),
-        i = e.children,
-        l = e.queryRef,
-        s = o("CometRelay").usePreloadedQuery(h, l),
-        u = v((t = s.xfb_whatsapp_bb_pro) != null ? t : null),
-        c = u.state,
-        d = u.warningReason,
-        m = r("useWAWebCallbackOnce")(
+        a = e.children,
+        i = e.queryRef,
+        l = o("CometRelay").usePreloadedQuery(h, i),
+        s = v((t = l.xfb_whatsapp_bb_pro) != null ? t : null),
+        u = s.state,
+        c = s.warningReason,
+        d = r("useWAWebCallbackOnce")(
           function () {
-            d != null && S(d);
+            c != null && S(c);
+          },
+          [c],
+        );
+      return (
+        f(
+          function () {
+            d();
           },
           [d],
         ),
-        p,
-        _;
-      return (
-        a[0] !== m
-          ? ((p = function () {
-              m();
-            }),
-            (_ = [m]),
-            (a[0] = m),
-            (a[1] = p),
-            (a[2] = _))
-          : ((p = a[1]), (_ = a[2])),
-        f(p, _),
-        i(
-          c,
+        a(
+          u,
           o(
             "WAWebBizBroadcastProRecipientNameRestriction",
           ).shouldOmitRecipientNames(
-            (n = s.viewer) == null || (n = n.backing_waba) == null
+            (n = l.viewer) == null || (n = n.backing_waba) == null
               ? void 0
               : n.is_custom_param_restricted_for_first_party_paid_messaging,
           ),
         )
       );
     }
+    C.displayName = C.name + " [from " + i.id + "]";
     function b(e) {
       return v(e).state;
     }

@@ -7,7 +7,6 @@ __d(
     "WAWebCustomerManagerOpenQpl",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,14 +14,14 @@ __d(
       s,
       u = s || (s = o("react")),
       c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
+        async function () {
+          var e = await r("JSResourceForInteraction")(
             "WAWebCustomerManagerDrawer.react",
           )
             .__setRef("WAWebCustomerManagerDrawerLoadable")
             .load();
           return e;
-        }),
+        },
         "ContactManagerDrawer",
         {
           onFinalFailure: function (n, r) {

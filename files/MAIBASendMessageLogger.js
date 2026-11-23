@@ -5,30 +5,111 @@ __d(
     "AdsAIUserInteractionSources",
     "AdsHelpTrayIPChatUILogger",
     "AdsHelpTrayUILoggerStoreUtils",
-    "AdsOsmipChatUtils",
+    "AdsPerfInteractionVCHolder",
     "AdsPerfInteractionsController",
     "FBLogger",
     "InteractionTracingMetrics",
+    "MAIBACommerceManagerPageContext",
     "MAIBAObservabilityUtils",
     "MAIBAR23LoggingUtils",
-    "QPLUserFlow",
+    "QPLInteractionTracingJoinUtils",
+    "clearTimeout",
     "gkx",
+    "performanceNow",
     "requireDeferred",
     "runOnce",
+    "setTimeout",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = r("requireDeferred")("MAIBAInlinedContext").__setRef(
+    var e,
+      s = r("requireDeferred")("MAIBAInlinedContext").__setRef(
         "MAIBASendMessageLogger",
       ),
-      s = !1,
-      u = null,
-      c = null,
-      d = !1,
-      m = r("FBLogger")("axp_maiba_foundations_ux");
-    function p() {
-      var e = u;
+      u = 1e3,
+      c = 3e5,
+      d = 1e4,
+      m = "MAIBA terminal response",
+      p = "maiba-terminal-response",
+      _ = new Map(),
+      f = new Map();
+    function g(e) {
+      return p + ":" + e;
+    }
+    function h(e) {
+      var t = r("AdsPerfInteractionsController").getActiveInteractionTraceAPI(
+        e,
+      );
+      t != null &&
+        (_.set(e, t),
+        t.lockInteractionLogging(p),
+        o("AdsPerfInteractionVCHolder").startVCHolder(e, g(e), m),
+        L(e, "in_flight"));
+    }
+    function y(e) {
+      var t;
+      o("AdsPerfInteractionVCHolder").endVCHolder(e, g(e));
+      var n =
+        (t = _.get(e)) != null
+          ? t
+          : r("AdsPerfInteractionsController").getActiveInteractionTraceAPI(e);
+      (n == null || n.unlockInteractionLogging(p), _.delete(e));
+      var a = f.get(e);
+      a != null && (r("clearTimeout")(a.timeoutID), f.delete(e));
+    }
+    var C = !1,
+      b = null,
+      v = new Map(),
+      S = new Set();
+    function R(e) {
+      (y(e), S.delete(e), e === b && (C = !1));
+    }
+    function L(e, t) {
+      var n = f.get(e);
+      if (n != null) {
+        if (n.phase === t || t === "in_flight") return;
+        r("clearTimeout")(n.timeoutID);
+      }
+      var o = r("setTimeout")(
+        function () {
+          (f.delete(e),
+            r("InteractionTracingMetrics").addAnnotation(
+              e,
+              "terminal_hold_timeout",
+              t,
+            ),
+            t === "in_flight" && k(e),
+            R(e));
+        },
+        t === "display" ? d : c,
+      );
+      f.set(e, { phase: t, timeoutID: o });
+    }
+    function E(e) {
+      _.has(e) && L(e, "display");
+    }
+    function k(e) {
+      var t,
+        n =
+          (t = r("InteractionTracingMetrics").get(e)) == null
+            ? void 0
+            : t.markerPoints;
+      (n == null ? void 0 : n.final_token_received) == null &&
+        Z(
+          e,
+          "FAIL",
+          (n == null ? void 0 : n.request_sent_to_server) == null
+            ? "request_not_sent"
+            : "no_response",
+        );
+    }
+    var I = null,
+      T = !1,
+      D = r("FBLogger")("axp_maiba_foundations_ux");
+    function x() {
+      var e = b;
       if (e != null) {
+        R(e);
         var t = r("InteractionTracingMetrics").get(e);
         if ((t == null ? void 0 : t.completed) != null) {
           var n = r(
@@ -38,12 +119,119 @@ __d(
         }
       }
     }
-    function _(e) {
+    function $(t, n) {
+      t != null &&
+        (r("InteractionTracingMetrics").addFirstMarkerPoint(
+          t,
+          "final_token_received",
+          "AppTiming",
+          (e || (e = r("performanceNow")))(),
+        ),
+        E(t));
+    }
+    function P(e, t) {
+      e == null || !S.has(e) || $(e, t);
+    }
+    function N(e) {
+      var t;
+      ((t = r("InteractionTracingMetrics").get(e)) == null
+        ? void 0
+        : t.markerPoints.first_answer_chunk_received) == null &&
+        r("InteractionTracingMetrics").addMarkerPoint(
+          e,
+          "first_answer_chunk_received",
+          "AppTiming",
+        );
+    }
+    function M(e) {
+      var t,
+        n =
+          (t = r("InteractionTracingMetrics").get(e)) == null
+            ? void 0
+            : t.annotations.string,
+        o = n == null ? void 0 : n.cancelType;
+      return o === "aborted:Unmount"
+        ? "unmount"
+        : o === "unload"
+          ? "unload"
+          : (o == null ? void 0 : o.startsWith("aborted:New Interaction")) ===
+              !0
+            ? "new_interaction"
+            : o === "timeout" ||
+                (n == null ? void 0 : n.terminal_hold_timeout) != null
+              ? "timeout"
+              : "other";
+    }
+    function w(e) {
+      var t,
+        n =
+          (t = r("InteractionTracingMetrics").get(e)) == null
+            ? void 0
+            : t.markerPoints;
+      (n == null ? void 0 : n.first_answer_chunk_received) == null ||
+        n.first_token_received != null ||
+        r("InteractionTracingMetrics").addAnnotation(
+          e,
+          "response_undisplayed",
+          M(e),
+        );
+    }
+    function A(t, n) {
+      t != null &&
+        (r("InteractionTracingMetrics").addFirstMarkerPoint(
+          t,
+          "final_token_displayed",
+          "AppTiming",
+          (e || (e = r("performanceNow")))(),
+        ),
+        y(t));
+    }
+    function F(e) {
       e != null &&
         r("gkx")("25671") &&
         r("InteractionTracingMetrics").addMetadata(e, "success_on_unload", 1);
     }
-    function f(e) {
+    function O(e) {
+      var t,
+        n = b;
+      n != null &&
+        (r("InteractionTracingMetrics").addAnnotationBoolean(
+          n,
+          "r23_confirmation_card_present",
+          !0,
+        ),
+        e != null &&
+          e !== "" &&
+          r("InteractionTracingMetrics").addAnnotation(n, "bot_response_id", e),
+        ((t = r("InteractionTracingMetrics").get(n)) == null
+          ? void 0
+          : t.markerPoints.r23_confirmation_card_mounted) == null &&
+          r("InteractionTracingMetrics").addMarkerPoint(
+            n,
+            "r23_confirmation_card_mounted",
+            "AppTiming",
+          ));
+    }
+    function B(e, t, n) {
+      var o,
+        a = n != null ? _e(n) : b;
+      a == null ||
+        ((o = r("InteractionTracingMetrics").get(a)) == null
+          ? void 0
+          : o.markerPoints.r23_plan_card_mounted) != null ||
+        (r("InteractionTracingMetrics").addAnnotation(
+          a,
+          "r23_plan_card_render",
+          t,
+        ),
+        r("InteractionTracingMetrics").addAnnotation(a, "bot_response_id", e),
+        r("InteractionTracingMetrics").addMarkerPoint(
+          a,
+          "r23_plan_card_mounted",
+          "AppTiming",
+        ));
+    }
+    function W(e) {
       var t = e.message.toLowerCase();
       return t.includes("network") ||
         t.includes("failed to fetch") ||
@@ -53,62 +241,70 @@ __d(
         ? "network"
         : "server";
     }
-    function g() {
-      var t, n;
+    function q() {
+      var e, t;
       o("AdsHelpTrayUILoggerStoreUtils").logHelpTrayEvents("general", {
         event_type: "consent_mutation_success",
         source: "maiba_explicit_consent_guidance",
         surface:
-          (t =
-            (n = e.getModuleIfRequired()) == null ||
-            (n = n.getInlinedContext()) == null
+          (e =
+            (t = s.getModuleIfRequired()) == null ||
+            (t = t.getInlinedContext()) == null
               ? void 0
-              : n.surface) != null
-            ? t
+              : t.surface) != null
+            ? e
             : "",
       });
     }
-    function h(t) {
-      var n, r;
-      (m.warn("Error updating ads ai consent status", t.toString()),
+    function U(e) {
+      var t, n;
+      (D.warn("Error updating ads ai consent status", e.toString()),
         o("AdsHelpTrayUILoggerStoreUtils").logHelpTrayEvents("general", {
           event_type: "consent_mutation_failure",
           source: "maiba_explicit_consent_guidance",
           surface:
-            (n =
-              (r = e.getModuleIfRequired()) == null ||
-              (r = r.getInlinedContext()) == null
+            (t =
+              (n = s.getModuleIfRequired()) == null ||
+              (n = n.getInlinedContext()) == null
                 ? void 0
-                : r.surface) != null
-              ? n
+                : n.surface) != null
+              ? t
               : "",
         }));
     }
-    var y = r("runOnce")(function () {
+    var V = r("runOnce")(function () {
       r("AdsPerfInteractionsController").addEventListener(
         o("MAIBAObservabilityUtils").getMAIBASendMessageInteractionName(),
         "end",
         function (e) {
-          r("InteractionTracingMetrics").addMarkerPoint(
-            e.interactionID,
-            o("MAIBAObservabilityUtils").getMAIBASendMessageComponentName() +
-              "_end",
-            "AppTiming",
-          );
+          var t,
+            n = e.interactionID;
+          ((t = r("AdsPerfInteractionsController").getActiveInteractionTraceAPI(
+            n,
+          )) == null ||
+            t.onBeforeLog(function () {
+              return w(n);
+            }),
+            r("InteractionTracingMetrics").addMarkerPoint(
+              n,
+              o("MAIBAObservabilityUtils").getMAIBASendMessageComponentName() +
+                "_end",
+              "AppTiming",
+            ));
         },
       );
     });
-    function C() {
-      var e = u;
-      e != null &&
+    function H(e) {
+      var t = e != null ? e : b;
+      t != null &&
         r("InteractionTracingMetrics").addAnnotationBoolean(
-          e,
+          t,
           "is_error_notice_shown",
           !0,
         );
     }
-    function b(e, t) {
-      m.warn(
+    function G(e, t) {
+      D.warn(
         t != null
           ? "Send message mutation called by '" +
               e +
@@ -120,153 +316,206 @@ __d(
               "' with empty string ECID with no entry point.",
       );
     }
-    function v(e) {
+    function z(e, t) {
+      if (e !== "") {
+        if (!v.has(e) && v.size >= u) {
+          var n = v.keys().next().value;
+          n != null && v.delete(n);
+        }
+        v.set(e, t);
+      }
+    }
+    function j(e) {
+      var t = o(
+        "MAIBACommerceManagerPageContext",
+      ).getMAIBACommerceManagerPageContext();
+      t != null &&
+        (r("InteractionTracingMetrics").addAnnotation(
+          e,
+          "catalog_id",
+          t.catalog_id,
+        ),
+        t.product_set_id != null &&
+          r("InteractionTracingMetrics").addAnnotation(
+            e,
+            "product_set_id",
+            t.product_set_id,
+          ));
+    }
+    function K(e) {
       var t = e.containsAttachment,
         n = e.entrypoint,
         a = e.externalConversationId,
         i = e.isSentFromOutOfChat,
         l = e.isV3Flow,
-        m = l === void 0 ? !1 : l,
-        _ = e.message,
-        f = e.messageType,
-        g = e.offlineThreadingId,
-        h = e.originatingMidChatPromptBotResponseId,
-        C = e.promptId,
-        b = e.promptIndex,
-        v = e.promptSource,
-        S = e.quoteData,
-        R = e.sendMessageVersion;
+        s = l === void 0 ? !1 : l,
+        u = e.message,
+        c = e.messageType,
+        d = e.offlineThreadingId,
+        m = e.originatingMidChatPromptBotResponseId,
+        p = e.promptId,
+        _ = e.promptIndex,
+        f = e.promptSource,
+        g = e.quoteData,
+        y = e.sendMessageVersion;
       (n != null &&
         o(
           "AdsHelpTrayIPChatUILogger",
         ).logAdsAIMarketingProEntrypointConversations(n, a),
-        (s = m),
-        (c = null),
-        (d = !1),
-        p());
-      var L = r("AdsPerfInteractionsController").startInteraction(
+        (I = null),
+        (T = !1),
+        x(),
+        (C = s));
+      var v = r("AdsPerfInteractionsController").startInteraction(
         o("MAIBAObservabilityUtils").getMAIBASendMessageInteractionName(),
-        f === "SHADOW"
+        c === "SHADOW"
           ? r("AdsAIUserInteractionSources").SHADOW_TRAFFIC
           : r("AdsAIUserInteractionSources").USER_SENT_MESSAGE_IN_CHAT,
         { isVeryLongInteraction: !0 },
       );
-      u = L;
-      var E = o("ALToolTab").getCurrentToolTab(),
-        k = E.tab,
-        I = E.tool;
+      ((b = v), h(v), z(d, v), s && S.add(v));
+      var R = o("ALToolTab").getCurrentToolTab(),
+        L = R.tab,
+        E = R.tool;
       return (
         r("AdsPerfInteractionsController").addCustomInteractionAnnotation(
           o("MAIBAObservabilityUtils").getMAIBASendMessageComponentName(),
           {
-            app_surface: I,
+            app_surface: E,
             contains_attachment: t,
-            contains_quote: S != null,
+            contains_quote: g != null,
             conversation_id: a,
             entrypoint: n != null ? n : "",
-            is_shadow_traffic: f === "SHADOW",
-            is_v3_flow: m,
+            is_shadow_traffic: c === "SHADOW",
+            is_v3_flow: s,
             is_web_platform_chat: !0,
             message_source: i ? "out_of_chat" : "chat",
-            message_type: f != null ? f : "",
-            offline_threading_id: g,
-            originating_mid_chat_prompt_bot_response_id: h != null ? h : "",
-            prompt_id: C != null ? C : "",
-            prompt_index: b != null ? b : null,
-            prompt_source: v != null ? v : "",
+            message_type: c != null ? c : "",
+            offline_threading_id: d,
+            originating_mid_chat_prompt_bot_response_id: m != null ? m : "",
+            prompt_id: p != null ? p : "",
+            prompt_index: _ != null ? _ : null,
+            prompt_source: f != null ? f : "",
             quote_from_out_of_chat:
-              S != null && S.source
-                ? (S == null ? void 0 : S.source) === "FROM_PAGE"
+              g != null && g.source
+                ? (g == null ? void 0 : g.source) === "FROM_PAGE"
                 : null,
-            referrer_tab: k != null ? k : "",
-            referrer_tool: I != null ? I : "",
+            referrer_tab: L != null ? L : "",
+            referrer_tool: E != null ? E : "",
           },
         ),
-        R != null &&
+        y != null &&
           r("InteractionTracingMetrics").addAnnotation(
-            L,
+            v,
             "send_message_version",
-            R,
+            y,
           ),
-        y(),
-        r("InteractionTracingMetrics").addJoinId(L, g),
+        j(v),
+        V(),
+        r("InteractionTracingMetrics").addJoinId(v, d),
         r("gkx")("15770") &&
-          r("InteractionTracingMetrics").addAnnotation(L, "user_query", _),
-        L
+          r("InteractionTracingMetrics").addAnnotation(v, "user_query", u),
+        v
       );
     }
-    function S(e) {
-      r("InteractionTracingMetrics").addMarkerPoint(
+    function Q(e) {
+      (r("InteractionTracingMetrics").addMarkerPoint(
         e,
         "request_sent_to_server",
         "AppTiming",
-      );
-      var t =
-        o(
-          "AdsOsmipChatUtils",
-        ).getActiveHeroTracingMessageResponseEventInstanceKey();
-      if (t != null) {
-        var n = o("MAIBAObservabilityUtils").getMAIBASendMessageQPLEvent();
-        r("QPLUserFlow").addAlignmentPointForJoin(n, 0, { instanceKey: t });
-      }
+      ),
+        o("QPLInteractionTracingJoinUtils").addAlignmentPointForInteraction(
+          e,
+          0,
+        ));
     }
-    function R(e) {
+    function X(e) {
       r("InteractionTracingMetrics").addMarkerPoint(
         e,
         "collecting_client_context_start",
         "AppTiming",
       );
     }
-    function L(e) {
-      r("InteractionTracingMetrics").addMarkerPoint(
+    function Y(e, t) {
+      (r("InteractionTracingMetrics").addMarkerPoint(
         e,
         "collecting_client_context_end",
         "AppTiming",
-      );
+      ),
+        t != null &&
+          r("InteractionTracingMetrics").addAnnotation(
+            e,
+            "client_context_fallback",
+            t,
+          ));
     }
-    function E(e) {
-      var t =
-        o(
-          "AdsOsmipChatUtils",
-        ).getActiveHeroTracingMessageResponseEventInstanceKey();
-      if (t != null) {
-        var n = o("MAIBAObservabilityUtils").getMAIBASendMessageQPLEvent();
-        r("QPLUserFlow").addAlignmentPointForJoin(n, 3, { instanceKey: t });
-      }
-      r("InteractionTracingMetrics").addMarkerPoint(
+    function J(e) {
+      (o("QPLInteractionTracingJoinUtils").addAlignmentPointForInteraction(
         e,
-        "ack_from_server_received",
-        "AppTiming",
-      );
+        3,
+      ),
+        r("InteractionTracingMetrics").addMarkerPoint(
+          e,
+          "ack_from_server_received",
+          "AppTiming",
+        ));
     }
-    function k() {}
-    function I(e) {
-      r("AdsPerfInteractionsController").annotateFailure(
-        o("MAIBAObservabilityUtils").getMAIBASendMessageComponentName(),
-        i.id,
-        { error: e },
-      );
+    function Z(e, t, n) {
+      if (e != null) {
+        if (
+          (n != null &&
+            r("InteractionTracingMetrics").addAnnotation(
+              e,
+              "terminal_reason",
+              n,
+            ),
+          t === "FAIL")
+        )
+          r("InteractionTracingMetrics").addMetadata(e, "isError", 1);
+        else if (t === "CANCEL") {
+          var o;
+          (o = r("AdsPerfInteractionsController").getActiveInteractionTraceAPI(
+            e,
+          )) == null || o.cancelTrace("maiba_client_stop", !0);
+        }
+      }
     }
-    function T(e) {
+    function ee(e, t, n, r) {
+      (t === void 0 && (t = "SUCCESS"),
+        Z(e, t, n),
+        e != null && (t === "SUCCESS" && r === !0 ? E(e) : R(e)));
+    }
+    function te(e) {
+      R(e);
+    }
+    function ne(e, t) {
+      (t != null && R(t),
+        r("AdsPerfInteractionsController").annotateFailure(
+          o("MAIBAObservabilityUtils").getMAIBASendMessageComponentName(),
+          i.id,
+          { error: e },
+        ));
+    }
+    function re(e) {
       r("InteractionTracingMetrics").addMarkerPoint(
         e,
         "v2_mutation_load_start",
         "AppTiming",
       );
     }
-    function D(e) {
+    function oe(e) {
       r("InteractionTracingMetrics").addMarkerPoint(
         e,
         "v2_mutation_load_end",
         "AppTiming",
       );
     }
-    function x(e) {
-      var t = u;
+    function ae(e) {
+      var t = b;
       t == null ||
-        !s ||
-        d ||
-        ((d = !0),
+        !C ||
+        T ||
+        ((T = !0),
         r("InteractionTracingMetrics").addMarkerPoint(
           t,
           "subscription_data_received",
@@ -283,142 +532,190 @@ __d(
           e,
         ));
     }
-    function $() {
-      u != null &&
-        r("InteractionTracingMetrics").addMarkerPoint(
-          u,
-          "v3_mutation_ack_received",
-          "AppTiming",
-        );
+    function ie(e) {
+      r("InteractionTracingMetrics").addMarkerPoint(
+        e,
+        "v3_mutation_ack_received",
+        "AppTiming",
+      );
     }
-    function P() {
-      u != null &&
+    function le() {
+      b != null &&
         r("InteractionTracingMetrics").addMarkerPoint(
-          u,
+          b,
           "mutation_completed",
           "AppTiming",
         );
     }
-    function N(e) {
-      var t = u;
-      t != null &&
-        (r("InteractionTracingMetrics").addAnnotation(
-          t,
-          "error_source",
-          "mutation",
-        ),
-        r("InteractionTracingMetrics").addAnnotation(
-          t,
-          "error_message",
-          e.message,
-        ),
+    function se(e, t) {
+      if (t == null) {
         r("AdsPerfInteractionsController").annotateFailure(
           o("MAIBAObservabilityUtils").getMAIBASendMessageComponentName(),
           i.id,
           { error: e },
-        ));
+        );
+        return;
+      }
+      var n = t;
+      (r("InteractionTracingMetrics").addMetadata(n, "isError", 1),
+        r("InteractionTracingMetrics").addAnnotation(
+          n,
+          "terminal_outcome",
+          "FAIL",
+        ),
+        r("InteractionTracingMetrics").addAnnotation(
+          n,
+          "terminal_reason",
+          "mutation_error",
+        ),
+        r("InteractionTracingMetrics").addAnnotation(
+          n,
+          "error_source",
+          "mutation",
+        ),
+        r("InteractionTracingMetrics").addAnnotation(
+          n,
+          "error_message",
+          e.message,
+        ),
+        r("InteractionTracingMetrics").addMetadata(n, "errorComponent", i.id),
+        r("AdsPerfInteractionsController").annotateFailure(
+          o("MAIBAObservabilityUtils").getMAIBASendMessageComponentName(),
+          i.id,
+          { error: e },
+        ),
+        R(n));
+      var a = r("InteractionTracingMetrics").get(n);
+      a != null &&
+        a.completed == null &&
+        r("InteractionTracingMetrics").complete(n);
     }
-    function M(e) {
-      var t = u;
-      t != null &&
+    function ue(e, t) {
+      var n = t != null ? t : b;
+      n != null &&
         (r("InteractionTracingMetrics").addAnnotation(
-          t,
+          n,
           "error_source",
           "subscription",
         ),
         r("InteractionTracingMetrics").addAnnotation(
-          t,
+          n,
           "subscription_error",
           e.message,
         ),
         r("InteractionTracingMetrics").addAnnotation(
-          t,
+          n,
           "subscription_error_type",
-          f(e),
+          W(e),
         ),
-        (c = e));
+        t == null && (I = e));
     }
-    function w(e) {
-      u != null &&
-        r("InteractionTracingMetrics").addAnnotation(u, "recovery_trigger", e);
+    function ce(e) {
+      b != null &&
+        r("InteractionTracingMetrics").addAnnotation(b, "recovery_trigger", e);
     }
-    function A(e) {
-      if (u != null) {
+    function de(e) {
+      if (b != null) {
         if (
           (r("InteractionTracingMetrics").addAnnotation(
-            u,
+            b,
             "recovery_outcome",
             e,
           ),
-          e === "fail" && c != null)
+          e === "fail" && I != null)
         ) {
-          var t = c;
+          var t = I;
           r("AdsPerfInteractionsController").annotateFailure(
             o("MAIBAObservabilityUtils").getMAIBASendMessageComponentName(),
             i.id,
             { error: t },
           );
         }
-        c = null;
+        I = null;
       }
     }
-    function F() {
-      s && (s = !1);
+    function me(e, t, n) {
+      e === void 0 && (e = "SUCCESS");
+      var r = t != null ? t : b;
+      r == null || !S.has(r) || (Z(r, e, n), R(r));
     }
-    function O(e, t) {
-      var n = [],
-        r = [],
-        a = [];
+    function pe(e, t, n) {
+      var r = [],
+        a = [],
+        i = [];
       if (t != null)
-        for (var i of t)
-          switch (i.type) {
+        for (var l of t)
+          switch (l.type) {
             case "CAMPAIGN_GROUP":
-              n.push(i.id);
+              r.push(l.id);
               break;
             case "CAMPAIGN":
-              r.push(i.id);
+              a.push(l.id);
               break;
             case "ADGROUP":
-              a.push(i.id);
+              i.push(l.id);
               break;
           }
+      if (n !== !0) {
+        o("MAIBAR23LoggingUtils").logMAIBAR23Event({
+          adgroupIDs: i,
+          campaignGroupIDs: r,
+          campaignIDs: a,
+          conversationID: e,
+          event: "copilot_organic_in_editor_eligibility_fix",
+        });
+        return;
+      }
       o("MAIBAR23LoggingUtils").logMAIBAR23Event({
-        adgroupIDs: a,
-        campaignGroupIDs: n,
-        campaignIDs: r,
+        adgroupIDs: i,
+        campaignGroupIDs: r,
+        campaignIDs: a,
         conversationID: e,
         event: "copilot_organic_in_editor",
       });
     }
-    function B() {
-      return s;
+    function _e(e, t) {
+      var n;
+      return e == null ? null : (n = v.get(e)) != null ? n : null;
     }
-    var W = {
-      logBeforeCommitMutation: S,
-      logBotResponseDelivered: _,
-      logConsentUpdateError: h,
-      logConsentUpdateSuccess: g,
-      logCopilotOrganicInEditor: O,
-      logEmptyStringECIDOrigin: b,
-      logErrorNoticeShown: C,
-      logFirstMutationResponse: E,
-      logGetClientContextEnd: L,
-      logGetClientContextStart: R,
-      logMutationComplete: k,
-      logMutationError: I,
-      logRecoveryAttempt: w,
-      logRecoveryOutcome: A,
-      logSendMessageStart: v,
-      logSubscriptionError: M,
-      logV2MutationLoadEnd: D,
-      logV2MutationLoadStart: T,
-      logV3FlowComplete: F,
-      logV3MutationAck: $,
-      logV3MutationCompleted: P,
-      logV3MutationFailed: N,
-      logV3SubscriptionDataReceived: x,
+    function fe(e, t) {
+      return e == null ? C : S.has(e);
+    }
+    var ge = {
+      logBeforeCommitMutation: Q,
+      logBotResponseDelivered: F,
+      logCompleteResponseDisplayed: A,
+      logCompleteResponseReceived: $,
+      logConsentUpdateError: U,
+      logConsentUpdateSuccess: q,
+      logCopilotOrganicInEditor: pe,
+      logEmptyStringECIDOrigin: G,
+      logErrorNoticeShown: H,
+      logFirstAnswerChunkReceived: N,
+      logFirstMutationResponse: J,
+      logGetClientContextEnd: Y,
+      logGetClientContextStart: X,
+      logMutationCancelled: te,
+      logMutationComplete: ee,
+      logMutationError: ne,
+      logR23ConfirmationCardMounted: O,
+      logR23PlanCardMounted: B,
+      logRecoveryAttempt: ce,
+      logRecoveryOutcome: de,
+      logSendMessageStart: K,
+      logSubscriptionError: ue,
+      logTerminalResponseReceived: P,
+      logV2MutationLoadEnd: oe,
+      logV2MutationLoadStart: re,
+      logV3FlowComplete: me,
+      logV3MutationAck: ie,
+      logV3MutationCompleted: le,
+      logV3MutationFailed: se,
+      logV3SubscriptionDataReceived: ae,
     };
-    ((l.isV3FlowActive = B), (l.sendMessageLogger = W));
+    ((l.getMAIBASendInteractionID = _e),
+      (l.isV3FlowActive = fe),
+      (l.sendMessageLogger = ge));
   },
   98,
 );

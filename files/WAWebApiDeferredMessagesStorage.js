@@ -1,10 +1,6 @@
 __d(
   "WAWebApiDeferredMessagesStorage",
-  [
-    "WAWebSchemaDeferredMessagesStorage",
-    "WAWebWorkerStorageUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebSchemaDeferredMessagesStorage", "WAWebWorkerStorageUtils"],
   function (t, n, r, o, a, i, l) {
     function e() {
       return o("WAWebSchemaDeferredMessagesStorage")
@@ -36,20 +32,10 @@ __d(
       });
       return o("WAWebWorkerStorageUtils")
         .getStorage()
-        .lock(
-          ["deferred_messages"],
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var n = e[0];
-                yield n.bulkCreateOrReplace(t);
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        );
+        .lock(["deferred_messages"], async function (e) {
+          var n = e[0];
+          await n.bulkCreateOrReplace(t);
+        });
     }
     function u(e) {
       return o("WAWebSchemaDeferredMessagesStorage").getTable().remove(e);

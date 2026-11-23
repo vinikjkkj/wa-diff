@@ -12,29 +12,26 @@ __d(
     function u() {
       return r("gkx")("6972");
     }
-    function c() {
-      return (r("gkx")("11638"), r("gkx")("9696"));
-    }
-    var d = new Set(
+    var c = new Set(
         [r("MAIBACreationStepsSection").AUDIENCE].concat(
           r("justknobx")._("900")
             ? [r("MAIBACreationStepsSection").PLACEMENTS]
             : [],
         ),
       ),
-      m = new Set([
+      d = new Set([
         r("MAIBACreationStepsSection").CONVERSION_LOCATION,
         r("MAIBACreationStepsSection").AD_SETUP,
         r("MAIBACreationStepsSection").BUDGET,
       ]),
-      p = new Set([r("MAIBACreationStepsSection").PLACEMENTS]),
-      _ = new Set([
+      m = new Set([r("MAIBACreationStepsSection").PLACEMENTS]),
+      p = new Set([
         r("MAIBACreationStepsSection").AUDIENCE,
         r("MAIBACreationStepsSection").BUDGET,
         r("MAIBACreationStepsSection").PLACEMENTS,
         r("MAIBACreationStepsSection").CREATIVE,
       ]),
-      f = new Set(
+      _ = new Set(
         ["advantage_plus_audience", "audience_expansion_retargeting"].concat(
           r("justknobx")._("900")
             ? [
@@ -45,13 +42,13 @@ __d(
             : [],
         ),
       ),
-      g = new Set([
+      f = new Set([
         "atleast_6_placements",
         "six_plus_manual_placements",
         "automatic_placements",
         "ig_surfaces_manual_placements",
       ]),
-      h = new Set([
+      g = new Set([
         "advanced_campaign_budget",
         "advantage_plus_audience",
         "audience_expansion_retargeting",
@@ -61,11 +58,11 @@ __d(
         "ctx_sabr_cbo",
         "ig_surfaces_manual_placements",
       ]),
-      y = new Set(["conversion_leads_optimization", "offsite_conversion"]),
-      C = new Set(["conversion_leads_optimization", "offsite_conversion"]);
-    function b(t, n, a) {
-      if (e() && _.has(t)) return !0;
-      var i = d.has(t) || (m.has(t) && u()) || (s() && p.has(t));
+      h = new Set(["conversion_leads_optimization", "offsite_conversion"]),
+      y = new Set(["conversion_leads_optimization", "offsite_conversion"]);
+    function C(t, n, a) {
+      if (e() && p.has(t)) return !0;
+      var i = c.has(t) || (d.has(t) && u()) || (s() && m.has(t));
       return (
         r("justknobx")._("5542") &&
         i &&
@@ -75,36 +72,35 @@ __d(
         })
       );
     }
-    function v(e, t) {
-      b(e, t, !0);
+    function b(e, t) {
+      C(e, t, !0);
     }
-    function S(t, n) {
-      if (e()) return h.has(t);
-      var a = f.has(t) || (s() && g.has(t));
+    function v(t, n) {
+      if (e()) return g.has(t);
+      var r = _.has(t) || (s() && f.has(t));
       return (
-        r("justknobx")._("5543") &&
-        a &&
+        r &&
         o("MAIBAR23ExperimentUtils").isCopilotTest({
           callsite: n,
           logExposure: !0,
         })
       );
     }
-    function R(t, n) {
+    function S(t, n) {
       return e()
-        ? C.has(t)
-        : y.has(t) &&
+        ? y.has(t)
+        : r("justknobx")._("5544") &&
+            h.has(t) &&
             o("MAIBAR23ExperimentUtils").isCopilotTest({
               callsite: n,
               logExposure: !0,
             });
     }
     ((l.isEntrypointExpansionEnabled = u),
-      (l.isEntrypointDesignEnabled = c),
-      (l.isACSCopilotEligible = b),
-      (l.logACSCopilotExposure = v),
-      (l.isPFRCopilotEligible = S),
-      (l.isPCRCopilotEligible = R));
+      (l.isACSCopilotEligible = C),
+      (l.logACSCopilotExposure = b),
+      (l.isPFRCopilotEligible = v),
+      (l.isPCRCopilotEligible = S));
   },
   98,
 );

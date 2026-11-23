@@ -10,7 +10,6 @@ __d(
     "WAWebHatchJarvisRender",
     "WAWebMsgGetters",
     "WAWebMsgType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = { readOnly: !0 };
@@ -22,54 +21,46 @@ __d(
         : t;
     }
     function u(e) {
-      var t = m(e);
+      var t = d(e);
       return typeof t == "string"
         ? { ok: !1, reason: { kind: "policy", cause: t } }
         : babelHelpers.extends({}, t, { ok: !0 });
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(e) {
+      var t = m(e);
+      if (!(t == null || !_(e))) {
+        var n = p(t);
+        typeof n != "string" &&
+          (await o(
+            "WAWebHatchJarvisForwardMedia",
+          ).resolveHatchJarvisForwardMedia(
+            n.refs,
+            e.unifiedResponseMutationMediaList,
+            n.thumbnails,
+          ));
+      }
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = p(e);
-          if (!(t == null || !f(e))) {
-            var n = _(t);
-            typeof n != "string" &&
-              (yield o(
-                "WAWebHatchJarvisForwardMedia",
-              ).resolveHatchJarvisForwardMedia(
-                n.refs,
-                e.unifiedResponseMutationMediaList,
-                n.thumbnails,
-              ));
-          }
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
-      var t = p(e);
+    function d(e) {
+      var t = m(e);
       if (t == null) return "not_jarvis_reply";
-      var n = f(e);
-      if (n && !g(e)) return "not_hatch_copy";
-      if (!n && !h(e)) return "not_first_hop";
-      var r = _(t);
+      var n = _(e);
+      if (n && !f(e)) return "not_hatch_copy";
+      if (!n && !g(e)) return "not_first_hop";
+      var r = p(t);
       if (typeof r == "string") return r;
       if (n) {
         var o = e.unifiedResponseMutationMediaList,
-          a = y(r.refs, o);
+          a = h(r.refs, o);
         return typeof a == "string"
           ? a
-          : { media: a, thumbnails: C(r.thumbnails, o) };
+          : { media: a, thumbnails: y(r.thumbnails, o) };
       }
-      var i = v(r.refs, r.payload);
+      var i = b(r.refs, r.payload);
       return i != null
-        ? { media: i, thumbnails: b(r.thumbnails, r.payload) }
+        ? { media: i, thumbnails: C(r.thumbnails, r.payload) }
         : "unbound_media";
     }
-    function p(e) {
+    function m(e) {
       var t = e.unifiedResponse;
       return e.type === o("WAWebMsgType").MSG_TYPE.RICH_RESPONSE &&
         t != null &&
@@ -77,7 +68,7 @@ __d(
         ? t
         : null;
     }
-    function _(t) {
+    function p(t) {
       var n = o("WAWebHatchJarvisPayload").getHatchJarvisPayload(t);
       if (n == null) return "unsupported_envelope";
       if (!n.displayTextReady) return "display_text_not_ready";
@@ -100,19 +91,19 @@ __d(
           }
         : "unsupported_content";
     }
-    function f(e) {
+    function _(e) {
       return e.isForwarded === !0 || e.forwardedAiBotMessageInfo != null;
     }
-    function g(e) {
+    function f(e) {
       var t,
         n = (t = e.forwardedAiBotMessageInfo) == null ? void 0 : t.botId;
       return n == null || o("WAWebBotUtils").isHatchBot(n);
     }
-    function h(e) {
+    function g(e) {
       var t = o("WAWebMsgGetters").getSender(e);
       return t != null && o("WAWebBotUtils").isHatchBot(t);
     }
-    function y(e, t) {
+    function h(e, t) {
       var n = o(
         "WAWebHatchJarvisForwardMedia",
       ).resolveHatchJarvisForwardMediaSync(e, t);
@@ -125,7 +116,7 @@ __d(
       }
       return r;
     }
-    function C(e, t) {
+    function y(e, t) {
       var n = o(
         "WAWebHatchJarvisForwardMedia",
       ).resolveHatchJarvisOptionalMediaSync(e, t);
@@ -134,7 +125,7 @@ __d(
         return t != null ? [{ descriptor: t, ref: e }] : [];
       });
     }
-    function b(e, t) {
+    function C(e, t) {
       var n = t.fileMetadata;
       return e.flatMap(function (e) {
         var t,
@@ -147,7 +138,7 @@ __d(
           : [];
       });
     }
-    function v(e, t) {
+    function b(e, t) {
       var n = t.fileMetadata,
         r = Array.from(n.values()),
         a = [],

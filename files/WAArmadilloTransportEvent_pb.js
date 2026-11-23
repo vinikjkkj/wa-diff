@@ -1,0 +1,47 @@
+__d(
+  "WAArmadilloTransportEvent.pb",
+  ["$InternalEnum", "WAProtoConst"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = n("$InternalEnum")({ NONE: 0, DETECTED: 1, CLEARED: 2 }),
+      u = n("$InternalEnum")({ NONE: 0, ADDED: 1, REMOVED: 2, REPLACED: 3 }),
+      c = n("$InternalEnum")({ DECRYPTION_FAILURE: 1, UNAVAILABLE_MESSAGE: 2 }),
+      d = {},
+      m = {},
+      p = {},
+      _ = {},
+      f = {};
+    ((d.name = "TransportEvent"),
+      (d.internalSpec = {
+        placeholder: [1, (e = o("WAProtoConst")).TYPES.MESSAGE, f],
+        event: [2, e.TYPES.MESSAGE, m],
+        __oneofs__: { content: ["placeholder", "event"] },
+      }),
+      (m.name = "TransportEvent$Event"),
+      (m.internalSpec = {
+        deviceChange: [1, e.TYPES.MESSAGE, _],
+        icdcAlert: [2, e.TYPES.MESSAGE, p],
+        __oneofs__: { event: ["deviceChange", "icdcAlert"] },
+      }),
+      (p.name = "TransportEvent$Event$IcdcAlert"),
+      (p.internalSpec = { type: [1, e.TYPES.ENUM, s] }),
+      (_.name = "TransportEvent$Event$DeviceChange"),
+      (_.internalSpec = {
+        type: [1, e.TYPES.ENUM, u],
+        deviceName: [2, e.TYPES.STRING],
+        devicePlatform: [3, e.TYPES.STRING],
+        deviceModel: [4, e.TYPES.STRING],
+      }),
+      (f.name = "TransportEvent$Placeholder"),
+      (f.internalSpec = { type: [1, e.TYPES.ENUM, c] }),
+      (l.TransportEvent$Event$IcdcAlert$Type = s),
+      (l.TransportEvent$Event$DeviceChange$Type = u),
+      (l.TransportEvent$Placeholder$Type = c),
+      (l.TransportEventSpec = d),
+      (l.TransportEvent$EventSpec = m),
+      (l.TransportEvent$Event$IcdcAlertSpec = p),
+      (l.TransportEvent$Event$DeviceChangeSpec = _),
+      (l.TransportEvent$PlaceholderSpec = f));
+  },
+  98,
+);

@@ -1,36 +1,23 @@
 __d(
   "WAWebUnlinkHatchAction",
-  [
-    "WALogger",
-    "WAWebCanonicalHatchChannelUnlinkMutation",
-    "asyncToGeneratorRuntime",
-    "err",
-  ],
+  ["WALogger", "WAWebCanonicalHatchChannelUnlinkMutation", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    function s() {
-      return u.apply(this, arguments);
+    async function s() {
+      try {
+        var e = await o(
+          "WAWebCanonicalHatchChannelUnlinkMutation",
+        ).unlinkHatchChannel();
+        return (
+          e || u(r("err")("hatch unlink mutation returned success=false")),
+          e
+        );
+      } catch (e) {
+        return (u(e instanceof Error ? e : r("err")(String(e))), !1);
+      }
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = yield o(
-              "WAWebCanonicalHatchChannelUnlinkMutation",
-            ).unlinkHatchChannel();
-            return (
-              e || c(r("err")("hatch unlink mutation returned success=false")),
-              e
-            );
-          } catch (e) {
-            return (c(e instanceof Error ? e : r("err")(String(e))), !1);
-          }
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(t) {
+    function u(t) {
       o("WALogger")
         .ERROR(
           e ||

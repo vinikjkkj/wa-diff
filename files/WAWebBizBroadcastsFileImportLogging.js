@@ -150,8 +150,7 @@ __d(
     }
     ((l.createImportProcessingResultLogger = e),
       (l.getImportScreenLoadFailureAttributes = u),
-      (l.logCompletedFileImport = c),
-      (l.logFileImportProcessingCount = d));
+      (l.logCompletedFileImport = c));
   },
   98,
 );

@@ -21,7 +21,6 @@ __d(
     "WAWebPageLoadLogging",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebStorageCrashAnnotations",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -49,7 +48,7 @@ __d(
         [3, 10],
       ]),
       k = S,
-      I = M(),
+      I = N(),
       T = (function () {
         function t() {
           ((this.$2 = !1),
@@ -62,9 +61,9 @@ __d(
             (this.$10 = 0),
             (this.$11 = null));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.initState = function (n) {
+          (n.initState = function (n) {
             (this.offlineResumeManager != null &&
               o("WALogger").ERROR(
                 e ||
@@ -78,7 +77,7 @@ __d(
               }),
               (this.$1 = n.getNonblockingStageManager));
           }),
-          (r.processOfflinePreviewIb = function (t) {
+          (n.processOfflinePreviewIb = function (t) {
             (o("WAWebPageLoadLogging").addPageLoadQplPoint(
               "offline_preview_received",
             ),
@@ -97,7 +96,7 @@ __d(
               var n = this.$1;
               o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd &&
               this.isResumeFromRestartComplete()
-                ? A(t.message)
+                ? w(t.message)
                   ? (o("WALogger").LOG(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -119,27 +118,27 @@ __d(
                     ))
                 : !this.$2 &&
                   !this.isResumeFromRestartComplete() &&
-                  A(t.message) &&
+                  w(t.message) &&
                   (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
                     blocking_resume: !1,
                   }),
                   (this.offlineResumeManager = n()));
             }
             ((this.$2 = !0),
-              w(),
+              M(),
               o("WAWebOneQueue").handleOneQueueOfflineStart(t),
               this.offlineResumeManager.processOfflinePreview(t),
               this.$14(e, t.count));
           }),
-          (r.processMessageDecryptResult = function (t) {
+          (n.processMessageDecryptResult = function (t) {
             (this.offlineResumeManager.processDecryptResult(t),
               (this.$3 -= 1),
               this.$15());
           }),
-          (r.addOfflinePendingMessage = function () {
+          (n.addOfflinePendingMessage = function () {
             this.isResumeFromRestartComplete() || (this.$3 += 1);
           }),
-          (r.newOfflineStanza = function (t, n, r) {
+          (n.newOfflineStanza = function (t, n, r) {
             var e = this;
             return (
               this.$16(),
@@ -159,37 +158,37 @@ __d(
               this.offlineResumeManager.newOfflineStanza(t, n, r)
             );
           }),
-          (r.offlineStanzaReceivedAfterComplete = function () {
+          (n.offlineStanzaReceivedAfterComplete = function () {
             return this.offlineResumeManager.offlineStanzaReceivedAfterComplete();
           }),
-          (r.getOfflineDeliveryProgress = function () {
+          (n.getOfflineDeliveryProgress = function () {
             return this.offlineResumeManager.getOfflineDeliveryProgress();
           }),
-          (r.getProcessedOfflineMessageCount = function () {
+          (n.getProcessedOfflineMessageCount = function () {
             return this.offlineResumeManager.getProcessedOfflineMessageCount();
           }),
-          (r.getOfflineMessageCount = function () {
+          (n.getOfflineMessageCount = function () {
             return Math.max(
               this.offlineResumeManager.offlineMessagePreviewCounter,
               0,
             );
           }),
-          (r.isResumeOnSocketDisconnectInProgress = function () {
+          (n.isResumeOnSocketDisconnectInProgress = function () {
             return this.offlineResumeManager.isResumeOnSocketDisconnectInProgress();
           }),
-          (r.isResumeFromRestartComplete = function () {
+          (n.isResumeFromRestartComplete = function () {
             return this.offlineResumeManager.isResumeFromRestartComplete();
           }),
-          (r.isResumeComplete = function () {
+          (n.isResumeComplete = function () {
             return this.offlineResumeManager.isResumeComplete();
           }),
-          (r.getHasMessagesToDownload = function () {
+          (n.getHasMessagesToDownload = function () {
             return this.offlineResumeManager.getHasMessagesToDownload();
           }),
-          (r.getFinishedDownloading = function () {
+          (n.getFinishedDownloading = function () {
             return this.getOfflineDeliveryProgress() === 100;
           }),
-          (r.processOfflineIb = function (t) {
+          (n.processOfflineIb = function (t) {
             return (
               o("WAWebPageLoadLogging").addPageLoadQplPoint("offline_received"),
               o("WAWebOfflineSyncQplSession").OfflineSyncQpl.mark(
@@ -209,22 +208,22 @@ __d(
                 })
             );
           }),
-          (r.shouldUseOfflineResumeScreen = function () {
+          (n.shouldUseOfflineResumeScreen = function () {
             return this.offlineResumeManager.shouldUseOfflineResumeScreen();
           }),
-          (r.getResumeUIProgressBarType = function () {
+          (n.getResumeUIProgressBarType = function () {
             return this.offlineResumeManager.getResumeUIProgressBarType();
           }),
-          (r.hasReceivedOfflinePreviewIb = function () {
+          (n.hasReceivedOfflinePreviewIb = function () {
             return this.$2;
           }),
-          (r.hasInitOfflineResumeManager = function () {
+          (n.hasInitOfflineResumeManager = function () {
             return this.offlineResumeManager != null;
           }),
-          (r.getResumeType = function () {
+          (n.getResumeType = function () {
             return this.offlineResumeManager.resumeType;
           }),
-          (r.$13 = function () {
+          (n.$13 = function () {
             ((this.$4 = !1), (this.$5 = !1), (this.$10 = 0));
             var e = this.$11;
             e != null &&
@@ -233,33 +232,23 @@ __d(
                 e,
               ));
           }),
-          (r.$17 = function () {
+          (n.$17 = function () {
             var e = o(
               "WAWebOfflineSyncQplSession",
             ).OfflineSyncQpl.markBatchRequest();
             return ((this.$11 = e), e);
           }),
-          (r.$18 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this.$17(),
-                  n = yield $(e);
-                n === "sent"
-                  ? o(
-                      "WAWebOfflineSyncQplSession",
-                    ).OfflineSyncQpl.markBatchSent(t)
-                  : this.$19(t, n) &&
-                    o("WAWebOfflineBacklogHold").releaseOfflineBacklog(
-                      "batch_request_failed",
-                    );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.$19 = function (t, n) {
+          (n.$18 = async function (t) {
+            var e = this.$17(),
+              n = await $(t);
+            n === "sent"
+              ? o("WAWebOfflineSyncQplSession").OfflineSyncQpl.markBatchSent(e)
+              : this.$19(e, n) &&
+                o("WAWebOfflineBacklogHold").releaseOfflineBacklog(
+                  "batch_request_failed",
+                );
+          }),
+          (n.$19 = function (t, n) {
             return this.$11 !== t
               ? !1
               : ((this.$11 = null),
@@ -269,7 +258,7 @@ __d(
                 n === "failed" && ((this.$4 = !1), (this.$10 = 0)),
                 !0);
           }),
-          (r.$20 = function (t) {
+          (n.$20 = function (t) {
             var e = D(t);
             return (
               e !== t &&
@@ -279,7 +268,7 @@ __d(
               e
             );
           }),
-          (r.$14 = function (t, n) {
+          (n.$14 = function (t, n) {
             if (!this.$21(t, n)) {
               o("WAWebOfflineBacklogHold").releaseOfflineBacklog(
                 "backlog_not_requested",
@@ -298,7 +287,7 @@ __d(
               ),
               this.$22(e, !0));
           }),
-          (r.$21 = function (t, n) {
+          (n.$21 = function (t, n) {
             return (
               t &&
               n > 0 &&
@@ -309,7 +298,7 @@ __d(
               ).isOfflineResumePrimarySnapshotEnabled()
             );
           }),
-          (r.$16 = function () {
+          (n.$16 = function () {
             var e = this.$11;
             e != null &&
               ((this.$11 = null),
@@ -317,25 +306,19 @@ __d(
                 e,
               ));
           }),
-          (r.$23 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = o(
-                "WAWebOfflineSyncQplSession",
-              ).OfflineSyncQpl.markReadyWaitStart();
-              (yield o(
-                "WAWebEventsWaitForReadyForOffline",
-              ).waitForOfflineProcessReady(),
-                e &&
-                  o(
-                    "WAWebOfflineSyncQplSession",
-                  ).OfflineSyncQpl.markReadyWaitEnd());
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.$22 = function (t, n) {
+          (n.$23 = async function () {
+            var e = o(
+              "WAWebOfflineSyncQplSession",
+            ).OfflineSyncQpl.markReadyWaitStart();
+            (await o(
+              "WAWebEventsWaitForReadyForOffline",
+            ).waitForOfflineProcessReady(),
+              e &&
+                o(
+                  "WAWebOfflineSyncQplSession",
+                ).OfflineSyncQpl.markReadyWaitEnd());
+          }),
+          (n.$22 = function (t, n) {
             var e = this;
             n === void 0 && (n = !1);
             var r = n === !0 || this.$10 === 0;
@@ -358,112 +341,96 @@ __d(
                     e.$24();
                   }, L)));
           }),
-          (r.$24 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                e === void 0 && (e = !1);
-                var t = Date.now() - this.$10,
-                  n =
-                    e ||
-                    (!this.isResumeComplete() &&
-                      this.$3 <= v &&
-                      t >= L &&
-                      this.$4 === !1 &&
-                      this.$5 === !0);
-                if (
-                  !(
-                    (this.isResumeComplete() || this.$4 || this.$5) &&
-                    (this.isResumeComplete() ||
-                      o("WALogger").LOG(
-                        _ ||
-                          (_ = babelHelpers.taggedTemplateLiteralLoose([
-                            "[offline-resume][adaptive][debounced] _maybeRequestMoreStanzaDebounced: skipDebouncing: ",
-                            ", prevPending: ",
-                            ", currentPending: ",
-                            ", complete: ",
-                            "",
-                          ])),
-                        n,
-                        this.$4,
-                        this.$5,
-                        this.isResumeComplete(),
-                      ),
-                    n === !1)
-                  ) &&
-                  this.$3 <= v
-                ) {
-                  (o("WALogger").LOG(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "[offline-resume][adaptive][debounced] _maybeRequestMoreStanzaDebounced: start request next batch",
-                      ])),
-                  ),
-                    (this.$5 = !0),
-                    yield this.$23());
-                  var r = v;
-                  ((r = I(this.$8, this.$7)),
-                    (this.$7 = r),
-                    this.$22(this.$20(r), n));
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.$15 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (
-                  (e === void 0 && (e = !1),
-                  !o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled())
-                ) {
-                  if (this.$9) return this.$24(e);
-                  if (this.isResumeComplete() || this.$4 || this.$5) {
-                    this.isResumeComplete() ||
-                      o("WALogger").LOG(
-                        g ||
-                          (g = babelHelpers.taggedTemplateLiteralLoose([
-                            "[offline-resume][adaptive] _maybeRequestMoreStanza: skip, prevPending: ",
-                            ", currentPending: ",
-                            ", complete: ",
-                            "",
-                          ])),
-                        this.$4,
-                        this.$5,
-                        this.isResumeComplete(),
-                      );
-                    return;
-                  }
+          (n.$24 = async function (t) {
+            t === void 0 && (t = !1);
+            var e = Date.now() - this.$10,
+              n =
+                t ||
+                (!this.isResumeComplete() &&
                   this.$3 <= v &&
-                    (o("WALogger").LOG(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose([
-                          "[offline-resume][adaptive] _maybeRequestMoreStanza: start request next batch",
-                        ])),
-                    ),
-                    (this.$5 = !0),
-                    yield this.$23(),
-                    this.$18(v),
-                    (this.$5 = !1),
-                    (this.$4 = !0),
-                    o("WALogger").LOG(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose([
-                          "[offline-resume][adaptive] _maybeRequestMoreStanza: request next batch, pending message ",
-                          "",
-                        ])),
-                      this.$3,
-                    ));
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+                  e >= L &&
+                  this.$4 === !1 &&
+                  this.$5 === !0);
+            if (
+              !(
+                (this.isResumeComplete() || this.$4 || this.$5) &&
+                (this.isResumeComplete() ||
+                  o("WALogger").LOG(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "[offline-resume][adaptive][debounced] _maybeRequestMoreStanzaDebounced: skipDebouncing: ",
+                        ", prevPending: ",
+                        ", currentPending: ",
+                        ", complete: ",
+                        "",
+                      ])),
+                    n,
+                    this.$4,
+                    this.$5,
+                    this.isResumeComplete(),
+                  ),
+                n === !1)
+              ) &&
+              this.$3 <= v
+            ) {
+              (o("WALogger").LOG(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "[offline-resume][adaptive][debounced] _maybeRequestMoreStanzaDebounced: start request next batch",
+                  ])),
+              ),
+                (this.$5 = !0),
+                await this.$23());
+              var r = v;
+              ((r = I(this.$8, this.$7)),
+                (this.$7 = r),
+                this.$22(this.$20(r), n));
             }
-            return t;
-          })()),
+          }),
+          (n.$15 = async function (t) {
+            if (
+              (t === void 0 && (t = !1),
+              !o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled())
+            ) {
+              if (this.$9) return this.$24(t);
+              if (this.isResumeComplete() || this.$4 || this.$5) {
+                this.isResumeComplete() ||
+                  o("WALogger").LOG(
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
+                        "[offline-resume][adaptive] _maybeRequestMoreStanza: skip, prevPending: ",
+                        ", currentPending: ",
+                        ", complete: ",
+                        "",
+                      ])),
+                    this.$4,
+                    this.$5,
+                    this.isResumeComplete(),
+                  );
+                return;
+              }
+              this.$3 <= v &&
+                (o("WALogger").LOG(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "[offline-resume][adaptive] _maybeRequestMoreStanza: start request next batch",
+                    ])),
+                ),
+                (this.$5 = !0),
+                await this.$23(),
+                this.$18(v),
+                (this.$5 = !1),
+                (this.$4 = !0),
+                o("WALogger").LOG(
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                      "[offline-resume][adaptive] _maybeRequestMoreStanza: request next batch, pending message ",
+                      "",
+                    ])),
+                  this.$3,
+                ));
+            }
+          }),
           t
         );
       })();
@@ -478,53 +445,45 @@ __d(
         o("WAWebBackgroundPauseGating").isVoipDeprioritizeOfflineResumeEnabled()
       );
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    async function $(e) {
+      var t;
+      if (
+        ((t = o("WAComms").getComms()) == null
+          ? void 0
+          : t.isSocketConnected()) !== !0
+      )
+        return (
+          o("WALogger").LOG(
+            C ||
+              (C = babelHelpers.taggedTemplateLiteralLoose([
+                "[offline-resume] offline batch not sent: no connected socket",
+              ])),
+          ),
+          "not_connected"
+        );
+      try {
+        return (
+          await o("WASmaxOfflineBatchRPC").sendBatchRPC({
+            offlineBatchCount: e,
+          }),
+          "sent"
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
+                  "[offline-resume] offline batch request failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("offline-batch-request-failed"),
+          "failed"
+        );
+      }
     }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          if (
-            ((t = o("WAComms").getComms()) == null
-              ? void 0
-              : t.isSocketConnected()) !== !0
-          )
-            return (
-              o("WALogger").LOG(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
-                    "[offline-resume] offline batch not sent: no connected socket",
-                  ])),
-              ),
-              "not_connected"
-            );
-          try {
-            return (
-              yield o("WASmaxOfflineBatchRPC").sendBatchRPC({
-                offlineBatchCount: e,
-              }),
-              "sent"
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
-                      "[offline-resume] offline batch request failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("offline-batch-request-failed"),
-              "failed"
-            );
-          }
-        })),
-        P.apply(this, arguments)
-      );
-    }
-    function N(e) {
+    function P(e) {
       var t = e.currentSize,
         n = e.multiplier,
         r = n === void 0 ? 0.2 : n,
@@ -544,7 +503,7 @@ __d(
         i != null ? i : R
       );
     }
-    function M() {
+    function N() {
       var e = null;
       return function (t, n) {
         var r = o("WAWebHandleOfflineAbProps").getOfflineDynamicBatchConfig(),
@@ -554,7 +513,7 @@ __d(
         return (
           (e = t),
           i === "progressive"
-            ? N({
+            ? P({
                 currentSize: n,
                 multiplier: a,
                 prevRetryCount: l,
@@ -564,7 +523,7 @@ __d(
         );
       };
     }
-    function w() {
+    function M() {
       var e = o("WAWebMessageQueueImpl").getMessageQueueImpl();
       (o("WAWebPageLoadLogging").addPageLoadQplAnnotation({
         message_queue_impl: e,
@@ -573,7 +532,7 @@ __d(
           string: { message_queue_impl: e },
         }));
     }
-    function A(e) {
+    function w(e) {
       return !(
         e >=
         o("WAWebABProps").getABPropConfigValue(
@@ -581,11 +540,11 @@ __d(
         )
       );
     }
-    var F = new T();
+    var A = new T();
     ((l.DEFAULT_MAX_BATCH_SIZE = R),
       (l.OfflineMessageHandlerImpl = T),
       (l.capBatchSizeForActiveCall = D),
-      (l.OfflineMessageHandler = F));
+      (l.OfflineMessageHandler = A));
   },
   98,
 );

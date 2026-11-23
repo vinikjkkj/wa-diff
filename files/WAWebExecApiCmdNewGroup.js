@@ -12,7 +12,6 @@ __d(
     "WAWebNullFunc",
     "WAWebReachoutTimelockRestrictedModalLoadable",
     "WAWebReachoutTimelockUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -48,34 +47,24 @@ __d(
           { focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE },
         ));
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield t.then(function (e) {
-            return e;
-          }, o("WAWebNullFunc").returnNull);
-          if (n != null)
-            try {
-              yield o(
-                "WAWebDrawerManager",
-              ).DrawerManager.closeDrawerLeftAsync();
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Closing the new group flow failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("new-group-flow-close-failed");
-            }
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(t) {
+      var n = await t.then(function (e) {
+        return e;
+      }, o("WAWebNullFunc").returnNull);
+      if (n != null)
+        try {
+          await o("WAWebDrawerManager").DrawerManager.closeDrawerLeftAsync();
+        } catch (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Closing the new group flow failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("new-group-flow-close-failed");
+        }
     }
     ((l.handleNewGroupDeeplink = c), (l.closeDrawerOnGroupCreation = d));
   },

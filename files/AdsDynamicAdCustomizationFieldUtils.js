@@ -38,8 +38,11 @@ __d(
         var u = i.get(l);
         r("AdsDynamicAdCustomizationAddedLanguageFieldPaths").has(n) ||
           s(0, 1029);
-        var c = r("AdsDynamicAdCustomizationAddedLanguageFieldPaths").get(n),
-          d = u.getIn(c);
+        var c = r("AdsDynamicAdCustomizationAddedLanguageFieldPaths").get(
+            n,
+            [],
+          ),
+          d = u == null ? void 0 : u.getIn(c);
         if (d) return n === "template_url_spec" ? (a || s(0, 1028), a(d)) : d;
       }
     }

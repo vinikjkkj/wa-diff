@@ -26,7 +26,7 @@ __d(
       var n = d(e);
       return t === ""
         ? n
-        : s._(/*BTDS*/ "{time zone name} ({time zone abbreviation})", [
+        : s._(/*BTDS*/ "", [
             s._param("time zone name", n),
             s._param("time zone abbreviation", t),
           ]);

@@ -7,52 +7,43 @@ __d(
     "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
     "WAWebLabyrinthWasmAddDevice",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      try {
+        return await o(
+          "WAWebEBLabyrinthWaWasmReactorSingleton",
+        ).labyrinthWaCommand(
+          {
+            InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
+            ResultSpec: o("WAWebLabyrinthWaWasm.pb")
+              .PrepareAddPeerDeviceOutputSpec,
+            validateResult: s,
+          },
+          {
+            prepareAddPeerDeviceInput: {
+              advSecret: e.advSecret,
+              sealedPayload: e.sealedPayload,
+              backupId: o("WALongInt").decimalStringToLongInt(e.backupId),
+              userId: o("WALongInt").decimalStringToLongInt(
+                e.waCanonicalUserFbid,
+              ),
+              companionIdentityPub: e.companionIdentityPublicKey,
+              activeEpochId: o("WALongInt").decimalStringToLongInt(
+                e.activeEpochId,
+              ),
+            },
+          },
+        );
+      } catch (e) {
+        return o("WAResultOrError").makeError({
+          error: r("getErrorSafe")(e),
+          kind: "exception",
+        });
+      }
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            return yield o(
-              "WAWebEBLabyrinthWaWasmReactorSingleton",
-            ).labyrinthWaCommand(
-              {
-                InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
-                ResultSpec: o("WAWebLabyrinthWaWasm.pb")
-                  .PrepareAddPeerDeviceOutputSpec,
-                validateResult: u,
-              },
-              {
-                prepareAddPeerDeviceInput: {
-                  advSecret: e.advSecret,
-                  sealedPayload: e.sealedPayload,
-                  backupId: o("WALongInt").decimalStringToLongInt(e.backupId),
-                  userId: o("WALongInt").decimalStringToLongInt(
-                    e.waCanonicalUserFbid,
-                  ),
-                  companionIdentityPub: e.companionIdentityPublicKey,
-                  activeEpochId: o("WALongInt").decimalStringToLongInt(
-                    e.activeEpochId,
-                  ),
-                },
-              },
-            );
-          } catch (e) {
-            return o("WAResultOrError").makeError({
-              error: r("getErrorSafe")(e),
-              kind: "exception",
-            });
-          }
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       var t = e.error,
         n = e.success;
       if (t != null)
@@ -74,9 +65,16 @@ __d(
               companionDeviceBinding: o(
                 "WAWebLabyrinthOpaqueTypes",
               ).makeCompanionDeviceBinding(n.companionDeviceBinding),
+              reportedHistoryStartSec: u(n.historyStartTime),
             }),
           )
         : r;
+    }
+    function u(e) {
+      var t = o("WALongInt").maybeNumber(e);
+      return t == null || t <= 0
+        ? null
+        : o("WAWebLabyrinthOpaqueTypes").makeTimestampSeconds(t);
     }
     l.prepareAddPeerDeviceWasm = e;
   },

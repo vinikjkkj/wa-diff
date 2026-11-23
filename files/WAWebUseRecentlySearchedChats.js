@@ -8,7 +8,6 @@ __d(
     "WAWebLocalStorage",
     "WAWebUserPrefsKeys",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -188,34 +187,22 @@ __d(
       g.addEntry(e);
     }
     function y() {
-      var e = o("react-compiler-runtime").c(2),
-        t = m(g.subscribe, g.getSnapshot),
-        n = v,
-        r = b,
-        a = C,
-        i;
-      return (
-        e[0] !== t
-          ? ((i = {
-              recentChats: t,
-              addRecentSearch: n,
-              removeRecentSearch: r,
-              clearAllRecentSearches: a,
-            }),
-            (e[0] = t),
-            (e[1] = i))
-          : (i = e[1]),
-        i
-      );
-    }
-    function C() {
-      g.clearAll();
-    }
-    function b(e) {
-      g.removeEntry(e);
-    }
-    function v(e) {
-      g.addEntry(e);
+      var e = m(g.subscribe, g.getSnapshot),
+        t = d(function (e) {
+          g.addEntry(e);
+        }, []),
+        n = d(function (e) {
+          g.removeEntry(e);
+        }, []),
+        r = d(function () {
+          g.clearAll();
+        }, []);
+      return {
+        recentChats: e,
+        addRecentSearch: t,
+        removeRecentSearch: n,
+        clearAllRecentSearches: r,
+      };
     }
     ((l.addChatToRecentSearches = h), (l.useRecentlySearchedChats = y));
   },

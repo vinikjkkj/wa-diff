@@ -19,7 +19,6 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "react",
     "useWAWebLinkPreview",
   ],
@@ -30,65 +29,35 @@ __d(
       c,
       d = c || (c = o("react")),
       m = 3e4;
-    function p(e, t, n, r) {
-      return _.apply(this, arguments);
+    async function p(e, t, n, r) {
+      var o = await v(e);
+      return o === "unpublished"
+        ? _(e, t, n, r)
+        : o == null
+          ? !1
+          : f(e, t, o, !1, n, r);
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o = yield I(e);
-            return o === "unpublished"
-              ? f(e, t, n, r)
-              : o == null
-                ? !1
-                : h(e, t, o, !1, n, r);
-          },
-        )),
-        _.apply(this, arguments)
-      );
+    async function _(e, t, n, r) {
+      var a = await o(
+        "WAWebHatchSpacePublishFlow",
+      ).publishHatchSpaceWithConsent(e, t, n, r);
+      return a === !1 || a == null
+        ? a
+        : f(e, t, { isDeploying: !0, url: a }, !0, n, r);
     }
-    function f(e, t, n, r) {
-      return g.apply(this, arguments);
+    async function f(e, t, n, r, a, i) {
+      var l = n.isDeploying,
+        s = n.url;
+      if (i.aborted) return null;
+      (g(s, l),
+        o("WAWebHatchLogging").logHatchArtifact(
+          "artifact_share_sheet_impression",
+          a,
+        ));
+      var u = await y(s, r, a, i);
+      return u === "unpublish" ? h(e, t, s, a, i) : !0;
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield o(
-              "WAWebHatchSpacePublishFlow",
-            ).publishHatchSpaceWithConsent(e, t, n, r);
-            return a === !1 || a == null
-              ? a
-              : h(e, t, { isDeploying: !0, url: a }, !0, n, r);
-          },
-        )),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e, t, n, r, o, a) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i) {
-            var l = n.isDeploying,
-              s = n.url;
-            if (i.aborted) return null;
-            (C(s, l),
-              o("WAWebHatchLogging").logHatchArtifact(
-                "artifact_share_sheet_impression",
-                a,
-              ));
-            var u = yield S(s, r, a, i);
-            return u === "unpublish" ? b(e, t, s, a, i) : !0;
-          },
-        )),
-        y.apply(this, arguments)
-      );
-    }
-    function C(t, n) {
+    function g(t, n) {
       if (!(n || r("WAWebEnvironment").isWindows)) {
         var a = o("useWAWebLinkPreview").findFirstWebLink(t);
         a != null &&
@@ -106,139 +75,91 @@ __d(
             });
       }
     }
-    function b(e, t, n, r, o) {
-      return v.apply(this, arguments);
+    async function h(e, t, n, r, a) {
+      var i,
+        l = (await C(e)) ? "unpublished" : await v(e);
+      if (l === "unpublished")
+        return (
+          o("WAWebHatchLogging").logHatchArtifact(
+            "artifact_share_sheet_unpublish",
+            r,
+          ),
+          a.aborted ? null : b(t)
+        );
+      if (a.aborted) return null;
+      var s = (i = l == null ? void 0 : l.url) != null ? i : n,
+        u = await y(s, !1, r, a);
+      return u === "unpublish" ? h(e, t, s, r, a) : !1;
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            var i,
-              l = (yield L(e)) ? "unpublished" : yield I(e);
-            if (l === "unpublished")
-              return (
-                o("WAWebHatchLogging").logHatchArtifact(
-                  "artifact_share_sheet_unpublish",
-                  r,
-                ),
-                a.aborted ? null : k(t)
-              );
-            if (a.aborted) return null;
-            var s = (i = l == null ? void 0 : l.url) != null ? i : n,
-              u = yield S(s, !1, r, a);
-            return u === "unpublish" ? b(e, t, s, r, a) : !1;
+    async function y(e, t, n, r) {
+      r.addEventListener("abort", o("WDSDialogBridge").closeWDSDialog);
+      try {
+        return await o(
+          "WAWebHatchPublishedSpaceDialog.react",
+        ).showHatchPublishedSpaceDialog(
+          e,
+          function (e) {
+            return S(e, n);
           },
-        )),
-        v.apply(this, arguments)
+          t,
+        );
+      } finally {
+        r.removeEventListener("abort", o("WDSDialogBridge").closeWDSDialog);
+      }
+    }
+    async function C(e) {
+      var t = await o("WAWebHatchVmConnection")
+        .connectHatchVmApi()
+        .catch(o("WAWebNullFunc").returnNull);
+      if (t == null) return (L("unpublish.no_session"), !1);
+      var n = await t.request(
+        "DELETE",
+        o("WAWebHatchVmTransport").JarvisPaths.SPACE_SHARE(e),
+        { timeoutMs: m },
       );
+      return n.kind === "Ok" &&
+        o("WAWebHatchJsonReaders").readBool(n.value, "ok") === !0
+        ? !0
+        : (L("unpublish." + (n.kind === "Ok" ? "not_confirmed" : R(n))), !1);
     }
-    function S(e, t, n, r) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            r.addEventListener("abort", o("WDSDialogBridge").closeWDSDialog);
-            try {
-              return yield o(
-                "WAWebHatchPublishedSpaceDialog.react",
-              ).showHatchPublishedSpaceDialog(
-                e,
-                function (e) {
-                  return D(e, n);
-                },
-                t,
-              );
-            } finally {
-              r.removeEventListener(
-                "abort",
-                o("WDSDialogBridge").closeWDSDialog,
-              );
-            }
-          },
-        )),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebHatchVmConnection")
-            .connectHatchVmApi()
-            .catch(o("WAWebNullFunc").returnNull);
-          if (t == null) return ($("unpublish.no_session"), !1);
-          var n = yield t.request(
-            "DELETE",
-            o("WAWebHatchVmTransport").JarvisPaths.SPACE_SHARE(e),
-            { timeoutMs: m },
-          );
-          return n.kind === "Ok" &&
-            o("WAWebHatchJsonReaders").readBool(n.value, "ok") === !0
-            ? !0
-            : ($("unpublish." + (n.kind === "Ok" ? "not_confirmed" : x(n))),
-              !1);
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e) {
+    function b(e) {
       return (
         o("WAWebToastManager").ToastManager.open(
           d.jsx(o("WAWebToast.react").Toast, {
-            msg: s._(/*BTDS*/ '"{Space name}" unpublished', [
-              s._param("Space name", e),
-            ]),
+            msg: s._(/*BTDS*/ "", [s._param("Space name", e)]),
           }),
         ),
         !0
       );
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, n;
-          if (
-            ((t = o("WAWebHatchSpacesStream").getHatchSpaceCapabilities(e)) ==
-            null
-              ? void 0
-              : t.canShare) !== !0
-          )
-            return $("not_granted");
-          var r = yield o("WAWebHatchVmConnection")
-            .connectHatchVmApi()
-            .catch(o("WAWebNullFunc").returnNull);
-          if (r == null) return $("no_session");
-          var a = yield r.request(
-            "GET",
-            o("WAWebHatchVmTransport").JarvisPaths.SPACE_SHARE(e),
-          );
-          if (a.kind !== "Ok") return $(x(a));
-          var i = o("WAWebHatchShareStatusDecoder").decodeHatchShareStatus(
-            a.value,
-          );
-          if (i == null) return $("malformed");
-          if (i.publishedUrl == null) return "unpublished";
-          var l = o("WAWebHatchShareStatusDecoder").toHatchShareableUrl(
-            i.publishedUrl,
-          );
-          return l == null
-            ? $("invalid_url")
-            : {
-                isDeploying: ((n = i.shareType) != null ? n : "") === "",
-                url: l,
-              };
-        })),
-        T.apply(this, arguments)
+    async function v(e) {
+      var t, n;
+      if (
+        ((t = o("WAWebHatchSpacesStream").getHatchSpaceCapabilities(e)) == null
+          ? void 0
+          : t.canShare) !== !0
+      )
+        return L("not_granted");
+      var r = await o("WAWebHatchVmConnection")
+        .connectHatchVmApi()
+        .catch(o("WAWebNullFunc").returnNull);
+      if (r == null) return L("no_session");
+      var a = await r.request(
+        "GET",
+        o("WAWebHatchVmTransport").JarvisPaths.SPACE_SHARE(e),
       );
+      if (a.kind !== "Ok") return L(R(a));
+      var i = o("WAWebHatchShareStatusDecoder").decodeHatchShareStatus(a.value);
+      if (i == null) return L("malformed");
+      if (i.publishedUrl == null) return "unpublished";
+      var l = o("WAWebHatchShareStatusDecoder").toHatchShareableUrl(
+        i.publishedUrl,
+      );
+      return l == null
+        ? L("invalid_url")
+        : { isDeploying: ((n = i.shareType) != null ? n : "") === "", url: l };
     }
-    function D(e, t) {
+    function S(e, t) {
       (o("WAWebHatchLogging").logHatchArtifact("artifact_share_sheet_tap", t),
         o("WAWebModalManager").ModalManager.open(
           d.jsx(r("WAWebSendTextFlow.react"), {
@@ -255,13 +176,13 @@ __d(
           t,
         ));
     }
-    function x(e) {
+    function R(e) {
       var t;
       return e.kind === "Rejected"
         ? "rejected." + ((t = e.statusCode) != null ? t : "none")
         : e.kind.toLowerCase();
     }
-    function $(e) {
+    function L(e) {
       return (
         o("WALogger")
           .WARN(

@@ -1,29 +1,22 @@
 __d(
   "WAWebHatchNoiseCipherState",
-  [
-    "Promise",
-    "WAWebHatchNoiseBytes",
-    "WAWebNoop",
-    "asyncToGeneratorRuntime",
-    "err",
-  ],
+  ["WAWebHatchNoiseBytes", "WAWebNoop", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = 32;
-    function u(e) {
+    var e = 32;
+    function s(e) {
       return e.byteOffset === 0 &&
         e.byteLength === e.buffer.byteLength &&
         e.buffer instanceof ArrayBuffer
         ? e.buffer
         : e.slice().buffer;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = new Uint8Array(12),
         r = new DataView(n.buffer);
       return (r.setUint32(4, e, !1), r.setUint32(8, t, !1), n);
     }
-    var d = (function () {
+    var c = (function () {
       function t() {
         ((this.$1 = null),
           (this.$2 = null),
@@ -31,152 +24,130 @@ __d(
           (this.$4 = 0),
           (this.$5 = 0),
           (this.$6 = !1),
-          (this.$7 = (e || (e = n("Promise"))).resolve()));
+          (this.$7 = Promise.resolve()));
       }
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.$8 = function () {
+        (n.$8 = function () {
           if (this.$6)
             throw r("err")(
               "WAWebHatchNoiseCipherState: poisoned after prior failure",
             );
         }),
-        (a.initializeKey = function (t) {
+        (n.initializeKey = function (t) {
           var e = this;
           return this.$9(function () {
             return e.$10(t);
           });
         }),
-        (a.$10 = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            if ((this.$8(), this.$3))
-              throw r("err")(
-                "WAWebHatchNoiseCipherState: key is already initialized",
-              );
-            if (t.length !== s)
-              throw r("err")(
-                "WAWebHatchNoiseCipherState: expected a 32-byte key",
-              );
-            var a = t.slice();
-            try {
-              o("WAWebHatchNoiseBytes").zeroBytes(t);
-              var i = u(a),
-                l = yield (e || (e = n("Promise"))).all([
-                  crypto.subtle.importKey("raw", i, "AES-GCM", !1, ["encrypt"]),
-                  crypto.subtle.importKey("raw", i, "AES-GCM", !1, ["decrypt"]),
-                ]),
-                c = l[0],
-                d = l[1];
-              (this.$8(), (this.$1 = c), (this.$2 = d), (this.$3 = !0));
-            } catch (e) {
-              throw ((this.$6 = !0), e);
-            } finally {
-              o("WAWebHatchNoiseBytes").zeroBytes(a);
-            }
-          });
-          function a(e) {
-            return t.apply(this, arguments);
+        (n.$10 = async function (n) {
+          if ((this.$8(), this.$3))
+            throw r("err")(
+              "WAWebHatchNoiseCipherState: key is already initialized",
+            );
+          if (n.length !== e)
+            throw r("err")(
+              "WAWebHatchNoiseCipherState: expected a 32-byte key",
+            );
+          var t = n.slice();
+          try {
+            o("WAWebHatchNoiseBytes").zeroBytes(n);
+            var a = s(t),
+              i = await Promise.all([
+                crypto.subtle.importKey("raw", a, "AES-GCM", !1, ["encrypt"]),
+                crypto.subtle.importKey("raw", a, "AES-GCM", !1, ["decrypt"]),
+              ]),
+              l = i[0],
+              u = i[1];
+            (this.$8(), (this.$1 = l), (this.$2 = u), (this.$3 = !0));
+          } catch (e) {
+            throw ((this.$6 = !0), e);
+          } finally {
+            o("WAWebHatchNoiseBytes").zeroBytes(t);
           }
-          return a;
-        })()),
-        (a.destroy = function () {
+        }),
+        (n.destroy = function () {
           var e = this;
           this.$9(function () {
             ((e.$1 = null), (e.$2 = null), (e.$6 = !0));
           });
         }),
-        (a.encryptWithAd = function (t, n) {
+        (n.encryptWithAd = function (t, n) {
           var e = this;
           return this.$9(function () {
             return e.$11(t, n);
           });
         }),
-        (a.decryptWithAd = function (t, n) {
+        (n.decryptWithAd = function (t, n) {
           var e = this;
           return this.$9(function () {
             return e.$12(t, n);
           });
         }),
-        (a.$11 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              if ((this.$8(), !this.$3)) return t.slice();
-              var n = this.$1;
-              if (n == null)
-                throw (
-                  (this.$6 = !0),
-                  r("err")("WAWebHatchNoiseCipherState: missing encryption key")
-                );
-              var o = this.$13();
-              try {
-                var a = new Uint8Array(
-                  yield crypto.subtle.encrypt(
-                    {
-                      additionalData: u(e),
-                      iv: u(o),
-                      name: "AES-GCM",
-                      tagLength: 128,
-                    },
-                    n,
-                    u(t),
-                  ),
-                );
-                return (this.$8(), a);
-              } catch (e) {
-                throw ((this.$6 = !0), e);
-              }
-            },
-          );
-          function t(t, n) {
-            return e.apply(this, arguments);
+        (n.$11 = async function (t, n) {
+          if ((this.$8(), !this.$3)) return n.slice();
+          var e = this.$1;
+          if (e == null)
+            throw (
+              (this.$6 = !0),
+              r("err")("WAWebHatchNoiseCipherState: missing encryption key")
+            );
+          var o = this.$13();
+          try {
+            var a = new Uint8Array(
+              await crypto.subtle.encrypt(
+                {
+                  additionalData: s(t),
+                  iv: s(o),
+                  name: "AES-GCM",
+                  tagLength: 128,
+                },
+                e,
+                s(n),
+              ),
+            );
+            return (this.$8(), a);
+          } catch (e) {
+            throw ((this.$6 = !0), e);
           }
-          return t;
-        })()),
-        (a.$12 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              if ((this.$8(), !this.$3)) return t.slice();
-              var n = this.$2;
-              if (n == null)
-                throw (
-                  (this.$6 = !0),
-                  r("err")("WAWebHatchNoiseCipherState: missing decryption key")
-                );
-              var o = this.$13();
-              try {
-                var a = new Uint8Array(
-                  yield crypto.subtle.decrypt(
-                    {
-                      additionalData: u(e),
-                      iv: u(o),
-                      name: "AES-GCM",
-                      tagLength: 128,
-                    },
-                    n,
-                    u(t),
-                  ),
-                );
-                return (this.$8(), a);
-              } catch (e) {
-                throw (
-                  (this.$6 = !0),
-                  r("err")("WAWebHatchNoiseCipherState: authentication failed")
-                );
-              }
-            },
-          );
-          function t(t, n) {
-            return e.apply(this, arguments);
+        }),
+        (n.$12 = async function (t, n) {
+          if ((this.$8(), !this.$3)) return n.slice();
+          var e = this.$2;
+          if (e == null)
+            throw (
+              (this.$6 = !0),
+              r("err")("WAWebHatchNoiseCipherState: missing decryption key")
+            );
+          var o = this.$13();
+          try {
+            var a = new Uint8Array(
+              await crypto.subtle.decrypt(
+                {
+                  additionalData: s(t),
+                  iv: s(o),
+                  name: "AES-GCM",
+                  tagLength: 128,
+                },
+                e,
+                s(n),
+              ),
+            );
+            return (this.$8(), a);
+          } catch (e) {
+            throw (
+              (this.$6 = !0),
+              r("err")("WAWebHatchNoiseCipherState: authentication failed")
+            );
           }
-          return t;
-        })()),
-        (a.$13 = function () {
+        }),
+        (n.$13 = function () {
           if (this.$4 === 4294967295 && this.$5 === 4294967295)
             throw (
               (this.$6 = !0),
               r("err")("WAWebHatchNoiseCipherState: nonce exhausted")
             );
-          var e = c(this.$4, this.$5);
+          var e = u(this.$4, this.$5);
           return (
             this.$5 === 4294967295
               ? ((this.$4 += 1), (this.$5 = 0))
@@ -184,29 +155,23 @@ __d(
             e
           );
         }),
-        (a.$9 = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var o = this.$7,
-              a = r("WAWebNoop");
-            ((this.$7 = new (e || (e = n("Promise")))(function (e) {
-              a = e;
-            })),
-              yield o);
-            try {
-              return yield t();
-            } finally {
-              a();
-            }
-          });
-          function o(e) {
-            return t.apply(this, arguments);
+        (n.$9 = async function (t) {
+          var e = this.$7,
+            n = r("WAWebNoop");
+          ((this.$7 = new Promise(function (e) {
+            n = e;
+          })),
+            await e);
+          try {
+            return await t();
+          } finally {
+            n();
           }
-          return o;
-        })()),
+        }),
         t
       );
     })();
-    l.WAWebHatchNoiseCipherState = d;
+    l.WAWebHatchNoiseCipherState = c;
   },
   98,
 );

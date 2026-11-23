@@ -17,37 +17,28 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return {
-              name: "CompanionHelloResponseNotifyCompanion",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "CompanionHelloResponseError", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("CompanionHello", {
-              NotifyCompanion: a,
-              Error: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return {
+          name: "CompanionHelloResponseNotifyCompanion",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "CompanionHelloResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("CompanionHello", {
+          NotifyCompanion: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -57,14 +48,14 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = d(r.value);
+      var i = c(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, { errorIqMixinErrors: i.value }),
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -102,7 +93,7 @@ __d(
           )
         : s;
     }
-    function d(e) {
+    function c(e) {
       var t = o(
         "WASmaxInMdIQErrorInternalServerErrorMixin",
       ).parseIQErrorInternalServerErrorMixin(e);
@@ -119,19 +110,19 @@ __d(
           name: "IQErrorBadRequest",
           value: n.value,
         });
-      var r = y(e);
+      var r = h(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorFeatureNotAvailable",
           value: r.value,
         });
-      var a = b(e);
+      var a = C(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorRateOverlimit",
           value: a.value,
         });
-      var i = C(e);
+      var i = y(e);
       return i.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorForbidden",
@@ -149,12 +140,12 @@ __d(
             [t, n, r, a, i],
           );
     }
-    function m(e) {
+    function d(e) {
       var t = e.linkCodePairingNonceElementValue,
         n = o("WASmaxJsx").smax("link_code_pairing_nonce", null, t);
       return n;
     }
-    function p(e) {
+    function m(e) {
       var t,
         n = e.linkCodePairingNonceArgs,
         r = e.linkCodeCompanionRegShouldShowPushNotification,
@@ -185,9 +176,9 @@ __d(
                   i,
                 ),
                 t.smax("companion_server_auth_key_pub", null, l),
-                h(t.smax("companion_platform_id", null), s),
-                f(t.smax("companion_platform_display", null), u),
-                o("WASmaxChildren").OPTIONAL_CHILD(m, n),
+                g(t.smax("companion_platform_id", null), s),
+                _(t.smax("companion_platform_display", null), u),
+                o("WASmaxChildren").OPTIONAL_CHILD(d, n),
               ),
               a,
             ),
@@ -195,25 +186,25 @@ __d(
         );
       return c;
     }
-    function _(e) {
+    function p(e) {
       var t = e.companionPlatformDisplayElementValue,
         n = o("WASmaxJsx").smax("companion_platform_display", null, t);
       return n;
     }
-    function f(e, t) {
-      var n = _(t);
+    function _(e, t) {
+      var n = p(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function g(e) {
+    function f(e) {
       var t = e.companionPlatformIdElementValue,
         n = o("WASmaxJsx").smax("companion_platform_id", null, t);
       return n;
     }
-    function h(e, t) {
-      var n = g(t);
+    function g(e, t) {
+      var n = f(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function y(e) {
+    function h(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -233,7 +224,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function C(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -253,7 +244,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function b(e) {
+    function C(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -274,16 +265,16 @@ __d(
         : r;
     }
     ((l.sendCompanionHelloRPC = e),
-      (l.parseCompanionHelloResponseError = u),
-      (l.parseCompanionHelloResponseNotifyCompanion = c),
-      (l.parseIqMixinErrors = d),
-      (l.makeCompanionHelloRequestLinkCodeCompanionRegLinkCodePairingNonce = m),
-      (l.makeCompanionHelloRequest = p),
-      (l.mergeCompanionPlatformDisplayElMixin = f),
-      (l.mergeCompanionPlatformIdElMixin = h),
-      (l.parseIQErrorFeatureNotAvailableMixin = y),
-      (l.parseIQErrorForbiddenMixin = C),
-      (l.parseIQErrorRateOverlimitMixin = b));
+      (l.parseCompanionHelloResponseError = s),
+      (l.parseCompanionHelloResponseNotifyCompanion = u),
+      (l.parseIqMixinErrors = c),
+      (l.makeCompanionHelloRequestLinkCodeCompanionRegLinkCodePairingNonce = d),
+      (l.makeCompanionHelloRequest = m),
+      (l.mergeCompanionPlatformDisplayElMixin = _),
+      (l.mergeCompanionPlatformIdElMixin = g),
+      (l.parseIQErrorFeatureNotAvailableMixin = h),
+      (l.parseIQErrorForbiddenMixin = y),
+      (l.parseIQErrorRateOverlimitMixin = C));
   },
   98,
 );

@@ -22,17 +22,21 @@ __d(
     "AutomatedGreetingMessageTypes",
     "CTXUnstructuredLeadsAdsStoreUtils",
     "Image.react",
+    "ODS",
     "Promise",
+    "Random",
     "SearchableEntry",
     "adsMessengerDataModelGetCTWAAgmCtaType",
+    "adsObserveRuntimeType",
     "bx",
     "debounce",
     "gkx",
     "isStringNotNullAndNotWhitespaceOnly",
-    "isStringNullOrEmpty",
     "isTruthy",
     "isWhatsAppOrInstagramOrComboDestination",
+    "justknobx",
     "objectValues",
+    "performanceNow",
     "promiseDone",
     "react",
     "setByPath",
@@ -41,8 +45,10 @@ __d(
     "use strict";
     var e,
       u,
-      c = u || (u = o("react"));
-    function d(e) {
+      c,
+      d,
+      m = d || (d = o("react"));
+    function p(e) {
       var t;
       return (
         o("AdsAssetFeedUtils").isPACAdgroupFromRecord(e) &&
@@ -53,7 +59,7 @@ __d(
           : t.is_click_to_message) === !0
       );
     }
-    function m(e) {
+    function _(e) {
       var t, n;
       return (
         ((t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -67,7 +73,7 @@ __d(
           : n.is_click_to_message) === !0
       );
     }
-    function p(e) {
+    function f(e) {
       return e === r("AdCampaignDestination").MESSENGER ||
         o(
           "AdsUEditorMessagingDestinationUtils",
@@ -86,7 +92,7 @@ __d(
             ? "INSTAGRAM_MESSAGE"
             : null;
     }
-    function _(e) {
+    function g(e) {
       var t;
       switch (e) {
         case r("AdCampaignDestination").MESSENGER:
@@ -108,62 +114,42 @@ __d(
       }
       return t;
     }
-    function f(e) {
+    function h(e) {
       var t = Object.values(e);
       return t.length > 0 ? t[0] : null;
     }
-    function g(e) {
+    function y(e) {
       var t = r("objectValues")(e);
       return t.length > 0 ? t[0] : null;
     }
-    function h(e, t) {
+    function C(e, t) {
       var n = r("gkx")("11094");
       return e.subtract(
         n
-          ? ["destinationPageField", "tokenizedDescriptionField"]
-          : [
-              "destinationPageField",
-              "linkDescriptionField",
-              "tokenizedDescriptionField",
-            ],
+          ? ["tokenizedDescriptionField"]
+          : ["linkDescriptionField", "tokenizedDescriptionField"],
       );
     }
-    function y(e, t) {
+    function b(e, t) {
       return (
         o("AdsUEditorMessagingDestinationUtils").isMultiDestination(e) &&
         (t === r("AdsMessengerVisualEditorLandingScreenType").CTM_LEAD_GEN ||
           t === r("AdsMessengerVisualEditorLandingScreenType").CTM_LEAD_GEN_NEW)
       );
     }
-    function C(e, t) {
+    function v(e, t) {
       return (
         o("AdsUEditorMessagingDestinationUtils").isMultiDestination(e) &&
         t === r("AdsMessengerJSONMediaFormatType").IMAGE
       );
     }
-    function b(e, t) {
+    function S(e, t) {
       return (
         o("AdsUEditorMessagingDestinationUtils").isMultiDestination(e) &&
         t === r("AdsMessengerJSONMediaFormatType").VIDEO
       );
     }
-    function v(e) {
-      var t = {};
-      for (var n of e) {
-        var o = n[0],
-          a = n[1],
-          i = a.instagram_accounts;
-        if (i != null) {
-          var l = i.data[0];
-          l != null &&
-            !r("isStringNullOrEmpty")(l.id) &&
-            l.is_published &&
-            (t[o] = l);
-        }
-      }
-      return t;
-    }
-    function S(e, t) {
+    function R(e, t) {
       var n =
         e === r("AdsAPIObjectives").MESSAGES ||
         e === r("AdsAPIObjectives").OUTCOME_LEADS ||
@@ -174,7 +160,7 @@ __d(
             e === r("AdsAPIObjectives").LINK_CLICKS));
       return n;
     }
-    function R(e) {
+    function L(e) {
       var t = {
         iconURI: o("AdsPageUtils").getPageIconURI(e),
         isPageAdmin: o("AdsPageUtils").isAdmin(e),
@@ -184,30 +170,32 @@ __d(
         pageToken: e.page_token,
       };
       return new (r("SearchableEntry"))({
-        auxiliaryData: new (r("AdsPageSelectorAuxData"))(t),
+        auxiliaryData: o("AdsPageSelectorAuxData").makeAdsPageSelectorAuxData(
+          t,
+        ),
         keywordString: e.id,
         title: o("AdsPageUtils").getPageUIName(e) || "",
         uniqueID: e.id,
         photo: o("AdsPageUtils").getPageIconURI(e),
       });
     }
-    function L(e) {
+    function E(e) {
       return new (r("SearchableEntry"))({
         keywordString: e.id,
         title: e.username || "",
-        subtitle: E(e.id, e.tooltip),
+        subtitle: k(e.id, e.tooltip),
         uniqueID: r("isTruthy")(e.id_v2) ? e.id_v2 : e.id,
         photo: e.profile_pic,
       });
     }
-    function E(e, t) {
+    function k(e, t) {
       return e === r("AdsFakePageBackedInstagramAccount").id ||
         e === r("AdsFakeProfileBackedInstagramAccount").id
         ? t
-        : s._(/*BTDS*/ "ID: {IG id}", [s._param("IG id", e)]);
+        : s._(/*BTDS*/ "", [s._param("IG id", e)]);
     }
-    E.displayName = E.name + " [from " + i.id + "]";
-    function k(e, t, n, a, i, l) {
+    k.displayName = k.name + " [from " + i.id + "]";
+    function I(e, t, n, a, i, l) {
       if (
         e === r("AdCampaignDestination").WHATSAPP &&
         (t === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT ||
@@ -241,7 +229,7 @@ __d(
         ).enableUnstructuredLeadsOptimization(i, t, e);
       return u ? !1 : n;
     }
-    function I(e, t, n) {
+    function T(e, t, n) {
       var a = !o(
         "AdsUEditorMessagingDestinationUtils",
       ).destinationIncludesMessenger(e);
@@ -258,13 +246,13 @@ __d(
         )
       );
     }
-    function T(e, t) {
+    function D(e, t) {
       return (
         e === r("AdCampaignDestination").INSTAGRAM_DIRECT &&
         t === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT
       );
     }
-    function D(e, t, n) {
+    function x(e, t, n) {
       return t === r("AdsAPIObjectives").OUTCOME_LEADS &&
         (e === r("AdCampaignDestination").MESSENGER ||
           e === r("AdCampaignDestination").LEAD_FROM_IG_DIRECT) &&
@@ -283,7 +271,7 @@ __d(
             e === r("AdCampaignDestination").MESSENGER ||
             e === r("AdCampaignDestination").INSTAGRAM_DIRECT;
     }
-    function x(e) {
+    function $(e) {
       var t =
         e === r("AdCampaignDestination").MESSENGER ||
         o(
@@ -291,7 +279,7 @@ __d(
         ).isMultiDestinationWithMessenger(e);
       return t;
     }
-    function $(e, t, n, o) {
+    function P(e, t, n, o) {
       return e !== r("AdCampaignDestination").WHATSAPP
         ? t ===
             r("AdsMessengerVisualEditorLandingScreenType").WELCOME_MESSAGE &&
@@ -300,10 +288,14 @@ __d(
             r("AdsMessengerVisualEditorLandingScreenType").WELCOME_MESSAGE ||
             (o == null ? void 0 : o.welcome_message_edited) === !0;
     }
-    function P(e, t) {
-      var n,
-        a,
-        i = e == null ? void 0 : e.media_type;
+    function N(e, t) {
+      var n, a;
+      o("adsObserveRuntimeType").adsObserveRuntimeType(
+        "any_type:unified_creation_message_json",
+        "?AdsMessengerJSONType",
+        e,
+      );
+      var i = e == null ? void 0 : e.media_type;
       if (i === r("AdsMessengerJSONMediaFormatType").IMAGE)
         return o("AdsMessengerConstants").IMAGE_INCLUDED_PLACEHOLDER;
       if (i === r("AdsMessengerJSONMediaFormatType").VIDEO)
@@ -316,19 +308,16 @@ __d(
           : 0) > 0
       ) {
         var l;
-        return s._(
-          /*BTDS*/ '_j{"*":"[{number} products included]","_1":"[1 product included]"}',
-          [
-            s._plural(
-              t == null || (l = t.products) == null ? void 0 : l.length,
-              "number",
-            ),
-          ],
-        );
+        return s._(/*BTDS*/ "", [
+          s._plural(
+            t == null || (l = t.products) == null ? void 0 : l.length,
+            "number",
+          ),
+        ]);
       }
       return null;
     }
-    function N(e) {
+    function M(e) {
       var t,
         n = e == null ? void 0 : e.media_type;
       if (n === r("AdsMessengerJSONMediaFormatType").IMAGE) {
@@ -352,13 +341,12 @@ __d(
           : t.ice_breakers) || []
       );
     }
-    function M(e) {
-      var t = e.map(function (e) {
+    function w(e) {
+      return e.some(function (e) {
         return r("isStringNotNullAndNotWhitespaceOnly")(e.response);
       });
-      return t.includes(!0);
     }
-    function w(e, t) {
+    function A(e, t) {
       switch (e) {
         case r("AdsMessengerVisualEditorCustomerActionType").AUTOFILL_MESSAGE:
           return o("AdsMessengerConstants").PREFILL_MESSAGE;
@@ -376,7 +364,7 @@ __d(
           return null;
       }
     }
-    function A(e, t) {
+    function F(e, t) {
       var n, o, a;
       if (t === r("AdCampaignDestination").MESSENGER) {
         var i = e.media_type;
@@ -393,7 +381,7 @@ __d(
       }
       return (a = e.text_format) == null ? void 0 : a.customer_action_type;
     }
-    function F(e, t) {
+    function O(e, t) {
       var n, o, a, i, l;
       return e === r("AdsMessengerVisualEditorCustomerActionType").BUTTONS
         ? (t == null ||
@@ -423,7 +411,7 @@ __d(
               : l.text) ||
             "";
     }
-    function O(e) {
+    function B(e) {
       var t,
         n,
         o,
@@ -453,7 +441,7 @@ __d(
           );
       }
     }
-    function B(e) {
+    function W(e) {
       var t,
         n,
         o,
@@ -491,112 +479,268 @@ __d(
           );
       }
     }
-    function W(e, t) {
+    function q(e, t) {
       t === !0 &&
         r("setByPath")(e, ["ai_generated_welcome_message_impression"], !0);
     }
-    function q(e) {
+    function U(e) {
       return (
         e === r("AdsAPIOptimizationGoals").POST_ENGAGEMENT &&
         o("AdsReachFrequencyGKUtils").isPostEngagementDefaultCTAUpdateEnabled()
       );
     }
-    function U(e) {
+    function V(e) {
       switch (e) {
         case "NONE":
           return null;
         case "call":
-          return s._(/*BTDS*/ "Call now");
+          return s._(/*BTDS*/ "");
         case "catalog":
-          return s._(/*BTDS*/ "View catalog");
+          return s._(/*BTDS*/ "");
         case "url":
-          return s._(/*BTDS*/ "Visit website");
+          return s._(/*BTDS*/ "");
         default:
       }
     }
-    var V = {
+    var H = {
       store: r("bx").getURL(r("bx")("10637")),
       phone: r("bx").getURL(r("bx")("9861")),
       shareExternal: r("bx").getURL(r("bx")("10635")),
     };
-    function H(e) {
+    function G(e) {
       var t = null;
       switch (e) {
         case "NONE":
           break;
         case "call":
-          t = V.phone;
+          t = H.phone;
           break;
         case "catalog":
-          t = V.store;
+          t = H.store;
           break;
         case "url":
-          t = V.shareExternal;
+          t = H.shareExternal;
           break;
         default:
       }
       return t == null
         ? null
-        : c.jsx(r("Image.react"), {
+        : m.jsx(r("Image.react"), {
             height: 16,
             src: t,
             title: r("AutomatedGreetingMessageTypes"),
             width: 16,
           });
     }
-    H.displayName = H.name + " [from " + i.id + "]";
-    function G(e) {
+    G.displayName = G.name + " [from " + i.id + "]";
+    function z(e) {
       var t = r("adsMessengerDataModelGetCTWAAgmCtaType")(e),
-        n = U(t != null ? t : ""),
-        o = H(t != null ? t : "");
+        n = V(t != null ? t : ""),
+        o = G(t != null ? t : "");
       return { label: n, icon: o };
     }
-    var z = r("debounce")(function (e, t, n) {
+    var j = r("debounce")(function (e, t, n) {
         r("promiseDone")(e(t), n);
       }, 500),
-      j = function (r) {
-        return function (t) {
-          return t === ""
-            ? (e || (e = n("Promise"))).resolve([])
-            : new (e || (e = n("Promise")))(function (e) {
-                return z(r, t, e);
+      K = function (t) {
+        return function (e) {
+          return e === ""
+            ? (c || (c = n("Promise"))).resolve([])
+            : new (c || (c = n("Promise")))(function (n) {
+                return j(t, e, n);
               });
         };
       },
-      K = j;
-    ((l.isMultiDestinationPAC = d),
-      (l.isMultiDestinationMessagingFromAdSpec = m),
-      (l.getMessagingCTAFromDestinationType = p),
-      (l.getClickToMessageDestinationTypeFromAdCampaignDestinationType = _),
-      (l.getFirstPage = f),
-      (l.getFirstInstagramAccount = g),
-      (l.deleteNonUnifiedCreationKeys = h),
-      (l.showExistingLeadGenTemplateGuidanceCard = y),
-      (l.showImageGuidanceCard = C),
-      (l.showVideoGuidanceCard = b),
-      (l.processIGAccounts = v),
-      (l.adsUEditorCampaignMessagesUnifiedCreationWithoutLog = S),
-      (l.getSearchableEntryFromPage = R),
-      (l.getSearchableEntryFromInstagramAccount = L),
-      (l.showSimpleConversationsMessageTemplate = k),
-      (l.shouldRenderAutomatedChat = I),
-      (l.shouldRenderCTDLGAutomatedChat = T),
-      (l.shouldRenderLiteWeightAutomatedChat = D),
-      (l.shouldShowMessengerTab = x),
-      (l.shouldShowFAQPreview = $),
-      (l.showMediaTypeInPreview = P),
-      (l.getIcebreakersBasedOnGreetingMediaType = N),
-      (l.getIcebreakerHasResponse = M),
-      (l.getPreviewHeaderBasedOnCustomerActionType = w),
-      (l.getSelectedCustomerActionBasedOnDestination = A),
-      (l.getGreetingBasedOnCustomerActionType = F),
-      (l.getQuickReplyBasedOnGreetingMediaType = O),
-      (l.getButtonsBasedOnGreetingMediaType = B),
-      (l.maybeUpdateWelcomeMessageWithAIgenImpressionTag = W),
-      (l.shouldDefaultNoButtonAsPECTA = q),
-      (l.getAutomatedGreetingMessageCTAFbt = U),
-      (l.getAutomatedGreetingMessageButton = G),
-      (l.getFilteredPages = K));
+      Q = K,
+      X = 8,
+      Y = 1e4,
+      J = 256,
+      Z = 16;
+    function ee(e, t) {
+      var n;
+      try {
+        n = t();
+      } catch (e) {
+        n = null;
+      }
+      return n == null || !Number.isFinite(n) || n < 0
+        ? ((e.readyWindow = null),
+          (e.fallbackWindow = null),
+          (e.lastTime = null),
+          null)
+        : (e.lastTime != null &&
+            n < e.lastTime &&
+            ((e.readyWindow = null), (e.fallbackWindow = null)),
+          (e.lastTime = n),
+          n);
+    }
+    function te(e, t) {
+      try {
+        return e(t);
+      } catch (e) {
+        return !1;
+      }
+    }
+    function ne(e, t) {
+      return e.promotedPageID == null || t === "" || t !== e.promotedPageID
+        ? ((e.fallbackWindow = null), !1)
+        : !e.fallbackEmitted;
+    }
+    function re(e, t) {
+      return e.sampled
+        ? t
+          ? !e.readyEmitted
+          : ((e.readyWindow = null), !1)
+        : !1;
+    }
+    function oe(e) {
+      var t = e.enabled,
+        n = e.increment,
+        r = e.now,
+        o = e.samplingDenominator,
+        a = e.shouldSample;
+      if (!t || !Number.isInteger(o) || o < 1)
+        return {
+          recordEditorRender: function () {},
+          recordPageFallback: function () {},
+        };
+      var i = new Map();
+      function l(e) {
+        try {
+          n(e);
+        } catch (e) {
+          return;
+        }
+      }
+      function s(e, t, n) {
+        return e == null || t - e.startedAt >= Y
+          ? { count: 1, startedAt: t }
+          : ((e.count = Math.min(e.count + 1, n)), e);
+      }
+      function u(e, t, n) {
+        if (!(e == null || e === "")) {
+          var u = i.get(e);
+          if (u == null) {
+            if (i.size >= X) return;
+            var c = te(a, o);
+            ((u = {
+              sampled: c,
+              promotedPageID: t != null ? t : null,
+              lastTime: null,
+              readyWindow: null,
+              fallbackWindow: null,
+              readyEmitted: !1,
+              fallbackEmitted: !1,
+            }),
+              i.set(e, u),
+              c && l("eligible_editor"));
+          }
+          var d = t != null ? t : null;
+          if (
+            (u.promotedPageID !== d &&
+              ((u.promotedPageID = d), (u.fallbackWindow = null)),
+            !!re(u, n))
+          ) {
+            var m = ee(u, r);
+            if (m != null) {
+              var p = s(u.readyWindow, m, J);
+              ((u.readyWindow = p),
+                p.count === J &&
+                  ((u.readyEmitted = !0),
+                  (u.readyWindow = null),
+                  l("ready_render_burst_256_in_10s")));
+            }
+          }
+        }
+      }
+      function c(e, t) {
+        if (!(e == null || e === "")) {
+          var n = i.get(e);
+          if (!(n == null || !n.sampled) && ne(n, t)) {
+            var o = ee(n, r);
+            if (o != null) {
+              var a = s(n.fallbackWindow, o, Z);
+              ((n.fallbackWindow = a),
+                a.count === Z &&
+                  ((n.fallbackEmitted = !0),
+                  (n.fallbackWindow = null),
+                  l("same_page_fallback_burst_16_in_10s")));
+            }
+          }
+        }
+      }
+      return { recordEditorRender: u, recordPageFallback: c };
+    }
+    var ae = null;
+    function ie() {
+      try {
+        if (!r("justknobx")._("6422")) return null;
+      } catch (e) {
+        return null;
+      }
+      return (
+        ae == null &&
+          (ae = oe({
+            enabled: !0,
+            samplingDenominator: 100,
+            shouldSample: function (t) {
+              return r("Random").coinflip(t);
+            },
+            now: e || (e = r("performanceNow")),
+            increment: function (t) {
+              (u || (u = o("ODS"))).bumpEntityKey(
+                1967,
+                "ctwa_l2_loop_diagnostic",
+                t,
+              );
+            },
+          })),
+        ae
+      );
+    }
+    function le(e, t, n) {
+      var r;
+      (r = ie()) == null || r.recordEditorRender(e, t, n);
+    }
+    function se(e, t) {
+      var n;
+      (n = ie()) == null || n.recordPageFallback(e, t);
+    }
+    ((l.isMultiDestinationPAC = p),
+      (l.isMultiDestinationMessagingFromAdSpec = _),
+      (l.getMessagingCTAFromDestinationType = f),
+      (l.getClickToMessageDestinationTypeFromAdCampaignDestinationType = g),
+      (l.getFirstPage = h),
+      (l.getFirstInstagramAccount = y),
+      (l.deleteNonUnifiedCreationKeys = C),
+      (l.showExistingLeadGenTemplateGuidanceCard = b),
+      (l.showImageGuidanceCard = v),
+      (l.showVideoGuidanceCard = S),
+      (l.adsUEditorCampaignMessagesUnifiedCreationWithoutLog = R),
+      (l.getSearchableEntryFromPage = L),
+      (l.getSearchableEntryFromInstagramAccount = E),
+      (l.showSimpleConversationsMessageTemplate = I),
+      (l.shouldRenderAutomatedChat = T),
+      (l.shouldRenderCTDLGAutomatedChat = D),
+      (l.shouldRenderLiteWeightAutomatedChat = x),
+      (l.shouldShowMessengerTab = $),
+      (l.shouldShowFAQPreview = P),
+      (l.showMediaTypeInPreview = N),
+      (l.getIcebreakersBasedOnGreetingMediaType = M),
+      (l.getIcebreakerHasResponse = w),
+      (l.getPreviewHeaderBasedOnCustomerActionType = A),
+      (l.getSelectedCustomerActionBasedOnDestination = F),
+      (l.getGreetingBasedOnCustomerActionType = O),
+      (l.getQuickReplyBasedOnGreetingMediaType = B),
+      (l.getButtonsBasedOnGreetingMediaType = W),
+      (l.maybeUpdateWelcomeMessageWithAIgenImpressionTag = q),
+      (l.shouldDefaultNoButtonAsPECTA = U),
+      (l.getAutomatedGreetingMessageCTAFbt = V),
+      (l.getAutomatedGreetingMessageButton = z),
+      (l.getFilteredPages = Q),
+      (l.createCTWAL2LoopTelemetry = oe),
+      (l.recordCTWAL2EditorRenderTelemetry = le),
+      (l.recordCTWAL2PageFallbackTelemetry = se));
   },
   226,
 );

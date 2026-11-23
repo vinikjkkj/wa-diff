@@ -2,7 +2,6 @@ __d(
   "WAWebSignalProtocolStoreUnifiedApi",
   [
     "$InternalEnum",
-    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebBackendApi",
@@ -18,7 +17,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidFromSignalAddress",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -34,823 +32,563 @@ __d(
       g,
       h,
       y,
-      C,
-      b = n("$InternalEnum").Mirrored(["Persist", "Memory"]),
-      v = (function () {
+      C = n("$InternalEnum").Mirrored(["Persist", "Memory"]),
+      b = (function () {
         function t() {
           ((this.Direction = { SENDING: 1, RECEIVING: 2 }),
             (this.$1 = new (o(
               "WAWebSignalProtocolStoreCacheApi",
             ).SignalStoreCache)()),
-            (this.$2 = b.Persist),
+            (this.$2 = C.Persist),
             (this.$3 = 0),
             (this.$4 = new Map()),
             (this.$5 = !1),
             (this.$6 = new Set()),
             (this.$7 = new WeakMap()));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.cache_TESTONLY = function () {
+          (n.cache_TESTONLY = function () {
             return this.$1;
           }),
-          (a.getIdentityKeyPair = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e;
-              return (
-                this.$1.RegistrationInfo ||
-                  (this.$1.RegistrationInfo = yield o(
-                    "WAWebSignalStoreApi",
-                  ).waSignalStore.getRegistrationInfo()),
-                (e = this.$1.RegistrationInfo) != null && e.identityKeyPair
-                  ? o("WAWebCryptoCurve25519").toSignalCurveKeyPair(
-                      this.$1.RegistrationInfo.identityKeyPair,
-                    )
-                  : void 0
-              );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.getLocalRegistrationId = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e;
-              return (
-                this.$1.RegistrationInfo ||
-                  (this.$1.RegistrationInfo = yield o(
-                    "WAWebSignalStoreApi",
-                  ).waSignalStore.getRegistrationInfo()),
-                ((e = this.$1.RegistrationInfo) == null
-                  ? void 0
-                  : e.registrationId) || void 0
-              );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.isTrustedIdentity = function (t, r) {
-            return (C || (C = n("Promise"))).resolve(!0);
+          (n.getIdentityKeyPair = async function () {
+            var e;
+            return (
+              this.$1.RegistrationInfo ||
+                (this.$1.RegistrationInfo = await o(
+                  "WAWebSignalStoreApi",
+                ).waSignalStore.getRegistrationInfo()),
+              (e = this.$1.RegistrationInfo) != null && e.identityKeyPair
+                ? o("WAWebCryptoCurve25519").toSignalCurveKeyPair(
+                    this.$1.RegistrationInfo.identityKeyPair,
+                  )
+                : void 0
+            );
           }),
-          (a.$8 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t, n;
-                if (e == null)
-                  throw r("err")(
-                    "Tried to get identity key for undefined/null key",
-                  );
-                if (!this.$1.IdentityStore.has(e)) {
-                  var a = yield o(
-                    "WAWebSignalStoreApi",
-                  ).waSignalStore.getIdentityKeyWithRowId(e);
-                  this.$1.IdentityStore.set(e, a);
-                }
-                return (t =
-                  (n = this.$1.IdentityStore.get(e)) == null
-                    ? void 0
-                    : n.identityKey) != null
-                  ? t
-                  : void 0;
-              },
+          (n.getLocalRegistrationId = async function () {
+            var e;
+            return (
+              this.$1.RegistrationInfo ||
+                (this.$1.RegistrationInfo = await o(
+                  "WAWebSignalStoreApi",
+                ).waSignalStore.getRegistrationInfo()),
+              ((e = this.$1.RegistrationInfo) == null
+                ? void 0
+                : e.registrationId) || void 0
             );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.isTrustedIdentity = function (t, n) {
+            return Promise.resolve(!0);
+          }),
+          (n.$8 = async function (t) {
+            var e, n;
+            if (t == null)
+              throw r("err")(
+                "Tried to get identity key for undefined/null key",
+              );
+            if (!this.$1.IdentityStore.has(t)) {
+              var a = await o(
+                "WAWebSignalStoreApi",
+              ).waSignalStore.getIdentityKeyWithRowId(t);
+              this.$1.IdentityStore.set(t, a);
             }
-            return t;
-          })()),
-          (a.loadIdentityKey = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$1.Mutex.identity.acquire();
-                try {
-                  return yield this.$8(e);
-                } finally {
-                  t.release();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+            return (e =
+              (n = this.$1.IdentityStore.get(t)) == null
+                ? void 0
+                : n.identityKey) != null
+              ? e
+              : void 0;
+          }),
+          (n.loadIdentityKey = async function (t) {
+            var e = await this.$1.Mutex.identity.acquire();
+            try {
+              return await this.$8(t);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.$9 = function (t, n) {
+          }),
+          (n.$9 = function (t, n) {
             (this.$1.IdentityStore.set(t, { identityKey: n }),
               this.$1.Dirty.identity.add(t));
           }),
-          (a.putIdentity = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.$1.Mutex.identity.acquire();
-                try {
-                  this.$9(e, t);
-                } finally {
-                  n.release();
-                }
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+          (n.putIdentity = async function (t, n) {
+            var e = await this.$1.Mutex.identity.acquire();
+            try {
+              this.$9(t, n);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.$10 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = o("WAWebProtocolStoreCommonApi").stringifyIdentityKey(
-                    t,
-                  ),
-                  r = yield this.loadIdentityKey(e);
-                if (!(r != null && r === n)) {
-                  if (r != null) {
-                    var a = o("WAWebSignalCommonUtils")
-                        .createSignalAddress(
-                          o("WAWebUserUtils").getMeLidUserOrThrow(),
-                        )
-                        .toString(),
-                      i = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-                      l =
-                        i != null
-                          ? o("WAWebSignalCommonUtils")
-                              .createSignalAddress(i)
-                              .toString()
-                          : null;
-                    if (e === a || e === l) {
-                      o("WAWebBackendApi").frontendFireAndForget(
-                        "handleSelfPrimaryIdentityChange",
-                        {},
-                      );
-                      return;
-                    }
-                    e != null &&
-                      (yield o(
-                        "WAWebIdentityChangeApiWorkerCompatible",
-                      ).handleNewIdentity(
-                        o("WAWebWidFromSignalAddress").widFromSignalAddress(e),
-                        !1,
-                      ));
-                  }
-                  yield this.putIdentity(e, n);
-                }
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.saveIdentity = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                if (e == null)
-                  throw r("err")(
-                    "Tried to put identity key for undefined/null key",
+          }),
+          (n.$10 = async function (t, n) {
+            var e = o("WAWebProtocolStoreCommonApi").stringifyIdentityKey(n),
+              r = await this.loadIdentityKey(t);
+            if (!(r != null && r === e)) {
+              if (r != null) {
+                var a = o("WAWebSignalCommonUtils")
+                    .createSignalAddress(
+                      o("WAWebUserUtils").getMeLidUserOrThrow(),
+                    )
+                    .toString(),
+                  i = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+                  l =
+                    i != null
+                      ? o("WAWebSignalCommonUtils")
+                          .createSignalAddress(i)
+                          .toString()
+                      : null;
+                if (t === a || t === l) {
+                  o("WAWebBackendApi").frontendFireAndForget(
+                    "handleSelfPrimaryIdentityChange",
+                    {},
                   );
-                yield this.$10(e, t);
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.compareAndSetAccountEncryptionState = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var o = yield this.$1.Mutex.identity.acquire();
-                try {
-                  var a;
-                  yield this.$8(e);
-                  var i = this.$1.IdentityStore.get(e);
-                  return i == null ||
-                    i.deleted !== void 0 ||
-                    i.identityKey !== t
-                    ? { applied: !1, changed: !1 }
-                    : i.accountEncryptionState === r
-                      ? { applied: !0, changed: !1 }
-                      : ((a = i.accountEncryptionState) != null ? a : null) !==
-                          (n != null ? n : null)
-                        ? { applied: !1, changed: !1 }
-                        : (this.$1.IdentityStore.set(
-                            e,
-                            babelHelpers.extends({}, i, {
-                              accountEncryptionState: r,
-                            }),
-                          ),
-                          this.$1.Dirty.identity.add(e),
-                          { applied: !0, changed: !0 });
-                } finally {
-                  o.release();
+                  return;
                 }
-              },
-            );
-            function t(t, n, r, o) {
-              return e.apply(this, arguments);
+                t != null &&
+                  (await o(
+                    "WAWebIdentityChangeApiWorkerCompatible",
+                  ).handleNewIdentity(
+                    o("WAWebWidFromSignalAddress").widFromSignalAddress(t),
+                    !1,
+                  ));
+              }
+              await this.putIdentity(t, e);
             }
-            return t;
-          })()),
-          (a.getIdentityWithRowId = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (e == null)
-                  throw r("err")(
-                    "Tried to get identity key for undefined/null key",
-                  );
-                yield this.loadIdentityKey(e);
-                var t = this.$1.IdentityStore.get(e);
-                if (!(t == null || t.deleted !== void 0)) return t;
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.bulkGetIdentityWithRowId = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                if (e == null)
-                  throw r("err")(
-                    "Tried to get identity key for undefined/null key",
-                  );
-                return e.length === 0
-                  ? []
-                  : (yield this.bulkLoadIdentityKey(e),
-                    e.map(function (e) {
-                      var n = t.$1.IdentityStore.get(e);
-                      if (!(n == null || n.deleted !== void 0)) return n;
-                    }));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.getAllIdentityRows = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return (
-                yield this.flushBufferToDiskIfNotMemOnlyMode(),
-                o("WAWebSignalStoreApi").waSignalStore.getAllIdentityRows()
+          }),
+          (n.saveIdentity = async function (t, n) {
+            if (t == null)
+              throw r("err")(
+                "Tried to put identity key for undefined/null key",
               );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$11 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                if (e == null)
-                  throw r("err")(
-                    "Tried to get identity key for undefined/null key",
-                  );
-                if (e.length === 0) return [];
-                var n = new Array(e.length),
-                  a = [];
-                if (
-                  (e.forEach(function (e, r) {
-                    if (t.$1.IdentityStore.has(e)) {
-                      var o;
-                      n[r] =
-                        (o = t.$1.IdentityStore.get(e)) == null
-                          ? void 0
-                          : o.identityKey;
-                    } else a.push({ id: e, pos: r });
-                  }),
-                  a.length > 0)
-                ) {
-                  var i = yield o(
-                    "WAWebSignalStoreApi",
-                  ).waSignalStore.bulkGetIdentityKeyWithRowId(
-                    a.map(function (e) {
-                      return e.id;
-                    }),
-                  );
-                  i.forEach(function (e, r) {
-                    var o = a[r];
-                    (t.$1.IdentityStore.set(o.id, e),
-                      (n[o.pos] = e == null ? void 0 : e.identityKey));
-                  });
-                }
-                return n;
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.bulkLoadIdentityKey = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$1.Mutex.identity.acquire();
-                try {
-                  return yield this.$11(e);
-                } finally {
-                  t.release();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$12 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var a = this;
-                if (t == null)
-                  throw r("err")(
-                    "Tried to bulk put identity key with undefined/null",
-                  );
-                (o("WALogger")
-                  .LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Signal]bulkCreateIdentity: store ",
-                        " value(s): start",
-                      ])),
-                    t.length,
-                  )
-                  .tags("unified-store"),
-                  yield o("WAWebSignalStorageUtils")
-                    .getStorage()
-                    .lock(
-                      ["identity-store"],
-                      n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* () {
-                          var e = t.map(function (e) {
-                              return e.identifier;
-                            }),
-                            n = yield a.$11(e),
-                            r = t.filter(function (e, t) {
-                              return !n[t];
-                            });
-                          (r.length > 0 &&
-                            (yield o(
-                              "WAWebSignalStoreApi",
-                            ).waSignalStore.bulkPutIdentity(r),
-                            r.forEach(function (e) {
-                              var t = e.identifier,
-                                n = e.identityKey;
-                              a.$1.IdentityStore.set(t, { identityKey: n });
-                            })),
-                            o("WALogger")
-                              .LOG(
-                                s ||
-                                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[Signal]bulkCreateIdentity: store ",
-                                    " value(s) (new: ",
-                                    "): end",
-                                  ])),
-                                t.length,
-                                r.length,
-                              )
-                              .tags("unified-store"));
-                        },
+            await this.$10(t, n);
+          }),
+          (n.compareAndSetAccountEncryptionState = async function (t, n, r, o) {
+            var e = await this.$1.Mutex.identity.acquire();
+            try {
+              var a;
+              await this.$8(t);
+              var i = this.$1.IdentityStore.get(t);
+              return i == null || i.deleted !== void 0 || i.identityKey !== n
+                ? { applied: !1, changed: !1 }
+                : i.accountEncryptionState === o
+                  ? { applied: !0, changed: !1 }
+                  : ((a = i.accountEncryptionState) != null ? a : null) !==
+                      (r != null ? r : null)
+                    ? { applied: !1, changed: !1 }
+                    : (this.$1.IdentityStore.set(
+                        t,
+                        babelHelpers.extends({}, i, {
+                          accountEncryptionState: o,
+                        }),
                       ),
-                    ));
-              },
-            );
-            function a(e) {
-              return t.apply(this, arguments);
+                      this.$1.Dirty.identity.add(t),
+                      { applied: !0, changed: !0 });
+            } finally {
+              e.release();
             }
-            return a;
-          })()),
-          (a.bulkCreateIdentity = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$1.Mutex.identity.acquire();
-                try {
-                  yield this.$12(e);
-                } finally {
-                  t.release();
-                }
-              },
+          }),
+          (n.getIdentityWithRowId = async function (t) {
+            if (t == null)
+              throw r("err")(
+                "Tried to get identity key for undefined/null key",
+              );
+            await this.loadIdentityKey(t);
+            var e = this.$1.IdentityStore.get(t);
+            if (!(e == null || e.deleted !== void 0)) return e;
+          }),
+          (n.bulkGetIdentityWithRowId = async function (t) {
+            var e = this;
+            if (t == null)
+              throw r("err")(
+                "Tried to get identity key for undefined/null key",
+              );
+            return t.length === 0
+              ? []
+              : (await this.bulkLoadIdentityKey(t),
+                t.map(function (t) {
+                  var n = e.$1.IdentityStore.get(t);
+                  if (!(n == null || n.deleted !== void 0)) return n;
+                }));
+          }),
+          (n.getAllIdentityRows = async function () {
+            return (
+              await this.flushBufferToDiskIfNotMemOnlyMode(),
+              o("WAWebSignalStoreApi").waSignalStore.getAllIdentityRows()
             );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.$11 = async function (t) {
+            var e = this;
+            if (t == null)
+              throw r("err")(
+                "Tried to get identity key for undefined/null key",
+              );
+            if (t.length === 0) return [];
+            var n = new Array(t.length),
+              a = [];
+            if (
+              (t.forEach(function (t, r) {
+                if (e.$1.IdentityStore.has(t)) {
+                  var o;
+                  n[r] =
+                    (o = e.$1.IdentityStore.get(t)) == null
+                      ? void 0
+                      : o.identityKey;
+                } else a.push({ id: t, pos: r });
+              }),
+              a.length > 0)
+            ) {
+              var i = await o(
+                "WAWebSignalStoreApi",
+              ).waSignalStore.bulkGetIdentityKeyWithRowId(
+                a.map(function (e) {
+                  return e.id;
+                }),
+              );
+              i.forEach(function (t, r) {
+                var o = a[r];
+                (e.$1.IdentityStore.set(o.id, t),
+                  (n[o.pos] = t == null ? void 0 : t.identityKey));
+              });
             }
-            return t;
-          })()),
-          (a.$13 = function (t) {
+            return n;
+          }),
+          (n.bulkLoadIdentityKey = async function (t) {
+            var e = await this.$1.Mutex.identity.acquire();
+            try {
+              return await this.$11(t);
+            } finally {
+              e.release();
+            }
+          }),
+          (n.$12 = async function (n) {
+            var t = this;
+            if (n == null)
+              throw r("err")(
+                "Tried to bulk put identity key with undefined/null",
+              );
+            (o("WALogger")
+              .LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[Signal]bulkCreateIdentity: store ",
+                    " value(s): start",
+                  ])),
+                n.length,
+              )
+              .tags("unified-store"),
+              await o("WAWebSignalStorageUtils")
+                .getStorage()
+                .lock(["identity-store"], async function () {
+                  var e = n.map(function (e) {
+                      return e.identifier;
+                    }),
+                    r = await t.$11(e),
+                    a = n.filter(function (e, t) {
+                      return !r[t];
+                    });
+                  (a.length > 0 &&
+                    (await o(
+                      "WAWebSignalStoreApi",
+                    ).waSignalStore.bulkPutIdentity(a),
+                    a.forEach(function (e) {
+                      var n = e.identifier,
+                        r = e.identityKey;
+                      t.$1.IdentityStore.set(n, { identityKey: r });
+                    })),
+                    o("WALogger")
+                      .LOG(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "[Signal]bulkCreateIdentity: store ",
+                            " value(s) (new: ",
+                            "): end",
+                          ])),
+                        n.length,
+                        a.length,
+                      )
+                      .tags("unified-store"));
+                }));
+          }),
+          (n.bulkCreateIdentity = async function (t) {
+            var e = await this.$1.Mutex.identity.acquire();
+            try {
+              await this.$12(t);
+            } finally {
+              e.release();
+            }
+          }),
+          (n.$13 = function (t) {
             (this.$1.IdentityStore.set(t, { deleted: !0 }),
               this.$1.Dirty.identity.add(t));
           }),
-          (a.removeIdentity = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (e == null)
-                  return (C || (C = n("Promise"))).reject(
-                    r("err")(
-                      "Tried to remove identity key for undefined/null key",
-                    ),
-                  );
-                var t = yield this.$1.Mutex.identity.acquire();
-                try {
-                  yield this.$13(e);
-                } finally {
-                  t.release();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (n.removeIdentity = async function (t) {
+            if (t == null)
+              return Promise.reject(
+                r("err")("Tried to remove identity key for undefined/null key"),
+              );
+            var e = await this.$1.Mutex.identity.acquire();
+            try {
+              await this.$13(t);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.$14 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (e != null) {
-                  if (!this.$1.PrekeyStore.has(e)) {
-                    var t,
-                      n =
-                        (t = yield o(
-                          "WAWebSignalStoreApi",
-                        ).waSignalStore.getPreKeyById(e)) == null
-                          ? void 0
-                          : t.keyPair;
-                    this.$1.PrekeyStore.set(e, { keyPair: n });
-                  }
-                  var r = this.$1.PrekeyStore.get(e);
-                  return (r == null ? void 0 : r.keyPair) || void 0;
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.$14 = async function (t) {
+            if (t != null) {
+              if (!this.$1.PrekeyStore.has(t)) {
+                var e,
+                  n =
+                    (e = await o(
+                      "WAWebSignalStoreApi",
+                    ).waSignalStore.getPreKeyById(t)) == null
+                      ? void 0
+                      : e.keyPair;
+                this.$1.PrekeyStore.set(t, { keyPair: n });
+              }
+              var r = this.$1.PrekeyStore.get(t);
+              return (r == null ? void 0 : r.keyPair) || void 0;
             }
-            return t;
-          })()),
-          (a.loadPreKey = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$1.Mutex.preKey.acquire();
-                try {
-                  return yield this.$14(e);
-                } finally {
-                  t.release();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.loadPreKey = async function (t) {
+            var e = await this.$1.Mutex.preKey.acquire();
+            try {
+              return await this.$14(t);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.$15 = function (t) {
+          }),
+          (n.$15 = function (t) {
             return t == null
-              ? (C || (C = n("Promise"))).reject(
+              ? Promise.reject(
                   r("err")("Tried to remove pre key without keyId"),
                 )
               : (this.$1.PrekeyStore.set(t, { deleted: !0 }),
                 this.$1.Dirty.preKey.add(t),
-                (C || (C = n("Promise"))).resolve());
+                Promise.resolve());
           }),
-          (a.removePreKey = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$1.Mutex.preKey.acquire();
-                try {
-                  yield this.$15(e);
-                } finally {
-                  t.release();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (n.removePreKey = async function (t) {
+            var e = await this.$1.Mutex.preKey.acquire();
+            try {
+              await this.$15(t);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.loadSignedPreKey = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (e != null) {
-                  if (!this.$1.SignedPreKeyStore.has(e)) {
-                    var t = yield o(
-                        "WAWebSignalStoreApi",
-                      ).waSignalStore.getSignedPreKeyById(e),
-                      n = t
-                        ? {
-                            pubKey: t.keyPair.pubKey,
-                            privKey: t.keyPair.privKey,
-                            signature: t.signature,
-                          }
-                        : null;
-                    this.$1.SignedPreKeyStore.set(e, n);
-                  }
-                  return this.$1.SignedPreKeyStore.get(e) || void 0;
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.loadSignedPreKey = async function (t) {
+            if (t != null) {
+              if (!this.$1.SignedPreKeyStore.has(t)) {
+                var e = await o(
+                    "WAWebSignalStoreApi",
+                  ).waSignalStore.getSignedPreKeyById(t),
+                  n = e
+                    ? {
+                        pubKey: e.keyPair.pubKey,
+                        privKey: e.keyPair.privKey,
+                        signature: e.signature,
+                      }
+                    : null;
+                this.$1.SignedPreKeyStore.set(t, n);
+              }
+              return this.$1.SignedPreKeyStore.get(t) || void 0;
             }
-            return t;
-          })()),
-          (a.$16 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t;
-                if (e != null) {
-                  if (!this.$1.SessionStore.has(e)) {
-                    var n = yield o(
-                      "WAWebSignalStoreApi",
-                    ).waSignalStore.getSession(e);
-                    this.$1.SessionStore.set(
-                      e,
-                      n != null ? { session: n } : void 0,
-                    );
-                  }
-                  var r =
-                    (t = this.$1.SessionStore.get(e)) == null
-                      ? void 0
-                      : t.session;
-                  if (r != null) {
-                    if (r instanceof ArrayBuffer && r.byteLength === 0) {
-                      o("WALogger")
-                        .LOG(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
-                              "[signal] loadSession: empty/corrupted session",
-                            ])),
-                        )
-                        .sendLogs("signal-corrupted-empty-session");
-                      return;
-                    }
-                    return (
-                      (yield o("WAWebSignalConvertApi").maybeConvertSession(
-                        r,
-                      )) || void 0
-                    );
-                  }
+          }),
+          (n.$16 = async function (t) {
+            var e;
+            if (t != null) {
+              if (!this.$1.SessionStore.has(t)) {
+                var n = await o("WAWebSignalStoreApi").waSignalStore.getSession(
+                  t,
+                );
+                this.$1.SessionStore.set(
+                  t,
+                  n != null ? { session: n } : void 0,
+                );
+              }
+              var r =
+                (e = this.$1.SessionStore.get(t)) == null ? void 0 : e.session;
+              if (r != null) {
+                if (r instanceof ArrayBuffer && r.byteLength === 0) {
+                  o("WALogger")
+                    .LOG(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "[signal] loadSession: empty/corrupted session",
+                        ])),
+                    )
+                    .sendLogs("signal-corrupted-empty-session");
+                  return;
                 }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+                return (
+                  (await o("WAWebSignalConvertApi").maybeConvertSession(r)) ||
+                  void 0
+                );
+              }
             }
-            return t;
-          })()),
-          (a.loadSession = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$1.Mutex.session.acquire();
-                try {
-                  return yield this.$16(e);
-                } finally {
-                  t.release();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.loadSession = async function (t) {
+            var e = await this.$1.Mutex.session.acquire();
+            try {
+              return await this.$16(t);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.$17 = function (t, n) {
+          }),
+          (n.$17 = function (t, n) {
             if (t == null)
               throw r("err")("Tried to put session without identifier");
             (this.$1.SessionStore.set(t, { session: n }),
               this.$1.Dirty.session.add(t));
           }),
-          (a.storeSession = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.$1.Mutex.session.acquire();
-                try {
-                  this.$17(e, t);
-                } finally {
-                  n.release();
-                }
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+          (n.storeSession = async function (t, n) {
+            var e = await this.$1.Mutex.session.acquire();
+            try {
+              this.$17(t, n);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.$18 = function (t) {
+          }),
+          (n.$18 = function (t) {
             if (t == null)
               throw r("err")("Tried to remove session without identifier");
             (this.$1.SessionStore.set(t, { deleted: !0 }),
               this.$1.Dirty.session.add(t));
           }),
-          (a.removeSession = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$1.Mutex.session.acquire();
-                try {
-                  this.$18(e);
-                } finally {
-                  t.release();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (n.removeSession = async function (t) {
+            var e = await this.$1.Mutex.session.acquire();
+            try {
+              this.$18(t);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.$19 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  n = [];
-                for (var r of e) this.$1.SessionStore.has(r) || n.push(r);
-                if (n.length > 0) {
-                  var a = yield o(
-                    "WAWebSignalStoreApi",
-                  ).waSignalStore.bulkGetSession(n);
-                  a.forEach(function (e, r) {
-                    var o = n[r];
-                    t.$1.SessionStore.set(
-                      o,
-                      e != null ? { session: e } : void 0,
-                    );
-                  });
-                }
-                return e.map(function (e) {
-                  var n = t.$1.SessionStore.get(e);
-                  return n == null || n.deleted === !0
-                    ? !1
-                    : n.session == null ||
-                        (n.session instanceof ArrayBuffer &&
-                          n.session.byteLength === 0)
-                      ? (o("WALogger")
-                          .LOG(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
-                                "[signal] containSessions: empty/corrupted session",
-                              ])),
-                          )
-                          .sendLogs("signal-corrupted-empty-session"),
-                        !1)
-                      : !0;
-                });
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.$19 = async function (t) {
+            var e = this,
+              n = [];
+            for (var r of t) this.$1.SessionStore.has(r) || n.push(r);
+            if (n.length > 0) {
+              var a = await o(
+                "WAWebSignalStoreApi",
+              ).waSignalStore.bulkGetSession(n);
+              a.forEach(function (t, r) {
+                var o = n[r];
+                e.$1.SessionStore.set(o, t != null ? { session: t } : void 0);
+              });
             }
-            return t;
-          })()),
-          (a.containSessions = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$1.Mutex.session.acquire();
-                try {
-                  return yield this.$19(e);
-                } finally {
-                  t.release();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+            return t.map(function (t) {
+              var n = e.$1.SessionStore.get(t);
+              return n == null || n.deleted === !0
+                ? !1
+                : n.session == null ||
+                    (n.session instanceof ArrayBuffer &&
+                      n.session.byteLength === 0)
+                  ? (o("WALogger")
+                      .LOG(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "[signal] containSessions: empty/corrupted session",
+                          ])),
+                      )
+                      .sendLogs("signal-corrupted-empty-session"),
+                    !1)
+                  : !0;
+            });
+          }),
+          (n.containSessions = async function (t) {
+            var e = await this.$1.Mutex.session.acquire();
+            try {
+              return await this.$19(t);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.$20 = function (t, o) {
+          }),
+          (n.$20 = function (t, n) {
             return t == null
-              ? (C || (C = n("Promise"))).reject(
+              ? Promise.reject(
                   r("err")("Tried to put session without identifier"),
                 )
-              : (this.$1.SenderKeyStore.set(t, o),
+              : (this.$1.SenderKeyStore.set(t, n),
                 this.$1.Dirty.senderKey.add(t),
-                (C || (C = n("Promise"))).resolve());
+                Promise.resolve());
           }),
-          (a.storeSenderKey = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield this.$1.Mutex.senderKey.acquire();
-                try {
-                  yield this.$20(e, t);
-                } finally {
-                  n.release();
-                }
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+          (n.storeSenderKey = async function (t, n) {
+            var e = await this.$1.Mutex.senderKey.acquire();
+            try {
+              await this.$20(t, n);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.$21 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (e != null) {
-                  if (!this.$1.SenderKeyStore.has(e)) {
-                    var t = yield o(
-                      "WAWebSignalStoreApi",
-                    ).waSignalStore.getSenderKey(e);
-                    this.$1.SenderKeyStore.set(e, t);
-                  }
-                  return (
-                    o("WAWebSignalConvertApi").maybeConvertSenderKey(
-                      this.$1.SenderKeyStore.get(e),
-                    ) || void 0
-                  );
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.$21 = async function (t) {
+            if (t != null) {
+              if (!this.$1.SenderKeyStore.has(t)) {
+                var e = await o(
+                  "WAWebSignalStoreApi",
+                ).waSignalStore.getSenderKey(t);
+                this.$1.SenderKeyStore.set(t, e);
+              }
+              return (
+                o("WAWebSignalConvertApi").maybeConvertSenderKey(
+                  this.$1.SenderKeyStore.get(t),
+                ) || void 0
+              );
             }
-            return t;
-          })()),
-          (a.loadSenderKey = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$1.Mutex.senderKey.acquire();
-                try {
-                  return yield this.$21(e);
-                } finally {
-                  t.release();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.loadSenderKey = async function (t) {
+            var e = await this.$1.Mutex.senderKey.acquire();
+            try {
+              return await this.$21(t);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.removeOwnSenderKey = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                ((this.$5 = !0), yield this.$22());
-                var t = yield this.$1.Mutex.senderKey.acquire();
-                try {
-                  (this.$3++,
-                    this.$4.set(e, this.$3),
-                    this.$1.SenderKeyStore.set(e, null),
-                    this.$1.Dirty.senderKey.delete(e),
-                    yield o(
-                      "WAWebSignalStoreApi",
-                    ).waSignalStore.removeSenderKey(e));
-                } finally {
-                  t.release();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.removeOwnSenderKey = async function (t) {
+            ((this.$5 = !0), await this.$22());
+            var e = await this.$1.Mutex.senderKey.acquire();
+            try {
+              (this.$3++,
+                this.$4.set(t, this.$3),
+                this.$1.SenderKeyStore.set(t, null),
+                this.$1.Dirty.senderKey.delete(t),
+                await o("WAWebSignalStoreApi").waSignalStore.removeSenderKey(
+                  t,
+                ));
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.$23 = function (t) {
+          }),
+          (n.$23 = function (t) {
             return (this.$7.set(t, this.$3), t);
           }),
-          (a.commitSnapshot = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = this;
-                if ((t === void 0 && (t = r("WAWebNoop")), !this.$24())) {
-                  t();
-                  var o = this.$25(e, e.senderKeyUpdate);
-                  this.$6.add(o);
-                  try {
-                    yield o;
-                  } finally {
-                    this.$6.delete(o);
-                  }
-                  return;
-                }
-                var a = yield this.$1.Mutex.senderKey.acquire();
-                try {
-                  var i;
-                  t();
-                  var l = (i = this.$7.get(e)) != null ? i : 0;
-                  yield this.$25(
-                    e,
-                    e.senderKeyUpdate.filter(function (e) {
-                      var t,
-                        r = e.senderKeyName;
-                      return ((t = n.$4.get(r)) != null ? t : 0) <= l;
-                    }),
-                  );
-                } finally {
-                  a.release();
-                }
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+          (n.commitSnapshot = async function (t, n) {
+            var e = this;
+            if ((n === void 0 && (n = r("WAWebNoop")), !this.$24())) {
+              n();
+              var o = this.$25(t, t.senderKeyUpdate);
+              this.$6.add(o);
+              try {
+                await o;
+              } finally {
+                this.$6.delete(o);
+              }
+              return;
             }
-            return t;
-          })()),
-          (a.$24 = function () {
+            var a = await this.$1.Mutex.senderKey.acquire();
+            try {
+              var i;
+              n();
+              var l = (i = this.$7.get(t)) != null ? i : 0;
+              await this.$25(
+                t,
+                t.senderKeyUpdate.filter(function (t) {
+                  var n,
+                    r = t.senderKeyName;
+                  return ((n = e.$4.get(r)) != null ? n : 0) <= l;
+                }),
+              );
+            } finally {
+              a.release();
+            }
+          }),
+          (n.$24 = function () {
             return (
               !this.$5 &&
                 (o("WAWebABProps").getABPropConfigValue(
@@ -863,16 +601,10 @@ __d(
               this.$5
             );
           }),
-          (a.$22 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              yield (C || (C = n("Promise"))).allSettled(Array.from(this.$6));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$25 = function (t, r) {
+          (n.$22 = async function () {
+            await Promise.allSettled(Array.from(this.$6));
+          }),
+          (n.$25 = function (t, n) {
             return o("WAWebSignalStorageUtils")
               .getStorage()
               .lock(
@@ -882,41 +614,34 @@ __d(
                   "prekey-store",
                   "senderkey-store",
                 ],
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  yield (C || (C = n("Promise"))).all([
-                    o("WAWebSignalStoreApi").waSignalStore.bulkPutSession(
+                async function () {
+                  var e;
+                  await Promise.all([
+                    (e = o("WAWebSignalStoreApi")).waSignalStore.bulkPutSession(
                       t.sessionUpdate,
                     ),
-                    o(
-                      "WAWebSignalStoreApi",
-                    ).waSignalStore.bulkPutIdentityKeyWithRowId(
+                    e.waSignalStore.bulkPutIdentityKeyWithRowId(
                       t.identityUpdate,
                     ),
-                    o("WAWebSignalStoreApi").waSignalStore.bulkPutSenderKey(r),
-                    o("WAWebSignalStoreApi").waSignalStore.bulkRemovePreKey(
-                      t.preKeyRemove,
-                    ),
-                    o("WAWebSignalStoreApi").waSignalStore.bulkRemoveSession(
-                      t.sessionRemove,
-                    ),
-                    o("WAWebSignalStoreApi").waSignalStore.bulkRemoveIdentity(
-                      t.identityRemove,
-                    ),
+                    e.waSignalStore.bulkPutSenderKey(n),
+                    e.waSignalStore.bulkRemovePreKey(t.preKeyRemove),
+                    e.waSignalStore.bulkRemoveSession(t.sessionRemove),
+                    e.waSignalStore.bulkRemoveIdentity(t.identityRemove),
                   ]);
-                }),
+                },
               );
           }),
-          (a.switchToMemMode = function () {
-            this.$2 = b.Memory;
+          (n.switchToMemMode = function () {
+            this.$2 = C.Memory;
           }),
-          (a.switchToPersistMode = function () {
-            this.$2 = b.Persist;
+          (n.switchToPersistMode = function () {
+            this.$2 = C.Persist;
           }),
-          (a.generateSnapshot = function () {
-            if (this.$2 === b.Memory)
+          (n.generateSnapshot = function () {
+            if (this.$2 === C.Memory)
               return this.$23(this.$1.generateCacheUpdate());
           }),
-          (a.deleteAllCache = function () {
+          (n.deleteAllCache = function () {
             (o("WALogger")
               .LOG(
                 d ||
@@ -929,137 +654,109 @@ __d(
               (this.$5 = !1),
               this.$4.clear());
           }),
-          (a.hasPendingPersistWrites = function () {
-            return this.$2 === b.Persist && this.$1.hasDirty();
+          (n.hasPendingPersistWrites = function () {
+            return this.$2 === C.Persist && this.$1.hasDirty();
           }),
-          (a.flushBufferToDiskIfNotMemOnlyMode = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (
-                  (e === void 0 && (e = r("WAWebNoop")), this.$2 === b.Memory)
-                )
-                  return (
-                    o("WALogger")
-                      .LOG(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "[Signal]flushBufferToDiskIfNotMemOnlyMode: skip mem mode",
-                          ])),
-                      )
-                      .tags("unified-store"),
-                    (C || (C = n("Promise"))).resolve()
-                  );
+          (n.flushBufferToDiskIfNotMemOnlyMode = async function (t) {
+            if ((t === void 0 && (t = r("WAWebNoop")), this.$2 === C.Memory))
+              return (
                 o("WALogger")
                   .LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Signal]flushBufferToDiskIfNotMemOnlyMode: start",
-                      ])),
-                  )
-                  .tags("unified-store");
-                var t = [
-                  yield this.$1.Mutex.identity.acquire(),
-                  yield this.$1.Mutex.session.acquire(),
-                  yield this.$1.Mutex.senderKey.acquire(),
-                  yield this.$1.Mutex.preKey.acquire(),
-                ];
-                o("WALogger")
-                  .LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Signal]flushBufferToDiskIfNotMemOnlyMode: lock complete",
-                      ])),
-                  )
-                  .tags("unified-store");
-                var a = yield this.$1.generateCacheUpdateThrottled();
-                try {
-                  (e(),
-                    yield this.$25(a, a.senderKeyUpdate),
-                    this.$1.clearDirty());
-                } finally {
-                  t.forEach(function (e) {
-                    return e.release();
-                  });
-                }
-                o("WALogger")
-                  .LOG(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Signal]flushBufferToDiskIfNotMemOnlyMode: done",
-                      ])),
-                  )
-                  .tags("unified-store");
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$26 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var a = this;
-                (o("WALogger")
-                  .LOG(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Signal]updateIdentityRangeAfterEncryption: start",
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[Signal]flushBufferToDiskIfNotMemOnlyMode: skip mem mode",
                       ])),
                   )
                   .tags("unified-store"),
-                  yield this.$11(n));
-                var i = [];
-                (n.forEach(function (n) {
-                  var o = a.$1.IdentityStore.get(n);
-                  if (
-                    o &&
-                    !o.deleted &&
-                    (r == null || o.identityKey === r) &&
-                    (o[e] == null || o[e] > t)
-                  ) {
-                    var l = babelHelpers.extends({}, o);
-                    ((l[e] = t),
-                      a.$1.IdentityStore.set(n, l),
-                      a.$1.Dirty.identity.add(n),
-                      i.push(n));
-                  }
-                }),
-                  o("WALogger")
-                    .LOG(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose([
-                          "[Signal]updateIdentityRangeAfterEncryption: ",
-                          " updated",
-                        ])),
-                      i.length,
-                    )
-                    .tags("unified-store"));
-              },
-            );
-            function t(t, n, r, o) {
-              return e.apply(this, arguments);
+                Promise.resolve()
+              );
+            o("WALogger")
+              .LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[Signal]flushBufferToDiskIfNotMemOnlyMode: start",
+                  ])),
+              )
+              .tags("unified-store");
+            var e = [
+              await this.$1.Mutex.identity.acquire(),
+              await this.$1.Mutex.session.acquire(),
+              await this.$1.Mutex.senderKey.acquire(),
+              await this.$1.Mutex.preKey.acquire(),
+            ];
+            o("WALogger")
+              .LOG(
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
+                    "[Signal]flushBufferToDiskIfNotMemOnlyMode: lock complete",
+                  ])),
+              )
+              .tags("unified-store");
+            var n = await this.$1.generateCacheUpdateThrottled();
+            try {
+              (t(), await this.$25(n, n.senderKeyUpdate), this.$1.clearDirty());
+            } finally {
+              e.forEach(function (e) {
+                return e.release();
+              });
             }
-            return t;
-          })()),
-          (a.updateIdentityRangeAfterEncryption = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var o = yield this.$1.Mutex.identity.acquire();
-                try {
-                  yield this.$26(e, t, n, r);
-                } finally {
-                  o.release();
-                }
-              },
-            );
-            function t(t, n, r, o) {
-              return e.apply(this, arguments);
+            o("WALogger")
+              .LOG(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "[Signal]flushBufferToDiskIfNotMemOnlyMode: done",
+                  ])),
+              )
+              .tags("unified-store");
+          }),
+          (n.$26 = async function (t, n, r, a) {
+            var e = this;
+            (o("WALogger")
+              .LOG(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "[Signal]updateIdentityRangeAfterEncryption: start",
+                  ])),
+              )
+              .tags("unified-store"),
+              await this.$11(r));
+            var i = [];
+            (r.forEach(function (r) {
+              var o = e.$1.IdentityStore.get(r);
+              if (
+                o &&
+                !o.deleted &&
+                (a == null || o.identityKey === a) &&
+                (o[t] == null || o[t] > n)
+              ) {
+                var l = babelHelpers.extends({}, o);
+                ((l[t] = n),
+                  e.$1.IdentityStore.set(r, l),
+                  e.$1.Dirty.identity.add(r),
+                  i.push(r));
+              }
+            }),
+              o("WALogger")
+                .LOG(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "[Signal]updateIdentityRangeAfterEncryption: ",
+                      " updated",
+                    ])),
+                  i.length,
+                )
+                .tags("unified-store"));
+          }),
+          (n.updateIdentityRangeAfterEncryption = async function (t, n, r, o) {
+            var e = await this.$1.Mutex.identity.acquire();
+            try {
+              await this.$26(t, n, r, o);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
-          (a.$27 = function (t) {
-            if (t == null) return (C || (C = n("Promise"))).resolve();
+          }),
+          (n.$27 = function (t) {
+            if (t == null) return Promise.resolve();
             var e = this.$1.SessionStore.get(t);
             return (
               e &&
@@ -1073,30 +770,22 @@ __d(
                   )
                   .tags("unified-store"),
                 this.$18(t)),
-              (C || (C = n("Promise"))).resolve()
+              Promise.resolve()
             );
           }),
-          (a.maybeCleanUpUnconvertedSession = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$1.Mutex.session.acquire();
-                try {
-                  return yield this.$27(e);
-                } finally {
-                  t.release();
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (n.maybeCleanUpUnconvertedSession = async function (t) {
+            var e = await this.$1.Mutex.session.acquire();
+            try {
+              return await this.$27(t);
+            } finally {
+              e.release();
             }
-            return t;
-          })()),
+          }),
           t
         );
       })(),
-      S = new v();
-    l.default = S;
+      v = new b();
+    l.default = v;
   },
   98,
 );

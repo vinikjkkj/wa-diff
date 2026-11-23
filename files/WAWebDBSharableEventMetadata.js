@@ -4,7 +4,6 @@ __d(
     "WAWebDBSharableEvent",
     "WAWebModelStorageUtils",
     "WAWebSharableEventInviteMessageRefreshJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
@@ -15,120 +14,86 @@ __d(
       totalInvitedCount: 0,
       lastInvitationUpdatedTsUsec: 0,
     };
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
+    async function s(e, t) {
+      var n = t.insertMissing;
+      if (
+        e.length === 0 ||
+        !o("WAWebDBSharableEvent").canUseSharableEventStorage()
+      )
+        return [];
+      var r = [];
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = t.insertMissing;
-          if (
-            e.length === 0 ||
-            !o("WAWebDBSharableEvent").canUseSharableEventStorage()
-          )
-            return [];
-          var a = [];
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [o("WAWebDBSharableEvent").SHARABLE_EVENT_TABLE],
-                (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t) {
-                      var n = t[0],
-                        o = n,
-                        i = m(e),
-                        l = new Map(
-                          (yield o.bulkGet(
-                            i.map(function (e) {
-                              return e.eventId;
-                            }),
-                          ))
-                            .filter(Boolean)
-                            .map(function (e) {
-                              return [e.eventId, e];
-                            }),
-                        );
-                      ((a = i.flatMap(function (e) {
-                        return p(e, l.get(e.eventId), r);
-                      })),
-                        a.length > 0 &&
-                          (yield o.bulkCreateOrReplace(
-                            a.map(function (e) {
-                              return e.row;
-                            }),
-                          )));
-                    },
-                  );
-                  return function (e) {
-                    return t.apply(this, arguments);
-                  };
-                })(),
-              ),
-            yield o(
-              "WAWebSharableEventInviteMessageRefreshJob",
-            ).refreshSharableEventInviteMessages(
-              a.map(function (e) {
-                return e.row;
-              }),
-            ),
-            a
-          );
-        })),
-        u.apply(this, arguments)
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(
+            [o("WAWebDBSharableEvent").SHARABLE_EVENT_TABLE],
+            async function (t) {
+              var o = t[0],
+                a = o,
+                i = c(e),
+                l = new Map(
+                  (
+                    await a.bulkGet(
+                      i.map(function (e) {
+                        return e.eventId;
+                      }),
+                    )
+                  )
+                    .filter(Boolean)
+                    .map(function (e) {
+                      return [e.eventId, e];
+                    }),
+                );
+              ((r = i.flatMap(function (e) {
+                return d(e, l.get(e.eventId), n);
+              })),
+                r.length > 0 &&
+                  (await a.bulkCreateOrReplace(
+                    r.map(function (e) {
+                      return e.row;
+                    }),
+                  )));
+            },
+          ),
+        await o(
+          "WAWebSharableEventInviteMessageRefreshJob",
+        ).refreshSharableEventInviteMessages(
+          r.map(function (e) {
+            return e.row;
+          }),
+        ),
+        r
+      );
+    }
+    async function u(e) {
+      if (
+        e.size === 0 ||
+        !o("WAWebDBSharableEvent").canUseSharableEventStorage()
+      )
+        return [];
+      var t = [];
+      return (
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(
+            [o("WAWebDBSharableEvent").SHARABLE_EVENT_TABLE],
+            async function (n) {
+              var r = n[0],
+                o = r,
+                a = (await o.bulkGet(Array.from(e.keys()))).filter(Boolean);
+              ((t = a.flatMap(function (t) {
+                var n = e.get(t.eventId) === !0;
+                return (t.isScheduledCall === !0) === n
+                  ? []
+                  : [babelHelpers.extends({}, t, { isScheduledCall: n })];
+              })),
+                t.length > 0 && (await o.bulkCreateOrReplace(t)));
+            },
+          ),
+        t
       );
     }
     function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            e.size === 0 ||
-            !o("WAWebDBSharableEvent").canUseSharableEventStorage()
-          )
-            return [];
-          var t = [];
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [o("WAWebDBSharableEvent").SHARABLE_EVENT_TABLE],
-                (function () {
-                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      var r = n[0],
-                        o = r,
-                        a = (yield o.bulkGet(Array.from(e.keys()))).filter(
-                          Boolean,
-                        );
-                      ((t = a.flatMap(function (t) {
-                        var n = e.get(t.eventId) === !0;
-                        return (t.isScheduledCall === !0) === n
-                          ? []
-                          : [
-                              babelHelpers.extends({}, t, {
-                                isScheduledCall: n,
-                              }),
-                            ];
-                      })),
-                        t.length > 0 && (yield o.bulkCreateOrReplace(t)));
-                    },
-                  );
-                  return function (e) {
-                    return r.apply(this, arguments);
-                  };
-                })(),
-              ),
-            t
-          );
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
@@ -139,21 +104,21 @@ __d(
         Array.from(t.values())
       );
     }
-    function p(t, n, r) {
+    function d(t, n, r) {
       return n == null
         ? r
           ? [{ previous: null, row: babelHelpers.extends({}, e, t) }]
           : []
         : t.lastUpdatedTsUsec <= n.lastUpdatedTsUsec
           ? []
-          : [{ previous: n, row: babelHelpers.extends({}, t, f(n), _(n)) }];
+          : [{ previous: n, row: babelHelpers.extends({}, t, p(n), m(n)) }];
     }
-    function _(e) {
+    function m(e) {
       return e.isScheduledCall == null
         ? {}
         : { isScheduledCall: e.isScheduledCall };
     }
-    function f(e) {
+    function p(e) {
       return {
         countGoing: e.countGoing,
         countMaybe: e.countMaybe,
@@ -164,7 +129,7 @@ __d(
       };
     }
     ((l.upsertSharableEventMetadataIfNewer = s),
-      (l.updateSharableEventsScheduledCall = c));
+      (l.updateSharableEventsScheduledCall = u));
   },
   98,
 );

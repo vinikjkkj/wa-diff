@@ -56,11 +56,9 @@ __d(
     }
     function p(e) {
       return o("WAWebOrgAdminMemberTagOptions").hasBlockedMemberTagCharacters(e)
-        ? s._(
-            /*BTDS*/ "Remove unsupported or invisible characters from this name.",
-          )
+        ? s._(/*BTDS*/ "")
         : o("WAWebOrgAdminMemberTagOptions").isMemberTagOptionTooLong(e)
-          ? s._(/*BTDS*/ "Member tag names can be up to 100 characters.")
+          ? s._(/*BTDS*/ "")
           : null;
     }
     function _(e, t) {
@@ -68,7 +66,7 @@ __d(
         o("WAWebOrgAdminMemberTagOptions").getCanonicalMemberTagOption(e) !==
           o("WAWebOrgAdminMemberTagOptions").getCanonicalMemberTagOption(t)
         ? null
-        : s._(/*BTDS*/ "Use a different name for each member tag.");
+        : s._(/*BTDS*/ "");
     }
     ((l.createOrgAdminMemberTagNameDrafts = u),
       (l.getOrgAdminMemberTagNameEdit = c),

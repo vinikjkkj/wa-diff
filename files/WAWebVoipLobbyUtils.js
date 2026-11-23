@@ -85,11 +85,9 @@ __d(
         return u.jsx(r("WAWebVoipConnectingStatus.react"), {});
       if (n != null) {
         var c = n.isVideoCall,
-          d = c ? s._(/*BTDS*/ "Video call") : s._(/*BTDS*/ "Voice call");
+          d = c ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
         if (!l && t != null) {
-          var m = s._(/*BTDS*/ "From {call_creator_name}", [
-            s._param("call_creator_name", t),
-          ]);
+          var m = s._(/*BTDS*/ "", [s._param("call_creator_name", t)]);
           return r("WAWebFbtIntlList")(
             [d, m],
             r("WAWebFbtIntlList").CONJUNCTIONS.NONE,
@@ -98,7 +96,7 @@ __d(
         }
         return d;
       }
-      return s._(/*BTDS*/ "Group call");
+      return s._(/*BTDS*/ "");
     }
     ((y.displayName = y.name + " [from " + i.id + "]"),
       (l.isLobbyApplicableForCallState = c),

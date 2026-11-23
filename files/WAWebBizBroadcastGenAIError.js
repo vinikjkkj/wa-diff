@@ -13,17 +13,15 @@ __d(
     function u(t) {
       switch (t) {
         case e.INVALID_INPUT:
-          return s._(/*BTDS*/ "Update your message and retry AI suggestions.");
+          return s._(/*BTDS*/ "");
         case e.INSUFFICIENT_CONTEXT:
-          return s._(/*BTDS*/ "Add more details to get AI suggestions.");
+          return s._(/*BTDS*/ "");
         case e.RATE_LIMIT:
-          return s._(
-            /*BTDS*/ "You've reached the daily limit for AI suggestions. Please try again later.",
-          );
+          return s._(/*BTDS*/ "");
         case e.GENERATION_FAILED:
-          return s._(/*BTDS*/ "AI suggestions unavailable. Please try again.");
+          return s._(/*BTDS*/ "");
         case e.EMPTY_RESPONSE:
-          return s._(/*BTDS*/ "AI suggestions unavailable. Please try again.");
+          return s._(/*BTDS*/ "");
       }
     }
     ((l.GenAIErrorType = e), (l.getErrorMessage = u));

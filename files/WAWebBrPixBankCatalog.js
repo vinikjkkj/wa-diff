@@ -1,20 +1,14 @@
 __d(
   "WAWebBrPixBankCatalog",
-  [
-    "Promise",
-    "WALogger",
-    "WASmaxBrPaymentGetPixBankListRPC",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WASmaxBrPaymentGetPixBankListRPC"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u,
-      c = 1e3,
-      d = null,
-      m = null;
-    function p(e, t) {
+      u = 1e3,
+      c = null,
+      d = null;
+    function m(e, t) {
       var n = new Map(),
         r = Number.POSITIVE_INFINITY;
       for (var o of e)
@@ -29,74 +23,57 @@ __d(
           (r = Math.min(r, o.ttl)));
       return n.size === 0 || !Number.isFinite(r)
         ? null
-        : { banksByRefId: n, expiresAtMs: t + r * c };
+        : { banksByRefId: n, expiresAtMs: t + r * u };
+    }
+    async function p() {
+      try {
+        var t = await o(
+          "WASmaxBrPaymentGetPixBankListRPC",
+        ).sendGetPixBankListRPC();
+        return t.name !== "GetPixBankListResponseSuccess"
+          ? (o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "br_pix_bank_catalog: bank list request returned an error",
+                  ])),
+              )
+              .sendLogs("br-pix-bank-catalog-fetch"),
+            null)
+          : m(t.value.accountBanksBank, Date.now());
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "br_pix_bank_catalog: bank list request failed",
+                ])),
+            )
+            .sendLogs("br-pix-bank-catalog-fetch"),
+          null
+        );
+      }
     }
     function _() {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var t = yield o(
-              "WASmaxBrPaymentGetPixBankListRPC",
-            ).sendGetPixBankListRPC();
-            return t.name !== "GetPixBankListResponseSuccess"
-              ? (o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "br_pix_bank_catalog: bank list request returned an error",
-                      ])),
-                  )
-                  .sendLogs("br-pix-bank-catalog-fetch"),
-                null)
-              : p(t.value.accountBanksBank, Date.now());
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "br_pix_bank_catalog: bank list request failed",
-                    ])),
-                )
-                .sendLogs("br-pix-bank-catalog-fetch"),
-              null
-            );
-          }
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g() {
-      var e = d;
-      if (e != null && e.expiresAtMs > Date.now())
-        return (u || (u = n("Promise"))).resolve(e);
-      var t = m;
+      var e = c;
+      if (e != null && e.expiresAtMs > Date.now()) return Promise.resolve(e);
+      var t = d;
       if (t != null) return t;
-      var r = _().then(function (e) {
-        return (e != null && (d = e), m === r && (m = null), e);
+      var n = p().then(function (e) {
+        return (e != null && (c = e), d === n && (d = null), e);
       });
-      return ((m = r), r);
+      return ((d = n), n);
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    async function f(e) {
+      var t;
+      if (e === "") return null;
+      var n = await _();
+      return (t = n == null ? void 0 : n.banksByRefId.get(e)) != null
+        ? t
+        : null;
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          if (e === "") return null;
-          var n = yield g();
-          return (t = n == null ? void 0 : n.banksByRefId.get(e)) != null
-            ? t
-            : null;
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    l.getPixBankByRefId = h;
+    l.getPixBankByRefId = f;
   },
   98,
 );

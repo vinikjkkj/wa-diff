@@ -1,51 +1,39 @@
 __d(
   "WAWebSharableEventPlaceSearchJob",
-  [
-    "WAWebRelayClient",
-    "WAWebSharableEventPlaceSearchJobQuery.graphql",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebRelayClient", "WAWebSharableEventPlaceSearchJobQuery.graphql"],
   function (t, n, r, o, a, i, l) {
     var e,
       s =
         e !== void 0
           ? e
           : (e = n("WAWebSharableEventPlaceSearchJobQuery.graphql"));
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    async function u(e, t) {
+      var n,
+        r,
+        a = await o("WAWebRelayClient").fetchQuery(
+          s,
+          {
+            input: {
+              center: { latitude: t.latitude, longitude: t.longitude },
+              query: e,
+              use_case_id: "WHATSAPP_MESSAGE",
+            },
+          },
+          { environmentType: "whatsapp_web" },
+        );
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a = yield o("WAWebRelayClient").fetchQuery(
-              s,
-              {
-                input: {
-                  center: { latitude: t.latitude, longitude: t.longitude },
-                  query: e,
-                  use_case_id: "WHATSAPP_MESSAGE",
-                },
-              },
-              { environmentType: "whatsapp_web" },
-            );
-          return (
-            (n =
-              a == null || (r = a.whatsapp_maps_typeahead) == null
-                ? void 0
-                : r.items) != null
-              ? n
-              : []
-          ).flatMap(function (e) {
-            var t = e == null ? null : d(e);
-            return t == null ? [] : [t];
-          });
-        })),
-        c.apply(this, arguments)
-      );
+        (n =
+          a == null || (r = a.whatsapp_maps_typeahead) == null
+            ? void 0
+            : r.items) != null
+          ? n
+          : []
+      ).flatMap(function (e) {
+        var t = e == null ? null : c(e);
+        return t == null ? [] : [t];
+      });
     }
-    function d(e) {
+    function c(e) {
       var t = e.address,
         n = e.id,
         r = e.location,

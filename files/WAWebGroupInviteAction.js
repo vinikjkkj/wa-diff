@@ -1,7 +1,6 @@
 __d(
   "WAWebGroupInviteAction",
   [
-    "Promise",
     "WAFilteredCatch",
     "WALogger",
     "WAWebBackendErrors",
@@ -15,65 +14,56 @@ __d(
     "WAWebHandleMsgTypes",
     "WAWebMexFetchGroupInviteCodeJob",
     "WAWebStateUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
+    var e, s;
+    function u(e) {
+      return m(o("WAWebStateUtils").unproxy(e));
+    }
     function c(e) {
-      return _(o("WAWebStateUtils").unproxy(e));
+      return p(o("WAWebStateUtils").unproxy(e));
     }
-    function d(e) {
-      return f(o("WAWebStateUtils").unproxy(e));
+    async function d(e, t, n) {
+      var r =
+          o("WAWebGroupMetadataGetters").getGroupType(n) ===
+          o("WAWebGroupType").GroupType.COMMUNITY
+            ? null
+            : n.id,
+        a = await (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebGroupInviteService").GroupInviteService,
+              ).joinGroupViaInvite
+            : o("WAWebGroupInviteJob").joinGroupViaInvite
+        )(e, t, r),
+        i = a.gid,
+        l =
+          n.hasCapi === !0
+            ? {
+                actualActors: o("WAWebHandleMsgTypes").ActualActorsEnumType
+                  .Capi,
+                hostStorage: o("WAWebHandleMsgTypes").HostStorageEnumType
+                  .Facebook,
+                privacyModeTs: 0,
+              }
+            : void 0;
+      return o("WAWebFindChatAction")
+        .findOrCreateLatestChat(i, "queryGroupInviteCode", {
+          isGroupJoin: !0,
+          nextPrivacyMode: l,
+        })
+        .then(function (e) {
+          var t = e.chat;
+          return t;
+        });
     }
-    function m(e, t, n) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r =
-              o("WAWebGroupMetadataGetters").getGroupType(n) ===
-              o("WAWebGroupType").GroupType.COMMUNITY
-                ? null
-                : n.id,
-            a = yield (
-              o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebGroupInviteService").GroupInviteService,
-                  ).joinGroupViaInvite
-                : o("WAWebGroupInviteJob").joinGroupViaInvite
-            )(e, t, r),
-            i = a.gid,
-            l =
-              n.hasCapi === !0
-                ? {
-                    actualActors: o("WAWebHandleMsgTypes").ActualActorsEnumType
-                      .Capi,
-                    hostStorage: o("WAWebHandleMsgTypes").HostStorageEnumType
-                      .Facebook,
-                    privacyModeTs: 0,
-                  }
-                : void 0;
-          return o("WAWebFindChatAction")
-            .findOrCreateLatestChat(i, "queryGroupInviteCode", {
-              isGroupJoin: !0,
-              nextPrivacyMode: l,
-            })
-            .then(function (e) {
-              var t = e.chat;
-              return t;
-            });
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(t) {
+    function m(t) {
       if (t.groupInviteCodePromise) return t.groupInviteCodePromise;
-      var r = t.participants.iAmAdmin(),
-        a = t.memberLinkMode;
+      var n = t.participants.iAmAdmin(),
+        r = t.memberLinkMode;
       if (
-        !r &&
-        a !== o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK
+        !n &&
+        r !== o("WAWebGroupMemberLinkMode").MemberLinkMode.ALL_MEMBER_LINK
       ) {
         o("WALogger")
           .ERROR(
@@ -83,12 +73,12 @@ __d(
               ])),
           )
           .sendLogs("query-group-invite-code-user-not-admin");
-        var i = 401;
-        return (u || (u = n("Promise"))).reject(
-          new (o("WAWebBackendErrors").ServerStatusCodeError)(i),
+        var a = 401;
+        return Promise.reject(
+          new (o("WAWebBackendErrors").ServerStatusCodeError)(a),
         );
       }
-      var l = (
+      var i = (
         o("WAWebBackendRuntime").isWebDiBackendEnabled()
           ? o("WAWebBackendRuntime").runtime(
               o("WAWebGroupInviteService").GroupInviteService,
@@ -101,9 +91,9 @@ __d(
         .finally(function () {
           t.groupInviteCodePromise = null;
         });
-      return ((t.groupInviteCodePromise = l), l);
+      return ((t.groupInviteCodePromise = i), i);
     }
-    function f(e) {
+    function p(e) {
       return e.revokeGroupInvitePromise
         ? e.revokeGroupInvitePromise
         : (e.revokeGroupInvitePromise = (
@@ -136,9 +126,9 @@ __d(
               e.revokeGroupInvitePromise = null;
             }));
     }
-    ((l.queryGroupInviteCode = c),
-      (l.revokeGroupInvite = d),
-      (l.joinGroupViaInvite = m));
+    ((l.queryGroupInviteCode = u),
+      (l.revokeGroupInvite = c),
+      (l.joinGroupViaInvite = d));
   },
   98,
 );

@@ -29,50 +29,50 @@ __d(
     }
     function c(e) {
       if (o("WAWebMsgGetters").getIsSentByMe(e))
-        return s._(/*BTDS*/ "You").toString();
+        return s._(/*BTDS*/ "").toString();
       var t = o("WAWebMsgGetters").getSender(e);
       return t != null
         ? o("WAWebExportChatSystemMsgFormatter").getPlainTextName(t)
-        : s._(/*BTDS*/ "Unknown").toString();
+        : s._(/*BTDS*/ "").toString();
     }
     function d(e) {
       switch (e) {
         case o("WAWebMsgType").MSG_TYPE.IMAGE:
-          return s._(/*BTDS*/ "image").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.VIDEO:
-          return s._(/*BTDS*/ "video").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.AUDIO:
-          return s._(/*BTDS*/ "audio").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.PTT:
-          return s._(/*BTDS*/ "voice message").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.PTV:
-          return s._(/*BTDS*/ "video message").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
-          return s._(/*BTDS*/ "document").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.STICKER:
-          return s._(/*BTDS*/ "sticker").toString();
+          return s._(/*BTDS*/ "").toString();
         default:
-          return s._(/*BTDS*/ "media").toString();
+          return s._(/*BTDS*/ "").toString();
       }
     }
     function m(e) {
       switch (e) {
         case o("WAWebMsgType").MSG_TYPE.IMAGE:
-          return s._(/*BTDS*/ "image omitted").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.VIDEO:
-          return s._(/*BTDS*/ "video omitted").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.AUDIO:
-          return s._(/*BTDS*/ "audio omitted").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.PTT:
-          return s._(/*BTDS*/ "voice message omitted").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.PTV:
-          return s._(/*BTDS*/ "video message omitted").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.DOCUMENT:
-          return s._(/*BTDS*/ "document omitted").toString();
+          return s._(/*BTDS*/ "").toString();
         case o("WAWebMsgType").MSG_TYPE.STICKER:
-          return s._(/*BTDS*/ "sticker omitted").toString();
+          return s._(/*BTDS*/ "").toString();
         default:
-          return s._(/*BTDS*/ "media omitted").toString();
+          return s._(/*BTDS*/ "").toString();
       }
     }
     function p(t, n, a) {
@@ -85,25 +85,22 @@ __d(
           var p = o("WAWebMsgGetters").getRevokeSender(t);
           return p != null
             ? o("WAWebMsgGetters").getIsRevokedByMe(t)
-              ? s._(/*BTDS*/ "You deleted this message as admin").toString()
+              ? s._(/*BTDS*/ "").toString()
               : s
-                  ._(
-                    /*BTDS*/ "This message was deleted by admin {admin-name}",
-                    [
-                      s._param(
-                        "admin-name",
-                        o("WAWebExportChatSystemMsgFormatter").getPlainTextName(
-                          p,
-                        ),
+                  ._(/*BTDS*/ "", [
+                    s._param(
+                      "admin-name",
+                      o("WAWebExportChatSystemMsgFormatter").getPlainTextName(
+                        p,
                       ),
-                    ],
-                  )
+                    ),
+                  ])
                   .toString()
-            : s._(/*BTDS*/ "This message was deleted by an admin").toString();
+            : s._(/*BTDS*/ "").toString();
         }
         return o("WAWebMsgGetters").getIsSentByMe(t)
-          ? s._(/*BTDS*/ "You deleted this message").toString()
-          : s._(/*BTDS*/ "This message was deleted").toString();
+          ? s._(/*BTDS*/ "").toString()
+          : s._(/*BTDS*/ "").toString();
       }
       if (e.has(i))
         return o("WAWebExportChatSystemMsgFormatter").formatSystemMsgForExport(
@@ -112,9 +109,7 @@ __d(
       if (o("WAWebInstantMsgTypes").isInstantMsgType(i))
         return "<" + o("WAWebInstantsStrings").getInstantLabel() + ">";
       if (i === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
-        return s
-          ._(/*BTDS*/ "Waiting for this message. This may take a while.")
-          .toString();
+        return s._(/*BTDS*/ "").toString();
       if (o("WAWebExportChatMarkdownFormatter").MEDIA_TYPES.has(i)) {
         var _,
           f,
@@ -128,9 +123,9 @@ __d(
           b = n && a != null && C != null && a.has(C);
         if (h)
           return b
-            ? s._(/*BTDS*/ "GIF attached").toString()
-            : "<" + s._(/*BTDS*/ "GIF omitted").toString() + ">";
-        var v = s._(/*BTDS*/ "file attached").toString();
+            ? s._(/*BTDS*/ "").toString()
+            : "<" + s._(/*BTDS*/ "").toString() + ">";
+        var v = s._(/*BTDS*/ "").toString();
         if (b)
           return u != null && u !== ""
             ? y + " (" + v + ") " + r("WAWebUnformatMsg")(t, u)
@@ -144,9 +139,7 @@ __d(
         var R = o("WAWebMsgGetters").getLat(t),
           L = o("WAWebMsgGetters").getLng(t),
           E = o("WAWebMsgGetters").getIsLive(t),
-          k = E
-            ? s._(/*BTDS*/ "Live location").toString()
-            : s._(/*BTDS*/ "Location").toString();
+          k = E ? s._(/*BTDS*/ "").toString() : s._(/*BTDS*/ "").toString();
         if (R != null && L != null) {
           var I = l ? l + ": " : "";
           return (
@@ -164,29 +157,24 @@ __d(
           );
         }
         return E
-          ? "<" + s._(/*BTDS*/ "Live location omitted").toString() + ">"
-          : "<" + s._(/*BTDS*/ "Location omitted").toString() + ">";
+          ? "<" + s._(/*BTDS*/ "").toString() + ">"
+          : "<" + s._(/*BTDS*/ "").toString() + ">";
       }
       if (i === o("WAWebMsgType").MSG_TYPE.VCARD)
         return l
-          ? s._(/*BTDS*/ "Contact").toString() + ": " + l
-          : "<" + s._(/*BTDS*/ "Contact card omitted").toString() + ">";
+          ? s._(/*BTDS*/ "").toString() + ": " + l
+          : "<" + s._(/*BTDS*/ "").toString() + ">";
       if (i === o("WAWebMsgType").MSG_TYPE.MULTI_VCARD) {
         var T = o("WAWebMsgGetters").getVcardList(t),
           D = T.length;
         return D > 0
-          ? s
-              ._(
-                /*BTDS*/ '_j{"*":"{number} contacts shared","_1":"1 contact shared"}',
-                [s._plural(D, "number")],
-              )
-              .toString()
+          ? s._(/*BTDS*/ "", [s._plural(D, "number")]).toString()
           : l
-            ? s._(/*BTDS*/ "Contact").toString() + ": " + l
-            : "<" + s._(/*BTDS*/ "Contact card omitted").toString() + ">";
+            ? s._(/*BTDS*/ "").toString() + ": " + l
+            : "<" + s._(/*BTDS*/ "").toString() + ">";
       }
       if (i === o("WAWebMsgType").MSG_TYPE.POLL_CREATION) {
-        var x = s._(/*BTDS*/ "Poll").toString(),
+        var x = s._(/*BTDS*/ "").toString(),
           $ = o("WAWebMsgGetters").getPollName(t),
           P = o("WAWebMsgGetters").getPollOptions(t),
           N = $ != null ? x + ": " + $ : x;
@@ -203,13 +191,11 @@ __d(
         });
         return w != null && w !== ""
           ? w
-          : "<" + s._(/*BTDS*/ "AI message").toString() + ">";
+          : "<" + s._(/*BTDS*/ "").toString() + ">";
       }
       return l
         ? r("WAWebUnformatMsg")(t, l)
-        : "<" +
-            s._(/*BTDS*/ "{type} message", [s._param("type", i)]).toString() +
-            ">";
+        : "<" + s._(/*BTDS*/ "", [s._param("type", i)]).toString() + ">";
     }
     function _(e) {
       var t = e.downloadedMediaMsgIds,
@@ -217,20 +203,8 @@ __d(
         r = e.includeMedia,
         a = e.messages,
         i = [];
-      (a.length > 0 &&
-        i.push(
-          s
-            ._(
-              /*BTDS*/ "Messages and calls are end-to-end encrypted. No one outside of this chat, not even WhatsApp, can read or listen to them.",
-            )
-            .toString(),
-        ),
-        n === !0 &&
-          i.push(
-            s
-              ._(/*BTDS*/ "Some earlier messages may not be available.")
-              .toString(),
-          ));
+      (a.length > 0 && i.push(s._(/*BTDS*/ "").toString()),
+        n === !0 && i.push(s._(/*BTDS*/ "").toString()));
       var l = { count: 0, first: null };
       for (var u of a)
         try {
@@ -287,8 +261,8 @@ __d(
             y = p(l, a, n);
           if (o("WAWebMsgGetters").getIsForwarded(l)) {
             var C = o("WAWebMsgGetters").getIsFrequentlyForwarded(l)
-              ? "[" + s._(/*BTDS*/ "Forwarded many times").toString() + "] "
-              : "[" + s._(/*BTDS*/ "Forwarded").toString() + "] ";
+              ? "[" + s._(/*BTDS*/ "").toString() + "] "
+              : "[" + s._(/*BTDS*/ "").toString() + "] ";
             y = C + y;
           }
           i.push("[" + _ + "] " + h + ": " + y);

@@ -19,14 +19,14 @@ __d(
           }
           e: {
             if (r === m.SEMICOLON) {
-              i = s._(/*BTDS*/ "{previous-items}; {following-items}", [
+              i = s._(/*BTDS*/ "", [
                 s._param("previous-items", i),
                 s._param("following-items", e[u]),
               ]);
               break e;
             }
             if (r === m.BULLET) {
-              i = s._(/*BTDS*/ "{previous-items} \u2022 {following-items}", [
+              i = s._(/*BTDS*/ "", [
                 s._param("previous-items", i),
                 s._param("following-items", e[u]),
               ]);
@@ -52,7 +52,7 @@ __d(
             });
       };
     function f(e, t) {
-      return s._(/*BTDS*/ "{previous-items}, {following-items}", [
+      return s._(/*BTDS*/ "", [
         s._param("previous-items", e),
         s._param("following-items", t),
       ]);
@@ -62,33 +62,22 @@ __d(
       if (r === m.COMMA)
         switch (n) {
           case d.AND:
-            return s._(
-              /*BTDS*/ "{previous-items} & {overflow-item-count} more",
-              [
-                s._param("previous-items", e),
-                s._param("overflow-item-count", t),
-              ],
-            );
+            return s._(/*BTDS*/ "", [
+              s._param("previous-items", e),
+              s._param("overflow-item-count", t),
+            ]);
           case d.OR:
-            return s._(
-              /*BTDS*/ "{previous-items} or {overflow-item-count} more",
-              [
-                s._param("previous-items", e),
-                s._param("overflow-item-count", t),
-              ],
-            );
+            return s._(/*BTDS*/ "", [
+              s._param("previous-items", e),
+              s._param("overflow-item-count", t),
+            ]);
           case d.NONE:
-            return s._(
-              /*BTDS*/ "{previous-items}, {overflow-item-count} more",
-              [
-                s._param("previous-items", e),
-                s._param("overflow-item-count", t),
-              ],
-            );
+            return s._(/*BTDS*/ "", [
+              s._param("previous-items", e),
+              s._param("overflow-item-count", t),
+            ]);
         }
-      return s._(/*BTDS*/ "{previous-items} ...", [
-        s._param("previous-items", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("previous-items", e)]);
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
@@ -98,24 +87,24 @@ __d(
         a = e.list;
       switch (t) {
         case d.AND:
-          return s._(/*BTDS*/ "{list-of-items} & {last-item}", [
+          return s._(/*BTDS*/ "", [
             s._param("list-of-items", a),
             s._param("last-item", o),
           ]);
         case d.OR:
-          return s._(/*BTDS*/ "{list-of-items} or {last-item}", [
+          return s._(/*BTDS*/ "", [
             s._param("list-of-items", a),
             s._param("last-item", o),
           ]);
         case d.NONE:
           switch (n) {
             case m.SEMICOLON:
-              return s._(/*BTDS*/ "{previous-items}; {last-item}", [
+              return s._(/*BTDS*/ "", [
                 s._param("previous-items", a),
                 s._param("last-item", o),
               ]);
             case m.BULLET:
-              return s._(/*BTDS*/ "{list-of-items} \u2022 {last-item}", [
+              return s._(/*BTDS*/ "", [
                 s._param("list-of-items", a),
                 s._param("last-item", o),
               ]);

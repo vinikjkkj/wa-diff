@@ -5,7 +5,6 @@ __d(
     "WAWebDeviceCapabilitiesSyncBase",
     "WAWebSyncdConst",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -13,37 +12,28 @@ __d(
           return e.apply(this, arguments) || this;
         }
         babelHelpers.inheritsLoose(t, e);
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.getAction = function () {
+          (n.getAction = function () {
             return o("WAWebSyncdConst").Actions.DeviceCapabilitiesV2;
           }),
-          (r.getJidIndex = function () {
+          (n.getJidIndex = function () {
             return o("WAWebUserUtils").getMeDeviceLidOrThrow().toString();
           }),
-          (r.getValueField = function () {
+          (n.getValueField = function () {
             return "deviceCapabilitiesV2";
           }),
-          (r.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                return o("WAWebABProps").getABPropConfigValue(
-                  "device_capabilities_v2_sync_enabled",
-                )
-                  ? e.prototype.applyMutations.call(this, t)
-                  : t.map(function () {
-                      return {
-                        actionState:
-                          o("WAWebSyncdConst").SyncActionState.Success,
-                      };
-                    });
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
+          (n.applyMutations = async function (n) {
+            return o("WAWebABProps").getABPropConfigValue(
+              "device_capabilities_v2_sync_enabled",
+            )
+              ? e.prototype.applyMutations.call(this, n)
+              : n.map(function () {
+                  return {
+                    actionState: o("WAWebSyncdConst").SyncActionState.Success,
+                  };
+                });
+          }),
           t
         );
       })(r("WAWebDeviceCapabilitiesSyncBase")),

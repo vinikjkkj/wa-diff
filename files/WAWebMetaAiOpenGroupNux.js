@@ -2,7 +2,6 @@ __d(
   "WAWebMetaAiOpenGroupNux",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WAWebBotGroupGatingUtils",
     "WAWebBotTos",
@@ -16,7 +15,6 @@ __d(
     "WAWebNullFunc",
     "WAWebUserDisclosureCollection",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -25,40 +23,31 @@ __d(
       s,
       u,
       c,
-      d,
-      m = d || (d = o("react")),
-      p = "META_AI_OPEN_GROUP_NUX_ENTERED_GROUPS",
-      _ = "meta_ai_open_group_nux_missing_notice_id",
-      f = null,
-      g = !1,
-      h = new Set(),
-      y = r("WAWebLazyLoadedRetriable")(function () {
+      d = c || (c = o("react")),
+      m = "META_AI_OPEN_GROUP_NUX_ENTERED_GROUPS",
+      p = "meta_ai_open_group_nux_missing_notice_id",
+      _ = null,
+      f = !1,
+      g = new Set(),
+      h = r("WAWebLazyLoadedRetriable")(function () {
         return r("JSResourceForInteraction")(
           "WAWebMetaAiOpenGroupNuxModal.react",
         )
           .__setRef("WAWebMetaAiOpenGroupNux")
           .load();
       }, "MetaAiOpenGroupNuxModal");
-    function C(e) {
-      return b.apply(this, arguments);
+    async function y(e) {
+      (await C(e),
+        await o(
+          "WAWebGroupAgentNonInitiatorNux",
+        ).maybeShowGroupAgentNonInitiatorNux(e));
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield v(e),
-            yield o(
-              "WAWebGroupAgentNonInitiatorNux",
-            ).maybeShowGroupAgentNonInitiatorNux(e));
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(t, a) {
-      if (f != null) return f;
-      if (!R(t)) return (c || (c = n("Promise"))).resolve();
-      var i = Number(o("WAWebBotTosIds").getMetaAiOpenGroupNoticeId());
-      if (h.has(i)) return (c || (c = n("Promise"))).resolve();
-      var l = L(i, a)
+    function C(t, n) {
+      if (_ != null) return _;
+      if (!v(t)) return Promise.resolve();
+      var a = Number(o("WAWebBotTosIds").getMetaAiOpenGroupNoticeId());
+      if (g.has(a)) return Promise.resolve();
+      var i = S(a, n)
         .catch(function (t) {
           o("WALogger")
             .ERROR(
@@ -71,134 +60,117 @@ __d(
             .sendLogs("meta-ai-open-group-nux-failed");
         })
         .finally(function () {
-          f === l && (f = null);
+          _ === i && (_ = null);
         });
-      return ((f = l), l);
+      return ((_ = i), i);
     }
-    function S(e) {
+    function b(e) {
       var t = e.id.toString();
-      return D().includes(t)
-        ? (c || (c = n("Promise"))).resolve()
-        : v(e, function () {
-            return x(t);
+      return E().includes(t)
+        ? Promise.resolve()
+        : C(e, function () {
+            return k(t);
           });
     }
-    function R(e) {
+    function v(e) {
       var t;
       return !e.id.isGroup() ||
         ((t = e.groupMetadata) == null ? void 0 : t.isOpenBotGroup) !== !0 ||
         !o("WAWebBotGroupGatingUtils").isOpenGroupBotSendEnabled()
         ? !1
         : o("WAWebBotTosIds").getMetaAiOpenGroupNoticeId() == null
-          ? (T(), !1)
+          ? (L(), !1)
           : !o("WAWebBotTos").hasAcceptedMetaAiOpenGroupNotice();
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
+    async function S(e, t) {
+      if (
+        (await o("WAWebBotTos").refreshMetaAiOpenGroupNotice(),
+        !o("WAWebBotTos").hasAcceptedMetaAiOpenGroupNotice() && (await R(e)))
+      ) {
+        var n = await h();
+        (await o("WAWebModalManager").ModalManager.existsAsync()) ||
+          (await new Promise(function (r) {
+            var a = function (t) {
+              (r(), o("WAWebModalManager").closeModalManager());
+            };
+            (o("WAWebModalManager").ModalManager.open(
+              d.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
+                fallback: o("WAWebNullFunc").returnNull,
+                name: "meta-ai-open-group-nux",
+                onError: a,
+                children: d.jsx(n, {
+                  noticeId: e,
+                  onClosed: r,
+                  onLoadFailed: function () {
+                    g.add(e);
+                  },
+                }),
+              }),
+            ),
+              t == null || t());
+          }));
+      }
     }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            (yield o("WAWebBotTos").refreshMetaAiOpenGroupNotice(),
-            !o("WAWebBotTos").hasAcceptedMetaAiOpenGroupNotice() &&
-              (yield k(e)))
-          ) {
-            var r = yield y();
-            (yield o("WAWebModalManager").ModalManager.existsAsync()) ||
-              (yield new (c || (c = n("Promise")))(function (n) {
-                var a = function (t) {
-                  (n(), o("WAWebModalManager").closeModalManager());
-                };
-                (o("WAWebModalManager").ModalManager.open(
-                  m.jsx(o("WAWebErrorBoundary.react").ErrorBoundary, {
-                    fallback: o("WAWebNullFunc").returnNull,
-                    name: "meta-ai-open-group-nux",
-                    onError: a,
-                    children: m.jsx(r, {
-                      noticeId: e,
-                      onClosed: n,
-                      onLoadFailed: function () {
-                        h.add(e);
-                      },
-                    }),
-                  }),
-                ),
-                  t == null || t());
-              }));
-          }
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            if (
-              (yield o(
-                "WAWebUserDisclosureCollection",
-              ).UserDisclosureCollection.find(e.toString())) != null
+    async function R(e) {
+      try {
+        if (
+          (await o(
+            "WAWebUserDisclosureCollection",
+          ).UserDisclosureCollection.find(e.toString())) != null
+        )
+          return !0;
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[MetaAiOpenGroupNux] notice ",
+                " failed to load",
+              ])),
+            e,
+          )
+          .sendLogs("meta-ai-open-group-nux-notice-load-failed");
+      } catch (t) {
+        if (
+          (o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[MetaAiOpenGroupNux] notice ",
+                  " failed to load",
+                ])),
+              e,
             )
-              return !0;
-            o("WALogger")
-              .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[MetaAiOpenGroupNux] notice ",
-                    " failed to load",
-                  ])),
-                e,
-              )
-              .sendLogs("meta-ai-open-group-nux-notice-load-failed");
-          } catch (t) {
-            if (
-              (o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[MetaAiOpenGroupNux] notice ",
-                      " failed to load",
-                    ])),
-                  e,
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("meta-ai-open-group-nux-notice-load-failed"),
-              t instanceof o("WAWebHttpErrors").HttpNetworkError)
-            )
-              return !1;
-          }
-          return (h.add(e), !1);
-        })),
-        I.apply(this, arguments)
-      );
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("meta-ai-open-group-nux-notice-load-failed"),
+          t instanceof o("WAWebHttpErrors").HttpNetworkError)
+        )
+          return !1;
+      }
+      return (g.add(e), !1);
     }
-    function T() {
-      g ||
-        ((g = !0),
+    function L() {
+      f ||
+        ((f = !0),
         new (o("WAWebCriticalEventWamEvent").CriticalEventWamEvent)({
-          name: _,
+          name: p,
         }).commit());
     }
-    function D() {
-      var e = r("WAWebUserPrefsStore").getUser(p);
+    function E() {
+      var e = r("WAWebUserPrefsStore").getUser(m);
       return Array.isArray(e)
         ? e.filter(function (e) {
             return typeof e == "string";
           })
         : [];
     }
-    function x(e) {
-      var t = D();
-      t.includes(e) || r("WAWebUserPrefsStore").setUser(p, [].concat(t, [e]));
+    function k(e) {
+      var t = E();
+      t.includes(e) || r("WAWebUserPrefsStore").setUser(m, [].concat(t, [e]));
     }
-    ((l.maybeShowGroupAgentNuxes = C),
-      (l.maybeShowMetaAiOpenGroupNux = v),
-      (l.maybeShowMetaAiOpenGroupNuxAtFirstEntry = S),
-      (l.isMetaAiOpenGroupNuxOwed = R));
+    ((l.maybeShowGroupAgentNuxes = y),
+      (l.maybeShowMetaAiOpenGroupNux = C),
+      (l.maybeShowMetaAiOpenGroupNuxAtFirstEntry = b),
+      (l.isMetaAiOpenGroupNuxOwed = v));
   },
   98,
 );

@@ -12,18 +12,16 @@ __d(
     "MAWODSProxy",
     "MAWReliabilityMonitor",
     "MWFBLogger",
-    "Promise",
     "WAAPIBridgeHandlers",
     "WABridgedAPIHandler",
     "WAMockServerShell",
     "WAWaitForComms",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c;
-    function d(t, a, i) {
+    var e, s, u;
+    function c(t, n, a) {
       (t.setHandlers(
         "kt",
         o("KeyTransparencyBridgeHandlers").keyTransparencyBridgeHandlers,
@@ -33,92 +31,73 @@ __d(
         t.setHandlers("ebsmapi", o("EBSMBridgeHandlers").ebsmapiBridgeHandlers),
         t.setHandlers(
           "backend",
-          babelHelpers.extends({}, a.bridgeHandlers, {
-            ebapi: (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  (o("MAWODSProxy").bumpBridgeRouteSubtypeUsage(
-                    "ebapi",
-                    t.type,
-                  ),
-                    yield o("WAWaitForComms").waitForComms());
-                  var n = o("EBBridgedAPIHandler").ebapi[t.type];
-                  return (
-                    n == null &&
-                      o("EBLogger")
-                        .EBLogger()
-                        .tags(["EBBridgedAPI"])
-                        .MUSTFIX(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "handle with type ",
-                              " not found",
-                            ])),
-                          t.type,
-                        ),
-                    n.apply(void 0, t.args)
-                  );
-                },
+          babelHelpers.extends({}, n.bridgeHandlers, {
+            ebapi: async function (n) {
+              (o("MAWODSProxy").bumpBridgeRouteSubtypeUsage("ebapi", n.type),
+                await o("WAWaitForComms").waitForComms());
+              var t = o("EBBridgedAPIHandler").ebapi[n.type];
+              return (
+                t == null &&
+                  o("EBLogger")
+                    .EBLogger()
+                    .tags(["EBBridgedAPI"])
+                    .MUSTFIX(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "handle with type ",
+                          " not found",
+                        ])),
+                      n.type,
+                    ),
+                t.apply(void 0, n.args)
               );
-              function r(e) {
-                return t.apply(this, arguments);
-              }
-              return r;
-            })(),
+            },
             igdapi: function () {
-              return (c || (c = n("Promise"))).resolve();
+              return Promise.resolve();
             },
             initMockServer: function (t) {
               return o("WAMockServerShell").getMockServer == null
-                ? (c || (c = n("Promise"))).reject(
+                ? Promise.reject(
                     "Mock server is not available. Make sure you use worker v2",
                   )
                 : o("WAMockServerShell").getMockServer().init(t);
             },
-            minosEBAPI: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  (o("MAWODSProxy").bumpBridgeRouteSubtypeUsage(
-                    "minosEBAPI",
-                    e.type,
-                  ),
-                    yield o("WAWaitForComms").waitForComms());
-                  var t = o("EBMinosBridgedAPIHandler").minosEBAPI[e.type];
-                  return (
-                    t == null &&
-                      o("EBLogger")
-                        .EBLogger()
-                        .tags(["EBMinosBridgedAPI"])
-                        .MUSTFIX(
-                          s ||
-                            (s = babelHelpers.taggedTemplateLiteralLoose([
-                              "handle with type ",
-                              " not found",
-                            ])),
-                          e.type,
-                        ),
-                    t.apply(void 0, e.args)
-                  );
-                },
+            minosEBAPI: async function (t) {
+              (o("MAWODSProxy").bumpBridgeRouteSubtypeUsage(
+                "minosEBAPI",
+                t.type,
+              ),
+                await o("WAWaitForComms").waitForComms());
+              var e = o("EBMinosBridgedAPIHandler").minosEBAPI[t.type];
+              return (
+                e == null &&
+                  o("EBLogger")
+                    .EBLogger()
+                    .tags(["EBMinosBridgedAPI"])
+                    .MUSTFIX(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "handle with type ",
+                          " not found",
+                        ])),
+                      t.type,
+                    ),
+                e.apply(void 0, t.args)
               );
-              function t(t) {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
+            },
             runJobFireAndForget: function (t) {
               return o("WAWaitForComms")
                 .waitForComms()
                 .then(function () {
                   return (
-                    i() !== o("MAWReliabilityMonitor").HealthReportState.OK &&
+                    a() !== o("MAWReliabilityMonitor").HealthReportState.OK &&
                       o("MWFBLogger")
                         .MWLogger()
                         .tags(["backend"])
                         .mustfix(
                           "Job %s: backend is not ready: %s",
                           t.type,
-                          String(i()),
+                          String(a()),
                         ),
                     o("MAWJobManager").getJobManager().fireAndForget(t)
                   );
@@ -129,40 +108,22 @@ __d(
                 .waitForComms()
                 .then(function () {
                   return (
-                    i() !== o("MAWReliabilityMonitor").HealthReportState.OK &&
+                    a() !== o("MAWReliabilityMonitor").HealthReportState.OK &&
                       o("MWFBLogger")
                         .MWLogger()
                         .tags(["backend"])
                         .mustfix(
                           "Job %s: backend is not ready: %s",
                           t.type,
-                          String(i()),
+                          String(a()),
                         ),
                     o("MAWJobManager").getJobManager().waitUntilCompleted(t)
                   );
                 });
             },
-            runJobWaitUntilPersisted: function (t) {
-              return o("WAWaitForComms")
-                .waitForComms()
-                .then(function () {
-                  return (
-                    i() !== o("MAWReliabilityMonitor").HealthReportState.OK &&
-                      o("MWFBLogger")
-                        .MWLogger()
-                        .tags(["backend"])
-                        .mustfix(
-                          "Job %s: backend is not ready: %s",
-                          t.type,
-                          String(i()),
-                        ),
-                    o("MAWJobManager").getJobManager().waitUntilEnqueued(t)
-                  );
-                });
-            },
             runMock: function (t) {
               return o("WAMockServerShell").getMockServer == null
-                ? (c || (c = n("Promise"))).reject(
+                ? Promise.reject(
                     "Mock server is not available. Make sure you use worker v2",
                   )
                 : o("WAMockServerShell").getMockServer().runMock(t);
@@ -174,44 +135,33 @@ __d(
                 );
               o("WAMockServerShell").getMockServer().setVariables(t.variables);
             },
-            waapi: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  (o("MAWODSProxy").bumpBridgeRouteSubtypeUsage(
-                    "waapi",
-                    e.type,
-                  ),
-                    yield o("WAWaitForComms").waitForComms());
-                  var t = o("WABridgedAPIHandler").waapi[e.type];
-                  return (
-                    t == null &&
-                      o("MWFBLogger")
-                        .MWLogger()
-                        .tags(["backend"])
-                        .tags(["WABridgedAPI"])
-                        .MUSTFIX(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
-                              "handle with type ",
-                              " not found",
-                            ])),
-                          e.type,
-                        ),
-                    t.apply(void 0, e.args)
-                  );
-                },
+            waapi: async function (t) {
+              (o("MAWODSProxy").bumpBridgeRouteSubtypeUsage("waapi", t.type),
+                await o("WAWaitForComms").waitForComms());
+              var e = o("WABridgedAPIHandler").waapi[t.type];
+              return (
+                e == null &&
+                  o("MWFBLogger")
+                    .MWLogger()
+                    .tags(["backend"])
+                    .tags(["WABridgedAPI"])
+                    .MUSTFIX(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "handle with type ",
+                          " not found",
+                        ])),
+                      t.type,
+                    ),
+                e.apply(void 0, t.args)
               );
-              function t(t) {
-                return e.apply(this, arguments);
-              }
-              return t;
-            })(),
+            },
           }),
           o("MAWODSProxy").bumpBridgeRouteUsage,
         ),
         o("BackendInitLoggingUtils").MAWInitPoint("backend_bridge_ready"));
     }
-    l.registerBridgeHandlers = d;
+    l.registerBridgeHandlers = c;
   },
   98,
 );

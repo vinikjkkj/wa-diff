@@ -1,7 +1,6 @@
 __d(
   "WAWebBizAiSmartComposerAiRepliesStatusMutation",
   [
-    "Promise",
     "WALogger",
     "WAPromiseTimeout",
     "WAWebBizAiAgentGating",
@@ -10,7 +9,6 @@ __d(
     "WAWebFetchAdAccountToken",
     "WAWebLidMigrationUtils",
     "WAWebNetworkStatus",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,29 +18,28 @@ __d(
       c,
       d,
       m,
-      p,
-      _ =
+      p =
         e !== void 0
           ? e
           : (e = n("WAWebBizAiSmartComposerAiRepliesStatusMutation.graphql")),
-      f = { success: !1 },
-      g = 15e3;
-    function h(e) {
+      _ = { success: !1 },
+      f = 15e3;
+    function g(e) {
       var t,
-        r,
-        a = e.modeChangeSource,
-        i = e.status,
-        l = e.suggestedRepliesEnabled,
-        u = e.wid;
+        n,
+        r = e.modeChangeSource,
+        a = e.status,
+        i = e.suggestedRepliesEnabled,
+        l = e.wid;
       if (
         !o("WAWebBizAiAgentGating").isAiAgentAutoReplyEnabled() ||
-        !u.isUser()
+        !l.isUser()
       )
-        return (p || (p = n("Promise"))).resolve(f);
-      var c =
-          (t = o("WAWebLidMigrationUtils").toLid(u)) == null ? void 0 : t.user,
-        d = (r = o("WAWebLidMigrationUtils").toPn(u)) == null ? void 0 : r.user;
-      return c == null && d == null
+        return Promise.resolve(_);
+      var u =
+          (t = o("WAWebLidMigrationUtils").toLid(l)) == null ? void 0 : t.user,
+        c = (n = o("WAWebLidMigrationUtils").toPn(l)) == null ? void 0 : n.user;
+      return u == null && c == null
         ? (o("WALogger")
             .ERROR(
               s ||
@@ -51,14 +48,14 @@ __d(
                 ])),
             )
             .sendLogs("biz-ai-smart-composer-ai-replies-status-missing-id"),
-          (p || (p = n("Promise"))).resolve(f))
-        : y(d != null ? d : "", c != null ? c : "", i, l, a);
+          Promise.resolve(_))
+        : h(c != null ? c : "", u != null ? u : "", a, i, r);
     }
-    function y(e, t, n, a, i) {
-      return C().then(function (l) {
+    function h(e, t, n, a, i) {
+      return y().then(function (l) {
         return l
           ? o("WAWebBizAiRelayClient")
-              .commitMutation(_, {
+              .commitMutation(p, {
                 consumer_lid: t,
                 phone_number: e,
                 thread_status: n,
@@ -72,12 +69,12 @@ __d(
                     : e.xfb_whatsapp_smb_maiba_ai_replies_status_update;
                 if ((t == null ? void 0 : t.success) !== !0) {
                   var n = t == null ? void 0 : t.error_code;
-                  return n != null ? { errorCode: n, success: !1 } : f;
+                  return n != null ? { errorCode: n, success: !1 } : _;
                 }
                 return {
                   success: !0,
                   suggestedRepliesEnabled: t.suggested_replies_enabled,
-                  updateTimestampMs: v(t.update_timestamp_ms),
+                  updateTimestampMs: C(t.update_timestamp_ms),
                 };
               })
               .catch(function (e) {
@@ -91,81 +88,73 @@ __d(
                     )
                     .catching(r("getErrorSafe")(e))
                     .sendLogs("biz-ai-smart-composer-ai-replies-status-fail"),
-                  f
+                  _
                 );
               })
-          : f;
+          : _;
       });
     }
-    function C() {
-      return b.apply(this, arguments);
+    async function y() {
+      try {
+        await o("WAPromiseTimeout").promiseTimeout(
+          r("WAWebNetworkStatus").waitIfOffline(),
+          f,
+          "Smart Composer mode change timed out waiting for connectivity",
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[SmartComposer] ai-replies-status gave up waiting to reach the server",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("biz-ai-smart-composer-connect-timeout"),
+          !1
+        );
+      }
+      try {
+        var e = await o("WAPromiseTimeout").promiseTimeout(
+          o("WAWebFetchAdAccountToken").fetchToken(),
+          o(
+            "WAWebFetchAdAccountToken",
+          ).getMaximumAdAccountFetchTimeoutSeconds() * 1e3,
+          "Smart Composer mode change timed out fetching credentials",
+        );
+        return e.type !== "success"
+          ? (o("WALogger")
+              .ERROR(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[SmartComposer] ai-replies-status token fetch failed",
+                  ])),
+              )
+              .sendLogs("biz-ai-smart-composer-token-fetch-fail"),
+            !1)
+          : !0;
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[SmartComposer] ai-replies-status token fetch failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("biz-ai-smart-composer-token-fetch-fail"),
+          !1
+        );
+      }
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            yield o("WAPromiseTimeout").promiseTimeout(
-              r("WAWebNetworkStatus").waitIfOffline(),
-              g,
-              "Smart Composer mode change timed out waiting for connectivity",
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[SmartComposer] ai-replies-status gave up waiting to reach the server",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("biz-ai-smart-composer-connect-timeout"),
-              !1
-            );
-          }
-          try {
-            var e = yield o("WAPromiseTimeout").promiseTimeout(
-              o("WAWebFetchAdAccountToken").fetchToken(),
-              o(
-                "WAWebFetchAdAccountToken",
-              ).getMaximumAdAccountFetchTimeoutSeconds() * 1e3,
-              "Smart Composer mode change timed out fetching credentials",
-            );
-            return e.type !== "success"
-              ? (o("WALogger")
-                  .ERROR(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[SmartComposer] ai-replies-status token fetch failed",
-                      ])),
-                  )
-                  .sendLogs("biz-ai-smart-composer-token-fetch-fail"),
-                !1)
-              : !0;
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[SmartComposer] ai-replies-status token fetch failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("biz-ai-smart-composer-token-fetch-fail"),
-              !1
-            );
-          }
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e) {
+    function C(e) {
       if (e == null || e === "") return null;
       var t = Number(e);
       return Number.isFinite(t) ? t : null;
     }
-    ((l.CONNECT_TIMEOUT_MS = g), (l.changeAiRepliesStatus = h));
+    ((l.CONNECT_TIMEOUT_MS = f), (l.changeAiRepliesStatus = g));
   },
   98,
 );

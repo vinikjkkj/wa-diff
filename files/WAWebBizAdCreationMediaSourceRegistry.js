@@ -16,7 +16,7 @@ __d(
         catalog: {
           chooserEntry: {
             description: function () {
-              return s._(/*BTDS*/ "Choose up to 10 images");
+              return s._(/*BTDS*/ "");
             },
             icon: function () {
               return u.jsx(r("WDSIconIcGridOn.react"), {
@@ -26,7 +26,7 @@ __d(
               });
             },
             label: function () {
-              return s._(/*BTDS*/ "Your catalog");
+              return s._(/*BTDS*/ "");
             },
             testid: "biz_native_ads_add_media_source_catalog_option",
           },
@@ -38,7 +38,7 @@ __d(
         upload: {
           chooserEntry: {
             description: function () {
-              return s._(/*BTDS*/ "Choose up to 10 photos or 1 video");
+              return s._(/*BTDS*/ "");
             },
             icon: function () {
               return u.jsx(r("WDSIconIcPermMedia.react"), {
@@ -48,7 +48,7 @@ __d(
               });
             },
             label: function () {
-              return s._(/*BTDS*/ "Upload photos or video");
+              return s._(/*BTDS*/ "");
             },
             testid: "biz_native_ads_add_media_source_upload_option",
           },

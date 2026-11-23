@@ -8,7 +8,6 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebVoipCallStateUtils",
     "WAWebVoipWaCallEnums",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -37,32 +36,24 @@ __d(
           return;
         c(t);
       } catch (e) {
-        m(e);
+        d(e);
       }
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(e) {
+      try {
+        var t = await r("JSResourceForInteraction")(
+            "WAWebVoipInCallMessageSendJourneyLog",
+          )
+            .__setRef("WAWebVoipInCallMessageSendLogger")
+            .load(),
+          n = t.logMessageSendInLinkedChat;
+        if (r("WAWebCallCollection").activeCall !== e) return;
+        n();
+      } catch (e) {
+        d(e);
+      }
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield r("JSResourceForInteraction")(
-                "WAWebVoipInCallMessageSendJourneyLog",
-              )
-                .__setRef("WAWebVoipInCallMessageSendLogger")
-                .load(),
-              n = t.logMessageSendInLinkedChat;
-            if (r("WAWebCallCollection").activeCall !== e) return;
-            n();
-          } catch (e) {
-            m(e);
-          }
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(t) {
+    function d(t) {
       o("WALogger")
         .ERROR(
           e ||

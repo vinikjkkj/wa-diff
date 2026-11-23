@@ -39,16 +39,11 @@ __d(
         "os_v2_l3_weight_hbt_test",
       ];
     function d(e) {
-      return (
-        e === void 0 && (e = !0),
-        e
-          ? r("gkx")("8091")
-            ? "hbt_test"
-            : "hbt_control"
-          : r("gkx")("9432")
-            ? "hbt_test"
-            : "hbt_control"
-      );
+      if ((e === void 0 && (e = !0), !r("gkx")("29484"))) return "unallocated";
+      var t = e
+        ? r("gkx")("29487") || r("gkx")("29488")
+        : r("gkx")("29489") || r("gkx")("29490");
+      return t ? "hbt_test" : "hbt_control";
     }
     function m(e) {
       var t;
@@ -58,28 +53,16 @@ __d(
       }
       return (t = r("qex")._("1266")) != null ? t : "unallocated";
     }
-    function p(e) {
-      return (e === void 0 && (e = !0), d(e));
-    }
-    function _(e) {
-      return (e === void 0 && (e = !0), m(e));
-    }
-    function f(t) {
-      var n, r;
-      t === void 0 && (t = !1);
-      var o = m(t),
-        a = e[o];
-      if (a != null) return a;
-      var i = d(t);
-      return (n = (r = e[i]) != null ? r : s[i]) != null ? n : null;
+    function p() {
+      var t,
+        n = s[d(!1)];
+      return n != null ? n : (t = e[m(!1)]) != null ? t : null;
     }
     ((l.OS_DATA_MODEL_IBT_SETTINGS = u),
       (l.OS_DATA_MODEL_HBT_SETTINGS = c),
       (l.getHBTDataModelVariation = d),
       (l.getIBTDataModelVariation = m),
-      (l.getDataModelVariation = p),
-      (l.getDataModelV5Variation = _),
-      (l.genOSDataModelL4Setting = f));
+      (l.genOSDataModelL4Setting = p));
   },
   98,
 );

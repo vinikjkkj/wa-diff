@@ -7,7 +7,6 @@ __d(
     "WAWebCoexBusinessRequest",
     "WAWebCoexCanonicalStateQuery",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -17,56 +16,49 @@ __d(
         e !== void 0 ? e : (e = n("WAWebAECompanionOffboardMutation.graphql"));
     function d() {
       return o("WAWebCoexBusinessRequest").sendCoexBusinessRequest(
-        (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t,
-              n = yield o(
-                "WAWebCoexCanonicalStateQuery",
-              ).queryCoexCanonicalMembership(e);
-            if (n.type !== "authoritative")
-              return (
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "offboardAECompanion: not sent, membership ",
-                      "",
-                    ])),
-                  n.reason,
-                ),
-                !1
-              );
-            if (
-              !o("WAWebAECompanionEligibility").canCompanionOffboardAE(
-                n.surfaces,
-              )
-            )
-              return (
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "offboardAECompanion: not sent, surfaces [",
-                      "]",
-                    ])),
-                  n.surfaces.join(","),
-                ),
-                !1
-              );
-            var r = yield o("WAWebRelayClient").commitMutation(
-              c,
-              { phoneNumber: e.phoneNumber },
-              { environmentType: "facebook", accessToken: e.token },
-            );
+        async function (e) {
+          var t,
+            n = await o(
+              "WAWebCoexCanonicalStateQuery",
+            ).queryCoexCanonicalMembership(e);
+          if (n.type !== "authoritative")
             return (
-              (r == null ||
-              (t = r.xfb_whatsapp_coexistence_offboard_product) == null
-                ? void 0
-                : t.success) === !0
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "offboardAECompanion: not sent, membership ",
+                    "",
+                  ])),
+                n.reason,
+              ),
+              !1
             );
-          });
-          return function (t) {
-            return e.apply(this, arguments);
-          };
-        })(),
+          if (
+            !o("WAWebAECompanionEligibility").canCompanionOffboardAE(n.surfaces)
+          )
+            return (
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "offboardAECompanion: not sent, surfaces [",
+                    "]",
+                  ])),
+                n.surfaces.join(","),
+              ),
+              !1
+            );
+          var r = await o("WAWebRelayClient").commitMutation(
+            c,
+            { phoneNumber: e.phoneNumber },
+            { environmentType: "facebook", accessToken: e.token },
+          );
+          return (
+            (r == null ||
+            (t = r.xfb_whatsapp_coexistence_offboard_product) == null
+              ? void 0
+              : t.success) === !0
+          );
+        },
         "ae-companion-offboard-failed",
       );
     }

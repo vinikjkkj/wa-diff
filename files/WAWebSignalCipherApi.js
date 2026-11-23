@@ -1,109 +1,55 @@
 __d(
   "WAWebSignalCipherApi",
-  [
-    "Promise",
-    "WAWebCryptoLibrary",
-    "WAWebSignalCommonErrors",
-    "asyncToGeneratorRuntime",
-    "cr:17674",
-    "gkx",
-  ],
+  ["WAWebCryptoLibrary", "WAWebSignalCommonErrors", "cr:17674", "gkx"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t, n, r, o) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l, s) {
-            if ((l === void 0 && (l = !1), r("gkx")("16539"))) {
-              var u =
-                n("cr:17674") == null
-                  ? void 0
-                  : n("cr:17674").getDebugDecryptFail();
-              if (u != null && u > 0)
-                return (
-                  n("cr:17674") == null ||
-                    n("cr:17674").setDebugDecryptFail(u - 1),
-                  (e || (e = n("Promise"))).reject(
-                    new (o("WAWebSignalCommonErrors").SignalDecryptionError)(),
-                  )
-                );
-            }
-            return o("WAWebCryptoLibrary").decryptSignalProto(t, a, i, l, s);
-          },
-        )),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e, t, n, r) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            return (
-              r === void 0 && (r = !1),
-              o("WAWebCryptoLibrary").encryptSignalProto(e, t, n, r)
-            );
-          },
-        )),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.ciphertext,
-            i = t.sender,
-            l = t.target;
-          if (r("gkx")("16539")) {
-            var s =
-              n("cr:17674") == null
-                ? void 0
-                : n("cr:17674").getDebugDecryptFail();
-            if (s != null && s > 0)
-              return (
-                n("cr:17674") == null ||
-                  n("cr:17674").setDebugDecryptFail(s - 1),
-                (e || (e = n("Promise"))).reject(
-                  new (o("WAWebSignalCommonErrors").SignalDecryptionError)(),
-                )
-              );
-          }
-          return o("WAWebCryptoLibrary").decryptGroupSignalProto({
-            author: i,
-            ciphertext: a,
-            groupId: l,
-          });
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return o("WAWebCryptoLibrary").encryptSenderKeyMsgSignalProto(
-            e,
-            t,
-            n,
+    async function e(e, t, a, i, l) {
+      if ((i === void 0 && (i = !1), r("gkx")("16539"))) {
+        var s =
+          n("cr:17674") == null ? void 0 : n("cr:17674").getDebugDecryptFail();
+        if (s != null && s > 0)
+          return (
+            n("cr:17674") == null || n("cr:17674").setDebugDecryptFail(s - 1),
+            Promise.reject(
+              new (o("WAWebSignalCommonErrors").SignalDecryptionError)(),
+            )
           );
-        })),
-        f.apply(this, arguments)
+      }
+      return o("WAWebCryptoLibrary").decryptSignalProto(e, t, a, i, l);
+    }
+    async function s(e, t, n, r) {
+      return (
+        r === void 0 && (r = !1),
+        o("WAWebCryptoLibrary").encryptSignalProto(e, t, n, r)
       );
     }
-    ((l.decryptSignalProto = s),
-      (l.encryptSignalProto = c),
-      (l.decryptGroupSignalProto = m),
-      (l.encryptSenderKeyMsgSignalProto = _));
+    async function u(e) {
+      var t = e.ciphertext,
+        a = e.sender,
+        i = e.target;
+      if (r("gkx")("16539")) {
+        var l =
+          n("cr:17674") == null ? void 0 : n("cr:17674").getDebugDecryptFail();
+        if (l != null && l > 0)
+          return (
+            n("cr:17674") == null || n("cr:17674").setDebugDecryptFail(l - 1),
+            Promise.reject(
+              new (o("WAWebSignalCommonErrors").SignalDecryptionError)(),
+            )
+          );
+      }
+      return o("WAWebCryptoLibrary").decryptGroupSignalProto({
+        author: a,
+        ciphertext: t,
+        groupId: i,
+      });
+    }
+    async function c(e, t, n) {
+      return o("WAWebCryptoLibrary").encryptSenderKeyMsgSignalProto(e, t, n);
+    }
+    ((l.decryptSignalProto = e),
+      (l.encryptSignalProto = s),
+      (l.decryptGroupSignalProto = u),
+      (l.encryptSenderKeyMsgSignalProto = c));
   },
   98,
 );

@@ -3,7 +3,7 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e = new Set(["instagram/reels_overlay"]);
+    var e = new Set(["instagram/reels_overlay", "facebook/jobs_browser"]);
     function l(t) {
       return e.has(t);
     }

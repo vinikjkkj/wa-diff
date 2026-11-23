@@ -7,7 +7,6 @@ __d(
     "WAWebABProps",
     "WAWebCommsWapMd",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = new (r("WADeprecatedWapParser"))("unpairResponse", function (e) {
@@ -19,42 +18,32 @@ __d(
         { status: n }
       );
     });
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r,
-            a = (r = o("WAWap")).wap(
-              "iq",
-              {
-                to: r.S_WHATSAPP_NET,
-                type: "set",
-                id: r.generateId(),
-                xmlns: "md",
-              },
-              r.wap("remove-companion-device", {
-                jid: o("WAWebCommsWapMd").DEVICE_JID(
-                  o("WAWebUserUtils").getMeDevicePnLessOrFallback_DO_NOT_USE(),
-                ),
-                reason: r.CUSTOM_STRING(t),
-                trigger:
-                  n != null &&
-                  o("WAWebABProps").getABPropConfigValue(
-                    "md_logout_trigger_enabled",
-                  )
-                    ? o("WAWap").CUSTOM_STRING(n)
-                    : o("WAWap").DROP_ATTR,
-              }),
+    async function s(t, n) {
+      var r,
+        a = (r = o("WAWap")).wap(
+          "iq",
+          {
+            to: r.S_WHATSAPP_NET,
+            type: "set",
+            id: r.generateId(),
+            xmlns: "md",
+          },
+          r.wap("remove-companion-device", {
+            jid: o("WAWebCommsWapMd").DEVICE_JID(
+              o("WAWebUserUtils").getMeDevicePnLessOrFallback_DO_NOT_USE(),
             ),
-            i = yield o("WADeprecatedSendIq").deprecatedSendIq(a, e);
-          return i.success
-            ? { status: i.result.status }
-            : { status: i.errorCode };
-        })),
-        u.apply(this, arguments)
-      );
+            reason: r.CUSTOM_STRING(t),
+            trigger:
+              n != null &&
+              o("WAWebABProps").getABPropConfigValue(
+                "md_logout_trigger_enabled",
+              )
+                ? o("WAWap").CUSTOM_STRING(n)
+                : o("WAWap").DROP_ATTR,
+          }),
+        ),
+        i = await o("WADeprecatedSendIq").deprecatedSendIq(a, e);
+      return i.success ? { status: i.result.status } : { status: i.errorCode };
     }
     l.unpairDevice = s;
   },

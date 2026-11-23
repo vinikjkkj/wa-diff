@@ -6,50 +6,38 @@ __d(
     "WAWebFetchAdAccountToken",
     "WAWebGraphQLServerError",
     "WAWebNetworkStatus",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      return s.apply(this, arguments);
+    async function e(e, t, n) {
+      var a = n === void 0 ? {} : n,
+        i = a.onTokenSettled,
+        l = a.rateLimitSurface,
+        u = o("WAWebFetchAdAccountToken").fetchToken(),
+        c =
+          i == null
+            ? await u
+            : await u.finally(function () {
+                i();
+              });
+      if (c.type !== "success")
+        throw r("err")(
+          "[CustomerManager] " + e + ": no access token (" + c.type + ")",
+        );
+      await r("WAWebNetworkStatus").waitIfOffline();
+      try {
+        return await t({ accessToken: c.token, environmentType: "facebook" });
+      } catch (e) {
+        throw (
+          l != null && s(e, l),
+          o("WAWebCustomerManagerRequestErrors").asCustomerManagerRequestError(
+            e,
+          )
+        );
+      }
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = n === void 0 ? {} : n,
-            i = a.onTokenSettled,
-            l = a.rateLimitSurface,
-            s = o("WAWebFetchAdAccountToken").fetchToken(),
-            c =
-              i == null
-                ? yield s
-                : yield s.finally(function () {
-                    i();
-                  });
-          if (c.type !== "success")
-            throw r("err")(
-              "[CustomerManager] " + e + ": no access token (" + c.type + ")",
-            );
-          yield r("WAWebNetworkStatus").waitIfOffline();
-          try {
-            return yield t({
-              accessToken: c.token,
-              environmentType: "facebook",
-            });
-          } catch (e) {
-            throw (
-              l != null && u(e, l),
-              o(
-                "WAWebCustomerManagerRequestErrors",
-              ).asCustomerManagerRequestError(e)
-            );
-          }
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e, t) {
+    function s(e, t) {
       o("WAWebGraphQLServerError").isRateLimitError(e) &&
         o("WAWebFBLogger")
           .WAWebFBLogger()

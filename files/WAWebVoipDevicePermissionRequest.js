@@ -1,11 +1,6 @@
 __d(
   "WAWebVoipDevicePermissionRequest",
-  [
-    "WAGetUserMedia",
-    "WALogger",
-    "WAWebUserPrefsVoip",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAGetUserMedia", "WALogger", "WAWebUserPrefsVoip"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -15,65 +10,57 @@ __d(
         isRefused: !1,
         microphoneStream: null,
       };
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (o("WAGetUserMedia").getUserMedia == null) return u;
-          var n = Date.now();
-          try {
-            var r,
-              a,
-              i = yield o("WAGetUserMedia").getUserMedia({
-                audio: t.microphone && p(),
-                video: t.camera,
-              }),
-              l = _(i),
-              c = i.getAudioTracks()[0];
-            return (
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [AV] device permission request granted after ",
-                    "ms, camera=",
-                    ", microphone=",
-                    "",
-                  ])),
-                Date.now() - n,
-                String(l),
-                (r =
-                  c == null || (a = c.getSettings().deviceId) == null
-                    ? void 0
-                    : a.slice(0, 8)) != null
-                  ? r
-                  : "none",
-              ),
-              {
-                granted: { camera: l, microphone: c != null },
-                isRefused: !1,
-                microphoneStream: c != null ? i : null,
-              }
-            );
-          } catch (e) {
-            return (
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [AV] device permission request not granted: ",
-                    "",
-                  ])),
-                e,
-              ),
-              babelHelpers.extends({}, u, { isRefused: m(e) })
-            );
+    async function c(t) {
+      if (o("WAGetUserMedia").getUserMedia == null) return u;
+      var n = Date.now();
+      try {
+        var r,
+          a,
+          i = await o("WAGetUserMedia").getUserMedia({
+            audio: t.microphone && m(),
+            video: t.camera,
+          }),
+          l = p(i),
+          c = i.getAudioTracks()[0];
+        return (
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [AV] device permission request granted after ",
+                "ms, camera=",
+                ", microphone=",
+                "",
+              ])),
+            Date.now() - n,
+            String(l),
+            (r =
+              c == null || (a = c.getSettings().deviceId) == null
+                ? void 0
+                : a.slice(0, 8)) != null
+              ? r
+              : "none",
+          ),
+          {
+            granted: { camera: l, microphone: c != null },
+            isRefused: !1,
+            microphoneStream: c != null ? i : null,
           }
-        })),
-        d.apply(this, arguments)
-      );
+        );
+      } catch (e) {
+        return (
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [AV] device permission request not granted: ",
+                "",
+              ])),
+            e,
+          ),
+          babelHelpers.extends({}, u, { isRefused: d(e) })
+        );
+      }
     }
-    function m(e) {
+    function d(e) {
       return (
         e != null &&
         typeof e == "object" &&
@@ -81,11 +68,11 @@ __d(
         (e.name === "NotAllowedError" || e.name === "PermissionDeniedError")
       );
     }
-    function p() {
+    function m() {
       var e = o("WAWebUserPrefsVoip").getSelectedAudioInputDevice();
       return e != null ? { deviceId: { ideal: e } } : !0;
     }
-    function _(e) {
+    function p(e) {
       var t = e.getVideoTracks();
       return (
         t.forEach(function (t) {
@@ -94,7 +81,7 @@ __d(
         t.length > 0
       );
     }
-    ((l.requestVoipDevicePermissions = c), (l.getMicrophoneConstraints = p));
+    ((l.requestVoipDevicePermissions = c), (l.getMicrophoneConstraints = m));
   },
   98,
 );

@@ -5,7 +5,6 @@ __d(
     "WAWebCmd",
     "WAWebDiscoveryStickerGating",
     "WAWebDiscoveryStickerPackCollection",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,34 +15,24 @@ __d(
         s ||
           ((s = !0),
           o("WAWebCmd").Cmd.on("on_ab_props_update_from_bridge", function () {
-            c().catch(m);
+            c().catch(d);
           })),
         c()
       );
     }
-    function c() {
-      return d.apply(this, arguments);
+    async function c() {
+      if (o("WAWebDiscoveryStickerGating").isDiscoveryStickersEnabled()) {
+        var e = o("WAWebDiscoveryStickerGating").getDiscoveryStickerPackCount(),
+          t = o("WAWebDiscoveryStickerGating").getDiscoveryStickerCount();
+        o(
+          "WAWebDiscoveryStickerPackCollection",
+        ).DiscoveryStickerPackCollectionMd.isLoadedFor(e, t) ||
+          (await o(
+            "WAWebDiscoveryStickerPackCollection",
+          ).DiscoveryStickerPackCollectionMd.fetch(e, t));
+      }
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebDiscoveryStickerGating").isDiscoveryStickersEnabled()) {
-            var e = o(
-                "WAWebDiscoveryStickerGating",
-              ).getDiscoveryStickerPackCount(),
-              t = o("WAWebDiscoveryStickerGating").getDiscoveryStickerCount();
-            o(
-              "WAWebDiscoveryStickerPackCollection",
-            ).DiscoveryStickerPackCollectionMd.isLoadedFor(e, t) ||
-              (yield o(
-                "WAWebDiscoveryStickerPackCollection",
-              ).DiscoveryStickerPackCollectionMd.fetch(e, t));
-          }
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(t) {
+    function d(t) {
       o("WALogger")
         .WARN(
           e ||

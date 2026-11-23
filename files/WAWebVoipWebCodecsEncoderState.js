@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipWebCodecsEncoderState",
-  ["WALogger", "asyncToGeneratorRuntime"],
+  ["WALogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -64,43 +64,35 @@ __d(
         }
       );
     }
-    function R() {
-      return L.apply(this, arguments);
+    async function R() {
+      if (typeof window.VideoEncoder != "function") return !1;
+      try {
+        var e = await window.VideoEncoder.isConfigSupported({
+            codec: c,
+            width: 320,
+            height: 240,
+            hardwareAcceleration: "prefer-hardware",
+            latencyMode: "realtime",
+            bitrateMode: "variable",
+            avc: { format: "annexb" },
+          }),
+          t = e.supported;
+        return typeof t == "boolean" && t;
+      } catch (e) {
+        return (
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [webcodec-encode] isConfigSupported check failed: ",
+                "",
+              ])),
+            e,
+          ),
+          !1
+        );
+      }
     }
     function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (typeof window.VideoEncoder != "function") return !1;
-          try {
-            var e = yield window.VideoEncoder.isConfigSupported({
-                codec: c,
-                width: 320,
-                height: 240,
-                hardwareAcceleration: "prefer-hardware",
-                latencyMode: "realtime",
-                bitrateMode: "variable",
-                avc: { format: "annexb" },
-              }),
-              t = e.supported;
-            return typeof t == "boolean" && t;
-          } catch (e) {
-            return (
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [webcodec-encode] isConfigSupported check failed: ",
-                    "",
-                  ])),
-                e,
-              ),
-              !1
-            );
-          }
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E() {
       (f.clear(), h.clear());
     }
     ((l.WEBCODECS_H264_CODEC = c),
@@ -111,7 +103,7 @@ __d(
       (l.setWebCodecsEncoderEnabled = v),
       (l.subscribeToEncodeParamsChanges = S),
       (l.checkEncoderSupport = R),
-      (l.resetWebCodecsEncoderState = E));
+      (l.resetWebCodecsEncoderState = L));
   },
   98,
 );

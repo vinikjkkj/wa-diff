@@ -14,7 +14,6 @@ __d(
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,158 +23,123 @@ __d(
       c = 4,
       d = 15 * o("WATimeUtils").MINUTE_SECONDS,
       m = "\uFFFF";
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.maxDevices,
-            n = e.periodDays;
-          if (!(yield o("WAWebKyberPreKeyStore").isPQMigrated())) return d;
-          var a = yield f(Math.min(t, u)),
-            i = a.cursor,
-            l = a.wids;
-          if (
-            (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-              o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
-                .PQ_SESSION_UPGRADE_CURSOR,
-              i,
-            ),
-            l.length === 0)
-          )
-            return o("WATimeUtils").DAY_SECONDS;
-          try {
-            var c = yield o(
-              "WAWebPQSessionUpgradeSessionEstablisher",
-            ).establishPQSessionUpgrades(l);
-            o("WAWebPQSessionUpgradeAttemptLogger").logPQSessionUpgradeAttempt(
-              l.length,
-              c,
-            );
-          } catch (e) {
-            (o("WAWebPQSessionUpgradeAttemptLogger").logPQSessionUpgradeFailure(
-              l.length,
-              e,
-            ),
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "PQ session upgrade failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("pq-session-upgrade-failed"));
-          }
-          return n * o("WATimeUtils").DAY_SECONDS;
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e * c,
-            r = yield o("WAWebSchemaSession")
-              .getTable()
-              .betweenKeys(
-                ["address"],
-                (t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-                  o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
-                    .PQ_SESSION_UPGRADE_CURSOR,
-                )) != null
-                  ? t
-                  : "",
-                m,
-                { limit: n, returnKeyType: "primary_key" },
-              ),
-            a = (yield b(yield y(r.flatMap(h)))).slice(0, e);
-          return a.length === e
-            ? {
-                wids: a,
-                cursor: o("WAWebSignalCommonUtils").createSignalAddress(
-                  a[e - 1],
-                ),
-              }
-            : { wids: a, cursor: r.length === n ? r[n - 1] : "" };
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(t) {
-      if (!t.endsWith("@lid.0")) return [];
+    async function p(t) {
+      var n = t.maxDevices,
+        a = t.periodDays;
+      if (!(await o("WAWebKyberPreKeyStore").isPQMigrated())) return d;
+      var i = await _(Math.min(n, u)),
+        l = i.cursor,
+        s = i.wids;
+      if (
+        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+          o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.PQ_SESSION_UPGRADE_CURSOR,
+          l,
+        ),
+        s.length === 0)
+      )
+        return o("WATimeUtils").DAY_SECONDS;
       try {
-        return [o("WAWebWidFactory").createDeviceWidOrThrow(t.slice(0, -2))];
+        var c = await o(
+          "WAWebPQSessionUpgradeSessionEstablisher",
+        ).establishPQSessionUpgrades(s);
+        o("WAWebPQSessionUpgradeAttemptLogger").logPQSessionUpgradeAttempt(
+          s.length,
+          c,
+        );
       } catch (t) {
-        return (
+        (o("WAWebPQSessionUpgradeAttemptLogger").logPQSessionUpgradeFailure(
+          s.length,
+          t,
+        ),
           o("WALogger")
             .WARN(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "PQ session upgrade skipped an invalid session address",
+                  "PQ session upgrade failed",
                 ])),
             )
             .catching(r("getErrorSafe")(t))
+            .sendLogs("pq-session-upgrade-failed"));
+      }
+      return a * o("WATimeUtils").DAY_SECONDS;
+    }
+    async function _(e) {
+      var t,
+        n = e * c,
+        r = await o("WAWebSchemaSession")
+          .getTable()
+          .betweenKeys(
+            ["address"],
+            (t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+              o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
+                .PQ_SESSION_UPGRADE_CURSOR,
+            )) != null
+              ? t
+              : "",
+            m,
+            { limit: n, returnKeyType: "primary_key" },
+          ),
+        a = (await h(await g(r.flatMap(f)))).slice(0, e);
+      return a.length === e
+        ? {
+            wids: a,
+            cursor: o("WAWebSignalCommonUtils").createSignalAddress(a[e - 1]),
+          }
+        : { wids: a, cursor: r.length === n ? r[n - 1] : "" };
+    }
+    function f(e) {
+      if (!e.endsWith("@lid.0")) return [];
+      try {
+        return [o("WAWebWidFactory").createDeviceWidOrThrow(e.slice(0, -2))];
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "PQ session upgrade skipped an invalid session address",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
             .sendLogs("pq-session-upgrade-invalid-address", { sampling: 0.01 }),
           []
         );
       }
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    async function g(e) {
+      var t = await o(
+        "WAWebApiVerifiedBusinessName",
+      ).bulkGetVerifiedBusinessNameRecordsLidAware(
+        e.map(o("WAWebWidFactory").asUserLidOrThrow),
+      );
+      return e.filter(function (e, n) {
+        var r,
+          a = (r = t[n]) == null ? void 0 : r.privacyMode;
+        return (
+          a == null ||
+          o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(
+            o("WAWebApiVerifiedBusinessName").convertPrivacyModeFromStorageType(
+              a,
+            ),
+          ) === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE
+        );
+      });
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebApiVerifiedBusinessName",
-          ).bulkGetVerifiedBusinessNameRecordsLidAware(
-            e.map(o("WAWebWidFactory").asUserLidOrThrow),
+    async function h(e) {
+      var t = e.map(function (e) {
+          return o("WAWebSignalCommonUtils").createSignalAddress(
+            e,
+            o("WAWebSessionScope").SessionScope.PQ,
           );
-          return e.filter(function (e, n) {
-            var r,
-              a = (r = t[n]) == null ? void 0 : r.privacyMode;
-            return (
-              a == null ||
-              o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(
-                o(
-                  "WAWebApiVerifiedBusinessName",
-                ).convertPrivacyModeFromStorageType(a),
-              ) === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE
-            );
-          });
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(function (e) {
-              return o("WAWebSignalCommonUtils").createSignalAddress(
-                e,
-                o("WAWebSessionScope").SessionScope.PQ,
-              );
-            }),
-            n = new Set(
-              yield o("WAWebSchemaSession")
-                .getTable()
-                .anyOfPrimaryKeys(["address"], t),
-            );
-          return e.filter(function (e, r) {
-            return !n.has(t[r]);
-          });
-        })),
-        v.apply(this, arguments)
-      );
+        }),
+        n = new Set(
+          await o("WAWebSchemaSession")
+            .getTable()
+            .anyOfPrimaryKeys(["address"], t),
+        );
+      return e.filter(function (e, r) {
+        return !n.has(t[r]);
+      });
     }
     l.runPQSessionUpgradeJob = p;
   },

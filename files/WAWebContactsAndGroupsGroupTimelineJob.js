@@ -9,7 +9,6 @@ __d(
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaMessage",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -30,59 +29,49 @@ __d(
         !o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(e)
       );
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      var t,
+        n = e.beforeInternalId,
+        r = e.groupId,
+        a = e.limit,
+        i = e.sinceTs,
+        l = await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .between(
+            ["internalId"],
+            o("WAWebDBMessageUtils").beginningOfChat(r),
+            n != null ? n : o("WAWebDBMessageUtils").endOfChat(r),
+            { limit: a, reverse: !0, shouldDecrypt: !1 },
+            function (e) {
+              return e.t < i;
+            },
+          );
+      return {
+        msgs: l
+          .filter(function (e) {
+            var t;
+            return s((t = e.futureproofType) != null ? t : e.type);
+          })
+          .map(c),
+        nextBeforeInternalId:
+          l.length === a && (t = l[l.length - 1].internalId) != null ? t : null,
+      };
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.beforeInternalId,
-            r = e.groupId,
-            a = e.limit,
-            i = e.sinceTs,
-            l = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .between(
-                ["internalId"],
-                o("WAWebDBMessageUtils").beginningOfChat(r),
-                n != null ? n : o("WAWebDBMessageUtils").endOfChat(r),
-                { limit: a, reverse: !0, shouldDecrypt: !1 },
-                function (e) {
-                  return e.t < i;
-                },
-              );
-          return {
-            msgs: l
-              .filter(function (e) {
-                var t;
-                return s((t = e.futureproofType) != null ? t : e.type);
-              })
-              .map(d),
-            nextBeforeInternalId:
-              l.length === a && (t = l[l.length - 1].internalId) != null
-                ? t
-                : null,
-          };
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
+    function c(e) {
       var t;
       return {
-        author: m(e.author),
+        author: d(e.author),
         fromMe: r("WAWebMsgKey").fromString(e.id).fromMe,
         mentionedJidList: ((t = e.mentionedJidList) != null ? t : [])
-          .map(m)
+          .map(d)
           .filter(function (e) {
             return e != null;
           }),
-        quotedParticipant: m(e.quotedParticipant),
+        quotedParticipant: d(e.quotedParticipant),
         t: e.t,
       };
     }
-    function m(e) {
+    function d(e) {
       return o("WAWebWidFactory").isWidlike(e) && e != null
         ? o("WAWebWidFactory").createWidFromWidLike(e)
         : null;

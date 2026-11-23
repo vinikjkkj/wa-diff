@@ -1,7 +1,6 @@
 __d(
   "WAWebCoexV2MessageAckProjection",
   [
-    "Promise",
     "WABatcher",
     "WALogger",
     "WAWebApiCoexV2RelayReceiptStore",
@@ -16,7 +15,6 @@ __d(
     "WAWebNoop",
     "WAWebUserUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
   ],
@@ -29,43 +27,29 @@ __d(
       m,
       p,
       _,
-      f,
-      g = 1e3,
-      h = new Set(),
-      y = o("WABatcher").createSimpleBatcher(
-        { delayMs: g },
-        (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = yield F(e);
-            return (j(t), []);
-          });
-          return function (t) {
-            return e.apply(this, arguments);
-          };
-        })(),
+      f = 1e3,
+      g = new Set(),
+      h = o("WABatcher").createSimpleBatcher(
+        { delayMs: f },
+        async function (e) {
+          var t = await x(e);
+          return (B(t), []);
+        },
       );
-    function C(e) {
-      return b.apply(this, arguments);
+    async function y(e) {
+      var t = e.isOffline,
+        n = e.msgIds,
+        r = e.projectedAck,
+        o = e.representedLid,
+        a = h.accept({ msgIds: n, projectedAck: r, representedLid: o });
+      if (!t) {
+        await Promise.all([a, C()]);
+        return;
+      }
+      await a;
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.isOffline,
-            r = e.msgIds,
-            o = e.projectedAck,
-            a = e.representedLid,
-            i = y.accept({ msgIds: r, projectedAck: o, representedLid: a });
-          if (!t) {
-            yield (f || (f = n("Promise"))).all([i, v()]);
-            return;
-          }
-          yield i;
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v() {
-      return y
+    function C() {
+      return h
         .runActiveBatch()
         .then(r("WAWebNoop"))
         .catch(function (t) {
@@ -80,35 +64,25 @@ __d(
             .sendLogs("coexv2-message-ack-projection-flush-failed");
         });
     }
+    function b() {
+      return Promise.all([C(), S()]).then(r("WAWebNoop"));
+    }
+    async function v(e, t, n, r) {
+      var o = e.filter(P);
+      if (o.length !== 0) {
+        var a = E(o, t);
+        if ((r == null ? void 0 : r.deferUntilMessagePersisted) === !0) {
+          var i = R(a);
+          L(i, n);
+          return;
+        }
+        await k(await a, n);
+      }
+    }
     function S() {
-      return (f || (f = n("Promise"))).all([v(), E()]).then(r("WAWebNoop"));
+      return Promise.all(Array.from(g)).then(r("WAWebNoop"));
     }
-    function R(e, t, n, r) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o = e.filter(W);
-            if (o.length !== 0) {
-              var a = T(o, t);
-              if ((r == null ? void 0 : r.deferUntilMessagePersisted) === !0) {
-                var i = k(a);
-                I(i, n);
-                return;
-              }
-              yield x(yield a, n);
-            }
-          },
-        )),
-        L.apply(this, arguments)
-      );
-    }
-    function E() {
-      return (f || (f = n("Promise"))).all(Array.from(h)).then(r("WAWebNoop"));
-    }
-    function k(e) {
+    function R(e) {
       var t = e.catch(function (e) {
           return (
             o("WALogger")
@@ -125,111 +99,84 @@ __d(
         }),
         n = t.then(r("WAWebNoop"));
       return (
-        h.add(n),
+        g.add(n),
         n.finally(function () {
-          h.delete(n);
+          g.delete(n);
         }),
         t
       );
     }
-    function I(e, t) {
+    function L(e, t) {
       t != null &&
         e.then(function (e) {
           if (e != null)
             return t
               .then(function () {
-                return K(e);
+                return W(e);
               })
               .catch(r("WAWebNoop"));
         });
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    async function E(e, t) {
+      await t;
+      var n = r("compactMap")(await Promise.all(e.map(I)), function (e) {
+        return e;
+      });
+      return (await D(n), n);
     }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield t;
-          var o = r("compactMap")(
-            yield (f || (f = n("Promise"))).all(e.map(P)),
-            function (e) {
-              return e;
-            },
-          );
-          return (yield w(o), o);
-        })),
-        D.apply(this, arguments)
-      );
+    async function k(e, t) {
+      t != null && (await t, await W(e));
     }
-    function x(e, t) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t != null && (yield t, yield K(e));
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            a = M(e);
-          if (
-            a == null ||
-            !o(
-              "WAWebCoexV2MessageAckProjectionEligibility",
-            ).isCoexV2MessageAckProjectionTarget(a)
-          )
-            return null;
-          var i =
-            (t = (n = e.latestEditMsgKey) == null ? void 0 : n.id) != null
-              ? t
-              : e.id.id;
-          try {
-            var l = o(
-              "WAWebCoexV2MessageAckProjectionEligibility",
-            ).getEligibleCoexV2MessageAckProjection({
-              projectedAck: yield o(
-                "WAWebApiCoexV2RelayReceiptStore",
-              ).getCoexV2RelayMessageAck(i, a),
+    async function I(e) {
+      var t,
+        n,
+        a = T(e);
+      if (
+        a == null ||
+        !o(
+          "WAWebCoexV2MessageAckProjectionEligibility",
+        ).isCoexV2MessageAckProjectionTarget(a)
+      )
+        return null;
+      var i =
+        (t = (n = e.latestEditMsgKey) == null ? void 0 : n.id) != null
+          ? t
+          : e.id.id;
+      try {
+        var l = o(
+          "WAWebCoexV2MessageAckProjectionEligibility",
+        ).getEligibleCoexV2MessageAckProjection({
+          projectedAck: await o(
+            "WAWebApiCoexV2RelayReceiptStore",
+          ).getCoexV2RelayMessageAck(i, a),
+          representedLid: a,
+        });
+        return l == null && !N(e)
+          ? null
+          : {
+              msgKey: e.id,
+              receiptInfo:
+                l == null
+                  ? null
+                  : { msgIds: [i], projectedAck: l, representedLid: a },
               representedLid: a,
-            });
-            return l == null && !q(e)
-              ? null
-              : {
-                  msgKey: e.id,
-                  receiptInfo:
-                    l == null
-                      ? null
-                      : { msgIds: [i], projectedAck: l, representedLid: a },
-                  representedLid: a,
-                };
-          } catch (t) {
-            return (
-              o("WALogger")
-                .WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] message ack reconciliation: receipt lookup failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("coexv2-message-ack-reconciliation-lookup-failed"),
-              { msgKey: e.id, receiptInfo: null, representedLid: a }
-            );
-          }
-        })),
-        N.apply(this, arguments)
-      );
+            };
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] message ack reconciliation: receipt lookup failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("coexv2-message-ack-reconciliation-lookup-failed"),
+          { msgKey: e.id, receiptInfo: null, representedLid: a }
+        );
+      }
     }
-    function M(e) {
+    function T(e) {
       try {
         var t;
         return o("WAWebLidMigrationUtils").toUserLid(
@@ -239,8 +186,8 @@ __d(
         return (
           o("WALogger")
             .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "[coexv2] message ack reconciliation: represented LID lookup failed",
                 ])),
             )
@@ -250,96 +197,64 @@ __d(
         );
       }
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    async function D(e) {
+      try {
+        var t = await x(
+          r("compactMap")(e, function (e) {
+            return e.receiptInfo;
+          }),
+        );
+        B(t);
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "[coexv2] message ack reconciliation: projection failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("coexv2-message-ack-reconciliation-projection-failed");
+      }
     }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield F(
-              r("compactMap")(e, function (e) {
-                return e.receiptInfo;
-              }),
-            );
-            j(t);
-          } catch (e) {
-            o("WALogger")
-              .WARN(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[coexv2] message ack reconciliation: projection failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("coexv2-message-ack-reconciliation-projection-failed");
-          }
-        })),
-        A.apply(this, arguments)
-      );
+    async function x(e) {
+      var t = $(e);
+      return t.length === 0
+        ? []
+        : o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(["message", "chat"], async function (e) {
+              var n = e[0],
+                a = await o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(
+                  t.map(function (e) {
+                    return e.msgKey;
+                  }),
+                ),
+                i = new Map();
+              t.forEach(function (e, t) {
+                M(e, a[t], i);
+              });
+              var l = r("compactMap")(Array.from(i.entries()), function (e) {
+                var t,
+                  n = e[0],
+                  r = e[1],
+                  o = r.ack,
+                  a = r.msg;
+                return o > ((t = a.ack) != null ? t : Number.NEGATIVE_INFINITY)
+                  ? { id: n, ack: o }
+                  : null;
+              });
+              return (
+                l.length > 0 && (await n.bulkCreateOrMerge(l)),
+                l.map(function (e) {
+                  var t = e.ack,
+                    n = e.id;
+                  return { id: r("WAWebMsgKey").from(n), ack: t };
+                })
+              );
+            });
     }
-    function F(e) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = B(e);
-          return t.length === 0
-            ? []
-            : o("WAWebModelStorageUtils")
-                .getStorage()
-                .lock(
-                  ["message", "chat"],
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var n = e[0],
-                          a = yield o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(
-                            t.map(function (e) {
-                              return e.msgKey;
-                            }),
-                          ),
-                          i = new Map();
-                        t.forEach(function (e, t) {
-                          U(e, a[t], i);
-                        });
-                        var l = r("compactMap")(
-                          Array.from(i.entries()),
-                          function (e) {
-                            var t,
-                              n = e[0],
-                              r = e[1],
-                              o = r.ack,
-                              a = r.msg;
-                            return o >
-                              ((t = a.ack) != null
-                                ? t
-                                : Number.NEGATIVE_INFINITY)
-                              ? { id: n, ack: o }
-                              : null;
-                          },
-                        );
-                        return (
-                          l.length > 0 && (yield n.bulkCreateOrMerge(l)),
-                          l.map(function (e) {
-                            var t = e.ack,
-                              n = e.id;
-                            return { id: r("WAWebMsgKey").from(n), ack: t };
-                          })
-                        );
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                );
-        })),
-        O.apply(this, arguments)
-      );
-    }
-    function B(e) {
+    function $(e) {
       var t = [];
       for (var n of e) {
         var a = n.msgIds,
@@ -365,18 +280,18 @@ __d(
       }
       return t;
     }
-    function W(e) {
+    function P(e) {
       return (
         e.id.fromMe &&
         e.id.remote.isUser() &&
-        (!q(e) ||
+        (!N(e) ||
           (e.metaFrom != null &&
             o("WAWebUserUtils").isMeAccount(e.metaFrom))) &&
         e.isScheduledMsg !== !0 &&
         o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
       );
     }
-    function q(e) {
+    function N(e) {
       var t;
       return (
         ((t = e.senderWithDevice) == null
@@ -384,9 +299,9 @@ __d(
           : t.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)) === !0
       );
     }
-    function U(e, t, n) {
+    function M(e, t, n) {
       try {
-        var a = V(e, t);
+        var a = w(e, t);
         if (t == null || a == null) return;
         var i = a.toString(),
           l = n.get(i);
@@ -394,8 +309,8 @@ __d(
       } catch (e) {
         o("WALogger")
           .WARN(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
                 "[coexv2] message ack projection: invalid stored message",
               ])),
           )
@@ -403,16 +318,16 @@ __d(
           .sendLogs("coexv2-message-ack-projection-invalid-message");
       }
     }
-    function V(e, t) {
+    function w(e, t) {
       if (t == null) return null;
       var n = r("WAWebMsgKey").fromString(t.id);
-      return H(t, n) && z(t, n).includes(e.msgId) ? n : null;
+      return A(t, n) && O(t, n).includes(e.msgId) ? n : null;
     }
-    function H(e, t) {
+    function A(e, t) {
       return (
         t.fromMe &&
         t.remote.isUser() &&
-        (!G(e) ||
+        (!F(e) ||
           (e.metaFrom != null &&
             o("WAWebUserUtils").isMeAccount(
               o("WAWebWidFactory").createWidFromWidLike(e.metaFrom),
@@ -420,7 +335,7 @@ __d(
         e.isScheduledMsg !== !0
       );
     }
-    function G(e) {
+    function F(e) {
       return (
         e.senderWithDevice != null &&
         o("WAWebWidFactory")
@@ -428,12 +343,12 @@ __d(
           .equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)
       );
     }
-    function z(e, t) {
+    function O(e, t) {
       if (e.latestEditMsgKey == null) return [t.id];
       var n = r("WAWebMsgKey").fromString(e.latestEditMsgKey).id;
-      return G(e) ? [n] : [t.id, n];
+      return F(e) ? [n] : [t.id, n];
     }
-    function j(e) {
+    function B(e) {
       if (e.length !== 0)
         try {
           o("WAWebBackendApi").frontendFireAndForget("updateMsgModelAcks", {
@@ -442,8 +357,8 @@ __d(
         } catch (e) {
           o("WALogger")
             .WARN(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "[coexv2] message ack projection: frontend publish failed",
                 ])),
             )
@@ -451,63 +366,52 @@ __d(
             .sendLogs("coexv2-message-ack-projection-publish-failed");
         }
     }
-    function K(e) {
-      return Q.apply(this, arguments);
+    async function W(e) {
+      if (e.length !== 0) {
+        var t;
+        try {
+          t = await o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(["message", "chat"], async function () {
+              var t = await o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(
+                e.map(function (e) {
+                  return e.msgKey.toString();
+                }),
+              );
+              return r("compactMap")(t, function (t, n) {
+                var a,
+                  i = (a = e[n]) == null ? void 0 : a.representedLid;
+                if (t == null || i == null) return null;
+                var l = o(
+                  "WAWebCoexV2MessageAckProjectionEligibility",
+                ).getEligibleCoexV2MessageAckProjection({
+                  projectedAck: t.ack,
+                  representedLid: i,
+                });
+                return l == null
+                  ? null
+                  : { id: r("WAWebMsgKey").from(t.id), ack: l };
+              });
+            });
+        } catch (e) {
+          o("WALogger")
+            .WARN(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] message ack reconciliation: refresh failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("coexv2-message-ack-reconciliation-refresh-failed");
+          return;
+        }
+        B(t);
+      }
     }
-    function Q() {
-      return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0) {
-            var t;
-            try {
-              t = yield o("WAWebModelStorageUtils")
-                .getStorage()
-                .lock(
-                  ["message", "chat"],
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    var t = yield o("WAWebDBBulkGetRootMsgs").bulkGetRootMsgs(
-                      e.map(function (e) {
-                        return e.msgKey.toString();
-                      }),
-                    );
-                    return r("compactMap")(t, function (t, n) {
-                      var a,
-                        i = (a = e[n]) == null ? void 0 : a.representedLid;
-                      if (t == null || i == null) return null;
-                      var l = o(
-                        "WAWebCoexV2MessageAckProjectionEligibility",
-                      ).getEligibleCoexV2MessageAckProjection({
-                        projectedAck: t.ack,
-                        representedLid: i,
-                      });
-                      return l == null
-                        ? null
-                        : { id: r("WAWebMsgKey").from(t.id), ack: l };
-                    });
-                  }),
-                );
-            } catch (e) {
-              o("WALogger")
-                .WARN(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] message ack reconciliation: refresh failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("coexv2-message-ack-reconciliation-refresh-failed");
-              return;
-            }
-            j(t);
-          }
-        })),
-        Q.apply(this, arguments)
-      );
-    }
-    ((l.projectCoexV2ReadReceiptAck = C),
-      (l.flushCoexV2MessageAckProjections = v),
-      (l.flushCoexV2OfflineMessageAckWork = S),
-      (l.reconcileCoexV2ReceiptAcksAfterMessagePersisted = R));
+    ((l.projectCoexV2ReadReceiptAck = y),
+      (l.flushCoexV2MessageAckProjections = C),
+      (l.flushCoexV2OfflineMessageAckWork = b),
+      (l.reconcileCoexV2ReceiptAcksAfterMessagePersisted = v));
   },
   98,
 );

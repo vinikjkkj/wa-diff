@@ -4,12 +4,11 @@ __d(
     "WAWebProtobufSyncAction.pb",
     "WAWebSchemaSyncActions",
     "WAWebUserPrefsIndexedDBStorage",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
-      return p("current");
+      return m("current");
     }
     var s = "WAPrimaryCurrentVersion";
     function u() {
@@ -18,43 +17,27 @@ __d(
     function c(e) {
       return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(s, e);
     }
-    function d() {
-      return m.apply(this, arguments);
+    async function d() {
+      if (u() == null) {
+        var t = await e();
+        t != null && u() == null && (await c(t));
+      }
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (u() == null) {
-            var t = yield e();
-            t != null && u() == null && (yield c(t));
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSchemaSyncActions")
-            .getSyncActionsTable()
-            .get('["primary_version","' + e + '"]');
-          if (t) {
-            var n,
-              r = o("decodeProtobuf").decodeProtobuf(
-                o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-                t == null ? void 0 : t.binarySyncData,
-              ).value;
-            return r == null || (n = r.primaryVersionAction) == null
-              ? void 0
-              : n.version;
-          }
-          return null;
-        })),
-        _.apply(this, arguments)
-      );
+    async function m(e) {
+      var t = await o("WAWebSchemaSyncActions")
+        .getSyncActionsTable()
+        .get('["primary_version","' + e + '"]');
+      if (t) {
+        var n,
+          r = o("decodeProtobuf").decodeProtobuf(
+            o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
+            t == null ? void 0 : t.binarySyncData,
+          ).value;
+        return r == null || (n = r.primaryVersionAction) == null
+          ? void 0
+          : n.version;
+      }
+      return null;
     }
     ((l.getPrimaryCurrentVersion = e),
       (l.getStoredPrimaryCurrentVersion = u),

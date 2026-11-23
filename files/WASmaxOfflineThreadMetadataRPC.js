@@ -158,16 +158,9 @@ __d(
         : r;
     }
     ((l.receiveThreadMetadataRPC = s),
-      (l.parseThreadMetadataRequestThreadMetadataItem = u),
       (l.parseThreadMetadataRequest = c),
-      (l.parseThreadMetadataWatermarkWatermarkItem = d),
-      (l.parseThreadMetadataWatermarkMixin = m),
       (l.GROUPJID_USERJID_USERJID_USERJID = p),
-      (l.USERJID_GROUPJID_USERJID_USERJID_USERJID = _),
-      (l.parseThreadMetadataDelayedStatusMsgsItem = f),
-      (l.parseThreadMetadataDelayedStatusMsgs = g),
-      (l.parseThreadMetadataDelayedNotifications = h),
-      (l.parseThreadMetadataDelayedMixin = y));
+      (l.USERJID_GROUPJID_USERJID_USERJID_USERJID = _));
   },
   98,
 );

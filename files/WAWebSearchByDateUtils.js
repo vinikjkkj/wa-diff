@@ -1,11 +1,6 @@
 __d(
   "WAWebSearchByDateUtils",
-  [
-    "WAWebDBSearchByDate",
-    "WAWebMsgKey",
-    "WAWebUserPrefsHistorySync",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebDBSearchByDate", "WAWebMsgKey", "WAWebUserPrefsHistorySync"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return Math.floor(e / 1e3);
@@ -26,68 +21,47 @@ __d(
         a != null ? r("WAWebMsgKey").fromString(a) : null
       );
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      var t = e.chatId,
+        n = e.endTimestampSeconds,
+        r = e.searchingBefore,
+        a = e.startTimestampSeconds,
+        i = await o("WAWebDBSearchByDate").getClosestMessageBetweenDates({
+          chatId: t,
+          endTimestampSeconds: n,
+          incoming: !0,
+          searchingBefore: r,
+          startTimestampSeconds: a,
+        }),
+        l = await o("WAWebDBSearchByDate").getClosestMessageBetweenDates({
+          chatId: t,
+          endTimestampSeconds: n,
+          incoming: !1,
+          searchingBefore: r,
+          startTimestampSeconds: a,
+        });
+      return s({ beforeSearch: r, incomingCandidate: i, outgoingCandidate: l });
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chatId,
-            n = e.endTimestampSeconds,
-            r = e.searchingBefore,
-            a = e.startTimestampSeconds,
-            i = yield o("WAWebDBSearchByDate").getClosestMessageBetweenDates({
-              chatId: t,
-              endTimestampSeconds: n,
-              incoming: !0,
-              searchingBefore: r,
-              startTimestampSeconds: a,
-            }),
-            l = yield o("WAWebDBSearchByDate").getClosestMessageBetweenDates({
-              chatId: t,
-              endTimestampSeconds: n,
-              incoming: !1,
-              searchingBefore: r,
-              startTimestampSeconds: a,
-            });
-          return s({
-            beforeSearch: r,
-            incomingCandidate: i,
-            outgoingCandidate: l,
-          });
-        })),
-        c.apply(this, arguments)
-      );
+    async function c(t, n) {
+      var r = e(n.getTime()),
+        a = o("WAWebUserPrefsHistorySync").getHistorySyncEarliestDate() * 1e3,
+        i = Date.now(),
+        l = await u({
+          chatId: t,
+          endTimestampSeconds: i,
+          searchingBefore: !1,
+          startTimestampSeconds: r,
+        });
+      if (l != null) return l;
+      var s = await u({
+        chatId: t,
+        endTimestampSeconds: r,
+        searchingBefore: !0,
+        startTimestampSeconds: a,
+      });
+      return (s != null, s);
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = e(n.getTime()),
-            a =
-              o("WAWebUserPrefsHistorySync").getHistorySyncEarliestDate() * 1e3,
-            i = Date.now(),
-            l = yield u({
-              chatId: t,
-              endTimestampSeconds: i,
-              searchingBefore: !1,
-              startTimestampSeconds: r,
-            });
-          if (l != null) return l;
-          var s = yield u({
-            chatId: t,
-            endTimestampSeconds: r,
-            searchingBefore: !0,
-            startTimestampSeconds: a,
-          });
-          return (s != null, s);
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    ((l.fromMillisecondsToSeconds = e), (l.getClosestMessageFromDate = d));
+    ((l.fromMillisecondsToSeconds = e), (l.getClosestMessageFromDate = c));
   },
   98,
 );

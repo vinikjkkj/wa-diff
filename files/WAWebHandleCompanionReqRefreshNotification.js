@@ -1,20 +1,17 @@
 __d(
   "WAWebHandleCompanionReqRefreshNotification",
   [
-    "Promise",
     "WADeprecatedWapParser",
     "WALogger",
     "WAWap",
     "WAWebAdvSignatureApi",
     "WAWebQrDeviceLinkingQpl",
     "WAWebUserPrefsMultiDevice",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = new (r("WADeprecatedWapParser"))(
+      u = new (r("WADeprecatedWapParser"))(
         "serverNotifyCompanionRefresh",
         function (t) {
           if (
@@ -40,34 +37,26 @@ __d(
           );
         },
       );
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    async function c(e) {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (
-            e.type === "companion_reg_refresh" &&
-              (o(
-                "WAWebQrDeviceLinkingQpl",
-              ).companionDeviceLinkingScreenQpl.regRefreshNotificationReceived(),
-              yield o("WAWebAdvSignatureApi").generateADVSecretKey(),
-              o("WAWebUserPrefsMultiDevice").advSecretEventEmitter.trigger(
-                "change",
-              )),
-            o("WAWap").wap("ack", {
-              id: o("WAWap").CUSTOM_STRING(e.stanzaId),
-              class: "notification",
-              type: "companion_reg_refresh",
-              to: o("WAWap").S_WHATSAPP_NET,
-            })
-          );
-        })),
-        m.apply(this, arguments)
+        e.type === "companion_reg_refresh" &&
+          (o(
+            "WAWebQrDeviceLinkingQpl",
+          ).companionDeviceLinkingScreenQpl.regRefreshNotificationReceived(),
+          await o("WAWebAdvSignatureApi").generateADVSecretKey(),
+          o("WAWebUserPrefsMultiDevice").advSecretEventEmitter.trigger(
+            "change",
+          )),
+        o("WAWap").wap("ack", {
+          id: o("WAWap").CUSTOM_STRING(e.stanzaId),
+          class: "notification",
+          type: "companion_reg_refresh",
+          to: o("WAWap").S_WHATSAPP_NET,
+        })
       );
     }
-    function p(e) {
-      var t = c.parse(e);
+    function d(e) {
+      var t = u.parse(e);
       return t.error
         ? (o("WALogger").ERROR(
             s ||
@@ -77,10 +66,10 @@ __d(
               ])),
             t.error.toString(),
           ),
-          (u || (u = n("Promise"))).reject(t.error))
-        : d(t.success);
+          Promise.reject(t.error))
+        : c(t.success);
     }
-    l.handleCompanionReqRefreshNotification = p;
+    l.handleCompanionReqRefreshNotification = d;
   },
   98,
 );

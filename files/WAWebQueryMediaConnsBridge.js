@@ -5,7 +5,6 @@ __d(
     "WAPromiseBackoffs",
     "WAWebBackendErrors",
     "WAWebQueryMediaConnsJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 1e3,
@@ -25,32 +24,27 @@ __d(
           },
           signal: t,
         },
-        (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var n = o("WAWebQueryMediaConnsJob").queryMediaConn(t);
-            try {
-              var r = yield n,
-                a = r.authTTL,
-                i = r.ttl;
-              return (
-                (a *= 1e3),
-                (i *= 1e3),
-                babelHelpers.extends({}, r, { authTTL: a, ttl: i })
-              );
-            } catch (t) {
-              if (t instanceof o("WAWebBackendErrors").E507) throw t;
-              if (
-                t instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
-                t.status >= 500
-              )
-                return e(t);
-              throw t;
-            }
-          });
-          return function (t) {
-            return e.apply(this, arguments);
-          };
-        })(),
+        async function (e) {
+          var n = o("WAWebQueryMediaConnsJob").queryMediaConn(t);
+          try {
+            var r = await n,
+              a = r.authTTL,
+              i = r.ttl;
+            return (
+              (a *= 1e3),
+              (i *= 1e3),
+              babelHelpers.extends({}, r, { authTTL: a, ttl: i })
+            );
+          } catch (t) {
+            if (t instanceof o("WAWebBackendErrors").E507) throw t;
+            if (
+              t instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
+              t.status >= 500
+            )
+              return e(t);
+            throw t;
+          }
+        },
       );
     }
     l.sendQueryMediaConn = c;

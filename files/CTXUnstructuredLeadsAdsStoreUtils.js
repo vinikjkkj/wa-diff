@@ -9,9 +9,6 @@ __d(
     "AdsMessengerVisualEditorUtils",
     "AdsPageStore",
     "CTXChatBuilderFeatureGating",
-    "CtxAdvertiserQeHbtExposureFalcoEvent",
-    "CtxDfoEngagementRemovalNoticeUtils",
-    "CurrentAdAccount",
     "gkx",
     "isStringNullOrEmpty",
     "qex",
@@ -27,7 +24,7 @@ __d(
           : n === r("AdCampaignDestination").MESSENGER &&
               (t === r("AdsAPIObjectives").OUTCOME_LEADS ||
                 t === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT)
-            ? b(e, a)
+            ? b(e)
             : n === r("AdCampaignDestination").INSTAGRAM_DIRECT ||
                 n === r("AdCampaignDestination").LEAD_FROM_IG_DIRECT
               ? y(e, o)
@@ -103,9 +100,7 @@ __d(
             : null;
       return (n == null ? void 0 : n.leadgen_tos_accepted) === !0;
     }
-    var h = s._(
-      /*BTDS*/ "Only messaging templates that include Meta's Lead Ads Terms allow leads to be downloaded. You can view conversations with your leads by navigating to your Inbox in Meta Business Suite.",
-    );
+    var h = s._(/*BTDS*/ "");
     function y(e, t) {
       var n,
         o,
@@ -130,104 +125,22 @@ __d(
           : e.ctd_leads_optimization_eligibility_expansion_universe;
       if (t != null)
         switch (t) {
-          case "ctd_lo_everywhere_backtest_universe":
-            r("qex")._("3120");
-            break;
-          case "ctd_lo_post_ucd_backtest_universe":
-            r("qex")._("4568");
-            break;
           case "ctd_lo_relaxed_eligibility":
             r("qex")._("679");
-            break;
-          case "ctd_lo_h126_signal_eligibility_expansion":
-            r("qex")._("3429");
-            break;
-          case "ctd_lo_everywhere_v2_am":
-            r("qex")._("2232");
             break;
           default:
             return;
         }
     }
-    function b(e, t) {
-      var n,
-        a =
+    function b(e) {
+      var t,
+        n =
           e != null
-            ? (n = r("AdsPageStore").getLoadObject(e)) == null
+            ? (t = r("AdsPageStore").getLoadObject(e)) == null
               ? void 0
-              : n.getValue()
+              : t.getValue()
             : null;
-      if ((a == null ? void 0 : a.is_messaging_light_switch_enabled) === !0)
-        return !1;
-      if (
-        (a == null ? void 0 : a.is_ctm_leads_optimization_goal_eligible) === !0
-      )
-        if (t) {
-          var i = r("gkx")("14363");
-          return (
-            r("CtxAdvertiserQeHbtExposureFalcoEvent").log(function () {
-              var e;
-              return {
-                condition: i ? "test" : "control",
-                feature_name: "ctm_lo_pre_ucd_enablement_launch",
-                hbt_name: "ctm_leads_optimization_holdout",
-                unit_id: (e = r("CurrentAdAccount").getID()) != null ? e : "",
-                unit_type: "ad_account_id",
-              };
-            }),
-            i
-          );
-        } else return r("gkx")("14364");
-      var l = r("gkx")("7550");
-      if ((a == null ? void 0 : a.is_ctm_lo_goal_eligible_incl_ucd_po) === !0) {
-        if (l) {
-          if (
-            o("CtxDfoEngagementRemovalNoticeUtils").isInPhase1QEUniverse(
-              o("CtxDfoEngagementRemovalNoticeUtils")
-                .OdaxCtxDfoRemovalQEEntrypoint.CTM_LO_POST_UCD_HOLDOUT,
-            )
-          )
-            return !0;
-          var s = t ? r("qex")._("2022") === !0 : r("qex")._("5244") === !0;
-          return !s;
-        }
-        var u = r("gkx")("26186");
-        if (u)
-          if (t) {
-            var c = r("gkx")("14363");
-            return (
-              r("CtxAdvertiserQeHbtExposureFalcoEvent").log(function () {
-                var e;
-                return {
-                  condition: c ? "test" : "control",
-                  feature_name: "ctm_lo_post_ucd_cas_enablement_launch",
-                  hbt_name: "ctm_leads_optimization_holdout",
-                  unit_id: (e = r("CurrentAdAccount").getID()) != null ? e : "",
-                  unit_type: "ad_account_id",
-                };
-              }),
-              c
-            );
-          } else return r("gkx")("14364");
-        else return !1;
-      }
-      if (l) return !0;
-      if (t) {
-        var d = r("gkx")("14363");
-        return (
-          r("CtxAdvertiserQeHbtExposureFalcoEvent").log(function () {
-            var e;
-            return {
-              condition: d ? "test" : "control",
-              feature_name: "ctm_lo_dfo_everywhere_cas_enablement_launch",
-              hbt_name: "ctm_leads_optimization_holdout",
-              unit_id: (e = r("CurrentAdAccount").getID()) != null ? e : "",
-              unit_type: "ad_account_id",
-            };
-          }),
-          d
-        );
-      } else return r("gkx")("14364");
+      return (n == null ? void 0 : n.is_messaging_light_switch_enabled) !== !0;
     }
     function v(e) {
       var t,

@@ -1,29 +1,18 @@
 __d(
   "GeoPlace",
-  ["GeoPlaceRecord"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     "use strict";
-    var e = (function (e) {
-      function t(t, n, r) {
-        return e.call(this, { coordinates: t, name: n, countryKey: r }) || this;
-      }
-      babelHelpers.inheritsLoose(t, e);
-      var n = t.prototype;
+    function e(e, t, n) {
+      return { coordinates: e, name: t, countryKey: n };
+    }
+    function l(e) {
       return (
-        (n.toString = function () {
-          return (
-            this.name ||
-            "(" +
-              this.coordinates.latitude +
-              ", " +
-              this.coordinates.longitude +
-              ")"
-          );
-        }),
-        t
+        e.name ||
+        "(" + e.coordinates.latitude + ", " + e.coordinates.longitude + ")"
       );
-    })(r("GeoPlaceRecord"));
-    l.default = e;
+    }
+    ((i.makeGeoPlace = e), (i.geoPlaceToString = l));
   },
-  98,
+  66,
 );

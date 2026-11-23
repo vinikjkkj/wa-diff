@@ -1,7 +1,6 @@
 __d(
   "WAWebMessageQueue",
   [
-    "Promise",
     "WACustomError",
     "WALogger",
     "WAPromiseQueue",
@@ -22,24 +21,22 @@ __d(
     "WAWebPromiseQueue",
     "WAWebWaitForInitialChatsSynced",
     "WAWebWorkerOnlineMessageAdmission",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = 2e4,
+      c = 2e4,
+      d = {
+        allChatQueue: new (o("WAWebPromiseQueue").PromiseQueue)(),
+        chatQueue: new (o("WAPromiseQueue").PromiseQueueMap)(),
+      },
       m = {
         allChatQueue: new (o("WAWebPromiseQueue").PromiseQueue)(),
         chatQueue: new (o("WAPromiseQueue").PromiseQueueMap)(),
       },
-      p = {
-        allChatQueue: new (o("WAWebPromiseQueue").PromiseQueue)(),
-        chatQueue: new (o("WAPromiseQueue").PromiseQueueMap)(),
-      },
-      _ = { offline: 0, online: 0 };
-    function f(e) {
+      p = { offline: 0, online: 0 };
+    function _(e) {
       if (e) {
         var t;
         (t = o("WAWebWorkerOnlineMessageAdmission").workerOnlineMessageAdmission
@@ -54,12 +51,12 @@ __d(
           "WAWebWorkerOnlineMessageAdmission",
         ).workerOnlineMessageAdmission.queue = null;
     }
-    function g(e) {
+    function f(e) {
       return o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled()
-        ? R(e)
-        : v(e);
+        ? b(e)
+        : C(e);
     }
-    function h(e) {
+    function g(e) {
       var t = e.msgCategory,
         n = e.onInboundDrainWaited,
         r = e.skipOfflineWait;
@@ -78,28 +75,20 @@ __d(
         ? null
         : (o("WAWebInboundMsgPersistedQueueAdapter").latchInboundMsgOrder(),
           {
-            mustWaitForEarlierInboundMsgs: b,
+            mustWaitForEarlierInboundMsgs: y,
             waitForEarlierInboundMsgs: function () {
-              return y(n);
+              return h(n);
             },
           });
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    async function h(e) {
+      var t = globalThis.performance.now();
+      (await o(
+        "WAWebInboundMsgPersistedQueueAdapter",
+      ).waitForInboundMsgDrainIdle(),
+        e == null || e(globalThis.performance.now() - t));
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = globalThis.performance.now();
-          (yield o(
-            "WAWebInboundMsgPersistedQueueAdapter",
-          ).waitForInboundMsgDrainIdle(),
-            e == null || e(globalThis.performance.now() - t));
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b() {
+    function y() {
       return (
         o(
           "WAWebInboundMsgPersistedQueueAdapter",
@@ -109,249 +98,199 @@ __d(
         ).isInboundMsgQueueRegistrationPending()
       );
     }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
+    async function C(e) {
+      var t = e.action,
+        n = e.chatWid,
+        r = e.isOffline,
+        a = e.msgCategory,
+        i = e.skipOfflineWait,
+        l =
+          n.isRegularUser() && !n.isLid()
+            ? o("WAWebApiContact").getCurrentLid(n)
+            : null,
+        s = (l != null ? l : n).toString();
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.action,
-            n = e.chatWid,
-            r = e.isOffline,
-            a = e.msgCategory,
-            i = e.skipOfflineWait,
-            l =
-              n.isRegularUser() && !n.isLid()
-                ? o("WAWebApiContact").getCurrentLid(n)
-                : null,
-            s = (l != null ? l : n).toString();
-          return (
-            H(a) &&
-              (yield o(
-                "WAWebWaitForInitialChatsSynced",
-              ).waitForInitialChatsSynced()),
-            r &&
-            !o(
-              "WAWebOfflineHandler",
-            ).OfflineMessageHandler.isResumeFromRestartComplete()
-              ? (o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
-                  "offline",
-                  "legacy",
-                ),
-                q("offline", V(s, t)))
-              : (o(
-                  "WAWebOfflineResumeCounters",
-                ).maybeLogOfflineMsgRoutedToOnlineQueue(r, "legacy"),
-                o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
-                  "online",
-                  "legacy",
-                ),
-                q(
-                  "online",
-                  G({
-                    enqueue: function () {
-                      return Q(s, t);
-                    },
-                    skipOfflineWait: i,
-                  }),
-                ))
-          );
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.action,
-            n = e.isOffline,
-            r = e.msgCategory,
-            a = e.skipOfflineWait;
-          H(r) &&
-            (yield o(
-              "WAWebWaitForInitialChatsSynced",
-            ).waitForInitialChatsSynced());
-          var i = h(e);
-          return n &&
-            !o(
-              "WAWebOfflineHandler",
-            ).OfflineMessageHandler.isResumeFromRestartComplete()
-            ? (o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
-                "offline",
-                "one_queue",
-              ),
-              W(t, i))
-            : (o(
-                "WAWebOfflineResumeCounters",
-              ).maybeLogOfflineMsgRoutedToOnlineQueue(n, "one_queue"),
-              o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
-                "online",
-                "one_queue",
-              ),
-              i != null && P()
-                ? q("online", E(i, t))
-                : q(
-                    "online",
-                    G({
-                      enqueue: function () {
-                        return o("WAWebOneQueue").enqueueOnOneQueue({
-                          action: t,
-                          inboundMsgOrder: i,
-                          isOffline: !1,
-                        });
-                      },
-                      skipOfflineWait: a,
-                    }),
-                  ));
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e, t) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield N();
-          return o("WAWebOneQueue").enqueueOnOneQueue({
-            action: t,
-            inboundMsgOrder: e,
-            isOffline: !1,
-            waitForAdmission: n
-              ? void 0
-              : o("WAWebEventsWaitForOfflineDeliveryEnd")
-                  .waitForOfflineDeliveryEnd,
-          });
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.handler,
-            r = e.isOffline,
-            a = e.msgCategory,
-            i = e.onInboundDrainWaited,
-            l = e.props,
-            s = a === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
-            u = s
-              ? null
-              : {
-                  mustWaitForEarlierInboundMsgs: O,
-                  waitForEarlierInboundMsgs: function () {
-                    return y(i);
-                  },
-                },
-            c = s
-              ? void 0
-              : o("WAWebInboundMsgPersistedQueueAdapter")
-                  .whenInboundMsgQueueRegistered;
-          if (
-            (H(a) &&
-              (yield o(
-                "WAWebWaitForInitialChatsSynced",
-              ).waitForInitialChatsSynced()),
-            r &&
-              !o(
-                "WAWebOfflineHandler",
-              ).OfflineMessageHandler.isResumeFromRestartComplete())
-          ) {
-            o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
+        w(a) &&
+          (await o(
+            "WAWebWaitForInitialChatsSynced",
+          ).waitForInitialChatsSynced()),
+        r &&
+        !o(
+          "WAWebOfflineHandler",
+        ).OfflineMessageHandler.isResumeFromRestartComplete()
+          ? (o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
               "offline",
-              "one_queue",
-            );
-            var d = null;
-            return o("WAWebOneQueue")
-              .handleStanzaOnOneQueue({
-                handler: t,
-                inboundMsgOrder: u,
-                isOffline: !0,
-                props: l,
-                waitForAdmission: (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      ((d = U("offline")),
-                        yield c == null ? void 0 : c(),
-                        yield o(
-                          "WAWebEventsWaitForReadyForOffline",
-                        ).waitForOfflineProcessReady(),
-                        yield o(
-                          "WAWebOfflineBacklogHold",
-                        ).waitForOfflineBacklogRelease());
-                    },
-                  );
-                  function t() {
-                    return e.apply(this, arguments);
-                  }
-                  return t;
-                })(),
-              })
-              .finally(function () {
-                return d == null ? void 0 : d();
-              });
-          }
-          return (
-            o(
+              "legacy",
+            ),
+            P("offline", M(s, t)))
+          : (o(
               "WAWebOfflineResumeCounters",
-            ).maybeLogOfflineMsgRoutedToOnlineQueue(r, "one_queue"),
+            ).maybeLogOfflineMsgRoutedToOnlineQueue(r, "legacy"),
             o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
               "online",
-              "one_queue",
+              "legacy",
             ),
-            q(
+            P(
               "online",
-              D(s, c, function (e) {
-                return o("WAWebOneQueue").handleStanzaOnOneQueue({
-                  handler: t,
-                  inboundMsgOrder: u,
-                  isOffline: !1,
-                  props: l,
-                  waitForAdmission: e,
-                });
+              A({
+                enqueue: function () {
+                  return O(s, t);
+                },
+                skipOfflineWait: i,
               }),
-            )
-          );
-        })),
-        T.apply(this, arguments)
+            ))
       );
     }
-    function D(e, t, n) {
-      return e || !P()
-        ? G({
+    async function b(e) {
+      var t = e.action,
+        n = e.isOffline,
+        r = e.msgCategory,
+        a = e.skipOfflineWait;
+      w(r) &&
+        (await o("WAWebWaitForInitialChatsSynced").waitForInitialChatsSynced());
+      var i = g(e);
+      return n &&
+        !o(
+          "WAWebOfflineHandler",
+        ).OfflineMessageHandler.isResumeFromRestartComplete()
+        ? (o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
+            "offline",
+            "one_queue",
+          ),
+          $(t, i))
+        : (o(
+            "WAWebOfflineResumeCounters",
+          ).maybeLogOfflineMsgRoutedToOnlineQueue(n, "one_queue"),
+          o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
+            "online",
+            "one_queue",
+          ),
+          i != null && E()
+            ? P("online", v(i, t))
+            : P(
+                "online",
+                A({
+                  enqueue: function () {
+                    return o("WAWebOneQueue").enqueueOnOneQueue({
+                      action: t,
+                      inboundMsgOrder: i,
+                      isOffline: !1,
+                    });
+                  },
+                  skipOfflineWait: a,
+                }),
+              ));
+    }
+    async function v(e, t) {
+      var n = await k();
+      return o("WAWebOneQueue").enqueueOnOneQueue({
+        action: t,
+        inboundMsgOrder: e,
+        isOffline: !1,
+        waitForAdmission: n
+          ? void 0
+          : o("WAWebEventsWaitForOfflineDeliveryEnd").waitForOfflineDeliveryEnd,
+      });
+    }
+    async function S(e) {
+      var t = e.handler,
+        n = e.isOffline,
+        r = e.msgCategory,
+        a = e.onInboundDrainWaited,
+        i = e.props,
+        l = r === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
+        s = l
+          ? null
+          : {
+              mustWaitForEarlierInboundMsgs: D,
+              waitForEarlierInboundMsgs: function () {
+                return h(a);
+              },
+            },
+        u = l
+          ? void 0
+          : o("WAWebInboundMsgPersistedQueueAdapter")
+              .whenInboundMsgQueueRegistered;
+      if (
+        (w(r) &&
+          (await o(
+            "WAWebWaitForInitialChatsSynced",
+          ).waitForInitialChatsSynced()),
+        n &&
+          !o(
+            "WAWebOfflineHandler",
+          ).OfflineMessageHandler.isResumeFromRestartComplete())
+      ) {
+        o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
+          "offline",
+          "one_queue",
+        );
+        var c = null;
+        return o("WAWebOneQueue")
+          .handleStanzaOnOneQueue({
+            handler: t,
+            inboundMsgOrder: s,
+            isOffline: !0,
+            props: i,
+            waitForAdmission: async function () {
+              ((c = N("offline")),
+                await (u == null ? void 0 : u()),
+                await o(
+                  "WAWebEventsWaitForReadyForOffline",
+                ).waitForOfflineProcessReady(),
+                await o(
+                  "WAWebOfflineBacklogHold",
+                ).waitForOfflineBacklogRelease());
+            },
+          })
+          .finally(function () {
+            return c == null ? void 0 : c();
+          });
+      }
+      return (
+        o("WAWebOfflineResumeCounters").maybeLogOfflineMsgRoutedToOnlineQueue(
+          n,
+          "one_queue",
+        ),
+        o("WAWebMessageDeliveryCounters").logMessageQueueEnqueued(
+          "online",
+          "one_queue",
+        ),
+        P(
+          "online",
+          R(l, u, function (e) {
+            return o("WAWebOneQueue").handleStanzaOnOneQueue({
+              handler: t,
+              inboundMsgOrder: s,
+              isOffline: !1,
+              props: i,
+              waitForAdmission: e,
+            });
+          }),
+        )
+      );
+    }
+    function R(e, t, n) {
+      return e || !E()
+        ? A({
             enqueue: function () {
               return n(t);
             },
           })
-        : x(function (e) {
+        : L(function (e) {
             return n(
               e
                 ? o("WAWebInboundMsgPersistedQueueAdapter")
                     .whenInboundMsgQueueRegistered
-                : A,
+                : T,
             );
           });
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    async function L(e) {
+      var t = await k();
+      return e(t);
     }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield N();
-          return e(t);
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P() {
+    function E() {
       return (
         !o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd &&
         !o(
@@ -359,54 +298,44 @@ __d(
         ).OfflineMessageHandler.isResumeOnSocketDisconnectInProgress()
       );
     }
-    function N() {
-      return M.apply(this, arguments);
+    async function k() {
+      try {
+        return (
+          await o("WAPromiseTimeout").promiseTimeout(
+            Promise.race([
+              Promise.all([
+                o("WAWebOneQueue").waitForOneQueueOfflineEnd(),
+                r("WAWebEventsWaitForMainStreamReadyMd")(),
+              ]),
+              I(),
+            ]),
+            o("WAWebEventsWaitForOfflineDeliveryEnd")
+              .OFFLINE_RESUME_WAIT_TIMEOUT,
+          ),
+          !1
+        );
+      } catch (t) {
+        if (!(t instanceof o("WACustomError").TimeoutError)) throw t;
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[offline-resume] delivery promise timeout 5min",
+                ])),
+            )
+            .sendLogs("offline-resume-promise-unresolved", { sampling: 0.01 }),
+          o("WAWebMessageDeliveryCounters").logOfflineDeliveryWaitTimeout(
+            o("WAWebMessageQueueImpl").getMessageQueueImpl(),
+          ),
+          !0
+        );
+      }
     }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            return (
-              yield o("WAPromiseTimeout").promiseTimeout(
-                (c || (c = n("Promise"))).race([
-                  c.all([
-                    o("WAWebOneQueue").waitForOneQueueOfflineEnd(),
-                    r("WAWebEventsWaitForMainStreamReadyMd")(),
-                  ]),
-                  w(),
-                ]),
-                o("WAWebEventsWaitForOfflineDeliveryEnd")
-                  .OFFLINE_RESUME_WAIT_TIMEOUT,
-              ),
-              !1
-            );
-          } catch (e) {
-            if (!(e instanceof o("WACustomError").TimeoutError)) throw e;
-            return (
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[offline-resume] delivery promise timeout 5min",
-                    ])),
-                )
-                .sendLogs("offline-resume-promise-unresolved", {
-                  sampling: 0.01,
-                }),
-              o("WAWebMessageDeliveryCounters").logOfflineDeliveryWaitTimeout(
-                o("WAWebMessageQueueImpl").getMessageQueueImpl(),
-              ),
-              !0
-            );
-          }
-        })),
-        M.apply(this, arguments)
-      );
-    }
-    function w() {
+    function I() {
       return o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd
-        ? (c || (c = n("Promise"))).resolve()
-        : new (c || (c = n("Promise")))(function (e) {
+        ? Promise.resolve()
+        : new Promise(function (e) {
             o("WAWebBackendEventBus").BackendEventBus.onceOfflineDeliveryEnd(
               function () {
                 return e();
@@ -414,25 +343,17 @@ __d(
             );
           });
     }
-    function A() {
-      return F.apply(this, arguments);
+    async function T() {
+      (await o(
+        "WAWebInboundMsgPersistedQueueAdapter",
+      ).whenInboundMsgQueueRegistered(),
+        o("WAWebInboundMsgPersistedQueueAdapter").getInboundMsgIntake() ==
+          null &&
+          (await o(
+            "WAWebEventsWaitForOfflineDeliveryEnd",
+          ).waitForOfflineDeliveryEnd()));
     }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield o(
-            "WAWebInboundMsgPersistedQueueAdapter",
-          ).whenInboundMsgQueueRegistered(),
-            o("WAWebInboundMsgPersistedQueueAdapter").getInboundMsgIntake() ==
-              null &&
-              (yield o(
-                "WAWebEventsWaitForOfflineDeliveryEnd",
-              ).waitForOfflineDeliveryEnd()));
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    function O() {
+    function D() {
       return (
         o(
           "WAWebInboundMsgPersistedQueueAdapter",
@@ -440,148 +361,121 @@ __d(
         o("WAWebInboundMsgPersistedQueueAdapter").getInboundMsgIntake() == null
       );
     }
-    function B() {
-      return babelHelpers.extends({}, _);
+    function x() {
+      return babelHelpers.extends({}, p);
     }
-    function W(e, t) {
-      var r = null;
+    function $(e, t) {
+      var n = null;
       return o("WAWebOneQueue")
         .enqueueOnOneQueue({
           action: e,
           inboundMsgOrder: t,
           isOffline: !0,
-          waitForAdmission: (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              ((r = U("offline")),
-                yield o(
-                  "WAWebEventsWaitForReadyForOffline",
-                ).waitForOfflineProcessReady(),
-                yield o(
-                  "WAWebOfflineBacklogHold",
-                ).waitForOfflineBacklogRelease());
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })(),
+          waitForAdmission: async function () {
+            ((n = N("offline")),
+              await o(
+                "WAWebEventsWaitForReadyForOffline",
+              ).waitForOfflineProcessReady(),
+              await o(
+                "WAWebOfflineBacklogHold",
+              ).waitForOfflineBacklogRelease());
+          },
         })
         .finally(function () {
-          return r == null ? void 0 : r();
+          return n == null ? void 0 : n();
         });
     }
-    function q(e, t) {
-      return t.finally(U(e));
+    function P(e, t) {
+      return t.finally(N(e));
     }
-    function U(e) {
+    function N(e) {
       return (
-        _[e]++,
+        p[e]++,
         function () {
-          _[e]--;
+          p[e]--;
         }
       );
     }
-    function V(t, r) {
-      return p.allChatQueue.enqueue(function () {
-        return p.chatQueue.enqueue(
-          t,
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return (
-              yield o(
-                "WAWebEventsWaitForReadyForOffline",
-              ).waitForOfflineProcessReady(),
-              yield o("WAWebOfflineBacklogHold").waitForOfflineBacklogRelease(),
-              o("WAPromiseTimeout")
-                .promiseTimeout(r(), d)
-                .catch(function (t) {
-                  if (t instanceof o("WACustomError").TimeoutError)
-                    return (
-                      o("WALogger")
-                        .LOG(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "Offline chat queue MAX_MESSAGE_DELAY exceeded",
-                            ])),
-                        )
-                        .tags("messaging"),
-                      o("WAWebMessageDeliveryCounters").logMessageQueueTimeout(
-                        "offline",
-                        "legacy",
-                      ),
-                      null
-                    );
-                  throw t;
-                })
-            );
-          }),
-        );
+    function M(e, t) {
+      return m.allChatQueue.enqueue(function () {
+        return m.chatQueue.enqueue(e, async function () {
+          return (
+            await o(
+              "WAWebEventsWaitForReadyForOffline",
+            ).waitForOfflineProcessReady(),
+            await o("WAWebOfflineBacklogHold").waitForOfflineBacklogRelease(),
+            o("WAPromiseTimeout")
+              .promiseTimeout(t(), c)
+              .catch(function (e) {
+                if (e instanceof o("WACustomError").TimeoutError)
+                  return (
+                    o("WALogger")
+                      .LOG(
+                        s ||
+                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                            "Offline chat queue MAX_MESSAGE_DELAY exceeded",
+                          ])),
+                      )
+                      .tags("messaging"),
+                    o("WAWebMessageDeliveryCounters").logMessageQueueTimeout(
+                      "offline",
+                      "legacy",
+                    ),
+                    null
+                  );
+                throw e;
+              })
+          );
+        });
       });
     }
-    function H(e) {
+    function w(e) {
       return (
         e !== o("WAWebHandleMsgCommon").MSG_CATEGORY.peer &&
         o("WAWebWaitForInitialChatsSynced").isWaitForInitialChatsSyncedPending()
       );
     }
-    function G(e) {
-      return z.apply(this, arguments);
-    }
-    function z() {
-      return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.enqueue,
-            n = e.skipOfflineWait,
-            r = o("WAWebWorkerOnlineMessageAdmission")
-              .workerOnlineMessageAdmission.queue;
-          return r != null
-            ? n === !0
-              ? t()
-              : j({ enqueue: t, onlineAdmissionQueue: r })
-            : (n !== !0 &&
-                (yield o(
-                  "WAWebEventsWaitForOfflineDeliveryEnd",
-                ).waitForOfflineDeliveryEnd()),
-              t());
-        })),
-        z.apply(this, arguments)
-      );
-    }
-    function j(e) {
-      return K.apply(this, arguments);
-    }
-    function K() {
-      return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.enqueue,
-            r = e.onlineAdmissionQueue,
-            a = o(
+    async function A(e) {
+      var t = e.enqueue,
+        n = e.skipOfflineWait,
+        r = o("WAWebWorkerOnlineMessageAdmission").workerOnlineMessageAdmission
+          .queue;
+      return r != null
+        ? n === !0
+          ? t()
+          : F({ enqueue: t, onlineAdmissionQueue: r })
+        : (n !== !0 &&
+            (await o(
               "WAWebEventsWaitForOfflineDeliveryEnd",
-            ).waitForOfflineDeliveryEnd(),
-            i = (c || (c = n("Promise"))).resolve(null);
-          return (
-            yield r.enqueue(
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                (yield a, (i = t()));
-              }),
-            ),
-            i
-          );
-        })),
-        K.apply(this, arguments)
+            ).waitForOfflineDeliveryEnd()),
+          t());
+    }
+    async function F(e) {
+      var t = e.enqueue,
+        n = e.onlineAdmissionQueue,
+        r = o(
+          "WAWebEventsWaitForOfflineDeliveryEnd",
+        ).waitForOfflineDeliveryEnd(),
+        a = Promise.resolve(null);
+      return (
+        await n.enqueue(async function () {
+          (await r, (a = t()));
+        }),
+        a
       );
     }
-    function Q(e, t) {
-      return m.allChatQueue.enqueue(function () {
-        return m.chatQueue.enqueue(e, function () {
+    function O(e, t) {
+      return d.allChatQueue.enqueue(function () {
+        return d.chatQueue.enqueue(e, function () {
           return o("WAPromiseTimeout")
-            .promiseTimeout(t(), d)
+            .promiseTimeout(t(), c)
             .catch(function (e) {
               if (e instanceof o("WACustomError").TimeoutError)
                 return (
                   o("WALogger")
                     .LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "Online chat queue MAX_MESSAGE_DELAY exceeded",
                         ])),
                     )
@@ -597,19 +491,19 @@ __d(
         });
       });
     }
-    function X() {
-      return p.allChatQueue.wait();
-    }
-    function Y() {
+    function B() {
       return m.allChatQueue.wait();
     }
-    function J() {
+    function W() {
+      return d.allChatQueue.wait();
+    }
+    function q() {
       return (
         o("WAWebWorkerOnlineMessageAdmission").workerOnlineMessageAdmission
           .queue != null
       );
     }
-    function Z() {
+    function U() {
       var e, t;
       return (e =
         (t = o("WAWebWorkerOnlineMessageAdmission").workerOnlineMessageAdmission
@@ -617,16 +511,16 @@ __d(
           ? void 0
           : t.wait()) != null
         ? e
-        : (c || (c = n("Promise"))).resolve();
+        : Promise.resolve();
     }
-    ((l.configureWorkerOnlineMessageQueueTracking = f),
-      (l.onMessageQueue = g),
-      (l.admitStanzaTaskToOneQueue = I),
-      (l.getMessageQueueDepth = B),
-      (l.waitForLegacyOfflineMessageQueue = X),
-      (l.waitForLegacyOnlineMessageQueue = Y),
-      (l.isWorkerOnlineMessageQueueTrackingEnabled = J),
-      (l.waitForWorkerOnlineMessageAdmission = Z));
+    ((l.configureWorkerOnlineMessageQueueTracking = _),
+      (l.onMessageQueue = f),
+      (l.admitStanzaTaskToOneQueue = S),
+      (l.getMessageQueueDepth = x),
+      (l.waitForLegacyOfflineMessageQueue = B),
+      (l.waitForLegacyOnlineMessageQueue = W),
+      (l.isWorkerOnlineMessageQueueTrackingEnabled = q),
+      (l.waitForWorkerOnlineMessageAdmission = U));
   },
   98,
 );

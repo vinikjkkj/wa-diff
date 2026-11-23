@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipInit",
   [
-    "Promise",
     "WALogger",
     "WAPromiseTimeout",
     "WAResolvable",
@@ -39,7 +38,6 @@ __d(
     "WAWebVoipWasmArtifactSkewErrors",
     "WAWebWidFactory",
     "WAWebWindowsHybridBridgeInitiator",
-    "asyncToGeneratorRuntime",
     "cr:17219",
     "getErrorSafe",
     "justknobx",
@@ -70,517 +68,434 @@ __d(
       T,
       D,
       x,
-      $,
-      P = (e = n("cr:17219")) != null ? e : {},
-      N = P.getWindowsBridge,
-      M = 1,
-      w = 5e3,
-      A = 60 * 1e3,
-      F = 5e3,
-      O,
-      B = "prewarm",
+      $ = (e = n("cr:17219")) != null ? e : {},
+      P = $.getWindowsBridge,
+      N = 1,
+      M = 5e3,
+      w = 60 * 1e3,
+      A = 5e3,
+      F,
+      O = "prewarm",
+      B = null,
       W = null,
       q = null,
       U = null,
-      V = null,
+      V = !1,
       H = !1,
-      G = !1,
-      z = null,
-      j = 0,
+      G = null,
+      z = 0,
+      j = null,
       K = null,
-      Q = null,
-      X = 0,
+      Q = 0,
+      X = !1,
       Y = !1,
-      J = !1,
-      Z = 0,
-      ee = null;
-    function te(e, t, n, r, o) {
-      return ne.apply(this, arguments);
+      J = 0,
+      Z = null;
+    async function ee(e, t, n, r, a) {
+      e === void 0 && (e = "prewarm");
+      var i = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
+      if (i == null) {
+        (o("WALogger").WARN(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: init skipped, selfLid not available yet",
+            ])),
+        ),
+          (V = !0),
+          o(
+            "WAWebVoipInitEventEmitter",
+          ).VoipInitEventEmitter.triggerVoipInitFailure());
+        return;
+      }
+      if (!i.equals(F))
+        ((F = i),
+          (O = e),
+          Ce(),
+          (B = t),
+          (W = n),
+          (q = r),
+          (U = a),
+          await se(i));
+      else {
+        if (t != null) {
+          var l = O === "prewarm" ? "prewarm_owned" : "intent_owned";
+          o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
+            function () {
+              o("WAWebCoreActionsODS").logCallVoipBootInitFired(l);
+            },
+          );
+        }
+        le && (await le.promise, Fe(e) && (await ee(e, t, n, r, a)));
+      }
     }
-    function ne() {
-      return (
-        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            e === void 0 && (e = "prewarm");
-            var i = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
-            if (i == null) {
-              (o("WALogger").WARN(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: init skipped, selfLid not available yet",
-                  ])),
-              ),
-                (H = !0),
-                o(
-                  "WAWebVoipInitEventEmitter",
-                ).VoipInitEventEmitter.triggerVoipInitFailure());
-              return;
-            }
-            if (!i.equals(O))
-              ((O = i),
-                (B = e),
-                Ie(),
-                (W = t),
-                (q = n),
-                (U = r),
-                (V = a),
-                yield fe(i));
-            else {
-              if (t != null) {
-                var l = B === "prewarm" ? "prewarm_owned" : "intent_owned";
-                o(
-                  "WAWebVoipDeferredBootLogging",
-                ).safelyLogVoipDeferredBootEvent(function () {
-                  o("WAWebCoreActionsODS").logCallVoipBootInitFired(l);
-                });
-              }
-              _e && (yield _e.promise, Ge(e) && (yield te(e, t, n, r, a)));
-            }
-          },
-        )),
-        ne.apply(this, arguments)
-      );
-    }
-    function re() {
+    function te() {
       return (
         o(
           "WAWebVoipInitEventEmitter",
         ).VoipInitEventEmitter.getDidVoipInitError() &&
-        H &&
-        j < ke()
+        V &&
+        z < ye()
       );
     }
-    function oe() {
-      return ae.apply(this, arguments);
+    async function ne() {
+      if (K != null) return await K;
+      var e = ie();
+      K = e;
+      try {
+        return await e;
+      } finally {
+        K === e && (K = null);
+      }
     }
-    function ae() {
-      return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (Q != null) return yield Q;
-          var e = me();
-          Q = e;
-          try {
-            return yield e;
-          } finally {
-            Q === e && (Q = null);
-          }
-        })),
-        ae.apply(this, arguments)
-      );
+    async function re(e) {
+      return o(
+        "WAWebVoipInitEventEmitter",
+      ).VoipInitEventEmitter.getIsVoipInited()
+        ? !0
+        : (Ke(),
+          o(
+            "WAWebVoipWasmArtifactRecoveryEvents",
+          ).emitVoipWasmArtifactRecovered(),
+          await ae({ artifact_recovery_attempt: e }));
     }
-    function ie(e) {
-      return le.apply(this, arguments);
+    async function oe(e, t) {
+      return o(
+        "WAWebVoipInitEventEmitter",
+      ).VoipInitEventEmitter.getIsVoipInited()
+        ? !0
+        : await ae({ init_recovery_attempt: e }, t);
     }
-    function le() {
-      return (
-        (le = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o(
+    async function ae(e, t) {
+      if (
+        (t === void 0 && (t = o("WAWebBoolFunc").returnTrue),
+        le != null &&
+          (await le.promise,
+          o(
             "WAWebVoipInitEventEmitter",
-          ).VoipInitEventEmitter.getIsVoipInited()
-            ? !0
-            : (at(),
-              o(
-                "WAWebVoipWasmArtifactRecoveryEvents",
-              ).emitVoipWasmArtifactRecovered(),
-              yield ce({ artifact_recovery_attempt: e }));
-        })),
-        le.apply(this, arguments)
+          ).VoipInitEventEmitter.getIsVoipInited()))
+      )
+        return !0;
+      if (!t()) return !1;
+      ((F = null),
+        o(
+          "WAWebVoipInitEventEmitter",
+        ).VoipInitEventEmitter.markVoipInitUntried(),
+        (G = e));
+      try {
+        await ee(O);
+      } finally {
+        G = null;
+      }
+      return o(
+        "WAWebVoipInitEventEmitter",
+      ).VoipInitEventEmitter.getIsVoipInited();
+    }
+    async function ie() {
+      if (
+        le &&
+        (await le.promise,
+        o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.getIsVoipInited())
+      )
+        return !0;
+      if (!te())
+        return o(
+          "WAWebVoipInitEventEmitter",
+        ).VoipInitEventEmitter.getIsVoipInited();
+      var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
+      if (e == null) return !1;
+      (z++,
+        r("WAWebODS").incr("web.call.voip_init.retry_attempt"),
+        (F = e),
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: retrying init after transient failure attempt=",
+              " max=",
+              "",
+            ])),
+          z,
+          ye(),
+        ));
+      var t = Q,
+        n = await Ge();
+      if (
+        t !== Q ||
+        o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.getIsVoipInited()
+      ) {
+        var a;
+        return (
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: skip retry, a newer init started in idle wait",
+              ])),
+          ),
+          await ((a = le) == null ? void 0 : a.promise),
+          o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.getIsVoipInited()
+        );
+      }
+      var i = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
+      if (i == null || !e.equals(i))
+        return (
+          o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: skip retry, identity changed in idle wait",
+              ])),
+          ),
+          o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.getIsVoipInited()
+        );
+      await se(e, !0, n);
+      var l = o(
+        "WAWebVoipInitEventEmitter",
+      ).VoipInitEventEmitter.getIsVoipInited();
+      return (
+        l
+          ? o("WAWebCoreActionsODS").logCallVoipInitRetrySuccess()
+          : (r("WAWebODS").incr("web.call.voip_init.retry_failure"),
+            te() || r("WAWebODS").incr("web.call.voip_init.retry_exhausted")),
+        l
       );
     }
-    function se(e, t) {
-      return ue.apply(this, arguments);
-    }
-    function ue() {
-      return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return o(
+    var le = null;
+    async function se(e, t, n) {
+      if (
+        (t === void 0 && (t = !1),
+        o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: init after me_ready",
+            ])),
+        ),
+        !(
+          o(
             "WAWebVoipInitEventEmitter",
-          ).VoipInitEventEmitter.getIsVoipInited()
-            ? !0
-            : yield ce({ init_recovery_attempt: e }, t);
-        })),
-        ue.apply(this, arguments)
-      );
-    }
-    function ce(e, t) {
-      return de.apply(this, arguments);
-    }
-    function de() {
-      return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+          ).VoipInitEventEmitter.getDidVoipInitError() && !t
+        ))
+      ) {
+        if (
+          le &&
+          (await le.promise,
+          o(
+            "WAWebVoipInitEventEmitter",
+          ).VoipInitEventEmitter.getIsVoipInited() ||
+            o(
+              "WAWebVoipInitEventEmitter",
+            ).VoipInitEventEmitter.getDidVoipInitError())
+        ) {
+          o("WALogger").LOG(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: init already done, ignoring duplicate call",
+              ])),
+          );
+          return;
+        }
+        le = new (o("WAResolvable").Resolvable)();
+        var a = B,
+          i = $e(a, t);
+        (!t &&
+          a != null &&
+          o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
+            function () {
+              o("WAWebCoreActionsODS").logCallVoipBootInitFired(a.reason);
+            },
+          ),
+          o("WAWebVoipQplHelpers").startVoipInitQpl(ke()),
+          i || o("WAWebVoipInitOutcomeLog").logVoipInitAttemptOnce(Ie(a)),
+          be(t, n),
+          ve(),
+          Re(t));
+        try {
+          var l, s, u;
           if (
-            (t === void 0 && (t = o("WAWebBoolFunc").returnTrue),
-            _e != null &&
-              (yield _e.promise,
+            (o(
+              "WAWebVoipInitEventEmitter",
+            ).VoipInitEventEmitter.markVoipInitAttemptStarted(
+              O === "prewarm" &&
+                (!t ||
+                  o(
+                    "WAWebVoipInitEventEmitter",
+                  ).VoipInitEventEmitter.getVoipWebStackCreatedAtMs() != null),
+            ),
+            o(
+              "WAWebVoipInitEventEmitter",
+            ).VoipInitEventEmitter.markVoipInitTrigger(Ie(a)),
+            o("WAWebVoipGatingUtils").isUnsupportedBrowserForWebCalling())
+          ) {
+            (o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: init skipped due to unsupported browser",
+                ])),
+            ),
+              o("WAWebCoreActionsODS").logCallVoipInitSkipUnsupported(),
+              o("WAWebVoipQplHelpers").endVoipInitQplFail(
+                "unsupported_browser",
+              ),
+              (V = !1),
               o(
                 "WAWebVoipInitEventEmitter",
-              ).VoipInitEventEmitter.getIsVoipInited()))
-          )
-            return !0;
-          if (!t()) return !1;
-          ((O = null),
-            o(
-              "WAWebVoipInitEventEmitter",
-            ).VoipInitEventEmitter.markVoipInitUntried(),
-            (z = e));
-          try {
-            yield te(B);
-          } finally {
-            z = null;
+              ).VoipInitEventEmitter.triggerVoipInitFailure());
+            return;
           }
-          return o(
-            "WAWebVoipInitEventEmitter",
-          ).VoipInitEventEmitter.getIsVoipInited();
-        })),
-        de.apply(this, arguments)
-      );
-    }
-    function me() {
-      return pe.apply(this, arguments);
-    }
-    function pe() {
-      return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            _e &&
-            (yield _e.promise,
+          (We(),
             o(
-              "WAWebVoipInitEventEmitter",
-            ).VoipInitEventEmitter.getIsVoipInited())
+              "WAWebVoipBrowserAudioStatus",
+            ).preDetectBrowserAudioCapabilities(),
+            je());
+          var c = await o("WAWebVoipStackInterface").getVoipStackInterface();
+          if ((c == null ? void 0 : c.type) === "windows") {
+            var d = null;
+            try {
+              d = await o("WAPromiseTimeout").promiseTimeout(
+                o("WAWebCountryCodeUtils").getMyCallingCode(),
+                M,
+              );
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: getMyCallingCode failed or timed out, using fallback: ",
+                      "",
+                    ])),
+                  String(e),
+                )
+                .sendLogs("voip-get-self-country-code-failed");
+            }
+            try {
+              await c.setSelfCountryCode(d != null ? d : "");
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: setSelfCountryCode failed, continuing init: ",
+                      "",
+                    ])),
+                  String(e),
+                )
+                .sendLogs("voip-set-self-country-code-failed");
+            }
+          }
+          var C = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
+            b = C != null && !C.isLid() ? C : null,
+            v = b != null ? o("WAWebWidFactory").asUserWidOrThrow(b) : null,
+            S =
+              c == null
+                ? void 0
+                : c.voipInit(
+                    (l = b == null ? void 0 : b.toString({ legacy: !0 })) !=
+                      null
+                      ? l
+                      : "",
+                    (s = v == null ? void 0 : v.toString({ legacy: !0 })) !=
+                      null
+                      ? s
+                      : "",
+                    e.toString({ legacy: !0 }),
+                  );
+          if (
+            (await Promise.all([
+              S,
+              c == null
+                ? void 0
+                : c.setHideMyIp(
+                    (u = o("WAWebUserPrefsGeneral").getUserPrivacySettings()
+                      .disallowAllP2p) != null
+                      ? u
+                      : !1,
+                  ),
+            ]),
+            (c == null ? void 0 : c.type) === "web")
           )
-            return !0;
-          if (!re())
-            return o(
-              "WAWebVoipInitEventEmitter",
-            ).VoipInitEventEmitter.getIsVoipInited();
-          var e = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
-          if (e == null) return !1;
-          (j++,
-            r("WAWebODS").incr("web.call.voip_init.retry_attempt"),
-            (O = e),
-            o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: retrying init after transient failure attempt=",
-                  " max=",
+            var R = new (o("WAWebCallWamEvent").CallWamEvent)(),
+              L = new (o("WAWebJoinableCallWamEvent").JoinableCallWamEvent)();
+          try {
+            o("WAWebVoipNetworkMedium").startNetworkMediumMonitoring();
+          } catch (e) {
+            o("WALogger").WARN(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: network medium monitoring failed to start: ",
                   "",
                 ])),
-              j,
-              ke(),
-            ));
-          var t = X,
-            n = yield tt();
-          if (
-            t !== X ||
-            o(
-              "WAWebVoipInitEventEmitter",
-            ).VoipInitEventEmitter.getIsVoipInited()
-          ) {
-            var a;
-            return (
-              o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: skip retry, a newer init started in idle wait",
-                  ])),
-              ),
-              yield (a = _e) == null ? void 0 : a.promise,
-              o(
-                "WAWebVoipInitEventEmitter",
-              ).VoipInitEventEmitter.getIsVoipInited()
+              e,
             );
           }
-          var i = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid();
-          if (i == null || !e.equals(i))
-            return (
-              o("WALogger").LOG(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: skip retry, identity changed in idle wait",
-                  ])),
-              ),
+          if (
+            ((c == null ? void 0 : c.type) === "web" &&
+              o("WAWebVoipCrashRecovery").initCrashRecovery(),
+            (c == null ? void 0 : c.type) === "windows")
+          ) {
+            var E;
+            P == null ||
+              (E = P(r("WAWebWindowsHybridBridgeInitiator").WAWebVoipInit)) ==
+                null ||
+              (E = E.voip) == null ||
+              E.setHandlers(c.callbacks);
+          }
+          (Pe(i),
+            o("WAWebVoipInitOutcomeLog").logVoipInitReadyOnce(Te(a)),
+            Ce(),
+            Ne(i),
+            o("WAWebVoipQplHelpers").endVoipInitQplSuccess({
+              bool: { download_only: !1 },
+            }));
+        } catch (e) {
+          o("WAWebVoipQplHelpers").endVoipInitQplFail("init_error", pe(e));
+          var k = e instanceof Error ? e.message : String(e),
+            I =
+              r("WAWebEnvironment").isWindows &&
+              k.includes(
+                "Attempted to create Web stack in Windows environment",
+              );
+          if (I) {
+            (o("WALogger").LOG(
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: init skipped on Windows Hybrid due to mis-resolve",
+                ])),
+            ),
+              (V = !1),
               o(
                 "WAWebVoipInitEventEmitter",
-              ).VoipInitEventEmitter.getIsVoipInited()
-            );
-          yield fe(e, !0, n);
-          var l = o(
-            "WAWebVoipInitEventEmitter",
-          ).VoipInitEventEmitter.getIsVoipInited();
-          return (
-            l
-              ? o("WAWebCoreActionsODS").logCallVoipInitRetrySuccess()
-              : (r("WAWebODS").incr("web.call.voip_init.retry_failure"),
-                re() ||
-                  r("WAWebODS").incr("web.call.voip_init.retry_exhausted")),
-            l
-          );
-        })),
-        pe.apply(this, arguments)
-      );
-    }
-    var _e = null;
-    function fe(e, t, n) {
-      return ge.apply(this, arguments);
-    }
-    function ge() {
-      return (
-        (ge = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a) {
-            if (
-              (t === void 0 && (t = !1),
-              o("WALogger").LOG(
-                R ||
-                  (R = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: init after me_ready",
-                  ])),
+              ).VoipInitEventEmitter.triggerVoipInitFailure());
+            return;
+          }
+          ((H = !0), Me(t, i));
+          var T = ue(e);
+          (he(e, T, t), Be(e, i));
+          var D =
+            (T && ce()) ||
+            o(
+              "WAWebVoipPthreadGlueFailureTracker",
+            ).hasTerminalPthreadGlueFailure();
+          ((V = !D),
+            D &&
+              o("WAWebBackendApi").frontendFireAndForget(
+                "markVoipWasmArtifactUnavailable",
               ),
-              !(
-                o(
-                  "WAWebVoipInitEventEmitter",
-                ).VoipInitEventEmitter.getDidVoipInitError() && !t
-              ))
-            ) {
-              if (
-                _e &&
-                (yield _e.promise,
-                o(
-                  "WAWebVoipInitEventEmitter",
-                ).VoipInitEventEmitter.getIsVoipInited() ||
-                  o(
-                    "WAWebVoipInitEventEmitter",
-                  ).VoipInitEventEmitter.getDidVoipInitError())
-              ) {
-                o("WALogger").LOG(
-                  L ||
-                    (L = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: init already done, ignoring duplicate call",
-                    ])),
-                );
-                return;
-              }
-              _e = new (o("WAResolvable").Resolvable)();
-              var i = W,
-                l = Be(i, t);
-              (!t &&
-                i != null &&
-                o(
-                  "WAWebVoipDeferredBootLogging",
-                ).safelyLogVoipDeferredBootEvent(function () {
-                  o("WAWebCoreActionsODS").logCallVoipBootInitFired(i.reason);
-                }),
-                o("WAWebVoipQplHelpers").startVoipInitQpl(Me()),
-                l || o("WAWebVoipInitOutcomeLog").logVoipInitAttemptOnce(we(i)),
-                Te(t, a),
-                De(),
-                $e(t));
-              try {
-                var s, u, c;
-                if (
-                  (o(
-                    "WAWebVoipInitEventEmitter",
-                  ).VoipInitEventEmitter.markVoipInitAttemptStarted(
-                    B === "prewarm" &&
-                      (!t ||
-                        o(
-                          "WAWebVoipInitEventEmitter",
-                        ).VoipInitEventEmitter.getVoipWebStackCreatedAtMs() !=
-                          null),
-                  ),
-                  o(
-                    "WAWebVoipInitEventEmitter",
-                  ).VoipInitEventEmitter.markVoipInitTrigger(we(i)),
-                  o("WAWebVoipGatingUtils").isUnsupportedBrowserForWebCalling())
-                ) {
-                  (o("WALogger").LOG(
-                    E ||
-                      (E = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: init skipped due to unsupported browser",
-                      ])),
-                  ),
-                    o("WAWebCoreActionsODS").logCallVoipInitSkipUnsupported(),
-                    o("WAWebVoipQplHelpers").endVoipInitQplFail(
-                      "unsupported_browser",
-                    ),
-                    (H = !1),
-                    o(
-                      "WAWebVoipInitEventEmitter",
-                    ).VoipInitEventEmitter.triggerVoipInitFailure());
-                  return;
-                }
-                (Ke(),
-                  o(
-                    "WAWebVoipBrowserAudioStatus",
-                  ).preDetectBrowserAudioCapabilities(),
-                  ot());
-                var d = yield o(
-                  "WAWebVoipStackInterface",
-                ).getVoipStackInterface();
-                if ((d == null ? void 0 : d.type) === "windows") {
-                  var m = null;
-                  try {
-                    m = yield o("WAPromiseTimeout").promiseTimeout(
-                      o("WAWebCountryCodeUtils").getMyCallingCode(),
-                      w,
-                    );
-                  } catch (e) {
-                    o("WALogger")
-                      .WARN(
-                        k ||
-                          (k = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: getMyCallingCode failed or timed out, using fallback: ",
-                            "",
-                          ])),
-                        String(e),
-                      )
-                      .sendLogs("voip-get-self-country-code-failed");
-                  }
-                  try {
-                    yield d.setSelfCountryCode(m != null ? m : "");
-                  } catch (e) {
-                    o("WALogger")
-                      .WARN(
-                        I ||
-                          (I = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: setSelfCountryCode failed, continuing init: ",
-                            "",
-                          ])),
-                        String(e),
-                      )
-                      .sendLogs("voip-set-self-country-code-failed");
-                  }
-                }
-                var p = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn(),
-                  _ = p != null && !p.isLid() ? p : null,
-                  f =
-                    _ != null ? o("WAWebWidFactory").asUserWidOrThrow(_) : null,
-                  g =
-                    d == null
-                      ? void 0
-                      : d.voipInit(
-                          (s =
-                            _ == null ? void 0 : _.toString({ legacy: !0 })) !=
-                            null
-                            ? s
-                            : "",
-                          (u =
-                            f == null ? void 0 : f.toString({ legacy: !0 })) !=
-                            null
-                            ? u
-                            : "",
-                          e.toString({ legacy: !0 }),
-                        );
-                if (
-                  (yield ($ || ($ = n("Promise"))).all([
-                    g,
-                    d == null
-                      ? void 0
-                      : d.setHideMyIp(
-                          (c = o(
-                            "WAWebUserPrefsGeneral",
-                          ).getUserPrivacySettings().disallowAllP2p) != null
-                            ? c
-                            : !1,
-                        ),
-                  ]),
-                  (d == null ? void 0 : d.type) === "web")
-                )
-                  var h = new (o("WAWebCallWamEvent").CallWamEvent)(),
-                    y = new (o(
-                      "WAWebJoinableCallWamEvent",
-                    ).JoinableCallWamEvent)();
-                try {
-                  o("WAWebVoipNetworkMedium").startNetworkMediumMonitoring();
-                } catch (e) {
-                  o("WALogger").WARN(
-                    T ||
-                      (T = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: network medium monitoring failed to start: ",
-                        "",
-                      ])),
-                    e,
-                  );
-                }
-                if (
-                  ((d == null ? void 0 : d.type) === "web" &&
-                    o("WAWebVoipCrashRecovery").initCrashRecovery(),
-                  (d == null ? void 0 : d.type) === "windows")
-                ) {
-                  var C;
-                  N == null ||
-                    (C = N(
-                      r("WAWebWindowsHybridBridgeInitiator").WAWebVoipInit,
-                    )) == null ||
-                    (C = C.voip) == null ||
-                    C.setHandlers(d.callbacks);
-                }
-                (We(l),
-                  o("WAWebVoipInitOutcomeLog").logVoipInitReadyOnce(Ae(i)),
-                  Ie(),
-                  qe(l),
-                  o("WAWebVoipQplHelpers").endVoipInitQplSuccess({
-                    bool: { download_only: !1 },
-                  }));
-              } catch (e) {
-                o("WAWebVoipQplHelpers").endVoipInitQplFail(
-                  "init_error",
-                  ve(e),
-                );
-                var b = e instanceof Error ? e.message : String(e),
-                  v =
-                    r("WAWebEnvironment").isWindows &&
-                    b.includes(
-                      "Attempted to create Web stack in Windows environment",
-                    );
-                if (v) {
-                  (o("WALogger").LOG(
-                    D ||
-                      (D = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: init skipped on Windows Hybrid due to mis-resolve",
-                      ])),
-                  ),
-                    (H = !1),
-                    o(
-                      "WAWebVoipInitEventEmitter",
-                    ).VoipInitEventEmitter.triggerVoipInitFailure());
-                  return;
-                }
-                ((G = !0), Ue(t, l));
-                var S = he(e);
-                (Ee(e, S, t), je(e, l));
-                var x =
-                  (S && ye()) ||
-                  o(
-                    "WAWebVoipPthreadGlueFailureTracker",
-                  ).hasTerminalPthreadGlueFailure();
-                ((H = !x),
-                  x &&
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "markVoipWasmArtifactUnavailable",
-                    ),
-                  Ve(l, S),
-                  o(
-                    "WAWebVoipInitEventEmitter",
-                  ).VoipInitEventEmitter.getDidVoipInitError() &&
-                    !re() &&
-                    o("WAWebVoipInitOutcomeLog").logVoipInitDeadOnce(e),
-                  He(e),
-                  Ke());
-              } finally {
-                var P;
-                (o(
-                  "WAWebVoipInitEventEmitter",
-                ).VoipInitEventEmitter.markVoipInitAttemptEnded(),
-                  (P = _e) == null || P.resolve(),
-                  (_e = null));
-              }
-            }
-          },
-        )),
-        ge.apply(this, arguments)
-      );
+            we(i, T),
+            o(
+              "WAWebVoipInitEventEmitter",
+            ).VoipInitEventEmitter.getDidVoipInitError() &&
+              !te() &&
+              o("WAWebVoipInitOutcomeLog").logVoipInitDeadOnce(e),
+            Ae(e),
+            We());
+        } finally {
+          var x;
+          (o(
+            "WAWebVoipInitEventEmitter",
+          ).VoipInitEventEmitter.markVoipInitAttemptEnded(),
+            (x = le) == null || x.resolve(),
+            (le = null));
+        }
+      }
     }
-    function he(e) {
+    function ue(e) {
       var t = e instanceof Error ? e.name + ": " + e.message : String(e),
         n =
           t.includes("LinkError") &&
@@ -593,14 +508,14 @@ __d(
         )
       );
     }
-    function ye() {
+    function ce() {
       try {
         return r("justknobx")._("5809");
       } catch (e) {
         return !0;
       }
     }
-    function Ce(e) {
+    function de(e) {
       return e.includes("stack interface load timed out")
         ? "stack_interface_load"
         : e.includes("timeout waiting for RPC ready")
@@ -621,7 +536,7 @@ __d(
                   ? "wasm_instantiate"
                   : "init";
     }
-    function be(e) {
+    function me(e) {
       return e.includes(
         o("WAWebVoipWasmArtifactSkewErrors").WORKER_GLUE_BUILD_MISMATCH_TOKEN,
       )
@@ -643,16 +558,16 @@ __d(
                     ? "linkerror_other"
                     : "other";
     }
-    function ve(e) {
+    function pe(e) {
       var t = e instanceof Error ? e.name + ": " + e.message : String(e);
       return {
         int: {
-          failure_fingerprint_code: Re(be(t)),
-          failure_phase_code: Se(Ce(t)),
+          failure_fingerprint_code: fe(me(t)),
+          failure_phase_code: _e(de(t)),
         },
       };
     }
-    function Se(e) {
+    function _e(e) {
       return e === "stack_interface_load"
         ? 1
         : e === "worker_rpc_ready"
@@ -674,7 +589,7 @@ __d(
                         );
                       })();
     }
-    function Re(e) {
+    function fe(e) {
       return e === "worker_glue_skew"
         ? 1
         : e === "worker_glue_pinned_load_failed"
@@ -698,7 +613,7 @@ __d(
                           );
                         })();
     }
-    function Le() {
+    function ge() {
       var e;
       return (e = o(
         "WAWebVoipWasmArtifactRegistry",
@@ -706,7 +621,7 @@ __d(
         ? e
         : "unknown";
     }
-    function Ee(e, t, n) {
+    function he(e, t, n) {
       var r = e instanceof Error ? e.name + ": " + e.message : String(e);
       (t &&
         !n &&
@@ -718,50 +633,50 @@ __d(
             "WAWebCoreActionsODS",
           ).logCallVoipInitWasmArtifactWorkerGlueSkewDetected()),
         o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          C ||
+            (C = babelHelpers.taggedTemplateLiteralLoose([
               "voip: init failure artifacts phase=",
               " fingerprint=",
               " expectedWasmUri=",
               "",
             ])),
-          Ce(r),
-          be(r),
-          Le(),
+          de(r),
+          me(r),
+          ge(),
         ));
     }
-    function ke() {
-      if (K == null)
+    function ye() {
+      if (j == null)
         try {
-          K = Math.max(0, r("justknobx")._("4786"));
+          j = Math.max(0, r("justknobx")._("4786"));
         } catch (e) {
           (o("WALogger").WARN(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: init retry count JK unavailable, using fallback=",
                 ": ",
                 "",
               ])),
-            M,
+            N,
             String(e),
           ),
-            (K = M));
+            (j = N));
         }
-      return K;
+      return j;
     }
-    function Ie() {
-      (X++,
-        (H = !1),
-        (j = 0),
+    function Ce() {
+      (Q++,
+        (V = !1),
+        (z = 0),
+        (j = null),
         (K = null),
-        (Q = null),
-        (Z = 0),
+        (J = 0),
+        (B = null),
         (W = null),
         (q = null),
-        (U = null),
-        (V = null));
+        (U = null));
     }
-    function Te(e, t) {
+    function be(e, t) {
       try {
         (o("WAWebVoipQplHelpers").voipInitQplAnnotateStart({
           bootDecision: o(
@@ -772,21 +687,21 @@ __d(
           ).getVoipBootInitDecisionReason(),
           isRetry: e,
         }),
-          o("WAWebVoipQplHelpers").voipInitQplAnnotateTrigger(xe(e)),
+          o("WAWebVoipQplHelpers").voipInitQplAnnotateTrigger(Se(e)),
           t != null &&
             o("WAWebVoipQplHelpers").voipInitQplAnnotateRetryIdleWait(t));
       } catch (e) {
         o("WALogger")
           .WARN(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            v ||
+              (v = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: init start annotation failed",
               ])),
           )
           .catching(r("getErrorSafe")(e));
       }
     }
-    function De() {
+    function ve() {
       try {
         o("WAWebVoipLastCallLogging").logVoipLastCallAtInit(
           o("WAWebVoipLastCallStore").getBootLastCall(),
@@ -794,47 +709,47 @@ __d(
       } catch (e) {
         o("WALogger")
           .WARN(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            S ||
+              (S = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: last call logging failed",
               ])),
           )
           .catching(r("getErrorSafe")(e));
       }
     }
-    function xe(e) {
+    function Se(e) {
       var t;
-      return (t = e ? null : V) != null
+      return (t = e ? null : U) != null
         ? t
         : o("WAWebPageVisibilityRecency").snapshotPageVisibility();
     }
-    function $e(e) {
+    function Re(e) {
       o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
         function () {
           !e &&
             o("WAWebVoipBootInitDecision").getVoipBootInitDecision() ===
               "deferred" &&
-            o("WAWebCoreActionsODS").logCallVoipInitDeferredStart(Pe());
+            o("WAWebCoreActionsODS").logCallVoipInitDeferredStart(Le());
         },
       );
     }
-    function Pe() {
-      return B === "call"
+    function Le() {
+      return O === "call"
         ? "call"
-        : B === "incoming"
-          ? Ne(q)
-          : B === "prewarm"
-            ? W == null
+        : O === "incoming"
+          ? Ee(W)
+          : O === "prewarm"
+            ? B == null
               ? "prewarm_unscheduled"
               : "prewarm_scheduled"
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    B,
+                    O,
                 );
               })();
     }
-    function Ne(e) {
+    function Ee(e) {
       return e == null
         ? "incoming_other"
         : e.isGroup
@@ -847,16 +762,16 @@ __d(
                 ? "incoming_offer_fresh"
                 : "incoming_offer_queued_30s_plus";
     }
-    function Me() {
-      var e = babelHelpers.extends({}, z, { trigger_code: Fe(B) });
-      U != null && (e.intent_backend_load_ms = U);
-      var t = { trigger_source: B },
-        n = W;
+    function ke() {
+      var e = babelHelpers.extends({}, G, { trigger_code: De(O) });
+      q != null && (e.intent_backend_load_ms = q);
+      var t = { trigger_source: O },
+        n = B;
       n != null &&
         ((t.boot_defer_reason = n.reason),
-        (e.boot_defer_reason_code = Oe(n.reason)),
+        (e.boot_defer_reason_code = xe(n.reason)),
         n.waitMs != null && (e.boot_defer_wait_ms = n.waitMs));
-      var r = q;
+      var r = W;
       return r == null
         ? { int: e, string: t }
         : ((e.incoming_msg_type = r.msgType),
@@ -873,27 +788,27 @@ __d(
             string: t,
           });
     }
-    function we(e) {
+    function Ie(e) {
       var t;
-      return B === "prewarm"
+      return O === "prewarm"
         ? (t = e == null ? void 0 : e.reason) != null
           ? t
           : "boot"
-        : B === "call"
+        : O === "call"
           ? "call"
-          : B === "incoming"
+          : O === "incoming"
             ? "incoming"
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                    B,
+                    O,
                 );
               })();
     }
-    function Ae(e) {
-      return e != null ? "deferred" : B === "prewarm" ? "eager" : "intent";
+    function Te(e) {
+      return e != null ? "deferred" : O === "prewarm" ? "eager" : "intent";
     }
-    function Fe(e) {
+    function De(e) {
       return e === "prewarm"
         ? 1
         : e === "call"
@@ -907,7 +822,7 @@ __d(
                 );
               })();
     }
-    function Oe(e) {
+    function xe(e) {
       return e === "deadline"
         ? 1
         : e === "scheduler_error"
@@ -921,33 +836,33 @@ __d(
                 );
               })();
     }
-    function Be(e, t) {
+    function $e(e, t) {
       return !t && (e == null ? void 0 : e.reason) === "hidden_prewarm";
     }
-    function We(e) {
+    function Pe(e) {
       (e &&
         o("WAWebVoipHiddenPrewarmIdleWork").watchTabFromHiddenPrewarmSuccess(),
         o(
           "WAWebVoipInitEventEmitter",
         ).VoipInitEventEmitter.triggerVoipInitSuccess(e));
     }
-    function qe(e) {
-      (o("WAWebCoreActionsODS").logCallVoipInitSuccess(), e && ze("success"));
+    function Ne(e) {
+      (o("WAWebCoreActionsODS").logCallVoipInitSuccess(), e && Oe("success"));
     }
-    function Ue(e, t) {
-      t ? ze("failure") : e || o("WAWebCoreActionsODS").logCallVoipInitError();
+    function Me(e, t) {
+      t ? Oe("failure") : e || o("WAWebCoreActionsODS").logCallVoipInitError();
     }
-    function Ve(e, t) {
-      if (e && H) {
-        ((O = null),
+    function we(e, t) {
+      if (e && V) {
+        ((F = null),
           o(
             "WAWebVoipInitEventEmitter",
           ).VoipInitEventEmitter.markVoipInitUntried(),
           o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
             function () {
               o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [deferred-boot] hidden_prewarm init failed, VoIP left untried",
                   ])),
               );
@@ -961,15 +876,15 @@ __d(
         t ? "wasm_contract_mismatch" : null,
       );
     }
-    function He(e) {
+    function Ae(e) {
       o(
         "WAWebVoipInitEventEmitter",
       ).VoipInitEventEmitter.getDidVoipInitError() &&
-        (H && o("WAWebVoipInitFailureRecovery").isRecoverableVoipInitFailure(e)
-          ? o("WAWebVoipInitFailureRecovery").armVoipInitFailureRecovery(se)
+        (V && o("WAWebVoipInitFailureRecovery").isRecoverableVoipInitFailure(e)
+          ? o("WAWebVoipInitFailureRecovery").armVoipInitFailureRecovery(oe)
           : o("WAWebVoipInitFailureRecovery").stopVoipInitFailureRecovery());
     }
-    function Ge(e) {
+    function Fe(e) {
       return (
         e !== "prewarm" &&
         !o(
@@ -980,7 +895,7 @@ __d(
         ).VoipInitEventEmitter.getDidVoipInitError()
       );
     }
-    function ze(e) {
+    function Oe(e) {
       o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
         function () {
           var t = !document.hidden && document.hasFocus();
@@ -994,8 +909,8 @@ __d(
                 document.hidden ? "hidden" : "visible",
               ),
             o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              L ||
+                (L = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [deferred-boot] hidden_prewarm init_end outcome=",
                   " visible_focused=",
                   "",
@@ -1006,10 +921,10 @@ __d(
         },
       );
     }
-    function je(e, t) {
+    function Be(e, t) {
       var n = o("WALogger").ERROR(
-          _ ||
-            (_ = babelHelpers.taggedTemplateLiteralLoose([
+          E ||
+            (E = babelHelpers.taggedTemplateLiteralLoose([
               "voip: init failed: ",
               "",
             ])),
@@ -1018,19 +933,19 @@ __d(
         r = t ? n.tags("non-sad") : n;
       r.sendLogs("voip: init-failed");
     }
-    function Ke() {
-      Y ||
-        ((Y = !0),
-        (J = document.hidden),
+    function We() {
+      X ||
+        ((X = !0),
+        (Y = document.hidden),
         document.addEventListener("visibilitychange", function () {
-          var e = J && !document.hidden;
-          ((J = document.hidden),
+          var e = Y && !document.hidden;
+          ((Y = document.hidden),
             e &&
-              Qe().catch(function (e) {
+              qe().catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                    k ||
+                      (k = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: visibility init check failed",
                       ])),
                   )
@@ -1039,133 +954,94 @@ __d(
               }));
         }));
     }
-    function Qe() {
-      return Xe.apply(this, arguments);
+    async function qe() {
+      if (Z != null) return await Z;
+      var e = Ue();
+      Z = e;
+      try {
+        return await e;
+      } finally {
+        Z === e && (Z = null);
+      }
     }
-    function Xe() {
-      return (
-        (Xe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (ee != null) return yield ee;
-          var e = Ye();
-          ee = e;
-          try {
-            return yield e;
-          } finally {
-            ee === e && (ee = null);
-          }
-        })),
-        Xe.apply(this, arguments)
-      );
+    async function Ue() {
+      if (
+        !document.hidden &&
+        (le && (await le.promise),
+        !(
+          document.hidden ||
+          o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.getIsVoipInited()
+        ) &&
+          o(
+            "WAWebVoipInitEventEmitter",
+          ).VoipInitEventEmitter.getDidVoipInitError())
+      ) {
+        if (!Ve()) {
+          o("WAWebCoreActionsODS").logCallVoipInitVisibilityRetrySuppressed();
+          return;
+        }
+        if (!te()) {
+          o("WAWebCoreActionsODS").logCallVoipInitVisibilityRetrySuppressed();
+          return;
+        }
+        var e = K != null;
+        if (e) {
+          (o("WAWebCoreActionsODS").logCallVoipInitVisibilityRetrySuppressed(),
+            await ne());
+          return;
+        }
+        (He(),
+          o("WALogger").LOG(
+            I ||
+              (I = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: retrying init after tab became visible",
+              ])),
+          ),
+          r("WAWebODS").incr("web.call.voip_init.visibility_retry_attempt"));
+        var t = await ne();
+        t && r("WAWebODS").incr("web.call.voip_init.visibility_retry_success");
+      }
     }
-    function Ye() {
-      return Je.apply(this, arguments);
+    function Ve() {
+      return J === 0 || Date.now() - J >= w;
     }
-    function Je() {
-      return (
-        (Je = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            !document.hidden &&
-            (_e && (yield _e.promise),
-            !(
-              document.hidden ||
-              o(
-                "WAWebVoipInitEventEmitter",
-              ).VoipInitEventEmitter.getIsVoipInited()
-            ) &&
-              o(
-                "WAWebVoipInitEventEmitter",
-              ).VoipInitEventEmitter.getDidVoipInitError())
-          ) {
-            if (!Ze()) {
-              o(
-                "WAWebCoreActionsODS",
-              ).logCallVoipInitVisibilityRetrySuppressed();
-              return;
-            }
-            if (!re()) {
-              o(
-                "WAWebCoreActionsODS",
-              ).logCallVoipInitVisibilityRetrySuppressed();
-              return;
-            }
-            var e = Q != null;
-            if (e) {
-              (o(
-                "WAWebCoreActionsODS",
-              ).logCallVoipInitVisibilityRetrySuppressed(),
-                yield oe());
-              return;
-            }
-            (et(),
-              o("WALogger").LOG(
-                x ||
-                  (x = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: retrying init after tab became visible",
-                  ])),
-              ),
-              r("WAWebODS").incr(
-                "web.call.voip_init.visibility_retry_attempt",
-              ));
-            var t = yield oe();
-            t &&
-              r("WAWebODS").incr("web.call.voip_init.visibility_retry_success");
-          }
-        })),
-        Je.apply(this, arguments)
-      );
+    function He() {
+      J = Date.now();
     }
-    function Ze() {
-      return Z === 0 || Date.now() - Z >= A;
+    async function Ge() {
+      var e = document.hidden;
+      e &&
+        r("WAWebODS").incr("web.call.voip_init.retry_idle_wait.started_hidden");
+      var t = self.performance.now();
+      await o("WAWebVoipBackgroundWarmConditions").waitForIdleCallback(ze(e));
+      var n = {
+        endedHidden: document.hidden,
+        startedHidden: e,
+        waitMs: Math.round(self.performance.now() - t),
+      };
+      return (Ye(n), n);
     }
-    function et() {
-      Z = Date.now();
-    }
-    function tt() {
-      return nt.apply(this, arguments);
-    }
-    function nt() {
-      return (
-        (nt = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = document.hidden;
-          e &&
-            r("WAWebODS").incr(
-              "web.call.voip_init.retry_idle_wait.started_hidden",
-            );
-          var t = self.performance.now();
-          yield o("WAWebVoipBackgroundWarmConditions").waitForIdleCallback(
-            rt(e),
-          );
-          var n = {
-            endedHidden: document.hidden,
-            startedHidden: e,
-            waitMs: Math.round(self.performance.now() - t),
-          };
-          return (st(n), n);
-        })),
-        nt.apply(this, arguments)
-      );
-    }
-    function rt(e) {
-      return e && lt()
+    function ze(e) {
+      return e && Xe()
         ? o("WAWebVoipHiddenPrewarmIdleWork").HIDDEN_TAB_IDLE_FALLBACK_MS
         : null;
     }
-    function ot() {
-      G && it() && at();
+    function je() {
+      H && Qe() && Ke();
     }
-    function at() {
-      ((G = !1),
+    function Ke() {
+      ((H = !1),
         o("WAWebVoipWasmArtifactRecoveryEvents").requestVoipWasmReload());
     }
-    function it() {
+    function Qe() {
       try {
         return o("WAWebVoipInitReliabilityGates").isVoipInitWasmEnvFixEnabled();
       } catch (e) {
         return (
           o("WALogger")
             .WARN(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              T ||
+                (T = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: WASM reload gate failed",
                 ])),
             )
@@ -1174,7 +1050,7 @@ __d(
         );
       }
     }
-    function lt() {
+    function Xe() {
       try {
         return o(
           "WAWebVoipBootInitDecision",
@@ -1183,8 +1059,8 @@ __d(
         return (
           o("WALogger")
             .WARN(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
+              D ||
+                (D = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: hidden prewarm gate failed",
                 ])),
             )
@@ -1193,13 +1069,13 @@ __d(
         );
       }
     }
-    function st(e) {
+    function Ye(e) {
       var t = e.endedHidden,
         n = e.startedHidden,
         a = e.waitMs;
       (o("WALogger").LOG(
-        y ||
-          (y = babelHelpers.taggedTemplateLiteralLoose([
+        x ||
+          (x = babelHelpers.taggedTemplateLiteralLoose([
             "voip: init retry idle wait ms=",
             " started_hidden=",
             " ended_hidden=",
@@ -1213,15 +1089,15 @@ __d(
           (r("WAWebODS").incr(
             "web.call.voip_init.retry_idle_wait.hidden_ended",
           ),
-          a >= F &&
+          a >= A &&
             r("WAWebODS").incr(
               "web.call.voip_init.retry_idle_wait.hidden_long",
             )));
     }
-    ((l.initWAWebVoip = te),
-      (l.canRetryWAWebVoipInitAfterFailure = re),
-      (l.retryWAWebVoipInitAfterFailure = oe),
-      (l.restartVoipInitAfterArtifactRecovery = ie));
+    ((l.initWAWebVoip = ee),
+      (l.canRetryWAWebVoipInitAfterFailure = te),
+      (l.retryWAWebVoipInitAfterFailure = ne),
+      (l.restartVoipInitAfterArtifactRecovery = re));
   },
   98,
 );

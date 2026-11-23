@@ -18,11 +18,7 @@ __d(
           l = t.parsedRequest.notificationType;
         switch (l.name) {
           case "NotificationBlocklistNotification":
-            return u(
-              l.value.blocklistBlocklistNotificationType,
-              a.handleBlocklistNotification,
-              i,
-            );
+            return u(l.value, a.handleBlocklistNotification, i);
           case "NotificationDevicesNotification":
             return c(
               l.value.devicesDevicesNotificationType,
@@ -40,27 +36,31 @@ __d(
         return (e || (e = n("Promise"))).resolve(
           o("WAUnknownStanzaError").unknownStanzaError,
         );
-      if (t.name === "NotificationBlocklist") {
-        var i = t.value,
-          l = i.dhash,
-          s = i.itemAction,
-          u = i.itemJid,
-          c = i.prevDhash;
-        return r({
-          dhash: l,
-          displayName: null,
-          action: s,
-          jid: u,
-          prevDhash: c,
-          makeAck: a,
-        }).then(o("WAResultOrError").makeResult);
-      } else
-        return (
-          t.name,
-          (e || (e = n("Promise"))).resolve(
-            o("WAUnknownStanzaError").unknownStanzaError,
-          )
-        );
+      var i =
+        t.blocklistBlocklistNotificationWithoutOrNotificationWithPayloadMixinGroup;
+      if (i.name === "NotificationBlocklistWithPayload") {
+        var l = i.value,
+          s = l.dhash,
+          u =
+            l.notificationNonOrNotificationMigratedBlocklistNotificationMixinGroup,
+          c = l.prevDhash;
+        if (u.name === "NotificationNonMigratedBlocklistNotification") {
+          var d = u.value,
+            m = d.itemAction,
+            p = d.itemJid;
+          return r({
+            dhash: s,
+            displayName: null,
+            action: m,
+            jid: p,
+            prevDhash: c,
+            makeAck: a,
+          }).then(o("WAResultOrError").makeResult);
+        }
+      }
+      return (e || (e = n("Promise"))).resolve(
+        o("WAUnknownStanzaError").unknownStanzaError,
+      );
     }
     function c(t, r, a) {
       if (r == null)

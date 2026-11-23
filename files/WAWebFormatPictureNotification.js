@@ -11,44 +11,36 @@ __d(
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(/*BTDS*/ "You deleted this group's icon.")
-            : s._(/*BTDS*/ "You deleted this group's icon")
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
           : n != null
             ? (o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled() &&
-                s._(/*BTDS*/ "{user_name} deleted this group's icon.", [
-                  s._param("user_name", n),
-                ])) ||
-              s._(/*BTDS*/ "{user_name} deleted this group's icon", [
-                s._param("user_name", n),
-              ])
+                s._(/*BTDS*/ "", [s._param("user_name", n)])) ||
+              s._(/*BTDS*/ "", [s._param("user_name", n)])
             : (o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled() &&
-                s._(/*BTDS*/ "A member deleted this group's icon.")) ||
-              s._(/*BTDS*/ "A member deleted this group's icon")
+                s._(/*BTDS*/ "")) ||
+              s._(/*BTDS*/ "")
         : o("WAWebSystemMessagesUtils").isMe(t)
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(/*BTDS*/ "You changed this group's icon.")
-            : s._(/*BTDS*/ "You changed this group's icon")
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
           : n != null
             ? (o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled() &&
-                s._(/*BTDS*/ "{user_name} changed this group's icon.", [
-                  s._param("user_name", n),
-                ])) ||
-              s._(/*BTDS*/ "{user_name} changed this group's icon", [
-                s._param("user_name", n),
-              ])
+                s._(/*BTDS*/ "", [s._param("user_name", n)])) ||
+              s._(/*BTDS*/ "", [s._param("user_name", n)])
             : (o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled() &&
-                s._(/*BTDS*/ "A member changed this group's icon.")) ||
-              s._(/*BTDS*/ "A member changed this group's icon");
+                s._(/*BTDS*/ "")) ||
+              s._(/*BTDS*/ "");
     }
     l.formatPictureNotification = e;
   },

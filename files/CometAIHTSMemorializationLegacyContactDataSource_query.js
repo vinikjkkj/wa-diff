@@ -4,14 +4,13 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = 32,
-      u =
+      s =
         e !== void 0
           ? e
           : (e = n(
               "CometAIHTSMemorializationLegacyContactDataSourceQuery.graphql",
             ));
-    function c(e) {
+    function u(e) {
       var t,
         n =
           e == null ||
@@ -36,7 +35,7 @@ __d(
                     rawData: {
                       category: null,
                       fanCount: null,
-                      iconSize: s,
+                      iconSize: 32,
                       iconUrl: (t = e.profile_picture_uri) != null ? t : "",
                       verifiedStatus: null,
                     },
@@ -45,7 +44,7 @@ __d(
             })
             .filter(Boolean);
     }
-    ((l.query = u), (l.normalize = c));
+    ((l.query = s), (l.normalize = u));
   },
   98,
 );

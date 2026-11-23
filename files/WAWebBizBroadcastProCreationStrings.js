@@ -4,10 +4,10 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "Only photos and videos are supported");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Enter a valid maximum price");
+      return s._(/*BTDS*/ "");
     }
     ((l.getUnsupportedAttachmentDisabledReason = e),
       (l.getInvalidMaxBidDisabledReason = u));

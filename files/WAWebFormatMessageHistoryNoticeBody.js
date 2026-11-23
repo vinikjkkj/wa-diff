@@ -63,55 +63,43 @@ __d(
             });
     }
     function d() {
-      return s._(/*BTDS*/ "Message history was sent");
+      return s._(/*BTDS*/ "");
     }
     function m(e, t, n) {
-      return s._(
-        /*BTDS*/ "{author name} sent {receiver name} message history that starts on {timestamp}",
-        [
-          s._param("author name", e),
-          s._param("receiver name", t),
-          s._param("timestamp", n),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("author name", e),
+        s._param("receiver name", t),
+        s._param("timestamp", n),
+      ]);
     }
     function p(e) {
       var t = e.authorName,
         n = e.firstReceiverName,
         o = e.otherReceiverCount,
         a = e.timestampString;
-      return s._(
-        /*BTDS*/ '_j{"*":"{author name} sent {receiver name} and {number} others message history that starts on {timestamp}","_1":"{author name} sent {receiver name} and 1 other message history that starts on {timestamp}"}',
-        [
-          s._plural(o, "number", r("WAWebL10N").n(o)),
-          s._param("author name", t),
-          s._param("receiver name", n),
-          s._param("timestamp", a),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._plural(o, "number", r("WAWebL10N").n(o)),
+        s._param("author name", t),
+        s._param("receiver name", n),
+        s._param("timestamp", a),
+      ]);
     }
     function _(e, t, n, r) {
-      return s._(
-        /*BTDS*/ "{author name} sent {receiver name} message history that starts on {timestamp}. {name of the non-history receiver} didn't receive history",
-        [
-          s._param("author name", e),
-          s._param("receiver name", t),
-          s._param("timestamp", n),
-          s._param("name of the non-history receiver", r),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("author name", e),
+        s._param("receiver name", t),
+        s._param("timestamp", n),
+        s._param("name of the non-history receiver", r),
+      ]);
     }
     function f(e, t, n, o, a) {
-      return s._(
-        /*BTDS*/ '_j{"*":"{author name} sent {receiver name} and {number} others message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history","_1":"{author name} sent {receiver name} and 1 other message history that starts on {timestamp}. {name of the non-history receiver} didn\'t receive history"}',
-        [
-          s._plural(n, "number", r("WAWebL10N").n(n)),
-          s._param("author name", e),
-          s._param("receiver name", t),
-          s._param("timestamp", o),
-          s._param("name of the non-history receiver", a),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._plural(n, "number", r("WAWebL10N").n(n)),
+        s._param("author name", e),
+        s._param("receiver name", t),
+        s._param("timestamp", o),
+        s._param("name of the non-history receiver", a),
+      ]);
     }
     function g(t) {
       if (t.length === 0) return null;

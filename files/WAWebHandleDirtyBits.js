@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleDirtyBits",
   [
-    "Promise",
     "WALogger",
     "WAWebAccountSyncJob",
     "WAWebApiPendingDeviceSync",
@@ -27,65 +26,51 @@ __d(
     "WAWebUserUtils",
     "WAWebWamoNewsletterGatingUtils",
     "WAWebWorkerSafeBackendApi",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = r("requireDeferred")(
+      u = r("requireDeferred")(
         "WAWebQueryAndUpdateAllNewslettersMetadataAction",
       ).__setRef("WAWebHandleDirtyBits");
+    async function c(e) {
+      e === void 0 && (e = []);
+      var t = r("compactMap")(e, function (e) {
+        return o("WAWebAccountSyncJob").AccountSyncType.cast(e);
+      });
+      (t.length === 0 &&
+        (t = Array.from(o("WAWebAccountSyncJob").AccountSyncType.members())),
+        await Promise.all(
+          t.map(function (e) {
+            if (e === o("WAWebAccountSyncJob").AccountSyncType.DEVICES)
+              return p();
+            if (e === o("WAWebAccountSyncJob").AccountSyncType.PICTURE)
+              return o("WAWebAccountSyncJob").getAndUpdateProfilePicture();
+            e === o("WAWebAccountSyncJob").AccountSyncType.PRIVACY
+              ? o("WAWebUpdateAllPrivacySettings").updateAllPrivacySettings()
+              : e === o("WAWebAccountSyncJob").AccountSyncType.BLOCKLIST
+                ? o("WAWebFetchAndUpdateBlocklistJob").fetchAndUpdateBlocklist(
+                    "dirty-bit",
+                  )
+                : e === o("WAWebAccountSyncJob").AccountSyncType.OPTOUTLIST
+                  ? o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
+                      "updateOptOutList",
+                    )
+                  : e === o("WAWebAccountSyncJob").AccountSyncType.NOTICE &&
+                    _();
+          }),
+        ));
+    }
     function d(e) {
-      return m.apply(this, arguments);
+      return (e.patches != null && e.patches.length > 0) || e.snapshot != null;
     }
     function m() {
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e === void 0 && (e = []);
-          var t = r("compactMap")(e, function (e) {
-            return o("WAWebAccountSyncJob").AccountSyncType.cast(e);
-          });
-          (t.length === 0 &&
-            (t = Array.from(
-              o("WAWebAccountSyncJob").AccountSyncType.members(),
-            )),
-            yield (u || (u = n("Promise"))).all(
-              t.map(function (e) {
-                if (e === o("WAWebAccountSyncJob").AccountSyncType.DEVICES)
-                  return f();
-                if (e === o("WAWebAccountSyncJob").AccountSyncType.PICTURE)
-                  return o("WAWebAccountSyncJob").getAndUpdateProfilePicture();
-                e === o("WAWebAccountSyncJob").AccountSyncType.PRIVACY
-                  ? o(
-                      "WAWebUpdateAllPrivacySettings",
-                    ).updateAllPrivacySettings()
-                  : e === o("WAWebAccountSyncJob").AccountSyncType.BLOCKLIST
-                    ? o(
-                        "WAWebFetchAndUpdateBlocklistJob",
-                      ).fetchAndUpdateBlocklist("dirty-bit")
-                    : e === o("WAWebAccountSyncJob").AccountSyncType.OPTOUTLIST
-                      ? o("WAWebWorkerSafeBackendApi").workerSafeFireAndForget(
-                          "updateOptOutList",
-                        )
-                      : e === o("WAWebAccountSyncJob").AccountSyncType.NOTICE &&
-                        g();
-              }),
-            ));
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
-      return (e.patches != null && e.patches.length > 0) || e.snapshot != null;
-    }
-    function _() {
-      return (
         o("WAWebBackendEventBus").BackendEventBus.onceAppStateSyncCompleted(
           function (e) {
-            var t = e.some(p);
+            var t = e.some(d);
             new (o(
               "WAWebMdAppStateDirtyBitsWamEvent",
             ).MdAppStateDirtyBitsWamEvent)({
@@ -98,7 +83,7 @@ __d(
         )
       );
     }
-    function f() {
+    function p() {
       if (
         !o(
           "WAWebOfflineHandler",
@@ -141,138 +126,115 @@ __d(
               "WAWebOfflineDeviceCache",
             ).OfflinePendingDeviceCache.addOfflinePendingDevice(e, null);
           }),
-          (u || (u = n("Promise"))).resolve()
+          Promise.resolve()
         );
       return o("WAWebAccountSyncJob").getDevices("notification");
     }
-    function g() {
-      return h.apply(this, arguments);
-    }
-    function h() {
+    async function _() {
+      await o("WAWebTos").TosManager.run();
+      var e = [
+          o("WAWebNewsletterGatingUtils").getNewsletterProducerTos(),
+          o("WAWebNewsletterGatingUtils").getNewsletterConsumerTos(),
+          o("WAWebNewsletterGatingUtils").getNewsletterAdminInviteTos(),
+        ].concat(o("WAWebWamoNewsletterGatingUtils").getWamoNotices()),
+        t = [];
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebTos").TosManager.run();
-          var e = [
-              o("WAWebNewsletterGatingUtils").getNewsletterProducerTos(),
-              o("WAWebNewsletterGatingUtils").getNewsletterConsumerTos(),
-              o("WAWebNewsletterGatingUtils").getNewsletterAdminInviteTos(),
-            ].concat(o("WAWebWamoNewsletterGatingUtils").getWamoNotices()),
-            t = [];
-          return (
-            e.map(function (e) {
-              var n = {
-                id: e,
-                accepted:
-                  o("WAWebTos").TosManager.getState(e) ===
-                  o("WAWebPDFNTypes").NOTICE_STATUS.ACCEPTED,
-              };
-              t.push(n);
-            }),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "updateUserDisclosures",
-              { userDisclosures: t },
-            )
-          );
-        })),
-        h.apply(this, arguments)
+        e.map(function (e) {
+          var n = {
+            id: e,
+            accepted:
+              o("WAWebTos").TosManager.getState(e) ===
+              o("WAWebPDFNTypes").NOTICE_STATUS.ACCEPTED,
+          };
+          t.push(n);
+        }),
+        o("WAWebBackendApi").frontendFireAndForget("updateUserDisclosures", {
+          userDisclosures: t,
+        })
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
+    async function f(e) {
+      var t = e.protocols,
+        n = e.supported,
+        r = e.unsupported,
+        a = n
+          .map(function (e) {
+            return e.type;
+          })
+          .join(","),
+        i = r
+          .map(function (e) {
+            return e.type;
+          })
+          .join(",");
+      o("WALogger").LOG(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "handleDirtyBits supported=",
+            " unsupported=",
+            "",
+          ])),
+        a,
+        i,
+      );
+      var l = new Set();
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.protocols,
-            r = e.supported,
-            a = e.unsupported,
-            i = r
-              .map(function (e) {
-                return e.type;
-              })
-              .join(","),
-            l = a
-              .map(function (e) {
-                return e.type;
-              })
-              .join(",");
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "handleDirtyBits supported=",
-                " unsupported=",
-                "",
-              ])),
-            i,
-            l,
-          );
-          var m = new Set();
-          return (
-            yield (u || (u = n("Promise"))).all(
-              r.map(function (e) {
-                var r = e.type;
-                if (r === o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.groups)
-                  return o("WAWebEventsWaitForOfflineDeliveryEnd")
-                    .waitForOfflineDeliveryEnd()
-                    .then(function () {
-                      return o(
-                        "WAWebQueryAndUpdateGroupMetadataJob",
-                      ).queryAndUpdateAllGroupMetadata({});
-                    });
-                if (
-                  r ===
-                  o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE
-                    .newsletter_metadata
-                )
-                  return o("WAWebEventsWaitForOfflineDeliveryEnd")
-                    .waitForOfflineDeliveryEnd()
-                    .then(
-                      n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* () {
-                          var e = yield c.load(),
-                            t = e.queryAndUpdateAllNewsletterMetadataAction;
-                          return t(
-                            o("WAWebCommonNewsletterEnums")
-                              .NewsletterMetadataUpdateEntryPoint.DirtyBit,
-                            { messageCount: 1 },
-                          );
-                        },
-                      ),
-                    );
-                if (
-                  r ===
-                  o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.account_sync
-                )
-                  return d(t);
-                if (
-                  r ===
-                  o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.syncd_app_state
-                )
-                  return _();
-                if (r === o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.orgs)
-                  o("WAWebHandleOrgsDirtyBit").handleOrgsDirtyBit();
-                else if (
-                  r ===
-                  o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.event_metadata
-                )
-                  return o("WAWebHandleSharableEventDirtyBit")
-                    .handleSharableEventDirtyBit()
-                    .then(function (e) {
-                      e || m.add(r);
-                    });
-              }),
-            ),
-            o("WAWebClearDirtyBitsJob").clearDirtyBits(
-              [].concat(a, r).filter(function (e) {
-                return !m.has(e.type);
-              }),
+        await Promise.all(
+          n.map(function (e) {
+            var n = e.type;
+            if (n === o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.groups)
+              return o("WAWebEventsWaitForOfflineDeliveryEnd")
+                .waitForOfflineDeliveryEnd()
+                .then(function () {
+                  return o(
+                    "WAWebQueryAndUpdateGroupMetadataJob",
+                  ).queryAndUpdateAllGroupMetadata({});
+                });
+            if (
+              n ===
+              o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.newsletter_metadata
             )
-          );
-        })),
-        C.apply(this, arguments)
+              return o("WAWebEventsWaitForOfflineDeliveryEnd")
+                .waitForOfflineDeliveryEnd()
+                .then(async function () {
+                  var e = await u.load(),
+                    t = e.queryAndUpdateAllNewsletterMetadataAction;
+                  return t(
+                    o("WAWebCommonNewsletterEnums")
+                      .NewsletterMetadataUpdateEntryPoint.DirtyBit,
+                    { messageCount: 1 },
+                  );
+                });
+            if (
+              n === o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.account_sync
+            )
+              return c(t);
+            if (
+              n ===
+              o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.syncd_app_state
+            )
+              return m();
+            if (n === o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.orgs)
+              o("WAWebHandleOrgsDirtyBit").handleOrgsDirtyBit();
+            else if (
+              n ===
+              o("WAWebDirtyBitsConsts").SUPPORTED_DIRTY_TYPE.event_metadata
+            )
+              return o("WAWebHandleSharableEventDirtyBit")
+                .handleSharableEventDirtyBit()
+                .then(function (e) {
+                  e || l.add(n);
+                });
+          }),
+        ),
+        o("WAWebClearDirtyBitsJob").clearDirtyBits(
+          [].concat(r, n).filter(function (e) {
+            return !l.has(e.type);
+          }),
+        )
       );
     }
-    l.handleDirtyBits = y;
+    l.handleDirtyBits = f;
   },
   98,
 );

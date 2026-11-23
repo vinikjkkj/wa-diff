@@ -6,6 +6,7 @@ __d(
     "WAWebBotLoggingUtils",
     "WAWebGetSharedSessionId",
     "WAWebHatchLinkedStatusManager",
+    "WAWebUserPrefsBot",
     "WAWebWamEnumBotEntryPointType",
     "WAWebWamEnumChatFilterActionTypes",
     "WAWebWamEnumTsSurface",
@@ -30,9 +31,6 @@ __d(
         }
         var n = t.prototype;
         return (
-          (n.setAiSessionId = function (t) {
-            this.$6 = t;
-          }),
           (n.setEntryPoint = function (t) {
             this.$1 = t;
           }),
@@ -204,7 +202,10 @@ __d(
               actionType: o("WAWebWamEnumChatFilterActionTypes")
                 .CHAT_FILTER_ACTION_TYPES.CONVERSATION_STARTER_TAP,
               uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.META_AI_CHAT,
-              aiSessionId: (e = this.$6) != null ? e : void 0,
+              aiSessionId:
+                (e = o("WAWebUserPrefsBot").getMetaAiSessionId()) != null
+                  ? e
+                  : void 0,
               conversationStarterName: t != null ? t : void 0,
               conversationStarterIndex: n,
               eventTsMs: a,
@@ -216,7 +217,10 @@ __d(
                   .BOT_ENTRY_POINT_TYPE.AI_NULL_STATE,
                 originEntryPoint: this.$1,
                 uiSurface: o("WAWebWamEnumTsSurface").TS_SURFACE.META_AI_CHAT,
-                aiSessionId: (r = this.$6) != null ? r : void 0,
+                aiSessionId:
+                  (r = o("WAWebUserPrefsBot").getMetaAiSessionId()) != null
+                    ? r
+                    : void 0,
                 eventTsMs: a,
               }));
           }),
@@ -231,7 +235,10 @@ __d(
                   .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_IMPRESSION,
                 entryPoint: n,
                 uiSurface: t,
-                aiSessionId: (e = this.$6) != null ? e : void 0,
+                aiSessionId:
+                  (e = o("WAWebUserPrefsBot").getMetaAiSessionId()) != null
+                    ? e
+                    : void 0,
                 eventTsMs: Date.now(),
               });
           }),
@@ -245,7 +252,10 @@ __d(
                   actionType: o("WAWebWamEnumChatFilterActionTypes")
                     .CHAT_FILTER_ACTION_TYPES.MODE_SELECTION_CLICK,
                   uiSurface: t,
-                  aiSessionId: (e = this.$6) != null ? e : void 0,
+                  aiSessionId:
+                    (e = o("WAWebUserPrefsBot").getMetaAiSessionId()) != null
+                      ? e
+                      : void 0,
                   eventTsMs: Date.now(),
                 }));
           }),

@@ -17,46 +17,38 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = _(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success)
-            return {
-              name: "GetGroupExperimentConfigResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "GetGroupExperimentConfigResponseErrorNoRetry",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "GetGroupExperimentConfigResponseErrorRetry",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "GetGroupExperimentConfig",
-              { Success: a, ErrorNoRetry: i, ErrorRetry: l },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = p(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success)
+        return {
+          name: "GetGroupExperimentConfigResponseSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "GetGroupExperimentConfigResponseErrorNoRetry",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "GetGroupExperimentConfigResponseErrorRetry",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetGroupExperimentConfig", {
+          Success: a,
+          ErrorNoRetry: i,
+          ErrorRetry: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -65,7 +57,7 @@ __d(
         "WASmaxInAbPropsIQErrorResponseMixin",
       ).parseIQErrorResponseMixin(e, t);
       if (!a.success) return a;
-      var i = p(r.value);
+      var i = m(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -74,7 +66,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -95,17 +87,17 @@ __d(
           )
         : i;
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "prop");
       if (!t.success) return t;
-      var n = f(e);
+      var n = _(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             experimentOrSamplingConfigMixinGroup: n.value,
           })
         : n;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "props");
@@ -142,14 +134,14 @@ __d(
         "WASmaxInAbPropsIQResultResponseMixin",
       ).parseIQResultResponseMixin(e, t);
       if (!u.success) return u;
-      var c = o("WASmaxParseUtils").mapChildrenWithTag(
+      var d = o("WASmaxParseUtils").mapChildrenWithTag(
         r.value,
         "prop",
         0,
         1 / 0,
-        d,
+        c,
       );
-      return c.success
+      return d.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
               {
@@ -159,12 +151,12 @@ __d(
                 propsRefreshId: s.value,
               },
               u.value,
-              { propsProp: c.value },
+              { propsProp: d.value },
             ),
           )
-        : c;
+        : d;
     }
-    function p(e) {
+    function m(e) {
       var t = o(
         "WASmaxInAbPropsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -187,7 +179,7 @@ __d(
             [t, n],
           );
     }
-    function _(e) {
+    function p(e) {
       var t = e.propsGroup,
         n = e.propsHash,
         r = o(
@@ -204,7 +196,7 @@ __d(
         );
       return r;
     }
-    function f(e) {
+    function _(e) {
       var t = o(
         "WASmaxInAbPropsExperimentConfigMixin",
       ).parseExperimentConfigMixin(e);
@@ -228,10 +220,10 @@ __d(
           );
     }
     ((l.sendGetGroupExperimentConfigRPC = e),
-      (l.parseGetGroupExperimentConfigResponseErrorNoRetry = u),
-      (l.parseGetGroupExperimentConfigResponseErrorRetry = c),
-      (l.parseGetGroupExperimentConfigResponseSuccess = m),
-      (l.makeGetGroupExperimentConfigRequest = _));
+      (l.parseGetGroupExperimentConfigResponseErrorNoRetry = s),
+      (l.parseGetGroupExperimentConfigResponseErrorRetry = u),
+      (l.parseGetGroupExperimentConfigResponseSuccess = d),
+      (l.makeGetGroupExperimentConfigRequest = p));
   },
   98,
 );

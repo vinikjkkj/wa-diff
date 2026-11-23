@@ -5,13 +5,13 @@ __d(
     "use strict";
     function e(e) {
       return e === "PHONE_CALL"
-        ? s._(/*BTDS*/ "Phone call")
+        ? s._(/*BTDS*/ "")
         : e === "IN_PERSON"
-          ? s._(/*BTDS*/ "In person")
+          ? s._(/*BTDS*/ "")
           : e === "VIDEO_CALL"
-            ? s._(/*BTDS*/ "Video call")
+            ? s._(/*BTDS*/ "")
             : e === "CUSTOM_LOCATION"
-              ? s._(/*BTDS*/ "Custom location")
+              ? s._(/*BTDS*/ "")
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -50,27 +50,17 @@ __d(
     }
     function d(e) {
       var t = e == null ? void 0 : e.trim();
-      return t != null && t !== "" ? t : s._(/*BTDS*/ "Appointment");
+      return t != null && t !== "" ? t : s._(/*BTDS*/ "");
     }
     function m(e) {
       if (e == null || e <= 0) return null;
       var t = Math.floor(e / 60),
         n = e % 60;
-      if (t === 0)
-        return s._(/*BTDS*/ '_j{"*":"{minutes} minutes","_1":"1 minute"}', [
-          s._plural(n, "minutes"),
-        ]);
-      var r = s._(/*BTDS*/ '_j{"*":"{hours} hours","_1":"1 hour"}', [
-        s._plural(t, "hours"),
-      ]);
+      if (t === 0) return s._(/*BTDS*/ "", [s._plural(n, "minutes")]);
+      var r = s._(/*BTDS*/ "", [s._plural(t, "hours")]);
       if (n === 0) return r;
-      var o = s._(/*BTDS*/ '_j{"*":"{minutes} minutes","_1":"1 minute"}', [
-        s._plural(n, "minutes"),
-      ]);
-      return s._(/*BTDS*/ "{hours} {minutes}", [
-        s._param("hours", r),
-        s._param("minutes", o),
-      ]);
+      var o = s._(/*BTDS*/ "", [s._plural(n, "minutes")]);
+      return s._(/*BTDS*/ "", [s._param("hours", r), s._param("minutes", o)]);
     }
     var p = new Map();
     function _(e, t, n) {
@@ -125,12 +115,8 @@ __d(
         },
         function (e, t) {
           return t
-            ? s
-                ._(/*BTDS*/ "Asking for {fields}", [s._param("fields", e)])
-                .toString()
-            : s
-                ._(/*BTDS*/ "asking for {fields}", [s._param("fields", e)])
-                .toString();
+            ? s._(/*BTDS*/ "", [s._param("fields", e)]).toString()
+            : s._(/*BTDS*/ "", [s._param("fields", e)]).toString();
         },
         n,
       );

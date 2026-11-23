@@ -12,34 +12,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = d(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = u(r, n);
-          if (a.success)
-            return { name: "PublishViewResponseServerError", value: a.value };
-          var i = c(r, n);
-          if (i.success)
-            return { name: "PublishViewResponseSuccess", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("PublishView", {
-              ServerError: a,
-              Success: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = c(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = s(r, n);
+      if (a.success)
+        return { name: "PublishViewResponseServerError", value: a.value };
+      var i = u(r, n);
+      if (i.success)
+        return { name: "PublishViewResponseSuccess", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("PublishView", {
+          ServerError: a,
+          Success: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").literal(
@@ -59,7 +50,7 @@ __d(
           )
         : a;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxInReceiptPublishSuccessMixin").parsePublishSuccessMixin(
@@ -68,16 +59,16 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e) {
-      var t = _(g(y(o("WASmaxJsx").smax("receipt", null), e)), e);
+    function c(e) {
+      var t = p(f(h(o("WASmaxJsx").smax("receipt", null), e)), e);
       return t;
     }
-    function m(e) {
+    function d(e) {
       var t = e.itemServerId,
         n = o("WASmaxJsx").smax("item", { server_id: o("WAWap").INT(t) });
       return n;
     }
-    function p(e) {
+    function m(e) {
       var t = e.itemArgs,
         n = e.receiptId,
         r = o("WASmaxJsx").smax(
@@ -86,24 +77,24 @@ __d(
           o("WASmaxJsx").smax(
             "list",
             null,
-            o("WASmaxChildren").REPEATED_CHILD(m, t, 0, 255),
+            o("WASmaxChildren").REPEATED_CHILD(d, t, 0, 255),
           ),
         );
       return r;
     }
-    function _(e, t) {
-      var n = p(t);
+    function p(e, t) {
+      var n = m(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function f() {
+    function _() {
       var e = o("WASmaxJsx").smax("receipt", { type: "view" });
       return e;
     }
-    function g(e) {
-      var t = f();
+    function f(e) {
+      var t = _();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function h(e) {
+    function g(e) {
       var t = e.receiptTo,
         n = e.hasStatusClass,
         r = o("WASmaxMixins").optionalMerge(
@@ -113,18 +104,18 @@ __d(
         );
       return r;
     }
-    function y(e, t) {
-      var n = h(t);
+    function h(e, t) {
+      var n = g(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.sendPublishViewRPC = e),
-      (l.parsePublishViewResponseServerError = u),
-      (l.parsePublishViewResponseSuccess = c),
-      (l.makePublishViewRequest = d),
-      (l.makeSenderAggregatedViewPublishListItem = m),
-      (l.mergeSenderAggregatedViewPublishMixin = _),
-      (l.mergeViewTypeMixin = g),
-      (l.mergeNewsletterMixin = y));
+      (l.parsePublishViewResponseServerError = s),
+      (l.parsePublishViewResponseSuccess = u),
+      (l.makePublishViewRequest = c),
+      (l.makeSenderAggregatedViewPublishListItem = d),
+      (l.mergeSenderAggregatedViewPublishMixin = p),
+      (l.mergeViewTypeMixin = f),
+      (l.mergeNewsletterMixin = h));
   },
   98,
 );

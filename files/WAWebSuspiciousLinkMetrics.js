@@ -1,101 +1,76 @@
 __d(
   "WAWebSuspiciousLinkMetrics",
-  [
-    "Promise",
-    "WALogger",
-    "WAShiftTimer",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["WALogger", "WAShiftTimer", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = 6e4,
-      c = [
+      s = 6e4,
+      u = [
         "attempt",
         "exception",
         "not-ready",
         "cache-exception",
         "init-exception",
       ],
-      d = {
+      c = {
         attempt: 0,
         exception: 0,
         "not-ready": 0,
         "cache-exception": 0,
         "init-exception": 0,
       },
-      m = "main",
+      d = "main",
+      m,
       p,
-      _,
-      f = new (o("WAShiftTimer").ShiftTimer)(function () {
-        y();
+      _ = new (o("WAShiftTimer").ShiftTimer)(function () {
+        h();
       });
-    function g(e) {
-      (d[e]++, S());
+    function f(e) {
+      (c[e]++, b());
     }
-    function h(e, t) {
-      ((m = e), (p = t), v() && S());
+    function g(e, t) {
+      ((d = e), (m = t), C() && b());
     }
-    function y() {
-      if (_ != null) return _;
-      f.cancel();
-      var e = p;
-      if (!v() || e == null) return (s || (s = n("Promise"))).resolve();
-      var t = C(babelHelpers.extends({}, d), m, e).finally(function () {
-        ((_ = null), v() && S());
+    function h() {
+      if (p != null) return p;
+      _.cancel();
+      var e = m;
+      if (!C() || e == null) return Promise.resolve();
+      var t = y(babelHelpers.extends({}, c), d, e).finally(function () {
+        ((p = null), C() && b());
       });
-      return ((_ = t), t);
+      return ((p = t), t);
     }
-    function C(e, t, n) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          yield (s || (s = n("Promise"))).all(
-            c.map(
-              (function () {
-                var l = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (n) {
-                    var l = t[n];
-                    if (l !== 0)
-                      try {
-                        (yield i({ metric: n, realm: a, count: l })) &&
-                          (d[n] -= l);
-                      } catch (t) {
-                        o("WALogger")
-                          .WARN(
-                            e ||
-                              (e = babelHelpers.taggedTemplateLiteralLoose([
-                                "Host-check metrics unavailable",
-                              ])),
-                          )
-                          .catching(r("getErrorSafe")(t));
-                      }
-                  },
-                );
-                return function (e) {
-                  return l.apply(this, arguments);
-                };
-              })(),
-            ),
-          );
-        })),
-        b.apply(this, arguments)
+    async function y(t, n, a) {
+      await Promise.all(
+        u.map(async function (i) {
+          var l = t[i];
+          if (l !== 0)
+            try {
+              (await a({ metric: i, realm: n, count: l })) && (c[i] -= l);
+            } catch (t) {
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "Host-check metrics unavailable",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t));
+            }
+        }),
       );
     }
-    function v() {
-      return c.some(function (e) {
-        return d[e] > 0;
+    function C() {
+      return u.some(function (e) {
+        return c[e] > 0;
       });
     }
-    function S() {
-      _ == null && p != null && f.onOrBefore(u, void 0);
+    function b() {
+      p == null && m != null && _.onOrBefore(s, void 0);
     }
-    ((l.recordSuspiciousLinkMetric = g),
-      (l.configureSuspiciousLinkMetrics = h),
-      (l.flushSuspiciousLinkMetrics = y));
+    ((l.recordSuspiciousLinkMetric = f),
+      (l.configureSuspiciousLinkMetrics = g),
+      (l.flushSuspiciousLinkMetrics = h));
   },
   98,
 );

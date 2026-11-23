@@ -1,17 +1,9 @@
 __d(
   "WAWebTeeMockClient",
-  [
-    "Promise",
-    "WAWebTeeDebugStore",
-    "WAWebTeeEnums",
-    "asyncToGeneratorRuntime",
-    "err",
-    "setTimeout",
-  ],
+  ["WAWebTeeDebugStore", "WAWebTeeEnums", "err", "setTimeout"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = 3e5;
-    function u(e) {
+    var e = 3e5;
+    function s(e) {
       return e.summary_request != null
         ? o("WAWebTeeEnums").TeeRequestType.SUMMARY
         : e.wwai_request != null
@@ -20,45 +12,45 @@ __d(
             ? o("WAWebTeeEnums").TeeRequestType.SIDE_CHAT
             : o("WAWebTeeEnums").TeeRequestType.TEST;
     }
-    function c(t) {
-      return new (e || (e = n("Promise")))(function (e, n) {
+    function u(t) {
+      return new Promise(function (n, a) {
         if (t.responses.length > 0) {
-          var a = t.responses[t.responses.length - 1];
+          var i = t.responses[t.responses.length - 1];
           if (
-            a.common_metadata.status !==
+            i.common_metadata.status !==
             o("WAWebTeeEnums").TEEResponseStatus.IN_PROGRESS
           ) {
-            e(a);
+            n(i);
             return;
           }
         }
-        var i = !1,
-          l = r("setTimeout")(function () {
-            i ||
-              ((i = !0),
-              n(r("err")("TEE mock request timed out after 5 minutes")));
-          }, s);
+        var l = !1,
+          s = r("setTimeout")(function () {
+            l ||
+              ((l = !0),
+              a(r("err")("TEE mock request timed out after 5 minutes")));
+          }, e);
         ((t.rejectResponse = function (e) {
-          i || ((i = !0), window.clearTimeout(l), n(e));
+          l || ((l = !0), window.clearTimeout(s), a(e));
         }),
-          (t.resolveResponse = function (t) {
-            i || ((i = !0), window.clearTimeout(l), e(t));
+          (t.resolveResponse = function (e) {
+            l || ((l = !0), window.clearTimeout(s), n(e));
           }));
       });
     }
-    var d = (function () {
+    var c = (function () {
         function e() {}
         var t = e.prototype;
         return (
           (t.sendRequest = (function () {
             var e = babelHelpers.wrapAsyncGenerator(function* (e) {
               for (
-                var t = u(e),
+                var t = s(e),
                   n = o("WAWebTeeDebugStore").addRequest(t, e),
                   r = !1;
                 !r;
               ) {
-                var a = yield babelHelpers.awaitAsyncGenerator(c(n));
+                var a = yield babelHelpers.awaitAsyncGenerator(u(n));
                 (yield a,
                   a.common_metadata.status !==
                     o("WAWebTeeEnums").TEEResponseStatus.IN_PROGRESS &&
@@ -70,22 +62,14 @@ __d(
             }
             return t;
           })()),
-          (t.preconnect = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* () {},
-            );
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          (t.preconnect = async function () {}),
           (t.disconnect = function () {}),
           e
         );
       })(),
-      m = new d(),
-      p = m;
-    l.default = p;
+      d = new c(),
+      m = d;
+    l.default = m;
   },
   98,
 );

@@ -14,7 +14,6 @@ __d(
     "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -59,266 +58,223 @@ __d(
         }),
         o("WAWebModelStorageUtils")
           .getStorage()
-          .lock(
-            ["message-info"],
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var n = e[0],
-                    r = Array.from(t.values()).map(function (e) {
-                      return [e.msgKey, e.receiverUserJid];
-                    }),
-                    a = yield n.anyOf(["msgKey", "receiverUserJid"], r);
-                  return (
-                    a.forEach(function (e) {
-                      var n = e.msgKey + "," + e.receiverUserJid,
-                        r = t.get(n);
-                      r &&
-                        t.set(
-                          n,
-                          babelHelpers.extends({}, e, {
-                            deviceNotDelivered: [].concat(
-                              e.deviceNotDelivered,
-                              r.deviceNotDelivered,
-                            ),
-                          }),
-                        );
-                    }),
-                    o("WAWebSchemaMessageInfo")
-                      .getMessageInfoTable()
-                      .bulkCreateOrReplace(Array.from(t.values()))
-                  );
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-          )
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.identityRowId,
-            r = e.messageRowId,
-            a = e.msgKey,
-            i = e.receiver,
-            l = o("WAWebWidFactory").asUserWidOrThrow(i).toString(),
-            m = i.device || 0,
-            _ = yield o("WAWebSchemaMessageInfo")
-              .getMessageInfoTable()
-              .get([a.toString(), l]);
-          if (!_) {
-            var f = o("WAWebLidMigrationUtils").getAlternateMsgKey(a);
-            f != null &&
-              (_ = yield o("WAWebSchemaMessageInfo")
-                .getMessageInfoTable()
-                .get([f.toString(), l]));
-          }
-          var g =
-            ((t = _) == null ? void 0 : t.hasAdditionalRetryTargets) === !0;
-          if (_) {
-            if (_.deviceNotDelivered.includes(m))
-              return n != null && r >= n
-                ? { hasAdditionalRetryTargets: g, retryEligibility: p.ELIGIBLE }
-                : i.device != null && i.device !== o("WAJids").DEFAULT_DEVICE_ID
-                  ? (o("WALogger").LOG(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "MessageInfoStore: ",
-                          ", ",
-                          ":",
-                          ": companion identity changed",
-                        ])),
-                      a.toString(),
-                      l,
-                      m,
-                    ),
-                    {
-                      hasAdditionalRetryTargets: g,
-                      retryEligibility: p.INELIGIBLE_CHANGED_IDENTITY,
-                    })
-                  : _.delivery != null
-                    ? (o("WALogger").LOG(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "MessageInfoStore: ",
-                            ", ",
-                            ":",
-                            ": primary id changed post-delivery",
-                          ])),
-                        a.toString(),
-                        l,
-                        m,
-                      ),
-                      {
-                        hasAdditionalRetryTargets: g,
-                        retryEligibility: p.INELIGIBLE_CHANGED_IDENTITY,
-                      })
-                    : {
-                        hasAdditionalRetryTargets: g,
-                        retryEligibility: p.ELIGIBLE,
-                      };
-          } else
+          .lock(["message-info"], async function (e) {
+            var n = e[0],
+              r = Array.from(t.values()).map(function (e) {
+                return [e.msgKey, e.receiverUserJid];
+              }),
+              a = await n.anyOf(["msgKey", "receiverUserJid"], r);
             return (
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "MessageInfoStore: missing record for ",
-                    ", ",
-                    "",
-                  ])),
-                a.toString(),
-                l,
-              ),
-              {
-                hasAdditionalRetryTargets: g,
-                retryEligibility: p.INELIGIBLE_RECORD_MISSING,
-              }
+              a.forEach(function (e) {
+                var n = e.msgKey + "," + e.receiverUserJid,
+                  r = t.get(n);
+                r &&
+                  t.set(
+                    n,
+                    babelHelpers.extends({}, e, {
+                      deviceNotDelivered: [].concat(
+                        e.deviceNotDelivered,
+                        r.deviceNotDelivered,
+                      ),
+                    }),
+                  );
+              }),
+              o("WAWebSchemaMessageInfo")
+                .getMessageInfoTable()
+                .bulkCreateOrReplace(Array.from(t.values()))
             );
-          return (
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "MessageInfoStore: ",
-                  ", ",
-                  ":",
-                  " has been delivered",
-                ])),
-              a.toString(),
-              l,
-              m,
-            ),
-            {
-              hasAdditionalRetryTargets: g,
-              retryEligibility: p.INELIGIBLE_ALREADY_DELIVERED,
-            }
-          );
-        })),
-        g.apply(this, arguments)
+          })
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (yield f(e)).retryEligibility;
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield v([e]),
-            n = t.get(e.toString());
-          if (!n) throw r("err")("No message info found for " + e.toString());
-          return n;
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          for (
-            var t = yield o("WAWebSchemaMessage")
-                .getMessageTable()
-                .bulkGet(
-                  e.map(function (e) {
-                    return e.toString();
-                  }),
-                ),
-              n = new Map(),
-              a = yield T(e),
-              i = new Map(),
-              l = 0;
-            l < e.length;
-            l++
-          ) {
-            var s,
-              u,
-              c = e[l].toString(),
-              d =
-                (s = (u = t[l]) == null ? void 0 : u.latestEditMsgKey) != null
-                  ? s
-                  : c;
-            i.set(d, c);
-            var m = {
-              messageInfoRecords: [],
-              ackReceiver: t[l] ? t[l].count : null,
-              groupParticipantJids: a.get(e[l].remote.toString()),
-            };
-            if ((n.set(d, m), e[l].remote.isUser() || e[l].remote.isStatus())) {
-              var p,
-                _ =
-                  (p = o("WAWebLidMigrationUtils").getAlternateMsgKey(
-                    r("WAWebMsgKey").from(d),
-                  )) == null
-                    ? void 0
-                    : p.toString();
-              _ != null && (i.set(_, c), n.set(_, m));
-            }
-          }
-          var f = yield o("WAWebSchemaMessageInfo")
+    async function f(t) {
+      var n,
+        r = t.identityRowId,
+        a = t.messageRowId,
+        i = t.msgKey,
+        l = t.receiver,
+        d = o("WAWebWidFactory").asUserWidOrThrow(l).toString(),
+        m = l.device || 0,
+        _ = await o("WAWebSchemaMessageInfo")
+          .getMessageInfoTable()
+          .get([i.toString(), d]);
+      if (!_) {
+        var f = o("WAWebLidMigrationUtils").getAlternateMsgKey(i);
+        f != null &&
+          (_ = await o("WAWebSchemaMessageInfo")
             .getMessageInfoTable()
-            .anyOf(["msgKey"], Array.from(n.keys()));
-          f.forEach(function (e) {
-            var t;
-            (t = n.get(e.msgKey)) == null || t.messageInfoRecords.push(e);
-          });
-          var g = R(n),
-            h = new Map();
-          for (var y of g) {
-            var C = y[0],
-              b = y[1];
-            {
-              var v = i.get(C);
-              v != null && h.set(v, b);
-            }
-          }
-          return h;
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(t) {
-      var n = new Map(),
-        r = [];
-      for (var a of t.entries()) {
-        var i = a[0],
-          l = a[1];
-        (r.length < 3 && r.push(i), n.set(i, L(i, l)));
+            .get([f.toString(), d]));
       }
-      return (
-        n.size > 0 &&
+      var g = ((n = _) == null ? void 0 : n.hasAdditionalRetryTargets) === !0;
+      if (_) {
+        if (_.deviceNotDelivered.includes(m))
+          return r != null && a >= r
+            ? { hasAdditionalRetryTargets: g, retryEligibility: p.ELIGIBLE }
+            : l.device != null && l.device !== o("WAJids").DEFAULT_DEVICE_ID
+              ? (o("WALogger").LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "MessageInfoStore: ",
+                      ", ",
+                      ":",
+                      ": companion identity changed",
+                    ])),
+                  i.toString(),
+                  d,
+                  m,
+                ),
+                {
+                  hasAdditionalRetryTargets: g,
+                  retryEligibility: p.INELIGIBLE_CHANGED_IDENTITY,
+                })
+              : _.delivery != null
+                ? (o("WALogger").LOG(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "MessageInfoStore: ",
+                        ", ",
+                        ":",
+                        ": primary id changed post-delivery",
+                      ])),
+                    i.toString(),
+                    d,
+                    m,
+                  ),
+                  {
+                    hasAdditionalRetryTargets: g,
+                    retryEligibility: p.INELIGIBLE_CHANGED_IDENTITY,
+                  })
+                : {
+                    hasAdditionalRetryTargets: g,
+                    retryEligibility: p.ELIGIBLE,
+                  };
+      } else
+        return (
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
+                "MessageInfoStore: missing record for ",
+                ", ",
+                "",
+              ])),
+            i.toString(),
+            d,
+          ),
+          {
+            hasAdditionalRetryTargets: g,
+            retryEligibility: p.INELIGIBLE_RECORD_MISSING,
+          }
+        );
+      return (
+        o("WALogger").LOG(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "MessageInfoStore: ",
+              ", ",
+              ":",
+              " has been delivered",
+            ])),
+          i.toString(),
+          d,
+          m,
+        ),
+        {
+          hasAdditionalRetryTargets: g,
+          retryEligibility: p.INELIGIBLE_ALREADY_DELIVERED,
+        }
+      );
+    }
+    async function g(e) {
+      return (await f(e)).retryEligibility;
+    }
+    async function h(e) {
+      var t = await y([e]),
+        n = t.get(e.toString());
+      if (!n) throw r("err")("No message info found for " + e.toString());
+      return n;
+    }
+    async function y(e) {
+      for (
+        var t = await o("WAWebSchemaMessage")
+            .getMessageTable()
+            .bulkGet(
+              e.map(function (e) {
+                return e.toString();
+              }),
+            ),
+          n = new Map(),
+          a = await L(e),
+          i = new Map(),
+          l = 0;
+        l < e.length;
+        l++
+      ) {
+        var s,
+          u,
+          c = e[l].toString(),
+          d =
+            (s = (u = t[l]) == null ? void 0 : u.latestEditMsgKey) != null
+              ? s
+              : c;
+        i.set(d, c);
+        var m = {
+          messageInfoRecords: [],
+          ackReceiver: t[l] ? t[l].count : null,
+          groupParticipantJids: a.get(e[l].remote.toString()),
+        };
+        if ((n.set(d, m), e[l].remote.isUser() || e[l].remote.isStatus())) {
+          var p,
+            _ =
+              (p = o("WAWebLidMigrationUtils").getAlternateMsgKey(
+                r("WAWebMsgKey").from(d),
+              )) == null
+                ? void 0
+                : p.toString();
+          _ != null && (i.set(_, c), n.set(_, m));
+        }
+      }
+      var f = await o("WAWebSchemaMessageInfo")
+        .getMessageInfoTable()
+        .anyOf(["msgKey"], Array.from(n.keys()));
+      f.forEach(function (e) {
+        var t;
+        (t = n.get(e.msgKey)) == null || t.messageInfoRecords.push(e);
+      });
+      var g = C(n),
+        h = new Map();
+      for (var y of g) {
+        var b = y[0],
+          v = y[1];
+        {
+          var S = i.get(b);
+          S != null && h.set(S, v);
+        }
+      }
+      return h;
+    }
+    function C(e) {
+      var t = new Map(),
+        n = [];
+      for (var r of e.entries()) {
+        var a = r[0],
+          i = r[1];
+        (n.length < 3 && n.push(a), t.set(a, b(a, i)));
+      }
+      return (
+        t.size > 0 &&
+          o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "queryMsgInfo: processed ",
                 " messages, sample keys: ",
                 "",
               ])),
-            n.size,
-            r,
+            t.size,
+            n,
           ),
-        n
+        t
       );
     }
-    function L(e, t) {
+    function b(e, t) {
       var n = t.ackReceiver,
         a = t.groupParticipantJids,
         i = t.messageInfoRecords,
@@ -335,8 +291,8 @@ __d(
       i.forEach(function (e) {
         var t = o("WAWebWidFactory").createWid(e.receiverUserJid);
         o("WAWebUserUtils").isMeAccount(t) ||
-          (x(e),
-          E({
+          (E(e),
+          v({
             isGroupMessage: l,
             messageInfo: s,
             messageInfoRecord: e,
@@ -350,9 +306,9 @@ __d(
       var c = u.filter(function (e) {
           return !l || !e.isBot();
         }).length,
-        d = n != null && n !== 0 ? n : I(c, a),
+        d = n != null && n !== 0 ? n : R(c, a),
         m = l
-          ? k({
+          ? S({
               agentReceiverWids: u.filter(function (e) {
                 return e.isBot();
               }),
@@ -376,7 +332,7 @@ __d(
         s
       );
     }
-    function E(e) {
+    function v(e) {
       var t = e.isGroupMessage,
         n = e.messageInfo,
         r = e.messageInfoRecord,
@@ -386,7 +342,7 @@ __d(
         if (i != null && (n[a].push({ id: o, t: i }), t)) return;
       }
     }
-    function k(e) {
+    function S(e) {
       var t = e.agentReceiverWids,
         n = e.groupParticipantJids,
         r = e.humanTotal,
@@ -409,7 +365,7 @@ __d(
         Array.from(i.values())
       );
     }
-    function I(e, t) {
+    function R(e, t) {
       return e > 0 || t == null
         ? e
         : t.filter(function (e) {
@@ -421,76 +377,60 @@ __d(
             );
           }).length;
     }
-    function T(e) {
-      return D.apply(this, arguments);
-    }
-    function D() {
+    async function L(e) {
+      var t = Array.from(
+          new Set(
+            e
+              .filter(function (e) {
+                return e.remote.isGroup();
+              })
+              .map(function (e) {
+                return e.remote.toString();
+              }),
+          ),
+        ),
+        n = new Map();
+      if (t.length === 0) return n;
+      var r = await o("WAWebSchemaParticipant")
+        .getParticipantTable()
+        .bulkGet(t);
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = Array.from(
-              new Set(
-                e
-                  .filter(function (e) {
-                    return e.remote.isGroup();
-                  })
-                  .map(function (e) {
-                    return e.remote.toString();
-                  }),
-              ),
-            ),
-            n = new Map();
-          if (t.length === 0) return n;
-          var r = yield o("WAWebSchemaParticipant")
-            .getParticipantTable()
-            .bulkGet(t);
-          return (
-            r.forEach(function (e, r) {
-              e != null && n.set(t[r], e.participants);
-            }),
-            n
-          );
-        })),
-        D.apply(this, arguments)
+        r.forEach(function (e, r) {
+          e != null && n.set(t[r], e.participants);
+        }),
+        n
       );
     }
-    function x(e) {
+    function E(e) {
       var t = e.read;
       t != null && (e.delivery == null || e.delivery > t) && (e.delivery = t);
     }
-    function $(e) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Map(),
-            n = yield v(e);
-          for (var r of e) {
-            var a = n.get(r.toString());
-            if (a != null) {
-              var i = void 0;
-              (a.playedRemaining === 0 && a.played.length > 0
-                ? (i = o("WAWebAck").ACK.PLAYED)
-                : a.readRemaining === 0 && a.read.length > 0
-                  ? (i = o("WAWebAck").ACK.READ)
-                  : a.deliveryRemaining === 0 &&
-                    a.delivery.length > 0 &&
-                    (i = o("WAWebAck").ACK.RECEIVED),
-                i != null && t.set(r.toString(), i));
-            }
-          }
-          return t;
-        })),
-        P.apply(this, arguments)
-      );
+    async function k(e) {
+      var t = new Map(),
+        n = await y(e);
+      for (var r of e) {
+        var a = n.get(r.toString());
+        if (a != null) {
+          var i = void 0;
+          (a.playedRemaining === 0 && a.played.length > 0
+            ? (i = o("WAWebAck").ACK.PLAYED)
+            : a.readRemaining === 0 && a.read.length > 0
+              ? (i = o("WAWebAck").ACK.READ)
+              : a.deliveryRemaining === 0 &&
+                a.delivery.length > 0 &&
+                (i = o("WAWebAck").ACK.RECEIVED),
+            i != null && t.set(r.toString(), i));
+        }
+      }
+      return t;
     }
     ((l.RetryEligibilityResult = p),
       (l.createOrMergeReceiptRecords = _),
       (l.getRetryEligibilityWithMetadata = f),
-      (l.isRetryEligible = h),
-      (l.queryMsgInfo = C),
-      (l.queryMsgInfos = v),
-      (l.getHighestMsgAcks = $));
+      (l.isRetryEligible = g),
+      (l.queryMsgInfo = h),
+      (l.queryMsgInfos = y),
+      (l.getHighestMsgAcks = k));
   },
   98,
 );

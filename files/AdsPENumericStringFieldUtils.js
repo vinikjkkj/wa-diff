@@ -14,7 +14,7 @@ __d(
       var n = babelHelpers.extends({}, e);
       return (
         t.forEach(function (e) {
-          var t = parseInt(n[e], 10);
+          var t = parseInt(String(n[e]), 10);
           isNaN(t) || (n[e] = t);
         }),
         n

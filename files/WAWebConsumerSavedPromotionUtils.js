@@ -16,7 +16,6 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWidFormat",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -45,63 +44,54 @@ __d(
         t != null ? { year: "numeric", timeZone: t } : { year: "numeric" },
       ).format(o("WAWebClock").Clock.convertGlobalToLocalUnixTime(e) * 1e3);
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    async function f(t) {
+      var n = t.msgKey,
+        r = o("WAWebChatCollection").ChatCollection.get(n.remote);
+      if (r == null) {
+        (o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[SAVED_PROMOTIONS] the offer's chat is not loaded",
+              ])),
+          )
+          .sendLogs("saved-promotions-open-chat-not-found"),
+          g());
+        return;
+      }
+      (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
+        o(
+          "WAWebOpenLastActiveChatAction",
+        ).cancelPendingLastActiveChatRestore());
+      try {
+        var a = await o("WAWebCmd").Cmd.openChatAt({
+          chat: r,
+          chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.BizPayment,
+          msgContext: o("WAWebChatMessageSearch").getSearchContext({
+            chat: r,
+            msgKey: n,
+          }),
+        });
+        a ||
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[SAVED_PROMOTIONS] opening the chat at the offer was cancelled",
+              ])),
+          );
+      } catch (e) {
+        (o("WALogger")
+          .WARN(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[SAVED_PROMOTIONS] chat not opened at the offer",
+              ])),
+          )
+          .sendLogs("saved-promotions-open-chat-failed"),
+          g());
+      }
     }
     function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.msgKey,
-            r = o("WAWebChatCollection").ChatCollection.get(n.remote);
-          if (r == null) {
-            (o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[SAVED_PROMOTIONS] the offer's chat is not loaded",
-                  ])),
-              )
-              .sendLogs("saved-promotions-open-chat-not-found"),
-              h());
-            return;
-          }
-          (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
-            o(
-              "WAWebOpenLastActiveChatAction",
-            ).cancelPendingLastActiveChatRestore());
-          try {
-            var a = yield o("WAWebCmd").Cmd.openChatAt({
-              chat: r,
-              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                .BizPayment,
-              msgContext: o("WAWebChatMessageSearch").getSearchContext({
-                chat: r,
-                msgKey: n,
-              }),
-            });
-            a ||
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[SAVED_PROMOTIONS] opening the chat at the offer was cancelled",
-                  ])),
-              );
-          } catch (e) {
-            (o("WALogger")
-              .WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[SAVED_PROMOTIONS] chat not opened at the offer",
-                  ])),
-              )
-              .sendLogs("saved-promotions-open-chat-failed"),
-              h());
-          }
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h() {
       o("WAWebToastManager").ToastManager.open(
         d.jsx(o("WAWebToast.react").Toast, {
           id: "saved-promotion-open-chat-failed-toast",

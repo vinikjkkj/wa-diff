@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipVoiceChatUtils",
   [
-    "Promise",
     "WAWebAdvSyncDeviceListApi",
     "WAWebBackendRuntime",
     "WAWebDBParticipantTypes",
@@ -12,115 +11,87 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebPhashUtils",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = 6,
-      u = 7,
-      c = 8,
-      d = new Set([s, u, c]);
-    function m(e) {
-      return e != null && d.has(e);
+    var e = 6,
+      s = 7,
+      u = 8,
+      c = new Set([e, s, u]);
+    function d(e) {
+      return e != null && c.has(e);
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function m(e) {
+      var t = await _(e);
+      if (t != null) return t;
+      await (
+        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebGroupQueryService").GroupQueryService,
+            ).sendQueryGroup
+          : o("WAWebGroupQueryBridge").sendQueryGroup
+      )(e);
+      var n = await _(e);
+      if (n == null)
+        throw r("err")(
+          "voip: loadVoiceChatMemberWids: group members are incomplete",
+        );
+      return n;
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield h(e);
-          if (t != null) return t;
-          yield (
-            o("WAWebBackendRuntime").isWebDiBackendEnabled()
-              ? o("WAWebBackendRuntime").runtime(
-                  o("WAWebGroupQueryService").GroupQueryService,
-                ).sendQueryGroup
-              : o("WAWebGroupQueryBridge").sendQueryGroup
-          )(e);
-          var n = yield h(e);
-          if (n == null)
-            throw r("err")(
-              "voip: loadVoiceChatMemberWids: group members are incomplete",
-            );
-          return n;
-        })),
-        _.apply(this, arguments)
+    async function p(e) {
+      if (e.length === 0) return null;
+      await Promise.all(
+        e
+          .filter(function (e) {
+            return o("WAWebLidMigrationUtils").toUserLid(e) == null;
+          })
+          .map(function (e) {
+            return o("WAWebAdvSyncDeviceListApi").syncDeviceList({
+              wids: [e],
+              context: "voip",
+              phash: null,
+            });
+          }),
       );
+      var t = o("WAWebUserUtils").getMeLidUserOrThrow(),
+        n = new Map([[t.toString(), t]]);
+      for (var r of e) {
+        var a = o("WAWebLidMigrationUtils").toUserLid(r);
+        if (a == null) return null;
+        n.set(a.toString(), a);
+      }
+      return o("WAWebPhashUtils").phashV1(Array.from(n.values()));
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    async function _(e) {
+      var t = await Promise.all([
+          (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebGroupStoreService").GroupStoreService,
+              ).getGroupMetadataJob
+            : o("WAWebGroupDatabaseJob").getGroupMetadataJob)(e),
+          (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebGroupStoreService").GroupStoreService,
+              ).getGroupParticipantJob
+            : o("WAWebGroupDatabaseJob").getGroupParticipantJob)(e),
+        ]),
+        n = t[0],
+        r = t[1];
+      return (n == null ? void 0 : n.hasIncompleteParticipantInformation) ===
+        !0 ||
+        r == null ||
+        r.staleType === o("WAWebDBParticipantTypes").STALE_TYPES.PARTICIPANT ||
+        r.participants.length === 0
+        ? null
+        : r.participants.map(function (e) {
+            var t = e.id;
+            return t;
+          });
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (t.length === 0) return null;
-          yield (e || (e = n("Promise"))).all(
-            t
-              .filter(function (e) {
-                return o("WAWebLidMigrationUtils").toUserLid(e) == null;
-              })
-              .map(function (e) {
-                return o("WAWebAdvSyncDeviceListApi").syncDeviceList({
-                  wids: [e],
-                  context: "voip",
-                  phash: null,
-                });
-              }),
-          );
-          var r = o("WAWebUserUtils").getMeLidUserOrThrow(),
-            a = new Map([[r.toString(), r]]);
-          for (var i of t) {
-            var l = o("WAWebLidMigrationUtils").toUserLid(i);
-            if (l == null) return null;
-            a.set(l.toString(), l);
-          }
-          return o("WAWebPhashUtils").phashV1(Array.from(a.values()));
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = yield (e || (e = n("Promise"))).all([
-              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebGroupStoreService").GroupStoreService,
-                  ).getGroupMetadataJob
-                : o("WAWebGroupDatabaseJob").getGroupMetadataJob)(t),
-              (o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebGroupStoreService").GroupStoreService,
-                  ).getGroupParticipantJob
-                : o("WAWebGroupDatabaseJob").getGroupParticipantJob)(t),
-            ]),
-            a = r[0],
-            i = r[1];
-          return (a == null
-            ? void 0
-            : a.hasIncompleteParticipantInformation) === !0 ||
-            i == null ||
-            i.staleType ===
-              o("WAWebDBParticipantTypes").STALE_TYPES.PARTICIPANT ||
-            i.participants.length === 0
-            ? null
-            : i.participants.map(function (e) {
-                var t = e.id;
-                return t;
-              });
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    ((l.isVoiceChatOfferSilenceReason = m),
-      (l.loadVoiceChatMemberWids = p),
-      (l.getVoiceChatGroupPhash = f));
+    ((l.isVoiceChatOfferSilenceReason = d),
+      (l.loadVoiceChatMemberWids = m),
+      (l.getVoiceChatGroupPhash = p));
   },
   98,
 );

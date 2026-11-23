@@ -5,14 +5,10 @@ __d(
     "AdsAPIObjectives",
     "AdsAPIOptimizationGoals",
     "AdsCallToActionTypes",
-    "ClickToMessageAIGenEligibilityUtils",
+    "ClickToMessageAdCaptionEligibilityUtils",
     "ClickToMessageCTMAdoptionFeatureGating",
-    "CtxAdvertiserQeHbtExposureFalcoEvent",
-    "CurrentAdAccount",
     "ODS",
     "QE2Logger",
-    "WebToXAdsUnifiedFalcoEvent",
-    "XFBCASSegmentEnumUtils.facebook",
     "gkx",
     "qex",
   ],
@@ -67,50 +63,33 @@ __d(
             !1)
           : t === r("AdCampaignDestination").WHATSAPP &&
             o(
-              "ClickToMessageAIGenEligibilityUtils",
+              "ClickToMessageAdCaptionEligibilityUtils",
             ).isAdCaptionEligibleForAIGen(n) &&
             r("qex")._("5098") === !0
       );
     }
     function _(t, n, a) {
-      if (
-        ((e || (e = o("ODS"))).bumpEntityKey(
+      return (
+        (e || (e = o("ODS"))).bumpEntityKey(
           4090,
           "obc.www.all",
           "ctwa_ai_gen_prefill.should_enable_called",
         ),
         a === r("AdsAPIObjectives").LEAD_GENERATION ||
-          a === r("AdsAPIObjectives").OUTCOME_LEADS ||
-          a === r("AdsAPIObjectives").REACH)
-      )
-        return (
-          (e || (e = o("ODS"))).bumpEntityKey(
-            4090,
-            "obc.www.all",
-            "ctwa_ai_gen_prefill.excluded_by_leads",
-          ),
-          !1
-        );
-      if (
-        t !== r("AdCampaignDestination").WHATSAPP ||
-        !o("ClickToMessageAIGenEligibilityUtils").isAdCaptionEligibleForAIGen(n)
-      )
-        return !1;
-      var i = r("gkx")("11835") === !0;
-      if (i) return !0;
-      var l = r("gkx")("6902") === !0;
-      return (
-        r("CtxAdvertiserQeHbtExposureFalcoEvent").log(function () {
-          var e;
-          return {
-            condition: l ? "test" : "control",
-            feature_name: "ctwa_genai_prefill",
-            hbt_name: "bmxm_advertiser_liquidity_hbt_launch_gk",
-            unit_id: (e = r("CurrentAdAccount").getID()) != null ? e : "",
-            unit_type: "ad_account_id",
-          };
-        }),
-        l
+        a === r("AdsAPIObjectives").OUTCOME_LEADS ||
+        a === r("AdsAPIObjectives").REACH
+          ? ((e || (e = o("ODS"))).bumpEntityKey(
+              4090,
+              "obc.www.all",
+              "ctwa_ai_gen_prefill.excluded_by_leads",
+            ),
+            !1)
+          : t !== r("AdCampaignDestination").WHATSAPP ||
+              !o(
+                "ClickToMessageAdCaptionEligibilityUtils",
+              ).isAdCaptionEligibleForAIGen(n)
+            ? !1
+            : r("gkx")("8897") !== !0
       );
     }
     function f(t, n, a) {
@@ -131,7 +110,7 @@ __d(
             !1)
           : t === r("AdCampaignDestination").WHATSAPP &&
             o(
-              "ClickToMessageAIGenEligibilityUtils",
+              "ClickToMessageAdCaptionEligibilityUtils",
             ).isAdCaptionEligibleForAIGen(n)
       );
     }
@@ -153,118 +132,29 @@ __d(
             !1)
           : t === r("AdCampaignDestination").WHATSAPP &&
             o(
-              "ClickToMessageAIGenEligibilityUtils",
+              "ClickToMessageAdCaptionEligibilityUtils",
             ).isAdCaptionEligibleForAIGen(n)
       );
     }
-    function h(e, t, n, o, a) {
-      if (
-        (o === void 0 && (o = !1),
-        e !== r("AdCampaignDestination").INSTAGRAM_PROFILE)
-      )
-        return !1;
-      if (!t)
-        switch (n) {
-          case r("AdsAPIObjectives").LINK_CLICKS: {
-            var i = r("gkx")("9194"),
-              l = r("gkx")("12254") === !0;
-            return (
-              a != null &&
-                !l &&
-                r("CtxAdvertiserQeHbtExposureFalcoEvent").log(function () {
-                  return {
-                    condition: i ? "test" : "control",
-                    feature_name: "ptwa_linking_traffic_objective",
-                    hbt_name: "h126_wave4_ptwa_hbt_h2_rerun",
-                    unit_id: a,
-                    unit_type: "ad_account_id",
-                  };
-                }),
-              i
-            );
-          }
-          default:
-            return !1;
-        }
-      switch (n) {
-        case r("AdsAPIObjectives").LINK_CLICKS:
-        case r("AdsAPIObjectives").OUTCOME_ENGAGEMENT:
-          return r("gkx")("913");
-        default:
-          return !1;
-      }
-    }
-    function y(e, t) {
-      if (!e) return !1;
-      switch (t) {
-        case r("AdsAPIObjectives").LINK_CLICKS:
-          return r("qex")._("2656") === !0;
-        default:
-          return !1;
-      }
-    }
-    function C(e, t, n, a, i, l, s, u) {
-      if (
-        n !== r("AdsAPIObjectives").LINK_CLICKS ||
-        e !== r("AdCampaignDestination").INSTAGRAM_PROFILE ||
-        !t
-      )
-        return !1;
-      var c = r("gkx")("2114") === !0;
-      if (
-        !c &&
-        (!s || o("XFBCASSegmentEnumUtils.facebook").toJSEnum(u) !== "Basic")
-      )
-        return !1;
-      var d = r("gkx")("3111") === !0;
-      if (d) return !0;
-      var m = r("gkx")("18078") === !0;
-      return (
-        r("CtxAdvertiserQeHbtExposureFalcoEvent").log(function () {
-          return {
-            condition: m ? "test" : "control",
-            feature_name: "ptwa_am_ml_defaulting",
-            hbt_name: "h2_26_train_1_bundle_7_ad_acct_hbt",
-            unit_id: i != null ? i : "",
-            unit_type: "ad_account_id",
-          };
-        }),
-        m &&
-          r("WebToXAdsUnifiedFalcoEvent").log(function () {
-            return {
-              event: "ptwa_defaulted_am",
-              ad_group_id: a,
-              ad_account_id: i,
-              ad_page_id: l != null ? l : "",
-              objective: n,
-              event_info: "ads_manager_ml_80_defaulted",
-            };
-          }),
-        m
-      );
-    }
-    function b(e) {
+    function h(e) {
       return (
         e === void 0 && (e = !0),
         e === !0 ? r("qex")._("319") === !0 : r("qex")._("1444") === !0
       );
     }
-    function v(e) {
-      return (
-        e === void 0 && (e = !0),
-        e === !0 ? r("qex")._("3686") === !0 : r("qex")._("3693") === !0
-      );
+    function y() {
+      return r("qex")._("3686") === !0;
     }
-    function S(e) {
+    function C(e) {
       e === void 0 && (e = !0);
       var t = e === !0 ? r("qex")._("1708") === !0 : r("qex")._("2430") === !0,
         n = e === !0 ? r("gkx")("23659") : r("gkx")("23660");
       return t || n;
     }
-    function R(e, t) {
-      return E(e, t) || L(e, t);
+    function b(e, t) {
+      return S(e, t) || v(e, t);
     }
-    function L(e, t) {
+    function v(e, t) {
       var n =
         e === r("AdsAPIObjectives").OUTCOME_SALES ||
         e === r("AdsAPIObjectives").LINK_CLICKS;
@@ -273,18 +163,18 @@ __d(
         o("ClickToMessageCTMAdoptionFeatureGating").isCTXOptimizationGoal(t)
       );
     }
-    function E(e, t) {
+    function S(e, t) {
       var n = e === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT;
       return (
         n &&
         o("ClickToMessageCTMAdoptionFeatureGating").isCTXOptimizationGoal(t)
       );
     }
-    var k = new Set(["retail", "ecommerce", "consumer packaged goods"]);
-    function I(e) {
-      return e != null && k.has(e.toLowerCase());
+    var R = new Set(["retail", "ecommerce", "consumer packaged goods"]);
+    function L(e) {
+      return e != null && R.has(e.toLowerCase());
     }
-    function T(e, t, n, o) {
+    function E(e, t, n, o) {
       if (
         t !== r("AdCampaignDestination").WHATSAPP ||
         (n != null &&
@@ -293,47 +183,39 @@ __d(
       )
         return !1;
       var a = r("gkx")("17285") === !0;
-      return !(!a && (e == null || !k.has(e.toLowerCase())));
+      return !(!a && (e == null || !R.has(e.toLowerCase())));
     }
-    function D(e, t, n, o) {
-      return T(e, t, n, o) ? r("qex")._("4553") === !0 : !1;
+    function k(e, t, n, o) {
+      return E(e, t, n, o) ? r("qex")._("4553") === !0 : !1;
     }
-    function x(e) {
+    function I(e) {
       o("QE2Logger").logExposureForAdAccountIDImmediately(
         "ctwa_assisted_shopping_shop_now_cta",
         e != null ? e : "",
       );
     }
-    function $(e, t, n, o) {
-      return e !== r("AdCampaignDestination").WHATSAPP || T(t, e, n, o)
-        ? !1
-        : r("qex")._("3259") === !0;
-    }
-    function P(e) {
+    function T(e) {
       return (
         e === void 0 && (e = !1),
-        e ? r("qex")._("301") : r("qex")._("463")
+        e ? r("qex")._("5902") : r("qex")._("5903")
       );
     }
-    function N() {
-      return r("gkx")("6577") === !0;
-    }
-    function M() {
+    function D() {
       return r("gkx")("8306") === !0;
     }
-    function w(e) {
+    function x(e) {
       return (
         e === void 0 && (e = !1),
         e === !0 ? r("qex")._("2157") === !0 : r("qex")._("2159") === !0
       );
     }
-    function A() {
+    function $() {
       return r("qex")._("5233") === !0;
     }
-    function F() {
+    function P() {
       return r("gkx")("22497");
     }
-    function O() {
+    function N() {
       return r("gkx")("23834") === !0;
     }
     ((l.isWAPendingNumbersLabelingEnabled = s),
@@ -345,27 +227,22 @@ __d(
       (l.shouldEnableCTWAAIGenPrefill = _),
       (l.isInCTWAAIGenPrefillPopulation = f),
       (l.isInCTWAAIGenIcebreakersPopulation = g),
-      (l.shouldEnablePTWAonAM = h),
-      (l.shouldEnablePTWABusinessWABAOnAM = y),
-      (l.enablePTWADefaulting = C),
-      (l.isPageCloudAPIPendingNumbersEnabled = b),
-      (l.isImprovedCloudAPIDefaultingEnabled = v),
-      (l.isCTWABanErrorEnabled = S),
-      (l.isEligibleForCTXOptimizationGoal = R),
-      (l.isEligibleForCTXOptimizationGoalTrafficAndSales = L),
-      (l.isEligibleForCTXOptimizationGoalEngagement = E),
-      (l.isAssistedShoppingVertical = I),
-      (l.isEligibleForAssistedShoppingCTA = T),
-      (l.shouldUseShopNowCTAForAssistedShopping = D),
-      (l.logAssistedShoppingShopNowCTAExposure = x),
-      (l.shouldDisableCTAForCTWAOverride = $),
-      (l.getCrossBusinessPhoneNumbersQEValue = P),
-      (l.isCTWA3pdSharingBizLinkedImprovementsEnabled = N),
-      (l.isCTWAWabaAdsDataSharingToggleEnabled = M),
-      (l.isAGMCTADefaultingEnabled = w),
-      (l.isBSPContextInWANumberDropdownEnabled = A),
-      (l.isCTWAAndromedaMigrationEnabled = F),
-      (l.shouldShowWAUsernamesSMBNotice = O));
+      (l.isPageCloudAPIPendingNumbersEnabled = h),
+      (l.isImprovedCloudAPIDefaultingEnabled = y),
+      (l.isCTWABanErrorEnabled = C),
+      (l.isEligibleForCTXOptimizationGoal = b),
+      (l.isEligibleForCTXOptimizationGoalTrafficAndSales = v),
+      (l.isEligibleForCTXOptimizationGoalEngagement = S),
+      (l.isAssistedShoppingVertical = L),
+      (l.isEligibleForAssistedShoppingCTA = E),
+      (l.shouldUseShopNowCTAForAssistedShopping = k),
+      (l.logAssistedShoppingShopNowCTAExposure = I),
+      (l.getCrossBusinessPhoneNumbersQEValue = T),
+      (l.isCTWAWabaAdsDataSharingToggleEnabled = D),
+      (l.isAGMCTADefaultingEnabled = x),
+      (l.isBSPContextInWANumberDropdownEnabled = $),
+      (l.isCTWAAndromedaMigrationEnabled = P),
+      (l.shouldShowWAUsernamesSMBNotice = N));
   },
   98,
 );

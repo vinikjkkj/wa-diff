@@ -1,7 +1,6 @@
 __d(
   "WAWebCustomerManagerImportUndoAction",
   [
-    "Promise",
     "WALogger",
     "WAWebContactManagerCustomerProfileDeleteMutation",
     "WAWebCustomerManagerDeleteContactAction",
@@ -9,17 +8,15 @@ __d(
     "WAWebCustomerManagerImportRateLimiter",
     "WAWebCustomerProfileChangeNotifier",
     "WAWebDeleteContactAction",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = 10,
-      d = 250;
-    function m(t, n) {
+      u = 10,
+      c = 250;
+    function d(t, n) {
       var a = { failureCount: 0, successCount: 0 };
       return n.reduce(function (n, a, i) {
         return a.status === "fulfilled"
@@ -38,28 +35,14 @@ __d(
             babelHelpers.extends({}, n, { failureCount: n.failureCount + 1 }));
       }, a);
     }
-    function p(e, t, n, r, o) {
-      return _.apply(this, arguments);
+    async function m(e, t, n, r, o) {
+      var a;
+      if ((r === void 0 && (r = 0), o === void 0 && (o = []), r >= e.length))
+        return o;
+      var i = await Promise.allSettled(e.slice(r, r + t).map(n));
+      return ((a = o).push.apply(a, i), m(e, t, n, r + t, o));
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, o, a) {
-            var i;
-            if (
-              (o === void 0 && (o = 0), a === void 0 && (a = []), o >= e.length)
-            )
-              return a;
-            var l = yield (u || (u = n("Promise"))).allSettled(
-              e.slice(o, o + t).map(r),
-            );
-            return ((i = a).push.apply(i, l), p(e, t, r, o + t, a));
-          },
-        )),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t, n) {
+    function p(e, t, n) {
       var r = n && t.status === "fulfilled";
       (e.wasNewProfile || n) &&
         !r &&
@@ -67,221 +50,155 @@ __d(
           e.chatJid,
         );
     }
-    function g(e, t, n, r, o) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            if ((i === void 0 && (i = 0), i >= t.length)) return a;
-            var l = t.slice(i, i + d),
-              s = a,
-              u = s
-                ? {
-                    status: "rejected",
-                    reason: r("err")("[cm:import] undo rate-limited"),
-                  }
-                : null;
-            if (u == null)
-              try {
-                yield o("WAWebDeleteContactAction").deleteContactBatchAction(
-                  l.map(function (e) {
-                    var t = e.phoneNumber;
-                    return t;
-                  }),
-                );
-              } catch (e) {
-                ((s = o(
-                  "WAWebCustomerManagerImportRateLimiter",
-                ).isUsyncRateLimit(e)),
-                  (u = { status: "rejected", reason: r("getErrorSafe")(e) }));
-              }
-            var m = u,
-              _ =
-                m != null
-                  ? l.map(function () {
-                      return m;
-                    })
-                  : yield p(l, c, function (t) {
-                      var n = t.index,
-                        r = t.lid;
-                      return o(
-                        "WAWebCustomerManagerDeleteContactAction",
-                      ).finishContactDelete(e[n].chatJid, r);
-                    });
-            return (
-              l.forEach(function (e, t) {
-                var r = e.index;
-                n[r] = _[t];
-              }),
-              g(e, t, n, s, i + d)
-            );
-          },
-        )),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t.rateLimited) throw r("err")("[cm:import] undo rate-limited");
-          try {
-            yield o(
-              "WAWebCustomerManagerDeleteContactAction",
-            ).deleteContactFromCustomerManager(e);
-          } catch (e) {
-            throw (
-              o("WAWebCustomerManagerImportRateLimiter").isUsyncRateLimit(e) &&
-                (t.rateLimited = !0),
-              e
-            );
-          }
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return p(
-            e,
-            c,
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = !1,
-                    n = !1;
-                  try {
-                    (e.wasNewProfile &&
-                      (yield o(
-                        "WAWebContactManagerCustomerProfileDeleteMutation",
-                      ).deleteCustomerProfileFromServer(e.chatJid)),
-                      e.wasNewContact &&
-                        ((t = !0),
-                        yield o(
-                          "WAWebCustomerManagerDeleteContactAction",
-                        ).deleteContactFromCustomerManager(e.chatJid),
-                        (n = !0)));
-                  } finally {
-                    (e.wasNewProfile || t) &&
-                      !n &&
-                      o(
-                        "WAWebCustomerProfileChangeNotifier",
-                      ).notifyCustomerProfileChanged(e.chatJid);
-                  }
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-          );
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield p(
-              e,
-              c,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    e.wasNewProfile &&
-                      (yield o(
-                        "WAWebContactManagerCustomerProfileDeleteMutation",
-                      ).deleteCustomerProfileFromServer(e.chatJid));
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-            r = e.flatMap(function (e, n) {
-              return e.wasNewContact && t[n].status === "fulfilled" ? [n] : [];
+    async function _(e, t, n, a, i) {
+      if ((i === void 0 && (i = 0), i >= t.length)) return a;
+      var l = t.slice(i, i + c),
+        s = a,
+        d = s
+          ? {
+              status: "rejected",
+              reason: r("err")("[cm:import] undo rate-limited"),
+            }
+          : null;
+      if (d == null)
+        try {
+          await o("WAWebDeleteContactAction").deleteContactBatchAction(
+            l.map(function (e) {
+              var t = e.phoneNumber;
+              return t;
             }),
-            a = yield p(r, c, function (t) {
-              return o(
+          );
+        } catch (e) {
+          ((s = o("WAWebCustomerManagerImportRateLimiter").isUsyncRateLimit(e)),
+            (d = { status: "rejected", reason: r("getErrorSafe")(e) }));
+        }
+      var p = d,
+        f =
+          p != null
+            ? l.map(function () {
+                return p;
+              })
+            : await m(l, u, function (t) {
+                var n = t.index,
+                  r = t.lid;
+                return o(
+                  "WAWebCustomerManagerDeleteContactAction",
+                ).finishContactDelete(e[n].chatJid, r);
+              });
+      return (
+        l.forEach(function (e, t) {
+          var r = e.index;
+          n[r] = f[t];
+        }),
+        _(e, t, n, s, i + c)
+      );
+    }
+    async function f(e, t) {
+      if (t.rateLimited) throw r("err")("[cm:import] undo rate-limited");
+      try {
+        await o(
+          "WAWebCustomerManagerDeleteContactAction",
+        ).deleteContactFromCustomerManager(e);
+      } catch (e) {
+        throw (
+          o("WAWebCustomerManagerImportRateLimiter").isUsyncRateLimit(e) &&
+            (t.rateLimited = !0),
+          e
+        );
+      }
+    }
+    async function g(e) {
+      return m(e, u, async function (e) {
+        var t = !1,
+          n = !1;
+        try {
+          (e.wasNewProfile &&
+            (await o(
+              "WAWebContactManagerCustomerProfileDeleteMutation",
+            ).deleteCustomerProfileFromServer(e.chatJid)),
+            e.wasNewContact &&
+              ((t = !0),
+              await o(
                 "WAWebCustomerManagerDeleteContactAction",
-              ).planContactDelete(e[t].chatJid);
-            }),
-            i = [],
-            l = [];
-          r.forEach(function (e, n) {
-            var r = a[n];
-            r.status === "rejected"
-              ? (t[e] = r)
-              : r.value.kind === "batch"
-                ? i.push({
-                    index: e,
-                    phoneNumber: r.value.phoneNumber,
-                    lid: r.value.lid,
-                  })
-                : l.push(e);
-          });
-          var s = { rateLimited: yield g(e, i, t, !1) },
-            u = yield p(l, c, function (t) {
-              return y(e[t].chatJid, s);
-            });
-          l.forEach(function (e, n) {
-            t[e] = u[n];
-          });
-          var d = new Set(r);
-          return (
-            e.forEach(function (e, n) {
-              f(e, t[n], d.has(n));
-            }),
-            t
+              ).deleteContactFromCustomerManager(e.chatJid),
+              (n = !0)));
+        } finally {
+          (e.wasNewProfile || t) &&
+            !n &&
+            o(
+              "WAWebCustomerProfileChangeNotifier",
+            ).notifyCustomerProfileChanged(e.chatJid);
+        }
+      });
+    }
+    async function h(e) {
+      var t = await m(e, u, async function (e) {
+          e.wasNewProfile &&
+            (await o(
+              "WAWebContactManagerCustomerProfileDeleteMutation",
+            ).deleteCustomerProfileFromServer(e.chatJid));
+        }),
+        n = e.flatMap(function (e, n) {
+          return e.wasNewContact && t[n].status === "fulfilled" ? [n] : [];
+        }),
+        r = await m(n, u, function (t) {
+          return o("WAWebCustomerManagerDeleteContactAction").planContactDelete(
+            e[t].chatJid,
           );
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
+        }),
+        a = [],
+        i = [];
+      n.forEach(function (e, n) {
+        var o = r[n];
+        o.status === "rejected"
+          ? (t[e] = o)
+          : o.value.kind === "batch"
+            ? a.push({
+                index: e,
+                phoneNumber: o.value.phoneNumber,
+                lid: o.value.lid,
+              })
+            : i.push(e);
+      });
+      var l = { rateLimited: await _(e, a, t, !1) },
+        s = await m(i, u, function (t) {
+          return f(e[t].chatJid, l);
+        });
+      i.forEach(function (e, n) {
+        t[e] = s[n];
+      });
+      var c = new Set(n);
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-              "WAWebCustomerManagerGating",
-            ).customerManagerImportExportEnabled()
-              ? yield S(e)
-              : yield b(e),
-            n = m(e, t);
-          return (
-            o("WALogger")
-              .LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[cm:import] undo complete: ",
-                    " ok, ",
-                    " failed",
-                  ])),
-                n.successCount,
-                n.failureCount,
-              )
-              .sendLogs("cm-import-undo-complete"),
-            n
-          );
-        })),
-        E.apply(this, arguments)
+        e.forEach(function (e, n) {
+          p(e, t[n], c.has(n));
+        }),
+        t
       );
     }
-    l.undoImportedContacts = L;
+    async function y(e) {
+      var t = o(
+          "WAWebCustomerManagerGating",
+        ).customerManagerImportExportEnabled()
+          ? await h(e)
+          : await g(e),
+        n = d(e, t);
+      return (
+        o("WALogger")
+          .LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[cm:import] undo complete: ",
+                " ok, ",
+                " failed",
+              ])),
+            n.successCount,
+            n.failureCount,
+          )
+          .sendLogs("cm-import-undo-complete"),
+        n
+      );
+    }
+    l.undoImportedContacts = y;
   },
   98,
 );

@@ -13,34 +13,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = m(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = u(r, n);
-          if (a.success)
-            return { name: "LinkCreateResponseLinkCreateAck", value: a.value };
-          var i = c(r, n);
-          if (i.success)
-            return { name: "LinkCreateResponseLinkCreateNack", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("LinkCreate", {
-              LinkCreateAck: a,
-              LinkCreateNack: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = d(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = s(r, n);
+      if (a.success)
+        return { name: "LinkCreateResponseLinkCreateAck", value: a.value };
+      var i = u(r, n);
+      if (i.success)
+        return { name: "LinkCreateResponseLinkCreateNack", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("LinkCreate", {
+          LinkCreateAck: a,
+          LinkCreateNack: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "link_create");
@@ -121,7 +112,7 @@ __d(
           })
         : f;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxParseJid").literalJid(
@@ -172,12 +163,12 @@ __d(
           })
         : c;
     }
-    function d(e) {
+    function c(e) {
       var t = e.eventStartTime,
         n = o("WASmaxJsx").smax("event", { start_time: o("WAWap").INT(t) });
       return n;
     }
-    function m(e) {
+    function d(e) {
       var t,
         n,
         r = e.eventArgs,
@@ -186,7 +177,7 @@ __d(
         l = e.linkCreateCallCreator,
         s = e.linkCreateCallId,
         u = e.linkCreateLinkCreatorUsername,
-        c = e.hasLinkCreateWaitingRoomEnabled1,
+        d = e.hasLinkCreateWaitingRoomEnabled1,
         m = o("WASmaxJsx").smax(
           "call",
           { id: (t = o("WAWap")).generateId(), to: t.JID(a) },
@@ -197,17 +188,17 @@ __d(
               "call-creator": n.OPTIONAL(t.DEVICE_JID, l),
               "call-id": n.OPTIONAL(t.CALL_ID, s),
               link_creator_username: n.OPTIONAL(t.CUSTOM_STRING, u),
-              waiting_room_enabled: n.OPTIONAL_LITERAL("1", c),
+              waiting_room_enabled: n.OPTIONAL_LITERAL("1", d),
             },
-            o("WASmaxChildren").OPTIONAL_CHILD(d, r),
+            o("WASmaxChildren").OPTIONAL_CHILD(c, r),
           ),
         );
       return m;
     }
     ((l.sendLinkCreateRPC = e),
-      (l.parseLinkCreateResponseLinkCreateAck = u),
-      (l.parseLinkCreateResponseLinkCreateNack = c),
-      (l.makeLinkCreateRequest = m));
+      (l.parseLinkCreateResponseLinkCreateAck = s),
+      (l.parseLinkCreateResponseLinkCreateNack = u),
+      (l.makeLinkCreateRequest = d));
   },
   98,
 );

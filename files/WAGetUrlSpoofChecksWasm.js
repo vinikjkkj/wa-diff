@@ -7,7 +7,6 @@ __d(
     "WARetryPromise",
     "WAUrlSpoofChecksWasmInstance",
     "WAWasmModuleCache",
-    "asyncToGeneratorRuntime",
     "bx",
     "getErrorSafe",
   ],
@@ -20,38 +19,29 @@ __d(
         function () {
           return s;
         },
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield r("WARetryPromise")(
-            (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  var n = t.failCount,
-                    a = t.retry;
-                  try {
-                    return yield o("WAWasmModuleCache").loadWasmModule(s);
-                  } catch (t) {
-                    throw (
-                      n === 0 &&
-                        o("WALogger")
-                          .ERROR(
-                            e ||
-                              (e = babelHelpers.taggedTemplateLiteralLoose([
-                                "Host-check load failed; retrying",
-                              ])),
-                          )
-                          .catching(r("getErrorSafe")(t))
-                          .sendLogs("wasm-load-failed"),
-                      a(o("WAPromiseBackoffs").getDelay(n + 1, u)),
-                      t
-                    );
-                  }
-                },
+        async function () {
+          var t = await r("WARetryPromise")(async function (t) {
+            var n = t.failCount,
+              a = t.retry;
+            try {
+              return await o("WAWasmModuleCache").loadWasmModule(s);
+            } catch (t) {
+              throw (
+                n === 0 &&
+                  o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "Host-check load failed; retrying",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(t))
+                    .sendLogs("wasm-load-failed"),
+                a(o("WAPromiseBackoffs").getDelay(n + 1, u)),
+                t
               );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })(),
-          );
+            }
+          });
           return (
             o(
               "WAUrlSpoofChecksWasmInstance",
@@ -59,11 +49,11 @@ __d(
               o(
                 "WAUrlSpoofChecksWasmInstance",
               ).initializeSuspiciousHostChecksFromInstance(
-                yield WebAssembly.instantiate(t),
+                await WebAssembly.instantiate(t),
               ),
             t
           );
-        }),
+        },
       ),
       d = c;
     ((l.getUrlSpoofChecksWasm = c), (l.preloadSuspiciousHostChecks = d));

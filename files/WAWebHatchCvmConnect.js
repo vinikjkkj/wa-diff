@@ -12,7 +12,6 @@ __d(
     "WAWebHatchVmCredentials",
     "WAWebHatchVmSession",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -25,81 +24,72 @@ __d(
       d,
       m = "staging",
       p = { cause: "superseded", detail: "The connect is no longer wanted" };
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
+    async function _(t) {
+      var n = t.acceptLanguage,
+        a = t.credentials,
+        i = t.isStillWanted,
+        l = o("WAWebUserUtils").getMeLidUserOrThrow(),
+        u = await o("WAWebHatchCvmSecretPref").readHatchCvmSecret();
+      if (u == null)
+        return {
+          cause: "cvm_key_not_found",
+          detail: "No CVM secret on this device",
+        };
+      if (!i()) return p;
+      var c = await v(a, u.key, n);
+      if ((c == null ? void 0 : c.cause) !== "cvm_key_rejected") return g(c);
+      if (!i()) return p;
+      o("WAWebHatchVmCredentials").waWebHatchVmCredentials.refreshVm(a);
+      var d = await o(
+        "WAWebHatchVmCredentials",
+      ).waWebHatchVmCredentials.resolve();
+      if (!i()) return p;
+      if (d.kind !== "ok") return c;
+      if (d.credentials.confidential !== !0)
+        return (
+          C(d.credentials),
+          {
+            cause: "cvm_downgrade_refused",
+            detail: "The refetched VM is not confidential",
+          }
+        );
+      b(d.credentials);
+      var m = await v(d.credentials, u.key, n);
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.acceptLanguage,
-            n = e.credentials,
-            a = e.isStillWanted,
-            i = o("WAWebUserUtils").getMeLidUserOrThrow(),
-            l = yield o("WAWebHatchCvmSecretPref").readHatchCvmSecret();
-          if (l == null)
-            return {
-              cause: "cvm_key_not_found",
-              detail: "No CVM secret on this device",
-            };
-          if (!a()) return p;
-          var s = yield L(n, l.key, t);
-          if ((s == null ? void 0 : s.cause) !== "cvm_key_rejected")
-            return h(s);
-          if (!a()) return p;
-          o("WAWebHatchVmCredentials").waWebHatchVmCredentials.refreshVm(n);
-          var u = yield o(
-            "WAWebHatchVmCredentials",
-          ).waWebHatchVmCredentials.resolve();
-          if (!a()) return p;
-          if (u.kind !== "ok") return s;
-          if (u.credentials.confidential !== !0)
-            return (
-              S(u.credentials),
-              {
-                cause: "cvm_downgrade_refused",
-                detail: "The refetched VM is not confidential",
-              }
-            );
-          R(u.credentials);
-          var m = yield L(u.credentials, l.key, t);
-          return (
-            (m == null ? void 0 : m.cause) === "cvm_key_rejected" &&
-              (o("WALogger")
-                .LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-cvm: VM rejected the key twice, dropping S",
+        (m == null ? void 0 : m.cause) === "cvm_key_rejected" &&
+          (o("WALogger")
+            .LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-cvm: VM rejected the key twice, dropping S",
+                ])),
+            )
+            .sendLogs("hatch-cvm-key-rejected"),
+          o("WAWebHatchCvmCriticalEvents").reportHatchCvmCriticalEvent(
+            "noise_cvm_key_rejected",
+          ),
+          await o("WAWebHatchCvmSecretPref")
+            .removeHatchCvmSecret({ generation: u.generation, ownerLid: l })
+            .catch(function (e) {
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-cvm: rejected S not removed",
                     ])),
                 )
-                .sendLogs("hatch-cvm-key-rejected"),
-              o("WAWebHatchCvmCriticalEvents").reportHatchCvmCriticalEvent(
-                "noise_cvm_key_rejected",
-              ),
-              yield o("WAWebHatchCvmSecretPref")
-                .removeHatchCvmSecret({ generation: l.generation, ownerLid: i })
-                .catch(function (e) {
-                  o("WALogger")
-                    .WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "hatch-cvm: rejected S not removed",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e))
-                    .sendLogs("hatch-cvm-key-remove-failed");
-                })),
-            h(m)
-          );
-        })),
-        f.apply(this, arguments)
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("hatch-cvm-key-remove-failed");
+            })),
+        g(m)
       );
     }
-    function g() {
+    function f() {
       o("WAWebHatchCvmSecretPref").peekHatchCvmReadOnlyInputs().hasSecret &&
         (o("WALogger")
           .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "hatch-cvm: standard dial while this account holds a CVM key",
               ])),
           )
@@ -108,7 +98,7 @@ __d(
           "noise_standard_dial_with_stored_cvm_key",
         ));
     }
-    function h(e) {
+    function g(e) {
       var t = (function (e) {
         return e === "attestation_rejected"
           ? "noise_cvm_attestation_failed"
@@ -122,45 +112,29 @@ __d(
         e
       );
     }
-    function y() {
-      return C.apply(this, arguments);
+    async function h() {
+      var e = await o("WAWebHatchCvmSecretPref").readHatchCvmVmType();
+      if (
+        e === "confidential" &&
+        o("WAWebHatchFrontendGating").isHatchCvmEnabled()
+      )
+        return !0;
+      if (r("WAWebHatchLinkedStatusManager").getLinkedStatus() == null)
+        throw r("err")("Muse linked status not fetched yet");
+      return S() === "CVM";
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebHatchCvmSecretPref").readHatchCvmVmType();
-          if (
-            e === "confidential" &&
-            o("WAWebHatchFrontendGating").isHatchCvmEnabled()
-          )
-            return !0;
-          if (r("WAWebHatchLinkedStatusManager").getLinkedStatus() == null)
-            throw r("err")("Muse linked status not fetched yet");
-          return k() === "CVM";
-        })),
-        C.apply(this, arguments)
-      );
+    async function y(e) {
+      if (e.confidential === !0) return !1;
+      if (o("WAWebHatchCvmAttestedVms").isHatchCvmVmAttested(e.vmId))
+        return (C(e), !0);
+      var t = await h();
+      return t ? (C(e), !0) : !1;
     }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.confidential === !0) return !1;
-          if (o("WAWebHatchCvmAttestedVms").isHatchCvmVmAttested(e.vmId))
-            return (S(e), !0);
-          var t = yield y();
-          return t ? (S(e), !0) : !1;
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
+    function C(e) {
       (o("WALogger")
         .WARN(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "hatch-vm: refused a standard VM for a confidential account",
             ])),
         )
@@ -171,7 +145,7 @@ __d(
           ),
         o("WAWebHatchVmCredentials").waWebHatchVmCredentials.refreshVm(e));
     }
-    function R(e) {
+    function b(e) {
       o("WAWebHatchCvmSecretPref")
         .saveHatchCvmVmType(
           o("WAWebUserUtils").getMeLidUserOrThrow(),
@@ -180,8 +154,8 @@ __d(
         .catch(function (e) {
           o("WALogger")
             .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "hatch-cvm: VM type not saved",
                 ])),
             )
@@ -189,84 +163,66 @@ __d(
             .sendLogs("hatch-cvm-vm-type-failed");
         });
     }
-    function L(e, t, n) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = {
-              resolveRvKey: function () {
-                return o("WAWebHatchCvmKey").deriveCvmRvKey(t, e.vmId);
-              },
-              verifyAttestation: (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = yield o(
-                      "WAWebHatchAttestationLoader",
-                    ).loadHatchAttestationApi();
-                    return t.verifyHatchCvmAttestation(
-                      babelHelpers.extends({}, e, { tier: m }),
-                    );
-                  },
-                );
-                function t(t) {
-                  return e.apply(this, arguments);
-                }
-                return t;
-              })(),
-            },
-            i = yield o(
-              "WAWebHatchVmSession",
-            ).waWebHatchVmSession.connectConfidential({
-              acceptLanguage: r,
-              credentials: e,
-              privateAuth: a,
-            });
-          e: {
-            var l = i;
-            if (
-              ((typeof l == "object" && l !== null) ||
-                typeof l == "function") &&
-              l.kind === "Ready"
-            ) {
-              return (
-                o("WAWebHatchCvmAttestedVms").markHatchCvmVmAttested(e.vmId),
-                null
-              );
-              break e;
-            }
-            if (
-              ((typeof l == "object" && l !== null) ||
-                typeof l == "function") &&
-              l.kind === "Failure" &&
-              "cause" in l &&
-              "detail" in l
-            ) {
-              var s = l.cause,
-                u = l.detail;
-              return { cause: s, detail: u };
-            }
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                l,
+    async function v(e, t, n) {
+      var r = {
+          resolveRvKey: function () {
+            return o("WAWebHatchCvmKey").deriveCvmRvKey(t, e.vmId);
+          },
+          verifyAttestation: async function (t) {
+            var e = await o(
+              "WAWebHatchAttestationLoader",
+            ).loadHatchAttestationApi();
+            return e.verifyHatchCvmAttestation(
+              babelHelpers.extends({}, t, { tier: m }),
             );
-          }
-        })),
-        E.apply(this, arguments)
-      );
+          },
+        },
+        a = await o(
+          "WAWebHatchVmSession",
+        ).waWebHatchVmSession.connectConfidential({
+          acceptLanguage: n,
+          credentials: e,
+          privateAuth: r,
+        });
+      e: {
+        var i = a;
+        if (
+          ((typeof i == "object" && i !== null) || typeof i == "function") &&
+          i.kind === "Ready"
+        ) {
+          return (
+            o("WAWebHatchCvmAttestedVms").markHatchCvmVmAttested(e.vmId),
+            null
+          );
+          break e;
+        }
+        if (
+          ((typeof i == "object" && i !== null) || typeof i == "function") &&
+          i.kind === "Failure" &&
+          "cause" in i &&
+          "detail" in i
+        ) {
+          var l = i.cause,
+            s = i.detail;
+          return { cause: l, detail: s };
+        }
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            i,
+        );
+      }
     }
-    function k() {
+    function S() {
       var e = r("WAWebHatchLinkedStatusManager").getLinkedStatus();
       return (e == null ? void 0 : e.hasChannel) === !0 && e.status === "ACTIVE"
         ? e.vmType
         : null;
     }
     ((l.connectHatchConfidentialVm = _),
-      (l.reportHatchStandardDialWithStoredCvmKey = g),
-      (l.isHatchCvmExpected = y),
-      (l.refuseHatchCvmDowngrade = b),
-      (l.recordHatchVmType = R));
+      (l.reportHatchStandardDialWithStoredCvmKey = f),
+      (l.isHatchCvmExpected = h),
+      (l.refuseHatchCvmDowngrade = y),
+      (l.recordHatchVmType = b));
   },
   98,
 );

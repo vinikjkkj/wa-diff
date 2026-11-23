@@ -1,91 +1,73 @@
 __d(
   "WAWebVoipBackgroundPreview",
-  ["Promise", "asyncToGeneratorRuntime", "err", "getErrorSafe"],
+  ["err", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = "1",
-      u = 320,
-      c = 180,
-      d = 0.8;
-    function m(e) {
-      return p.apply(this, arguments);
+    var e = "1",
+      s = 320,
+      u = 180,
+      c = 0.8;
+    async function d(e) {
+      var t = self.OffscreenCanvas;
+      if (typeof t != "function")
+        throw r("err")("background preview: no OffscreenCanvas");
+      var n = new t(s, u),
+        o = n.getContext("2d");
+      if (o == null) throw r("err")("background preview: no 2d context");
+      var a = e.columns,
+        i = e.rows,
+        l = await _(e, { resizeWidth: Math.ceil(s / a) });
+      try {
+        var d = m(a, l[0]);
+        i * d.height < u &&
+          (f(l),
+          (l = []),
+          (l = await _(e, { resizeHeight: Math.ceil(u / i) })),
+          (d = p(i, l[0])));
+        var g = Math.floor((s - a * d.width) / 2),
+          h = Math.floor((u - i * d.height) / 2);
+        l.forEach(function (e, t) {
+          o.drawImage(
+            e,
+            g + (t % a) * d.width,
+            h + Math.floor(t / a) * d.height,
+            d.width,
+            d.height,
+          );
+        });
+      } finally {
+        f(l);
+      }
+      return n.convertToBlob({ quality: c, type: "image/jpeg" });
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = self.OffscreenCanvas;
-          if (typeof t != "function")
-            throw r("err")("background preview: no OffscreenCanvas");
-          var n = new t(u, c),
-            o = n.getContext("2d");
-          if (o == null) throw r("err")("background preview: no 2d context");
-          var a = e.columns,
-            i = e.rows,
-            l = yield g(e, { resizeWidth: Math.ceil(u / a) });
-          try {
-            var s = _(a, l[0]);
-            i * s.height < c &&
-              (y(l),
-              (l = []),
-              (l = yield g(e, { resizeHeight: Math.ceil(c / i) })),
-              (s = f(i, l[0])));
-            var m = Math.floor((u - a * s.width) / 2),
-              p = Math.floor((c - i * s.height) / 2);
-            l.forEach(function (e, t) {
-              o.drawImage(
-                e,
-                m + (t % a) * s.width,
-                p + Math.floor(t / a) * s.height,
-                s.width,
-                s.height,
-              );
-            });
-          } finally {
-            y(l);
-          }
-          return n.convertToBlob({ quality: d, type: "image/jpeg" });
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t) {
-      var n = Math.ceil(u / e);
+    function m(e, t) {
+      var n = Math.ceil(s / e);
       return { height: Math.ceil((n * t.height) / t.width), width: n };
     }
-    function f(e, t) {
-      var n = Math.ceil(c / e);
+    function p(e, t) {
+      var n = Math.ceil(u / e);
       return { height: n, width: Math.ceil((n * t.width) / t.height) };
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    async function _(e, t) {
+      var n = await Promise.allSettled(
+          e.tiles.map(function (e) {
+            return createImageBitmap(
+              e,
+              babelHelpers.extends({}, t, { resizeQuality: "high" }),
+            );
+          }),
+        ),
+        o = n.flatMap(function (e) {
+          return e.status === "fulfilled" ? [e.value] : [];
+        });
+      for (var a of n)
+        if (a.status === "rejected") throw (f(o), r("getErrorSafe")(a.reason));
+      return o;
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, o) {
-          var a = yield (e || (e = n("Promise"))).allSettled(
-              t.tiles.map(function (e) {
-                return createImageBitmap(
-                  e,
-                  babelHelpers.extends({}, o, { resizeQuality: "high" }),
-                );
-              }),
-            ),
-            i = a.flatMap(function (e) {
-              return e.status === "fulfilled" ? [e.value] : [];
-            });
-          for (var l of a)
-            if (l.status === "rejected")
-              throw (y(i), r("getErrorSafe")(l.reason));
-          return i;
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
+    function f(e) {
       for (var t of e) t.close();
     }
-    ((l.BACKGROUND_PREVIEW_VERSION = s), (l.makeBackgroundPreview = m));
+    ((l.BACKGROUND_PREVIEW_VERSION = e), (l.makeBackgroundPreview = d));
   },
   98,
 );

@@ -1,84 +1,81 @@
 __d(
   "WAWebOrgManagedGroupsRepository",
   [
-    "Promise",
     "WALogger",
     "WAWebOrgManagedGroupDetailAdapter",
     "WAWebOrgManagedGroupListAdapter",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = [],
-      d = new Set(),
+      u = [],
+      c = new Set(),
+      d = new Map(),
       m = new Map(),
-      p = new Map(),
-      _ = O();
-    function f() {
-      return _;
+      p = M();
+    function _() {
+      return p;
     }
-    function g(e) {
+    function f(e) {
       return (
-        d.add(e),
+        c.add(e),
         function () {
-          d.delete(e);
+          c.delete(e);
         }
       );
     }
-    function h(e) {
-      var t = U(e),
-        n = p.get(t);
+    function g(e) {
+      var t = O(e),
+        n = m.get(t);
       return n != null
         ? n
-        : (I(e),
-          B(e, t, function () {
-            return E(e);
+        : (L(e),
+          w(e, t, function () {
+            return R(e);
+          }));
+    }
+    function h(e, t) {
+      var n = B(e, t),
+        r = m.get(n);
+      return r != null
+        ? r
+        : (k(e, t),
+          w(e, n, function () {
+            return E(e, t);
           }));
     }
     function y(e, t) {
-      var n = V(e, t),
-        r = p.get(n);
-      return r != null
-        ? r
-        : (x(e, t),
-          B(e, n, function () {
-            return T(e, t);
-          }));
-    }
-    function C(e, t) {
       return (
-        q(e),
-        W(e, function () {
-          return R(e, t);
+        F(e),
+        A(e, function () {
+          return S(e, t);
         })
       );
     }
-    function b(e, t) {
+    function C(e, t) {
       return (
-        q(e),
-        W(e, function () {
+        F(e),
+        A(e, function () {
           return t({
             refreshGroupAfterMutation: function (n) {
-              return R(e, n);
+              return S(e, n);
             },
             refreshGroups: function () {
-              return E(e);
+              return R(e);
             },
           });
         })
       );
     }
-    function v(e, t) {
-      var n = $(e);
+    function b(e, t) {
+      var n = I(e);
       n.groups.some(function (e) {
         var n = e.gid;
         return n === t.gid;
-      }) || N(e, babelHelpers.extends({}, n, { groups: [t].concat(n.groups) }));
+      }) || D(e, babelHelpers.extends({}, n, { groups: [t].concat(n.groups) }));
     }
-    function S(e, t, n, r) {
+    function v(e, t, n, r) {
       var o,
         a = new Set(
           n.map(function (e) {
@@ -86,7 +83,7 @@ __d(
             return t;
           }),
         ),
-        i = new Map(_.emailInviteNotSentByOrgID.get(e)),
+        i = new Map(p.emailInviteNotSentByOrgID.get(e)),
         l = [].concat(
           ((o = i.get(t)) != null ? o : []).filter(function (e) {
             var t = e.key;
@@ -98,138 +95,114 @@ __d(
         );
       if (l.length > 0) i.set(t, l);
       else if (!i.delete(t)) return;
-      var s = new Map(_.emailInviteNotSentByOrgID);
-      (s.set(e, i), A({ emailInviteNotSentByOrgID: s }));
+      var s = new Map(p.emailInviteNotSentByOrgID);
+      (s.set(e, i), P({ emailInviteNotSentByOrgID: s }));
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    async function S(e, t) {
+      await Promise.all([R(e), E(e, t)]);
+      var n = T(e, t);
+      n.status === "ready" && n.group != null && $(e, n.group);
     }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield (u || (u = n("Promise"))).all([E(e), T(e, t)]);
-          var r = P(e, t);
-          r.status === "ready" && r.group != null && w(e, r.group);
-        })),
-        L.apply(this, arguments)
-      );
+    async function R(t) {
+      var n = I(t);
+      D(t, {
+        error: null,
+        groups: n.groups,
+        status: n.groups.length === 0 ? "loading" : "refreshing",
+      });
+      try {
+        var a = await o(
+          "WAWebOrgManagedGroupListAdapter",
+        ).loadOrgManagedGroupList(t);
+        D(t, { error: null, groups: a, status: "ready" });
+      } catch (n) {
+        var i = I(t),
+          l = r("getErrorSafe")(n);
+        (o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[org-admin] managed-group list refresh failed",
+              ])),
+          )
+          .catching(l)
+          .sendLogs("org-managed-groups-list-refresh-failed"),
+          D(t, { error: l, groups: i.groups, status: "error" }));
+      }
     }
-    function E(e) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = $(t);
-          N(t, {
-            error: null,
-            groups: n.groups,
-            status: n.groups.length === 0 ? "loading" : "refreshing",
-          });
-          try {
-            var a = yield o(
-              "WAWebOrgManagedGroupListAdapter",
-            ).loadOrgManagedGroupList(t);
-            N(t, { error: null, groups: a, status: "ready" });
-          } catch (n) {
-            var i = $(t),
-              l = r("getErrorSafe")(n);
-            (o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[org-admin] managed-group list refresh failed",
-                  ])),
-              )
-              .catching(l)
-              .sendLogs("org-managed-groups-list-refresh-failed"),
-              N(t, { error: l, groups: i.groups, status: "error" }));
-          }
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e) {
-      var t = $(e);
-      N(e, {
+    function L(e) {
+      var t = I(e);
+      D(e, {
         error: null,
         groups: t.groups,
         status: t.groups.length === 0 ? "loading" : "refreshing",
       });
     }
-    function T(e, t) {
-      return D.apply(this, arguments);
+    async function E(e, t) {
+      var n = T(e, t);
+      x(e, t, {
+        error: null,
+        group: n.group,
+        status: n.group == null ? "loading" : "refreshing",
+      });
+      try {
+        var a = await o(
+          "WAWebOrgManagedGroupDetailAdapter",
+        ).loadOrgManagedGroupDetail(e, t);
+        x(e, t, { error: null, group: a, status: "ready" });
+      } catch (n) {
+        var i = T(e, t),
+          l = r("getErrorSafe")(n);
+        (o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[org-admin] managed-group detail refresh failed",
+              ])),
+          )
+          .catching(l)
+          .sendLogs("org-managed-group-detail-refresh-failed"),
+          x(e, t, { error: l, group: i.group, status: "error" }));
+      }
     }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = P(e, t);
-          M(e, t, {
-            error: null,
-            group: n.group,
-            status: n.group == null ? "loading" : "refreshing",
-          });
-          try {
-            var a = yield o(
-              "WAWebOrgManagedGroupDetailAdapter",
-            ).loadOrgManagedGroupDetail(e, t);
-            M(e, t, { error: null, group: a, status: "ready" });
-          } catch (n) {
-            var i = P(e, t),
-              l = r("getErrorSafe")(n);
-            (o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[org-admin] managed-group detail refresh failed",
-                  ])),
-              )
-              .catching(l)
-              .sendLogs("org-managed-group-detail-refresh-failed"),
-              M(e, t, { error: l, group: i.group, status: "error" }));
-          }
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e, t) {
-      var n = P(e, t);
-      M(e, t, {
+    function k(e, t) {
+      var n = T(e, t);
+      x(e, t, {
         error: null,
         group: n.group,
         status: n.group == null ? "loading" : "refreshing",
       });
     }
-    function $(e) {
+    function I(e) {
       var t;
-      return (t = _.listStateByOrgID.get(e)) != null
+      return (t = p.listStateByOrgID.get(e)) != null
         ? t
-        : { error: null, groups: c, status: "idle" };
+        : { error: null, groups: u, status: "idle" };
     }
-    function P(e, t) {
+    function T(e, t) {
       var n, r;
       return (n =
-        (r = _.detailStateByOrgID.get(e)) == null ? void 0 : r.get(t)) != null
+        (r = p.detailStateByOrgID.get(e)) == null ? void 0 : r.get(t)) != null
         ? n
         : { error: null, group: null, status: "idle" };
     }
-    function N(e, t) {
-      var n = new Map(_.listStateByOrgID);
-      (n.set(e, t), A({ listStateByOrgID: n }));
+    function D(e, t) {
+      var n = new Map(p.listStateByOrgID);
+      (n.set(e, t), P({ listStateByOrgID: n }));
     }
-    function M(e, t, n) {
+    function x(e, t, n) {
       var r,
-        o = new Map(_.detailStateByOrgID),
+        o = new Map(p.detailStateByOrgID),
         a = new Map((r = o.get(e)) != null ? r : []);
-      (a.set(t, n), o.set(e, a), A({ detailStateByOrgID: o }));
+      (a.set(t, n), o.set(e, a), P({ detailStateByOrgID: o }));
     }
-    function w(e, t) {
-      var n = $(e),
+    function $(e, t) {
+      var n = I(e),
         r = n.groups.findIndex(function (e) {
           return e.gid === t.gid;
         });
       r !== -1 &&
-        N(
+        D(
           e,
           babelHelpers.extends({}, n, {
             groups: n.groups.map(function (e, n) {
@@ -238,31 +211,31 @@ __d(
           }),
         );
     }
-    function A(e) {
-      ((_ = babelHelpers.extends({}, _, e)), F());
+    function P(e) {
+      ((p = babelHelpers.extends({}, p, e)), N());
     }
-    function F() {
-      d.forEach(function (e) {
+    function N() {
+      c.forEach(function (e) {
         return e();
       });
     }
-    function O() {
+    function M() {
       return {
         detailStateByOrgID: new Map(),
         emailInviteNotSentByOrgID: new Map(),
         listStateByOrgID: new Map(),
       };
     }
-    function B(e, t, n) {
-      var r = p.get(t);
+    function w(e, t, n) {
+      var r = m.get(t);
       if (r != null) return r;
-      var o = W(e, n).finally(function () {
-        p.get(t) === o && p.delete(t);
+      var o = A(e, n).finally(function () {
+        m.get(t) === o && m.delete(t);
       });
-      return (p.set(t, o), o);
+      return (m.set(t, o), o);
     }
-    function W(e, t) {
-      var n = m.get(e),
+    function A(e, t) {
+      var n = d.get(e),
         r = n == null ? t() : n.then(t),
         o = r
           .then(
@@ -270,31 +243,31 @@ __d(
             function () {},
           )
           .finally(function () {
-            m.get(e) === o && m.delete(e);
+            d.get(e) === o && d.delete(e);
           });
-      return (m.set(e, o), r);
+      return (d.set(e, o), r);
     }
-    function q(e) {
-      p.delete(U(e));
+    function F(e) {
+      m.delete(O(e));
       var t = "detail\0" + e + "\0";
-      p.forEach(function (e, n) {
-        n.startsWith(t) && p.delete(n);
+      m.forEach(function (e, n) {
+        n.startsWith(t) && m.delete(n);
       });
     }
-    function U(e) {
+    function O(e) {
       return "list\0" + e;
     }
-    function V(e, t) {
+    function B(e, t) {
       return "detail\0" + e + "\0" + t;
     }
-    ((l.getOrgManagedGroupsRepositorySnapshot = f),
-      (l.subscribeToOrgManagedGroupsRepository = g),
-      (l.refreshOrgManagedGroups = h),
-      (l.refreshOrgManagedGroup = y),
-      (l.refreshOrgManagedGroupAndListAfterPendingReads = C),
-      (l.runOrgManagedGroupsMutation = b),
-      (l.addOrgManagedGroupPreview = v),
-      (l.recordOrgManagedGroupEmailInvites = S));
+    ((l.getOrgManagedGroupsRepositorySnapshot = _),
+      (l.subscribeToOrgManagedGroupsRepository = f),
+      (l.refreshOrgManagedGroups = g),
+      (l.refreshOrgManagedGroup = h),
+      (l.refreshOrgManagedGroupAndListAfterPendingReads = y),
+      (l.runOrgManagedGroupsMutation = C),
+      (l.addOrgManagedGroupPreview = b),
+      (l.recordOrgManagedGroupEmailInvites = v));
   },
   98,
 );

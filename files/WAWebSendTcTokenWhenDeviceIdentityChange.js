@@ -8,69 +8,61 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebSetPrivacyTokensJob",
     "WAWebTrustedContactsUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n,
-            r = o("WAWebLidMigrationUtils").toUserLid(t);
-          if (
-            (r != null &&
-              (n = (yield o(
-                "WAWebGetChatRecordByAccountLid",
-              ).getChatRecordByAccountLid(r))[0]),
-            n != null)
-          ) {
-            var a = n.tcTokenSenderTimestamp;
-            if (
-              a != null &&
-              !o("WAWebTrustedContactsUtils").isTokenExpired(
-                a,
-                o("WAWebTrustedContactsUtils").TcTokenMode.Sender,
-              )
+    async function s(t) {
+      var n,
+        r = o("WAWebLidMigrationUtils").toUserLid(t);
+      if (
+        (r != null &&
+          (n = (
+            await o("WAWebGetChatRecordByAccountLid").getChatRecordByAccountLid(
+              r,
             )
-              try {
-                var i;
-                if (
-                  o("WAWebABProps").getABPropConfigValue(
-                    "lid_trusted_token_issue_to_lid",
-                  )
-                ) {
-                  var l;
-                  i =
-                    (l = o("WAWebLidMigrationUtils").toLid(t)) != null ? l : t;
-                } else {
-                  var s;
-                  i = (s = o("WAWebLidMigrationUtils").toPn(t)) != null ? s : t;
-                }
-                yield o("WAWebSetPrivacyTokensJob").issuePrivacyToken(
-                  i,
-                  [o("WAWebSetPrivacyTokensJob").TokenType.TrustedContact],
-                  o("WATimeUtils").castToUnixTime(a),
-                );
-              } catch (t) {
-                o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "sendTcTokenWhenDeviceIdentityChange failed - ",
-                        "",
-                      ])),
-                    t,
-                  )
-                  .verbose()
-                  .sendLogs("send-tc-token-device-identity-change-failed");
-              }
+          )[0]),
+        n != null)
+      ) {
+        var a = n.tcTokenSenderTimestamp;
+        if (
+          a != null &&
+          !o("WAWebTrustedContactsUtils").isTokenExpired(
+            a,
+            o("WAWebTrustedContactsUtils").TcTokenMode.Sender,
+          )
+        )
+          try {
+            var i;
+            if (
+              o("WAWebABProps").getABPropConfigValue(
+                "lid_trusted_token_issue_to_lid",
+              )
+            ) {
+              var l;
+              i = (l = o("WAWebLidMigrationUtils").toLid(t)) != null ? l : t;
+            } else {
+              var s;
+              i = (s = o("WAWebLidMigrationUtils").toPn(t)) != null ? s : t;
+            }
+            await o("WAWebSetPrivacyTokensJob").issuePrivacyToken(
+              i,
+              [o("WAWebSetPrivacyTokensJob").TokenType.TrustedContact],
+              o("WATimeUtils").castToUnixTime(a),
+            );
+          } catch (t) {
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "sendTcTokenWhenDeviceIdentityChange failed - ",
+                    "",
+                  ])),
+                t,
+              )
+              .verbose()
+              .sendLogs("send-tc-token-device-identity-change-failed");
           }
-        })),
-        u.apply(this, arguments)
-      );
+      }
     }
     l.sendTcTokenWhenDeviceIdentityChange = s;
   },

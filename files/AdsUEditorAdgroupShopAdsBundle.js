@@ -45,12 +45,10 @@ __d(
           }
         },
         getLabel: function () {
-          return s._(/*BTDS*/ "Reasons to shop");
+          return s._(/*BTDS*/ "");
         },
         getDescription: function () {
-          return s._(
-            /*BTDS*/ 'Automatically add information like "Free shipping" or an existing offer to your ad.',
-          );
+          return s._(/*BTDS*/ "");
         },
       },
       u = {
@@ -80,10 +78,10 @@ __d(
           }
         },
         getLabel: function () {
-          return s._(/*BTDS*/ "Product tags");
+          return s._(/*BTDS*/ "");
         },
         getDescription: function () {
-          return s._(/*BTDS*/ "Automatically tag products in your ad.");
+          return s._(/*BTDS*/ "");
         },
       },
       c = r("objectValues")(r("ShopAdsBundleComponent")).map(function (e) {

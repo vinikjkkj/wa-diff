@@ -6,11 +6,9 @@ __d(
     "LFUCache",
     "MAWCurrentUser",
     "MWFBLogger",
-    "Promise",
     "WAJids",
     "WATimeUtils",
     "WMIQplFlow",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "getSafeQplErrorMessage",
     "qpl",
@@ -20,19 +18,18 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = 12e4,
-      m = 60,
-      p;
-    function _() {
-      return (p || (p = new (r("LFUCache"))(m)), p);
+      c = 12e4,
+      d = 60,
+      m;
+    function p() {
+      return (m || (m = new (r("LFUCache"))(d)), m);
     }
-    function f() {
+    function _() {
       return o("WMIQplFlow").startQplFlow(r("qpl")._(521483004, "3287"), {
-        timeoutInMs: d,
+        timeoutInMs: c,
       });
     }
-    function g(e, t, n, r) {
+    function f(e, t, n, r) {
       var a = [e, t, n, r];
       return a.some(function (e) {
         return e === "failed";
@@ -44,109 +41,83 @@ __d(
           ? { status: "pending", timestamp: o("WATimeUtils").millisTime() }
           : { status: "success", timestamp: o("WATimeUtils").millisTime() };
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
+    async function g(t, n) {
+      o("MWFBLogger")
+        .MWLogger()
+        .tags(["KeyTransparency"])
+        .DEBUG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "runKeyVerification invoked",
+            ])),
+        );
+      var a = n == null ? _() : n;
+      (a.addPoint("run_key_verification"), p().delete(t));
+      var i = o("MAWCurrentUser").getID(),
+        l = o("WAJids").userIdFromJid(t);
+      try {
+        var u = await Promise.all([
+            o("KeyTransparencyKt11Verification").runKT11Verification(i, l, a),
+            o("KeyTransparencyKt10Verification").runKT10Verification(i, l, a),
+          ]),
+          c = u[0],
+          d = u[1],
+          m = await f(d.self, c.self, d.target, c.target);
+        return (
+          m.status === "success"
+            ? (p().set(t, m), a.endSuccess())
+            : m.status === "pending"
+              ? a.endSuccess({ bool: { is_pending: !0 } })
+              : a.endFail("verification_fail_result"),
+          m
+        );
+      } catch (e) {
+        return (
           o("MWFBLogger")
             .MWLogger()
             .tags(["KeyTransparency"])
-            .DEBUG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "runKeyVerification invoked",
+            .catching(r("getErrorSafe")(e))
+            .MUSTFIX(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "runKeyVerification failed",
                 ])),
-            );
-          var i = a == null ? f() : a;
-          (i.addPoint("run_key_verification"), _().delete(t));
-          var l = o("MAWCurrentUser").getID(),
-            u = o("WAJids").userIdFromJid(t);
-          try {
-            var d = yield (c || (c = n("Promise"))).all([
-                o("KeyTransparencyKt11Verification").runKT11Verification(
-                  l,
-                  u,
-                  i,
-                ),
-                o("KeyTransparencyKt10Verification").runKT10Verification(
-                  l,
-                  u,
-                  i,
-                ),
-              ]),
-              m = d[0],
-              p = d[1],
-              h = yield g(p.self, m.self, p.target, m.target);
-            return (
-              h.status === "success"
-                ? (_().set(t, h), i.endSuccess())
-                : h.status === "pending"
-                  ? i.endSuccess({ bool: { is_pending: !0 } })
-                  : i.endFail("verification_fail_result"),
-              h
-            );
-          } catch (e) {
-            return (
-              o("MWFBLogger")
-                .MWLogger()
-                .tags(["KeyTransparency"])
-                .catching(r("getErrorSafe")(e))
-                .MUSTFIX(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "runKeyVerification failed",
-                    ])),
-                ),
-              i.endFail("uncaught_error", {
-                string: {
-                  errorName: o("getSafeQplErrorMessage").getSafeQPLErrorMessage(
-                    e,
-                  ),
-                },
-              }),
-              { status: "failed", timestamp: o("WATimeUtils").millisTime() }
-            );
-          }
-        })),
-        y.apply(this, arguments)
-      );
+            ),
+          a.endFail("uncaught_error", {
+            string: {
+              errorName: o("getSafeQplErrorMessage").getSafeQPLErrorMessage(e),
+            },
+          }),
+          { status: "failed", timestamp: o("WATimeUtils").millisTime() }
+        );
+      }
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    async function h(e) {
+      o("MWFBLogger")
+        .MWLogger()
+        .tags(["KeyTransparency"])
+        .DEBUG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "getKeyVerificationStatus invoked",
+            ])),
+        );
+      var t = _();
+      t.addPoint("get_key_verification_status");
+      var n = p().get(e, null);
+      return n != null
+        ? (t.addPoint("cache_hit"), t.endSuccess(), n)
+        : (t.addPoint("cache_miss"), await g(e, t));
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("MWFBLogger")
-            .MWLogger()
-            .tags(["KeyTransparency"])
-            .DEBUG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "getKeyVerificationStatus invoked",
-                ])),
-            );
-          var t = f();
-          t.addPoint("get_key_verification_status");
-          var n = _().get(e, null);
-          return n != null
-            ? (t.addPoint("cache_hit"), t.endSuccess(), n)
-            : (t.addPoint("cache_miss"), yield h(e, t));
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    var v = {
+    var y = {
       keyVerificationStatus: function (t) {
-        return C(t.userJid);
-      },
-      runKeyVerification: function (t) {
         return h(t.userJid);
       },
+      runKeyVerification: function (t) {
+        return g(t.userJid);
+      },
     };
-    l.keyTransparencyBridgeHandlers = v;
+    l.keyTransparencyBridgeHandlers = y;
   },
   98,
 );

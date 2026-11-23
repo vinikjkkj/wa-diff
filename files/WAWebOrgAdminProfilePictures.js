@@ -1,7 +1,6 @@
 __d(
   "WAWebOrgAdminProfilePictures",
   [
-    "Promise",
     "WALogger",
     "WAWebBackendErrors",
     "WAWebContactSyncPrivacyHints",
@@ -9,150 +8,126 @@ __d(
     "WAWebUsync",
     "WAWebUsyncUser",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = Array.from(new Set(t));
-          if (a.length === 0)
-            return {
-              profilePictureURLByLID: new Map(),
-              unavailableLIDs: new Set(),
-            };
+    var e, s, u, c;
+    async function d(t) {
+      var n = Array.from(new Set(t));
+      if (n.length === 0)
+        return {
+          profilePictureURLByLID: new Map(),
+          unavailableLIDs: new Set(),
+        };
+      try {
+        var a,
+          i = new Map(),
+          l = new Set(),
+          d = new (o("WAWebUsync").USyncQuery)()
+            .withContext("interactive")
+            .withMode("query")
+            .withPictureProtocol(),
+          p = 0,
+          _ = [];
+        for (var f of n)
           try {
-            var i,
-              l = new Map(),
-              m = new Set(),
-              p = new (o("WAWebUsync").USyncQuery)()
-                .withContext("interactive")
-                .withMode("query")
-                .withPictureProtocol(),
-              f = 0,
-              g = [];
-            for (var h of a)
-              try {
-                var y = o("WAWebWidFactory").createUserLidOrThrow(h, "lid");
-                l.set(y.toString(), h);
-                var C = new (o("WAWebUsyncUser").USyncUser)().withId(y);
-                (g.push({ user: C, wid: y }), p.withUser(C));
-              } catch (e) {
-                (f++, m.add(h));
-              }
-            if (
-              (f > 0 &&
-                o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[org_admin] skipped ",
-                        " invalid member LIDs",
-                      ])),
-                    f,
-                  )
-                  .sendLogs("org-admin-profile-picture-invalid-lids"),
-              l.size === 0)
-            )
-              return { profilePictureURLByLID: new Map(), unavailableLIDs: m };
-            yield o("WAWebContactSyncPrivacyHints").attachUsyncPrivacyHints(g);
-            var b = yield p.execute(),
-              v = (i = b.error.all) != null ? i : b.error.picture;
-            if (v != null)
-              throw (
-                o("WALogger")
-                  .WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[org_admin] profile picture USync returned ",
-                        "",
-                      ])),
-                    v.errorCode,
-                  )
-                  .sendLogs("org-admin-profile-picture-usync-error"),
-                r("err")("Organization member profile picture USync failed")
-              );
-            var S = new Map();
-            return (
-              yield (d || (d = n("Promise"))).all(
-                b.list.map(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var t = e.id,
-                          n = t == null ? null : l.get(t.toString());
-                        if (n != null) {
-                          var a = e.picture;
-                          if (typeof (a == null ? void 0 : a.id) != "number") {
-                            (a == null || _(a.errorCode)) && m.add(n);
-                            return;
-                          }
-                          try {
-                            var i = yield o(
-                                "WAWebGetProfilePicJob",
-                              ).getProfilePic(t, { preview: !0 }),
-                              s = i.eurl;
-                            s === "" ? m.add(n) : S.set(n, s);
-                          } catch (e) {
-                            e instanceof
-                              o("WAWebBackendErrors").ServerStatusCodeError &&
-                            _(e.status)
-                              ? m.add(n)
-                              : o("WALogger")
-                                  .ERROR(
-                                    u ||
-                                      (u =
-                                        babelHelpers.taggedTemplateLiteralLoose(
-                                          [
-                                            "[org_admin] failed to resolve member profile picture",
-                                          ],
-                                        )),
-                                  )
-                                  .catching(r("getErrorSafe")(e))
-                                  .sendLogs(
-                                    "org-admin-profile-picture-fetch-failed",
-                                  );
-                          }
-                        }
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              ),
-              { profilePictureURLByLID: S, unavailableLIDs: m }
-            );
+            var g = o("WAWebWidFactory").createUserLidOrThrow(f, "lid");
+            i.set(g.toString(), f);
+            var h = new (o("WAWebUsyncUser").USyncUser)().withId(g);
+            (_.push({ user: h, wid: g }), d.withUser(h));
           } catch (e) {
-            var R = r("getErrorSafe")(e);
-            throw (
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[org_admin] failed to fetch member profile picture metadata",
-                    ])),
-                )
-                .catching(R)
-                .sendLogs("org-admin-profile-picture-usync-failed"),
-              R
-            );
+            (p++, l.add(f));
           }
-        })),
-        p.apply(this, arguments)
-      );
+        if (
+          (p > 0 &&
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[org_admin] skipped ",
+                    " invalid member LIDs",
+                  ])),
+                p,
+              )
+              .sendLogs("org-admin-profile-picture-invalid-lids"),
+          i.size === 0)
+        )
+          return { profilePictureURLByLID: new Map(), unavailableLIDs: l };
+        await o("WAWebContactSyncPrivacyHints").attachUsyncPrivacyHints(_);
+        var y = await d.execute(),
+          C = (a = y.error.all) != null ? a : y.error.picture;
+        if (C != null)
+          throw (
+            o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[org_admin] profile picture USync returned ",
+                    "",
+                  ])),
+                C.errorCode,
+              )
+              .sendLogs("org-admin-profile-picture-usync-error"),
+            r("err")("Organization member profile picture USync failed")
+          );
+        var b = new Map();
+        return (
+          await Promise.all(
+            y.list.map(async function (e) {
+              var t = e.id,
+                n = t == null ? null : i.get(t.toString());
+              if (n != null) {
+                var a = e.picture;
+                if (typeof (a == null ? void 0 : a.id) != "number") {
+                  (a == null || m(a.errorCode)) && l.add(n);
+                  return;
+                }
+                try {
+                  var s = await o("WAWebGetProfilePicJob").getProfilePic(t, {
+                      preview: !0,
+                    }),
+                    c = s.eurl;
+                  c === "" ? l.add(n) : b.set(n, c);
+                } catch (e) {
+                  e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
+                  m(e.status)
+                    ? l.add(n)
+                    : o("WALogger")
+                        .ERROR(
+                          u ||
+                            (u = babelHelpers.taggedTemplateLiteralLoose([
+                              "[org_admin] failed to resolve member profile picture",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(e))
+                        .sendLogs("org-admin-profile-picture-fetch-failed");
+                }
+              }
+            }),
+          ),
+          { profilePictureURLByLID: b, unavailableLIDs: l }
+        );
+      } catch (e) {
+        var v = r("getErrorSafe")(e);
+        throw (
+          o("WALogger")
+            .ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[org_admin] failed to fetch member profile picture metadata",
+                ])),
+            )
+            .catching(v)
+            .sendLogs("org-admin-profile-picture-usync-failed"),
+          v
+        );
+      }
     }
-    function _(e) {
+    function m(e) {
       return e === 401 || e === 404;
     }
-    l.fetchOrgAdminProfilePictures = m;
+    l.fetchOrgAdminProfilePictures = d;
   },
   98,
 );

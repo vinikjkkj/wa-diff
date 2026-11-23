@@ -36,7 +36,7 @@ __d(
     function d(t, n) {
       var r = t == null ? null : c(t, n, !1);
       if (r != null) return r;
-      var o = s._(/*BTDS*/ "Host");
+      var o = s._(/*BTDS*/ "");
       return { name: o, accessibleName: o, source: e.UnknownHost };
     }
     function m(e) {
@@ -48,7 +48,7 @@ __d(
     function p(t) {
       var n = t.lid;
       if (!o("WAWebUserUtils").isMeAccount(n)) return null;
-      var r = s._(/*BTDS*/ "You");
+      var r = s._(/*BTDS*/ "");
       return { name: r, accessibleName: r, source: e.Self };
     }
     function _(t) {

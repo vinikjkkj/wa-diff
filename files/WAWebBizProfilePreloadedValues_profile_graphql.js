@@ -1,0 +1,181 @@
+__d(
+  "WAWebBizProfilePreloadedValues_profile.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        t = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "description",
+          storageKey: null,
+        };
+      return {
+        argumentDefinitions: [],
+        kind: "Fragment",
+        metadata: null,
+        name: "WAWebBizProfilePreloadedValues_profile",
+        selections: [
+          e,
+          t,
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "email",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "physical_address",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "websites",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "about",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "latitude",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "longitude",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "WhatsAppBusinessServiceArea",
+            kind: "LinkedField",
+            name: "service_areas",
+            plural: !0,
+            selections: [
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "radius_meters",
+                storageKey: null,
+              },
+              t,
+            ],
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "WhatsAppBusinessHoursShape",
+            kind: "LinkedField",
+            name: "business_hours",
+            plural: !1,
+            selections: [
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "timezone_id",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "note",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                concreteType: "WhatsAppBusinessOperatingHourSegment",
+                kind: "LinkedField",
+                name: "operating_ranges",
+                plural: !0,
+                selections: [
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "mode",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "day_of_week",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "open_time",
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "close_time",
+                    storageKey: null,
+                  },
+                ],
+                storageKey: null,
+              },
+            ],
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "WhatsAppBusinessProfileLocalizedCategory",
+            kind: "LinkedField",
+            name: "localized_categories",
+            plural: !0,
+            selections: [
+              e,
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "localized_display_name",
+                storageKey: null,
+              },
+            ],
+            storageKey: null,
+          },
+        ],
+        type: "WhatsAppBusinessProfile",
+        abstractKey: null,
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

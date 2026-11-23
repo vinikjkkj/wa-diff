@@ -7,7 +7,10 @@ __d(
     "AdsBrandAwarenessUtils",
     "AdsBulkValueUtils",
     "AdsPromotedObjectTypes",
+    "BrandedContentAdsUtils",
+    "getShouldEnableAdsManagerMultiPostSelection",
     "gkx",
+    "qex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -18,9 +21,14 @@ __d(
       "INSTAGRAM_MESSAGE",
       "CALL_NOW",
     ];
-    function s(t, n, a, i) {
+    function s() {
+      return r("qex")._("1706");
+    }
+    function u(t, n, a, i, l) {
       return (
-        (t !== o("AdsBulkValueUtils").MIXED_VALUE && e.includes(t)) ||
+        (t != null &&
+          !o("AdsBulkValueUtils").isMixedValueMarker(t) &&
+          e.includes(t)) ||
         (n != null && n === r("AdCampaignDestination").ON_AD) ||
         (a === r("AdsAPIObjectives").APP_INSTALLS && r("gkx")("5824")) ||
         o("AdsAPICampaignRecordUtils").isWebAndAppPromotedObjectType(a, i) ||
@@ -28,18 +36,27 @@ __d(
           a === r("AdsAPIObjectives").OUTCOME_TRAFFIC) &&
           i === r("AdsPromotedObjectTypes").MOBILE_APP &&
           r("gkx")("7662")) ||
-        (t !== "GET_DIRECTIONS" && d(a))
+        (t !== "GET_DIRECTIONS" &&
+          m(a) &&
+          (l === !0 ||
+            !r("getShouldEnableAdsManagerMultiPostSelection")(
+              n,
+              i,
+              !0,
+              !0,
+              void 0,
+            )))
       );
     }
-    function u(e, t, n) {
-      return e !== "GET_DIRECTIONS" && !s(e, t, n);
+    function c(e, t, n, r) {
+      return e !== "GET_DIRECTIONS" && !u(e, t, n, null, r);
     }
-    function c(e, t) {
+    function d(e, t) {
       return (
         e && o("AdsBrandAwarenessUtils").isBrandObjective(t) && r("gkx")("7662")
       );
     }
-    function d(e) {
+    function m(e) {
       return (
         (e === r("AdsAPIObjectives").BRAND_AWARENESS ||
           e === r("AdsAPIObjectives").OUTCOME_AWARENESS ||
@@ -47,7 +64,7 @@ __d(
         r("gkx")("7662")
       );
     }
-    function m(e, t, n) {
+    function p(e, t, n) {
       return (
         e &&
         (t === r("AdsAPIObjectives").LINK_CLICKS ||
@@ -56,10 +73,10 @@ __d(
         r("gkx")("7662")
       );
     }
-    function p(e, t, n) {
-      return c(e, t) || m(e, t, n);
+    function _(e, t, n) {
+      return d(e, t) || p(e, t, n);
     }
-    function _(e, t) {
+    function f(e, t) {
       return (
         (e === "photo" ||
           e === "share" ||
@@ -69,14 +86,61 @@ __d(
         t !== "mobile_status_update"
       );
     }
-    function f(e) {
+    function g(e) {
       return e.startsWith("video") || e === "photo";
     }
-    function g(e) {
+    function h(e) {
       var t = e.split("_");
       return t == null || t.length !== 2 ? null : t[1];
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
+      return e == null || e.length === 0
+        ? !1
+        : e.every(function (e) {
+            var r = t(e);
+            return r != null ? r === "NO_BUTTON" : n === "NO_BUTTON";
+          });
+    }
+    function C(e) {
+      var t,
+        n,
+        r =
+          (t =
+            (n = e[0]) == null ||
+            (n = n.creative) == null ||
+            (n = n.branded_content) == null ||
+            (n = n.content_list) == null
+              ? void 0
+              : n.id) != null
+            ? t
+            : null;
+      return r != null &&
+        e.every(function (e) {
+          var t;
+          return (
+            ((t = e.creative) == null ||
+            (t = t.branded_content) == null ||
+            (t = t.content_list) == null
+              ? void 0
+              : t.id) === r
+          );
+        })
+        ? r
+        : null;
+    }
+    function b(e, t) {
+      return (
+        !(
+          o(
+            "BrandedContentAdsUtils",
+          ).identitiesHaveUpgradedPAPermissionForCapability(
+            e,
+            "CAN_CHANGE_SHOPPABLE_MEDIA_PRODUCT_URL",
+          ) && r("qex")._("5882") === !0
+        ) && !(r("gkx")("5205") && t)
+      );
+    }
+    function v(e, t, n) {
       var r,
         o,
         a = e != null && e.length > 0 ? String(e[0].product_id) : null,
@@ -98,17 +162,21 @@ __d(
             : null;
       return n != null ? n : i == null ? void 0 : i.url;
     }
-    var y = 60;
-    ((l.shouldHideLinkField = s),
-      (l.isCTAEligibleForWeblinkDefaulting = u),
-      (l.isAwarenessExistingPostWithDLGK = c),
-      (l.isAwarenessObjectiveWithDLGK = d),
-      (l.isExistingPostWithDLGK = p),
-      (l.hasSupportedPostAttachmentTypeForMessagesObjective = _),
-      (l.hasSupportedPostAttachmentTypeForUnifiedProfileVisitsObjective = f),
-      (l.maybeGetPostIDFromObjectStoryID = g),
-      (l.getProductTagCTALink = h),
-      (l.MAX_URL_LENGTH = y));
+    var S = 60;
+    ((l.getUEPCTAPreviewBundleAssignment = s),
+      (l.shouldHideLinkField = u),
+      (l.isCTAEligibleForWeblinkDefaulting = c),
+      (l.isAwarenessExistingPostWithDLGK = d),
+      (l.isAwarenessObjectiveWithDLGK = m),
+      (l.isExistingPostWithDLGK = _),
+      (l.hasSupportedPostAttachmentTypeForMessagesObjective = f),
+      (l.hasSupportedPostAttachmentTypeForUnifiedProfileVisitsObjective = g),
+      (l.maybeGetPostIDFromObjectStoryID = h),
+      (l.isNoButtonSelectedForPosts = y),
+      (l.getUniformSelectedContentListID = C),
+      (l.shouldEnforceProductTagCTAURL = b),
+      (l.getProductTagCTALink = v),
+      (l.MAX_URL_LENGTH = S));
   },
   98,
 );

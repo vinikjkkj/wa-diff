@@ -4,7 +4,6 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "cr:11133",
     "cr:17803",
     "react",
@@ -13,17 +12,14 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebStatusDrawerFlow.react",
-          )
-            .__setRef("WAWebStatusDrawerFlowLoadable")
-            .load();
-          return e;
-        }),
-        "WAWebStatusDrawerFlow",
-      );
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebStatusDrawerFlow.react",
+        )
+          .__setRef("WAWebStatusDrawerFlowLoadable")
+          .load();
+        return e;
+      }, "WAWebStatusDrawerFlow");
     function c(e) {
       return e.error != null
         ? s.jsx(r("WAWebLoadingDrawer.react"), { error: !0, cancellable: !1 })

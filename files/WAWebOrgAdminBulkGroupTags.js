@@ -27,8 +27,8 @@ __d(
       return n != null
         ? n
         : e === "member_tag"
-          ? s._(/*BTDS*/ "Member tag")
-          : s._(/*BTDS*/ "Second member tag");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     ((l.getOrgAdminBulkGroupTagsWithValues = u),
       (l.getOrgAdminBulkGroupTagLabel = c));

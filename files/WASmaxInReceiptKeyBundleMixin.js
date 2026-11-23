@@ -6,7 +6,7 @@ __d(
     "WASmaxInReceiptDeviceIdentityMixin",
     "WASmaxInReceiptIdentityKeyMixin",
     "WASmaxInReceiptKeyTypeMixin",
-    "WASmaxInReceiptPQPreKeyMixin",
+    "WASmaxInReceiptPQPreKeyDeprecatedOrPQKeyMixinGroup",
     "WASmaxInReceiptPaddingMixin",
     "WASmaxInReceiptPreKeyMixin",
     "WASmaxInReceiptSignedPreKeyMixin",
@@ -32,20 +32,22 @@ __d(
         );
       if (!l.success) return l;
       var s = o("WASmaxInReceiptPreKeyMixin").parsePreKeyMixin(n.value),
-        u = o("WASmaxInReceiptPQPreKeyMixin").parsePQPreKeyMixin(n.value),
-        c = o("WASmaxInReceiptDeviceIdentityMixin").parseDeviceIdentityMixin(
+        u = o("WASmaxInReceiptDeviceIdentityMixin").parseDeviceIdentityMixin(
           n.value,
         ),
-        d = o("WASmaxInReceiptPaddingMixin").parsePaddingMixin(e);
+        c = o("WASmaxInReceiptPaddingMixin").parsePaddingMixin(e),
+        d = o(
+          "WASmaxInReceiptPQPreKeyDeprecatedOrPQKeyMixinGroup",
+        ).parsePQPreKeyDeprecatedOrPQKeyMixinGroup(n.value);
       return o("WAResultOrError").makeResult({
         keysKeyTypeMixin: r.value,
         keysIdentityKeyMixin: a.value,
         keysBotIdentityKeyAuthMixin: i.success ? i.value : null,
         keysSignedPreKeyMixin: l.value,
         keysPreKeyMixin: s.success ? s.value : null,
-        keysPQPreKeyMixin: u.success ? u.value : null,
-        keysDeviceIdentityMixin: c.success ? c.value : null,
-        paddingMixin: d.success ? d.value : null,
+        keysDeviceIdentityMixin: u.success ? u.value : null,
+        paddingMixin: c.success ? c.value : null,
+        keysPQPreKeyDeprecatedOrPQKeyMixinGroup: d.success ? d.value : null,
       });
     }
     l.parseKeyBundleMixin = e;

@@ -17,6 +17,7 @@ __d(
         extraAttributes: t,
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
           .CUSTOMER_MANAGER_PIPELINE,
+        userActionTarget: "customer_manager_pipeline_view",
         userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
           .SMB_USER_ACTION_TYPE_ENUM.VIEW,
       });

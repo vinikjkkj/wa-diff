@@ -11,7 +11,6 @@ __d(
     "WAWebNetworkStatus",
     "WAWebSchemaGroupMetadata",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
   ],
@@ -19,120 +18,92 @@ __d(
     var e,
       s,
       u = new Set();
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(e) {
+      if (!u.has(e)) {
+        u.add(e);
+        try {
+          var t = await o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
+          if ((t == null ? void 0 : t.isParentGroup) === !0) return;
+          await o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
+            id: e,
+          });
+        } finally {
+          u.delete(e);
+        }
+      }
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!u.has(e)) {
-            u.add(e);
-            try {
-              var t = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
-              if ((t == null ? void 0 : t.isParentGroup) === !0) return;
-              yield o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById({
-                id: e,
-              });
-            } finally {
-              u.delete(e);
-            }
-          }
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            !(
-              !o(
-                "WAWebCommunityGatingUtils",
-              ).fetchMissingParentGroupsEnabled() ||
-              o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled()
-            )
-          ) {
-            var t = yield _();
-            t.length !== 0 &&
-              (o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[missing-parent-group] querying ",
-                    " parent groups",
-                  ])),
-                t.length,
-              ),
-              yield r("WAWebNetworkStatus").waitIfOffline(),
-              yield o("WAPromiseEach").promiseEach(t, function (e) {
-                return c(o("WAWebWidFactory").createWid(e)).catch(function (e) {
-                  o("WALogger")
-                    .WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[missing-parent-group] parent group query failed",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e))
-                    .sendLogs("missing-parent-group-query-failed");
-                });
-              }));
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _() {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebSchemaGroupMetadata")
-              .getGroupMetadataTable()
-              .all(),
-            t = new Set(
-              e
-                .filter(function (e) {
-                  return e.isParentGroup === !0;
-                })
-                .map(function (e) {
-                  var t = e.id;
-                  return t;
-                }),
-            ),
-            n = e.filter(function (e) {
-              return (
-                e.parentGroup != null && !t.has(e.parentGroup) && !e.terminated
-              );
+    async function d() {
+      if (
+        !(
+          !o("WAWebCommunityGatingUtils").fetchMissingParentGroupsEnabled() ||
+          o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled()
+        )
+      ) {
+        var t = await m();
+        t.length !== 0 &&
+          (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[missing-parent-group] querying ",
+                " parent groups",
+              ])),
+            t.length,
+          ),
+          await r("WAWebNetworkStatus").waitIfOffline(),
+          await o("WAPromiseEach").promiseEach(t, function (e) {
+            return c(o("WAWebWidFactory").createWid(e)).catch(function (e) {
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[missing-parent-group] parent group query failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("missing-parent-group-query-failed");
             });
-          if (n.length === 0) return [];
-          var a = yield o("WAWebGroupsParticipantsApi").bulkCheckMyMembership(
-            n.map(function (e) {
+          }));
+      }
+    }
+    async function m() {
+      var e = await o("WAWebSchemaGroupMetadata").getGroupMetadataTable().all(),
+        t = new Set(
+          e
+            .filter(function (e) {
+              return e.isParentGroup === !0;
+            })
+            .map(function (e) {
               var t = e.id;
-              return o("WAWebWidFactory").createWid(t);
+              return t;
             }),
+        ),
+        n = e.filter(function (e) {
+          return (
+            e.parentGroup != null && !t.has(e.parentGroup) && !e.terminated
           );
-          return Array.from(
-            new Set(
-              r("compactMap")(
-                n.filter(function (e, t) {
-                  return a[t];
-                }),
-                function (e) {
-                  var t = e.parentGroup;
-                  return t;
-                },
-              ),
-            ),
-          );
-        })),
-        f.apply(this, arguments)
+        });
+      if (n.length === 0) return [];
+      var a = await o("WAWebGroupsParticipantsApi").bulkCheckMyMembership(
+        n.map(function (e) {
+          var t = e.id;
+          return o("WAWebWidFactory").createWid(t);
+        }),
+      );
+      return Array.from(
+        new Set(
+          r("compactMap")(
+            n.filter(function (e, t) {
+              return a[t];
+            }),
+            function (e) {
+              var t = e.parentGroup;
+              return t;
+            },
+          ),
+        ),
       );
     }
-    ((l.queryParentGroupIfMissing = c), (l.queryMissingParentGroups = m));
+    ((l.queryParentGroupIfMissing = c), (l.queryMissingParentGroups = d));
   },
   98,
 );

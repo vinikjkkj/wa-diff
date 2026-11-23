@@ -10,7 +10,6 @@ __d(
     "WAWebRequestDeleteAddOns",
     "WAWebUiRuntime",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -32,80 +31,71 @@ __d(
         n
       );
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function c(t, n) {
+      var a = await o("WAWebApiOrphanRevoke").getOrphansRevokesCache(),
+        i = [],
+        l = [],
+        s = 0,
+        u = [],
+        c = [];
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a = yield o("WAWebApiOrphanRevoke").getOrphansRevokesCache(),
-            i = [],
-            l = [],
-            s = 0,
-            u = [],
-            c = [];
-          return (
-            t.forEach(function (e) {
-              var t,
-                d = e.id.toString(),
-                m = o("WAWebLidMigrationUtils").getAlternateMsgKey(e.id),
-                p = (t = a.get(d)) != null ? t : m && a.get(m.toString()),
-                _ = p
-                  ? o(
-                      "WAWebCoexV2StoredRevokeAuthorization",
-                    ).getCoexV2OrphanRevokeOutcome(e, p)
-                  : null;
-              if (
-                (p && _ === "reject" && i.push(p),
-                p && (_ == null || _ === "accept"))
-              )
-                (s++,
-                  u.length < 3 && u.push(e.id.id),
-                  r("WAWebWid").isStatus(e.id.remote) ||
-                    l.push(
-                      o("WAWebApiOrphanRevoke").createRevokeMsgFromOrphanRevoke(
-                        e,
-                        p,
-                      ),
-                    ),
-                  _ === "accept" &&
-                    (o(
-                      "WAWebRequestDeleteAddOns",
-                    ).requestDeleteAddOnsFireAndForget(e.id.remote.toString(), [
-                      d,
-                    ]),
-                    c.push(d)),
-                  i.push(p));
-              else if (n) {
-                var f = n(e);
-                f && l.push(f);
-              } else l.push(e);
-            }),
-            s > 0 &&
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[filterAndReplaceMessages] ",
-                    " orphan revokes ids=",
-                    "",
-                  ])),
-                s,
-                u,
-              ),
-            c.length > 0 &&
-              (o("WAWebUiRuntime").isWebDiUiEnabled()
-                ? o("WAWebUiRuntime")
-                    .uiRuntime(o("WAWebReactionUiService").ReactionUiService)
-                    .deleteModelsForLastAddOnPreview(c)
-                : o("WAWebBackendApi").frontendFireAndForget(
-                    "deleteModelsForLastAddOnPreview",
-                    { messagesIds: c },
-                  )),
-            o("WAWebApiOrphanRevoke").bulkRemoveOrphansUsingOrphansCache(i),
-            { newMsgs: l }
-          );
-        })),
-        d.apply(this, arguments)
+        t.forEach(function (e) {
+          var t,
+            d = e.id.toString(),
+            m = o("WAWebLidMigrationUtils").getAlternateMsgKey(e.id),
+            p = (t = a.get(d)) != null ? t : m && a.get(m.toString()),
+            _ = p
+              ? o(
+                  "WAWebCoexV2StoredRevokeAuthorization",
+                ).getCoexV2OrphanRevokeOutcome(e, p)
+              : null;
+          if (
+            (p && _ === "reject" && i.push(p),
+            p && (_ == null || _ === "accept"))
+          )
+            (s++,
+              u.length < 3 && u.push(e.id.id),
+              r("WAWebWid").isStatus(e.id.remote) ||
+                l.push(
+                  o("WAWebApiOrphanRevoke").createRevokeMsgFromOrphanRevoke(
+                    e,
+                    p,
+                  ),
+                ),
+              _ === "accept" &&
+                (o("WAWebRequestDeleteAddOns").requestDeleteAddOnsFireAndForget(
+                  e.id.remote.toString(),
+                  [d],
+                ),
+                c.push(d)),
+              i.push(p));
+          else if (n) {
+            var f = n(e);
+            f && l.push(f);
+          } else l.push(e);
+        }),
+        s > 0 &&
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[filterAndReplaceMessages] ",
+                " orphan revokes ids=",
+                "",
+              ])),
+            s,
+            u,
+          ),
+        c.length > 0 &&
+          (o("WAWebUiRuntime").isWebDiUiEnabled()
+            ? o("WAWebUiRuntime")
+                .uiRuntime(o("WAWebReactionUiService").ReactionUiService)
+                .deleteModelsForLastAddOnPreview(c)
+            : o("WAWebBackendApi").frontendFireAndForget(
+                "deleteModelsForLastAddOnPreview",
+                { messagesIds: c },
+              )),
+        o("WAWebApiOrphanRevoke").bulkRemoveOrphansUsingOrphansCache(i),
+        { newMsgs: l }
       );
     }
     ((l.validateMsgFn = s),

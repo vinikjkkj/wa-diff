@@ -25,34 +25,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = d(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = u(r, n);
-          if (a.success)
-            return { name: "NewsletterResponseNegative", value: a.value };
-          var i = c(r, n);
-          if (i.success)
-            return { name: "NewsletterResponseSuccess", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("Newsletter", {
-              Negative: a,
-              Success: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = c(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = s(r, n);
+      if (a.success)
+        return { name: "NewsletterResponseNegative", value: a.value };
+      var i = u(r, n);
+      if (i.success)
+        return { name: "NewsletterResponseSuccess", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("Newsletter", {
+          Negative: a,
+          Success: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxInMessagePublishNegativeAckMixin").parseNegativeAckMixin(
@@ -61,10 +52,10 @@ __d(
       );
       return (r.success, r);
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
-      var r = m(e, t);
+      var r = d(e, t);
       return r.success
         ? o("WAResultOrError").makeResult({
             newsletterQuestionResponseOrNewsletterScheduledMessageOrNewsletterMessageAckMixinGroup:
@@ -72,26 +63,26 @@ __d(
           })
         : r;
     }
-    function d(e) {
+    function c(e) {
       var t = e.messageTo,
         n = e.clientNewsletterAndServerOrNewsletterIDMixinGroupArgs,
-        r = _(o("WASmaxJsx").smax("message", { to: o("WAWap").JID(t) }), n);
+        r = p(o("WASmaxJsx").smax("message", { to: o("WAWap").JID(t) }), n);
       return r;
     }
-    function m(e, t) {
-      var n = te(e, t);
+    function d(e, t) {
+      var n = ee(e, t);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "NewsletterQuestionResponseAck",
           value: n.value,
         });
-      var r = p(e, t);
+      var r = m(e, t);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "NewsletterScheduledMessageAck",
           value: r.value,
         });
-      var a = ee(e, t);
+      var a = Z(e, t);
       return a.success
         ? o("WAResultOrError").makeResult({
             name: "NewsletterMessageAck",
@@ -103,7 +94,7 @@ __d(
             [n, r, a],
           );
     }
-    function p(e, t) {
+    function m(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").attrIntRange(
@@ -123,7 +114,7 @@ __d(
       if (!a.success) return a;
       var i = o("WASmaxInMessagePublishAckMixin").parseAckMixin(e, t);
       if (!i.success) return i;
-      var l = ne(e);
+      var l = te(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends(
           { scheduledServerId: r.value, serverId: a.value },
@@ -132,19 +123,19 @@ __d(
         ),
       );
     }
-    function _(e, t) {
+    function p(e, t) {
       if (t.newsletterClientAndServerID)
-        return g(e, t.newsletterClientAndServerID);
-      if (t.newsletterClientID) return C(e, t.newsletterClientID);
+        return f(e, t.newsletterClientAndServerID);
+      if (t.newsletterClientID) return y(e, t.newsletterClientID);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function f(e) {
+    function _(e) {
       var t = e.messageId,
         n = e.messageServerId,
         r = e.newsletterClientAndServerIdContentArgs,
-        a = h(
+        a = g(
           o("WASmaxJsx").smax("message", {
             id: o("WAWap").STANZA_ID(t),
             server_id: o("WAWap").INT(n),
@@ -153,27 +144,27 @@ __d(
         );
       return a;
     }
-    function g(e, t) {
-      var n = f(t);
+    function f(e, t) {
+      var n = _(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function h(e, t) {
+    function g(e, t) {
       if (t.newsletterQuestionResponsePublish)
-        return T(e, t.newsletterQuestionResponsePublish);
+        return I(e, t.newsletterQuestionResponsePublish);
       if (t.newsletterQuestionResponseReaction)
-        return x(e, t.newsletterQuestionResponseReaction);
-      if (t.newsletterReaction) return A(e, t.newsletterReaction);
+        return D(e, t.newsletterQuestionResponseReaction);
+      if (t.newsletterReaction) return w(e, t.newsletterReaction);
       if (t.newsletterQuestionResponseReactionRevoke)
-        return P(e, t.newsletterQuestionResponseReactionRevoke);
-      if (t.isNewsletterReactionRevoke) return O(e);
-      if (t.newsletterPollVote) return E(e, t.newsletterPollVote);
+        return $(e, t.newsletterQuestionResponseReactionRevoke);
+      if (t.isNewsletterReactionRevoke) return F(e);
+      if (t.newsletterPollVote) return L(e, t.newsletterPollVote);
       if (t.newsletterQuestionResponseRevoke)
-        return M(e, t.newsletterQuestionResponseRevoke);
+        return N(e, t.newsletterQuestionResponseRevoke);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function y(e) {
+    function h(e) {
       var t,
         n = e.messageId,
         r = e.msgMetaOriginMixinArgs,
@@ -181,14 +172,14 @@ __d(
         i = e.metaPremiumTypeMixinArgs,
         l = e.hasNewsletterAIContentMeta,
         s = e.newsletterClientIdContentArgs,
-        u = b(
+        u = C(
           (t = o("WASmaxMixins")).optionalMerge(
-            ie,
+            ae,
             t.optionalMerge(
               o("WASmaxOutMessagePublishMetaPremiumTypeMixin")
                 .mergeMetaPremiumTypeMixin,
               t.optionalMerge(
-                Z,
+                J,
                 t.optionalMerge(
                   o("WASmaxOutMessagePublishMsgMetaOriginMixin")
                     .mergeMsgMetaOriginMixin,
@@ -207,53 +198,53 @@ __d(
         );
       return u;
     }
-    function C(e, t) {
-      var n = y(t);
+    function y(e, t) {
+      var n = h(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function b(e, t) {
-      if (t.newsletterScheduledEdit) return z(e, t.newsletterScheduledEdit);
-      if (t.newsletterScheduledCreate) return H(e, t.newsletterScheduledCreate);
-      if (t.newsletterEdit) return S(e, t.newsletterEdit);
+    function C(e, t) {
+      if (t.newsletterScheduledEdit) return G(e, t.newsletterScheduledEdit);
+      if (t.newsletterScheduledCreate) return V(e, t.newsletterScheduledCreate);
+      if (t.newsletterEdit) return v(e, t.newsletterEdit);
       if (t.newsletterQuestionPublish)
-        return me(e, t.newsletterQuestionPublish);
+        return de(e, t.newsletterQuestionPublish);
       if (t.newsletterQuestionReplyPublish)
-        return ge(e, t.newsletterQuestionReplyPublish);
-      if (t.newsletterText) return Oe(e, t.newsletterText);
-      if (t.newsletterMediaPublish) return Ae(e, t.newsletterMediaPublish);
-      if (t.isNewsletterScheduledCancel) return U(e);
-      if (t.newsletterRevoke) return W(e, t.newsletterRevoke);
-      if (t.newsletterPollCreation) return se(e, t.newsletterPollCreation);
+        return fe(e, t.newsletterQuestionReplyPublish);
+      if (t.newsletterText) return Fe(e, t.newsletterText);
+      if (t.newsletterMediaPublish) return we(e, t.newsletterMediaPublish);
+      if (t.isNewsletterScheduledCancel) return q(e);
+      if (t.newsletterRevoke) return B(e, t.newsletterRevoke);
+      if (t.newsletterPollCreation) return le(e, t.newsletterPollCreation);
       if (t.newsletterPollResultSnapshot)
-        return ce(e, t.newsletterPollResultSnapshot);
-      if (t.newsletterQuizCreation) return ye(e, t.newsletterQuizCreation);
+        return ue(e, t.newsletterPollResultSnapshot);
+      if (t.newsletterQuizCreation) return he(e, t.newsletterQuizCreation);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function v(e) {
+    function b(e) {
       var t = e.hasWAMOSub,
         n = e.newsletterQuestionReplyOrTextOrMediaMixinGroupArgs,
-        r = k(
+        r = E(
           o("WASmaxMixins").optionalMerge(
-            He,
-            oe(o("WASmaxJsx").smax("message", null)),
+            Ve,
+            re(o("WASmaxJsx").smax("message", null)),
             t,
           ),
           n,
         );
       return r;
     }
-    function S(e, t) {
-      var n = v(t);
+    function v(e, t) {
+      var n = b(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function R(e) {
+    function S(e) {
       var t = e.voteElementValue,
         n = o("WASmaxJsx").smax("vote", null, t);
       return n;
     }
-    function L(e) {
+    function R(e) {
       var t = e.voteArgs,
         n = o(
           "WASmaxOutMessagePublishContentTypePollVoteMixin",
@@ -264,63 +255,63 @@ __d(
             o("WASmaxJsx").smax(
               "votes",
               null,
-              o("WASmaxChildren").REPEATED_CHILD(R, t, 0, 1e3),
+              o("WASmaxChildren").REPEATED_CHILD(S, t, 0, 1e3),
             ),
           ),
           e,
         );
       return n;
     }
-    function E(e, t) {
-      var n = L(t);
+    function L(e, t) {
+      var n = R(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function k(e, t) {
-      if (t.newsletterQuestionReply) return _e(e, t.newsletterQuestionReply);
-      if (t.newsletterText) return Oe(e, t.newsletterText);
-      if (t.newsletterMedia) return We(e, t.newsletterMedia);
+    function E(e, t) {
+      if (t.newsletterQuestionReply) return pe(e, t.newsletterQuestionReply);
+      if (t.newsletterText) return Fe(e, t.newsletterText);
+      if (t.newsletterMedia) return Be(e, t.newsletterMedia);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function I(e) {
+    function k(e) {
       var t = e.payloadMixinArgs,
-        n = Q(
+        n = K(
           o(
             "WASmaxOutMessagePublishContentTypeTextMixin",
           ).mergeContentTypeTextMixin(
             o("WASmaxJsx").smax(
               "message",
               null,
-              Ue(o("WASmaxJsx").smax("plaintext", null), t),
+              qe(o("WASmaxJsx").smax("plaintext", null), t),
             ),
           ),
         );
       return n;
     }
-    function T(e, t) {
-      var n = I(t);
+    function I(e, t) {
+      var n = k(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function D(e) {
-      var t = Y(Q(A(o("WASmaxJsx").smax("message", null), e)), e);
+    function T(e) {
+      var t = X(K(w(o("WASmaxJsx").smax("message", null), e)), e);
       return t;
     }
-    function x(e, t) {
-      var n = D(t);
+    function D(e, t) {
+      var n = T(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function $(e) {
-      var t = Y(Q(O(o("WASmaxJsx").smax("message", null))), e);
+    function x(e) {
+      var t = X(K(F(o("WASmaxJsx").smax("message", null))), e);
       return t;
     }
-    function P(e, t) {
-      var n = $(t);
+    function $(e, t) {
+      var n = x(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function N(e) {
-      var t = Y(
-        Q(
+    function P(e) {
+      var t = X(
+        K(
           o(
             "WASmaxOutMessagePublishContentTypeTextMixin",
           ).mergeContentTypeTextMixin(
@@ -337,11 +328,11 @@ __d(
       );
       return t;
     }
-    function M(e, t) {
-      var n = N(t);
+    function N(e, t) {
+      var n = P(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function w(e) {
+    function M(e) {
       var t = e.reactionCode,
         n = o(
           "WASmaxOutMessagePublishContentTypeReactionMixin",
@@ -356,11 +347,11 @@ __d(
         );
       return n;
     }
-    function A(e, t) {
-      var n = w(t);
+    function w(e, t) {
+      var n = M(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function F() {
+    function A() {
       var e = o(
         "WASmaxOutMessagePublishContentTypeReactionMixin",
       ).mergeContentTypeReactionMixin(
@@ -374,14 +365,14 @@ __d(
       );
       return e;
     }
-    function O(e) {
-      var t = F();
+    function F(e) {
+      var t = A();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function B(e) {
+    function O(e) {
       var t = e.hasWAMOSub,
         n = o("WASmaxMixins").optionalMerge(
-          He,
+          Ve,
           o(
             "WASmaxOutMessagePublishContentTypeTextMixin",
           ).mergeContentTypeTextMixin(
@@ -397,12 +388,12 @@ __d(
         );
       return n;
     }
-    function W(e, t) {
-      var n = B(t);
+    function B(e, t) {
+      var n = O(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function q() {
-      var e = be(
+    function W() {
+      var e = Ce(
         o(
           "WASmaxOutMessagePublishContentTypeTextMixin",
         ).mergeContentTypeTextMixin(
@@ -417,44 +408,44 @@ __d(
       );
       return e;
     }
-    function U(e) {
-      var t = q();
+    function q(e) {
+      var t = W();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function V(e) {
+    function U(e) {
       var t = e.newsletterScheduledPublishContentArgs,
-        n = j(Se(o("WASmaxJsx").smax("message", null), e), t);
+        n = z(ve(o("WASmaxJsx").smax("message", null), e), t);
       return n;
     }
-    function H(e, t) {
-      var n = V(t);
+    function V(e, t) {
+      var n = U(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function G(e) {
+    function H(e) {
       var t = e.newsletterScheduledPublishContentArgs,
-        n = j(Le(oe(o("WASmaxJsx").smax("message", null)), e), t);
+        n = z(Re(re(o("WASmaxJsx").smax("message", null)), e), t);
       return n;
+    }
+    function G(e, t) {
+      var n = H(t);
+      return o("WASmaxMixins").mergeStanzas(e, n);
     }
     function z(e, t) {
-      var n = G(t);
-      return o("WASmaxMixins").mergeStanzas(e, n);
-    }
-    function j(e, t) {
       if (t.newsletterQuestionPublish)
-        return me(e, t.newsletterQuestionPublish);
+        return de(e, t.newsletterQuestionPublish);
       if (t.newsletterQuestionReplyPublish)
-        return ge(e, t.newsletterQuestionReplyPublish);
-      if (t.newsletterText) return Oe(e, t.newsletterText);
-      if (t.newsletterMediaPublish) return Ae(e, t.newsletterMediaPublish);
-      if (t.newsletterPollCreation) return se(e, t.newsletterPollCreation);
-      if (t.newsletterQuizCreation) return ye(e, t.newsletterQuizCreation);
+        return fe(e, t.newsletterQuestionReplyPublish);
+      if (t.newsletterText) return Fe(e, t.newsletterText);
+      if (t.newsletterMediaPublish) return we(e, t.newsletterMediaPublish);
+      if (t.newsletterPollCreation) return le(e, t.newsletterPollCreation);
+      if (t.newsletterQuizCreation) return he(e, t.newsletterQuizCreation);
       if (t.newsletterPollResultSnapshot)
-        return ce(e, t.newsletterPollResultSnapshot);
+        return ue(e, t.newsletterPollResultSnapshot);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function K() {
+    function j() {
       var e = o("WASmaxJsx").smax(
         "message",
         null,
@@ -462,11 +453,11 @@ __d(
       );
       return e;
     }
-    function Q(e) {
-      var t = K();
+    function K(e) {
+      var t = j();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function X(e) {
+    function Q(e) {
       var t = e.metaResponseServerId,
         n = o("WASmaxJsx").smax(
           "message",
@@ -477,11 +468,11 @@ __d(
         );
       return n;
     }
-    function Y(e, t) {
-      var n = X(t);
+    function X(e, t) {
+      var n = Q(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function J(e) {
+    function Y(e) {
       var t = e.plaintextContentId,
         n = o(
           "WASmaxOutMessagePublishContentTypeMediaMixin",
@@ -500,11 +491,11 @@ __d(
         );
       return n;
     }
-    function Z(e, t) {
-      var n = J(t);
+    function J(e, t) {
+      var n = Y(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function ee(e, t) {
+    function Z(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optional(
@@ -517,14 +508,14 @@ __d(
       if (!r.success) return r;
       var a = o("WASmaxInMessagePublishAckMixin").parseAckMixin(e, t);
       if (!a.success) return a;
-      var i = ne(e);
+      var i = te(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends({ serverId: r.value }, a.value, {
           newsletterSenderRCATAckMixin: i.success ? i.value : null,
         }),
       );
     }
-    function te(e, t) {
+    function ee(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").attrString(e, "response_server_id");
@@ -536,7 +527,7 @@ __d(
           )
         : a;
     }
-    function ne(e) {
+    function te(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "rcat");
@@ -546,15 +537,15 @@ __d(
         ? o("WAResultOrError").makeResult({ rcatElementValue: r.value })
         : r;
     }
-    function re() {
+    function ne() {
       var e = o("WASmaxJsx").smax("message", { edit: "3" });
       return e;
     }
-    function oe(e) {
-      var t = re();
+    function re(e) {
+      var t = ne();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function ae() {
+    function oe() {
       var e = o("WASmaxJsx").smax(
         "message",
         null,
@@ -566,22 +557,22 @@ __d(
       );
       return e;
     }
-    function ie(e) {
-      var t = ae();
+    function ae(e) {
+      var t = oe();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function le(e) {
+    function ie(e) {
       var t = e.hasWAMOSub,
         n = e.payloadMixinArgs,
         r = o("WASmaxMixins").optionalMerge(
-          He,
+          Ve,
           o(
             "WASmaxOutMessagePublishContentTypePollCreationMixin",
           ).mergeContentTypePollCreationMixin(
             o("WASmaxJsx").smax(
               "message",
               null,
-              Ue(o("WASmaxJsx").smax("plaintext", null), n),
+              qe(o("WASmaxJsx").smax("plaintext", null), n),
             ),
             e,
           ),
@@ -589,93 +580,93 @@ __d(
         );
       return r;
     }
-    function se(e, t) {
-      var n = le(t);
+    function le(e, t) {
+      var n = ie(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function ue(e) {
+    function se(e) {
       var t = e.hasWAMOSub,
         n = e.payloadMixinArgs,
         r = o("WASmaxMixins").optionalMerge(
-          He,
+          Ve,
           o(
             "WASmaxOutMessagePublishContentTypePollResultSnapshotMixin",
           ).mergeContentTypePollResultSnapshotMixin(
             o("WASmaxJsx").smax(
               "message",
               null,
-              Ue(o("WASmaxJsx").smax("plaintext", null), n),
+              qe(o("WASmaxJsx").smax("plaintext", null), n),
             ),
           ),
           t,
         );
       return r;
     }
-    function ce(e, t) {
-      var n = ue(t);
+    function ue(e, t) {
+      var n = se(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function de(e) {
+    function ce(e) {
       var t = e.hasWAMOSub,
         n = e.newsletterTextOrMediaPublishMixinGroupArgs,
-        r = ke(
-          o("WASmaxMixins").optionalMerge(
-            He,
-            xe(o("WASmaxJsx").smax("message", null)),
-            t,
-          ),
-          n,
-        );
-      return r;
-    }
-    function me(e, t) {
-      var n = de(t);
-      return o("WASmaxMixins").mergeStanzas(e, n);
-    }
-    function pe(e) {
-      var t = e.hasWAMOSub,
-        n = e.newsletterTextOrMediaMixinGroupArgs,
         r = Ee(
           o("WASmaxMixins").optionalMerge(
-            He,
-            Pe(o("WASmaxJsx").smax("message", null)),
+            Ve,
+            De(o("WASmaxJsx").smax("message", null)),
             t,
           ),
           n,
         );
       return r;
     }
-    function _e(e, t) {
-      var n = pe(t);
+    function de(e, t) {
+      var n = ce(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function fe(e) {
+    function me(e) {
+      var t = e.hasWAMOSub,
+        n = e.newsletterTextOrMediaMixinGroupArgs,
+        r = Le(
+          o("WASmaxMixins").optionalMerge(
+            Ve,
+            $e(o("WASmaxJsx").smax("message", null)),
+            t,
+          ),
+          n,
+        );
+      return r;
+    }
+    function pe(e, t) {
+      var n = me(t);
+      return o("WASmaxMixins").mergeStanzas(e, n);
+    }
+    function _e(e) {
       var t = e.hasWAMOSub,
         n = e.newsletterTextOrMediaPublishMixinGroupArgs,
-        r = ke(
+        r = Ee(
           o("WASmaxMixins").optionalMerge(
-            He,
-            Te(Pe(o("WASmaxJsx").smax("message", null)), e),
+            Ve,
+            Ie($e(o("WASmaxJsx").smax("message", null)), e),
             t,
           ),
           n,
         );
       return r;
     }
-    function ge(e, t) {
-      var n = fe(t);
+    function fe(e, t) {
+      var n = _e(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function he(e) {
+    function ge(e) {
       var t = e.hasWAMOSub,
         n = e.payloadMixinArgs,
         r = o("WASmaxMixins").optionalMerge(
-          He,
-          Me(
+          Ve,
+          Ne(
             o("WASmaxJsx").smax(
               "message",
               null,
-              Ue(o("WASmaxJsx").smax("plaintext", null), n),
+              qe(o("WASmaxJsx").smax("plaintext", null), n),
             ),
             e,
           ),
@@ -683,11 +674,11 @@ __d(
         );
       return r;
     }
-    function ye(e, t) {
-      var n = he(t);
+    function he(e, t) {
+      var n = ge(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function Ce() {
+    function ye() {
       var e = o("WASmaxJsx").smax(
         "message",
         null,
@@ -695,11 +686,11 @@ __d(
       );
       return e;
     }
-    function be(e) {
-      var t = Ce();
+    function Ce(e) {
+      var t = ye();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function ve(e) {
+    function be(e) {
       var t = e.metaSt,
         n = o("WASmaxJsx").smax(
           "message",
@@ -711,11 +702,11 @@ __d(
         );
       return n;
     }
-    function Se(e, t) {
-      var n = ve(t);
+    function ve(e, t) {
+      var n = be(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function Re(e) {
+    function Se(e) {
       var t = e.metaSt,
         n = e.hasMetaSendNowTrue,
         r = o("WASmaxJsx").smax(
@@ -729,25 +720,25 @@ __d(
         );
       return r;
     }
-    function Le(e, t) {
-      var n = Re(t);
+    function Re(e, t) {
+      var n = Se(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
+    function Le(e, t) {
+      if (t.newsletterText) return Fe(e, t.newsletterText);
+      if (t.newsletterMedia) return Be(e, t.newsletterMedia);
+      throw new (o(
+        "WASmaxMixinGroupExhaustiveError",
+      ).SmaxMixinGroupExhaustiveError)();
+    }
     function Ee(e, t) {
-      if (t.newsletterText) return Oe(e, t.newsletterText);
-      if (t.newsletterMedia) return We(e, t.newsletterMedia);
+      if (t.newsletterText) return Fe(e, t.newsletterText);
+      if (t.newsletterMediaPublish) return we(e, t.newsletterMediaPublish);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function ke(e, t) {
-      if (t.newsletterText) return Oe(e, t.newsletterText);
-      if (t.newsletterMediaPublish) return Ae(e, t.newsletterMediaPublish);
-      throw new (o(
-        "WASmaxMixinGroupExhaustiveError",
-      ).SmaxMixinGroupExhaustiveError)();
-    }
-    function Ie(e) {
+    function ke(e) {
       var t = e.metaParentServerId,
         n = e.metaResponseServerId,
         r = o("WASmaxJsx").smax(
@@ -760,11 +751,11 @@ __d(
         );
       return r;
     }
-    function Te(e, t) {
-      var n = Ie(t);
+    function Ie(e, t) {
+      var n = ke(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function De() {
+    function Te() {
       var e = o("WASmaxJsx").smax(
         "message",
         null,
@@ -772,11 +763,11 @@ __d(
       );
       return e;
     }
-    function xe(e) {
-      var t = De();
+    function De(e) {
+      var t = Te();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function $e() {
+    function xe() {
       var e = o("WASmaxJsx").smax(
         "message",
         null,
@@ -784,11 +775,11 @@ __d(
       );
       return e;
     }
-    function Pe(e) {
-      var t = $e();
+    function $e(e) {
+      var t = xe();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function Ne(e) {
+    function Pe(e) {
       var t = e.metaContenttype,
         n = o("WASmaxJsx").smax(
           "message",
@@ -800,13 +791,13 @@ __d(
         );
       return n;
     }
-    function Me(e, t) {
-      var n = Ne(t);
+    function Ne(e, t) {
+      var n = Pe(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function we(e) {
+    function Me(e) {
       var t = e.messageMediaId,
-        n = We(
+        n = Be(
           o("WASmaxJsx").smax("message", {
             media_id: o("WASmaxAttrs").OPTIONAL(o("WAWap").CUSTOM_STRING, t),
           }),
@@ -814,52 +805,52 @@ __d(
         );
       return n;
     }
-    function Ae(e, t) {
-      var n = we(t);
+    function we(e, t) {
+      var n = Me(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function Fe(e) {
+    function Ae(e) {
       var t = e.hasWAMOSub,
         n = e.payloadMixinArgs,
         r = o("WASmaxMixins").optionalMerge(
-          He,
+          Ve,
           o(
             "WASmaxOutMessagePublishContentTypeTextMixin",
           ).mergeContentTypeTextMixin(
             o("WASmaxJsx").smax(
               "message",
               null,
-              Ue(o("WASmaxJsx").smax("plaintext", null), n),
+              qe(o("WASmaxJsx").smax("plaintext", null), n),
             ),
           ),
           t,
         );
       return r;
     }
-    function Oe(e, t) {
-      var n = Fe(t);
+    function Fe(e, t) {
+      var n = Ae(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function Be(e) {
+    function Oe(e) {
       var t = e.hasWAMOSub,
         n = e.messageAssociationTypeMixinArgs,
         r = e.mediaMetaMixinArgs,
         a = e.plaintextMediatype,
         i = e.payloadMixinArgs,
         l = o("WASmaxMixins").optionalMerge(
-          ze,
+          Ge,
           o("WASmaxMixins").optionalMerge(
             o("WASmaxOutMessagePublishMessageAssociationTypeMixin")
               .mergeMessageAssociationTypeMixin,
             o("WASmaxMixins").optionalMerge(
-              He,
+              Ve,
               o(
                 "WASmaxOutMessagePublishContentTypeMediaMixin",
               ).mergeContentTypeMediaMixin(
                 o("WASmaxJsx").smax(
                   "message",
                   null,
-                  Ue(
+                  qe(
                     o("WASmaxJsx").smax("plaintext", {
                       mediatype: o("WAWap").CUSTOM_STRING(a),
                     }),
@@ -875,20 +866,20 @@ __d(
         );
       return l;
     }
-    function We(e, t) {
-      var n = Be(t);
+    function Be(e, t) {
+      var n = Oe(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function qe(e) {
+    function We(e) {
       var t = e.plaintextElementValue,
         n = o("WASmaxJsx").smax("plaintext", null, t);
       return n;
     }
-    function Ue(e, t) {
-      var n = qe(t);
+    function qe(e, t) {
+      var n = We(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function Ve() {
+    function Ue() {
       var e = o("WASmaxJsx").smax(
         "message",
         null,
@@ -896,11 +887,11 @@ __d(
       );
       return e;
     }
-    function He(e) {
-      var t = Ve();
+    function Ve(e) {
+      var t = Ue();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function Ge(e) {
+    function He(e) {
       var t = e.metaContenttype,
         n = o("WASmaxJsx").smax(
           "message",
@@ -911,14 +902,14 @@ __d(
         );
       return n;
     }
-    function ze(e, t) {
-      var n = Ge(t);
+    function Ge(e, t) {
+      var n = He(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.sendNewsletterRPC = e),
-      (l.parseNewsletterResponseNegative = u),
-      (l.parseNewsletterResponseSuccess = c),
-      (l.makeNewsletterRequest = d));
+      (l.parseNewsletterResponseNegative = s),
+      (l.parseNewsletterResponseSuccess = u),
+      (l.makeNewsletterRequest = c));
   },
   98,
 );

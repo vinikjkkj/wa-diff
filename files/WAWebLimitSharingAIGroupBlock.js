@@ -36,12 +36,10 @@ __d(
           : null;
     }
     function d() {
-      return s._(/*BTDS*/ "Advanced chat privacy and AI agents");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(
-        /*BTDS*/ "AI agents are in this chat. To turn on advanced chat privacy, AI agents must first be removed from this chat.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function p(e) {
       var t = e == null ? void 0 : e.participants,

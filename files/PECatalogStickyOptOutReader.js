@@ -3,36 +3,33 @@ __d(
   ["PECatalogStickyOptOutKeys", "PECatalogStickyOptOutOverflow"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, r, a) {
-      var i;
-      a === void 0 && (a = "");
-      var l =
-          (i =
+    function e(e, t, n, r) {
+      var a,
+        i =
+          (a =
             e != null
               ? t == null
                 ? void 0
-                : t.get(o("PECatalogStickyOptOutKeys").accountKey(e, a))
+                : t.get(o("PECatalogStickyOptOutKeys").accountKey(e, ""))
               : null) != null
-            ? i
+            ? a
             : 0,
-        s = r - l < n;
-      return { lastOptOutTimestamp: l, shouldStickyOptOut: s };
+        l = r - i < n;
+      return { lastOptOutTimestamp: i, shouldStickyOptOut: l };
     }
-    function s(e, t, n, r, a, i, l, s, u) {
-      var c;
-      u === void 0 && (u = "");
-      var d =
-          t != null && o("PECatalogStickyOptOutOverflow").isLatched(t) ? !1 : i,
-        m =
+    function s(e, t, n, r, a, i, l) {
+      var s,
+        u = !(t != null && o("PECatalogStickyOptOutOverflow").isLatched(t)),
+        c =
           e != null
-            ? o("PECatalogStickyOptOutKeys").readKey(e, n, r, a, d, u)
+            ? o("PECatalogStickyOptOutKeys").readKey(e, n, r, a, u, "")
             : null,
-        p =
-          (c = m != null ? (t == null ? void 0 : t.get(m)) : null) != null
-            ? c
+        d =
+          (s = c != null ? (t == null ? void 0 : t.get(c)) : null) != null
+            ? s
             : 0,
-        _ = s - p < l;
-      return { lastOptOutTimestamp: p, shouldStickyOptOut: _ };
+        m = l - d < i;
+      return { lastOptOutTimestamp: d, shouldStickyOptOut: m };
     }
     ((l.getStickyOptOut = e), (l.getStickyOptOutGranular = s));
   },

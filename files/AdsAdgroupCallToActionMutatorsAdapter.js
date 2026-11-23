@@ -10,6 +10,7 @@ __d(
     "adsCampaignDestinationTypeSelector",
     "adsObjectiveSelector",
     "adsPromotedObjectTypeSelector_LEGACY",
+    "observeRuntimeType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -41,17 +42,20 @@ __d(
             ? l.campaignGroupPromotedPageID
             : r("AdsCampaignGroupPromotedPageIDSelector")(f),
           h = r("adsCampaignDestinationTypeSelector")(m);
-        return o("AdsUEditorCallToActionMutators").setCallToAction({
-          adgroup: i,
-          cachedCallToActionLink: u,
-          callToActionType: a,
-          campaignGroupPromotedPageID: g,
-          objective: d,
-          pages: s,
-          promotedObjectType: p,
-          specPlugin: _,
-          destination: h,
-        });
+        return r("observeRuntimeType")(
+          o("AdsUEditorCallToActionMutators").setCallToAction({
+            adgroup: i,
+            cachedCallToActionLink: u,
+            callToActionType: a,
+            campaignGroupPromotedPageID: g,
+            objective: d,
+            pages: s,
+            promotedObjectType: p,
+            specPlugin: _,
+            destination: h,
+          }),
+          "AdsAdgroupCallToActionMutatorsAdapter.setCallToAction.return",
+        );
       },
       u = function (n, a) {
         var t = r("AdsAudienceDirectConfig").accountType,

@@ -24,7 +24,7 @@ __d(
         loading: function (t) {
           return u.jsx(r("WAWebLoadingModal.react"), {
             theme: o("WAWebModal.react").ModalTheme.Flex,
-            title: s._(/*BTDS*/ "View responses"),
+            title: s._(/*BTDS*/ ""),
             error: !!t.error,
           });
         },

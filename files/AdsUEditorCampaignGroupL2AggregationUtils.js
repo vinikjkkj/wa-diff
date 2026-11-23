@@ -214,7 +214,45 @@ __d(
       });
       d.length > 0 && (t.threads_positions = d);
     }
-    function p(e) {
+    function p(e, t) {
+      var n = e
+          .map(function (e) {
+            return e.age_min;
+          })
+          .filter(Boolean),
+        r = e
+          .map(function (e) {
+            return e.age_max;
+          })
+          .filter(Boolean);
+      ((t.age_min =
+        n.length > 0
+          ? Math.min.apply(Math, n)
+          : o("AdsReservationInAuctionConstants").DEFAULT_AGE_MIN),
+        (t.age_max =
+          r.length > 0
+            ? Math.max.apply(Math, r)
+            : o("AdsReservationInAuctionConstants").DEFAULT_AGE_MAX));
+      var a = e.filter(function (e) {
+        return e.age_range != null;
+      });
+      if (a.length > 0) {
+        var i = a.map(function (e) {
+            var t, n;
+            return (t = (n = e.age_range) == null ? void 0 : n[0]) != null
+              ? t
+              : o("AdsReservationInAuctionConstants").DEFAULT_AGE_MIN;
+          }),
+          l = a.map(function (e) {
+            var t, n;
+            return (t = (n = e.age_range) == null ? void 0 : n[1]) != null
+              ? t
+              : o("AdsReservationInAuctionConstants").DEFAULT_AGE_MAX;
+          });
+        t.age_range = [Math.min.apply(Math, i), Math.max.apply(Math, l)];
+      }
+    }
+    function _(e) {
       if (e.length === 0)
         return {
           age_min: o("AdsReservationInAuctionConstants").DEFAULT_AGE_MIN,
@@ -222,159 +260,123 @@ __d(
         };
       var t = {};
       for (var n of e) t = babelHelpers.extends({}, t, n);
+      (p(e, t), m(e, t));
       var r = e
-          .map(function (e) {
-            return e.age_min;
-          })
-          .filter(Boolean),
-        a = e
-          .map(function (e) {
-            return e.age_max;
-          })
-          .filter(Boolean);
-      ((t.age_min =
-        r.length > 0
-          ? Math.min.apply(Math, r)
-          : o("AdsReservationInAuctionConstants").DEFAULT_AGE_MIN),
-        (t.age_max =
-          a.length > 0
-            ? Math.max.apply(Math, a)
-            : o("AdsReservationInAuctionConstants").DEFAULT_AGE_MAX));
-      var i = e.filter(function (e) {
-        return e.age_range != null;
-      });
-      if (i.length > 0) {
-        var l = i.map(function (e) {
-            var t, n;
-            return (t = (n = e.age_range) == null ? void 0 : n[0]) != null
-              ? t
-              : o("AdsReservationInAuctionConstants").DEFAULT_AGE_MIN;
-          }),
-          c = i.map(function (e) {
-            var t, n;
-            return (t = (n = e.age_range) == null ? void 0 : n[1]) != null
-              ? t
-              : o("AdsReservationInAuctionConstants").DEFAULT_AGE_MAX;
-          });
-        t.age_range = [Math.min.apply(Math, l), Math.max.apply(Math, c)];
-      }
-      m(e, t);
-      var d = e
         .map(function (e) {
           return e.geo_locations;
         })
         .filter(Boolean);
-      d.length > 0 && (t.geo_locations = u(d));
-      var p = e.flatMap(function (e) {
+      r.length > 0 && (t.geo_locations = u(r));
+      var a = e.flatMap(function (e) {
         var t;
         return (t = e.custom_audiences) != null ? t : [];
       });
-      if (p.length > 0) {
-        var _ = new Set();
-        t.custom_audiences = p.filter(function (e) {
+      if (a.length > 0) {
+        var i = new Set();
+        t.custom_audiences = a.filter(function (e) {
           var t,
             n = String((t = e.id) != null ? t : "");
-          return _.has(n) ? !1 : (_.add(n), !0);
+          return i.has(n) ? !1 : (i.add(n), !0);
         });
       }
-      var f = e.filter(function (e) {
+      var l = e.filter(function (e) {
         return e.genders != null;
       });
-      if (f.length > 0) {
-        var g =
-          f.length < e.length ||
-          f.some(function (e) {
+      if (l.length > 0) {
+        var c =
+          l.length < e.length ||
+          l.some(function (e) {
             return e.genders != null && e.genders.length === 0;
           });
-        if (g) t.genders = [];
+        if (c) t.genders = [];
         else {
-          var h = Array.from(
+          var d = Array.from(
             new Set(
-              f.flatMap(function (e) {
+              l.flatMap(function (e) {
                 var t;
                 return (t = e.genders) != null ? t : [];
               }),
             ),
           );
-          t.genders = h.length > 1 ? [] : h;
+          t.genders = d.length > 1 ? [] : d;
         }
       }
-      var y = e.filter(function (e) {
+      var _ = e.filter(function (e) {
         return e.locales != null;
       });
-      if (y.length > 0) {
-        var C =
-          y.length < e.length ||
-          y.some(function (e) {
+      if (_.length > 0) {
+        var f =
+          _.length < e.length ||
+          _.some(function (e) {
             return e.locales != null && e.locales.length === 0;
           });
-        C
+        f
           ? delete t.locales
           : (t.locales = Array.from(
               new Set(
-                y.flatMap(function (e) {
+                _.flatMap(function (e) {
                   var t;
                   return (t = e.locales) != null ? t : [];
                 }),
               ),
             ));
       }
-      var b = e.filter(function (e) {
+      var g = e.filter(function (e) {
         return e.flexible_spec != null;
       });
-      if (b.length > 0) {
-        var v =
-          b.length < e.length ||
-          b.some(function (e) {
+      if (g.length > 0) {
+        var h =
+          g.length < e.length ||
+          g.some(function (e) {
             return e.flexible_spec != null && e.flexible_spec.length === 0;
           });
-        v
+        h
           ? delete t.flexible_spec
           : (t.flexible_spec = s(
-              b.map(function (e) {
+              g.map(function (e) {
                 var t;
                 return (t = e.flexible_spec) != null ? t : [];
               }),
             ));
       }
-      var S = e.filter(function (e) {
+      var y = e.filter(function (e) {
         return e.exclusions != null;
       });
-      if (S.length > 0) {
-        var R =
-          S.length < e.length ||
-          S.some(function (e) {
+      if (y.length > 0) {
+        var C =
+          y.length < e.length ||
+          y.some(function (e) {
             return e.exclusions != null && e.exclusions.length === 0;
           });
-        R
+        C
           ? delete t.exclusions
           : (t.exclusions = s(
-              S.map(function (e) {
+              y.map(function (e) {
                 var t;
                 return (t = e.exclusions) != null ? t : [];
               }),
             ));
       }
-      var L = e.flatMap(function (e) {
+      var b = e.flatMap(function (e) {
         var t;
         return (t = e.excluded_custom_audiences) != null ? t : [];
       });
-      if (L.length > 0) {
-        var E = new Set();
-        t.excluded_custom_audiences = L.filter(function (e) {
+      if (b.length > 0) {
+        var v = new Set();
+        t.excluded_custom_audiences = b.filter(function (e) {
           var t,
             n = String((t = e.id) != null ? t : "");
-          return E.has(n) ? !1 : (E.add(n), !0);
+          return v.has(n) ? !1 : (v.add(n), !0);
         });
       }
-      var k = e
+      var S = e
         .map(function (e) {
           return e.targeting_optimization;
         })
         .filter(Boolean);
       return (
-        k.length > 0 &&
-          (t.targeting_optimization = k.some(function (e) {
+        S.length > 0 &&
+          (t.targeting_optimization = S.some(function (e) {
             return e === "expansion_all";
           })
             ? "expansion_all"
@@ -382,7 +384,7 @@ __d(
         t
       );
     }
-    function _(e, t, n) {
+    function f(e, t, n) {
       if (e.size === 0) return null;
       var a = [],
         i = 1 / 0,
@@ -393,7 +395,7 @@ __d(
           var c,
             d,
             m,
-            _ = JSON.parse(JSON.stringify(u)),
+            p = JSON.parse(JSON.stringify(u)),
             f = (c = s.optimization_goal) != null ? c : "REACH",
             g =
               (d = (m = s.promoted_object) == null ? void 0 : m.page_id) != null
@@ -402,7 +404,7 @@ __d(
           a.push(
             o(
               "AdsUEditorCampaignTargetFrequencyInAuctionUtils",
-            ).getEffectiveTargetSpec(t, g, n, f, _),
+            ).getEffectiveTargetSpec(t, g, n, f, p),
           );
         }
         if (s.start_time != null) {
@@ -415,14 +417,14 @@ __d(
         }
       }
       if (a.length === 0) return null;
-      var C = p(a);
+      var C = _(a);
       return {
         start_time: i === 1 / 0 ? 0 : i,
         stop_time: l === -1 / 0 ? 0 : l,
         target_spec: C,
       };
     }
-    ((l.mergeTargetSpecs = p), (l.aggregateCampaignParams = _));
+    ((l.mergeTargetSpecs = _), (l.aggregateCampaignParams = f));
   },
   98,
 );

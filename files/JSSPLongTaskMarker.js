@@ -1,10 +1,6 @@
 __d(
   "JSSPLongTaskMarker",
-  [
-    "JSSPTraceBaseTransformer",
-    "JSSelfProfilerUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["JSSPTraceBaseTransformer", "JSSelfProfilerUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function (e) {
@@ -12,39 +8,28 @@ __d(
         return e.apply(this, arguments) || this;
       }
       babelHelpers.inheritsLoose(t, e);
-      var r = t.prototype;
+      var n = t.prototype;
       return (
-        (r.transform = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
-              var r = n.performanceEntryList;
-              if (r == null) return e;
-              var a = e;
-              return (
-                e.samples.forEach(function (e) {
-                  r.forEach(function (t) {
-                    if (t.entryType === "longtask") {
-                      var n = t.startTime,
-                        r = t.startTime + t.duration;
-                      e.timestamp >= n &&
-                        e.timestamp <= r &&
-                        (o("JSSelfProfilerUtils").addMarkerToSample(
-                          e,
-                          "longtask",
-                        ),
-                        (e.longtaskDuration = t.duration));
-                    }
-                  });
-                }),
-                a
-              );
-            },
+        (n.transform = async function (t, n, r) {
+          var e = r.performanceEntryList;
+          if (e == null) return t;
+          var a = t;
+          return (
+            t.samples.forEach(function (t) {
+              e.forEach(function (e) {
+                if (e.entryType === "longtask") {
+                  var n = e.startTime,
+                    r = e.startTime + e.duration;
+                  t.timestamp >= n &&
+                    t.timestamp <= r &&
+                    (o("JSSelfProfilerUtils").addMarkerToSample(t, "longtask"),
+                    (t.longtaskDuration = e.duration));
+                }
+              });
+            }),
+            a
           );
-          function t(t, n, r) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        }),
         t
       );
     })(r("JSSPTraceBaseTransformer"));

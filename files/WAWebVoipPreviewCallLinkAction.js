@@ -10,7 +10,6 @@ __d(
     "WAWebVoipCallLinkBundlePreloader",
     "WAWebVoipInitEventEmitter",
     "WAWebVoipStackInterface",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -20,47 +19,39 @@ __d(
       s,
       u = 0.01,
       c = 22;
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            r("WAWebCallCollection").activeCall != null ||
-            r("WAWebCallCollection").pendingCallLink != null
+    async function d(e) {
+      if (
+        r("WAWebCallCollection").activeCall != null ||
+        r("WAWebCallCollection").pendingCallLink != null
+      )
+        return m("skipped_existing");
+      if (e.callLinkCode.length !== c)
+        throw (
+          o("WAWebVoipCallBlockedModals").showCouldNotPlaceCallModal(),
+          r("err")(
+            "voip: invalid call-link token length " + e.callLinkCode.length,
           )
-            return p("skipped_existing");
-          if (e.callLinkCode.length !== c)
-            throw (
-              o("WAWebVoipCallBlockedModals").showCouldNotPlaceCallModal(),
-              r("err")(
-                "voip: invalid call-link token length " + e.callLinkCode.length,
-              )
-            );
-          o("WAWebVoipCallLinkBundlePreloader").preloadCallLinkBundles();
-          var t = {
-            didDispatchPreview: !1,
-            didPreviewReturnFailureStatus: !1,
-            didPreviewReturnVoidStatus: !1,
-            pendingCallLink: { isVideo: e.isVideo },
-            shouldShowPendingCallLink: !o(
-              "WAWebVoipInitEventEmitter",
-            ).VoipInitEventEmitter.getIsVoipInited(),
-          };
-          try {
-            return (
-              g(t),
-              (yield y(e, t)) ? (b(t), p("dispatched")) : p("superseded")
-            );
-          } catch (e) {
-            return v(e, t);
-          }
-        })),
-        m.apply(this, arguments)
-      );
+        );
+      o("WAWebVoipCallLinkBundlePreloader").preloadCallLinkBundles();
+      var t = {
+        didDispatchPreview: !1,
+        didPreviewReturnFailureStatus: !1,
+        didPreviewReturnVoidStatus: !1,
+        pendingCallLink: { isVideo: e.isVideo },
+        shouldShowPendingCallLink: !o(
+          "WAWebVoipInitEventEmitter",
+        ).VoipInitEventEmitter.getIsVoipInited(),
+      };
+      try {
+        return (
+          f(t),
+          (await h(e, t)) ? (y(t), m("dispatched")) : m("superseded")
+        );
+      } catch (e) {
+        return C(e, t);
+      }
     }
-    function p(t) {
+    function m(t) {
       return (
         o("WALogger").LOG(
           e ||
@@ -73,7 +64,7 @@ __d(
         t
       );
     }
-    function _(e) {
+    function p(e) {
       o("WALogger")
         .ERROR(
           s ||
@@ -84,73 +75,64 @@ __d(
         .catching(r("getErrorSafe")(e))
         .sendLogs("voip-call-link-preview-superseded-error", { sampling: u });
     }
-    function f(e) {
+    function _(e) {
       return r("WAWebCallCollection").pendingCallLink === e.pendingCallLink;
     }
-    function g(e) {
+    function f(e) {
       (r("WAWebCallCollection").setPendingCallLink(e.pendingCallLink),
         e.shouldShowPendingCallLink &&
           r("WAWebPipController").openVoipUiPiPForCallLink());
     }
-    function h(e) {
-      return f(e)
+    function g(e) {
+      return _(e)
         ? r("WAWebCallCollection").activeCall == null
           ? !1
           : (r("WAWebCallCollection").setPendingCallLink(null), !0)
         : !0;
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.callLinkCode,
-            a = e.isVideo,
-            i = e.lobbyEntryPoint;
-          if (
-            (yield o("WAWebEnsureVoipInited").ensureVoipInitialized("call"),
-            h(t))
-          )
-            return !1;
-          var l = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          if (h(t)) return !1;
-          if (l == null) throw r("err")("voip stack interface unavailable");
-          t.didDispatchPreview = !0;
-          var s = yield l.previewCallLink(
-            n,
-            a,
-            i,
-            o("WAWebFrontendContactGetters").getMyUsername(),
-          );
-          if (typeof s == "number") {
-            if (s !== 0)
-              throw (
-                (t.didPreviewReturnFailureStatus = !0),
-                r("err")("voip: previewCallLink failed with status " + s)
-              );
-          } else t.didPreviewReturnVoidStatus = !0;
-          return !0;
-        })),
-        C.apply(this, arguments)
+    async function h(e, t) {
+      var n = e.callLinkCode,
+        a = e.isVideo,
+        i = e.lobbyEntryPoint;
+      if (
+        (await o("WAWebEnsureVoipInited").ensureVoipInitialized("call"), g(t))
+      )
+        return !1;
+      var l = await o("WAWebVoipStackInterface").getVoipStackInterface();
+      if (g(t)) return !1;
+      if (l == null) throw r("err")("voip stack interface unavailable");
+      t.didDispatchPreview = !0;
+      var s = await l.previewCallLink(
+        n,
+        a,
+        i,
+        o("WAWebFrontendContactGetters").getMyUsername(),
       );
+      if (typeof s == "number") {
+        if (s !== 0)
+          throw (
+            (t.didPreviewReturnFailureStatus = !0),
+            r("err")("voip: previewCallLink failed with status " + s)
+          );
+      } else t.didPreviewReturnVoidStatus = !0;
+      return !0;
     }
-    function b(e) {
+    function y(e) {
       var t = r("WAWebCallCollection").activeCall;
-      if (f(e) && e.didPreviewReturnVoidStatus) {
+      if (_(e) && e.didPreviewReturnVoidStatus) {
         (r("WAWebCallCollection").setPendingCallLink(null),
           e.shouldShowPendingCallLink &&
             t == null &&
             r("WAWebPipController").closePiP());
         return;
       }
-      f(e) &&
+      _(e) &&
         t != null &&
         t.isCallLink !== !0 &&
         r("WAWebCallCollection").setPendingCallLink(null);
     }
-    function v(e, t) {
-      if (!f(t)) return (_(e), p("superseded"));
+    function C(e, t) {
+      if (!_(t)) return (p(e), m("superseded"));
       var n = r("WAWebCallCollection").activeCall;
       if (n != null) {
         if (
@@ -159,7 +141,7 @@ __d(
           t.didPreviewReturnFailureStatus)
         )
           throw e;
-        return (_(e), p("superseded"));
+        return (p(e), m("superseded"));
       }
       throw (
         r("WAWebCallCollection").setPendingCallLink(null),

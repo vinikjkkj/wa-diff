@@ -9,105 +9,69 @@ __d(
     "WAWebSharableEventChangeFlags",
     "WAWebSharableEventInviteMessageRefreshJob",
     "WAWebSharableEventStorageEnums",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
+    async function e(e, t) {
+      var n = await o(
+          "WAWebDBSharableEventMetadata",
+        ).upsertSharableEventMetadataIfNewer([e], { insertMissing: !0 }),
+        r = n[0],
+        a =
+          r != null && r.previous == null
+            ? await o("WAWebDBSharableEventChange").recordSharableEventChange(
+                e.eventId,
+                o("WAWebSharableEventChangeFlags").toSharableEventChangeFlags([
+                  o("WAWebSharableEventStorageEnums").SharableEventChangeFlag
+                    .NewEvent,
+                ]),
+                e.lastUpdatedTsUsec,
+              )
+            : null,
+        i =
+          t != null &&
+          (await o(
+            "WAWebDBSharableEventInvitee",
+          ).seedSharableEventInviteeIfAbsent(t));
+      (r == null && !i) ||
+        o("WAWebBackendApi").frontendFireAndForget("applySharableEventUpdate", {
+          events: r == null ? [] : [r.row],
+          invitees: i && t != null ? [t] : [],
+          unseenChanges: a == null ? [] : [a],
+        });
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o(
-              "WAWebDBSharableEventMetadata",
-            ).upsertSharableEventMetadataIfNewer([e], { insertMissing: !0 }),
-            r = n[0],
-            a =
-              r != null && r.previous == null
-                ? yield o(
-                    "WAWebDBSharableEventChange",
-                  ).recordSharableEventChange(
-                    e.eventId,
-                    o(
-                      "WAWebSharableEventChangeFlags",
-                    ).toSharableEventChangeFlags([
-                      o("WAWebSharableEventStorageEnums")
-                        .SharableEventChangeFlag.NewEvent,
-                    ]),
-                    e.lastUpdatedTsUsec,
-                  )
-                : null,
-            i =
-              t != null &&
-              (yield o(
-                "WAWebDBSharableEventInvitee",
-              ).seedSharableEventInviteeIfAbsent(t));
-          (r == null && !i) ||
-            o("WAWebBackendApi").frontendFireAndForget(
-              "applySharableEventUpdate",
-              {
-                events: r == null ? [] : [r.row],
-                invitees: i && t != null ? [t] : [],
-                unseenChanges: a == null ? [] : [a],
-              },
-            );
-        })),
-        s.apply(this, arguments)
-      );
+    async function s(e) {
+      var t = await o(
+          "WAWebDBSharableEventMetadata",
+        ).upsertSharableEventMetadataIfNewer([e], { insertMissing: !1 }),
+        n = t[0],
+        r = n == null ? void 0 : n.previous;
+      if (!(n == null || r == null)) {
+        var a = await o("WAWebDBSharableEventChange").recordSharableEventChange(
+          e.eventId,
+          o("WAWebSharableEventChangeFlags").computeSharableEventChangeFlags(
+            r,
+            n.row,
+          ),
+          e.lastUpdatedTsUsec,
+        );
+        o("WAWebBackendApi").frontendFireAndForget("applySharableEventUpdate", {
+          events: [n.row],
+          unseenChanges: a == null ? [] : [a],
+        });
+      }
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-              "WAWebDBSharableEventMetadata",
-            ).upsertSharableEventMetadataIfNewer([e], { insertMissing: !1 }),
-            n = t[0],
-            r = n == null ? void 0 : n.previous;
-          if (!(n == null || r == null)) {
-            var a = yield o(
-              "WAWebDBSharableEventChange",
-            ).recordSharableEventChange(
-              e.eventId,
-              o(
-                "WAWebSharableEventChangeFlags",
-              ).computeSharableEventChangeFlags(r, n.row),
-              e.lastUpdatedTsUsec,
-            );
-            o("WAWebBackendApi").frontendFireAndForget(
-              "applySharableEventUpdate",
-              { events: [n.row], unseenChanges: a == null ? [] : [a] },
-            );
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (yield o("WAWebDBSharableEventDeletion").deleteSharableEventsLocally([
-            e,
-          ]),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "applySharableEventUpdate",
-              { deletedEventIds: [e] },
-            ),
-            yield o(
-              "WAWebSharableEventInviteMessageRefreshJob",
-            ).markSharableEventInviteMessagesEnded([e], t));
-        })),
-        m.apply(this, arguments)
-      );
+    async function u(e, t) {
+      (await o("WAWebDBSharableEventDeletion").deleteSharableEventsLocally([e]),
+        o("WAWebBackendApi").frontendFireAndForget("applySharableEventUpdate", {
+          deletedEventIds: [e],
+        }),
+        await o(
+          "WAWebSharableEventInviteMessageRefreshJob",
+        ).markSharableEventInviteMessagesEnded([e], t));
     }
     ((l.persistInvitedSharableEvent = e),
-      (l.persistUpdatedSharableEvent = u),
-      (l.deleteSharableEventFromNotification = d));
+      (l.persistUpdatedSharableEvent = s),
+      (l.deleteSharableEventFromNotification = u));
   },
   98,
 );

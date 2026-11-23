@@ -1,48 +1,30 @@
 __d(
   "WAGenerateImageThumbnailWithoutDOM",
-  ["Promise", "WAOffscreenCanvasUtils", "asyncToGeneratorRuntime", "err"],
+  ["WAOffscreenCanvasUtils", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = "image/jpeg";
-    function u(e, t, n, r) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l) {
-            var u = yield self.createImageBitmap(t),
-              c = u.width,
-              m = u.height,
-              p = d(m, c, a),
-              _ = new OffscreenCanvas(p.width, p.height),
-              f = _.getContext("2d");
-            if (!f)
-              throw r("err")("Failed to get 2D context from offscreen canvas");
-            (o("WAOffscreenCanvasUtils").fillOffscreenCanvasBackgroundWithGray(
-              _,
-            ),
-              f.drawImage(u, 0, 0, p.width, p.height));
-            var g = yield o("WAOffscreenCanvasUtils").offscreenCanvasToBlob(
-              _,
-              s,
-              !0,
-              void 0,
-              i,
-              l,
-            );
-            return (e || (e = n("Promise"))).resolve({
-              blob: g,
-              height: p.height,
-              width: p.width,
-            });
-          },
-        )),
-        c.apply(this, arguments)
+    var e = "image/jpeg";
+    async function s(t, n, a, i) {
+      var l = await self.createImageBitmap(t),
+        s = l.width,
+        c = l.height,
+        d = u(c, s, n),
+        m = new OffscreenCanvas(d.width, d.height),
+        p = m.getContext("2d");
+      if (!p) throw r("err")("Failed to get 2D context from offscreen canvas");
+      (o("WAOffscreenCanvasUtils").fillOffscreenCanvasBackgroundWithGray(m),
+        p.drawImage(l, 0, 0, d.width, d.height));
+      var _ = await o("WAOffscreenCanvasUtils").offscreenCanvasToBlob(
+        m,
+        e,
+        !0,
+        void 0,
+        a,
+        i,
       );
+      return Promise.resolve({ blob: _, height: d.height, width: d.width });
     }
-    function d(e, t, n) {
+    function u(e, t, n) {
       var r = t != null ? t : n,
         o = e != null ? e : n;
       return (
@@ -55,7 +37,7 @@ __d(
         }
       );
     }
-    l.generateImageThumbnailWithoutDOM = u;
+    l.generateImageThumbnailWithoutDOM = s;
   },
   98,
 );

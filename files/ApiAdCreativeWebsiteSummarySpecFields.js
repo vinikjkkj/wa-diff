@@ -7,11 +7,13 @@ __d(
       ENROLL_STATUS: "enroll_status",
       IS_SELLING_POINTS_AVAILABLE: "is_selling_points_available",
       IS_SUMMARY_TEXT_AVAILABLE: "is_summary_text_available",
+      LANDING_PAGE_LONGFORM: "landing_page_longform",
       MGENAI_WEBSITE_ENTITY_ID: "mgenai_website_entity_id",
       PAGE_TEXT_SIGNALS_ASSET_ID: "page_text_signals_asset_id",
       SELLING_POINTS: "selling_points",
       SUBFEATURES: "subfeatures",
       SUMMARY_TEXT: "summary_text",
+      WEBU_REQUEST_ID: "webu_request_id",
     });
     i.default = e;
   },

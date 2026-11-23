@@ -48,9 +48,7 @@ __d(
     }
     function C() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Sample data: nothing was changed"),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function b() {

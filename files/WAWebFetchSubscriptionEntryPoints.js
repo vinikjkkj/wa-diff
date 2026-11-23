@@ -1,7 +1,6 @@
 __d(
   "WAWebFetchSubscriptionEntryPoints",
   [
-    "Promise",
     "WALogger",
     "WAWebFetchAdAccountToken",
     "WAWebFetchSubscriptionEntryPointsQuery.graphql",
@@ -12,7 +11,6 @@ __d(
     "WAWebRelayClient",
     "WAWebUserPrefsSubscription",
     "WAWebXWASubscriptionEntryPointTypeUtils",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
     "justknobx",
@@ -22,47 +20,46 @@ __d(
       s,
       u,
       c,
-      d,
-      m = { type: "error" },
-      p = { type: "not-enabled" },
-      _ = 1440 * 60 * 1e3,
-      f = null,
-      g =
+      d = { type: "error" },
+      m = { type: "not-enabled" },
+      p = 1440 * 60 * 1e3,
+      _ = null,
+      f =
         e !== void 0
           ? e
           : (e = n("WAWebFetchSubscriptionEntryPointsQuery.graphql"));
-    function h() {
+    function g() {
       return o("WAWebMobilePlatforms").isSMB()
         ? o(
             "WAWebUserPrefsSubscription",
           ).getNextFetchSubscriptionEntryPointsTime() <= Date.now()
-          ? y()
-          : C()
-            ? y().then(function (e) {
-                return e.type === "success" ? e : b();
+          ? h()
+          : y()
+            ? h().then(function (e) {
+                return e.type === "success" ? e : C();
               })
-            : (d || (d = n("Promise"))).resolve(b())
-        : (d || (d = n("Promise"))).resolve(p);
+            : Promise.resolve(C())
+        : Promise.resolve(m);
     }
-    function y() {
+    function h() {
       return (
-        f == null &&
-          (f = S().finally(function () {
-            f = null;
+        _ == null &&
+          (_ = v().finally(function () {
+            _ = null;
           })),
-        f
+        _
       );
     }
-    function C() {
+    function y() {
       return (
         o("WAWebUserPrefsSubscription").getSubscriptionsEntryPointEligibility()
           .metaOne == null && o("WAWebMetaOneGating").isMetaOneRolloutEnabled()
       );
     }
-    function b() {
-      return { type: "success", subscriptionEntrypoints: v() };
+    function C() {
+      return { type: "success", subscriptionEntrypoints: b() };
     }
-    function v() {
+    function b() {
       var e = o(
           "WAWebUserPrefsSubscription",
         ).getSubscriptionsEntryPointEligibility(),
@@ -87,58 +84,50 @@ __d(
         t
       );
     }
-    function S() {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
-          try {
-            e = yield k(L());
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "fetchSubscriptionEntryPoints: threw",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("subscription-entry-points-fetch-failed"),
-              m
-            );
-          }
-          if (e.type === "success") {
-            var t;
-            (E((t = e.subscriptionEntrypoints) != null ? t : []),
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "fetchSubscriptionEntryPoints: success",
-                  ])),
-              ));
-          } else
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  'fetchSubscriptionEntryPoints: failed as "',
-                  '"',
+    async function v() {
+      var e;
+      try {
+        e = await L(S());
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "fetchSubscriptionEntryPoints: threw",
                 ])),
-              e.type,
-            );
-          return e;
-        })),
-        R.apply(this, arguments)
-      );
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("subscription-entry-points-fetch-failed"),
+          d
+        );
+      }
+      if (e.type === "success") {
+        var t;
+        (R((t = e.subscriptionEntrypoints) != null ? t : []),
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "fetchSubscriptionEntryPoints: success",
+              ])),
+          ));
+      } else
+        o("WALogger").LOG(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              'fetchSubscriptionEntryPoints: failed as "',
+              '"',
+            ])),
+          e.type,
+        );
+      return e;
     }
-    function L() {
+    function S() {
       return o("WAWebMetaOneGating").isMetaOneRolloutEnabled()
         ? ["META_VERIFIED", "META_ONE"]
         : ["META_VERIFIED"];
     }
-    function E(e) {
+    function R(e) {
       var t,
         n,
         a = e.find(function (e) {
@@ -165,86 +154,70 @@ __d(
             ? t
             : "",
         ));
-      var l = (n = r("justknobx")._("4003")) != null ? n : _;
+      var l = (n = r("justknobx")._("4003")) != null ? n : p;
       o("WAWebUserPrefsSubscription").setNextFetchSubscriptionEntryPointsTime(
         Date.now() + l,
       );
     }
+    async function L(e) {
+      var t = await o("WAWebFetchAdAccountToken").fetchToken();
+      if (t.type !== "success") return (t.type, t);
+      var n = await E(t.token, e);
+      return (
+        n.type === "success"
+          ? n.type
+          : n.type === "auth-failure"
+            ? o("WAWebFetchAdAccountToken").markTokenAsInvalid()
+            : n.type,
+        n
+      );
+    }
+    async function E(e, t) {
+      await r("WAWebNetworkStatus").waitIfOffline();
+      try {
+        var n,
+          a = await o("WAWebRelayClient").fetchQuery(
+            f,
+            { subscriptionTypes: t },
+            { environmentType: "facebook", accessToken: e },
+          ),
+          i =
+            a == null || (n = a.waSubscriptionEntryPoints) == null
+              ? void 0
+              : n.subscriptionEntryPoints;
+        return i == null
+          ? d
+          : {
+              type: "success",
+              subscriptionEntrypoints: r("compactMap")(i, function (e) {
+                var t;
+                return e.subscriptionType == null
+                  ? null
+                  : {
+                      subscriptionType: o(
+                        "WAWebXWASubscriptionEntryPointTypeUtils",
+                      ).mapXWASubscriptionEntryPointTypeToString(
+                        e.subscriptionType,
+                      ),
+                      webEntryPointEligibility:
+                        (t = e.webEntryPointEligibility) != null ? t : !1,
+                      webEntryPointRedirectionUri:
+                        e.webEntryPointRedirectionUri,
+                      purchaseEligibility: k(e.purchaseEligibility),
+                    };
+              }),
+            };
+      } catch (e) {
+        return e instanceof Error
+          ? o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
+            ? { type: "auth-failure" }
+            : e instanceof o("WAWebGraphQLServerError").GraphQLServerError
+              ? { type: "graphql-error", error: e }
+              : d
+          : d;
+      }
+    }
     function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (t.type !== "success") return (t.type, t);
-          var n = yield T(t.token, e);
-          return (
-            n.type === "success"
-              ? n.type
-              : n.type === "auth-failure"
-                ? o("WAWebFetchAdAccountToken").markTokenAsInvalid()
-                : n.type,
-            n
-          );
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(e, t) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield r("WAWebNetworkStatus").waitIfOffline();
-          try {
-            var n,
-              a = yield o("WAWebRelayClient").fetchQuery(
-                g,
-                { subscriptionTypes: t },
-                { environmentType: "facebook", accessToken: e },
-              ),
-              i =
-                a == null || (n = a.waSubscriptionEntryPoints) == null
-                  ? void 0
-                  : n.subscriptionEntryPoints;
-            return i == null
-              ? m
-              : {
-                  type: "success",
-                  subscriptionEntrypoints: r("compactMap")(i, function (e) {
-                    var t;
-                    return e.subscriptionType == null
-                      ? null
-                      : {
-                          subscriptionType: o(
-                            "WAWebXWASubscriptionEntryPointTypeUtils",
-                          ).mapXWASubscriptionEntryPointTypeToString(
-                            e.subscriptionType,
-                          ),
-                          webEntryPointEligibility:
-                            (t = e.webEntryPointEligibility) != null ? t : !1,
-                          webEntryPointRedirectionUri:
-                            e.webEntryPointRedirectionUri,
-                          purchaseEligibility: x(e.purchaseEligibility),
-                        };
-                  }),
-                };
-          } catch (e) {
-            return e instanceof Error
-              ? o("WAWebFetchAdAccountToken").hasGraphQLAuthError(e)
-                ? { type: "auth-failure" }
-                : e instanceof o("WAWebGraphQLServerError").GraphQLServerError
-                  ? { type: "graphql-error", error: e }
-                  : m
-              : m;
-          }
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e) {
       if (e != null)
         return (function (e) {
           if (e === "WEB_PURCHASE") return "web_purchase";
@@ -252,7 +225,7 @@ __d(
           if (e === "NOT_ELIGIBLE") return "not_eligible";
         })(e);
     }
-    l.fetchSubscriptionEntryPoints = h;
+    l.fetchSubscriptionEntryPoints = g;
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     "AdsDataAtom",
     "FluxDerivedStore",
     "abstractMethod",
+    "observeRuntimeType",
     "shallowArrayEqual",
   ],
   function (t, n, r, o, a, i, l) {
@@ -36,24 +37,6 @@ __d(
           (o.__getAllCached = function (t) {
             return r("abstractMethod")(
               "__getAllCached",
-              "AdsBaseCombinedListStore",
-            );
-          }),
-          (o.__getLiveList = function (t, n, o) {
-            return r("abstractMethod")(
-              "__getLiveList",
-              "AdsBaseCombinedListStore",
-            );
-          }),
-          (o.__getAllDraftIDsForAccount = function (t) {
-            return r("abstractMethod")(
-              "__getAllDraftIDsForAccount",
-              "AdsBaseCombinedListStore",
-            );
-          }),
-          (o.__getParentIDForDraftChild = function (t, n) {
-            return r("abstractMethod")(
-              "__getParentIDForDraftChild",
               "AdsBaseCombinedListStore",
             );
           }),
@@ -102,10 +85,16 @@ __d(
           (o.$AdsBaseCombinedListStore$p_2 = function (t) {
             var e = t.split(":"),
               n = e[0],
-              r = e[1],
-              o = e[2],
-              a = r;
-            return { accountID: n, parentType: a, parentID: o };
+              o = e[1],
+              a = e[2],
+              i = o;
+            return (
+              r("observeRuntimeType")(
+                i,
+                "AdsBaseCombinedListStore.#decomposeKey.parentType",
+              ),
+              { accountID: n, parentType: i, parentID: a }
+            );
           }),
           n
         );

@@ -1213,14 +1213,18 @@ __d(
         },
       },
       X = {
+        orbitContainer: { backgroundImage: "x10jzswz x17bf82y", $$css: !0 },
+        orbitControl: { backgroundImage: "xaigp0h x304frb", $$css: !0 },
+      },
+      Y = {
         track: { stroke: "x1tnjt92", $$css: !0 },
         bar: { stroke: "x1606d9y", $$css: !0 },
       },
-      Y = {
+      J = {
         track: { stroke: "x7d093n", $$css: !0 },
         bar: { stroke: "x1bvusfl", $$css: !0 },
       },
-      J = {
+      Z = {
         button: { boxShadow: "x1ttlkhr", $$css: !0 },
         buttonInverted: { boxShadow: "xbmzmm3", $$css: !0 },
         creation: { boxShadow: "x9yjv04", $$css: !0 },
@@ -1240,7 +1244,7 @@ __d(
         warning: { boxShadow: "x1y97k92", $$css: !0 },
         wash: { boxShadow: "x7cea6z", $$css: !0 },
       },
-      Z = {
+      ee = {
         button: { boxShadow: "xf57m4q", $$css: !0 },
         buttonInverted: { boxShadow: "x1hcs357", $$css: !0 },
         creation: { boxShadow: "xv66ln5", $$css: !0 },
@@ -1260,9 +1264,9 @@ __d(
         warning: { boxShadow: "x1kh25du", $$css: !0 },
         wash: { boxShadow: "x11c7ln4", $$css: !0 },
       },
-      ee = { base: { boxShadow: "xs03m01", $$css: !0 } },
-      te = "xc1ozs-B",
-      ne = {
+      te = { base: { boxShadow: "xs03m01", $$css: !0 } },
+      ne = "xc1ozs-B",
+      re = {
         base: {
           animationName: "xr1tz83",
           animationIterationCount: "xa4qsjk",
@@ -1270,11 +1274,11 @@ __d(
           $$css: !0,
         },
       },
-      re = "xgn8xxl-B",
-      oe = "x1y9nga8-B",
-      ae = "x8fkpd8-B",
-      ie = "x18ppsx7-B",
-      le = {
+      oe = "xgn8xxl-B",
+      ae = "x1y9nga8-B",
+      ie = "x8fkpd8-B",
+      le = "x18ppsx7-B",
+      se = {
         error: {
           animationName: "x1mz8vpf",
           animationIterationCount: "xuij49y",
@@ -1336,13 +1340,14 @@ __d(
       (l.interactiveOverlayActiveStyles = q),
       (l.glimmerStyles = j),
       (l.glimmerVariantsStyles = Q),
-      (l.progressElementLightStyles = X),
-      (l.progressElementDarkStyles = Y),
-      (l.outlineActiveStyles = J),
-      (l.outlineFocusedStyles = Z),
-      (l.onboardingTourHighlightStyles = ee),
-      (l.onboardingPulseAnimationStyles = ne),
-      (l.guidedHighlightAnimationStyles = le));
+      (l.brandGradientStyles = X),
+      (l.progressElementLightStyles = Y),
+      (l.progressElementDarkStyles = J),
+      (l.outlineActiveStyles = Z),
+      (l.outlineFocusedStyles = ee),
+      (l.onboardingTourHighlightStyles = te),
+      (l.onboardingPulseAnimationStyles = re),
+      (l.guidedHighlightAnimationStyles = se));
   },
   98,
 );

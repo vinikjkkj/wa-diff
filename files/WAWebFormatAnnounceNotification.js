@@ -11,44 +11,24 @@ __d(
           ? (o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled() &&
-              s._(
-                /*BTDS*/ "You allowed only admins to send messages to this group.",
-              )) ||
-            s._(
-              /*BTDS*/ "You allowed only admins to send messages to this group",
-            )
+              s._(/*BTDS*/ "")) ||
+            s._(/*BTDS*/ "")
           : (o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled() &&
-              s._(
-                /*BTDS*/ "{user_name} changed this group's settings to allow only admins to send messages to this group.",
-                [s._param("user_name", n)],
-              )) ||
-            s._(
-              /*BTDS*/ "{user_name} changed this group's settings to allow only admins to send messages to this group",
-              [s._param("user_name", n)],
-            )
+              s._(/*BTDS*/ "", [s._param("user_name", n)])) ||
+            s._(/*BTDS*/ "", [s._param("user_name", n)])
         : o("WAWebSystemMessagesUtils").isMe(t)
           ? (o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled() &&
-              s._(
-                /*BTDS*/ "You changed this group's settings to allow all members to send messages to this group.",
-              )) ||
-            s._(
-              /*BTDS*/ "You changed this group's settings to allow all members to send messages to this group",
-            )
+              s._(/*BTDS*/ "")) ||
+            s._(/*BTDS*/ "")
           : (o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled() &&
-              s._(
-                /*BTDS*/ "{user_name} changed this group's settings to allow all members to send messages to this group.",
-                [s._param("user_name", n)],
-              )) ||
-            s._(
-              /*BTDS*/ "{user_name} changed this group's settings to allow all members to send messages to this group",
-              [s._param("user_name", n)],
-            );
+              s._(/*BTDS*/ "", [s._param("user_name", n)])) ||
+            s._(/*BTDS*/ "", [s._param("user_name", n)]);
     }
     l.formatAnnounceNotification = e;
   },

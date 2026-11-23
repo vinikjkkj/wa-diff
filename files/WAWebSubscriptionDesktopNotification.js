@@ -69,7 +69,7 @@ __d(
             return {
               wid: o("WAWebUserUtils").getMeUserOrThrow(),
               tag: u,
-              title: a != null ? a : s._(/*BTDS*/ "Meta One").toString(),
+              title: a != null ? a : s._(/*BTDS*/ "").toString(),
               body: r,
               doNotOpenChat: !0,
               onClick: function () {

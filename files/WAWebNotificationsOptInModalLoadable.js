@@ -5,23 +5,19 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingConfirmPopup.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebNotificationsOptInModal.react",
-          )
-            .__setRef("WAWebNotificationsOptInModalLoadable")
-            .load();
-          return e;
-        }),
-        "NotificationsOptInModal",
-      );
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebNotificationsOptInModal.react",
+        )
+          .__setRef("WAWebNotificationsOptInModalLoadable")
+          .load();
+        return e;
+      }, "NotificationsOptInModal");
     function c() {
       return u().then(function () {});
     }

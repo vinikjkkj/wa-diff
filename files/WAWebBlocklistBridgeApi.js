@@ -4,7 +4,6 @@ __d(
     "WAWebApiHydrateWidsUtil",
     "WAWebBlocklistCollection",
     "WAWebSchemaBlocklist",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = {
@@ -13,22 +12,14 @@ __d(
         (o("WAWebBlocklistCollection").BlocklistCollection.replaceAllWith(e),
           o("WAWebBlocklistCollection").BlocklistCollection.ensureContacts());
       },
-      restoreBlocklist: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebSchemaBlocklist").getBlocklistTable().all();
-          (o("WAWebBlocklistCollection").BlocklistCollection.replaceAllWith([]),
-            o(
-              "WAWebBlocklistCollection",
-            ).BlocklistCollection.initializeFromCache(
-              o("WAWebApiHydrateWidsUtil").hydrateWids(e),
-            ),
-            o("WAWebBlocklistCollection").BlocklistCollection.ensureContacts());
-        });
-        function t() {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
+      restoreBlocklist: async function () {
+        var e = await o("WAWebSchemaBlocklist").getBlocklistTable().all();
+        (o("WAWebBlocklistCollection").BlocklistCollection.replaceAllWith([]),
+          o("WAWebBlocklistCollection").BlocklistCollection.initializeFromCache(
+            o("WAWebApiHydrateWidsUtil").hydrateWids(e),
+          ),
+          o("WAWebBlocklistCollection").BlocklistCollection.ensureContacts());
+      },
     };
     l.BlocklistBridgeApi = e;
   },

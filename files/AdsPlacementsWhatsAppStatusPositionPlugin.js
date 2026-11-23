@@ -9,7 +9,6 @@ __d(
     "AdsAPIObjectives",
     "AdsAPIOptimizationGoals",
     "AdsAPITargetFields",
-    "AdsAccountStore",
     "AdsBwIPlacementUtils",
     "AdsCampaignPlacementAddDataActionFlux",
     "AdsCampaignWhatsAppStatusPositionValidator",
@@ -22,13 +21,13 @@ __d(
     "AdsPlacementPositionLabelConstant",
     "AdsPromotedObjectTypes",
     "AdsReachFrequencyPlacementUtils",
-    "AdsTargetingAccountControlInfoProvider",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
     "AdsUEditorCampaignPlacementSetActionFlux",
-    "AdsValidationConsts",
     "AdsWAMOSensitiveAdvertisersUtils",
     "WAMOStatusAdsManagerUtils",
+    "canDefaultUnknownAgeToOn",
     "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
+    "getWAMOStatusGoalLimitIneligibilityReason",
     "getWAMOStatusSACIneligibilityReason",
     "gkx",
     "immutable",
@@ -38,12 +37,9 @@ __d(
     "use strict";
     var e;
     function c(e) {
-      return o(
-        "WAMOStatusAdsManagerUtils",
-      ).isAdAccountEligibleForWAMMUnknownAge() &&
-        o(
-          "WAMOStatusAdsManagerUtils",
-        ).isOnlyMarketingMessagesSelectedFromCampaign(e)
+      return o("WAMOStatusAdsManagerUtils").isWAMMUnknownAgeEligibleForCampaign(
+        e,
+      )
         ? e
         : r("setUserAgeUnknownMutator")(e, null);
     }
@@ -91,24 +87,28 @@ __d(
       );
     }
     function _(e) {
-      var t;
+      var t,
+        n,
+        o =
+          ((t = e.destinationType) != null
+            ? t
+            : r("AdCampaignDestination").UNDEFINED) ===
+          r("AdCampaignDestination").UNDEFINED;
+      return o &&
+        ((n = e.conversionLocations) != null ? n : e.promotedObjectType) ===
+          r("AdsPromotedObjectTypes").MESSENGER
+        ? r("AdCampaignDestination").MESSENGER
+        : e.destinationType;
+    }
+    function f(e) {
+      var t = _(e);
       return o(
         "WAMOStatusAdsManagerUtils",
       ).isAdAccountEligibleForCTWEBExpansion()
-        ? p(
-            e.objective,
-            e.conversionLocations,
-            e.promotedObjectType,
-            e.destinationType,
-          )
-        : m(
-            (t = e.destinationType) != null
-              ? t
-              : r("AdCampaignDestination").UNDEFINED,
-            e.objective,
-          );
+        ? p(e.objective, e.conversionLocations, e.promotedObjectType, t)
+        : m(t != null ? t : r("AdCampaignDestination").UNDEFINED, e.objective);
     }
-    function f(e) {
+    function g(e) {
       var t,
         n = o("WAMOStatusAdsManagerUtils").getWAMOStatusEligibleObjectives();
       return n.includes(e.objective)
@@ -123,34 +123,28 @@ __d(
               (t = e.isODAXCampaignGroup) != null ? t : !1,
             );
     }
-    function g(e, t) {
-      var n,
-        a = e.getIn(["targeting", "user_age_unknown"]),
-        i =
-          e.saved_audience_id != null ||
-          ((n = e.saved_audience) == null ? void 0 : n.id) != null;
+    function h(e, t) {
       return (
         o("WAMOStatusAdsManagerUtils").isAdAccountEligibleForUnknownAge() &&
-        t === r("AdsValidationConsts").minWAMOStatusAge &&
-        a == null &&
-        !i
+        !o("WAMOStatusAdsManagerUtils").isUnsupportedAppStoreForWAMOStatus(t) &&
+        r("canDefaultUnknownAgeToOn")(e, t)
       );
     }
-    function h() {
+    function y() {
       return r("gkx")("19623") ? u("947347") : u("838299");
     }
-    var y = {
+    var C = {
         type: "placements/position",
         key: "whatsapp/status",
         name: r("AdsPlacementPositionLabelConstant").status,
-        nameWithPlatform: s._(/*BTDS*/ "WhatsApp Status"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION.WAMO_STATUS,
           imageCrop: r("AdImageSpecCropKeys")["90x160"],
           videoCrop: "9:16",
         },
         apiPosition: "status",
-        placementPreviewImage: h(),
+        placementPreviewImage: y(),
         platformKey: "whatsapp",
         isEnabled: function (t) {
           return o(
@@ -162,7 +156,7 @@ __d(
           if (e) return e;
           var n = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(y, t);
+          ).getSOOBundleParentIneligibilityReason(C, t);
           if (n != null) return n;
           if (
             t.spec &&
@@ -192,8 +186,14 @@ __d(
             );
           if (o("AdsManagerIGLoginUtils").getIsIGLogin(t.account))
             return o("AdsPlacementIneligibilityReason").createIGLoginReason();
-          var i = f(t);
+          var i = g(t);
           if (i != null) return i;
+          if (
+            o("WAMOStatusAdsManagerUtils").isUnsupportedAppStoreForWAMOStatus(t)
+          )
+            return o("AdsPlacementIneligibilityReason").createCustomReason(
+              s._(/*BTDS*/ ""),
+            );
           if (t.productSetID != null) {
             var l = o(
               "WAMOStatusAdsManagerUtils",
@@ -202,25 +202,25 @@ __d(
               return o(
                 "AdsPlacementIneligibilityReason",
               ).createWAMOStatusProductCatalogReason();
-            var s = t.catalogVertical,
-              u =
-                s == null ||
+            var u = t.catalogVertical,
+              c =
+                u == null ||
                 o(
                   "WAMOStatusAdsManagerUtils",
-                ).isCatalogVerticalSupportedForDPACreation(s);
-            if (s != null && !u)
+                ).isCatalogVerticalSupportedForDPACreation(u);
+            if (u != null && !c)
               return o(
                 "AdsPlacementIneligibilityReason",
               ).createWAMOStatusProductCatalogReason();
           }
-          var c = _(t);
-          if (c != null) return c;
-          var d = o(
+          var d = f(t);
+          if (d != null) return d;
+          var m = o(
             "WAMOStatusAdsManagerUtils",
           ).getWAMOStatusEligibleOptimizationGoal(t.objective);
           if (
             t.destinationType === r("AdCampaignDestination").ON_POST ||
-            (t.optimizationGoal != null && !d.includes(t.optimizationGoal))
+            (t.optimizationGoal != null && !m.includes(t.optimizationGoal))
           )
             return o(
               "AdsPlacementIneligibilityReason",
@@ -240,12 +240,25 @@ __d(
                 "WAMOStatusAdsManagerUtils",
               ).isAdAccountEligibleForOCExpansion() &&
                 t.optimizationGoal === r("AdsAPIOptimizationGoals").VALUE,
+              o(
+                "WAMOStatusAdsManagerUtils",
+              ).isAdAccountEligibleForLeadGenExpansion() &&
+                t.optimizationGoal ===
+                  r("AdsAPIOptimizationGoals").QUALITY_LEAD &&
+                !m.includes(t.optimizationGoal),
+              t.optimizationGoal === r("AdsAPIOptimizationGoals").LINK_CLICKS &&
+                o("WAMOStatusAdsManagerUtils").isWAMOStatusAppPromotion(
+                  t.objective,
+                ),
             );
-          var m = r("getWAMOStatusSACIneligibilityReason")(
+          var p = r("getWAMOStatusGoalLimitIneligibilityReason")(t);
+          if (p != null) return p;
+          var _ = r("getWAMOStatusSACIneligibilityReason")(
             t.specialAdCategories,
+            t.specialAdCategoryCountry,
           );
-          return m != null
-            ? m
+          return _ != null
+            ? _
             : t.spec.device_platforms &&
                 !t.spec.device_platforms.includes(
                   r("AdsAPIDevicePlatform").MOBILE,
@@ -287,81 +300,68 @@ __d(
           return "previews/whatsapp_status";
         },
         adsetReducer: function (t, n) {
-          var e,
-            a,
-            i,
-            l = n.action,
-            s = r("AdsAccountStore").getSelectedAccount().getValue(),
-            u = r("AdsTargetingAccountControlInfoProvider")
-              .toFluxStore()
-              .getState()
-              .get((e = s == null ? void 0 : s.account_id) != null ? e : ""),
-            d =
-              (a =
-                u == null ||
-                (i = u.getValue()) == null ||
-                (i = i.audience_controls) == null
-                  ? void 0
-                  : i.age_min) != null
-                ? a
-                : r("AdsValidationConsts").minWAMOStatusAge;
-          switch (l.type) {
+          var e = n.action;
+          switch (e.type) {
             case o("AdsUEditorCampaignPlacementSetActionFlux").actionType:
-              return l.removeGroups.includes("whatsapp/status")
-                ? o("AdsMutators").mutateEach(t, l.campaignIDs, function (e) {
-                    var t = o("AdsPlacementAPISpecWriterUtils").removeGroup(
-                      e,
+              return e.removeGroups.includes("whatsapp/status")
+                ? o("AdsMutators").mutateEach(t, e.campaignIDs, function (t) {
+                    var n = o("AdsPlacementAPISpecWriterUtils").removeGroup(
+                      t,
                       "whatsapp/status",
-                      l.eligibilityInformation,
+                      e.eligibilityInformation,
                       r("AdsAPITargetFields").WHATSAPP_POSITIONS,
                       "whatsapp",
                     );
-                    return c(t);
+                    return c(n);
                   })
-                : l.addGroups.includes("whatsapp/status")
-                  ? o("AdsMutators").mutateEach(t, l.campaignIDs, function (e) {
-                      var t = o("AdsPlacementAPISpecWriterUtils").addGroup(
-                        e,
+                : e.addGroups.includes("whatsapp/status")
+                  ? o("AdsMutators").mutateEach(t, e.campaignIDs, function (t) {
+                      var n = o("AdsPlacementAPISpecWriterUtils").addGroup(
+                        t,
                         "whatsapp/status",
-                        l.eligibilityInformation,
+                        e.eligibilityInformation,
                         r("AdsAPITargetFields").WHATSAPP_POSITIONS,
                         "whatsapp",
                       );
-                      return g(t, d) ? r("setUserAgeUnknownMutator")(t, !0) : t;
+                      return h(n, e.eligibilityInformation)
+                        ? r("setUserAgeUnknownMutator")(n, !0)
+                        : n;
                     })
                   : t;
             case o("AdsCampaignPlacementAddDataActionFlux").actionType:
-              return o("AdsMutators").mutateEach(t, l.ids, function (e) {
-                var t = o("AdsPlacementAPISpecWriterUtils").addGroup(
-                  e,
-                  l.pluginKey,
-                  l.eligibilityInformation,
+              return o("AdsMutators").mutateEach(t, e.ids, function (t) {
+                var n = o("AdsPlacementAPISpecWriterUtils").addGroup(
+                  t,
+                  e.pluginKey,
+                  e.eligibilityInformation,
                   r("AdsAPITargetFields").WHATSAPP_POSITIONS,
                   "whatsapp",
                 );
-                return g(t, d) ? r("setUserAgeUnknownMutator")(t, !0) : t;
+                return h(n, e.eligibilityInformation)
+                  ? r("setUserAgeUnknownMutator")(n, !0)
+                  : n;
               });
             case o("AdsUEditorCampaignPlacementRemoveActionFlux").actionType:
               return o("AdsMutators").mutateEach(
                 t,
-                l.campaignIDs,
-                function (e) {
-                  var t = o("AdsPlacementAPISpecWriterUtils").removeGroup(
-                    e,
-                    l.pluginKey,
-                    l.eligibilityInformation,
+                e.campaignIDs,
+                function (t) {
+                  var n = o("AdsPlacementAPISpecWriterUtils").removeGroup(
+                    t,
+                    e.pluginKey,
+                    e.eligibilityInformation,
                     r("AdsAPITargetFields").WHATSAPP_POSITIONS,
                     "whatsapp",
                   );
-                  return c(t);
+                  return c(n);
                 },
               );
           }
           return t;
         },
       },
-      C = y;
-    l.default = C;
+      b = C;
+    l.default = b;
   },
   226,
 );

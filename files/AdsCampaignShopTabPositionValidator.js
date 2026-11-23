@@ -89,9 +89,7 @@ __d(
                   new (r("AdsError"))(
                     2490312,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "If you would like to run ads in Instagram Shop, you must also select Instagram Feed as a placement.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       cta: r("AdsErrorsCTAStrings").EDIT_PLACEMENTS_CTA,

@@ -2,252 +2,175 @@ __d(
   "WAWebHatchCvmSecretPref",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsMeUser",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u,
-      c = "WAHatchCvmSecret",
-      d = r("JSResourceForInteraction")("WAWebHatchCvmKey").__setRef(
+      u = "WAHatchCvmSecret",
+      c = r("JSResourceForInteraction")("WAWebHatchCvmKey").__setRef(
         "WAWebHatchCvmSecretPref",
       ),
-      m = "WAHatchCvmVmTransferring",
-      p = new Set();
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
+      d = "WAHatchCvmVmTransferring",
+      m = new Set();
+    async function p(e) {
+      var t,
+        n = await c.load(),
+        r = n.importCvmAccountSecret,
+        a = await r(e.secret);
+      await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
+      var i = E(e.ownerLid),
+        l = Math.max(
+          ((t = i == null ? void 0 : i.generation) != null ? t : 0) + 1,
+          o("WATimeUtils").unixTimeMs(),
+        );
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = yield d.load(),
-            r = n.importCvmAccountSecret,
-            a = yield r(e.secret);
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var i = N(e.ownerLid),
-            l = Math.max(
-              ((t = i == null ? void 0 : i.generation) != null ? t : 0) + 1,
-              o("WATimeUtils").unixTimeMs(),
-            );
-          return (
-            yield w({
-              generation: l,
-              ownerLid: o("WAWebWidToJid").userLidtoLidUserJid(e.ownerLid),
-              secret: a,
-              vmType: i == null ? void 0 : i.vmType,
-            }),
-            l
-          );
-        })),
-        f.apply(this, arguments)
+        await I({
+          generation: l,
+          ownerLid: o("WAWebWidToJid").userLidtoLidUserJid(e.ownerLid),
+          secret: a,
+          vmType: i == null ? void 0 : i.vmType,
+        }),
+        l
       );
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    async function _(e) {
+      await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
+      var t = E(e.ownerLid);
+      (t == null ? void 0 : t.secret) == null ||
+        t.generation !== e.generation ||
+        (await I(babelHelpers.extends({}, t, { secret: null })));
     }
-    function h() {
+    async function f() {
+      try {
+        if (
+          (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(), !R())
+        )
+          return;
+        await Promise.all([
+          o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(u),
+          o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(d),
+        ]);
+      } catch (t) {
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "hatch-cvm: CVM state not cleared",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("hatch-cvm-clear-failed");
+        return;
+      }
+      $();
+    }
+    async function g(e, t) {
+      var n;
+      (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+        ((n = E(e)) == null ? void 0 : n.vmType) !== t && (await k(e, t)));
+    }
+    async function h(e) {
+      var t, n;
+      await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
+      var r = e.ownerLid,
+        a = e.status,
+        i = (t = (n = E(r)) == null ? void 0 : n.vmType) != null ? t : null,
+        l = a.vmState === "TRANSFERRING",
+        s = D(r),
+        u = x({ current: i, status: a, transferEnded: s && !l }),
+        c = u === i ? null : k(r, u),
+        d = l === s ? null : T({ ownerLid: r, transferring: l });
+      await Promise.all([c, d]);
+    }
+    async function y() {
+      await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
+      var e = L();
+      return (e == null ? void 0 : e.secret) == null || e.generation == null
+        ? null
+        : { generation: e.generation, key: e.secret };
+    }
+    async function C() {
+      var e, t;
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var t = N(e.ownerLid);
-          (t == null ? void 0 : t.secret) == null ||
-            t.generation !== e.generation ||
-            (yield w(babelHelpers.extends({}, t, { secret: null })));
-        })),
-        h.apply(this, arguments)
+        await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+        (e = (t = L()) == null ? void 0 : t.vmType) != null ? e : null
       );
     }
-    function y() {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            if (
-              (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-              !$())
-            )
-              return;
-            yield (u || (u = n("Promise"))).all([
-              o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(c),
-              o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(m),
-            ]);
-          } catch (e) {
-            o("WALogger")
-              .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "hatch-cvm: CVM state not cleared",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("hatch-cvm-clear-failed");
-            return;
-          }
-          q();
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
-          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            ((n = N(e)) == null ? void 0 : n.vmType) !== t && (yield M(e, t)));
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, r;
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var a = e.ownerLid,
-            i = e.status,
-            l = (t = (r = N(a)) == null ? void 0 : r.vmType) != null ? t : null,
-            s = i.vmState === "TRANSFERRING",
-            c = B(a),
-            d = W({ current: l, status: i, transferEnded: c && !s }),
-            m = d === l ? null : M(a, d),
-            p = s === c ? null : F({ ownerLid: a, transferring: s });
-          yield (u || (u = n("Promise"))).all([m, p]);
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L() {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var e = P();
-          return (e == null ? void 0 : e.secret) == null || e.generation == null
-            ? null
-            : { generation: e.generation, key: e.secret };
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k() {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e, t;
-          return (
-            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            (e = (t = P()) == null ? void 0 : t.vmType) != null ? e : null
-          );
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T() {
+    function b() {
       var e = o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
-        t = e == null ? null : N(e);
+        t = e == null ? null : E(e);
       return {
         hasSecret: (t == null ? void 0 : t.secret) != null,
         isConfidential: (t == null ? void 0 : t.vmType) === "confidential",
-        isTransferring: e != null && B(e),
+        isTransferring: e != null && D(e),
       };
     }
-    function D() {
+    function v() {
       var e, t;
-      return (e = (t = P()) == null ? void 0 : t.vmType) != null ? e : null;
+      return (e = (t = L()) == null ? void 0 : t.vmType) != null ? e : null;
     }
-    function x(e) {
+    function S(e) {
       return (
-        p.add(e),
+        m.add(e),
         function () {
-          p.delete(e);
+          m.delete(e);
         }
       );
     }
-    function $() {
+    function R() {
       return (
-        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(c) != null ||
-        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m) != null
+        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(u) != null ||
+        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(d) != null
       );
     }
-    function P() {
+    function L() {
       var e = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
-      return e == null ? null : N(e);
+      return e == null ? null : E(e);
     }
-    function N(e) {
-      var t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(c);
+    function E(e) {
+      var t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(u);
       return (t == null ? void 0 : t.ownerLid) ===
         o("WAWebWidToJid").userLidtoLidUserJid(e)
         ? t
         : null;
     }
-    function M(e, t) {
-      var n = N(e);
-      return w({
+    function k(e, t) {
+      var n = E(e);
+      return I({
         generation: n == null ? void 0 : n.generation,
         ownerLid: o("WAWebWidToJid").userLidtoLidUserJid(e),
         secret: n == null ? void 0 : n.secret,
         vmType: t,
       });
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    async function I(e) {
+      (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(u, e), $());
     }
-    function A() {
+    async function T(e) {
+      var t = e.ownerLid,
+        n = e.transferring;
+      (await (n
+        ? o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            d,
+            o("WAWebWidToJid").userLidtoLidUserJid(t),
+          )
+        : o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(d)),
+        $());
+    }
+    function D(e) {
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(c, e),
-            q());
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F(e) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.ownerLid,
-            n = e.transferring;
-          (yield n
-            ? o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                m,
-                o("WAWebWidToJid").userLidtoLidUserJid(t),
-              )
-            : o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(m),
-            q());
-        })),
-        O.apply(this, arguments)
-      );
-    }
-    function B(e) {
-      return (
-        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m) ===
+        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(d) ===
         o("WAWebWidToJid").userLidtoLidUserJid(e)
       );
     }
-    function W(e) {
+    function x(e) {
       var t = e.current,
         n = e.status,
         r = e.transferEnded;
@@ -261,32 +184,32 @@ __d(
               ? "standard"
               : t;
     }
-    function q() {
-      for (var t of Array.from(p))
+    function $() {
+      for (var e of Array.from(m))
         try {
-          t();
-        } catch (t) {
+          e();
+        } catch (e) {
           o("WALogger")
             .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "hatch-cvm: secret change listener failed",
                 ])),
             )
-            .catching(r("getErrorSafe")(t))
+            .catching(r("getErrorSafe")(e))
             .sendLogs("hatch-cvm-secret-listener-failed");
         }
     }
-    ((l.saveHatchCvmSecret = _),
-      (l.removeHatchCvmSecret = g),
-      (l.clearHatchCvmState = y),
-      (l.saveHatchCvmVmType = b),
-      (l.applyHatchCvmLinkedStatus = S),
-      (l.readHatchCvmSecret = L),
-      (l.readHatchCvmVmType = k),
-      (l.peekHatchCvmReadOnlyInputs = T),
-      (l.peekHatchCvmVmType = D),
-      (l.subscribeToHatchCvmSecretChanges = x));
+    ((l.saveHatchCvmSecret = p),
+      (l.removeHatchCvmSecret = _),
+      (l.clearHatchCvmState = f),
+      (l.saveHatchCvmVmType = g),
+      (l.applyHatchCvmLinkedStatus = h),
+      (l.readHatchCvmSecret = y),
+      (l.readHatchCvmVmType = C),
+      (l.peekHatchCvmReadOnlyInputs = b),
+      (l.peekHatchCvmVmType = v),
+      (l.subscribeToHatchCvmSecretChanges = S));
   },
   98,
 );

@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["workspaceInstanceId"],
-      s = new Set(["ads_manager", "boost", "mbs_creation"]),
+      s = new Set(["ads_manager", "boost", "ig", "mbs_creation"]),
       u = new Set([
         "a2ui",
         "ad_draft_editor",

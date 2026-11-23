@@ -4,7 +4,6 @@ __d(
     "AbraScrollUtils",
     "MAIBAWorkspaceCanvasContext",
     "react",
-    "react-compiler-runtime",
     "useMergeRefs",
     "useResizeObserver",
   ],
@@ -24,254 +23,211 @@ __d(
       y = 16,
       C = 50,
       b = {
+        contentElementRef: { current: null },
         enableAutoScroll: function () {},
         lockRef: function () {},
+        preserveScrollOnNextMessage: function () {},
         scrollParentElement: null,
         scrollToBottom: function () {},
         spacerRef: function () {},
       },
       v = c(b);
     function S(e) {
-      var t = o("react-compiler-runtime").c(28),
-        n = e.children,
-        a = e.isHandoverActive,
-        i = e.messageCount,
-        l = g(),
-        u = g(),
+      var t = e.children,
+        n = e.initialAutoScrollEnabled,
+        a = n === void 0 ? !0 : n,
+        i = e.isHandoverActive,
+        l = e.lastMessageKey,
+        u = e.messageCount,
         c = g(),
-        d = h(null),
-        m = d[0],
-        f = d[1],
-        C = g(!0),
-        b = g(a === !0),
-        S,
-        R;
-      (t[0] !== a
-        ? ((S = function () {
-            b.current = a === !0;
-          }),
-          (R = [a]),
-          (t[0] = a),
-          (t[1] = S),
-          (t[2] = R))
-        : ((S = t[1]), (R = t[2])),
-        _(S, R));
-      var I;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = function () {
-            C.current = !0;
-          }),
-          (t[3] = I))
-        : (I = t[3]);
-      var T = I,
-        D;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((D = function () {
-            C.current = !0;
-            var e = c.current;
-            e != null &&
-              e.scrollHeight > e.clientHeight &&
-              e.scrollTo({
-                behavior: "smooth",
-                top: e.scrollHeight - e.clientHeight,
-              });
-          }),
-          (t[4] = D))
-        : (D = t[4]);
-      var x = D,
-        $ = g(),
-        P = g(i),
-        N = g(),
-        M = g(),
-        w = g("auto"),
-        A = o("MAIBAWorkspaceCanvasContext").useMAIBAWorkspaceCanvas(),
-        F = A.isWidthTransitioningRef,
-        O = g(!1),
-        B;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((B = function () {
-            var e = l.current,
-              t = c.current;
-            if (e == null || t == null) return null;
-            var n = o("AbraScrollUtils").getOffsetTopFromScrollParent(e, t);
-            return (
-              (n = n - o("AbraScrollUtils").getScrollPaddingTop(t)),
-              (n = n - y),
-              n
-            );
-          }),
-          (t[5] = B))
-        : (B = t[5]);
-      var W = B,
-        q;
-      t[6] === Symbol.for("react.memo_cache_sentinel")
-        ? ((q = function (t, n, r) {
-            var e = c.current;
-            if (e) {
-              var o = t;
-              if (n != null) {
-                var a,
-                  i = (a = N.current) != null ? a : n;
-                n < o && n >= i && (o = n);
-              }
-              e.scrollHeight > e.clientHeight &&
-                e.scrollTop !== o &&
-                e.scrollTo({ behavior: r, top: o });
-            }
-          }),
-          (t[6] = q))
-        : (q = t[6]);
-      var U = q,
-        V;
-      t[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((V = function (t) {
-            var e = c.current,
-              n = M.current;
-            if (!(e == null || n == null || t == null)) {
-              var r = o("AbraScrollUtils").getOffsetTopFromScrollParent(n, e),
-                a = r - t,
-                i = Math.max(e.clientHeight - a, 0);
-              n.style.height = i + "px";
-            }
-          }),
-          (t[7] = V))
-        : (V = t[7]);
-      var H = V,
-        G;
-      t[8] !== F
-        ? ((G = function () {
-            var e = c.current,
-              t = N.current;
-            (e && t != null && !F.current && (C.current = k(e, t, C.current)),
-              (N.current = e == null ? void 0 : e.scrollTop));
-          }),
-          (t[8] = F),
-          (t[9] = G))
-        : (G = t[9]);
-      var z = G,
-        j,
-        K;
-      (t[10] !== i
-        ? ((K = function () {
-            var e = P.current;
-            ((P.current = i), e > 0 && i > e && (C.current = !0));
-          }),
-          (j = [i]),
-          (t[10] = i),
-          (t[11] = j),
-          (t[12] = K))
-        : ((j = t[11]), (K = t[12])),
-        _(K, j));
-      var Q;
-      t[13] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Q = function (t, n, r) {
-            var e = E($.current, n.height, w.current);
-            (b.current
-              ? t.scrollTo({
-                  behavior: e,
-                  top: t.scrollHeight - t.clientHeight,
-                })
-              : (H(r), U(t.scrollHeight, r, e)),
-              (w.current = "smooth"));
-          }),
-          (t[13] = Q))
-        : (Q = t[13]);
-      var X = Q,
-        Y;
-      t[14] !== F || t[15] !== z
-        ? ((Y = function (t, n) {
-            c.current ||
-              ((c.current = o("AbraScrollUtils").getScrollParent(n)),
-              f(c.current));
-            var e = c.current;
-            if (e != null) {
-              if (!u.current) {
-                var r = L(e);
-                (r == null || r.addEventListener("scroll", z, { passive: !0 }),
-                  (u.current = r));
-              }
-              var a = F.current;
-              if (
-                (O.current && !a && ($.current = null),
-                (O.current = a),
-                $.current !== t.height)
-              ) {
-                if (a) {
-                  $.current = t.height;
-                  return;
-                }
-                var i = W();
-                C.current ? X(e, t, i) : H(i);
-              }
-              $.current = t.height;
-            }
-          }),
-          (t[14] = F),
-          (t[15] = z),
-          (t[16] = Y))
-        : (Y = t[16]);
-      var J = r("useResizeObserver")(Y),
-        Z = g(),
-        ee = r("useMergeRefs")(J, Z),
-        te,
-        ne;
-      (t[17] !== z
-        ? ((te = function () {
-            return function () {
-              if (u.current) {
-                var e;
-                ((e = u.current) == null || e.removeEventListener("scroll", z),
-                  (u.current = null));
-              }
-            };
-          }),
-          (ne = [z]),
-          (t[17] = z),
-          (t[18] = te),
-          (t[19] = ne))
-        : ((te = t[18]), (ne = t[19])),
-        p(te, ne));
-      var re;
-      t[20] !== m
-        ? ((re = {
-            enableAutoScroll: T,
-            lockRef: l,
-            scrollParentElement: m,
-            scrollToBottom: x,
-            spacerRef: M,
-          }),
-          (t[20] = m),
-          (t[21] = re))
-        : (re = t[21]);
-      var oe = re,
-        ae;
-      t[22] !== n || t[23] !== ee
-        ? ((ae = typeof n == "function" ? n(ee) : n),
-          (t[22] = n),
-          (t[23] = ee),
-          (t[24] = ae))
-        : (ae = t[24]);
-      var ie;
-      return (
-        t[25] !== ae || t[26] !== oe
-          ? ((ie = s.jsx(v.Provider, { value: oe, children: ae })),
-            (t[25] = ae),
-            (t[26] = oe),
-            (t[27] = ie))
-          : (ie = t[27]),
-        ie
+        m = g(),
+        C = g(),
+        b = h(null),
+        S = b[0],
+        R = b[1],
+        T = g(null),
+        D = g(a),
+        x = g(!1),
+        $ = g(i === !0);
+      _(
+        function () {
+          $.current = i === !0;
+        },
+        [i],
       );
+      var P = d(function () {
+          ((x.current = !1), (D.current = !0));
+        }, []),
+        N = d(function () {
+          ((x.current = !0), (D.current = !1));
+        }, []),
+        M = d(function () {
+          ((x.current = !1), (D.current = !0));
+          var e = C.current;
+          e != null &&
+            e.scrollHeight > e.clientHeight &&
+            e.scrollTo({
+              behavior: "smooth",
+              top: e.scrollHeight - e.clientHeight,
+            });
+        }, []),
+        w = g(),
+        A = g(u),
+        F = g(l),
+        O = g(),
+        B = g(),
+        W = g("auto"),
+        q = o("MAIBAWorkspaceCanvasContext").useMAIBAWorkspaceCanvas(),
+        U = q.isWidthTransitioningRef,
+        V = g(!1);
+      function H() {
+        var e = c.current,
+          t = C.current;
+        if (e == null || t == null) return null;
+        var n = o("AbraScrollUtils").getOffsetTopFromScrollParent(e, t);
+        return (
+          (n -= o("AbraScrollUtils").getScrollPaddingTop(t)),
+          (n -= y),
+          n
+        );
+      }
+      function G(e, t, n) {
+        var r = C.current,
+          o = E(e, t, O.current);
+        r != null &&
+          r.scrollHeight > r.clientHeight &&
+          r.scrollTop !== o &&
+          r.scrollTo({ behavior: n, top: o });
+      }
+      function z(e) {
+        var t = C.current,
+          n = B.current;
+        if (!(t == null || n == null || e == null)) {
+          var r = o("AbraScrollUtils").getOffsetTopFromScrollParent(n, t),
+            a = r - e,
+            i = Math.max(t.clientHeight - a, 0);
+          n.style.height = i + "px";
+        }
+      }
+      var j = d(
+        function () {
+          var e = C.current,
+            t = O.current;
+          (e && t != null && !U.current && (D.current = I(e, t, D.current)),
+            (O.current = e == null ? void 0 : e.scrollTop));
+        },
+        [U],
+      );
+      _(
+        function () {
+          var e = A.current;
+          A.current = u;
+          var t = F.current;
+          ((F.current = l),
+            e > 0 &&
+              u > e &&
+              (l == null || l !== t) &&
+              (x.current ? (x.current = !1) : (D.current = !0)));
+        },
+        [l, u],
+      );
+      function K(e, t, n) {
+        var r = k(w.current, t.height, W.current);
+        ($.current
+          ? e.scrollTo({ behavior: r, top: e.scrollHeight - e.clientHeight })
+          : (z(n), G(e.scrollHeight, n, r)),
+          (W.current = "smooth"));
+      }
+      var Q = g(),
+        X = g(!1),
+        Y = r("useResizeObserver")(function (e) {
+          var t = Q.current;
+          Q.current = e.height;
+          var n = U.current,
+            r = X.current && !n;
+          ((X.current = n),
+            !(t == null || n || (t === e.height && !r)) && z(H()));
+        }),
+        J = r("useResizeObserver")(function (e, t) {
+          C.current ||
+            ((C.current = o("AbraScrollUtils").getScrollParent(t)),
+            (T.current = t),
+            R(C.current));
+          var n = C.current;
+          if (n != null) {
+            if (!m.current) {
+              var r = L(n);
+              (r == null || r.addEventListener("scroll", j, { passive: !0 }),
+                (m.current = r),
+                Y(n));
+            }
+            var a = U.current;
+            if (
+              (V.current && !a && (w.current = null),
+              (V.current = a),
+              w.current !== e.height)
+            ) {
+              if (a) {
+                w.current = e.height;
+                return;
+              }
+              var i = H();
+              D.current ? K(n, e, i) : z(i);
+            }
+            w.current = e.height;
+          }
+        }),
+        Z = g(),
+        ee = r("useMergeRefs")(J, Z);
+      p(
+        function () {
+          return function () {
+            if (m.current) {
+              var e;
+              ((e = m.current) == null || e.removeEventListener("scroll", j),
+                (m.current = null));
+            }
+            Y(null);
+          };
+        },
+        [Y, j],
+      );
+      var te = f(
+        function () {
+          return {
+            contentElementRef: T,
+            enableAutoScroll: P,
+            lockRef: c,
+            preserveScrollOnNextMessage: N,
+            scrollParentElement: S,
+            scrollToBottom: M,
+            spacerRef: B,
+          };
+        },
+        [P, N, S, M],
+      );
+      return s.jsx(v.Provider, {
+        value: te,
+        children: typeof t == "function" ? t(ee) : t,
+      });
     }
+    S.displayName = S.name + " [from " + i.id + "]";
     function R() {
       return m(v);
     }
     function L(e) {
-      return e === document.documentElement ? window : e;
+      var t = e == null ? void 0 : e.ownerDocument;
+      return t != null && e === t.documentElement ? t.defaultView : e;
     }
     function E(e, t, n) {
-      return e != null && t < e ? "auto" : n;
+      if (t == null) return e;
+      var r = n != null ? n : t;
+      return t < e && t >= r ? t : e;
     }
     function k(e, t, n) {
+      return e != null && t < e ? "auto" : n;
+    }
+    function I(e, t, n) {
       var r = e.scrollTop + e.clientHeight;
       return r === e.scrollHeight
         ? !0

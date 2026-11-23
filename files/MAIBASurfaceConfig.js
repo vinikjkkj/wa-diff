@@ -8,38 +8,43 @@ __d(
       u,
       c,
       d,
-      m = n("$InternalEnum")({
+      m,
+      p = n("$InternalEnum")({
         ADS_MANAGER: "ads_manager",
         MBS: "mbs",
         NONE: "none",
       }),
-      p = {
-        assetAutoSelectVariant: m.NONE,
+      _ = {
+        assetAutoSelectVariant: p.NONE,
+        attachesDroppedFiles: !1,
+        attachesPastedFiles: !1,
         promptPlacement: "ADS_MANAGER_DESKTOP_IN_CHAT",
         shouldUseIGGraphQLQuery: !1,
       },
-      _ =
-        ((d = {}),
-        (d["Ads Manager (Campaigns)"] = {
-          assetAutoSelectVariant: m.ADS_MANAGER,
+      f =
+        ((m = {}),
+        (m["Ads Manager (Campaigns)"] = {
+          assetAutoSelectVariant: p.ADS_MANAGER,
         }),
-        (d["Account Overview"] = {}),
-        (d["Ad Account Settings"] = {}),
-        (d["Ads Reporting"] = {}),
-        (d["Advertising Settings"] = {}),
-        (d.Audiences = {}),
-        (d["Automated Rules"] = {}),
-        (d["Billing & Payments"] = {
+        (m["Account Overview"] = {}),
+        (m["Ad Account Settings"] = {}),
+        (m["Ads Reporting"] = {}),
+        (m["Advertising Settings"] = {}),
+        (m.Audiences = {}),
+        (m["Automated Rules"] = {}),
+        (m["Billing & Payments"] = {
           promptPlacement: "META_BUSINESS_SUITE_BILLING_PAYMENTS",
         }),
-        (d["Creation Package"] = {}),
-        (d["Creative Reporting"] = {}),
-        (d["Business Support"] = { promptPlacement: "BUSINESS_SUPPORT_HOME" }),
-        (d["Business Help Center"] = {
+        (m["Creation Package"] = {}),
+        (m["Creative Reporting"] = {}),
+        (m["Business Support"] = { promptPlacement: "BUSINESS_SUPPORT_HOME" }),
+        (m["Business Help Center"] = {
           promptPlacement: "BUSINESS_HELP_CENTER",
         }),
-        (d.MBS = {
-          assetAutoSelectVariant: m.MBS,
+        (m.DIRECT_SUPPORT = { promptPlacement: "DIRECT_SUPPORT" }),
+        (m["Embedded Signup"] = { promptPlacement: "EMBEDDED_SIGNUP" }),
+        (m.MBS = {
+          assetAutoSelectVariant: p.MBS,
           promptPlacement: "META_BUSINESS_SUITE",
           tabs:
             ((s = {}),
@@ -49,12 +54,15 @@ __d(
             (s.Content = { promptPlacement: "META_BUSINESS_SUITE_CONTENT" }),
             (s.Planner = { promptPlacement: "META_BUSINESS_SUITE_PLANNER" }),
             (s["Campaign Planner"] = {
+              attachesDroppedFiles: !0,
+              attachesPastedFiles: !0,
               promptPlacement: "META_BUSINESS_SUITE_REACH_PLANNER",
             }),
             (s.Insights = { promptPlacement: "META_BUSINESS_SUITE_INSIGHTS" }),
             (s.Settings = { promptPlacement: "META_BUSINESS_SUITE_SETTINGS" }),
-            (s.Payments = {
-              promptPlacement: "META_BUSINESS_SUITE_BILLING_PAYMENTS",
+            (s.Payments = { promptPlacement: "META_BUSINESS_SUITE_PAYOUTS" }),
+            (s["Marketing Messages Audiences"] = {
+              promptPlacement: "WHATSAPP_MANAGER_MESSAGE_AUDIENCES",
             }),
             (s["WA Messaging Audience"] = {
               promptPlacement: "WHATSAPP_MANAGER_MESSAGE_AUDIENCES",
@@ -73,7 +81,7 @@ __d(
             }),
             s),
         }),
-        (d["Facebook Ad Center"] = {
+        (m["Facebook Ad Center"] = {
           promptPlacement: "FACEBOOK_AD_CENTER",
           tabs:
             ((u = {}),
@@ -88,7 +96,7 @@ __d(
             }),
             u),
         }),
-        (d.Instagram = {
+        (m.Instagram = {
           promptPlacement: "IG_AD_TOOLS",
           shouldUseIGGraphQLQuery: !0,
           tabs:
@@ -96,32 +104,44 @@ __d(
             (c["Instagram Boost Page"] = { promptPlacement: "IG_BOOST" }),
             c),
         }),
-        (d["Organization Manager"] = {
+        (m["Organization Manager"] = {
           promptPlacement: "ORGANIZATION_MANAGER",
         }),
-        (d["Events Manager"] = {}),
-        (d["Commerce Manager"] = { promptPlacement: "COMMERCE_MANAGER" }),
-        (d["Monetization Manager"] = {}),
-        (d["WhatsApp Manager"] = { promptPlacement: "WHATSAPP_MANAGER" }),
-        (d["Brand Safety"] = { promptPlacement: "BRAND_SAFETY_HUB" }),
-        d);
-    function f(t, n) {
-      if (t == null) return p;
-      var r = _[t];
-      if (r == null) return p;
+        (m["Events Manager"] = {}),
+        (m["Commerce Manager"] = { promptPlacement: "COMMERCE_MANAGER" }),
+        (m["Monetization Manager"] = {
+          promptPlacement: "MONETIZATION_MANAGER_AUDIENCE_NETWORK",
+          tabs:
+            ((d = {}),
+            (d["Monetization Manager Payouts"] = {
+              promptPlacement: "MONETIZATION_MANAGER",
+            }),
+            d),
+        }),
+        (m["WhatsApp Manager"] = { promptPlacement: "WHATSAPP_MANAGER" }),
+        (m["Brand Safety"] = { promptPlacement: "BRAND_SAFETY_HUB" }),
+        m);
+    function g(t, n) {
+      if (t == null) return _;
+      var r = f[t];
+      if (r == null) return _;
       var o = r.tabs,
         a = babelHelpers.objectWithoutPropertiesLoose(r, e),
         i = n != null && o != null ? o[n] : null;
       return i == null
-        ? babelHelpers.extends({}, p, a)
-        : babelHelpers.extends({}, p, a, i);
+        ? babelHelpers.extends({}, _, a)
+        : babelHelpers.extends({}, _, a, i);
     }
-    function g(e) {
+    function h(e) {
       return e === "MBS" || e === "MBS (iOS)" || e === "MBS (Android)";
     }
-    ((l.AssetAutoSelectVariants = m),
-      (l.getMAIBASurfaceConfig = f),
-      (l.isMBSSurfaceTool = g));
+    function y(e) {
+      return e === "Ads Manager App (iOS)" || e === "Ads Manager App (Android)";
+    }
+    ((l.AssetAutoSelectVariants = p),
+      (l.getMAIBASurfaceConfig = g),
+      (l.isMBSSurfaceTool = h),
+      (l.isAMASurfaceTool = y));
   },
   98,
 );

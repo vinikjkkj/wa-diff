@@ -29,7 +29,7 @@ __d(
                 }),
                 h = m.clone().subtract(1, "day");
               ((u = {
-                title: r("fbs")._(/*BTDS*/ "Yesterday").toString(),
+                title: r("fbs")._(/*BTDS*/ "").toString(),
                 subtitle: g.format(h.toDate()),
               }),
                 (c = "yesterday"));
@@ -45,7 +45,7 @@ __d(
                   }),
                   S = v.formatRange(C.toDate(), b.toDate());
                 ((u = {
-                  title: r("fbs")._(/*BTDS*/ "Last week").toString(),
+                  title: r("fbs")._(/*BTDS*/ "").toString(),
                   subtitle: S,
                 }),
                   (c = "lastweek"));

@@ -3,15 +3,19 @@ __d(
   [
     "AdCampaignDestination",
     "AdsAPIAdgroupRecordUtils",
+    "AdsAPICampaignRecordUtils",
     "AdsAPIDevicePlatform",
     "AdsAPIObjectives",
     "AdsAdgroupCreativeAssetGroupsSpecOriginMutators",
     "AdsAssetFeedUtils",
+    "AdsAutomaticFlowUtils",
     "AdsChildAttachmentsUtils",
     "AdsCreativeFlexAssetUtils",
     "AdsDynamicAdsFormatUtils",
     "AdsDynamicAdsUtils",
+    "AdsFlexibleFormatCollageTemplateFitUtils",
     "AdsFlexibleFormatDAUtils",
+    "AdsFlexibleFormatFDOGatingUtils",
     "AdsFlexibleFormatPacCarouselUtils",
     "AdsMetadataConnectedSourcesUtils",
     "AdsObjectTypeUtils",
@@ -24,8 +28,10 @@ __d(
     "DAFlexibleFormatUtils",
     "DeepRecordUtils",
     "IGAdsSensitiveVerticalsUtils",
+    "PERelevanceUtils",
     "gkx",
     "justknobx",
+    "observeRuntimeType",
     "qex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -33,15 +39,63 @@ __d(
     var e = 3,
       s = 10,
       u = 10,
-      c = ["carousel", "sa_collection", "video_slideshow"],
-      d = ["carousel", "sa_collection"],
-      m = ["carousel", "video_slideshow"],
-      p = ["simplified_format", "simplified_format_v2"];
-    function _(e) {
+      c = ["carousel", "collage", "sa_collection", "video_slideshow"],
+      d = ["carousel", "collage", "sa_collection"];
+    function m(e, t) {
+      return t != null &&
+        ((!o("AdsObjectTypeUtils").isDynamicProductAd(t) &&
+          o("AdsAPIAdgroupRecordUtils").isExistingPostAd(t)) ||
+          o("AdsAPIAdgroupRecordUtils").isExistingPostMultiPhotoAd(t))
+        ? e.filter(function (e) {
+            return e !== "collage";
+          })
+        : _e()
+          ? e.filter(function (e) {
+              return e !== "collage";
+            })
+          : fe(!0)
+            ? [].concat(e)
+            : e.filter(function (e) {
+                return e !== "collage";
+              });
+    }
+    var p = ["carousel", "video_slideshow"],
+      _ = ["simplified_format", "simplified_format_v2"];
+    function f(e, t) {
+      return e.flatMap(function (e) {
+        try {
+          var n,
+            r = t.adObjectsList.find(function (t) {
+              return t.adgroup.id === e;
+            });
+          return [
+            {
+              adAccountID: String(
+                (n = r == null ? void 0 : r.adgroup.account_id) != null
+                  ? n
+                  : t.account.account_id,
+              ),
+              adgroupID: String(e),
+              campaignGroupID:
+                (r == null ? void 0 : r.campaignGroup.id) == null
+                  ? null
+                  : String(r.campaignGroup.id),
+              campaignID:
+                (r == null ? void 0 : r.campaign.id) == null
+                  ? null
+                  : String(r.campaign.id),
+            },
+          ];
+        } catch (e) {
+          return [];
+        }
+      });
+    }
+    function g(e) {
       var t = e.creative;
       return t == null || Object.keys(t).length === 0;
     }
-    function f(e) {
+    function h(e) {
       return (
         (o("AdsWizardMediaPickerMultiUploadUtils").isEligibleForMultiUpload(
           "silent",
@@ -54,42 +108,43 @@ __d(
         !r("gkx")("22874")
       );
     }
-    function g(e, t) {
-      return f(t) ? !1 : r("gkx")("12020") || P(e) || Q(t);
+    function y(e, t) {
+      return h(t) ? !1 : r("gkx")("12020") || O(e) || ve(t);
     }
-    function h(e, t, n) {
-      return f(n) ? !1 : P(t) || Q(n);
+    function C(e, t, n) {
+      return h(n) ? !1 : O(t) || ve(n);
     }
-    function y(e, t, n, a) {
+    function b(e, t, n, a) {
       return o("AdsPCAUnifiedFormatEligibilityUtils").isEligiblePCAUnifiedL1(
         t,
         n,
-      ) || v(n, a)
+      ) || R(n, a)
         ? "modal_format_preview"
         : o(
               "AdsMetadataConnectedSourcesUtils",
             ).isEligibleForCESCreativeSetupWithAppInfo(e, t, n) ||
             t.objective === r("AdsAPIObjectives").APP_INSTALLS
           ? "simplified_format"
-          : C(e, t, n);
+          : v(n);
     }
-    function C(e, t, n) {
-      return o("AdsDynamicAdsUtils").isDynamicAd(n) &&
+    function v(e) {
+      return o("AdsDynamicAdsUtils").isDynamicAd(e) &&
         o(
           "DAFlexibleFormatUtils",
-        ).isAdgroupEligibleForDACarouselIntroCardRevamp(n, !1)
+        ).isAdgroupEligibleForDACarouselIntroCardRevamp(e, !1)
         ? "simplified_format"
         : "format";
     }
-    var b = [
+    var S = [
       "sa_single_image",
       "sa_carousel",
+      "sa_pac_carousel",
       "da_carousel",
       "epa_single_media",
       "epa_multi_medias",
     ];
-    function v(e, t) {
-      if (r("justknobx")._("695") || !b.includes(t)) return !1;
+    function R(e, t) {
+      if (r("justknobx")._("695") || !S.includes(t)) return !1;
       var n = !o("AdsDynamicAdsUtils").isDynamicAd(e),
         a =
           o("AdsDynamicAdsUtils").isDynamicAd(e) &&
@@ -98,15 +153,15 @@ __d(
         ? !1
         : o("AdsSensitiveVerticalUtils").isAccountInSensitiveVerticals()
           ? !0
-          : S();
-    }
-    function S(e) {
-      return e === !0 ? r("gkx")("25281") : r("gkx")("13894");
-    }
-    function R(e) {
-      return e === !0 ? r("gkx")("8565") : r("gkx")("8668");
+          : L();
     }
     function L(e) {
+      return e === !0 ? r("gkx")("25281") : r("gkx")("13894");
+    }
+    function E(e) {
+      return e === !0 ? r("gkx")("8565") : r("gkx")("8668");
+    }
+    function k(e) {
       return r("IGAdsSensitiveVerticalsUtils")
         .is_pharma_or_sensitive_vertical ||
         r("IGAdsSensitiveVerticalsUtils").is_luxury_vertical
@@ -115,7 +170,7 @@ __d(
           ? r("gkx")("16555")
           : r("gkx")("16556");
     }
-    function E(e) {
+    function I(e) {
       var t;
       return (
         ((t = e.creative) == null ||
@@ -125,16 +180,78 @@ __d(
           : t.enroll_status) === "OPT_IN"
       );
     }
-    function k(e) {
-      return e === !0 ? r("gkx")("21512") : r("gkx")("22841");
-    }
-    function I(e) {
-      return e == null ? !1 : L(!0) && E(e) && x(e) > 0;
-    }
     function T(e) {
-      return k(!0) || I(e);
+      return !0;
     }
     function D(e) {
+      var t;
+      if (e == null || !o("AdsAPIAdgroupRecordUtils").isExistingPostAd(e))
+        return !0;
+      var n = (t = e.creative) == null ? void 0 : t.object_type,
+        a =
+          n === r("ApiAdObjectTypes").PHOTO ||
+          n === r("ApiAdObjectTypes").VIDEO;
+      return a;
+    }
+    function x(e) {
+      return e === !0 ? r("gkx")("21512") : r("gkx")("22841");
+    }
+    function $(e) {
+      var t,
+        n,
+        r,
+        o,
+        a =
+          e == null || (t = e.creative) == null
+            ? void 0
+            : t.creative_sourcing_spec,
+        i = a == null ? void 0 : a.site_links_spec,
+        l = Array.isArray(i)
+          ? i.length
+          : (n = i == null ? void 0 : i.size) != null
+            ? n
+            : 0;
+      return (
+        e != null &&
+        (a == null || (r = a.site_links_data_consented) == null
+          ? void 0
+          : r.enroll_status) !== "OPT_OUT" &&
+        (l > 0 ||
+          (a == null || (o = a.dynamic_site_links_spec) == null
+            ? void 0
+            : o.enroll_status) === "OPT_IN")
+      );
+    }
+    function P(e) {
+      return e == null || !D(e) ? !1 : k(!0) && I(e) && F(e) > 0;
+    }
+    function N(e) {
+      return e == null || !T(e) ? !1 : k(!0) && I(e) && F(e) > 0;
+    }
+    function M(e, t) {
+      var n = P(e),
+        r = A(e),
+        a = o(
+          "AdsFlexibleFormatFDOGatingUtils",
+        ).isFDOConsentBasedSourceLabelEnabled(t === !0 || !n || !r),
+        i = [];
+      return (
+        n && i.push("website_highlights"),
+        r && (!n || a) && i.push("site_links"),
+        { isConsentBasedSourceUIEnabled: a, sources: i }
+      );
+    }
+    function w(e, t) {
+      return D(e)
+        ? P(e)
+          ? !0
+          : x(!0) &&
+            !o(
+              "AdsFlexibleFormatFDOGatingUtils",
+            ).isFDOConsentBasedSourceLabelEnabled(t)
+        : !1;
+    }
+    function A(e) {
       var t,
         n =
           e == null ||
@@ -145,7 +262,7 @@ __d(
             : t.enroll_status;
       return n != null ? n === "OPT_IN" : !1;
     }
-    function x(e) {
+    function F(e) {
       var t,
         n = o("DeepRecordUtils").maybeToPlainObject(
           (t = e.creative) == null || (t = t.creative_sourcing_spec) == null
@@ -162,65 +279,36 @@ __d(
         a
       );
     }
-    function $(e) {
-      var t,
-        n,
-        r,
-        o,
-        a =
-          (t = e.creative) == null ||
-          (t = t.creative_sourcing_spec) == null ||
-          (t = t.site_links_data_consented) == null
-            ? void 0
-            : t.enroll_status,
-        i =
-          (n =
-            (r = e.creative) == null ||
-            (r = r.creative_sourcing_spec) == null ||
-            (r = r.site_links_spec) == null
-              ? void 0
-              : r.size) != null
-            ? n
-            : 0,
-        l =
-          (o = e.creative) == null ||
-          (o = o.creative_sourcing_spec) == null ||
-          (o = o.dynamic_site_links_spec) == null
-            ? void 0
-            : o.enroll_status,
-        s = (a !== "OPT_OUT" && i > 0) || l === "OPT_IN";
-      return s ? !0 : L(!0) ? E(e) && x(e) > 0 : !1;
-    }
-    function P(e) {
+    function O(e) {
       return r("gkx")("12123")
         ? (o("AdsSensitiveVerticalUtils").isAccountInSensitiveVerticals(), !0)
         : !1;
     }
-    function N(e) {
+    function B() {
       return r("IGAdsSensitiveVerticalsUtils")
         .is_pharma_or_sensitive_vertical ||
         r("IGAdsSensitiveVerticalsUtils").is_luxury_vertical
         ? !1
-        : e === !0
-          ? r("qex")._("2524") === !0 ||
-            (r("gkx")("12123") && r("gkx")("10141"))
-          : r("qex")._("2525") === !0 ||
-            (r("gkx")("12123") && r("gkx")("10159"));
+        : r("qex")._("2525") === !0 || (r("gkx")("12123") && r("gkx")("10159"));
     }
-    function M(e) {
+    function W() {
       return !(
         r("IGAdsSensitiveVerticalsUtils").is_pharma_or_sensitive_vertical ||
         r("IGAdsSensitiveVerticalsUtils").is_luxury_vertical
       );
     }
-    function w(e, t, n, a) {
-      return (!o(
-        "AdsMetadataConnectedSourcesUtils",
-      ).isEligibleForCESCreativeSetupWithPE(e, t, n) &&
-        !o(
-          "AdsMetadataConnectedSourcesUtils",
-        ).isEligibleForCESCreativeSetupWithSE(e, t, n)) ||
-        f(n) ||
+    function q(e, t, n, a, i) {
+      return U(e, n) ||
+        (i !== !0 &&
+          !o(
+            "AdsMetadataConnectedSourcesUtils",
+          ).isEligibleForCESCreativeSetupWithPE(e, t, n) &&
+          !o(
+            "AdsMetadataConnectedSourcesUtils",
+          ).isEligibleForCESCreativeSetupWithSE(e, t, n) &&
+          !H(e, t, n) &&
+          !G(e, t, n)) ||
+        h(n) ||
         (e.destination_type === r("AdCampaignDestination").WHATSAPP &&
           o("ClickToWhatsAppFeatureGating").isLegacyCTWAPETargetingEligible() &&
           !r("gkx")("8700")) ||
@@ -228,13 +316,77 @@ __d(
           o("AdsMetadataConnectedSourcesUtils").isEligibleAdAccount() &&
           !r("gkx")("20754"))
         ? !1
-        : P(a);
+        : O(a);
     }
-    function A(e, t, n, a) {
-      return !o(
-        "AdsMetadataConnectedSourcesUtils",
-      ).isEligibleForCESCreativeSetupWithPEOrSEOrAppInfo(e, t, n) ||
-        f(n) ||
+    function U(e, t) {
+      return r("justknobx")._("6898")
+        ? o("AdsAPICampaignRecordUtils").isScheduledLiveVideoAd(e) ||
+            (t != null &&
+              o("AdsAPIAdgroupRecordUtils").isScheduledLiveVideoAd(t))
+        : !1;
+    }
+    function V(e, t) {
+      return o("AdsPCAUnifiedFormatEligibilityUtils").isEligiblePCAUnifiedL1(
+        e,
+        t,
+      );
+    }
+    function H(e, t, n) {
+      return (
+        !U(e, n) &&
+        !V(t, n) &&
+        o("AdsAutomaticFlowUtils").isStaticSingleImageOrVideoFormat(n) &&
+        o(
+          "AdsMetadataConnectedSourcesUtils",
+        ).isEligibleForCatalogByCampaignAndAdgroup(e, t, n)
+      );
+    }
+    function G(e, t, n) {
+      return (
+        !U(e, n) &&
+        !V(t, n) &&
+        o("AdsAutomaticFlowUtils").isStaticSingleImageOrVideoFormat(n) &&
+        (o(
+          "AdsMetadataConnectedSourcesUtils",
+        ).isEligibleForSiteExtensionsByCampaignAndAdgroup(e, t, n) ||
+          o(
+            "AdsMetadataConnectedSourcesUtils",
+          ).isEligibleForWebsiteMediaByCampaignAndAdgroup(e, t, n))
+      );
+    }
+    function z(e, t, n, r) {
+      return (
+        !U(e, n) &&
+        !V(t, n) &&
+        o("AdsAutomaticFlowUtils").isStaticSingleImageOrVideoFormat(n) &&
+        o(
+          "AdsMetadataConnectedSourcesUtils",
+        ).isEligibleForAppInformationByCampaignAndAdgroup(e, t, n) &&
+        o("AdsMetadataConnectedSourcesUtils").isFFForAppInstallEnabled(r === !0)
+      );
+    }
+    function j(e, t, n, o, a) {
+      return (
+        r("observeRuntimeType")(
+          o,
+          "AdsFlexibleFormatAdexUtils.hasFDOEligibleDataSourceForSingleMedia.mmuCarousel",
+        ),
+        U(e, n)
+          ? !1
+          : H(e, t, n) ||
+            G(e, t, n) ||
+            z(e, t, n, a) ||
+            (!V(t, n) && Y(n, o, !0))
+      );
+    }
+    function K(e, t, n, a, i, l) {
+      return U(e, n) ||
+        (l !== !0 &&
+          !o(
+            "AdsMetadataConnectedSourcesUtils",
+          ).isEligibleForCESCreativeSetupWithPEOrSEOrAppInfo(e, t, n) &&
+          !j(e, t, n, i, a)) ||
+        h(n) ||
         (e.destination_type === r("AdCampaignDestination").WHATSAPP &&
           o("ClickToWhatsAppFeatureGating").isLegacyCTWAPETargetingEligible() &&
           !r("gkx")("8700")) ||
@@ -249,25 +401,57 @@ __d(
               .is_pharma_or_sensitive_vertical &&
             !r("IGAdsSensitiveVerticalsUtils").is_luxury_vertical
           ? !0
-          : P(a);
+          : O(a);
     }
-    function F(e, t, n) {
-      var r;
-      return (
-        (!_(n) && A(e, t, n)) ||
-        ((!_(n) ||
-          ((r = n.creative) == null || (r = r.creative_sourcing_spec) == null
-            ? void 0
-            : r.associated_product_set_id) != null) &&
-          o("AdsPCAUnifiedFormatEligibilityUtils").isEligiblePCAUnifiedL1(
-            t,
-            n,
-          )) ||
-        (!_(n) && Q(n))
-      );
+    function Q(e) {
+      return e === !0 ? r("gkx")("27029") : r("gkx")("27030");
     }
-    function O(e, t, n) {
-      return _(e) ||
+    function X() {
+      return r("gkx")("26887");
+    }
+    function Y(e, t, n) {
+      return e == null ||
+        t == null ||
+        r("IGAdsSensitiveVerticalsUtils")
+          .is_pharma_or_sensitive_vertical_by_ad ||
+        r("IGAdsSensitiveVerticalsUtils")
+          .is_pharma_or_sensitive_vertical_by_campaign_group ||
+        r("IGAdsSensitiveVerticalsUtils").is_pharma_or_sensitive_vertical ||
+        r("IGAdsSensitiveVerticalsUtils").is_luxury_vertical
+        ? !1
+        : !h(e) && Q(n);
+    }
+    function J(e, t, n, r, a) {
+      var i;
+      return U(e, n)
+        ? !1
+        : (!g(n) && K(e, t, n, void 0, a)) ||
+            ((!g(n) ||
+              ((i = n.creative) == null ||
+              (i = i.creative_sourcing_spec) == null
+                ? void 0
+                : i.associated_product_set_id) != null) &&
+              o("AdsPCAUnifiedFormatEligibilityUtils").isEligiblePCAUnifiedL1(
+                t,
+                n,
+              )) ||
+            (!g(n) &&
+              o("AdsAPIAdgroupRecordUtils").isExistingPostAd(n) &&
+              !be(n) &&
+              (me(n, r) === "multi_photo" ||
+                o(
+                  "AdsMetadataConnectedSourcesUtils",
+                ).isEligibleForSiteExtensionsByCampaignAndAdgroup(e, t, n) ||
+                o(
+                  "AdsMetadataConnectedSourcesUtils",
+                ).isEligibleForCatalogByCampaignAndAdgroup(e, t, n) ||
+                o(
+                  "AdsMetadataConnectedSourcesUtils",
+                ).isEligibleForWebsiteMediaByCampaignAndAdgroup(e, t, n)) &&
+              De());
+    }
+    function Z(e, t, n) {
+      return g(e) ||
         (o("AdsObjectTypeUtils").isDynamicProductAd(e) &&
           o("ClickToWhatsAppFeatureGating").isEligibleForCTXAdvantageCatalog(
             t.destination_type,
@@ -278,37 +462,29 @@ __d(
           ? !0
           : !o("AdsObjectTypeUtils").isDynamicProductAd(e) &&
               o("AdsChildAttachmentsUtils").isStaticCarouselAd(e)
-            ? !o("AdsChildAttachmentsUtils").isCarouseAdWithAtLeastXMedia(
+            ? o("AdsChildAttachmentsUtils").isCarouseAdWithAtLeastXMedia(
                 e,
                 n,
                 2,
-              ) ||
-              !o("AdsChildAttachmentsUtils").isCarouseAdWithAtLeastXImages(
-                e,
-                n,
-                1,
               )
-              ? !1
-              : B()
+              ? ee()
+              : !1
             : !o("AdsObjectTypeUtils").isDynamicProductAd(e) &&
                 o("AdsAssetFeedUtils").hasPACCarouselFormat(e)
-              ? !W(t) ||
+              ? !te(t) ||
                 !o(
                   "AdsFlexibleFormatPacCarouselUtils",
-                ).isPacCarouselWithAtLeastXMedia(e, 2) ||
-                !o(
-                  "AdsFlexibleFormatPacCarouselUtils",
-                ).isPacCarouselWithAtLeastXImages(e, 1)
+                ).isPacCarouselWithAtLeastXMedia(e, 2)
                 ? !1
                 : o("AdsFlexibleFormatPacCarouselUtils").passGKForPACCarousel()
               : !1;
     }
-    function B() {
+    function ee() {
       return r("gkx")("12224")
         ? (o("AdsSensitiveVerticalUtils").isAccountInSensitiveVerticals(), !0)
         : !1;
     }
-    function W(e) {
+    function te(e) {
       var t = e.targeting.facebook_positions,
         n = e.targeting.instagram_positions,
         o = e.targeting.device_platforms,
@@ -318,21 +494,21 @@ __d(
         i = o == null || o.includes(r("AdsAPIDevicePlatform").MOBILE);
       return a && i;
     }
-    function q() {
+    function ne() {
       return r("IGAdsSensitiveVerticalsUtils")
         .is_pharma_or_sensitive_vertical ||
         r("IGAdsSensitiveVerticalsUtils").is_luxury_vertical
         ? !1
         : r("gkx")("21570");
     }
-    function U() {
+    function re() {
       return r("IGAdsSensitiveVerticalsUtils")
         .is_pharma_or_sensitive_vertical ||
         r("IGAdsSensitiveVerticalsUtils").is_luxury_vertical
         ? !1
         : r("gkx")("21573");
     }
-    function V(e) {
+    function oe(e) {
       return r("IGAdsSensitiveVerticalsUtils")
         .is_pharma_or_sensitive_vertical ||
         r("IGAdsSensitiveVerticalsUtils").is_luxury_vertical
@@ -341,7 +517,7 @@ __d(
           ? r("gkx")("23676")
           : r("gkx")("21571");
     }
-    function H(e) {
+    function ae(e) {
       return r("IGAdsSensitiveVerticalsUtils")
         .is_pharma_or_sensitive_vertical ||
         r("IGAdsSensitiveVerticalsUtils").is_luxury_vertical
@@ -350,10 +526,10 @@ __d(
           ? r("gkx")("23678")
           : r("gkx")("21574");
     }
-    function G() {
+    function ie() {
       return r("gkx")("7425") || r("gkx")("5171");
     }
-    function z(e) {
+    function le(e) {
       return r("IGAdsSensitiveVerticalsUtils")
         .is_pharma_or_sensitive_vertical ||
         r("IGAdsSensitiveVerticalsUtils").is_luxury_vertical
@@ -362,18 +538,118 @@ __d(
           ? r("gkx")("23138")
           : r("gkx")("20180");
     }
-    function j(e) {
-      return e === !0 ? r("gkx")("6354") : r("gkx")("23571");
+    function se() {
+      return r("gkx")("23571");
     }
-    function K(e) {
+    function ue(e) {
+      return pe() ? !1 : ce(e);
+    }
+    function ce(e) {
       return e === !0 ? r("gkx")("19503") : r("gkx")("19551");
     }
-    function Q(e) {
-      return e == null || !o("AdsAPIAdgroupRecordUtils").isExistingPostAd(e)
-        ? !1
-        : K(!0);
+    var de = 2;
+    function me(e, t) {
+      return ce(!0)
+        ? !o("AdsAPIAdgroupRecordUtils").isExistingPostWithFacebookPost(e) ||
+          o("AdsAPIAdgroupRecordUtils").getInstagramSourceMediaID(e) != null
+          ? "not_multi_photo"
+          : t == null
+            ? "unresolved"
+            : t >= de
+              ? "multi_photo"
+              : "not_multi_photo"
+        : o("AdsAPIAdgroupRecordUtils").isExistingPostMultiPhotoAd(e)
+          ? "multi_photo"
+          : "not_multi_photo";
     }
-    function X(e) {
+    function pe() {
+      return (
+        o("AdsSensitiveVerticalUtils").isAdAccountOnBig6AgencyBlocklist() ||
+        o("AdsSensitiveVerticalUtils").isAccountInSensitiveVerticals()
+      );
+    }
+    function _e() {
+      return (
+        o("AdsSensitiveVerticalUtils").isAdAccountOnBig6AgencyBlocklist() ||
+        o("AdsSensitiveVerticalUtils").isAccountInSensitiveVerticals()
+      );
+    }
+    function fe(e) {
+      return e === !0 ? r("gkx")("1642") : r("gkx")("2450");
+    }
+    var ge = e - 1;
+    function he(t) {
+      return t != null &&
+        o("AdsAutomaticFlowUtils").isStaticSingleVideoFormat(t)
+        ? e
+        : ge;
+    }
+    var ye = "site_links";
+    function Ce(e, t) {
+      var n, r;
+      if (e == null) return [];
+      var a = !o("AdsAutomaticFlowUtils").isStaticSingleVideoFormat(e),
+        i = [],
+        l = (n = e.creative) == null ? void 0 : n.creative_sourcing_spec;
+      (l == null || (r = l.catalog) == null ? void 0 : r.enroll_status) ===
+        "OPT_IN" &&
+        ((l == null ? void 0 : l.associated_product_set_id) != null ||
+          o("PERelevanceUtils").hasLLMRelevanceStrategySelected(e)) &&
+        o("AdsFlexibleFormatCollageTemplateFitUtils").canComposeCollagePreview({
+          useCase: "catalog",
+          hasHero: a,
+          heroAspectRatio: t,
+          candidateCount: null,
+        }) &&
+        i.push("catalog");
+      var s = F(e);
+      return (
+        P(e) &&
+          s >= he(e) &&
+          o(
+            "AdsFlexibleFormatCollageTemplateFitUtils",
+          ).canComposeCollagePreview({
+            useCase: "website_highlight",
+            hasHero: a,
+            heroAspectRatio: t,
+            candidateCount: s,
+          }) &&
+          i.push("site_links"),
+        i
+      );
+    }
+    function be(e) {
+      var t;
+      if (e == null) return !1;
+      var n =
+        (t = o("DeepRecordUtils").maybeToPlainObject(
+          e.creative_asset_groups_spec,
+        )) == null
+          ? void 0
+          : t.groups;
+      if (n == null) return !1;
+      var r = 0;
+      for (var a of n) {
+        var i, l;
+        if (
+          ((r +=
+            (i = a == null || (l = a.posts) == null ? void 0 : l.length) != null
+              ? i
+              : 0),
+          r > 1)
+        )
+          return !0;
+      }
+      return !1;
+    }
+    function ve(e) {
+      return e == null ||
+        !o("AdsAPIAdgroupRecordUtils").isExistingPostAd(e) ||
+        be(e)
+        ? !1
+        : ue(!0);
+    }
+    function Se(e) {
       var t = e == null ? void 0 : e.creative;
       return e == null ||
         t == null ||
@@ -384,33 +660,60 @@ __d(
         t.object_type !== r("ApiAdObjectTypes").SHARE ||
         t.object_id == null
         ? !1
-        : K(!0);
+        : ue(!0);
     }
-    function Y(e) {
-      return e == null ||
-        !o("AdsAPIAdgroupRecordUtils").isExistingPostAdSingleImageOrVideo(e)
-        ? !1
-        : K(!0);
+    function Re(e, t) {
+      return (
+        !o("AdsObjectTypeUtils").isDynamicProductAd(e) &&
+        o("AdsAPIAdgroupRecordUtils").isExistingPostAd(e) &&
+        me(e, t) === "not_multi_photo"
+      );
     }
-    function J(e) {
-      return e == null ||
-        !o("AdsAPIAdgroupRecordUtils").isExistingPostMultiPhotoAd(e)
-        ? !1
-        : K(!0);
+    function Le(e, t) {
+      return e == null || !Re(e, t) || be(e) ? !1 : ue(!0);
     }
-    function Z() {
+    function Ee(e, t) {
+      return e == null || me(e, t) !== "multi_photo" || be(e) ? !1 : ue(!0);
+    }
+    function ke(e) {
+      return (
+        e === "sa_single_image" ||
+        e === "epa_single_media" ||
+        e === "epa_multi_medias"
+      );
+    }
+    function Ie() {
       return r("gkx")("19787") && r("gkx")("17644");
     }
-    function ee() {
+    function Te() {
       r("gkx")("19795");
     }
-    function te() {
-      return Z() ? "photo_collage" : "collage";
+    function De() {
+      return ue();
     }
-    function ne(e) {
-      return J(e) ? "photo_collage" : te();
+    function xe() {
+      return Ie() ? "photo_collage" : "collage";
     }
-    function re(e, t, n, r, o) {
+    function $e(e) {
+      return e == null ||
+        (!o("AdsObjectTypeUtils").isDynamicProductAd(e) &&
+          (o("AdsChildAttachmentsUtils").isStaticCarouselAd(e) ||
+            (o("AdsAssetFeedUtils").hasPACCarouselFormat(e) &&
+              o("AdsFlexibleFormatPacCarouselUtils").passGKForPACCarousel(
+                !0,
+              )))) ||
+        Le(e) ||
+        Ee(e)
+        ? !1
+        : o("AdsAutomaticFlowUtils").isStaticSingleImageOrVideoFormat(e) &&
+            !o("AdsAPIAdgroupRecordUtils").isFlexibleFormatAd(e);
+    }
+    function Pe(e, t) {
+      return e != null && me(e, t) === "multi_photo" && ce(!0)
+        ? "photo_collage"
+        : xe();
+    }
+    function Ne(e, t, n, r, o) {
       var a = e.originalFormat;
       if (a == null) return null;
       var i =
@@ -446,7 +749,7 @@ __d(
       var f = {
           data_source: n,
           opt_out_count: r ? (l > u ? l : l + 1) : 0,
-          updated_time: Date.now().toString(),
+          updated_time: String(Math.floor(Date.now() / 1e3)),
           status: r ? "OPT_OUT" : "OPT_IN",
         },
         g = {
@@ -495,14 +798,14 @@ __d(
                 return babelHelpers.extends({}, e, { sticky_settings: u });
               });
     }
-    function oe(e) {
+    function Me(e) {
       return (
         e === void 0 && (e = !1),
         o("AdsSensitiveVerticalUtils").isAccountInSensitiveVerticals() ||
           e === !0
       );
     }
-    function ae(e, t, n) {
+    function we(e, t, n) {
       var r = e.originalFormat;
       if (r == null) return null;
       var o =
@@ -529,7 +832,7 @@ __d(
                   });
             });
     }
-    function ie(e, t, n, r) {
+    function Ae(e, t, n, r) {
       if (e.hasValue()) {
         var o,
           a = e.getValue(),
@@ -551,7 +854,7 @@ __d(
       }
       return null;
     }
-    function le(e) {
+    function Fe(e) {
       switch (e) {
         case "DEFAULT":
           return "DEFAULT";
@@ -563,7 +866,7 @@ __d(
           return null;
       }
     }
-    function se(e, t) {
+    function Oe(e, t) {
       var n, r;
       if (e == null || !t.isPCAUnifiedScaledAlpha) return e;
       var o =
@@ -594,26 +897,38 @@ __d(
         },
       });
     }
-    function ue(e, t, n) {
-      var r = [];
+    function Be(e, t, n) {
+      if (U(t, e)) return [];
+      var r = [],
+        a = ve(e);
       return (
-        o(
+        (o(
           "AdsMetadataConnectedSourcesUtils",
-        ).isEligibleForCESCreativeSetupWithSE(t, n, e) && r.push("site_links"),
-        o(
+        ).isEligibleForCESCreativeSetupWithSE(t, n, e) ||
+          o(
+            "AdsMetadataConnectedSourcesUtils",
+          ).isEligibleForCESCreativeSetupWithWebsiteMedia(t, n, e) ||
+          G(t, n, e) ||
+          a) &&
+          r.push("site_links"),
+        (o(
           "AdsMetadataConnectedSourcesUtils",
-        ).isEligibleForCESCreativeSetupWithPE(t, n, e) && r.push("catalog"),
-        o(
+        ).isEligibleForCESCreativeSetupWithPE(t, n, e) ||
+          H(t, n, e) ||
+          a) &&
+          r.push("catalog"),
+        (o(
           "AdsMetadataConnectedSourcesUtils",
-        ).isEligibleForCESCreativeSetupWithAppInfo(t, n, e) &&
+        ).isEligibleForCESCreativeSetupWithAppInfo(t, n, e) ||
+          z(t, n, e, !0)) &&
           r.push("app_information"),
         r
       );
     }
-    function ce() {
+    function We() {
       return r("gkx")("23611");
     }
-    function de(e, t) {
+    function qe(e, t) {
       return !(
         e == null ||
         t == null ||
@@ -631,58 +946,78 @@ __d(
       (l.MAXIUM_IMPRESSION_COUNT_IN_RECORD = s),
       (l.SA_SINGLE_SE_SUPPORTED_FORMATS = c),
       (l.SA_SINGLE_PE_SUPPORTED_FORMATS = d),
-      (l.SA_SINGLE_APP_INFO_SUPPORTED_FORMATS = m),
-      (l.SIMPLIFIED_FORMATS = p),
-      (l.isEmptyCreative = _),
-      (l.isIneligibleForFDODueToMMU = f),
-      (l.shouldShowSERevamp = g),
-      (l.shouldRemovePEAPlusC = h),
-      (l.getReactiveControlUXModel = y),
-      (l.isNonPCAUEligibleForModalPreview = v),
-      (l.passGKForModalUX = S),
-      (l.passGKForPEClawback = R),
-      (l.passGKForWHAdexIntegration = L),
-      (l.isWebsiteHighlightAdopted = E),
-      (l.passGKForCombinedFeaturedOfferings = k),
-      (l.isWHAdoptedWithMedia = I),
-      (l.shouldShowWHExperience = T),
-      (l.isSiteLinksDataConsented = D),
-      (l.countWebsiteMediaImageUrl = x),
-      (l.isSiteLinksOrWHConsented = $),
-      (l.passQEForReactiveControlPESE = P),
-      (l.passSAPGDGating = N),
-      (l.passDAPGDGating = M),
-      (l.isEligibleForReactiveControlPESE = w),
-      (l.isEligibleForReactiveControlPESEOrAppInfo = A),
-      (l.isFlexibleFormatEligibleForSingleMedia = F),
-      (l.isFlexibleFormatEligibleForRichFormat = O),
-      (l.passSACarouselFFQE = B),
-      (l.isMobileFeedPlacementTargeted = W),
-      (l.passFormatSelectorMergeSAPrePhase1 = q),
-      (l.passFormatSelectorMergeDAPrePhase1 = U),
-      (l.passFormatSelectorMergeSAPhase1 = V),
-      (l.passFormatSelectorMergeDAPhase1 = H),
-      (l.isInC2VBlocklist = G),
-      (l.passGKForC2V = z),
-      (l.passGKForCollage = j),
-      (l.passGKForEPACollage = K),
-      (l.isEligibleForEPAFDOSurface = Q),
-      (l.isEPAFlowAwaitingPostSelection = X),
-      (l.isEligibleForEPASingleMediaSurface = Y),
-      (l.isEligibleForEPAMultiMediaSurface = J),
-      (l.passGKForCarouselToCollage = Z),
-      (l.logCarouselToCollageExposure = ee),
-      (l.getCollageFtsFormat = te),
-      (l.getCollageFtsFormatForAdgroup = ne),
-      (l.getUpdatedReactiveControlSettingsForSticky = re),
-      (l.shouldBlockReactiveControlDefaultOn = oe),
-      (l.getUpdatedReactiveControlSettingsForFeedbackSurvey = ae),
-      (l.getStickyStatusFromUserSettingsLoadObject = ie),
-      (l.coerceFeatureActionToSourceAction = le),
-      (l.applyProfileCardMutationToPreviewConfig = se),
-      (l.getEligibleDataSources = ue),
-      (l.passGKForFDODebugger = ce),
-      (l.isAutoConvertedFfToMmuAd = de));
+      (l.withSASingleCollageGate = m),
+      (l.SA_SINGLE_APP_INFO_SUPPORTED_FORMATS = p),
+      (l.SIMPLIFIED_FORMATS = _),
+      (l.getSEFormatConsentAdgroupParentIDs = f),
+      (l.isIneligibleForFDODueToMMU = h),
+      (l.shouldShowSERevamp = y),
+      (l.shouldRemovePEAPlusC = C),
+      (l.getReactiveControlUXModel = b),
+      (l.passGKForModalUX = L),
+      (l.passGKForPEClawback = E),
+      (l.passGKForWHAdexIntegration = k),
+      (l.isWebsiteHighlightAdopted = I),
+      (l.isWHAllowedForAdShape = T),
+      (l.shouldShowWHForAdShape = D),
+      (l.passGKForCombinedFeaturedOfferings = x),
+      (l.hasSiteLinksDataForFDO = $),
+      (l.isWHAdoptedWithMedia = P),
+      (l.isWHConsentedWithMedia = N),
+      (l.getFDOSiteLinksPreviewDecision = M),
+      (l.shouldShowWHExperience = w),
+      (l.isSiteLinksDataConsented = A),
+      (l.countWebsiteMediaImageUrl = F),
+      (l.passQEForReactiveControlPESE = O),
+      (l.passSAPGDGating = B),
+      (l.passDAPGDGating = W),
+      (l.isEligibleForReactiveControlPESE = q),
+      (l.isScheduledLiveVideoAdForFDO = U),
+      (l.isPCAUnifiedForFDO = V),
+      (l.isFDOCatalogSourceEligible = H),
+      (l.isFDOSiteLinksSourceEligible = G),
+      (l.isFDOAppInformationSourceEligible = z),
+      (l.hasFDOEligibleDataSourceForSingleMedia = j),
+      (l.isEligibleForReactiveControlPESEOrAppInfo = K),
+      (l.passGKForMMUToCarousel = Q),
+      (l.passGKForMultiMediaDAIntroCard = X),
+      (l.isEligibleForMMUToCarousel = Y),
+      (l.isFlexibleFormatEligibleForSingleMedia = J),
+      (l.isFlexibleFormatEligibleForRichFormat = Z),
+      (l.passSACarouselFFQE = ee),
+      (l.passFormatSelectorMergeSAPrePhase1 = ne),
+      (l.passFormatSelectorMergeDAPrePhase1 = re),
+      (l.passFormatSelectorMergeSAPhase1 = oe),
+      (l.passFormatSelectorMergeDAPhase1 = ae),
+      (l.isInC2VBlocklist = ie),
+      (l.passGKForC2V = le),
+      (l.passGKForCollage = se),
+      (l.passEPACollageGKOnly = ce),
+      (l.EPA_MULTI_PHOTO_MIN_PHOTO_COUNT = de),
+      (l.getExistingPostPhotoShape = me),
+      (l.isExcludedFromEPACollageRollout = pe),
+      (l.isExcludedFromSASingleCollageRollout = _e),
+      (l.passGKForSASingleCollage = fe),
+      (l.MIXED_COLLAGE_STICKY_DATA_SOURCE = ye),
+      (l.getEligibleMixedCollageDataSources = Ce),
+      (l.isMultiPostExistingPostAd = be),
+      (l.isEligibleForEPAFDOSurface = ve),
+      (l.isEPAFlowAwaitingPostSelection = Se),
+      (l.isEligibleForEPASingleMediaSurface = Le),
+      (l.isEligibleForEPAMultiMediaSurface = Ee),
+      (l.usesPECarouselIntroCardSplit = ke),
+      (l.logCarouselToCollageExposure = Te),
+      (l.isSASingleCollageSurface = $e),
+      (l.getCollageFtsFormatForAdgroup = Pe),
+      (l.getUpdatedReactiveControlSettingsForSticky = Ne),
+      (l.shouldBlockReactiveControlDefaultOn = Me),
+      (l.getUpdatedReactiveControlSettingsForFeedbackSurvey = we),
+      (l.getStickyStatusFromUserSettingsLoadObject = Ae),
+      (l.coerceFeatureActionToSourceAction = Fe),
+      (l.applyProfileCardMutationToPreviewConfig = Oe),
+      (l.getEligibleDataSources = Be),
+      (l.passGKForFDODebugger = We),
+      (l.isAutoConvertedFfToMmuAd = qe));
   },
   98,
 );

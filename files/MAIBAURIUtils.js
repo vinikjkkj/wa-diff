@@ -1,9 +1,10 @@
 __d(
   "MAIBAURIUtils",
-  ["AdsManagerURIUtils"],
+  ["AdsManagerURIUtils", "URI"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
+    var e;
+    function s(e) {
       var t = e.accountId,
         n = e.adObjectIds,
         r = e.adObjectType,
@@ -36,7 +37,22 @@ __d(
         a
       );
     }
-    l.buildAdsManagerDeeplink = e;
+    function u(t) {
+      var n = t.accountId,
+        o = t.currentHref,
+        a = t.externalConversationId,
+        i = s({ accountId: n });
+      if (i == null) return null;
+      var l = (e || (e = r("URI"))).tryParseURI(o);
+      return (
+        l != null &&
+          l.getDomain().endsWith(".facebook.com") &&
+          (i = i.setDomain(l.setSubdomain(i.getSubdomain()).getDomain())),
+        i.addQueryData({ thread_key: a })
+      );
+    }
+    ((l.buildAdsManagerDeeplink = s),
+      (l.buildAdsManagerChatThreadDeeplink = u));
   },
   98,
 );

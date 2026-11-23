@@ -30,7 +30,7 @@ __d(
     "use strict";
     var e, u, c, d, m, p, _, f;
     function g(t, n) {
-      var a = s._(/*BTDS*/ "Group call").toString();
+      var a = s._(/*BTDS*/ "").toString();
       try {
         if (t != null) {
           var i = r("WAWebGroupMetadataCollection").get(t);

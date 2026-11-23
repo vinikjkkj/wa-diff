@@ -1,7 +1,6 @@
 __d(
   "WAWebSharableEventInviteMessageRefreshJob",
   [
-    "Promise",
     "WALogger",
     "WAWebBackendApi",
     "WAWebDBMsgUtils",
@@ -12,7 +11,6 @@ __d(
     "WAWebNoop",
     "WAWebSharableEventCallLinkUrl",
     "WAWebSharableEventInviteStatus",
-    "asyncToGeneratorRuntime",
     "cr:375",
     "getErrorSafe",
   ],
@@ -23,209 +21,163 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = (e = n("cr:375")) != null ? e : {},
-      f = _.ftsLightClient;
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !(
-              e.length === 0 ||
-              !o(
-                "WAWebDBSharableEvent",
-              ).canUseSharableEventInviteMessageStorage()
-            )
-          )
-            try {
-              var t = (yield (p || (p = n("Promise"))).all(
-                e.map(function (e) {
-                  return I(e);
-                }),
-              )).flat();
-              if (t.length === 0) return;
-              (o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event][invite_message] rewrote ",
-                    " for ",
-                    " events",
-                  ])),
-                t.length,
-                e.length,
-              ),
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "applySharableEventUpdate",
-                  { inviteMessages: t },
-                ));
-            } catch (e) {
-              o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[sharable_event][invite_message] rewriting failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("sharable-event-invite-message-rewrite-failed");
-            }
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            if (
-              !o(
-                "WAWebDBSharableEvent",
-              ).canUseSharableEventInviteMessageStorage()
-            )
-              return;
-            yield o(
-              "WAWebDBSharableEventInviteMessage",
-            ).recordSharableEventInviteMessages([{ msgKey: e, eventId: t }]);
-            var n = yield o("WAWebDBSharableEvent").getSharableEvent(t);
-            n != null && (yield g([n]));
-          } catch (e) {
-            o("WALogger")
-              .WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event][invite_message] catching up failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("sharable-event-invite-message-catch-up-failed");
-          }
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !(
-              e.length === 0 ||
-              !o(
-                "WAWebDBSharableEvent",
-              ).canUseSharableEventInviteMessageStorage()
-            )
-          )
-            try {
-              var a = (yield (p || (p = n("Promise"))).all(
-                  e.map(
-                    o("WAWebDBSharableEventInviteMessage")
-                      .getSharableEventInviteMessageKeys,
-                  ),
-                )).flat(),
-                i = { sharableEventInviteStatus: t },
-                l = (yield o("WAWebDBMsgUtils").getMsgsByMsgKey(a)).filter(
-                  function (e) {
-                    return (
-                      e.type ===
-                        o("WAWebMsgType").MSG_TYPE.SHARABLE_EVENT_INVITE &&
-                      e.sharableEventInviteStatus !== t
-                    );
-                  },
-                );
-              if (l.length === 0) return;
-              (yield p.all(
-                x(l).map(function (e) {
-                  return o("WAWebDBProcessMessage").updateExistingMessages(
-                    e.map(function (e) {
-                      return babelHelpers.extends({}, e, i);
-                    }),
-                  );
-                }),
-              ),
-                o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[sharable_event][invite_message] marked ",
-                      " ",
-                      "",
-                    ])),
-                  l.length,
-                  t,
-                ),
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "applySharableEventUpdate",
-                  {
-                    inviteMessages: l.map(function (e) {
-                      return { msgKey: e.id.toString(), fields: i };
-                    }),
-                  },
-                ));
-            } catch (e) {
-              o("WALogger")
-                .WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[sharable_event][invite_message] marking ",
-                      " failed",
-                    ])),
-                  t,
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("sharable-event-invite-message-mark-failed");
-            }
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e, t) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebDBMsgUtils").getMsgsByMsgKey([e]),
-            r = n[0],
-            a = yield o("WAWebDBSharableEvent").getSharableEvent(t);
-          return a == null
-            ? { kind: "event-not-stored" }
-            : r == null ||
-                a.coverImageUrl == null ||
-                r.sharableEventInviteJpegThumbnail != null ||
-                r.sharableEventInviteCoverImageHandle !== a.coverImageHandle
-              ? { kind: "none" }
-              : { kind: "cover", url: a.coverImageUrl };
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e, t) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebDBMsgUtils").getMsgsByMsgKey([e]),
-            r = n[0];
-          r == null ||
-            r.type !== o("WAWebMsgType").MSG_TYPE.SHARABLE_EVENT_INVITE ||
-            (yield o("WAWebDBProcessMessage").updateExistingMessages([
-              babelHelpers.extends({}, r, {
-                sharableEventInviteJpegThumbnail: t,
+      p = (e = n("cr:375")) != null ? e : {},
+      _ = p.ftsLightClient;
+    async function f(e) {
+      if (
+        !(
+          e.length === 0 ||
+          !o("WAWebDBSharableEvent").canUseSharableEventInviteMessageStorage()
+        )
+      )
+        try {
+          var t = (
+            await Promise.all(
+              e.map(function (e) {
+                return v(e);
               }),
-            ]));
-        })),
-        E.apply(this, arguments)
-      );
+            )
+          ).flat();
+          if (t.length === 0) return;
+          (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][invite_message] rewrote ",
+                " for ",
+                " events",
+              ])),
+            t.length,
+            e.length,
+          ),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "applySharableEventUpdate",
+              { inviteMessages: t },
+            ));
+        } catch (e) {
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event][invite_message] rewriting failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("sharable-event-invite-message-rewrite-failed");
+        }
     }
-    function k(e) {
+    async function g(e, t) {
+      try {
+        if (
+          !o("WAWebDBSharableEvent").canUseSharableEventInviteMessageStorage()
+        )
+          return;
+        await o(
+          "WAWebDBSharableEventInviteMessage",
+        ).recordSharableEventInviteMessages([{ msgKey: e, eventId: t }]);
+        var n = await o("WAWebDBSharableEvent").getSharableEvent(t);
+        n != null && (await f([n]));
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][invite_message] catching up failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("sharable-event-invite-message-catch-up-failed");
+      }
+    }
+    async function h(e, t) {
+      if (
+        !(
+          e.length === 0 ||
+          !o("WAWebDBSharableEvent").canUseSharableEventInviteMessageStorage()
+        )
+      )
+        try {
+          var n = (
+              await Promise.all(
+                e.map(
+                  o("WAWebDBSharableEventInviteMessage")
+                    .getSharableEventInviteMessageKeys,
+                ),
+              )
+            ).flat(),
+            a = { sharableEventInviteStatus: t },
+            i = (await o("WAWebDBMsgUtils").getMsgsByMsgKey(n)).filter(
+              function (e) {
+                return (
+                  e.type === o("WAWebMsgType").MSG_TYPE.SHARABLE_EVENT_INVITE &&
+                  e.sharableEventInviteStatus !== t
+                );
+              },
+            );
+          if (i.length === 0) return;
+          (await Promise.all(
+            R(i).map(function (e) {
+              return o("WAWebDBProcessMessage").updateExistingMessages(
+                e.map(function (e) {
+                  return babelHelpers.extends({}, e, a);
+                }),
+              );
+            }),
+          ),
+            o("WALogger").LOG(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event][invite_message] marked ",
+                  " ",
+                  "",
+                ])),
+              i.length,
+              t,
+            ),
+            o("WAWebBackendApi").frontendFireAndForget(
+              "applySharableEventUpdate",
+              {
+                inviteMessages: i.map(function (e) {
+                  return { msgKey: e.id.toString(), fields: a };
+                }),
+              },
+            ));
+        } catch (e) {
+          o("WALogger")
+            .WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[sharable_event][invite_message] marking ",
+                  " failed",
+                ])),
+              t,
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("sharable-event-invite-message-mark-failed");
+        }
+    }
+    async function y(e, t) {
+      var n = await o("WAWebDBMsgUtils").getMsgsByMsgKey([e]),
+        r = n[0],
+        a = await o("WAWebDBSharableEvent").getSharableEvent(t);
+      return a == null
+        ? { kind: "event-not-stored" }
+        : r == null ||
+            a.coverImageUrl == null ||
+            r.sharableEventInviteJpegThumbnail != null ||
+            r.sharableEventInviteCoverImageHandle !== a.coverImageHandle
+          ? { kind: "none" }
+          : { kind: "cover", url: a.coverImageUrl };
+    }
+    async function C(e, t) {
+      var n = await o("WAWebDBMsgUtils").getMsgsByMsgKey([e]),
+        r = n[0];
+      r == null ||
+        r.type !== o("WAWebMsgType").MSG_TYPE.SHARABLE_EVENT_INVITE ||
+        (await o("WAWebDBProcessMessage").updateExistingMessages([
+          babelHelpers.extends({}, r, { sharableEventInviteJpegThumbnail: t }),
+        ]));
+    }
+    function b(e) {
       var t, n;
       return {
         sharableEventInviteTitle: e.name,
@@ -248,53 +200,43 @@ __d(
         sharableEventInviteLastUpdatedTsUsec: e.lastUpdatedTsUsec,
       };
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
+    async function v(e) {
+      var t = await o(
+        "WAWebDBSharableEventInviteMessage",
+      ).getSharableEventInviteMessageKeys(e.eventId);
+      if (t.length === 0) return [];
+      var n = b(e),
+        r = (await o("WAWebDBMsgUtils").getMsgsByMsgKey([].concat(t))).filter(
+          function (t) {
+            var n;
+            return (
+              t.type === o("WAWebMsgType").MSG_TYPE.SHARABLE_EVENT_INVITE &&
+              ((n = t.sharableEventInviteLastUpdatedTsUsec) != null ? n : 0) <
+                e.lastUpdatedTsUsec
+            );
+          },
+        );
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebDBSharableEventInviteMessage",
-          ).getSharableEventInviteMessageKeys(e.eventId);
-          if (t.length === 0) return [];
-          var r = k(e),
-            a = (yield o("WAWebDBMsgUtils").getMsgsByMsgKey(
-              [].concat(t),
-            )).filter(function (t) {
-              var n;
-              return (
-                t.type === o("WAWebMsgType").MSG_TYPE.SHARABLE_EVENT_INVITE &&
-                ((n = t.sharableEventInviteLastUpdatedTsUsec) != null ? n : 0) <
-                  e.lastUpdatedTsUsec
-              );
-            });
-          return (
-            yield (p || (p = n("Promise"))).all(
-              x(a).map(function (e) {
-                return o("WAWebDBProcessMessage").updateExistingMessages(
-                  e.map(function (e) {
-                    return babelHelpers.extends({}, e, D(e, r));
-                  }),
-                );
+        await Promise.all(
+          R(r).map(function (e) {
+            return o("WAWebDBProcessMessage").updateExistingMessages(
+              e.map(function (e) {
+                return babelHelpers.extends({}, e, S(e, n));
               }),
-            ),
-            $(
-              a.filter(function (e) {
-                return (
-                  e.sharableEventInviteTitle !== r.sharableEventInviteTitle
-                );
-              }),
-            ),
-            a.map(function (e) {
-              return { msgKey: e.id.toString(), fields: D(e, r) };
-            })
-          );
-        })),
-        T.apply(this, arguments)
+            );
+          }),
+        ),
+        L(
+          r.filter(function (e) {
+            return e.sharableEventInviteTitle !== n.sharableEventInviteTitle;
+          }),
+        ),
+        r.map(function (e) {
+          return { msgKey: e.id.toString(), fields: S(e, n) };
+        })
       );
     }
-    function D(e, t) {
+    function S(e, t) {
       return e.sharableEventInviteCoverImageHandle ===
         t.sharableEventInviteCoverImageHandle
         ? t
@@ -302,7 +244,7 @@ __d(
             sharableEventInviteJpegThumbnail: void 0,
           });
     }
-    function x(e) {
+    function R(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
@@ -313,12 +255,12 @@ __d(
         Array.from(t.values())
       );
     }
-    function $(e) {
+    function L(e) {
       var t = e.flatMap(function (e) {
         return e.rowId == null ? [] : [String(e.rowId)];
       });
-      if (!(t.length === 0 || f == null)) {
-        var n = f;
+      if (!(t.length === 0 || _ == null)) {
+        var n = _;
         n.purge(t)
           .then(function () {
             return n.addToIndexingTable(t);
@@ -329,12 +271,12 @@ __d(
           .catch(r("WAWebNoop"));
       }
     }
-    ((l.refreshSharableEventInviteMessages = g),
-      (l.catchUpSharableEventInviteMessage = y),
-      (l.markSharableEventInviteMessagesEnded = b),
-      (l.getSharableEventInviteCoverToThumbnail = S),
-      (l.saveSharableEventInviteThumbnail = L),
-      (l.getSharableEventInviteLiveFields = k));
+    ((l.refreshSharableEventInviteMessages = f),
+      (l.catchUpSharableEventInviteMessage = g),
+      (l.markSharableEventInviteMessagesEnded = h),
+      (l.getSharableEventInviteCoverToThumbnail = y),
+      (l.saveSharableEventInviteThumbnail = C),
+      (l.getSharableEventInviteLiveFields = b));
   },
   98,
 );

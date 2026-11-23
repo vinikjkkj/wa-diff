@@ -11,14 +11,14 @@ __d(
     "AdsMessengerVisualEditorCustomerActionType",
     "AdsMessengerVisualEditorLandingScreenType",
     "ClickToMessageCTMPerformanceFeatureGating",
+    "WTMNudgeConstants",
     "isFalsey",
     "isTruthy",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    function e(e, t, n, a, i, l, u) {
-      var c,
-        d,
+    function e(e, t, n, a, i, l, u, c) {
+      var d,
         m,
         p,
         _,
@@ -36,14 +36,15 @@ __d(
         k,
         I,
         T,
-        D = a == null ? void 0 : a.icebreakers,
-        x =
-          (c = a == null ? void 0 : a.welcomeMessage) != null
-            ? c
-            : o("AdsGetDefaultGreetingText").getDefaultGreetingText(e, t),
+        D,
+        x = a == null ? void 0 : a.icebreakers,
         $ =
-          (d = D == null ? void 0 : D.icebreakers) != null
+          (d = a == null ? void 0 : a.welcomeMessage) != null
             ? d
+            : o("AdsGetDefaultGreetingText").getDefaultGreetingText(e, t),
+        P =
+          (m = x == null ? void 0 : x.icebreakers) != null
+            ? m
             : o("AdsGetDefaultIceBreakers")
                 .getDefaultIceBreakers(e, t, void 0, u, n)
                 .map(function (e) {
@@ -52,136 +53,146 @@ __d(
                     response: e.response != null ? String(e.response) : null,
                   };
                 }),
-        P = r("isFalsey")(D) && r("isTruthy")(l),
-        N =
-          r("isFalsey")(D) &&
+        N = r("isFalsey")(x) && r("isTruthy")(l),
+        M =
+          r("isFalsey")(x) &&
           o(
             "ClickToMessageCTMPerformanceFeatureGating",
           ).isEligibleForLeveragingInboxFAQsInAM(t, e, u, n),
-        M = [
-          {
-            title: s._(/*BTDS*/ "I'd like to learn more").toString(),
-            content_type: "text",
-            response_type: "text",
-          },
-        ],
         w = [
           {
-            title: s._(/*BTDS*/ "I'd like to learn more").toString(),
-            content_type: "text",
-            response_type: "text",
-          },
-          {
-            title: s._(/*BTDS*/ "Contact me later").toString(),
-            content_type: "text",
-            response_type: "text",
-          },
-          {
-            title: s._(/*BTDS*/ "Not interested").toString(),
+            title: s._(/*BTDS*/ "").toString(),
             content_type: "text",
             response_type: "text",
           },
         ],
-        A =
-          (m = a == null ? void 0 : a.nudgeMessage) != null
-            ? m
-            : String(o("AdsMessengerConstants").DEFAULT_INITIAL_NUDGE_MESSAGE),
-        F = (p = a == null ? void 0 : a.nudgeModelVersion) != null ? p : null;
-      return (
-        (T = {}),
-        (T.auto_follow_up = ((_ = {}), (_.text = A), _)),
-        (T.auto_follow_up_disabled = !1),
-        (T.reengagement = {
+        A = [
+          {
+            title: s._(/*BTDS*/ "").toString(),
+            content_type: "text",
+            response_type: "text",
+          },
+          {
+            title: s._(/*BTDS*/ "").toString(),
+            content_type: "text",
+            response_type: "text",
+          },
+          {
+            title: s._(/*BTDS*/ "").toString(),
+            content_type: "text",
+            response_type: "text",
+          },
+        ],
+        F =
+          c === !0
+            ? String(o("WTMNudgeConstants").DEFAULT_WTM_NUDGE_MESSAGE)
+            : (p = a == null ? void 0 : a.nudgeMessage) != null
+              ? p
+              : String(
+                  o("AdsMessengerConstants").DEFAULT_INITIAL_NUDGE_MESSAGE,
+                ),
+        O = (_ = a == null ? void 0 : a.nudgeModelVersion) != null ? _ : null;
+      return babelHelpers.extends(
+        {},
+        o(
+          "ClickToMessageCTMPerformanceFeatureGating",
+        ).enableCTMPersonalizedIcebreakers(t)
+          ? { personalized_icebreakers_enabled: !0 }
+          : {},
+        ((D = {}),
+        (D.auto_follow_up = ((f = {}), (f.text = F), f)),
+        (D.auto_follow_up_disabled = !1),
+        (D.reengagement = {
           text: String(
             o("AdsMessengerConstants").DEFAULT_INITIAL_NUDGE_MESSAGE,
           ),
           include_products: !1,
         }),
-        (T.reengagement_disabled = !1),
-        (T.type = "VISUAL_EDITOR"),
-        (T.version = 2),
-        (T.landing_screen_type = r(
+        (D.reengagement_disabled = !1),
+        (D.type = "VISUAL_EDITOR"),
+        (D.version = 2),
+        (D.landing_screen_type = r(
           "AdsMessengerVisualEditorLandingScreenType",
         ).WELCOME_MESSAGE),
-        (T.media_type = r("AdsMessengerJSONMediaFormatType").TEXT),
-        (T.text_format =
-          ((g = {}),
-          (g.customer_action_type = r("isTruthy")(P)
+        (D.media_type = r("AdsMessengerJSONMediaFormatType").TEXT),
+        (D.text_format =
+          ((h = {}),
+          (h.customer_action_type = r("isTruthy")(N)
             ? r("AdsMessengerVisualEditorCustomerActionType").INBOX_FAQS
             : r("AdsMessengerVisualEditorCustomerActionType").ICE_BREAKERS),
-          (g.message =
-            ((f = {}),
-            (f.ice_breakers = $),
-            (f.quick_replies = []),
-            (f.text = x),
-            f)),
-          g)),
-        (T.image_format =
-          ((v = {}),
-          (v.customer_action_type = r(
+          (h.message =
+            ((g = {}),
+            (g.ice_breakers = P),
+            (g.quick_replies = []),
+            (g.text = $),
+            g)),
+          h)),
+        (D.image_format =
+          ((S = {}),
+          (S.customer_action_type = r(
             "AdsMessengerVisualEditorCustomerActionType",
           ).QUICK_REPLIES),
-          (v.message =
-            ((b = {}),
-            (b.attachment =
-              ((C = {}),
-              (C.type = "template"),
-              (C.payload =
-                ((y = {}),
-                (y.template_type = r("AdsMessengerJSONTemplateType").GENERIC),
-                (y.elements = [
-                  ((h = {}),
-                  (h.title = ""),
-                  (h.buttons = []),
-                  (h.image_hash = ""),
-                  h),
+          (S.message =
+            ((v = {}),
+            (v.attachment =
+              ((b = {}),
+              (b.type = "template"),
+              (b.payload =
+                ((C = {}),
+                (C.template_type = r("AdsMessengerJSONTemplateType").GENERIC),
+                (C.elements = [
+                  ((y = {}),
+                  (y.title = ""),
+                  (y.buttons = []),
+                  (y.image_hash = ""),
+                  y),
                 ]),
-                y)),
-              C)),
-            (b.quick_replies = M),
-            (b.text = x),
-            b)),
-          v)),
-        (T.video_format =
-          ((E = {}),
-          (E.customer_action_type = r(
+                C)),
+              b)),
+            (v.quick_replies = w),
+            (v.text = $),
+            v)),
+          S)),
+        (D.video_format =
+          ((k = {}),
+          (k.customer_action_type = r(
             "AdsMessengerVisualEditorCustomerActionType",
           ).QUICK_REPLIES),
-          (E.message =
-            ((L = {}),
-            (L.attachment =
-              ((R = {}),
-              (R.type = r("AdsMessengerJSONMediaFormatType").VIDEO),
-              (R.payload = ((S = {}), (S.attachment_id = ""), S)),
-              R)),
-            (L.quick_replies = M),
-            (L.text = x),
-            L)),
-          E)),
-        (T.user_edit = !1),
-        (T.surface = "visual_editor_new"),
-        (T.ai_generated_icebreaker_toggle_enabled = r("isTruthy")(i)
+          (k.message =
+            ((E = {}),
+            (E.attachment =
+              ((L = {}),
+              (L.type = r("AdsMessengerJSONMediaFormatType").VIDEO),
+              (L.payload = ((R = {}), (R.attachment_id = ""), R)),
+              L)),
+            (E.quick_replies = w),
+            (E.text = $),
+            E)),
+          k)),
+        (D.user_edit = !1),
+        (D.surface = "visual_editor_new"),
+        (D.ai_generated_icebreaker_toggle_enabled = r("isTruthy")(i)
           ? !o(
               "AdsAIGenIcebreakersValidationUtils",
             ).didIcebreakersFetchFailOrNotEligible(
-              D == null ? void 0 : D.icebreakers,
+              x == null ? void 0 : x.icebreakers,
             )
           : null),
-        (T.ai_gen_conversation_model_version =
-          D == null || (k = D.modelVersion) == null ? void 0 : k.valueOf()),
-        (T.ai_gen_welcome_message_model_version =
-          (I = a == null ? void 0 : a.welcomeMessageModelVersion) != null
-            ? I
+        (D.ai_gen_conversation_model_version =
+          x == null || (I = x.modelVersion) == null ? void 0 : I.valueOf()),
+        (D.ai_gen_welcome_message_model_version =
+          (T = a == null ? void 0 : a.welcomeMessageModelVersion) != null
+            ? T
             : null),
-        (T.ai_gen_nudge_model_version = F),
-        (T.nudge_was_ai_generated =
-          F != null &&
-          F !==
+        (D.ai_gen_nudge_model_version = O),
+        (D.nudge_was_ai_generated =
+          O != null &&
+          O !==
             o("AdsMessengerConstants").AI_GEN_NUDGE_MODEL_VERSION_UNDEFINED),
-        (T.is_eligible_for_customized_greeting = !1),
-        (T.is_user_editing = !1),
-        (T.is_eligible_for_leveraging_inbox_faqs = N),
-        T
+        (D.is_eligible_for_customized_greeting = !1),
+        (D.is_user_editing = !1),
+        (D.is_eligible_for_leveraging_inbox_faqs = M),
+        D),
       );
     }
     l.default = e;

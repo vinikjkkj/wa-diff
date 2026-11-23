@@ -7,54 +7,45 @@ __d(
     "WAWebL10N",
     "WAWebMediaTypes",
     "WAWebSuspiciousContent",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      if (
+        !(
+          !r("justknobx")._("8497") ||
+          !u(e) ||
+          o(
+            "WAWebActiveIntegrityHoldout",
+          ).isSuppressedByActiveIntegrityHoldout()
+        )
+      ) {
+        var t = await r("JSResourceForInteraction")(
+            "WAWebOpenHarmfulFileWarning",
+          )
+            .__setRef("WAWebHarmfulFileWarningGate")
+            .load(),
+          n = t.openHarmfulFileWarning;
+        if (!(await n())) throw new (o("WAAbortError").AbortError)();
+        c(e);
+      }
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !(
-              !r("justknobx")._("8497") ||
-              !c(e) ||
-              o(
-                "WAWebActiveIntegrityHoldout",
-              ).isSuppressedByActiveIntegrityHoldout()
-            )
-          ) {
-            var t = yield r("JSResourceForInteraction")(
-                "WAWebOpenHarmfulFileWarning",
-              )
-                .__setRef("WAWebHarmfulFileWarningGate")
-                .load(),
-              n = t.openHarmfulFileWarning;
-            if (!(yield n())) throw new (o("WAAbortError").AbortError)();
-            d(e);
-          }
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       var t,
         n = (t = e.mediaData) == null ? void 0 : t.mediaStage;
       return n !== o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
         n !== o("WAWebMediaTypes").MediaDataStage.ERROR_UNSUPPORTED
         ? !1
-        : c(e);
+        : u(e);
     }
-    function c(e) {
+    function u(e) {
       var t;
       return (
         ((t = e.mediaData) == null ? void 0 : t.suspiciousContent) ===
         o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES_KEEP
       );
     }
-    function d(e) {
+    function c(e) {
       var t;
       (t = e.mediaData) == null ||
         t.set({
@@ -62,7 +53,7 @@ __d(
             .YES_IGNORE,
         });
     }
-    function m() {
+    function d() {
       var e = r("WAWebL10N").getNormalizedLocale();
       return (
         "https://faq.whatsapp.com/cxt/?entrypointid=maybe-harmful-file&platform=web&lang=" +
@@ -70,10 +61,10 @@ __d(
       );
     }
     ((l.confirmHarmfulFileIfNeeded = e),
-      (l.shouldOpenHarmfulFileWarningModal = u),
-      (l.shouldShowHarmfulFileWarning = c),
-      (l.markUserAcceptedHarmfulFileWarning = d),
-      (l.getHarmfulFileLearnMoreUrl = m));
+      (l.shouldOpenHarmfulFileWarningModal = s),
+      (l.shouldShowHarmfulFileWarning = u),
+      (l.markUserAcceptedHarmfulFileWarning = c),
+      (l.getHarmfulFileLearnMoreUrl = d));
   },
   98,
 );

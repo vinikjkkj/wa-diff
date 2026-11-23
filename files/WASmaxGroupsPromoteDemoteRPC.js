@@ -26,48 +26,33 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = C(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = _(r, n);
-          if (a.success)
-            return {
-              name: "PromoteDemoteResponseSuccessPromote",
-              value: a.value,
-            };
-          var i = m(r, n);
-          if (i.success)
-            return {
-              name: "PromoteDemoteResponseSuccessDemote",
-              value: i.value,
-            };
-          var l = u(r, n);
-          if (l.success)
-            return { name: "PromoteDemoteResponseClientError", value: l.value };
-          var s = c(r, n);
-          if (s.success)
-            return { name: "PromoteDemoteResponseServerError", value: s.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("PromoteDemote", {
-              SuccessPromote: a,
-              SuccessDemote: i,
-              ClientError: l,
-              ServerError: s,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = y(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = p(r, n);
+      if (a.success)
+        return { name: "PromoteDemoteResponseSuccessPromote", value: a.value };
+      var i = d(r, n);
+      if (i.success)
+        return { name: "PromoteDemoteResponseSuccessDemote", value: i.value };
+      var l = s(r, n);
+      if (l.success)
+        return { name: "PromoteDemoteResponseClientError", value: l.value };
+      var c = u(r, n);
+      if (c.success)
+        return { name: "PromoteDemoteResponseServerError", value: c.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("PromoteDemote", {
+          SuccessPromote: a,
+          SuccessDemote: i,
+          ClientError: l,
+          ServerError: c,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -77,7 +62,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = b(r.value);
+      var i = C(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -86,7 +71,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -95,7 +80,7 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrUserJid(e, "jid");
@@ -116,7 +101,7 @@ __d(
         usernameAttMixin: i.success ? i.value : null,
       });
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "demote");
@@ -133,7 +118,7 @@ __d(
           "participant",
           0,
           1024,
-          d,
+          c,
         );
       return l.success
         ? o("WAResultOrError").makeResult(
@@ -144,7 +129,7 @@ __d(
           )
         : l;
     }
-    function p(e) {
+    function m(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrUserJid(e, "jid");
@@ -173,7 +158,7 @@ __d(
         usernameAttMixin: l.success ? l.value : null,
       });
     }
-    function _(e, t) {
+    function p(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "promote");
@@ -190,7 +175,7 @@ __d(
           "participant",
           0,
           1024,
-          p,
+          m,
         );
       return l.success
         ? o("WAResultOrError").makeResult(
@@ -201,49 +186,49 @@ __d(
           )
         : l;
     }
-    function f(e) {
+    function _(e) {
       var t = e.participantJid,
         n = o("WASmaxJsx").smax("participant", { jid: o("WAWap").USER_JID(t) });
       return n;
     }
-    function g(e) {
+    function f(e) {
       var t = e.participantArgs,
         n = o("WASmaxJsx").smax(
           "promote",
           null,
-          o("WASmaxChildren").REPEATED_CHILD(f, t, 0, 1024),
+          o("WASmaxChildren").REPEATED_CHILD(_, t, 0, 1024),
         );
       return n;
     }
-    function h(e) {
+    function g(e) {
       var t = e.participantJid,
         n = o("WASmaxJsx").smax("participant", { jid: o("WAWap").USER_JID(t) });
       return n;
     }
-    function y(e) {
+    function h(e) {
       var t = e.participantArgs,
         n = o("WASmaxJsx").smax(
           "demote",
           null,
-          o("WASmaxChildren").REPEATED_CHILD(h, t, 0, 1024),
+          o("WASmaxChildren").REPEATED_CHILD(g, t, 0, 1024),
         );
       return n;
     }
-    function C(e) {
+    function y(e) {
       var t = e.promoteArgs,
         n = e.demoteArgs,
         r = o("WASmaxOutGroupsBaseSetGroupMixin").mergeBaseSetGroupMixin(
           o("WASmaxJsx").smax(
             "iq",
             null,
-            o("WASmaxChildren").OPTIONAL_CHILD(g, t),
-            o("WASmaxChildren").OPTIONAL_CHILD(y, n),
+            o("WASmaxChildren").OPTIONAL_CHILD(f, t),
+            o("WASmaxChildren").OPTIONAL_CHILD(h, n),
           ),
           e,
         );
       return r;
     }
-    function b(e) {
+    function C(e) {
       var t = o(
         "WASmaxInGroupsIQErrorRateOverlimitMixin",
       ).parseIQErrorRateOverlimitMixin(e);
@@ -322,11 +307,11 @@ __d(
           );
     }
     ((l.sendPromoteDemoteRPC = e),
-      (l.parsePromoteDemoteResponseClientError = u),
-      (l.parsePromoteDemoteResponseServerError = c),
-      (l.parsePromoteDemoteResponseSuccessDemote = m),
-      (l.parsePromoteDemoteResponseSuccessPromote = _),
-      (l.makePromoteDemoteRequest = C));
+      (l.parsePromoteDemoteResponseClientError = s),
+      (l.parsePromoteDemoteResponseServerError = u),
+      (l.parsePromoteDemoteResponseSuccessDemote = d),
+      (l.parsePromoteDemoteResponseSuccessPromote = p),
+      (l.makePromoteDemoteRequest = y));
   },
   98,
 );

@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipSilentCapture",
   [
-    "Promise",
     "WALogger",
     "WAWebAudioDeviceManager",
     "WAWebMediaPermissionsUtils",
@@ -10,7 +9,6 @@ __d(
     "WAWebVoipCallAudioUnlock",
     "WAWebVoipMicrophoneLevelAccumulator",
     "WAWebVoipSharedCallAudioContext",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,44 +22,32 @@ __d(
       p,
       _,
       f,
-      g,
-      h = 7629627368999298e-20,
-      y = new Set(["default", "communications"]),
-      C = 2,
+      g = 7629627368999298e-20,
+      h = new Set(["default", "communications"]),
+      y = 2,
+      C = new WeakMap(),
       b = new WeakMap(),
-      v = new WeakMap(),
-      S = null,
-      R = new WeakMap();
-    function L() {
-      return E.apply(this, arguments);
+      v = null,
+      S = new WeakMap();
+    async function R() {
+      var e = await Promise.all([
+          o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
+            "microphone",
+          ),
+          o("WAWebAudioDeviceManager").selectAudioDevice(),
+        ]),
+        t = e[0],
+        n = e[1];
+      return { missingReason: M() ? "hand-off" : L(t, n), selectedDeviceId: n };
     }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (g || (g = n("Promise"))).all([
-              o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
-                "microphone",
-              ),
-              o("WAWebAudioDeviceManager").selectAudioDevice(),
-            ]),
-            t = e[0],
-            r = e[1];
-          return {
-            missingReason: F() ? "hand-off" : k(t, r),
-            selectedDeviceId: r,
-          };
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e, t) {
+    function L(e, t) {
       return e === "denied" || e === "prompt"
         ? e
         : t == null
           ? "no-device"
           : null;
     }
-    function I(t) {
+    function E(t) {
       var n, r;
       if (o("WAWebUA").UA.isFirefox) {
         var a = new AudioContext({ latencyHint: "interactive" });
@@ -69,7 +55,8 @@ __d(
           o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [AV:initCaptureDriver] Firefox detected; system sample rate:\n      ",
+                `voip: [AV:initCaptureDriver] Firefox detected; system sample rate:
+      `,
                 "Hz, VoIP expects ",
                 "Hz",
               ])),
@@ -95,16 +82,16 @@ __d(
             latencyHint: "interactive",
           });
     }
-    function T(e, t) {
-      var n = I(e);
+    function k(e, t) {
+      var n = E(e);
       try {
         var a = n.createConstantSource();
         return (
-          (a.offset.value = h),
+          (a.offset.value = g),
           a.start(),
           t != null &&
-            (v.set(a, t),
-            b.set(
+            (b.set(a, t),
+            C.set(
               a,
               o("WAWebMediaPermissionsUtils").watchMediaPermissionState(
                 "microphone",
@@ -132,9 +119,9 @@ __d(
         );
       }
     }
-    function D(e) {
+    function I(e) {
       var t;
-      ((t = b.get(e)) == null || t(), b.delete(e));
+      ((t = C.get(e)) == null || t(), C.delete(e));
       try {
         (e.disconnect(),
           e.stop(),
@@ -155,18 +142,18 @@ __d(
           .catching(r("getErrorSafe")(e));
       }
     }
-    function x(e) {
+    function T(e) {
       if (e != null) {
         var t;
-        (t = v.get(e)) == null || t();
+        (t = b.get(e)) == null || t();
       }
     }
-    function $(e, t) {
-      R.set(e, t);
+    function D(e, t) {
+      S.set(e, t);
     }
-    function P(e, t) {
+    function x(e, t) {
       var n = e.audioStream,
-        r = n != null && !y.has(t) && R.get(n) === t && e.hasLiveAudioTrack();
+        r = n != null && !h.has(t) && S.get(n) === t && e.hasLiveAudioTrack();
       return (
         r &&
           o("WALogger").LOG(
@@ -180,50 +167,42 @@ __d(
         r
       );
     }
-    function N(e, t) {
+    function $(e, t) {
       var n = { handOff: e, isCallCurrent: t };
-      S = n;
+      v = n;
       var r = function () {
-        S === n && (S = null);
+        v === n && (v = null);
       };
       e.then(r, r);
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    async function P(e) {
+      if (e != null) return !0;
+      if (M())
+        return (
+          o("WALogger").LOG(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [AV:switchDevice] skipped while capturing silence, a granted microphone is being handed over",
+              ])),
+          ),
+          !1
+        );
+      var t = await o(
+        "WAWebMediaPermissionsUtils",
+      ).queryMediaPermissionStateStrict("microphone");
+      return t === "denied" || t === "prompt"
+        ? (o("WALogger").LOG(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [AV:switchDevice] skipped while capturing silence, microphone permission ",
+                "",
+              ])),
+            t,
+          ),
+          !1)
+        : !0;
     }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e != null) return !0;
-          if (F())
-            return (
-              o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [AV:switchDevice] skipped while capturing silence, a granted microphone is being handed over",
-                  ])),
-              ),
-              !1
-            );
-          var t = yield o(
-            "WAWebMediaPermissionsUtils",
-          ).queryMediaPermissionStateStrict("microphone");
-          return t === "denied" || t === "prompt"
-            ? (o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [AV:switchDevice] skipped while capturing silence, microphone permission ",
-                    "",
-                  ])),
-                t,
-              ),
-              !1)
-            : !0;
-        })),
-        w.apply(this, arguments)
-      );
-    }
-    var A = (function () {
+    var N = (function () {
       function e(e) {
         ((this.$2 = null), (this.$1 = e));
       }
@@ -242,14 +221,14 @@ __d(
               t > o("WAWebVoipMicrophoneLevelAccumulator").SILENCE_RMS_DBFS
                 ? e + 1
                 : 0;
-            if (n < C) {
+            if (n < y) {
               this.$2 = n;
               return;
             }
             ((this.$2 = null),
               o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                _ ||
+                  (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [AV] microphone delivering audio after silence",
                   ])),
               ));
@@ -259,8 +238,8 @@ __d(
             } catch (e) {
               o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [AV] handling microphone audio after silence failed",
                     ])),
                 )
@@ -272,21 +251,21 @@ __d(
         e
       );
     })();
-    function F() {
+    function M() {
       var e;
-      return ((e = S) == null ? void 0 : e.isCallCurrent()) === !0;
+      return ((e = v) == null ? void 0 : e.isCallCurrent()) === !0;
     }
-    ((l.findMicrophone = L),
-      (l.getMissingMicrophoneReason = k),
-      (l.createCaptureAudioContext = I),
-      (l.createSilentCaptureGraph = T),
-      (l.stopSilentSource = D),
-      (l.retrySwitchFromSilence = x),
-      (l.markGrantedMicrophoneStream = $),
-      (l.isLiveOnGrantedMicrophone = P),
-      (l.holdSilenceSwitchesUntil = N),
-      (l.isMicrophoneSwitchAllowedWhileSilent = M),
-      (l.AudioAfterSilenceWatch = A));
+    ((l.findMicrophone = R),
+      (l.getMissingMicrophoneReason = L),
+      (l.createCaptureAudioContext = E),
+      (l.createSilentCaptureGraph = k),
+      (l.stopSilentSource = I),
+      (l.retrySwitchFromSilence = T),
+      (l.markGrantedMicrophoneStream = D),
+      (l.isLiveOnGrantedMicrophone = x),
+      (l.holdSilenceSwitchesUntil = $),
+      (l.isMicrophoneSwitchAllowedWhileSilent = P),
+      (l.AudioAfterSilenceWatch = N));
   },
   98,
 );

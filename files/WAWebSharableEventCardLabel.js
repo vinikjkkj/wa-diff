@@ -19,11 +19,11 @@ __d(
         i = t.viewerResponse;
       return a ===
         o("WAWebSharableEventStorageEnums").SharableEventStoredStatus.Canceled
-        ? { text: s._(/*BTDS*/ "Canceled"), tone: e.Neutral }
+        ? { text: s._(/*BTDS*/ ""), tone: e.Neutral }
         : a ===
             o("WAWebSharableEventStorageEnums").SharableEventStoredStatus
               .Suspended
-          ? { text: s._(/*BTDS*/ "Suspended"), tone: e.Negative }
+          ? { text: s._(/*BTDS*/ ""), tone: e.Negative }
           : r
             ? {
                 text: o(
@@ -39,7 +39,7 @@ __d(
                       "WAWebSharableEventStrings",
                     ).getSharableEventResponseLabel(i)) != null
                       ? n
-                      : s._(/*BTDS*/ "Not responded"),
+                      : s._(/*BTDS*/ ""),
                   tone:
                     i ===
                     o("WAWebSharableEventStorageEnums")

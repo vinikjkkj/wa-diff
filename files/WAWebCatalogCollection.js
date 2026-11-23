@@ -1,7 +1,6 @@
 __d(
   "WAWebCatalogCollection",
   [
-    "Promise",
     "WALogger",
     "WAWebBackendErrors",
     "WAWebBizProductCatalogAction",
@@ -16,16 +15,14 @@ __d(
     "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = (function (t) {
-        function a() {
+      u = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
           return (
@@ -44,10 +41,10 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.remove = function (n, r) {
+          (a.remove = function (n, r) {
             var e = t.prototype.remove.call(this, n, r);
             return (
               e.forEach(function (e) {
@@ -57,11 +54,11 @@ __d(
               e
             );
           }),
-          (i.reset = function () {
+          (a.reset = function () {
             (this.forEach(o("WAWebCatalogGetters").clearCatalogGetterCacheFor),
               t.prototype.reset.call(this));
           }),
-          (i.addMsgAsProduct = function (n) {
+          (a.addMsgAsProduct = function (n) {
             var e = o("WAWebMsgGetters").getBusinessOwnerJid(n.unsafe()),
               r = e != null ? o("WAWebWidFactory").createWid(e) : null;
             if (r != null) {
@@ -99,228 +96,198 @@ __d(
               }
             }
           }),
-          (i._queryProduct = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var a = e.canLogQpl,
-                  i = e.catalogWid,
-                  l = e.height,
-                  s = e.productId,
-                  c = e.productMsgMediaData,
-                  d = e.shouldFetchComplianceFields,
-                  m = e.width,
-                  p = yield o("WAWebBizProductCatalogAction").queryProduct(
-                    i,
-                    s,
-                    m,
-                    l,
-                    d,
-                    a,
-                  );
-                if (p.error === "NOT_FOUND") {
-                  var _ = this.get(i);
-                  return (
-                    _ == null || _.productCollection.remove(s),
-                    (u || (u = n("Promise"))).reject(
-                      new (o("WAWebBackendErrors").E404)(
-                        "CatalogCollection:findProduct:_queryProduct NOT_FOUND",
-                      ),
-                    )
-                  );
-                }
-                if (!p.data)
-                  return t.prototype.add.call(this, {
-                    id: i,
-                    afterCursor: void 0,
-                  });
-                var f = p.data;
-                if (!f.image_cdn_urls)
-                  return (u || (u = n("Promise"))).reject(
-                    r("err")(
-                      "CatalogCollection:findProduct:_queryProduct: could not find image_cdn_urls for product",
-                    ),
-                  );
-                var g = o(
-                  "WAWebBizProductCatalogBridge",
-                ).mapProductResponseToModel(f, i);
-                if (((g.productMsgMediaData = c), g.variantInfo != null)) {
-                  var h;
-                  ((h = this.get(i)) == null
-                    ? void 0
-                    : h.productCollection.get(f.id)) == null &&
-                    (g.displayPriority = 1);
-                }
-                var y = [g];
-                return t.prototype.add.call(
-                  this,
-                  { id: i, afterCursor: void 0, _products: y, _msgs: y },
-                  { merge: !0 },
-                );
-              },
-            );
-            function a(t) {
-              return e.apply(this, arguments);
+          (a._queryProduct = async function (n) {
+            var e = n.canLogQpl,
+              a = n.catalogWid,
+              i = n.height,
+              l = n.productId,
+              s = n.productMsgMediaData,
+              u = n.shouldFetchComplianceFields,
+              c = n.width,
+              d = await o("WAWebBizProductCatalogAction").queryProduct(
+                a,
+                l,
+                c,
+                i,
+                u,
+                e,
+              );
+            if (d.error === "NOT_FOUND") {
+              var m = this.get(a);
+              return (
+                m == null || m.productCollection.remove(l),
+                Promise.reject(
+                  new (o("WAWebBackendErrors").E404)(
+                    "CatalogCollection:findProduct:_queryProduct NOT_FOUND",
+                  ),
+                )
+              );
             }
-            return a;
-          })()),
-          (i.findProduct = function (t) {
+            if (!d.data)
+              return t.prototype.add.call(this, { id: a, afterCursor: void 0 });
+            var p = d.data;
+            if (!p.image_cdn_urls)
+              return Promise.reject(
+                r("err")(
+                  "CatalogCollection:findProduct:_queryProduct: could not find image_cdn_urls for product",
+                ),
+              );
+            var _ = o("WAWebBizProductCatalogBridge").mapProductResponseToModel(
+              p,
+              a,
+            );
+            if (((_.productMsgMediaData = s), _.variantInfo != null)) {
+              var f;
+              ((f = this.get(a)) == null
+                ? void 0
+                : f.productCollection.get(p.id)) == null &&
+                (_.displayPriority = 1);
+            }
+            var g = [_];
+            return t.prototype.add.call(
+              this,
+              { id: a, afterCursor: void 0, _products: g, _msgs: g },
+              { merge: !0 },
+            );
+          }),
+          (a.findProduct = function (t) {
             var e = t.canLogQpl,
-              o = t.catalogWid,
-              a = t.productId,
-              i = t.productMsgMediaData,
-              l = t.shouldFetchComplianceFields,
-              s = this.convertCatalogIdForLidMigration(o);
-            return r("isStringNullOrEmpty")(a)
-              ? (u || (u = n("Promise"))).reject(
+              n = t.catalogWid,
+              o = t.productId,
+              a = t.productMsgMediaData,
+              i = t.shouldFetchComplianceFields,
+              l = this.convertCatalogIdForLidMigration(n);
+            return r("isStringNullOrEmpty")(o)
+              ? Promise.reject(
                   r("err")(
                     "CatalogCollection:findProduct Received productId type " +
-                      (a === void 0 ? "undefined" : "null"),
+                      (o === void 0 ? "undefined" : "null"),
                   ),
                 )
               : this._queryProduct({
-                  catalogWid: s,
-                  productId: a,
-                  productMsgMediaData: i,
-                  shouldFetchComplianceFields: l,
+                  catalogWid: l,
+                  productId: o,
+                  productMsgMediaData: a,
+                  shouldFetchComplianceFields: i,
                   canLogQpl: e,
                 });
           }),
-          (i._queryCatalog = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var a = t.afterCursor,
-                  i = t.allowShopSource,
-                  l = t.catalog,
-                  s = t.catalogWid,
-                  c = t.checkmarkCollectionId,
-                  d = t.markerId,
-                  m = l ? l.index : 0;
-                d &&
+          (a._queryCatalog = async function (n) {
+            var t = n.afterCursor,
+              a = n.allowShopSource,
+              i = n.catalog,
+              l = n.catalogWid,
+              s = n.checkmarkCollectionId,
+              u = n.markerId,
+              c = i ? i.index : 0;
+            u &&
+              o("WAWebQplFlowWrapper").QPL.markerPoint(
+                u,
+                "datasource_catalog_start",
+              );
+            try {
+              var d = o("WAWebCatalogVariantHelper").FULL_VARIANT_INFO_FIELDS,
+                m = o("WAWebCatalogVariantHelper").VARIANT_THUMBNAIL_IMAGE_SIZE,
+                p = o("WAWebCatalogVariantHelper").VARIANT_THUMBNAIL_IMAGE_SIZE,
+                _ = await o("WAWebBizProductCatalogAction").queryCatalog(
+                  l,
+                  t,
+                  10,
+                  void 0,
+                  void 0,
+                  s,
+                  a,
+                  d,
+                  m,
+                  p,
+                );
+              if (
+                (u &&
                   o("WAWebQplFlowWrapper").QPL.markerPoint(
-                    d,
-                    "datasource_catalog_start",
+                    u,
+                    "datasource_catalog_end",
+                  ),
+                this.hasSelfCatalogErrorEmailMask() &&
+                  this.shouldUseCatalogErrorEmailMask(l) &&
+                  this.resetSelfCatalogErrorEmailMask(),
+                !_.data.length)
+              )
+                return { id: l, afterCursor: "" };
+              var f = [];
+              _.data.forEach(function (e) {
+                e.image_cdn_urls &&
+                  f.push(
+                    o("WAWebBizProductCatalogBridge").mapProductResponseToModel(
+                      e,
+                      l,
+                    ),
                   );
-                try {
-                  var p = o(
-                      "WAWebCatalogVariantHelper",
-                    ).FULL_VARIANT_INFO_FIELDS,
-                    _ = o(
-                      "WAWebCatalogVariantHelper",
-                    ).VARIANT_THUMBNAIL_IMAGE_SIZE,
-                    f = o(
-                      "WAWebCatalogVariantHelper",
-                    ).VARIANT_THUMBNAIL_IMAGE_SIZE,
-                    g = yield o("WAWebBizProductCatalogAction").queryCatalog(
-                      s,
-                      a,
-                      10,
-                      void 0,
-                      void 0,
-                      c,
-                      i,
-                      p,
-                      _,
-                      f,
-                    );
-                  if (
-                    (d &&
-                      o("WAWebQplFlowWrapper").QPL.markerPoint(
-                        d,
-                        "datasource_catalog_end",
-                      ),
-                    this.hasSelfCatalogErrorEmailMask() &&
-                      this.shouldUseCatalogErrorEmailMask(s) &&
-                      this.resetSelfCatalogErrorEmailMask(),
-                    !g.data.length)
-                  )
-                    return { id: s, afterCursor: "" };
-                  var h = [];
-                  g.data.forEach(function (e) {
-                    e.image_cdn_urls &&
-                      h.push(
-                        o(
-                          "WAWebBizProductCatalogBridge",
-                        ).mapProductResponseToModel(e, s),
-                      );
-                  });
-                  var y = { type: "success", catalog: g };
-                  this.trigger("catalog-loaded", y);
-                  var C = this.get(s);
-                  return (
-                    C &&
-                      C.catalogId != null &&
-                      g.catalog_id != null &&
-                      C.catalogId !== g.catalog_id &&
-                      this.remove(s),
-                    {
-                      id: s,
-                      afterCursor: g.paging.cursors.after,
-                      _products: h,
-                      catalogId: g.catalog_id,
-                      catalogType: g.catalog_type,
-                      catalogName: g.catalog_name,
-                      fetchedFromServer: !0,
-                      index: m + h.length,
-                    }
-                  );
-                } catch (t) {
-                  if (
-                    t instanceof
-                      o("WAWebBackendErrors").AdAccountRecoveryRequiredError &&
-                    this.shouldUseCatalogErrorEmailMask(s)
-                  ) {
-                    if (r("isStringNullOrEmpty")(t.emailMask))
-                      return (
-                        o("WALogger")
-                          .ERROR(
-                            e ||
-                              (e = babelHelpers.taggedTemplateLiteralLoose([
-                                "Catalog:AdAccountRecoveryRequiredError empty email mask",
-                              ])),
-                          )
-                          .sendLogs("catalog email mask empty"),
-                        (u || (u = n("Promise"))).reject(
-                          new (o(
-                            "WAWebBackendErrors",
-                          ).AdAccountRecoveryRequiredEmailMaskEmptyError)(),
-                        )
-                      );
-                    this.updateSelfCatalogErrorEmailMask(t.emailMask);
-                  } else if (
-                    t instanceof
-                      o("WAWebBackendErrors").CatalogIncorrectNonceError &&
-                    this.shouldUseCatalogErrorEmailMask(s)
-                  ) {
-                    var b = { type: "incorrect-nonce" };
-                    return (
-                      this.trigger("catalog-loaded", b),
-                      (u || (u = n("Promise"))).reject(t)
-                    );
-                  } else if (
-                    (this.hasSelfCatalogErrorEmailMask() &&
-                      this.shouldUseCatalogErrorEmailMask(s) &&
-                      this.resetSelfCatalogErrorEmailMask(),
-                    t instanceof
-                      o("WAWebBackendErrors").ServerStatusCodeError &&
-                      t.statusCode === 404)
-                  ) {
-                    var v = this.get(s);
-                    v != null && this.remove(s);
-                  }
-                  var S = { type: "error" };
-                  return (
-                    this.trigger("catalog-loaded", S),
-                    (u || (u = n("Promise"))).reject(t)
-                  );
+              });
+              var g = { type: "success", catalog: _ };
+              this.trigger("catalog-loaded", g);
+              var h = this.get(l);
+              return (
+                h &&
+                  h.catalogId != null &&
+                  _.catalog_id != null &&
+                  h.catalogId !== _.catalog_id &&
+                  this.remove(l),
+                {
+                  id: l,
+                  afterCursor: _.paging.cursors.after,
+                  _products: f,
+                  catalogId: _.catalog_id,
+                  catalogType: _.catalog_type,
+                  catalogName: _.catalog_name,
+                  fetchedFromServer: !0,
+                  index: c + f.length,
                 }
-              },
-            );
-            function a(e) {
-              return t.apply(this, arguments);
+              );
+            } catch (t) {
+              if (
+                t instanceof
+                  o("WAWebBackendErrors").AdAccountRecoveryRequiredError &&
+                this.shouldUseCatalogErrorEmailMask(l)
+              ) {
+                if (r("isStringNullOrEmpty")(t.emailMask))
+                  return (
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "Catalog:AdAccountRecoveryRequiredError empty email mask",
+                          ])),
+                      )
+                      .sendLogs("catalog email mask empty"),
+                    Promise.reject(
+                      new (o(
+                        "WAWebBackendErrors",
+                      ).AdAccountRecoveryRequiredEmailMaskEmptyError)(),
+                    )
+                  );
+                this.updateSelfCatalogErrorEmailMask(t.emailMask);
+              } else if (
+                t instanceof
+                  o("WAWebBackendErrors").CatalogIncorrectNonceError &&
+                this.shouldUseCatalogErrorEmailMask(l)
+              ) {
+                var y = { type: "incorrect-nonce" };
+                return (this.trigger("catalog-loaded", y), Promise.reject(t));
+              } else if (
+                (this.hasSelfCatalogErrorEmailMask() &&
+                  this.shouldUseCatalogErrorEmailMask(l) &&
+                  this.resetSelfCatalogErrorEmailMask(),
+                t instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
+                  t.statusCode === 404)
+              ) {
+                var C = this.get(l);
+                C != null && this.remove(l);
+              }
+              var b = { type: "error" };
+              return (this.trigger("catalog-loaded", b), Promise.reject(t));
             }
-            return a;
-          })()),
-          (i._findImplCommon = function (t, n) {
+          }),
+          (a._findImplCommon = function (t, n) {
             var e = this.get(t),
               a = e && !e.stale ? e.afterCursor : void 0,
               i =
@@ -335,75 +302,51 @@ __d(
               markerId: n == null ? void 0 : n.markerId,
             });
           }),
-          (i.findCarouselCatalog = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var n = this.convertCatalogIdForLidMigration(e),
-                  r = this.get(n);
-                r && r.set({ index: 0 });
-                var o = yield this._queryCatalog({
-                  afterCursor: void 0,
-                  allowShopSource: !1,
-                  catalog: r,
-                  catalogWid: n,
-                  checkmarkCollectionId: void 0,
-                });
-                return (
-                  r && r.markProductCollectionOld(),
-                  t.prototype.add.call(this, o, { merge: !0 })
-                );
-              },
+          (a.findCarouselCatalog = async function (n) {
+            var e = this.convertCatalogIdForLidMigration(n),
+              r = this.get(e);
+            r && r.set({ index: 0 });
+            var o = await this._queryCatalog({
+              afterCursor: void 0,
+              allowShopSource: !1,
+              catalog: r,
+              catalogWid: e,
+              checkmarkCollectionId: void 0,
+            });
+            return (
+              r && r.markProductCollectionOld(),
+              t.prototype.add.call(this, o, { merge: !0 })
             );
-            function r(t) {
-              return e.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (i.findNextProductPage = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = this.convertCatalogIdForLidMigration(e);
-                t === !0 &&
-                  o("WAWebProductCatalogLogQplEvents").qplPointCatalogView(
-                    "datasource_start",
-                  );
-                var r = yield this.update(n);
-                t === !0 &&
-                  o("WAWebProductCatalogLogQplEvents").qplPointCatalogView(
-                    "datasource_end",
-                  );
-                var a = Array.isArray(r) ? r[0] : r;
-                return a.productCollection.getProductModels();
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.findCollectionMembership = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, n) {
-                var r = this.convertCatalogIdForLidMigration(e),
-                  o = this.get(r),
-                  a = o && !o.stale ? o.afterCursor : void 0,
-                  i = yield this._queryCatalog({
-                    afterCursor: a,
-                    catalog: o,
-                    catalogWid: r,
-                    checkmarkCollectionId: n,
-                  });
-                (t.prototype.add.call(this, i, { merge: !0 }),
-                  (o = this.get(r)),
-                  o && (o.stale = !1));
-              },
-            );
-            function r(t, n) {
-              return e.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (i.removeCatalog = function (t) {
+          }),
+          (a.findNextProductPage = async function (t, n) {
+            var e = this.convertCatalogIdForLidMigration(t);
+            n === !0 &&
+              o("WAWebProductCatalogLogQplEvents").qplPointCatalogView(
+                "datasource_start",
+              );
+            var r = await this.update(e);
+            n === !0 &&
+              o("WAWebProductCatalogLogQplEvents").qplPointCatalogView(
+                "datasource_end",
+              );
+            var a = Array.isArray(r) ? r[0] : r;
+            return a.productCollection.getProductModels();
+          }),
+          (a.findCollectionMembership = async function (n, r) {
+            var e = this.convertCatalogIdForLidMigration(n),
+              o = this.get(e),
+              a = o && !o.stale ? o.afterCursor : void 0,
+              i = await this._queryCatalog({
+                afterCursor: a,
+                catalog: o,
+                catalogWid: e,
+                checkmarkCollectionId: r,
+              });
+            (t.prototype.add.call(this, i, { merge: !0 }),
+              (o = this.get(e)),
+              o && (o.stale = !1));
+          }),
+          (a.removeCatalog = function (t) {
             var e = this.convertCatalogIdForLidMigration(t),
               n = this.get(e);
             n
@@ -415,44 +358,44 @@ __d(
                     ])),
                 );
           }),
-          (i.get = function (n) {
+          (a.get = function (n) {
             return t.prototype.get.call(
               this,
               this.convertCatalogIdForLidMigration(n),
             );
           }),
-          (i.assertGet = function (n) {
+          (a.assertGet = function (n) {
             return t.prototype.assertGet.call(
               this,
               this.convertCatalogIdForLidMigration(n),
             );
           }),
-          (i.convertCatalogIdForLidMigration = function (t) {
+          (a.convertCatalogIdForLidMigration = function (t) {
             var e =
               t instanceof r("WAWebWid")
                 ? t
                 : o("WAWebWidFactory").createWid(t.toString());
             return e;
           }),
-          (i.updateSelfCatalogErrorEmailMask = function (t) {
+          (a.updateSelfCatalogErrorEmailMask = function (t) {
             ((this.selfCatalogErrorEmailMask = t),
               this.trigger("change:selfCatalogErrorEmailMask"));
           }),
-          (i.resetSelfCatalogErrorEmailMask = function () {
+          (a.resetSelfCatalogErrorEmailMask = function () {
             this.updateSelfCatalogErrorEmailMask(null);
           }),
-          (i.hasSelfCatalogErrorEmailMask = function () {
+          (a.hasSelfCatalogErrorEmailMask = function () {
             return this.selfCatalogErrorEmailMask != null;
           }),
-          (i.shouldUseCatalogErrorEmailMask = function (t) {
+          (a.shouldUseCatalogErrorEmailMask = function (t) {
             return !(t == null || !o("WAWebUserUtils").isMeAccount(t));
           }),
-          a
+          n
         );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
-    c.model = r("WAWebCatalogModel");
-    var d = new c();
-    l.CatalogCollection = d;
+    u.model = r("WAWebCatalogModel");
+    var c = new u();
+    l.CatalogCollection = c;
   },
   98,
 );

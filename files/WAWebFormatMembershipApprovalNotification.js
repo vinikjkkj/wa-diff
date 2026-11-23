@@ -31,12 +31,8 @@ __d(
         case "membership_approval_request":
           return {
             text: i
-              ? s._(/*BTDS*/ "{author} requested to join", [
-                  s._param("author", l),
-                ])
-              : s._(/*BTDS*/ "{author} requested to join. Click to review.", [
-                  s._param("author", l),
-                ]),
+              ? s._(/*BTDS*/ "", [s._param("author", l)])
+              : s._(/*BTDS*/ "", [s._param("author", l)]),
             enumType: o("WAWebWamEnumSystemMessageTypeType")
               .SYSTEM_MESSAGE_TYPE_TYPE.GROUP_JOIN_REQUEST,
           };
@@ -56,14 +52,14 @@ __d(
             );
           return {
             text: i
-              ? s._(/*BTDS*/ "{author} requested to add {authors}", [
+              ? s._(/*BTDS*/ "", [
                   s._param("author", d),
                   s._param("authors", p),
                 ])
-              : s._(
-                  /*BTDS*/ "{author} requested to add {authors}. Click to review.",
-                  [s._param("author", d), s._param("authors", p)],
-                ),
+              : s._(/*BTDS*/ "", [
+                  s._param("author", d),
+                  s._param("authors", p),
+                ]),
             enumType: o("WAWebWamEnumSystemMessageTypeType")
               .SYSTEM_MESSAGE_TYPE_TYPE.GROUP_JOIN_REQUEST,
           };
@@ -107,95 +103,39 @@ __d(
       return n
         ? i == null
           ? r
-            ? {
-                text: a
-                  ? s._(
-                      /*BTDS*/ "New members need admin approval to join this group",
-                    )
-                  : s._(
-                      /*BTDS*/ "New members need admin approval to join this group. Click to change.",
-                    ),
-              }
-            : {
-                text: s._(
-                  /*BTDS*/ "New members need admin approval to join this group.",
-                ),
-              }
+            ? { text: a ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "") }
+            : { text: s._(/*BTDS*/ "") }
           : o("WAWebUserUtils").isMeAccount(e)
-            ? {
-                text: a
-                  ? s._(
-                      /*BTDS*/ "You turned on admin approval to join this group",
-                    )
-                  : s._(
-                      /*BTDS*/ "You turned on admin approval to join this group. Click to change.",
-                    ),
-              }
+            ? { text: a ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "") }
             : r
               ? {
                   text: a
-                    ? s._(
-                        /*BTDS*/ "{author} turned on admin approval to join this group",
-                        [s._param("author", i)],
-                      )
-                    : s._(
-                        /*BTDS*/ "{author} turned on admin approval to join this group. Click to change.",
-                        [s._param("author", i)],
-                      ),
+                    ? s._(/*BTDS*/ "", [s._param("author", i)])
+                    : s._(/*BTDS*/ "", [s._param("author", i)]),
                 }
               : {
                   text: o(
                     "WAWebSystemMessageGatingUtils",
                   ).systemMessageTerminalPeriodsEnabled()
-                    ? s._(
-                        /*BTDS*/ "{author} turned on admin approval to join this group.",
-                        [s._param("author", i)],
-                      )
-                    : s._(
-                        /*BTDS*/ "{author} turned on admin approval to join this group",
-                        [s._param("author", i)],
-                      ),
+                    ? s._(/*BTDS*/ "", [s._param("author", i)])
+                    : s._(/*BTDS*/ "", [s._param("author", i)]),
                 }
         : i == null
-          ? {
-              text: s._(
-                /*BTDS*/ "Admin approval to join this group was turned off.",
-              ),
-            }
+          ? { text: s._(/*BTDS*/ "") }
           : o("WAWebUserUtils").isMeAccount(e)
-            ? {
-                text: a
-                  ? s._(
-                      /*BTDS*/ "You turned off admin approval to join this group",
-                    )
-                  : s._(
-                      /*BTDS*/ "You turned off admin approval to join this group. Click to change.",
-                    ),
-              }
+            ? { text: a ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "") }
             : r
               ? {
                   text: a
-                    ? s._(
-                        /*BTDS*/ "{author} turned off admin approval to join this group",
-                        [s._param("author", i)],
-                      )
-                    : s._(
-                        /*BTDS*/ "{author} turned off admin approval to join this group. Click to change.",
-                        [s._param("author", i)],
-                      ),
+                    ? s._(/*BTDS*/ "", [s._param("author", i)])
+                    : s._(/*BTDS*/ "", [s._param("author", i)]),
                 }
               : {
                   text: o(
                     "WAWebSystemMessageGatingUtils",
                   ).systemMessageTerminalPeriodsEnabled()
-                    ? s._(
-                        /*BTDS*/ "{author} turned off admin approval to join this group.",
-                        [s._param("author", i)],
-                      )
-                    : s._(
-                        /*BTDS*/ "{author} turned off admin approval to join this group",
-                        [s._param("author", i)],
-                      ),
+                    ? s._(/*BTDS*/ "", [s._param("author", i)])
+                    : s._(/*BTDS*/ "", [s._param("author", i)]),
                 };
     }
     function d(e, t, n) {

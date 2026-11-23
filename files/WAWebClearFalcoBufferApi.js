@@ -5,7 +5,6 @@ __d(
     "WAWebCanonicalWamFalcoBufferConstants",
     "WAWebLocalStorage",
     "WAWebStorageErrorHandlingUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,142 +13,129 @@ __d(
       u,
       c = 4194304,
       d = 5;
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.force;
-          if (r("WAWebLocalStorage") != null) {
-            var n =
-              t ||
-              f() > c ||
-              (yield o(
-                "WAWebStorageErrorHandlingUtils",
-              ).isQuotaActuallyExceeded());
-            if (n) {
-              var a = h();
-              if (a.length !== 0)
-                try {
-                  var i = 0,
-                    l = new Map();
-                  a.forEach(function (e) {
-                    var t = r("WAWebLocalStorage")[e];
-                    (typeof t == "string" && (i += g(e + t)),
-                      r("WAWebLocalStorage").removeItem(e));
-                    for (var n of _(e, t)) {
-                      var o,
-                        a = n.queue + ":" + n.event,
-                        s =
-                          (o = l.get(a)) != null
-                            ? o
-                            : {
-                                count: 0,
-                                event: n.event,
-                                maxItemBytes: 0,
-                                queue: n.queue,
-                                totalItemBytes: 0,
-                              };
-                      (s.count++,
-                        (s.maxItemBytes = Math.max(
-                          s.maxItemBytes,
-                          n.itemBytes,
-                        )),
-                        (s.totalItemBytes += n.itemBytes),
-                        l.set(a, s));
-                    }
-                  });
-                  var m = Array.from(l.values())
-                    .sort(function (e, t) {
-                      return t.totalItemBytes - e.totalItemBytes;
-                    })
-                    .slice(0, d);
-                  o("WALogger")
-                    .LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[falco] cleared ",
-                          " keys (",
-                          " estimated storage bytes); top event contributors by estimated item bytes: ",
-                          "",
-                        ])),
-                      a.length,
-                      i,
-                      JSON.stringify(m),
-                    )
-                    .sendLogs("wam_falco_buffer_cleared");
-                } catch (e) {
-                  o("WALogger")
-                    .ERROR(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[falco] error clearing falco buffer",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e))
-                    .sendLogs("wam_falco_buffer_clear_error");
+    async function m(t) {
+      var n = t.force;
+      if (r("WAWebLocalStorage") != null) {
+        var a =
+          n ||
+          _() > c ||
+          (await o("WAWebStorageErrorHandlingUtils").isQuotaActuallyExceeded());
+        if (a) {
+          var i = g();
+          if (i.length !== 0)
+            try {
+              var l = 0,
+                u = new Map();
+              i.forEach(function (e) {
+                var t = r("WAWebLocalStorage")[e];
+                (typeof t == "string" && (l += f(e + t)),
+                  r("WAWebLocalStorage").removeItem(e));
+                for (var n of p(e, t)) {
+                  var o,
+                    a = n.queue + ":" + n.event,
+                    i =
+                      (o = u.get(a)) != null
+                        ? o
+                        : {
+                            count: 0,
+                            event: n.event,
+                            maxItemBytes: 0,
+                            queue: n.queue,
+                            totalItemBytes: 0,
+                          };
+                  (i.count++,
+                    (i.maxItemBytes = Math.max(i.maxItemBytes, n.itemBytes)),
+                    (i.totalItemBytes += n.itemBytes),
+                    u.set(a, i));
                 }
+              });
+              var m = Array.from(u.values())
+                .sort(function (e, t) {
+                  return t.totalItemBytes - e.totalItemBytes;
+                })
+                .slice(0, d);
+              o("WALogger")
+                .LOG(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[falco] cleared ",
+                      " keys (",
+                      " estimated storage bytes); top event contributors by estimated item bytes: ",
+                      "",
+                    ])),
+                  i.length,
+                  l,
+                  JSON.stringify(m),
+                )
+                .sendLogs("wam_falco_buffer_cleared");
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[falco] error clearing falco buffer",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("wam_falco_buffer_clear_error");
             }
-          }
-        })),
-        p.apply(this, arguments)
-      );
+        }
+      }
     }
-    function _(t, n) {
-      if (typeof n != "string") return [];
+    function p(e, t) {
+      if (typeof t != "string") return [];
       try {
-        var a = JSON.parse(n),
-          i = null;
+        var n = JSON.parse(t),
+          a = null;
         if (
-          (t ===
+          (e ===
           o("WAWebCanonicalWamFalcoBufferConstants")
             .CANONICAL_WAM_FALCO_BUFFER_STORAGE_KEY
-            ? (i = a)
-            : a != null &&
-              typeof a == "object" &&
-              Array.isArray(a.items) &&
-              (i = a.items),
-          !Array.isArray(i))
+            ? (a = n)
+            : n != null &&
+              typeof n == "object" &&
+              Array.isArray(n.items) &&
+              (a = n.items),
+          !Array.isArray(a))
         )
           return [];
-        var l = [],
-          s = t.split("^$")[0];
-        for (var u of i)
-          if (u != null && typeof u == "object" && typeof u.name == "string") {
-            var c = u.name;
-            l.push({ event: c, itemBytes: g(JSON.stringify(u)), queue: s });
+        var i = [],
+          l = e.split("^$")[0];
+        for (var s of a)
+          if (s != null && typeof s == "object" && typeof s.name == "string") {
+            var c = s.name;
+            i.push({ event: c, itemBytes: f(JSON.stringify(s)), queue: l });
           }
-        return l;
-      } catch (t) {
+        return i;
+      } catch (e) {
         return (
           o("WALogger")
             .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[falco] unable to read cleared event names",
                 ])),
             )
-            .catching(r("getErrorSafe")(t))
+            .catching(r("getErrorSafe")(e))
             .sendLogs("wam_falco_buffer_clear_count_error"),
           []
         );
       }
     }
-    function f() {
+    function _() {
       if (r("WAWebLocalStorage") == null) return 0;
       var e = 0;
       for (var t of Object.keys(r("WAWebLocalStorage"))) {
         var n,
           o = (n = r("WAWebLocalStorage")[t]) != null ? n : "";
-        e += g(t + o);
+        e += f(t + o);
       }
       return e;
     }
-    function g(e) {
+    function f(e) {
       return e.length * 2;
     }
-    function h() {
+    function g() {
       return r("WAWebLocalStorage") == null
         ? []
         : Object.keys(r("WAWebLocalStorage")).filter(function (e) {

@@ -30,15 +30,15 @@ __d(
     function m(t) {
       switch (t) {
         case e.SANS_SERIF:
-          return s._(/*BTDS*/ "Sans Serif");
+          return s._(/*BTDS*/ "");
         case e.SERIF:
-          return s._(/*BTDS*/ "Serif");
+          return s._(/*BTDS*/ "");
         case e.NORICAN_REGULAR:
-          return s._(/*BTDS*/ "Norican");
+          return s._(/*BTDS*/ "");
         case e.BRYNDAN_WRITE:
-          return s._(/*BTDS*/ "Bryndan Write");
+          return s._(/*BTDS*/ "");
         case e.OSWALD_HEAVY:
-          return s._(/*BTDS*/ "Oswald");
+          return s._(/*BTDS*/ "");
       }
     }
     ((l.FontType = e),

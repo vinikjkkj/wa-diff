@@ -11,7 +11,6 @@ __d(
     "WAWebCtwaAGMUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,7 +19,7 @@ __d(
         (e.assertTag("iq"), e.assertFromServer());
         var t = e.child("context");
         if (e.hasChild("error"))
-          throw (d(e.child("error")), r("err")("invalid response"));
+          throw (c(e.child("error")), r("err")("invalid response"));
         var n = {
           sourceUrl: t.child("source").child("url").contentString(),
           sourceId: t.child("source").child("id").contentString(),
@@ -67,37 +66,27 @@ __d(
         }
         return n;
       });
-    function u(e, t, n) {
-      return c.apply(this, arguments);
+    async function u(e, t, n) {
+      var a,
+        i = o("WAWebWidFactory").createWid(e).toString({ legacy: !0 }),
+        l = (a = o("WAWap")).wap(
+          "iq",
+          {
+            xmlns: "fb:thrift_iq",
+            id: a.generateId(),
+            type: "get",
+            to: a.S_WHATSAPP_NET,
+            smax_id: a.SMAX_ID(r("WAWapDeprecatedSmaxID").CtwaGetContext),
+          },
+          a.wap("account_number", null, i),
+          a.wap("code", null, t),
+          a.wap("expected_source_url", null, n),
+        ),
+        u = await o("WADeprecatedSendIq").deprecatedSendIq(l, s);
+      if (u.success) return u.result;
+      throw new (o("WAWebBackendErrors").ServerStatusCodeError)(u.errorCode);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a,
-            i = o("WAWebWidFactory").createWid(e).toString({ legacy: !0 }),
-            l = (a = o("WAWap")).wap(
-              "iq",
-              {
-                xmlns: "fb:thrift_iq",
-                id: a.generateId(),
-                type: "get",
-                to: a.S_WHATSAPP_NET,
-                smax_id: a.SMAX_ID(r("WAWapDeprecatedSmaxID").CtwaGetContext),
-              },
-              a.wap("account_number", null, i),
-              a.wap("code", null, t),
-              a.wap("expected_source_url", null, n),
-            ),
-            u = yield o("WADeprecatedSendIq").deprecatedSendIq(l, s);
-          if (u.success) return u.result;
-          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            u.errorCode,
-          );
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(t) {
+    function c(t) {
       var n = t && t.maybeAttrString("code"),
         r = t && t.maybeAttrString("text");
       o("WALogger").WARN(

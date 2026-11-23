@@ -5,7 +5,6 @@ __d(
     "WAWebGroupMemberUpdatesGatingUtils",
     "WAWebGroupMetadataGetters",
     "WAWebGroupType",
-    "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebEventTargetValue",
     "useWAWebGroupMetadataValues",
@@ -14,43 +13,34 @@ __d(
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t,
-        n = o("react-compiler-runtime").c(4),
-        a;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [o("WAWebFrontendChatGetters").getGroupMetadata]), (n[0] = a))
-        : (a = n[0]);
-      var i = o("useWAWebChatValues").useChatValues(e, a),
-        l = i[0],
-        s = l == null ? void 0 : l.pastParticipants,
-        u =
+        n = o("useWAWebChatValues").useChatValues(e, [
+          o("WAWebFrontendChatGetters").getGroupMetadata,
+        ]),
+        a = n[0],
+        i = a == null ? void 0 : a.pastParticipants,
+        l =
           (t = o("useWAWebGroupMetadataValues").useOptionalGroupMetadataValues(
-            l == null ? void 0 : l.id,
+            a == null ? void 0 : a.id,
             [o("WAWebGroupMetadataGetters").getGroupType],
           )) != null
             ? t
             : [],
-        c = u[0],
-        d;
-      n[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = ["bulk_add", "bulk_remove", "reset"]), (n[1] = d))
-        : (d = n[1]);
-      var m;
-      n[2] !== s
-        ? ((m = function () {
-            return !!(s != null && s.getValidRecords().length);
-          }),
-          (n[2] = s),
-          (n[3] = m))
-        : (m = n[3]);
-      var p = r("useWAWebEventTargetValue")(s, d, m),
-        _ = r("useWAWebIAmGroupAdmin")(l);
-      return !p ||
+        s = l[0],
+        u = r("useWAWebEventTargetValue")(
+          i,
+          ["bulk_add", "bulk_remove", "reset"],
+          function () {
+            return !!(i != null && i.getValidRecords().length);
+          },
+        ),
+        c = r("useWAWebIAmGroupAdmin")(a);
+      return !u ||
         o(
           "WAWebGroupMemberUpdatesGatingUtils",
         ).groupMemberUpdatesHideInThreadEnabled()
         ? !1
-        : c === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
-          ? _
+        : s === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
+          ? c
           : !0;
     }
     l.useShowPastParticipants = e;

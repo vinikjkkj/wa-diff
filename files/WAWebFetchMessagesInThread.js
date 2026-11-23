@@ -1,12 +1,6 @@
 __d(
   "WAWebFetchMessagesInThread",
-  [
-    "WALogger",
-    "WAWebDBMessageUtils",
-    "WAWebSchemaMessage",
-    "WAWebThreadUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAWebDBMessageUtils", "WAWebSchemaMessage", "WAWebThreadUtils"],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
@@ -31,119 +25,91 @@ __d(
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
       d = 20;
-    function m(e) {
-      return p.apply(this, arguments);
+    async function m(t) {
+      var n = t.count,
+        r = n === void 0 ? d : n,
+        a = t.direction,
+        i = t.lastLoadedMsg,
+        l = t.threadId,
+        m =
+          i == null
+            ? void 0
+            : await o("WAWebSchemaMessage")
+                .getMessageTable()
+                .equals(["id"], i.toString());
+      if (i && m != null && m.length === 0)
+        throw (
+          o("WALogger").WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Offset message ",
+                " does not exist in message table",
+              ])),
+            i && i.toString(),
+          ),
+          new c()
+        );
+      var p = m == null ? void 0 : m[0],
+        _,
+        f,
+        g = !1;
+      a === "before"
+        ? ((_ = s(l)),
+          (f =
+            p == null
+              ? u(l)
+              : o("WAWebDBMessageUtils").craftInternalThreadId(
+                  o("WAWebDBMessageUtils").getInChatMsgId(p.internalId || ""),
+                  l,
+                )),
+          (g = !0))
+        : ((_ =
+            p == null
+              ? s(l)
+              : o("WAWebDBMessageUtils").craftInternalThreadId(
+                  o("WAWebDBMessageUtils").getInChatMsgId(p.internalId || ""),
+                  l,
+                )),
+          (f = u(l)));
+      var h = await o("WAWebSchemaMessage")
+        .getMessageTable()
+        .between(["internalThreadIDs"], _, f, {
+          lowerInclusive: !1,
+          upperInclusive: !1,
+          limit: r,
+          reverse: g,
+        });
+      return h;
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.count,
-            r = n === void 0 ? d : n,
-            a = t.direction,
-            i = t.lastLoadedMsg,
-            l = t.threadId,
-            m =
-              i == null
-                ? void 0
-                : yield o("WAWebSchemaMessage")
-                    .getMessageTable()
-                    .equals(["id"], i.toString());
-          if (i && m != null && m.length === 0)
-            throw (
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Offset message ",
-                    " does not exist in message table",
-                  ])),
-                i && i.toString(),
-              ),
-              new c()
-            );
-          var p = m == null ? void 0 : m[0],
-            _,
-            f,
-            g = !1;
-          a === "before"
-            ? ((_ = s(l)),
-              (f =
-                p == null
-                  ? u(l)
-                  : o("WAWebDBMessageUtils").craftInternalThreadId(
-                      o("WAWebDBMessageUtils").getInChatMsgId(
-                        p.internalId || "",
-                      ),
-                      l,
-                    )),
-              (g = !0))
-            : ((_ =
-                p == null
-                  ? s(l)
-                  : o("WAWebDBMessageUtils").craftInternalThreadId(
-                      o("WAWebDBMessageUtils").getInChatMsgId(
-                        p.internalId || "",
-                      ),
-                      l,
-                    )),
-              (f = u(l)));
-          var h = yield o("WAWebSchemaMessage")
-            .getMessageTable()
-            .between(["internalThreadIDs"], _, f, {
-              lowerInclusive: !1,
-              upperInclusive: !1,
-              limit: r,
-              reverse: g,
-            });
-          return h;
-        })),
-        p.apply(this, arguments)
-      );
+    async function p(e) {
+      var t = await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .between(["internalThreadIDs"], s(e), u(e), {
+            lowerInclusive: !1,
+            upperInclusive: !1,
+            limit: 1,
+          }),
+        n = t[0];
+      return n == null ? null : { id: n.id, t: n.t };
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .between(["internalThreadIDs"], s(e), u(e), {
-                lowerInclusive: !1,
-                upperInclusive: !1,
-                limit: 1,
-              }),
-            n = t[0];
-          return n == null ? null : { id: n.id, t: n.t };
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .between(["internalThreadIDs"], s(e), u(e), {
-                lowerInclusive: !1,
-                upperInclusive: !1,
-                limit: 1,
-                reverse: !0,
-              }),
-            n = t[0];
-          return n == null ? null : { id: n.id, t: n.t };
-        })),
-        h.apply(this, arguments)
-      );
+    async function _(e) {
+      var t = await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .between(["internalThreadIDs"], s(e), u(e), {
+            lowerInclusive: !1,
+            upperInclusive: !1,
+            limit: 1,
+            reverse: !0,
+          }),
+        n = t[0];
+      return n == null ? null : { id: n.id, t: n.t };
     }
     ((l.beginningOfThread = s),
       (l.endOfThread = u),
       (l.NoOffsetMessageError = c),
       (l.queryMessageForThreadId = m),
-      (l.getFirstMessageInfoForThread = _),
-      (l.getLatestMessageInfoForThread = g));
+      (l.getFirstMessageInfoForThread = p),
+      (l.getLatestMessageInfoForThread = _));
   },
   98,
 );

@@ -10,6 +10,8 @@ __d(
     "AdsPlacementsFacebookNotificationPositionPlugin",
     "AdsPromotedObjectTypes",
     "AdsRegulatedCategory",
+    "AdsUPVPlacementExpansionUtils",
+    "AdsUnifiedProfileVisitUtils",
     "IGAdsSensitiveVerticalsUtils",
     "adsIGLoginPlacementUtils",
     "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
@@ -115,7 +117,13 @@ __d(
       );
     }
     function f(e) {
-      return e != null && d.includes(e);
+      return e == null
+        ? !1
+        : o("AdsUnifiedProfileVisitUtils").isUnifiedProfileVisitsGoal(e)
+          ? o(
+              "AdsUPVPlacementExpansionUtils",
+            ).getIsFbPlacementsExpansionEnabledForUPV()
+          : d.includes(e);
     }
     function g(e, t) {
       return t.some(function (t) {

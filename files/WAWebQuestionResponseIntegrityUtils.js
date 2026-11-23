@@ -16,42 +16,31 @@ __d(
       c = u || (u = o("react"));
     function d() {
       var e = o("WAWebToast.react").genId(),
-        t = s._(/*BTDS*/ "Couldn't block. Please try again.");
+        t = s._(/*BTDS*/ "");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );
     }
     function m(e) {
       var t = o("WAWebToast.react").genId(),
-        n = s._(/*BTDS*/ "Blocked responses from {response sender pushname}", [
+        n = s._(/*BTDS*/ "", [
           s._param("response sender pushname", e != null ? e : "this person"),
         ]);
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: n, id: t }),
       );
     }
-    function p(e) {
-      var t = o("WAWebToast.react").genId(),
-        n = e
-          ? s._(/*BTDS*/ "Couldn't star response. Please try again.")
-          : s._(/*BTDS*/ "Couldn't unstar response. Please try again.");
-      o("WAWebToastManager").ToastManager.open(
-        c.jsx(o("WAWebToast.react").Toast, { msg: n, id: t }),
-      );
-    }
-    function _() {
+    function p() {
       var e = o("WAWebToast.react").genId(),
-        t = s._(/*BTDS*/ "Couldn't delete response. Please try again.");
+        t = s._(/*BTDS*/ "");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: t, id: e }),
       );
     }
-    function f(t) {
+    function _(t) {
       var a = o("WAWebToast.react").genId(),
-        i = s._(/*BTDS*/ "Response deleted"),
-        l = new (o("WAWebActionToast.react").ActionType)(
-          s._(/*BTDS*/ "Deleting response..."),
-        ),
+        i = s._(/*BTDS*/ ""),
+        l = new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")),
         u = (e || (e = n("Promise"))).resolve(
           new (o("WAWebActionToast.react").ActionType)(i, {
             actionText: r("WAWebFbtCommon")("Undo"),
@@ -68,9 +57,8 @@ __d(
     }
     ((l.showBlockFailureToast = d),
       (l.showBlockSuccessToast = m),
-      (l.showStarFailureToast = p),
-      (l.showDeleteFailureToast = _),
-      (l.showDeleteSuccessToastWithUndo = f));
+      (l.showDeleteFailureToast = p),
+      (l.showDeleteSuccessToastWithUndo = _));
   },
   226,
 );

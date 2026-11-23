@@ -21,7 +21,11 @@ __d(
         },
         getCampaignCompatibleSettingsForSecondaryFields: function () {
           var e = { dynamicCreative: [!1], appHasUnsupportedMMP: [!1] };
-          return (r("gkx")("19672") && e.appHasUnsupportedMMP.push(!0), e);
+          return (
+            r("gkx")("19672") && e.appHasUnsupportedMMP.push(!0),
+            r("gkx")("22388") && e.dynamicCreative.push(!0),
+            e
+          );
         },
       },
       s = e;

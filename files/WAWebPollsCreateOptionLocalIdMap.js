@@ -1,70 +1,44 @@
 __d(
   "WAWebPollsCreateOptionLocalIdMap",
-  [
-    "Promise",
-    "WAHex",
-    "WAWebPollOptionHashUtils",
-    "asyncToGeneratorRuntime",
-    "nullthrows",
-  ],
+  ["WAHex", "WAWebPollOptionHashUtils", "nullthrows"],
   function (t, n, r, o, a, i, l) {
-    var e;
+    async function e(e) {
+      var t = await Promise.all(
+          e.map(async function (e) {
+            var t = await s(e),
+              n = o("WAHex").toHex(new Uint8Array(t));
+            return { hash: t, hexHash: n, localId: e.localId };
+          }),
+        ),
+        n = new Map(),
+        a = new Map();
+      for (var i of t) {
+        var l = i.hash,
+          u = i.hexHash,
+          c = i.localId;
+        (n.set(u, c), a.set(c, l));
+      }
+      return {
+        getLocalIdForHexHash: function (t) {
+          return r("nullthrows")(n.get(t));
+        },
+        getLocalIdForHash: function (t) {
+          return r("nullthrows")(n.get(o("WAHex").toHex(new Uint8Array(t))));
+        },
+        getHashForLocalId: function (t) {
+          return r("nullthrows")(a.get(t));
+        },
+        includesHashes: function (t) {
+          return t.every(function (e) {
+            return n.has(o("WAHex").toHex(new Uint8Array(e)));
+          });
+        },
+      };
+    }
     function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = yield (e || (e = n("Promise"))).all(
-              t.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = yield c(e),
-                        n = o("WAHex").toHex(new Uint8Array(t));
-                      return { hash: t, hexHash: n, localId: e.localId };
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            i = new Map(),
-            l = new Map();
-          for (var s of a) {
-            var u = s.hash,
-              d = s.hexHash,
-              m = s.localId;
-            (i.set(d, m), l.set(m, u));
-          }
-          return {
-            getLocalIdForHexHash: function (t) {
-              return r("nullthrows")(i.get(t));
-            },
-            getLocalIdForHash: function (t) {
-              return r("nullthrows")(
-                i.get(o("WAHex").toHex(new Uint8Array(t))),
-              );
-            },
-            getHashForLocalId: function (t) {
-              return r("nullthrows")(l.get(t));
-            },
-            includesHashes: function (t) {
-              return t.every(function (e) {
-                return i.has(o("WAHex").toHex(new Uint8Array(e)));
-              });
-            },
-          };
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e) {
       return o("WAWebPollOptionHashUtils").getHashBufferForString(e.name);
     }
-    l.createOptionLocalIdMap = s;
+    l.createOptionLocalIdMap = e;
   },
   98,
 );

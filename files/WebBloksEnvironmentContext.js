@@ -1,54 +1,27 @@
 __d(
   "WebBloksEnvironmentContext",
-  ["WebBloksUtils", "react", "react-compiler-runtime"],
+  ["WebBloksUtils", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = e.useContext,
       c = s.createContext(null);
     function d(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        r = e.environment,
-        a;
-      return (
-        t[0] !== n || t[1] !== r
-          ? ((a = s.jsx(c.Provider, { value: r, children: n })),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = e.children,
+        n = e.environment;
+      return s.jsx(c.Provider, { value: n, children: t });
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m() {
-      var e = o("react-compiler-runtime").c(2),
-        t = u(c),
-        n;
-      return (
-        e[0] !== t
-          ? ((n = o("WebBloksUtils").nullthrows(t)), (e[0] = t), (e[1] = n))
-          : (n = e[1]),
-        n
-      );
+      var e = u(c);
+      return o("WebBloksUtils").nullthrows(e);
     }
     function p() {
-      var e = o("react-compiler-runtime").c(2),
-        t = m(),
-        n = t.emitDataBloksName,
-        r;
-      return (
-        e[0] !== n
-          ? ((r = function (t) {
-              return n
-                ? { "data-bloks-name": t }
-                : o("WebBloksUtils").EMPTY_OBJECT;
-            }),
-            (e[0] = n),
-            (e[1] = r))
-          : (r = e[1]),
-        r
-      );
+      var e = m(),
+        t = e.emitDataBloksName;
+      return function (e) {
+        return t ? { "data-bloks-name": e } : o("WebBloksUtils").EMPTY_OBJECT;
+      };
     }
     ((l.WebBloksEnvironmentContext = c),
       (l.WebBloksEnvironmentProvider = d),

@@ -8,7 +8,6 @@ __d(
     "SignalsConsolidatedDatasetSettingsDataManager",
     "SignalsPixelAutomaticMatchingUtils",
     "ThisControllerNoLongerExists",
-    "XEventsManagerSignalsGatewayTestDriveControllerRouteBuilder",
     "XSKANConversionBitsUpdateUsingReadinessEndpointControllerRouteBuilder",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,7 +15,6 @@ __d(
     var e,
       s = n("$InternalEnum").Mirrored([
         "ENABLE_AAM",
-        "ENROLL_CAPIG_TEST_DRIVE",
         "ENABLE_CONVERSION_BITS_CONFIG_MMP",
       ]),
       u = (function () {
@@ -39,7 +37,7 @@ __d(
                       );
                     })
                     .catch(function (t) {
-                      (r("FBLogger")("maiba").mustfix(t),
+                      (r("FBLogger")("maiba").mustfix(String(t)),
                         e.sendAsyncMessage(
                           "Failed to enable Automatic Advanced Matching. Please try again later.",
                         ));
@@ -51,22 +49,9 @@ __d(
                       e.sendAsyncMessage(t);
                     })
                     .catch(function (t) {
-                      e.sendAsyncMessage(t);
+                      e.sendAsyncMessage(String(t));
                     });
                   break;
-                case s.ENROLL_CAPIG_TEST_DRIVE:
-                  e.enrollCapigTestDrive()
-                    .then(function () {
-                      e.sendAsyncMessage(
-                        "Thanks for signing up! You joined the waitlist for a Conversions API Gateway demo",
-                      );
-                    })
-                    .catch(function (t) {
-                      (r("FBLogger")("maiba").mustfix(t),
-                        e.sendAsyncMessage(
-                          "Failed to sign up for a Conversions API Gateway demo. Please try again later.",
-                        ));
-                    });
               }
             });
           }),
@@ -105,33 +90,6 @@ __d(
                 })
                 .setErrorHandler(function (e) {
                   n(e);
-                })
-                .send();
-            });
-          }),
-          (a.enrollCapigTestDrive = function () {
-            var t = this;
-            return new (e || (e = n("Promise")))(function (e, n) {
-              var o = r(
-                "XEventsManagerSignalsGatewayTestDriveControllerRouteBuilder",
-              )
-                .buildUri({})
-                .toString();
-              new (r("AsyncRequest"))()
-                .setAllowCrossOrigin(!0)
-                .setURI(o)
-                .setMethod("POST")
-                .setData({
-                  business_id: t.business_id,
-                  business_opt_in: !0,
-                  pixel_id: t.data_source_id,
-                  zone: "us",
-                })
-                .setHandler(function (t) {
-                  t.payload && t.payload.success ? e(t.payload) : n();
-                })
-                .setErrorHandler(function () {
-                  n();
                 })
                 .send();
             });

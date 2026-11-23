@@ -79,15 +79,15 @@ __d(
     function _(e) {
       return e ===
         o("WAWebSharableEventDraft").SharableEventReminder.FifteenMinutes
-        ? s._(/*BTDS*/ "15 minutes before")
+        ? s._(/*BTDS*/ "")
         : e === o("WAWebSharableEventDraft").SharableEventReminder.ThirtyMinutes
-          ? s._(/*BTDS*/ "30 minutes before")
+          ? s._(/*BTDS*/ "")
           : e === o("WAWebSharableEventDraft").SharableEventReminder.OneHour
-            ? s._(/*BTDS*/ "1 hour before")
+            ? s._(/*BTDS*/ "")
             : e === o("WAWebSharableEventDraft").SharableEventReminder.OneDay
-              ? s._(/*BTDS*/ "1 day before")
+              ? s._(/*BTDS*/ "")
               : e === o("WAWebSharableEventDraft").SharableEventReminder.Never
-                ? s._(/*BTDS*/ "Never")
+                ? s._(/*BTDS*/ "")
                 : (function () {
                     throw Error(
                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -105,21 +105,21 @@ __d(
           : e.callLinkMediaType ===
               o("WAWebSharableEventStorageEnums").SharableEventCallLinkMediaType
                 .Voice
-            ? s._(/*BTDS*/ "WhatsApp voice call")
-            : s._(/*BTDS*/ "WhatsApp video call");
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
     }
     function g(e) {
       return e ===
         o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus.Going
-        ? s._(/*BTDS*/ "Going")
+        ? s._(/*BTDS*/ "")
         : e ===
             o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
               .Maybe
-          ? s._(/*BTDS*/ "Maybe")
+          ? s._(/*BTDS*/ "")
           : e ===
               o("WAWebSharableEventStorageEnums").SharableEventStoredRsvpStatus
                 .NotGoing
-            ? s._(/*BTDS*/ "Not going")
+            ? s._(/*BTDS*/ "")
             : e ===
                 o("WAWebSharableEventStorageEnums")
                   .SharableEventStoredRsvpStatus.NoResponse
@@ -132,10 +132,10 @@ __d(
                 })();
     }
     function h() {
-      return s._(/*BTDS*/ "Creator");
+      return s._(/*BTDS*/ "");
     }
     function y(e) {
-      return s._(/*BTDS*/ "Hosted by {hostName}", [s._param("hostName", e)]);
+      return s._(/*BTDS*/ "", [s._param("hostName", e)]);
     }
     function C(e, t) {
       var n = b(e.startTsSec),

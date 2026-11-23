@@ -18,8 +18,8 @@ __d(
     function c(e, t, n) {
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
-          title: s._(/*BTDS*/ "Delete this chat with Meta AI?"),
-          okText: s._(/*BTDS*/ "Delete"),
+          title: s._(/*BTDS*/ ""),
+          okText: s._(/*BTDS*/ ""),
           okButtonType: "solid-warning",
           onOK: function () {
             o("WAWebDeleteAiThreadsAction")
@@ -29,7 +29,7 @@ __d(
                   (o("WAWebModalManager").ModalManager.close(),
                   o("WAWebToastManager").ToastManager.open(
                     u.jsx(o("WAWebToast.react").Toast, {
-                      msg: s._(/*BTDS*/ "Chat deleted"),
+                      msg: s._(/*BTDS*/ ""),
                     }),
                   ),
                   n)
@@ -44,7 +44,7 @@ __d(
               });
           },
           onCancel: o("WAWebModalManager").closeModalManager,
-          children: s._(/*BTDS*/ "Messages will be removed from all devices."),
+          children: s._(/*BTDS*/ ""),
         }),
       );
     }

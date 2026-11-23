@@ -4,20 +4,16 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")("WAWebApplySharableEventUpdate")
-            .__setRef("WAWebSharableEventBridgeApi")
-            .load();
-        }),
-        "WAWebApplySharableEventUpdate",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        return r("JSResourceForInteraction")("WAWebApplySharableEventUpdate")
+          .__setRef("WAWebSharableEventBridgeApi")
+          .load();
+      }, "WAWebApplySharableEventUpdate"),
       c = {
         applySharableEventUpdate: function (n) {
           var t, a, i, l, c, d, m, p;

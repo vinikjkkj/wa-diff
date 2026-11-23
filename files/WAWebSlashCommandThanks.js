@@ -44,7 +44,7 @@ __d(
       color: "pink",
       text: "optional",
       getDescription: function () {
-        return s._(/*BTDS*/ "Thank a coworker in Thanks");
+        return s._(/*BTDS*/ "");
       },
       getTextPrompt: function (t) {
         var e;
@@ -65,15 +65,12 @@ __d(
           o("WAWebEmployeeCommandLimits").getTextLength(
             N((e = t.mentions) != null ? e : [], n),
           ) > o("WAWebEmployeeCommandLimits").HANDOFF_LIMITS.thanksText
-            ? s._(
-                /*BTDS*/ '_j{"*":"Too long to post as a Thanks. Keep it to {limit} characters","_1":"Too long to post as a Thanks. Keep it to 1 character"}',
-                [
-                  s._plural(
-                    o("WAWebEmployeeCommandLimits").HANDOFF_LIMITS.thanksText,
-                    "limit",
-                  ),
-                ],
-              )
+            ? s._(/*BTDS*/ "", [
+                s._plural(
+                  o("WAWebEmployeeCommandLimits").HANDOFF_LIMITS.thanksText,
+                  "limit",
+                ),
+              ])
             : null
         );
       },
@@ -144,10 +141,7 @@ __d(
               "name" in t
             ) {
               var n = t.name;
-              return s._(
-                /*BTDS*/ "Type your thanks to {name}, then press Enter",
-                [s._param("name", n)],
-              );
+              return s._(/*BTDS*/ "", [s._param("name", n)]);
             }
             return ((typeof t == "object" && t !== null) ||
               typeof t == "function") &&
@@ -155,7 +149,7 @@ __d(
               o("WAWebSlashCommandThanksRecipient").getSoleThanksRecipientPhone(
                 e,
               ) != null
-              ? s._(/*BTDS*/ "Type your thanks, then press Enter")
+              ? s._(/*BTDS*/ "")
               : null;
           })(x(e))
         : null;
@@ -170,15 +164,12 @@ __d(
               "name" in e
             ) {
               var t = e.name;
-              return s._(
-                /*BTDS*/ "Press Enter to post a Thanks to {name} and add its link",
-                [s._param("name", t)],
-              );
+              return s._(/*BTDS*/ "", [s._param("name", t)]);
             }
             return ((typeof e == "object" && e !== null) ||
               typeof e == "function") &&
               e.kind === "none"
-              ? s._(/*BTDS*/ "Press Enter to post your Thanks and add its link")
+              ? s._(/*BTDS*/ "")
               : null;
           })(x(e))
         : null;
@@ -189,7 +180,7 @@ __d(
           typeof e == "function") &&
           e.kind === "ask"
           ? P()
-          : s._(/*BTDS*/ "Type your thanks. It'll be filled in on Thanks");
+          : s._(/*BTDS*/ "");
       })(x(e));
     }
     function C(e) {
@@ -198,7 +189,7 @@ __d(
           typeof e == "function") &&
           e.kind === "ask"
           ? P()
-          : s._(/*BTDS*/ "Press Enter, then finish your thanks in Thanks");
+          : s._(/*BTDS*/ "");
       })(x(e));
     }
     function b(e, t, n, r) {
@@ -338,7 +329,7 @@ __d(
       return (
         f &&
           (m = o("WAWebSlashCommandHandBack").showHandBackProgressToast(
-            s._(/*BTDS*/ "Sending your thanks\u2026"),
+            s._(/*BTDS*/ ""),
           )),
         f
       );
@@ -354,10 +345,10 @@ __d(
     }
     function I(e) {
       return {
-        failed: s._(/*BTDS*/ "Couldn't send your thanks automatically"),
-        blocked: s._(/*BTDS*/ "Finish your thanks in Thanks"),
+        failed: s._(/*BTDS*/ ""),
+        blocked: s._(/*BTDS*/ ""),
         open: {
-          actionText: s._(/*BTDS*/ "Open Thanks"),
+          actionText: s._(/*BTDS*/ ""),
           onAction: e,
           testid: "slash-command-thanks-open-thanks",
         },
@@ -365,12 +356,10 @@ __d(
     }
     function T(e, t) {
       o("WAWebSlashCommandHandBack").showHandBackNoAnswer({
-        noAnswer: s._(/*BTDS*/ "Thanks didn't answer"),
-        checkFirst: s._(
-          /*BTDS*/ "It may have been posted. Check Thanks before trying again.",
-        ),
+        noAnswer: s._(/*BTDS*/ ""),
+        checkFirst: s._(/*BTDS*/ ""),
         lastingAction: {
-          actionText: s._(/*BTDS*/ "Check Thanks"),
+          actionText: s._(/*BTDS*/ ""),
           onAction: function () {
             (o("WAWebSlashCommandsUsageLogger").logFallbackOpen("thanks", e),
               o("WAWebExternalLink.react").openExternalLink(u, {
@@ -392,13 +381,11 @@ __d(
         progress: r,
         testid: "slash-command-thanks-link",
         text: {
-          added: s._(/*BTDS*/ "Thanks link added"),
+          added: s._(/*BTDS*/ ""),
           addedInChat: function (t) {
-            return s._(/*BTDS*/ "Thanks link added in {chat name}", [
-              s._param("chat name", t),
-            ]);
+            return s._(/*BTDS*/ "", [s._param("chat name", t)]);
           },
-          ready: s._(/*BTDS*/ "Your Thanks link is ready"),
+          ready: s._(/*BTDS*/ ""),
         },
       }),
         o("WAWebSlashCommandsUsageLogger").logThanksResult({
@@ -428,7 +415,7 @@ __d(
       );
     }
     function P() {
-      return s._(/*BTDS*/ "Mention who you're thanking");
+      return s._(/*BTDS*/ "");
     }
     function N(e, t, n) {
       n === void 0 &&
@@ -474,14 +461,11 @@ __d(
         r = (n = e.mentions) != null ? n : [];
       if (r.length > 0) return w().toString() + " " + A(t, r);
       var o = O(e),
-        a =
-          o != null
-            ? s._(/*BTDS*/ "Thanks {name}", [s._param("name", o)])
-            : w();
+        a = o != null ? s._(/*BTDS*/ "", [s._param("name", o)]) : w();
       return t === "" ? a.toString() : a.toString() + " " + t;
     }
     function w() {
-      return s._(/*BTDS*/ "Thanks");
+      return s._(/*BTDS*/ "");
     }
     function A(e, t) {
       var n = "",

@@ -11,7 +11,6 @@ __d(
     "WebBloksTheme",
     "WebBloksViewpoint",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -198,80 +197,40 @@ __d(
           });
     }
     function k(e) {
-      var t = o("react-compiler-runtime").c(20),
-        n = e.aspectRatio,
-        r = e.children,
-        a = e.hideSizerWhereSupported,
-        i = o("WebBloksEnvironmentContext").useDataBloksName(),
-        l;
-      t[0] !== i
-        ? ((l = i("bk.components.AspectRatio")), (t[0] = i), (t[1] = l))
-        : (l = t[1]);
-      var u = a && L.sizerHidden,
-        c;
-      t[2] !== u
-        ? ((c = o("WebBloksStyle").classNames(R.aspectRatioContainer, u)),
-          (t[2] = u),
-          (t[3] = c))
-        : (c = t[3]);
-      var d, m;
-      t[4] !== n
-        ? ((d = { aspectRatio: n }),
-          (m = s.jsx("svg", {
-            "aria-hidden": "true",
-            xmlns: "http://www.w3.org/2000/svg",
-            height: 1,
-            width: n,
-            className: R.aspectRatioSVG,
-          })),
-          (t[4] = n),
-          (t[5] = d),
-          (t[6] = m))
-        : ((d = t[5]), (m = t[6]));
-      var p;
-      t[7] !== l || t[8] !== c || t[9] !== d || t[10] !== m
-        ? ((p = s.jsx(
+      var t = e.aspectRatio,
+        n = e.children,
+        r = e.hideSizerWhereSupported,
+        a = o("WebBloksEnvironmentContext").useDataBloksName();
+      return s.jsxs(s.Fragment, {
+        children: [
+          s.jsx(
             "div",
-            babelHelpers.extends({}, l, {
-              className: c,
-              style: d,
-              children: m,
+            babelHelpers.extends({}, a("bk.components.AspectRatio"), {
+              className: o("WebBloksStyle").classNames(
+                R.aspectRatioContainer,
+                r && L.sizerHidden,
+              ),
+              style: { aspectRatio: t },
+              children: s.jsx("svg", {
+                "aria-hidden": "true",
+                xmlns: "http://www.w3.org/2000/svg",
+                height: 1,
+                width: t,
+                className: R.aspectRatioSVG,
+              }),
             }),
-          )),
-          (t[7] = l),
-          (t[8] = c),
-          (t[9] = d),
-          (t[10] = m),
-          (t[11] = p))
-        : (p = t[11]);
-      var _;
-      t[12] !== i
-        ? ((_ = i("bk.components.AspectRatio")), (t[12] = i), (t[13] = _))
-        : (_ = t[13]);
-      var f;
-      t[14] !== r || t[15] !== _
-        ? ((f = s.jsx(
+          ),
+          s.jsx(
             "div",
-            babelHelpers.extends({}, _, {
+            babelHelpers.extends({}, a("bk.components.AspectRatio"), {
               className: R.aspectRatioContent,
-              children: r,
+              children: n,
             }),
-          )),
-          (t[14] = r),
-          (t[15] = _),
-          (t[16] = f))
-        : (f = t[16]);
-      var g;
-      return (
-        t[17] !== p || t[18] !== f
-          ? ((g = s.jsxs(s.Fragment, { children: [p, f] })),
-            (t[17] = p),
-            (t[18] = f),
-            (t[19] = g))
-          : (g = t[19]),
-        g
-      );
+          ),
+        ],
+      });
     }
+    k.displayName = k.name + " [from " + i.id + "]";
     function I(e) {
       var t = e.children,
         n = e.contextNode,
@@ -283,62 +242,40 @@ __d(
     }
     I.displayName = I.name + " [from " + i.id + "]";
     function T(e) {
-      var t = o("react-compiler-runtime").c(14),
-        n = e.children,
-        r = e.contextNode,
-        a = e.elementRef,
-        i = e.style,
-        l = o("WebBloksComponentContext").useWebBloksContext(),
-        s = l.bloksContext,
-        u = l.executeCatch,
-        c;
-      t[0] !== s || t[1] !== r || t[2] !== u || t[3] !== i
-        ? ((c = function (t) {
-            var e = i == null ? void 0 : i.getExpression(b),
-              n = i == null ? void 0 : i.getExpression(v);
-            e: switch (t.state) {
-              case "entered": {
-                e != null && u(r, e, [s]);
-                break e;
-              }
-              case "exited":
-                n != null && u(r, n, [s]);
-            }
-          }),
-          (t[0] = s),
-          (t[1] = r),
-          (t[2] = u),
-          (t[3] = i),
-          (t[4] = c))
-        : (c = t[4]);
-      var m = c,
-        p;
-      t[5] !== i.clientId
-        ? ((p = i.clientId.toString()), (t[5] = i.clientId), (t[6] = p))
-        : (p = t[6]);
-      var _;
-      t[7] !== m || t[8] !== p
-        ? ((_ = { id: p, action: m }), (t[7] = m), (t[8] = p), (t[9] = _))
-        : (_ = t[9]);
-      var f = o("WebBloksViewpoint").useViewpoint(_),
-        g,
-        h;
+      var t = e.children,
+        n = e.contextNode,
+        r = e.elementRef,
+        a = e.style,
+        i = o("WebBloksComponentContext").useWebBloksContext(),
+        l = i.bloksContext,
+        s = i.executeCatch;
+      function u(e) {
+        var t = a == null ? void 0 : a.getExpression(b),
+          r = a == null ? void 0 : a.getExpression(v);
+        switch (e.state) {
+          case "entered":
+            t != null && s(n, t, [l]);
+            break;
+          case "exited":
+            r != null && s(n, r, [l]);
+            break;
+        }
+      }
+      var c = o("WebBloksViewpoint").useViewpoint({
+        id: a.clientId.toString(),
+        action: u,
+      });
       return (
-        t[10] !== a || t[11] !== f
-          ? ((g = function () {
-              f.current = a.current;
-            }),
-            (h = [a, f]),
-            (t[10] = a),
-            (t[11] = f),
-            (t[12] = g),
-            (t[13] = h))
-          : ((g = t[12]), (h = t[13])),
-        d(g, h),
-        n
+        d(
+          function () {
+            c.current = r.current;
+          },
+          [r, c],
+        ),
+        t
       );
     }
-    l.default = S;
+    ((T.displayName = T.name + " [from " + i.id + "]"), (l.default = S));
   },
   98,
 );

@@ -6,7 +6,6 @@ __d(
     "WAWebBizBroadcastProUpdateCampaignActionStopMutation.graphql",
     "WAWebFetchAdAccountToken",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -32,34 +31,25 @@ __d(
           ? "stop_not_applied"
           : null;
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(e) {
+      var t,
+        n = await o("WAWebFetchAdAccountToken").fetchToken();
+      if (n.type !== "success")
+        throw r("err")("BB Pro update: failed to fetch ad account token");
+      var a = await o("WAWebRelayClient").commitMutation(d, e, {
+          accessToken: n.token,
+          environmentType: "facebook",
+        }),
+        i =
+          a == null ||
+          (t = a.xfb_update_whats_app_business_mm_lite_campaign) == null ||
+          (t = t.whats_app_business_mm_lite_campaign) == null
+            ? void 0
+            : t.id;
+      if (i == null) throw r("err")("BB Pro update returned no campaign id");
+      return i;
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (n.type !== "success")
-            throw r("err")("BB Pro update: failed to fetch ad account token");
-          var a = yield o("WAWebRelayClient").commitMutation(d, e, {
-              accessToken: n.token,
-              environmentType: "facebook",
-            }),
-            i =
-              a == null ||
-              (t = a.xfb_update_whats_app_business_mm_lite_campaign) == null ||
-              (t = t.whats_app_business_mm_lite_campaign) == null
-                ? void 0
-                : t.id;
-          if (i == null)
-            throw r("err")("BB Pro update returned no campaign id");
-          return i;
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
+    function f(e, t) {
       var n = t + c;
       return (
         o("WALogger")
@@ -87,7 +77,7 @@ __d(
     }
     ((l.stopBizBroadcastProCampaignMutation = m),
       (l.getStopFailureReason = p),
-      (l.rescheduleBizBroadcastProCampaign = g));
+      (l.rescheduleBizBroadcastProCampaign = f));
   },
   98,
 );

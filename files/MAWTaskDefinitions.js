@@ -5,16 +5,14 @@ __d(
     "MAWLoggingSwitches",
     "MAWPreKeysCleaner",
     "MAWRotateCAT",
+    "MAWTaskScheduledTimeResolver",
     "MWFBLogger",
-    "Promise",
     "WAAPI",
     "WAAbPropsInit",
     "WADbTasks",
     "WAGlobals",
-    "WATaskScheduleApi",
     "WATaskScheduler",
     "WATimeUtils",
-    "asyncToGeneratorRuntime",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,68 +24,77 @@ __d(
       d,
       m,
       p,
-      _,
-      f,
-      g = r("requireDeferred")("WARotateSignedPreKey").__setRef(
+      _ = r("requireDeferred")("WARotateSignedPreKey").__setRef(
         "MAWTaskDefinitions",
       ),
-      h = o("MWFBLogger").MWLogger().tags(["MAWTaskDefinitions"]),
-      y = 27 * (f = o("WATimeUtils")).DAY_SECONDS,
-      C = 7 * f.DAY_SECONDS,
-      b = f.DAY_SECONDS / 2,
-      v = f.MINUTE_SECONDS * 5,
-      S = f.MINUTE_SECONDS * 4,
-      R = Object.keys(o("WADbTasks").Tasks);
-    function L() {
+      f = o("MWFBLogger").MWLogger().tags(["MAWTaskDefinitions"]),
+      g = 27 * (p = o("WATimeUtils")).DAY_SECONDS,
+      h = 7 * p.DAY_SECONDS,
+      y = p.DAY_SECONDS / 2,
+      C = p.MINUTE_SECONDS * 5,
+      b = Object.keys(o("WADbTasks").Tasks);
+    function v() {
       return {
-        scheduledTimeResolver: {
-          get: function (t) {
-            return o("WATaskScheduleApi").getTaskScheduledTime(t);
-          },
-          set: function (t, n) {
-            return o("WATaskScheduleApi").setTaskScheduledTime(t, n);
-          },
-        },
+        scheduledTimeResolver: o("MAWTaskScheduledTimeResolver")
+          .scheduledTimeResolver,
       };
     }
-    function E(e) {
-      (o("WATaskScheduler").startScheduler(L()),
-        R.forEach(function (t) {
-          var n = k(t, e);
-          o("WATaskScheduler").registerTask(t, n);
+    function S(e, t) {
+      return async function (n) {
+        o("MAWTaskScheduledTimeResolver").bumpRecurringTaskCounter(
+          e + "." + (n ? "first_run" : "run"),
+        );
+        try {
+          return await t(n);
+        } catch (t) {
+          throw (
+            o("MAWTaskScheduledTimeResolver").bumpRecurringTaskCounter(
+              e + ".fail",
+            ),
+            t
+          );
+        }
+      };
+    }
+    function R(e) {
+      (o("WATaskScheduler").startScheduler(v()),
+        o("MAWTaskScheduledTimeResolver").bumpRecurringTaskCounter("register"),
+        b.forEach(function (t) {
+          var n = L(t, e);
+          o("WATaskScheduler").registerTask(t, S(t, n));
         }));
     }
-    function k(t, a) {
+    function L(t, n) {
       switch (t) {
         case "rotateKey":
           return function (t) {
             var r;
             return (
               t
-                ? (h.DEBUG(
+                ? (f.DEBUG(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
                         "RotateKeyTask skip first run",
                       ])),
                   ),
-                  (r = (_ || (_ = n("Promise"))).resolve()))
-                : (r = a
+                  (r = Promise.resolve()))
+                : (r = n
                     .then(function () {
-                      return g.load();
+                      return _.load();
                     })
                     .then(function (e) {
                       var t = e.rotateSignedPreKey;
                       return t();
                     })),
               r.then(function () {
-                return y;
+                return g;
               })
             );
           };
         case "syncAbProps":
           return function (e) {
             var t = !e;
-            return a.then(function () {
+            return n.then(function () {
               return r("WAAPI")
                 .syncAbProps({ sendHash: t })
                 .then(function () {
@@ -100,16 +107,16 @@ __d(
             var t;
             return (
               e
-                ? (h.DEBUG(
+                ? (f.DEBUG(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
                         "DeleteExpiredPreKeys skip first run",
                       ])),
                   ),
-                  (t = (_ || (_ = n("Promise"))).resolve()))
+                  (t = Promise.resolve()))
                 : (t = o("MAWPreKeysCleaner").clearExpiredPreKeys()),
               t.then(function () {
-                return C;
+                return h;
               })
             );
           };
@@ -118,18 +125,18 @@ __d(
             var t;
             return (
               e
-                ? (h.DEBUG(
+                ? (f.DEBUG(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
                         "rotateCAT skip first run",
                       ])),
                   ),
-                  (t = (_ || (_ = n("Promise"))).resolve()))
+                  (t = Promise.resolve()))
                 : (t = o("MAWRotateCAT").tryRotateCAT({
                     initiator: "MAWTaskDefinitions::rotateCAT",
                   })),
               t.then(function () {
-                return b;
+                return y;
               })
             );
           };
@@ -141,24 +148,15 @@ __d(
                 ? (t = r("WAAPI").generateAndUploadPreKeys({
                     reason: "on start",
                   }))
-                : (t = (_ || (_ = n("Promise"))).resolve()),
+                : (t = Promise.resolve()),
               t.then(function () {
                 return o("WATimeUtils").DEFAULT_UNIXTIME;
               })
             );
           };
-        case "queryGroups":
-          return function (e) {
-            return (_ || (_ = n("Promise"))).resolve().then(function () {
-              return o("WATimeUtils").DEFAULT_UNIXTIME;
-            });
-          };
         case "notifyDeviceRegistration":
           return function (e) {
-            if (!e)
-              return (_ || (_ = n("Promise"))).resolve(
-                o("WATimeUtils").DEFAULT_UNIXTIME,
-              );
+            if (!e) return Promise.resolve(o("WATimeUtils").DEFAULT_UNIXTIME);
             var t = o("WAGlobals").getMyUserJid();
             return o("WAGlobals")
               .getDependencies()
@@ -167,7 +165,7 @@ __d(
                 t,
               )
               .then(function (e) {
-                if (e.size === 0) return (_ || (_ = n("Promise"))).resolve();
+                if (e.size === 0) return Promise.resolve();
                 var t = o("MWFBLogger")
                   .MWLogger()
                   .tags(["notifyDeviceRegistration"]);
@@ -207,53 +205,24 @@ __d(
               });
           };
         case "cleanupExcessiveLogs":
-          return (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return o("MAWLoggingSwitches").removeLoggingFromBridge
-                  ? (e
-                      ? yield o(
-                          "MAWDeleteOldLogsFromDisk",
-                        ).deleteOldLogsOnStartup()
-                      : yield o("MAWDeleteOldLogsFromDisk").deleteOldLogs(),
-                    v)
-                  : o("WATimeUtils").DEFAULT_UNIXTIME;
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })();
-        case "syncMedia":
-          return (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return (
-                  e &&
-                    h.DEBUG(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
-                          "syncMedia task: skip first run",
-                        ])),
-                    ),
-                  S
-                );
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })();
+          return async function (e) {
+            return o("MAWLoggingSwitches").removeLoggingFromBridge
+              ? (e
+                  ? await o("MAWDeleteOldLogsFromDisk").deleteOldLogsOnStartup()
+                  : await o("MAWDeleteOldLogsFromDisk").deleteOldLogs(),
+                C)
+              : o("WATimeUtils").DEFAULT_UNIXTIME;
+          };
       }
     }
-    ((l.ROTATE_SIGNED_PRE_KEY_TIMESPAN = y),
-      (l.DELETE_EXPIRED_KEYS_TIMESPAN = C),
-      (l.ROTATE_CAT_TIMESPAN = b),
-      (l.DO_NOT_RESCHEDULE = f.DEFAULT_UNIXTIME),
-      (l.TASK_TYPES = R),
-      (l.getSchedulerOptions = L),
-      (l.registerTasks = E),
-      (l.getTaskExecution = k));
+    ((l.ROTATE_SIGNED_PRE_KEY_TIMESPAN = g),
+      (l.DELETE_EXPIRED_KEYS_TIMESPAN = h),
+      (l.ROTATE_CAT_TIMESPAN = y),
+      (l.DO_NOT_RESCHEDULE = p.DEFAULT_UNIXTIME),
+      (l.TASK_TYPES = b),
+      (l.getSchedulerOptions = v),
+      (l.registerTasks = R),
+      (l.getTaskExecution = L));
   },
   98,
 );

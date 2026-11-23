@@ -1,27 +1,29 @@
 __d(
   "WAWebHatchFoaAccountsDecoder",
-  ["WAWebHatchFirstPartyConnectors", "WAWebHatchJsonReaders", "WAWebURLUtils"],
+  [
+    "WAWebHatchFirstPartyConnectors",
+    "WAWebHatchJsonReaders",
+    "WAWebHatchMetaCdnImageUrl",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = /^[A-Za-z0-9._:-]{1,128}$/,
-      s = [".facebook.com", ".fbcdn.net", ".whatsapp.net"],
-      u = /[^!-~]|[@\\]/;
-    function c(e, t) {
+    var e = /^[A-Za-z0-9._:-]{1,128}$/;
+    function s(e, t) {
       if (!o("WAWebHatchJsonReaders").isObject(e)) return null;
       var n = o("WAWebHatchJsonReaders").readArray(e, "accounts"),
-        r = d(n != null ? n : [e], t, n != null);
-      return { accounts: r, groups: _(e, r) };
+        r = u(n != null ? n : [e], t, n != null);
+      return { accounts: r, groups: d(e, r) };
     }
-    function d(e, t, n) {
+    function u(e, t, n) {
       var r = [],
         o = new Set();
       for (var a of e) {
-        var i = m(a, t, n);
+        var i = c(a, t, n);
         i != null && !o.has(i.id) && (o.add(i.id), r.push(i));
       }
       return r;
     }
-    function m(t, n, r) {
+    function c(t, n, r) {
       var a,
         i,
         l,
@@ -43,7 +45,9 @@ __d(
       return d == null || !e.test(d)
         ? null
         : {
-            avatarUrl: p(t, c.avatarField),
+            avatarUrl: o("WAWebHatchMetaCdnImageUrl").hatchMetaCdnImageUrl(
+              o("WAWebHatchJsonReaders").readString(t, c.avatarField),
+            ),
             connected:
               r && o("WAWebHatchJsonReaders").readBool(t, "connected") === !0,
             id: d,
@@ -62,18 +66,7 @@ __d(
                   ),
           };
     }
-    function p(e, t) {
-      var n = o("WAWebHatchJsonReaders").readString(e, t);
-      if (n == null || u.test(n) || r("WAWebURLUtils").isHttps(n) !== !0)
-        return null;
-      var a = r("WAWebURLUtils").hostname(n).toLowerCase();
-      return s.some(function (e) {
-        return a.endsWith(e);
-      })
-        ? n
-        : null;
-    }
-    function _(e, t) {
+    function d(e, t) {
       var n = new Map(
           t.map(function (e) {
             return [e.id, e];
@@ -86,12 +79,12 @@ __d(
         ? l
         : []) {
         var l,
-          s = f(i, n);
+          s = m(i, n);
         s != null && !a.has(s.key) && (a.add(s.key), r.push(s));
       }
       return r;
     }
-    function f(e, t) {
+    function m(e, t) {
       var n = o("WAWebHatchJsonReaders").readTrimmedString(e, "key"),
         r = o("WAWebHatchJsonReaders").readTrimmedString(e, "label"),
         a = o("WAWebHatchJsonReaders").readArray(e, "account_ids");
@@ -106,7 +99,7 @@ __d(
         }
       return i.length === 0 ? null : { accounts: i, key: n, label: r };
     }
-    l.decodeHatchFoaAccounts = c;
+    l.decodeHatchFoaAccounts = s;
   },
   98,
 );

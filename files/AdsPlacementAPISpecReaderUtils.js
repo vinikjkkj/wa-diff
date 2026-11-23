@@ -30,6 +30,7 @@ __d(
     "mapObject",
     "memoizeWithArgsByKey",
     "objectKeys",
+    "qex",
     "whitelistObjectKeys",
   ],
   function (t, n, r, o, a, i, l) {
@@ -383,13 +384,25 @@ __d(
       )
         return !1;
       var l = n.get("whatsapp");
+      if (
+        !B(
+          e.whatsapp_positions
+            ? e.whatsapp_positions.map(function (e) {
+                return String(e);
+              })
+            : null,
+          l,
+        )
+      )
+        return !1;
+      var s = n.get("streaming_services");
       return !!B(
-        e.whatsapp_positions
-          ? e.whatsapp_positions.map(function (e) {
+        e.streaming_services_positions
+          ? e.streaming_services_positions.map(function (e) {
               return String(e);
             })
           : null,
-        l,
+        s,
       );
     }
     function B(e, t) {
@@ -670,10 +683,15 @@ __d(
         ),
         A = H(t, "status"),
         F = H(t, "channel"),
-        O = r("adsPlacementAPISpecReaderIsActiveThreadsPosition")(
-          t,
-          "threads_stream",
-        );
+        O =
+          r("adsPlacementAPISpecReaderIsActiveThreadsPosition")(
+            t,
+            "threads_stream",
+          ) ||
+          r("adsPlacementAPISpecReaderIsActiveThreadsPosition")(
+            t,
+            "threads_permalink",
+          );
       switch (e) {
         case r("AdsPageTypes").DESKTOP_FEED:
           return a && b;
@@ -934,7 +952,11 @@ __d(
     function Ce(e) {
       return ye(
         e ? e.id : void 0,
-        e ? r("adsConvertAdObjectRecordToPlainJS")(e) : null,
+        e
+          ? r("qex")._("3278") === !0
+            ? e
+            : r("adsConvertAdObjectRecordToPlainJS")(e)
+          : null,
       );
     }
     function be(e) {
@@ -1099,6 +1121,45 @@ __d(
         });
       return l.size === 1 && l.first().key === "facebook/instream_video";
     }
+    function Ee(e, t, n, a) {
+      var i = r("immutable").Set([]);
+      return (
+        a &&
+          (i = o(
+            "AdsPlacementPositionGroupPluginList",
+          ).getEligiblePositionKeysFromPositionGroup(a, e)),
+        o("AdsPlacementPluginList")
+          .getAllPlatforms()
+          .filter(function (e) {
+            var n = e.apiPublisherPlatform;
+            return t === null || n !== t;
+          })
+          .some(function (t) {
+            var r = t.apiPublisherPlatform,
+              o = t.positions;
+            return o
+              .filter(function (e) {
+                var t = e.key;
+                return n === null || t !== n;
+              })
+              .filter(function (e) {
+                var t = e.key;
+                return a === null || !i.contains(t);
+              })
+              .filter(function (t) {
+                var n = t.isActive;
+                return n(e.spec);
+              })
+              .some(function (e) {
+                var t = e.apiPosition;
+                return (
+                  (r === "facebook" && t === "search") ||
+                  (r === "instagram" && t === "ig_search")
+                );
+              });
+          })
+      );
+    }
     i.exports = {
       convertBulkTargetingSpecToPlacementSpecs: se,
       convertCampaignToPlacementSpec_LEGACY: Ce,
@@ -1122,6 +1183,7 @@ __d(
       isOnlyActiveFacebookInstreamAndReelsOverlayPlacements: P,
       isOnlyActiveFacebookInstreamVideosPlacement: D,
       isOnlyActiveFacebookInstreamVideosPlacementAfterRemoval: Le,
+      isSearchThemesEligibleAfterRemoval: Ee,
       isOnlyActiveOculusRewardedVideoPlacement: x,
       isOnlyActiveFacebookPosition: v,
       isOnlyActiveFacebookStoriesPlacement: q,

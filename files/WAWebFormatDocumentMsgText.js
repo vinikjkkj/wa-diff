@@ -8,11 +8,7 @@ __d(
       if (t.isFromTemplate || t.isDynamicReplyButtonsMsg) {
         var a =
             t.pageCount > 0
-              ? s
-                  ._(/*BTDS*/ '_j{"*":"{count} pages","_1":"1 page"}', [
-                    s._plural(t.pageCount, "count"),
-                  ])
-                  .toString()
+              ? s._(/*BTDS*/ "", [s._plural(t.pageCount, "count")]).toString()
               : null,
           i = o("WAWebFormatMsgTextUtils").maybeAddFooter(t.caption, t);
         return i != null
@@ -23,7 +19,7 @@ __d(
                 i,
                 n,
               )
-          : [r("fbs")._(/*BTDS*/ "Document").toString(), a]
+          : [r("fbs")._(/*BTDS*/ "").toString(), a]
               .filter(Boolean)
               .join(" \u2022 ");
       }
@@ -36,16 +32,9 @@ __d(
         return o("WAWebFormatMsgTextUtils").maskSpoilersWithOptions(l, n);
       var u =
         t.pageCount > 0
-          ? s
-              ._(/*BTDS*/ '_j{"*":"{count} pages","_1":"1 page"}', [
-                s._plural(t.pageCount, "count"),
-              ])
-              .toString()
+          ? s._(/*BTDS*/ "", [s._plural(t.pageCount, "count")]).toString()
           : null;
-      return [
-        t.mediaData.filename || r("fbs")._(/*BTDS*/ "Document").toString(),
-        u,
-      ]
+      return [t.mediaData.filename || r("fbs")._(/*BTDS*/ "").toString(), u]
         .filter(Boolean)
         .join(" \u2022 ");
     }

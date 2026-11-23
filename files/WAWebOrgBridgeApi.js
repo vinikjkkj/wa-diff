@@ -7,28 +7,21 @@ __d(
     "WAWebOrgCollection",
     "WAWebOrgContactIdentitySync",
     "WAWebOrgMemberCollection",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")("WAWebBootstrapOrgDirectory")
-            .__setRef("WAWebOrgBridgeApi")
-            .load();
-        }),
-        "OrgDirectoryBootstrap",
-      ),
-      c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")("WAWebOrgBackgroundSyncAction")
-            .__setRef("WAWebOrgBridgeApi")
-            .load();
-        }),
-        "OrgBackgroundSync",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        return r("JSResourceForInteraction")("WAWebBootstrapOrgDirectory")
+          .__setRef("WAWebOrgBridgeApi")
+          .load();
+      }, "OrgDirectoryBootstrap"),
+      c = r("WAWebLazyLoadedRetriable")(async function () {
+        return r("JSResourceForInteraction")("WAWebOrgBackgroundSyncAction")
+          .__setRef("WAWebOrgBridgeApi")
+          .load();
+      }, "OrgBackgroundSync"),
       d = {
         applyOrgContactRows: _,
         applyOrgRows: m,

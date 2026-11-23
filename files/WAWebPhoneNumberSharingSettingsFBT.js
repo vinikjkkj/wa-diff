@@ -3,38 +3,30 @@ __d(
   ["fbt", "WAWebPrivacySettingsFBT"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Phone number");
+      return s._(/*BTDS*/ "");
     }
     function u(e) {
       return e === "all"
-        ? s._(/*BTDS*/ "Everyone")
+        ? s._(/*BTDS*/ "")
         : e === "contacts"
-          ? s._(/*BTDS*/ "My contacts")
+          ? s._(/*BTDS*/ "")
           : e === "contact_blacklist"
-            ? s._(/*BTDS*/ "My contacts except...")
+            ? s._(/*BTDS*/ "")
             : e === "none"
-              ? s._(/*BTDS*/ "Nobody")
-              : s._(/*BTDS*/ "Not loaded");
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "");
     }
     function c(e) {
-      return s._(
-        /*BTDS*/ '_j{"*":"{count} entries included","_1":"1 entry included"}',
-        [s._plural(e, "count")],
-      );
+      return s._(/*BTDS*/ "", [s._plural(e, "count")]);
     }
     function d(e) {
-      return s._(
-        /*BTDS*/ '_j{"*":"{count} entries excluded","_1":"1 entry excluded"}',
-        [s._plural(e, "count")],
-      );
+      return s._(/*BTDS*/ "", [s._plural(e, "count")]);
     }
     function m() {
-      return s._(/*BTDS*/ "Don't show to...");
+      return s._(/*BTDS*/ "");
     }
     function p(e) {
-      return e === "none"
-        ? s._(/*BTDS*/ "Show to...")
-        : s._(/*BTDS*/ "Also show to...");
+      return e === "none" ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     ((l.phoneNumberSharingContactExcludedCount = o(
       "WAWebPrivacySettingsFBT",

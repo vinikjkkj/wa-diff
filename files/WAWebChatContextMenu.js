@@ -30,7 +30,6 @@ __d(
     "WDSMenuItem.react",
     "cr:23046",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -41,23 +40,15 @@ __d(
       m,
       p = m || (m = o("react"));
     function _(e) {
-      var t,
-        n = o("react-compiler-runtime").c(3),
-        a = (t = e.testid) != null ? t : "remove_favorite_icon",
-        i;
-      return (
-        n[0] !== e || n[1] !== a
-          ? ((i = p.jsx(
-              r("WDSIconIcUnfavourite.react"),
-              babelHelpers.extends({}, e, { testid: a }),
-            )),
-            (n[0] = e),
-            (n[1] = a),
-            (n[2] = i))
-          : (i = n[2]),
-        i
+      var t;
+      return p.jsx(
+        r("WDSIconIcUnfavourite.react"),
+        babelHelpers.extends({}, e, {
+          testid: (t = e.testid) != null ? t : "remove_favorite_icon",
+        }),
       );
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(t) {
       var a = t.active,
         i = t.assignChat,
@@ -97,7 +88,7 @@ __d(
           E.push(
             p.jsx(r("WDSMenuItem.react"), {
               Icon: r("WDSIconWdsIcTransferOwnership.react"),
-              title: s._(/*BTDS*/ "Assign chat"),
+              title: s._(/*BTDS*/ ""),
               onPress: i,
               testid: "mi-assign-chat",
             }),
@@ -112,14 +103,14 @@ __d(
           ? ((I = o(
               "WAWebL10NIsUsingSupportedBritishEnglishLocale",
             ).isUsingSupportedBritishEnglishLocale()
-              ? s._(/*BTDS*/ "Remove from favourites")
-              : s._(/*BTDS*/ "Remove from Favorites")),
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "")),
             (k = _))
           : ((I = o(
               "WAWebL10NIsUsingSupportedBritishEnglishLocale",
             ).isUsingSupportedBritishEnglishLocale()
-              ? s._(/*BTDS*/ "Add to favourites")
-              : s._(/*BTDS*/ "Add to Favorites")),
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "")),
             (k = r("WDSIconIcFavorite.react"))),
           E.push(
             p.jsx(
@@ -159,7 +150,7 @@ __d(
           p.jsx(
             r("WDSMenuItem.react"),
             {
-              title: s._(/*BTDS*/ "Close chat"),
+              title: s._(/*BTDS*/ ""),
               onPress: function () {
                 var e = o("WAWebGetMaybeChatById").getMaybeChatById(m);
                 if (e == null) {
@@ -210,7 +201,7 @@ __d(
           E.push(
             p.jsx(r("WAWebChatContextMenuItemBlock.react"), { chatId: m }),
           ));
-      var D = s._(/*BTDS*/ "Clear chat");
+      var D = s._(/*BTDS*/ "");
       return (
         E.push(
           p.jsx(

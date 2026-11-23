@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchWebShare",
-  ["asyncToGeneratorRuntime"],
+  [],
   function (t, n, r, o, a, i) {
     "use strict";
     function e(e) {
@@ -15,26 +15,18 @@ __d(
         return !1;
       }
     }
-    function l(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t =
-              navigator.share == null
-                ? void 0
-                : navigator.share({ files: [].concat(e) });
-            return t == null ? "failed" : (yield t, "shared");
-          } catch (e) {
-            return e instanceof DOMException && e.name === "AbortError"
-              ? "cancelled"
-              : "failed";
-          }
-        })),
-        s.apply(this, arguments)
-      );
+    async function l(e) {
+      try {
+        var t =
+          navigator.share == null
+            ? void 0
+            : navigator.share({ files: [].concat(e) });
+        return t == null ? "failed" : (await t, "shared");
+      } catch (e) {
+        return e instanceof DOMException && e.name === "AbortError"
+          ? "cancelled"
+          : "failed";
+      }
     }
     ((i.canShareHatchFiles = e), (i.shareHatchFiles = l));
   },

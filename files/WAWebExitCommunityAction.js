@@ -2,7 +2,6 @@ __d(
   "WAWebExitCommunityAction",
   [
     "fbt",
-    "Promise",
     "WALogger",
     "WAWebActionToast.react",
     "WAWebChatGetters",
@@ -13,115 +12,91 @@ __d(
     "WAWebModalManager",
     "WAWebStateUtils",
     "WAWebToastManager",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
-      c,
-      d = c || (c = o("react"));
-    function m(e) {
-      return f(o("WAWebStateUtils").unproxy(e));
+      c = u || (u = o("react"));
+    function d(e) {
+      return p(o("WAWebStateUtils").unproxy(e));
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function m(e) {
+      var t = e.map(function (e) {
+        return o("WAWebDeleteChatAction").sendDelete(e, !1);
+      });
+      await Promise.all(t);
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(function (e) {
-            return o("WAWebDeleteChatAction").sendDelete(e, !1);
-          });
-          yield (u || (u = n("Promise"))).all(t);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.promises;
-          if (!o("WAWebChatGetters").getIsGroup(t))
-            return (u || (u = n("Promise"))).reject(
-              new (o("WAWebMiscErrors").ActionError)(),
-            );
-          if (r.sendExit) return r.sendExit;
-          var a = (r.sendExit = o("WAWebGroupExitJob").leaveCommunity(t.id)),
-            i = new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Exiting community"),
+    async function p(t) {
+      var n = t.promises;
+      if (!o("WAWebChatGetters").getIsGroup(t))
+        return Promise.reject(new (o("WAWebMiscErrors").ActionError)());
+      if (n.sendExit) return n.sendExit;
+      var r = (n.sendExit = o("WAWebGroupExitJob").leaveCommunity(t.id)),
+        a = new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")),
+        i = t.formattedTitle,
+        l = r
+          .then(function (e) {
+            var n =
+                i != null && i !== ""
+                  ? s._(/*BTDS*/ "", [s._param("community", i)])
+                  : s._(/*BTDS*/ ""),
+              r = function () {
+                (o("WAWebModalManager").ModalManager.close(), p(t));
+              };
+            if (e.code === 200)
+              return new (o("WAWebActionToast.react").ActionType)(n);
+            e.code === 500
+              ? o("WAWebModalManager").ModalManager.open(
+                  c.jsx(
+                    o("WAWebCommunityLeaveErrorModals.react")
+                      .CommunityLeaveRetryError,
+                    { onOK: r },
+                  ),
+                )
+              : o("WAWebModalManager").ModalManager.open(
+                  c.jsx(
+                    o("WAWebCommunityLeaveErrorModals.react")
+                      .CommunityLeaveStandardError,
+                    {},
+                  ),
+                );
+          })
+          .catch(function (t) {
+            (o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[exitCommunity] dropped",
+                ])),
             ),
-            l = t.formattedTitle,
-            c = a
-              .then(function (e) {
-                var n =
-                    l != null && l !== ""
-                      ? s._(/*BTDS*/ 'You left the community "{community}"', [
-                          s._param("community", l),
-                        ])
-                      : s._(/*BTDS*/ "You left the community"),
-                  r = function () {
-                    (o("WAWebModalManager").ModalManager.close(), f(t));
-                  };
-                if (e.code === 200)
-                  return new (o("WAWebActionToast.react").ActionType)(n);
-                e.code === 500
-                  ? o("WAWebModalManager").ModalManager.open(
-                      d.jsx(
-                        o("WAWebCommunityLeaveErrorModals.react")
-                          .CommunityLeaveRetryError,
-                        { onOK: r },
-                      ),
-                    )
-                  : o("WAWebModalManager").ModalManager.open(
-                      d.jsx(
-                        o("WAWebCommunityLeaveErrorModals.react")
-                          .CommunityLeaveStandardError,
-                        {},
-                      ),
-                    );
-              })
-              .catch(function (t) {
-                (o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[exitCommunity] dropped",
-                    ])),
-                ),
-                  t.statusCode === 429 || t.statusCode === 500
-                    ? o("WAWebModalManager").ModalManager.open(
-                        d.jsx(
-                          o("WAWebCommunityLeaveErrorModals.react")
-                            .CommunityLeaveTryAgainLaterError,
-                          {},
-                        ),
-                      )
-                    : o("WAWebModalManager").ModalManager.open(
-                        d.jsx(
-                          o("WAWebCommunityLeaveErrorModals.react")
-                            .CommunityLeaveStandardError,
-                          {},
-                        ),
-                      ));
-              })
-              .finally(function () {
-                r.sendExit = null;
-              });
-          (o("WAWebToastManager").ToastManager.open(
-            d.jsx(o("WAWebActionToast.react").ActionToast, {
-              initialAction: i,
-              pendingAction: c,
-            }),
-          ),
-            yield a);
-        })),
-        g.apply(this, arguments)
-      );
+              t.statusCode === 429 || t.statusCode === 500
+                ? o("WAWebModalManager").ModalManager.open(
+                    c.jsx(
+                      o("WAWebCommunityLeaveErrorModals.react")
+                        .CommunityLeaveTryAgainLaterError,
+                      {},
+                    ),
+                  )
+                : o("WAWebModalManager").ModalManager.open(
+                    c.jsx(
+                      o("WAWebCommunityLeaveErrorModals.react")
+                        .CommunityLeaveStandardError,
+                      {},
+                    ),
+                  ));
+          })
+          .finally(function () {
+            n.sendExit = null;
+          });
+      (o("WAWebToastManager").ToastManager.open(
+        c.jsx(o("WAWebActionToast.react").ActionToast, {
+          initialAction: a,
+          pendingAction: l,
+        }),
+      ),
+        await r);
     }
-    ((l.sendExitCommunity = m), (l.deleteCommunityAndSubgroups = p));
+    ((l.sendExitCommunity = d), (l.deleteCommunityAndSubgroups = m));
   },
   226,
 );

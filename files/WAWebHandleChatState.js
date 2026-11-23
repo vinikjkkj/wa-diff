@@ -1,50 +1,35 @@
 __d(
   "WAWebHandleChatState",
-  ["WAWebBackendApi", "WAWebJidToWid", "asyncToGeneratorRuntime"],
+  ["WAWebBackendApi", "WAWebJidToWid"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
+    async function e(e) {
+      var t = e.jid,
+        n = e.status,
+        r = o("WAWebJidToWid").userJidToUserWid(t);
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.jid,
-            n = e.status,
-            r = o("WAWebJidToWid").userJidToUserWid(t);
-          return (
-            o("WAWebBackendApi").frontendFireAndForget(
-              "changePresenceHandler",
-              { id: r.toString(), type: n },
-            ),
-            "NO_ACK"
-          );
-        })),
-        s.apply(this, arguments)
+        o("WAWebBackendApi").frontendFireAndForget("changePresenceHandler", {
+          id: r.toString(),
+          type: n,
+        }),
+        "NO_ACK"
       );
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    async function s(e) {
+      var t = e.jid,
+        n = e.participant,
+        r = e.status,
+        a = o("WAWebJidToWid").chatJidToChatWid(t),
+        i = o("WAWebJidToWid").userJidToUserWid(n);
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.jid,
-            n = e.participant,
-            r = e.status,
-            a = o("WAWebJidToWid").chatJidToChatWid(t),
-            i = o("WAWebJidToWid").userJidToUserWid(n);
-          return (
-            o("WAWebBackendApi").frontendFireAndForget(
-              "changePresenceHandler",
-              { id: a.toString(), type: r, participant: i.toString() },
-            ),
-            "NO_ACK"
-          );
-        })),
-        c.apply(this, arguments)
+        o("WAWebBackendApi").frontendFireAndForget("changePresenceHandler", {
+          id: a.toString(),
+          type: r,
+          participant: i.toString(),
+        }),
+        "NO_ACK"
       );
     }
-    ((l.handleIndividualChatState = e), (l.handleGroupChatState = u));
+    ((l.handleIndividualChatState = e), (l.handleGroupChatState = s));
   },
   98,
 );

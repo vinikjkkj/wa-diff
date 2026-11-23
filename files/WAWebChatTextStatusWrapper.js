@@ -12,7 +12,6 @@ __d(
     "WAWebTextStatusUtils",
     "isStringNullOrEmpty",
     "react",
-    "react-compiler-runtime",
     "useWAWebContactValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,166 +25,88 @@ __d(
         : !1;
     }
     function c(e) {
-      var t = o("react-compiler-runtime").c(38),
-        n = e.contactId,
-        a = e.ellipsify,
+      var t = e.contactId,
+        n = e.ellipsify,
+        a = n === void 0 ? !0 : n,
         i = e.waitIdle,
-        l = a === void 0 ? !0 : a,
-        u;
-      t[0] !== n
-        ? ((u = o("WAWebContactCollection").ContactCollection.gadd(n)),
-          (t[0] = n),
-          (t[1] = u))
-        : (u = t[1]);
-      var c = u,
-        d;
-      if (t[2] === Symbol.for("react.memo_cache_sentinel")) {
-        var m;
-        ((d = [
-          (m = o("WAWebFrontendContactGetters")).getTextStatusString,
-          m.getTextStatusEmoji,
-          m.getTextStatusLastUpdateTime,
-          m.getTextStatusExpiryTs,
-          m.getTextStatusEphemeralDuration,
+        l = o("WAWebContactCollection").ContactCollection.gadd(t),
+        u = o("useWAWebContactValues").useContactValues(l.id, [
+          o("WAWebFrontendContactGetters").getTextStatusString,
+          o("WAWebFrontendContactGetters").getTextStatusEmoji,
+          o("WAWebFrontendContactGetters").getTextStatusLastUpdateTime,
+          o("WAWebFrontendContactGetters").getTextStatusExpiryTs,
+          o("WAWebFrontendContactGetters").getTextStatusEphemeralDuration,
         ]),
-          (t[2] = d));
-      } else d = t[2];
-      var p = o("useWAWebContactValues").useContactValues(c.id, d),
-        _ = p[0],
-        f = p[1],
-        g = p[2],
-        h = p[3],
-        y = p[4],
-        C;
-      t[3] !== n
-        ? ((C = n.isRegularUser()), (t[3] = n), (t[4] = C))
-        : (C = t[4]);
-      var b = C,
-        v;
-      t[5] !== b ||
-      t[6] !== f ||
-      t[7] !== y ||
-      t[8] !== h ||
-      t[9] !== g ||
-      t[10] !== _
-        ? ((v =
-            b &&
-            o("WAWebTextStatusUtils").shouldDisplayTextStatus({
-              textStatusEmoji: f,
-              textStatusEphemeralDuration: y,
-              textStatusExpiryTs: h,
-              textStatusLastUpdateTime: g,
-              textStatusString: _,
-            })),
-          (t[5] = b),
-          (t[6] = f),
-          (t[7] = y),
-          (t[8] = h),
-          (t[9] = g),
-          (t[10] = _),
-          (t[11] = v))
-        : (v = t[11]);
-      var S = v,
-        R;
-      if (t[12] !== S || t[13] !== l || t[14] !== f || t[15] !== _) {
-        if (((R = s.jsx(s.Fragment, {})), S)) {
-          var L;
-          t[17] !== _
-            ? ((L = r("isStringNullOrEmpty")(_)), (t[17] = _), (t[18] = L))
-            : (L = t[18]);
-          var E = !L,
-            k;
-          t[19] !== f
-            ? ((k =
-                f == null
-                  ? null
-                  : o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(f)),
-              (t[19] = f),
-              (t[20] = k))
-            : (k = t[20]);
-          var I = k,
-            T;
-          t[21] !== E || t[22] !== I
-            ? ((T =
-                I != null &&
-                s.jsx(
-                  "div",
-                  babelHelpers.extends(
-                    {},
-                    { 0: {}, 1: { className: "x1gabggj" } }[!!E << 0],
-                    {
-                      children: s.jsx(
-                        r("WAWebEmoji.react"),
-                        { emoji: I, size: "small" },
-                        "low-res",
-                      ),
-                    },
-                  ),
-                )),
-              (t[21] = E),
-              (t[22] = I),
-              (t[23] = T))
-            : (T = t[23]);
-          var D;
-          (t[24] !== l || t[25] !== E || t[26] !== _
-            ? ((D =
-                E &&
-                s.jsx(o("WAWebEmojiText.react").EmojiText, {
-                  direction: "auto",
-                  selectable: !0,
-                  ellipsify: l === !1 ? void 0 : !0,
-                  titlify: !0,
-                  text: _,
-                  breakWord: !0,
-                })),
-              (t[24] = l),
-              (t[25] = E),
-              (t[26] = _),
-              (t[27] = D))
-            : (D = t[27]),
-            (R = s.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              children: [T, D],
-            })));
-        }
-        ((t[12] = S), (t[13] = l), (t[14] = f), (t[15] = _), (t[16] = R));
-      } else R = t[16];
-      var x;
-      t[28] !== b || t[29] !== n || t[30] !== R || t[31] !== g
-        ? ((x = function () {
-            return (
-              b &&
-                o("WAWebTextStatusUtils").isTextStatusNotFetched(g) &&
-                o("WAWebTextStatusAction").getTextStatus(n, g),
-              R
-            );
+        c = u[0],
+        d = u[1],
+        m = u[2],
+        p = u[3],
+        _ = u[4],
+        f = t.isRegularUser(),
+        g =
+          f &&
+          o("WAWebTextStatusUtils").shouldDisplayTextStatus({
+            textStatusEmoji: d,
+            textStatusEphemeralDuration: _,
+            textStatusExpiryTs: p,
+            textStatusLastUpdateTime: m,
+            textStatusString: c,
           }),
-          (t[28] = b),
-          (t[29] = n),
-          (t[30] = R),
-          (t[31] = g),
-          (t[32] = x))
-        : (x = t[32]);
-      var $ = x,
-        P;
-      return (
-        t[33] !== n || t[34] !== R || t[35] !== $ || t[36] !== i
-          ? ((P = s.jsx(r("WAWebIdleComponent.react"), {
-              id: n,
-              onComplex: $,
-              waitIdle: i,
-              children: R,
-            })),
-            (t[33] = n),
-            (t[34] = R),
-            (t[35] = $),
-            (t[36] = i),
-            (t[37] = P))
-          : (P = t[37]),
-        P
-      );
+        h = s.jsx(s.Fragment, {});
+      if (g) {
+        var y = !r("isStringNullOrEmpty")(c),
+          C =
+            d == null
+              ? null
+              : o("WAWebEmoji").EmojiUtil.normalizeEmojiFromString(d);
+        h = s.jsxs(o("WAWebFlex.react").FlexRow, {
+          align: "center",
+          children: [
+            C != null &&
+              s.jsx(
+                "div",
+                babelHelpers.extends(
+                  {},
+                  { 0: {}, 1: { className: "x1gabggj" } }[!!y << 0],
+                  {
+                    children: s.jsx(
+                      r("WAWebEmoji.react"),
+                      { emoji: C, size: "small" },
+                      "low-res",
+                    ),
+                  },
+                ),
+              ),
+            y &&
+              s.jsx(o("WAWebEmojiText.react").EmojiText, {
+                direction: "auto",
+                selectable: !0,
+                ellipsify: a === !1 ? void 0 : !0,
+                titlify: !0,
+                text: c,
+                breakWord: !0,
+              }),
+          ],
+        });
+      }
+      var b = function () {
+        return (
+          f &&
+            o("WAWebTextStatusUtils").isTextStatusNotFetched(m) &&
+            o("WAWebTextStatusAction").getTextStatus(t, m),
+          h
+        );
+      };
+      return s.jsx(r("WAWebIdleComponent.react"), {
+        id: t,
+        onComplex: b,
+        waitIdle: i,
+        children: h,
+      });
     }
-    ((l.willTextStatusDisplayContent = u), (l.TextStatus = c));
+    ((c.displayName = c.name + " [from " + i.id + "]"),
+      (l.willTextStatusDisplayContent = u),
+      (l.TextStatus = c));
   },
   98,
 );

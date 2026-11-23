@@ -49,8 +49,8 @@ __d(
       return (u || (u = r("distinctArray")))(t);
     }
     function g(e) {
-      var t = $.getRawMessages(e);
-      return $.formatErrorMessages(t);
+      var t = f(e);
+      return h(t);
     }
     function h(e) {
       return e.length === 0
@@ -71,22 +71,22 @@ __d(
         Array.isArray(o) && o.push(e);
       });
       function n(e) {
-        if (Array.isArray(e)) return $.getMessages(e);
+        if (Array.isArray(e)) return g(e);
         if (Object.prototype.toString.call(e) === "[object Object]")
           return (c || (c = r("mapObject")))(e, n);
       }
       return n(t);
     }
     function C(e) {
-      e = $.getDistrinctErrorsByKey(e);
-      var t = {};
+      var t = R(e),
+        n = {};
       return (
-        e.forEach(function (e) {
-          var n = e.path || m,
-            o = r("getByPath")(t, n);
-          (o || ((o = []), r("setByPath")(t, n, o)), o.push(e));
+        t.forEach(function (e) {
+          var t = e.path || m,
+            o = r("getByPath")(n, t);
+          (o || ((o = []), r("setByPath")(n, t, o)), o.push(e));
         }),
-        t
+        n
       );
     }
     function b(e, t) {
@@ -96,7 +96,8 @@ __d(
       });
     }
     function v(e, t) {
-      return t &&
+      if (
+        t &&
         (t.some(function (e) {
           return (
             o("AdsPlacementAPISpecReaderUtils").isOnlyActivePublisherPlatform(
@@ -110,21 +111,22 @@ __d(
           o(
             "AdsPlacementAPISpecReaderUtils",
           ).haveTheSameActivePublisherPlatform(t))
-        ? e
-        : e.map(function (e) {
-            return (
-              e.key in r("AdsInstagramSoftErrors") &&
-                e.level === r("AdsError").Level.WARN &&
-                (e.level = r("AdsError").Level.RECOMMEND),
-              e
-            );
-          });
+      )
+        return e;
+      for (var n = [].concat(e), a = 0; a < n.length; a++) {
+        var i = n[a];
+        i.key in r("AdsInstagramSoftErrors") &&
+          i.level === r("AdsError").Level.WARN &&
+          (i.level = r("AdsError").Level.RECOMMEND);
+      }
+      return n;
     }
     function S(e) {
       var t = r("AdsError").Level.SUCCESS;
       return (
         e.forEach(function (e) {
-          r("AdsError").compareLevels(e.level, t) > 0 && (t = e.level);
+          var n = e.level;
+          n != null && r("AdsError").compareLevels(n, t) > 0 && (t = n);
         }),
         t
       );
@@ -198,26 +200,23 @@ __d(
     function x(e) {
       return e.path || m;
     }
-    var $ = {
-      getErrorsForObjectID: p,
-      getErrorsForPath: _,
-      getRawMessages: f,
-      getMessages: g,
-      formatErrorMessages: h,
-      getErrorSpec: y,
-      indexErrorsByPath: C,
-      hasErrorForField: b,
-      giveRecommendationsForSoftErrors: v,
-      getLevelForErrors: S,
-      getAllErrorsAtLevel: r("getAllErrorsAtLevel"),
-      getDistrinctErrorsByKey: R,
-      getFirstBulkError: D,
-      getFirstBulkErrorMessage: T,
-      moveErrorCodeToEndOfMessage: E,
-      getDistinctErrors: I,
-      getAdsCCCategoryForLevel: L,
-    };
-    i.exports = $;
+    ((l.getErrorsForObjectID = p),
+      (l.getErrorsForPath = _),
+      (l.getRawMessages = f),
+      (l.getMessages = g),
+      (l.formatErrorMessages = h),
+      (l.getErrorSpec = y),
+      (l.indexErrorsByPath = C),
+      (l.hasErrorForField = b),
+      (l.giveRecommendationsForSoftErrors = v),
+      (l.getLevelForErrors = S),
+      (l.getAllErrorsAtLevel = r("getAllErrorsAtLevel")),
+      (l.getDistrinctErrorsByKey = R),
+      (l.getFirstBulkError = D),
+      (l.getFirstBulkErrorMessage = T),
+      (l.moveErrorCodeToEndOfMessage = E),
+      (l.getDistinctErrors = I),
+      (l.getAdsCCCategoryForLevel = L));
   },
-  34,
+  98,
 );

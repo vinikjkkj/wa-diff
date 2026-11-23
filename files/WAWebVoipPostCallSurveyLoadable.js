@@ -4,24 +4,20 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebVoipPostCallSurvey.react",
-          )
-            .__setRef("WAWebVoipPostCallSurveyLoadable")
-            .load();
-          return e;
-        }),
-        "WAWebVoipPostCallSurveyLoadable",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebVoipPostCallSurvey.react",
+        )
+          .__setRef("WAWebVoipPostCallSurveyLoadable")
+          .load();
+        return e;
+      }, "WAWebVoipPostCallSurveyLoadable"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

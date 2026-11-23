@@ -18,148 +18,121 @@ __d(
     "WAWebProcessBaseMsgInfo",
     "WAWebSchemaMessage",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u(e) {
-      return d(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = e
-              .filter(function (e) {
-                return (
-                  e.kind === o("WAWebMsgType").MsgKind.PollAddOptionDecrypted
-                );
-              })
-              .map(function (e) {
-                return e.id.toString();
-              }),
-            n = e
-              .filter(function (e) {
-                return e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION;
-              })
-              .map(function (e) {
-                return e.id;
-              });
-          (n.length > 0 &&
-            t.push.apply(
-              t,
-              b(
-                yield o(
-                  "WAWebDBAssociatedMsgsAttachDetachAPI",
-                ).getAssociatedMsgsByParentMsgKeyFromAssociationTable(n),
-              ),
+      return d(async function () {
+        var t = e
+            .filter(function (e) {
+              return (
+                e.kind === o("WAWebMsgType").MsgKind.PollAddOptionDecrypted
+              );
+            })
+            .map(function (e) {
+              return e.id.toString();
+            }),
+          n = e
+            .filter(function (e) {
+              return e.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION;
+            })
+            .map(function (e) {
+              return e.id;
+            });
+        (n.length > 0 &&
+          t.push.apply(
+            t,
+            h(
+              await o(
+                "WAWebDBAssociatedMsgsAttachDetachAPI",
+              ).getAssociatedMsgsByParentMsgKeyFromAssociationTable(n),
             ),
-            yield p(t));
-        }),
-      );
+          ),
+          await m(t));
+      });
     }
     function c(e) {
       return d(function () {
-        return p(b(e));
+        return m(h(e));
       });
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(t) {
+      if (o("WAWebPollsGatingUtils").isPollAddOptionReceivingEnabled())
+        try {
+          await t();
+        } catch (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[polls] failed to apply stored poll add-options",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("poll-add-option-apply-stored-failed");
+        }
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (o("WAWebPollsGatingUtils").isPollAddOptionReceivingEnabled())
-            try {
-              yield t();
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[polls] failed to apply stored poll add-options",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("poll-add-option-apply-stored-failed");
-            }
-        })),
-        m.apply(this, arguments)
-      );
+    async function m(e) {
+      if (e.length !== 0) {
+        var t = await p(Array.from(new Set(e))),
+          n = t.filter(f),
+          r = t.filter(function (e) {
+            return !n.includes(e);
+          });
+        r.length > 0 &&
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[polls] dropping ",
+                  " stored poll add-options their sender may not add",
+                ])),
+              r.length,
+            )
+            .sendLogs("poll-add-option-stored-not-allowed");
+        var a = await o(
+            "WAWebApplyPollAddOptionTCValidation",
+          ).applyPollAddOptionTCValidation(n, "history-sync-add-option"),
+          i = a.accepted,
+          l = a.mismatched,
+          u = await o(
+            "WAWebApplyPollAddOptionToParent",
+          ).applyPollAddOptionsToParent(i);
+        (await o("WAWebApplyPollAddOptionToParent").removePollAddOptionMsgs(
+          u.map(function (e) {
+            var t = e.decryptedAddOption;
+            return t.id.toString();
+          }),
+        ),
+          await o("WAWebDBMessageDelete").removeMessagesFromHistory(
+            [].concat(r, l).map(function (e) {
+              return e.decryptedAddOption.id.toString();
+            }),
+            { deleteAssociatedMsgs: !1 },
+          ));
+      }
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function p(e) {
+      var t = (await o("WAWebSchemaMessage").getMessageTable().bulkGet(e))
+          .map(_)
+          .filter(Boolean),
+        n = await o("WAWebAddonQueryUtils").getParentMsgsByMsgKey(
+          t.map(function (e) {
+            return e.parentMsgKey;
+          }),
+        ),
+        r = [];
+      for (var a of t) {
+        var i = n.get(a.parentMsgKey.toString());
+        i != null &&
+          i.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION &&
+          !g(i, a) &&
+          r.push({ parentMsg: i, decryptedAddOption: a });
+      }
+      return r;
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0) {
-            var t = yield f(Array.from(new Set(e))),
-              n = t.filter(y),
-              r = t.filter(function (e) {
-                return !n.includes(e);
-              });
-            r.length > 0 &&
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[polls] dropping ",
-                      " stored poll add-options their sender may not add",
-                    ])),
-                  r.length,
-                )
-                .sendLogs("poll-add-option-stored-not-allowed");
-            var a = yield o(
-                "WAWebApplyPollAddOptionTCValidation",
-              ).applyPollAddOptionTCValidation(n, "history-sync-add-option"),
-              i = a.accepted,
-              l = a.mismatched,
-              u = yield o(
-                "WAWebApplyPollAddOptionToParent",
-              ).applyPollAddOptionsToParent(i);
-            (yield o("WAWebApplyPollAddOptionToParent").removePollAddOptionMsgs(
-              u.map(function (e) {
-                var t = e.decryptedAddOption;
-                return t.id.toString();
-              }),
-            ),
-              yield o("WAWebDBMessageDelete").removeMessagesFromHistory(
-                [].concat(r, l).map(function (e) {
-                  return e.decryptedAddOption.id.toString();
-                }),
-                { deleteAssociatedMsgs: !1 },
-              ));
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = (yield o("WAWebSchemaMessage").getMessageTable().bulkGet(e))
-              .map(h)
-              .filter(Boolean),
-            n = yield o("WAWebAddonQueryUtils").getParentMsgsByMsgKey(
-              t.map(function (e) {
-                return e.parentMsgKey;
-              }),
-            ),
-            r = [];
-          for (var a of t) {
-            var i = n.get(a.parentMsgKey.toString());
-            i != null &&
-              i.type === o("WAWebMsgType").MSG_TYPE.POLL_CREATION &&
-              !C(i, a) &&
-              r.push({ parentMsg: i, decryptedAddOption: a });
-          }
-          return r;
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
+    function _(e) {
       if (
         e == null ||
         e.type !== o("WAWebMsgType").MSG_TYPE.POLL_ADD_OPTION_DECRYPTED
@@ -190,7 +163,7 @@ __d(
             },
           );
     }
-    function y(e) {
+    function f(e) {
       var t = e.decryptedAddOption,
         n = e.parentMsg,
         a = o("WAWebMsgGetters").getOriginalSender(n),
@@ -208,14 +181,14 @@ __d(
         )
       );
     }
-    function C(e, t) {
+    function g(e, t) {
       var n,
         r = t.id.toString();
       return ((n = e.pollOptions) != null ? n : []).some(function (e) {
         return e.addOptionMsgKey === r;
       });
     }
-    function b(e) {
+    function h(e) {
       return e
         .filter(function (e) {
           return (

@@ -1,19 +1,16 @@
 __d(
   "WAWebHatchNoiseX25519",
   [
-    "Promise",
     "WACryptoCurve25519Dependencies",
     "WASignalKeys",
     "WASignalOther",
     "WAWebHatchNoiseBytes",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = 32,
-      u = Object.freeze([
+    var e = 32,
+      s = Object.freeze([
         "0000000000000000000000000000000000000000000000000000000000000000",
         "0100000000000000000000000000000000000000000000000000000000000000",
         "e0eb7a7c3b41b8ae1656e3faf19fc46ada098deb9c32b1fd866205165f49b800",
@@ -22,107 +19,94 @@ __d(
         "edffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
         "eeffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f",
       ]);
-    function c(e, t) {
-      if (e.length !== s)
-        throw r("err")("WAWebHatchNoiseX25519: invalid " + t + " length");
+    function u(t, n) {
+      if (t.length !== e)
+        throw r("err")("WAWebHatchNoiseX25519: invalid " + n + " length");
     }
-    function d(e) {
-      var t = e.privateKey,
-        n = e.publicKey;
-      if (t.length !== s || n.length !== s)
+    function c(t) {
+      var n = t.privateKey,
+        a = t.publicKey;
+      if (n.length !== e || a.length !== e)
         throw (
-          o("WAWebHatchNoiseBytes").zeroBytes(t),
           o("WAWebHatchNoiseBytes").zeroBytes(n),
+          o("WAWebHatchNoiseBytes").zeroBytes(a),
           r("err")(
             "WAWebHatchNoiseX25519: primitive returned an invalid key pair",
           )
         );
-      return { privateKeyBytes: t, publicKeyBytes: n };
+      return { privateKeyBytes: n, publicKeyBytes: a };
     }
-    function m() {
-      return (e || (e = n("Promise"))).resolve().then(function () {
-        return d(o("WASignalKeys").makeKeyPair());
+    function d() {
+      return Promise.resolve().then(function () {
+        return c(o("WASignalKeys").makeKeyPair());
       });
     }
-    function p(t) {
-      return (e || (e = n("Promise"))).resolve().then(function () {
-        c(t, "private key");
-        var e = t.slice(),
-          n = o("WASignalOther").ensureSize(e, s);
+    function m(t) {
+      return Promise.resolve().then(function () {
+        u(t, "private key");
+        var n = t.slice(),
+          r = o("WASignalOther").ensureSize(n, e);
         try {
-          var r = d(o("WASignalKeys").makeKeyPairFrom(n));
+          var a = c(o("WASignalKeys").makeKeyPairFrom(r));
           return (
-            n !== r.privateKeyBytes && o("WAWebHatchNoiseBytes").zeroBytes(n),
-            e !== r.privateKeyBytes && o("WAWebHatchNoiseBytes").zeroBytes(e),
-            r
+            r !== a.privateKeyBytes && o("WAWebHatchNoiseBytes").zeroBytes(r),
+            n !== a.privateKeyBytes && o("WAWebHatchNoiseBytes").zeroBytes(n),
+            a
           );
-        } catch (t) {
+        } catch (e) {
           throw (
-            o("WAWebHatchNoiseBytes").zeroBytes(n),
-            n !== e && o("WAWebHatchNoiseBytes").zeroBytes(e),
-            t
+            o("WAWebHatchNoiseBytes").zeroBytes(r),
+            r !== n && o("WAWebHatchNoiseBytes").zeroBytes(n),
+            e
           );
         }
       });
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    async function p(t, n) {
+      (u(t, "private key"), u(n, "public key"));
+      var a = 0;
+      for (var i of s) {
+        var l = o("WAWebHatchNoiseBytes").hexToBytes(i);
+        ((a += o("WAWebHatchNoiseBytes").constantTimeEqual(n, l) ? 1 : 0),
+          o("WAWebHatchNoiseBytes").zeroBytes(l));
+      }
+      if (a !== 0)
+        throw r("err")("WAWebHatchNoiseX25519: rejected low-order public key");
+      var c = t.slice(),
+        d = n.slice(),
+        m;
+      try {
+        m = new Uint8Array(
+          await o("WACryptoCurve25519Dependencies").calculateAgreement(d, c),
+        );
+      } finally {
+        (o("WAWebHatchNoiseBytes").zeroBytes(c),
+          o("WAWebHatchNoiseBytes").zeroBytes(d));
+      }
+      if (m.length !== e)
+        throw (
+          o("WAWebHatchNoiseBytes").zeroBytes(m),
+          r("err")(
+            "WAWebHatchNoiseX25519: primitive returned an invalid shared secret",
+          )
+        );
+      var p = new Uint8Array(e),
+        _ = o("WAWebHatchNoiseBytes").constantTimeEqual(m, p);
+      if (_)
+        throw (
+          o("WAWebHatchNoiseBytes").zeroBytes(m),
+          r("err")("WAWebHatchNoiseX25519: rejected all-zero shared secret")
+        );
+      return m;
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (c(e, "private key"), c(t, "public key"));
-          var n = 0;
-          for (var a of u) {
-            var i = o("WAWebHatchNoiseBytes").hexToBytes(a);
-            ((n += o("WAWebHatchNoiseBytes").constantTimeEqual(t, i) ? 1 : 0),
-              o("WAWebHatchNoiseBytes").zeroBytes(i));
-          }
-          if (n !== 0)
-            throw r("err")(
-              "WAWebHatchNoiseX25519: rejected low-order public key",
-            );
-          var l = e.slice(),
-            d = t.slice(),
-            m;
-          try {
-            m = new Uint8Array(
-              yield o("WACryptoCurve25519Dependencies").calculateAgreement(
-                d,
-                l,
-              ),
-            );
-          } finally {
-            (o("WAWebHatchNoiseBytes").zeroBytes(l),
-              o("WAWebHatchNoiseBytes").zeroBytes(d));
-          }
-          if (m.length !== s)
-            throw (
-              o("WAWebHatchNoiseBytes").zeroBytes(m),
-              r("err")(
-                "WAWebHatchNoiseX25519: primitive returned an invalid shared secret",
-              )
-            );
-          var p = new Uint8Array(s),
-            _ = o("WAWebHatchNoiseBytes").constantTimeEqual(m, p);
-          if (_)
-            throw (
-              o("WAWebHatchNoiseBytes").zeroBytes(m),
-              r("err")("WAWebHatchNoiseX25519: rejected all-zero shared secret")
-            );
-          return m;
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
+    function _(e) {
       (o("WAWebHatchNoiseBytes").zeroBytes(e.privateKeyBytes),
         o("WAWebHatchNoiseBytes").zeroBytes(e.publicKeyBytes));
     }
-    ((l.generateKeyPair = m),
-      (l.keyPairFromPrivateBytes = p),
-      (l.dh = _),
-      (l.destroyKeyPair = g));
+    ((l.generateKeyPair = d),
+      (l.keyPairFromPrivateBytes = m),
+      (l.dh = p),
+      (l.destroyKeyPair = _));
   },
   98,
 );

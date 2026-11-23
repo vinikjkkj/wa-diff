@@ -33,6 +33,7 @@ __d(
       CATALOG_STORY_SPEC: "catalog_story_spec",
       CATEGORIZATION_CRITERIA: "categorization_criteria",
       CATEGORY_MEDIA_SOURCE: "category_media_source",
+      CLIENT_IDEMPOTENCY_KEY: "client_idempotency_key",
       CLUSTER_ID: "cluster_id",
       COLLABORATIVE_ADS_LSB_IMAGE_BANK_ID:
         "collaborative_ads_lsb_image_bank_id",
@@ -88,9 +89,11 @@ __d(
       MARKETING_MESSAGE_STRUCTURED_SPEC: "marketing_message_structured_spec",
       MARKETING_MESSAGES_PRODUCT_IDENTITY:
         "marketing_messages_product_identity",
+      MEDIA_OPTIMIZATION_SPEC: "media_optimization_spec",
       MEDIA_SOURCING_SPEC: "media_sourcing_spec",
       MEDIA_TYPE: "media_type",
       MESSENGER_SPONSORED_MESSAGE: "messenger_sponsored_message",
+      MMU_OBJECT_STORY_SPEC: "mmu_object_story_spec",
       MOCKUP_ID: "mockup_id",
       NAME: "name",
       NORMALIZED_BC_TRIGGER: "normalized_bc_trigger",
@@ -128,6 +131,7 @@ __d(
       SHOP_SPEC: "shop_spec",
       SOURCE_FACEBOOK_POST_ID: "source_facebook_post_id",
       SOURCE_INSTAGRAM_MEDIA_ID: "source_instagram_media_id",
+      SOURCE_THREADS_MEDIA_ID: "source_threads_media_id",
       STATUS: "status",
       STORED_OBJECT_STORY_SPEC: "stored_object_story_spec",
       STORY_GRAPHQL_TOKEN: "story_graphql_token",

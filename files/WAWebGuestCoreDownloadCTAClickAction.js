@@ -6,7 +6,6 @@ __d(
     "WAWebGuestCoreConsts",
     "WAWebGuestCoreRoutes",
     "WAWebUserPrefsInfoStore",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e =
@@ -21,28 +20,20 @@ __d(
         e + "/" === o("WAWebGuestCoreRoutes").GUEST_EVENTS_PATH
       );
     }
-    function m() {
-      return p.apply(this, arguments);
+    async function m() {
+      try {
+        var e = await o("WAWebUserPrefsInfoStore").waNoiseInfo.get();
+        return !e || !e.recoveryToken
+          ? ""
+          : o("WABase64").encodeB64UrlSafe(e.recoveryToken);
+      } catch (e) {
+        return "";
+      }
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = yield o("WAWebUserPrefsInfoStore").waNoiseInfo.get();
-            return !e || !e.recoveryToken
-              ? ""
-              : o("WABase64").encodeB64UrlSafe(e.recoveryToken);
-          } catch (e) {
-            return "";
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t, n, r) {
+    function p(e, t, n, r) {
       return e === o("WAWebGuestCoreConsts").GuestMobilePlatform.IOS_APPCLIP ||
         e === o("WAWebGuestCoreConsts").GuestMobilePlatform.IOS_BROWSER
-        ? C(u)
+        ? h(u)
         : e === o("WAWebGuestCoreConsts").GuestMobilePlatform.ANDROID_BROWSER
           ? n
             ? "https://www.whatsapp.com/dl/?mode=gr&sc=" +
@@ -61,12 +52,12 @@ __d(
                 );
               })();
     }
-    function f(e, t, n, r) {
+    function _(e, t, n, r) {
       return e === o("WAWebGuestCoreConsts").GuestMobilePlatform.IOS_APPCLIP ||
         e === o("WAWebGuestCoreConsts").GuestMobilePlatform.IOS_BROWSER
-        ? C(c)
+        ? h(c)
         : e === o("WAWebGuestCoreConsts").GuestMobilePlatform.ANDROID_BROWSER
-          ? b({ eventInviteCode: n, eventToken: t, guestBct: r })
+          ? y({ eventInviteCode: n, eventToken: t, guestBct: r })
           : e === o("WAWebGuestCoreConsts").GuestMobilePlatform.UNKNOWN
             ? s
             : (function () {
@@ -76,44 +67,35 @@ __d(
                 );
               })();
     }
-    function g(e, t) {
-      h(e, t);
+    function f(e, t) {
+      g(e, t);
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    async function g(e, t) {
+      var n,
+        r,
+        a,
+        i = new URLSearchParams(window.location.search),
+        l = await m(),
+        s =
+          (n =
+            t != null
+              ? t
+              : o("WAWebGuestCoreCommonUtils").getInviteCodeFromUrlParams(i)) !=
+          null
+            ? n
+            : "",
+        u = i.get("sc"),
+        c = (r = i.get("token")) != null ? r : "",
+        f =
+          d() && c !== ""
+            ? _(e, c, (a = i.get("ic")) != null ? a : "", l)
+            : p(e, s, u != null, l);
+      window.location.assign(f);
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a,
-            i = new URLSearchParams(window.location.search),
-            l = yield m(),
-            s =
-              (n =
-                t != null
-                  ? t
-                  : o("WAWebGuestCoreCommonUtils").getInviteCodeFromUrlParams(
-                      i,
-                    )) != null
-                ? n
-                : "",
-            u = i.get("sc"),
-            c = (r = i.get("token")) != null ? r : "",
-            p =
-              d() && c !== ""
-                ? f(e, c, (a = i.get("ic")) != null ? a : "", l)
-                : _(e, s, u != null, l);
-          window.location.assign(p);
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(t) {
+    function h(t) {
       return e + "&ct=" + t;
     }
-    function b(e) {
+    function y(e) {
       var t = e.eventInviteCode,
         n = e.eventToken,
         r = e.guestBct,
@@ -127,9 +109,9 @@ __d(
       );
     }
     ((l.isGuestEventsSurface = d),
-      (l.getGuestDownloadUrl = _),
-      (l.getGuestEventsDownloadUrl = f),
-      (l.downloadCTAClickAction = g));
+      (l.getGuestDownloadUrl = p),
+      (l.getGuestEventsDownloadUrl = _),
+      (l.downloadCTAClickAction = f));
   },
   98,
 );

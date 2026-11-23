@@ -5,13 +5,7 @@ __d(
     function e(e) {
       var t = e.msg,
         n = o("WAWebMsgGetters").getIsSentByMe(t);
-      return n
-        ? s._(
-            /*BTDS*/ "Your event response couldn't load. Open the event on your phone to view it.",
-          )
-        : s._(
-            /*BTDS*/ "This event response couldn't load. Open the event on your phone to view it.",
-          );
+      return n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

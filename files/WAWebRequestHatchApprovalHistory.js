@@ -5,7 +5,6 @@ __d(
     "WAWebHatchApprovalHistory",
     "WAWebHatchVmConnection",
     "WAWebNullFunc",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -15,27 +14,19 @@ __d(
       c = 3e4,
       d = 404,
       m = { nextCursor: null, records: [], unreadable: 0 };
-    function p(e) {
-      return _.apply(this, arguments);
+    async function p(e) {
+      var t = await o("WAWebHatchVmConnection")
+        .connectHatchVmApi()
+        .catch(o("WAWebNullFunc").returnNull);
+      if (t == null) return (f("session"), null);
+      var n = function () {
+          return t.approvalHistory(u, e, { timeoutMs: c });
+        },
+        r = await n(),
+        a = r.kind === "Failure" && r.reason !== "TIMEOUT" ? await n() : r;
+      return _(a);
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebHatchVmConnection")
-            .connectHatchVmApi()
-            .catch(o("WAWebNullFunc").returnNull);
-          if (t == null) return (g("session"), null);
-          var n = function () {
-              return t.approvalHistory(u, e, { timeoutMs: c });
-            },
-            r = yield n(),
-            a = r.kind === "Failure" && r.reason !== "TIMEOUT" ? yield n() : r;
-          return f(a);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(t) {
+    function _(t) {
       if (t.kind === "Rejected" && t.statusCode === d) return m;
       var n =
         t.kind === "Ok"
@@ -44,7 +35,7 @@ __d(
             )
           : null;
       return n == null
-        ? (g(h(t)), null)
+        ? (f(g(t)), null)
         : (n.unreadable > 0 &&
             o("WALogger").WARN(
               e ||
@@ -58,7 +49,7 @@ __d(
             ),
           n);
     }
-    function g(e) {
+    function f(e) {
       o("WALogger")
         .WARN(
           s ||
@@ -70,7 +61,7 @@ __d(
         )
         .sendLogs("hatch-approval-history-read-failed");
     }
-    function h(e) {
+    function g(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&

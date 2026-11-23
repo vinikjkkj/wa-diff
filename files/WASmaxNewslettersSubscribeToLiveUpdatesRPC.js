@@ -16,56 +16,48 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = m(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return {
-              name: "SubscribeToLiveUpdatesResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "SubscribeToLiveUpdatesResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "SubscribeToLiveUpdatesResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "SubscribeToLiveUpdates",
-              { Success: a, ClientError: i, ServerError: l },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = d(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return {
+          name: "SubscribeToLiveUpdatesResponseSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "SubscribeToLiveUpdatesResponseClientError",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "SubscribeToLiveUpdatesResponseServerError",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("SubscribeToLiveUpdates", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
-      var r = p(e, t);
+      var r = m(e, t);
       return r.success
         ? o("WAResultOrError").makeResult({
             subscribeToLiveUpdatesClientErrors: r.value,
           })
         : r;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -73,7 +65,7 @@ __d(
       ).parseInternalServerErrorIQErrorResponseMixin(e, t);
       return (r.success, r);
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "live_updates");
@@ -89,8 +81,8 @@ __d(
           )
         : i;
     }
-    function m(e) {
-      var t = f(
+    function d(e) {
+      var t = _(
         o("WASmaxJsx").smax(
           "iq",
           null,
@@ -100,7 +92,7 @@ __d(
       );
       return t;
     }
-    function p(e, t) {
+    function m(e, t) {
       var n = o(
         "WASmaxInNewslettersBadRequestIQErrorResponseMixin",
       ).parseBadRequestIQErrorResponseMixin(e, t);
@@ -153,9 +145,9 @@ __d(
             [n, r, a, i, l],
           );
     }
-    function _(e) {
+    function p(e) {
       var t = e.iqTo,
-        n = h(
+        n = g(
           o("WASmaxJsx").smax("iq", {
             to: o("WAWap").JID(t),
             xmlns: "newsletter",
@@ -163,26 +155,26 @@ __d(
         );
       return n;
     }
-    function f(e, t) {
-      var n = _(t);
+    function _(e, t) {
+      var n = p(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function g() {
+    function f() {
       var e = o("WASmaxJsx").smax("iq", {
         id: o("WAWap").generateId(),
         type: "set",
       });
       return e;
     }
-    function h(e) {
-      var t = g();
+    function g(e) {
+      var t = f();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
     ((l.sendSubscribeToLiveUpdatesRPC = e),
-      (l.parseSubscribeToLiveUpdatesResponseClientError = u),
-      (l.parseSubscribeToLiveUpdatesResponseServerError = c),
-      (l.parseSubscribeToLiveUpdatesResponseSuccess = d),
-      (l.makeSubscribeToLiveUpdatesRequest = m));
+      (l.parseSubscribeToLiveUpdatesResponseClientError = s),
+      (l.parseSubscribeToLiveUpdatesResponseServerError = u),
+      (l.parseSubscribeToLiveUpdatesResponseSuccess = c),
+      (l.makeSubscribeToLiveUpdatesRequest = d));
   },
   98,
 );

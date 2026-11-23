@@ -7,7 +7,6 @@ __d(
     "WAWebODS",
     "WAWebSerializeVoipWapNode",
     "WAWebWindowsHybridBridgeTrace",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -222,12 +221,12 @@ __d(
             ),
             this.$1.subscribe(null));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.setHandlers = function (t) {
+          (n.setHandlers = function (t) {
             this.$3 = t;
           }),
-          (a.cleanup = function () {
+          (n.cleanup = function () {
             this.$1.removeEventListener != null &&
               (this.$1.removeEventListener(
                 "handleVoipReadyEvent",
@@ -274,7 +273,7 @@ __d(
                 this.requestOngoingCallInfo,
               ));
           }),
-          (a.handleIncomingSignalingOffer = function (
+          (n.handleIncomingSignalingOffer = function (
             t,
             n,
             a,
@@ -312,7 +311,7 @@ __d(
                 },
               ));
           }),
-          (a.handleIncomingSignalingMessage = function (t) {
+          (n.handleIncomingSignalingMessage = function (t) {
             var e = this,
               n = t.msgE,
               a = t.msgOffline,
@@ -345,7 +344,7 @@ __d(
                 },
               ));
           }),
-          (a.handleIncomingSignalingAck = function (t) {
+          (n.handleIncomingSignalingAck = function (t) {
             var e = this,
               n = t.ackInfoError,
               a = t.ackInfoType,
@@ -372,7 +371,7 @@ __d(
                 },
               ));
           }),
-          (a.handleIncomingSignalingReceipt = function (t, n, a) {
+          (n.handleIncomingSignalingReceipt = function (t, n, a) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.handle_incoming_signaling_receipt",
@@ -392,7 +391,7 @@ __d(
                 },
               ));
           }),
-          (a.resendOfferOnDecryptionFailure = function (t, n) {
+          (n.resendOfferOnDecryptionFailure = function (t, n) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.resend_offer_on_decryption_failure",
@@ -408,7 +407,7 @@ __d(
                 },
               ));
           }),
-          (a.resendEncRekeyRetry = function (t, n) {
+          (n.resendEncRekeyRetry = function (t, n) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.resend_enc_rekey_retry",
@@ -424,7 +423,7 @@ __d(
                 },
               ));
           }),
-          (a.notifyDeviceIdentityChangedOrDeleted = function (t, n) {
+          (n.notifyDeviceIdentityChangedOrDeleted = function (t, n) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.notify_device_identity_changed_or_deleted",
@@ -440,7 +439,7 @@ __d(
                 },
               ));
           }),
-          (a.handleWebViewReady = function () {
+          (n.handleWebViewReady = function () {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.handle_web_view_ready",
@@ -453,7 +452,7 @@ __d(
                 },
               ));
           }),
-          (a.voipInit = function (t, n) {
+          (n.voipInit = function (t, n) {
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.voip_init"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
@@ -464,7 +463,7 @@ __d(
                 },
               ));
           }),
-          (a.setSelfCountryCode = function (t) {
+          (n.setSelfCountryCode = function (t) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.set_self_country_code",
@@ -477,7 +476,7 @@ __d(
                 },
               ));
           }),
-          (a.setHideMyIp = function (t) {
+          (n.setHideMyIp = function (t) {
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.set_hide_my_ip"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
@@ -488,7 +487,7 @@ __d(
                 },
               ));
           }),
-          (a.setChatNameAndIcon = function (t, n, a) {
+          (n.setChatNameAndIcon = function (t, n, a) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.set_chat_name_and_icon",
@@ -503,7 +502,7 @@ __d(
                 },
               ));
           }),
-          (a.handleSignOut = function () {
+          (n.handleSignOut = function () {
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.handle_sign_out"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
@@ -514,7 +513,7 @@ __d(
                 },
               ));
           }),
-          (a.startCall = function (t, n, a, i, l, s, u, c, d, m, p) {
+          (n.startCall = function (t, n, a, i, l, s, u, c, d, m, p) {
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.start_call"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
@@ -539,7 +538,7 @@ __d(
                 },
               ));
           }),
-          (a.startGroupCall = function (
+          (n.startGroupCall = function (
             t,
             n,
             a,
@@ -582,7 +581,7 @@ __d(
                 },
               ));
           }),
-          (a.handleDeviceJidList = function (t, n) {
+          (n.handleDeviceJidList = function (t, n) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.handle_device_jid_list",
@@ -601,7 +600,7 @@ __d(
                 },
               ));
           }),
-          (a.previewCallLink = function (t, n, a, i, l) {
+          (n.previewCallLink = function (t, n, a, i, l) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.preview_call_link",
@@ -616,7 +615,7 @@ __d(
                 },
               ));
           }),
-          (a.previewAndJoinCallLink = function (t, n, a, i, l) {
+          (n.previewAndJoinCallLink = function (t, n, a, i, l) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.preview_and_join_call_link",
@@ -635,7 +634,7 @@ __d(
                 },
               ));
           }),
-          (a.endCall = function (t, n) {
+          (n.endCall = function (t, n) {
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.end_call"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
@@ -646,7 +645,7 @@ __d(
                 },
               ));
           }),
-          (a.rejectCallWithoutCallContext = function (t, n, a, i, l, s, u) {
+          (n.rejectCallWithoutCallContext = function (t, n, a, i, l, s, u) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.reject_call_without_call_context",
@@ -665,7 +664,7 @@ __d(
                 },
               ));
           }),
-          (a.joinOngoingCall = function (
+          (n.joinOngoingCall = function (
             t,
             n,
             a,
@@ -716,7 +715,7 @@ __d(
                 },
               ));
           }),
-          (a.inviteToCall = function (t, n, a) {
+          (n.inviteToCall = function (t, n, a) {
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.invite_to_call"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
@@ -727,7 +726,7 @@ __d(
                 },
               ));
           }),
-          (a.checkOngoingCalls = function (t, n) {
+          (n.checkOngoingCalls = function (t, n) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.check_ongoing_calls",
@@ -742,7 +741,7 @@ __d(
                 },
               ));
           }),
-          (a.simulateNativeAnr = function (t, n) {
+          (n.simulateNativeAnr = function (t, n) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.simulate_native_anr",
@@ -757,7 +756,7 @@ __d(
                 },
               ));
           }),
-          (a.reportWebAnr = function () {
+          (n.reportWebAnr = function () {
             var e = this;
             (r("WAWebODS").incr("web.hybrid.bridge.voip.send.report_web_anr"),
               o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
@@ -768,84 +767,58 @@ __d(
                 },
               ));
           }),
-          (a.requestCallInfo = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this;
-              r("WAWebODS").incr("web.hybrid.bridge.voip.send.get_call_info");
-              var t = yield o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                  { bridge: "voip", method: "getCallInfo", type: "async" },
-                  function () {
-                    return e.$1.getCallInfo();
-                  },
-                ),
-                n = t.callInfoJsonBase64,
-                a = t.error;
-              return { callInfoJsonBase64: n, error: a };
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.requestObtainDevicePermissionAsync = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                r("WAWebODS").incr(
-                  "web.hybrid.bridge.voip.send.request_obtain_device_permission_async",
-                );
-                var n = yield o(
-                    "WAWebWindowsHybridBridgeTrace",
-                  ).traceBridgeCall(
-                    {
-                      bridge: "voip",
-                      method: "requestObtainDevicePermissionAsync",
-                      type: "async",
-                    },
-                    function () {
-                      return t.$1.requestObtainDevicePermissionAsync(e);
-                    },
-                  ),
-                  a = n.error,
-                  i = n.permissionGranted;
-                return { error: a, permissionGranted: i };
-              },
+          (n.requestCallInfo = async function () {
+            var e = this;
+            r("WAWebODS").incr("web.hybrid.bridge.voip.send.get_call_info");
+            var t = await o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                { bridge: "voip", method: "getCallInfo", type: "async" },
+                function () {
+                  return e.$1.getCallInfo();
+                },
+              ),
+              n = t.callInfoJsonBase64,
+              a = t.error;
+            return { callInfoJsonBase64: n, error: a };
+          }),
+          (n.requestObtainDevicePermissionAsync = async function (t) {
+            var e = this;
+            r("WAWebODS").incr(
+              "web.hybrid.bridge.voip.send.request_obtain_device_permission_async",
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.requestDevicesCountAsync = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                r("WAWebODS").incr(
-                  "web.hybrid.bridge.voip.send.get_device_count_async",
-                );
-                var n = yield o(
-                    "WAWebWindowsHybridBridgeTrace",
-                  ).traceBridgeCall(
-                    {
-                      bridge: "voip",
-                      method: "getDeviceCountAsync",
-                      type: "async",
-                    },
-                    function () {
-                      return t.$1.getDeviceCountAsync(e);
-                    },
-                  ),
-                  a = n.deviceCount,
-                  i = n.error;
-                return { error: i, deviceCount: a };
-              },
+            var n = await o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "voip",
+                  method: "requestObtainDevicePermissionAsync",
+                  type: "async",
+                },
+                function () {
+                  return e.$1.requestObtainDevicePermissionAsync(t);
+                },
+              ),
+              a = n.error,
+              i = n.permissionGranted;
+            return { error: a, permissionGranted: i };
+          }),
+          (n.requestDevicesCountAsync = async function (t) {
+            var e = this;
+            r("WAWebODS").incr(
+              "web.hybrid.bridge.voip.send.get_device_count_async",
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.handleOngoingCallInfo = function (t, n, a, i, l) {
+            var n = await o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                {
+                  bridge: "voip",
+                  method: "getDeviceCountAsync",
+                  type: "async",
+                },
+                function () {
+                  return e.$1.getDeviceCountAsync(t);
+                },
+              ),
+              a = n.deviceCount,
+              i = n.error;
+            return { error: i, deviceCount: a };
+          }),
+          (n.handleOngoingCallInfo = function (t, n, a, i, l) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.handle_ongoing_call_info",
@@ -864,7 +837,7 @@ __d(
                 },
               ));
           }),
-          (a.setIncomingOfferReceivedMs = function (t) {
+          (n.setIncomingOfferReceivedMs = function (t) {
             var e = this;
             (r("WAWebODS").incr(
               "web.hybrid.bridge.voip.send.set_incoming_offer_received_ms",
@@ -884,7 +857,7 @@ __d(
                 },
               ));
           }),
-          (a.transferCallStart = function (t) {
+          (n.transferCallStart = function (t) {
             var e = this,
               n = t.callId,
               a = t.hasVideo,

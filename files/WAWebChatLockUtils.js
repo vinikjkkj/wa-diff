@@ -14,7 +14,6 @@ __d(
     "WAWebToastManager",
     "WDSIconWdsIcChatlockOutline.react",
     "WDSIconWdsIcChatlockUnlockedOutline.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -45,25 +44,22 @@ __d(
               return o("WAWebToastManager").ToastManager.open(
                 u.jsx(o("WAWebToast.react").Toast, {
                   id: c,
-                  msg: s._(/*BTDS*/ "{=m0}", [
+                  msg: s._(/*BTDS*/ "", [
                     s._implicitParam(
                       "=m0",
                       u.jsx(o("WAWebFlexBox.react").FlexRow, {
                         gap: 8,
                         align: "center",
-                        children: s._(
-                          /*BTDS*/ "{=m1} Chats are now locked and hidden",
-                          [
-                            s._implicitParam(
-                              "=m1",
-                              u.jsx(t, {
-                                width: 20,
-                                height: 20,
-                                children: s._(/*BTDS*/ ""),
-                              }),
-                            ),
-                          ],
-                        ),
+                        children: s._(/*BTDS*/ "", [
+                          s._implicitParam(
+                            "=m1",
+                            u.jsx(t, {
+                              width: 20,
+                              height: 20,
+                              children: s._(/*BTDS*/ ""),
+                            }),
+                          ),
+                        ]),
                       }),
                     ),
                   ]),
@@ -81,85 +77,63 @@ __d(
     function y() {
       (h(), p() && g());
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    async function C(e) {
+      var t = o("WAWebChatLockSettings").getChatLockSettings();
+      return t.secretCode == null
+        ? !1
+        : o("WAWebChatLockCrypto").validateChatLockSecretCode(e, t.secretCode);
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebChatLockSettings").getChatLockSettings();
-          return t.secretCode == null
-            ? !1
-            : o("WAWebChatLockCrypto").validateChatLockSecretCode(
-                e,
-                t.secretCode,
-              );
-        })),
-        b.apply(this, arguments)
-      );
+    async function b(e, t) {
+      var n = r("WDSIconWdsIcChatlockUnlockedOutline.react");
+      return (await C(e))
+        ? (t.unlockAppOnSuccess &&
+            ((m = !1),
+            o("WAWebChatLockWAMUtils").chatLockUnlockedWAMEvent({
+              unlockEntryPoint: t.unlockEntryPoint,
+              landingSurface: t.landingSurface,
+            }),
+            o("WAWebToastManager").ToastManager.close(c),
+            o("WAWebPathfinderHeldBackToast").openHeldBackToast(
+              o("WAWebPathfinderHeldBackSurface").HeldBackSurface
+                .CHAT_LOCK_SECRET_CODE,
+              function () {
+                return o("WAWebToastManager").ToastManager.open(
+                  u.jsx(o("WAWebToast.react").Toast, {
+                    id: d,
+                    msg: s._(/*BTDS*/ "", [
+                      s._implicitParam(
+                        "=m0",
+                        u.jsx(o("WAWebFlexBox.react").FlexRow, {
+                          gap: 8,
+                          align: "center",
+                          children: s._(/*BTDS*/ "", [
+                            s._implicitParam(
+                              "=m1",
+                              u.jsx(n, {
+                                width: 20,
+                                height: 20,
+                                children: s._(/*BTDS*/ ""),
+                              }),
+                            ),
+                          ]),
+                        }),
+                      ),
+                    ]),
+                  }),
+                );
+              },
+            ),
+            o("WAWebCmd").Cmd.trigger("chatlock:unlock")),
+          !0)
+        : !1;
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = r("WDSIconWdsIcChatlockUnlockedOutline.react");
-          return (yield C(e))
-            ? (t.unlockAppOnSuccess &&
-                ((m = !1),
-                o("WAWebChatLockWAMUtils").chatLockUnlockedWAMEvent({
-                  unlockEntryPoint: t.unlockEntryPoint,
-                  landingSurface: t.landingSurface,
-                }),
-                o("WAWebToastManager").ToastManager.close(c),
-                o("WAWebPathfinderHeldBackToast").openHeldBackToast(
-                  o("WAWebPathfinderHeldBackSurface").HeldBackSurface
-                    .CHAT_LOCK_SECRET_CODE,
-                  function () {
-                    return o("WAWebToastManager").ToastManager.open(
-                      u.jsx(o("WAWebToast.react").Toast, {
-                        id: d,
-                        msg: s._(/*BTDS*/ "{=m0}", [
-                          s._implicitParam(
-                            "=m0",
-                            u.jsx(o("WAWebFlexBox.react").FlexRow, {
-                              gap: 8,
-                              align: "center",
-                              children: s._(
-                                /*BTDS*/ "{=m1} Chats are now unlocked",
-                                [
-                                  s._implicitParam(
-                                    "=m1",
-                                    u.jsx(n, {
-                                      width: 20,
-                                      height: 20,
-                                      children: s._(/*BTDS*/ ""),
-                                    }),
-                                  ),
-                                ],
-                              ),
-                            }),
-                          ),
-                        ]),
-                      }),
-                    );
-                  },
-                ),
-                o("WAWebCmd").Cmd.trigger("chatlock:unlock")),
-              !0)
-            : !1;
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R() {
+    function v() {
       return o("WAWebChatCollection").ChatCollection.filter(function (e) {
         return e.isLocked;
       });
     }
-    function L() {
-      return R().length > 0;
+    function S() {
+      return v().length > 0;
     }
     ((l.lockedChatsAreAccessible = p),
       (l.hasChatlockSecretCode = _),
@@ -167,9 +141,9 @@ __d(
       (l.lockChats = g),
       (l.closeActiveChatIfLocked = h),
       (l.leaveLockedChats = y),
-      (l.validateSecretCode = v),
-      (l.getLockedChats = R),
-      (l.shouldShowChatLockEntryPoints = L));
+      (l.validateSecretCode = b),
+      (l.getLockedChats = v),
+      (l.shouldShowChatLockEntryPoints = S));
   },
   226,
 );

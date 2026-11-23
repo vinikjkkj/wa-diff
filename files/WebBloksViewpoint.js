@@ -5,7 +5,6 @@ __d(
     "WebBloksInterpreterEnvironment",
     "WebBloksViewpointContext",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -23,25 +22,17 @@ __d(
           (this.state = t.state));
       };
     function _(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.action,
-        r = e.id,
-        a = e.suppressWarnings,
-        i = f(r),
-        l = f(r),
-        s;
-      (t[0] !== n || t[1] !== r || t[2] !== l || t[3] !== i || t[4] !== a
-        ? ((s = function () {
-            var e = i !== r;
-          }),
-          (t[0] = n),
-          (t[1] = r),
-          (t[2] = l),
-          (t[3] = i),
-          (t[4] = a),
-          (t[5] = s))
-        : (s = t[5]),
-        d(s, void 0));
+      var t = e.action,
+        n = e.id,
+        r = e.suppressWarnings,
+        o = f(n),
+        a = f(n);
+      d(
+        function () {
+          var e = o !== n;
+        },
+        void 0,
+      );
     }
     function f(e) {
       var t = m(null);
@@ -56,51 +47,36 @@ __d(
       );
     }
     function g(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = c(r("WebBloksViewpointContext")),
-        a = o("WebBloksComponentContext").useWebBloksContext(),
-        i = a.bloksContext,
-        l = e.action,
-        s = e.id,
-        u = e.untrackAfterFirstAppear,
+      var t = c(r("WebBloksViewpointContext")),
+        n = o("WebBloksComponentContext").useWebBloksContext(),
+        a = n.bloksContext,
+        i = e.action,
+        l = e.id,
+        s = e.untrackAfterFirstAppear,
         p = m(null);
       _(e);
-      var f;
-      t[0] !== l || t[1] !== u || t[2] !== n
-        ? ((f = function (t) {
-            l(t);
-            var e = p.current;
-            e &&
-              t.state === "entered" &&
-              u === !0 &&
-              (n == null || n.untrackElement(e));
-          }),
-          (t[0] = l),
-          (t[1] = u),
-          (t[2] = n),
-          (t[3] = f))
-        : (f = t[3]);
-      var g = f,
-        h,
-        y;
+      var f = u(
+        function (e) {
+          i(e);
+          var n = p.current;
+          n &&
+            e.state === "entered" &&
+            s === !0 &&
+            (t == null || t.untrackElement(n));
+        },
+        [i, s, t],
+      );
       return (
-        t[4] !== g || t[5] !== i || t[6] !== s || t[7] !== n
-          ? ((h = function () {
-              var e = new (r("WebBloksInterpreterEnvironment"))(i);
-              e.executeOnNextTick(function () {
-                var e = p.current;
-                e && n && n.track(e, g, s);
-              }, []);
-            }),
-            (y = [g, i, s, n]),
-            (t[4] = g),
-            (t[5] = i),
-            (t[6] = s),
-            (t[7] = n),
-            (t[8] = h),
-            (t[9] = y))
-          : ((h = t[8]), (y = t[9])),
-        d(h, y),
+        d(
+          function () {
+            var e = new (r("WebBloksInterpreterEnvironment"))(a);
+            e.executeOnNextTick(function () {
+              var e = p.current;
+              e && t && t.track(e, f, l);
+            }, []);
+          },
+          [f, a, l, t],
+        ),
         p
       );
     }

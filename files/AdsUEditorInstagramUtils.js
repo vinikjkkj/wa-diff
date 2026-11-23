@@ -18,7 +18,6 @@ __d(
     "Promise",
     "XInstagramUsernameFromActorIDControllerRouteBuilder",
     "XMessengerAdsClickToDirectControllerRouteBuilder",
-    "isTruthy",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -43,17 +42,20 @@ __d(
           }
         }
       },
-      d = function (o) {
-        if (r("isTruthy")(o)) {
+      d = function (a) {
+        if (a != null && a !== "") {
           var t = r(
             "XInstagramUsernameFromActorIDControllerRouteBuilder",
-          ).buildUri({ actor_id: o });
+          ).buildUri({
+            actor_id: o(
+              "AdsInstagramUserIdMigrationUtils",
+            ).convertIGIDV1OrIGIDV2ToFBID(a),
+          });
           return new (e || (e = n("Promise")))(function (e, n) {
             new (r("AsyncTypedRequest"))(t)
               .setReplaceTransportMarkers()
-              .setHandler(function (t) {
-                var n = t.payload;
-                e(n.username);
+              .setPayloadHandler(function (t) {
+                e(t.username);
               })
               .setErrorHandler(function (e) {
                 n(e);
@@ -80,7 +82,7 @@ __d(
         return "instagram://direct?userid=" + t;
       };
     function g() {
-      return s._(/*BTDS*/ "Instagram");
+      return s._(/*BTDS*/ "");
     }
     function h(e) {
       var t;

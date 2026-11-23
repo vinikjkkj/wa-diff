@@ -1,6 +1,6 @@
 __d(
   "MAIBAAdDraftEditorPublishState",
-  ["MAIBAAsyncSupportLobbyStateStore", "react", "react-compiler-runtime"],
+  ["MAIBAAsyncSupportLobbyStateStore", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -68,38 +68,16 @@ __d(
       }
     }
     function v(e, t, n) {
-      var r = o("react-compiler-runtime").c(9),
-        a = o(
+      var r = o(
           "MAIBAAsyncSupportLobbyStateStore",
         ).useSubscriptionAsyncSupportLobbyStates(e),
-        i;
-      r[0] !== n || r[1] !== e || r[2] !== t
-        ? ((i = function () {
-            return y(e, t, n);
-          }),
-          (r[0] = n),
-          (r[1] = e),
-          (r[2] = t),
-          (r[3] = i))
-        : (i = r[3]);
-      var l = s(g, i),
-        u;
-      return (
-        r[4] !== n || r[5] !== l || r[6] !== a || r[7] !== t
-          ? ((u = l || C(a, t, n)),
-            (r[4] = n),
-            (r[5] = l),
-            (r[6] = a),
-            (r[7] = t),
-            (r[8] = u))
-          : (u = r[8]),
-        u
-      );
+        a = s(g, function () {
+          return y(e, t, n);
+        });
+      return a || C(r, t, n);
     }
     ((l.isSACRemediationReadyToPublish = p),
       (l.markSACRemediationPublished = h),
-      (l.getIsSACRemediationPublished = y),
-      (l.getHasPersistedSACRemediationPublish = C),
       (l.clearSACRemediationPublished = b),
       (l.useIsSACRemediationPublished = v));
   },

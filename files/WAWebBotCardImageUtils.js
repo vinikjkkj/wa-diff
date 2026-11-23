@@ -2,10 +2,8 @@ __d(
   "WAWebBotCardImageUtils",
   [
     "WAWebMediaDataUtils",
-    "asyncToGeneratorRuntime",
     "isStringNotNullAndNotWhitespaceOnly",
     "react",
-    "react-compiler-runtime",
     "useWAWebUnmountSignal",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,65 +13,49 @@ __d(
       u = s.useEffect,
       c = s.useState;
     function d(e) {
-      var t = o("react-compiler-runtime").c(6),
-        a = e.height,
-        i = e.imageUrl,
-        l = e.width,
-        s = c(null),
-        d = s[0],
-        m = s[1],
-        p = c(i),
-        _ = p[0],
-        f = p[1];
-      i !== _ && (f(i), r("isStringNotNullAndNotWhitespaceOnly")(i) || m(null));
-      var g = r("useWAWebUnmountSignal")(),
-        h,
-        y;
+      var t = e.height,
+        n = e.imageUrl,
+        a = e.width,
+        i = c(null),
+        l = i[0],
+        s = i[1],
+        d = c(n),
+        m = d[0],
+        p = d[1];
+      n !== m && (p(n), r("isStringNotNullAndNotWhitespaceOnly")(n) || s(null));
+      var _ = r("useWAWebUnmountSignal")();
       return (
-        t[0] !== a || t[1] !== i || t[2] !== g || t[3] !== l
-          ? ((h = function () {
-              if (r("isStringNotNullAndNotWhitespaceOnly")(i)) {
-                var e = !1,
-                  t = (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* () {
-                        var t = [
-                            {
-                              width: l,
-                              height: a,
-                              imageFormat: "image/jpeg",
-                              imageFormatOptions: 1,
-                            },
-                          ],
-                          n = yield o(
-                            "WAWebMediaDataUtils",
-                          ).getResizedThumbData(i, t),
-                          r = n[0];
-                        !e && !g.aborted && m(r == null ? void 0 : r.dataUrl);
+        u(
+          function () {
+            if (r("isStringNotNullAndNotWhitespaceOnly")(n)) {
+              var e = !1,
+                i = async function () {
+                  var r = [
+                      {
+                        width: a,
+                        height: t,
+                        imageFormat: "image/jpeg",
+                        imageFormatOptions: 1,
                       },
-                    );
-                    return function () {
-                      return t.apply(this, arguments);
-                    };
-                  })();
-                return (
-                  t(),
-                  function () {
-                    e = !0;
-                  }
-                );
-              }
-            }),
-            (y = [i, l, a, g]),
-            (t[0] = a),
-            (t[1] = i),
-            (t[2] = g),
-            (t[3] = l),
-            (t[4] = h),
-            (t[5] = y))
-          : ((h = t[4]), (y = t[5])),
-        u(h, y),
-        d
+                    ],
+                    i = await o("WAWebMediaDataUtils").getResizedThumbData(
+                      n,
+                      r,
+                    ),
+                    l = i[0];
+                  !e && !_.aborted && s(l == null ? void 0 : l.dataUrl);
+                };
+              return (
+                i(),
+                function () {
+                  e = !0;
+                }
+              );
+            }
+          },
+          [n, a, t, _],
+        ),
+        l
       );
     }
     function m(e) {

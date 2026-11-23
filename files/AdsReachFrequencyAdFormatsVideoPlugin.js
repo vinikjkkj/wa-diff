@@ -15,26 +15,18 @@ __d(
       u = e || (e = o("react"));
     function c(e, t) {
       return e === r("AdsAPIObjectives").VIDEO_VIEWS
-        ? s._(
-            /*BTDS*/ "Video must be selected since this campaign uses the video views objective.",
-          )
+        ? s._(/*BTDS*/ "")
         : t === r("AdsAPIOptimizationGoals").SIX_SECOND_VIDEO_VIEWS
-          ? s._(
-              /*BTDS*/ "Video must be selected since this campaign optimizes for 6-second video plays.",
-            )
-          : s._(
-              /*BTDS*/ "Video must be selected since this campaign optimizes for ThruPlay.",
-            );
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     c.displayName = c.name + " [from " + i.id + "]";
     var d = {
         type: "reach_frequency_ad_formats",
         key: "VIDEO",
         adFormatType: "video",
-        label: s._(/*BTDS*/ "Video"),
-        description: s._(
-          /*BTDS*/ "Carousel videos, slideshows, and videos with links for all eligible placements",
-        ),
+        label: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         iconWhenSelected: "/images/ads/createflow/Single_Video_Blue.png",
         iconWhenUnselected: "/images/ads/createflow/Single_Video.png",
         getAdFormats: function (t, n, o, a) {
@@ -73,6 +65,7 @@ __d(
             "messenger/story",
             "instagram/shop_tab",
             "threads/stream",
+            "threads/permalink",
           ];
         },
         getMutuallyExclusiveAdFormats: function () {

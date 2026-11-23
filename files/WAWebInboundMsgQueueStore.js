@@ -1,7 +1,6 @@
 __d(
   "WAWebInboundMsgQueueStore",
   [
-    "Promise",
     "QPLFlow",
     "WALogger",
     "WAWebInboundMsgQueueDef",
@@ -10,81 +9,69 @@ __d(
     "WAWebLazyPersistedQueue",
     "WAWebPersistedQueueIds",
     "WAWebPersistedQueueQpl",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = null;
-    function c(e, t) {
+      s = null;
+    function u(e, t) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
-        .then(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (yield o("WAWebPersistedQueueIds").countQueueIdCollisions(
-              o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE,
-              t.map(function (e) {
-                var t = e.queueId;
-                return t;
-              }),
-              d,
-            ),
-              yield o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.put(t));
+        .then(async function () {
+          (await o("WAWebPersistedQueueIds").countQueueIdCollisions(
+            o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE,
+            t.map(function (e) {
+              var t = e.queueId;
+              return t;
+            }),
+            c,
+          ),
+            await o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.put(t));
+        });
+    }
+    async function c(e) {
+      var t = new Set(e),
+        n = [].concat(e).sort(),
+        r = n[0],
+        a = n[n.length - 1],
+        i = await Promise.all(
+          [
+            o("WAWebInboundMsgQueueRow").InboundRowPriority.NORMAL,
+            o("WAWebInboundMsgQueueRow").InboundRowPriority.LOW,
+          ].map(function (e) {
+            return o(
+              "WAWebInboundMsgQueueDef",
+            ).INBOUND_MSG_QUEUE.readFromIndexRange("priority", {
+              greaterThanOrEqual: [e, r],
+              lessThanOrEqual: [e, a],
+            });
           }),
         );
+      return i.flat().filter(function (e) {
+        var n = e.queueId;
+        return t.has(n);
+      }).length;
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Set(e),
-            r = [].concat(e).sort(),
-            a = r[0],
-            i = r[r.length - 1],
-            l = yield (s || (s = n("Promise"))).all(
-              [
-                o("WAWebInboundMsgQueueRow").InboundRowPriority.NORMAL,
-                o("WAWebInboundMsgQueueRow").InboundRowPriority.LOW,
-              ].map(function (e) {
-                return o(
-                  "WAWebInboundMsgQueueDef",
-                ).INBOUND_MSG_QUEUE.readFromIndexRange("priority", {
-                  greaterThanOrEqual: [e, a],
-                  lessThanOrEqual: [e, i],
-                });
-              }),
-            );
-          return l.flat().filter(function (e) {
-            var n = e.queueId;
-            return t.has(n);
-          }).length;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
+    function d(e, t) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
         .then(function () {
           return o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.put(t);
         });
     }
-    function _(e, t) {
+    function m(e, t) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
         .then(function () {
           return o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.ack(t);
         });
     }
-    function f(e, t, n, r) {
+    function p(e, t, n, r) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
         .then(function () {
           return o("WAWebInboundMsgQueueGating").isWAWebPersistedQueueEnabled()
-            ? L(
+            ? v(
                 function (e, n) {
                   return o(
                     "WAWebInboundMsgQueueDef",
@@ -106,30 +93,28 @@ __d(
               );
         });
     }
-    function g(e) {
+    function _(e) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
-        .then(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.read({
-                limit: 1,
-              }),
-              t = e[0];
-            return t;
-          }),
-        );
+        .then(async function () {
+          var e = await o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.read({
+              limit: 1,
+            }),
+            t = e[0];
+          return t;
+        });
     }
-    function h(e, t, n, r, a) {
+    function f(e, t, n, r, a) {
       return o("WAWebLazyPersistedQueue")
         .whenPersistedQueuesReadyDuringResume(e)
         .then(function () {
-          return v(t, n, r, a, new Map());
+          return C(t, n, r, a, new Map());
         });
     }
-    function y(e, t) {
-      var r = u;
-      return r == null || (t != null && t >= r)
-        ? (s || (s = n("Promise"))).resolve([])
+    function g(e, t) {
+      var n = s;
+      return n == null || (t != null && t >= n)
+        ? Promise.resolve([])
         : o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.getAllFromIndexRange(
             "priority",
             t == null
@@ -139,7 +124,7 @@ __d(
                   ],
                   lessThanOrEqual: [
                     o("WAWebInboundMsgQueueRow").InboundRowPriority.NORMAL,
-                    r,
+                    n,
                   ],
                 }
               : {
@@ -149,16 +134,16 @@ __d(
                   ],
                   lessThanOrEqual: [
                     o("WAWebInboundMsgQueueRow").InboundRowPriority.NORMAL,
-                    r,
+                    n,
                   ],
                 },
             e,
           );
     }
-    function C(e) {
-      return u != null && e <= u;
+    function h(e) {
+      return s != null && e <= s;
     }
-    function b() {
+    function y() {
       var t = o("QPLFlow").startQPLFlow(
         o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
         {
@@ -170,20 +155,17 @@ __d(
         },
       );
       return o("QPLFlow")
-        .endWith(
-          t,
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            yield o(
-              "WAWebLazyPersistedQueue",
-            ).whenPersistedQueuesReadyDuringResume(t);
-            var e = yield o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.read({
-                limit: 1,
-                order: "desc",
-              }),
-              n = e[0];
-            u = n == null ? void 0 : n.queueId;
-          }),
-        )
+        .endWith(t, async function () {
+          await o(
+            "WAWebLazyPersistedQueue",
+          ).whenPersistedQueuesReadyDuringResume(t);
+          var e = await o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.read({
+              limit: 1,
+              order: "desc",
+            }),
+            n = e[0];
+          s = n == null ? void 0 : n.queueId;
+        })
         .then(
           function () {
             return !0;
@@ -205,32 +187,22 @@ __d(
           },
         );
     }
-    function v(e, t, n, r, o) {
-      return S.apply(this, arguments);
+    async function C(e, t, n, r, a) {
+      if (e.length === 0 || n <= 0) return a;
+      var i = e[0],
+        l = babelHelpers.arrayLikeToArray(e).slice(1),
+        s = o("WAWebInboundMsgQueueGating").isWAWebPersistedQueueEnabled()
+          ? await v(
+              function (e, n) {
+                return S(i, t, e, n);
+              },
+              n,
+              r,
+            )
+          : await b(i, t, { filter: r, limit: n, order: "asc" });
+      return (a.set(i, s), C(l, t, n - s.length, r, a));
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            if (e.length === 0 || n <= 0) return a;
-            var i = e[0],
-              l = babelHelpers.arrayLikeToArray(e).slice(1),
-              s = o("WAWebInboundMsgQueueGating").isWAWebPersistedQueueEnabled()
-                ? yield L(
-                    function (e, n) {
-                      return k(i, t, e, n);
-                    },
-                    n,
-                    r,
-                  )
-                : yield R(i, t, { filter: r, limit: n, order: "asc" });
-            return (a.set(i, s), v(l, t, n - s.length, r, a));
-          },
-        )),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t, n) {
+    function b(e, t, n) {
       var r = t.before,
         a = t.upTo;
       return r != null
@@ -251,69 +223,59 @@ __d(
               n,
             );
     }
-    function L(e, t, n, r, o) {
-      return E.apply(this, arguments);
+    async function v(e, t, n, r, o) {
+      (r === void 0 && (r = null), o === void 0 && (o = []));
+      var a = t - o.length,
+        i = await e(r, a),
+        l = [].concat(o, n == null ? i : i.filter(n)),
+        s = i.at(-1);
+      return i.length < a || s == null || l.length >= t
+        ? l
+        : v(e, t, n, s.queueId, l);
     }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o) {
-            (r === void 0 && (r = null), o === void 0 && (o = []));
-            var a = t - o.length,
-              i = yield e(r, a),
-              l = [].concat(o, n == null ? i : i.filter(n)),
-              s = i.at(-1);
-            return i.length < a || s == null || l.length >= t
-              ? l
-              : L(e, t, n, s.queueId, l);
-          },
-        )),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e, t, r, a) {
-      var i = t.before,
-        l = t.upTo,
-        u = i != null ? i : l;
-      return r != null && u != null && r >= u
-        ? (s || (s = n("Promise"))).resolve([])
-        : i != null
+    function S(e, t, n, r) {
+      var a = t.before,
+        i = t.upTo,
+        l = a != null ? a : i;
+      return n != null && l != null && n >= l
+        ? Promise.resolve([])
+        : a != null
           ? o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE.getAllFromIndexRange(
               "chatKey",
-              r == null
-                ? { greaterThanOrEqual: [e], lessThan: [e, i] }
-                : { greaterThan: [e, r], lessThan: [e, i] },
-              a,
+              n == null
+                ? { greaterThanOrEqual: [e], lessThan: [e, a] }
+                : { greaterThan: [e, n], lessThan: [e, a] },
+              r,
             )
-          : l != null
+          : i != null
             ? o(
                 "WAWebInboundMsgQueueDef",
               ).INBOUND_MSG_QUEUE.getAllFromIndexRange(
                 "chatKey",
-                r == null
-                  ? { greaterThanOrEqual: [e], lessThanOrEqual: [e, l] }
-                  : { greaterThan: [e, r], lessThanOrEqual: [e, l] },
-                a,
+                n == null
+                  ? { greaterThanOrEqual: [e], lessThanOrEqual: [e, i] }
+                  : { greaterThan: [e, n], lessThanOrEqual: [e, i] },
+                r,
               )
             : o(
                 "WAWebInboundMsgQueueDef",
               ).INBOUND_MSG_QUEUE.getAllFromIndexRange(
                 "chatKey",
-                r == null
+                n == null
                   ? { only: [e] }
-                  : { greaterThan: [e, r], lessThanOrEqual: [e] },
-                a,
+                  : { greaterThan: [e, n], lessThanOrEqual: [e] },
+                r,
               );
     }
-    ((l.putNewInboundMsgs = c),
-      (l.putInboundMsgs = p),
-      (l.ackInboundMsgs = _),
-      (l.readInboundMsgs = f),
-      (l.readOldestInboundMsg = g),
-      (l.readInboundMsgsForChats = h),
-      (l.readLeftoverInboundMsgs = y),
-      (l.isLeftoverInboundMsg = C),
-      (l.preloadInboundMsgQueue = b));
+    ((l.putNewInboundMsgs = u),
+      (l.putInboundMsgs = d),
+      (l.ackInboundMsgs = m),
+      (l.readInboundMsgs = p),
+      (l.readOldestInboundMsg = _),
+      (l.readInboundMsgsForChats = f),
+      (l.readLeftoverInboundMsgs = g),
+      (l.isLeftoverInboundMsg = h),
+      (l.preloadInboundMsgQueue = y));
   },
   98,
 );

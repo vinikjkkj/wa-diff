@@ -6,27 +6,25 @@ __d(
         {
           value: "UNJUSTIFIED_SUSPENSION",
           getLabel: function () {
-            return s._(/*BTDS*/ "This channel shouldn't be closed.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "MISUNDERSTOOD_UPDATES",
           getLabel: function () {
-            return s._(/*BTDS*/ "Some updates were misunderstood.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "FOLLOWED_GUIDELINES",
           getLabel: function () {
-            return s._(
-              /*BTDS*/ "This channel follows all Channels Guidelines.",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "ALLOWED_UPDATES",
           getLabel: function () {
-            return s._(/*BTDS*/ "Updates like these should be allowed.");
+            return s._(/*BTDS*/ "");
           },
         },
       ],
@@ -34,27 +32,25 @@ __d(
         {
           value: "UNJUSTIFIED_SUSPENSION",
           getLabel: function () {
-            return s._(/*BTDS*/ "This channel shouldn't be closed.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "MISUNDERSTOOD_UPDATES",
           getLabel: function () {
-            return s._(/*BTDS*/ "Some statuses were misunderstood.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "FOLLOWED_GUIDELINES",
           getLabel: function () {
-            return s._(
-              /*BTDS*/ "This channel follows all Channels Guidelines.",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "ALLOWED_UPDATES",
           getLabel: function () {
-            return s._(/*BTDS*/ "Statuses like these should be allowed.");
+            return s._(/*BTDS*/ "");
           },
         },
       ],
@@ -62,27 +58,25 @@ __d(
         {
           value: "CLOSE_CHANNEL",
           getLabel: function () {
-            return s._(/*BTDS*/ "This channel should be closed to followers.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "REMOVE_UPDATE",
           getLabel: function () {
-            return s._(/*BTDS*/ "Some updates should be removed.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "VIOLATES_GUIDELINES",
           getLabel: function () {
-            return s._(
-              /*BTDS*/ "This channel does not follow all Channels Guidelines.",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "FORBIDDEN_UPDATES",
           getLabel: function () {
-            return s._(/*BTDS*/ "Updates like these should not be allowed.");
+            return s._(/*BTDS*/ "");
           },
         },
       ],
@@ -90,29 +84,25 @@ __d(
         {
           value: "CLOSE_CHANNEL",
           getLabel: function () {
-            return s._(/*BTDS*/ "This channel should be closed to followers.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "REMOVE_UPDATE",
           getLabel: function () {
-            return s._(/*BTDS*/ "Some channel statuses should be removed.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "VIOLATES_GUIDELINES",
           getLabel: function () {
-            return s._(
-              /*BTDS*/ "This channel does not follow all Channels Guidelines.",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "FORBIDDEN_UPDATES",
           getLabel: function () {
-            return s._(
-              /*BTDS*/ "Channel statuses like these should not be allowed.",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
       ],
@@ -120,29 +110,25 @@ __d(
         {
           value: "INAPPROPRIATE_FOLLOWER",
           getLabel: function () {
-            return s._(
-              /*BTDS*/ "The person who wrote this response should not be allowed to use WhatsApp.",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "REMOVE_RESPONSE",
           getLabel: function () {
-            return s._(/*BTDS*/ "This response should be removed.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "RESPONSE_VIOLATES_GUIDELINES",
           getLabel: function () {
-            return s._(
-              /*BTDS*/ "This response does not follow all Channels Guidelines.",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "FORBID_SIMILAR_RESPONSES",
           getLabel: function () {
-            return s._(/*BTDS*/ "Responses like these should not be allowed.");
+            return s._(/*BTDS*/ "");
           },
         },
       ],
@@ -150,27 +136,25 @@ __d(
         {
           value: "ORIGINAL_MATERIAL",
           getLabel: function () {
-            return s._(/*BTDS*/ "This is my original material.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "LICENSE_OWNER",
           getLabel: function () {
-            return s._(/*BTDS*/ "I have a license to use this material.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "PUBLIC_DOMAIN",
           getLabel: function () {
-            return s._(/*BTDS*/ "This material is public domain.");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: "FAIR_USE_OR_ALLOWED",
           getLabel: function () {
-            return s._(
-              /*BTDS*/ "I\u2019m claiming fair use or am otherwise allowed to use this material.",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
       ];

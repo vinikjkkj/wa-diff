@@ -1,7 +1,6 @@
 __d(
   "WAWebLoggerImpl",
   [
-    "Promise",
     "WALogger",
     "WAMemoizeConditionally",
     "WAOnceWithReset",
@@ -16,7 +15,6 @@ __d(
     "WAWebNormalizeStack",
     "WAWebSessionStorage",
     "WAWebWAWCStorage",
-    "asyncToGeneratorRuntime",
     "cr:19448",
     "getErrorSafe",
     "gkx",
@@ -31,50 +29,49 @@ __d(
       m,
       p,
       _,
-      f,
-      g = "trace",
-      h = "unhandled-rejection: Element not found. (0x80070490)",
-      y = "0x80070490",
-      C = 6048e5,
-      b = 864e5 * 30,
-      v = 5e3,
-      S = 15e4,
-      R = S,
-      L = 1e3,
-      E = 3 * 1024 * 1024,
-      k = 60 * 1024 * 1024,
-      I = r("gkx")("26258") ? v : S,
-      T = r("gkx")("26258") ? E : k,
-      D = 1024,
-      x = 500,
-      $ = 200,
-      P = "wa_web_logger_session_start",
-      N =
+      f = "trace",
+      g = "unhandled-rejection: Element not found. (0x80070490)",
+      h = "0x80070490",
+      y = 6048e5,
+      C = 864e5 * 30,
+      b = 5e3,
+      v = 15e4,
+      S = v,
+      R = 1e3,
+      L = 3 * 1024 * 1024,
+      E = 60 * 1024 * 1024,
+      k = r("gkx")("26258") ? b : v,
+      I = r("gkx")("26258") ? L : E,
+      T = 1024,
+      D = 500,
+      x = 200,
+      $ = "wa_web_logger_session_start",
+      P =
         (e = n("cr:19448") == null ? void 0 : n("cr:19448").persistRows) != null
           ? e
-          : H,
-      M =
+          : V,
+      N =
         (s = n("cr:19448") == null ? void 0 : n("cr:19448").readLogs) != null
           ? s
           : o("WAWebLoggerOptimizer").getTimeboxedAndTrimmedLogs,
-      w = "LTSXOo+_*-=.<^!#?".split("");
-    function A() {
-      return w[Math.round(Math.random() * (w.length - 1))];
+      M = "LTSXOo+_*-=.<^!#?".split("");
+    function w() {
+      return M[Math.round(Math.random() * (M.length - 1))];
     }
-    var F = A() + A() + A() + A(),
-      O = {};
-    ((O[(O.ALL = 0)] = "all"),
-      (O[(O.INFO = 1)] = "info"),
-      (O[(O.LOG = 2)] = "log"),
-      (O[(O.WARN = 3)] = "warn"),
-      (O[(O.ERROR = 4)] = "error"),
-      (O[(O.OFF = 5)] = "off"));
-    var B = (function () {
+    var A = w() + w() + w() + w(),
+      F = {};
+    ((F[(F.ALL = 0)] = "all"),
+      (F[(F.INFO = 1)] = "info"),
+      (F[(F.LOG = 2)] = "log"),
+      (F[(F.WARN = 3)] = "warn"),
+      (F[(F.ERROR = 4)] = "error"),
+      (F[(F.OFF = 5)] = "off"));
+    var O = (function () {
       function e(e) {
         var t = this,
-          a = e.logCapacityInDatabase,
-          i = e.logsDBProvider,
-          l = e.processTag;
+          n = e.logCapacityInDatabase,
+          a = e.logsDBProvider,
+          i = e.processTag;
         ((this.localCursor = 0),
           (this.writeFrom = 0),
           (this.pending = void 0),
@@ -88,18 +85,18 @@ __d(
           (this.$3 = !1),
           (this.$4 = !1),
           (this.$5 = Date.now()),
-          (this.$6 = r("gkx")("26258") ? null : V(this.$5)),
+          (this.$6 = r("gkx")("26258") ? null : U(this.$5)),
           (this.$7 = r("gkx")("16623")),
-          (this.$8 = T),
+          (this.$8 = I),
           (this.$9 = 0),
-          (this.$10 = new Array(x)),
+          (this.$10 = new Array(D)),
           (this.$11 = 0),
           (this.$12 = 0),
           (this.$13 = !1),
           (this.maybeUpdateLogCapacityFromABProp = r("WAOnceWithReset")(
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (yield t.$15(), (t.$3 = !0));
-            }),
+            async function () {
+              (await t.$15(), (t.$3 = !0));
+            },
           )),
           (this.log = r("WAMemoizeConditionally")(
             function (e, n, o, a, i) {
@@ -123,11 +120,11 @@ __d(
               return n || o ? null : String(e) + String(!!t) + String(!!r);
             },
           )),
-          (this.logsDBProvider = i),
-          (this.logCapacityInDatabase = a),
-          (this.logs = new Array(a)),
+          (this.logsDBProvider = a),
+          (this.logCapacityInDatabase = n),
+          (this.logs = new Array(n)),
           (this.microStep = 1 / this.logCapacityInDatabase),
-          (this.processTag = l));
+          (this.processTag = i));
       }
       var t = e.prototype;
       return (
@@ -147,93 +144,87 @@ __d(
         (t.allowBacklogCleanup = function () {
           this.$4 = !0;
         }),
-        (t.$15 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            if (r("gkx")("26258")) {
-              var e = o("WAWebABProps").getABPropConfigValue(
-                "web_log_capacity_override",
-              );
+        (t.$15 = async function () {
+          if (r("gkx")("26258")) {
+            var e = o("WAWebABProps").getABPropConfigValue(
+              "web_log_capacity_override",
+            );
+            if (
+              ((e === 0 || e == null) &&
+                o("WAWebABProps").getABPropConfigValue(
+                  "enable_web_log_download",
+                ) &&
+                (e = v),
+              !(e === 0 || e == null))
+            ) {
               if (
-                ((e === 0 || e == null) &&
-                  o("WAWebABProps").getABPropConfigValue(
-                    "enable_web_log_download",
-                  ) &&
-                  (e = S),
-                !(e === 0 || e == null))
+                ((this.$13 = !0), o("WAWebLowEndDeviceApi").isLowEndDevice())
               ) {
-                if (
-                  ((this.$13 = !0), o("WAWebLowEndDeviceApi").isLowEndDevice())
-                ) {
-                  o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[logger] Skipping log capacity increase for low-end device",
-                      ])),
-                  );
-                  return;
-                }
-                try {
-                  var t = yield o("WAStorageEstimator").estimateStorage();
-                  if (t.success) {
-                    var n = t.value,
-                      a = n.quota,
-                      i = n.usage,
-                      l = (a - i) / (1024 * 1024);
-                    if (l < D) {
-                      o("WALogger").LOG(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "[logger] Skipping log capacity increase due to low storage: ",
-                            "MB available",
-                          ])),
-                        l.toFixed(0),
-                      );
-                      return;
-                    }
-                  } else {
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[logger] Skipping log capacity increase for low-end device",
+                    ])),
+                );
+                return;
+              }
+              try {
+                var t = await o("WAStorageEstimator").estimateStorage();
+                if (t.success) {
+                  var n = t.value,
+                    a = n.quota,
+                    i = n.usage,
+                    l = (a - i) / (1024 * 1024);
+                  if (l < T) {
                     o("WALogger").LOG(
-                      m ||
-                        (m = babelHelpers.taggedTemplateLiteralLoose([
-                          "[logger] Skipping log capacity increase - could not estimate storage",
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "[logger] Skipping log capacity increase due to low storage: ",
+                          "MB available",
                         ])),
+                      l.toFixed(0),
                     );
                     return;
                   }
-                } catch (e) {
+                } else {
                   o("WALogger").LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[logger] Skipping log capacity increase due to storage check failure: ",
-                        "",
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[logger] Skipping log capacity increase - could not estimate storage",
                       ])),
-                    String(e),
                   );
                   return;
                 }
-                var s = Math.min(e, S);
-                if (s > this.logCapacityInDatabase) {
-                  var u = Date.now();
-                  (this.$16(s), this.$7 && s === S && (this.$8 = k));
-                  var f = Date.now() - u;
-                  o("WALogger").LOG(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "[logger] Log capacity increased to ",
-                        " via AB prop (resize took ",
-                        "ms)",
-                      ])),
-                    s,
-                    f,
-                  );
-                }
+              } catch (e) {
+                o("WALogger").LOG(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[logger] Skipping log capacity increase due to storage check failure: ",
+                      "",
+                    ])),
+                  String(e),
+                );
+                return;
+              }
+              var s = Math.min(e, v);
+              if (s > this.logCapacityInDatabase) {
+                var u = Date.now();
+                (this.$16(s), this.$7 && s === v && (this.$8 = E));
+                var f = Date.now() - u;
+                o("WALogger").LOG(
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
+                      "[logger] Log capacity increased to ",
+                      " via AB prop (resize took ",
+                      "ms)",
+                    ])),
+                  s,
+                  f,
+                );
               }
             }
-          });
-          function t() {
-            return e.apply(this, arguments);
           }
-          return t;
-        })()),
+        }),
         (t.$16 = function (t) {
           if (!(t <= this.logCapacityInDatabase)) {
             this.$2 = !0;
@@ -272,8 +263,8 @@ __d(
             (e != null && this.$18(-e.m.length),
               (this.$10[this.$11] = t),
               this.$18(t.m.length),
-              (this.$11 = (this.$11 + 1) % x),
-              this.$12 < x && this.$12++);
+              (this.$11 = (this.$11 + 1) % D),
+              this.$12 < D && this.$12++);
           }
         }),
         (t.$18 = function (t) {
@@ -288,7 +279,7 @@ __d(
         }),
         (t.$20 = function () {
           if (this.$12 !== 0) {
-            var e = (this.$11 - this.$12 + x) % x,
+            var e = (this.$11 - this.$12 + D) % D,
               t = this.$10[e];
             (t != null && (this.$18(-t.m.length), (this.$10[e] = void 0)),
               this.$12--);
@@ -313,21 +304,32 @@ __d(
         (t.logImpl = function (t, n, a, i, l) {
           if (
             !this.$2 &&
-            !(t <= O.LOG && this.shouldSkipLoggingForProdLowEndDevice)
+            !(t <= F.LOG && this.shouldSkipLoggingForProdLowEndDevice)
           ) {
             var e = Date.now(),
-              s = q(e);
+              s = W(e);
             if (!r("gkx")("26258"))
               try {
-                t === O.ERROR && this.$14 && this.$14(n);
+                t === F.ERROR && this.$14 && this.$14(n);
               } catch (e) {}
             var u = "";
             a &&
-              (l != null && l.includes(g)
-                ? (u = "\n" + a.stack.split("\n").slice(3).join("\n"))
-                : (u = "\n" + o("WAWebNormalizeStack").normalizeStack(a, !0)));
+              (l != null && l.includes(f)
+                ? (u =
+                    `
+` +
+                    a.stack
+                      .split(
+                        `
+`,
+                      )
+                      .slice(3).join(`
+`))
+                : (u =
+                    `
+` + o("WAWebNormalizeStack").normalizeStack(a, !0)));
             var c = [
-                W(t),
+                B(t),
                 i === !0 && !o("WAWebLoggerUtils").isWaitingForUpload()
                   ? "sendlogs"
                   : null,
@@ -338,10 +340,10 @@ __d(
                   return "[" + e + "]";
                 })
                 .join(""),
-              d = F + " " + s + (c ? c + " " : "") + n + u;
+              d = A + " " + s + (c ? c + " " : "") + n + u;
             this.logs[this.localCursor] != null &&
               this.$19(this.localCursor, !0);
-            var m = t === O.ERROR;
+            var m = t === F.ERROR;
             ((this.logs[this.localCursor] = m
               ? { m: d, t: e, e: !0 }
               : { m: d, t: e }),
@@ -354,23 +356,15 @@ __d(
               !this.isTakeOver && this.timer.debounceAndCap(250, 1e3));
           }
         }),
-        (t.$22 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              var n;
-              if (this.$3) return Math.min(this.logCapacityInDatabase, S);
-              var r =
-                (n = t == null ? void 0 : t.tableCapacity) != null
-                  ? n
-                  : yield J(e, t == null ? void 0 : t.count);
-              return Math.min(Math.max(this.logCapacityInDatabase, r), S);
-            },
-          );
-          function t(t, n) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (t.$22 = async function (t, n) {
+          var e;
+          if (this.$3) return Math.min(this.logCapacityInDatabase, v);
+          var r =
+            (e = n == null ? void 0 : n.tableCapacity) != null
+              ? e
+              : await Q(t, n == null ? void 0 : n.count);
+          return Math.min(Math.max(this.logCapacityInDatabase, r), v);
+        }),
         (t.$1 = function () {
           var e = this;
           if (
@@ -380,51 +374,47 @@ __d(
               this.isTakeOver
             )
           ) {
-            var t = G();
+            var t = H();
             this.pending = this.logsDBProvider()
-              .then(function (r) {
-                return r.transaction(
-                  "rw",
-                  r.logs,
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    var n,
-                      o = yield r.logs.orderBy("count").last();
-                    o || (o = yield r.logs.orderBy("timestamp").last());
-                    for (
-                      var a = o ? o.line + 1 : 0,
-                        i =
-                          ((n = o) == null ? void 0 : n.count) != null
-                            ? o.count + 1
-                            : a,
-                        l = Y(o) ? i : a,
-                        s = yield e.$22(r.logs, o),
-                        u = [];
-                      e.logs[e.writeFrom] != null;
-                    ) {
-                      var c = e.logs[e.writeFrom];
-                      (e.$19(e.writeFrom, !1),
-                        (e.writeFrom =
-                          (e.writeFrom + 1) % e.logCapacityInDatabase),
-                        (e.runningTimestamp =
-                          c.t <= e.runningTimestamp
-                            ? e.runningTimestamp + e.microStep
-                            : c.t),
-                        u.push({
-                          line: t ? X(i) : l++ % e.logCapacityInDatabase,
-                          log: c.m,
-                          timestamp: e.runningTimestamp,
-                          count: i++,
-                          tableCapacity: s,
-                        }));
-                    }
-                    (yield N(r.logs, u, o),
-                      yield z(r.logs, {
-                        firstKeptCount: i - s,
-                        limit: e.$4 ? u.length + L : u.length,
-                        sharedLogOnly: !t,
+              .then(function (n) {
+                return n.transaction("rw", n.logs, async function () {
+                  var r,
+                    o = await n.logs.orderBy("count").last();
+                  o || (o = await n.logs.orderBy("timestamp").last());
+                  for (
+                    var a = o ? o.line + 1 : 0,
+                      i =
+                        ((r = o) == null ? void 0 : r.count) != null
+                          ? o.count + 1
+                          : a,
+                      l = K(o) ? i : a,
+                      s = await e.$22(n.logs, o),
+                      u = [];
+                    e.logs[e.writeFrom] != null;
+                  ) {
+                    var c = e.logs[e.writeFrom];
+                    (e.$19(e.writeFrom, !1),
+                      (e.writeFrom =
+                        (e.writeFrom + 1) % e.logCapacityInDatabase),
+                      (e.runningTimestamp =
+                        c.t <= e.runningTimestamp
+                          ? e.runningTimestamp + e.microStep
+                          : c.t),
+                      u.push({
+                        line: t ? j(i) : l++ % e.logCapacityInDatabase,
+                        log: c.m,
+                        timestamp: e.runningTimestamp,
+                        count: i++,
+                        tableCapacity: s,
                       }));
-                  }),
-                );
+                  }
+                  (await P(n.logs, u, o),
+                    await G(n.logs, {
+                      firstKeptCount: i - s,
+                      limit: e.$4 ? u.length + R : u.length,
+                      sharedLogOnly: !t,
+                    }));
+                });
               })
               .then(function () {
                 e.logs[e.writeFrom] != null && e.timer.debounceAndCap(250, 1e3);
@@ -449,31 +439,30 @@ __d(
             ? null
             : { fromTimestamp: e, toTimestamp: t };
         }),
-        (t.getLogs = function (t, o, a) {
+        (t.getLogs = function (t, n, o) {
           var e = this;
           (t === void 0 && (t = !1),
-            o === void 0 && (o = Date.now() - C),
-            a === void 0 && (a = 1 / 0));
-          var i = Math.max(o, Date.now() - b),
-            l = [];
+            n === void 0 && (n = Date.now() - y),
+            o === void 0 && (o = 1 / 0));
+          var a = Math.max(n, Date.now() - C),
+            i = [];
           return (
-            this.pending && l.push(this.pending),
+            this.pending && i.push(this.pending),
             this.timer.isScheduled() &&
-              (this.timer.forceRunNow(), this.pending && l.push(this.pending)),
-            (f || (f = n("Promise")))
-              .all(l)
+              (this.timer.forceRunNow(), this.pending && i.push(this.pending)),
+            Promise.all(i)
               .then(function () {
                 return e.logsDBProvider();
               })
               .then(function (e) {
-                return M(e, i, t, a);
+                return N(e, a, t, o);
               })
               .then(function (t) {
                 var n = [];
                 if (e.$12 > 0)
-                  for (var r = (e.$11 - e.$12 + x) % x, o = 0; o < e.$12; o++) {
-                    var l = e.$10[(r + o) % x];
-                    l != null && te(l.t, i, a) && n.push(l);
+                  for (var r = (e.$11 - e.$12 + D) % D, i = 0; i < e.$12; i++) {
+                    var l = e.$10[(r + i) % D];
+                    l != null && Y(l.t, a, o) && n.push(l);
                   }
                 if (n.length === 0)
                   return t.map(function (e) {
@@ -502,25 +491,16 @@ __d(
         (t.clearLogs = function () {
           var e = this;
           return this.logsDBProvider()
-            .then(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    yield e.logs.clear();
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            )
+            .then(async function (e) {
+              await e.logs.clear();
+            })
             .catch(r("WAWebNoop"))
             .finally(function () {
               ((e.localCursor = 0),
                 (e.writeFrom = 0),
                 (e.logs = new Array(e.logCapacityInDatabase)),
                 e.$7 &&
-                  ((e.$10 = new Array(x)),
+                  ((e.$10 = new Array(D)),
                   (e.$11 = 0),
                   (e.$12 = 0),
                   (e.$9 = 0)));
@@ -548,13 +528,13 @@ __d(
               var l = Reflect.get(t, "methodName");
               l != null && (a += "; methodName: " + String(l));
             } catch (e) {}
-            var s = ne(t);
+            var s = J(t);
             s != null &&
-              ((a += "; error: " + s), s.endsWith(y + ")") && (a = h));
+              ((a += "; error: " + s), s.endsWith(h + ")") && (a = g));
           }
           if (
             (this.logImpl(
-              O.ERROR,
+              F.ERROR,
               a,
               e == null ? void 0 : o("WAWebNormalizeStack").normalizeError(e),
               !0,
@@ -564,7 +544,7 @@ __d(
             n != null)
           ) {
             var u = String(n);
-            (this.logImpl(O.WARN, u), r("gkx")("26258"));
+            (this.logImpl(F.WARN, u), r("gkx")("26258"));
           }
           return a;
         }),
@@ -577,9 +557,9 @@ __d(
         e
       );
     })();
-    function W(e) {
+    function B(e) {
       return e === 1 || e === 2 || e === 3 || e === 4
-        ? O[e]
+        ? F[e]
         : (function () {
             throw Error(
               "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -587,14 +567,14 @@ __d(
             );
           })();
     }
-    function q(e) {
+    function W(e) {
       var t = new Date(e),
-        n = U(t.getMonth() + 1, 2),
-        r = U(t.getDate(), 2),
-        o = U(t.getHours(), 2),
-        a = U(t.getMinutes(), 2),
-        i = U(t.getSeconds(), 2),
-        l = U(t.getMilliseconds(), 3);
+        n = q(t.getMonth() + 1, 2),
+        r = q(t.getDate(), 2),
+        o = q(t.getHours(), 2),
+        a = q(t.getMinutes(), 2),
+        i = q(t.getSeconds(), 2),
+        l = q(t.getMilliseconds(), 3);
       return (
         t.getFullYear() +
         "-" +
@@ -612,18 +592,18 @@ __d(
         ":"
       );
     }
-    function U(e, t) {
+    function q(e, t) {
       return String(e).padStart(t, "0");
     }
-    function V(e) {
+    function U(e) {
       try {
         var t =
           r("WAWebSessionStorage") == null
             ? void 0
-            : r("WAWebSessionStorage").getItem(P);
+            : r("WAWebSessionStorage").getItem($);
         if (
           (r("WAWebSessionStorage") == null ||
-            r("WAWebSessionStorage").setItem(P, String(e)),
+            r("WAWebSessionStorage").setItem($, String(e)),
           t == null)
         )
           return null;
@@ -633,71 +613,47 @@ __d(
         return null;
       }
     }
-    function H(e, t, n) {
+    function V(e, t, n) {
       return e.bulkPut(t);
     }
-    function G() {
+    function H() {
       try {
         return r("justknobx")._("8661");
       } catch (e) {
         return !0;
       }
     }
-    function z(e, t) {
-      return j.apply(this, arguments);
+    async function G(e, t) {
+      var n = t.firstKeptCount,
+        r = t.limit,
+        o = t.sharedLogOnly;
+      if (!(n <= 0)) {
+        var a = o
+            ? e.where("line").between(S, j(n), !0, !1)
+            : e.where("count").below(n),
+          i = await a.limit(r).primaryKeys(),
+          l = await z(e, n);
+        (l != null && (!o || K(l)) && i.push(l.line),
+          i.length > 0 && (await e.bulkDelete(i)));
+      }
     }
-    function j() {
-      return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.firstKeptCount,
-            r = t.limit,
-            o = t.sharedLogOnly;
-          if (!(n <= 0)) {
-            var a = o
-                ? e.where("line").between(R, X(n), !0, !1)
-                : e.where("count").below(n),
-              i = yield a.limit(r).primaryKeys(),
-              l = yield K(e, n);
-            (l != null && (!o || Y(l)) && i.push(l.line),
-              i.length > 0 && (yield e.bulkDelete(i)));
-          }
-        })),
-        j.apply(this, arguments)
-      );
+    async function z(e, t) {
+      var n = await e.where("count").aboveOrEqual(t).limit(1).toArray(),
+        r = n[0];
+      return r != null && X(r) < t ? r : null;
     }
-    function K(e, t) {
-      return Q.apply(this, arguments);
+    function j(e) {
+      return S + e;
     }
-    function Q() {
-      return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield e.where("count").aboveOrEqual(t).limit(1).toArray(),
-            r = n[0];
-          return r != null && ee(r) < t ? r : null;
-        })),
-        Q.apply(this, arguments)
-      );
+    function K(e) {
+      return e != null && e.line >= S;
+    }
+    async function Q(e, t) {
+      var n = await e.orderBy("count").limit(1).toArray(),
+        r = n[0];
+      return t == null || r == null ? 0 : t - X(r) + 1;
     }
     function X(e) {
-      return R + e;
-    }
-    function Y(e) {
-      return e != null && e.line >= R;
-    }
-    function J(e, t) {
-      return Z.apply(this, arguments);
-    }
-    function Z() {
-      return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield e.orderBy("count").limit(1).toArray(),
-            r = n[0];
-          return t == null || r == null ? 0 : t - ee(r) + 1;
-        })),
-        Z.apply(this, arguments)
-      );
-    }
-    function ee(e) {
       var t, n, r;
       return (
         ((t = e.count) != null ? t : 0) -
@@ -705,10 +661,10 @@ __d(
         1
       );
     }
-    function te(e, t, n) {
+    function Y(e, t, n) {
       return e >= t && e < n;
     }
-    function ne(e) {
+    function J(e) {
       try {
         if (!Object.hasOwn(e, "parameters")) return;
         var t = Reflect.get(e, "parameters");
@@ -717,24 +673,24 @@ __d(
         var n = Reflect.get(t, "error");
         return typeof n != "string"
           ? void 0
-          : n.replace(/[\r\n]+/g, " ").slice(0, $);
+          : n.replace(/[\r\n]+/g, " ").slice(0, x);
       } catch (e) {
         return;
       }
     }
-    var re = new B({
-        logCapacityInDatabase: I,
+    var Z = new O({
+        logCapacityInDatabase: k,
         logsDBProvider: function () {
           return r("WAWebWAWCStorage").idb();
         },
       }),
-      oe = re.log;
-    ((l.STACK_TRACE_TAG = g),
-      (l.SHARED_LOG_FIRST_SLOT = R),
-      (l.MAX_BACKLOG_LINES_DELETED_PER_FLUSH = L),
-      (l.LoggerImpl = B),
-      (l.Logger = re),
-      (l.log = oe));
+      ee = Z.log;
+    ((l.STACK_TRACE_TAG = f),
+      (l.SHARED_LOG_FIRST_SLOT = S),
+      (l.MAX_BACKLOG_LINES_DELETED_PER_FLUSH = R),
+      (l.LoggerImpl = O),
+      (l.Logger = Z),
+      (l.log = ee));
   },
   98,
 );

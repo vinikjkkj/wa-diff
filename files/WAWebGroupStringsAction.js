@@ -69,29 +69,16 @@ __d(
       var n = "";
       switch (e) {
         case 403:
-          n = " " + s._(/*BTDS*/ "You're not a member.").toString();
+          n = " " + s._(/*BTDS*/ "").toString();
           break;
         case 408:
-          n =
-            " " +
-            s
-              ._(
-                /*BTDS*/ '_j{"*":"You can\'t add these members because they left the group recently.","_1":"You can\'t add this member because they left the group recently."}',
-                [s._plural(1)],
-              )
-              .toString();
+          n = " " + s._(/*BTDS*/ "", [s._plural(1)]).toString();
           break;
         case 404:
-          n = " " + s._(/*BTDS*/ "This group has ended.").toString();
+          n = " " + s._(/*BTDS*/ "").toString();
           break;
         case 429:
-          n =
-            " " +
-            s
-              ._(
-                /*BTDS*/ "You've added too many contacts to groups too quickly. Try again later.",
-              )
-              .toString();
+          n = " " + s._(/*BTDS*/ "").toString();
           break;
       }
       return n;
@@ -104,159 +91,92 @@ __d(
         case 409:
           break;
         case 404:
-          o =
-            " " +
-            s
-              ._(/*BTDS*/ '_j{"*":"They are no longer in this group."}', [
-                s._plural(n),
-              ])
-              .toString();
+          o = " " + s._(/*BTDS*/ "", [s._plural(n)]).toString();
           break;
         case 408:
-          o =
-            " " +
-            s
-              ._(
-                /*BTDS*/ '_j{"*":"You can\'t add these members because they left the group recently.","_1":"You can\'t add this member because they left the group recently."}',
-                [s._plural(n)],
-              )
-              .toString();
+          o = " " + s._(/*BTDS*/ "", [s._plural(n)]).toString();
           break;
         case 419:
-          o = " " + s._(/*BTDS*/ "The community is full.").toString();
+          o = " " + s._(/*BTDS*/ "").toString();
           break;
         case 421: {
           t == null
-            ? (o =
-                " " +
-                s
-                  ._(
-                    /*BTDS*/ '_j{"*":"Members pending admin approval.","_1":"Member pending admin approval."}',
-                    [s._plural(n)],
-                  )
-                  .toString())
-            : t === 304 &&
-              (o =
-                " " +
-                s
-                  ._(/*BTDS*/ "Already requested. Admin approval is pending.")
-                  .toString());
+            ? (o = " " + s._(/*BTDS*/ "", [s._plural(n)]).toString())
+            : t === 304 && (o = " " + s._(/*BTDS*/ "").toString());
           break;
         }
         case 402: {
           o =
             " " +
             (r("justknobx")._("8068")
-              ? s._(
-                  /*BTDS*/ '_j{"*":"Members can\'t be added because they were previously removed by an admin.","_1":"Member can\'t be added because they were previously removed by an admin."}',
-                  [s._plural(n)],
-                )
-              : s._(
-                  /*BTDS*/ '_j{"*":"Members cannot be added because they were previously removed by an admin.","_1":"Member cannot be added because they were previously removed by an admin."}',
-                  [s._plural(n)],
-                )
+              ? s._(/*BTDS*/ "", [s._plural(n)])
+              : s._(/*BTDS*/ "", [s._plural(n)])
             ).toString();
           break;
         }
         case 500:
-          o = " " + s._(/*BTDS*/ "This group is full.").toString();
+          o = " " + s._(/*BTDS*/ "").toString();
           break;
         default:
-          o = " " + s._(/*BTDS*/ "Please try again.").toString();
+          o = " " + s._(/*BTDS*/ "").toString();
           break;
       }
       return o;
     }
     function p(e, t) {
-      return s._(/*BTDS*/ '_j{"*":"Adding {memberNames}."}', [
-        s._plural(t),
-        s._param("memberNames", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(t), s._param("memberNames", e)]);
     }
     function _(e, t) {
-      return s._(/*BTDS*/ '_j{"*":"You added {memberNames}."}', [
-        s._plural(t),
-        s._param("memberNames", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(t), s._param("memberNames", e)]);
     }
     function f(e) {
       var t = e._status,
         n = e.memberNames,
         r = e.plural;
-      return s._(/*BTDS*/ '_j{"*":"Couldn\'t add {memberNames}."}', [
-        s._plural(r),
-        s._param("memberNames", n),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(r), s._param("memberNames", n)]);
     }
     function g() {
-      return s._(/*BTDS*/ "Couldn't add some members.");
+      return s._(/*BTDS*/ "");
     }
     function h(e, t) {
-      return s._(/*BTDS*/ '_j{"*":"Removing {memberNames}."}', [
-        s._plural(t),
-        s._param("memberNames", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(t), s._param("memberNames", e)]);
     }
     function y(e, t) {
-      return s._(/*BTDS*/ '_j{"*":"You removed {memberNames}."}', [
-        s._plural(t),
-        s._param("memberNames", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(t), s._param("memberNames", e)]);
     }
     function C(e, t, n) {
       switch (n) {
         case 406:
-          return s._(
-            /*BTDS*/ "You can't remove {member} because they created this group.",
-            [s._param("member", e)],
-          );
+          return s._(/*BTDS*/ "", [s._param("member", e)]);
         default:
-          return s._(/*BTDS*/ '_j{"*":"Couldn\'t remove {memberNames}."}', [
-            s._plural(t),
-            s._param("memberNames", e),
-          ]);
+          return s._(/*BTDS*/ "", [s._plural(t), s._param("memberNames", e)]);
       }
     }
     function b() {
-      return s._(/*BTDS*/ "Couldn't remove some members.");
+      return s._(/*BTDS*/ "");
     }
     function v(e, t) {
-      return s._(
-        /*BTDS*/ '_j{"*":"{memberNames} are now group admins.","_1":"{memberNames} is now a group admin."}',
-        [s._plural(t), s._param("memberNames", e)],
-      );
+      return s._(/*BTDS*/ "", [s._plural(t), s._param("memberNames", e)]);
     }
     function S(e, t, n) {
-      return s._(
-        /*BTDS*/ '_j{"*":"Couldn\'t make {memberNames} admins.","_1":"Couldn\'t make {memberNames} an admin."}',
-        [s._plural(t), s._param("memberNames", e)],
-      );
+      return s._(/*BTDS*/ "", [s._plural(t), s._param("memberNames", e)]);
     }
     function R() {
-      return s._(/*BTDS*/ "Couldn't make some members admins.");
+      return s._(/*BTDS*/ "");
     }
     function L(e, t, n) {
       switch (n) {
         case 406:
-          return s._(
-            /*BTDS*/ "You can't dismiss {member} as admin because they created this group.",
-            [s._param("member", e)],
-          );
+          return s._(/*BTDS*/ "", [s._param("member", e)]);
         default:
-          return s._(
-            /*BTDS*/ '_j{"*":"Removing {memberNames} as admins failed.","_1":"Removing {memberNames} as an admin failed."}',
-            [s._plural(t), s._param("memberNames", e)],
-          );
+          return s._(/*BTDS*/ "", [s._plural(t), s._param("memberNames", e)]);
       }
     }
     function E(e, t) {
-      return s._(
-        /*BTDS*/ '_j{"*":"{memberNames} are no longer group admins.","_1":"{memberNames} is no longer a group admin."}',
-        [s._plural(t), s._param("memberNames", e)],
-      );
+      return s._(/*BTDS*/ "", [s._plural(t), s._param("memberNames", e)]);
     }
     function k() {
-      return s._(/*BTDS*/ "Couldn't remove some members as admins.");
+      return s._(/*BTDS*/ "");
     }
     ((l.formatRemoveResult = e),
       (l.formatResult = u),

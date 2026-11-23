@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipWasmWorkerGlueResolver",
-  ["asyncToGeneratorRuntime", "err"],
+  ["err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "__waVoipPinnedWasmLoader",
@@ -68,42 +68,32 @@ __d(
         source: "haste",
       };
     }
-    function C(e, t, n, r, o) {
-      return b.apply(this, arguments);
-    }
-    function b() {
+    async function C(e, t, n, r, o) {
+      var a,
+        i = R(t, n);
+      if (i == null || r == null)
+        return { bundledSkew: i, pinnedImport: null, resolved: t };
+      o.onPinnedImportStart(i);
+      var l = o.now(),
+        s = 1,
+        u = b(e, r, i.expectedBuildSha);
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, o) {
-            var a,
-              i = L(t, n);
-            if (i == null || r == null)
-              return { bundledSkew: i, pinnedImport: null, resolved: t };
-            o.onPinnedImportStart(i);
-            var l = o.now(),
-              s = 1,
-              u = v(e, r, i.expectedBuildSha);
-            return (
-              u.isNetworkError &&
-                o.now() - l < d &&
-                (yield o.sleep(c), (s = 2), (u = v(e, r, i.expectedBuildSha))),
-              {
-                bundledSkew: i,
-                pinnedImport: {
-                  attempts: s,
-                  durationMs: Math.round(o.now() - l),
-                  failedStage: u.failedStage,
-                  failureMessage: u.failureMessage,
-                },
-                resolved: (a = u.pinned) != null ? a : t,
-              }
-            );
+        u.isNetworkError &&
+          o.now() - l < d &&
+          (await o.sleep(c), (s = 2), (u = b(e, r, i.expectedBuildSha))),
+        {
+          bundledSkew: i,
+          pinnedImport: {
+            attempts: s,
+            durationMs: Math.round(o.now() - l),
+            failedStage: u.failedStage,
+            failureMessage: u.failureMessage,
           },
-        )),
-        b.apply(this, arguments)
+          resolved: (a = u.pinned) != null ? a : t,
+        }
       );
     }
-    function v(e, t, n) {
+    function b(e, t, n) {
       var r;
       try {
         r = h(e, t);
@@ -117,7 +107,7 @@ __d(
           pinned: null,
         };
       }
-      return L(r, n) != null
+      return R(r, n) != null
         ? {
             failedStage: "build_sha_mismatch",
             failureMessage: "pinned build=" + String(r.buildSha),
@@ -131,7 +121,7 @@ __d(
             pinned: r,
           };
     }
-    function S(e) {
+    function v(e) {
       var t = e.bundledSkew,
         n = e.pinnedImport;
       return t == null
@@ -145,7 +135,7 @@ __d(
               pinnedImportMs: n.durationMs,
             });
     }
-    function R(e) {
+    function S(e) {
       var t = e.bundledSkew,
         n = e.pinnedImport;
       if (t == null) return "";
@@ -167,12 +157,12 @@ __d(
         a
       );
     }
-    function L(e, t) {
+    function R(e, t) {
       return t == null || e.buildSha == null || e.buildSha === t
         ? null
         : { actualBuildSha: e.buildSha, expectedBuildSha: t, source: e.source };
     }
-    function E(e) {
+    function L(e) {
       return e.source === "pinned";
     }
     ((l.PINNED_WORKER_GLUE_LOADER_GLOBAL = e),
@@ -181,10 +171,10 @@ __d(
       (l.importPinnedWorkerGlue = h),
       (l.resolveHasteWorkerGlue = y),
       (l.resolveWorkerGlueForLoad = C),
-      (l.getWasmGlueBuildSkewReport = S),
-      (l.describeWorkerGlueSkew = R),
-      (l.detectWasmGlueBuildMismatch = L),
-      (l.shouldRefuseWasmGlueBuildMismatch = E));
+      (l.getWasmGlueBuildSkewReport = v),
+      (l.describeWorkerGlueSkew = S),
+      (l.detectWasmGlueBuildMismatch = R),
+      (l.shouldRefuseWasmGlueBuildMismatch = L));
   },
   98,
 );

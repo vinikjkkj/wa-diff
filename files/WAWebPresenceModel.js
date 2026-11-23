@@ -271,13 +271,9 @@ __d(
             case "available":
               return T();
             case "typing":
-              return t
-                ? this.$PresenceImpl$p_4()
-                : s._(/*BTDS*/ "typing\u2026");
+              return t ? this.$PresenceImpl$p_4() : s._(/*BTDS*/ "");
             case "recording_audio":
-              return t
-                ? this.$PresenceImpl$p_4()
-                : s._(/*BTDS*/ "recording audio\u2026");
+              return t ? this.$PresenceImpl$p_4() : s._(/*BTDS*/ "");
             case "unavailable":
               return this.$PresenceImpl$p_5();
           }
@@ -611,18 +607,12 @@ __d(
           u = l.accessibleName,
           c = l.name;
         return {
-          text: s._(/*BTDS*/ "{member} is recording audio\u2026", [
-            s._param("member", c),
-          ]),
-          ariaLabel: s._(/*BTDS*/ "{member} is recording audio\u2026", [
-            s._param("member", u),
-          ]),
+          text: s._(/*BTDS*/ "", [s._param("member", c)]),
+          ariaLabel: s._(/*BTDS*/ "", [s._param("member", u)]),
         };
       }
       if (r > 1) {
-        var d = s._(/*BTDS*/ '_j{"*":"{count} online","_1":"1 online"}', [
-          s._plural(r, "count"),
-        ]);
+        var d = s._(/*BTDS*/ "", [s._plural(r, "count")]);
         return { text: d, ariaLabel: d };
       }
       return null;
@@ -634,21 +624,13 @@ __d(
           o = r.accessibleName,
           a = r.name;
         return {
-          text: s._(/*BTDS*/ "{member} is typing\u2026", [
-            s._param("member", a),
-          ]),
-          ariaLabel: s._(/*BTDS*/ "{member} is typing\u2026", [
-            s._param("member", o),
-          ]),
+          text: s._(/*BTDS*/ "", [s._param("member", a)]),
+          ariaLabel: s._(/*BTDS*/ "", [s._param("member", o)]),
         };
       }
       return {
-        text: s._(/*BTDS*/ "{count} people typing\u2026", [
-          s._param("count", n),
-        ]),
-        ariaLabel: s._(/*BTDS*/ "{count} people are typing", [
-          s._param("count", n),
-        ]),
+        text: s._(/*BTDS*/ "", [s._param("count", n)]),
+        ariaLabel: s._(/*BTDS*/ "", [s._param("count", n)]),
       };
     }
     function I(e, t) {
@@ -668,7 +650,7 @@ __d(
       return { name: i, accessibleName: i };
     }
     function T() {
-      return s._(/*BTDS*/ "online");
+      return s._(/*BTDS*/ "");
     }
     ((l.processStagesRecursively = S), (l.Presence = L), (l.Chatstate = h));
   },

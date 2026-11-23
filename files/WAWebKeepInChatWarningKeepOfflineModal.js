@@ -12,9 +12,7 @@ __d(
         tsNavigationData: { surface: "unknown", viewName: "kic-keep-offline" },
         testid: "kic_offline_modal",
         onOK: c,
-        children: s._(
-          /*BTDS*/ "You can't update a message while offline. Check your internet connection and try again.",
-        ),
+        children: s._(/*BTDS*/ ""),
       });
     }
     ((d.displayName = d.name + " [from " + i.id + "]"),

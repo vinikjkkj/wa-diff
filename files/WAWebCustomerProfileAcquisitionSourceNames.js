@@ -10,19 +10,19 @@ __d(
       return e ===
         o("WAWebCustomerProfileAcquisitionSource")
           .PROFILE_ACQUISITION_SOURCE_CTWA
-        ? s._(/*BTDS*/ "Ad")
+        ? s._(/*BTDS*/ "")
         : e ===
             o("WAWebCustomerProfileAcquisitionSource")
               .PROFILE_ACQUISITION_SOURCE_ORGANIC
-          ? s._(/*BTDS*/ "WhatsApp chat")
+          ? s._(/*BTDS*/ "")
           : e ===
               o("WAWebCustomerProfileAcquisitionSource")
                 .PROFILE_ACQUISITION_SOURCE_REFERRAL
-            ? s._(/*BTDS*/ "Referral")
+            ? s._(/*BTDS*/ "")
             : e ===
                 o("WAWebCustomerProfileAcquisitionSource")
                   .PROFILE_ACQUISITION_SOURCE_UNKNOWN
-              ? s._(/*BTDS*/ "Unknown")
+              ? s._(/*BTDS*/ "")
               : null;
     }
     function u(t) {
@@ -59,13 +59,13 @@ __d(
           o("WAWebCustomerProfileAcquisitionSource")
             .PROFILE_ACQUISITION_SOURCE_CTWA,
           "ctwa ad",
-          s._(/*BTDS*/ "CTWA ad"),
+          s._(/*BTDS*/ ""),
         ],
         [
           o("WAWebCustomerProfileAcquisitionSource")
             .PROFILE_ACQUISITION_SOURCE_ORGANIC,
           "organic",
-          s._(/*BTDS*/ "Organic"),
+          s._(/*BTDS*/ ""),
         ],
       ];
     }

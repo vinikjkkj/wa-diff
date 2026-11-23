@@ -13,40 +13,31 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = d(),
-            n = yield o("WAComms").sendSmaxStanza(t, e),
-            r = c(n, t);
-          if (r.success)
-            return {
-              name: "GetPasskeyRequestOptionsResponseSuccess",
-              value: r.value,
-            };
-          var a = u(n, t);
-          if (a.success)
-            return {
-              name: "GetPasskeyRequestOptionsResponseError",
-              value: a.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "GetPasskeyRequestOptions",
-              { Success: r, Error: a },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e) {
+      var t = c(),
+        n = await o("WAComms").sendSmaxStanza(t, e),
+        r = u(n, t);
+      if (r.success)
+        return {
+          name: "GetPasskeyRequestOptionsResponseSuccess",
+          value: r.value,
+        };
+      var a = s(n, t);
+      if (a.success)
+        return {
+          name: "GetPasskeyRequestOptionsResponseError",
+          value: a.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetPasskeyRequestOptions", {
+          Success: r,
+          Error: a,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -68,7 +59,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -93,7 +84,7 @@ __d(
           )
         : i;
     }
-    function d() {
+    function c() {
       var e = o("WASmaxOutMdBaseIQGetRequestMixin").mergeBaseIQGetRequestMixin(
         o("WASmaxJsx").smax(
           "iq",
@@ -104,9 +95,9 @@ __d(
       return e;
     }
     ((l.sendGetPasskeyRequestOptionsRPC = e),
-      (l.parseGetPasskeyRequestOptionsResponseError = u),
-      (l.parseGetPasskeyRequestOptionsResponseSuccess = c),
-      (l.makeGetPasskeyRequestOptionsRequest = d));
+      (l.parseGetPasskeyRequestOptionsResponseError = s),
+      (l.parseGetPasskeyRequestOptionsResponseSuccess = u),
+      (l.makeGetPasskeyRequestOptionsRequest = c));
   },
   98,
 );

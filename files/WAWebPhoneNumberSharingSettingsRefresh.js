@@ -1,27 +1,24 @@
 __d(
   "WAWebPhoneNumberSharingSettingsRefresh",
   [
-    "Promise",
     "WALogger",
     "WAWebPhoneNumberSharingSettingsGating",
     "WAWebPhoneNumberSharingSettingsRequests",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = r("requireDeferred")("WAWebFetchPhoneNumberSharingSettings").__setRef(
+      u = r("requireDeferred")("WAWebFetchPhoneNumberSharingSettings").__setRef(
         "WAWebPhoneNumberSharingSettingsRefresh",
       ),
-      d = null,
-      m = !1;
-    function p(t) {
+      c = null,
+      d = !1;
+    function m(t) {
       (t != null && !o("WAWebUserUtils").isMeAccount(t)) ||
-        _().catch(function (t) {
+        p().catch(function (t) {
           o("WALogger")
             .WARN(
               e ||
@@ -33,7 +30,7 @@ __d(
             .sendLogs("phone-number-sharing-settings-refresh-failed");
         });
     }
-    function _() {
+    function p() {
       return (
         o(
           "WAWebPhoneNumberSharingSettingsRequests",
@@ -41,33 +38,23 @@ __d(
         o(
           "WAWebPhoneNumberSharingSettingsGating",
         ).phoneNumberSharingSettingsEnabled()
-          ? ((m = !0),
-            d != null || (d = (u || (u = n("Promise"))).resolve().then(f)),
-            d)
-          : (u || (u = n("Promise"))).resolve()
+          ? ((d = !0), c != null || (c = Promise.resolve().then(_)), c)
+          : Promise.resolve()
       );
     }
-    function f() {
-      return ((m = !1), g().then(y, C));
+    function _() {
+      return ((d = !1), f().then(g, h));
+    }
+    async function f() {
+      var e = await u.load(),
+        t = e.fetchPhoneNumberSharingSettings;
+      await t();
     }
     function g() {
-      return h.apply(this, arguments);
+      return d ? _() : ((c = null), Promise.resolve());
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield c.load(),
-            t = e.fetchPhoneNumberSharingSettings;
-          yield t();
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y() {
-      return m ? f() : ((d = null), (u || (u = n("Promise"))).resolve());
-    }
-    function C(e) {
-      return m
+    function h(e) {
+      return d
         ? (o("WALogger")
             .WARN(
               s ||
@@ -79,11 +66,11 @@ __d(
             .sendLogs(
               "phone-number-sharing-settings-refresh-superseded-failed",
             ),
-          f())
-        : ((d = null), (u || (u = n("Promise"))).reject(e));
+          _())
+        : ((c = null), Promise.reject(e));
     }
-    ((l.schedulePhoneNumberSharingSettingsRefresh = p),
-      (l.refreshPhoneNumberSharingSettings = _));
+    ((l.schedulePhoneNumberSharingSettingsRefresh = m),
+      (l.refreshPhoneNumberSharingSettings = p));
   },
   98,
 );

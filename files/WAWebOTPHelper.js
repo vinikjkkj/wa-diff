@@ -68,9 +68,7 @@ __d(
             .then(function (e) {
               e &&
                 o("WAWebToastManager").ToastManager.open(
-                  c.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Code copied"),
-                  }),
+                  c.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
                 );
             })
             .catch(function () {

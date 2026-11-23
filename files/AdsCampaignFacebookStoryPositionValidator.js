@@ -61,9 +61,7 @@ __d(
                     new (r("AdsError"))(
                       2490019,
                       u._(function (e, t) {
-                        return e._(
-                          /*BTDS*/ "To use Facebook Stories, please select the Facebook Feeds placement.",
-                        );
+                        return e._(/*BTDS*/ "");
                       }, {}),
                       {
                         level: r("AdsError").Level.WARN,
@@ -83,9 +81,7 @@ __d(
                   new (r("AdsError"))(
                     1815891,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "To use Facebook Stories as a placement, please also select either Facebook Feeds or Instagram Stories.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       cta: r("AdsErrorsCTAStrings").EDIT_PLACEMENTS_CTA,

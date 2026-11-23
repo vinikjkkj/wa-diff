@@ -1,71 +1,61 @@
 __d(
   "WAWebRequestMediaReuploadManager",
   [
-    "Promise",
     "WALogger",
     "WAWebGetUserMediaErrors",
     "WAWebMmsMediaTypes",
     "WAWebMsgGetters",
     "WAWebSendServerErrorReceiptJob",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = (function () {
+      u = (function () {
         function t() {
           var t = this;
           ((this.$1 = new Map()),
             (this.$2 = new Set()),
-            (this.requestMediaReupload = (function () {
-              var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (a) {
-                  var i = a.id.id;
-                  if (o("WAWebMsgGetters").getIsNewsletterMsg(a))
-                    throw new (o(
-                      "WAWebGetUserMediaErrors",
-                    ).RMRNotSupportedOnNewsletterMessagesError)(
-                      o("WAWebMmsMediaTypes").getMsgMediaType(a),
-                    );
-                  if (a.mediaKey == null)
-                    throw (
-                      t.$2.has(i) ||
-                        (t.$2.add(i),
-                        o("WALogger")
-                          .ERROR(
-                            e ||
-                              (e = babelHelpers.taggedTemplateLiteralLoose([
-                                "[media][rmr] Called RMR with null mediaKey, type ",
-                                "",
-                              ])),
-                            a.type,
-                          )
-                          .tags("media", "non-sad")
-                          .sendLogs("rmr-called-with-null-media-key", {
-                            sampling: 0.01,
-                          })),
-                      new (o(
-                        "WAWebGetUserMediaErrors",
-                      ).RMRWithoutMediaKeyError)(a.type)
-                    );
-                  var l = t.$1.get(i);
-                  if (l) return r("nullthrows")(l.request);
-                  var s = new (u || (u = n("Promise")))(function (e, n) {
-                    t.$1.set(i, { resolve: e, reject: n, msg: a });
-                  });
-                  return (
-                    (r("nullthrows")(t.$1.get(i)).request = s),
-                    yield r("WAWebSendServerErrorReceiptJob")(a),
-                    s
-                  );
-                },
+            (this.requestMediaReupload = async function (n) {
+              var a = n.id.id;
+              if (o("WAWebMsgGetters").getIsNewsletterMsg(n))
+                throw new (o(
+                  "WAWebGetUserMediaErrors",
+                ).RMRNotSupportedOnNewsletterMessagesError)(
+                  o("WAWebMmsMediaTypes").getMsgMediaType(n),
+                );
+              if (n.mediaKey == null)
+                throw (
+                  t.$2.has(a) ||
+                    (t.$2.add(a),
+                    o("WALogger")
+                      .ERROR(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "[media][rmr] Called RMR with null mediaKey, type ",
+                            "",
+                          ])),
+                        n.type,
+                      )
+                      .tags("media", "non-sad")
+                      .sendLogs("rmr-called-with-null-media-key", {
+                        sampling: 0.01,
+                      })),
+                  new (o("WAWebGetUserMediaErrors").RMRWithoutMediaKeyError)(
+                    n.type,
+                  )
+                );
+              var i = t.$1.get(a);
+              if (i) return r("nullthrows")(i.request);
+              var l = new Promise(function (e, r) {
+                t.$1.set(a, { resolve: e, reject: r, msg: n });
+              });
+              return (
+                (r("nullthrows")(t.$1.get(a)).request = l),
+                await r("WAWebSendServerErrorReceiptJob")(n),
+                l
               );
-              return function (e) {
-                return a.apply(this, arguments);
-              };
-            })()),
+            }),
             (this.resolveMediaReupload = function (e) {
               var n = e.directPath,
                 r = e.msgId,
@@ -87,17 +77,17 @@ __d(
               return (n = t.$1.get(e)) == null ? void 0 : n.msg.mediaKey;
             }));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.rmrRequests_TESTONLY = function () {
+          (n.rmrRequests_TESTONLY = function () {
             return this.$1;
           }),
           t
         );
       })(),
-      d = new c();
-    ((l.RequestMediaReuploadManagerImpl = c),
-      (l.RequestMediaReuploadManager = d));
+      c = new u();
+    ((l.RequestMediaReuploadManagerImpl = u),
+      (l.RequestMediaReuploadManager = c));
   },
   98,
 );

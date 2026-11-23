@@ -3,6 +3,7 @@ __d(
   [
     "WAWebChatCollection",
     "WAWebContactCollection",
+    "WAWebContactCollectionUtils",
     "WAWebFavoritesUtils",
     "WAWebLidMigrationUtils",
     "WAWebUserPrefsMeUser",
@@ -36,40 +37,37 @@ __d(
       }
       return n;
     }
-    function m(t) {
-      var n = [];
-      for (var a of o("WAWebFavoritesUtils").getFavoriteItems())
-        n.push({ wid: a.wid, contact: a.contact, chat: a.chat });
-      for (var i of o("WAWebChatCollection").ChatCollection.filter(
+    function m() {
+      var t = [];
+      for (var n of o("WAWebFavoritesUtils").getFavoriteItems())
+        t.push({ wid: n.wid, contact: n.contact, chat: n.chat });
+      for (var a of o("WAWebChatCollection").ChatCollection.filter(
         function (e) {
           return !e.archive && r("WAWebWid").isUser(e.id);
         },
       ))
-        n.push({ wid: i.id, contact: i.contact, chat: i });
-      for (var l of t) n.push({ wid: l.id, contact: l, chat: c(l.id) });
-      var u = d(n);
-      if (u.length >= e) return u.slice(0, s);
-      var m = new Set(
-          u.map(function (e) {
+        t.push({ wid: a.id, contact: a.contact, chat: a });
+      var i = d(t);
+      if (i.length >= e) return i.slice(0, s);
+      var l = new Set(
+          i.map(function (e) {
             return e.wid.toString();
           }),
         ),
-        p = [].concat(u);
-      for (var _ of o(
-        "WAWebContactCollection",
-      ).ContactCollection.getFilteredContacts({})) {
-        if (p.length >= s) break;
-        var f = _.id.toString();
-        m.has(f) ||
-          (m.add(f), p.push({ wid: _.id, contact: _, chat: c(_.id) }));
+        u = [].concat(i);
+      for (var m of o("WAWebContactCollectionUtils").getFilteredContacts(
+        o("WAWebContactCollection").ContactCollection,
+        {},
+      )) {
+        if (u.length >= s) break;
+        var p = m.id.toString();
+        l.has(p) ||
+          (l.add(p), u.push({ wid: m.id, contact: m, chat: c(m.id) }));
       }
-      return p.slice(0, s);
+      return u.slice(0, s);
     }
-    ((l.TARGET_CONTACTS = e),
-      (l.MAX_CONTACTS = s),
-      (l.getMeUserOrNull = u),
+    ((l.getMeUserOrNull = u),
       (l.getChatForContact = c),
-      (l.dedupeByWid = d),
       (l.deriveRowItems = m));
   },
   98,

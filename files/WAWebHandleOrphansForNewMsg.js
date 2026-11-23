@@ -1,30 +1,16 @@
 __d(
   "WAWebHandleOrphansForNewMsg",
-  [
-    "Promise",
-    "WAWebDBAssociatedMsgsAttachDetachAPI",
-    "WAWebDBProcessOrphansForNewMsg",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebDBAssociatedMsgsAttachDetachAPI", "WAWebDBProcessOrphansForNewMsg"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    async function e(e) {
+      await Promise.all([
+        o("WAWebDBProcessOrphansForNewMsg").processOrphansForNewMsg(e),
+        o(
+          "WAWebDBAssociatedMsgsAttachDetachAPI",
+        ).processOrphansFromAssociationsTableForNewMsg([e]),
+      ]);
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          yield (e || (e = n("Promise"))).all([
-            o("WAWebDBProcessOrphansForNewMsg").processOrphansForNewMsg(t),
-            o(
-              "WAWebDBAssociatedMsgsAttachDetachAPI",
-            ).processOrphansFromAssociationsTableForNewMsg([t]),
-          ]);
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    l.handleOrphansForNewMsg = s;
+    l.handleOrphansForNewMsg = e;
   },
   98,
 );

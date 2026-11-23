@@ -10,7 +10,6 @@ __d(
     "WAWebUnknownUserRecoveryManager",
     "WAWebUnknownUserSelfHealFromDb",
     "WAWebWamEnumUnknownUserRecoveryPath",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "isStringNullOrEmpty",
   ],
@@ -19,61 +18,56 @@ __d(
       s = { hasUn: null, hasPn: null, hasPush: null, inDb: null },
       u = o("WAWebCooldownBatcher").createCooldownBatcher(
         { windowMs: 250, maxWindowMs: 5e3, cooldownMs: 0 },
-        (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            try {
-              var t = yield o("WAWebApiContact").bulkGetContactRecord(e),
-                n = t.map(function (t, n) {
-                  var o = e[n];
-                  return {
-                    hasUn:
-                      (t == null ? void 0 : t.username) != null &&
-                      t.usernameSoftDeleted !== !0,
-                    hasPn: o.isLid()
-                      ? (t == null ? void 0 : t.phoneNumber) != null
-                      : o.isRegularUserPn(),
-                    hasPush: !r("isStringNullOrEmpty")(
-                      t == null ? void 0 : t.pushname,
-                    ),
-                    inDb: t != null,
-                  };
-                });
-              o("WAWebUnknownUserSelfHealFromDb").healUnknownUsersFromDbRows(
-                e,
-                t,
+        async function (e) {
+          try {
+            var t = await o("WAWebApiContact").bulkGetContactRecord(e),
+              n = t.map(function (t, n) {
+                var o = e[n];
+                return {
+                  hasUn:
+                    (t == null ? void 0 : t.username) != null &&
+                    t.usernameSoftDeleted !== !0,
+                  hasPn: o.isLid()
+                    ? (t == null ? void 0 : t.phoneNumber) != null
+                    : o.isRegularUserPn(),
+                  hasPush: !r("isStringNullOrEmpty")(
+                    t == null ? void 0 : t.pushname,
+                  ),
+                  inDb: t != null,
+                };
+              });
+            o("WAWebUnknownUserSelfHealFromDb").healUnknownUsersFromDbRows(
+              e,
+              t,
+            );
+            for (var a = 0; a < e.length; a++)
+              o("WAWebUnknownUserRecoveryManager").maybeRecoverUnknownUser(
+                e[a],
+                n[a],
               );
-              for (var a = 0; a < e.length; a++)
-                o("WAWebUnknownUserRecoveryManager").maybeRecoverUnknownUser(
-                  e[a],
-                  n[a],
-                );
-              return e.map(function (e, t) {
-                return {
-                  isRecovering:
-                    o("WAWebUnknownUserSelfHealFromDb").isSelfHealInFlight(e) ||
-                    o(
-                      "WAWebUnknownUserRecoveryManager",
-                    ).isUsyncRecoveryInFlight(e),
-                  presence: n[t],
-                };
-              });
-            } catch (t) {
-              return e.map(function (e) {
-                return {
-                  isRecovering:
-                    o("WAWebUnknownUserSelfHealFromDb").isSelfHealInFlight(e) ||
-                    o(
-                      "WAWebUnknownUserRecoveryManager",
-                    ).isUsyncRecoveryInFlight(e),
-                  presence: s,
-                };
-              });
-            }
-          });
-          return function (t) {
-            return e.apply(this, arguments);
-          };
-        })(),
+            return e.map(function (e, t) {
+              return {
+                isRecovering:
+                  o("WAWebUnknownUserSelfHealFromDb").isSelfHealInFlight(e) ||
+                  o("WAWebUnknownUserRecoveryManager").isUsyncRecoveryInFlight(
+                    e,
+                  ),
+                presence: n[t],
+              };
+            });
+          } catch (t) {
+            return e.map(function (e) {
+              return {
+                isRecovering:
+                  o("WAWebUnknownUserSelfHealFromDb").isSelfHealInFlight(e) ||
+                  o("WAWebUnknownUserRecoveryManager").isUsyncRecoveryInFlight(
+                    e,
+                  ),
+                presence: s,
+              };
+            });
+          }
+        },
       ),
       c = new Set([
         "contact_info",

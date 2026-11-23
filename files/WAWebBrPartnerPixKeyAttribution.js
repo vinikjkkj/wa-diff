@@ -1,46 +1,37 @@
 __d(
   "WAWebBrPartnerPixKeyAttribution",
-  ["Promise", "WAWebBrPixBankCatalog", "asyncToGeneratorRuntime"],
+  ["WAWebBrPixBankCatalog"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = { kind: "none" },
-      u = 15e3;
-    function c(t) {
-      return new (e || (e = n("Promise")))(function (e) {
+    var e = { kind: "none" },
+      s = 15e3;
+    function u(e) {
+      return new Promise(function (t) {
         var n = self.setTimeout(function () {
-            e(null);
-          }, u),
+            t(null);
+          }, s),
           r = function (r) {
-            (self.clearTimeout(n), e(r));
+            (self.clearTimeout(n), t(r));
           };
         o("WAWebBrPixBankCatalog")
-          .getPixBankByRefId(t)
+          .getPixBankByRefId(e)
           .then(r, function () {
             r(null);
           });
       });
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function c(t) {
+      if (t == null || t === "") return e;
+      var n = await u(t);
+      return n == null
+        ? e
+        : {
+            bankName: n.bankName,
+            kind: "unverified",
+            logoUrl: n.imageUrl.trim(),
+          };
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e == null || e === "") return s;
-          var t = yield c(e);
-          return t == null
-            ? s
-            : {
-                bankName: t.bankName,
-                kind: "unverified",
-                logoUrl: t.imageUrl.trim(),
-              };
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    ((l.lookUpWithinWait = c), (l.resolvePartnerPixKeyAttribution = d));
+    ((l.lookUpWithinWait = u), (l.resolvePartnerPixKeyAttribution = c));
   },
   98,
 );

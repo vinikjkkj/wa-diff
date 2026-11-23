@@ -1,7 +1,6 @@
 __d(
   "WAWebNonMessageDataRequestHandlerUploadSticker",
   [
-    "Promise",
     "WABase64",
     "WALogger",
     "WATimeUtils",
@@ -17,13 +16,12 @@ __d(
     "WAWebSendNonMessageDataRequestResponse",
     "WAWebStickerModel",
     "WAWebWamEnumUploadOriginType",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f;
-    function g(t, n) {
+    var e, s, u, c, d, m, p, _;
+    function f(t, n) {
       if (
         (o("WALogger").LOG(
           e ||
@@ -231,252 +229,237 @@ __d(
           _,
         ));
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = t.length,
-            i = 0,
-            l = 0,
-            s = 0,
-            u = 0,
-            c = o("WATimeUtils").unixTime(),
-            d = [],
-            m = t
-              .map(function (e) {
-                var t = e.fileSha256;
-                if (t == null) {
-                  (s++,
-                    d.push({
-                      mediaUploadResult: o("WAWebProtobufsMmsRetry.pb")
-                        .MediaRetryNotification$ResultType.GENERAL_ERROR,
-                    }));
-                  return;
-                }
-                var n = o(
-                  "WAWebFavoriteStickerCollection",
-                ).FavoriteStickerCollection.get(t);
-                if (n == null) {
-                  (u++,
-                    d.push({
-                      mediaUploadResult: o("WAWebProtobufsMmsRetry.pb")
-                        .MediaRetryNotification$ResultType.NOT_FOUND,
-                      stickerMessage: {
-                        fileSha256: o("WABase64").decodeB64(t),
-                      },
-                    }));
-                  return;
-                }
-                return n;
-              })
-              .filter(function (e) {
-                return e != null;
-              }),
-            g = new Set(),
-            h = 0,
-            y = m.map(function (e) {
-              var t = r("nullthrows")(e == null ? void 0 : e.sticker),
-                n = t.mediaObject;
-              if (n == null)
-                return {
-                  kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind.ERROR,
-                };
-              if (
-                o(
-                  "WAWebNonMessageDataRequestMediaHandlingUtils",
-                ).shouldSkipMediaUploadWithSuccess(
-                  t.filehash,
-                  o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
-                    .UPLOAD_STICKER,
-                  c,
-                )
-              ) {
-                var a = n.entries.getDownloadEntry(!0);
-                if (a instanceof o("WAWebMediaEntry").EncryptedMediaEntry)
-                  return (
-                    l++,
-                    g.add(t.filehash),
-                    {
-                      kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind
-                        .SUCCESS,
-                      mediaEntry: a,
-                    }
-                  );
-              }
-              if (
-                o(
-                  "WAWebNonMessageDataRequestMediaHandlingUtils",
-                ).shouldSkipMediaUploadWithCancellation(
-                  t.filehash,
-                  o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
-                    .UPLOAD_STICKER,
-                  c,
-                )
-              )
-                return (
-                  g.add(t.filehash),
-                  {
-                    kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind
-                      .CANCELLATION,
-                  }
-                );
-              var i = o("WAWebMediaMmsV4Upload").getUploadEntryForMediaType(
-                n.entries,
-                !0,
-                "sticker",
-              );
-              if (i instanceof o("WAWebMediaEntry").UnencryptedMediaEntry)
-                return (
-                  h++,
-                  {
-                    kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind
-                      .ERROR,
-                  }
-                );
-              var s =
-                i instanceof o("WAWebMediaEntry").EncryptedMediaEntry
-                  ? { key: i.mediaKey, timestamp: i.mediaKeyTimestamp }
-                  : r("WAWebCryptoRandomMediaKey")();
-              return o("WAWebMediaMmsV4Upload").uploadMedia({
-                mimetype: t.mimetype,
-                mediaObject: n,
-                mediaType: "sticker",
-                forwardedFromWeb: !1,
-                uploadOrigin: o("WAWebWamEnumUploadOriginType")
-                  .UPLOAD_ORIGIN_TYPE.STICKER_WEB,
-                fileOrigin: null,
-                mediaKeyInfo: s,
-                isViewOnce: !0,
-                uploadEntry: i,
-              });
-            });
-          h > 0 &&
-            o("WALogger")
-              .ERROR(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sticker-upload] ",
-                    " unexpected unencrypted entries",
-                  ])),
-                h,
-              )
-              .sendLogs("sticker-upload-unexpected-unencrypted-entry");
-          for (
-            var C = yield (f || (f = n("Promise"))).all(y),
-              b = new Map(),
-              v = 0;
-            v < C.length;
-            v++
-          ) {
-            var S,
-              R,
-              L = C[v],
-              E = L.kind,
-              k = L.mediaEntry,
-              I = r("nullthrows")(m[v]),
-              T = r("nullthrows")(I == null ? void 0 : I.sticker);
-            if (
-              E !== o("WAWebMediaMmsV4Upload").UploadMediaResultKind.SUCCESS ||
-              k == null
-            ) {
-              (s++,
-                d.push({
+    async function g(e, t) {
+      var n = t.length,
+        a = 0,
+        i = 0,
+        l = 0,
+        s = 0,
+        u = o("WATimeUtils").unixTime(),
+        c = [],
+        d = t
+          .map(function (e) {
+            var t = e.fileSha256;
+            if (t == null) {
+              (l++,
+                c.push({
                   mediaUploadResult: o("WAWebProtobufsMmsRetry.pb")
                     .MediaRetryNotification$ResultType.GENERAL_ERROR,
-                  stickerMessage: {
-                    fileSha256: o("WABase64").decodeB64(T.filehash),
-                  },
-                }),
-                g.has(T.filehash) || b.set(T.filehash, E));
-              continue;
+                }));
+              return;
             }
-            if ((i++, !g.has(T.filehash))) {
-              var D;
-              if ((D = T.mediaObject) != null && D.entries.entries) {
-                var x;
-                (x = T.mediaObject) == null ||
-                  (x = x.entries) == null ||
-                  x.clearEntries();
-              }
-              var $ = new (o("WAWebStickerModel").StickerModel)({
-                id: T.filehash,
-                directPath: k.directPath,
-                filehash: T.filehash,
-                encFilehash: k.encFilehash,
-                mediaKey: k.mediaKey,
-                mediaKeyTimestamp: k.mediaKeyTimestamp,
-                width: T.width,
-                height: T.height,
-                size: T.size,
-                mimetype: T.mimetype,
-                isAvatar: T.isAvatar,
-                type: T.type,
-                index: 0,
-              });
-              (o(
-                "WAWebFavoriteStickerCollection",
-              ).FavoriteStickerCollection.updateFavoriteStickerWithNewSticker(
-                T.filehash,
-                $,
-              ),
-                b.set(T.filehash, E));
+            var n = o(
+              "WAWebFavoriteStickerCollection",
+            ).FavoriteStickerCollection.get(t);
+            if (n == null) {
+              (s++,
+                c.push({
+                  mediaUploadResult: o("WAWebProtobufsMmsRetry.pb")
+                    .MediaRetryNotification$ResultType.NOT_FOUND,
+                  stickerMessage: { fileSha256: o("WABase64").decodeB64(t) },
+                }));
+              return;
             }
-            d.push({
-              mediaUploadResult: o("WAWebProtobufsMmsRetry.pb")
-                .MediaRetryNotification$ResultType.SUCCESS,
-              stickerMessage: {
-                fileSha256: o("WABase64").decodeB64(T.filehash),
-                fileEncSha256: o("WABase64").decodeB64(
-                  (S = k.encFilehash) != null ? S : "",
-                ),
-                mediaKey: o("WABase64").decodeB64(k.mediaKey),
-                mimetype: T.mimetype,
-                height: T.height,
-                width: T.width,
-                directPath: (R = k.directPath) != null ? R : "",
-                mediaKeyTimestamp: k.mediaKeyTimestamp,
-              },
-            });
-          }
-          (o("WAWebSendNonMessageDataRequestResponse")
-            .sendPeerDataOperationRequestResponseMessage(
-              e,
-              o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
-                .UPLOAD_STICKER,
-              d,
-            )
-            .catch(function (e) {
-              o("WALogger")
-                .ERROR(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "sticker reupload response message sending failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("sticker-reupload-response-msg-send");
-            }),
+            return n;
+          })
+          .filter(function (e) {
+            return e != null;
+          }),
+        m = new Set(),
+        f = 0,
+        g = d.map(function (e) {
+          var t = r("nullthrows")(e == null ? void 0 : e.sticker),
+            n = t.mediaObject;
+          if (n == null)
+            return {
+              kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind.ERROR,
+            };
+          if (
             o(
               "WAWebNonMessageDataRequestMediaHandlingUtils",
-            ).insertMediaUploadResult(b, c),
-            o("WAWebNonMessageDataRequestLoggingUtils").logMediaUpload({
-              errorCount: s,
-              existingDataNoUploadCount: l,
-              notFoundCount: u,
-              requestCount: a,
-              requestType: o("WAWebProtobufsE2E.pb")
-                .Message$PeerDataOperationRequestType.UPLOAD_STICKER,
-              stanzaId: e,
-              successUploadCount: i,
-            }));
-        })),
-        y.apply(this, arguments)
-      );
+            ).shouldSkipMediaUploadWithSuccess(
+              t.filehash,
+              o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+                .UPLOAD_STICKER,
+              u,
+            )
+          ) {
+            var a = n.entries.getDownloadEntry(!0);
+            if (a instanceof o("WAWebMediaEntry").EncryptedMediaEntry)
+              return (
+                i++,
+                m.add(t.filehash),
+                {
+                  kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind
+                    .SUCCESS,
+                  mediaEntry: a,
+                }
+              );
+          }
+          if (
+            o(
+              "WAWebNonMessageDataRequestMediaHandlingUtils",
+            ).shouldSkipMediaUploadWithCancellation(
+              t.filehash,
+              o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+                .UPLOAD_STICKER,
+              u,
+            )
+          )
+            return (
+              m.add(t.filehash),
+              {
+                kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind
+                  .CANCELLATION,
+              }
+            );
+          var l = o("WAWebMediaMmsV4Upload").getUploadEntryForMediaType(
+            n.entries,
+            !0,
+            "sticker",
+          );
+          if (l instanceof o("WAWebMediaEntry").UnencryptedMediaEntry)
+            return (
+              f++,
+              { kind: o("WAWebMediaMmsV4Upload").UploadMediaResultKind.ERROR }
+            );
+          var s =
+            l instanceof o("WAWebMediaEntry").EncryptedMediaEntry
+              ? { key: l.mediaKey, timestamp: l.mediaKeyTimestamp }
+              : r("WAWebCryptoRandomMediaKey")();
+          return o("WAWebMediaMmsV4Upload").uploadMedia({
+            mimetype: t.mimetype,
+            mediaObject: n,
+            mediaType: "sticker",
+            forwardedFromWeb: !1,
+            uploadOrigin: o("WAWebWamEnumUploadOriginType").UPLOAD_ORIGIN_TYPE
+              .STICKER_WEB,
+            fileOrigin: null,
+            mediaKeyInfo: s,
+            isViewOnce: !0,
+            uploadEntry: l,
+          });
+        });
+      f > 0 &&
+        o("WALogger")
+          .ERROR(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "[sticker-upload] ",
+                " unexpected unencrypted entries",
+              ])),
+            f,
+          )
+          .sendLogs("sticker-upload-unexpected-unencrypted-entry");
+      for (
+        var h = await Promise.all(g), y = new Map(), C = 0;
+        C < h.length;
+        C++
+      ) {
+        var b,
+          v,
+          S = h[C],
+          R = S.kind,
+          L = S.mediaEntry,
+          E = r("nullthrows")(d[C]),
+          k = r("nullthrows")(E == null ? void 0 : E.sticker);
+        if (
+          R !== o("WAWebMediaMmsV4Upload").UploadMediaResultKind.SUCCESS ||
+          L == null
+        ) {
+          (l++,
+            c.push({
+              mediaUploadResult: o("WAWebProtobufsMmsRetry.pb")
+                .MediaRetryNotification$ResultType.GENERAL_ERROR,
+              stickerMessage: {
+                fileSha256: o("WABase64").decodeB64(k.filehash),
+              },
+            }),
+            m.has(k.filehash) || y.set(k.filehash, R));
+          continue;
+        }
+        if ((a++, !m.has(k.filehash))) {
+          var I;
+          if ((I = k.mediaObject) != null && I.entries.entries) {
+            var T;
+            (T = k.mediaObject) == null ||
+              (T = T.entries) == null ||
+              T.clearEntries();
+          }
+          var D = new (o("WAWebStickerModel").StickerModel)({
+            id: k.filehash,
+            directPath: L.directPath,
+            filehash: k.filehash,
+            encFilehash: L.encFilehash,
+            mediaKey: L.mediaKey,
+            mediaKeyTimestamp: L.mediaKeyTimestamp,
+            width: k.width,
+            height: k.height,
+            size: k.size,
+            mimetype: k.mimetype,
+            isAvatar: k.isAvatar,
+            type: k.type,
+            index: 0,
+          });
+          (o(
+            "WAWebFavoriteStickerCollection",
+          ).FavoriteStickerCollection.updateFavoriteStickerWithNewSticker(
+            k.filehash,
+            D,
+          ),
+            y.set(k.filehash, R));
+        }
+        c.push({
+          mediaUploadResult: o("WAWebProtobufsMmsRetry.pb")
+            .MediaRetryNotification$ResultType.SUCCESS,
+          stickerMessage: {
+            fileSha256: o("WABase64").decodeB64(k.filehash),
+            fileEncSha256: o("WABase64").decodeB64(
+              (b = L.encFilehash) != null ? b : "",
+            ),
+            mediaKey: o("WABase64").decodeB64(L.mediaKey),
+            mimetype: k.mimetype,
+            height: k.height,
+            width: k.width,
+            directPath: (v = L.directPath) != null ? v : "",
+            mediaKeyTimestamp: L.mediaKeyTimestamp,
+          },
+        });
+      }
+      (o("WAWebSendNonMessageDataRequestResponse")
+        .sendPeerDataOperationRequestResponseMessage(
+          e,
+          o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+            .UPLOAD_STICKER,
+          c,
+        )
+        .catch(function (e) {
+          o("WALogger")
+            .ERROR(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "sticker reupload response message sending failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("sticker-reupload-response-msg-send");
+        }),
+        o(
+          "WAWebNonMessageDataRequestMediaHandlingUtils",
+        ).insertMediaUploadResult(y, u),
+        o("WAWebNonMessageDataRequestLoggingUtils").logMediaUpload({
+          errorCount: l,
+          existingDataNoUploadCount: i,
+          notFoundCount: s,
+          requestCount: n,
+          requestType: o("WAWebProtobufsE2E.pb")
+            .Message$PeerDataOperationRequestType.UPLOAD_STICKER,
+          stanzaId: e,
+          successUploadCount: a,
+        }));
     }
-    ((l.handleUploadStickerPeerDataOperationRequestResponse = g),
-      (l.handleUploadStickerPeerDataOperationRequest = h));
+    ((l.handleUploadStickerPeerDataOperationRequestResponse = f),
+      (l.handleUploadStickerPeerDataOperationRequest = g));
   },
   98,
 );

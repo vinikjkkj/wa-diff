@@ -84,7 +84,7 @@ __d(
           ],
         },
         params: {
-          id: "37725406853716822",
+          id: "29461299913471728",
           metadata: {},
           name: "MAIBALiveBoostStatusIndicatorQuery",
           operationKind: "query",

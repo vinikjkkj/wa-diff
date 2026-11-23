@@ -8,67 +8,57 @@ __d(
     "WAWebMsgKey",
     "WAWebPromotionOffer",
     "WAWebSavedPromotionsStore",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = 4;
-    function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    async function u() {
+      var t = await o("WAWebSavedPromotionsStore").loadSavedPromotions();
+      if (t == null) return null;
+      var n;
+      try {
+        n = await _(
+          t
+            .map(function (e) {
+              return e.messageKey;
+            })
+            .filter(function (e) {
+              return p(e) != null;
+            }),
+        );
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[SAVED_PROMOTIONS] saved offers' messages not read",
+                ])),
+            )
+            .sendLogs("saved-promotions-messages-read-failed"),
+          null
+        );
+      }
+      var r = d(t, n),
+        a = r.live,
+        i = r.prunedKeys;
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o("WAWebSavedPromotionsStore").loadSavedPromotions();
-          if (t == null) return null;
-          var n;
-          try {
-            n = yield f(
-              t
-                .map(function (e) {
-                  return e.messageKey;
-                })
-                .filter(function (e) {
-                  return _(e) != null;
-                }),
-            );
-          } catch (t) {
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[SAVED_PROMOTIONS] saved offers' messages not read",
-                    ])),
-                )
-                .sendLogs("saved-promotions-messages-read-failed"),
-              null
-            );
-          }
-          var r = m(t, n),
-            a = r.live,
-            i = r.prunedKeys;
-          return (
-            i.length > 0 &&
-              o("WAWebSavedPromotionsStore").removeSavedPromotions(i),
-            a
-          );
-        })),
-        c.apply(this, arguments)
+        i.length > 0 && o("WAWebSavedPromotionsStore").removeSavedPromotions(i),
+        a
       );
     }
-    function d(e) {
+    function c(e) {
       return o("WAWebSavedPromotionsStore").removeSavedPromotions([e]);
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = [],
         r = [];
       for (var a of e) {
         var i,
           l = a.messageKey,
           s = a.savedAtMs,
-          u = p(l);
+          u = m(l);
         if (u != null) {
           if (!u.remote.isUser()) {
             r.push(l);
@@ -77,8 +67,8 @@ __d(
           var c = t.get(l);
           if (c != null) {
             var d = c.msgKey.remote,
-              m = o("WAWebPromotionOffer").getPromotionOfferFor(c.values);
-            if (!d.isUser() || m == null) {
+              p = o("WAWebPromotionOffer").getPromotionOfferFor(c.values);
+            if (!d.isUser() || p == null) {
               r.push(l);
               continue;
             }
@@ -90,9 +80,9 @@ __d(
                 messageKey: l,
                 msgKey: c.msgKey,
                 businessWid: d,
-                kind: m.kind,
+                kind: p.kind,
                 expiryMs:
-                  (i = m.expiryMs) != null
+                  (i = p.expiryMs) != null
                     ? i
                     : (c.receivedAtS +
                         o("WAWebAddPromotionToPaymentsAction")
@@ -113,84 +103,68 @@ __d(
         });
       return { live: f, prunedKeys: r };
     }
-    function p(e) {
+    function m(e) {
       try {
         return r("WAWebMsgKey").fromString(e);
       } catch (e) {
         return null;
       }
     }
-    function _(e) {
-      var t = p(e);
+    function p(e) {
+      var t = m(e);
       return (t == null ? void 0 : t.remote.isUser()) === !0 ? t : null;
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    async function _(e) {
+      var t = new Map();
+      await f(
+        t,
+        e.map(function (e) {
+          return [e, e];
+        }),
+      );
+      var n = [];
+      for (var r of e) {
+        var a = t.has(r) ? null : p(r),
+          i =
+            a != null
+              ? o("WAWebLidMigrationUtils").getAlternateMsgKey(a)
+              : null;
+        i != null && n.push([r, i.toString()]);
+      }
+      return (await f(t, n), t);
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Map();
-          yield h(
-            t,
-            e.map(function (e) {
-              return [e, e];
+    async function f(e, t) {
+      var n = [];
+      for (var r of t) {
+        var a = r[0],
+          i = r[1],
+          l = o("WAWebMsgCollection").MsgCollection.get(i);
+        l != null && !l.fromQuotedMsg ? e.set(a, g(l)) : n.push([a, i]);
+      }
+      if (n.length !== 0) {
+        var s = await o("WAWebMsgCollection").MsgCollection.getMessagesById(
+            n.map(function (e) {
+              var t = e[1];
+              return t;
+            }),
+          ),
+          u = s.messages,
+          c = new Map(
+            u.map(function (e) {
+              return [e.id.toString(), e];
             }),
           );
-          var n = [];
-          for (var r of e) {
-            var a = t.has(r) ? null : _(r),
-              i =
-                a != null
-                  ? o("WAWebLidMigrationUtils").getAlternateMsgKey(a)
-                  : null;
-            i != null && n.push([r, i.toString()]);
+        for (var d of n) {
+          var m = d[0],
+            p = d[1];
+          {
+            var _ = c.get(p);
+            _ != null && e.set(m, g(_));
           }
-          return (yield h(t, n), t);
-        })),
-        g.apply(this, arguments)
-      );
+        }
+      }
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = [];
-          for (var r of t) {
-            var a = r[0],
-              i = r[1],
-              l = o("WAWebMsgCollection").MsgCollection.get(i);
-            l != null && !l.fromQuotedMsg ? e.set(a, C(l)) : n.push([a, i]);
-          }
-          if (n.length !== 0) {
-            var s = yield o("WAWebMsgCollection").MsgCollection.getMessagesById(
-                n.map(function (e) {
-                  var t = e[1];
-                  return t;
-                }),
-              ),
-              u = s.messages,
-              c = new Map(
-                u.map(function (e) {
-                  return [e.id.toString(), e];
-                }),
-              );
-            for (var d of n) {
-              var m = d[0],
-                p = d[1];
-              {
-                var _ = c.get(p);
-                _ != null && e.set(m, C(_));
-              }
-            }
-          }
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
+    function g(e) {
       return {
         msgKey: e.id,
         values: {
@@ -208,8 +182,8 @@ __d(
     }
     ((l.PROMOTIONS_SEE_ALL_MIN_COUNT = s),
       (l.loadLiveSavedPromotions = u),
-      (l.unsaveSavedPromotion = d),
-      (l.resolveSavedPromotions = m));
+      (l.unsaveSavedPromotion = c),
+      (l.resolveSavedPromotions = d));
   },
   98,
 );

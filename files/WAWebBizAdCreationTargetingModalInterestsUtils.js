@@ -14,39 +14,39 @@ __d(
       var n = null;
       if (e === "education_statuses") {
         var r = {
-          1: s._(/*BTDS*/ "In high school"),
-          2: s._(/*BTDS*/ "In college"),
-          3: s._(/*BTDS*/ "College grad"),
-          4: s._(/*BTDS*/ "High school grad"),
-          5: s._(/*BTDS*/ "Some college"),
-          6: s._(/*BTDS*/ "Associate degree"),
-          7: s._(/*BTDS*/ "In grad school"),
-          8: s._(/*BTDS*/ "Some grad school"),
-          9: s._(/*BTDS*/ "Master's degree"),
-          10: s._(/*BTDS*/ "Professional degree"),
-          11: s._(/*BTDS*/ "Doctorate degree"),
-          12: s._(/*BTDS*/ "Unspecified"),
-          13: s._(/*BTDS*/ "Some high school"),
+          1: s._(/*BTDS*/ ""),
+          2: s._(/*BTDS*/ ""),
+          3: s._(/*BTDS*/ ""),
+          4: s._(/*BTDS*/ ""),
+          5: s._(/*BTDS*/ ""),
+          6: s._(/*BTDS*/ ""),
+          7: s._(/*BTDS*/ ""),
+          8: s._(/*BTDS*/ ""),
+          9: s._(/*BTDS*/ ""),
+          10: s._(/*BTDS*/ ""),
+          11: s._(/*BTDS*/ ""),
+          12: s._(/*BTDS*/ ""),
+          13: s._(/*BTDS*/ ""),
         };
         n = r[t];
       } else if (e === "relationship_statuses") {
         var o = {
-          1: s._(/*BTDS*/ "Single"),
-          2: s._(/*BTDS*/ "In a relationship"),
-          3: s._(/*BTDS*/ "Married"),
-          4: s._(/*BTDS*/ "Engaged"),
-          6: s._(/*BTDS*/ "Unspecified"),
-          7: s._(/*BTDS*/ "In a civil union"),
-          8: s._(/*BTDS*/ "In a domestic partnership"),
-          9: s._(/*BTDS*/ "In an open relationship"),
-          10: s._(/*BTDS*/ "It's complicated"),
-          11: s._(/*BTDS*/ "Separated"),
-          12: s._(/*BTDS*/ "Divorced"),
-          13: s._(/*BTDS*/ "Widowed"),
+          1: s._(/*BTDS*/ ""),
+          2: s._(/*BTDS*/ ""),
+          3: s._(/*BTDS*/ ""),
+          4: s._(/*BTDS*/ ""),
+          6: s._(/*BTDS*/ ""),
+          7: s._(/*BTDS*/ ""),
+          8: s._(/*BTDS*/ ""),
+          9: s._(/*BTDS*/ ""),
+          10: s._(/*BTDS*/ ""),
+          11: s._(/*BTDS*/ ""),
+          12: s._(/*BTDS*/ ""),
+          13: s._(/*BTDS*/ ""),
         };
         n = o[t];
       } else if (e === "interested_in") {
-        var a = { 1: s._(/*BTDS*/ "Men"), 2: s._(/*BTDS*/ "Women") };
+        var a = { 1: s._(/*BTDS*/ ""), 2: s._(/*BTDS*/ "") };
         n = a[t];
       }
       return n != null ? String(n) : null;
@@ -168,16 +168,14 @@ __d(
     }
     function g(e) {
       var t = e == null ? void 0 : e[0];
-      if (t == null) return s._(/*BTDS*/ "None selected");
+      if (t == null) return s._(/*BTDS*/ "");
       var n = c(t);
-      if (n.length === 0) return s._(/*BTDS*/ "None selected");
+      if (n.length === 0) return s._(/*BTDS*/ "");
       var r = n.map(function (e) {
         var t = e[1];
         return t.name;
       });
-      return s._(/*BTDS*/ "{interestNames}", [
-        s._param("interestNames", r.join(", ")),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("interestNames", r.join(", "))]);
     }
     function h(e) {
       var t = e == null ? void 0 : e[0];

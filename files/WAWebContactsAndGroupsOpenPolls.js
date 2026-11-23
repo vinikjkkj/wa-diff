@@ -9,7 +9,6 @@ __d(
     "WAWebContactsAndGroupsThisWeek",
     "WAWebEventEmitter",
     "WAWebPonyfillsIdleCallback",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -133,50 +132,35 @@ __d(
               : 1
             : t.t - e.t;
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = yield o("WAConcurrentIterate").concurrentIterate(
-            e.length,
-            (function () {
-              var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (n) {
-                  return {
-                    chat: e[n],
-                    polls: yield o("WAWebContactsAndGroupsDBGroupPolls")
-                      .getGroupPollsSince(e[n].id, t)
-                      .catch(function (e) {
-                        return (
-                          o("WALogger")
-                            .WARN(
-                              s ||
-                                (s = babelHelpers.taggedTemplateLiteralLoose([
-                                  "loadGroupPolls: reading the polls of a group failed",
-                                ])),
-                            )
-                            .catching(r("getErrorSafe")(e)),
-                          []
-                        );
-                      }),
-                  };
-                },
-              );
-              return function (e) {
-                return a.apply(this, arguments);
-              };
-            })(),
-            c,
-          );
-          return a.filter(function (e) {
-            var t = e.polls;
-            return t.length > 0;
-          });
-        })),
-        S.apply(this, arguments)
+    async function v(e, t) {
+      var n = await o("WAConcurrentIterate").concurrentIterate(
+        e.length,
+        async function (n) {
+          return {
+            chat: e[n],
+            polls: await o("WAWebContactsAndGroupsDBGroupPolls")
+              .getGroupPollsSince(e[n].id, t)
+              .catch(function (e) {
+                return (
+                  o("WALogger")
+                    .WARN(
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose([
+                          "loadGroupPolls: reading the polls of a group failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(e)),
+                  []
+                );
+              }),
+          };
+        },
+        c,
       );
+      return n.filter(function (e) {
+        var t = e.polls;
+        return t.length > 0;
+      });
     }
     ((l.groupPollsChanges = p),
       (l.getCachedGroupPolls = _),

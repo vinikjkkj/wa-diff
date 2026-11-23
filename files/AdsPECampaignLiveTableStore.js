@@ -38,7 +38,13 @@ __d(
           : (u = n("AdsPECampaignLiveTableStoreRELAYCampaignFragment.graphql")),
       _ = (function (e) {
         function t() {
-          return e.apply(this, arguments) || this;
+          return (
+            e.call(this, function (e) {
+              return function (n, r) {
+                e(n, r);
+              };
+            }) || this
+          );
         }
         babelHelpers.inheritsLoose(t, e);
         var n = t.prototype;

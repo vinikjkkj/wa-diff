@@ -6,12 +6,12 @@ __d(
       var t;
       return (
         e < o("WAWebAck").ACK.SENT
-          ? (t = s._(/*BTDS*/ "Pending"))
+          ? (t = s._(/*BTDS*/ ""))
           : e === o("WAWebAck").ACK.SENT
-            ? (t = s._(/*BTDS*/ "Sent"))
+            ? (t = s._(/*BTDS*/ ""))
             : e === o("WAWebAck").ACK.RECEIVED
-              ? (t = s._(/*BTDS*/ "Delivered"))
-              : (t = s._(/*BTDS*/ "Read")),
+              ? (t = s._(/*BTDS*/ ""))
+              : (t = s._(/*BTDS*/ "")),
         t
       );
     }

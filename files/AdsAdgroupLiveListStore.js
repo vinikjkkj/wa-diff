@@ -61,10 +61,10 @@ __d(
               .AdsAdgroupLiveListDataManager;
           }),
           (n.getForCampaign = function (t, n) {
-            return this.getForCampaigns(t, [n]).get(n);
+            return (this.getForCampaigns(t, [n]), this.getCachedFor(n));
           }),
           (n.getForCampaignGroup = function (t, n) {
-            return this.getForCampaignGroups(t, [n]).get(n);
+            return (this.getForCampaignGroups(t, [n]), this.getCachedFor(n));
           }),
           (n.getForAccount = function (t) {
             var e = this.__updateLoadingFor([t]);

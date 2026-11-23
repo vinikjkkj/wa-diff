@@ -23,45 +23,23 @@ __d(
           o("WAWebGroupType").GroupSettingChangeSystemMessageToggleEnabled.On;
       return a
         ? o("WAWebUserUtils").isMeAccount(e)
-          ? s._(
-              /*BTDS*/ "You changed this group's setting to allow all members to add others to this group. Click to change.",
-            )
+          ? s._(/*BTDS*/ "")
           : t
-            ? s._(
-                /*BTDS*/ "{author} changed this group's setting to allow all members to add others to this group. Click to change.",
-                [s._param("author", r)],
-              )
+            ? s._(/*BTDS*/ "", [s._param("author", r)])
             : (o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled() &&
-                s._(
-                  /*BTDS*/ "{author} changed this group's setting to allow all members to add others to this group.",
-                  [s._param("author", r)],
-                )) ||
-              s._(
-                /*BTDS*/ "{author} changed this group's setting to allow all members to add others to this group",
-                [s._param("author", r)],
-              )
+                s._(/*BTDS*/ "", [s._param("author", r)])) ||
+              s._(/*BTDS*/ "", [s._param("author", r)])
         : o("WAWebUserUtils").isMeAccount(e)
-          ? s._(
-              /*BTDS*/ "You changed this group's setting to allow only admins to add others to this group. Click to change.",
-            )
+          ? s._(/*BTDS*/ "")
           : t
-            ? s._(
-                /*BTDS*/ "{author} changed this group's setting to allow only admins to add others to this group. Click to change.",
-                [s._param("author", r)],
-              )
+            ? s._(/*BTDS*/ "", [s._param("author", r)])
             : (o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled() &&
-                s._(
-                  /*BTDS*/ "{author} changed this group's setting to allow only admins to add others to this group.",
-                  [s._param("author", r)],
-                )) ||
-              s._(
-                /*BTDS*/ "{author} changed this group's setting to allow only admins to add others to this group",
-                [s._param("author", r)],
-              );
+                s._(/*BTDS*/ "", [s._param("author", r)])) ||
+              s._(/*BTDS*/ "", [s._param("author", r)]);
     }
     l.default = e;
   },

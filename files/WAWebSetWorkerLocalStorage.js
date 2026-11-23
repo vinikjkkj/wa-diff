@@ -9,48 +9,31 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebUserUtils",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = "push-offline-resume-treatment",
       u = "treatment-v1";
-    function c() {
-      return d.apply(this, arguments);
+    async function c() {
+      var e = _(o("WAWebUserUtils").getMeDisplayNameOrThrow),
+        t = e.itemsToWrite;
+      await o("WAWebApiLocalStorage").updateLocalStorage(t, [s]);
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = g(o("WAWebUserUtils").getMeDisplayNameOrThrow),
-            t = e.itemsToWrite;
-          yield o("WAWebApiLocalStorage").updateLocalStorage(t, [s]);
-        })),
-        d.apply(this, arguments)
-      );
+    async function d(e) {
+      e === void 0 && (e = !1);
+      var t = _(o("WAWebUserPrefsMeUser").getMaybeMeDisplayName),
+        n = t.itemsToWrite,
+        r = t.keysToRemove;
+      (e && n.push({ key: s, value: u }),
+        await o("WAWebApiLocalStorage").applyLocalStorageChanges(n, r));
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e === void 0 && (e = !1);
-          var t = g(o("WAWebUserPrefsMeUser").getMaybeMeDisplayName),
-            n = t.itemsToWrite,
-            r = t.keysToRemove;
-          (e && n.push({ key: s, value: u }),
-            yield o("WAWebApiLocalStorage").applyLocalStorageChanges(n, r));
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _() {
+    function m() {
       return o("WAWebApiLocalStorage").clearLocalStorage();
     }
-    function f() {
+    function p() {
       return o("WAWebApiLocalStorage").applyLocalStorageChanges([], [s]);
     }
-    function g(t) {
+    function _(t) {
       var n = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
         a = [{ key: "lidDeviceJid", value: n.toString() }],
         i = [],
@@ -87,9 +70,9 @@ __d(
       );
     }
     ((l.setWorkerLocalStorage = c),
-      (l.setWorkerLocalStorageForOfflineResume = m),
-      (l.clearWorkerLocalStorage = _),
-      (l.clearWorkerPushOfflineResumeTreatment = f));
+      (l.setWorkerLocalStorageForOfflineResume = d),
+      (l.clearWorkerLocalStorage = m),
+      (l.clearWorkerPushOfflineResumeTreatment = p));
   },
   98,
 );

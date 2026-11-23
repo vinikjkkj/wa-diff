@@ -7,127 +7,82 @@ __d(
     "WAWebOrgOrder",
     "WAWebSchemaOrg",
     "WAWebUsernameTypes",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    async function s(e) {
+      var t = await o("WAWebOrgAdminGraphQL").loadOrgAdminDirectory(e, null);
+      if (t.status === "roster_too_large") return t;
+      var n = t.memberCount,
+        a = t.members,
+        i = t.memberUpdatedTsUsec,
+        l = a.flatMap(function (t) {
+          return _(e, t);
+        });
+      if (l.length !== a.length) throw r("err")("INCOMPLETE_DIRECTORY");
+      var s = await o("WAWebDBOrg").replaceCompleteOrgRoster(e, l, n, !0, i),
+        u = s.org,
+        c = s.rows;
+      return {
+        lids: l.map(function (e) {
+          return e.lid;
+        }),
+        memberCount: n,
+        org: u,
+        rows: c,
+        status: "success",
+      };
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebOrgAdminGraphQL").loadOrgAdminDirectory(
-            e,
-            null,
-          );
-          if (t.status === "roster_too_large") return t;
-          var n = t.memberCount,
-            a = t.members,
-            i = t.memberUpdatedTsUsec,
-            l = a.flatMap(function (t) {
-              return y(e, t);
-            });
-          if (l.length !== a.length) throw r("err")("INCOMPLETE_DIRECTORY");
-          var s = yield o("WAWebDBOrg").replaceCompleteOrgRoster(
-              e,
-              l,
-              n,
-              !0,
-              i,
-            ),
-            u = s.org,
-            c = s.rows;
-          return {
-            lids: l.map(function (e) {
-              return e.lid;
-            }),
-            memberCount: n,
-            org: u,
-            rows: c,
-            status: "success",
-          };
-        })),
-        u.apply(this, arguments)
-      );
+    var u = new Set();
+    function c() {
+      u = new Set();
     }
-    var c = new Set();
-    function d() {
-      c = new Set();
+    async function d(e) {
+      var t = (await o("WAWebDBOrg").getOrgs()).find(function (t) {
+          return t.orgId === e;
+        }),
+        n = t != null ? t : {},
+        r = n.directoryIsComplete,
+        a = n.memberListTsUsec,
+        i = n.memberUpdatedTsUsec;
+      if (
+        r !== !0 ||
+        a == null ||
+        i == null ||
+        o("WAWebOrgOrder").compareUnsignedDecimalStrings(a, i) < 0
+      )
+        return !1;
+      if (u.has(e)) return !0;
+      var l = (await o("WAWebDBOrg").getOrgContacts(e)).every(function (e) {
+        return e.firstName != null;
+      });
+      return (l && u.add(e), l);
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    async function m(e) {
+      var t = (await o("WAWebDBOrg").getOrgContacts(e)).map(function (e) {
+        return e.lid;
+      });
+      return { lids: t, rows: await o("WAWebDBOrg").getOrgContactsByLids(t) };
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = (yield o("WAWebDBOrg").getOrgs()).find(function (t) {
-              return t.orgId === e;
-            }),
-            n = t != null ? t : {},
-            r = n.directoryIsComplete,
-            a = n.memberListTsUsec,
-            i = n.memberUpdatedTsUsec;
-          if (
-            r !== !0 ||
-            a == null ||
-            i == null ||
-            o("WAWebOrgOrder").compareUnsignedDecimalStrings(a, i) < 0
-          )
-            return !1;
-          if (c.has(e)) return !0;
-          var l = (yield o("WAWebDBOrg").getOrgContacts(e)).every(function (e) {
-            return e.firstName != null;
-          });
-          return (l && c.add(e), l);
-        })),
-        p.apply(this, arguments)
-      );
+    async function p(e, t) {
+      var n = await o("WAWebOrgAdminGraphQL").loadOrgAdminMemberSearchPage(
+          e,
+          t,
+          null,
+          null,
+        ),
+        r = n.members.flatMap(function (t) {
+          return _(e, t);
+        });
+      return {
+        lids: r.map(function (e) {
+          return e.lid;
+        }),
+        rows: await o("WAWebDBOrg").mergeOrgContacts(r),
+      };
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = (yield o("WAWebDBOrg").getOrgContacts(e)).map(function (e) {
-            return e.lid;
-          });
-          return {
-            lids: t,
-            rows: yield o("WAWebDBOrg").getOrgContactsByLids(t),
-          };
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebOrgAdminGraphQL").loadOrgAdminMemberSearchPage(
-              e,
-              t,
-              null,
-              null,
-            ),
-            r = n.members.flatMap(function (t) {
-              return y(e, t);
-            });
-          return {
-            lids: r.map(function (e) {
-              return e.lid;
-            }),
-            rows: yield o("WAWebDBOrg").mergeOrgContacts(r),
-          };
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(t, n) {
+    function _(t, n) {
       var r,
         a = o("WAWebSchemaOrg").OrgMemberRole.cast(n.role);
       if (a == null)
@@ -164,11 +119,11 @@ __d(
       );
     }
     ((l.syncOrgDirectory = s),
-      (l.resetStoredOrgDirectoryChecks = d),
-      (l.isStoredOrgDirectoryFresh = m),
-      (l.loadStoredOrgDirectory = _),
-      (l.searchOrgDirectory = g),
-      (l.toOrgContactRow = y));
+      (l.resetStoredOrgDirectoryChecks = c),
+      (l.isStoredOrgDirectoryFresh = d),
+      (l.loadStoredOrgDirectory = m),
+      (l.searchOrgDirectory = p),
+      (l.toOrgContactRow = _));
   },
   98,
 );

@@ -3,7 +3,7 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e = s._(/*BTDS*/ "Get help for app install ads");
+    var e = s._(/*BTDS*/ "");
     l.GET_HELP_FOR_APP_INSTALL_ADS = e;
   },
   226,

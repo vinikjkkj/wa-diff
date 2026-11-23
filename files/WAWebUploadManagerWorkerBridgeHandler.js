@@ -8,70 +8,58 @@ __d(
     "WAWebNoop",
     "WAWebUploadManagerWorkerHandler",
     "WAWebWorkerQplProxy",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["mediaId", "serializedUploadQpl", "uploadId"];
-    function s(t, a, i) {
-      var l = new Map();
+    function s(t, n, a) {
+      var i = new Map();
+      async function l(l) {
+        var s = l.mediaId,
+          u = l.serializedUploadQpl,
+          d = l.uploadId,
+          m = babelHelpers.objectWithoutPropertiesLoose(l, e),
+          p = new AbortController();
+        i.set(d, p);
+        var _ = c(t, d, s),
+          f = o("WAWebWorkerQplProxy").createWorkerQplProxy(u),
+          g = {
+            start: function (n) {
+              t.fireAndForget("mainthread_appTracker", "start", { type: n });
+            },
+            stop: function (n) {
+              t.fireAndForget("mainthread_appTracker", "stop", { type: n });
+            },
+          },
+          h = o(
+            "WAWebMmsClientUsingDependencies",
+          ).createPartialMmsClientUsingDependencies({
+            mediaHosts: n,
+            networkStatus: a,
+          }),
+          y = new (o(
+            "WAWebUploadManagerWorkerHandler",
+          ).UploadManagerWorkerHandler)({
+            appTracker: g,
+            mmsClient: h,
+            encryptMedia: o("WAWebCryptoEncryptMediaLocal").encryptMediaLocal,
+            encryptMediaFromBlob: r("WAWebCryptoEncryptMediaFromBlob"),
+          }),
+          C = babelHelpers.extends({}, m, {
+            fileOrigin: null,
+            signal: p.signal,
+            uploadQpl: f,
+          });
+        try {
+          return await y.encryptAndUpload(C, _);
+        } finally {
+          i.delete(d);
+        }
+      }
       function s(e) {
-        return u.apply(this, arguments);
-      }
-      function u() {
-        return (
-          (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
-            var s = n.mediaId,
-              u = n.serializedUploadQpl,
-              d = n.uploadId,
-              m = babelHelpers.objectWithoutPropertiesLoose(n, e),
-              p = new AbortController();
-            l.set(d, p);
-            var _ = c(t, d, s),
-              f = o("WAWebWorkerQplProxy").createWorkerQplProxy(u),
-              g = {
-                start: function (n) {
-                  t.fireAndForget("mainthread_appTracker", "start", {
-                    type: n,
-                  });
-                },
-                stop: function (n) {
-                  t.fireAndForget("mainthread_appTracker", "stop", { type: n });
-                },
-              },
-              h = o(
-                "WAWebMmsClientUsingDependencies",
-              ).createPartialMmsClientUsingDependencies({
-                mediaHosts: a,
-                networkStatus: i,
-              }),
-              y = new (o(
-                "WAWebUploadManagerWorkerHandler",
-              ).UploadManagerWorkerHandler)({
-                appTracker: g,
-                mmsClient: h,
-                encryptMedia: o("WAWebCryptoEncryptMediaLocal")
-                  .encryptMediaLocal,
-                encryptMediaFromBlob: r("WAWebCryptoEncryptMediaFromBlob"),
-              }),
-              C = babelHelpers.extends({}, m, {
-                fileOrigin: null,
-                signal: p.signal,
-                uploadQpl: f,
-              });
-            try {
-              return yield y.encryptAndUpload(C, _);
-            } finally {
-              l.delete(d);
-            }
-          })),
-          u.apply(this, arguments)
-        );
-      }
-      function d(e) {
         var t;
-        (t = l.get(e)) == null || t.abort();
+        (t = i.get(e)) == null || t.abort();
       }
-      return { encryptAndUpload: s, abortUpload: d };
+      return { encryptAndUpload: l, abortUpload: s };
     }
     function u(e) {
       return o("WAWebDeserializeBridgedError").serializeBridgedError(e);

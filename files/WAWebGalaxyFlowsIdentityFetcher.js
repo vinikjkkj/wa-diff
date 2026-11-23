@@ -1,123 +1,98 @@
 __d(
   "WAWebGalaxyFlowsIdentityFetcher",
-  ["Promise", "WAWebGetIdentityKeysJob", "asyncToGeneratorRuntime", "err"],
+  ["WAWebGetIdentityKeysJob", "err"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = 3e4,
-      u = 3,
-      c = 1e4,
-      d = (function () {
+    var e = 3e4,
+      s = 3,
+      u = 1e4,
+      c = (function () {
         function t() {
-          var e = this;
+          var t = this;
           ((this.$2 = new Map()),
             (this.$3 = null),
             (this.$1 = new Map()),
             (this.$3 = window.setInterval(function () {
-              e.$4();
-            }, 2 * s)));
+              t.$4();
+            }, 2 * e)));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.fetchIdentitiesFor = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = e
-                    .map(function (e) {
-                      return e.toString();
-                    })
-                    .sort()
-                    .join(","),
-                  r = this.$1.get(n);
-                if (r == null) {
-                  (this.$1.set(n, [t]), this.$2.set(n, Date.now()));
-                  try {
-                    yield this.$5(e);
-                  } catch (e) {
-                    throw e;
-                  } finally {
-                    var o = this.$1.get(n);
-                    (this.$1.delete(n),
-                      this.$2.delete(n),
-                      o != null &&
-                        o.forEach(function (e) {
-                          return e.onComplete();
-                        }));
-                  }
-                } else r.push(t);
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$5 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, r) {
-                r === void 0 && (r = 0);
-                try {
-                  yield this.$6(t);
-                } catch (a) {
-                  if (r < u) {
-                    var o = Math.min(1e3 * Math.pow(2, r), c);
-                    return (
-                      yield new (e || (e = n("Promise")))(function (e) {
-                        return window.setTimeout(e, o);
-                      }),
-                      this.$5(t, r + 1)
-                    );
-                  }
-                  throw a;
-                }
-              },
-            );
-            function r(e, n) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (a.$6 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var a = 0,
-                  i = new (e || (e = n("Promise")))(function (e, t) {
-                    a = window.setTimeout(function () {
-                      return t(r("err")("Timeout"));
-                    }, s);
+          (n.fetchIdentitiesFor = async function (t, n) {
+            var e = t
+                .map(function (e) {
+                  return e.toString();
+                })
+                .sort()
+                .join(","),
+              r = this.$1.get(e);
+            if (r == null) {
+              (this.$1.set(e, [n]), this.$2.set(e, Date.now()));
+              try {
+                await this.$5(t);
+              } catch (e) {
+                throw e;
+              } finally {
+                var o = this.$1.get(e);
+                (this.$1.delete(e),
+                  this.$2.delete(e),
+                  o != null &&
+                    o.forEach(function (e) {
+                      return e.onComplete();
+                    }));
+              }
+            } else r.push(n);
+          }),
+          (n.$5 = async function (t, n) {
+            n === void 0 && (n = 0);
+            try {
+              await this.$6(t);
+            } catch (r) {
+              if (n < s) {
+                var e = Math.min(1e3 * Math.pow(2, n), u);
+                return (
+                  await new Promise(function (t) {
+                    return window.setTimeout(t, e);
                   }),
-                  l = o("WAWebGetIdentityKeysJob").getAndStoreIdentityKeys(
-                    Array.from(t),
-                  );
-                try {
-                  yield (e || (e = n("Promise"))).race([l, i]);
-                } finally {
-                  window.clearTimeout(a);
-                }
-              },
-            );
-            function a(e) {
-              return t.apply(this, arguments);
+                  this.$5(t, n + 1)
+                );
+              }
+              throw r;
             }
-            return a;
-          })()),
-          (a.$4 = function () {
-            var e = this,
-              t = Date.now(),
-              n = [];
-            for (var r of this.$2.entries()) {
-              var o = r[0],
-                a = r[1];
-              t - a > s * 2 && n.push(o);
+          }),
+          (n.$6 = async function (n) {
+            var t = 0,
+              a = new Promise(function (n, o) {
+                t = window.setTimeout(function () {
+                  return o(r("err")("Timeout"));
+                }, e);
+              }),
+              i = o("WAWebGetIdentityKeysJob").getAndStoreIdentityKeys(
+                Array.from(n),
+              );
+            try {
+              await Promise.race([i, a]);
+            } finally {
+              window.clearTimeout(t);
             }
-            n.forEach(function (t) {
-              (e.$1.delete(t), e.$2.delete(t));
+          }),
+          (n.$4 = function () {
+            var t = this,
+              n = Date.now(),
+              r = [];
+            for (var o of this.$2.entries()) {
+              var a = o[0],
+                i = o[1];
+              n - i > e * 2 && r.push(a);
+            }
+            r.forEach(function (e) {
+              (t.$1.delete(e), t.$2.delete(e));
             });
           }),
           t
         );
       })(),
-      m = new d();
-    l.GalaxyFlowsIdentityFetcher = m;
+      d = new c();
+    l.GalaxyFlowsIdentityFetcher = d;
   },
   98,
 );

@@ -4,54 +4,20 @@ __d(
     "WALogger",
     "WAWebKeyboardHotKeys.react",
     "WAWebMexRelayEnvironment",
-    "asyncToGeneratorRuntime",
     "graphiql",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = s || (s = o("react"));
-    function c(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.onClose,
-        r = d,
-        a;
-      t[0] !== n ? ((a = { escape: n }), (t[0] = n), (t[1] = a)) : (a = t[1]);
-      var i;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = u.jsx("div", {
-            className:
-              "xtsfpqs xixxii4 x13vifvy x1o0tod x9f619 xh8yej3 x5yr21d",
-            children: u.jsx(o("graphiql").GraphiQL, { fetcher: r }),
-          })),
-          (t[2] = i))
-        : (i = t[2]);
-      var l;
-      return (
-        t[3] !== a
-          ? ((l = u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
-              handlers: a,
-              children: i,
-            })),
-            (t[3] = a),
-            (t[4] = l))
-          : (l = t[4]),
-        l
-      );
-    }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+    function c(t) {
+      var n = t.onClose,
+        r = async function (n) {
           try {
-            var n = yield o("WAWebMexRelayEnvironment").sendMexIq(t);
-            return n.result != null ? JSON.parse(n.result) : { iqError: n };
+            var t = await o("WAWebMexRelayEnvironment").sendMexIq(n);
+            return t.result != null ? JSON.parse(t.result) : { iqError: t };
           } catch (t) {
-            var r = t;
             o("WALogger")
               .ERROR(
                 e ||
@@ -61,11 +27,16 @@ __d(
               )
               .tags("GQL", "MEX");
           }
-        })),
-        m.apply(this, arguments)
-      );
+        };
+      return u.jsx(o("WAWebKeyboardHotKeys.react").HotKeys, {
+        handlers: { escape: n },
+        children: u.jsx("div", {
+          className: "xtsfpqs xixxii4 x13vifvy x1o0tod x9f619 xh8yej3 x5yr21d",
+          children: u.jsx(o("graphiql").GraphiQL, { fetcher: r }),
+        }),
+      });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

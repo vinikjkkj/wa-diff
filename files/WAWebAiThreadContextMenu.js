@@ -27,10 +27,7 @@ __d(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: o("WAWebModalManager").closeModalManager,
           okText: r("WAWebFbtCommon")("OK"),
-          children: s._(
-            /*BTDS*/ '_j{"*":"You can only pin up to {number} chats.","_1":"You can only pin up to 1 chat."}',
-            [s._plural(e, "number")],
-          ),
+          children: s._(/*BTDS*/ "", [s._plural(e, "number")]),
         }),
       );
     }
@@ -53,9 +50,7 @@ __d(
               icon: n
                 ? u.jsx(r("WDSIconWdsIcPushPinSlash.react"), {})
                 : u.jsx(r("WDSIconIcPushPin.react"), {}),
-              children: n
-                ? s._(/*BTDS*/ "Unpin chat")
-                : s._(/*BTDS*/ "Pin chat"),
+              children: n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
             },
             "pin",
           )
@@ -102,7 +97,7 @@ __d(
                   height: 24,
                   width: 24,
                 }),
-                children: s._(/*BTDS*/ "Rename chat"),
+                children: s._(/*BTDS*/ ""),
               },
               "rename",
             ),
@@ -115,7 +110,7 @@ __d(
               testid: "mi-delete-thread",
               action: c,
               icon: u.jsx(r("WDSIconIcDelete.react"), {}),
-              children: s._(/*BTDS*/ "Delete"),
+              children: s._(/*BTDS*/ ""),
             },
             "delete",
           ),

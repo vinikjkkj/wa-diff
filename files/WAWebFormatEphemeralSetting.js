@@ -60,7 +60,7 @@ __d(
         i = o.text;
       return a == null
         ? i
-        : s._(/*BTDS*/ "{ddm-body} {ddm-action}", [
+        : s._(/*BTDS*/ "", [
             s._param("ddm-body", i),
             s._param("ddm-action", a),
           ]);
@@ -73,7 +73,7 @@ __d(
         a = L(r),
         i = _({ initiatorIsMe: t });
       return {
-        text: s._(/*BTDS*/ "{ddm-event} {ddm-explanation}", [
+        text: s._(/*BTDS*/ "", [
           s._param("ddm-event", o),
           s._param("ddm-explanation", a),
         ]),
@@ -84,27 +84,20 @@ __d(
       var t = e.initiatorIsMe,
         n = e.initiatorUsername;
       return t
-        ? s._(
-            /*BTDS*/ "You use a default timer for disappearing messages in new chats.",
-          )
+        ? s._(/*BTDS*/ "")
         : n != null
-          ? s._(
-              /*BTDS*/ "{name} uses a default timer for disappearing messages in new chats.",
-              [s._param("name", n)],
-            )
-          : s._(
-              /*BTDS*/ "A default timer for disappearing messages is used in new chats.",
-            );
+          ? s._(/*BTDS*/ "", [s._param("name", n)])
+          : s._(/*BTDS*/ "");
     }
     function _(e) {
       var t = e.initiatorIsMe;
       return o("WAWebAfterReadUtils").isAfterReadEnabled()
         ? t
-          ? s._(/*BTDS*/ "Change timer.")
-          : s._(/*BTDS*/ "Set your own default timer.")
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "")
         : t
-          ? s._(/*BTDS*/ "Click to change your default timer.")
-          : s._(/*BTDS*/ "Click to set your own default timer.");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     function f(e) {
       return k(o("WAWebStateUtils").unproxy(e.unsafe()));
@@ -132,7 +125,7 @@ __d(
         ).getDisappearingMessageExplanationStringKic(a),
         f = _({ initiatorIsMe: i });
       return {
-        text: s._(/*BTDS*/ "{ddm-event} {ddm-explanation}", [
+        text: s._(/*BTDS*/ "", [
           s._param("ddm-event", c),
           s._param("ddm-explanation", d),
         ]),
@@ -213,27 +206,21 @@ __d(
         r = e.state;
       return t
         ? r === "update"
-          ? s._(/*BTDS*/ "You updated the message timer.")
+          ? s._(/*BTDS*/ "")
           : r === "on"
-            ? s._(/*BTDS*/ "You turned on disappearing messages.")
-            : s._(/*BTDS*/ "You turned off disappearing messages.")
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
         : n != null
           ? r === "update"
-            ? s._(/*BTDS*/ "{name} updated the message timer.", [
-                s._param("name", n),
-              ])
+            ? s._(/*BTDS*/ "", [s._param("name", n)])
             : r === "on"
-              ? s._(/*BTDS*/ "{name} turned on disappearing messages.", [
-                  s._param("name", n),
-                ])
-              : s._(/*BTDS*/ "{name} turned off disappearing messages.", [
-                  s._param("name", n),
-                ])
+              ? s._(/*BTDS*/ "", [s._param("name", n)])
+              : s._(/*BTDS*/ "", [s._param("name", n)])
           : r === "update"
-            ? s._(/*BTDS*/ "The message timer was updated.")
+            ? s._(/*BTDS*/ "")
             : r === "on"
-              ? s._(/*BTDS*/ "Disappearing messages were turned on.")
-              : s._(/*BTDS*/ "Disappearing messages were turned off.");
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "");
     }
     function R(t) {
       var n = o("WAWebEphemeralConstants").getDurationForString(t),
@@ -241,21 +228,13 @@ __d(
         a = n.unit;
       switch (a) {
         case o("WAWebEphemeralConstants").DurationUnit.Seconds:
-          return s._(/*BTDS*/ '_j{"*":"{duration} seconds","_1":"1 second"}', [
-            s._plural(r, "duration"),
-          ]);
+          return s._(/*BTDS*/ "", [s._plural(r, "duration")]);
         case o("WAWebEphemeralConstants").DurationUnit.Minutes:
-          return s._(/*BTDS*/ '_j{"*":"{duration} minutes","_1":"1 minute"}', [
-            s._plural(r, "duration"),
-          ]);
+          return s._(/*BTDS*/ "", [s._plural(r, "duration")]);
         case o("WAWebEphemeralConstants").DurationUnit.Hours:
-          return s._(/*BTDS*/ '_j{"*":"{duration} hours","_1":"1 hour"}', [
-            s._plural(r, "duration"),
-          ]);
+          return s._(/*BTDS*/ "", [s._plural(r, "duration")]);
         case o("WAWebEphemeralConstants").DurationUnit.Days:
-          return s._(/*BTDS*/ '_j{"*":"{duration} days","_1":"1 day"}', [
-            s._plural(r, "duration"),
-          ]);
+          return s._(/*BTDS*/ "", [s._plural(r, "duration")]);
         case o("WAWebEphemeralConstants").DurationUnit.Weeks:
           return (
             o("WALogger").ERROR(
@@ -264,31 +243,20 @@ __d(
                   "[getDisappearingMessageDurationString] weeks unsupported",
                 ])),
             ),
-            s._(/*BTDS*/ '_j{"*":"{duration} weeks","_1":"1 week"}', [
-              s._plural(r, "duration"),
-            ])
+            s._(/*BTDS*/ "", [s._plural(r, "duration")])
           );
       }
     }
     function L(e) {
       var t = R(e);
-      return s._(
-        /*BTDS*/ "New messages will disappear from this chat {dm-duration} after they're read, except when kept.",
-        [s._param("dm-duration", t)],
-      );
+      return s._(/*BTDS*/ "", [s._param("dm-duration", t)]);
     }
     function E(e) {
       var t = R(e);
       return o("WAWebAfterReadUtils").isAfterReadDuration(e) &&
         o("WAWebAfterReadUtils").isAfterReadEnabled()
-        ? s._(
-            /*BTDS*/ "New messages in this chat will disappear {dm-duration} after they're read, except when kept.",
-            [s._param("dm-duration", t)],
-          )
-        : s._(
-            /*BTDS*/ "New messages will disappear from this chat {dm-duration} after they're sent, except when kept.",
-            [s._param("dm-duration", t)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("dm-duration", t)])
+        : s._(/*BTDS*/ "", [s._param("dm-duration", t)]);
     }
     function k(e) {
       var t = I(e),
@@ -296,7 +264,7 @@ __d(
         r = t.text;
       return n == null
         ? r
-        : s._(/*BTDS*/ "{dm-sm-body} {dm-sm-action}", [
+        : s._(/*BTDS*/ "", [
             s._param("dm-sm-body", r),
             s._param("dm-sm-action", n),
           ]);
@@ -368,12 +336,8 @@ __d(
       });
     }
     function T(e) {
-      var t = s._(
-          /*BTDS*/ "Disappearing messages are no longer supported with this business.",
-        ),
-        n = s._(
-          /*BTDS*/ "Disappearing messages are no longer supported with your business.",
-        );
+      var t = s._(/*BTDS*/ ""),
+        n = s._(/*BTDS*/ "");
       return e ? n : t;
     }
     function D(e) {
@@ -384,21 +348,21 @@ __d(
         i = e.userCanChange,
         l = S({ initiatorUsername: n, initiatorIsMe: t, state: a }),
         u = o("WAWebAfterReadUtils").isAfterReadEnabled()
-          ? s._(/*BTDS*/ "Change timer.")
-          : s._(/*BTDS*/ "Click to change.");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
       if (!r)
         return i !== !0 ? { text: l, ctaText: null } : { text: l, ctaText: u };
       var c = E(r);
       return i !== !0
         ? {
-            text: s._(/*BTDS*/ "{dm-sm-event} {dm-sm-explanation}", [
+            text: s._(/*BTDS*/ "", [
               s._param("dm-sm-event", l),
               s._param("dm-sm-explanation", c),
             ]),
             ctaText: null,
           }
         : {
-            text: s._(/*BTDS*/ "{dm-sm-event} {dm-sm-explanation}", [
+            text: s._(/*BTDS*/ "", [
               s._param("dm-sm-event", l),
               s._param("dm-sm-explanation", c),
             ]),
@@ -411,19 +375,13 @@ __d(
         r = t.text;
       return n == null
         ? r
-        : s._(/*BTDS*/ "{dm-sm-body} {dm-sm-action}", [
+        : s._(/*BTDS*/ "", [
             s._param("dm-sm-body", r),
             s._param("dm-sm-action", n),
           ]);
     }
     function $() {
-      return r("justknobx")._("8068")
-        ? s._(
-            /*BTDS*/ "Disappearing messages aren't supported in this chat. Your messages won't disappear.",
-          )
-        : s._(
-            /*BTDS*/ "Disappearing messages are not supported in this chat. Your messages will not disappear.",
-          );
+      return r("justknobx")._("8068") ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     ((l.getDefaultDisappearingModeSystemMessageText = c),
       (l.buildDefaultDisappearingModeARSystemMessage = d),

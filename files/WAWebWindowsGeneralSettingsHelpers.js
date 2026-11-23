@@ -3,29 +3,18 @@ __d(
   ["fbt", "WAWebSettingsConst"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "General");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Startup and close");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Minimize to system tray");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Start WhatsApp at login");
+      return s._(/*BTDS*/ "");
     }
-    function m() {
-      return s._(/*BTDS*/ "Language");
-    }
-    function p() {
-      return s._(/*BTDS*/ "Font size");
-    }
-    function _() {
-      return s._(
-        /*BTDS*/ "Keep WhatsApp running after closing the application window",
-      );
-    }
-    var f = {
+    var m = {
         step: o("WAWebSettingsConst").SettingsSteps.WinGeneralSettings,
         id: "win_general_settings",
         isAvailable: !0,
@@ -34,23 +23,20 @@ __d(
         secondaryTitle: u,
         testid: "li-general-settings",
       },
-      g = {
+      p = {
         step: o("WAWebSettingsConst").SettingsSteps.WinGeneralSettings,
         id: "system_tray_setting",
         isAvailable: !0,
-        searchCriteria: [String(c()), String(_())].join(" ").toLowerCase(),
+        searchCriteria: [String(c()), String(d())].join(" ").toLowerCase(),
         title: c,
         testid: "li-system-tray-setting",
       };
     ((l.getGeneralSettingsTitle = e),
       (l.getStartupAndCloseSectionTitle = u),
       (l.getSystemTraySettingsTitle = c),
-      (l.getStartAtSettingsTitle = d),
-      (l.getLanguageSectionSettingsTitle = m),
-      (l.getFontSizeSectionSettingsTitle = p),
-      (l.getSystemTraySettingsHintText = _),
-      (l.GeneralSettingsItem = f),
-      (l.SystemTraySettingsItem = g));
+      (l.getSystemTraySettingsHintText = d),
+      (l.GeneralSettingsItem = m),
+      (l.SystemTraySettingsItem = p));
   },
   226,
 );

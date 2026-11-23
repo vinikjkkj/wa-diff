@@ -1,6 +1,6 @@
 __d(
   "AdsDLOConstantUtils",
-  ["AdsAPIObjectives", "AdsUIMediaFormat"],
+  ["AdsAPIObjectives"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -21,32 +21,21 @@ __d(
         "MESSENGER_MOBILE_STORY_MEDIA",
       ];
     function c(e) {
-      switch (e) {
-        case r("AdsUIMediaFormat").SINGLE_IMAGE:
-        case r("AdsUIMediaFormat").SINGLE_VIDEO:
-        case r("AdsUIMediaFormat").SLIDESHOW:
-          return !0;
-        default:
-          return !1;
-      }
-    }
-    function d(e) {
       return e != null ? "ads_dlo_" + e : "ads_dlo";
     }
-    function m(e) {
+    function d(e) {
       return s.includes(e);
     }
-    function p(e) {
+    function m(e) {
       return u.includes(e);
     }
-    function _(e) {
+    function p(e) {
       return e + "TranslationConfidence";
     }
-    ((l.isSupportedUIMediaFormat = c),
-      (l.getSlideshowEntrypoint = d),
-      (l.isSupportedOptionalLinksObjective = m),
-      (l.isSupportedAutotranslatedPreviewFormat = p),
-      (l.getTranslatedConfidenceFieldName = _));
+    ((l.getSlideshowEntrypoint = c),
+      (l.isSupportedOptionalLinksObjective = d),
+      (l.isSupportedAutotranslatedPreviewFormat = m),
+      (l.getTranslatedConfidenceFieldName = p));
   },
   98,
 );

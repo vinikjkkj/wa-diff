@@ -1,7 +1,6 @@
 __d(
   "WAWebCoexV2RelayEligibility",
   [
-    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebAeaRollout",
@@ -19,73 +18,64 @@ __d(
     "WAWebSignalSessionApi",
     "WAWebSimpleSignalDowngradeStore",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
     "cr:17538",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m;
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chatId,
-            n = e.stanzaTo;
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "web_coex_simple_signal_enabled",
-            ) !== 1 ||
-            !t.isUser() ||
-            !n.isUser() ||
-            o(
-              "WAWebSimpleSignalDowngradeStore",
-            ).isCoexUserDowngradedFromSimpleSignal(t)
-          )
-            return null;
-          try {
-            var a,
-              i =
-                (a = yield o(
-                  "WAWebApiVerifiedBusinessName",
-                ).getVerifiedBusinessNameRecordLidAware(t)) == null
-                  ? void 0
-                  : a.privacyMode;
-            if (i == null) return null;
-            var l = o(
+    var e, s, u, c, d;
+    async function m(t) {
+      var n = t.chatId,
+        a = t.stanzaTo;
+      if (
+        o("WAWebABProps").getABPropConfigValue(
+          "web_coex_simple_signal_enabled",
+        ) !== 1 ||
+        !n.isUser() ||
+        !a.isUser() ||
+        o(
+          "WAWebSimpleSignalDowngradeStore",
+        ).isCoexUserDowngradedFromSimpleSignal(n)
+      )
+        return null;
+      try {
+        var i,
+          l =
+            (i = await o(
               "WAWebApiVerifiedBusinessName",
-            ).convertPrivacyModeFromStorageType(i);
-            return l == null ||
-              l.hostStorage !==
-                o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook
-              ? null
-              : {
-                  privacyMode: l,
-                  stanzaTo: n,
-                  statelessSessionEnabled: o(
-                    "WAWebMessagingGatingUtils",
-                  ).isSimpleSignalEnabled(),
-                };
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] simple signal: failed to read peer privacy mode",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("coexv2-simple-signal-privacy-mode-read-failed"),
-              null
-            );
-          }
-        })),
-        _.apply(this, arguments)
-      );
+            ).getVerifiedBusinessNameRecordLidAware(n)) == null
+              ? void 0
+              : i.privacyMode;
+        if (l == null) return null;
+        var s = o(
+          "WAWebApiVerifiedBusinessName",
+        ).convertPrivacyModeFromStorageType(l);
+        return s == null ||
+          s.hostStorage !==
+            o("WAWebHandleMsgTypes").HostStorageEnumType.Facebook
+          ? null
+          : {
+              privacyMode: s,
+              stanzaTo: a,
+              statelessSessionEnabled: o(
+                "WAWebMessagingGatingUtils",
+              ).isSimpleSignalEnabled(),
+            };
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] simple signal: failed to read peer privacy mode",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("coexv2-simple-signal-privacy-mode-read-failed"),
+          null
+        );
+      }
     }
-    function f(e, t) {
+    function p(e, t) {
       return (
         (e == null ? void 0 : e.statelessSessionEnabled) === !0 &&
         (t.isHosted() ||
@@ -93,63 +83,37 @@ __d(
             o("WAWebSendMsgCommonApi").isPrimaryDevice(t)))
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield (m || (m = n("Promise"))).all(
-            t
-              .filter(function (t) {
-                return !t.isHosted() && f(e, t);
-              })
-              .map(function (e) {
-                return o("WAWebSignalSessionApi").deleteRemoteSession(e);
-              }),
-          );
-        })),
-        h.apply(this, arguments)
+    async function _(e, t) {
+      await Promise.all(
+        t
+          .filter(function (t) {
+            return !t.isHosted() && p(e, t);
+          })
+          .map(function (e) {
+            return o("WAWebSignalSessionApi").deleteRemoteSession(e);
+          }),
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    async function f(e) {
+      if (!e.isUser() || e.isBot() || e.isFbidBot()) return !1;
+      var t =
+        ((await o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(e)) &&
+          !(await o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(e))) ||
+        (await L());
+      return t ? o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() : !1;
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!e.isUser() || e.isBot() || e.isFbidBot()) return !1;
-          var t =
-            ((yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(e)) &&
-              !(yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(
-                e,
-              ))) ||
-            (yield $());
-          return t ? o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() : !1;
-        })),
-        C.apply(this, arguments)
-      );
+    async function g(e, t) {
+      if (
+        !v(e, t) ||
+        !(await o("WAWebCoexV2UserAgentEligibility").isSelfCoexV2Hosted())
+      )
+        return null;
+      var n = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
+      return n == null
+        ? null
+        : { agentCopyIsRequired: !0, kind: "user_agent", selfLid: n };
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !T(e, t) ||
-            !(yield o("WAWebCoexV2UserAgentEligibility").isSelfCoexV2Hosted())
-          )
-            return null;
-          var n = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
-          return n == null
-            ? null
-            : { agentCopyIsRequired: !0, kind: "user_agent", selfLid: n };
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
+    function h(e) {
       var t = e.hasFbidBotDevice,
         n = e.isBotInvokeMessage,
         r = e.isResendingMsg,
@@ -159,115 +123,98 @@ __d(
         ? null
         : { agentCopyIsRequired: !1, kind: "invoked_agent", relayPlan: a };
     }
-    function R(e, t) {
+    function y(e, t) {
       return (e == null ? void 0 : e.agentCopyIsRequired) === !0 && t === 0;
     }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chat,
-            r = e.chatId,
-            a = e.isAeaE2eeSend,
-            i = e.msgProtobuf,
-            l = e.option,
-            s = e.stanzaTo;
-          if (!D(i, s, l)) return null;
-          var d = yield (m || (m = n("Promise"))).all([
-              o("WAWebCoexV2UserAgentEligibility").isSelfCoexV2Hosted(),
-              o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(r),
-              o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(r),
-              a != null ? a : k(r, i),
-            ]),
-            p = d[0],
-            _ = d[1],
-            f = d[2],
-            g = d[3],
-            h = _ && !g;
-          if (
-            (_ &&
-              g &&
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[aea] relay copy stopped chat=",
-                    "",
-                  ])),
-                r.toLogString(),
-              ),
-            !p && !h)
+    async function C(e) {
+      var t = e.chat,
+        n = e.chatId,
+        r = e.isAeaE2eeSend,
+        a = e.msgProtobuf,
+        i = e.option,
+        l = e.stanzaTo;
+      if (!S(a, l, i)) return null;
+      var c = await Promise.all([
+          o("WAWebCoexV2UserAgentEligibility").isSelfCoexV2Hosted(),
+          o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(n),
+          o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(n),
+          r != null ? r : b(n, a),
+        ]),
+        d = c[0],
+        m = c[1],
+        p = c[2],
+        _ = c[3],
+        f = m && !_;
+      if (
+        (m &&
+          _ &&
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[aea] relay copy stopped chat=",
+                "",
+              ])),
+            n.toLogString(),
+          ),
+        !d && !f)
+      )
+        return null;
+      var g = d ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser() : null,
+        h = f && !p ? R(t == null ? void 0 : t.accountLid, l) : null,
+        y =
+          h != null &&
+          (await o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(h));
+      f &&
+        (p || y) &&
+        o("WALogger")
+          .WARN(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[coexv2] relay: peer is blocked; dropping peer <to>",
+              ])),
           )
-            return null;
-          var y = p ? o("WAWebUserPrefsMeUser").getMaybeMeLidUser() : null,
-            C = h && !f ? x(t == null ? void 0 : t.accountLid, s) : null,
-            b =
-              C != null &&
-              (yield o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(C));
-          h &&
-            (f || b) &&
-            o("WALogger")
-              .WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[coexv2] relay: peer is blocked; dropping peer <to>",
-                  ])),
-              )
-              .sendLogs("coexv2-relay-peer-blocked");
-          var v = b ? null : C;
-          return y == null && v == null
-            ? null
-            : { peerLid: v, selfIsCoexV2: p, selfLid: y };
-        })),
-        E.apply(this, arguments)
-      );
+          .sendLogs("coexv2-relay-peer-blocked");
+      var C = y ? null : h;
+      return g == null && C == null
+        ? null
+        : { peerLid: C, selfIsCoexV2: d, selfLid: g };
     }
-    function k(e, t) {
-      return I.apply(this, arguments);
+    async function b(e, t) {
+      var a,
+        i = (a = t.protocolMessage) == null ? void 0 : a.type;
+      if (
+        n("cr:17538") == null ||
+        i === o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE ||
+        i ===
+          o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
+            .MESSAGE_UNSCHEDULE
+      )
+        return !1;
+      try {
+        return await n("cr:17538").isAeaEnforcedE2eeChat(e);
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[aea] relay copy: failed to read the thread state",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("coexv2-relay-aea-thread-state-read-failed"),
+          o("WAWebAeaRollout").isAeaEnforcementEnabled()
+        );
+      }
     }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a,
-            i = (a = t.protocolMessage) == null ? void 0 : a.type;
-          if (
-            n("cr:17538") == null ||
-            i ===
-              o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type.REVOKE ||
-            i ===
-              o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
-                .MESSAGE_UNSCHEDULE
-          )
-            return !1;
-          try {
-            return yield n("cr:17538").isAeaEnforcedE2eeChat(e);
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[aea] relay copy: failed to read the thread state",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("coexv2-relay-aea-thread-state-read-failed"),
-              o("WAWebAeaRollout").isAeaEnforcementEnabled()
-            );
-          }
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(e, t) {
+    function v(e, t) {
       return (
         o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() &&
         o("WAWebCoexV2UserAgentEligibility").isCoexV2UserAgentTarget(e) &&
         o("WAWebCoexV2SupportedMsgTypes").isCoexV2SupportedProtobuf(t)
       );
     }
-    function D(e, t, n) {
+    function S(e, t, n) {
       return (
         o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled() &&
         n.fanoutType === o("WAWebMsgFanoutTypes").FanoutType.CHAT &&
@@ -278,36 +225,36 @@ __d(
         o("WAWebCoexV2SupportedMsgTypes").isCoexV2SupportedProtobuf(e)
       );
     }
-    function x(t, n) {
-      var r =
-        t != null && t.isLid() ? t : o("WAWebLidMigrationUtils").toUserLid(n);
+    function R(e, t) {
+      var n =
+        e != null && e.isLid() ? e : o("WAWebLidMigrationUtils").toUserLid(t);
       return (
-        r == null &&
+        n == null &&
           o("WALogger")
             .WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[coexv2] relay: peer is CoExV2 but has no LID; dropping peer <to>",
                 ])),
             )
             .sendLogs("coexv2-relay-peer-lid-missing"),
-        r
+        n
       );
     }
-    function $() {
+    function L() {
       return o("WAWebUserPrefsMeUser").getMaybeMeLidUser() == null
-        ? (m || (m = n("Promise"))).resolve(!1)
+        ? Promise.resolve(!1)
         : o("WAWebCoexV2UserAgentEligibility").isSelfCoexV2Hosted();
     }
-    ((l.resolveCoexV2SimpleSignalPolicy = p),
-      (l.shouldUseCoexV2StatelessSession = f),
-      (l.deleteCoexV2SimpleSignalPrimarySessions = g),
-      (l.genIsCoexV2RelayEligibleSend = y),
-      (l.getCoexV2AgentSendPlan = b),
-      (l.getCoexV2InvokedAgentSendPlan = S),
-      (l.shouldRejectCoexV2AgentSend = R),
-      (l.getCoexV2RelaySendPlan = L),
-      (l.shouldAeaStopRelayCopy = k));
+    ((l.resolveCoexV2SimpleSignalPolicy = m),
+      (l.shouldUseCoexV2StatelessSession = p),
+      (l.deleteCoexV2SimpleSignalPrimarySessions = _),
+      (l.genIsCoexV2RelayEligibleSend = f),
+      (l.getCoexV2AgentSendPlan = g),
+      (l.getCoexV2InvokedAgentSendPlan = h),
+      (l.shouldRejectCoexV2AgentSend = y),
+      (l.getCoexV2RelaySendPlan = C),
+      (l.shouldAeaStopRelayCopy = b));
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipWebWasmLabVariantLoader",
-  ["asyncToGeneratorRuntime", "requireDeferred"],
+  ["requireDeferred"],
   function (t, n, r, o, a, i, l) {
     var e = r("requireDeferred")(
         "WAWebVoipWebWasmLoader_ProdLab_internal",
@@ -18,18 +18,10 @@ __d(
           throw new Error("Unsupported VoIP WASM lab variant: " + String(t));
       }
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = u(e),
-            r = yield n.load();
-          return t == null ? r() : r(t);
-        })),
-        d.apply(this, arguments)
-      );
+    async function c(e, t) {
+      var n = u(e),
+        r = await n.load();
+      return t == null ? r() : r(t);
     }
     l.tryLoadLabVariant = c;
   },

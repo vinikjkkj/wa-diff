@@ -88,7 +88,17 @@ __d(
           return null;
       }
     }
-    function f(e) {
+    function f(e, t, n) {
+      var o;
+      return n !== "ctx_existing_post_missing_message_cta_defaulting"
+        ? null
+        : c(t)
+          ? !1
+          : r("gkx")("28259") &&
+            ((o = r("qex")._("1888")) != null ? o : !1) === !1 &&
+            d(e, t);
+    }
+    function g(e) {
       var t = new Set([
         "live_boosting_ctm_defaulting_am_gk",
         "bmxm_ctwa_pm_cleaned_gk",
@@ -99,7 +109,7 @@ __d(
       ]);
       return t.has(e);
     }
-    function g(e, t, n) {
+    function h(e, t, n) {
       var r = new Set([
         "ctx_streamline_am_l1_awareness_holdout",
         "ctx_streamline_am_ad_creation_iteration",
@@ -107,27 +117,26 @@ __d(
       ]);
       return r.has(n) ? d(e, t) : !1;
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
       var r = _(n);
       if (r != null) return r;
-      if (f(n)) return !0;
-      var o = g(e, t, n);
-      return o || !1;
+      var o = f(e, t, n);
+      if (o != null) return o;
+      if (g(n)) return !0;
+      var a = h(e, t, n);
+      return a || !1;
     }
-    function y(e, t, n) {
-      return n == null ? !1 : h(e, t, n);
+    function C(e, t, n) {
+      return n == null ? !1 : y(e, t, n);
     }
-    function C(e, t, n, r) {
+    function b(e, t, n, r) {
       var o;
       if (p(t, n, r)) return !1;
       var a = (o = t.gk) != null ? o : t.qe;
-      return y(e, n, a);
+      return C(e, n, a);
     }
-    function b() {
-      return r("gkx")("9812") ? "tail" : null;
-    }
-    function v() {
-      return b();
+    function v(e, t) {
+      return !c(e) && !p({ cta: "MESSAGE_PAGE" }, e, t);
     }
     function S(e, t) {
       return (
@@ -138,8 +147,8 @@ __d(
     }
     ((l.checkEligibilityForOverrideExistingCTADefaulting = e),
       (l.checkEligibilityForNonHeuristicExistingCTADefaulting = s),
-      (l.checkEligibilityForCTADefaulting = C),
-      (l.getCTWAActiveAdvertiserSize = v),
+      (l.checkEligibilityForCTADefaulting = b),
+      (l.isExistingPostCTAOpportunityClientEligible = v),
       (l.shouldDefaultToIGForSMBBrazil = S));
   },
   98,

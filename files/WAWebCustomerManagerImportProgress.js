@@ -1,6 +1,6 @@
 __d(
   "WAWebCustomerManagerImportProgress",
-  ["WATimeUtils", "asyncToGeneratorRuntime"],
+  ["WATimeUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return {
@@ -14,42 +14,32 @@ __d(
         totalCount: e,
       };
     }
-    function s(e, t, n, r) {
-      return u.apply(this, arguments);
+    async function s(e, t, n, r) {
+      var o = e.reduce(function (e, n) {
+        var r;
+        return e + ((r = t.get(n.rowIndex)) != null ? r : 1);
+      }, 0);
+      await n.startBatch(e.length, o);
+      var a;
+      try {
+        a = await r();
+      } catch (t) {
+        throw (n.finishBatch(e.length, 0, o), t);
+      }
+      var i = e.reduce(function (e, n, r) {
+        var o;
+        return (
+          e +
+          (a[r].status === "rejected"
+            ? (o = t.get(n.rowIndex)) != null
+              ? o
+              : 1
+            : 0)
+        );
+      }, 0);
+      return (n.finishBatch(e.length, o - i, i), a);
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o = e.reduce(function (e, n) {
-              var r;
-              return e + ((r = t.get(n.rowIndex)) != null ? r : 1);
-            }, 0);
-            yield n.startBatch(e.length, o);
-            var a;
-            try {
-              a = yield r();
-            } catch (t) {
-              throw (n.finishBatch(e.length, 0, o), t);
-            }
-            var i = e.reduce(function (e, n, r) {
-              var o;
-              return (
-                e +
-                (a[r].status === "rejected"
-                  ? (o = t.get(n.rowIndex)) != null
-                    ? o
-                    : 1
-                  : 0)
-              );
-            }, 0);
-            return (n.finishBatch(e.length, o - i, i), a);
-          },
-        )),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e, t, n, r) {
+    function u(e, t, n, r) {
       var o = e.reduce(function (e, n) {
         var r;
         return e + ((r = t.get(n.rowIndex)) != null ? r : 1);
@@ -61,106 +51,98 @@ __d(
         })
       );
     }
-    function d(t, r, a, i) {
-      var l = o("WATimeUtils").monotonicTime(),
-        s =
-          i != null
-            ? i
+    function c(t, n, r, a) {
+      var i = o("WATimeUtils").monotonicTime(),
+        l =
+          a != null
+            ? a
             : function () {
-                return o("WATimeUtils").monotonicTimeSince(l);
+                return o("WATimeUtils").monotonicTimeSince(i);
               },
-        u = e(t),
+        s = e(t),
+        u = 0,
         c = 0,
         d = 0,
         m = 0,
-        p = 0,
-        _ = 0;
+        p = 0;
+      function _() {
+        ((s = babelHelpers.extends({}, s, { estimatedRemainingSeconds: f() })),
+          r == null || r(s));
+      }
       function f() {
-        ((u = babelHelpers.extends({}, u, { estimatedRemainingSeconds: g() })),
-          a == null || a(u));
+        if (u === 0 && d === 0) return 0;
+        if (c === 0) return null;
+        var e = p / c;
+        return Math.ceil((d * e + n.estimateRemainingMs(u, 50, e)) / 1e3);
       }
-      function g() {
-        if (c === 0 && m === 0) return 0;
-        if (d === 0) return null;
-        var e = _ / d;
-        return Math.ceil((m * e + r.estimateRemainingMs(c, 50, e)) / 1e3);
-      }
-      function h(e, n) {
-        c = e;
+      function g(e, n) {
+        u = e;
         var r = t - n;
-        ((u = babelHelpers.extends({}, u, {
+        ((s = babelHelpers.extends({}, s, {
           failureCount: r,
           phase: "queued",
           processedCount: r,
           queuedCount: n,
         })),
-          f());
+          _());
+      }
+      async function h(e, t) {
+        ((s = babelHelpers.extends({}, s, { phase: "queued" })),
+          _(),
+          await n.waitForBatch(e),
+          (u -= e),
+          (d = e),
+          (m = l()),
+          (s = babelHelpers.extends({}, s, {
+            activeCount: t,
+            phase: "saving",
+            queuedCount: s.queuedCount - t,
+          })),
+          _());
       }
       function y(e, t) {
-        return C.apply(this, arguments);
-      }
-      function C() {
-        return (
-          (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-            ((u = babelHelpers.extends({}, u, { phase: "queued" })),
-              f(),
-              yield r.waitForBatch(e),
-              (c -= e),
-              (m = e),
-              (p = s()),
-              (u = babelHelpers.extends({}, u, {
-                activeCount: t,
-                phase: "saving",
-                queuedCount: u.queuedCount - t,
-              })),
-              f());
+        ((u -= e),
+          (s = babelHelpers.extends({}, s, {
+            failureCount: s.failureCount + t,
+            processedCount: s.processedCount + t,
+            queuedCount: s.queuedCount - t,
           })),
-          C.apply(this, arguments)
-        );
+          _());
       }
-      function b(e, t) {
-        ((c -= e),
-          (u = babelHelpers.extends({}, u, {
-            failureCount: u.failureCount + t,
-            processedCount: u.processedCount + t,
-            queuedCount: u.queuedCount - t,
-          })),
-          f());
-      }
-      function v(e, t, n) {
-        ((_ += Math.max(0, s() - p)),
-          (d += e),
-          (m = 0),
-          (u = babelHelpers.extends({}, u, {
+      function C(e, t, n) {
+        ((p += Math.max(0, l() - m)),
+          (c += e),
+          (d = 0),
+          (s = babelHelpers.extends({}, s, {
             activeCount: 0,
-            failureCount: u.failureCount + n,
+            failureCount: s.failureCount + n,
             phase: "queued",
-            processedCount: u.processedCount + t + n,
-            successCount: u.successCount + t,
+            processedCount: s.processedCount + t + n,
+            successCount: s.successCount + t,
           })),
-          f());
+          _());
       }
       return (
-        a == null || a(u),
+        r == null || r(s),
         {
           beginChecking: function () {
-            ((u = babelHelpers.extends({}, u, { phase: "checking" })),
-              a == null || a(u));
+            ((s = babelHelpers.extends({}, s, { phase: "checking" })),
+              r == null || r(s));
           },
-          finishBatch: v,
-          ready: h,
-          skipBatch: b,
-          startBatch: y,
+          finishBatch: C,
+          ready: g,
+          skipBatch: y,
+          startBatch: h,
           stopBeforeSave: function () {
-            return h(0, 0);
+            return g(0, 0);
           },
         }
       );
     }
     ((l.initialImportProgress = e),
       (l.runImportBatch = s),
-      (l.failImportBatch = c),
-      (l.createImportProgressReporter = d));
+      (l.failImportBatch = u),
+      (l.createImportProgressReporter = c));
   },
   98,
 );

@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipOngoingCallCollection",
   [
-    "Promise",
     "WALogger",
     "WAWebBackendRuntime",
     "WAWebBaseCollection",
@@ -16,7 +15,6 @@ __d(
     "WAWebMsgModel",
     "WAWebProcessMultipleMsgsAction",
     "WAWebVoipGatingUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -25,10 +23,9 @@ __d(
       u,
       c,
       d,
-      m,
-      p = Date.now(),
-      _ = (function (t) {
-        function a() {
+      m = Date.now(),
+      p = (function (t) {
+        function n() {
           var e;
           return (
             (e = t.call(this) || this),
@@ -37,31 +34,31 @@ __d(
             e
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.hasOngoingJoinableGroupCalls = function () {
+          (a.hasOngoingJoinableGroupCalls = function () {
             return this.length > 0;
           }),
-          (i.getByCallId = function (t) {
+          (a.getByCallId = function (t) {
             return this.toArray().find(function (e) {
               return e.id.id === t;
             });
           }),
-          (i.getAllByCallId = function (t) {
+          (a.getAllByCallId = function (t) {
             return this.toArray().filter(function (e) {
               return e.id.id === t;
             });
           }),
-          (i.getByChat = function (t) {
+          (a.getByChat = function (t) {
             return this.getByChatId(t.id);
           }),
-          (i.getByChatId = function (t) {
+          (a.getByChatId = function (t) {
             return this.toArray().find(function (e) {
               return e.id.remote === t;
             });
           }),
-          (i.findOngoingCallActiveOnOtherSelfDevice = function () {
+          (a.findOngoingCallActiveOnOtherSelfDevice = function () {
             var e;
             if (!o("WAWebVoipGatingUtils").isDeviceSwitchingEnabled())
               return null;
@@ -74,173 +71,139 @@ __d(
               );
             });
           }),
-          (i.waitUntilLoaded = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this.$WAWebVoipOngoingCallCollectionImpl$p_1 != null)
-                try {
-                  yield this.$WAWebVoipOngoingCallCollectionImpl$p_1;
-                } catch (e) {}
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.$WAWebVoipOngoingCallCollectionImpl$p_2 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          (a.waitUntilLoaded = async function () {
+            if (this.$WAWebVoipOngoingCallCollectionImpl$p_1 != null)
               try {
-                yield o(
-                  "WAWebDbEncryptionKey",
-                ).DbEncKeyStore.waitForFinalDbMsgEncKey();
-                var t = yield this.$WAWebVoipOngoingCallCollectionImpl$p_3();
-                (yield this.$WAWebVoipOngoingCallCollectionImpl$p_4(t),
-                  this.add(
-                    t.filter(function (e) {
-                      return o("WAWebMsgGetters").getIsGroupCall(e);
-                    }),
-                  ));
-              } catch (t) {
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[WAWebVoipOngoingCallCollection] init failed: ",
-                        "",
-                      ])),
-                    t,
-                  )
-                  .tags("nexus-voip")
-                  .sendLogs("voip-ongoing-call-collection-init-failed");
-              } finally {
-                this.$WAWebVoipOngoingCallCollectionImpl$p_1 = null;
-              }
-            });
-            function r() {
-              return t.apply(this, arguments);
+                await this.$WAWebVoipOngoingCallCollectionImpl$p_1;
+              } catch (e) {}
+          }),
+          (a.$WAWebVoipOngoingCallCollectionImpl$p_2 = async function () {
+            try {
+              await o(
+                "WAWebDbEncryptionKey",
+              ).DbEncKeyStore.waitForFinalDbMsgEncKey();
+              var t = await this.$WAWebVoipOngoingCallCollectionImpl$p_3();
+              (await this.$WAWebVoipOngoingCallCollectionImpl$p_4(t),
+                this.add(
+                  t.filter(function (e) {
+                    return o("WAWebMsgGetters").getIsGroupCall(e);
+                  }),
+                ));
+            } catch (t) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WAWebVoipOngoingCallCollection] init failed: ",
+                      "",
+                    ])),
+                  t,
+                )
+                .tags("nexus-voip")
+                .sendLogs("voip-ongoing-call-collection-init-failed");
+            } finally {
+              this.$WAWebVoipOngoingCallCollectionImpl$p_1 = null;
             }
-            return r;
-          })()),
-          (i.$WAWebVoipOngoingCallCollectionImpl$p_4 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t;
-                if (e.length !== 0) {
-                  var a =
-                      (t = r("WAWebCallCollection").activeCall) == null
-                        ? void 0
-                        : t.id,
-                    i = e.filter(function (e) {
-                      return o("WAWebMsgGetters").getIsGroupCall(e) ||
-                        o("WAWebMsgGetters").getFinalCallOutcome(e) ===
-                          o("WAWebCallLogMsgData.flow").CallOutcome.Completed
-                        ? !1
-                        : a != null && e.id.id === a
-                          ? (o("WALogger").LOG(
-                              s ||
-                                (s = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[voip] crash cleanup: skipping active call ",
-                                  "",
-                                ])),
-                              e.id.id,
-                            ),
-                            !1)
-                          : e.t != null && e.t * 1e3 >= p
-                            ? (o("WALogger").LOG(
-                                u ||
-                                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[voip] crash cleanup: skip recent call ",
-                                    " (this session)",
-                                  ])),
-                                e.id.id,
-                              ),
-                              !1)
-                            : !0;
-                    });
-                  if (i.length !== 0) {
+          }),
+          (a.$WAWebVoipOngoingCallCollectionImpl$p_4 = async function (t) {
+            var e;
+            if (t.length !== 0) {
+              var n =
+                  (e = r("WAWebCallCollection").activeCall) == null
+                    ? void 0
+                    : e.id,
+                a = t.filter(function (e) {
+                  return o("WAWebMsgGetters").getIsGroupCall(e) ||
+                    o("WAWebMsgGetters").getFinalCallOutcome(e) ===
+                      o("WAWebCallLogMsgData.flow").CallOutcome.Completed
+                    ? !1
+                    : n != null && e.id.id === n
+                      ? (o("WALogger").LOG(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "[voip] crash cleanup: skipping active call ",
+                              "",
+                            ])),
+                          e.id.id,
+                        ),
+                        !1)
+                      : e.t != null && e.t * 1e3 >= m
+                        ? (o("WALogger").LOG(
+                            u ||
+                              (u = babelHelpers.taggedTemplateLiteralLoose([
+                                "[voip] crash cleanup: skip recent call ",
+                                " (this session)",
+                              ])),
+                            e.id.id,
+                          ),
+                          !1)
+                        : !0;
+                });
+              if (a.length !== 0) {
+                o("WALogger").LOG(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip] crash cleanup: ",
+                      " 1:1 calls marked complete",
+                    ])),
+                  a.length,
+                );
+                var i = a.map(async function (e) {
+                  try {
+                    var t = {
+                      finalCallOutcome: o("WAWebCallLogMsgData.flow")
+                        .CallOutcome.Completed,
+                    };
+                    ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                      ? o("WAWebBackendRuntime").runtime(
+                          o("WAWebMessageStoreService").MessageStoreService,
+                        ).updateMessageTable
+                      : o("WAWebDBUpdateMessageTable").updateMessageTable)(
+                      e.id,
+                      t,
+                    ),
+                      e.set(t));
+                  } catch (t) {
+                    var n;
                     o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[voip] crash cleanup: ",
-                          " 1:1 calls marked complete",
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: crash cleanup: Failed to clean up call log ",
+                          ": ",
+                          "",
                         ])),
-                      i.length,
+                      (n = e.id) == null ? void 0 : n.id,
+                      t,
                     );
-                    var l = i.map(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            try {
-                              var t = {
-                                finalCallOutcome: o("WAWebCallLogMsgData.flow")
-                                  .CallOutcome.Completed,
-                              };
-                              ((o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                                ? o("WAWebBackendRuntime").runtime(
-                                    o("WAWebMessageStoreService")
-                                      .MessageStoreService,
-                                  ).updateMessageTable
-                                : o("WAWebDBUpdateMessageTable")
-                                    .updateMessageTable)(e.id, t),
-                                e.set(t));
-                            } catch (t) {
-                              var n;
-                              o("WALogger").LOG(
-                                d ||
-                                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                                    "voip: crash cleanup: Failed to clean up call log ",
-                                    ": ",
-                                    "",
-                                  ])),
-                                (n = e.id) == null ? void 0 : n.id,
-                                t,
-                              );
-                            }
-                          },
-                        );
-                        return function (t) {
-                          return e.apply(this, arguments);
-                        };
-                      })(),
-                    );
-                    yield (m || (m = n("Promise"))).all(l);
                   }
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+                });
+                await Promise.all(i);
+              }
             }
-            return t;
-          })()),
-          (i.$WAWebVoipOngoingCallCollectionImpl$p_3 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = yield (
-                o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                  ? o("WAWebBackendRuntime").runtime(
-                      o("WAWebMessageQueryService").MessageQueryService,
-                    ).getVoipOngoingCallLogMessages
-                  : o("WAWebDBMessageFindLocal").getVoipOngoingCallLogMessages
-              )();
-              return o(
-                "WAWebProcessMultipleMsgsAction",
-              )._processMultipleMessages({
+          }),
+          (a.$WAWebVoipOngoingCallCollectionImpl$p_3 = async function () {
+            var e = await (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebMessageQueryService").MessageQueryService,
+                  ).getVoipOngoingCallLogMessages
+                : o("WAWebDBMessageFindLocal").getVoipOngoingCallLogMessages
+            )();
+            return o("WAWebProcessMultipleMsgsAction")._processMultipleMessages(
+              {
                 chatId: void 0,
                 meta: { add: "search" },
                 msgObjs: e,
                 processMessageOrigin: "msgCollectionGetVoipCallLogs",
-              });
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          a
+              },
+            );
+          }),
+          n
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    _.model = o("WAWebMsgModel").Msg;
-    var f = new _();
-    function g(e) {
+    p.model = o("WAWebMsgModel").Msg;
+    var _ = new p();
+    function f(e) {
       var t = new Map();
       for (var n of e) {
         var r = t.get(n.id.id);
@@ -250,7 +213,7 @@ __d(
         return t.get(e.id.id) === e;
       });
     }
-    ((l.WAWebVoipOngoingCallCollection = f), (l.getOneCallLogPerCall = g));
+    ((l.WAWebVoipOngoingCallCollection = _), (l.getOneCallLogPerCall = f));
   },
   98,
 );

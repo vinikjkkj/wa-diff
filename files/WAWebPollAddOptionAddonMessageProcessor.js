@@ -7,7 +7,6 @@ __d(
     "WAWebPollsGatingUtils",
     "WAWebProcessEncryptedPollAddOptionMsgs",
     "WAWebStorePollAddOptionDecryptedMsgs",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = o("WAWebAddonCreateMsgProcessor").createAddonMsgProcessor({
@@ -15,57 +14,25 @@ __d(
         convert: {
           fromHistorySyncMsg: r("WAWebPollAddOptionFromHistorySyncMsg"),
         },
-        updateCollection: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* () {},
+        updateCollection: async function () {},
+        beforeUpsert: async function (t, n) {
+          var e = n.parents,
+            r = await o(
+              "WAWebProcessEncryptedPollAddOptionMsgs",
+            ).processEncryptedPollAddOptionMsgs(t, e),
+            a = await o(
+              "WAWebApplyPollAddOptionTCValidation",
+            ).applyPollAddOptionTCValidation(r, "live-add-option"),
+            i = a.accepted;
+          return (
+            await o(
+              "WAWebStorePollAddOptionDecryptedMsgs",
+            ).storePollAddOptionDecryptedMsgs(i),
+            []
           );
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        beforeUpsert: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              var n = t.parents,
-                r = yield o(
-                  "WAWebProcessEncryptedPollAddOptionMsgs",
-                ).processEncryptedPollAddOptionMsgs(e, n),
-                a = yield o(
-                  "WAWebApplyPollAddOptionTCValidation",
-                ).applyPollAddOptionTCValidation(r, "live-add-option"),
-                i = a.accepted;
-              return (
-                yield o(
-                  "WAWebStorePollAddOptionDecryptedMsgs",
-                ).storePollAddOptionDecryptedMsgs(i),
-                []
-              );
-            },
-          );
-          function t(t, n) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        afterUpsert: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* () {},
-          );
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        manageNotifications: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* () {},
-          );
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        },
+        afterUpsert: async function () {},
+        manageNotifications: async function () {},
       }),
       s = e;
     l.default = s;

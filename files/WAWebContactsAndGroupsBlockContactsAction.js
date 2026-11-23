@@ -13,7 +13,6 @@ __d(
     "WAWebToastManager",
     "WDSConfirmDialog.react",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -34,10 +33,8 @@ __d(
         };
       o("WDSDialogBridge").openWDSDialog(
         u.jsx(r("WDSConfirmDialog.react"), {
-          confirmLabel: s._(/*BTDS*/ "Block"),
-          description: s._(
-            /*BTDS*/ "Blocked contacts will no longer be able to call you or send you messages.",
-          ),
+          confirmLabel: s._(/*BTDS*/ ""),
+          description: s._(/*BTDS*/ ""),
           destructive: !0,
           onConfirm: function () {
             return a(!0);
@@ -47,43 +44,27 @@ __d(
           },
           open: !0,
           testid: "contacts-and-groups-block-contacts-confirm",
-          title: s._(
-            /*BTDS*/ '_j{"*":"Block {count} contacts?","_1":"Block 1 contact?"}',
-            [s._plural(e.length, "count")],
-          ),
+          title: s._(/*BTDS*/ "", [s._plural(e.length, "count")]),
         }),
       );
     }
     function m(e) {
       var t = 0,
-        r = o("WAWebContactsAndGroupsOneByOne")
-          .runOneByOne(
-            e,
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  (yield _(e)) || t++;
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-          )
+        n = o("WAWebContactsAndGroupsOneByOne")
+          .runOneByOne(e, async function (e) {
+            (await _(e)) || t++;
+          })
           .then(function (n) {
             return new (o("WAWebActionToast.react").ActionType)(
-              g(n - t, e.length - n, t),
+              f(n - t, e.length - n, t),
             );
           });
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebActionToast.react").ActionToast, {
           initialAction: new (o("WAWebActionToast.react").ActionType)(
-            s._(
-              /*BTDS*/ '_j{"*":"Blocking {count} contacts","_1":"Blocking 1 contact"}',
-              [s._plural(e.length, "count")],
-            ),
+            s._(/*BTDS*/ "", [s._plural(e.length, "count")]),
           ),
-          pendingAction: r,
+          pendingAction: n,
         }),
       );
     }
@@ -98,72 +79,49 @@ __d(
         (n != null && o("WAWebContactGetters").getIsBusiness(n))
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(e) {
+      var t = await o("WAWebFindChatAction").findOrCreateLatestChat(
+          e.id,
+          "chatListUtils",
+        ),
+        n = t.chat;
+      return o("WAWebContactGetters").getIsBusiness(e) ||
+        o("WAWebContactGetters").getIsBusiness(n.contact)
+        ? !1
+        : (await o("WAWebBlockContactAction").blockContact({
+            blockEntryPoint:
+              o("WAWebBlockContants").BlockEntryPoint.ChatListContextMenuBlock,
+            contact: n.contact,
+            showToast: !1,
+          }),
+          !0);
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebFindChatAction").findOrCreateLatestChat(
-              e.id,
-              "chatListUtils",
-            ),
-            n = t.chat;
-          return o("WAWebContactGetters").getIsBusiness(e) ||
-            o("WAWebContactGetters").getIsBusiness(n.contact)
-            ? !1
-            : (yield o("WAWebBlockContactAction").blockContact({
-                blockEntryPoint:
-                  o("WAWebBlockContants").BlockEntryPoint
-                    .ChatListContextMenuBlock,
-                contact: n.contact,
-                showToast: !1,
-              }),
-              !0);
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t, n) {
+    function f(e, t, n) {
       return n > 0
-        ? h(e, t)
+        ? g(e, t)
         : t === 0
-          ? s._(
-              /*BTDS*/ '_j{"*":"{count} contacts blocked","_1":"1 contact blocked"}',
-              [s._plural(e, "count")],
-            )
+          ? s._(/*BTDS*/ "", [s._plural(e, "count")])
           : e === 0
-            ? s._(
-                /*BTDS*/ '_j{"*":"Couldn\'t block {count} contacts. Try again later.","_1":"Couldn\'t block 1 contact. Try again later."}',
-                [s._plural(t, "count")],
-              )
-            : s._(
-                /*BTDS*/ '_j{"*":{"*":"Blocked {blockedCount} contacts. Couldn\'t block {notBlockedCount} contacts. Try again later.","_1":"Blocked {blockedCount} contacts. Couldn\'t block 1 contact. Try again later."},"_1":{"*":"Blocked 1 contact. Couldn\'t block {notBlockedCount} contacts. Try again later.","_1":"Blocked 1 contact. Couldn\'t block 1 contact. Try again later."}}',
-                [s._plural(e, "blockedCount"), s._plural(t, "notBlockedCount")],
-              );
+            ? s._(/*BTDS*/ "", [s._plural(t, "count")])
+            : s._(/*BTDS*/ "", [
+                s._plural(e, "blockedCount"),
+                s._plural(t, "notBlockedCount"),
+              ]);
     }
-    g.displayName = g.name + " [from " + i.id + "]";
-    function h(e, t) {
+    f.displayName = f.name + " [from " + i.id + "]";
+    function g(e, t) {
       return e === 0 && t === 0
-        ? s._(
-            /*BTDS*/ "Businesses can't be blocked from here. Block a business from its chat.",
-          )
+        ? s._(/*BTDS*/ "")
         : t === 0
-          ? s._(
-              /*BTDS*/ '_j{"*":"Blocked {count} contacts. Businesses can only be blocked from their chat.","_1":"Blocked 1 contact. Businesses can only be blocked from their chat."}',
-              [s._plural(e, "count")],
-            )
+          ? s._(/*BTDS*/ "", [s._plural(e, "count")])
           : e === 0
-            ? s._(
-                /*BTDS*/ '_j{"*":"Couldn\'t block {count} contacts. Try again later. Businesses can only be blocked from their chat.","_1":"Couldn\'t block 1 contact. Try again later. Businesses can only be blocked from their chat."}',
-                [s._plural(t, "count")],
-              )
-            : s._(
-                /*BTDS*/ '_j{"*":{"*":"Blocked {blockedCount} contacts. Couldn\'t block {notBlockedCount} contacts. Try again later. Businesses can only be blocked from their chat.","_1":"Blocked {blockedCount} contacts. Couldn\'t block 1 contact. Try again later. Businesses can only be blocked from their chat."},"_1":{"*":"Blocked 1 contact. Couldn\'t block {notBlockedCount} contacts. Try again later. Businesses can only be blocked from their chat.","_1":"Blocked 1 contact. Couldn\'t block 1 contact. Try again later. Businesses can only be blocked from their chat."}}',
-                [s._plural(e, "blockedCount"), s._plural(t, "notBlockedCount")],
-              );
+            ? s._(/*BTDS*/ "", [s._plural(t, "count")])
+            : s._(/*BTDS*/ "", [
+                s._plural(e, "blockedCount"),
+                s._plural(t, "notBlockedCount"),
+              ]);
     }
-    ((h.displayName = h.name + " [from " + i.id + "]"),
+    ((g.displayName = g.name + " [from " + i.id + "]"),
       (l.getContactsToBlock = c),
       (l.blockContactsFromContactsAndGroups = d));
   },

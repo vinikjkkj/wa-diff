@@ -1,6 +1,6 @@
 __d(
   "MAIBAMessageParagraphContext",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -12,25 +12,17 @@ __d(
       p = { isLastBlock: !1 },
       _ = c(p);
     function f(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.children,
-        r = e.isLastBlock,
-        a;
-      t[0] !== r
-        ? ((a = { isLastBlock: r }), (t[0] = r), (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l;
-      return (
-        t[2] !== n || t[3] !== i
-          ? ((l = s.jsx(_.Provider, { value: i, children: n })),
-            (t[2] = n),
-            (t[3] = i),
-            (t[4] = l))
-          : (l = t[4]),
-        l
-      );
+      var t = e.children,
+        n = e.isLastBlock,
+        r = m(
+          function () {
+            return { isLastBlock: n };
+          },
+          [n],
+        );
+      return s.jsx(_.Provider, { value: r, children: t });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g() {
       return d(_);
     }

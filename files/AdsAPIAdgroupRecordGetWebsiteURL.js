@@ -7,8 +7,11 @@ __d(
     "AdsAdgroupSemanticFields",
     "AdsAssetFeedFieldUtils",
     "AdsAssetFeedUtils",
+    "AdsCreativeFlexAssetUtils",
     "AdsMultiMediaUtils",
     "AdsUEditorAdgroupUrlMutators",
+    "immutable",
+    "qex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -21,6 +24,10 @@ __d(
         t instanceof r("AdsAPIAdgroupRecord") &&
         o("AdsMultiMediaUtils").isPrimaryMediaDestinationCustomizationEnabled(
           "silent",
+        ) &&
+        o("AdsCreativeFlexAssetUtils").hasMultiMediaAssetsOfSource(
+          t,
+          "multi_media",
         )
       ) {
         var i,
@@ -61,7 +68,13 @@ __d(
                   "link_urls",
                 ),
               )) || a
-        : o("AdsAssetFeedFieldUtils").getNonAssetFeedValue(s) || a;
+        : s instanceof r("immutable").List && r("qex")._("5048") === !0
+          ? o("AdsAssetFeedFieldUtils").getAssetAtIndex(
+              s,
+              "website_url",
+              o("AdsAssetFeedFieldUtils").getDefaultAssetIndex(t, "link_urls"),
+            ) || a
+          : o("AdsAssetFeedFieldUtils").getNonAssetFeedValue(s) || a;
     }
     l.default = s;
   },

@@ -50,9 +50,7 @@ __d(
                   new (r("AdsError"))(
                     2490453,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "If you would like your ad shown on the profile reels section of Instagram, you will also need to select Instagram Reels as a placement.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       level: r("AdsError").Level.WARN,

@@ -20,43 +20,28 @@ __d(
     "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
     "immutable",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s, u) {
     "use strict";
     var e,
       c = e || (e = o("react"));
     function d(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = { className: "x1jstp8q x14vqqas x2b8uid" }), (t[0] = a))
-        : (a = t[0]);
-      var i;
-      return (
-        t[1] !== n
-          ? ((i = c.jsx(
-              "div",
-              babelHelpers.extends({}, a, {
-                children: c.jsx(r("GeoBaseText.react"), {
-                  color: "placeholder",
-                  size: "value",
-                  children: n,
-                }),
-              }),
-            )),
-            (t[1] = n),
-            (t[2] = i))
-          : (i = t[2]),
-        i
-      );
+      var t = e.children;
+      return c.jsx("div", {
+        className: "x1jstp8q x14vqqas x2b8uid",
+        children: c.jsx(r("GeoBaseText.react"), {
+          color: "placeholder",
+          size: "value",
+          children: t,
+        }),
+      });
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     var m = {
         type: "placements/position",
         key: "whatsapp/channel",
         name: r("AdsPlacementPositionLabelConstant").channel,
-        nameWithPlatform: s._(/*BTDS*/ "WhatsApp Channel"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION
             .WHATSAPP_CHANNEL,
@@ -95,9 +80,7 @@ __d(
                   : null;
         },
         getPlacementSpecificPreviewInfo: function (t) {
-          var e = c.jsx(d, {
-            children: s._(/*BTDS*/ "Branded channel in WhatsApp."),
-          });
+          var e = c.jsx(d, { children: s._(/*BTDS*/ "") });
           return { description: e };
         },
         isActive: function (t) {

@@ -1,10 +1,6 @@
 __d(
   "WAWebEmailInviteCSVParser",
-  [
-    "WAWebContactImportCSVParsingUtils",
-    "WAWebFileUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebContactImportCSVParsingUtils", "WAWebFileUtils"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
         function t(t, n) {
@@ -31,94 +27,70 @@ __d(
         "display name",
         "display_name",
       ]);
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield y({ file: t, maxBytes: s, previewRows: d }),
-            r = v(n, !0),
-            o = [],
-            a = [],
-            i = new Set(),
-            l = 0;
-          for (var m of r) {
-            var p = m.email;
-            if (p !== "") {
-              if (i.has(p)) {
-                l++;
-                continue;
-              }
-              if ((i.add(p), c.test(p) ? o.push(p) : a.push(p), i.size > u))
-                throw new e("too_many_emails");
-            }
+    async function _(t) {
+      var n = await g({ file: t, maxBytes: s, previewRows: d }),
+        r = y(n, !0),
+        o = [],
+        a = [],
+        i = new Set(),
+        l = 0;
+      for (var m of r) {
+        var p = m.email;
+        if (p !== "") {
+          if (i.has(p)) {
+            l++;
+            continue;
           }
-          if (i.size === 0) throw new e("empty_file");
-          return { duplicateCount: l, invalidEmails: a, validEmails: o };
-        })),
-        f.apply(this, arguments)
+          if ((i.add(p), c.test(p) ? o.push(p) : a.push(p), i.size > u))
+            throw new e("too_many_emails");
+        }
+      }
+      if (i.size === 0) throw new e("empty_file");
+      return { duplicateCount: l, invalidEmails: a, validEmails: o };
+    }
+    async function f(t, n) {
+      n === void 0 && (n = []);
+      var r = await g({ file: t, maxBytes: s, previewRows: d }),
+        o = y(r, !1);
+      if (o.length > u) throw new e("too_many_emails");
+      if (o.length === 0) throw new e("empty_file");
+      var a = new Set(
+        n.map(function (e) {
+          return e.trim().toLowerCase();
+        }),
       );
+      return o.map(function (e) {
+        return babelHelpers.extends({}, e, { status: v(e.email, a) });
+      });
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          n === void 0 && (n = []);
-          var r = yield y({ file: t, maxBytes: s, previewRows: d }),
-            o = v(r, !1);
-          if (o.length > u) throw new e("too_many_emails");
-          if (o.length === 0) throw new e("empty_file");
-          var a = new Set(
-            n.map(function (e) {
-              return e.trim().toLowerCase();
-            }),
-          );
-          return o.map(function (e) {
-            return babelHelpers.extends({}, e, { status: L(e.email, a) });
+    async function g(t) {
+      var n = t.file,
+        r = t.maxBytes,
+        a = t.previewRows;
+      h(n, r);
+      var i = await o("WAWebContactImportCSVParsingUtils").loadPapaParse(
+        await o("WAWebFileUtils").blobToText(n),
+        a,
+      );
+      if (i.meta.truncated) throw new e("too_many_emails");
+      if (i.errors.some(R)) throw new e("invalid_file");
+      var l = i.data
+        .map(function (e, t) {
+          return { cells: e, rowNumber: t + 1 };
+        })
+        .filter(function (e) {
+          return e.cells.some(function (e) {
+            return e.trim() !== "";
           });
-        })),
-        h.apply(this, arguments)
-      );
+        });
+      if (l.length === 0) throw new e("empty_file");
+      return l;
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.file,
-            r = t.maxBytes,
-            a = t.previewRows;
-          b(n, r);
-          var i = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(
-            yield o("WAWebFileUtils").blobToText(n),
-            a,
-          );
-          if (i.meta.truncated) throw new e("too_many_emails");
-          if (i.errors.some(k)) throw new e("invalid_file");
-          var l = i.data
-            .map(function (e, t) {
-              return { cells: e, rowNumber: t + 1 };
-            })
-            .filter(function (e) {
-              return e.cells.some(function (e) {
-                return e.trim() !== "";
-              });
-            });
-          if (l.length === 0) throw new e("empty_file");
-          return l;
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(t, n) {
+    function h(t, n) {
       if (t.size > n) throw new e("file_too_large");
       if (!t.name.toLowerCase().endsWith(".csv")) throw new e("invalid_file");
     }
-    function v(t, n) {
+    function y(t, n) {
       var r = t[0],
         o = r.cells.map(function (e) {
           return e
@@ -135,50 +107,50 @@ __d(
           return p.has(e);
         });
         return t.slice(1).map(function (e) {
-          return S(e, a[0], i, n);
+          return C(e, a[0], i, n);
         });
       }
       if (
         t.every(function (e) {
-          return E(e.cells);
+          return S(e.cells);
         })
       )
         return t.map(function (e) {
-          return S(e, 0, -1, n);
+          return C(e, 0, -1, n);
         });
       if (t.length === 1)
         return r.cells.map(function (e) {
-          return { rowNumber: r.rowNumber, name: "", email: R(e, n) };
+          return { rowNumber: r.rowNumber, name: "", email: b(e, n) };
         });
       throw new e("invalid_file", r.rowNumber);
     }
-    function S(e, t, n, r) {
+    function C(e, t, n, r) {
       var o, a;
       return {
         rowNumber: e.rowNumber,
         name: ((o = e.cells[n]) != null ? o : "").trim(),
-        email: R((a = e.cells[t]) != null ? a : "", r),
+        email: b((a = e.cells[t]) != null ? a : "", r),
       };
     }
-    function R(e, t) {
+    function b(e, t) {
       var n = e.trim();
       return (t ? n.replace(/^\'/, "").trim() : n).toLowerCase();
     }
-    function L(e, t) {
+    function v(e, t) {
       return c.test(e)
         ? t.has(e)
           ? "duplicate"
           : (t.add(e), "ready")
         : "invalid";
     }
-    function E(e) {
+    function S(e) {
       return (
         e.filter(function (e) {
           return e.trim() !== "";
         }).length <= 1
       );
     }
-    function k(e) {
+    function R(e) {
       return e.type !== "FieldMismatch" && e.code !== "UndetectableDelimiter";
     }
     ((l.WAWebEmailInviteCSVError = e),
@@ -186,7 +158,7 @@ __d(
       (l.MAX_EMAIL_INVITE_RECIPIENTS = u),
       (l.EMAIL_INVITE_REGEX = c),
       (l.parseEmailInviteCSV = _),
-      (l.parseEmailInviteCSVForReview = g));
+      (l.parseEmailInviteCSVForReview = f));
   },
   98,
 );

@@ -6,7 +6,6 @@ __d(
     "CometRouterSSREntrypoint",
     "Promise",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -14,23 +13,14 @@ __d(
       s,
       u = s || (s = o("react"));
     function c(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.componentProps,
-        r = e.entryPointReference,
-        a;
-      return (
-        t[0] !== n || t[1] !== r
-          ? ((a = u.jsx(o("CometRelay").EntryPointContainer, {
-              entryPointReference: r,
-              props: n,
-            })),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = e.componentProps,
+        n = e.entryPointReference;
+      return u.jsx(o("CometRelay").EntryPointContainer, {
+        entryPointReference: n,
+        props: t,
+      });
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     var d = o(
       "CometRouteResourceContainer",
     ).createCometResourceContainerFactory({

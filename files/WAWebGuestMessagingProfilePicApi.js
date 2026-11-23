@@ -1,34 +1,16 @@
 __d(
   "WAWebGuestMessagingProfilePicApi",
-  ["WAWebSchemaProfilePicThumb", "asyncToGeneratorRuntime"],
+  ["WAWebSchemaProfilePicThumb"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      return o("WAWebSchemaProfilePicThumb").getProfilePicThumbTable().get(e);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaProfilePicThumb")
-            .getProfilePicThumbTable()
-            .get(e);
-        })),
-        s.apply(this, arguments)
-      );
+    async function s(e) {
+      return o("WAWebSchemaProfilePicThumb")
+        .getProfilePicThumbTable()
+        .createOrReplace(e);
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaProfilePicThumb")
-            .getProfilePicThumbTable()
-            .createOrReplace(e);
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    ((l.fetchProfilePicFromDB = e), (l.persistProfilePic = u));
+    ((l.fetchProfilePicFromDB = e), (l.persistProfilePic = s));
   },
   98,
 );

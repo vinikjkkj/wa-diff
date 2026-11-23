@@ -14,47 +14,29 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return {
-              name: "GetDisclosuresResponseClientSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "GetDisclosuresResponseClientError",
-              value: i.value,
-            };
-          var l = m(r, n);
-          if (l.success)
-            return {
-              name: "GetDisclosuresResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("GetDisclosures", {
-              ClientSuccess: a,
-              ClientError: i,
-              ServerError: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return { name: "GetDisclosuresResponseClientSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "GetDisclosuresResponseClientError", value: i.value };
+      var l = d(r, n);
+      if (l.success)
+        return { name: "GetDisclosuresResponseServerError", value: l.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetDisclosures", {
+          ClientSuccess: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -75,7 +57,7 @@ __d(
           )
         : i;
     }
-    function c(e) {
+    function u(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "notice");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(e, "t", 0, void 0);
@@ -94,7 +76,7 @@ __d(
           )
         : i;
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -106,7 +88,7 @@ __d(
         "notice",
         0,
         1 / 0,
-        c,
+        u,
       );
       return a.success
         ? o("WAResultOrError").makeResult(
@@ -114,7 +96,7 @@ __d(
           )
         : a;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -134,7 +116,7 @@ __d(
           )
         : i;
     }
-    function p(e) {
+    function m(e) {
       var t = e.getUserDisclosuresT,
         n = o(
           "WASmaxOutUserNoticeBaseIQGetRequestMixin",
@@ -150,10 +132,10 @@ __d(
       return n;
     }
     ((l.sendGetDisclosuresRPC = e),
-      (l.parseGetDisclosuresResponseClientError = u),
-      (l.parseGetDisclosuresResponseClientSuccess = d),
-      (l.parseGetDisclosuresResponseServerError = m),
-      (l.makeGetDisclosuresRequest = p));
+      (l.parseGetDisclosuresResponseClientError = s),
+      (l.parseGetDisclosuresResponseClientSuccess = c),
+      (l.parseGetDisclosuresResponseServerError = d),
+      (l.makeGetDisclosuresRequest = m));
   },
   98,
 );

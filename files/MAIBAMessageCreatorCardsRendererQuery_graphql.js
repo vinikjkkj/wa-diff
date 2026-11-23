@@ -28,19 +28,26 @@ __d(
         },
         a = {
           alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "profile_pic_uri_without_fallback",
+          storageKey: null,
+        },
+        i = {
+          alias: null,
           args: [n],
           kind: "ScalarField",
           name: "cam_ai_search_brand_ig_asset_id",
           storageKey: null,
         },
-        i = {
+        l = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "id",
           storageKey: null,
         },
-        l = [
+        s = [
           {
             alias: null,
             args: null,
@@ -68,7 +75,7 @@ __d(
           },
           {
             kind: "InlineFragment",
-            selections: [i],
+            selections: [l],
             type: "CAMIGUserInsights",
             abstractKey: null,
           },
@@ -90,6 +97,16 @@ __d(
               selections: [
                 o,
                 {
+                  alias: null,
+                  args: null,
+                  concreteType: "CAMCreatorProfileBulkData",
+                  kind: "LinkedField",
+                  name: "creator_profile_materialized",
+                  plural: !1,
+                  selections: [a],
+                  storageKey: null,
+                },
+                {
                   args: null,
                   kind: "FragmentSpread",
                   name: "MAIBAMessageCreatorCardsRendererCard_creator",
@@ -97,7 +114,7 @@ __d(
               ],
               storageKey: null,
             },
-            a,
+            i,
           ],
           type: "Query",
           abstractKey: null,
@@ -120,18 +137,12 @@ __d(
                 {
                   alias: null,
                   args: null,
-                  kind: "ScalarField",
-                  name: "creator_igid",
-                  storageKey: null,
-                },
-                {
-                  alias: null,
-                  args: null,
                   concreteType: "CAMCreatorProfileBulkData",
                   kind: "LinkedField",
                   name: "creator_profile_materialized",
                   plural: !1,
                   selections: [
+                    a,
                     {
                       alias: null,
                       args: null,
@@ -139,14 +150,14 @@ __d(
                       name: "followers_number",
                       storageKey: null,
                     },
-                    {
-                      alias: null,
-                      args: null,
-                      kind: "ScalarField",
-                      name: "profile_pic_uri_without_fallback",
-                      storageKey: null,
-                    },
                   ],
+                  storageKey: null,
+                },
+                {
+                  alias: null,
+                  args: null,
+                  kind: "ScalarField",
+                  name: "creator_igid",
                   storageKey: null,
                 },
                 {
@@ -164,7 +175,7 @@ __d(
                       kind: "LinkedField",
                       name: "ig_insights",
                       plural: !1,
-                      selections: l,
+                      selections: s,
                       storageKey: null,
                     },
                     {
@@ -174,21 +185,21 @@ __d(
                       kind: "LinkedField",
                       name: "fb_insights",
                       plural: !1,
-                      selections: l,
+                      selections: s,
                       storageKey: null,
                     },
                   ],
                   storageKey: null,
                 },
-                i,
+                l,
               ],
               storageKey: null,
             },
-            a,
+            i,
           ],
         },
         params: {
-          id: "26498781939820146",
+          id: "28486209884399157",
           metadata: {},
           name: "MAIBAMessageCreatorCardsRendererQuery",
           operationKind: "query",

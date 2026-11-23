@@ -1,7 +1,6 @@
 __d(
   "WAWebDBMessageEditAddOnProvider",
   [
-    "Promise",
     "WALogger",
     "WAWebDBProcessEditProtocolMsgs",
     "WAWebMessageAddOnType",
@@ -9,14 +8,12 @@ __d(
     "WAWebMsgType",
     "WAWebQuarantineDataStore",
     "WAWebSchemaMessage",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = {
+      s = {
         type: o("WAWebMessageAddOnType").MessageAddOnType.MessageEdit,
         matches: function (t) {
           return (
@@ -47,102 +44,78 @@ __d(
               return !0;
           }
         },
-        processOrphansForNewMsg: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              var n,
-                r = yield o(
-                  "WAWebDBProcessEditProtocolMsgs",
-                ).processEditProtocolMsgsWithOutcomes(
-                  t.map(function (e) {
-                    return e.parsedMsgPayload;
-                  }),
-                ),
-                a = r.consumedProtocolMsgs,
-                i = r.latestMessageEdits,
-                l =
-                  (n = i.find(function (t) {
-                    return t.parentMsg.id.equals(e.id);
-                  })) == null
-                    ? void 0
-                    : n.editedMsgData;
-              return (l && Object.assign(e, l), c(t, a));
-            },
-          );
-          function t(t, n) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-      };
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (r("justknobx")._("572")) {
-            var o = new Set(
-                t.map(function (e) {
-                  return e.id.toString();
-                }),
-              ),
-              a = yield (s || (s = n("Promise"))).all(
-                e.map(function (e) {
-                  return m(e, o);
-                }),
-              );
-            return {
-              retainedOrphanMsgKeys: a.filter(function (e) {
-                return e != null;
+        processOrphansForNewMsg: async function (t, n) {
+          var e,
+            r = await o(
+              "WAWebDBProcessEditProtocolMsgs",
+            ).processEditProtocolMsgsWithOutcomes(
+              n.map(function (e) {
+                return e.parsedMsgPayload;
               }),
-            };
-          }
-        })),
-        d.apply(this, arguments)
-      );
+            ),
+            a = r.consumedProtocolMsgs,
+            i = r.latestMessageEdits,
+            l =
+              (e = i.find(function (e) {
+                return e.parentMsg.id.equals(t.id);
+              })) == null
+                ? void 0
+                : e.editedMsgData;
+          return (l && Object.assign(t, l), u(n, a));
+        },
+      };
+    async function u(e, t) {
+      if (r("justknobx")._("572")) {
+        var n = new Set(
+            t.map(function (e) {
+              return e.id.toString();
+            }),
+          ),
+          o = await Promise.all(
+            e.map(function (e) {
+              return c(e, n);
+            }),
+          );
+        return {
+          retainedOrphanMsgKeys: o.filter(function (e) {
+            return e != null;
+          }),
+        };
+      }
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    async function c(t, n) {
+      try {
+        return (await o("WAWebQuarantineDataStore").getQuarantineData(
+          t.msgKey,
+        )) == null
+          ? null
+          : n.has(t.parsedMsgPayload.id.toString())
+            ? ((await o("WAWebSchemaMessage")
+                .getMessageTable()
+                .get(t.msgKey)) == null &&
+                (await o("WAWebQuarantineDataStore").deleteQuarantineData(
+                  t.msgKey,
+                )),
+              null)
+            : t.msgKey;
+      } catch (n) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "cleanupQuarantinedEditOrphans: cleanup failed, retaining orphan",
+                ])),
+            )
+            .catching(r("getErrorSafe")(n))
+            .sendLogs("quarantine-edit-orphan-cleanup-failed", {
+              sampling: 0.01,
+            }),
+          t.msgKey
+        );
+      }
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          try {
-            return (yield o("WAWebQuarantineDataStore").getQuarantineData(
-              t.msgKey,
-            )) == null
-              ? null
-              : n.has(t.parsedMsgPayload.id.toString())
-                ? ((yield o("WAWebSchemaMessage")
-                    .getMessageTable()
-                    .get(t.msgKey)) == null &&
-                    (yield o("WAWebQuarantineDataStore").deleteQuarantineData(
-                      t.msgKey,
-                    )),
-                  null)
-                : t.msgKey;
-          } catch (n) {
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "cleanupQuarantinedEditOrphans: cleanup failed, retaining orphan",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(n))
-                .sendLogs("quarantine-edit-orphan-cleanup-failed", {
-                  sampling: 0.01,
-                }),
-              t.msgKey
-            );
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    l.messageEditAddOnProvider = u;
+    l.messageEditAddOnProvider = s;
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WebBloksEntryPointContainerContext",
-  ["WebBloksSSRUtils", "react", "react-compiler-runtime"],
+  ["WebBloksSSRUtils", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -9,21 +9,12 @@ __d(
         current: o("WebBloksSSRUtils").canUseDOM ? document.body : null,
       });
     function c(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        r = e.value,
-        a;
-      return (
-        t[0] !== n || t[1] !== r
-          ? ((a = s.jsx(u.Provider, { value: r, children: n })),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a))
-          : (a = t[2]),
-        a
-      );
+      var t = e.children,
+        n = e.value;
+      return s.jsx(u.Provider, { value: n, children: t });
     }
-    ((l.WebBloksEntryPointContainerContext = u),
+    ((c.displayName = c.name + " [from " + i.id + "]"),
+      (l.WebBloksEntryPointContainerContext = u),
       (l.WebBloksEntryPointContainerContextProvider = c));
   },
   98,

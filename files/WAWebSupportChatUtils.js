@@ -15,7 +15,6 @@ __d(
     "WAWebSupportChatConfirmationModal.react",
     "WAWebWamEnumSupportAiEventType",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "react",
   ],
@@ -37,83 +36,63 @@ __d(
           { transition: "modal-flow" },
         ));
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = o("WAWebWidFactory").createWid(t);
-          o("WAWebModalManager").ModalManager.open(
-            c.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
-              target: { wid: n },
-              onSuccess: function () {
-                (o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "openSupportChat: successfully opened support chat",
-                    ])),
-                ),
-                  o("WAWebDrawerManager").DrawerManager.closeDrawerLeft());
-              },
-              msgText: null,
-              customError: c.jsx("div", {
-                children: c.jsx(
-                  r("WAWebSupportChatConfirmationModal.react"),
-                  {},
-                ),
-              }),
-              onError: function (t) {
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "InAppSupport: Error opening support chat: ",
-                      "",
-                    ])),
-                  t,
-                );
-              },
-            }),
-            { transition: "modal-flow" },
-          );
-        })),
-        p.apply(this, arguments)
+    async function m(t) {
+      var n = o("WAWebWidFactory").createWid(t);
+      o("WAWebModalManager").ModalManager.open(
+        c.jsx(o("WAWebOpenChatFlow.react").OpenChatFlow, {
+          target: { wid: n },
+          onSuccess: function () {
+            (o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "openSupportChat: successfully opened support chat",
+                ])),
+            ),
+              o("WAWebDrawerManager").DrawerManager.closeDrawerLeft());
+          },
+          msgText: null,
+          customError: c.jsx("div", {
+            children: c.jsx(r("WAWebSupportChatConfirmationModal.react"), {}),
+          }),
+          onError: function (t) {
+            o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "InAppSupport: Error opening support chat: ",
+                  "",
+                ])),
+              t,
+            );
+          },
+        }),
+        { transition: "modal-flow" },
       );
     }
-    function _() {
+    function p() {
       var e = o("WAWebABPropsSupportLid").getWaSupportAgentFbid();
       return e == null ? null : o("WAWebWidFactory").createWid(e + "@bot");
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebFindChatAction").findOrCreateLatestChat(
-              e,
-              "openSupportAgentChat",
-              { signal: t },
-            ),
-            a = n.chat;
-          if ((t == null ? void 0 : t.aborted) !== !0) {
-            var i = yield o("WAWebCmd").Cmd.openChatFromUnread({
-              chat: a,
-              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                .SupportAgent,
-            });
-            if (!i) throw r("err")("support agent chat did not open");
-            (o("WAWebComposeBoxActions").ComposeBoxActions.focus(a),
-              o("WAWebDrawerManager").DrawerManager.closeDrawerLeft());
-          }
-        })),
-        g.apply(this, arguments)
-      );
+    async function _(e, t) {
+      var n = await o("WAWebFindChatAction").findOrCreateLatestChat(
+          e,
+          "openSupportAgentChat",
+          { signal: t },
+        ),
+        a = n.chat;
+      if ((t == null ? void 0 : t.aborted) !== !0) {
+        var i = await o("WAWebCmd").Cmd.openChatFromUnread({
+          chat: a,
+          chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.SupportAgent,
+        });
+        if (!i) throw r("err")("support agent chat did not open");
+        (o("WAWebComposeBoxActions").ComposeBoxActions.focus(a),
+          o("WAWebDrawerManager").DrawerManager.closeDrawerLeft());
+      }
     }
     ((l.openSupportAINux = d),
       (l.openSupportChat = m),
-      (l.getSupportAgentChatWid = _),
-      (l.openSupportAgentChat = f));
+      (l.getSupportAgentChatWid = p),
+      (l.openSupportAgentChat = _));
   },
   98,
 );

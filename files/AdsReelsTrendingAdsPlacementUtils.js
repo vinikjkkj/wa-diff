@@ -1,6 +1,6 @@
 __d(
   "AdsReelsTrendingAdsPlacementUtils",
-  ["AdsAPIDevicePlatform"],
+  ["gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["ADS_RF_FB_REELS_PLACEMENT", "CAN_USE_FB_REELS_POSITION"];
@@ -17,27 +17,24 @@ __d(
         n
       );
     }
-    function c(e, t) {
-      var n = e != null ? e : {},
-        o =
-          (t == null ? void 0 : t.preserveFacebookPositions) === !0
-            ? s(n.facebook_positions, "facebook_reels")
-            : ["facebook_reels"],
-        a = babelHelpers.extends({}, n, {
-          facebook_positions: o,
-          publisher_platforms: s(n.publisher_platforms, "facebook"),
+    function c(e) {
+      var t = e != null ? e : {},
+        n = babelHelpers.extends({}, t, {
+          facebook_positions: ["facebook_reels"],
+          publisher_platforms: s(t.publisher_platforms, "facebook"),
         });
-      return (t == null ? void 0 : t.includeMobileDevice) === !0
-        ? babelHelpers.extends({}, a, {
-            device_platforms: s(
-              n.device_platforms,
-              r("AdsAPIDevicePlatform").MOBILE,
-            ),
-          })
-        : a;
+      return n;
+    }
+    function d(e, t) {
+      return (
+        e.isReelsTrendingAds === !0 &&
+        ((t === "instagram/reels" && !r("gkx")("24670")) ||
+          (t === "facebook/fb_reels" && !r("gkx")("9479")))
+      );
     }
     ((l.getCapabilitiesWithRTAFBReelsDefault = u),
-      (l.getPlacementWithRTAFBReelsDefault = c));
+      (l.getPlacementWithRTAFBReelsDefault = c),
+      (l.isRTAReelsPositionLocked = d));
   },
   98,
 );

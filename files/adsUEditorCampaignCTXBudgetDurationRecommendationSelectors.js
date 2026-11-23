@@ -9,7 +9,6 @@ __d(
     "adsGetUniformValueSelector",
     "adsIsCreationPackageEnabledSelector",
     "adsUEditorAccountSelector",
-    "adsUEditorAdgroupsForSelectedCampaignsSelector_SLOW",
     "adsUEditorCampaignDerivedPromotedObjectTypeSelector",
     "adsUEditorCampaignGroupHasBudgetGuardedSelector",
     "adsUEditorSelectedCampaignIDsSelector",
@@ -25,32 +24,14 @@ __d(
           (s = r("AdsCampaignRecordAccessors")).destination_type.get,
         ),
         null,
-      ),
-      d = r("adsCreateSelector")(
+      );
+    function d(e) {
+      if (r("isTruthy")(e)) return new Date(e);
+    }
+    var m = r("adsCreateSelector")(
         [u(e.campaign.bulkByAccessor(s.start_time.get))],
-        function (t) {
-          if (r("isTruthy")(t)) return new Date(t);
-        },
+        d,
         { name: i.id + ".startDateSelector" },
-      ),
-      m = r("adsCreateSelector")(
-        [
-          u(e.campaign.bulkByAccessor(s.promoted_object.page_id.get)),
-          r("adsUEditorAdgroupsForSelectedCampaignsSelector_SLOW"),
-        ],
-        function (t, n) {
-          var e, r;
-          return (e =
-            (r = n.getValue()) == null ||
-            (r = r[0]) == null ||
-            (r = r.creative) == null ||
-            (r = r.object_story_spec) == null
-              ? void 0
-              : r.page_id) != null
-            ? e
-            : void 0;
-        },
-        { name: i.id + ".pageIDWithFallbackSelector" },
       ),
       p = r("adsCreateSelector")(
         [
@@ -113,8 +94,8 @@ __d(
       };
     }
     ((l.destinationTypeSelector = c),
-      (l.startDateSelector = d),
-      (l.pageIDWithFallbackSelector = m),
+      (l.getStartDateFromStartTime = d),
+      (l.startDateSelector = m),
       (l.shouldEnableCTXBudgetDurationDefaultQEParamsSelector = p),
       (l.shouldEnableCTXBudgetDurationDefaultQEParamsRelay = f));
   },

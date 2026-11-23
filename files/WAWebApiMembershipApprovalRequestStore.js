@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAWebSchemaMembershipApprovalRequest",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -86,21 +85,13 @@ __d(
         ? null
         : { payload: n, keyId: t, requestId: r };
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    async function _(e, t) {
+      var n = await o("WAWebSchemaMembershipApprovalRequest")
+        .getMembershipApprovalRequestTable()
+        .get([e.toString(), t.toString()]);
+      return n != null ? p(n) : null;
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebSchemaMembershipApprovalRequest")
-            .getMembershipApprovalRequestTable()
-            .get([e.toString(), t.toString()]);
-          return n != null ? p(n) : null;
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
+    function f(e, t) {
       var n = t.map(function (t) {
         var n = t.addedBy,
           r = t.id,
@@ -124,7 +115,7 @@ __d(
         .getMembershipApprovalRequestTable()
         .bulkCreateOrReplace(n);
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = e.toString();
       return o("WAWebSchemaMembershipApprovalRequest")
         .getMembershipApprovalRequestTable()
@@ -134,7 +125,7 @@ __d(
           }),
         );
     }
-    function y(e) {
+    function h(e) {
       return o("WAWebSchemaMembershipApprovalRequest")
         .getMembershipApprovalRequestTable()
         .bulkRemoveByIndex(["groupId"], [e.toString()]);
@@ -144,9 +135,9 @@ __d(
       (l.getAllMembershipApprovalRequests = c),
       (l.getMembershipFormAnswersVersion = m),
       (l.getMembershipApprovalRequestFormAnswers = _),
-      (l.addMembershipApprovalRequests = g),
-      (l.removeMembershipApprovalRequests = h),
-      (l.removeAllMembershipApprovalRequests = y));
+      (l.addMembershipApprovalRequests = f),
+      (l.removeMembershipApprovalRequests = g),
+      (l.removeAllMembershipApprovalRequests = h));
   },
   98,
 );

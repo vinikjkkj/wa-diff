@@ -26,47 +26,38 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = h(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success)
-            return {
-              name: "PromoteDemoteAdminResponseSuccessMultiAdmin",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "PromoteDemoteAdminResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "PromoteDemoteAdminResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("PromoteDemoteAdmin", {
-              SuccessMultiAdmin: a,
-              ClientError: i,
-              ServerError: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = g(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success)
+        return {
+          name: "PromoteDemoteAdminResponseSuccessMultiAdmin",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "PromoteDemoteAdminResponseClientError",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "PromoteDemoteAdminResponseServerError",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("PromoteDemoteAdmin", {
+          SuccessMultiAdmin: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -76,7 +67,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = y(r.value);
+      var i = h(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -85,7 +76,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -94,7 +85,7 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrUserJid(e, "jid");
@@ -123,7 +114,7 @@ __d(
         usernameAttMixin: l.success ? l.value : null,
       });
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "admin");
@@ -140,7 +131,7 @@ __d(
           "participant",
           0,
           19999,
-          d,
+          c,
         );
       return l.success
         ? o("WAResultOrError").makeResult(
@@ -151,35 +142,35 @@ __d(
           )
         : l;
     }
-    function p(e) {
+    function m(e) {
       var t = e.participantJid,
         n = o("WASmaxJsx").smax("participant", { jid: o("WAWap").USER_JID(t) });
       return n;
     }
-    function _(e) {
+    function p(e) {
       var t = e.participantArgs,
         n = o("WASmaxJsx").smax(
           "promote",
           null,
-          o("WASmaxChildren").REPEATED_CHILD(p, t, 0, 1024),
+          o("WASmaxChildren").REPEATED_CHILD(m, t, 0, 1024),
         );
       return n;
     }
-    function f(e) {
+    function _(e) {
       var t = e.participantJid,
         n = o("WASmaxJsx").smax("participant", { jid: o("WAWap").USER_JID(t) });
       return n;
     }
-    function g(e) {
+    function f(e) {
       var t = e.participantArgs,
         n = o("WASmaxJsx").smax(
           "demote",
           null,
-          o("WASmaxChildren").REPEATED_CHILD(f, t, 0, 1024),
+          o("WASmaxChildren").REPEATED_CHILD(_, t, 0, 1024),
         );
       return n;
     }
-    function h(e) {
+    function g(e) {
       var t = e.promoteArgs,
         n = e.demoteArgs,
         r = o("WASmaxOutGroupsBaseSetGroupMixin").mergeBaseSetGroupMixin(
@@ -189,15 +180,15 @@ __d(
             o("WASmaxJsx").smax(
               "admin",
               null,
-              o("WASmaxChildren").OPTIONAL_CHILD(_, t),
-              o("WASmaxChildren").OPTIONAL_CHILD(g, n),
+              o("WASmaxChildren").OPTIONAL_CHILD(p, t),
+              o("WASmaxChildren").OPTIONAL_CHILD(f, n),
             ),
           ),
           e,
         );
       return r;
     }
-    function y(e) {
+    function h(e) {
       var t = o(
         "WASmaxInGroupsIQErrorRateOverlimitMixin",
       ).parseIQErrorRateOverlimitMixin(e);
@@ -276,10 +267,10 @@ __d(
           );
     }
     ((l.sendPromoteDemoteAdminRPC = e),
-      (l.parsePromoteDemoteAdminResponseClientError = u),
-      (l.parsePromoteDemoteAdminResponseServerError = c),
-      (l.parsePromoteDemoteAdminResponseSuccessMultiAdmin = m),
-      (l.makePromoteDemoteAdminRequest = h));
+      (l.parsePromoteDemoteAdminResponseClientError = s),
+      (l.parsePromoteDemoteAdminResponseServerError = u),
+      (l.parsePromoteDemoteAdminResponseSuccessMultiAdmin = d),
+      (l.makePromoteDemoteAdminRequest = g));
   },
   98,
 );

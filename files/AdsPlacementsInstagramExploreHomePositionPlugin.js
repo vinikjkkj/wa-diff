@@ -9,7 +9,6 @@ __d(
     "AdsAPIObjectives",
     "AdsAPIOptimizationGoals",
     "AdsAPITargetFields",
-    "AdsAccountStore",
     "AdsAccountUtils",
     "AdsBuyingTypes",
     "AdsBwIPlacementUtils",
@@ -66,7 +65,7 @@ __d(
       placementPreviewImage: p(),
       platformKey: "instagram",
       adsetValidators: [r("AdsCampaignInstagramExploreHomePositionValidator")],
-      nameWithPlatform: s._(/*BTDS*/ "Instagram Explore home"),
+      nameWithPlatform: s._(/*BTDS*/ ""),
       mediaRecommendation: {
         copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION
           .IG_EXPLORE_HOME,
@@ -195,14 +194,13 @@ __d(
       },
       isInactiveByDefault: function (t) {
         var e = o("AdsODAXUtils").maybeTranslateObjective(
-            t.objective,
-            t.promotedObjectType,
-            t.optimizationGoal,
-          ),
-          n = r("AdsAccountStore").getSelectedAccount().getValue();
+          t.objective,
+          t.promotedObjectType,
+          t.optimizationGoal,
+        );
         return o(
           "AdsPlacementInstagramPositionPluginUtils",
-        ).isEligibleObjectiveForInstagramExploreHome(e, n)
+        ).isEligibleObjectiveForInstagramExploreHome(e)
           ? r("gkx")("21156")
           : !0;
       },

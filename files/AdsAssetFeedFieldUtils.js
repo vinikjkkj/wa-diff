@@ -1,16 +1,15 @@
 __d(
   "AdsAssetFeedFieldUtils",
   [
+    "AdsAMUIQualityFixes2Experiment",
     "AdsAPIAdgroupPaths",
     "AdsAdgroupRecordAccessors",
     "AdsAdgroupSemanticFields",
-    "AdsAdvancedPreviewConstants",
     "AdsAssetFeedConstant",
     "AdsAssetFeedFieldToRuleLabelMapping",
     "AdsAssetFeedMutationUtils",
     "AdsAssetFeedUtils",
     "AdsDLOFieldToAdlabelsMapping",
-    "AdsPlacementAssetTargetingRuleUtils",
     "AdsPlacementCustomizationConstants",
     "AdsPlacementEditorBackgroundColorUtils",
     "AdsUEditorAdgroupBodyMutators",
@@ -20,7 +19,7 @@ __d(
     "immutable",
     "isFalsey",
     "isTruthy",
-    "vulture",
+    "justknobx",
     "zipWith",
   ],
   function (t, n, r, o, a, i, l) {
@@ -39,7 +38,7 @@ __d(
     }
     function s(e, t) {
       return o("AdsAssetFeedUtils").hasLanguageCustomizationFromRecord(e)
-        ? O(e, t)
+        ? M(e, t)
         : 0;
     }
     function u(e, t, n) {
@@ -103,13 +102,13 @@ __d(
       if (e) {
         if (e instanceof r("immutable").List || r("immutable").List.isList(e)) {
           var i;
-          if (n === e.size) return;
           if (typeof e == "boolean" || Array.isArray(e))
             throw r("FBLogger")(
               "ads_dynamic_creative_optimization",
             ).mustfixThrow(
               "specValue should be a List. This is needed because flow does not understand List.isList",
             );
+          if (n === e.size) return;
           if (n < 0 || n >= e.size)
             throw r("FBLogger")(
               "ads_dynamic_creative_optimization",
@@ -261,7 +260,7 @@ __d(
         throw r("FBLogger")("ads_dynamic_creative_optimization").mustfixThrow(
           "video should be a Map. This is needed because flow does not understand Map.isMap",
         );
-      var o = n.get("caption_ids");
+      var o = n == null ? void 0 : n.get("caption_ids");
       return o instanceof r("immutable").List
         ? o
             .map(function (e) {
@@ -271,38 +270,20 @@ __d(
         : null;
     }
     function S(e) {
-      return (
-        r("vulture")("qZTkJGt6vzzKWIPysi30zi6fsoc="),
-        e
-          ? Array.isArray(e)
-            ? e
-            : e
-                .map(function (e) {
-                  if (typeof e != "string")
-                    throw r("FBLogger")(
-                      "ads_dynamic_creative_optimization",
-                    ).mustfixThrow("caption ID must be string");
-                  return e;
-                })
-                .toArray()
-          : null
-      );
-    }
-    function R(e) {
       if (e != null && typeof e != "string")
         throw r("FBLogger")("am_feature_pac").mustfixThrow(
           "cannot get non assetfeed value for an asset feed creative",
         );
       return e;
     }
-    function L(e) {
+    function R(e) {
       return e instanceof r("immutable").List
         ? e.first()
         : Array.isArray(e)
           ? e[0]
           : e;
     }
-    function E(e, t) {
+    function L(e, t) {
       if (e && e instanceof r("immutable").List) {
         if (!e.first()) return;
         var n = e.first().get(t);
@@ -315,10 +296,10 @@ __d(
       }
       return e;
     }
-    function k(e, t) {
+    function E(e, t) {
       return e === "deeplink_url" ? r("getByPath")(t, ["app_link"]) : t;
     }
-    function I(e, t, n) {
+    function k(e, t, n) {
       if (!e || !r("immutable").List.isList(e))
         return { index: null, fieldValue: null };
       var a = e.findEntry(function (e) {
@@ -355,7 +336,7 @@ __d(
       }
       return { index: null, fieldValue: null };
     }
-    function T(e, t, n, o) {
+    function I(e, t, n, o) {
       if (!e || !r("immutable").List.isList(e)) return null;
       var a = e.map(function (e, t, n) {
           return { value: e, index: t };
@@ -393,7 +374,7 @@ __d(
           })
         : null;
     }
-    function D(e, t, n, o) {
+    function T(e, t, n, o) {
       var a = r("immutable").List();
       if (!(!e || !r("immutable").List.isList(e)))
         return (
@@ -417,64 +398,13 @@ __d(
           a
         );
     }
-    function x(e, t, n, a, i) {
-      var l = o(
-          "AdsPlacementAssetTargetingRuleUtils",
-        ).getLabelNameFromLabelFieldAndPlacement(e, a, i),
-        s = D(r("immutable").List(n), t, l);
-      return s != null ? s.toArray() : n;
-    }
-    function $(e, t, n) {
-      var o,
-        a =
-          (o = e.creative) == null || (o = o.asset_feed_spec) == null
-            ? void 0
-            : o.images;
-      if (a == null) return [];
-      var i = x(e, "adlabels", Array.from(a), n, "image_label");
-      if (i == null || i.length === 0) return [];
-      var l = null,
-        s = null,
-        u = i[0];
-      return (
-        u instanceof r("immutable").Map &&
-          ((l = u.get("hash")),
-          (s = u.get("image_crops")),
-          (s =
-            s instanceof r("immutable").Map && s.size > 0
-              ? s.keySeq().toArray()[0]
-              : null)),
-        t.filter(function (e) {
-          var t =
-            e.crops != null
-              ? Object.keys(e.crops).find(function (e) {
-                  return !!e;
-                })
-              : null;
-          return e.hash === l && t === s;
-        })
-      );
-    }
-    function P(e, t) {
-      var n = e.length > 0 && e[0].crops != null;
-      if (
-        o(
-          "AdsAdvancedPreviewConstants",
-        ).SUPPORTED_PLACEMENT_FOR_DOF_IMAGE_CROP.has(t) &&
-        n
-      ) {
-        var r = JSON.parse(JSON.stringify(e))[0];
-        return ((r.crops = null), [r, e[0]]);
-      }
-      return e;
-    }
-    function N(e, t, n) {
+    function D(e, t, n) {
       var a = new Set(n);
       if (a.size === 0 && e.size === 1) {
         var i;
         return r("immutable").OrderedMap(
           ((i = {}),
-          (i[o("AdsPlacementCustomizationConstants").NO_ADLABEL] = e.get(0)),
+          (i[o("AdsPlacementCustomizationConstants").NO_ADLABEL] = e.first()),
           i),
         );
       }
@@ -488,7 +418,7 @@ __d(
           )
           .asMutable(),
         s = function (t) {
-          return a.has(t);
+          return t != null && a.has(t);
         },
         u = function (n) {
           var e = n.get(t) || r("immutable").List();
@@ -507,7 +437,7 @@ __d(
             })
             .filter(s);
           o.forEach(function (e) {
-            l.set(e, n);
+            e != null && l.set(e, n);
           });
         };
       for (var c of e) u(c);
@@ -515,18 +445,18 @@ __d(
         return !e.isEmpty();
       });
     }
-    function M(e, t, n, o) {
+    function x(e, t, n, o) {
       return r("zipWith")(
         function (e, t) {
-          return w(t, e, n, o);
+          return $(t, e, n, o);
         },
         t.getValues(),
         e,
       );
     }
-    function w(e, t, n, r) {
+    function $(e, t, n, r) {
       if (e && o("AdsAssetFeedUtils").isPACAdgroupFromRecord(e)) {
-        var a = A(e, n);
+        var a = P(e, n);
         if (a != null) return a;
       }
       return o("AdsAssetFeedUtils").isAdgroupUsingAssetFeedFromRecord(e) &&
@@ -535,9 +465,9 @@ __d(
           "AdsAssetFeedUtils",
         ).isUnifiedProfileVisitsDestinationAdgroupFromSpec(e)
         ? u(t, r, s(e, n))
-        : R(t);
+        : S(t);
     }
-    function A(e, t) {
+    function P(e, t) {
       var n, r;
       switch (t) {
         case "bodies":
@@ -556,7 +486,7 @@ __d(
           return null;
       }
     }
-    function F(e, t, n, o) {
+    function N(e, t, n, o) {
       var a = r("AdsAPIAdgroupPaths").CREATIVE.ASSET_FEED_SPEC.path.concat(
         n,
         String(t),
@@ -565,14 +495,14 @@ __d(
       var i = r("getByPath")(e, a);
       return i ? { error: i } : null;
     }
-    function O(e, t) {
+    function M(e, t) {
       if (!(e instanceof r("immutable").Iterable) && typeof e != "object")
         throw r("FBLogger")("am_feature_pac").mustfixThrow(
           "adgroup must be of type object or Immutable.Iterable",
         );
-      return e instanceof r("immutable").Iterable ? W(e, t) : B(e, t);
+      return e instanceof r("immutable").Iterable ? A(e, t) : w(e, t);
     }
-    function B(e, t) {
+    function w(e, t) {
       var n,
         o = (n = e.creative) == null ? void 0 : n.asset_feed_spec;
       if (o == null) return 0;
@@ -594,11 +524,11 @@ __d(
         m = d != null ? d.name : null,
         p = i.findIndex(function (e) {
           var t = e[u];
-          return V(t, m);
+          return B(t, m);
         });
       return p !== -1 ? p : i.length;
     }
-    function W(e, t) {
+    function A(e, t) {
       var n,
         o = (n = e.creative) == null ? void 0 : n.asset_feed_spec;
       if (o == null) return 0;
@@ -619,12 +549,12 @@ __d(
       var d = c.get("name"),
         m = a.findIndex(function (e) {
           var t = e.get(s);
-          return V(t, d);
+          return B(t, d);
         }),
         p = a.size !== void 0 ? a.size : a.length;
       return m !== -1 ? m : p;
     }
-    function q(e, t, n, a) {
+    function F(e, t, n, a) {
       var i = o(
           "AdsAssetFeedMutationUtils",
         ).UnifiedCreativeAPIToAssetFeedField.get(n.name),
@@ -640,12 +570,16 @@ __d(
         return e.isSuperset(a);
       });
     }
-    function U(e, t) {
-      for (var n = t, o = [], a = 0; a < e.size && !n.isEmpty(); a++)
-        e.get(a).isSuperset(n.first()) && (o.push(a), (n = n.rest()));
+    function O(e, t) {
+      for (var n = t, o = [], a = 0; a < e.size && !n.isEmpty(); a++) {
+        var i;
+        (i = e.get(a)) != null &&
+          i.isSuperset(n.first()) &&
+          (o.push(a), (n = n.rest()));
+      }
       return r("immutable").List(o);
     }
-    function V(e, t) {
+    function B(e, t) {
       return t == null
         ? e == null
         : (e || []).some(function (e) {
@@ -654,28 +588,36 @@ __d(
             );
           });
     }
-    function H(e, t) {
+    function W(e, t) {
       if (!e || !r("immutable").List.isList(e)) return null;
       var n = e.findEntry(function (e) {
-          var n =
-            e.get(o("AdsAssetFeedConstant").ADLABELS) || r("immutable").List();
-          if (!(n instanceof r("immutable").List))
+        var n =
+          e.get(o("AdsAssetFeedConstant").ADLABELS) || r("immutable").List();
+        if (!(n instanceof r("immutable").List))
+          throw r("FBLogger")("am_feature_pac").mustfixThrow(
+            "adlabels should be an Immutable.List",
+          );
+        return n.some(function (e) {
+          if (!r("immutable").Map.isMap(e))
             throw r("FBLogger")("am_feature_pac").mustfixThrow(
-              "adlabels should be an Immutable.List",
+              "adlabel should be an Immutable.map",
             );
-          return n.some(function (e) {
-            if (!r("immutable").Map.isMap(e))
-              throw r("FBLogger")("am_feature_pac").mustfixThrow(
-                "adlabel should be an Immutable.map",
-              );
-            return e.get("name") === t;
-          });
-        }),
-        a = n[0],
+          return e.get("name") === t;
+        });
+      });
+      if (
+        n == null &&
+        o("AdsAMUIQualityFixes2Experiment").isAMUIQualityFixes2TestArm(
+          "t295806787",
+        ) &&
+        r("justknobx")._("7735")
+      )
+        return null;
+      var a = n[0],
         i = n[1];
       return i;
     }
-    function G(e, t, n) {
+    function q(e, t, n) {
       if (!e || !r("immutable").List.isList(e))
         return { index: null, fieldValue: null };
       var a = e.findEntry(function (e) {
@@ -722,7 +664,7 @@ __d(
       }
       return { index: null, fieldValue: null };
     }
-    function z(e, t, n, o) {
+    function U(e, t, n, o) {
       var a;
       switch (n) {
         case "bodies":
@@ -776,27 +718,23 @@ __d(
       (l.getAssetInteractivePollSpec = C),
       (l.getAssetInteractivePositionSpec = b),
       (l.getVideoAssetCaptionIDs = v),
-      (l.getNonVideoAssetCaptionIDs = S),
-      (l.getNonAssetFeedValue = R),
-      (l.firstCTAAsset_TALK_WITH_ACE_BEFORE_USE = L),
-      (l.firstImageCropsAsset_TALK_WITH_ACE_BEFORE_USE = E),
-      (l.getLinkURLValue = k),
-      (l.getAssetEntryForLabel = I),
-      (l.getAssetEntriesForLabel = T),
-      (l.getDoFAssetEntriesForLabel = D),
-      (l.getAssetEntriesFromLabelFieldAndPlacement = x),
-      (l.getImageAssetsFromLabelFieldAndPlacement = $),
-      (l.getImageCroppingAssets = P),
-      (l.getAssetMapForLabels = N),
-      (l.getDefaultFieldValuesForAdgroups = M),
-      (l.getDefaultFieldValueForAdgroup = w),
-      (l.getValidationErrorsForIndex = F),
-      (l.getDefaultIndexForAsset = O),
-      (l.findAssetIndex = q),
-      (l.findTargetAssetsIndex = U),
-      (l.getAssetEntryObjectForLabel = H),
-      (l.getAssetPACOmnichannelAppEntryForLabel = G),
-      (l.getTexts = z));
+      (l.getNonAssetFeedValue = S),
+      (l.firstCTAAsset_TALK_WITH_ACE_BEFORE_USE = R),
+      (l.firstImageCropsAsset_TALK_WITH_ACE_BEFORE_USE = L),
+      (l.getLinkURLValue = E),
+      (l.getAssetEntryForLabel = k),
+      (l.getAssetEntriesForLabel = I),
+      (l.getDoFAssetEntriesForLabel = T),
+      (l.getAssetMapForLabels = D),
+      (l.getDefaultFieldValuesForAdgroups = x),
+      (l.getDefaultFieldValueForAdgroup = $),
+      (l.getValidationErrorsForIndex = N),
+      (l.getDefaultIndexForAsset = M),
+      (l.findAssetIndex = F),
+      (l.findTargetAssetsIndex = O),
+      (l.getAssetEntryObjectForLabel = W),
+      (l.getAssetPACOmnichannelAppEntryForLabel = q),
+      (l.getTexts = U));
   },
   98,
 );

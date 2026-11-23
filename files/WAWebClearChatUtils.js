@@ -14,7 +14,6 @@ __d(
     "WAWebNoop",
     "WAWebStatusCollection",
     "WAWebUpdateUnreadChatAction",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -47,47 +46,36 @@ __d(
         n.sendClear
       );
     }
-    function c(t, a, i) {
-      return a
-        .then(
-          (function () {
-            var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (n) {
-                (t.set({ createdLocally: !1 }),
-                  n.result &&
-                    (s(t, n.result),
-                    o(
-                      "WAWebMaybeClearChatAiThreads",
-                    ).maybeClearAiThreadsForChat(t)),
-                  yield (
-                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                      ? o("WAWebBackendRuntime").runtime(
-                          o("WAWebChatStoreService").ChatStoreService,
-                        ).updateChatTable
-                      : o("WAWebDBUpdateChatTable").updateChatTable
-                  )(t.id, { createdLocally: !1 }),
-                  n.result &&
-                    i > 0 &&
-                    (yield o("WAWebUpdateUnreadChatAction")
-                      .markSeen(t, i)
-                      .catch(function (t) {
-                        o("WALogger")
-                          .WARN(
-                            e ||
-                              (e = babelHelpers.taggedTemplateLiteralLoose([
-                                "finalizeClearChat: markSeen failed",
-                              ])),
-                          )
-                          .catching(r("getErrorSafe")(t))
-                          .sendLogs("clear-chat-mark-seen-failed");
-                      })));
-              },
-            );
-            return function (e) {
-              return a.apply(this, arguments);
-            };
-          })(),
-        )
+    function c(t, n, a) {
+      return n
+        .then(async function (n) {
+          (t.set({ createdLocally: !1 }),
+            n.result &&
+              (s(t, n.result),
+              o("WAWebMaybeClearChatAiThreads").maybeClearAiThreadsForChat(t)),
+            await (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable
+            )(t.id, { createdLocally: !1 }),
+            n.result &&
+              a > 0 &&
+              (await o("WAWebUpdateUnreadChatAction")
+                .markSeen(t, a)
+                .catch(function (t) {
+                  o("WALogger")
+                    .WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "finalizeClearChat: markSeen failed",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(t))
+                    .sendLogs("clear-chat-mark-seen-failed");
+                })));
+        })
         .catch(
           o("WAFilteredCatch").filteredCatch(
             o("WAWebBackendErrors").ServerStatusCodeError,

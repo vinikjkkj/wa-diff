@@ -1,6 +1,12 @@
 __d(
   "CTMAdsOptimizationStoreUtils",
-  ["AdsPageStore", "CtxAdvertiserQeHbtExposureFalcoEvent", "gkx", "qex"],
+  [
+    "AdsPageStore",
+    "CtxAdvertiserQeHbtExposureFalcoEvent",
+    "CurrentAdAccount",
+    "gkx",
+    "qex",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -21,6 +27,18 @@ __d(
     }
     function s(e) {
       var t,
+        n =
+          e != null
+            ? (t = r("AdsPageStore").getLoadObject(e)) == null
+              ? void 0
+              : t.getValue()
+            : null;
+      return (
+        (n == null ? void 0 : n.is_eligible_for_ctm_po_law_defaulting) === !0
+      );
+    }
+    function u(e) {
+      var t,
         n,
         o =
           e != null
@@ -35,7 +53,7 @@ __d(
         ? n
         : !1;
     }
-    function u(e) {
+    function c(e) {
       var t,
         n,
         o =
@@ -52,7 +70,7 @@ __d(
         ? n
         : !1;
     }
-    function c(e) {
+    function d(e) {
       var t,
         n,
         o,
@@ -70,7 +88,7 @@ __d(
         : ((n = i == null ? void 0 : i.includes("tier2")) != null ? n : !1) ||
             ((o = i == null ? void 0 : i.includes("tier3")) != null ? o : !1);
     }
-    function d(e) {
+    function m(e) {
       var t,
         n =
           e != null
@@ -101,7 +119,7 @@ __d(
       }
       return !1;
     }
-    function m(e, t) {
+    function p(e, t) {
       var n = r("gkx")("15923");
       if (n) {
         var o = r("gkx")("23790");
@@ -129,10 +147,17 @@ __d(
         );
       } else return r("gkx")("16764");
     }
-    function p(e) {
-      return e === !0 ? r("qex")._("2781") === !0 : r("qex")._("2981") === !0;
-    }
     function _(e) {
+      if (e === !0) {
+        var t = r("qex")._("2781") === !0,
+          n = r("gkx")("28743");
+        return t || n;
+      }
+      var o = r("qex")._("2981") === !0,
+        a = r("gkx")("28744");
+      return o || a;
+    }
+    function f(e) {
       var t,
         n,
         o =
@@ -149,20 +174,42 @@ __d(
           ? n
           : !1;
     }
-    function f(e) {
-      return e === !0 ? r("qex")._("1388") === !0 : r("qex")._("2160") === !0;
+    function g(e) {
+      return h(e);
+    }
+    function h(e) {
+      if (e) {
+        var t = r("gkx")("27614"),
+          n = r("gkx")("11835");
+        return (
+          n ||
+            r("CtxAdvertiserQeHbtExposureFalcoEvent").log(function () {
+              var e;
+              return {
+                condition: t ? "test" : "control",
+                feature_name: "ctm_po_post_ucd_doiv2",
+                hbt_name: "ctx_dfo_hoh_h2_2026",
+                unit_id: (e = r("CurrentAdAccount").getID()) != null ? e : "",
+                unit_type: "ad_account_id",
+              };
+            }),
+          t
+        );
+      }
+      return r("gkx")("27621");
     }
     ((l.getIsCTMPurchaseConversionsOptimizationGoalEligible = e),
-      (l.getIsCTMPurchaseConversionsOptimizationGoalDFOEverywhereEligible = s),
+      (l.getIsEligibleForCTMPOLAWDefaulting = s),
+      (l.getIsCTMPurchaseConversionsOptimizationGoalDFOEverywhereEligible = u),
       (l.getIsCTMPurchaseConversionsOptimizationGoalDFOEverywhereEligibleTier2 =
-        u),
-      (l.getIsCTMPurchaseConversionsOptimizationGoalDFOEverywhereEligibleTier2And3Only =
         c),
-      (l.getIsPhase2PurchaseConversionsOptimizationEligible = d),
-      (l.getIsPassingCTMPurchaseOptimizationDFOEverywhereTier2QE = m),
-      (l.getIsPassingCTMPurchaseOptimizationDFOEverywhereTier2And3QE = p),
-      (l.getIsCTMPurchaseConversionsOptimizationGoalPostUCDDOEligible = _),
-      (l.getIsPassingCTMPurchaseOptimizationPostUCDDOQE = f));
+      (l.getIsCTMPurchaseConversionsOptimizationGoalDFOEverywhereEligibleTier2And3Only =
+        d),
+      (l.getIsPhase2PurchaseConversionsOptimizationEligible = m),
+      (l.getIsPassingCTMPurchaseOptimizationDFOEverywhereTier2QE = p),
+      (l.getIsPassingCTMPurchaseOptimizationDFOEverywhereTier2And3QE = _),
+      (l.getIsCTMPurchaseConversionsOptimizationGoalPostUCDDOEligible = f),
+      (l.getIsPassingCTMPurchaseOptimizationPostUCDDOQE = g));
   },
   98,
 );

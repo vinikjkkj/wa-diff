@@ -1,87 +1,50 @@
 __d(
   "WAWebMediaWorkerProxy",
-  ["WAWebABProps", "asyncToGeneratorRuntime", "cr:36997"],
+  ["WAWebABProps", "cr:36997"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      return n("cr:36997").calculateFilehashInWorker(e);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return n("cr:36997").calculateFilehashInWorker(e);
-        })),
-        s.apply(this, arguments)
+    async function s(e, t, r) {
+      return n("cr:36997").hmacSha256InWorker(e, t, r);
+    }
+    async function u(e) {
+      return n("cr:36997").transcodeToMp4InWorker(e);
+    }
+    async function c(e) {
+      return n("cr:36997").mp4RepairMuxInWorker(e);
+    }
+    async function d(e) {
+      var t;
+      return n("cr:36997").kaleidoscopeClassifyInWorker(
+        babelHelpers.extends({}, e, {
+          strictJpegScanValidationEnabled: (t =
+            o("WAWebABProps")).getABPropConfigValue(
+            "ks_jpeg_scan_strict_validation_enabled",
+          ),
+          strictOggOpusValidationEnabled: t.getABPropConfigValue(
+            "ks_ogg_opus_strict_validation_enabled",
+          ),
+          strictMp4ValidationEnabled: t.getABPropConfigValue(
+            "ks_mp4_strict_validation_enabled",
+          ),
+          zipArchiveCheckEnabled: t.getABPropConfigValue(
+            "ks_zip_archive_check_enabled",
+          ),
+          allowAv1VideoCodec: t.getABPropConfigValue(
+            "ks_allow_av1_video_codec",
+          ),
+          claimedTypeValidationEnabled: t.getABPropConfigValue(
+            "ks_claimed_type_validation_enabled",
+          ),
+          strictAacAdtsValidationEnabled: t.getABPropConfigValue(
+            "ks_aac_adts_strict_validation_enabled",
+          ),
+        }),
       );
     }
-    function u(e, t, n) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          return n("cr:36997").hmacSha256InWorker(e, t, r);
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return n("cr:36997").transcodeToMp4InWorker(e);
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return n("cr:36997").mp4RepairMuxInWorker(e);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          return n("cr:36997").kaleidoscopeClassifyInWorker(
-            babelHelpers.extends({}, e, {
-              strictJpegScanValidationEnabled: (t =
-                o("WAWebABProps")).getABPropConfigValue(
-                "ks_jpeg_scan_strict_validation_enabled",
-              ),
-              strictOggOpusValidationEnabled: t.getABPropConfigValue(
-                "ks_ogg_opus_strict_validation_enabled",
-              ),
-              strictMp4ValidationEnabled: t.getABPropConfigValue(
-                "ks_mp4_strict_validation_enabled",
-              ),
-              zipArchiveCheckEnabled: t.getABPropConfigValue(
-                "ks_zip_archive_check_enabled",
-              ),
-              allowAv1VideoCodec: t.getABPropConfigValue(
-                "ks_allow_av1_video_codec",
-              ),
-              claimedTypeValidationEnabled: t.getABPropConfigValue(
-                "ks_claimed_type_validation_enabled",
-              ),
-            }),
-          );
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
+    function m(e) {
       if (e == null) return null;
       var t = {};
       return (
@@ -90,49 +53,33 @@ __d(
         t.iptc == null && t.c2pa == null ? null : t
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    async function p(e) {
+      var t = await n("cr:36997").detectAiProvenanceInWorker(e),
+        r = t.engineErrorCode,
+        o = t.provenance,
+        a = t.systemProvenance,
+        i = t.transferredBuffer;
+      return {
+        transferredBuffer: i,
+        provenance: m(o),
+        engineErrorCode: r,
+        systemProvenance: a,
+      };
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield n("cr:36997").detectAiProvenanceInWorker(e),
-            r = t.engineErrorCode,
-            o = t.provenance,
-            a = t.systemProvenance,
-            i = t.transferredBuffer;
-          return {
-            transferredBuffer: i,
-            provenance: h(o),
-            engineErrorCode: r,
-            systemProvenance: a,
-          };
-        })),
-        C.apply(this, arguments)
-      );
+    async function _(e) {
+      return await n("cr:36997").writeMediaMetadataInWorker(e);
     }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return yield n("cr:36997").writeMediaMetadataInWorker(e);
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
+    function f(e) {
       n("cr:36997").prewarmMediaWasmWorker(e);
     }
     ((l.calculateFilehashInWorker = e),
-      (l.hmacSha256InWorker = u),
-      (l.transcodeToMp4InWorker = d),
-      (l.mp4RepairMuxInWorker = p),
-      (l.kaleidoscopeClassifyInWorker = f),
-      (l.detectAiProvenanceInWorker = y),
-      (l.writeMediaMetadataInWorker = b),
-      (l.prewarmMediaWasmWorker = S));
+      (l.hmacSha256InWorker = s),
+      (l.transcodeToMp4InWorker = u),
+      (l.mp4RepairMuxInWorker = c),
+      (l.kaleidoscopeClassifyInWorker = d),
+      (l.detectAiProvenanceInWorker = p),
+      (l.writeMediaMetadataInWorker = _),
+      (l.prewarmMediaWasmWorker = f));
   },
   98,
 );

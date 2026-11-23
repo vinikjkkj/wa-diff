@@ -17,8 +17,8 @@ __d(
           t.participants.iAmAdmin() &&
           (n = e.groupMetadata) != null &&
           n.announce
-            ? s._(/*BTDS*/ "Only admins can send messages")
-            : s._(/*BTDS*/ "click here for group info"),
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ ""),
         i;
       if (
         o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e.groupMetadata) ===
@@ -26,8 +26,8 @@ __d(
       ) {
         var l;
         e != null && (l = e.groupMetadata) != null && l.participants.iAmAdmin()
-          ? (i = s._(/*BTDS*/ "Only admins can send messages"))
-          : (i = s._(/*BTDS*/ "Announcements"));
+          ? (i = s._(/*BTDS*/ ""))
+          : (i = s._(/*BTDS*/ ""));
       } else if (
         o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(e.groupMetadata) ===
           o("WAWebGroupType").GroupType.LINKED_SUBGROUP &&
@@ -41,8 +41,7 @@ __d(
             d != null
               ? o("WAWebFrontendContactGetters").getFormattedName(d)
               : null;
-        m != null &&
-          (i = s._(/*BTDS*/ "{community}", [s._param("community", m)]));
+        m != null && (i = s._(/*BTDS*/ "", [s._param("community", m)]));
       }
       return i != null ? i : a;
     }

@@ -12,7 +12,6 @@ __d(
     "WAWebOpenNewsletterPreviewChat",
     "WAWebWamEnumChannelEventSurface",
     "WAWebWamEnumTsSurface",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -49,44 +48,36 @@ __d(
             .sendLogs("org-admin-open-channel-failed");
         });
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = u(e);
-          if (t == null)
-            try {
-              t = yield o(
-                "WAWebLoadNewsletterPreviewChatAction",
-              ).loadNewsletterPreviewChat(o("WAJids").toNewsletterJid(e));
-            } catch (e) {
-              return (
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[org-admin] loading a managed channel to follow failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("org-admin-follow-channel-load-failed"),
-                !1
-              );
-            }
-          return t == null
-            ? !1
-            : (yield o("WAWebFollowNewsletter").followNewsletter(t, {
-                discoverySurface: o("WAWebWamEnumTsSurface").TS_SURFACE
-                  .CHANNEL_PROFILE,
-                eventSurface: o("WAWebWamEnumChannelEventSurface")
-                  .CHANNEL_EVENT_SURFACE.CHANNEL_PROFILE,
-              }),
-              !0);
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(e) {
+      var t = u(e);
+      if (t == null)
+        try {
+          t = await o(
+            "WAWebLoadNewsletterPreviewChatAction",
+          ).loadNewsletterPreviewChat(o("WAJids").toNewsletterJid(e));
+        } catch (e) {
+          return (
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[org-admin] loading a managed channel to follow failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("org-admin-follow-channel-load-failed"),
+            !1
+          );
+        }
+      return t == null
+        ? !1
+        : (await o("WAWebFollowNewsletter").followNewsletter(t, {
+            discoverySurface: o("WAWebWamEnumTsSurface").TS_SURFACE
+              .CHANNEL_PROFILE,
+            eventSurface: o("WAWebWamEnumChannelEventSurface")
+              .CHANNEL_EVENT_SURFACE.CHANNEL_PROFILE,
+          }),
+          !0);
     }
     ((l.getOrgAdminChannelChat = u),
       (l.openOrgAdminChannel = c),

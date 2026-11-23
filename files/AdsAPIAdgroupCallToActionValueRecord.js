@@ -8,6 +8,7 @@ __d(
     "AdsAdgroupUnifiedCreativeAPIMigrationUtils",
     "adsConvertAdObjectRecordToPlainJS",
     "immutable",
+    "qex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -17,7 +18,10 @@ __d(
         a,
         i,
         l = e,
-        s = r("adsConvertAdObjectRecordToPlainJS")(t);
+        s =
+          r("qex")._("3278") === !0
+            ? t
+            : r("adsConvertAdObjectRecordToPlainJS")(t);
       if (
         (t == null ||
         (n = t.creative) == null ||

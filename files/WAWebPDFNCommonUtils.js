@@ -86,7 +86,7 @@ __d(
           ? void 0
           : n.label) != null
         ? t
-        : s._(/*BTDS*/ "Continue");
+        : s._(/*BTDS*/ "");
     }
     ((l.PdfnTheme = c),
       (l.PdfnNoticeType = d),

@@ -3,7 +3,6 @@ __d(
   [
     "AdsAPIAdgroupPaths",
     "AdsAPIDevicePlatform",
-    "AdsBulkValueUtils",
     "AdsCanvasAdUtils",
     "AdsCollectionsConstants",
     "AdsEmptyValue",
@@ -17,13 +16,11 @@ __d(
     "adsPlacementAPISpecReaderIsActiveFacebookPosition",
     "adsPlacementAPISpecReaderIsActivePublisherPlatform",
     "getByPath",
-    "immutable",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = "0",
-      s = 4;
-    function u(e) {
+    var e = 4;
+    function s(e) {
       if (!e) return null;
       var t = r("getByPath")(
         e,
@@ -53,12 +50,12 @@ __d(
         t instanceof r("AdsEmptyValue")
           ? null
           : (t instanceof r("AdsUniformValue")
-              ? (t = o("AdsBulkValueUtils").getValueOrMixed_DEPRECATED(t))
+              ? (t = t.getValue())
               : t instanceof Object && (t = Array.from(t)),
             t)
       );
     }
-    function c(e) {
+    function u(e) {
       if (!e) return null;
       var t = r("getByPath")(
         e,
@@ -86,26 +83,21 @@ __d(
         t instanceof r("AdsEmptyValue")
           ? null
           : (t instanceof r("AdsUniformValue")
-              ? (t = o("AdsBulkValueUtils").getValueOrMixed_DEPRECATED(t))
+              ? (t = t.getValue())
               : t instanceof Object && (t = Array.from(t)),
             t)
       );
     }
-    function d(e) {
-      return m(e.creative);
+    function c(e) {
+      return d(e.creative);
     }
-    function m(e) {
-      var t = c(e),
-        n = u(e);
+    function d(e) {
+      var t = u(e),
+        n = s(e);
       return !!(t && t.length !== 0) || !!(n && n.length !== 0);
     }
-    function p(e) {
-      return e.every(function (e) {
-        return _(e.spec);
-      });
-    }
-    function _(e) {
-      if (!h(e)) return !1;
+    function m(e) {
+      if (!f(e)) return !1;
       var t = r("adsPlacementAPISpecReaderIsActivePublisherPlatform")(
           e,
           "facebook",
@@ -157,22 +149,22 @@ __d(
             ));
       return a || u || i || l || s;
     }
-    function f(e) {
+    function p(e) {
+      var t = _(e);
       return (
-        (e = g(e)),
-        (e.device_platforms =
-          e.device_platforms != null
-            ? e.device_platforms.filter(function (e) {
+        (t.device_platforms =
+          t.device_platforms != null
+            ? t.device_platforms.filter(function (e) {
                 return e === r("AdsAPIDevicePlatform").MOBILE;
               })
             : void 0),
         r("adsPlacementAPISpecReaderIsActivePublisherPlatform")(
-          e,
+          t,
           "facebook",
         ) &&
-          (e.facebook_positions =
-            e.facebook_positions != null
-              ? e.facebook_positions.filter(function (e) {
+          (t.facebook_positions =
+            t.facebook_positions != null
+              ? t.facebook_positions.filter(function (e) {
                   return (
                     e === "feed" ||
                     e === "instant_article" ||
@@ -182,19 +174,19 @@ __d(
                 })
               : void 0),
         r("adsPlacementAPISpecReaderIsActivePublisherPlatform")(
-          e,
+          t,
           "instagram",
         ) &&
-          (e.instagram_positions =
-            e.instagram_positions != null
-              ? e.instagram_positions.filter(function (e) {
+          (t.instagram_positions =
+            t.instagram_positions != null
+              ? t.instagram_positions.filter(function (e) {
                   return e === "stream" || e === "story";
                 })
               : void 0),
-        e
+        t
       );
     }
-    function g(e) {
+    function _(e) {
       var t;
       return babelHelpers.extends({}, e, {
         publisher_platforms:
@@ -205,7 +197,7 @@ __d(
               }),
       });
     }
-    function h(e) {
+    function f(e) {
       if (!e.publisher_platforms || e.publisher_platforms.length === 0)
         return !1;
       var t = e.publisher_platforms.filter(function (e) {
@@ -213,7 +205,7 @@ __d(
       });
       return !!t && t.length === 0;
     }
-    function y(e, t) {
+    function g(e, t) {
       var n = r("adsPlacementAPISpecReaderIsActivePublisherPlatform")(
           e,
           "facebook",
@@ -263,19 +255,7 @@ __d(
         m
       );
     }
-    function C(t) {
-      for (
-        var n = r("immutable").List(
-          t.map(function (e) {
-            return e.retailer_id;
-          }),
-        );
-        n.count() < s;
-      )
-        n = n.push(e);
-      return n;
-    }
-    function b(e, t) {
+    function h(e, t) {
       if (!e)
         return o("AdsCollectionsConstants")
           .POST_CLICK_ITEM_DEFAULT_HEADLINE_TEMPLATE;
@@ -285,7 +265,7 @@ __d(
         case r("CatalogVertical").HOTELS:
           return "{{hotel.name}}";
         case r("CatalogVertical").COMMERCE:
-          return t != null ? S(t) : "{{product.name}}";
+          return t != null ? C(t) : "{{product.name}}";
         case r("CatalogVertical").VEHICLES:
           return "{{vehicle.title}}";
         case r("CatalogVertical").MEDIA_TITLES:
@@ -297,7 +277,7 @@ __d(
             .POST_CLICK_ITEM_DEFAULT_HEADLINE_TEMPLATE;
       }
     }
-    function v(e, t) {
+    function y(e, t) {
       if (!e)
         return o("AdsCollectionsConstants")
           .POST_CLICK_ITEM_DEFAULT_DESCRIPTION_TEMPLATE;
@@ -308,7 +288,7 @@ __d(
           return "{{hotel.price}}";
         case r("CatalogVertical").COMMERCE:
           return t != null
-            ? R(t)
+            ? b(t)
             : o("AdsCollectionsConstants")
                 .POST_CLICK_ITEM_DEFAULT_DESCRIPTION_TEMPLATE;
         case r("CatalogVertical").VEHICLES:
@@ -322,7 +302,7 @@ __d(
             .POST_CLICK_ITEM_DEFAULT_DESCRIPTION_TEMPLATE;
       }
     }
-    function S(e) {
+    function C(e) {
       switch (e) {
         case "APP_AND_SOFTWARE":
           return "{{app_and_software.name}}";
@@ -341,7 +321,7 @@ __d(
           return "{{product.name}}";
       }
     }
-    function R(e) {
+    function b(e) {
       switch (e) {
         case "APP_AND_SOFTWARE":
           return (
@@ -385,7 +365,7 @@ __d(
             .POST_CLICK_ITEM_DEFAULT_DESCRIPTION_TEMPLATE;
       }
     }
-    function L(e) {
+    function v(e) {
       var t;
       return (
         (e == null || (t = e.creative) == null ? void 0 : t.product_set_id) !=
@@ -396,13 +376,13 @@ __d(
         )
       );
     }
-    function E(e) {
+    function S(e) {
       var t,
         n,
         r,
         a,
         i,
-        l = m(e.creative),
+        l = d(e.creative),
         s =
           (t =
             (n =
@@ -428,22 +408,18 @@ __d(
         u = o("AdsCanvasAdUtils").isEmptyCanvasLink(s);
       return l && u;
     }
-    ((l.INFEED_PRODUCT_COUNT = s),
-      (l.getCollectionThumbnails = u),
-      (l.getRetailerItemIds = c),
-      (l.isCollectionAdgroup = d),
-      (l.isCollectionsAd = m),
-      (l.isBulkPlacementCompatible = p),
-      (l.isPlacementSpecCompatible = _),
-      (l.filterUnsupportedPlacementForPlacementSpec = f),
-      (l.filterUnsupportedPublisherPlatforms = g),
-      (l.isCollectionCompatiblePublisherPlatform = h),
-      (l.hasCompatiblePlacement = y),
-      (l.getNewRetailerItemIds = C),
-      (l.getPostClickItemDefaultHeadlineTemplate = b),
-      (l.getPostClickItemDefaultDescriptionTemplate = v),
-      (l.hasProductSetWithoutTag = L),
-      (l.shouldShowNoMediaViewForCollectionAd = E));
+    ((l.INFEED_PRODUCT_COUNT = e),
+      (l.getCollectionThumbnails = s),
+      (l.getRetailerItemIds = u),
+      (l.isCollectionAdgroup = c),
+      (l.isCollectionsAd = d),
+      (l.isPlacementSpecCompatible = m),
+      (l.filterUnsupportedPlacementForPlacementSpec = p),
+      (l.hasCompatiblePlacement = g),
+      (l.getPostClickItemDefaultHeadlineTemplate = h),
+      (l.getPostClickItemDefaultDescriptionTemplate = y),
+      (l.hasProductSetWithoutTag = v),
+      (l.shouldShowNoMediaViewForCollectionAd = S));
   },
   98,
 );

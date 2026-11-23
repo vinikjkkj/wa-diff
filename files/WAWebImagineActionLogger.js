@@ -1,7 +1,6 @@
 __d(
   "WAWebImagineActionLogger",
   [
-    "Promise",
     "WALogger",
     "WAWebBotUtils",
     "WAWebFileUtils",
@@ -12,221 +11,142 @@ __d(
     "WAWebWamEnumImagineActionSource",
     "WAWebWamEnumImagineMediaType",
     "WAWebWamEnumMediaPickerOriginType",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s;
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.action,
-            n = e.chat,
-            r = e.isCancelled,
-            a = e.isSent,
-            i = e.maxIndex,
-            l = e.mediaType,
-            s = e.source,
-            u = e.target;
-          if (V(n))
-            try {
-              o("WAWebLogImagineAction").logImagineAction({
-                action: t,
-                source: s,
-                target: u,
-                mediaType: l,
-                maxIndex: i,
-                isCancelled: r,
-                isSent: a,
-                eventContext: yield o(
-                  "WAWebGetMetaAiImagineEventContext",
-                ).getMetaAiImagineEventContext(n),
-              });
-            } catch (e) {
-              H(e);
-            }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield u({
-            action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_INPUT_CLICK,
-            chat: e,
-            source: o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE
-              .CAMERA,
-            mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
-              .IMAGE,
+    var e;
+    async function s(e) {
+      var t = e.action,
+        n = e.chat,
+        r = e.isCancelled,
+        a = e.isSent,
+        i = e.maxIndex,
+        l = e.mediaType,
+        s = e.source,
+        u = e.target;
+      if (I(n))
+        try {
+          o("WAWebLogImagineAction").logImagineAction({
+            action: t,
+            source: s,
+            target: u,
+            mediaType: l,
+            maxIndex: i,
+            isCancelled: r,
+            isSent: a,
+            eventContext: await o(
+              "WAWebGetMetaAiImagineEventContext",
+            ).getMetaAiImagineEventContext(n),
           });
-        })),
-        m.apply(this, arguments)
-      );
+        } catch (e) {
+          T(e);
+        }
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function u(e) {
+      await s({
+        action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION.MEDIA_INPUT_CLICK,
+        chat: e,
+        source: o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE
+          .CAMERA,
+        mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.IMAGE,
+      });
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield u({
-            action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_INPUT_CAPTURE_NEW,
-            chat: e,
-            source: o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE
-              .CAMERA,
-            mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
-              .IMAGE,
-            maxIndex: 1,
-          });
-        })),
-        _.apply(this, arguments)
-      );
+    async function c(e) {
+      await s({
+        action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+          .MEDIA_INPUT_CAPTURE_NEW,
+        chat: e,
+        source: o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE
+          .CAMERA,
+        mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.IMAGE,
+        maxIndex: 1,
+      });
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    async function d(e) {
+      await s({
+        action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+          .MEDIA_INPUT_SEND_CONFIRM,
+        chat: e,
+        source: o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE
+          .CAMERA,
+        mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.IMAGE,
+        maxIndex: 1,
+        isSent: !0,
+      });
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield u({
-            action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_INPUT_SEND_CONFIRM,
-            chat: e,
-            source: o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE
-              .CAMERA,
-            mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
-              .IMAGE,
-            maxIndex: 1,
-            isSent: !0,
-          });
-        })),
-        g.apply(this, arguments)
-      );
+    async function m(e, t) {
+      await s({
+        action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+          .MEDIA_INPUT_SEND_CANCEL,
+        chat: e,
+        source: o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE
+          .CAMERA,
+        mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.IMAGE,
+        maxIndex: t,
+        isCancelled: !0,
+      });
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    async function p(e) {
+      await s({
+        action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+          .MEDIA_INPUT_DOCUMENT_CLICK,
+        chat: e,
+        mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
+          .DOCUMENT,
+      });
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield u({
-            action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_INPUT_SEND_CANCEL,
-            chat: e,
-            source: o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE
-              .CAMERA,
-            mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
-              .IMAGE,
-            maxIndex: t,
-            isCancelled: !0,
-          });
-        })),
-        y.apply(this, arguments)
-      );
+    async function _(e, t) {
+      await s({
+        action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+          .MEDIA_INPUT_GALLERY_SELECTION_CONFIRMED,
+        chat: e,
+        mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
+          .DOCUMENT,
+        maxIndex: t,
+      });
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    async function f(e, t) {
+      var n = b(t);
+      (await s({
+        action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION.MEDIA_INPUT_CLICK,
+        chat: e,
+        mediaType: n,
+      }),
+        await s({
+          action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+            .MEDIA_INPUT_GALLERY_CLICK,
+          chat: e,
+          mediaType: n,
+        }));
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield u({
-            action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_INPUT_DOCUMENT_CLICK,
-            chat: e,
-            mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
-              .DOCUMENT,
-          });
-        })),
-        b.apply(this, arguments)
-      );
+    async function g(e, t) {
+      if (I(e)) {
+        var n;
+        try {
+          n = await k(t);
+        } catch (e) {
+          T(e);
+          return;
+        }
+        await s({
+          action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+            .MEDIA_INPUT_GALLERY_SELECTION_CONFIRMED,
+          chat: e,
+          mediaType: n,
+          maxIndex: t.length,
+        });
+      }
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield u({
-            action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_INPUT_GALLERY_SELECTION_CONFIRMED,
-            chat: e,
-            mediaType: o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE
-              .DOCUMENT,
-            maxIndex: t,
-          });
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = x(t);
-          (yield u({
-            action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_INPUT_CLICK,
-            chat: e,
-            mediaType: n,
-          }),
-            yield u({
-              action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-                .MEDIA_INPUT_GALLERY_CLICK,
-              chat: e,
-              mediaType: n,
-            }));
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e, t) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (V(e)) {
-            var n;
-            try {
-              n = yield q(t);
-            } catch (e) {
-              H(e);
-              return;
-            }
-            yield u({
-              action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-                .MEDIA_INPUT_GALLERY_SELECTION_CONFIRMED,
-              chat: e,
-              mediaType: n,
-              maxIndex: t.length,
-            });
-          }
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e) {
-      return e.length > 0 && e.every(K)
+    function h(e) {
+      return e.length > 0 && e.every($)
         ? o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE.CAMERA
-        : e.length > 0 && e.every(T)
+        : e.length > 0 && e.every(y)
           ? o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE.CHAT_TRAY
           : o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE
               .ATTACHMEMT_TRAY;
     }
-    function T(e) {
+    function y(e) {
       return (
         e ===
           o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
@@ -236,11 +156,11 @@ __d(
             .EXTERNAL_DROP
       );
     }
-    function D(e) {
+    function C(e) {
       var t,
         n = 0;
       for (var r of e) {
-        var a = Q(r);
+        var a = P(r);
         a != null &&
           ((n += 1),
           t != null && t !== a
@@ -249,117 +169,65 @@ __d(
       }
       return t == null ? null : { mediaType: t, maxIndex: n };
     }
-    function x(e) {
+    function b(e) {
       var t;
-      return (t = D(e)) == null ? void 0 : t.mediaType;
+      return (t = C(e)) == null ? void 0 : t.mediaType;
     }
-    function $(e) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield G(
-            o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_INPUT_SEND_CONFIRM,
-            e,
-            { isSent: !0 },
-          );
-        })),
-        P.apply(this, arguments)
+    async function v(e) {
+      await D(
+        o("WAWebWamEnumImagineAction").IMAGINE_ACTION.MEDIA_INPUT_SEND_CONFIRM,
+        e,
+        { isSent: !0 },
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
-    }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield G(
-            o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_INPUT_SEND_CANCEL,
-            e,
-            { isCancelled: !0 },
-          );
-        })),
-        M.apply(this, arguments)
+    async function S(e) {
+      await D(
+        o("WAWebWamEnumImagineAction").IMAGINE_ACTION.MEDIA_INPUT_SEND_CANCEL,
+        e,
+        { isCancelled: !0 },
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
-    }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield G(
-            o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_SIZE_EXCEED_LIMIT,
-            e,
-          );
-        })),
-        A.apply(this, arguments)
+    async function R(e) {
+      await D(
+        o("WAWebWamEnumImagineAction").IMAGINE_ACTION.MEDIA_SIZE_EXCEED_LIMIT,
+        e,
       );
     }
-    function F(e) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield G(
-            o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-              .MEDIA_INPUT_COPY_PASTE,
-            e,
-          );
-        })),
-        O.apply(this, arguments)
+    async function L(e) {
+      await D(
+        o("WAWebWamEnumImagineAction").IMAGINE_ACTION.MEDIA_INPUT_COPY_PASTE,
+        e,
       );
     }
-    function B(e, t) {
-      return W.apply(this, arguments);
+    async function E(e, t) {
+      var n = C(t);
+      n != null &&
+        (await s({
+          action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
+            .MEDIA_INPUT_FORWARD_SELECTION,
+          chat: e,
+          source: o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE
+            .FORWARD,
+          mediaType: n.mediaType,
+          maxIndex: n.maxIndex,
+        }));
     }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = D(t);
-          n != null &&
-            (yield u({
-              action: o("WAWebWamEnumImagineAction").IMAGINE_ACTION
-                .MEDIA_INPUT_FORWARD_SELECTION,
-              chat: e,
-              source: o("WAWebWamEnumImagineActionSource").IMAGINE_ACTION_SOURCE
-                .FORWARD,
-              mediaType: n.mediaType,
-              maxIndex: n.maxIndex,
-            }));
-        })),
-        W.apply(this, arguments)
-      );
+    async function k(e) {
+      var t = await Promise.all(e),
+        n = t.some(x),
+        r = t.some(function (e) {
+          return !x(e);
+        });
+      return n && r
+        ? o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.MIXED
+        : n
+          ? o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.VIDEO
+          : o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.IMAGE;
     }
-    function q(e) {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (s || (s = n("Promise"))).all(e),
-            r = t.some(j),
-            a = t.some(function (e) {
-              return !j(e);
-            });
-          return r && a
-            ? o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.MIXED
-            : r
-              ? o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.VIDEO
-              : o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.IMAGE;
-        })),
-        U.apply(this, arguments)
-      );
-    }
-    function V(e) {
+    function I(e) {
       return o("WAWebBotUtils").isMetaAiBot(e.id);
     }
-    function H(t) {
+    function T(t) {
       o("WALogger")
         .ERROR(
           e ||
@@ -370,34 +238,26 @@ __d(
         .catching(r("getErrorSafe")(t))
         .sendLogs("imagine-action-log-failed");
     }
-    function G(e, t, n) {
-      return z.apply(this, arguments);
+    async function D(e, t, n) {
+      var r = t.chat,
+        o = t.mediaTypes,
+        a = t.origins,
+        i = C(o);
+      i != null &&
+        (await s(
+          babelHelpers.extends(
+            {
+              action: e,
+              chat: r,
+              source: h(a),
+              mediaType: i.mediaType,
+              maxIndex: i.maxIndex,
+            },
+            n,
+          ),
+        ));
     }
-    function z() {
-      return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = t.chat,
-            o = t.mediaTypes,
-            a = t.origins,
-            i = D(o);
-          i != null &&
-            (yield u(
-              babelHelpers.extends(
-                {
-                  action: e,
-                  chat: r,
-                  source: I(a),
-                  mediaType: i.mediaType,
-                  maxIndex: i.maxIndex,
-                },
-                n,
-              ),
-            ));
-        })),
-        z.apply(this, arguments)
-      );
-    }
-    function j(e) {
+    function x(e) {
       var t;
       return (
         ((t = e.type) != null
@@ -406,7 +266,7 @@ __d(
         o("WAWebMsgType").MSG_TYPE.VIDEO
       );
     }
-    function K(e) {
+    function $(e) {
       return (
         e ===
           o("WAWebWamEnumMediaPickerOriginType").MEDIA_PICKER_ORIGIN_TYPE
@@ -419,7 +279,7 @@ __d(
             .EXTERNAL_CAMERA
       );
     }
-    function Q(e) {
+    function P(e) {
       return e === o("WAWebMsgType").MSG_TYPE.IMAGE
         ? o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.IMAGE
         : e === o("WAWebMsgType").MSG_TYPE.VIDEO
@@ -428,25 +288,25 @@ __d(
             ? o("WAWebWamEnumImagineMediaType").IMAGINE_MEDIA_TYPE.DOCUMENT
             : void 0;
     }
-    ((l.logImagineActionForChat = u),
-      (l.logImagineCameraClick = d),
-      (l.logImagineCameraCapture = p),
-      (l.logImagineCameraSend = f),
-      (l.logImagineCameraCancel = h),
-      (l.logImagineDocumentClick = C),
-      (l.logImagineDocumentSelectionConfirmed = v),
-      (l.logImagineGalleryOpen = R),
-      (l.logImagineGallerySelectionConfirmed = E),
-      (l.resolveImagineActionSource = I),
-      (l.isPasteOrDropOrigin = T),
-      (l.getImagineMediaSummary = D),
-      (l.resolveImagineMediaType = x),
-      (l.logImagineMediaSendConfirm = $),
-      (l.logImagineMediaSendCancel = N),
-      (l.logImagineMediaSizeExceedLimit = w),
-      (l.logImagineMediaCopyPaste = F),
-      (l.logImagineForwardSelection = B),
-      (l.resolveImagineGalleryMediaType = q));
+    ((l.logImagineActionForChat = s),
+      (l.logImagineCameraClick = u),
+      (l.logImagineCameraCapture = c),
+      (l.logImagineCameraSend = d),
+      (l.logImagineCameraCancel = m),
+      (l.logImagineDocumentClick = p),
+      (l.logImagineDocumentSelectionConfirmed = _),
+      (l.logImagineGalleryOpen = f),
+      (l.logImagineGallerySelectionConfirmed = g),
+      (l.resolveImagineActionSource = h),
+      (l.isPasteOrDropOrigin = y),
+      (l.getImagineMediaSummary = C),
+      (l.resolveImagineMediaType = b),
+      (l.logImagineMediaSendConfirm = v),
+      (l.logImagineMediaSendCancel = S),
+      (l.logImagineMediaSizeExceedLimit = R),
+      (l.logImagineMediaCopyPaste = L),
+      (l.logImagineForwardSelection = E),
+      (l.resolveImagineGalleryMediaType = k));
   },
   98,
 );

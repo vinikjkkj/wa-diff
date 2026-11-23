@@ -9,14 +9,15 @@ __d(
             propagationType: r("TimeSlice").PropagationType.CONTINUATION,
             registerCallStack: !0,
           }),
-          i = arguments.length,
-          l = new Array(i > 2 ? i - 2 : 0),
-          s = 2;
-        s < i;
-        s++
+          i = Function.prototype.apply,
+          l = arguments.length,
+          s = new Array(l > 2 ? l - 2 : 0),
+          u = 2;
+        u < l;
+        u++
       )
-        l[s - 2] = arguments[s];
-      return Function.prototype.apply.call(e, t, [a, o].concat(l));
+        s[u - 2] = arguments[u];
+      return i.call(e, t, [a, o].concat(s));
     }
     l.default = s;
   },

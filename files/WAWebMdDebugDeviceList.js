@@ -30,15 +30,15 @@ __d(
         l = i[0],
         s = i[1],
         m = c(!1),
-        p = m[0],
-        _ = m[1],
-        f = c(new Map()),
-        g = f[0],
-        h = f[1],
-        y = c(new Map()),
-        C = y[0],
-        b = y[1];
-      function v(e) {
+        _ = m[0],
+        f = m[1],
+        g = c(new Map()),
+        h = g[0],
+        y = g[1],
+        C = c(new Map()),
+        b = C[0],
+        v = C[1];
+      function S(e) {
         e != null &&
           e.length > 0 &&
           o("WAWebSchemaDeviceList")
@@ -46,29 +46,31 @@ __d(
             .get(e)
             .then(function (e) {
               if (e == null) {
-                _(!1);
+                f(!1);
                 return;
               }
-              (_(!0),
-                Array.from(d).forEach(function (t) {
-                  var n = t[0],
-                    r = t[1],
-                    o = e[r];
-                  (o != null && g.set(n, o), h(new Map(g)));
-                }));
+              f(!0);
+              var t = new Map(h);
+              (Array.from(d).forEach(function (n) {
+                var r = n[0],
+                  o = n[1],
+                  a = e[o];
+                a != null && t.set(r, a);
+              }),
+                y(t));
             });
       }
-      function S(e) {
-        (s(e), v(e));
+      function R(e) {
+        (s(e), S(e));
       }
-      function R(e, t) {
-        (t == null || t.length === 0 ? C.delete(e) : C.set(e, Number(t)),
-          b(new Map(C)));
+      function L(e, t) {
+        var n = new Map(b);
+        (t == null || t.length === 0 ? n.delete(e) : n.set(e, Number(t)), v(n));
       }
-      function L() {
+      function E() {
         var e = Object.fromEntries(
           new Map(
-            Array.from(C, function (e) {
+            Array.from(b, function (e) {
               var t = e[0],
                 n = e[1];
               return [d.get(t), n];
@@ -79,10 +81,10 @@ __d(
           r("WAWebDebug")
             .setDeviceListEntry(l, e)
             .then(function () {
-              (b(new Map()), v(l));
+              (v(new Map()), S(l));
             });
       }
-      var E = u.jsxs(
+      var k = u.jsxs(
           "span",
           babelHelpers.extends(
             { role: "button" },
@@ -109,7 +111,7 @@ __d(
             },
           ),
         ),
-        k = u.jsx("form", {
+        I = u.jsx("form", {
           children: u.jsx("table", {
             style: { width: "50%" },
             children: u.jsxs("tbody", {
@@ -122,7 +124,7 @@ __d(
                         value: l,
                         placeholder: "12015559607",
                         onChange: function (t) {
-                          return S(t.target.value);
+                          return R(t.target.value);
                         },
                       }),
                     }),
@@ -141,10 +143,10 @@ __d(
                         u.jsx("td", {
                           children: u.jsx("input", {
                             type: "number",
-                            placeholder: (t = g.get(r)) != null ? t : "",
-                            value: (n = C.get(r)) != null ? n : "",
+                            placeholder: (t = h.get(r)) != null ? t : "",
+                            value: (n = b.get(r)) != null ? n : "",
                             onChange: function (t) {
-                              return R(r, t.target.value);
+                              return L(r, t.target.value);
                             },
                           }),
                         }),
@@ -157,11 +159,11 @@ __d(
             }),
           }),
         }),
-        I = C.size > 0,
-        T = u.jsx(o("WAWebButton.react").Button, {
+        T = b.size > 0,
+        D = u.jsx(o("WAWebButton.react").Button, {
           type: "primary",
-          disabled: !(p && I),
-          onClick: L,
+          disabled: !(_ && T),
+          onClick: E,
           children: "Save",
         });
       return u.jsxs(
@@ -172,7 +174,7 @@ __d(
           {
             children: [
               u.jsx(r("WAWebMdDebugSettingTitle"), { title: "Device List" }),
-              E,
+              k,
               n
                 ? u.jsxs(u.Fragment, {
                     children: [
@@ -191,8 +193,8 @@ __d(
                           }),
                         ],
                       }),
-                      k,
-                      T,
+                      I,
+                      D,
                     ],
                   })
                 : null,
@@ -201,7 +203,9 @@ __d(
         ),
       );
     }
-    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
+    m.displayName = m.name + " [from " + i.id + "]";
+    function p(e, t) {}
+    l.default = m;
   },
   98,
 );

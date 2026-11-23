@@ -7,7 +7,7 @@ __d(
       var e = [
         {
           alias: null,
-          args: null,
+          args: [{ kind: "Literal", name: "include_offboarded", value: !0 }],
           concreteType: "WhatsAppTeamLinkAgentInvitation",
           kind: "LinkedField",
           name: "whatsapp_teamlink_list_agent_invitations",
@@ -31,6 +31,13 @@ __d(
               alias: null,
               args: null,
               kind: "ScalarField",
+              name: "team_role",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
               name: "invitation_status",
               storageKey: null,
             },
@@ -48,8 +55,16 @@ __d(
               name: "expires_at",
               storageKey: null,
             },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "offboarded_at",
+              storageKey: null,
+            },
           ],
-          storageKey: null,
+          storageKey:
+            "whatsapp_teamlink_list_agent_invitations(include_offboarded:true)",
         },
       ];
       return {

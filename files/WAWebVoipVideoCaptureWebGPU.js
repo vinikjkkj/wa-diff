@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipVideoCaptureWebGPU",
   [
-    "Promise",
     "WALogger",
     "WAWebUA",
     "WAWebVoipConverterPrewarm",
@@ -10,7 +9,6 @@ __d(
     "WAWebVoipVideoCaptureWebGL",
     "WAWebVoipVideoCaptureWithConverter",
     "WAWebVoipVideoFrameCtor",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,21 +28,195 @@ __d(
       C,
       b,
       v,
-      S,
-      R = 1e3,
-      L = 500;
-    function E(e) {
+      S = 1e3,
+      R = 500;
+    function L(e) {
       var t;
       if (e instanceof HTMLVideoElement) return !0;
       var n = (t = e.ownerDocument) == null ? void 0 : t.defaultView;
       return n != null && e instanceof n.HTMLVideoElement;
     }
-    function k(e) {
+    function E(e) {
       return e
-        ? "\nstruct Uniforms {\n  width: u32,\n  height: u32,\n  ySize: u32,\n}\n\n@group(0) @binding(0) var inputTexture: texture_2d<f32>;\n@group(0) @binding(1) var<storage, read_write> outputNV12: array<u32>;\n@group(0) @binding(2) var<uniform> uniforms: Uniforms;\n\n// Convert RGB to Y' using BT.601 formula for limited range.\n// https://en.wikipedia.org/wiki/YCbCr#ITU-R_BT.601_conversion\nconst OFFSET_Y: f32 = 0.06275;\nconst R_Y: f32 = 0.2568;\nconst G_Y: f32 = 0.5041;\nconst B_Y: f32 = 0.0979;\n\n// Convert RGB to CbCr using BT.601 formula for limited range.\n// https://en.wikipedia.org/wiki/YCbCr#ITU-R_BT.601_conversion\nconst R_U: f32 = -0.1482;\nconst G_U: f32 = -0.291;\nconst B_U: f32 = 0.4392;\nconst R_V: f32 = 0.4392;\nconst G_V: f32 = -0.3678;\nconst B_V: f32 = -0.0714;\n\n// 16x16 workgroup size - GPU workgroup size for 2D operations\n// that balances GPU occupancy with memory access patterns and cache utilization\n@compute @workgroup_size(16, 16)\nfn main(@builtin(global_invocation_id) id: vec3<u32>) {\n  let x = id.x;\n  let y = id.y;\n  let width = uniforms.width;\n  let height = uniforms.height;\n\n  // Process Y plane - pack 4 adjacent horizontal pixels into one u32\n  if (x % 4u == 0u && x < width && y < height) {\n    var y0: u32 = 0u;\n    var y1: u32 = 0u;\n    var y2: u32 = 0u;\n    var y3: u32 = 0u;\n\n    if (x < width) {\n      let rgba0 = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y)), 0);\n      let yValue0 = R_Y * rgba0.r + G_Y * rgba0.g + B_Y * rgba0.b + OFFSET_Y;\n      y0 = u32(yValue0 * 255.0);\n    }\n\n    if (x + 1u < width) {\n      let rgba1 = textureLoad(inputTexture, vec2<i32>(i32(x + 1u), i32(y)), 0);\n      let yValue1 = R_Y * rgba1.r + G_Y * rgba1.g + B_Y * rgba1.b + OFFSET_Y;\n      y1 = u32(yValue1 * 255.0);\n    }\n\n    if (x + 2u < width) {\n      let rgba2 = textureLoad(inputTexture, vec2<i32>(i32(x + 2u), i32(y)), 0);\n      let yValue2 = R_Y * rgba2.r + G_Y * rgba2.g + B_Y * rgba2.b + OFFSET_Y;\n      y2 = u32(yValue2 * 255.0);\n    }\n\n    if (x + 3u < width) {\n      let rgba3 = textureLoad(inputTexture, vec2<i32>(i32(x + 3u), i32(y)), 0);\n      let yValue3 = R_Y * rgba3.r + G_Y * rgba3.g + B_Y * rgba3.b + OFFSET_Y;\n      y3 = u32(yValue3 * 255.0);\n    }\n\n    // Pack 4 Y values into a single u32: [y0|y1|y2|y3]\n    let packed = y0 | (y1 << 8u) | (y2 << 16u) | (y3 << 24u);\n    let packedWidth = width / 4u;\n    let yIndex = y * packedWidth + (x / 4u);\n    outputNV12[yIndex] = packed;\n  }\n\n  // Process UV plane - pack 2 UV pairs (4 values) into one u32\n  // UV data written at offset uniforms.ySize (in u32 elements)\n  if (x % 4u == 0u && y % 2u == 0u && x < width && y < height) {\n    // Process first 2x2 block at (x, y) - unrolled sampling\n    let rgba00_0 = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y)), 0);\n    let rgba10_0 = textureLoad(inputTexture, vec2<i32>(i32(x + 1u), i32(y)), 0);\n    let rgba01_0 = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y + 1u)), 0);\n    let rgba11_0 = textureLoad(inputTexture, vec2<i32>(i32(x + 1u), i32(y + 1u)), 0);\n\n    let avg0 = (rgba00_0 + rgba10_0 + rgba01_0 + rgba11_0) * 0.25;\n    let u0 = u32((R_U * avg0.r + G_U * avg0.g + B_U * avg0.b + 0.5) * 255.0);\n    let v0 = u32((R_V * avg0.r + G_V * avg0.g + B_V * avg0.b + 0.5) * 255.0);\n\n    // Process second 2x2 block at (x+2, y) - unrolled sampling\n    let rgba00_1 = textureLoad(inputTexture, vec2<i32>(i32(x + 2u), i32(y)), 0);\n    let rgba10_1 = textureLoad(inputTexture, vec2<i32>(i32(x + 3u), i32(y)), 0);\n    let rgba01_1 = textureLoad(inputTexture, vec2<i32>(i32(x + 2u), i32(y + 1u)), 0);\n    let rgba11_1 = textureLoad(inputTexture, vec2<i32>(i32(x + 3u), i32(y + 1u)), 0);\n\n    let avg1 = (rgba00_1 + rgba10_1 + rgba01_1 + rgba11_1) * 0.25;\n    let u1 = u32((R_U * avg1.r + G_U * avg1.g + B_U * avg1.b + 0.5) * 255.0);\n    let v1 = u32((R_V * avg1.r + G_V * avg1.g + B_V * avg1.b + 0.5) * 255.0);\n\n    // Pack 2 UV pairs into a single u32: [u0|v0|u1|v1]\n    let packed = u0 | (v0 << 8u) | (u1 << 16u) | (v1 << 24u);\n    let uvY = y / 2u;\n    let uvPackedWidth = width / 4u;\n    let uvIndex = uniforms.ySize + uvY * uvPackedWidth + (x / 4u);\n    outputNV12[uvIndex] = packed;\n  }\n}\n"
-        : "\nstruct Uniforms {\n  width: u32,\n  height: u32,\n  ySize: u32,\n}\n\n@group(0) @binding(0) var inputTexture: texture_2d<f32>;\n@group(0) @binding(1) var<storage, read_write> outputNV12: array<u32>;\n@group(0) @binding(2) var<uniform> uniforms: Uniforms;\n\n// Convert RGB to Y' using BT.601 formula for limited range.\n// https://en.wikipedia.org/wiki/YCbCr#ITU-R_BT.601_conversion\nconst OFFSET_Y: f32 = 0.06275;\nconst R_Y: f32 = 0.2568;\nconst G_Y: f32 = 0.5041;\nconst B_Y: f32 = 0.0979;\n\n// Convert RGB to CbCr using BT.601 formula for limited range.\n// https://en.wikipedia.org/wiki/YCbCr#ITU-R_BT.601_conversion\nconst R_U: f32 = -0.1482;\nconst G_U: f32 = -0.291;\nconst B_U: f32 = 0.4392;\nconst R_V: f32 = 0.4392;\nconst G_V: f32 = -0.3678;\nconst B_V: f32 = -0.0714;\n\n// 16x16 workgroup size - GPU workgroup size for 2D operations\n// that balances GPU occupancy with memory access patterns and cache utilization\n@compute @workgroup_size(16, 16)\nfn main(@builtin(global_invocation_id) id: vec3<u32>) {\n  let x = id.x;\n  let y = id.y;\n  let width = uniforms.width;\n  let height = uniforms.height;\n\n  // Process Y plane - every pixel\n  if (x < width && y < height) {\n    let rgba = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y)), 0);\n    let yValue = R_Y * rgba.r + G_Y * rgba.g + B_Y * rgba.b + OFFSET_Y;\n    let yIndex = y * width + x;\n    outputNV12[yIndex] = u32(yValue * 255.0);\n  }\n\n  // Process UV plane - every 2x2 block with unrolled sampling\n  // UV data written at offset uniforms.ySize (in u32 elements)\n  if (x % 2u == 0u && y % 2u == 0u && x < width && y < height) {\n    // Unrolled 2x2 block sampling\n    let rgba00 = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y)), 0);\n    let rgba10 = textureLoad(inputTexture, vec2<i32>(i32(x + 1u), i32(y)), 0);\n    let rgba01 = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y + 1u)), 0);\n    let rgba11 = textureLoad(inputTexture, vec2<i32>(i32(x + 1u), i32(y + 1u)), 0);\n\n    // Average the 2x2 block\n    let avg = (rgba00 + rgba10 + rgba01 + rgba11) * 0.25;\n\n    // Convert to UV with 128 offset\n    let uValue = R_U * avg.r + G_U * avg.g + B_U * avg.b + 0.5;\n    let vValue = R_V * avg.r + G_V * avg.g + B_V * avg.b + 0.5;\n\n    // Store interleaved UV values at offset uniforms.ySize\n    let uvX = x / 2u;\n    let uvY = y / 2u;\n    let uvWidth = width / 2u;\n    let uvIndex = uniforms.ySize + (uvY * uvWidth + uvX) * 2u;\n\n    outputNV12[uvIndex] = u32(uValue * 255.0);\n    outputNV12[uvIndex + 1u] = u32(vValue * 255.0);\n  }\n}\n";
+        ? `
+struct Uniforms {
+  width: u32,
+  height: u32,
+  ySize: u32,
+}
+
+@group(0) @binding(0) var inputTexture: texture_2d<f32>;
+@group(0) @binding(1) var<storage, read_write> outputNV12: array<u32>;
+@group(0) @binding(2) var<uniform> uniforms: Uniforms;
+
+// Convert RGB to Y' using BT.601 formula for limited range.
+// https://en.wikipedia.org/wiki/YCbCr#ITU-R_BT.601_conversion
+const OFFSET_Y: f32 = 0.06275;
+const R_Y: f32 = 0.2568;
+const G_Y: f32 = 0.5041;
+const B_Y: f32 = 0.0979;
+
+// Convert RGB to CbCr using BT.601 formula for limited range.
+// https://en.wikipedia.org/wiki/YCbCr#ITU-R_BT.601_conversion
+const R_U: f32 = -0.1482;
+const G_U: f32 = -0.291;
+const B_U: f32 = 0.4392;
+const R_V: f32 = 0.4392;
+const G_V: f32 = -0.3678;
+const B_V: f32 = -0.0714;
+
+// 16x16 workgroup size - GPU workgroup size for 2D operations
+// that balances GPU occupancy with memory access patterns and cache utilization
+@compute @workgroup_size(16, 16)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+  let x = id.x;
+  let y = id.y;
+  let width = uniforms.width;
+  let height = uniforms.height;
+
+  // Process Y plane - pack 4 adjacent horizontal pixels into one u32
+  if (x % 4u == 0u && x < width && y < height) {
+    var y0: u32 = 0u;
+    var y1: u32 = 0u;
+    var y2: u32 = 0u;
+    var y3: u32 = 0u;
+
+    if (x < width) {
+      let rgba0 = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y)), 0);
+      let yValue0 = R_Y * rgba0.r + G_Y * rgba0.g + B_Y * rgba0.b + OFFSET_Y;
+      y0 = u32(yValue0 * 255.0);
     }
-    var I = (function () {
+
+    if (x + 1u < width) {
+      let rgba1 = textureLoad(inputTexture, vec2<i32>(i32(x + 1u), i32(y)), 0);
+      let yValue1 = R_Y * rgba1.r + G_Y * rgba1.g + B_Y * rgba1.b + OFFSET_Y;
+      y1 = u32(yValue1 * 255.0);
+    }
+
+    if (x + 2u < width) {
+      let rgba2 = textureLoad(inputTexture, vec2<i32>(i32(x + 2u), i32(y)), 0);
+      let yValue2 = R_Y * rgba2.r + G_Y * rgba2.g + B_Y * rgba2.b + OFFSET_Y;
+      y2 = u32(yValue2 * 255.0);
+    }
+
+    if (x + 3u < width) {
+      let rgba3 = textureLoad(inputTexture, vec2<i32>(i32(x + 3u), i32(y)), 0);
+      let yValue3 = R_Y * rgba3.r + G_Y * rgba3.g + B_Y * rgba3.b + OFFSET_Y;
+      y3 = u32(yValue3 * 255.0);
+    }
+
+    // Pack 4 Y values into a single u32: [y0|y1|y2|y3]
+    let packed = y0 | (y1 << 8u) | (y2 << 16u) | (y3 << 24u);
+    let packedWidth = width / 4u;
+    let yIndex = y * packedWidth + (x / 4u);
+    outputNV12[yIndex] = packed;
+  }
+
+  // Process UV plane - pack 2 UV pairs (4 values) into one u32
+  // UV data written at offset uniforms.ySize (in u32 elements)
+  if (x % 4u == 0u && y % 2u == 0u && x < width && y < height) {
+    // Process first 2x2 block at (x, y) - unrolled sampling
+    let rgba00_0 = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y)), 0);
+    let rgba10_0 = textureLoad(inputTexture, vec2<i32>(i32(x + 1u), i32(y)), 0);
+    let rgba01_0 = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y + 1u)), 0);
+    let rgba11_0 = textureLoad(inputTexture, vec2<i32>(i32(x + 1u), i32(y + 1u)), 0);
+
+    let avg0 = (rgba00_0 + rgba10_0 + rgba01_0 + rgba11_0) * 0.25;
+    let u0 = u32((R_U * avg0.r + G_U * avg0.g + B_U * avg0.b + 0.5) * 255.0);
+    let v0 = u32((R_V * avg0.r + G_V * avg0.g + B_V * avg0.b + 0.5) * 255.0);
+
+    // Process second 2x2 block at (x+2, y) - unrolled sampling
+    let rgba00_1 = textureLoad(inputTexture, vec2<i32>(i32(x + 2u), i32(y)), 0);
+    let rgba10_1 = textureLoad(inputTexture, vec2<i32>(i32(x + 3u), i32(y)), 0);
+    let rgba01_1 = textureLoad(inputTexture, vec2<i32>(i32(x + 2u), i32(y + 1u)), 0);
+    let rgba11_1 = textureLoad(inputTexture, vec2<i32>(i32(x + 3u), i32(y + 1u)), 0);
+
+    let avg1 = (rgba00_1 + rgba10_1 + rgba01_1 + rgba11_1) * 0.25;
+    let u1 = u32((R_U * avg1.r + G_U * avg1.g + B_U * avg1.b + 0.5) * 255.0);
+    let v1 = u32((R_V * avg1.r + G_V * avg1.g + B_V * avg1.b + 0.5) * 255.0);
+
+    // Pack 2 UV pairs into a single u32: [u0|v0|u1|v1]
+    let packed = u0 | (v0 << 8u) | (u1 << 16u) | (v1 << 24u);
+    let uvY = y / 2u;
+    let uvPackedWidth = width / 4u;
+    let uvIndex = uniforms.ySize + uvY * uvPackedWidth + (x / 4u);
+    outputNV12[uvIndex] = packed;
+  }
+}
+`
+        : `
+struct Uniforms {
+  width: u32,
+  height: u32,
+  ySize: u32,
+}
+
+@group(0) @binding(0) var inputTexture: texture_2d<f32>;
+@group(0) @binding(1) var<storage, read_write> outputNV12: array<u32>;
+@group(0) @binding(2) var<uniform> uniforms: Uniforms;
+
+// Convert RGB to Y' using BT.601 formula for limited range.
+// https://en.wikipedia.org/wiki/YCbCr#ITU-R_BT.601_conversion
+const OFFSET_Y: f32 = 0.06275;
+const R_Y: f32 = 0.2568;
+const G_Y: f32 = 0.5041;
+const B_Y: f32 = 0.0979;
+
+// Convert RGB to CbCr using BT.601 formula for limited range.
+// https://en.wikipedia.org/wiki/YCbCr#ITU-R_BT.601_conversion
+const R_U: f32 = -0.1482;
+const G_U: f32 = -0.291;
+const B_U: f32 = 0.4392;
+const R_V: f32 = 0.4392;
+const G_V: f32 = -0.3678;
+const B_V: f32 = -0.0714;
+
+// 16x16 workgroup size - GPU workgroup size for 2D operations
+// that balances GPU occupancy with memory access patterns and cache utilization
+@compute @workgroup_size(16, 16)
+fn main(@builtin(global_invocation_id) id: vec3<u32>) {
+  let x = id.x;
+  let y = id.y;
+  let width = uniforms.width;
+  let height = uniforms.height;
+
+  // Process Y plane - every pixel
+  if (x < width && y < height) {
+    let rgba = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y)), 0);
+    let yValue = R_Y * rgba.r + G_Y * rgba.g + B_Y * rgba.b + OFFSET_Y;
+    let yIndex = y * width + x;
+    outputNV12[yIndex] = u32(yValue * 255.0);
+  }
+
+  // Process UV plane - every 2x2 block with unrolled sampling
+  // UV data written at offset uniforms.ySize (in u32 elements)
+  if (x % 2u == 0u && y % 2u == 0u && x < width && y < height) {
+    // Unrolled 2x2 block sampling
+    let rgba00 = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y)), 0);
+    let rgba10 = textureLoad(inputTexture, vec2<i32>(i32(x + 1u), i32(y)), 0);
+    let rgba01 = textureLoad(inputTexture, vec2<i32>(i32(x), i32(y + 1u)), 0);
+    let rgba11 = textureLoad(inputTexture, vec2<i32>(i32(x + 1u), i32(y + 1u)), 0);
+
+    // Average the 2x2 block
+    let avg = (rgba00 + rgba10 + rgba01 + rgba11) * 0.25;
+
+    // Convert to UV with 128 offset
+    let uValue = R_U * avg.r + G_U * avg.g + B_U * avg.b + 0.5;
+    let vValue = R_V * avg.r + G_V * avg.g + B_V * avg.b + 0.5;
+
+    // Store interleaved UV values at offset uniforms.ySize
+    let uvX = x / 2u;
+    let uvY = y / 2u;
+    let uvWidth = width / 2u;
+    let uvIndex = uniforms.ySize + (uvY * uvWidth + uvX) * 2u;
+
+    outputNV12[uvIndex] = u32(uValue * 255.0);
+    outputNV12[uvIndex + 1u] = u32(vValue * 255.0);
+  }
+}
+`;
+    }
+    var k = (function () {
         function t(t, n, r) {
           var a = this;
           ((this.pipeline = null),
@@ -108,43 +280,35 @@ __d(
             (this.uvData = new Uint8Array(u)),
             (this.nv12Data = new Uint8Array(l + u)));
         }
-        t.create = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, a) {
-              var i,
-                l = (i = globalThis.navigator) == null ? void 0 : i.gpu;
-              if (l == null) throw r("err")("WebGPU not available");
-              var s = yield l.requestAdapter();
-              if (!s) throw r("err")("Failed to get WebGPU adapter");
-              var u = yield s.requestDevice();
-              if (!u) throw r("err")("Failed to get WebGPU device");
-              var c = new t(u, e, a);
-              if ((yield (S || (S = n("Promise"))).resolve(), !c.isAlive()))
-                throw new (o("WAWebVoipGpuDeviceLiveness").DeviceLostError)(
-                  "WebGPU device lost before initialize",
-                );
-              if ((yield c.initialize(), !c.isAlive()))
-                throw new (o("WAWebVoipGpuDeviceLiveness").DeviceLostError)(
-                  "WebGPU device lost during initialize",
-                );
-              return c;
-            },
-          );
-          function a(t, n) {
-            return e.apply(this, arguments);
-          }
-          return a;
-        })();
-        var a = t.prototype;
+        t.create = async function (n, a) {
+          var e,
+            i = (e = globalThis.navigator) == null ? void 0 : e.gpu;
+          if (i == null) throw r("err")("WebGPU not available");
+          var l = await i.requestAdapter();
+          if (!l) throw r("err")("Failed to get WebGPU adapter");
+          var s = await l.requestDevice();
+          if (!s) throw r("err")("Failed to get WebGPU device");
+          var u = new t(s, n, a);
+          if ((await Promise.resolve(), !u.isAlive()))
+            throw new (o("WAWebVoipGpuDeviceLiveness").DeviceLostError)(
+              "WebGPU device lost before initialize",
+            );
+          if ((await u.initialize(), !u.isAlive()))
+            throw new (o("WAWebVoipGpuDeviceLiveness").DeviceLostError)(
+              "WebGPU device lost during initialize",
+            );
+          return u;
+        };
+        var n = t.prototype;
         return (
-          (a.createReadbackBuffer = function (t) {
+          (n.createReadbackBuffer = function (t) {
             var e = globalThis.GPUBufferUsage;
             return this.device.createBuffer({
               size: t,
               usage: e.MAP_READ | e.COPY_DST,
             });
           }),
-          (a.destroyRetiredReadbackBuffer = function (t) {
+          (n.destroyRetiredReadbackBuffer = function (t) {
             if (this.retiredReadbackBuffers.has(t)) {
               try {
                 t.destroy();
@@ -161,13 +325,13 @@ __d(
               this.retiredReadbackBuffers.delete(t);
             }
           }),
-          (a.destroyRetiredReadbackBuffers = function () {
+          (n.destroyRetiredReadbackBuffers = function () {
             var e = this;
             Array.from(this.retiredReadbackBuffers).forEach(function (t) {
               e.destroyRetiredReadbackBuffer(t);
             });
           }),
-          (a.retireTimedOutReadbackBuffer = function (t, n, r) {
+          (n.retireTimedOutReadbackBuffer = function (t, n, r) {
             var e = this;
             this.readbackBufferNV12 === t &&
               ((this.readbackBufferNV12 = this.createReadbackBuffer(r)),
@@ -196,331 +360,296 @@ __d(
                   e.destroyRetiredReadbackBuffer(t);
                 }));
           }),
-          (a.initialize = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this.device,
-                t = this.width,
-                n = this.height,
-                a = globalThis.GPUTextureUsage,
-                i = globalThis.GPUBufferUsage,
-                l = e.createShaderModule({ code: k(this.useYPacking) });
-              this.videoTexture = e.createTexture({
-                size: { width: t, height: n },
-                format: "rgba8unorm",
-                usage: a.TEXTURE_BINDING | a.COPY_DST | a.RENDER_ATTACHMENT,
-              });
-              var s = 4,
-                u = this.useYPacking ? this.yPackedWidth * n * s : t * n * s,
-                c = this.useUVPacking
-                  ? this.uvPackedWidth * (n / 2) * s
-                  : (t / 2) * (n / 2) * 2 * s,
-                d = u + c;
-              ((this.outputBufferNV12 = e.createBuffer({
-                size: d,
-                usage: i.STORAGE | i.COPY_SRC,
-              })),
-                (this.readbackBufferNV12 = this.createReadbackBuffer(d)),
-                (this.uniformBuffer = e.createBuffer({
-                  size: 12,
-                  usage: i.UNIFORM | i.COPY_DST,
-                })));
-              var m = this.uniformBuffer,
-                p = u / s,
-                _ = new Uint32Array([t, n, p]);
-              e.queue.writeBuffer(m, 0, _);
-              var g = e.createComputePipeline({
-                layout: "auto",
-                compute: { module: l, entryPoint: "main" },
-              });
-              if (
-                ((this.pipeline = g),
-                !this.videoTexture ||
-                  !this.outputBufferNV12 ||
-                  !this.uniformBuffer)
-              )
-                throw r("err")("Failed to initialize GPU resources");
-              var h = this.videoTexture,
-                y = this.outputBufferNV12,
-                C = this.uniformBuffer;
-              ((this.bindGroup = e.createBindGroup({
-                layout: g.getBindGroupLayout(0),
-                entries: [
-                  { binding: 0, resource: h.createView() },
-                  { binding: 1, resource: { buffer: y } },
-                  { binding: 2, resource: { buffer: C } },
-                ],
-              })),
+          (n.initialize = async function () {
+            var e = this.device,
+              t = this.width,
+              n = this.height,
+              a = globalThis.GPUTextureUsage,
+              i = globalThis.GPUBufferUsage,
+              l = e.createShaderModule({ code: E(this.useYPacking) });
+            this.videoTexture = e.createTexture({
+              size: { width: t, height: n },
+              format: "rgba8unorm",
+              usage: a.TEXTURE_BINDING | a.COPY_DST | a.RENDER_ATTACHMENT,
+            });
+            var s = 4,
+              u = this.useYPacking ? this.yPackedWidth * n * s : t * n * s,
+              c = this.useUVPacking
+                ? this.uvPackedWidth * (n / 2) * s
+                : (t / 2) * (n / 2) * 2 * s,
+              d = u + c;
+            ((this.outputBufferNV12 = e.createBuffer({
+              size: d,
+              usage: i.STORAGE | i.COPY_SRC,
+            })),
+              (this.readbackBufferNV12 = this.createReadbackBuffer(d)),
+              (this.uniformBuffer = e.createBuffer({
+                size: 12,
+                usage: i.UNIFORM | i.COPY_DST,
+              })));
+            var m = this.uniformBuffer,
+              p = u / s,
+              _ = new Uint32Array([t, n, p]);
+            e.queue.writeBuffer(m, 0, _);
+            var g = e.createComputePipeline({
+              layout: "auto",
+              compute: { module: l, entryPoint: "main" },
+            });
+            if (
+              ((this.pipeline = g),
+              !this.videoTexture ||
+                !this.outputBufferNV12 ||
+                !this.uniformBuffer)
+            )
+              throw r("err")("Failed to initialize GPU resources");
+            var h = this.videoTexture,
+              y = this.outputBufferNV12,
+              C = this.uniformBuffer;
+            ((this.bindGroup = e.createBindGroup({
+              layout: g.getBindGroupLayout(0),
+              entries: [
+                { binding: 0, resource: h.createView() },
+                { binding: 1, resource: { buffer: y } },
+                { binding: 2, resource: { buffer: C } },
+              ],
+            })),
+              o("WALogger").LOG(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: WebGPUCapture: Initialized for ",
+                    "x",
+                    "",
+                  ])),
+                t,
+                n,
+              ));
+          }),
+          (n.convertVideoToNV12 = async function (t) {
+            var e = this;
+            if (!this.isAlive())
+              throw new (o("WAWebVoipGpuDeviceLiveness").DeviceLostError)(
+                "Cannot convert video: WebGPU converter is not alive",
+              );
+            var n = this.device,
+              a = this.width,
+              i = this.height,
+              l = globalThis.GPUMapMode;
+            if (
+              !this.videoTexture ||
+              !this.outputBufferNV12 ||
+              !this.readbackBufferNV12
+            )
+              throw r("err")("WebGPU resources not initialized");
+            var s = this.videoTexture,
+              u = this.outputBufferNV12,
+              c = this.readbackBufferNV12,
+              d = (async function () {
+                var d = t,
+                  m = r("WAWebVoipVideoFrameCtor")();
+                if (
+                  o("WAWebUA").UA.isFirefox &&
+                  (L(t) || (m != null && t instanceof m))
+                )
+                  try {
+                    d = await createImageBitmap(t);
+                  } catch (e) {
+                    throw (
+                      o("WALogger").LOG(
+                        g ||
+                          (g = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: WebGPU failed to create ImageBitmap from video: ",
+                            "",
+                          ])),
+                        String(e),
+                      ),
+                      r("err")(
+                        "Failed to convert video element to ImageBitmap for Firefox",
+                      )
+                    );
+                  }
+                try {
+                  n.queue.copyExternalImageToTexture(
+                    { source: d, flipY: !1 },
+                    { texture: s },
+                    { width: a, height: i },
+                  );
+                  var p = n.createCommandEncoder(),
+                    _ = p.beginComputePass();
+                  if (!e.pipeline || !e.bindGroup)
+                    throw r("err")("WebGPU pipeline not initialized");
+                  var f = e.pipeline,
+                    y = e.bindGroup;
+                  (_.setPipeline(f), _.setBindGroup(0, y));
+                  var C = 16,
+                    b = Math.ceil(a / C),
+                    v = Math.ceil(i / C);
+                  (_.dispatchWorkgroups(b, v), _.end());
+                  var R = 4,
+                    E = e.useYPacking ? e.yPackedWidth * i * R : a * i * R,
+                    k = e.useUVPacking
+                      ? e.uvPackedWidth * (i / 2) * R
+                      : (a / 2) * (i / 2) * 2 * R,
+                    I = E + k;
+                  if (
+                    (p.copyBufferToBuffer(u, 0, c, 0, I),
+                    n.queue.submit([p.finish()]),
+                    e.isCleaningUp)
+                  )
+                    throw r("err")(
+                      "Cannot convert video: WebGPU converter is being cleaned up",
+                    );
+                  var T = c.mapAsync(l.READ);
+                  try {
+                    await o("WAWebVoipGpuDeviceLiveness").withDeviceLiveness(
+                      T,
+                      {
+                        label: "WebGPU mapAsync",
+                        lostPromise: n.lost,
+                        timeoutMs: S,
+                      },
+                    );
+                  } catch (t) {
+                    if (
+                      t instanceof
+                        o("WAWebVoipGpuDeviceLiveness")
+                          .DeviceLivenessTimeoutError &&
+                      e.isAlive()
+                    )
+                      try {
+                        e.retireTimedOutReadbackBuffer(c, T, I);
+                      } catch (t) {
+                        ((e.isCleaningUp = !0),
+                          o("WALogger").LOG(
+                            h ||
+                              (h = babelHelpers.taggedTemplateLiteralLoose([
+                                "voip: WebGPUCapture: failed to replace timed-out readback buffer: ",
+                                "",
+                              ])),
+                            t,
+                          ));
+                      }
+                    else e.isCleaningUp = !0;
+                    throw t;
+                  }
+                  if (e.isCleaningUp)
+                    throw (
+                      c.unmap(),
+                      r("err")(
+                        "Cannot convert video: WebGPU converter is being cleaned up",
+                      )
+                    );
+                  try {
+                    if (e.useYPacking && e.useUVPacking) {
+                      var D = c.getMappedRange();
+                      (e.nv12Data.set(new Uint8Array(D)), c.unmap());
+                    } else {
+                      for (
+                        var x = new Uint32Array(c.getMappedRange()),
+                          $ = E / R,
+                          P = 0;
+                        P < e.yData.length;
+                        P++
+                      )
+                        e.yData[P] = x[P] & 255;
+                      for (var N = 0; N < e.uvData.length; N++)
+                        e.uvData[N] = x[$ + N] & 255;
+                      c.unmap();
+                      var M = a * i;
+                      (e.nv12Data.set(e.yData, 0), e.nv12Data.set(e.uvData, M));
+                    }
+                  } catch (t) {
+                    throw e.isCleaningUp
+                      ? r("err")(
+                          "Cannot convert video: WebGPU converter is being cleaned up",
+                        )
+                      : t;
+                  }
+                  return e.nv12Data;
+                } finally {
+                  d instanceof ImageBitmap && d.close();
+                }
+              })();
+            this.pendingConversion = d;
+            try {
+              var m = await d;
+              return (
+                this.pendingConversion === d && (this.pendingConversion = null),
+                m
+              );
+            } catch (e) {
+              throw (
+                this.pendingConversion === d && (this.pendingConversion = null),
+                e
+              );
+            }
+          }),
+          (n.cleanup = async function () {
+            if (((this.isCleaningUp = !0), this.deviceLost)) {
+              ((this.pendingConversion = null),
+                (this.videoTexture = null),
+                (this.outputBufferNV12 = null),
+                (this.readbackBufferNV12 = null),
+                this.retiredReadbackBuffers.clear(),
+                (this.uniformBuffer = null),
                 o("WALogger").LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: WebGPUCapture: Initialized for ",
-                      "x",
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: WebGPUCapture: skipping cleanup, device already lost",
+                    ])),
+                ));
+              return;
+            }
+            var e = this.pendingConversion;
+            if (e != null)
+              try {
+                await o("WAWebVoipGpuDeviceLiveness").withDeviceLiveness(e, {
+                  label: "WebGPU cleanup pendingConversion",
+                  lostPromise: this.device.lost,
+                  timeoutMs: R,
+                });
+              } catch (e) {
+                o("WALogger").LOG(
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: WebGPUCapture: conversion failed in cleanup: ",
                       "",
                     ])),
-                  t,
-                  n,
-                ));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.convertVideoToNV12 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                if (!this.isAlive())
-                  throw new (o("WAWebVoipGpuDeviceLiveness").DeviceLostError)(
-                    "Cannot convert video: WebGPU converter is not alive",
-                  );
-                var a = this.device,
-                  i = this.width,
-                  l = this.height,
-                  s = globalThis.GPUMapMode;
-                if (
-                  !this.videoTexture ||
-                  !this.outputBufferNV12 ||
-                  !this.readbackBufferNV12
-                )
-                  throw r("err")("WebGPU resources not initialized");
-                var u = this.videoTexture,
-                  c = this.outputBufferNV12,
-                  d = this.readbackBufferNV12,
-                  m = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      var n = e,
-                        m = r("WAWebVoipVideoFrameCtor")();
-                      if (
-                        o("WAWebUA").UA.isFirefox &&
-                        (E(e) || (m != null && e instanceof m))
-                      )
-                        try {
-                          n = yield createImageBitmap(e);
-                        } catch (e) {
-                          throw (
-                            o("WALogger").LOG(
-                              g ||
-                                (g = babelHelpers.taggedTemplateLiteralLoose([
-                                  "voip: WebGPU failed to create ImageBitmap from video: ",
-                                  "",
-                                ])),
-                              String(e),
-                            ),
-                            r("err")(
-                              "Failed to convert video element to ImageBitmap for Firefox",
-                            )
-                          );
-                        }
-                      try {
-                        a.queue.copyExternalImageToTexture(
-                          { source: n, flipY: !1 },
-                          { texture: u },
-                          { width: i, height: l },
-                        );
-                        var p = a.createCommandEncoder(),
-                          _ = p.beginComputePass();
-                        if (!t.pipeline || !t.bindGroup)
-                          throw r("err")("WebGPU pipeline not initialized");
-                        var f = t.pipeline,
-                          y = t.bindGroup;
-                        (_.setPipeline(f), _.setBindGroup(0, y));
-                        var C = 16,
-                          b = Math.ceil(i / C),
-                          v = Math.ceil(l / C);
-                        (_.dispatchWorkgroups(b, v), _.end());
-                        var S = 4,
-                          L = t.useYPacking
-                            ? t.yPackedWidth * l * S
-                            : i * l * S,
-                          k = t.useUVPacking
-                            ? t.uvPackedWidth * (l / 2) * S
-                            : (i / 2) * (l / 2) * 2 * S,
-                          I = L + k;
-                        if (
-                          (p.copyBufferToBuffer(c, 0, d, 0, I),
-                          a.queue.submit([p.finish()]),
-                          t.isCleaningUp)
-                        )
-                          throw r("err")(
-                            "Cannot convert video: WebGPU converter is being cleaned up",
-                          );
-                        var T = d.mapAsync(s.READ);
-                        try {
-                          yield o(
-                            "WAWebVoipGpuDeviceLiveness",
-                          ).withDeviceLiveness(T, {
-                            label: "WebGPU mapAsync",
-                            lostPromise: a.lost,
-                            timeoutMs: R,
-                          });
-                        } catch (e) {
-                          if (
-                            e instanceof
-                              o("WAWebVoipGpuDeviceLiveness")
-                                .DeviceLivenessTimeoutError &&
-                            t.isAlive()
-                          )
-                            try {
-                              t.retireTimedOutReadbackBuffer(d, T, I);
-                            } catch (e) {
-                              ((t.isCleaningUp = !0),
-                                o("WALogger").LOG(
-                                  h ||
-                                    (h =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "voip: WebGPUCapture: failed to replace timed-out readback buffer: ",
-                                        "",
-                                      ])),
-                                  e,
-                                ));
-                            }
-                          else t.isCleaningUp = !0;
-                          throw e;
-                        }
-                        if (t.isCleaningUp)
-                          throw (
-                            d.unmap(),
-                            r("err")(
-                              "Cannot convert video: WebGPU converter is being cleaned up",
-                            )
-                          );
-                        try {
-                          if (t.useYPacking && t.useUVPacking) {
-                            var D = d.getMappedRange();
-                            (t.nv12Data.set(new Uint8Array(D)), d.unmap());
-                          } else {
-                            for (
-                              var x = new Uint32Array(d.getMappedRange()),
-                                $ = L / S,
-                                P = 0;
-                              P < t.yData.length;
-                              P++
-                            )
-                              t.yData[P] = x[P] & 255;
-                            for (var N = 0; N < t.uvData.length; N++)
-                              t.uvData[N] = x[$ + N] & 255;
-                            d.unmap();
-                            var M = i * l;
-                            (t.nv12Data.set(t.yData, 0),
-                              t.nv12Data.set(t.uvData, M));
-                          }
-                        } catch (e) {
-                          throw t.isCleaningUp
-                            ? r("err")(
-                                "Cannot convert video: WebGPU converter is being cleaned up",
-                              )
-                            : e;
-                        }
-                        return t.nv12Data;
-                      } finally {
-                        n instanceof ImageBitmap && n.close();
-                      }
-                    },
-                  )();
-                this.pendingConversion = m;
-                try {
-                  var p = yield m;
-                  return (
-                    this.pendingConversion === m &&
-                      (this.pendingConversion = null),
-                    p
-                  );
-                } catch (e) {
-                  throw (
-                    this.pendingConversion === m &&
-                      (this.pendingConversion = null),
-                    e
-                  );
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.cleanup = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (((this.isCleaningUp = !0), this.deviceLost)) {
-                ((this.pendingConversion = null),
-                  (this.videoTexture = null),
-                  (this.outputBufferNV12 = null),
-                  (this.readbackBufferNV12 = null),
-                  this.retiredReadbackBuffers.clear(),
-                  (this.uniformBuffer = null),
-                  o("WALogger").LOG(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: WebGPUCapture: skipping cleanup, device already lost",
-                      ])),
-                  ));
-                return;
+                  e,
+                );
               }
-              var e = this.pendingConversion;
-              if (e != null)
-                try {
-                  yield o("WAWebVoipGpuDeviceLiveness").withDeviceLiveness(e, {
-                    label: "WebGPU cleanup pendingConversion",
-                    lostPromise: this.device.lost,
-                    timeoutMs: L,
-                  });
-                } catch (e) {
-                  o("WALogger").LOG(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: WebGPUCapture: conversion failed in cleanup: ",
-                        "",
-                      ])),
-                    e,
-                  );
-                }
-              (this.videoTexture && this.videoTexture.destroy(),
-                this.outputBufferNV12 && this.outputBufferNV12.destroy(),
-                this.readbackBufferNV12 && this.readbackBufferNV12.destroy(),
-                this.destroyRetiredReadbackBuffers(),
-                this.uniformBuffer && this.uniformBuffer.destroy(),
-                this.device.destroy(),
-                o("WALogger").LOG(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: WebGPUCapture: Cleaned up",
-                    ])),
-                ));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.getConverterName = function () {
+            (this.videoTexture && this.videoTexture.destroy(),
+              this.outputBufferNV12 && this.outputBufferNV12.destroy(),
+              this.readbackBufferNV12 && this.readbackBufferNV12.destroy(),
+              this.destroyRetiredReadbackBuffers(),
+              this.uniformBuffer && this.uniformBuffer.destroy(),
+              this.device.destroy(),
+              o("WALogger").LOG(
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: WebGPUCapture: Cleaned up",
+                  ])),
+              ));
+          }),
+          (n.getConverterName = function () {
             return "webgpu";
           }),
           t
         );
       })(),
-      T = (function (e) {
+      I = (function (e) {
         function t() {
           return e.apply(this, arguments) || this;
         }
         babelHelpers.inheritsLoose(t, e);
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.createConverter = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n = yield o(
-                  "WAWebVoipConverterPrewarm",
-                ).consumePrewarmedConverter(e, t);
-                return n != null ? n : yield I.create(e, t);
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.createFallbackConverter = function (t, n) {
+          (n.createConverter = async function (t, n) {
+            var e = await o(
+              "WAWebVoipConverterPrewarm",
+            ).consumePrewarmedConverter(t, n);
+            return e != null ? e : await k.create(t, n);
+          }),
+          (n.createFallbackConverter = function (t, n) {
             try {
               return new (o("WAWebVoipVideoCaptureWebGL").WebGLVideoConverter)(
                 t,
@@ -541,33 +670,27 @@ __d(
               );
             }
           }),
-          (t.isAvailable = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              try {
-                var e,
-                  t = (e = globalThis.navigator) == null ? void 0 : e.gpu;
-                if (t == null) return !1;
-                var n = yield t.requestAdapter();
-                if (!n) return !1;
-                var r = new OffscreenCanvas(1, 1),
-                  o = r.getContext("webgpu");
-                return o != null;
-              } catch (e) {
-                return !1;
-              }
-            });
-            function t() {
-              return e.apply(this, arguments);
+          (t.isAvailable = async function () {
+            try {
+              var e,
+                t = (e = globalThis.navigator) == null ? void 0 : e.gpu;
+              if (t == null) return !1;
+              var n = await t.requestAdapter();
+              if (!n) return !1;
+              var r = new OffscreenCanvas(1, 1),
+                o = r.getContext("webgpu");
+              return o != null;
+            } catch (e) {
+              return !1;
             }
-            return t;
-          })()),
+          }),
           t
         );
       })(
         o("WAWebVoipVideoCaptureWithConverter")
           .WAWebVoipVideoCaptureWithConverter,
       );
-    ((l.WebGPUVideoConverter = I), (l.WAWebVoipVideoCaptureWebGPU = T));
+    ((l.WebGPUVideoConverter = k), (l.WAWebVoipVideoCaptureWebGPU = I));
   },
   98,
 );

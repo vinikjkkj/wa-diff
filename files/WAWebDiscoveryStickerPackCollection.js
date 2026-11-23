@@ -15,7 +15,6 @@ __d(
     "WAWebStickerUtils",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -40,7 +39,7 @@ __d(
         "The network connection was lost.",
       ],
       h = (function (t) {
-        function a() {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
           return (
@@ -54,25 +53,25 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.isLoadedFor = function (t, n) {
+          (a.isLoadedFor = function (t, n) {
             return (
               this.fetchState === d.SUCCESS &&
               this.$DiscoveryStickerPackCollection$p_3 === v(t, n)
             );
           }),
-          (i.hasMoreStickerPacks = function () {
+          (a.hasMoreStickerPacks = function () {
             return (
               this.$DiscoveryStickerPackCollection$p_5 <
               this.$DiscoveryStickerPackCollection$p_8.length
             );
           }),
-          (i.getMaterializedPackCount = function () {
+          (a.getMaterializedPackCount = function () {
             return this.$DiscoveryStickerPackCollection$p_5;
           }),
-          (i.materializeNextStickerPack = function () {
+          (a.materializeNextStickerPack = function () {
             var e =
               this.$DiscoveryStickerPackCollection$p_8[
                 this.$DiscoveryStickerPackCollection$p_5
@@ -82,11 +81,11 @@ __d(
               this.$DiscoveryStickerPackCollection$p_9(e),
               this.trigger("change:materializedPackCount"));
           }),
-          (i.materializeAllStickerPacks = function () {
+          (a.materializeAllStickerPacks = function () {
             for (; this.hasMoreStickerPacks(); )
               this.materializeNextStickerPack();
           }),
-          (i.materializeStickerSuggestions = function (t) {
+          (a.materializeStickerSuggestions = function (t) {
             var e = this;
             this.$DiscoveryStickerPackCollection$p_8.forEach(function (n) {
               var r = n.stickers;
@@ -97,14 +96,14 @@ __d(
               });
             });
           }),
-          (i.getMaterializedStickers = function () {
+          (a.getMaterializedStickers = function () {
             return this.$DiscoveryStickerPackCollection$p_6.values();
           }),
-          (i.retain = function () {
+          (a.retain = function () {
             (this.$DiscoveryStickerPackCollection$p_7++,
               this.$DiscoveryStickerPackCollection$p_11());
           }),
-          (i.release = function () {
+          (a.release = function () {
             var e = this;
             ((this.$DiscoveryStickerPackCollection$p_7 = Math.max(
               this.$DiscoveryStickerPackCollection$p_7 - 1,
@@ -121,7 +120,7 @@ __d(
                   _,
                 )));
           }),
-          (i.fetch = function (t, n) {
+          (a.fetch = function (t, n) {
             var e,
               a = this,
               i = v(t, n);
@@ -165,82 +164,78 @@ __d(
               });
             return ((this.$DiscoveryStickerPackCollection$p_4 = u), u);
           }),
-          (i.$DiscoveryStickerPackCollection$p_12 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, a) {
-                var i;
+          (a.$DiscoveryStickerPackCollection$p_12 = async function (
+            t,
+            n,
+            a,
+            i,
+          ) {
+            var e;
+            try {
+              (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+                (e = C(
+                  o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m),
+                  n,
+                )));
+            } catch (e) {
+              o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "Failed to read cached discovery sticker packs",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("discovery-sticker-packs-cache-read-failed");
+            }
+            if (
+              this.$DiscoveryStickerPackCollection$p_13(t, n) &&
+              !(
+                e != null &&
+                (this.$DiscoveryStickerPackCollection$p_14(e.stickerPacks),
+                b(e))
+              )
+            ) {
+              var l = await o(
+                "WAWebFetchFirstPartyStickerPacksAction",
+              ).fetchDiscoveryStickerPacks({
+                packCount: a,
+                signal: t.signal,
+                stickerCount: i,
+              });
+              if (this.$DiscoveryStickerPackCollection$p_13(t, n)) {
+                this.$DiscoveryStickerPackCollection$p_14(l);
                 try {
-                  (yield o(
-                    "WAWebUserPrefsIndexedDBStorage",
-                  ).userPrefsIdb.init(),
-                    (i = C(
-                      o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m),
-                      t,
-                    )));
+                  await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+                    m,
+                    {
+                      context: n,
+                      fetchedAt: o("WATimeUtils").unixTime(),
+                      stickerPacks: l,
+                    },
+                  );
                 } catch (e) {
                   o("WALogger")
                     .WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "Failed to read cached discovery sticker packs",
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "Failed to cache discovery sticker packs",
                         ])),
                     )
                     .catching(r("getErrorSafe")(e))
-                    .sendLogs("discovery-sticker-packs-cache-read-failed");
+                    .sendLogs("discovery-sticker-packs-cache-write-failed");
                 }
-                if (
-                  this.$DiscoveryStickerPackCollection$p_13(e, t) &&
-                  !(
-                    i != null &&
-                    (this.$DiscoveryStickerPackCollection$p_14(i.stickerPacks),
-                    b(i))
-                  )
-                ) {
-                  var l = yield o(
-                    "WAWebFetchFirstPartyStickerPacksAction",
-                  ).fetchDiscoveryStickerPacks({
-                    packCount: n,
-                    signal: e.signal,
-                    stickerCount: a,
-                  });
-                  if (this.$DiscoveryStickerPackCollection$p_13(e, t)) {
-                    this.$DiscoveryStickerPackCollection$p_14(l);
-                    try {
-                      yield o(
-                        "WAWebUserPrefsIndexedDBStorage",
-                      ).userPrefsIdb.set(m, {
-                        context: t,
-                        fetchedAt: o("WATimeUtils").unixTime(),
-                        stickerPacks: l,
-                      });
-                    } catch (e) {
-                      o("WALogger")
-                        .WARN(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
-                              "Failed to cache discovery sticker packs",
-                            ])),
-                        )
-                        .catching(r("getErrorSafe")(e))
-                        .sendLogs("discovery-sticker-packs-cache-write-failed");
-                    }
-                  }
-                }
-              },
-            );
-            function t(t, n, r, o) {
-              return e.apply(this, arguments);
+              }
             }
-            return t;
-          })()),
-          (i.$DiscoveryStickerPackCollection$p_13 = function (t, n) {
+          }),
+          (a.$DiscoveryStickerPackCollection$p_13 = function (t, n) {
             return (
               !t.signal.aborted &&
               this.$DiscoveryStickerPackCollection$p_1 === t &&
               this.$DiscoveryStickerPackCollection$p_3 === n
             );
           }),
-          (i.$DiscoveryStickerPackCollection$p_14 = function (t) {
+          (a.$DiscoveryStickerPackCollection$p_14 = function (t) {
             (this.$DiscoveryStickerPackCollection$p_15(),
               (this.$DiscoveryStickerPackCollection$p_8 = t),
               (this.$DiscoveryStickerPackCollection$p_5 = 0),
@@ -248,7 +243,7 @@ __d(
               (this.fetchState = d.SUCCESS),
               this.trigger("change:fetchState"));
           }),
-          (i.$DiscoveryStickerPackCollection$p_9 = function (t) {
+          (a.$DiscoveryStickerPackCollection$p_9 = function (t) {
             var e,
               n,
               r = this,
@@ -264,7 +259,7 @@ __d(
                 ),
               this.add(l));
           }),
-          (i.$DiscoveryStickerPackCollection$p_10 = function (n) {
+          (a.$DiscoveryStickerPackCollection$p_10 = function (n) {
             var t = this.$DiscoveryStickerPackCollection$p_6.get(n.id);
             if (t != null) return t;
             var r = n.emojis,
@@ -277,7 +272,7 @@ __d(
             }
             return (this.$DiscoveryStickerPackCollection$p_6.set(i.id, i), i);
           }),
-          (i.$DiscoveryStickerPackCollection$p_15 = function () {
+          (a.$DiscoveryStickerPackCollection$p_15 = function () {
             (this.$DiscoveryStickerPackCollection$p_6.forEach(function (e) {
               return e.delete();
             }),
@@ -288,12 +283,12 @@ __d(
               }),
               this.reset());
           }),
-          (i.$DiscoveryStickerPackCollection$p_11 = function () {
+          (a.$DiscoveryStickerPackCollection$p_11 = function () {
             this.$DiscoveryStickerPackCollection$p_2 != null &&
               (self.clearTimeout(this.$DiscoveryStickerPackCollection$p_2),
               (this.$DiscoveryStickerPackCollection$p_2 = null));
           }),
-          (i.delete = function () {
+          (a.delete = function () {
             var e;
             (this.$DiscoveryStickerPackCollection$p_11(),
               (e = this.$DiscoveryStickerPackCollection$p_1) == null ||
@@ -306,7 +301,7 @@ __d(
               (this.fetchState = d.INITIAL),
               this.$DiscoveryStickerPackCollection$p_15());
           }),
-          a
+          n
         );
       })(o("WAWebBaseCollection").BaseCollection);
     h.model = o("WAWebStickerPackModelMd").StickerPackModel;

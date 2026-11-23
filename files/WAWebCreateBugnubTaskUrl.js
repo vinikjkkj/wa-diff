@@ -9,7 +9,6 @@ __d(
     "WAWebUA",
     "WAWebUserPrefsGeneral",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
     "cr:9565",
     "toSentenceCase",
   ],
@@ -17,49 +16,39 @@ __d(
     var e,
       s = (e = n("cr:9565")) != null ? e : {},
       u = s.getWindowsBuildType;
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function c(e) {
+      var t,
+        n =
+          (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
+            ? void 0
+            : t.user,
+        a = "Web";
+      r("WAWebEnvironment").isWindows && (a = "Windows Hybrid");
+      var i;
+      u &&
+        (i = r("toSentenceCase")(o("WAWebBuildType").BuildType.getName(u())));
+      var l = await o(
+          "WAWebUserPrefsGeneral",
+        ).getWhatsAppWebExternalBetaJoinedIdb(),
+        s = {
+          first_question: "New Devices (CEP)",
+          newdevices: a,
+          version:
+            "" +
+            o("WAWebBuildConstants").VERSION_STR +
+            (l ? " (joined beta)" : ""),
+          wabuildtype: i,
+          bug: d("", e),
+          logs: "I understand and give consent",
+          number: n != null ? n : "",
+        },
+        c = encodeURIComponent(JSON.stringify(s));
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n =
-              (t = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
-                ? void 0
-                : t.user,
-            a = "Web";
-          r("WAWebEnvironment").isWindows && (a = "Windows Hybrid");
-          var i;
-          u &&
-            (i = r("toSentenceCase")(
-              o("WAWebBuildType").BuildType.getName(u()),
-            ));
-          var l = yield o(
-              "WAWebUserPrefsGeneral",
-            ).getWhatsAppWebExternalBetaJoinedIdb(),
-            s = {
-              first_question: "New Devices (CEP)",
-              newdevices: a,
-              version:
-                "" +
-                o("WAWebBuildConstants").VERSION_STR +
-                (l ? " (joined beta)" : ""),
-              wabuildtype: i,
-              bug: m("", e),
-              logs: "I understand and give consent",
-              number: n != null ? n : "",
-            },
-            c = encodeURIComponent(JSON.stringify(s));
-          return (
-            "https://www.internalfb.com/butterfly/form/777724432837431?default_responses=" +
-            c
-          );
-        })),
-        d.apply(this, arguments)
+        "https://www.internalfb.com/butterfly/form/777724432837431?default_responses=" +
+        c
       );
     }
-    function m(e, t) {
+    function d(e, t) {
       var n,
         a =
           (n = o("WAWebUserPrefsMeUser").getMaybeMePnUser()) == null
@@ -101,12 +90,18 @@ __d(
             l = "Opera";
         }
       var s = [
-        "Description: " + e + "\n",
+        "Description: " +
+          e +
+          `
+`,
         "Link to crash logs",
         a != null
           ? "https://www.internalfb.com/intern/bunny/?q=waflb+" + a
           : "https://www.internalfb.com/whatsapp/reliability/lookup_logs?search_query",
-        "time of log: " + new Date().toString() + "\n",
+        "time of log: " +
+          new Date().toString() +
+          `
+`,
         "Primary Platform: " + i,
       ];
       return (
@@ -121,10 +116,11 @@ __d(
             "Windows Hybrid native build type: " +
               o("WAWebBuildType").BuildType.getName(u()),
           )),
-        s.join("\n")
+        s.join(`
+`)
       );
     }
-    ((l.createBugnubTaskUrl = c), (l.enrichBugReportDescription = m));
+    ((l.createBugnubTaskUrl = c), (l.enrichBugReportDescription = d));
   },
   98,
 );

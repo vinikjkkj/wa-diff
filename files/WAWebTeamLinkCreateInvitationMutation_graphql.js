@@ -10,7 +10,8 @@ __d(
           name: "employeeName",
         },
         t = { defaultValue: null, kind: "LocalArgument", name: "lid" },
-        r = [
+        r = { defaultValue: null, kind: "LocalArgument", name: "teamRole" },
+        o = [
           {
             alias: null,
             args: [
@@ -20,6 +21,7 @@ __d(
                 variableName: "employeeName",
               },
               { kind: "Variable", name: "lid", variableName: "lid" },
+              { kind: "Variable", name: "team_role", variableName: "teamRole" },
             ],
             concreteType: "WhatsAppTeamLinkAgentInvitation",
             kind: "LinkedField",
@@ -38,6 +40,13 @@ __d(
                 args: null,
                 kind: "ScalarField",
                 name: "employee_name",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "team_role",
                 storageKey: null,
               },
               {
@@ -67,20 +76,20 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [e, t],
+          argumentDefinitions: [e, t, r],
           kind: "Fragment",
           metadata: null,
           name: "WAWebTeamLinkCreateInvitationMutation",
-          selections: r,
+          selections: o,
           type: "Mutation",
           abstractKey: null,
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [t, e],
+          argumentDefinitions: [t, e, r],
           kind: "Operation",
           name: "WAWebTeamLinkCreateInvitationMutation",
-          selections: r,
+          selections: o,
         },
         params: {
           id: n("WAWebTeamLinkCreateInvitationMutation_facebookRelayOperation"),

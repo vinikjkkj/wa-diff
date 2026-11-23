@@ -1,175 +1,130 @@
 __d(
   "WAWebBizAIQEPrefetch",
   [
-    "Promise",
     "WALogger",
     "WAPromiseQueue",
     "WAWebBizAIQEError",
     "WAWebBizAIRelayEnvironment",
     "WAWebBizAiAgentGating",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = new Set(),
-      c = new (o("WAPromiseQueue").PromiseQueue)(),
-      d = 1e3,
-      m = 0;
-    function p() {
-      ((m += 1),
-        u.forEach(function (e) {
+      s = new Set(),
+      u = new (o("WAPromiseQueue").PromiseQueue)(),
+      c = 1e3,
+      d = 0;
+    function m() {
+      ((d += 1),
+        s.forEach(function (e) {
           return e();
         }),
-        u.clear());
+        s.clear());
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    async function p(e, t, n) {
+      var r = d,
+        a = function () {
+          return r === d && n();
+        },
+        i = await o("WAWebBizAIRelayEnvironment").loadBizAIRelayEnvironment();
+      return _(i, e, t, a);
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = m,
-            a = function () {
-              return r === m && n();
-            },
-            i = yield o(
-              "WAWebBizAIRelayEnvironment",
-            ).loadBizAIRelayEnvironment();
-          return g(i, e, t, a);
-        })),
-        f.apply(this, arguments)
-      );
+    async function _(t, n, a, i) {
+      if (!i()) return null;
+      try {
+        return await y(t, n, a);
+      } catch (l) {
+        if (!i()) return null;
+        if (!o("WAWebBizAIQEError").canRecoverBizAIQEPrefetch(l)) throw l;
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[BizAI] QE prefetch failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(l))
+            .sendLogs("maiba-web-qe-prefetch-failed"),
+          a.params.length <= 1 ||
+          !o("WAWebBizAIQEError").hasBizAIQEServerErrors(l)
+            ? null
+            : f(t, n, a, i)
+        );
+      }
     }
-    function g(e, t, n, r) {
-      return h.apply(this, arguments);
+    async function f(e, t, n, r) {
+      var o = !1,
+        a = function () {
+          return !o && r();
+        },
+        i = await Promise.all(
+          n.params.map(function (n) {
+            return u.enqueue(function () {
+              return g(e, t, { params: [n] }, a).catch(function (e) {
+                throw ((o = !0), e);
+              });
+            });
+          }),
+        );
+      return i.every(function (e) {
+        return e == null;
+      })
+        ? null
+        : {
+            xfb_meta_ai_biz_agent_wa_web_experiments: i.flatMap(function (e) {
+              var t;
+              return (t =
+                e == null
+                  ? void 0
+                  : e.xfb_meta_ai_biz_agent_wa_web_experiments) != null
+                ? t
+                : [];
+            }),
+          };
+    }
+    async function g(e, t, n, r) {
+      return !r() ||
+        !o("WAWebBizAiAgentGating").isBizAIQEClientEnabled() ||
+        (await h(), !o("WAWebBizAiAgentGating").isBizAIQEClientEnabled())
+        ? null
+        : _(e, t, n, r);
     }
     function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
-            if (!i()) return null;
-            try {
-              return yield R(t, n, a);
-            } catch (l) {
-              if (!i()) return null;
-              if (!o("WAWebBizAIQEError").canRecoverBizAIQEPrefetch(l)) throw l;
-              return (
-                o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[BizAI] QE prefetch failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(l))
-                  .sendLogs("maiba-web-qe-prefetch-failed"),
-                a.params.length <= 1 ||
-                !o("WAWebBizAIQEError").hasBizAIQEServerErrors(l)
-                  ? null
-                  : y(t, n, a, i)
-              );
-            }
-          },
-        )),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t, n, r) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, o) {
-            var a = !1,
-              i = function () {
-                return !a && o();
-              },
-              l = yield (s || (s = n("Promise"))).all(
-                r.params.map(function (n) {
-                  return c.enqueue(function () {
-                    return b(e, t, { params: [n] }, i).catch(function (e) {
-                      throw ((a = !0), e);
-                    });
-                  });
-                }),
-              );
-            return l.every(function (e) {
-              return e == null;
-            })
-              ? null
-              : {
-                  xfb_meta_ai_biz_agent_wa_web_experiments: l.flatMap(
-                    function (e) {
-                      var t;
-                      return (t =
-                        e == null
-                          ? void 0
-                          : e.xfb_meta_ai_biz_agent_wa_web_experiments) != null
-                        ? t
-                        : [];
-                    },
-                  ),
-                };
-          },
-        )),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t, n, r) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            return !r() ||
-              !o("WAWebBizAiAgentGating").isBizAIQEClientEnabled() ||
-              (yield S(), !o("WAWebBizAiAgentGating").isBizAIQEClientEnabled())
-              ? null
-              : g(e, t, n, r);
-          },
-        )),
-        v.apply(this, arguments)
-      );
-    }
-    function S() {
-      return new (s || (s = n("Promise")))(function (e) {
+      return new Promise(function (e) {
         var t = function () {
-            (self.clearTimeout(n), u.delete(t), e());
+            (self.clearTimeout(n), s.delete(t), e());
           },
-          n = self.setTimeout(t, d);
-        u.add(t);
+          n = self.setTimeout(t, c);
+        s.add(t);
       });
     }
-    function R(e, t, r) {
-      return new (s || (s = n("Promise")))(function (n, a) {
+    function y(e, t, n) {
+      return new Promise(function (r, a) {
         var i = null,
           l = function () {
-            i != null && u.delete(i);
+            i != null && s.delete(i);
           };
-        o("WAWebBizAIRelayEnvironment").subscribeBizAIQuery(e, t, r, {
+        o("WAWebBizAIRelayEnvironment").subscribeBizAIQuery(e, t, n, {
           start: function (t) {
             var e = function () {
-              (l(), t.unsubscribe(), n(null));
+              (l(), t.unsubscribe(), r(null));
             };
-            ((i = e), u.add(e));
+            ((i = e), s.add(e));
           },
           next: function (t) {
-            (n(t), i == null || i());
+            (r(t), i == null || i());
           },
           error: function (t) {
             (l(), a(t));
           },
           complete: function () {
-            (l(), n(null));
+            (l(), r(null));
           },
         });
       });
     }
-    ((l.cancelBizAIQEPrefetch = p), (l.fetchBizAIQEPrefetch = _));
+    ((l.cancelBizAIQEPrefetch = m), (l.fetchBizAIQEPrefetch = p));
   },
   98,
 );

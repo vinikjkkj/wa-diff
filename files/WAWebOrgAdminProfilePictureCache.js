@@ -1,93 +1,79 @@
 __d(
   "WAWebOrgAdminProfilePictureCache",
-  [
-    "Promise",
-    "WAWebNullFunc",
-    "WAWebOrgAdminProfilePictures",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebNullFunc", "WAWebOrgAdminProfilePictures"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = 3e4,
-      u = 300 * 1e3,
-      c = 3600 * 1e3,
-      d = new Set(),
+    var e = 3e4,
+      s = 300 * 1e3,
+      u = 3600 * 1e3,
+      c = new Set(),
+      d = new Map(),
       m = new Map(),
-      p = new Map(),
-      _ = new Map();
-    function f() {
-      return m;
+      p = new Map();
+    function _() {
+      return d;
     }
-    function g(e) {
+    function f(e) {
       return (
-        d.add(e),
+        c.add(e),
         function () {
-          d.delete(e);
+          c.delete(e);
         }
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    async function g(e) {
+      var t = Date.now(),
+        n = new Set(),
+        r = [];
+      for (var o of new Set(e)) {
+        var a,
+          i = p.get(o);
+        i != null
+          ? n.add(i)
+          : ((a = m.get(o)) != null ? a : 0) <= t && r.push(o);
+      }
+      (r.length > 0 && n.add(y(r)), await Promise.all(n));
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = Date.now(),
-            o = new Set(),
-            a = [];
-          for (var i of new Set(t)) {
-            var l,
-              s = _.get(i);
-            s != null
-              ? o.add(s)
-              : ((l = p.get(i)) != null ? l : 0) <= r && a.push(i);
-          }
-          (a.length > 0 && o.add(b(a)), yield (e || (e = n("Promise"))).all(o));
-        })),
-        y.apply(this, arguments)
-      );
+    function h() {
+      ((d = new Map()), (m = new Map()), (p = new Map()));
     }
-    function C() {
-      ((m = new Map()), (p = new Map()), (_ = new Map()));
-    }
-    function b(e) {
+    function y(e) {
       var t = o("WAWebOrgAdminProfilePictures")
         .fetchOrgAdminProfilePictures(e)
         .catch(o("WAWebNullFunc").returnNull)
         .then(function (n) {
           var r = e.filter(function (e) {
-            return _.get(e) === t;
+            return p.get(e) === t;
           });
           (r.forEach(function (e) {
-            return _.delete(e);
+            return p.delete(e);
           }),
-            v(r, n));
+            C(r, n));
         });
-      for (var n of e) _.set(n, t);
+      for (var n of e) p.set(n, t);
       return t;
     }
-    function v(e, t) {
-      var n = Date.now(),
-        r = new Map(m),
-        o = !1;
-      for (var a of e) {
-        var i = t == null ? void 0 : t.profilePictureURLByLID.get(a);
-        i != null
-          ? ((o = o || r.get(a) !== i), r.set(a, i), p.set(a, n + c))
-          : (t == null ? void 0 : t.unavailableLIDs.has(a)) === !0
-            ? ((o = r.delete(a) || o), p.set(a, n + u))
-            : p.set(a, n + s);
+    function C(t, n) {
+      var r = Date.now(),
+        o = new Map(d),
+        a = !1;
+      for (var i of t) {
+        var l = n == null ? void 0 : n.profilePictureURLByLID.get(i);
+        l != null
+          ? ((a = a || o.get(i) !== l), o.set(i, l), m.set(i, r + u))
+          : (n == null ? void 0 : n.unavailableLIDs.has(i)) === !0
+            ? ((a = o.delete(i) || a), m.set(i, r + s))
+            : m.set(i, r + e);
       }
-      o &&
-        ((m = r),
-        d.forEach(function (e) {
+      a &&
+        ((d = o),
+        c.forEach(function (e) {
           return e();
         }));
     }
-    ((l.getOrgAdminProfilePictures = f),
-      (l.subscribeToOrgAdminProfilePictures = g),
-      (l.loadOrgAdminProfilePictures = h),
-      (l.resetOrgAdminProfilePictures = C));
+    ((l.getOrgAdminProfilePictures = _),
+      (l.subscribeToOrgAdminProfilePictures = f),
+      (l.loadOrgAdminProfilePictures = g),
+      (l.resetOrgAdminProfilePictures = h));
   },
   98,
 );

@@ -1,7 +1,6 @@
 __d(
   "WAWebMsgBridgeApi",
   [
-    "Promise",
     "WALogger",
     "WAWebAck",
     "WAWebAckMsgAction",
@@ -25,15 +24,13 @@ __d(
     "WAWebUpdateMusicBlocklistAction",
     "WAWebUpdateReactionMessageUIAction",
     "WAWebUpdateReplyApi",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["msgKey"],
       s,
       u,
-      c,
-      d = {
+      c = {
         processMultipleMessages: function (t) {
           var e = t.chatId,
             n = t.chatMsgsCollection,
@@ -291,22 +288,14 @@ __d(
             "WAWebGalaxyDisableCTACollection",
           ).GalaxyDisableCTACollection.addByAgmId(e, n);
         },
-        hydrateReactionsForMessages: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.messageIds;
-            yield (c || (c = n("Promise"))).all(
-              t.map(function (e) {
-                return o("WAWebReactionsCollection").ReactionsCollection.find(
-                  e,
-                );
-              }),
-            );
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        hydrateReactionsForMessages: async function (t) {
+          var e = t.messageIds;
+          await Promise.all(
+            e.map(function (e) {
+              return o("WAWebReactionsCollection").ReactionsCollection.find(e);
+            }),
+          );
+        },
         updateCrosspostingInfo: function (t) {
           var e,
             n = t.crosspostingInfo,
@@ -340,48 +329,36 @@ __d(
               n.set(a);
           });
         },
-        deleteMessageFromCollectionForSync: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.msgKey,
-              n = o("WAWebMsgCollection").MsgCollection.get(t);
-            if (n) {
-              var r = o("WAWebFrontendMsgGetters").getChat(n);
-              (r.msgs.length === 1 &&
-                (yield o("WAWebChatLoadMessages").loadEarlierMsgs({ chat: r })),
-                n.delete());
-            } else
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "delete_message_for_me_sync: ",
-                    " storage+ collection-",
-                  ])),
-                t,
-              );
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        deleteMessageFromCollectionForSync: async function (t) {
+          var e = t.msgKey,
+            n = o("WAWebMsgCollection").MsgCollection.get(e);
+          if (n) {
+            var r = o("WAWebFrontendMsgGetters").getChat(n);
+            (r.msgs.length === 1 &&
+              (await o("WAWebChatLoadMessages").loadEarlierMsgs({ chat: r })),
+              n.delete());
+          } else
+            o("WALogger").WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "delete_message_for_me_sync: ",
+                  " storage+ collection-",
+                ])),
+              e,
+            );
+        },
         removeScheduledMsgModelForReveal: function (t) {
           var e = t.msgKey,
             n = o("WAWebMsgCollection").MsgCollection.get(e);
           n != null && n.delete();
         },
-        loadAssociationChildrenIntoCollection: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.childMsgKeys,
-              n = e.parentMsgKey;
-            yield o(
-              "WAWebMessageAssociationUIUtils",
-            ).getAssociatedMessagesByMsgKeys(n, t);
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        loadAssociationChildrenIntoCollection: async function (t) {
+          var e = t.childMsgKeys,
+            n = t.parentMsgKey;
+          await o(
+            "WAWebMessageAssociationUIUtils",
+          ).getAssociatedMessagesByMsgKeys(n, e);
+        },
         updateMsgRcat: function (t) {
           var e = t.msgKey,
             n = t.rcat,
@@ -389,7 +366,7 @@ __d(
           r != null && (r.rcat = n);
         },
       };
-    l.MsgBridgeApi = d;
+    l.MsgBridgeApi = c;
   },
   98,
 );

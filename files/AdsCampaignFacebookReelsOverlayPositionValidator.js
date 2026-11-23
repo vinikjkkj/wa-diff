@@ -78,9 +78,7 @@ __d(
                   new (r("AdsError"))(
                     2490362,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "To use the Facebook Reels Overlay placement, please also select the Facebook In-stream reels placement",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       level: r("AdsError").Level.WARN,
@@ -98,9 +96,7 @@ __d(
                   new (r("AdsError"))(
                     2490344,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "To use the Facebook Reels Overlay placement, please also select the Facebook News Feeds placement.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       cta: r("AdsErrorsCTAStrings").ADD_FACEBOOK_NEWS_FEED_CTA,

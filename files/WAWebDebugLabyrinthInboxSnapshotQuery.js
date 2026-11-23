@@ -12,7 +12,6 @@ __d(
     "WAWebLabyrinthParseEpochAnonId",
     "WAWebLabyrinthParseSealedThreadId",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
@@ -132,27 +131,19 @@ __d(
             }
       );
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebRelayClient").fetchQuery(
-            s,
-            {
-              clientSealToken: o("WABase64").encodeB64(e.clientSealToken),
-              deviceId: e.deviceId,
-              locallyAvailableEpochIds: [e.locallyAvailableEpochId],
-              messageFirst: e.messageFirst,
-              threadFirst: e.threadFirst,
-            },
-            { environment: e.environment, environmentType: "whatsapp_web" },
-          );
-          return u(t);
-        })),
-        p.apply(this, arguments)
+    async function m(e) {
+      var t = await o("WAWebRelayClient").fetchQuery(
+        s,
+        {
+          clientSealToken: o("WABase64").encodeB64(e.clientSealToken),
+          deviceId: e.deviceId,
+          locallyAvailableEpochIds: [e.locallyAvailableEpochId],
+          messageFirst: e.messageFirst,
+          threadFirst: e.threadFirst,
+        },
+        { environment: e.environment, environmentType: "whatsapp_web" },
       );
+      return u(t);
     }
     l.fetchLabyrinthInboxSnapshot = m;
   },

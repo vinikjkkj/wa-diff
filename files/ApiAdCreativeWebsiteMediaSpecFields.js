@@ -9,6 +9,7 @@ __d(
       ENROLL_STATUS: "enroll_status",
       IMAGE_CLUSTERS: "image_clusters",
       MEDIA: "media",
+      SCOPE: "scope",
     });
     i.default = e;
   },

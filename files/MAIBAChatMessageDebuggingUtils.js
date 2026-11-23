@@ -8,7 +8,9 @@ __d(
         r("CurrentUser").isEmployee() ||
         r("CurrentUser").isAccountEmployee() ||
         r("CurrentUser").isTestUser() ||
-        (r("CurrentUser").isFacebookWorkAccount() && r("gkx")("3611")) ||
+        ((r("CurrentUser").isFacebookWorkAccount() ||
+          r("CurrentUser").isManagedMetaAccount()) &&
+          r("gkx")("3611")) ||
         (r("CurrentUser").isBusinessPersonAccount() && r("gkx")("24049"))
       );
     }

@@ -11,71 +11,62 @@ __d(
     "WAWebVerifiedBusinessNameCopyPnDataToLidRows",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s() {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o("WAWebSchemaVerifiedBusinessName")
-            .getVerifiedBusinessNameTable()
-            .all();
-          yield o(
-            "WAWebVerifiedBusinessNameCopyPnDataToLidRows",
-          ).copyVerifiedNamePnDataToLidRows(t);
-          var n = [];
-          (t.forEach(function (t) {
-            var r;
-            try {
-              r = o("WAWebWidFactory").createUserWidOrThrow(t.id);
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "restore-business-info: invalid wid",
-                    ])),
-                )
-                .sendLogs("restore-business-info: invalid wid");
-              return;
-            }
-            n.push({
-              wid: o("WAWebWidToJid").widToUserJid(r),
-              contactData: {
-                isBusiness: !0,
-                isEnterprise: t.isApi,
-                verifiedName: t.name,
-                verifiedLevel: c(t.level),
-                privacyMode: t.privacyMode,
-              },
-            });
-          }),
-            yield o("WAWebBackendApi").frontendSendAndReceive(
-              "restoreVerifiedBusinessContacts",
-              { entries: n },
-            ));
-          var r = yield o("WAWebSchemaBusinessProfile")
-            .getBusinessProfileTable()
-            .all();
-          yield o(
-            "WAWebBusinessProfileCopyPnDataToLidRows",
-          ).copyBusinessProfilePnDataToLidRows(r);
-          var a = r.map(function (e) {
-            return o("WAWebApiBusinessProfile").businessProfileFromDbRow(e);
-          });
-          yield o("WAWebBackendApi").frontendSendAndReceive(
-            "restoreBusinessProfiles",
-            { profiles: a },
-          );
-        })),
-        u.apply(this, arguments)
+    async function s() {
+      var t = await o("WAWebSchemaVerifiedBusinessName")
+        .getVerifiedBusinessNameTable()
+        .all();
+      await o(
+        "WAWebVerifiedBusinessNameCopyPnDataToLidRows",
+      ).copyVerifiedNamePnDataToLidRows(t);
+      var n = [];
+      (t.forEach(function (t) {
+        var r;
+        try {
+          r = o("WAWebWidFactory").createUserWidOrThrow(t.id);
+        } catch (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "restore-business-info: invalid wid",
+                ])),
+            )
+            .sendLogs("restore-business-info: invalid wid");
+          return;
+        }
+        n.push({
+          wid: o("WAWebWidToJid").widToUserJid(r),
+          contactData: {
+            isBusiness: !0,
+            isEnterprise: t.isApi,
+            verifiedName: t.name,
+            verifiedLevel: u(t.level),
+            privacyMode: t.privacyMode,
+          },
+        });
+      }),
+        await o("WAWebBackendApi").frontendSendAndReceive(
+          "restoreVerifiedBusinessContacts",
+          { entries: n },
+        ));
+      var r = await o("WAWebSchemaBusinessProfile")
+        .getBusinessProfileTable()
+        .all();
+      await o(
+        "WAWebBusinessProfileCopyPnDataToLidRows",
+      ).copyBusinessProfilePnDataToLidRows(r);
+      var a = r.map(function (e) {
+        return o("WAWebApiBusinessProfile").businessProfileFromDbRow(e);
+      });
+      await o("WAWebBackendApi").frontendSendAndReceive(
+        "restoreBusinessProfiles",
+        { profiles: a },
       );
     }
-    function c(e) {
+    function u(e) {
       switch (e) {
         case "unknown":
           return o("WAWebBusinessProfileTypes").VERIFIED_LEVEL.UNKNOWN;

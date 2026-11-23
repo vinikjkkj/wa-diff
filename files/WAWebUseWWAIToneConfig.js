@@ -1,19 +1,14 @@
 __d(
   "WAWebUseWWAIToneConfig",
-  ["fbt", "WAWebABProps", "react", "react-compiler-runtime"],
+  ["fbt", "WAWebABProps", "react"],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = (e || (e = o("react"))).useMemo,
       c = ["rephrase", "professional", "funny", "supportive"];
     function d() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = m()), (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return u(function () {
+        return m();
+      }, []);
     }
     function m() {
       var e;
@@ -39,13 +34,13 @@ __d(
     }
     function _(e) {
       return e === "rephrase"
-        ? s._(/*BTDS*/ "Rephrase").toString()
+        ? s._(/*BTDS*/ "").toString()
         : e === "professional"
-          ? s._(/*BTDS*/ "Professional").toString()
+          ? s._(/*BTDS*/ "").toString()
           : e === "funny"
-            ? s._(/*BTDS*/ "Funny").toString()
+            ? s._(/*BTDS*/ "").toString()
             : e === "supportive"
-              ? s._(/*BTDS*/ "Supportive").toString()
+              ? s._(/*BTDS*/ "").toString()
               : e
                   .split("_")
                   .map(function (e) {

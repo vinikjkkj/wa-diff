@@ -30,99 +30,65 @@ __d(
       switch (n) {
         case 400:
           return t === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(
-                /*BTDS*/ "Couldn't join this community. Please try again later.",
-              )
-            : s._(/*BTDS*/ "Couldn't join this group. Please try again later.");
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
         case 401:
           return t === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(
-                /*BTDS*/ "You can't join this community because you were removed.",
-              )
-            : s._(
-                /*BTDS*/ "You can't join this group because you were removed.",
-              );
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
         case 404:
           return t === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(
-                /*BTDS*/ "You can't join this community because it does not exist.",
-              )
-            : s._(
-                /*BTDS*/ "You can't join this group because it no longer exists.",
-              );
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
         case 405:
-          return s._(
-            /*BTDS*/ "You can't join this group because you were removed from the community.",
-          );
+          return s._(/*BTDS*/ "");
         case 409:
           return t === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(
-                /*BTDS*/ "You can't join this community because you are already a member of it.",
-              )
-            : s._(
-                /*BTDS*/ "You can't join this group because you are already a member of it.",
-              );
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
         case 410:
           return t === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(
-                /*BTDS*/ "You can't join this community because this invite link was reset.",
-              )
-            : s._(
-                /*BTDS*/ "You can't join this group because this invite link was reset.",
-              );
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
         case 412:
-          return s._(
-            /*BTDS*/ "You can't join this group because the community is full.",
-          );
+          return s._(/*BTDS*/ "");
         case 419:
           return t === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(/*BTDS*/ "You can't join this community because it is full.")
-            : s._(/*BTDS*/ "You can't join this group because it is full.");
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
         case 426:
-          return s._(
-            /*BTDS*/ "You need approval from an admin to join this group. Update your app so you can request to join.",
-          );
+          return s._(/*BTDS*/ "");
         case 429:
-          return s._(
-            /*BTDS*/ "You have reached the limit for the number of groups you can join at this time. You can try joining this group again later.",
-          );
+          return s._(/*BTDS*/ "");
         case 436:
           return t === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(
-                /*BTDS*/ "You can't join this community because the invite link is unavailable.",
-              )
-            : s._(
-                /*BTDS*/ "You can't join this group because the invite link is unavailable.",
-              );
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
         default:
           return t === o("WAWebGroupType").GroupType.COMMUNITY
-            ? s._(/*BTDS*/ "Couldn't join this community. Please try again.")
-            : s._(/*BTDS*/ "Couldn't join this group. Please try again.");
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
       }
     }
     function d(e) {
       if (e instanceof o("WAWebMembershipApprovalRequestAction").RequestError)
         switch (e.status) {
           case 401:
-            return s._(/*BTDS*/ "You cannot cancel this request.");
+            return s._(/*BTDS*/ "");
           case 404:
-            return s._(/*BTDS*/ "Your request no longer exists.");
+            return s._(/*BTDS*/ "");
         }
       if (e instanceof o("WAWebMembershipApprovalRequestAction").GroupError)
         switch (e.status) {
           case 400:
-            return s._(/*BTDS*/ "An error occurred while canceling.");
+            return s._(/*BTDS*/ "");
           case 404:
           case 423:
-            return s._(/*BTDS*/ "This group no longer exists.");
+            return s._(/*BTDS*/ "");
           case 429:
-            return s._(
-              /*BTDS*/ "An error occurred while canceling. Please try again later.",
-            );
+            return s._(/*BTDS*/ "");
         }
-      return s._(
-        /*BTDS*/ "An error occurred while canceling. Please try again.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function m(e) {
       var t =
@@ -131,51 +97,33 @@ __d(
           : null;
       switch (t) {
         case 403:
-          return s._(
-            /*BTDS*/ "You can't join this group because you are not a member of the community.",
-          );
+          return s._(/*BTDS*/ "");
         case 404:
-          return s._(
-            /*BTDS*/ "You can't join this group because it no longer exists.",
-          );
+          return s._(/*BTDS*/ "");
         case 405:
-          return s._(
-            /*BTDS*/ "You can't join this group because it is not part of the community.",
-          );
+          return s._(/*BTDS*/ "");
         case 503:
-          return s._(/*BTDS*/ "Check your phone's connection and try again.");
+          return s._(/*BTDS*/ "");
         case 426:
-          return s._(
-            /*BTDS*/ "You need approval from an admin to join this group. Update your app so you can request to join.",
-          );
+          return s._(/*BTDS*/ "");
         case 406:
-          return s._(
-            /*BTDS*/ "You can't join this group because you'll need to be invited. Update WhatsApp to the latest version to see your options.",
-          );
+          return s._(/*BTDS*/ "");
         default:
-          return s._(
-            /*BTDS*/ "Couldn't join this group. Please try again later.",
-          );
+          return s._(/*BTDS*/ "");
       }
     }
     function p(e) {
       switch (e) {
         case 400:
-          return s._(/*BTDS*/ "Couldn't revoke invite");
+          return s._(/*BTDS*/ "");
         case 401:
-          return s._(
-            /*BTDS*/ "You can't revoke this group invite because you are not an admin of this group.",
-          );
+          return s._(/*BTDS*/ "");
         case 403:
-          return s._(
-            /*BTDS*/ "You can't revoke this group invite because you are not a member of this group.",
-          );
+          return s._(/*BTDS*/ "");
         case 404:
-          return s._(
-            /*BTDS*/ "You can't revoke this group invite because this group has ended.",
-          );
+          return s._(/*BTDS*/ "");
         default:
-          return s._(/*BTDS*/ "Can't revoke invite. Please try again.");
+          return s._(/*BTDS*/ "");
       }
     }
     function _(e) {
@@ -216,28 +164,19 @@ __d(
         u = r("WAWebL10N").isRTL() ? " -\xA0" : " \xB7\xA0";
       switch (l) {
         case o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP:
-          return s._(
-            /*BTDS*/ '_j{"*":"Announcement group{separator}{number_of_participants} members","_1":"Announcement group{separator}1 member"}',
-            [
-              s._plural(i != null ? i : 0, "number_of_participants"),
-              s._param("separator", u),
-            ],
-          );
+          return s._(/*BTDS*/ "", [
+            s._plural(i != null ? i : 0, "number_of_participants"),
+            s._param("separator", u),
+          ]);
         case o("WAWebGroupType").GroupType.COMMUNITY:
-          return s._(
-            /*BTDS*/ '_j{"*":"Community{separator}{number} groups{created_by_separator}{created_by}","_1":"Community{separator}1 group{created_by_separator}{created_by}"}',
-            [
-              s._plural(n != null ? n : 0, "number"),
-              s._param("separator", u),
-              s._param("created_by_separator", u),
-              s._param("created_by", _(t)),
-            ],
-          );
+          return s._(/*BTDS*/ "", [
+            s._plural(n != null ? n : 0, "number"),
+            s._param("separator", u),
+            s._param("created_by_separator", u),
+            s._param("created_by", _(t)),
+          ]);
         case o("WAWebGroupType").GroupType.LINKED_SUBGROUP:
-          if (a != null)
-            return s._(/*BTDS*/ 'Group in "{community}"', [
-              s._param("community", a),
-            ]);
+          if (a != null) return s._(/*BTDS*/ "", [s._param("community", a)]);
           break;
         default:
           break;
@@ -255,38 +194,28 @@ __d(
         c = e.parentGroupSubject,
         d = e.requestSent,
         m = d === void 0 ? !1 : d;
-      if (m) return s._(/*BTDS*/ "Request sent. Waiting for admin approval.");
+      if (m) return s._(/*BTDS*/ "");
       switch (t) {
         case o("WAWebGroupType").GroupType.COMMUNITY:
-          return s._(
-            /*BTDS*/ "When you join this community, you will be added to its announcement group. Your profile will be visible to community admins.",
-          );
+          return s._(/*BTDS*/ "");
         case o("WAWebGroupType").GroupType.LINKED_SUBGROUP:
         case o("WAWebGroupType").GroupType.LINKED_GENERAL_GROUP:
         case o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP:
-          if (i)
-            return s._(
-              /*BTDS*/ "Only members that have been invited can join this group. You can remove this group at any time.",
-            );
+          if (i) return s._(/*BTDS*/ "");
           if (r) break;
           return c != null
-            ? s._(
-                /*BTDS*/ 'You will be added to the community "{community}" and its announcement group. Your profile will be visible to community admins.',
-                [s._param("community", c)],
-              )
-            : s._(
-                /*BTDS*/ "You will be added to a community and its announcement group. Your profile will be visible to community admins.",
-              );
+            ? s._(/*BTDS*/ "", [s._param("community", c)])
+            : s._(/*BTDS*/ "");
         case o("WAWebGroupType").GroupType.DEFAULT:
           break;
       }
-      return u ? s._(/*BTDS*/ "An admin must approve your request.") : null;
+      return u ? s._(/*BTDS*/ "") : null;
     }
     function h(e, t) {
       return (
         t === void 0 && (t = !1),
         t
-          ? s._(/*BTDS*/ "Manage groups")
+          ? s._(/*BTDS*/ "")
           : e
             ? r("WAWebFbtCommon")("Close")
             : r("WAWebFbtCommon")("Cancel")
@@ -318,9 +247,7 @@ __d(
       return r("WAWebNetworkStatus").online
         ? !0
         : (o("WAWebToastManager").ToastManager.open(
-            u.jsx(o("WAWebToast.react").Toast, {
-              msg: s._(/*BTDS*/ "Check your connection and try again."),
-            }),
+            u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
           ),
           o("WAWebModalManager").ModalManager.close(),
           !1);

@@ -1,0 +1,37 @@
+__d(
+  "PerformanceSummaryLimitedByBidGuidanceCardWidgetPlugin",
+  [
+    "AdsPerformanceSummaryTypes",
+    "PerformanceSummaryBidForecasterCardContainer.react",
+    "react",
+  ],
+  function (t, n, r, o, a, i, l) {
+    "use strict";
+    var e,
+      s = e || (e = o("react")),
+      u = {
+        type: "performanceSummaryWidget",
+        key: "limitedByBidGuidanceCard",
+        name: o("AdsPerformanceSummaryTypes").PerformanceSummaryWidgetNamesEnum
+          .LimitedByBidGuidanceCard,
+        ContentComponent: function (t) {
+          var e;
+          return s.jsx(
+            r("PerformanceSummaryBidForecasterCardContainer.react"),
+            {
+              adAccount: t.adAccount,
+              currentLevel: t.currentLevel,
+              selectedCampaignID:
+                (e = t.selectedIdsAtCurrentLevel[0]) != null ? e : null,
+            },
+          );
+        },
+        isEnabled: function (t) {
+          return !1;
+        },
+      },
+      c = u;
+    l.default = c;
+  },
+  98,
+);

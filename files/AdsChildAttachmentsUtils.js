@@ -21,10 +21,10 @@ __d(
     "adsConvertAdObjectRecordToPlainJS",
     "getByPath",
     "immutable",
-    "isAccountEligibleForThreeCOL2AdEx",
-    "justknobx",
     "memoizeByReference",
     "memoizeWithArgsWeak",
+    "observeRuntimeType",
+    "qex",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -36,10 +36,14 @@ __d(
       return e ? e.some(c) : !1;
     }
     function c(e) {
-      e.toJS && (e = e.toJS());
-      var t = !!e.static_card,
-        n = !!e.template_video_spec;
-      return t || n;
+      r("observeRuntimeType")(
+        e,
+        "AdsChildAttachmentsUtils.isDynamicAdsIntroCard.childAttachment",
+      );
+      var t = e.toJS ? e.toJS() : e,
+        n = !!t.static_card,
+        o = !!t.template_video_spec;
+      return n || o;
     }
     function d(e, t, n) {
       if (!r("AdsAdgroupSemanticFields").childAttachments.isSupported(t, e))
@@ -47,13 +51,10 @@ __d(
           s._(
             2016065,
             function (e) {
-              return e._(/*BTDS*/ "Ad's Field Not Supported");
+              return e._(/*BTDS*/ "");
             },
             function (e, t) {
-              return e._(
-                /*BTDS*/ "Field {fieldName} is not supported by this ad.",
-                [e._param("fieldName", t.fieldName)],
-              );
+              return e._(/*BTDS*/ "", [e._param("fieldName", t.fieldName)]);
             },
             { fieldName: r("AdsAdgroupSemanticFieldKeys").childAttachments },
           ),
@@ -65,12 +66,10 @@ __d(
           s._(
             2016064,
             function (e) {
-              return e._(/*BTDS*/ "Child Attachment's Not Found in Ad");
+              return e._(/*BTDS*/ "");
             },
             function (e, t) {
-              return e._(
-                /*BTDS*/ "It was expected a child attachment in the adgroup spec but it is not there.",
-              );
+              return e._(/*BTDS*/ "");
             },
             {},
           ),
@@ -101,13 +100,10 @@ __d(
             s._(
               2016065,
               function (e) {
-                return e._(/*BTDS*/ "Ad's Field Not Supported");
+                return e._(/*BTDS*/ "");
               },
               function (e, t) {
-                return e._(
-                  /*BTDS*/ "Field {fieldName} is not supported by this ad.",
-                  [e._param("fieldName", t.fieldName)],
-                );
+                return e._(/*BTDS*/ "", [e._param("fieldName", t.fieldName)]);
               },
               { fieldName: r("AdsAdgroupSemanticFieldKeys").childAttachments },
             ),
@@ -131,6 +127,7 @@ __d(
       );
     }
     function g(e) {
+      var t;
       return Array.isArray(e)
         ? e.length === 1 &&
             (e[0].imageHash ===
@@ -140,11 +137,15 @@ __d(
                 o("AdsMultiProductConstants")
                   .EMPTY_CHILD_ATTACHMENTS_PLACEHOLDER)
         : e.size === 1 &&
-            e.get(0).get("image_hash") ===
+            ((t = e.get(0)) == null ? void 0 : t.get("image_hash")) ===
               o("AdsMultiProductConstants").EMPTY_CHILD_ATTACHMENTS_PLACEHOLDER;
     }
     function h(e) {
-      return y(r("adsConvertAdObjectRecordToPlainJS")(e));
+      return y(
+        r("qex")._("3278") === !0
+          ? e
+          : r("adsConvertAdObjectRecordToPlainJS")(e),
+      );
     }
     function y(e) {
       var t = o("AdsObjectTypeUtils").getCreativeSpecType(e);
@@ -159,7 +160,11 @@ __d(
       return null;
     }
     function C(e) {
-      var t = y(r("adsConvertAdObjectRecordToPlainJS")(e)),
+      var t = y(
+          r("qex")._("3278") === !0
+            ? e
+            : r("adsConvertAdObjectRecordToPlainJS")(e),
+        ),
         n = t ? r("getByPath")(e, t) : null;
       return (n && !Array.isArray(n) && (n = n.toJS()), n);
     }
@@ -261,13 +266,12 @@ __d(
                     s._(
                       2016065,
                       function (e) {
-                        return e._(/*BTDS*/ "Ad's Field Not Supported");
+                        return e._(/*BTDS*/ "");
                       },
                       function (e, t) {
-                        return e._(
-                          /*BTDS*/ "Field {fieldName} is not supported by this ad.",
-                          [e._param("fieldName", t.fieldName)],
-                        );
+                        return e._(/*BTDS*/ "", [
+                          e._param("fieldName", t.fieldName),
+                        ]);
                       },
                       {
                         fieldName:
@@ -290,13 +294,10 @@ __d(
       var t;
       if (o("AdsUEditorAdgroupShopAdsBundle").isShopAdsBundle(e) && I(e))
         return !0;
-      var n =
-          r("justknobx")._("5008") &&
-          o("isAccountEligibleForThreeCOL2AdEx").is3coEnableCarouselFormat(),
-        a = r("adsConvertAdObjectRecordToPlainJS")(e),
-        i = (t = a.creative) == null ? void 0 : t.asset_feed_spec,
-        l = (i == null || Object.keys(i).length === 0) && n;
-      return !l &&
+      var n = r("adsConvertAdObjectRecordToPlainJS")(e),
+        a = (t = n.creative) == null ? void 0 : t.asset_feed_spec,
+        i = a == null || Object.keys(a).length === 0;
+      return !i &&
         o("AdsAssetFeedUtils").isAdgroupUsingNonTextOnlyDofAssetFeedSpec(e) &&
         !o("AdsAssetFeedUtils").isDofMessagingDestinationAdgroupFromSpec(e) &&
         !o(

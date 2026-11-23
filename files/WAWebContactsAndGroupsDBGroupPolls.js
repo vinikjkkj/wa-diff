@@ -1,7 +1,6 @@
 __d(
   "WAWebContactsAndGroupsDBGroupPolls",
   [
-    "Promise",
     "WAWebAddonQueryUtils",
     "WAWebDBMessageRangeIndex",
     "WAWebDBMessageSerialization",
@@ -13,94 +12,68 @@ __d(
     "WAWebPollsVotesSchema",
     "WAWebSchemaMessage",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = [
-        o("WAWebDBMessageRangeIndex").MessagePropertyType.IncomingChatMessage,
-        o("WAWebDBMessageRangeIndex").MessagePropertyType.Outgoing,
-      ];
-    function u(e, t) {
-      return c.apply(this, arguments);
+    var e = [
+      o("WAWebDBMessageRangeIndex").MessagePropertyType.IncomingChatMessage,
+      o("WAWebDBMessageRangeIndex").MessagePropertyType.Outgoing,
+    ];
+    async function s(t, n) {
+      var r = await Promise.all(
+          e.map(function (e) {
+            return d(t, e, n);
+          }),
+        ),
+        a = r.flat().map(function (e) {
+          return e.id;
+        });
+      if (a.length === 0) return [];
+      var i = await Promise.all([
+          o("WAWebSchemaMessage").getMessageTable().anyOf(["id"], a),
+          m(a),
+        ]),
+        l = i[0],
+        s = i[1];
+      return l.map(function (e) {
+        return f(e, s);
+      });
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = yield (e || (e = n("Promise"))).all(
-              s.map(function (e) {
-                return f(t, e, r);
-              }),
-            ),
-            i = a.flat().map(function (e) {
-              return e.id;
-            });
-          if (i.length === 0) return [];
-          var l = yield e.all([
-              o("WAWebSchemaMessage").getMessageTable().anyOf(["id"], i),
-              g(i),
-            ]),
-            u = l[0],
-            c = l[1];
-          return u.map(function (e) {
-            return v(e, c);
-          });
-        })),
-        c.apply(this, arguments)
-      );
+    async function u(e, t) {
+      var n = await d(
+          e,
+          o("WAWebDBMessageRangeIndex").MessagePropertyType.Outgoing,
+          t,
+        ),
+        a = n.map(function (e) {
+          return e.id;
+        });
+      if (a.length === 0) return [];
+      var i = await Promise.all([
+          o("WAWebSchemaMessage").getMessageTable().anyOf(["id"], a),
+          p(a),
+        ]),
+        l = i[0],
+        s = i[1];
+      return r("compactMap")(l, function (e) {
+        return _(
+          o("WAWebDBMessageSerialization").messageFromDbRow(e),
+          s.get(e.id),
+        );
+      });
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    async function c(e) {
+      var t = e.toString(),
+        n = await Promise.all([
+          o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([e]),
+          p([t]),
+        ]),
+        r = n[0],
+        a = n[1],
+        i = r.get(t);
+      return i != null ? _(i, a.get(t)) : null;
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i = yield f(
-              t,
-              o("WAWebDBMessageRangeIndex").MessagePropertyType.Outgoing,
-              a,
-            ),
-            l = i.map(function (e) {
-              return e.id;
-            });
-          if (l.length === 0) return [];
-          var s = yield (e || (e = n("Promise"))).all([
-              o("WAWebSchemaMessage").getMessageTable().anyOf(["id"], l),
-              y(l),
-            ]),
-            u = s[0],
-            c = s[1];
-          return r("compactMap")(u, function (e) {
-            return b(
-              o("WAWebDBMessageSerialization").messageFromDbRow(e),
-              c.get(e.id),
-            );
-          });
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.toString(),
-            a = yield (e || (e = n("Promise"))).all([
-              o("WAWebAddonQueryUtils").getParentMsgsByMsgKey([t]),
-              y([r]),
-            ]),
-            i = a[0],
-            l = a[1],
-            s = i.get(r);
-          return s != null ? b(s, l.get(r)) : null;
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t, n) {
+    function d(e, t, n) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .between(
@@ -114,65 +87,49 @@ __d(
           },
         );
     }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield y(e);
-          return new Set(
-            e.filter(function (e) {
-              var n;
-              return (n = t.get(e)) == null
-                ? void 0
-                : n.some(function (e) {
-                    return (
-                      e.selectedOptionLocalIds.length > 0 &&
-                      o("WAWebUserUtils").isMeAccount(e.sender)
-                    );
-                  });
-            }),
-          );
-        })),
-        h.apply(this, arguments)
+    async function m(e) {
+      var t = await p(e);
+      return new Set(
+        e.filter(function (e) {
+          var n;
+          return (n = t.get(e)) == null
+            ? void 0
+            : n.some(function (e) {
+                return (
+                  e.selectedOptionLocalIds.length > 0 &&
+                  o("WAWebUserUtils").isMeAccount(e.sender)
+                );
+              });
+        }),
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
+    async function p(e) {
+      var t = new Map();
+      e.forEach(function (e) {
+        t.set(e, e);
+        var n = o("WAWebLidMigrationUtils").getAlternateMsgKey(
+          r("WAWebMsgKey").fromString(e),
+        );
+        n != null && t.set(n.toString(), e);
+      });
+      var n = await o("WAWebPollsVotesSchema")
+          .getTable()
+          .anyOf(["parentMsgKey"], Array.from(t.keys())),
+        a = new Map();
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Map();
-          e.forEach(function (e) {
-            t.set(e, e);
-            var n = o("WAWebLidMigrationUtils").getAlternateMsgKey(
-              r("WAWebMsgKey").fromString(e),
-            );
-            n != null && t.set(n.toString(), e);
-          });
-          var n = yield o("WAWebPollsVotesSchema")
-              .getTable()
-              .anyOf(["parentMsgKey"], Array.from(t.keys())),
-            a = new Map();
-          return (
-            n
-              .map(o("WAWebPollsDbSerialization").voteFromDbRow)
-              .forEach(function (e) {
-                var n = t.get(e.parentMsgKey.toString());
-                if (n != null) {
-                  var r = a.get(n);
-                  r != null ? r.push(e) : a.set(n, [e]);
-                }
-              }),
-            a
-          );
-        })),
-        C.apply(this, arguments)
+        n
+          .map(o("WAWebPollsDbSerialization").voteFromDbRow)
+          .forEach(function (e) {
+            var n = t.get(e.parentMsgKey.toString());
+            if (n != null) {
+              var r = a.get(n);
+              r != null ? r.push(e) : a.set(n, [e]);
+            }
+          }),
+        a
       );
     }
-    function b(e, t) {
+    function _(e, t) {
       var n, r, a;
       if (
         e.type !== o("WAWebMsgType").MSG_TYPE.POLL_CREATION ||
@@ -194,7 +151,7 @@ __d(
         }),
       };
     }
-    function v(e, t) {
+    function f(e, t) {
       var n,
         a = o("WAWebDBMessageSerialization").messageFromDbRow(e);
       return {
@@ -205,9 +162,9 @@ __d(
         t: e.t,
       };
     }
-    ((l.getGroupPollsSince = u),
-      (l.getMyGroupPollsSince = d),
-      (l.getMyGroupPoll = p));
+    ((l.getGroupPollsSince = s),
+      (l.getMyGroupPollsSince = u),
+      (l.getMyGroupPoll = c));
   },
   98,
 );

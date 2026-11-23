@@ -1,34 +1,25 @@
 __d(
   "AdsDefaultPageDataLoadedReducerPlugin",
-  ["LoadObject", "Promise", "cr:34851", "promiseDone"],
+  ["LoadObject"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = {
-        reduce: function (o, a) {
-          var t = {
-            createdTime: a.createdTime,
-            pageIconURI: a.pageIconURI,
-            pageID: a.pageID,
-            pageName: a.pageName,
-            pagePost: a.pagePost,
+    var e = {
+        reduce: function (t, n) {
+          var e = {
+            createdTime: n.createdTime,
+            pageIconURI: n.pageIconURI,
+            pageID: n.pageID,
+            pageName: n.pageName,
+            pagePost: n.pagePost,
           };
-          if (n("cr:34851") != null) {
-            var l = a.adAccountID;
-            r("promiseDone")(
-              (e || (e = n("Promise"))).resolve().then(function () {
-                n("cr:34851").validate(l, t);
-              }),
-            );
-          }
-          return o.set(
-            a.adAccountID,
-            r("LoadObject").withValue(t, { creatorModuleID: i.id }),
+          return t.set(
+            n.adAccountID,
+            r("LoadObject").withValue(e, { creatorModuleID: i.id }),
           );
         },
       },
-      u = s;
-    l.default = u;
+      s = e;
+    l.default = s;
   },
   98,
 );

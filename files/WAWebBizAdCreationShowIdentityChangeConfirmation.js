@@ -25,7 +25,7 @@ __d(
         }),
         u.jsx(r("WDSConfirmDialog.react"), {
           confirmLabel: r("WAWebFbtCommon")("Discard"),
-          description: s._(/*BTDS*/ "Your progress will be lost."),
+          description: s._(/*BTDS*/ ""),
           destructive: !0,
           onConfirm: function () {
             (o("WDSDialogBridge").closeWDSDialog(), t());

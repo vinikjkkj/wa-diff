@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipRelayAllCallsSettingSync",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebBackendApi",
@@ -11,15 +10,13 @@ __d(
     "WAWebSyncdConst",
     "WAWebSyncdCoreApi",
     "WAWebSyncdIndexUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = (function (t) {
-        function r() {
+      c = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -29,108 +26,95 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (a.getVersion = function () {
+          (r.getVersion = function () {
             return 1;
           }),
-          (a.getAction = function () {
+          (r.getAction = function () {
             return o("WAWebSyncdConst").Actions.VoipRelayAllCalls;
           }),
-          (a.applyMutations = function (r) {
+          (r.applyMutations = function (n) {
             var t = this,
+              r = 0,
               a = 0,
               i = 0,
-              l = 0,
-              d = (c || (c = n("Promise"))).all(
-                r.map(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        try {
-                          if (e.operation === "set") {
-                            var n = e.value,
-                              r = n.privacySettingRelayAllCalls;
-                            if (!r)
-                              return (
-                                a++,
-                                o("WAWebSyncdIndexUtils").malformedActionValue(
-                                  t.collectionName,
-                                )
-                              );
-                            var s = r.isEnabled;
-                            return (
-                              s == null
-                                ? i++
-                                : yield o(
-                                    "WAWebBackendApi",
-                                  ).frontendSendAndReceive(
-                                    "setRelayAllCallsToUserPrefs",
-                                    { disallowAllP2p: s },
-                                  ),
-                              {
-                                actionState:
-                                  o("WAWebSyncdConst").SyncActionState.Success,
-                              }
-                            );
-                          }
-                          return (
-                            l++,
-                            {
-                              actionState:
-                                o("WAWebSyncdConst").SyncActionState
-                                  .Unsupported,
-                            }
-                          );
-                        } catch (e) {
-                          return {
-                            actionState:
-                              o("WAWebSyncdConst").SyncActionState.Failed,
-                          };
+              l = Promise.all(
+                n.map(async function (e) {
+                  try {
+                    if (e.operation === "set") {
+                      var n = e.value,
+                        l = n.privacySettingRelayAllCalls;
+                      if (!l)
+                        return (
+                          r++,
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            t.collectionName,
+                          )
+                        );
+                      var s = l.isEnabled;
+                      return (
+                        s == null
+                          ? a++
+                          : await o("WAWebBackendApi").frontendSendAndReceive(
+                              "setRelayAllCallsToUserPrefs",
+                              { disallowAllP2p: s },
+                            ),
+                        {
+                          actionState:
+                            o("WAWebSyncdConst").SyncActionState.Success,
                         }
-                      },
+                      );
+                    }
+                    return (
+                      i++,
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Unsupported,
+                      }
                     );
-                    return function (t) {
-                      return e.apply(this, arguments);
+                  } catch (e) {
+                    return {
+                      actionState: o("WAWebSyncdConst").SyncActionState.Failed,
                     };
-                  })(),
-                ),
+                  }
+                }),
               );
-            return d.then(function (t) {
+            return l.then(function (t) {
               return (
-                a > 0 &&
+                r > 0 &&
                   o("WALogger").WARN(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
                         "[voip-relay] ",
                         " malformed muts",
                       ])),
-                    a,
+                    r,
                   ),
-                i > 0 &&
+                a > 0 &&
                   o("WALogger").WARN(
                     s ||
                       (s = babelHelpers.taggedTemplateLiteralLoose([
                         "[voip-relay] ",
                         " muts w/ null value",
                       ])),
-                    i,
+                    a,
                   ),
-                l > 0 &&
+                i > 0 &&
                   o("WALogger").WARN(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
                         "[voip-relay] ",
                         " unsupported ops",
                       ])),
-                    l,
+                    i,
                   ),
                 t
               );
             });
           }),
-          (a.getMutation = function (t, n) {
+          (r.getMutation = function (t, n) {
             return o("WAWebSyncdActionUtils").buildPendingMutation({
               collection: this.collectionName,
               indexArgs: [],
@@ -142,28 +126,20 @@ __d(
               action: this.getAction(),
             });
           }),
-          (a.sendMutation = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                yield o("WAWebSyncdCoreApi").lockForSync(
-                  [],
-                  [this.getMutation(o("WATimeUtils").unixTimeMs(), e)],
-                  function () {
-                    return (c || (c = n("Promise"))).resolve();
-                  },
-                );
+          (r.sendMutation = async function (t) {
+            await o("WAWebSyncdCoreApi").lockForSync(
+              [],
+              [this.getMutation(o("WATimeUtils").unixTimeMs(), t)],
+              function () {
+                return Promise.resolve();
               },
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          r
+          }),
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      m = new d();
-    l.default = m;
+      d = new c();
+    l.default = d;
   },
   98,
 );

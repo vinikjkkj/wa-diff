@@ -5,29 +5,25 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadingModal.react",
-    "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebSendGroupInviteFlow.react",
-          )
-            .__setRef("WAWebSendGroupInviteFlowLoadable")
-            .load();
-          return e;
-        }),
-        "SendGroupInviteFlow",
-      ),
+      c = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebSendGroupInviteFlow.react",
+        )
+          .__setRef("WAWebSendGroupInviteFlowLoadable")
+          .load();
+        return e;
+      }, "SendGroupInviteFlow"),
       d = r("react-loadable")({
         loader: c,
         loading: function (t) {
           return u.jsx(r("WAWebLoadingModal.react"), {
-            title: s._(/*BTDS*/ "Send link to"),
+            title: s._(/*BTDS*/ ""),
             error: !!t.error,
           });
         },

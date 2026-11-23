@@ -1,7 +1,6 @@
 __d(
   "WAWebChatThreadLoggingEventUploader",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
@@ -13,7 +12,6 @@ __d(
     "WAWebThreadLoggingIntegrity",
     "WAWebThreadLoggingNotification",
     "WAWebThreadLoggingVoip",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
   ],
@@ -22,163 +20,127 @@ __d(
       s,
       u,
       c,
-      d,
-      m = (function () {
+      d = (function () {
         function t(e, t) {
           ((this.eventStore = t), (this.metadataStore = e));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.uploadEvents = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var n,
-                  a,
-                  i = (n = t == null ? void 0 : t.purgeAfter) != null ? n : !0,
-                  l = yield this.metadataStore.getOffset();
-                if (l == null)
-                  return (
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "ChatThreadLoggingBatchEventUploader: offset not in store!",
-                        ])),
-                    ),
-                    -1
+          (n.uploadEvents = async function (n) {
+            var t,
+              a,
+              i = (t = n == null ? void 0 : n.purgeAfter) != null ? t : !0,
+              l = await this.metadataStore.getOffset();
+            if (l == null)
+              return (
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "ChatThreadLoggingBatchEventUploader: offset not in store!",
+                    ])),
+                ),
+                -1
+              );
+            var d =
+              (a = n == null ? void 0 : n.lastStartTs) != null
+                ? a
+                : o("WAWebChatThreadLoggingUtils").computeStartTs(
+                    l,
+                    o("WATimeUtils").unixTime() - o("WATimeUtils").DAY_SECONDS,
                   );
-                var d =
-                  (a = t == null ? void 0 : t.lastStartTs) != null
-                    ? a
-                    : o("WAWebChatThreadLoggingUtils").computeStartTs(
-                        l,
-                        o("WATimeUtils").unixTime() -
-                          o("WATimeUtils").DAY_SECONDS,
-                      );
-                if (this.secret == null) {
-                  var m = yield this.metadataStore.getSecret();
-                  if (m == null)
-                    return (
-                      o("WALogger").WARN(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "ChatThreadLoggingBatchEventUploader: secret not in store!",
-                          ])),
-                      ),
-                      -1
-                    );
-                  this.secret = m;
-                }
-                t == null || t.onStage == null || t.onStage("read-events");
-                var _ = yield this.eventStore.getBeforeInclusive(d),
-                  f = !0;
-                try {
-                  f = yield p(_, r("nullthrows")(this.secret));
-                } catch (e) {
-                  (o("WALogger")
-                    .ERROR(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "CTLV2: Error uploading all events",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e))
-                    .sendLogs("ctlv2-upload-failure"),
-                    (f = !1));
-                }
-                if (i && f) {
-                  t == null || t.onStage == null || t.onStage("purge");
-                  var g = yield this.eventStore.deleteBeforeInclusive(d);
-                  g !== _.length &&
-                    o("WALogger").ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "uploadEvents: uploaded=",
-                          " deleted=",
-                          " mismatch!",
-                        ])),
-                      _.length,
-                      g,
-                    );
-                }
+            if (this.secret == null) {
+              var p = await this.metadataStore.getSecret();
+              if (p == null)
                 return (
-                  t == null || t.onStage == null || t.onStage("save-progress"),
-                  yield this.metadataStore.setLastUploadedStartTs(d),
-                  _.length
+                  o("WALogger").WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "ChatThreadLoggingBatchEventUploader: secret not in store!",
+                      ])),
+                  ),
+                  -1
                 );
-              },
-            );
-            function a(e) {
-              return t.apply(this, arguments);
+              this.secret = p;
             }
-            return a;
-          })()),
+            n == null || n.onStage == null || n.onStage("read-events");
+            var _ = await this.eventStore.getBeforeInclusive(d),
+              f = !0;
+            try {
+              f = await m(_, r("nullthrows")(this.secret));
+            } catch (e) {
+              (o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "CTLV2: Error uploading all events",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("ctlv2-upload-failure"),
+                (f = !1));
+            }
+            if (i && f) {
+              n == null || n.onStage == null || n.onStage("purge");
+              var g = await this.eventStore.deleteBeforeInclusive(d);
+              g !== _.length &&
+                o("WALogger").ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "uploadEvents: uploaded=",
+                      " deleted=",
+                      " mismatch!",
+                    ])),
+                  _.length,
+                  g,
+                );
+            }
+            return (
+              n == null || n.onStage == null || n.onStage("save-progress"),
+              await this.metadataStore.setLastUploadedStartTs(d),
+              _.length
+            );
+          }),
           t
         );
       })();
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield (d || (d = n("Promise"))).all(
-            e.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var n = o("WAWebChatThreadLoggingUtils").getThreadDsForDb(
-                        e.startTs,
-                      ),
-                      r = yield o(
-                        "WAWebChatThreadLoggingUtils",
-                      ).generateThreadID(
-                        t,
-                        e.chatId,
-                        o("WAWebChatThreadLoggingUtils").getThreadMonthDs(
-                          e.startTs,
-                        ),
-                      );
-                    return { event: e, threadDs: n, threadId: r };
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-          );
-          if (r.length === 0) return !0;
-          var a = o("WAWebABProps").getABPropConfigValue(
-            "thread_interactions_falco_native_logging_enabled",
-          );
-          return a &&
-            !(yield o(
-              "WAWebThreadLoggingFalco",
-            ).canLoadThreadLoggingFalcoCanonicals())
-            ? !1
-            : (yield d.all([
-                o(
-                  "WAWebThreadLoggingCoreConsumer",
-                ).ThreadInteractionCoreConsumerWamTrigger(r, a),
-                o("WAWebThreadLoggingVoip").ThreadInteractionVoipWamTrigger(
-                  r,
-                  a,
-                ),
-                o("WAWebThreadLoggingBiz").ThreadInteractionBizWamTrigger(r, a),
-                o("WAWebThreadLoggingAi").ThreadInteractionAiWamTrigger(r, a),
-                o(
-                  "WAWebThreadLoggingNotification",
-                ).ThreadInteractionNotificationWamTrigger(r, a),
-                o(
-                  "WAWebThreadLoggingIntegrity",
-                ).ThreadInteractionIntegrityWamTrigger(r, a),
-              ]),
-              !0);
-        })),
-        _.apply(this, arguments)
+    async function m(e, t) {
+      var n = await Promise.all(
+        e.map(async function (e) {
+          var n = o("WAWebChatThreadLoggingUtils").getThreadDsForDb(e.startTs),
+            r = await o("WAWebChatThreadLoggingUtils").generateThreadID(
+              t,
+              e.chatId,
+              o("WAWebChatThreadLoggingUtils").getThreadMonthDs(e.startTs),
+            );
+          return { event: e, threadDs: n, threadId: r };
+        }),
       );
+      if (n.length === 0) return !0;
+      var r = o("WAWebABProps").getABPropConfigValue(
+        "thread_interactions_falco_native_logging_enabled",
+      );
+      return r &&
+        !(await o(
+          "WAWebThreadLoggingFalco",
+        ).canLoadThreadLoggingFalcoCanonicals())
+        ? !1
+        : (await Promise.all([
+            o(
+              "WAWebThreadLoggingCoreConsumer",
+            ).ThreadInteractionCoreConsumerWamTrigger(n, r),
+            o("WAWebThreadLoggingVoip").ThreadInteractionVoipWamTrigger(n, r),
+            o("WAWebThreadLoggingBiz").ThreadInteractionBizWamTrigger(n, r),
+            o("WAWebThreadLoggingAi").ThreadInteractionAiWamTrigger(n, r),
+            o(
+              "WAWebThreadLoggingNotification",
+            ).ThreadInteractionNotificationWamTrigger(n, r),
+            o(
+              "WAWebThreadLoggingIntegrity",
+            ).ThreadInteractionIntegrityWamTrigger(n, r),
+          ]),
+          !0);
     }
-    l.ChatThreadLoggingEventUploaderImpl = m;
+    l.ChatThreadLoggingEventUploaderImpl = d;
   },
   98,
 );

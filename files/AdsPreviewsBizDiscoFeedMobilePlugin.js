@@ -9,9 +9,9 @@ __d(
         apiFormat: "BIZ_DISCO_FEED_MOBILE",
         customizationGroup: "FACEBOOK_BIZ_DISCO_FEED",
         loadingPlaceholderSize: { width: 320, height: 387 },
-        name: s._(/*BTDS*/ "Facebook Business Explore (mobile)"),
-        positionName: s._(/*BTDS*/ "Facebook Business Explore"),
-        positionDetails: s._(/*BTDS*/ "Mobile"),
+        name: s._(/*BTDS*/ ""),
+        positionName: s._(/*BTDS*/ ""),
+        positionDetails: s._(/*BTDS*/ ""),
         icon: u("22175"),
       }),
       c = e;

@@ -3,21 +3,18 @@ __d(
   [
     "AdCampaignDestination",
     "AdsUEditorMessagingDestinationUtils",
+    "ClickToMessageAdCaptionEligibilityUtils",
     "ClickToMessageCTDFeatureGating",
     "ClickToMessageCTMPerformanceFeatureGating",
     "ClickToMessageCTWAFeatureGating",
+    "WebToMessengerUtils",
     "WebToWhatsappUtils",
-    "isTruthy",
     "justknobx",
     "qex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = 10;
-    function s(t) {
-      return r("isTruthy")(t) && t.length > e;
-    }
-    function u(e, t, n, r, a, i) {
+    function e(e, t, n, r, a, i) {
       return a === !0
         ? !1
         : o(
@@ -39,45 +36,61 @@ __d(
               r,
             ) ||
             o("WebToWhatsappUtils").shouldEnableWTWAAIGenPrefill(e, i, t, r) ||
+            o("WebToMessengerUtils").shouldEnableWTMAIGenIcebreakers(
+              e,
+              i,
+              t,
+              r,
+            ) ||
             o(
               "ClickToMessageCTMPerformanceFeatureGating",
             ).isEligibleForCTXMDAIGenIcebreakers(e, t);
     }
-    function c() {
+    function s() {
       return r("justknobx")._("2734");
     }
-    function d() {
+    function u() {
       return r("qex")._("4214") === !0;
     }
-    function m() {
-      return r("qex")._("4230") === !0;
+    function c() {
+      return r("justknobx")._("8435");
     }
-    function p(e, t, n) {
-      if (n === !0 || !s(t)) return !1;
+    function d(e, t, n) {
+      if (
+        n === !0 ||
+        !o(
+          "ClickToMessageAdCaptionEligibilityUtils",
+        ).isAdCaptionEligibleForAIGen(t)
+      )
+        return !1;
       switch (e) {
         case r("AdCampaignDestination").INSTAGRAM_DIRECT:
-          return c();
+          return s();
         case r("AdCampaignDestination").WHATSAPP:
-          return d();
+          return u();
         case r("AdCampaignDestination").MESSENGER:
-          return m();
+          return c();
         default:
           return o("AdsUEditorMessagingDestinationUtils").isMultiDestination(e)
-            ? m()
+            ? c()
             : !1;
       }
     }
-    function _(e, t) {
-      return s(t)
+    function m(e, t) {
+      return o(
+        "ClickToMessageAdCaptionEligibilityUtils",
+      ).isAdCaptionEligibleForAIGen(t)
         ? o("ClickToMessageCTMPerformanceFeatureGating").shouldEnableGenAINudge(
             e,
           )
         : !1;
     }
-    ((l.isAdCaptionEligibleForAIGen = s),
-      (l.shouldEnableAIGenIcebreakers = u),
-      (l.shouldEnableAIGenWelcomeMessage = p),
-      (l.isGenAINudgeEligible = _));
+    ((l.isAdCaptionEligibleForAIGen = o(
+      "ClickToMessageAdCaptionEligibilityUtils",
+    ).isAdCaptionEligibleForAIGen),
+      (l.shouldEnableAIGenIcebreakers = e),
+      (l.shouldEnableAIGenWelcomeMessage = d),
+      (l.isGenAINudgeEligible = m));
   },
   98,
 );

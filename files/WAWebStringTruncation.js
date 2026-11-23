@@ -5,7 +5,7 @@ __d(
     function e(e, t) {
       var n = e != null ? e : "";
       if (o("WAUnicodeUtils").numCodepoints(n) <= t) return n;
-      var a = r("fbs")._(/*BTDS*/ "\u2026").toString();
+      var a = r("fbs")._(/*BTDS*/ "").toString();
       return (
         o("WAUnicodeUtils").firstNCodepoints(
           n,

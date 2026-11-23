@@ -26,7 +26,7 @@ __d(
           okText: r("WAWebFbtCommon")("OK"),
           type: o("WAWebModal.react").ModalTheme.Multiline,
           buttonsDirection: "horizontal",
-          extraButtonProps: { text: s._(/*BTDS*/ "Learn more"), onClick: n },
+          extraButtonProps: { text: s._(/*BTDS*/ ""), onClick: n },
           children: e,
         });
       o("WAWebModalManager").ModalManager.open(a);

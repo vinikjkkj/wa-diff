@@ -7,32 +7,31 @@ __d(
     "WAWebNewsletterGetStatusesQuery",
     "WAWebNewsletterStatusUtils",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(t, a, i) {
+    function u(t, n, a) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "getNewsletterStatuses",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var n = o("WAWebJidToWid").jidWithTypeToWid({
+          async function () {
+            var i = o("WAWebJidToWid").jidWithTypeToWid({
                 jidType: "newsletter",
                 newsletterJid: t,
               }),
               l;
             try {
-              l = yield o(
+              l = await o(
                 "WAWebNewsletterGetStatusesQuery",
               ).queryNewsletterStatuses({
-                afterServerId: i == null ? void 0 : i.afterServerId,
-                beforeServerId: i == null ? void 0 : i.beforeServerId,
-                count: i == null ? void 0 : i.count,
+                afterServerId: a == null ? void 0 : a.afterServerId,
+                beforeServerId: a == null ? void 0 : a.beforeServerId,
+                count: a == null ? void 0 : a.count,
                 newsletterJid: t,
-                viewRole: a,
+                viewRole: n,
               });
-            } catch (a) {
+            } catch (n) {
               return (
                 o("WALogger")
                   .ERROR(
@@ -43,12 +42,12 @@ __d(
                         "",
                       ])),
                     t,
-                    r("getErrorSafe")(a).message,
+                    r("getErrorSafe")(n).message,
                   )
                   .sendLogs("newsletter-status-fetch-error"),
                 {
                   msgs: [],
-                  from: n,
+                  from: i,
                   viewCounts: new Map(),
                   reactionCounts: new Map(),
                   revokedServerIds: [],
@@ -73,7 +72,7 @@ __d(
                 }
                 var f = o("WAWebNewsletterStatusUtils").mapStatusEntryToMsgData(
                   p,
-                  n,
+                  i,
                 );
                 if (f != null) {
                   var g,
@@ -86,7 +85,7 @@ __d(
                   (u.push(
                     babelHelpers.extends({}, f, {
                       isNewsletterStatus: !0,
-                      author: n,
+                      author: i,
                       viewCount: y,
                     }),
                   ),
@@ -116,12 +115,12 @@ __d(
               }
             return {
               msgs: u,
-              from: n,
+              from: i,
               viewCounts: c,
               reactionCounts: d,
               revokedServerIds: m,
             };
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();

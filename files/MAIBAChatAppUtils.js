@@ -5,6 +5,9 @@ __d(
     "ALToolTab",
     "AdsAIUtils",
     "AdsPERouterHelper",
+    "ExecutionEnvironment",
+    "MAIBABoostCanvasDraftRegistry",
+    "MAIBAChatAppAutoOpenUtils",
     "MAIBAChatAppStorageKey",
     "MAIBAChatConstants",
     "MAIBAEntrypointConstants",
@@ -12,51 +15,33 @@ __d(
     "URI",
     "WebStorage",
     "getMAIBAPageAdAccountID",
-    "gkx",
     "isMAIBACreatorMarketplaceEntrypoint",
     "useIsMobileForBHC",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e, u, c;
-    function d(e) {
-      return e === "MBS"
-        ? s._(/*BTDS*/ "Ask Meta AI business assistant for help")
-        : e === "Ads Manager (Campaigns)"
-          ? s._(
-              /*BTDS*/ "Ask Meta AI business assistant for help with your ads",
-            )
-          : e === "Business Help Center"
-            ? s._(/*BTDS*/ "Get support from Meta AI business assistant")
-            : e === "Organization Manager"
-              ? s._(/*BTDS*/ "Ask Meta AI business assistant for help")
-              : s._(
-                  /*BTDS*/ "Ask Meta AI business assistant for help with your ads",
-                );
-    }
+    var e, u, c, d;
     function m(e) {
       return e === "MBS"
-        ? s._(
-            /*BTDS*/ "You have early access to our AI assistant just for businesses and creators.",
-          )
+        ? s._(/*BTDS*/ "")
         : e === "Ads Manager (Campaigns)"
-          ? s._(
-              /*BTDS*/ "You've got early access to our AI assistant for advertisers.",
-            )
+          ? s._(/*BTDS*/ "")
           : e === "Business Help Center"
-            ? s._(
-                /*BTDS*/ "You have early access to our AI assistant to help with any advertising issues.",
-              )
+            ? s._(/*BTDS*/ "")
             : e === "Organization Manager"
-              ? s._(
-                  /*BTDS*/ "You have early access to our AI assistant for businesses.",
-                )
-              : s._(
-                  /*BTDS*/ "You've got early access to our AI assistant for advertisers.",
-                );
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "");
     }
-    function p() {
-      return r("gkx")("3722");
+    function p(e) {
+      return e === "MBS"
+        ? s._(/*BTDS*/ "")
+        : e === "Ads Manager (Campaigns)"
+          ? s._(/*BTDS*/ "")
+          : e === "Business Help Center"
+            ? s._(/*BTDS*/ "")
+            : e === "Organization Manager"
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "");
     }
     function _() {
       return o("AdsAIUtils").getIsAdsAIBetaM2AvailableOnCurrentSurface(
@@ -64,12 +49,14 @@ __d(
       );
     }
     function f(e) {
-      var t = (u || (u = r("WebStorage"))).getSessionStorage();
-      u.setItemGuarded(
-        t,
-        o("MAIBAChatAppStorageKey").MAIBA_CHAT_APP_STATE_LOCAL_STORAGE_KEY,
-        JSON.stringify({ pathname: window.location.pathname, state: e }),
-      );
+      if ((u || (u = r("ExecutionEnvironment"))).canUseDOM) {
+        var t = (c || (c = r("WebStorage"))).getSessionStorage();
+        c.setItemGuarded(
+          t,
+          o("MAIBAChatAppStorageKey").MAIBA_CHAT_APP_STATE_LOCAL_STORAGE_KEY,
+          JSON.stringify({ pathname: window.location.pathname, state: e }),
+        );
+      }
     }
     function g(e) {
       return (
@@ -82,93 +69,149 @@ __d(
         : e.chatWindowWidth;
     }
     function y(e, t, n) {
-      if (e != null) return e;
-      if (!(n === !0 && !r("isMAIBACreatorMarketplaceEntrypoint")(t))) return t;
+      return e != null
+        ? e
+        : n === !0 && !r("isMAIBACreatorMarketplaceEntrypoint")(t)
+          ? o("ALToolTab").getCurrentToolTab().tool === "Organization Manager"
+            ? "MAIBA_FAB"
+            : "ASK_META_AI"
+          : t;
     }
     function C() {
       var e = r("AdsPERouterHelper").getConfig().RouteBuilder;
       return e != null && typeof e == "function";
     }
     function b(e, t) {
-      var n = S(e),
-        a = new URL(window.location.href),
-        i = new URLSearchParams(a.search),
-        l = i.get("thread_key"),
-        s = i.get("maiba_chat_autoopen") === "false",
-        u = t;
-      if (l != null) {
+      return t !== "MAIBA_FAB_IG_LWI" && t !== "MAIBA_IG_LWI_SESSION_RESTORE"
+        ? null
+        : e === "/ad_tools/"
+          ? "ad_tools"
+          : /^\/b\/(?:[^/]+\/)?$/.test(e)
+            ? "boost_creation_page"
+            : null;
+    }
+    function v(e, t) {
+      var n,
+        a = L(e),
+        i = null,
+        l = !1;
+      if ((u || (u = r("ExecutionEnvironment"))).canUseDOM) {
+        var s = new URLSearchParams(new URL(window.location.href).search);
+        ((i = s.get("thread_key")),
+          (l = s.get("maiba_chat_autoopen") === "false"));
+      }
+      var c = babelHelpers.extends({}, t);
+      if (i != null) {
         var d = !(
           o("ALToolTab").getCurrentToolTab().tool === "Business Help Center" &&
           o("useIsMobileForBHC").isMobileForBHC()
         );
-        ((u = {
+        ((c = {
           chatWindowWidth: o("MAIBAChatConstants").DEFAULT_CHAT_WINDOW_WIDTH,
           entrypoint: t.entrypoint,
           isFullScreen: !1,
           isMAIBAChatAppOpen: d,
           selectedChatState: {
             linkedAdAccountId: r("getMAIBAPageAdAccountID")(),
-            externalConversationId: l,
+            externalConversationId: i,
           },
           shouldAutoExpandThreadList: !0,
           surfaceMode: "none",
         }),
-          i.delete("thread_key"));
-        var m = new (c || (c = r("URI")))(a.pathname + "?" + i.toString());
-        window.history.replaceState(null, null, m.toString());
-      } else if (
-        ((u = {
+          S("thread_key"));
+      } else
+        ((c = {
           chatWindowWidth:
-            n === "unchanged"
+            a === "unchanged"
               ? t.chatWindowWidth
               : o("MAIBAChatConstants").DEFAULT_CHAT_WINDOW_WIDTH,
           entrypoint: t.entrypoint,
-          isFullScreen: n === "unchanged" ? t.isFullScreen : !1,
-          isMAIBAChatAppOpen: s || n === "close" ? !1 : t.isMAIBAChatAppOpen,
-          selectedChatState: v(t),
+          isFullScreen: a === "unchanged" ? t.isFullScreen : !1,
+          isMAIBAChatAppOpen: l || a === "close" ? !1 : t.isMAIBAChatAppOpen,
+          selectedChatState: R(t),
           shouldAutoExpandThreadList: t.shouldAutoExpandThreadList,
           surfaceMode: "none",
         }),
-        s)
-      ) {
-        i.delete("maiba_chat_autoopen");
-        var p = new (c || (c = r("URI")))(a.pathname + "?" + i.toString());
-        window.history.replaceState(null, null, p.toString());
-      }
-      return (f(u), u);
+          l && S("maiba_chat_autoopen"),
+          (c = o(
+            "MAIBAChatAppAutoOpenUtils",
+          ).applyMAIBAChatAppAutoOpenURLOverride(c)));
+      return (
+        (c = babelHelpers.extends({}, c, {
+          igBoostLoggingSource:
+            i == null &&
+            o("ALToolTab").getCurrentToolTab().tool === "Instagram" &&
+            t.isMAIBAChatAppOpen &&
+            c.isMAIBAChatAppOpen &&
+            c.entrypoint === t.entrypoint
+              ? (n = t.igBoostLoggingSource) != null
+                ? n
+                : a === "unchanged"
+                  ? b(e, t.entrypoint)
+                  : null
+              : null,
+        })),
+        f(c),
+        c
+      );
     }
-    var v = function (t) {
+    function S(e) {
+      if ((u || (u = r("ExecutionEnvironment"))).canUseDOM) {
+        var t = new URL(window.location.href),
+          n = new URLSearchParams(t.search);
+        n.delete(e);
+        var o = new (d || (d = r("URI")))(t.pathname + "?" + n.toString());
+        window.history.replaceState(null, null, o.toString());
+      }
+    }
+    var R = function (t) {
         var e,
           n,
-          o = r("getMAIBAPageAdAccountID")(),
-          a = (e = t.selectedChatState) == null ? void 0 : e.linkedAdAccountId,
-          i = o != null && o !== a;
-        if (i) {
-          var l, s;
+          a,
+          i = r("getMAIBAPageAdAccountID")(),
+          l = (e = t.selectedChatState) == null ? void 0 : e.linkedAdAccountId,
+          s = i != null && i !== l;
+        if (s) {
+          var c, d;
           return {
             showConsentDisclaimer:
-              ((l = t.selectedChatState) == null
+              ((c = t.selectedChatState) == null
                 ? void 0
-                : l.externalConversationId) == null
-                ? (s = t.selectedChatState) == null
+                : c.externalConversationId) == null
+                ? (d = t.selectedChatState) == null
                   ? void 0
-                  : s.showConsentDisclaimer
+                  : d.showConsentDisclaimer
                 : void 0,
-            linkedAdAccountId: o,
+            linkedAdAccountId: i,
           };
         }
-        return (n = t.selectedChatState) != null ? n : {};
+        return (u || (u = r("ExecutionEnvironment"))).canUseDOM &&
+          o("ALToolTab").getCurrentToolTab().tool === "Instagram" &&
+          window.location.pathname === "/ad_tools/" &&
+          o(
+            "MAIBABoostCanvasDraftRegistry",
+          ).hasMAIBABoostCanvasDraftForConversation(
+            (n = t.selectedChatState) == null
+              ? void 0
+              : n.externalConversationId,
+          )
+          ? { linkedAdAccountId: l }
+          : (a = t.selectedChatState) != null
+            ? a
+            : {};
       },
-      S = function (t) {
-        var e = window.location.pathname;
-        return t === e ? "unchanged" : "default_size";
+      L = function (t) {
+        if ((u || (u = r("ExecutionEnvironment"))).canUseDOM) {
+          var e = window.location.pathname;
+          return t === e ? "unchanged" : "default_size";
+        }
+        return "unchanged";
       };
-    ((l.getMAIBANUXHeading = d),
-      (l.getMAIBANUXModalDescription = m),
+    ((l.getMAIBANUXHeading = m),
+      (l.getMAIBANUXModalDescription = p),
       (l.MAIBA_CHAT_APP_STATE_LOCAL_STORAGE_KEY = o(
         "MAIBAChatAppStorageKey",
       ).MAIBA_CHAT_APP_STATE_LOCAL_STORAGE_KEY),
-      (l.getIsMAIBATableRowSelectionEnabled = p),
       (l.getIsMAIBAOnAlrBSHEnabled = _),
       (l.storeMAIBAChatAppStateToSessionStorage = f),
       (l.isMAIBANormalSidePanelState = g),
@@ -179,7 +222,7 @@ __d(
       (l.DSL_ADMIN_TEXT = e.DSL_ADMIN_TEXT),
       (l.DSL_INPUT_TEXT = e.DSL_INPUT_TEXT),
       (l.canRenderMAIBACTAWithRouting = C),
-      (l.processInitialStateForMAIBA = b));
+      (l.processInitialStateForMAIBA = v));
   },
   226,
 );

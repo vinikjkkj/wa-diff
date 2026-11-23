@@ -63,91 +63,91 @@ __d(
     function u(t) {
       switch (t) {
         case e.TOGGLE_UNREAD:
-          return s._(/*BTDS*/ "Mark as unread");
+          return s._(/*BTDS*/ "");
         case e.TOGGLE_MUTE:
-          return s._(/*BTDS*/ "Mute");
+          return s._(/*BTDS*/ "");
         case e.TOGGLE_ARCHIVE:
-          return s._(/*BTDS*/ "Archive chat");
+          return s._(/*BTDS*/ "");
         case e.TOGGLE_PIN:
-          return s._(/*BTDS*/ "Pin chat");
+          return s._(/*BTDS*/ "");
         case e.SEARCH:
           return r("WAWebFbtCommon")("Search");
         case e.SEARCH_IN_CHAT:
-          return s._(/*BTDS*/ "Search chat");
+          return s._(/*BTDS*/ "");
         case e.OPEN_NEW_CHAT:
-          return s._(/*BTDS*/ "New chat");
+          return s._(/*BTDS*/ "");
         case e.GO_TO_NEXT_CHAT:
-          return s._(/*BTDS*/ "Next chat");
+          return s._(/*BTDS*/ "");
         case e.GO_TO_PREV_CHAT:
-          return s._(/*BTDS*/ "Previous chat");
+          return s._(/*BTDS*/ "");
         case e.CLOSE_CHAT:
-          return s._(/*BTDS*/ "Close chat");
+          return s._(/*BTDS*/ "");
         case e.OPEN_NEW_GROUP:
-          return s._(/*BTDS*/ "New group");
+          return s._(/*BTDS*/ "");
         case e.OPEN_PROFILE:
-          return s._(/*BTDS*/ "Profile and About");
+          return s._(/*BTDS*/ "");
         case e.INCREASE_PTT_SPEED:
-          return s._(/*BTDS*/ "Increase speed of selected voice message");
+          return s._(/*BTDS*/ "");
         case e.DECREASE_PTT_SPEED:
-          return s._(/*BTDS*/ "Decrease speed of selected voice message");
+          return s._(/*BTDS*/ "");
         case e.OPEN_SETTINGS:
-          return s._(/*BTDS*/ "Settings");
+          return s._(/*BTDS*/ "");
         case e.OPEN_EMOJI_PANEL:
-          return s._(/*BTDS*/ "Emoji panel");
+          return s._(/*BTDS*/ "");
         case e.OPEN_GIF_PANEL:
-          return s._(/*BTDS*/ "GIF panel");
+          return s._(/*BTDS*/ "");
         case e.OPEN_STICKER_PANEL:
-          return s._(/*BTDS*/ "Sticker panel");
+          return s._(/*BTDS*/ "");
         case e.LOCK_SCREEN:
-          return s._(/*BTDS*/ "Lock app");
+          return s._(/*BTDS*/ "");
         case e.LABEL_CHAT:
-          return s._(/*BTDS*/ "Add chat to list");
+          return s._(/*BTDS*/ "");
         case e.TOGGLE_COMMAND_PALETTE:
-          return s._(/*BTDS*/ "Extended search");
+          return s._(/*BTDS*/ "");
         case e.ZOOM_IN:
-          return s._(/*BTDS*/ "Zoom in");
+          return s._(/*BTDS*/ "");
         case e.ZOOM_OUT:
-          return s._(/*BTDS*/ "Zoom out");
+          return s._(/*BTDS*/ "");
         case e.ZOOM_RESET:
-          return s._(/*BTDS*/ "Zoom reset");
+          return s._(/*BTDS*/ "");
         case e.OPEN_CHAT_INFO:
-          return s._(/*BTDS*/ "Open chat info");
+          return s._(/*BTDS*/ "");
         case e.BLOCK_CHAT:
-          return s._(/*BTDS*/ "Block chat");
+          return s._(/*BTDS*/ "");
         case e.REPLY:
-          return s._(/*BTDS*/ "Reply");
+          return s._(/*BTDS*/ "");
         case e.REPLY_PRIVATE:
-          return s._(/*BTDS*/ "Reply privately");
+          return s._(/*BTDS*/ "");
         case e.FORWARD:
-          return s._(/*BTDS*/ "Forward");
+          return s._(/*BTDS*/ "");
         case e.STAR_MESSAGE:
-          return s._(/*BTDS*/ "Star message");
+          return s._(/*BTDS*/ "");
         case e.OPEN_ATTACHMENT_DROPDOWN:
-          return s._(/*BTDS*/ "Open attachment dropdown");
+          return s._(/*BTDS*/ "");
         case e.START_PTT_RECORDING:
-          return s._(/*BTDS*/ "Start PTT recording");
+          return s._(/*BTDS*/ "");
         case e.PAUSE_PTT_RECORDING:
-          return s._(/*BTDS*/ "Pause PTT recording");
+          return s._(/*BTDS*/ "");
         case e.SEND_PTT:
-          return s._(/*BTDS*/ "Send PTT");
+          return s._(/*BTDS*/ "");
         case e.EDIT_LAST_MESSAGE:
-          return s._(/*BTDS*/ "Edit last message");
+          return s._(/*BTDS*/ "");
         case e.OPEN_NTH_CHAT:
-          return s._(/*BTDS*/ "Open chat");
+          return s._(/*BTDS*/ "");
         case e.TOGGLE_PRIVACY_MODE:
-          return s._(/*BTDS*/ "Toggle privacy screen");
+          return s._(/*BTDS*/ "");
         case e.TOGGLE_CALL_CAMERA:
-          return s._(/*BTDS*/ "Toggle camera");
+          return s._(/*BTDS*/ "");
         case e.TOGGLE_CALL_MUTE:
-          return s._(/*BTDS*/ "Toggle mute");
+          return s._(/*BTDS*/ "");
         case e.SHOW_CALL_REACTIONS:
-          return s._(/*BTDS*/ "Reactions");
+          return s._(/*BTDS*/ "");
         case e.TOGGLE_RAISE_HAND:
-          return s._(/*BTDS*/ "Raise hand");
+          return s._(/*BTDS*/ "");
         case e.START_SCREEN_SHARE:
-          return s._(/*BTDS*/ "Screen share");
+          return s._(/*BTDS*/ "");
         case e.END_CALL:
-          return s._(/*BTDS*/ "End call");
+          return s._(/*BTDS*/ "");
         default:
           return "";
       }

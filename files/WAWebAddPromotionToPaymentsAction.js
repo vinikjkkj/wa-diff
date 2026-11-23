@@ -28,7 +28,7 @@ __d(
         : (o("WAWebSavedPromotionsChanges").watchSavedPromotions(),
           a
             ? {
-                label: s._(/*BTDS*/ "View coupon"),
+                label: s._(/*BTDS*/ ""),
                 onClick: function () {
                   g(function (r) {
                     return r.viewInPayments(e, t, n);
@@ -38,7 +38,7 @@ __d(
                 testid: "view_promotion_in_payments",
               }
             : {
-                label: s._(/*BTDS*/ "Save coupon"),
+                label: s._(/*BTDS*/ ""),
                 onClick: function () {
                   g(function (r) {
                     return r.addToPayments(e, t, n);

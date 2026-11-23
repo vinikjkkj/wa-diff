@@ -1,7 +1,6 @@
 __d(
   "WAWebMediaDragOut",
   [
-    "Promise",
     "WALogger",
     "WAWebDragAndDropGatingUtils",
     "WAWebDualUploadsPreferredMsg",
@@ -11,33 +10,31 @@ __d(
     "WAWebMsgType",
     "WAWebUA",
     "WAWebWamEnumWebcRmrReasonCode",
-    "asyncToGeneratorRuntime",
     "cr:7565",
     "getErrorSafe",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = "DownloadURL",
-      c = 6e4,
-      d = 10 * 6e4,
-      m = 9 * 6e4,
-      p = "application/octet-stream",
+      s = "DownloadURL",
+      u = 6e4,
+      c = 10 * 6e4,
+      d = 9 * 6e4,
+      m = "application/octet-stream",
+      p = null,
       _ = null,
-      f = null,
-      g = new Set();
-    function h(e) {
-      return y(e) && L(e) != null;
+      f = new Set();
+    function g(e) {
+      return h(e) && S(e) != null;
     }
-    function y(e) {
+    function h(e) {
       return (
         (e.type === o("WAWebMsgType").MSG_TYPE.DOCUMENT ||
           e.type === o("WAWebMsgType").MSG_TYPE.VIDEO) &&
-        C()
+        y()
       );
     }
-    function C() {
+    function y() {
       return (
         o("WAWebUA").UA.isBlink &&
         (o("WAWebUA").UA.os === o("WAWebUA").OS_TYPE.WINDOWS ||
@@ -48,17 +45,17 @@ __d(
         )
       );
     }
-    function b(t) {
-      var a,
-        i = (a = t.mediaData) == null ? void 0 : a.filehash;
-      return i == null ||
-        g.has(i) ||
-        !y(t) ||
+    function C(t) {
+      var n,
+        a = (n = t.mediaData) == null ? void 0 : n.filehash;
+      return a == null ||
+        f.has(a) ||
+        !h(t) ||
         !o("WAWebMediaDragFiles").canTakeMediaOut(t) ||
-        h(t)
-        ? (s || (s = n("Promise"))).resolve()
-        : (g.add(i),
-          v(t, i)
+        g(t)
+        ? Promise.resolve()
+        : (f.add(a),
+          b(t, a)
             .catch(function (t) {
               o("WALogger")
                 .WARN(
@@ -70,55 +67,47 @@ __d(
                 .catching(r("getErrorSafe")(t));
             })
             .finally(function () {
-              g.delete(i);
+              f.delete(a);
             }));
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    async function b(e, t) {
+      var a;
+      if (await o("WAWebMediaStore").LruMediaStore.has(t)) {
+        await e.downloadMedia({
+          downloadEvenIfExpensive: !1,
+          isUserInitiated: !0,
+          rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
+            .DOCUMENT_DOWNLOAD,
+        });
+        return;
+      }
+      var i = r("justknobx")._("8497"),
+        l = i
+          ? n("cr:7565") == null ||
+            (a = n("cr:7565").getMediaFileInfo(e)) == null
+            ? void 0
+            : a.target
+          : null;
+      if (!(i && l == null)) {
+        var s = await (n("cr:7565") == null
+          ? void 0
+          : n("cr:7565").registerSavedMediaFileForDragOut(e));
+        s != null && v(s, t, l);
+      }
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a;
-          if (yield o("WAWebMediaStore").LruMediaStore.has(t)) {
-            yield e.downloadMedia({
-              downloadEvenIfExpensive: !1,
-              isUserInitiated: !0,
-              rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
-                .DOCUMENT_DOWNLOAD,
-            });
-            return;
-          }
-          var i = r("justknobx")._("8497"),
-            l = i
-              ? n("cr:7565") == null ||
-                (a = n("cr:7565").getMediaFileInfo(e)) == null
-                ? void 0
-                : a.target
-              : null;
-          if (!(i && l == null)) {
-            var s = yield n("cr:7565") == null
-              ? void 0
-              : n("cr:7565").registerSavedMediaFileForDragOut(e);
-            s != null && R(s, t, l);
-          }
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t, n) {
+    function v(e, t, n) {
       var r = { filehash: t, target: n, url: e };
-      ((f = r),
+      ((_ = r),
         self.setTimeout(function () {
-          f === r && (f = null);
-        }, m));
+          _ === r && (_ = null);
+        }, d));
     }
-    function L(e) {
+    function S(e) {
       var t,
         n,
         r = o("WAWebMediaDragFiles").getCachedMediaFile(e);
       if (r != null) return { type: "page", file: r };
-      var a = f;
+      var a = _;
       return a != null &&
         a.filehash === ((t = e.mediaData) == null ? void 0 : t.filehash) &&
         o("WAWebMediaDragFiles").canTakeMediaOut(e) &&
@@ -135,10 +124,10 @@ __d(
           }
         : null;
     }
-    function E(e, t) {
-      var n = y(t) ? L(t) : null;
+    function R(e, t) {
+      var n = h(t) ? S(t) : null;
       if (n != null) {
-        I();
+        E();
         var r = (function (e) {
             if (
               ((typeof e == "object" && e !== null) ||
@@ -147,7 +136,7 @@ __d(
               "file" in e
             ) {
               var t = e.file;
-              return { name: t.name, url: k(t) };
+              return { name: t.name, url: L(t) };
             }
             if (
               ((typeof e == "object" && e !== null) ||
@@ -167,38 +156,38 @@ __d(
           })(n),
           o = r.name,
           a = r.url;
-        e.setData(u, p + ":" + o + ":" + a);
+        e.setData(s, m + ":" + o + ":" + a);
       }
     }
-    function k(e) {
-      var t = window.URL.createObjectURL(e.slice(0, e.size, p));
+    function L(e) {
+      var t = window.URL.createObjectURL(e.slice(0, e.size, m));
       return (
-        (_ = t),
+        (p = t),
         n("cr:7565") == null || n("cr:7565").allowDragOutDownload(t),
         self.setTimeout(function () {
           return window.URL.revokeObjectURL(t);
-        }, d),
+        }, c),
         t
       );
     }
-    function I() {
-      var e = _;
+    function E() {
+      var e = p;
       e != null &&
-        ((_ = null),
+        ((p = null),
         self.setTimeout(function () {
           return window.URL.revokeObjectURL(e);
-        }, c));
+        }, u));
     }
-    ((l.DOWNLOAD_URL_DRAG_TYPE = u),
-      (l.DRAG_OUT_URL_LIFETIME_MS = c),
-      (l.DRAG_OUT_URL_MAX_LIFETIME_MS = d),
-      (l.NATIVE_DRAG_OUT_URL_LIFETIME_MS = m),
-      (l.canDragMediaOut = h),
-      (l.isDragOutMedia = y),
-      (l.isDragFilesOutAvailable = C),
-      (l.prepareMediaDragOut = b),
-      (l.addMediaDragOut = E),
-      (l.endMediaDragOut = I));
+    ((l.DOWNLOAD_URL_DRAG_TYPE = s),
+      (l.DRAG_OUT_URL_LIFETIME_MS = u),
+      (l.DRAG_OUT_URL_MAX_LIFETIME_MS = c),
+      (l.NATIVE_DRAG_OUT_URL_LIFETIME_MS = d),
+      (l.canDragMediaOut = g),
+      (l.isDragOutMedia = h),
+      (l.isDragFilesOutAvailable = y),
+      (l.prepareMediaDragOut = C),
+      (l.addMediaDragOut = R),
+      (l.endMediaDragOut = E));
   },
   98,
 );

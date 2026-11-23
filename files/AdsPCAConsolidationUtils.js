@@ -50,7 +50,10 @@ __d(
         )
       );
     }
-    function f(e) {
+    function f(e, t, n) {
+      return e != null && t != null && n != null && n.length > 0;
+    }
+    function g(e) {
       switch (e) {
         case "PRODUCT_SET_AND_PHONE_CALL":
           return "CALL_NOW";
@@ -62,7 +65,7 @@ __d(
           return "SHOP_NOW";
       }
     }
-    function g(e, t, n) {
+    function h(e, t, n) {
       var o = e.size,
         a = t.size;
       if (o <= 1 && a <= 1) {
@@ -83,7 +86,7 @@ __d(
       }
       return { pixelID: null, appID: null };
     }
-    function h() {
+    function y() {
       var e = [
         r("AdsAPIOptimizationGoals").OFFSITE_CONVERSIONS,
         r("AdsAPIOptimizationGoals").RETURN_ON_AD_SPEND,
@@ -101,9 +104,10 @@ __d(
       (l.isOtherConversionLocation = m),
       (l.isPCAWebsiteCampaign = p),
       (l.isPCAVariation = _),
-      (l.getCallToActionTypeForPromotedObjectTypeVariation = f),
-      (l.selectEventSourceIDForPromotedObjectVariation = g),
-      (l.getEligibleOptimizationGoalsForOmnichannel = h));
+      (l.canBuildWebAndAppOmnichannelObject = f),
+      (l.getCallToActionTypeForPromotedObjectTypeVariation = g),
+      (l.selectEventSourceIDForPromotedObjectVariation = h),
+      (l.getEligibleOptimizationGoalsForOmnichannel = y));
   },
   98,
 );

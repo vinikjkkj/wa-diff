@@ -17,7 +17,6 @@ __d(
     "WAWebSyncdOrphan",
     "WAWebUserPrefsMultiDevice",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
@@ -70,126 +69,118 @@ __d(
         }
       }
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[newsletter-bootstrap] Bootstrap started",
-              ])),
-          );
-          var e = o("WAWebQplFlowWrapper").QPL.markerStart(_),
-            t = function () {
-              return e.end(2);
-            },
-            n = function () {
-              return e.end(3);
-            },
-            a = {
-              instanceKey: e.instanceKey,
-              addPoint: function (n, r) {
-                return e.addPoint(n, r);
-              },
-              addPointLocal: function (n, r) {
-                return e.addPointLocal(n, r);
-              },
-              annotate: function (n) {
-                return e.annotate(n);
-              },
-              end: r("WAWebNoop"),
-              drop: function () {
-                return e.drop();
-              },
-            };
-          o(
-            "WAWebNewsletterLoadingStageManager",
-          ).NewsletterLoadingStageManager.start();
-          try {
-            var i = yield o(
-              "WAWebQueryAndUpdateAllNewslettersMetadataAction",
-            ).queryAndUpdateAllNewsletterMetadataAction(
-              o("WAWebCommonNewsletterEnums").NewsletterMetadataUpdateEntryPoint
-                .Bootstrap,
-              { messageCount: 1, addSystemMsgs: !0, qplEvent: a },
-            );
-            (o(
-              "WAWebNewsletterExtendedGatingUtils",
-            ).isNewsletterReactionEnabled() &&
-              (yield o("WAWebNewsletterGetMyAddOnsJob")
-                .getMyNewsletterAddOnsJob({ count: p })
-                .catch(function (e) {
-                  o("WALogger")
-                    .ERROR(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[newsletter] Failed to retrieve my reactions on bootstrap",
-                        ])),
-                    )
-                    .tags("newsletter")
-                    .sendLogs("newsletter-bootstrap-my-reactions-failed");
-                })),
-              o("WAWebUserPrefsMultiDevice").setNewsletterWasBootstrapped(),
-              r("WAWebUserPrefsStore").set(h, !i.success),
-              i.success
-                ? (yield o("WAWebSyncdOrphan").checkOrphanChats(
-                    i.chats.map(function (e) {
-                      return e.id.toString();
-                    }),
-                  ),
-                  o(
-                    "WAWebNewsletterLoadingStageManager",
-                  ).NewsletterLoadingStageManager.end(),
-                  t(),
-                  o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[newsletter-bootstrap] Bootstrap completed",
-                      ])),
-                  ),
-                  o(
-                    "WAWebNewsletterGatingUtils",
-                  ).isNewsletterStatusReceiverEnabled() &&
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "fillSubscribedStatusGaps",
-                      {},
-                    ))
-                : (n(),
-                  o(
-                    "WAWebNewsletterLoadingStageManager",
-                  ).NewsletterLoadingStageManager.fail(),
-                  o("WALogger")
-                    .ERROR(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "[newsletter-bootstrap] Bootstrap failed",
-                        ])),
-                    )
-                    .tags("newsletter")
-                    .sendLogs("newsletter-bootstrap-failed")));
-          } catch (e) {
-            (n(),
+    async function C() {
+      o("WALogger").LOG(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "[newsletter-bootstrap] Bootstrap started",
+          ])),
+      );
+      var e = o("WAWebQplFlowWrapper").QPL.markerStart(_),
+        t = function () {
+          return e.end(2);
+        },
+        n = function () {
+          return e.end(3);
+        },
+        a = {
+          instanceKey: e.instanceKey,
+          addPoint: function (n, r) {
+            return e.addPoint(n, r);
+          },
+          addPointLocal: function (n, r) {
+            return e.addPointLocal(n, r);
+          },
+          annotate: function (n) {
+            return e.annotate(n);
+          },
+          end: r("WAWebNoop"),
+          drop: function () {
+            return e.drop();
+          },
+        };
+      o(
+        "WAWebNewsletterLoadingStageManager",
+      ).NewsletterLoadingStageManager.start();
+      try {
+        var i = await o(
+          "WAWebQueryAndUpdateAllNewslettersMetadataAction",
+        ).queryAndUpdateAllNewsletterMetadataAction(
+          o("WAWebCommonNewsletterEnums").NewsletterMetadataUpdateEntryPoint
+            .Bootstrap,
+          { messageCount: 1, addSystemMsgs: !0, qplEvent: a },
+        );
+        (o(
+          "WAWebNewsletterExtendedGatingUtils",
+        ).isNewsletterReactionEnabled() &&
+          (await o("WAWebNewsletterGetMyAddOnsJob")
+            .getMyNewsletterAddOnsJob({ count: p })
+            .catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[newsletter] Failed to retrieve my reactions on bootstrap",
+                    ])),
+                )
+                .tags("newsletter")
+                .sendLogs("newsletter-bootstrap-my-reactions-failed");
+            })),
+          o("WAWebUserPrefsMultiDevice").setNewsletterWasBootstrapped(),
+          r("WAWebUserPrefsStore").set(h, !i.success),
+          i.success
+            ? (await o("WAWebSyncdOrphan").checkOrphanChats(
+                i.chats.map(function (e) {
+                  return e.id.toString();
+                }),
+              ),
+              o(
+                "WAWebNewsletterLoadingStageManager",
+              ).NewsletterLoadingStageManager.end(),
+              t(),
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[newsletter-bootstrap] Bootstrap completed",
+                  ])),
+              ),
+              o(
+                "WAWebNewsletterGatingUtils",
+              ).isNewsletterStatusReceiverEnabled() &&
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "fillSubscribedStatusGaps",
+                  {},
+                ))
+            : (n(),
               o(
                 "WAWebNewsletterLoadingStageManager",
               ).NewsletterLoadingStageManager.fail(),
               o("WALogger")
                 .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
                       "[newsletter-bootstrap] Bootstrap failed",
                     ])),
                 )
                 .tags("newsletter")
-                .sendLogs("newsletter-bootstrap-failed"));
-          } finally {
-            f = null;
-          }
-        })),
-        b.apply(this, arguments)
-      );
+                .sendLogs("newsletter-bootstrap-failed")));
+      } catch (e) {
+        (n(),
+          o(
+            "WAWebNewsletterLoadingStageManager",
+          ).NewsletterLoadingStageManager.fail(),
+          o("WALogger")
+            .ERROR(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[newsletter-bootstrap] Bootstrap failed",
+                ])),
+            )
+            .tags("newsletter")
+            .sendLogs("newsletter-bootstrap-failed"));
+      } finally {
+        f = null;
+      }
     }
     l.bootstrapNewsletterBackend = y;
   },

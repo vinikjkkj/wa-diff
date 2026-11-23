@@ -3,41 +3,40 @@ __d(
   ["WAWebABProps", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = { decommission: !0, queues: !0, rest: !0, serviced: !0 },
-      s = null,
-      u = null;
-    function c() {
-      var e, t, n, o;
-      return (e =
-        (t = (n = u) == null ? void 0 : n.decommission) != null
-          ? t
-          : (o = s) == null
+    var e = null,
+      s = null;
+    function u() {
+      var t, n, r, o;
+      return (t =
+        (n = (r = s) == null ? void 0 : r.decommission) != null
+          ? n
+          : (o = e) == null
             ? void 0
             : o.decommission) != null
-        ? e
-        : r("gkx")("14549");
+        ? t
+        : h();
+    }
+    function c() {
+      return f().queues;
     }
     function d() {
-      return g().queues;
+      return f().rest;
     }
     function m() {
-      return g().rest;
+      return f().serviced;
     }
     function p() {
-      return g().serviced;
+      return f();
     }
-    function _() {
-      return g();
+    function _(e) {
+      s = e;
     }
-    function f(e) {
-      u = e;
+    function f() {
+      return s != null ? s : (e == null && (e = g()), e);
     }
     function g() {
-      return u != null ? u : (s == null && (s = h()), s);
-    }
-    function h() {
       return r("gkx")("14549")
-        ? e
+        ? { decommission: r("gkx")("2034"), queues: !0, rest: !0, serviced: !0 }
         : {
             decommission: !1,
             queues: o("WAWebABProps").getABPropConfigValue(
@@ -51,12 +50,15 @@ __d(
             ),
           };
     }
-    ((l.isJobsManagerDecommissioned = c),
-      (l.isPersistedQueuesEnabled = d),
-      (l.isRestOperationsEnabled = m),
-      (l.isServicedJobsEnabled = p),
-      (l.getJobsMigrationGates = _),
-      (l.initJobsMigrationGatesFromWorkerInit = f));
+    function h() {
+      return r("gkx")("14549") && r("gkx")("2034");
+    }
+    ((l.isJobsManagerDecommissioned = u),
+      (l.isPersistedQueuesEnabled = c),
+      (l.isRestOperationsEnabled = d),
+      (l.isServicedJobsEnabled = m),
+      (l.getJobsMigrationGates = p),
+      (l.initJobsMigrationGatesFromWorkerInit = _));
   },
   98,
 );

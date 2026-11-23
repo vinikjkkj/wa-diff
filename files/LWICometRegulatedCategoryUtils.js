@@ -98,13 +98,13 @@ __d(
     function w(e) {
       switch (e) {
         case "CREDIT":
-          return s._(/*BTDS*/ "Credit");
+          return s._(/*BTDS*/ "");
         case "EMPLOYMENT":
-          return s._(/*BTDS*/ "Employment");
+          return s._(/*BTDS*/ "");
         case "HOUSING":
-          return s._(/*BTDS*/ "Housing");
+          return s._(/*BTDS*/ "");
         case "NONE":
-          return s._(/*BTDS*/ "No category selected");
+          return s._(/*BTDS*/ "");
         default:
           return null;
       }
@@ -340,21 +340,18 @@ __d(
             : "SANITIZE_AUDIENCE";
     }
     function j(e) {
-      return e.length === 0 ? s._(/*BTDS*/ "Not declared") : K(e);
+      return e.length === 0 ? s._(/*BTDS*/ "") : K(e);
     }
     function K(e) {
       var t = e.length;
       switch (t) {
         case 0:
-          return s._(/*BTDS*/ "Select a category");
+          return s._(/*BTDS*/ "");
         case 1:
           return o("LWICometRegulatedCategoryConstantMap")
             .ADS_REGULATED_CATEGORY_CONSTANT_MAP[e[0]].name;
         default:
-          return s._(
-            /*BTDS*/ '_j{"*":"{number} options selected","_1":"1 option selected"}',
-            [s._plural(t, "number")],
-          );
+          return s._(/*BTDS*/ "", [s._plural(t, "number")]);
       }
     }
     ((l.EMPTY_REGULATED_CATEGORIES = y),

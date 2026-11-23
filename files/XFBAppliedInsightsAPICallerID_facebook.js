@@ -1,0 +1,37 @@
+__d(
+  "XFBAppliedInsightsAPICallerID.facebook",
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
+    var e = n("$InternalEnum").Mirrored([
+        "ADS_AI",
+        "ADS_BENCHMARK_REPORT_MIDFLIGHT_GUIDANCE",
+        "ADS_CREATIVE_STUDIO_INSIGHT_AGENT",
+        "ADS_MANAGER_APP",
+        "ADS_MANAGER_PERFORMANCE_SUMMARY",
+        "ADS_MANAGER_SIDE_PANEL",
+        "ADS_MANAGER_TABLE",
+        "ADS_RECOMMENDATION",
+        "ADS_REPORTING_BENCHMARK_REPORT",
+        "ADS_REPORTING_CTM_FUNNEL_REPORT",
+        "APPLIED_INSIGHTS_CREATIVE_FATIGUE_PREDICTION",
+        "AYMT",
+        "BENCHMARK_REPORT_GENERATION",
+        "BLACKSWAN_CHECK",
+        "FB_LWI",
+        "INSIGHTS_BRAIN_EXPLORER_TOOL",
+        "INSPECT_SIDE_PANEL",
+        "MAIBA",
+        "META_BUSINESS_SUITE",
+        "SALESFORCE_MARKETING",
+        "TEST_CALLER",
+        "UGP_API",
+        "UGP_CONTENT_API",
+        "UNIT_TEST",
+        "VALUE_REPORTING_EMAIL",
+        "WHATSAPP_SMB",
+      ]),
+      l = e;
+    i.default = l;
+  },
+  66,
+);

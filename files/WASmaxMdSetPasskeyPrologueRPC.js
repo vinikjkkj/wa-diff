@@ -10,33 +10,21 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = d(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = u(r, n);
-          if (a.success)
-            return {
-              name: "SetPasskeyPrologueResponseSuccess",
-              value: a.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("SetPasskeyPrologue", {
-              Success: a,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = c(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = s(r, n);
+      if (a.success)
+        return { name: "SetPasskeyPrologueResponseSuccess", value: a.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("SetPasskeyPrologue", {
+          Success: a,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInMdIQResultResponseMixin").parseIQResultResponseMixin(
@@ -45,12 +33,12 @@ __d(
       );
       return (r.success, r);
     }
-    function c(e) {
+    function u(e) {
       var t = e.pairingHandoffProofElementValue,
         n = o("WASmaxJsx").smax("pairing_handoff_proof", null, t);
       return n;
     }
-    function d(e) {
+    function c(e) {
       var t,
         n = e.pairingHandoffProofArgs,
         r = e.credentialIdElementValue,
@@ -66,16 +54,16 @@ __d(
               t.smax("credential_id", null, r),
               t.smax("webauthn_assertion", null, a),
               t.smax("prologue_payload", null, i),
-              o("WASmaxChildren").OPTIONAL_CHILD(c, n),
+              o("WASmaxChildren").OPTIONAL_CHILD(u, n),
             ),
           ),
         );
       return l;
     }
     ((l.sendSetPasskeyPrologueRPC = e),
-      (l.parseSetPasskeyPrologueResponseSuccess = u),
-      (l.makeSetPasskeyPrologueRequestPasskeyProloguePairingHandoffProof = c),
-      (l.makeSetPasskeyPrologueRequest = d));
+      (l.parseSetPasskeyPrologueResponseSuccess = s),
+      (l.makeSetPasskeyPrologueRequestPasskeyProloguePairingHandoffProof = u),
+      (l.makeSetPasskeyPrologueRequest = c));
   },
   98,
 );

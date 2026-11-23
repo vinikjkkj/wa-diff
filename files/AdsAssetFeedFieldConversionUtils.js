@@ -342,9 +342,9 @@ __d(
       );
     }
     function z(e, t, n, r) {
-      var o = r && r.has(e) ? r.get(e) : 0,
+      var o = r && r.has(e) ? r.get(e, 0) : 0,
         a = n.get(o);
-      return !a || typeof a == "string" ? a : a.get(t);
+      return a == null || typeof a == "string" ? a : a.get(t);
     }
     function j(e, t, n) {
       if (

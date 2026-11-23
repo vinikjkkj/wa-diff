@@ -179,6 +179,8 @@ __d(
       IS_PERSONAL: "is_personal",
       IS_PINLESS_DEBIT_ELIGIBLE: "is_pinless_debit_eligible",
       IS_PREPAY_ACCOUNT: "is_prepay_account",
+      IS_SIMPLIFIED_CREATION_ONLY_111_ELIGIBLE:
+        "is_simplified_creation_only_111_eligible",
       IS_SIMPLIFIED_CREATION_SEGMENT_ELIGIBLE:
         "is_simplified_creation_segment_eligible",
       IS_TAX_ID_REQUIRED: "is_tax_id_required",

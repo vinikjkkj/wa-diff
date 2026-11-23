@@ -1,6 +1,6 @@
 __d(
   "MAIBAScrollToTopContext",
-  ["react", "react-compiler-runtime"],
+  ["react", "vulture"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -19,54 +19,34 @@ __d(
       },
       g = c(f);
     function h(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.children,
-        r = _(!1),
-        a = r[0],
-        i = r[1],
-        l = _(null),
-        u = l[0],
-        c = l[1],
-        d;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = function (t) {
-            i(t);
-          }),
-          (t[0] = d))
-        : (d = t[0]);
-      var m = d,
-        p;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((p = function (t) {
-            c(t);
-          }),
-          (t[1] = p))
-        : (p = t[1]);
-      var f = p,
-        h;
-      t[2] !== u || t[3] !== a
-        ? ((h = {
-            scrollToTopContent: u,
-            setScrollToTopContent: f,
-            setShowScrollToTop: m,
-            showScrollToTop: a,
-          }),
-          (t[2] = u),
-          (t[3] = a),
-          (t[4] = h))
-        : (h = t[4]);
-      var y = h,
-        C;
-      return (
-        t[5] !== n || t[6] !== y
-          ? ((C = s.jsx(g.Provider, { value: y, children: n })),
-            (t[5] = n),
-            (t[6] = y),
-            (t[7] = C))
-          : (C = t[7]),
-        C
-      );
+      var t = e.children;
+      r("vulture")("DOSfcg_-9HOuq6qaK1Wib00-xek=");
+      var n = _(!1),
+        o = n[0],
+        a = n[1],
+        i = _(null),
+        l = i[0],
+        u = i[1],
+        c = d(function (e) {
+          a(e);
+        }, []),
+        m = d(function (e) {
+          u(e);
+        }, []),
+        f = p(
+          function () {
+            return {
+              scrollToTopContent: l,
+              setScrollToTopContent: m,
+              setShowScrollToTop: c,
+              showScrollToTop: o,
+            };
+          },
+          [l, m, c, o],
+        );
+      return s.jsx(g.Provider, { value: f, children: t });
     }
+    h.displayName = h.name + " [from " + i.id + "]";
     function y() {
       return m(g);
     }

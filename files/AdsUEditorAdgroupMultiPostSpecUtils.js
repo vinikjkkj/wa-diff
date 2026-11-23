@@ -3,8 +3,7 @@ __d(
   ["AdsPagePostUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = { body: "", title: "" };
-    function s(e, t) {
+    function e(e, t) {
       if (t == null || t === "") return null;
       if (e) return "ig:" + t;
       var n = o("AdsPagePostUtils").isPagePostId_BROKEN(t)
@@ -12,33 +11,36 @@ __d(
         : t;
       return n != null && n !== "" ? "fb:" + n : null;
     }
-    function u(e) {
-      var t, n;
-      return s(
-        e.source_instagram_media_id != null,
-        (t = (n = e.source_instagram_media_id) != null ? n : e.post_id) == null
+    function s(t) {
+      var n, r;
+      return e(
+        t.source_instagram_media_id != null,
+        (n = (r = t.source_instagram_media_id) != null ? r : t.post_id) == null
           ? void 0
-          : t.toString(),
+          : n.toString(),
       );
     }
-    function c(e) {
-      var t,
-        n,
+    function u(t) {
+      var n,
         r,
-        o = e.is_instagram_post === !0,
-        a = o
-          ? e.id
-          : (t =
-                (n = (r = e.promotable_id) != null ? r : e.id) == null
+        o,
+        a = t.is_instagram_post === !0,
+        i = a
+          ? t.id
+          : (n =
+                (r = (o = t.promotable_id) != null ? o : t.id) == null
                   ? void 0
-                  : n.toString()) != null
-            ? t
+                  : r.toString()) != null
+            ? n
             : null;
-      return s(o, a);
+      return e(a, i);
+    }
+    function c(e) {
+      return e.slice(e.indexOf(":") + 1);
     }
     function d(e, t) {
       var n,
-        r = t != null ? c(t) : null;
+        r = t != null ? u(t) : null;
       return r != null &&
         (n = e.find(function (e) {
           return e.identityKey === r;
@@ -46,77 +48,53 @@ __d(
         ? n
         : null;
     }
-    function m(e, t) {
-      var n = new Map();
-      return (
-        e.forEach(function (e) {
-          var t = u(e);
-          t != null && n.set(t, e);
-        }),
-        t.map(function (e) {
-          var t,
-            r = e.isInstagramPost
-              ? { source_instagram_media_id: e.postId }
-              : {
-                  post_id:
-                    o("AdsPagePostUtils").isPagePostId_BROKEN(e.postId) &&
-                    (t = o("AdsPagePostUtils").getPostIdFromPagePostId_BROKEN(
-                      e.postId,
-                    )) != null
-                      ? t
-                      : e.postId,
-                },
-            a = s(e.isInstagramPost, e.postId),
-            i = a != null ? n.get(a) : null;
-          return (
-            (i == null ? void 0 : i.title) != null && (r.title = i.title),
-            (i == null ? void 0 : i.body) != null && (r.body = i.body),
-            (i == null ? void 0 : i.call_to_action) != null &&
-              (r.call_to_action = i.call_to_action),
-            r
-          );
-        })
-      );
-    }
-    function p(e) {
+    function m(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
-          var n = u(e);
-          if (n != null) {
-            var r, o;
+          var n = s(e);
+          n != null &&
             t.set(n, {
-              body: (r = e.body) != null ? r : "",
-              title: (o = e.title) != null ? o : "",
+              body: e.body,
+              call_to_action: e.call_to_action,
+              title: e.title,
             });
-          }
         }),
         t
       );
     }
-    function _(e) {
-      var t, n;
-      return {
-        body: (t = e == null ? void 0 : e.body) != null ? t : "",
-        title: (n = e == null ? void 0 : e.title) != null ? n : "",
-      };
-    }
-    function f(t, n) {
-      var r = new Map();
-      n.forEach(function (e) {
-        r.set(e, _(t.get(e)));
+    function p(t, n) {
+      return n.map(function (n) {
+        var r,
+          a = n.isInstagramPost
+            ? { source_instagram_media_id: n.postId }
+            : {
+                post_id:
+                  o("AdsPagePostUtils").isPagePostId_BROKEN(n.postId) &&
+                  (r = o("AdsPagePostUtils").getPostIdFromPagePostId_BROKEN(
+                    n.postId,
+                  )) != null
+                    ? r
+                    : n.postId,
+              },
+          i = e(n.isInstagramPost, n.postId),
+          l = i != null ? t.get(i) : null;
+        return (
+          (l == null ? void 0 : l.title) != null && (a.title = l.title),
+          (l == null ? void 0 : l.body) != null && (a.body = l.body),
+          (l == null ? void 0 : l.call_to_action) != null &&
+            (a.call_to_action = l.call_to_action),
+          a
+        );
       });
-      var o = n[0],
-        a = o != null ? _(t.get(o)) : babelHelpers.extends({}, e);
-      return { cagByIdentity: r, creative: a };
     }
-    ((l.getPostIdentityKey = s),
-      (l.getPostIdentityKeyFromCagPost = u),
-      (l.getPostIdentityKeyFromPagePost = c),
+    ((l.getPostIdentityKey = e),
+      (l.getPostIdentityKeyFromCagPost = s),
+      (l.getPostIdentityKeyFromPagePost = u),
+      (l.getDisplayPostIDFromIdentityKey = c),
       (l.findTextEntryForPost = d),
-      (l.buildMultiPostsWithPreservedOverrides = m),
-      (l.getMultiPostTextByIdentity = p),
-      (l.resolveMultiPostText = f));
+      (l.getMultiPostCustomizationsFromCagSpec = m),
+      (l.buildMultiPostsWithPreservedOverrides = p));
   },
   98,
 );

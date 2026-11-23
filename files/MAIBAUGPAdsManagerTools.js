@@ -14,7 +14,6 @@ __d(
       "Automated Rules",
       "Billing & Payments",
       "Creation Package",
-      "Insights",
     ];
     i.default = e;
   },

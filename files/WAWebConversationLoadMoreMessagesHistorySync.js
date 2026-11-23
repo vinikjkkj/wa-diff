@@ -25,7 +25,6 @@ __d(
     "WDSIconIcSync.react",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebHistorySyncProgressValues",
     "useWAWebListener",
   ],
@@ -37,53 +36,36 @@ __d(
       m = d || (d = o("react")),
       p = d.useState;
     function _() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = s._(/*BTDS*/ "Tap {=m1} and find this device.", [
-              s._implicitParam(
-                "=m1",
-                m.jsx(o("WAWebLinkDeviceCommonInstructions.react").Strong, {
-                  children: s._(/*BTDS*/ "Linked devices"),
-                }),
-              ),
-            ])),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return s._(/*BTDS*/ "", [
+        s._implicitParam(
+          "=m1",
+          m.jsx(o("WAWebLinkDeviceCommonInstructions.react").Strong, {
+            children: s._(/*BTDS*/ ""),
+          }),
+        ),
+      ]);
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = s._(
-              /*BTDS*/ "In {=m1} settings enable {=m4}, and then try again.",
-              [
-                s._implicitParam(
-                  "=m1",
-                  m.jsx(o("WAWebLinkDeviceCommonInstructions.react").Strong, {
-                    children: s._(/*BTDS*/ "Chat history"),
-                  }),
-                ),
-                s._implicitParam(
-                  "=m4",
-                  m.jsx(o("WAWebLinkDeviceCommonInstructions.react").Strong, {
-                    children: s._(/*BTDS*/ "All chat history"),
-                  }),
-                ),
-              ],
-            )),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return s._(/*BTDS*/ "", [
+        s._implicitParam(
+          "=m1",
+          m.jsx(o("WAWebLinkDeviceCommonInstructions.react").Strong, {
+            children: s._(/*BTDS*/ ""),
+          }),
+        ),
+        s._implicitParam(
+          "=m4",
+          m.jsx(o("WAWebLinkDeviceCommonInstructions.react").Strong, {
+            children: s._(/*BTDS*/ ""),
+          }),
+        ),
+      ]);
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     var g = { popoverButtonGroup: { paddingTop: "x1h678fw", $$css: !0 } };
     function h() {
-      return s._(/*BTDS*/ "Click here to get older messages from your phone.");
+      return s._(/*BTDS*/ "");
     }
     function y(e, t) {
       return e
@@ -99,17 +81,13 @@ __d(
             ).SYNC_IN_PROGRESS_CONTEXTUAL_SYSTEM_MESSAGE_TEXT();
     }
     function C() {
-      return s._(
-        /*BTDS*/ "Couldn't get older messages. Open WhatsApp on your phone and click here to try again.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function b() {
       var e = m.jsx(r("WDSText.react"), {
           type: "Headline2",
           colorName: "contentDefault",
-          children: s._(
-            /*BTDS*/ "This device needs your permission to load older messages.",
-          ),
+          children: s._(/*BTDS*/ ""),
         }),
         t = [
           m.jsx(
@@ -256,8 +234,7 @@ __d(
                   (T(!1), $(!1));
                 }));
             }));
-      else if (f != null)
-        P = s._(/*BTDS*/ "Use WhatsApp on your phone to see older messages.");
+      else if (f != null) P = s._(/*BTDS*/ "");
       else if (L && v) {
         var w = S || R;
         ((P = y(R, S)),
@@ -353,9 +330,7 @@ __d(
             case o("WAWebChatConstants")
               .ConversationEndOfHistoryTransferModelPropType
               .COMPLETE_ON_DEMAND_SYNC_BUT_MORE_MSG_REMAIN_ON_PRIMARY:
-              P = s._(
-                /*BTDS*/ "Use WhatsApp on your phone to see older messages.",
-              );
+              P = s._(/*BTDS*/ "");
               break;
             case o("WAWebChatConstants")
               .ConversationEndOfHistoryTransferModelPropType
@@ -371,10 +346,7 @@ __d(
           var A = o("WAWebClock").Clock.relativeDateStr(
             o("WAWebUserPrefsHistorySync").getHistorySyncEarliestDate(),
           );
-          P = s._(
-            /*BTDS*/ "Use WhatsApp on your phone to see older messages from before {date}.",
-            [s._param("date", A)],
-          );
+          P = s._(/*BTDS*/ "", [s._param("date", A)]);
         }
       }
       if ((d || o("WAWebSyncGatingUtils").isHistorySyncOnDemandEnabled()) && I)

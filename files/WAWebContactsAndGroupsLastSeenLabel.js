@@ -11,16 +11,9 @@ __d(
     function c(e, t) {
       var n = u(e, t),
         r = Math.floor(n / o("WATimeUtils").HOUR_SECONDS);
-      if (r > 0)
-        return s._(
-          /*BTDS*/ '_j{"*":"Last seen {number} hours ago","_1":"Last seen 1 hour ago"}',
-          [s._plural(r, "number")],
-        );
+      if (r > 0) return s._(/*BTDS*/ "", [s._plural(r, "number")]);
       var a = Math.floor(n / o("WATimeUtils").MINUTE_SECONDS);
-      return s._(
-        /*BTDS*/ '_j{"*":"Last seen {number} minutes ago","_1":"Last seen 1 minute ago"}',
-        [s._plural(a, "number")],
-      );
+      return s._(/*BTDS*/ "", [s._plural(a, "number")]);
     }
     ((l.getShownLastSeen = e),
       (l.getLastSeenElapsedSeconds = u),

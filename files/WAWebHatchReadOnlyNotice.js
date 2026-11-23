@@ -23,10 +23,7 @@ __d(
         return null;
       var t = o("WAWebFrontendContactGetters").getFormattedName(e.contact);
       return r("WAWebHatchLinkedStatusManager").isUnlinked()
-        ? s._(
-            /*BTDS*/ "You can't send or receive messages. To reconnect to {bot_name} in WhatsApp, use your primary phone.",
-            [s._param("bot_name", t)],
-          )
+        ? s._(/*BTDS*/ "", [s._param("bot_name", t)])
         : (function (e) {
             if (e === "transferring")
               return u.jsx(r("WAWebHatchCvmTransferringMsgBar.react"), {});

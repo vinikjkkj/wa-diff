@@ -65,9 +65,7 @@ __d(
         : {
             emoji: null,
             text:
-              Math.floor(n / u) % 2 === 0
-                ? s._(/*BTDS*/ "Out for a run")
-                : s._(/*BTDS*/ "Back on Monday"),
+              Math.floor(n / u) % 2 === 0 ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
           };
     }
     function h(e) {

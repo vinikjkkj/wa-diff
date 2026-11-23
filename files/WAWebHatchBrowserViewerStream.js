@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchBrowserViewerStream",
-  ["WALogger", "asyncToGeneratorRuntime", "getErrorSafe"],
+  ["WALogger", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -20,66 +20,58 @@ __d(
             (this.$2 = t),
             (this.$3 = n));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.open = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                this.$4 = t;
-                var n = yield this.$1().catch(function (t) {
-                  return (
-                    o("WALogger")
-                      .WARN(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "hatch-browser-viewer/connect-failed",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(t))
-                      .sendLogs("hatch-browser-viewer-connect-failed"),
-                    null
-                  );
-                });
-                if (!this.$6) {
-                  if (n == null) {
-                    (o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "hatch-browser-viewer/session-unavailable",
-                        ])),
-                    ),
-                      this.$7({
-                        kind: "sessionUnavailable",
-                        reason: "connectFailed",
-                      }));
-                    return;
-                  }
-                  var a = yield this.$2.present(this.$3);
-                  if (!this.$6) {
-                    var i = g(a);
-                    if (i != null) {
-                      (o("WALogger").WARN(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "hatch-browser-viewer/present-failed result=",
-                            "",
-                          ])),
-                        a,
-                      ),
-                        this.$7(i));
-                      return;
-                    }
-                    this.$8(n);
-                  }
+          (n.open = async function (n) {
+            this.$4 = n;
+            var t = await this.$1().catch(function (t) {
+              return (
+                o("WALogger")
+                  .WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "hatch-browser-viewer/connect-failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .sendLogs("hatch-browser-viewer-connect-failed"),
+                null
+              );
+            });
+            if (!this.$6) {
+              if (t == null) {
+                (o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-browser-viewer/session-unavailable",
+                    ])),
+                ),
+                  this.$7({
+                    kind: "sessionUnavailable",
+                    reason: "connectFailed",
+                  }));
+                return;
+              }
+              var a = await this.$2.present(this.$3);
+              if (!this.$6) {
+                var i = g(a);
+                if (i != null) {
+                  (o("WALogger").WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "hatch-browser-viewer/present-failed result=",
+                        "",
+                      ])),
+                    a,
+                  ),
+                    this.$7(i));
+                  return;
                 }
-              },
-            );
-            function a(e) {
-              return t.apply(this, arguments);
+                this.$8(t);
+              }
             }
-            return a;
-          })()),
-          (a.write = function (t) {
+          }),
+          (n.write = function (t) {
             var e = this.$5;
             e == null ||
               this.$6 ||
@@ -93,14 +85,14 @@ __d(
               ),
               this.$7({ kind: "transportFailed" }));
           }),
-          (a.close = function () {
+          (n.close = function () {
             var e;
             this.$6 ||
               ((this.$6 = !0),
               (e = this.$5) == null || e.close(),
               (this.$5 = null));
           }),
-          (a.$8 = function (t) {
+          (n.$8 = function (t) {
             var e = this,
               n = t.openBrowserTaskAttach(this.$3, {
                 onClose: function (n) {
@@ -140,7 +132,7 @@ __d(
             }
             this.$5 = n;
           }),
-          (a.$9 = function (t) {
+          (n.$9 = function (t) {
             if (!this.$6) {
               if (t >= 200 && t <= 299) {
                 var e;
@@ -168,7 +160,7 @@ __d(
                 ));
             }
           }),
-          (a.$7 = function (t) {
+          (n.$7 = function (t) {
             var e;
             this.$6 || (this.close(), (e = this.$4) == null || e.onClose(t));
           }),

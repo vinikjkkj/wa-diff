@@ -466,11 +466,11 @@ __d(
         C = y === void 0 ? !1 : y;
       if (!l) return "";
       if (o("WAWebUserUtils").isMeAccount(l))
-        return r("fbs")._(/*BTDS*/ "You").toString();
+        return r("fbs")._(/*BTDS*/ "").toString();
       if (a)
         return o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
-          ? r("fbs")._(/*BTDS*/ "WhatsApp Business").toString()
-          : r("fbs")._(/*BTDS*/ "WhatsApp").toString();
+          ? r("fbs")._(/*BTDS*/ "").toString()
+          : r("fbs")._(/*BTDS*/ "").toString();
       if (s == null) return "";
       var b = s,
         v = p ? b.shortName : void 0;

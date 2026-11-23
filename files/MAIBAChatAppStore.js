@@ -92,20 +92,40 @@ __d(
         n = t === "Instagram" || t === "MBS";
       return n ? !1 : !r("gkx")("20085");
     }
-    function R(e) {
+    var R = new Set();
+    function L() {
+      return R.size > 0;
+    }
+    function E() {
+      var e = Symbol("MAIBAChatDockingHost");
+      return (
+        R.add(e),
+        k(h),
+        function () {
+          R.delete(e) && k(h);
+        }
+      );
+    }
+    function k(e) {
       if (document.body) {
         var t =
-          e.isMAIBAChatAppOpen &&
-          !e.isFullScreen &&
-          e.surfaceMode !== "workspace";
-        (o("CSS").conditionClass(document.body, "has-maibachat-open", t),
-          document.documentElement.style.setProperty(
-            "--ads-maiba-chat-window-width",
-            e.chatWindowWidth + "px",
-          ));
+            e.isMAIBAChatAppOpen &&
+            !e.isFullScreen &&
+            e.surfaceMode !== "workspace",
+          n = t && L();
+        (o("CSS").conditionClass(document.body, "has-maibachat-open", t && !n),
+          n
+            ? (o("CSS").removeClass(document.body, "has-maibachat"),
+              document.documentElement.style.removeProperty(
+                "--ads-maiba-chat-window-width",
+              ))
+            : document.documentElement.style.setProperty(
+                "--ads-maiba-chat-window-width",
+                e.chatWindowWidth + "px",
+              ));
       }
     }
-    function L(e, t) {
+    function I(e, t) {
       var n,
         a,
         i,
@@ -131,145 +151,159 @@ __d(
         k,
         I,
         T,
-        D = e.chatWindowWidth,
-        x = e.entrypoint,
-        $ = e.isMAIBAChatAppOpen,
-        P = e.selectedChatState,
-        N = e.isFullScreen,
-        M = e.surfaceMode,
-        w = e.shouldAutoExpandThreadList;
-      switch ((n = t.windowAction) == null ? void 0 : n.actionType) {
+        D,
+        x,
+        $,
+        P = e.chatWindowWidth,
+        N = e.entrypoint,
+        M = e.igBoostLoggingSource;
+      if ("igBoostLoggingSource" in t) {
+        var w;
+        M = (w = t.igBoostLoggingSource) != null ? w : null;
+      } else
+        (((n = t.chatAction) == null ? void 0 : n.actionType) === "open" ||
+          ((a = t.windowAction) == null ? void 0 : a.actionType) === "open" ||
+          ((i = t.windowAction) == null ? void 0 : i.actionType) ===
+            "toggle") &&
+          (M = null);
+      var A = e.isMAIBAChatAppOpen,
+        F = e.selectedChatState,
+        O = e.isFullScreen,
+        B = e.surfaceMode,
+        W = e.shouldAutoExpandThreadList;
+      switch ((l = t.windowAction) == null ? void 0 : l.actionType) {
         case "open":
-          (($ = !0),
-            (N =
-              (a = (i = t.windowAction) == null ? void 0 : i.isFullScreen) !=
+          ((A = !0),
+            (O =
+              (s = (u = t.windowAction) == null ? void 0 : u.isFullScreen) !=
               null
-                ? a
-                : N),
-            (M =
-              (l = (s = t.windowAction) == null ? void 0 : s.surfaceMode) !=
+                ? s
+                : O),
+            (B =
+              (c = (d = t.windowAction) == null ? void 0 : d.surfaceMode) !=
               null
-                ? l
-                : M),
-            (w =
-              (u =
-                (c = t.windowAction) == null
+                ? c
+                : B),
+            (W =
+              (m =
+                (p = t.windowAction) == null
                   ? void 0
-                  : c.shouldAutoExpandThreadList) != null
-                ? u
-                : w));
+                  : p.shouldAutoExpandThreadList) != null
+                ? m
+                : W));
           break;
         case "close":
-          (($ = !1), (M = "none"));
+          ((A = !1), (B = "none"));
           break;
         case "toggle":
           e.isMAIBAChatAppOpen &&
-          (((d = e.selectedChatState) == null
+          (((_ = e.selectedChatState) == null
             ? void 0
-            : d.externalConversationId) == null ||
-            ((m = e.selectedChatState) == null
+            : _.externalConversationId) == null ||
+            ((f = e.selectedChatState) == null
               ? void 0
-              : m.externalConversationId) === "")
-            ? (($ = !1), (M = "none"))
-            : (($ = !0), (P = {}));
+              : f.externalConversationId) === "")
+            ? ((A = !1), (B = "none"))
+            : ((A = !0), (F = {}));
           break;
         case "resize":
-          ((D =
-            (p = (_ = t.windowAction) == null ? void 0 : _.chatWindowWidth) !=
+          ((P =
+            (g = (h = t.windowAction) == null ? void 0 : h.chatWindowWidth) !=
             null
-              ? p
-              : D),
-            (N =
-              (f = (g = t.windowAction) == null ? void 0 : g.isFullScreen) !=
+              ? g
+              : P),
+            (O =
+              (y = (C = t.windowAction) == null ? void 0 : C.isFullScreen) !=
               null
-                ? f
-                : N),
-            (M =
-              (h = (y = t.windowAction) == null ? void 0 : y.surfaceMode) !=
+                ? y
+                : O),
+            (B =
+              (b = (v = t.windowAction) == null ? void 0 : v.surfaceMode) !=
               null
-                ? h
-                : M),
-            (w =
-              (C =
-                (b = t.windowAction) == null
+                ? b
+                : B),
+            (W =
+              (S =
+                (R = t.windowAction) == null
                   ? void 0
-                  : b.shouldAutoExpandThreadList) != null
-                ? C
-                : w));
+                  : R.shouldAutoExpandThreadList) != null
+                ? S
+                : W));
           break;
         default:
           break;
       }
-      (M === "canvas" && !N && (M = "none"),
-        M === "workspace" && N && (M = "none"));
-      var A =
-        (v = (S = t.chatAction) == null ? void 0 : S.selectedChatState) != null
-          ? v
+      (B === "canvas" && !O && (B = "none"),
+        B === "workspace" && O && (B = "none"));
+      var q =
+        (L = (E = t.chatAction) == null ? void 0 : E.selectedChatState) != null
+          ? L
           : {};
-      switch ((R = t.chatAction) == null ? void 0 : R.actionType) {
+      switch ((k = t.chatAction) == null ? void 0 : k.actionType) {
         case "open":
-          ((x = o("MAIBAChatAppUtils").getMAIBAEntrypointForOpenAction(
-            (L = t.chatAction) == null ? void 0 : L.entrypoint,
+          ((N = o("MAIBAChatAppUtils").getMAIBAEntrypointForOpenAction(
+            (I = t.chatAction) == null ? void 0 : I.entrypoint,
             e.entrypoint,
-            A.isExplicitNewThread,
+            q.isExplicitNewThread,
           )),
-            (P = {
-              entrypointOverride: A.entrypointOverride,
-              externalConversationId: A.externalConversationId,
-              initialSelectedAssets: A.initialSelectedAssets,
-              isExplicitNewThread: A.isExplicitNewThread,
+            (F = {
+              entrypointOverride: q.entrypointOverride,
+              externalConversationId: q.externalConversationId,
+              initialSelectedAssets: q.initialSelectedAssets,
+              isExplicitNewThread: q.isExplicitNewThread,
               linkedAdAccountId:
-                (E = A.linkedAdAccountId) != null
-                  ? E
-                  : A.externalConversationId == null
-                    ? (k =
-                        (I = e.selectedChatState) == null
+                (T = q.linkedAdAccountId) != null
+                  ? T
+                  : q.externalConversationId == null
+                    ? (D =
+                        (x = e.selectedChatState) == null
                           ? void 0
-                          : I.linkedAdAccountId) != null
-                      ? k
+                          : x.linkedAdAccountId) != null
+                      ? D
                       : r("getMAIBAPageAdAccountID")()
                     : null,
-              pendingExternalConversationId: A.pendingExternalConversationId,
-              pendingUserInput: A.pendingUserInput,
-              pfrAdObjectIDs: A.pfrAdObjectIDs,
-              pfrAdObjectTree: A.pfrAdObjectTree,
-              showConsentDisclaimer: A.showConsentDisclaimer,
-              showMAIBAChatDisclosure: A.showMAIBAChatDisclosure,
+              pendingExternalConversationId: q.pendingExternalConversationId,
+              pendingUserInput: q.pendingUserInput,
+              pfrAdObjectIDs: q.pfrAdObjectIDs,
+              pfrAdObjectTree: q.pfrAdObjectTree,
+              showConsentDisclaimer: q.showConsentDisclaimer,
+              showMAIBAChatDisclosure: q.showMAIBAChatDisclosure,
             }),
-            A.externalConversationId !==
-              ((T = e.selectedChatState) == null
+            q.externalConversationId !==
+              (($ = e.selectedChatState) == null
                 ? void 0
-                : T.externalConversationId) &&
-              M === "canvas" &&
-              (M = "none"));
+                : $.externalConversationId) &&
+              B === "canvas" &&
+              (B = "none"));
           break;
         default:
           break;
       }
-      var F = {
-          chatWindowWidth: $
-            ? D
+      var U = {
+          chatWindowWidth: A
+            ? P
             : o("MAIBAChatConstants").DEFAULT_CHAT_WINDOW_WIDTH,
-          entrypoint: x,
-          isFullScreen: N,
-          isMAIBAChatAppOpen: $,
-          selectedChatState: P,
-          shouldAutoExpandThreadList: w,
-          surfaceMode: $ ? M : "none",
+          entrypoint: N,
+          igBoostLoggingSource: A ? M : null,
+          isFullScreen: O,
+          isMAIBAChatAppOpen: A,
+          selectedChatState: F,
+          shouldAutoExpandThreadList: W,
+          surfaceMode: A ? B : "none",
         },
-        O = babelHelpers.extends({}, F, {
+        V = babelHelpers.extends({}, U, {
           chatWindowWidth:
-            o("MAIBAChatAppUtils").getMAIBAChatWindowWidthForState(F),
+            o("MAIBAChatAppUtils").getMAIBAChatWindowWidthForState(U),
         });
-      return r("deepEquals")(e, O)
+      return r("deepEquals")(e, V)
         ? e
-        : (o("MAIBAChatAppUtils").storeMAIBAChatAppStateToSessionStorage(O), O);
+        : (o("MAIBAChatAppUtils").storeMAIBAChatAppStateToSessionStorage(V), V);
     }
-    function E(e) {
+    function T(e) {
       var t = h;
-      ((h = L(h, e)), h !== t && (R(h), b()));
+      ((h = I(h, e)), h !== t && (k(h), b()));
     }
-    function k(e) {
+    function D(e) {
       return (
         C.add(e),
         function () {
@@ -277,14 +311,16 @@ __d(
         }
       );
     }
-    function I() {
-      return c(k, v, v);
+    function x() {
+      return c(D, v, v);
     }
     ((l.getState = v),
       (l.shouldUseLaminarForMAIBA = S),
-      (l.dispatch = E),
-      (l.subscribe = k),
-      (l.useMAIBAChatAppState = I));
+      (l.isMAIBAChatDockedByHost = L),
+      (l.registerMAIBAChatDockingHost = E),
+      (l.dispatch = T),
+      (l.subscribe = D),
+      (l.useMAIBAChatAppState = x));
   },
   98,
 );

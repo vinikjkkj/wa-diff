@@ -89,14 +89,14 @@ __d(
     function f(e) {
       o("WDSToastImperativeHost").showWDSToast({
         action: {
-          label: s._(/*BTDS*/ "Open link"),
+          label: s._(/*BTDS*/ ""),
           onPress: function () {
             return o("WAWebExternalLink.react").openExternalLink(e, {
               noApiCmdHandling: !0,
             });
           },
         },
-        message: s._(/*BTDS*/ "Couldn't open this invite"),
+        message: s._(/*BTDS*/ ""),
         type: "error",
       });
     }

@@ -11,7 +11,6 @@ __d(
     "WebBloksTheme",
     "WebBloksUtils",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -34,207 +33,133 @@ __d(
     function L(e) {
       var t,
         n,
-        r = o("react-compiler-runtime").c(36),
-        a = e.externalStyle,
-        i = e.node,
-        l = o("WebBloksTheme").useTheme().getTheme(),
-        L = o("WebBloksEnvironmentContext").useWebBloksEnvironment().isRtl,
-        k = o("WebBloksStyle").useStyle(i, a, void 0, d),
-        D = k.wrapper,
-        x = k.wrapperProps,
-        $ = o("WebBloksComponentContext").useWebBloksContext(),
-        P;
-      r[0] !== i
-        ? ((P = o("WebBloksBooleanUtils").isTrue(i.get(c))),
-          (r[0] = i),
-          (r[1] = P))
-        : (P = r[1]);
-      var N = P,
-        M = u(N),
-        w = M[0],
-        A = M[1],
-        F;
-      r[2] !== i || r[3] !== x
-        ? ((F =
-            o("WebBloksBooleanUtils").isFalse(i.get(d)) || x.disabled === !0),
-          (r[2] = i),
-          (r[3] = x),
-          (r[4] = F))
-        : (F = r[4]);
-      var O = F,
-        B;
-      r[5] !== i
-        ? ((B = o("WebBloksBooleanUtils").isTrue(i.get(m))),
-          (r[5] = i),
-          (r[6] = B))
-        : (B = r[6]);
-      var W = B,
-        q;
-      r[7] !== $ || r[8] !== O || r[9] !== W || r[10] !== i
-        ? ((q = function (t) {
-            if (!O) {
-              W || A(t);
-              var e = i.getExpression(p);
-              e != null && $.executeCatch(i, e, [i, t, $]);
-            }
-          }),
-          (r[7] = $),
-          (r[8] = O),
-          (r[9] = W),
-          (r[10] = i),
-          (r[11] = q))
-        : (q = r[11]);
-      var U = q,
-        V = W ? N : w,
-        H = (t = i.get(_)) != null ? t : i.get(O ? h : C),
-        G = (n = i.get(f)) != null ? n : i.get(O ? g : y),
-        z = i.get(O ? v : R),
-        j = i.get(O ? b : S),
-        K = E,
-        Q;
-      r[12] !== V || r[13] !== O || r[14] !== U
-        ? ((Q = function (t) {
-            O ||
-              ((t.keyCode === o("WebBloksConstants").KEY_SPACE ||
-                t.keyCode === o("WebBloksConstants").KEY_RETURN) &&
-                U(!V));
-          }),
-          (r[12] = V),
-          (r[13] = O),
-          (r[14] = U),
-          (r[15] = Q))
-        : (Q = r[15]);
-      var X = Q,
-        Y = O ? I.switchDisabled : I.switchEnabled,
-        J;
-      r[16] !== Y
-        ? ((J = o("WebBloksStyle").classNames(
-            o("WebBloksStyle").WebBloksStyles.container,
-            I.switch,
-            I.innerShadow,
-            Y,
-            T.outlines,
-          )),
-          (r[16] = Y),
-          (r[17] = J))
-        : (J = r[17]);
-      var Z = V && I.backgroundActive,
-        ee;
-      r[18] !== Z
-        ? ((ee = o("WebBloksStyle").classNames(I.background, Z)),
-          (r[18] = Z),
-          (r[19] = ee))
-        : (ee = r[19]);
-      var te =
-          V && z
-            ? { background: o("WebBloksUtils").getRGBColorWithTheme(z, l) }
-            : !V && j
-              ? { background: o("WebBloksUtils").getRGBColorWithTheme(j, l) }
-              : null,
-        ne = L ? I.sliderRight : I.sliderLeft,
-        re = V && I.sliderActive,
-        oe = V && (L ? I.sliderActiveLeft : I.sliderActiveRight),
-        ae;
-      r[20] !== ne || r[21] !== re || r[22] !== oe
-        ? ((ae = o("WebBloksStyle").classNames(I.slider, ne, re, oe)),
-          (r[20] = ne),
-          (r[21] = re),
-          (r[22] = oe),
-          (r[23] = ae))
-        : (ae = r[23]);
-      var ie;
-      r[24] !== te || r[25] !== ae
-        ? ((ie = s.jsx("div", { style: te, className: ae })),
-          (r[24] = te),
-          (r[25] = ae),
-          (r[26] = ie))
-        : (ie = r[26]);
-      var le;
-      r[27] !== U
-        ? ((le = function (t) {
-            U(t.target.checked);
-          }),
-          (r[27] = U),
-          (r[28] = le))
-        : (le = r[28]);
-      var se = O ? I.switchInputDisabled : I.switchInputEnabled,
-        ue;
-      r[29] !== se
-        ? ((ue = o("WebBloksStyle").classNames(I.switchInput, se)),
-          (r[29] = se),
-          (r[30] = ue))
-        : (ue = r[30]);
-      var ce;
-      return (
-        r[31] !== V || r[32] !== O || r[33] !== le || r[34] !== ue
-          ? ((ce = s.jsx("input", {
-              checked: V,
-              disabled: O,
-              onChange: le,
-              tabIndex: -1,
-              type: "checkbox",
-              className: ue,
-            })),
-            (r[31] = V),
-            (r[32] = O),
-            (r[33] = le),
-            (r[34] = ue),
-            (r[35] = ce))
-          : (ce = r[35]),
-        D(
-          s.jsxs(
-            "div",
-            babelHelpers.extends(
-              {
-                className: J,
-                style:
-                  !V && G
-                    ? {
-                        background: o("WebBloksUtils").getRGBColorWithTheme(
-                          G,
-                          l,
-                        ),
-                      }
-                    : null,
-                "aria-checked": V,
-                onKeyDown: K,
-                onKeyUp: X,
-                role: "switch",
-                tabIndex: 0,
-              },
-              x,
-              {
-                children: [
-                  s.jsx("div", {
-                    style:
-                      V && H
+        r = e.externalStyle,
+        a = e.node,
+        i = o("WebBloksTheme").useTheme().getTheme(),
+        l = o("WebBloksEnvironmentContext").useWebBloksEnvironment().isRtl,
+        L = o("WebBloksStyle").useStyle(a, r, void 0, d),
+        E = L.wrapper,
+        T = L.wrapperProps,
+        D = o("WebBloksComponentContext").useWebBloksContext(),
+        x = o("WebBloksBooleanUtils").isTrue(a.get(c)),
+        $ = u(x),
+        P = $[0],
+        N = $[1],
+        M = o("WebBloksBooleanUtils").isFalse(a.get(d)) || T.disabled === !0,
+        w = o("WebBloksBooleanUtils").isTrue(a.get(m)),
+        A = function (t) {
+          if (!M) {
+            w || N(t);
+            var e = a.getExpression(p);
+            e != null && D.executeCatch(a, e, [a, t, D]);
+          }
+        },
+        F = w ? x : P,
+        O = (t = a.get(_)) != null ? t : a.get(M ? h : C),
+        B = (n = a.get(f)) != null ? n : a.get(M ? g : y),
+        W = a.get(M ? v : R),
+        q = a.get(M ? b : S),
+        U = function (t) {
+          t.keyCode === o("WebBloksConstants").KEY_SPACE && t.preventDefault();
+        },
+        V = function (t) {
+          M ||
+            ((t.keyCode === o("WebBloksConstants").KEY_SPACE ||
+              t.keyCode === o("WebBloksConstants").KEY_RETURN) &&
+              A(!F));
+        };
+      return E(
+        s.jsxs(
+          "div",
+          babelHelpers.extends(
+            {
+              className: o("WebBloksStyle").classNames(
+                o("WebBloksStyle").WebBloksStyles.container,
+                k.switch,
+                k.innerShadow,
+                M ? k.switchDisabled : k.switchEnabled,
+                I.outlines,
+              ),
+              style:
+                !F && B
+                  ? {
+                      background: o("WebBloksUtils").getRGBColorWithTheme(B, i),
+                    }
+                  : null,
+              "aria-checked": F,
+              onKeyDown: U,
+              onKeyUp: V,
+              role: "switch",
+              tabIndex: 0,
+            },
+            T,
+            {
+              children: [
+                s.jsx("div", {
+                  style:
+                    F && O
+                      ? {
+                          background: o("WebBloksUtils").getRGBColorWithTheme(
+                            O,
+                            i,
+                          ),
+                        }
+                      : null,
+                  className: o("WebBloksStyle").classNames(
+                    k.background,
+                    F && k.backgroundActive,
+                  ),
+                }),
+                s.jsx("div", {
+                  style:
+                    F && W
+                      ? {
+                          background: o("WebBloksUtils").getRGBColorWithTheme(
+                            W,
+                            i,
+                          ),
+                        }
+                      : !F && q
                         ? {
                             background: o("WebBloksUtils").getRGBColorWithTheme(
-                              H,
-                              l,
+                              q,
+                              i,
                             ),
                           }
                         : null,
-                    className: ee,
-                  }),
-                  ie,
-                  ce,
-                ],
-              },
-            ),
+                  className: o("WebBloksStyle").classNames(
+                    k.slider,
+                    l ? k.sliderRight : k.sliderLeft,
+                    F && k.sliderActive,
+                    F && (l ? k.sliderActiveLeft : k.sliderActiveRight),
+                  ),
+                }),
+                s.jsx("input", {
+                  checked: F,
+                  disabled: M,
+                  onChange: function (t) {
+                    A(t.target.checked);
+                  },
+                  tabIndex: -1,
+                  type: "checkbox",
+                  className: o("WebBloksStyle").classNames(
+                    k.switchInput,
+                    M ? k.switchInputDisabled : k.switchInputEnabled,
+                  ),
+                }),
+              ],
+            },
           ),
-        )
+        ),
       );
     }
-    function E(e) {
-      e.keyCode === o("WebBloksConstants").KEY_SPACE && e.preventDefault();
-    }
-    var k = 28,
-      I = o("WebBloksStyle").createStyles({
+    L.displayName = L.name + " [from " + i.id + "]";
+    var E = 28,
+      k = o("WebBloksStyle").createStyles({
         background: {
           backgroundColor:
             o("WebBloksTheme").WebBloksThemeVars["switch-active"],
-          borderRadius: k / 2,
+          borderRadius: E / 2,
           bottom: 0,
           boxSizing: "border-box",
           left: 0,
@@ -303,10 +228,10 @@ __d(
           flexShrink: 0,
           flexGrow: 0,
           backgroundColor: o("WebBloksTheme").WebBloksThemeVars.divider,
-          borderRadius: k / 2,
+          borderRadius: E / 2,
           boxSizing: "border-box",
           display: "inline-block",
-          height: k,
+          height: E,
           overflow: "hidden",
           padding: 0,
           position: "relative",
@@ -332,7 +257,7 @@ __d(
         switchInputDisabled: { pointerEvents: "none" },
         switchInputEnabled: { cursor: "pointer" },
       }),
-      T = o("WebBloksStyle").createStylesIfSupported(
+      I = o("WebBloksStyle").createStylesIfSupported(
         { type: "selector", selector: ":focus-visible" },
         {
           outlines: function (t) {

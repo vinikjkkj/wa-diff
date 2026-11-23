@@ -1,19 +1,19 @@
 __d(
   "AdsReelsTrendingAdsConstants",
-  ["cx", "AdsBrandSafetyContentFilterLevelConstants"],
-  function (t, n, r, o, a, i, l, s) {
+  ["AdsBrandSafetyContentFilterLevelConstants"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = !0,
-      u = !1,
-      c = [],
-      d = {
+      s = !1,
+      u = [],
+      c = {
         is_all_trending: e,
-        is_special_budget_alloc: u,
-        trending_topics: c,
+        is_special_budget_alloc: s,
+        trending_topics: u,
       },
-      m = 3,
-      p = 7,
-      _ = new Set([
+      d = 3,
+      m = 7,
+      p = new Set([
         "country_groups",
         "geo_markets",
         "cities",
@@ -31,7 +31,7 @@ __d(
         "subneighborhoods",
         "location_cluster_ids",
       ]),
-      f = [
+      _ = [
         "budget",
         "reach",
         "reach_percent",
@@ -44,18 +44,16 @@ __d(
         "average_frequency_15s_vv",
         "impression",
       ],
-      g = "_815l _atxj",
-      h = 5e3;
-    ((l.TRENDING_TOPICS_SPEC_DEFAULT = d),
-      (l.DEFAULT_REGULAR_MIN_CAMPAIGN_DURATION = m),
-      (l.DEFAULT_TENTPOLE_MIN_CAMPAIGN_DURATION = p),
-      (l.DISALLOWED_LOCATION_TYPES = _),
+      f = 5e3;
+    ((l.TRENDING_TOPICS_SPEC_DEFAULT = c),
+      (l.DEFAULT_REGULAR_MIN_CAMPAIGN_DURATION = d),
+      (l.DEFAULT_TENTPOLE_MIN_CAMPAIGN_DURATION = m),
+      (l.DISALLOWED_LOCATION_TYPES = p),
       (l.DEFAULT_BRAND_SAFETY_IF_FEED_LEVEL = o(
         "AdsBrandSafetyContentFilterLevelConstants",
       ).ADS_BRAND_SAFETY_INVENTORY_FILTER_FEED_LEVEL.FEED_STRICT),
-      (l.REACH_FREQUENCY_GRID_METRICS = f),
-      (l.RTA_PGD_STYLES = g),
-      (l.NO_TOPICS_SELECTED_FEEDBACK_DELAY_MS = h));
+      (l.REACH_FREQUENCY_GRID_METRICS = _),
+      (l.NO_TOPICS_SELECTED_FEEDBACK_DELAY_MS = f));
   },
   98,
 );

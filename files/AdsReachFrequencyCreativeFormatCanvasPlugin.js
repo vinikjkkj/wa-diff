@@ -11,7 +11,6 @@ __d(
     "AdsPlacementAPISpecReaderUtils",
     "AdsPlacementAPISpecWriterUtils",
     "AdsPlannerPlanTypeUtils",
-    "getByPath",
     "isAdsCanvasLink",
   ],
   function (t, n, r, o, a, i, l, s, u, c) {
@@ -21,15 +20,13 @@ __d(
         key: "CANVAS",
         flag: "canvasFlag",
         value: 256,
-        label: c._(/*BTDS*/ "Instant Experience"),
+        label: c._(/*BTDS*/ ""),
         getErrors: function () {
           return [
             new (r("AdsError"))(
               1885473,
               u._(function (e, t) {
-                return e._(
-                  /*BTDS*/ "You didn't select canvas when you created this ad set for reservation. If you want to use canvas, then create a new ad set or edit the existing ad set if it hasn't started yet.",
-                );
+                return e._(/*BTDS*/ "");
               }, {}),
               {
                 level: r("AdsError").Level.WARN,
@@ -54,12 +51,12 @@ __d(
             "facebook/video_feeds",
             "instagram/reels",
             "instagram/shop_tab",
-            "messenger/inbox",
             "messenger/story",
             "whatsapp/status",
             "oculus/vr_apps",
             "oculus/rewarded_video",
             "threads/stream",
+            "threads/permalink",
           ];
           return (
             o("AdsPlacementAPISpecReaderUtils").isOnlyActiveDevicePlatform(
@@ -82,8 +79,7 @@ __d(
           });
         },
         isIncompatibleWithPost: function (t) {
-          var e = r("getByPath")(t, r("AdsAPIPromotablePostPaths").LINK);
-          return r("isAdsCanvasLink")(e);
+          return r("isAdsCanvasLink")(t.link);
         },
         isRequired: function (t, n, r) {
           return o("AdsPlannerPlanTypeUtils").getDoesPlanSupportNonVideoFormats(

@@ -1,7 +1,6 @@
 __d(
   "WAWebBroadcastEphemeralUtils",
   [
-    "Promise",
     "WALogger",
     "WAWebApiContact",
     "WAWebEphemeralEncodeBroadcastSetting",
@@ -9,15 +8,13 @@ __d(
     "WAWebEphemeralityUtils",
     "WAWebSchemaChat",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c = ["conversation"],
-      d;
-    function m(e, t) {
+      c = ["conversation"];
+    function d(e, t) {
       var n = t.buffer;
       if (e.conversation != null) {
         var r = e.conversation,
@@ -158,134 +155,118 @@ __d(
                         }
                       : { proto: e, injected: !1 };
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function m(e) {
+      var t,
+        n,
+        r = await o("WAWebSchemaChat").getChatTable().get(e.toString(), !1);
+      if (r != null) {
+        var a, i;
+        return {
+          duration: (a = r.ephemeralDuration) != null ? a : 0,
+          timestamp: (i = r.ephemeralSettingTimestamp) != null ? i : 0,
+        };
+      }
+      var l = await Promise.all([
+          o("WAWebApiContact").getContactRecord(
+            o("WAWebUserUtils").getMePnLessOrFallback_DO_NOT_USE(),
+          ),
+          o("WAWebApiContact").getContactRecord(e),
+        ]),
+        s = l[0],
+        u = l[1];
+      if (
+        u != null &&
+        o(
+          "WAWebEphemeralityUtils",
+        ).isEphemeralityDisabledForMessagingWithContact(u)
+      )
+        return { duration: 0, timestamp: 0 };
+      var c = o("WAWebEphemeralityResolver").resolveNewChatDMSettings(s, u);
+      return {
+        duration: (t = c == null ? void 0 : c.duration) != null ? t : 0,
+        timestamp:
+          (n = c == null ? void 0 : c.settingTimestamp) != null ? n : 0,
+      };
     }
-    function _() {
+    async function p(t) {
+      var n = t.authorId,
+        r = t.broadcastJid,
+        a = t.proto,
+        i = t.recipient,
+        l = await m(i),
+        c = l.duration,
+        p = l.timestamp;
+      if (c <= 0)
+        return (
+          o("WALogger")
+            .LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[broadcast:retry] no DM, skip eph rcpt=",
+                  " dur=",
+                  "",
+                ])),
+              i.toString(),
+              c,
+            )
+            .tags("messaging"),
+          { content: a, ephSetting: null }
+        );
+      var _ = o(
+          "WAWebEphemeralEncodeBroadcastSetting",
+        ).generateEphemeralSharedSecret(),
+        f = d(a, _),
+        g = f.injected,
+        h = f.proto;
+      if (!g)
+        return (
+          o("WALogger")
+            .LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[broadcast:retry] no secret inject, drop eph rcpt=",
+                  "",
+                ])),
+              i.toString(),
+            )
+            .tags("messaging"),
+          { content: a, ephSetting: null }
+        );
+      var y = await o(
+        "WAWebEphemeralEncodeBroadcastSetting",
+      ).encodeBroadcastEphemeralSetting({
+        broadcastJid: r,
+        duration: c,
+        recipient: i,
+        sender: n,
+        sharedSecret: _,
+        timestamp: p,
+      });
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            r,
-            a = yield o("WAWebSchemaChat").getChatTable().get(e.toString(), !1);
-          if (a != null) {
-            var i, l;
-            return {
-              duration: (i = a.ephemeralDuration) != null ? i : 0,
-              timestamp: (l = a.ephemeralSettingTimestamp) != null ? l : 0,
-            };
-          }
-          var s = yield (d || (d = n("Promise"))).all([
-              o("WAWebApiContact").getContactRecord(
-                o("WAWebUserUtils").getMePnLessOrFallback_DO_NOT_USE(),
-              ),
-              o("WAWebApiContact").getContactRecord(e),
-            ]),
-            u = s[0],
-            c = s[1];
-          if (
-            c != null &&
-            o(
-              "WAWebEphemeralityUtils",
-            ).isEphemeralityDisabledForMessagingWithContact(c)
+        o("WALogger")
+          .LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[broadcast:retry] eph + rcpt=",
+                " bcast=",
+                " dur=",
+                " ts=",
+                " len=",
+                "",
+              ])),
+            i.toString(),
+            r.toString(),
+            c,
+            p,
+            y.length,
           )
-            return { duration: 0, timestamp: 0 };
-          var m = o("WAWebEphemeralityResolver").resolveNewChatDMSettings(u, c);
-          return {
-            duration: (t = m == null ? void 0 : m.duration) != null ? t : 0,
-            timestamp:
-              (r = m == null ? void 0 : m.settingTimestamp) != null ? r : 0,
-          };
-        })),
-        _.apply(this, arguments)
+          .tags("messaging"),
+        { content: h, ephSetting: y }
       );
     }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.authorId,
-            r = t.broadcastJid,
-            a = t.proto,
-            i = t.recipient,
-            l = yield p(i),
-            c = l.duration,
-            d = l.timestamp;
-          if (c <= 0)
-            return (
-              o("WALogger")
-                .LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[broadcast:retry] no DM, skip eph rcpt=",
-                      " dur=",
-                      "",
-                    ])),
-                  i.toString(),
-                  c,
-                )
-                .tags("messaging"),
-              { content: a, ephSetting: null }
-            );
-          var _ = o(
-              "WAWebEphemeralEncodeBroadcastSetting",
-            ).generateEphemeralSharedSecret(),
-            f = m(a, _),
-            g = f.injected,
-            h = f.proto;
-          if (!g)
-            return (
-              o("WALogger")
-                .LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[broadcast:retry] no secret inject, drop eph rcpt=",
-                      "",
-                    ])),
-                  i.toString(),
-                )
-                .tags("messaging"),
-              { content: a, ephSetting: null }
-            );
-          var y = yield o(
-            "WAWebEphemeralEncodeBroadcastSetting",
-          ).encodeBroadcastEphemeralSetting({
-            broadcastJid: r,
-            duration: c,
-            recipient: i,
-            sender: n,
-            sharedSecret: _,
-            timestamp: d,
-          });
-          return (
-            o("WALogger")
-              .LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[broadcast:retry] eph + rcpt=",
-                    " bcast=",
-                    " dur=",
-                    " ts=",
-                    " len=",
-                    "",
-                  ])),
-                i.toString(),
-                r.toString(),
-                c,
-                d,
-                y.length,
-              )
-              .tags("messaging"),
-            { content: h, ephSetting: y }
-          );
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    ((l.addSharedSecretToProto = m),
-      (l.getBroadcastEphemeralSettingForRecipient = p),
-      (l.buildBroadcastRetryEphemeral = f));
+    ((l.addSharedSecretToProto = d),
+      (l.getBroadcastEphemeralSettingForRecipient = m),
+      (l.buildBroadcastRetryEphemeral = p));
   },
   98,
 );

@@ -11,7 +11,6 @@ __d(
     "WebBloksStyle",
     "WebBloksUtils",
     "react",
-    "react-compiler-runtime",
     "useClickablePropsForWebBloks",
     "useWebBloksDrawableNode",
   ],
@@ -41,18 +40,11 @@ __d(
       D = o("WebBloksModel").defineWebBloksAttributeKey("1"),
       x = o("WebBloksModel").defineWebBloksAttributeKey(";");
     function $(e) {
-      var t = o("react-compiler-runtime").c(2);
-      if (e.node.get(T) === "gone") return null;
-      var n;
-      return (
-        t[0] !== e
-          ? ((n = u.jsx(P, babelHelpers.extends({}, e))),
-            (t[0] = e),
-            (t[1] = n))
-          : (n = t[1]),
-        n
-      );
+      return e.node.get(T) === "gone"
+        ? null
+        : u.jsx(P, babelHelpers.extends({}, e));
     }
+    $.displayName = $.name + " [from " + i.id + "]";
     function P(t) {
       var n,
         a,
@@ -173,35 +165,23 @@ __d(
     }
     P.displayName = P.name + " [from " + i.id + "]";
     function N(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.drawable,
-        a = o("WebBloksEnvironmentContext").useDataBloksName(),
-        i = m(null),
-        l = r("WebBloksDrawable")(n, i),
-        s = r("useWebBloksDrawableNode")(n);
-      if (s != null) return s;
-      var c;
-      t[0] !== a
-        ? ((c = a("bk.components.BoxDecoration")), (t[0] = a), (t[1] = c))
-        : (c = t[1]);
-      var d;
-      return (
-        t[2] !== l || t[3] !== c
-          ? ((d = u.jsx(
-              "div",
-              babelHelpers.extends({}, c, {
-                ref: i,
-                className: M.foreground,
-                style: l,
-              }),
-            )),
-            (t[2] = l),
-            (t[3] = c),
-            (t[4] = d))
-          : (d = t[4]),
-        d
-      );
+      var t = e.drawable,
+        n = o("WebBloksEnvironmentContext").useDataBloksName(),
+        a = m(null),
+        i = r("WebBloksDrawable")(t, a),
+        l = r("useWebBloksDrawableNode")(t);
+      return l != null
+        ? l
+        : u.jsx(
+            "div",
+            babelHelpers.extends({}, n("bk.components.BoxDecoration"), {
+              ref: a,
+              className: M.foreground,
+              style: i,
+            }),
+          );
     }
+    N.displayName = N.name + " [from " + i.id + "]";
     var M = o("WebBloksStyle").createStyles({
       foreground: {
         position: "absolute",

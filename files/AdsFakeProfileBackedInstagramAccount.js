@@ -4,10 +4,8 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = "fake_profile_backed_ig_account",
-      u = s._(/*BTDS*/ "Use selected profile"),
-      c = s._(
-        /*BTDS*/ "Your ad will use the profile name and profile picture. It will not click through to the actual profile on Facebook.",
-      ),
+      u = s._(/*BTDS*/ ""),
+      c = s._(/*BTDS*/ ""),
       d = !1,
       m = !1,
       p = !1,

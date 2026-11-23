@@ -28,7 +28,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
-      if (e.participants.length === 0) return s._(/*BTDS*/ "Group").toString();
+      if (e.participants.length === 0) return s._(/*BTDS*/ "").toString();
       if (e.participants.length === 1) {
         var t,
           n = (t = e.participants.head()) == null ? void 0 : t.contact;
@@ -46,10 +46,7 @@ __d(
       if (a.length >= 4) {
         var i = a[0],
           l = s
-            ._(
-              /*BTDS*/ '_j{"*":"{other_participants} others","_1":"1 other"}',
-              [s._plural(a.length - 1, "other_participants")],
-            )
+            ._(/*BTDS*/ "", [s._plural(a.length - 1, "other_participants")])
             .toString();
         return r("WAWebFbtIntlList")(
           [i, l],
@@ -65,8 +62,8 @@ __d(
         e.participants.length === 0)
       )
         return n
-          ? r("fbs")._(/*BTDS*/ "Waiting for others to join").toString()
-          : r("fbs")._(/*BTDS*/ "Group").toString();
+          ? r("fbs")._(/*BTDS*/ "").toString()
+          : r("fbs")._(/*BTDS*/ "").toString();
       if (e.participants.length === 1) {
         var a,
           i = (a = e.participants.head()) == null ? void 0 : a.contact;
@@ -233,12 +230,9 @@ __d(
       return n.length === 0
         ? null
         : r.length === 0
-          ? {
-              label: s._(/*BTDS*/ "Muse").toString(),
-              replacedAgentIds: new Set(n),
-            }
+          ? { label: s._(/*BTDS*/ "").toString(), replacedAgentIds: new Set(n) }
           : {
-              label: s._(/*BTDS*/ "AI agents").toString(),
+              label: s._(/*BTDS*/ "").toString(),
               replacedAgentIds: new Set([].concat(n, r)),
             };
     }
@@ -365,7 +359,7 @@ __d(
     function R(e, t) {
       t === void 0 && (t = !0);
       var n = e.length;
-      if (n === 0) return s._(/*BTDS*/ "Group call").toString();
+      if (n === 0) return s._(/*BTDS*/ "").toString();
       var a = e.map(function (e) {
         var n =
             e.isUser() && e.device != null && e.device !== 0
@@ -411,14 +405,14 @@ __d(
       if (n === 1) return a[0];
       if (n === 2)
         return s
-          ._(/*BTDS*/ "{first_name} & {second_name}", [
+          ._(/*BTDS*/ "", [
             s._param("first_name", a[0]),
             s._param("second_name", a[1]),
           ])
           .toString();
       if (n === 3)
         return s
-          ._(/*BTDS*/ "{first_name}, {second_name} & {third_name}", [
+          ._(/*BTDS*/ "", [
             s._param("first_name", a[0]),
             s._param("second_name", a[1]),
             s._param("third_name", a[2]),
@@ -426,16 +420,9 @@ __d(
           .toString();
       var i = a[0],
         l = n - 1,
-        u = s
-          ._(/*BTDS*/ '_j{"*":"{other_participants} others","_1":"1 other"}', [
-            s._plural(l, "other_participants"),
-          ])
-          .toString();
+        u = s._(/*BTDS*/ "", [s._plural(l, "other_participants")]).toString();
       return s
-        ._(/*BTDS*/ "{first_name} & {others}", [
-          s._param("first_name", i),
-          s._param("others", u),
-        ])
+        ._(/*BTDS*/ "", [s._param("first_name", i), s._param("others", u)])
         .toString();
     }
     ((l.calculateUnnamedGroupParticipantsList = e),

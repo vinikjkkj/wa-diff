@@ -7,7 +7,7 @@ __d(
       if (e != null) return o("WAWebClock").Clock.dsaDisplayDate(Number(e));
     }
     function u(t) {
-      return s._(/*BTDS*/ "{enforcement_creation_time}", [
+      return s._(/*BTDS*/ "", [
         s._param(
           "enforcement_creation_time",
           e(t == null ? void 0 : t.toString()),

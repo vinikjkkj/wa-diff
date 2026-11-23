@@ -12,20 +12,14 @@ __d(
           "WAWebSystemMessageGatingUtils",
         ).systemMessageActionTextStylingEnabled();
       return i
-        ? s._(
-            /*BTDS*/ '{suggestion-owner} suggested the group "{suggested-group-name}"',
-            [
-              s._param("suggestion-owner", r),
-              s._param("suggested-group-name", a),
-            ],
-          )
-        : s._(
-            /*BTDS*/ '{suggestion-owner} suggested the group "{suggested-group-name}". Click to approve or reject.',
-            [
-              s._param("suggestion-owner", r),
-              s._param("suggested-group-name", a),
-            ],
-          );
+        ? s._(/*BTDS*/ "", [
+            s._param("suggestion-owner", r),
+            s._param("suggested-group-name", a),
+          ])
+        : s._(/*BTDS*/ "", [
+            s._param("suggestion-owner", r),
+            s._param("suggested-group-name", a),
+          ]);
     }
     l.default = e;
   },

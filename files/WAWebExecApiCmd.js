@@ -109,7 +109,6 @@ __d(
     "WAWebWamEnumSmbDataSharingConsentSettingEntryPoint",
     "WAWebWidFactory",
     "WDSText.react",
-    "asyncToGeneratorRuntime",
     "cr:12407",
     "cr:17104",
     "cr:1923",
@@ -184,133 +183,108 @@ __d(
             .SMB_DATA_SHARING_ALLOWED_SOURCE;
       return n ? null : "WA_ME_LINK";
     }
-    function j(e, t) {
-      return K.apply(this, arguments);
-    }
-    function K() {
-      return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
-          try {
-            n = o("WAWebWidFactory").createUserWidOrThrow(e + "@c.us");
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                M ||
-                  (M = babelHelpers.taggedTemplateLiteralLoose([
-                    "CALL_USER deep-link: unusable phone number",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("calling-deep-link-bad-phone");
-            return;
-          }
-          if (o("WAWebUserUtils").isMeAccount(n)) {
-            (o("WALogger")
-              .LOG(
-                w ||
-                  (w = babelHelpers.taggedTemplateLiteralLoose([
-                    "CALL_USER deep-link: redirecting self-call to self chat",
-                  ])),
-              )
-              .sendLogs("calling-deep-links-self-call"),
-              yield Q(n));
-            return;
-          }
-          if (
-            o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
-              n,
-              "before_ask",
-            ) &&
-            (yield o("WAWebVoipOutgoingCallConsent").confirmDeepLinkCall(
-              n,
-              t,
-            )) &&
-            o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
-              n,
-              "after_ask",
-            ) &&
-            (yield Q(n)) &&
-            o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
-              n,
-              "after_ask",
-            )
+    async function j(e, t) {
+      var n;
+      try {
+        n = o("WAWebWidFactory").createUserWidOrThrow(e + "@c.us");
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "CALL_USER deep-link: unusable phone number",
+              ])),
           )
-            try {
-              yield o("WAWebVoipStartCall").startWAWebVoipCall(
-                n,
-                t,
-                o(
-                  "WAWebCallUserJourneyGating",
-                ).isCallUserJourneyLoggingEnabled()
-                  ? o("WAWebWamEnumCallFromUi").CALL_FROM_UI
-                      .CALL_PHONE_NUMBER_DEEPLINK
-                  : 0,
-                0,
-                null,
-                { entryTrust: "user_gesture" },
-              );
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  A ||
-                    (A = babelHelpers.taggedTemplateLiteralLoose([
-                      "CALL_USER deep-link: startWAWebVoipCall failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("calling-deep-link-start-call-failed");
-            }
-        })),
-        K.apply(this, arguments)
-      );
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("calling-deep-link-bad-phone");
+        return;
+      }
+      if (o("WAWebUserUtils").isMeAccount(n)) {
+        (o("WALogger")
+          .LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "CALL_USER deep-link: redirecting self-call to self chat",
+              ])),
+          )
+          .sendLogs("calling-deep-links-self-call"),
+          await K(n));
+        return;
+      }
+      if (
+        o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
+          n,
+          "before_ask",
+        ) &&
+        (await o("WAWebVoipOutgoingCallConsent").confirmDeepLinkCall(n, t)) &&
+        o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
+          n,
+          "after_ask",
+        ) &&
+        (await K(n)) &&
+        o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(n, "after_ask")
+      )
+        try {
+          await o("WAWebVoipStartCall").startWAWebVoipCall(
+            n,
+            t,
+            o("WAWebCallUserJourneyGating").isCallUserJourneyLoggingEnabled()
+              ? o("WAWebWamEnumCallFromUi").CALL_FROM_UI
+                  .CALL_PHONE_NUMBER_DEEPLINK
+              : 0,
+            0,
+            null,
+            { entryTrust: "user_gesture" },
+          );
+        } catch (e) {
+          o("WALogger")
+            .ERROR(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "CALL_USER deep-link: startWAWebVoipCall failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("calling-deep-link-start-call-failed");
+        }
+    }
+    async function K(e) {
+      try {
+        var t = await o("WAWebFindChatAction").findOrCreateLatestChat(
+            e,
+            "callUserDeeplink",
+          ),
+          n = t.chat;
+        return (
+          await o("WAWebCmd").Cmd.openChatAt({
+            chat: n,
+            msgContext: null,
+            chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink,
+          }),
+          !0
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "CALL_USER deep-link: failed to open chat",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("calling-deep-link-open-chat-failed"),
+          !1
+        );
+      }
     }
     function Q(e) {
-      return X.apply(this, arguments);
-    }
-    function X() {
-      return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o("WAWebFindChatAction").findOrCreateLatestChat(
-                e,
-                "callUserDeeplink",
-              ),
-              n = t.chat;
-            return (
-              yield o("WAWebCmd").Cmd.openChatAt({
-                chat: n,
-                msgContext: null,
-                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                  .Deeplink,
-              }),
-              !0
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  F ||
-                    (F = babelHelpers.taggedTemplateLiteralLoose([
-                      "CALL_USER deep-link: failed to open chat",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("calling-deep-link-open-chat-failed"),
-              !1
-            );
-          }
-        })),
-        X.apply(this, arguments)
-      );
-    }
-    function Y(e) {
       var t,
         a = e.cmdData,
         i = e.isCallLinkCreationJoin,
         l = e.isExternal,
         u = e.preserveAttribution,
-        M = e.sessionId;
+        c = e.sessionId;
       switch (
         (a.resultType !== "BRAZIL_PIX_HOME" &&
           o(
@@ -319,32 +293,32 @@ __d(
         a.resultType)
       ) {
         case "GROUP_INVITE": {
-          var w;
+          var d;
           o("WAWebCmd").Cmd.closeStatusViewer();
-          var A = a.data;
+          var m = a.data;
           return (
             o("WAWebModalManager").ModalManager.open(
               B.jsx(
                 o("WAWebGroupInviteLinkModalLoadable.react")
                   .WAWebGroupInviteLinkModalLoadable,
-                { groupCode: A.code, source: "invite_link" },
+                { groupCode: m.code, source: "invite_link" },
               ),
             ),
             o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
               deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
                 .DEEP_LINK_GROUP_INVITE,
               isExternal: l,
-              campaign: (w = A.utm) == null ? void 0 : w.campaign,
+              campaign: (d = m.utm) == null ? void 0 : d.campaign,
             }),
             !0
           );
         }
         case "CATALOG": {
           o("WAWebCmd").Cmd.closeStatusViewer();
-          var F = a.data,
-            O = F.catalogOwnerJid,
-            W = F.partnertoken,
-            U = F.utm;
+          var p = a.data,
+            O = p.catalogOwnerJid,
+            W = p.partnertoken,
+            U = p.utm;
           return (
             o("WAWebExecApiCmdHelpers").externalCtxAuthoriseWAChatIfEnabled({
               chatId: o("WAWebWidFactory").createWid(O),
@@ -484,7 +458,7 @@ __d(
                 );
               },
               fe =
-                M != null
+                c != null
                   ? {
                       handleOnce: function () {
                         new (o(
@@ -492,7 +466,7 @@ __d(
                         ).DeepLinkMsgSentWamEvent)({
                           deepLinkAction: o("WAWebWamEnumDeepLinkAction")
                             .DEEP_LINK_ACTION.MSG_SENT,
-                          deepLinkSessionId: M,
+                          deepLinkSessionId: c,
                         }).commit();
                       },
                     }
@@ -505,7 +479,7 @@ __d(
                     deepLinkHasUsernamePin:
                       !r("isStringNullOrEmpty")(Z.usernameKey) ||
                       Z.invalidUsernameKey === !0,
-                    deepLinkSessionId: M,
+                    deepLinkSessionId: c,
                   }
                 : void 0;
             (o("WAWebModalManager").ModalManager.open(
@@ -533,7 +507,7 @@ __d(
                   ? o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE.DEEP_LINK_CTWA
                   : o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE.DEEP_LINK_CHAT,
                 isExternal: l,
-                deepLinkSessionId: M,
+                deepLinkSessionId: c,
                 campaign: ce == null ? void 0 : ce.campaign,
               }));
           } else {
@@ -641,8 +615,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  _ ||
+                    (_ = babelHelpers.taggedTemplateLiteralLoose([
                       "[API] ",
                       " command rejected: not SMB",
                     ])),
@@ -658,8 +632,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "[API] ",
                       " command rejected: active account state=",
                       "",
@@ -694,8 +668,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
                       "[API] ",
                       " command rejected: not SMB",
                     ])),
@@ -711,8 +685,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
                       "[API] ",
                       " command rejected: active account state=",
                       "",
@@ -755,8 +729,8 @@ __d(
             });
           } catch (e) {
             o("WALogger").ERROR(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
                   "Opening self chat failed with exceptions",
                 ])),
             );
@@ -870,8 +844,8 @@ __d(
             );
           } catch (e) {
             o("WALogger").ERROR(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
                   "Opening profile drawer with exceptions",
                 ])),
             );
@@ -886,8 +860,8 @@ __d(
           )
             return (
               o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
                     "PROFILE_USERNAME deep link - username feature disabled",
                   ])),
               ),
@@ -903,14 +877,12 @@ __d(
                 ? (o("WAWebModalManager").ModalManager.open(
                     B.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
                       onOK: o("WAWebModalManager").closeModalManager,
-                      children: s._(
-                        /*BTDS*/ "You can set up your username from your primary device.",
-                      ),
+                      children: s._(/*BTDS*/ ""),
                     }),
                   ),
                   o("WALogger").LOG(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                    S ||
+                      (S = babelHelpers.taggedTemplateLiteralLoose([
                         "PROFILE_USERNAME deep link - use primary device alert",
                       ])),
                   ))
@@ -924,8 +896,8 @@ __d(
                     },
                   ),
                   o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                    v ||
+                      (v = babelHelpers.taggedTemplateLiteralLoose([
                         "PROFILE_USERNAME deep link - opened username drawer",
                       ])),
                   )),
@@ -934,8 +906,8 @@ __d(
           } catch (e) {
             return (
               o("WALogger").ERROR(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
                     "PROFILE_USERNAME deep link failed with exception",
                   ])),
               ),
@@ -995,8 +967,8 @@ __d(
               ? Oe == null
                 ? (o("WALogger")
                     .LOG(
-                      v ||
-                        (v = babelHelpers.taggedTemplateLiteralLoose([
+                      E ||
+                        (E = babelHelpers.taggedTemplateLiteralLoose([
                           "CALL_USER deep-link missing phone",
                         ])),
                     )
@@ -1010,15 +982,13 @@ __d(
                           colorName: "contentDefault",
                           textAlign: "center",
                           xstyle: H.callPopupTitle,
-                          children: s._(/*BTDS*/ "Couldn't place the call"),
+                          children: s._(/*BTDS*/ ""),
                         }),
                         B.jsx(r("WDSText.react"), {
                           type: "Body2",
                           colorName: "contentDeemphasized",
                           textAlign: "center",
-                          children: s._(
-                            /*BTDS*/ "The call link appears to be invalid. Please check it and try again.",
-                          ),
+                          children: s._(/*BTDS*/ ""),
                         }),
                       ],
                     }),
@@ -1034,23 +1004,21 @@ __d(
                         colorName: "contentDefault",
                         textAlign: "center",
                         xstyle: H.callPopupTitle,
-                        children: s._(/*BTDS*/ "Your call can't be completed"),
+                        children: s._(/*BTDS*/ ""),
                       }),
                       B.jsx(r("WDSText.react"), {
                         type: "Body2",
                         colorName: "contentDeemphasized",
                         textAlign: "center",
-                        children: s._(
-                          /*BTDS*/ "This feature isn't supported on your device. Log into WhatsApp on your phone and try again.",
-                        ),
+                        children: s._(/*BTDS*/ ""),
                       }),
                     ],
                   }),
                 ),
                 o("WALogger")
                   .LOG(
-                    b ||
-                      (b = babelHelpers.taggedTemplateLiteralLoose([
+                    L ||
+                      (L = babelHelpers.taggedTemplateLiteralLoose([
                         "Calling deep-links are not supported on WA Web Client",
                       ])),
                   )
@@ -1121,8 +1089,8 @@ __d(
               ),
               o("WALogger")
                 .LOG(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                  k ||
+                    (k = babelHelpers.taggedTemplateLiteralLoose([
                       "Hatch pairing deep-link not supported on companion device",
                     ])),
                 )
@@ -1130,68 +1098,56 @@ __d(
               !0
             );
           o("WAWebCmd").Cmd.closeStatusViewer();
-          var Ue = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield o("WAWebFindChatAction").findOrCreateLatestChat(
-                    o("WAWebBotUtils").HATCH_BOT_FBID_WID,
-                    "hatchDeeplink",
-                  ),
-                  n = t.chat;
-                (yield o("WAWebCmd").Cmd.openChatAt({
-                  chat: n,
-                  msgContext: null,
-                  chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                    .Deeplink,
-                }),
-                  e != null &&
-                    (o(
-                      "WAWebSendBotRequestWelcomeAction",
-                    ).sendBotRequestWelcome(n, e),
-                    o("WAWebBotGenTypingIndicatorMsg").showBotTypingIndicator(
-                      n,
-                    )));
-              },
-            );
-            return function (n) {
-              return e.apply(this, arguments);
-            };
-          })();
+          var Ue = async function (t) {
+            var e = await o("WAWebFindChatAction").findOrCreateLatestChat(
+                o("WAWebBotUtils").HATCH_BOT_FBID_WID,
+                "hatchDeeplink",
+              ),
+              n = e.chat;
+            (await o("WAWebCmd").Cmd.openChatAt({
+              chat: n,
+              msgContext: null,
+              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.Deeplink,
+            }),
+              t != null &&
+                (o("WAWebSendBotRequestWelcomeAction").sendBotRequestWelcome(
+                  n,
+                  t,
+                ),
+                o("WAWebBotGenTypingIndicatorMsg").showBotTypingIndicator(n)));
+          };
           return (Ue(a.data.token), !0);
         }
         case "UGC_BOT": {
-          o("WAWebCmd").Cmd.closeStatusViewer();
-          var Ve = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("WAWebWidFactory").createUserWidOrThrow(e + "@bot"),
-                  n = yield o("WAWebFindChatAction").findOrCreateLatestChat(
-                    t,
-                    "ugcBotDeeplink",
-                  ),
-                  r = n.chat;
-                yield o("WAWebCmd").Cmd.openChatAt({
-                  chat: r,
-                  msgContext: null,
-                  chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                    .Deeplink,
-                });
-              },
-            );
-            return function (n) {
-              return e.apply(this, arguments);
+          var Ve = async function (t) {
+              var e = o("WAWebWidFactory").createUserWidOrThrow(t + "@bot"),
+                n = await o("WAWebFindChatAction").findOrCreateLatestChat(
+                  e,
+                  "ugcBotDeeplink",
+                ),
+                r = n.chat;
+              await o("WAWebCmd").Cmd.openChatAt({
+                chat: r,
+                msgContext: null,
+                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                  .Deeplink,
+              });
+            },
+            He = function (t) {
+              (t === o("WAWebBotUtils").HATCH_BOT_FBID_WID.user &&
+                !o("WAWebHatchFrontendGating").isHatchIntegrationEnabled()) ||
+                (o("WAWebCmd").Cmd.closeStatusViewer(), Ve(t));
             };
-          })();
-          return (Ve(a.data.fbid), !0);
+          return (He(a.data.fbid), !0);
         }
         case "STICKER_PACK": {
-          var He = a.data.url;
+          var Ge = a.data.url;
           return (
             o("WAWebDrawerManager").DrawerManager.openDrawerRight(
               B.jsx(
                 r("WAWebStickerStoreFlowLoadable").StickerStoreFlowLoadable,
                 {
-                  stickerPackId: He,
+                  stickerPackId: Ge,
                   onSticker: r("WAWebSendStickerToActiveChatStickersAction"),
                 },
               ),
@@ -1212,35 +1168,35 @@ __d(
               .catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                    I ||
+                      (I = babelHelpers.taggedTemplateLiteralLoose([
                         "voip: failed to log click_call_link for an in-app call link",
                       ])),
                   )
                   .catching(r("getErrorSafe")(e))
                   .sendLogs("voip-click-call-link-log-failed");
               });
-          var Ge = V;
+          var ze = V;
           return (
-            Ge == null &&
+            ze == null &&
               n("cr:9382") != null &&
-              (Ge = n("cr:9382").handleClickCallLink),
-            Ge == null || Ge(a, G(l, i)),
+              (ze = n("cr:9382").handleClickCallLink),
+            ze == null || ze(a, G(l, i)),
             !0
           );
         }
         case "CTWA_ADS_DATA_SHARING": {
           if (!o("WAWebMobilePlatforms").isSMB()) return !1;
-          var ze = a.source,
-            je;
-          switch (ze) {
+          var je = a.source,
+            Ke;
+          switch (je) {
             case "ads_manager_3pd_guidance_card":
-              je = o("WAWebWamEnumSmbDataSharingConsentSettingEntryPoint")
+              Ke = o("WAWebWamEnumSmbDataSharingConsentSettingEntryPoint")
                 .SMB_DATA_SHARING_CONSENT_SETTING_ENTRY_POINT
                 .ENTRY_POINT_DEEP_LINK_ADS_MANAGER_3PD_GUIDANCE_CARD;
               break;
             default:
-              je = o("WAWebWamEnumSmbDataSharingConsentSettingEntryPoint")
+              Ke = o("WAWebWamEnumSmbDataSharingConsentSettingEntryPoint")
                 .SMB_DATA_SHARING_CONSENT_SETTING_ENTRY_POINT
                 .ENTRY_POINT_UNKNOWN;
               break;
@@ -1249,7 +1205,7 @@ __d(
             o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
               B.jsx(r("WAWebSMBDataSharingDrawer.react"), {
                 onClose: o("WAWebDrawerManager").closeDrawerLeft,
-                entrypoint: je,
+                entrypoint: Ke,
               }),
             ),
             !0
@@ -1275,8 +1231,8 @@ __d(
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      L ||
-                        (L = babelHelpers.taggedTemplateLiteralLoose([
+                      T ||
+                        (T = babelHelpers.taggedTemplateLiteralLoose([
                           "Failed to load or open the chat banner audience import",
                         ])),
                     )
@@ -1286,7 +1242,7 @@ __d(
               !0)
             : !1;
         case "BIZ_BROADCAST_HOME": {
-          var Ke;
+          var Qe;
           if (
             (o("WAWebExecApiCmdHelpers").submitDeepLinkOpenWamEvent({
               deepLinkType: o("WAWebWamEnumDeepLinkType").DEEP_LINK_TYPE
@@ -1306,38 +1262,38 @@ __d(
                 ).isBizBroadcastEnabledAndDeviceSupported(!1)))
           )
             return !1;
-          var Qe = a.data.source,
-            Xe;
-          switch (Qe) {
+          var Xe = a.data.source,
+            Ye;
+          switch (Xe) {
             case "qp_chat_list_banner":
-              Xe = o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_BANNER;
+              Ye = o("WAWebWamEnumEntryPoint").ENTRY_POINT.CHAT_BANNER;
               break;
             default:
-              Xe = o("WAWebWamEnumEntryPoint").ENTRY_POINT.DEEP_LINK;
+              Ye = o("WAWebWamEnumEntryPoint").ENTRY_POINT.DEEP_LINK;
               break;
           }
-          var Ye = u !== !0;
-          Ye &&
+          var Je = u !== !0;
+          Je &&
             o(
               "WAWebBusinessBroadcastUserJourneyLogger",
             ).BusinessBroadcastUserJourneyLogger.setDeeplinkAttribution(
-              Xe,
+              Ye,
               a.data.moment,
             );
-          var Je = Ye
-              ? Xe
-              : (Ke = o(
+          var Ze = Je
+              ? Ye
+              : (Qe = o(
                     "WAWebBusinessBroadcastUserJourneyLogger",
                   ).BusinessBroadcastUserJourneyLogger.getEntryPoint()) != null
-                ? Ke
-                : Xe,
-            Ze = function () {
+                ? Qe
+                : Ye,
+            et = function () {
               o("WAWebDrawerManager").DrawerManager.openDrawerFullscreen(
                 B.jsx(
                   o("WAWebBusinessBroadcastHomeFlowLoadable")
                     .WAWebBusinessBroadcastHomeFlowLoadable,
                   {
-                    entryPoint: Je,
+                    entryPoint: Ze,
                     onClose: function () {
                       return o(
                         "WAWebDrawerManager",
@@ -1352,19 +1308,19 @@ __d(
             l
               ? o("WAWebReleaseToEventLoop")
                   .releaseToEventLoop()
-                  .then(Ze)
+                  .then(et)
                   .catch(function (e) {
                     o("WALogger")
                       .ERROR(
-                        E ||
-                          (E = babelHelpers.taggedTemplateLiteralLoose([
+                        D ||
+                          (D = babelHelpers.taggedTemplateLiteralLoose([
                             "BizBroadcastHome external deeplink drawer open failed",
                           ])),
                       )
                       .catching(r("getErrorSafe")(e))
                       .sendLogs("bb-home-deeplink-drawer-fail");
                   })
-              : Ze(),
+              : et(),
             !0
           );
         }
@@ -1374,10 +1330,10 @@ __d(
         case "CALL_ACTIVE":
           return (t = q == null ? void 0 : q()) != null ? t : !1;
         case "CHAT_OPEN": {
-          var et = a.data,
-            tt = et.fromDefaultProtocol,
-            nt = et.lid,
-            rt = et.session;
+          var tt = a.data,
+            nt = tt.fromDefaultProtocol,
+            rt = tt.lid,
+            ot = tt.session;
           try {
             (o("WAWebCmd").Cmd.closeStatusViewer(),
               o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
@@ -1385,9 +1341,9 @@ __d(
               o("WAWebCmd").Cmd.setActiveNavBarItem(
                 o("WAWebNavBarTypes").NavBarItems.Chats,
               ));
-            var ot = o("WAWebWidFactory").createWid(nt);
+            var at = o("WAWebWidFactory").createWid(rt);
             o("WAWebFindChatAction")
-              .findOrCreateLatestChat(ot, "newChatFlow")
+              .findOrCreateLatestChat(at, "newChatFlow")
               .then(function (e) {
                 var t = e.chat;
                 o("WAWebCmd")
@@ -1400,7 +1356,7 @@ __d(
                     (e &&
                       (o("WAWebComposeBoxActions").ComposeBoxActions.focus(t),
                       o("WAWebCmd").Cmd.trigger("scroll_to_active_chat")),
-                      rt != null &&
+                      ot != null &&
                         new (o(
                           "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                         ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1411,22 +1367,22 @@ __d(
                             : o("WAWebWamEnumMdLinkedDevicesWindowsXdrStage")
                                 .MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                                 .DEEPLINK_NAVIGATION_FAILURE,
-                          mdXdrSessionUuid: rt,
+                          mdXdrSessionUuid: ot,
                         }).commit(),
                       o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
-                        tt,
+                        nt,
                         e,
                       ));
                   });
               })
               .catch(function (e) {
                 (o("WALogger").ERROR(
-                  k ||
-                    (k = babelHelpers.taggedTemplateLiteralLoose([
+                  x ||
+                    (x = babelHelpers.taggedTemplateLiteralLoose([
                       "Opening chat via chatOpen failed with async exception",
                     ])),
                 ),
-                  rt != null &&
+                  ot != null &&
                     new (o(
                       "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                     ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1434,21 +1390,21 @@ __d(
                         "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                       ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                         .DEEPLINK_NAVIGATION_FAILURE,
-                      mdXdrSessionUuid: rt,
+                      mdXdrSessionUuid: ot,
                     }).commit(),
                   o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(
-                    tt,
+                    nt,
                     !1,
                   ));
               });
           } catch (e) {
             (o("WALogger").ERROR(
-              I ||
-                (I = babelHelpers.taggedTemplateLiteralLoose([
+              $ ||
+                ($ = babelHelpers.taggedTemplateLiteralLoose([
                   "Opening chat via chatOpen failed with exceptions",
                 ])),
             ),
-              rt != null &&
+              ot != null &&
                 new (o(
                   "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                 ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1456,27 +1412,27 @@ __d(
                     "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                   ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                     .DEEPLINK_NAVIGATION_FAILURE,
-                  mdXdrSessionUuid: rt,
+                  mdXdrSessionUuid: ot,
                 }).commit(),
-              o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(tt, !1));
+              o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(nt, !1));
           }
           return !0;
         }
         case "APP_OPEN": {
-          var at,
-            it = (at = a.data) == null ? void 0 : at.session;
+          var it,
+            lt = (it = a.data) == null ? void 0 : it.session;
           try {
-            var lt;
+            var st;
             (o("WAWebCmd").Cmd.closeStatusViewer(),
               o("WAWebCmd").Cmd.closeActiveChat(),
-              (lt = o("WAWebDrawerManager")).DrawerManager.closeDrawerLeft(),
-              lt.DrawerManager.closeDrawerMid(),
-              lt.DrawerManager.closeDrawerRight(),
-              lt.DrawerManager.closeDrawerFullscreen(),
+              (st = o("WAWebDrawerManager")).DrawerManager.closeDrawerLeft(),
+              st.DrawerManager.closeDrawerMid(),
+              st.DrawerManager.closeDrawerRight(),
+              st.DrawerManager.closeDrawerFullscreen(),
               o("WAWebCmd").Cmd.setActiveNavBarItem(
                 o("WAWebNavBarTypes").NavBarItems.Chats,
               ),
-              it != null &&
+              lt != null &&
                 new (o(
                   "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                 ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1484,16 +1440,16 @@ __d(
                     "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                   ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                     .DEEPLINK_NAVIGATION_SUCCESS,
-                  mdXdrSessionUuid: it,
+                  mdXdrSessionUuid: lt,
                 }).commit());
           } catch (e) {
             (o("WALogger").ERROR(
-              T ||
-                (T = babelHelpers.taggedTemplateLiteralLoose([
+              P ||
+                (P = babelHelpers.taggedTemplateLiteralLoose([
                   "Handling appOpen failed with exceptions",
                 ])),
             ),
-              it != null &&
+              lt != null &&
                 new (o(
                   "WAWebMdLinkedDevicesWindowsXdrWamEvent",
                 ).MdLinkedDevicesWindowsXdrWamEvent)({
@@ -1501,7 +1457,7 @@ __d(
                     "WAWebWamEnumMdLinkedDevicesWindowsXdrStage",
                   ).MD_LINKED_DEVICES_WINDOWS_XDR_STAGE
                     .DEEPLINK_NAVIGATION_FAILURE,
-                  mdXdrSessionUuid: it,
+                  mdXdrSessionUuid: lt,
                 }).commit());
           }
           return !0;
@@ -1525,8 +1481,8 @@ __d(
               ));
           } catch (e) {
             o("WALogger").ERROR(
-              D ||
-                (D = babelHelpers.taggedTemplateLiteralLoose([
+              N ||
+                (N = babelHelpers.taggedTemplateLiteralLoose([
                   "Opening new chat flow failed with exceptions",
                 ])),
             );
@@ -1539,8 +1495,8 @@ __d(
           } catch (e) {
             o("WALogger")
               .ERROR(
-                x ||
-                  (x = babelHelpers.taggedTemplateLiteralLoose([
+                M ||
+                  (M = babelHelpers.taggedTemplateLiteralLoose([
                     "Opening new group flow failed with exceptions",
                   ])),
               )
@@ -1555,8 +1511,8 @@ __d(
               o("WAWebExecApiCmdNewCall").handleNewCallDeeplink(a.data));
           } catch (e) {
             o("WALogger").ERROR(
-              $ ||
-                ($ = babelHelpers.taggedTemplateLiteralLoose([
+              w ||
+                (w = babelHelpers.taggedTemplateLiteralLoose([
                   "Opening new call flow failed with exceptions",
                 ])),
             );
@@ -1564,19 +1520,19 @@ __d(
           return !0;
         }
         case "WORK_CONTACT_SYNC": {
-          var st;
+          var ut;
           return r("gkx")("26258") ||
-            !((st = a.data) != null && st.compressedData)
+            !((ut = a.data) != null && ut.compressedData)
             ? !1
             : (n("cr:2679") == null ||
                 n("cr:2679").handleWorkContactSync(a.data.compressedData),
               !0);
         }
         case "SEND_FILE": {
-          var ut;
-          return (ut =
+          var ct;
+          return (ct =
             n("cr:12407") == null ? void 0 : n("cr:12407")(a.data)) != null
-            ? ut
+            ? ct
             : !1;
         }
         case "NEWSLETTER_STATUS_DEEPLINK":
@@ -1589,8 +1545,8 @@ __d(
               })
               .catch(function () {
                 o("WALogger").ERROR(
-                  P ||
-                    (P = babelHelpers.taggedTemplateLiteralLoose([
+                  A ||
+                    (A = babelHelpers.taggedTemplateLiteralLoose([
                       "Failed to load or execute newsletter status deeplink handler",
                     ])),
                 );
@@ -1617,8 +1573,8 @@ __d(
                 .catch(function (e) {
                   o("WALogger")
                     .ERROR(
-                      N ||
-                        (N = babelHelpers.taggedTemplateLiteralLoose([
+                      F ||
+                        (F = babelHelpers.taggedTemplateLiteralLoose([
                           "[sharable_event] failed to load the event link handler",
                         ])),
                     )
@@ -1674,7 +1630,7 @@ __d(
           return (a.resultType, !1);
       }
     }
-    l.default = Y;
+    l.default = Q;
   },
   226,
 );

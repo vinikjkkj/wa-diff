@@ -4,22 +4,22 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "Promotions");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "See all");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "No saved promotions");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Couldn't load your promotions.");
+      return s._(/*BTDS*/ "");
     }
     function m(e) {
       return e === "coupon"
-        ? s._(/*BTDS*/ "Coupon")
+        ? s._(/*BTDS*/ "")
         : e === "limited_time_offer"
-          ? s._(/*BTDS*/ "Limited-time offer")
+          ? s._(/*BTDS*/ "")
           : (function () {
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -28,26 +28,22 @@ __d(
             })();
     }
     function p(e) {
-      return s._(/*BTDS*/ "Ends {date}", [s._param("date", e)]);
+      return s._(/*BTDS*/ "", [s._param("date", e)]);
     }
     function _() {
-      return s._(/*BTDS*/ "View in chat");
+      return s._(/*BTDS*/ "");
     }
     function f(e) {
-      return s._(/*BTDS*/ "View in chat with {business name}", [
-        s._param("business name", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("business name", e)]);
     }
     function g(e) {
-      return s._(/*BTDS*/ "Remove promotion from {business name}", [
-        s._param("business name", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("business name", e)]);
     }
     function h() {
-      return s._(/*BTDS*/ "Couldn't remove the promotion. Please try again.");
+      return s._(/*BTDS*/ "");
     }
     function y() {
-      return s._(/*BTDS*/ "Couldn't open the chat. Please try again.");
+      return s._(/*BTDS*/ "");
     }
     ((l.getConsumerPromotionsHeader = e),
       (l.getConsumerPromotionsSeeAll = u),

@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchVmFetcher",
-  ["WALogger", "asyncToGeneratorRuntime"],
+  ["WALogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -217,93 +217,84 @@ __d(
       }
       var t = e.prototype;
       return (
-        (t.fetch = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.trim();
-            if (t === "")
+        (t.fetch = async function (t) {
+          var e = t.trim();
+          if (e === "")
+            return {
+              cause: "empty_token",
+              detail: "ABRA token is empty",
+              kind: "failure",
+            };
+          var n = new AbortController(),
+            r = self.setTimeout(function () {
+              return n.abort();
+            }, c);
+          try {
+            var o;
+            try {
+              o = await this.$1(d, {
+                headers: {
+                  Accept: "application/json",
+                  Authorization: "Bearer " + e,
+                },
+                method: "GET",
+                signal: n.signal,
+              });
+            } catch (e) {
+              var a = n.signal.aborted;
+              return (
+                b(a ? "timeout" : "transport"),
+                {
+                  cause: a ? "timeout" : "network",
+                  detail: a
+                    ? "VM credential request timed out"
+                    : "VM credential request failed",
+                  kind: "failure",
+                }
+              );
+            }
+            if (o.status === 401)
+              return { detail: "ABRA token was refused", kind: "unauthorized" };
+            if (o.status === 403)
               return {
-                cause: "empty_token",
-                detail: "ABRA token is empty",
+                cause: "forbidden",
+                detail:
+                  "ABRA token is stale or not scoped for Hatch VM discovery",
                 kind: "failure",
               };
-            var n = new AbortController(),
-              r = self.setTimeout(function () {
-                return n.abort();
-              }, c);
+            if (!o.ok)
+              return {
+                cause: "http",
+                detail: "VM credential request returned HTTP " + o.status,
+                kind: "failure",
+              };
+            var i;
             try {
-              var o;
-              try {
-                o = yield this.$1(d, {
-                  headers: {
-                    Accept: "application/json",
-                    Authorization: "Bearer " + t,
-                  },
-                  method: "GET",
-                  signal: n.signal,
-                });
-              } catch (e) {
-                var a = n.signal.aborted;
-                return (
-                  b(a ? "timeout" : "transport"),
-                  {
-                    cause: a ? "timeout" : "network",
-                    detail: a
-                      ? "VM credential request timed out"
-                      : "VM credential request failed",
-                    kind: "failure",
-                  }
-                );
-              }
-              if (o.status === 401)
-                return {
-                  detail: "ABRA token was refused",
-                  kind: "unauthorized",
-                };
-              if (o.status === 403)
-                return {
-                  cause: "forbidden",
-                  detail:
-                    "ABRA token is stale or not scoped for Hatch VM discovery",
+              i = await o.json();
+            } catch (e) {
+              var l = n.signal.aborted;
+              return (
+                b(l ? "timeout" : "not_json"),
+                {
+                  cause: l ? "timeout" : "malformed",
+                  detail: l
+                    ? "VM credential request timed out"
+                    : "VM credential response was not JSON",
                   kind: "failure",
-                };
-              if (!o.ok)
-                return {
-                  cause: "http",
-                  detail: "VM credential request returned HTTP " + o.status,
-                  kind: "failure",
-                };
-              var i;
-              try {
-                i = yield o.json();
-              } catch (e) {
-                var l = n.signal.aborted;
-                return (
-                  b(l ? "timeout" : "not_json"),
-                  {
-                    cause: l ? "timeout" : "malformed",
-                    detail: l
-                      ? "VM credential request timed out"
-                      : "VM credential response was not JSON",
-                    kind: "failure",
-                  }
-                );
-              }
-              return i == null || typeof i != "object" || Array.isArray(i)
-                ? {
-                    cause: "malformed",
-                    detail: "VM credential response was invalid",
-                    kind: "failure",
-                  }
-                : k(i.vm_list, this.$2());
-            } finally {
-              self.clearTimeout(r);
+                }
+              );
             }
-          });
-          function t(t) {
-            return e.apply(this, arguments);
+            return i == null || typeof i != "object" || Array.isArray(i)
+              ? {
+                  cause: "malformed",
+                  detail: "VM credential response was invalid",
+                  kind: "failure",
+                }
+              : k(i.vm_list, this.$2());
+          } finally {
+            self.clearTimeout(r);
           }
-          return t;
-        })()),
+        }),
         (t.lease = function (t) {
           return this.$3({
             abraToken: t,
@@ -320,72 +311,66 @@ __d(
             url: _,
           });
         }),
-        (t.$3 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.abraToken,
-              n = e.body,
-              r = e.label,
-              o = e.url,
-              a = t.trim();
-            if (a === "")
-              return {
-                cause: "empty_token",
-                detail: "ABRA token is empty",
+        (t.$3 = async function (t) {
+          var e = t.abraToken,
+            n = t.body,
+            r = t.label,
+            o = t.url,
+            a = e.trim();
+          if (a === "")
+            return {
+              cause: "empty_token",
+              detail: "ABRA token is empty",
+              kind: "failure",
+            };
+          var i = new AbortController(),
+            l = self.setTimeout(function () {
+              return i.abort();
+            }, c),
+            s;
+          try {
+            s = await this.$1(o, {
+              body: JSON.stringify(n),
+              headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + a,
+                "Content-Type": "application/json",
+              },
+              method: "POST",
+              signal: i.signal,
+            });
+          } catch (e) {
+            var u = i.signal.aborted;
+            return (
+              v(r, u ? "timeout" : "transport"),
+              {
+                cause: u ? "timeout" : "network",
+                detail: u
+                  ? "VM " + r + " request timed out"
+                  : "VM " + r + " request failed",
                 kind: "failure",
-              };
-            var i = new AbortController(),
-              l = self.setTimeout(function () {
-                return i.abort();
-              }, c),
-              s;
-            try {
-              s = yield this.$1(o, {
-                body: JSON.stringify(n),
-                headers: {
-                  Accept: "application/json",
-                  Authorization: "Bearer " + a,
-                  "Content-Type": "application/json",
-                },
-                method: "POST",
-                signal: i.signal,
-              });
-            } catch (e) {
-              var u = i.signal.aborted;
-              return (
-                v(r, u ? "timeout" : "transport"),
-                {
-                  cause: u ? "timeout" : "network",
-                  detail: u
-                    ? "VM " + r + " request timed out"
-                    : "VM " + r + " request failed",
-                  kind: "failure",
-                }
-              );
-            } finally {
-              self.clearTimeout(l);
-            }
-            if (s.status === 401)
-              return {
-                detail: "ABRA token was refused for the VM " + r,
-                kind: "unauthorized",
-              };
-            if (!s.ok) {
-              var d = "VM " + r + " request returned HTTP " + s.status;
-              return s.status === 404
-                ? { detail: d, kind: "not_found" }
-                : {
-                    cause: s.status === 403 ? "forbidden" : "http",
-                    detail: d,
-                    kind: "failure",
-                  };
-            }
-            return { kind: "ok" };
-          });
-          function t(t) {
-            return e.apply(this, arguments);
+              }
+            );
+          } finally {
+            self.clearTimeout(l);
           }
-          return t;
-        })()),
+          if (s.status === 401)
+            return {
+              detail: "ABRA token was refused for the VM " + r,
+              kind: "unauthorized",
+            };
+          if (!s.ok) {
+            var d = "VM " + r + " request returned HTTP " + s.status;
+            return s.status === 404
+              ? { detail: d, kind: "not_found" }
+              : {
+                  cause: s.status === 403 ? "forbidden" : "http",
+                  detail: d,
+                  kind: "failure",
+                };
+          }
+          return { kind: "ok" };
+        }),
         e
       );
     })();

@@ -1,7 +1,6 @@
 __d(
   "WAWebBroadcastListStorageUtils",
   [
-    "Promise",
     "WAWebAudienceExpressionTypes",
     "WAWebAudienceResolver",
     "WAWebBackendApi",
@@ -12,38 +11,28 @@ __d(
     "WAWebSchemaBroadcastMetadata",
     "WAWebSyncdCoreApi",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i = a ? [] : yield r("WAWebInitialSystemMsg")(t, null, null),
-            l = a
-              ? o("WAWebBroadcastSystemMsg").genBroadcastProCreateSystemMsg(t)
-              : o("WAWebBroadcastSystemMsg").genBroadcastCreateSystemMsg(t),
-            s = [].concat(i, [l]);
-          yield (e || (e = n("Promise"))).all(
-            s.map(function (e) {
-              return o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-                chatId: t,
-                handleSingleMsgOrigin: "createChat",
-                messageOverwriteOption: o("WAWebHandleMsgTypes")
-                  .MessageOverwriteOption.NO_OVERWRITE,
-                newMsg: e,
-                preserveOrder: !1,
-              });
-            }),
-          );
-        })),
-        u.apply(this, arguments)
+    async function e(e, t) {
+      var n = t ? [] : await r("WAWebInitialSystemMsg")(e, null, null),
+        a = t
+          ? o("WAWebBroadcastSystemMsg").genBroadcastProCreateSystemMsg(e)
+          : o("WAWebBroadcastSystemMsg").genBroadcastCreateSystemMsg(e),
+        i = [].concat(n, [a]);
+      await Promise.all(
+        i.map(function (t) {
+          return o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+            chatId: e,
+            handleSingleMsgOrigin: "createChat",
+            messageOverwriteOption: o("WAWebHandleMsgTypes")
+              .MessageOverwriteOption.NO_OVERWRITE,
+            newMsg: t,
+            preserveOrder: !1,
+          });
+        }),
       );
     }
-    function c(e) {
+    function s(e) {
       if (
         e.type ===
           o("WAWebAudienceExpressionTypes").EXPRESSION_TYPE_PREDICATE &&
@@ -57,136 +46,99 @@ __d(
       }
       return [];
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
+    async function u(t, n) {
+      var r = t.audienceExpression,
+        a = t.customAudienceFbid,
+        i = t.id,
+        l = t.isBizBroadcastPro,
+        u = t.listName,
+        c = t.shouldInsertInitialSystemMessages,
+        d = t.timestamp,
+        m = o("WAWebWidFactory").createWid(i),
+        p = await o("WAWebAudienceResolver").resolveAudienceExpression(r),
+        _ = s(r),
+        f = { id: m, name: u },
+        g = !1,
+        h = a;
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = e.audienceExpression,
-            a = e.customAudienceFbid,
-            i = e.id,
-            l = e.isBizBroadcastPro,
-            u = e.listName,
-            d = e.shouldInsertInitialSystemMessages,
-            m = e.timestamp,
-            p = o("WAWebWidFactory").createWid(i),
-            _ = yield o("WAWebAudienceResolver").resolveAudienceExpression(r),
-            f = c(r),
-            g = { id: p, name: u },
-            h = !1,
-            y = a;
-          return (
-            yield o("WAWebSyncdCoreApi").lockForSync(
-              ["chat", "broadcast-metadata", "contact"],
-              t != null ? t : [],
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var n,
-                      l,
-                      s,
-                      c,
-                      d,
-                      p = t[0],
-                      C = t[1],
-                      b = t[2],
-                      v = yield p.get(i);
-                    (v == null && ((h = !0), (g.t = m)),
-                      yield p.createOrMerge(
-                        i,
-                        babelHelpers.extends({}, g, { id: i }),
-                      ),
-                      yield b.createOrMerge(i, { id: i, name: u }));
-                    var S = yield o("WAWebSchemaBroadcastMetadata")
-                      .getBroadcastMetadataTable()
-                      .get(i);
-                    ((y =
-                      (n = S == null ? void 0 : S.customAudienceFbid) != null
-                        ? n
-                        : a),
-                      yield C.createOrReplace({
-                        audienceExpression: r,
-                        customAudienceFbid: y,
-                        id: i,
-                        isWebCreatedList:
-                          (l =
-                            (s = e.isWebCreatedList) != null
-                              ? s
-                              : S == null
-                                ? void 0
-                                : S.isWebCreatedList) != null
-                            ? l
-                            : !1,
-                        labels: f,
-                        recipients: _,
-                        senderKeyDevices:
-                          (c = S == null ? void 0 : S.senderKeyDevices) != null
-                            ? c
-                            : [],
-                        senderKeyRotate:
-                          (d = S == null ? void 0 : S.senderKeyRotate) != null
-                            ? d
-                            : !1,
-                      }));
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            ),
-            h && d && (yield s(p, l)),
-            o("WAWebBackendApi").frontendFireAndForget("updateBroadcastList", {
-              broadcastMetadata: {
+        await o("WAWebSyncdCoreApi").lockForSync(
+          ["chat", "broadcast-metadata", "contact"],
+          n != null ? n : [],
+          async function (e) {
+            var n,
+              l,
+              s,
+              c,
+              m,
+              y = e[0],
+              C = e[1],
+              b = e[2],
+              v = await y.get(i);
+            (v == null && ((g = !0), (f.t = d)),
+              await y.createOrMerge(i, babelHelpers.extends({}, f, { id: i })),
+              await b.createOrMerge(i, { id: i, name: u }));
+            var S = await o("WAWebSchemaBroadcastMetadata")
+              .getBroadcastMetadataTable()
+              .get(i);
+            ((h =
+              (n = S == null ? void 0 : S.customAudienceFbid) != null ? n : a),
+              await C.createOrReplace({
                 audienceExpression: r,
-                customAudienceFbid: y,
-                id: p,
-                recipients: _.map(function (e) {
-                  return { id: o("WAWebWidFactory").createWid(e) };
-                }),
-              },
-              chat: g,
-              contact: { id: p, name: u },
+                customAudienceFbid: h,
+                id: i,
+                isWebCreatedList:
+                  (l =
+                    (s = t.isWebCreatedList) != null
+                      ? s
+                      : S == null
+                        ? void 0
+                        : S.isWebCreatedList) != null
+                    ? l
+                    : !1,
+                labels: _,
+                recipients: p,
+                senderKeyDevices:
+                  (c = S == null ? void 0 : S.senderKeyDevices) != null
+                    ? c
+                    : [],
+                senderKeyRotate:
+                  (m = S == null ? void 0 : S.senderKeyRotate) != null ? m : !1,
+              }));
+          },
+        ),
+        g && c && (await e(m, l)),
+        o("WAWebBackendApi").frontendFireAndForget("updateBroadcastList", {
+          broadcastMetadata: {
+            audienceExpression: r,
+            customAudienceFbid: h,
+            id: m,
+            recipients: p.map(function (e) {
+              return { id: o("WAWebWidFactory").createWid(e) };
             }),
-            h
-          );
-        })),
-        m.apply(this, arguments)
+          },
+          chat: f,
+          contact: { id: m, name: u },
+        }),
+        g
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    async function c(e, t) {
+      var n = typeof e == "string" ? e : e.toString(),
+        r = typeof e == "string" ? o("WAWebWidFactory").createWid(e) : e;
+      (await o("WAWebSyncdCoreApi").lockForSync(
+        ["chat", "broadcast-metadata"],
+        t != null ? t : [],
+        async function (e) {
+          var t = e[0],
+            r = e[1];
+          (await t.remove(n), await r.remove(n));
+        },
+      ),
+        o("WAWebBackendApi").frontendFireAndForget("removeBroadcastList", {
+          id: r,
+        }));
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = typeof e == "string" ? e : e.toString(),
-            a = typeof e == "string" ? o("WAWebWidFactory").createWid(e) : e;
-          (yield o("WAWebSyncdCoreApi").lockForSync(
-            ["chat", "broadcast-metadata"],
-            t != null ? t : [],
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = e[0],
-                    n = e[1];
-                  (yield t.remove(r), yield n.remove(r));
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-          ),
-            o("WAWebBackendApi").frontendFireAndForget("removeBroadcastList", {
-              id: a,
-            }));
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    ((l.updateBroadcastListStorage = d), (l.removeBroadcastListStorage = p));
+    ((l.updateBroadcastListStorage = u), (l.removeBroadcastListStorage = c));
   },
   98,
 );

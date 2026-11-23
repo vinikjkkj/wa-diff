@@ -8,7 +8,6 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebMusicOnChatsAcsProject",
     "WAWebOHAIClient",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -17,48 +16,38 @@ __d(
       c = new URL("https://acs.whatsapp.com/graphql"),
       d = (656096963291760).toString(),
       m = (0x97e965c4439a).toString();
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    async function p(t, n, r) {
+      if ((r === void 0 && (r = !1), t.length === 0)) return [];
+      var a = r ? u : s,
+        i = new Headers();
+      i.append("X-FB-Friendly-Name", a);
+      try {
+        var l = await o("WAWebOHAIClient").fetchOHAI({
+          url: c,
+          project: o("WAWebMusicOnChatsAcsProject").getMusicOnChatsAcsProject(
+            o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusic,
+          ),
+          payload: _(Array.from(new Set(t)), n, a, r),
+          headers: i,
+        });
+        if (!l.ok) return null;
+        var d = await l.json();
+        return f(d, r);
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[music] chats consumption fetch failed",
+                ])),
+            )
+            .sendLogs("music-chats-consumption-fetch-failed"),
+          null
+        );
+      }
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          if ((r === void 0 && (r = !1), t.length === 0)) return [];
-          var a = r ? u : s,
-            i = new Headers();
-          i.append("X-FB-Friendly-Name", a);
-          try {
-            var l = yield o("WAWebOHAIClient").fetchOHAI({
-              url: c,
-              project: o(
-                "WAWebMusicOnChatsAcsProject",
-              ).getMusicOnChatsAcsProject(
-                o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusic,
-              ),
-              payload: f(Array.from(new Set(t)), n, a, r),
-              headers: i,
-            });
-            if (!l.ok) return null;
-            var d = yield l.json();
-            return g(d, r);
-          } catch (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[music] chats consumption fetch failed",
-                    ])),
-                )
-                .sendLogs("music-chats-consumption-fetch-failed"),
-              null
-            );
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t, n, r) {
+    function _(e, t, n, r) {
       var a = o("WAWebABProps").getABPropConfigValue(
           "music_on_chats_artwork_pixel_side_size",
         ),
@@ -90,92 +79,92 @@ __d(
         i
       );
     }
-    function g(e, t) {
-      var n = v(b(b(e, "data"), "music_consumption"), "items");
+    function f(e, t) {
+      var n = b(C(C(e, "data"), "music_consumption"), "items");
       if (n == null) return null;
-      var r = t && E(e, "errors") == null;
+      var r = t && L(e, "errors") == null;
       return n
         .map(function (e) {
-          var n = C(e);
+          var n = y(e);
           return n == null || !t
             ? n
             : babelHelpers.extends({}, n, {
-                lyrics: r ? h(b(b(e, "audio_metadata"), "lyrics")) : null,
+                lyrics: r ? g(C(C(e, "audio_metadata"), "lyrics")) : null,
               });
         })
         .filter(Boolean);
     }
-    function h(e) {
+    function g(e) {
       var t,
-        n = (t = v(e, "lines")) != null ? t : [];
-      return R(e, "available") !== !0 || n.length === 0
+        n = (t = b(e, "lines")) != null ? t : [];
+      return S(e, "available") !== !0 || n.length === 0
         ? { available: !1 }
-        : { available: !0, lines: n.map(y) };
+        : { available: !0, lines: n.map(h) };
     }
-    function y(e) {
+    function h(e) {
       var t, n;
       return {
-        startTimeInMs: L(e, "start_time_in_ms"),
-        endTimeInMs: L(e, "end_time_in_ms"),
-        text: (t = S(b(e, "line"), "text")) != null ? t : "",
-        wordOffsets: ((n = v(e, "word_offsets")) != null ? n : []).map(
+        startTimeInMs: R(e, "start_time_in_ms"),
+        endTimeInMs: R(e, "end_time_in_ms"),
+        text: (t = v(C(e, "line"), "text")) != null ? t : "",
+        wordOffsets: ((n = b(e, "word_offsets")) != null ? n : []).map(
           function (e) {
             return {
-              startIndex: L(e, "start_index"),
-              endIndex: L(e, "end_index"),
-              startOffsetMs: L(e, "start_offset_ms"),
-              endOffsetMs: L(e, "end_offset_ms"),
+              startIndex: R(e, "start_index"),
+              endIndex: R(e, "end_index"),
+              startOffsetMs: R(e, "start_offset_ms"),
+              endOffsetMs: R(e, "end_offset_ms"),
             };
           },
         ),
       };
     }
-    function C(e) {
+    function y(e) {
       var t,
         n,
-        r = S(e, "media_id");
+        r = v(e, "media_id");
       if (r == null) return null;
-      var o = b(e, "availability_info"),
-        a = b(e, "audio_metadata"),
+      var o = C(e, "availability_info"),
+        a = C(e, "audio_metadata"),
         i =
           (t =
-            (n = v(a, "progressive_download")) == null
+            (n = b(a, "progressive_download")) == null
               ? void 0
               : n
                   .map(function (e) {
-                    return S(e, "url");
+                    return v(e, "url");
                   })
                   .find(Boolean)) != null
             ? t
             : null;
       return {
-        artworkUri: S(b(a, "display_image"), "downloadable_uri"),
-        isAvailable: R(o, "is_available_for_consumption"),
+        artworkUri: v(C(a, "display_image"), "downloadable_uri"),
+        isAvailable: S(o, "is_available_for_consumption"),
         mediaId: r,
         songUri: i,
       };
     }
-    function b(e, t) {
-      var n = E(e, t);
+    function C(e, t) {
+      var n = L(e, t);
       return n != null && typeof n == "object" && !Array.isArray(n) ? n : null;
     }
-    function v(e, t) {
-      var n = E(e, t);
+    function b(e, t) {
+      var n = L(e, t);
       return Array.isArray(n) ? n : null;
     }
-    function S(e, t) {
-      var n = E(e, t);
+    function v(e, t) {
+      var n = L(e, t);
       return typeof n == "string" && n !== "" ? n : null;
     }
-    function R(e, t) {
-      var n = E(e, t);
+    function S(e, t) {
+      var n = L(e, t);
       return typeof n == "boolean" ? n : null;
     }
-    function L(e, t) {
-      var n = E(e, t);
+    function R(e, t) {
+      var n = L(e, t);
       return typeof n == "number" ? n : void 0;
     }
-    function E(e, t) {
+    function L(e, t) {
       return e != null && typeof e == "object" && !Array.isArray(e)
         ? e[t]
         : void 0;

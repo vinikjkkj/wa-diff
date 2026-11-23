@@ -141,15 +141,15 @@ __d(
         e !== o("WAWebCommonAdsTypes").BoostingStatus.RESUMING
         ? t
         : e === o("WAWebCommonAdsTypes").BoostingStatus.PAUSING
-          ? s._(/*BTDS*/ "Pausing")
+          ? s._(/*BTDS*/ "")
           : e === o("WAWebCommonAdsTypes").BoostingStatus.RESUMING
-            ? s._(/*BTDS*/ "Resuming")
+            ? s._(/*BTDS*/ "")
             : e === o("WAWebCommonAdsTypes").BoostingStatus.CREATING
-              ? s._(/*BTDS*/ "Being prepared")
+              ? s._(/*BTDS*/ "")
               : e === o("WAWebCommonAdsTypes").BoostingStatus.PAUSED
-                ? s._(/*BTDS*/ "Paused")
+                ? s._(/*BTDS*/ "")
                 : e === o("WAWebCommonAdsTypes").BoostingStatus.ACTIVE
-                  ? s._(/*BTDS*/ "Active")
+                  ? s._(/*BTDS*/ "")
                   : null;
     }
     ((l.applyLiveBoostingStatus = c),

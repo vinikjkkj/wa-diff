@@ -25,16 +25,15 @@ __d(
         .send(),
         o("AYMTTipImpressionNotifier").notifyTipImpression(e));
     }
-    function s(e, t, n) {
-      var a = r("XAYMTMultiTipAsyncClickControllerRouteBuilder").buildUri({
+    function s(e, t) {
+      var n = r("XAYMTMultiTipAsyncClickControllerRouteBuilder").buildUri({
         tip_id: e,
         channel_id: t != null ? t : void 0,
         target: "xout",
         handled_delete: !0,
-        extra_data: n != null ? n : void 0,
       });
       (new (r("AsyncRequest"))()
-        .setURI(a)
+        .setURI(n)
         .setAllowCrossPageTransition(!0)
         .send(),
         o("AYMTTipDismissalNotifier").notifyTipDismissal(e));

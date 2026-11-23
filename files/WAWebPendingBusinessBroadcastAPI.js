@@ -1,217 +1,159 @@
 __d(
   "WAWebPendingBusinessBroadcastAPI",
   [
-    "Promise",
     "WAWebModelStorageUtils",
     "WAWebPendingBusinessBroadcastSerialization",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebSchemaPendingBusinessBroadcast",
     "WAWebSchemaPendingBusinessBroadcastMessage",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = "Pending broadcast table not available",
-      u = "Ad Group ID not found",
-      c = "Pending broadcast message not found",
-      d = { FAILURE: "failure", OK: "ok" };
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o(
-              "WAWebSchemaPendingBusinessBroadcast",
-            ).canUsePendingBroadcastTable()
-          )
-            return { message: s, type: d.FAILURE };
-          try {
-            var t = r("WAWebPonyfillsCryptoRandomUUID")(),
-              n = yield o(
-                "WAWebPendingBusinessBroadcastSerialization",
-              ).serializePendingBusinessBroadcast(e, t),
-              a = n.messageRow,
-              i = n.parentRow;
-            return (
-              yield o("WAWebSchemaPendingBusinessBroadcastMessage")
-                .getPendingBusinessBroadcastMessageTable()
-                .create(a),
-              yield o("WAWebSchemaPendingBusinessBroadcast")
-                .getPendingBusinessBroadcastTable()
-                .create(i),
-              { type: d.OK }
-            );
-          } catch (e) {
-            var l = e instanceof Error ? e.message : String(e);
-            return { message: l, type: d.FAILURE };
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (
-            !o(
-              "WAWebSchemaPendingBusinessBroadcast",
-            ).canUsePendingBroadcastTable()
-          )
-            return (e || (e = n("Promise"))).reject(s);
-          var r = yield o("WAWebSchemaPendingBusinessBroadcast")
-            .getPendingBusinessBroadcastTable()
-            .get(t, !0);
-          if (r == null) return (e || (e = n("Promise"))).reject(u);
-          var a = yield o("WAWebSchemaPendingBusinessBroadcastMessage")
+    var e = "Pending broadcast table not available",
+      s = "Ad Group ID not found",
+      u = "Pending broadcast message not found",
+      c = { FAILURE: "failure", OK: "ok" };
+    async function d(t) {
+      if (
+        !o("WAWebSchemaPendingBusinessBroadcast").canUsePendingBroadcastTable()
+      )
+        return { message: e, type: c.FAILURE };
+      try {
+        var n = r("WAWebPonyfillsCryptoRandomUUID")(),
+          a = await o(
+            "WAWebPendingBusinessBroadcastSerialization",
+          ).serializePendingBusinessBroadcast(t, n),
+          i = a.messageRow,
+          l = a.parentRow;
+        return (
+          await o("WAWebSchemaPendingBusinessBroadcastMessage")
             .getPendingBusinessBroadcastMessageTable()
-            .get(r.pendingBroadcastMessageId);
-          return a == null
-            ? (e || (e = n("Promise"))).reject(c)
-            : o(
-                "WAWebPendingBusinessBroadcastSerialization",
-              ).deserializePendingBusinessBroadcast(r, a);
-        })),
-        f.apply(this, arguments)
-      );
+            .create(i),
+          await o("WAWebSchemaPendingBusinessBroadcast")
+            .getPendingBusinessBroadcastTable()
+            .create(l),
+          { type: c.OK }
+        );
+      } catch (e) {
+        var s = e instanceof Error ? e.message : String(e);
+        return { message: s, type: c.FAILURE };
+      }
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    async function m(t) {
+      if (
+        !o("WAWebSchemaPendingBusinessBroadcast").canUsePendingBroadcastTable()
+      )
+        return Promise.reject(e);
+      var n = await o("WAWebSchemaPendingBusinessBroadcast")
+        .getPendingBusinessBroadcastTable()
+        .get(t, !0);
+      if (n == null) return Promise.reject(s);
+      var r = await o("WAWebSchemaPendingBusinessBroadcastMessage")
+        .getPendingBusinessBroadcastMessageTable()
+        .get(n.pendingBroadcastMessageId);
+      return r == null
+        ? Promise.reject(u)
+        : o(
+            "WAWebPendingBusinessBroadcastSerialization",
+          ).deserializePendingBusinessBroadcast(n, r);
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o(
-              "WAWebSchemaPendingBusinessBroadcast",
-            ).canUsePendingBroadcastTable()
-          ) {
-            var t = yield o("WAWebSchemaPendingBusinessBroadcast")
-              .getPendingBusinessBroadcastTable()
-              .get(e, !0);
-            if (t != null) {
-              var r = t.pendingBroadcastMessageId;
-              yield o("WAWebModelStorageUtils")
-                .getStorage()
-                .lock(
-                  [
-                    "pending-business-broadcast",
-                    "pending-business-broadcast-message",
-                  ],
-                  (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t) {
-                        var n = t[0],
-                          o = t[1];
-                        yield n.remove(e);
-                        var a = yield n.all(),
-                          i = a.some(function (e) {
-                            return e.pendingBroadcastMessageId === r;
-                          });
-                        i || (yield o.remove(r));
-                      },
-                    );
-                    return function (e) {
-                      return t.apply(this, arguments);
-                    };
-                  })(),
-                );
-            }
-          }
-        })),
-        h.apply(this, arguments)
-      );
+    async function p(e) {
+      if (
+        o("WAWebSchemaPendingBusinessBroadcast").canUsePendingBroadcastTable()
+      ) {
+        var t = await o("WAWebSchemaPendingBusinessBroadcast")
+          .getPendingBusinessBroadcastTable()
+          .get(e, !0);
+        if (t != null) {
+          var n = t.pendingBroadcastMessageId;
+          await o("WAWebModelStorageUtils")
+            .getStorage()
+            .lock(
+              [
+                "pending-business-broadcast",
+                "pending-business-broadcast-message",
+              ],
+              async function (t) {
+                var r = t[0],
+                  o = t[1];
+                await r.remove(e);
+                var a = await r.all(),
+                  i = a.some(function (e) {
+                    return e.pendingBroadcastMessageId === n;
+                  });
+                i || (await o.remove(n));
+              },
+            );
+        }
+      }
     }
-    function y() {
+    function _() {
       return o("WAWebSchemaPendingBusinessBroadcast")
         .getPendingBusinessBroadcastTable()
         .all();
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    async function f(e) {
+      var t = await _();
+      return t.filter(function (t) {
+        return t.broadcastJid === e;
+      });
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield y();
-          return t.filter(function (t) {
-            return t.broadcastJid === e;
-          });
-        })),
-        b.apply(this, arguments)
-      );
+    async function g(t, n) {
+      if (
+        !o("WAWebSchemaPendingBusinessBroadcast").canUsePendingBroadcastTable()
+      )
+        return { message: e, type: c.FAILURE };
+      try {
+        var a = r("WAWebPonyfillsCryptoRandomUUID")(),
+          i = null,
+          l = null,
+          s = n.mediaFile;
+        return (
+          s != null &&
+            ((i = await s.arrayBuffer()),
+            (l = JSON.stringify({
+              lastModified: s.lastModified,
+              name: s.name,
+              type: s.type,
+            }))),
+          await o("WAWebSchemaPendingBusinessBroadcastMessage")
+            .getPendingBusinessBroadcastMessageTable()
+            .create({
+              ctaButtonJson: n.ctaButtonJson,
+              mediaData: i,
+              mediaMetadata: l,
+              messageBody: n.messageBody,
+              pendingBroadcastMessageId: a,
+            }),
+          await o("WAWebSchemaPendingBusinessBroadcast")
+            .getPendingBusinessBroadcastTable()
+            .bulkCreate(
+              t.map(function (e) {
+                return {
+                  adGroupId: e.adGroupId,
+                  broadcastJid: e.broadcastJid,
+                  freeReservedMsgs: e.freeReservedMsgs,
+                  pendingBroadcastMessageId: a,
+                  sendTimestamp: e.sendTimestamp,
+                };
+              }),
+            ),
+          { type: c.OK }
+        );
+      } catch (e) {
+        var u = e instanceof Error ? e.message : String(e);
+        return { message: u, type: c.FAILURE };
+      }
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !o(
-              "WAWebSchemaPendingBusinessBroadcast",
-            ).canUsePendingBroadcastTable()
-          )
-            return { message: s, type: d.FAILURE };
-          try {
-            var n = r("WAWebPonyfillsCryptoRandomUUID")(),
-              a = null,
-              i = null,
-              l = t.mediaFile;
-            return (
-              l != null &&
-                ((a = yield l.arrayBuffer()),
-                (i = JSON.stringify({
-                  lastModified: l.lastModified,
-                  name: l.name,
-                  type: l.type,
-                }))),
-              yield o("WAWebSchemaPendingBusinessBroadcastMessage")
-                .getPendingBusinessBroadcastMessageTable()
-                .create({
-                  ctaButtonJson: t.ctaButtonJson,
-                  mediaData: a,
-                  mediaMetadata: i,
-                  messageBody: t.messageBody,
-                  pendingBroadcastMessageId: n,
-                }),
-              yield o("WAWebSchemaPendingBusinessBroadcast")
-                .getPendingBusinessBroadcastTable()
-                .bulkCreate(
-                  e.map(function (e) {
-                    return {
-                      adGroupId: e.adGroupId,
-                      broadcastJid: e.broadcastJid,
-                      freeReservedMsgs: e.freeReservedMsgs,
-                      pendingBroadcastMessageId: n,
-                      sendTimestamp: e.sendTimestamp,
-                    };
-                  }),
-                ),
-              { type: d.OK }
-            );
-          } catch (e) {
-            var u = e instanceof Error ? e.message : String(e);
-            return { message: u, type: d.FAILURE };
-          }
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    ((l.PENDING_BROADCAST_TABLE_NOT_AVAILABLE_ERROR = s),
-      (l.AD_GROUP_NOT_FOUND_ERROR = u),
-      (l.MESSAGE_NOT_FOUND_ERROR = c),
-      (l.CreatePendingBroadcastStatus = d),
-      (l.createPendingBroadcast = m),
-      (l.getPendingBroadcast = _),
-      (l.deletePendingBroadcast = g),
-      (l.getAllPendingBroadcasts = y),
-      (l.getPendingBroadcastsByBroadcastJid = C),
-      (l.createPendingBroadcasts = v));
+    ((l.PENDING_BROADCAST_TABLE_NOT_AVAILABLE_ERROR = e),
+      (l.AD_GROUP_NOT_FOUND_ERROR = s),
+      (l.MESSAGE_NOT_FOUND_ERROR = u),
+      (l.CreatePendingBroadcastStatus = c),
+      (l.createPendingBroadcast = d),
+      (l.getPendingBroadcast = m),
+      (l.deletePendingBroadcast = p),
+      (l.getAllPendingBroadcasts = _),
+      (l.getPendingBroadcastsByBroadcastJid = f),
+      (l.createPendingBroadcasts = g));
   },
   98,
 );

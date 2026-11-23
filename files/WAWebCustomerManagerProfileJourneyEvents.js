@@ -131,9 +131,9 @@ __d(
         extraAttributes: e,
         surface: o("WAWebWamEnumSurfaceType").SURFACE_TYPE
           .CUSTOMER_MANAGER_PROFILE_DRAWER,
-        userActionTarget: "notes_save",
+        userActionTarget: "customer_manager_notes_save_result",
         userActionType: o("WAWebWamEnumSmbUserActionTypeEnum")
-          .SMB_USER_ACTION_TYPE_ENUM.API,
+          .SMB_USER_ACTION_TYPE_ENUM.WRITE,
       });
     }
     ((l.clickProfileFieldEdit = e),

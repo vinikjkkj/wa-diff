@@ -17,9 +17,9 @@ __d(
             surface: "unknown",
             viewName: "biz-ai-hub-chat-disabled",
           },
-          title: s._(/*BTDS*/ "This chat isn't available on this device."),
+          title: s._(/*BTDS*/ ""),
           onOK: o("WAWebModalManager").closeModalManager,
-          children: s._(/*BTDS*/ "Use your phone to open {chat_name}", [
+          children: s._(/*BTDS*/ "", [
             s._param(
               "chat_name",
               u.jsx(o("WAWebName.react").ChatName, { chatId: e.id }),

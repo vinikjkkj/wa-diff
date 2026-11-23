@@ -1,7 +1,6 @@
 __d(
   "WAWebChatMediaMsgsCollection",
   [
-    "Promise",
     "WAFilteredCatch",
     "WALogger",
     "WAWebBackendErrors",
@@ -16,20 +15,18 @@ __d(
     "WAWebNoop",
     "WAWebThreadMsgUtils",
     "WAWebViewMode.flow",
-    "asyncToGeneratorRuntime",
     "countWhere",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = new Set([
+      u = new Set([
         o("WAWebMsgType").MSG_TYPE.IMAGE,
         o("WAWebMsgType").MSG_TYPE.VIDEO,
         o("WAWebMsgType").MSG_TYPE.AUDIO,
       ]),
-      d = { before: "before", after: "after" };
-    function m(e) {
+      c = { before: "before", after: "after" };
+    function d(e) {
       return (
         o("WAWebMsgGetters").getIsMedia(e) &&
         !e.isViewOnce &&
@@ -38,106 +35,97 @@ __d(
         e.viewMode !== o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE
       );
     }
-    var p = (function (t) {
-      function a() {
-        for (var a, i = arguments.length, l = new Array(i), s = 0; s < i; s++)
-          l[s] = arguments[s];
+    var m = (function (t) {
+      function n() {
+        for (var n, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
+          i[l] = arguments[l];
         return (
-          (a = t.call.apply(t, [this].concat(l)) || this),
-          (a.hasMediaBefore = !0),
-          (a.hasMediaAfter = !0),
-          (a.$ChatMediaMsgsCollection$p_1 = null),
-          (a.$ChatMediaMsgsCollection$p_2 = null),
-          (a.count = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, n) {
-                var i;
-                if (n && !n.equals(a.$ChatMediaMsgsCollection$p_2))
-                  ((a.$ChatMediaMsgsCollection$p_1 = null),
-                    (a.$ChatMediaMsgsCollection$p_2 = n));
-                else if (a.$ChatMediaMsgsCollection$p_1 != null)
-                  return a.$ChatMediaMsgsCollection$p_1;
-                var l = n
-                    ? t.msgs.filter(function (e) {
-                        return (
-                          m(e) && o("WAWebThreadMsgUtils").isMsgInThread(e, n)
-                        );
-                      })
-                    : t.msgs.filter(m),
-                  s = (i = l[0]) != null ? i : t.msgs.head();
-                if (s == null) return 0;
-                try {
-                  var u = yield o("WAWebMsgQueryUtils").queryMedia(
-                      s.id.remote,
-                      1 / 0,
-                      "before",
-                      s.id,
-                    ),
-                    c = n
-                      ? r("countWhere")(u.messages, function (e) {
-                          return o("WAWebThreadMsgUtils").isMsgInThread(e, n);
-                        })
-                      : _(u.mediaCount, u.messages),
-                    d = c > 0 && l.length > 0 ? 1 : 0;
-                  return (
-                    (a.$ChatMediaMsgsCollection$p_1 = c + l.length - d),
-                    a.$ChatMediaMsgsCollection$p_1
-                  );
-                } catch (n) {
-                  return (
-                    o("WALogger")
-                      .ERROR(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "Failed to count medias for chat ",
-                            " with error ",
-                            "",
-                          ])),
-                        t.id,
-                        n,
-                      )
-                      .verbose()
-                      .sendLogs("md-failed-medias-count"),
-                    null
-                  );
-                }
-              },
-            );
-            return function (e, n) {
-              return t.apply(this, arguments);
-            };
-          })()),
-          babelHelpers.assertThisInitialized(a) ||
-            babelHelpers.assertThisInitialized(a)
+          (n = t.call.apply(t, [this].concat(i)) || this),
+          (n.hasMediaBefore = !0),
+          (n.hasMediaAfter = !0),
+          (n.$ChatMediaMsgsCollection$p_1 = null),
+          (n.$ChatMediaMsgsCollection$p_2 = null),
+          (n.count = async function (t, a) {
+            var i;
+            if (a && !a.equals(n.$ChatMediaMsgsCollection$p_2))
+              ((n.$ChatMediaMsgsCollection$p_1 = null),
+                (n.$ChatMediaMsgsCollection$p_2 = a));
+            else if (n.$ChatMediaMsgsCollection$p_1 != null)
+              return n.$ChatMediaMsgsCollection$p_1;
+            var l = a
+                ? t.msgs.filter(function (e) {
+                    return d(e) && o("WAWebThreadMsgUtils").isMsgInThread(e, a);
+                  })
+                : t.msgs.filter(d),
+              s = (i = l[0]) != null ? i : t.msgs.head();
+            if (s == null) return 0;
+            try {
+              var u = await o("WAWebMsgQueryUtils").queryMedia(
+                  s.id.remote,
+                  1 / 0,
+                  "before",
+                  s.id,
+                ),
+                c = a
+                  ? r("countWhere")(u.messages, function (e) {
+                      return o("WAWebThreadMsgUtils").isMsgInThread(e, a);
+                    })
+                  : p(u.mediaCount, u.messages),
+                m = c > 0 && l.length > 0 ? 1 : 0;
+              return (
+                (n.$ChatMediaMsgsCollection$p_1 = c + l.length - m),
+                n.$ChatMediaMsgsCollection$p_1
+              );
+            } catch (n) {
+              return (
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "Failed to count medias for chat ",
+                        " with error ",
+                        "",
+                      ])),
+                    t.id,
+                    n,
+                  )
+                  .verbose()
+                  .sendLogs("md-failed-medias-count"),
+                null
+              );
+            }
+          }),
+          babelHelpers.assertThisInitialized(n) ||
+            babelHelpers.assertThisInitialized(n)
         );
       }
-      babelHelpers.inheritsLoose(a, t);
-      var i = a.prototype;
+      babelHelpers.inheritsLoose(n, t);
+      var a = n.prototype;
       return (
-        (i.delete = function () {
+        (a.delete = function () {
           (t.prototype.delete.call(this), this.stopListening());
         }),
-        (i.add = function (n, r) {
+        (a.add = function (n, r) {
           return (
             (this.$ChatMediaMsgsCollection$p_1 = null),
             t.prototype.add.call(this, n, r)
           );
         }),
-        (i.remove = function (n, r) {
+        (a.remove = function (n, r) {
           return (
             (this.$ChatMediaMsgsCollection$p_1 = null),
             t.prototype.remove.call(this, n, r)
           );
         }),
-        (i.getAfter = function (t) {
+        (a.getAfter = function (t) {
           var e = this.indexOf(t);
           return e < 0 || e === this.length - 1 ? null : this.at(e + 1);
         }),
-        (i.getBefore = function (t) {
+        (a.getBefore = function (t) {
           var e = this.indexOf(t);
           return e <= 0 ? null : this.at(e - 1);
         }),
-        (i.loadEarlierMedias = function () {
+        (a.loadEarlierMedias = function () {
           var e = this.head();
           if (e) {
             if (e.isCarouselCard) {
@@ -152,7 +140,7 @@ __d(
             this.queryMedia({ msg: e });
           }
         }),
-        (i.loadRecentMedias = function () {
+        (a.loadRecentMedias = function () {
           var e = this.last();
           if (e) {
             if (e.isCarouselCard) {
@@ -164,10 +152,10 @@ __d(
                   ? t
                   : e;
             }
-            this.queryMedia({ msg: e, direction: d.after });
+            this.queryMedia({ msg: e, direction: c.after });
           }
         }),
-        (i.loadMoreAroundIfNeeded = function (t) {
+        (a.loadMoreAroundIfNeeded = function (t) {
           if (!(!t || t.isViewOnce)) {
             var e = this.indexOf(t);
             (e < 20 && this.hasMediaBefore && this.loadEarlierMedias(),
@@ -176,60 +164,60 @@ __d(
                 this.loadRecentMedias());
           }
         }),
-        (i.queryMedia = function (t) {
+        (a.queryMedia = function (t) {
           var e,
-            a = this,
-            i = t.chat,
-            l = t.msg,
-            s = (e = t.direction) != null ? e : d.before;
-          if (!l && i) {
-            var c = i.msgs;
-            if (!c || c.length === 0)
+            n = this,
+            a = t.chat,
+            i = t.msg,
+            l = (e = t.direction) != null ? e : c.before;
+          if (!i && a) {
+            var s = a.msgs;
+            if (!s || s.length === 0)
               return (
                 (this.hasMediaBefore = !1),
-                new (u || (u = n("Promise")))(function (e) {
+                new Promise(function (e) {
                   e({ eof: !0 });
                 })
               );
-            this.add(c.filter(m), { at: 0 });
-            var p = this.toArray();
-            if (i.msgs.msgLoadState.noEarlierMsgs)
+            this.add(s.filter(d), { at: 0 });
+            var u = this.toArray();
+            if (a.msgs.msgLoadState.noEarlierMsgs)
               return (
                 (this.hasMediaBefore = !1),
-                new (u || (u = n("Promise")))(function (e) {
+                new Promise(function (e) {
                   e({ eof: !0 });
                 })
               );
-            if (p.length <= 2 * o("WAWebMsgCollection").MEDIA_QUERY_LIMIT) {
-              var _ = p.length === 0 ? c.head() : p[0];
-              return this.queryMedia({ chat: i, msg: _ });
+            if (u.length <= 2 * o("WAWebMsgCollection").MEDIA_QUERY_LIMIT) {
+              var m = u.length === 0 ? s.head() : u[0];
+              return this.queryMedia({ chat: a, msg: m });
             }
-            return new (u || (u = n("Promise")))(function (e) {
+            return new Promise(function (e) {
               e({ eof: !1 });
             });
           }
-          if (l && s === d.before) {
+          if (i && l === c.before) {
             if (this.queryMediaBefore) return this.queryMediaBefore;
-            var g = 0;
+            var p = 0;
             return (
               (this.queryMediaBefore = o("WAWebMsgQueryUtils")
                 .queryMedia(
-                  l.id.remote,
+                  i.id.remote,
                   o("WAWebMsgCollection").MEDIA_QUERY_LIMIT,
-                  s,
-                  o("WAWebMsgGetters").getIsMedia(l) ? l.id : void 0,
+                  l,
+                  o("WAWebMsgGetters").getIsMedia(i) ? i.id : void 0,
                 )
                 .then(function (e) {
                   var t = e.messages;
                   (!t ||
                     t.length < o("WAWebMsgCollection").MEDIA_QUERY_LIMIT) &&
-                    (a.hasMediaBefore = !1);
-                  var n = [];
+                    (n.hasMediaBefore = !1);
+                  var r = [];
                   return (
-                    t && t.length > 0 && (n = f(t)),
-                    a.add(n, { at: 0 }),
-                    (g = n.length),
-                    { length: g }
+                    t && t.length > 0 && (r = _(t)),
+                    n.add(r, { at: 0 }),
+                    (p = r.length),
+                    { length: p }
                   );
                 })
                 .catch(
@@ -239,32 +227,32 @@ __d(
                   ),
                 )
                 .finally(function () {
-                  ((a.queryMediaBefore = null),
-                    a.trigger("query_media_before", g));
+                  ((n.queryMediaBefore = null),
+                    n.trigger("query_media_before", p));
                 })),
               this.trigger("query_media_before", 0),
               this.queryMediaBefore
             );
-          } else if (l && s === d.after)
+          } else if (i && l === c.after)
             return this.queryMediaAfter
               ? this.queryMediaAfter
               : (this.queryMediaAfter = o("WAWebMsgQueryUtils")
                   .queryMedia(
-                    l.id.remote,
+                    i.id.remote,
                     o("WAWebMsgCollection").MEDIA_QUERY_LIMIT,
-                    s,
-                    l.id,
+                    l,
+                    i.id,
                   )
                   .then(function (e) {
                     var t = e.messages;
                     (!t ||
                       t.length < o("WAWebMsgCollection").MEDIA_QUERY_LIMIT) &&
-                      (a.hasMediaAfter = !1);
-                    var n = [];
+                      (n.hasMediaAfter = !1);
+                    var r = [];
                     return (
-                      t && t.length > 0 && (n = f(t)),
-                      a.add(n),
-                      { length: n.length }
+                      t && t.length > 0 && (r = _(t)),
+                      n.add(r),
+                      { length: r.length }
                     );
                   })
                   .catch(
@@ -274,23 +262,23 @@ __d(
                     ),
                   )
                   .finally(function () {
-                    ((a.queryMediaAfter = null),
-                      a.trigger("query_media_after"));
+                    ((n.queryMediaAfter = null),
+                      n.trigger("query_media_after"));
                   }));
         }),
-        a
+        n
       );
     })(o("WAWebBaseCollection").BaseCollection);
-    ((p.model = o("WAWebMsgModel").Msg),
-      (p.comparator = function (e, t) {
+    ((m.model = o("WAWebMsgModel").Msg),
+      (m.comparator = function (e, t) {
         return e.t - t.t;
       }));
-    function _(e, t) {
+    function p(e, t) {
       var n = r("countWhere")(t, function (e) {
           return (
             e.viewMode ===
               o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE &&
-            c.has(e.type)
+            u.has(e.type)
           );
         }),
         a = (e != null ? e : 0) - n;
@@ -310,10 +298,10 @@ __d(
           0)
         : a;
     }
-    function f(e) {
-      return o("WAWebCarouselMsgUtils").flattenMsgs(e).filter(m);
+    function _(e) {
+      return o("WAWebCarouselMsgUtils").flattenMsgs(e).filter(d);
     }
-    l.default = p;
+    l.default = m;
   },
   98,
 );

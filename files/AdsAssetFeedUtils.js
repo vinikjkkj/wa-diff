@@ -26,11 +26,11 @@ __d(
     "getByPath",
     "gkx",
     "immutable",
-    "isAccountEligibleForThreeCOL2AdEx",
     "isAdsCanvasLink",
     "isEmptyObject",
     "isTruthy",
     "mixedToString",
+    "qex",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -241,25 +241,25 @@ __d(
       return g(e, r("AdsUIMediaFormat").SINGLE_IMAGE);
     }
     function R(e) {
-      return _e(e) && g(e, r("AdsUIMediaFormat").DCO_AUTOMATIC);
+      return ge(e) && g(e, r("AdsUIMediaFormat").DCO_AUTOMATIC);
     }
     function L(e) {
-      return j(e) && g(e, r("AdsUIMediaFormat").DCO_AUTOMATIC);
+      return Q(e) && g(e, r("AdsUIMediaFormat").DCO_AUTOMATIC);
     }
     function E(e) {
-      return j(e) && C(e);
+      return Q(e) && C(e);
     }
     function k(e) {
-      return ee(e) && g(e, r("AdsUIMediaFormat").DCO_AUTOMATIC);
+      return ne(e) && g(e, r("AdsUIMediaFormat").DCO_AUTOMATIC);
     }
     function I(e) {
-      return V(e) && !re(e);
+      return G(e) && !ae(e);
     }
     function T(e) {
-      return I(e) && !ae(e) && !ie(e);
+      return I(e) && !le(e) && !se(e);
     }
     function D(e) {
-      return V(e) && !oe(e);
+      return G(e) && !ie(e);
     }
     function x(e) {
       var t;
@@ -305,13 +305,7 @@ __d(
                   (n = e.creative) == null || (n = n.asset_feed_spec) == null
                     ? void 0
                     : n[t];
-              return t === "onsite_destinations"
-                ? !0
-                : r instanceof Array
-                  ? r.length === 0
-                  : r instanceof Object && Object.keys(r).length === 0
-                    ? !0
-                    : r == null;
+              return t === "onsite_destinations" ? !0 : U(r);
             })
           : !1;
     }
@@ -349,17 +343,19 @@ __d(
               : n.onsite_destinations) != null
           ? r("AdsClientAdAssetFeedSpecFields").every(function (t) {
               var n,
-                r =
+                o =
                   (n = e.creative) == null || (n = n.asset_feed_spec) == null
                     ? void 0
                     : n[t];
-              return t === "onsite_destinations" || t === "audios"
+              return t === "onsite_destinations" ||
+                t === "audios" ||
+                (t === "promotional_metadata" && r("gkx")("29274"))
                 ? !0
-                : r instanceof Array
-                  ? r.length === 0
-                  : r instanceof Object && Object.keys(r).length === 0
+                : o instanceof Array
+                  ? o.length === 0
+                  : o instanceof Object && Object.keys(o).length === 0
                     ? !0
-                    : r == null;
+                    : o == null;
             })
           : !1;
     }
@@ -373,11 +369,11 @@ __d(
       ).creative.asset_feed_spec.onsite_destinations.set(n, t);
     }
     function O(e) {
-      return j(e);
+      return Q(e);
     }
     function B(e) {
       var t;
-      if (!j(e) || C(e)) return !1;
+      if (!Q(e) || C(e)) return !1;
       var n = (t = e.creative) == null ? void 0 : t.asset_feed_spec;
       if (n == null) return !1;
       var r = o("AdsUEditorAdgroupBodyMutators").getDefaultPlacementBodyAssets(
@@ -402,11 +398,13 @@ __d(
         (e.upcoming_events = !0),
         (e.onsite_destinations = !0),
         (e.call_ads_configuration = !0),
+        (e.instant_book_configuration = !0),
         (e.lead_gen_configuration = !0),
         (e.phone_data_ids = !0),
         (e.upcoming_event_metadata = !0),
         (e.translations = !0),
         (e.lead_gen_multi_destination = !0),
+        (e.f2_md_website_entry_point = !0),
         (e.additional_data = !0),
         (e.ctwa_consent_data = !0),
         e),
@@ -418,28 +416,60 @@ __d(
         (u.page_whatsapp_number_id = !0),
         (u.page_private_reply = !0),
         u);
-    function U(e, t) {
+    function U(e) {
+      return r("DeepRecord").isDeepRecord(e) &&
+        e instanceof r("immutable").Record
+        ? H(e)
+        : e instanceof o("immutable").Iterable
+          ? e.isEmpty()
+          : e instanceof Array
+            ? e.length === 0
+            : e instanceof Object
+              ? r("isEmptyObject")(e)
+              : e == null;
+    }
+    function V(e, t) {
       if (e == null) return !0;
       var n = r("DeepRecord").isDeepRecord(e)
         ? Array.from(e.keys())
         : Object.keys(e);
       return n.every(function (n) {
-        var o = e[n];
-        return (
-          t[n] === !0 ||
-          o == null ||
-          (o instanceof Array && o.length === 0) ||
-          (o instanceof Object && r("isEmptyObject")(o))
-        );
+        return t[n] === !0 || U(e[n]);
       });
     }
-    function V(e) {
+    function H(e) {
+      return e == null || typeof e != "object"
+        ? !1
+        : (function (t) {
+            {
+              var n = t;
+              if (
+                n instanceof r("immutable").Map ||
+                n instanceof r("immutable").List
+              )
+                return n.isEmpty();
+            }
+            {
+              var o = t;
+              if (
+                r("DeepRecord").isDeepRecord(o) &&
+                o instanceof r("immutable").Record
+              )
+                return o.isEmpty();
+            }
+            return r("isEmptyObject")(e);
+          })(e);
+    }
+    function G(e) {
       var t,
         n,
-        a = r("adsConvertAdObjectRecordToPlainJS")(e),
+        a =
+          !r("DeepRecord").isDeepRecord(e) || r("qex")._("3278") === !0
+            ? e
+            : r("adsConvertAdObjectRecordToPlainJS")(e),
         i = (t = a.creative) == null ? void 0 : t.asset_feed_spec;
-      if (i == null) return !1;
-      var l = U(i, W),
+      if (i == null || (H(i) && r("qex")._("5048") === !0)) return !1;
+      var l = V(i, W),
         s = r("DeepRecord").isDeepRecord(i)
           ? Array.from(i.keys())
           : Object.keys(i),
@@ -454,7 +484,7 @@ __d(
             q,
             ((c = {}), (c.page_welcome_message = !0), c),
           ),
-          p = U(d, m);
+          p = V(d, m);
         if (p) return !1;
       }
       return o(
@@ -469,13 +499,20 @@ __d(
         ? !1
         : !!((n = e.creative) != null && n.asset_feed_spec);
     }
-    function H(e) {
-      return V(e) && !N(r("adsConvertAdObjectRecordToPlainJS")(e));
+    function z(e) {
+      return (
+        G(e) &&
+        !N(
+          r("qex")._("3278") === !0
+            ? e
+            : r("adsConvertAdObjectRecordToPlainJS")(e),
+        )
+      );
     }
-    function G(e, t) {
+    function j(e, t) {
       return (e == null ? void 0 : e.optimization_type) === t;
     }
-    function z(e) {
+    function K(e) {
       var t, n;
       return (t =
         (n = e.creative) == null ||
@@ -486,7 +523,7 @@ __d(
         ? t
         : !1;
     }
-    function j(e) {
+    function Q(e) {
       var t;
       return (
         (e == null ||
@@ -497,20 +534,20 @@ __d(
         r("ApiDynamicCreativeOptimizationTypes").PLACEMENT
       );
     }
-    function K(e) {
-      return G(e, r("ApiDynamicCreativeOptimizationTypes").PLACEMENT);
-    }
-    function Q(e) {
-      return j(e) && b(e);
-    }
     function X(e) {
+      return j(e, r("ApiDynamicCreativeOptimizationTypes").PLACEMENT);
+    }
+    function Y(e) {
+      return Q(e) && b(e);
+    }
+    function J(e) {
       var t,
         n = (t = e.creative) == null ? void 0 : t.source_instagram_media_id;
       return n === null
         ? !1
         : r("isTruthy")(e.created_time) && r("isTruthy")(n);
     }
-    function Y(e) {
+    function Z(e) {
       var t;
       return (
         ((t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -519,10 +556,10 @@ __d(
         r("ApiDynamicCreativeOptimizationTypes").LANGUAGE
       );
     }
-    function J(e) {
-      return Y(e) || ne(e);
+    function ee(e) {
+      return Z(e) || oe(e);
     }
-    function Z(e) {
+    function te(e) {
       var t,
         n =
           (t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -532,13 +569,13 @@ __d(
         ? n.size === 1 && r("isAdsCanvasLink")(n.getIn([0, "website_url"]))
         : !!n && n.length === 1 && r("isAdsCanvasLink")(n[0].website_url);
     }
-    function ee(e) {
-      return j(e) || ne(e);
-    }
-    function te(e) {
-      return j(e) || Y(e) || ne(e);
-    }
     function ne(e) {
+      return Q(e) || oe(e);
+    }
+    function re(e) {
+      return Q(e) || Z(e) || oe(e);
+    }
+    function oe(e) {
       var t;
       return (
         (e == null ||
@@ -549,10 +586,10 @@ __d(
         r("ApiDynamicCreativeOptimizationTypes").LOCALIZED_PLACEMENTS
       );
     }
-    function re(e) {
-      return oe(e) || de(e);
+    function ae(e) {
+      return ie(e) || pe(e);
     }
-    function oe(e) {
+    function ie(e) {
       var t;
       return (
         ((t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -561,7 +598,7 @@ __d(
         r("ApiDynamicCreativeOptimizationTypes").DEGREES_OF_FREEDOM
       );
     }
-    function ae(e) {
+    function le(e) {
       var t;
       return (
         ((t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -570,7 +607,7 @@ __d(
         r("ApiDynamicCreativeOptimizationTypes").DOF_MESSAGING_DESTINATION
       );
     }
-    function ie(e) {
+    function se(e) {
       var t;
       return (
         ((t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -580,7 +617,7 @@ __d(
           .UNIFIED_PROFILE_VISIT_DESTINATION
       );
     }
-    function le(e) {
+    function ue(e) {
       var t,
         n,
         o =
@@ -603,21 +640,21 @@ __d(
         })
       );
     }
-    function se(e) {
-      return j(e) || ae(e);
-    }
-    function ue(e) {
-      return j(e) || fe(e);
-    }
     function ce(e) {
+      return Q(e) || le(e);
+    }
+    function de(e) {
+      return Q(e) || he(e);
+    }
+    function me(e) {
       var t;
       return (
         r("isTruthy")(
           (t = e.creative) == null ? void 0 : t.source_instagram_media_id,
-        ) && j(e)
+        ) && Q(e)
       );
     }
-    function de(e) {
+    function pe(e) {
       var t;
       return (
         ((t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -626,7 +663,7 @@ __d(
         r("ApiDynamicCreativeOptimizationTypes").DOF_WITH_IMAGE_CROP
       );
     }
-    function me(e) {
+    function _e(e) {
       var t, n;
       return (
         ((t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -638,7 +675,7 @@ __d(
           : n.images) != null
       );
     }
-    function pe(e) {
+    function fe(e) {
       var t;
       return (
         ((t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -647,7 +684,7 @@ __d(
         r("ApiDynamicCreativeOptimizationTypes").ASSET_CUSTOMIZATION
       );
     }
-    function _e(e) {
+    function ge(e) {
       var t;
       return (
         (e == null ||
@@ -658,7 +695,7 @@ __d(
         r("ApiDynamicCreativeOptimizationTypes").REGULAR
       );
     }
-    function fe(e) {
+    function he(e) {
       var t;
       return (
         ((t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -667,7 +704,7 @@ __d(
         r("ApiDynamicCreativeOptimizationTypes").MULTI_CREATOR
       );
     }
-    function ge(e) {
+    function ye(e) {
       var t;
       return (
         ((t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -676,7 +713,7 @@ __d(
         r("ApiDynamicCreativeOptimizationTypes").DEGREES_OF_FREEDOM
       );
     }
-    function he(e) {
+    function Ce(e) {
       var t,
         n = e == null ? void 0 : e.creative,
         o =
@@ -688,7 +725,7 @@ __d(
         o === r("ApiDynamicCreativeOptimizationTypes").FORMAT_AUTOMATION
       );
     }
-    function ye(e) {
+    function be(e) {
       var t,
         n,
         o =
@@ -723,23 +760,23 @@ __d(
           eventName: "branded_content_boosting_type_mismatch",
         });
       }
-      return _e(e) && i;
+      return ge(e) && i;
     }
-    function Ce(e) {
+    function ve(e) {
       var t = e.map(function (e) {
         var t;
         return (t = e.creative) == null || (t = t.asset_feed_spec) == null
           ? void 0
           : t.optimization_type;
       });
-      return e.length <= 1 || be(t);
+      return e.length <= 1 || Se(t);
     }
-    function be(e) {
+    function Se(e) {
       return e.every(function (e) {
         return !e || e === r("ApiDynamicCreativeOptimizationTypes").PLACEMENT;
       });
     }
-    function ve(e) {
+    function Re(e) {
       var t,
         n =
           e == null ||
@@ -762,7 +799,7 @@ __d(
           }) !== -1;
       return !!o;
     }
-    function Se(e) {
+    function Le(e) {
       var t,
         n =
           (t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -776,7 +813,7 @@ __d(
         s = i[1];
       return r("isTruthy")(l) || !!s;
     }
-    function Re(e) {
+    function Ee(e) {
       var t,
         n =
           (t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -791,7 +828,7 @@ __d(
         })
       );
     }
-    function Le(e) {
+    function ke(e) {
       var t,
         n =
           (t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -801,33 +838,33 @@ __d(
         a = o("AdsAssetFeedFieldUtils").getAssetAtIndex(n, "video_id", r);
       return !!a;
     }
-    function Ee(e) {
+    function Ie(e) {
       return e instanceof Object && !(e instanceof r("AdsError"));
     }
-    function ke(e) {
+    function Te(e) {
       return (
         typeof e == "object" &&
         !s.isFbtInstance(e) &&
         !(e instanceof r("AdsError"))
       );
     }
-    function Ie(e, t, n, r) {
-      if (Ee(t) && V(e)) {
+    function De(e, t, n, r) {
+      if (Ie(t) && G(e)) {
         var a = o("AdsAssetFeedFieldUtils").getDefaultAssetIndex(e, n);
-        return r == null || !ke(t[a]) ? t[a] : t[a][r];
+        return r == null || !Te(t[a]) ? t[a] : t[a][r];
       }
       return t;
     }
-    function Te(e, t) {
+    function xe(e, t) {
       return !t || e.length !== 1 ? null : t[e[0]];
     }
-    function De(e, t) {
-      return Te(e, t);
+    function $e(e, t) {
+      return xe(e, t);
     }
-    function xe(e, t) {
-      return Te(e, t);
+    function Pe(e, t) {
+      return xe(e, t);
     }
-    function $e(e) {
+    function Ne(e) {
       var t;
       if (!I(e)) return !1;
       var n =
@@ -842,32 +879,32 @@ __d(
         })
       );
     }
-    function Pe(e, t) {
+    function Me(e, t) {
       return t
         ? t
             .filter(function (t) {
               return t.adset_id === e;
             })
             .some(function (e) {
-              return _e(e);
+              return ge(e);
             })
         : !1;
     }
-    function Ne(e, t) {
+    function we(e, t) {
       return t
         ? t
             .filter(function (t) {
               return t.adset_id === e;
             })
             .some(function (e) {
-              return he(e);
+              return Ce(e);
             })
         : !1;
     }
-    function Me(e) {
-      return _e(e) || j(e) || Y(e) || pe(e) || ne(e);
+    function Ae(e) {
+      return ge(e) || Q(e) || Z(e) || fe(e) || oe(e);
     }
-    function we(e) {
+    function Fe(e) {
       if (r("gkx")("5591")) {
         var t, n;
         return (
@@ -887,7 +924,7 @@ __d(
         );
       }
     }
-    function Ae(e) {
+    function Oe(e) {
       var t,
         n,
         r,
@@ -904,10 +941,10 @@ __d(
           : r.enroll_status) === "OPT_IN"
       );
     }
-    function Fe(e) {
-      return Oe(e.creative);
+    function Be(e) {
+      return We(e.creative);
     }
-    function Oe(e) {
+    function We(e) {
       var t,
         n,
         r =
@@ -916,15 +953,15 @@ __d(
           e == null || (n = e.asset_feed_spec) == null
             ? void 0
             : n.optimization_type;
-      return r != null ? Je(o) && r.includes("AUTOMATIC_FORMAT") : !1;
+      return r != null ? et(o) && r.includes("AUTOMATIC_FORMAT") : !1;
     }
-    function Be(e) {
+    function qe(e) {
       if (S(e)) return r("ApiAdObjectTypes").SHARE;
       if (v(e)) return r("ApiAdObjectTypes").VIDEO;
       var t = Error("Only SINGLE_IMAGE and SINGLE_VIDEO formats are supported");
       throw (t.stack, t);
     }
-    function We(e, t) {
+    function Ue(e, t) {
       var n,
         o = (n = e.creative) == null ? void 0 : n.asset_feed_spec;
       return o == null
@@ -933,7 +970,7 @@ __d(
             "AdsAdgroupRecordAccessors",
           ).creative.asset_feed_spec.optimization_type.set(t, e);
     }
-    function qe(e, t) {
+    function Ve(e, t) {
       if (t === "videos") {
         var n,
           r =
@@ -952,26 +989,26 @@ __d(
       }
       return 0;
     }
-    function Ue(e) {
+    function He(e) {
       return S(e) ? "images" : v(e) ? "videos" : null;
     }
-    function Ve(e, t) {
+    function Ge(e, t) {
       var n,
         o = (n = e.creative) == null ? void 0 : n.asset_feed_spec,
         a = o == null ? void 0 : o.get(t);
       return a != null && r("immutable").List.isList(a) ? a.size : 0;
     }
-    function He(e, t) {
-      return Ve(e, t) > 1;
+    function ze(e, t) {
+      return Ge(e, t) > 1;
     }
-    function Ge(e) {
+    function je(e) {
       var t,
         n =
           (t = e.creative) == null || (t = t.asset_feed_spec) == null
             ? void 0
             : t.asset_customization_rules;
       if (n == null) return -1;
-      if (j(e)) {
+      if (Q(e)) {
         var a,
           i =
             (a = e.creative) == null || (a = a.asset_feed_spec) == null
@@ -979,7 +1016,7 @@ __d(
               : a.asset_customization_rules;
         return i != null ? Array.from(i).length - 1 : -1;
       }
-      if (!ne(e)) return -1;
+      if (!oe(e)) return -1;
       var l = n.reduce(function (e, t) {
         var n = t instanceof r("immutable").Map ? t : r("immutable").fromJS(t),
           a = o(
@@ -996,10 +1033,10 @@ __d(
       }, r("immutable").Set());
       return l.size;
     }
-    function ze(e) {
+    function Ke(e) {
       var t,
         n,
-        o = Ue(e),
+        o = He(e),
         a =
           (t = e.creative) == null || (t = t.asset_feed_spec) == null
             ? void 0
@@ -1009,14 +1046,14 @@ __d(
             ? void 0
             : n.videos;
       return g(e, r("AdsUIMediaFormat").DCO_AUTOMATIC)
-        ? je(a) + je(i)
+        ? Qe(a) + Qe(i)
         : o === "images"
-          ? je(a)
+          ? Qe(a)
           : o === "videos"
-            ? je(i)
+            ? Qe(i)
             : -1;
     }
-    function je(e) {
+    function Qe(e) {
       return e == null
         ? 0
         : e.reduce(function (e, t) {
@@ -1024,7 +1061,7 @@ __d(
             return n instanceof r("immutable").List ? e + n.size : e;
           }, 0);
     }
-    function Ke(e) {
+    function Xe(e) {
       var t = e == null ? void 0 : e.optimization_type;
       return (
         t === r("ApiDynamicCreativeOptimizationTypes").DEGREES_OF_FREEDOM ||
@@ -1032,7 +1069,7 @@ __d(
           (e == null ? void 0 : e.images) == null)
       );
     }
-    function Qe(e, t) {
+    function Ye(e, t) {
       var n = r("getByPath")(e, t);
       return n != null
         ? n instanceof r("immutable").List
@@ -1040,22 +1077,22 @@ __d(
           : n
         : [];
     }
-    function Xe(e) {
+    function Je(e) {
       return (
         (e == null ? void 0 : e.optimization_type) ===
         r("ApiDynamicCreativeOptimizationTypes").DOF_WITH_IMAGE_CROP
       );
     }
-    function Ye(e) {
-      return Je(e == null ? void 0 : e.optimization_type);
+    function Ze(e) {
+      return et(e == null ? void 0 : e.optimization_type);
     }
-    function Je(e) {
+    function et(e) {
       return (
         e === r("ApiDynamicCreativeOptimizationTypes").ACO_AUTOFLOW ||
         e === r("ApiDynamicCreativeOptimizationTypes").AUTOMATED_SHOPPING_ADS
       );
     }
-    function Ze(e, t, n) {
+    function tt(e, t, n) {
       var a;
       if (!o("AdsAdgroupTypeUtils").isAutomaticFormatAd(e))
         return o("AdsUIMediaFormatUtils").getUIFormat(e, t, n);
@@ -1076,7 +1113,7 @@ __d(
             : r("AdsUIMediaFormat").SINGLE_VIDEO
       );
     }
-    function et(e) {
+    function nt(e) {
       var t,
         n,
         r =
@@ -1092,20 +1129,23 @@ __d(
         );
       return r && o;
     }
-    function tt(e) {
+    function rt(e) {
       var t = r("mixedToString")(e.get("url"));
       return t != null && t.includes("/safe_image.php");
     }
-    function nt(e) {
+    function ot(e) {
       var t,
         n =
           (t = e.creative) == null || (t = t.asset_feed_spec) == null
             ? void 0
             : t.optimization_type,
-        o = r("adsConvertAdObjectRecordToPlainJS")(e);
+        o =
+          r("qex")._("3278") === !0
+            ? e
+            : r("adsConvertAdObjectRecordToPlainJS")(e);
       return n == null && N(o);
     }
-    function rt(e) {
+    function at(e) {
       var t;
       return (
         ((t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -1113,7 +1153,7 @@ __d(
           : t.badge_sets) != null
       );
     }
-    function ot(e) {
+    function it(e) {
       if (e != null) {
         var t = {};
         return (
@@ -1124,18 +1164,18 @@ __d(
         );
       } else return null;
     }
-    function at(e) {
+    function lt(e) {
       if (e instanceof r("AdsError")) return e.message;
-      if (Ee(e)) {
+      if (Ie(e)) {
         var t = {};
         return (
           Object.keys(e).map(function (n) {
             var o = parseInt(n, 10),
               a = e[o];
             if (a instanceof r("AdsError")) t[o] = a.message;
-            else if (ke(a)) {
+            else if (Te(a)) {
               var i;
-              t[o] = (i = ot(a)) != null ? i : a;
+              t[o] = (i = it(a)) != null ? i : a;
             } else t[o] = a;
           }),
           t
@@ -1143,15 +1183,11 @@ __d(
       }
       return e;
     }
-    function it(e) {
-      var t = st(e);
+    function st(e) {
+      var t = ut(e);
       return t === "random" || t === "selected";
     }
-    function lt(e) {
-      var t = st(e);
-      return t === "opted_out";
-    }
-    function st(e) {
+    function ut(e) {
       var t, n, r;
       if (
         ((t = e.creative) == null ? void 0 : t.asset_feed_spec) == null ||
@@ -1167,7 +1203,7 @@ __d(
         i = o("AdsAssetFeedFieldUtils").getDefaultAssetIndex(e, "audios");
       return o("AdsAssetFeedFieldUtils").getAssetAtIndex(a, "type", i);
     }
-    function ut(e) {
+    function ct(e) {
       var t, n, r;
       if (
         ((t = e.creative) == null ? void 0 : t.asset_feed_spec) == null ||
@@ -1187,7 +1223,7 @@ __d(
         i,
       );
     }
-    function ct(e) {
+    function dt(e) {
       var t, n, a;
       if (
         ((t = e.creative) == null ? void 0 : t.asset_feed_spec) == null ||
@@ -1221,7 +1257,7 @@ __d(
         u
       );
     }
-    function dt(e) {
+    function mt(e) {
       var t, n, a;
       if (
         ((t = e.creative) == null ? void 0 : t.asset_feed_spec) == null ||
@@ -1264,7 +1300,7 @@ __d(
         r("immutable").List(u)
       );
     }
-    function mt(e) {
+    function pt(e) {
       var t;
       return (
         ((t = e.creative) == null ||
@@ -1274,36 +1310,41 @@ __d(
           : t.is_click_to_message) === !0
       );
     }
-    function pt(e, t) {
+    function _t(e, t) {
       var n,
+        o,
         a = (n = e.creative) == null ? void 0 : n.asset_feed_spec;
       if (a == null) return e;
       var i = r("AdsAdgroupRecordAccessors").creative.asset_feed_spec,
-        l = V(e),
+        l = G(e),
         s = i[t].delete(e),
-        u = V(s),
-        c = o("isAccountEligibleForThreeCOL2AdEx").is3coEnableCarouselFormat();
-      if (c) {
-        var d,
-          m = r("adsConvertAdObjectRecordToPlainJS")(s),
-          p = (d = m.creative) == null ? void 0 : d.asset_feed_spec;
-        if (Object.keys(p != null ? p : {}).length === 0)
-          return r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.delete(
-            s,
-          );
-      }
-      return u && !l
+        u = G(s),
+        c = r("adsConvertAdObjectRecordToPlainJS")(s),
+        d = (o = c.creative) == null ? void 0 : o.asset_feed_spec;
+      return Object.keys(d != null ? d : {}).length === 0 || (u && !l)
         ? r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.delete(s)
         : s;
     }
-    function _t(e) {
-      return j(e) && Re(e) && ve(e);
+    function ft(e) {
+      return Q(e) && Ee(e) && Re(e);
     }
-    function ft(e, t) {
+    function gt(e, t) {
       return e == null || t == null
         ? !1
         : t === r("AdsPromotedObjectTypes").MOBILE_APP &&
             e === r("AdsAPIObjectives").LINK_CLICKS;
+    }
+    function ht(e) {
+      return (
+        e === r("AdsPromotedObjectTypes").MOBILE_APP ||
+        e === r("AdsPromotedObjectTypes").MESSENGER ||
+        e === r("AdsPromotedObjectTypes").WHATSAPP ||
+        e === r("AdsPromotedObjectTypes").INSTAGRAM ||
+        e === r("AdsPromotedObjectTypes").WEBSITE_AND_MESSAGES ||
+        e === r("AdsPromotedObjectTypes").LEAD_FORM_MESSENGER ||
+        e === r("AdsPromotedObjectTypes").LEAD_FROM_IG_DIRECT ||
+        e === r("AdsPromotedObjectTypes").WHATSAPP_CHANNEL
+      );
     }
     ((l.convertDCOAdFormatToUIFormat = c),
       (l.convertUIFormatToDCOAdFormat = d),
@@ -1335,78 +1376,80 @@ __d(
       (l.restoreOnsiteDestinations = F),
       (l.canPacAdgroupUsingDOF = O),
       (l.isPacAdgroupUsingTextDOF = B),
-      (l.isAdgroupUsingAssetFeedFromRecord = V),
-      (l.hasAssetFeedSpecWithoutOnlyOnsiteDestinations = H),
-      (l.isAAAFromRecord = z),
-      (l.isPACAdgroupFromRecord = j),
-      (l.isPACAdgroup = K),
-      (l.isPACAdgroupWithExistingPosts = Q),
-      (l.isInstagramExistingPostPublishedAdgroupFromRecord = X),
-      (l.isDLOAdgroupFromRecord = Y),
-      (l.hasLanguageCustomizationFromRecord = J),
-      (l.isPACIXAdFromRecord = Z),
-      (l.hasPlacementCustomizationFromRecord = ee),
-      (l.hasLanguageOrPlacementCustomizationFromRecord = te),
-      (l.isLocalizedPlacementsAdgroupFromRecord = ne),
-      (l.isDofAdgroupFromSpec = re),
-      (l.isTextOnlyDofAdgroupFromSpec = oe),
-      (l.isDofMessagingDestinationAdgroupFromSpec = ae),
-      (l.isUnifiedProfileVisitsDestinationAdgroupFromSpec = ie),
-      (l.hasMediaUploadedFromCreativeAssetGroupSpec = le),
-      (l.isPACAdgroupFromRecordOrDofMessagingDestinationAdgroupFromSpec = se),
-      (l.isPACOrMCAAdgroupFromRecord = ue),
-      (l.isPACAndIGAdsFromRecord = ce),
-      (l.isDofWithImageAdgroupFromRecord = de),
-      (l.isDofWithUCAAdgroupFromRecord = me),
-      (l.isDCAssetCustomizationAdgroupFromSpec = pe),
-      (l.isRegularDCOAdgroupFromRecord = _e),
-      (l.isMCAAdgroupFromRecord = fe),
-      (l.isDOFAdgroupFromRecord = ge),
-      (l.isFormatAutomationAdgroupFromRecord = he),
-      (l.isDCOWithBrandedContent = ye),
-      (l.isBulkEditable = Ce),
-      (l.doesAdgroupHaveImages = ve),
-      (l.doesAdgroupHaveDefaultImage = Se),
-      (l.doesAdgroupHaveVideos = Re),
-      (l.doesAdgroupHaveDefaultVideo = Le),
-      (l.getErrorForDefaultAsset = Ie),
-      (l.getErrorsForAssetItemList = De),
-      (l.getErrorObjectsForAssetItemList = xe),
-      (l.isAssetFeedAdWithCarouselImageFormat = $e),
-      (l.checkIfDraftCampaignAlreadyHasDraftDCAd = Pe),
-      (l.checkIfDraftCampaignAlreadyHasDraftACOAd = Ne),
-      (l.isDynamicCreativeAdgroup = Me),
-      (l.isAutomaticFlowLiteAdgroup = we),
-      (l.hasCreativeFeaturesAdgroup = Ae),
-      (l.isAutomaticFlow = Fe),
-      (l.isAutomaticFlowFromCreative = Oe),
-      (l.getTargetObjectType = Be),
-      (l.setOptimizationType = We),
-      (l.getDistinctMediaAssetCount = qe),
-      (l.getMediaTypeFromFormat = Ue),
-      (l.hasMultipleAssets = He),
-      (l.getAdditionalPlacementCount = Ge),
-      (l.getAssetMediaAdlabelCount = ze),
-      (l.isTextOnlyDofAssetFeedSpec = Ke),
-      (l.getAssetsForField = Qe),
-      (l.isDofWithImageAssetFeedSpec = Xe),
-      (l.isAcoAutoflowAssetFeedSpec = Ye),
-      (l.getDLOMediaFormat = Ze),
-      (l.isDLOForAAA = et),
-      (l.isSafeImageURL = tt),
-      (l.isStaticCreativeWithAssetFeedSpec = nt),
-      (l.isCreativeBadgeFromRecord = rt),
-      (l.convertAdsErrorsToMessage = at),
-      (l.getIsAudiosAdgroupEnabled = it),
-      (l.getIsAudiosAdgroupOptedOut = lt),
-      (l.getAdgroupAudiosType = st),
-      (l.getAdgroupIsAudioSwap = ut),
-      (l.getAdgroupAudiosIDs = ct),
-      (l.getAdgroupAudiosAsset = dt),
-      (l.isClickToMultiDestAds = mt),
-      (l.removeFieldFromAssetFeedSpec = pt),
-      (l.isPACMixedImageAndVideoFromRecord = _t),
-      (l.shouldAddObjectStoreURLForTrafficAndPromotedApp = ft));
+      (l.isEmptyAssetFeedValue = U),
+      (l.isAssetFeedSpecEmpty = H),
+      (l.isAdgroupUsingAssetFeedFromRecord = G),
+      (l.hasAssetFeedSpecWithoutOnlyOnsiteDestinations = z),
+      (l.isAAAFromRecord = K),
+      (l.isPACAdgroupFromRecord = Q),
+      (l.isPACAdgroup = X),
+      (l.isPACAdgroupWithExistingPosts = Y),
+      (l.isInstagramExistingPostPublishedAdgroupFromRecord = J),
+      (l.isDLOAdgroupFromRecord = Z),
+      (l.hasLanguageCustomizationFromRecord = ee),
+      (l.isPACIXAdFromRecord = te),
+      (l.hasPlacementCustomizationFromRecord = ne),
+      (l.hasLanguageOrPlacementCustomizationFromRecord = re),
+      (l.isLocalizedPlacementsAdgroupFromRecord = oe),
+      (l.isDofAdgroupFromSpec = ae),
+      (l.isTextOnlyDofAdgroupFromSpec = ie),
+      (l.isDofMessagingDestinationAdgroupFromSpec = le),
+      (l.isUnifiedProfileVisitsDestinationAdgroupFromSpec = se),
+      (l.hasMediaUploadedFromCreativeAssetGroupSpec = ue),
+      (l.isPACAdgroupFromRecordOrDofMessagingDestinationAdgroupFromSpec = ce),
+      (l.isPACOrMCAAdgroupFromRecord = de),
+      (l.isPACAndIGAdsFromRecord = me),
+      (l.isDofWithImageAdgroupFromRecord = pe),
+      (l.isDofWithUCAAdgroupFromRecord = _e),
+      (l.isDCAssetCustomizationAdgroupFromSpec = fe),
+      (l.isRegularDCOAdgroupFromRecord = ge),
+      (l.isMCAAdgroupFromRecord = he),
+      (l.isDOFAdgroupFromRecord = ye),
+      (l.isFormatAutomationAdgroupFromRecord = Ce),
+      (l.isDCOWithBrandedContent = be),
+      (l.isBulkEditable = ve),
+      (l.doesAdgroupHaveImages = Re),
+      (l.doesAdgroupHaveDefaultImage = Le),
+      (l.doesAdgroupHaveVideos = Ee),
+      (l.doesAdgroupHaveDefaultVideo = ke),
+      (l.getErrorForDefaultAsset = De),
+      (l.getErrorsForAssetItemList = $e),
+      (l.getErrorObjectsForAssetItemList = Pe),
+      (l.isAssetFeedAdWithCarouselImageFormat = Ne),
+      (l.checkIfDraftCampaignAlreadyHasDraftDCAd = Me),
+      (l.checkIfDraftCampaignAlreadyHasDraftACOAd = we),
+      (l.isDynamicCreativeAdgroup = Ae),
+      (l.isAutomaticFlowLiteAdgroup = Fe),
+      (l.hasCreativeFeaturesAdgroup = Oe),
+      (l.isAutomaticFlow = Be),
+      (l.isAutomaticFlowFromCreative = We),
+      (l.getTargetObjectType = qe),
+      (l.setOptimizationType = Ue),
+      (l.getDistinctMediaAssetCount = Ve),
+      (l.getMediaTypeFromFormat = He),
+      (l.hasMultipleAssets = ze),
+      (l.getAdditionalPlacementCount = je),
+      (l.getAssetMediaAdlabelCount = Ke),
+      (l.isTextOnlyDofAssetFeedSpec = Xe),
+      (l.getAssetsForField = Ye),
+      (l.isDofWithImageAssetFeedSpec = Je),
+      (l.isAcoAutoflowAssetFeedSpec = Ze),
+      (l.getDLOMediaFormat = tt),
+      (l.isDLOForAAA = nt),
+      (l.isSafeImageURL = rt),
+      (l.isStaticCreativeWithAssetFeedSpec = ot),
+      (l.isCreativeBadgeFromRecord = at),
+      (l.convertAdsErrorsToMessage = lt),
+      (l.getIsAudiosAdgroupEnabled = st),
+      (l.getAdgroupAudiosType = ut),
+      (l.getAdgroupIsAudioSwap = ct),
+      (l.getAdgroupAudiosIDs = dt),
+      (l.getAdgroupAudiosAsset = mt),
+      (l.isClickToMultiDestAds = pt),
+      (l.removeFieldFromAssetFeedSpec = _t),
+      (l.isPACMixedImageAndVideoFromRecord = ft),
+      (l.shouldAddObjectStoreURLForTrafficAndPromotedApp = gt),
+      (l.isAppOrMessagingDestination = ht));
   },
   98,
 );

@@ -18,34 +18,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return { name: "GetCertificateResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "GetCertificateResponseError", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("GetCertificate", {
-              Success: a,
-              Error: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return { name: "GetCertificateResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "GetCertificateResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetCertificate", {
+          Success: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -55,7 +46,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = _(r.value);
+      var i = p(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -64,12 +55,12 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "reply");
       if (!r.success) return r;
-      var a = y(r.value);
+      var a = h(r.value);
       if (!a.success) return a;
       var i = o(
         "WASmaxInWaffleIQResultResponseMixin",
@@ -83,15 +74,15 @@ __d(
           )
         : i;
     }
-    function d() {
+    function c() {
       var e = o("WASmaxJsx").smax("payload_enc_certificates", null);
       return e;
     }
-    function m() {
+    function d() {
       var e = o("WASmaxJsx").smax("password_pem", null);
       return e;
     }
-    function p(e) {
+    function m(e) {
       var t = e.hasPayloadEncCertificates,
         n = e.hasPasswordPem,
         r = e.timestampElementValue,
@@ -106,13 +97,13 @@ __d(
               to: o("WAWap").S_WHATSAPP_NET,
             },
             o("WASmaxJsx").smax("timestamp", null, o("WAWap").INT(r)),
-            o("WASmaxChildren").HAS_OPTIONAL_CHILD(d, t),
-            o("WASmaxChildren").HAS_OPTIONAL_CHILD(m, n),
+            o("WASmaxChildren").HAS_OPTIONAL_CHILD(c, t),
+            o("WASmaxChildren").HAS_OPTIONAL_CHILD(d, n),
           ),
         );
       return a;
     }
-    function _(e) {
+    function p(e) {
       var t = o(
         "WASmaxInWaffleIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -161,7 +152,7 @@ __d(
           name: "IQErrorServiceUnavailable",
           value: l.value,
         });
-      var s = C(e);
+      var s = y(e);
       return s.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorFeatureNotImplemented",
@@ -181,7 +172,7 @@ __d(
             [t, n, r, a, i, l, s],
           );
     }
-    function f(e) {
+    function _(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "encryption_pem");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(e, "ttl", 1, void 0);
@@ -194,7 +185,7 @@ __d(
           })
         : r;
     }
-    function g(e) {
+    function f(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "signature_pem");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(e, "ttl", 1, void 0);
@@ -207,7 +198,7 @@ __d(
           })
         : r;
     }
-    function h(e) {
+    function g(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "password_pem");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(e, "ttl", 1, void 0);
@@ -223,16 +214,16 @@ __d(
           })
         : a;
     }
-    function y(e) {
+    function h(e) {
       var t = o("WASmaxParseUtils").optionalChildWithTag(
         e,
         "encryption_pem",
-        f,
+        _,
       );
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").optionalChildWithTag(e, "signature_pem", g);
+      var n = o("WASmaxParseUtils").optionalChildWithTag(e, "signature_pem", f);
       if (!n.success) return n;
-      var r = o("WASmaxParseUtils").optionalChildWithTag(e, "password_pem", h);
+      var r = o("WASmaxParseUtils").optionalChildWithTag(e, "password_pem", g);
       if (!r.success) return r;
       var a = o("WASmaxParseUtils").attrIntRange(e, "timestamp", 1, void 0);
       return a.success
@@ -244,7 +235,7 @@ __d(
           })
         : a;
     }
-    function C(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -265,9 +256,9 @@ __d(
         : r;
     }
     ((l.sendGetCertificateRPC = e),
-      (l.parseGetCertificateResponseError = u),
-      (l.parseGetCertificateResponseSuccess = c),
-      (l.makeGetCertificateRequest = p));
+      (l.parseGetCertificateResponseError = s),
+      (l.parseGetCertificateResponseSuccess = u),
+      (l.makeGetCertificateRequest = m));
   },
   98,
 );

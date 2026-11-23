@@ -7,7 +7,6 @@ __d(
     "WebBloksSSRUtils",
     "WebBloksStyle",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -29,147 +28,86 @@ __d(
         },
       });
     function y(e) {
-      var t = o("react-compiler-runtime").c(37),
-        n = e.node,
-        r = o("WebBloksStyle").useStyle(n),
-        a = r.wrapper,
-        i = r.wrapperProps,
-        l = o("WebBloksComponentContext").useWebBloksContext(),
-        u = l.bloksContext,
-        c = l.executeCatch,
-        y = l.renderNode,
-        C = !!n.get(g),
-        b;
-      t[0] !== n
-        ? ((b = n.getExpression(_)), (t[0] = n), (t[1] = b))
-        : (b = t[1]);
-      var v = b,
-        S;
-      t[2] !== n
-        ? ((S = n.getExpression(p)), (t[2] = n), (t[3] = S))
-        : (S = t[3]);
-      var R = S,
-        L;
-      t[4] !== n || t[5] !== y
-        ? ((L = y(n.getSubNode(f))), (t[4] = n), (t[5] = y), (t[6] = L))
-        : (L = t[6]);
-      var E = L,
-        k;
-      t[7] !== n || t[8] !== y
-        ? ((k = y(n.getSubNode(m))), (t[7] = n), (t[8] = y), (t[9] = k))
-        : (k = t[9]);
-      var I = k;
-      u.initAssociatedObject_INTERNAL(
-        n,
+      var t = e.node,
+        n = o("WebBloksStyle").useStyle(t),
+        r = n.wrapper,
+        a = n.wrapperProps,
+        i = o("WebBloksComponentContext").useWebBloksContext(),
+        l = i.bloksContext,
+        u = i.executeCatch,
+        y = i.renderNode,
+        C = !!t.get(g),
+        b = t.getExpression(_),
+        v = t.getExpression(p),
+        S = y(t.getSubNode(f)),
+        R = y(t.getSubNode(m));
+      l.initAssociatedObject_INTERNAL(
+        t,
         o("WebBloksConstants").TOOLTIP_VISIBILITY_ASSOCIATED_OBJECT,
         { visible: C },
       );
-      var T;
-      t[10] !== u || t[11] !== c || t[12] !== n || t[13] !== R || t[14] !== v
-        ? ((T = function () {
-            (v != null && c(n, v, [n, !1]),
-              R != null && c(n, R, [n, !1]),
-              u.updateAssociatedObject_INTERNAL(
-                n,
+      var L = c(
+          function () {
+            (b != null && u(t, b, [t, !1]),
+              v != null && u(t, v, [t, !1]),
+              l.updateAssociatedObject_INTERNAL(
+                t,
                 o("WebBloksConstants").TOOLTIP_VISIBILITY_ASSOCIATED_OBJECT,
                 { visible: !1 },
               ));
-          }),
-          (t[10] = u),
-          (t[11] = c),
-          (t[12] = n),
-          (t[13] = R),
-          (t[14] = v),
-          (t[15] = T))
-        : (T = t[15]);
-      var D = T,
-        x;
-      t[16] !== u || t[17] !== n
-        ? ((x = u.getAssociatedObject_INTERNAL(
-            n,
-            o("WebBloksConstants").TOOLTIP_VISIBILITY_ASSOCIATED_OBJECT,
-          )),
-          (t[16] = u),
-          (t[17] = n),
-          (t[18] = x))
-        : (x = t[18]);
-      var $ = x,
-        P,
-        N;
-      (t[19] !== D || t[20] !== $
-        ? ((P = function () {
-            if (!(!o("WebBloksSSRUtils").canUseDOM || !$)) {
+          },
+          [u, t, v, b, l],
+        ),
+        E = l.getAssociatedObject_INTERNAL(
+          t,
+          o("WebBloksConstants").TOOLTIP_VISIBILITY_ASSOCIATED_OBJECT,
+        );
+      (d(
+        function () {
+          if (!(!o("WebBloksSSRUtils").canUseDOM || !E)) {
+            var e = document.documentElement;
+            return (
+              e.addEventListener("click", L, { passive: !0, once: !0 }),
+              function () {
+                e.removeEventListener("click", L);
+              }
+            );
+          }
+        },
+        [E, L],
+      ),
+        d(
+          function () {
+            if (!(!o("WebBloksSSRUtils").canUseDOM || !E)) {
               var e = document.documentElement;
               return (
-                e.addEventListener("click", D, { passive: !0, once: !0 }),
+                e.addEventListener("scroll", L, { passive: !0, once: !0 }),
                 function () {
-                  e.removeEventListener("click", D);
+                  e.removeEventListener("scroll", L);
                 }
               );
             }
+          },
+          [E, L],
+        ));
+      var k = c(
+        function (e) {
+          e.key === "Escape" && (e.stopPropagation(), L());
+        },
+        [L],
+      );
+      return r(
+        s.jsxs(
+          "div",
+          babelHelpers.extends({}, a, {
+            className: h.root,
+            onKeyPress: k,
+            children: [E != null && E.visible ? S : null, R],
           }),
-          (N = [$, D]),
-          (t[19] = D),
-          (t[20] = $),
-          (t[21] = P),
-          (t[22] = N))
-        : ((P = t[21]), (N = t[22])),
-        d(P, N));
-      var M, w;
-      (t[23] !== D || t[24] !== $
-        ? ((w = function () {
-            if (!(!o("WebBloksSSRUtils").canUseDOM || !$)) {
-              var e = document.documentElement;
-              return (
-                e.addEventListener("scroll", D, { passive: !0, once: !0 }),
-                function () {
-                  e.removeEventListener("scroll", D);
-                }
-              );
-            }
-          }),
-          (M = [$, D]),
-          (t[23] = D),
-          (t[24] = $),
-          (t[25] = M),
-          (t[26] = w))
-        : ((M = t[25]), (w = t[26])),
-        d(w, M));
-      var A;
-      t[27] !== D
-        ? ((A = function (t) {
-            t.key === "Escape" && (t.stopPropagation(), D());
-          }),
-          (t[27] = D),
-          (t[28] = A))
-        : (A = t[28]);
-      var F = A,
-        O = $ != null && $.visible ? E : null,
-        B;
-      t[29] !== I || t[30] !== F || t[31] !== O || t[32] !== i
-        ? ((B = s.jsxs(
-            "div",
-            babelHelpers.extends({}, i, {
-              className: h.root,
-              onKeyPress: F,
-              children: [O, I],
-            }),
-          )),
-          (t[29] = I),
-          (t[30] = F),
-          (t[31] = O),
-          (t[32] = i),
-          (t[33] = B))
-        : (B = t[33]);
-      var W;
-      return (
-        t[34] !== B || t[35] !== a
-          ? ((W = a(B)), (t[34] = B), (t[35] = a), (t[36] = W))
-          : (W = t[36]),
-        W
+        ),
       );
     }
-    l.default = y;
+    ((y.displayName = y.name + " [from " + i.id + "]"), (l.default = y));
   },
   98,
 );

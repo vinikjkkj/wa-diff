@@ -1,0 +1,161 @@
+__d(
+  "WAWebBackendRuntimeWebDi",
+  [
+    "WAWebAddonSendServiceWebLive",
+    "WAWebAddonServiceWebLive",
+    "WAWebBlocklistServiceWebLive",
+    "WAWebChatDeleteServiceWebLive",
+    "WAWebChatPinServiceWebLive",
+    "WAWebChatReadServiceWebLive",
+    "WAWebChatSettingsServiceWebLive",
+    "WAWebChatStateServiceWebLive",
+    "WAWebChatStoreServiceWebLive",
+    "WAWebCommunityServiceWebLive",
+    "WAWebContactQueryServiceWebLive",
+    "WAWebContactStoreServiceWebLive",
+    "WAWebDisappearingModeServiceWebLive",
+    "WAWebGroupInviteServiceWebLive",
+    "WAWebGroupLifecycleServiceWebLive",
+    "WAWebGroupMembershipRequestsServiceWebLive",
+    "WAWebGroupParticipantsServiceWebLive",
+    "WAWebGroupQueryServiceWebLive",
+    "WAWebGroupSettingsServiceWebLive",
+    "WAWebGroupStoreServiceWebLive",
+    "WAWebLidMappingServiceWebLive",
+    "WAWebMediaDownloadServiceWebLive",
+    "WAWebMediaUploadServiceWebLive",
+    "WAWebMessageDeleteServiceWebLive",
+    "WAWebMessageQueryServiceWebLive",
+    "WAWebMessageSendServiceWebLive",
+    "WAWebMessageStarServiceWebLive",
+    "WAWebMessageStoreServiceWebLive",
+    "WAWebMsgModelServiceWebLive",
+    "WAWebPeerDataServiceWebLive",
+    "WAWebPollServiceWebLive",
+    "WAWebPresenceServiceWebLive",
+    "WAWebPrivacyServiceWebLive",
+    "WAWebProfilePictureServiceWebLive",
+    "WAWebProfileServiceWebLive",
+    "WAWebReactionServiceWebLive",
+    "WAWebReactionStoreServiceWebLive",
+    "WAWebReceiptServiceWebLive",
+    "WAWebRevokeServiceWebLive",
+    "WAWebScheduledMessageServiceWebLive",
+    "WAWebSpamServiceWebLive",
+    "WAWebStatusUpdatesServiceWebLive",
+    "WebDi.Fx",
+    "WebDi.Provider",
+    "WebDi.Run",
+  ],
+  function (t, n, r, o, a, i, l) {
+    var e = null;
+    async function s(e, t) {
+      var n = await u();
+      return (await n.run(o("WebDi.Fx").flatMap(t)(e))).getOrThrow();
+    }
+    function u() {
+      if (e == null) {
+        var t;
+        e = o("WebDi.Run")
+          .runtime([
+            (t = o("WebDi.Provider")).lazy(
+              o("WAWebAddonSendServiceWebLive").AddonSendServiceWebLive,
+            ),
+            t.lazy(o("WAWebAddonServiceWebLive").AddonServiceWebLive),
+            t.lazy(o("WAWebBlocklistServiceWebLive").BlocklistServiceWebLive),
+            t.lazy(o("WAWebChatDeleteServiceWebLive").ChatDeleteServiceWebLive),
+            t.lazy(o("WAWebChatPinServiceWebLive").ChatPinServiceWebLive),
+            t.lazy(o("WAWebChatReadServiceWebLive").ChatReadServiceWebLive),
+            t.lazy(
+              o("WAWebChatSettingsServiceWebLive").ChatSettingsServiceWebLive,
+            ),
+            t.lazy(o("WAWebChatStateServiceWebLive").ChatStateServiceWebLive),
+            t.lazy(o("WAWebChatStoreServiceWebLive").ChatStoreServiceWebLive),
+            t.lazy(o("WAWebCommunityServiceWebLive").CommunityServiceWebLive),
+            t.lazy(
+              o("WAWebContactQueryServiceWebLive").ContactQueryServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebContactStoreServiceWebLive").ContactStoreServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebDisappearingModeServiceWebLive")
+                .DisappearingModeServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebGroupInviteServiceWebLive").GroupInviteServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebGroupLifecycleServiceWebLive")
+                .GroupLifecycleServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebGroupMembershipRequestsServiceWebLive")
+                .GroupMembershipRequestsServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebGroupParticipantsServiceWebLive")
+                .GroupParticipantsServiceWebLive,
+            ),
+            t.lazy(o("WAWebGroupQueryServiceWebLive").GroupQueryServiceWebLive),
+            t.lazy(
+              o("WAWebGroupSettingsServiceWebLive").GroupSettingsServiceWebLive,
+            ),
+            t.lazy(o("WAWebGroupStoreServiceWebLive").GroupStoreServiceWebLive),
+            t.lazy(o("WAWebLidMappingServiceWebLive").LidMappingServiceWebLive),
+            t.lazy(
+              o("WAWebMediaDownloadServiceWebLive").MediaDownloadServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebMediaUploadServiceWebLive").MediaUploadServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebMessageDeleteServiceWebLive").MessageDeleteServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebMessageQueryServiceWebLive").MessageQueryServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebMessageSendServiceWebLive").MessageSendServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebMessageStarServiceWebLive").MessageStarServiceWebLive,
+            ),
+            t.lazy(
+              o("WAWebMessageStoreServiceWebLive").MessageStoreServiceWebLive,
+            ),
+            t.lazy(o("WAWebMsgModelServiceWebLive").MsgModelServiceWebLive),
+            t.lazy(o("WAWebPeerDataServiceWebLive").PeerDataServiceWebLive),
+            t.lazy(o("WAWebPollServiceWebLive").PollServiceWebLive),
+            t.lazy(o("WAWebPresenceServiceWebLive").PresenceServiceWebLive),
+            t.lazy(o("WAWebPrivacyServiceWebLive").PrivacyServiceWebLive),
+            t.lazy(
+              o("WAWebProfilePictureServiceWebLive")
+                .ProfilePictureServiceWebLive,
+            ),
+            t.lazy(o("WAWebProfileServiceWebLive").ProfileServiceWebLive),
+            t.lazy(o("WAWebReactionServiceWebLive").ReactionServiceWebLive),
+            t.lazy(
+              o("WAWebReactionStoreServiceWebLive").ReactionStoreServiceWebLive,
+            ),
+            t.lazy(o("WAWebReceiptServiceWebLive").ReceiptServiceWebLive),
+            t.lazy(o("WAWebRevokeServiceWebLive").RevokeServiceWebLive),
+            t.lazy(
+              o("WAWebScheduledMessageServiceWebLive")
+                .ScheduledMessageServiceWebLive,
+            ),
+            t.lazy(o("WAWebSpamServiceWebLive").SpamServiceWebLive),
+            t.lazy(
+              o("WAWebStatusUpdatesServiceWebLive").StatusUpdatesServiceWebLive,
+            ),
+          ])
+          .catch(function (t) {
+            throw ((e = null), t);
+          });
+      }
+      return e;
+    }
+    l.run = s;
+  },
+  98,
+);

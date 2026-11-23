@@ -17,176 +17,150 @@ __d(
           doodle: "dark",
           opacity: "0.42",
           getColorName: function () {
-            return s._(/*BTDS*/ "Cruise");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Cruise, Color hex: #BBE4E5, hue: green",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#AED8C7": {
           doodle: "dark",
           opacity: "0.3",
           getColorName: function () {
-            return s._(/*BTDS*/ "Scandal");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Scandal, Color hex: #AED8C7, hue: green",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#7ACBA5": {
           doodle: "dark",
           opacity: "0.26",
           getColorName: function () {
-            return s._(/*BTDS*/ "Monte carlo");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Monte Carlo, Color hex: #7ACBA5, hue: green",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#CBDAEC": {
           doodle: "dark",
           opacity: "0.42",
           getColorName: function () {
-            return s._(/*BTDS*/ "Hawkes blue");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Hawkes blue, Color hex: #CBDAEC, hue: blue",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#66D2D5": {
           doodle: "dark",
           opacity: "0.26",
           getColorName: function () {
-            return s._(/*BTDS*/ "Downy");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(/*BTDS*/ "Color: Downy, Color hex: #66D2D5, hue: green");
+            return s._(/*BTDS*/ "");
           },
         },
         "#63BDCF": {
           doodle: "dark",
           opacity: "0.26",
           getColorName: function () {
-            return s._(/*BTDS*/ "Seagull");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Seagull, Color hex: #63BDCF, hue: blue",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#D6D0F0": {
           doodle: "dark",
           opacity: "0.36",
           getColorName: function () {
-            return s._(/*BTDS*/ "Quartz");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Quartz, Color hex: #D6D0F0, hue: White",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#CECECE": {
           doodle: "dark",
           opacity: "0.36",
           getColorName: function () {
-            return s._(/*BTDS*/ "Very light grey");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Very light grey, Color hex: #CECECE, hue: grey",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#D1DABE": {
           doodle: "dark",
           opacity: "0.36",
           getColorName: function () {
-            return s._(/*BTDS*/ "Orinoco");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Orinoco, Color hex: #D1DABE, hue: green",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#E6E1B1": {
           doodle: "dark",
           opacity: "0.42",
           getColorName: function () {
-            return s._(/*BTDS*/ "Tusk");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(/*BTDS*/ "Color: Tusk, Color hex: #E6E1B1, hue: green");
+            return s._(/*BTDS*/ "");
           },
         },
         "#FEEFA9": {
           doodle: "light",
           opacity: "0.06",
           getColorName: function () {
-            return s._(/*BTDS*/ "Cape honey");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Cape honey, Color hex: #FEEFA9, hue: Yellow",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#FED297": {
           doodle: "dark",
           opacity: "0.42",
           getColorName: function () {
-            return s._(/*BTDS*/ "Caramel");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Caramel, Color hex: #FED297, hue: Yellow",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#FD9A9B": {
           doodle: "dark",
           opacity: "0.26",
           getColorName: function () {
-            return s._(/*BTDS*/ "Rose bud");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Rose bud, Color hex: #FD9A9B, hue: Red",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#FD6769": {
           doodle: "dark",
           opacity: "0.26",
           getColorName: function () {
-            return s._(/*BTDS*/ "Bittersweet");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Bittersweet, Color hex: #FD6769, hue: Orange",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#FB4668": {
           doodle: "dark",
           opacity: "0.26",
           getColorName: function () {
-            return s._(/*BTDS*/ "Radical red");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Radical red, Color hex: #FB4668, hue: Red",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#922040": {
@@ -194,24 +168,20 @@ __d(
           opacity: "0.17",
           invertTransparentWallpaperColors: !0,
           getColorName: function () {
-            return s._(/*BTDS*/ "Mandarin orange");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Mandarin orange, Color hex: #922040, hue: Orange",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#DC6E4F": {
           doodle: "dark",
           opacity: "0.2",
           getColorName: function () {
-            return s._(/*BTDS*/ "Flamingo");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Flamingo, Color hex: #DC6E4F, hue: Orange",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#644D52": {
@@ -219,36 +189,30 @@ __d(
           opacity: "0.13",
           invertTransparentWallpaperColors: !0,
           getColorName: function () {
-            return s._(/*BTDS*/ "Buccaneer");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Buccaneer, Color hex: #644D52, hue: Red",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#517E7E": {
           doodle: "dark",
           opacity: "0.13",
           getColorName: function () {
-            return s._(/*BTDS*/ "Breaker bay");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Breaker bay, Color hex: #517E7E, hue: green",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#3190BB": {
           doodle: "dark",
           opacity: "0.13",
           getColorName: function () {
-            return s._(/*BTDS*/ "Pelorous");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Pelorous, Color hex: #3190BB, hue: blue",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#35558A": {
@@ -256,12 +220,10 @@ __d(
           opacity: "0.1",
           invertTransparentWallpaperColors: !0,
           getColorName: function () {
-            return s._(/*BTDS*/ "Tory blue");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Tory blue, Color hex: #35558A, hue: blue",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#55626F": {
@@ -269,10 +231,10 @@ __d(
           opacity: "0.1",
           invertTransparentWallpaperColors: !0,
           getColorName: function () {
-            return s._(/*BTDS*/ "Fiord");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(/*BTDS*/ "Color: Fiord, Color hex: #55626F, hue: blue");
+            return s._(/*BTDS*/ "");
           },
         },
         "#1D2326": {
@@ -280,10 +242,10 @@ __d(
           opacity: "0.1",
           invertTransparentWallpaperColors: !0,
           getColorName: function () {
-            return s._(/*BTDS*/ "Cinder");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(/*BTDS*/ "Color: Cinder, Color hex: #1D2326, hue: grey");
+            return s._(/*BTDS*/ "");
           },
         },
         "#301E34": {
@@ -291,48 +253,40 @@ __d(
           opacity: "0.1",
           invertTransparentWallpaperColors: !0,
           getColorName: function () {
-            return s._(/*BTDS*/ "Tolopea");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Tolopea, Color hex: #301E34, hue: Violet",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#ECF0F1": {
           doodle: "light",
           opacity: "0.06",
           getColorName: function () {
-            return s._(/*BTDS*/ "Solitude");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Solitude, Color hex: #ECF0F1, hue: blue",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#FFFEA2": {
           doodle: "light",
           opacity: "0.06",
           getColorName: function () {
-            return s._(/*BTDS*/ "Canary");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Canary, Color hex: #FFFEA2, hue: Yellow",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#E7E8D2": {
           doodle: "light",
           opacity: "0.06",
           getColorName: function () {
-            return s._(/*BTDS*/ "Willow Brook");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Willow Brook, Color hex: #E7E8D2, hue: green",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
       },
@@ -341,314 +295,270 @@ __d(
           doodle: "dark",
           opacity: "0.05",
           getColorName: function () {
-            return s._(/*BTDS*/ "Nordic");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(/*BTDS*/ "Color: Nordic, Color hex: #0F2424, hue: blue");
+            return s._(/*BTDS*/ "");
           },
         },
         "#12261F": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Cardin green");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Cardin green, Color hex: #12261F, hue: green",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#11241C": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Cardin green");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Cardin green, Color hex: #11241C, hue: green",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#111E27": {
           doodle: "dark",
           opacity: "0.06",
           getColorName: function () {
-            return s._(/*BTDS*/ "Tangaroa");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Tangaroa, Color hex: #111E27, hue: blue",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#0F2224": {
           doodle: "dark",
           opacity: "0.06",
           getColorName: function () {
-            return s._(/*BTDS*/ "Nordic");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(/*BTDS*/ "Color: Nordic, Color hex: #0F2224, hue: blue");
+            return s._(/*BTDS*/ "");
           },
         },
         "#0E2125": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Tiber");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(/*BTDS*/ "Color: Tiber, Color hex: #0E2125, hue: green");
+            return s._(/*BTDS*/ "");
           },
         },
         "#1F1D25": {
           doodle: "dark",
           opacity: "0.06",
           getColorName: function () {
-            return s._(/*BTDS*/ "Black russian");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Black russian, Color hex: #1F1D25, hue: grey",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#212121": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Nero");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(/*BTDS*/ "Color: Nero, Color hex: #212121, hue: grey");
+            return s._(/*BTDS*/ "");
           },
         },
         "#1F211C": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Marshland");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Marshland, Color hex: #1F211C, hue: green",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#23231B": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Maire");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Maire, Color hex: #23231B, hue: Yellow",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#262419": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Black magic");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Black magic, Color hex: #262419, hue: brown",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#261F17": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Cocoa brown");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Cocoa brown, Color hex: #261F17, hue: brown",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#261717": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Wood Bark");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Wood Bark, Color hex: #261717, hue: brown",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#260F10": {
           doodle: "dark",
           opacity: "0.06",
           getColorName: function () {
-            return s._(/*BTDS*/ "Seal brown");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Seal brown, Color hex: #260F10, hue: brown",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#260A10": {
           doodle: "dark",
           opacity: "0.07",
           getColorName: function () {
-            return s._(/*BTDS*/ "Seal brown");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Seal brown, Color hex: #260A10, hue: brown",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#19050B": {
           doodle: "dark",
           opacity: "0.075",
           getColorName: function () {
-            return s._(/*BTDS*/ "Seal brown");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Seal brown, Color hex: #19050B, hue: brown",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#21100C": {
           doodle: "dark",
           opacity: "0.07",
           getColorName: function () {
-            return s._(/*BTDS*/ "Seal brown");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Seal brown, Color hex: #21100C, hue: brown",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#0F0C0C": {
           doodle: "dark",
           opacity: "0.065",
           getColorName: function () {
-            return s._(/*BTDS*/ "Black");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(/*BTDS*/ "Color: Black, Color hex: #0F0C0C, hue: Black");
+            return s._(/*BTDS*/ "");
           },
         },
         "#101919": {
           doodle: "dark",
           opacity: "0.06",
           getColorName: function () {
-            return s._(/*BTDS*/ "Black pearl");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Black pearl, Color hex: #101919, hue: blue",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#0A1D25": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Cyprus");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Cyprus, Color hex: #0A1D25, hue: green",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#0D1523": {
           doodle: "dark",
           opacity: "0.065",
           getColorName: function () {
-            return s._(/*BTDS*/ "Blue whale");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: blue whale, Color hex: #0D1523, hue: blue",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#0D0F11": {
           doodle: "dark",
           opacity: "0.07",
           getColorName: function () {
-            return s._(/*BTDS*/ "Black pearl");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Black pearl, Color hex: #0D0F11, hue: blue",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#0A0C0D": {
           doodle: "dark",
           opacity: "0.07",
           getColorName: function () {
-            return s._(/*BTDS*/ "Black pearl");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Black pearl, Color hex: #0A0C0D, hue: blue",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#110B12": {
           doodle: "dark",
           opacity: "0.07",
           getColorName: function () {
-            return s._(/*BTDS*/ "Tolopea");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Tolopea, Color hex: #110B12, hue: Violet",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#1E1F1F": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Woodsmoke");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Woodsmoke, Color hex: #1E1F1F, hue: grey",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#262618": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Black magic");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Black magic, Color hex: #262618, hue: brown",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
         "#23231F": {
           doodle: "dark",
           opacity: "0.055",
           getColorName: function () {
-            return s._(/*BTDS*/ "Maire");
+            return s._(/*BTDS*/ "");
           },
           getAriaLabel: function () {
-            return s._(
-              /*BTDS*/ "Color: Maire, Color hex: #23231F, hue: Yellow",
-            );
+            return s._(/*BTDS*/ "");
           },
         },
       },
@@ -729,10 +639,7 @@ __d(
     }
     function k(t, n) {
       var r;
-      if (t === e)
-        return n === "light"
-          ? s._(/*BTDS*/ "Color: Beige, Color hex: #F5F1EB, hue: Beige")
-          : s._(/*BTDS*/ "Color: Black, Color hex: #161717, hue: black");
+      if (t === e) return n === "light" ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
       var o = n === "light" ? p : _,
         a =
           (r = o[t]) == null || r.getAriaLabel == null
@@ -742,8 +649,7 @@ __d(
     }
     function I(t, n) {
       var r;
-      if (t === e)
-        return n === "light" ? s._(/*BTDS*/ "Beige") : s._(/*BTDS*/ "Black");
+      if (t === e) return n === "light" ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
       var o = n === "light" ? p : _,
         a = (r = o[t]) == null ? void 0 : r.getColorName();
       return a;

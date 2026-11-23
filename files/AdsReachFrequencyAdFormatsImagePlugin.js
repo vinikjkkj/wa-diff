@@ -6,32 +6,36 @@ __d(
     "AdsAdFormatsComponent.react",
     "AdsPlannerPlanTypeUtils",
     "AdsThruPlayDurationUtils",
+    "GeoTooltip.react",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
       u = e || (e = o("react")),
-      c = {
+      c = s._(/*BTDS*/ ""),
+      d = {
         type: "reach_frequency_ad_formats",
         key: "IMAGE",
         adFormatType: "image",
-        label: s._(/*BTDS*/ "Image or carousel"),
-        description: s._(
-          /*BTDS*/ "This option is selected for all eligible placements since it doesn't affect your ad set's prediction.",
-        ),
+        label: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         iconWhenSelected: "/images/ads/createflow/Single_Image_Blue.png",
         iconWhenUnselected: "/images/ads/createflow/Single_Image.png",
         getAdFormats: function (t, n, o, a) {
-          return u.jsx(r("AdsAdFormatsComponent.react"), {
-            adFormatType: c.adFormatType,
-            description: c.description,
-            icon: c.isChecked(t) ? c.iconWhenSelected : c.iconWhenUnselected,
-            isChecked: c.isChecked(t),
-            isDisabled: c.isRequired(n, o),
-            label: c.label,
-            onCheckboxChange: a,
-          });
+          var e = d.isRequired(n, o),
+            i = u.jsx(r("AdsAdFormatsComponent.react"), {
+              adFormatType: d.adFormatType,
+              description: d.description,
+              icon: d.isChecked(t) ? d.iconWhenSelected : d.iconWhenUnselected,
+              isChecked: d.isChecked(t),
+              isDisabled: e,
+              label: d.label,
+              onCheckboxChange: a,
+            });
+          return e
+            ? u.jsx(r("GeoTooltip.react"), { content: c, children: i })
+            : i;
         },
         isEligible: function (t, n, a) {
           return (
@@ -49,7 +53,7 @@ __d(
         },
         isChecked: function (t) {
           return t.some(function (e) {
-            return e.formatType === c.adFormatType;
+            return e.formatType === d.adFormatType;
           });
         },
         getIncompatiblePlacementPositions: function () {
@@ -58,14 +62,15 @@ __d(
             "messenger/story",
             "instagram/shop_tab",
             "threads/stream",
+            "threads/permalink",
           ];
         },
         getMutuallyExclusiveAdFormats: function () {
           return [];
         },
       },
-      d = c;
-    l.default = d;
+      m = d;
+    l.default = m;
   },
   226,
 );

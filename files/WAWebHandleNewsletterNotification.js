@@ -9,7 +9,6 @@ __d(
     "WAPromiseQueue",
     "WAWebLazyLoadedRetriable",
     "WAWebNewsletterHandleLiveUpdatesNotification",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,16 +19,13 @@ __d(
         LiveUpdates: "live_updates",
         QuestionResponseReaction: "question_response_reaction",
       }),
-      d = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")(
-            "WAWebHandleNewsletterQuestionResponseReactionNotification",
-          )
-            .__setRef("WAWebHandleNewsletterNotification")
-            .load();
-        }),
-        "HandleNewsletterQuestionResponseReactionNotification",
-      ),
+      d = r("WAWebLazyLoadedRetriable")(async function () {
+        return r("JSResourceForInteraction")(
+          "WAWebHandleNewsletterQuestionResponseReactionNotification",
+        )
+          .__setRef("WAWebHandleNewsletterNotification")
+          .load();
+      }, "HandleNewsletterQuestionResponseReactionNotification"),
       m = new (o("WAPromiseQueue").PromiseQueueMap)(),
       p = new (r("WADeprecatedWapParser"))(
         "incomingNewsletterNotificationParser",
@@ -72,52 +68,44 @@ __d(
           return { firstChildTag: a, from: i.newsletterJid };
         },
       );
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = p.parseOrThrow(e),
-              n = t.firstChildTag,
-              r = t.from;
-            return yield m.enqueue(r, function () {
-              switch (n) {
-                case c.LiveUpdates:
-                  return o(
-                    "WAWebNewsletterHandleLiveUpdatesNotification",
-                  ).handleNewsletterLiveUpdatesNotification(e);
-                case c.QuestionResponseReaction:
-                  return d().then(function (t) {
-                    return t.handleNewsletterQuestionResponseReactionNotification(
-                      e,
-                    );
-                  });
-              }
-            });
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[newsletter][notification] Failed to parse notification",
-                    ])),
-                )
-                .tags("newsletter")
-                .sendLogs("failed-to-parse-newsletter-notification"),
-              new (o("WAParsableWapNode").XmppParsingFailure)(
-                "incomingNewsletterNotificationParser",
-                e instanceof Error
-                  ? e.name
-                  : typeof e + " was thrown rather than an Error",
-              )
-            );
+    async function _(e) {
+      try {
+        var t = p.parseOrThrow(e),
+          n = t.firstChildTag,
+          r = t.from;
+        return await m.enqueue(r, function () {
+          switch (n) {
+            case c.LiveUpdates:
+              return o(
+                "WAWebNewsletterHandleLiveUpdatesNotification",
+              ).handleNewsletterLiveUpdatesNotification(e);
+            case c.QuestionResponseReaction:
+              return d().then(function (t) {
+                return t.handleNewsletterQuestionResponseReactionNotification(
+                  e,
+                );
+              });
           }
-        })),
-        f.apply(this, arguments)
-      );
+        });
+      } catch (e) {
+        throw (
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[newsletter][notification] Failed to parse notification",
+                ])),
+            )
+            .tags("newsletter")
+            .sendLogs("failed-to-parse-newsletter-notification"),
+          new (o("WAParsableWapNode").XmppParsingFailure)(
+            "incomingNewsletterNotificationParser",
+            e instanceof Error
+              ? e.name
+              : typeof e + " was thrown rather than an Error",
+          )
+        );
+      }
     }
     l.default = _;
   },

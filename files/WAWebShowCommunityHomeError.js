@@ -9,15 +9,13 @@ __d(
         ? o("WAWebToastManager").ToastManager.open(
             u.jsx(o("WAWebToast.react").Toast, {
               msg: r("justknobx")._("8068")
-                ? s._(/*BTDS*/ "You're no longer a member of this community")
-                : s._(/*BTDS*/ "You are no longer a member of this community"),
+                ? s._(/*BTDS*/ "")
+                : s._(/*BTDS*/ ""),
             }),
           )
         : e.status === 404 &&
           o("WAWebToastManager").ToastManager.open(
-            u.jsx(o("WAWebToast.react").Toast, {
-              msg: s._(/*BTDS*/ "This community no longer exists"),
-            }),
+            u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
           );
     }
     l.showCommunityHomeError = c;

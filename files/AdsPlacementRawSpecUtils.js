@@ -53,16 +53,17 @@ __d(
           var n,
             a = o(
               "AdsPlacementConstants",
-            ).PLACEMENT_PLATFORM_TO_POSITION_FIELDS.get(e),
-            i = o("AdsPlacementAPISpecDefaultsUtils").getPositionsForPlatform(
-              e,
-              t,
+            ).PLACEMENT_PLATFORM_TO_POSITION_FIELDS.get(e);
+          if (a != null) {
+            var i = o(
+              "AdsPlacementAPISpecDefaultsUtils",
+            ).getPositionsForPlatform(e, t);
+            r = babelHelpers.extends(
+              {},
+              r,
+              ((n = {}), (n[a] = i != null ? i.toArray() : []), n),
             );
-          r = babelHelpers.extends(
-            {},
-            r,
-            ((n = {}), (n[a] = i != null ? i.toArray() : []), n),
-          );
+          }
         }),
         babelHelpers.extends({}, e, r)
       );

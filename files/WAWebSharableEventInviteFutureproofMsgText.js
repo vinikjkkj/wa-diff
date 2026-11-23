@@ -5,16 +5,10 @@ __d(
     function e(e) {
       var t = e.msg,
         n = o("WAWebMsgGetters").getIsSentByMe(t);
-      return n
-        ? u()
-        : s._(
-            /*BTDS*/ "Someone invited you to an event, but this version of WhatsApp doesn't support it.",
-          );
+      return n ? u() : s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(
-        /*BTDS*/ "You sent an event invite from your phone, but this version of WhatsApp doesn't support it.",
-      );
+      return s._(/*BTDS*/ "");
     }
     l.default = e;
   },

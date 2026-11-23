@@ -5,17 +5,13 @@ __d(
     function e(e) {
       var t = e.msg,
         n = t.bizContentPlaceholderType;
-      if (n == null) return s._(/*BTDS*/ "Message");
+      if (n == null) return s._(/*BTDS*/ "");
       switch (n) {
         case o("WAWebBizContentPlaceholderMsgData.flow")
           .BizContentPlaceholderType.MASK_LINKED_DEVICES:
-          return s._(
-            /*BTDS*/ "You received a one-time passcode. For added security, you can only see it on your primary device for WhatsApp.",
-          );
+          return s._(/*BTDS*/ "");
       }
-      return s._(
-        /*BTDS*/ "This message can't be displayed here. Please open WhatsApp on your phone to view the message.",
-      );
+      return s._(/*BTDS*/ "");
     }
     l.default = e;
   },

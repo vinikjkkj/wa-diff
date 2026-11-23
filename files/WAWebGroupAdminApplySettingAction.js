@@ -9,7 +9,6 @@ __d(
     "WAWebGroupAdminSettingsLoadAction",
     "WAWebMiscErrors",
     "WAWebSetPropertyGroupAction",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,47 +30,32 @@ __d(
           ? "already_set"
           : null;
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
+    async function p(e, t, n) {
+      var r = o("WAWebGroupAdminSettings").getGroupPropertyChange(t, n);
+      _(1);
+      var a = !1;
+      try {
+        var i = await o("WAConcurrentIterate").concurrentIterate(
+          e.length,
+          async function (o) {
+            var i = e[o],
+              l = m(i, t, n);
+            if (l != null) return l;
+            if (a) return "rate_limited";
+            var s = await g(i, r);
+            return (s === "rate_limited" && (a = !0), s);
+          },
+          s,
+        );
+        return f(i);
+      } finally {
+        _(-1);
+      }
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = o("WAWebGroupAdminSettings").getGroupPropertyChange(t, r);
-          f(1);
-          var i = !1;
-          try {
-            var l = yield o("WAConcurrentIterate").concurrentIterate(
-              e.length,
-              (function () {
-                var o = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (n) {
-                    var o = e[n],
-                      l = m(o, t, r);
-                    if (l != null) return l;
-                    if (i) return "rate_limited";
-                    var s = yield h(o, a);
-                    return (s === "rate_limited" && (i = !0), s);
-                  },
-                );
-                return function (e) {
-                  return o.apply(this, arguments);
-                };
-              })(),
-              s,
-            );
-            return g(l);
-          } finally {
-            f(-1);
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
+    function _(e) {
       ((u += e), c.trigger("change"));
     }
-    function g(e) {
+    function f(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
@@ -89,40 +73,34 @@ __d(
         }
       );
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    async function g(t, n) {
+      var a = n.settingType,
+        i = n.value;
+      try {
+        return h(
+          await o("WAWebSetPropertyGroupAction").setGroupPropertyWithoutToast(
+            t,
+            a,
+            i,
+          ),
+        );
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "applyGroupAdminSetting: failed to change ",
+                  "",
+                ])),
+              a,
+            )
+            .catching(r("getErrorSafe")(t)),
+          y(t)
+        );
+      }
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a = n.settingType,
-            i = n.value;
-          try {
-            return C(
-              yield o(
-                "WAWebSetPropertyGroupAction",
-              ).setGroupPropertyWithoutToast(t, a, i),
-            );
-          } catch (t) {
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "applyGroupAdminSetting: failed to change ",
-                      "",
-                    ])),
-                  a,
-                )
-                .catching(r("getErrorSafe")(t)),
-              b(t)
-            );
-          }
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
+    function h(e) {
       return Array.isArray(e)
         ? null
         : (function (e) {
@@ -142,19 +120,19 @@ __d(
               "value" in e
             ) {
               var t = e.value;
-              return v(Number(t.errorSetPropertyClientErrors.value.code));
+              return C(Number(t.errorSetPropertyClientErrors.value.code));
             }
             return "unknown";
           })(e);
     }
-    function b(e) {
+    function y(e) {
       return e instanceof o("WAWebMiscErrors").ActionError
         ? "not_allowed"
         : e instanceof o("WAWebBackendErrors").ServerStatusCodeError
-          ? v(e.status)
+          ? C(e.status)
           : "unknown";
     }
-    function v(e) {
+    function C(e) {
       return e === 401 || e === 403
         ? "not_admin"
         : e === 404

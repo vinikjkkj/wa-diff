@@ -12,6 +12,12 @@ __d(
       },
       "AdsIntelligentComponents.RESET_MESSAGES_CAP",
       "laminar",
+      void 0,
+      function (e) {
+        return function (n, r) {
+          e(n, r);
+        };
+      },
     );
     a.exports = e;
   },

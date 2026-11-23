@@ -8,7 +8,6 @@ __d(
     "WAWebProtobufMsgKeyUtils",
     "WAWebSchemaMessage",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -49,57 +48,41 @@ __d(
           })
       );
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    async function d(e, t) {
+      if (t.length === 0) return t;
+      var n = t;
+      r("WAWebWid").isUser(e) &&
+        !r("WAWebWid").isStringLid(e) &&
+        (n = t.map(function (t) {
+          var n = t.key,
+            r = t.timestamp,
+            o = {};
+          return (
+            r != null && (o.timestamp = r),
+            n != null &&
+              (o.key = babelHelpers.extends({}, n, { remoteJid: e })),
+            o
+          );
+        }));
+      var a = n.map(function (e) {
+          return o("WAWebProtobufMsgKeyUtils")
+            .protobufToMsgKey(r("nullthrows")(e.key))
+            .toString();
+        }),
+        i = await o("WAWebSchemaMessage").getMessageTable().bulkGet(a, !1);
+      return t.filter(function (e, t) {
+        return i[t] != null;
+      });
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t.length === 0) return t;
-          var n = t;
-          r("WAWebWid").isUser(e) &&
-            !r("WAWebWid").isStringLid(e) &&
-            (n = t.map(function (t) {
-              var n = t.key,
-                r = t.timestamp,
-                o = {};
-              return (
-                r != null && (o.timestamp = r),
-                n != null &&
-                  (o.key = babelHelpers.extends({}, n, { remoteJid: e })),
-                o
-              );
-            }));
-          var a = n.map(function (e) {
-              return o("WAWebProtobufMsgKeyUtils")
-                .protobufToMsgKey(r("nullthrows")(e.key))
-                .toString();
-            }),
-            i = yield o("WAWebSchemaMessage").getMessageTable().bulkGet(a, !1);
-          return t.filter(function (e, t) {
-            return i[t] != null;
-          });
-        })),
-        m.apply(this, arguments)
-      );
+    async function m(e) {
+      return o("WAWebSchemaMessage")
+        .getMessageTable()
+        .bulkGet(e, !1)
+        .then(function (e) {
+          return e.map(Boolean);
+        });
     }
     function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaMessage")
-            .getMessageTable()
-            .bulkGet(e, !1)
-            .then(function (e) {
-              return e.map(Boolean);
-            });
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
       return o("WAWebSchemaMessage")
         .getMessageTable()
         .between(
@@ -113,8 +96,8 @@ __d(
       (l.getMsgsByMsgIdsAndChatId = u),
       (l.getMsgByMsgKey = c),
       (l.filterReceivedMessagesInRange = d),
-      (l.getMsgsExistByMsgKey = p),
-      (l.getMsgsByChatId = f));
+      (l.getMsgsExistByMsgKey = m),
+      (l.getMsgsByChatId = p));
   },
   98,
 );

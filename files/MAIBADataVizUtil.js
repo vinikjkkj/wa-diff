@@ -5,6 +5,7 @@ __d(
     "$InternalEnum",
     "AdsCurrencyFormatter",
     "DateTime",
+    "ExecutionEnvironment",
     "FBLogger",
     "GeoPrivateBaseChartUtils",
     "MAIBAChartingFormatter",
@@ -15,9 +16,7 @@ __d(
     "getMAIBAAccountCurrency",
     "gkx",
     "intlSummarizeNumber",
-    "justknobx",
     "react",
-    "react-compiler-runtime",
     "useGeoChartAxisScale",
     "useGeoChartConfigContext",
     "useGeoChartContext",
@@ -26,11 +25,12 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
-      u = e || (e = o("react")),
-      c = e,
-      d = c.useCallback,
-      m = c.useMemo,
-      p = n("$InternalEnum").Mirrored([
+      u,
+      c = u || (u = o("react")),
+      d = u,
+      m = d.useCallback,
+      p = d.useMemo,
+      _ = n("$InternalEnum").Mirrored([
         "LINE_CHART",
         "HORIZONTAL_BAR_CHART",
         "VERTICAL_BAR_CHART",
@@ -41,10 +41,10 @@ __d(
         "SCORECARD_KPI_TILES_GRID",
         "FUNNEL_CHART",
       ]),
-      _ = ["ad", "ad set", "campaign"],
-      f = "Other",
-      g = 16384,
-      h = {
+      f = ["ad", "ad set", "campaign"],
+      g = "Other",
+      h = 16384,
+      y = {
         NONE: "NONE",
         DATE: "DATE",
         CURRENCY: "CURRENCY",
@@ -59,78 +59,69 @@ __d(
         ASSET: "ASSET",
         ASSET_ALT: "ASSET_ALT",
       },
-      y = new Set([
-        h.NONE,
-        h.DATE,
-        h.STRING,
-        h.STR,
-        h.AD_OBJECT,
-        h.AD_OBJECT_ALT,
-        h.ASSET,
-        h.ASSET_ALT,
+      C = new Set([
+        y.NONE,
+        y.DATE,
+        y.STRING,
+        y.STR,
+        y.AD_OBJECT,
+        y.AD_OBJECT_ALT,
+        y.ASSET,
+        y.ASSET_ALT,
       ]),
-      C = s._(/*BTDS*/ "Swap"),
-      b = s._(/*BTDS*/ "Debug"),
-      v = s._(/*BTDS*/ "Export"),
-      S = s._(/*BTDS*/ "Copy as Image"),
-      R = s._(/*BTDS*/ "Download CSV"),
-      L = s._(/*BTDS*/ "Save as PNG"),
-      E = s._(/*BTDS*/ "Unable to load data. Please try again later."),
-      k =
+      b = s._(/*BTDS*/ ""),
+      v = s._(/*BTDS*/ ""),
+      S = s._(/*BTDS*/ ""),
+      R = s._(/*BTDS*/ ""),
+      L = s._(/*BTDS*/ ""),
+      E = s._(/*BTDS*/ ""),
+      k = s._(/*BTDS*/ ""),
+      I = s._(/*BTDS*/ ""),
+      T = s._(/*BTDS*/ ""),
+      D = s._(/*BTDS*/ ""),
+      x =
         '\n  .maiba-hover-sort [class*="useWebTableSortable"][class*="icon"] {\n    opacity: 0;\n    transition: opacity 0.15s ease;\n  }\n  .maiba-hover-sort [class*="useWebTableSortable"][class*="layout"]:hover [class*="useWebTableSortable"][class*="icon"] {\n    opacity: 1;\n  }\n  .maiba-hover-sort [aria-sort="ascending"] [class*="useWebTableSortable"][class*="icon"],\n  .maiba-hover-sort [aria-sort="descending"] [class*="useWebTableSortable"][class*="icon"] {\n    opacity: 1;\n  }\n';
-    function I(e) {
-      return e === p.LINE_CHART
-        ? s._(/*BTDS*/ "Line (Default)")
-        : s._(/*BTDS*/ "Line");
-    }
-    function T(e) {
-      return e === p.HORIZONTAL_BAR_CHART
-        ? s._(/*BTDS*/ "Horizontal Bar (Default)")
-        : s._(/*BTDS*/ "Horizontal Bar");
-    }
-    function D(e) {
-      return e === p.VERTICAL_BAR_CHART
-        ? s._(/*BTDS*/ "Vertical Bar (Default)")
-        : s._(/*BTDS*/ "Vertical Bar");
-    }
-    function x(e) {
-      return e === p.TABLE
-        ? s._(/*BTDS*/ "Table (Default)")
-        : s._(/*BTDS*/ "Table");
-    }
     function $(e) {
-      return e === p.SCORECARD_DATA_CARD
-        ? s._(/*BTDS*/ "Data Card (Default)")
-        : s._(/*BTDS*/ "Data Card");
+      return e === _.LINE_CHART ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
-    var P = "% change vs. prior 7-day average";
-    function N(e, t) {
-      return e === p.SCORECARD_DATA_CARD && t === P
-        ? s._(/*BTDS*/ "\u0025 change vs. prior 7-day average")
-        : t;
+    function P(e) {
+      return e === _.HORIZONTAL_BAR_CHART ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
-    var M = "Issues rendering data viz data in the GeoChart component",
-      w = "Issues rendering data viz data in the GeoTable component",
-      A = "Missing LLM data to populate data viz component";
-    function F() {
+    function N(e) {
+      return e === _.VERTICAL_BAR_CHART ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
+    }
+    function M(e) {
+      return e === _.TABLE ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
+    }
+    function w(e) {
+      return e === _.SCORECARD_DATA_CARD ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
+    }
+    var A = "% change vs. prior 7-day average";
+    function F(e, t) {
+      return e === _.SCORECARD_DATA_CARD && t === A ? s._(/*BTDS*/ "") : t;
+    }
+    var O = "Issues rendering data viz data in the GeoChart component",
+      B = "Issues rendering data viz data in the GeoTable component",
+      W = "Missing LLM data to populate data viz component";
+    function q() {
       return r("gkx")("16646");
     }
-    function O() {
+    function U() {
       return r("gkx")("19223");
     }
-    function B() {
+    function V() {
       return r("gkx")("20805");
     }
-    var W = o("ads-lib-formatters").createIntlPercentFormatter(2, !1);
-    function q(e) {
+    var H = o("ads-lib-formatters").createIntlPercentFormatter(2, !1);
+    function G(e) {
       var t = e;
       return (
         (t = t.replace(/^[^0-9+\-.]+/, "")),
         (t = t.replace(/[^0-9.]+$/, "")),
-        H(t)
+        K(t)
       );
     }
-    function U(e) {
+    function z(e) {
       var t;
       return typeof e == "number"
         ? e
@@ -138,21 +129,21 @@ __d(
           ? t
           : NaN;
     }
-    function V(e, t) {
-      var n = U(e);
+    function j(e, t) {
+      var n = z(e);
       return Number.isFinite(n) ? t(n) : typeof e == "string" ? e : String(e);
     }
-    function H(e) {
+    function K(e) {
       var t = o("ads-lib-formatters").parseNumber(e);
       return t != null ? t : e;
     }
-    function G(e) {
+    function Q(e) {
       return e != null ? e : "N/A";
     }
-    function z(e, t) {
+    function X(e, t) {
       var n = t.toUpperCase();
-      if (n === h.INTEGER || n === h.INT || n === h.FLOAT) return H(e);
-      if (n === h.DATE) {
+      if (n === y.INTEGER || n === y.INT || n === y.FLOAT) return K(e);
+      if (n === y.DATE) {
         var a = e,
           i = /^\d{4}-\d{2}-\d{2}$/;
         if (i.test(e)) {
@@ -184,48 +175,48 @@ __d(
             null
           );
         }
-      } else if (n === h.PERCENTAGE) {
+      } else if (n === y.PERCENTAGE) {
         var u = e;
         e.endsWith("%") && (u = e.slice(0, -1));
         var c = Number(u);
         return isNaN(c) ? e : c;
-      } else if (n === h.CURRENCY) return q(e);
+      } else if (n === y.CURRENCY) return G(e);
       return e;
     }
-    function j(e, t) {
+    function Y(e, t) {
       var n = t.toUpperCase();
-      if (n === h.INTEGER || n === h.INT || n === h.FLOAT) {
-        var r = H(e);
+      if (n === y.INTEGER || n === y.INT || n === y.FLOAT) {
+        var r = K(e);
         return typeof r == "number" ? r : null;
-      } else if (n === h.PERCENTAGE) {
+      } else if (n === y.PERCENTAGE) {
         var o = e;
         e.endsWith("%") && (o = e.slice(0, -1));
         var a = Number(o);
         return isNaN(a) ? null : a;
-      } else if (n === h.CURRENCY) {
-        var i = q(e);
+      } else if (n === y.CURRENCY) {
+        var i = G(e);
         return typeof i == "number" ? i : null;
       }
       return null;
     }
-    function K() {
+    function J() {
       return r("getMAIBAAccountCurrency")();
     }
-    function Q(e, t) {
-      var n = e.length > 0 && _.includes(e[0].primaryValue.toLowerCase());
+    function Z(e, t) {
+      var n = e.length > 0 && f.includes(e[0].primaryValue.toLowerCase());
       return n && t === 0 ? 2 : 1;
     }
-    function X(e) {
+    function ee(e) {
       var t = r("intlSummarizeNumber")(e, 2, "SHORT", "ROUND", "HIDE_IF_ZERO");
       return (t.includes(".") && (t = t.replace(/\.?0+$/, "")), t);
     }
-    function Y(e) {
+    function te(e) {
       return /^[+-]?(?:\d+|\d+\.\d{1,2}|\.\d{1,2})$/.test(e.trim());
     }
-    function J(e) {
+    function ne(e) {
       return Number.isInteger(e) ? e.toFixed(0) : e.toFixed(2);
     }
-    function Z(e, t, n) {
+    function re(e, t, n) {
       if (e != null && e.length) {
         var r = new Map();
         for (var o of e) {
@@ -236,8 +227,8 @@ __d(
         return r;
       }
     }
-    function ee(e) {
-      return Z(
+    function oe(e) {
+      return re(
         e,
         function (e) {
           var t;
@@ -249,8 +240,8 @@ __d(
         },
       );
     }
-    function te(e) {
-      return Z(
+    function ae(e) {
+      return re(
         e,
         function (e) {
           return e.label;
@@ -260,11 +251,11 @@ __d(
         },
       );
     }
-    function ne(e, t, n) {
+    function ie(e, t, n) {
       if (e.length === 0) return [];
       var r = e[0].type,
         o = e.slice(1),
-        a = ve(e),
+        a = De(e),
         i = n != null && n < a.length ? a[n] : null,
         l =
           i == null
@@ -273,7 +264,7 @@ __d(
               })
             : o
                 .map(function (e, t) {
-                  return Se(e.metric_name, i) ? t : -1;
+                  return xe(e.metric_name, i) ? t : -1;
                 })
                 .filter(function (e) {
                   return e !== -1;
@@ -285,9 +276,9 @@ __d(
             i = e.type,
             l = t
               .map(function (e) {
-                var t = G(e.values[0]),
-                  o = G(e.values[n + 1]);
-                return [z(t, r), o !== "N/A" ? j(o, i) : null];
+                var t = Q(e.values[0]),
+                  o = Q(e.values[n + 1]);
+                return [X(t, r), o !== "N/A" ? Y(o, i) : null];
               })
               .filter(function (e) {
                 return e[0] != null;
@@ -309,7 +300,16 @@ __d(
           return l.includes(t);
         });
     }
-    function re(e, t) {
+    function le(e, t, n) {
+      if (e.length === 0) return [];
+      var r = De(e)[n != null ? n : 0];
+      return t.flatMap(function (t) {
+        if (t.metric_name != null && t.metric_name !== r) return [];
+        var n = X(t.primary_value, e[0].type);
+        return n == null ? [] : [{ label: t.label, primaryValue: n }];
+      });
+    }
+    function se(e, t) {
       if (e.length === 0) return [];
       var n = e.map(function (e) {
           var t = e.composed_text_label;
@@ -323,89 +323,88 @@ __d(
               a,
               i,
               l = (o = t.composed_text_values) == null ? void 0 : o[r],
-              s = G(n),
+              s = Q(n),
               u =
+                (a = (i = e[r]) == null ? void 0 : i.type) != null
+                  ? a
+                  : y.STRING,
+              c =
                 s !== "N/A"
-                  ? String(
-                      z(
-                        s,
-                        (a = (i = e[r]) == null ? void 0 : i.type) != null
-                          ? a
-                          : h.STRING,
-                      ),
-                    )
+                  ? u.toUpperCase() === y.PERCENTAGE
+                    ? s
+                    : String(X(s, u))
                   : "N/A";
             return l != null
-              ? { primaryValue: u, composedTextValue: [l] }
-              : { primaryValue: u };
+              ? { primaryValue: c, composedTextValue: [l] }
+              : { primaryValue: c };
           });
         });
       return [n].concat(r);
     }
-    function oe(e, t, n) {
+    function ue(e, t, n) {
       if (e != null) {
         var a = e.toUpperCase();
-        if (a === h.DATE && t === p.TABLE)
+        if (a === y.DATE && t === _.TABLE)
           return function (e) {
             return r("DateTime")
               .create(Number(e), o("Timezone").UTC)
               .format("M d");
           };
-        if (a === h.CURRENCY && t === p.TABLE)
+        if (a === y.CURRENCY && t === _.TABLE)
           return function (e) {
             if (e === "N/A") return e;
             if (typeof e == "number")
               return r("AdsCurrencyFormatter").replaceWithSymbol(
-                n != null ? n : K(),
-                J(e),
+                n != null ? n : J(),
+                ne(e),
               );
-            if (!Y(e)) return e;
+            if (!te(e)) return e;
             var t = Number(e.trim());
             return Number.isFinite(t)
               ? r("AdsCurrencyFormatter").replaceWithSymbol(
-                  n != null ? n : K(),
-                  J(t),
+                  n != null ? n : J(),
+                  ne(t),
                 )
               : e;
           };
         var i =
-          a === h.PERCENTAGE ||
-          a === h.CURRENCY ||
-          a === h.INTEGER ||
-          a === h.INT ||
-          a === h.FLOAT;
-        if (t === p.TABLE && i)
+          a === y.PERCENTAGE ||
+          a === y.CURRENCY ||
+          a === y.INTEGER ||
+          a === y.INT ||
+          a === y.FLOAT;
+        if (t === _.TABLE && i)
           return function (e) {
             return typeof e == "string" ? e : String(e);
           };
-        if (a === h.PERCENTAGE)
+        if (a === y.PERCENTAGE)
           return function (e) {
-            return V(e, function (e) {
-              return W(e);
+            return j(e, function (e) {
+              return H(e);
             });
           };
-        if (a === h.CURRENCY) {
-          var l = n != null ? n : K();
+        if (a === y.CURRENCY) {
+          var l = n != null ? n : J();
           return function (e) {
             return e === "N/A"
               ? e
-              : V(e, function (e) {
-                  return r("AdsCurrencyFormatter").replaceWithSymbol(l, X(e));
+              : j(e, function (e) {
+                  return r("AdsCurrencyFormatter").replaceWithSymbol(l, ee(e));
                 });
           };
-        } else if (a === h.INTEGER || a === h.INT || a === h.FLOAT)
+        } else if (a === y.INTEGER || a === y.INT || a === y.FLOAT)
           return function (e) {
-            return V(e, function (e) {
-              return X(e);
+            return j(e, function (e) {
+              return ee(e);
             });
           };
       }
     }
-    function ae(e, t) {
-      if ((e == null ? void 0 : e.toUpperCase()) === h.CURRENCY) {
-        var n = t != null ? t : K();
+    function ce(e, t) {
+      if ((e == null ? void 0 : e.toUpperCase()) === y.CURRENCY) {
+        var n = t != null ? t : J();
         return function (e) {
-          return V(e, function (e) {
+          return j(e, function (e) {
             return r("AdsCurrencyFormatter").replaceWithSymbol(
               n,
               Number.isInteger(e) ? e.toFixed(0) : e.toFixed(2),
@@ -414,49 +413,49 @@ __d(
         };
       }
     }
-    function ie(e, t) {
-      if (t === p.LINE_CHART) return !0;
+    function de(e, t) {
+      if (t === _.LINE_CHART) return !0;
       if (e.length <= 1 || e.length > 5) return !1;
       var n = e[0].type.toUpperCase(),
         r = e[1].type.toUpperCase();
       return !(
-        n !== h.DATE ||
-        y.has(r) ||
+        n !== y.DATE ||
+        C.has(r) ||
         e.slice(2).some(function (e) {
           return e.type.toUpperCase() !== r;
         })
       );
     }
-    var le = 31;
-    function se(e, t, n) {
-      if (t === p.HORIZONTAL_BAR_CHART || t === p.VERTICAL_BAR_CHART) return !0;
-      if (e.length <= 1 || e.length > 4 || n.length > le) return !1;
+    var me = 31;
+    function pe(e, t, n) {
+      if (t === _.HORIZONTAL_BAR_CHART || t === _.VERTICAL_BAR_CHART) return !0;
+      if (e.length <= 1 || e.length > 4 || n.length > me) return !1;
       var r = e[0].type.toUpperCase(),
         o = e[1].type.toUpperCase();
       return !(
-        (r !== h.STRING &&
-          r !== h.STR &&
-          r !== h.AD_OBJECT &&
-          r !== h.AD_OBJECT_ALT &&
-          r !== h.ASSET &&
-          r !== h.ASSET_ALT) ||
-        y.has(o) ||
+        (r !== y.STRING &&
+          r !== y.STR &&
+          r !== y.AD_OBJECT &&
+          r !== y.AD_OBJECT_ALT &&
+          r !== y.ASSET &&
+          r !== y.ASSET_ALT) ||
+        C.has(o) ||
         e.slice(2).some(function (e) {
           return e.type.toUpperCase() !== o;
         })
       );
     }
-    function ue(e, t) {
-      return e === p.TABLE ? !0 : !(t.length > le);
+    function _e(e, t) {
+      return e === _.TABLE ? !0 : !(t.length > me);
     }
-    function ce(e, t, n) {
-      if (t === p.SCORECARD_DATA_CARD) return !0;
-      if (e.length < 2 || n.length === 0 || n.length > le) return !1;
+    function fe(e, t, n) {
+      if (t === _.SCORECARD_DATA_CARD) return !0;
+      if (e.length < 2 || n.length === 0 || n.length > me) return !1;
       var r = e[0].type.toUpperCase(),
         o = e[1].type.toUpperCase();
-      return !(!y.has(r) || y.has(o));
+      return !(!C.has(r) || C.has(o));
     }
-    function de(e, t, n, r, o, a) {
+    function ge(e, t, n, r, o, a) {
       var i = [];
       if (e != null)
         for (var l of e) {
@@ -473,7 +472,7 @@ __d(
         }
       return i;
     }
-    function me(e, t, n, r) {
+    function he(e, t, n, r) {
       var o = [];
       if (t == null) return o;
       for (var a = Array.from(t), i = 0; i < e.length; i++) {
@@ -482,7 +481,7 @@ __d(
             d = c.length,
             m = c.offset,
             p = a.slice(m, m + d).join(""),
-            _ = de(
+            _ = ge(
               n,
               m,
               d,
@@ -501,7 +500,7 @@ __d(
                 };
               },
             ),
-            f = de(
+            f = ge(
               r,
               m,
               d,
@@ -537,9 +536,9 @@ __d(
       }
       return o;
     }
-    var pe = null;
-    function _e() {
-      if (pe != null) return pe;
+    var ye = null;
+    function Ce() {
+      if (ye != null) return ye;
       for (var e = new Map(), t = 0; t < 12; t++) {
         var n = Date.UTC(2e3, t, 15);
         for (var r of ["short", "long"]) {
@@ -547,9 +546,9 @@ __d(
           e.set(o.toLowerCase().replace(/\.$/, ""), t + 1);
         }
       }
-      return ((pe = e), e);
+      return ((ye = e), e);
     }
-    function fe(e) {
+    function be(e) {
       var t = e.trim(),
         n = t.match(/^(\d{4})-(\d{2})-(\d{2})$/);
       if (n)
@@ -558,7 +557,7 @@ __d(
           parseInt(n[2], 10) * 100 +
           parseInt(n[3], 10)
         );
-      var r = _e(),
+      var r = Ce(),
         o = t.match(/^(\S+?)\.?\s+(\d{1,2})$/);
       if (o) {
         var a = r.get(o[1].toLowerCase());
@@ -571,23 +570,30 @@ __d(
       }
       return null;
     }
-    function ge(e, t, n) {
-      if ((n === void 0 && (n = 1), Ee(e) && Ee(t))) {
-        var o = ke(e),
-          a = ke(t);
-        return o > a ? n : o < a ? -n : 0;
+    function ve(e, t, n) {
+      if ((n === void 0 && (n = 1), Ne(e) && Ne(t))) {
+        var r = Me(e),
+          o = Me(t);
+        return r > o ? n : r < o ? -n : 0;
       }
-      if (r("justknobx")._("1277")) {
-        var i = fe(e),
-          l = fe(t);
-        if (i != null && l != null) return i > l ? n : i < l ? -n : 0;
-      }
-      return e > t ? n : e < t ? -n : 0;
+      var a = be(e),
+        i = be(t);
+      return a != null && i != null
+        ? a > i
+          ? n
+          : a < i
+            ? -n
+            : 0
+        : e > t
+          ? n
+          : e < t
+            ? -n
+            : 0;
     }
-    function he(e, t) {
+    function Se(e, t) {
       return e.length < 1
         ? []
-        : y.has(e[0].type.toUpperCase())
+        : C.has(e[0].type.toUpperCase())
           ? t
           : t.slice().sort(function (e, t) {
               if (e.values.length === 0 || t.values.length === 0) return 0;
@@ -596,165 +602,128 @@ __d(
               return !isNaN(n) && !isNaN(r) ? (n < r ? -1 : n > r ? 1 : 0) : 0;
             });
     }
-    function ye(e, t) {
-      var n = o("react-compiler-runtime").c(3),
-        r = t === void 0 ? !1 : t,
-        a;
+    function Re(e, t) {
       return (
-        n[0] !== e || n[1] !== r
-          ? ((a = function (n, a) {
-              var t = String(n),
-                i = e == null ? void 0 : e.get(t);
-              return i != null && i.content[0].entity_ranges.length > 0
-                ? u.jsx(
-                    "div",
-                    babelHelpers.extends(
-                      {},
-                      { 0: {}, 1: { className: "x2b8uid" } }[!!r << 0],
-                      {
-                        children: u.jsx(
-                          o("MAIBATableContentCell.react").ComposedTextContent,
-                          { composedText: i.content, descriptions: null },
-                        ),
-                      },
-                    ),
-                  )
-                : null;
-            }),
-            (n[0] = e),
-            (n[1] = r),
-            (n[2] = a))
-          : (a = n[2]),
-        a
+        t === void 0 && (t = !1),
+        m(
+          function (n, r) {
+            var a = String(n),
+              i = e == null ? void 0 : e.get(a);
+            return i != null && i.content[0].entity_ranges.length > 0
+              ? c.jsx(
+                  "div",
+                  babelHelpers.extends(
+                    {},
+                    { 0: {}, 1: { className: "x2b8uid" } }[!!t << 0],
+                    {
+                      children: c.jsx(
+                        o("MAIBATableContentCell.react").ComposedTextContent,
+                        { composedText: i.content, descriptions: null },
+                      ),
+                    },
+                  ),
+                )
+              : null;
+          },
+          [e, t],
+        )
       );
     }
-    function Ce(e, t, n, a) {
+    function Le(e, t, n, a) {
       var i,
         l,
-        s = o("react-compiler-runtime").c(30),
+        s,
         u = r("useGeoChartContext")(),
         c = u.contentRect,
         d = r("useGeoChartConfigContext")(),
         m = d.scaleY,
-        p;
-      if (s[0] !== c.bottom || s[1] !== c.top || s[2] !== m) {
-        var _,
-          f = [c.top, c.bottom];
-        ((p = (_ = m == null ? void 0 : m(f)) != null ? _ : f),
-          (s[0] = c.bottom),
-          (s[1] = c.top),
-          (s[2] = m),
-          (s[3] = p));
-      } else p = s[3];
-      var g = p,
-        h = r("useGeoChartConfigContext")(),
-        y = h.isDescriptionUsedInKey,
-        C;
-      if (s[4] !== e) {
-        var b;
-        (s[6] !== e[0]
-          ? ((b = function (n) {
-              return String(n.name) === String(e[0].name.toString());
-            }),
-            (s[6] = e[0]),
-            (s[7] = b))
-          : (b = s[7]),
-          (C = e.find(b)),
-          (s[4] = e),
-          (s[5] = C));
-      } else C = s[5];
-      var v = C,
-        S;
-      s[8] !== v
-        ? ((S = v != null ? [v] : []), (s[8] = v), (s[9] = S))
-        : (S = s[9]);
-      var R = S,
-        L = r("useGeoChartDataEndPoint")(R)[
+        _ = [c.top, c.bottom],
+        f = (i = m == null ? void 0 : m(_)) != null ? i : _,
+        g = r("useGeoChartConfigContext")(),
+        h = g.isDescriptionUsedInKey,
+        y = p(
+          function () {
+            var t = e.find(function (t) {
+              return String(t.name) === String(e[0].name.toString());
+            });
+            return t != null ? [t] : [];
+          },
+          [e],
+        ),
+        C = r("useGeoChartDataEndPoint")(y)[
           o("GeoPrivateBaseChartUtils").getSafeNameKey(
-            (i = e[0]) == null ? void 0 : i.name,
-            (l = e[0]) == null ? void 0 : l.description,
-            y,
+            (l = e[0]) == null ? void 0 : l.name,
+            (s = e[0]) == null ? void 0 : s.description,
+            h,
           )
         ],
-        E = L.max,
-        k = L.min,
-        I;
-      s[10] !== E || s[11] !== k
-        ? ((I = [k, E]), (s[10] = E), (s[11] = k), (s[12] = I))
-        : (I = s[12]);
-      var T = I,
-        D;
-      s[13] !== a || s[14] !== T
-        ? ((D = a != null ? a(T) : T), (s[13] = a), (s[14] = T), (s[15] = D))
-        : (D = s[15]);
-      var x = D,
-        $;
-      s[16] !== x || s[17] !== g
-        ? (($ = { range: g, domain: x }), (s[16] = x), (s[17] = g), (s[18] = $))
-        : ($ = s[18]);
-      var P = r("useGeoChartAxisScale")($),
-        N;
-      s[19] !== x || s[20] !== n
-        ? ((N = typeof n == "function" ? n(x) : n),
-          (s[19] = x),
-          (s[20] = n),
-          (s[21] = N))
-        : (N = s[21]);
-      var M = N,
-        w = Math.floor((x[1] - x[0]) / M),
-        A = Math.max(1, isNaN(w) ? 0 : w),
-        F,
-        O;
-      (s[22] !== P || s[23] !== A
-        ? ((O = P.ticks(A)), (s[22] = P), (s[23] = A), (s[24] = O))
-        : (O = s[24]),
-        (F = O));
-      var B = F,
-        W;
-      if (s[25] !== t || s[26] !== B) {
-        var q;
-        (s[28] !== t
-          ? ((q = function (n) {
-              var e = t == null ? n : t(n);
-              return e.toString().length;
-            }),
-            (s[28] = t),
-            (s[29] = q))
-          : (q = s[29]),
-          (W = Math.max.apply(Math, B.map(q))),
-          (s[25] = t),
-          (s[26] = B),
-          (s[27] = W));
-      } else W = s[27];
-      var U = W;
-      return U;
+        b = C.max,
+        v = C.min,
+        S = p(
+          function () {
+            return [v, b];
+          },
+          [b, v],
+        ),
+        R = p(
+          function () {
+            return a != null ? a(S) : S;
+          },
+          [a, S],
+        ),
+        L = r("useGeoChartAxisScale")({ range: f, domain: R }),
+        E = p(
+          function () {
+            var e = typeof n == "function" ? n(R) : n,
+              t = Math.floor((R[1] - R[0]) / e),
+              r = Math.max(1, isNaN(t) ? 0 : t),
+              o = [];
+            return ((o = L.ticks(r)), o);
+          },
+          [R, n, L],
+        ),
+        k = Math.max.apply(
+          Math,
+          E.map(function (e) {
+            var n = t == null ? e : t(e);
+            return n.toString().length;
+          }),
+        );
+      return k;
     }
-    function be(e) {
+    function Ee(e) {
       return e === 1 ? -8 : e === 2 ? 1 : e === 3 ? 6 : e === 4 ? 13 : 8;
     }
-    function ve(e) {
+    var ke = 6,
+      Ie = 64;
+    function Te(e, t) {
+      if (!Number.isFinite(e) || e <= 0) return t;
+      var n = Math.ceil((e * ke) / 2);
+      return Math.min(Math.max(t, n), Ie);
+    }
+    function De(e) {
       var t = e.slice(1).map(function (e) {
-        return e.metric_name == null ? f : e.metric_name;
+        return e.metric_name == null ? g : e.metric_name;
       });
       return Array.from(new Set(t));
     }
-    function Se(e, t) {
-      return e === t || (e == null && t === f);
+    function xe(e, t) {
+      return e === t || (e == null && t === g);
     }
-    function Re(e, t, n) {
+    function $e(e, t, n) {
       var r, o;
       if (n == null) return e.length > 1 ? e[1].type : null;
       var a = t[n];
       return (r =
         (o = e.slice(1).find(function (e) {
-          return Se(e.metric_name, a);
+          return xe(e.metric_name, a);
         })) == null
           ? void 0
           : o.type) != null
         ? r
         : null;
     }
-    function Le(e) {
+    function Pe(e) {
       if (e.length === 0) return e;
       var t = e[0];
       if (!t.value || t.value.length === 0) return e;
@@ -776,34 +745,34 @@ __d(
         return babelHelpers.extends({}, e, { value: t });
       });
     }
-    function Ee(e) {
+    function Ne(e) {
       return /^((?:[\$\xA2-\xA5\u058F\u060B\u07FE\u07FF\u09F2\u09F3\u09FB\u0AF1\u0BF9\u0E3F\u17DB\u20A0-\u20C1\uA838\uFDFC\uFE69\uFF04\uFFE0\uFFE1\uFFE5\uFFE6]|\uD807[\uDFDD-\uDFE0]|\uD838\uDEFF|\uD83B\uDCB0)-?[,0-9]+(\.[0-9]+)?%?|-?[,0-9]+(\.[0-9]+)?((?:[\$\xA2-\xA5\u058F\u060B\u07FE\u07FF\u09F2\u09F3\u09FB\u0AF1\u0BF9\u0E3F\u17DB\u20A0-\u20C1\uA838\uFDFC\uFE69\uFF04\uFFE0\uFFE1\uFFE5\uFFE6]|\uD807[\uDFDD-\uDFE0]|\uD838\uDEFF|\uD83B\uDCB0)|%)?)$/.test(
         e.trim(),
       );
     }
-    function ke(e) {
-      return U(e.replace(/%/g, ""));
+    function Me(e) {
+      return z(e.replace(/%/g, ""));
     }
-    function Ie(e, t, n) {
+    function we(e, t, n) {
       var a = [],
         i = e.map(function (e) {
-          return De(e);
+          return Fe(e);
         });
       a.push(i.join(","));
       var l = t.map(function (e) {
         var t = e.map(function (e, t) {
-          if (t === 0 && n === h.DATE) {
-            var a = Te(e),
+          if (t === 0 && n === y.DATE) {
+            var a = Ae(e),
               i = r("DateTime").create(a / 1e3, o("Timezone").UTC),
               l = i.toISOString().slice(0, 19);
             return l;
-          } else return De(e);
+          } else return Fe(e);
         });
         return t.join(",");
       });
       return ((a = a.concat(l)), a);
     }
-    function Te(e) {
+    function Ae(e) {
       if (/^\d+$/.test(e)) {
         var t = Number(e) * 1e3;
         return t;
@@ -812,15 +781,15 @@ __d(
         r = n.getTime();
       return Number.isNaN(r) ? NaN : r;
     }
-    function De(e) {
+    function Fe(e) {
       var t = e;
       return (
         t.length > 0 && /^[=+\-@\t\r]/.test(t) && (t = "'" + t),
         /[\",\n]/.test(t) ? '"' + t.replace(/\"/g, '""') + '"' : t
       );
     }
-    function xe(e, t, n) {
-      var r = e.map(function (e) {
+    function Oe(t, n, o) {
+      var a = t.map(function (e) {
           var t, n;
           return (t =
             (n = e.composed_text_label) == null ? void 0 : n.content[0].text) !=
@@ -828,7 +797,7 @@ __d(
             ? t
             : e.label;
         }),
-        o = t.map(function (e) {
+        i = n.map(function (e) {
           var t, n;
           return (t =
             (n = e.composed_text_values) == null
@@ -840,46 +809,50 @@ __d(
             ? t
             : e.values;
         }),
-        a = Ie(r, o, e[0].type),
-        i = a.join("\n"),
-        l = "\uFEFF" + i,
-        s = new Blob([l], { type: "text/csv;charset=utf-8" }),
-        u = URL.createObjectURL(s),
-        c = document.createElement("a");
-      ((c.href = u),
-        c.setAttribute("download", n),
-        c.click(),
-        URL.revokeObjectURL(u));
+        l = we(a, i, t[0].type),
+        s = l.join("\n"),
+        u = "\uFEFF" + s;
+      if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+        var c = new Blob([u], { type: "text/csv;charset=utf-8" }),
+          d = URL.createObjectURL(c),
+          m = document.createElement("a");
+        ((m.href = d),
+          m.setAttribute("download", o),
+          m.click(),
+          URL.revokeObjectURL(d));
+      }
     }
-    function $e(e, t) {
-      if (e.length !== 0) {
-        var n = [];
-        for (var r of e) {
-          var o = r.map(function (e) {
+    function Be(t, n) {
+      if (t.length !== 0) {
+        var o = [];
+        for (var a of t) {
+          var i = a.map(function (e) {
             if (e.composedTextValue != null && e.composedTextValue.length > 0) {
               var t,
                 n =
                   (t = e.composedTextValue[0].content[0]) == null
                     ? void 0
                     : t.text;
-              return n != null ? De(n) : De(e.primaryValue);
+              return n != null ? Fe(n) : Fe(e.primaryValue);
             }
-            return De(e.primaryValue);
+            return Fe(e.primaryValue);
           });
-          n.push(o.join(","));
+          o.push(i.join(","));
         }
-        var a = n.join("\n"),
-          i = "\uFEFF" + a,
-          l = new Blob([i], { type: "text/csv;charset=utf-8" }),
-          s = URL.createObjectURL(l),
-          u = document.createElement("a");
-        ((u.href = s),
-          u.setAttribute("download", t),
-          u.click(),
-          URL.revokeObjectURL(s));
+        var l = o.join("\n"),
+          s = "\uFEFF" + l;
+        if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+          var u = new Blob([s], { type: "text/csv;charset=utf-8" }),
+            c = URL.createObjectURL(u),
+            d = document.createElement("a");
+          ((d.href = c),
+            d.setAttribute("download", n),
+            d.click(),
+            URL.revokeObjectURL(c));
+        }
       }
     }
-    function Pe(e, t) {
+    function We(e, t) {
       if (e == null || t == null) return e;
       var n = t.length,
         r = t.offset;
@@ -889,7 +862,7 @@ __d(
             .slice(r, r + n)
             .join("");
     }
-    function Ne(e) {
+    function qe(e) {
       if (e != null) {
         var t = e.content[0];
         if (
@@ -898,7 +871,7 @@ __d(
         )
           return e;
         var n = t.entity_ranges[0],
-          r = Pe(t.text, n);
+          r = We(t.text, n);
         if (r == null) return e;
         var o = [
           babelHelpers.extends({}, n, {
@@ -911,99 +884,108 @@ __d(
         };
       }
     }
-    function Me(e, t, n) {
-      return !n || t === p.TABLE
+    function Ue(e, t, n) {
+      return !n || t === _.TABLE
         ? e
         : e.map(function (e, t) {
             return t === 0
               ? e
               : babelHelpers.extends({}, e, {
-                  composed_text_label: Ne(e.composed_text_label),
+                  composed_text_label: qe(e.composed_text_label),
                 });
           });
     }
-    function we(e, t, n) {
+    function Ve(e, t, n) {
+      var o;
       n === void 0 && (n = 0);
-      var o = Math.max(e.offsetHeight, e.scrollHeight) + n,
-        a = Math.max(e.offsetWidth, e.scrollWidth) + n,
-        i = window.devicePixelRatio || 1,
-        l = a * i,
-        s = o * i;
+      var a = Math.max(e.offsetHeight, e.scrollHeight) + n,
+        i = Math.max(e.offsetWidth, e.scrollWidth) + n,
+        l =
+          ((o = e.ownerDocument.defaultView) == null
+            ? void 0
+            : o.devicePixelRatio) || 1,
+        s = i * l,
+        u = a * l;
       return (
-        (l > g || s > g) &&
+        (s > h || u > h) &&
           (r("FBLogger")("maiba").warn(
             "PNG export dimensions exceed canvas limits: width=%s, height=%s",
-            l,
             s,
+            u,
           ),
-          (i = 1),
-          (l = a),
-          (s = o)),
+          (l = 1),
+          (s = i),
+          (u = a)),
         r("dom-to-image").toBlob(e, {
           bgcolor: "#ffffff",
           filter: t,
-          height: s,
+          height: u,
           maintainHiddenScrollbars: !0,
           quality: 1,
           style: {
-            transform: "scale(" + i + ")",
+            transform: "scale(" + l + ")",
             transformOrigin: "top left",
             background: "#ffffff",
-            height: o + "px",
-            width: a + "px",
+            height: a + "px",
+            width: i + "px",
           },
-          width: l,
+          width: s,
         })
       );
     }
-    ((l.MAIBADataVizType = p),
-      (l.SWAP_ACTION = C),
-      (l.DEBUG_ACTION = b),
-      (l.EXPORT_ACTION = v),
-      (l.COPY_IMAGE_ACTION = S),
-      (l.DOWNLOAD_CSV_ACTION = R),
-      (l.SAVE_IMAGE_ACTION = L),
-      (l.DATA_VIZ_ERROR_MESSAGE = E),
-      (l.TABLE_HOVER_SORT_CSS = k),
-      (l.getLineChartLabel = I),
-      (l.getHorizontalBarChartLabel = T),
-      (l.getVerticalBarChartLabel = D),
-      (l.getTableLabel = x),
-      (l.getScorecardDataCardLabel = $),
-      (l.SCORECARD_DATA_CARD_DESCRIPTION = P),
-      (l.getTranslatedDataVizDescription = N),
-      (l.DATA_VIZ_ERROR_CHART_RENDER = M),
-      (l.DATA_VIZ_ERROR_TABLE_RENDER = w),
-      (l.DATA_VIZ_ERROR_MISSING_DATA = A),
-      (l.getIsMAIBADataVizDebuggerAvailable = F),
-      (l.getIsMAIBADataVizExportAvailable = O),
-      (l.getIsMAIBAScorecardChartsV1Enabled = B),
-      (l.parseLocalizedNumber = U),
-      (l.getAccountCurrency = K),
-      (l.getColumnProportion = Q),
-      (l.extractComposedTextDataForCharts = ee),
-      (l.extractComposedTextDataForLabels = te),
-      (l.parseChartData = ne),
-      (l.parseTableData = re),
-      (l.getDataVizMetricFormatter = oe),
-      (l.getDataVizPrimaryFormatter = ae),
-      (l.getLineChartSwapEligibility = ie),
-      (l.getBarChartSwapEligibility = se),
-      (l.getTableSwapEligibility = ue),
-      (l.getScorecardDataCardSwapEligibility = ce),
-      (l.parseAbraTableBlockData = me),
-      (l.compareMAIBATableValues = ge),
-      (l.sortLineChartData = he),
-      (l.useChartAxisRenderer = ye),
-      (l.useMaxTickLabelLength = Ce),
-      (l.calculateGutterLeft = be),
-      (l.getMetrics = ve),
-      (l.getChartYAxisDataType = Re),
-      (l.sortHorizontalBarChartData = Le),
-      (l.downloadStandardDataVizCSV = xe),
-      (l.downloadMarkdownTableCSV = $e),
-      (l.getDataVizConfig = Me),
-      (l.captureDomElementAsBlob = we));
+    ((l.MAIBADataVizType = _),
+      (l.SWAP_ACTION = b),
+      (l.DEBUG_ACTION = v),
+      (l.EXPORT_ACTION = S),
+      (l.COPY_IMAGE_ACTION = R),
+      (l.DOWNLOAD_CSV_ACTION = L),
+      (l.SAVE_IMAGE_ACTION = E),
+      (l.DOWNLOAD_DATA_ACTION = k),
+      (l.OPEN_IN_ADS_REPORTING_ACTION = I),
+      (l.CHART_OPTIONS_ACTION = T),
+      (l.DATA_VIZ_ERROR_MESSAGE = D),
+      (l.TABLE_HOVER_SORT_CSS = x),
+      (l.getLineChartLabel = $),
+      (l.getHorizontalBarChartLabel = P),
+      (l.getVerticalBarChartLabel = N),
+      (l.getTableLabel = M),
+      (l.getScorecardDataCardLabel = w),
+      (l.SCORECARD_DATA_CARD_DESCRIPTION = A),
+      (l.getTranslatedDataVizDescription = F),
+      (l.DATA_VIZ_ERROR_CHART_RENDER = O),
+      (l.DATA_VIZ_ERROR_TABLE_RENDER = B),
+      (l.DATA_VIZ_ERROR_MISSING_DATA = W),
+      (l.getIsMAIBADataVizDebuggerAvailable = q),
+      (l.getIsMAIBADataVizExportAvailable = U),
+      (l.getIsMAIBAScorecardChartsV1Enabled = V),
+      (l.parseLocalizedNumber = z),
+      (l.getAccountCurrency = J),
+      (l.getColumnProportion = Z),
+      (l.extractComposedTextDataForCharts = oe),
+      (l.extractComposedTextDataForLabels = ae),
+      (l.parseChartData = ie),
+      (l.parseChartHighlights = le),
+      (l.parseTableData = se),
+      (l.getDataVizMetricFormatter = ue),
+      (l.getDataVizPrimaryFormatter = ce),
+      (l.getLineChartSwapEligibility = de),
+      (l.getBarChartSwapEligibility = pe),
+      (l.getTableSwapEligibility = _e),
+      (l.getScorecardDataCardSwapEligibility = fe),
+      (l.parseAbraTableBlockData = he),
+      (l.compareMAIBATableValues = ve),
+      (l.sortLineChartData = Se),
+      (l.useChartAxisRenderer = Re),
+      (l.useMaxTickLabelLength = Le),
+      (l.calculateGutterLeft = Ee),
+      (l.calculateGutterRight = Te),
+      (l.getMetrics = De),
+      (l.getChartYAxisDataType = $e),
+      (l.sortHorizontalBarChartData = Pe),
+      (l.downloadStandardDataVizCSV = Oe),
+      (l.downloadMarkdownTableCSV = Be),
+      (l.getDataVizConfig = Ue),
+      (l.captureDomElementAsBlob = Ve));
   },
   226,
 );

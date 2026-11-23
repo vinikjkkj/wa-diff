@@ -15,7 +15,6 @@ __d(
     "WAWebLimitSharingGatingUtils",
     "WAWebOpusUtils",
     "WAWebProtobufsProtocol.pb",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -41,73 +40,65 @@ __d(
         a && o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
       );
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    async function d(t, n) {
+      if (
+        n.ephemeralDuration != null &&
+        n.ephemeralDuration > 0 &&
+        o(
+          "WAWebEphemeralityUtils",
+        ).isEphemeralityDisabledForMessagingWithContact(t.contact)
+      ) {
+        var r = 0,
+          a = t.contact.id;
+        if (a.isRegularUser()) {
+          var i = babelHelpers.extends({}, n, { ephemeralDuration: r }),
+            l = [
+              o(
+                "WAWebEphemeralitySystemMsg",
+              ).getEphemeralitySystemMessageForDisabledEphemerality(a),
+            ],
+            s = {
+              ephemeralDuration: r,
+              ephemeralSettingTimestamp: o("WATimeUtils").unixTime(),
+              disappearingModeInitiator: o("WAWebEphemeralityTypes")
+                .DisappearingModeInitiator.ChangedInChat,
+              disappearingModeTrigger: o("WAWebEphemeralityTypes")
+                .DisappearingModeTrigger.Unknown,
+              disappearingModeInitiatedByMe: !1,
+            };
+          return (
+            await (
+              o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                ? o("WAWebBackendRuntime").runtime(
+                    o("WAWebChatStoreService").ChatStoreService,
+                  ).updateChatTable
+                : o("WAWebDBUpdateChatTable").updateChatTable
+            )(t.id, s),
+            t.set(s),
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[maybeDisableEphemeralityForMsg] duration=",
+                  " contact=",
+                  "",
+                ])),
+              r,
+              a.toLogString(),
+            ),
+            { msgData: i, systemMsgs: l }
+          );
+        }
+      }
+      return { msgData: n, systemMsgs: null };
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            t.ephemeralDuration != null &&
-            t.ephemeralDuration > 0 &&
-            o(
-              "WAWebEphemeralityUtils",
-            ).isEphemeralityDisabledForMessagingWithContact(e.contact)
-          ) {
-            var n = 0,
-              r = e.contact.id;
-            if (r.isRegularUser()) {
-              var a = babelHelpers.extends({}, t, { ephemeralDuration: n }),
-                i = [
-                  o(
-                    "WAWebEphemeralitySystemMsg",
-                  ).getEphemeralitySystemMessageForDisabledEphemerality(r),
-                ],
-                l = {
-                  ephemeralDuration: n,
-                  ephemeralSettingTimestamp: o("WATimeUtils").unixTime(),
-                  disappearingModeInitiator: o("WAWebEphemeralityTypes")
-                    .DisappearingModeInitiator.ChangedInChat,
-                  disappearingModeTrigger: o("WAWebEphemeralityTypes")
-                    .DisappearingModeTrigger.Unknown,
-                  disappearingModeInitiatedByMe: !1,
-                };
-              return (
-                yield (
-                  o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                    ? o("WAWebBackendRuntime").runtime(
-                        o("WAWebChatStoreService").ChatStoreService,
-                      ).updateChatTable
-                    : o("WAWebDBUpdateChatTable").updateChatTable
-                )(e.id, l),
-                e.set(l),
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[maybeDisableEphemeralityForMsg] duration=",
-                      " contact=",
-                      "",
-                    ])),
-                  n,
-                  r.toLogString(),
-                ),
-                { msgData: a, systemMsgs: i }
-              );
-            }
-          }
-          return { msgData: t, systemMsgs: null };
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(t, n) {
-      var r;
+    function m(e, t) {
+      var n;
       if (
         o("WAWebLimitSharingGatingUtils").isOpusEnabled() &&
-        ((r = t.limitSharing) == null ? void 0 : r.sharingLimited) === !0
+        ((n = e.limitSharing) == null ? void 0 : n.sharingLimited) === !0
       ) {
-        var a = o("WAWebContactSystemMsg").genLimitSharingUpdateSystemMsg(
-          t.id,
+        var r = o("WAWebContactSystemMsg").genLimitSharingUpdateSystemMsg(
+          e.id,
           {
             sharingLimited: !1,
             trigger: o("WAWebProtobufsProtocol.pb").LimitSharing$Trigger
@@ -116,35 +107,35 @@ __d(
         );
         return (
           o("WAWebOpusUtils")
-            .opusProcessChat(t.id.toString(), { skipSystemMessage: !0 })
-            .catch(function (t) {
-              t instanceof Error
+            .opusProcessChat(e.id.toString(), { skipSystemMessage: !0 })
+            .catch(function (e) {
+              e instanceof Error
                 ? o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[opus] send fallback failed",
-                        ])),
-                    )
-                    .catching(t)
-                    .sendLogs(n)
-                : o("WALogger")
                     .ERROR(
                       s ||
                         (s = babelHelpers.taggedTemplateLiteralLoose([
                           "[opus] send fallback failed",
                         ])),
                     )
-                    .sendLogs(n);
+                    .catching(e)
+                    .sendLogs(t)
+                : o("WALogger")
+                    .ERROR(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "[opus] send fallback failed",
+                        ])),
+                    )
+                    .sendLogs(t);
             }),
-          a
+          r
         );
       }
       return null;
     }
     ((l.hasGroupAgentParticipant = c),
       (l.maybeDisableEphemeralityForMsg = d),
-      (l.maybeGetOpusSystemMsg = p));
+      (l.maybeGetOpusSystemMsg = m));
   },
   98,
 );

@@ -1,46 +1,35 @@
 __d(
   "WAWebNewsletterMultiSelectMuteUtils",
   [
-    "Promise",
     "WAWebNewsletterExtendedGatingUtils",
     "WAWebNewsletterMetadataGetters",
     "WAWebNewsletterModelUtils",
     "WAWebNewsletterUpdateUserSettingsAction",
     "WAWebWamEnumChannelEventSurface",
-    "asyncToGeneratorRuntime",
     "useWAWebNewsletterMuteState",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = r
-            ? o("WAWebNewsletterModelUtils").MUTED_STATE
-            : o("WAWebNewsletterModelUtils").UNMUTED_STATE;
-          yield (e || (e = n("Promise"))).all(
-            t
-              .filter(function (e) {
-                return c(e, r);
-              })
-              .map(function (e) {
-                return o(
-                  "WAWebNewsletterUpdateUserSettingsAction",
-                ).updateNewsletterUserSettingsAction(e.id, a, d(e, a), {
-                  eventSurface: o("WAWebWamEnumChannelEventSurface")
-                    .CHANNEL_EVENT_SURFACE.CHANNEL_UPDATES_HOME,
-                  fromMultiselect: !0,
-                });
-              }),
-          );
-        })),
-        u.apply(this, arguments)
+    async function e(e, t) {
+      var n = t
+        ? o("WAWebNewsletterModelUtils").MUTED_STATE
+        : o("WAWebNewsletterModelUtils").UNMUTED_STATE;
+      await Promise.all(
+        e
+          .filter(function (e) {
+            return s(e, t);
+          })
+          .map(function (e) {
+            return o(
+              "WAWebNewsletterUpdateUserSettingsAction",
+            ).updateNewsletterUserSettingsAction(e.id, n, u(e, n), {
+              eventSurface: o("WAWebWamEnumChannelEventSurface")
+                .CHANNEL_EVENT_SURFACE.CHANNEL_UPDATES_HOME,
+              fromMultiselect: !0,
+            });
+          }),
       );
     }
-    function c(e, t) {
+    function s(e, t) {
       var n = e.newsletterMetadata;
       return (
         n != null &&
@@ -48,7 +37,7 @@ __d(
           o(
             "WAWebNewsletterExtendedGatingUtils",
           ).isNewsletterAdminNotificationsEnabled(n)) &&
-        d(
+        u(
           e,
           t
             ? o("WAWebNewsletterModelUtils").MUTED_STATE
@@ -56,7 +45,7 @@ __d(
         ).length > 0
       );
     }
-    function d(e, t) {
+    function u(e, t) {
       var n;
       return o("useWAWebNewsletterMuteState").getNewsletterMuteSettingsToToggle(
         {
@@ -72,7 +61,7 @@ __d(
         },
       );
     }
-    ((l.muteChannels = s), (l.canToggleChannelMute = c));
+    ((l.muteChannels = e), (l.canToggleChannelMute = s));
   },
   98,
 );

@@ -9,7 +9,6 @@ __d(
     "WAWebWamEnumLabelSyncDirectionType",
     "WAWebWamEnumLabelSyncResultType",
     "WAWebWamEnumLabelSyncTypeEnum",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -61,78 +60,46 @@ __d(
         );
       }
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    async function h(e) {
+      var t = await _(),
+        n = new TextEncoder(),
+        r = await crypto.subtle.sign("HMAC", t, n.encode(e));
+      return Array.from(new Uint8Array(r))
+        .map(function (e) {
+          return e.toString(16).padStart(2, "0");
+        })
+        .join("");
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield _(),
-            n = new TextEncoder(),
-            r = yield crypto.subtle.sign("HMAC", t, n.encode(e));
-          return Array.from(new Uint8Array(r))
+    async function y(e) {
+      if (!f()) return "logging_disabled";
+      try {
+        for (
+          var t = arguments.length, n = new Array(t > 1 ? t - 1 : 0), r = 1;
+          r < t;
+          r++
+        )
+          n[r - 1] = arguments[r];
+        var o = n
             .map(function (e) {
-              return e.toString(16).padStart(2, "0");
+              return ',"' + e + '"';
             })
-            .join("");
-        })),
-        y.apply(this, arguments)
-      );
+            .join(""),
+          a = '["' + e + '"' + o + "]";
+        return await h(a);
+      } catch (e) {
+        return "hash_generation_failed";
+      }
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    async function C(e, t) {
+      return y("label_jid", e, t);
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!f()) return "logging_disabled";
-          try {
-            for (
-              var t = arguments.length, n = new Array(t > 1 ? t - 1 : 0), r = 1;
-              r < t;
-              r++
-            )
-              n[r - 1] = arguments[r];
-            var o = n
-                .map(function (e) {
-                  return ',"' + e + '"';
-                })
-                .join(""),
-              a = '["' + e + '"' + o + "]";
-            return yield h(a);
-          } catch (e) {
-            return "hash_generation_failed";
-          }
-        })),
-        b.apply(this, arguments)
-      );
+    async function b(e) {
+      return y("label_edit", e);
     }
     function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return C("label_jid", e, t);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return C("label_edit", e);
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e, t) {
       var n;
       if (f()) {
-        k(e, t.chatJid);
+        S(e, t.chatJid);
         var r = (n = m.get(e)) != null ? n : [];
         if (
           (r.push(t),
@@ -152,7 +119,7 @@ __d(
         }
       }
     }
-    function k(e, t) {
+    function S(e, t) {
       var n = m.get(e);
       if (n != null) {
         var r = n.filter(function (e) {
@@ -165,7 +132,7 @@ __d(
           })));
       }
     }
-    function I(e) {
+    function R(e) {
       var t = m.get(e);
       return t == null
         ? []
@@ -175,21 +142,13 @@ __d(
           })),
           t);
     }
-    function T() {
+    function L() {
       (m.clear(), (p = []), (d = null));
     }
-    function D(e) {
-      return x.apply(this, arguments);
+    async function E(e) {
+      return y("label_reorder", e);
     }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return C("label_reorder", e);
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e, t, n, r, a, i, l, s) {
+    function k(e, t, n, r, a, i, l, s) {
       if (f()) {
         var u = {
           labelSyncHash: e,
@@ -211,14 +170,14 @@ __d(
       }
     }
     ((l.MAX_DEFERRED_ASSOCIATION_COUNT = u),
-      (l.generateLabelJidHash = v),
-      (l.generateLabelEditHash = R),
-      (l.recordDeferredLabelAssociation = E),
-      (l.removeDeferredLabelAssociation = k),
-      (l.takeDeferredLabelAssociations = I),
-      (l.resetLabelSyncTrackingState = T),
-      (l.generateLabelReorderHash = D),
-      (l.logLabelSyncEvent = $),
+      (l.generateLabelJidHash = C),
+      (l.generateLabelEditHash = b),
+      (l.recordDeferredLabelAssociation = v),
+      (l.removeDeferredLabelAssociation = S),
+      (l.takeDeferredLabelAssociations = R),
+      (l.resetLabelSyncTrackingState = L),
+      (l.generateLabelReorderHash = E),
+      (l.logLabelSyncEvent = k),
       (l.LABEL_SYNC_TYPE_ENUM = o(
         "WAWebWamEnumLabelSyncTypeEnum",
       ).LABEL_SYNC_TYPE_ENUM),

@@ -13,7 +13,9 @@ __d(
     "AdsPlacementRawSpecUtils",
     "AdsPlacementUtils",
     "AdsUEditorCampaignTargetFrequencyInAuctionUtils",
+    "adsGetUsingAdSequencing",
     "areEqual",
+    "immutable",
     "whitelistObjectKeys",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,6 +25,10 @@ __d(
       return (e || (e = r("areEqual")))(this, t);
     }
     function u(e) {
+      if (Array.isArray(e)) return e;
+      if (e != null && r("immutable").List.isList(e)) return e.toArray();
+    }
+    function c(e) {
       return o("AdsLoadObjectUtils")
         .all(e)
         .map(function (e) {
@@ -40,12 +46,9 @@ __d(
               : r.product_catalog_id;
         });
     }
-    function c(e, t, n) {
-      return m(d(e, t, n));
-    }
     function d(e, t, n) {
       var r = n(t),
-        o = u(r),
+        o = c(r),
         a = r[0],
         i = r[1];
       return {
@@ -60,22 +63,14 @@ __d(
         n = e.accountPlacementExclusions,
         a = e.campaignGroupLoadObject,
         i = e.campaignLoadObject,
-        l = e.hasRecentMessengerStoryAdPlacementLoadObject,
-        u = e.isBusinessHighTrustForMM,
+        l = e.isBusinessHighTrustForMM,
         c = e.productCatalogIDLoadObject;
       return o("AdsLoadObjectUtils")
-        .all([
-          t,
-          i,
-          a,
-          o("AdsLoadObjectUtils").wrapIfNull(c),
-          o("AdsLoadObjectUtils").wrapIfNull(l),
-        ])
+        .all([t, i, a, o("AdsLoadObjectUtils").wrapIfNull(c)])
         .map(function (e) {
           var t,
             a,
             i,
-            l,
             c,
             d,
             m,
@@ -84,108 +79,98 @@ __d(
             f,
             g,
             h,
-            y,
-            C = e[0],
-            b = e[1],
-            v = e[2],
-            S = e[3],
-            R = e[4],
-            L = C.account_id,
-            E = C.capabilities,
-            k = v.buying_type,
-            I =
-              (t = b.promoted_object) == null
+            y = e[0],
+            C = e[1],
+            b = e[2],
+            v = e[3],
+            S = y.account_id,
+            R = y.capabilities,
+            L = b.buying_type,
+            E =
+              (t = C.promoted_object) == null
                 ? void 0
                 : t.full_funnel_objective,
-            T = I || v.objective,
-            D = (a = b.promoted_object) == null ? void 0 : a.object_store_url,
-            x = b.billing_event,
-            $ =
-              (i = (l = b.promoted_object) == null ? void 0 : l.page_id) != null
+            k = E || b.objective,
+            I = (a = C.promoted_object) == null ? void 0 : a.object_store_url,
+            T = C.billing_event,
+            D =
+              (i = (c = C.promoted_object) == null ? void 0 : c.page_id) != null
                 ? i
-                : (c = v.promoted_object) == null
+                : (d = b.promoted_object) == null
                   ? void 0
-                  : c.page_id,
-            P = b.optimization_goal,
-            N = b.rf_prediction_id,
-            M = (d = b.is_dynamic_creative_optimization) != null ? d : void 0,
-            w = !!((m = b.promoted_object) != null && m.offer_id),
-            A = (p = b.targeting) == null ? void 0 : p.direct_install_devices,
-            F = (_ = b.targeting) == null ? void 0 : _.geo_locations,
-            O = b.destination_type,
-            B = b.promoted_object,
-            W = o("AdsAPICampaignRecordUtils").getPromotedObjectType(T, b),
-            q = b.conversion_locations,
-            U = b.catalog_vertical,
-            V = Array.isArray(b.creative_sequence)
-              ? b.creative_sequence
-              : (f = b.creative_sequence) == null
-                ? void 0
-                : f.toArray(),
-            H = (V != null ? V : []).length > 0,
-            G = o(
+                  : d.page_id,
+            x = C.optimization_goal,
+            $ = C.rf_prediction_id,
+            P = (m = C.is_dynamic_creative_optimization) != null ? m : void 0,
+            N = !!((p = C.promoted_object) != null && p.offer_id),
+            M = (_ = C.targeting) == null ? void 0 : _.direct_install_devices,
+            w = (f = C.targeting) == null ? void 0 : f.geo_locations,
+            A = C.destination_type,
+            F = C.promoted_object,
+            O = o("AdsAPICampaignRecordUtils").getPromotedObjectType(k, C),
+            B = C.conversion_locations,
+            W = C.catalog_vertical,
+            q = r("adsGetUsingAdSequencing")(C.creative_sequence),
+            U = o(
               "AdsPlacementAPISpecReaderUtils",
-            ).convertCampaignToPlacementSpec_LEGACY(b),
-            z = O === r("AdCampaignDestination").FACEBOOK,
-            j = O === r("AdCampaignDestination").PHONE_CALL,
-            K = o(
+            ).convertCampaignToPlacementSpec_LEGACY(C),
+            V = A === r("AdCampaignDestination").FACEBOOK,
+            H = A === r("AdCampaignDestination").PHONE_CALL,
+            G = o(
               "AdsAPICampaignRecordUtilsShared",
-            ).getIsWhatsAppMarketingMessagesActiveByDefault(b),
-            Q =
-              (g = C.marketing_messages_account_settings) == null
+            ).getIsWhatsAppMarketingMessagesActiveByDefault(C),
+            z =
+              (g = y.marketing_messages_account_settings) == null
                 ? void 0
                 : g.messenger_activation_status,
-            X = Array.isArray(v.special_ad_categories)
-              ? v.special_ad_categories
-              : (h = v.special_ad_categories) == null
-                ? void 0
-                : h.toArray(),
-            Y = o(
+            j = u(b.special_ad_categories),
+            K = u(b.special_ad_category_country),
+            Q = o(
               "AdsUEditorCampaignTargetFrequencyInAuctionUtils",
-            ).isTargetFrequencyInAuction(k, T, P, N),
-            J = (y = v.is_opted_into_experiments) != null ? y : !1,
-            Z =
-              v.ad_creation_package_config != null
+            ).isTargetFrequencyInAuction(L, k, x, $),
+            X = (h = b.is_opted_into_experiments) != null ? h : !1,
+            Y =
+              b.ad_creation_package_config != null
                 ? "CREATION_PACKAGE"
                 : o(
                     "AdsCampaignGroupCreationSourceForPlacement",
                   ).normalizeCampaignGroupCreationSourceForPlacement(
-                    v.campaign_group_creation_source,
+                    b.campaign_group_creation_source,
                   );
           return {
-            account: C,
-            adAccountID: L,
+            account: y,
+            adAccountID: S,
             accountPlacementExclusions: n,
-            billingEvent: x,
-            buyingType: k,
-            campaignGroupCreationSource: Z,
-            capabilities: E,
-            catalogVertical: U,
-            configuredPlacementSpec: G,
-            containsDCO: M,
-            containsOffer: w,
-            conversionLocations: q,
-            usingAdSequencing: H,
-            destinationType: O,
-            directInstallDevices: A,
-            objective: T,
-            objectStoreURL: D,
-            optimizationGoal: P,
-            promotedObject: B,
-            isClickToCallAds: j,
-            isClickToMPAds: z,
-            productCatalogID: S,
-            promotedObjectType: W,
-            promotedPageID: $,
-            targetingGeoLocations: F,
-            hasRecentMessengerStoryAdPlacement: R === !0,
-            isBusinessHighTrustForMM: u,
-            isWhatsAppMarketingMessagesActiveByDefault: K,
-            messengerMessageMarketingActivationStatus: Q,
+            billingEvent: T,
+            buyingType: L,
+            campaignGroupCreationSource: Y,
+            capabilities: R,
+            catalogVertical: W,
+            configuredPlacementSpec: U,
+            containsDCO: P,
+            containsOffer: N,
+            conversionLocations: B,
+            usingAdSequencing: q,
+            destinationType: A,
+            directInstallDevices: M,
+            objective: k,
+            objectStoreURL: I,
+            optimizationGoal: x,
+            promotedObject: F,
+            isClickToCallAds: H,
+            isClickToMPAds: V,
+            productCatalogID: v,
+            promotedObjectType: O,
+            promotedPageID: D,
+            targetingGeoLocations: w,
+            isBusinessHighTrustForMM: l,
+            isWhatsAppMarketingMessagesActiveByDefault: G,
+            messengerMessageMarketingActivationStatus: z,
             equals: s,
-            specialAdCategories: X,
-            isTargetFrequencyInAuctionEnabled: Y,
-            isOptedIntoExperiments: J,
+            specialAdCategories: j,
+            specialAdCategoryCountry: K,
+            isTargetFrequencyInAuctionEnabled: Q,
+            isOptedIntoExperiments: X,
           };
         });
     }
@@ -203,25 +188,25 @@ __d(
           m = e.conversionLocations,
           p = e.destinationType,
           _ = e.directInstallDevices,
-          f = e.hasRecentMessengerStoryAdPlacement,
-          g = e.isBusinessHighTrustForMM,
-          h = e.isClickToCallAds,
-          y = e.isClickToMPAds,
-          C = e.isOptedIntoExperiments,
-          b = e.isTargetFrequencyInAuctionEnabled,
-          v = e.isWhatsAppMarketingMessagesActiveByDefault,
-          S = e.messengerMessageMarketingActivationStatus,
-          R = e.objective,
-          L = e.objectStoreURL,
-          E = e.optimizationGoal,
-          k = e.productCatalogID,
-          I = e.promotedObject,
-          T = e.promotedObjectType,
-          D = e.promotedPageID,
-          x = e.specialAdCategories,
+          f = e.isBusinessHighTrustForMM,
+          g = e.isClickToCallAds,
+          h = e.isClickToMPAds,
+          y = e.isOptedIntoExperiments,
+          C = e.isTargetFrequencyInAuctionEnabled,
+          b = e.isWhatsAppMarketingMessagesActiveByDefault,
+          v = e.messengerMessageMarketingActivationStatus,
+          S = e.objective,
+          R = e.objectStoreURL,
+          L = e.optimizationGoal,
+          E = e.productCatalogID,
+          k = e.promotedObject,
+          I = e.promotedObjectType,
+          T = e.promotedPageID,
+          D = e.specialAdCategories,
+          x = e.specialAdCategoryCountry,
           $ = e.targetingGeoLocations,
           P = e.usingAdSequencing,
-          N = I == null ? void 0 : I.product_set_id,
+          N = k == null ? void 0 : k.product_set_id,
           M = o(
             "AdsPartialAutomaticPlacementUtils",
           ).getPartialAutomaticPlatformsFromPlacementSpec(u);
@@ -229,33 +214,33 @@ __d(
           var w = {
             account: t,
             accountPlacementExclusions: n,
-            objective: R,
+            objective: S,
             buyingType: a,
             campaignGroupCreationSource: i,
             capabilities: l,
             catalogVertical: s,
-            isClickToCallAds: h,
-            isClickToMPAds: y,
-            promotedObjectType: T,
+            isClickToCallAds: g,
+            isClickToMPAds: h,
+            promotedObjectType: I,
             conversionLocations: m,
             usingAdSequencing: P,
-            objectStoreURL: L,
-            promotedPageID: D,
-            productCatalogID: k,
+            objectStoreURL: R,
+            promotedPageID: T,
+            productCatalogID: E,
             destinationType: p,
             containsOffer: !!d,
-            optimizationGoal: E,
+            optimizationGoal: L,
             containsDCO: !!c,
             directInstallDevices: _,
-            hasRecentMessengerStoryAdPlacement: f,
             targetingGeoLocations: $,
             spec: u,
-            isBusinessHighTrustForMM: g,
-            isWhatsAppMarketingMessagesActiveByDefault: v,
-            messengerMessageMarketingActivationStatus: S,
-            specialAdCategories: x,
-            isOptedIntoExperiments: C,
-            promotedObject: I,
+            isBusinessHighTrustForMM: f,
+            isWhatsAppMarketingMessagesActiveByDefault: b,
+            messengerMessageMarketingActivationStatus: v,
+            specialAdCategories: D,
+            specialAdCategoryCountry: x,
+            isOptedIntoExperiments: y,
+            promotedObject: k,
             productSetID: N,
           };
           return o("AdsPlacementRawSpecUtils").mergePartialPlacement(u, w);
@@ -265,33 +250,33 @@ __d(
             {
               account: t,
               accountPlacementExclusions: n,
-              objective: R,
+              objective: S,
               buyingType: a,
               campaignGroupCreationSource: i,
               capabilities: l,
               catalogVertical: s,
-              isClickToCallAds: h,
-              isClickToMPAds: y,
-              promotedObjectType: T,
+              isClickToCallAds: g,
+              isClickToMPAds: h,
+              promotedObjectType: I,
               conversionLocations: m,
               usingAdSequencing: P,
-              objectStoreURL: L,
-              promotedPageID: D,
-              productCatalogID: k,
+              objectStoreURL: R,
+              promotedPageID: T,
+              productCatalogID: E,
               destinationType: p,
               containsOffer: !!d,
-              optimizationGoal: E,
+              optimizationGoal: L,
               containsDCO: !!c,
               directInstallDevices: _,
-              hasRecentMessengerStoryAdPlacement: f,
               targetingGeoLocations: $,
-              isBusinessHighTrustForMM: g,
-              isWhatsAppMarketingMessagesActiveByDefault: v,
-              messengerMessageMarketingActivationStatus: S,
-              specialAdCategories: x,
-              isTargetFrequencyInAuctionEnabled: b,
-              isOptedIntoExperiments: C,
-              promotedObject: I,
+              isBusinessHighTrustForMM: f,
+              isWhatsAppMarketingMessagesActiveByDefault: b,
+              messengerMessageMarketingActivationStatus: v,
+              specialAdCategories: D,
+              specialAdCategoryCountry: x,
+              isTargetFrequencyInAuctionEnabled: C,
+              isOptedIntoExperiments: y,
+              promotedObject: k,
               productSetID: N,
             },
             r("whitelistObjectKeys")(
@@ -305,8 +290,7 @@ __d(
         return (A.length > 0 && (u.brand_safety_content_filter_levels = A), u);
       });
     }
-    ((l.getPlacementDependency = c),
-      (l.getPlacementDependencyData = d),
+    ((l.getPlacementDependencyData = d),
       (l.placementDependencyDataToDependency = m),
       (l.getPlacementSpecLoadObjectFromDependency = p));
   },

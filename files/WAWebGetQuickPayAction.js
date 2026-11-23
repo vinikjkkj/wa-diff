@@ -4,11 +4,11 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     var e = function (t) {
       return {
-        label: s._(/*BTDS*/ "Pay now on WhatsApp"),
+        label: s._(/*BTDS*/ ""),
         disabled: t,
         onClick: function () {
           return r("WAWebShowMessageActionFallbackErrorAction")({
-            title: s._(/*BTDS*/ "Complete payment on your phone"),
+            title: s._(/*BTDS*/ ""),
             body: "",
           });
         },

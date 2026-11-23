@@ -6,7 +6,6 @@ __d(
     "WAWebBackendApi",
     "WAWebVoipCallStateUtils",
     "WAWebVoipWaCallEnums",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,11 +18,11 @@ __d(
       m = null;
     function p(e, t, n) {
       var r = n == null || n === "" ? null : n;
-      if (b(e, t)) {
-        ((m = r), r != null && (d.delete(r), d.set(r, C()), S()));
+      if (C(e, t)) {
+        ((m = r), r != null && (d.delete(r), d.set(r, y()), v()));
         return;
       }
-      r != null && !o("WAWebVoipCallStateUtils").isCallTerminal(t) && v(r);
+      r != null && !o("WAWebVoipCallStateUtils").isCallTerminal(t) && b(r);
     }
     function _() {
       var e;
@@ -36,66 +35,56 @@ __d(
     function g(e) {
       e != null && _() === e && (m = null);
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    async function h(t) {
+      var n =
+        t == null
+          ? null
+          : await o("WAPromiseDelays").withTimeout(t, c, function () {
+              return (
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: unified session id capture timed out",
+                    ])),
+                ),
+                null
+              );
+            });
+      return n != null
+        ? n
+        : o("WAWebBackendApi").frontendSendAndReceive("getUnifiedSessionId");
     }
     function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t =
-            e == null
-              ? null
-              : yield o("WAPromiseDelays").withTimeout(e, c, function () {
-                  return (
-                    o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: unified session id capture timed out",
-                        ])),
-                    ),
-                    null
-                  );
-                });
-          return t != null
-            ? t
-            : o("WAWebBackendApi").frontendSendAndReceive(
-                "getUnifiedSessionId",
-              );
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C() {
       return o("WAWebBackendApi")
         .frontendSendAndReceive("getUnifiedSessionId")
-        .catch(function (t) {
+        .catch(function (e) {
           return (
             o("WALogger")
               .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: unified session id capture failed",
                   ])),
               )
-              .catching(r("getErrorSafe")(t)),
+              .catching(r("getErrorSafe")(e)),
             null
           );
         });
     }
-    function b(e, t) {
+    function C(e, t) {
       return o("WAWebVoipCallStateUtils").isCallTerminal(t)
         ? !1
         : o("WAWebVoipCallStateUtils").isCallTerminal(e) ||
             (t === o("WAWebVoipWaCallEnums").CallState.AcceptSent &&
               e !== o("WAWebVoipWaCallEnums").CallState.AcceptSent);
     }
-    function v(e) {
+    function b(e) {
       if (!(m == null || m === e)) {
         var t = d.get(m);
-        ((m = e), t != null && (d.set(e, t), S()));
+        ((m = e), t != null && (d.set(e, t), v()));
       }
     }
-    function S() {
+    function v() {
       if (!(d.size <= u)) {
         var e = d.keys().next();
         e.done !== !0 && d.delete(e.value);

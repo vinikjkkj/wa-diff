@@ -28,9 +28,7 @@ __d(
     function p() {
       try {
         o("WAWebToastManager").ToastManager.open(
-          d.jsx(o("WAWebToast.react").Toast, {
-            msg: s._(/*BTDS*/ "Feedback received"),
-          }),
+          d.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
           o("WAWebToastManager").ToastPosition.CENTER,
         );
       } catch (t) {

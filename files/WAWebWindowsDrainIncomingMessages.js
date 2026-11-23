@@ -2,7 +2,6 @@ __d(
   "WAWebWindowsDrainIncomingMessages",
   [
     "$InternalEnum",
-    "Promise",
     "WAComms",
     "WACustomError",
     "WALogger",
@@ -16,7 +15,6 @@ __d(
     "WAWebOfflineResumeUtils",
     "WAWebOneQueue",
     "WAWebWindowsLoginOfflineDelivery",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,189 +22,128 @@ __d(
       s,
       u,
       c,
-      d,
-      m = 5e3,
-      p = 2e3,
-      _ = 50,
-      f = 3,
-      g = n("$InternalEnum")({
+      d = 5e3,
+      m = 2e3,
+      p = 50,
+      _ = 3,
+      f = n("$InternalEnum")({
         Drained: "drained",
         StillQueued: "still_queued",
         SocketClosed: "socket_closed",
         TimedOut: "timed_out",
         Failed: "failed",
       }),
-      h = (d || (d = n("Promise"))).resolve();
-    function y() {
-      var e = self.performance.now() + m,
+      g = Promise.resolve();
+    function h() {
+      var e = self.performance.now() + d,
         t = function () {
-          return C(e);
+          return y(e);
         },
-        n = h.then(t, t);
-      return ((h = n), n);
+        n = g.then(t, t);
+      return ((g = n), n);
     }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
+    async function y(t) {
+      var n = self.performance.now(),
+        r = await C(t),
+        a = Math.round(self.performance.now() - n);
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = self.performance.now(),
-            r = yield v(t),
-            a = Math.round(self.performance.now() - n);
-          return (
-            w(r),
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "WindowsDrainIncomingMessages: ",
-                  " in ",
-                  " ms",
+        I(r),
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "WindowsDrainIncomingMessages: ",
+              " in ",
+              " ms",
+            ])),
+          r,
+          a,
+        ),
+        r
+      );
+    }
+    async function C(e) {
+      var t = e - self.performance.now();
+      if (t <= 0)
+        return (
+          o("WALogger").WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "WindowsDrainIncomingMessages: timed out waiting for an earlier drain",
+              ])),
+          ),
+          f.TimedOut
+        );
+      var n = { stopped: !1 };
+      try {
+        return (
+          await o("WAPromiseTimeout").promiseTimeout(b(n, 1), t),
+          await L()
+        );
+      } catch (e) {
+        return e instanceof o("WACustomError").TimeoutError
+          ? (o("WALogger").WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "WindowsDrainIncomingMessages: timed out",
                 ])),
-              r,
-              a,
             ),
-            r
-          );
-        })),
-        b.apply(this, arguments)
-      );
+            f.TimedOut)
+          : (o("WALogger").WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "WindowsDrainIncomingMessages: failed: ",
+                  "",
+                ])),
+              r("getErrorSafe")(e).name,
+            ),
+            f.Failed);
+      } finally {
+        n.stopped = !0;
+      }
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    async function b(e, t) {
+      e.stopped ||
+        (await v(e),
+        !(e.stopped || !k()) &&
+          (await o("WAWebWindowsLoginOfflineDelivery").waitForPingAnswer(),
+          t < _ && (await R()) && (await b(e, t + 1))));
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e - self.performance.now();
-          if (t <= 0)
-            return (
-              o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "WindowsDrainIncomingMessages: timed out waiting for an earlier drain",
-                  ])),
-              ),
-              g.TimedOut
-            );
-          var n = { stopped: !1 };
-          try {
-            return (
-              yield o("WAPromiseTimeout").promiseTimeout(R(n, 1), t),
-              yield $()
-            );
-          } catch (e) {
-            return e instanceof o("WACustomError").TimeoutError
-              ? (o("WALogger").WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "WindowsDrainIncomingMessages: timed out",
-                    ])),
-                ),
-                g.TimedOut)
-              : (o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "WindowsDrainIncomingMessages: failed: ",
-                      "",
-                    ])),
-                  r("getErrorSafe")(e).name,
-                ),
-                g.Failed);
-          } finally {
-            n.stopped = !0;
-          }
-        })),
-        S.apply(this, arguments)
-      );
+    async function v(e) {
+      o(
+        "WAWebOfflineHandler",
+      ).OfflineMessageHandler.hasInitOfflineResumeManager() &&
+        (await S(e, self.performance.now() + m),
+        !e.stopped &&
+          (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() &&
+            (await o("WAWebOneQueue").waitForOneQueueOfflineWorkDrained()),
+          !e.stopped &&
+            (await o("WAWebOfflineResumeUtils").clearOfflineSnapShot())));
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
+    async function S(e, t) {
+      e.stopped ||
+        !E() ||
+        self.performance.now() >= t ||
+        (await o("WAPromiseDelays").delayMs(p), await S(e, t));
     }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          e.stopped ||
-            (yield E(e),
-            !(e.stopped || !M()) &&
-              (yield o("WAWebWindowsLoginOfflineDelivery").waitForPingAnswer(),
-              t < f && (yield D()) && (yield R(e, t + 1))));
-        })),
-        L.apply(this, arguments)
-      );
+    async function R() {
+      return E()
+        ? !0
+        : o(
+              "WAWebOfflineHandler",
+            ).OfflineMessageHandler.hasInitOfflineResumeManager()
+          ? (await o("WAWebGetMessageCache").getMessageCache().size()) > 0
+          : !1;
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    async function L() {
+      return k() ? ((await R()) ? f.StillQueued : f.Drained) : f.SocketClosed;
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o(
-            "WAWebOfflineHandler",
-          ).OfflineMessageHandler.hasInitOfflineResumeManager() &&
-            (yield I(e, self.performance.now() + p),
-            !e.stopped &&
-              (o("WAWebMessageQueueImpl").isOneQueueAdoptionEnabled() &&
-                (yield o("WAWebOneQueue").waitForOneQueueOfflineWorkDrained()),
-              !e.stopped &&
-                (yield o("WAWebOfflineResumeUtils").clearOfflineSnapShot())));
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e, t) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          e.stopped ||
-            !N() ||
-            self.performance.now() >= t ||
-            (yield o("WAPromiseDelays").delayMs(_), yield I(e, t));
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    function D() {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return N()
-            ? !0
-            : o(
-                  "WAWebOfflineHandler",
-                ).OfflineMessageHandler.hasInitOfflineResumeManager()
-              ? (yield o("WAWebGetMessageCache").getMessageCache().size()) > 0
-              : !1;
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $() {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return M()
-            ? (yield D())
-              ? g.StillQueued
-              : g.Drained
-            : g.SocketClosed;
-        })),
-        P.apply(this, arguments)
-      );
-    }
-    function N() {
+    function E() {
       var e = o("WAWebMessageQueue").getMessageQueueDepth(),
         t = e.offline,
         n = e.online;
       return t + n > 0;
     }
-    function M() {
+    function k() {
       var e;
       return (
         ((e = o("WAComms").getComms()) == null
@@ -214,33 +151,33 @@ __d(
           : e.isSocketConnected()) === !0
       );
     }
-    function w(e) {
+    function I(e) {
       e: {
-        if (e === g.Drained) {
+        if (e === f.Drained) {
           r("WAWebODS").incr(
             "web.hybrid.bridge.connection.incoming_drain.drained",
           );
           break e;
         }
-        if (e === g.StillQueued) {
+        if (e === f.StillQueued) {
           r("WAWebODS").incr(
             "web.hybrid.bridge.connection.incoming_drain.still_queued",
           );
           break e;
         }
-        if (e === g.SocketClosed) {
+        if (e === f.SocketClosed) {
           r("WAWebODS").incr(
             "web.hybrid.bridge.connection.incoming_drain.socket_closed",
           );
           break e;
         }
-        if (e === g.TimedOut) {
+        if (e === f.TimedOut) {
           r("WAWebODS").incr(
             "web.hybrid.bridge.connection.incoming_drain.timed_out",
           );
           break e;
         }
-        if (e === g.Failed) {
+        if (e === f.Failed) {
           r("WAWebODS").incr(
             "web.hybrid.bridge.connection.incoming_drain.failed",
           );
@@ -252,9 +189,9 @@ __d(
         );
       }
     }
-    ((l.INCOMING_DRAIN_TIMEOUT_MS = m),
-      (l.IncomingDrainOutcome = g),
-      (l.drainIncomingMessagesBeforeSocketClose = y));
+    ((l.INCOMING_DRAIN_TIMEOUT_MS = d),
+      (l.IncomingDrainOutcome = f),
+      (l.drainIncomingMessagesBeforeSocketClose = h));
   },
   98,
 );

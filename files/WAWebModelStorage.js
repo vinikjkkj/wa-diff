@@ -6,35 +6,26 @@ __d(
     "WAWebModelStorageInitialize",
     "WAWebStorageInitializeHooks",
     "WAWebUserPrefsIndexedDBStorage",
-    "asyncToGeneratorRuntime",
     "once",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      (await o("WAWebModelStorageInitialize").initializeWithoutGKs(e),
+        await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+        c(),
+        s());
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield o("WAWebModelStorageInitialize").initializeWithoutGKs(e),
-            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            d(),
-            u());
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    var u = r("once")(function () {
+    var s = r("once")(function () {
         o("WAWebABPropsCache")
           .waitForABPropConfigsReady()
           .then(function () {
             o("WAWebStorageInitializeHooks").initializeHooks();
           });
       }),
-      c = !1;
-    function d() {
-      c !== !0 &&
-        ((c = !0),
+      u = !1;
+    function c() {
+      u !== !0 &&
+        ((u = !0),
         o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.setSyncCallback(
           function (e) {
             switch (e.action) {

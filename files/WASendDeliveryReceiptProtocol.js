@@ -5,8 +5,8 @@ __d(
     "WAComms",
     "WAGlobals",
     "WAJids",
-    "WASmaxOutReceiptPublishDeliveryRequest",
-    "WASmaxOutReceiptPublishSenderRequest",
+    "WASmaxReceiptPublishDeliveryRPC",
+    "WASmaxReceiptPublishSenderRPC",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -55,8 +55,9 @@ __d(
         r = e.stanzaId,
         a = {
           publishSenderGroupDeviceSenderType: {
-            receiptTo: t,
-            receiptParticipant: n,
+            groupGroupStatusDeviceOrGroupDeviceDeviceMixinGroupArgs: {
+              groupDevice: { receiptTo: t, receiptParticipant: n },
+            },
           },
         },
         i = { single: { receiptId: r } },
@@ -65,9 +66,7 @@ __d(
             a,
           senderAggregatedPublishOrSingleMixinGroupArgs: i,
         };
-      return o("WASmaxOutReceiptPublishSenderRequest").makePublishSenderRequest(
-        l,
-      );
+      return o("WASmaxReceiptPublishSenderRPC").makePublishSenderRequest(l);
     }
     function d(e) {
       var t = e.chat,
@@ -85,9 +84,7 @@ __d(
           senderAggregatedPublishOrSingleMixinGroupArgs: i,
           userOrDeviceOrInteropUserOrInteropDeviceMixinGroupArgs: a,
         };
-      return o(
-        "WASmaxOutReceiptPublishDeliveryRequest",
-      ).makePublishDeliveryRequest(l);
+      return o("WASmaxReceiptPublishDeliveryRPC").makePublishDeliveryRequest(l);
     }
     function m(e) {
       var t = e.from,
@@ -100,9 +97,7 @@ __d(
           senderAggregatedPublishOrSingleMixinGroupArgs: a,
           userOrDeviceOrInteropUserOrInteropDeviceMixinGroupArgs: r,
         };
-      return o(
-        "WASmaxOutReceiptPublishDeliveryRequest",
-      ).makePublishDeliveryRequest(i);
+      return o("WASmaxReceiptPublishDeliveryRPC").makePublishDeliveryRequest(i);
     }
     function p(e) {
       var t = e.recipient,
@@ -120,9 +115,7 @@ __d(
             a,
           senderAggregatedPublishOrSingleMixinGroupArgs: i,
         };
-      return o("WASmaxOutReceiptPublishSenderRequest").makePublishSenderRequest(
-        l,
-      );
+      return o("WASmaxReceiptPublishSenderRPC").makePublishSenderRequest(l);
     }
     ((l.sendIndividualMessageDeliveryReceipt = s), (l.makeDeliveryReceipt = u));
   },

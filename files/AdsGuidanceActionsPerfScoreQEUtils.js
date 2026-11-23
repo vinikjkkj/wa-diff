@@ -13,7 +13,7 @@ __d(
         : o("AdsOSAUExperimentUtils").isOSAndAUTest({ logExposure: !0 })
           ? u()
             ? "os_v2_l4_testing_a"
-            : "os_v2_l4_au"
+            : "os_v2_l4_ga"
           : u()
             ? "os_v2_l4_testing_b"
             : "os_v2_l4_beta";

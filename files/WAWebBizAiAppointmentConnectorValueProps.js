@@ -49,46 +49,30 @@ __d(
       var n = [
         {
           icon: r("WDSIconIcFormatListBulleted.react"),
-          text: s._(
-            /*BTDS*/ "Meta will access {calendar name} (such as availability and event details) to enable your Business AI agents to book appointments with customers.",
-            [s._param("calendar name", e.displayName)],
-          ),
+          text: s._(/*BTDS*/ "", [s._param("calendar name", e.displayName)]),
         },
         {
           icon: r("WDSIconIcCalendarMonth.react"),
-          text: s._(
-            /*BTDS*/ "Your AI agent will use this info to book appointments for you in chats. {learn more link}",
-            [
-              s._param(
-                "learn more link",
-                u.jsx(r("WDSTextualLink.react"), {
-                  href: c,
-                  testid: t + "-learn-more",
-                  children: s._(/*BTDS*/ "Learn more"),
-                }),
-              ),
-            ],
-          ),
+          text: s._(/*BTDS*/ "", [
+            s._param(
+              "learn more link",
+              u.jsx(r("WDSTextualLink.react"), {
+                href: c,
+                testid: t + "-learn-more",
+                children: s._(/*BTDS*/ ""),
+              }),
+            ),
+          ]),
         },
       ];
       return (
         e.apixfnPlugin === d &&
-          n.push({
-            icon: r("WDSIconIcLock.react"),
-            text: s._(
-              /*BTDS*/ "Apple doesn't let apps connect directly, so you'll create a password just for your AI agent to use. Your Apple Account password stays private.",
-            ),
-          }),
+          n.push({ icon: r("WDSIconIcLock.react"), text: s._(/*BTDS*/ "") }),
         n.push({
           icon: r("WDSIconIcBlock.react"),
           text: e.isMembrane
-            ? s._(
-                /*BTDS*/ "You can connect using Membrane and disconnect anytime in Settings.",
-              )
-            : s._(
-                /*BTDS*/ "You can disconnect {calendar name} anytime in Settings.",
-                [s._param("calendar name", e.displayName)],
-              ),
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "", [s._param("calendar name", e.displayName)]),
         }),
         n
       );
@@ -109,12 +93,10 @@ __d(
         : r("WDSIconIcFormatListBulleted.react");
     }
     function g(e) {
-      return s._(/*BTDS*/ "{server-provided connector text}", [
-        s._param("server-provided connector text", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("server-provided connector text", e)]);
     }
     function h(e, t) {
-      return s._(/*BTDS*/ "{server-provided connector content}", [
+      return s._(/*BTDS*/ "", [
         s._param(
           "server-provided connector content",
           u.jsx(u.Fragment, { children: y(e, t) }),

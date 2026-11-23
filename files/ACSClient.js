@@ -5,14 +5,11 @@ __d(
     "ACSCipherSuiteModule",
     "ACSCommon",
     "ACSTokenUtil",
-    "Promise",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = (function (e) {
+    var e = (function (e) {
         function t(t) {
           var n;
           return (
@@ -23,7 +20,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      u = (function (e) {
+      s = (function (e) {
         function t(t) {
           var n;
           return (
@@ -34,38 +31,38 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      c = 720 * 60 * 1e3,
-      d = new WeakMap(),
-      m = new WeakMap();
-    function p(t) {
+      u = 720 * 60 * 1e3,
+      c = new WeakMap(),
+      d = new WeakMap();
+    function m(e) {
       for (
-        var r = t.storageManager.getServerConfigs(), o = null, a = 0;
-        a < (r == null ? void 0 : r.length);
-        a++
+        var t = e.storageManager.getServerConfigs(), n = null, r = 0;
+        r < (t == null ? void 0 : t.length);
+        r++
       ) {
-        var i = r[a];
-        if (!_(i)) {
-          t.storageManager.removeServerConfig(i.configId);
+        var o = t[r];
+        if (!p(o)) {
+          e.storageManager.removeServerConfig(o.configId);
           continue;
         }
-        (o == null || i.configExpiresOnMillis > o.configExpiresOnMillis) &&
-          (o = i);
+        (n == null || o.configExpiresOnMillis > n.configExpiresOnMillis) &&
+          (n = o);
       }
-      if (o == null) return f(t);
-      var l = o;
-      return l.configExpiresOnMillis <= Date.now() + c
-        ? f(t).catch(function () {
-            return l;
+      if (n == null) return _(e);
+      var a = n;
+      return a.configExpiresOnMillis <= Date.now() + u
+        ? _(e).catch(function () {
+            return a;
           })
-        : (e || (e = n("Promise"))).resolve(l);
+        : Promise.resolve(a);
     }
-    function _(e) {
+    function p(e) {
       var t = Date.now() > e.configExpiresOnMillis,
         n = !t;
       return n;
     }
-    function f(e) {
-      var t = m.get(e);
+    function _(e) {
+      var t = d.get(e);
       if (t != null) return t;
       var n = e.serverProvider
         .getPublicParameters(e.projectName, e.attributeIdentifier)
@@ -73,217 +70,148 @@ __d(
           return (e.storageManager.storeServerConfig(t), t);
         })
         .finally(function () {
-          m.delete(e);
+          d.delete(e);
         });
-      return (m.set(e, n), n);
+      return (d.set(e, n), n);
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    async function f(e, t) {
+      var n = await m(e);
+      try {
+        return await t(n);
+      } catch (i) {
+        if (
+          !(i instanceof o("ACSCommon").ACSInvalidConfigIdError) ||
+          i.configId !== n.configId ||
+          !r("justknobx")._("5654")
+        )
+          throw i;
+        e.storageManager.removeServerConfig(n.configId);
+        var a = await _(e);
+        if (a.configId === n.configId) throw i;
+        return t(a);
+      }
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield p(e);
-          try {
-            return yield t(n);
-          } catch (i) {
-            if (
-              !(i instanceof o("ACSCommon").ACSInvalidConfigIdError) ||
-              i.configId !== n.configId ||
-              !r("justknobx")._("5654")
-            )
-              throw i;
-            e.storageManager.removeServerConfig(n.configId);
-            var a = yield f(e);
-            if (a.configId === n.configId) throw i;
-            return t(a);
-          }
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t, n) {
-      return g(e, function (r) {
-        return R(e, r, n, t);
+    function g(e, t, n) {
+      return f(e, function (r) {
+        return v(e, r, n, t);
       });
     }
-    var C = new WeakMap();
-    function b(e, t) {
-      var n = C.get(e);
-      n == null && ((n = new Map()), C.set(e, n));
+    var h = new WeakMap();
+    function y(e, t) {
+      var n = h.get(e);
+      n == null && ((n = new Map()), h.set(e, n));
       var r = n.get(t);
       if (r != null) return r;
       var o = n,
-        a = v(e, t).finally(function () {
+        a = C(e, t).finally(function () {
           o.delete(t);
         });
       return (o.set(t, a), a);
     }
-    function v(e, t) {
-      return g(
-        e,
-        (function () {
-          var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
-            var r = e.storageManager.getCachedToken(n.configId);
-            if (
-              !(
-                r != null &&
-                o("ACSCachedTokenModule").isCachedTokenRedeemable(r)
-              )
-            ) {
-              var a = yield N(e, n, n.maxEvals, t);
-              D(e, a);
-            }
-          });
-          return function (e) {
-            return r.apply(this, arguments);
-          };
-        })(),
-      );
-    }
-    function S(e, t, n) {
-      return g(e, function (r) {
-        return N(e, r, t, n);
+    function C(e, t) {
+      return f(e, async function (n) {
+        var r = e.storageManager.getCachedToken(n.configId);
+        if (
+          !(r != null && o("ACSCachedTokenModule").isCachedTokenRedeemable(r))
+        ) {
+          var a = await I(e, n, n.maxEvals, t);
+          L(e, a);
+        }
       });
     }
-    function R(e, t, n, r) {
-      return L.apply(this, arguments);
+    function b(e, t, n) {
+      return f(e, function (r) {
+        return I(e, r, t, n);
+      });
     }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o = yield E(e, t.cipherSuite, t.configId, r);
-            if (o != null) return o;
-            var a = yield N(e, t, t.maxEvals, n);
-            return I(e, a, t, r);
-          },
-        )),
-        L.apply(this, arguments)
-      );
+    async function v(e, t, n, r) {
+      var o = await S(e, t.cipherSuite, t.configId, r);
+      if (o != null) return o;
+      var a = await I(e, t, t.maxEvals, n);
+      return R(e, a, t, r);
     }
-    function E(e, t, n, r) {
-      return k.apply(this, arguments);
+    async function S(e, t, n, r) {
+      var o = await k(e, t, n, r);
+      return o;
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o = yield $(e, t, n, r);
-            return o;
-          },
-        )),
-        k.apply(this, arguments)
-      );
+    async function R(e, t, n, r) {
+      if (t.length < 1) throw new s("No tokens received from ACS!");
+      L(e, t);
+      var o = await k(e, n.cipherSuite, n.configId, r);
+      if (o == null) throw new s("No redeemable token generated!");
+      return o;
     }
-    function I(e, t, n, r) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (t.length < 1) throw new u("No tokens received from ACS!");
-            D(e, t);
-            var o = yield $(e, n.cipherSuite, n.configId, r);
-            if (o == null) throw new u("No redeemable token generated!");
-            return o;
-          },
-        )),
-        T.apply(this, arguments)
-      );
-    }
-    function D(e, t) {
+    function L(e, t) {
       t.forEach(function (t) {
-        return x(e, t);
+        return E(e, t);
       });
     }
-    function x(e, t) {
+    function E(e, t) {
       t != null &&
         (o("ACSCachedTokenModule").isCachedTokenRedeemable(t)
           ? e.storageManager.storeCachedToken(t)
           : e.storageManager.deleteCachedToken(t));
     }
-    function $(e, t, n, r) {
-      return P.apply(this, arguments);
+    async function k(e, t, n, r) {
+      var a = e.storageManager.getCachedToken(n);
+      if (a == null) return null;
+      var i = o("ACSCachedTokenModule").redeemCachedToken(a);
+      if ((E(e, a), i)) {
+        var l = await o("ACSTokenUtil").generateTag(t, a, r),
+          u = {
+            projectName: e.projectName,
+            attributeIdentifier: e.attributeIdentifier,
+            serverConfigId: a.serverConfigId,
+            tag: l,
+            credential: a.nonce.slice(),
+            data: r,
+            clientSharedSecret: a.sharedSecret.slice(),
+          };
+        return u;
+      } else
+        throw new s(
+          "Cached token is not redeemable. Neither storage nor ACS should return unredeemable tokens; this should not happen.",
+        );
     }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = e.storageManager.getCachedToken(n);
-            if (a == null) return null;
-            var i = o("ACSCachedTokenModule").redeemCachedToken(a);
-            if ((x(e, a), i)) {
-              var l = yield o("ACSTokenUtil").generateTag(t, a, r),
-                s = {
-                  projectName: e.projectName,
-                  attributeIdentifier: e.attributeIdentifier,
-                  serverConfigId: a.serverConfigId,
-                  tag: l,
-                  credential: a.nonce.slice(),
-                  data: r,
-                  clientSharedSecret: a.sharedSecret.slice(),
-                };
-              return s;
-            } else
-              throw new u(
-                "Cached token is not redeemable. Neither storage nor ACS should return unredeemable tokens; this should not happen.",
-              );
-          },
-        )),
-        P.apply(this, arguments)
-      );
+    async function I(t, n, r, a) {
+      if (r <= 0) throw new e("Invalid number of tokens requested: " + r);
+      var i = D(t, n.cipherSuite),
+        l = o("ACSTokenUtil").generateBlindedTokens(r, t.voprfWasm, i),
+        s = o("ACSTokenUtil").getBlindedNonces(l),
+        u = await t.serverProvider.getCredentials({
+          blindedTokens: s,
+          config: n,
+          projectName: t.projectName,
+          requestProof: a,
+        });
+      return T(t, i, n, l, u.signedBlindedTokens, u.dleqProofs, a);
     }
-    function N(e, t, n, r) {
-      return M.apply(this, arguments);
-    }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            if (n <= 0) throw new s("Invalid number of tokens requested: " + n);
-            var a = A(e, t.cipherSuite),
-              i = o("ACSTokenUtil").generateBlindedTokens(n, e.voprfWasm, a),
-              l = o("ACSTokenUtil").getBlindedNonces(i),
-              u = yield e.serverProvider.getCredentials({
-                blindedTokens: l,
-                config: t,
-                projectName: e.projectName,
-                requestProof: r,
-              });
-            return w(e, a, t, i, u.signedBlindedTokens, u.dleqProofs, r);
-          },
-        )),
-        M.apply(this, arguments)
-      );
-    }
-    function w(e, t, n, r, a, i, l) {
+    function T(e, t, n, r, a, i, l) {
       var s = o("ACSTokenUtil").unblindTokens(n, r, a, i, e.voprfWasm, t, l),
         u = o("ACSTokenUtil").getCachedTokens(s, n, e.voprfWasm, t);
       return u;
     }
-    function A(e, t) {
-      if (o("ACSCipherSuiteModule").getACSCipherSuiteByValue(t) == null)
-        throw new s("Unknown cipher suite: " + String(t));
-      if (t !== o("ACSCipherSuiteModule").VOPRF_ED25519_HMACSHA256.value)
-        return e.voprfInfo;
-      var n = e.voprfWasm,
-        r = d.get(n);
-      if (r != null) return r;
-      if (n.createCurveEd25519 == null)
-        throw new s("VOPRF module does not support Ed25519");
-      var a = n.createCurveEd25519(),
-        i;
+    function D(t, n) {
+      if (o("ACSCipherSuiteModule").getACSCipherSuiteByValue(n) == null)
+        throw new e("Unknown cipher suite: " + String(n));
+      if (n !== o("ACSCipherSuiteModule").VOPRF_ED25519_HMACSHA256.value)
+        return t.voprfInfo;
+      var r = t.voprfWasm,
+        a = c.get(r);
+      if (a != null) return a;
+      if (r.createCurveEd25519 == null)
+        throw new e("VOPRF module does not support Ed25519");
+      var i = r.createCurveEd25519(),
+        l;
       try {
-        i = n.createVoprfExpTwohashdh(a);
+        l = r.createVoprfExpTwohashdh(i);
       } catch (e) {
-        throw (n.freeCurve(a), e);
+        throw (r.freeCurve(i), e);
       }
-      var l = { curvePtr: a, voprfPtr: i };
-      return (d.set(n, l), l);
+      var s = { curvePtr: i, voprfPtr: l };
+      return (c.set(r, s), s);
     }
-    function F(e, t, n, r, o) {
+    function x(e, t, n, r, o) {
       var a = o.createCurveRistretto(),
         i = o.createVoprfExpTwohashdh(a);
       return {
@@ -295,13 +223,13 @@ __d(
         voprfWasm: o,
       };
     }
-    ((l.ACSClientError = s),
-      (l.loadACSServerConfig = p),
-      (l.fetchAndRedeem = y),
-      (l.prewarmTokenCache = b),
-      (l.loadServerConfigAndGetNewTokens = S),
-      (l.getNewTokens = N),
-      (l.buildACSClient = F));
+    ((l.ACSClientError = e),
+      (l.loadACSServerConfig = m),
+      (l.fetchAndRedeem = g),
+      (l.prewarmTokenCache = y),
+      (l.loadServerConfigAndGetNewTokens = b),
+      (l.getNewTokens = I),
+      (l.buildACSClient = x));
   },
   98,
 );

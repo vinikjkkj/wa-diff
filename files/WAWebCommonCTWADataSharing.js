@@ -14,7 +14,6 @@ __d(
     "WAWebGetCTWAEligibilityFromConversion",
     "WAWebMobilePlatforms",
     "WAWebUserPrefsGeneral",
-    "asyncToGeneratorRuntime",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -278,56 +277,45 @@ __d(
         D
       );
     }
-    function $() {
-      return P.apply(this, arguments);
+    async function $() {
+      if (!o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled())
+        return null;
+      try {
+        var e,
+          t = o("WAWebCTWADataSharingModel").CTWADataSharingModel.getRevision(),
+          n = await u.load(),
+          r = await n.getCtwaBizDataSharingSettingJob();
+        if (
+          o("WAWebCTWADataSharingModel").CTWADataSharingModel.getRevision() !==
+          t
+        ) {
+          var a = o(
+            "WAWebCTWADataSharingModel",
+          ).CTWADataSharingModel.getValue();
+          return (P(a), a);
+        }
+        return (
+          (r == null ? void 0 : r.value) != null &&
+            (o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
+              r.value,
+              r.version,
+            ),
+            P(r.value)),
+          (e = r == null ? void 0 : r.value) != null ? e : null
+        );
+      } catch (e) {
+        return (
+          o("WALogger").ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[ctwa] fetchDataSharingSettingAndUpdateModel: fetch failed",
+              ])),
+          ),
+          null
+        );
+      }
     }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!o("WAWebCTWAGatingUtils").smbDataSharingConsentEnabled())
-            return null;
-          try {
-            var e,
-              t = o(
-                "WAWebCTWADataSharingModel",
-              ).CTWADataSharingModel.getRevision(),
-              n = yield u.load(),
-              r = yield n.getCtwaBizDataSharingSettingJob();
-            if (
-              o(
-                "WAWebCTWADataSharingModel",
-              ).CTWADataSharingModel.getRevision() !== t
-            ) {
-              var a = o(
-                "WAWebCTWADataSharingModel",
-              ).CTWADataSharingModel.getValue();
-              return (N(a), a);
-            }
-            return (
-              (r == null ? void 0 : r.value) != null &&
-                (o("WAWebCTWADataSharingModel").CTWADataSharingModel.setValue(
-                  r.value,
-                  r.version,
-                ),
-                N(r.value)),
-              (e = r == null ? void 0 : r.value) != null ? e : null
-            );
-          } catch (e) {
-            return (
-              o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[ctwa] fetchDataSharingSettingAndUpdateModel: fetch failed",
-                  ])),
-              ),
-              null
-            );
-          }
-        })),
-        P.apply(this, arguments)
-      );
-    }
-    function N(e) {
+    function P(e) {
       e === o("WASmaxInBizSettingsEnums").ENUM_FALSE_NOTSET_TRUE.false &&
         o("WAWebDataSharingUpsellModel").enableUpsell();
     }

@@ -1,13 +1,11 @@
 __d(
   "WAWebVoipBackgroundPreviewLoader",
   [
-    "Promise",
     "WALogger",
     "WAPromiseTimeout",
     "WAWebVoipBackgroundImageStore",
     "WAWebVoipBackgroundImages",
     "WAWebVoipBackgroundPreview",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,45 +14,44 @@ __d(
       s,
       u,
       c,
-      d,
-      m = 8,
-      p = 1e4,
-      _ = new Map(),
+      d = 8,
+      m = 1e4,
+      p = new Map(),
+      _ = new Set(),
       f = new Set(),
-      g = new Set(),
-      h = [],
+      g = [],
+      h = new Set(),
       y = new Set(),
-      C = new Set(),
-      b = (d || (d = n("Promise"))).resolve(),
-      v = 0,
-      S = null;
-    function R(e) {
-      S == null &&
-        (S = o("WAWebVoipBackgroundImages").subscribeToBackgroundImageReady(x));
+      C = Promise.resolve(),
+      b = 0,
+      v = null;
+    function S(e) {
+      v == null &&
+        (v = o("WAWebVoipBackgroundImages").subscribeToBackgroundImageReady(T));
       var t = { ids: e };
-      y.add(t);
+      h.add(t);
       var n = e.filter(function (e) {
-        return g.has(e);
+        return f.has(e);
       });
       for (var r of e
         .filter(function (e) {
-          return !g.has(e);
+          return !f.has(e);
         })
         .concat(n)) {
         var a;
-        ((a = _.get(r)) == null ? void 0 : a.state) !== "ready" &&
-          !f.has(r) &&
-          (f.add(r), _.has(r) || F(r, { state: "loading" }), I(r));
+        ((a = p.get(r)) == null ? void 0 : a.state) !== "ready" &&
+          !_.has(r) &&
+          (_.add(r), p.has(r) || M(r, { state: "loading" }), k(r));
       }
       return (
-        $(),
+        D(),
         function () {
-          y.delete(t);
+          h.delete(t);
         }
       );
     }
-    function L(t, n) {
-      var r = _.get(t);
+    function R(t, n) {
+      var r = p.get(t);
       (r == null ? void 0 : r.state) !== "ready" ||
         r.url !== n ||
         (o("WALogger").WARN(
@@ -67,95 +64,84 @@ __d(
         ),
         URL.revokeObjectURL(n),
         o("WAWebVoipBackgroundImageStore").forgetStoredBackgroundPreview(t),
-        g.add(t),
-        F(t, { state: "failed" }));
+        f.add(t),
+        M(t, { state: "failed" }));
     }
-    function E() {
-      return _;
+    function L() {
+      return p;
     }
-    function k(e) {
+    function E(e) {
       return (
-        C.add(e),
+        y.add(e),
         function () {
-          C.delete(e);
+          y.delete(e);
         }
       );
     }
-    function I(e) {
-      b = b
-        .then(function () {
-          return T(e);
-        })
-        .catch(function (t) {
-          (o("WALogger")
-            .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [effects] could not look up background ",
-                  "'s preview",
-                ])),
-              e,
-            )
-            .catching(r("getErrorSafe")(t))
-            .sendLogs("voip-effects-preview-lookup-failed"),
-            g.add(e),
-            A(e, { state: "failed" }));
-        });
+    function k(e) {
+      C = C.then(function () {
+        return I(e);
+      }).catch(function (t) {
+        (o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [effects] could not look up background ",
+                "'s preview",
+              ])),
+            e,
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("voip-effects-preview-lookup-failed"),
+          f.add(e),
+          N(e, { state: "failed" }));
+      });
+    }
+    async function I(e) {
+      var t = await o(
+        "WAWebVoipBackgroundImageStore",
+      ).readStoredBackgroundPreview(e);
+      if (t != null) {
+        (f.delete(e), N(e, { state: "ready", url: URL.createObjectURL(t) }));
+        return;
+      }
+      var n = o("WAWebVoipBackgroundImages").peekBackgroundImage(e);
+      if (n != null) {
+        x(e, n);
+        return;
+      }
+      var r = await o(
+        "WAWebVoipBackgroundImages",
+      ).readStoredBackgroundImageForPreview(e);
+      if (r != null) {
+        await x(e, Promise.resolve(r));
+        return;
+      }
+      (g.push(e), D());
     }
     function T(e) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebVoipBackgroundImageStore",
-          ).readStoredBackgroundPreview(e);
-          if (t != null) {
-            (g.delete(e),
-              A(e, { state: "ready", url: URL.createObjectURL(t) }));
-            return;
-          }
-          var r = o("WAWebVoipBackgroundImages").peekBackgroundImage(e);
-          if (r != null) {
-            P(e, r);
-            return;
-          }
-          var a = yield o(
-            "WAWebVoipBackgroundImages",
-          ).readStoredBackgroundImageForPreview(e);
-          if (a != null) {
-            yield P(e, (d || (d = n("Promise"))).resolve(a));
-            return;
-          }
-          (h.push(e), $());
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e) {
       var t,
-        n = h.indexOf(e);
-      if (n >= 0) h.splice(n, 1);
+        n = g.indexOf(e);
+      if (n >= 0) g.splice(n, 1);
       else {
         if (
-          f.has(e) ||
-          ((t = _.get(e)) == null ? void 0 : t.state) !== "failed"
+          _.has(e) ||
+          ((t = p.get(e)) == null ? void 0 : t.state) !== "failed"
         )
           return;
-        f.add(e);
+        _.add(e);
       }
-      P(e, o("WAWebVoipBackgroundImages").getBackgroundImageForPreview(e));
+      x(e, o("WAWebVoipBackgroundImages").getBackgroundImageForPreview(e));
     }
-    function $() {
+    function D() {
       for (
         var e = function () {
-            var e = h.findIndex(M);
+            var e = g.findIndex($);
             if (e < 0) return { v: void 0 };
-            var t = h.splice(e, 1),
+            var t = g.splice(e, 1),
               n = t[0];
-            (v++,
-              P(
+            (b++,
+              x(
                 n,
                 o("WAWebVoipBackgroundImages").getBackgroundImageForPreview(n),
               )
@@ -164,93 +150,85 @@ __d(
                     !e &&
                     !o("WAWebVoipBackgroundImages").isBackgroundImageUnusable(n)
                   )
-                    for (var t of h.splice(0)) A(t, { state: "failed" });
+                    for (var t of g.splice(0)) N(t, { state: "failed" });
                 })
                 .finally(function () {
-                  (v--, $());
+                  (b--, D());
                 }));
           },
           t;
-        v < w();
+        b < P();
       )
         if (((t = e()), t)) return t.v;
     }
-    function P(e, t) {
-      return N.apply(this, arguments);
+    async function x(e, t) {
+      try {
+        var n = await t,
+          a = self.performance.now(),
+          i = await o("WAPromiseTimeout").promiseTimeout(
+            o("WAWebVoipBackgroundPreview").makeBackgroundPreview(n),
+            m,
+            "took over " + m + " ms",
+          );
+        return (
+          o("WAWebVoipBackgroundImageStore").storeBackgroundPreview(e, i),
+          f.delete(e),
+          N(e, { state: "ready", url: URL.createObjectURL(i) }),
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [effects] background ",
+                " preview made in ",
+                " ms, ",
+                " B",
+              ])),
+            e,
+            Math.round(self.performance.now() - a),
+            i.size,
+          ),
+          !0
+        );
+      } catch (t) {
+        return (
+          o("WALogger").WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [effects] could not make background ",
+                "'s preview: ",
+                "",
+              ])),
+            e,
+            r("getErrorSafe")(t).message,
+          ),
+          f.add(e),
+          N(e, { state: "failed" }),
+          !1
+        );
+      }
     }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n = yield t,
-              a = self.performance.now(),
-              i = yield o("WAPromiseTimeout").promiseTimeout(
-                o("WAWebVoipBackgroundPreview").makeBackgroundPreview(n),
-                p,
-                "took over " + p + " ms",
-              );
-            return (
-              o("WAWebVoipBackgroundImageStore").storeBackgroundPreview(e, i),
-              g.delete(e),
-              A(e, { state: "ready", url: URL.createObjectURL(i) }),
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [effects] background ",
-                    " preview made in ",
-                    " ms, ",
-                    " B",
-                  ])),
-                e,
-                Math.round(self.performance.now() - a),
-                i.size,
-              ),
-              !0
-            );
-          } catch (t) {
-            return (
-              o("WALogger").WARN(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [effects] could not make background ",
-                    "'s preview: ",
-                    "",
-                  ])),
-                e,
-                r("getErrorSafe")(t).message,
-              ),
-              g.add(e),
-              A(e, { state: "failed" }),
-              !1
-            );
-          }
-        })),
-        N.apply(this, arguments)
-      );
-    }
-    function M(e) {
-      for (var t of y) {
+    function $(e) {
+      for (var t of h) {
         var n = t.ids;
         if (n.includes(e)) return !0;
       }
       return !1;
     }
-    function w() {
-      return self.navigator.hardwareConcurrency >= m ? 2 : 1;
+    function P() {
+      return self.navigator.hardwareConcurrency >= d ? 2 : 1;
     }
-    function A(e, t) {
-      (f.delete(e), F(e, t));
+    function N(e, t) {
+      (_.delete(e), M(e, t));
     }
-    function F(e, t) {
-      ((_ = new Map(_).set(e, t)),
-        C.forEach(function (e) {
+    function M(e, t) {
+      ((p = new Map(p).set(e, t)),
+        y.forEach(function (e) {
           return e();
         }));
     }
-    ((l.requestBackgroundPreviews = R),
-      (l.failBackgroundPreview = L),
-      (l.getBackgroundPreviews = E),
-      (l.subscribeToBackgroundPreviews = k));
+    ((l.requestBackgroundPreviews = S),
+      (l.failBackgroundPreview = R),
+      (l.getBackgroundPreviews = L),
+      (l.subscribeToBackgroundPreviews = E));
   },
   98,
 );

@@ -24,6 +24,12 @@ __d(
           ),
         ];
       },
+      void 0,
+      function (e) {
+        return function (n, r) {
+          e(n, r);
+        };
+      },
     );
   },
   null,

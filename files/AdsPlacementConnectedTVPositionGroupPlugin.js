@@ -2,6 +2,7 @@ __d(
   "AdsPlacementConnectedTVPositionGroupPlugin",
   [
     "ix",
+    "AdsCTVUtils",
     "AdsCampaignPlacementAddDataActionFlux",
     "AdsPlacementAPISpecWriterUtils",
     "AdsPlacementCopy",
@@ -22,7 +23,9 @@ __d(
         mediaRecommendation:
           r("AdsPlacementCopy").POSITION_GROUP_MEDIA_RECOMMENDATION
             .CONNECTED_TV,
-        name: r("AdsPlacementCopy").PLACEMENT_POSITION_GROUPS.CONNECTED_TV,
+        name: o("AdsCTVUtils").isCTVBetaEnabled()
+          ? r("AdsPlacementCopy").PLACEMENT_POSITION_GROUPS.CONNECTED_TV_BETA
+          : r("AdsPlacementCopy").PLACEMENT_POSITION_GROUPS.CONNECTED_TV,
         subheader:
           r("AdsPlacementCopy").PLACEMENT_POSITION_SUBHEADERS.CONNECTED_TV,
         isEnabled: function (t) {

@@ -13,7 +13,6 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -39,28 +38,28 @@ __d(
           (a.businessName =
             (n = o("WAWebConnModel").Conn.pushname) != null
               ? n
-              : s._(/*BTDS*/ "Admin").toString()),
+              : s._(/*BTDS*/ "").toString()),
           a
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.shouldPlaySound = function () {
+        (n.shouldPlaySound = function () {
           return e.prototype.shouldPlaySound.call(this)
             ? o("WAWebNotificationHelpers").shouldPlaySoundGranular(
                 this.primaryChat,
               )
             : !1;
         }),
-        (a.shouldShowBanner = function () {
+        (n.shouldShowBanner = function () {
           return e.prototype.shouldShowBanner.call(this)
             ? o("WAWebNotificationHelpers").shouldEnableNotificationGranular(
                 this.primaryChat,
               )
             : !1;
         }),
-        (a.shouldMute = function (t) {
+        (n.shouldMute = function (t) {
           return o("WAWebNotificationHelpers").shouldMuteDueToAppState(t)
             ? r("WAWebNotificationMuteReason").AppState
             : this.chats.every(function (e) {
@@ -75,7 +74,7 @@ __d(
                   ? r("WAWebNotificationMuteReason").OfflineResumeInProgress
                   : null;
         }),
-        (a.buildKey = function () {
+        (n.buildKey = function () {
           return (
             "chat_assignment:" +
             this.chats
@@ -86,35 +85,21 @@ __d(
             this.assignmentTimestamps
           );
         }),
-        (a.matchesChat = function (t) {
+        (n.matchesChat = function (t) {
           return this.chats.length > 1 ? !1 : this.primaryChat.equals(t);
         }),
-        (a.getChatKind = function () {
+        (n.getChatKind = function () {
           return o("WAWebFrontendChatGetters").getKind(this.primaryChat);
         }),
-        (a.performLogging = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* () {},
+        (n.performLogging = async function () {}),
+        (n.getIcon = async function () {
+          return o("WAWebNotificationIconUtils").getNotificationIconByWid(
+            o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE(),
+            this.abortController.signal,
+            o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
           );
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.getIcon = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o("WAWebNotificationIconUtils").getNotificationIconByWid(
-              o("WAWebUserUtils").getMePnUserOrThrow_DO_NOT_USE(),
-              this.abortController.signal,
-              o("WAWebNotificationIconUtils").USER_DEFAULT_ICON,
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.getBannerOptions = function () {
+        }),
+        (n.getBannerOptions = function () {
           var e = o("WAWebGetNotificationStrings").getNotificationBody(
             babelHelpers.extends(
               {},
@@ -136,21 +121,15 @@ __d(
       return (
         n === 1
           ? o("WAWebChatGetters").getIsGroup(e)
-            ? (r = s._(
-                /*BTDS*/ "{businessName} assigned you to chat with the group {chatName}",
-                [
-                  s._param("businessName", t),
-                  s._param("chatName", e.formattedTitle),
-                ],
-              ))
-            : (r = s._(
-                /*BTDS*/ "{businessName} assigned you a chat with {chatName}",
-                [
-                  s._param("businessName", t),
-                  s._param("chatName", e.formattedTitle),
-                ],
-              ))
-          : (r = s._(/*BTDS*/ "{businessNme} assigned you {numberOfChats}", [
+            ? (r = s._(/*BTDS*/ "", [
+                s._param("businessName", t),
+                s._param("chatName", e.formattedTitle),
+              ]))
+            : (r = s._(/*BTDS*/ "", [
+                s._param("businessName", t),
+                s._param("chatName", e.formattedTitle),
+              ]))
+          : (r = s._(/*BTDS*/ "", [
               s._param("businessNme", t),
               s._param("numberOfChats", n),
             ])),

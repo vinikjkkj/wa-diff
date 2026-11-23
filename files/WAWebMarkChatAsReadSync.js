@@ -1,7 +1,6 @@
 __d(
   "WAWebMarkChatAsReadSync",
   [
-    "Promise",
     "WALogger",
     "WAWebApiActiveMessageRanges",
     "WAWebApiAddActiveMessageRange",
@@ -18,14 +17,13 @@ __d(
     "WAWebSyncdIndexUtils",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "encodeProtobuf",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(e, t) {
+    var e, s, u, c, d, m;
+    function p(e, t) {
       return t ===
         o("WAWebMessageRangeUtils").MessageRangeEncloseType.RangesAreEqual ||
         t ===
@@ -52,8 +50,8 @@ __d(
               );
             })();
     }
-    var f = (function (t) {
-        function a() {
+    var _ = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -64,53 +62,37 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.getMessageRange = function (t) {
+          (a.getMessageRange = function (t) {
             var e;
             return (e = t.markChatAsReadAction) == null
               ? void 0
               : e.messageRange;
           }),
-          (i.getVersion = function () {
+          (a.getVersion = function () {
             return 3;
           }),
-          (i.getAction = function () {
+          (a.getAction = function () {
             return o("WAWebSyncdConst").Actions.MarkChatAsRead;
           }),
-          (i.$MarkChatAsReadSync$p_1 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                yield o("WAWebBackendApi").frontendSendAndReceive(
-                  "updateChatReadStatus",
-                  { id: e, read: t },
-                );
-              },
+          (a.$MarkChatAsReadSync$p_1 = async function (t, n) {
+            await o("WAWebBackendApi").frontendSendAndReceive(
+              "updateChatReadStatus",
+              { id: t, read: n },
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.$MarkChatAsReadSync$p_2 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield o("WAWebSchemaChat")
-                  .getChatTable()
-                  .get(e.toString(), !1);
-                return (
-                  (t == null ? void 0 : t.unreadCount) ===
-                  o("WAWebChatUnreadConstants").MARKED_AS_UNREAD
-                );
-              },
+          }),
+          (a.$MarkChatAsReadSync$p_2 = async function (t) {
+            var e = await o("WAWebSchemaChat")
+              .getChatTable()
+              .get(t.toString(), !1);
+            return (
+              (e == null ? void 0 : e.unreadCount) ===
+              o("WAWebChatUnreadConstants").MARKED_AS_UNREAD
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.validateSyncActionValue = function (t) {
+          }),
+          (a.validateSyncActionValue = function (t) {
             var e = t.markChatAsReadAction,
               n = e == null ? void 0 : e.read,
               r = o("WAWebMessageRangeUtils").validateMessageRange(
@@ -120,337 +102,279 @@ __d(
               );
             return n != null && r != null ? { read: n, messageRange: r } : null;
           }),
-          (i.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var a = this,
-                  i = 0,
-                  l = 0,
-                  u = yield (p || (p = n("Promise"))).all(
-                    t.map(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            try {
-                              if (e.operation === "set") {
-                                var t = e.indexParts,
-                                  n = e.value,
-                                  s = t[1];
-                                if (!s) return a.malformedActionIndex();
-                                var u = a.validateSyncActionValue(n);
-                                if (u == null)
-                                  return (
-                                    i++,
-                                    o(
-                                      "WAWebSyncdIndexUtils",
-                                    ).malformedActionValue(a.collectionName)
-                                  );
-                                var c = u.messageRange,
-                                  d = u.read;
-                                if (!r("WAWebWid").isWid(s))
-                                  return a.malformedActionIndex();
-                                var m = yield o(
-                                  "WAWebSyncdGetChat",
-                                ).resolveChatForMutationIndex(
-                                  o("WAWebWidFactory").createWid(s),
-                                );
-                                return m.success
-                                  ? a.$MarkChatAsReadSync$p_3({
-                                      chatWid: o("WAWebWidFactory").createWid(
-                                        m.chat.id,
-                                      ),
-                                      incomingRange: c,
-                                      read: d,
-                                      syncActionValue: n,
-                                    })
-                                  : {
-                                      actionState:
-                                        o("WAWebSyncdConst").SyncActionState
-                                          .Orphan,
-                                      orphanModel: m.orphanModel,
-                                    };
-                              }
-                              return (
-                                l++,
-                                {
-                                  actionState:
-                                    o("WAWebSyncdConst").SyncActionState
-                                      .Unsupported,
-                                }
-                              );
-                            } catch (e) {
-                              return {
-                                actionState:
-                                  o("WAWebSyncdConst").SyncActionState.Failed,
-                              };
-                            }
-                          },
+          (a.applyMutations = async function (n) {
+            var t = this,
+              a = 0,
+              i = 0,
+              l = await Promise.all(
+                n.map(async function (e) {
+                  try {
+                    if (e.operation === "set") {
+                      var n = e.indexParts,
+                        l = e.value,
+                        s = n[1];
+                      if (!s) return t.malformedActionIndex();
+                      var u = t.validateSyncActionValue(l);
+                      if (u == null)
+                        return (
+                          a++,
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            t.collectionName,
+                          )
                         );
-                        return function (t) {
-                          return e.apply(this, arguments);
-                        };
-                      })(),
-                    ),
-                  );
-                return (
-                  i > 0 &&
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd][mark-chat-as-read]: ",
-                          " malformed mutations",
-                        ])),
-                      i,
-                    ),
-                  l > 0 &&
-                    o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd][mark-chat-as-read]: ",
-                          " operations not supported",
-                        ])),
-                      l,
-                    ),
-                  u
-                );
-              },
+                      var c = u.messageRange,
+                        d = u.read;
+                      if (!r("WAWebWid").isWid(s))
+                        return t.malformedActionIndex();
+                      var m = await o(
+                        "WAWebSyncdGetChat",
+                      ).resolveChatForMutationIndex(
+                        o("WAWebWidFactory").createWid(s),
+                      );
+                      return m.success
+                        ? t.$MarkChatAsReadSync$p_3({
+                            chatWid: o("WAWebWidFactory").createWid(m.chat.id),
+                            incomingRange: c,
+                            read: d,
+                            syncActionValue: l,
+                          })
+                        : {
+                            actionState:
+                              o("WAWebSyncdConst").SyncActionState.Orphan,
+                            orphanModel: m.orphanModel,
+                          };
+                    }
+                    return (
+                      i++,
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Unsupported,
+                      }
+                    );
+                  } catch (e) {
+                    return {
+                      actionState: o("WAWebSyncdConst").SyncActionState.Failed,
+                    };
+                  }
+                }),
+              );
+            return (
+              a > 0 &&
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[syncd][mark-chat-as-read]: ",
+                      " malformed mutations",
+                    ])),
+                  a,
+                ),
+              i > 0 &&
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[syncd][mark-chat-as-read]: ",
+                      " operations not supported",
+                    ])),
+                  i,
+                ),
+              l
             );
-            function a(e) {
-              return t.apply(this, arguments);
-            }
-            return a;
-          })()),
-          (i.$MarkChatAsReadSync$p_3 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.chatWid,
-                  r = e.incomingRange,
-                  a = e.read,
-                  i = e.syncActionValue;
-                yield o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
-                  t.toString(),
+          }),
+          (a.$MarkChatAsReadSync$p_3 = async function (t) {
+            var e = t.chatWid,
+              n = t.incomingRange,
+              r = t.read,
+              a = t.syncActionValue;
+            await o("WAWebApiActiveMessageRanges").removeActiveMessageRange(
+              e.toString(),
+              o("WAWebApiActiveMessageRanges").getActiveRangeAction(
+                "markChatAsRead",
+              ),
+            );
+            var i = await o("WAWebMessageRangeUtils").constructMessageRange(e, {
+                forOutgoingMutation: !1,
+              }),
+              l = o("WAWebMessageRangeUtils").compareMessageRanges(i, n),
+              s = o("encodeProtobuf")
+                .encodeProtobuf(
+                  o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
+                  a,
+                )
+                .readBuffer(),
+              d = function () {
+                return o("WAWebApiAddActiveMessageRange").addActiveMessageRange(
+                  e.toString(),
                   o("WAWebApiActiveMessageRanges").getActiveRangeAction(
                     "markChatAsRead",
                   ),
+                  s,
                 );
-                var l = yield o("WAWebMessageRangeUtils").constructMessageRange(
-                    t,
-                    { forOutgoingMutation: !1 },
+              };
+            switch (
+              (o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[syncd] before use case will update chat table",
+                  ])),
+              ),
+              l)
+            ) {
+              case o("WAWebMessageRangeUtils").MessageRangeEncloseType
+                .RangesAreEqual:
+              case o("WAWebMessageRangeUtils").MessageRangeEncloseType
+                .RangeBEnclosesRangeA:
+                return (
+                  await d(),
+                  await this.$MarkChatAsReadSync$p_1(e, r),
+                  Promise.resolve(p(e, l))
+                );
+              case o("WAWebMessageRangeUtils").MessageRangeEncloseType
+                .RangesNotEnclosing:
+              case o("WAWebMessageRangeUtils").MessageRangeEncloseType
+                .RangeAEnclosesRangeB:
+                return (
+                  r &&
+                    (await this.$MarkChatAsReadSync$p_2(e)) &&
+                    (await this.$MarkChatAsReadSync$p_1(e, r)),
+                  Promise.resolve(p(e, l))
+                );
+            }
+            o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[syncd] after use case updated chat table",
+                ])),
+            );
+          }),
+          (a.getMarkChatAsReadMutation = async function (t, n, r) {
+            var e = await o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
+                r,
+                o("WAWebSyncdConst").Actions.MarkChatAsRead,
+              ),
+              a = {
+                markChatAsReadAction: {
+                  read: n,
+                  messageRange: await o(
+                    "WAWebMessageRangeUtils",
+                  ).constructMessageRange(r, {
+                    forOutgoingMutation: !0,
+                    mutationIndexJid: e,
+                  }),
+                },
+              };
+            return o("WAWebSyncdActionUtils").buildPendingMutation({
+              collection: this.collectionName,
+              indexArgs: [e],
+              value: a,
+              version: this.getVersion(),
+              operation: o("WAWebProtobufsServerSync.pb")
+                .SyncdMutation$SyncdOperation.SET,
+              timestamp: t,
+              action: this.getAction(),
+            });
+          }),
+          (a.resolveConflicts = async function (t, n) {
+            var e = this,
+              a = o("decodeProtobuf").decodeProtobuf(
+                o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
+                t.binarySyncAction,
+              ),
+              i = o("decodeProtobuf").decodeProtobuf(
+                o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
+                n.binarySyncData,
+              ).value,
+              l = t.timestamp,
+              s = n.timestamp,
+              u = r("nullthrows")(a.markChatAsReadAction),
+              c = r("nullthrows")(i == null ? void 0 : i.markChatAsReadAction),
+              p = o("WAWebMessageRangeUtils").compareMessageRanges(
+                r("nullthrows")(c.messageRange),
+                r("nullthrows")(u.messageRange),
+              );
+            switch (p) {
+              case o("WAWebMessageRangeUtils").MessageRangeEncloseType
+                .RangeAEnclosesRangeB:
+                return o("WAWebSyncdConst").ConflictResolutionState
+                  .ApplyRemoteAndDropLocal;
+              case o("WAWebMessageRangeUtils").MessageRangeEncloseType
+                .RangeBEnclosesRangeA:
+                return o("WAWebSyncdConst").ConflictResolutionState.SkipRemote;
+              case o("WAWebMessageRangeUtils").MessageRangeEncloseType
+                .RangesAreEqual:
+                return l <= s
+                  ? o("WAWebSyncdConst").ConflictResolutionState
+                      .ApplyRemoteAndDropLocal
+                  : o("WAWebSyncdConst").ConflictResolutionState.SkipRemote;
+              case o("WAWebMessageRangeUtils").MessageRangeEncloseType
+                .RangesNotEnclosing: {
+                var _,
+                  f,
+                  g =
+                    l <= s
+                      ? (_ = c.read) != null
+                        ? _
+                        : !1
+                      : (f = u.read) != null
+                        ? f
+                        : !1,
+                  h = o("WAWebMessageRangeUtils").mergeMessageRanges(
+                    r("nullthrows")(c.messageRange),
+                    r("nullthrows")(u.messageRange),
                   ),
-                  s = o("WAWebMessageRangeUtils").compareMessageRanges(l, r),
-                  d = o("encodeProtobuf")
+                  y = { read: g, messageRange: h },
+                  C = o("encodeProtobuf")
                     .encodeProtobuf(
                       o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-                      i,
+                      babelHelpers.extends({}, i, { markChatAsReadAction: y }),
                     )
                     .readBuffer(),
-                  m = function () {
-                    return o(
-                      "WAWebApiAddActiveMessageRange",
-                    ).addActiveMessageRange(
-                      t.toString(),
-                      o("WAWebApiActiveMessageRanges").getActiveRangeAction(
-                        "markChatAsRead",
+                  b = babelHelpers.extends({}, t, { binarySyncAction: C });
+                return (
+                  delete b.id,
+                  await o("WAWebMessageRangeUtils").lockForMessageRangeSync(
+                    ["chat"],
+                    [b],
+                    async function () {
+                      var n = JSON.parse(t.index),
+                        r = o("WAWebWidFactory").createWid(n[1]);
+                      (o("WALogger").LOG(
+                        d ||
+                          (d = babelHelpers.taggedTemplateLiteralLoose([
+                            "[syncd] before update chat table due to conflict",
+                          ])),
                       ),
-                      d,
-                    );
-                  };
-                switch (
-                  (o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[syncd] before use case will update chat table",
-                      ])),
-                  ),
-                  s)
-                ) {
-                  case o("WAWebMessageRangeUtils").MessageRangeEncloseType
-                    .RangesAreEqual:
-                  case o("WAWebMessageRangeUtils").MessageRangeEncloseType
-                    .RangeBEnclosesRangeA:
-                    return (
-                      yield m(),
-                      yield this.$MarkChatAsReadSync$p_1(t, a),
-                      (p || (p = n("Promise"))).resolve(_(t, s))
-                    );
-                  case o("WAWebMessageRangeUtils").MessageRangeEncloseType
-                    .RangesNotEnclosing:
-                  case o("WAWebMessageRangeUtils").MessageRangeEncloseType
-                    .RangeAEnclosesRangeB:
-                    return (
-                      a &&
-                        (yield this.$MarkChatAsReadSync$p_2(t)) &&
-                        (yield this.$MarkChatAsReadSync$p_1(t, a)),
-                      (p || (p = n("Promise"))).resolve(_(t, s))
-                    );
-                }
-                o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[syncd] after use case updated chat table",
-                    ])),
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getMarkChatAsReadMutation = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var r = yield o(
-                    "WAWebSyncdGetChat",
-                  ).getChatJidMutationIndexForChat(
-                    n,
-                    o("WAWebSyncdConst").Actions.MarkChatAsRead,
-                  ),
-                  a = {
-                    markChatAsReadAction: {
-                      read: t,
-                      messageRange: yield o(
-                        "WAWebMessageRangeUtils",
-                      ).constructMessageRange(n, {
-                        forOutgoingMutation: !0,
-                        mutationIndexJid: r,
-                      }),
-                    },
-                  };
-                return o("WAWebSyncdActionUtils").buildPendingMutation({
-                  collection: this.collectionName,
-                  indexArgs: [r],
-                  value: a,
-                  version: this.getVersion(),
-                  operation: o("WAWebProtobufsServerSync.pb")
-                    .SyncdMutation$SyncdOperation.SET,
-                  timestamp: e,
-                  action: this.getAction(),
-                });
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.resolveConflicts = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var a = this,
-                  i = o("decodeProtobuf").decodeProtobuf(
-                    o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-                    e.binarySyncAction,
-                  ),
-                  l = o("decodeProtobuf").decodeProtobuf(
-                    o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-                    t.binarySyncData,
-                  ).value,
-                  s = e.timestamp,
-                  u = t.timestamp,
-                  c = r("nullthrows")(i.markChatAsReadAction),
-                  p = r("nullthrows")(
-                    l == null ? void 0 : l.markChatAsReadAction,
-                  ),
-                  _ = o("WAWebMessageRangeUtils").compareMessageRanges(
-                    r("nullthrows")(p.messageRange),
-                    r("nullthrows")(c.messageRange),
-                  );
-                switch (_) {
-                  case o("WAWebMessageRangeUtils").MessageRangeEncloseType
-                    .RangeAEnclosesRangeB:
-                    return o("WAWebSyncdConst").ConflictResolutionState
-                      .ApplyRemoteAndDropLocal;
-                  case o("WAWebMessageRangeUtils").MessageRangeEncloseType
-                    .RangeBEnclosesRangeA:
-                    return o("WAWebSyncdConst").ConflictResolutionState
-                      .SkipRemote;
-                  case o("WAWebMessageRangeUtils").MessageRangeEncloseType
-                    .RangesAreEqual:
-                    return s <= u
-                      ? o("WAWebSyncdConst").ConflictResolutionState
-                          .ApplyRemoteAndDropLocal
-                      : o("WAWebSyncdConst").ConflictResolutionState.SkipRemote;
-                  case o("WAWebMessageRangeUtils").MessageRangeEncloseType
-                    .RangesNotEnclosing: {
-                    var f,
-                      g,
-                      h =
-                        s <= u
-                          ? (f = p.read) != null
-                            ? f
-                            : !1
-                          : (g = c.read) != null
-                            ? g
-                            : !1,
-                      y = o("WAWebMessageRangeUtils").mergeMessageRanges(
-                        r("nullthrows")(p.messageRange),
-                        r("nullthrows")(c.messageRange),
-                      ),
-                      C = { read: h, messageRange: y },
-                      b = o("encodeProtobuf")
-                        .encodeProtobuf(
-                          o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-                          babelHelpers.extends({}, l, {
-                            markChatAsReadAction: C,
-                          }),
-                        )
-                        .readBuffer(),
-                      v = babelHelpers.extends({}, e, { binarySyncAction: b });
-                    return (
-                      delete v.id,
-                      yield o("WAWebMessageRangeUtils").lockForMessageRangeSync(
-                        ["chat"],
-                        [v],
-                        n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* () {
-                            var t = JSON.parse(e.index),
-                              n = o("WAWebWidFactory").createWid(t[1]);
-                            (o("WALogger").LOG(
-                              d ||
-                                (d = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[syncd] before update chat table due to conflict",
-                                ])),
-                            ),
-                              yield o(
-                                "WAWebApiAddActiveMessageRange",
-                              ).addActiveMessageRange(
-                                n.toString(),
-                                o(
-                                  "WAWebApiActiveMessageRanges",
-                                ).getActiveRangeAction("markChatAsRead"),
-                                b,
-                              ));
-                            var r = yield a.$MarkChatAsReadSync$p_1(n, h);
-                            return (
-                              o("WALogger").LOG(
-                                m ||
-                                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[syncd] after update chat table due to conflict",
-                                  ])),
-                              ),
-                              r
-                            );
-                          },
+                        await o(
+                          "WAWebApiAddActiveMessageRange",
+                        ).addActiveMessageRange(
+                          r.toString(),
+                          o("WAWebApiActiveMessageRanges").getActiveRangeAction(
+                            "markChatAsRead",
+                          ),
+                          C,
+                        ));
+                      var a = await e.$MarkChatAsReadSync$p_1(r, g);
+                      return (
+                        o("WALogger").LOG(
+                          m ||
+                            (m = babelHelpers.taggedTemplateLiteralLoose([
+                              "[syncd] after update chat table due to conflict",
+                            ])),
                         ),
-                      ),
-                      o("WAWebSyncdConst").ConflictResolutionState
-                        .SkipRemoteAndDropLocal
-                    );
-                  }
-                }
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+                        a
+                      );
+                    },
+                  ),
+                  o("WAWebSyncdConst").ConflictResolutionState
+                    .SkipRemoteAndDropLocal
+                );
+              }
             }
-            return t;
-          })()),
-          a
+          }),
+          n
         );
       })(o("WAWebSyncdAction").ChatMessageRangeSyncdActionBase),
-      g = new f();
-    l.default = g;
+      f = new _();
+    l.default = f;
   },
   98,
 );

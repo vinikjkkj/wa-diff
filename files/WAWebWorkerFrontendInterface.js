@@ -1,37 +1,34 @@
 __d(
   "WAWebWorkerFrontendInterface",
   [
-    "Promise",
     "WALogger",
     "WAWebBackgroundPauseState",
     "WAWebBrokerGlobalAppState",
     "WAWebDbEncryptionKey",
     "WAWebInvocationDispatcher",
     "WAWebSchemaVersions",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = {
+      s = {
         setLogoutState: function (t) {
           return (
             (r("WAWebBrokerGlobalAppState").isLogoutInProgress = t),
             t && o("WAWebBackgroundPauseState").backgroundPauseState.set(!1),
-            (s || (s = n("Promise"))).resolve()
+            Promise.resolve()
           );
         },
         setBackgroundPause: function (t) {
           return (
             o("WAWebBackgroundPauseState").backgroundPauseState.set(t),
-            (s || (s = n("Promise"))).resolve()
+            Promise.resolve()
           );
         },
         sendLogs: function (t, n) {
           return r("WAWebInvocationDispatcher").invoke("sendLogs", [t, n]);
         },
         deleteDbEncKeyCache: function () {
-          return (s || (s = n("Promise"))).resolve(
+          return Promise.resolve(
             o("WAWebDbEncryptionKey").DbEncKeyStore == null
               ? void 0
               : o("WAWebDbEncryptionKey").DbEncKeyStore.deleteKeyCache(),
@@ -40,24 +37,18 @@ __d(
         initDatabaseEncnKey: function (t) {
           return o("WAWebDbEncryptionKey").DbEncKeyStore
             ? o("WAWebDbEncryptionKey").DbEncKeyStore.init(t)
-            : (s || (s = n("Promise"))).resolve();
+            : Promise.resolve();
         },
-        generateFinalDbEncryptionAndFtsKey: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            if (o("WAWebDbEncryptionKey").DbEncKeyStore)
-              return (
-                yield o("WAWebDbEncryptionKey").DbEncKeyStore.waitForInit(),
-                o(
-                  "WAWebDbEncryptionKey",
-                ).DbEncKeyStore.generateFinalDbEncryptionAndFtsKey(e)
-              );
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        setSchemaVersions: function (r) {
+        generateFinalDbEncryptionAndFtsKey: async function (t) {
+          if (o("WAWebDbEncryptionKey").DbEncKeyStore)
+            return (
+              await o("WAWebDbEncryptionKey").DbEncKeyStore.waitForInit(),
+              o(
+                "WAWebDbEncryptionKey",
+              ).DbEncKeyStore.generateFinalDbEncryptionAndFtsKey(t)
+            );
+        },
+        setSchemaVersions: function (n) {
           return (
             o("WALogger").LOG(
               e ||
@@ -65,13 +56,13 @@ __d(
                   "[storage] start setSchemaVersions from fts worker interface",
                 ])),
             ),
-            o("WAWebSchemaVersions").setSchemaVersions(r),
-            (s || (s = n("Promise"))).resolve()
+            o("WAWebSchemaVersions").setSchemaVersions(n),
+            Promise.resolve()
           );
         },
       },
-      c = u;
-    l.default = c;
+      u = s;
+    l.default = u;
   },
   98,
 );

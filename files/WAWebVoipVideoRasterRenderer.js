@@ -6,7 +6,6 @@ __d(
     "WAWebVoipVideoEnhancementPass",
     "WAWebVoipVideoRendererInterface",
     "WAWebVoipVideoRendererLogging",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -38,33 +37,27 @@ __d(
             ).onRenderCallbackNoop),
             (this.$4 = !1));
         }
-        t.checkAvailability = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return (
-              typeof window != "undefined" &&
-              typeof window.VideoFrame == "function"
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })();
-        var a = t.prototype;
+        t.checkAvailability = async function () {
+          return (
+            typeof window != "undefined" &&
+            typeof window.VideoFrame == "function"
+          );
+        };
+        var n = t.prototype;
         return (
-          (a.cleanup = function () {
+          (n.cleanup = function () {
             var e;
             ((e = this.$5) == null || e.cleanup(), (this.$5 = null), this.$6());
           }),
-          (a.reset = function () {
+          (n.reset = function () {
             ((this.$7 = null),
               this.$6(),
               this.$2.clearRect(0, 0, this.$1.width, this.$1.height));
           }),
-          (a.onCanvasResize = function (t, n) {
+          (n.onCanvasResize = function (t, n) {
             this.pendingResize = { width: t, height: n };
           }),
-          (a.applyPendingResize = function () {
+          (n.applyPendingResize = function () {
             if (this.pendingResize != null) {
               var e = this.pendingResize,
                 t = e.height,
@@ -74,7 +67,7 @@ __d(
                 (this.$1.height = t));
             }
           }),
-          (a.renderFrame = function (n) {
+          (n.renderFrame = function (n) {
             var t = n.format,
               a = n.frameBuffer,
               i = n.height,
@@ -139,7 +132,7 @@ __d(
               );
             }
           }),
-          (a.renderVideoFrame = function (t) {
+          (n.renderVideoFrame = function (t) {
             var e = t.frame,
               n = t.mirror,
               r = t.orientation;
@@ -153,7 +146,7 @@ __d(
                 !0,
               ));
           }),
-          (a.renderVideoFrameToCanvas = function (t, n, r, o, a, i) {
+          (n.renderVideoFrameToCanvas = function (t, n, r, o, a, i) {
             i === void 0 && (i = !1);
             var e = this.$8({ height: r, videoFrame: t, width: n }),
               l = {
@@ -169,13 +162,13 @@ __d(
               (this.$11 = { draw: l, image: s != null ? s : e }),
               this.$3());
           }),
-          (a.setZoom = function (t) {
+          (n.setZoom = function (t) {
             this.$7 = t;
             var e = this.$11;
             e != null &&
               (this.applyPendingResize(), this.$9(e.draw, e.image), this.$3());
           }),
-          (a.$9 = function (t, n) {
+          (n.$9 = function (t, n) {
             y({
               canvas: this.$1,
               coverFit: this.$4,
@@ -185,13 +178,13 @@ __d(
               zoom: this.$7,
             });
           }),
-          (a.$6 = function () {
+          (n.$6 = function () {
             var e;
             ((e = this.$10) == null || e.close(),
               (this.$10 = null),
               (this.$11 = null));
           }),
-          (a.$8 = function (t) {
+          (n.$8 = function (t) {
             var e = t.height,
               n = t.videoFrame,
               a = t.width;
@@ -241,13 +234,13 @@ __d(
               );
             }
           }),
-          (a.setRenderCallback = function (t) {
+          (n.setRenderCallback = function (t) {
             this.$3 = t;
           }),
-          (a.setCoverFit = function (t) {
+          (n.setCoverFit = function (t) {
             this.$4 = t;
           }),
-          (a.setVideoEnhancement = function (t, n) {
+          (n.setVideoEnhancement = function (t, n) {
             ((this.$13 = t), (this.$14 = n));
           }),
           t

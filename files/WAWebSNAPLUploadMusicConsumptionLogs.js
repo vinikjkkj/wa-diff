@@ -6,7 +6,6 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebNetworkStatus",
     "WAWebOHAIClient",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -14,28 +13,20 @@ __d(
       s = (656096963291760).toString(),
       u = (0x97e965c4439a).toString(),
       c = "WhatsAppMusicConsumptionReporting";
-    function d(e, t) {
-      return m.apply(this, arguments);
+    async function d(t, n) {
+      await r("WAWebNetworkStatus").waitIfOffline();
+      var a = m(t),
+        i = new Headers();
+      i.append("X-FB-Friendly-Name", c);
+      var l = await o("WAWebOHAIClient").fetchOHAI({
+        url: e,
+        project: n,
+        payload: a,
+        headers: i,
+      });
+      return l;
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          yield r("WAWebNetworkStatus").waitIfOffline();
-          var a = p(t),
-            i = new Headers();
-          i.append("X-FB-Friendly-Name", c);
-          var l = yield o("WAWebOHAIClient").fetchOHAI({
-            url: e,
-            project: n,
-            payload: a,
-            headers: i,
-          });
-          return l;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function m(e) {
       var t = new FormData(),
         n = o("WAWebMobilePlatforms").isSMB() ? s : u;
       return (
@@ -43,17 +34,16 @@ __d(
         t.append("app_version", o("WAWebBuildConstants").VERSION_STR),
         t.append(
           "events",
-          o("WAWebCreateFile").createFile([_(e)], "snapl.txt"),
+          o("WAWebCreateFile").createFile([p(e)], "snapl.txt"),
         ),
         t
       );
     }
-    function _(e) {
-      return e
-        .map(function (e) {
-          return JSON.stringify(e);
-        })
-        .join("\n");
+    function p(e) {
+      return e.map(function (e) {
+        return JSON.stringify(e);
+      }).join(`
+`);
     }
     l.uploadMusicConsumptionLogs = d;
   },

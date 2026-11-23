@@ -15,6 +15,7 @@ __d(
     "AdsUEditorHostIDs",
     "DateTime",
     "Laminar",
+    "isTargetFrequency",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -39,55 +40,67 @@ __d(
               }),
               p = o("AdsDraftFragmentStoreStateUtils").getAll(n, m);
             o("AdsMutators").mapExistingValues(p, m, function (e, n) {
-              var a, i, m;
+              var a, i, m, p;
               if (
                 s.get(n) !==
                 o("AdsFrequencyControlEditorConstants")
                   .CAP_FREQUENCY_SELECTOR_OPTION_INDEX
               ) {
-                var p = t.get(n);
-                if (p != null) {
-                  var _ = p.params;
-                  if (_ != null) {
-                    var f =
-                        (a = e.values.get("optimization_goal")) == null
+                var _ =
+                  (a = u(n, { frequency_control_specs: null })) == null ||
+                  (a = a.getValue()) == null ||
+                  (a = a.frequency_control_specs) == null
+                    ? void 0
+                    : a.map(function (e) {
+                        return e.type;
+                      });
+                if (_ == null || _.length === 0 || !r("isTargetFrequency")(_)) {
+                  c = c.delete(n);
+                  return;
+                }
+                var f = t.get(n);
+                if (f != null) {
+                  var g = f.params;
+                  if (g != null) {
+                    var h =
+                        (i = e.values.get("optimization_goal")) == null
                           ? void 0
-                          : a.newValue,
-                      g = (i = p.params) == null ? void 0 : i.optimization_goal;
+                          : i.newValue,
+                      y = (m = f.params) == null ? void 0 : m.optimization_goal;
                     if (
-                      f != null &&
+                      h != null &&
                       !o(
                         "AdsUEditorCampaignTargetFrequencyInAuctionUtils",
-                      ).selectedOptimizationMatchesPrediction(f, g)
+                      ).selectedOptimizationMatchesPrediction(h, y)
                     ) {
                       c = c.delete(n);
                       return;
                     }
-                    var h = l.getValue();
-                    if (h != null) {
-                      var y = r("AdsCampaignDraftFragmentStore").isNew(n),
-                        C = o(
+                    var C = l.getValue();
+                    if (C != null) {
+                      var b = r("AdsCampaignDraftFragmentStore").isNew(n),
+                        v = o(
                           "AdsCampaignTargetFrequencyInAuctionRegeneratePredictionTriggerReducerUtils",
                         ).coerceLifetimeBudget(
-                          (m = u(n, { lifetime_budget: null })) == null ||
-                            (m = m.getValue()) == null
+                          (p = u(n, { lifetime_budget: null })) == null ||
+                            (p = p.getValue()) == null
                             ? void 0
-                            : m.lifetime_budget,
+                            : p.lifetime_budget,
                         ),
-                        b = o(
+                        S = o(
                           "AdsUEditorCampaignTargetFrequencyInAuctionUtils",
-                        ).getNewPredictionParams(e, p, h, y, C);
+                        ).getNewPredictionParams(e, f, C, b, v);
                       if (
-                        !(b == null || JSON.stringify(b) === JSON.stringify(_))
+                        !(S == null || JSON.stringify(S) === JSON.stringify(g))
                       ) {
-                        var v = r("DateTime").now(h.timezone_id),
-                          S = new (r("DateTime"))(b.start_time, h.timezone_id);
-                        (!y &&
-                          v.isAfter(S) &&
+                        var R = r("DateTime").now(C.timezone_id),
+                          L = new (r("DateTime"))(S.start_time, C.timezone_id);
+                        (!b &&
+                          R.isAfter(L) &&
                           !o(
                             "AdsUEditorCampaignTargetFrequencyInAuctionUtils",
                           ).isPredictionRequiredForMidFlightEdit(e)) ||
-                          d.set(n, b);
+                          d.set(n, S);
                       }
                     }
                   }
@@ -108,7 +121,7 @@ __d(
                       hostID: r("AdsUEditorHostIDs").EDITING,
                     },
                     {
-                      line: "148",
+                      line: "167",
                       module:
                         "AdsCampaignTargetFrequencyInAuctionRegeneratePredictionTriggerReducerPlugin.js",
                       moduleID: i.id,

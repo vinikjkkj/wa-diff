@@ -11,7 +11,6 @@ __d(
     "justknobx",
     "lazyLoadComponent",
     "react",
-    "react-compiler-runtime",
     "useCometRouterState",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -57,39 +56,27 @@ __d(
       return r("justknobx")._("7144");
     }
     function p() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = u.jsx(r("CometPlaceholder.react"), {
-              fallback: null,
-              name: i.id,
-              children: u.jsx(c, {}),
-            })),
-            (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return u.jsx(r("CometPlaceholder.react"), {
+        fallback: null,
+        name: i.id,
+        children: u.jsx(c, {}),
+      });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _() {
-      var e = o("react-compiler-runtime").c(2),
-        t = r("useCometRouterState")();
-      t != null || s(0, 191183);
-      var n;
+      var e = r("useCometRouterState")();
       return (
-        e[0] !== t
-          ? ((n = u.jsx(r("CometPlaceholder.react"), {
-              fallback: null,
-              name: i.id,
-              children: u.jsx(r("CometPageContent.react"), { routerState: t }),
-            })),
-            (e[0] = t),
-            (e[1] = n))
-          : (n = e[1]),
-        n
+        e != null || s(0, 191183),
+        u.jsx(r("CometPlaceholder.react"), {
+          fallback: null,
+          name: i.id,
+          children: u.jsx(r("CometPageContent.react"), { routerState: e }),
+        })
       );
     }
-    ((l.buildRootComponent = d), (l.isLeanRouterRoot = m));
+    ((_.displayName = _.name + " [from " + i.id + "]"),
+      (l.buildRootComponent = d),
+      (l.isLeanRouterRoot = m));
   },
   98,
 );

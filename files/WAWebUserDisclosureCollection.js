@@ -4,96 +4,71 @@ __d(
     "WAWebBaseCollection",
     "WAWebGetUserDisclosuresContentsAction",
     "WAWebUserDisclosureModel",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 864e5,
       s = (function (t) {
-        function a() {
-          for (var r, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
-            i[l] = arguments[l];
+        function n() {
+          for (var n, r = arguments.length, a = new Array(r), i = 0; i < r; i++)
+            a[i] = arguments[i];
           return (
-            (r = t.call.apply(t, [this].concat(i)) || this),
-            (r.findImpl = (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  var n,
-                    a = r.get(t);
-                  if (
-                    a != null &&
-                    a.privacyDisclosureModal != null &&
-                    a.endDate != null &&
-                    ((n = a.endDate) == null ? void 0 : n.getTime()) >
-                      Date.now() &&
-                    Date.now() - a.lastUpdated.getTime() < e
-                  )
-                    return a;
-                  var i = yield o(
-                    "WAWebGetUserDisclosuresContentsAction",
-                  ).getDisclosuresContentAction(parseInt(t, 10));
-                  if (i != null)
-                    return r.gadd(
-                      {
-                        id: t,
-                        policyVersion: i.policyVersion,
-                        privacyDisclosureModal: i.privacyDisclosureModal,
-                        endDate: i.endDate,
-                        lastUpdated: new Date(),
-                      },
-                      { merge: !0 },
-                    );
-                },
-              );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })()),
-            babelHelpers.assertThisInitialized(r) ||
-              babelHelpers.assertThisInitialized(r)
+            (n = t.call.apply(t, [this].concat(a)) || this),
+            (n.findImpl = async function (t) {
+              var r,
+                a = n.get(t);
+              if (
+                a != null &&
+                a.privacyDisclosureModal != null &&
+                a.endDate != null &&
+                ((r = a.endDate) == null ? void 0 : r.getTime()) > Date.now() &&
+                Date.now() - a.lastUpdated.getTime() < e
+              )
+                return a;
+              var i = await o(
+                "WAWebGetUserDisclosuresContentsAction",
+              ).getDisclosuresContentAction(parseInt(t, 10));
+              if (i != null)
+                return n.gadd(
+                  {
+                    id: t,
+                    policyVersion: i.policyVersion,
+                    privacyDisclosureModal: i.privacyDisclosureModal,
+                    endDate: i.endDate,
+                    lastUpdated: new Date(),
+                  },
+                  { merge: !0 },
+                );
+            }),
+            babelHelpers.assertThisInitialized(n) ||
+              babelHelpers.assertThisInitialized(n)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.find = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, n) {
-                var r,
-                  o = this.get(e);
-                if (o == null || o.privacyDisclosureModal != null)
-                  return t.prototype.find.call(this, e, n);
-                var a = yield this.update(e, n);
-                return (r = Array.isArray(a) ? a[0] : a) != null ? r : o;
-              },
-            );
-            function r(t, n) {
-              return e.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (i.updateNoticeStage = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.accepted,
-                  n = e.id,
-                  o = e.policyVersion,
-                  a = e.stage,
-                  i = new (r("WAWebUserDisclosureModel"))({
-                    id: n,
-                    policyVersion: o,
-                    accepted: t,
-                    stage: a,
-                    lastUpdated: new Date(),
-                  });
-                this.gadd(i, { merge: !0 });
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          a
+          (a.find = async function (n, r) {
+            var e,
+              o = this.get(n);
+            if (o == null || o.privacyDisclosureModal != null)
+              return t.prototype.find.call(this, n, r);
+            var a = await this.update(n, r);
+            return (e = Array.isArray(a) ? a[0] : a) != null ? e : o;
+          }),
+          (a.updateNoticeStage = async function (t) {
+            var e = t.accepted,
+              n = t.id,
+              o = t.policyVersion,
+              a = t.stage,
+              i = new (r("WAWebUserDisclosureModel"))({
+                id: n,
+                policyVersion: o,
+                accepted: e,
+                stage: a,
+                lastUpdated: new Date(),
+              });
+            this.gadd(i, { merge: !0 });
+          }),
+          n
         );
       })(o("WAWebBaseCollection").BaseCollection);
     s.model = r("WAWebUserDisclosureModel");

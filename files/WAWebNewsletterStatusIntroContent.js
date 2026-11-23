@@ -12,22 +12,20 @@ __d(
         {
           Icon: r("WDSIconIcAddAPhoto.react"),
           key: "easily-share-moments",
-          title: s._(/*BTDS*/ "Easily share moments"),
-          description: s._(/*BTDS*/ "They'll disappear after 24 hours."),
+          title: s._(/*BTDS*/ ""),
+          description: s._(/*BTDS*/ ""),
         },
         {
           Icon: r("WDSIconIcPublic.react"),
           key: "anyone-can-view",
-          title: s._(/*BTDS*/ "Anyone can view, react or reshare"),
-          description: s._(/*BTDS*/ "Channel statuses are public."),
+          title: s._(/*BTDS*/ ""),
+          description: s._(/*BTDS*/ ""),
         },
         {
           Icon: r("WDSIconIcVisibilityOff.react"),
           key: "viewers-see-channel",
-          title: s._(/*BTDS*/ "Viewers see your channel, not you"),
-          description: s._(
-            /*BTDS*/ "They can't see your phone number, profile picture or name.",
-          ),
+          title: s._(/*BTDS*/ ""),
+          description: s._(/*BTDS*/ ""),
         },
       ];
     }

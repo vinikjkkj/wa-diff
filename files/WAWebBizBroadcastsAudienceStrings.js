@@ -4,126 +4,110 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "Untitled list").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     function u() {
-      return s._(/*BTDS*/ "Rename audience");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Save");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Active chats");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(/*BTDS*/ "Contacts who messaged you in the last 30 days");
+      return s._(/*BTDS*/ "");
     }
     function p(e) {
-      return s._(/*BTDS*/ "Messaged you in the {duration}", [
-        s._param("duration", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("duration", e)]);
     }
     function _() {
-      return s._(/*BTDS*/ "Inactive chats");
+      return s._(/*BTDS*/ "");
     }
     function f() {
-      return r("justknobx")._("8068")
-        ? s._(/*BTDS*/ "Contacts who haven't messaged you in the last 30 days")
-        : s._(
-            /*BTDS*/ "Contacts that haven't messaged you in the last 30 days",
-          );
+      return r("justknobx")._("8068") ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function g(e) {
-      return s._(/*BTDS*/ "Inactive for {duration}", [s._param("duration", e)]);
+      return s._(/*BTDS*/ "", [s._param("duration", e)]);
     }
     function h() {
-      return s._(/*BTDS*/ "Your largest list");
+      return s._(/*BTDS*/ "");
     }
     function y() {
-      return s._(/*BTDS*/ "Contacts from your largest list");
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(/*BTDS*/ "Your WhatsApp contacts");
+      return s._(/*BTDS*/ "");
     }
     function b() {
-      return s._(/*BTDS*/ "All contacts from your address book");
+      return s._(/*BTDS*/ "");
     }
     function v() {
-      return s._(/*BTDS*/ "Suggested audiences");
+      return s._(/*BTDS*/ "");
     }
     function S(e) {
       return e <= 7
-        ? s._(/*BTDS*/ "last 7 days")
+        ? s._(/*BTDS*/ "")
         : e <= 14
-          ? s._(/*BTDS*/ "last 14 days")
+          ? s._(/*BTDS*/ "")
           : e <= 30
-            ? s._(/*BTDS*/ "last 30 days")
+            ? s._(/*BTDS*/ "")
             : e <= 90
-              ? s._(/*BTDS*/ "last 3 months")
+              ? s._(/*BTDS*/ "")
               : e <= 180
-                ? s._(/*BTDS*/ "last 6 months")
-                : s._(/*BTDS*/ "last year");
+                ? s._(/*BTDS*/ "")
+                : s._(/*BTDS*/ "");
     }
     function R(e, t) {
       return t != null
-        ? s._(/*BTDS*/ "{count} recipients \u00b7 {duration}", [
-            s._param("count", e),
-            s._param("duration", t),
-          ])
-        : s._(/*BTDS*/ "{count} recipients", [s._param("count", e)]);
+        ? s._(/*BTDS*/ "", [s._param("count", e), s._param("duration", t)])
+        : s._(/*BTDS*/ "", [s._param("count", e)]);
     }
     function L(e, t) {
       return e.trim() !== ""
-        ? s._(/*BTDS*/ "No contacts match your search")
+        ? s._(/*BTDS*/ "")
         : t
-          ? s._(/*BTDS*/ "No contacts found for this time period")
-          : s._(/*BTDS*/ "No contacts found");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     function E() {
-      return s._(/*BTDS*/ "Import audiences");
+      return s._(/*BTDS*/ "");
     }
     function k(e) {
-      return s._(/*BTDS*/ '_j{"*":"{number} recipients","_1":"1 recipient"}', [
-        s._plural(e, "number"),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(e, "number")]);
     }
     function I(e) {
-      return s._(/*BTDS*/ '_j{"*":"{number} recipients","_1":"1 recipient"}', [
-        s._plural(e, "number"),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(e, "number")]);
     }
     function T() {
-      return s._(/*BTDS*/ "Audience has unresolved errors");
+      return s._(/*BTDS*/ "");
     }
     function D() {
-      return s._(/*BTDS*/ "Customer");
+      return s._(/*BTDS*/ "");
     }
     function x() {
-      return s._(/*BTDS*/ "Mobile No.");
+      return s._(/*BTDS*/ "");
     }
     function $() {
-      return s._(/*BTDS*/ "Delete contact");
+      return s._(/*BTDS*/ "");
     }
     function P() {
-      return s._(/*BTDS*/ "Saving...");
+      return s._(/*BTDS*/ "");
     }
     function N(e) {
-      return s._(
-        /*BTDS*/ '_j{"*":"Save {number} audiences","_1":"Save 1 audience"}',
-        [s._plural(e, "number")],
-      );
+      return s._(/*BTDS*/ "", [s._plural(e, "number")]);
     }
     function M() {
-      return s._(/*BTDS*/ "We couldn't save all audiences. Try again.");
+      return s._(/*BTDS*/ "");
     }
     function w() {
-      return s._(/*BTDS*/ "We couldn't save your audiences. Try again.");
+      return s._(/*BTDS*/ "");
     }
     function A() {
-      return s._(/*BTDS*/ "Processing...");
+      return s._(/*BTDS*/ "");
     }
     function F() {
-      return s._(/*BTDS*/ "Recipient count unavailable");
+      return s._(/*BTDS*/ "");
     }
     ((l.getUntitledListName = e),
       (l.getRenameAudienceModalTitle = u),

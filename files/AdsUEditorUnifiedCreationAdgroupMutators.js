@@ -39,6 +39,7 @@ __d(
     "AdsWhatsAppUtils",
     "ApiAdObjectTypes",
     "ApiDynamicCreativeOptimizationTypes",
+    "CTXTemplateIdPendingStampUtils",
     "CallPromptFeatureGating",
     "ClickToMessageCTDFeatureGating",
     "ClickToMessageCTMAdoptionFeatureGating",
@@ -48,6 +49,7 @@ __d(
     "isFalsey",
     "isStringNullOrEmpty",
     "isTruthy",
+    "observeRuntimeType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -242,13 +244,19 @@ __d(
       return R(e, a, i, l, n, r);
     }
     function C(e, t, n) {
-      return e
-        .setIn([t, "type"], n)
-        .setIn([t, "value", "app_destination"], s)
-        .setIn(
-          [t, "value", "link"],
-          o("AdsMessengerConstants").EMPTY_MESSENGER_LINK,
-        );
+      return (
+        r("observeRuntimeType")(
+          n,
+          "AdsUEditorUnifiedCreationAdgroupMutators.setMessengerCTAInAssetFeed.ctaType",
+        ),
+        e
+          .setIn([t, "type"], n)
+          .setIn([t, "value", "app_destination"], s)
+          .setIn(
+            [t, "value", "link"],
+            o("AdsMessengerConstants").EMPTY_MESSENGER_LINK,
+          )
+      );
     }
     function b(e, t, n) {
       return e
@@ -286,18 +294,26 @@ __d(
       }
       return l;
     }
-    function S(e, t, n, r, o, a, i) {
-      var l = o === d || o === m,
-        s = e;
-      if ((t && (s = s.setIn([0, "type"], o)), n)) {
-        var u = l ? m : o;
-        s = s.setIn([a, "type"], u);
+    function S(e, t, n, o, a, i, l) {
+      (r("observeRuntimeType")(
+        a,
+        "AdsUEditorUnifiedCreationAdgroupMutators.updateExistingCTATypes.callToActionType",
+      ),
+        r("observeRuntimeType")(
+          o,
+          "AdsUEditorUnifiedCreationAdgroupMutators.updateExistingCTATypes.hasInstagramCTA",
+        ));
+      var s = a === d || a === m,
+        u = e;
+      if ((t && (u = u.setIn([0, "type"], a)), n)) {
+        var c = s ? m : a;
+        u = u.setIn([i, "type"], c);
       }
-      if (r) {
-        var c = l ? p : o;
-        s = s.setIn([i, "type"], c);
+      if (o) {
+        var _ = s ? p : a;
+        u = u.setIn([l, "type"], _);
       }
-      return s;
+      return u;
     }
     function R(e, t, n, a, i, l) {
       var s,
@@ -611,35 +627,26 @@ __d(
           : t
       );
     }
-    function q(e, t, n, a) {
-      t === void 0 && (t = !1);
-      var i = e;
+    function q(e) {
+      var t = e;
       return (
-        o("AdsUEditorMessagingDestinationUtils").isClickToMessageAdDestination(
-          a,
-        ) &&
-          t &&
-          n != null &&
-          ((i = r("AdsAdgroupSemanticFields").pageWelcomeMessage.delete(n, i)),
-          (i = r("AdsAdgroupSemanticFields").callToActionValue.delete(n, i)),
-          (i = r("AdsAdgroupSemanticFields").headline.delete(n, i))),
         o(
           "AdsUEditorUnifiedCreationUtils",
         ).isMultiDestinationMessagingFromAdSpec(e) &&
-          (i = o("AdsMutators").chain(
+          (t = o("AdsMutators").chain(
             r("AdsAdgroupRecordAccessors").creative.asset_feed_spec
               .additional_data.delete,
             r("AdsAdgroupRecordAccessors").creative.asset_feed_spec
               .call_to_actions.delete,
             r("AdsAdgroupRecordAccessors").creative.asset_feed_spec
               .optimization_type.delete,
-          )(i)),
-        (i = o("AdsAssetFeedUtils").hasPlacementCustomizationFromRecord(e)
+          )(t)),
+        (t = o("AdsAssetFeedUtils").hasPlacementCustomizationFromRecord(e)
           ? o(
               "AdsUEditorAdgroupAssetFeedMutators",
-            ).removeMissingAdlabelsFromCustomizationRules(i)
-          : i),
-        i
+            ).removeMissingAdlabelsFromCustomizationRules(t)
+          : t),
+        t
       );
     }
     function U(e) {
@@ -723,7 +730,10 @@ __d(
           ).isEligibleForCTXL1EngagementPostEngagement(u, i)
         )
       )
-        return e;
+        return r("observeRuntimeType")(
+          e,
+          "AdsUEditorUnifiedCreationAdgroupMutators.clearMessagingAppsFields.return",
+        );
       var d = e;
       return (
         o("AdsAssetFeedUtils").isDofMessagingDestinationAdgroupFromSpec(d) &&
@@ -752,7 +762,10 @@ __d(
               "AdsUEditorAdgroupAssetFeedMutators",
             ).removeMissingAdlabelsFromCustomizationRules(d)
           : d),
-        d
+        r("observeRuntimeType")(
+          d,
+          "AdsUEditorUnifiedCreationAdgroupMutators.clearMessagingAppsFields.return",
+        )
       );
     }
     function j(e, t, n, a, i) {
@@ -800,6 +813,10 @@ __d(
             (l = r(
               "AdsAdgroupRecordAccessors",
             ).creative.page_welcome_message.set(t, l)),
+            o("CTXTemplateIdPendingStampUtils").markPageWelcomeMessageWritten(
+              e.id,
+              t,
+            ),
             l
           );
         if (o("AdsDynamicAdsUtils").isDynamicAd(e))
@@ -810,55 +827,80 @@ __d(
               t,
               l,
             )),
+            o("CTXTemplateIdPendingStampUtils").markPageWelcomeMessageWritten(
+              e.id,
+              t,
+            ),
             l
           );
       }
       return (
         s &&
-          (l = r(
+          ((l = r(
             "AdsAdgroupRecordAccessors",
           ).creative.object_story_spec.video_data.page_welcome_message.set(
             t,
             l,
           )),
+          o("CTXTemplateIdPendingStampUtils").markPageWelcomeMessageWritten(
+            e.id,
+            t,
+          )),
         u &&
-          (l = r(
+          ((l = r(
             "AdsAdgroupRecordAccessors",
           ).creative.object_story_spec.link_data.page_welcome_message.set(
             t,
             l,
           )),
+          o("CTXTemplateIdPendingStampUtils").markPageWelcomeMessageWritten(
+            e.id,
+            t,
+          )),
         c &&
-          (l = r(
+          ((l = r(
             "AdsAdgroupRecordAccessors",
           ).creative.object_story_spec.photo_data.page_welcome_message.set(
             t,
             l,
           )),
+          o("CTXTemplateIdPendingStampUtils").markPageWelcomeMessageWritten(
+            e.id,
+            t,
+          )),
         l
       );
     }
     function Q(e, t) {
-      return r(
-        "AdsAdgroupRecordAccessors",
-      ).creative.asset_feed_spec.additional_data.page_welcome_message.set(t, e);
+      return (
+        o("CTXTemplateIdPendingStampUtils").markPageWelcomeMessageWritten(
+          e.id,
+          t,
+        ),
+        r(
+          "AdsAdgroupRecordAccessors",
+        ).creative.asset_feed_spec.additional_data.page_welcome_message.set(
+          t,
+          e,
+        )
+      );
     }
-    function X(e, t, n, a, i) {
-      var l = o("AdsWebsiteExtensionTypeUtils").getSelectedMessageExtensiontype(
+    function X(e, t, n, a) {
+      var i = o("AdsWebsiteExtensionTypeUtils").getSelectedMessageExtensiontype(
           e,
         ),
-        s = o("AdsAPIAdgroupRecordUtils").getPageID(e, n),
-        u = JSON.stringify(
+        l = o("AdsAPIAdgroupRecordUtils").getPageID(e, n),
+        s = JSON.stringify(
           r("AdsGetStandardTemplateDefaultJSONWithDestination")(
-            s,
-            t,
-            i,
-            null,
-            null,
             l,
+            t,
+            void 0,
+            null,
+            null,
+            i,
           ),
         );
-      return a === !0 ? Q(e, u) : K(e, u);
+      return a === !0 ? Q(e, s) : K(e, s);
     }
     function Y(e) {
       if (o("AdsAssetFeedUtils").isPACAdgroupFromRecord(e))

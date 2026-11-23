@@ -111,7 +111,7 @@ __d(
       },
       {
         id: "altPhoneNumbers",
-        header: s._(/*BTDS*/ "Alternate phone numbers").toString(),
+        header: s._(/*BTDS*/ "").toString(),
         getValue: function (t) {
           var e;
           return (e = t.altPhoneNumbers) != null ? e : "";
@@ -119,28 +119,28 @@ __d(
       },
       {
         id: "lists",
-        header: s._(/*BTDS*/ "Lists").toString(),
+        header: s._(/*BTDS*/ "").toString(),
         getValue: function (t) {
           return t.lists.join("; ");
         },
       },
       {
         id: "createdAt",
-        header: s._(/*BTDS*/ "Created").toString(),
+        header: s._(/*BTDS*/ "").toString(),
         getValue: function (t) {
           return u(t.createdAt);
         },
       },
       {
         id: "modifiedAt",
-        header: s._(/*BTDS*/ "Last updated").toString(),
+        header: s._(/*BTDS*/ "").toString(),
         getValue: function (t) {
           return u(t.modifiedAt);
         },
       },
       {
         id: "lastMessage",
-        header: s._(/*BTDS*/ "Last message").toString(),
+        header: s._(/*BTDS*/ "").toString(),
         getValue: function (t) {
           return u(t.lastMessage);
         },
@@ -193,11 +193,7 @@ __d(
           ? e.fieldName + " (" + e.currency + ")"
           : e.fieldName;
       return y(t)
-        ? s
-            ._(/*BTDS*/ "{custom field name} (custom field)", [
-              s._param("custom field name", t),
-            ])
-            .toString()
+        ? s._(/*BTDS*/ "", [s._param("custom field name", t)]).toString()
         : t;
     }
     function y(e) {

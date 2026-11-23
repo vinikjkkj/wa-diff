@@ -7,9 +7,7 @@ __d(
       c = 6e5;
     function d() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Something went wrong. Please try again later."),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function m() {
@@ -21,7 +19,7 @@ __d(
           u.jsx(o("WAWebToast.react").Toast, {
             id: e,
             duration: c,
-            msg: s._(/*BTDS*/ "Preparing status\u2026"),
+            msg: s._(/*BTDS*/ ""),
           }),
         ),
         function () {

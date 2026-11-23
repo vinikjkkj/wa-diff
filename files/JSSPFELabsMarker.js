@@ -1,10 +1,6 @@
 __d(
   "JSSPFELabsMarker",
-  [
-    "JSSPTraceBaseTransformer",
-    "JSSelfProfilerUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["JSSPTraceBaseTransformer", "JSSelfProfilerUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function (e) {
@@ -12,42 +8,36 @@ __d(
         return e.apply(this, arguments) || this;
       }
       babelHelpers.inheritsLoose(t, e);
-      var r = t.prototype;
+      var n = t.prototype;
       return (
-        (r.transform = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t,
-              n,
-              r =
-                (t = ((n = window.__felab_context) != null ? n : {})
-                  .annotations) != null
-                  ? t
-                  : {};
-            return (
-              Object.entries(r)
-                .filter(function (e) {
-                  var t = e[0],
-                    n = e[1];
-                  return !["object", "function"].includes(typeof n);
-                })
-                .map(function (e) {
-                  var t = e[0],
-                    n = e[1];
-                  return [t, String(n)];
-                })
-                .forEach(function (t) {
-                  var n = t[0],
-                    r = t[1];
-                  return o("JSSelfProfilerUtils").addAnnotationToTrace(e, n, r);
-                }),
-              e
-            );
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (n.transform = async function (t) {
+          var e,
+            n,
+            r =
+              (e = ((n = window.__felab_context) != null ? n : {})
+                .annotations) != null
+                ? e
+                : {};
+          return (
+            Object.entries(r)
+              .filter(function (e) {
+                var t = e[0],
+                  n = e[1];
+                return !["object", "function"].includes(typeof n);
+              })
+              .map(function (e) {
+                var t = e[0],
+                  n = e[1];
+                return [t, String(n)];
+              })
+              .forEach(function (e) {
+                var n = e[0],
+                  r = e[1];
+                return o("JSSelfProfilerUtils").addAnnotationToTrace(t, n, r);
+              }),
+            t
+          );
+        }),
         t
       );
     })(r("JSSPTraceBaseTransformer"));

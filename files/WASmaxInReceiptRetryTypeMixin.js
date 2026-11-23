@@ -27,23 +27,31 @@ __d(
       if (!l.success) return l;
       var s = o("WASmaxParseUtils").attrIntRange(n.value, "t", 0, void 0);
       if (!s.success) return s;
-      var u = o("WASmaxParseUtils").optional(
+      var u = o("WASmaxParseUtils").optionalLiteral(
+        o("WASmaxParseUtils").attrString,
+        n.value,
+        "session",
+        "new",
+      );
+      if (!u.success) return u;
+      var c = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrIntRange,
         n.value,
         "error",
         0,
         1024,
       );
-      return u.success
+      return c.success
         ? o("WAResultOrError").makeResult({
             type: r.value,
             retryId: a.value,
             retryCount: i.value,
             retryV: l.value,
             retryT: s.value,
-            retryError: u.value,
+            retrySession: u.value,
+            retryError: c.value,
           })
-        : u;
+        : c;
     }
     l.parseRetryTypeMixin = e;
   },

@@ -12,6 +12,7 @@ __d(
     "AdsBwIConstants",
     "AdsODAXObjectiveStrings",
     "AdsODAXUtils",
+    "AdsPlacementIneligibilityTrafficReasons",
     "AdsPlacementParentPositionTooltipUtils",
     "AdsPlacementsFacebookReelsOverlayPositionPlugin",
     "AdsPromotedObjectTypes",
@@ -28,18 +29,13 @@ __d(
       d = c || (c = o("react")),
       m =
         ((e = {}),
-        (e.PREMIUM_FACEBOOK_INSTREAM_VIDEO_TRP = s._(
-          /*BTDS*/ "Premium instream video TRP",
-        )),
-        (e.REACH_AND_FREQUENCY = s._(/*BTDS*/ "Reservation")),
-        (e.REACH_AND_FREQUENCY_INSERTION_ORDER = s._(
-          /*BTDS*/ "Reservation IO",
-        )),
-        (e.REACH_AND_FREQUENCY_INSERTION_ORDER_GENERAL = s._(
-          /*BTDS*/ "Reservation IO",
-        )),
-        (e.TRP = s._(/*BTDS*/ "TRP")),
-        (e.META_MOMENT_MAKER = s._(/*BTDS*/ "Ads burst")),
+        (e.PREMIUM_FACEBOOK_INSTREAM_VIDEO_TRP = s._(/*BTDS*/ "")),
+        (e.REACH_AND_FREQUENCY = s._(/*BTDS*/ "")),
+        (e.REACH_AND_FREQUENCY_INSERTION_ORDER = s._(/*BTDS*/ "")),
+        (e.REACH_AND_FREQUENCY_INSERTION_ORDER_GENERAL = s._(/*BTDS*/ "")),
+        (e.TRP = s._(/*BTDS*/ "")),
+        (e.META_MOMENT_MAKER = s._(/*BTDS*/ "")),
+        (e.REELS_TRENDING_ADS = s._(/*BTDS*/ "")),
         e);
     function p() {
       return { type: "AD_SEQUENCING" };
@@ -93,141 +89,114 @@ __d(
       return { type: "WAMO_STATUS_SAC" };
     }
     function D() {
-      return { type: "WAMO_STATUS_AB_TEST" };
+      return { type: "WAMO_STATUS_SIEP" };
     }
     function x() {
-      return { type: "WAMO_STATUS_CREATION_PACKAGE" };
-    }
-    function $() {
       return { type: "WAMO_STATUS_PRODUCT_CATALOG" };
     }
-    function P() {
-      return { type: "WAMO_STATUS_CUSTOM_AUDIENCE" };
-    }
-    function N() {
+    function $() {
       return { type: "WAMO_STATUS_EU_OBJECTIVE" };
     }
-    function M(e, t, n, r, o, a) {
+    function P(e, t, n, r, o, a, i, l) {
       return (
         a === void 0 && (a = !1),
-        {
+        i === void 0 && (i = !1),
+        l === void 0 && (l = !1),
+        babelHelpers.extends({}, l ? { isAppPromotionLinkClicks: l } : {}, {
           isEUAdvertiser: r,
           isLPVEligible: o,
+          isQualityLeadOptimizationGoal: i,
           isValueOptimizationGoal: a,
           objective: e,
           onlyShowCTWAReason: n,
           promotedObjectType: t,
           type: "WAMO_STATUS_OPTIMIZATION_GOAL",
-        }
+        })
       );
     }
-    function w(e) {
+    function N(e) {
       return { type: "DEVICE_PLATFORM", devicePlatform: e };
     }
-    function A(e, t) {
+    function M(e, t) {
       return { type: "BUYING_TYPE", buyingType: e, placementPlugin: t };
     }
-    function F() {
+    function w() {
       return { type: "WINDOWS_APP" };
     }
-    function O() {
+    function A() {
       return { type: "OPTIMIZATION_GOAL" };
     }
-    function B() {
+    function F() {
       return { type: "SPECIAL_ADS_CATEGORY" };
     }
-    function W(e) {
+    function O(e) {
       return { type: "OFFER_OPTION", objective: e };
     }
-    function q() {
+    function B() {
       return { type: "AD_ACCOUNT_TRUST_TIER" };
     }
-    function U() {
-      return { type: "GENERIC" };
-    }
-    function V(e) {
+    function W(e) {
       return { type: "CUSTOM", message: e };
     }
-    function H() {
-      return V(
-        s._(/*BTDS*/ "This placement isn't available for iOS 14 ad accounts."),
-      );
+    function q() {
+      return W(s._(/*BTDS*/ ""));
     }
-    function G() {
-      return V(
-        s._(
-          /*BTDS*/ "The placement isn't available because you asked to be opted out of it. Please contact your Meta Sales team if you would like to opt back in.",
-        ),
-      );
-    }
-    function z() {
+    function U() {
       return { type: "DIRECT_INSTALL" };
     }
-    function j() {
+    function V() {
       return { type: "DCO" };
     }
-    function K() {
+    function H() {
       return { type: "OMNICHANNEL" };
     }
-    function Q(e) {
+    function G(e) {
       return { type: "WHATSAPP", objective: e };
     }
-    function X(e) {
-      return { type: "PLAN_TYPE", planType: e };
-    }
-    function Y() {
+    function z() {
       return { type: "IG_LOGIN" };
     }
-    function J() {
+    function j() {
       return { type: "INSTANT_GAME" };
     }
-    function Z() {
+    function K() {
       return { type: "PHONE_CALL_LEAD" };
     }
-    function ee() {
+    function Q() {
       return { type: "PHONE_CALL_TRAFFIC" };
     }
-    function te() {
-      return { type: "IG_PROFILE_VISIT_TRAFFIC" };
-    }
-    function ne() {
-      return { type: "IG_PROFILE_AND_FB_PAGE_VISIT_TRAFFIC" };
-    }
-    function re() {
-      return { type: "FB_PAGE_VISIT_TRAFFIC" };
-    }
-    function oe() {
+    function X() {
       return { type: "PHONE_CALL_CONVERSIONS_OR_SALES" };
     }
-    function ae() {
+    function Y() {
       return { type: "DONATION" };
     }
-    function ie() {
+    function J() {
       return { type: "GROUP" };
     }
-    function le() {
+    function Z() {
       return { type: "REMINDER" };
     }
-    function se() {
+    function ee() {
       return { type: "IMAGINATION" };
     }
-    function ue() {
+    function te() {
       return { type: "GROWTH_APP_STORE" };
     }
-    function ce() {
+    function ne() {
       return { type: "INSTAGRAM_LIVE" };
     }
-    function de() {
+    function re() {
       return { type: "FACEBOOK_LIVE" };
     }
-    function me(e, t) {
+    function oe(e, t) {
       return {
         type: "ACCOUNT_CONTROL_PLACEMENT_EXCLUSION",
         ad_account_id: e,
         objective: t,
       };
     }
-    function pe(e, t, n, r, o) {
+    function ae(e, t, n, r, o) {
       return {
         type: "OCULUS",
         placementPlugin: e,
@@ -237,235 +206,166 @@ __d(
         objectStoreURL: o,
       };
     }
-    function _e() {
+    function ie() {
       return { type: "LEAD_FORM_MESSENGER" };
     }
-    function fe(e) {
-      return { publisherPlatform: e, type: "PUBLISHER_PLATFORM" };
-    }
-    function ge() {
+    function le() {
       return { type: "TARGET_FREQUENCY_AUCTION" };
+    }
+    function se(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function ue(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function ce(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function de(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function me(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function pe(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function _e(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function fe(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function ge(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
     }
     function he(e) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for pageless CTWA ads.",
-          );
+          return s._(/*BTDS*/ "");
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available for pageless CTWA ads.",
-          );
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
     function ye(e) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available with the phone call lead method.",
-          );
+          return s._(/*BTDS*/ "");
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This placement isn't available with the phone call lead method.",
-          );
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
     function Ce(e) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for phone call traffic.",
-          );
+          return s._(/*BTDS*/ "");
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This placement isn't available for phone call traffic.",
-          );
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
     function be(e) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for phone call conversions and sales.",
-          );
+          return s._(/*BTDS*/ "");
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This placement isn't available for phone call conversions and sales.",
-          );
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
     function ve(e) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available with an Instagram profile as a conversion location.",
-          );
+          return s._(/*BTDS*/ "");
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available with an Instagram profile as a conversion location.",
-          );
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
     function Se(e) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available with a Facebook Page as a destination.",
-          );
+          return s._(/*BTDS*/ "");
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available with a Facebook Page as a destination.",
-          );
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
     function Re(e) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available with an Instagram profile or Facebook Page as a destination.",
-          );
+          return s._(/*BTDS*/ "");
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available with an Instagram profile or Facebook Page as a destination.",
-          );
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
     function Le(e) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available when logging in with your Instagram account.",
-          );
+          return s._(/*BTDS*/ "");
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available when logging in with your Instagram account.",
-          );
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
-    function Ee(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for Facebook donations.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available for Facebook donations.",
-          );
-      }
-      u(0, 159);
-    }
-    function ke(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for Facebook Group promotion.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available for Facebook Group promotion.",
-          );
-      }
-      u(0, 159);
-    }
-    function Ie(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for Imagine Ads.",
-          );
-        case "PLATFORM":
-          return s._(/*BTDS*/ "This platform isn't available for Imagine Ads.");
-      }
-      u(0, 159);
-    }
-    function Te(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn\u2019t available for the selected mobile app store.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn\u2019t available for the selected mobile app store.",
-          );
-      }
-      u(0, 159);
-    }
-    function De(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn\u2019t available for reminder ads.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This placement isn\u2019t available for reminder ads.",
-          );
-      }
-      u(0, 159);
-    }
-    function xe(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available when promoting an app.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available when promoting an app.",
-          );
-      }
-      u(0, 159);
-    }
-    function $e(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available with omnichannel ads",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available with omnichannel ads",
-          );
-      }
-      u(0, 159);
-    }
-    function Pe(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available when promoting a mobile app.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available when promoting a mobile app.",
-          );
-      }
-      u(0, 159);
-    }
-    function Ne(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available when promoting a canvas app.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available when promoting a canvas app.",
-          );
-      }
-      u(0, 159);
-    }
-    function Me(e, t) {
+    function Ee(e, t) {
       var n = null;
       switch (
         (t.objective === r("AdsAPIObjectives").LINK_CLICKS
@@ -488,62 +388,44 @@ __d(
         e)
       ) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for Messenger {label}.",
-            [s._param("label", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("label", n)]);
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available for Messenger {label} .",
-            [s._param("label", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("label", n)]);
       }
       u(0, 159);
     }
-    function we(e, t) {
+    function ke(e, t) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement is not available with the {objective} objective.",
-            [s._param("objective", t.objectiveName)],
-          );
+          return s._(/*BTDS*/ "", [s._param("objective", t.objectiveName)]);
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform is not available with the {objective} objective.",
-            [s._param("objective", t.objectiveName)],
-          );
+          return s._(/*BTDS*/ "", [s._param("objective", t.objectiveName)]);
       }
       u(0, 159);
     }
-    function Ae(e) {
+    function Ie(e) {
       switch (e) {
         case r("AdsAPIDevicePlatform").MOBILE:
-          return s._(/*BTDS*/ "mobile");
+          return s._(/*BTDS*/ "");
         case r("AdsAPIDevicePlatform").DESKTOP:
-          return s._(/*BTDS*/ "desktop");
+          return s._(/*BTDS*/ "");
         case r("AdsAPIDevicePlatform").CONNECTED_TV:
-          return s._(/*BTDS*/ "TV");
+          return s._(/*BTDS*/ "");
         default:
           return e;
       }
     }
-    function Fe(e, t) {
-      var n = Ae(t.devicePlatform);
+    function Te(e, t) {
+      var n = Ie(t.devicePlatform);
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available with the {device platform} device type.",
-            [s._param("device platform", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("device platform", n)]);
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available with the {device platform} device type.",
-            [s._param("device platform", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("device platform", n)]);
       }
       u(0, 159);
     }
-    function Oe(e, t) {
+    function De(e, t) {
       var n = r("AdsBuyingTypeNames")[t.buyingType],
         o =
           t.placementPlugin ===
@@ -551,333 +433,385 @@ __d(
       switch (e) {
         case "GROUP":
           return o
-            ? s._(
-                /*BTDS*/ "This option is not yet available for the {buying type} buying type.",
-                [s._param("buying type", n)],
-              )
-            : s._(
-                /*BTDS*/ "This placement isn't available with the {buying type} buying type.",
-                [s._param("buying type", n)],
-              );
+            ? s._(/*BTDS*/ "", [s._param("buying type", n)])
+            : s._(/*BTDS*/ "", [s._param("buying type", n)]);
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available with the {buying type} buying type.",
-            [s._param("buying type", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("buying type", n)]);
       }
       u(0, 159);
     }
-    function Be(e) {
+    function xe(e) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available with a Windows app.",
-          );
+          return s._(/*BTDS*/ "");
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available with a Windows app.",
-          );
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function $e(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    var Pe = s._(/*BTDS*/ "");
+    function Ne(e) {
+      switch (e) {
+        case "GROUP":
+          return Pe;
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function Me(e, t) {
+      var n = r("AdsAPIObjectiveStringsStatic").result[t.objective].name;
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "", [s._param("objective", n)]);
+        case "PLATFORM":
+          return s._(/*BTDS*/ "", [s._param("objective", n)]);
+      }
+      u(0, 159);
+    }
+    function we(e, t) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function Ae(e, t) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function Fe(e, t) {
+      return t.message;
+    }
+    function Oe(e, t) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function Be(e, t) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
     function We(e) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available with the selected performance goal.",
-          );
+          return s._(/*BTDS*/ "");
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This placement isn't available with the selected optimization goal.",
-          );
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
-    var qe = s._(
-      /*BTDS*/ "This placement isn't available with the Special Ads Categories you selected.",
-    );
+    function qe() {
+      return s._(/*BTDS*/ "", [
+        s._param(
+          "conversion_location",
+          d.jsx("strong", {
+            children: o("WAMOLabelStrings").CONVERSION_LOCATION,
+          }),
+        ),
+        s._param(
+          "messaging_apps",
+          d.jsx("strong", {
+            children: o("WAMOLabelStrings").MESSAGING_APPS_LOWERCASE,
+          }),
+        ),
+        s._param("whatsapp", o("WAMOLabelStrings").WHATSAPP),
+      ]);
+    }
+    qe.displayName = qe.name + " [from " + i.id + "]";
     function Ue(e) {
-      switch (e) {
-        case "GROUP":
-          return qe;
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This placement isn't available with the Special Ads Categories you selected.",
-          );
-      }
-      u(0, 159);
-    }
-    function Ve(e, t) {
-      var n = r("AdsAPIObjectiveStringsStatic").result[t.objective].name;
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available when using an offer with the {objective} objective.",
-            [s._param("objective", n)],
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available when using an offer with the {objective} objective.",
-            [s._param("objective", n)],
-          );
-      }
-      u(0, 159);
-    }
-    function He(e, t) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement is available once you've consistently run ads that comply with our Advertising Policies.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform is available once you've consistently run ads that comply with our Advertising Policies.",
-          );
-      }
-      u(0, 159);
-    }
-    function Ge(e, t) {
-      switch (e) {
-        case "GROUP":
-          return s._(/*BTDS*/ "This placement isn't available.");
-        case "PLATFORM":
-          return s._(/*BTDS*/ "This platform isn't available.");
-      }
-      u(0, 159);
-    }
-    function ze(e, t) {
-      return t.message;
-    }
-    function je(e, t) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "Marketing messages aren't available for this campaign. This placement is available to businesses that meet WhatsApp's requirements for marketing messages.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "Marketing messages aren't available for this campaign. This platform is available to businesses that meet WhatsApp's requirements for marketing messages.",
-          );
-      }
-      u(0, 159);
-    }
-    function Ke(e, t) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for direct install.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available for direct install.",
-          );
-      }
-      u(0, 159);
-    }
-    function Qe(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement is not available when using dynamic creative.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform is not available when using dynamic creative.",
-          );
-      }
-      u(0, 159);
-    }
-    function Xe() {
-      return s._(
-        /*BTDS*/ "This placement is only available when your {conversion_location} is set to {messaging_apps} and using {whatsapp} as a destination.",
-        [
-          s._param(
-            "conversion_location",
-            d.jsx("strong", {
-              children: o("WAMOLabelStrings").CONVERSION_LOCATION,
-            }),
-          ),
-          s._param(
-            "messaging_apps",
-            d.jsx("strong", {
-              children: o("WAMOLabelStrings").MESSAGING_APPS_LOWERCASE,
-            }),
-          ),
-          s._param("whatsapp", o("WAMOLabelStrings").WHATSAPP),
-        ],
-      );
-    }
-    Xe.displayName = Xe.name + " [from " + i.id + "]";
-    function Ye(e) {
       var t = e.objective;
       switch (t) {
         case r("AdsAPIObjectives").OUTCOME_ENGAGEMENT:
-          return s._(
-            /*BTDS*/ "This placement is only available when your {conversion_location} is set to {message_destinations}, {onYourAd} or {website}.",
-            [
-              s._param(
-                "conversion_location",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").CONVERSION_LOCATION,
-                }),
-              ),
-              s._param(
-                "message_destinations",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").MESSAGE_DESTINATIONS,
-                }),
-              ),
-              s._param(
-                "onYourAd",
-                d.jsx("strong", { children: o("WAMOLabelStrings").ON_YOUR_AD }),
-              ),
-              s._param(
-                "website",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").WEBSITE_LOWERCASE,
-                }),
-              ),
-            ],
-          );
+          return s._(/*BTDS*/ "", [
+            s._param(
+              "conversion_location",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").CONVERSION_LOCATION,
+              }),
+            ),
+            s._param(
+              "message_destinations",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").MESSAGE_DESTINATIONS,
+              }),
+            ),
+            s._param(
+              "onYourAd",
+              d.jsx("strong", { children: o("WAMOLabelStrings").ON_YOUR_AD }),
+            ),
+            s._param(
+              "website",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").WEBSITE_LOWERCASE,
+              }),
+            ),
+          ]);
         case r("AdsAPIObjectives").OUTCOME_LEADS:
-          return s._(
-            /*BTDS*/ "This placement is only available when your {conversion_location} is set to {website} or {whatsapp}.",
-            [
-              s._param(
-                "conversion_location",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").CONVERSION_LOCATION,
-                }),
-              ),
-              s._param(
-                "website",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").WEBSITE_LOWERCASE,
-                }),
-              ),
-              s._param(
-                "whatsapp",
-                d.jsx("strong", { children: o("WAMOLabelStrings").WHATSAPP }),
-              ),
-            ],
-          );
+          return s._(/*BTDS*/ "", [
+            s._param(
+              "conversion_location",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").CONVERSION_LOCATION,
+              }),
+            ),
+            s._param(
+              "website",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").WEBSITE_LOWERCASE,
+              }),
+            ),
+            s._param(
+              "whatsapp",
+              d.jsx("strong", { children: o("WAMOLabelStrings").WHATSAPP }),
+            ),
+          ]);
         case r("AdsAPIObjectives").OUTCOME_TRAFFIC:
         case r("AdsAPIObjectives").OUTCOME_SALES:
         default:
-          return s._(
-            /*BTDS*/ "This placement is only available when your {conversion_location} is set to {website} or {message_destinations} and using WhatsApp as a destination.",
-            [
-              s._param(
-                "conversion_location",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").CONVERSION_LOCATION,
-                }),
-              ),
-              s._param(
-                "website",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").WEBSITE_LOWERCASE,
-                }),
-              ),
-              s._param(
-                "message_destinations",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").MESSAGE_DESTINATIONS,
-                }),
-              ),
-            ],
-          );
+          return s._(/*BTDS*/ "", [
+            s._param(
+              "conversion_location",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").CONVERSION_LOCATION,
+              }),
+            ),
+            s._param(
+              "website",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").WEBSITE_LOWERCASE,
+              }),
+            ),
+            s._param(
+              "message_destinations",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").MESSAGE_DESTINATIONS,
+              }),
+            ),
+          ]);
       }
     }
-    function Je() {
-      return s._(
-        /*BTDS*/ "This placement is only available when using {whatsapp} as your {conversion_location}.",
-        [
-          s._param(
-            "whatsapp",
-            d.jsx("strong", { children: o("WAMOLabelStrings").WHATSAPP }),
-          ),
-          s._param(
-            "conversion_location",
-            d.jsx("strong", {
-              children: o("WAMOLabelStrings").CONVERSION_LOCATION,
-            }),
-          ),
-        ],
-      );
+    function Ve() {
+      return s._(/*BTDS*/ "", [
+        s._param(
+          "whatsapp",
+          d.jsx("strong", { children: o("WAMOLabelStrings").WHATSAPP }),
+        ),
+        s._param(
+          "conversion_location",
+          d.jsx("strong", {
+            children: o("WAMOLabelStrings").CONVERSION_LOCATION,
+          }),
+        ),
+      ]);
     }
-    Je.displayName = Je.name + " [from " + i.id + "]";
-    function Ze() {
-      return s._(
-        /*BTDS*/ "Placeholder for placement destination ineligibility reason",
-      );
+    Ve.displayName = Ve.name + " [from " + i.id + "]";
+    function He() {
+      return s._(/*BTDS*/ "");
     }
-    Ze.displayName = Ze.name + " [from " + i.id + "]";
-    function et() {
-      return s._(
-        /*BTDS*/ "This placement is not available when running a campaign with a Special Ad Category. {=m2}",
-        [
+    He.displayName = He.name + " [from " + i.id + "]";
+    function Ge() {
+      return s._(/*BTDS*/ "", [
+        s._implicitParam(
+          "=m2",
+          d.jsx(r("AHGHelpTrayLink2.react"), {
+            helpCenterID:
+              o("AdsUniqueMetricsID").ABOUT_SPECIAL_AD_CATEGORY_CMS_ID,
+            children: s._(/*BTDS*/ ""),
+          }),
+        ),
+      ]);
+    }
+    Ge.displayName = Ge.name + " [from " + i.id + "]";
+    function ze() {
+      return s._(/*BTDS*/ "", [
+        s._implicitParam(
+          "=m2",
+          d.jsx(r("AHGHelpTrayLink2.react"), {
+            helpCenterID:
+              o("AdsUniqueMetricsID").ABOUT_SPECIAL_AD_CATEGORY_CMS_ID,
+            children: s._(/*BTDS*/ ""),
+          }),
+        ),
+      ]);
+    }
+    ze.displayName = ze.name + " [from " + i.id + "]";
+    function je() {
+      return s._(/*BTDS*/ "");
+    }
+    je.displayName = je.name + " [from " + i.id + "]";
+    function Ke() {
+      return s._(/*BTDS*/ "");
+    }
+    Ke.displayName = Ke.name + " [from " + i.id + "]";
+    function Qe() {
+      return s._(/*BTDS*/ "");
+    }
+    Qe.displayName = Qe.name + " [from " + i.id + "]";
+    function Xe() {
+      return s._(/*BTDS*/ "");
+    }
+    Xe.displayName = Xe.name + " [from " + i.id + "]";
+    function Ye() {
+      return s._(/*BTDS*/ "", [
+        s._param(
+          "traffic",
+          d.jsx("strong", {
+            children: o("AdsODAXObjectiveStrings").getObjectiveNameLowerCase(
+              r("AdsAPIObjectives").LINK_CLICKS,
+            ),
+          }),
+        ),
+      ]);
+    }
+    Ye.displayName = Ye.name + " [from " + i.id + "]";
+    function Je(e) {
+      var t = e.isAppPromotionLinkClicks,
+        n = e.isEUAdvertiser,
+        a = e.isLPVEligible,
+        i = e.isQualityLeadOptimizationGoal,
+        l = e.isValueOptimizationGoal,
+        u = e.objective,
+        c = e.onlyShowCTWAReason,
+        m = e.promotedObjectType;
+      if (u === r("AdsAPIObjectives").APP_INSTALLS && !n && t === !0)
+        return s._(/*BTDS*/ "", [
           s._implicitParam(
             "=m2",
-            d.jsx(r("AHGHelpTrayLink2.react"), {
-              helpCenterID:
-                o("AdsUniqueMetricsID").ABOUT_SPECIAL_AD_CATEGORY_CMS_ID,
-              children: s._(/*BTDS*/ "About choosing a Special Ad Category"),
-            }),
+            d.jsx("strong", { children: s._(/*BTDS*/ "") }),
           ),
-        ],
-      );
-    }
-    et.displayName = et.name + " [from " + i.id + "]";
-    function tt() {
-      return s._(
-        /*BTDS*/ "This placement is not available while using A\/B Testing.",
-      );
-    }
-    tt.displayName = tt.name + " [from " + i.id + "]";
-    function nt() {
-      return s._(
-        /*BTDS*/ "This placement is only available for e-commerce, travel and vehicle catalogs.",
-      );
-    }
-    nt.displayName = nt.name + " [from " + i.id + "]";
-    function rt() {
-      return s._(
-        /*BTDS*/ "This placement is only available when using a manual campaign setup.",
-      );
-    }
-    rt.displayName = rt.name + " [from " + i.id + "]";
-    function ot() {
-      return s._(/*BTDS*/ "This placement is not available.");
-    }
-    ot.displayName = ot.name + " [from " + i.id + "]";
-    function at() {
-      return s._(
-        /*BTDS*/ "This placement is only available for the {traffic} objective.",
-        [
+          s._implicitParam(
+            "=m5",
+            d.jsx("strong", { children: s._(/*BTDS*/ "") }),
+          ),
+          s._implicitParam(
+            "=m7",
+            d.jsx("strong", { children: s._(/*BTDS*/ "") }),
+          ),
+          s._implicitParam(
+            "=m10",
+            d.jsx("strong", { children: s._(/*BTDS*/ "") }),
+          ),
+        ]);
+      if (i)
+        return s._(/*BTDS*/ "", [
           s._param(
-            "traffic",
+            "performance goal",
             d.jsx("strong", {
-              children: o("AdsODAXObjectiveStrings").getObjectiveNameLowerCase(
-                r("AdsAPIObjectives").LINK_CLICKS,
-              ),
+              children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
             }),
           ),
-        ],
-      );
-    }
-    at.displayName = at.name + " [from " + i.id + "]";
-    function it(e) {
-      var t = e.isEUAdvertiser,
-        n = e.isLPVEligible,
-        a = e.isValueOptimizationGoal,
-        i = e.objective,
-        l = e.onlyShowCTWAReason,
-        u = e.promotedObjectType;
-      if (a)
-        return s._(
-          /*BTDS*/ "This placement is not available when your {performance goal} is set to {maximize value of conversions}.",
-          [
+          s._param(
+            "maximize number of qualified leads",
+            d.jsx("strong", {
+              children:
+                o("WAMOLabelStrings").MAXIMIZE_NUMBER_OF_QUALIFIED_LEADS,
+            }),
+          ),
+        ]);
+      if (l)
+        return s._(/*BTDS*/ "", [
+          s._param(
+            "performance goal",
+            d.jsx("strong", {
+              children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
+            }),
+          ),
+          s._param(
+            "maximize value of conversions",
+            d.jsx("strong", {
+              children: o("WAMOLabelStrings").MAXIMIZE_VALUE_OF_CONVERSIONS,
+            }),
+          ),
+        ]);
+      if (n)
+        return s._(/*BTDS*/ "", [
+          s._param(
+            "performance goal",
+            d.jsx("strong", {
+              children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
+            }),
+          ),
+          s._param(
+            "daily unique reach",
+            d.jsx("strong", {
+              children: o("WAMOLabelStrings").DAILY_UNIQUE_REACH,
+            }),
+          ),
+          s._param(
+            "impressions",
+            d.jsx("strong", { children: o("WAMOLabelStrings").IMPRESSIONS }),
+          ),
+        ]);
+      if (c)
+        return s._(/*BTDS*/ "", [
+          s._implicitParam(
+            "=m2",
+            d.jsx("strong", { children: s._(/*BTDS*/ "") }),
+          ),
+          s._implicitParam(
+            "=m4",
+            d.jsx("strong", { children: s._(/*BTDS*/ "") }),
+          ),
+        ]);
+      var p =
+        m === r("AdsPromotedObjectTypes").WEBSITE ||
+        m === r("AdsPromotedObjectTypes").PIXEL;
+      switch (u) {
+        case r("AdsAPIObjectives").LINK_CLICKS:
+          if (a) {
+            var _;
+            return s._(/*BTDS*/ "", [
+              s._param(
+                "performance goal",
+                d.jsx("strong", {
+                  children: (_ = o("WAMOLabelStrings")).PERFORMANCE_GOAL,
+                }),
+              ),
+              s._param(
+                "link clicks",
+                d.jsx("strong", { children: _.LINK_CLICKS }),
+              ),
+              s._param(
+                "landing page views",
+                d.jsx("strong", { children: _.LANDING_PAGE_VIEWS }),
+              ),
+              s._param(
+                "daily unique reach",
+                d.jsx("strong", { children: _.DAILY_UNIQUE_REACH }),
+              ),
+              s._param(
+                "number of impressions",
+                d.jsx("strong", { children: _.NUMBER_OF_IMPRESSIONS }),
+              ),
+            ]);
+          }
+          return s._(/*BTDS*/ "", [
             s._param(
               "performance goal",
               d.jsx("strong", {
@@ -885,22 +819,133 @@ __d(
               }),
             ),
             s._param(
-              "maximize value of conversions",
+              "landing page views",
               d.jsx("strong", {
-                children: o("WAMOLabelStrings").MAXIMIZE_VALUE_OF_CONVERSIONS,
+                children: o("WAMOLabelStrings").LANDING_PAGE_VIEWS,
               }),
             ),
-          ],
-        );
-      if (t)
-        return s._(
-          /*BTDS*/ "This placement is only available when your {performance goal} is set to {daily unique reach} or {impressions}.",
-          [
+          ]);
+        case r("AdsAPIObjectives").OUTCOME_AWARENESS:
+          return s._(/*BTDS*/ "", [
             s._param(
               "performance goal",
               d.jsx("strong", {
                 children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
               }),
+            ),
+            s._param(
+              "reach of ads",
+              d.jsx("strong", { children: o("WAMOLabelStrings").REACH_OF_ADS }),
+            ),
+            s._param(
+              "number of impressions",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").NUMBER_OF_IMPRESSIONS,
+              }),
+            ),
+            s._param(
+              "ThruPlay views",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").THRUPLAY_VIEWS,
+              }),
+            ),
+          ]);
+        case r("AdsAPIObjectives").OUTCOME_ENGAGEMENT:
+          return p
+            ? a
+              ? s._(/*BTDS*/ "", [
+                  s._param(
+                    "performance goal",
+                    d.jsx("strong", {
+                      children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
+                    }),
+                  ),
+                  s._param(
+                    "maximize number of conversions",
+                    d.jsx("strong", {
+                      children:
+                        o("WAMOLabelStrings").MAXIMIZE_NUMBER_OF_CONVERSIONS,
+                    }),
+                  ),
+                ])
+              : s._(/*BTDS*/ "", [
+                  s._param(
+                    "performance goal",
+                    d.jsx("strong", {
+                      children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
+                    }),
+                  ),
+                  s._param(
+                    "link clicks",
+                    d.jsx("strong", {
+                      children: o("WAMOLabelStrings").LINK_CLICKS,
+                    }),
+                  ),
+                  s._param(
+                    "daily unique reach",
+                    d.jsx("strong", {
+                      children: o("WAMOLabelStrings").DAILY_UNIQUE_REACH,
+                    }),
+                  ),
+                  s._param(
+                    "number of impressions",
+                    d.jsx("strong", {
+                      children: o("WAMOLabelStrings").NUMBER_OF_IMPRESSIONS,
+                    }),
+                  ),
+                ])
+            : s._(/*BTDS*/ "", [
+                s._param(
+                  "performance goal",
+                  d.jsx("strong", {
+                    children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
+                  }),
+                ),
+                s._param(
+                  "maximize ThruPlay views",
+                  d.jsx("strong", {
+                    children: o("WAMOLabelStrings").MAXIMIZE_THRUPLAY_VIEWS,
+                  }),
+                ),
+              ]);
+        case r("AdsAPIObjectives").OUTCOME_LEADS:
+          if (a) {
+            var _;
+            return s._(/*BTDS*/ "", [
+              s._param(
+                "performance goal",
+                d.jsx("strong", {
+                  children: (_ = o("WAMOLabelStrings")).PERFORMANCE_GOAL,
+                }),
+              ),
+              s._param(
+                "landing page views",
+                d.jsx("strong", { children: _.LANDING_PAGE_VIEWS }),
+              ),
+              s._param(
+                "link clicks",
+                d.jsx("strong", { children: _.LINK_CLICKS }),
+              ),
+              s._param(
+                "daily unique reach",
+                d.jsx("strong", { children: _.DAILY_UNIQUE_REACH }),
+              ),
+              s._param(
+                "number of impressions",
+                d.jsx("strong", { children: _.NUMBER_OF_IMPRESSIONS }),
+              ),
+            ]);
+          }
+          return s._(/*BTDS*/ "", [
+            s._param(
+              "performance goal",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
+              }),
+            ),
+            s._param(
+              "link clicks",
+              d.jsx("strong", { children: o("WAMOLabelStrings").LINK_CLICKS }),
             ),
             s._param(
               "daily unique reach",
@@ -909,379 +954,137 @@ __d(
               }),
             ),
             s._param(
-              "impressions",
-              d.jsx("strong", { children: o("WAMOLabelStrings").IMPRESSIONS }),
-            ),
-          ],
-        );
-      if (l)
-        return s._(
-          /*BTDS*/ "This placement is only available when your {=m2} is set to {=m4}.",
-          [
-            s._implicitParam(
-              "=m2",
-              d.jsx("strong", { children: s._(/*BTDS*/ "performance goal") }),
-            ),
-            s._implicitParam(
-              "=m4",
+              "number of impressions",
               d.jsx("strong", {
-                children: s._(/*BTDS*/ "maximize number of conversations"),
+                children: o("WAMOLabelStrings").NUMBER_OF_IMPRESSIONS,
               }),
             ),
-          ],
-        );
-      var c =
-        u === r("AdsPromotedObjectTypes").WEBSITE ||
-        u === r("AdsPromotedObjectTypes").PIXEL;
-      switch (i) {
-        case r("AdsAPIObjectives").LINK_CLICKS:
-          if (n) {
-            var m;
-            return s._(
-              /*BTDS*/ "This placement is only available when your {performance goal} is set to {link clicks}, {landing page views}, {daily unique reach} or {number of impressions}.",
-              [
+          ]);
+        case r("AdsAPIObjectives").OUTCOME_SALES:
+          if (p) {
+            if (a) {
+              var _;
+              return s._(/*BTDS*/ "", [
                 s._param(
                   "performance goal",
                   d.jsx("strong", {
-                    children: (m = o("WAMOLabelStrings")).PERFORMANCE_GOAL,
+                    children: (_ = o("WAMOLabelStrings")).PERFORMANCE_GOAL,
                   }),
                 ),
                 s._param(
-                  "link clicks",
-                  d.jsx("strong", { children: m.LINK_CLICKS }),
+                  "landing page views",
+                  d.jsx("strong", { children: _.LANDING_PAGE_VIEWS }),
                 ),
                 s._param(
-                  "landing page views",
-                  d.jsx("strong", { children: m.LANDING_PAGE_VIEWS }),
+                  "link clicks",
+                  d.jsx("strong", { children: _.LINK_CLICKS }),
                 ),
                 s._param(
                   "daily unique reach",
-                  d.jsx("strong", { children: m.DAILY_UNIQUE_REACH }),
+                  d.jsx("strong", { children: _.DAILY_UNIQUE_REACH }),
                 ),
                 s._param(
                   "number of impressions",
-                  d.jsx("strong", { children: m.NUMBER_OF_IMPRESSIONS }),
+                  d.jsx("strong", { children: _.NUMBER_OF_IMPRESSIONS }),
                 ),
-              ],
-            );
-          }
-          return s._(
-            /*BTDS*/ "This placement isn't available when your {performance goal} is set to {landing page views}.",
-            [
+              ]);
+            }
+            return s._(/*BTDS*/ "", [
               s._param(
                 "performance goal",
                 d.jsx("strong", {
                   children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
                 }),
+              ),
+              s._param(
+                "number of link clicks",
+                d.jsx("strong", {
+                  children: o("WAMOLabelStrings").NUMBER_OF_LINK_CLICKS,
+                }),
+              ),
+              s._param(
+                "daily unique reach",
+                d.jsx("strong", {
+                  children: o("WAMOLabelStrings").DAILY_UNIQUE_REACH,
+                }),
+              ),
+              s._param(
+                "number of impressions",
+                d.jsx("strong", {
+                  children: o("WAMOLabelStrings").NUMBER_OF_IMPRESSIONS,
+                }),
+              ),
+            ]);
+          }
+          return s._(/*BTDS*/ "", [
+            s._param(
+              "performance goal",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
+              }),
+            ),
+            s._param(
+              "maximize number of conversions",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").MAXIMIZE_NUMBER_OF_CONVERSIONS,
+              }),
+            ),
+          ]);
+        default:
+          if (a) {
+            var _;
+            return s._(/*BTDS*/ "", [
+              s._param(
+                "performance goal",
+                d.jsx("strong", {
+                  children: (_ = o("WAMOLabelStrings")).PERFORMANCE_GOAL,
+                }),
+              ),
+              s._param(
+                "link clicks",
+                d.jsx("strong", { children: _.LINK_CLICKS }),
               ),
               s._param(
                 "landing page views",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").LANDING_PAGE_VIEWS,
-                }),
-              ),
-            ],
-          );
-        case r("AdsAPIObjectives").OUTCOME_AWARENESS:
-          return s._(
-            /*BTDS*/ "This placement is only available when your {performance goal} is set to {reach of ads}, {number of impressions} or {ThruPlay views}.",
-            [
-              s._param(
-                "performance goal",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
-                }),
-              ),
-              s._param(
-                "reach of ads",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").REACH_OF_ADS,
-                }),
-              ),
-              s._param(
-                "number of impressions",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").NUMBER_OF_IMPRESSIONS,
-                }),
-              ),
-              s._param(
-                "ThruPlay views",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").THRUPLAY_VIEWS,
-                }),
-              ),
-            ],
-          );
-        case r("AdsAPIObjectives").OUTCOME_ENGAGEMENT:
-          return c
-            ? n
-              ? s._(
-                  /*BTDS*/ "This placement isn't available when your {performance goal} is set to {maximize number of conversions}.",
-                  [
-                    s._param(
-                      "performance goal",
-                      d.jsx("strong", {
-                        children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
-                      }),
-                    ),
-                    s._param(
-                      "maximize number of conversions",
-                      d.jsx("strong", {
-                        children:
-                          o("WAMOLabelStrings").MAXIMIZE_NUMBER_OF_CONVERSIONS,
-                      }),
-                    ),
-                  ],
-                )
-              : s._(
-                  /*BTDS*/ "This placement is only available when your {performance goal} is set to {link clicks}, {daily unique reach} or {number of impressions}.",
-                  [
-                    s._param(
-                      "performance goal",
-                      d.jsx("strong", {
-                        children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
-                      }),
-                    ),
-                    s._param(
-                      "link clicks",
-                      d.jsx("strong", {
-                        children: o("WAMOLabelStrings").LINK_CLICKS,
-                      }),
-                    ),
-                    s._param(
-                      "daily unique reach",
-                      d.jsx("strong", {
-                        children: o("WAMOLabelStrings").DAILY_UNIQUE_REACH,
-                      }),
-                    ),
-                    s._param(
-                      "number of impressions",
-                      d.jsx("strong", {
-                        children: o("WAMOLabelStrings").NUMBER_OF_IMPRESSIONS,
-                      }),
-                    ),
-                  ],
-                )
-            : s._(
-                /*BTDS*/ "This placement is only available when your {performance goal} is set to {maximize ThruPlay views}.",
-                [
-                  s._param(
-                    "performance goal",
-                    d.jsx("strong", {
-                      children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
-                    }),
-                  ),
-                  s._param(
-                    "maximize ThruPlay views",
-                    d.jsx("strong", {
-                      children: o("WAMOLabelStrings").MAXIMIZE_THRUPLAY_VIEWS,
-                    }),
-                  ),
-                ],
-              );
-        case r("AdsAPIObjectives").OUTCOME_LEADS:
-          if (n) {
-            var m;
-            return s._(
-              /*BTDS*/ "This placement is only available when your {performance goal} is set to {landing page views}, {link clicks}, {daily unique reach} or {number of impressions}.",
-              [
-                s._param(
-                  "performance goal",
-                  d.jsx("strong", {
-                    children: (m = o("WAMOLabelStrings")).PERFORMANCE_GOAL,
-                  }),
-                ),
-                s._param(
-                  "landing page views",
-                  d.jsx("strong", { children: m.LANDING_PAGE_VIEWS }),
-                ),
-                s._param(
-                  "link clicks",
-                  d.jsx("strong", { children: m.LINK_CLICKS }),
-                ),
-                s._param(
-                  "daily unique reach",
-                  d.jsx("strong", { children: m.DAILY_UNIQUE_REACH }),
-                ),
-                s._param(
-                  "number of impressions",
-                  d.jsx("strong", { children: m.NUMBER_OF_IMPRESSIONS }),
-                ),
-              ],
-            );
-          }
-          return s._(
-            /*BTDS*/ "This placement is only available when your {performance goal} is set to {link clicks}, {daily unique reach} or {number of impressions}.",
-            [
-              s._param(
-                "performance goal",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
-                }),
-              ),
-              s._param(
-                "link clicks",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").LINK_CLICKS,
-                }),
+                d.jsx("strong", { children: _.LANDING_PAGE_VIEWS }),
               ),
               s._param(
                 "daily unique reach",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").DAILY_UNIQUE_REACH,
-                }),
+                d.jsx("strong", { children: _.DAILY_UNIQUE_REACH }),
               ),
               s._param(
                 "number of impressions",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").NUMBER_OF_IMPRESSIONS,
-                }),
+                d.jsx("strong", { children: _.NUMBER_OF_IMPRESSIONS }),
               ),
-            ],
-          );
-        case r("AdsAPIObjectives").OUTCOME_SALES:
-          if (c) {
-            if (n) {
-              var m;
-              return s._(
-                /*BTDS*/ "This placement is only available when your {performance goal} is set to {landing page views}, {link clicks}, {daily unique reach} or {number of impressions}.",
-                [
-                  s._param(
-                    "performance goal",
-                    d.jsx("strong", {
-                      children: (m = o("WAMOLabelStrings")).PERFORMANCE_GOAL,
-                    }),
-                  ),
-                  s._param(
-                    "landing page views",
-                    d.jsx("strong", { children: m.LANDING_PAGE_VIEWS }),
-                  ),
-                  s._param(
-                    "link clicks",
-                    d.jsx("strong", { children: m.LINK_CLICKS }),
-                  ),
-                  s._param(
-                    "daily unique reach",
-                    d.jsx("strong", { children: m.DAILY_UNIQUE_REACH }),
-                  ),
-                  s._param(
-                    "number of impressions",
-                    d.jsx("strong", { children: m.NUMBER_OF_IMPRESSIONS }),
-                  ),
-                ],
-              );
-            }
-            return s._(
-              /*BTDS*/ "This placement is only available when your {performance goal} is set to {number of link clicks}, {daily unique reach} or {number of impressions}.",
-              [
-                s._param(
-                  "performance goal",
-                  d.jsx("strong", {
-                    children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
-                  }),
-                ),
-                s._param(
-                  "number of link clicks",
-                  d.jsx("strong", {
-                    children: o("WAMOLabelStrings").NUMBER_OF_LINK_CLICKS,
-                  }),
-                ),
-                s._param(
-                  "daily unique reach",
-                  d.jsx("strong", {
-                    children: o("WAMOLabelStrings").DAILY_UNIQUE_REACH,
-                  }),
-                ),
-                s._param(
-                  "number of impressions",
-                  d.jsx("strong", {
-                    children: o("WAMOLabelStrings").NUMBER_OF_IMPRESSIONS,
-                  }),
-                ),
-              ],
-            );
+            ]);
           }
-          return s._(
-            /*BTDS*/ "This placement isn't available when your {performance goal} is set to {maximize number of conversions}.",
-            [
-              s._param(
-                "performance goal",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
-                }),
-              ),
-              s._param(
-                "maximize number of conversions",
-                d.jsx("strong", {
-                  children:
-                    o("WAMOLabelStrings").MAXIMIZE_NUMBER_OF_CONVERSIONS,
-                }),
-              ),
-            ],
-          );
-        default:
-          if (n) {
-            var m;
-            return s._(
-              /*BTDS*/ "This placement is only available when your {performance goal} is set to {link clicks}, {landing page views}, {daily unique reach} or {number of impressions}.",
-              [
-                s._param(
-                  "performance goal",
-                  d.jsx("strong", {
-                    children: (m = o("WAMOLabelStrings")).PERFORMANCE_GOAL,
-                  }),
-                ),
-                s._param(
-                  "link clicks",
-                  d.jsx("strong", { children: m.LINK_CLICKS }),
-                ),
-                s._param(
-                  "landing page views",
-                  d.jsx("strong", { children: m.LANDING_PAGE_VIEWS }),
-                ),
-                s._param(
-                  "daily unique reach",
-                  d.jsx("strong", { children: m.DAILY_UNIQUE_REACH }),
-                ),
-                s._param(
-                  "number of impressions",
-                  d.jsx("strong", { children: m.NUMBER_OF_IMPRESSIONS }),
-                ),
-              ],
-            );
-          }
-          return s._(
-            /*BTDS*/ "This placement is only available when your {performance goal} is set to {link clicks}, {daily unique reach} or {number of impressions}.",
-            [
-              s._param(
-                "performance goal",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
-                }),
-              ),
-              s._param(
-                "link clicks",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").LINK_CLICKS,
-                }),
-              ),
-              s._param(
-                "daily unique reach",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").DAILY_UNIQUE_REACH,
-                }),
-              ),
-              s._param(
-                "number of impressions",
-                d.jsx("strong", {
-                  children: o("WAMOLabelStrings").NUMBER_OF_IMPRESSIONS,
-                }),
-              ),
-            ],
-          );
+          return s._(/*BTDS*/ "", [
+            s._param(
+              "performance goal",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").PERFORMANCE_GOAL,
+              }),
+            ),
+            s._param(
+              "link clicks",
+              d.jsx("strong", { children: o("WAMOLabelStrings").LINK_CLICKS }),
+            ),
+            s._param(
+              "daily unique reach",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").DAILY_UNIQUE_REACH,
+              }),
+            ),
+            s._param(
+              "number of impressions",
+              d.jsx("strong", {
+                children: o("WAMOLabelStrings").NUMBER_OF_IMPRESSIONS,
+              }),
+            ),
+          ]);
       }
     }
-    function lt(e, t) {
+    function Ze(e, t) {
       var n = null;
       switch (
         (t.objective === r("AdsAPIObjectives").LINK_CLICKS
@@ -1298,19 +1101,13 @@ __d(
         e)
       ) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for WhatsApp {label}.",
-            [s._param("label", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("label", n)]);
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available for WhatsApp {label} .",
-            [s._param("label", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("label", n)]);
       }
       u(0, 159);
     }
-    function st(e, t) {
+    function et(e, t) {
       var n = null;
       switch (
         (t.objective === r("AdsAPIObjectives").MESSAGES ||
@@ -1326,19 +1123,13 @@ __d(
         e)
       ) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for Instagram {label}.",
-            [s._param("label", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("label", n)]);
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available for Instagram {label} .",
-            [s._param("label", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("label", n)]);
       }
       u(0, 159);
     }
-    function ut(e, t) {
+    function tt(e, t) {
       var n = null;
       switch (
         ((t.objective === r("AdsAPIObjectives").OUTCOME_LEADS ||
@@ -1348,80 +1139,54 @@ __d(
         e)
       ) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for Instagram {label}.",
-            [s._param("label", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("label", n)]);
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available for Instagram {label}.",
-            [s._param("label", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("label", n)]);
       }
       u(0, 159);
     }
-    function ct(e, t) {
+    function nt(e, t) {
       var n = m[t.planType];
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available with the {plan type} plan type.",
-            [s._param("plan type", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("plan type", n)]);
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available with the {plan type} plan type.",
-            [s._param("plan type", n)],
-          );
+          return s._(/*BTDS*/ "", [s._param("plan type", n)]);
       }
       u(0, 159);
     }
-    function dt(e) {
+    function rt(e) {
       switch (e) {
         case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available when promoting an Instant Game.",
-          );
+          return s._(/*BTDS*/ "");
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available when promoting an Instant Game.",
-          );
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
-    function mt(e, t) {
+    function ot(e, t) {
       switch (e) {
         case "GROUP":
           switch (t.placementPlugin) {
             case "oculus/vr_apps":
             case "oculus/rewarded_video":
-              return s._(
-                /*BTDS*/ "This placement is only available for the web conversions, link clicks, reach, video views and brand awareness objectives.",
-              );
+              return s._(/*BTDS*/ "");
             default:
-              return s._(
-                /*BTDS*/ "This placement isn't available with the current ad setup.",
-              );
+              return s._(/*BTDS*/ "");
           }
         case "PLATFORM":
           switch (t.placementPlugin) {
             case "oculus/vr_apps":
-              return s._(
-                /*BTDS*/ "This placement is only available when advertising a website, brand or Oculus app.",
-              );
+              return s._(/*BTDS*/ "");
             case "oculus/rewarded_video":
-              return s._(
-                /*BTDS*/ "This placement is only available when advertising a website, brand, video or Oculus app.",
-              );
+              return s._(/*BTDS*/ "");
             default:
-              return s._(
-                /*BTDS*/ "This placement isn't available with the current ad setup.",
-              );
+              return s._(/*BTDS*/ "");
           }
       }
       u(0, 159);
     }
-    function pt(e, t) {
+    function at(e, t) {
       var n;
       switch (e) {
         case "GROUP":
@@ -1432,17 +1197,20 @@ __d(
             o("AdsBwIConstants").inelligiblePlacementPlatformLevelReasonBwI(t);
           break;
       }
-      if (n != null) return n;
-      u(0, 159);
+      return n != null
+        ? n
+        : Ae(
+            e,
+            o("AdsPlacementIneligibilityTrafficReasons").createGenericReason(),
+          );
     }
-    function _t(e, t) {
+    function it(e, t) {
       switch (e) {
         case "GROUP":
         case "PLATFORM":
           return o(
             "AdAccountBusinessConstraintsPerObjectivePlacementControlsGatingUtils",
-          ).isAdAccountBusinessConstraintsPerObjectivePlacementControlsEnabled() &&
-            t.objective != null
+          ).isPerObjectivePlacementControlsEnabled() && t.objective != null
             ? o(
                 "AdsTargetingAccountPlacementControlInfoConstants",
               ).accountControlInfoPlacementPositionObjectiveIneligibilityReason(
@@ -1457,101 +1225,78 @@ __d(
       }
       u(0, 159);
     }
+    function lt(e) {
+      switch (e) {
+        case "GROUP":
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function st(e) {
+      switch (e) {
+        case "GROUP":
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function ut(e) {
+      switch (e) {
+        case "GROUP":
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function ct(e) {
+      switch (e) {
+        case "GROUP":
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function dt(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function mt(e) {
+      switch (e) {
+        case "GROUP":
+          return s._(/*BTDS*/ "");
+        case "PLATFORM":
+          return s._(/*BTDS*/ "");
+      }
+      u(0, 159);
+    }
+    function pt() {
+      return s._(/*BTDS*/ "");
+    }
+    pt.displayName = pt.name + " [from " + i.id + "]";
+    function _t() {
+      return s._(/*BTDS*/ "", [
+        s._param(
+          "Ad sequencing",
+          d.jsx("strong", { children: "Ad sequencing" }),
+        ),
+      ]);
+    }
+    _t.displayName = _t.name + " [from " + i.id + "]";
     function ft(e) {
       switch (e) {
         case "GROUP":
         case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This placement isn't available with the Instant forms and Messenger conversion location.",
-          );
+          return s._(/*BTDS*/ "");
       }
       u(0, 159);
     }
-    function gt(e) {
-      switch (e) {
-        case "GROUP":
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This placement selection cannot be edited because of your placement selection for your ad set.",
-          );
-      }
-      u(0, 159);
-    }
-    function ht(e) {
-      switch (e) {
-        case "GROUP":
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available with an Instagram live video as a conversion location.",
-          );
-      }
-      u(0, 159);
-    }
-    function yt(e) {
-      switch (e) {
-        case "GROUP":
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This placement isn't available for a Facebook live video destination.",
-          );
-      }
-      u(0, 159);
-    }
-    function Ct(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available when using Target Frequency.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available when using Target Frequency.",
-          );
-      }
-      u(0, 159);
-    }
-    function bt(e) {
-      switch (e) {
-        case "GROUP":
-          return s._(
-            /*BTDS*/ "This placement isn't available for Reels trending ads.",
-          );
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "This platform isn't available for Reels trending ads.",
-          );
-      }
-      u(0, 159);
-    }
-    function vt() {
-      return s._(
-        /*BTDS*/ "This placement isn't available for Ads burst campaigns.",
-      );
-    }
-    vt.displayName = vt.name + " [from " + i.id + "]";
-    function St() {
-      return s._(
-        /*BTDS*/ "This placement is not available when using {Ad sequencing}.",
-        [
-          s._param(
-            "Ad sequencing",
-            d.jsx("strong", { children: "Ad sequencing" }),
-          ),
-        ],
-      );
-    }
-    St.displayName = St.name + " [from " + i.id + "]";
-    function Rt(e) {
-      switch (e) {
-        case "GROUP":
-        case "PLATFORM":
-          return s._(
-            /*BTDS*/ "The ad has multiple media and some with placement customizations. Please delete the placement customizations to modify this.",
-          );
-      }
-      u(0, 159);
-    }
-    function Lt(e, t) {
+    function gt(e, t) {
       var n = t.parentPositionPluginKey;
       return n == null
         ? o("AdsPlacementParentPositionTooltipUtils")
@@ -1567,134 +1312,148 @@ __d(
               );
             })();
     }
-    function Et(e, t, n) {
+    function ht(e, t, n) {
       switch (t.type) {
         case "M2_MMC_PRESENT_IN_ADGROUP":
-          return Rt(e);
-        case "PARENT_NOT_IN_TARGET_SPEC_OR_SOFT_OPT_OUT_SPEC":
-          return Lt(e, t);
-        case "APP":
-          return xe(e);
-        case "MOBILE_APP":
-          return Pe(e);
-        case "CANVAS_APP":
-          return Ne(e);
-        case "MESSENGER":
-          return Me(e, t);
-        case "OBJECTIVE":
-          return we(e, t);
-        case "DEVICE_PLATFORM":
-          return Fe(e, t);
-        case "BUYING_TYPE":
-          return Oe(e, t);
-        case "WINDOWS_APP":
-          return Be(e);
-        case "OPTIMIZATION_GOAL":
-          return We(e);
-        case "SPECIAL_ADS_CATEGORY":
-          return Ue(e);
-        case "OFFER_OPTION":
-          return Ve(e, t);
-        case "AD_ACCOUNT_TRUST_TIER":
-          return He(e, t);
-        case "GENERIC":
-          return Ge(e, t);
-        case "GROUP":
-          return ke(e);
-        case "REMINDER":
-          return De(e);
-        case "IMAGINATION":
-          return Ie(e);
-        case "CUSTOM":
-          return ze(e, t);
-        case "DIRECT_INSTALL":
-          return Ke(e, t);
-        case "DCO":
-          return Qe(e);
-        case "WHATSAPP":
-          return lt(e, t);
-        case "PLAN_TYPE":
-          return ct(e, t);
-        case "INSTANT_GAME":
-          return dt(e);
-        case "OMNICHANNEL":
-          return $e(e);
-        case "INSTAGRAM":
-          return st(e, t);
-        case "INSTAGRAM_DIRECT_LEAD_GEN":
-          return ut(e, t);
-        case "IG_LOGIN":
-          return Le(e);
-        case "IG_PROFILE_VISIT_TRAFFIC":
-          return ve(e);
-        case "FB_PAGE_VISIT_TRAFFIC":
-          return Se(e);
-        case "IG_PROFILE_AND_FB_PAGE_VISIT_TRAFFIC":
-          return Re(e);
-        case "PHONE_CALL_LEAD":
-          return ye(e);
-        case "PHONE_CALL_TRAFFIC":
-          return Ce(e);
-        case "PHONE_CALL_CONVERSIONS_OR_SALES":
-          return be(e);
-        case "OCULUS":
-          return mt(e, t);
-        case "DONATION":
-          return Ee(e);
-        case "GROWTH_APP_STORE":
-          return Te(e);
-        case "BWI":
-          return pt(e, n);
-        case "ACCOUNT_CONTROL_PLACEMENT_EXCLUSION":
-          return _t(e, t);
-        case "WAMO_STATUS_DESTINATION":
-          return Xe();
-        case "WAMO_STATUS_CONVERSION_LOCATION":
-          return Ye(t);
-        case "WAMO_STATUS_DESTINATION_IN_LEAD_OBJECTIVE":
-          return Je();
-        case "PROMO_CHANNEL_DESTINATION":
-          return Ze();
-        case "WAMO_STATUS_SAC":
-          return et();
-        case "WAMO_STATUS_AB_TEST":
-          return tt();
-        case "WAMO_STATUS_PRODUCT_CATALOG":
-          return nt();
-        case "WAMO_STATUS_CREATION_PACKAGE":
-          return rt();
-        case "WAMO_STATUS_CUSTOM_AUDIENCE":
-          return ot();
-        case "WAMO_STATUS_EU_OBJECTIVE":
-          return at();
-        case "WAMO_STATUS_OPTIMIZATION_GOAL":
-          return it(t);
-        case "PAGELESS_CTWA_ADS":
-          return he(e);
-        case "LEAD_FORM_MESSENGER":
           return ft(e);
+        case "PARENT_NOT_IN_TARGET_SPEC_OR_SOFT_OPT_OUT_SPEC":
+          return gt(e, t);
+        case "APP":
+          return ve(e);
+        case "MOBILE_APP":
+          return Re(e);
+        case "CANVAS_APP":
+          return Le(e);
+        case "MESSENGER":
+          return Ee(e, t);
+        case "OBJECTIVE":
+          return ke(e, t);
+        case "DEVICE_PLATFORM":
+          return Te(e, t);
+        case "BUYING_TYPE":
+          return De(e, t);
+        case "WINDOWS_APP":
+          return xe(e);
+        case "OPTIMIZATION_GOAL":
+          return $e(e);
+        case "SPECIAL_ADS_CATEGORY":
+          return Ne(e);
+        case "OFFER_OPTION":
+          return Me(e, t);
+        case "AD_ACCOUNT_TRUST_TIER":
+          return we(e, t);
+        case "GENERIC":
+          return Ae(e, t);
+        case "GROUP":
+          return he(e);
+        case "REMINDER":
+          return be(e);
+        case "IMAGINATION":
+          return ye(e);
+        case "CUSTOM":
+          return Fe(e, t);
+        case "DIRECT_INSTALL":
+          return Be(e, t);
+        case "DCO":
+          return We(e);
+        case "WHATSAPP":
+          return Ze(e, t);
+        case "PLAN_TYPE":
+          return nt(e, t);
+        case "INSTANT_GAME":
+          return rt(e);
+        case "OMNICHANNEL":
+          return Se(e);
+        case "INSTAGRAM":
+          return et(e, t);
+        case "INSTAGRAM_DIRECT_LEAD_GEN":
+          return tt(e, t);
+        case "IG_LOGIN":
+          return fe(e);
+        case "IG_PROFILE_VISIT_TRAFFIC":
+          return me(e);
+        case "FB_PAGE_VISIT_TRAFFIC":
+          return pe(e);
+        case "IG_PROFILE_AND_FB_PAGE_VISIT_TRAFFIC":
+          return _e(e);
+        case "PHONE_CALL_LEAD":
+          return ue(e);
+        case "PHONE_CALL_TRAFFIC":
+          return ce(e);
+        case "PHONE_CALL_CONVERSIONS_OR_SALES":
+          return de(e);
+        case "OCULUS":
+          return ot(e, t);
+        case "DONATION":
+          return ge(e);
+        case "GROWTH_APP_STORE":
+          return Ce(e);
+        case "BWI":
+          return at(e, n);
+        case "ACCOUNT_CONTROL_PLACEMENT_EXCLUSION":
+          return it(e, t);
+        case "WAMO_STATUS_DESTINATION":
+          return qe();
+        case "WAMO_STATUS_CONVERSION_LOCATION":
+          return Ue(t);
+        case "WAMO_STATUS_DESTINATION_IN_LEAD_OBJECTIVE":
+          return Ve();
+        case "PROMO_CHANNEL_DESTINATION":
+          return He();
+        case "WAMO_STATUS_SAC":
+          return Ge();
+        case "WAMO_STATUS_SIEP":
+          return ze();
+        case "WAMO_STATUS_AB_TEST":
+          return je();
+        case "WAMO_STATUS_PRODUCT_CATALOG":
+          return Ke();
+        case "WAMO_STATUS_CREATION_PACKAGE":
+          return Qe();
+        case "WAMO_STATUS_CUSTOM_AUDIENCE":
+          return Xe();
+        case "WAMO_STATUS_EU_OBJECTIVE":
+          return Ye();
+        case "WAMO_STATUS_OPTIMIZATION_GOAL":
+          return Je(t);
+        case "PAGELESS_CTWA_ADS":
+          return se(e);
+        case "LEAD_FORM_MESSENGER":
+          return lt(e);
         case "PUBLISHER_PLATFORM":
-          return gt(e);
+          return st(e);
         case "INSTAGRAM_LIVE":
-          return ht(e);
+          return ut(e);
         case "FACEBOOK_LIVE":
-          return yt(e);
+          return ct(e);
         case "MM_ACTIVATION_INELIGIBLE":
           return t.message;
         case "MM_NOT_HIGH_TRUST":
-          return je(e, t);
+          return Oe(e, t);
         case "TARGET_FREQUENCY_AUCTION":
-          return Ct(e);
+          return dt(e);
         case "REELS_TRENDING_ADS":
-          return bt(e);
+          return mt(e);
         case "AD_SEQUENCING":
-          return St();
+          return _t();
         case "META_MOMENT_MAKER":
-          return vt();
+          return pt();
       }
       u(0, 22846);
     }
-    ((l.createAdSequencingReason = p),
+    ((l.createFBPageVisitTrafficReason = o(
+      "AdsPlacementIneligibilityTrafficReasons",
+    ).createFBPageVisitTrafficReason),
+      (l.createGenericReason = o(
+        "AdsPlacementIneligibilityTrafficReasons",
+      ).createGenericReason),
+      (l.createIGProfileAndFBPageVisitTrafficReason = o(
+        "AdsPlacementIneligibilityTrafficReasons",
+      ).createIGProfileAndFBPageVisitTrafficReason),
+      (l.createIGProfileVisitTrafficReason = o(
+        "AdsPlacementIneligibilityTrafficReasons",
+      ).createIGProfileVisitTrafficReason),
+      (l.createAdSequencingReason = p),
       (l.createReelsTrendingAdsReason = _),
       (l.createMMNotHighTrustReason = f),
       (l.createMetaMomentMakerReason = g),
@@ -1710,55 +1469,43 @@ __d(
       (l.createWAMOStatusDestinationInLeadObjectiveReason = k),
       (l.createPromoChannelDestinationReason = I),
       (l.createWAMOStatusSACReason = T),
-      (l.createWAMOStatusABTestReason = D),
-      (l.createWAMOStatusCreationPackageReason = x),
-      (l.createWAMOStatusProductCatalogReason = $),
-      (l.createWAMOStatusCustomAudienceReason = P),
-      (l.createWAMOStatusEUObjectiveReason = N),
-      (l.createWAMOIneligibilityOptimizationGoalReason = M),
-      (l.createDevicePlatformReason = w),
-      (l.createBuyingTypeReason = A),
-      (l.createWindowsAppReason = F),
-      (l.createOptimizationGoalReason = O),
-      (l.createSACReason = B),
-      (l.createOfferOptionReason = W),
-      (l.createAdAccountTrustTierReason = q),
-      (l.createGenericReason = U),
-      (l.createCustomReason = V),
-      (l.createIOS14Reason = H),
-      (l.createOptOutReason = G),
-      (l.createDirectInstallReason = z),
-      (l.createDCOReason = j),
-      (l.createOmnichannelReason = K),
-      (l.createWhatsAppReason = Q),
-      (l.createPlanTypeReason = X),
-      (l.createIGLoginReason = Y),
-      (l.createInstantGameReason = J),
-      (l.createPhoneCallLeadReason = Z),
-      (l.createPhoneCallTrafficReason = ee),
-      (l.createIGProfileVisitTrafficReason = te),
-      (l.createIGProfileAndFBPageVisitTrafficReason = ne),
-      (l.createFBPageVisitTrafficReason = re),
-      (l.createPhoneCallConversionsOrSalesReason = oe),
-      (l.createDonationReason = ae),
-      (l.createGroupPromotionReason = ie),
-      (l.createReminderPromotionReason = le),
-      (l.createImaginationReason = se),
-      (l.createGrowthAppStoreReason = ue),
-      (l.createInstagramLiveReason = ce),
-      (l.createFacebookLiveReason = de),
-      (l.createAccountControlPlacementExclusionReason = me),
-      (l.createOculusReason = pe),
-      (l.createLeadFormMessengerReason = _e),
-      (l.createPublisherPlatformReason = fe),
-      (l.createTargetFrequencyAuctionReason = ge),
-      (l.contentForSpecialAdsCategoryReason = qe),
-      (l.renderWAMOStatusDestinationInLeadObjectiveReason = Je),
-      (l.renderWAMOEUObjectiveReason = at),
-      (l.renderReelsTrendingAdsReason = bt),
-      (l.renderM2MMCINAdgroup = Rt),
-      (l.renderPlacementParentNotInTargetSpecOrSoftOptOutSpec = Lt),
-      (l.renderReason = Et));
+      (l.createWAMOStatusSIEPReason = D),
+      (l.createWAMOStatusProductCatalogReason = x),
+      (l.createWAMOStatusEUObjectiveReason = $),
+      (l.createWAMOIneligibilityOptimizationGoalReason = P),
+      (l.createDevicePlatformReason = N),
+      (l.createBuyingTypeReason = M),
+      (l.createWindowsAppReason = w),
+      (l.createOptimizationGoalReason = A),
+      (l.createSACReason = F),
+      (l.createOfferOptionReason = O),
+      (l.createAdAccountTrustTierReason = B),
+      (l.createCustomReason = W),
+      (l.createIOS14Reason = q),
+      (l.createDirectInstallReason = U),
+      (l.createDCOReason = V),
+      (l.createOmnichannelReason = H),
+      (l.createWhatsAppReason = G),
+      (l.createIGLoginReason = z),
+      (l.createInstantGameReason = j),
+      (l.createPhoneCallLeadReason = K),
+      (l.createPhoneCallTrafficReason = Q),
+      (l.createPhoneCallConversionsOrSalesReason = X),
+      (l.createDonationReason = Y),
+      (l.createGroupPromotionReason = J),
+      (l.createReminderPromotionReason = Z),
+      (l.createImaginationReason = ee),
+      (l.createGrowthAppStoreReason = te),
+      (l.createInstagramLiveReason = ne),
+      (l.createFacebookLiveReason = re),
+      (l.createAccountControlPlacementExclusionReason = oe),
+      (l.createOculusReason = ae),
+      (l.createLeadFormMessengerReason = ie),
+      (l.createTargetFrequencyAuctionReason = le),
+      (l.contentForSpecialAdsCategoryReason = Pe),
+      (l.renderReelsTrendingAdsReason = mt),
+      (l.renderM2MMCINAdgroup = ft),
+      (l.renderReason = ht));
   },
   226,
 );

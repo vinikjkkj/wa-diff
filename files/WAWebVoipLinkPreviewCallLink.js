@@ -21,7 +21,6 @@ __d(
     "WAWebVoipStackInterface",
     "WAWebVoipUiDocPipPortalContainer.react",
     "WAWebVoipWaCallEnums",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -85,212 +84,196 @@ __d(
       e.colorIndex != null &&
         o("WAWebUserPrefsVoip").saveLandingPageColorIndex(e.colorIndex);
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
+    async function D(t, n) {
+      var a = t.data,
+        i = a.audioDeviceId,
+        l = a.audioMuted,
+        g = a.autoJoin,
+        h = a.callType,
+        y = a.colorIndex,
+        C = a.speakerDeviceId,
+        b = a.token,
+        v = a.videoDeviceId,
+        L = a.videoMuted;
+      if (
+        (n === void 0 && (n = 0),
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: handleClickCallLink token=",
+              " type=",
+              " lobby=",
+              "",
+            ])),
+          b,
+          h,
+          n,
+        ),
+        !o("WAWebVoipGatingUtils").isCallingEnabled())
+      ) {
+        (o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: handleClickCallLink blocked \u2014 call links not enabled",
+            ])),
+        ),
+          o("WAWebCallLinkAutoJoinConsent").dropAutoJoinConsentRefusedByGate(
+            g,
+            b,
+          ),
+          x());
+        return;
+      }
+      if ($(b)) {
+        o(
+          "WAWebCallLinkAutoJoinConsent",
+        ).dropAutoJoinConsentRefusedByExistingCall(g, b);
+        return;
+      }
+      var E = o("WAWebCallLinkAutoJoinConsent").consumeAutoJoinConsent(g, b);
+      if (
+        await o("WAWebVoipCallBlockedModals").showCallBlockedModalIfNeeded()
+      ) {
+        o("WALogger").LOG(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: handleClickCallLink blocked \u2014 call unavailable",
+            ])),
+        );
+        return;
+      }
+      ((R.videoMuted = L != null ? L : !1),
+        (R.audioMuted = l != null ? l : !1));
+      var k = h === "video";
+      (E &&
+        T({
+          audioDeviceId: i,
+          colorIndex: y,
+          speakerDeviceId: C,
+          videoDeviceId: v,
+        }),
+        o("WAWebVoipCallLinkBundlePreloader").preloadCallLinkBundles());
+      var D = o(
+        "WAWebVoipInitEventEmitter",
+      ).VoipInitEventEmitter.getIsVoipInited();
+      D || (r("WAWebCallCollection").setPendingCallLink({ isVideo: k }), I());
+      try {
+        await o("WAWebEnsureVoipInited").ensureVoipInitialized();
+      } catch (e) {
+        (o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: handleClickCallLink init failed: ",
+              "",
+            ])),
+          String(e),
+        ),
+          r("WAWebCallCollection").setPendingCallLink(null),
+          r("WAWebPipController").closePiP(),
+          e instanceof o("WAWebEnsureVoipInited").VoipInitUnavailableError ||
+            o("WAWebVoipCallBlockedModals").showCouldNotPlaceCallModal());
+        return;
+      }
+      var P = o("WAWebFrontendContactGetters").getMyUsername(),
+        N = await o("WAWebVoipStackInterface").getVoipStackInterface();
+      if (N == null) {
+        (o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: previewCallLink aborted - voipStackInterface is null",
+            ])),
+        ),
+          r("WAWebCallCollection").setPendingCallLink(null),
+          r("WAWebPipController").closePiP(),
+          o("WAWebVoipCallBlockedModals").showCouldNotPlaceCallModal());
+        return;
+      }
+      if (
+        (o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: handleClickCallLink hasVoipStack=true isVideo=",
+              "",
+            ])),
+          k,
+        ),
+        b.length !== S)
+      ) {
+        (o("WALogger").LOG(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: handleClickCallLink: invalid token length ",
+              ", expected ",
+              "",
+            ])),
+          b.length,
+          S,
+        ),
+          r("WAWebCallCollection").setPendingCallLink(null),
+          r("WAWebPipController").closePiP(),
+          o("WAWebVoipNackHandlers").showErrorDialog(
+            r("justknobx")._("8427") ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
+          ));
+        return;
+      }
+      var M = await N.previewCallLink(b, k, n, P, L === !0);
+      (l === !0 && N.type === "web" && (await N.setCallMute(!0)),
+        E &&
+          N.type === "web" &&
+          (M === 0
+            ? (o("WAWebCallLinkAutoJoinConsent").reportAutoJoinAttempted(),
+              await N.joinCallLink())
+            : o("WALogger").LOG(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: handleClickCallLink previewCallLink failed, skip join ",
+                    "",
+                  ])),
+                String(M),
+              )));
     }
     function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.data,
-            a = n.audioDeviceId,
-            i = n.audioMuted,
-            l = n.autoJoin,
-            u = n.callType,
-            c = n.colorIndex,
-            d = n.speakerDeviceId,
-            m = n.token,
-            p = n.videoDeviceId,
-            L = n.videoMuted;
-          if (
-            (t === void 0 && (t = 0),
-            o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: handleClickCallLink token=",
-                  " type=",
-                  " lobby=",
-                  "",
-                ])),
-              m,
-              u,
-              t,
-            ),
-            !o("WAWebVoipGatingUtils").isCallingEnabled())
-          ) {
-            (o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: handleClickCallLink blocked \u2014 call links not enabled",
-                ])),
-            ),
-              o(
-                "WAWebCallLinkAutoJoinConsent",
-              ).dropAutoJoinConsentRefusedByGate(l, m),
-              $());
-            return;
-          }
-          if (P(m)) {
-            o(
-              "WAWebCallLinkAutoJoinConsent",
-            ).dropAutoJoinConsentRefusedByExistingCall(l, m);
-            return;
-          }
-          var E = o("WAWebCallLinkAutoJoinConsent").consumeAutoJoinConsent(
-            l,
-            m,
-          );
-          if (
-            yield o("WAWebVoipCallBlockedModals").showCallBlockedModalIfNeeded()
-          ) {
-            o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: handleClickCallLink blocked \u2014 call unavailable",
-                ])),
-            );
-            return;
-          }
-          ((R.videoMuted = L != null ? L : !1),
-            (R.audioMuted = i != null ? i : !1));
-          var k = u === "video";
-          (E &&
-            T({
-              audioDeviceId: a,
-              colorIndex: c,
-              speakerDeviceId: d,
-              videoDeviceId: p,
-            }),
-            o("WAWebVoipCallLinkBundlePreloader").preloadCallLinkBundles());
-          var D = o(
-            "WAWebVoipInitEventEmitter",
-          ).VoipInitEventEmitter.getIsVoipInited();
-          D ||
-            (r("WAWebCallCollection").setPendingCallLink({ isVideo: k }), I());
-          try {
-            yield o("WAWebEnsureVoipInited").ensureVoipInitialized();
-          } catch (e) {
-            (o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: handleClickCallLink init failed: ",
-                  "",
-                ])),
-              String(e),
-            ),
-              r("WAWebCallCollection").setPendingCallLink(null),
-              r("WAWebPipController").closePiP(),
-              e instanceof
-                o("WAWebEnsureVoipInited").VoipInitUnavailableError ||
-                o("WAWebVoipCallBlockedModals").showCouldNotPlaceCallModal());
-            return;
-          }
-          var x = o("WAWebFrontendContactGetters").getMyUsername(),
-            N = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          if (N == null) {
-            (o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: previewCallLink aborted - voipStackInterface is null",
-                ])),
-            ),
-              r("WAWebCallCollection").setPendingCallLink(null),
-              r("WAWebPipController").closePiP(),
-              o("WAWebVoipCallBlockedModals").showCouldNotPlaceCallModal());
-            return;
-          }
-          if (
-            (o("WALogger").LOG(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: handleClickCallLink hasVoipStack=true isVideo=",
-                  "",
-                ])),
-              k,
-            ),
-            m.length !== S)
-          ) {
-            (o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: handleClickCallLink: invalid token length ",
-                  ", expected ",
-                  "",
-                ])),
-              m.length,
-              S,
-            ),
-              r("WAWebCallCollection").setPendingCallLink(null),
-              r("WAWebPipController").closePiP(),
-              o("WAWebVoipNackHandlers").showErrorDialog(
-                r("justknobx")._("8427")
-                  ? s._(/*BTDS*/ "This call link isn't valid")
-                  : s._(/*BTDS*/ "Invalid call link"),
-              ));
-            return;
-          }
-          var M = yield N.previewCallLink(m, k, t, x, L === !0);
-          (i === !0 && N.type === "web" && (yield N.setCallMute(!0)),
-            E &&
-              N.type === "web" &&
-              (M === 0
-                ? (o("WAWebCallLinkAutoJoinConsent").reportAutoJoinAttempted(),
-                  yield N.joinCallLink())
-                : o("WALogger").LOG(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: handleClickCallLink previewCallLink failed, skip join ",
-                        "",
-                      ])),
-                    String(M),
-                  )));
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $() {
       o("WAWebVoipNackHandlers").showErrorDialog(
-        s._(
-          /*BTDS*/ "Calling isn't available on WhatsApp Web right now. Try joining from WhatsApp on your phone.",
-        ),
+        s._(/*BTDS*/ ""),
         void 0,
-        s._(/*BTDS*/ "Can't join call"),
+        s._(/*BTDS*/ ""),
       );
     }
-    function P(t) {
-      var n = r("WAWebCallCollection").activeCall;
-      if (n == null) return !1;
-      var a = n.getState();
-      return a == null || o("WAWebVoipCallStateUtils").isCallTerminal(a)
+    function $(e) {
+      var t = r("WAWebCallCollection").activeCall;
+      if (t == null) return !1;
+      var n = t.getState();
+      return n == null || o("WAWebVoipCallStateUtils").isCallTerminal(n)
         ? !1
-        : n.isCallLink && n.callLinkToken === t && N(n)
+        : t.isCallLink && t.callLinkToken === e && P(t)
           ? !0
-          : o("WAWebVoipCallStateUtils").isCallIncoming(a) && n.msg != null
+          : o("WAWebVoipCallStateUtils").isCallIncoming(n) && t.msg != null
             ? (o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: handleClickCallLink \u2014 incoming call ringing, opening miniplayer",
                   ])),
               ),
-              r("WAWebPipController").openVoipUiPiP(n.msg),
+              r("WAWebPipController").openVoipUiPiP(t.msg),
               !0)
             : (o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: handleClickCallLink blocked \u2014 already in a different active call",
                   ])),
               ),
               o("WAWebVoipCallBlockedModals").showEndCurrentCallToast(),
               !0);
     }
-    function N(e) {
+    function P(e) {
       if (
         o("WAWebVoipPopoutWindowState").getIsCallActiveInPopoutWindow() ||
         o("WAWebVoipUiDocPipPortalContainer.react").getIsDocPipWindowOpen()
       )
         return (
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: handleClickCallLink \u2014 already in this call link, pulling call back to this window",
               ])),
           ),
@@ -300,8 +283,8 @@ __d(
       var t = e.callLinkState;
       return t != null && t !== o("WAWebVoipWaCallEnums").CallLinkState.None
         ? (o("WALogger").LOG(
-            d ||
-              (d = babelHelpers.taggedTemplateLiteralLoose([
+            C ||
+              (C = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: handleClickCallLink \u2014 already in this call link, reopening call-link UI",
               ])),
           ),
@@ -309,16 +292,16 @@ __d(
           !0)
         : e.msg != null
           ? (o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              b ||
+                (b = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: handleClickCallLink \u2014 already in this call link, opening miniplayer",
                 ])),
             ),
             r("WAWebPipController").openVoipUiPiP(e.msg),
             !0)
           : (o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: handleClickCallLink \u2014 same call link but no UI to reopen",
                 ])),
             ),

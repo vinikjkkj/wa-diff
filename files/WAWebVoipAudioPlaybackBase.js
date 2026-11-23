@@ -17,7 +17,6 @@ __d(
     "WAWebVoipCallAudioUnlock",
     "WAWebVoipPerfOptimizations",
     "WAWebVoipSharedCallAudioContext",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -109,403 +108,336 @@ __d(
                 : "default",
           );
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.initPlaybackDriver = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  a = e.bits_per_sample,
-                  i = e.channels,
-                  l = e.frames_per_chunk,
-                  p = e.sample_rate;
-                if (this.audioPlaybackInitState !== D.Uninitialized) {
-                  (o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:initPlaybackDriver] invalid initialization. state = ",
-                          "",
-                        ])),
-                      this.audioPlaybackInitState,
-                    )
-                    .sendLogs(
-                      "voip: invalid playback initialization. state = ${this.audioPlaybackInitState}",
-                    ),
-                    yield this.cleanup());
-                  return;
-                }
-                ((this.audioPlaybackInitState = D.Initializing),
-                  (this.audioPlaybackInitResolvable = new (o(
-                    "WAResolvable",
-                  ).Resolvable)()),
-                  (this.playbackParams = {
-                    sampleRate: p,
-                    channels: i,
-                    bitsPerSample: a,
-                    framesPerChunk: l,
-                  }));
-                var _ = this.playbackParams;
+          (n.initPlaybackDriver = async function (t) {
+            var e = this,
+              n = t.bits_per_sample,
+              a = t.channels,
+              i = t.frames_per_chunk,
+              l = t.sample_rate;
+            if (this.audioPlaybackInitState !== D.Uninitialized) {
+              (o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:initPlaybackDriver] invalid initialization. state = ",
+                      "",
+                    ])),
+                  this.audioPlaybackInitState,
+                )
+                .sendLogs(
+                  "voip: invalid playback initialization. state = ${this.audioPlaybackInitState}",
+                ),
+                await this.cleanup());
+              return;
+            }
+            ((this.audioPlaybackInitState = D.Initializing),
+              (this.audioPlaybackInitResolvable = new (o(
+                "WAResolvable",
+              ).Resolvable)()),
+              (this.playbackParams = {
+                sampleRate: l,
+                channels: a,
+                bitsPerSample: n,
+                framesPerChunk: i,
+              }));
+            var p = this.playbackParams;
+            try {
+              var _, f;
+              (await o("WAWebAudioUtility").initWasmModule(),
+                (this.playbackAudioContext = P(p.sampleRate)),
+                o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
+                  o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
+                    .WORKLET_PRELOAD,
+                ) &&
+                  ((_ = this.implementation) == null
+                    ? void 0
+                    : _.preloadWorkletModule) != null &&
+                  this.playbackAudioContext != null &&
+                  this.playbackAudioContext.state !== "suspended" &&
+                  this.implementation.preloadWorkletModule(
+                    this.playbackAudioContext,
+                  ));
+              var g = async function () {
                 try {
-                  var f, g;
-                  (yield o("WAWebAudioUtility").initWasmModule(),
-                    (this.playbackAudioContext = P(_.sampleRate)),
-                    o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
-                      o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
-                        .WORKLET_PRELOAD,
-                    ) &&
-                      ((f = this.implementation) == null
-                        ? void 0
-                        : f.preloadWorkletModule) != null &&
-                      this.playbackAudioContext != null &&
-                      this.playbackAudioContext.state !== "suspended" &&
-                      this.implementation.preloadWorkletModule(
-                        this.playbackAudioContext,
-                      ));
-                  var h = (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* () {
-                        try {
-                          var e = o(
-                              "WAWebAudioDeviceManager",
-                            ).getCurrentSelectedAudioOutputDevice(),
-                            n = yield o(
-                              "WAWebAudioDeviceManager",
-                            ).selectAudioOutputDevice();
-                          n != null && n !== e
-                            ? (o("WALogger").LOG(
-                                u ||
-                                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                                    "voip: [AV:AudioOutputHandleDeviceChange] Auto-switching output to device: ",
-                                    "",
-                                  ])),
-                                n,
-                              ),
-                              yield t.switchOutputDevice(n, !0))
-                            : n == null &&
-                              o("WALogger").WARN(
-                                c ||
-                                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                                    "voip: [AV:AudioOutputHandleDeviceChange] Output device change detected but new deviceId is null",
-                                  ])),
-                              );
-                        } catch (e) {
-                          o("WALogger").ERROR(
-                            d ||
-                              (d = babelHelpers.taggedTemplateLiteralLoose([
-                                "voip: [AV:AudioOutputHandleDeviceChange] Output device change handler error: ",
-                                "",
-                              ])),
-                            e,
-                          );
-                        }
-                      },
-                    );
-                    return function () {
-                      return e.apply(this, arguments);
-                    };
-                  })();
-                  ((this.deviceChangeHandler = r("WAWebDebounce")(h, 500)),
-                    navigator.mediaDevices &&
-                      navigator.mediaDevices.addEventListener(
-                        "devicechange",
-                        this.deviceChangeHandler,
+                  var t = o(
+                      "WAWebAudioDeviceManager",
+                    ).getCurrentSelectedAudioOutputDevice(),
+                    n = await o(
+                      "WAWebAudioDeviceManager",
+                    ).selectAudioOutputDevice();
+                  n != null && n !== t
+                    ? (o("WALogger").LOG(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:AudioOutputHandleDeviceChange] Auto-switching output to device: ",
+                            "",
+                          ])),
+                        n,
                       ),
-                    (this.audioPlaybackInitState = D.Ready),
-                    (g = this.audioPlaybackInitResolvable) == null ||
-                      g.resolve());
+                      await e.switchOutputDevice(n, !0))
+                    : n == null &&
+                      o("WALogger").WARN(
+                        c ||
+                          (c = babelHelpers.taggedTemplateLiteralLoose([
+                            "voip: [AV:AudioOutputHandleDeviceChange] Output device change detected but new deviceId is null",
+                          ])),
+                      );
                 } catch (e) {
-                  var y;
-                  (o("WALogger").ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:initPlaybackDriver] error: ",
+                  o("WALogger").ERROR(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:AudioOutputHandleDeviceChange] Output device change handler error: ",
                         "",
                       ])),
                     e,
+                  );
+                }
+              };
+              ((this.deviceChangeHandler = r("WAWebDebounce")(g, 500)),
+                navigator.mediaDevices &&
+                  navigator.mediaDevices.addEventListener(
+                    "devicechange",
+                    this.deviceChangeHandler,
                   ),
-                    (this.audioPlaybackInitState = D.Error),
-                    (y = this.audioPlaybackInitResolvable) == null ||
-                      y.reject(e),
-                    yield this.cleanup());
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+                (this.audioPlaybackInitState = D.Ready),
+                (f = this.audioPlaybackInitResolvable) == null || f.resolve());
+            } catch (e) {
+              var h;
+              (o("WALogger").ERROR(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AV:initPlaybackDriver] error: ",
+                    "",
+                  ])),
+                e,
+              ),
+                (this.audioPlaybackInitState = D.Error),
+                (h = this.audioPlaybackInitResolvable) == null || h.reject(e),
+                await this.cleanup());
             }
-            return t;
-          })()),
-          (a.startPlayback = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e != null ? e : o("WAWebBoolFunc").returnFalse;
-                if ((yield this.$1(t)) && !t()) {
-                  if (this.audioPlaybackInitState !== D.Ready) {
-                    o("WALogger")
-                      .ERROR(
-                        p ||
-                          (p = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:startPlayback] invalid initialization. state = ",
-                            "",
-                          ])),
-                        this.audioPlaybackInitState,
-                      )
-                      .sendLogs(
-                        "voip: startPlayback invalid initialization. state = ${this.audioPlaybackInitState}",
-                      );
-                    return;
-                  }
-                  if (!this.playbackAudioContext) {
-                    o("WALogger")
-                      .ERROR(
-                        _ ||
-                          (_ = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:startPlayback] audio context is null",
-                          ])),
-                      )
-                      .sendLogs("voip: startPlayback audio context is null");
-                    return;
-                  }
-                  var n = this.playbackParams;
-                  if (!n) {
-                    o("WALogger")
-                      .ERROR(
-                        f ||
-                          (f = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:startPlayback] playback parameters are null",
-                          ])),
-                      )
-                      .sendLogs(
-                        "voip: startPlayback playback parameters are null",
-                      );
-                    return;
-                  }
-                  var r = this.playbackAudioContext;
-                  yield this.$2(r, n, t);
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$1 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (e()) return !1;
-                if (this.audioPlaybackInitState !== D.Initializing) return !0;
-                try {
-                  var t;
-                  return (
-                    yield (t = this.audioPlaybackInitResolvable) == null
-                      ? void 0
-                      : t.promise,
-                    !e()
-                  );
-                } catch (t) {
-                  return (
-                    e() ||
-                      o("WALogger")
-                        .ERROR(
-                          g ||
-                            (g = babelHelpers.taggedTemplateLiteralLoose([
-                              "voip: [AV:startPlayback] error: ",
-                              "",
-                            ])),
-                          t,
-                        )
-                        .sendLogs("voip: startPlayback error: ${error}"),
-                    !1
-                  );
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$2 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                try {
-                  if (e.state === "suspended") {
-                    if (
-                      (o("WALogger").LOG(
-                        h ||
-                          (h = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:startPlayback] resuming suspended AudioContext",
-                          ])),
-                      ),
-                      yield o(
-                        "WAWebVoipAudioContextResume",
-                      ).resumeAudioContextLoggingDelays(e, "startPlayback"),
-                      n())
-                    )
-                      return;
-                    o("WALogger").LOG(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:startPlayback] AudioContext resumed successfully",
-                        ])),
-                    );
-                  }
-                  var r = t.framesPerChunk * 4,
-                    a = yield o("WAWebAudioUtility").mallocWasmBuffer(r);
-                  if (((this.playbackBuffer = a), n())) {
-                    yield this.$3(a);
-                    return;
-                  }
-                  if (
-                    this.implementation != null &&
-                    (yield this.implementation.startAudioPlayback({
-                      audioContext: e,
-                      sampleRate: t.sampleRate,
-                      channels: t.channels,
-                      framesPerChunk: t.framesPerChunk,
-                      playbackBuffer: a,
-                      isStartCancelled: n,
-                    }),
-                    n())
-                  )
-                    return;
-                } catch (t) {
-                  if (n()) return;
-                  if (
-                    (o("WALogger").ERROR(
-                      C ||
-                        (C = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:startPlayback] failed to start audio playback: ",
-                          "",
-                        ])),
-                      t,
-                    ),
-                    e.state !== "suspended")
-                  )
-                    throw t;
-                }
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$3 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (this.playbackBuffer === e) {
-                  this.playbackBuffer = null;
-                  try {
-                    yield o("WAWebAudioUtility").freeWasmBuffer(e);
-                  } catch (e) {
-                    o("WALogger").WARN(
-                      b ||
-                        (b = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:stopPlayback] error freeing WASM playback buffer: ",
-                          "",
-                        ])),
-                      e,
-                    );
-                  }
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.stopPlayback = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                this.audioPlaybackInitState !== D.Ready &&
-                  o("WALogger").ERROR(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:stopPlayback] invalid initialization. state = ",
+          }),
+          (n.startPlayback = async function (t) {
+            var e = t != null ? t : o("WAWebBoolFunc").returnFalse;
+            if ((await this.$1(e)) && !e()) {
+              if (this.audioPlaybackInitState !== D.Ready) {
+                o("WALogger")
+                  .ERROR(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startPlayback] invalid initialization. state = ",
                         "",
                       ])),
                     this.audioPlaybackInitState,
+                  )
+                  .sendLogs(
+                    "voip: startPlayback invalid initialization. state = ${this.audioPlaybackInitState}",
                   );
-                try {
-                  yield this.cleanup(e);
-                } catch (e) {
-                  o("WALogger").ERROR(
-                    S ||
-                      (S = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:stopPlayback] error: ",
-                        "",
+                return;
+              }
+              if (!this.playbackAudioContext) {
+                o("WALogger")
+                  .ERROR(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startPlayback] audio context is null",
                       ])),
-                    e,
-                  );
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+                  )
+                  .sendLogs("voip: startPlayback audio context is null");
+                return;
+              }
+              var n = this.playbackParams;
+              if (!n) {
+                o("WALogger")
+                  .ERROR(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startPlayback] playback parameters are null",
+                      ])),
+                  )
+                  .sendLogs("voip: startPlayback playback parameters are null");
+                return;
+              }
+              var r = this.playbackAudioContext;
+              await this.$2(r, n, e);
             }
-            return t;
-          })()),
-          (a.cleanup = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                try {
-                  if (this.deviceChangeHandler != null) {
-                    var t;
-                    ((t = navigator.mediaDevices) == null ||
-                      t.removeEventListener(
-                        "devicechange",
-                        this.deviceChangeHandler,
-                      ),
-                      (this.deviceChangeHandler = null));
-                  }
-                  (this.implementation != null &&
-                    (yield this.implementation.stopAudioPlayback(void 0, e)),
-                    this.playbackAudioContext &&
-                      (!o(
-                        "WAWebVoipSharedCallAudioContext",
-                      ).releaseSharedCallAudioContext(
-                        "playback",
-                        this.playbackAudioContext,
-                      ) &&
-                        this.playbackAudioContext.state !== "closed" &&
-                        this.playbackAudioContext
-                          .close()
-                          .then(function () {})
-                          .catch(function (e) {
-                            o("WALogger").WARN(
-                              R ||
-                                (R = babelHelpers.taggedTemplateLiteralLoose([
-                                  "voip: [AV:cleanup] playback AudioContext close error (non-fatal): ",
-                                  "",
-                                ])),
-                              String(e),
-                            );
-                          }),
-                      (this.playbackAudioContext = null)));
-                } finally {
-                  if (this.playbackBuffer != null) {
-                    var n = this.playbackBuffer;
-                    yield this.$3(n);
-                  }
-                  this.audioPlaybackInitState = D.Uninitialized;
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.$1 = async function (t) {
+            if (t()) return !1;
+            if (this.audioPlaybackInitState !== D.Initializing) return !0;
+            try {
+              var e;
+              return (
+                await ((e = this.audioPlaybackInitResolvable) == null
+                  ? void 0
+                  : e.promise),
+                !t()
+              );
+            } catch (e) {
+              return (
+                t() ||
+                  o("WALogger")
+                    .ERROR(
+                      g ||
+                        (g = babelHelpers.taggedTemplateLiteralLoose([
+                          "voip: [AV:startPlayback] error: ",
+                          "",
+                        ])),
+                      e,
+                    )
+                    .sendLogs("voip: startPlayback error: ${error}"),
+                !1
+              );
             }
-            return t;
-          })()),
-          (a.getAudioElement = function () {
+          }),
+          (n.$2 = async function (t, n, r) {
+            try {
+              if (t.state === "suspended") {
+                if (
+                  (o("WALogger").LOG(
+                    h ||
+                      (h = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:startPlayback] resuming suspended AudioContext",
+                      ])),
+                  ),
+                  await o(
+                    "WAWebVoipAudioContextResume",
+                  ).resumeAudioContextLoggingDelays(t, "startPlayback"),
+                  r())
+                )
+                  return;
+                o("WALogger").LOG(
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:startPlayback] AudioContext resumed successfully",
+                    ])),
+                );
+              }
+              var e = n.framesPerChunk * 4,
+                a = await o("WAWebAudioUtility").mallocWasmBuffer(e);
+              if (((this.playbackBuffer = a), r())) {
+                await this.$3(a);
+                return;
+              }
+              if (
+                this.implementation != null &&
+                (await this.implementation.startAudioPlayback({
+                  audioContext: t,
+                  sampleRate: n.sampleRate,
+                  channels: n.channels,
+                  framesPerChunk: n.framesPerChunk,
+                  playbackBuffer: a,
+                  isStartCancelled: r,
+                }),
+                r())
+              )
+                return;
+            } catch (e) {
+              if (r()) return;
+              if (
+                (o("WALogger").ERROR(
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:startPlayback] failed to start audio playback: ",
+                      "",
+                    ])),
+                  e,
+                ),
+                t.state !== "suspended")
+              )
+                throw e;
+            }
+          }),
+          (n.$3 = async function (t) {
+            if (this.playbackBuffer === t) {
+              this.playbackBuffer = null;
+              try {
+                await o("WAWebAudioUtility").freeWasmBuffer(t);
+              } catch (e) {
+                o("WALogger").WARN(
+                  b ||
+                    (b = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:stopPlayback] error freeing WASM playback buffer: ",
+                      "",
+                    ])),
+                  e,
+                );
+              }
+            }
+          }),
+          (n.stopPlayback = async function (t) {
+            this.audioPlaybackInitState !== D.Ready &&
+              o("WALogger").ERROR(
+                v ||
+                  (v = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AV:stopPlayback] invalid initialization. state = ",
+                    "",
+                  ])),
+                this.audioPlaybackInitState,
+              );
+            try {
+              await this.cleanup(t);
+            } catch (e) {
+              o("WALogger").ERROR(
+                S ||
+                  (S = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AV:stopPlayback] error: ",
+                    "",
+                  ])),
+                e,
+              );
+            }
+          }),
+          (n.cleanup = async function (t) {
+            try {
+              if (this.deviceChangeHandler != null) {
+                var e;
+                ((e = navigator.mediaDevices) == null ||
+                  e.removeEventListener(
+                    "devicechange",
+                    this.deviceChangeHandler,
+                  ),
+                  (this.deviceChangeHandler = null));
+              }
+              (this.implementation != null &&
+                (await this.implementation.stopAudioPlayback(void 0, t)),
+                this.playbackAudioContext &&
+                  (!o(
+                    "WAWebVoipSharedCallAudioContext",
+                  ).releaseSharedCallAudioContext(
+                    "playback",
+                    this.playbackAudioContext,
+                  ) &&
+                    this.playbackAudioContext.state !== "closed" &&
+                    this.playbackAudioContext
+                      .close()
+                      .then(function () {})
+                      .catch(function (e) {
+                        o("WALogger").WARN(
+                          R ||
+                            (R = babelHelpers.taggedTemplateLiteralLoose([
+                              "voip: [AV:cleanup] playback AudioContext close error (non-fatal): ",
+                              "",
+                            ])),
+                          String(e),
+                        );
+                      }),
+                  (this.playbackAudioContext = null)));
+            } finally {
+              if (this.playbackBuffer != null) {
+                var n = this.playbackBuffer;
+                await this.$3(n);
+              }
+              this.audioPlaybackInitState = D.Uninitialized;
+            }
+          }),
+          (n.getAudioElement = function () {
             return this.implementation != null
               ? this.implementation.getAudioElement()
               : null;
           }),
-          (a.getEstimatedOutputLagSamples = function () {
+          (n.getEstimatedOutputLagSamples = function () {
             var e, t;
             return (e =
               (t = this.implementation) == null
@@ -514,96 +446,80 @@ __d(
               ? e
               : 0;
           }),
-          (a.switchOutputDevice = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                if (
-                  (o("WALogger").LOG(
-                    L ||
-                      (L = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV:switchOutputDevice] switchOutputDevice called with deviceId: ",
+          (n.switchOutputDevice = async function (t, n) {
+            if (
+              (o("WALogger").LOG(
+                L ||
+                  (L = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AV:switchOutputDevice] switchOutputDevice called with deviceId: ",
+                    "",
+                  ])),
+                t,
+              ),
+              this.audioPlaybackInitState !== D.Ready)
+            )
+              return (
+                o("WALogger").WARN(
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:switchOutputDevice] playback not ready",
+                      "",
+                    ])),
+                  n === !0 ? "" : ", saving preference",
+                ),
+                n !== !0 &&
+                  o("WAWebAudioDeviceManager").saveAudioOutputDevicePreference(
+                    t,
+                    "AV:switchOutputDevice",
+                  ),
+                !1
+              );
+            var e = this.implementation;
+            if (e == null)
+              return (
+                o("WALogger").WARN(
+                  k ||
+                    (k = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV:switchOutputDevice] playback implementation not initialized",
+                      "",
+                    ])),
+                  n === !0 ? "" : ", saving preference",
+                ),
+                n !== !0 &&
+                  o("WAWebAudioDeviceManager").saveAudioOutputDevicePreference(
+                    t,
+                    "AV:switchOutputDevice",
+                  ),
+                !1
+              );
+            var r =
+              e.switchOutputDevice != null
+                ? await e.switchOutputDevice(t, n)
+                : await o(
+                    "WAWebAudioDeviceManager",
+                  ).switchAudioOutputDeviceInternal(t, e.getAudioElement(), n);
+            return (
+              r
+                ? o("WALogger").LOG(
+                    I ||
+                      (I = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:switchOutputDevice] Successfully switched output to device: ",
                         "",
                       ])),
-                    e,
+                    t,
+                  )
+                : o("WALogger").ERROR(
+                    T ||
+                      (T = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [AV:switchOutputDevice] Failed to switch output to device: ",
+                        "",
+                      ])),
+                    t,
                   ),
-                  this.audioPlaybackInitState !== D.Ready)
-                )
-                  return (
-                    o("WALogger").WARN(
-                      E ||
-                        (E = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:switchOutputDevice] playback not ready",
-                          "",
-                        ])),
-                      t === !0 ? "" : ", saving preference",
-                    ),
-                    t !== !0 &&
-                      o(
-                        "WAWebAudioDeviceManager",
-                      ).saveAudioOutputDevicePreference(
-                        e,
-                        "AV:switchOutputDevice",
-                      ),
-                    !1
-                  );
-                var n = this.implementation;
-                if (n == null)
-                  return (
-                    o("WALogger").WARN(
-                      k ||
-                        (k = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [AV:switchOutputDevice] playback implementation not initialized",
-                          "",
-                        ])),
-                      t === !0 ? "" : ", saving preference",
-                    ),
-                    t !== !0 &&
-                      o(
-                        "WAWebAudioDeviceManager",
-                      ).saveAudioOutputDevicePreference(
-                        e,
-                        "AV:switchOutputDevice",
-                      ),
-                    !1
-                  );
-                var r =
-                  n.switchOutputDevice != null
-                    ? yield n.switchOutputDevice(e, t)
-                    : yield o(
-                        "WAWebAudioDeviceManager",
-                      ).switchAudioOutputDeviceInternal(
-                        e,
-                        n.getAudioElement(),
-                        t,
-                      );
-                return (
-                  r
-                    ? o("WALogger").LOG(
-                        I ||
-                          (I = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:switchOutputDevice] Successfully switched output to device: ",
-                            "",
-                          ])),
-                        e,
-                      )
-                    : o("WALogger").ERROR(
-                        T ||
-                          (T = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [AV:switchOutputDevice] Failed to switch output to device: ",
-                            "",
-                          ])),
-                        e,
-                      ),
-                  r
-                );
-              },
+              r
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.consumeAudioPlaybackMetrics = function () {
+          }),
+          (n.consumeAudioPlaybackMetrics = function () {
             var e,
               t,
               n,

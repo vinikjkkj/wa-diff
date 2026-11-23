@@ -6,7 +6,6 @@ __d(
     "WAWebEBLabyrinthWaWasmReactorSingleton",
     "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -41,55 +40,47 @@ __d(
       }
       return o("WAResultOrError").makeResult(r);
     }
-    function s(e) {
-      return u.apply(this, arguments);
+    async function s(t) {
+      try {
+        return await o(
+          "WAWebEBLabyrinthWaWasmReactorSingleton",
+        ).labyrinthWaCommand(
+          {
+            InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
+            ResultSpec: o("WAWebLabyrinthWaWasm.pb").DeriveEpochsOutputSpec,
+            validateResult: e,
+          },
+          {
+            deriveEpochsInput: {
+              epochStoragePrivateKey: t.epochStoragePrivateKey,
+              epochs: t.epochs.map(function (e) {
+                return {
+                  serverEpochId: o("WALongInt").decimalStringToLongInt(
+                    e.serverEpochId,
+                  ),
+                  epochAnonId: e.epochAnonId,
+                  epochRootKey: e.epochRootKey,
+                };
+              }),
+              edges: t.edges.map(function (e) {
+                return {
+                  fromEpoch: u(e.fromEpoch),
+                  toEpoch: u(e.toEpoch),
+                  forwardEdge: e.forwardEdge,
+                  backwardEdge: e.backwardEdge,
+                };
+              }),
+            },
+          },
+        );
+      } catch (e) {
+        return o("WAResultOrError").makeError({
+          error: r("getErrorSafe")(e),
+          kind: "exception",
+        });
+      }
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            return yield o(
-              "WAWebEBLabyrinthWaWasmReactorSingleton",
-            ).labyrinthWaCommand(
-              {
-                InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
-                ResultSpec: o("WAWebLabyrinthWaWasm.pb").DeriveEpochsOutputSpec,
-                validateResult: e,
-              },
-              {
-                deriveEpochsInput: {
-                  epochStoragePrivateKey: t.epochStoragePrivateKey,
-                  epochs: t.epochs.map(function (e) {
-                    return {
-                      serverEpochId: o("WALongInt").decimalStringToLongInt(
-                        e.serverEpochId,
-                      ),
-                      epochAnonId: e.epochAnonId,
-                      epochRootKey: e.epochRootKey,
-                    };
-                  }),
-                  edges: t.edges.map(function (e) {
-                    return {
-                      fromEpoch: c(e.fromEpoch),
-                      toEpoch: c(e.toEpoch),
-                      forwardEdge: e.forwardEdge,
-                      backwardEdge: e.backwardEdge,
-                    };
-                  }),
-                },
-              },
-            );
-          } catch (e) {
-            return o("WAResultOrError").makeError({
-              error: r("getErrorSafe")(e),
-              kind: "exception",
-            });
-          }
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e) {
+    function u(e) {
       return {
         serverEpochId: o("WALongInt").decimalStringToLongInt(e.serverEpochId),
         epochAnonId: e.epochAnonId,

@@ -1,52 +1,42 @@
 __d(
   "WAWebThreadLoggingNotification",
   [
-    "Promise",
     "WALogger",
     "WAWebThreadInteractionDataNotificationWamEvent",
     "WAWebThreadLoggingFalco",
     "WamThreadInteractionDataNotificationFalcoEvent",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i = [];
-          try {
-            (t.forEach(function (e) {
-              if (a) {
-                i.push(d(e));
-                return;
-              }
-              var t = new (o(
-                "WAWebThreadInteractionDataNotificationWamEvent",
-              ).ThreadInteractionDataNotificationWamEvent)(m(e));
-              t.commit();
-            }),
-              yield (s || (s = n("Promise"))).all(i));
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "ctlv2: error uploading Notification WAM event",
-                  ])),
-              )
-              .catching(t instanceof Error ? t : r("err")(String(t)))
-              .sendLogs("thread-logging-notification-upload-failure");
+    var e;
+    async function s(t, n) {
+      var a = [];
+      try {
+        (t.forEach(function (e) {
+          if (n) {
+            a.push(u(e));
+            return;
           }
-        })),
-        c.apply(this, arguments)
-      );
+          var t = new (o(
+            "WAWebThreadInteractionDataNotificationWamEvent",
+          ).ThreadInteractionDataNotificationWamEvent)(c(e));
+          t.commit();
+        }),
+          await Promise.all(a));
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "ctlv2: error uploading Notification WAM event",
+              ])),
+          )
+          .catching(t instanceof Error ? t : r("err")(String(t)))
+          .sendLogs("thread-logging-notification-upload-failure");
+      }
     }
-    function d(e) {
-      var t = m(e);
+    function u(e) {
+      var t = c(e);
       return o("WAWebThreadLoggingFalco").logThreadInteractionFalcoEvent(
         r("WamThreadInteractionDataNotificationFalcoEvent"),
         function () {
@@ -58,15 +48,15 @@ __d(
         },
       );
     }
-    function m(e) {
+    function c(e) {
       var t = e.event,
         n = e.threadDs,
         r = e.threadId,
         o = t.contactInfo;
       return { threadDs: n, threadId: r, isAGroup: o.isAGroup };
     }
-    ((l.ThreadInteractionNotificationWamTrigger = u),
-      (l.logThreadInteractionNotificationFalcoEvent = d));
+    ((l.ThreadInteractionNotificationWamTrigger = s),
+      (l.logThreadInteractionNotificationFalcoEvent = u));
   },
   98,
 );

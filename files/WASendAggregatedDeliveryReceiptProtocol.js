@@ -3,8 +3,8 @@ __d(
   [
     "WAGlobals",
     "WAJids",
-    "WASmaxOutReceiptPublishDeliveryRequest",
-    "WASmaxOutReceiptPublishSenderRequest",
+    "WASmaxReceiptPublishDeliveryRPC",
+    "WASmaxReceiptPublishSenderRPC",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -45,9 +45,7 @@ __d(
           senderAggregatedPublishOrSingleMixinGroupArgs: a,
           userOrDeviceOrInteropUserOrInteropDeviceMixinGroupArgs: r,
         };
-      return o(
-        "WASmaxOutReceiptPublishDeliveryRequest",
-      ).makePublishDeliveryRequest(i);
+      return o("WASmaxReceiptPublishDeliveryRPC").makePublishDeliveryRequest(i);
     }
     function u(e) {
       var t = e.from,
@@ -71,9 +69,7 @@ __d(
           publishSenderGroupOrPublishSenderIndividualOrPublishSenderStatusOrPublishSenderBroadcastDeviceSenderTypeMixinGroupArgs:
             r,
         };
-      return o("WASmaxOutReceiptPublishSenderRequest").makePublishSenderRequest(
-        i,
-      );
+      return o("WASmaxReceiptPublishSenderRPC").makePublishSenderRequest(i);
     }
     function c(e) {
       var t = e.chat,
@@ -81,8 +77,9 @@ __d(
         r = e.stanzaIdList,
         a = {
           publishSenderGroupDeviceSenderType: {
-            receiptTo: t,
-            receiptParticipant: n,
+            groupGroupStatusDeviceOrGroupDeviceDeviceMixinGroupArgs: {
+              groupDevice: { receiptTo: t, receiptParticipant: n },
+            },
           },
         },
         i = {
@@ -98,9 +95,7 @@ __d(
             a,
           senderAggregatedPublishOrSingleMixinGroupArgs: i,
         };
-      return o("WASmaxOutReceiptPublishSenderRequest").makePublishSenderRequest(
-        l,
-      );
+      return o("WASmaxReceiptPublishSenderRPC").makePublishSenderRequest(l);
     }
     function d(e) {
       var t = e.chat,
@@ -125,9 +120,7 @@ __d(
           senderAggregatedPublishOrSingleMixinGroupArgs: i,
           userOrDeviceOrInteropUserOrInteropDeviceMixinGroupArgs: a,
         };
-      return o(
-        "WASmaxOutReceiptPublishDeliveryRequest",
-      ).makePublishDeliveryRequest(l);
+      return o("WASmaxReceiptPublishDeliveryRPC").makePublishDeliveryRequest(l);
     }
     l.makeAggregatedDeliveryReceipts = e;
   },

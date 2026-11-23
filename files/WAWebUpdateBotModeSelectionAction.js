@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebBulkCreateOrUpdateThreadsMetadata",
     "WAWebMaybeGetBotModeSelection",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -23,43 +22,35 @@ __d(
       }
       o("WAWebMaybeGetBotModeSelection").storeInMemoryBotMode(t);
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.aiThread,
-            r = t.botModeSelection,
-            a = t.chatId;
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[updateBotModeSelectionAction]: Start",
-              ])),
-          );
-          var i = {
-            threadId: n.id,
-            chatId: a,
-            lastMessageTimestamp: n.lastMessageTimestamp,
-            creationTimestamp: n.creationTimestamp,
-            botModeSelection: r,
-          };
-          (yield o(
-            "WAWebBulkCreateOrUpdateThreadsMetadata",
-          ).bulkCreateOrUpdateThreadsMetadata([i]),
-            n.set({ botModeSelection: r }),
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[updateBotModeSelectionAction]: End",
-                ])),
-            ));
-        })),
-        d.apply(this, arguments)
+    async function c(t) {
+      var n = t.aiThread,
+        r = t.botModeSelection,
+        a = t.chatId;
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "[updateBotModeSelectionAction]: Start",
+          ])),
       );
+      var i = {
+        threadId: n.id,
+        chatId: a,
+        lastMessageTimestamp: n.lastMessageTimestamp,
+        creationTimestamp: n.creationTimestamp,
+        botModeSelection: r,
+      };
+      (await o(
+        "WAWebBulkCreateOrUpdateThreadsMetadata",
+      ).bulkCreateOrUpdateThreadsMetadata([i]),
+        n.set({ botModeSelection: r }),
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[updateBotModeSelectionAction]: End",
+            ])),
+        ));
     }
-    function m(e) {
+    function d(e) {
       var t = e.botModeOverride,
         n = e.chat,
         r = e.threadId;
@@ -83,7 +74,7 @@ __d(
       }
       o("WAWebMaybeGetBotModeSelection").storeInMemoryBotModeOverride(t);
     }
-    ((l.persistBotModeSelection = u), (l.persistDynamicBotModeOverride = m));
+    ((l.persistBotModeSelection = u), (l.persistDynamicBotModeOverride = d));
   },
   98,
 );

@@ -12,6 +12,7 @@ __d(
     "GraphAPIPaging",
     "GraphAPIRetry",
     "gkx",
+    "observeRuntimeType",
     "promiseDone",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,7 +31,6 @@ __d(
                 e.buildCampaignExtraQueryParams(n),
                 "adset_id",
                 n,
-                new Map([["filtering", "SELECTED_CAMPAIGN_IDS"]]),
               );
             }),
             (e.loadForCampaignGroups = function (t, n) {
@@ -39,7 +39,6 @@ __d(
                 e.buildCampaignGroupExtraQueryParams(n),
                 "campaign_id",
                 n,
-                new Map([["filtering", "SELECTED_CAMPAIGN_GROUP_IDS"]]),
               );
             }),
             (e.loadForAccount = function (t) {
@@ -79,27 +78,26 @@ __d(
               n = this.$AdsAdgroupLiveListDataManagerClass$p_1(e, t);
             return { filtering: n.toAPI() };
           }),
-          (a.buildRequestFor = function (t, n, r, o) {
-            var e = this.$AdsAdgroupLiveListDataManagerClass$p_2(t, n, r, o),
-              a = e.params,
-              i = e.requestSpec;
-            return i.declareOnly().get(a);
+          (a.buildRequestFor = function (t, n, r) {
+            var e = this.$AdsAdgroupLiveListDataManagerClass$p_2(t, n, r),
+              o = e.params,
+              a = e.requestSpec;
+            return a.declareOnly().get(o);
           }),
-          (a.$AdsAdgroupLiveListDataManagerClass$p_2 = function (n, r, a, l) {
+          (a.$AdsAdgroupLiveListDataManagerClass$p_2 = function (n, r, a) {
             var t = e.concat([a]);
             a === "campaign_id" && (t = t.concat(["adset_id"]));
-            var u = a.substring(0, a.length - 3),
-              c = o("AdsGraphAPI")
-                .get(i.id + ".loadFor(" + u + ")")
+            var l = a.substring(0, a.length - 3),
+              u = o("AdsGraphAPI")
+                .get(i.id + ".loadFor(" + l + ")")
                 .adaccount(n)
                 .edge("ads")
-                .batched();
-            l != null && (c = c.withClientMetadata("dataLineage", l));
-            var d = babelHelpers.extends(
-              { date_format: "U", fields: t, limit: s, summary: !0 },
-              r,
-            );
-            return { params: d, requestSpec: c };
+                .batched(),
+              c = babelHelpers.extends(
+                { date_format: "U", fields: t, limit: s, summary: !0 },
+                r,
+              );
+            return { params: c, requestSpec: u };
           }),
           (a.__getExtraParams = function () {
             return null;
@@ -116,21 +114,15 @@ __d(
               ),
             ]);
           }),
-          (a.$AdsAdgroupLiveListDataManagerClass$p_3 = function (
-            t,
-            n,
-            a,
-            i,
-            l,
-          ) {
+          (a.$AdsAdgroupLiveListDataManagerClass$p_3 = function (t, n, a, i) {
             var e = this,
-              s = this.$AdsAdgroupLiveListDataManagerClass$p_2(t, n, a, l),
-              u = s.params,
-              c = s.requestSpec;
+              l = this.$AdsAdgroupLiveListDataManagerClass$p_2(t, n, a),
+              s = l.params,
+              u = l.requestSpec;
             r("promiseDone")(
               (r("gkx")("22099")
-                ? o("GraphAPIRetry").getWithRetries(c, u, 3)
-                : c.get(u)
+                ? o("GraphAPIRetry").getWithRetries(u, s, 3)
+                : u.get(s)
               ).then(o("GraphAPIPaging").allPages()),
               function (t) {
                 var n = new Map();
@@ -155,21 +147,25 @@ __d(
             r("AdsAdgroupListBatchLoadedDataAction").dispatch(
               { responses: t },
               {
-                line: "283",
+                line: "264",
                 module: "AdsAdgroupLiveListDataManager.js",
                 moduleID: i.id,
               },
             );
           }),
           (a.__onBatchLoadError = function (t) {
-            r("AdsAdgroupListBatchLoadErrorDataAction").dispatch(
-              { responses: t },
-              {
-                line: "288",
-                module: "AdsAdgroupLiveListDataManager.js",
-                moduleID: i.id,
-              },
-            );
+            (r("observeRuntimeType")(
+              t,
+              "AdsAdgroupLiveListDataManager.AdsAdgroupLiveListDataManagerClass.__onBatchLoadError.responses",
+            ),
+              r("AdsAdgroupListBatchLoadErrorDataAction").dispatch(
+                { responses: t },
+                {
+                  line: "275",
+                  module: "AdsAdgroupLiveListDataManager.js",
+                  moduleID: i.id,
+                },
+              ));
           }),
           n
         );

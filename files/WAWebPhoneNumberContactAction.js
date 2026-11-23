@@ -41,9 +41,7 @@ __d(
     function d(e, t, n) {
       (o("WAWebCopyToClipboard").copyTextToClipboard(e),
         o("WAWebToastManager").ToastManager.open(
-          u.jsx(o("WAWebToast.react").Toast, {
-            msg: s._(/*BTDS*/ "Copied to clipboard."),
-          }),
+          u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
         ),
         new (o(
           "WAWebPsPhoneNumberHyperlinkWamEvent",

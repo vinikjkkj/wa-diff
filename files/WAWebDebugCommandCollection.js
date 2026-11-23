@@ -61,13 +61,13 @@ __d(
           });
         }),
         (n.addCommandsFromDebug = function () {
-          var e = this;
-          Object.keys(r("WAWebDebug")).forEach(function (t) {
+          var e = [];
+          (Object.keys(r("WAWebDebug")).forEach(function (t) {
             var n = r("WAWebDebug")[t];
             n == null ||
               !o("WATypeUtils").isFunction(n) ||
               n.doc == null ||
-              e.add({
+              e.push({
                 id: t,
                 funcName: t,
                 doc: n.doc,
@@ -78,7 +78,8 @@ __d(
                 displayName: n.displayName != null ? n.displayName : null,
                 func: n,
               });
-          });
+          }),
+            this.add(e));
         }),
         t
       );

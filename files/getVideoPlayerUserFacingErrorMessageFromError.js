@@ -25,21 +25,12 @@ __d(
       var n = null;
       return (
         e(t)
-          ? (n = s._(
-              /*BTDS*/ "Audio renderer error: Please restart your computer.",
-            ))
+          ? (n = s._(/*BTDS*/ ""))
           : u(t)
-            ? (n = s._(
-                /*BTDS*/ "This video is DRM-protected, but your device certificate appears to be revoked. Please make sure your browser is up to date, and try again.",
-              ))
+            ? (n = s._(/*BTDS*/ ""))
             : c(t)
-              ? (n = s._(
-                  /*BTDS*/ "This video cannot be played in the browser, operating system, or hardware you're using.",
-                ))
-              : d(t) &&
-                (n = s._(
-                  /*BTDS*/ "This video content isn't available right now.",
-                )),
+              ? (n = s._(/*BTDS*/ ""))
+              : d(t) && (n = s._(/*BTDS*/ "")),
         n
       );
     }

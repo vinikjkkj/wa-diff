@@ -7,25 +7,24 @@ __d(
     "WAWebMsgKey",
     "WAWebNewsletterDeleteMyQuestionResponseQuery",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "deleteMyNewsletterQuestionResponse",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             return (
-              yield o(
+              await o(
                 "WAWebAddonNewsletterQuestionResponseTableMode",
               ).newsletterQuestionResponseTableMode.bulkRemoveByMsgKey([
                 s(e.newsletterJid, e.messageId),
               ]),
-              yield o(
+              await o(
                 "WAWebNewsletterDeleteMyQuestionResponseQuery",
               ).deleteMyQuestionResponseQuery(e)
             );
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();

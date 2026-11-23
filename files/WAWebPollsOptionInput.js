@@ -15,7 +15,6 @@ __d(
     "WDSIconIcClose.react",
     "WDSIconIcImage.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
@@ -70,14 +69,14 @@ __d(
         },
       };
     function m(e) {
-      var t = o("react-compiler-runtime").c(40),
-        n = e.chat,
-        a = e.checked,
-        i = e.error,
-        l = e.handleCheckBoxClick,
-        m = e.image,
-        _ = e.initialText,
-        f = e.isPhotoPoll,
+      var t = e.chat,
+        n = e.checked,
+        a = e.error,
+        i = e.handleCheckBoxClick,
+        l = e.image,
+        m = e.initialText,
+        _ = e.isPhotoPoll,
+        f = _ === void 0 ? !1 : _,
         g = e.onChange,
         h = e.onDeletePhoto,
         y = e.onDragThumbMouseDown,
@@ -87,148 +86,70 @@ __d(
         S = e.onPhotoThumbnailClick,
         R = e.onTextInputRef,
         L = e.pollType,
-        E = e.testid,
-        k = f === void 0 ? !1 : f,
-        I = L === void 0 ? o("WAWebPollCreationUtils").PollType.POLL : L,
-        T;
-      t[0] !== n
-        ? ((T = o("WAWebIsPhotoPollSenderEnabled").isPhotoPollSenderEnabled(n)
-            ? s._(/*BTDS*/ "Add text or photo")
-            : s._(/*BTDS*/ "Add text")),
-          (t[0] = n),
-          (t[1] = T))
-        : (T = t[1]);
-      var D = T,
-        x;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((x = { className: "xh8yej3 x78zum5 x1q0g3np x6s0dn4" }), (t[2] = x))
-        : (x = t[2]);
-      var $;
-      t[3] !== a || t[4] !== l || t[5] !== k || t[6] !== I || t[7] !== E
-        ? (($ =
-            I === o("WAWebPollCreationUtils").PollType.QUIZ &&
+        E = L === void 0 ? o("WAWebPollCreationUtils").PollType.POLL : L,
+        k = e.testid,
+        I = o("WAWebIsPhotoPollSenderEnabled").isPhotoPollSenderEnabled(t)
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
+      return u.jsxs("div", {
+        className: "xh8yej3 x78zum5 x1q0g3np x6s0dn4",
+        children: [
+          E === o("WAWebPollCreationUtils").PollType.QUIZ &&
             u.jsx(o("WAWebFlex.react").FlexColumn, {
-              xstyle: [k ? d.photoPollCheckboxColumn : d.pollCheckboxColumn, c],
+              xstyle: [f ? d.photoPollCheckboxColumn : d.pollCheckboxColumn, c],
               children: u.jsx(o("WAWebCheckBox.react").CheckBox, {
-                checked: a || !1,
+                checked: n || !1,
                 id: "quiz-option-checkbox",
                 onChange: function () {
-                  l == null || l();
+                  i == null || i();
                 },
-                testid: E + "-select",
+                testid: k + "-select",
                 theme: o("WAWebCheckBox.react").CheckboxTheme.POLLS_SENDER,
               }),
-            })),
-          (t[3] = a),
-          (t[4] = l),
-          (t[5] = k),
-          (t[6] = I),
-          (t[7] = E),
-          (t[8] = $))
-        : ($ = t[8]);
-      var P, N;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((P = { className: "xh8yej3 x78zum5 x6s0dn4" }),
-          (N = { className: "xh8yej3" }),
-          (t[9] = P),
-          (t[10] = N))
-        : ((P = t[9]), (N = t[10]));
-      var M = i != null ? i : void 0,
-        w;
-      t[11] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = o("WAWebPollsGatingUtils").getMaxPollOptionLength()),
-          (t[11] = w))
-        : (w = t[11]);
-      var A;
-      t[12] !== g
-        ? ((A = function (t) {
-            var e = t.text;
-            return g(e);
-          }),
-          (t[12] = g),
-          (t[13] = A))
-        : (A = t[13]);
-      var F =
-          o("WAWebIsPhotoPollSenderEnabled").isPhotoPollSenderEnabled(n) && !k
-            ? "side"
-            : "none",
-        O;
-      t[14] !== R
-        ? ((O = function (t) {
-            R(t);
-          }),
-          (t[14] = R),
-          (t[15] = O))
-        : (O = t[15]);
-      var B;
-      t[16] === Symbol.for("react.memo_cache_sentinel")
-        ? ((B = o("WAWebSpoilerGating").isSpoilerSenderEnabled()), (t[16] = B))
-        : (B = t[16]);
-      var W;
-      t[17] !== _ ||
-      t[18] !== k ||
-      t[19] !== y ||
-      t[20] !== C ||
-      t[21] !== b ||
-      t[22] !== v ||
-      t[23] !== D ||
-      t[24] !== A ||
-      t[25] !== F ||
-      t[26] !== O ||
-      t[27] !== M ||
-      t[28] !== E
-        ? ((W = u.jsx(
-            "div",
-            babelHelpers.extends({}, P, {
-              children: u.jsx(
-                "div",
-                babelHelpers.extends({}, N, {
-                  children: u.jsx(o("WAWebRichTextField.react").RichTextField, {
-                    emojiBtnPosition: "side",
-                    error: M,
-                    hideFloatingLabel: !0,
-                    maxCodeUnits: o("WAWebPollsGatingUtils")
-                      .MAX_POLL_OPTION_LENGTH_FOR_INCOMING_MESSAGES,
-                    maxLength: w,
-                    onBlur: C,
-                    onChange: A,
-                    onDragThumbMouseDown: y,
-                    onFocus: b,
-                    onPhotoIconClick: v,
-                    photoBtnPosition: F,
-                    placeholder: D,
-                    ref: O,
-                    showDraggableIcon: k,
-                    showRemaining: !0,
-                    spoilerEnabled: B,
-                    testid: E,
-                    textFormatEnabled: !0,
-                    value: _,
-                  }),
-                }),
-              ),
             }),
-          )),
-          (t[17] = _),
-          (t[18] = k),
-          (t[19] = y),
-          (t[20] = C),
-          (t[21] = b),
-          (t[22] = v),
-          (t[23] = D),
-          (t[24] = A),
-          (t[25] = F),
-          (t[26] = O),
-          (t[27] = M),
-          (t[28] = E),
-          (t[29] = W))
-        : (W = t[29]);
-      var q;
-      t[30] !== m || t[31] !== k || t[32] !== h || t[33] !== y || t[34] !== S
-        ? ((q = k
+          u.jsx("div", {
+            className: "xh8yej3 x78zum5 x6s0dn4",
+            children: u.jsx("div", {
+              className: "xh8yej3",
+              children: u.jsx(o("WAWebRichTextField.react").RichTextField, {
+                emojiBtnPosition: "side",
+                error: a != null ? a : void 0,
+                hideFloatingLabel: !0,
+                maxCodeUnits: o("WAWebPollsGatingUtils")
+                  .MAX_POLL_OPTION_LENGTH_FOR_INCOMING_MESSAGES,
+                maxLength: o("WAWebPollsGatingUtils").getMaxPollOptionLength(),
+                onBlur: C,
+                onChange: function (t) {
+                  var e = t.text;
+                  return g(e);
+                },
+                onDragThumbMouseDown: y,
+                onFocus: b,
+                onPhotoIconClick: v,
+                photoBtnPosition:
+                  o("WAWebIsPhotoPollSenderEnabled").isPhotoPollSenderEnabled(
+                    t,
+                  ) && !f
+                    ? "side"
+                    : "none",
+                placeholder: I,
+                ref: function (t) {
+                  R(t);
+                },
+                showDraggableIcon: f,
+                showRemaining: !0,
+                spoilerEnabled:
+                  o("WAWebSpoilerGating").isSpoilerSenderEnabled(),
+                testid: k,
+                textFormatEnabled: !0,
+                value: m,
+              }),
+            }),
+          }),
+          f
             ? u.jsxs(u.Fragment, {
                 children: [
-                  u.jsx(p, { image: m, onClick: S, onDeletePhoto: h }),
+                  u.jsx(p, { image: l, onClick: S, onDeletePhoto: h }),
                   u.jsx("div", {
                     className: "xlese2p",
                     children: u.jsx(r("WAWebDragIconWrapper.react"), {
@@ -237,40 +158,20 @@ __d(
                   }),
                 ],
               })
-            : null),
-          (t[30] = m),
-          (t[31] = k),
-          (t[32] = h),
-          (t[33] = y),
-          (t[34] = S),
-          (t[35] = q))
-        : (q = t[35]);
-      var U;
-      return (
-        t[36] !== W || t[37] !== q || t[38] !== $
-          ? ((U = u.jsxs(
-              "div",
-              babelHelpers.extends({}, x, { children: [$, W, q] }),
-            )),
-            (t[36] = W),
-            (t[37] = q),
-            (t[38] = $),
-            (t[39] = U))
-          : (U = t[39]),
-        U
-      );
+            : null,
+        ],
+      });
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.image,
-        a = e.onClick,
-        i = e.onDeletePhoto,
-        l;
-      t[0] !== (n == null ? void 0 : n.preview) || t[1] !== i
-        ? ((l =
-            (n == null ? void 0 : n.preview) &&
+      var t = e.image,
+        n = e.onClick,
+        o = e.onDeletePhoto;
+      return u.jsxs("div", {
+        children: [
+          (t == null ? void 0 : t.preview) &&
             u.jsx(r("WAWebUnstyledButton.react"), {
-              onClick: i,
+              onClick: o,
               role: "button",
               xstyle: d.deleteBtn,
               children: u.jsx(r("WDSIconIcClose.react"), {
@@ -279,52 +180,28 @@ __d(
                 xstyle: d.deleteIcon,
                 testid: "poll-option-remove-photo",
               }),
-            })),
-          (t[0] = n == null ? void 0 : n.preview),
-          (t[1] = i),
-          (t[2] = l))
-        : (l = t[2]);
-      var s;
-      t[3] !== (n == null ? void 0 : n.preview)
-        ? ((s =
-            n != null && n.preview
-              ? u.jsx(r("WAWebImg.react"), {
-                  alt: "",
-                  className:
-                    "x15yg21f xnnlda6 xyi3aci xwf5gio x1p453bz x1suzm8a xl56j7k x6s0dn4 x78zum5 x1h3rtpe x2lah0s xl1xv1r",
-                  src: n == null ? void 0 : n.preview,
-                })
-              : u.jsx(r("WDSIconIcImage.react"), {
-                  iconXstyle: d.grayColor,
-                  height: 15,
-                  width: 15,
-                })),
-          (t[3] = n == null ? void 0 : n.preview),
-          (t[4] = s))
-        : (s = t[4]);
-      var c;
-      t[5] !== a || t[6] !== s
-        ? ((c = u.jsx(r("WAWebUnstyledButton.react"), {
-            onClick: a,
+            }),
+          u.jsx(r("WAWebUnstyledButton.react"), {
+            onClick: n,
             xstyle: d.photoPreviewWrapper,
-            children: s,
-          })),
-          (t[5] = a),
-          (t[6] = s),
-          (t[7] = c))
-        : (c = t[7]);
-      var m;
-      return (
-        t[8] !== l || t[9] !== c
-          ? ((m = u.jsxs("div", { children: [l, c] })),
-            (t[8] = l),
-            (t[9] = c),
-            (t[10] = m))
-          : (m = t[10]),
-        m
-      );
+            children:
+              t != null && t.preview
+                ? u.jsx(r("WAWebImg.react"), {
+                    alt: "",
+                    className:
+                      "x15yg21f xnnlda6 xyi3aci xwf5gio x1p453bz x1suzm8a xl56j7k x6s0dn4 x78zum5 x1h3rtpe x2lah0s xl1xv1r",
+                    src: t == null ? void 0 : t.preview,
+                  })
+                : u.jsx(r("WDSIconIcImage.react"), {
+                    iconXstyle: d.grayColor,
+                    height: 15,
+                    width: 15,
+                  }),
+          }),
+        ],
+      });
     }
-    l.default = m;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

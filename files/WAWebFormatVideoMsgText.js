@@ -9,8 +9,8 @@ __d(
         a = t.safe();
       if (a.type === o("WAWebMsgType").MSG_TYPE.VIDEO && a.isViewOnce)
         return o("WAWebViewOnceState").isViewed(a)
-          ? s._(/*BTDS*/ "Opened")
-          : s._(/*BTDS*/ "Video");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
       var i = o("WAWebFormatMsgTextUtils").maybeAddFooter(t.caption, t);
       return i != null && i !== ""
         ? r !== !0
@@ -22,7 +22,7 @@ __d(
             )
         : t.isGif
           ? "GIF"
-          : s._(/*BTDS*/ "Video");
+          : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

@@ -13,7 +13,6 @@ __d(
     "WAWebVoipVideoCaptureAndRendering",
     "WAWebVoipWaCallEnums",
     "WAWebVoipWebCodecsEncoderState",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
   ],
@@ -23,340 +22,234 @@ __d(
       s,
       u,
       c = 50;
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(t) {
+      var n = r("nullthrows")(
+        await o("WAWebVoipStackInterface").getVoipStackInterface(),
+      );
+      if (n.type === "web") {
+        var a = n.parsers.parseVideoStateChangedData(t);
+        (o("WAWebBackendApi").frontendFireAndForget("handleVideoStateChange", {
+          videoStateData: a,
+        }),
+          a.isSelf === !0 &&
+            m().catch(function (t) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: handleUpdateVoipSettings: dispatch failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t));
+            }));
+      }
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (t.type === "web") {
-            var n = t.parsers.parseVideoStateChangedData(e);
-            (o("WAWebBackendApi").frontendFireAndForget(
-              "handleVideoStateChange",
-              { videoStateData: n },
+    async function m() {
+      var e = r("nullthrows")(
+        await o("WAWebVoipStackInterface").getVoipStackInterface(),
+      );
+      if (e.type === "web") {
+        var t = await e.getCallInfo();
+        if (t !== "") {
+          var n = e.parsers.parseCallInfo(t);
+          (o("WAWebCallUserJourneyLogger").CallUserJourneyLogger.setVideoCall(
+            n.videoEnabled === !0,
+          ),
+            o("WAWebVoipCameraFingerprintLogging").maybeLogCameraFingerprint(
+              n.videoEnabled === !0,
+              !0,
             ),
-              n.isSelf === !0 &&
-                p().catch(function (e) {
-                  o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: handleUpdateVoipSettings: dispatch failed",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e));
-                }));
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (e.type === "web") {
-            var t = yield e.getCallInfo();
-            if (t !== "") {
-              var n = e.parsers.parseCallInfo(t);
-              (o(
-                "WAWebCallUserJourneyLogger",
-              ).CallUserJourneyLogger.setVideoCall(n.videoEnabled === !0),
-                o(
-                  "WAWebVoipCameraFingerprintLogging",
-                ).maybeLogCameraFingerprint(n.videoEnabled === !0, !0),
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "handleVoipSettingsUpdate",
-                  {
-                    callId: n.callId,
-                    isDualStreamSsEnabled: n.isDualStreamSsEnabled,
-                  },
-                ));
-            }
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (t.type === "web") {
-            var n = t.parsers.parsePeerVideoPermissionChangedData(e);
             o("WAWebBackendApi").frontendFireAndForget(
-              "handlePeerVideoPermissionChange",
-              { peerVideoPermissionData: n },
-            );
-          }
-        })),
-        g.apply(this, arguments)
-      );
+              "handleVoipSettingsUpdate",
+              {
+                callId: n.callId,
+                isDualStreamSsEnabled: n.isDualStreamSsEnabled,
+              },
+            ));
+        }
+      }
     }
-    var h = o("WAThrottle").throttle(
+    async function p(e) {
+      var t = r("nullthrows")(
+        await o("WAWebVoipStackInterface").getVoipStackInterface(),
+      );
+      if (t.type === "web") {
+        var n = t.parsers.parsePeerVideoPermissionChangedData(e);
+        o("WAWebBackendApi").frontendFireAndForget(
+          "handlePeerVideoPermissionChange",
+          { peerVideoPermissionData: n },
+        );
+      }
+    }
+    var _ = o("WAThrottle").throttle(
         function () {
-          b().catch(function (t) {
+          h().catch(function (e) {
             o("WALogger")
               .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: handleMuteStateChanged: dispatch failed",
                   ])),
               )
-              .catching(r("getErrorSafe")(t))
+              .catching(r("getErrorSafe")(e))
               .sendLogs("voip-mute-state-dispatch-failed");
           });
         },
         c,
         { leading: !0, trailing: !0 },
       ),
-      y = 0;
-    function C() {
-      h();
+      f = 0;
+    function g() {
+      _();
     }
-    function b() {
-      return v.apply(this, arguments);
+    async function h() {
+      var e = ++f,
+        t = r("nullthrows")(
+          await o("WAWebVoipStackInterface").getVoipStackInterface(),
+        );
+      if (t.type === "web") {
+        o("WAWebBackendApi").frontendFireAndForget("trackVoipActivity", {
+          activity: "get_call_info",
+          details: "mute_state",
+        });
+        var n = await t.getCallInfo();
+        if (n !== "" && e === f) {
+          var a = t.parsers.parseCallInfo(n);
+          o("WAWebBackendApi").frontendFireAndForget("handleMuteStateChange", {
+            callInfo: a,
+          });
+        }
+      }
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = ++y,
-            t = r("nullthrows")(
-              yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-            );
-          if (t.type === "web") {
-            o("WAWebBackendApi").frontendFireAndForget("trackVoipActivity", {
-              activity: "get_call_info",
-              details: "mute_state",
-            });
-            var n = yield t.getCallInfo();
-            if (n !== "" && e === y) {
-              var a = t.parsers.parseCallInfo(n);
-              o("WAWebBackendApi").frontendFireAndForget(
-                "handleMuteStateChange",
-                { callInfo: a },
-              );
-            }
-          }
-        })),
-        v.apply(this, arguments)
+    async function y(e) {
+      var t = r("nullthrows")(
+        await o("WAWebVoipStackInterface").getVoipStackInterface(),
       );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (t.type === "web") {
-            var n = t.parsers.parseAudioDriverRestartData(e);
-            (o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: handleAudioDriverRestart: reason=",
-                  ", count=",
-                  ", isDueToSilenceDetected=",
-                  "",
-                ])),
-              n.reason,
-              n.audioRestartCount,
-              n.isDueToSilenceDetected,
-            ),
-              n.isDueToSilenceDetected &&
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "showMicrophoneSilenceToast",
-                  {},
-                ));
-          }
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (t.type === "web") {
-            var n = t.parsers.parseSpeakerStatusChangedData(e);
-            for (var a of n.Participants)
-              a.AudioLevel > 0 &&
-                o("WAWebBackendApi").frontendFireAndForget(
-                  "handleAudioLevelChange",
-                  { participantJid: a.Jid },
-                );
-          }
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (t.type === "web") {
-            var n = t.parsers.parseReactionStateChangedData(e);
+      if (t.type === "web") {
+        var n = t.parsers.parseAudioDriverRestartData(e);
+        (o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: handleAudioDriverRestart: reason=",
+              ", count=",
+              ", isDueToSilenceDetected=",
+              "",
+            ])),
+          n.reason,
+          n.audioRestartCount,
+          n.isDueToSilenceDetected,
+        ),
+          n.isDueToSilenceDetected &&
             o("WAWebBackendApi").frontendFireAndForget(
-              "handleReactionStateChange",
-              { reactionData: n },
-            );
-          }
-        })),
-        I.apply(this, arguments)
+              "showMicrophoneSilenceToast",
+              {},
+            ));
+      }
+    }
+    async function C(e) {
+      var t = r("nullthrows")(
+        await o("WAWebVoipStackInterface").getVoipStackInterface(),
       );
-    }
-    function T(e) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (t.type === "web") {
-            var n = t.parsers.parseScreenShareStateChangedData(e);
-            (o("WAWebUserUtils").isMeAccount(n.sharer_jid) &&
-              o(
-                "WAWebVoipDualStreamScreenShareState",
-              ).setSelfDualStreamScreenShareActive(
-                n.state ===
-                  o("WAWebVoipWaCallEnums").ScreenShareState.Started &&
-                  Number(n.sharer_version) >=
-                    Number(
-                      o("WAWebVoipWaCallEnums").ScreenShareVersion.Version3,
-                    ),
-              ),
-              (n.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped ||
-                n.state ===
-                  o("WAWebVoipWaCallEnums").ScreenShareState.Failed) &&
-                o("WAWebUserUtils").isMeAccount(n.sharer_jid) &&
-                (o("WAWebVoipVideoCaptureAndRendering").stopDesktopCaptureJS(),
-                o(
-                  "WAWebVoipVideoCaptureAndRendering",
-                ).releaseDesktopStreamJS()),
-              o("WAWebBackendApi").frontendFireAndForget(
-                "handleScreenShareStateChange",
-                n,
-              ));
-          }
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (t.type === "web") {
-            var n = t.parsers.parseSelfCameraAutoOffData(e);
+      if (t.type === "web") {
+        var n = t.parsers.parseSpeakerStatusChangedData(e);
+        for (var a of n.Participants)
+          a.AudioLevel > 0 &&
             o("WAWebBackendApi").frontendFireAndForget(
-              "handleSelfCameraAutoOff",
-              { cameraAutoOffData: n },
+              "handleAudioLevelChange",
+              { participantJid: a.Jid },
             );
-          }
-        })),
-        $.apply(this, arguments)
+      }
+    }
+    async function b(e) {
+      var t = r("nullthrows")(
+        await o("WAWebVoipStackInterface").getVoipStackInterface(),
       );
+      if (t.type === "web") {
+        var n = t.parsers.parseReactionStateChangedData(e);
+        o("WAWebBackendApi").frontendFireAndForget(
+          "handleReactionStateChange",
+          { reactionData: n },
+        );
+      }
     }
-    function P(e) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (t.type === "web") {
-            var n = t.parsers.parseRaiseHandStateChangedData(e);
-            o("WAWebBackendApi").frontendFireAndForget(
-              "handleRaiseHandStateChange",
-              { raiseHandData: n },
-            );
-          }
-        })),
-        N.apply(this, arguments)
+    async function v(e) {
+      var t = r("nullthrows")(
+        await o("WAWebVoipStackInterface").getVoipStackInterface(),
       );
+      if (t.type === "web") {
+        var n = t.parsers.parseScreenShareStateChangedData(e);
+        (o("WAWebUserUtils").isMeAccount(n.sharer_jid) &&
+          o(
+            "WAWebVoipDualStreamScreenShareState",
+          ).setSelfDualStreamScreenShareActive(
+            n.state === o("WAWebVoipWaCallEnums").ScreenShareState.Started &&
+              Number(n.sharer_version) >=
+                Number(o("WAWebVoipWaCallEnums").ScreenShareVersion.Version3),
+          ),
+          (n.state === o("WAWebVoipWaCallEnums").ScreenShareState.Stopped ||
+            n.state === o("WAWebVoipWaCallEnums").ScreenShareState.Failed) &&
+            o("WAWebUserUtils").isMeAccount(n.sharer_jid) &&
+            (o("WAWebVoipVideoCaptureAndRendering").stopDesktopCaptureJS(),
+            o("WAWebVoipVideoCaptureAndRendering").releaseDesktopStreamJS()),
+          o("WAWebBackendApi").frontendFireAndForget(
+            "handleScreenShareStateChange",
+            n,
+          ));
+      }
     }
-    function M(e) {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (t.type === "web") {
-            var n = t.parsers.parseEncodeTargetFpsChangedData(e);
-            o("WAWebVoipEncodeTargetFpsState").updateEncodeTargetFps(
-              n.targetFps,
-            );
-          }
-        })),
-        w.apply(this, arguments)
+    async function S(e) {
+      var t = r("nullthrows")(
+        await o("WAWebVoipStackInterface").getVoipStackInterface(),
       );
+      if (t.type === "web") {
+        var n = t.parsers.parseSelfCameraAutoOffData(e);
+        o("WAWebBackendApi").frontendFireAndForget("handleSelfCameraAutoOff", {
+          cameraAutoOffData: n,
+        });
+      }
     }
-    function A(e) {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("nullthrows")(
-            yield o("WAWebVoipStackInterface").getVoipStackInterface(),
-          );
-          if (t.type === "web") {
-            var n = t.parsers.parseEncodeParamsChangedData(e);
-            o("WAWebVoipWebCodecsEncoderState").updateWebCodecsEncodeParams(n);
-          }
-        })),
-        F.apply(this, arguments)
+    async function R(e) {
+      var t = r("nullthrows")(
+        await o("WAWebVoipStackInterface").getVoipStackInterface(),
       );
+      if (t.type === "web") {
+        var n = t.parsers.parseRaiseHandStateChangedData(e);
+        o("WAWebBackendApi").frontendFireAndForget(
+          "handleRaiseHandStateChange",
+          { raiseHandData: n },
+        );
+      }
+    }
+    async function L(e) {
+      var t = r("nullthrows")(
+        await o("WAWebVoipStackInterface").getVoipStackInterface(),
+      );
+      if (t.type === "web") {
+        var n = t.parsers.parseEncodeTargetFpsChangedData(e);
+        o("WAWebVoipEncodeTargetFpsState").updateEncodeTargetFps(n.targetFps);
+      }
+    }
+    async function E(e) {
+      var t = r("nullthrows")(
+        await o("WAWebVoipStackInterface").getVoipStackInterface(),
+      );
+      if (t.type === "web") {
+        var n = t.parsers.parseEncodeParamsChangedData(e);
+        o("WAWebVoipWebCodecsEncoderState").updateWebCodecsEncodeParams(n);
+      }
     }
     ((l.handleVideoStateChanged = d),
-      (l.handleUpdateVoipSettings = p),
-      (l.handlePeerVideoPermissionChanged = f),
-      (l.handleMuteStateChanged = C),
-      (l.handleAudioDriverRestart = S),
-      (l.handleSpeakerStatusChanged = L),
-      (l.handleReactionStateChanged = k),
-      (l.handleScreenShareStateChanged = T),
-      (l.handleSelfCameraAutoOff = x),
-      (l.handleRaiseHandStateChanged = P),
-      (l.handleEncodeTargetFpsChanged = M),
-      (l.handleEncodeParamsChanged = A),
+      (l.handleUpdateVoipSettings = m),
+      (l.handlePeerVideoPermissionChanged = p),
+      (l.handleMuteStateChanged = g),
+      (l.handleAudioDriverRestart = y),
+      (l.handleSpeakerStatusChanged = C),
+      (l.handleReactionStateChanged = b),
+      (l.handleScreenShareStateChanged = v),
+      (l.handleSelfCameraAutoOff = S),
+      (l.handleRaiseHandStateChanged = R),
+      (l.handleEncodeTargetFpsChanged = L),
+      (l.handleEncodeParamsChanged = E),
       (l.resetWebCodecsEncoderState = o(
         "WAWebVoipWebCodecsEncoderState",
       ).resetWebCodecsEncoderState));

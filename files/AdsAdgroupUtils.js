@@ -23,13 +23,14 @@ __d(
     "ApiDynamicCreativeOptimizationTypes",
     "FBLogger",
     "adsConvertAdObjectRecordToPlainJS",
+    "adsObserveRuntimeType",
     "adsPlacementAPISpecReaderIsActivePublisherPlatform",
     "getByPath",
     "gkx",
     "immutable",
     "isEmptyIterable",
     "isTruthy",
-    "nullthrows",
+    "qex",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -94,7 +95,15 @@ __d(
       return g(l);
     }
     function g(e) {
-      switch (e) {
+      switch (
+        (o("adsObserveRuntimeType").adsObserveEnumValue(
+          "enum_value:media_format_object_type",
+          "ApiAdObjectTypesType",
+          r("ApiAdObjectTypes"),
+          e,
+        ),
+        e)
+      ) {
         case r("ApiAdObjectTypes").VIDEO:
           return "VIDEO";
         case r("ApiAdObjectTypes").PAGE:
@@ -182,7 +191,10 @@ __d(
         p,
         _,
         f = null,
-        g = r("adsConvertAdObjectRecordToPlainJS")(e);
+        g =
+          r("qex")._("3278") === !0
+            ? e
+            : r("adsConvertAdObjectRecordToPlainJS")(e);
       if (
         ((t = e.creative) != null && t.image_url) ||
         ((n = e.creative) != null && n.image_hash) ||
@@ -330,9 +342,9 @@ __d(
             k = (E || [])[0];
           if (k == null) return f;
           k || s(0, 39);
-          var I = r("nullthrows")(
-            o("AdsAssetFeedUtils").getAssetFeedMediaFieldForDCOAdFormat(k),
-          );
+          var I =
+            o("AdsAssetFeedUtils").getAssetFeedMediaFieldForDCOAdFormat(k);
+          if (I == null) return f;
           f =
             ((b == null ? void 0 : b[I]) || []).length > 0
               ? o("AdsAssetFeedUtils").convertDCOAdFormatToMediaFormat(k)

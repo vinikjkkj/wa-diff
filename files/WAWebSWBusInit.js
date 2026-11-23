@@ -1,7 +1,6 @@
 __d(
   "WAWebSWBusInit",
   [
-    "Promise",
     "WALogger",
     "WAWebCmd",
     "WAWebCrashlog",
@@ -16,7 +15,6 @@ __d(
     "WAWebSwNotificationBannerRegistry",
     "WAWebUserPrefsGeneral",
     "WAWebVoipNotificationActionBus",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "requireDeferred",
@@ -28,26 +26,17 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = r("requireDeferred")("WAWebPipVideoStreaming").__setRef(
+      p = r("requireDeferred")("WAWebPipVideoStreaming").__setRef(
         "WAWebSWBusInit",
       ),
-      f = r("requireDeferred")(
+      _ = r("requireDeferred")(
         "WAWebVoipIncomingCallNotificationStateStore",
       ).__setRef("WAWebSWBusInit");
-    function g() {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (yield _.load()).handleVideoStreamingRequest;
-        })),
-        h.apply(this, arguments)
-      );
+    async function f() {
+      return (await p.load()).handleVideoStreamingRequest;
     }
     if (r("WAWebFeatureDetectionSwSupport").supported) {
-      var y = function () {
+      var g = function () {
         try {
           var t = navigator.serviceWorker;
           t != null &&
@@ -76,10 +65,10 @@ __d(
         }
       };
       try {
-        var C = navigator.serviceWorker;
-        C &&
-          C.addEventListener("controllerchange", function (e) {
-            y();
+        var h = navigator.serviceWorker;
+        h &&
+          h.addEventListener("controllerchange", function (e) {
+            g();
           });
       } catch (e) {
         o("WALogger").WARN(
@@ -92,9 +81,9 @@ __d(
         );
       }
       try {
-        var b = navigator.serviceWorker;
-        b &&
-          b.addEventListener("error", function (e) {
+        var y = navigator.serviceWorker;
+        y &&
+          y.addEventListener("error", function (e) {
             o("WAWebSocketModel").Socket.state !==
               o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED &&
               o("WALogger").WARN(
@@ -116,14 +105,14 @@ __d(
           e,
         );
       }
-      y();
-      var v = function (t, n) {
+      g();
+      var C = function (t, n) {
           t.buffer.forEach(function (e) {
             var t,
               r = (t = e.message[0]) != null ? t : "",
               a = "ServiceWorker (" + n + "): " + r,
               i = e.level.match(/^(.*?)(?:Verbose)?$/i),
-              l = L(i[1]);
+              l = S(i[1]);
             o("WAWebLoggerImpl").Logger.logImpl(
               l,
               a,
@@ -133,40 +122,40 @@ __d(
             );
           });
         },
-        S = new (r("WAWebSWBus"))(function (e) {
+        b = new (r("WAWebSWBus"))(function (e) {
           var t,
-            a = e.action,
-            i = e.message,
-            l = e.version;
-          switch (a) {
+            n = e.action,
+            a = e.message,
+            i = e.version;
+          switch (n) {
             case r("WAWebSWBusActions").REQUEST_STREAMING_INFO:
             case r("WAWebSWBusActions").EXP_BACKOFF:
             case r("WAWebSWBusActions").REQUEST_RMR:
             case r("WAWebSWBusActions").SEND_STREAMING_CHUNK:
             case r("WAWebSWBusActions").SCREEN_VIDEO_STREAM:
-              return (t = g()) == null
+              return (t = f()) == null
                 ? void 0
                 : t.then(function (e) {
-                    return e == null ? void 0 : e({ action: a, message: i });
+                    return e == null ? void 0 : e({ action: n, message: a });
                   });
             case r("WAWebSWBusActions").LOG:
               return o("WAWebSocketModel").Socket.state ===
                 o("WAWebSocketConstants").SOCKET_STATE.UNLAUNCHED
                 ? void 0
-                : (i && v(i, l), { test: !0 });
+                : (a && C(a, i), { test: !0 });
             case r("WAWebSWBusActions").UPLOAD_LOGS:
               return (
-                i && v(i, l),
+                a && C(a, i),
                 o("WAWebCrashlog")
                   .upload({ reason: "Requested by Service Worker" })
                   .then(r("WAWebNoop"))
               );
             case r("WAWebSWBusActions").HEARTBEAT:
-              return i;
+              return a;
             case r("WAWebSWBusActions").ACCEPT_CALL_FROM_NOTIFICATION:
-              return { handled: R("accept_call", i) };
+              return { handled: v("accept_call", a) };
             case r("WAWebSWBusActions").DECLINE_CALL_FROM_NOTIFICATION:
-              return { handled: R("decline_call", i) };
+              return { handled: v("decline_call", a) };
             case r("WAWebSWBusActions").NOTIFICATION_BANNER_CLICKED:
               return (
                 o(
@@ -176,13 +165,13 @@ __d(
                   handled: o(
                     "WAWebSwNotificationBannerRegistry",
                   ).handleSwNotificationBannerClick(
-                    i == null ? void 0 : i.bannerKey,
+                    a == null ? void 0 : a.bannerKey,
                   ),
                 }
               );
             case r("WAWebSWBusActions").NOTIFICATION_BANNER_CLOSED:
               return (
-                (i == null ? void 0 : i.isUserClose) === !0 &&
+                (a == null ? void 0 : a.isUserClose) === !0 &&
                   o(
                     "WAWebRecordNotificationInteraction",
                   ).recordNotificationInteraction(),
@@ -190,8 +179,8 @@ __d(
                   handled: o(
                     "WAWebSwNotificationBannerRegistry",
                   ).handleSwNotificationBannerClose(
-                    i == null ? void 0 : i.bannerKey,
-                    (i == null ? void 0 : i.isUserClose) === !0,
+                    a == null ? void 0 : a.bannerKey,
+                    (a == null ? void 0 : a.isUserClose) === !0,
                   ),
                 }
               );
@@ -207,22 +196,20 @@ __d(
                 o(
                   "WAWebRecordNotificationInteraction",
                 ).recordNotificationInteraction(),
-                f.load().then(function (e) {
+                _.load().then(function (e) {
                   return {
                     handled: e.recordServiceWorkerCallNotificationInteraction(
-                      i == null ? void 0 : i.callId,
-                      i == null ? void 0 : i.interaction,
+                      a == null ? void 0 : a.callId,
+                      a == null ? void 0 : a.interaction,
                     ),
                   };
                 })
               );
             default:
-              return (p || (p = n("Promise"))).reject(
-                r("err")("Invalid Action: " + a),
-              );
+              return Promise.reject(r("err")("Invalid Action: " + n));
           }
         });
-      (S.init(),
+      (b.init(),
         o("WAWebCmd").Cmd.on("logout_from_bridge", function () {
           var e = navigator.serviceWorker;
           e != null &&
@@ -232,7 +219,7 @@ __d(
               .catch(r("WAWebNoop"));
         }));
     }
-    function R(e, t) {
+    function v(e, t) {
       o("WAWebRecordNotificationInteraction").recordNotificationInteraction();
       var n = !1;
       return (
@@ -265,7 +252,7 @@ __d(
         n
       );
     }
-    function L(e) {
+    function S(e) {
       switch (e) {
         case "info":
           return 1;

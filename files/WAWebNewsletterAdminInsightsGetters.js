@@ -39,14 +39,11 @@ __d(
                 {
                   data: t,
                   dataLabels: [
-                    { label: s._(/*BTDS*/ "Net follows"), key: "net-follows" },
-                    { label: s._(/*BTDS*/ "Follows"), key: "follows" },
-                    { label: s._(/*BTDS*/ "Unfollows"), key: "unfollows" },
+                    { label: s._(/*BTDS*/ ""), key: "net-follows" },
+                    { label: s._(/*BTDS*/ ""), key: "follows" },
+                    { label: s._(/*BTDS*/ ""), key: "unfollows" },
                   ],
-                  dataSetLabel: {
-                    label: s._(/*BTDS*/ "Growth"),
-                    key: "growth",
-                  },
+                  dataSetLabel: { label: s._(/*BTDS*/ ""), key: "growth" },
                 },
               ];
         },

@@ -17,7 +17,6 @@ __d(
     "WDSIconIcImage.react",
     "WDSMargins.stylex",
     "react",
-    "react-compiler-runtime",
     "useWAWebMsgValues",
     "useWAWebStableCallback",
   ],
@@ -49,196 +48,117 @@ __d(
       };
     function p(e) {
       var t,
-        n = o("react-compiler-runtime").c(29),
-        a = e.msgKey,
-        i;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = [
+        n = e.msgKey,
+        a = o("useWAWebMsgValues").useMsgValues(
+          n,
+          o("WAWebMsgCasts").castToStickerPackMsg,
+          [
             o("WAWebMsgGetters").getIsSentByMe,
             o("WAWebMsgGetters").getDescription,
             o("WAWebMsgGetters").getFilename,
             o("WAWebFrontendMsgGetters").getStickers,
-          ]),
-          (n[0] = i))
-        : (i = n[0]);
-      var l = o("useWAWebMsgValues").useMsgValues(
-          a,
-          o("WAWebMsgCasts").castToStickerPackMsg,
-          i,
+          ],
         ),
-        p = l[0],
-        _ = l[1],
-        f = l[2],
-        g = l[3],
-        h = (t = g == null ? void 0 : g.length) != null ? t : 0,
-        y;
-      n[1] !== _ || n[2] !== h
-        ? ((y = function () {
-            return _ != null && _ !== ""
-              ? _
-              : h >= 1
-                ? s._(
-                    /*BTDS*/ '_j{"*":"{stickerCount} stickers","_1":"1 sticker"}',
-                    [s._plural(h, "stickerCount")],
-                  )
-                : "";
-          }),
-          (n[1] = _),
-          (n[2] = h),
-          (n[3] = y))
-        : (y = n[3]);
-      var C = y,
-        b;
-      n[4] !== a
-        ? ((b = function () {
-            var e,
-              t =
-                (e = o("WAWebMsgCollection").MsgCollection.get(a)) == null
-                  ? void 0
-                  : e.safe();
-            t == null ||
-              t.type !== o("WAWebMsgType").MSG_TYPE.STICKER_PACK ||
-              o(
-                "WAWebStickerPackThumbnailDownload",
-              ).downloadStickerPackThumbnail(t);
-          }),
-          (n[4] = a),
-          (n[5] = b))
-        : (b = n[5]);
-      var v = r("useWAWebStableCallback")(b),
-        S,
-        R;
-      (n[6] !== v
-        ? ((S = function () {
-            v();
-          }),
-          (R = [v]),
-          (n[6] = v),
-          (n[7] = S),
-          (n[8] = R))
-        : ((S = n[7]), (R = n[8])),
-        c(S, R));
-      var L = r("WAWebL10N").isRTL() ? "rtl" : "ltr",
-        E;
-      n[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = "xcbkimw x1n2onr6 x1dmp6jm"), (n[9] = E))
-        : (E = n[9]);
-      var k;
-      n[10] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = u.jsx(
-            "div",
-            {
-              children: u.jsx(r("WDSIconIcImage.react"), {
-                height: 42,
-                testid: "image",
-                width: 42,
-              }),
-            },
-            "default",
-          )),
-          (n[10] = k))
-        : (k = n[10]);
-      var I;
-      n[11] !== a
-        ? ((I = u.jsx(o("WAWebFlex.react").FlexItem, {
-            shrink: 0,
-            grow: 0,
-            align: "center",
-            children: u.jsx(r("WAWebMediaThumbnail.react"), {
-              msgKey: a,
-              containerClassName: E,
-              thumbnailPlaceholder: k,
-            }),
-          })),
-          (n[11] = a),
-          (n[12] = I))
-        : (I = n[12]);
-      var T;
-      n[13] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = [
-            m.text,
-            o("WDSMargins.stylex").wdsMargins.marginVer0,
-            r("WAWebL10N").isRTL() && m.textRTL,
-            d.marginInline10,
-            m.fixedTextHeight,
-            d.paddingInlineEnd10,
-            d.paddingBlock6,
-          ]),
-          (n[13] = T))
-        : (T = n[13]);
-      var D;
-      n[14] !== f
-        ? ((D = u.jsx(o("WAWebFlex.react").FlexItem, {
-            children: u.jsx(r("WAWebMediaLinkPreviewTitle.react"), {
-              isBotPluginLink: !1,
-              isCompose: !1,
-              isStatus: !1,
-              title: f,
-              titleDir: L,
-              titleDirMismatch: !1,
-            }),
-          })),
-          (n[14] = f),
-          (n[15] = D))
-        : (D = n[15]);
-      var x;
-      n[16] !== C ? ((x = C()), (n[16] = C), (n[17] = x)) : (x = n[17]);
-      var $;
-      n[18] !== x
-        ? (($ = u.jsx(o("WAWebFlex.react").FlexItem, {
-            children: u.jsx(r("WAWebMediaLinkPreviewDescription.react"), {
-              isCompose: !1,
-              isComposeHQPreview: !1,
-              isFullPreview: !1,
-              isHighQualityLayout: !1,
-              isStatus: !1,
-              useTextLimit: !1,
-              children: x,
-            }),
-          })),
-          (n[18] = x),
-          (n[19] = $))
-        : ($ = n[19]);
-      var P;
-      n[20] !== D || n[21] !== $
-        ? ((P = u.jsxs(o("WAWebFlex.react").FlexColumn, {
-            align: "start",
-            grow: 1,
-            justify: "center",
-            xstyle: T,
-            children: [D, $],
-          })),
-          (n[20] = D),
-          (n[21] = $),
-          (n[22] = P))
-        : (P = n[22]);
-      var N;
-      n[23] !== P || n[24] !== I
-        ? ((N = u.jsxs(o("WAWebFlex.react").FlexRow, {
-            xstyle: d.paddingInlineEnd14,
-            align: "start",
-            children: [I, P],
-          })),
-          (n[23] = P),
-          (n[24] = I),
-          (n[25] = N))
-        : (N = n[25]);
-      var M;
-      return (
-        n[26] !== p || n[27] !== N
-          ? ((M = u.jsx(r("WAWebMessageDeeperContainer.react"), {
-              xstyle: m.deepContainer,
-              outgoingMsg: p,
-              children: N,
-            })),
-            (n[26] = p),
-            (n[27] = N),
-            (n[28] = M))
-          : (M = n[28]),
-        M
+        i = a[0],
+        l = a[1],
+        p = a[2],
+        _ = a[3],
+        f = (t = _ == null ? void 0 : _.length) != null ? t : 0;
+      function g() {
+        return l != null && l !== ""
+          ? l
+          : f >= 1
+            ? s._(/*BTDS*/ "", [s._plural(f, "stickerCount")])
+            : "";
+      }
+      var h = r("useWAWebStableCallback")(function () {
+        var e,
+          t =
+            (e = o("WAWebMsgCollection").MsgCollection.get(n)) == null
+              ? void 0
+              : e.safe();
+        t == null ||
+          t.type !== o("WAWebMsgType").MSG_TYPE.STICKER_PACK ||
+          o("WAWebStickerPackThumbnailDownload").downloadStickerPackThumbnail(
+            t,
+          );
+      });
+      c(
+        function () {
+          h();
+        },
+        [h],
       );
+      var y = r("WAWebL10N").isRTL() ? "rtl" : "ltr";
+      return u.jsx(r("WAWebMessageDeeperContainer.react"), {
+        xstyle: m.deepContainer,
+        outgoingMsg: i,
+        children: u.jsxs(o("WAWebFlex.react").FlexRow, {
+          xstyle: d.paddingInlineEnd14,
+          align: "start",
+          children: [
+            u.jsx(o("WAWebFlex.react").FlexItem, {
+              shrink: 0,
+              grow: 0,
+              align: "center",
+              children: u.jsx(r("WAWebMediaThumbnail.react"), {
+                msgKey: n,
+                containerClassName: "xcbkimw x1n2onr6 x1dmp6jm",
+                thumbnailPlaceholder: u.jsx(
+                  "div",
+                  {
+                    children: u.jsx(r("WDSIconIcImage.react"), {
+                      height: 42,
+                      testid: "image",
+                      width: 42,
+                    }),
+                  },
+                  "default",
+                ),
+              }),
+            }),
+            u.jsxs(o("WAWebFlex.react").FlexColumn, {
+              align: "start",
+              grow: 1,
+              justify: "center",
+              xstyle: [
+                m.text,
+                o("WDSMargins.stylex").wdsMargins.marginVer0,
+                r("WAWebL10N").isRTL() && m.textRTL,
+                d.marginInline10,
+                m.fixedTextHeight,
+                d.paddingInlineEnd10,
+                d.paddingBlock6,
+              ],
+              children: [
+                u.jsx(o("WAWebFlex.react").FlexItem, {
+                  children: u.jsx(r("WAWebMediaLinkPreviewTitle.react"), {
+                    isBotPluginLink: !1,
+                    isCompose: !1,
+                    isStatus: !1,
+                    title: p,
+                    titleDir: y,
+                    titleDirMismatch: !1,
+                  }),
+                }),
+                u.jsx(o("WAWebFlex.react").FlexItem, {
+                  children: u.jsx(r("WAWebMediaLinkPreviewDescription.react"), {
+                    isCompose: !1,
+                    isComposeHQPreview: !1,
+                    isFullPreview: !1,
+                    isHighQualityLayout: !1,
+                    isStatus: !1,
+                    useTextLimit: !1,
+                    children: g(),
+                  }),
+                }),
+              ],
+            }),
+          ],
+        }),
+      });
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   226,
 );

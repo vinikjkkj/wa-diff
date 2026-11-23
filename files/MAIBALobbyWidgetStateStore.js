@@ -1,6 +1,6 @@
 __d(
   "MAIBALobbyWidgetStateStore",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -35,18 +35,9 @@ __d(
       return (t = u.get(e)) != null ? t : null;
     }
     function h(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n;
-      return (
-        t[0] !== e
-          ? ((n = function () {
-              return f(e);
-            }),
-            (t[0] = e),
-            (t[1] = n))
-          : (n = t[1]),
-        s(_, n)
-      );
+      return s(_, function () {
+        return f(e);
+      });
     }
     ((l.applyLobbyWidgetState = m),
       (l.clearLobbyWidgetState = p),

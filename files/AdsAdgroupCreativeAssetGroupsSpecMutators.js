@@ -10,11 +10,11 @@ __d(
     "AdsAdgroupRecordAccessors",
     "AdsAdgroupSemanticFields",
     "AdsAssetFeedMutationUtils",
+    "AdsCreativeEnrollmentDefaultOnStoreUtils",
+    "AdsIGIDv2MigrationAccessors",
     "AdsInstagramActorIDUtils",
-    "AdsInstagramUserIdMigrationUtils",
     "AdsMutators",
     "AdsPromotedObjectTypes",
-    "AdsSEConsentScopeRolloutUtils",
     "AdsUEditorAdgroupMultiPostSpecUtils",
     "AdsUEditorCTXDestinationUtils",
     "AdsUEditorCTXFlexibleFormatUtils",
@@ -56,112 +56,79 @@ __d(
         .creative_asset_groups_spec.groups.at(t)
         .set(u, e);
     }
-    function c(e, t, n, r) {
-      var a,
-        i = s(e, t);
-      if (i == null) return e;
-      var l = (a = i.posts) != null ? a : [],
-        c = l.findIndex(function (e) {
-          return (
-            o(
-              "AdsUEditorAdgroupMultiPostSpecUtils",
-            ).getPostIdentityKeyFromCagPost(e) === n
-          );
-        });
-      if (c === -1) return e;
-      var d = l.map(function (e, t) {
-        return t === c ? babelHelpers.extends({}, e, r) : e;
-      });
-      return u(e, t, d, "posts");
+    function c(e, t) {
+      var n, r;
+      return (n = (r = s(e, t)) == null ? void 0 : r.posts) != null ? n : [];
     }
-    function d(e) {
-      var t,
-        n,
-        a,
-        i,
-        l =
-          (t =
-            (n = e.creative_asset_groups_spec) == null ||
-            (n = n.toJS()) == null ||
-            (n = n.groups) == null ||
-            (n = n[0]) == null
-              ? void 0
-              : n.posts) != null
-            ? t
-            : [];
-      if (l.length > 0)
+    function d(e, t, n) {
+      return c(e, t).find(function (e) {
+        return (
+          o(
+            "AdsUEditorAdgroupMultiPostSpecUtils",
+          ).getPostIdentityKeyFromCagPost(e) === n
+        );
+      });
+    }
+    function m(e, t, n, r) {
+      if (d(e, t, n) == null) return e;
+      var a = c(e, t).map(function (e) {
         return o(
           "AdsUEditorAdgroupMultiPostSpecUtils",
-        ).getMultiPostTextByIdentity(l);
-      var s = r(
-          "AdsAdgroupRecordAccessors",
-        ).creative.source_instagram_media_id.get(e),
-        u =
-          s != null
-            ? o("AdsUEditorAdgroupMultiPostSpecUtils").getPostIdentityKey(
-                !0,
-                String(s),
-              )
-            : o("AdsUEditorAdgroupMultiPostSpecUtils").getPostIdentityKey(
-                !1,
-                r("AdsAdgroupRecordAccessors").creative.object_story_id.get(e),
-              );
-      return u == null
-        ? new Map()
-        : new Map([
-            [
-              u,
-              {
-                body:
-                  (a = r("AdsAdgroupRecordAccessors").creative.body.get(e)) !=
-                  null
-                    ? a
-                    : "",
-                title:
-                  (i = r(
-                    "AdsAdgroupRecordAccessors",
-                  ).creative.existing_post_title.get(e)) != null
-                    ? i
-                    : "",
-              },
-            ],
-          ]);
+        ).getPostIdentityKeyFromCagPost(e) === n
+          ? babelHelpers.extends({}, e, r)
+          : e;
+      });
+      return u(e, t, a, "posts");
     }
-    function m(e, t, n, a) {
-      var i = d(e),
-        l = [];
-      a.forEach(function (e) {
-        var t = o("AdsUEditorAdgroupMultiPostSpecUtils").getPostIdentityKey(
-          e.isInstagramPost,
-          e.postId,
-        );
-        t != null && l.push(t);
-      });
-      var s = o("AdsUEditorAdgroupMultiPostSpecUtils").resolveMultiPostText(
-          i,
-          l,
-        ),
-        u = s.cagByIdentity,
-        c = s.creative;
-      n.forEach(function (e) {
-        var t = o(
-            "AdsUEditorAdgroupMultiPostSpecUtils",
-          ).getPostIdentityKeyFromCagPost(e),
-          n = t != null ? u.get(t) : null;
-        n != null &&
-          (n.body !== "" && (e.body = n.body),
-          n.title !== "" && (e.title = n.title));
-      });
-      var m = r("AdsAdgroupRecordAccessors").creative.body.set(c.body, t);
+    function p(e) {
+      var t = r(
+        "AdsAdgroupRecordAccessors",
+      ).creative.source_instagram_media_id.get(e);
+      return t != null
+        ? o("AdsUEditorAdgroupMultiPostSpecUtils").getPostIdentityKey(
+            !0,
+            String(t),
+          )
+        : o("AdsUEditorAdgroupMultiPostSpecUtils").getPostIdentityKey(
+            !1,
+            r("AdsAdgroupRecordAccessors").creative.object_story_id.get(e),
+          );
+    }
+    function _(e, t) {
+      var n = c(e, 0);
+      if (n.length > 0)
+        return o(
+          "AdsUEditorAdgroupMultiPostSpecUtils",
+        ).getMultiPostCustomizationsFromCagSpec(n);
+      var a = new Map();
+      if (t) return a;
+      var i = p(e);
+      if (i == null) return a;
+      var l = r("AdsAdgroupRecordAccessors").creative.call_to_action.get(e),
+        s = l == null ? void 0 : l.value;
       return (
-        (m = r("AdsAdgroupRecordAccessors").creative.existing_post_title.set(
-          c.title,
-          m,
-        )),
-        m
+        a.set(i, {
+          body: r("AdsAdgroupRecordAccessors").creative.body.get(e),
+          call_to_action:
+            l == null
+              ? void 0
+              : {
+                  type: l.type,
+                  value: {
+                    app_destination: s == null ? void 0 : s.app_destination,
+                    app_link: s == null ? void 0 : s.app_link,
+                    link: s == null ? void 0 : s.link,
+                    link_caption: s == null ? void 0 : s.link_caption,
+                  },
+                },
+          title: r(
+            "AdsAdgroupRecordAccessors",
+          ).creative.existing_post_title.get(e),
+        }),
+        a
       );
     }
-    function p(e, t, n) {
+    function f(e, t, n) {
       var o,
         a = s(e, t);
       if (a == null) return e;
@@ -171,12 +138,7 @@ __d(
         .creative_asset_groups_spec.groups.at(t)
         .set(l, e);
     }
-    function _(e) {
-      return r(
-        "AdsAdgroupRecordAccessors",
-      ).creative_asset_groups_spec.groups.delete(e);
-    }
-    function f(e, t) {
+    function g(e, t) {
       var n,
         a,
         i =
@@ -202,7 +164,7 @@ __d(
         },
       )(e);
     }
-    function g(e, t, n, a) {
+    function h(e, t, n, a) {
       var i = [],
         l;
       return (
@@ -224,10 +186,10 @@ __d(
         )(e)
       );
     }
-    function h(e, t, n, r, a, i) {
+    function y(e, t, n, r, a, i) {
       var l = s(e, t);
       if (l == null) return e;
-      var c = x(l.texts),
+      var c = $(l.texts),
         d = c.descriptionList,
         m = c.headlineList,
         p = c.messageList,
@@ -250,9 +212,9 @@ __d(
       _ = g ? !1 : _;
       var h = p.concat(m).concat(d),
         y = u(e, t, h, "texts");
-      return (t === 0 && _ && (y = P(y, i)), y);
+      return (t === 0 && _ && (y = N(y, i)), y);
     }
-    function y(e, t, n) {
+    function C(e, t, n) {
       var o = s(e, t);
       if (o == null) return e;
       var a = r("immutable").Map(o).set("group_type", n);
@@ -260,7 +222,7 @@ __d(
         .creative_asset_groups_spec.groups.at(t)
         .set(a, e);
     }
-    function C(e, t) {
+    function b(e, t) {
       var n = s(e, t);
       if (n == null) return e;
       var o = r("immutable").Map(n).delete("images");
@@ -268,30 +230,30 @@ __d(
         .creative_asset_groups_spec.groups.at(t)
         .set(o, e);
     }
-    function b(e, t, n, r, o) {
+    function v(e, t, n, r, o) {
       var a = s(e, t);
       if (a == null) return e;
-      var i = x(a.texts),
+      var i = $(a.texts),
         l = i.descriptionList,
         c = i.headlineList,
         d = i.messageList,
         m = !1;
       switch (r) {
         case "primary_text":
-          $(n, d) && (d.splice(n, 1), (m = !0));
+          P(n, d) && (d.splice(n, 1), (m = !0));
           break;
         case "headline":
-          $(n, c) && (c.splice(n, 1), (m = !0));
+          P(n, c) && (c.splice(n, 1), (m = !0));
           break;
         case "description":
-          $(n, l) && (l.splice(n, 1), (m = !0));
+          P(n, l) && (l.splice(n, 1), (m = !0));
           break;
       }
       var p = d.concat(c).concat(l),
         _ = u(e, t, p, "texts");
-      return (t === 0 && m && (_ = P(_, o)), _);
+      return (t === 0 && m && (_ = N(_, o)), _);
     }
-    function v(t, n, r, o, a) {
+    function S(t, n, r, o, a) {
       var i,
         l = s(t, n);
       if (l == null) return t;
@@ -306,9 +268,9 @@ __d(
       (o != null && (g.image_crops = o),
         (m[r] = babelHelpers.extends({}, f, g)));
       var h = u(t, n, m, c);
-      return (n === 0 && r === 0 && (h = w(h, a)), h);
+      return (n === 0 && r === 0 && (h = A(h, a)), h);
     }
-    function S(e, t, n, r, o, a, i) {
+    function R(e, t, n, r, o, a, i) {
       var l,
         c = s(e, t);
       if (c == null) return e;
@@ -322,9 +284,9 @@ __d(
         image_url: a,
       });
       var _ = u(e, t, p, d);
-      return (t === 0 && n === 0 && (_ = w(_, i)), _);
+      return (t === 0 && n === 0 && (_ = A(_, i)), _);
     }
-    function R(e, t, n, r, o) {
+    function L(e, t, n, r, o) {
       var a,
         i = s(e, t);
       if (i == null) return e;
@@ -334,18 +296,18 @@ __d(
       var d = [].concat(c);
       d[n] = r;
       var m = u(e, t, d, l);
-      return (t === 0 && n === 0 && (m = w(m, o)), m);
+      return (t === 0 && n === 0 && (m = A(m, o)), m);
     }
-    function L(e, t, n, r, o) {
+    function E(e, t, n, r, o) {
       var a,
         i = s(e, t);
       if (i == null) return e;
-      var l = (a = i[r]) != null ? a : Array([]);
+      var l = (a = i[r]) != null ? a : [];
       l.length > 0 && l.splice(n, 1);
       var c = u(e, t, l, r);
-      return (t === 0 && n === 0 && (c = w(c, o)), c);
+      return (t === 0 && n === 0 && (c = A(c, o)), c);
     }
-    function E(e, t, n, r, o) {
+    function k(e, t, n, r, o) {
       var a,
         i,
         l,
@@ -373,19 +335,19 @@ __d(
       }
       d.value = m;
       var p = u(e, t, d, "call_to_action");
-      return ((p = N(p, o)), p);
+      return ((p = M(p, o)), p);
     }
-    function k(e, t, n, r) {
+    function I(e, t, n, r) {
       var o,
         a =
           (o = e.creative_asset_groups_spec) == null || (o = o.toJS()) == null
             ? void 0
             : o.groups;
       if (a == null) return e;
-      for (var i = e, l = 0; l < a.length; l++) i = E(i, l, t, n, r);
+      for (var i = e, l = 0; l < a.length; l++) i = k(i, l, t, n, r);
       return i;
     }
-    function I(e, t) {
+    function T(e, t) {
       var n,
         r =
           (n = e.creative_asset_groups_spec) == null || (n = n.toJS()) == null
@@ -403,7 +365,7 @@ __d(
       }
       return a;
     }
-    function T(e, t) {
+    function D(e, t) {
       var n,
         r =
           (n = e.creative_asset_groups_spec) == null || (n = n.toJS()) == null
@@ -418,7 +380,7 @@ __d(
       }
       return o;
     }
-    function D(e, t, n) {
+    function x(e, t, n) {
       var o,
         a,
         i,
@@ -468,7 +430,7 @@ __d(
       var h = (i = s.call_to_action) != null ? i : {};
       return ((h.type = c), u(e, t, h, "call_to_action"));
     }
-    function x(e) {
+    function $(e) {
       var t,
         n,
         r,
@@ -501,17 +463,17 @@ __d(
             : [];
       return { messageList: o, headlineList: a, descriptionList: i };
     }
-    function $(e, t) {
+    function P(e, t) {
       return e >= 0 && e < t.length;
     }
-    function P(e, t) {
+    function N(e, t) {
       var n = s(e, 0);
       if (
         n == null ||
         !o("AdsAPIAdgroupRecordUtils").isCreativeAssetGroupingsAd(e)
       )
         return e;
-      var a = x(n.texts),
+      var a = $(n.texts),
         i = a.descriptionList,
         l = a.headlineList,
         u = a.messageList,
@@ -554,9 +516,9 @@ __d(
           ((d = c.creative) == null || (d = d.degrees_of_freedom_spec) == null
             ? void 0
             : d.degrees_of_freedom_type) === "USER_ENROLLED_AUTOFLOW";
-        c = q(c, _);
-        var f = O(e);
-        if ((r("isTruthy")(m) && (c = U(c, e)), u.length > 0)) {
+        c = U(c, _);
+        var f = B(e);
+        if ((r("isTruthy")(m) && (c = V(c, e)), u.length > 0)) {
           var g,
             h = (g = u[0].text) != null ? g : "";
           c = f
@@ -634,7 +596,7 @@ __d(
           )));
       return c;
     }
-    function N(e, t, n, a, i, l) {
+    function M(e, t, n, a, i, l) {
       var u,
         c,
         d,
@@ -681,7 +643,7 @@ __d(
               : P) != null
             ? u
             : n,
-        w =
+        M =
           (p = D.call_to_action) == null || (p = p.value) == null
             ? void 0
             : p.app_link,
@@ -696,7 +658,7 @@ __d(
           (g = D.call_to_action) == null || (g = g.value) == null
             ? void 0
             : g.link_caption,
-        B = r(
+        O = r(
           "AdsAdgroupRecordAccessors",
         ).creative.object_story_spec.video_data.call_to_action.value.link_caption.get(
           e,
@@ -732,7 +694,7 @@ __d(
                 "AdsAdgroupRecordAccessors",
               ).creative.object_story_spec.video_data.phone_data_id.get(e),
         z = N === "CALL_NOW",
-        j = O(e),
+        j = B(e),
         K = j
           ? (C =
               (b = (v = H != null ? H : q) != null ? v : V) != null ? b : U) !=
@@ -746,10 +708,10 @@ __d(
             ? S
             : a,
         Q = j
-          ? (E = (k = F != null ? F : B) != null ? k : W) != null
+          ? (E = (k = F != null ? F : O) != null ? k : W) != null
             ? E
             : i
-          : (I = (T = F != null ? F : W) != null ? T : B) != null
+          : (I = (T = F != null ? F : W) != null ? T : O) != null
             ? I
             : i,
         X = j || !z,
@@ -770,7 +732,7 @@ __d(
           (J = r(
             "AdsAdgroupRecordAccessors",
           )).creative.object_story_spec.video_data.call_to_action.value.app_link.set(
-            w,
+            M,
           ),
           J.creative.object_story_spec.video_data.call_to_action.value.link.set(
             K,
@@ -807,7 +769,7 @@ __d(
           r(
             "AdsAdgroupRecordAccessors",
           ).creative.object_story_spec.link_data.call_to_action.value.app_link.set(
-            w,
+            M,
           ),
           function (e) {
             var t = e;
@@ -844,15 +806,15 @@ __d(
             "AdsAdgroupRecordAccessors",
           ).creative.object_story_spec.link_data.phone_data_id.set(G),
         )(Y);
-      return M(Y, {
+      return w(Y, {
         appDestination: A,
-        appLink: w,
+        appLink: M,
         ctaType: N,
         link: X ? K : null,
         linkCaption: Q,
       });
     }
-    function M(e, t) {
+    function w(e, t) {
       var n,
         a = t.appDestination,
         i = t.appLink,
@@ -888,7 +850,7 @@ __d(
         },
       )(e);
     }
-    function w(e, t) {
+    function A(e, t) {
       var n,
         a,
         i,
@@ -919,13 +881,13 @@ __d(
             ? void 0
             : u.delete,
         )(e),
-        p = O(e),
+        p = B(e),
         _ =
           ((c = m.creative) == null || (c = c.degrees_of_freedom_spec) == null
             ? void 0
             : c.degrees_of_freedom_type) === "USER_ENROLLED_AUTOFLOW",
         f = r("AdsAdgroupSemanticFields").pageWelcomeMessage.get(t, m),
-        g = F(m),
+        g = O(m),
         h = g.appDestination,
         y = g.ctaType,
         C = g.linkCaption,
@@ -960,7 +922,7 @@ __d(
             S[0].image_url,
           ),
         )(m)),
-          (m = B(m, !1, _)));
+          (m = W(m, !1, _)));
       } else {
         var R;
         m = r(
@@ -990,7 +952,7 @@ __d(
         ((m = r("AdsAdgroupRecordAccessors").creative.object_type.set(
           r("ApiAdObjectTypes").SHARE,
         )(m)),
-          (m = B(m, !0, _)));
+          (m = W(m, !0, _)));
       }
       return (
         f != null &&
@@ -1005,24 +967,28 @@ __d(
               ).creative.object_story_spec.link_data.page_welcome_message.set(
                 f,
               )(m))),
-        (m = N(m, t, y, b, C, h)),
-        (m = P(m, t)),
+        (m = M(m, t, y, b, C, h)),
+        (m = N(m, t)),
         m
       );
     }
-    function A(e, t) {
-      var n = e,
-        r = ["carousel", "da_collection", "single_media"];
+    function F(e) {
+      var t = e,
+        n = ["carousel", "da_collection", "single_media"];
       return (
-        r.forEach(function (e) {
-          n = o(
+        n.forEach(function (e) {
+          t = o(
             "AdsAdgroupFormatTransformationMutators",
-          ).adsAdgroupFormatTransformationDataSourceOptInMutator(n, e, t);
+          ).adsAdgroupFormatTransformationDataSourceOptInMutator(
+            t,
+            e,
+            "catalog",
+          );
         }),
-        n
+        t
       );
     }
-    function F(e) {
+    function O(e) {
       var t = null,
         n = null,
         o = null,
@@ -1063,7 +1029,7 @@ __d(
       }
       return { ctaType: t, linkValue: n, linkCaption: o, appDestination: a };
     }
-    function O(e) {
+    function B(e) {
       var t,
         n,
         r = s(e, 0),
@@ -1071,11 +1037,11 @@ __d(
         a = (n = r == null ? void 0 : r.videos) != null ? n : [];
       return o.length === 0 && a.length > 0;
     }
-    function B(e, t, n) {
+    function W(e, t, n) {
       var r = e;
       return (
-        (r = q(r, n)),
-        (r = t ? G(r, n) : z(r, n)),
+        (r = U(r, n)),
+        (r = t ? z(r, n) : j(r, n)),
         o("SEFunnelLogger").logConsentDivergenceCheck(
           r.id,
           r,
@@ -1084,7 +1050,7 @@ __d(
         r
       );
     }
-    function W(e) {
+    function q(e) {
       return o(
         "AdsAdgroupCreativeAssetGroupsSpecOriginMutators",
       ).hasSpecificOrigin(e, "creative_asset_groups")
@@ -1096,17 +1062,21 @@ __d(
           )(e)
         : e;
     }
-    function q(e, t) {
-      var n = t
-          ? r("immutable").Map({ type: "random" })
-          : r("immutable").Map({ type: "opted_out" }),
-        o = r("immutable").fromJS([n]);
+    function U(e, t) {
+      var n =
+          t &&
+          !o("AdsAPlusCStickyOptOutUtils").isAPlusCFeatureStickyOptedOut(
+            "audio",
+          )
+            ? r("immutable").Map({ type: "random" })
+            : r("immutable").Map({ type: "opted_out" }),
+        a = r("immutable").fromJS([n]);
       return r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.audios.set(
-        o,
+        a,
         e,
       );
     }
-    function U(e, t) {
+    function V(e, t) {
       var n,
         a = (n = r(
           "AdsAdgroupRecordAccessors",
@@ -1119,18 +1089,24 @@ __d(
         ),
       )(e);
     }
-    function V(e, t, n) {
+    function H(e, t, n) {
       return e &&
-        o("AdsAPlusCStickyOptOutUtils").isAPlusCFeatureStickyOptedOut(t)
+        (o("AdsAPlusCStickyOptOutUtils").isAPlusCFeatureStickyOptedOut(t) ||
+          (t === "image_uncrop" &&
+            o(
+              "AdsCreativeEnrollmentDefaultOnStoreUtils",
+            ).isCreativeEnrollmentDefaultOnVetoedForSelectedAccount(
+              "image_uncrop",
+            )))
         ? []
         : n(e ? "OPT_IN" : "OPT_OUT");
     }
-    function H(e, t) {
+    function G(e, t) {
       return (
         e && o("AdsAPlusCStickyOptOutUtils").isAPlusCFeatureStickyOptedOut(t)
       );
     }
-    function G(e, t) {
+    function z(e, t) {
       var n,
         a,
         i,
@@ -1153,7 +1129,7 @@ __d(
               t ? "USER_ENROLLED_AUTOFLOW" : "DISABLED",
             ),
           ].concat(
-            V(t, "standard_enhancements", function (e) {
+            H(t, "standard_enhancements", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1167,7 +1143,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "image_enhancement", function (e) {
+            H(t, "image_enhancement", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1181,7 +1157,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "image_touchups", function (e) {
+            H(t, "image_touchups", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1195,7 +1171,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "image_templates", function (e) {
+            H(t, "image_templates", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1209,7 +1185,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "advantage_plus_creative", function (e) {
+            H(t, "advantage_plus_creative", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1218,7 +1194,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "image_uncrop", function (e) {
+            H(t, "image_uncrop", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1232,7 +1208,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "inline_comment", function (e) {
+            H(t, "inline_comment", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1246,7 +1222,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "text_optimizations", function (e) {
+            H(t, "text_optimizations", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1260,7 +1236,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "product_extensions", function (e) {
+            H(t, "product_extensions", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1274,7 +1250,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "site_extensions", function (e) {
+            H(t, "site_extensions", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1303,7 +1279,7 @@ __d(
                   ? a
                   : null,
               ) == null
-              ? V(t, "product_browsing", function (e) {
+              ? H(t, "product_browsing", function (e) {
                   return [
                     r(
                       "AdsAdgroupRecordAccessors",
@@ -1318,9 +1294,9 @@ __d(
                   ];
                 })
               : [],
-            o("AdsSEConsentScopeRolloutUtils").isInSEConsentScopeRollout() &&
-              !H(t, "site_extensions")
-              ? [
+            G(t, "site_extensions")
+              ? []
+              : [
                   r(
                     "AdsAdgroupRecordAccessors",
                   ).creative.creative_sourcing_spec.site_links_data_consented.enroll_status.set(
@@ -1336,18 +1312,20 @@ __d(
                   ).creative.creative_sourcing_spec.site_links_data_consented.scope.set(
                     "DATA_CONSENT_INELIGIBLE",
                   ),
-                ]
-              : [],
+                ],
           ),
-        )(e);
-      return (
-        r("gkx")("3442") &&
-          d != null &&
-          ((u = m.creative) == null ||
+        )(e),
+        p =
+          (u = m.creative) == null ||
           (u = u.degrees_of_freedom_spec) == null ||
           (u = u.creative_features_spec) == null
             ? void 0
-            : u.site_extensions) == null &&
+            : u.site_extensions;
+      return (
+        r("gkx")("3442") &&
+          t &&
+          (d == null ? void 0 : d.enroll_status) === "OPT_IN" &&
+          (p == null ? void 0 : p.enroll_status) !== "OPT_IN" &&
           (m = r(
             "AdsAdgroupRecordAccessors",
           ).creative.degrees_of_freedom_spec.creative_features_spec.site_extensions.set(
@@ -1357,7 +1335,7 @@ __d(
         o("AdsAdgroupFormatTransformationMutators").syncFTSFromCFS(m)
       );
     }
-    function z(e, t) {
+    function j(e, t) {
       var n,
         a,
         i,
@@ -1382,7 +1360,7 @@ __d(
               t ? "USER_ENROLLED_AUTOFLOW" : "DISABLED",
             ),
           ].concat(
-            V(t, "standard_enhancements", function (e) {
+            H(t, "standard_enhancements", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1396,7 +1374,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "advantage_plus_creative", function (e) {
+            H(t, "advantage_plus_creative", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1405,7 +1383,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "inline_comment", function (e) {
+            H(t, "inline_comment", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1419,7 +1397,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "text_optimizations", function (e) {
+            H(t, "text_optimizations", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1433,7 +1411,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "video_auto_crop", function (e) {
+            H(t, "video_auto_crop", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1447,7 +1425,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "product_extensions", function (e) {
+            H(t, "product_extensions", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1461,7 +1439,7 @@ __d(
                 ),
               ];
             }),
-            V(t, "site_extensions", function (e) {
+            H(t, "site_extensions", function (e) {
               return [
                 r(
                   "AdsAdgroupRecordAccessors",
@@ -1490,7 +1468,7 @@ __d(
                   ? a
                   : null,
               ) == null
-              ? V(t, "product_browsing", function (e) {
+              ? H(t, "product_browsing", function (e) {
                   return [
                     r(
                       "AdsAdgroupRecordAccessors",
@@ -1505,9 +1483,9 @@ __d(
                   ];
                 })
               : [],
-            o("AdsSEConsentScopeRolloutUtils").isInSEConsentScopeRollout() &&
-              !H(t, "site_extensions")
-              ? [
+            G(t, "site_extensions")
+              ? []
+              : [
                   r(
                     "AdsAdgroupRecordAccessors",
                   ).creative.creative_sourcing_spec.site_links_data_consented.enroll_status.set(
@@ -1523,18 +1501,20 @@ __d(
                   ).creative.creative_sourcing_spec.site_links_data_consented.scope.set(
                     "DATA_CONSENT_INELIGIBLE",
                   ),
-                ]
-              : [],
+                ],
           ),
-        )(e);
-      return (
-        r("gkx")("4221") &&
-          d != null &&
-          ((u = m.creative) == null ||
+        )(e),
+        p =
+          (u = m.creative) == null ||
           (u = u.degrees_of_freedom_spec) == null ||
           (u = u.creative_features_spec) == null
             ? void 0
-            : u.site_extensions) == null &&
+            : u.site_extensions;
+      return (
+        r("gkx")("3442") &&
+          t &&
+          (d == null ? void 0 : d.enroll_status) === "OPT_IN" &&
+          (p == null ? void 0 : p.enroll_status) !== "OPT_IN" &&
           (m = r(
             "AdsAdgroupRecordAccessors",
           ).creative.degrees_of_freedom_spec.creative_features_spec.site_extensions.set(
@@ -1544,7 +1524,7 @@ __d(
         o("AdsAdgroupFormatTransformationMutators").syncFTSFromCFS(m)
       );
     }
-    function j(e, t, n, a, i, l, s) {
+    function K(e, t, n, a, i, l, s) {
       s === void 0 && (s = !1);
       var u = r(
           "AdsAdgroupRecordAccessors",
@@ -1559,7 +1539,7 @@ __d(
         p = o("AdsMutators").chain(
           r("AdsAdgroupRecordAccessors").creative.object_story_spec.delete,
           o(
-            "AdsInstagramUserIdMigrationUtils",
+            "AdsIGIDv2MigrationAccessors",
           ).IGIDV2MigrationAccessors.creative.object_story_spec.instagram_user_id.set(
             u,
             c,
@@ -1615,9 +1595,9 @@ __d(
             ).creative.asset_feed_spec.message_extensions.set(m),
           )(p));
       }
-      return r("isTruthy")(l) && r("gkx")("1226") ? w(n, l) : p;
+      return r("isTruthy")(l) && r("gkx")("1226") ? A(n, l) : p;
     }
-    function K(e, t, n, a, i) {
+    function Q(e, t, n, a, i) {
       var l,
         s,
         u,
@@ -1691,7 +1671,7 @@ __d(
         b = o("AdsMutators").chain(
           r("AdsAdgroupRecordAccessors").creative.object_story_spec.delete,
           o(
-            "AdsInstagramUserIdMigrationUtils",
+            "AdsIGIDv2MigrationAccessors",
           ).IGIDV2MigrationAccessors.creative.object_story_spec.instagram_user_id.set(
             m,
             p,
@@ -1750,9 +1730,9 @@ __d(
             "not_carousel",
           ),
         )(e);
-      return r("isTruthy")(i) && r("gkx")("1226") ? w(e, i) : b;
+      return r("isTruthy")(i) && r("gkx")("1226") ? A(e, i) : b;
     }
-    function Q(e, t, n, a) {
+    function X(e, t, n, a) {
       var i,
         l = (i = r(
           "AdsAdgroupRecordAccessors",
@@ -1762,7 +1742,7 @@ __d(
         c = o("AdsMutators").chain(
           i.creative.object_story_spec.delete,
           o(
-            "AdsInstagramUserIdMigrationUtils",
+            "AdsIGIDv2MigrationAccessors",
           ).IGIDV2MigrationAccessors.creative.object_story_spec.instagram_user_id.set(
             l,
             s,
@@ -1791,9 +1771,9 @@ __d(
           i.creative.template_url_spec.delete,
           i.metadata.carousel_style.set("not_carousel"),
         )(e);
-      return r("isTruthy")(a) && r("gkx")("1226") ? w(c, a) : c;
+      return r("isTruthy")(a) && r("gkx")("1226") ? A(c, a) : c;
     }
-    function X(e, t, n) {
+    function Y(e, t, n) {
       var a,
         i,
         l,
@@ -1913,7 +1893,7 @@ __d(
         "AdsAdgroupRecordAccessors",
       ).creative.object_story_spec.link_data.call_to_action.type.set(y)(g);
     }
-    function Y(e, t) {
+    function J(e, t) {
       var n,
         r = s(e, t);
       if (r == null) return e;
@@ -1921,17 +1901,17 @@ __d(
         a = { type: o.type };
       return u(e, t, a, "call_to_action");
     }
-    function J(e) {
+    function Z(e) {
       var t,
         n =
           (t = e.creative_asset_groups_spec) == null || (t = t.toJS()) == null
             ? void 0
             : t.groups;
       if (n == null) return e;
-      for (var r = e, o = 0; o < n.length; o++) r = Y(r, o);
+      for (var r = e, o = 0; o < n.length; o++) r = J(r, o);
       return r;
     }
-    function Z(e) {
+    function ee(e) {
       if (e == null) return !1;
       var t = e.groups;
       if (t == null) return !1;
@@ -1948,37 +1928,37 @@ __d(
     }
     ((l.getCagGroupAtIndex = s),
       (l.setSpecsInCagGroup = u),
-      (l.setCagPostFieldsByIdentityKey = c),
-      (l.readMultiPostTextByIdentity = d),
-      (l.syncMultiPostPrimaryText = m),
-      (l.deleteSpecsInCagGroup = p),
-      (l.clearCagGroups = _),
-      (l.setNewGroupSpec = f),
-      (l.setNewGroupSpecAtStart = g),
-      (l.setTextSpecWithTypeAtIndex = h),
-      (l.setGroupTypeforCagGroup = y),
-      (l.removeImagesFromCagGroup = C),
-      (l.removeTextSpecWithTypeAtIndex = b),
-      (l.setImageCropAtIndex = v),
-      (l.setVideoThumbnailInfoAtIndex = S),
-      (l.setVideoAtIndex = R),
-      (l.removeSpecAtIndex = L),
-      (l.setCagCallToActionValueByValueType = E),
-      (l.setCagCallToActionValueByValueTypeForAllGroups = k),
-      (l.setCagCallToActionType = I),
-      (l.setCagMessageExtension = T),
-      (l.setDefaultCagCallToActionTypeAtIndex = D),
-      (l.updateMediaSpecToCreativeSpec = w),
-      (l.updateFormatSpecBasedOnCreativeSpec = A),
-      (l.setDOFToggleSpecForCag = B),
-      (l.maybeRemoveCagSpec = W),
-      (l.setDefaultCreativeSettingForASCAndBAU = j),
-      (l.setDefaultCreativeSettingForCTX = K),
-      (l.setDefaultCreativeSettingForAppPromotion = Q),
-      (l.cleanupCreativeDoubleWrittenFields = X),
-      (l.cleanUpCagCallToActionValue = Y),
-      (l.cleanUpCagCallToActionValueForAllGroups = J),
-      (l.doesCagHaveGroupUuid = Z));
+      (l.getCagPostsAtIndex = c),
+      (l.getCagPostByIdentity = d),
+      (l.setCagPostFieldsByIdentityKey = m),
+      (l.getPrimaryPostIdentity = p),
+      (l.getCustomizationsForSelectedPosts = _),
+      (l.deleteSpecsInCagGroup = f),
+      (l.setNewGroupSpec = g),
+      (l.setNewGroupSpecAtStart = h),
+      (l.setTextSpecWithTypeAtIndex = y),
+      (l.setGroupTypeforCagGroup = C),
+      (l.removeImagesFromCagGroup = b),
+      (l.removeTextSpecWithTypeAtIndex = v),
+      (l.setImageCropAtIndex = S),
+      (l.setVideoThumbnailInfoAtIndex = R),
+      (l.setVideoAtIndex = L),
+      (l.removeSpecAtIndex = E),
+      (l.setCagCallToActionValueByValueType = k),
+      (l.setCagCallToActionValueByValueTypeForAllGroups = I),
+      (l.setCagCallToActionType = T),
+      (l.setCagMessageExtension = D),
+      (l.setDefaultCagCallToActionTypeAtIndex = x),
+      (l.updateMediaSpecToCreativeSpec = A),
+      (l.updateFormatSpecBasedOnCreativeSpec = F),
+      (l.setDOFToggleSpecForCag = W),
+      (l.maybeRemoveCagSpec = q),
+      (l.setDefaultCreativeSettingForASCAndBAU = K),
+      (l.setDefaultCreativeSettingForCTX = Q),
+      (l.setDefaultCreativeSettingForAppPromotion = X),
+      (l.cleanupCreativeDoubleWrittenFields = Y),
+      (l.cleanUpCagCallToActionValueForAllGroups = Z),
+      (l.doesCagHaveGroupUuid = ee));
   },
   98,
 );

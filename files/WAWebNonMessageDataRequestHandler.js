@@ -18,7 +18,6 @@ __d(
     "WAWebRequestSyncdSnapshotRecovery",
     "WAWebSyncdConst",
     "WAWebSyncdSnapshotRecoveryGatingUtils",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "nullthrows",
   ],
@@ -165,52 +164,43 @@ __d(
             return;
         }
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a,
-            i =
-              e == null || (n = e.syncdSnapshotFatalRecoveryResponse) == null
-                ? void 0
-                : n.isCompressed,
-            l = new (o("WABinary").Binary)(
-              r("nullthrows")(
-                e == null || (a = e.syncdSnapshotFatalRecoveryResponse) == null
-                  ? void 0
-                  : a.collectionSnapshot,
-              ),
-            ),
-            s = l.readByteArrayView();
-          i === !0 && (s = yield o("WAGzip").inflate(l.readByteArrayView()));
-          var u = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufsSyncdSnapshotRecovery.pb")
-                .SyncdSnapshotRecoverySpec,
-              s,
-            ),
-            c = o("WAWebSyncdConst").CollectionName.cast(u.collectionName);
-          (c != null &&
-            o(
-              "WAWebRequestSyncdSnapshotRecovery",
-            ).SyncdSnapshotRecoveryModule.resolveRecoveryPromise(c, u),
-            o(
-              "WAWebNonMessageDataRequestLoggingUtils",
-            ).logNonMessagePeerDataResponse(
-              o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
-                .COMPANION_SYNCD_SNAPSHOT_FATAL_RECOVERY,
-              t,
-              1,
-              1,
-              1,
-              0,
-              0,
-            ));
-        })),
-        p.apply(this, arguments)
-      );
+    async function m(e, t) {
+      var n,
+        a,
+        i =
+          e == null || (n = e.syncdSnapshotFatalRecoveryResponse) == null
+            ? void 0
+            : n.isCompressed,
+        l = new (o("WABinary").Binary)(
+          r("nullthrows")(
+            e == null || (a = e.syncdSnapshotFatalRecoveryResponse) == null
+              ? void 0
+              : a.collectionSnapshot,
+          ),
+        ),
+        s = l.readByteArrayView();
+      i === !0 && (s = await o("WAGzip").inflate(l.readByteArrayView()));
+      var u = o("decodeProtobuf").decodeProtobuf(
+          o("WAWebProtobufsSyncdSnapshotRecovery.pb").SyncdSnapshotRecoverySpec,
+          s,
+        ),
+        c = o("WAWebSyncdConst").CollectionName.cast(u.collectionName);
+      (c != null &&
+        o(
+          "WAWebRequestSyncdSnapshotRecovery",
+        ).SyncdSnapshotRecoveryModule.resolveRecoveryPromise(c, u),
+        o(
+          "WAWebNonMessageDataRequestLoggingUtils",
+        ).logNonMessagePeerDataResponse(
+          o("WAWebProtobufsE2E.pb").Message$PeerDataOperationRequestType
+            .COMPANION_SYNCD_SNAPSHOT_FATAL_RECOVERY,
+          t,
+          1,
+          1,
+          1,
+          0,
+          0,
+        ));
     }
     ((l.handlePeerDataOperationRequest = c),
       (l.handlePeerDataOperationRequestResponse = d));

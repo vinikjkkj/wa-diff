@@ -8,7 +8,6 @@ __d(
     "WAWebBusinessProfileCollection",
     "WAWebCmd",
     "WAWebMobilePlatforms",
-    "react-compiler-runtime",
     "useWAWebEventTargetValue",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,18 +26,14 @@ __d(
       );
     }
     function u() {
-      var t = o("react-compiler-runtime").c(1),
-        n;
-      return (
-        t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = [
-              o("WAWebBizAIQE").BizAIQEEventBus,
-              o("WAWebBusinessProfileCollection").BusinessProfileCollection,
-              o("WAWebCmd").Cmd,
-            ]),
-            (t[0] = n))
-          : (n = t[0]),
-        r("useWAWebEventTargetValue")(n, e, s)
+      return r("useWAWebEventTargetValue")(
+        [
+          o("WAWebBizAIQE").BizAIQEEventBus,
+          o("WAWebBusinessProfileCollection").BusinessProfileCollection,
+          o("WAWebCmd").Cmd,
+        ],
+        e,
+        s,
       );
     }
     ((l.isAppointmentsEnabled = s), (l.useIsAppointmentsEnabled = u));

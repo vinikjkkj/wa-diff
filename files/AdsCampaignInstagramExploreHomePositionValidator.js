@@ -74,9 +74,7 @@ __d(
                     new (r("AdsError"))(
                       2238294,
                       u._(function (e, t) {
-                        return e._(
-                          /*BTDS*/ "To use IG Explore Home as a placement, please also select Instagram Feed placement.",
-                        );
+                        return e._(/*BTDS*/ "");
                       }, {}),
                       {
                         cta: r("AdsErrorsCTAStrings").EDIT_PLACEMENTS_CTA,
@@ -93,9 +91,7 @@ __d(
                     new (r("AdsError"))(
                       2490392,
                       u._(function (e, t) {
-                        return e._(
-                          /*BTDS*/ "To place ads in Instagram Explore Home, please also select Instagram Explore.",
-                        );
+                        return e._(/*BTDS*/ "");
                       }, {}),
                       {
                         cta: r("AdsErrorsCTAStrings").EDIT_PLACEMENTS_CTA,

@@ -24,25 +24,19 @@ __d(
       return r("gkx")("5754") ? !0 : r("qex")._("1518") === !0;
     }
     function c(e) {
-      return e
-        ? s._(
-            /*BTDS*/ "Lifetime budget may be too low to get any conversations",
-          )
-        : s._(/*BTDS*/ "Daily budget may be too low to get any conversations");
+      return e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function d(e, t) {
-      return s._(
-        /*BTDS*/ "Based on your budget, audience and placement setup, you may not get any results. To fix this, consider increasing your budget from {currentBudget} to {recommendedBudget}.",
-        [s._param("currentBudget", e), s._param("recommendedBudget", t)],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("currentBudget", e),
+        s._param("recommendedBudget", t),
+      ]);
     }
     function m() {
-      return s._(/*BTDS*/ "Apply now");
+      return s._(/*BTDS*/ "");
     }
     function p(e) {
-      return e === !0
-        ? s._(/*BTDS*/ "View in campaign")
-        : s._(/*BTDS*/ "View in ad set");
+      return e === !0 ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function _(e) {
       return e

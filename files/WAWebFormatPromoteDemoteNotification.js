@@ -20,69 +20,61 @@ __d(
             ? o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-              ? s._(/*BTDS*/ "You're now an admin.")
-              : s._(/*BTDS*/ "You're now an admin")
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "")
             : o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-              ? s._(
-                  /*BTDS*/ '_j{"*":"{participant_names} are now admins.","_1":"{participant_names} is now an admin."}',
-                  [s._plural(r), s._param("participant_names", n)],
-                )
-              : s._(
-                  /*BTDS*/ '_j{"*":"{participant_names} are now admins","_1":"{participant_names} is now an admin"}',
-                  [s._plural(r), s._param("participant_names", n)],
-                );
+              ? s._(/*BTDS*/ "", [
+                  s._plural(r),
+                  s._param("participant_names", n),
+                ])
+              : s._(/*BTDS*/ "", [
+                  s._plural(r),
+                  s._param("participant_names", n),
+                ]);
         case "demote":
           return r === 1 && o("WAWebSystemMessagesUtils").isMe(a)
             ? o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-              ? s._(/*BTDS*/ "You're no longer an admin.")
-              : s._(/*BTDS*/ "You're no longer an admin")
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "")
             : o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-              ? s._(
-                  /*BTDS*/ '_j{"*":"{participant_names} are no longer admins.","_1":"{participant_names} is no longer an admin."}',
-                  [s._plural(r), s._param("participant_names", n)],
-                )
-              : s._(
-                  /*BTDS*/ '_j{"*":"{participant_names} are no longer admins","_1":"{participant_names} is no longer an admin"}',
-                  [s._plural(r), s._param("participant_names", n)],
-                );
+              ? s._(/*BTDS*/ "", [
+                  s._plural(r),
+                  s._param("participant_names", n),
+                ])
+              : s._(/*BTDS*/ "", [
+                  s._plural(r),
+                  s._param("participant_names", n),
+                ]);
         case "linked_group_promote":
           return o("WAWebSystemMessagesUtils").isMe(a)
             ? o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-              ? s._(/*BTDS*/ "You're now a community admin.")
-              : s._(/*BTDS*/ "You're now a community admin")
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "")
             : o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-              ? s._(/*BTDS*/ "{name} is now a community admin.", [
-                  s._param("name", i),
-                ])
-              : s._(/*BTDS*/ "{name} is now a community admin", [
-                  s._param("name", i),
-                ]);
+              ? s._(/*BTDS*/ "", [s._param("name", i)])
+              : s._(/*BTDS*/ "", [s._param("name", i)]);
         case "linked_group_demote":
           return o("WAWebSystemMessagesUtils").isMe(a)
             ? o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-              ? s._(/*BTDS*/ "You're no longer a community admin.")
-              : s._(/*BTDS*/ "You're no longer a community admin")
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "")
             : o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-              ? s._(/*BTDS*/ "{name} is no longer a community admin.", [
-                  s._param("name", i),
-                ])
-              : s._(/*BTDS*/ "{name} is no longer a community admin", [
-                  s._param("name", i),
-                ]);
+              ? s._(/*BTDS*/ "", [s._param("name", i)])
+              : s._(/*BTDS*/ "", [s._param("name", i)]);
         default:
           return (
             o("WALogger").LOG(

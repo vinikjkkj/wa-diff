@@ -6,13 +6,13 @@ __d(
     function e(e) {
       return [
         {
-          headerText: s._(/*BTDS*/ "Report number"),
-          ctaLabel: s._(/*BTDS*/ "Copy report number"),
-          textToCopyLabel: s._(/*BTDS*/ "{reportID}", [
+          headerText: s._(/*BTDS*/ ""),
+          ctaLabel: s._(/*BTDS*/ ""),
+          textToCopyLabel: s._(/*BTDS*/ "", [
             s._param("reportID", e.reportFbid),
           ]),
           textToCopy: e.reportFbid,
-          toastMessage: s._(/*BTDS*/ "Report number copied"),
+          toastMessage: s._(/*BTDS*/ ""),
           testid:
             "newsletter-contact-ip-reporter-flow-step2-copy-report-number",
           onClick: function () {
@@ -22,13 +22,13 @@ __d(
           },
         },
         {
-          headerText: s._(/*BTDS*/ "Reporter name"),
-          ctaLabel: s._(/*BTDS*/ "Copy reporter name"),
-          textToCopyLabel: s._(/*BTDS*/ "{reportName}", [
+          headerText: s._(/*BTDS*/ ""),
+          ctaLabel: s._(/*BTDS*/ ""),
+          textToCopyLabel: s._(/*BTDS*/ "", [
             s._param("reportName", e.reporterName),
           ]),
           textToCopy: e.reporterName,
-          toastMessage: s._(/*BTDS*/ "Reporter name copied"),
+          toastMessage: s._(/*BTDS*/ ""),
           testid:
             "newsletter-contact-ip-reporter-flow-step2-copy-reporter-name",
           onClick: function () {
@@ -38,13 +38,13 @@ __d(
           },
         },
         {
-          headerText: s._(/*BTDS*/ "Reporter email"),
-          ctaLabel: s._(/*BTDS*/ "Copy reporter email"),
-          textToCopyLabel: s._(/*BTDS*/ "{reportEmail}", [
+          headerText: s._(/*BTDS*/ ""),
+          ctaLabel: s._(/*BTDS*/ ""),
+          textToCopyLabel: s._(/*BTDS*/ "", [
             s._param("reportEmail", e.reporterEmail),
           ]),
           textToCopy: e.reporterEmail,
-          toastMessage: s._(/*BTDS*/ "Reporter email copied"),
+          toastMessage: s._(/*BTDS*/ ""),
           testid:
             "newsletter-contact-ip-reporter-flow-step2-copy-reporter-email",
           onClick: function () {

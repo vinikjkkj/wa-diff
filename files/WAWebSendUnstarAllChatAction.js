@@ -33,13 +33,11 @@ __d(
               ).sendUnstarAll
             : o("WAWebChatSendStarMsgsBridge").sendUnstarAll
         )(t, a)),
-        l = new (o("WAWebActionToast.react").ActionType)(
-          s._(/*BTDS*/ "Unstarring all messages"),
-        ),
+        l = new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")),
         u = i
           .then(function () {
             return new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "All messages unstarred"),
+              s._(/*BTDS*/ ""),
             );
           })
           .catch(
@@ -48,7 +46,7 @@ __d(
               function (e) {
                 if (e.statusCode >= 400)
                   return new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't unstar all messages"),
+                    s._(/*BTDS*/ ""),
                   );
               },
             ),
@@ -61,15 +59,12 @@ __d(
                     "models:chat:sendUnstarAll dropped",
                   ])),
               ),
-              new (o("WAWebActionToast.react").ActionType)(
-                s._(/*BTDS*/ "Couldn't unstar all messages"),
-                {
-                  actionText: s._(/*BTDS*/ "Try again."),
-                  actionHandler: function () {
-                    return m(t, n);
-                  },
+              new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""), {
+                actionText: s._(/*BTDS*/ ""),
+                actionHandler: function () {
+                  return m(t, n);
                 },
-              )
+              })
             );
           });
       return (

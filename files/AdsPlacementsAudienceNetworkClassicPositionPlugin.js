@@ -40,6 +40,7 @@ __d(
     "gkx",
     "igAccessAdsManagerUtils",
     "immutable",
+    "isConsiderationPlacementLocked",
   ],
   function (t, n, r, o, a, i, l, s, u) {
     "use strict";
@@ -93,7 +94,24 @@ __d(
               ).createPhoneCallConversionsOrSalesReason()
             : null;
     }
-    var _ = {
+    function _(e, t) {
+      return (e === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES &&
+        (t === r("AdsAPIOptimizationGoals").REPLIES ||
+          t === r("AdsAPIOptimizationGoals").CONVERSATIONS ||
+          t === r("AdsAPIOptimizationGoals").QUALITY_CALL)) ||
+        (t === r("AdsAPIOptimizationGoals").INCREMENTAL_OFFSITE_CONVERSIONS &&
+          e !== r("AdsAPIObjectives").CONVERSIONS)
+        ? o("AdsPlacementIneligibilityReason").createOptimizationGoalReason()
+        : null;
+    }
+    function f(e) {
+      return e === r("AdCampaignDestination").INSTAGRAM_LIVE
+        ? o("AdsPlacementIneligibilityReason").createInstagramLiveReason()
+        : e === r("AdCampaignDestination").FACEBOOK_LIVE
+          ? o("AdsPlacementIneligibilityReason").createFacebookLiveReason()
+          : null;
+    }
+    var g = {
         type: "placements/position",
         key: "audience_network/classic",
         apiPosition: "classic",
@@ -108,6 +126,9 @@ __d(
         platformKey: "audience_network",
         isEnabled: function () {
           return !0;
+        },
+        shouldHideInPlacementUI: function (t) {
+          return r("isConsiderationPlacementLocked")(t.optimizationGoal);
         },
         isInactiveByDefault: function (t) {
           return t.isReelsTrendingAds === !0;
@@ -135,7 +156,7 @@ __d(
           if (n) return n;
           var a = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(_, t);
+          ).getSOOBundleParentIneligibilityReason(g, t);
           if (a != null) return a;
           var i = o("AdsODAXUtils").maybeTranslateObjective(
             t.objective,
@@ -220,14 +241,8 @@ __d(
             return o(
               "AdsPlacementIneligibilityReason",
             ).createInstagramDirectReason(t.objective);
-          if (t.destinationType === r("AdCampaignDestination").INSTAGRAM_LIVE)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createInstagramLiveReason();
-          if (t.destinationType === r("AdCampaignDestination").FACEBOOK_LIVE)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createFacebookLiveReason();
+          var s = f(t.destinationType);
+          if (s != null) return s;
           if (
             o(
               "AdsInstagramLeadGenPlacementUtils",
@@ -238,23 +253,11 @@ __d(
             return o(
               "AdsPlacementIneligibilityReason",
             ).createInstagramLeadGenReason(t.objective);
-          if (
-            (i === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES &&
-              (t.optimizationGoal === r("AdsAPIOptimizationGoals").REPLIES ||
-                t.optimizationGoal ===
-                  r("AdsAPIOptimizationGoals").CONVERSATIONS ||
-                t.optimizationGoal ===
-                  r("AdsAPIOptimizationGoals").QUALITY_CALL)) ||
-            (t.optimizationGoal ===
-              r("AdsAPIOptimizationGoals").INCREMENTAL_OFFSITE_CONVERSIONS &&
-              i !== r("AdsAPIObjectives").CONVERSIONS)
-          )
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createOptimizationGoalReason();
-          var s = p(t, i);
-          return s != null
-            ? s
+          var u = _(i, t.optimizationGoal);
+          if (u != null) return u;
+          var c = p(t, i);
+          return c != null
+            ? c
             : o("AdsPlacementANEligibilityUtils").getANIneligibilityReason(
                 babelHelpers.extends({}, t, { objective: i }),
                 d,
@@ -287,12 +290,10 @@ __d(
           return "previews/mobile_interstitial";
         },
         placementPreviewImage: c(),
-        placementInfo: s._(
-          /*BTDS*/ "Ads may appear in native, banner and interstitial placements on Audience Network apps and sites. Banners will not be used for the video views objective.",
-        ),
+        placementInfo: s._(/*BTDS*/ ""),
         adsetReducer: function (t, n) {
           var e = n.action;
-          if (!_.isEnabled(e.eligibilityInformation.capabilities)) return t;
+          if (!g.isEnabled(e.eligibilityInformation.capabilities)) return t;
           switch (e.type) {
             case o("AdsUEditorCampaignPlacementSetActionFlux").actionType:
               return e.removeGroups.includes("audience_network/classic")
@@ -355,8 +356,8 @@ __d(
         },
         parentPlacements: r("immutable").OrderedSet(["facebook/feed"]),
       },
-      f = _;
-    l.default = f;
+      h = g;
+    l.default = h;
   },
   226,
 );

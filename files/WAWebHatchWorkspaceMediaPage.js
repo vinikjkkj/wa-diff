@@ -6,7 +6,6 @@ __d(
     "WAWebHatchVmConnection",
     "WAWebHatchVmTransport",
     "WAWebNullFunc",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -14,56 +13,47 @@ __d(
       s = 48,
       u = 3e4,
       c = 1e4;
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e > c)
-            return { hasMore: !1, items: [], kind: "loaded", nextOffset: e };
-          var t = yield o("WAWebHatchVmConnection")
-            .connectHatchVmApi()
-            .catch(o("WAWebNullFunc").returnNull);
-          if (t == null) return g("no_session");
-          var n = yield t.request(
-            "POST",
-            o("WAWebHatchVmTransport").JarvisPaths.WORKSPACE_LIBRARY,
-            {
-              body: new TextEncoder().encode(
-                JSON.stringify({ limit: s, offset: e, preset: "media" }),
-              ),
-              responseShape: "flat-or-envelope",
-              timeoutMs: u,
-            },
-          );
-          if (n.kind !== "Ok") return g(f(n));
-          var r = o("WAWebHatchJsonReaders").readArray(n.value, "entries");
-          return r == null
-            ? g("malformed")
-            : {
-                hasMore:
-                  o("WAWebHatchJsonReaders").readField(n.value, "has_more") ===
-                  !0,
-                items: r.flatMap(function (e) {
-                  var t;
-                  return (t = p(e)) != null ? t : [];
-                }),
-                kind: "loaded",
-                nextOffset: e + r.length,
-              };
-        })),
-        m.apply(this, arguments)
+    async function d(e) {
+      if (e > c)
+        return { hasMore: !1, items: [], kind: "loaded", nextOffset: e };
+      var t = await o("WAWebHatchVmConnection")
+        .connectHatchVmApi()
+        .catch(o("WAWebNullFunc").returnNull);
+      if (t == null) return f("no_session");
+      var n = await t.request(
+        "POST",
+        o("WAWebHatchVmTransport").JarvisPaths.WORKSPACE_LIBRARY,
+        {
+          body: new TextEncoder().encode(
+            JSON.stringify({ limit: s, offset: e, preset: "media" }),
+          ),
+          responseShape: "flat-or-envelope",
+          timeoutMs: u,
+        },
       );
+      if (n.kind !== "Ok") return f(_(n));
+      var r = o("WAWebHatchJsonReaders").readArray(n.value, "entries");
+      return r == null
+        ? f("malformed")
+        : {
+            hasMore:
+              o("WAWebHatchJsonReaders").readField(n.value, "has_more") === !0,
+            items: r.flatMap(function (e) {
+              var t;
+              return (t = m(e)) != null ? t : [];
+            }),
+            kind: "loaded",
+            nextOffset: e + r.length,
+          };
     }
-    function p(e) {
+    function m(e) {
       var t,
         n = o("WAWebHatchVmTransport").confineWorkspaceMediaPath(
           (t = o("WAWebHatchJsonReaders").readString(e, "path")) != null
             ? t
             : "",
         ),
-        r = n == null ? null : _(n),
+        r = n == null ? null : p(n),
         a = o("WAWebHatchJsonReaders").readNumber(e, "modified_ms");
       return n == null || r == null || a == null || !Number.isFinite(a)
         ? null
@@ -74,7 +64,7 @@ __d(
             size: o("WAWebHatchJsonReaders").readNumber(e, "size"),
           };
     }
-    function _(e) {
+    function p(e) {
       var t = e.lastIndexOf(".");
       return (function (e) {
         return e === "jpg" ||
@@ -96,13 +86,13 @@ __d(
             : null;
       })(t < 0 ? "" : e.slice(t + 1).toLowerCase());
     }
-    function f(e) {
+    function _(e) {
       var t;
       return e.kind === "Rejected"
         ? "rejected." + ((t = e.statusCode) != null ? t : "none")
         : e.kind.toLowerCase();
     }
-    function g(t) {
+    function f(t) {
       var n = o("WALogger").WARN(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([

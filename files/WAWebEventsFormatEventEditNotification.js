@@ -25,12 +25,8 @@ __d(
           : e.protocolMessageKey.participant;
       if (!a)
         return t.isEventCanceled
-          ? s._(/*BTDS*/ "{event-name} was canceled", [
-              s._param("event-name", t.eventName),
-            ])
-          : s._(/*BTDS*/ "{event-name} was updated", [
-              s._param("event-name", t.eventName),
-            ]);
+          ? s._(/*BTDS*/ "", [s._param("event-name", t.eventName)])
+          : s._(/*BTDS*/ "", [s._param("event-name", t.eventName)]);
       var i = o("WAWebSystemMsgContactName").getSystemMsgContactName(
           o("WAWebFrontendMsgGetters").getChat(e),
           o("WAWebContactCollection").ContactCollection.gadd(a),
@@ -39,18 +35,14 @@ __d(
         u = t.eventName;
       return t.isEventCanceled
         ? l
-          ? s._(/*BTDS*/ "You canceled {event-name}", [
-              s._param("event-name", u),
-            ])
-          : s._(/*BTDS*/ "{contact-name} canceled {event-name}", [
+          ? s._(/*BTDS*/ "", [s._param("event-name", u)])
+          : s._(/*BTDS*/ "", [
               s._param("contact-name", i),
               s._param("event-name", u),
             ])
         : l
-          ? s._(/*BTDS*/ "You updated {event-name}", [
-              s._param("event-name", u),
-            ])
-          : s._(/*BTDS*/ "{contact-name} updated {event-name}", [
+          ? s._(/*BTDS*/ "", [s._param("event-name", u)])
+          : s._(/*BTDS*/ "", [
               s._param("contact-name", i),
               s._param("event-name", u),
             ]);

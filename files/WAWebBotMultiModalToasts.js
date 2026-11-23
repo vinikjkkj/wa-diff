@@ -6,48 +6,33 @@ __d(
       u = e || (e = o("react"));
     function c() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "This file format is not supported."),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function d(e) {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(
-            /*BTDS*/ '_j{"*":"You can\'t share more than {number} items.","_1":"You can\'t share more than 1 item."}',
-            [s._plural(e, "number")],
-          ),
+          msg: s._(/*BTDS*/ "", [s._plural(e, "number")]),
         }),
       );
     }
     function m(e) {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(
-            /*BTDS*/ '_j{"*":"You can\'t share more than {number} items.","_1":"You can\'t share more than 1 item."}',
-            [s._plural(e, "number")],
-          ),
+          msg: s._(/*BTDS*/ "", [s._plural(e, "number")]),
         }),
       );
     }
     function p(e) {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(
-            /*BTDS*/ '_j{"*":"Media is too large. {maxMb} MB is the max."}',
-            [s._param("maxMb", e, [0])],
-          ),
+          msg: s._(/*BTDS*/ "", [s._param("maxMb", e, [0])]),
         }),
       );
     }
     function _() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(
-            /*BTDS*/ "You can't share images and documents to Meta AI at the same time.",
-          ),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function f(e) {
@@ -56,34 +41,22 @@ __d(
         r = e.hasImage,
         o = e.hasVideo;
       return o && t && r
-        ? s._(
-            /*BTDS*/ "Can't send video, audio, or images to Meta AI at this time",
-          )
+        ? s._(/*BTDS*/ "")
         : o && t && n
-          ? s._(
-              /*BTDS*/ "Can't send video, audio, or documents to Meta AI at this time",
-            )
+          ? s._(/*BTDS*/ "")
           : null;
     }
     function g(e, t, n, r) {
       return e && n
-        ? s._(/*BTDS*/ "Can't send video or images to Meta AI at this time")
+        ? s._(/*BTDS*/ "")
         : e && r
-          ? s._(
-              /*BTDS*/ "Can't send video or documents to Meta AI at this time",
-            )
+          ? s._(/*BTDS*/ "")
           : t && e
-            ? s._(
-                /*BTDS*/ "Can't send audio or video files to Meta AI at this time",
-              )
+            ? s._(/*BTDS*/ "")
             : t && n
-              ? s._(
-                  /*BTDS*/ "Can't send audio or images to Meta AI at this time",
-                )
+              ? s._(/*BTDS*/ "")
               : t && r
-                ? s._(
-                    /*BTDS*/ "Can't send audio or documents to Meta AI at this time",
-                  )
+                ? s._(/*BTDS*/ "")
                 : null;
     }
     function h(e) {
@@ -92,13 +65,13 @@ __d(
         r = e.hasImage,
         o = e.hasVideo;
       return o
-        ? s._(/*BTDS*/ "Can't send a video file to Meta AI at this time")
+        ? s._(/*BTDS*/ "")
         : t
-          ? s._(/*BTDS*/ "Can't send an audio file to Meta AI at this time")
+          ? s._(/*BTDS*/ "")
           : r
-            ? s._(/*BTDS*/ "Can't send image files to Meta AI at this time")
+            ? s._(/*BTDS*/ "")
             : n
-              ? s._(/*BTDS*/ "Can't send documents to Meta AI at this time")
+              ? s._(/*BTDS*/ "")
               : null;
     }
     function y(e) {
@@ -133,9 +106,7 @@ __d(
         : C();
     }
     function C() {
-      return s._(
-        /*BTDS*/ "Can't send these types of files to Meta AI at this time",
-      );
+      return s._(/*BTDS*/ "");
     }
     C.displayName = C.name + " [from " + i.id + "]";
     function b(e) {
@@ -146,10 +117,7 @@ __d(
     function v(e) {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(
-            /*BTDS*/ '_j{"*":"{number} items couldn\'t be sent","_1":"1 item couldn\'t be sent"}',
-            [s._plural(e, "number")],
-          ),
+          msg: s._(/*BTDS*/ "", [s._plural(e, "number")]),
         }),
       );
     }

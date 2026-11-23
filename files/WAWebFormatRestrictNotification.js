@@ -14,77 +14,43 @@ __d(
           return o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ '_j{"*":"This group has over {threshold} members so now only admins can edit the group settings.","_1":"This group has over 1 member so now only admins can edit the group settings."}',
-                [s._plural(l, "threshold")],
-              )
-            : s._(
-                /*BTDS*/ '_j{"*":"This group has over {threshold} members so now only admins can edit the group settings","_1":"This group has over 1 member so now only admins can edit the group settings"}',
-                [s._plural(l, "threshold")],
-              );
+            ? s._(/*BTDS*/ "", [s._plural(l, "threshold")])
+            : s._(/*BTDS*/ "", [s._plural(l, "threshold")]);
         }
         return o("WAWebSystemMessagesUtils").isMe(n)
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ "You changed the settings so only admins can edit the group settings.",
-              )
-            : s._(
-                /*BTDS*/ "You changed the settings so only admins can edit the group settings",
-              )
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
           : r != null
             ? (o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled() &&
-                s._(
-                  /*BTDS*/ "{user_name} changed the settings so only admins can edit the group settings.",
-                  [s._param("user_name", r)],
-                )) ||
-              s._(
-                /*BTDS*/ "{user_name} changed the settings so only admins can edit the group settings",
-                [s._param("user_name", r)],
-              )
+                s._(/*BTDS*/ "", [s._param("user_name", r)])) ||
+              s._(/*BTDS*/ "", [s._param("user_name", r)])
             : (o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled() &&
-                s._(
-                  /*BTDS*/ "A member changed the settings so only admins can edit the group settings.",
-                )) ||
-              s._(
-                /*BTDS*/ "A member changed the settings so only admins can edit the group settings",
-              );
+                s._(/*BTDS*/ "")) ||
+              s._(/*BTDS*/ "");
       } else if (o("WAWebSystemMessagesUtils").isMe(n))
         return o(
           "WAWebSystemMessageGatingUtils",
         ).systemMessageTerminalPeriodsEnabled()
-          ? s._(
-              /*BTDS*/ "You changed the settings so all members can edit the group settings.",
-            )
-          : s._(
-              /*BTDS*/ "You changed the settings so all members can edit the group settings",
-            );
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
       return r != null
         ? (o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled() &&
-            s._(
-              /*BTDS*/ "{user_name} changed the settings so all members can edit the group settings.",
-              [s._param("user_name", r)],
-            )) ||
-            s._(
-              /*BTDS*/ "{user_name} changed the settings so all members can edit the group settings",
-              [s._param("user_name", r)],
-            )
+            s._(/*BTDS*/ "", [s._param("user_name", r)])) ||
+            s._(/*BTDS*/ "", [s._param("user_name", r)])
         : (o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled() &&
-            s._(
-              /*BTDS*/ "A member changed the settings so all members can edit the group settings.",
-            )) ||
-            s._(
-              /*BTDS*/ "A member changed the settings so all members can edit the group settings",
-            );
+            s._(/*BTDS*/ "")) ||
+            s._(/*BTDS*/ "");
     }
     l.formatRestrictNotification = u;
   },

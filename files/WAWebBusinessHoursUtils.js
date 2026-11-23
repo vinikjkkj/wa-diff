@@ -74,23 +74,23 @@ __d(
     }
     function f(e, t) {
       return t.closed
-        ? s._(/*BTDS*/ "Closed")
+        ? s._(/*BTDS*/ "")
         : e === "specific_hours"
           ? _(t.hours)
           : e === "open_24h"
-            ? s._(/*BTDS*/ "Open 24 hours")
+            ? s._(/*BTDS*/ "")
             : e === "appointment_only"
-              ? s._(/*BTDS*/ "By appointment only")
+              ? s._(/*BTDS*/ "")
               : "";
     }
     function g(e) {
       return e === "specific_hours"
-        ? s._(/*BTDS*/ "Open for selected hours")
+        ? s._(/*BTDS*/ "")
         : e === "open_24h"
-          ? s._(/*BTDS*/ "Always open")
+          ? s._(/*BTDS*/ "")
           : e === "appointment_only"
-            ? s._(/*BTDS*/ "By appointment only")
-            : s._(/*BTDS*/ "Select mode");
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
     }
     ((l.isValidTime = e),
       (l.isValidBusinessHours = u),

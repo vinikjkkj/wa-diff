@@ -5,7 +5,6 @@ __d(
     "WebBloksComponentContext",
     "WebBloksModel",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -17,50 +16,23 @@ __d(
       m = o("WebBloksModel").defineWebBloksAttributeKey("+"),
       p = o("WebBloksModel").defineWebBloksAttributeKey("0");
     function _(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.node,
-        a = n.get(u),
-        i = n.get(c),
-        l = n.get(d),
-        _ = o("WebBloksComponentContext").useWebBloksContext(),
-        f = _.renderNode,
-        g;
-      t[0] !== n ? ((g = n.get(m)), (t[0] = n), (t[1] = g)) : (g = t[1]);
-      var h = g,
-        y = r("WebBloksCDSWrapperImpl.react"),
-        C = f(a),
-        b = i != null ? f(i) : null,
-        v;
-      t[2] !== n ? ((v = n.get(p)), (t[2] = n), (t[3] = v)) : (v = t[3]);
-      var S = l != null ? f(l) : null,
-        R;
-      return (
-        t[4] !== y ||
-        t[5] !== C ||
-        t[6] !== b ||
-        t[7] !== v ||
-        t[8] !== S ||
-        t[9] !== h
-          ? ((R = s.jsx(y, {
-              backgroundOverlayColor: h,
-              content: C,
-              header: b,
-              minHeight: v,
-              topBanner: S,
-              shouldRenderGradient: !1,
-            })),
-            (t[4] = y),
-            (t[5] = C),
-            (t[6] = b),
-            (t[7] = v),
-            (t[8] = S),
-            (t[9] = h),
-            (t[10] = R))
-          : (R = t[10]),
-        R
-      );
+      var t = e.node,
+        n = t.get(u),
+        a = t.get(c),
+        i = t.get(d),
+        l = o("WebBloksComponentContext").useWebBloksContext(),
+        _ = l.renderNode,
+        f = t.get(m);
+      return s.jsx(r("WebBloksCDSWrapperImpl.react"), {
+        backgroundOverlayColor: f,
+        content: _(n),
+        header: a != null ? _(a) : null,
+        minHeight: t.get(p),
+        topBanner: i != null ? _(i) : null,
+        shouldRenderGradient: !1,
+      });
     }
-    l.default = _;
+    ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = _));
   },
   98,
 );

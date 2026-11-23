@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipJsWorkerRespawnGate",
-  ["WALogger", "WAWebVoipPthreadHardening", "asyncToGeneratorRuntime"],
+  ["WALogger", "WAWebVoipPthreadHardening"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -8,9 +8,9 @@ __d(
         function t() {
           this.$1 = null;
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.track = function (n) {
+          (n.track = function (n) {
             var t = this;
             if (
               o(
@@ -40,24 +40,15 @@ __d(
                 }));
             }
           }),
-          (r.hasPending = function () {
+          (n.hasPending = function () {
             return this.$1 != null;
           }),
-          (r.waitForPrevious = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this.$1;
-                t != null &&
-                  (yield t,
-                  !(this.$1 == null || !e()) &&
-                    (yield this.waitForPrevious(e)));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          (n.waitForPrevious = async function (t) {
+            var e = this.$1;
+            e != null &&
+              (await e,
+              !(this.$1 == null || !t()) && (await this.waitForPrevious(t)));
+          }),
           t
         );
       })();

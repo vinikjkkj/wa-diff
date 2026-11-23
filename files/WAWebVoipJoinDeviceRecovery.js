@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipJoinDeviceRecovery",
   [
-    "Promise",
     "WALogger",
     "WAWebBrowserPermissionSupport",
     "WAWebCallCollection",
@@ -23,7 +22,6 @@ __d(
     "WAWebVoipRecoveryJoinLog",
     "WAWebVoipStackInterface",
     "WAWebVoipWaCallEnums",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -40,168 +38,136 @@ __d(
       g,
       h,
       y,
-      C,
-      b = 1e4,
-      v = 3e4,
-      S = { join: null, offersPermissionButton: !1 };
-    function R(e, t) {
-      return L.apply(this, arguments);
+      C = 1e4,
+      b = 3e4,
+      v = { join: null, offersPermissionButton: !1 };
+    async function S(t, n) {
+      if (n == null || !P(n) || r("WAWebEnvironment").isWindows) return v;
+      o("WAWebVoipBlockedMicrophoneJoinState").discardBlockedMicrophoneJoin(
+        n.id,
+      );
+      var a = { camera: t.camera, microphone: t.microphone && !n.selfMicMuted },
+        i = await L(a);
+      if (
+        (E(i),
+        !i.isRecoveryNeeded ||
+          !o(
+            "WAWebVoipDeviceAccessRecoveryGating",
+          ).isDeviceAccessRecoveryEnabled())
+      )
+        return v;
+      var l = x(
+          (a.microphone ||
+            o(
+              "WAWebVoipBlockedMicrophoneJoinState",
+            ).isMutedForBlockedMicrophone(n.id)) &&
+            i.isMicrophoneBlocked,
+        ),
+        s = { join: null, offersPermissionButton: l };
+      if ((T(i), k(i) || !I(i))) return s;
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "voip: UI: joining without waiting for devices, microphone off=",
+            ", camera off=",
+            "",
+          ])),
+        String(i.isMicrophoneOff),
+        String(i.isCameraOff),
+      );
+      var u = $(
+        n,
+        {
+          acceptMuted: i.isMicrophoneOff,
+          acceptWithoutCamera: i.isCameraOff || i.neverAsked.microphone,
+          afterAccept: l ? r("WAWebNoop") : N(i, a, n),
+        },
+        { isAfterGuide: !1, offersPermissionButton: l },
+      );
+      return babelHelpers.extends({}, s, { join: u });
     }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t == null || !A(t) || r("WAWebEnvironment").isWindows) return S;
-          o("WAWebVoipBlockedMicrophoneJoinState").discardBlockedMicrophoneJoin(
-            t.id,
-          );
-          var n = {
-              camera: e.camera,
-              microphone: e.microphone && !t.selfMicMuted,
-            },
-            a = yield I(n);
-          if (
-            (D(a),
-            !a.isRecoveryNeeded ||
-              !o(
-                "WAWebVoipDeviceAccessRecoveryGating",
-              ).isDeviceAccessRecoveryEnabled())
-          )
-            return S;
-          var i = M(
-              (n.microphone ||
-                o(
-                  "WAWebVoipBlockedMicrophoneJoinState",
-                ).isMutedForBlockedMicrophone(t.id)) &&
-                a.isMicrophoneBlocked,
+    async function R(e, t, n, a) {
+      if (t == null || !P(t)) return null;
+      var i = await Promise.all([
+          o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
+            "microphone",
+          ),
+          e.camera
+            ? o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
+                "camera",
+              )
+            : "unknown",
+        ]),
+        l = i[0],
+        c = i[1],
+        d = a && l === "denied",
+        m = D(l);
+      if (m == null) return null;
+      (o("WAWebVoipCallAudioUnlock").holdUnlockedCallAudio(),
+        n
+          ? o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: UI: microphone unavailable before joining (",
+                  "), joining muted, waits for the guide=",
+                  "",
+                ])),
+              l,
+              String(m),
+            )
+          : o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: UI: microphone refused before joining (",
+                  "), joining muted, waits for the guide=",
+                  "",
+                ])),
+              l,
+              String(m),
             ),
-            l = { join: null, offersPermissionButton: i };
-          if ((P(a), x(a) || !$(a))) return l;
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: UI: joining without waiting for devices, microphone off=",
-                ", camera off=",
-                "",
-              ])),
-            String(a.isMicrophoneOff),
-            String(a.isCameraOff),
-          );
-          var s = w(
-            t,
-            {
-              acceptMuted: a.isMicrophoneOff,
-              acceptWithoutCamera: a.isCameraOff || a.neverAsked.microphone,
-              afterAccept: i ? r("WAWebNoop") : F(a, n, t),
-            },
-            { isAfterGuide: !1, offersPermissionButton: i },
-          );
-          return babelHelpers.extends({}, l, { join: s });
-        })),
-        L.apply(this, arguments)
+        !n &&
+          e.microphone &&
+          !t.selfMicMuted &&
+          o("WAWebVoipMicrophoneRefusalState").reportMicrophoneRefused(t.id));
+      var p = {
+        acceptMuted: !0,
+        acceptWithoutCamera: c !== "granted",
+        afterAccept: r("WAWebNoop"),
+      };
+      return babelHelpers.extends(
+        {},
+        $(t, p, { isAfterGuide: m, offersPermissionButton: d }),
+        { waitsForGuideClick: m },
       );
     }
-    function E(e, t, n, r) {
-      return k.apply(this, arguments);
+    async function L(e) {
+      var t = await Promise.all([
+          o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
+            "microphone",
+          ),
+          e.camera
+            ? o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
+                "camera",
+              )
+            : "unknown",
+        ]),
+        n = t[0],
+        r = t[1],
+        a = {
+          camera: r === "prompt",
+          microphone: e.microphone && n === "prompt",
+        },
+        i = n === "denied" || n === "prompt";
+      return {
+        isCameraOff: r !== "granted",
+        isMicrophoneBlocked: n === "denied",
+        isMicrophoneNeverAsked: n === "prompt",
+        isMicrophoneOff: i,
+        isRecoveryNeeded: i || a.camera,
+        neverAsked: a,
+      };
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i) {
-            if (t == null || !A(t)) return null;
-            var l = yield (C || (C = n("Promise"))).all([
-                o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
-                  "microphone",
-                ),
-                e.camera
-                  ? o(
-                      "WAWebMediaPermissionsUtils",
-                    ).queryMediaPermissionStateStrict("camera")
-                  : "unknown",
-              ]),
-              s = l[0],
-              u = l[1],
-              m = i && s === "denied",
-              p = N(s);
-            if (p == null) return null;
-            (o("WAWebVoipCallAudioUnlock").holdUnlockedCallAudio(),
-              a
-                ? o("WALogger").LOG(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: UI: microphone unavailable before joining (",
-                        "), joining muted, waits for the guide=",
-                        "",
-                      ])),
-                    s,
-                    String(p),
-                  )
-                : o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: UI: microphone refused before joining (",
-                        "), joining muted, waits for the guide=",
-                        "",
-                      ])),
-                    s,
-                    String(p),
-                  ),
-              !a &&
-                e.microphone &&
-                !t.selfMicMuted &&
-                o("WAWebVoipMicrophoneRefusalState").reportMicrophoneRefused(
-                  t.id,
-                ));
-            var _ = {
-              acceptMuted: !0,
-              acceptWithoutCamera: u !== "granted",
-              afterAccept: r("WAWebNoop"),
-            };
-            return babelHelpers.extends(
-              {},
-              w(t, _, { isAfterGuide: p, offersPermissionButton: m }),
-              { waitsForGuideClick: p },
-            );
-          },
-        )),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (C || (C = n("Promise"))).all([
-              o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
-                "microphone",
-              ),
-              e.camera
-                ? o(
-                    "WAWebMediaPermissionsUtils",
-                  ).queryMediaPermissionStateStrict("camera")
-                : "unknown",
-            ]),
-            r = t[0],
-            a = t[1],
-            i = {
-              camera: a === "prompt",
-              microphone: e.microphone && r === "prompt",
-            },
-            l = r === "denied" || r === "prompt";
-          return {
-            isCameraOff: a !== "granted",
-            isMicrophoneBlocked: r === "denied",
-            isMicrophoneNeverAsked: r === "prompt",
-            isMicrophoneOff: l,
-            isRecoveryNeeded: l || i.camera,
-            neverAsked: i,
-          };
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    function D(e) {
+    function E(e) {
       e.isMicrophoneOff &&
         o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
           "microphone",
@@ -210,20 +176,20 @@ __d(
           "WAWebVoipDevicePermissionDialogLoader.react",
         ).preloadDevicePermissionDialog();
     }
-    function x(e) {
+    function k(e) {
       return o("WAWebUA").UA.isWebkit && e.isMicrophoneNeverAsked;
     }
-    function $(e) {
+    function I(e) {
       return (
         !e.isMicrophoneOff || o("WAWebVoipCallAudioUnlock").canStartCallAudio()
       );
     }
-    function P(e) {
+    function T(e) {
       o("WAWebUA").UA.isWebkit &&
         e.isMicrophoneOff &&
         o("WAWebVoipCallAudioUnlock").unlockCallAudio();
     }
-    function N(e) {
+    function D(e) {
       return (e !== "denied" && e !== "prompt") ||
         !o(
           "WAWebVoipDeviceAccessRecoveryGating",
@@ -231,7 +197,7 @@ __d(
         ? null
         : !o("WAWebVoipCallAudioUnlock").canStartCallAudio();
     }
-    function M(e) {
+    function x(e) {
       return (
         e &&
         o(
@@ -239,7 +205,7 @@ __d(
         ).isBrowserPermissionButtonEnabled("microphone")
       );
     }
-    function w(e, t, n) {
+    function $(e, t, n) {
       var r = n.isAfterGuide,
         a = n.offersPermissionButton;
       return babelHelpers.extends({}, t, {
@@ -258,177 +224,149 @@ __d(
         },
       });
     }
-    function A(e) {
+    function P(e) {
       var t = e.getState();
       return (
         o("WAWebVoipCallStateUtils").isCallIncomingForRole(t, e.outgoing) ||
         t === o("WAWebVoipWaCallEnums").CallState.Rejoining
       );
     }
-    function F(t, n, a) {
-      var i = t.neverAsked;
-      if (!i.camera && !i.microphone) return r("WAWebNoop");
-      var l = t.isMicrophoneOff
-        ? o("WAWebVoipDevicePermissionRequest").requestVoipDevicePermissions(i)
+    function N(e, t, n) {
+      var a = e.neverAsked;
+      if (!a.camera && !a.microphone) return r("WAWebNoop");
+      var i = e.isMicrophoneOff
+        ? o("WAWebVoipDevicePermissionRequest").requestVoipDevicePermissions(a)
         : null;
       return (
-        l != null &&
+        i != null &&
           o("WAWebVoipAudioCaptureAndPlayback").adoptGrantedMicrophoneStream(
-            l.then(function (e) {
+            i.then(function (e) {
               var t = e.microphoneStream;
               return t;
             }),
             function () {
-              return r("WAWebCallCollection").activeCall === a;
+              return r("WAWebCallCollection").activeCall === n;
             },
           ),
         function () {
-          var s,
-            u = z(
-              (s =
-                l == null
+          var l,
+            s = B(
+              (l =
+                i == null
                   ? void 0
-                  : l.then(function (e) {
-                      return (O(t, a, e), B(t, a, e), e.granted);
+                  : i.then(function (t) {
+                      return (M(e, n, t), w(e, n, t), t.granted);
                     })) != null
-                ? s
-                : j(i, a),
+                ? l
+                : W(a, n),
             );
-          u.then(function (e) {
-            return e == null ? void 0 : Q(t, n, a, e);
-          }).catch(function (t) {
+          s.then(function (r) {
+            return r == null ? void 0 : q(e, t, n, r);
+          }).catch(function (e) {
             o("WALogger")
               .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: UI: turning on devices allowed after joining failed",
                   ])),
               )
-              .catching(r("getErrorSafe")(t));
+              .catching(r("getErrorSafe")(e));
           });
         }
       );
     }
-    function O(e, t, n) {
+    function M(e, t, n) {
       var a = n.isRefused;
       e.neverAsked.microphone &&
         a &&
         r("WAWebCallCollection").activeCall === t &&
         o("WAWebVoipMicrophoneRefusalState").reportMicrophoneRefused(t.id);
     }
-    function B(e, t, n) {
-      return W.apply(this, arguments);
+    async function w(e, t, n) {
+      var a = n.isRefused;
+      if (!(!e.neverAsked.microphone || !a)) {
+        var i = await o(
+          "WAWebMediaPermissionsUtils",
+        ).queryMediaPermissionStateStrict("microphone");
+        i !== "denied" ||
+          r("WAWebCallCollection").activeCall !== t ||
+          !o(
+            "WAWebVoipBrowserPermissionButtonGating",
+          ).isBrowserPermissionButtonEnabled("microphone") ||
+          (o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: UI: microphone blocked at the prompt after joining, offering the permission button",
+              ])),
+          ),
+          o("WAWebVoipBlockedMicrophoneJoinState").recordBlockedMicrophoneJoin(
+            t.id,
+          ),
+          o("WAWebCoreActionsODS").logCallBlockedMicJoin("blocked_at_prompt"));
+      }
     }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = n.isRefused;
-          if (!(!e.neverAsked.microphone || !a)) {
-            var i = yield o(
-              "WAWebMediaPermissionsUtils",
-            ).queryMediaPermissionStateStrict("microphone");
-            i !== "denied" ||
-              r("WAWebCallCollection").activeCall !== t ||
-              !o(
-                "WAWebVoipBrowserPermissionButtonGating",
-              ).isBrowserPermissionButtonEnabled("microphone") ||
-              (o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: UI: microphone blocked at the prompt after joining, offering the permission button",
-                  ])),
-              ),
-              o(
-                "WAWebVoipBlockedMicrophoneJoinState",
-              ).recordBlockedMicrophoneJoin(t.id),
-              o("WAWebCoreActionsODS").logCallBlockedMicJoin(
-                "blocked_at_prompt",
-              ));
-          }
-        })),
-        W.apply(this, arguments)
-      );
+    async function A(e) {
+      if (
+        !(
+          o(
+            "WAWebVoipBlockedMicrophoneJoinState",
+          ).getBlockedMicrophoneJoinCallId() === e.id || !O(e)
+        )
+      ) {
+        var t = await o(
+          "WAWebMediaPermissionsUtils",
+        ).queryMediaPermissionStateStrict("microphone");
+        t !== "denied" ||
+          r("WAWebCallCollection").activeCall !== e ||
+          !o(
+            "WAWebVoipBrowserPermissionButtonGating",
+          ).isBrowserPermissionButtonEnabled("microphone") ||
+          (o("WALogger").LOG(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: UI: microphone blocked at the unmute prompt, offering the permission button",
+              ])),
+          ),
+          o("WAWebVoipBlockedMicrophoneJoinState").recordBlockedMicrophoneJoin(
+            e.id,
+          ),
+          o("WAWebCoreActionsODS").logCallBlockedMicJoin("blocked_at_unmute"));
+      }
     }
-    function q(e) {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !(
-              o(
-                "WAWebVoipBlockedMicrophoneJoinState",
-              ).getBlockedMicrophoneJoinCallId() === e.id || !G(e)
-            )
-          ) {
-            var t = yield o(
-              "WAWebMediaPermissionsUtils",
-            ).queryMediaPermissionStateStrict("microphone");
-            t !== "denied" ||
-              r("WAWebCallCollection").activeCall !== e ||
-              !o(
-                "WAWebVoipBrowserPermissionButtonGating",
-              ).isBrowserPermissionButtonEnabled("microphone") ||
-              (o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: UI: microphone blocked at the unmute prompt, offering the permission button",
-                  ])),
-              ),
+    async function F(e) {
+      if (
+        !o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
+          "microphone",
+        )
+      )
+        return null;
+      var t = await o(
+        "WAWebMediaPermissionsUtils",
+      ).queryMediaPermissionStateStrict("microphone");
+      return t !== "granted" ||
+        !o(
+          "WAWebVoipBrowserPermissionButtonGating",
+        ).isBrowserPermissionButtonEnabled("microphone") ||
+        !o(
+          "WAWebVoipDeviceAccessRecoveryGating",
+        ).canAllowBlockedDeviceDuringCall()
+        ? null
+        : function () {
+            (o("WALogger").LOG(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: UI: microphone allowed while the call rang, unmuting after joining",
+                ])),
+            ),
               o(
                 "WAWebVoipBlockedMicrophoneJoinState",
               ).recordBlockedMicrophoneJoin(e.id),
               o("WAWebCoreActionsODS").logCallBlockedMicJoin(
-                "blocked_at_unmute",
+                "allowed_while_ringing",
               ));
-          }
-        })),
-        U.apply(this, arguments)
-      );
+          };
     }
-    function V(e) {
-      return H.apply(this, arguments);
-    }
-    function H() {
-      return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
-              "microphone",
-            )
-          )
-            return null;
-          var t = yield o(
-            "WAWebMediaPermissionsUtils",
-          ).queryMediaPermissionStateStrict("microphone");
-          return t !== "granted" ||
-            !o(
-              "WAWebVoipBrowserPermissionButtonGating",
-            ).isBrowserPermissionButtonEnabled("microphone") ||
-            !o(
-              "WAWebVoipDeviceAccessRecoveryGating",
-            ).canAllowBlockedDeviceDuringCall()
-            ? null
-            : function () {
-                (o("WALogger").LOG(
-                  _ ||
-                    (_ = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: UI: microphone allowed while the call rang, unmuting after joining",
-                    ])),
-                ),
-                  o(
-                    "WAWebVoipBlockedMicrophoneJoinState",
-                  ).recordBlockedMicrophoneJoin(e.id),
-                  o("WAWebCoreActionsODS").logCallBlockedMicJoin(
-                    "allowed_while_ringing",
-                  ));
-              };
-        })),
-        H.apply(this, arguments)
-      );
-    }
-    function G(e) {
+    function O(e) {
       var t;
       return (
         o("WAWebVoipBlockedMicrophoneJoinState").isMutedForBlockedMicrophone(
@@ -439,15 +377,15 @@ __d(
           : t.isMicrophoneOff) === !0
       );
     }
-    function z(e) {
+    function B(e) {
       var t = Date.now();
       return e.then(function (e) {
         var n = Date.now() - t;
-        return e == null || n <= v
+        return e == null || n <= b
           ? e
           : (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: UI: devices allowed ",
                   "ms after joining, leaving them off",
                 ])),
@@ -456,138 +394,92 @@ __d(
             null);
       });
     }
-    function j(e, t) {
-      return K.apply(this, arguments);
+    async function W(e, t) {
+      var n = await G();
+      if (!n || r("WAWebCallCollection").activeCall !== t) return null;
+      var a = await o(
+          "WAWebVoipDevicePermissionRequest",
+        ).requestVoipDevicePermissions(e),
+        i = a.granted;
+      return i;
     }
-    function K() {
-      return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield re();
-          if (!n || r("WAWebCallCollection").activeCall !== t) return null;
-          var a = yield o(
-              "WAWebVoipDevicePermissionRequest",
-            ).requestVoipDevicePermissions(e),
-            i = a.granted;
-          return i;
-        })),
-        K.apply(this, arguments)
-      );
+    async function q(e, t, n, r) {
+      var o = await U(t, r),
+        a = t.microphone && e.isMicrophoneOff && o.microphone && (await G());
+      (o.camera && (await V(n)), a && (await H(n)));
     }
-    function Q(e, t, n, r) {
-      return X.apply(this, arguments);
+    async function U(e, t) {
+      var n = await Promise.all([
+          o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
+            "microphone",
+          ),
+          e.camera
+            ? o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
+                "camera",
+              )
+            : "unknown",
+        ]),
+        r = n[0],
+        a = n[1];
+      return {
+        camera: t.camera || a === "granted",
+        microphone: t.microphone || r === "granted",
+      };
     }
-    function X() {
-      return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o = yield Y(t, r),
-              a =
-                t.microphone &&
-                e.isMicrophoneOff &&
-                o.microphone &&
-                (yield re());
-            (o.camera && (yield Z(n)), a && (yield te(n)));
-          },
-        )),
-        X.apply(this, arguments)
-      );
+    async function V(e) {
+      var t = await o("WAWebVoipStackInterface").getVoipStackInterface();
+      if (
+        !(
+          (t == null ? void 0 : t.type) !== "web" ||
+          r("WAWebCallCollection").activeCall !== e
+        )
+      ) {
+        o("WALogger").LOG(
+          f ||
+            (f = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: UI: camera allowed after joining, turning video on",
+            ])),
+        );
+        var n = await t.setCallVideoMute(!1);
+        n !== 0 &&
+          o("WALogger").WARN(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: UI: turning video on after joining failed with status: ",
+                "",
+              ])),
+            n,
+          );
+      }
     }
-    function Y(e, t) {
-      return J.apply(this, arguments);
+    async function H(e) {
+      var t = await o("WAWebVoipStackInterface").getVoipStackInterface();
+      if (
+        !(
+          (t == null ? void 0 : t.type) !== "web" ||
+          r("WAWebCallCollection").activeCall !== e
+        )
+      ) {
+        o("WALogger").LOG(
+          h ||
+            (h = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: UI: microphone allowed and live after joining, unmuting",
+            ])),
+        );
+        var n = await t.setCallMute(!1);
+        n !== 0 &&
+          o("WALogger").WARN(
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: UI: unmuting after joining failed with status: ",
+                "",
+              ])),
+            n,
+          );
+      }
     }
-    function J() {
-      return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = yield (C || (C = n("Promise"))).all([
-              o("WAWebMediaPermissionsUtils").queryMediaPermissionStateStrict(
-                "microphone",
-              ),
-              e.camera
-                ? o(
-                    "WAWebMediaPermissionsUtils",
-                  ).queryMediaPermissionStateStrict("camera")
-                : "unknown",
-            ]),
-            a = r[0],
-            i = r[1];
-          return {
-            camera: t.camera || i === "granted",
-            microphone: t.microphone || a === "granted",
-          };
-        })),
-        J.apply(this, arguments)
-      );
-    }
-    function Z(e) {
-      return ee.apply(this, arguments);
-    }
-    function ee() {
-      return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          if (
-            !(
-              (t == null ? void 0 : t.type) !== "web" ||
-              r("WAWebCallCollection").activeCall !== e
-            )
-          ) {
-            o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: UI: camera allowed after joining, turning video on",
-                ])),
-            );
-            var n = yield t.setCallVideoMute(!1);
-            n !== 0 &&
-              o("WALogger").WARN(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: UI: turning video on after joining failed with status: ",
-                    "",
-                  ])),
-                n,
-              );
-          }
-        })),
-        ee.apply(this, arguments)
-      );
-    }
-    function te(e) {
-      return ne.apply(this, arguments);
-    }
-    function ne() {
-      return (
-        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          if (
-            !(
-              (t == null ? void 0 : t.type) !== "web" ||
-              r("WAWebCallCollection").activeCall !== e
-            )
-          ) {
-            o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: UI: microphone allowed and live after joining, unmuting",
-                ])),
-            );
-            var n = yield t.setCallMute(!1);
-            n !== 0 &&
-              o("WALogger").WARN(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: UI: unmuting after joining failed with status: ",
-                    "",
-                  ])),
-                n,
-              );
-          }
-        })),
-        ne.apply(this, arguments)
-      );
-    }
-    function re() {
-      return new (C || (C = n("Promise")))(function (e) {
+    function G() {
+      return new Promise(function (e) {
         if (
           o("WAWebVoipMicrophoneInputState").getMicrophoneInputStatus() ===
           "active"
@@ -598,7 +490,7 @@ __d(
         var t = r("WAWebNoop"),
           n = window.setTimeout(function () {
             (t(), e(!1));
-          }, b);
+          }, C);
         t = o("WAWebVoipMicrophoneInputState").subscribeToMicrophoneInput(
           function () {
             o("WAWebVoipMicrophoneInputState").getMicrophoneInputStatus() ===
@@ -607,10 +499,10 @@ __d(
         );
       });
     }
-    ((l.getDeviceRecoveryJoin = R),
-      (l.getRefusedPromptJoin = E),
-      (l.offerPermissionButtonAfterUnmuteBlock = q),
-      (l.getAllowedWhileRingingRecorder = V));
+    ((l.getDeviceRecoveryJoin = S),
+      (l.getRefusedPromptJoin = R),
+      (l.offerPermissionButtonAfterUnmuteBlock = A),
+      (l.getAllowedWhileRingingRecorder = F));
   },
   98,
 );

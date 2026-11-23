@@ -41,6 +41,7 @@ __d(
     "AdsPromotedObjectTypeVariation",
     "AdsPromotedObjectTypes",
     "AdsRegionalRegulatedCategory",
+    "AdsSignalSourceTypeUtils.facebook",
     "AdsTargetingEducation",
     "AdsTargetingGender",
     "AdsTargetingInterestedIn",
@@ -92,7 +93,7 @@ __d(
         _,
         f,
         g,
-        h,
+        y,
         v,
         R,
         L,
@@ -122,1008 +123,783 @@ __d(
         J,
         Z,
         ee,
-        te;
+        te,
+        ne;
       if (e.__typename !== "AdCampaign")
         throw r("FBLogger")("am_frameworks").mustfixThrow(
           'Expected GraphQL object type "AdCampaign", got "%s when loading id %s"',
           e.__typename,
           e.id,
         );
-      var ne = {
-        account_id: o("TypeCoercionUtils").coerceNonMaybeValue(
-          (n = e.ad_account) == null ? void 0 : n.legacy_account_id,
-          "ad_account.legacy_account_id",
-          i.id,
-        ),
-        ad_count: e.adgroup_count,
-        ad_keywords: C(e.ad_keywords),
-        adaptive_geo_exclusion_eligible: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.adaptive_geo_exclusion_eligible),
-        adgroup_active_study_ids:
-          (a =
-            (l = e.adgroup_active_studies) == null ||
-            (l = l.map(function (e) {
-              return e.id;
-            })) == null
+      var re = e.auto_scale_config,
+        oe = {
+          account_id: o("TypeCoercionUtils").coerceNonMaybeValue(
+            (n = e.ad_account) == null ? void 0 : n.legacy_account_id,
+            "ad_account.legacy_account_id",
+            i.id,
+          ),
+          ad_count: e.adgroup_count,
+          ad_keywords: C(e.ad_keywords),
+          adaptive_geo_exclusion_eligible: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.adaptive_geo_exclusion_eligible),
+          adgroup_active_study_ids:
+            (a =
+              (l = e.adgroup_active_studies) == null ||
+              (l = l.map(function (e) {
+                return e.id;
+              })) == null
+                ? void 0
+                : l.filter(Boolean)) != null
+              ? a
+              : [],
+          adset_schedule: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
+            (s = e.campaign_schedule) == null
               ? void 0
-              : l.filter(Boolean)) != null
-            ? a
-            : [],
-        adset_schedule: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
-          (s = e.campaign_schedule) == null
-            ? void 0
-            : s.map(function (e) {
-                return o("TypeCoercionUtils").convertScheduleToDayPart(e);
-              }),
-        ),
-        anchor_click_through_attribution_window_seconds: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(
-          e.anchor_click_through_attribution_window_seconds,
-        ),
-        anchor_engaged_view_attribution_window_seconds: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.anchor_engaged_view_attribution_window_seconds),
-        anchor_view_through_attribution_window_seconds: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.anchor_view_through_attribution_window_seconds),
-        asset_feed_id: e.asset_feed_id,
-        asset_feed_optimization_type: u,
-        attribution_count_type: o("XFBAttributionCountUtils.facebook").toJSEnum(
-          e.attribution_count_type,
-        ),
-        attribution_spec: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
-          (c = e.attribution_spec) == null
-            ? void 0
-            : c.map(function (e) {
-                return {
-                  event_type: o("TypeCoercionUtils").coerceNonMaybeValue(
-                    r("getJSEnumKeySafe")(
-                      r("AttributionEventType"),
-                      e.event_type,
+              : s.map(function (e) {
+                  return o("TypeCoercionUtils").convertScheduleToDayPart(e);
+                }),
+          ),
+          anchor_click_through_attribution_window_seconds: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(
+            e.anchor_click_through_attribution_window_seconds,
+          ),
+          anchor_engaged_view_attribution_window_seconds: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(
+            e.anchor_engaged_view_attribution_window_seconds,
+          ),
+          anchor_view_through_attribution_window_seconds: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(
+            e.anchor_view_through_attribution_window_seconds,
+          ),
+          asset_feed_id: e.asset_feed_id,
+          asset_feed_optimization_type: u,
+          attribution_count_type: o(
+            "XFBAttributionCountUtils.facebook",
+          ).toJSEnum(e.attribution_count_type),
+          attribution_spec: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
+            (c = e.attribution_spec) == null
+              ? void 0
+              : c.map(function (e) {
+                  return {
+                    event_type: o("TypeCoercionUtils").coerceNonMaybeValue(
+                      r("getJSEnumKeySafe")(
+                        r("AttributionEventType"),
+                        e.event_type,
+                      ),
+                      "attribution_spec[].event_type",
+                      i.id,
                     ),
-                    "attribution_spec[].event_type",
-                    i.id,
-                  ),
-                  window_days: o("TypeCoercionUtils").coerceNonMaybeValue(
-                    e.window_days,
-                    "attribution_spec[].window_days",
-                    i.id,
-                  ),
-                };
-              }),
-        ),
-        automatic_manual_state: o("TypeCoercionUtils").coerceOptionalValue(
-          r("AdCampaignDestinationAutomaticManual").cast(
-            e.automatic_manual_state,
-          ),
-        ),
-        bid_adjustments: S(e.bid_adjustments),
-        bid_amount: o("TypeCoercionUtils").coerceMaybeStringToNumber(
-          M((d = e.bid_amount) == null ? void 0 : d.offset_amount),
-        ),
-        bid_constraint_source: o("TypeCoercionUtils").coerceOptionalValue(
-          o("enumUtils").coerceKey(
-            e.bid_constraint_source == null ? null : e.bid_constraint_source,
-            r("AdsAPIBidConstraintSource"),
-          ),
-        ),
-        bid_constraints:
-          ((m = e.bid_constraints) == null ? void 0 : m.roas_average_floor) !=
-          null
-            ? {
-                roas_average_floor: o("TypeCoercionUtils").coerceNonMaybeValue(
-                  e.bid_constraints.roas_average_floor,
-                  "bid_constraints.roas_average_floor",
-                  i.id,
-                ),
-              }
-            : void 0,
-        bid_info: u,
-        bid_strategy: o("TypeCoercionUtils").coerceOptionalValue(
-          o("enumUtils").coerceKey(e.bid_strategy, r("AdsAPIBidStrategies")),
-        ),
-        bid_type: u,
-        billing_event: o("TypeCoercionUtils").coerceNonMaybeValue(
-          o("enumUtils").coerceKey(e.billing_event, r("AdsAPIBillingEvents")),
-          "billing_event",
-          i.id,
-        ),
-        biz_ai_enabled_state: e.biz_ai_enabled_state,
-        brand_safety_config:
-          e.brand_safety_config != null &&
-          (e.brand_safety_config.comment_moderation_filter != null ||
-            e.brand_safety_config.facebook_comment_moderation_filter != null ||
-            e.brand_safety_config.instagram_comment_moderation_filter != null ||
-            e.brand_safety_config.threads_comment_moderation_filter != null)
-            ? {
-                comment_moderation_filter:
-                  e.brand_safety_config.comment_moderation_filter,
-                fb_comment_moderation_filter:
-                  e.brand_safety_config.facebook_comment_moderation_filter,
-                ig_comment_moderation_filter:
-                  e.brand_safety_config.instagram_comment_moderation_filter,
-                threads_comment_moderation_filter:
-                  e.brand_safety_config.threads_comment_moderation_filter,
-              }
-            : void 0,
-        budget_pool_membership: E(e.budget_pool_membership),
-        budget_remaining: N(e.budget_remaining),
-        budget_scaling_budget_multiplier_default:
-          e.budget_scaling_budget_multiplier_default,
-        budget_scaling_cost_target: e.budget_scaling_cost_target,
-        budget_scaling_cost_target_default:
-          e.budget_scaling_cost_target_default,
-        budget_scaling_extra_budget: e.budget_scaling_extra_budget,
-        budget_split_metadata_id: u,
-        calling_settings:
-          e.calling_settings != null
-            ? {
-                call_forwarding: e.calling_settings.call_forwarding,
-                call_transcript: e.calling_settings.call_transcript,
-              }
-            : void 0,
-        campaign_active_time: o("TypeCoercionUtils").coerceMaybeNumberToString(
-          e.campaign_active_time,
-        ),
-        campaign_attribution: o("TypeCoercionUtils").coerceOptionalValue(
-          r("getJSEnumSafe")(
-            r("AEMv2AdCampaignAttribution"),
-            e.campaign_attribution,
-          ),
-        ),
-        campaign_creation_source: u,
-        campaign_goal: b(e.campaign_goal),
-        campaign_id: o("TypeCoercionUtils").coerceNonMaybeValue(
-          e.ad_campaign_group_id,
-          "ad_campaign_group_id",
-          i.id,
-        ),
-        campaign_targeting_consolidation: o("enumUtils").coerceNullable(
-          e.campaign_targeting_conslidation,
-          r("AdsAPICampaignTargetingConsolidation"),
-        ),
-        catalog_vertical: e.catalog_vertical,
-        conversion_goal_id: e.conversion_goal_id,
-        conversion_location: u,
-        conversion_locations: o("enumUtils").coerceKey(
-          e.conversion_locations,
-          r("AdsPromotedObjectTypes"),
-        ),
-        conversion_value_expression_spec: o(
-          "TypeCoercionUtils",
-        ).coerceEmptyArrayToUndefined(
-          (p = e.conversion_value_expression_spec) == null
-            ? void 0
-            : p.map(function (e) {
-                return {
-                  adjustment_sign: o("TypeCoercionUtils").coerceNonMaybeValue(
-                    r("getJSEnumKeySafe")(
-                      r("ValueAdjustmentRuleAdjustmentSignType"),
-                      e.adjustment_sign,
+                    window_days: o("TypeCoercionUtils").coerceNonMaybeValue(
+                      e.window_days,
+                      "attribution_spec[].window_days",
+                      i.id,
                     ),
-                    "conversion_value_expression_spec[].adjustment_sign",
+                  };
+                }),
+          ),
+          audience_reach_insights: u,
+          auto_scale_config:
+            re != null
+              ? {
+                  budget_value: o("TypeCoercionUtils").coerceNonMaybeValue(
+                    re.budget_value,
+                    "auto_scale_config.budget_value",
                     i.id,
                   ),
-                  adjustment_weight: o("TypeCoercionUtils").coerceNonMaybeValue(
-                    e.adjustment_weight,
-                    "conversion_value_expression_spec[].adjustment_weight",
+                  budget_value_type: re.budget_value_type,
+                  is_enabled: o("TypeCoercionUtils").coerceNonMaybeValue(
+                    re.is_enabled,
+                    "auto_scale_config.is_enabled",
                     i.id,
                   ),
-                  destination_type: o("TypeCoercionUtils").coerceNonMaybeValue(
-                    r("getJSEnumKeySafe")(
-                      r("AdCampaignDestination"),
-                      e.destination_type,
+                }
+              : void 0,
+          automatic_manual_state: o("TypeCoercionUtils").coerceOptionalValue(
+            r("AdCampaignDestinationAutomaticManual").cast(
+              e.automatic_manual_state,
+            ),
+          ),
+          bid_adjustments: S(e.bid_adjustments),
+          bid_amount: o("TypeCoercionUtils").coerceMaybeStringToNumber(
+            M((d = e.bid_amount) == null ? void 0 : d.offset_amount),
+          ),
+          bid_constraint_source: o("TypeCoercionUtils").coerceOptionalValue(
+            o("enumUtils").coerceKey(
+              e.bid_constraint_source == null ? null : e.bid_constraint_source,
+              r("AdsAPIBidConstraintSource"),
+            ),
+          ),
+          bid_constraints:
+            ((m = e.bid_constraints) == null ? void 0 : m.roas_average_floor) !=
+            null
+              ? {
+                  roas_average_floor: o(
+                    "TypeCoercionUtils",
+                  ).coerceNonMaybeValue(
+                    e.bid_constraints.roas_average_floor,
+                    "bid_constraints.roas_average_floor",
+                    i.id,
+                  ),
+                }
+              : void 0,
+          bid_constraints_spec:
+            ((p = e.bid_constraints_spec) == null
+              ? void 0
+              : p.roas_average_floor) != null
+              ? {
+                  roas_average_floor: e.bid_constraints_spec.roas_average_floor,
+                }
+              : void 0,
+          bid_info: u,
+          bid_strategy: o("TypeCoercionUtils").coerceOptionalValue(
+            o("enumUtils").coerceKey(e.bid_strategy, r("AdsAPIBidStrategies")),
+          ),
+          bid_type: u,
+          billing_event: o("TypeCoercionUtils").coerceNonMaybeValue(
+            o("enumUtils").coerceKey(e.billing_event, r("AdsAPIBillingEvents")),
+            "billing_event",
+            i.id,
+          ),
+          biz_ai_enabled_state: e.biz_ai_enabled_state,
+          brand_safety_config:
+            e.brand_safety_config != null &&
+            (e.brand_safety_config.comment_moderation_filter != null ||
+              e.brand_safety_config.facebook_comment_moderation_filter !=
+                null ||
+              e.brand_safety_config.instagram_comment_moderation_filter !=
+                null ||
+              e.brand_safety_config.threads_comment_moderation_filter != null)
+              ? {
+                  comment_moderation_filter:
+                    e.brand_safety_config.comment_moderation_filter,
+                  fb_comment_moderation_filter:
+                    e.brand_safety_config.facebook_comment_moderation_filter,
+                  ig_comment_moderation_filter:
+                    e.brand_safety_config.instagram_comment_moderation_filter,
+                  threads_comment_moderation_filter:
+                    e.brand_safety_config.threads_comment_moderation_filter,
+                }
+              : void 0,
+          budget_pool_membership: E(e.budget_pool_membership),
+          budget_remaining: N(e.budget_remaining),
+          budget_scaling_budget_multiplier_default:
+            e.budget_scaling_budget_multiplier_default,
+          budget_scaling_cost_target: e.budget_scaling_cost_target,
+          budget_scaling_cost_target_default:
+            e.budget_scaling_cost_target_default,
+          budget_scaling_extra_budget: e.budget_scaling_extra_budget,
+          budget_scaling_is_active: e.budget_scaling_is_active,
+          budget_split_metadata_id: e.budget_split_metadata_id,
+          calling_settings:
+            e.calling_settings != null
+              ? {
+                  call_forwarding: e.calling_settings.call_forwarding,
+                  call_transcript: e.calling_settings.call_transcript,
+                }
+              : void 0,
+          campaign_active_time: o(
+            "TypeCoercionUtils",
+          ).coerceMaybeNumberToString(e.campaign_active_time),
+          campaign_attribution: o("TypeCoercionUtils").coerceOptionalValue(
+            r("getJSEnumSafe")(
+              r("AEMv2AdCampaignAttribution"),
+              e.campaign_attribution,
+            ),
+          ),
+          campaign_creation_source: u,
+          campaign_goal: b(e.campaign_goal),
+          campaign_id: o("TypeCoercionUtils").coerceNonMaybeValue(
+            e.ad_campaign_group_id,
+            "ad_campaign_group_id",
+            i.id,
+          ),
+          campaign_targeting_consolidation: o("enumUtils").coerceNullable(
+            e.campaign_targeting_conslidation,
+            r("AdsAPICampaignTargetingConsolidation"),
+          ),
+          catalog_vertical: e.catalog_vertical,
+          conversion_goal_id: e.conversion_goal_id,
+          conversion_location: u,
+          conversion_locations: o("enumUtils").coerceKey(
+            e.conversion_locations,
+            r("AdsPromotedObjectTypes"),
+          ),
+          conversion_value_expression_spec: o(
+            "TypeCoercionUtils",
+          ).coerceEmptyArrayToUndefined(
+            (_ = e.conversion_value_expression_spec) == null
+              ? void 0
+              : _.map(function (e) {
+                  return {
+                    adjustment_sign: o("TypeCoercionUtils").coerceNonMaybeValue(
+                      r("getJSEnumKeySafe")(
+                        r("ValueAdjustmentRuleAdjustmentSignType"),
+                        e.adjustment_sign,
+                      ),
+                      "conversion_value_expression_spec[].adjustment_sign",
+                      i.id,
                     ),
-                    "conversion_value_expression_spec[].destination_type",
+                    adjustment_weight: o(
+                      "TypeCoercionUtils",
+                    ).coerceNonMaybeValue(
+                      e.adjustment_weight,
+                      "conversion_value_expression_spec[].adjustment_weight",
+                      i.id,
+                    ),
+                    destination_type: o(
+                      "TypeCoercionUtils",
+                    ).coerceNonMaybeValue(
+                      r("getJSEnumKeySafe")(
+                        r("AdCampaignDestination"),
+                        e.destination_type,
+                      ),
+                      "conversion_value_expression_spec[].destination_type",
+                      i.id,
+                    ),
+                  };
+                }),
+          ),
+          cost_bidding_mode: o("TypeCoercionUtils").coerceOptionalValue(
+            o("enumUtils").coerceKey(
+              e.cost_bidding_mode,
+              r("AdsAPICostBiddingModes"),
+            ),
+          ),
+          cpr_benchmark: u,
+          created_time: o("TypeCoercionUtils").coerceOptionalValue(
+            e.created_time_with_timezone,
+          ),
+          creative_diversity_label: u,
+          creative_diversity_score: u,
+          creative_fatigue_prediction_ple: u,
+          creative_sequence: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
+            e.creative_sequence,
+          ),
+          creative_sequence_repetition_pattern: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.creative_sequence_repetition_pattern),
+          daily_budget: N(e.daily_budget),
+          daily_imps: o("TypeCoercionUtils").coerceOptionalValue(e.daily_imps),
+          daily_min_spend_target: M(e.daily_min_spend_target),
+          daily_spend_cap: M(e.daily_spend_cap),
+          delivery_info: u,
+          delivery_status: u,
+          delivery_sub_status: u,
+          destination_type: o("TypeCoercionUtils").coerceOptionalValue(
+            r("getJSEnumSafe")(r("AdCampaignDestination"), e.destination_type),
+          ),
+          dsa_beneficiary: e.dsa_beneficiary,
+          dsa_payor: e.dsa_payor,
+          effective_status:
+            e.effective_status != null &&
+            (f = o("enumUtils").coerce(
+              e.effective_status,
+              r("AdsEffectiveStatus"),
+            )) != null
+              ? f
+              : void 0,
+          end_time: o("TypeCoercionUtils").coerceOptionalValue(
+            e.end_time_and_timezone,
+          ),
+          existing_customer_budget_percentage: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.existing_customer_budget_percentage),
+          external_bid: e.external_bid,
+          frequency_control_specs: o(
+            "AdsFrequencyControlSpecsCoercionUtils",
+          ).coerceFrequencyControlSpecs(e.frequency_control_specs, i.id),
+          full_funnel_exploration_mode: r("getJSEnumSafe")(
+            r("AdsAPIFullFunnelExplorationMode"),
+            e.full_funnel_exploration_mode,
+          ),
+          has_active_aco_autoflow_ad: u,
+          has_active_da_aco_ad: e.has_active_da_aco_ad,
+          has_inspiration_gallery_consent: u,
+          has_legacy_omni_value_rule: e.has_legacy_omni_value_rule,
+          id: e.id,
+          include_in_ad_study_cell_id: u,
+          include_in_ad_study_id: u,
+          io_number: o("TypeCoercionUtils").coerceNumbertoZeroOrNumber(
+            e.io_number,
+          ),
+          is_autobid: o("TypeCoercionUtils").coerceOptionalValue(e.is_autobid),
+          is_average_price_pacing: o("TypeCoercionUtils").coerceOptionalValue(
+            e.is_average_price_pacing,
+          ),
+          is_ba_skip_delayed_eligible: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.is_ba_skip_delayed_eligible),
+          is_dc_follow_optimized: o("TypeCoercionUtils").coerceOptionalValue(
+            e.is_dc_follow_optimized,
+          ),
+          is_dynamic_creative: u,
+          is_dynamic_creative_asset_customization: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.is_dynamic_creative_asset_customization),
+          is_dynamic_creative_format_automation: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.is_dynamic_creative_format_automation),
+          is_dynamic_creative_optimization: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.is_dynamic_creative_optimization),
+          is_eligible_for_advantage_plus_audience: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.is_eligible_for_advantage_plus_audience),
+          is_incremental_attribution_enabled: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.is_incremental_attribution_enabled),
+          is_lifetime_flex_with_valid_schedule:
+            e.is_lifetime_flex_with_valid_schedule,
+          is_message_marketing: u,
+          is_omni_custom_conversion_test_campaign: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.is_omni_custom_conversion_test_campaign),
+          is_organic_ad_joint_optimized: e.is_organic_ad_joint_optimized,
+          is_pca_unifiable_with_catalog: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.is_pca_unifiable_with_catalog),
+          is_pv_follow_optimized: o("TypeCoercionUtils").coerceOptionalValue(
+            e.is_pv_follow_optimized,
+          ),
+          is_sequenced_conversion_creation: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.is_sequenced_conversion_creation),
+          is_unified_attribution_window: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.is_unified_attribution_window),
+          is_using_target_cpa: o("TypeCoercionUtils").coerceOptionalValue(
+            e.is_using_target_cpa,
+          ),
+          lifetime_budget: N(e.lifetime_budget_safe_value_str),
+          lifetime_budget_string: e.lifetime_budget_safe_value_str,
+          lifetime_imps: o("TypeCoercionUtils").coerceNumbertoZeroOrNumber(
+            e.lifetime_imps,
+          ),
+          lifetime_min_spend_target: M(e.lifetime_min_spend_target),
+          lifetime_reach: o("TypeCoercionUtils").coerceOptionalValue(
+            e.lifetime_reach,
+          ),
+          lifetime_spend_cap: M(e.lifetime_spend_cap),
+          lifetime_spent: e.lifetime_spent,
+          lightweight_split_test: u,
+          lightweight_split_test_options: u,
+          line_number: o("TypeCoercionUtils").coerceMaybeFBIDtoZeroOrFBID(
+            (g = e.ad_topline) == null || (g = g.line_number) == null
+              ? void 0
+              : g.id,
+          ),
+          live_video_ad_campaign_config: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.live_video_ad_campaign_config),
+          low_creative_reach: u,
+          marketing_goal: o("enumUtils").coerceNullable(
+            e.marketing_goal,
+            r("AdsAPIMarketingGoal"),
+          ),
+          max_budget_spend_percentage: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.max_budget_spend_percentage),
+          messaging_structured_lead_spec:
+            (y = e.messaging_structured_lead_spec) == null
+              ? void 0
+              : y
+                  .map(function (e) {
+                    return (e == null ? void 0 : e.field_type) != null &&
+                      e.label != null
+                      ? { field_type: e.field_type, label: e.label }
+                      : null;
+                  })
+                  .filter(Boolean),
+          messaging_structured_lead_template_id:
+            e.messaging_structured_lead_template_id,
+          metrics_metadata: u,
+          min_budget_spend_percentage: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.min_budget_spend_percentage),
+          multi_ads: o("TypeCoercionUtils").coerceOptionalValue(e.multi_ads),
+          multi_event_conversion_attribution_window_seconds: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(
+            e.multi_event_conversion_attribution_window_seconds,
+          ),
+          multi_optimization_goal_weight: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.multi_optimization_goal_weight),
+          name: o("TypeCoercionUtils").coerceNonMaybeValue(
+            e.name,
+            "name",
+            i.id,
+          ),
+          naming_template_custom_fields: o(
+            "TypeCoercionUtils",
+          ).coerceNamingTemplateCustomFields(e.naming_template_custom_fields),
+          optimization_goal: o("TypeCoercionUtils").coerceNonMaybeValue(
+            o("enumUtils").coerceKey(
+              e.optimization_goal,
+              r("AdsAPIOptimizationGoals"),
+            ),
+            "optimization_goal",
+            i.id,
+          ),
+          optimization_sub_event: o("TypeCoercionUtils").coerceOptionalValue(
+            r("getJSEnumSafe")(
+              r("AdsAPIOptimizationSubEvent"),
+              e.optimization_sub_event,
+            ),
+          ),
+          pacing_type: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
+            (v = e.pacing_type) == null
+              ? void 0
+              : v.map(function (e) {
+                  return o("TypeCoercionUtils").coerceNonMaybeValue(
+                    o("enumUtils").coerceFromKey(e, r("AdsAPIPacingType")),
+                    "pacing_type[]",
                     i.id,
-                  ),
-                };
-              }),
-        ),
-        cost_bidding_mode: o("TypeCoercionUtils").coerceOptionalValue(
-          o("enumUtils").coerceKey(
-            e.cost_bidding_mode,
-            r("AdsAPICostBiddingModes"),
+                  );
+                }),
           ),
-        ),
-        cpr_benchmark: u,
-        created_time: o("TypeCoercionUtils").coerceOptionalValue(
-          e.created_time_with_timezone,
-        ),
-        creative_diversity_label: u,
-        creative_diversity_score: u,
-        creative_fatigue_prediction_ple: u,
-        creative_sequence: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
-          e.creative_sequence,
-        ),
-        creative_sequence_repetition_pattern: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.creative_sequence_repetition_pattern),
-        daily_budget: N(e.daily_budget),
-        daily_imps: o("TypeCoercionUtils").coerceOptionalValue(e.daily_imps),
-        daily_min_spend_target: M(e.daily_min_spend_target),
-        daily_spend_cap: M(e.daily_spend_cap),
-        delivery_info: u,
-        delivery_status: u,
-        delivery_sub_status: u,
-        destination_type: o("TypeCoercionUtils").coerceOptionalValue(
-          r("getJSEnumSafe")(r("AdCampaignDestination"), e.destination_type),
-        ),
-        dsa_beneficiary: e.dsa_beneficiary,
-        dsa_payor: e.dsa_payor,
-        effective_status:
-          e.effective_status != null &&
-          (_ = o("enumUtils").coerce(
-            e.effective_status,
-            r("AdsEffectiveStatus"),
-          )) != null
-            ? _
-            : void 0,
-        end_time: o("TypeCoercionUtils").coerceOptionalValue(
-          e.end_time_and_timezone,
-        ),
-        existing_customer_budget_percentage: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.existing_customer_budget_percentage),
-        external_bid: e.external_bid,
-        frequency_control_specs: o(
-          "AdsFrequencyControlSpecsCoercionUtils",
-        ).coerceFrequencyControlSpecs(e.frequency_control_specs, i.id),
-        full_funnel_exploration_mode: r("getJSEnumSafe")(
-          r("AdsAPIFullFunnelExplorationMode"),
-          e.full_funnel_exploration_mode,
-        ),
-        has_active_aco_autoflow_ad: u,
-        has_active_da_aco_ad: e.has_active_da_aco_ad,
-        has_inspiration_gallery_consent: u,
-        id: e.id,
-        include_in_ad_study_cell_id: u,
-        include_in_ad_study_id: u,
-        io_number: o("TypeCoercionUtils").coerceNumbertoZeroOrNumber(
-          e.io_number,
-        ),
-        is_autobid: o("TypeCoercionUtils").coerceOptionalValue(e.is_autobid),
-        is_average_price_pacing: o("TypeCoercionUtils").coerceOptionalValue(
-          e.is_average_price_pacing,
-        ),
-        is_ba_skip_delayed_eligible: o("TypeCoercionUtils").coerceOptionalValue(
-          e.is_ba_skip_delayed_eligible,
-        ),
-        is_dc_follow_optimized: o("TypeCoercionUtils").coerceOptionalValue(
-          e.is_dc_follow_optimized,
-        ),
-        is_dynamic_creative: u,
-        is_dynamic_creative_asset_customization: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.is_dynamic_creative_asset_customization),
-        is_dynamic_creative_format_automation: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.is_dynamic_creative_format_automation),
-        is_dynamic_creative_optimization: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.is_dynamic_creative_optimization),
-        is_eligible_for_advantage_plus_audience: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.is_eligible_for_advantage_plus_audience),
-        is_incremental_attribution_enabled: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.is_incremental_attribution_enabled),
-        is_lifetime_flex_with_valid_schedule:
-          e.is_lifetime_flex_with_valid_schedule,
-        is_message_marketing: u,
-        is_organic_ad_joint_optimized: e.is_organic_ad_joint_optimized,
-        is_pca_unifiable_with_catalog: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.is_pca_unifiable_with_catalog),
-        is_pv_follow_optimized: o("TypeCoercionUtils").coerceOptionalValue(
-          e.is_pv_follow_optimized,
-        ),
-        is_sequenced_conversion_creation: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.is_sequenced_conversion_creation),
-        is_unified_attribution_window: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.is_unified_attribution_window),
-        is_using_target_cpa: o("TypeCoercionUtils").coerceOptionalValue(
-          e.is_using_target_cpa,
-        ),
-        lifetime_budget: N(e.lifetime_budget_safe_value_str),
-        lifetime_budget_string: e.lifetime_budget_safe_value_str,
-        lifetime_imps: o("TypeCoercionUtils").coerceNumbertoZeroOrNumber(
-          e.lifetime_imps,
-        ),
-        lifetime_min_spend_target: M(e.lifetime_min_spend_target),
-        lifetime_reach: o("TypeCoercionUtils").coerceOptionalValue(
-          e.lifetime_reach,
-        ),
-        lifetime_spend_cap: M(e.lifetime_spend_cap),
-        lifetime_spent: e.lifetime_spent,
-        lightweight_split_test: u,
-        lightweight_split_test_options: u,
-        line_number: o("TypeCoercionUtils").coerceMaybeFBIDtoZeroOrFBID(
-          (f = e.ad_topline) == null || (f = f.line_number) == null
-            ? void 0
-            : f.id,
-        ),
-        live_video_ad_campaign_config: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.live_video_ad_campaign_config),
-        low_creative_reach: u,
-        marketing_goal: o("enumUtils").coerceNullable(
-          e.marketing_goal,
-          r("AdsAPIMarketingGoal"),
-        ),
-        max_budget_spend_percentage: o("TypeCoercionUtils").coerceOptionalValue(
-          e.max_budget_spend_percentage,
-        ),
-        messaging_structured_lead_spec:
-          (g = e.messaging_structured_lead_spec) == null
-            ? void 0
-            : g
-                .map(function (e) {
-                  return (e == null ? void 0 : e.field_type) != null &&
-                    e.label != null
-                    ? { field_type: e.field_type, label: e.label }
-                    : null;
-                })
-                .filter(Boolean),
-        metrics_metadata: u,
-        min_budget_spend_percentage: o("TypeCoercionUtils").coerceOptionalValue(
-          e.min_budget_spend_percentage,
-        ),
-        multi_ads: o("TypeCoercionUtils").coerceOptionalValue(e.multi_ads),
-        multi_event_conversion_attribution_window_seconds: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(
-          e.multi_event_conversion_attribution_window_seconds,
-        ),
-        multi_optimization_goal_weight: o(
-          "TypeCoercionUtils",
-        ).coerceOptionalValue(e.multi_optimization_goal_weight),
-        name: o("TypeCoercionUtils").coerceNonMaybeValue(e.name, "name", i.id),
-        naming_template_custom_fields: o(
-          "TypeCoercionUtils",
-        ).coerceNamingTemplateCustomFields(e.naming_template_custom_fields),
-        optimization_goal: o("TypeCoercionUtils").coerceNonMaybeValue(
-          o("enumUtils").coerceKey(
-            e.optimization_goal,
-            r("AdsAPIOptimizationGoals"),
-          ),
-          "optimization_goal",
-          i.id,
-        ),
-        optimization_sub_event: o("TypeCoercionUtils").coerceOptionalValue(
-          r("getJSEnumSafe")(
-            r("AdsAPIOptimizationSubEvent"),
-            e.optimization_sub_event,
-          ),
-        ),
-        pacing_type: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
-          (h = e.pacing_type) == null
-            ? void 0
-            : h.map(function (e) {
-                return o("TypeCoercionUtils").coerceNonMaybeValue(
-                  o("enumUtils").coerceFromKey(e, r("AdsAPIPacingType")),
-                  "pacing_type[]",
-                  i.id,
-                );
-              }),
-        ),
-        partnership_ad_content_list_id: e.partnership_ad_content_list_id,
-        placement: u,
-        placement_soft_opt_out:
-          e.placement_soft_opt_out != null
-            ? {
-                audience_network_positions: o(
-                  "TypeCoercionUtils",
-                ).coerceEmptyArrayToUndefined(
-                  (v = e.placement_soft_opt_out) == null ||
-                    (v = v.audience_network_positions) == null
-                    ? void 0
-                    : v.map(function (e) {
-                        return o("TypeCoercionUtils").coerceNonMaybeValue(
-                          o("enumUtils").coerceFromKey(
-                            e,
-                            r("AdsAPIAudienceNetworkPosition"),
-                          ),
-                          "placement_soft_opt_out_spec.audience_network_positions[]",
-                          i.id,
-                        );
-                      }),
-                ),
-                facebook_positions: o(
-                  "TypeCoercionUtils",
-                ).coerceEmptyArrayToUndefined(
-                  (R = e.placement_soft_opt_out) == null ||
-                    (R = R.facebook_positions) == null
-                    ? void 0
-                    : R.map(function (e) {
-                        return o("TypeCoercionUtils").coerceNonMaybeValue(
-                          o("enumUtils").coerceFromKey(
-                            e,
-                            r("AdsAPIFacebookPosition"),
-                          ),
-                          "placement_soft_opt_out_spec.facebook_positions[]",
-                          i.id,
-                        );
-                      }),
-                ),
-                instagram_positions: o(
-                  "TypeCoercionUtils",
-                ).coerceEmptyArrayToUndefined(
-                  (L = e.placement_soft_opt_out) == null ||
-                    (L = L.instagram_positions) == null
-                    ? void 0
-                    : L.map(function (e) {
-                        return o("TypeCoercionUtils").coerceNonMaybeValue(
-                          o("enumUtils").coerceFromKey(
-                            e,
-                            r("AdsAPIInstagramPosition"),
-                          ),
-                          "placement_soft_opt_out_spec.instagram_positions[]",
-                          i.id,
-                        );
-                      }),
-                ),
-                messenger_positions: o(
-                  "TypeCoercionUtils",
-                ).coerceEmptyArrayToUndefined(
-                  (I = e.placement_soft_opt_out) == null ||
-                    (I = I.messenger_positions) == null
-                    ? void 0
-                    : I.map(function (e) {
-                        return o("TypeCoercionUtils").coerceNonMaybeValue(
-                          o("enumUtils").coerceFromKey(
-                            e,
-                            r("AdsAPIMessengerPosition"),
-                          ),
-                          "placement_soft_opt_out_spec.messenger_positions[]",
-                          i.id,
-                        );
-                      }),
-                ),
-                oculus_positions: o(
-                  "TypeCoercionUtils",
-                ).coerceEmptyArrayToUndefined(
-                  (T = e.placement_soft_opt_out) == null ||
-                    (T = T.oculus_positions) == null
-                    ? void 0
-                    : T.map(function (e) {
-                        return o("TypeCoercionUtils").coerceNonMaybeValue(
-                          o("enumUtils").coerceFromKey(
-                            e,
-                            r("AdsAPIOculusPosition"),
-                          ),
-                          "placement_soft_opt_out_spec.oculus_positions[]",
-                          i.id,
-                        );
-                      }),
-                ),
-                threads_positions: o(
-                  "TypeCoercionUtils",
-                ).coerceEmptyArrayToUndefined(
-                  (D = e.placement_soft_opt_out) == null ||
-                    (D = D.threads_positions) == null
-                    ? void 0
-                    : D.map(function (e) {
-                        return o("TypeCoercionUtils").coerceNonMaybeValue(
-                          o("enumUtils").coerceFromKey(
-                            e,
-                            r("AdsAPIThreadsPosition"),
-                          ),
-                          "placement_soft_opt_out_spec.threads_positions[]",
-                          i.id,
-                        );
-                      }),
-                ),
-                whatsapp_positions: o(
-                  "TypeCoercionUtils",
-                ).coerceEmptyArrayToUndefined(
-                  (x = e.placement_soft_opt_out) == null ||
-                    (x = x.whatsapp_positions) == null
-                    ? void 0
-                    : x.map(function (e) {
-                        return o("TypeCoercionUtils").coerceNonMaybeValue(
-                          o("enumUtils").coerceFromKey(
-                            e,
-                            r("AdsAPIWhatsAppPosition"),
-                          ),
-                          "placement_soft_opt_out_spec.whatsapp_positions[]",
-                          i.id,
-                        );
-                      }),
-                ),
-              }
-            : void 0,
-        product_delivery_preference: o("TypeCoercionUtils").coerceOptionalValue(
-          e.product_delivery_preference,
-        ),
-        promoted_object: k(e.promoted_object),
-        prorated_daily_budget: N(e.prorated_daily_budget),
-        publisher_platforms_status: u,
-        recurring_budget_semantics: o("TypeCoercionUtils").coerceOptionalValue(
-          e.recurring_budget_semantics,
-        ),
-        regional_regulated_categories: o(
-          "TypeCoercionUtils",
-        ).coerceEmptyArrayToUndefined(
-          ($ = e.regional_regulated_categories) == null
-            ? void 0
-            : $.map(function (e) {
-                return o("TypeCoercionUtils").coerceNonMaybeValue(
-                  o("enumUtils").coerceFromKey(
-                    e,
-                    r("AdsRegionalRegulatedCategory"),
-                  ),
-                  "regional_regulated_categories[]",
-                  i.id,
-                );
-              }),
-        ),
-        regional_regulation_identities:
-          e.regional_regulation_identities != null
-            ? o("TypeCoercionUtils").coerceOptionalValue({
-                australia_finserv_beneficiary: o(
-                  "TypeCoercionUtils",
-                ).coerceOptionalValue(
-                  (P = e.regional_regulation_identities) == null
-                    ? void 0
-                    : P.australia_finserv_beneficiary,
-                ),
-                australia_finserv_payer: o(
-                  "TypeCoercionUtils",
-                ).coerceOptionalValue(
-                  (w = e.regional_regulation_identities) == null
-                    ? void 0
-                    : w.australia_finserv_payer,
-                ),
-                india_finserv_beneficiary: o(
-                  "TypeCoercionUtils",
-                ).coerceOptionalValue(
-                  (A = e.regional_regulation_identities) == null
-                    ? void 0
-                    : A.india_finserv_beneficiary,
-                ),
-                india_finserv_payer: o("TypeCoercionUtils").coerceOptionalValue(
-                  (F = e.regional_regulation_identities) == null
-                    ? void 0
-                    : F.india_finserv_payer,
-                ),
-                singapore_universal_beneficiary: o(
-                  "TypeCoercionUtils",
-                ).coerceOptionalValue(
-                  (O = e.regional_regulation_identities) == null
-                    ? void 0
-                    : O.singapore_universal_beneficiary,
-                ),
-                singapore_universal_payer: o(
-                  "TypeCoercionUtils",
-                ).coerceOptionalValue(
-                  (B = e.regional_regulation_identities) == null
-                    ? void 0
-                    : B.singapore_universal_payer,
-                ),
-                taiwan_finserv_beneficiary: o(
-                  "TypeCoercionUtils",
-                ).coerceOptionalValue(
-                  (W = e.regional_regulation_identities) == null
-                    ? void 0
-                    : W.taiwan_finserv_beneficiary,
-                ),
-                taiwan_finserv_payer: o(
-                  "TypeCoercionUtils",
-                ).coerceOptionalValue(
-                  (q = e.regional_regulation_identities) == null
-                    ? void 0
-                    : q.taiwan_finserv_payer,
-                ),
-                taiwan_universal_beneficiary: o(
-                  "TypeCoercionUtils",
-                ).coerceOptionalValue(
-                  (U = e.regional_regulation_identities) == null
-                    ? void 0
-                    : U.taiwan_universal_beneficiary,
-                ),
-                taiwan_universal_payer: o(
-                  "TypeCoercionUtils",
-                ).coerceOptionalValue(
-                  (V = e.regional_regulation_identities) == null
-                    ? void 0
-                    : V.taiwan_universal_payer,
-                ),
-                universal_beneficiary: o(
-                  "TypeCoercionUtils",
-                ).coerceOptionalValue(
-                  (H = e.regional_regulation_identities) == null
-                    ? void 0
-                    : H.universal_beneficiary,
-                ),
-                universal_payer: o("TypeCoercionUtils").coerceOptionalValue(
-                  (G = e.regional_regulation_identities) == null
-                    ? void 0
-                    : G.universal_payer,
-                ),
-              })
-            : void 0,
-        repeat_reach_state: u,
-        retail_audience_config:
-          e.retail_audience_config != null
-            ? {
-                is_opted_in: e.retail_audience_config.is_opted_in === !0,
-                selected_retailer_business_id:
-                  (z =
-                    (j = e.retail_audience_config.selected_retailer_business) ==
-                    null
+          partnership_ad_content_list_id: e.partnership_ad_content_list_id,
+          placement: u,
+          placement_soft_opt_out:
+            e.placement_soft_opt_out != null
+              ? {
+                  audience_network_positions: o(
+                    "TypeCoercionUtils",
+                  ).coerceEmptyArrayToUndefined(
+                    (R = e.placement_soft_opt_out) == null ||
+                      (R = R.audience_network_positions) == null
                       ? void 0
-                      : j.id) != null
-                    ? z
-                    : null,
-              }
-            : void 0,
-        rf_prediction_id: o("TypeCoercionUtils").coerceZeroToUndefined(
-          e.rf_prediction_id,
-        ),
-        saved_audience:
-          ((K = e.saved_audience) == null ? void 0 : K.id) != null
-            ? {
-                id: (Q = e.saved_audience) == null ? void 0 : Q.id,
-                name: (X = e.saved_audience) == null ? void 0 : X.name,
-              }
-            : void 0,
-        saved_audience_id: u,
-        search_themes: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
-          e.search_themes
-            .map(function (e) {
-              return e.text;
-            })
-            .filter(Boolean),
-        ),
-        shops_ads_metadata_tags: o(
-          "TypeCoercionUtils",
-        ).coerceEmptyArrayToUndefined(e.shops_ads_metadata_tags),
-        should_prorate_budget: e.should_prorate_budget,
-        source_adset_id:
-          (Y = (J = e.source_campaign) == null ? void 0 : J.id) != null
-            ? Y
-            : void 0,
-        sourced_content_brief_id: e.sourced_content_brief_id,
-        start_time: o("TypeCoercionUtils").coerceNonMaybeValue(
-          e.start_time_with_timezone,
-          "start_time_with_timezone",
-          i.id,
-        ),
-        status: o("TypeCoercionUtils").coerceNonMaybeValue(
-          e.status,
-          "status",
-          i.id,
-        ),
-        study_ids: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
-          e.study_ids,
-        ),
-        targeting: o("TypeCoercionUtils").coerceOptionalValue(
-          (Z = e.targeting_spec) == null ? void 0 : Z.target_spec,
-        ),
-        targeting_as_signal: e.targeting_as_signal,
-        time_based_ad_rotation_id_blocks: o(
-          "TypeCoercionUtils",
-        ).coerceEmptyArrayToUndefined(
-          (ee = e.time_based_ad_rotation_id_blocks) == null
-            ? void 0
-            : ee.map(function (e) {
-                return e.block.map(function (e) {
-                  return String(e);
-                });
-              }),
-        ),
-        time_based_ad_rotation_intervals: o(
-          "TypeCoercionUtils",
-        ).coerceEmptyArrayToUndefined(e.time_based_ad_rotation_intervals),
-        time_suggestion: o("TypeCoercionUtils").coerceTimeSuggestion(
-          e.time_suggestion,
-        ),
-        topline_id: (te = e.ad_topline) == null ? void 0 : te.id,
-        updated_time: o("TypeCoercionUtils").coerceOptionalValue(
-          e.updated_time_with_timezone,
-        ),
-        value_adjustment_rule_collection_id:
-          e.value_adjustment_rule_collection_id,
-        value_rule_set_id: e.value_rule_set_id,
-        value_rules_applied: e.value_rules_applied,
-        value_rules_entry_point: e.value_rules_entry_point,
-        value_rules_spec: o("TypeCoercionUtils").coerceValueRulesSpec(
-          e.value_rules_spec,
-        ),
-      };
-      return t === !0 ? ne : y(ne);
+                      : R.map(function (e) {
+                          return o("TypeCoercionUtils").coerceNonMaybeValue(
+                            o("enumUtils").coerceFromKey(
+                              e,
+                              r("AdsAPIAudienceNetworkPosition"),
+                            ),
+                            "placement_soft_opt_out_spec.audience_network_positions[]",
+                            i.id,
+                          );
+                        }),
+                  ),
+                  facebook_positions: o(
+                    "TypeCoercionUtils",
+                  ).coerceEmptyArrayToUndefined(
+                    (L = e.placement_soft_opt_out) == null ||
+                      (L = L.facebook_positions) == null
+                      ? void 0
+                      : L.map(function (e) {
+                          return o("TypeCoercionUtils").coerceNonMaybeValue(
+                            o("enumUtils").coerceFromKey(
+                              e,
+                              r("AdsAPIFacebookPosition"),
+                            ),
+                            "placement_soft_opt_out_spec.facebook_positions[]",
+                            i.id,
+                          );
+                        }),
+                  ),
+                  instagram_positions: o(
+                    "TypeCoercionUtils",
+                  ).coerceEmptyArrayToUndefined(
+                    (I = e.placement_soft_opt_out) == null ||
+                      (I = I.instagram_positions) == null
+                      ? void 0
+                      : I.map(function (e) {
+                          return o("TypeCoercionUtils").coerceNonMaybeValue(
+                            o("enumUtils").coerceFromKey(
+                              e,
+                              r("AdsAPIInstagramPosition"),
+                            ),
+                            "placement_soft_opt_out_spec.instagram_positions[]",
+                            i.id,
+                          );
+                        }),
+                  ),
+                  messenger_positions: o(
+                    "TypeCoercionUtils",
+                  ).coerceEmptyArrayToUndefined(
+                    (T = e.placement_soft_opt_out) == null ||
+                      (T = T.messenger_positions) == null
+                      ? void 0
+                      : T.map(function (e) {
+                          return o("TypeCoercionUtils").coerceNonMaybeValue(
+                            o("enumUtils").coerceFromKey(
+                              e,
+                              r("AdsAPIMessengerPosition"),
+                            ),
+                            "placement_soft_opt_out_spec.messenger_positions[]",
+                            i.id,
+                          );
+                        }),
+                  ),
+                  oculus_positions: o(
+                    "TypeCoercionUtils",
+                  ).coerceEmptyArrayToUndefined(
+                    (D = e.placement_soft_opt_out) == null ||
+                      (D = D.oculus_positions) == null
+                      ? void 0
+                      : D.map(function (e) {
+                          return o("TypeCoercionUtils").coerceNonMaybeValue(
+                            o("enumUtils").coerceFromKey(
+                              e,
+                              r("AdsAPIOculusPosition"),
+                            ),
+                            "placement_soft_opt_out_spec.oculus_positions[]",
+                            i.id,
+                          );
+                        }),
+                  ),
+                  threads_positions: o(
+                    "TypeCoercionUtils",
+                  ).coerceEmptyArrayToUndefined(
+                    (x = e.placement_soft_opt_out) == null ||
+                      (x = x.threads_positions) == null
+                      ? void 0
+                      : x.map(function (e) {
+                          return o("TypeCoercionUtils").coerceNonMaybeValue(
+                            o("enumUtils").coerceFromKey(
+                              e,
+                              r("AdsAPIThreadsPosition"),
+                            ),
+                            "placement_soft_opt_out_spec.threads_positions[]",
+                            i.id,
+                          );
+                        }),
+                  ),
+                  whatsapp_positions: o(
+                    "TypeCoercionUtils",
+                  ).coerceEmptyArrayToUndefined(
+                    ($ = e.placement_soft_opt_out) == null ||
+                      ($ = $.whatsapp_positions) == null
+                      ? void 0
+                      : $.map(function (e) {
+                          return o("TypeCoercionUtils").coerceNonMaybeValue(
+                            o("enumUtils").coerceFromKey(
+                              e,
+                              r("AdsAPIWhatsAppPosition"),
+                            ),
+                            "placement_soft_opt_out_spec.whatsapp_positions[]",
+                            i.id,
+                          );
+                        }),
+                  ),
+                }
+              : void 0,
+          product_delivery_preference: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.product_delivery_preference),
+          promoted_object: k(e.promoted_object),
+          prorated_daily_budget: N(e.prorated_daily_budget),
+          publisher_platforms_status: u,
+          recurring_budget_semantics: o(
+            "TypeCoercionUtils",
+          ).coerceOptionalValue(e.recurring_budget_semantics),
+          regional_regulated_categories: o(
+            "TypeCoercionUtils",
+          ).coerceEmptyArrayToUndefined(
+            (P = e.regional_regulated_categories) == null
+              ? void 0
+              : P.map(function (e) {
+                  return o("TypeCoercionUtils").coerceNonMaybeValue(
+                    o("enumUtils").coerceFromKey(
+                      e,
+                      r("AdsRegionalRegulatedCategory"),
+                    ),
+                    "regional_regulated_categories[]",
+                    i.id,
+                  );
+                }),
+          ),
+          regional_regulation_identities:
+            e.regional_regulation_identities != null
+              ? o("TypeCoercionUtils").coerceOptionalValue({
+                  australia_finserv_beneficiary: o(
+                    "TypeCoercionUtils",
+                  ).coerceOptionalValue(
+                    (w = e.regional_regulation_identities) == null
+                      ? void 0
+                      : w.australia_finserv_beneficiary,
+                  ),
+                  australia_finserv_payer: o(
+                    "TypeCoercionUtils",
+                  ).coerceOptionalValue(
+                    (A = e.regional_regulation_identities) == null
+                      ? void 0
+                      : A.australia_finserv_payer,
+                  ),
+                  india_finserv_beneficiary: o(
+                    "TypeCoercionUtils",
+                  ).coerceOptionalValue(
+                    (F = e.regional_regulation_identities) == null
+                      ? void 0
+                      : F.india_finserv_beneficiary,
+                  ),
+                  india_finserv_payer: o(
+                    "TypeCoercionUtils",
+                  ).coerceOptionalValue(
+                    (O = e.regional_regulation_identities) == null
+                      ? void 0
+                      : O.india_finserv_payer,
+                  ),
+                  singapore_universal_beneficiary: o(
+                    "TypeCoercionUtils",
+                  ).coerceOptionalValue(
+                    (B = e.regional_regulation_identities) == null
+                      ? void 0
+                      : B.singapore_universal_beneficiary,
+                  ),
+                  singapore_universal_payer: o(
+                    "TypeCoercionUtils",
+                  ).coerceOptionalValue(
+                    (W = e.regional_regulation_identities) == null
+                      ? void 0
+                      : W.singapore_universal_payer,
+                  ),
+                  taiwan_finserv_beneficiary: o(
+                    "TypeCoercionUtils",
+                  ).coerceOptionalValue(
+                    (q = e.regional_regulation_identities) == null
+                      ? void 0
+                      : q.taiwan_finserv_beneficiary,
+                  ),
+                  taiwan_finserv_payer: o(
+                    "TypeCoercionUtils",
+                  ).coerceOptionalValue(
+                    (U = e.regional_regulation_identities) == null
+                      ? void 0
+                      : U.taiwan_finserv_payer,
+                  ),
+                  taiwan_universal_beneficiary: o(
+                    "TypeCoercionUtils",
+                  ).coerceOptionalValue(
+                    (V = e.regional_regulation_identities) == null
+                      ? void 0
+                      : V.taiwan_universal_beneficiary,
+                  ),
+                  taiwan_universal_payer: o(
+                    "TypeCoercionUtils",
+                  ).coerceOptionalValue(
+                    (H = e.regional_regulation_identities) == null
+                      ? void 0
+                      : H.taiwan_universal_payer,
+                  ),
+                  universal_beneficiary: o(
+                    "TypeCoercionUtils",
+                  ).coerceOptionalValue(
+                    (G = e.regional_regulation_identities) == null
+                      ? void 0
+                      : G.universal_beneficiary,
+                  ),
+                  universal_payer: o("TypeCoercionUtils").coerceOptionalValue(
+                    (z = e.regional_regulation_identities) == null
+                      ? void 0
+                      : z.universal_payer,
+                  ),
+                })
+              : void 0,
+          repeat_reach_state: u,
+          retail_audience_config:
+            e.retail_audience_config != null
+              ? {
+                  is_opted_in: e.retail_audience_config.is_opted_in === !0,
+                  selected_retailer_business_id:
+                    (j =
+                      (K =
+                        e.retail_audience_config.selected_retailer_business) ==
+                      null
+                        ? void 0
+                        : K.id) != null
+                      ? j
+                      : null,
+                }
+              : void 0,
+          rf_prediction_id: o("TypeCoercionUtils").coerceZeroToUndefined(
+            e.rf_prediction_id,
+          ),
+          saved_audience:
+            ((Q = e.saved_audience) == null ? void 0 : Q.id) != null
+              ? {
+                  id: (X = e.saved_audience) == null ? void 0 : X.id,
+                  name: (Y = e.saved_audience) == null ? void 0 : Y.name,
+                }
+              : void 0,
+          saved_audience_id: u,
+          search_themes: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
+            e.search_themes
+              .map(function (e) {
+                return e.text;
+              })
+              .filter(Boolean),
+          ),
+          shops_ads_metadata_tags: o(
+            "TypeCoercionUtils",
+          ).coerceEmptyArrayToUndefined(e.shops_ads_metadata_tags),
+          should_prorate_budget: e.should_prorate_budget,
+          source_adset_id:
+            (J = (Z = e.source_campaign) == null ? void 0 : Z.id) != null
+              ? J
+              : void 0,
+          sourced_content_brief_id: e.sourced_content_brief_id,
+          start_time: o("TypeCoercionUtils").coerceNonMaybeValue(
+            e.start_time_with_timezone,
+            "start_time_with_timezone",
+            i.id,
+          ),
+          status: o("TypeCoercionUtils").coerceNonMaybeValue(
+            e.status,
+            "status",
+            i.id,
+          ),
+          study_ids: o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
+            e.study_ids,
+          ),
+          targeting: o("TypeCoercionUtils").coerceOptionalValue(
+            (ee = e.targeting_spec) == null ? void 0 : ee.target_spec,
+          ),
+          targeting_as_signal: e.targeting_as_signal,
+          time_based_ad_rotation_id_blocks: o(
+            "TypeCoercionUtils",
+          ).coerceEmptyArrayToUndefined(
+            (te = e.time_based_ad_rotation_id_blocks) == null
+              ? void 0
+              : te.map(function (e) {
+                  return e.block.map(function (e) {
+                    return String(e);
+                  });
+                }),
+          ),
+          time_based_ad_rotation_intervals: o(
+            "TypeCoercionUtils",
+          ).coerceEmptyArrayToUndefined(e.time_based_ad_rotation_intervals),
+          time_suggestion: o("TypeCoercionUtils").coerceTimeSuggestion(
+            e.time_suggestion,
+          ),
+          topline_id: (ne = e.ad_topline) == null ? void 0 : ne.id,
+          updated_time: o("TypeCoercionUtils").coerceOptionalValue(
+            e.updated_time_with_timezone,
+          ),
+          value_adjustment_rule_collection_id:
+            e.value_adjustment_rule_collection_id,
+          value_rule_set_id: e.value_rule_set_id,
+          value_rules_applied: e.value_rules_applied,
+          value_rules_entry_point: e.value_rules_entry_point,
+          value_rules_spec: o("TypeCoercionUtils").coerceValueRulesSpec(
+            e.value_rules_spec,
+          ),
+          value_volume_setting:
+            e.value_volume_metadata != null
+              ? {
+                  setting: e.value_volume_metadata.setting,
+                  setting_type: e.value_volume_metadata.setting_type,
+                }
+              : void 0,
+        };
+      return t === !0 ? oe : h(oe);
     }
     function _(e) {
-      var t,
-        n,
-        a,
-        l,
-        s,
-        u,
-        c,
-        d,
-        m,
-        p,
-        _,
-        f,
-        g,
-        h,
-        y,
-        C,
-        b,
-        v,
-        S,
-        R,
-        L,
-        E,
-        k,
-        I,
-        T,
-        D,
-        x,
-        $,
-        P,
-        N,
-        M,
-        w;
-      if (e.__typename !== "AdCampaign")
-        throw r("FBLogger")("am_frameworks").mustfixThrow(
-          'Expected GraphQL object type "AdCampaign", got "%s when loading id %s"',
-          e.__typename,
-          e.id,
-        );
-      return {
-        cpr_benchmark: (t = e.cpr_benchmark) != null ? t : null,
-        creative_diversity_label:
-          (n = e.creative_diversity_label) != null ? n : null,
-        creative_diversity_score:
-          (a = e.creative_diversity_score) != null ? a : null,
-        creative_fatigue_prediction_ple:
-          e.creative_fatigue_prediction_ple != null
-            ? o("TypeCoercionUtils").coerceObjectToUndefined({
-                cpr_lift_estimation: o("TypeCoercionUtils").coerceNonMaybeValue(
-                  (l = e.creative_fatigue_prediction_ple) == null
-                    ? void 0
-                    : l.cpr_lift_estimation,
-                  "creative_fatigue_prediction_ple.cpr_lift_estimation",
-                  i.id,
-                ),
-                should_display: o("TypeCoercionUtils").coerceNonMaybeValue(
-                  (s = e.creative_fatigue_prediction_ple) == null
-                    ? void 0
-                    : s.should_display,
-                  "creative_fatigue_prediction_ple.should_display",
-                  i.id,
-                ),
-              })
-            : void 0,
-        delivery_info:
-          e.delivery_info != null
-            ? e.delivery_info.ad_delivery_info_spec
-            : void 0,
-        delivery_status:
-          e.delivery_status != null
-            ? e.delivery_status.ad_delivery_status_spec
-            : void 0,
-        effective_status:
-          e.effective_status != null &&
-          (u = o("enumUtils").coerce(
-            e.effective_status,
-            r("AdsEffectiveStatus"),
-          )) != null
-            ? u
-            : void 0,
-        guidance_lift_estimate:
-          e.guidance_lift_estimate != null
-            ? o("TypeCoercionUtils").coerceObjectToUndefined({
-                actual_7d_cpr: o("TypeCoercionUtils").coerceNonMaybeValue(
-                  (c = e.guidance_lift_estimate) == null
-                    ? void 0
-                    : c.actual_7d_cpr,
-                  "guidance_lift_estimate.actual_7d_cpr",
-                  i.id,
-                ),
-                adoption_date: o("TypeCoercionUtils").coerceNonMaybeValue(
-                  (d = e.guidance_lift_estimate) == null
-                    ? void 0
-                    : d.adoption_date,
-                  "guidance_lift_estimate.adoption_date",
-                  i.id,
-                ),
-                guidance_name: o("TypeCoercionUtils").coerceNonMaybeValue(
-                  (m = e.guidance_lift_estimate) == null
-                    ? void 0
-                    : m.guidance_name,
-                  "guidance_lift_estimate.guidance_name",
-                  i.id,
-                ),
-                predicted_7d_cpr: o("TypeCoercionUtils").coerceNonMaybeValue(
-                  (p = e.guidance_lift_estimate) == null
-                    ? void 0
-                    : p.predicted_7d_cpr,
-                  "guidance_lift_estimate.predicted_7d_cpr",
-                  i.id,
-                ),
-              })
-            : void 0,
-        is_bid_constrained: (_ = e.is_bid_constrained) != null ? _ : void 0,
-        is_cost_constrained: (f = e.is_cost_constrained) != null ? f : void 0,
-        is_suboptimal_cbo_calibration: !1,
-        issues_info:
-          (g = o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
-            e.issues_info.map(function (e) {
-              return o("TypeCoercionUtils").coerceNonMaybeValue(
-                e.ad_issues_info_spec,
-                "issues_info[].ad_issues_info_spec",
-                i.id,
-              );
-            }),
-          )) != null
-            ? g
-            : void 0,
-        learning_stage_info:
-          e.learning_stage_info != null
-            ? o("TypeCoercionUtils").coerceObjectToUndefined({
-                conversions: o("TypeCoercionUtils").coerceNonMaybeValue(
-                  (h = e.learning_stage_info) == null ? void 0 : h.conversions,
-                  "learning_stage_info.conversions",
-                  i.id,
-                ),
-                exit_reason: o(
-                  "AdLearningStageExitReasonUtils.facebook",
-                ).toJSEnum(
-                  (y = e.learning_stage_info) == null ? void 0 : y.exit_reason,
-                ),
-                last_sig_edit_ts:
-                  (C = e.learning_stage_info) == null
-                    ? void 0
-                    : C.last_significant_edit_timestamp,
-                status: r("getJSEnumSafe")(
-                  r("AdsDeliveryInsightsLearningStageStatus"),
-                  (b = e.learning_stage_info) == null ? void 0 : b.status,
-                ),
-              })
-            : void 0,
-        low_creative_reach:
-          e.low_creative_reach != null
-            ? o("TypeCoercionUtils").coerceObjectToUndefined({
-                current_reach:
-                  ((v = e.low_creative_reach) == null
-                    ? void 0
-                    : v.current_reach) != null
-                    ? o("TypeCoercionUtils").coerceObjectToUndefined({
-                        end: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          (S = e.low_creative_reach) == null ||
-                            (S = S.current_reach) == null
-                            ? void 0
-                            : S.end,
-                          "low_creative_reach.current_reach.end",
-                          i.id,
-                        ),
-                        start: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          (R = e.low_creative_reach) == null ||
-                            (R = R.current_reach) == null
-                            ? void 0
-                            : R.start,
-                          "low_creative_reach.current_reach.start",
-                          i.id,
-                        ),
-                        value: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          (L = e.low_creative_reach) == null ||
-                            (L = L.current_reach) == null
-                            ? void 0
-                            : L.value,
-                          "low_creative_reach.current_reach.value",
-                          i.id,
-                        ),
-                      })
-                    : void 0,
-                earlier_reach:
-                  ((E = e.low_creative_reach) == null
-                    ? void 0
-                    : E.earlier_reach) != null
-                    ? o("TypeCoercionUtils").coerceObjectToUndefined({
-                        end: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          (k = e.low_creative_reach) == null ||
-                            (k = k.earlier_reach) == null
-                            ? void 0
-                            : k.end,
-                          "low_creative_reach.earlier_reach.end",
-                          i.id,
-                        ),
-                        start: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          (I = e.low_creative_reach) == null ||
-                            (I = I.earlier_reach) == null
-                            ? void 0
-                            : I.start,
-                          "low_creative_reach.earlier_reach.start",
-                          i.id,
-                        ),
-                        value: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          (T = e.low_creative_reach) == null ||
-                            (T = T.earlier_reach) == null
-                            ? void 0
-                            : T.value,
-                          "low_creative_reach.earlier_reach.value",
-                          i.id,
-                        ),
-                      })
-                    : void 0,
-                reach_trend: o("TypeCoercionUtils").coerceNonMaybeValue(
-                  (D = e.low_creative_reach) == null ? void 0 : D.reach_trend,
-                  "low_creative_reach.reach_trend",
-                  i.id,
-                ),
-              })
-            : void 0,
-        optimal_delivery_growth_opportunities:
-          (x = o("TypeCoercionUtils").coerceEmptyArrayToUndefined(
-            e.optimal_delivery_growth_opportunities.map(function (e) {
-              return o("TypeCoercionUtils").coerceNonMaybeValue(
-                e.ads_optimal_delivery_growth_opportunity_spec,
-                "optimal_delivery_growth_opportunities[].ads_optimal_delivery_growth_opportunity_spec",
-                i.id,
-              );
-            }),
-          )) != null
-            ? x
-            : void 0,
-        paced_bid_info:
-          e.paced_bid_info != null
-            ? {
-                bidding_status: r("getJSEnumSafe")(
-                  r("AdsDeliveryBiddingStatus"),
-                  ($ = e.paced_bid_info) == null ? void 0 : $.bidding_status,
-                ),
-              }
-            : void 0,
-        repeat_reach_state:
-          e.repeat_reach_state != null
-            ? o("TypeCoercionUtils").coerceObjectToUndefined({
-                current_saturation_level: o(
-                  "TypeCoercionUtils",
-                ).coerceNonMaybeValue(
-                  (P = e.repeat_reach_state) == null
-                    ? void 0
-                    : P.current_saturation_level,
-                  "repeat_reach_state.current_saturation_level",
-                  i.id,
-                ),
-                forecasted_saturation_level: o(
-                  "TypeCoercionUtils",
-                ).coerceNonMaybeValue(
-                  (N = e.repeat_reach_state) == null
-                    ? void 0
-                    : N.forecasted_saturation_level,
-                  "repeat_reach_state.forecasted_saturation_level",
-                  i.id,
-                ),
-                high_saturation_threshold: o(
-                  "TypeCoercionUtils",
-                ).coerceNonMaybeValue(
-                  (M = e.repeat_reach_state) == null
-                    ? void 0
-                    : M.high_saturation_threshold,
-                  "repeat_reach_state.high_saturation_threshold",
-                  i.id,
-                ),
-                should_display_cpr: o("TypeCoercionUtils").coerceNonMaybeValue(
-                  (w = e.repeat_reach_state) == null
-                    ? void 0
-                    : w.should_display_cpr,
-                  "repeat_reach_state.should_display_cpr",
-                  i.id,
-                ),
-              })
-            : void 0,
-      };
-    }
-    function f(e) {
       var t, n, a, l, s, u, c, d, m, p;
       if (e.__typename !== "AdCampaign")
         throw r("FBLogger")("am_frameworks").mustfixThrow(
@@ -1224,7 +1000,7 @@ __d(
             : void 0,
       };
     }
-    function g(e) {
+    function f(e) {
       var t;
       if (e.__typename !== "AdCampaign")
         throw r("FBLogger")("am_frameworks").mustfixThrow(
@@ -1247,7 +1023,7 @@ __d(
             : void 0,
       };
     }
-    function h(e) {
+    function g(e) {
       var t,
         n,
         a,
@@ -1262,7 +1038,6 @@ __d(
         f,
         g,
         h,
-        y,
         C,
         b,
         v,
@@ -1326,6 +1101,7 @@ __d(
                 ),
               })
             : void 0,
+        audience_reach_insights: y(e.audience_reach_insights),
         cpr_benchmark: (d = e.cpr_benchmark) != null ? d : null,
         creative_diversity_label:
           (m = e.creative_diversity_label) != null ? m : null,
@@ -1363,25 +1139,25 @@ __d(
             ? g
             : void 0,
         is_bid_constrained: (h = e.is_bid_constrained) != null ? h : void 0,
-        is_cost_constrained: (y = e.is_cost_constrained) != null ? y : void 0,
+        is_cost_constrained: (C = e.is_cost_constrained) != null ? C : void 0,
         is_suboptimal_cbo_calibration: !1,
         learning_stage_info:
           e.learning_stage_info != null
             ? o("TypeCoercionUtils").coerceObjectToUndefined({
                 conversions:
-                  (C = e.learning_stage_info) == null ? void 0 : C.conversions,
+                  (b = e.learning_stage_info) == null ? void 0 : b.conversions,
                 exit_reason: o(
                   "AdLearningStageExitReasonUtils.facebook",
                 ).toJSEnum(
-                  (b = e.learning_stage_info) == null ? void 0 : b.exit_reason,
+                  (v = e.learning_stage_info) == null ? void 0 : v.exit_reason,
                 ),
                 last_sig_edit_ts:
-                  (v = e.learning_stage_info) == null
+                  (S = e.learning_stage_info) == null
                     ? void 0
-                    : v.last_significant_edit_timestamp,
+                    : S.last_significant_edit_timestamp,
                 status: r("getJSEnumSafe")(
                   r("AdsDeliveryInsightsLearningStageStatus"),
-                  (S = e.learning_stage_info) == null ? void 0 : S.status,
+                  (L = e.learning_stage_info) == null ? void 0 : L.status,
                 ),
               })
             : void 0,
@@ -1389,69 +1165,69 @@ __d(
           e.low_creative_reach != null
             ? o("TypeCoercionUtils").coerceObjectToUndefined({
                 current_reach:
-                  ((L = e.low_creative_reach) == null
+                  ((E = e.low_creative_reach) == null
                     ? void 0
-                    : L.current_reach) != null
+                    : E.current_reach) != null
                     ? o("TypeCoercionUtils").coerceObjectToUndefined({
                         end: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          (E = e.low_creative_reach) == null ||
-                            (E = E.current_reach) == null
+                          (k = e.low_creative_reach) == null ||
+                            (k = k.current_reach) == null
                             ? void 0
-                            : E.end,
+                            : k.end,
                           "low_creative_reach.current_reach.end",
                           i.id,
                         ),
                         start: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          (k = e.low_creative_reach) == null ||
-                            (k = k.current_reach) == null
+                          (I = e.low_creative_reach) == null ||
+                            (I = I.current_reach) == null
                             ? void 0
-                            : k.start,
+                            : I.start,
                           "low_creative_reach.current_reach.start",
                           i.id,
                         ),
                         value: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          (I = e.low_creative_reach) == null ||
-                            (I = I.current_reach) == null
+                          (T = e.low_creative_reach) == null ||
+                            (T = T.current_reach) == null
                             ? void 0
-                            : I.value,
+                            : T.value,
                           "low_creative_reach.current_reach.value",
                           i.id,
                         ),
                       })
                     : void 0,
                 earlier_reach:
-                  ((T = e.low_creative_reach) == null
+                  ((D = e.low_creative_reach) == null
                     ? void 0
-                    : T.earlier_reach) != null
+                    : D.earlier_reach) != null
                     ? o("TypeCoercionUtils").coerceObjectToUndefined({
                         end: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          (D = e.low_creative_reach) == null ||
-                            (D = D.earlier_reach) == null
+                          (x = e.low_creative_reach) == null ||
+                            (x = x.earlier_reach) == null
                             ? void 0
-                            : D.end,
+                            : x.end,
                           "low_creative_reach.earlier_reach.end",
                           i.id,
                         ),
                         start: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          (x = e.low_creative_reach) == null ||
-                            (x = x.earlier_reach) == null
+                          ($ = e.low_creative_reach) == null ||
+                            ($ = $.earlier_reach) == null
                             ? void 0
-                            : x.start,
+                            : $.start,
                           "low_creative_reach.earlier_reach.start",
                           i.id,
                         ),
                         value: o("TypeCoercionUtils").coerceNonMaybeValue(
-                          ($ = e.low_creative_reach) == null ||
-                            ($ = $.earlier_reach) == null
+                          (P = e.low_creative_reach) == null ||
+                            (P = P.earlier_reach) == null
                             ? void 0
-                            : $.value,
+                            : P.value,
                           "low_creative_reach.earlier_reach.value",
                           i.id,
                         ),
                       })
                     : void 0,
                 reach_trend: o("TypeCoercionUtils").coerceNonMaybeValue(
-                  (P = e.low_creative_reach) == null ? void 0 : P.reach_trend,
+                  (N = e.low_creative_reach) == null ? void 0 : N.reach_trend,
                   "low_creative_reach.reach_trend",
                   i.id,
                 ),
@@ -1462,19 +1238,18 @@ __d(
             ? {
                 bidding_status: r("getJSEnumSafe")(
                   r("AdsDeliveryBiddingStatus"),
-                  (N = e.paced_bid_info) == null ? void 0 : N.bidding_status,
+                  (M = e.paced_bid_info) == null ? void 0 : M.bidding_status,
                 ),
               }
             : void 0,
         pps_peer_benchmarks:
           e.pps_peer_benchmarks != null
             ? o("TypeCoercionUtils").coerceObjectToUndefined({
-                cpc: R((M = e.pps_peer_benchmarks) == null ? void 0 : M.cpc),
-                cplc: R((w = e.pps_peer_benchmarks) == null ? void 0 : w.cplc),
-                cpm: R((A = e.pps_peer_benchmarks) == null ? void 0 : A.cpm),
-                cpr: R((F = e.pps_peer_benchmarks) == null ? void 0 : F.cpr),
-                ctr: R((O = e.pps_peer_benchmarks) == null ? void 0 : O.ctr),
-                cvr: R((B = e.pps_peer_benchmarks) == null ? void 0 : B.cvr),
+                cpc: R((w = e.pps_peer_benchmarks) == null ? void 0 : w.cpc),
+                cplc: R((A = e.pps_peer_benchmarks) == null ? void 0 : A.cplc),
+                cpm: R((F = e.pps_peer_benchmarks) == null ? void 0 : F.cpm),
+                cpr: R((O = e.pps_peer_benchmarks) == null ? void 0 : O.cpr),
+                ctr: R((B = e.pps_peer_benchmarks) == null ? void 0 : B.ctr),
                 filter_params: o(
                   "TypeCoercionUtils",
                 ).coerceEmptyArrayToUndefined(
@@ -1535,13 +1310,63 @@ __d(
             : void 0,
       };
     }
-    function y(e) {
+    function h(e) {
       var t = o(
         "AdsPENumericStringFieldUtils",
       ).convertCampaignNumericStringFields(e);
       return o(
         "AdsCampaignPlacementsFieldsValueHelper",
       ).fixPlacementsDestructiveCopy(t);
+    }
+    function y(e) {
+      return e == null
+        ? null
+        : {
+            interests: e.interests.map(function (e) {
+              return {
+                multiplier: o("TypeCoercionUtils").coerceNonMaybeValue(
+                  e.multiplier,
+                  "audience_reach_insights.interests.multiplier",
+                  i.id,
+                ),
+                name: o("TypeCoercionUtils").coerceNonMaybeValue(
+                  e.name,
+                  "audience_reach_insights.interests.name",
+                  i.id,
+                ),
+              };
+            }),
+            pct_reached: o("TypeCoercionUtils").coerceNonMaybeValue(
+              e.pct_reached,
+              "audience_reach_insights.pct_reached",
+              i.id,
+            ),
+            targeted_audience_size: o("TypeCoercionUtils").coerceNonMaybeValue(
+              e.targeted_audience_size_long,
+              "audience_reach_insights.targeted_audience_size",
+              i.id,
+            ),
+            treatment: o("TypeCoercionUtils").coerceNonMaybeValue(
+              e.treatment,
+              "audience_reach_insights.treatment",
+              i.id,
+            ),
+            window: o("TypeCoercionUtils").coerceNonMaybeValue(
+              e.window,
+              "audience_reach_insights.window",
+              i.id,
+            ),
+            window_end_date: o("TypeCoercionUtils").coerceNonMaybeValue(
+              e.window_end_date,
+              "audience_reach_insights.window_end_date",
+              i.id,
+            ),
+            window_start_date: o("TypeCoercionUtils").coerceNonMaybeValue(
+              e.window_start_date,
+              "audience_reach_insights.window_start_date",
+              i.id,
+            ),
+          };
     }
     function C(e) {
       return e != null
@@ -1670,6 +1495,7 @@ __d(
           p25: o("TypeCoercionUtils").coerceOptionalValue(e.p25),
           p50: o("TypeCoercionUtils").coerceOptionalValue(e.p50),
           p75: o("TypeCoercionUtils").coerceOptionalValue(e.p75),
+          p90: o("TypeCoercionUtils").coerceOptionalValue(e.p90),
         });
     }
     function L(e) {
@@ -1710,6 +1536,9 @@ __d(
           l,
           s,
           u = babelHelpers.extends({}, t, {
+            ads_signal_source_type: o(
+              "AdsSignalSourceTypeUtils.facebook",
+            ).toJSEnum(t == null ? void 0 : t.ads_signal_source_type),
             anchor_event_config:
               (t == null ? void 0 : t.anchor_event_config) != null
                 ? {
@@ -1803,6 +1632,8 @@ __d(
                       return (
                         t != null &&
                           e.push({
+                            custom_conversion_id:
+                              t == null ? void 0 : t.custom_conversion_id,
                             custom_event_type: r("getJSEnumSafe")(
                               r("OffsiteCustomEventType"),
                               t == null ? void 0 : t.custom_event_type,
@@ -1844,6 +1675,8 @@ __d(
                       return (
                         t != null &&
                           e.push({
+                            custom_conversion_id:
+                              t == null ? void 0 : t.custom_conversion_id,
                             custom_event_str:
                               t == null ? void 0 : t.custom_event_str,
                             custom_event_type: r("getJSEnumSafe")(
@@ -2785,17 +2618,13 @@ __d(
       }
     }
     ((l.coerceCampaignGraphQLSpecToGraphAPI = p),
-      (l.coerceDynamicGraphQLSpecToGraphAPI = _),
-      (l.coerceDynamicGraphQLSpecTier1ToGraphAPI = f),
-      (l.coerceDynamicGraphQLSpecTier2ToGraphAPI = g),
-      (l.coerceDynamicGraphQLSpecTier3ToGraphAPI = h),
-      (l.transformCampaignData = y),
+      (l.coerceDynamicGraphQLSpecTier1ToGraphAPI = _),
+      (l.coerceDynamicGraphQLSpecTier2ToGraphAPI = f),
+      (l.coerceDynamicGraphQLSpecTier3ToGraphAPI = g),
+      (l.transformCampaignData = h),
       (l.coerceAudienceLabels = v),
       (l.coerceTargeting = I),
       (l.coerceUndefinedIfDefaultTargeting = T),
-      (l.coerceBudgetFields = N),
-      (l.coerceSpendFields = M),
-      (l.isEmpty = w),
       (l.removeNullsAndEmpty = A));
   },
   98,

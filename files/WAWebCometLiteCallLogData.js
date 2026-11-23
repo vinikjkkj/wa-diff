@@ -4,44 +4,33 @@ __d(
     "WALogger",
     "WAWebContactCollection",
     "WAWebFrontendMsgGetters",
-    "WAWebMsgCollection",
     "WAWebMsgGetters",
     "WAWebMsgKey",
+    "WAWebMsgQueryUtils",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = 30;
-    function u() {
-      return c.apply(this, arguments);
+    async function u() {
+      try {
+        return await o("WAWebMsgQueryUtils").getVoipCallLogMsgs(s, null);
+      } catch (t) {
+        return (
+          o("WALogger").ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "WAWebCometLiteCallLogData: failed to read call log ",
+                "",
+              ])),
+            t,
+          ),
+          []
+        );
+      }
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            return yield o(
-              "WAWebMsgCollection",
-            ).MsgCollection.getVoipCallLogMsgs(s, null);
-          } catch (t) {
-            return (
-              o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "WAWebCometLiteCallLogData: failed to read call log ",
-                    "",
-                  ])),
-                t,
-              ),
-              []
-            );
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
+    function c(e) {
       var t = [];
       for (var n of e) {
         var a,
@@ -83,9 +72,7 @@ __d(
       }
       return t;
     }
-    ((l.RECENT_CALLS_LIMIT = s),
-      (l.loadRecentCallLogMsgs = u),
-      (l.deriveRecentCalls = d));
+    ((l.loadRecentCallLogMsgs = u), (l.deriveRecentCalls = c));
   },
   98,
 );

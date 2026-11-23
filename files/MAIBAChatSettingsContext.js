@@ -1,12 +1,6 @@
 __d(
   "MAIBAChatSettingsContext",
-  [
-    "MetaConfig",
-    "emptyFunction",
-    "react",
-    "react-compiler-runtime",
-    "useToggle",
-  ],
+  ["MetaConfig", "emptyFunction", "react", "useToggle"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -33,98 +27,68 @@ __d(
       },
       _ = s.createContext(p);
     function f(e) {
-      var t = o("react-compiler-runtime").c(19),
-        n = e.children,
-        a = e.darkModeEnabled,
-        i = e.toggleDarkMode,
-        l = a === void 0 ? !1 : a,
-        u;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = r("MetaConfig")._("163")), (t[0] = u))
-        : (u = t[0]);
-      var c = u,
-        d = r("useToggle")(!1),
-        p = d[0],
-        f = d[1],
-        g = r("useToggle")(m),
-        h = g[0],
-        y = g[1],
-        C = r("useToggle")(!1),
-        b = C[0],
-        v = C[1],
-        S = r("useToggle")(c),
-        R = S[0],
-        L = S[1],
-        E = r("useToggle")(!1),
-        k = E[0],
-        I = E[1],
-        T = r("useToggle")(!1),
-        D = T[0],
-        x = T[1],
-        $ = r("useToggle")(!1),
-        P = $[0],
-        N = $[1],
-        M = i != null ? l : p,
-        w = i != null ? i : f,
-        A;
-      t[1] !== b ||
-      t[2] !== h ||
-      t[3] !== P ||
-      t[4] !== M ||
-      t[5] !== w ||
-      t[6] !== R ||
-      t[7] !== k ||
-      t[8] !== D ||
-      t[9] !== v ||
-      t[10] !== y ||
-      t[11] !== N ||
-      t[12] !== L ||
-      t[13] !== I ||
-      t[14] !== x
-        ? ((A = {
-            agentBadgeEnabled: b,
-            darkModeEnabled: M,
-            debugMode: h,
-            displayToolCallsEnabled: P,
-            latencyTimerEnabled: R,
-            loadingStatesSourcesEnabled: k,
-            suggestedPromptsEnabled: D,
-            toggleAgentBadge: v,
-            toggleDarkMode: w,
-            toggleDebugMode: y,
-            toggleDisplayToolCallsEnabled: N,
-            toggleLatencyTimer: L,
-            toggleLoadingStatesSources: I,
-            toggleSuggestedPrompts: x,
-          }),
-          (t[1] = b),
-          (t[2] = h),
-          (t[3] = P),
-          (t[4] = M),
-          (t[5] = w),
-          (t[6] = R),
-          (t[7] = k),
-          (t[8] = D),
-          (t[9] = v),
-          (t[10] = y),
-          (t[11] = N),
-          (t[12] = L),
-          (t[13] = I),
-          (t[14] = x),
-          (t[15] = A))
-        : (A = t[15]);
-      var F = A,
-        O;
-      return (
-        t[16] !== n || t[17] !== F
-          ? ((O = s.jsx(_.Provider, { value: F, children: n })),
-            (t[16] = n),
-            (t[17] = F),
-            (t[18] = O))
-          : (O = t[18]),
-        O
-      );
+      var t,
+        n,
+        o,
+        a = e.children,
+        i = e.darkModeEnabled,
+        l = i === void 0 ? !1 : i,
+        u = e.debugSettings,
+        c = e.toggleDarkMode,
+        p = r("MetaConfig")._("163"),
+        f = r("useToggle")(!1),
+        g = f[0],
+        h = f[1],
+        y = r("useToggle")(m),
+        C = y[0],
+        b = y[1],
+        v = r("useToggle")(!1),
+        S = v[0],
+        R = v[1],
+        L = r("useToggle")(p),
+        E = L[0],
+        k = L[1],
+        I = r("useToggle")(!1),
+        T = I[0],
+        D = I[1],
+        x = r("useToggle")(!1),
+        $ = x[0],
+        P = x[1],
+        N = r("useToggle")(!1),
+        M = N[0],
+        w = N[1],
+        A = c != null ? l : g,
+        F = c != null ? c : h,
+        O = (t = u == null ? void 0 : u.agentBadgeEnabled) != null ? t : S,
+        B = (n = u == null ? void 0 : u.debugMode) != null ? n : C,
+        W = (o = u == null ? void 0 : u.latencyTimerEnabled) != null ? o : E,
+        q = u == null ? R : r("emptyFunction"),
+        U = u == null ? b : r("emptyFunction"),
+        V = u == null ? k : r("emptyFunction"),
+        H = d(
+          function () {
+            return {
+              agentBadgeEnabled: O,
+              darkModeEnabled: A,
+              debugMode: B,
+              displayToolCallsEnabled: M,
+              latencyTimerEnabled: W,
+              loadingStatesSourcesEnabled: T,
+              suggestedPromptsEnabled: $,
+              toggleAgentBadge: q,
+              toggleDarkMode: F,
+              toggleDebugMode: U,
+              toggleDisplayToolCallsEnabled: w,
+              toggleLatencyTimer: V,
+              toggleLoadingStatesSources: D,
+              toggleSuggestedPrompts: P,
+            };
+          },
+          [O, A, B, W, T, $, q, F, U, V, D, P, M, w],
+        );
+      return s.jsx(_.Provider, { value: H, children: a });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g() {
       return c(_);
     }

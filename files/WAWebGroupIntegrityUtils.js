@@ -7,7 +7,6 @@ __d(
     "WAWebStateUtils",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -39,43 +38,26 @@ __d(
       );
     }
     function m(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n = e.content,
-        a = e.icon,
-        i = e.testId,
-        l;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = [u.marginInline15, u.marginTop15]), (t[0] = l))
-        : (l = t[0]);
-      var c;
-      t[1] !== n
-        ? ((c = s.jsx(r("WDSText.react"), {
+      var t = e.content,
+        n = e.icon,
+        a = e.testId;
+      return s.jsxs(o("WAWebFlex.react").FlexRow, {
+        justify: "center",
+        align: "center",
+        xstyle: [u.marginInline15, u.marginTop15],
+        testid: a,
+        children: [
+          n,
+          s.jsx(r("WDSText.react"), {
             type: "Body2",
             colorName: "contentDefault",
-            children: n,
-          })),
-          (t[1] = n),
-          (t[2] = c))
-        : (c = t[2]);
-      var d;
-      return (
-        t[3] !== a || t[4] !== c || t[5] !== i
-          ? ((d = s.jsxs(o("WAWebFlex.react").FlexRow, {
-              justify: "center",
-              align: "center",
-              xstyle: l,
-              testid: i,
-              children: [a, c],
-            })),
-            (t[3] = a),
-            (t[4] = c),
-            (t[5] = i),
-            (t[6] = d))
-          : (d = t[6]),
-        d
-      );
+            children: t,
+          }),
+        ],
+      });
     }
-    ((l.getLeaveGroupString = c),
+    ((m.displayName = m.name + " [from " + i.id + "]"),
+      (l.getLeaveGroupString = c),
       (l.getLeaveGroupStringFor = d),
       (l.SuspendedModalBodyParagraph = m));
   },

@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleMsgProcessUtils",
   [
-    "Promise",
     "WALogger",
     "WAWebApplyBrazilPaymentStateUpdatesWithRetries",
     "WAWebBackendApi",
@@ -18,14 +17,13 @@ __d(
     "WAWebPaymentsGatingUtils",
     "WAWebSyncDeviceAdvDeviceListJob",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "cr:10197",
     "cr:402",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t, n) {
+    var e, s, u;
+    function c(e, t, n) {
       var r = t.category === o("WAWebHandleMsgCommon").MSG_CATEGORY.peer,
         a = {
           externalId: e.id.id,
@@ -42,158 +40,125 @@ __d(
           .addMessages([i], !1),
       };
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            (e.offline == null &&
-              o("WALogger")
-                .LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "processDecryptedMessageProto: msgId::",
-                      ", message decrypted: ",
-                    ])),
-                  e.externalId,
-                )
-                .tags("messaging"),
-            !e.isHsm && t.highlyStructuredMessage)
-          )
-            throw new (o("WAWebHandleMsgCommon").HsmMismatchError)();
-          var a = null;
-          if (
-            !(yield o("WAWebHandleMsgValidate").isFromKnownDevice(e.author))
-          ) {
-            var i = o("WAWebWidFactory").asUserWidOrThrow(e.author);
-            throw (
-              e.offline == null
-                ? o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
-                    [i],
-                    null,
-                    null,
-                  )
-                : o(
-                    "WAWebOfflineDeviceCache",
-                  ).OfflinePendingDeviceCache.addOfflinePendingDevice(
-                    String(i),
-                    null,
-                  ),
-              new (o("WAWebHandleMsgError").UnknownDeviceMessageError)(
-                "[messaging] msgId::" +
-                  e.externalId +
-                  ", processDecryptedMessageProto: reject message from unknown device",
+    async function d(t, a) {
+      if (
+        (t.offline == null &&
+          o("WALogger")
+            .LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "processDecryptedMessageProto: msgId::",
+                  ", message decrypted: ",
+                ])),
+              t.externalId,
+            )
+            .tags("messaging"),
+        !t.isHsm && a.highlyStructuredMessage)
+      )
+        throw new (o("WAWebHandleMsgCommon").HsmMismatchError)();
+      var i = null;
+      if (!(await o("WAWebHandleMsgValidate").isFromKnownDevice(t.author))) {
+        var l = o("WAWebWidFactory").asUserWidOrThrow(t.author);
+        throw (
+          t.offline == null
+            ? o("WAWebSyncDeviceAdvDeviceListJob").syncDeviceListJob(
+                [l],
+                null,
+                null,
               )
-            );
-          }
-          var l = t.messageContextInfo;
-          if (l) {
-            a = e.chat.isUser()
-              ? yield o("WAWebIcdcHandlerApi").handleHostedIcdcMetadataInline(
-                  e.chat,
-                  e.author,
-                  l,
-                )
-              : null;
-            var c =
-              n("cr:402") == null
-                ? void 0
-                : n("cr:402").monitorAeaMessageGossip(e, l);
-            if (c != null) {
-              var d = c.catch(function (e) {
-                o("WALogger")
-                  .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[aea] failed to monitor message gossip",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("aea-message-gossip-fail");
-              });
-              e.offline != null && (yield d);
-            }
-            o("WAWebIcdcHandlerApi").handleICDCData(
-              e.author,
-              e.chat.isUser() ? e.chat : null,
-              l,
-            );
-          }
-          return a;
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.msg,
-            n = e.msgInfo,
-            r = e.msgMeta,
-            a = e.reparsing;
-          return n.offline != null && !a
-            ? d(t, n, r)
-            : (yield o("WAWebBackendApi").frontendSendAndReceive(
-                "processEphemeralSyncResponse",
-                { msg: t },
+            : o(
+                "WAWebOfflineDeviceCache",
+              ).OfflinePendingDeviceCache.addOfflinePendingDevice(
+                String(l),
+                null,
               ),
-              null);
-        })),
-        f.apply(this, arguments)
-      );
+          new (o("WAWebHandleMsgError").UnknownDeviceMessageError)(
+            "[messaging] msgId::" +
+              t.externalId +
+              ", processDecryptedMessageProto: reject message from unknown device",
+          )
+        );
+      }
+      var u = a.messageContextInfo;
+      if (u) {
+        i = t.chat.isUser()
+          ? await o("WAWebIcdcHandlerApi").handleHostedIcdcMetadataInline(
+              t.chat,
+              t.author,
+              u,
+            )
+          : null;
+        var c =
+          n("cr:402") == null
+            ? void 0
+            : n("cr:402").monitorAeaMessageGossip(t, u);
+        if (c != null) {
+          var d = c.catch(function (e) {
+            o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[aea] failed to monitor message gossip",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("aea-message-gossip-fail");
+          });
+          t.offline != null && (await d);
+        }
+        o("WAWebIcdcHandlerApi").handleICDCData(
+          t.author,
+          t.chat.isUser() ? t.chat : null,
+          u,
+        );
+      }
+      return i;
     }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.msg,
-            n = e.msgInfo,
-            r = e.msgMeta,
-            a = e.reparsing;
-          return n.offline != null && !a
-            ? d(t, n, r)
-            : (yield o("WAWebBackendApi").frontendSendAndReceive(
-                "processKeepInChatMessage",
-                { keepInChatMessage: t, allowNotification: !0 },
-              ),
-              null);
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.msg,
-            n = e.msgInfo,
-            r = e.msgMeta,
-            a = e.reparsing,
-            i = t;
-          return n.offline != null && !a
-            ? d(i, n, r)
-            : (yield o(
-                "WAWebDBProcessEditProtocolMsgs",
-              ).processEditProtocolMsgs([i], a),
-              null);
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e) {
+    async function m(e) {
       var t = e.msg,
-        r = e.msgInfo,
-        a = e.msgMeta,
-        i = e.reparsing;
+        n = e.msgInfo,
+        r = e.msgMeta,
+        a = e.reparsing;
+      return n.offline != null && !a
+        ? c(t, n, r)
+        : (await o("WAWebBackendApi").frontendSendAndReceive(
+            "processEphemeralSyncResponse",
+            { msg: t },
+          ),
+          null);
+    }
+    async function p(e) {
+      var t = e.msg,
+        n = e.msgInfo,
+        r = e.msgMeta,
+        a = e.reparsing;
+      return n.offline != null && !a
+        ? c(t, n, r)
+        : (await o("WAWebBackendApi").frontendSendAndReceive(
+            "processKeepInChatMessage",
+            { keepInChatMessage: t, allowNotification: !0 },
+          ),
+          null);
+    }
+    async function _(e) {
+      var t = e.msg,
+        n = e.msgInfo,
+        r = e.msgMeta,
+        a = e.reparsing,
+        i = t;
+      return n.offline != null && !a
+        ? c(i, n, r)
+        : (await o("WAWebDBProcessEditProtocolMsgs").processEditProtocolMsgs(
+            [i],
+            a,
+          ),
+          null);
+    }
+    function f(e) {
+      var t = e.msg,
+        n = e.msgInfo,
+        r = e.msgMeta,
+        a = e.reparsing;
       return t == null ||
         !o(
           "WAWebKeepAndApplyBrazilPaymentStateUpdates",
@@ -202,72 +167,64 @@ __d(
         : (o(
             "WAWebBrazilPaymentStateUpdateMsgUtils",
           ).awaitBrazilPaymentStateUpdateReceipt(t),
-          r.offline != null && !i
-            ? (c || (c = n("Promise"))).resolve(d(t, r, a))
+          n.offline != null && !a
+            ? Promise.resolve(c(t, n, r))
             : o("WAWebKeepAndApplyBrazilPaymentStateUpdates")
-                .keepAndApplyBrazilPaymentStateUpdate(t, i)
+                .keepAndApplyBrazilPaymentStateUpdate(t, a)
                 .then(function () {
                   return null;
                 }));
     }
-    function v(t) {
-      return S(t).catch(function (n) {
+    function g(e) {
+      return h(e).catch(function (t) {
         return (
           o("WALogger")
             .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[br-payment-state] could not set the update aside",
                 ])),
             )
-            .catching(r("getErrorSafe")(n))
+            .catching(r("getErrorSafe")(t))
             .sendLogs("br-payment-state-set-aside-failed"),
-          { msgs: t.msgs, staged: null }
+          { msgs: e.msgs, staged: null }
         );
       });
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    async function h(e) {
+      var t = e.msgInfo,
+        n = e.msgMeta,
+        r = e.msgs,
+        a = e.reparsing;
+      y(t, a);
+      var i =
+        r.length === 1
+          ? f({ msg: r[0], msgInfo: t, msgMeta: n, reparsing: a })
+          : null;
+      return i == null
+        ? {
+            msgs: [].concat(
+              o(
+                "WAWebBrazilPaymentStateUpdateMsgUtils",
+              ).hideAwaitedBrazilPaymentReceipts(r),
+            ),
+            staged: null,
+          }
+        : { msgs: [], staged: await i };
     }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.msgInfo,
-            n = e.msgMeta,
-            r = e.msgs,
-            a = e.reparsing;
-          L(t, a);
-          var i =
-            r.length === 1
-              ? b({ msg: r[0], msgInfo: t, msgMeta: n, reparsing: a })
-              : null;
-          return i == null
-            ? {
-                msgs: [].concat(
-                  o(
-                    "WAWebBrazilPaymentStateUpdateMsgUtils",
-                  ).hideAwaitedBrazilPaymentReceipts(r),
-                ),
-                staged: null,
-              }
-            : { msgs: [], staged: yield i };
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e, t) {
+    function y(e, t) {
       (e.offline != null && !t) ||
         (o("WAWebPaymentsGatingUtils").isBrazilPaymentStateUpdateSupported() &&
           o(
             "WAWebApplyBrazilPaymentStateUpdatesWithRetries",
           ).replayPendingBrazilPaymentStateUpdates([]));
     }
-    ((l.preProcessMsg = m),
-      (l.processEphemeralSyncResponseMsg = _),
-      (l.processKeepInChatMsg = g),
-      (l.processEditProtocolMsg = y),
-      (l.maybeProcessBrazilPaymentStateUpdateMsg = b),
-      (l.withoutProcessedBrazilPaymentStateUpdate = v));
+    ((l.preProcessMsg = d),
+      (l.processEphemeralSyncResponseMsg = m),
+      (l.processKeepInChatMsg = p),
+      (l.processEditProtocolMsg = _),
+      (l.maybeProcessBrazilPaymentStateUpdateMsg = f),
+      (l.withoutProcessedBrazilPaymentStateUpdate = g));
   },
   98,
 );

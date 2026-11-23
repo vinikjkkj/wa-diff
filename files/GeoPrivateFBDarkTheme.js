@@ -86,6 +86,7 @@ __d(
             glimmerStyles: e.glimmerStyles,
             glimmerVariantsStyles: e.glimmerVariantsStyles,
             shimmerStyles: u.shimmerStyles,
+            brandGradientStyles: e.brandGradientStyles,
             progressElementLightStyles: e.progressElementLightStyles,
             progressElementDarkStyles: e.progressElementDarkStyles,
             outlineActiveStyles: e.outlineActiveStyles,
@@ -167,6 +168,8 @@ __d(
             transitionDurationStyles: o(
               "GeoPrivateFacebookTransitionGeneratedStyles",
             ).transitionDurationStyles,
+            transitionPresets: o("GeoPrivateFacebookTransitionGeneratedStyles")
+              .transitionPresets,
             transitionTimingStyles: o(
               "GeoPrivateFacebookTransitionGeneratedStyles",
             ).transitionTimingStyles,

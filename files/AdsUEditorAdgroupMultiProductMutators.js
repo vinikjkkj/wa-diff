@@ -10,11 +10,12 @@ __d(
       return n.deleteIn(a);
     }
     function s(e, t) {
+      var n = t;
       return (
-        f(t, function (n, r, o) {
-          t = t.deleteIn([].concat(o, e));
+        f(n, function (t, r, o) {
+          n = n.deleteIn([].concat(o, e));
         }),
-        t
+        n
       );
     }
     function u(e, t, n, r) {
@@ -24,20 +25,22 @@ __d(
       return r.setIn(i, n);
     }
     function c(e, t, n) {
+      var r = n;
       return (
-        f(n, function (r, o, a) {
-          n = n.setIn([].concat(a, e), t);
+        f(r, function (n, o, a) {
+          r = r.setIn([].concat(a, e), t);
         }),
-        n
+        r
       );
     }
     function d(e, t, n) {
+      var r = n;
       return (
-        f(n, function (r, a, i) {
-          o("AdsChildAttachmentsUtils").hasPlaceData(r) ||
-            (n = n.setIn([].concat(i, e), t));
+        f(r, function (n, a, i) {
+          o("AdsChildAttachmentsUtils").hasPlaceData(n) ||
+            (r = r.setIn([].concat(i, e), t));
         }),
-        n
+        r
       );
     }
     function m(e, t, n) {
@@ -53,22 +56,24 @@ __d(
       );
     }
     function p(e, t, n) {
+      var a = n;
       return (
-        f(n, function (a, i, l) {
-          o("AdsChildAttachmentsUtils").getChildAttachmentType(n, a) ===
+        f(a, function (n, i, l) {
+          o("AdsChildAttachmentsUtils").getChildAttachmentType(a, n) ===
             r("AdsAdgroupChildAttachmentTypes").DYNAMIC &&
-            (n = n.setIn([].concat(l, e), t));
+            (a = a.setIn([].concat(l, e), t));
         }),
-        n
+        a
       );
     }
     function _(e, t, n) {
+      var r = n;
       return (
-        f(n, function (r, a, i) {
-          o("AdsChildAttachmentsUtils").hasPlaceData(r) &&
-            (n = n.setIn([].concat(i, e), t));
+        f(r, function (n, a, i) {
+          o("AdsChildAttachmentsUtils").hasPlaceData(n) &&
+            (r = r.setIn([].concat(i, e), t));
         }),
-        n
+        r
       );
     }
     function f(e, t) {

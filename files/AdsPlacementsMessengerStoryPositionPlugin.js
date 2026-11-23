@@ -35,7 +35,6 @@ __d(
     "AdsWhatsAppPlacementUtils",
     "IOS14Utils",
     "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-    "gkx",
     "igAccessAdsManagerUtils",
     "immutable",
   ],
@@ -54,13 +53,28 @@ __d(
         e.VIDEO_VIEWS,
       ]);
     function d(e) {
-      return e.hasRecentMessengerStoryAdPlacement === !0 && r("gkx")("26562");
+      switch (e) {
+        case r("AdsPromotedObjectTypes").DONATION:
+          return o("AdsPlacementIneligibilityReason").createDonationReason();
+        case r("AdsPromotedObjectTypes").GROUP:
+          return o(
+            "AdsPlacementIneligibilityReason",
+          ).createGroupPromotionReason();
+        case r("AdsPromotedObjectTypes").IMAGINATION:
+          return o("AdsPlacementIneligibilityReason").createImaginationReason();
+        case r("AdsPromotedObjectTypes").REMINDER:
+          return o(
+            "AdsPlacementIneligibilityReason",
+          ).createReminderPromotionReason();
+        default:
+          return null;
+      }
     }
     var m = {
         type: "placements/position",
         key: "messenger/story",
-        name: s._(/*BTDS*/ "Stories"),
-        nameWithPlatform: s._(/*BTDS*/ "Messenger Stories"),
+        name: s._(/*BTDS*/ ""),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION.STORY,
           imageCrop: r("AdImageSpecCropKeys")["90x160"],
@@ -71,6 +85,9 @@ __d(
         placementPreviewImage: u("676355"),
         platformKey: "messenger",
         isEnabled: function (t) {
+          return !0;
+        },
+        shouldHideInPlacementUI: function (t) {
           return !0;
         },
         isInactiveByDefault: function (t) {
@@ -190,137 +207,104 @@ __d(
             "messenger/story",
             babelHelpers.extends({}, t, { objective: i }),
           );
-          return u !== null
-            ? u
-            : o("AdsWhatsAppPlacementUtils").isIneligibleForMessengerStory(
-                  babelHelpers.extends({}, t, { objective: i }),
-                )
-              ? o("AdsPlacementIneligibilityReason").createWhatsAppReason(
-                  t.objective,
-                )
-              : o("AdsManagerIGLoginUtils").getIsIGLogin(t.account) &&
-                  !o("igAccessAdsManagerUtils").isIGAccessParityEnabled()
-                ? o("AdsPlacementIneligibilityReason").createIGLoginReason()
-                : o(
-                      "AdsUnifiedProfileVisitUtils",
-                    ).getIsPositionAlwaysDisabledForProfileVisits(
-                      i,
-                      t.promotedObjectType,
-                    )
-                  ? o(
-                      "AdsUnifiedProfileVisitUtils",
-                    ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
-                      t.destinationType,
-                    )
+          if (u !== null) return u;
+          if (
+            o("AdsWhatsAppPlacementUtils").isIneligibleForMessengerStory(
+              babelHelpers.extends({}, t, { objective: i }),
+            )
+          )
+            return o("AdsPlacementIneligibilityReason").createWhatsAppReason(
+              t.objective,
+            );
+          if (
+            o("AdsManagerIGLoginUtils").getIsIGLogin(t.account) &&
+            !o("igAccessAdsManagerUtils").isIGAccessParityEnabled()
+          )
+            return o("AdsPlacementIneligibilityReason").createIGLoginReason();
+          if (
+            o(
+              "AdsUnifiedProfileVisitUtils",
+            ).getIsPositionAlwaysDisabledForProfileVisits(
+              i,
+              t.promotedObjectType,
+            )
+          )
+            return o(
+              "AdsUnifiedProfileVisitUtils",
+            ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
+              t.destinationType,
+            );
+          if (
+            o(
+              "AdsInstagramPlacementUtils",
+            ).isInstagramDestinationEnabledAndSelected(
+              babelHelpers.extends({}, t, { objective: i }),
+            ) ||
+            (t.promotedObjectType === r("AdsPromotedObjectTypes").INSTAGRAM &&
+              (i === r("AdsAPIObjectives").CONVERSIONS ||
+                t.objective === r("AdsAPIObjectives").LINK_CLICKS))
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstagramDirectReason(t.objective);
+          if (
+            o(
+              "AdsInstagramLeadGenPlacementUtils",
+            ).isInstagramLeadGenDestinationSelected(
+              babelHelpers.extends({}, t, { objective: i }),
+            )
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstagramLeadGenReason(t.objective);
+          if (t.directInstallDevices === !0)
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createDirectInstallReason();
+          if (t.containsDCO === !0)
+            return o("AdsPlacementIneligibilityReason").createDCOReason();
+          var p = d(t.promotedObjectType);
+          return p != null
+            ? p
+            : t.destinationType === r("AdCampaignDestination").INSTAGRAM_LIVE
+              ? o("AdsPlacementIneligibilityReason").createInstagramLiveReason()
+              : t.destinationType === r("AdCampaignDestination").FACEBOOK_LIVE
+                ? o(
+                    "AdsPlacementIneligibilityReason",
+                  ).createFacebookLiveReason()
+                : (e = t.isClickToMPAds) != null && e
+                  ? o("AdsPlacementIneligibilityReason").createGenericReason()
                   : o(
-                        "AdsInstagramPlacementUtils",
-                      ).isInstagramDestinationEnabledAndSelected(
+                        "AdsClickToCallAdsUtils",
+                      ).getIsCallAdsNewOptimizationUnderTrafficObjective(
                         babelHelpers.extends({}, t, { objective: i }),
-                      ) ||
-                      (t.promotedObjectType ===
-                        r("AdsPromotedObjectTypes").INSTAGRAM &&
-                        (i === r("AdsAPIObjectives").CONVERSIONS ||
-                          t.objective === r("AdsAPIObjectives").LINK_CLICKS))
+                      )
                     ? o(
                         "AdsPlacementIneligibilityReason",
-                      ).createInstagramDirectReason(t.objective)
+                      ).createPhoneCallTrafficReason()
                     : o(
-                          "AdsInstagramLeadGenPlacementUtils",
-                        ).isInstagramLeadGenDestinationSelected(
+                          "AdsClickToCallAdsUtils",
+                        ).getIsClickToCallAdsUnderLeadGenObjective(
                           babelHelpers.extends({}, t, { objective: i }),
                         )
                       ? o(
                           "AdsPlacementIneligibilityReason",
-                        ).createInstagramLeadGenReason(t.objective)
-                      : t.directInstallDevices === !0
+                        ).createPhoneCallLeadReason()
+                      : o(
+                            "AdsClickToCallAdsUtils",
+                          ).getIsClickToCallAdsUnderConversionsOrSalesObjective(
+                            babelHelpers.extends({}, t, { objective: i }),
+                          )
                         ? o(
                             "AdsPlacementIneligibilityReason",
-                          ).createDirectInstallReason()
-                        : t.containsDCO === !0
+                          ).createPhoneCallConversionsOrSalesReason()
+                        : r("AdsAppUrlUtils").isInstantGameURL(t.objectStoreURL)
                           ? o(
                               "AdsPlacementIneligibilityReason",
-                            ).createDCOReason()
-                          : t.promotedObjectType ===
-                              r("AdsPromotedObjectTypes").DONATION
-                            ? o(
-                                "AdsPlacementIneligibilityReason",
-                              ).createDonationReason()
-                            : t.promotedObjectType ===
-                                r("AdsPromotedObjectTypes").GROUP
-                              ? o(
-                                  "AdsPlacementIneligibilityReason",
-                                ).createGroupPromotionReason()
-                              : t.promotedObjectType ===
-                                  r("AdsPromotedObjectTypes").IMAGINATION
-                                ? o(
-                                    "AdsPlacementIneligibilityReason",
-                                  ).createImaginationReason()
-                                : t.promotedObjectType ===
-                                    r("AdsPromotedObjectTypes").REMINDER
-                                  ? o(
-                                      "AdsPlacementIneligibilityReason",
-                                    ).createReminderPromotionReason()
-                                  : t.destinationType ===
-                                      r("AdCampaignDestination").INSTAGRAM_LIVE
-                                    ? o(
-                                        "AdsPlacementIneligibilityReason",
-                                      ).createInstagramLiveReason()
-                                    : t.destinationType ===
-                                        r("AdCampaignDestination").FACEBOOK_LIVE
-                                      ? o(
-                                          "AdsPlacementIneligibilityReason",
-                                        ).createFacebookLiveReason()
-                                      : (e = t.isClickToMPAds) != null && e
-                                        ? o(
-                                            "AdsPlacementIneligibilityReason",
-                                          ).createGenericReason()
-                                        : o(
-                                              "AdsClickToCallAdsUtils",
-                                            ).getIsCallAdsNewOptimizationUnderTrafficObjective(
-                                              babelHelpers.extends({}, t, {
-                                                objective: i,
-                                              }),
-                                            )
-                                          ? o(
-                                              "AdsPlacementIneligibilityReason",
-                                            ).createPhoneCallTrafficReason()
-                                          : o(
-                                                "AdsClickToCallAdsUtils",
-                                              ).getIsClickToCallAdsUnderLeadGenObjective(
-                                                babelHelpers.extends({}, t, {
-                                                  objective: i,
-                                                }),
-                                              )
-                                            ? o(
-                                                "AdsPlacementIneligibilityReason",
-                                              ).createPhoneCallLeadReason()
-                                            : o(
-                                                  "AdsClickToCallAdsUtils",
-                                                ).getIsClickToCallAdsUnderConversionsOrSalesObjective(
-                                                  babelHelpers.extends({}, t, {
-                                                    objective: i,
-                                                  }),
-                                                )
-                                              ? o(
-                                                  "AdsPlacementIneligibilityReason",
-                                                ).createPhoneCallConversionsOrSalesReason()
-                                              : r(
-                                                    "AdsAppUrlUtils",
-                                                  ).isInstantGameURL(
-                                                    t.objectStoreURL,
-                                                  )
-                                                ? o(
-                                                    "AdsPlacementIneligibilityReason",
-                                                  ).createInstantGameReason()
-                                                : d(t)
-                                                  ? o(
-                                                      "AdsPlacementIneligibilityReason",
-                                                    ).createCustomReason(
-                                                      s._(
-                                                        /*BTDS*/ "This placement is no longer available.",
-                                                      ),
-                                                    )
-                                                  : null;
+                            ).createInstantGameReason()
+                          : o(
+                              "AdsPlacementIneligibilityReason",
+                            ).createCustomReason(s._(/*BTDS*/ ""));
         },
         isActive: function (t) {
           return o(
@@ -335,21 +319,15 @@ __d(
             case o("AdsUEditorCampaignPlacementSetActionFlux").actionType:
               return e.removeGroups.includes("messenger/story")
                 ? o("AdsMutators").mutateEach(t, e.campaignIDs, function (t) {
-                    return d(e.eligibilityInformation)
-                      ? o("AdsPlacementAPISpecWriterUtils").removeGroupAnyway(
-                          t,
-                          "messenger/story",
-                          e.eligibilityInformation,
-                          r("AdsAPITargetFields").MESSENGER_POSITIONS,
-                          "messenger",
-                        )
-                      : o("AdsPlacementAPISpecWriterUtils").removeGroup(
-                          t,
-                          "messenger/story",
-                          e.eligibilityInformation,
-                          r("AdsAPITargetFields").MESSENGER_POSITIONS,
-                          "messenger",
-                        );
+                    return o(
+                      "AdsPlacementAPISpecWriterUtils",
+                    ).removeGroupAnyway(
+                      t,
+                      "messenger/story",
+                      e.eligibilityInformation,
+                      r("AdsAPITargetFields").MESSENGER_POSITIONS,
+                      "messenger",
+                    );
                   })
                 : e.addGroups.includes("messenger/story")
                   ? o("AdsMutators").mutateEach(t, e.campaignIDs, function (t) {
@@ -377,8 +355,7 @@ __d(
                 t,
                 e.campaignIDs,
                 function (t) {
-                  return e.pluginKey === "messenger/story" &&
-                    d(e.eligibilityInformation)
+                  return e.pluginKey === "messenger/story"
                     ? o("AdsPlacementAPISpecWriterUtils").removeGroupAnyway(
                         t,
                         e.pluginKey,

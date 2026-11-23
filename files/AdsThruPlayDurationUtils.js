@@ -34,8 +34,6 @@ __d(
     }
     function p(e) {
       switch (e) {
-        case r("AdsAPIOptimizationGoals").SIX_SECOND_VIDEO_VIEWS:
-          return r("AdsAPIBillingEvents").SIX_SECOND_VIDEO_VIEWS;
         case r("AdsAPIOptimizationGoals").THRUPLAY:
           return r("AdsAPIBillingEvents").THRUPLAY;
         default:

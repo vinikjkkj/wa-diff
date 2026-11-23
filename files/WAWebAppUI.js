@@ -33,53 +33,26 @@ __d(
     "cr:8094",
     "nullthrows",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c() {
-      var e = o("react-compiler-runtime").c(2),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = s._(/*BTDS*/ "Service unavailable")), (e[0] = t))
-        : (t = e[0]);
-      var n;
-      return (
-        e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = u.jsx(o("WAWebModal.react").Modal, {
-              title: t,
-              cover: !0,
-              children: s._(
-                /*BTDS*/ "We're having trouble connecting to WhatsApp. Please try again in a few minutes.",
-              ),
-            })),
-            (e[1] = n))
-          : (n = e[1]),
-        n
-      );
+      return u.jsx(o("WAWebModal.react").Modal, {
+        title: s._(/*BTDS*/ ""),
+        cover: !0,
+        children: s._(/*BTDS*/ ""),
+      });
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     function d() {
-      var e = o("react-compiler-runtime").c(2),
-        t;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = s._(/*BTDS*/ "Computer not connected")), (e[0] = t))
-        : (t = e[0]);
-      var n;
-      return (
-        e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = u.jsx(o("WAWebModal.react").Modal, {
-              title: t,
-              cover: !0,
-              children: s._(
-                /*BTDS*/ "Make sure your computer has an active internet connection.",
-              ),
-            })),
-            (e[1] = n))
-          : (n = e[1]),
-        n
-      );
+      return u.jsx(o("WAWebModal.react").Modal, {
+        title: s._(/*BTDS*/ ""),
+        cover: !0,
+        children: s._(/*BTDS*/ ""),
+      });
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m(e) {
       var t = e.Main,
         a = e.animate,
@@ -119,13 +92,11 @@ __d(
                   children: u.jsx(r("WAWebConflict.react"), {
                     cancelText: r("WAWebFbtCommon")("Close"),
                     onCancel: g,
-                    okText: s._(/*BTDS*/ "Notify other tab"),
+                    okText: s._(/*BTDS*/ ""),
                     onOK: function () {
                       r("WAWebAppMutex").requestFocusOnOtherTab();
                     },
-                    children: s._(
-                      /*BTDS*/ 'You are currently in a call in another window or tab. Click "Notify Other Tab" to send a notification that will bring that window to the front.',
-                    ),
+                    children: s._(/*BTDS*/ ""),
                   }),
                 }),
                 errorBoundaryName: f,
@@ -249,17 +220,15 @@ __d(
               {
                 ui: u.jsx(o("WAWebFavicon.react").ErrorFavicon, {
                   children: u.jsx(r("WAWebConflict.react"), {
-                    cancelText: s._(/*BTDS*/ "Log out"),
+                    cancelText: s._(/*BTDS*/ ""),
                     onCancel: function () {
                       return o("WAWebSocketModel").Socket.logout();
                     },
-                    okText: s._(/*BTDS*/ "Use here"),
+                    okText: s._(/*BTDS*/ ""),
                     onOK: function () {
                       return o("WAWebSocketModel").Socket.takeover();
                     },
-                    children: s._(
-                      /*BTDS*/ 'WhatsApp is open on another computer or browser. Click "Use here" to use WhatsApp in this window.',
-                    ),
+                    children: s._(/*BTDS*/ ""),
                   }),
                 }),
                 errorBoundaryName: f,

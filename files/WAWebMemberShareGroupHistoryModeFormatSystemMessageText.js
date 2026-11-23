@@ -44,17 +44,13 @@ __d(
           o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode
             .ADMIN_SHARE
         )
-          return s._(
-            /*BTDS*/ "You changed this group's settings to allow only admins to send message history to new members.",
-          );
+          return s._(/*BTDS*/ "");
         if (
           i ===
           o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode
             .ALL_MEMBER_SHARE
         )
-          return s._(
-            /*BTDS*/ "You changed this group's settings to allow all members to send message history to new members.",
-          );
+          return s._(/*BTDS*/ "");
       }
       var d = c
         ? o("WAWebFormatParticipantNames").getFormattedName({ jid: c })
@@ -62,24 +58,14 @@ __d(
       return i ===
         o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode.ADMIN_SHARE
         ? d == null
-          ? s._(
-              /*BTDS*/ "This group's settings have changed to allow only admins to send message history to new members.",
-            )
-          : s._(
-              /*BTDS*/ "{name} changed this group's settings to allow only admins to send message history to new members.",
-              [s._param("name", d)],
-            )
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "", [s._param("name", d)])
         : i ===
             o("WAWebGroupHistoryShareMode").MemberShareGroupHistoryMode
               .ALL_MEMBER_SHARE
           ? d == null
-            ? s._(
-                /*BTDS*/ "This group's settings have changed to allow all members to send message history to new members.",
-              )
-            : s._(
-                /*BTDS*/ "{name} changed this group's settings to allow all members to send message history to new members.",
-                [s._param("name", d)],
-              )
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "", [s._param("name", d)])
           : "";
     }
     l.default = c;

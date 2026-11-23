@@ -5,28 +5,40 @@ __d(
     "WALogger",
     "WAWebOfflineSimulatorGenerator",
     "WAWebOfflineSimulatorTraffic",
-    "WAWebOfflineSimulatorTypes.flow",
+    "WAWebOfflineSimulatorTypes",
     "WAWebUserPrefsMultiDeviceDebug",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e) {
+    async function u() {
+      var e = d(),
+        t = {};
+      for (var n in e)
+        if (Object.hasOwn(e, n)) {
+          var a = e[n];
+          t[n] = r("compactMap")(a, c);
+        }
+      var i = await o("WAWebOfflineSimulatorGenerator").createTrafficHandler(
+        r("nullthrows")(o("WAComms").getComms()),
+        t,
+      );
+      await i.receiveAll();
+    }
+    function c(e) {
       var t,
         n,
         a,
         i,
         l =
-          (t = o(
-            "WAWebOfflineSimulatorTypes.flow",
-          ).OfflineSimuilatorItemType.cast(e.type)) != null
+          (t = o("WAWebOfflineSimulatorTypes").OfflineSimuilatorItemType.cast(
+            e.type,
+          )) != null
             ? t
-            : o("WAWebOfflineSimulatorTypes.flow").OfflineSimuilatorItemType
-                .Msg,
+            : o("WAWebOfflineSimulatorTypes").OfflineSimuilatorItemType.Msg,
         s =
           e.from instanceof r("WAWebWid")
             ? e.from
@@ -49,28 +61,7 @@ __d(
           reactionFrom: c,
         };
     }
-    function c() {
-      return d.apply(this, arguments);
-    }
     function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = m(),
-            t = {};
-          for (var n in e)
-            if (Object.prototype.hasOwnProperty.call(e, n)) {
-              var a = e[n];
-              t[n] = r("compactMap")(a, u);
-            }
-          var i = yield o(
-            "WAWebOfflineSimulatorGenerator",
-          ).createTrafficHandler(r("nullthrows")(o("WAComms").getComms()), t);
-          yield i.receiveAll();
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m() {
       var t = o("WAWebUserPrefsMultiDeviceDebug").getDebugOfflineMockTraffic();
       return t != null
         ? (o("WALogger").LOG(
@@ -88,7 +79,7 @@ __d(
           ),
           r("WAWebOfflineSimulatorTraffic"));
     }
-    l.default = c;
+    l.default = u;
   },
   98,
 );

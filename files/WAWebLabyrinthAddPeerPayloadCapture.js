@@ -6,38 +6,23 @@ __d(
     "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthPendingAddPeerPayload",
     "WAWebODS",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = 59,
       u = 4096;
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield o("WAWebLabyrinthPendingAddPeerPayload").holdAddPeerPayload(
-            m(e, t),
-          );
-        })),
-        d.apply(this, arguments)
+    async function c(e, t) {
+      await o("WAWebLabyrinthPendingAddPeerPayload").holdAddPeerPayload(
+        d(e, t),
       );
     }
-    function m(t, n) {
+    function d(t, n) {
       try {
         if (
           (r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.received"),
-          r("justknobx")._("6730") === !0)
+          n.byteLength < s)
         )
-          return (
-            r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.killswitch"),
-            null
-          );
-        if (n.byteLength < s)
           return (
             r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.undersized"),
             null
@@ -53,7 +38,7 @@ __d(
           ),
           sealedPayload: o(
             "WAWebLabyrinthOpaqueTypes",
-          ).makeSealedAddPeerDevicePayload(p(n)),
+          ).makeSealedAddPeerDevicePayload(m(n)),
         };
         return (
           r("WAWebODS").incr("web.app.labyrinth_add_peer.pairing.captured"),
@@ -74,7 +59,7 @@ __d(
         );
       }
     }
-    function p(e) {
+    function m(e) {
       return e instanceof ArrayBuffer ? e.slice(0) : e.slice().buffer;
     }
     l.captureAddPeerPayload = c;

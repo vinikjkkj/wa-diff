@@ -6,7 +6,6 @@ __d(
     "WAWebContactImportTemplateParsingUtils",
     "WAWebFetchAdAccountToken",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -46,58 +45,49 @@ __d(
         return { first_name: u, last_name: c, phone: l };
       });
     }
-    function d(e, t, n) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a,
-            i = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (i.type !== "success")
-            throw r("err")("Failed to fetch access token");
-          var l = i.token,
-            c = n.map(function (e) {
-              return {
-                first_name: u(e.first_name),
-                last_name: u(e.last_name),
-                phone: o(
-                  "WAWebContactImportFileProcessor",
-                ).normalizePhoneNumber(e.phone),
-              };
-            }),
-            d = c.some(function (e) {
-              return e.first_name != null || e.last_name != null;
-            }),
-            m = yield o("WAWebRelayClient").commitMutation(
-              s,
-              {
-                input: {
-                  name: t,
-                  phone_numbers: d
-                    ? null
-                    : c.map(function (e) {
-                        return e.phone;
-                      }),
-                  recipients: d ? c : null,
-                  subscriber_pool_id: e,
-                },
-              },
-              {
-                accessToken: { type: "FB", token: l.token, bp_id: l.bp_id },
-                environmentType: "facebook",
-              },
+    async function d(e, t, n) {
+      var a,
+        i = await o("WAWebFetchAdAccountToken").fetchToken();
+      if (i.type !== "success") throw r("err")("Failed to fetch access token");
+      var l = i.token,
+        c = n.map(function (e) {
+          return {
+            first_name: u(e.first_name),
+            last_name: u(e.last_name),
+            phone: o("WAWebContactImportFileProcessor").normalizePhoneNumber(
+              e.phone,
             ),
-            p =
-              m == null ||
-              (a = m.create_wa_marketing_messages_custom_audience) == null
-                ? void 0
-                : a.custom_audience_id;
-          if (p == null) throw r("err")("Failed to create custom audience");
-          return p;
-        })),
-        m.apply(this, arguments)
-      );
+          };
+        }),
+        d = c.some(function (e) {
+          return e.first_name != null || e.last_name != null;
+        }),
+        m = await o("WAWebRelayClient").commitMutation(
+          s,
+          {
+            input: {
+              name: t,
+              phone_numbers: d
+                ? null
+                : c.map(function (e) {
+                    return e.phone;
+                  }),
+              recipients: d ? c : null,
+              subscriber_pool_id: e,
+            },
+          },
+          {
+            accessToken: { type: "FB", token: l.token, bp_id: l.bp_id },
+            environmentType: "facebook",
+          },
+        ),
+        p =
+          m == null ||
+          (a = m.create_wa_marketing_messages_custom_audience) == null
+            ? void 0
+            : a.custom_audience_id;
+      if (p == null) throw r("err")("Failed to create custom audience");
+      return p;
     }
     ((l.toAudienceRecipients = c), (l.createCustomAudienceList = d));
   },

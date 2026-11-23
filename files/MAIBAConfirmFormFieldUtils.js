@@ -14,16 +14,16 @@ __d(
         ((e = {}),
         (e.EMAIL = {
           icon: r("FBNucleusEnvelopeOutline24Icon.react"),
-          placeholder: s._(/*BTDS*/ "Enter email address"),
-          errorMessage: s._(/*BTDS*/ "Incorrect email"),
+          placeholder: s._(/*BTDS*/ ""),
+          errorMessage: s._(/*BTDS*/ ""),
           validate: function (t) {
             return o("SimpleInterfaceUtils").getIsValidEmail(t);
           },
         }),
         (e.PHONE_NUMBER = {
           icon: r("FBNucleusPhoneOutline24Icon.react"),
-          placeholder: s._(/*BTDS*/ "Enter phone number"),
-          errorMessage: s._(/*BTDS*/ "Invalid phone number"),
+          placeholder: s._(/*BTDS*/ ""),
+          errorMessage: s._(/*BTDS*/ ""),
           validate: function (t) {
             return u.test(t);
           },

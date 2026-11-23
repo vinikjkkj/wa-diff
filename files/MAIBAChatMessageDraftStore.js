@@ -1,6 +1,6 @@
 __d(
   "MAIBAChatMessageDraftStore",
-  ["MAIBAReactiveMap", "react", "react-compiler-runtime"],
+  ["MAIBAReactiveMap", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -49,92 +49,43 @@ __d(
       _.delete(p(e));
     }
     function b(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n;
-      t[0] !== e ? ((n = p(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
-      var r = n,
-        a;
-      t[2] !== r
-        ? ((a = function (t) {
-            return _.subscribe(r, t);
-          }),
-          (t[2] = r),
-          (t[3] = a))
-        : (a = t[3]);
-      var i;
-      t[4] !== e
-        ? ((i = function () {
+      var t = p(e),
+        n = c(
+          function (e) {
+            return _.subscribe(t, e);
+          },
+          function () {
             return f(e).text;
-          }),
-          (t[4] = e),
-          (t[5] = i))
-        : (i = t[5]);
-      var l = c(a, i),
-        s;
-      t[6] !== e
-        ? ((s = function (n) {
-            return g(e, n);
-          }),
-          (t[6] = e),
-          (t[7] = s))
-        : (s = t[7]);
-      var u = s,
-        d;
-      return (
-        t[8] !== u || t[9] !== l
-          ? ((d = [l, u]), (t[8] = u), (t[9] = l), (t[10] = d))
-          : (d = t[10]),
-        d
-      );
+          },
+        ),
+        r = u(
+          function (t) {
+            return g(e, t);
+          },
+          [e],
+        );
+      return [n, r];
     }
     function v(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n;
-      t[0] !== e ? ((n = p(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
-      var r = n,
-        a;
-      t[2] !== r
-        ? ((a = function (t) {
-            return _.subscribe(r, t);
-          }),
-          (t[2] = r),
-          (t[3] = a))
-        : (a = t[3]);
-      var i;
-      return (
-        t[4] !== e
-          ? ((i = function () {
-              return f(e).selectedAssets;
-            }),
-            (t[4] = e),
-            (t[5] = i))
-          : (i = t[5]),
-        c(a, i)
+      var t = p(e);
+      return c(
+        function (e) {
+          return _.subscribe(t, e);
+        },
+        function () {
+          return f(e).selectedAssets;
+        },
       );
     }
     function S(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n;
-      t[0] !== e ? ((n = p(e)), (t[0] = e), (t[1] = n)) : (n = t[1]);
-      var r = n,
-        a;
-      t[2] !== r
-        ? ((a = function (t) {
-            return _.subscribe(r, t);
-          }),
-          (t[2] = r),
-          (t[3] = a))
-        : (a = t[3]);
-      var i;
-      return (
-        t[4] !== e
-          ? ((i = function () {
-              return f(e).stagedVariantAttachments;
-            }),
-            (t[4] = e),
-            (t[5] = i))
-          : (i = t[5]),
-        c(a, i)
+      var t = p(e);
+      return c(
+        function (e) {
+          return _.subscribe(t, e);
+        },
+        function () {
+          return f(e).stagedVariantAttachments;
+        },
       );
     }
     ((l.getMAIBAChatMessageDraft = f),

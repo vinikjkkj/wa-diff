@@ -4,7 +4,6 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAWebGroupHistoryToggleModeStore",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -13,35 +12,27 @@ __d(
       s = r("JSResourceForInteraction")(
         "WAWebSendGroupHistoryToggleMutation",
       ).__setRef("WAWebPersistAndSyncGroupHistoryToggle");
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a = yield o(
-            "WAWebGroupHistoryToggleModeStore",
-          ).setGroupHistoryToggleMode(t, n);
-          if (!a) return a;
-          try {
-            var i = yield s.load(),
-              l = i.sendGroupHistoryToggleMutation;
-            yield l(t, n);
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "persistAndSyncGroupHistoryToggle: sending the toggle mutation failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("group-history-toggle-sync-send-failed");
-          }
-          return a;
-        })),
-        c.apply(this, arguments)
-      );
+    async function u(t, n) {
+      var a = await o(
+        "WAWebGroupHistoryToggleModeStore",
+      ).setGroupHistoryToggleMode(t, n);
+      if (!a) return a;
+      try {
+        var i = await s.load(),
+          l = i.sendGroupHistoryToggleMutation;
+        await l(t, n);
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "persistAndSyncGroupHistoryToggle: sending the toggle mutation failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("group-history-toggle-sync-send-failed");
+      }
+      return a;
     }
     l.persistAndSyncGroupHistoryToggle = u;
   },

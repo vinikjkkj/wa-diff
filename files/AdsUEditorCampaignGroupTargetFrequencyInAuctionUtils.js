@@ -3,7 +3,6 @@ __d(
   [
     "AdsBuyingTypes",
     "AdsFrequencyControlEditorConstants",
-    "AdsTargetFrequencyInAuctionSharedPredictionUtils",
     "AdsUEditorCampaignGroupL2AggregationUtils",
     "ReachFrequencyPredictionModes",
     "first",
@@ -112,28 +111,13 @@ __d(
         timezone: l.timezone_id,
       };
     }
-    function u(e, t, n, r, o, a, i) {
-      i === void 0 && (i = !1);
-      var l = s(e, r, n, a, o);
-      if (l == null) return null;
-      var u = t.params;
-      return u != null && JSON.stringify(l) === JSON.stringify(u) ? null : l;
+    function u(e, t, n, r, o, a) {
+      var i = s(e, r, n, a, o);
+      if (i == null) return null;
+      var l = t.params;
+      return l != null && JSON.stringify(i) === JSON.stringify(l) ? null : i;
     }
-    function c(e) {
-      var t = new Set([
-        "daily_budget",
-        "lifetime_budget",
-        "end_time",
-        "frequency_control_specs",
-        "bid_strategy",
-      ]);
-      for (var n of e) {
-        var r = n.split(".")[0];
-        if (t.has(r)) return !0;
-      }
-      return !1;
-    }
-    function d(e, t, n, o, a, i) {
+    function c(e, t, n, o, a, i) {
       var l,
         u = r("first")(t);
       if (u == null) return null;
@@ -162,11 +146,7 @@ __d(
       return s(f, d, _, i.account_id, i);
     }
     ((l.getNewCampaignGroupPredictionParams = u),
-      (l.isPredictionRequiredForMidFlightCampaignGroupEdit = c),
-      (l.buildInitialCampaignGroupPredictionParams = d),
-      (l.getTargetFrequencyInAuctionCampaignGroupErrorMessage = o(
-        "AdsTargetFrequencyInAuctionSharedPredictionUtils",
-      ).getTargetFrequencyInAuctionErrorMessage));
+      (l.buildInitialCampaignGroupPredictionParams = c));
   },
   98,
 );

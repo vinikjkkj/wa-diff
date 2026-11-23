@@ -10,7 +10,6 @@ __d(
     "WDSButtonGroup.react",
     "WDSDialog.react",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -23,15 +22,12 @@ __d(
       o("WDSDialogBridge").openWDSDialog(
         u.jsx(r("WDSDialog.react"), {
           closeButton: !1,
-          description: s._(
-            /*BTDS*/ "{guest name} will be removed from the guest list and won't be able to access the event details. Removing a guest who responded via link won't stop others with the link from responding.",
-            [s._param("guest name", n)],
-          ),
+          description: s._(/*BTDS*/ "", [s._param("guest name", n)]),
           footer: u.jsx(r("WDSButtonGroup.react"), {
             orientation: "stacked",
             width: "fill",
             primaryButtonProps: {
-              label: s._(/*BTDS*/ "Remove guest"),
+              label: s._(/*BTDS*/ ""),
               onPress: function () {
                 return a(!1);
               },
@@ -40,7 +36,7 @@ __d(
               variant: "outline",
             },
             secondaryButtonProps: {
-              label: s._(/*BTDS*/ "Remove guest and reset event link"),
+              label: s._(/*BTDS*/ ""),
               onPress: function () {
                 return a(!0);
               },
@@ -49,7 +45,7 @@ __d(
               variant: "outline",
             },
             tertiaryButtonProps: {
-              label: s._(/*BTDS*/ "Cancel"),
+              label: s._(/*BTDS*/ ""),
               onPress: o("WDSDialogBridge").closeWDSDialog,
               testid: "sharable-event-remove-guest-dialog-cancel",
               variant: "borderless",
@@ -61,55 +57,39 @@ __d(
           open: !0,
           size: "sm",
           testid: "sharable-event-remove-guest-dialog",
-          title: s._(/*BTDS*/ "Remove guest"),
+          title: s._(/*BTDS*/ ""),
         }),
       );
     }
-    function d(e, t, n, r) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            o(
-              "WAWebSharableEventHostUserJourneyLogger",
-            ).logSharableEventHostGuestRemoveTapped(e);
-            try {
-              yield o(
-                "WAWebSharableEventRemoveInvitationsJob",
-              ).removeSharableEventInvitations(e, [t], { resetLink: r });
-            } catch (t) {
-              (o("WAWebSharableEventFailureLogger").logSharableEventFailure(
-                "remove-guest",
-                t,
-              ),
-                o(
-                  "WAWebSharableEventHostUserJourneyLogger",
-                ).logSharableEventHostGuestRemoveFailed(e, t),
-                o("WAWebToastManager").ToastManager.open(
-                  u.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(
-                      /*BTDS*/ "Couldn't remove from event. Please try again.",
-                    ),
-                  }),
-                ));
-              return;
-            }
-            (o(
-              "WAWebSharableEventHostUserJourneyLogger",
-            ).logSharableEventHostGuestRemoved(e),
-              o("WAWebToastManager").ToastManager.open(
-                u.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Removed {guest name} from this event", [
-                    s._param("guest name", n),
-                  ]),
-                }),
-              ));
-          },
-        )),
-        m.apply(this, arguments)
-      );
+    async function d(e, t, n, r) {
+      o(
+        "WAWebSharableEventHostUserJourneyLogger",
+      ).logSharableEventHostGuestRemoveTapped(e);
+      try {
+        await o(
+          "WAWebSharableEventRemoveInvitationsJob",
+        ).removeSharableEventInvitations(e, [t], { resetLink: r });
+      } catch (t) {
+        (o("WAWebSharableEventFailureLogger").logSharableEventFailure(
+          "remove-guest",
+          t,
+        ),
+          o(
+            "WAWebSharableEventHostUserJourneyLogger",
+          ).logSharableEventHostGuestRemoveFailed(e, t),
+          o("WAWebToastManager").ToastManager.open(
+            u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+          ));
+        return;
+      }
+      (o(
+        "WAWebSharableEventHostUserJourneyLogger",
+      ).logSharableEventHostGuestRemoved(e),
+        o("WAWebToastManager").ToastManager.open(
+          u.jsx(o("WAWebToast.react").Toast, {
+            msg: s._(/*BTDS*/ "", [s._param("guest name", n)]),
+          }),
+        ));
     }
     l.removeSharableEventGuest = c;
   },

@@ -1,13 +1,11 @@
 __d(
   "WAWebVoipBackgroundImageStore",
   [
-    "Promise",
     "WACustomError",
     "WALogger",
     "WAPromiseTimeout",
     "WAWebNoop",
     "WAWebVoipBackgroundPreview",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,513 +13,304 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = "wa-voip-backgrounds",
-      m = "/wa-voip-backgrounds/list",
-      p = "/wa-voip-backgrounds/image/",
-      _ = "/wa-voip-backgrounds/preview/",
-      f = "/wa-voip-backgrounds/custom/",
-      g = "/wa-voip-backgrounds/used",
-      h = "X-WA-Stored-At",
-      y = "X-WA-Picture-Version",
-      C = "3",
-      b = "X-WA-Picture-Layout",
-      v = "X-WA-Preview-Version",
-      S = 12,
-      R = 720 * 60 * 60 * 1e3,
-      L = 10080 * 60 * 1e3,
-      E = 2e3,
-      k = (c || (c = n("Promise"))).resolve();
-    function I(e) {
-      return T.apply(this, arguments);
+      c = "wa-voip-backgrounds",
+      d = "/wa-voip-backgrounds/list",
+      m = "/wa-voip-backgrounds/image/",
+      p = "/wa-voip-backgrounds/preview/",
+      _ = "/wa-voip-backgrounds/custom/",
+      f = "/wa-voip-backgrounds/used",
+      g = "X-WA-Stored-At",
+      h = "X-WA-Picture-Version",
+      y = "3",
+      C = "X-WA-Picture-Layout",
+      b = "X-WA-Preview-Version",
+      v = 12,
+      S = 720 * 60 * 60 * 1e3,
+      R = 10080 * 60 * 1e3,
+      L = 2e3,
+      E = Promise.resolve();
+    async function k(e) {
+      return O("read the list", null, async function (t) {
+        var n = await t.match(d);
+        if (n == null) return null;
+        var r = j(JSON.parse(await n.text()));
+        return r == null || r.locale !== e || !(Date.now() - r.storedAtMs < R)
+          ? null
+          : r.list;
+      });
     }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return Y(
-            "read the list",
-            null,
-            (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  var n = yield t.match(m);
-                  if (n == null) return null;
-                  var r = ce(JSON.parse(yield n.text()));
-                  return r == null ||
-                    r.locale !== e ||
-                    !(Date.now() - r.storedAtMs < L)
-                    ? null
-                    : r.list;
-                },
-              );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })(),
-          );
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    function D(e, t) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t.length !== 0 &&
-            (yield Y(
-              "store the list",
-              void 0,
-              (function () {
-                var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (r) {
-                    var o = { list: t, locale: e, storedAtMs: Date.now() };
-                    yield r.put(m, new Response(JSON.stringify(o)));
-                    var a = new Set(
-                        t.map(function (e) {
-                          var t = e.id;
-                          return t;
-                        }),
-                      ),
-                      i = function (t) {
-                        return !a.has(t);
-                      },
-                      l = yield (c || (c = n("Promise"))).all([
-                        J(r, p),
-                        J(r, _),
-                      ]),
-                      s = l[0],
-                      u = l[1];
-                    yield c.all([ee(r, p, s.filter(i)), ee(r, _, u.filter(i))]);
-                  },
-                );
-                return function (e) {
-                  return r.apply(this, arguments);
-                };
-              })(),
-            ));
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e, t) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = t === void 0 ? {} : t,
-            i = a.countsAsUse,
-            l = i === void 0 ? !0 : i;
-          return Y(
-            "read a picture",
-            null,
-            (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  var n = yield t.match(p + e);
-                  if (n == null) return null;
-                  var a = Number(n.headers.get(h)),
-                    i =
-                      Date.now() - a < R && n.headers.get(y) === C
-                        ? ie(le(n.headers.get(b)), yield n.blob())
-                        : null;
-                  if (i == null) return (yield ee(t, p, [e]), null);
-                  if (!l) return i;
-                  try {
-                    var s;
-                    yield oe(
-                      t,
-                      babelHelpers.extends(
-                        {},
-                        yield ne(t),
-                        ((s = {}), (s[e] = Date.now()), s),
-                      ),
-                    );
-                  } catch (e) {
-                    o("WALogger")
-                      .WARN(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "voip: [effects] background store could not mark a picture used",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e));
-                  }
-                  return i;
-                },
-              );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })(),
-          );
-        })),
-        P.apply(this, arguments)
-      );
-    }
-    function N(e, t, n) {
-      return M.apply(this, arguments);
-    }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = n === void 0 ? {} : n,
-            o = r.countsAsUse,
-            a = o === void 0 ? !0 : o;
-          yield Y("store a picture", void 0, function (n) {
-            return Q(n, e, t, { countsAsUse: a, replace: !0 });
-          });
-        })),
-        M.apply(this, arguments)
-      );
-    }
-    function w(e, t) {
-      return A.apply(this, arguments);
-    }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield Y("keep a picture", void 0, function (n) {
-            return Q(n, e, t, { countsAsUse: !0, replace: !1 });
-          });
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F(e) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return Y(
-            "read a preview",
-            null,
-            (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  var n = yield t.match(_ + e);
-                  if (n == null) return null;
-                  var r = Number(n.headers.get(h));
-                  return Date.now() - r < R &&
-                    n.headers.get(v) ===
-                      o("WAWebVoipBackgroundPreview").BACKGROUND_PREVIEW_VERSION
-                    ? n.blob()
-                    : (yield ee(t, _, [e]), null);
-                },
-              );
-              return function (e) {
-                return t.apply(this, arguments);
-              };
-            })(),
-          );
-        })),
-        O.apply(this, arguments)
-      );
-    }
-    function B(e, t) {
-      return W.apply(this, arguments);
-    }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield Y("store a preview", void 0, function (n) {
-            var r;
-            return n.put(
-              _ + e,
-              new Response(t, {
-                headers:
-                  ((r = {}),
-                  (r[v] = o(
-                    "WAWebVoipBackgroundPreview",
-                  ).BACKGROUND_PREVIEW_VERSION),
-                  (r[h] = "" + Date.now()),
-                  r),
+    async function I(e, t) {
+      t.length !== 0 &&
+        (await O("store the list", void 0, async function (n) {
+          var r = { list: t, locale: e, storedAtMs: Date.now() };
+          await n.put(d, new Response(JSON.stringify(r)));
+          var o = new Set(
+              t.map(function (e) {
+                var t = e.id;
+                return t;
               }),
-            );
-          });
-        })),
-        W.apply(this, arguments)
-      );
+            ),
+            a = function (t) {
+              return !o.has(t);
+            },
+            i = await Promise.all([B(n, m), B(n, p)]),
+            l = i[0],
+            s = i[1];
+          await Promise.all([W(n, m, l.filter(a)), W(n, p, s.filter(a))]);
+        }));
     }
-    function q(e) {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield Y("forget a preview", void 0, function (t) {
-            return ee(t, _, [e]);
-          });
-        })),
-        U.apply(this, arguments)
-      );
-    }
-    function V() {
-      return H.apply(this, arguments);
-    }
-    function H() {
-      return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return Y(
-            "read the custom picture",
-            { status: "unreadable" },
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var t = yield J(e, f),
-                    n = t[t.length - 1],
-                    r = n == null ? null : yield e.match(f + n);
-                  return n == null || r == null
-                    ? { status: "none" }
-                    : { id: n, picture: yield r.blob(), status: "kept" };
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-            { hasDeadline: !1 },
+    async function T(t, n) {
+      var a = n === void 0 ? {} : n,
+        i = a.countsAsUse,
+        l = i === void 0 ? !0 : i;
+      return O("read a picture", null, async function (n) {
+        var a = await n.match(m + t);
+        if (a == null) return null;
+        var i = Number(a.headers.get(g)),
+          s =
+            Date.now() - i < S && a.headers.get(h) === y
+              ? V(H(a.headers.get(C)), await a.blob())
+              : null;
+        if (s == null) return (await W(n, m, [t]), null);
+        if (!l) return s;
+        try {
+          var u;
+          await U(
+            n,
+            babelHelpers.extends(
+              {},
+              await q(n),
+              ((u = {}), (u[t] = Date.now()), u),
+            ),
           );
-        })),
-        H.apply(this, arguments)
-      );
+        } catch (t) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [effects] background store could not mark a picture used",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t));
+        }
+        return s;
+      });
     }
-    function G(e, t) {
-      return z.apply(this, arguments);
+    async function D(e, t, n) {
+      var r = n === void 0 ? {} : n,
+        o = r.countsAsUse,
+        a = o === void 0 ? !0 : o;
+      await O("store a picture", void 0, function (n) {
+        return F(n, e, t, { countsAsUse: a, replace: !0 });
+      });
     }
-    function z() {
-      return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return Y(
-            "store the custom picture",
-            !1,
-            (function () {
-              var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (n) {
-                  var r = (yield J(n, f)).filter(function (t) {
-                    return t !== e;
-                  });
-                  return (
-                    yield ee(n, f, r),
-                    yield n.put(f + e, new Response(t)),
-                    !0
-                  );
-                },
-              );
-              return function (e) {
-                return r.apply(this, arguments);
-              };
-            })(),
-            { hasDeadline: !1 },
-          );
-        })),
-        z.apply(this, arguments)
-      );
+    async function x(e, t) {
+      await O("keep a picture", void 0, function (n) {
+        return F(n, e, t, { countsAsUse: !0, replace: !1 });
+      });
     }
-    function j() {
-      return K.apply(this, arguments);
+    async function $(e) {
+      return O("read a preview", null, async function (t) {
+        var n = await t.match(p + e);
+        if (n == null) return null;
+        var r = Number(n.headers.get(g));
+        return Date.now() - r < S &&
+          n.headers.get(b) ===
+            o("WAWebVoipBackgroundPreview").BACKGROUND_PREVIEW_VERSION
+          ? n.blob()
+          : (await W(t, p, [e]), null);
+      });
     }
-    function K() {
-      return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return self.caches == null
-            ? !0
-            : Y(
-                "forget the custom picture",
-                !1,
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = yield J(e, f);
-                      return (yield ee(e, f, t), !0);
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-                { hasDeadline: !1 },
-              );
-        })),
-        K.apply(this, arguments)
-      );
-    }
-    function Q(e, t, n, r) {
-      return X.apply(this, arguments);
-    }
-    function X() {
-      return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o = r.countsAsUse,
-              a = r.replace,
-              i = yield ne(e),
-              l = yield J(e, p),
-              s = !l.includes(t),
-              u = function (t) {
-                var e;
-                return (e = i[t]) != null ? e : 0;
-              },
-              c = l
-                .filter(function (e) {
-                  return e !== t;
-                })
-                .sort(function (e, t) {
-                  return u(e) - u(t);
-                }),
-              d = s ? c.slice(0, Math.max(0, c.length - (S - 1))) : [];
-            if (s || a) {
-              var m;
-              yield ee(e, p, d);
-              var _ = {
-                columns: n.columns,
-                rows: n.rows,
-                tiles: n.tiles.map(function (e) {
-                  var t = e.size,
-                    n = e.type;
-                  return { size: t, type: n };
-                }),
-              };
-              yield e.put(
-                p + t,
-                new Response(new Blob(Array.from(n.tiles)), {
-                  headers:
-                    ((m = {}),
-                    (m[b] = JSON.stringify(_)),
-                    (m[y] = C),
-                    (m[h] = "" + Date.now()),
-                    m),
-                }),
-              );
-            }
-            var f = new Set(d),
-              g = {};
-            for (var v of c) f.has(v) || (g[v] = u(v));
-            var R = s ? 0 : u(t);
-            ((g[t] = o ? Date.now() : R), yield oe(e, g));
-          },
-        )),
-        X.apply(this, arguments)
-      );
-    }
-    function Y(t, a, i, l) {
-      var u = l === void 0 ? {} : l,
-        c = u.hasDeadline,
-        m = c === void 0 ? !0 : c,
-        p = k.then(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = self.caches;
-            return e == null ? a : i(yield e.open(d));
+    async function P(e, t) {
+      await O("store a preview", void 0, function (n) {
+        var r;
+        return n.put(
+          p + e,
+          new Response(t, {
+            headers:
+              ((r = {}),
+              (r[b] = o(
+                "WAWebVoipBackgroundPreview",
+              ).BACKGROUND_PREVIEW_VERSION),
+              (r[g] = "" + Date.now()),
+              r),
           }),
         );
-      k = p.catch(r("WAWebNoop"));
-      var _ = m ? o("WAPromiseTimeout").promiseTimeout(p, E) : p;
-      return _.catch(function (n) {
+      });
+    }
+    async function N(e) {
+      await O("forget a preview", void 0, function (t) {
+        return W(t, p, [e]);
+      });
+    }
+    async function M() {
+      return O(
+        "read the custom picture",
+        { status: "unreadable" },
+        async function (e) {
+          var t = await B(e, _),
+            n = t[t.length - 1],
+            r = n == null ? null : await e.match(_ + n);
+          return n == null || r == null
+            ? { status: "none" }
+            : { id: n, picture: await r.blob(), status: "kept" };
+        },
+        { hasDeadline: !1 },
+      );
+    }
+    async function w(e, t) {
+      return O(
+        "store the custom picture",
+        !1,
+        async function (n) {
+          var r = (await B(n, _)).filter(function (t) {
+            return t !== e;
+          });
+          return (await W(n, _, r), await n.put(_ + e, new Response(t)), !0);
+        },
+        { hasDeadline: !1 },
+      );
+    }
+    async function A() {
+      return self.caches == null
+        ? !0
+        : O(
+            "forget the custom picture",
+            !1,
+            async function (e) {
+              var t = await B(e, _);
+              return (await W(e, _, t), !0);
+            },
+            { hasDeadline: !1 },
+          );
+    }
+    async function F(e, t, n, r) {
+      var o = r.countsAsUse,
+        a = r.replace,
+        i = await q(e),
+        l = await B(e, m),
+        s = !l.includes(t),
+        u = function (t) {
+          var e;
+          return (e = i[t]) != null ? e : 0;
+        },
+        c = l
+          .filter(function (e) {
+            return e !== t;
+          })
+          .sort(function (e, t) {
+            return u(e) - u(t);
+          }),
+        d = s ? c.slice(0, Math.max(0, c.length - (v - 1))) : [];
+      if (s || a) {
+        var p;
+        await W(e, m, d);
+        var _ = {
+          columns: n.columns,
+          rows: n.rows,
+          tiles: n.tiles.map(function (e) {
+            var t = e.size,
+              n = e.type;
+            return { size: t, type: n };
+          }),
+        };
+        await e.put(
+          m + t,
+          new Response(new Blob(Array.from(n.tiles)), {
+            headers:
+              ((p = {}),
+              (p[C] = JSON.stringify(_)),
+              (p[h] = y),
+              (p[g] = "" + Date.now()),
+              p),
+          }),
+        );
+      }
+      var f = new Set(d),
+        b = {};
+      for (var S of c) f.has(S) || (b[S] = u(S));
+      var R = s ? 0 : u(t);
+      ((b[t] = o ? Date.now() : R), await U(e, b));
+    }
+    function O(e, t, n, a) {
+      var i = a === void 0 ? {} : a,
+        l = i.hasDeadline,
+        d = l === void 0 ? !0 : l,
+        m = E.then(async function () {
+          var e = self.caches;
+          return e == null ? t : n(await e.open(c));
+        });
+      E = m.catch(r("WAWebNoop"));
+      var p = d ? o("WAPromiseTimeout").promiseTimeout(m, L) : m;
+      return p.catch(function (n) {
         return (
           n instanceof o("WACustomError").TimeoutError
             ? o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [effects] background store took over ",
                     " ms to ",
                     ", going on without it",
                   ])),
-                E,
-                t,
+                L,
+                e,
               )
             : o("WALogger")
                 .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [effects] background store could not ",
                       "",
                     ])),
-                  t,
+                  e,
                 )
                 .catching(r("getErrorSafe")(n)),
-          a
+          t
         );
       });
     }
-    function J(e, t) {
-      return Z.apply(this, arguments);
+    async function B(e, t) {
+      var n = await e.keys();
+      return n
+        .map(function (e) {
+          return new URL(e.url).pathname;
+        })
+        .filter(function (e) {
+          return e.startsWith(t);
+        })
+        .map(function (e) {
+          return decodeURIComponent(e.slice(t.length));
+        });
     }
-    function Z() {
-      return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield e.keys();
-          return n
-            .map(function (e) {
-              return new URL(e.url).pathname;
-            })
-            .filter(function (e) {
-              return e.startsWith(t);
-            })
-            .map(function (e) {
-              return decodeURIComponent(e.slice(t.length));
-            });
-        })),
-        Z.apply(this, arguments)
+    async function W(e, t, n) {
+      await Promise.all(
+        n.map(function (n) {
+          return e.delete(t + n);
+        }),
       );
     }
-    function ee(e, t, n) {
-      return te.apply(this, arguments);
+    async function q(e) {
+      var t = await e.match(f);
+      if (t == null) return {};
+      var n;
+      try {
+        n = JSON.parse(await t.text());
+      } catch (e) {
+        return {};
+      }
+      var r = {};
+      if (n != null && typeof n == "object" && !Array.isArray(n))
+        for (var o of Object.entries(n)) {
+          var a = o[0],
+            i = o[1];
+          typeof i == "number" && (r[a] = i);
+        }
+      return r;
     }
-    function te() {
-      return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r) {
-            yield (c || (c = n("Promise"))).all(
-              r.map(function (n) {
-                return e.delete(t + n);
-              }),
-            );
-          },
-        )),
-        te.apply(this, arguments)
-      );
+    async function U(e, t) {
+      await e.put(f, new Response(JSON.stringify(t)));
     }
-    function ne(e) {
-      return re.apply(this, arguments);
-    }
-    function re() {
-      return (
-        (re = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield e.match(g);
-          if (t == null) return {};
-          var n;
-          try {
-            n = JSON.parse(yield t.text());
-          } catch (e) {
-            return {};
-          }
-          var r = {};
-          if (n != null && typeof n == "object" && !Array.isArray(n))
-            for (var o of Object.entries(n)) {
-              var a = o[0],
-                i = o[1];
-              typeof i == "number" && (r[a] = i);
-            }
-          return r;
-        })),
-        re.apply(this, arguments)
-      );
-    }
-    function oe(e, t) {
-      return ae.apply(this, arguments);
-    }
-    function ae() {
-      return (
-        (ae = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield e.put(g, new Response(JSON.stringify(t)));
-        })),
-        ae.apply(this, arguments)
-      );
-    }
-    function ie(e, t) {
+    function V(e, t) {
       if (e == null) return null;
       var n = 0,
         r = e.tiles.map(function (e) {
@@ -534,34 +323,34 @@ __d(
         ? { columns: e.columns, rows: e.rows, tiles: r }
         : null;
     }
-    function le(e) {
+    function H(e) {
       var t = null;
       try {
         t = JSON.parse(e != null ? e : "");
       } catch (e) {
         return null;
       }
-      var n = se(ue(t, "columns")),
-        r = se(ue(t, "rows")),
-        o = ue(t, "tiles");
+      var n = G(z(t, "columns")),
+        r = G(z(t, "rows")),
+        o = z(t, "tiles");
       if (n == null || r == null || !Array.isArray(o) || o.length !== n * r)
         return null;
       var a = [];
       for (var i of o) {
-        var l = se(ue(i, "size")),
-          s = ue(i, "type");
+        var l = G(z(i, "size")),
+          s = z(i, "type");
         if (l == null || typeof s != "string") return null;
         a.push({ size: l, type: s });
       }
       return { columns: n, rows: r, tiles: a };
     }
-    function se(e) {
+    function G(e) {
       return typeof e == "number" && Number.isInteger(e) && e > 0 ? e : null;
     }
-    function ue(e, t) {
+    function z(e, t) {
       return e != null && typeof e == "object" ? e[t] : void 0;
     }
-    function ce(e) {
+    function j(e) {
       if (e == null || typeof e != "object" || Array.isArray(e)) return null;
       var t = e.list,
         n = e.locale,
@@ -599,17 +388,17 @@ __d(
       }
       return { list: o, locale: n, storedAtMs: r };
     }
-    ((l.readStoredBackgroundList = I),
-      (l.storeBackgroundList = D),
-      (l.readStoredBackgroundImage = $),
-      (l.storeBackgroundImage = N),
-      (l.keepStoredBackgroundImage = w),
-      (l.readStoredBackgroundPreview = F),
-      (l.storeBackgroundPreview = B),
-      (l.forgetStoredBackgroundPreview = q),
-      (l.readStoredCustomBackground = V),
-      (l.storeCustomBackground = G),
-      (l.forgetStoredCustomBackground = j));
+    ((l.readStoredBackgroundList = k),
+      (l.storeBackgroundList = I),
+      (l.readStoredBackgroundImage = T),
+      (l.storeBackgroundImage = D),
+      (l.keepStoredBackgroundImage = x),
+      (l.readStoredBackgroundPreview = $),
+      (l.storeBackgroundPreview = P),
+      (l.forgetStoredBackgroundPreview = N),
+      (l.readStoredCustomBackground = M),
+      (l.storeCustomBackground = w),
+      (l.forgetStoredCustomBackground = A));
   },
   98,
 );

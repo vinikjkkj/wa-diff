@@ -1,10 +1,6 @@
 __d(
   "WAWebAbpropDebugChangelog",
-  [
-    "WAWebABPropsCache",
-    "WAWebUserPrefsIndexedDBStorage",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebABPropsCache", "WAWebUserPrefsIndexedDBStorage"],
   function (t, n, r, o, a, i, l) {
     var e = 2e4;
     function s() {
@@ -18,33 +14,38 @@ __d(
         e,
       );
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    async function c(t, n) {
+      var r = [];
+      if (
+        (r.push(
+          new Date().toLocaleString() +
+            ` start sync
+`,
+        ),
+        t.length === 0)
+      )
+        r.push("initial ABProp sync");
+      else {
+        var o = d(t, n),
+          a = m(o);
+        r.push.apply(r, a);
+      }
+      r.push(`
+
+`);
+      var i = r.join(`
+`),
+        l = s(),
+        c =
+          l != null
+            ? l +
+              `
+` +
+              i
+            : i;
+      await u(c.slice(-e));
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = [];
-          if (
-            (r.push(new Date().toLocaleString() + " start sync\n"),
-            t.length === 0)
-          )
-            r.push("initial ABProp sync");
-          else {
-            var o = m(t, n),
-              a = p(o);
-            r.push.apply(r, a);
-          }
-          r.push("\n\n");
-          var i = r.join("\n"),
-            l = s(),
-            c = l != null ? l + "\n" + i : i;
-          yield u(c.slice(-e));
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e, t) {
+    function d(e, t) {
       var n = [],
         r = new Map(
           e.map(function (e) {
@@ -89,7 +90,7 @@ __d(
       }
       return n;
     }
-    function p(e) {
+    function m(e) {
       var t = [];
       return (
         e
@@ -141,12 +142,12 @@ __d(
         t
       );
     }
-    var _ = {
+    var p = {
       processAbpropChangelog: c,
       getABPropDebugLog: s,
       setABPropDebugLog: u,
     };
-    l.default = _;
+    l.default = p;
   },
   98,
 );

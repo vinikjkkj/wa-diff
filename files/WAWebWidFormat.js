@@ -24,10 +24,10 @@ __d(
       return r("WAWebL10N").isRTL() ? r("WAWebL10N").isolateLTR(e(t)) : e(t);
     }
     function c() {
-      return s._(/*BTDS*/ "Unknown number").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     function d() {
-      return s._(/*BTDS*/ "Unknown user").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     function m() {
       return o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()

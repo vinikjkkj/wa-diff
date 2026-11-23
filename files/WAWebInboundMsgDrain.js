@@ -2,7 +2,6 @@ __d(
   "WAWebInboundMsgDrain",
   [
     "NativeSchedulerTickStrategy",
-    "Promise",
     "QPLFlow",
     "TaskScheduler",
     "TaskSchedulerPriority",
@@ -45,7 +44,6 @@ __d(
     "WAWebPersistedQueueQpl",
     "WAWebProcessMsgInfoForLid",
     "WAWormQueueDef",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "nullthrows",
@@ -68,363 +66,336 @@ __d(
       v,
       S,
       R,
-      L,
-      E = 5,
-      k = 1e3,
-      I = 3e4,
-      T = 5,
-      D = 6e4,
-      x = 1e3,
-      $ = 0.01,
-      P = 300,
+      L = 5,
+      E = 1e3,
+      k = 3e4,
+      I = 5,
+      T = 6e4,
+      D = 1e3,
+      x = 0.01,
+      $ = 300,
+      P = !1,
       N = !1,
       M = !1,
       w = !1,
       A = !1,
       F = !1,
       O = !1,
-      B = !1,
-      W = [],
-      q = !1,
-      U = 0,
-      V = !1,
-      H = 0,
-      G = !1,
-      z = 0,
-      j = new Set(),
-      K = k,
-      Q = [],
-      X = new Set(),
-      Y = !1,
-      J = null,
-      Z = new Set(),
-      ee = new Map(),
-      te = null,
-      ne = !0,
+      B = [],
+      W = !1,
+      q = 0,
+      U = !1,
+      V = 0,
+      H = !1,
+      G = 0,
+      z = new Set(),
+      j = E,
+      K = [],
+      Q = new Set(),
+      X = !1,
+      Y = null,
+      J = new Set(),
+      Z = new Map(),
+      ee = null,
+      te = !0,
+      ne = null,
       re = null,
       oe = null,
-      ae = null,
-      ie = null;
-    function le() {
-      N ||
-        ((N = !0),
-        (q = !0),
+      ae = null;
+    function ie() {
+      P ||
+        ((P = !0),
+        (W = !0),
         o(
           "WAWebInboundMsgDrainActiveChat",
         ).setInboundMsgDrainChatOpenedListener(function (e) {
-          o("WAWebInboundMsgChatIndex").hasQueuedInboundMsgs(e) && $e();
+          o("WAWebInboundMsgChatIndex").hasQueuedInboundMsgs(e) && Ie();
         }),
-        Ee());
+        Se());
     }
-    function se() {
+    function le() {
       var e;
-      ((M = !0), z++, ee.clear(), (e = oe) == null || e.resolve(), Oe());
+      ((N = !0), G++, Z.clear(), (e = re) == null || e.resolve(), Me());
     }
-    function ue(e, t) {
+    function se(e, t) {
       var n = { abandoned: !1 },
-        r = ce(e, 1, n);
+        r = ue(e, 1, n);
       return o("WAPromiseTimeout")
-        .promiseTimeout(r, D)
+        .promiseTimeout(r, T)
         .catch(function (e) {
           if (!(e instanceof o("WACustomError").TimeoutError)) throw e;
-          return ((n.abandoned = !0), _e(), t(r), !1);
+          return ((n.abandoned = !0), de(), t(r), !1);
         });
     }
-    function ce(e, t, n) {
-      return de.apply(this, arguments);
+    async function ue(e, t, n) {
+      try {
+        var a = r("nullthrows")(
+            await lt(e, { batched: !1, batchMsgIds: new Set() }),
+          ),
+          i = a.writes;
+        return (
+          await ce(i),
+          await o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb(),
+          (X = !1),
+          !0
+        );
+      } catch (a) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[inbound-msg-queue] writing a row in place failed, attempt ",
+                  "",
+                ])),
+              t,
+            )
+            .catching(r("getErrorSafe")(a))
+            .tags("messaging"),
+          n.abandoned || X || t >= L
+            ? (n.abandoned || (X = !0), await St(e, t), !1)
+            : (await new Promise(function (e) {
+                return globalThis.setTimeout(e, Pe(t));
+              }),
+              ue(e, t + 1, n))
+        );
+      }
+    }
+    async function ce(e) {
+      (o("WAWebInboundMsgMessageWriter")
+        .getInboundMsgDrainMessageCache()
+        .createSnapshot(),
+        await Promise.all(e));
     }
     function de() {
-      return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a) {
-            try {
-              var i = r("nullthrows")(
-                  yield Ct(e, { batched: !1, batchMsgIds: new Set() }),
-                ),
-                l = i.writes;
-              return (
-                yield me(l),
-                yield o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb(),
-                (Y = !1),
-                !0
-              );
-            } catch (i) {
-              return (
-                o("WALogger")
-                  .WARN(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "[inbound-msg-queue] writing a row in place failed, attempt ",
-                        "",
-                      ])),
-                    t,
-                  )
-                  .catching(r("getErrorSafe")(i))
-                  .tags("messaging"),
-                a.abandoned || Y || t >= E
-                  ? (a.abandoned || (Y = !0), yield Wt(e, t), !1)
-                  : (yield new (L || (L = n("Promise")))(function (e) {
-                      return globalThis.setTimeout(e, Ae(t));
-                    }),
-                    ce(e, t + 1, a))
-              );
-            }
-          },
-        )),
-        de.apply(this, arguments)
-      );
-    }
-    function me(e) {
-      return pe.apply(this, arguments);
-    }
-    function pe() {
-      return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (o("WAWebInboundMsgMessageWriter")
-            .getInboundMsgDrainMessageCache()
-            .createSnapshot(),
-            yield (L || (L = n("Promise"))).all(e));
-        })),
-        pe.apply(this, arguments)
-      );
-    }
-    function _e() {
-      ((Y = !0),
+      ((X = !0),
         o("WAWebInboundMsgQueueODS").logInboundMsgInPlaceWriteAbandoned(),
         o("WALogger")
           .ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "[inbound-msg-queue] writing a row in place is stuck, abandoning it",
               ])),
           )
           .tags("messaging")
           .sendLogs("inbound-msg-in-place-write-stuck"));
     }
-    function fe(e, t) {
+    function me(e, t) {
       (t == null ||
         t.forEach(function (e, t) {
-          M || ge(t, e);
+          N || pe(t, e);
         }),
         o("WAWebInboundMsgChatIndex").addQueuedInboundMsgs(e),
-        (q = !0),
-        U++,
-        xe(),
-        Ee());
+        (W = !0),
+        q++,
+        ke(),
+        Se());
     }
-    function ge(e, t) {
-      if (ee.size >= x) {
-        var n = ee.keys().next().value;
-        n != null && ee.delete(n);
+    function pe(e, t) {
+      if (Z.size >= D) {
+        var n = Z.keys().next().value;
+        n != null && Z.delete(n);
       }
-      ee.set(e, t);
+      Z.set(e, t);
+    }
+    function _e() {
+      return ae === G;
+    }
+    function fe() {
+      return F;
+    }
+    function ge() {
+      return W || !F;
     }
     function he() {
-      return ie === z;
+      return F
+        ? Promise.resolve()
+        : new Promise(function (e) {
+            B.push(e);
+          });
     }
     function ye() {
-      return O;
-    }
-    function Ce() {
-      return q || !O;
-    }
-    function be() {
-      return O
-        ? (L || (L = n("Promise"))).resolve()
-        : new (L || (L = n("Promise")))(function (e) {
-            W.push(e);
+      return H || N || !W
+        ? Promise.resolve()
+        : new Promise(function (e) {
+            K.push(e);
           });
     }
-    function ve() {
-      return G || M || !q
-        ? (L || (L = n("Promise"))).resolve()
-        : new (L || (L = n("Promise")))(function (e) {
-            Q.push(e);
-          });
-    }
-    function Se(e) {
+    function Ce(e) {
       if (
         (o("WAWebInboundMsgDrainOrder").takeInboundMsgDrainStartupChats(),
-        G ||
-          M ||
-          !q ||
+        H ||
+          N ||
+          !W ||
           !o(
             "WAWebInboundMsgDrainOrder",
           ).hasQueuedInboundMsgDrainStartupChats())
       )
-        return (L || (L = n("Promise"))).resolve();
+        return Promise.resolve();
       var t = new (o("WAResolvable").Resolvable)();
       return (
-        (re = t),
-        $e(),
+        (ne = t),
+        Ie(),
         o("WAPromiseTimeout")
           .promiseTimeout(t.promise, e)
           .catch(r("WAWebNoop"))
           .then(function () {
-            re === t && (re = null);
+            ne === t && (ne = null);
           })
       );
     }
-    function Re() {
+    function be() {
       var e, t;
-      return o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd || M
-        ? (L || (L = n("Promise"))).resolve()
-        : (ae != null ||
-            (ae = r("WAWebEventsWaitForMainStreamReadyMd")().then(function () {
-              ae = null;
+      return o("WAWebBackendEventBus").BackendEventBus.isMainStreamReadyMd || N
+        ? Promise.resolve()
+        : (oe != null ||
+            (oe = r("WAWebEventsWaitForMainStreamReadyMd")().then(function () {
+              oe = null;
             })),
-          (e = (t = oe) == null ? void 0 : t.promise) != null
+          (e = (t = re) == null ? void 0 : t.promise) != null
             ? e
-            : (L || (L = n("Promise"))).resolve());
+            : Promise.resolve());
     }
-    function Le() {
+    function ve() {
       if (
         !o("WAWebInboundMsgDrainOrder").hasQueuedInboundMsgDrainStartupChats()
       ) {
         var e;
-        (e = re) == null || e.resolve();
+        (e = ne) == null || e.resolve();
       }
     }
-    function Ee() {
-      ((F = !0), A || ke());
+    function Se() {
+      ((A = !0), w || Re());
     }
-    function ke() {
-      if (!M) {
-        A = !0;
-        var e = ae;
+    function Re() {
+      if (!N) {
+        w = !0;
+        var e = oe;
         if (e != null) {
           e.then(function () {
-            ((A = !1), ke());
+            ((w = !1), Re());
           });
           return;
         }
-        F = !1;
-        var t = ++z,
+        A = !1;
+        var t = ++G,
           n = new (o("WAResolvable").Resolvable)();
-        oe = n;
-        var a = Pe();
+        re = n;
+        var a = Te();
         (o("WAWebInboundMsgDrainOrder").isVisibleChatsSelector(a)
-          ? Ie(t, a)
-          : De(t, a)
+          ? Le(t, a)
+          : Ee(t, a)
         ).then(
           function (e) {
-            (n.resolve(), t === z && Me(e));
+            (n.resolve(), t === G && xe(e));
           },
           function (e) {
             (n.resolve(),
-              t === z &&
+              t === G &&
                 (o("WALogger")
                   .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "[inbound-msg-queue] drain batch failed",
                       ])),
                   )
                   .catching(r("getErrorSafe")(e))
                   .tags("messaging")
-                  .sendLogs("inbound-msg-drain-failed", { sampling: $ }),
-                Me("failed")));
+                  .sendLogs("inbound-msg-drain-failed", { sampling: x }),
+                xe("failed")));
           },
         );
       }
     }
-    function Ie(e, t) {
-      return Te.apply(this, arguments);
-    }
-    function Te() {
+    async function Le(e, t) {
       return (
-        (Te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (
-            yield o("NativeSchedulerTickStrategy")
-              .makeNativeSchedulerTickStrategy()
-              .tick(o("TaskSchedulerPriority").HIGH_PRIORITY),
-            e === z ? We(e, t, null) : "more"
-          );
-        })),
-        Te.apply(this, arguments)
+        await o("NativeSchedulerTickStrategy")
+          .makeNativeSchedulerTickStrategy()
+          .tick(o("TaskSchedulerPriority").HIGH_PRIORITY),
+        e === G ? Ae(e, t, null) : "more"
       );
     }
-    function De(e, t) {
-      var r = new (o("WAResolvable").Resolvable)();
-      te = r;
-      var a = "waiting",
-        i = en().run(
+    function Ee(e, t) {
+      var n = new (o("WAResolvable").Resolvable)();
+      ee = n;
+      var r = "waiting",
+        a = Dt().run(
           function () {
-            return a === "gave_way" || e !== z
-              ? (L || (L = n("Promise"))).resolve("more")
-              : ((a = "started"),
-                (ne = !0),
-                r.resolveWasCalled() &&
-                  ((r = new (o("WAResolvable").Resolvable)()), (te = r)),
-                We(e, t, r));
+            return r === "gave_way" || e !== G
+              ? Promise.resolve("more")
+              : ((r = "started"),
+                (te = !0),
+                n.resolveWasCalled() &&
+                  ((n = new (o("WAResolvable").Resolvable)()), (ee = n)),
+                Ae(e, t, n));
           },
           {
             name: "drain_inbound_msgs",
             priority: o("TaskSchedulerPriority").NORMAL_PRIORITY,
           },
         ).promise,
-        l = function (n) {
-          return n.promise.then(function () {
-            if (a !== "waiting") return i;
-            var t = ne ? Ne() : null;
+        i = function (l) {
+          return l.promise.then(function () {
+            if (r !== "waiting") return a;
+            var t = te ? De() : null;
             return t == null
-              ? ((r = new (o("WAResolvable").Resolvable)()), (te = r), l(r))
-              : ((a = "gave_way"), (ne = !1), Ie(e, t));
+              ? ((n = new (o("WAResolvable").Resolvable)()), (ee = n), i(n))
+              : ((r = "gave_way"), (te = !1), Le(e, t));
           });
         },
-        s = l(r),
-        u = i.then(
+        l = i(n),
+        s = a.then(
           function (e) {
-            return a === "gave_way" ? s : e;
+            return r === "gave_way" ? l : e;
           },
           function (e) {
-            return a === "gave_way" ? s : (L || (L = n("Promise"))).reject(e);
+            return r === "gave_way" ? l : Promise.reject(e);
           },
         );
-      return (L || (L = n("Promise"))).race([u, s]).finally(function () {
-        te === r && (te = null);
+      return Promise.race([s, l]).finally(function () {
+        ee === n && (ee = null);
       });
     }
-    function xe() {
-      if (Ne() != null) {
+    function ke() {
+      if (De() != null) {
         var e;
-        (e = te) == null || e.resolve();
+        (e = ee) == null || e.resolve();
       }
     }
-    function $e() {
-      ((ne = !0), xe());
+    function Ie() {
+      ((te = !0), ke());
     }
-    function Pe() {
-      return w
+    function Te() {
+      return M
         ? o("WAWebInboundMsgDrainOrder").selectInboundMsgDrainChats()
         : o("WAWebInboundMsgDrainOrder").FIFO_SELECTOR;
     }
-    function Ne() {
-      return w
+    function De() {
+      return M
         ? o("WAWebInboundMsgDrainOrder").selectInboundMsgDrainVisibleChats()
         : null;
     }
-    function Me(e) {
-      ((A = !1), e !== "failed" && (H = 0));
+    function xe(e) {
+      ((w = !1), e !== "failed" && (V = 0));
       e: {
         if (e === "more") {
-          ((G = !1), ke());
+          ((H = !1), Re());
           break e;
         }
         if (e === "retry") {
-          ((G = !1), Fe(K));
+          ((H = !1), Ne(j));
           break e;
         }
         if (e === "failed") {
-          we();
+          $e();
           break e;
         }
         if (e === "empty") {
-          if (((G = !1), F)) {
-            ke();
+          if (((H = !1), A)) {
+            Re();
             return;
           }
-          Oe();
+          Me();
           break e;
         }
         throw Error(
@@ -433,52 +404,52 @@ __d(
         );
       }
     }
-    function we() {
-      (H++,
-        H >= T &&
-          !G &&
-          ((G = !0),
+    function $e() {
+      (V++,
+        V >= I &&
+          !H &&
+          ((H = !0),
           o("WAWebInboundMsgQueueODS").logInboundMsgDrainStalled(),
           o("WALogger")
             .ERROR(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "[inbound-msg-queue] drain keeps failing, releasing its waiters",
                 ])),
             )
             .tags("messaging")
             .sendLogs("inbound-msg-drain-stalled"),
-          Oe()),
-        Fe(Ae(H)));
+          Me()),
+        Ne(Pe(V)));
     }
-    function Ae(e) {
-      return Math.min(k * Math.pow(2, e - 1), I);
+    function Pe(e) {
+      return Math.min(E * Math.pow(2, e - 1), k);
     }
-    function Fe(e) {
-      ((A = !0),
+    function Ne(e) {
+      ((w = !0),
         globalThis.setTimeout(function () {
-          ((A = !1), ke());
+          ((w = !1), Re());
         }, e));
     }
-    function Oe() {
+    function Me() {
       var e,
-        t = Q;
-      ((Q = []),
+        t = K;
+      ((K = []),
         t.forEach(function (e) {
           return e();
         }),
-        (e = re) == null || e.resolve(),
+        (e = ne) == null || e.resolve(),
         o("WAWebInboundMsgDrainOrder").clearInboundMsgDrainStartupChats());
     }
-    function Be() {
-      O = !0;
-      var e = W;
-      ((W = []),
+    function we() {
+      F = !0;
+      var e = B;
+      ((B = []),
         e.forEach(function (e) {
           return e();
         }));
     }
-    function We(e, t, n) {
+    function Ae(e, t, n) {
       var r = o("QPLFlow").startQPLFlow(
           o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
           {
@@ -487,7 +458,7 @@ __d(
               string: { drainTier: t.tier, operationType: "inbound_drain" },
             },
             timeoutInMs:
-              (D * tt()) / o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT,
+              (T * Ke()) / o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT,
           },
         ),
         a = {
@@ -499,10 +470,10 @@ __d(
           selector: t,
         };
       return (
-        Ue(a, null),
+        Oe(a, null),
         o("QPLFlow")
           .endWith(r, function () {
-            return He(a).finally(function () {
+            return We(a).finally(function () {
               r.addAnnotations({
                 int: { oneQueueYieldMs: Math.round(a.oneQueueYieldMs) },
               });
@@ -513,201 +484,166 @@ __d(
           })
       );
     }
-    function qe(e) {
+    function Fe(e) {
       var t;
-      if (!Ve(e)) {
-        (G || o("WAWebInboundMsgQueueODS").logInboundMsgDrainStalled(),
+      if (!Be(e)) {
+        (H || o("WAWebInboundMsgQueueODS").logInboundMsgDrainStalled(),
           o("WAWebInboundMsgQueueODS").logInboundMsgDrainBatchAbandoned(),
           o("WALogger")
             .ERROR(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[inbound-msg-queue] drain batch is stuck, abandoning it",
                 ])),
             )
             .tags("messaging")
             .sendLogs("inbound-msg-drain-stuck"));
         var n = e.applying;
-        (n != null && j.add(n.queueId),
+        (n != null && z.add(n.queueId),
           o("WAWebInboundMsgMessageWriter")
             .getInboundMsgDrainMessageCache()
             .createSnapshot(),
-          (G = !0),
-          Oe(),
-          z++,
-          (t = oe) == null || t.resolve(),
-          (A = !1),
-          n == null ? we() : ke());
+          (H = !0),
+          Me(),
+          G++,
+          (t = re) == null || t.resolve(),
+          (w = !1),
+          n == null ? $e() : Re());
       }
     }
-    function Ue(e, t) {
+    function Oe(e, t) {
       ((e.applying = t),
         globalThis.clearTimeout(e.stuckTimer),
         (e.stuckTimer = globalThis.setTimeout(function () {
-          return qe(e);
-        }, D)));
+          return Fe(e);
+        }, T)));
     }
-    function Ve(e) {
-      return e.generation !== z;
+    function Be(e) {
+      return e.generation !== G;
     }
-    function He(e) {
-      return Ge.apply(this, arguments);
+    async function We(e) {
+      var t = e.selector.chatKeys;
+      if (t.length > 0) return qe(e, t);
+      var n = q,
+        r = await je(
+          e.flow,
+          o("WAWebInboundMsgQueueRow").InboundRowPriority.NORMAL,
+        );
+      return Be(e)
+        ? "retry"
+        : ((r.length === 0 ||
+            !o("WAWebInboundMsgQueueStore").isLeftoverInboundMsg(
+              r[0].queueId,
+            )) &&
+            (M = !0),
+          r.length > 0 ? Ye(e, r) : (n === q && ((W = !1), Me(), Ue()), He(e)));
     }
-    function Ge() {
-      return (
-        (Ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.selector.chatKeys;
-          if (t.length > 0) return ze(e, t);
-          var n = U,
-            r = yield et(
-              e.flow,
-              o("WAWebInboundMsgQueueRow").InboundRowPriority.NORMAL,
-            );
-          return Ve(e)
-            ? "retry"
-            : ((r.length === 0 ||
-                !o("WAWebInboundMsgQueueStore").isLeftoverInboundMsg(
-                  r[0].queueId,
-                )) &&
-                (w = !0),
-              r.length > 0
-                ? ot(e, r)
-                : (n === U && ((q = !1), Oe(), Ke()), Xe(e)));
-        })),
-        Ge.apply(this, arguments)
+    async function qe(e, t) {
+      var n = await o("WAWebInboundMsgQueueStore").readInboundMsgsForChats(
+        e.flow,
+        t,
+        o("WAWebInboundMsgChatIndex").getChatRowRange(),
+        Ke(),
+        Qe,
       );
+      if (Be(e)) return "retry";
+      (n.forEach(function (e, t) {
+        e.length === 0 &&
+          o("WAWebInboundMsgChatIndex").forgetQueuedInboundMsgChat(t);
+      }),
+        ve());
+      var r = Array.from(n.values()).flat();
+      return r.length === 0 ? "more" : Ye(e, r, { orderedByChat: !0 });
     }
-    function ze(e, t) {
-      return je.apply(this, arguments);
-    }
-    function je() {
-      return (
-        (je = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebInboundMsgQueueStore").readInboundMsgsForChats(
-            e.flow,
-            t,
-            o("WAWebInboundMsgChatIndex").getChatRowRange(),
-            tt(),
-            nt,
-          );
-          if (Ve(e)) return "retry";
-          (n.forEach(function (e, t) {
-            e.length === 0 &&
-              o("WAWebInboundMsgChatIndex").forgetQueuedInboundMsgChat(t);
-          }),
-            Le());
-          var r = Array.from(n.values()).flat();
-          return r.length === 0 ? "more" : ot(e, r, { orderedByChat: !0 });
-        })),
-        je.apply(this, arguments)
-      );
-    }
-    function Ke() {
-      var e = J,
-        t = Z;
-      ((J = null),
-        (Z = new Set()),
+    function Ue() {
+      var e = Y,
+        t = J;
+      ((Y = null),
+        (J = new Set()),
         !(e == null || t.size === 0) &&
-          Qe(
+          Ve(
             e.filter(function (e) {
               return t.has(e.id.id);
             }),
           ));
     }
-    function Qe(e) {
+    function Ve(e) {
       o("WAPromiseReduce").promiseReduce(
         o("WAArrayChunk").chunk(
           e,
           o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT,
         ),
-        (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              try {
-                yield (L || (L = n("Promise"))).all(
-                  t.map(function (e) {
-                    return o(
-                      "WAWebHandleOrphansForNewMsg",
-                    ).handleOrphansForNewMsg(e);
-                  }),
+        async function (e, t) {
+          try {
+            await Promise.all(
+              t.map(function (e) {
+                return o("WAWebHandleOrphansForNewMsg").handleOrphansForNewMsg(
+                  e,
                 );
-              } catch (e) {
-                o("WALogger")
-                  .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[inbound-msg-queue] replaying the orphans of drained messages failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .tags("messaging")
-                  .sendLogs("inbound-msg-orphan-replay-failed", {
-                    sampling: $,
-                  });
-              }
-            },
-          );
-          return function (t, n) {
-            return e.apply(this, arguments);
-          };
-        })(),
+              }),
+            );
+          } catch (e) {
+            o("WALogger")
+              .ERROR(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[inbound-msg-queue] replaying the orphans of drained messages failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .tags("messaging")
+              .sendLogs("inbound-msg-orphan-replay-failed", { sampling: x });
+          }
+        },
         void 0,
       );
     }
-    function Xe(e) {
-      return Ye.apply(this, arguments);
-    }
-    function Ye() {
-      return (
-        (Ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = O
-            ? null
-            : yield o("WAWebInboundMsgQueueStore").readOldestInboundMsg(e.flow);
-          if (
-            (!O && t == null && Be(),
-            !o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd)
-          )
-            return (Ze(), "empty");
-          var n = yield et(
-            e.flow,
-            o("WAWebInboundMsgQueueRow").InboundRowPriority.LOW,
-          );
-          return n.length > 0 ? ot(e, n) : (Je(t), "empty");
-        })),
-        Ye.apply(this, arguments)
+    async function He(e) {
+      var t = F
+        ? null
+        : await o("WAWebInboundMsgQueueStore").readOldestInboundMsg(e.flow);
+      if (
+        (!F && t == null && we(),
+        !o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd)
+      )
+        return (ze(), "empty");
+      var n = await je(
+        e.flow,
+        o("WAWebInboundMsgQueueRow").InboundRowPriority.LOW,
       );
+      return n.length > 0 ? Ye(e, n) : (Ge(t), "empty");
     }
-    function Je(e) {
-      B ||
+    function Ge(e) {
+      O ||
         e == null ||
-        rt(e) ||
-        ((B = !0),
+        Xe(e) ||
+        ((O = !0),
         o("WAWebInboundMsgQueueODS").logInboundMsgUndrainableRowsLeft());
     }
-    function Ze() {
-      V ||
-        ((V = !0),
+    function ze() {
+      U ||
+        ((U = !0),
         o("WAWebBackendEventBus").BackendEventBus.onceOfflineDeliveryEnd(
           function () {
-            ((V = !1), Ee());
+            ((U = !1), Se());
           },
         ));
     }
-    function et(e, t) {
-      return o("WAWebInboundMsgQueueStore").readInboundMsgs(e, t, tt(), rt);
+    function je(e, t) {
+      return o("WAWebInboundMsgQueueStore").readInboundMsgs(e, t, Ke(), Xe);
     }
-    function tt() {
+    function Ke() {
       return o("WAWebInboundMsgQueueGating").isWAWebPersistedQueueEnabled()
-        ? P
+        ? $
         : o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT;
     }
-    function nt(e) {
+    function Qe(e) {
       return (
         e.priority === o("WAWebInboundMsgQueueRow").InboundRowPriority.NORMAL &&
-        rt(e)
+        Xe(e)
       );
     }
-    function rt(e) {
+    function Xe(e) {
       var t = e.row;
       return t.kind === "message"
         ? t.version === 1 || t.version === 2
@@ -717,113 +653,89 @@ __d(
               t.handler,
             );
     }
-    function ot(e, t, n) {
-      return at.apply(this, arguments);
+    async function Ye(e, t, n) {
+      var r,
+        a = n === void 0 ? {} : n,
+        i = a.orderedByChat,
+        l = i === void 0 ? !1 : i,
+        s = o("WAWebInboundMsgQueueGating").isWAWebPersistedQueueEnabled(),
+        u = await Ze(e, Je(t), s),
+        c = u.applied,
+        d = u.failed,
+        m = await it(c);
+      if (m == null) return "failed";
+      if (s) {
+        (Oe(e, null),
+          await o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb());
+        var p = c.slice(0, m.written.length);
+        (await o("WAWebInboundMsgDrainUIUpdate").updateUIOfDrainedBatch(
+          p.flatMap(function (e) {
+            var t = e.postprocess;
+            return t;
+          }),
+        ),
+          Ve(
+            p.flatMap(function (e) {
+              var t = e.msgsForOrphanDrain;
+              return t;
+            }),
+          ));
+      }
+      ((await Ct(e, m.written)) &&
+        (tt(m.written),
+        o("WAWebInboundMsgQueueODS").logInboundMsgCopRowsDrained(
+          e.selector.tier,
+          m.written.length,
+        ),
+        e.flow.addAnnotations({ int: { rowCount: m.written.length } }),
+        et(c.slice(0, m.written.length), l)),
+        Be(e) ||
+          m.sharedFailures.forEach(function (e) {
+            var t = e.queueId;
+            Q.add(t);
+          }));
+      var _ = (r = m.failed) != null ? r : d;
+      return _ == null ? "more" : bt(e, _);
     }
-    function at() {
-      return (
-        (at = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            var r,
-              a = n === void 0 ? {} : n,
-              i = a.orderedByChat,
-              l = i === void 0 ? !1 : i,
-              s = o(
-                "WAWebInboundMsgQueueGating",
-              ).isWAWebPersistedQueueEnabled(),
-              u = yield lt(e, it(t), s),
-              c = u.applied,
-              d = u.failed,
-              m = yield ht(c);
-            if (m == null) return "failed";
-            if (s) {
-              (Ue(e, null),
-                yield o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb());
-              var p = c.slice(0, m.written.length);
-              (yield o("WAWebInboundMsgDrainUIUpdate").updateUIOfDrainedBatch(
-                p.flatMap(function (e) {
-                  var t = e.postprocess;
-                  return t;
-                }),
-              ),
-                Qe(
-                  p.flatMap(function (e) {
-                    var t = e.msgsForOrphanDrain;
-                    return t;
-                  }),
-                ));
-            }
-            ((yield Mt(e, m.written)) &&
-              (ct(m.written),
-              o("WAWebInboundMsgQueueODS").logInboundMsgCopRowsDrained(
-                e.selector.tier,
-                m.written.length,
-              ),
-              e.flow.addAnnotations({ int: { rowCount: m.written.length } }),
-              ut(c.slice(0, m.written.length), l)),
-              Ve(e) ||
-                m.sharedFailures.forEach(function (e) {
-                  var t = e.queueId;
-                  X.add(t);
-                }));
-            var _ = (r = m.failed) != null ? r : d;
-            return _ == null ? "more" : At(e, _);
-          },
-        )),
-        at.apply(this, arguments)
-      );
-    }
-    function it(e) {
+    function Je(e) {
       var t = e.findIndex(function (e) {
         var t = e.queueId;
-        return X.has(t);
+        return Q.has(t);
       });
       return t === -1 ? e : e.slice(0, t === 0 ? 1 : t);
     }
-    function lt(e, t, n) {
-      return st.apply(this, arguments);
+    async function Ze(e, t, n) {
+      if (!n) return nt(e, t, !1);
+      ae = e.generation;
+      try {
+        var r = await nt(e, t, !0);
+        return (
+          await o("WAWebInboundMsgLidMetadata").writeInboundMsgLidMetadata(
+            r.applied.flatMap(function (e) {
+              var t = e.lidMetadataUpdates;
+              return t;
+            }),
+          ),
+          r
+        );
+      } finally {
+        ae === e.generation && (ae = null);
+      }
     }
-    function st() {
-      return (
-        (st = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            if (!n) return dt(e, t, !1);
-            ie = e.generation;
-            try {
-              var r = yield dt(e, t, !0);
-              return (
-                yield o(
-                  "WAWebInboundMsgLidMetadata",
-                ).writeInboundMsgLidMetadata(
-                  r.applied.flatMap(function (e) {
-                    var t = e.lidMetadataUpdates;
-                    return t;
-                  }),
-                ),
-                r
-              );
-            } finally {
-              ie === e.generation && (ie = null);
-            }
-          },
-        )),
-        st.apply(this, arguments)
-      );
-    }
-    function ut(e, t) {
-      t && (J != null || (J = []));
-      var n = J;
+    function et(e, t) {
+      t && (Y != null || (Y = []));
+      var n = Y;
       n != null &&
         e.forEach(function (e) {
           var t = e.addOnParentIds,
             r = e.msgsForOrphanReplay;
           (n.push.apply(n, r),
             t.forEach(function (e) {
-              return Z.add(e);
+              return J.add(e);
             }));
         });
     }
-    function ct(e) {
+    function tt(e) {
       o("WAWebInboundMsgQueueODS").logInboundMsgsDrained(e.length);
       var t = e.filter(function (e) {
         var t = e.queueId;
@@ -831,93 +743,68 @@ __d(
       }).length;
       t > 0 && o("WAWebInboundMsgQueueODS").logInboundMsgRowsLeftAtStart(t);
     }
-    function dt(e, t, n) {
-      return mt.apply(this, arguments);
-    }
-    function mt() {
-      return (
-        (mt = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a) {
-            var i = [],
-              l = new Set(),
-              s = !1,
-              u = !1,
-              c = yield o("WAPromiseReduce").promiseReduce(
-                t,
-                (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t, n) {
-                      if (t != null || s || u || Ve(e)) return t;
-                      if (gt(n)) return n;
-                      if (((s = yield pt(e, i.length > 0)), Ve(e))) return null;
-                      if (s) return (Ue(e, null), null);
-                      Ue(e, n);
-                      try {
-                        var c = yield Ct(n, { batched: a, batchMsgIds: l });
-                        if (c == null) return ((u = !0), null);
-                        i.push(babelHelpers.extends({ entity: n }, c));
-                      } catch (e) {
-                        return (
-                          o("WALogger")
-                            .WARN(
-                              f ||
-                                (f = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[inbound-msg-queue] row failed, attempt ",
-                                  "",
-                                ])),
-                              n.attemptCount + 1,
-                            )
-                            .catching(r("getErrorSafe")(e))
-                            .tags("messaging"),
-                          n
-                        );
-                      } finally {
-                        Ue(e, null);
-                      }
-                      return null;
-                    },
-                  );
-                  return function (e, n) {
-                    return t.apply(this, arguments);
-                  };
-                })(),
-                null,
+    async function nt(e, t, n) {
+      var a = [],
+        i = new Set(),
+        l = !1,
+        s = !1,
+        u = await o("WAPromiseReduce").promiseReduce(
+          t,
+          async function (t, u) {
+            if (t != null || l || s || Be(e)) return t;
+            if (at(u)) return u;
+            if (((l = await rt(e, a.length > 0)), Be(e))) return null;
+            if (l) return (Oe(e, null), null);
+            Oe(e, u);
+            try {
+              var c = await lt(u, { batched: n, batchMsgIds: i });
+              if (c == null) return ((s = !0), null);
+              a.push(babelHelpers.extends({ entity: u }, c));
+            } catch (e) {
+              return (
+                o("WALogger")
+                  .WARN(
+                    _ ||
+                      (_ = babelHelpers.taggedTemplateLiteralLoose([
+                        "[inbound-msg-queue] row failed, attempt ",
+                        "",
+                      ])),
+                    u.attemptCount + 1,
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .tags("messaging"),
+                u
               );
-            return { applied: i, failed: c };
+            } finally {
+              Oe(e, null);
+            }
+            return null;
           },
-        )),
-        mt.apply(this, arguments)
-      );
+          null,
+        );
+      return { applied: a, failed: u };
     }
-    function pt(e, t) {
-      return _t.apply(this, arguments);
+    async function rt(e, t) {
+      var n = e.giveWay;
+      if (n == null) return !1;
+      var r = function () {
+        return n.resolveWasCalled() && De() != null;
+      };
+      if (
+        !r() &&
+        o("WAWebInboundMsgPersistedQueueAdapter").getInboundMsgIntake() !=
+          null &&
+        o("WAWebOneQueue").hasQueuedOneQueueTasks()
+      ) {
+        var a = globalThis.performance.now();
+        (await (n.resolveWasCalled()
+          ? ot(e)
+          : Promise.race([ot(e), n.promise])),
+          (e.oneQueueYieldMs += globalThis.performance.now() - a));
+      }
+      return t && r();
     }
-    function _t() {
-      return (
-        (_t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = e.giveWay;
-          if (r == null) return !1;
-          var a = function () {
-            return r.resolveWasCalled() && Ne() != null;
-          };
-          if (
-            !a() &&
-            o("WAWebInboundMsgPersistedQueueAdapter").getInboundMsgIntake() !=
-              null &&
-            o("WAWebOneQueue").hasQueuedOneQueueTasks()
-          ) {
-            var i = globalThis.performance.now();
-            (yield r.resolveWasCalled()
-              ? ft(e)
-              : (L || (L = n("Promise"))).race([ft(e), r.promise]),
-              (e.oneQueueYieldMs += globalThis.performance.now() - i));
-          }
-          return t && a();
-        })),
-        _t.apply(this, arguments)
-      );
-    }
-    function ft(e) {
+    function ot(e) {
       return (
         globalThis.clearTimeout(e.stuckTimer),
         o("NativeSchedulerTickStrategy")
@@ -925,12 +812,12 @@ __d(
           .tick(o("TaskSchedulerPriority").NORMAL_PRIORITY)
       );
     }
-    function gt(e) {
-      return j.delete(e.queueId)
+    function at(e) {
+      return z.delete(e.queueId)
         ? (o("WALogger")
             .WARN(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "[inbound-msg-queue] a batch got stuck applying this row",
                 ])),
             )
@@ -938,155 +825,128 @@ __d(
           !0)
         : !1;
     }
-    function ht(e) {
-      return yt.apply(this, arguments);
-    }
-    function yt() {
-      return (
-        (yt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(function (e) {
-            var t = e.entity;
-            return t;
-          });
-          if (e.length === 0)
-            return { failed: null, sharedFailures: [], written: t };
-          var a = o(
-            "WAWebInboundMsgMessageWriter",
-          ).getInboundMsgDrainMessageCache();
-          a.createSnapshot();
-          var i = yield (L || (L = n("Promise"))).allSettled(
-              e.map(function (e) {
-                var t = e.writes;
-                return (L || (L = n("Promise"))).all(t);
-              }),
-            ),
-            l = i.findIndex(function (e) {
-              var t = e.status;
-              return t === "rejected";
-            }),
-            s = i[l];
-          if ((s == null ? void 0 : s.status) !== "rejected")
-            return { failed: null, sharedFailures: [], written: t };
-          if (
-            (o("WALogger")
-              .WARN(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "[inbound-msg-queue] message write failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(s.reason))
-              .tags("messaging"),
-            o("WAWebInboundMsgQueueODS").logInboundMsgWriteFailed(),
-            a.isFailClosed())
+    async function it(e) {
+      var t = e.map(function (e) {
+        var t = e.entity;
+        return t;
+      });
+      if (e.length === 0)
+        return { failed: null, sharedFailures: [], written: t };
+      var n = o(
+        "WAWebInboundMsgMessageWriter",
+      ).getInboundMsgDrainMessageCache();
+      n.createSnapshot();
+      var a = await Promise.allSettled(
+          e.map(function (e) {
+            var t = e.writes;
+            return Promise.all(t);
+          }),
+        ),
+        i = a.findIndex(function (e) {
+          var t = e.status;
+          return t === "rejected";
+        }),
+        l = a[i];
+      if ((l == null ? void 0 : l.status) !== "rejected")
+        return { failed: null, sharedFailures: [], written: t };
+      if (
+        (o("WALogger")
+          .WARN(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "[inbound-msg-queue] message write failed",
+              ])),
           )
-            return null;
-          var u = t.filter(function (e, t) {
-            return i[t].status === "rejected";
-          });
-          return {
-            failed: u.length > 1 ? null : t[l],
-            sharedFailures: u.length > 1 ? u : [],
-            written: t.slice(0, l),
-          };
-        })),
-        yt.apply(this, arguments)
-      );
+          .catching(r("getErrorSafe")(l.reason))
+          .tags("messaging"),
+        o("WAWebInboundMsgQueueODS").logInboundMsgWriteFailed(),
+        n.isFailClosed())
+      )
+        return null;
+      var s = t.filter(function (e, t) {
+        return a[t].status === "rejected";
+      });
+      return {
+        failed: s.length > 1 ? null : t[i],
+        sharedFailures: s.length > 1 ? s : [],
+        written: t.slice(0, i),
+      };
     }
-    function Ct(e, t) {
-      return bt.apply(this, arguments);
+    async function lt(e, t) {
+      var n = e.addedAtMs,
+        r = e.queueId,
+        a = e.row,
+        i = t.batched,
+        l = t.batchMsgIds;
+      if (a.kind === "stanza") return st(await ft(a));
+      var s = gt(r, n),
+        u = s != null ? s : await ht(a, r, n, i);
+      if (i && ut(u, l)) return null;
+      (dt(u, l),
+        o("WAWebInboundMsgQueueODS").logInboundMsgRowApplied(
+          s != null ? "prepared" : "replayed",
+        ));
+      var c = u.lidMetadataUpdates,
+        d = u.msgInfo,
+        m = u.msgMeta,
+        p = u.placeholder,
+        _ = u.prepared,
+        f = [],
+        g = [],
+        h = [],
+        y = [],
+        C = [];
+      if (
+        (await o("WAPromiseReduce").promiseReduce(
+          _,
+          async function (e, t) {
+            var n = pt(t.info, i),
+              r = n.flushedByCaller,
+              a = n.info,
+              l = await o("WAWebHandleMsgProcess").applyPreparedMessage(
+                babelHelpers.extends(
+                  {},
+                  o("WAWebHandleMsgProcess").withoutCryptoStateInstalls(t),
+                  { info: a },
+                ),
+                { callerHandles: _t(r, i) },
+              ),
+              s = l.staged;
+            (mt(s, C, y),
+              r && f.push.apply(f, t.renderableMsgs),
+              i &&
+                !pt(t.info, !1).flushedByCaller &&
+                g.push.apply(g, t.renderableMsgs),
+              t.renderableMsgs.forEach(function (e) {
+                var t = o("WAWebHandleMsgProcess").getOrphanCheckParentKey(e);
+                t != null && h.push(t.id);
+              }));
+          },
+          void 0,
+        ),
+        p != null)
+      ) {
+        var b = pt(d, i),
+          v = b.flushedByCaller,
+          S = b.info,
+          R = await o(
+            "WAWebMessageProcessPlaceholder",
+          ).processPlaceholderMessage(
+            o("WAWebInboundMsgRowPlaceholder").toPlaceholderParams(p, S, m),
+            { callerHandles: _t(v, i) },
+          );
+        mt(R, C, y);
+      }
+      return {
+        addOnParentIds: h,
+        lidMetadataUpdates: i ? c : [],
+        msgsForOrphanDrain: g,
+        msgsForOrphanReplay: f,
+        postprocess: y,
+        writes: C,
+      };
     }
-    function bt() {
-      return (
-        (bt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = e.addedAtMs,
-            a = e.queueId,
-            i = e.row,
-            l = t.batched,
-            s = t.batchMsgIds;
-          if (i.kind === "stanza") return vt(yield Tt(i));
-          var u = xt(a, r),
-            c = u != null ? u : yield $t(i, a, r, l);
-          if (l && St(c, s)) return null;
-          (Lt(c, s),
-            o("WAWebInboundMsgQueueODS").logInboundMsgRowApplied(
-              u != null ? "prepared" : "replayed",
-            ));
-          var d = c.lidMetadataUpdates,
-            m = c.msgInfo,
-            p = c.msgMeta,
-            _ = c.placeholder,
-            f = c.prepared,
-            g = [],
-            h = [],
-            y = [],
-            C = [],
-            b = [];
-          if (
-            (yield o("WAPromiseReduce").promiseReduce(
-              f,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e, t) {
-                    var n = kt(t.info, l),
-                      r = n.flushedByCaller,
-                      a = n.info,
-                      i = yield o("WAWebHandleMsgProcess").applyPreparedMessage(
-                        babelHelpers.extends(
-                          {},
-                          o("WAWebHandleMsgProcess").withoutCryptoStateInstalls(
-                            t,
-                          ),
-                          { info: a },
-                        ),
-                        { callerHandles: It(r, l) },
-                      ),
-                      s = i.staged;
-                    (Et(s, b, C),
-                      r && g.push.apply(g, t.renderableMsgs),
-                      l &&
-                        !kt(t.info, !1).flushedByCaller &&
-                        h.push.apply(h, t.renderableMsgs),
-                      t.renderableMsgs.forEach(function (e) {
-                        var t = o(
-                          "WAWebHandleMsgProcess",
-                        ).getOrphanCheckParentKey(e);
-                        t != null && y.push(t.id);
-                      }));
-                  },
-                );
-                return function (t, n) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              void 0,
-            ),
-            _ != null)
-          ) {
-            var v = kt(m, l),
-              S = v.flushedByCaller,
-              R = v.info,
-              L = yield o(
-                "WAWebMessageProcessPlaceholder",
-              ).processPlaceholderMessage(
-                o("WAWebInboundMsgRowPlaceholder").toPlaceholderParams(_, R, p),
-                { callerHandles: It(S, l) },
-              );
-            Et(L, b, C);
-          }
-          return {
-            addOnParentIds: y,
-            lidMetadataUpdates: l ? d : [],
-            msgsForOrphanDrain: h,
-            msgsForOrphanReplay: g,
-            postprocess: C,
-            writes: b,
-          };
-        })),
-        bt.apply(this, arguments)
-      );
-    }
-    function vt(e) {
+    function st(e) {
       return {
         addOnParentIds: [],
         lidMetadataUpdates: [],
@@ -1096,7 +956,7 @@ __d(
         writes: e == null ? [] : [e.written],
       };
     }
-    function St(e, t) {
+    function ut(e, t) {
       var n = e.prepared;
       return n.some(function (e) {
         var n = e.renderableMsgs;
@@ -1113,7 +973,7 @@ __d(
                       e,
                     )) != null
                       ? i
-                      : Rt(e)) != null
+                      : ct(e)) != null
                     ? a
                     : e.paymentRequestMessageKey) == null
                   ? void 0
@@ -1124,14 +984,14 @@ __d(
         });
       });
     }
-    function Rt(e) {
+    function ct(e) {
       return e.type !== o("WAWebMsgType").MSG_TYPE.PROTOCOL
         ? null
         : e.subtype === "sender_revoke" || e.subtype === "admin_revoke"
           ? e.protocolMessageKey
           : null;
     }
-    function Lt(e, t) {
+    function dt(e, t) {
       var n = e.msgInfo,
         r = e.prepared;
       (t.add(n.externalId),
@@ -1142,11 +1002,11 @@ __d(
           });
         }));
     }
-    function Et(e, t, n) {
+    function mt(e, t, n) {
       e != null &&
         (t.push(e.written), e.uiUpdate != null && n.push(e.uiUpdate));
     }
-    function kt(e, t) {
+    function pt(e, t) {
       if (t) return { info: e, flushedByCaller: !0 };
       var n = o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd,
         r =
@@ -1162,28 +1022,20 @@ __d(
         ).shouldFlushMessageImmediately(r.offline != null, n),
       };
     }
-    function It(e, t) {
+    function _t(e, t) {
       var n = ["errors"];
       return (e && n.push("flush"), t && n.push("ui"), new Set(n));
     }
-    function Tt(e) {
-      return Dt.apply(this, arguments);
-    }
-    function Dt() {
-      return (
-        (Dt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebInboundStanzaRowHandlers").applyInboundStanza(
-            e.handler,
-            yield o("WAWebInboundMsgRowCodec").decodeInboundStanzaRow(e),
-          );
-        })),
-        Dt.apply(this, arguments)
+    async function ft(e) {
+      return o("WAWebInboundStanzaRowHandlers").applyInboundStanza(
+        e.handler,
+        await o("WAWebInboundMsgRowCodec").decodeInboundStanzaRow(e),
       );
     }
-    function xt(e, t) {
-      var n = ee.get(e);
+    function gt(e, t) {
+      var n = Z.get(e);
       if (n == null) return null;
-      ee.delete(e);
+      Z.delete(e);
       var r = babelHelpers.extends({}, n.msgInfo);
       return (
         (r.msgProcessEndTsMillis = t),
@@ -1195,83 +1047,62 @@ __d(
         })
       );
     }
-    function $t(e, t, n, r) {
-      return Pt.apply(this, arguments);
-    }
-    function Pt() {
-      return (
-        (Pt = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a) {
-            var i = yield o("WAWebInboundMsgRowCodec").decodeInboundMsgRow(e),
-              l = i.input,
-              s = i.parts,
-              u = i.placeholder,
-              c = l.bizInfo,
-              d = l.hsmInfo,
-              m = l.msgBotInfo,
-              p = l.msgInfo,
-              _ = l.msgMeta,
-              f = l.paymentInfo,
-              g = l.rcat;
-            p.msgProcessEndTsMillis = r;
-            var h = o("WAWebInboundMsgQueueStore").isLeftoverInboundMsg(t),
-              y = [];
-            yield o("WAWebProcessMsgInfoForLid").maybeProcessMsgInfoForLid({
-              entryPoint: "pq-handle-message",
-              deferredWrites: a ? { lidMetadataUpdates: y } : void 0,
-              msgInfo: p,
-              msgMeta: _,
-            });
-            var C = yield o("WAPromiseReduce").promiseReduce(
-              s,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e, t) {
-                    var n = t.enc,
-                      r = t.plaintext,
-                      a = t.quarantineAction,
-                      i = t.scheduledMsgViewMode,
-                      s = yield o(
-                        "WAWebHandleMsgProcess",
-                      ).prepareReplayedMessage(
-                        {
-                          bizInfo: c,
-                          e2eInfo: o("WAWebMsgProcessingDecryptApi").toE2EInfo(
-                            n,
-                          ),
-                          hsmInfo: d,
-                          info: p,
-                          msgBotInfo: m,
-                          msgMeta: _,
-                          paymentInfo: f,
-                          rcat: g,
-                          reportingTokenInfo: l.reportingTokenInfo,
-                        },
-                        r,
-                        { quarantineAction: a, scheduledMsgViewMode: i },
-                      );
-                    return s == null ? e : [].concat(e, [s]);
-                  },
-                );
-                return function (t, n) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              [],
+    async function ht(e, t, n, r) {
+      var a = await o("WAWebInboundMsgRowCodec").decodeInboundMsgRow(e),
+        i = a.input,
+        l = a.parts,
+        s = a.placeholder,
+        u = i.bizInfo,
+        c = i.hsmInfo,
+        d = i.msgBotInfo,
+        m = i.msgInfo,
+        p = i.msgMeta,
+        _ = i.paymentInfo,
+        f = i.rcat;
+      m.msgProcessEndTsMillis = n;
+      var g = o("WAWebInboundMsgQueueStore").isLeftoverInboundMsg(t),
+        h = [];
+      await o("WAWebProcessMsgInfoForLid").maybeProcessMsgInfoForLid({
+        entryPoint: "pq-handle-message",
+        deferredWrites: r ? { lidMetadataUpdates: h } : void 0,
+        msgInfo: m,
+        msgMeta: p,
+      });
+      var y = await o("WAPromiseReduce").promiseReduce(
+        l,
+        async function (e, t) {
+          var n = t.enc,
+            r = t.plaintext,
+            a = t.quarantineAction,
+            l = t.scheduledMsgViewMode,
+            s = await o("WAWebHandleMsgProcess").prepareReplayedMessage(
+              {
+                bizInfo: u,
+                e2eInfo: o("WAWebMsgProcessingDecryptApi").toE2EInfo(n),
+                hsmInfo: c,
+                info: m,
+                msgBotInfo: d,
+                msgMeta: p,
+                paymentInfo: _,
+                rcat: f,
+                reportingTokenInfo: i.reportingTokenInfo,
+              },
+              r,
+              { quarantineAction: a, scheduledMsgViewMode: l },
             );
-            return {
-              lidMetadataUpdates: y,
-              msgInfo: p,
-              msgMeta: _,
-              placeholder: u,
-              prepared: h ? C.map(Nt) : C,
-            };
-          },
-        )),
-        Pt.apply(this, arguments)
+          return s == null ? e : [].concat(e, [s]);
+        },
+        [],
       );
+      return {
+        lidMetadataUpdates: h,
+        msgInfo: m,
+        msgMeta: p,
+        placeholder: s,
+        prepared: g ? y.map(yt) : y,
+      };
     }
-    function Nt(t) {
+    function yt(t) {
       return babelHelpers.extends({}, t, {
         renderableMsgs: t.renderableMsgs.map(function (t) {
           if (t.isOffline !== !1) return t;
@@ -1281,354 +1112,258 @@ __d(
         }),
       });
     }
-    function Mt(e, t) {
-      return wt.apply(this, arguments);
+    async function Ct(e, t) {
+      return t.length === 0 || Be(e)
+        ? !1
+        : (await o("WAWebInboundMsgQueueStore").ackInboundMsgs(
+            e.flow,
+            t.map(function (e) {
+              var t = e.queueId;
+              return t;
+            }),
+          ),
+          t.forEach(function (e) {
+            var t = e.queueId;
+            Q.delete(t);
+          }),
+          o("WAWebInboundMsgChatIndex").removeQueuedInboundMsgs(t),
+          ve(),
+          !0);
     }
-    function wt() {
-      return (
-        (wt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return t.length === 0 || Ve(e)
-            ? !1
-            : (yield o("WAWebInboundMsgQueueStore").ackInboundMsgs(
-                e.flow,
-                t.map(function (e) {
-                  var t = e.queueId;
-                  return t;
-                }),
-              ),
-              t.forEach(function (e) {
-                var t = e.queueId;
-                X.delete(t);
-              }),
-              o("WAWebInboundMsgChatIndex").removeQueuedInboundMsgs(t),
-              Le(),
-              !0);
-        })),
-        wt.apply(this, arguments)
-      );
-    }
-    function At(e, t) {
-      return Ft.apply(this, arguments);
-    }
-    function Ft() {
-      return (
-        (Ft = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (Ve(e)) return "retry";
-          var n = t.attemptCount + 1;
-          return n >= E
-            ? ((K = k),
-              (yield Ot(e, t, n)) || Ve(e)
-                ? "retry"
-                : (yield o("WAWebInboundMsgQueueStore").putInboundMsgs(e.flow, [
-                    babelHelpers.extends({}, t, {
-                      attemptCount: n,
-                      changedAtMs: o("WATimeUtils").unixTimeMs(),
-                    }),
-                  ]),
-                  "failed"))
-            : ((K = Ae(n)),
-              o("WAWebInboundMsgQueueODS").logInboundMsgRowRetried(),
-              yield o("WAWebInboundMsgQueueStore").putInboundMsgs(e.flow, [
+    async function bt(e, t) {
+      if (Be(e)) return "retry";
+      var n = t.attemptCount + 1;
+      return n >= L
+        ? ((j = E),
+          (await vt(e, t, n)) || Be(e)
+            ? "retry"
+            : (await o("WAWebInboundMsgQueueStore").putInboundMsgs(e.flow, [
                 babelHelpers.extends({}, t, {
                   attemptCount: n,
                   changedAtMs: o("WATimeUtils").unixTimeMs(),
                 }),
               ]),
-              "retry");
-        })),
-        Ft.apply(this, arguments)
-      );
+              "failed"))
+        : ((j = Pe(n)),
+          o("WAWebInboundMsgQueueODS").logInboundMsgRowRetried(),
+          await o("WAWebInboundMsgQueueStore").putInboundMsgs(e.flow, [
+            babelHelpers.extends({}, t, {
+              attemptCount: n,
+              changedAtMs: o("WATimeUtils").unixTimeMs(),
+            }),
+          ]),
+          "retry");
     }
-    function Ot(e, t, n) {
-      return Bt.apply(this, arguments);
+    async function vt(e, t, n) {
+      o("WAWebInboundMsgQueueODS").logInboundMsgDeadLetter();
+      var r = t.row;
+      return r.kind === "stanza"
+        ? (await Lt(e, t, r), !0)
+        : (await Rt(r, n))
+          ? (await Ct(e, [t]), !0)
+          : !1;
     }
-    function Bt() {
-      return (
-        (Bt = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            o("WAWebInboundMsgQueueODS").logInboundMsgDeadLetter();
-            var r = t.row;
-            return r.kind === "stanza"
-              ? (yield Ht(e, t, r), !0)
-              : (yield Ut(r, n))
-                ? (yield Mt(e, [t]), !0)
-                : !1;
-          },
-        )),
-        Bt.apply(this, arguments)
-      );
+    async function St(e, t) {
+      var n = e.row;
+      (o("WAWebInboundMsgQueueODS").logInboundMsgDeadLetter(),
+        n.kind === "message" && (await Rt(n, t)));
     }
-    function Wt(e, t) {
-      return qt.apply(this, arguments);
+    async function Rt(e, t) {
+      var n = t < 2 * L ? await Et(e) : null;
+      return n != null && !(await Tt(n, e.placeholder))
+        ? !1
+        : (o("WALogger")
+            .ERROR(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "[inbound-msg-queue] dead-lettered a row after ",
+                  " attempts",
+                ])),
+              t,
+            )
+            .tags("messaging")
+            .sendLogs("inbound-msg-dead-letter"),
+          !0);
     }
-    function qt() {
-      return (
-        (qt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.row;
-          (o("WAWebInboundMsgQueueODS").logInboundMsgDeadLetter(),
-            n.kind === "message" && (yield Ut(n, t)));
-        })),
-        qt.apply(this, arguments)
-      );
+    async function Lt(e, t, n) {
+      var r = n.handler;
+      (o("WALogger")
+        .ERROR(
+          y ||
+            (y = babelHelpers.taggedTemplateLiteralLoose([
+              "[inbound-msg-queue] dropping a ",
+              " row after ",
+              " attempts",
+            ])),
+          r,
+          L,
+        )
+        .tags("messaging")
+        .sendLogs("inbound-msg-dead-letter-stanza"),
+        await Ct(e, [t]));
     }
-    function Ut(e, t) {
-      return Vt.apply(this, arguments);
+    async function Et(e) {
+      var t,
+        n = (t = await kt(e)) != null ? t : await It(e);
+      if (n == null)
+        return (
+          o("WAWebInboundMsgQueueODS").logInboundMsgDeadLetterUndecodable(),
+          o("WALogger")
+            .ERROR(
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
+                  "[inbound-msg-queue] dropping a row that cannot be decoded",
+                ])),
+            )
+            .tags("messaging")
+            .sendLogs("inbound-msg-dead-letter-undecodable"),
+          null
+        );
+      try {
+        await o("WAWebProcessMsgInfoForLid").maybeProcessMsgInfoForLid({
+          entryPoint: "pq-handle-message",
+          msgInfo: n.msgInfo,
+          msgMeta: n.msgMeta,
+        });
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
+                "[inbound-msg-queue] could not resolve the chat of a dead-lettered row",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .tags("messaging");
+      }
+      return n;
     }
-    function Vt() {
-      return (
-        (Vt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t < 2 * E ? yield zt(e) : null;
-          return n != null && !(yield Jt(n, e.placeholder))
-            ? !1
-            : (o("WALogger")
-                .ERROR(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "[inbound-msg-queue] dead-lettered a row after ",
-                      " attempts",
-                    ])),
-                  t,
-                )
-                .tags("messaging")
-                .sendLogs("inbound-msg-dead-letter"),
-              !0);
-        })),
-        Vt.apply(this, arguments)
-      );
+    async function kt(e) {
+      try {
+        var t = await o("WAWebInboundMsgRowCodec").decodeInboundMsgRow(e),
+          n = t.input;
+        return { msgInfo: n.msgInfo, msgMeta: n.msgMeta };
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
+                  "[inbound-msg-queue] dead-lettered row no longer parses",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .tags("messaging"),
+          null
+        );
+      }
     }
-    function Ht(e, t, n) {
-      return Gt.apply(this, arguments);
+    async function It(e) {
+      try {
+        var t,
+          n,
+          a,
+          i = await o("WAWap").decodeStanza(e.stanza.slice(), function () {
+            return Promise.reject(r("err")("persisted stanza is compressed"));
+          }),
+          l = o("WAWebHandleMsgParser").incomingMsgParserForAckOnly.parse(i),
+          s = (t = l.success) == null ? void 0 : t.msgInfo;
+        if (s == null) return null;
+        o("WAWebInboundMsgRowCodec").applyInboundMsgIntakeState(s, e.intake);
+        var u = {
+          appdata: null,
+          isUnavailable: !1,
+          origin: null,
+          pollType: null,
+          rawTs: String(s.ts),
+          type:
+            (n = (a = l.success) == null ? void 0 : a.type) != null
+              ? n
+              : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text,
+          urlNumber: !1,
+          urlText: !1,
+        };
+        return (
+          e.isGroupStatusStanza && (u.isGroupStatus = !0),
+          e.isStatusStanza && (u.isStatusStanza = !0),
+          { msgInfo: s, msgMeta: u }
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              S ||
+                (S = babelHelpers.taggedTemplateLiteralLoose([
+                  "[inbound-msg-queue] dead-lettered row has no readable stanza",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .tags("messaging"),
+          null
+        );
+      }
     }
-    function Gt() {
-      return (
-        (Gt = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n) {
-            var r = n.handler;
-            (o("WALogger")
-              .ERROR(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "[inbound-msg-queue] dropping a ",
-                    " row after ",
-                    " attempts",
-                  ])),
-                r,
-                E,
-              )
-              .tags("messaging")
-              .sendLogs("inbound-msg-dead-letter-stanza"),
-              yield Mt(e, [t]));
-          },
-        )),
-        Gt.apply(this, arguments)
-      );
+    async function Tt(e, t) {
+      var n = e.msgInfo,
+        a = e.msgMeta;
+      try {
+        var i = pt(n, !1),
+          l = i.flushedByCaller,
+          s = i.info,
+          u = await o(
+            "WAWebMessageProcessPlaceholder",
+          ).processPlaceholderMessage(
+            t == null
+              ? {
+                  msgInfo: s,
+                  msgMeta: a,
+                  placeholderType: o("WAWebHandleMsgTypes").PlaceholderType.E2E,
+                  type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
+                }
+              : o("WAWebInboundMsgRowPlaceholder").toPlaceholderParams(t, s, a),
+            { callerHandles: _t(l, !1) },
+          );
+        await ce(u == null ? [] : [u.written]);
+      } catch (e) {
+        return (
+          o(
+            "WAWebInboundMsgQueueODS",
+          ).logInboundMsgDeadLetterPlaceholderFailed(),
+          o("WALogger")
+            .ERROR(
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
+                  "[inbound-msg-queue] the placeholder of a dead-lettered row failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .tags("messaging")
+            .sendLogs("inbound-msg-dead-letter-placeholder-failed", {
+              sampling: x,
+            }),
+          !1
+        );
+      }
+      return !0;
     }
-    function zt(e) {
-      return jt.apply(this, arguments);
-    }
-    function jt() {
-      return (
-        (jt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = (t = yield Kt(e)) != null ? t : yield Xt(e);
-          if (n == null)
-            return (
-              o("WAWebInboundMsgQueueODS").logInboundMsgDeadLetterUndecodable(),
-              o("WALogger")
-                .ERROR(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
-                      "[inbound-msg-queue] dropping a row that cannot be decoded",
-                    ])),
-                )
-                .tags("messaging")
-                .sendLogs("inbound-msg-dead-letter-undecodable"),
-              null
-            );
-          try {
-            yield o("WAWebProcessMsgInfoForLid").maybeProcessMsgInfoForLid({
-              entryPoint: "pq-handle-message",
-              msgInfo: n.msgInfo,
-              msgMeta: n.msgMeta,
-            });
-          } catch (e) {
-            o("WALogger")
-              .WARN(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
-                    "[inbound-msg-queue] could not resolve the chat of a dead-lettered row",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .tags("messaging");
-          }
-          return n;
-        })),
-        jt.apply(this, arguments)
-      );
-    }
-    function Kt(e) {
-      return Qt.apply(this, arguments);
-    }
-    function Qt() {
-      return (
-        (Qt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o("WAWebInboundMsgRowCodec").decodeInboundMsgRow(e),
-              n = t.input;
-            return { msgInfo: n.msgInfo, msgMeta: n.msgMeta };
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  v ||
-                    (v = babelHelpers.taggedTemplateLiteralLoose([
-                      "[inbound-msg-queue] dead-lettered row no longer parses",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .tags("messaging"),
-              null
-            );
-          }
-        })),
-        Qt.apply(this, arguments)
-      );
-    }
-    function Xt(e) {
-      return Yt.apply(this, arguments);
-    }
-    function Yt() {
-      return (
-        (Yt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t,
-              a,
-              i,
-              l = yield o("WAWap").decodeStanza(e.stanza.slice(), function () {
-                return (L || (L = n("Promise"))).reject(
-                  r("err")("persisted stanza is compressed"),
-                );
-              }),
-              s = o("WAWebHandleMsgParser").incomingMsgParserForAckOnly.parse(
-                l,
-              ),
-              u = (t = s.success) == null ? void 0 : t.msgInfo;
-            if (u == null) return null;
-            o("WAWebInboundMsgRowCodec").applyInboundMsgIntakeState(
-              u,
-              e.intake,
-            );
-            var c = {
-              appdata: null,
-              isUnavailable: !1,
-              origin: null,
-              pollType: null,
-              rawTs: String(u.ts),
-              type:
-                (a = (i = s.success) == null ? void 0 : i.type) != null
-                  ? a
-                  : o("WAWebHandleMsgCommon").STANZA_MSG_TYPES.text,
-              urlNumber: !1,
-              urlText: !1,
-            };
-            return (
-              e.isGroupStatusStanza && (c.isGroupStatus = !0),
-              e.isStatusStanza && (c.isStatusStanza = !0),
-              { msgInfo: u, msgMeta: c }
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
-                      "[inbound-msg-queue] dead-lettered row has no readable stanza",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .tags("messaging"),
-              null
-            );
-          }
-        })),
-        Yt.apply(this, arguments)
-      );
-    }
-    function Jt(e, t) {
-      return Zt.apply(this, arguments);
-    }
-    function Zt() {
-      return (
-        (Zt = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.msgInfo,
-            a = e.msgMeta;
-          try {
-            var i = kt(n, !1),
-              l = i.flushedByCaller,
-              s = i.info,
-              u = yield o(
-                "WAWebMessageProcessPlaceholder",
-              ).processPlaceholderMessage(
-                t == null
-                  ? {
-                      msgInfo: s,
-                      msgMeta: a,
-                      placeholderType: o("WAWebHandleMsgTypes").PlaceholderType
-                        .E2E,
-                      type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
-                    }
-                  : o("WAWebInboundMsgRowPlaceholder").toPlaceholderParams(
-                      t,
-                      s,
-                      a,
-                    ),
-                { callerHandles: It(l, !1) },
-              );
-            yield me(u == null ? [] : [u.written]);
-          } catch (e) {
-            return (
-              o(
-                "WAWebInboundMsgQueueODS",
-              ).logInboundMsgDeadLetterPlaceholderFailed(),
-              o("WALogger")
-                .ERROR(
-                  R ||
-                    (R = babelHelpers.taggedTemplateLiteralLoose([
-                      "[inbound-msg-queue] the placeholder of a dead-lettered row failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .tags("messaging")
-                .sendLogs("inbound-msg-dead-letter-placeholder-failed", {
-                  sampling: $,
-                }),
-              !1
-            );
-          }
-          return !0;
-        })),
-        Zt.apply(this, arguments)
-      );
-    }
-    function en() {
+    function Dt() {
       return o("TaskScheduler").taskScheduler(
         "waweb-inbound-msg-drain",
-        { concurrency: 1, failOnTimeout: !1, timeoutMs: D },
+        { concurrency: 1, failOnTimeout: !1, timeoutMs: T },
         o("NativeSchedulerTickStrategy").makeNativeSchedulerTickStrategy(),
       );
     }
-    ((l.startInboundMsgDrain = le),
-      (l.stopInboundMsgDrain = se),
-      (l.applyInboundMsgInPlace = ue),
-      (l.onInboundMsgCommitted = fe),
-      (l.isInboundMsgDrainBatchBuffering = he),
-      (l.isInboundMsgRecoveryDone = ye),
-      (l.hasUndrainedInboundMsgs = Ce),
-      (l.whenInboundMsgRecoveryDone = be),
-      (l.waitForInboundMsgDrainIdle = ve),
-      (l.waitForInboundMsgStartupChatsDrained = Se),
-      (l.pauseInboundMsgDrainUntilMainStreamReady = Re));
+    ((l.startInboundMsgDrain = ie),
+      (l.stopInboundMsgDrain = le),
+      (l.applyInboundMsgInPlace = se),
+      (l.onInboundMsgCommitted = me),
+      (l.isInboundMsgDrainBatchBuffering = _e),
+      (l.isInboundMsgRecoveryDone = fe),
+      (l.hasUndrainedInboundMsgs = ge),
+      (l.whenInboundMsgRecoveryDone = he),
+      (l.waitForInboundMsgDrainIdle = ye),
+      (l.waitForInboundMsgStartupChatsDrained = Ce),
+      (l.pauseInboundMsgDrainUntilMainStreamReady = be));
   },
   98,
 );

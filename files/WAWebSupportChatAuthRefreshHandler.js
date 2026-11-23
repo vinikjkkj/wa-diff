@@ -1,12 +1,10 @@
 __d(
   "WAWebSupportChatAuthRefreshHandler",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebGroupMetadataCollection",
     "WAWebSupportChatAuthRefreshMutation",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,146 +13,117 @@ __d(
       s,
       u,
       c,
-      d,
-      m = 6e4,
-      p = new Map(),
-      _ = new Set(),
-      f = 0;
-    function g() {
-      (f++, p.clear(), _.clear());
+      d = 6e4,
+      m = new Map(),
+      p = new Set(),
+      _ = 0;
+    function f() {
+      (_++, m.clear(), p.clear());
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    async function g(e, t) {
+      var n = e.id.toString();
+      if (!(p.has(n) || v(n))) {
+        var r = _;
+        p.add(n);
+        try {
+          await h(e, n, t, r);
+        } finally {
+          r === _ && p.delete(n);
+        }
+      }
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.id.toString();
-          if (!(_.has(n) || E(n))) {
-            var r = f;
-            _.add(n);
-            try {
-              yield C(e, n, t, r);
-            } finally {
-              r === f && _.delete(n);
-            }
-          }
-        })),
-        y.apply(this, arguments)
-      );
+    async function h(t, n, a, i) {
+      var l = await C(t).catch(function (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[support-chat-auth] ",
+                  " group members could not be loaded",
+                ])),
+              a,
+            )
+            .catching(r("getErrorSafe")(t)),
+          null
+        );
+      });
+      if (!(l == null || i !== _)) {
+        var u = l.botFbid,
+          c = l.chatKind;
+        m.set(n, o("WATimeUtils").monotonicTime());
+        try {
+          var d = await o(
+            "WAWebSupportChatAuthRefreshMutation",
+          ).refreshSupportChatAuthGraphQL({ bot_fbid: u, chat_kind: c });
+          y(a, c, d);
+        } catch (e) {
+          (i === _ && m.delete(n),
+            o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[support-chat-auth] ",
+                    " ",
+                    " refresh failed",
+                  ])),
+                a,
+                c,
+              )
+              .catching(r("getErrorSafe")(e)));
+        }
+      }
     }
-    function C(e, t, n, r) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var i = yield S(e).catch(function (e) {
-              return (
-                o("WALogger")
-                  .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[support-chat-auth] ",
-                        " group members could not be loaded",
-                      ])),
-                    n,
-                  )
-                  .catching(r("getErrorSafe")(e)),
-                null
-              );
-            });
-            if (!(i == null || a !== f)) {
-              var l = i.botFbid,
-                s = i.chatKind;
-              p.set(t, o("WATimeUtils").monotonicTime());
-              try {
-                var d = yield o(
-                  "WAWebSupportChatAuthRefreshMutation",
-                ).refreshSupportChatAuthGraphQL({ bot_fbid: l, chat_kind: s });
-                v(n, s, d);
-              } catch (e) {
-                (a === f && p.delete(t),
-                  o("WALogger")
-                    .WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[support-chat-auth] ",
-                          " ",
-                          " refresh failed",
-                        ])),
-                      n,
-                      s,
-                    )
-                    .catching(r("getErrorSafe")(e)));
-              }
-            }
-          },
-        )),
-        b.apply(this, arguments)
-      );
-    }
-    function v(t, n, r) {
-      if (r === "SCHEDULED") {
+    function y(e, t, n) {
+      if (n === "SCHEDULED") {
         o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "[support-chat-auth] ",
               " ",
               " refresh: status=",
               "",
             ])),
+          e,
           t,
           n,
-          r,
         );
         return;
       }
       o("WALogger").WARN(
-        s ||
-          (s = babelHelpers.taggedTemplateLiteralLoose([
+        c ||
+          (c = babelHelpers.taggedTemplateLiteralLoose([
             "[support-chat-auth] ",
             " ",
             " refresh: status=",
             "",
           ])),
+        e,
         t,
         n,
-        r,
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    async function C(e) {
+      if (e.id.isSupportAgentBot())
+        return { botFbid: e.id.user, chatKind: "SUPPORT_CHAT" };
+      if (!e.id.isGroup()) return null;
+      var t = await b(e),
+        n = t.participants.findFirst(function (e) {
+          return e.id.isSupportAgentBot();
+        });
+      return n == null ? null : { botFbid: n.id.user, chatKind: "GROUP_CHAT" };
     }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.id.isSupportAgentBot())
-            return { botFbid: e.id.user, chatKind: "SUPPORT_CHAT" };
-          if (!e.id.isGroup()) return null;
-          var t = yield L(e),
-            n = t.participants.findFirst(function (e) {
-              return e.id.isSupportAgentBot();
-            });
-          return n == null
-            ? null
-            : { botFbid: n.id.user, chatKind: "GROUP_CHAT" };
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e) {
+    function b(e) {
       var t = e.groupMetadata;
       return t != null && !t.stale
-        ? (d || (d = n("Promise"))).resolve(t)
+        ? Promise.resolve(t)
         : r("WAWebGroupMetadataCollection").find(e.id);
     }
-    function E(e) {
-      var t = p.get(e);
-      return t != null && o("WATimeUtils").monotonicTimeSince(t) < m;
+    function v(e) {
+      var t = m.get(e);
+      return t != null && o("WATimeUtils").monotonicTimeSince(t) < d;
     }
-    ((l.resetSession = g), (l.refreshIfSupportChat = h));
+    ((l.resetSession = f), (l.refreshIfSupportChat = g));
   },
   98,
 );

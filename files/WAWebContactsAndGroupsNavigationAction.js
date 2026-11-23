@@ -10,7 +10,6 @@ __d(
     "WAWebDrawerManager",
     "WAWebKeyboardTabUtils",
     "WAWebSideNavButtonsActivityModel",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -43,108 +42,80 @@ __d(
           e.id.toString(),
         ));
     }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield o("WAWebCmd")
-            .Cmd.openChatFromUnread({
-              chat: t,
-              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                .ContactsTab,
-            })
-            .catch(function (t) {
-              return (
-                o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "openChatFromContactsAndGroups: opening the chat failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(t)),
-                !1
-              );
-            });
+    async function f(t) {
+      var n = await o("WAWebCmd")
+        .Cmd.openChatFromUnread({
+          chat: t,
+          chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab,
+        })
+        .catch(function (t) {
           return (
-            n && (_(t), o("WAWebComposeBoxActions").ComposeBoxActions.focus(t)),
-            n
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "openChatFromContactsAndGroups: opening the chat failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t)),
+            !1
           );
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e, t) {
-      return y.apply(this, arguments);
-    }
-    function y() {
+        });
       return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebCmd")
-            .Cmd.openChatAt({
-              chat: e,
-              chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                .ContactsTab,
-              msgContext: o("WAWebChatMessageSearch").getSearchContext({
-                chat: e,
-                msgKey: t,
-              }),
-            })
-            .catch(function (e) {
-              return (
-                o("WALogger")
-                  .WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "openChatAtMsgFromContactsAndGroups: opening the chat failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e)),
-                !1
-              );
-            });
-          return (n && _(e), n);
-        })),
-        y.apply(this, arguments)
+        n && (_(t), o("WAWebComposeBoxActions").ComposeBoxActions.focus(t)),
+        n
       );
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    async function g(e, t) {
+      var n = await o("WAWebCmd")
+        .Cmd.openChatAt({
+          chat: e,
+          chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.ContactsTab,
+          msgContext: o("WAWebChatMessageSearch").getSearchContext({
+            chat: e,
+            msgKey: t,
+          }),
+        })
+        .catch(function (e) {
+          return (
+            o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "openChatAtMsgFromContactsAndGroups: opening the chat failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e)),
+            !1
+          );
+        });
+      return (n && _(e), n);
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield e.catch(function (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "closeAfterNewGroupFromContactsAndGroups: creating the group failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e)),
-              null
-            );
-          });
-          n != null &&
-            (t(n),
-            o("WAWebSideNavButtonsActivityModel").setLastActiveChat(
-              n.toString(),
-            ),
-            p());
-        })),
-        b.apply(this, arguments)
-      );
+    async function h(e, t) {
+      var n = await e.catch(function (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "closeAfterNewGroupFromContactsAndGroups: creating the group failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e)),
+          null
+        );
+      });
+      n != null &&
+        (t(n),
+        o("WAWebSideNavButtonsActivityModel").setLastActiveChat(n.toString()),
+        p());
     }
     ((l.openContactsAndGroups = m),
       (l.closeContactsAndGroups = p),
       (l.closeContactsAndGroupsOnOpenedChat = _),
       (l.openChatFromContactsAndGroups = f),
-      (l.openChatAtMsgFromContactsAndGroups = h),
-      (l.closeAfterNewGroupFromContactsAndGroups = C));
+      (l.openChatAtMsgFromContactsAndGroups = g),
+      (l.closeAfterNewGroupFromContactsAndGroups = h));
   },
   98,
 );

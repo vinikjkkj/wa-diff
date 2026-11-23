@@ -5,16 +5,15 @@ __d(
     "WALogger",
     "WAWebCustomerManagerExportCsvUtils",
     "WAWebCustomerManagerImportErrorMessage",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = "originalRowIndex";
     function c() {
-      return s._(/*BTDS*/ "Original row number").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     function d() {
-      return s._(/*BTDS*/ "Error").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     function m(e, t) {
       if (!t.has(e)) return e;
@@ -51,43 +50,35 @@ __d(
           });
       return { headers: [l].concat(t, [s]), rows: p };
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            var n = p(t),
-              r = n.headers,
-              a = n.rows,
-              i = yield o(
-                "WAWebCustomerManagerExportCsvUtils",
-              ).buildCustomerManagerCsv(r, a);
-            yield o(
-              "WAWebCustomerManagerExportCsvUtils",
-            ).downloadCustomerManagerCsv(i, "customer_manager_import_errors");
-          } catch (t) {
-            throw (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Failed to export import errors to CSV: ",
-                      "",
-                    ])),
-                  t,
-                )
-                .verbose()
-                .sendLogs("customer-manager-import-errors-export-failed", {
-                  sampling: 1,
-                }),
-              t
-            );
-          }
-        })),
-        f.apply(this, arguments)
-      );
+    async function _(t) {
+      try {
+        var n = p(t),
+          r = n.headers,
+          a = n.rows,
+          i = await o(
+            "WAWebCustomerManagerExportCsvUtils",
+          ).buildCustomerManagerCsv(r, a);
+        await o(
+          "WAWebCustomerManagerExportCsvUtils",
+        ).downloadCustomerManagerCsv(i, "customer_manager_import_errors");
+      } catch (t) {
+        throw (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Failed to export import errors to CSV: ",
+                  "",
+                ])),
+              t,
+            )
+            .verbose()
+            .sendLogs("customer-manager-import-errors-export-failed", {
+              sampling: 1,
+            }),
+          t
+        );
+      }
     }
     ((l.buildImportErrorsExportTable = p), (l.exportImportErrors = _));
   },

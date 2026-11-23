@@ -5,7 +5,6 @@ __d(
     "WAWebMediaTypes",
     "WAWebNewsletterGatingUtils",
     "WAWebSystemProvenanceGating",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -60,29 +59,21 @@ __d(
       var t = c(e);
       return t === "none" || t === "other" ? null : e;
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.isChannel,
-            r = t.mediaType,
-            a = t.resolveSystemProvenance;
-          if (!n || !e(r)) return null;
-          var i = m(yield a());
-          return i == null ||
-            !o("WAWebNewsletterGatingUtils").isChannelAIAntiTamperingEnabled()
-            ? null
-            : o("WAKaleidoscopeProvenanceField").allowedProvenanceFields(
-                i,
-                o(
-                  "WAWebSystemProvenanceGating",
-                ).systemProvenanceAllowedFieldNames(),
-              );
-        })),
-        _.apply(this, arguments)
-      );
+    async function p(t) {
+      var n = t.isChannel,
+        r = t.mediaType,
+        a = t.resolveSystemProvenance;
+      if (!n || !e(r)) return null;
+      var i = m(await a());
+      return i == null ||
+        !o("WAWebNewsletterGatingUtils").isChannelAIAntiTamperingEnabled()
+        ? null
+        : o("WAKaleidoscopeProvenanceField").allowedProvenanceFields(
+            i,
+            o(
+              "WAWebSystemProvenanceGating",
+            ).systemProvenanceAllowedFieldNames(),
+          );
     }
     ((l.isMarkableMediaType = e),
       (l.systemProvenanceClass = c),

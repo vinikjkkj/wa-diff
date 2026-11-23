@@ -1,6 +1,6 @@
 __d(
   "WAWebRoutePluginSlot",
-  ["WAWebNoop", "WAWebNullFunc", "cr:17673", "react", "react-compiler-runtime"],
+  ["WAWebNoop", "WAWebNullFunc", "cr:17673", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -48,39 +48,31 @@ __d(
       );
     }
     function h(t, r) {
-      var a = o("react-compiler-runtime").c(4),
-        i = c(t),
-        l = m(null),
-        s,
-        u;
-      (a[0] !== i || a[1] !== r
-        ? ((s = function () {
-            if (n("cr:17673") != null) {
-              var t = l.current;
-              (t != null &&
-                t !== r &&
-                n("cr:17673").DEV(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "useRegisterRoutePluginSlotValue: registered value reference changed between renders for the same slot. The value MUST be a stable reference (module-level export or useCallback) \u2014 see WAWebRoutePluginSlot JSDoc. Unstable references thrash the slot and re-run the layout effect on every render.",
-                    ])),
-                ),
-                (l.current = r));
+      var o = c(t),
+        a = m(null);
+      d(
+        function () {
+          if (n("cr:17673") != null) {
+            var t = a.current;
+            (t != null &&
+              t !== r &&
+              n("cr:17673").DEV(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "useRegisterRoutePluginSlotValue: registered value reference changed between renders for the same slot. The value MUST be a stable reference (module-level export or useCallback) \u2014 see WAWebRoutePluginSlot JSDoc. Unstable references thrash the slot and re-run the layout effect on every render.",
+                  ])),
+              ),
+              (a.current = r));
+          }
+          return (
+            o == null || o.applyValue(r),
+            function () {
+              o == null || o.applyValue(null);
             }
-            return (
-              i == null || i.applyValue(r),
-              function () {
-                i == null || i.applyValue(null);
-              }
-            );
-          }),
-          (u = [i, r]),
-          (a[0] = i),
-          (a[1] = r),
-          (a[2] = s),
-          (a[3] = u))
-        : ((s = a[2]), (u = a[3])),
-        d(s, u));
+          );
+        },
+        [o, r],
+      );
     }
     ((l.WAWebRoutePluginSlot = _),
       (l.useRoutePluginSlotValue = g),

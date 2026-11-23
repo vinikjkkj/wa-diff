@@ -1,17 +1,28 @@
 __d(
   "WASmaxOutReceiptStatusDeviceMixin",
-  ["WASmaxAttrs", "WASmaxJsx", "WASmaxMixins", "WAWap"],
+  [
+    "WASmaxAttrs",
+    "WASmaxJsx",
+    "WASmaxMixins",
+    "WASmaxOutReceiptStatusClassMixin",
+    "WAWap",
+  ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       var t = e.receiptTo,
         n = e.receiptParticipant,
         r = e.receiptPeerParticipantPn,
-        a = o("WASmaxJsx").smax("receipt", {
-          to: o("WAWap").JID(t),
-          participant: o("WAWap").DEVICE_JID(n),
-          peer_participant_pn: o("WASmaxAttrs").OPTIONAL(o("WAWap").JID, r),
-        });
-      return a;
+        a = e.hasStatusClass,
+        i = o("WASmaxMixins").optionalMerge(
+          o("WASmaxOutReceiptStatusClassMixin").mergeStatusClassMixin,
+          o("WASmaxJsx").smax("receipt", {
+            to: o("WAWap").JID(t),
+            participant: o("WAWap").DEVICE_JID(n),
+            peer_participant_pn: o("WASmaxAttrs").OPTIONAL(o("WAWap").JID, r),
+          }),
+          a,
+        );
+      return i;
     }
     function s(t, n) {
       var r = e(n);

@@ -6,14 +6,13 @@ __d(
     "WAWebMessageSendService",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSendMsgRecordAction",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "sendMessage",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             return (
               o("WAWebBackendRuntime").isWebDiBackendEnabled()
                 ? o("WAWebBackendRuntime").runtime(
@@ -21,7 +20,7 @@ __d(
                   ).sendAddonRecord
                 : o("WAWebSendMsgRecordAction").sendAddonRecord
             )(e);
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();

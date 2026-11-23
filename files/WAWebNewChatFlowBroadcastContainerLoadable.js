@@ -6,7 +6,6 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -17,19 +16,11 @@ __d(
       c = r("JSResourceForInteraction")(
         "WAWebPrepareNewChatFlowBroadcastContainer",
       ).__setRef("WAWebNewChatFlowBroadcastContainerLoadable");
-    function d() {
-      return m.apply(this, arguments);
+    async function d() {
+      var e = await c.load();
+      return e.loadNewChatFlowBroadcastContainer();
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield c.load();
-          return e.loadNewChatFlowBroadcastContainer();
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    var p = r("WAWebLazyLoadedRetriable")(
+    var m = r("WAWebLazyLoadedRetriable")(
         d,
         "RoutedNewChatFlowBroadcastContainer",
         {
@@ -46,8 +37,8 @@ __d(
           },
         },
       ),
-      _ = r("WAWebLoadable")({
-        loader: p,
+      p = r("WAWebLoadable")({
+        loader: m,
         loading: function (t) {
           return u.jsx(r("WAWebLoadingDrawer.react"), {
             error: !!t.error,
@@ -55,7 +46,7 @@ __d(
           });
         },
       });
-    l.WAWebNewChatFlowBroadcastContainerLoadable = _;
+    l.WAWebNewChatFlowBroadcastContainerLoadable = p;
   },
   98,
 );

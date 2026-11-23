@@ -1,0 +1,26 @@
+__d(
+  "MAIBAGeoH3Renderer_component.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = {
+      argumentDefinitions: [],
+      kind: "Fragment",
+      metadata: null,
+      name: "MAIBAGeoH3Renderer_component",
+      selections: [
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "__typename",
+          storageKey: null,
+        },
+      ],
+      type: "MAIBAContentComponentH3",
+      abstractKey: null,
+    };
+    a.exports = e;
+  },
+  null,
+);

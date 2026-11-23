@@ -1,91 +1,75 @@
 __d(
   "WAWebBrowserFeatures",
-  [
-    "Promise",
-    "WAMd5",
-    "WAWebIndexedDB",
-    "WAWebIndexedDBPurge",
-    "WAWebPlatformEstimate",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAMd5", "WAWebIndexedDB", "WAWebIndexedDBPurge", "WAWebPlatformEstimate"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s() {
+    function e() {
       return navigator.plugins.length;
     }
-    function u() {
+    function s() {
       var e, t;
       return (e = (t = navigator.mimeTypes) == null ? void 0 : t.length) != null
         ? e
         : 0;
     }
-    function c() {
+    function u() {
       return "Notification" in window && Notification.permission !== "denied";
     }
-    function d() {
+    function c() {
       return (
         "pdfViewerEnabled" in navigator && navigator.pdfViewerEnabled === !0
       );
     }
-    function m() {
+    function d() {
       var e, t;
       return (
         screen.height !== ((e = screen) == null ? void 0 : e.availHeight) ||
         screen.width !== ((t = screen) == null ? void 0 : t.availWidth)
       );
     }
-    function p() {
+    function m() {
       return "share" in navigator && "canShare" in navigator;
     }
-    function _() {
+    function p() {
       return "chrome" in window;
     }
-    function f() {
+    function _() {
       return window.history.length;
     }
-    function g() {
+    function f() {
       return window.innerWidth + "x" + window.innerHeight;
     }
+    async function g() {
+      try {
+        var e = document.createElement("canvas"),
+          t = e.getContext("2d");
+        if (t == null) return "";
+        ((e.width = 120),
+          (e.height = 20),
+          (t.font = "14px 'Arial'"),
+          (t.fillStyle = "#fff"),
+          t.fillRect(0, 0, 120, 20),
+          (t.fillStyle = "rgba(102, 204, 0, 0.7)"),
+          t.fillText("whatsapp web", 2, 15));
+        var n = await new Promise(function (t) {
+          return e.toBlob(t);
+        });
+        if (n == null) return "";
+        var r = await new Promise(function (e, t) {
+          var r = new FileReader();
+          ((r.onloadend = function () {
+            var t = r.result;
+            e(typeof t == "string" ? t : "");
+          }),
+            (r.onerror = t),
+            r.readAsDataURL(n));
+        });
+        return r !== "" ? o("WAMd5").md5(r) : "";
+      } catch (e) {
+        return "";
+      }
+    }
     function h() {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var t = document.createElement("canvas"),
-              r = t.getContext("2d");
-            if (r == null) return "";
-            ((t.width = 120),
-              (t.height = 20),
-              (r.font = "14px 'Arial'"),
-              (r.fillStyle = "#fff"),
-              r.fillRect(0, 0, 120, 20),
-              (r.fillStyle = "rgba(102, 204, 0, 0.7)"),
-              r.fillText("whatsapp web", 2, 15));
-            var a = yield new (e || (e = n("Promise")))(function (e) {
-              return t.toBlob(e);
-            });
-            if (a == null) return "";
-            var i = yield new e(function (e, t) {
-              var n = new FileReader();
-              ((n.onloadend = function () {
-                var t = n.result;
-                e(typeof t == "string" ? t : "");
-              }),
-                (n.onerror = t),
-                n.readAsDataURL(a));
-            });
-            return i !== "" ? o("WAMd5").md5(i) : "";
-          } catch (e) {
-            return "";
-          }
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C() {
       try {
         var e = [];
         return (
@@ -100,19 +84,19 @@ __d(
           "__nightmare" in window && e.push("nightmare"),
           ("domAutomation" in window || "domAutomationController" in window) &&
             e.push("dom_automation"),
-          e.push.apply(e, v()),
+          e.push.apply(e, C()),
           e.join(",")
         );
       } catch (e) {
         return "";
       }
     }
-    var b = [
+    var y = [
       ["WWebJS", "wwebjs"],
       ["WPP", "wpp"],
     ];
-    function v() {
-      return b
+    function C() {
+      return y
         .filter(function (e) {
           var t = e[0];
           return t in window;
@@ -122,7 +106,7 @@ __d(
           return t;
         });
     }
-    function S() {
+    function b() {
       try {
         var e;
         if (!("chrome" in window)) return "missing";
@@ -163,70 +147,54 @@ __d(
         return "";
       }
     }
-    function R() {
-      return L.apply(this, arguments);
+    async function v() {
+      try {
+        var e = await (r("WAWebIndexedDB") == null ||
+        r("WAWebIndexedDB").databases == null
+          ? void 0
+          : r("WAWebIndexedDB").databases());
+        if (e == null) return "";
+        var t = new Set(
+          Object.keys(o("WAWebIndexedDBPurge").WEB_IDB_DB_NAMES).map(
+            function (e) {
+              return o("WAWebIndexedDBPurge").WEB_IDB_DB_NAMES[e];
+            },
+          ),
+        );
+        return e
+          .map(function (e) {
+            return e.name;
+          })
+          .filter(function (e) {
+            return e != null && !t.has(e);
+          })
+          .join(",");
+      } catch (e) {
+        return "";
+      }
     }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = yield r("WAWebIndexedDB") == null ||
-            r("WAWebIndexedDB").databases == null
-              ? void 0
-              : r("WAWebIndexedDB").databases();
-            if (e == null) return "";
-            var t = new Set(
-              Object.keys(o("WAWebIndexedDBPurge").WEB_IDB_DB_NAMES).map(
-                function (e) {
-                  return o("WAWebIndexedDBPurge").WEB_IDB_DB_NAMES[e];
-                },
-              ),
-            );
-            return e
-              .map(function (e) {
-                return e.name;
-              })
-              .filter(function (e) {
-                return e != null && !t.has(e);
-              })
-              .join(",");
-          } catch (e) {
-            return "";
-          }
-        })),
-        L.apply(this, arguments)
-      );
+    async function S() {
+      var t = await Promise.all([g(), v()]),
+        n = t[0],
+        o = t[1];
+      return {
+        pluginCount: e(),
+        mimeTypeCount: s(),
+        hasNotificationPermission: u(),
+        isPDFViewerEnabled: c(),
+        hasTaskbar: d(),
+        hasWebShare: m(),
+        hasChrome: p(),
+        platformEstimate: r("WAWebPlatformEstimate")(),
+        historyLength: _(),
+        viewPortSize: f(),
+        canvasFingerprint: n,
+        automationSignals: h(),
+        chromeStructure: b(),
+        foreignDbList: o,
+      };
     }
-    function E() {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield (e || (e = n("Promise"))).all([h(), R()]),
-            o = t[0],
-            a = t[1];
-          return {
-            pluginCount: s(),
-            mimeTypeCount: u(),
-            hasNotificationPermission: c(),
-            isPDFViewerEnabled: d(),
-            hasTaskbar: m(),
-            hasWebShare: p(),
-            hasChrome: _(),
-            platformEstimate: r("WAWebPlatformEstimate")(),
-            historyLength: f(),
-            viewPortSize: g(),
-            canvasFingerprint: o,
-            automationSignals: C(),
-            chromeStructure: S(),
-            foreignDbList: a,
-          };
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    l.default = E;
+    l.default = S;
   },
   98,
 );

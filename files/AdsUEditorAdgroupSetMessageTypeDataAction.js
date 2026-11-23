@@ -23,6 +23,13 @@ __d(
         return [];
       },
       "ADS_ADGROUP_EDITOR_SET_MESSAGE_TYPE",
+      void 0,
+      void 0,
+      function (e) {
+        return function (n, r) {
+          e(n, r);
+        };
+      },
     );
     a.exports = e;
   },

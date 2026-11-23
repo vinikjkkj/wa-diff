@@ -1,17 +1,17 @@
 __d(
   "AdsAdgroupChildAttachmentTypes",
-  ["keyMirror"],
-  function (t, n, r, o, a, i, l) {
+  ["$InternalEnum"],
+  function (t, n, r, o, a, i) {
     "use strict";
-    var e = r("keyMirror")({
-        AUTO: null,
-        DYNAMIC: null,
-        MULTI_SHARE_END: null,
-        PLACE: null,
-        STATIC: null,
-      }),
-      s = e;
-    l.default = s;
+    var e = n("$InternalEnum").Mirrored([
+        "AUTO",
+        "DYNAMIC",
+        "MULTI_SHARE_END",
+        "PLACE",
+        "STATIC",
+      ]),
+      l = e;
+    i.default = l;
   },
-  98,
+  66,
 );

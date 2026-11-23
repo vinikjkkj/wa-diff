@@ -4,24 +4,14 @@ __d(
   function (t, n, r, o, a, i, l, s, u) {
     "use strict";
     var e = {
-        description: s._(
-          /*BTDS*/ "Import a camera effect into your Instant Experience to inspire people to interact with your brand.",
-        ),
-        description_disabled: s._(
-          /*BTDS*/ "Import a camera effect into your Instant Experience to inspire people to interact with your brand.",
-        ),
-        name: s._(/*BTDS*/ "AR Experience"),
+        description: s._(/*BTDS*/ ""),
+        description_disabled: s._(/*BTDS*/ ""),
+        name: s._(/*BTDS*/ ""),
         is_new: !1,
         snapshot_photo_src: u("847332"),
-        tooltip_text_unsupported_placements: s._(
-          /*BTDS*/ "The AR Experience template is only supported on Facebook and Instagram mobile feeds, and Instagram Stories on mobile. To use this template, add one or more of these placements.",
-        ),
-        tooltip_text_unsupported_format: s._(
-          /*BTDS*/ "You can only select this template for ads that use video, not images.",
-        ),
-        tooltip_text_unsupported_placements_formats: s._(
-          /*BTDS*/ "The AR Experience template is only supported for video ads on Facebook and Instagram mobile feeds, and Instagram Stories on mobile. To use this template, add one or more of these placements.",
-        ),
+        tooltip_text_unsupported_placements: s._(/*BTDS*/ ""),
+        tooltip_text_unsupported_format: s._(/*BTDS*/ ""),
+        tooltip_text_unsupported_placements_formats: s._(/*BTDS*/ ""),
       },
       c = "https://fb.com/ar_experience/",
       d = new Set([

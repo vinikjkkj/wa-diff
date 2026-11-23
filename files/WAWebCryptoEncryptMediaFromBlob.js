@@ -1,7 +1,6 @@
 __d(
   "WAWebCryptoEncryptMediaFromBlob",
   [
-    "Promise",
     "WACryptoAesCbc",
     "WACryptoSha256HmacBuilder",
     "WALogger",
@@ -11,21 +10,19 @@ __d(
     "WAWebCryptoCreateMediaKeys",
     "WAWebFileUtils",
     "WAWebMediaFileErrors",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = 16777216;
-    function m(t) {
-      var a = t.blob,
-        i = t.mediaKey,
-        l = t.type;
-      return new (c || (c = n("Promise")))(function (t, n) {
-        var c = { mediaKey: i.slice(0, 10), type: l };
+      c = 16777216;
+    function d(t) {
+      var n = t.blob,
+        a = t.mediaKey,
+        i = t.type;
+      return new Promise(function (t, l) {
+        var c = { mediaKey: a.slice(0, 10), type: i };
         if (
           (o("WALogger").LOG(
             e ||
@@ -33,18 +30,18 @@ __d(
                 "encryptMediaFromBlob: start",
               ])),
           ),
-          !l)
+          !i)
         )
           throw new (o("WAWebMediaFileErrors").MediaEncryptionError)(
             'encryptMediaFromBlob: missing "type"',
           );
-        if (!i)
+        if (!a)
           throw new (o("WAWebMediaFileErrors").MediaEncryptionError)(
             'encryptMediaFromBlob: missing "mediaKey"',
           );
-        r("WAWebCryptoCreateMediaKeys")(l, i)
+        r("WAWebCryptoCreateMediaKeys")(i, a)
           .then(function (e) {
-            return p(a, e);
+            return m(n, e);
           })
           .then(function (e) {
             (o("WALogger").LOG(
@@ -73,62 +70,54 @@ __d(
                   )
             );
           })
-          .catch(n);
+          .catch(l);
       });
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    async function m(e, t) {
+      for (
+        var n,
+          r = t.encKey,
+          a = t.iv,
+          i = t.macKey,
+          l = await (n = o("WACryptoAesCbc")).importRawKey(r),
+          s = n.getIv(a),
+          u = e.size,
+          d = u + (n.AES_CBC_BLOCK_SIZE - (u % n.AES_CBC_BLOCK_SIZE)),
+          m = new Uint8Array(d + o("WAMediaCrypto").HMAC_LENGTH),
+          p = Math.max(1, Math.ceil(u / c)),
+          _ = 0,
+          f = s,
+          g = 0;
+        g < p;
+        g++
+      ) {
+        var h = g === p - 1,
+          y = g * c,
+          C = Math.min(y + c, u),
+          b = await o("WAWebFileUtils").blobToArrayBuffer(e.slice(y, C)),
+          v = new Uint8Array(b),
+          S = await o("WACryptoAesCbc").aesCbcEncryptChunk(h, v, f, l),
+          R = S.encryptedChunk,
+          L = S.nextIv;
+        (m.set(R, _), (_ += R.byteLength), (f = L));
+      }
+      var E = new (o("WACryptoSha256HmacBuilder").Sha256HMacBuilder)(
+        o("WATypedArraysCast").castTypedArrays(Uint8Array, i),
+      )
+        .update(s)
+        .update(m.subarray(0, d))
+        .finish()
+        .subarray(0, o("WAMediaCrypto").HMAC_LENGTH);
+      m.set(E, d);
+      var k = await o("WAMediaCalculateFilehash").calculateFilehash(m);
+      return {
+        ciphertextHmac: m.buffer,
+        hash: k,
+        sidecar: void 0,
+        firstFrameSidecar: void 0,
+      };
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          for (
-            var n,
-              r = t.encKey,
-              a = t.iv,
-              i = t.macKey,
-              l = yield (n = o("WACryptoAesCbc")).importRawKey(r),
-              s = n.getIv(a),
-              u = e.size,
-              c = u + (n.AES_CBC_BLOCK_SIZE - (u % n.AES_CBC_BLOCK_SIZE)),
-              m = new Uint8Array(c + o("WAMediaCrypto").HMAC_LENGTH),
-              p = Math.max(1, Math.ceil(u / d)),
-              _ = 0,
-              f = s,
-              g = 0;
-            g < p;
-            g++
-          ) {
-            var h = g === p - 1,
-              y = g * d,
-              C = Math.min(y + d, u),
-              b = yield o("WAWebFileUtils").blobToArrayBuffer(e.slice(y, C)),
-              v = new Uint8Array(b),
-              S = yield o("WACryptoAesCbc").aesCbcEncryptChunk(h, v, f, l),
-              R = S.encryptedChunk,
-              L = S.nextIv;
-            (m.set(R, _), (_ += R.byteLength), (f = L));
-          }
-          var E = new (o("WACryptoSha256HmacBuilder").Sha256HMacBuilder)(
-            o("WATypedArraysCast").castTypedArrays(Uint8Array, i),
-          )
-            .update(s)
-            .update(m.subarray(0, c))
-            .finish()
-            .subarray(0, o("WAMediaCrypto").HMAC_LENGTH);
-          m.set(E, c);
-          var k = yield o("WAMediaCalculateFilehash").calculateFilehash(m);
-          return {
-            ciphertextHmac: m.buffer,
-            hash: k,
-            sidecar: void 0,
-            firstFrameSidecar: void 0,
-          };
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    l.default = m;
+    l.default = d;
   },
   98,
 );

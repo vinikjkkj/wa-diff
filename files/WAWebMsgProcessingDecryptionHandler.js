@@ -25,7 +25,6 @@ __d(
     "WAWebSendRetryReceiptJob",
     "WAWebSignalCommonErrors",
     "WAWebWamEnumE2eFailureReason",
-    "asyncToGeneratorRuntime",
     "cr:4122",
     "gkx",
     "justknobx",
@@ -127,11 +126,11 @@ __d(
           (r.e2eType === o("WAWebBackendJobs.flow").CiphertextType.Skmsg
             ? (n.skMsgFailedEnc = { enc: r, error: a, errorType: t })
             : (n.pkOrMsgFailedEnc = { enc: r, error: a, errorType: t }),
-            w(e, { enc: r, error: a, errorType: t }));
+            M(e, { enc: r, error: a, errorType: t }));
         },
         canDecryptNext: function (t) {
           var e;
-          r("gkx")("26258") || F();
+          r("gkx")("26258") || A();
           var o = (e = n.pkOrMsgFailedEnc) == null ? void 0 : e.errorType;
           return o != null && R.has(o)
             ? !1
@@ -160,177 +159,164 @@ __d(
       }
       return !1;
     }
-    function x(e) {
-      return $.apply(this, arguments);
-    }
-    function $() {
+    async function x(t) {
+      var n,
+        a,
+        i = t.handlerState,
+        l = t.hasInactiveMsg,
+        s = t.isOrphanAddon,
+        u = t.parsedMsgPayload,
+        c = t.writePlaceholder,
+        d = (n = i.skMsgFailedEnc) != null ? n : i.pkOrMsgFailedEnc,
+        m =
+          d != null &&
+          i.accessedEncs.has(o("WAWebBackendJobs.flow").CiphertextType.Skmsg) &&
+          i.skMsgFailedEnc == null;
+      if (d == null || m)
+        return {
+          result: o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS,
+          hasInactiveMsg: l,
+          isOrphanAddon: s,
+        };
+      (N(u, i), w(u, i, c));
+      var p = d.enc,
+        _ = d.error,
+        f = d.errorType,
+        g = !1,
+        h;
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            a = e.handlerState,
-            i = e.hasInactiveMsg,
-            l = e.isOrphanAddon,
-            s = e.parsedMsgPayload,
-            u = e.writePlaceholder,
-            c = (t = a.skMsgFailedEnc) != null ? t : a.pkOrMsgFailedEnc,
-            d =
-              c != null &&
-              a.accessedEncs.has(
-                o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
-              ) &&
-              a.skMsgFailedEnc == null;
-          if (c == null || d)
-            return {
-              result: o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS,
-              hasInactiveMsg: i,
-              isOrphanAddon: l,
-            };
-          (M(s, a), A(s, a, u));
-          var m = c.enc,
-            p = c.error,
-            _ = c.errorType,
-            f = !1,
-            g;
-          return (
-            (p instanceof o("WAWebSignalCommonErrors").SignalDecryptionError ||
-              p instanceof o("WAWebHandleMsgError").UnknownDeviceMessageError ||
-              p instanceof
-                o("WAWebEphemeralDecodeBroadcastSetting")
-                  .BroadcastEphSettingsError) &&
-              ((g = o("WAWebSendRetryReceiptJob").getRetryReasonFromError(p)),
-              _ !== S.SignalDuplicateMessage
-                ? m.hideFail ||
-                  (f = yield u({
-                    type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
-                    msgMeta: s.msgMeta,
-                    msgInfo: s.msgInfo,
-                    placeholderType: o("WAWebHandleMsgTypes").PlaceholderType
-                      .E2E,
-                    placeholderAddReason: o(
-                      "WAWebBackendJobsCommon",
-                    ).getPlaceholderAddReason(p, s),
-                  }))
-                : s.msgInfo.chat.isGroup() &&
-                  o("WALogger")
-                    .WARN(
-                      b ||
-                        (b = babelHelpers.taggedTemplateLiteralLoose([
-                          "GroupLidInfra: duplicate-skip drop with no placeholder, skmsg = ",
-                          ", group = ",
-                          ", participant = ",
-                          "",
-                        ])),
-                      String(
-                        a.accessedEncs.has(
-                          o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
-                        ),
-                      ),
-                      s.msgInfo.chat,
-                      s.msgInfo.author,
-                    )
-                    .sendLogs("grouplidinfra-duplicate-skip-drop", {
-                      sampling: 0.01,
-                    })),
-            _ === S.SignalRetryable || _ === S.UnknownDevice
+        (_ instanceof o("WAWebSignalCommonErrors").SignalDecryptionError ||
+          _ instanceof o("WAWebHandleMsgError").UnknownDeviceMessageError ||
+          _ instanceof
+            o("WAWebEphemeralDecodeBroadcastSetting")
+              .BroadcastEphSettingsError) &&
+          ((h = o("WAWebSendRetryReceiptJob").getRetryReasonFromError(_)),
+          f !== S.SignalDuplicateMessage
+            ? p.hideFail ||
+              (g = await c({
+                type: o("WAWebMsgType").MSG_TYPE.CIPHERTEXT,
+                msgMeta: u.msgMeta,
+                msgInfo: u.msgInfo,
+                placeholderType: o("WAWebHandleMsgTypes").PlaceholderType.E2E,
+                placeholderAddReason: o(
+                  "WAWebBackendJobsCommon",
+                ).getPlaceholderAddReason(_, u),
+              }))
+            : u.msgInfo.chat.isGroup() &&
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "GroupLidInfra: duplicate-skip drop with no placeholder, skmsg = ",
+                      ", group = ",
+                      ", participant = ",
+                      "",
+                    ])),
+                  String(
+                    i.accessedEncs.has(
+                      o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+                    ),
+                  ),
+                  u.msgInfo.chat,
+                  u.msgInfo.author,
+                )
+                .sendLogs("grouplidinfra-duplicate-skip-drop", {
+                  sampling: 0.01,
+                })),
+        f === S.SignalRetryable || f === S.UnknownDevice
+          ? {
+              result: o("WAWebHandleMsgTypes").E2EProcessResult.RETRY,
+              retryCount: p.retryCount,
+              retryReason: h,
+              placeholderCreated: g,
+              isOrphanAddon: s,
+              failedEncType: p.e2eType,
+            }
+          : f === S.SignalDuplicateMessage
+            ? {
+                result: o("WAWebHandleMsgTypes").E2EProcessResult
+                  .SIGNAL_OLD_COUNTER_ERROR,
+                failedEnc: p,
+              }
+            : f === S.DeviceSentMessage
               ? {
-                  result: o("WAWebHandleMsgTypes").E2EProcessResult.RETRY,
-                  retryCount: m.retryCount,
-                  retryReason: g,
-                  placeholderCreated: f,
-                  isOrphanAddon: l,
-                  failedEncType: m.e2eType,
+                  result: o("WAWebHandleMsgTypes").E2EProcessResult
+                    .PARSE_VALIDATION_ERROR,
+                  e2eFailureReason:
+                    _ instanceof o("WAWebHandleMsgError").DeviceSentMessageError
+                      ? _.e2eFailureReason
+                      : void 0,
                 }
-              : _ === S.SignalDuplicateMessage
+              : f === S.InvalidProtobuf
                 ? {
                     result: o("WAWebHandleMsgTypes").E2EProcessResult
-                      .SIGNAL_OLD_COUNTER_ERROR,
-                    failedEnc: m,
+                      .PARSE_VALIDATION_ERROR,
+                    e2eFailureReason:
+                      (a = k(_)) == null ? void 0 : a.e2eFailureReason,
                   }
-                : _ === S.DeviceSentMessage
+                : f === S.HsmMismatch
                   ? {
                       result: o("WAWebHandleMsgTypes").E2EProcessResult
-                        .PARSE_VALIDATION_ERROR,
-                      e2eFailureReason:
-                        p instanceof
-                        o("WAWebHandleMsgError").DeviceSentMessageError
-                          ? p.e2eFailureReason
-                          : void 0,
+                        .HSM_MISMATCH,
                     }
-                  : _ === S.InvalidProtobuf
+                  : f === S.BroadcastEphSettings
                     ? {
-                        result: o("WAWebHandleMsgTypes").E2EProcessResult
-                          .PARSE_VALIDATION_ERROR,
-                        e2eFailureReason:
-                          (n = k(p)) == null ? void 0 : n.e2eFailureReason,
+                        result: o("WAWebHandleMsgTypes").E2EProcessResult.RETRY,
+                        retryCount: p.retryCount,
+                        retryReason: h,
+                        placeholderCreated: g,
+                        e2eFailureReason: o("WAWebWamEnumE2eFailureReason")
+                          .E2E_FAILURE_REASON
+                          .INVALID_BROADCAST_STANZA_ATTRIBUTE,
                       }
-                    : _ === S.HsmMismatch
-                      ? {
-                          result: o("WAWebHandleMsgTypes").E2EProcessResult
-                            .HSM_MISMATCH,
-                        }
-                      : _ === S.BroadcastEphSettings
+                    : f === S.OrphanBotMsg
+                      ? d.error instanceof r("WAWebOrphanBotMsgError")
+                        ? {
+                            deferReason: d.error.reason,
+                            result: o("WAWebHandleMsgTypes").E2EProcessResult
+                              .DEFERRED,
+                            targetMsgKey: d.error.targetMsgKey,
+                          }
+                        : {
+                            result: o("WAWebHandleMsgTypes").E2EProcessResult
+                              .PARSE_ERROR,
+                          }
+                      : f === S.BotMsgMissingSecret
                         ? {
                             result: o("WAWebHandleMsgTypes").E2EProcessResult
-                              .RETRY,
-                            retryCount: m.retryCount,
-                            retryReason: g,
-                            placeholderCreated: f,
-                            e2eFailureReason: o("WAWebWamEnumE2eFailureReason")
-                              .E2E_FAILURE_REASON
-                              .INVALID_BROADCAST_STANZA_ATTRIBUTE,
+                              .PARSE_ERROR,
+                            nackReason: $(),
                           }
-                        : _ === S.OrphanBotMsg
-                          ? c.error instanceof r("WAWebOrphanBotMsgError")
-                            ? {
-                                deferReason: c.error.reason,
-                                result: o("WAWebHandleMsgTypes")
-                                  .E2EProcessResult.DEFERRED,
-                                targetMsgKey: c.error.targetMsgKey,
-                              }
-                            : {
-                                result: o("WAWebHandleMsgTypes")
-                                  .E2EProcessResult.PARSE_ERROR,
-                              }
-                          : _ === S.BotMsgMissingSecret
+                        : f === S.BotMsgDecryptFailure
+                          ? {
+                              result: o("WAWebHandleMsgTypes").E2EProcessResult
+                                .PARSE_ERROR,
+                              nackReason: P(u),
+                            }
+                          : f === S.Unknown
                             ? {
                                 result: o("WAWebHandleMsgTypes")
                                   .E2EProcessResult.PARSE_ERROR,
-                                nackReason: P(),
                               }
-                            : _ === S.BotMsgDecryptFailure
-                              ? {
-                                  result: o("WAWebHandleMsgTypes")
-                                    .E2EProcessResult.PARSE_ERROR,
-                                  nackReason: N(s),
-                                }
-                              : _ === S.Unknown
-                                ? {
-                                    result: o("WAWebHandleMsgTypes")
-                                      .E2EProcessResult.PARSE_ERROR,
-                                  }
-                                : (function () {
-                                    throw Error(
-                                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                        _,
-                                    );
-                                  })()
-          );
-        })),
-        $.apply(this, arguments)
+                            : (function () {
+                                throw Error(
+                                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                                    f,
+                                );
+                              })()
       );
     }
-    function P() {
+    function $() {
       return r("justknobx")._("1714")
         ? o("WAWebCreateNackFromStanza").NackReason.MissingMessageSecret
         : void 0;
     }
-    function N(e) {
+    function P(e) {
       return o("WAWebGroupAgentReceipts").isGroupAgentMsmsgDecryptNackEnabled(e)
         ? o("WAWebCreateNackFromStanza").NackReason.MissingMessageSecret
         : void 0;
     }
-    function M(e, t) {
+    function N(e, t) {
       var n = t.pkOrMsgFailedEnc,
         r = t.skMsgFailedEnc,
         a = e.msgInfo,
@@ -386,36 +372,36 @@ __d(
         }
       }
     }
-    function w(t, n) {
-      var a,
-        i = t.msgBotInfo,
-        l = t.msgInfo,
-        y = t.msgMeta,
-        C = n.enc,
-        b = n.error,
-        v = n.errorType,
-        R = o("WAWebMsgProcessingApiUtils").getFrom(l);
+    function M(e, t) {
+      var n,
+        a = e.msgBotInfo,
+        i = e.msgInfo,
+        l = e.msgMeta,
+        C = t.enc,
+        b = t.error,
+        v = t.errorType,
+        R = o("WAWebMsgProcessingApiUtils").getFrom(i);
       switch (
         (o("WAWebPostE2eMessageRecvMetric").postFailureE2eMessageRecvMetric({
           enc: C,
           from: R,
-          msgMeta: y,
-          msgInfo: l,
-          msgBotInfo: i,
+          msgMeta: l,
+          msgInfo: i,
+          msgBotInfo: a,
           error: k(b),
         }),
         o("WALogger")
           .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "decryptE2EPayload: msgId::",
                 " e2eType:",
                 " error:",
                 "",
               ])),
-            l.externalId,
+            i.externalId,
             C.e2eType,
-            (a = b.stack) != null ? a : String(b),
+            (n = b.stack) != null ? n : String(b),
           )
           .tags("messaging"),
         v)
@@ -427,8 +413,8 @@ __d(
           r("gkx")("26258") ||
             o("WALogger")
               .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "decryptE2EPayload: e2eType:",
                     " error:",
                     "",
@@ -443,11 +429,11 @@ __d(
         case S.InvalidProtobuf: {
           var L = k(b);
           L != null &&
-            (o("WAWebIsOfficialClient").isUnofficialStanzaId(l.externalId)
+            (o("WAWebIsOfficialClient").isUnofficialStanzaId(i.externalId)
               ? o("WALogger")
                   .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "decryptE2EPayload: e2eType:",
                         " error:",
                         "",
@@ -464,8 +450,8 @@ __d(
                     o("WAWebHandleMsgError").MessageProtobufInvalidMessageTypes
                 ? o("WALogger")
                     .WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
                           "decryptE2EPayload: e2eType:",
                           " error:",
                           "",
@@ -477,8 +463,8 @@ __d(
                     .sendLogs("(intern) handleMsg: " + b.name)
                 : o("WALogger")
                     .WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
                           "decryptE2EPayload: e2eType:",
                           " error:",
                           "",
@@ -496,8 +482,8 @@ __d(
         case S.DeviceSentMessage: {
           o("WALogger")
             .WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "decryptE2EPayload: e2eType:",
                   " infoType:",
                   " isDirect:",
@@ -505,8 +491,8 @@ __d(
                   "",
                 ])),
               C.e2eType,
-              l.type,
-              l.isDirect,
+              i.type,
+              i.isDirect,
               b,
             )
             .tags("messaging")
@@ -516,8 +502,8 @@ __d(
         case S.HsmMismatch: {
           o("WALogger")
             .WARN(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
                   "decryptE2EPayload: e2eType:",
                   " error:",
                   "",
@@ -532,8 +518,8 @@ __d(
         case S.BroadcastEphSettings: {
           o("WALogger")
             .WARN(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "decryptE2EPayload: e2eType:",
                   " error:",
                   "",
@@ -550,8 +536,8 @@ __d(
         case S.OrphanBotMsg: {
           o("WALogger")
             .WARN(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
                   "decryptE2EPayload: e2eType:",
                   " orphan bot msg deferred",
                 ])),
@@ -563,8 +549,8 @@ __d(
         case S.BotMsgMissingSecret: {
           o("WALogger")
             .WARN(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "decryptE2EPayload: e2eType:",
                   " error:",
                   "",
@@ -580,8 +566,8 @@ __d(
         case S.Unknown: {
           o("WALogger")
             .WARN(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
                   "decryptE2EPayload: e2eType:",
                   " error:",
                   "",
@@ -595,7 +581,7 @@ __d(
         }
       }
     }
-    function A(e, t, n) {
+    function w(e, t, n) {
       var a = t.pkOrMsgFailedEnc,
         i = t.skMsgFailedEnc,
         l = i != null ? i : a;
@@ -629,7 +615,7 @@ __d(
             case S.BotMsgMissingSecret: {
               var c;
               u =
-                (c = P()) != null
+                (c = $()) != null
                   ? c
                   : o("WAWebCreateNackFromStanza").NackReason.ParsingError;
               break;
@@ -637,7 +623,7 @@ __d(
             case S.BotMsgDecryptFailure: {
               var d;
               u =
-                (d = N(e)) != null
+                (d = P(e)) != null
                   ? d
                   : o("WAWebCreateNackFromStanza").NackReason.ParsingError;
               break;
@@ -652,8 +638,8 @@ __d(
             var m = e.msgInfo.externalId;
             (o("WALogger")
               .WARN(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
                     "messageDrop: insert a debug placeholder for ",
                     ", reason: ",
                     "",
@@ -671,7 +657,7 @@ __d(
         }
       }
     }
-    function F() {
+    function A() {
       if (!r("gkx")("26258")) {
         var e,
           t =
@@ -684,8 +670,8 @@ __d(
         if (t == null) return;
         switch (
           (o("WALogger").LOG(
-            C ||
-              (C = babelHelpers.taggedTemplateLiteralLoose([
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
                 "Dropping incoming message with ",
                 " error",
               ])),

@@ -51,8 +51,21 @@ __d(
         e.LEAD_GENERATION,
         e.MESSAGES,
         e.PAGE_LIKES,
-      ]),
-      c = {
+      ]);
+    function c(e) {
+      return e.promotedObjectType === r("AdsPromotedObjectTypes").DONATION
+        ? o("AdsPlacementIneligibilityReason").createDonationReason()
+        : e.promotedObjectType === r("AdsPromotedObjectTypes").GROUP
+          ? o("AdsPlacementIneligibilityReason").createGroupPromotionReason()
+          : e.promotedObjectType === r("AdsPromotedObjectTypes").IMAGINATION
+            ? o("AdsPlacementIneligibilityReason").createImaginationReason()
+            : e.promotedObjectType === r("AdsPromotedObjectTypes").REMINDER
+              ? o(
+                  "AdsPlacementIneligibilityReason",
+                ).createReminderPromotionReason()
+              : null;
+    }
+    var d = {
         type: "placements/position",
         key: "facebook/instant_article",
         name: r("AdsPlacementPositionLabelConstant").instant_article,
@@ -82,7 +95,7 @@ __d(
           if (e) return e;
           var n = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(c, t);
+          ).getSOOBundleParentIneligibilityReason(d, t);
           if (n != null) return n;
           if (t.isReelsTrendingAds === !0)
             return o(
@@ -202,89 +215,74 @@ __d(
             return o("AdsPlacementIneligibilityReason").createObjectiveReason(
               t.objective,
             );
-          return t.directInstallDevices == !0
-            ? o("AdsPlacementIneligibilityReason").createDirectInstallReason()
-            : t.promotedObjectType === r("AdsPromotedObjectTypes").INSTAGRAM
-              ? o(
-                  "AdsPlacementIneligibilityReason",
-                ).createInstagramDirectReason(t.objective)
-              : o(
-                    "AdsInstagramLeadGenPlacementUtils",
-                  ).isInstagramLeadGenDestinationSelected(
-                    babelHelpers.extends({}, t, { objective: a }),
-                  )
-                ? o(
-                    "AdsPlacementIneligibilityReason",
-                  ).createInstagramLeadGenReason(t.objective)
-                : o(
-                      "AdsPlacementOmnichannelUtils",
-                    ).isIneligibleForOmnichannelAd(
-                      babelHelpers.extends({}, t, { objective: a }),
-                    )
-                  ? o(
-                      "AdsPlacementIneligibilityReason",
-                    ).createOmnichannelReason()
-                  : o(
-                        "AdsVideoBuyingStoreUtils",
-                      ).checkIfPlacementPositionValidForBuyingOption(
-                        babelHelpers.extends({}, t, { objective: a }),
-                        "instant_article",
-                      )
-                    ? o(
-                        "AdsVideoBuyingStoreUtils",
-                      ).checkIfDevicePlatformValidForBuyingOption(
-                        babelHelpers.extends({}, t, { objective: a }),
-                      )
-                      ? r("AdsAppUrlUtils").isInstantGameURL(t.objectStoreURL)
-                        ? o(
-                            "AdsPlacementIneligibilityReason",
-                          ).createInstantGameReason()
-                        : t.optimizationGoal ===
-                              r("AdsAPIOptimizationGoals")
-                                .INCREMENTAL_OFFSITE_CONVERSIONS ||
-                            (a ===
-                              r("AdsAPIObjectives").PRODUCT_CATALOG_SALES &&
-                              (t.optimizationGoal ===
-                                r("AdsAPIOptimizationGoals").REPLIES ||
-                                t.optimizationGoal ===
-                                  r("AdsAPIOptimizationGoals").CONVERSATIONS))
-                          ? o(
-                              "AdsPlacementIneligibilityReason",
-                            ).createOptimizationGoalReason()
-                          : t.destinationType ===
-                              r("AdCampaignDestination").INSTAGRAM_LIVE
-                            ? o(
-                                "AdsPlacementIneligibilityReason",
-                              ).createInstagramLiveReason()
-                            : t.promotedObjectType ===
-                                r("AdsPromotedObjectTypes").DONATION
-                              ? o(
-                                  "AdsPlacementIneligibilityReason",
-                                ).createDonationReason()
-                              : t.promotedObjectType ===
-                                  r("AdsPromotedObjectTypes").GROUP
-                                ? o(
-                                    "AdsPlacementIneligibilityReason",
-                                  ).createGroupPromotionReason()
-                                : t.promotedObjectType ===
-                                    r("AdsPromotedObjectTypes").IMAGINATION
-                                  ? o(
-                                      "AdsPlacementIneligibilityReason",
-                                    ).createImaginationReason()
-                                  : t.promotedObjectType ===
-                                      r("AdsPromotedObjectTypes").REMINDER
-                                    ? o(
-                                        "AdsPlacementIneligibilityReason",
-                                      ).createReminderPromotionReason()
-                                    : null
-                      : o(
-                          "AdsPlacementIneligibilityReason",
-                        ).createDevicePlatformReason(
-                          r("AdsAPIDevicePlatform").DESKTOP,
-                        )
-                    : o(
-                        "AdsPlacementIneligibilityReason",
-                      ).createOptimizationGoalReason();
+          if (t.directInstallDevices == !0)
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createDirectInstallReason();
+          if (t.promotedObjectType === r("AdsPromotedObjectTypes").INSTAGRAM)
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstagramDirectReason(t.objective);
+          if (
+            o(
+              "AdsInstagramLeadGenPlacementUtils",
+            ).isInstagramLeadGenDestinationSelected(
+              babelHelpers.extends({}, t, { objective: a }),
+            )
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstagramLeadGenReason(t.objective);
+          if (
+            o("AdsPlacementOmnichannelUtils").isIneligibleForOmnichannelAd(
+              babelHelpers.extends({}, t, { objective: a }),
+            )
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createOmnichannelReason();
+          if (
+            !o(
+              "AdsVideoBuyingStoreUtils",
+            ).checkIfPlacementPositionValidForBuyingOption(
+              babelHelpers.extends({}, t, { objective: a }),
+              "instant_article",
+            )
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createOptimizationGoalReason();
+          if (
+            !o(
+              "AdsVideoBuyingStoreUtils",
+            ).checkIfDevicePlatformValidForBuyingOption(
+              babelHelpers.extends({}, t, { objective: a }),
+            )
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createDevicePlatformReason(r("AdsAPIDevicePlatform").DESKTOP);
+          if (r("AdsAppUrlUtils").isInstantGameURL(t.objectStoreURL))
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstantGameReason();
+          if (
+            t.optimizationGoal ===
+              r("AdsAPIOptimizationGoals").INCREMENTAL_OFFSITE_CONVERSIONS ||
+            (a === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES &&
+              (t.optimizationGoal === r("AdsAPIOptimizationGoals").REPLIES ||
+                t.optimizationGoal ===
+                  r("AdsAPIOptimizationGoals").CONVERSATIONS))
+          )
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createOptimizationGoalReason();
+          if (t.destinationType === r("AdCampaignDestination").INSTAGRAM_LIVE)
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createInstagramLiveReason();
+          var l = c(t);
+          return l != null ? l : null;
         },
         isActive: function (t) {
           return r("adsPlacementAPISpecReaderIsActiveFacebookPosition")(
@@ -304,7 +302,7 @@ __d(
         },
         adsetReducer: function (t, n) {
           var e = n.action;
-          if (!c.isEnabled(e.eligibilityInformation.capabilities)) return t;
+          if (!d.isEnabled(e.eligibilityInformation.capabilities)) return t;
           switch (e.type) {
             case o("AdsUEditorCampaignPlacementSetActionFlux").actionType:
               return e.removeGroups.includes("facebook/instant_article")
@@ -365,8 +363,8 @@ __d(
           return t;
         },
       },
-      d = c;
-    l.default = d;
+      m = d;
+    l.default = m;
   },
   98,
 );

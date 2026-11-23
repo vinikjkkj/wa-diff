@@ -12,168 +12,117 @@ __d(
     "WAWebSharableEventStorageEnums",
     "WAWebUserUtils",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebSharableEventNotificationRows",
-          ).toSharableEventMetadataFromNotification(e);
-          if (t == null)
-            throw r("err")(
-              "[sharable_event] invite notification is missing event fields",
-            );
-          var n = o("WAWebWidToJid").userLidtoLidUserJid(
-            o("WAWebUserUtils").getMeLidUserOrThrow(),
-          );
-          yield o(
-            "WAWebSharableEventNotificationPersistJob",
-          ).persistInvitedSharableEvent(
-            t,
-            o(
-              "WAWebSharableEventNotificationRows",
-            ).toSelfInviteeFromNotification(e, n),
-          );
-        })),
-        c.apply(this, arguments)
+    async function u(e) {
+      var t = o(
+        "WAWebSharableEventNotificationRows",
+      ).toSharableEventMetadataFromNotification(e);
+      if (t == null)
+        throw r("err")(
+          "[sharable_event] invite notification is missing event fields",
+        );
+      var n = o("WAWebWidToJid").userLidtoLidUserJid(
+        o("WAWebUserUtils").getMeLidUserOrThrow(),
+      );
+      await o(
+        "WAWebSharableEventNotificationPersistJob",
+      ).persistInvitedSharableEvent(
+        t,
+        o("WAWebSharableEventNotificationRows").toSelfInviteeFromNotification(
+          e,
+          n,
+        ),
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function c(e) {
+      var t = o(
+        "WAWebSharableEventNotificationRows",
+      ).toSharableEventMetadataFromNotification(e);
+      if (
+        t == null ||
+        t.status ===
+          o("WAWebSharableEventStorageEnums").SharableEventStoredStatus
+            .Unknown ||
+        t.creatorLid == null
+      )
+        throw r("err")(
+          "[sharable_event] update notification is missing event fields",
+        );
+      await o(
+        "WAWebSharableEventNotificationPersistJob",
+      ).persistUpdatedSharableEvent(t);
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WAWebSharableEventNotificationRows",
-          ).toSharableEventMetadataFromNotification(e);
-          if (
-            t == null ||
-            t.status ===
-              o("WAWebSharableEventStorageEnums").SharableEventStoredStatus
-                .Unknown ||
-            t.creatorLid == null
-          )
-            throw r("err")(
-              "[sharable_event] update notification is missing event fields",
-            );
-          yield o(
-            "WAWebSharableEventNotificationPersistJob",
-          ).persistUpdatedSharableEvent(t);
-        })),
-        m.apply(this, arguments)
+    async function d(e) {
+      var t = o("WAWebWidToJid").userLidtoLidUserJid(
+        o("WAWebUserUtils").getMeLidUserOrThrow(),
+      );
+      o("WAWebSharableEventServerRows").toStoredLid(e.removed_lid) === t &&
+        (await o(
+          "WAWebSharableEventNotificationPersistJob",
+        ).deleteSharableEventFromNotification(
+          e.event_id,
+          o("WAWebSharableEventInviteStatus").SharableEventInviteStatus.Removed,
+        ));
+    }
+    async function m(e) {
+      await o(
+        "WAWebSharableEventNotificationPersistJob",
+      ).deleteSharableEventFromNotification(
+        e,
+        o("WAWebSharableEventInviteStatus").SharableEventInviteStatus.Deleted,
       );
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebWidToJid").userLidtoLidUserJid(
-            o("WAWebUserUtils").getMeLidUserOrThrow(),
-          );
-          o("WAWebSharableEventServerRows").toStoredLid(e.removed_lid) === t &&
-            (yield o(
-              "WAWebSharableEventNotificationPersistJob",
-            ).deleteSharableEventFromNotification(
-              e.event_id,
-              o("WAWebSharableEventInviteStatus").SharableEventInviteStatus
-                .Removed,
-            ));
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o(
-            "WAWebSharableEventNotificationPersistJob",
-          ).deleteSharableEventFromNotification(
-            e,
-            o("WAWebSharableEventInviteStatus").SharableEventInviteStatus
-              .Deleted,
-          );
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    var h = new Map();
-    function y(e) {
-      var t = h.get(e);
+    var p = new Map();
+    function _(e) {
+      var t = p.get(e);
       if (t != null) {
         t.rerun = !0;
         return;
       }
       var n = { rerun: !1 };
-      (h.set(e, n), C(e, n));
+      (p.set(e, n), f(e, n));
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    async function f(t, n) {
+      n.rerun = !1;
+      try {
+        await o("WAWebSharableEventGetJob").syncSharableEvent(t);
+      } catch (t) {
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][rsvp-refetch] failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("sharable-event-rsvp-refetch-failed");
+      } finally {
+        n.rerun ? f(t, n) : p.delete(t);
+      }
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          n.rerun = !1;
-          try {
-            yield o("WAWebSharableEventGetJob").syncSharableEvent(t);
-          } catch (t) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event][rsvp-refetch] failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("sharable-event-rsvp-refetch-failed");
-          } finally {
-            n.rerun ? C(t, n) : h.delete(t);
-          }
-        })),
-        b.apply(this, arguments)
-      );
+    async function g(e) {
+      var t = h(e);
+      if (t == null) {
+        o("WALogger").WARN(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[sharable_event][mex][host-push-name] invalid payload, acked",
+            ])),
+        );
+        return;
+      }
+      (await o(
+        "WAWebDBSharableEventCreatorPushName",
+      ).saveSharableEventCreatorPushNameIfNewer(t)) &&
+        o("WAWebBackendApi").frontendFireAndForget("applySharableEventUpdate", {
+          creatorPushNames: [t],
+        });
     }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = R(e);
-          if (t == null) {
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[sharable_event][mex][host-push-name] invalid payload, acked",
-                ])),
-            );
-            return;
-          }
-          (yield o(
-            "WAWebDBSharableEventCreatorPushName",
-          ).saveSharableEventCreatorPushNameIfNewer(t)) &&
-            o("WAWebBackendApi").frontendFireAndForget(
-              "applySharableEventUpdate",
-              { creatorPushNames: [t] },
-            );
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
+    function h(e) {
       var t,
         n = e.xwa2_notify_event_on_host_push_name_publish,
         r = o("WAWebSharableEventServerRows").toStoredLid(
@@ -186,11 +135,11 @@ __d(
         : { creatorLid: r, pushName: a, publishedTsUsec: i };
     }
     ((l.persistSharableEventInviteNotification = u),
-      (l.persistSharableEventUpdateNotification = d),
-      (l.persistSharableEventInviteRemoveNotification = p),
-      (l.persistSharableEventDeleteNotification = f),
-      (l.refreshSharableEventAfterRsvpNotification = y),
-      (l.persistSharableEventCreatorPushName = v));
+      (l.persistSharableEventUpdateNotification = c),
+      (l.persistSharableEventInviteRemoveNotification = d),
+      (l.persistSharableEventDeleteNotification = m),
+      (l.refreshSharableEventAfterRsvpNotification = _),
+      (l.persistSharableEventCreatorPushName = g));
   },
   98,
 );

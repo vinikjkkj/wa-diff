@@ -1,10 +1,26 @@
 __d(
   "logMAIBAMSHFunnelEvent",
-  ["CurrentUser", "MaibaMshFunnelFalcoEvent"],
+  [
+    "CurrentUser",
+    "MAIBAMSHFunnelCurrentTool",
+    "MAIBAUGPAdsManagerTools",
+    "MaibaMshFunnelFalcoEvent",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = ["reason"];
-    function s(e, t, n) {
+    var e = ["reason"],
+      s = new Set(r("MAIBAUGPAdsManagerTools"));
+    function u() {
+      var e = r("MAIBAMSHFunnelCurrentTool")();
+      return e != null && s.has(e)
+        ? "ads_manager"
+        : e === "Commerce Manager"
+          ? "commerce_manager"
+          : e === "MBS" || e === "MBS (Android)" || e === "MBS (iOS)"
+            ? "mbs"
+            : null;
+    }
+    function c(e, t, n) {
       r("MaibaMshFunnelFalcoEvent").log(function () {
         return {
           action: n.action,
@@ -21,74 +37,75 @@ __d(
           maiba_request_id: n.maibaRequestId,
           partner: n.partner,
           pixel_id: n.pixelId,
+          render_surface: n.renderSurface,
           stage: e,
           status: n.status,
-          surface: n.surface,
+          surface: u(),
         };
       });
     }
-    function u(e) {
-      s("cta_render_attempted", "js_cta", e);
-    }
-    function c(e) {
-      s("cta_render_loading", "js_cta", e);
-    }
     function d(e) {
-      s("cta_rendered", "js_cta", e);
+      c("cta_render_attempted", "js_cta", e);
     }
-    function m(t) {
+    function m(e) {
+      c("cta_render_loading", "js_cta", e);
+    }
+    function p(e) {
+      c("cta_rendered", "js_cta", e);
+    }
+    function _(t) {
       var n = t.reason,
         r = babelHelpers.objectWithoutPropertiesLoose(t, e);
-      s(
+      c(
         "cta_render_blocked",
         "js_cta",
         babelHelpers.extends({}, r, { errorCode: n }),
       );
     }
-    function p(e) {
-      s("cta_clicked", "js_cta", e);
+    function f(e) {
+      c("cta_clicked", "js_cta", e);
     }
-    function _(e) {
-      s(
+    function g(e) {
+      c(
         "synthetic_started",
         "js_bridge",
         babelHelpers.extends({}, e, { status: "started" }),
       );
     }
-    function f(e) {
-      s(
+    function h(e) {
+      c(
         "msh_complete",
         "js_bridge",
         babelHelpers.extends({}, e, { status: "complete" }),
       );
     }
-    function g(e) {
-      s(
+    function y(e) {
+      c(
         "msh_cancel",
         "js_bridge",
         babelHelpers.extends({}, e, { status: "cancel" }),
       );
     }
-    function h(e) {
-      s(
+    function C(e) {
+      c(
         "msh_error",
         "js_bridge",
         babelHelpers.extends({}, e, { status: "error" }),
       );
     }
-    function y(e) {
-      s("msh_dropped_invalid", "js_bridge", e);
+    function b(e) {
+      c("msh_dropped_invalid", "js_bridge", e);
     }
-    ((l.logMAIBAMSHFunnelCTARenderAttempted = u),
-      (l.logMAIBAMSHFunnelCTARenderLoading = c),
-      (l.logMAIBAMSHFunnelCTARendered = d),
-      (l.logMAIBAMSHFunnelCTARenderBlocked = m),
-      (l.logMAIBAMSHFunnelCTAClicked = p),
-      (l.logMAIBAMSHFunnelSyntheticStarted = _),
-      (l.logMAIBAMSHFunnelMSHComplete = f),
-      (l.logMAIBAMSHFunnelMSHCancel = g),
-      (l.logMAIBAMSHFunnelMSHError = h),
-      (l.logMAIBAMSHFunnelMSHDroppedInvalid = y));
+    ((l.logMAIBAMSHFunnelCTARenderAttempted = d),
+      (l.logMAIBAMSHFunnelCTARenderLoading = m),
+      (l.logMAIBAMSHFunnelCTARendered = p),
+      (l.logMAIBAMSHFunnelCTARenderBlocked = _),
+      (l.logMAIBAMSHFunnelCTAClicked = f),
+      (l.logMAIBAMSHFunnelSyntheticStarted = g),
+      (l.logMAIBAMSHFunnelMSHComplete = h),
+      (l.logMAIBAMSHFunnelMSHCancel = y),
+      (l.logMAIBAMSHFunnelMSHError = C),
+      (l.logMAIBAMSHFunnelMSHDroppedInvalid = b));
   },
   98,
 );

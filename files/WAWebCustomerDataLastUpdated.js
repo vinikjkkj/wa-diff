@@ -17,28 +17,19 @@ __d(
     }
     function p(t) {
       var n = Math.max(0, o("WATimeUtils").unixTime() - t);
-      if (n < e) return s._(/*BTDS*/ "Last updated just now");
+      if (n < e) return s._(/*BTDS*/ "");
       if (n < u) {
         var r = Math.floor(n / e);
-        return s._(
-          /*BTDS*/ '_j{"*":"Last updated {count} min ago","_1":"Last updated 1 min ago"}',
-          [s._plural(r, "count")],
-        );
+        return s._(/*BTDS*/ "", [s._plural(r, "count")]);
       }
       if (n < c) {
         var a = Math.floor(n / u);
-        return s._(
-          /*BTDS*/ '_j{"*":"Last updated {count} hours ago","_1":"Last updated 1 hour ago"}',
-          [s._plural(a, "count")],
-        );
+        return s._(/*BTDS*/ "", [s._plural(a, "count")]);
       }
       var i = Math.floor(n / c);
       return i > d
-        ? s._(/*BTDS*/ "Last updated over 30 days ago")
-        : s._(
-            /*BTDS*/ '_j{"*":"Last updated {count} days ago","_1":"Last updated 1 day ago"}',
-            [s._plural(i, "count")],
-          );
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "", [s._plural(i, "count")]);
     }
     ((l.getLastUpdatedTimestamp = m), (l.formatLastUpdated = p));
   },

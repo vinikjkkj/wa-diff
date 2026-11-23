@@ -1,62 +1,30 @@
 __d(
   "WAWebDBCustomerDataDatabaseApi",
-  ["WAWebSchemaCustomerData", "asyncToGeneratorRuntime"],
+  ["WAWebSchemaCustomerData"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      return o("WAWebSchemaCustomerData")
+        .getCustomerDataTable()
+        .createOrReplace(e);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaCustomerData")
-            .getCustomerDataTable()
-            .createOrReplace(e);
-        })),
-        s.apply(this, arguments)
-      );
+    async function s(e) {
+      var t = await o("WAWebSchemaCustomerData")
+        .getCustomerDataTable()
+        .equals(["chatJid"], e);
+      return t.length > 0 ? t[0] : null;
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      return o("WAWebSchemaCustomerData").getCustomerDataTable().bulkGet(e);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSchemaCustomerData")
-            .getCustomerDataTable()
-            .equals(["chatJid"], e);
-          return t.length > 0 ? t[0] : null;
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaCustomerData").getCustomerDataTable().bulkGet(e);
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebSchemaCustomerData")
-            .getCustomerDataTable()
-            .bulkRemoveByIndex(["chatJid"], [e]);
-        })),
-        _.apply(this, arguments)
-      );
+    async function c(e) {
+      return o("WAWebSchemaCustomerData")
+        .getCustomerDataTable()
+        .bulkRemoveByIndex(["chatJid"], [e]);
     }
     ((l.addOrEditCustomerData = e),
-      (l.getCustomerDataByChatJid = u),
-      (l.getCustomerDataByChatJids = d),
-      (l.removeCustomerDataByChatJid = p));
+      (l.getCustomerDataByChatJid = s),
+      (l.getCustomerDataByChatJids = u),
+      (l.removeCustomerDataByChatJid = c));
   },
   98,
 );

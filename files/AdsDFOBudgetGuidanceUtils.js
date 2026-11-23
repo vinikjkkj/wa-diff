@@ -1,9 +1,12 @@
 __d(
   "AdsDFOBudgetGuidanceUtils",
   [
+    "AdCampaignDestination",
     "AdsAPIOptimizationGoals",
     "AdsCampaignRecordAccessors",
     "AdsClickToMessageBudgetGuidanceUtils",
+    "AdsDFOBudgetGuidancePOHoH",
+    "AdsDFOBudgetVOLOHoHUtils",
     "AdsDefaultPageDataProvider",
     "AdsInterfacesLogger",
     "AdsMessagesCampaignBudgetPluginSimilarAdvertiserRecommendationCommon",
@@ -42,185 +45,247 @@ __d(
     function m(e) {
       return s(e) || u(e) || c(e);
     }
-    function p(e, t) {
-      if (e == null) return null;
-      var n = r("AdsPageStore").get(e),
-        a;
+    function p(e) {
+      return o("AdsUEditorMessagingDestinationUtils").isWA(e)
+        ? r("AdCampaignDestination").WHATSAPP
+        : o("AdsUEditorMessagingDestinationUtils").isIGDirect(e)
+          ? r("AdCampaignDestination").INSTAGRAM_DIRECT
+          : o("AdsUEditorMessagingDestinationUtils").isMessengerAndIGDirect(e)
+            ? r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_MESSENGER
+            : r("AdCampaignDestination").MESSENGER;
+    }
+    function _(e, t, n, r) {
+      return {
+        destinationType: p(n),
+        enabled: d(n, r) && e != null && e !== "" && t != null && t !== "",
+      };
+    }
+    function f(e, t, n, a) {
+      if ((n === void 0 && (n = !1), e == null)) return null;
+      var i = r("AdsPageStore").get(e),
+        l;
       return (
-        o("AdsUEditorMessagingDestinationUtils").isWA(t)
-          ? (a = n == null ? void 0 : n.ctwa_dfo_budget_guidance_sabr_zo)
-          : o("AdsUEditorMessagingDestinationUtils").isIGDirect(t)
-            ? (a = n == null ? void 0 : n.ctd_dfo_budget_guidance_sabr_zo)
-            : o("AdsUEditorMessagingDestinationUtils").isMessengerAndIGDirect(t)
-              ? (a = n == null ? void 0 : n.ctxmd_dfo_budget_guidance_sabr_zo)
-              : (a = n == null ? void 0 : n.ctx_dfo_budget_guidance_sabr_zo),
-        a != null
-          ? a
+        a !== void 0
+          ? (l = a)
+          : o("AdsUEditorMessagingDestinationUtils").isWA(t)
+            ? (l = n
+                ? i == null
+                  ? void 0
+                  : i.ctwa_dfo_budget_guidance_sabr_zo_cbo
+                : i == null
+                  ? void 0
+                  : i.ctwa_dfo_budget_guidance_sabr_zo)
+            : o("AdsUEditorMessagingDestinationUtils").isIGDirect(t)
+              ? (l = n
+                  ? i == null
+                    ? void 0
+                    : i.ctd_dfo_budget_guidance_sabr_zo_cbo
+                  : i == null
+                    ? void 0
+                    : i.ctd_dfo_budget_guidance_sabr_zo)
+              : o("AdsUEditorMessagingDestinationUtils").isMessengerAndIGDirect(
+                    t,
+                  )
+                ? (l = n
+                    ? i == null
+                      ? void 0
+                      : i.ctxmd_dfo_budget_guidance_sabr_zo_cbo
+                    : i == null
+                      ? void 0
+                      : i.ctxmd_dfo_budget_guidance_sabr_zo)
+                : (l = n
+                    ? i == null
+                      ? void 0
+                      : i.ctx_dfo_budget_guidance_sabr_zo_cbo
+                    : i == null
+                      ? void 0
+                      : i.ctx_dfo_budget_guidance_sabr_zo),
+        l != null
+          ? l
           : r("gkx")("15997")
-            ? {
-                budget: 5544,
-                budget_leads: 4400,
-                budget_new_model: null,
-                budget_purchases: 5544,
-                budget_value: 6600,
-                budget_without_threshold: null,
-                reported_conversion: 5,
-                reported_conversion_leads: 3,
-                reported_conversion_purchases: 5,
-                reported_conversion_value: 7,
-                reported_conversions_new_model: null,
-                reported_conversions_without_threshold: null,
-                zo_budget: 1100,
-                zo_budget_leads: 900,
-                zo_budget_purchases: 1100,
-                zo_budget_value: 1300,
-              }
+            ? n
+              ? {
+                  budget: 7744,
+                  budget_leads: 6600,
+                  budget_new_model: null,
+                  budget_purchases: 7744,
+                  budget_value: 8800,
+                  budget_without_threshold: null,
+                  reported_conversion: 5,
+                  reported_conversion_leads: 3,
+                  reported_conversion_purchases: 5,
+                  reported_conversion_value: 7,
+                  reported_conversions_new_model: null,
+                  reported_conversions_without_threshold: null,
+                  zo_budget: 2200,
+                  zo_budget_leads: 1800,
+                  zo_budget_purchases: 2200,
+                  zo_budget_value: 2600,
+                }
+              : {
+                  budget: 5544,
+                  budget_leads: 4400,
+                  budget_new_model: null,
+                  budget_purchases: 5544,
+                  budget_value: 6600,
+                  budget_without_threshold: null,
+                  reported_conversion: 5,
+                  reported_conversion_leads: 3,
+                  reported_conversion_purchases: 5,
+                  reported_conversion_value: 7,
+                  reported_conversions_new_model: null,
+                  reported_conversions_without_threshold: null,
+                  zo_budget: 1100,
+                  zo_budget_leads: 900,
+                  zo_budget_purchases: 1100,
+                  zo_budget_value: 1300,
+                }
             : null
       );
     }
-    function _(e, t, n) {
-      if (e == null || !d(t, n)) return null;
-      var r = p(e, t);
-      if (r == null) return null;
-      var o = null,
-        a = null;
+    function g(e, t, n, r, o) {
+      if ((r === void 0 && (r = !1), e == null || !d(t, n))) return null;
+      var a = f(e, t, r, o);
+      if (a == null) return null;
+      var i = null,
+        l = null;
       return (
         s(n)
-          ? ((o = r.budget_purchases), (a = r.reported_conversion_purchases))
+          ? ((i = a.budget_purchases), (l = a.reported_conversion_purchases))
           : c(n)
-            ? ((o = r.budget_leads), (a = r.reported_conversion_leads))
-            : u(n) && ((o = r.budget_value), (a = r.reported_conversion_value)),
+            ? ((i = a.budget_leads), (l = a.reported_conversion_leads))
+            : u(n) && ((i = a.budget_value), (l = a.reported_conversion_value)),
         {
-          budget: o,
-          budget_new_model: r.budget_new_model,
-          budget_without_threshold: r.budget_without_threshold,
-          reported_conversion: a,
-          reported_conversions_new_model: r.reported_conversions_new_model,
+          budget: i,
+          budget_new_model: a.budget_new_model,
+          budget_without_threshold: a.budget_without_threshold,
+          reported_conversion: l,
+          reported_conversions_new_model: a.reported_conversions_new_model,
           reported_conversions_without_threshold:
-            r.reported_conversions_without_threshold,
+            a.reported_conversions_without_threshold,
         }
       );
     }
-    function f(e, t, n, o) {
-      var a,
-        i = r("isTruthy")(t)
+    function h(e, t, n, o, a) {
+      var i,
+        l = r("isTruthy")(t)
           ? t
-          : (a = r("AdsDefaultPageDataProvider")().get(e).getValue()) == null
+          : (i = r("AdsDefaultPageDataProvider")().get(e).getValue()) == null
             ? void 0
-            : a.pageID;
-      return _(i, n, o);
+            : i.pageID;
+      return g(l, n, o, !1, a);
     }
-    function g(e, t, n) {
-      if (e == null || !d(t, n)) return null;
-      var r = p(e, t);
-      return r == null
+    function y(e, t, n, r, o) {
+      if ((r === void 0 && (r = !1), e == null || !d(t, n))) return null;
+      var a = f(e, t, r, o);
+      return a == null
         ? null
         : s(n)
-          ? r.zo_budget_purchases
+          ? a.zo_budget_purchases
           : c(n)
-            ? r.zo_budget_leads
+            ? a.zo_budget_leads
             : u(n)
-              ? r.zo_budget_value
+              ? a.zo_budget_value
               : null;
     }
-    function h(e, t, n, a, i) {
-      var l,
-        s = (l = f(e, t, n, a)) == null ? void 0 : l.budget,
-        u = Number(s);
-      if (r("isTruthy")(u)) {
-        var c = o(
+    function C(e, t, n, a, i, l) {
+      var s,
+        u = (s = h(e, t, n, a, l)) == null ? void 0 : s.budget,
+        c = Number(u);
+      if (r("isTruthy")(c)) {
+        var d = o(
             "AdsMessagesCampaignBudgetPluginSimilarAdvertiserRecommendationCommon",
-          ).getBudgetNumberInUSDbyCurrencyMultiplier(u),
-          d = r("adsCampaignConvertUSDBudgetToCurrency")(i, c);
-        return d;
+          ).getBudgetNumberInUSDbyCurrencyMultiplier(c),
+          m = r("adsCampaignConvertUSDBudgetToCurrency")(i, d);
+        return m;
       }
     }
-    function y(t, n, o, a, i, l) {
-      var s = h(t, n, o, a, l),
-        u = i != null ? i : e;
-      if (r("isTruthy")(s) && r("isTruthy")(i)) {
-        var c = s * u;
-        if (r("isTruthy")(c)) {
-          var d = Math.ceil(c / 100) * 100;
-          return d;
+    function b(t, n, o, a, i, l, s) {
+      var u = C(t, n, o, a, l, s),
+        c = i != null ? i : e;
+      if (r("isTruthy")(u) && r("isTruthy")(i)) {
+        var d = u * c;
+        if (r("isTruthy")(d)) {
+          var m = Math.ceil(d / 100) * 100;
+          return m;
         }
       }
       return null;
     }
-    function C(t, n, a, i, l, s, u) {
-      var c;
+    function v(t, n, a, i, l, s, u, c) {
+      var d;
       if (!(n === "lifetime" || n === "daily")) return null;
-      var d = r("isTruthy")(l)
+      var m = r("isTruthy")(l)
           ? l
-          : (c = r("AdsDefaultPageDataProvider")().get(t).getValue()) == null
+          : (d = r("AdsDefaultPageDataProvider")().get(t).getValue()) == null
             ? void 0
-            : c.pageID,
-        m = g(d, s, u),
-        p = null,
+            : d.pageID,
+        p = y(m, s, u, !1, c),
         _ = null,
-        f = a != null ? a : e;
+        f = null,
+        g = a != null ? a : e;
       switch (
-        (r("isTruthy")(m) &&
-          ((m = Number(m)),
-          (m = o(
+        (r("isTruthy")(p) &&
+          ((p = Number(p)),
+          (p = o(
             "AdsMessagesCampaignBudgetPluginSimilarAdvertiserRecommendationCommon",
-          ).getBudgetNumberInUSDbyCurrencyMultiplier(m)),
-          (p = r("adsCampaignConvertUSDBudgetToCurrency")(i, m))),
+          ).getBudgetNumberInUSDbyCurrencyMultiplier(p)),
+          (_ = r("adsCampaignConvertUSDBudgetToCurrency")(i, p))),
         n)
       ) {
         case "daily":
-          if (r("isTruthy")(p)) return p;
+          if (r("isTruthy")(_)) return _;
           break;
         case "lifetime":
-          if ((r("isTruthy")(p) && (_ = p * f), r("isTruthy")(_))) {
-            var h = Math.ceil(_ / 100) * 100;
+          if ((r("isTruthy")(_) && (f = _ * g), r("isTruthy")(f))) {
+            var h = Math.ceil(f / 100) * 100;
             return h;
           }
           break;
       }
     }
-    function b(e, t, n, o, a, i) {
-      var l,
-        s,
+    function S(e, t, n, o, a, i, l) {
+      var s,
         u,
         c,
         d,
         m,
+        p,
         _,
-        f,
-        g = (l = h(e, t, n, o, i)) != null ? l : 0,
-        b = (s = y(e, t, n, o, a, i)) != null ? s : 0,
-        v = (u = C(e, "daily", a, i, t, n, o)) != null ? u : 0,
-        S = (c = C(e, "lifetime", a, i, t, n, o)) != null ? c : 0,
-        R = r("isTruthy")(t)
+        g,
+        h = (s = C(e, t, n, o, i, l)) != null ? s : 0,
+        y = (u = b(e, t, n, o, a, i, l)) != null ? u : 0,
+        S = (c = v(e, "daily", a, i, t, n, o, l)) != null ? c : 0,
+        R = (d = v(e, "lifetime", a, i, t, n, o, l)) != null ? d : 0,
+        L = r("isTruthy")(t)
           ? t
-          : (d = r("AdsDefaultPageDataProvider")().get(e).getValue()) == null
+          : (m = r("AdsDefaultPageDataProvider")().get(e).getValue()) == null
             ? void 0
-            : d.pageID,
-        L = p(R, n),
-        E =
-          (m = L == null ? void 0 : L.reported_conversion_purchases) != null
-            ? m
-            : 0,
+            : m.pageID,
+        E = f(L, n, !1, l),
         k =
-          (_ = L == null ? void 0 : L.reported_conversion_leads) != null
-            ? _
+          (p = E == null ? void 0 : E.reported_conversion_purchases) != null
+            ? p
             : 0,
         I =
-          (f = L == null ? void 0 : L.reported_conversion_value) != null
-            ? f
+          (_ = E == null ? void 0 : E.reported_conversion_leads) != null
+            ? _
+            : 0,
+        T =
+          (g = E == null ? void 0 : E.reported_conversion_value) != null
+            ? g
             : 0;
       return {
-        reported_conversion_purchases: E,
-        reported_conversion_leads: k,
-        reported_conversion_value: I,
-        sabr_daily_budget_recommendation_advertiser_currency: g,
-        sabr_lifetime_budget_recommendation_advertiser_currency: b,
-        zo_daily_budget_recommendation_advertiser_currency: v,
-        zo_lifetime_budget_recommendation_advertiser_currency: S,
+        reported_conversion_purchases: k,
+        reported_conversion_leads: I,
+        reported_conversion_value: T,
+        sabr_daily_budget_recommendation_advertiser_currency: h,
+        sabr_lifetime_budget_recommendation_advertiser_currency: y,
+        zo_daily_budget_recommendation_advertiser_currency: S,
+        zo_lifetime_budget_recommendation_advertiser_currency: R,
       };
     }
-    function v(e, t) {
+    function R(e, t) {
       if (o("AdsUEditorMessagingDestinationUtils").isCTM(e)) {
         if (c(t)) return r("gkx")("16234");
         if (u(t)) return r("gkx")("17402");
@@ -233,24 +298,50 @@ __d(
       }
       return !0;
     }
-    function S(e, t, n) {
+    function L(e, t, n) {
       return (
         n === void 0 && (n = !1),
         !d(e, t) ||
         (u(t) && !o("AdsUEditorMessagingDestinationUtils").isCTM(e)) ||
-        !v(e, t) ||
+        !R(e, t)
+          ? !1
+          : (s(t) &&
+                o("AdsDFOBudgetGuidancePOHoH").isPOLaunchedInHoHHoldoutSegment(
+                  n,
+                )) ||
+              (!s(t) &&
+                o("AdsDFOBudgetVOLOHoHUtils").isVOLOLaunchedInHoHHoldoutSegment(
+                  e,
+                  n,
+                ))
+            ? !0
+            : r("gkx")("21239")
+              ? s(t)
+                ? r("gkx")("25382")
+                : o("AdsDFOBudgetVOLOHoHUtils").isInDFOBudgetVOLOLaunchSegment(
+                    e,
+                  )
+              : !1
+      );
+    }
+    function E(e, t, n) {
+      return (
+        n === void 0 && (n = !1),
+        !d(e, t) ||
+        (u(t) && !o("AdsUEditorMessagingDestinationUtils").isCTM(e)) ||
+        !R(e, t) ||
         !r("gkx")("21239")
           ? !1
           : s(t)
             ? n
-              ? r("qex")._("3915") === !0
-              : r("qex")._("4025") === !0
+              ? r("qex")._("1334") === !0
+              : r("qex")._("1416") === !0
             : n
-              ? r("qex")._("4115") === !0
-              : r("qex")._("4154") === !0
+              ? r("qex")._("1435") === !0
+              : r("qex")._("1493") === !0
       );
     }
-    function R(e, t, n, o, a, i, l, s) {
+    function k(e, t, n, o, a, i, l, s) {
       e.forEach(function (e) {
         var u;
         r("AdsInterfacesLogger").log({
@@ -271,55 +362,114 @@ __d(
         });
       });
     }
-    function L(e, t, n) {
+    function I(e, t, n) {
       return r("isTruthy")(e)
         ? e <= 0
           ? "sabr_budget_non_positive"
           : e < (t != null ? t : 0)
             ? "zo_budget_higher"
-            : "current_budget_higher_or_equal"
+            : e < (n != null ? n : 0)
+              ? "current_budget_higher"
+              : "sabr_wins"
         : "sabr_budget_falsy";
     }
-    function E(e, t, n, o, a, i, l) {
-      var s;
+    function T(e, t, n) {
+      if (e == null || !s(n)) return null;
+      var a = r("AdsPageStore").get(e);
+      if (o("AdsUEditorMessagingDestinationUtils").isWA(t))
+        return a == null ? void 0 : a.ctwa_zo_recommendation_non_cbo;
+      if (o("AdsUEditorMessagingDestinationUtils").isIGDirect(t))
+        return a == null ? void 0 : a.ctd_zo_recommendation_non_cbo;
+      if (o("AdsUEditorMessagingDestinationUtils").isCTM(t))
+        return a == null
+          ? void 0
+          : a.ctm_zo_recommendation_non_cbo_purchase_optimization;
+      if (o("AdsUEditorMessagingDestinationUtils").isMessengerAndIGDirect(t)) {
+        var i,
+          l,
+          u = Math.max(
+            (i = a == null ? void 0 : a.ctd_zo_recommendation_non_cbo) != null
+              ? i
+              : 0,
+            (l =
+              a == null
+                ? void 0
+                : a.ctm_zo_recommendation_non_cbo_purchase_optimization) != null
+              ? l
+              : 0,
+          );
+        return u > 0 ? u : null;
+      }
+      return null;
+    }
+    function D(e, t, n, o, a, i, l, s, u) {
+      var c;
       r("AdsInterfacesLogger").log({
         eventName: "ctx_dfo_sabr_zo_qe_exposure_debug",
         data:
-          ((s = {}),
-          (s.campaign_destination_type = e),
-          (s.optimization_goal = t),
-          (s.new_value = n),
-          (s.old_value = o),
-          (s.bulk_edit_value = a),
-          (s.event_source = i),
-          (s.campaign_budget_type = l),
-          s),
+          ((c = {}),
+          (c.campaign_destination_type = e),
+          (c.optimization_goal = t),
+          (c.new_value = n),
+          (c.old_value = o),
+          (c.bulk_edit_value = a),
+          (c.event_source = i),
+          (c.campaign_budget_type = l),
+          (c.page_id = s),
+          (c.default_daily_budget = u),
+          c),
       });
     }
-    function k(e, t, n, o, a, i, l) {
-      var s = h(e, t, n, o, l),
-        u =
-          r("isTruthy")(s) &&
-          s > 0 &&
-          s >= (a != null ? a : 0) &&
-          s > (i != null ? i : 0);
-      if (u) {
-        var c = S(n, o, !0);
-        E(
-          n,
-          o,
-          s,
-          i,
-          a,
-          "exposure_logged_sabr_wins",
-          c ? "qe_enabled" : "qe_disabled",
-        );
-      } else {
-        var d = L(s, a, i);
-        E(n, o, s, i, a, "exposure_skipped_" + d, "exposure_skipped");
+    function x(e, t, n, o, a, i, l) {
+      var s = C(e, t, n, o, l),
+        u = r("isTruthy")(s) && s > 0,
+        c = I(s, a, i),
+        d = T(t, n, o);
+      if (!u) {
+        D(n, o, s, i, a, "exposure_skipped_" + c, "exposure_skipped", t, d);
+        return;
       }
+      var m = L(n, o, !0);
+      D(
+        n,
+        o,
+        s,
+        i,
+        a,
+        "exposure_logged_" + c,
+        m ? "qe_enabled" : "qe_disabled",
+        t,
+        d,
+      );
     }
-    function I(e, t, n, a, i, l, s, u) {
+    function $(e, t, n, r, o, a, i) {
+      var l = I(r, null, o);
+      D(
+        t,
+        n,
+        r,
+        o,
+        null,
+        a == null
+          ? "cbo_" + e + "_exposure_skipped_" + l
+          : "cbo_" + e + "_exposure_logged_" + l,
+        a == null
+          ? "exposure_skipped"
+          : a === !0
+            ? "qe_enabled"
+            : a === !1
+              ? "qe_disabled"
+              : (function () {
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      a,
+                  );
+                })(),
+        i,
+        null,
+      );
+    }
+    function P(e, t, n, a, i, l, s, u) {
       if (!m(n) || !d(a, n)) return t;
       var c = o(
         "ClickToMessageCTMAdoptionFeatureGating",
@@ -353,7 +503,7 @@ __d(
             p != null ? Number(p) : null,
             n,
           );
-        if (r("isTruthy")(_) && S(a, n))
+        if (r("isTruthy")(_) && L(a, n))
           return r("AdsCampaignRecordAccessors").lifetime_budget.set(0)(
             r("AdsCampaignRecordAccessors").daily_budget.set(_)(t),
           );
@@ -363,16 +513,20 @@ __d(
     ((l.isValueOptimizationGoal = u),
       (l.isLeadsOptimizationGoal = c),
       (l.isEligibleCampaignForDFOSABRZO = d),
-      (l.getDFOSABRBudgetRecommendationByPageID = _),
-      (l.getDFOZOBudgetRecommendation = g),
-      (l.getDFOSabrDailyBudget = h),
-      (l.getDFOSabrLifetimeBudget = y),
-      (l.getDFOZOBudgetRecommendationForNonCBOByMode = C),
-      (l.getDFOBudgetInputParamsForUGP = b),
-      (l.enableDFOSabrZoQE = S),
-      (l.logDFOSABRGuidanceImpression = R),
-      (l.logExposureForDFOSabrZoQEIfSABRWins = k),
-      (l.maybeDefaultBudgetForDFOOptGoalChange = I));
+      (l.getDFOGuidanceDestination = p),
+      (l.getDFOBudgetRecommendationQueryVariables = _),
+      (l.getDFOSABRBudgetRecommendationByPageID = g),
+      (l.getDFOZOBudgetRecommendation = y),
+      (l.getDFOSabrDailyBudget = C),
+      (l.getDFOSabrLifetimeBudget = b),
+      (l.getDFOZOBudgetRecommendationForNonCBOByMode = v),
+      (l.getDFOBudgetInputParamsForUGP = S),
+      (l.enableDFOSabrZoQE = L),
+      (l.enableDFOSabrZoCBOQE = E),
+      (l.logDFOSABRGuidanceImpression = k),
+      (l.logExposureForDFOSabrZoQE = x),
+      (l.logDFOSabrZoCBOExposureDebug = $),
+      (l.maybeDefaultBudgetForDFOOptGoalChange = P));
   },
   98,
 );

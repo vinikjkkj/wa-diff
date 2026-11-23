@@ -17,14 +17,13 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebProtobufsE2E.pb",
     "WAWebUserUtils",
-    "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebEventTargetValue",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Your AI Agent");
+      return s._(/*BTDS*/ "");
     }
     function u() {
       var e = o(
@@ -43,46 +42,27 @@ __d(
     var d = ["change:automatedType", "change:dataSource"],
       m = ["add"].concat(d);
     function p(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n,
-        a;
-      return (
-        t[0] !== e
-          ? ((n = function () {
-              return e && c();
-            }),
-            (a = [e]),
-            (t[0] = e),
-            (t[1] = n),
-            (t[2] = a))
-          : ((n = t[1]), (a = t[2])),
-        r("useWAWebEventTargetValue")(
-          e
-            ? o("WAWebBusinessProfileCollection").BusinessProfileCollection
-            : null,
-          m,
-          n,
-          a,
-        )
+      return r("useWAWebEventTargetValue")(
+        e
+          ? o("WAWebBusinessProfileCollection").BusinessProfileCollection
+          : null,
+        m,
+        function () {
+          return e && c();
+        },
+        [e],
       );
     }
     function _(e, t) {
-      var n = o("react-compiler-runtime").c(2),
-        r;
-      (n[0] !== t
-        ? ((r = function (n) {
-            o("WAWebUserUtils").isMeAccount(n.id) && t();
-          }),
-          (n[0] = t),
-          (n[1] = r))
-        : (r = n[1]),
-        o("useWAWebListener").useListener(
-          e
-            ? o("WAWebBusinessProfileCollection").BusinessProfileCollection
-            : null,
-          m,
-          r,
-        ));
+      o("useWAWebListener").useListener(
+        e
+          ? o("WAWebBusinessProfileCollection").BusinessProfileCollection
+          : null,
+        m,
+        function (e) {
+          o("WAWebUserUtils").isMeAccount(e.id) && t();
+        },
+      );
     }
     function f(e) {
       return g(e.id, e.contact);
@@ -163,15 +143,12 @@ __d(
       );
     }
     function I(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = [o("WAWebChatGetters").getCapiThreadControl]), (t[0] = n))
-        : (n = t[0]);
-      var r = o("useWAWebChatValues").useChatValues(e, n),
-        a = r[0];
+      var t = o("useWAWebChatValues").useChatValues(e, [
+          o("WAWebChatGetters").getCapiThreadControl,
+        ]),
+        n = t[0];
       return (
-        a ===
+        n ===
         o("WAWebProtobufsE2E.pb")
           .Message$CloudAPIThreadControlNotification$CloudAPIThreadControl
           .CONTROL_TAKEN

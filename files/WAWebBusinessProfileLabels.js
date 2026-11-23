@@ -3,190 +3,170 @@ __d(
   ["fbt", "WAWebClock", "WAWebFbtCommon"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Business name");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Description");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Address");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "More options");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(/*BTDS*/ "Coverage area");
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(/*BTDS*/ "Location notes");
+      return s._(/*BTDS*/ "");
     }
     function _() {
-      return s._(/*BTDS*/ "Business hours");
+      return s._(/*BTDS*/ "");
     }
     function f() {
-      return s._(/*BTDS*/ "Category");
+      return s._(/*BTDS*/ "");
     }
     function g() {
-      return s._(/*BTDS*/ "Business categories");
+      return s._(/*BTDS*/ "");
     }
     function h() {
-      return s._(
-        /*BTDS*/ "Choose up to 3 categories to show on your business profile.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function y() {
-      return s._(/*BTDS*/ "Search categories");
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(/*BTDS*/ "Website");
+      return s._(/*BTDS*/ "");
     }
     function b() {
-      return s._(/*BTDS*/ "Add another website");
+      return s._(/*BTDS*/ "");
     }
     function v() {
-      return s._(/*BTDS*/ "Email");
+      return s._(/*BTDS*/ "");
     }
     function S() {
-      return s._(/*BTDS*/ "Incorrect email address format");
+      return s._(/*BTDS*/ "");
     }
     function R() {
-      return s._(/*BTDS*/ "Enter a valid URL");
+      return s._(/*BTDS*/ "");
     }
     function L() {
-      return s._(
-        /*BTDS*/ "You can change your business name on the app with your phone.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function E() {
-      return s._(
-        /*BTDS*/ "You can change your phone number on the app with your phone.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function k() {
-      return s._(/*BTDS*/ "Phone number");
+      return s._(/*BTDS*/ "");
     }
     function I() {
-      return s._(/*BTDS*/ "About");
+      return s._(/*BTDS*/ "");
     }
     function T() {
-      return s._(
-        /*BTDS*/ "You can change your About on the app with your phone.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function D() {
-      return s._(/*BTDS*/ "Add catalog");
+      return s._(/*BTDS*/ "");
     }
     function x() {
-      return s._(/*BTDS*/ "Add item");
+      return s._(/*BTDS*/ "");
     }
     function $() {
-      return s._(/*BTDS*/ "New collection");
+      return s._(/*BTDS*/ "");
     }
     function P() {
-      return s._(/*BTDS*/ "Add item");
+      return s._(/*BTDS*/ "");
     }
     function N() {
-      return s._(/*BTDS*/ "Add a new catalog item.");
+      return s._(/*BTDS*/ "");
     }
     function M() {
-      return s._(/*BTDS*/ "Name");
+      return s._(/*BTDS*/ "");
     }
     function w() {
-      return s._(/*BTDS*/ "Description (optional)");
+      return s._(/*BTDS*/ "");
     }
     function A() {
-      return s._(/*BTDS*/ "Link (optional)");
+      return s._(/*BTDS*/ "");
     }
     function F() {
-      return s._(/*BTDS*/ "Item code (optional)");
+      return s._(/*BTDS*/ "");
     }
     function O() {
-      return s._(/*BTDS*/ "Country of origin (required)");
+      return s._(/*BTDS*/ "");
     }
     function B() {
-      return s._(/*BTDS*/ "Add to catalog");
+      return s._(/*BTDS*/ "");
     }
     function W() {
       return r("WAWebFbtCommon")("Cancel");
     }
     function q() {
-      return s._(/*BTDS*/ "Hide item");
+      return s._(/*BTDS*/ "");
     }
     function U() {
-      return s._(
-        /*BTDS*/ "When you hide an item, customers won't see it in your catalog",
-      );
+      return s._(/*BTDS*/ "");
     }
     function V() {
-      return s._(/*BTDS*/ "Save");
+      return s._(/*BTDS*/ "");
     }
     function H() {
-      return s._(/*BTDS*/ "Preview");
+      return s._(/*BTDS*/ "");
     }
     function G() {
-      return s._(/*BTDS*/ "Add images (required)");
+      return s._(/*BTDS*/ "");
     }
     function z() {
-      return s._(/*BTDS*/ "Profile");
+      return s._(/*BTDS*/ "");
     }
     function j() {
-      return s._(/*BTDS*/ "Business information");
+      return s._(/*BTDS*/ "");
     }
     function K() {
-      return s._(/*BTDS*/ "Products and services");
+      return s._(/*BTDS*/ "");
     }
     function Q() {
-      return s._(/*BTDS*/ "Links");
+      return s._(/*BTDS*/ "");
     }
     function X() {
-      return s._(/*BTDS*/ "Contact information");
+      return s._(/*BTDS*/ "");
     }
     function Y() {
-      return s._(
-        /*BTDS*/ "You can change the address on the app with your phone.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function J(e) {
-      return s._(/*BTDS*/ "Remove image number {imageNumber}", [
-        s._param("imageNumber", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("imageNumber", e)]);
     }
     function Z() {
       var e = o("WAWebClock").Clock.getIs24Hour() ? "09:00" : "9:00 AM";
-      return s._(/*BTDS*/ "Please enter a valid time (e.g., {example})", [
-        s._param("example", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("example", e)]);
     }
     function ee() {
-      return s._(/*BTDS*/ "Username");
+      return s._(/*BTDS*/ "");
     }
     function te() {
-      return s._(/*BTDS*/ "Price range");
+      return s._(/*BTDS*/ "");
     }
     function ne() {
-      return s._(
-        /*BTDS*/ "You can change your username on the app with your phone.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function re() {
-      return s._(/*BTDS*/ "Services");
+      return s._(/*BTDS*/ "");
     }
     function oe() {
-      return s._(/*BTDS*/ "Add services");
+      return s._(/*BTDS*/ "");
     }
     function ae() {
-      return s._(/*BTDS*/ "Services");
+      return s._(/*BTDS*/ "");
     }
     function ie() {
-      return s._(/*BTDS*/ "Add services that your business offers.");
+      return s._(/*BTDS*/ "");
     }
     function le() {
-      return s._(
-        /*BTDS*/ "You can change your services on the app with your phone.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function se() {
-      return s._(/*BTDS*/ "Search services");
+      return s._(/*BTDS*/ "");
     }
     ((l.getBusinessNameLabel = e),
       (l.getDescriptionLabel = u),

@@ -1,11 +1,6 @@
 __d(
   "WAWebAeaConsumerBackfillRunHistory",
-  [
-    "$InternalEnum",
-    "WAWebUserPrefsIndexedDBStorage",
-    "WAWebUserPrefsKeys",
-    "asyncToGeneratorRuntime",
-  ],
+  ["$InternalEnum", "WAWebUserPrefsIndexedDBStorage", "WAWebUserPrefsKeys"],
   function (t, n, r, o, a, i, l) {
     var e = 1,
       s = n("$InternalEnum")({
@@ -64,31 +59,23 @@ __d(
               },
       };
     }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = _(),
-            r = n.attemptCount,
-            a = n.decisiveIncompleteCount;
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-            o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
-              .AEA_CONSUMER_BACKFILL_RUN_HISTORY,
-            {
-              version: e,
-              attemptCount: r + 1,
-              decisiveIncompleteCount: a + (d(t.result) ? 1 : 0),
-              lastRunResult: t.result,
-              unconfirmedCount: t.unconfirmedCount,
-              leftUnsetCount: t.leftUnsetCount,
-              suspectedCount: t.suspectedCount,
-              accountCount: t.accountCount,
-            },
-          );
-        })),
-        g.apply(this, arguments)
+    async function f(t) {
+      var n = _(),
+        r = n.attemptCount,
+        a = n.decisiveIncompleteCount;
+      await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+        o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS
+          .AEA_CONSUMER_BACKFILL_RUN_HISTORY,
+        {
+          version: e,
+          attemptCount: r + 1,
+          decisiveIncompleteCount: a + (d(t.result) ? 1 : 0),
+          lastRunResult: t.result,
+          unconfirmedCount: t.unconfirmedCount,
+          leftUnsetCount: t.leftUnsetCount,
+          suspectedCount: t.suspectedCount,
+          accountCount: t.accountCount,
+        },
       );
     }
     ((l.AEA_CONSUMER_BACKFILL_VERSION = e),

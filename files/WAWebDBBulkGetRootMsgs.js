@@ -8,89 +8,62 @@ __d(
     "WAWebSchemaChat",
     "WAWebSchemaMessage",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(e) {
+      return d(await m(e));
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return m(yield _(e));
-        })),
-        d.apply(this, arguments)
-      );
+    async function d(e) {
+      for (
+        var t = await o("WAWebSchemaMessage").getMessageTable().bulkGet(e, !1),
+          n = new Map(),
+          r = 0;
+        r < e.length;
+        r++
+      )
+        (t[r] == null || t[r].subtype === "message_edit") &&
+          (n.set(e[r], r), (t[r] = null));
+      if (n.size === 0) return t;
+      var a = await o("WAWebSchemaMessage")
+        .getMessageTable()
+        .anyOf(["latestEditMsgKey"], Array.from(n.keys()));
+      for (var i of a)
+        if (!(i.latestEditMsgKey == null || i.subtype === "message_edit")) {
+          var l = n.get(i.latestEditMsgKey);
+          l != null && (t[l] = i);
+        }
+      return t;
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          for (
-            var t = yield o("WAWebSchemaMessage")
-                .getMessageTable()
-                .bulkGet(e, !1),
-              n = new Map(),
-              r = 0;
-            r < e.length;
-            r++
-          )
-            (t[r] == null || t[r].subtype === "message_edit") &&
-              (n.set(e[r], r), (t[r] = null));
-          if (n.size === 0) return t;
-          var a = yield o("WAWebSchemaMessage")
-            .getMessageTable()
-            .anyOf(["latestEditMsgKey"], Array.from(n.keys()));
-          for (var i of a)
-            if (!(i.latestEditMsgKey == null || i.subtype === "message_edit")) {
-              var l = n.get(i.latestEditMsgKey);
-              l != null && (t[l] = i);
-            }
-          return t;
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(function (e) {
-              return r("WAWebMsgKey").fromString(e);
+    async function m(e) {
+      var t = e.map(function (e) {
+          return r("WAWebMsgKey").fromString(e);
+        }),
+        n = p(
+          t.map(function (e) {
+            return e.remote;
+          }),
+        ),
+        a = await o("WAWebSchemaChat")
+          .getChatTable()
+          .anyOf(
+            ["accountLid"],
+            Array.from(n, function (e) {
+              return e.toString();
             }),
-            n = g(
-              t.map(function (e) {
-                return e.remote;
-              }),
-            ),
-            a = yield o("WAWebSchemaChat")
-              .getChatTable()
-              .anyOf(
-                ["accountLid"],
-                Array.from(n, function (e) {
-                  return e.toString();
-                }),
-              ),
-            i = new Map(
-              a.map(function (e) {
-                return [
-                  o("WAWebWidFactory").createWid(r("nullthrows")(e.accountLid)),
-                  o("WAWebWidFactory").createWid(e.id),
-                ];
-              }),
-            );
-          return h(t, i).map(String);
-        })),
-        f.apply(this, arguments)
-      );
+          ),
+        i = new Map(
+          a.map(function (e) {
+            return [
+              o("WAWebWidFactory").createWid(r("nullthrows")(e.accountLid)),
+              o("WAWebWidFactory").createWid(e.id),
+            ];
+          }),
+        );
+      return _(t, i).map(String);
     }
-    function g(t) {
+    function p(t) {
       var n = t
         .filter(function (e) {
           return e.isRegularUser();
@@ -111,7 +84,7 @@ __d(
         new Set(n.filter(Boolean))
       );
     }
-    function h(e, t) {
+    function _(e, t) {
       var n = [],
         a = [],
         i = e.map(function (e) {
@@ -152,7 +125,7 @@ __d(
         i
       );
     }
-    ((l.bulkGetRootMsgs = c), (l.fixMsgKeysWithChatId = _));
+    ((l.bulkGetRootMsgs = c), (l.fixMsgKeysWithChatId = m));
   },
   98,
 );

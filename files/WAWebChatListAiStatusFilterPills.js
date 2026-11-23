@@ -20,7 +20,7 @@ __d(
         id: "ai-handoff-filter",
         filter: o("WAWebChatSearchFilters").SearchFilters.AI_HANDOFF,
         getLabel: function () {
-          return s._(/*BTDS*/ "AI handoff");
+          return s._(/*BTDS*/ "");
         },
         testid: "ai-handoff-filter",
         color: "var(--WDS-secondary-negative)",
@@ -30,7 +30,7 @@ __d(
         id: "ai-responding-filter",
         filter: o("WAWebChatSearchFilters").SearchFilters.AI_RESPONDING,
         getLabel: function () {
-          return s._(/*BTDS*/ "AI responding");
+          return s._(/*BTDS*/ "");
         },
         testid: "ai-responding-filter",
         color: "var(--WDS-secondary-positive)",

@@ -9,7 +9,6 @@ __d(
     "WAWebWamEnumCompanionInviteActionType",
     "WAWebWamEnumCompanionInviteMethodType",
     "WAWebWamEnumCompanionInviteOriginType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
@@ -35,7 +34,7 @@ __d(
       ).CompanionInviteContactWamEvent)(
         babelHelpers.extends(
           {},
-          p(),
+          m(),
           {
             companionInviteMethod: i
               ? o("WAWebWamEnumCompanionInviteMethodType")
@@ -76,7 +75,7 @@ __d(
       ).CompanionInviteContactWamEvent)(
         babelHelpers.extends(
           {},
-          p(),
+          m(),
           {
             companionInviteMethod: r
               ? o("WAWebWamEnumCompanionInviteMethodType")
@@ -91,35 +90,27 @@ __d(
         ),
       ).commit();
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(e) {
+      var t = e.entryPoint,
+        n = e.groupJid,
+        r = e.serverSendFailureReason,
+        a = e.sessionId,
+        i = e.validNumbers,
+        l = await o("WAWebOutContactInviteUtils").storeMultiGroupInviteSms(
+          n,
+          i,
+          t,
+        );
+      i.forEach(function (e, n) {
+        var o = l[n];
+        d({
+          entryPoint: t,
+          inviteCodeError: o != null ? o.toString() : r,
+          sessionId: a,
+        });
+      });
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.entryPoint,
-            n = e.groupJid,
-            r = e.serverSendFailureReason,
-            a = e.sessionId,
-            i = e.validNumbers,
-            l = yield o("WAWebOutContactInviteUtils").storeMultiGroupInviteSms(
-              n,
-              i,
-              t,
-            );
-          i.forEach(function (e, n) {
-            var o = l[n];
-            m({
-              entryPoint: t,
-              inviteCodeError: o != null ? o.toString() : r,
-              sessionId: a,
-            });
-          });
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
+    function d(e) {
       var t,
         n = e.entryPoint,
         r = e.inviteCodeError,
@@ -131,7 +122,7 @@ __d(
       ).CompanionInviteContactWamEvent)(
         babelHelpers.extends(
           {},
-          p(),
+          m(),
           {
             companionInviteMethod: i
               ? o("WAWebWamEnumCompanionInviteMethodType")
@@ -157,7 +148,7 @@ __d(
         ),
       ).commit();
     }
-    function p() {
+    function m() {
       var e = o("WAWebContactCollection").ContactCollection.length,
         t = e + o("WAWebOutContactCollection").OutContactCollection.length;
       return {
@@ -169,7 +160,7 @@ __d(
       (l.logOneToOneInviteContact = s),
       (l.logOutContactInviteIntent = u),
       (l.logMultiGroupInviteContacts = c),
-      (l.logGroupInviteContact = m));
+      (l.logGroupInviteContact = d));
   },
   98,
 );

@@ -101,16 +101,26 @@ __d(
         i = u.updatedAdgroup;
       }
       if (o("AdsBrandAwarenessUtils").isWebsiteLinkEnabled(t)) {
-        var c = e(
+        var c,
+          d = ["website_url", "display_url"],
+          m =
+            (c = t.creative) == null ||
+            (c = c.asset_feed_spec) == null ||
+            (c = c.link_urls) == null ||
+            (c = c.first()) == null
+              ? void 0
+              : c.get("deeplink_url");
+        typeof m == "string" && d.push("deeplink_url");
+        var p = e(
           i,
           n,
           r("AdsUnifiedCreativeAPIFields").linkURL,
           r("AdsAPIAdgroupPaths").CREATIVE.ASSET_FEED_SPEC.LINK_URLS,
           "link_url_label",
-          ["website_url", "display_url"],
+          d,
           o("AdsUEditorAdgroupUrlMutators").copyDefaultPlacementURL,
         );
-        i = c.updatedAdgroup;
+        i = p.updatedAdgroup;
       }
       return i;
     }

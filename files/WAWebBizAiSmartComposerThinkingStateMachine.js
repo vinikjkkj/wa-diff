@@ -33,23 +33,21 @@ __d(
     }
     function f() {
       return [
-        s._(/*BTDS*/ "Thinking\u2026"),
-        s._(/*BTDS*/ "Reviewing information\u2026"),
-        r("justknobx")._("8427")
-          ? s._(/*BTDS*/ "Working on it\u2026")
-          : s._(/*BTDS*/ "Processing\u2026"),
-        s._(/*BTDS*/ "Checking details\u2026"),
+        s._(/*BTDS*/ ""),
+        s._(/*BTDS*/ ""),
+        r("justknobx")._("8427") ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
+        s._(/*BTDS*/ ""),
       ];
     }
     function g(e, t) {
       return e === "processing"
         ? p(t)
         : e === "spinning_up"
-          ? s._(/*BTDS*/ "Getting ready\u2026")
+          ? s._(/*BTDS*/ "")
           : e === "waiting_for_reply"
-            ? s._(/*BTDS*/ "Waiting for reply\u2026")
+            ? s._(/*BTDS*/ "")
             : e === "idle" || e === "waiting_for_customer"
-              ? s._(/*BTDS*/ "AI will respond to the next message\u2026")
+              ? s._(/*BTDS*/ "")
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

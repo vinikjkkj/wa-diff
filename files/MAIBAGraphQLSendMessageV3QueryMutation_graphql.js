@@ -10,66 +10,82 @@ __d(
           kind: "LocalArgument",
           name: "clientContext",
         },
-        n = {
+        n = { defaultValue: null, kind: "LocalArgument", name: "contextChips" },
+        r = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "displayMessage",
         },
-        r = { defaultValue: null, kind: "LocalArgument", name: "entrypoint" },
-        o = {
+        o = { defaultValue: null, kind: "LocalArgument", name: "entrypoint" },
+        a = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "externalConversationId",
         },
-        a = {
+        i = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "hideUserMessage",
         },
-        i = {
-          defaultValue: null,
-          kind: "LocalArgument",
-          name: "isInsituPregeneration",
-        },
         l = {
-          defaultValue: null,
+          defaultValue: !1,
           kind: "LocalArgument",
-          name: "isNewConversation",
+          name: "includeEntryPointClaimState",
         },
         s = {
           defaultValue: null,
           kind: "LocalArgument",
+          name: "isInsituPregeneration",
+        },
+        u = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "isNewConversation",
+        },
+        c = {
+          defaultValue: null,
+          kind: "LocalArgument",
           name: "isSentFromOutOfChat",
         },
-        u = { defaultValue: null, kind: "LocalArgument", name: "message" },
-        c = { defaultValue: null, kind: "LocalArgument", name: "messageType" },
-        d = {
+        d = { defaultValue: null, kind: "LocalArgument", name: "message" },
+        m = { defaultValue: null, kind: "LocalArgument", name: "messageType" },
+        p = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "offlineThreadingId",
         },
-        m = {
+        _ = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "postbackPayload",
         },
-        p = {
+        f = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "requestedReasoningEffort",
+        },
+        g = {
+          defaultValue: null,
+          kind: "LocalArgument",
+          name: "requestedReasoningMode",
+        },
+        h = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "selectedAssets",
         },
-        _ = {
+        y = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "selectedSuggestedPrompt",
         },
-        f = { defaultValue: null, kind: "LocalArgument", name: "selectedText" },
-        g = {
+        C = { defaultValue: null, kind: "LocalArgument", name: "selectedText" },
+        b = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "userMediaAttachments",
         },
-        h = [
+        v = [
           {
             fields: [
               {
@@ -81,6 +97,11 @@ __d(
                 kind: "Variable",
                 name: "client_context",
                 variableName: "clientContext",
+              },
+              {
+                kind: "Variable",
+                name: "context_chips",
+                variableName: "contextChips",
               },
               {
                 kind: "Variable",
@@ -145,6 +166,16 @@ __d(
               },
               {
                 kind: "Variable",
+                name: "requested_reasoning_effort",
+                variableName: "requestedReasoningEffort",
+              },
+              {
+                kind: "Variable",
+                name: "requested_reasoning_mode",
+                variableName: "requestedReasoningMode",
+              },
+              {
+                kind: "Variable",
                 name: "selected_assets",
                 variableName: "selectedAssets",
               },
@@ -168,26 +199,40 @@ __d(
             name: "input",
           },
         ],
-        y = {
+        S = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "id",
           storageKey: null,
         },
-        C = {
+        R = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "display_title",
           storageKey: null,
         },
-        b = {
+        L = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "is_conversation_eligible_for_csat",
           storageKey: null,
+        },
+        E = {
+          condition: "includeEntryPointClaimState",
+          kind: "Condition",
+          passingValue: !0,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "entry_point_claim_state",
+              storageKey: null,
+            },
+          ],
         };
       return {
         fragment: {
@@ -209,6 +254,10 @@ __d(
             _,
             f,
             g,
+            h,
+            y,
+            C,
+            b,
           ],
           kind: "Fragment",
           metadata: null,
@@ -216,7 +265,7 @@ __d(
           selections: [
             {
               alias: null,
-              args: h,
+              args: v,
               concreteType: "XFBMAIBASendMessageV3MutationResponse",
               kind: "LinkedField",
               name: "xfb_maiba_send_message_v3",
@@ -229,9 +278,10 @@ __d(
                   kind: "LinkedField",
                   name: "conversation",
                   plural: !1,
-                  selections: [y, C, b],
+                  selections: [S, R, L],
                   storageKey: null,
                 },
+                E,
               ],
               storageKey: null,
             },
@@ -242,30 +292,34 @@ __d(
         kind: "Request",
         operation: {
           argumentDefinitions: [
-            u,
-            l,
-            o,
             d,
-            t,
+            u,
+            a,
             p,
+            t,
+            h,
+            n,
             e,
+            y,
             _,
             m,
-            c,
-            g,
-            f,
-            r,
-            a,
+            b,
+            C,
+            o,
             i,
             s,
-            n,
+            c,
+            r,
+            g,
+            f,
+            l,
           ],
           kind: "Operation",
           name: "MAIBAGraphQLSendMessageV3QueryMutation",
           selections: [
             {
               alias: null,
-              args: h,
+              args: v,
               concreteType: "XFBMAIBASendMessageV3MutationResponse",
               kind: "LinkedField",
               name: "xfb_maiba_send_message_v3",
@@ -286,19 +340,20 @@ __d(
                       name: "__typename",
                       storageKey: null,
                     },
-                    y,
-                    C,
-                    b,
+                    S,
+                    R,
+                    L,
                   ],
                   storageKey: null,
                 },
+                E,
               ],
               storageKey: null,
             },
           ],
         },
         params: {
-          id: "27039324015719519",
+          id: "29124530683881249",
           metadata: {},
           name: "MAIBAGraphQLSendMessageV3QueryMutation",
           operationKind: "mutation",

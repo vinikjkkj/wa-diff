@@ -108,49 +108,50 @@ __d(
       }
       return !1;
     }
-    function h(e, t, n, o) {
-      var a,
-        i = r("isTruthy")(t)
+    function h(e, t, n, o, a) {
+      var i,
+        l = r("isTruthy")(t)
           ? t
-          : (a = r("AdsDefaultPageDataProvider")().get(e).getValue()) == null
+          : (i = r("AdsDefaultPageDataProvider")().get(e).getValue()) == null
             ? void 0
-            : a.pageID;
-      if (i == null || !u(n, o)) return null;
-      var l = r("AdsPageStore").get(i);
-      return l == null
+            : i.pageID;
+      if (l == null || !u(n, o)) return null;
+      if (a != null) return a.value;
+      var s = r("AdsPageStore").get(l);
+      return s == null
         ? void 0
-        : l.wtwa_similar_advertiser_budget_recommendation;
+        : s.wtwa_similar_advertiser_budget_recommendation;
     }
-    function y(e, t, n, a, i) {
-      var l = h(e, t, n, a),
-        s = Number(L(l, !0).budget);
-      if (r("isTruthy")(s)) {
-        var u = o(
+    function y(e, t, n, a, i, l) {
+      var s = h(e, t, n, a, l),
+        u = Number(L(s, !0).budget);
+      if (r("isTruthy")(u)) {
+        var c = o(
             "AdsMessagesCampaignBudgetPluginSimilarAdvertiserRecommendationCommon",
-          ).getBudgetNumberInUSDbyCurrencyMultiplier(s),
-          c = r("adsCampaignConvertUSDBudgetToCurrency")(i, u);
+          ).getBudgetNumberInUSDbyCurrencyMultiplier(u),
+          d = r("adsCampaignConvertUSDBudgetToCurrency")(i, c);
         return o(
           "SABRBudgetRoundDownMarketingAdoptionUtils",
         ).isInSabrBudgetRoundDownMarketingAdoption(!0)
           ? o(
               "SABRBudgetRoundDownMarketingAdoptionUtils",
-            ).applyMarketingRoundDown(c)
-          : c;
+            ).applyMarketingRoundDown(d)
+          : d;
       }
     }
-    function C(e, t, n, a, i, l) {
-      var s = y(e, t, n, a, l);
-      if (r("isTruthy")(s) && r("isTruthy")(i)) {
-        var u = s * i;
-        if (r("isTruthy")(u)) {
-          var c = Math.ceil(u / 100) * 100;
+    function C(e, t, n, a, i, l, s) {
+      var u = y(e, t, n, a, l, s);
+      if (r("isTruthy")(u) && r("isTruthy")(i)) {
+        var c = u * i;
+        if (r("isTruthy")(c)) {
+          var d = Math.ceil(c / 100) * 100;
           return o(
             "SABRBudgetRoundDownMarketingAdoptionUtils",
           ).isInSabrBudgetRoundDownMarketingAdoption(!0)
             ? o(
                 "SABRBudgetRoundDownMarketingAdoptionUtils",
-              ).applyMarketingRoundDown(c)
-            : c;
+              ).applyMarketingRoundDown(d)
+            : d;
         }
       }
       return null;
@@ -158,24 +159,24 @@ __d(
     function b(e, t, n) {
       return !(e || !u(t, n));
     }
-    function v(e, t, n, r, o, a) {
-      var i,
-        l,
+    function v(e, t, n, r, o, a, i) {
+      var l,
         s,
         u,
         c,
-        d = (i = y(e, t, n, r, a)) != null ? i : 0,
-        p = (l = C(e, t, n, r, o, a)) != null ? l : 0,
-        _ = (s = m(e, "daily", o, a, n, t, r)) != null ? s : 0,
-        f = (u = m(e, "lifetime", o, a, n, t, r)) != null ? u : 0,
-        g = h(e, t, n, r),
-        b = (c = L(g).reported_conversion) != null ? c : 0;
+        d,
+        p = (l = y(e, t, n, r, a, i)) != null ? l : 0,
+        _ = (s = C(e, t, n, r, o, a, i)) != null ? s : 0,
+        f = (u = m(e, "daily", o, a, n, t, r)) != null ? u : 0,
+        g = (c = m(e, "lifetime", o, a, n, t, r)) != null ? c : 0,
+        b = h(e, t, n, r, i),
+        v = (d = L(b).reported_conversion) != null ? d : 0;
       return {
-        reported_conversions: b,
-        sabr_daily_budget_recommendation_advertiser_currency: d,
-        sabr_lifetime_budget_recommendation_advertiser_currency: p,
-        zo_daily_budget_recommendation_advertiser_currency: _,
-        zo_lifetime_budget_recommendation_advertiser_currency: f,
+        reported_conversions: v,
+        sabr_daily_budget_recommendation_advertiser_currency: p,
+        sabr_lifetime_budget_recommendation_advertiser_currency: _,
+        zo_daily_budget_recommendation_advertiser_currency: f,
+        zo_lifetime_budget_recommendation_advertiser_currency: g,
       };
     }
     function S(e) {

@@ -1,6 +1,6 @@
 __d(
   "WAWebCRUDOperationsACSTokens",
-  ["WAWebSchemaACSTokens", "asyncToGeneratorRuntime"],
+  ["WAWebSchemaACSTokens"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -30,20 +30,12 @@ __d(
         t.anyOf(["project"], [e])
       );
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield c(e, t);
-          yield t.bulkRemove(
-            n.map(function (e) {
-              return e.tokenName;
-            }),
-          );
-        })),
-        m.apply(this, arguments)
+    async function d(e, t) {
+      var n = await c(e, t);
+      await t.bulkRemove(
+        n.map(function (e) {
+          return e.tokenName;
+        }),
       );
     }
     ((l.upsertACSToken = e),

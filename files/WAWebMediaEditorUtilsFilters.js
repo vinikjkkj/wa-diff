@@ -11,17 +11,17 @@ __d(
     function c(e) {
       switch (e) {
         case o("WAWebMediaEditorUtilsFilterType").FilterType.NONE:
-          return s._(/*BTDS*/ "None");
+          return s._(/*BTDS*/ "");
         case o("WAWebMediaEditorUtilsFilterType").FilterType.POP:
-          return s._(/*BTDS*/ "Pop");
+          return s._(/*BTDS*/ "");
         case o("WAWebMediaEditorUtilsFilterType").FilterType.BW:
-          return s._(/*BTDS*/ "B&W");
+          return s._(/*BTDS*/ "");
         case o("WAWebMediaEditorUtilsFilterType").FilterType.COOL:
-          return s._(/*BTDS*/ "Cool");
+          return s._(/*BTDS*/ "");
         case o("WAWebMediaEditorUtilsFilterType").FilterType.CHROME:
-          return s._(/*BTDS*/ "Chrome");
+          return s._(/*BTDS*/ "");
         case o("WAWebMediaEditorUtilsFilterType").FilterType.FILM:
-          return s._(/*BTDS*/ "Film");
+          return s._(/*BTDS*/ "");
       }
     }
     function d(e) {

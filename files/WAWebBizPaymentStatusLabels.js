@@ -5,11 +5,11 @@ __d(
     function e(e) {
       switch (e) {
         case o("WAWebOrderPaymentStatus").OrderPaymentStatus.Pending:
-          return s._(/*BTDS*/ "Requested");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured:
-          return s._(/*BTDS*/ "Completed");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderPaymentStatus").OrderPaymentStatus.Failed:
-          return s._(/*BTDS*/ "Failed");
+          return s._(/*BTDS*/ "");
       }
     }
     l.getWAWebBizOrderPaymentStatusLabel = e;

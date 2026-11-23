@@ -51,7 +51,7 @@ __d(
         },
         header: {
           icon: c.jsx(r("CometImage.react"), {
-            alt: s._(/*BTDS*/ "Workplace"),
+            alt: s._(/*BTDS*/ ""),
             src: u("175658"),
           }),
         },

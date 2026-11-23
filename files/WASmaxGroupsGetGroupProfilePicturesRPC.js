@@ -28,46 +28,38 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = m(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return {
-              name: "GetGroupProfilePicturesResponseSuccessGroupPictures",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "GetGroupProfilePicturesResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "GetGroupProfilePicturesResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "GetGroupProfilePictures",
-              { SuccessGroupPictures: a, ClientError: i, ServerError: l },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = d(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return {
+          name: "GetGroupProfilePicturesResponseSuccessGroupPictures",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "GetGroupProfilePicturesResponseClientError",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "GetGroupProfilePicturesResponseServerError",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetGroupProfilePictures", {
+          SuccessGroupPictures: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -77,7 +69,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = p(r.value);
+      var i = m(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -86,7 +78,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -95,26 +87,26 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
         "WASmaxInGroupsIQResultResponseMixin",
       ).parseIQResultResponseMixin(e, t);
       if (!r.success) return r;
-      var a = f(e);
+      var a = _(e);
       return a.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, r.value, a.value),
           )
         : a;
     }
-    function m(e) {
+    function d(e) {
       var t = e.baseGetGroupOrServerMixinGroupArgs,
-        n = L(I(o("WASmaxJsx").smax("iq", null), e), t);
+        n = R(k(o("WASmaxJsx").smax("iq", null), e), t);
       return n;
     }
-    function p(e) {
+    function m(e) {
       var t = o(
         "WASmaxInGroupsIQErrorItemNotFoundMixin",
       ).parseIQErrorItemNotFoundMixin(e);
@@ -185,12 +177,12 @@ __d(
             [t, n, r, a, i, l, s],
           );
     }
-    function _(e) {
+    function p(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "picture");
       if (!t.success) return t;
-      var n = y(e);
+      var n = h(e);
       if (!n.success) return n;
-      var r = g(e);
+      var r = f(e);
       return r.success
         ? o("WAResultOrError").makeResult({
             parentOrSubGroupMixinGroup: n.value,
@@ -199,7 +191,7 @@ __d(
           })
         : r;
     }
-    function f(e) {
+    function _(e) {
       var t = o("WASmaxParseUtils").flattenedChildWithTag(e, "pictures");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").mapChildrenWithTag(
@@ -207,20 +199,20 @@ __d(
         "picture",
         1,
         1e3,
-        _,
+        p,
       );
       return n.success
         ? o("WAResultOrError").makeResult({ picturesPicture: n.value })
         : n;
     }
-    function g(e) {
-      var t = h(e);
+    function f(e) {
+      var t = g(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "GetGroupProfilePicturesSuccessProfilePictureResponse",
           value: t.value,
         });
-      var n = B(e);
+      var n = O(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             name: "GetGroupProfilePicturesPartialProfilePictureResponse",
@@ -232,28 +224,28 @@ __d(
             [t, n],
           );
     }
-    function h(e) {
+    function g(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "picture");
       if (!t.success) return t;
-      var n = C(e);
+      var n = y(e);
       if (!n.success) return n;
-      var r = b(e);
+      var r = C(e);
       if (!r.success) return r;
-      var a = v(e);
+      var a = b(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends({}, n.value, r.value, {
           profilePictureUrlOrBlobResponseMixinGroup: a.success ? a.value : null,
         }),
       );
     }
-    function y(e) {
+    function h(e) {
       var t = o("WASmaxInGroupsParentGroupMixin").parseParentGroupMixin(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "ParentGroup",
           value: t.value,
         });
-      var n = R(e);
+      var n = S(e);
       return n.success
         ? o("WAResultOrError").makeResult({ name: "SubGroup", value: n.value })
         : o("WASmaxParseUtils").errorMixinDisjunction(
@@ -262,13 +254,13 @@ __d(
             [t, n],
           );
     }
-    function C(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "picture");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "id");
       return n.success ? o("WAResultOrError").makeResult({ id: n.value }) : n;
     }
-    function b(e) {
+    function C(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "picture");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrStringEnum(
@@ -278,14 +270,14 @@ __d(
       );
       return n.success ? o("WAResultOrError").makeResult({ type: n.value }) : n;
     }
-    function v(e) {
-      var t = S(e);
+    function b(e) {
+      var t = v(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "ProfilePictureUrlResponse",
           value: t.value,
         });
-      var n = U(e);
+      var n = q(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             name: "ProfilePictureBlobResponse",
@@ -297,7 +289,7 @@ __d(
             [t, n],
           );
     }
-    function S(e) {
+    function v(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "picture");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "url");
@@ -307,13 +299,13 @@ __d(
         ? o("WAResultOrError").makeResult({ url: n.value, directPath: r.value })
         : r;
     }
-    function R(e) {
+    function S(e) {
       var t = o("WASmaxParseJid").attrGroupJid(e, "sub_group_jid");
       return t.success
         ? o("WAResultOrError").makeResult({ subGroupJid: t.value })
         : t;
     }
-    function L(e, t) {
+    function R(e, t) {
       if (t.baseGetGroup)
         return o("WASmaxOutGroupsBaseGetGroupMixin").mergeBaseGetGroupMixin(
           e,
@@ -327,18 +319,18 @@ __d(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function E(e) {
+    function L(e) {
       var t = e.profilePictureIdMixinArgs,
         n = e.profilePictureTypeMixinArgs,
         r = e.profilePictureQueryMixinArgs,
         a = e.parentOrSubGroupMixinGroupArgs,
-        i = T(
+        i = I(
           o("WASmaxMixins").optionalMerge(
-            P,
+            $,
             o("WASmaxMixins").optionalMerge(
-              M,
+              N,
               o("WASmaxMixins").optionalMerge(
-                x,
+                D,
                 o("WASmaxJsx").smax("picture", null),
                 t,
               ),
@@ -350,7 +342,7 @@ __d(
         );
       return i;
     }
-    function k(e) {
+    function E(e) {
       var t = e.pictureArgs,
         n = e.picturesSize,
         r = e.subGroupHintMixinArgs,
@@ -358,114 +350,114 @@ __d(
           "smax$any",
           null,
           o("WASmaxMixins").optionalMerge(
-            A,
+            w,
             o("WASmaxJsx").smax(
               "pictures",
               { size: o("WASmaxAttrs").OPTIONAL(o("WAWap").INT, n) },
-              o("WASmaxChildren").REPEATED_CHILD(E, t, 1, 1e3),
+              o("WASmaxChildren").REPEATED_CHILD(L, t, 1, 1e3),
             ),
             r,
           ),
         );
       return a;
     }
-    function I(e, t) {
-      var n = k(t);
+    function k(e, t) {
+      var n = E(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function T(e, t) {
+    function I(e, t) {
       if (t.parentGroup)
         return o("WASmaxOutGroupsParentGroupMixin").mergeParentGroupMixin(
           e,
           t.parentGroup,
         );
-      if (t.subGroup) return O(e, t.subGroup);
+      if (t.subGroup) return F(e, t.subGroup);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function D(e) {
+    function T(e) {
       var t = e.pictureId,
         n = o("WASmaxJsx").smax("picture", { id: o("WAWap").CUSTOM_STRING(t) });
       return n;
     }
-    function x(e, t) {
-      var n = D(t);
+    function D(e, t) {
+      var n = T(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function $(e) {
+    function x(e) {
       var t = e.pictureQuery,
         n = o("WASmaxJsx").smax("picture", {
           query: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function P(e, t) {
-      var n = $(t);
+    function $(e, t) {
+      var n = x(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function N(e) {
+    function P(e) {
       var t = e.pictureType,
         n = o("WASmaxJsx").smax("picture", {
           type: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function M(e, t) {
-      var n = N(t);
+    function N(e, t) {
+      var n = P(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function w(e) {
+    function M(e) {
       var t = e.anyLinkedGroupsMembershipHint,
         n = o("WASmaxJsx").smax("smax$any", {
           linked_groups_membership_hint: o("WAWap").GROUP_JID(t),
         });
       return n;
     }
-    function A(e, t) {
-      var n = w(t);
+    function w(e, t) {
+      var n = M(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function F(e) {
+    function A(e) {
       var t = e.anySubGroupJid,
         n = o("WASmaxJsx").smax("smax$any", {
           sub_group_jid: o("WAWap").GROUP_JID(t),
         });
       return n;
     }
-    function O(e, t) {
-      var n = F(t);
+    function F(e, t) {
+      var n = A(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function B(e) {
+    function O(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "picture");
       if (!t.success) return t;
-      var n = W(e);
+      var n = B(e);
       return o("WAResultOrError").makeResult({
         pictureDidNotChangeOrPictureNotFoundOrBadServerProfilePictureErrorOrBadLinkedGroupProfilePictureErrorMixinGroup:
           n.success ? n.value : null,
       });
     }
-    function W(e) {
-      var t = G(e);
+    function B(e) {
+      var t = H(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "PictureDidNotChange",
           value: t.value,
         });
-      var n = q(e);
+      var n = W(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "PictureNotFound",
           value: n.value,
         });
-      var r = H(e);
+      var r = V(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "BadServerProfilePictureError",
           value: r.value,
         });
-      var a = V(e);
+      var a = U(e);
       return a.success
         ? o("WAResultOrError").makeResult({
             name: "BadLinkedGroupProfilePictureError",
@@ -482,7 +474,7 @@ __d(
             [t, n, r, a],
           );
     }
-    function q(e) {
+    function W(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "picture");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -495,7 +487,7 @@ __d(
         ? o("WAResultOrError").makeResult({ status: n.value })
         : n;
     }
-    function U(e) {
+    function q(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "picture");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").contentBytesRange(e, 1, void 0);
@@ -503,7 +495,7 @@ __d(
         ? o("WAResultOrError").makeResult({ elementValue: n.value })
         : n;
     }
-    function V(e) {
+    function U(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "picture");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -516,7 +508,7 @@ __d(
         ? o("WAResultOrError").makeResult({ status: n.value })
         : n;
     }
-    function H(e) {
+    function V(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "picture");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -529,7 +521,7 @@ __d(
         ? o("WAResultOrError").makeResult({ status: n.value })
         : n;
     }
-    function G(e) {
+    function H(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "picture");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -543,10 +535,10 @@ __d(
         : n;
     }
     ((l.sendGetGroupProfilePicturesRPC = e),
-      (l.parseGetGroupProfilePicturesResponseClientError = u),
-      (l.parseGetGroupProfilePicturesResponseServerError = c),
-      (l.parseGetGroupProfilePicturesResponseSuccessGroupPictures = d),
-      (l.makeGetGroupProfilePicturesRequest = m));
+      (l.parseGetGroupProfilePicturesResponseClientError = s),
+      (l.parseGetGroupProfilePicturesResponseServerError = u),
+      (l.parseGetGroupProfilePicturesResponseSuccessGroupPictures = c),
+      (l.makeGetGroupProfilePicturesRequest = d));
   },
   98,
 );

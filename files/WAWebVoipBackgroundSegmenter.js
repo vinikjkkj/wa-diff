@@ -1,33 +1,32 @@
 __d(
   "WAWebVoipBackgroundSegmenter",
-  ["Promise", "asyncToGeneratorRuntime", "err"],
+  ["err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = "c875cf6f142676c611849b11272178e902231c60abdc0026700cf828468b2caf",
-      u = 138,
-      c = 16,
-      d = 432,
-      m = 0.872,
-      p = 1.23,
-      _ = 0.5625,
-      f = 0.3125,
-      g = 0.125,
-      h = 400,
-      y = 4,
-      C = 12,
-      b = 0.12,
-      v = 0.37;
-    function S(e, t) {
+    var e = "c875cf6f142676c611849b11272178e902231c60abdc0026700cf828468b2caf",
+      s = 138,
+      u = 16,
+      c = 432,
+      d = 0.872,
+      m = 1.23,
+      p = 0.5625,
+      _ = 0.3125,
+      f = 0.125,
+      g = 400,
+      h = 4,
+      y = 12,
+      C = 0.12,
+      b = 0.37;
+    function v(e, t) {
       var n = Math.max(1, e),
         r = Math.max(1, t);
-      (r >= n && n > u
-        ? ((r = Math.floor((r * u) / n)), (n = u))
-        : n >= r && r > u && ((n = Math.floor((n * u) / r)), (r = u)),
-        (n = Math.min(n, d)),
-        (r = Math.min(r, d)));
-      var o = Math.ceil(n / c) * c,
-        a = Math.ceil(r / c) * c;
+      (r >= n && n > s
+        ? ((r = Math.floor((r * s) / n)), (n = s))
+        : n >= r && r > s && ((n = Math.floor((n * s) / r)), (r = s)),
+        (n = Math.min(n, c)),
+        (r = Math.min(r, c)));
+      var o = Math.ceil(n / u) * u,
+        a = Math.ceil(r / u) * u;
       return {
         contentHeight: r,
         contentWidth: n,
@@ -37,42 +36,36 @@ __d(
         width: o,
       };
     }
-    function R(e, t, n) {
+    function S(e, t, n) {
       (e.copyWithin(0, t, 2 * t),
         e.copyWithin((n - 1) * t, (n - 2) * t, (n - 1) * t));
       for (var r = 0; r < e.length; r += t)
         ((e[r] = e[r + 1]), (e[r + t - 1] = e[r + t - 2]));
     }
-    function L(e, t, n) {
+    function R(e, t, n) {
       for (var r = t.length, o = 0, a = 0; o < r; o++, a += 4)
         ((n[o] = e[a] / 255),
-          (n[r + o] = (e[a + 1] / 255 - 0.5) * m),
-          (n[2 * r + o] = (e[a + 2] / 255 - 0.5) * p));
+          (n[r + o] = (e[a + 1] / 255 - 0.5) * d),
+          (n[2 * r + o] = (e[a + 2] / 255 - 0.5) * m));
       n.set(t, 3 * r);
     }
-    var E = (function () {
-      function t(e, t) {
+    var L = (function () {
+      function e(e, t) {
         ((this.$3 = null), (this.$1 = e), (this.$2 = t));
       }
-      t.create = (function () {
-        var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* (r, o) {
-          var a = yield (e || (e = n("Promise"))).all([$(r.modelUrl), N(r, o)]),
-            i = a[0],
-            l = a[1];
-          return new t(l, l.Module.load(i));
-        });
-        function o(e, t) {
-          return r.apply(this, arguments);
-        }
-        return o;
-      })();
-      var o = t.prototype;
+      e.create = async function (n, r) {
+        var t = await Promise.all([x(n.modelUrl), $(n, r)]),
+          o = t[0],
+          a = t[1];
+        return new e(a, a.Module.load(o));
+      };
+      var t = e.prototype;
       return (
-        (o.warmUp = function (t) {
+        (t.warmUp = function (t) {
           if (t < 1)
             throw r("err")("background segmenter: a warm-up needs a timed run");
           for (
-            var e = this.$4(S(1280, 720)),
+            var e = this.$4(v(1280, 720)),
               n = e.framing,
               o = e.tensor,
               a = 1 / 0,
@@ -99,12 +92,12 @@ __d(
           }
           return a;
         }),
-        (o.resetTracking = function () {
+        (t.resetTracking = function () {
           var e = this.$3;
           e != null &&
             (e.tracking.fill(0), (e.hasHistory = !1), (e.steadyAtMs = null));
         }),
-        (o.segment = function (t, n) {
+        (t.segment = function (t, n) {
           var e = this.$4(n),
             o = n.height,
             a = n.width,
@@ -118,7 +111,7 @@ __d(
                 "x" +
                 o,
             );
-          L(t, e.tracking, e.tensor.data);
+          R(t, e.tracking, e.tensor.data);
           var l = this.$2.forward([e.tensor]);
           try {
             var s,
@@ -140,14 +133,14 @@ __d(
               return e.delete();
             });
           }
-          return (I(e), T(e, t, self.performance.now()));
+          return (k(e), I(e, t, self.performance.now()));
         }),
-        (o.close = function () {
+        (t.close = function () {
           (this.$5(), this.$2.delete());
         }),
-        (o.$4 = function (t) {
+        (t.$4 = function (t) {
           var e = this.$3;
-          if (e != null && k(e.framing, t)) return e;
+          if (e != null && E(e.framing, t)) return e;
           this.$5();
           var n = t.contentHeight,
             r = t.contentWidth,
@@ -174,14 +167,14 @@ __d(
             };
           return ((this.$3 = l), l);
         }),
-        (o.$5 = function () {
+        (t.$5 = function () {
           var e = this.$3;
           ((this.$3 = null), e == null || e.tensor.delete());
         }),
-        t
+        e
       );
     })();
-    function k(e, t) {
+    function E(e, t) {
       return (
         e.width === t.width &&
         e.height === t.height &&
@@ -191,7 +184,7 @@ __d(
         e.offsetY === t.offsetY
       );
     }
-    function I(e) {
+    function k(e) {
       var t = e.framing,
         n = e.mask,
         r = e.recent,
@@ -205,18 +198,18 @@ __d(
         d = (e.newest + 1) % 3,
         m = r[d];
       (m.set(o),
-        R(m, c, l),
+        S(m, c, l),
         e.hasHistory ||
           (r[(d + 1) % 3].set(m), r[(d + 2) % 3].set(m), (e.hasHistory = !0)),
         (e.newest = d));
-      for (var p = r[(d + 2) % 3], h = r[(d + 1) % 3], y = 0; y < a; y++)
+      for (var g = r[(d + 2) % 3], h = r[(d + 1) % 3], y = 0; y < a; y++)
         for (var C = (y + u) * c + s, b = y * i, v = 0; v < i; v++) {
-          var S = C + v;
-          n[b + v] = _ * m[S] + f * p[S] + g * h[S];
+          var R = C + v;
+          n[b + v] = p * m[R] + _ * g[R] + f * h[R];
         }
       return n;
     }
-    function T(e, t, n) {
+    function I(e, t, n) {
       var r = e.change,
         o = e.framing,
         a = e.mask,
@@ -229,20 +222,20 @@ __d(
         d = o.offsetX,
         m = o.offsetY,
         p = o.width;
-      (x(e, t), i.set(t));
-      for (var _ = 1 - Math.exp(-Math.max(0, n - s) / h), f = 0; f < u; f++)
-        for (var g = (f + m) * p + d, S = f * c, R = 0; R < c; R++) {
+      (D(e, t), i.set(t));
+      for (var _ = 1 - Math.exp(-Math.max(0, n - s) / g), f = 0; f < u; f++)
+        for (var v = (f + m) * p + d, S = f * c, R = 0; R < c; R++) {
           var L = S + R,
             E = a[L] - l[L],
-            k = Math.max(D(r[g + R], y, C), D(Math.abs(E), b, v));
+            k = Math.max(T(r[v + R], h, y), T(Math.abs(E), C, b));
           l[L] += (_ + (1 - _) * k) * E;
         }
       return l;
     }
-    function D(e, t, n) {
+    function T(e, t, n) {
       return Math.min(1, Math.max(0, (e - t) / (n - t)));
     }
-    function x(e, t) {
+    function D(e, t) {
       for (
         var n = e.change,
           r = e.changeRowSums,
@@ -277,59 +270,39 @@ __d(
         )
           n[f + h] = (r[_ + h] + r[f + h] + r[g + h]) / 9;
     }
-    function $(e) {
-      return P.apply(this, arguments);
+    async function x(t) {
+      var n = await self.fetch(t);
+      if (!n.ok)
+        throw r("err")("background segmenter: model fetch failed: " + n.status);
+      var o = new Uint8Array(await n.arrayBuffer()),
+        a = new Uint8Array(await self.crypto.subtle.digest("SHA-256", o)),
+        i = Array.from(a, function (e) {
+          return e.toString(16).padStart(2, "0");
+        }).join("");
+      if (i !== e)
+        throw r("err")("background segmenter: unexpected model SHA-256 " + i);
+      return o;
     }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield self.fetch(e);
-          if (!t.ok)
-            throw r("err")(
-              "background segmenter: model fetch failed: " + t.status,
-            );
-          var n = new Uint8Array(yield t.arrayBuffer()),
-            o = new Uint8Array(yield self.crypto.subtle.digest("SHA-256", n)),
-            a = Array.from(o, function (e) {
-              return e.toString(16).padStart(2, "0");
-            }).join("");
-          if (a !== s)
-            throw r("err")(
-              "background segmenter: unexpected model SHA-256 " + a,
-            );
-          return n;
-        })),
-        P.apply(this, arguments)
-      );
+    async function $(e, t) {
+      self.createWAWebVoipSegmentationRuntime == null &&
+        self.importScripts(e.wasmLoaderUrl);
+      var n = self.createWAWebVoipSegmentationRuntime;
+      if (typeof n != "function")
+        throw r("err")(
+          "background segmenter: the runtime script defined no factory",
+        );
+      return await n({
+        locateFile: function (n) {
+          return n.endsWith(".wasm") ? e.wasmBinaryUrl : n;
+        },
+        printErr: t,
+      });
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
-    }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          self.createWAWebVoipSegmentationRuntime == null &&
-            self.importScripts(e.wasmLoaderUrl);
-          var n = self.createWAWebVoipSegmentationRuntime;
-          if (typeof n != "function")
-            throw r("err")(
-              "background segmenter: the runtime script defined no factory",
-            );
-          return yield n({
-            locateFile: function (n) {
-              return n.endsWith(".wasm") ? e.wasmBinaryUrl : n;
-            },
-            printErr: t,
-          });
-        })),
-        M.apply(this, arguments)
-      );
-    }
-    ((l.MODEL_SHA256 = s),
-      (l.getModelFraming = S),
-      (l.fixBorder = R),
-      (l.fillModelInput = L),
-      (l.WAWebVoipBackgroundSegmenter = E));
+    ((l.MODEL_SHA256 = e),
+      (l.getModelFraming = v),
+      (l.fixBorder = S),
+      (l.fillModelInput = R),
+      (l.WAWebVoipBackgroundSegmenter = L));
   },
   98,
 );

@@ -4,7 +4,6 @@ __d(
     "AdsAccountStore",
     "AdsAdObjectRelayIDUtils",
     "AdsAdgroupCombinedListStore",
-    "AdsCampaignCombinedStore",
     "AdsCampaignDraftFragmentStore",
     "AdsEditingCampaignGroupContext",
     "AdsLoadObjectUtils",
@@ -14,6 +13,7 @@ __d(
     "AdsPEAdgroupSelectors",
     "AdsPECampaignDraftSelectors",
     "AdsPECampaignRawCombinedTableStore",
+    "AdsPECampaignSelectors",
     "LoadObject",
     "adsCampaignValidationBootloadedErrorsSelectors",
     "adsCreateDynamicSelector",
@@ -31,19 +31,11 @@ __d(
     var e,
       s = (function (t) {
         function n(a) {
-          var l, s, d;
+          var l, s, u;
           (s = r("adsEnforcePureGetStores"))(a);
           var m = s(
-              (d = r("adsCreateSelector"))(
-                [
-                  a,
-                  r("adsCreateStoreThunkSelector")(
-                    r("AdsCampaignCombinedStore"),
-                    function (e) {
-                      return r("AdsCampaignCombinedStore").getRecord(e);
-                    },
-                  ),
-                ],
+              (u = r("adsCreateSelector"))(
+                [a, o("AdsPECampaignSelectors").getRecordSelector],
                 function (t, n) {
                   return t
                     .map(function (e) {
@@ -62,16 +54,8 @@ __d(
               ),
             ),
             p = s(
-              d(
-                [
-                  a,
-                  r("adsCreateStoreThunkSelector")(
-                    r("AdsCampaignCombinedStore"),
-                    function (e) {
-                      return r("AdsCampaignCombinedStore").get(e);
-                    },
-                  ),
-                ],
+              u(
+                [a, o("AdsPECampaignSelectors").getSelector],
                 function (t, n) {
                   return t
                     .map(function (e) {
@@ -90,7 +74,7 @@ __d(
               ),
             ),
             _ = s(
-              d(
+              u(
                 [a, r("AdsPECampaignRawCombinedTableStore").getRecordSelector],
                 function (t, n) {
                   return t
@@ -103,7 +87,7 @@ __d(
               ),
             ),
             f = s(
-              d(
+              u(
                 [m],
                 function (n) {
                   return (e || (e = r("distinctArray")))(
@@ -117,8 +101,8 @@ __d(
             );
           return (
             (l = t.call(this, f) || this),
-            (l.campaignSelector = u),
-            (l.campaignPlainObjectSelector = c),
+            (l.campaignSelector = c),
+            (l.campaignPlainObjectSelector = d),
             (l.campaignErrorsSelector = o(
               "adsCampaignValidationBootloadedErrorsSelectors",
             ).adsCampaignValidationBootloadedErrorsSelectors.clientValidationErrorsSelector),
@@ -238,10 +222,17 @@ __d(
         }
         return (babelHelpers.inheritsLoose(n, t), n);
       })(r("AdsEditingCampaignGroupContext")),
-      u = r("adsEnforcePureGetStores")(
-        r("adsCreateStoreSelector")(
-          [r("AdsCampaignCombinedStore")],
-          function (t) {
+      u = r("adsCreateStoreSelector")(
+        [],
+        function (t) {
+          return t;
+        },
+        { name: i.id + ".campaignIDSelector" },
+      ),
+      c = r("adsEnforcePureGetStores")(
+        r("adsCreateSelector")(
+          [u, o("AdsPECampaignSelectors").getRecordSelector],
+          function (t, n) {
             return r("isFalsey")(t)
               ? null
               : (o("AdsObjectIDLevelRegistry").checkIDLevel(
@@ -249,15 +240,15 @@ __d(
                   r("AdsObjectTypes").CAMPAIGN,
                   "AdsEditingCampaignContext",
                 ),
-                r("AdsCampaignCombinedStore").getRecord(t).getValue());
+                n(t).getValue());
           },
           i.id + ".campaignSelector",
         ),
       ),
-      c = r("adsEnforcePureGetStores")(
-        r("adsCreateStoreSelector")(
-          [r("AdsCampaignCombinedStore")],
-          function (t) {
+      d = r("adsEnforcePureGetStores")(
+        r("adsCreateSelector")(
+          [u, o("AdsPECampaignSelectors").getSelector],
+          function (t, n) {
             return r("isFalsey")(t)
               ? null
               : (o("AdsObjectIDLevelRegistry").checkIDLevel(
@@ -265,7 +256,7 @@ __d(
                   r("AdsObjectTypes").CAMPAIGN,
                   "AdsEditingCampaignContext",
                 ),
-                r("AdsCampaignCombinedStore").get(t).getValue());
+                n(t).getValue());
           },
           i.id + ".campaignPlainObjectSelector",
         ),

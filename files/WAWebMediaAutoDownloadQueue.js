@@ -20,7 +20,6 @@ __d(
     "WAWebStickerModel",
     "WAWebUserPrefsGeneral",
     "WAWebWamEnumWebcRmrReasonCode",
-    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -130,21 +129,21 @@ __d(
           })),
             (this.$2 = 0));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.getEnqueuedTasksCount = function () {
+          (n.getEnqueuedTasksCount = function () {
             return this.$1.getEnqueuedTasksCount() + this.$2;
           }),
-          (a.clearQueue = function () {
+          (n.clearQueue = function () {
             this.$1.clearQueue();
           }),
-          (a.$3 = function () {
+          (n.$3 = function () {
             return (
               o("WAWebUserPrefsGeneral").getAutoDownloadPhotos() &&
               this.getEnqueuedTasksCount() < L
             );
           }),
-          (a.enqueue = function (n, r, a) {
+          (n.enqueue = function (n, r, a) {
             if (n instanceof o("WAWebStickerModel").StickerModel)
               return this.$3() ? (this.$4({ sticker: n }), !0) : !1;
             var t = n,
@@ -347,189 +346,146 @@ __d(
                 !0)
               : !1;
           }),
-          (a.$4 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.sticker;
-                if (!t.mediaObject) {
+          (n.$4 = async function (t) {
+            var e = t.sticker;
+            if (!e.mediaObject) {
+              o("WALogger")
+                .ERROR(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "Sticker mediaObject missing at enqueue ",
+                      "",
+                    ])),
+                  r("gkx")("26258") ? "" : e.id,
+                )
+                .sendLogs(
+                  "Sticker mediaObject does not exist for media at enqueue time",
+                );
+              return;
+            }
+            await this.$1.enqueue(
+              async function () {
+                if (!e.mediaObject) {
                   o("WALogger")
                     .ERROR(
-                      g ||
-                        (g = babelHelpers.taggedTemplateLiteralLoose([
-                          "Sticker mediaObject missing at enqueue ",
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                          "Sticker mediaObject missing at download ",
                           "",
                         ])),
-                      r("gkx")("26258") ? "" : t.id,
+                      r("gkx")("26258") ? "" : e.id,
                     )
                     .sendLogs(
-                      "Sticker mediaObject does not exist for media at enqueue time",
+                      "Sticker mediaObject does not exist for media at download time",
                     );
                   return;
                 }
-                yield this.$1.enqueue(
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    if (!t.mediaObject) {
-                      o("WALogger")
-                        .ERROR(
-                          h ||
-                            (h = babelHelpers.taggedTemplateLiteralLoose([
-                              "Sticker mediaObject missing at download ",
-                              "",
-                            ])),
-                          r("gkx")("26258") ? "" : t.id,
-                        )
-                        .sendLogs(
-                          "Sticker mediaObject does not exist for media at download time",
-                        );
-                      return;
-                    }
-                    yield t.downloadMedia();
-                  }),
-                  { group: "photos", priority: 1 },
-                );
+                await e.downloadMedia();
               },
+              { group: "photos", priority: 1 },
             );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.$5 = async function (t) {
+            var e = t.group,
+              n = t.message;
+            if (!n.mediaObject) {
+              o("WALogger")
+                .ERROR(
+                  y ||
+                    (y = babelHelpers.taggedTemplateLiteralLoose([
+                      "mediaObject does not exist for media at enqueue time ",
+                      "",
+                    ])),
+                  r("gkx")("26258") ? "" : n.id,
+                )
+                .sendLogs(
+                  "mediaObject does not exist for media at enqueue time",
+                );
+              return;
             }
-            return t;
-          })()),
-          (a.$5 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.group,
-                  a = e.message;
-                if (!a.mediaObject) {
+            var a = o(
+              "WAWebDualUploadsAutoDownloadPolicy",
+            ).whenAssociatedChildSupportKnown(n);
+            if (a != null) {
+              this.$2++;
+              try {
+                await a;
+              } finally {
+                this.$2--;
+              }
+              if (this.getEnqueuedTasksCount() >= L) return;
+            }
+            await this.$1.enqueue(
+              async function () {
+                if (!n.mediaObject) {
                   o("WALogger")
                     .ERROR(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose([
-                          "mediaObject does not exist for media at enqueue time ",
+                      C ||
+                        (C = babelHelpers.taggedTemplateLiteralLoose([
+                          "mediaObject does not exist for media at download time ",
                           "",
                         ])),
-                      r("gkx")("26258") ? "" : a.id,
+                      r("gkx")("26258") ? "" : n.id,
                     )
                     .sendLogs(
-                      "mediaObject does not exist for media at enqueue time",
+                      "mediaObject does not exist for media at download time",
+                      { sampling: 0 },
                     );
                   return;
                 }
-                var i = o(
-                  "WAWebDualUploadsAutoDownloadPolicy",
-                ).whenAssociatedChildSupportKnown(a);
-                if (i != null) {
-                  this.$2++;
-                  try {
-                    yield i;
-                  } finally {
-                    this.$2--;
-                  }
-                  if (this.getEnqueuedTasksCount() >= L) return;
-                }
-                yield this.$1.enqueue(
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    if (!a.mediaObject) {
-                      o("WALogger")
-                        .ERROR(
-                          C ||
-                            (C = babelHelpers.taggedTemplateLiteralLoose([
-                              "mediaObject does not exist for media at download time ",
-                              "",
-                            ])),
-                          r("gkx")("26258") ? "" : a.id,
-                        )
-                        .sendLogs(
-                          "mediaObject does not exist for media at download time",
-                          { sampling: 0 },
-                        );
-                      return;
-                    }
-                    I(a) &&
-                      (yield a.downloadMedia({
-                        downloadEvenIfExpensive: !1,
-                        rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
-                          .WEBC_RMR_REASON_CODE.OTHER,
-                        isUserInitiated: !1,
-                        isAutoDownload: !0,
-                      }));
-                  }),
-                  { group: t, priority: -a.t },
+                I(n) &&
+                  (await n.downloadMedia({
+                    downloadEvenIfExpensive: !1,
+                    rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
+                      .WEBC_RMR_REASON_CODE.OTHER,
+                    isUserInitiated: !1,
+                    isAutoDownload: !0,
+                  }));
+              },
+              { group: e, priority: -n.t },
+            );
+          }),
+          (n.$6 = async function (t) {
+            var e = t.chat,
+              n = t.group,
+              o = t.message;
+            await this.$1.enqueue(
+              async function () {
+                await r("WAWebMediaDownloadMmsThumbnail")({ msg: o, chat: e });
+              },
+              { group: n, priority: -o.t },
+            );
+          }),
+          (n.$7 = async function (t) {
+            var e = t.group,
+              n = t.message;
+            await this.$1.enqueue(
+              async function () {
+                await o("WAWebDownloadStatusThumbnail").downloadStatusThumbnail(
+                  { msg: n },
                 );
               },
+              { group: e, priority: -n.t },
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$6 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.chat,
-                  o = e.group,
-                  a = e.message;
-                yield this.$1.enqueue(
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    yield r("WAWebMediaDownloadMmsThumbnail")({
-                      msg: a,
-                      chat: t,
-                    });
-                  }),
-                  { group: o, priority: -a.t },
-                );
+          }),
+          (n.$8 = async function (t) {
+            var e = t.group,
+              n = t.message;
+            await this.$1.enqueue(
+              async function () {
+                k(n) &&
+                  (await o(
+                    "WAWebDownloadProgressiveJpegThumbnail",
+                  ).downloadProgressiveJpegThumbnail({
+                    msg: n,
+                    scanCount: o(
+                      "WAWebMediaGatingUtils",
+                    ).getHQImageThumbnailInChatScans(),
+                  }));
               },
+              { group: e, priority: -n.t },
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$7 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.group,
-                  r = e.message;
-                yield this.$1.enqueue(
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    yield o(
-                      "WAWebDownloadStatusThumbnail",
-                    ).downloadStatusThumbnail({ msg: r });
-                  }),
-                  { group: t, priority: -r.t },
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$8 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = e.group,
-                  r = e.message;
-                yield this.$1.enqueue(
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    k(r) &&
-                      (yield o(
-                        "WAWebDownloadProgressiveJpegThumbnail",
-                      ).downloadProgressiveJpegThumbnail({
-                        msg: r,
-                        scanCount: o(
-                          "WAWebMediaGatingUtils",
-                        ).getHQImageThumbnailInChatScans(),
-                      }));
-                  }),
-                  { group: t, priority: -r.t },
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          }),
           t
         );
       })(),

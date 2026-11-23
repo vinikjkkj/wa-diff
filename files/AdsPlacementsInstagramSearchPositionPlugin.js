@@ -35,7 +35,6 @@ __d(
     "gkx",
     "immutable",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -59,31 +58,17 @@ __d(
                 : null;
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = { className: "x1jstp8q x14vqqas x2b8uid" }), (t[0] = a))
-        : (a = t[0]);
-      var i;
-      return (
-        t[1] !== n
-          ? ((i = u.jsx(
-              "div",
-              babelHelpers.extends({}, a, {
-                children: u.jsx(r("GeoBaseText.react"), {
-                  color: "placeholder",
-                  size: "value",
-                  children: n,
-                }),
-              }),
-            )),
-            (t[1] = n),
-            (t[2] = i))
-          : (i = t[2]),
-        i
-      );
+      var t = e.children;
+      return u.jsx("div", {
+        className: "x14vqqas x2b8uid",
+        children: u.jsx(r("GeoBaseText.react"), {
+          color: "placeholder",
+          size: "value",
+          children: t,
+        }),
+      });
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     var m = {
         type: "placements/position",
         key: "instagram/search",
@@ -95,7 +80,7 @@ __d(
             : r("bx").getURL(r("bx")("50877")),
         platformKey: "instagram",
         adsetValidators: [r("AdsCampaignInstagramSearchPositionValidator")],
-        nameWithPlatform: s._(/*BTDS*/ "Instagram search results"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: o(
           "AdsInstagramSearchAdsUtils",
         ).shouldShowSearchGridPreviewWithoutExposure()
@@ -112,16 +97,8 @@ __d(
               videoCrop: "9:16",
             },
         getPlacementSpecificPreviewInfo: function (t) {
-          var e = u.jsx(d, {
-              children: s._(
-                /*BTDS*/ "This placement includes both search results grid and feed.",
-              ),
-            }),
-            n = u.jsx(d, {
-              children: s._(
-                /*BTDS*/ "This placement includes the search results feed only.",
-              ),
-            });
+          var e = u.jsx(d, { children: s._(/*BTDS*/ "") }),
+            n = u.jsx(d, { children: s._(/*BTDS*/ "") });
           return {
             description: o(
               "AdsInstagramSearchAdsUtils",

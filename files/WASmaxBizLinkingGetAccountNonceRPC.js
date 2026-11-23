@@ -13,34 +13,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return { name: "GetAccountNonceResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "GetAccountNonceResponseError", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("GetAccountNonce", {
-              Success: a,
-              Error: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return { name: "GetAccountNonceResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "GetAccountNonceResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetAccountNonce", {
+          Success: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -49,7 +40,7 @@ __d(
         "WASmaxInBizLinkingHackBaseIQErrorResponseMixin",
       ).parseHackBaseIQErrorResponseMixin(e, t);
       if (!a.success) return a;
-      var i = _(r.value);
+      var i = p(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -58,7 +49,7 @@ __d(
           )
         : i;
     }
-    function c(e) {
+    function u(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "request");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "id");
@@ -68,14 +59,14 @@ __d(
         ? o("WAResultOrError").makeResult({ idElementValue: r.value })
         : r;
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "detail");
       if (!r.success) return r;
       var a = o("WASmaxParseUtils").flattenedChildWithTag(r.value, "nonce");
       if (!a.success) return a;
-      var i = o("WASmaxParseUtils").optionalChildWithTag(r.value, "request", c);
+      var i = o("WASmaxParseUtils").optionalChildWithTag(r.value, "request", u);
       if (!i.success) return i;
       var l = o("WASmaxParseUtils").contentString(a.value);
       if (!l.success) return l;
@@ -92,14 +83,14 @@ __d(
           )
         : s;
     }
-    function m(e) {
+    function d(e) {
       var t = e.identifierScope,
         n = o("WASmaxJsx").smax("identifier", {
           scope: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function p(e) {
+    function m(e) {
       var t = e.identifierArgs,
         n = o(
           "WASmaxOutBizLinkingHackBaseIQGetRequestMixin",
@@ -107,20 +98,20 @@ __d(
           o("WASmaxJsx").smax(
             "iq",
             { xmlns: "fb:thrift_iq", smax_id: o("WAWap").INT(12) },
-            o("WASmaxChildren").OPTIONAL_CHILD(m, t),
+            o("WASmaxChildren").OPTIONAL_CHILD(d, t),
           ),
           e,
         );
       return n;
     }
-    function _(e) {
-      var t = f(e);
+    function p(e) {
+      var t = _(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorBadRequest",
           value: t.value,
         });
-      var n = g(e);
+      var n = f(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorNoticeRequired",
@@ -144,7 +135,7 @@ __d(
             [t, n, r],
           );
     }
-    function f(e) {
+    function _(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -164,7 +155,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function g(e) {
+    function f(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -191,9 +182,9 @@ __d(
         : a;
     }
     ((l.sendGetAccountNonceRPC = e),
-      (l.parseGetAccountNonceResponseError = u),
-      (l.parseGetAccountNonceResponseSuccess = d),
-      (l.makeGetAccountNonceRequest = p));
+      (l.parseGetAccountNonceResponseError = s),
+      (l.parseGetAccountNonceResponseSuccess = c),
+      (l.makeGetAccountNonceRequest = m));
   },
   98,
 );

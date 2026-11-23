@@ -10,7 +10,10 @@ __d(
     "WAWebCmd",
     "WAWebEnvironment",
     "WAWebMsgKey",
+    "WAWebOpenNotificationsSetting",
+    "WAWebRecordNotificationInteraction",
     "WAWebWidFactory",
+    "WAWebWindowsBringMainWindowToForeground",
     "WAWebWindowsHybridBridgeFactory",
     "WAWebWindowsHybridBridgeInitiator",
     "getErrorSafe",
@@ -29,10 +32,11 @@ __d(
       g,
       h,
       y,
-      C = r("JSResourceForInteraction")(
+      C = "msg:",
+      b = r("JSResourceForInteraction")(
         "WAWebBizAiHandoffNotificationLogEvents",
       ).__setRef("WAWebWindowsHandleNotificationAction"),
-      b = (function () {
+      v = (function () {
         function t(e) {
           ((this.$1 = e), this.$2());
         }
@@ -59,9 +63,31 @@ __d(
             var t,
               a = n.action,
               i = n.additionalData,
-              l = n.key,
-              d = this.$1.getNotification(l);
-            if (d == null) {
+              l = n.key;
+            if (
+              (o(
+                "WAWebRecordNotificationInteraction",
+              ).recordNotificationInteraction(),
+              a === "ContextMenuClick" &&
+                r("WAWebBannerContextMenuActions").cast(i) ===
+                  r("WAWebBannerContextMenuActions").OpenNotificationSettings)
+            ) {
+              var d;
+              (o(
+                "WAWebWindowsBringMainWindowToForeground",
+              ).bringMainWindowToForeground(),
+                o(
+                  "WAWebOpenNotificationsSetting",
+                ).requestOpenNotificationsSettings(),
+                (d = this.$1.getNotification(l)) == null ||
+                  (d = d.notificationBanner) == null ||
+                  d.contextMenuClick(
+                    r("WAWebBannerContextMenuActions").OpenNotificationSettings,
+                  ));
+              return;
+            }
+            var m = this.$1.getNotification(l);
+            if (m == null) {
               (o("WALogger").LOG(
                 e ||
                   (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -73,8 +99,8 @@ __d(
                 this.$4(l, a));
               return;
             }
-            var m = d.notificationBanner;
-            if (m == null) {
+            var p = m.notificationBanner;
+            if (p == null) {
               (o("WALogger").LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -86,10 +112,10 @@ __d(
             }
             switch (a) {
               case "Click":
-                m.click();
+                p.click();
                 break;
               case "QuickReply":
-                m.quickReply(i).catch(function (e) {
+                p.quickReply(i).catch(function (e) {
                   o("WALogger").LOG(
                     u ||
                       (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -101,7 +127,7 @@ __d(
                 });
                 break;
               case "ContextMenuClick":
-                m.contextMenuClick(
+                p.contextMenuClick(
                   (t = r("WAWebBannerContextMenuActions").cast(i)) != null
                     ? t
                     : r("WAWebBannerContextMenuActions").None,
@@ -125,89 +151,66 @@ __d(
                 this.$5(t.slice(8));
                 return;
               }
-              if (t.startsWith("msg:")) {
-                var e = t.slice(4).split("_");
-                if (e.length === 3) {
-                  var a = e[0] === "true",
-                    i = e[1],
-                    l = e[2];
-                  try {
-                    var s = new (r("WAWebMsgKey"))({
-                      fromMe: a,
-                      remote: o("WAWebWidFactory").createWidFromWidLike(i),
-                      id: l,
-                    });
-                    o("WALogger").LOG(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "WANotificationController: created MsgKey from notification key: ",
-                          "",
-                        ])),
-                      s.toString(),
-                    );
-                    var u = o("WAWebChatCollection").ChatCollection.get(
-                      s.remote,
-                    );
-                    if (u == null) {
-                      o("WALogger").LOG(
-                        m ||
-                          (m = babelHelpers.taggedTemplateLiteralLoose([
-                            "WANotificationController: chat not found for remote WID",
-                          ])),
-                      );
-                      return;
-                    }
-                    var c = o("WAWebChatMessageSearch").getSearchContext({
-                      chat: u,
-                      msgKey: s,
-                    });
-                    o("WAWebCmd")
-                      .Cmd.openChatAt({
-                        chat: u,
-                        msgContext: c,
-                        chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                          .Notification,
-                      })
-                      .then(function (e) {
-                        e
-                          ? o("WALogger").LOG(
-                              p ||
-                                (p = babelHelpers.taggedTemplateLiteralLoose([
-                                  "WANotificationController: successfully navigated to chat from notification key",
-                                ])),
-                            )
-                          : o("WALogger").LOG(
-                              _ ||
-                                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                                  "WANotificationController: failed to navigate to chat from notification key",
-                                ])),
-                            );
-                      });
-                  } catch (e) {
-                    o("WALogger").LOG(
-                      f ||
-                        (f = babelHelpers.taggedTemplateLiteralLoose([
-                          "WANotificationController: failed to create MsgKey from notification key: ",
-                          "",
-                        ])),
-                      e,
-                    );
-                  }
+              var e = R(t);
+              if (e != null) {
+                o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "WANotificationController: created MsgKey from notification key: ",
+                      "",
+                    ])),
+                  e.toString(),
+                );
+                var r = o("WAWebChatCollection").ChatCollection.get(e.remote);
+                if (r == null) {
+                  o("WALogger").LOG(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "WANotificationController: chat not found for remote WID",
+                      ])),
+                  );
+                  return;
                 }
+                var a = o("WAWebChatMessageSearch").getSearchContext({
+                  chat: r,
+                  msgKey: e,
+                });
+                o("WAWebCmd")
+                  .Cmd.openChatAt({
+                    chat: r,
+                    msgContext: a,
+                    chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+                      .Notification,
+                  })
+                  .then(function (e) {
+                    e
+                      ? o("WALogger").LOG(
+                          p ||
+                            (p = babelHelpers.taggedTemplateLiteralLoose([
+                              "WANotificationController: successfully navigated to chat from notification key",
+                            ])),
+                        )
+                      : o("WALogger").LOG(
+                          _ ||
+                            (_ = babelHelpers.taggedTemplateLiteralLoose([
+                              "WANotificationController: failed to navigate to chat from notification key",
+                            ])),
+                        );
+                  });
               }
             }
           }),
           (n.$5 = function (t) {
             try {
-              var e = v(t);
+              var e = S(t);
               if (e == null) return;
               var n = o("WAWebChatCollection").ChatCollection.get(
                 o("WAWebWidFactory").createWidFromWidLike(e.chatId),
               );
               if (n == null) {
                 o("WALogger").LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
                       "WANotificationController: handoff chat not found",
                     ])),
                 );
@@ -217,7 +220,8 @@ __d(
                 i = e.notificationTimestampSeconds;
               (a != null &&
                 i != null &&
-                C.load()
+                b
+                  .load()
                   .then(function (e) {
                     var t = e.logAiHandoffNotificationClick;
                     return t(n, a, i);
@@ -225,8 +229,8 @@ __d(
                   .catch(function (e) {
                     o("WALogger")
                       .ERROR(
-                        h ||
-                          (h = babelHelpers.taggedTemplateLiteralLoose([
+                        g ||
+                          (g = babelHelpers.taggedTemplateLiteralLoose([
                             "WANotificationController: failed to load handoff notification logger",
                           ])),
                       )
@@ -242,8 +246,8 @@ __d(
                 }));
             } catch (e) {
               o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
                     "WANotificationController: failed to handle handoff notification key: ",
                     "",
                   ])),
@@ -254,7 +258,7 @@ __d(
           t
         );
       })();
-    function v(e) {
+    function S(e) {
       if (!e.includes("|"))
         return {
           chatId: e,
@@ -272,7 +276,27 @@ __d(
             notificationTimestampSeconds: n,
           };
     }
-    l.default = b;
+    function R(e) {
+      if (!e.startsWith(C)) return null;
+      var t = e.slice(C.length);
+      if (t.split("_").length < 3) return null;
+      try {
+        return r("WAWebMsgKey").fromString(t);
+      } catch (e) {
+        return (
+          o("WALogger").LOG(
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
+                "WANotificationController: failed to create MsgKey from notification key: ",
+                "",
+              ])),
+            e,
+          ),
+          null
+        );
+      }
+    }
+    l.default = v;
   },
   98,
 );

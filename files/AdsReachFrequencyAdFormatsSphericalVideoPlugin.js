@@ -9,8 +9,8 @@ __d(
         type: "reach_frequency_ad_formats",
         key: "SPHERICAL_VIDEO",
         adFormatType: "spherical_video",
-        label: s._(/*BTDS*/ "360 video"),
-        description: s._(/*BTDS*/ "For Facebook Feed only"),
+        label: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         iconWhenSelected: "/images/ads/createflow/360_Photo_Video_Blue.png",
         iconWhenUnselected: "/images/ads/createflow/360_Photo_Video.png",
         getAdFormats: function (t, n, o, a) {
@@ -57,10 +57,10 @@ __d(
             "instagram/shop_tab",
             "whatsapp/status",
             "messenger/story",
-            "messenger/inbox",
             "oculus/vr_apps",
             "oculus/rewarded_video",
             "threads/stream",
+            "threads/permalink",
           ];
         },
         getMutuallyExclusiveAdFormats: function () {

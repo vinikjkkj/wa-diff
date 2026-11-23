@@ -33,46 +33,38 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = b(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = f(r, n);
-          if (a.success)
-            return {
-              name: "MembershipRequestsActionResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "MembershipRequestsActionResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "MembershipRequestsActionResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "MembershipRequestsAction",
-              { Success: a, ClientError: i, ServerError: l },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = C(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = _(r, n);
+      if (a.success)
+        return {
+          name: "MembershipRequestsActionResponseSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "MembershipRequestsActionResponseClientError",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "MembershipRequestsActionResponseServerError",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("MembershipRequestsAction", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -82,7 +74,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = S(r.value);
+      var i = v(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -91,7 +83,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -100,7 +92,7 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrJidEnum(
@@ -110,7 +102,7 @@ __d(
       );
       if (!n.success) return n;
       var r = o("WASmaxInGroupsIdentityMixin").parseIdentityMixin(e),
-        a = v(e);
+        a = b(e);
       return o("WAResultOrError").makeResult({
         jid: n.value,
         identityMixin: r.success ? r.value : null,
@@ -119,7 +111,7 @@ __d(
           : null,
       });
     }
-    function m(e) {
+    function d(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "approve");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").mapChildrenWithTag(
@@ -127,13 +119,13 @@ __d(
         "participant",
         1,
         19999,
-        d,
+        c,
       );
       return n.success
         ? o("WAResultOrError").makeResult({ participant: n.value })
         : n;
     }
-    function p(e) {
+    function m(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrJidEnum(
@@ -143,7 +135,7 @@ __d(
       );
       if (!n.success) return n;
       var r = o("WASmaxInGroupsIdentityMixin").parseIdentityMixin(e),
-        a = R(e);
+        a = S(e);
       return o("WAResultOrError").makeResult({
         jid: n.value,
         identityMixin: r.success ? r.value : null,
@@ -152,7 +144,7 @@ __d(
           : null,
       });
     }
-    function _(e) {
+    function p(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "reject");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").mapChildrenWithTag(
@@ -160,13 +152,13 @@ __d(
         "participant",
         1,
         19999,
-        p,
+        m,
       );
       return n.success
         ? o("WAResultOrError").makeResult({ participant: n.value })
         : n;
     }
-    function f(e, t) {
+    function _(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -174,9 +166,9 @@ __d(
         "membership_requests_action",
       );
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "approve", m);
+      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "approve", d);
       if (!a.success) return a;
-      var i = o("WASmaxParseUtils").optionalChildWithTag(r.value, "reject", _);
+      var i = o("WASmaxParseUtils").optionalChildWithTag(r.value, "reject", p);
       if (!i.success) return i;
       var l = o("WASmaxParseReference").attrStringFromReference(t, ["to"]);
       if (!l.success) return l;
@@ -196,24 +188,24 @@ __d(
       if (!u.success) return u;
       var c = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
       if (!c.success) return c;
-      var d = o("WASmaxParseUtils").literal(
+      var m = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
         e,
         "id",
         c.value,
       );
-      if (!d.success) return d;
-      var p = o(
+      if (!m.success) return m;
+      var _ = o(
         "WASmaxInGroupsGroupAddressingModeMixin",
       ).parseGroupAddressingModeMixin(e);
       return o("WAResultOrError").makeResult({
         type: u.value,
-        groupAddressingModeMixin: p.success ? p.value : null,
+        groupAddressingModeMixin: _.success ? _.value : null,
         membershipRequestsActionApprove: a.value,
         membershipRequestsActionReject: i.value,
       });
     }
-    function g(e) {
+    function f(e) {
       var t = e.participantJid,
         n = e.participantPhoneNumber,
         r = e.participantUsername,
@@ -224,16 +216,16 @@ __d(
         });
       return a;
     }
-    function h(e) {
+    function g(e) {
       var t = e.participantArgs,
         n = o("WASmaxJsx").smax(
           "approve",
           null,
-          o("WASmaxChildren").REPEATED_CHILD(g, t, 1, 19999),
+          o("WASmaxChildren").REPEATED_CHILD(f, t, 1, 19999),
         );
       return n;
     }
-    function y(e) {
+    function h(e) {
       var t = e.participantJid,
         n = e.participantPhoneNumber,
         r = e.participantUsername,
@@ -244,16 +236,16 @@ __d(
         });
       return a;
     }
-    function C(e) {
+    function y(e) {
       var t = e.participantArgs,
         n = o("WASmaxJsx").smax(
           "reject",
           null,
-          o("WASmaxChildren").REPEATED_CHILD(y, t, 1, 19999),
+          o("WASmaxChildren").REPEATED_CHILD(h, t, 1, 19999),
         );
       return n;
     }
-    function b(e) {
+    function C(e) {
       var t = e.approveArgs,
         n = e.rejectArgs,
         r = o("WASmaxOutGroupsBaseSetGroupMixin").mergeBaseSetGroupMixin(
@@ -263,15 +255,15 @@ __d(
             o("WASmaxJsx").smax(
               "membership_requests_action",
               null,
-              o("WASmaxChildren").OPTIONAL_CHILD(h, t),
-              o("WASmaxChildren").OPTIONAL_CHILD(C, n),
+              o("WASmaxChildren").OPTIONAL_CHILD(g, t),
+              o("WASmaxChildren").OPTIONAL_CHILD(y, n),
             ),
           ),
           e,
         );
       return r;
     }
-    function v(e) {
+    function b(e) {
       var t = o(
         "WASmaxInGroupsParticipantNotFoundMixin",
       ).parseParticipantNotFoundMixin(e);
@@ -296,7 +288,7 @@ __d(
           name: "ParticipantForbidden",
           value: r.value,
         });
-      var a = L(e);
+      var a = R(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "MembershipRequestsActionParticipantRequestNotFound",
@@ -367,7 +359,7 @@ __d(
             [t, n, r, a, i, l, s, u, c, d],
           );
     }
-    function S(e) {
+    function v(e) {
       var t = o(
         "WASmaxInGroupsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -427,8 +419,8 @@ __d(
             [t, n, r, a, i, l],
           );
     }
-    function R(e) {
-      var t = L(e);
+    function S(e) {
+      var t = R(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "MembershipRequestsActionParticipantRequestNotFound",
@@ -448,7 +440,7 @@ __d(
             [t, n],
           );
     }
-    function L(e) {
+    function R(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -462,10 +454,10 @@ __d(
         : n;
     }
     ((l.sendMembershipRequestsActionRPC = e),
-      (l.parseMembershipRequestsActionResponseClientError = u),
-      (l.parseMembershipRequestsActionResponseServerError = c),
-      (l.parseMembershipRequestsActionResponseSuccess = f),
-      (l.makeMembershipRequestsActionRequest = b));
+      (l.parseMembershipRequestsActionResponseClientError = s),
+      (l.parseMembershipRequestsActionResponseServerError = u),
+      (l.parseMembershipRequestsActionResponseSuccess = _),
+      (l.makeMembershipRequestsActionRequest = C));
   },
   98,
 );

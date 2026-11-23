@@ -7,7 +7,6 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebToast.react",
     "WAWebToastManager",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -39,37 +38,25 @@ __d(
           },
         },
       );
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r = function () {
-              o("WAWebToastManager").ToastManager.open(
-                c.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Something went wrong. Please try again."),
-                }),
-              );
-            },
-            a;
-          try {
-            a = yield d();
-          } catch (e) {
-            r();
-            return;
-          }
-          if (
-            ((n = a) == null ? void 0 : n.openLeaveAndReportGroupModal) == null
-          ) {
-            r();
-            return;
-          }
-          a.openLeaveAndReportGroupModal(e, t);
-        })),
-        p.apply(this, arguments)
-      );
+    async function m(e, t) {
+      var n,
+        r = function () {
+          o("WAWebToastManager").ToastManager.open(
+            c.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+          );
+        },
+        a;
+      try {
+        a = await d();
+      } catch (e) {
+        r();
+        return;
+      }
+      if (((n = a) == null ? void 0 : n.openLeaveAndReportGroupModal) == null) {
+        r();
+        return;
+      }
+      a.openLeaveAndReportGroupModal(e, t);
     }
     l.openLeaveAndReportGroupModal = m;
   },

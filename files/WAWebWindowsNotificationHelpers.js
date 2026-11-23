@@ -10,17 +10,17 @@ __d(
     "WAWebEnvironment",
     "WAWebFrontendMsgGetters",
     "WAWebMsgGetters",
-    "WAWebMsgModelUtils",
+    "WAWebMsgNotificationPreview",
     "WAWebMuteCollection",
     "WAWebMuteUtils",
     "WAWebNotificationHelpers",
+    "WAWebWindowsBackgroundRun",
     "WAWebWindowsHybridBridgeFactory",
     "WAWebWindowsHybridBridgeInitiator",
     "WAWebWindowsNotificationSettingsHelpers",
     "WAWebWindowsNotificationToneOption",
     "WAWebWindowsShowNotificationBannerOption",
     "WAWebWindowsUserPrefsNotifications",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -128,8 +128,8 @@ __d(
               "showMessageNotification: Setting up reply functionality",
             ])),
         ),
-        (k = s._(/*BTDS*/ "Type a reply").toString()),
-        (I = s._(/*BTDS*/ "Send").toString()));
+        (k = s._(/*BTDS*/ "").toString()),
+        (I = s._(/*BTDS*/ "").toString()));
       var T = [];
       (l == null ||
         l.forEach(function (e) {
@@ -274,7 +274,7 @@ __d(
     function $(e) {
       if (
         !r("WAWebEnvironment").isWindows ||
-        !o("WAWebMsgModelUtils").shouldShowMsgNotificationPreview(e)
+        !o("WAWebMsgNotificationPreview").shouldShowMsgNotificationPreview(e)
       )
         return !1;
       var t = o("WAWebFrontendMsgGetters").getMaybeChat(e);
@@ -289,71 +289,69 @@ __d(
         o("WAWebMuteUtils").canMute(t.mute) &&
           n.push.apply(n, [
             {
-              content: s._(/*BTDS*/ "Mute chat for 8 hours").toString(),
+              content: s._(/*BTDS*/ "").toString(),
               action: r("WAWebBannerContextMenuActions").MuteChatForEightHours,
             },
             {
-              content: s._(/*BTDS*/ "Mute chat for 1 week").toString(),
+              content: s._(/*BTDS*/ "").toString(),
               action: r("WAWebBannerContextMenuActions").MuteChatForOneWeek,
             },
             {
-              content: s._(/*BTDS*/ "Mute notifications").toString(),
+              content: s._(/*BTDS*/ "").toString(),
               action: r("WAWebBannerContextMenuActions").MuteChat,
             },
           ]),
-        n.push({
-          content: s
-            ._(/*BTDS*/ "Disable notifications for all messages")
-            .toString(),
-          action: r("WAWebBannerContextMenuActions").DisableNotifications,
-        }),
+        n.push(N()),
         n
       );
     }
     function N() {
-      return M.apply(this, arguments);
-    }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
-          o("WALogger").LOG(
-            R ||
-              (R = babelHelpers.taggedTemplateLiteralLoose([
-                "[IsNotificationsEnabledInSystem] checking status",
-              ])),
-          );
-          var t =
-            (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
-              r("WAWebWindowsHybridBridgeInitiator")
-                .WAWebWindowsNotificationHelpers,
-            )) == null
-              ? void 0
-              : e.systemIntegrationsBridge;
-          if (t != null) {
-            o("WALogger").LOG(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "[IsNotificationsEnabledInSystem] using HybridBridge",
-                ])),
-            );
-            var n = yield t.isNotificationEnabledInSystem();
-            return (
-              o("WALogger").LOG(
-                E ||
-                  (E = babelHelpers.taggedTemplateLiteralLoose([
-                    "IsNotificationsEnabledInSystem: Result from hybrid bridge: ",
-                    "",
-                  ])),
-                n,
-              ),
-              n
-            );
+      return o("WAWebWindowsBackgroundRun").isWindowsBackgroundRun()
+        ? {
+            content: s._(/*BTDS*/ "").toString(),
+            action: r("WAWebBannerContextMenuActions").OpenNotificationSettings,
           }
-          return !1;
-        })),
-        M.apply(this, arguments)
+        : {
+            content: s._(/*BTDS*/ "").toString(),
+            action: r("WAWebBannerContextMenuActions").DisableNotifications,
+          };
+    }
+    async function M() {
+      var e;
+      o("WALogger").LOG(
+        S ||
+          (S = babelHelpers.taggedTemplateLiteralLoose([
+            "[IsNotificationsEnabledInSystem] checking status",
+          ])),
       );
+      var t =
+        (e = o("WAWebWindowsHybridBridgeFactory").getWindowsBridge(
+          r("WAWebWindowsHybridBridgeInitiator")
+            .WAWebWindowsNotificationHelpers,
+        )) == null
+          ? void 0
+          : e.systemIntegrationsBridge;
+      if (t != null) {
+        o("WALogger").LOG(
+          R ||
+            (R = babelHelpers.taggedTemplateLiteralLoose([
+              "[IsNotificationsEnabledInSystem] using HybridBridge",
+            ])),
+        );
+        var n = await t.isNotificationEnabledInSystem();
+        return (
+          o("WALogger").LOG(
+            L ||
+              (L = babelHelpers.taggedTemplateLiteralLoose([
+                "IsNotificationsEnabledInSystem: Result from hybrid bridge: ",
+                "",
+              ])),
+            n,
+          ),
+          n
+        );
+      }
+      return !1;
     }
     function w() {
       window.open("ms-settings:notifications");
@@ -378,8 +376,8 @@ __d(
         ).NotificationToneOption.cast(e.toneId);
         if (r != null) return r;
         o("WALogger").LOG(
-          S ||
-            (S = babelHelpers.taggedTemplateLiteralLoose([
+          E ||
+            (E = babelHelpers.taggedTemplateLiteralLoose([
               "selectNotificationTone: Invalid toneId: ",
               "",
             ])),
@@ -405,7 +403,7 @@ __d(
       (l.playTone = x),
       (l.isReplyable = $),
       (l.getContextMenuItems = P),
-      (l.IsNotificationsEnabledInSystem = N),
+      (l.IsNotificationsEnabledInSystem = M),
       (l.OpenSystemNotificationsSettings = w));
   },
   226,

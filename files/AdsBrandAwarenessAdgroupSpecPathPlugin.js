@@ -22,6 +22,7 @@ __d(
     "adsConvertAdObjectRecordToPlainJS",
     "gkx",
     "immutable",
+    "qex",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -178,44 +179,46 @@ __d(
             a = o("AdsBrandAwarenessUtils").isWebsiteLinkEnabled(t),
             i = _(t),
             l = i[0],
-            s = i[1];
-          t = o(
-            "AdsAdgroupPostTypeMutatorsUtils",
-          ).convertPostTypeInAdgroupRecord(
-            (e = t.creative) == null ? void 0 : e.object_type,
-            r("ApiAdObjectTypes").VIDEO,
-            t,
-            n,
-            r("immutable").List([]),
-          );
-          var u = l.callToActionType;
-          if (a && u != null) {
-            var c = this.getDefaultCallToActionType(t);
-            ((t = t.setIn(u, c)),
-              o("AdsWhatsAppUtils").isWhatsAppCTAType(c) ||
-                (t = t.deleteIn(u.concat("whatsapp_number"))));
+            s = i[1],
+            u = o(
+              "AdsAdgroupPostTypeMutatorsUtils",
+            ).convertPostTypeInAdgroupRecord(
+              (e = t.creative) == null ? void 0 : e.object_type,
+              r("ApiAdObjectTypes").VIDEO,
+              t,
+              n,
+              r("immutable").List([]),
+            ),
+            c = l.callToActionType;
+          if (a && c != null) {
+            var d = this.getDefaultCallToActionType(u);
+            ((u = u.setIn(c, d)),
+              o("AdsWhatsAppUtils").isWhatsAppCTAType(d) ||
+                (u = u.deleteIn(c.concat("whatsapp_number"))));
           }
-          return t;
+          return u;
         },
         convertVideoToImageSpec: function (t, n) {
           var e,
-            a = o("AdsBrandAwarenessUtils").isWebsiteLinkEnabled(t);
-          n =
-            n &&
-            o("AdsAdgroupPostTypeMutatorsUtils").convertPostTypeInAdgroupRecord(
-              (e = n.creative) == null ? void 0 : e.object_type,
-              a ? r("ApiAdObjectTypes").SHARE : r("ApiAdObjectTypes").PHOTO,
-              n,
-            );
-          var i = r("immutable").List([]);
+            a = o("AdsBrandAwarenessUtils").isWebsiteLinkEnabled(t),
+            i =
+              n &&
+              o(
+                "AdsAdgroupPostTypeMutatorsUtils",
+              ).convertPostTypeInAdgroupRecord(
+                (e = n.creative) == null ? void 0 : e.object_type,
+                a ? r("ApiAdObjectTypes").SHARE : r("ApiAdObjectTypes").PHOTO,
+                n,
+              ),
+            l = r("immutable").List([]);
           return (
-            c[0].callToActionValue && (i = i.push(c[0].callToActionValue)),
+            c[0].callToActionValue && (l = l.push(c[0].callToActionValue)),
             o("AdsAdgroupPostTypeMutatorsUtils").convertPostTypeInAdgroupRecord(
               r("ApiAdObjectTypes").VIDEO,
               a ? r("ApiAdObjectTypes").SHARE : r("ApiAdObjectTypes").PHOTO,
               t,
-              n,
               i,
+              l,
             )
           );
         },
@@ -234,7 +237,10 @@ __d(
         getCombinedFieldMappings: function (t) {
           var e,
             n = (e = t.creative) == null ? void 0 : e.object_type,
-            a = r("adsConvertAdObjectRecordToPlainJS")(t);
+            a =
+              r("qex")._("3278") === !0
+                ? t
+                : r("adsConvertAdObjectRecordToPlainJS")(t);
           if (o("AdsAssetFeedUtils").isAdgroupUsingAssetFeedFromRecord(t))
             return o("AdsAPIAdgroupRecordUtils").isExistingPostAd(t)
               ? o("AdsAssetFeedUtils").isClickToMultiDestAds(t)

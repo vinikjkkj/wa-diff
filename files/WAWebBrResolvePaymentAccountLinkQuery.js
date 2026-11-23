@@ -9,7 +9,6 @@ __d(
     "WAWebRelayClient",
     "WAWebUserPrefsTypes",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,45 +23,37 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebBrResolvePaymentAccountLinkQuery.graphql"));
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(e) {
+      var t, n, a;
+      try {
+        a = await o("WAPromiseTimeout").promiseTimeout(
+          o("WAWebRelayClient").fetchQuery(
+            p,
+            { request: { code: { sensitive_string_value: e } } },
+            { environmentType: "whatsapp_web" },
+          ),
+          u,
+          "payment account link resolve timed out",
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "br_add_pix_key_code: resolve failed: ",
+                  "",
+                ])),
+              r("getErrorSafe")(e).name,
+            )
+            .sendLogs("br-add-pix-key-code-resolve-failed"),
+          m
+        );
+      }
+      var i = (t = a) == null ? void 0 : t.xwa_resolve_payment_account_link;
+      return i == null ? d : (n = f(i)) != null ? n : d;
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, n, a;
-          try {
-            a = yield o("WAPromiseTimeout").promiseTimeout(
-              o("WAWebRelayClient").fetchQuery(
-                p,
-                { request: { code: { sensitive_string_value: e } } },
-                { environmentType: "whatsapp_web" },
-              ),
-              u,
-              "payment account link resolve timed out",
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "br_add_pix_key_code: resolve failed: ",
-                      "",
-                    ])),
-                  r("getErrorSafe")(e).name,
-                )
-                .sendLogs("br-add-pix-key-code-resolve-failed"),
-              m
-            );
-          }
-          var i = (t = a) == null ? void 0 : t.xwa_resolve_payment_account_link;
-          return i == null ? d : (n = g(i)) != null ? n : d;
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
+    function f(e) {
       var t = e.payment_account,
         n = o("WAWebUserPrefsTypes").PixKeyType.cast(
           t == null ? void 0 : t.identifier_type,
@@ -81,7 +72,7 @@ __d(
       var i = t.holder_name,
         l = e.verified_name;
       return {
-        businessWid: h(a),
+        businessWid: g(a),
         kind: "offered",
         prefill: {
           keyType: n,
@@ -102,7 +93,7 @@ __d(
             : "",
       };
     }
-    function h(e) {
+    function g(e) {
       try {
         return o("WAWebWidFactory").createUserWidOrThrow(
           o("WAWebBrAddPixKeyPartnerDirectory").toWebJid(e),

@@ -121,12 +121,10 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.PTV: {
           if (k.isViewOnce)
             return o("WAWebViewOnceState").isViewed(k)
-              ? s._(/*BTDS*/ "Opened")
-              : s._(/*BTDS*/ "Video note");
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "");
           var N = o("WAWebFormatMsgTextUtils").maybeAddFooter(m.caption, m);
-          return N != null && N !== ""
-            ? c(m, N, y, R)
-            : s._(/*BTDS*/ "Video note");
+          return N != null && N !== "" ? c(m, N, y, R) : s._(/*BTDS*/ "");
         }
         case o("WAWebMsgType").MSG_TYPE.GP2:
           return r("WAWebFormatGroupNotification")(m, b);
@@ -142,7 +140,7 @@ __d(
           var M = [o("WAWebFrontendMsgGetters").getText(m), m.caption, m.footer]
             .filter(Boolean)
             .join(" ");
-          return M.length ? c(m, M, y, R) : s._(/*BTDS*/ "Product");
+          return M.length ? c(m, M, y, R) : s._(/*BTDS*/ "");
         }
         case o("WAWebMsgType").MSG_TYPE.OVERSIZED:
           return o("WAWebFormatOversizedMsg").formatOversizedMsgText();
@@ -171,7 +169,7 @@ __d(
           return m.subtype === "ephemeral_setting"
             ? o("WAWebFormatEphemeralSetting").formatEphemeralSetting(m)
             : m.subtype === "share_phone_number"
-              ? s._(/*BTDS*/ "Share phone number")
+              ? s._(/*BTDS*/ "")
               : m.subtype === "limit_sharing_system_message"
                 ? d(
                     r("WAWebFormatNotificationTemplateText")(
@@ -186,9 +184,7 @@ __d(
         case o("WAWebMsgType").MSG_TYPE.KEEP_IN_CHAT:
           return o("WAWebFormatUnknownMsg").formatUnknownMsgText(m);
         case o("WAWebMsgType").MSG_TYPE.COMMENT:
-          return s._(
-            /*BTDS*/ "Someone replied to an announcement. Check your phone to see it.",
-          );
+          return s._(/*BTDS*/ "");
         case o("WAWebMsgType").MSG_TYPE.MESSAGE_HISTORY_BUNDLE:
           return o(
             "WAWebFormatMessageHistoryBundleBody",

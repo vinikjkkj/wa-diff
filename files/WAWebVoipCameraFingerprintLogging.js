@@ -6,47 +6,38 @@ __d(
     "WAWebBackendApi",
     "WAWebVoipLocalCallStateStore",
     "WAWebVoipWaCallEnums",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = p();
+      s = m();
     function u() {
-      s = p();
+      s = m();
     }
     function c(e, t) {
       ((s.eligible = e && t), d());
     }
-    function d() {
-      return m.apply(this, arguments);
+    async function d() {
+      var e = s;
+      if (p(e)) {
+        if (e.pending) {
+          e.retryRequested = !0;
+          return;
+        }
+        ((e.pending = !0), (e.retryRequested = !1));
+        try {
+          e.logged = await _();
+        } finally {
+          e.pending = !1;
+        }
+        e.retryRequested && p(e) && (await d());
+      }
     }
     function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = s;
-          if (_(e)) {
-            if (e.pending) {
-              e.retryRequested = !0;
-              return;
-            }
-            ((e.pending = !0), (e.retryRequested = !1));
-            try {
-              e.logged = yield f();
-            } finally {
-              e.pending = !1;
-            }
-            e.retryRequested && _(e) && (yield d());
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p() {
       return { eligible: !1, logged: !1, pending: !1, retryRequested: !1 };
     }
-    function _(e) {
+    function p(e) {
       return (
         e === s &&
         e.eligible &&
@@ -58,34 +49,26 @@ __d(
         )
       );
     }
-    function f() {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            return yield o("WAWebBackendApi").frontendSendAndReceive(
-              "logCameraFingerprint",
-              {},
-            );
-          } catch (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: camera fingerprint dispatch failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("voip-camera-fingerprint-dispatch-failed"),
-              !1
-            );
-          }
-        })),
-        g.apply(this, arguments)
-      );
+    async function _() {
+      try {
+        return await o("WAWebBackendApi").frontendSendAndReceive(
+          "logCameraFingerprint",
+          {},
+        );
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: camera fingerprint dispatch failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("voip-camera-fingerprint-dispatch-failed"),
+          !1
+        );
+      }
     }
     ((l.resetCameraFingerprintLogging = u),
       (l.maybeLogCameraFingerprint = c),

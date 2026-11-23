@@ -1,7 +1,6 @@
 __d(
   "WAWebPersistedQueuesRegistry",
   [
-    "Promise",
     "WAWebAddonDeletionQueueDef",
     "WAWebInboundMsgQueueDef",
     "WAWebKeyShareQueueDef",
@@ -9,12 +8,10 @@ __d(
     "WAWebPersistedQueueIds",
     "WAWebResendMsgQueueDef",
     "WAWormQueue",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = {
+    var e = {
         addonDeletion: o("WAWebAddonDeletionQueueDef").ADDON_DELETION_QUEUE,
         inboundMsg: o("WAWebInboundMsgQueueDef").INBOUND_MSG_QUEUE,
         metaAiThreadServerDelete: o("WAWebMetaAiThreadServerDeleteQueueDef")
@@ -24,69 +21,53 @@ __d(
         sendRequestedKeyShare: o("WAWebKeyShareQueueDef")
           .SEND_REQUESTED_KEY_SHARE_QUEUE,
       },
-      u = "wa_web_persisted_queues",
-      c = {
-        addonDeletion: s.addonDeletion.store,
-        inboundMsg: s.inboundMsg.store,
-        metaAiThreadServerDelete: s.metaAiThreadServerDelete.store,
-        resendGroupMsg: s.resendGroupMsg.store,
-        resendUserMsg: s.resendUserMsg.store,
-        sendRequestedKeyShare: s.sendRequestedKeyShare.store,
+      s = "wa_web_persisted_queues",
+      u = {
+        addonDeletion: e.addonDeletion.store,
+        inboundMsg: e.inboundMsg.store,
+        metaAiThreadServerDelete: e.metaAiThreadServerDelete.store,
+        resendGroupMsg: e.resendGroupMsg.store,
+        resendUserMsg: e.resendUserMsg.store,
+        sendRequestedKeyShare: e.sendRequestedKeyShare.store,
       };
-    function d(e) {
-      var t;
-      ((t = o("WAWormQueue")).bindWAWormQueue(
-        e,
+    function c(t) {
+      var n;
+      ((n = o("WAWormQueue")).bindWAWormQueue(
+        t,
         "addonDeletion",
-        s.addonDeletion,
+        e.addonDeletion,
       ),
-        t.bindWAWormQueue(e, "inboundMsg", s.inboundMsg),
-        t.bindWAWormQueue(
-          e,
+        n.bindWAWormQueue(t, "inboundMsg", e.inboundMsg),
+        n.bindWAWormQueue(
+          t,
           "metaAiThreadServerDelete",
-          s.metaAiThreadServerDelete,
+          e.metaAiThreadServerDelete,
         ),
-        t.bindWAWormQueue(e, "resendGroupMsg", s.resendGroupMsg),
-        t.bindWAWormQueue(e, "resendUserMsg", s.resendUserMsg),
-        t.bindWAWormQueue(e, "sendRequestedKeyShare", s.sendRequestedKeyShare));
+        n.bindWAWormQueue(t, "resendGroupMsg", e.resendGroupMsg),
+        n.bindWAWormQueue(t, "resendUserMsg", e.resendUserMsg),
+        n.bindWAWormQueue(t, "sendRequestedKeyShare", e.sendRequestedKeyShare));
     }
-    function m() {
-      return p.apply(this, arguments);
+    async function d() {
+      await Promise.all([
+        m(e.inboundMsg),
+        m(e.metaAiThreadServerDelete),
+        m(e.resendGroupMsg),
+        m(e.resendUserMsg),
+        m(e.sendRequestedKeyShare),
+      ]);
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield (e || (e = n("Promise"))).all([
-            _(s.inboundMsg),
-            _(s.metaAiThreadServerDelete),
-            _(s.resendGroupMsg),
-            _(s.resendUserMsg),
-            _(s.sendRequestedKeyShare),
-          ]);
-        })),
-        p.apply(this, arguments)
+    async function m(e) {
+      var t = await e.read({ limit: 1, order: "desc" }),
+        n = t[0];
+      o("WAWebPersistedQueueIds").recordNewestStoredQueueId(
+        e,
+        n == null ? void 0 : n.queueId,
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield e.read({ limit: 1, order: "desc" }),
-            n = t[0];
-          o("WAWebPersistedQueueIds").recordNewestStoredQueueId(
-            e,
-            n == null ? void 0 : n.queueId,
-          );
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    ((l.PERSISTED_QUEUES_DB_ALIAS = u),
-      (l.persistedQueueStores = c),
-      (l.bindPersistedQueues = d),
-      (l.recordNewestStoredQueueIds = m));
+    ((l.PERSISTED_QUEUES_DB_ALIAS = s),
+      (l.persistedQueueStores = u),
+      (l.bindPersistedQueues = c),
+      (l.recordNewestStoredQueueIds = d));
   },
   98,
 );

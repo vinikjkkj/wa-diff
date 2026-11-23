@@ -1,7 +1,6 @@
 __d(
   "WAWebTos",
   [
-    "Promise",
     "WACustomError",
     "WAExponentialBackoff",
     "WALogger",
@@ -28,7 +27,6 @@ __d(
     "WAWebUserPrefsStore",
     "WAWebUserUtils",
     "WAWebWamoNewsletterGatingUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -37,9 +35,8 @@ __d(
       c,
       d,
       m,
-      p,
-      _ = "20210210",
-      f = (function (e) {
+      p = "20210210",
+      _ = (function (e) {
         function t(t) {
           var n;
           return (
@@ -50,15 +47,15 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError),
-      g = { minTimeout: 1e3, maxTimeout: 16e3, retries: 5 },
-      h = new AbortController().signal;
-    function y() {
+      f = { minTimeout: 1e3, maxTimeout: 16e3, retries: 5 },
+      g = new AbortController().signal;
+    function h() {
       return o("WAWebABProps").getABPropConfigValue("web_memlab_fixes_4")
-        ? g
-        : babelHelpers.extends({}, g, { signal: h });
+        ? f
+        : babelHelpers.extends({}, f, { signal: g });
     }
-    var C = (function (t) {
-      function a() {
+    var y = (function (t) {
+      function n() {
         for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
           r[a] = arguments[a];
         return (
@@ -70,16 +67,16 @@ __d(
             babelHelpers.assertThisInitialized(e)
         );
       }
-      babelHelpers.inheritsLoose(a, t);
-      var i = a.prototype;
+      babelHelpers.inheritsLoose(n, t);
+      var a = n.prototype;
       return (
-        (i.clearDisclosureNoticeIds_TESTONLY = function () {
+        (a.clearDisclosureNoticeIds_TESTONLY = function () {
           this.$TosManagerImpl$p_1 = [];
         }),
-        (i.$TosManagerImpl$p_3 = function () {
+        (a.$TosManagerImpl$p_3 = function () {
           var e = new Set();
           if (
-            (o("WAWebTosGatingUtils").tosFetchEnabled() && e.add(_),
+            (o("WAWebTosGatingUtils").tosFetchEnabled() && e.add(p),
             o("WAWebBotBaseGating").isBotEnabled())
           ) {
             var t;
@@ -108,25 +105,25 @@ __d(
             Array.from(e)
           );
         }),
-        (i.$TosManagerImpl$p_4 = function () {
+        (a.$TosManagerImpl$p_4 = function () {
           var e = this.$TosManagerImpl$p_3().concat(this.$TosManagerImpl$p_1);
           return e;
         }),
-        (i.$TosManagerImpl$p_5 = function (t) {
+        (a.$TosManagerImpl$p_5 = function (t) {
           var e = new Set(this.$TosManagerImpl$p_1.concat(t));
           this.$TosManagerImpl$p_1 = Array.from(e);
         }),
-        (i.registerDisclosureNoticeIds = function (t) {
+        (a.registerDisclosureNoticeIds = function (t) {
           this.$TosManagerImpl$p_5(t);
         }),
-        (i.getLastAcceptedTime = function (t) {
+        (a.getLastAcceptedTime = function (t) {
           var e = this.$TosManagerImpl$p_6(t),
             n = r("WAWebUserPrefsStore").getUser(e);
           return n != null && typeof n == "number"
             ? o("WATimeUtils").castToUnixTime(n)
             : null;
         }),
-        (i.getState = function (n) {
+        (a.getState = function (n) {
           try {
             var t = this.getStoreKey(n),
               a = r("WAWebUserPrefsStore").getUser(t),
@@ -142,7 +139,7 @@ __d(
             return i;
           } catch (t) {
             return (
-              t instanceof f ||
+              t instanceof _ ||
                 o("WALogger")
                   .ERROR(
                     e ||
@@ -158,9 +155,9 @@ __d(
             );
           }
         }),
-        (i.setState = function (t, n, r) {
+        (a.setState = function (t, n, r) {
           this.$TosManagerImpl$p_1.includes(t) ||
-          (b() && this.$TosManagerImpl$p_3().includes(t))
+          (C() && this.$TosManagerImpl$p_3().includes(t))
             ? (this.$TosManagerImpl$p_7(t, n, r), this.trigger("change"))
             : o("WALogger").WARN(
                 s ||
@@ -171,7 +168,7 @@ __d(
                 t,
               );
         }),
-        (i.$TosManagerImpl$p_7 = function (t, n, o) {
+        (a.$TosManagerImpl$p_7 = function (t, n, o) {
           (r("WAWebUserPrefsStore").setUser(this.getStoreKey(t), n),
             n === "ACCEPTED" && o != null
               ? r("WAWebUserPrefsStore").setUser(this.$TosManagerImpl$p_6(t), o)
@@ -180,148 +177,129 @@ __d(
                   void 0,
                 ));
         }),
-        (i.run = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = this;
-            if (
-              !(
-                !b() &&
-                !o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled() &&
-                !o(
-                  "WAWebBusinessBroadcastsGatingUtils",
-                ).isBizBroadcastSendWebEnabledNoExposure() &&
-                this.$TosManagerImpl$p_1.length === 0
-              )
-            ) {
-              try {
-                yield o("WAExponentialBackoff").exponentialBackoff(
-                  y(),
-                  function (e, n) {
-                    return t.$TosManagerImpl$p_8().catch(function (t) {
-                      if (
-                        t instanceof
-                        o("WAWebBackendErrors").ServerStatusCodeError
-                      )
-                        e: {
-                          if (t.statusCode === 500) {
-                            return (
-                              o("WALogger").WARN(
-                                u ||
-                                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[TosManager] query failed: ",
-                                    " (retry ",
-                                    ")",
-                                  ])),
-                                t.message,
-                                n,
-                              ),
-                              e(t)
-                            );
-                            break e;
-                          }
+        (a.run = async function (t) {
+          var e = this;
+          if (
+            !(
+              !C() &&
+              !o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled() &&
+              !o(
+                "WAWebBusinessBroadcastsGatingUtils",
+              ).isBizBroadcastSendWebEnabledNoExposure() &&
+              this.$TosManagerImpl$p_1.length === 0
+            )
+          ) {
+            try {
+              await o("WAExponentialBackoff").exponentialBackoff(
+                h(),
+                function (t, n) {
+                  return e.$TosManagerImpl$p_8().catch(function (e) {
+                    if (
+                      e instanceof o("WAWebBackendErrors").ServerStatusCodeError
+                    )
+                      e: {
+                        if (e.statusCode === 500) {
+                          return (
+                            o("WALogger").WARN(
+                              u ||
+                                (u = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[TosManager] query failed: ",
+                                  " (retry ",
+                                  ")",
+                                ])),
+                              e.message,
+                              n,
+                            ),
+                            t(e)
+                          );
                           break e;
                         }
-                      throw t;
-                    });
-                  },
-                );
-              } catch (e) {
-                if (
-                  (o("WALogger")
-                    .ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "ToS state manager state pull failed, error: ",
-                          "",
-                        ])),
-                      e,
-                    )
-                    .verbose()
-                    .sendLogs("ToS state manager run failed"),
-                  !(
-                    e instanceof
-                      o("WAWebBackendErrors").ServerStatusCodeError &&
-                    e.statusCode === 500
-                  ))
-                )
-                  return;
-              }
+                        break e;
+                      }
+                    throw e;
+                  });
+                },
+              );
+            } catch (e) {
               if (
-                (e == null ? void 0 : e.singleRun) !== !0 &&
-                this.$TosManagerImpl$p_9(this.$TosManagerImpl$p_4()).length > 0
-              ) {
-                var n =
-                  o("WAWebUserUtils").getMaybeMePnLessOrFallback_DO_NOT_USE();
-                (yield o("WAPromiseDelays").delayMs(this.$TosManagerImpl$p_2),
-                  o(
-                    "WAWebUserUtils",
-                  ).getMaybeMePnLessOrFallback_DO_NOT_USE() === n &&
-                    this.run());
-              }
+                (o("WALogger")
+                  .ERROR(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "ToS state manager state pull failed, error: ",
+                        "",
+                      ])),
+                    e,
+                  )
+                  .verbose()
+                  .sendLogs("ToS state manager run failed"),
+                !(
+                  e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
+                  e.statusCode === 500
+                ))
+              )
+                return;
             }
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (i.$TosManagerImpl$p_8 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = this;
-            if (o("WAWebUserUtils").hasLoggedIn()) {
-              var t = yield (p || (p = n("Promise"))).all([
-                  this.$TosManagerImpl$p_10(),
-                  this.$TosManagerImpl$p_11(),
-                ]),
-                a = t[0],
-                i = t[1];
-              this.$TosManagerImpl$p_2 = Math.min(a.refresh, i.refresh) * 1e3;
-              var l = a.notice.concat(i.notice),
-                s = new Set(this.$TosManagerImpl$p_4()),
-                u = !1;
-              (l
-                .filter(function (e) {
-                  return s.has(e.id);
-                })
-                .forEach(function (t) {
-                  var n = t.state ? "ACCEPTED" : "NOT_ACCEPTED",
-                    o = e.getStoreKey(t.id),
-                    a = r("WAWebUserPrefsStore").getUser(o);
-                  (a === "SHOWN" && n === "NOT_ACCEPTED") ||
-                    (a !== n &&
-                      (r("WAWebUserPrefsStore").setUser(o, n),
-                      e.$TosManagerImpl$p_7(t.id, n, t.timestamp),
-                      (u = !0)));
-                }),
-                r("WAWebUserPrefsStore").setUser(
-                  o("WAWebUserPrefsKeys").KEYS.TOS_STATE_FETCH_ITERATION,
-                  o("WAWebTosGatingUtils").tosFetchIteration(),
-                ),
-                u && this.trigger("change"));
+            if (
+              (t == null ? void 0 : t.singleRun) !== !0 &&
+              this.$TosManagerImpl$p_9(this.$TosManagerImpl$p_4()).length > 0
+            ) {
+              var n =
+                o("WAWebUserUtils").getMaybeMePnLessOrFallback_DO_NOT_USE();
+              (await o("WAPromiseDelays").delayMs(this.$TosManagerImpl$p_2),
+                o("WAWebUserUtils").getMaybeMePnLessOrFallback_DO_NOT_USE() ===
+                  n && this.run());
             }
-          });
-          function t() {
-            return e.apply(this, arguments);
           }
-          return t;
-        })()),
-        (i.$TosManagerImpl$p_12 = function () {
+        }),
+        (a.$TosManagerImpl$p_8 = async function () {
+          var e = this;
+          if (o("WAWebUserUtils").hasLoggedIn()) {
+            var t = await Promise.all([
+                this.$TosManagerImpl$p_10(),
+                this.$TosManagerImpl$p_11(),
+              ]),
+              n = t[0],
+              a = t[1];
+            this.$TosManagerImpl$p_2 = Math.min(n.refresh, a.refresh) * 1e3;
+            var i = n.notice.concat(a.notice),
+              l = new Set(this.$TosManagerImpl$p_4()),
+              s = !1;
+            (i
+              .filter(function (e) {
+                return l.has(e.id);
+              })
+              .forEach(function (t) {
+                var n = t.state ? "ACCEPTED" : "NOT_ACCEPTED",
+                  o = e.getStoreKey(t.id),
+                  a = r("WAWebUserPrefsStore").getUser(o);
+                (a === "SHOWN" && n === "NOT_ACCEPTED") ||
+                  (a !== n &&
+                    (r("WAWebUserPrefsStore").setUser(o, n),
+                    e.$TosManagerImpl$p_7(t.id, n, t.timestamp),
+                    (s = !0)));
+              }),
+              r("WAWebUserPrefsStore").setUser(
+                o("WAWebUserPrefsKeys").KEYS.TOS_STATE_FETCH_ITERATION,
+                o("WAWebTosGatingUtils").tosFetchIteration(),
+              ),
+              s && this.trigger("change"));
+          }
+        }),
+        (a.$TosManagerImpl$p_12 = function () {
           return {
             refresh: o("WAWebTosJob").DEFAULT_TOS_REFRESH_INTERVAL,
             notice: [],
           };
         }),
-        (i.$TosManagerImpl$p_10 = function () {
-          if (!b())
-            return (p || (p = n("Promise"))).resolve(
-              this.$TosManagerImpl$p_12(),
-            );
+        (a.$TosManagerImpl$p_10 = function () {
+          if (!C()) return Promise.resolve(this.$TosManagerImpl$p_12());
           var e = this.$TosManagerImpl$p_9(this.$TosManagerImpl$p_3());
           return e.length > 0
             ? o("WAWebTosJob").queryTosState(e)
-            : (p || (p = n("Promise"))).resolve(this.$TosManagerImpl$p_12());
+            : Promise.resolve(this.$TosManagerImpl$p_12());
         }),
-        (i.$TosManagerImpl$p_11 = function () {
+        (a.$TosManagerImpl$p_11 = function () {
           return (
             o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled() &&
               this.populateTosManagerNewsletterIds(),
@@ -330,11 +308,11 @@ __d(
             ).isBizBroadcastSendWebEnabledNoExposure() &&
               this.populateTosManagerBizBroadcastIds(),
             this.$TosManagerImpl$p_1.length === 0
-              ? (p || (p = n("Promise"))).resolve(this.$TosManagerImpl$p_12())
+              ? Promise.resolve(this.$TosManagerImpl$p_12())
               : o("WAWebGetUserDisclosuresAction").getUserDisclosuresAction()
           );
         }),
-        (i.$TosManagerImpl$p_9 = function (t) {
+        (a.$TosManagerImpl$p_9 = function (t) {
           var e = this,
             n =
               parseInt(
@@ -353,76 +331,69 @@ __d(
             return a[t] !== "ACCEPTED";
           });
         }),
-        (i.getStoreKey = function (t) {
+        (a.getStoreKey = function (t) {
           var e = new Set(this.$TosManagerImpl$p_4());
           if (e.has(t)) return "TOS_STATE_" + t;
-          throw new f(t);
+          throw new _(t);
         }),
-        (i.$TosManagerImpl$p_6 = function (t) {
+        (a.$TosManagerImpl$p_6 = function (t) {
           var e = new Set(this.$TosManagerImpl$p_4());
           if (e.has(t)) return "TOS_STATE_" + t + "_LAST_ACCEPTED_TIME";
-          throw new f(t);
+          throw new _(t);
         }),
-        (i.maybeUpdateServer = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = this;
-            if (b())
-              try {
-                var r = new Set(e);
-                yield o("WAExponentialBackoff").exponentialBackoff(
-                  y(),
-                  function (e, a) {
-                    var i = t.$TosManagerImpl$p_13(r);
-                    return i.length > 0
-                      ? o("WAWebTosJob")
-                          .updateTosState(i)
-                          .catch(function (t) {
-                            if (
-                              t instanceof
-                                o("WAWebBackendErrors").ServerStatusCodeError &&
-                              t.statusCode === 500
-                            )
-                              return (
-                                o("WALogger").WARN(
-                                  d ||
-                                    (d =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "[TosManager] session update failed: ",
-                                        " (retry ",
-                                        ")",
-                                      ])),
-                                  t.message,
-                                  a,
-                                ),
-                                e(t)
-                              );
-                            throw t;
-                          })
-                      : (p || (p = n("Promise"))).resolve();
-                  },
+        (a.maybeUpdateServer = async function (t) {
+          var e = this;
+          if (C())
+            try {
+              var n = new Set(t);
+              await o("WAExponentialBackoff").exponentialBackoff(
+                h(),
+                function (t, r) {
+                  var a = e.$TosManagerImpl$p_13(n);
+                  return a.length > 0
+                    ? o("WAWebTosJob")
+                        .updateTosState(a)
+                        .catch(function (e) {
+                          if (
+                            e instanceof
+                              o("WAWebBackendErrors").ServerStatusCodeError &&
+                            e.statusCode === 500
+                          )
+                            return (
+                              o("WALogger").WARN(
+                                d ||
+                                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                                    "[TosManager] session update failed: ",
+                                    " (retry ",
+                                    ")",
+                                  ])),
+                                e.message,
+                                r,
+                              ),
+                              t(e)
+                            );
+                          throw e;
+                        })
+                    : Promise.resolve();
+                },
+              );
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "[TosManager] session update failed: ",
+                      "",
+                    ])),
+                  e,
+                )
+                .verbose()
+                .sendLogs(
+                  "ToS state manager server session state update failed",
                 );
-              } catch (e) {
-                o("WALogger")
-                  .ERROR(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[TosManager] session update failed: ",
-                        "",
-                      ])),
-                    e,
-                  )
-                  .verbose()
-                  .sendLogs(
-                    "ToS state manager server session state update failed",
-                  );
-              }
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (i.$TosManagerImpl$p_13 = function (t) {
+            }
+        }),
+        (a.$TosManagerImpl$p_13 = function (t) {
           var e = this;
           if (o("WAWebUserUtils").hasLoggedIn()) {
             var n = this.$TosManagerImpl$p_3().map(function (t) {
@@ -434,24 +405,24 @@ __d(
           }
           return [];
         }),
-        (i.$TosManagerImpl$p_14 = function (t) {
+        (a.$TosManagerImpl$p_14 = function (t) {
           (r("WAWebUserPrefsStore").setUser(this.getStoreKey(t), void 0),
             r("WAWebUserPrefsStore").setUser(
               this.$TosManagerImpl$p_6(t),
               void 0,
             ));
         }),
-        (i.resetAllState = function () {
+        (a.resetAllState = function () {
           var e = this;
           (this.$TosManagerImpl$p_4().forEach(function (t) {
             e.$TosManagerImpl$p_14(t);
           }),
-            o("WAWebTosJob").deleteTosState(_));
+            o("WAWebTosJob").deleteTosState(p));
         }),
-        (i.resetState = function (t) {
+        (a.resetState = function (t) {
           (this.$TosManagerImpl$p_14(t), o("WAWebTosJob").deleteTosState(t));
         }),
-        (i.populateTosManagerNewsletterIds = function () {
+        (a.populateTosManagerNewsletterIds = function () {
           var e = [
             o("WAWebNewsletterGatingUtils").getNewsletterProducerTos(),
             o("WAWebNewsletterGatingUtils").getNewsletterConsumerTos(),
@@ -459,7 +430,7 @@ __d(
           ].concat(o("WAWebWamoNewsletterGatingUtils").getWamoNotices());
           this.$TosManagerImpl$p_5(e);
         }),
-        (i.populateTosManagerBizBroadcastIds = function () {
+        (a.populateTosManagerBizBroadcastIds = function () {
           if (
             o(
               "WAWebBusinessBroadcastsGatingUtils",
@@ -471,10 +442,10 @@ __d(
             t !== "" && this.$TosManagerImpl$p_5([t]);
           }
         }),
-        a
+        n
       );
     })(r("WAWebEventEmitter"));
-    function b() {
+    function C() {
       return (
         o("WAWebTosGatingUtils").tosFetchEnabled() ||
         o("WAWebBotBaseGating").isBizBot1pEnabled() ||
@@ -483,8 +454,8 @@ __d(
           o("WAWebBotBaseGating").isBotEnabled())
       );
     }
-    var v = new C();
-    ((l.TOS_3_ID = _), (l.TosManager = v));
+    var b = new y();
+    ((l.TOS_3_ID = p), (l.TosManager = b));
   },
   98,
 );

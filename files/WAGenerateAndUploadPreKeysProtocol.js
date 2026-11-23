@@ -8,10 +8,10 @@ __d(
     "WAPromiseRetryLoop",
     "WAResultOrError",
     "WARetryUtils",
+    "WASignalKeys",
     "WASmaxPreKeysSetRPC",
     "WATagsLogger",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -21,117 +21,98 @@ __d(
       c,
       d,
       m = o("WATagsLogger").TAGS(["generateAndUploadPreKeysProtocol"]);
-    function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o("WAGlobals")
-              .getWaOneQueue()
-              .enqueue(
-                (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t) {
-                      var n = t.cryptoManager,
-                        r = yield o("WACryptoManager").generatePreKeys(n);
-                      return r.success
-                        ? (m
-                            .LOG(
-                              e ||
-                                (e = babelHelpers.taggedTemplateLiteralLoose([
-                                  "About to upload pre keys",
-                                ])),
-                            )
-                            .devConsole("generation " + r.value),
-                          o("WAGetKeysForUpload").getKeysForUpload(n, r.value))
-                        : r;
-                    },
-                  );
-                  return function (e) {
-                    return t.apply(this, arguments);
-                  };
-                })(),
-                { operationType: "generate_prekeys", flush: !0, afterInit: !0 },
-              ),
-            r = t.value,
-            a = r.preKeys,
-            i = r.regInfo,
-            l = r.signedPreKey,
-            p = {
-              identityKeyOrPQKeyBundleMixinGroupArgs: {
-                identityKeyBundle: babelHelpers.extends(
-                  {
-                    registrationElementValue: o("WAWap").BIG_ENDIAN_CONTENT(
-                      i.regId,
-                    ),
-                    anyElementValue: i.staticKeyPair.publicKey,
-                    keyArgs: a.map(f),
-                    hasKeyType: !0,
-                  },
-                  o("WAMakeSignedPreKeyMixin").makeSignedPreKeyMixin(l),
-                ),
-              },
-            },
-            _ = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
-              name: "uploadKeys",
-              timer: o("WARetryUtils").fibonacciBackoff(!1),
-              code: (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    m.LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "Attempt to upload keys",
+    async function p() {
+      var t = await o("WAGlobals")
+          .getWaOneQueue()
+          .enqueue(
+            async function (t) {
+              var n = t.cryptoManager,
+                r = await o("WACryptoManager").generatePreKeys(n);
+              return r.success
+                ? (m
+                    .LOG(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "About to upload pre keys",
                         ])),
-                    );
-                    var t = yield o("WASmaxPreKeysSetRPC").sendSetRPC(p);
-                    switch (t.name) {
-                      case "SetResponseSuccess": {
-                        (m.LOG(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
-                              "Keys are successfully uploaded",
-                            ])),
-                        ),
-                          e(o("WAResultOrError").makeResult({ preKeys: a })));
-                        return;
-                      }
-                      case "SetResponseRequestError": {
-                        (m.WARN(
-                          c ||
-                            (c = babelHelpers.taggedTemplateLiteralLoose([
-                              "Got Malformed upload keys IQ on upload pre keys attempt",
-                            ])),
-                        ),
-                          e(o("WAResultOrError").makeError("request-error")));
-                        return;
-                      }
-                      default:
-                        (t.name,
-                          m.WARN(
-                            d ||
-                              (d = babelHelpers.taggedTemplateLiteralLoose([
-                                "Got unexpected error: ",
-                                ", will retry after backoff",
-                              ])),
-                            t.name,
-                          ));
-                    }
-                  },
-                );
-                function t(t) {
-                  return e.apply(this, arguments);
-                }
-                return t;
-              })(),
-            });
-          return (_.start(), _.promise());
-        })),
-        _.apply(this, arguments)
-      );
+                    )
+                    .devConsole("generation " + String(r.value)),
+                  o("WAGetKeysForUpload").getKeysForUpload(n, r.value))
+                : r;
+            },
+            { operationType: "generate_prekeys", flush: !0, afterInit: !0 },
+          ),
+        n = t.value,
+        r = n.preKeys,
+        a = n.regInfo,
+        i = n.signedPreKey,
+        l = {
+          identityKeyOrPQKeyBundleMixinGroupArgs: {
+            identityKeyBundle: babelHelpers.extends(
+              {
+                registrationElementValue: o("WAWap").BIG_ENDIAN_CONTENT(
+                  a.regId,
+                ),
+                anyElementValue: a.staticKeyPair.publicKey,
+                keyArgs: r.map(_),
+                keyTypeMixinArgs: {
+                  typeElementValue: new Uint8Array([
+                    o("WASignalKeys").KEY_TYPE,
+                  ]),
+                },
+              },
+              o("WAMakeSignedPreKeyMixin").makeSignedPreKeyMixin(i),
+            ),
+          },
+        },
+        p = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
+          name: "uploadKeys",
+          timer: o("WARetryUtils").fibonacciBackoff(!1),
+          code: async function (t) {
+            m.LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "Attempt to upload keys",
+                ])),
+            );
+            var e = await o("WASmaxPreKeysSetRPC").sendSetRPC(l);
+            switch (e.name) {
+              case "SetResponseSuccess": {
+                (m.LOG(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "Keys are successfully uploaded",
+                    ])),
+                ),
+                  t(o("WAResultOrError").makeResult({ preKeys: r })));
+                return;
+              }
+              case "SetResponseRequestError": {
+                (m.WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "Got Malformed upload keys IQ on upload pre keys attempt",
+                    ])),
+                ),
+                  t(o("WAResultOrError").makeError("request-error")));
+                return;
+              }
+              default:
+                (e.name,
+                  m.WARN(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "Got unexpected error: ",
+                        ", will retry after backoff",
+                      ])),
+                    e.name,
+                  ));
+            }
+          },
+        });
+      return (p.start(), p.promise());
     }
-    function f(e) {
+    function _(e) {
       var t = { idElementValue: o("WAWap").BIG_ENDIAN_CONTENT(e.id, 3) },
         n = { anyElementValue: e.keyPair.publicKey };
       return { keyIDMixinArgs: t, keyDataMixinArgs: n };

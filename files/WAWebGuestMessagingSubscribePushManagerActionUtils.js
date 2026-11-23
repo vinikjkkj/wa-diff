@@ -11,7 +11,6 @@ __d(
     "WAWebPushNotificationsGatingUtils",
     "WAWebSchemaLocalStorage",
     "WAWebUserPrefsKeys",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
@@ -21,103 +20,83 @@ __d(
         e === o("WAWebGuestCoreConsts").GuestMobilePlatform.ANDROID_BROWSER
       );
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    function u() {
+      return e();
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n =
-              e &&
-              ((t = window.Notification) == null ? void 0 : t.permission) ===
-                o("WAWebNotificationConstants").PERMISSION_ALLOWED &&
-              o(
-                "WAWebPushNotificationsGatingUtils",
-              ).canEnableOfflineNotifications();
-          return n;
-        })),
-        c.apply(this, arguments)
-      );
+    async function c(e) {
+      var t,
+        n =
+          e &&
+          ((t = window.Notification) == null ? void 0 : t.permission) ===
+            o("WAWebNotificationConstants").PERMISSION_ALLOWED &&
+          o(
+            "WAWebPushNotificationsGatingUtils",
+          ).canEnableOfflineNotifications();
+      return n;
     }
-    function d() {
-      return m.apply(this, arguments);
+    function d(e) {
+      return null;
     }
     function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield f();
-          o("WAWebSchemaLocalStorage").getTable().bulkCreateOrReplace(e);
-        })),
-        m.apply(this, arguments)
-      );
+      return !1;
     }
-    function p() {
-      return _.apply(this, arguments);
+    function p() {}
+    function _(e) {}
+    async function f() {
+      var e = await h();
+      o("WAWebSchemaLocalStorage").getTable().bulkCreateOrReplace(e);
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield f();
-          return o("WAWebSchemaLocalStorage").getTable().bulkCreateOrReplace(e);
-        })),
-        _.apply(this, arguments)
-      );
+    async function g() {
+      var e = await h();
+      return o("WAWebSchemaLocalStorage").getTable().bulkCreateOrReplace(e);
     }
-    function f() {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = r("WAWebFbtCommon")("WhatsApp"),
-            t = s._(/*BTDS*/ "You have a new message"),
-            n = yield o(
-              "WAWebGuestMessagingGetInviterInfoAction",
-            ).getInviterInfo(),
-            a = n[0],
-            i = n[1],
-            l =
-              a != null
-                ? s._(/*BTDS*/ "{contactName} sent you a message", [
-                    s._param("contactName", "~\u202F" + a),
-                  ])
-                : t;
-          return [
-            {
-              key: o("WAWebUserPrefsKeys").KEYS.GUEST_MSG_NOTIFICATION_TITLE,
-              value: e.toString(),
-            },
-            {
-              key: o("WAWebUserPrefsKeys").KEYS.GUEST_MSG_NOTIFICATION_TEXT,
-              value: t.toString(),
-            },
-            {
-              key: o("WAWebUserPrefsKeys").KEYS
-                .GUEST_MSG_NOTIFICATION_TEXT_WITH_PUSHNAME,
-              value: l.toString(),
-            },
-            {
-              key: o("WAWebUserPrefsKeys").KEYS.GUEST_ACTIVE_INVITE_CODE,
-              value: o("WAWebGuestCoreLocalStorage").getActiveGuestInviteCode(),
-            },
-            {
-              key: o("WAWebUserPrefsKeys").KEYS.GUEST_INVITER_PUSHNAME,
-              value: a == null ? void 0 : a.toString(),
-            },
-            {
-              key: o("WAWebUserPrefsKeys").KEYS.GUEST_INVITER_PROFILE_PIC_URL,
-              value: i == null ? void 0 : i.toString(),
-            },
-          ];
-        })),
-        g.apply(this, arguments)
-      );
+    async function h() {
+      var e = r("WAWebFbtCommon")("WhatsApp"),
+        t = s._(/*BTDS*/ ""),
+        n = await o("WAWebGuestMessagingGetInviterInfoAction").getInviterInfo(),
+        a = n[0],
+        i = n[1],
+        l =
+          a != null
+            ? s._(/*BTDS*/ "", [s._param("contactName", "~\u202F" + a)])
+            : t;
+      return [
+        {
+          key: o("WAWebUserPrefsKeys").KEYS.GUEST_MSG_NOTIFICATION_TITLE,
+          value: e.toString(),
+        },
+        {
+          key: o("WAWebUserPrefsKeys").KEYS.GUEST_MSG_NOTIFICATION_TEXT,
+          value: t.toString(),
+        },
+        {
+          key: o("WAWebUserPrefsKeys").KEYS
+            .GUEST_MSG_NOTIFICATION_TEXT_WITH_PUSHNAME,
+          value: l.toString(),
+        },
+        {
+          key: o("WAWebUserPrefsKeys").KEYS.GUEST_ACTIVE_INVITE_CODE,
+          value: o("WAWebGuestCoreLocalStorage").getActiveGuestInviteCode(),
+        },
+        {
+          key: o("WAWebUserPrefsKeys").KEYS.GUEST_INVITER_PUSHNAME,
+          value: a == null ? void 0 : a.toString(),
+        },
+        {
+          key: o("WAWebUserPrefsKeys").KEYS.GUEST_INVITER_PROFILE_PIC_URL,
+          value: i == null ? void 0 : i.toString(),
+        },
+      ];
     }
     ((l.isOfflineNotificationsEnabled = e),
-      (l.shouldSubscribePushManager = u),
-      (l.updateOfflineNotificationL10nStrings = d),
-      (l.updateOfflineNotificationL10nStringsForOfflineResume = p));
+      (l.getOfflineNotificationsSetting = u),
+      (l.shouldSubscribePushManager = c),
+      (l.getPushPreferences = d),
+      (l.shouldSubscribeWithoutBackgroundSync = m),
+      (l.preventBackgroundSyncAutoEnable = p),
+      (l.onPushPreferencesInputsChange = _),
+      (l.updateOfflineNotificationL10nStrings = f),
+      (l.updateOfflineNotificationL10nStringsForOfflineResume = g));
   },
   226,
 );

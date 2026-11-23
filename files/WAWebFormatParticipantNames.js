@@ -100,24 +100,19 @@ __d(
                 viewName: "format-participant-names",
               },
               onOK: o("WAWebModalManager").closeModalManager,
-              children: s._(
-                /*BTDS*/ 'You are no longer a member of the community "{community}"',
-                [
-                  s._param(
-                    "community",
-                    u.jsx(o("WAWebName.react").Name, { contact: e }),
-                  ),
-                ],
-              ),
+              children: s._(/*BTDS*/ "", [
+                s._param(
+                  "community",
+                  u.jsx(o("WAWebName.react").Name, { contact: e }),
+                ),
+              ]),
             }),
           ));
       };
     }
     function f() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "This community no longer exists"),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     function g(e, t) {
@@ -158,14 +153,10 @@ __d(
     }
     function C(e, t) {
       return t
-        ? r("fbs")._(/*BTDS*/ '"{community-name}"', [
-            r("fbs")._param("community-name", e),
-          ])
+        ? r("fbs")._(/*BTDS*/ "", [r("fbs")._param("community-name", e)])
         : u.jsx("span", {
             className: "xuxw1ft",
-            children: s._(/*BTDS*/ '"{community-name}"', [
-              s._param("community-name", e),
-            ]),
+            children: s._(/*BTDS*/ "", [s._param("community-name", e)]),
           });
     }
     function b(e) {

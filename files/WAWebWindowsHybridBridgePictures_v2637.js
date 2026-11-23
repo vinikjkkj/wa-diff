@@ -7,7 +7,6 @@ __d(
     "WAWebODS",
     "WAWebProfilePicThumbCollection",
     "WAWebWindowsHybridBridgeTrace",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -23,92 +22,82 @@ __d(
     }
     var d = (function () {
       function t(t) {
-        var r = this;
-        ((this.$3 = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var n = JSON.parse(t);
-            for (var a of n) {
-              var i;
-              if (o("WAJids").validateGroupJid(a.id.toString())) {
-                var l = o(
+        var n = this;
+        ((this.$3 = async function (t) {
+          var r = JSON.parse(t);
+          for (var a of r) {
+            var i;
+            if (o("WAJids").validateGroupJid(a.id.toString())) {
+              var l = o(
+                "WAWebProfilePicThumbCollection",
+              ).ProfilePicThumbCollection.get(a.id);
+              (l == null ? void 0 : l.eurl) !== a.eurl &&
+                n.$2(
+                  [{ eurl: l == null ? void 0 : l.eurl, id: a.id.toString() }],
+                  "verify:group",
+                );
+              continue;
+            }
+            var s = o("WAWebLidMigrationUtils").toPn(a.id),
+              u = o("WAWebLidMigrationUtils").toLid(a.id);
+            if (s == null && u == null) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[WindowsHybridBridgePictures] both PN and LID WID are null for record.id=",
+                      "",
+                    ])),
+                  a.id.toString(),
+                )
+                .sendLogs("hybrid-pictures-verify-null-wids");
+              continue;
+            }
+            var d = [];
+            (s != null && d.push(s), u != null && d.push(u));
+            var m = c(d);
+            if (
+              (m == null &&
+                (await o(
                   "WAWebProfilePicThumbCollection",
-                ).ProfilePicThumbCollection.get(a.id);
-                (l == null ? void 0 : l.eurl) !== a.eurl &&
-                  r.$2(
-                    [
-                      {
-                        eurl: l == null ? void 0 : l.eurl,
-                        id: a.id.toString(),
-                      },
-                    ],
-                    "verify:group",
-                  );
-                continue;
+                ).ProfilePicThumbCollection.resyncPicturesByWid(d),
+                (m = c(d))),
+              ((i = m) == null ? void 0 : i.eurl) !== a.eurl)
+            ) {
+              if (s != null) {
+                var p;
+                n.$2(
+                  [
+                    {
+                      eurl: (p = m) == null ? void 0 : p.eurl,
+                      id: s.toString(),
+                    },
+                  ],
+                  "verify:user:pn",
+                );
               }
-              var s = o("WAWebLidMigrationUtils").toPn(a.id),
-                u = o("WAWebLidMigrationUtils").toLid(a.id);
-              if (s == null && u == null) {
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[WindowsHybridBridgePictures] both PN and LID WID are null for record.id=",
-                        "",
-                      ])),
-                    a.id.toString(),
-                  )
-                  .sendLogs("hybrid-pictures-verify-null-wids");
-                continue;
-              }
-              var d = [];
-              (s != null && d.push(s), u != null && d.push(u));
-              var m = c(d);
-              if (
-                (m == null &&
-                  (yield o(
-                    "WAWebProfilePicThumbCollection",
-                  ).ProfilePicThumbCollection.resyncPicturesByWid(d),
-                  (m = c(d))),
-                ((i = m) == null ? void 0 : i.eurl) !== a.eurl)
-              ) {
-                if (s != null) {
-                  var p;
-                  r.$2(
-                    [
-                      {
-                        eurl: (p = m) == null ? void 0 : p.eurl,
-                        id: s.toString(),
-                      },
-                    ],
-                    "verify:user:pn",
-                  );
-                }
-                if (u != null) {
-                  var _;
-                  r.$2(
-                    [
-                      {
-                        eurl: (_ = m) == null ? void 0 : _.eurl,
-                        id: u.toString(),
-                      },
-                    ],
-                    "verify:user:lid",
-                  );
-                }
+              if (u != null) {
+                var _;
+                n.$2(
+                  [
+                    {
+                      eurl: (_ = m) == null ? void 0 : _.eurl,
+                      id: u.toString(),
+                    },
+                  ],
+                  "verify:user:lid",
+                );
               }
             }
-          });
-          return function (e) {
-            return t.apply(this, arguments);
-          };
-        })()),
+          }
+        }),
           (this.$1 = t),
           t.addEventListener("verifyPictureEvent", this.$3),
           t.subscribe(null));
       }
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.$2 = function (t, n) {
+        (n.$2 = function (t, n) {
           var e = this;
           r("WAWebODS").incr(
             "web.hybrid.bridge.pictures.send.set_profile_pictures",
@@ -141,7 +130,7 @@ __d(
             c.toFixed(0),
           );
         }),
-        (a.notifyUpdate = function (t) {
+        (n.notifyUpdate = function (t) {
           if (t != null) {
             if (o("WAJids").validateGroupJid(t.id.toString())) {
               this.$2([{ eurl: t.eurl, id: t.id.toString() }], "notify:group");

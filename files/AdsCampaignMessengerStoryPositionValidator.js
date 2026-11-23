@@ -64,9 +64,7 @@ __d(
                   new (r("AdsError"))(
                     1815985,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "To use the Messenger Stories placement, please also select either Facebook Feeds or Instagram Stories.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       level: r("AdsError").Level.WARN,

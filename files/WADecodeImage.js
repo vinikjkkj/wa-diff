@@ -1,11 +1,6 @@
 __d(
   "WADecodeImage",
-  [
-    "WABlobToImage",
-    "WACalculateBoundOutputSize",
-    "WATagsLogger",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WABlobToImage", "WACalculateBoundOutputSize", "WATagsLogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -14,83 +9,67 @@ __d(
       c =
         typeof self.createImageBitmap == "function" &&
         typeof self.OffscreenCanvas == "function";
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          u.DEV(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "start decoding image without DOM: ",
-                "",
-              ])),
-            t.name,
-          );
-          var r = yield self.createImageBitmap(t),
-            a = r.height,
-            i = r.width,
-            l = o("WACalculateBoundOutputSize").calculateBoundOutputSize(
-              { width: i, height: a },
-              n,
-            ),
-            s = l.outputHeight,
-            c = l.outputWidth,
-            d = new self.OffscreenCanvas(c, s),
-            m = f({
-              canvas: d,
-              inputWidth: i,
-              inputHeight: a,
-              outputWidth: c,
-              outputHeight: s,
-              image: r,
-            });
-          return m;
-        })),
-        m.apply(this, arguments)
+    async function d(t, n) {
+      u.DEV(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "start decoding image without DOM: ",
+            "",
+          ])),
+        t.name,
       );
+      var r = await self.createImageBitmap(t),
+        a = r.height,
+        i = r.width,
+        l = o("WACalculateBoundOutputSize").calculateBoundOutputSize(
+          { width: i, height: a },
+          n,
+        ),
+        s = l.outputHeight,
+        c = l.outputWidth,
+        d = new self.OffscreenCanvas(c, s),
+        m = p({
+          canvas: d,
+          inputWidth: i,
+          inputHeight: a,
+          outputWidth: c,
+          outputHeight: s,
+          image: r,
+        });
+      return m;
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          u.DEV(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "start decoding image with DOM: ",
-                "",
-              ])),
-            e.name,
-          );
-          var n = yield o("WABlobToImage").blobToImage(e),
-            r = n.image,
-            a = n.releaseImageMemory,
-            i = r.height,
-            l = r.width,
-            c = o("WACalculateBoundOutputSize").calculateBoundOutputSize(
-              { width: l, height: i },
-              t,
-            ),
-            d = c.outputHeight,
-            m = c.outputWidth,
-            p = document.createElement("canvas"),
-            _ = f({
-              canvas: p,
-              inputWidth: l,
-              inputHeight: i,
-              outputWidth: m,
-              outputHeight: d,
-              image: r,
-            });
-          return (a(), _);
-        })),
-        _.apply(this, arguments)
+    async function m(e, t) {
+      u.DEV(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "start decoding image with DOM: ",
+            "",
+          ])),
+        e.name,
       );
+      var n = await o("WABlobToImage").blobToImage(e),
+        r = n.image,
+        a = n.releaseImageMemory,
+        i = r.height,
+        l = r.width,
+        c = o("WACalculateBoundOutputSize").calculateBoundOutputSize(
+          { width: l, height: i },
+          t,
+        ),
+        d = c.outputHeight,
+        m = c.outputWidth,
+        _ = document.createElement("canvas"),
+        f = p({
+          canvas: _,
+          inputWidth: l,
+          inputHeight: i,
+          outputWidth: m,
+          outputHeight: d,
+          image: r,
+        });
+      return (a(), f);
     }
-    function f(e) {
+    function p(e) {
       var t = e.canvas,
         n = e.image,
         r = e.inputHeight,
@@ -107,7 +86,7 @@ __d(
     }
     ((l.canDecodeWithoutDOM = c),
       (l.decodeImageWithoutDOM = d),
-      (l.decodeImageWithDOM = p));
+      (l.decodeImageWithDOM = m));
   },
   98,
 );

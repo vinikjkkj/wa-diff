@@ -9,7 +9,7 @@ __d(
           String(
             o("WAWebSyntheticCountryCode").SyntheticCountryCode.NotApplicable,
           ),
-          r("fbs")._(/*BTDS*/ "Not applicable"),
+          r("fbs")._(/*BTDS*/ ""),
         ]),
         t
       );

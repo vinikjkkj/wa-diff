@@ -1,7 +1,6 @@
 __d(
   "WAWebWamDeviceLinkReporter",
   [
-    "Promise",
     "WABase64",
     "WABinary",
     "WACryptoSha256",
@@ -16,179 +15,145 @@ __d(
     "WAWebMdLinkDeviceCompanionWamEvent",
     "WAWebStartupLaunchAttribution",
     "WAWebWamEnumMdLinkDeviceCompanionStage",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
+      u = null,
       c = null,
       d = null,
       m = null,
-      p = null,
-      _ = (u || (u = n("Promise"))).resolve(),
-      f = "deviceLinkWamState",
-      g = 2e3;
-    function h() {
-      d != null &&
+      p = Promise.resolve(),
+      _ = "deviceLinkWamState",
+      f = 2e3;
+    function g() {
+      c != null &&
         (r("WAWebLocalStorage") == null ||
-          r("WAWebLocalStorage").setItem(f, JSON.stringify(d)));
+          r("WAWebLocalStorage").setItem(_, JSON.stringify(c)));
+    }
+    function h() {
+      r("WAWebLocalStorage") == null || r("WAWebLocalStorage").removeItem(_);
     }
     function y() {
-      r("WAWebLocalStorage") == null || r("WAWebLocalStorage").removeItem(f);
-    }
-    function C() {
       try {
         var e =
           r("WAWebLocalStorage") == null
             ? void 0
-            : r("WAWebLocalStorage").getItem(f);
-        if (e != null) return (y(), JSON.parse(e));
+            : r("WAWebLocalStorage").getItem(_);
+        if (e != null) return (h(), JSON.parse(e));
       } catch (e) {}
       return null;
     }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
-    }
-    function v() {
+    async function C(e, t, n) {
+      (h(),
+        (u = new (o(
+          "WAWebMdLinkDeviceCompanionWamEvent",
+        ).MdLinkDeviceCompanionWamEvent)()));
+      var r = await S(e, t);
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          (y(),
-            (c = new (o(
-              "WAWebMdLinkDeviceCompanionWamEvent",
-            ).MdLinkDeviceCompanionWamEvent)()));
-          var r = yield k(e, t);
-          return (
-            (d = {
-              launchAttribution: o(
-                "WAWebStartupLaunchAttribution",
-              ).getLaunchAttributionAppContextPart(window.location.search),
-              regStartTime: n,
-              sessionId: r,
-              visitId: o(
-                "WAWebAndroidTabletVisitId",
-              ).getExistingAndroidTabletVisitId(),
-            }),
-            r
+        (c = {
+          launchAttribution: o(
+            "WAWebStartupLaunchAttribution",
+          ).getLaunchAttributionAppContextPart(window.location.search),
+          regStartTime: n,
+          sessionId: r,
+          visitId: o(
+            "WAWebAndroidTabletVisitId",
+          ).getExistingAndroidTabletVisitId(),
+        }),
+        r
+      );
+    }
+    async function b() {
+      await o("WAPromiseTimeout")
+        .promiseTimeout(p, f)
+        .catch(function () {
+          o("WALogger").WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Timed out waiting for device link WAM event persistence",
+              ])),
           );
-        })),
-        v.apply(this, arguments)
-      );
+        });
     }
-    function S() {
-      return R.apply(this, arguments);
+    async function v(e) {
+      var t;
+      if (!u) {
+        var n = y();
+        if (n == null) return;
+        ((c = n),
+          (u = new (o(
+            "WAWebMdLinkDeviceCompanionWamEvent",
+          ).MdLinkDeviceCompanionWamEvent)()));
+      }
+      (await ((t = m) == null ? void 0 : t.promise),
+        (m = new (o("WAResolvable").Resolvable)()),
+        (d = e),
+        await R(),
+        g());
     }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o("WAPromiseTimeout")
-            .promiseTimeout(_, g)
-            .catch(function () {
-              o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "Timed out waiting for device link WAM event persistence",
-                  ])),
-              );
-            });
-        })),
-        R.apply(this, arguments)
-      );
+    async function S(e, t) {
+      var n = new (o("WABinary").Binary)();
+      (n.writeBuffer(e), n.write(95), n.writeBuffer(t));
+      var r = n.readByteArrayView(),
+        a = await o("WACryptoSha256").sha256(r);
+      return o("WABase64").encodeB64(a);
     }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          if (!c) {
-            var n = C();
-            if (n == null) return;
-            ((d = n),
-              (c = new (o(
-                "WAWebMdLinkDeviceCompanionWamEvent",
-              ).MdLinkDeviceCompanionWamEvent)()));
-          }
-          (yield (t = p) == null ? void 0 : t.promise,
-            (p = new (o("WAResolvable").Resolvable)()),
-            (m = e),
-            yield T(),
-            h());
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e, t) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new (o("WABinary").Binary)();
-          (n.writeBuffer(e), n.write(95), n.writeBuffer(t));
-          var r = n.readByteArrayView(),
-            a = yield o("WACryptoSha256").sha256(r);
-          return o("WABase64").encodeB64(a);
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(t) {
-      var n;
-      if (!(!c || !d)) {
-        var a = d,
-          i =
+    function R(e) {
+      var t;
+      if (!(!u || !c)) {
+        var n = c,
+          a =
             o("WATimeUtils").unixTimeWithoutClockSkewCorrection() -
-            a.regStartTime;
-        if (m != null) {
-          var l = m;
-          c = new (o(
+            n.regStartTime;
+        if (d != null) {
+          var i = d;
+          u = new (o(
             "WAWebMdLinkDeviceCompanionWamEvent",
           ).MdLinkDeviceCompanionWamEvent)({
-            mdDurationS: i,
-            mdSessionId: a.sessionId,
-            mdTimestampS: a.regStartTime,
-            mdLinkDeviceCompanionErrorCode: t == null ? 0 : t,
-            mdLinkDeviceCompanionStage: l,
+            mdDurationS: a,
+            mdSessionId: n.sessionId,
+            mdTimestampS: n.regStartTime,
+            mdLinkDeviceCompanionErrorCode: e == null ? 0 : e,
+            mdLinkDeviceCompanionStage: i,
             mdLinkDeviceExperienceId: o(
               "WAWebLinkDeviceExperience",
             ).getWebCompanionLinkDeviceExperienceId(),
           });
-          var s = c,
-            u = a.visitId;
-          (u != null && (s.waWebVisitId = u),
-            o("WAWebAppTracker").attachWAMAppContext(s, i * 1e3));
-          var f = a.launchAttribution;
+          var l = u,
+            _ = n.visitId;
+          (_ != null && (l.waWebVisitId = _),
+            o("WAWebAppTracker").attachWAMAppContext(l, a * 1e3));
+          var f = n.launchAttribution;
           if (f != null) {
-            var g = s.appContext;
-            s.appContext = g == null || g === "" ? f : g + "+" + f;
+            var g = l.appContext;
+            l.appContext = g == null || g === "" ? f : g + "+" + f;
           }
-          ((_ = s.commitAndWaitForFlush(!0).catch(function (t) {
+          ((p = l.commitAndWaitForFlush(!0).catch(function (e) {
             o("WALogger")
               .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
                     "Failed to commit device link WAM event",
                   ])),
               )
-              .catching(r("getErrorSafe")(t))
+              .catching(r("getErrorSafe")(e))
               .sendLogs("device-link-wam-commit-failed");
           })),
-            (n = p) == null || n.resolve(),
-            (t != null ||
-              s.mdLinkDeviceCompanionStage ===
+            (t = m) == null || t.resolve(),
+            (e != null ||
+              l.mdLinkDeviceCompanionStage ===
                 o("WAWebWamEnumMdLinkDeviceCompanionStage")
                   .MD_LINK_DEVICE_COMPANION_STAGE.COMPLETE) &&
-              ((c = null), (d = null), (m = null), y()));
+              ((u = null), (c = null), (d = null), h()));
         }
       }
     }
-    ((l.initDeviceLinkEvent = b),
-      (l.waitForDeviceLinkEventPersistence = S),
-      (l.setDeviceLinkPairStage = L),
-      (l.commitDeviceLinkEvent = T));
+    ((l.initDeviceLinkEvent = C),
+      (l.waitForDeviceLinkEventPersistence = b),
+      (l.setDeviceLinkPairStage = v),
+      (l.commitDeviceLinkEvent = R));
   },
   98,
 );

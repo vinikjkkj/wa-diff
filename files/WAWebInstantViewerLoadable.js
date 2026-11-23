@@ -6,24 +6,18 @@ __d(
     "WAWebLazyLoadLoading.react",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = s || (s = o("react")),
-      c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebInstantViewer.react",
-          )
-            .__setRef("WAWebInstantViewerLoadable")
-            .load();
-          return e;
-        }),
-        "InstantViewer",
-      ),
+      c = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")("WAWebInstantViewer.react")
+          .__setRef("WAWebInstantViewerLoadable")
+          .load();
+        return e;
+      }, "InstantViewer"),
       d = r("WAWebLoadable")({
         loader: c,
         loading: function (t) {

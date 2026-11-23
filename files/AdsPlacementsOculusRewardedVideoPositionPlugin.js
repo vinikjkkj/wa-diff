@@ -15,7 +15,6 @@ __d(
     "AdsPlacementsOculusPluginUtils",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
     "AdsUEditorCampaignPlacementSetActionFlux",
-    "VultureJSDeadComponent.react",
     "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
     "immutable",
     "react",
@@ -29,7 +28,7 @@ __d(
         type: "placements/position",
         key: "oculus/rewarded_video",
         name: r("AdsPlacementPositionLabelConstant").vr_rewarded_video,
-        nameWithPlatform: s._(/*BTDS*/ "Oculus in-app rewarded videos"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         apiPosition: "vr_rewarded_video",
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION
@@ -42,9 +41,7 @@ __d(
         },
         getPlacementSpecificPreviewInfo: function (t) {
           r("vulture")("qG9xpE2AV1n_8BnUd2Za1x8iA2o=");
-          var e = c.jsx(r("VultureJSDeadComponent.react"), {
-            name: "OculusPlacementInfoText",
-          });
+          var e = c.jsx(c.Fragment, {});
           return { description: e };
         },
         getIneligibilityReason: function (t) {

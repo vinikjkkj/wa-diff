@@ -13,6 +13,7 @@ __d(
     "AdsUEditorCallToActionMutators",
     "AdsUnifiedCreativeAPIFields",
     "FBLogger",
+    "adsDestinationAssetMutationCallToActionLinkSyncMutator",
     "immutable",
     "isAccountEligibleForThreeCOL2AdEx",
   ],
@@ -67,7 +68,13 @@ __d(
             s,
             "website_url",
             d,
-          )));
+          )),
+          (c = o(
+            "adsDestinationAssetMutationCallToActionLinkSyncMutator",
+          ).syncSingleAssetFeedCallToActionLinkMutator({
+            adgroup: c,
+            websiteURL: d,
+          })));
         var y = C(u != null ? u : ""),
           v = C((_ = a.website_url) != null ? _ : "");
         (y !== v &&
@@ -150,6 +157,13 @@ __d(
               a.ios_url,
             )),
           (g = m(g, t, n, d, a, i)),
+          a.website_url != null &&
+            (g = o(
+              "adsDestinationAssetMutationCallToActionLinkSyncMutator",
+            ).syncSingleAssetFeedCallToActionLinkMutator({
+              adgroup: g,
+              websiteURL: a.website_url,
+            })),
           R(g, t, n, d, p));
     }
     function m(e, t, n, a, i, l) {
@@ -400,8 +414,8 @@ __d(
       var r = h(e);
       return u(e, t, n, r.urls, !1);
     }
-    function S(e, t) {
-      var n;
+    function S(e, t, n) {
+      var a;
       if (
         !o("AdsAssetFeedUtils").isPACAdgroupFromRecord(e) &&
         !o("AdsAssetFeedUtils").isMCAAdgroupFromRecord(e)
@@ -411,25 +425,32 @@ __d(
           .mustfixThrow(
             "[PAC] This action should be called on an asset feed, after a video / image customization",
           );
-      var a =
-        (n = e.creative) == null || (n = n.asset_feed_spec) == null
+      var i =
+        (a = e.creative) == null || (a = a.asset_feed_spec) == null
           ? void 0
-          : n.link_urls;
-      if (a != null) {
-        var i,
-          l =
-            (i = e.creative) == null ||
-            (i = i.asset_feed_spec) == null ||
-            (i = i.link_urls) == null
+          : a.link_urls;
+      if (i != null) {
+        var l,
+          s =
+            (l = e.creative) == null ||
+            (l = l.asset_feed_spec) == null ||
+            (l = l.link_urls) == null
               ? void 0
-              : i.update(function (e) {
+              : l.update(function (e) {
                   return e.map(function (e) {
                     return e.setIn(["website_url"], t);
                   });
-                });
-        return r(
-          "AdsAdgroupRecordAccessors",
-        ).creative.asset_feed_spec.link_urls.set(l, e);
+                }),
+          u = r(
+            "AdsAdgroupRecordAccessors",
+          ).creative.asset_feed_spec.link_urls.set(s, e);
+        return o(
+          "adsDestinationAssetMutationCallToActionLinkSyncMutator",
+        ).syncSingleAssetFeedCallToActionLinkMutator({
+          adgroup: u,
+          promotedObjectType: n,
+          websiteURL: t,
+        });
       }
       return e;
     }

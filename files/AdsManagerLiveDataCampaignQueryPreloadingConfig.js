@@ -8,7 +8,6 @@ __d(
     "adsRelayHackPreloadersCreatePreloadingConfig",
     "adsRelayHackPreloadersMatchesIDsSubsetPreloader",
     "arrayContainsArray",
-    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -81,7 +80,7 @@ __d(
     }
     var d = r("adsRelayHackPreloadersCreatePreloadingConfig")({
       getCustomSubscription: c,
-      ignoreCriticalErrors: r("gkx")("1355"),
+      ignoreCriticalErrors: !0,
       ignoreIfServerDidntBeatJSExecution: !1,
       isScenarioOngoing: o("AdsMgmtPreloadingUtils").isScenarioOngoing,
       subsetMatching: {

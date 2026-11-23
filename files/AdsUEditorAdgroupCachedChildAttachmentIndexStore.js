@@ -26,14 +26,15 @@ __d(
         var a = n.prototype;
         return (
           (a.reduce = function (a, i) {
-            return (
-              r("ifRequired")("AdsCFAdgroupEditorContext", function (e) {
-                return (c = e);
-              }),
+            (r("ifRequired")("AdsCFAdgroupEditorContext", function (e) {
+              return (c = e);
+            }),
               r("ifRequired")("AdsEditingAdgroupEditorContext", function (e) {
                 return (d = e);
-              }),
-              (a = [c, d].reduce(function (t, n) {
+              }));
+            var n = a;
+            return (
+              (n = [c, d].reduce(function (t, n) {
                 if (
                   !n ||
                   ((s || (s = r("AdsDataAtom"))).waitFor(
@@ -51,22 +52,22 @@ __d(
                 var a = r("immutable").Set(n.selectedAdgroupIDsSelector()),
                   i = t.selectedIDsForHost.get(n.hostID);
                 if (i != null && a.equals(i)) return t;
-                t = t.set(
-                  "selectedIDsForHost",
-                  t.selectedIDsForHost.set(n.hostID, a),
-                );
-                var l = a.map(function (e) {
-                  return t.indexMap.get(e);
-                });
-                if (l.size === 1 && l.first()) return t;
-                var c = t.indexMap.withMutations(function (e) {
+                var l = t.set(
+                    "selectedIDsForHost",
+                    t.selectedIDsForHost.set(n.hostID, a),
+                  ),
+                  c = a.map(function (e) {
+                    return l.indexMap.get(e);
+                  });
+                if (c.size === 1 && c.first()) return l;
+                var d = l.indexMap.withMutations(function (e) {
                   return a.forEach(function (t) {
                     return e.set(t, u);
                   });
                 });
-                return t.set("indexMap", c);
-              }, a)),
-              t.prototype.reduce.call(this, a, i)
+                return l.set("indexMap", d);
+              }, n)),
+              t.prototype.reduce.call(this, n, i)
             );
           }),
           (a.getInitialState = function () {

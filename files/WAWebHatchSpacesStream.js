@@ -14,7 +14,6 @@ __d(
     "WAWebHatchVmTransport",
     "WAWebNoop",
     "WAWebNullFunc",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -38,14 +37,14 @@ __d(
       L = new Set(),
       E = new Set();
     function k() {
-      (J(), p++, p === 1 && M());
+      (Y(), p++, p === 1 && M());
       var e = !1;
       return function () {
-        e || ((e = !0), p--, p === 0 && X());
+        e || ((e = !0), p--, p === 0 && Q());
       };
     }
     function I() {
-      p === 0 || _ !== "error" || (X(), M());
+      p === 0 || _ !== "error" || (Q(), M());
     }
     function T() {
       return _;
@@ -61,34 +60,34 @@ __d(
       return y;
     }
     function P(e) {
-      return re(L, e);
+      return ne(L, e);
     }
     function N(e) {
-      return re(E, e);
+      return ne(E, e);
     }
     function M() {
       if (
         !(f != null || !o("WAWebHatchFrontendGating").isHatchSpaceEnabled())
       ) {
         if (r("WAWebHatchLinkedStatusManager").isUnlinked()) {
-          ne("unlinked");
+          te("unlinked");
           return;
         }
         r("WAWebHatchSpacesManager").hasAppliedSnapshot()
-          ? ne("loaded")
-          : (ne("loading"), G());
+          ? te("loaded")
+          : (te("loading"), H());
         var e = new (r("WAWebHatchVmSubscription"))({
           connect: function () {
             return A(e);
           },
           kind: "navigation",
-          onEvent: U,
+          onEvent: q,
           onResubscribed: r("WAWebNoop"),
           open: function (n, r) {
             return n.openEventSubscription(
               o("WAWebHatchVmTransport").JarvisPaths.NAVIGATION_SUBSCRIBE,
-              W(e, r, function (e) {
-                return Y("status_" + e);
+              B(e, r, function (e) {
+                return X("status_" + e);
               }),
             );
           },
@@ -97,56 +96,48 @@ __d(
       }
     }
     function w() {
-      h.files == null && (y && ((y = !1), oe(E)), j());
+      h.files == null && (y && ((y = !1), re(E)), z());
       var e = new (r("WAWebHatchVmSubscription"))({
         connect: function () {
           return A(e);
         },
         kind: "artifacts",
-        onEvent: V,
+        onEvent: U,
         onResubscribed: function () {
-          return H(o("WAWebHatchFilesState").dropHatchFilesPendingSnapshot(h));
+          return V(o("WAWebHatchFilesState").dropHatchFilesPendingSnapshot(h));
         },
         open: function (n, r) {
           return n.openEventSubscription(
             o("WAWebHatchVmTransport").JarvisPaths.ARTIFACTS_SUBSCRIBE,
-            W(e, r, q),
+            B(e, r, W),
           );
         },
       });
       ((g = e), e.start());
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    async function A(e) {
+      if (!F(e)) return null;
+      var t = await o("WAWebHatchVmConnection")
+        .connectHatchVmApi()
+        .catch(o("WAWebNullFunc").returnNull);
+      return F(e) ? (t == null && X("no_session"), t) : null;
     }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!O(e)) return null;
-          var t = yield o("WAWebHatchVmConnection")
-            .connectHatchVmApi()
-            .catch(o("WAWebNullFunc").returnNull);
-          return O(e) ? (t == null && Y("no_session"), t) : null;
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    function O(e) {
-      return B(e)
+    function F(e) {
+      return O(e)
         ? o("WAWebHatchFrontendGating").isHatchSpaceEnabled()
           ? r("WAWebHatchLinkedStatusManager").isUnlinked()
-            ? (X(), ne("unlinked"), !1)
+            ? (Q(), te("unlinked"), !1)
             : !0
-          : (X(), _ === "loading" && ne("error"), !1)
+          : (Q(), _ === "loading" && te("error"), !1)
         : !1;
     }
-    function B(e) {
+    function O(e) {
       return e === f || e === g;
     }
-    function W(e, t, n) {
+    function B(e, t, n) {
       return babelHelpers.extends({}, t, {
         onResponse: function (o) {
-          if (B(e) && m.has(o)) {
+          if (O(e) && m.has(o)) {
             n(o);
             return;
           }
@@ -154,11 +145,11 @@ __d(
         },
       });
     }
-    function q(t) {
+    function W(t) {
       var n = g;
       ((g = null),
         n == null || n.stop(),
-        Q(),
+        K(),
         o("WALogger")
           .WARN(
             e ||
@@ -170,7 +161,7 @@ __d(
           )
           .sendLogs("hatch-spaces-stream-library-stopped"));
     }
-    function U(e) {
+    function q(e) {
       var t = o("WAWebHatchSpacesDecoder").decodeHatchSpacesEvent(
         e.name,
         e.payload,
@@ -180,19 +171,19 @@ __d(
         (r("WAWebHatchSpacesManager").applyEvent(t),
         (_ === "loading" || _ === "error") &&
           r("WAWebHatchSpacesManager").hasAppliedSnapshot() &&
-          (z(), ne("loaded")));
+          (G(), te("loaded")));
+    }
+    function U(e) {
+      (V(o("WAWebHatchFilesState").applyHatchFilesEvent(h, e.name, e.payload)),
+        h.files != null && K());
     }
     function V(e) {
-      (H(o("WAWebHatchFilesState").applyHatchFilesEvent(h, e.name, e.payload)),
-        h.files != null && Q());
-    }
-    function H(e) {
       var t =
         e.files !== h.files || e.spaceCapabilities !== h.spaceCapabilities;
-      ((h = e), t && oe(E));
+      ((h = e), t && re(E));
     }
-    function G() {
-      (z(),
+    function H() {
+      (G(),
         (C = self.setTimeout(function () {
           ((C = null),
             _ === "loading" &&
@@ -204,36 +195,36 @@ __d(
                     ])),
                 )
                 .sendLogs("hatch-spaces-stream-timeout"),
-              ne("error")));
+              te("error")));
         }, c)));
     }
-    function z() {
+    function G() {
       C != null && (self.clearTimeout(C), (C = null));
     }
-    function j() {
-      (K(),
+    function z() {
+      (j(),
         (b = self.setTimeout(function () {
-          ((b = null), Q());
+          ((b = null), K());
         }, d)));
     }
-    function K() {
+    function j() {
       b != null && (self.clearTimeout(b), (b = null));
     }
-    function Q() {
-      (K(), y || ((y = !0), oe(E)));
+    function K() {
+      (j(), y || ((y = !0), re(E)));
     }
-    function X() {
+    function Q() {
       var e = f,
         t = g;
       ((f = null),
         (g = null),
-        z(),
-        K(),
+        G(),
+        j(),
         e == null || e.stop(),
         t == null || t.stop());
     }
-    function Y(e) {
-      (X(),
+    function X(e) {
+      (Q(),
         o("WALogger")
           .WARN(
             u ||
@@ -244,9 +235,9 @@ __d(
             e,
           )
           .sendLogs("hatch-spaces-stream-stopped"),
-        ne("error"));
+        te("error"));
     }
-    function J() {
+    function Y() {
       var e, t;
       v ||
         ((v = !0),
@@ -259,44 +250,44 @@ __d(
               : t.channelFbid) != null
             ? e
             : null),
-        r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(Z));
+        r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(J));
     }
-    function Z(e) {
+    function J(e) {
       var t = r("WAWebHatchLinkedStatusManager").getLinkedStatusState();
       if (t === "unlinked")
         ((S = !1),
           (R = null),
-          X(),
+          Q(),
           r("WAWebHatchSpacesManager").reset(),
-          te(),
+          ee(),
           o("WAWebHatchSpacePreviews").clearHatchSpacePreviewRoutes(),
           o("WAWebHatchSpaceImages").clearHatchSpaceImages(),
-          ne("unlinked"));
+          te("unlinked"));
       else if (t === "linked") {
         var n;
-        ee((n = e == null ? void 0 : e.channelFbid) != null ? n : null);
+        Z((n = e == null ? void 0 : e.channelFbid) != null ? n : null);
       }
     }
-    function ee(e) {
+    function Z(e) {
       var t = S && e !== R;
       if (((S = !0), (R = e), t))
-        (X(),
+        (Q(),
           r("WAWebHatchSpacesManager").reset(),
-          te(),
+          ee(),
           o("WAWebHatchSpacePreviews").clearHatchSpacePreviewRoutes(),
           o("WAWebHatchSpaceImages").clearHatchSpaceImages());
       else if (_ !== "unlinked") return;
-      p > 0 ? M() : ne("idle");
+      p > 0 ? M() : te("idle");
     }
-    function te() {
+    function ee() {
       ((h = o("WAWebHatchFilesState").HATCH_FILES_INITIAL_STATE),
         (y = !1),
-        oe(E));
+        re(E));
     }
-    function ne(e) {
-      _ !== e && ((_ = e), oe(L));
+    function te(e) {
+      _ !== e && ((_ = e), re(L));
     }
-    function re(e, t) {
+    function ne(e, t) {
       var n = { listener: t };
       return (
         e.add(n),
@@ -305,7 +296,7 @@ __d(
         }
       );
     }
-    function oe(e) {
+    function re(e) {
       for (var t of Array.from(e)) t.listener();
     }
     ((l.SPACES_SNAPSHOT_DEADLINE_MS = c),
@@ -318,7 +309,7 @@ __d(
       (l.isHatchLibrarySettled = $),
       (l.subscribeToHatchSpacesLoad = P),
       (l.subscribeToHatchLibrary = N),
-      (l.watchHatchSpacesLinkedStatus = J));
+      (l.watchHatchSpacesLinkedStatus = Y));
   },
   98,
 );

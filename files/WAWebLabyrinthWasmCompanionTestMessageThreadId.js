@@ -5,7 +5,6 @@ __d(
     "WAWebEBLabyrinthWaWasmReactorSingleton",
     "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,36 +23,28 @@ __d(
               threadId: o("WAWebLabyrinthOpaqueTypes").makeThreadId(n.threadId),
             });
     }
-    function s() {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var t = yield o(
-              "WAWebEBLabyrinthWaWasmReactorSingleton",
-            ).labyrinthWaCommand(
-              {
-                InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
-                ResultSpec: o("WAWebLabyrinthWaWasm.pb")
-                  .CompanionTestMessageThreadIdOutputSpec,
-                validateResult: e,
-              },
-              { companionTestMessageThreadIdInput: {} },
-            );
-            return t.success
-              ? o("WAResultOrError").makeResult(t.value.threadId)
-              : t;
-          } catch (e) {
-            return o("WAResultOrError").makeError({
-              error: r("getErrorSafe")(e),
-              kind: "exception",
-            });
-          }
-        })),
-        u.apply(this, arguments)
-      );
+    async function s() {
+      try {
+        var t = await o(
+          "WAWebEBLabyrinthWaWasmReactorSingleton",
+        ).labyrinthWaCommand(
+          {
+            InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
+            ResultSpec: o("WAWebLabyrinthWaWasm.pb")
+              .CompanionTestMessageThreadIdOutputSpec,
+            validateResult: e,
+          },
+          { companionTestMessageThreadIdInput: {} },
+        );
+        return t.success
+          ? o("WAResultOrError").makeResult(t.value.threadId)
+          : t;
+      } catch (e) {
+        return o("WAResultOrError").makeError({
+          error: r("getErrorSafe")(e),
+          kind: "exception",
+        });
+      }
     }
     l.labyrinthCompanionTestMessageThreadIdWasm = s;
   },

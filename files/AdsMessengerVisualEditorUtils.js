@@ -62,12 +62,18 @@ __d(
         u = o("AdsGetDefaultGreetingText").getDefaultGreetingText(e, t),
         c = [
           ((n = {}),
-          (n.title = s._(/*BTDS*/ "Get started")),
+          (n.title = s._(/*BTDS*/ "")),
           (n.content_type = "text"),
           n),
         ];
-      return (
-        (l = {}),
+      return babelHelpers.extends(
+        {},
+        o(
+          "ClickToMessageCTMPerformanceFeatureGating",
+        ).enableCTMPersonalizedIcebreakers(t)
+          ? { personalized_icebreakers_enabled: !0 }
+          : {},
+        ((l = {}),
         (l.type = "VISUAL_EDITOR"),
         (l.version = 2),
         (l.landing_screen_type = r(
@@ -84,22 +90,16 @@ __d(
         (l.is_eligible_for_customized_greeting = !1),
         (l.user_edit = !1),
         (l.surface = "visual_editor_new"),
-        l
+        l),
       );
     }
     function m(e, t, n) {
       var o = t
           ? n === !0
-            ? s._(
-                /*BTDS*/ "In-line previews are not currently supported for this JSON format.",
-              )
-            : s._(
-                /*BTDS*/ "In-line previews are not currently supported for this JSON format. To see a preview of your message, you can send a test version to yourself in Messenger.",
-              )
-          : s._(
-              /*BTDS*/ "In-line previews are not currently supported with JSON creation. To see a preview of your message, you can send a test version to yourself in Messenger.",
-            ),
-        a = s._(/*BTDS*/ "Preview in Messenger");
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ ""),
+        a = s._(/*BTDS*/ "");
       return u.jsx("div", {
         className: "x14vqqas xbmvrgn xat24cr x1diwwjn",
         children: u.jsx(r("GeoGuidanceCard.react"), {
@@ -120,14 +120,14 @@ __d(
     m.displayName = m.name + " [from " + i.id + "]";
     function p() {
       return (
-        s._(/*BTDS*/ "Start conversations").toString() +
+        s._(/*BTDS*/ "").toString() +
         " " +
         r("DateTime").localNow().format("m/d/y")
       );
     }
     function _() {
       return (
-        s._(/*BTDS*/ "JSON").toString() +
+        s._(/*BTDS*/ "").toString() +
         " " +
         r("DateTime").localNow().format("m/d/y")
       );
@@ -140,16 +140,10 @@ __d(
     }
     function h(e, t, n) {
       if (!e) return null;
-      var o = s._(/*BTDS*/ "Preview In Messenger"),
-        a = s._(
-          /*BTDS*/ "A message has been sent to you from {page name}. Open Messenger on your phone to preview what your experience will look like to customers.",
-          [
-            s._param(
-              "page name",
-              r("isStringNullOrEmpty")(t) ? "your page" : t,
-            ),
-          ],
-        );
+      var o = s._(/*BTDS*/ ""),
+        a = s._(/*BTDS*/ "", [
+          s._param("page name", r("isStringNullOrEmpty")(t) ? "your page" : t),
+        ]);
       return u.jsx(r("GeoModal.react"), {
         "data-testid": void 0,
         footer: u.jsx(r("GeoModalFooter.react"), {
@@ -157,7 +151,7 @@ __d(
           logging: { surface: "ads_messenger_visual_editor_utils_dfdb" },
           primaryButton: u.jsx(r("GeoButton.react"), {
             "data-testid": void 0,
-            label: s._(/*BTDS*/ "OK"),
+            label: s._(/*BTDS*/ ""),
             logging: { surface: "ads_messenger_visual_editor_utils_9efb" },
             onClick: n,
             variant: "primary",
@@ -174,7 +168,7 @@ __d(
     h.displayName = h.name + " [from " + i.id + "]";
     function y(e, t) {
       if (r("isStringNullOrEmpty")(e)) return null;
-      var n = s._(/*BTDS*/ "Preview in Messenger error");
+      var n = s._(/*BTDS*/ "");
       return u.jsx(r("GeoModal.react"), {
         "data-testid": void 0,
         footer: u.jsx(r("GeoModalFooter.react"), {
@@ -182,7 +176,7 @@ __d(
           logging: { surface: "ads_messenger_visual_editor_utils_446e" },
           primaryButton: u.jsx(r("GeoButton.react"), {
             "data-testid": void 0,
-            label: s._(/*BTDS*/ "OK"),
+            label: s._(/*BTDS*/ ""),
             logging: { surface: "ads_messenger_visual_editor_utils_c4f9" },
             onClick: t,
             variant: "primary",
@@ -197,7 +191,7 @@ __d(
     y.displayName = y.name + " [from " + i.id + "]";
     function C(e, t) {
       if (r("isStringNullOrEmpty")(e)) return null;
-      var n = s._(/*BTDS*/ "Preview in Instagram error");
+      var n = s._(/*BTDS*/ "");
       return u.jsx(r("GeoModal.react"), {
         "data-testid": void 0,
         footer: u.jsx(r("GeoModalFooter.react"), {
@@ -207,7 +201,7 @@ __d(
           },
           primaryButton: u.jsx(r("GeoButton.react"), {
             "data-testid": void 0,
-            label: s._(/*BTDS*/ "OK"),
+            label: s._(/*BTDS*/ ""),
             logging: {
               surface: "ads_messenger_visual_editor_utils_ig_error_btn",
             },
@@ -222,15 +216,12 @@ __d(
       });
     }
     C.displayName = C.name + " [from " + i.id + "]";
-    function b(e, t, n) {
+    function b(e, t) {
       if (!e) return null;
-      var a = r("AdsFetaStatusData").is_feta_account
+      var n = r("AdsFetaStatusData").is_feta_account
           ? "your profile"
           : "your account",
-        i = s._(
-          /*BTDS*/ "A message has been sent to you from {ig account name}. Open Instagram on your phone to preview what your experience will look like to customers.",
-          [s._param("ig account name", r("isStringNullOrEmpty")(t) ? a : t)],
-        );
+        a = s._(/*BTDS*/ "", [s._param("ig account name", n)]);
       return u.jsx(r("GeoModal.react"), {
         "data-testid": void 0,
         footer: u.jsx(r("GeoModalFooter.react"), {
@@ -238,9 +229,9 @@ __d(
           logging: { surface: "ads_messenger_visual_editor_utils_ff0e" },
           primaryButton: u.jsx(r("GeoButton.react"), {
             "data-testid": void 0,
-            label: s._(/*BTDS*/ "OK"),
+            label: s._(/*BTDS*/ ""),
             logging: { surface: "ads_messenger_visual_editor_utils_74b6" },
-            onClick: n,
+            onClick: t,
             variant: "primary",
           }),
         }),
@@ -248,8 +239,8 @@ __d(
           heading: o("AdsMessengerConstants").PREVIEW_IG,
         }),
         logging: { surface: "ads_messenger_visual_editor_utils_1838" },
-        onHide: n,
-        children: u.jsx(r("GeoSection.react"), { children: i }),
+        onHide: t,
+        children: u.jsx(r("GeoSection.react"), { children: a }),
       });
     }
     b.displayName = b.name + " [from " + i.id + "]";
@@ -318,7 +309,7 @@ __d(
     }
     function E(e) {
       if (e == null) {
-        var t = s._(/*BTDS*/ "I'd like to learn more");
+        var t = s._(/*BTDS*/ "");
         return [{ title: t, content_type: "text" }];
       }
       return e.map(function (e) {
@@ -545,7 +536,7 @@ __d(
             object_story_id: i != null ? i : "",
             ad_id: l != null ? l : "",
           }));
-      var d = s._(/*BTDS*/ "Invalid parameter");
+      var d = s._(/*BTDS*/ "");
       new (r("AsyncRequest"))()
         .setURI(c)
         .setMethod("POST")

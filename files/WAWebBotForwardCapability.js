@@ -36,7 +36,7 @@ __d(
       return e.size != null && e.size > t
         ? {
             state: "disabled",
-            reason: s._(/*BTDS*/ "Can't forward videos over {size}", [
+            reason: s._(/*BTDS*/ "", [
               s._param("size", o("WAWebL10nFilesize").getL10nFilesize(t)),
             ]),
           }
@@ -49,7 +49,7 @@ __d(
       if (e.size != null && e.size > t)
         return {
           state: "disabled",
-          reason: s._(/*BTDS*/ "Can't forward files over {size}", [
+          reason: s._(/*BTDS*/ "", [
             s._param("size", o("WAWebL10nFilesize").getL10nFilesize(t)),
           ]),
         };
@@ -59,10 +59,7 @@ __d(
           : null;
       return n == null ||
         !o("WAWebBotMultiModalUtils").getMetaAiSupportedFileTypesList().has(n)
-        ? {
-            state: "disabled",
-            reason: s._(/*BTDS*/ "Message type not supported"),
-          }
+        ? { state: "disabled", reason: s._(/*BTDS*/ "") }
         : { state: "shown" };
     }
     function d(t) {

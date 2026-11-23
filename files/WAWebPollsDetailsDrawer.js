@@ -24,7 +24,6 @@ __d(
     "WAWebTextSizeUtils",
     "WDSBanner.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebIsMsgTrusted",
     "useWAWebMsgValues",
@@ -47,93 +46,49 @@ __d(
         },
       };
     function _(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = e.associatedMessages,
-        r = e.msgKey,
-        a = e.onClose,
-        i = e.onOpenContactInfo,
-        l = e.onOpenGroupAgentProfile,
-        s = e.onViewAllVotes,
-        u = e.ref,
-        c = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(r),
-        m;
-      return (
-        t[0] !== n ||
-        t[1] !== r ||
-        t[2] !== a ||
-        t[3] !== i ||
-        t[4] !== l ||
-        t[5] !== s ||
-        t[6] !== c ||
-        t[7] !== u
-          ? ((m = d.jsx(g, {
-              ref: u,
-              mode: "newsletter",
-              msgKey: r,
-              associatedMessages: n,
-              optionsToResults: c,
-              onClose: a,
-              onOpenContactInfo: i,
-              onOpenGroupAgentProfile: l,
-              onViewAllVotes: s,
-            })),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a),
-            (t[3] = i),
-            (t[4] = l),
-            (t[5] = s),
-            (t[6] = c),
-            (t[7] = u),
-            (t[8] = m))
-          : (m = t[8]),
-        m
-      );
+      var t = e.associatedMessages,
+        n = e.msgKey,
+        r = e.onClose,
+        a = e.onOpenContactInfo,
+        i = e.onOpenGroupAgentProfile,
+        l = e.onViewAllVotes,
+        s = e.ref,
+        u = o("useWAWebNewsletterPollsResults").useNewsletterPollsResults(n);
+      return d.jsx(g, {
+        ref: s,
+        mode: "newsletter",
+        msgKey: n,
+        associatedMessages: t,
+        optionsToResults: u,
+        onClose: r,
+        onOpenContactInfo: a,
+        onOpenGroupAgentProfile: i,
+        onViewAllVotes: l,
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = e.associatedMessages,
-        r = e.msgKey,
-        a = e.onClose,
-        i = e.onOpenContactInfo,
-        l = e.onOpenGroupAgentProfile,
-        s = e.onViewAllVotes,
-        u = e.ref,
-        c = o("WAWebPollsUseResults").useResults(r),
-        m;
-      return (
-        t[0] !== n ||
-        t[1] !== r ||
-        t[2] !== a ||
-        t[3] !== i ||
-        t[4] !== l ||
-        t[5] !== s ||
-        t[6] !== c ||
-        t[7] !== u
-          ? ((m = d.jsx(g, {
-              mode: "e2ee",
-              ref: u,
-              msgKey: r,
-              associatedMessages: n,
-              optionsToResults: c,
-              onClose: a,
-              onOpenContactInfo: i,
-              onOpenGroupAgentProfile: l,
-              onViewAllVotes: s,
-            })),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a),
-            (t[3] = i),
-            (t[4] = l),
-            (t[5] = s),
-            (t[6] = c),
-            (t[7] = u),
-            (t[8] = m))
-          : (m = t[8]),
-        m
-      );
+      var t = e.associatedMessages,
+        n = e.msgKey,
+        r = e.onClose,
+        a = e.onOpenContactInfo,
+        i = e.onOpenGroupAgentProfile,
+        l = e.onViewAllVotes,
+        s = e.ref,
+        u = o("WAWebPollsUseResults").useResults(n);
+      return d.jsx(g, {
+        mode: "e2ee",
+        ref: s,
+        msgKey: n,
+        associatedMessages: t,
+        optionsToResults: u,
+        onClose: r,
+        onOpenContactInfo: a,
+        onOpenGroupAgentProfile: i,
+        onViewAllVotes: l,
+      });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
       var t,
         n,
@@ -217,8 +172,8 @@ __d(
             d.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
               title:
                 x === o("WAWebPollCreationUtils").PollType.QUIZ
-                  ? s._(/*BTDS*/ "Quiz responses")
-                  : s._(/*BTDS*/ "Poll details"),
+                  ? s._(/*BTDS*/ "")
+                  : s._(/*BTDS*/ ""),
               type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
               onCancel: c,
               focusBackOrCancel: !0,
@@ -234,9 +189,7 @@ __d(
                         className: "x1380le5 xefnzgg x1uvdrpn x14mko6t",
                         children: d.jsx(r("WDSBanner.react"), {
                           type: "warning",
-                          body: s._(
-                            /*BTDS*/ "Results only show votes made before you left the group.",
-                          ),
+                          body: s._(/*BTDS*/ ""),
                           testid: "invalid-poll-details-view-warning",
                         }),
                       }),
@@ -253,13 +206,10 @@ __d(
                           q > 1 &&
                           d.jsx("span", {
                             className: "x1nxh6w3 x1fc57z9 x1rg5ohu x1380le5",
-                            children: s._(
-                              /*BTDS*/ '_j{"*":"{vote_count} of {group_length} members voted","_1":"{vote_count} of 1 member voted"}',
-                              [
-                                s._plural(q, "group_length"),
-                                s._param("vote_count", R),
-                              ],
-                            ),
+                            children: s._(/*BTDS*/ "", [
+                              s._plural(q, "group_length"),
+                              s._param("vote_count", R),
+                            ]),
                           }),
                       ],
                     }),
@@ -307,30 +257,13 @@ __d(
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h(t) {
-      var n = o("react-compiler-runtime").c(6),
-        r,
-        a;
-      n[0] !== t
-        ? ((a = t.ref),
-          (r = babelHelpers.objectWithoutPropertiesLoose(t, e)),
-          (n[0] = t),
-          (n[1] = r),
-          (n[2] = a))
-        : ((r = n[1]), (a = n[2]));
-      var i;
-      return (
-        n[3] !== r || n[4] !== a
-          ? ((i = r.msgKey.remote.isNewsletter()
-              ? d.jsx(_, babelHelpers.extends({}, r, { ref: a }))
-              : d.jsx(f, babelHelpers.extends({}, r, { ref: a }))),
-            (n[3] = r),
-            (n[4] = a),
-            (n[5] = i))
-          : (i = n[5]),
-        i
-      );
+      var n = t.ref,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      return r.msgKey.remote.isNewsletter()
+        ? d.jsx(_, babelHelpers.extends({}, r, { ref: n }))
+        : d.jsx(f, babelHelpers.extends({}, r, { ref: n }));
     }
-    l.DetailsDrawer = h;
+    ((h.displayName = h.name + " [from " + i.id + "]"), (l.DetailsDrawer = h));
   },
   226,
 );

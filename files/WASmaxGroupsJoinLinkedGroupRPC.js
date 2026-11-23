@@ -24,51 +24,36 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return {
-              name: "JoinLinkedGroupResponseGroupJoinRequestSuccess",
-              value: a.value,
-            };
-          var i = m(r, n);
-          if (i.success)
-            return { name: "JoinLinkedGroupResponseSuccess", value: i.value };
-          var l = u(r, n);
-          if (l.success)
-            return {
-              name: "JoinLinkedGroupResponseClientError",
-              value: l.value,
-            };
-          var s = d(r, n);
-          if (s.success)
-            return {
-              name: "JoinLinkedGroupResponseServerError",
-              value: s.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("JoinLinkedGroup", {
-              GroupJoinRequestSuccess: a,
-              Success: i,
-              ClientError: l,
-              ServerError: s,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return {
+          name: "JoinLinkedGroupResponseGroupJoinRequestSuccess",
+          value: a.value,
+        };
+      var i = d(r, n);
+      if (i.success)
+        return { name: "JoinLinkedGroupResponseSuccess", value: i.value };
+      var l = s(r, n);
+      if (l.success)
+        return { name: "JoinLinkedGroupResponseClientError", value: l.value };
+      var p = c(r, n);
+      if (p.success)
+        return { name: "JoinLinkedGroupResponseServerError", value: p.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("JoinLinkedGroup", {
+          GroupJoinRequestSuccess: a,
+          Success: i,
+          ClientError: l,
+          ServerError: p,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -78,7 +63,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = _(r.value);
+      var i = p(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -87,7 +72,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -100,7 +85,7 @@ __d(
       ).parseIQResultResponseMixin(e, t);
       return (a.success, a);
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -109,7 +94,7 @@ __d(
       );
       return (r.success, r);
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -117,7 +102,7 @@ __d(
       ).parseIQResultResponseMixin(e, t);
       return (r.success, r);
     }
-    function p(e) {
+    function m(e) {
       var t = e.joinLinkedGroupType,
         n = e.joinLinkedGroupJid,
         r = o("WASmaxOutGroupsBaseSetGroupMixin").mergeBaseSetGroupMixin(
@@ -133,7 +118,7 @@ __d(
         );
       return r;
     }
-    function _(e) {
+    function p(e) {
       var t = o(
         "WASmaxInGroupsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -241,11 +226,11 @@ __d(
           );
     }
     ((l.sendJoinLinkedGroupRPC = e),
-      (l.parseJoinLinkedGroupResponseClientError = u),
-      (l.parseJoinLinkedGroupResponseGroupJoinRequestSuccess = c),
-      (l.parseJoinLinkedGroupResponseServerError = d),
-      (l.parseJoinLinkedGroupResponseSuccess = m),
-      (l.makeJoinLinkedGroupRequest = p));
+      (l.parseJoinLinkedGroupResponseClientError = s),
+      (l.parseJoinLinkedGroupResponseGroupJoinRequestSuccess = u),
+      (l.parseJoinLinkedGroupResponseServerError = c),
+      (l.parseJoinLinkedGroupResponseSuccess = d),
+      (l.makeJoinLinkedGroupRequest = m));
   },
   98,
 );

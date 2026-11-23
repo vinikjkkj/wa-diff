@@ -12,7 +12,6 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebMsgKey",
     "WAWebViewMode.flow",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -46,72 +45,52 @@ __d(
           !o("WAWebEphemeralKeepInChatUtils").isKept(e.kicState))
       );
     }
-    function c(e, t, n) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function c(t, n, r) {
+      var a = Math.min(
+          n != null ? n : 1 / 0,
+          o("WAWebABProps").getABPropConfigValue(
+            "group_history_message_count_limit",
+          ),
+        ),
+        i = s(r),
+        l = [];
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
-          var i = Math.min(
-              r != null ? r : 1 / 0,
-              o("WAWebABProps").getABPropConfigValue(
-                "group_history_message_count_limit",
-              ),
-            ),
-            l = s(a),
-            c = [];
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                ["message"],
-                (function () {
-                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      for (
-                        var r = n[0],
-                          s = o("WAWebDBMessageUtils").endOfChat(t),
-                          d = !0;
-                        c.length < i;
-                      ) {
-                        var m = yield r.between(
-                          ["internalId"],
-                          o("WAWebDBMessageUtils").beginningOfChat(t),
-                          s,
-                          {
-                            lowerInclusive: !0,
-                            upperInclusive: d,
-                            reverse: !0,
-                            limit: e,
-                          },
-                          function (e) {
-                            return e.t != null && e.t < l;
-                          },
-                        );
-                        if (m.length === 0) break;
-                        var p = i - c.length;
-                        c.push.apply(
-                          c,
-                          m
-                            .filter(function (e) {
-                              return u(e, l, a);
-                            })
-                            .slice(0, p),
-                        );
-                        var _ = m[m.length - 1];
-                        ((s = _.internalId), (d = !1));
-                      }
-                    },
-                  );
-                  return function (e) {
-                    return r.apply(this, arguments);
-                  };
-                })(),
-              ),
-            c
-          );
-        })),
-        d.apply(this, arguments)
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(["message"], async function (n) {
+            for (
+              var s = n[0], c = o("WAWebDBMessageUtils").endOfChat(t), d = !0;
+              l.length < a;
+            ) {
+              var m = await s.between(
+                ["internalId"],
+                o("WAWebDBMessageUtils").beginningOfChat(t),
+                c,
+                {
+                  lowerInclusive: !0,
+                  upperInclusive: d,
+                  reverse: !0,
+                  limit: e,
+                },
+                function (e) {
+                  return e.t != null && e.t < i;
+                },
+              );
+              if (m.length === 0) break;
+              var p = a - l.length;
+              l.push.apply(
+                l,
+                m
+                  .filter(function (e) {
+                    return u(e, i, r);
+                  })
+                  .slice(0, p),
+              );
+              var _ = m[m.length - 1];
+              ((c = _.internalId), (d = !1));
+            }
+          }),
+        l
       );
     }
     ((l.isValidMessageForGroupHistoryBundle = u),

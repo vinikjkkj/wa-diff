@@ -1,7 +1,6 @@
 __d(
   "WAWebGetIdentityKeysJob",
   [
-    "Promise",
     "WADeprecatedSendIq",
     "WADeprecatedWapParser",
     "WALogger",
@@ -12,7 +11,6 @@ __d(
     "WAWebProcessKeyBundle",
     "WAWebSignalCommonUtils",
     "WAWebSignalProtocolStore",
-    "asyncToGeneratorRuntime",
     "cr:475",
     "cr:510",
     "err",
@@ -23,8 +21,7 @@ __d(
       s,
       u,
       c,
-      d,
-      m = new (r("WADeprecatedWapParser"))("identityKeysParser", function (e) {
+      d = new (r("WADeprecatedWapParser"))("identityKeysParser", function (e) {
         return e.child("list").mapChildren(function (e) {
           if (e.hasChild("error")) {
             var t = e.child("error"),
@@ -50,162 +47,127 @@ __d(
           }
         });
       });
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield o("WAWebSignalProtocolStore")
-              .getPersistSignalProtocolStore()
-              .bulkLoadIdentityKey(
-                t.map(function (e) {
-                  return String(
-                    o("WAWebSignalCommonUtils").createSignalAddress(e),
-                  );
-                }),
-              ),
-            r = t.filter(function (e, t) {
-              return n[t] == null;
-            });
-          if (r.length === 0) {
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "getAndStoreIdentityKeys: got 0 missing keys",
-                ])),
-            );
-            return;
-          }
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "getAndStoreIdentityKeys: query ",
-                " missing keys for ",
-                " contacts",
-              ])),
-            r.length,
-            t.length,
-          );
-          var a = yield f(r),
-            i = a.map(function (e) {
-              var t = e.identity,
-                n = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
-                  t.buffer.slice(t.byteOffset, t.byteLength + t.byteOffset),
-                ),
-                r = o("WAWebSignalCommonUtils").bufferToStr(n),
-                a = o("WAWebSignalCommonUtils").createSignalAddress(e.user);
-              return { identityKey: r, identifier: a.toString() };
+    async function m(t) {
+      var n = await o("WAWebSignalProtocolStore")
+          .getPersistSignalProtocolStore()
+          .bulkLoadIdentityKey(
+            t.map(function (e) {
+              return String(o("WAWebSignalCommonUtils").createSignalAddress(e));
             }),
-            l = yield o("WAWebProcessKeyBundle").prepareAeaKeyResponses(
-              a.map(function (e) {
-                var t = e.aeaEvidence,
-                  n = e.identity,
-                  r = e.user;
-                return { aeaEvidence: t, identity: n, wid: r };
-              }),
-            );
-          (yield o("WAWebSignalProtocolStore")
-            .getPersistSignalProtocolStore()
-            .bulkCreateIdentity(i),
-            yield h(l));
-        })),
-        _.apply(this, arguments)
+          ),
+        r = t.filter(function (e, t) {
+          return n[t] == null;
+        });
+      if (r.length === 0) {
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "getAndStoreIdentityKeys: got 0 missing keys",
+            ])),
+        );
+        return;
+      }
+      o("WALogger").LOG(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "getAndStoreIdentityKeys: query ",
+            " missing keys for ",
+            " contacts",
+          ])),
+        r.length,
+        t.length,
       );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.map(function (e) {
-              return o("WAWap").wap("user", {
-                jid: o("WAWebCommsWapMd").DEVICE_JID(e),
-              });
-            }),
-            a = (t = o("WAWap")).wap(
-              "iq",
-              {
-                xmlns: "encrypt",
-                type: "get",
-                to: t.S_WHATSAPP_NET,
-                id: t.generateId(),
-              },
-              t.wap("identity", null, n),
+      var a = await p(r),
+        i = a.map(function (e) {
+          var t = e.identity,
+            n = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
+              t.buffer.slice(t.byteOffset, t.byteLength + t.byteOffset),
             ),
-            i = yield o("WADeprecatedSendIq").deprecatedSendIq(a, m);
-          if (!i.success)
-            throw r("err")("getIdentityKeys bad response " + String(i));
-          return i.result;
-        })),
-        g.apply(this, arguments)
-      );
+            r = o("WAWebSignalCommonUtils").bufferToStr(n),
+            a = o("WAWebSignalCommonUtils").createSignalAddress(e.user);
+          return { identityKey: r, identifier: a.toString() };
+        }),
+        l = await o("WAWebProcessKeyBundle").prepareAeaKeyResponses(
+          a.map(function (e) {
+            var t = e.aeaEvidence,
+              n = e.identity,
+              r = e.user;
+            return { aeaEvidence: t, identity: n, wid: r };
+          }),
+        );
+      (await o("WAWebSignalProtocolStore")
+        .getPersistSignalProtocolStore()
+        .bulkCreateIdentity(i),
+        await _(l));
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    async function p(e) {
+      var t,
+        n = e.map(function (e) {
+          return o("WAWap").wap("user", {
+            jid: o("WAWebCommsWapMd").DEVICE_JID(e),
+          });
+        }),
+        a = (t = o("WAWap")).wap(
+          "iq",
+          {
+            xmlns: "encrypt",
+            type: "get",
+            to: t.S_WHATSAPP_NET,
+            id: t.generateId(),
+          },
+          t.wap("identity", null, n),
+        ),
+        i = await o("WADeprecatedSendIq").deprecatedSendIq(a, d);
+      if (!i.success)
+        throw r("err")("getIdentityKeys bad response " + String(i));
+      return i.result;
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = n("cr:510");
-          if (
-            !(
-              t == null ||
-              e.every(function (e) {
-                return e == null;
-              })
+    async function _(e) {
+      var t = n("cr:510");
+      if (
+        !(
+          t == null ||
+          e.every(function (e) {
+            return e == null;
+          })
+        )
+      ) {
+        await Promise.all(
+          e.map(async function (e) {
+            if (e != null)
+              try {
+                await t.commitAeaKeyResponse(e);
+              } catch (e) {
+                o("WALogger")
+                  .WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[aea] failed to store identity response result",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("aea-get-identities-commit-fail");
+              }
+          }),
+        );
+        try {
+          await o("WAWebSignalProtocolStore")
+            .getPersistSignalProtocolStore()
+            .flushBufferToDiskIfNotMemOnlyMode();
+        } catch (e) {
+          o("WALogger")
+            .WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[aea] failed to flush identity response results",
+                ])),
             )
-          ) {
-            yield (d || (d = n("Promise"))).all(
-              e.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      if (e != null)
-                        try {
-                          yield t.commitAeaKeyResponse(e);
-                        } catch (e) {
-                          o("WALogger")
-                            .WARN(
-                              u ||
-                                (u = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[aea] failed to store identity response result",
-                                ])),
-                            )
-                            .catching(r("getErrorSafe")(e))
-                            .sendLogs("aea-get-identities-commit-fail");
-                        }
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            );
-            try {
-              yield o("WAWebSignalProtocolStore")
-                .getPersistSignalProtocolStore()
-                .flushBufferToDiskIfNotMemOnlyMode();
-            } catch (e) {
-              o("WALogger")
-                .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[aea] failed to flush identity response results",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("aea-get-identities-flush-fail");
-            }
-          }
-        })),
-        y.apply(this, arguments)
-      );
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("aea-get-identities-flush-fail");
+        }
+      }
     }
-    l.getAndStoreIdentityKeys = p;
+    l.getAndStoreIdentityKeys = m;
   },
   98,
 );

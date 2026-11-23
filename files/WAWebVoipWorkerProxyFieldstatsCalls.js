@@ -1,44 +1,35 @@
 __d(
   "WAWebVoipWorkerProxyFieldstatsCalls",
-  [
-    "WAWebVoipInitEventEmitter",
-    "WAWebVoipMainThreadLockMarker",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebVoipInitEventEmitter", "WAWebVoipMainThreadLockMarker"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
       return {
-        cleanupUnfinishedCallStats: (function () {
-          var r = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            if (
-              !t() ||
-              !o(
-                "WAWebVoipInitEventEmitter",
-              ).VoipInitEventEmitter.getIsVoipInited()
-            )
-              return !1;
-            var n = o(
-              "WAWebVoipMainThreadLockMarker",
-            ).startMainThreadLockMarker("fs_cleanup", "offload");
-            try {
-              yield e(
-                "cleanupUnfinishedCallStats",
-                {},
-                void 0,
-                o("WAWebVoipMainThreadLockMarker")
-                  .MAIN_THREAD_LOCK_OFFLOAD_TIMEOUT_MS,
-              );
-            } finally {
-              o("WAWebVoipMainThreadLockMarker").finishMainThreadLockMarker(n);
-            }
-            return !0;
-          });
-          function a() {
-            return r.apply(this, arguments);
+        cleanupUnfinishedCallStats: async function () {
+          if (
+            !t() ||
+            !o(
+              "WAWebVoipInitEventEmitter",
+            ).VoipInitEventEmitter.getIsVoipInited()
+          )
+            return !1;
+          var n = o("WAWebVoipMainThreadLockMarker").startMainThreadLockMarker(
+            "fs_cleanup",
+            "offload",
+          );
+          try {
+            await e(
+              "cleanupUnfinishedCallStats",
+              {},
+              void 0,
+              o("WAWebVoipMainThreadLockMarker")
+                .MAIN_THREAD_LOCK_OFFLOAD_TIMEOUT_MS,
+            );
+          } finally {
+            o("WAWebVoipMainThreadLockMarker").finishMainThreadLockMarker(n);
           }
-          return a;
-        })(),
+          return !0;
+        },
       };
     }
     l.createWorkerProxyFieldstatsCalls = e;

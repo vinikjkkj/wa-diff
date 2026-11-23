@@ -13,52 +13,43 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = _(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success)
-            return {
-              name: "GetAccessTokenAndSessionCookiesResponseSuccess",
-              value: a.value,
-            };
-          var i = p(r, n);
-          if (i.success)
-            return {
-              name: "GetAccessTokenAndSessionCookiesResponseTooManyAttempts",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "GetAccessTokenAndSessionCookiesResponseIncorrectNonce",
-              value: l.value,
-            };
-          var s = u(r, n);
-          if (s.success)
-            return {
-              name: "GetAccessTokenAndSessionCookiesResponseError",
-              value: s.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "GetAccessTokenAndSessionCookies",
-              { Success: a, TooManyAttempts: i, IncorrectNonce: l, Error: s },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = p(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success)
+        return {
+          name: "GetAccessTokenAndSessionCookiesResponseSuccess",
+          value: a.value,
+        };
+      var i = m(r, n);
+      if (i.success)
+        return {
+          name: "GetAccessTokenAndSessionCookiesResponseTooManyAttempts",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "GetAccessTokenAndSessionCookiesResponseIncorrectNonce",
+          value: l.value,
+        };
+      var c = s(r, n);
+      if (c.success)
+        return {
+          name: "GetAccessTokenAndSessionCookiesResponseError",
+          value: c.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing(
+          "GetAccessTokenAndSessionCookies",
+          { Success: a, TooManyAttempts: i, IncorrectNonce: l, Error: c },
+        ),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -78,7 +69,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -109,7 +100,7 @@ __d(
           )
         : l;
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "token_type");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").contentStringEnum(
@@ -120,7 +111,7 @@ __d(
         ? o("WAResultOrError").makeResult({ elementValue: n.value })
         : n;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "access_token");
@@ -129,14 +120,14 @@ __d(
       if (!a.success) return a;
       var i = o("WASmaxParseUtils").flattenedChildWithTag(e, "business_person");
       if (!i.success) return i;
-      var l = o("WASmaxParseUtils").optionalChildWithTag(e, "token_type", d);
+      var l = o("WASmaxParseUtils").optionalChildWithTag(e, "token_type", c);
       if (!l.success) return l;
       var s = o("WASmaxParseUtils").contentString(r.value);
       if (!s.success) return s;
       var u = o("WASmaxParseUtils").contentString(a.value);
       if (!u.success) return u;
-      var c = o("WASmaxParseUtils").attrString(i.value, "id");
-      if (!c.success) return c;
+      var d = o("WASmaxParseUtils").attrString(i.value, "id");
+      if (!d.success) return d;
       var m = o(
         "WASmaxInBizCtwaAdAccountHackBaseIQResultResponseMixin",
       ).parseHackBaseIQResultResponseMixin(e, t);
@@ -146,7 +137,7 @@ __d(
               {
                 accessTokenElementValue: s.value,
                 sessionCookiesElementValue: u.value,
-                businessPersonId: c.value,
+                businessPersonId: d.value,
               },
               m.value,
               { tokenType: l.value },
@@ -154,7 +145,7 @@ __d(
           )
         : m;
     }
-    function p(e, t) {
+    function m(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -185,7 +176,7 @@ __d(
           )
         : l;
     }
-    function _(e) {
+    function p(e) {
       var t = e.codeElementValue,
         n = o(
           "WASmaxOutBizCtwaAdAccountHackBaseIQGetRequestMixin",
@@ -204,11 +195,11 @@ __d(
       return n;
     }
     ((l.sendGetAccessTokenAndSessionCookiesRPC = e),
-      (l.parseGetAccessTokenAndSessionCookiesResponseError = u),
-      (l.parseGetAccessTokenAndSessionCookiesResponseIncorrectNonce = c),
-      (l.parseGetAccessTokenAndSessionCookiesResponseSuccess = m),
-      (l.parseGetAccessTokenAndSessionCookiesResponseTooManyAttempts = p),
-      (l.makeGetAccessTokenAndSessionCookiesRequest = _));
+      (l.parseGetAccessTokenAndSessionCookiesResponseError = s),
+      (l.parseGetAccessTokenAndSessionCookiesResponseIncorrectNonce = u),
+      (l.parseGetAccessTokenAndSessionCookiesResponseSuccess = d),
+      (l.parseGetAccessTokenAndSessionCookiesResponseTooManyAttempts = m),
+      (l.makeGetAccessTokenAndSessionCookiesRequest = p));
   },
   98,
 );

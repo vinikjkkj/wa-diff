@@ -1,7 +1,6 @@
 __d(
   "WAWebInboundMsgIntake",
   [
-    "Promise",
     "WALogger",
     "WAPromiseReduce",
     "WATimeUtils",
@@ -28,90 +27,79 @@ __d(
     "WAWebMsgProcessingDecryptApi",
     "WAWebOfflineHandler",
     "WAWebSignalProtocolStore",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    var e;
+    async function s(t) {
+      var n = t.input,
+        a = t.lidMetadataUpdates,
+        i = t.msgKey,
+        l = t.node,
+        s = t.presetPlaceholder;
+      if (s != null)
+        return (
+          o("WAWebInboundMsgPersistedQueue").queueInboundMsgRow({
+            entity: f(n, l, [], s),
+            prepared: g(n, [], s, a),
+            receipt: y(n),
+            stanzaId: n.msgInfo.externalId,
+          }),
+          null
+        );
+      var m = await c(t),
+        p = m.decryptResult,
+        h = m.parts,
+        b = m.placeholder;
+      if (!u(m)) {
+        o(
+          "WAWebDecryptsOutsideInboundMsgRows",
+        ).noteDecryptOutsideInboundMsgRows();
+        try {
+          (await o("WAWebInboundMsgLidMetadata").writeInboundMsgLidMetadata(a),
+            await _(h));
+        } catch (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[inbound-msg-queue] applying in place failed, sending the receipt",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .tags("messaging")
+            .sendLogs("inbound-msg-in-place-failed", { sampling: 0.01 });
+        }
+        return (
+          await o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb(),
+          await o("WAWebHandleMsgDecryptResult").handleDecryptResult({
+            decryptResult: p,
+            input: n,
+            msgKey: i,
+            node: l,
+          }),
+          null
+        );
+      }
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.input,
-            a = t.lidMetadataUpdates,
-            i = t.msgKey,
-            l = t.node,
-            s = t.presetPlaceholder;
-          if (s != null)
-            return (
-              o("WAWebInboundMsgPersistedQueue").queueInboundMsgRow({
-                entity: v(n, l, [], s),
-                prepared: S(n, [], s, a),
-                receipt: L(n),
-                stanzaId: n.msgInfo.externalId,
-              }),
-              null
-            );
-          var u = yield m(t),
-            c = u.decryptResult,
-            p = u.parts,
-            f = u.placeholder;
-          if (!d(u)) {
-            o(
-              "WAWebDecryptsOutsideInboundMsgRows",
-            ).noteDecryptOutsideInboundMsgRows();
-            try {
-              (yield o("WAWebInboundMsgLidMetadata").writeInboundMsgLidMetadata(
-                a,
-              ),
-                yield C(p));
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[inbound-msg-queue] applying in place failed, sending the receipt",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .tags("messaging")
-                .sendLogs("inbound-msg-in-place-failed", { sampling: 0.01 });
-            }
-            return (
-              yield o("WAWebDBCreateLidPnMappings").flushLidPnMappingsToDb(),
-              yield o("WAWebHandleMsgDecryptResult").handleDecryptResult({
-                decryptResult: c,
-                input: n,
-                msgKey: i,
-                node: l,
-              }),
-              null
-            );
-          }
-          return (
-            c.result !== o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS &&
-              o("WAWebDBReportingTokenUtils").maybeStoreReportingTag({
-                incomingMsgReportingTokenInfo: n.reportingTokenInfo,
-                msgKey: i,
-                msgTs: n.msgInfo.ts,
-                stanzaId: n.msgInfo.externalId,
-              }),
-            o("WAWebInboundMsgPersistedQueue").queueInboundMsgRow({
-              entity: v(n, l, p, f),
-              prepared: S(n, p, f, a),
-              receipt: E(n, c),
-              stanzaId: n.msgInfo.externalId,
-            }),
-            _(n, c),
-            null
-          );
-        })),
-        c.apply(this, arguments)
+        p.result !== o("WAWebHandleMsgTypes").E2EProcessResult.SUCCESS &&
+          o("WAWebDBReportingTokenUtils").maybeStoreReportingTag({
+            incomingMsgReportingTokenInfo: n.reportingTokenInfo,
+            msgKey: i,
+            msgTs: n.msgInfo.ts,
+            stanzaId: n.msgInfo.externalId,
+          }),
+        o("WAWebInboundMsgPersistedQueue").queueInboundMsgRow({
+          entity: f(n, l, h, b),
+          prepared: g(n, h, b, a),
+          receipt: C(n, p),
+          stanzaId: n.msgInfo.externalId,
+        }),
+        d(n, p),
+        null
       );
     }
-    function d(e) {
+    function u(e) {
       var t = e.decryptResult,
         n = e.parts,
         r = e.placeholder;
@@ -123,133 +111,87 @@ __d(
           ? !1
           : r != null;
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    async function c(e) {
+      var t = e.input,
+        n = e.sessionScope,
+        r = [],
+        a = null,
+        i = await o("WAWebMsgProcessingDecryptApi").decryptE2EPayload(
+          t,
+          function (e, t) {
+            return m(e, t, r);
+          },
+          n != null ? n : void 0,
+          {
+            deferSignalFlush: !0,
+            writePlaceholder: function (t) {
+              return (
+                (a = o(
+                  "WAWebInboundMsgRowPlaceholder",
+                ).toInboundMsgRowPlaceholder(t)),
+                o("WAWebMessageProcessPlaceholder").wouldRenderPlaceholder(t)
+              );
+            },
+          },
+        );
+      return { decryptResult: i, parts: r, placeholder: a };
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.input,
-            n = e.sessionScope,
-            r = [],
-            a = null,
-            i = yield o("WAWebMsgProcessingDecryptApi").decryptE2EPayload(
-              t,
-              function (e, t) {
-                return f(e, t, r);
-              },
-              n != null ? n : void 0,
-              {
-                deferSignalFlush: !0,
-                writePlaceholder: function (t) {
-                  return (
-                    (a = o(
-                      "WAWebInboundMsgRowPlaceholder",
-                    ).toInboundMsgRowPlaceholder(t)),
-                    o("WAWebMessageProcessPlaceholder").wouldRenderPlaceholder(
-                      t,
-                    )
-                  );
-                },
-              },
-            );
-          return { decryptResult: i, parts: r, placeholder: a };
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t) {
+    function d(e, t) {
       e.msgInfo.offline != null &&
         o(
           "WAWebOfflineHandler",
         ).OfflineMessageHandler.processMessageDecryptResult(t.result);
     }
-    function f(e, t, n) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = yield o("WAWebHandleMsgProcess").decodeDecryptedProto(e);
-          if (a == null) return { hasInactiveMsg: !1 };
-          var i = yield o("WAWebHandleMsgProcess").prepareDecryptedMessage(
-            e,
-            a,
-          );
-          return i == null
-            ? { hasInactiveMsg: !1 }
-            : (i.renderableMsgs.forEach(
-                o("WAWebMessageProcessRenderable").cacheMsmsgDecryptData,
-              ),
-              yield (s || (s = n("Promise"))).all(
-                o("WAWebHandleMsgProcess").startCryptoStateInstalls(i),
-              ),
-              r.push({
-                encIndex: t,
-                prepared: o("WAWebHandleMsgProcess").withoutCryptoStateInstalls(
-                  i,
-                ),
-              }),
-              {
-                hasInactiveMsg: o(
-                  "WAWebHandleMsgProcess",
-                ).hasInactiveRenderableMsg(i.renderableMsgs),
-                isOrphanAddon: yield h(i),
-              });
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebInboundMsgPersistedQueue").hasUnwrittenInboundMsgs() ||
-            o("WAWebInboundMsgDrain").hasUndrainedInboundMsgs()
-            ? !1
-            : o("WAWebHandleMsgProcess").isOrphanAddonMessage(e.renderableMsgs);
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            (yield o("WAPromiseReduce").promiseReduce(
-              e,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e, t) {
-                    var n = t.prepared;
-                    yield o("WAWebHandleMsgProcess").applyPreparedMessage(n);
-                  },
-                );
-                return function (t, n) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              void 0,
+    async function m(e, t, n) {
+      var r = await o("WAWebHandleMsgProcess").decodeDecryptedProto(e);
+      if (r == null) return { hasInactiveMsg: !1 };
+      var a = await o("WAWebHandleMsgProcess").prepareDecryptedMessage(e, r);
+      return a == null
+        ? { hasInactiveMsg: !1 }
+        : (a.renderableMsgs.forEach(
+            o("WAWebMessageProcessRenderable").cacheMsmsgDecryptData,
+          ),
+          await Promise.all(
+            o("WAWebHandleMsgProcess").startCryptoStateInstalls(a),
+          ),
+          n.push({
+            encIndex: t,
+            prepared: o("WAWebHandleMsgProcess").withoutCryptoStateInstalls(a),
+          }),
+          {
+            hasInactiveMsg: o("WAWebHandleMsgProcess").hasInactiveRenderableMsg(
+              a.renderableMsgs,
             ),
-            !o("WAWebInboundMsgPersistedQueue").hasUnwrittenInboundMsgs())
-          ) {
-            var t = o("WAWebSignalProtocolStore").getSignalProtocolStore();
-            (t.hasPendingPersistWrites() &&
-              (yield o("WAWebGetMessageCache")
-                .getMessageCache()
-                .checkpointQueueWait()),
-              yield t.flushBufferToDiskIfNotMemOnlyMode());
-          }
-        })),
-        b.apply(this, arguments)
-      );
+            isOrphanAddon: await p(a),
+          });
     }
-    function v(e, t, n, r) {
+    async function p(e) {
+      return o("WAWebInboundMsgPersistedQueue").hasUnwrittenInboundMsgs() ||
+        o("WAWebInboundMsgDrain").hasUndrainedInboundMsgs()
+        ? !1
+        : o("WAWebHandleMsgProcess").isOrphanAddonMessage(e.renderableMsgs);
+    }
+    async function _(e) {
+      if (
+        (await o("WAPromiseReduce").promiseReduce(
+          e,
+          async function (e, t) {
+            var n = t.prepared;
+            await o("WAWebHandleMsgProcess").applyPreparedMessage(n);
+          },
+          void 0,
+        ),
+        !o("WAWebInboundMsgPersistedQueue").hasUnwrittenInboundMsgs())
+      ) {
+        var t = o("WAWebSignalProtocolStore").getSignalProtocolStore();
+        (t.hasPendingPersistWrites() &&
+          (await o("WAWebGetMessageCache")
+            .getMessageCache()
+            .checkpointQueueWait()),
+          await t.flushBufferToDiskIfNotMemOnlyMode());
+      }
+    }
+    function f(e, t, n, r) {
       var a,
         i,
         l = e.msgInfo,
@@ -259,7 +201,7 @@ __d(
         addedAtMs: u,
         attemptCount: 0,
         changedAtMs: u,
-        chatKey: R(e),
+        chatKey: h(e),
         priority: o("WAWebInboundMsgQueueRow").InboundRowPriority.NORMAL,
         row: o("WAWebInboundMsgRowCodec").encodeInboundMsgRow({
           clientReceivedTsMillis:
@@ -288,7 +230,7 @@ __d(
         }),
       };
     }
-    function S(e, t, n, r) {
+    function g(e, t, n, r) {
       var o = e.msgInfo,
         a = e.msgMeta;
       return {
@@ -302,14 +244,14 @@ __d(
         }),
       };
     }
-    function R(e) {
+    function h(e) {
       var t = e.msgInfo;
       return t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.OTHER_BROADCAST ||
         t.type === o("WAWebHandleMsgTypes").MESSAGE_TYPE.PEER_BROADCAST
         ? null
         : o("WAWebInboundMsgChatKey").toInboundMsgChatKey(t.chat);
     }
-    function L(e) {
+    function y(e) {
       var t = e.msgInfo,
         n = e.msgMeta;
       return {
@@ -326,7 +268,7 @@ __d(
         },
       };
     }
-    function E(e, t) {
+    function C(e, t) {
       var n = e.msgInfo,
         r = e.msgMeta;
       return o("WAWebHandleMsgDecryptResult").shouldSendImmediateReceipt(e, t)
@@ -364,7 +306,7 @@ __d(
             },
           };
     }
-    l.intakeInboundMsg = u;
+    l.intakeInboundMsg = s;
   },
   98,
 );

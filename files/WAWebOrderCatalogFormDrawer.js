@@ -122,7 +122,7 @@ __d(
         },
         children: [
           c.jsx(o("WAWebDrawerHeader.react").DrawerHeader, {
-            title: s._(/*BTDS*/ "Add items"),
+            title: s._(/*BTDS*/ ""),
             type: o("WAWebDrawerHeader.react").DRAWER_HEADER_TYPE.SMALL,
             onBack: C
               ? function () {
@@ -143,7 +143,7 @@ __d(
                     c.jsxs(c.Fragment, {
                       children: [
                         c.jsx(r("WAWebOrderAddItem"), {
-                          title: s._(/*BTDS*/ "Create new item"),
+                          title: s._(/*BTDS*/ ""),
                           onClick: a,
                         }),
                         c.jsx(
@@ -167,7 +167,7 @@ __d(
                         o("WDSPaddings.stylex").wdsPaddings.paddingStart16,
                         _.paddingBlock10,
                       ),
-                      { children: s._(/*BTDS*/ "Catalog items") },
+                      { children: s._(/*BTDS*/ "") },
                     ),
                   ),
                   c.jsx(r("WAWebOrderCatalogFormProductsList"), {
@@ -193,12 +193,12 @@ __d(
                   }),
                   testid: "save-products-button",
                   onConfirm: i,
-                  title: s._(/*BTDS*/ "Subtotal"),
+                  title: s._(/*BTDS*/ ""),
                   confirmTitle: o(
                     "WAWebOrderGatingUtils",
                   ).isOrderContentOptimizationEnabled()
-                    ? s._(/*BTDS*/ "Add item")
-                    : s._(/*BTDS*/ "Add to order"),
+                    ? s._(/*BTDS*/ "")
+                    : s._(/*BTDS*/ ""),
                 }),
               }),
             ],

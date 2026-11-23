@@ -6,7 +6,6 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebMsgKey",
     "WAWebSchemaMessage",
-    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
@@ -31,29 +30,21 @@ __d(
           return !e.fromMe;
         });
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      var t = await o("WAWebSchemaMessage")
+        .getMessageTable()
+        .bulkGet(
+          e.map(function (e) {
+            return m(r("WAWebMsgKey").fromString(e)).toString();
+          }),
+        );
+      return r("compactMap")(t, function (e) {
+        return e != null && u(e) && e.ack < o("WAWebAck").ACK.READ
+          ? r("WAWebMsgKey").fromString(e.id)
+          : null;
+      });
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSchemaMessage")
-            .getMessageTable()
-            .bulkGet(
-              e.map(function (e) {
-                return p(r("WAWebMsgKey").fromString(e)).toString();
-              }),
-            );
-          return r("compactMap")(t, function (e) {
-            return e != null && u(e) && e.ack < o("WAWebAck").ACK.READ
-              ? r("WAWebMsgKey").fromString(e.id)
-              : null;
-          });
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function m(e) {
       return new (r("WAWebMsgKey"))({
         fromMe: !0,
         remote: e.remote,
@@ -61,58 +52,43 @@ __d(
         participant: e.participant,
       });
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
+    async function p(e, t) {
+      e.length !== 0 &&
+        (o("WAWebBackendApi").frontendFireAndForget("handleReadStatus", {
+          msgKeys: e,
+        }),
+        await o("WAWebBackendApi").frontendSendAndReceive("updateMsgPeerAcks", {
+          msgKeys: e,
+          ack: o("WAWebAck").ACK.READ,
+          t,
+        }));
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          e.length !== 0 &&
-            (o("WAWebBackendApi").frontendFireAndForget("handleReadStatus", {
-              msgKeys: e,
+    async function _(e) {
+      var t = r("compactMap")(e, function (e) {
+          return o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
+        }),
+        n = await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .bulkGet(
+            t.map(function (e) {
+              return e.toString();
             }),
-            yield o("WAWebBackendApi").frontendSendAndReceive(
-              "updateMsgPeerAcks",
-              { msgKeys: e, ack: o("WAWebAck").ACK.READ, t: t },
-            ));
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = r("compactMap")(e, function (e) {
-              return o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
-            }),
-            n = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .bulkGet(
-                t.map(function (e) {
-                  return e.toString();
-                }),
-              ),
-            a = new Set(
-              n.map(function (e) {
-                return e == null ? void 0 : e.id;
-              }),
-            );
-          return r("compactMap")(e, function (e) {
-            var t = o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
-            return t && a.has(t.toString()) ? t : e;
-          });
-        })),
-        h.apply(this, arguments)
-      );
+          ),
+        a = new Set(
+          n.map(function (e) {
+            return e == null ? void 0 : e.id;
+          }),
+        );
+      return r("compactMap")(e, function (e) {
+        var t = o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
+        return t && a.has(t.toString()) ? t : e;
+      });
     }
     ((l.isGroupOrChannelStatusRow = u),
       (l.getUnreadStatusKeysFromOthers = c),
       (l.getMyUnreadStatusKeysReadByMyOtherDevice = d),
-      (l.markStatusesReadFromPeer = _),
-      (l.fixStatusReceiptKeys = g));
+      (l.markStatusesReadFromPeer = p),
+      (l.fixStatusReceiptKeys = _));
   },
   98,
 );

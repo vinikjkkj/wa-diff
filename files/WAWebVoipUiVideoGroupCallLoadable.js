@@ -6,7 +6,6 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebSpinner.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,17 +20,14 @@ __d(
           $$css: !0,
         },
       },
-      c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebVoipUiVideoGroupCall.react",
-          )
-            .__setRef("WAWebVoipUiVideoGroupCallLoadable")
-            .load();
-          return e;
-        }),
-        "WAWebVoipUiVideoGroupCallLoadable",
-      ),
+      c = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebVoipUiVideoGroupCall.react",
+        )
+          .__setRef("WAWebVoipUiVideoGroupCallLoadable")
+          .load();
+        return e;
+      }, "WAWebVoipUiVideoGroupCallLoadable"),
       d = r("WAWebLoadable")({
         loader: c,
         loading: function (t) {

@@ -2,79 +2,137 @@ __d(
   "MAWMpsBridgeHandlers",
   [
     "Base64Utils",
-    "FBLogger",
     "IgnitionE2EEMpsCompareChecker",
     "MAWExternalId",
     "MAWJids",
     "MAWP2pPaymentCardSaveLogger",
     "MAWP2pPaymentMessage",
     "MAWProtobufDeserializers",
+    "MpsErrors",
+    "MpsReadResult",
     "MpsTypes",
     "WAArmadilloMiTransportAdminMessage.pb",
     "WABuildMpsPayload",
     "WAGlobals",
     "WAJids",
-    "WAResultOrError",
     "WAStanzaUtils",
     "WATimeUtils",
     "WebMps",
-    "asyncToGeneratorRuntime",
+    "WmiReportIfFails",
+    "WmiWireRoute",
+    "cr:19391",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, r) {
-      return s.apply(this, arguments);
+    async function e(e, t, n) {
+      return (await e.runMps(t, n)).getOrThrow();
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = o("WABuildMpsPayload").buildMpsMessage(
-              { miTransportAdminMessage: e },
-              {
-                externalId: o("WAStanzaUtils").toStanzaId(t.externalId),
-                millisServerTs: o("WATimeUtils").castToMillisTime(
-                  t.timestampMs,
-                ),
-                senderJid: t.senderJid,
-                threadId: t.chatJid,
-              },
-            );
-            (r === "TABIGNITION" &&
-              o("IgnitionE2EEMpsCompareChecker").recordTabIgnitionSide(a),
-              yield o("WebMps")
-                .mps()
-                .saveNewMessages(
-                  [
-                    {
-                      directive: null,
-                      insertionSource: o("MpsTypes").InsertionSource.Receive,
-                      message: a,
-                      writerTag: r,
-                    },
-                  ],
-                  { source: n },
-                ));
-          },
-        )),
-        s.apply(this, arguments)
+    function s(e, t) {
+      return { boundary: e, code: "read_failed", subject: t };
+    }
+    async function u(t, r) {
+      var a = n("cr:19391");
+      if (a == null) return o("WebMps").mps().saveNewMessage(t, r);
+      await e(
+        a,
+        { boundary: "save", code: "write_failed", subject: r.source },
+        function (e) {
+          return a.saveMessage(e, t, "admin", r);
+        },
       );
     }
-    var u = {
-      mpsBatchLoadMessage: function (t) {
-        return o("WebMps").mps().batchLoadMessage(t);
+    async function c(e, t, n, r) {
+      var a = o("WABuildMpsPayload").buildMpsMessage(
+        { miTransportAdminMessage: e },
+        {
+          externalId: o("WAStanzaUtils").toStanzaId(t.externalId),
+          millisServerTs: o("WATimeUtils").castToMillisTime(t.timestampMs),
+          senderJid: t.senderJid,
+          threadId: t.chatJid,
+        },
+      );
+      (r === "TABIGNITION" &&
+        o("IgnitionE2EEMpsCompareChecker").recordTabIgnitionSide(a),
+        await u(
+          {
+            insertionSource: o("MpsTypes").InsertionSource.Receive,
+            message: a,
+            writerTag: r,
+          },
+          { source: n },
+        ));
+    }
+    function d(e, t, n) {
+      return function (r) {
+        return o("WmiReportIfFails").wmiReportIfFails(
+          function () {
+            return t(r);
+          },
+          function (e, t) {
+            return o("MpsErrors").MpsErrors.classify(e, t, "write_failed");
+          },
+          "bridge/" + e,
+          n,
+        );
+      };
+    }
+    var m = {
+      mpsBatchLoadMessage: function (r) {
+        return o("WmiWireRoute").wmiWireRoute(
+          o("MpsErrors").MpsErrors,
+          "mpsBatchLoadMessage",
+          r,
+          function (t) {
+            var r = n("cr:19391");
+            return r == null
+              ? o("WebMps")
+                  .mps()
+                  .batchLoadMessage(t)
+                  .then(o("MpsReadResult").unwrapReadResult)
+              : e(r, s("batch_load_message", t.debug.purpose), function (e) {
+                  return r.batchLoadMessage(e, t);
+                });
+          },
+          "read_failed",
+        );
       },
-      mpsBatchLoadMessages: function (t) {
-        return o("WebMps").mps().batchLoadMessages(t);
+      mpsBatchLoadMessages: function (r) {
+        return o("WmiWireRoute").wmiWireRoute(
+          o("MpsErrors").MpsErrors,
+          "mpsBatchLoadMessages",
+          r,
+          function (t) {
+            var r = n("cr:19391");
+            return r == null
+              ? o("WebMps")
+                  .mps()
+                  .batchLoadMessages(t)
+                  .then(o("MpsReadResult").unwrapReadResult)
+              : e(r, s("batch_load_messages", t.debug.purpose), function (e) {
+                  return r.batchLoadMessages(e, t);
+                });
+          },
+          "read_failed",
+        );
       },
       mpsDebugDbDump: function () {
-        return o("WebMps").mps().debugDbDump();
+        var t = n("cr:19391");
+        return t == null
+          ? o("WebMps").mps().debugDbDump()
+          : e(
+              t,
+              { boundary: "debug_db_dump", code: "read_failed" },
+              function (e) {
+                return e.debug();
+              },
+            );
       },
       mpsGetMigrationStatus: function () {
         return { isMigrated: !0 };
       },
-      mpsHandleGroupEphemeralSettingFromMI: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+      mpsHandleGroupEphemeralSettingFromMI: d(
+        "mpsHandleGroupEphemeralSettingFromMI",
+        async function (e) {
           var t = e.groupUpdateDedupeKey,
             n = e.threadFbid,
             r = e.timestamp,
@@ -88,36 +146,25 @@ __d(
               i != null
                 ? o("WAJids").toMsgrUserJid(i)
                 : o("WAJids").toMsgrUserJid("0"),
-            u = o("WABuildMpsPayload").buildMpsDisappearingSettingChanged(
+            c = o("WABuildMpsPayload").buildMpsDisappearingSettingChanged(
               o("WAJids").toGroupJid(n),
               s,
               a,
               o("WATimeUtils").castMilliSecondsToUnixTime(r),
               l,
             );
-          return (
-            yield o("WebMps")
-              .mps()
-              .saveNewMessages(
-                [
-                  {
-                    directive: null,
-                    insertionSource: o("MpsTypes").InsertionSource.Receive,
-                    message: u,
-                  },
-                ],
-                { source: "handle_group_ephemeral_setting_from_mi" },
-              ),
-            o("WAResultOrError").makeResult()
+          await u(
+            {
+              insertionSource: o("MpsTypes").InsertionSource.Receive,
+              message: c,
+            },
+            { source: "handle_group_ephemeral_setting_from_mi" },
           );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      mpsHandleGroupMemberAddModeFromMI: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        },
+      ),
+      mpsHandleGroupMemberAddModeFromMI: d(
+        "mpsHandleGroupMemberAddModeFromMI",
+        async function (e) {
           var t = e.groupUpdateDedupeKey,
             n = e.memberAddMode,
             r = e.setterFbid,
@@ -141,29 +188,18 @@ __d(
               o("WATimeUtils").unixTime(),
               i,
             );
-          return (
-            yield o("WebMps")
-              .mps()
-              .saveNewMessages(
-                [
-                  {
-                    directive: null,
-                    insertionSource: o("MpsTypes").InsertionSource.Receive,
-                    message: s,
-                  },
-                ],
-                { source: "handle_group_member_add_mode_from_mi" },
-              ),
-            o("WAResultOrError").makeResult()
+          await u(
+            {
+              insertionSource: o("MpsTypes").InsertionSource.Receive,
+              message: s,
+            },
+            { source: "handle_group_member_add_mode_from_mi" },
           );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      mpsHandleGroupParticipantsAddFromMI: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        },
+      ),
+      mpsHandleGroupParticipantsAddFromMI: d(
+        "mpsHandleGroupParticipantsAddFromMI",
+        async function (e) {
           var t = e.adderFbid,
             n = e.groupUpdateDedupeKey,
             r = e.participantFbids,
@@ -184,29 +220,18 @@ __d(
               o("WATimeUtils").castMilliSecondsToUnixTime(i),
               l,
             );
-          return (
-            yield o("WebMps")
-              .mps()
-              .saveNewMessages(
-                [
-                  {
-                    directive: null,
-                    insertionSource: o("MpsTypes").InsertionSource.Receive,
-                    message: s,
-                  },
-                ],
-                { source: "handle_group_participants_add_from_mi" },
-              ),
-            o("WAResultOrError").makeResult()
+          await u(
+            {
+              insertionSource: o("MpsTypes").InsertionSource.Receive,
+              message: s,
+            },
+            { source: "handle_group_participants_add_from_mi" },
           );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      mpsHandleGroupParticipantsDemoteFromMI: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        },
+      ),
+      mpsHandleGroupParticipantsDemoteFromMI: d(
+        "mpsHandleGroupParticipantsDemoteFromMI",
+        async function (e) {
           var t = e.demotorFbid,
             n = e.groupUpdateDedupeKey,
             r = e.participantFbids,
@@ -227,29 +252,18 @@ __d(
               o("WATimeUtils").castMilliSecondsToUnixTime(i),
               l,
             );
-          return (
-            yield o("WebMps")
-              .mps()
-              .saveNewMessages(
-                [
-                  {
-                    directive: null,
-                    insertionSource: o("MpsTypes").InsertionSource.Receive,
-                    message: s,
-                  },
-                ],
-                { source: "handle_group_participants_demote_from_mi" },
-              ),
-            o("WAResultOrError").makeResult()
+          await u(
+            {
+              insertionSource: o("MpsTypes").InsertionSource.Receive,
+              message: s,
+            },
+            { source: "handle_group_participants_demote_from_mi" },
           );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      mpsHandleGroupParticipantsPromoteFromMI: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        },
+      ),
+      mpsHandleGroupParticipantsPromoteFromMI: d(
+        "mpsHandleGroupParticipantsPromoteFromMI",
+        async function (e) {
           var t = e.groupUpdateDedupeKey,
             n = e.participantFbids,
             r = e.promoterFbid,
@@ -270,29 +284,18 @@ __d(
               o("WATimeUtils").castMilliSecondsToUnixTime(i),
               l,
             );
-          return (
-            yield o("WebMps")
-              .mps()
-              .saveNewMessages(
-                [
-                  {
-                    directive: null,
-                    insertionSource: o("MpsTypes").InsertionSource.Receive,
-                    message: s,
-                  },
-                ],
-                { source: "handle_group_participants_promote_from_mi" },
-              ),
-            o("WAResultOrError").makeResult()
+          await u(
+            {
+              insertionSource: o("MpsTypes").InsertionSource.Receive,
+              message: s,
+            },
+            { source: "handle_group_participants_promote_from_mi" },
           );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      mpsHandleGroupParticipantsRemoveFromMI: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        },
+      ),
+      mpsHandleGroupParticipantsRemoveFromMI: d(
+        "mpsHandleGroupParticipantsRemoveFromMI",
+        async function (e) {
           var t = e.groupUpdateDedupeKey,
             n = e.participantFbids,
             r = e.removerFbid,
@@ -313,192 +316,197 @@ __d(
               o("WATimeUtils").castMilliSecondsToUnixTime(i),
               l,
             );
-          return (
-            yield o("WebMps")
-              .mps()
-              .saveNewMessages(
-                [
-                  {
-                    directive: null,
-                    insertionSource: o("MpsTypes").InsertionSource.Receive,
-                    message: s,
-                  },
-                ],
-                { source: "handle_group_participants_remove_from_mi" },
-              ),
-            o("WAResultOrError").makeResult()
+          await u(
+            {
+              insertionSource: o("MpsTypes").InsertionSource.Receive,
+              message: s,
+            },
+            { source: "handle_group_participants_remove_from_mi" },
           );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      mpsHandleGroupSetSubjectFromMI: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+        },
+      ),
+      mpsHandleGroupSetSubjectFromMI: d(
+        "mpsHandleGroupSetSubjectFromMI",
+        async function (e) {
           var t = e.groupUpdateDedupeKey,
             n = e.subject,
             r = e.subjectChangerFbid,
             a = e.threadFbid,
             i = e.timestamp;
-          if (n == null) return o("WAResultOrError").makeResult();
-          var l =
-              t != null
-                ? o("WAStanzaUtils").toStanzaId(t)
-                : o("MAWExternalId").generateExternalId(),
-            s = o("WABuildMpsPayload").buildMpsGroupNameChangedMsg(
-              o("WAJids").toGroupJid(a),
-              o("WAJids").toMsgrUserJid(r),
-              n,
-              o("WATimeUtils").castMilliSecondsToUnixTime(i),
-              l,
-            );
-          return (
-            yield o("WebMps")
-              .mps()
-              .saveNewMessages(
-                [
-                  {
-                    directive: null,
-                    insertionSource: o("MpsTypes").InsertionSource.Receive,
-                    message: s,
-                  },
-                ],
-                { source: "handle_group_set_subject_from_mi" },
-              ),
-            o("WAResultOrError").makeResult()
-          );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      mpsHandleLsAdminMessage: (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.actorFbid,
-            r = t.chatJid,
-            a = t.externalId,
-            i = t.protobuf,
-            l = t.timestampMs,
-            s = t.writerTag;
-          return (
-            yield e(
-              { payload: i, version: 3 },
+          if (n != null) {
+            var l =
+                t != null
+                  ? o("WAStanzaUtils").toStanzaId(t)
+                  : o("MAWExternalId").generateExternalId(),
+              s = o("WABuildMpsPayload").buildMpsGroupNameChangedMsg(
+                o("WAJids").toGroupJid(a),
+                o("WAJids").toMsgrUserJid(r),
+                n,
+                o("WATimeUtils").castMilliSecondsToUnixTime(i),
+                l,
+              );
+            await u(
               {
-                chatJid: r,
-                externalId: a,
-                senderJid: o("MAWJids").toUserJid(n),
-                timestampMs: l,
+                insertionSource: o("MpsTypes").InsertionSource.Receive,
+                message: s,
               },
-              "handle_ls_admin_message",
-              s,
-            ),
-            o("WAResultOrError").makeResult()
-          );
-        });
-        function r(e) {
-          return t.apply(this, arguments);
-        }
-        return r;
-      })(),
-      mpsHandleP2pPaymentFromMI: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("MAWP2pPaymentCardSaveLogger").startP2pPaymentCardSaveLog(
-              e.initiatingUserWalletType,
-            ),
-            n = o("MAWP2pPaymentMessage").buildP2pPaymentMessage(
-              e,
-              o("WAJids").extractUserId(o("WAGlobals").getMyUserJid()),
+              { source: "handle_group_set_subject_from_mi" },
             );
-          if (n == null)
-            return (
-              r("FBLogger")("p2p_payment", "web_payment_card").mustfix(
-                "Dropped a payment card that could not be built: wallet %s, type %s, has offline threading id %s",
-                e.initiatingUserWalletType,
-                e.transactionType,
-                String(e.offlineThreadingId !== ""),
-              ),
-              t.fail("build_failed"),
-              o("WAResultOrError").makeResult()
-            );
-          var a = yield o("WebMps")
-              .mps()
-              .saveNewMessages(
-                [
+          }
+        },
+      ),
+      mpsHandleLsAdminMessage: d("mpsHandleLsAdminMessage", async function (e) {
+        var t = e.actorFbid,
+          n = e.chatJid,
+          r = e.externalId,
+          a = e.protobuf,
+          i = e.timestampMs,
+          l = e.writerTag;
+        await c(
+          { payload: a, version: 3 },
+          {
+            chatJid: n,
+            externalId: r,
+            senderJid: o("MAWJids").toUserJid(t),
+            timestampMs: i,
+          },
+          "handle_ls_admin_message",
+          l,
+        );
+      }),
+      mpsHandleP2pPaymentFromMI: d(
+        "mpsHandleP2pPaymentFromMI",
+        function (e) {
+          return o("MAWP2pPaymentCardSaveLogger").logP2pPaymentCardSave(
+            e.initiatingUserWalletType,
+            function () {
+              var t = o("WAJids").extractUserId(o("WAGlobals").getMyUserJid()),
+                n = o("MAWP2pPaymentMessage").buildP2pPaymentMessage(e, t);
+              if (n == null)
+                throw o("MpsErrors").MpsErrors.error(
+                  "write_failed",
+                  "Dropped a payment card that could not be built: wallet %s, type %s, has offline threading id %s",
+                  e.initiatingUserWalletType,
+                  e.transactionType,
+                  String(e.offlineThreadingId !== ""),
+                );
+              return { isSelfSend: e.initiatingUserFbid === t, message: n };
+            },
+            function (e) {
+              var t = e.isSelfSend,
+                n = e.message;
+              return (
+                o("IgnitionE2EEMpsCompareChecker").recordP2pPaymentCardSide(
+                  n,
+                  t,
+                ),
+                u(
                   {
-                    directive: null,
                     insertionSource: o("MpsTypes").InsertionSource.Receive,
                     isAlreadyUploadedToEB: !0,
                     message: n,
                   },
-                ],
-                { source: "handle_p2p_payment_from_mi" },
-              ),
-            i = a.get(n.messageId);
-          return (
-            i != null
-              ? (r("FBLogger")("p2p_payment", "web_payment_card")
-                  .catching(i)
-                  .mustfix("Failed to save a payment card"),
-                t.fail("save_failed"))
-              : t.success(),
-            o("WAResultOrError").makeResult()
+                  {
+                    loggerProject: "p2p_payment",
+                    source: "handle_p2p_payment_from_mi",
+                  },
+                )
+              );
+            },
           );
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      mpsHandleUnencryptedAdminMessageFromMI: (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n,
+        },
+        { loggerProject: "p2p_payment" },
+      ),
+      mpsHandleUnencryptedAdminMessageFromMI: d(
+        "mpsHandleUnencryptedAdminMessageFromMI",
+        async function (e) {
+          var t,
+            n,
             r,
-            a,
-            i = t.backupMessageProtoB64,
-            l = t.chatJid,
-            s = t.timestampMs,
-            u = o("MAWProtobufDeserializers").DeserializedBackupMessage.create(
-              o("Base64Utils").toArrayBuffer(i),
+            a = e.backupMessageProtoB64,
+            i = e.chatJid,
+            l = e.timestampMs,
+            s = o("MAWProtobufDeserializers").DeserializedBackupMessage.create(
+              o("Base64Utils").toArrayBuffer(a),
             ).proto,
-            c = (n = u.miTransportAdminMessage) == null ? void 0 : n.payload,
-            d = (r = u.metadata) == null ? void 0 : r.senderId,
-            m = (a = u.metadata) == null ? void 0 : a.messageId;
-          return (
-            c == null ||
-              d == null ||
-              m == null ||
-              (yield e(
-                { payload: c, version: 3 },
-                {
-                  chatJid: l,
-                  externalId: m,
-                  senderJid: o("WAJids").toMsgrUserJid(d),
-                  timestampMs: s,
-                },
-                "handle_unencrypted_admin_message_from_mi",
-                "TABIGNITION",
-              )),
-            o("WAResultOrError").makeResult()
-          );
-        });
-        function r(e) {
-          return t.apply(this, arguments);
-        }
-        return r;
-      })(),
-      mpsLoadMessage: function (t) {
-        return o("WebMps").mps().loadMessage(t);
+            u = (t = s.miTransportAdminMessage) == null ? void 0 : t.payload,
+            d = (n = s.metadata) == null ? void 0 : n.senderId,
+            m = (r = s.metadata) == null ? void 0 : r.messageId;
+          u == null ||
+            d == null ||
+            m == null ||
+            (await c(
+              { payload: u, version: 3 },
+              {
+                chatJid: i,
+                externalId: m,
+                senderJid: o("WAJids").toMsgrUserJid(d),
+                timestampMs: l,
+              },
+              "handle_unencrypted_admin_message_from_mi",
+              "TABIGNITION",
+            ));
+        },
+      ),
+      mpsLoadMessage: function (r) {
+        return o("WmiWireRoute").wmiWireRoute(
+          o("MpsErrors").MpsErrors,
+          "mpsLoadMessage",
+          r,
+          function (t) {
+            var r = n("cr:19391");
+            return r == null
+              ? o("WebMps")
+                  .mps()
+                  .loadMessage(t)
+                  .then(o("MpsReadResult").unwrapReadResult)
+              : e(r, s("load_message", t.debug.purpose), function (e) {
+                  return r.loadMessage(e, t);
+                });
+          },
+          "read_failed",
+        );
       },
-      mpsLoadMessages: function (t) {
-        return o("WebMps").mps().loadMessages(t);
+      mpsLoadMessages: function (r) {
+        return o("WmiWireRoute").wmiWireRoute(
+          o("MpsErrors").MpsErrors,
+          "mpsLoadMessages",
+          r,
+          function (t) {
+            var r = n("cr:19391");
+            return r == null
+              ? o("WebMps")
+                  .mps()
+                  .loadMessages(t)
+                  .then(o("MpsReadResult").unwrapReadResult)
+              : e(r, s("load_messages", t.debug.purpose), function (e) {
+                  return r.loadMessages(e, t);
+                });
+          },
+          "read_failed",
+        );
       },
-      mpsLoadSnippet: function (t) {
-        return o("WebMps").mps().loadSnippet(t);
+      mpsLoadSnippet: function (r) {
+        return o("WmiWireRoute").wmiWireRoute(
+          o("MpsErrors").MpsErrors,
+          "mpsLoadSnippet",
+          r,
+          function (t) {
+            var r = n("cr:19391");
+            return r == null
+              ? o("WebMps")
+                  .mps()
+                  .loadSnippet(t)
+                  .then(o("MpsReadResult").unwrapReadResult)
+              : e(r, s("load_snippet", t.debug.purpose), function (e) {
+                  return e.loadSnippet(t);
+                });
+          },
+          "read_failed",
+        );
       },
     };
-    l.mpsBridgeHandlers = u;
+    l.mpsBridgeHandlers = m;
   },
   98,
 );

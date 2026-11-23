@@ -1,7 +1,6 @@
 __d(
   "WAWebBusinessDirectUtils",
   [
-    "Promise",
     "WACustomError",
     "WAWeb-moment",
     "WAWebBackendErrors",
@@ -12,14 +11,12 @@ __d(
     "WAWebDirectConnectionCypher",
     "WAWebDirectConnectionGatingUtils",
     "WAWebX509Utils",
-    "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = "YYYYMMDDTHHmmssZ",
-      u = (function (e) {
+    var e = "YYYYMMDDTHHmmssZ",
+      s = (function (e) {
         function t(t) {
           var n;
           return (
@@ -30,41 +27,33 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(o("WACustomError").CustomError);
-    function c(e, t, n) {
+    function u(t, n, a) {
       if (
-        (n === void 0 && (n = r("WAWeb-moment")()),
-        e !==
+        (a === void 0 && (a = r("WAWeb-moment")()),
+        t !==
           o("WAWebDirectConnectionCypher").CypherType.PhoneNumberAndPostcode)
       )
         return !1;
-      if (t == null) return !0;
-      var a = r("WAWeb-moment")(t, s),
-        i = !(a.isValid() && a.isAfter(n));
-      return i;
+      if (n == null) return !0;
+      var i = r("WAWeb-moment")(n, e),
+        l = !(i.isValid() && i.isAfter(a));
+      return l;
     }
-    function d(e) {
+    function c(e) {
       return !e;
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    async function d(e) {
+      var t = await o("WAWebX509Utils").extractCertificates(
+          o("WAWebCertificateString").certificateStringToString(e),
+        ),
+        n = await o("WAWebX509Utils").validateCertificates(
+          t.slice(1, -1),
+          t.slice(-1),
+        ),
+        r = n.result;
+      return r ? { string: e, chain: t } : null;
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebX509Utils").extractCertificates(
-              o("WAWebCertificateString").certificateStringToString(e),
-            ),
-            n = yield o("WAWebX509Utils").validateCertificates(
-              t.slice(1, -1),
-              t.slice(-1),
-            ),
-            r = n.result;
-          return r ? { string: e, chain: t } : null;
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t, n) {
+    function m(e, t, n) {
       switch (e) {
         case o("WAWebDirectConnectionCypher").CypherType.PhoneNumberAndPostcode:
           return {
@@ -77,118 +66,91 @@ __d(
           return { postcode: t };
       }
     }
-    function f(e) {
+    function p(e) {
       var t = e.cypherType,
         n = e.extractedCertificates,
         r = e.postcode,
         a = e.userInfo,
-        i = _(t, r, a);
+        i = m(t, r, a);
       return o("WAWebDirectConnectionCypher").genCypher(n[0], i);
     }
+    async function _(e) {
+      var t,
+        n = await Promise.all([
+          o("WAWebBizBusinessProfileAction").queryBusinessPublicKey(e),
+          o("WAWebX509Utils").fetchFromCABundle(),
+        ]),
+        a = n[0].certificate,
+        i = n[1];
+      if (a == null)
+        throw r("err")(
+          "[direct-connection] no certificate returned from the get_public_key IQ",
+        );
+      var l = await o("WAWebX509Utils").extractCertificates(
+          o("WAWebCertificateString").certificateStringToString(a),
+        ),
+        s =
+          l.length > 0
+            ? (t = l[0].subject.typesAndValues.find(function (e) {
+                return e.type === "2.5.4.3";
+              })) == null
+              ? void 0
+              : t.value.valueBlock.value
+            : null,
+        u = r("nullthrows")(await o("WAWebX509Utils").genRootIssuers(l, i));
+      return {
+        certificateString: o("WAWebX509Utils").encodeToString([].concat(l, u)),
+        leafCertificateCommonName: s,
+      };
+    }
+    async function f(e) {
+      var t;
+      return !!(
+        o("WAWebDirectConnectionGatingUtils").supportsDirectConnection() &&
+        o("WAWebChatCollection").ChatCollection.get(e) != null &&
+        (t = await o(
+          "WAWebBusinessProfileCollection",
+        ).BusinessProfileCollection.find(e)) != null &&
+        t.isBusinessDirectConnection()
+      );
+    }
     function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a,
-            i = yield (e || (e = n("Promise"))).all([
-              o("WAWebBizBusinessProfileAction").queryBusinessPublicKey(t),
-              o("WAWebX509Utils").fetchFromCABundle(),
-            ]),
-            l = i[0].certificate,
-            s = i[1];
-          if (l == null)
-            throw r("err")(
-              "[direct-connection] no certificate returned from the get_public_key IQ",
-            );
-          var u = yield o("WAWebX509Utils").extractCertificates(
-              o("WAWebCertificateString").certificateStringToString(l),
-            ),
-            c =
-              u.length > 0
-                ? (a = u[0].subject.typesAndValues.find(function (e) {
-                    return e.type === "2.5.4.3";
-                  })) == null
-                  ? void 0
-                  : a.value.valueBlock.value
-                : null,
-            d = r("nullthrows")(yield o("WAWebX509Utils").genRootIssuers(u, s));
-          return {
-            certificateString: o("WAWebX509Utils").encodeToString(
-              [].concat(u, d),
-            ),
-            leafCertificateCommonName: c,
-          };
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          return !!(
-            o("WAWebDirectConnectionGatingUtils").supportsDirectConnection() &&
-            o("WAWebChatCollection").ChatCollection.get(e) != null &&
-            (t = yield o(
-              "WAWebBusinessProfileCollection",
-            ).BusinessProfileCollection.find(e)) != null &&
-            t.isBusinessDirectConnection()
-          );
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e) {
       var t = o("WAWebChatCollection").ChatCollection.get(e);
       return !!t && t.hasMaybeSentMsgToChat();
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    async function h(e) {
+      var t,
+        n = await o(
+          "WAWebBusinessProfileCollection",
+        ).BusinessProfileCollection.find(e);
+      if (
+        (t = n.directConnection) != null &&
+        t.enabled &&
+        n.directConnection.defaultPostcode
+      )
+        return {
+          postcode: n.directConnection.defaultPostcode.code,
+          postcodeLocationName: n.directConnection.defaultPostcode.locationName,
+        };
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = yield o(
-              "WAWebBusinessProfileCollection",
-            ).BusinessProfileCollection.find(e);
-          if (
-            (t = n.directConnection) != null &&
-            t.enabled &&
-            n.directConnection.defaultPostcode
-          )
-            return {
-              postcode: n.directConnection.defaultPostcode.code,
-              postcodeLocationName:
-                n.directConnection.defaultPostcode.locationName,
-            };
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    var R = 421;
-    function L(e) {
+    var y = 421;
+    function C(e) {
       return (
         e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
-        e.statusCode === R
+        e.statusCode === y
       );
     }
-    ((l.timestampFormat = s),
-      (l.DCCertificateDomainMismatchError = u),
-      (l.isCypherExpired = c),
-      (l.isCypherFromLaunch1 = d),
-      (l.getValidCertificate = m),
-      (l.getCypher = f),
-      (l.fetchCertificateFullChain = g),
-      (l.isCypherNeeded = y),
-      (l.userHasSentMessageToBusiness = b),
-      (l.fetchDefaultPostcode = v),
-      (l.errorIsDirectConnectionCypherError421 = L));
+    ((l.timestampFormat = e),
+      (l.DCCertificateDomainMismatchError = s),
+      (l.isCypherExpired = u),
+      (l.isCypherFromLaunch1 = c),
+      (l.getValidCertificate = d),
+      (l.getCypher = p),
+      (l.fetchCertificateFullChain = _),
+      (l.isCypherNeeded = f),
+      (l.userHasSentMessageToBusiness = g),
+      (l.fetchDefaultPostcode = h),
+      (l.errorIsDirectConnectionCypherError421 = C));
   },
   98,
 );

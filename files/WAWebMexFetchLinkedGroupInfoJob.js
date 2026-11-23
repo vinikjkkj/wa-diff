@@ -8,7 +8,6 @@ __d(
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -19,42 +18,34 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebMexFetchLinkedGroupInfoJobQuery.graphql"));
-    function m(e) {
-      return p.apply(this, arguments);
+    async function m(e) {
+      var t = e.anyJoinedSubgroupId,
+        n = e.subgroupId,
+        r = await o("WAWebMexClient").fetchQuery(d, {
+          group_jid: o("WAWebWidToJid").widToGroupJid(n),
+          sub_group_jid_hint:
+            t != null ? o("WAWebWidToJid").widToGroupJid(t) : null,
+          include_username: o(
+            "WAWebUsernameGatingUtils",
+          ).usernameDisplayedEnabled(),
+        }),
+        a = r.xwa2_group_query_by_id;
+      if (a == null)
+        throw (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[MEX][GROUP] linked group info has no group",
+                ])),
+            )
+            .tags("GQL", "MEX")
+            .sendLogs("mex-group-linked-info-no-group"),
+          new (o("WAWebBackendErrors").ServerStatusCodeError)(c)
+        );
+      return p(a);
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.anyJoinedSubgroupId,
-            n = e.subgroupId,
-            r = yield o("WAWebMexClient").fetchQuery(d, {
-              group_jid: o("WAWebWidToJid").widToGroupJid(n),
-              sub_group_jid_hint:
-                t != null ? o("WAWebWidToJid").widToGroupJid(t) : null,
-              include_username: o(
-                "WAWebUsernameGatingUtils",
-              ).usernameDisplayedEnabled(),
-            }),
-            a = r.xwa2_group_query_by_id;
-          if (a == null)
-            throw (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[MEX][GROUP] linked group info has no group",
-                    ])),
-                )
-                .tags("GQL", "MEX")
-                .sendLogs("mex-group-linked-info-no-group"),
-              new (o("WAWebBackendErrors").ServerStatusCodeError)(c)
-            );
-          return _(a);
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
+    function p(e) {
       var t,
         n,
         r,
@@ -66,7 +57,7 @@ __d(
         d,
         m,
         p = e.creator,
-        _ = e.description,
+        f = e.description,
         g = e.properties,
         h = e.subject;
       return {
@@ -99,25 +90,25 @@ __d(
           h == null || (i = h.creator) == null || (i = i.username_info) == null
             ? void 0
             : i.username,
-        desc: (l = _ == null ? void 0 : _.value) != null ? l : void 0,
-        descId: (s = _ == null ? void 0 : _.id) != null ? s : void 0,
+        desc: (l = f == null ? void 0 : f.value) != null ? l : void 0,
+        descId: (s = f == null ? void 0 : f.id) != null ? s : void 0,
         descOwner:
-          (_ == null || (c = _.creator) == null ? void 0 : c.id) != null
-            ? o("WAWebWidFactory").createWid(_.creator.id)
+          (f == null || (c = f.creator) == null ? void 0 : c.id) != null
+            ? o("WAWebWidFactory").createWid(f.creator.id)
             : void 0,
         descOwnerPn:
-          (_ == null || (d = _.creator) == null ? void 0 : d.pn) != null
-            ? o("WAWebWidFactory").createWid(_.creator.pn)
+          (f == null || (d = f.creator) == null ? void 0 : d.pn) != null
+            ? o("WAWebWidFactory").createWid(f.creator.pn)
             : void 0,
         descOwnerUsername:
-          _ == null || (m = _.creator) == null || (m = m.username_info) == null
+          f == null || (m = f.creator) == null || (m = m.username_info) == null
             ? void 0
             : m.username,
         descTime:
-          (_ == null ? void 0 : _.creation_time) != null
-            ? Number(_.creation_time)
+          (f == null ? void 0 : f.creation_time) != null
+            ? Number(f.creation_time)
             : void 0,
-        participants: f(e.participants.edges),
+        participants: _(e.participants.edges),
         size: e.total_participants_count,
         adminRequestRequired:
           (g == null ? void 0 : g.admin_request_required) === !0,
@@ -128,7 +119,7 @@ __d(
         hiddenSubgroup: (g == null ? void 0 : g.hidden_group) === !0,
       };
     }
-    function f(e) {
+    function _(e) {
       return e.map(function (e) {
         var t,
           n,

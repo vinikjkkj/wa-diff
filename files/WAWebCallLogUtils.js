@@ -89,19 +89,19 @@ __d(
         )
         ? u.jsx(r("WAWebVoipConnectingStatus.react"), {})
         : e === o("WAWebVoipWaCallEnums").CallState.Calling
-          ? s._(/*BTDS*/ "Calling...")
+          ? s._(/*BTDS*/ "")
           : e === o("WAWebVoipWaCallEnums").CallState.PreacceptReceived
-            ? s._(/*BTDS*/ "Ringing...")
+            ? s._(/*BTDS*/ "")
             : e === o("WAWebVoipWaCallEnums").CallState.ReceivedCall ||
                 e ===
                   o("WAWebVoipWaCallEnums").CallState.ReceivedCallWithoutOffer
               ? t != null && t.isVideoCall
-                ? s._(/*BTDS*/ "Video call")
-                : s._(/*BTDS*/ "Voice call")
+                ? s._(/*BTDS*/ "")
+                : s._(/*BTDS*/ "")
               : e === o("WAWebVoipWaCallEnums").CallState.Screening
                 ? (t == null ? void 0 : t.id.fromMe) === !0
-                  ? s._(/*BTDS*/ "Voicemail...")
-                  : s._(/*BTDS*/ "Screening call...")
+                  ? s._(/*BTDS*/ "")
+                  : s._(/*BTDS*/ "")
                 : e === o("WAWebVoipWaCallEnums").CallState.AcceptSent ||
                     e === o("WAWebVoipWaCallEnums").CallState.AcceptReceived
                   ? u.jsx(r("WAWebVoipConnectingStatus.react"), {})
@@ -110,9 +110,9 @@ __d(
                     : e ===
                           o("WAWebVoipWaCallEnums").CallState.ConnectedLonely ||
                         e === o("WAWebVoipWaCallEnums").CallState.Rejoining
-                      ? s._(/*BTDS*/ "Waiting for others...")
+                      ? s._(/*BTDS*/ "")
                       : e == null
-                        ? s._(/*BTDS*/ "Call ended")
+                        ? s._(/*BTDS*/ "")
                         : e != null
                           ? o("WAWebVoipWaCallEnums").CallState.getName(e)
                           : "unknown";
@@ -435,21 +435,21 @@ __d(
       return (
         t === void 0 && (t = !1),
         e === o("WAWebVoipWaCallEnums").CallLogResult.Connected
-          ? s._(/*BTDS*/ "Call ended")
+          ? s._(/*BTDS*/ "")
           : e === o("WAWebVoipWaCallEnums").CallLogResult.Canceled ||
               e === o("WAWebVoipWaCallEnums").CallLogResult.Missed ||
               e === o("WAWebVoipWaCallEnums").CallLogResult.Rejected
             ? t
-              ? s._(/*BTDS*/ "No answer")
-              : s._(/*BTDS*/ "Call ended")
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "")
             : e === o("WAWebVoipWaCallEnums").CallLogResult.AcceptedElsewhere
-              ? s._(/*BTDS*/ "Answered elsewhere")
+              ? s._(/*BTDS*/ "")
               : e === o("WAWebVoipWaCallEnums").CallLogResult.ScreenedElsewhere
-                ? s._(/*BTDS*/ "Screening elsewhere")
+                ? s._(/*BTDS*/ "")
                 : e === o("WAWebVoipWaCallEnums").CallLogResult.Failed
                   ? r("justknobx")._("8427")
-                    ? s._(/*BTDS*/ "Couldn't connect")
-                    : s._(/*BTDS*/ "Call failed")
+                    ? s._(/*BTDS*/ "")
+                    : s._(/*BTDS*/ "")
                   : e ===
                         o("WAWebVoipWaCallEnums").CallLogResult
                           .ConnectedLonely ||
@@ -458,7 +458,7 @@ __d(
                       e === o("WAWebVoipWaCallEnums").CallLogResult.Invalid ||
                       e === null ||
                       e === void 0
-                    ? s._(/*BTDS*/ "Call ended")
+                    ? s._(/*BTDS*/ "")
                     : (function () {
                         throw Error(
                           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

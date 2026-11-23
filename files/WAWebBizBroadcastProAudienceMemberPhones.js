@@ -1,10 +1,6 @@
 __d(
   "WAWebBizBroadcastProAudienceMemberPhones",
-  [
-    "CometRelay",
-    "WAWebBizBroadcastProAudienceMemberPhonesQuery.graphql",
-    "asyncToGeneratorRuntime",
-  ],
+  ["CometRelay", "WAWebBizBroadcastProAudienceMemberPhonesQuery.graphql"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -15,55 +11,39 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebBizBroadcastProAudienceMemberPhonesQuery.graphql"));
-    function m(e, t, n) {
-      return p.apply(this, arguments);
+    async function m(e, t, n) {
+      var r = new Set(),
+        o = await p(
+          { customAudienceID: t, environment: e, phones: r, signal: n },
+          null,
+          1,
+        );
+      return o === "complete" ? { phones: r, status: o } : { status: o };
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = new Set(),
-            o = yield _(
-              { customAudienceID: t, environment: e, phones: r, signal: n },
-              null,
-              1,
-            );
-          return o === "complete" ? { phones: r, status: o } : { status: o };
-        })),
-        p.apply(this, arguments)
-      );
+    async function p(e, t, n) {
+      var r,
+        a = await o("CometRelay")
+          .fetchQuery(
+            e.environment,
+            d,
+            { after: t, caId: e.customAudienceID, first: s },
+            { fetchPolicy: "network-only" },
+          )
+          .toPromise(),
+        i = a == null ? void 0 : a.xfb_whatsapp_subscriber_list_members;
+      if (i == null) return "unavailable";
+      if (((r = i.count) != null ? r : 0) > c) return "incomplete";
+      _(e.phones, i);
+      var l = f(i, t);
+      if (l == null) {
+        var m;
+        return ((m = i.page_info) == null ? void 0 : m.has_next_page) === !0
+          ? "incomplete"
+          : "complete";
+      }
+      return n >= u || e.signal.aborted ? "incomplete" : p(e, l, n + 1);
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r,
-            a = yield o("CometRelay")
-              .fetchQuery(
-                e.environment,
-                d,
-                { after: t, caId: e.customAudienceID, first: s },
-                { fetchPolicy: "network-only" },
-              )
-              .toPromise(),
-            i = a == null ? void 0 : a.xfb_whatsapp_subscriber_list_members;
-          if (i == null) return "unavailable";
-          if (((r = i.count) != null ? r : 0) > c) return "incomplete";
-          g(e.phones, i);
-          var l = h(i, t);
-          if (l == null) {
-            var m;
-            return ((m = i.page_info) == null ? void 0 : m.has_next_page) === !0
-              ? "incomplete"
-              : "complete";
-          }
-          return n >= u || e.signal.aborted ? "incomplete" : _(e, l, n + 1);
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
+    function _(e, t) {
       for (var n of (r = t.edges) != null ? r : []) {
         var r,
           o,
@@ -78,7 +58,7 @@ __d(
         i !== "" && e.add(i);
       }
     }
-    function h(e, t) {
+    function f(e, t) {
       var n,
         r,
         o = (n = e.page_info) == null ? void 0 : n.end_cursor;

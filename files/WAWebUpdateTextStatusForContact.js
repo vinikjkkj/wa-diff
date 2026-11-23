@@ -8,84 +8,72 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebTextStatusUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
     function s(e) {
       return e === "mex-notification" || e === "mex-notification-side-sub";
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebWidFactory").createUserWidOrThrow(
-              e.contactId.user,
-              e.contactId.server,
-            ),
-            n = yield d(t, e);
-          n != null &&
-            o("WAWebBackendApi").frontendFireAndForget(
-              "updateTextStatus",
-              babelHelpers.extends({}, n, { contactId: t }),
-            );
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(t, r) {
-      var a = r.emoji,
-        i = r.ephemeralDuration,
-        l = r.expectedExpiryTs,
-        u = r.newUpdateTime,
-        c = r.source,
-        d = r.textString;
-      return o("WAWebModelStorageUtils")
-        .getStorage()
-        .lock(
-          ["contact"],
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var n = yield o("WAWebApiContact").getContactRecord(t);
-            if (!n)
-              return (
-                s(c) &&
-                  o("WALogger")
-                    .WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[textStatus] notification ",
-                          ": no contact for ",
-                          "",
-                        ])),
-                      c,
-                      t.toLogString(),
-                    )
-                    .sendLogs("text-status-notification-no-contact", {
-                      sampling: 0.1,
-                    }),
-                null
-              );
-            if (l != null && n.textStatusExpiryTs !== l) return m(n);
-            var r = p({
-              contact: n,
-              emoji: a,
-              ephemeralDuration: i,
-              newUpdateTime: u,
-              textString: d,
-            });
-            return r
-              ? (yield o("WAWebDBUpdateContactTable").updateContactTable(
-                  t,
-                  babelHelpers.extends({}, r),
-                ),
-                r)
-              : null;
-          }),
+    async function u(e) {
+      var t = o("WAWebWidFactory").createUserWidOrThrow(
+          e.contactId.user,
+          e.contactId.server,
+        ),
+        n = await c(t, e);
+      n != null &&
+        o("WAWebBackendApi").frontendFireAndForget(
+          "updateTextStatus",
+          babelHelpers.extends({}, n, { contactId: t }),
         );
     }
-    function m(e) {
+    function c(t, n) {
+      var r = n.emoji,
+        a = n.ephemeralDuration,
+        i = n.expectedExpiryTs,
+        l = n.newUpdateTime,
+        u = n.source,
+        c = n.textString;
+      return o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock(["contact"], async function () {
+          var n = await o("WAWebApiContact").getContactRecord(t);
+          if (!n)
+            return (
+              s(u) &&
+                o("WALogger")
+                  .WARN(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[textStatus] notification ",
+                        ": no contact for ",
+                        "",
+                      ])),
+                    u,
+                    t.toLogString(),
+                  )
+                  .sendLogs("text-status-notification-no-contact", {
+                    sampling: 0.1,
+                  }),
+              null
+            );
+          if (i != null && n.textStatusExpiryTs !== i) return d(n);
+          var p = m({
+            contact: n,
+            emoji: r,
+            ephemeralDuration: a,
+            newUpdateTime: l,
+            textString: c,
+          });
+          return p
+            ? (await o("WAWebDBUpdateContactTable").updateContactTable(
+                t,
+                babelHelpers.extends({}, p),
+              ),
+              p)
+            : null;
+        });
+    }
+    function d(e) {
       return {
         textStatusEmoji: e.textStatusEmoji,
         textStatusEphemeralDuration: e.textStatusEphemeralDuration,
@@ -94,7 +82,7 @@ __d(
         textStatusString: e.textStatusString,
       };
     }
-    function p(e) {
+    function m(e) {
       var t = e.contact,
         n = e.emoji,
         r = e.ephemeralDuration,

@@ -6,22 +6,16 @@ __d(
       var t = 0;
       switch (e.setting) {
         case o("WAWebUserPrefsStatusType").StatusPrivacySettingType.Contact:
-          return s._(/*BTDS*/ "My contacts");
+          return s._(/*BTDS*/ "");
         case o("WAWebUserPrefsStatusType").StatusPrivacySettingType.AllowList:
           return (
             (t = e.allowList.length || 0),
-            s._(
-              /*BTDS*/ '_j{"*":"{allow-contacts} contacts included","_1":"1 contact included"}',
-              [s._plural(t, "allow-contacts")],
-            )
+            s._(/*BTDS*/ "", [s._plural(t, "allow-contacts")])
           );
         case o("WAWebUserPrefsStatusType").StatusPrivacySettingType.DenyList:
           return (
             (t = e.denyList.length || 0),
-            s._(
-              /*BTDS*/ '_j{"*":"{count} contacts excluded","_1":"1 contact excluded"}',
-              [s._plural(t, "count")],
-            )
+            s._(/*BTDS*/ "", [s._plural(t, "count")])
           );
       }
     }

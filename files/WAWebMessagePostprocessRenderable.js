@@ -1,7 +1,6 @@
 __d(
   "WAWebMessagePostprocessRenderable",
   [
-    "Promise",
     "WALogger",
     "WAPromiseReduce",
     "WAWebBackendApi",
@@ -13,156 +12,129 @@ __d(
     "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
     "WAWebUserUtils",
     "WAWebWorkerSafeBackendApi",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.isOffline,
-            r = e.latestPrivacyMode,
-            a = e.messageOverwriteOption,
-            i = e.msgInfo,
-            l = e.msgs,
-            s = e.shouldQueryContactInfo,
-            c = o(
-              "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-            ).msgProcessReporter.startMarker(
-              o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
-                .msgProcessReporter.stage.PostProcessing,
-            );
-          (yield (u || (u = n("Promise"))).all(
-            l.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    (yield o("WAWebBackendApi").frontendSendAndReceive(
-                      "updateMessageUI",
-                      {
-                        chatId: e.id.remote,
-                        msg: e,
-                        messageOverwriteOption: a,
-                        preserveOrder: !0,
-                        isOffline: t,
-                      },
-                    ),
-                      o(
-                        "WAWebMessagePostProcessBatcher",
-                      ).messagePostProcessBatcher.acceptMessage(e),
-                      t ||
-                        o(
-                          "WAWebMessagePostProcessBatcher",
-                        ).messagePostProcessBatcher.runActiveBatches());
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
+    var e, s;
+    async function u(e) {
+      var t = e.isOffline,
+        n = e.latestPrivacyMode,
+        r = e.messageOverwriteOption,
+        a = e.msgInfo,
+        i = e.msgs,
+        l = e.shouldQueryContactInfo,
+        s = o(
+          "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+        ).msgProcessReporter.startMarker(
+          o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
+            .msgProcessReporter.stage.PostProcessing,
+        );
+      (await Promise.all(
+        i.map(async function (e) {
+          (await o("WAWebBackendApi").frontendSendAndReceive(
+            "updateMessageUI",
+            {
+              chatId: e.id.remote,
+              msg: e,
+              messageOverwriteOption: r,
+              preserveOrder: !0,
+              isOffline: t,
+            },
           ),
-            (s || r != null) && g(e),
-            yield o("WAWebBackendApi").frontendSendAndReceive(
-              "updateUnattributedMessages",
-              { messageInfo: i, messages: l },
-            ),
-            c == null || c());
-        })),
-        d.apply(this, arguments)
-      );
+            o(
+              "WAWebMessagePostProcessBatcher",
+            ).messagePostProcessBatcher.acceptMessage(e),
+            t ||
+              o(
+                "WAWebMessagePostProcessBatcher",
+              ).messagePostProcessBatcher.runActiveBatches());
+        }),
+      ),
+        (l || n != null) && p(e),
+        await o("WAWebBackendApi").frontendSendAndReceive(
+          "updateUnattributedMessages",
+          { messageInfo: a, messages: i },
+        ),
+        s == null || s());
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0) {
-            var t = o(
-                "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
-              ).msgProcessReporter.startMarker(
-                o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
-                  .msgProcessReporter.stage.PostProcessing,
-              ),
-              a = yield (u || (u = n("Promise"))).allSettled(
-                _(e).map(function (e) {
-                  return o("WAPromiseReduce").promiseReduce(
-                    e,
-                    function (e, t) {
-                      var n = t.chatId,
-                        r = t.isOffline,
-                        a = t.messageOverwriteOption,
-                        i = t.msgs;
-                      return o("WAWebBackendApi").frontendSendAndReceive(
-                        "updateMessagesUI",
-                        {
-                          chatId: n,
-                          isOffline: r,
-                          messageOverwriteOption: a,
-                          msgs: i,
-                          preserveOrder: !0,
-                        },
-                      );
-                    },
-                    void 0,
-                  );
-                }),
-              ),
-              i = e.flatMap(function (e) {
-                return e.kind === "renderable" ? [e.params] : [];
-              });
-            (i.forEach(function (e) {
-              (e.msgs.forEach(function (e) {
-                o(
-                  "WAWebMessagePostProcessBatcher",
-                ).messagePostProcessBatcher.acceptMessage(e);
-              }),
-                (e.shouldQueryContactInfo || e.latestPrivacyMode != null) &&
-                  g(e),
-                o(
-                  "WAWebCoexV2MessageAckProjection",
-                ).reconcileCoexV2ReceiptAcksAfterMessagePersisted(
-                  e.msgs,
-                  (u || (u = n("Promise"))).resolve(),
-                  u.resolve(),
-                  { deferUntilMessagePersisted: !0 },
-                ));
-            }),
-              i.some(function (e) {
-                var t = e.isOffline;
-                return !t;
-              }) &&
-                o(
-                  "WAWebMessagePostProcessBatcher",
-                ).messagePostProcessBatcher.runActiveBatches(),
-              yield u.all(
-                i.map(function (e) {
-                  var t = e.msgInfo,
-                    n = e.msgs;
+    async function c(e) {
+      if (e.length !== 0) {
+        var t = o(
+            "WAWebOfflineResumeMsgProcessReporterWorkerCompatible",
+          ).msgProcessReporter.startMarker(
+            o("WAWebOfflineResumeMsgProcessReporterWorkerCompatible")
+              .msgProcessReporter.stage.PostProcessing,
+          ),
+          n = await Promise.allSettled(
+            d(e).map(function (e) {
+              return o("WAPromiseReduce").promiseReduce(
+                e,
+                function (e, t) {
+                  var n = t.chatId,
+                    r = t.isOffline,
+                    a = t.messageOverwriteOption,
+                    i = t.msgs;
                   return o("WAWebBackendApi").frontendSendAndReceive(
-                    "updateUnattributedMessages",
-                    { messageInfo: t, messages: n },
+                    "updateMessagesUI",
+                    {
+                      chatId: n,
+                      isOffline: r,
+                      messageOverwriteOption: a,
+                      msgs: i,
+                      preserveOrder: !0,
+                    },
                   );
-                }),
-              ),
-              t == null || t());
-            var l = a.find(function (e) {
-              var t = e.status;
-              return t === "rejected";
-            });
-            if ((l == null ? void 0 : l.status) === "rejected")
-              throw r("getErrorSafe")(l.reason);
-          }
-        })),
-        p.apply(this, arguments)
-      );
+                },
+                void 0,
+              );
+            }),
+          ),
+          a = e.flatMap(function (e) {
+            return e.kind === "renderable" ? [e.params] : [];
+          });
+        (a.forEach(function (e) {
+          (e.msgs.forEach(function (e) {
+            o(
+              "WAWebMessagePostProcessBatcher",
+            ).messagePostProcessBatcher.acceptMessage(e);
+          }),
+            (e.shouldQueryContactInfo || e.latestPrivacyMode != null) && p(e),
+            o(
+              "WAWebCoexV2MessageAckProjection",
+            ).reconcileCoexV2ReceiptAcksAfterMessagePersisted(
+              e.msgs,
+              Promise.resolve(),
+              Promise.resolve(),
+              { deferUntilMessagePersisted: !0 },
+            ));
+        }),
+          a.some(function (e) {
+            var t = e.isOffline;
+            return !t;
+          }) &&
+            o(
+              "WAWebMessagePostProcessBatcher",
+            ).messagePostProcessBatcher.runActiveBatches(),
+          await Promise.all(
+            a.map(function (e) {
+              var t = e.msgInfo,
+                n = e.msgs;
+              return o("WAWebBackendApi").frontendSendAndReceive(
+                "updateUnattributedMessages",
+                { messageInfo: t, messages: n },
+              );
+            }),
+          ),
+          t == null || t());
+        var i = n.find(function (e) {
+          var t = e.status;
+          return t === "rejected";
+        });
+        if ((i == null ? void 0 : i.status) === "rejected")
+          throw r("getErrorSafe")(i.reason);
+      }
     }
-    function _(e) {
+    function d(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
@@ -181,7 +153,7 @@ __d(
           i.forEach(function (e) {
             var n,
               o = e.id.remote,
-              i = f(e),
+              i = m(e),
               l = (n = t.get(i)) != null ? n : [];
             t.set(i, l);
             var s = l[l.length - 1];
@@ -198,7 +170,7 @@ __d(
         Array.from(t.values())
       );
     }
-    function f(e) {
+    function m(e) {
       var t,
         n = e.id.remote.toString();
       return o("WAWebMsgGetters").getIsStatus(e)
@@ -209,7 +181,7 @@ __d(
             String((t = o("WAWebMsgGetters").getSender(e)) != null ? t : e.from)
         : n;
     }
-    function g(t) {
+    function p(t) {
       var n = t.latestPrivacyMode,
         r = t.msgInfo,
         a = t.msgs,
@@ -250,7 +222,7 @@ __d(
               );
             }));
     }
-    ((l.postprocessRenderableMessages = c), (l.postprocessMessagesOfBatch = m));
+    ((l.postprocessRenderableMessages = u), (l.postprocessMessagesOfBatch = c));
   },
   98,
 );

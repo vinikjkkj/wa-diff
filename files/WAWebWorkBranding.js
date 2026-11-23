@@ -8,7 +8,7 @@ __d(
       return o("WAWebWorkMobilePlatforms").isWorkPlatform(
         o("WAWebMobilePlatforms").getMaybeMobilePlatform(),
       )
-        ? s._(/*BTDS*/ "WhatsApp Work")
+        ? s._(/*BTDS*/ "")
         : null;
     }
     function c() {

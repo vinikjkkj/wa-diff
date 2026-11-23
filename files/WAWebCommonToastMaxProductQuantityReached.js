@@ -24,10 +24,10 @@ __d(
                 dismiss: !0,
                 theme: "success",
               },
-        a = s._(
-          /*BTDS*/ '_j{"*":{"*":"Only {max-number-of-items} of these items are currently available.","_1":"Only {max-number-of-items} of these items is currently available."}}',
-          [s._param("max-number-of-items", e, [0]), s._plural(e)],
-        );
+        a = s._(/*BTDS*/ "", [
+          s._param("max-number-of-items", e, [0]),
+          s._plural(e),
+        ]);
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, { action: n, msg: a }),
       );

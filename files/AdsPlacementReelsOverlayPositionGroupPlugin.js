@@ -24,7 +24,7 @@ __d(
         subheader:
           r("AdsPlacementCopy").PLACEMENT_POSITION_SUBHEADERS.REELS_OVERLAY,
         name: r("AdsPlacementCopy").PLACEMENT_POSITION_GROUPS.REELS_OVERLAY,
-        isEnabled: function (t) {
+        isEnabled: function () {
           return !1;
         },
         positions: e(),

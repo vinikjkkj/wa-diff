@@ -1,7 +1,6 @@
 __d(
   "WAWebLogStatusPost",
   [
-    "Promise",
     "WAWebMsgType",
     "WAWebSendMsgResultAction",
     "WAWebStatusLoggingUtils",
@@ -12,19 +11,17 @@ __d(
     "WAWebWamEnumPrivacySettingsValueType",
     "WAWebWamEnumStatusCategory",
     "WAWebWamEnumStatusPostResult",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e, t) {
+    function e(e, t) {
       return e
         ? o("WAWebWamEnumStatusCategory").STATUS_CATEGORY.CHANNEL_STATUS
         : t
           ? o("WAWebWamEnumStatusCategory").STATUS_CATEGORY.GROUP_STATUS
           : o("WAWebWamEnumStatusCategory").STATUS_CATEGORY.REGULAR_STATUS;
     }
-    function u(e) {
+    function s(e) {
       return e === o("WAWebMsgType").MSG_TYPE.IMAGE
         ? o("WAWebWamEnumMediaType").MEDIA_TYPE.PHOTO
         : e === o("WAWebMsgType").MSG_TYPE.VIDEO
@@ -37,7 +34,7 @@ __d(
                 ? o("WAWebWamEnumMediaType").MEDIA_TYPE.STICKER
                 : o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE;
     }
-    function c(e) {
+    function u(e) {
       return e === o("WAWebSendMsgResultAction").SendMsgResult.OK
         ? o("WAWebWamEnumStatusPostResult").STATUS_POST_RESULT.OK
         : e === o("WAWebSendMsgResultAction").SendMsgResult.ERROR_NETWORK
@@ -53,7 +50,7 @@ __d(
                 : o("WAWebWamEnumStatusPostResult").STATUS_POST_RESULT
                     .ERROR_UNKNOWN;
     }
-    function d(e) {
+    function c(e) {
       return e ===
         o("WAWebUserPrefsStatusType").StatusPrivacySettingType.Contact
         ? o("WAWebWamEnumPrivacySettingsValueType").PRIVACY_SETTINGS_VALUE_TYPE
@@ -72,76 +69,68 @@ __d(
                 );
               })();
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    async function d(t) {
+      var n = t.hasCaption,
+        r = t.hasFilters,
+        a = t.isCropped,
+        i = t.isGroupStatus,
+        l = i === void 0 ? !1 : i,
+        s = t.isNewsletterStatus,
+        u = s === void 0 ? !1 : s,
+        d = t.isReshare,
+        m = t.isRotated,
+        p = t.isVideoManuallyTrimmed,
+        _ = t.isVideoMuted,
+        f = t.isVideoTrimmed,
+        g = t.mediaType,
+        h = t.msg,
+        y = t.newsletterStatusId,
+        C = t.newsletterWid,
+        b = t.perPostStatusPrivacySetting,
+        v = t.retryCount,
+        S = t.statusAudienceSelectorClicked,
+        R = t.statusAudienceSelectorUpdated,
+        L = t.statusAudienceSize,
+        E = t.statusContainsMusic,
+        k = t.statusPostOrigin,
+        I = t.statusPostResult,
+        T = await Promise.all([
+          h != null
+            ? o("WAWebStatusLoggingUtils").statusIdForLogging(h)
+            : void 0,
+          o("WAWebUserPrefsStatus").getStatusPrivacySetting(),
+        ]),
+        D = T[0],
+        x = T[1],
+        $ = new (o("WAWebStatusPostWamEvent").StatusPostWamEvent)({
+          statusPostResult: I,
+          statusPostOrigin: k,
+          mediaType: g,
+          cid: o("WAWebStatusLoggingUtils").channelStatusCid(C),
+          channelStatusId: y,
+          statusCategory: e(u, l),
+          defaultStatusPrivacySetting: c(x),
+          perPostStatusPrivacySetting: b != null ? c(b) : void 0,
+          hasCaption: n,
+          hasFilters: r,
+          isCropped: a,
+          isReshare: d,
+          isRotated: m,
+          isVideoManuallyTrimmed: p,
+          isVideoMuted: _,
+          isVideoTrimmed: f,
+          retryCount: v,
+          statusAudienceSelectorClicked: S,
+          statusAudienceSelectorUpdated: R,
+          statusAudienceSize: L != null ? L : void 0,
+          statusContainsMusic: E,
+          statusId: D,
+        });
+      $.commit();
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.hasCaption,
-            a = t.hasFilters,
-            i = t.isCropped,
-            l = t.isGroupStatus,
-            u = l === void 0 ? !1 : l,
-            c = t.isNewsletterStatus,
-            m = c === void 0 ? !1 : c,
-            p = t.isReshare,
-            _ = t.isRotated,
-            f = t.isVideoManuallyTrimmed,
-            g = t.isVideoMuted,
-            h = t.isVideoTrimmed,
-            y = t.mediaType,
-            C = t.msg,
-            b = t.newsletterStatusId,
-            v = t.newsletterWid,
-            S = t.perPostStatusPrivacySetting,
-            R = t.retryCount,
-            L = t.statusAudienceSelectorClicked,
-            E = t.statusAudienceSelectorUpdated,
-            k = t.statusAudienceSize,
-            I = t.statusContainsMusic,
-            T = t.statusPostOrigin,
-            D = t.statusPostResult,
-            x = yield (e || (e = n("Promise"))).all([
-              C != null
-                ? o("WAWebStatusLoggingUtils").statusIdForLogging(C)
-                : void 0,
-              o("WAWebUserPrefsStatus").getStatusPrivacySetting(),
-            ]),
-            $ = x[0],
-            P = x[1],
-            N = new (o("WAWebStatusPostWamEvent").StatusPostWamEvent)({
-              statusPostResult: D,
-              statusPostOrigin: T,
-              mediaType: y,
-              cid: o("WAWebStatusLoggingUtils").channelStatusCid(v),
-              channelStatusId: b,
-              statusCategory: s(m, u),
-              defaultStatusPrivacySetting: d(P),
-              perPostStatusPrivacySetting: S != null ? d(S) : void 0,
-              hasCaption: r,
-              hasFilters: a,
-              isCropped: i,
-              isReshare: p,
-              isRotated: _,
-              isVideoManuallyTrimmed: f,
-              isVideoMuted: g,
-              isVideoTrimmed: h,
-              retryCount: R,
-              statusAudienceSelectorClicked: L,
-              statusAudienceSelectorUpdated: E,
-              statusAudienceSize: k != null ? k : void 0,
-              statusContainsMusic: I,
-              statusId: $,
-            });
-          N.commit();
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    ((l.getStatusMediaType = u),
-      (l.getStatusPostResult = c),
-      (l.logStatusPost = m));
+    ((l.getStatusMediaType = s),
+      (l.getStatusPostResult = u),
+      (l.logStatusPost = d));
   },
   98,
 );

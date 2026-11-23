@@ -14,7 +14,6 @@ __d(
     "WAWebLeadStageNames",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -31,78 +30,68 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      u = s._(/*BTDS*/ "Name").toString();
-    function c(e, t, n) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          var i;
-          if (!a.complete) throw r("err")("Saved customer lookup incomplete");
-          var l = a.legacy,
-            s = a.localLeadStage,
-            c = a.profile,
-            d = a.savedNames;
-          if (!s.isResolved) throw new e("unresolved-lead-stage-owner");
-          var f = o(
-              "WAWebCustomerManagerImportRecordInput",
-            ).getImportedCustomerName(t),
-            g =
-              (i = o(
-                "WAWebCustomerManagerImportTemplateUtils",
-              ).readCustomerManagerImportColumn(t, "note")) == null
-                ? void 0
-                : i.trim(),
-            h = o("WAWebJidToWid").lidUserJidToUserLid(n),
-            y = m(t),
-            C = p(t, c, l, s.stage),
-            b = [h].concat(y).some(function (e) {
-              return [e.toJid(), e.toString()].some(function (e) {
-                var t,
-                  n =
-                    (t = d.get(e)) == null
-                      ? void 0
-                      : t.trim().replace(/\s+/g, " ");
-                return _(f, n);
-              });
-            })
-              ? [u].concat(C)
-              : C;
-          if (g == null || g === "")
-            return { conflictingFields: b, hasMissingNote: !1 };
-          var v = yield o("WAWebGetNotesByChatJidsJob").getNotesByChatJidsJob({
-            chatJids: [o("WAWebWidToJid").widToChatJid(h)],
+      u = s._(/*BTDS*/ "").toString();
+    async function c(t, n, a) {
+      var i;
+      if (!a.complete) throw r("err")("Saved customer lookup incomplete");
+      var l = a.legacy,
+        s = a.localLeadStage,
+        c = a.profile,
+        _ = a.savedNames;
+      if (!s.isResolved) throw new e("unresolved-lead-stage-owner");
+      var f = o(
+          "WAWebCustomerManagerImportRecordInput",
+        ).getImportedCustomerName(t),
+        g =
+          (i = o(
+            "WAWebCustomerManagerImportTemplateUtils",
+          ).readCustomerManagerImportColumn(t, "note")) == null
+            ? void 0
+            : i.trim(),
+        h = o("WAWebJidToWid").lidUserJidToUserLid(n),
+        y = d(t),
+        C = m(t, c, l, s.stage),
+        b = [h].concat(y).some(function (e) {
+          return [e.toJid(), e.toString()].some(function (e) {
+            var t,
+              n =
+                (t = _.get(e)) == null ? void 0 : t.trim().replace(/\s+/g, " ");
+            return p(f, n);
           });
-          if (
-            v.some(function (e) {
-              return _(g, e.content.trim());
-            })
-          )
-            return {
-              conflictingFields: [].concat(b, [
-                o("WAWebCustomerManagerImportTemplateUtils").FBT_NOTES,
-              ]),
-              hasMissingNote: !1,
-            };
-          var S = yield o("WAWebGetNotesByChatJidsJob").getNotesByChatJidsJob({
-            chatJids: y.map(o("WAWebWidToJid").widToChatJid),
-          });
-          if (
-            S.some(function (e) {
-              return e.content.trim() !== "";
-            })
-          )
-            throw new e("unowned-phone-note");
-          return {
-            conflictingFields: b,
-            hasMissingNote: v.length === 0 && S.length === 0,
-          };
-        })),
-        d.apply(this, arguments)
-      );
+        })
+          ? [u].concat(C)
+          : C;
+      if (g == null || g === "")
+        return { conflictingFields: b, hasMissingNote: !1 };
+      var v = await o("WAWebGetNotesByChatJidsJob").getNotesByChatJidsJob({
+        chatJids: [o("WAWebWidToJid").widToChatJid(h)],
+      });
+      if (
+        v.some(function (e) {
+          return p(g, e.content.trim());
+        })
+      )
+        return {
+          conflictingFields: [].concat(b, [
+            o("WAWebCustomerManagerImportTemplateUtils").FBT_NOTES,
+          ]),
+          hasMissingNote: !1,
+        };
+      var S = await o("WAWebGetNotesByChatJidsJob").getNotesByChatJidsJob({
+        chatJids: y.map(o("WAWebWidToJid").widToChatJid),
+      });
+      if (
+        S.some(function (e) {
+          return e.content.trim() !== "";
+        })
+      )
+        throw new e("unowned-phone-note");
+      return {
+        conflictingFields: b,
+        hasMissingNote: v.length === 0 && S.length === 0,
+      };
     }
-    function m(e) {
+    function d(e) {
       var t = new Map(),
         n = o("WAWebContactImportFileProcessor").normalizePhoneNumber(e.phone);
       if (n !== "") {
@@ -118,7 +107,7 @@ __d(
       }
       return Array.from(t.values());
     }
-    function p(e, t, n, r) {
+    function m(e, t, n, r) {
       var a,
         i,
         l,
@@ -127,8 +116,8 @@ __d(
         c,
         d,
         m,
-        p,
-        f =
+        _,
+        g =
           (a =
             (i = t == null ? void 0 : t.address) != null
               ? i
@@ -163,7 +152,7 @@ __d(
               ).readCustomerManagerImportColumn(e, "address")) == null
                 ? void 0
                 : u.trim(),
-            stored: f,
+            stored: g,
           },
           {
             label: o("WAWebCustomerManagerImportTemplateUtils").FBT_EMAIL,
@@ -192,7 +181,7 @@ __d(
           },
           {
             label: o("WAWebCustomerManagerImportTemplateUtils").FBT_BIRTHDAY,
-            imported: g(
+            imported: f(
               o(
                 "WAWebCustomerManagerImportDateParsingUtils",
               ).readValidCustomerManagerImportDate(
@@ -202,7 +191,7 @@ __d(
                 "birthday",
               ),
             ),
-            stored: g(
+            stored: f(
               (d = t == null ? void 0 : t.birthday) != null
                 ? d
                 : n == null
@@ -219,35 +208,35 @@ __d(
                 ? void 0
                 : m.trim(),
             stored:
-              t == null || (p = t.lastOrderDescription) == null
+              t == null || (_ = t.lastOrderDescription) == null
                 ? void 0
-                : p.trim(),
+                : _.trim(),
           },
         ];
       return S.filter(function (e) {
         var t = e.imported,
           n = e.stored;
-        return _(t, n);
+        return p(t, n);
       }).map(function (e) {
         var t = e.label;
         return t;
       });
     }
-    function _(e, t) {
+    function p(e, t) {
       return e == null || e === "" || t == null || t === "" ? !1 : e !== t;
     }
-    function f(e) {
+    function _(e) {
       if (e == null) return null;
       var t = new Date(e * 1e3);
       return Number.isNaN(t.getTime()) ? null : t.toISOString().slice(0, 10);
     }
-    function g(e) {
+    function f(e) {
       var t;
-      return (t = f(e)) == null ? void 0 : t.slice(5);
+      return (t = _(e)) == null ? void 0 : t.slice(5);
     }
     ((l.CustomerManagerImportPhoneDataOwnershipError = e),
       (l.readImportedCustomerMergeState = c),
-      (l.getConflictingCustomerFieldsByValue = p));
+      (l.getConflictingCustomerFieldsByValue = m));
   },
   226,
 );

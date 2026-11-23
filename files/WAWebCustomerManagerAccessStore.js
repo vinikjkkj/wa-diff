@@ -1,7 +1,6 @@
 __d(
   "WAWebCustomerManagerAccessStore",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebAlarm",
@@ -13,51 +12,47 @@ __d(
     "WAWebCustomerManagerStartTrialMutation",
     "WAWebNetworkStatus",
     "WAWebSubscriptionsGatingUtils",
-    "asyncToGeneratorRuntime",
     "cr:18944",
     "getErrorSafe",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = u || (u = o("react")),
-      d = c.useEffect,
-      m = c.useState,
-      p = c.useSyncExternalStore,
-      _ = null,
+      u = s || (s = o("react")),
+      c = u.useEffect,
+      d = u.useState,
+      m = u.useSyncExternalStore,
+      p = null,
+      _ = 0,
       f = 0,
-      g = 0,
+      g = null,
       h = null,
-      y = null,
-      C = !1,
-      b = 0,
-      v = new Set();
-    function S() {
+      y = !1,
+      C = 0,
+      b = new Set();
+    function v() {
       if (
         !o(
           "WAWebSubscriptionsGatingUtils",
         ).customerManagerSubscriptionGatingEnabled()
       )
-        return (s || (s = n("Promise"))).resolve(!0);
-      if ((w(), h != null))
+        return Promise.resolve(!0);
+      if ((x(), g != null))
         return (
-          y != null ||
-            (y = h.then(function () {
-              return ((y = null), S());
+          h != null ||
+            (h = g.then(function () {
+              return ((h = null), v());
             })),
-          y
+          h
         );
-      if (!r("WAWebNetworkStatus").online)
-        return (O(), (s || (s = n("Promise"))).resolve(!1));
-      var t = g,
-        a = o("WAWebCustomerManagerAccessStateQuery")
+      if (!r("WAWebNetworkStatus").online) return (N(), Promise.resolve(!1));
+      var t = f,
+        n = o("WAWebCustomerManagerAccessStateQuery")
           .fetchCustomerManagerAccessState()
           .then(
             function (e) {
-              return (g === t && B(e), !0);
+              return (f === t && M(e), !0);
             },
             function (n) {
               var a = r("getErrorSafe")(n);
@@ -75,38 +70,30 @@ __d(
                 ).CustomerManagerUserJourneyLogger.accessStateLoadFailed(
                   a.name,
                 ),
-                g === t && y == null && O(),
+                f === t && h == null && N(),
                 !1
               );
             },
           )
           .finally(function () {
-            h = null;
+            g = null;
           });
-      return ((h = a), a);
+      return ((g = n), n);
+    }
+    async function S() {
+      var e =
+        n("cr:18944") == null
+          ? void 0
+          : n("cr:18944").startCustomerManagerDebugTrial();
+      if (e != null) return e;
+      x();
+      var t = C,
+        r = await o(
+          "WAWebCustomerManagerStartTrialMutation",
+        ).startCustomerManagerTrialOnServer();
+      return (C === t && M(r), r);
     }
     function R() {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e =
-            n("cr:18944") == null
-              ? void 0
-              : n("cr:18944").startCustomerManagerDebugTrial();
-          if (e != null) return e;
-          w();
-          var t = b,
-            r = yield o(
-              "WAWebCustomerManagerStartTrialMutation",
-            ).startCustomerManagerTrialOnServer();
-          return (b === t && B(r), r);
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E() {
       var e;
       return o(
         "WAWebSubscriptionsGatingUtils",
@@ -116,130 +103,110 @@ __d(
               ? void 0
               : n("cr:18944").getCustomerManagerDebugAccessState()) != null
           ? e
-          : _
+          : p
         : o("WAWebCustomerManagerAccessState").ACCESS_NOT_REQUIRED;
     }
-    function k() {
-      var e = o("react-compiler-runtime").c(2),
-        t = p(q, E),
-        n;
-      (e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = []), (e[0] = n))
-        : (n = e[0]),
-        d(D, n));
-      var r;
+    function L() {
+      var e = m(A, R);
       return (
-        e[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((r = []), (e[1] = r))
-          : (r = e[1]),
-        d(I, r),
-        t
+        c(function () {
+          v();
+        }, []),
+        c(function () {
+          return o(
+            "WAWebCustomerManagerAccessDeniedNotifier",
+          ).subscribeToCustomerManagerAccessDenied(function () {
+            return D();
+          });
+        }, []),
+        e
       );
+    }
+    function E() {
+      return m(A, R);
+    }
+    function k() {
+      return m(A, $);
     }
     function I() {
-      return o(
-        "WAWebCustomerManagerAccessDeniedNotifier",
-      ).subscribeToCustomerManagerAccessDenied(T);
+      return m(A, P);
     }
-    function T() {
-      return M();
-    }
-    function D() {
-      S();
-    }
-    function x() {
-      return p(q, E);
-    }
-    function $() {
-      return p(q, A);
-    }
-    function P() {
-      return p(q, F);
-    }
-    function N(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = m(o("WATimeUtils").unixTime),
-        a = n[0],
-        i = n[1],
-        l =
+    function T(e) {
+      var t = d(o("WATimeUtils").unixTime),
+        n = t[0],
+        a = t[1],
+        i =
           (e == null ? void 0 : e.state) === "TRIAL_ACTIVE"
             ? e.trialEndTime
-            : null,
-        s,
-        u;
+            : null;
       return (
-        t[0] !== a || t[1] !== l
-          ? ((s = function () {
-              if (l != null) {
-                var e = o(
-                  "WAWebCustomerManagerAccessState",
-                ).getNextTrialDayChangeTime(l, a);
-                if (e != null) {
-                  var t = r("WAWebAlarm").setGlobalTimeout(function () {
-                    var e = o("WATimeUtils").unixTime();
-                    (i(e), e >= l && M());
-                  }, o("WATimeUtils").castUnixTimeToMillisTime(e));
-                  return function () {
-                    return r("WAWebAlarm").clearTimeout(t);
-                  };
-                }
+        c(
+          function () {
+            if (i != null) {
+              var e = o(
+                "WAWebCustomerManagerAccessState",
+              ).getNextTrialDayChangeTime(i, n);
+              if (e != null) {
+                var t = r("WAWebAlarm").setGlobalTimeout(function () {
+                  var e = o("WATimeUtils").unixTime();
+                  (a(e), e >= i && D());
+                }, o("WATimeUtils").castUnixTimeToMillisTime(e));
+                return function () {
+                  return r("WAWebAlarm").clearTimeout(t);
+                };
               }
-            }),
-            (u = [l, a]),
-            (t[0] = a),
-            (t[1] = l),
-            (t[2] = s),
-            (t[3] = u))
-          : ((s = t[2]), (u = t[3])),
-        d(s, u),
-        a
+            }
+          },
+          [i, n],
+        ),
+        n
       );
     }
-    function M() {
-      S();
+    function D() {
+      v();
     }
-    function w() {
-      C ||
-        ((C = !0),
+    function x() {
+      y ||
+        ((y = !0),
         o("WAWebCmd").Cmd.on("logout_from_bridge", function () {
-          (b++, B(null));
+          (C++, M(null));
         }));
     }
-    function A() {
-      return E() == null;
+    function $() {
+      return R() == null;
     }
-    function F() {
-      return f;
+    function P() {
+      return _;
     }
-    function O() {
-      (f++, W());
+    function N() {
+      (_++, w());
     }
-    function B(e) {
-      (g++, (_ = e), W());
+    function M(e) {
+      (f++, (p = e), w());
     }
-    function W() {
-      v.forEach(function (e) {
+    function w() {
+      b.forEach(function (e) {
         return e();
       });
     }
-    function q(e) {
-      v.add(e);
+    function A(e) {
+      b.add(e);
       var t =
         n("cr:18944") == null
           ? void 0
           : n("cr:18944").subscribeToCustomerManagerDebugAccess(e);
       return function () {
-        (v.delete(e), t == null || t());
+        (b.delete(e), t == null || t());
       };
     }
-    ((l.refreshCustomerManagerAccessState = S),
-      (l.startCustomerManagerTrial = R),
-      (l.getCustomerManagerAccessState = E),
-      (l.useWAWebCustomerManagerAccessState = k),
-      (l.useWAWebCustomerManagerAccessStateSnapshot = x),
-      (l.useWAWebCustomerManagerIsAccessStatePending = $),
-      (l.useWAWebCustomerManagerAccessLookupFailureCount = P),
-      (l.useWAWebCustomerManagerTrialNow = N));
+    ((l.refreshCustomerManagerAccessState = v),
+      (l.startCustomerManagerTrial = S),
+      (l.getCustomerManagerAccessState = R),
+      (l.useWAWebCustomerManagerAccessState = L),
+      (l.useWAWebCustomerManagerAccessStateSnapshot = E),
+      (l.useWAWebCustomerManagerIsAccessStatePending = k),
+      (l.useWAWebCustomerManagerAccessLookupFailureCount = I),
+      (l.useWAWebCustomerManagerTrialNow = T));
   },
   98,
 );

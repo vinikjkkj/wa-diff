@@ -6,7 +6,6 @@ __d(
     "WAWebWamEnumSmbUserActionTypeEnum",
     "WAWebWamEnumSurfaceType",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -24,20 +23,12 @@ __d(
       });
     }
     function c(e, t) {
-      var n = o("react-compiler-runtime").c(4),
-        r,
-        a;
-      (n[0] !== t || n[1] !== e
-        ? ((r = function () {
-            u(e, t);
-          }),
-          (a = [e, t]),
-          (n[0] = t),
-          (n[1] = e),
-          (n[2] = r),
-          (n[3] = a))
-        : ((r = n[2]), (a = n[3])),
-        s(r, a));
+      s(
+        function () {
+          u(e, t);
+        },
+        [e, t],
+      );
     }
     ((l.logAgentBlockedComposerView = u),
       (l.useLogAgentBlockedComposerViewOnMount = c));

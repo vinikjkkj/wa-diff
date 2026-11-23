@@ -1,12 +1,6 @@
 __d(
   "AdsAssetSelectorsUtils",
-  [
-    "invariant",
-    "AdsAssetFeedFieldUtils",
-    "AdsImageIDClasses",
-    "immutable",
-    "isTruthy",
-  ],
+  ["invariant", "AdsAssetFeedFieldUtils", "AdsImageIDClasses", "immutable"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = 50;
@@ -28,14 +22,7 @@ __d(
             ? o("AdsImageIDClasses").AdsImageID.fromExternalURL(n)
             : null;
     }
-    function d(e) {
-      var t = e.getAdAccountHash(),
-        n = e.getUrl();
-      return r("isTruthy")(t)
-        ? r("immutable").Map({ hash: t })
-        : (r("isTruthy")(n) || s(0, 1494), r("immutable").Map({ url: n }));
-    }
-    function m(e, t) {
+    function d(e, t) {
       var n = r("immutable").Map();
       return (
         e != null &&
@@ -61,7 +48,7 @@ __d(
         u(n)
       );
     }
-    function p(t, n) {
+    function m(t, n) {
       return !t || !n
         ? r("immutable").Map()
         : n.map(function (n, r) {
@@ -83,9 +70,8 @@ __d(
     }
     ((l.compactMap = u),
       (l.getImageID = c),
-      (l.fromAdsLegacyImageToImageAsset = d),
-      (l.getImageIDFromImageAssetList = m),
-      (l.mergeCropsWithImageAssetListByIndex = p));
+      (l.getImageIDFromImageAssetList = d),
+      (l.mergeCropsWithImageAssetListByIndex = m));
   },
   98,
 );

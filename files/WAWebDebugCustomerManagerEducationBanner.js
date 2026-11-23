@@ -12,7 +12,6 @@ __d(
     "WAWebNuxSync",
     "WAWebUserPrefsNuxPreferences",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,8 +22,8 @@ __d(
       var t,
         n,
         a = r("WAWebUserPrefsStore").getUser(e),
-        i = f(a),
-        l = _(a, i),
+        i = _(a),
+        l = p(a, i),
         s = o(
           "WAWebCustomerManagerGating",
         ).customerManagerEducationBannerMaxViewDays(),
@@ -45,7 +44,7 @@ __d(
         pausedToday: u(),
         record: l,
         retiredOnAllDevices: c,
-        summary: g(l, i, s, c, d),
+        summary: f(l, i, s, c, d),
       };
     }
     function u() {
@@ -62,7 +61,7 @@ __d(
       return a >= 0 && a < t;
     }
     function c() {
-      var t = f(r("WAWebUserPrefsStore").getUser(e));
+      var t = _(r("WAWebUserPrefsStore").getUser(e));
       return t == null
         ? {
             advanced: !1,
@@ -106,55 +105,47 @@ __d(
             ". That is the last one, so the banner stays up for the whole of that day however many times you leave and come back. Advance one more day to see it retire on every device and the suggested actions take its place."
           : "Reopen Customer Manager to spend day " + e + " of " + t + ".";
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
+    async function m(e) {
+      var t = (e == null ? void 0 : e.includeIntroNux) === !0;
+      (o("WAWebNuxCoolOff").resetNuxCoolOff(
+        o("WAWebNux").NuxKeyTypes.COOL_OFF_NUX
+          .CUSTOMER_MANAGER_EDUCATION_BANNER,
+      ),
+        r("WAWebUserPrefsStore").setUser(
+          o("WAWebNux").CoolOffPeriodKeys.CUSTOMER_MANAGER_EDUCATION_BANNER,
+        ));
+      var n = null;
+      try {
+        await r("WAWebNuxSync").unAcknowledgeNux(
+          o("WAWebNux").NuxSyncKey.CUSTOMER_MANAGER_EDUCATION_BANNER,
+        );
+      } catch (e) {
+        n = r("getErrorSafe")(e).name;
+      }
       return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = (e == null ? void 0 : e.includeIntroNux) === !0;
-          (o("WAWebNuxCoolOff").resetNuxCoolOff(
-            o("WAWebNux").NuxKeyTypes.COOL_OFF_NUX
-              .CUSTOMER_MANAGER_EDUCATION_BANNER,
-          ),
-            r("WAWebUserPrefsStore").setUser(
-              o("WAWebNux").CoolOffPeriodKeys.CUSTOMER_MANAGER_EDUCATION_BANNER,
-            ));
-          var n = null;
-          try {
-            yield r("WAWebNuxSync").unAcknowledgeNux(
-              o("WAWebNux").NuxSyncKey.CUSTOMER_MANAGER_EDUCATION_BANNER,
-            );
-          } catch (e) {
-            n = r("getErrorSafe")(e).name;
-          }
-          return (
-            yield o(
-              "WAWebDebugResetSuggestedActions",
-            ).resetSuggestedActionsForDebug(),
-            t &&
-              (yield o("WAWebNuxAction").resetNux(
-                o("WAWebNux").NUX.CUSTOMER_MANAGER_INTRO,
-              )),
-            {
-              clearedIntroNux: t,
-              retirementCleared: n == null,
-              state: s(),
-              summary:
-                n == null
-                  ? "Reopen Customer Manager to see the banner from day 0."
-                  : "Cleared on this browser, but the retirement did not reach the server, so the business\u2019s other devices still have the banner retired. Reopen Customer Manager to see it here, and run this again once the connection is back.",
-              syncError: n,
-            }
-          );
-        })),
-        p.apply(this, arguments)
+        await o(
+          "WAWebDebugResetSuggestedActions",
+        ).resetSuggestedActionsForDebug(),
+        t &&
+          (await o("WAWebNuxAction").resetNux(
+            o("WAWebNux").NUX.CUSTOMER_MANAGER_INTRO,
+          )),
+        {
+          clearedIntroNux: t,
+          retirementCleared: n == null,
+          state: s(),
+          summary:
+            n == null
+              ? "Reopen Customer Manager to see the banner from day 0."
+              : "Cleared on this browser, but the retirement did not reach the server, so the business\u2019s other devices still have the banner retired. Reopen Customer Manager to see it here, and run this again once the connection is back.",
+          syncError: n,
+        }
       );
     }
-    function _(e, t) {
+    function p(e, t) {
       return e == null ? "missing" : t == null ? "malformed" : "ok";
     }
-    function f(e) {
+    function _(e) {
       if (typeof e != "object" || e == null) return null;
       var t = e.clicks,
         n = e.dismisses,
@@ -175,7 +166,7 @@ __d(
             viewDaysBeforeCoolOff: a,
           };
     }
-    function g(e, t, n, a, i) {
+    function f(e, t, n, a, i) {
       return a
         ? "Retired on every device. Run the reset to bring it back."
         : e === "malformed"

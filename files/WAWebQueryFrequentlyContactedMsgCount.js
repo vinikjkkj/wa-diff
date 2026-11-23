@@ -1,83 +1,61 @@
 __d(
   "WAWebQueryFrequentlyContactedMsgCount",
   [
-    "Promise",
     "WAJobOrchestratorTypes",
     "WAWebDBMessageRangeIndex",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaMessage",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = "~";
-    function u(e) {
+    var e = "~";
+    function s(e) {
       var t = e.chatIds,
         n = e.sinceTs;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "queryFrequentlyContactedMsgCount",
           function (e) {
-            return c(e.chatIds, e.sinceTs);
+            return u(e.chatIds, e.sinceTs);
           },
           { priority: o("WAJobOrchestratorTypes").JobPriority.SKIP },
         )
         .waitUntilCompleted({ chatIds: t, sinceTs: n });
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    async function u(t, n) {
+      var r = o("WAWebSchemaMessage").getMessageTable(),
+        a = await Promise.all(
+          t.map(async function (t) {
+            var a = o("WAWebDBMessageRangeIndex").craftMessageRangeIndex({
+                chatId: t,
+                isIncoming: !1,
+                isSystemMessage: !1,
+                timestamp: n,
+              }),
+              i =
+                "" +
+                o("WAWebDBMessageRangeIndex").craftMessageRangeIndex({
+                  chatId: t,
+                  isIncoming: !1,
+                  isSystemMessage: !1,
+                  timestamp: null,
+                }) +
+                e,
+              l = await r.betweenCount(["messageRangeIndex"], a, i, {
+                lowerInclusive: !0,
+                upperInclusive: !0,
+              });
+            return { chatId: t, count: l };
+          }),
+        ),
+        i = new Map();
+      for (var l of a) {
+        var s = l.chatId,
+          u = l.count;
+        u > 0 && i.set(s, u);
+      }
+      return i;
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = o("WAWebSchemaMessage").getMessageTable(),
-            i = yield (e || (e = n("Promise"))).all(
-              t.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = o(
-                          "WAWebDBMessageRangeIndex",
-                        ).craftMessageRangeIndex({
-                          chatId: e,
-                          isIncoming: !1,
-                          isSystemMessage: !1,
-                          timestamp: r,
-                        }),
-                        n =
-                          "" +
-                          o("WAWebDBMessageRangeIndex").craftMessageRangeIndex({
-                            chatId: e,
-                            isIncoming: !1,
-                            isSystemMessage: !1,
-                            timestamp: null,
-                          }) +
-                          s,
-                        i = yield a.betweenCount(["messageRangeIndex"], t, n, {
-                          lowerInclusive: !0,
-                          upperInclusive: !0,
-                        });
-                      return { chatId: e, count: i };
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            l = new Map();
-          for (var u of i) {
-            var c = u.chatId,
-              d = u.count;
-            d > 0 && l.set(c, d);
-          }
-          return l;
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    l.queryFrequentlyContactedMsgCountJob = u;
+    l.queryFrequentlyContactedMsgCountJob = s;
   },
   98,
 );

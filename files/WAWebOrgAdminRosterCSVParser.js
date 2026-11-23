@@ -1,6 +1,6 @@
 __d(
   "WAWebOrgAdminRosterCSVParser",
-  ["WAWebContactImportCSVParsingUtils", "asyncToGeneratorRuntime"],
+  ["WAWebContactImportCSVParsingUtils"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
         function t(t, n) {
@@ -45,36 +45,28 @@ __d(
         "mobile phone number",
         "mobile_phone_number",
       ]);
-    function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          (n === void 0 && (n = s), S(t));
-          var r = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(
-            yield t.text(),
-            n * 2 + 2,
-          );
-          if (
-            r.errors.some(function (e) {
-              return R(e);
-            }) ||
-            r.data.length === 0
-          )
-            throw new e("invalid_file");
-          if (r.meta.truncated) throw new e("too_many_lines");
-          var a = L(r.data),
-            i = r.data[a],
-            l = E(r.data, a, i.length, n);
-          if (l.length === 0) throw new e("empty_roster");
-          return { columns: i.map(I), rows: l };
-        })),
-        C.apply(this, arguments)
+    async function y(t, n) {
+      (n === void 0 && (n = s), v(t));
+      var r = await o("WAWebContactImportCSVParsingUtils").loadPapaParse(
+        await t.text(),
+        n * 2 + 2,
       );
+      if (
+        r.errors.some(function (e) {
+          return S(e);
+        }) ||
+        r.data.length === 0
+      )
+        throw new e("invalid_file");
+      if (r.meta.truncated) throw new e("too_many_lines");
+      var a = R(r.data),
+        i = r.data[a],
+        l = L(r.data, a, i.length, n);
+      if (l.length === 0) throw new e("empty_roster");
+      return { columns: i.map(k), rows: l };
     }
-    function b(e) {
-      var t = k(e);
+    function C(e) {
+      var t = E(e);
       return p.has(t)
         ? "first_name"
         : _.has(t)
@@ -87,17 +79,17 @@ __d(
                 ? "member_tag"
                 : null;
     }
-    function v(e) {
-      return m.has(k(e));
+    function b(e) {
+      return m.has(E(e));
     }
-    function S(t) {
+    function v(t) {
       if (t.size > c) throw new e("file_too_large");
       if (!t.name.toLowerCase().endsWith(".csv")) throw new e("invalid_file");
     }
-    function R(e) {
+    function S(e) {
       return e.type !== "FieldMismatch" && e.code !== "UndetectableDelimiter";
     }
-    function L(t) {
+    function R(t) {
       var n = t.findIndex(function (e) {
         return e.some(function (e) {
           return String(e).trim() !== "";
@@ -106,9 +98,9 @@ __d(
       if (n < 0) throw new e("invalid_headers");
       return n;
     }
-    function E(t, n, r, o) {
+    function L(t, n, r, o) {
       for (var a = [], i = n + 1; i < t.length; i++) {
-        var l = t[i].map(T);
+        var l = t[i].map(I);
         if (
           !l.every(function (e) {
             return e === "";
@@ -122,13 +114,13 @@ __d(
       }
       return a;
     }
+    function E(e) {
+      return k(e).toLowerCase();
+    }
     function k(e) {
-      return I(e).toLowerCase();
+      return I(String(e).replace(/^\uFEFF/, ""));
     }
     function I(e) {
-      return T(String(e).replace(/^\uFEFF/, ""));
-    }
-    function T(e) {
       return String(e).trim().replace(d, "").trim();
     }
     ((l.WAWebOrgAdminRosterCSVError = e),
@@ -136,8 +128,8 @@ __d(
       (l.MAX_ORG_ADMIN_ROSTER_DISPLAY_ROWS = u),
       (l.MAX_ORG_ADMIN_ROSTER_FILE_BYTES = c),
       (l.parseOrgAdminRosterCSVTable = y),
-      (l.getOrgAdminRosterCSVHeaderField = b),
-      (l.isOrgAdminRosterCSVWholeNameHeader = v));
+      (l.getOrgAdminRosterCSVHeaderField = C),
+      (l.isOrgAdminRosterCSVWholeNameHeader = b));
   },
   98,
 );

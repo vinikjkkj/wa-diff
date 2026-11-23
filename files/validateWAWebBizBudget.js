@@ -40,19 +40,13 @@ __d(
     }
     function _(e) {
       return {
-        description: s._(
-          /*BTDS*/ "Your budget needs to be less than {max_budget}.",
-          [s._param("max_budget", e)],
-        ),
+        description: s._(/*BTDS*/ "", [s._param("max_budget", e)]),
         severity: "ERROR",
       };
     }
     function f(e, t) {
       return {
-        description: s._(
-          /*BTDS*/ "The minimum budget for this ad is {min_budget}.",
-          [s._param("min_budget", c(e, t))],
-        ),
+        description: s._(/*BTDS*/ "", [s._param("min_budget", c(e, t))]),
         severity: "ERROR",
       };
     }
@@ -61,7 +55,7 @@ __d(
     }
     function h() {
       return {
-        description: s._(/*BTDS*/ "Your budget is in the recommended range."),
+        description: s._(/*BTDS*/ ""),
         noticeName: "WAWebBizBudgetInRange",
         severity: "ACTIVE_FEEDBACK",
       };

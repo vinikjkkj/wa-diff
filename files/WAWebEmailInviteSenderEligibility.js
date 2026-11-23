@@ -7,7 +7,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "getErrorSafe",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -30,20 +29,13 @@ __d(
       );
     }
     function S(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n,
-        r;
       return (
-        t[0] !== e
-          ? ((n = function () {
-              return e ? L() : void 0;
-            }),
-            (r = [e]),
-            (t[0] = e),
-            (t[1] = n),
-            (t[2] = r))
-          : ((n = t[1]), (r = t[2])),
-        c(n, r),
+        c(
+          function () {
+            return e ? L() : void 0;
+          },
+          [e],
+        ),
         d(I, v)
       );
     }

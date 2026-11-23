@@ -1,7 +1,6 @@
 __d(
   "WAWebGroupHistoryToggleSync",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebBackendApi",
@@ -16,7 +15,6 @@ __d(
     "WAWebSyncdIndexUtils",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -25,9 +23,8 @@ __d(
       u,
       c,
       d,
-      m,
-      p = (function (t) {
-        function a() {
+      m = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -38,184 +35,150 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.getVersion = function () {
+          (a.getVersion = function () {
             return 1;
           }),
-          (i.getAction = function () {
+          (a.getAction = function () {
             return o("WAWebSyncdConst").Actions.GroupHistoryToggle;
           }),
-          (i.applyMutations = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                return (m || (m = n("Promise"))).all(
-                  e.map(function (e) {
-                    return t.applyMutation(e);
-                  }),
-                );
-              },
+          (a.applyMutations = async function (t) {
+            var e = this;
+            return Promise.all(
+              t.map(function (t) {
+                return e.applyMutation(t);
+              }),
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.applyMutation = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var n;
-                if (t.operation !== "set")
-                  return (
-                    o("WALogger").WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "GroupHistoryToggleSync: unsupported operation ",
-                          "",
-                        ])),
-                      t.operation,
-                    ),
-                    {
-                      actionState:
-                        o("WAWebSyncdConst").SyncActionState.Unsupported,
-                    }
-                  );
-                var a = _(
-                  (n = t.value.groupHistoryToggleAction) == null
-                    ? void 0
-                    : n.groupHistoryToggleMode,
-                );
-                if (a == null)
-                  return (
-                    o("WALogger").WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "GroupHistoryToggleSync: mutation carries no readable toggle mode",
-                        ])),
-                    ),
-                    o("WAWebSyncdIndexUtils").malformedActionValue(
-                      this.collectionName,
-                    )
-                  );
-                var i = t.indexParts[this.chatJidIndex];
-                if (!r("WAWebWid").isWid(i))
-                  return (
-                    o("WALogger").WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "GroupHistoryToggleSync: index chat jid is not a wid",
-                        ])),
-                    ),
-                    this.malformedActionIndex()
-                  );
-                var l = o("WAWebWidFactory").createWid(i);
-                if (!l.isGroup())
-                  return (
-                    o("WALogger").WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "GroupHistoryToggleSync: index chat jid is not a group",
-                        ])),
-                    ),
-                    this.malformedActionIndex()
-                  );
-                var m =
-                  yield o("WAWebSyncdGetChat").resolveChatForMutationIndex(l);
-                if (!m.success)
-                  return {
-                    actionState: o("WAWebSyncdConst").SyncActionState.Orphan,
-                    orphanModel: m.orphanModel,
-                  };
-                var p = o("WAWebWidFactory").createWid(m.chat.id),
-                  f = yield o(
-                    "WAWebGroupHistoryToggleModeStore",
-                  ).setGroupHistoryToggleMode(p, a);
-                return (
-                  f &&
-                    (o("WAWebBackendApi").frontendFireAndForget(
-                      "updateGroupMetadataModelForShareHistoryDefault",
-                      { group: p, shouldDefaultGroupHistoryShareOn: a },
-                    ),
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "logGroupHistoryToggleModeMdSyncReceived",
-                      { isToggleOn: a },
-                    ),
-                    o("WALogger").LOG(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "GroupHistoryToggleSync: applied incoming toggle, on=",
-                          "",
-                        ])),
-                      String(a),
-                    )),
-                  { actionState: o("WAWebSyncdConst").SyncActionState.Success }
-                );
-              },
+          }),
+          (a.applyMutation = async function (n) {
+            var t;
+            if (n.operation !== "set")
+              return (
+                o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "GroupHistoryToggleSync: unsupported operation ",
+                      "",
+                    ])),
+                  n.operation,
+                ),
+                {
+                  actionState: o("WAWebSyncdConst").SyncActionState.Unsupported,
+                }
+              );
+            var a = p(
+              (t = n.value.groupHistoryToggleAction) == null
+                ? void 0
+                : t.groupHistoryToggleMode,
             );
-            function a(e) {
-              return t.apply(this, arguments);
-            }
-            return a;
-          })()),
-          (i.getGroupHistoryToggleMutation = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                return o("WAWebSyncdActionUtils").buildPendingMutation({
-                  collection: this.collectionName,
-                  indexArgs: [
-                    yield o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
-                      n,
-                      o("WAWebSyncdConst").Actions.GroupHistoryToggle,
-                    ),
-                  ],
-                  value: {
-                    groupHistoryToggleAction: {
-                      groupHistoryToggleMode: t
-                        ? o("WAWebProtobufSyncAction.pb")
-                            .SyncActionValue$GroupHistoryToggleAction$GroupHistoryToggleMode
-                            .GROUP_HISTORY_TOGGLE_MODE_ON
-                        : o("WAWebProtobufSyncAction.pb")
-                            .SyncActionValue$GroupHistoryToggleAction$GroupHistoryToggleMode
-                            .GROUP_HISTORY_TOGGLE_MODE_OFF,
-                    },
-                  },
-                  version: this.getVersion(),
-                  operation: o("WAWebProtobufsServerSync.pb")
-                    .SyncdMutation$SyncdOperation.SET,
-                  timestamp: e,
-                  action: this.getAction(),
-                });
-              },
+            if (a == null)
+              return (
+                o("WALogger").WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "GroupHistoryToggleSync: mutation carries no readable toggle mode",
+                    ])),
+                ),
+                o("WAWebSyncdIndexUtils").malformedActionValue(
+                  this.collectionName,
+                )
+              );
+            var i = n.indexParts[this.chatJidIndex];
+            if (!r("WAWebWid").isWid(i))
+              return (
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "GroupHistoryToggleSync: index chat jid is not a wid",
+                    ])),
+                ),
+                this.malformedActionIndex()
+              );
+            var l = o("WAWebWidFactory").createWid(i);
+            if (!l.isGroup())
+              return (
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "GroupHistoryToggleSync: index chat jid is not a group",
+                    ])),
+                ),
+                this.malformedActionIndex()
+              );
+            var m = await o("WAWebSyncdGetChat").resolveChatForMutationIndex(l);
+            if (!m.success)
+              return {
+                actionState: o("WAWebSyncdConst").SyncActionState.Orphan,
+                orphanModel: m.orphanModel,
+              };
+            var _ = o("WAWebWidFactory").createWid(m.chat.id),
+              f = await o(
+                "WAWebGroupHistoryToggleModeStore",
+              ).setGroupHistoryToggleMode(_, a);
+            return (
+              f &&
+                (o("WAWebBackendApi").frontendFireAndForget(
+                  "updateGroupMetadataModelForShareHistoryDefault",
+                  { group: _, shouldDefaultGroupHistoryShareOn: a },
+                ),
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "logGroupHistoryToggleModeMdSyncReceived",
+                  { isToggleOn: a },
+                ),
+                o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "GroupHistoryToggleSync: applied incoming toggle, on=",
+                      "",
+                    ])),
+                  String(a),
+                )),
+              { actionState: o("WAWebSyncdConst").SyncActionState.Success }
             );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.sendGroupHistoryToggleMutation = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var r = yield this.getGroupHistoryToggleMutation(
-                  o("WATimeUtils").unixTimeMs(),
-                  t,
-                  e,
-                );
-                yield o("WAWebSyncdCoreApi").lockForSync([], [r], function () {
-                  return (m || (m = n("Promise"))).resolve();
-                });
+          }),
+          (a.getGroupHistoryToggleMutation = async function (t, n, r) {
+            return o("WAWebSyncdActionUtils").buildPendingMutation({
+              collection: this.collectionName,
+              indexArgs: [
+                await o("WAWebSyncdGetChat").getChatJidMutationIndexForChat(
+                  r,
+                  o("WAWebSyncdConst").Actions.GroupHistoryToggle,
+                ),
+              ],
+              value: {
+                groupHistoryToggleAction: {
+                  groupHistoryToggleMode: n
+                    ? o("WAWebProtobufSyncAction.pb")
+                        .SyncActionValue$GroupHistoryToggleAction$GroupHistoryToggleMode
+                        .GROUP_HISTORY_TOGGLE_MODE_ON
+                    : o("WAWebProtobufSyncAction.pb")
+                        .SyncActionValue$GroupHistoryToggleAction$GroupHistoryToggleMode
+                        .GROUP_HISTORY_TOGGLE_MODE_OFF,
+                },
               },
+              version: this.getVersion(),
+              operation: o("WAWebProtobufsServerSync.pb")
+                .SyncdMutation$SyncdOperation.SET,
+              timestamp: t,
+              action: this.getAction(),
+            });
+          }),
+          (a.sendGroupHistoryToggleMutation = async function (t, n) {
+            var e = await this.getGroupHistoryToggleMutation(
+              o("WATimeUtils").unixTimeMs(),
+              n,
+              t,
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          a
+            await o("WAWebSyncdCoreApi").lockForSync([], [e], function () {
+              return Promise.resolve();
+            });
+          }),
+          n
         );
       })(o("WAWebSyncdAction").ChatSyncdActionBase);
-    function _(e) {
+    function p(e) {
       return e ===
         o("WAWebProtobufSyncAction.pb")
           .SyncActionValue$GroupHistoryToggleAction$GroupHistoryToggleMode
@@ -228,8 +191,8 @@ __d(
           ? !1
           : null;
     }
-    var f = new p();
-    l.default = f;
+    var _ = new m();
+    l.default = _;
   },
   98,
 );

@@ -1,139 +1,90 @@
 __d(
   "WAWebOrgAdminFlowUtils",
-  [
-    "fbt",
-    "WALogger",
-    "WAWebOrgAdminGraphQL",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["fbt", "WALogger", "WAWebOrgAdminGraphQL", "getErrorSafe"],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
       c = { isTruncated: !1, members: [], status: "idle" };
     function d(e, t, n) {
       return e && t
-        ? s
-            ._(
-              /*BTDS*/ "Could not load Admin hub. This organization is unavailable, or you do not have admin access to it.",
-            )
-            .toString()
+        ? s._(/*BTDS*/ "").toString()
         : e
-          ? s
-              ._(
-                /*BTDS*/ "Could not load managed groups. People in this organization are still available.",
-              )
-              .toString()
+          ? s._(/*BTDS*/ "").toString()
           : t
-            ? s
-                ._(
-                  /*BTDS*/ "Could not load people in this organization. Managed groups are still available.",
-                )
-                .toString()
+            ? s._(/*BTDS*/ "").toString()
             : n
-              ? s
-                  ._(
-                    /*BTDS*/ "Could not load the managed roster. Managed groups are still available.",
-                  )
-                  .toString()
+              ? s._(/*BTDS*/ "").toString()
               : null;
     }
     function m(e, t, n, r) {
       return e || n
         ? null
         : t
-          ? s._(/*BTDS*/ "Loading organizations\u2026")
+          ? s._(/*BTDS*/ "")
           : r === 0
-            ? s._(/*BTDS*/ "No organizations available")
+            ? s._(/*BTDS*/ "")
             : null;
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    async function p(t, n) {
+      if (!n)
+        return { entries: [], failed: !1, isTruncated: !1, totalCount: null };
+      try {
+        return babelHelpers.extends(
+          {},
+          await o("WAWebOrgAdminGraphQL").loadOrgAdminRoster(t),
+          { failed: !1 },
+        );
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[org-admin] managed roster request failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("org-admin-load-roster-failed"),
+          { entries: [], failed: !0, isTruncated: !1, totalCount: 0 }
+        );
+      }
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (!n)
-            return {
-              entries: [],
-              failed: !1,
-              isTruncated: !1,
-              totalCount: null,
-            };
-          try {
-            return babelHelpers.extends(
-              {},
-              yield o("WAWebOrgAdminGraphQL").loadOrgAdminRoster(t),
-              { failed: !1 },
-            );
-          } catch (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[org-admin] managed roster request failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("org-admin-load-roster-failed"),
-              { entries: [], failed: !0, isTruncated: !1, totalCount: 0 }
-            );
-          }
-        })),
-        _.apply(this, arguments)
-      );
+    async function _(e) {
+      try {
+        var t = await o("WAWebOrgAdminGraphQL").loadOrgAdminDirectory(e, null);
+        return t.status === "roster_too_large"
+          ? babelHelpers.extends({}, c, { isTruncated: !0, status: "loaded" })
+          : { isTruncated: !1, members: t.members, status: "loaded" };
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[org-admin] private member directory request failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("org-admin-load-private-directory-failed"),
+          babelHelpers.extends({}, c, { status: "failed" })
+        );
+      }
     }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o("WAWebOrgAdminGraphQL").loadOrgAdminDirectory(
-              e,
-              null,
-            );
-            return t.status === "roster_too_large"
-              ? babelHelpers.extends({}, c, {
-                  isTruncated: !0,
-                  status: "loaded",
-                })
-              : { isTruncated: !1, members: t.members, status: "loaded" };
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[org-admin] private member directory request failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("org-admin-load-private-directory-failed"),
-              babelHelpers.extends({}, c, { status: "failed" })
-            );
-          }
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e, t, n) {
+    function f(e, t, n) {
       return babelHelpers.extends({}, e, {
         members: e.members.map(function (e) {
           return e.lid === t ? babelHelpers.extends({}, e, { role: n }) : e;
         }),
       });
     }
-    function y(e, t) {
+    function g(e, t) {
       return babelHelpers.extends({}, e, {
         members: e.members.filter(function (e) {
           return e.lid !== t;
         }),
       });
     }
-    function C(e, t) {
+    function h(e, t) {
       return t
         ? "not_loaded"
         : e.status === "failed"
@@ -149,17 +100,17 @@ __d(
                   );
                 })();
     }
-    function b(e, t, n) {
+    function y(e, t, n) {
       return !e && !t && n !== "";
     }
-    function v(e, t) {
+    function C(e, t) {
       return e ? (t ? "truncated" : "loaded") : "unavailable";
     }
-    function S(e, t, n) {
+    function b(e, t, n) {
       var r = new Map(e);
       return (n == null ? r.delete(t) : r.set(t, n), r);
     }
-    function R(e, t) {
+    function v(e, t) {
       var n = new Set(
         e.map(function (e) {
           return e.lid;
@@ -176,14 +127,14 @@ __d(
       (l.getHomeLoadErrorMessage = d),
       (l.getOrganizationStatusMessage = m),
       (l.loadAdminRosterForHome = p),
-      (l.loadPrivateDirectoryForHome = f),
-      (l.withPrivateMemberRole = h),
-      (l.withoutPrivateMember = y),
-      (l.getPrivateDirectoryLoadStatus = C),
-      (l.canStartRosterAppend = b),
-      (l.getRosterUploadStatus = v),
-      (l.withRosterMemberCount = S),
-      (l.getManagedMemberCount = R));
+      (l.loadPrivateDirectoryForHome = _),
+      (l.withPrivateMemberRole = f),
+      (l.withoutPrivateMember = g),
+      (l.getPrivateDirectoryLoadStatus = h),
+      (l.canStartRosterAppend = y),
+      (l.getRosterUploadStatus = C),
+      (l.withRosterMemberCount = b),
+      (l.getManagedMemberCount = v));
   },
   226,
 );

@@ -16,13 +16,12 @@ __d(
     "WAWebNotificationMuteReason",
     "WAWebPollCreationUtils",
     "WAWebUA",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
       c = (function (t) {
-        function a(e) {
+        function n(e) {
           var n,
             r = e.chat,
             o = e.milestoneType,
@@ -39,10 +38,10 @@ __d(
             n
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.buildKey = function () {
+          (a.buildKey = function () {
             var e, t, n;
             return (
               "newsletter-milestone:" +
@@ -59,19 +58,13 @@ __d(
               ((n = this.reactionCode) != null ? n : "")
             );
           }),
-          (i.getIcon = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-                this.chat,
-                this.abortController.signal,
-              );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.shouldMute = function (n) {
+          (a.getIcon = async function () {
+            return o("WAWebNotificationIconUtils").getChatNotificationIcon(
+              this.chat,
+              this.abortController.signal,
+            );
+          }),
+          (a.shouldMute = function (n) {
             var e = t.prototype.shouldMute.call(this, n);
             if (e != null) return e;
             var a = this.chat.newsletterMetadata;
@@ -87,12 +80,12 @@ __d(
               : r("WAWebNotificationMuteReason")
                   .NewsletterFollowerActivityDisabled;
           }),
-          (i.shouldPlaySound = function () {
+          (a.shouldPlaySound = function () {
             return t.prototype.shouldPlaySound.call(this)
               ? o("WAWebNotificationHelpers").shouldPlaySoundGranular(this.chat)
               : !1;
           }),
-          (i.getBody = function () {
+          (a.getBody = function () {
             return this.msg
               ? this.milestoneType === "FOLLOWS"
                 ? ""
@@ -101,101 +94,83 @@ __d(
                   )
               : this.getBodyForNullMsg();
           }),
-          (i.getAction = function () {
+          (a.getAction = function () {
             var t = this.msg ? ":" : "";
             e: {
               var n = this.milestoneType;
               if (n === "FOLLOWS")
                 return s
-                  ._(
-                    /*BTDS*/ '_j{"*":"\\ud83c\\udf89 Your channel has {channel_followers_count} followers!","_1":"\\ud83c\\udf89 Your channel has {channel_followers_count} new follower!"}',
-                    [
-                      s._plural(this.value),
-                      s._param(
-                        "channel_followers_count",
-                        r("WAWebL10N").d(this.value),
-                      ),
-                    ],
-                  )
+                  ._(/*BTDS*/ "", [
+                    s._plural(this.value),
+                    s._param(
+                      "channel_followers_count",
+                      r("WAWebL10N").d(this.value),
+                    ),
+                  ])
                   .toString();
               if (n === "MESSAGE_REACTIONS")
                 return this.value <= 1
                   ? s
-                      ._(/*BTDS*/ "{channel_reaction} reaction to{colon}", [
+                      ._(/*BTDS*/ "", [
                         s._param("channel_reaction", this.reactionCode),
                         s._param("colon", t),
                       ])
                       .toString()
                   : s
-                      ._(
-                        /*BTDS*/ "{channel_reaction_count} reactions to{colon}",
-                        [
-                          s._param(
-                            "channel_reaction_count",
-                            r("WAWebL10N").d(this.value),
-                          ),
-                          s._param("colon", t),
-                        ],
-                      )
+                      ._(/*BTDS*/ "", [
+                        s._param(
+                          "channel_reaction_count",
+                          r("WAWebL10N").d(this.value),
+                        ),
+                        s._param("colon", t),
+                      ])
                       .toString();
               if (n === "MESSAGE_RESPONSES")
                 return s
-                  ._(
-                    /*BTDS*/ '_j{"*":"{channel_question_response_count} responses to{colon}","_1":"{channel_question_response_count} response to{colon}"}',
-                    [
-                      s._plural(this.value),
-                      s._param(
-                        "channel_question_response_count",
-                        r("WAWebL10N").d(this.value),
-                      ),
-                      s._param("colon", t),
-                    ],
-                  )
+                  ._(/*BTDS*/ "", [
+                    s._plural(this.value),
+                    s._param(
+                      "channel_question_response_count",
+                      r("WAWebL10N").d(this.value),
+                    ),
+                    s._param("colon", t),
+                  ])
                   .toString();
               if (n === "MESSAGE_VOTES") {
                 var a;
                 return ((a = this.msg) == null ? void 0 : a.pollType) ===
                   o("WAWebPollCreationUtils").PollType.QUIZ
                   ? s
-                      ._(
-                        /*BTDS*/ '_j{"*":"{channel_quiz_responses_count} responses to{colon}","_1":"{channel_quiz_responses_count} response to{colon}"}',
-                        [
-                          s._plural(this.value),
-                          s._param(
-                            "channel_quiz_responses_count",
-                            r("WAWebL10N").d(this.value),
-                          ),
-                          s._param("colon", t),
-                        ],
-                      )
+                      ._(/*BTDS*/ "", [
+                        s._plural(this.value),
+                        s._param(
+                          "channel_quiz_responses_count",
+                          r("WAWebL10N").d(this.value),
+                        ),
+                        s._param("colon", t),
+                      ])
                       .toString()
                   : s
-                      ._(
-                        /*BTDS*/ '_j{"*":"{channel_poll_votes_count} votes in{colon}","_1":"{channel_poll_votes_count} vote in{colon}"}',
-                        [
-                          s._plural(this.value),
-                          s._param(
-                            "channel_poll_votes_count",
-                            r("WAWebL10N").d(this.value),
-                          ),
-                          s._param("colon", t),
-                        ],
-                      )
+                      ._(/*BTDS*/ "", [
+                        s._plural(this.value),
+                        s._param(
+                          "channel_poll_votes_count",
+                          r("WAWebL10N").d(this.value),
+                        ),
+                        s._param("colon", t),
+                      ])
                       .toString();
               }
               if (n === "MESSAGE_FORWARDS")
                 return s
-                  ._(
-                    /*BTDS*/ '_j{"*":"{channel_forwards_count} forwards{colon}","_1":"{channel_forwards_count} forward{colon}"}',
-                    [
-                      s._plural(this.value),
-                      s._param(
-                        "channel_forwards_count",
-                        r("WAWebL10N").d(this.value),
-                      ),
-                      s._param("colon", t),
-                    ],
-                  )
+                  ._(/*BTDS*/ "", [
+                    s._plural(this.value),
+                    s._param(
+                      "channel_forwards_count",
+                      r("WAWebL10N").d(this.value),
+                    ),
+                    s._param("colon", t),
+                  ])
                   .toString();
               {
                 return (
@@ -213,18 +188,16 @@ __d(
               }
             }
           }),
-          (i.getBodyForNullMsg = function () {
+          (a.getBodyForNullMsg = function () {
             e: {
               var e = this.milestoneType;
               if (e === "FOLLOWS") return "";
-              if (e === "MESSAGE_REACTIONS")
-                return s._(/*BTDS*/ "your update").toString();
+              if (e === "MESSAGE_REACTIONS") return s._(/*BTDS*/ "").toString();
               if (e === "MESSAGE_RESPONSES")
                 return o("WAWebUA").UA.hasEmoji ? "\u2753" : "";
               if (e === "MESSAGE_VOTES")
-                return o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCCA" : "";
-              if (e === "MESSAGE_FORWARDS")
-                return s._(/*BTDS*/ "of your update").toString();
+                return o("WAWebUA").UA.hasEmoji ? "\u{1F4CA}" : "";
+              if (e === "MESSAGE_FORWARDS") return s._(/*BTDS*/ "").toString();
               {
                 return (
                   o("WALogger").WARN(
@@ -241,7 +214,7 @@ __d(
               }
             }
           }),
-          (i.getBannerOptions = function () {
+          (a.getBannerOptions = function () {
             var e,
               t = o("WAWebGetNotificationStrings").getNotificationBody({
                 action: this.getAction(),
@@ -263,13 +236,13 @@ __d(
               body: t,
             };
           }),
-          (i.matchesChat = function (t) {
+          (a.matchesChat = function (t) {
             return t.equals(this.chat);
           }),
-          (i.getChatKind = function () {
+          (a.getChatKind = function () {
             return o("WAWebChatFlowTypes").ChatKindType.Newsletter;
           }),
-          a
+          n
         );
       })(o("WAWebBaseNotification").WABaseNotification);
     l.WANewsletterMilestoneNotification = c;

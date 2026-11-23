@@ -4,7 +4,8 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      return e === "BUSINESS_SUPPORT_HOME_HARM_VERIFICATION"
+      return e === "BUSINESS_SUPPORT_HOME_HARM_VERIFICATION" ||
+        e === "VERIFICATION_CENTER_START_VERIFICATION"
         ? o(
             "MAIBAHarmVerificationPlatformEnabled",
           ).MAIBAHarmVerificationPlatformEnabled()

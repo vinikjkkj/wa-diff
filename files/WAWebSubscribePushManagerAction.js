@@ -2,7 +2,6 @@ __d(
   "WAWebSubscribePushManagerAction",
   [
     "$InternalEnum",
-    "Promise",
     "WABase64",
     "WALogger",
     "WAWebDbErrors",
@@ -13,7 +12,6 @@ __d(
     "WAWebPushNotificationsGatingUtils",
     "WAWebSetPushConfigJob",
     "WAWebSetWorkerLocalStorage",
-    "asyncToGeneratorRuntime",
     "cr:27584",
     "getErrorSafe",
     "gkx",
@@ -35,30 +33,29 @@ __d(
       b,
       v,
       S,
-      R,
-      L = n("$InternalEnum").Mirrored(["AcknowledgedPushPreferences"]),
-      E = L.AcknowledgedPushPreferences,
-      k = (R || (R = n("Promise"))).resolve(),
+      R = n("$InternalEnum").Mirrored(["AcknowledgedPushPreferences"]),
+      L = R.AcknowledgedPushPreferences,
+      E = Promise.resolve(),
+      k = !1,
       I = !1,
-      T = !1,
-      D = 0,
-      x = R.resolve();
-    function $() {
+      T = 0,
+      D = Promise.resolve();
+    function x() {
       if (
         o(
           "WAWebPushNotificationsGatingUtils",
         ).canSupportOfflineNotifications() &&
         "serviceWorker" in navigator
       ) {
-        Y();
-        var e = ++D;
-        return P(function () {
-          return N(e);
+        U();
+        var e = ++T;
+        return $(function () {
+          return P(e);
         });
       }
     }
-    function P(e) {
-      var t = x.then(
+    function $(e) {
+      var t = D.then(
         function () {
           return e();
         },
@@ -66,111 +63,85 @@ __d(
           return e();
         },
       );
-      return ((x = t.then(r("WAWebNoop"), r("WAWebNoop"))), t);
+      return ((D = t.then(r("WAWebNoop"), r("WAWebNoop"))), t);
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    async function P(e) {
+      var t,
+        r = n("cr:27584").isOfflineNotificationsEnabled(),
+        o =
+          (t = await n("cr:27584").shouldSubscribePushManager(r)) != null
+            ? t
+            : !1,
+        a = !o && n("cr:27584").shouldSubscribeWithoutBackgroundSync(),
+        i = await N();
+      if (i != null) {
+        var l = i.pushSubscription;
+        await M(r, o, a, l, e);
+      }
     }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            r = n("cr:27584").isOfflineNotificationsEnabled(),
-            o =
-              (t = yield n("cr:27584").shouldSubscribePushManager(r)) != null
-                ? t
-                : !1,
-            a = !o && n("cr:27584").shouldSubscribeWithoutBackgroundSync(),
-            i = yield w();
-          if (i != null) {
-            var l = i.pushSubscription;
-            yield F(r, o, a, l, e);
-          }
-        })),
-        M.apply(this, arguments)
-      );
+    async function N() {
+      var t,
+        n,
+        a = await ((t = window.navigator.serviceWorker) == null
+          ? void 0
+          : t.ready);
+      if (a == null)
+        return (
+          await Z(),
+          o("WALogger").WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[push-notification] update failed: no SW registration",
+              ])),
+          ),
+          null
+        );
+      var i =
+        (n = a.pushManager) == null || n.getSubscription == null
+          ? void 0
+          : n.getSubscription();
+      if (i == null)
+        return (
+          await Z(),
+          o("WALogger").WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[push-notification] failed to get push manager",
+              ])),
+          ),
+          null
+        );
+      var l = window.location.origin + window.location.pathname;
+      if (a.scope !== l) return (await Z(), null);
+      try {
+        return { pushSubscription: await i };
+      } catch (e) {
+        return (
+          await Z(),
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[push-notification] failed to read push subscription",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("push-notification-get-subscription-failed"),
+          null
+        );
+      }
     }
-    function w() {
-      return A.apply(this, arguments);
+    async function M(e, t, n, o, a) {
+      if (w(e, t, o)) await Y(!1, a);
+      else if ((await Z(), r("WAWebL10N").off("locale_change", te), t))
+        await F(e, a);
+      else if (n) {
+        await B(o, a);
+        return;
+      } else o != null && (await re());
+      o != null && t && (await G(o));
     }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t,
-            n = yield (e = window.navigator.serviceWorker) == null
-              ? void 0
-              : e.ready;
-          if (n == null)
-            return (
-              yield me(),
-              o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[push-notification] update failed: no SW registration",
-                  ])),
-              ),
-              null
-            );
-          var a =
-            (t = n.pushManager) == null || t.getSubscription == null
-              ? void 0
-              : t.getSubscription();
-          if (a == null)
-            return (
-              yield me(),
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[push-notification] failed to get push manager",
-                  ])),
-              ),
-              null
-            );
-          var i = window.location.origin + window.location.pathname;
-          if (n.scope !== i) return (yield me(), null);
-          try {
-            return { pushSubscription: yield a };
-          } catch (e) {
-            return (
-              yield me(),
-              o("WALogger")
-                .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[push-notification] failed to read push subscription",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("push-notification-get-subscription-failed"),
-              null
-            );
-          }
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F(e, t, n, r, o) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, o, a) {
-            if (B(e, t, o)) yield se(!1, a);
-            else if ((yield me(), r("WAWebL10N").off("locale_change", ge), t))
-              yield q(e, a);
-            else if (n) {
-              yield G(o, a);
-              return;
-            } else o != null && (yield Ce());
-            o != null && t && (yield te(o));
-          },
-        )),
-        O.apply(this, arguments)
-      );
-    }
-    function B(e, t, n) {
+    function w(e, t, n) {
       var r;
       return (
         e &&
@@ -180,328 +151,268 @@ __d(
         n != null
       );
     }
-    function W(e) {
+    function A(e) {
       if (n("cr:27584").shouldSubscribeWithoutBackgroundSync()) {
-        (e || n("cr:27584").preventBackgroundSyncAutoEnable(), $());
+        (e || n("cr:27584").preventBackgroundSyncAutoEnable(), x());
         return;
       }
-      var t = ++D;
-      P(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          e ? yield q(!0, t) : yield Ce();
-        }),
-      );
+      var t = ++T;
+      $(async function () {
+        e ? await F(!0, t) : await re();
+      });
     }
-    function q(e, t, n) {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          n === void 0 && (n = !1);
-          var a = yield me();
-          if (
-            (r("WAWebL10N").off("locale_change", ge),
-            !(n && !a) &&
-              o(
-                "WAWebPushNotificationsGatingUtils",
-              ).canEnableOfflineNotifications())
-          )
-            try {
-              var i, l;
-              if (!("serviceWorker" in navigator)) return;
-              var s = yield (i = window.navigator.serviceWorker) == null
-                ? void 0
-                : i.ready;
-              if (s == null) return;
-              var u = yield s.pushManager.getSubscription();
-              if (u != null) return;
-              var c = yield o(
-                "WAWebGetPushServerSettingsJob",
-              ).getPushServerSettings();
-              if (c.errorCode != null) {
-                o("WALogger").WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[push-notification] subscribe failed: settings err ",
-                      "",
-                    ])),
-                  c.errorCode,
-                );
-                return;
-              }
-              var p = new Uint8Array(o("WABase64").decodeB64UrlSafe(String(c))),
-                _ = { userVisibleOnly: !0, applicationServerKey: p },
-                f = yield s.pushManager.subscribe(_);
-              if (n) {
-                yield j(f);
-                return;
-              }
-              (yield V(f),
-                e &&
-                ((l = window.Notification) == null ? void 0 : l.permission) ===
-                  "granted"
-                  ? yield se(!0, t)
-                  : yield ce(!0),
-                yield te(f));
-            } catch (e) {
-              o("WALogger").WARN(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[push-notification] subscribe failed: ",
-                    "",
-                  ])),
-                e,
-              );
-            }
-        })),
-        U.apply(this, arguments)
-      );
-    }
-    function V(e) {
-      return H.apply(this, arguments);
-    }
-    function H() {
-      return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          le(e.endpoint, null, { acknowledged: !1 });
-          try {
-            var t = yield o("WAWebSetPushConfigJob").setPushConfig(e);
-            (t == null ? void 0 : t.errorCode) != null
-              ? o("WALogger").WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[push-notification] subscribe failed: server err ",
-                      "",
-                    ])),
-                  t.errorText,
-                )
-              : le(e.endpoint, null, { acknowledged: !0 });
-          } catch (e) {
+    async function F(e, t, n) {
+      n === void 0 && (n = !1);
+      var a = await Z();
+      if (
+        (r("WAWebL10N").off("locale_change", te),
+        !(n && !a) &&
+          o(
+            "WAWebPushNotificationsGatingUtils",
+          ).canEnableOfflineNotifications())
+      )
+        try {
+          var i, l;
+          if (!("serviceWorker" in navigator)) return;
+          var s = await ((i = window.navigator.serviceWorker) == null
+            ? void 0
+            : i.ready);
+          if (s == null) return;
+          var u = await s.pushManager.getSubscription();
+          if (u != null) return;
+          var m = await o(
+            "WAWebGetPushServerSettingsJob",
+          ).getPushServerSettings();
+          if (m.errorCode != null) {
             o("WALogger").WARN(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[push-notification] subscribe config failed: ",
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[push-notification] subscribe failed: settings err ",
                   "",
                 ])),
-              e,
+              m.errorCode,
             );
-          }
-        })),
-        H.apply(this, arguments)
-      );
-    }
-    function G(e, t) {
-      return z.apply(this, arguments);
-    }
-    function z() {
-      return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!(yield me())) {
-            e != null && (yield Ce());
             return;
           }
-          if (e == null) {
-            yield q(!1, t, !0);
+          var p = new Uint8Array(o("WABase64").decodeB64UrlSafe(String(m))),
+            _ = { userVisibleOnly: !0, applicationServerKey: p },
+            f = await s.pushManager.subscribe(_);
+          if (n) {
+            await W(f);
             return;
           }
-          yield j(e);
-        })),
-        z.apply(this, arguments)
-      );
+          (await O(f),
+            e &&
+            ((l = window.Notification) == null ? void 0 : l.permission) ===
+              "granted"
+              ? await Y(!0, t)
+              : await J(!0),
+            await G(f));
+        } catch (e) {
+          o("WALogger").WARN(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "[push-notification] subscribe failed: ",
+                "",
+              ])),
+            e,
+          );
+        }
     }
-    function j(e) {
-      return K.apply(this, arguments);
+    async function O(e) {
+      X(e.endpoint, null, { acknowledged: !1 });
+      try {
+        var t = await o("WAWebSetPushConfigJob").setPushConfig(e);
+        (t == null ? void 0 : t.errorCode) != null
+          ? o("WALogger").WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[push-notification] subscribe failed: server err ",
+                  "",
+                ])),
+              t.errorText,
+            )
+          : X(e.endpoint, null, { acknowledged: !0 });
+      } catch (e) {
+        o("WALogger").WARN(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "[push-notification] subscribe config failed: ",
+              "",
+            ])),
+          e,
+        );
+      }
     }
-    function K() {
-      return (
-        (K = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = n("cr:27584").getPushPreferences(!1);
-          if (t == null) {
-            yield Ce();
-            return;
-          }
-          if (!(yield te(e, t)) && !re(e.endpoint, t)) {
-            yield Ce();
-            return;
-          }
-          (r("WAWebL10N").off("locale_change", ge),
-            r("WAWebL10N").on("locale_change", ge),
-            ge(),
-            yield Q());
-        })),
-        K.apply(this, arguments)
-      );
+    async function B(e, t) {
+      if (!(await Z())) {
+        e != null && (await re());
+        return;
+      }
+      if (e == null) {
+        await F(!1, t, !0);
+        return;
+      }
+      await W(e);
     }
-    function Q() {
-      return X.apply(this, arguments);
+    async function W(e) {
+      var t = n("cr:27584").getPushPreferences(!1);
+      if (t == null) {
+        await re();
+        return;
+      }
+      if (!(await G(e, t)) && !z(e.endpoint, t)) {
+        await re();
+        return;
+      }
+      (r("WAWebL10N").off("locale_change", te),
+        r("WAWebL10N").on("locale_change", te),
+        te(),
+        await q());
     }
-    function X() {
-      return (
-        (X = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+    async function q() {
+      try {
+        await o(
+          "WAWebSetWorkerLocalStorage",
+        ).setWorkerLocalStorageForOfflineResume();
+      } catch (e) {
+        e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
+          o("WALogger")
+            .WARN(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[push-notification] failed to store worker identity for a subscription without Background Sync",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("push-notification-no-sync-worker-identity-failed");
+      }
+    }
+    function U() {
+      k || ((k = !0), n("cr:27584").onPushPreferencesInputsChange(V));
+    }
+    function V() {
+      I ||
+        ((I = !0),
+        $(async function () {
+          I = !1;
           try {
-            yield o(
-              "WAWebSetWorkerLocalStorage",
-            ).setWorkerLocalStorageForOfflineResume();
-          } catch (e) {
-            e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
-              o("WALogger")
-                .WARN(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[push-notification] failed to store worker identity for a subscription without Background Sync",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("push-notification-no-sync-worker-identity-failed");
-          }
-        })),
-        X.apply(this, arguments)
-      );
-    }
-    function Y() {
-      I || ((I = !0), n("cr:27584").onPushPreferencesInputsChange(J));
-    }
-    function J() {
-      T ||
-        ((T = !0),
-        P(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            T = !1;
-            try {
-              var t,
-                a,
-                i,
-                l =
-                  (t = yield n("cr:27584").shouldSubscribePushManager(
-                    n("cr:27584").getOfflineNotificationsSetting(),
-                  )) != null
-                    ? t
-                    : !1,
-                s = yield (a = window.navigator.serviceWorker) == null
-                  ? void 0
-                  : a.ready;
-              if (
-                (s == null ? void 0 : s.scope) !==
-                window.location.origin + window.location.pathname
-              )
-                return;
-              var u = yield s == null ||
-              (i = s.pushManager) == null ||
-              i.getSubscription == null
+            var e,
+              t,
+              a,
+              i =
+                (e = await n("cr:27584").shouldSubscribePushManager(
+                  n("cr:27584").getOfflineNotificationsSetting(),
+                )) != null
+                  ? e
+                  : !1,
+              l = await ((t = window.navigator.serviceWorker) == null
                 ? void 0
-                : i.getSubscription();
-              if (l) {
-                u != null
-                  ? yield te(u)
-                  : n("cr:27584").getPushPreferences() != null && $();
-                return;
-              }
-              yield Z(u);
-            } catch (t) {
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[push-notification] push subscription read for preferences sync failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs(
-                  "push-notification-preferences-sync-subscription-failed",
-                );
+                : t.ready);
+            if (
+              (l == null ? void 0 : l.scope) !==
+              window.location.origin + window.location.pathname
+            )
+              return;
+            var s = await (l == null ||
+            (a = l.pushManager) == null ||
+            a.getSubscription == null
+              ? void 0
+              : a.getSubscription());
+            if (i) {
+              s != null
+                ? await G(s)
+                : n("cr:27584").getPushPreferences() != null && x();
+              return;
             }
-          }),
-        ));
-    }
-    function Z(e) {
-      return ee.apply(this, arguments);
-    }
-    function ee() {
-      return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          n("cr:27584").shouldSubscribeWithoutBackgroundSync()
-            ? yield G(e, D)
-            : e != null && oe(e.endpoint) && (yield Ce());
-        })),
-        ee.apply(this, arguments)
-      );
-    }
-    function te(e, t) {
-      return ne.apply(this, arguments);
-    }
-    function ne() {
-      return (
-        (ne = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            (t === void 0 && (t = n("cr:27584").getPushPreferences()),
-            re(e.endpoint, t))
-          )
-            return !0;
-          le(e.endpoint, t, { acknowledged: !1 });
-          try {
-            var a = yield o("WAWebSetPushConfigJob").setPushConfig(e, t);
-            if ((a == null ? void 0 : a.errorCode) != null)
-              return (
-                o("WALogger")
-                  .WARN(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "[push-notification] push preferences sync failed: server err ",
-                        "",
-                      ])),
-                    a.errorText,
-                  )
-                  .sendLogs("push-notification-preferences-sync-rejected"),
-                !1
-              );
+            await H(s);
           } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "[push-notification] push preferences sync failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("push-notification-preferences-sync-failed"),
-              !1
-            );
+            o("WALogger")
+              .WARN(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "[push-notification] push subscription read for preferences sync failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs(
+                "push-notification-preferences-sync-subscription-failed",
+              );
           }
-          return (le(e.endpoint, t, { acknowledged: !0 }), !0);
-        })),
-        ne.apply(this, arguments)
-      );
+        }));
     }
-    function re(e, t) {
-      var n = ae();
+    async function H(e) {
+      n("cr:27584").shouldSubscribeWithoutBackgroundSync()
+        ? await B(e, T)
+        : e != null && j(e.endpoint) && (await re());
+    }
+    async function G(e, t) {
+      if (
+        (t === void 0 && (t = n("cr:27584").getPushPreferences()),
+        z(e.endpoint, t))
+      )
+        return !0;
+      X(e.endpoint, t, { acknowledged: !1 });
+      try {
+        var a = await o("WAWebSetPushConfigJob").setPushConfig(e, t);
+        if ((a == null ? void 0 : a.errorCode) != null)
+          return (
+            o("WALogger")
+              .WARN(
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "[push-notification] push preferences sync failed: server err ",
+                    "",
+                  ])),
+                a.errorText,
+              )
+              .sendLogs("push-notification-preferences-sync-rejected"),
+            !1
+          );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "[push-notification] push preferences sync failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("push-notification-preferences-sync-failed"),
+          !1
+        );
+      }
+      return (X(e.endpoint, t, { acknowledged: !0 }), !0);
+    }
+    function z(e, t) {
+      var n = K();
       return n == null
         ? t == null
         : n.acknowledged &&
             n.endpoint === e &&
             n.pushPreferences === (t != null ? t : null);
     }
-    function oe(e) {
-      var t = ae();
+    function j(e) {
+      var t = K();
       return t != null && t.endpoint === e && t.pushPreferences != null;
     }
-    function ae() {
+    function K() {
       var e;
       return (e = o("WAWebPersistedPrefObject").readPersistedPrefObject(
-        E,
-        ie,
+        L,
+        Q,
         "push-notification-acknowledged-preferences-malformed",
         { ignoreCache: !0 },
       )) != null
         ? e
         : o("WAWebPersistedPrefObject").readPersistedPrefObject(
-            E,
-            ie,
+            L,
+            Q,
             "push-notification-acknowledged-preferences-malformed",
           );
     }
-    function ie(e) {
+    function Q(e) {
       var t = e.acknowledged,
         n = e.endpoint,
         r = e.pushPreferences;
@@ -513,227 +424,176 @@ __d(
             pushPreferences: r != null ? r : null,
           };
     }
-    function le(e, t, n) {
+    function X(e, t, n) {
       var r = n.acknowledged;
-      o("WAWebPersistedPrefObject").writePersistedPrefObject(E, {
+      o("WAWebPersistedPrefObject").writePersistedPrefObject(L, {
         acknowledged: r,
         endpoint: e,
         pushPreferences: t != null ? t : null,
       });
     }
-    function se(e, t) {
-      return ue.apply(this, arguments);
-    }
-    function ue() {
-      return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if ((yield me(), !r("gkx")("15473"))) {
-            yield ce(e);
-            return;
-          }
-          (r("WAWebL10N").off("locale_change", ge),
-            r("WAWebL10N").on("locale_change", ge));
-          var n = yield _e(),
-            a = yield ge();
-          if (!(!n || !a || t !== D))
-            try {
-              yield o(
-                "WAWebSetWorkerLocalStorage",
-              ).setWorkerLocalStorageForOfflineResume(!0);
-            } catch (e) {
-              e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
-                o("WALogger")
-                  .WARN(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
-                        "[push-notification] failed to store offline resume treatment",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs(
-                    "push-notification-offline-resume-treatment-write-failed",
-                  );
-            }
-        })),
-        ue.apply(this, arguments)
-      );
-    }
-    function ce(e) {
-      return de.apply(this, arguments);
-    }
-    function de() {
-      return (
-        (de = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (e && (yield o("WAWebSetWorkerLocalStorage").setWorkerLocalStorage()),
-            n("cr:27584").updateOfflineNotificationL10nStrings(),
-            r("WAWebL10N").on("locale_change", function () {
-              n("cr:27584").updateOfflineNotificationL10nStrings();
-            }));
-        })),
-        de.apply(this, arguments)
-      );
-    }
-    function me() {
-      return pe.apply(this, arguments);
-    }
-    function pe() {
-      return (
-        (pe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          r("WAWebL10N").off("locale_change", ge);
-          try {
-            return (
-              yield o(
-                "WAWebSetWorkerLocalStorage",
-              ).clearWorkerPushOfflineResumeTreatment(),
-              !0
-            );
-          } catch (e) {
-            return (
-              e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
-                o("WALogger")
-                  .WARN(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
-                        "[push-notification] failed to clear offline resume treatment",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs(
-                    "push-notification-offline-resume-treatment-clear-failed",
-                  ),
-              !1
-            );
-          }
-        })),
-        pe.apply(this, arguments)
-      );
-    }
-    function _e() {
-      return fe.apply(this, arguments);
-    }
-    function fe() {
-      return (
-        (fe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            return (
-              yield o(
-                "WAWebSetWorkerLocalStorage",
-              ).setWorkerLocalStorageForOfflineResume(),
-              !0
-            );
-          } catch (e) {
-            return (
-              e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
-                o("WALogger")
-                  .WARN(
-                    b ||
-                      (b = babelHelpers.taggedTemplateLiteralLoose([
-                        "[push-notification] failed to refresh worker storage",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("push-notification-worker-storage-refresh-failed"),
-              !1
-            );
-          }
-        })),
-        fe.apply(this, arguments)
-      );
-    }
-    function ge() {
-      return he.apply(this, arguments);
-    }
-    function he() {
-      return (
-        (he = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = !1;
-          return (
-            (k = k.then(
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                try {
-                  (yield n(
-                    "cr:27584",
-                  ).updateOfflineNotificationL10nStringsForOfflineResume(),
-                    (e = !0));
-                } catch (e) {
-                  e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
-                    o("WALogger")
-                      .WARN(
-                        v ||
-                          (v = babelHelpers.taggedTemplateLiteralLoose([
-                            "[push-notification] failed to refresh notification l10n",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("push-notification-l10n-refresh-failed");
-                }
-              }),
-            )),
-            yield k,
-            e
-          );
-        })),
-        he.apply(this, arguments)
-      );
-    }
-    function ye() {
-      return (++D, P(Ce));
-    }
-    function Ce() {
-      return be.apply(this, arguments);
-    }
-    function be() {
-      return (
-        (be = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            (yield me(),
-            r("WAWebL10N").off("locale_change", ge),
-            !o(
-              "WAWebPushNotificationsGatingUtils",
-            ).canSupportOfflineNotifications())
-          )
-            return !1;
-          try {
-            var e;
-            if (!("serviceWorker" in navigator)) return !1;
-            var t = yield (e = window.navigator.serviceWorker) == null
-              ? void 0
-              : e.ready;
-            if (t == null) return !1;
-            var n = yield t.pushManager.getSubscription();
-            if (n == null) return !1;
-            var a = yield n.unsubscribe();
-            return (
-              yield o("WAWebSetWorkerLocalStorage")
-                .clearWorkerLocalStorage()
-                .catch(function (e) {
-                  if (!(e instanceof o("WAWebDbErrors").DbOnLogoutAbort))
-                    throw e;
-                }),
-              a
-            );
-          } catch (e) {
-            return (
-              o("WALogger").WARN(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "[push-notification] unsubscribe failed: ",
-                    "",
+    async function Y(e, t) {
+      if ((await Z(), !r("gkx")("15473"))) {
+        await J(e);
+        return;
+      }
+      (r("WAWebL10N").off("locale_change", te),
+        r("WAWebL10N").on("locale_change", te));
+      var n = await ee(),
+        a = await te();
+      if (!(!n || !a || t !== T))
+        try {
+          await o(
+            "WAWebSetWorkerLocalStorage",
+          ).setWorkerLocalStorageForOfflineResume(!0);
+        } catch (e) {
+          e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
+            o("WALogger")
+              .WARN(
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
+                    "[push-notification] failed to store offline resume treatment",
                   ])),
-                e,
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs(
+                "push-notification-offline-resume-treatment-write-failed",
+              );
+        }
+    }
+    async function J(e) {
+      (e && (await o("WAWebSetWorkerLocalStorage").setWorkerLocalStorage()),
+        n("cr:27584").updateOfflineNotificationL10nStrings(),
+        r("WAWebL10N").on("locale_change", function () {
+          n("cr:27584").updateOfflineNotificationL10nStrings();
+        }));
+    }
+    async function Z() {
+      r("WAWebL10N").off("locale_change", te);
+      try {
+        return (
+          await o(
+            "WAWebSetWorkerLocalStorage",
+          ).clearWorkerPushOfflineResumeTreatment(),
+          !0
+        );
+      } catch (e) {
+        return (
+          e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
+            o("WALogger")
+              .WARN(
+                C ||
+                  (C = babelHelpers.taggedTemplateLiteralLoose([
+                    "[push-notification] failed to clear offline resume treatment",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs(
+                "push-notification-offline-resume-treatment-clear-failed",
               ),
-              !1
-            );
+          !1
+        );
+      }
+    }
+    async function ee() {
+      try {
+        return (
+          await o(
+            "WAWebSetWorkerLocalStorage",
+          ).setWorkerLocalStorageForOfflineResume(),
+          !0
+        );
+      } catch (e) {
+        return (
+          e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
+            o("WALogger")
+              .WARN(
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                    "[push-notification] failed to refresh worker storage",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("push-notification-worker-storage-refresh-failed"),
+          !1
+        );
+      }
+    }
+    async function te() {
+      var e = !1;
+      return (
+        (E = E.then(async function () {
+          try {
+            (await n(
+              "cr:27584",
+            ).updateOfflineNotificationL10nStringsForOfflineResume(),
+              (e = !0));
+          } catch (e) {
+            e instanceof o("WAWebDbErrors").DbOnLogoutAbort ||
+              o("WALogger")
+                .WARN(
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                      "[push-notification] failed to refresh notification l10n",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("push-notification-l10n-refresh-failed");
           }
         })),
-        be.apply(this, arguments)
+        await E,
+        e
       );
     }
-    ((l.SubscribePushManagerUserPrefs = L),
-      (l.updatePushManager = $),
-      (l.handleOfflineNotifications = W),
-      (l.syncCurrentPushPreferences = J),
-      (l.unsubscribePushManager = ye));
+    function ne() {
+      return (++T, $(re));
+    }
+    async function re() {
+      if (
+        (await Z(),
+        r("WAWebL10N").off("locale_change", te),
+        !o(
+          "WAWebPushNotificationsGatingUtils",
+        ).canSupportOfflineNotifications())
+      )
+        return !1;
+      try {
+        var e;
+        if (!("serviceWorker" in navigator)) return !1;
+        var t = await ((e = window.navigator.serviceWorker) == null
+          ? void 0
+          : e.ready);
+        if (t == null) return !1;
+        var n = await t.pushManager.getSubscription();
+        if (n == null) return !1;
+        var a = await n.unsubscribe();
+        return (
+          await o("WAWebSetWorkerLocalStorage")
+            .clearWorkerLocalStorage()
+            .catch(function (e) {
+              if (!(e instanceof o("WAWebDbErrors").DbOnLogoutAbort)) throw e;
+            }),
+          a
+        );
+      } catch (e) {
+        return (
+          o("WALogger").WARN(
+            S ||
+              (S = babelHelpers.taggedTemplateLiteralLoose([
+                "[push-notification] unsubscribe failed: ",
+                "",
+              ])),
+            e,
+          ),
+          !1
+        );
+      }
+    }
+    ((l.SubscribePushManagerUserPrefs = R),
+      (l.updatePushManager = x),
+      (l.handleOfflineNotifications = A),
+      (l.syncCurrentPushPreferences = V),
+      (l.unsubscribePushManager = ne));
   },
   98,
 );

@@ -13,7 +13,6 @@ __d(
     "WDSText.react",
     "getErrorSafe",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -50,41 +49,26 @@ __d(
           .load();
       }, "WAWebPaymentDetailsBubbleHeader");
     function _(e, t) {
-      var n = o("react-compiler-runtime").c(4),
-        r = t === o("WAWebDisplayType").DISPLAY_TYPE.CONVERSATION,
-        a,
-        i;
-      (n[0] !== r || n[1] !== e
-        ? ((a = function () {
-            var t = o("WAWebMsgCollection").MsgCollection.get(e);
-            r &&
-              t != null &&
-              o("WAWebPaymentDetailsGating").canLogPaymentBubbleView(t) &&
-              b(e);
-          }),
-          (i = [r, e]),
-          (n[0] = r),
-          (n[1] = e),
-          (n[2] = a),
-          (n[3] = i))
-        : ((a = n[2]), (i = n[3])),
-        d(a, i));
-    }
-    function f(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.displayType,
-        r = e.isPaymentDetailsEnabled,
-        a = e.legacyHeader,
-        i = e.msgKey;
-      if ((_(i, n), !r)) return a;
-      var l;
-      return (
-        t[0] !== i
-          ? ((l = c.jsx(g, { msgKey: i })), (t[0] = i), (t[1] = l))
-          : (l = t[1]),
-        l
+      var n = t === o("WAWebDisplayType").DISPLAY_TYPE.CONVERSATION;
+      d(
+        function () {
+          var t = o("WAWebMsgCollection").MsgCollection.get(e);
+          n &&
+            t != null &&
+            o("WAWebPaymentDetailsGating").canLogPaymentBubbleView(t) &&
+            b(e);
+        },
+        [n, e],
       );
     }
+    function f(e) {
+      var t = e.displayType,
+        n = e.isPaymentDetailsEnabled,
+        r = e.legacyHeader,
+        o = e.msgKey;
+      return (_(o, t), n ? c.jsx(g, { msgKey: o }) : r);
+    }
+    f.displayName = f.name + " [from " + i.id + "]";
     var g = r("WAWebLoadable")({
         loader: p,
         loading: function (t) {

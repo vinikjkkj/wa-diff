@@ -3,6 +3,7 @@ __d(
   [
     "AdCampaignDestination",
     "AdsAdgroupRecordAccessors",
+    "AdsInstagramUserIdMigrationUtils",
     "AdsMessagesUnifiedCreationTypes",
     "AdsMessengerConstants",
     "AdsPromotedObjectTypes",
@@ -14,7 +15,6 @@ __d(
     "AdsUEditorUnifiedCreationUtils",
     "AdsWhatsAppUtils",
     "ClickToMessageCTMAdoptionFeatureGating",
-    "asyncToGeneratorRuntime",
     "immutable",
     "isTruthy",
   ],
@@ -44,41 +44,29 @@ __d(
       var t;
       return e == null ? null : (t = s.get(e)) != null ? t : null;
     }
-    function c(e, t, n, r) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a) {
-            var l = yield o("AdsUEditorInstagramUtils").getIgUserIDFromActorID(
-              n,
-            );
-            if (r("isTruthy")(l)) {
-              var s = o(
-                "AdsUEditorInstagramUtils",
-              ).getAppLinkForInstagramDirect(l);
-              r("AdsUEditorAdgroupSetMessageTypeDataAction").dispatch(
-                {
-                  messageType: e,
-                  hostID: r("AdsUEditorHostIDs").EDITING,
-                  adgroupIDs: t,
-                  appLink: s,
-                  isExistingPostAd: a,
-                },
-                {
-                  line: "107",
-                  module: "AdsUEditorUnifiedCreationAwarenessUtils.js",
-                  moduleID: i.id,
-                },
-              );
-            }
-          },
-        )),
-        d.apply(this, arguments)
+    async function c(e, t, n, a, l) {
+      var s = await o("AdsUEditorInstagramUtils").getIgUserIDFromActorID(
+        o("AdsInstagramUserIdMigrationUtils").getInstagramActorIdOrUserId(n, a),
       );
+      if (r("isTruthy")(s)) {
+        var u = o("AdsUEditorInstagramUtils").getAppLinkForInstagramDirect(s);
+        r("AdsUEditorAdgroupSetMessageTypeDataAction").dispatch(
+          {
+            messageType: e,
+            hostID: r("AdsUEditorHostIDs").EDITING,
+            adgroupIDs: t,
+            appLink: u,
+            isExistingPostAd: l,
+          },
+          {
+            line: "112",
+            module: "AdsUEditorUnifiedCreationAwarenessUtils.js",
+            moduleID: i.id,
+          },
+        );
+      }
     }
-    var m = new Map([
+    var d = new Map([
       [e.MESSENGER, "MESSENGER"],
       [e.INSTAGRAM_DIRECT, "INSTAGRAM_DIRECT"],
       [e.WHATSAPP, "WHATSAPP"],
@@ -96,11 +84,11 @@ __d(
         "MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP",
       ],
     ]);
-    function p(e) {
+    function m(e) {
       var t;
-      return e == null ? "" : (t = m.get(e)) != null ? t : "";
+      return e == null ? "" : (t = d.get(e)) != null ? t : "";
     }
-    function _(e, t) {
+    function p(e, t) {
       return o(
         "AdsUEditorMessagingDestinationUtils",
       ).destinationIncludesMessenger(e)
@@ -115,7 +103,7 @@ __d(
             ? t
             : "";
     }
-    function f(e) {
+    function _(e) {
       var t;
       return (t = o(
         "AdsUEditorUnifiedCreationUtils",
@@ -123,10 +111,10 @@ __d(
         ? t
         : "INSTAGRAM_MESSAGE";
     }
-    function g(e) {
-      return _(e, o("AdsUEditorInstagramUtils").DEFAULT_INSTAGRAM_LINK);
+    function f(e) {
+      return p(e, o("AdsUEditorInstagramUtils").DEFAULT_INSTAGRAM_LINK);
     }
-    var h = new Map([
+    var g = new Map([
       [
         e.MESSENGER,
         o("AdsUEditorUnifiedCreationAwarenessConstants").MESSENGER_HEADLINE,
@@ -140,9 +128,9 @@ __d(
         o("AdsUEditorUnifiedCreationAwarenessConstants").WHATSAPP_HEADLINE,
       ],
     ]);
-    function y(e) {
+    function h(e) {
       if (e == null) return "";
-      var t = h.get(e);
+      var t = g.get(e);
       return t != null
         ? t
         : o("AdsUEditorMessagingDestinationUtils").isMultiDestination(e)
@@ -150,7 +138,7 @@ __d(
               .MULTI_DESTINATION_HEADLINE
           : "";
     }
-    function C(e) {
+    function y(e) {
       var t,
         n = new Set(e),
         o = [
@@ -168,17 +156,17 @@ __d(
         return n.has(e.name);
       });
     }
-    function b(e, t, n) {
+    function C(e, t, n) {
       if (e == null || e.length === 0) return null;
-      var r = C(e);
+      var r = y(e);
       return r != null ? (r.name === "is_smcta" ? null : r.destination) : null;
     }
-    function v(e) {
+    function b(e) {
       return e === r("AdsPromotedObjectTypes").MESSENGER
         ? r("AdCampaignDestination").MESSENGER
         : null;
     }
-    function S(e) {
+    function v(e) {
       var t = e.getIn(
         o("AdsUEditorUnifiedCreationAwarenessConstants")
           .CALL_TO_ACTION_TYPES_ASSET_FEED_SPEC,
@@ -196,6 +184,24 @@ __d(
         (t != null && t.size > 0)
       );
     }
+    var S = [
+      {
+        appDestinations: ["MESSENGER", "INSTAGRAM_DIRECT", "WHATSAPP"],
+        messageType: "MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP",
+      },
+      {
+        appDestinations: ["MESSENGER", "INSTAGRAM_DIRECT"],
+        messageType: "MESSAGING_INSTAGRAM_DIRECT_MESSENGER",
+      },
+      {
+        appDestinations: ["MESSENGER", "WHATSAPP"],
+        messageType: "MESSAGING_MESSENGER_WHATSAPP",
+      },
+      {
+        appDestinations: ["INSTAGRAM_DIRECT", "WHATSAPP"],
+        messageType: "MESSAGING_INSTAGRAM_DIRECT_WHATSAPP",
+      },
+    ];
     function R(e) {
       var t = null;
       t =
@@ -234,15 +240,13 @@ __d(
               u != null && i.add(u);
             }
           }
-          i.has("MESSENGER") && i.has("INSTAGRAM_DIRECT") && i.has("WHATSAPP")
-            ? (t = "MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP")
-            : i.has("MESSENGER") && i.has("INSTAGRAM_DIRECT")
-              ? (t = "MESSAGING_INSTAGRAM_DIRECT_MESSENGER")
-              : i.has("MESSENGER") && i.has("WHATSAPP")
-                ? (t = "MESSAGING_MESSENGER_WHATSAPP")
-                : i.has("INSTAGRAM_DIRECT") &&
-                  i.has("WHATSAPP") &&
-                  (t = "MESSAGING_INSTAGRAM_DIRECT_WHATSAPP");
+          var c = S.find(function (e) {
+            var t = e.appDestinations;
+            return t.every(function (e) {
+              return i.has(e);
+            });
+          });
+          c != null && (t = c.messageType);
         }
       }
       return t;
@@ -278,7 +282,7 @@ __d(
                 .ClickToMessageDestinationType.WHATSAPP;
             break;
         }
-      var m = b(
+      var m = C(
         e == null ? void 0 : e.ctx_account_based_default_source,
         !1,
         !1,
@@ -323,16 +327,16 @@ __d(
             : null;
     }
     ((l.messageTypeStringToAdCampaignDestinationType = u),
-      (l._genAppLink = c),
-      (l.adCampaignDestinationTypeToString = p),
-      (l.getValueLinkFromMessageType = _),
-      (l.getCallToActionTypeFromMessageType = f),
-      (l.getLinkFromMessageType = g),
-      (l.getHeadlineFromMessageType = y),
-      (l.getCTXDefaultDestinationRule = C),
-      (l.getCTXDefaultDestinationFromSource = b),
-      (l.getMTMLDestinationDefaultingFromPromotedObjectType = v),
-      (l.hasCallToActionDestination = S),
+      (l.genAppLink = c),
+      (l.adCampaignDestinationTypeToString = m),
+      (l.getValueLinkFromMessageType = p),
+      (l.getCallToActionTypeFromMessageType = _),
+      (l.getLinkFromMessageType = f),
+      (l.getHeadlineFromMessageType = h),
+      (l.getCTXDefaultDestinationRule = y),
+      (l.getCTXDefaultDestinationFromSource = C),
+      (l.getMTMLDestinationDefaultingFromPromotedObjectType = b),
+      (l.hasCallToActionDestination = v),
       (l.getSelectedMessagingType = R),
       (l.getNewMessageTypeForPage = L),
       (l.getToplineMessageTypeForMD = E),

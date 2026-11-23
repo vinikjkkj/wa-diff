@@ -1,7 +1,6 @@
 __d(
   "WAWebCryptoLibrary",
   [
-    "Promise",
     "WAByteArray",
     "WACryptoLibrary",
     "WACryptoLibraryConfig",
@@ -15,7 +14,6 @@ __d(
     "WAWebSessionScope",
     "WAWebSignalCommonErrors",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -38,20 +36,19 @@ __d(
       S,
       R,
       L,
-      E,
-      k = o("WAWebCryptoLibraryDbCallbacksApi").getCryptoDbCallbacks();
-    function I(e) {
+      E = o("WAWebCryptoLibraryDbCallbacksApi").getCryptoDbCallbacks();
+    function k(e) {
       return {
         handleNewSession: o(
           "WAWebCryptoLibraryDbCallbacksApi",
-        ).selectHandleNewSession(k, e),
+        ).selectHandleNewSession(E, e),
         loadSession: o("WAWebCryptoLibraryDbCallbacksApi").selectLoadSession(
-          k,
+          E,
           e,
         ),
       };
     }
-    function T() {
+    function I() {
       var e;
       return {
         establishOutgoingSession: (e = o("WACryptoLibrary"))
@@ -64,232 +61,200 @@ __d(
         rotateGroupSenderKey: e.rotateGroupSenderKey,
       };
     }
-    function D(e) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.deviceId,
-            n = e.sessionInfo,
-            a = e.sessionScope;
-          o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
-                "CryptoLibrarySignal::createSignalSession sessionScope=",
-                "",
-              ])),
-            a != null ? a : "default",
-          );
-          var i = yield k.getRegistrationInfo();
-          if (!i) throw r("err")("No registration info found");
-          var l =
-            a === o("WAWebSessionScope").SessionScope.STATUS
-              ? k.handleNewSessionStatusScope
-              : k.handleNewSession;
-          if (
-            a === o("WAWebSessionScope").SessionScope.PQ &&
-            o("WACryptoLibraryConfig").getCryptoLibraryConfig()
-              .isPq1on1MessageEnabled === !0 &&
-            n.kyberKey != null
-          )
-            try {
-              var s = yield o("WACryptoPQSession").createOutgoingSessionPQ(
-                i,
-                n,
-              );
-              if (s.success) {
-                yield k.handleNewSessionPqScope(
-                  o("WAWebWidToJid").widToDeviceJid(t),
-                  s.value.session,
-                  s.value.session.remote.pubKey,
-                  null,
-                  void 0,
-                );
-                return;
-              }
-              o("WALogger")
-                .WARN(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[pq] createSignalSession: PQXDH failed, falling back to empty PQ slot",
-                    ])),
-                )
-                .sendLogs("createSignalSession-pqxdh-failed");
-            } catch (e) {
-              o("WALogger")
-                .WARN(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[pq] createSignalSession: PQXDH threw",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("createSignalSession-pqxdh-threw");
-            }
-          if (a !== o("WAWebSessionScope").SessionScope.PQ)
-            return T()
-              .establishOutgoingSession(
-                { handleNewSession: l },
-                i,
-                o("WAWebWidToJid").widToDeviceJid(t),
-                n,
-                void 0,
-              )
-              .then(function (e) {
-                if (!e.success)
-                  throw (
-                    o("WALogger").WARN(
-                      h ||
-                        (h = babelHelpers.taggedTemplateLiteralLoose([
-                          "CryptoLibrarySignal::createSignalSession failed with error ",
-                          "",
-                        ])),
-                      e.error,
-                    ),
-                    r("err")(e.error)
-                  );
-              });
-        })),
-        x.apply(this, arguments)
+    async function T(t) {
+      var n = t.deviceId,
+        a = t.sessionInfo,
+        i = t.sessionScope;
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "CryptoLibrarySignal::createSignalSession sessionScope=",
+            "",
+          ])),
+        i != null ? i : "default",
       );
+      var l = await E.getRegistrationInfo();
+      if (!l) throw r("err")("No registration info found");
+      var d =
+        i === o("WAWebSessionScope").SessionScope.STATUS
+          ? E.handleNewSessionStatusScope
+          : E.handleNewSession;
+      if (
+        i === o("WAWebSessionScope").SessionScope.PQ &&
+        o("WACryptoLibraryConfig").getCryptoLibraryConfig()
+          .isPq1on1MessageEnabled === !0 &&
+        a.kyberKey != null
+      )
+        try {
+          var m = await o("WACryptoPQSession").createOutgoingSessionPQ(l, a);
+          if (m.success) {
+            await E.handleNewSessionPqScope(
+              o("WAWebWidToJid").widToDeviceJid(n),
+              m.value.session,
+              m.value.session.remote.pubKey,
+              null,
+              void 0,
+            );
+            return;
+          }
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[pq] createSignalSession: PQXDH failed, falling back to empty PQ slot",
+                ])),
+            )
+            .sendLogs("createSignalSession-pqxdh-failed");
+        } catch (e) {
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[pq] createSignalSession: PQXDH threw",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("createSignalSession-pqxdh-threw");
+        }
+      if (i !== o("WAWebSessionScope").SessionScope.PQ)
+        return I()
+          .establishOutgoingSession(
+            { handleNewSession: d },
+            l,
+            o("WAWebWidToJid").widToDeviceJid(n),
+            a,
+            void 0,
+          )
+          .then(function (e) {
+            if (!e.success)
+              throw (
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "CryptoLibrarySignal::createSignalSession failed with error ",
+                      "",
+                    ])),
+                  e.error,
+                ),
+                r("err")(e.error)
+              );
+          });
     }
-    function $(e, t, n, r, o) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l) {
-            (i === void 0 && (i = !1),
-              o("WALogger").LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "CryptoLibrarySignal::decryptSignalProto sessionScope=",
+    async function D(e, t, n, a, i) {
+      (a === void 0 && (a = !1),
+        o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "CryptoLibrarySignal::decryptSignalProto sessionScope=",
+              "",
+            ])),
+          i != null ? i : "default",
+        ));
+      var l =
+          t === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
+            ? "pkmsg"
+            : "msg",
+        s,
+        u = await E.getRegistrationInfo();
+      if (!u) return Promise.reject(r("err")("No registration info found"));
+      var c = k(i),
+        _ = c.handleNewSession,
+        f = c.loadSession;
+      return I()
+        .decryptContent(
+          {
+            deleteKyberPreKey: E.deleteKyberPreKey,
+            handleNewSession: function (t, n, r, o, i) {
+              return _(t, n, r, o, i, a);
+            },
+            loadKyberPreKey: E.loadKyberPreKey,
+            loadOneTimePreKey: E.loadOneTimePreKey,
+            loadSession: f,
+            loadSignedPreKey: E.loadSignedPreKey,
+          },
+          u,
+          o("WAWebWidToJid").widToDeviceJid(e),
+          { ciphertext: n, type: l },
+          function (e) {
+            return (
+              (s = o("WAByteArray").uint8ArrayToBuffer(e)),
+              Promise.resolve()
+            );
+          },
+          {},
+        )
+        .then(function (e) {
+          if (e.success) {
+            if (s == null)
+              throw new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
+                "Null result on successful decryption",
+              );
+            return s;
+          }
+          var t = e.error;
+          throw (
+            o("WALogger").WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "CryptoLibrarySignal::decryptMessage failed with error ",
+                  "",
+                ])),
+              t,
+            ),
+            t === "errDuplicateMsg"
+              ? new (o("WAWebSignalCommonErrors").SignalMessageCounterError)(t)
+              : new (o("WAWebSignalCommonErrors").SignalDecryptionError)(t)
+          );
+        })
+        .catch(function (e) {
+          if (
+            e instanceof o("WAWebSignalCommonErrors").SignalDecryptionError ||
+            e instanceof o("WAWebSignalCommonErrors").SignalMessageCounterError
+          )
+            throw e;
+          var t = r("getErrorSafe")(e);
+          throw (
+            o("WALogger")
+              .ERROR(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "CryptoLibrarySignal::decryptSignalProto failed to decrypt: ",
                     "",
                   ])),
-                l != null ? l : "default",
-              ));
-            var s =
-                t === o("WAWebBackendJobs.flow").CiphertextType.Pkmsg
-                  ? "pkmsg"
-                  : "msg",
-              u,
-              c = yield k.getRegistrationInfo();
-            if (!c)
-              return (E || (E = n("Promise"))).reject(
-                r("err")("No registration info found"),
-              );
-            var d = I(l),
-              m = d.handleNewSession,
-              p = d.loadSession;
-            return T()
-              .decryptContent(
-                {
-                  deleteKyberPreKey: k.deleteKyberPreKey,
-                  handleNewSession: function (t, n, r, o, a) {
-                    return m(t, n, r, o, a, i);
-                  },
-                  loadKyberPreKey: k.loadKyberPreKey,
-                  loadOneTimePreKey: k.loadOneTimePreKey,
-                  loadSession: p,
-                  loadSignedPreKey: k.loadSignedPreKey,
-                },
-                c,
-                o("WAWebWidToJid").widToDeviceJid(e),
-                { ciphertext: a, type: s },
-                function (e) {
-                  return (
-                    (u = o("WAByteArray").uint8ArrayToBuffer(e)),
-                    (E || (E = n("Promise"))).resolve()
-                  );
-                },
-                {},
+                t,
               )
-              .then(function (e) {
-                if (e.success) {
-                  if (u == null)
-                    throw new (o(
-                      "WAWebSignalCommonErrors",
-                    ).SignalDecryptionError)(
-                      "Null result on successful decryption",
-                    );
-                  return u;
-                }
-                var t = e.error;
-                throw (
-                  o("WALogger").WARN(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
-                        "CryptoLibrarySignal::decryptMessage failed with error ",
-                        "",
-                      ])),
-                    t,
-                  ),
-                  t === "errDuplicateMsg"
-                    ? new (o(
-                        "WAWebSignalCommonErrors",
-                      ).SignalMessageCounterError)(t)
-                    : new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
-                        t,
-                      )
-                );
-              })
-              .catch(function (e) {
-                if (
-                  e instanceof
-                    o("WAWebSignalCommonErrors").SignalDecryptionError ||
-                  e instanceof
-                    o("WAWebSignalCommonErrors").SignalMessageCounterError
-                )
-                  throw e;
-                var t = r("getErrorSafe")(e);
-                throw (
-                  o("WALogger")
-                    .ERROR(
-                      b ||
-                        (b = babelHelpers.taggedTemplateLiteralLoose([
-                          "CryptoLibrarySignal::decryptSignalProto failed to decrypt: ",
-                          "",
-                        ])),
-                      t,
-                    )
-                    .catching(t),
-                  new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
-                    "Unexpected decryption error: " + t.message,
-                  )
-                );
-              });
-          },
-        )),
-        P.apply(this, arguments)
-      );
+              .catching(t),
+            new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
+              "Unexpected decryption error: " + t.message,
+            )
+          );
+        });
     }
-    function N(t, n, a, i) {
-      (i === void 0 && (i = !1),
+    function x(e, t, n, a) {
+      (a === void 0 && (a = !1),
         o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
               "CryptoLibrarySignal::encryptSignalProto sessionScope=",
               " omitSessionPersistence=",
               "",
             ])),
-          a != null ? a : "default",
-          String(i),
+          n != null ? n : "default",
+          String(a),
         ));
-      var l = I(a),
-        u = l.handleNewSession,
-        c = l.loadSession,
-        d = i
+      var i = k(n),
+        l = i.handleNewSession,
+        s = i.loadSession,
+        u = a
           ? function (e, t, n, r, o) {
-              return u(e, t, n, r, o, !0);
+              return l(e, t, n, r, o, !0);
             }
-          : u;
-      return T()
+          : l;
+      return I()
         .encryptContent(
-          { handleNewSession: d, loadSession: c },
-          o("WAWebWidToJid").widToDeviceJid(t),
-          n,
+          { handleNewSession: u, loadSession: s },
+          o("WAWebWidToJid").widToDeviceJid(e),
+          t,
           null,
         )
         .then(function (e) {
@@ -308,8 +273,8 @@ __d(
           }
           throw (
             o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
                   "CryptoLibrarySignal::encryptSignalProto:failed with error ",
                   "",
                 ])),
@@ -319,109 +284,93 @@ __d(
           );
         });
     }
-    function M(e, t) {
-      return w.apply(this, arguments);
+    async function $(e, t) {
+      var n = o("WAWebWidToJid").widToDeviceJid(e),
+        r = k(t),
+        a = r.loadSession,
+        i = await a(n);
+      return i == null ? void 0 : i.remote;
     }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebWidToJid").widToDeviceJid(e),
-            r = I(t),
-            a = r.loadSession,
-            i = yield a(n);
-          return i == null ? void 0 : i.remote;
-        })),
-        w.apply(this, arguments)
+    async function P(e, t, n) {
+      var a,
+        i,
+        l = o("WAWebWidToJid").widToMulticastJid(e),
+        s =
+          (a =
+            (i = o("WAJids").validateGroupJid(l)) != null
+              ? i
+              : o("WAJids").validateStatusJid(l)) != null
+            ? a
+            : o("WAJids").validateBroadcastJid(l);
+      if (s == null) throw r("err")("Invalid multicast JID");
+      var u = o("WAWebWidToJid").widToDeviceJid(t),
+        c = await I().encryptGroupContent(
+          {
+            loadSenderKeySession: E.loadSenderKeySession,
+            saveSenderKeySession: E.saveSenderKeySession,
+          },
+          s,
+          u,
+          n,
+        );
+      if (!c.success && c.error === "errLoadSenderKeySession") {
+        (c.error,
+          o("WALogger").LOG(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "CryptoLibrarySignal::encryptGroupMessage no sender key, generating a new one",
+              ])),
+          ));
+        var d = await o("WASignalKeys").makeKeyPair();
+        (await I().rotateGroupSenderKey(
+          { saveSenderKeySession: E.saveSenderKeySession },
+          s,
+          u,
+          d,
+        ),
+          (c = await I().encryptGroupContent(
+            {
+              loadSenderKeySession: E.loadSenderKeySession,
+              saveSenderKeySession: E.saveSenderKeySession,
+            },
+            s,
+            u,
+            n,
+          )));
+      }
+      if (c.success) {
+        var m = c.value.ciphertext.ciphertext,
+          p = c.value.senderKeyDistributionProto;
+        return {
+          ciphertext: o("WAByteArray").uint8ArrayToBuffer(m),
+          senderKeyBytes: o("WAByteArray").uint8ArrayToBuffer(p),
+        };
+      }
+      throw (
+        o("WALogger").WARN(
+          h ||
+            (h = babelHelpers.taggedTemplateLiteralLoose([
+              "CryptoLibrarySignal::encryptGroupMessage failed with error ",
+              "",
+            ])),
+          c.error,
+        ),
+        r("err")(c.error)
       );
     }
-    function A(e, t, n) {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a,
-            i,
-            l = o("WAWebWidToJid").widToMulticastJid(e),
-            s =
-              (a =
-                (i = o("WAJids").validateGroupJid(l)) != null
-                  ? i
-                  : o("WAJids").validateStatusJid(l)) != null
-                ? a
-                : o("WAJids").validateBroadcastJid(l);
-          if (s == null) throw r("err")("Invalid multicast JID");
-          var u = o("WAWebWidToJid").widToDeviceJid(t),
-            c = yield T().encryptGroupContent(
-              {
-                loadSenderKeySession: k.loadSenderKeySession,
-                saveSenderKeySession: k.saveSenderKeySession,
-              },
-              s,
-              u,
-              n,
-            );
-          if (!c.success && c.error === "errLoadSenderKeySession") {
-            (c.error,
-              o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "CryptoLibrarySignal::encryptGroupMessage no sender key, generating a new one",
-                  ])),
-              ));
-            var d = yield o("WASignalKeys").makeKeyPair();
-            (yield T().rotateGroupSenderKey(
-              { saveSenderKeySession: k.saveSenderKeySession },
-              s,
-              u,
-              d,
-            ),
-              (c = yield T().encryptGroupContent(
-                {
-                  loadSenderKeySession: k.loadSenderKeySession,
-                  saveSenderKeySession: k.saveSenderKeySession,
-                },
-                s,
-                u,
-                n,
-              )));
-          }
-          if (c.success) {
-            var m = c.value.ciphertext.ciphertext,
-              p = c.value.senderKeyDistributionProto;
-            return {
-              ciphertext: o("WAByteArray").uint8ArrayToBuffer(m),
-              senderKeyBytes: o("WAByteArray").uint8ArrayToBuffer(p),
-            };
-          }
-          throw (
-            o("WALogger").WARN(
-              S ||
-                (S = babelHelpers.taggedTemplateLiteralLoose([
-                  "CryptoLibrarySignal::encryptGroupMessage failed with error ",
-                  "",
-                ])),
-              c.error,
-            ),
-            r("err")(c.error)
-          );
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    function O(e, t, n) {
+    function N(e, t, n) {
       return (
         o("WALogger").LOG(
-          u ||
-            (u = babelHelpers.taggedTemplateLiteralLoose([
+          y ||
+            (y = babelHelpers.taggedTemplateLiteralLoose([
               "CryptoLibrarySignal::processSenderKeyDistributionMsg",
             ])),
         ),
-        T()
+        I()
           .saveSenderKeySession(
             {
-              loadSenderKeySession: k.loadSenderKeySession,
-              saveSenderKeySession: k.saveSenderKeySession,
+              loadSenderKeySession: E.loadSenderKeySession,
+              saveSenderKeySession: E.saveSenderKeySession,
             },
             e,
             o("WAWebWidToJid").widToDeviceJid(t),
@@ -431,8 +380,8 @@ __d(
             if (!e.success)
               throw (
                 o("WALogger").WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
                       "CryptoLibrarySignal::processSenderKeyDistributionMsg failed with error ",
                       "",
                     ])),
@@ -443,46 +392,46 @@ __d(
           })
       );
     }
-    function B(e) {
+    function M(e) {
       var t = e.author,
-        a = e.ciphertext,
-        i = e.groupId;
+        n = e.ciphertext,
+        a = e.groupId;
       o("WALogger").LOG(
-        d ||
-          (d = babelHelpers.taggedTemplateLiteralLoose([
+        b ||
+          (b = babelHelpers.taggedTemplateLiteralLoose([
             "CryptoLibrarySignal::decryptGroupSignalProto",
           ])),
       );
-      var l = null;
-      return T()
+      var i = null;
+      return I()
         .decryptGroupContent(
           {
-            loadSenderKeySession: k.loadSenderKeySession,
-            saveSenderKeySession: k.saveSenderKeySession,
+            loadSenderKeySession: E.loadSenderKeySession,
+            saveSenderKeySession: E.saveSenderKeySession,
           },
-          o("WAWebWidToJid").widToMulticastJid(i),
+          o("WAWebWidToJid").widToMulticastJid(a),
           o("WAWebWidToJid").widToDeviceJid(t),
-          a,
+          n,
           function (e) {
             return (
-              (l = o("WAByteArray").uint8ArrayToBuffer(e)),
-              (E || (E = n("Promise"))).resolve()
+              (i = o("WAByteArray").uint8ArrayToBuffer(e)),
+              Promise.resolve()
             );
           },
         )
         .then(function (e) {
           if (e.success) {
-            if (l == null)
+            if (i == null)
               throw new (o("WAWebSignalCommonErrors").SignalDecryptionError)(
                 "Null result on successful decryption of group msg",
               );
-            return l;
+            return i;
           }
           var t = e.error;
           throw (
             o("WALogger").WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
                   "CryptoLibrarySignal::decryptGroupMessage failed ",
                   "",
                 ])),
@@ -500,8 +449,8 @@ __d(
             ? e
             : (o("WALogger")
                 .ERROR(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
                       "CryptoLibrarySignal::decryptGroupSignalProto failed to decrypt",
                     ])),
                 )
@@ -511,51 +460,43 @@ __d(
               ));
         });
     }
-    function W(e, t) {
-      return q.apply(this, arguments);
-    }
-    function q() {
-      return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          o("WALogger").LOG(
-            R ||
-              (R = babelHelpers.taggedTemplateLiteralLoose([
-                "CryptoLibrarySignal::getGroupSenderKeyInfo",
-              ])),
-          );
-          var n = yield r(
-            "WAWebCryptoLibraryUtilsApi",
-          ).createSenderKeyDistributionMsg({
-            author: o("WAWebWidToJid").widToDeviceJid(t),
-            groupJid: o("WAJids").toGroupJid(e.toString({ legacy: !0 })),
-            loadSenderKeySession: k.loadSenderKeySession,
-            saveSenderKeySession: k.saveSenderKeySession,
-          });
-          if (n.success) return o("WAByteArray").uint8ArrayToBuffer(n.value);
-          throw (
-            o("WALogger").WARN(
-              L ||
-                (L = babelHelpers.taggedTemplateLiteralLoose([
-                  "CryptoLibrarySignal::getGroupSenderKeyInfo failed with error ",
-                  "",
-                ])),
-              n.error,
-            ),
-            r("err")(n.error)
-          );
-        })),
-        q.apply(this, arguments)
+    async function w(e, t) {
+      o("WALogger").LOG(
+        R ||
+          (R = babelHelpers.taggedTemplateLiteralLoose([
+            "CryptoLibrarySignal::getGroupSenderKeyInfo",
+          ])),
+      );
+      var n = await r(
+        "WAWebCryptoLibraryUtilsApi",
+      ).createSenderKeyDistributionMsg({
+        author: o("WAWebWidToJid").widToDeviceJid(t),
+        groupJid: o("WAJids").toGroupJid(e.toString({ legacy: !0 })),
+        loadSenderKeySession: E.loadSenderKeySession,
+        saveSenderKeySession: E.saveSenderKeySession,
+      });
+      if (n.success) return o("WAByteArray").uint8ArrayToBuffer(n.value);
+      throw (
+        o("WALogger").WARN(
+          L ||
+            (L = babelHelpers.taggedTemplateLiteralLoose([
+              "CryptoLibrarySignal::getGroupSenderKeyInfo failed with error ",
+              "",
+            ])),
+          n.error,
+        ),
+        r("err")(n.error)
       );
     }
-    ((l.getCryptoLibModule = T),
-      (l.createSignalSession = D),
-      (l.decryptSignalProto = $),
-      (l.encryptSignalProto = N),
-      (l.getRemoteRegId = M),
-      (l.encryptSenderKeyMsgSignalProto = A),
-      (l.processSenderKeyDistributionMsg = O),
-      (l.decryptGroupSignalProto = B),
-      (l.getGroupSenderKeyInfo = W));
+    ((l.getCryptoLibModule = I),
+      (l.createSignalSession = T),
+      (l.decryptSignalProto = D),
+      (l.encryptSignalProto = x),
+      (l.getRemoteRegId = $),
+      (l.encryptSenderKeyMsgSignalProto = P),
+      (l.processSenderKeyDistributionMsg = N),
+      (l.decryptGroupSignalProto = M),
+      (l.getGroupSenderKeyInfo = w));
   },
   98,
 );

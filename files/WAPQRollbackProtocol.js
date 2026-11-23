@@ -6,7 +6,6 @@ __d(
     "WARetryUtils",
     "WASmaxPreKeysDeleteRPC",
     "WATagsLogger",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -17,60 +16,52 @@ __d(
       d = o("WATagsLogger").TAGS(["pqRollbackProtocol"]);
     function m() {
       var t = { hasList: !1, hasPqList: !0 },
-        r = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
+        n = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
           name: "deletePQKeys",
           timer: o("WARetryUtils").fibonacciBackoff(!1),
-          code: (function () {
-            var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (n) {
-                d.LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Attempting to delete all PQ prekeys from server",
-                    ])),
-                );
-                var r = yield o("WASmaxPreKeysDeleteRPC").sendDeleteRPC(t);
-                switch (r.name) {
-                  case "DeleteResponseSuccess": {
-                    (d.LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "PQ prekeys deleted successfully",
-                        ])),
-                    ),
-                      n(o("WAResultOrError").makeResult(void 0)));
-                    return;
-                  }
-                  case "DeleteResponseRequestError": {
-                    (d.WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "PQ delete request error",
-                        ])),
-                    ),
-                      n(o("WAResultOrError").makeError("request-error")));
-                    return;
-                  }
-                  default:
-                    (r.name,
-                      d.WARN(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "PQ delete error: ",
-                            ", will retry",
-                          ])),
-                        r.name,
-                      ));
-                }
-              },
+          code: async function (r) {
+            d.LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Attempting to delete all PQ prekeys from server",
+                ])),
             );
-            function a(e) {
-              return r.apply(this, arguments);
+            var n = await o("WASmaxPreKeysDeleteRPC").sendDeleteRPC(t);
+            switch (n.name) {
+              case "DeleteResponseSuccess": {
+                (d.LOG(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "PQ prekeys deleted successfully",
+                    ])),
+                ),
+                  r(o("WAResultOrError").makeResult(void 0)));
+                return;
+              }
+              case "DeleteResponseRequestError": {
+                (d.WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "PQ delete request error",
+                    ])),
+                ),
+                  r(o("WAResultOrError").makeError("request-error")));
+                return;
+              }
+              default:
+                (n.name,
+                  d.WARN(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "PQ delete error: ",
+                        ", will retry",
+                      ])),
+                    n.name,
+                  ));
             }
-            return a;
-          })(),
+          },
         });
-      return (r.start(), r.promise());
+      return (n.start(), n.promise());
     }
     l.deletePQPreKeysProtocol = m;
   },

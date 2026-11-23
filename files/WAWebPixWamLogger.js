@@ -6,88 +6,69 @@ __d(
     "WAWebPaymentsUserActionWamEvent",
     "WAWebSyncdMdSyncFieldstatMeta",
     "WAWebWamEnumMessageChatType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = "BR";
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      var t = e.actionTarget,
+        n = e.chat,
+        r = e.extraAttributes,
+        a = r === void 0 ? {} : r,
+        i = e.paymentActionType,
+        l = e.paymentsErrorCode,
+        u = e.pixData,
+        c = e.previousScreenName,
+        m = e.referral,
+        p = e.screen,
+        _ = await o(
+          "WAWebSyncdMdSyncFieldstatMeta",
+        ).MdSyncFieldStatsMeta.getMdSessionId();
+      ((a.payment_method = "pix"),
+        n &&
+          (a.chat_type = Object.keys(
+            o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE,
+          )[
+            o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(n.id)
+          ].toLowerCase()),
+        u && (a.key_type = String(u.key_type)));
+      var f = {
+        actionTarget: t,
+        paymentActionType: i,
+        paymentsCountryCode: s,
+        paymentsErrorCode: l,
+        previousScreenName: c,
+        queryParams: JSON.stringify(a),
+        referral: m,
+        screen: p,
+        paymentsEventId: _,
+      };
+      d(f);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.actionTarget,
-            n = e.chat,
-            r = e.extraAttributes,
-            a = r === void 0 ? {} : r,
-            i = e.paymentActionType,
-            l = e.paymentsErrorCode,
-            u = e.pixData,
-            c = e.previousScreenName,
-            d = e.referral,
-            m = e.screen,
-            _ = yield o(
-              "WAWebSyncdMdSyncFieldstatMeta",
-            ).MdSyncFieldStatsMeta.getMdSessionId();
-          ((a.payment_method = "pix"),
-            n &&
-              (a.chat_type = Object.keys(
-                o("WAWebWamEnumMessageChatType").MESSAGE_CHAT_TYPE,
-              )[
-                o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(
-                  n.id,
-                )
-              ].toLowerCase()),
-            u && (a.key_type = String(u.key_type)));
-          var f = {
-            actionTarget: t,
-            paymentActionType: i,
-            paymentsCountryCode: s,
-            paymentsErrorCode: l,
-            previousScreenName: c,
-            queryParams: JSON.stringify(a),
-            referral: d,
-            screen: m,
-            paymentsEventId: _,
-          };
-          p(f);
-        })),
-        c.apply(this, arguments)
-      );
+    async function c(e) {
+      var t = e.actionTarget,
+        n = e.eventTsMs,
+        r = e.paymentActionType,
+        a = e.previousScreenName,
+        i = e.queryParams,
+        l = e.referral,
+        u = e.screen;
+      d({
+        actionTarget: t,
+        eventTsMs: n,
+        paymentActionType: r,
+        paymentsCountryCode: s,
+        paymentsEventId: await o(
+          "WAWebSyncdMdSyncFieldstatMeta",
+        ).MdSyncFieldStatsMeta.getMdSessionId(),
+        previousScreenName: a,
+        queryParams: i != null ? JSON.stringify(i) : void 0,
+        referral: l,
+        screen: u,
+      });
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.actionTarget,
-            n = e.eventTsMs,
-            r = e.paymentActionType,
-            a = e.previousScreenName,
-            i = e.queryParams,
-            l = e.referral,
-            u = e.screen;
-          p({
-            actionTarget: t,
-            eventTsMs: n,
-            paymentActionType: r,
-            paymentsCountryCode: s,
-            paymentsEventId: yield o(
-              "WAWebSyncdMdSyncFieldstatMeta",
-            ).MdSyncFieldStatsMeta.getMdSessionId(),
-            previousScreenName: a,
-            queryParams: i != null ? JSON.stringify(i) : void 0,
-            referral: l,
-            screen: u,
-          });
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(t) {
+    function d(t) {
       var n = new (o(
         "WAWebPaymentsUserActionWamEvent",
       ).PaymentsUserActionWamEvent)(t);
@@ -99,7 +80,7 @@ __d(
       ),
         n.commit());
     }
-    ((l.logPixSenderEvent = u), (l.logPixSessionEvent = d));
+    ((l.logPixSenderEvent = u), (l.logPixSessionEvent = c));
   },
   98,
 );

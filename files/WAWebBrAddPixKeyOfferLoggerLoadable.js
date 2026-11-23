@@ -4,20 +4,16 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")("WAWebBrAddPixKeyOfferLogger")
-            .__setRef("WAWebBrAddPixKeyOfferLoggerLoadable")
-            .load();
-        }),
-        "BrAddPixKeyOfferLogger",
-      );
+      s = r("WAWebLazyLoadedRetriable")(async function () {
+        return r("JSResourceForInteraction")("WAWebBrAddPixKeyOfferLogger")
+          .__setRef("WAWebBrAddPixKeyOfferLoggerLoadable")
+          .load();
+      }, "BrAddPixKeyOfferLogger");
     function u(e, t) {
       return d(function (n) {
         return n.logAddPixKeyLinkDiscarded(e, t);

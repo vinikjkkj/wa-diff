@@ -1,12 +1,6 @@
 __d(
   "WebBloksDrawable",
-  [
-    "WebBloksModel",
-    "WebBloksTheme",
-    "WebBloksUtils",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WebBloksModel", "WebBloksTheme", "WebBloksUtils", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -36,156 +30,84 @@ __d(
       return t.includes(e);
     }
     function $(e, t, n) {
-      var r = o("react-compiler-runtime").c(5),
-        a;
-      r[0] !== n
-        ? ((a = n === void 0 ? {} : n), (r[0] = n), (r[1] = a))
-        : (a = r[1]);
-      var i = a,
-        l = P(e),
-        s = N(e, t, i),
-        u;
-      return (
-        r[2] !== s || r[3] !== l
-          ? ((u = babelHelpers.extends({}, l, s)),
-            (r[2] = s),
-            (r[3] = l),
-            (r[4] = u))
-          : (u = r[4]),
-        u
+      n === void 0 && (n = {});
+      var r = P(e),
+        o = N(e, t, n);
+      return c(
+        function () {
+          return babelHelpers.extends({}, r, o);
+        },
+        [r, o],
       );
     }
     function P(e) {
-      var t = o("react-compiler-runtime").c(9),
-        n = o("WebBloksTheme").useTheme(),
-        r;
-      t[0] !== n ? ((r = n.getTheme()), (t[0] = n), (t[1] = r)) : (r = t[1]);
-      var a = r,
-        i;
-      e: {
-        if (!e) {
-          var l;
-          (t[2] === Symbol.for("react.memo_cache_sentinel")
-            ? ((l = {}), (t[2] = l))
-            : (l = t[2]),
-            (i = l));
-          break e;
-        }
-        var s;
-        t[3] !== e || t[4] !== a
-          ? ((s = w(a, e)), (t[3] = e), (t[4] = a), (t[5] = s))
-          : (s = t[5]);
-        var u = s;
-        if (u == null) {
-          var c;
-          (t[6] === Symbol.for("react.memo_cache_sentinel")
-            ? ((c = {}), (t[6] = c))
-            : (c = t[6]),
-            (i = c));
-          break e;
-        }
-        var d;
-        (t[7] !== u
-          ? ((d = { background: u }), (t[7] = u), (t[8] = d))
-          : (d = t[8]),
-          (i = d));
-      }
-      return i;
+      var t = o("WebBloksTheme").useTheme().getTheme();
+      return c(
+        function () {
+          if (!e) return {};
+          var n = w(t, e);
+          return n == null ? {} : { background: n };
+        },
+        [e, t],
+      );
     }
     function N(e, t, n) {
-      var r = o("react-compiler-runtime").c(19),
-        a;
-      r[0] !== n
-        ? ((a = n === void 0 ? {} : n), (r[0] = n), (r[1] = a))
-        : (a = r[1]);
-      var i = a,
-        l = o("WebBloksTheme").useTheme(),
-        s;
-      r[2] !== l ? ((s = l.getTheme()), (r[2] = l), (r[3] = s)) : (s = r[3]);
-      var c = s,
-        m = d(x(i.enabled) ? "default" : "disabled"),
-        p = m[0],
-        _ = m[1],
-        g,
-        h;
-      (r[4] !== i.enabled
-        ? ((g = function () {
-            _(x(i.enabled) ? "default" : "disabled");
-          }),
-          (h = [i.enabled]),
-          (r[4] = i.enabled),
-          (r[5] = g),
-          (r[6] = h))
-        : ((g = r[5]), (h = r[6])),
-        u(g, h));
-      var y, C;
-      (r[7] !== e || r[8] !== i.enabled || r[9] !== t
-        ? ((y = function () {
-            var n = t.current;
-            if (n != null) {
-              var r = function () {
-                _("pressed");
-                function e() {
-                  (_("default"),
-                    document.removeEventListener("mouseup", e),
-                    document.removeEventListener("touchend", e));
-                }
-                (document.addEventListener("mouseup", e),
-                  document.addEventListener("touchend", e));
-              };
-              return (
-                x(i.enabled) &&
-                  ((e == null ? void 0 : e.styleId) === f ||
-                    (e == null ? void 0 : e.styleId) ===
-                      "bk.components.StateDrawable") &&
-                  A(o("WebBloksUtils").cast(e), "pressed") &&
-                  (n.addEventListener("mousedown", r),
-                  n.addEventListener("touchstart", r)),
-                function () {
-                  (n.removeEventListener("mousedown", r),
-                    n.removeEventListener("touchstart", r));
-                }
-              );
+      n === void 0 && (n = {});
+      var r = o("WebBloksTheme").useTheme().getTheme(),
+        a = d(x(n.enabled) ? "default" : "disabled"),
+        i = a[0],
+        l = a[1];
+      return (
+        u(
+          function () {
+            l(x(n.enabled) ? "default" : "disabled");
+          },
+          [n.enabled],
+        ),
+        u(
+          function () {
+            var r = t.current;
+            if (r == null) return;
+            function a() {
+              l("pressed");
+              function e() {
+                (l("default"),
+                  document.removeEventListener("mouseup", e),
+                  document.removeEventListener("touchend", e));
+              }
+              (document.addEventListener("mouseup", e),
+                document.addEventListener("touchend", e));
             }
-          }),
-          (C = [e, i.enabled, t]),
-          (r[7] = e),
-          (r[8] = i.enabled),
-          (r[9] = t),
-          (r[10] = y),
-          (r[11] = C))
-        : ((y = r[10]), (C = r[11])),
-        u(y, C));
-      var b;
-      e: {
-        if (
-          (e == null ? void 0 : e.styleId) === f ||
-          (e == null ? void 0 : e.styleId) === "bk.components.StateDrawable"
-        ) {
-          var v;
-          r[12] !== e || r[13] !== p || r[14] !== c
-            ? ((v = F(c, o("WebBloksUtils").cast(e), p)),
-              (r[12] = e),
-              (r[13] = p),
-              (r[14] = c),
-              (r[15] = v))
-            : (v = r[15]);
-          var S = v,
-            R = S != null ? S : void 0,
-            L;
-          (r[16] !== R
-            ? ((L = { background: R }), (r[16] = R), (r[17] = L))
-            : (L = r[17]),
-            (b = L));
-          break e;
-        }
-        var E;
-        (r[18] === Symbol.for("react.memo_cache_sentinel")
-          ? ((E = {}), (r[18] = E))
-          : (E = r[18]),
-          (b = E));
-      }
-      return b;
+            return (
+              x(n.enabled) &&
+                ((e == null ? void 0 : e.styleId) === f ||
+                  (e == null ? void 0 : e.styleId) ===
+                    "bk.components.StateDrawable") &&
+                A(o("WebBloksUtils").cast(e), "pressed") &&
+                (r.addEventListener("mousedown", a),
+                r.addEventListener("touchstart", a)),
+              function () {
+                (r.removeEventListener("mousedown", a),
+                  r.removeEventListener("touchstart", a));
+              }
+            );
+          },
+          [e, n.enabled, t],
+        ),
+        c(
+          function () {
+            if (
+              (e == null ? void 0 : e.styleId) === f ||
+              (e == null ? void 0 : e.styleId) === "bk.components.StateDrawable"
+            ) {
+              var t = F(r, o("WebBloksUtils").cast(e), i);
+              return { background: t != null ? t : void 0 };
+            }
+            return {};
+          },
+          [r, e, i],
+        )
+      );
     }
     var M = {
       top_to_bottom: "180deg",

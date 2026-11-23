@@ -5,13 +5,7 @@ __d(
     function e(e) {
       var t = e.msg,
         n = o("WAWebMsgGetters").getIsSentByMe(t);
-      return n
-        ? s._(
-            /*BTDS*/ "Your pinned message couldn't load. Open the message on your phone to view it.",
-          )
-        : s._(
-            /*BTDS*/ "This pinned message couldn't load. Open the message on your phone to view it.",
-          );
+      return n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

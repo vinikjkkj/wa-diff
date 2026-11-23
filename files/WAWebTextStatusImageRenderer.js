@@ -9,7 +9,6 @@ __d(
     "WAWebFontLoader",
     "WAWebMsgGetters",
     "WAWebProtobufsE2E.pb",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -132,71 +131,63 @@ __d(
         for (var B = 0; B < D.length; B++) u.fillText(D[B], _ / 2, P + B * x);
       return s;
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a;
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[WAWebTextStatusImageRenderer] rendering msg ",
-                "",
-              ])),
-            t.id.toString(),
-          );
-          var i =
-            (a = t.font) != null
-              ? a
-              : o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$FontType
-                  .SYSTEM;
-          try {
-            var l = o("WAWebFontLoader").FontLoader.loadMessageFont(i),
-              d = n == null ? void 0 : n.fontLoadTimeoutMs;
-            yield d == null ? l : o("WAPromiseTimeout").promiseTimeout(l, d);
-          } catch (e) {
-            e instanceof o("WACustomError").TimeoutError
-              ? o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[WAWebTextStatusImageRenderer] font load timed out, using the fallback font",
-                    ])),
-                )
-              : o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[WAWebTextStatusImageRenderer] font load failed",
-                      ])),
-                  )
-                  .catching(e instanceof Error ? e : r("err")(String(e)));
-          }
-          var m = C(t),
-            p = yield o("WAWebCanvasUtils").canvasToBlob(m, "image/jpeg");
-          return (
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[WAWebTextStatusImageRenderer] rendered, size=",
-                  "",
+    async function b(t, n) {
+      var a;
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "[WAWebTextStatusImageRenderer] rendering msg ",
+            "",
+          ])),
+        t.id.toString(),
+      );
+      var i =
+        (a = t.font) != null
+          ? a
+          : o("WAWebProtobufsE2E.pb").Message$ExtendedTextMessage$FontType
+              .SYSTEM;
+      try {
+        var l = o("WAWebFontLoader").FontLoader.loadMessageFont(i),
+          d = n == null ? void 0 : n.fontLoadTimeoutMs;
+        await (d == null ? l : o("WAPromiseTimeout").promiseTimeout(l, d));
+      } catch (e) {
+        e instanceof o("WACustomError").TimeoutError
+          ? o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[WAWebTextStatusImageRenderer] font load timed out, using the fallback font",
                 ])),
-              p.size,
-            ),
-            p
-          );
-        })),
-        v.apply(this, arguments)
+            )
+          : o("WALogger")
+              .ERROR(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[WAWebTextStatusImageRenderer] font load failed",
+                  ])),
+              )
+              .catching(e instanceof Error ? e : r("err")(String(e)));
+      }
+      var m = C(t),
+        p = await o("WAWebCanvasUtils").canvasToBlob(m, "image/jpeg");
+      return (
+        o("WALogger").LOG(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "[WAWebTextStatusImageRenderer] rendered, size=",
+              "",
+            ])),
+          p.size,
+        ),
+        p
       );
     }
-    function S(e) {
+    function v(e) {
       return e.type === "chat" && e.mediaData == null;
     }
     ((l.breakLongWordInTextStatusImage = h),
       (l.wrapTextInTextStatusImage = y),
       (l.renderTextStatusToBlob = b),
-      (l.isTextStatusMessage = S));
+      (l.isTextStatusMessage = v));
   },
   98,
 );

@@ -12,34 +12,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return { name: "LinkQueryResponseLinkQueryAck", value: a.value };
-          var i = m(r, n);
-          if (i.success)
-            return { name: "LinkQueryResponseLinkQueryNack", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("LinkQuery", {
-              LinkQueryAck: a,
-              LinkQueryNack: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return { name: "LinkQueryResponseLinkQueryAck", value: a.value };
+      var i = d(r, n);
+      if (i.success)
+        return { name: "LinkQueryResponseLinkQueryNack", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("LinkQuery", {
+          LinkQueryAck: a,
+          LinkQueryNack: i,
+        }),
       );
     }
-    function u(e) {
+    function s(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "guest");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -52,7 +43,7 @@ __d(
         ? o("WAResultOrError").makeResult({ isGuestEligible: n.value })
         : n;
     }
-    function c(e) {
+    function u(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "waiting_room");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optionalLiteral(
@@ -82,28 +73,28 @@ __d(
           })
         : a;
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "link_query");
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "guest", u);
+      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "guest", s);
       if (!a.success) return a;
       var i = o("WASmaxParseUtils").optionalChild(r.value, "event");
       if (!i.success) return i;
       var l = o("WASmaxParseUtils").optionalChildWithTag(
         r.value,
         "waiting_room",
-        c,
+        u,
       );
       if (!l.success) return l;
-      var s = o("WASmaxParseJid").literalJid(
+      var c = o("WASmaxParseJid").literalJid(
         o("WASmaxParseJid").attrDomainJid,
         e,
         "from",
         "call",
       );
-      if (!s.success) return s;
+      if (!c.success) return c;
       var d = o("WASmaxParseUtils").optional(
         o("WASmaxParseJid").attrJidEnum,
         e,
@@ -170,7 +161,7 @@ __d(
       );
       return S.success
         ? o("WAResultOrError").makeResult({
-            from: s.value,
+            from: c.value,
             to: d.value,
             class: _.value,
             error: f.value,
@@ -187,7 +178,7 @@ __d(
           })
         : S;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "ack");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -243,7 +234,7 @@ __d(
           })
         : m;
     }
-    function p(e) {
+    function m(e) {
       var t,
         n = e.linkQueryToken,
         r = e.linkQueryMedia,
@@ -260,9 +251,9 @@ __d(
       return i;
     }
     ((l.sendLinkQueryRPC = e),
-      (l.parseLinkQueryResponseLinkQueryAck = d),
-      (l.parseLinkQueryResponseLinkQueryNack = m),
-      (l.makeLinkQueryRequest = p));
+      (l.parseLinkQueryResponseLinkQueryAck = c),
+      (l.parseLinkQueryResponseLinkQueryNack = d),
+      (l.makeLinkQueryRequest = m));
   },
   98,
 );

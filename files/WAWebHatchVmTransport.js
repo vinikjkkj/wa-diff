@@ -468,6 +468,7 @@ __d(
       PEERS_INVITES_ACCEPT: "/api/peers/invites/accept",
       PEERS_INVITES_OPEN: "/api/peers/invites/open",
       PEERS_INVITES_OPENED: "/api/peers/invites/opened",
+      PEERS_RECOMMENDATIONS: "/api/peers/recommendations",
       PEERS_REQUEST_BANNER: "/api/peers/request_banner",
       PEERS_STATUS: "/api/peers/status",
       SCHEDULED_TASK: U,

@@ -54,13 +54,9 @@ __d(
         m;
       o("WAWebGroupMetadataTypeUtils").getMaybeGroupType(t.groupMetadata) ===
       o("WAWebGroupType").GroupType.COMMUNITY
-        ? (m = new (o("WAWebActionToast.react").ActionType)(
-            s._(/*BTDS*/ "Renaming community"),
-          ))
-        : (m = new (o("WAWebActionToast.react").ActionType)(
-            s._(/*BTDS*/ "Renaming group"),
-          ));
-      var _ = s._(/*BTDS*/ "Couldn't rename community"),
+        ? (m = new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")))
+        : (m = new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")));
+      var _ = s._(/*BTDS*/ ""),
         f = l
           .then(function () {
             if (
@@ -69,19 +65,15 @@ __d(
               ) === o("WAWebGroupType").GroupType.COMMUNITY
             )
               return new (o("WAWebActionToast.react").ActionType)(
-                s._(/*BTDS*/ 'Community renamed to "{community}"', [
-                  s._param("community", i),
-                ]),
+                s._(/*BTDS*/ "", [s._param("community", i)]),
               );
             var e = c.trim() === "";
             return new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Group renamed to {subject}", [
-                s._param("subject", i),
-              ]),
+              s._(/*BTDS*/ "", [s._param("subject", i)]),
               e
                 ? null
                 : {
-                    actionText: s._(/*BTDS*/ "Undo"),
+                    actionText: s._(/*BTDS*/ ""),
                     actionHandler: function () {
                       return p(t, c, a);
                     },
@@ -111,7 +103,7 @@ __d(
                 }
                 if (e.status >= 400)
                   return new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't rename group."),
+                    s._(/*BTDS*/ ""),
                   );
               },
             ),
@@ -129,9 +121,9 @@ __d(
               ) === o("WAWebGroupType").GroupType.COMMUNITY
                 ? new (o("WAWebActionToast.react").ActionType)(_)
                 : new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't rename group."),
+                    s._(/*BTDS*/ ""),
                     {
-                      actionText: s._(/*BTDS*/ "Try again."),
+                      actionText: s._(/*BTDS*/ ""),
                       actionHandler: function () {
                         return p(t, i, a);
                       },

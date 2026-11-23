@@ -3,14 +3,12 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e = s._(/*BTDS*/ "Advertising settings"),
-      u = s._(
-        /*BTDS*/ "Contact an admin of this ad account to manage these controls.",
-      ),
-      c = s._(/*BTDS*/ "Account controls"),
-      d = s._(/*BTDS*/ "Advertising settings applied"),
-      m = s._(/*BTDS*/ "No advertising settings set"),
-      p = s._(/*BTDS*/ "Account controls apply");
+    var e = s._(/*BTDS*/ ""),
+      u = s._(/*BTDS*/ ""),
+      c = s._(/*BTDS*/ ""),
+      d = s._(/*BTDS*/ ""),
+      m = s._(/*BTDS*/ ""),
+      p = s._(/*BTDS*/ "");
     function _(e) {
       var t = e.isAnySettingSet;
       return t ? d : m;

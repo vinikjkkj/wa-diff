@@ -6,23 +6,19 @@ __d(
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
     "WAWebNoop",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebContactsAndGroups.react",
-          )
-            .__setRef("WAWebContactsAndGroupsLoadable")
-            .load();
-          return e;
-        }),
-        "ContactsAndGroups",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebContactsAndGroups.react",
+        )
+          .__setRef("WAWebContactsAndGroupsLoadable")
+          .load();
+        return e;
+      }, "ContactsAndGroups"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

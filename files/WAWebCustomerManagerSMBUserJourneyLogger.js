@@ -289,9 +289,6 @@ __d(
           (t.dismissViewSwitcher = function (t) {
             o("WAWebCustomerManagerListJourneyEvents").dismissViewSwitcher(t);
           }),
-          (t.changeView = function (t, n, r) {
-            o("WAWebCustomerManagerListJourneyEvents").changeView(t, n, r);
-          }),
           (t.clickToggleView = function (t, n) {
             o("WAWebCustomerManagerListJourneyEvents").clickToggleView(t, n);
           }),
@@ -339,6 +336,9 @@ __d(
           }),
           (t.dismissActionsMenu = function () {
             o("WAWebCustomerManagerListJourneyEvents").dismissActionsMenu();
+          }),
+          (t.listChangeResult = function (t) {
+            o("WAWebCustomerManagerListJourneyEvents").listChangeResult(t);
           }),
           (t.filterApply = function (t, n) {
             o("WAWebCustomerManagerFilterJourneyEvents").filterApply(t, n);

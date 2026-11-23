@@ -7,11 +7,11 @@ __d(
       u = e || (e = o("react"));
     function c(e) {
       return e === "identity"
-        ? s._(/*BTDS*/ "Identity")
+        ? s._(/*BTDS*/ "")
         : e === "soul"
-          ? s._(/*BTDS*/ "Soul")
+          ? s._(/*BTDS*/ "")
           : e === "memory"
-            ? s._(/*BTDS*/ "Memory")
+            ? s._(/*BTDS*/ "")
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -21,11 +21,11 @@ __d(
     }
     function d(e) {
       return e === "identity"
-        ? s._(/*BTDS*/ "Identity.md")
+        ? s._(/*BTDS*/ "")
         : e === "soul"
-          ? s._(/*BTDS*/ "Soul.md")
+          ? s._(/*BTDS*/ "")
           : e === "memory"
-            ? s._(/*BTDS*/ "Memory.md")
+            ? s._(/*BTDS*/ "")
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -34,12 +34,12 @@ __d(
               })();
     }
     function m() {
-      return s._(/*BTDS*/ "{agent name} hasn't written anything here yet.", [
+      return s._(/*BTDS*/ "", [
         s._param("agent name", u.jsx(r("WAWebHatchBotName.react"), {})),
       ]);
     }
     function p() {
-      return s._(/*BTDS*/ "This document is too long to open in WhatsApp.");
+      return s._(/*BTDS*/ "");
     }
     ((l.hatchAgentDocumentTitle = c),
       (l.hatchAgentDocumentFileName = d),

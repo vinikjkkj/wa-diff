@@ -80,21 +80,150 @@ __d(
       return p(e, null);
     }
     function f(e) {
+      var t = e == null ? void 0 : e.replace(/[\u200B\uFEFF]/g, "").trim();
+      return t != null && t !== "" ? t : null;
+    }
+    function g(e) {
+      return f(e.textContent);
+    }
+    var h = 'input, select, textarea, button, label, [role="combobox"]';
+    function y(e) {
       var t,
-        n = g(e);
-      if (n === "combobox") return null;
-      if (n === "button") {
-        var r = e.getAttribute("aria-pressed");
-        return r !== null ? (r === "true" ? c.SELECTED : c.UNSELECTED) : null;
+        n,
+        r =
+          (t = e.getAttribute("aria-labelledby")) == null
+            ? void 0
+            : t.split(/\s+/).find(function (e) {
+                return e !== "";
+              });
+      if (r == null) return null;
+      var o = e.ownerDocument.getElementById(r);
+      if (!(o instanceof HTMLLabelElement)) return null;
+      var a =
+        (o.htmlFor !== "" && o.htmlFor === e.id) ||
+        (e instanceof HTMLInputElement &&
+          Array.from((n = e.labels) != null ? n : []).some(function (e) {
+            return e === o;
+          }));
+      if (a) return null;
+      for (var i = e; i != null && !i.contains(o); i = i.parentElement) {
+        var l = i.nextElementSibling;
+        if (
+          l != null &&
+          l.id !== "" &&
+          l.nextElementSibling == null &&
+          !l.matches(h) &&
+          l.querySelector(h) == null
+        ) {
+          var s = i.querySelector('[aria-invalid="true"]');
+          return s != null && s !== e ? null : b(l);
+        }
+      }
+      return null;
+    }
+    function C(e) {
+      return Array.from(e.childNodes).some(function (e) {
+        return e.nodeType === Node.TEXT_NODE && f(e.textContent) != null;
+      });
+    }
+    function b(e) {
+      for (var t = e; t.childElementCount === 1 && !C(t); ) {
+        var n = t.firstElementChild;
+        if (n == null) break;
+        t = n;
+      }
+      if (t.childElementCount < 2 || C(t)) return g(e);
+      var r = Array.from(t.children).map(g).filter(Boolean);
+      return r.length > 0 ? r.join(" ") : null;
+    }
+    function v(e) {
+      var t;
+      if (
+        e.getAttribute("aria-invalid") !== "true" ||
+        !r("justknobx")._("8429")
+      )
+        return null;
+      var n = [
+          e.getAttribute("aria-errormessage"),
+          e.getAttribute("data-errormessage-id"),
+          e.getAttribute("role") === "combobox"
+            ? (t = e.parentElement) == null
+              ? void 0
+              : t.getAttribute("data-errormessage-id")
+            : null,
+        ],
+        o = new Set();
+      for (var a of n)
+        for (var i of (l = a == null ? void 0 : a.split(/\s+/)) != null
+          ? l
+          : []) {
+          var l;
+          i !== "" && o.add(i);
+        }
+      var s = e.ownerDocument,
+        u = new Set(),
+        c = !1;
+      for (var d of o) {
+        var m = s.getElementById(d);
+        if (m == null) {
+          c = !0;
+          continue;
+        }
+        var p = g(m);
+        p != null && u.add(p);
+      }
+      if (c) {
+        var _ = y(e);
+        _ != null && u.add(_);
+      }
+      return u.size > 0 ? Array.from(u).join(" ") : null;
+    }
+    var S = new Set([
+      "cc-csc",
+      "cc-exp",
+      "cc-exp-month",
+      "cc-exp-year",
+      "cc-number",
+      "cc-type",
+      "current-password",
+      "new-password",
+      "one-time-code",
+    ]);
+    function R(e) {
+      if (e instanceof HTMLInputElement && e.type === "password") return !0;
+      var t = e.getAttribute("autocomplete");
+      return t == null
+        ? !1
+        : t
+            .toLowerCase()
+            .split(/\s+/)
+            .some(function (e) {
+              return S.has(e);
+            });
+    }
+    function L(e) {
+      var t, n, o;
+      if (R(e)) return null;
+      var a = E(e);
+      if (a === "combobox") return null;
+      if (a === "button") {
+        var i = e.getAttribute("aria-pressed");
+        return i !== null ? (i === "true" ? c.SELECTED : c.UNSELECTED) : null;
       }
       if (e instanceof HTMLInputElement)
-        switch (n) {
+        switch (a) {
           case "checkbox":
             return e.checked ? c.CHECKED : c.UNCHECKED;
           case "radio":
-            return e.checked ? c.SELECTED : c.CHECKED;
+            return e.checked
+              ? c.SELECTED
+              : r("justknobx")._("7193")
+                ? c.UNSELECTED
+                : c.CHECKED;
           case "file":
-            return ((t = e.files) == null ? void 0 : t.length) > 0
+            return ((t = (n = e.files) == null ? void 0 : n.length) != null
+              ? t
+              : 0) > 0
               ? c.FILE_SELECTED
               : c.NO_FILE;
           default:
@@ -102,18 +231,20 @@ __d(
         }
       return e instanceof HTMLSelectElement || e instanceof HTMLTextAreaElement
         ? e.value
-        : e.textContent.trim();
+        : (o = e.textContent) == null
+          ? void 0
+          : o.trim();
     }
-    function g(e) {
+    function E(e) {
       return e instanceof HTMLInputElement ? e.type : e.getAttribute("role");
     }
-    function h(e) {
+    function k(e) {
       return e instanceof HTMLInputElement && e.disabled === !0
         ? !0
         : e.getAttribute("aria-disabled") === "true";
     }
-    function y(e) {
-      var t = g(e);
+    function I(e) {
+      var t = E(e);
       switch (t) {
         case "checkbox":
           return "boolean";
@@ -129,31 +260,35 @@ __d(
           return "button";
       }
     }
-    function C(e) {
+    function T(e) {
       var t = {};
-      r("justknobx")._("3465")
-        ? (t = babelHelpers.extends({}, t, { role: y(e) }))
-        : (t = babelHelpers.extends({}, t, { inputRole: y(e) }));
-      var n = f(e);
+      t = babelHelpers.extends({}, t, { role: I(e) });
+      var n = L(e);
       n != null && n !== "" && (t = babelHelpers.extends({}, t, { value: n }));
-      var o = h(e);
-      o === !0 && (t = babelHelpers.extends({}, t, { disabled: o }));
-      var a = _(e);
+      var r = k(e);
+      r === !0 && (t = babelHelpers.extends({}, t, { disabled: r }));
+      var o = _(e);
+      o != null &&
+        o !== "" &&
+        (!R(e) || e instanceof HTMLInputElement) &&
+        (t = babelHelpers.extends({}, t, { label: o }));
+      var a = R(e) ? null : v(e);
       return (
         a != null &&
-          a !== "" &&
-          (t = babelHelpers.extends({}, t, { label: a })),
+          a !== f(o) &&
+          (t = babelHelpers.extends({}, t, { message: a })),
         e instanceof HTMLSelectElement &&
+          !R(e) &&
           (t.options = Array.from(e.options).map(function (e) {
             return e.text;
           })),
         t
       );
     }
-    function b(e) {
+    function D(e) {
       return !!(e.offsetWidth || e.offsetHeight || e.getClientRects().length);
     }
-    function v(e, t) {
+    function x(e, t) {
       (e === void 0 && (e = !1), t === void 0 && (t = !1));
       var n = r("gkx")("18014"),
         o = '[role="button"], input, [role="combobox"]',
@@ -162,28 +297,26 @@ __d(
         l = new Map();
       return (
         i.forEach(function (n) {
-          if (!(!t && !b(n))) {
-            var o = S(n);
-            if (o != null) {
-              l.has(o) ||
-                l.set(o, { inputData: [], refs: [], inputDataKeys: new Set() });
-              var a = l.get(o);
-              if (a == null) return;
-              var i = C(n);
-              if (r("justknobx")._("3465")) {
-                var s = JSON.stringify(i);
-                a.inputDataKeys.has(s) ||
-                  (a.inputDataKeys.add(s),
-                  a.inputData.push(i),
-                  e && a.refs.push(n));
-              } else (a.inputData.push(i), e && a.refs.push(n));
+          if (!(!t && !D(n))) {
+            var r = $(n);
+            if (r != null) {
+              l.has(r) ||
+                l.set(r, { inputData: [], refs: [], inputDataKeys: new Set() });
+              var o = l.get(r);
+              if (o == null) return;
+              var a = T(n),
+                i = JSON.stringify(a);
+              o.inputDataKeys.has(i) ||
+                (o.inputDataKeys.add(i),
+                o.inputData.push(a),
+                e && o.refs.push(n));
             }
           }
         }),
         l
       );
     }
-    function S(t) {
+    function $(t) {
       var n = (
           e || (e = o("hyperionAutoLogging"))
         ).ALSurfaceUtils.getAncestralSurfaceNode(
@@ -192,7 +325,7 @@ __d(
         r = e.ALSurfaceUtils.getElementSurface(n);
       return r;
     }
-    function R(e) {
+    function P(e) {
       return (
         e.text == null &&
         e.children == null &&
@@ -200,17 +333,17 @@ __d(
         (e.inputs == null || e.inputs.length === 0)
       );
     }
-    function L(e, t, n, r) {
+    function N(e, t, n, r) {
       r === void 0 && (r = {});
       var o = e
         .getChildren()
         .map(function (e) {
-          return E(e, n, r);
+          return M(e, n, r);
         })
         .filter(Boolean);
       return o.length > 0 ? babelHelpers.extends({}, t, { children: o }) : t;
     }
-    function E(e, t, n) {
+    function M(e, t, n) {
       if ((n === void 0 && (n = {}), e.getInheritedPropery(u))) return null;
       var r = e.surfaceName,
         o = e.surface,
@@ -228,28 +361,39 @@ __d(
       var d = e.getElements(!0)[0];
       if (d != null && !d.isConnected) {
         var _ = {};
-        return ((_ = L(e, _, t, n)), R(_) ? null : _);
+        return ((_ = N(e, _, t, n)), P(_) ? null : _);
       }
-      var f = p(d, e.surface);
-      f.trim() !== "" && (a = babelHelpers.extends({}, a, { text: f }));
-      var g = t.get(o);
+      var f = d == null ? void 0 : d.getAttribute("data-maiba-contact-id"),
+        g = d == null ? void 0 : d.getAttribute("data-maiba-contact-type");
+      f != null &&
+        f !== "" &&
+        (g === "fb_user" || g === "wa_user" || g === "ig_user") &&
+        (a = babelHelpers.extends({}, a, {
+          metadata: babelHelpers.extends({}, a.metadata, {
+            "maiba:contact_id": f,
+            "maiba:contact_type": g,
+          }),
+        }));
+      var h = p(d, e.surface);
+      h.trim() !== "" && (a = babelHelpers.extends({}, a, { text: h }));
+      var y = t.get(o);
       if (
-        (g != null &&
-          g.inputData.length > 0 &&
-          ((a = babelHelpers.extends({}, a, { inputs: g.inputData })),
-          (g.inputData = [])),
+        (y != null &&
+          y.inputData.length > 0 &&
+          ((a = babelHelpers.extends({}, a, { inputs: y.inputData })),
+          (y.inputData = [])),
         n.includeRef === !0)
       ) {
-        var h = m(d, e.surface),
-          y = [];
-        (g != null &&
-          g.refs.length > 0 &&
-          ((y = [].concat(g.refs)), (g.refs = [])),
-          (a = babelHelpers.extends({}, a, { refs: { text: h, inputs: y } })));
+        var C = m(d, e.surface),
+          b = [];
+        (y != null &&
+          y.refs.length > 0 &&
+          ((b = [].concat(y.refs)), (y.refs = [])),
+          (a = babelHelpers.extends({}, a, { refs: { text: C, inputs: b } })));
       }
-      return ((a = L(e, a, t, n)), R(a) ? null : a);
+      return ((a = N(e, a, t, n)), P(a) ? null : a);
     }
-    function k(t) {
+    function w(t) {
       (t === void 0 && (t = {}),
         t.includeRef === !0
           ? (s || (s = o("ODS"))).bumpEntityKey(
@@ -262,10 +406,10 @@ __d(
               "maiba_visual_context",
               "get_al_surface_data_without_include_ref",
             ));
-      var n = v(t.includeRef === !0, t.showHidden === !0),
+      var n = x(t.includeRef === !0, t.showHidden === !0),
         r = {};
       return (
-        (r = L(
+        (r = N(
           (e || (e = o("hyperionAutoLogging"))).ALSurfaceData.root,
           r,
           n,
@@ -275,8 +419,8 @@ __d(
       );
     }
     ((l.EXCLUDE_FROM_SURFACE_TREE = u),
-      (l.extractInputElementData = C),
-      (l.getALSurfaceData = k));
+      (l.extractInputElementData = T),
+      (l.getALSurfaceData = w));
   },
   98,
 );

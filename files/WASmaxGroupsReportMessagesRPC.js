@@ -17,44 +17,29 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = m(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return { name: "ReportMessagesResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "ReportMessagesResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "ReportMessagesResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("ReportMessages", {
-              Success: a,
-              ClientError: i,
-              ServerError: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = d(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return { name: "ReportMessagesResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "ReportMessagesResponseClientError", value: i.value };
+      var l = u(r, n);
+      if (l.success)
+        return { name: "ReportMessagesResponseServerError", value: l.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("ReportMessages", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -64,7 +49,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = p(r.value);
+      var i = m(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -73,7 +58,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -82,7 +67,7 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -90,7 +75,7 @@ __d(
       ).parseIQResultResponseMixin(e, t);
       return (r.success, r);
     }
-    function m(e) {
+    function d(e) {
       var t = e.reportMessageId,
         n = o("WASmaxOutGroupsBaseSetGroupMixin").mergeBaseSetGroupMixin(
           o("WASmaxJsx").smax(
@@ -108,7 +93,7 @@ __d(
         );
       return n;
     }
-    function p(e) {
+    function m(e) {
       var t = o(
         "WASmaxInGroupsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -160,10 +145,10 @@ __d(
           );
     }
     ((l.sendReportMessagesRPC = e),
-      (l.parseReportMessagesResponseClientError = u),
-      (l.parseReportMessagesResponseServerError = c),
-      (l.parseReportMessagesResponseSuccess = d),
-      (l.makeReportMessagesRequest = m));
+      (l.parseReportMessagesResponseClientError = s),
+      (l.parseReportMessagesResponseServerError = u),
+      (l.parseReportMessagesResponseSuccess = c),
+      (l.makeReportMessagesRequest = d));
   },
   98,
 );

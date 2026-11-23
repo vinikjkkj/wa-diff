@@ -34,7 +34,7 @@ __d(
       type: "placements/position",
       key: "instagram/stream",
       name: r("AdsPlacementPositionLabelConstant").stream,
-      nameWithPlatform: s._(/*BTDS*/ "Instagram feed"),
+      nameWithPlatform: s._(/*BTDS*/ ""),
       mediaRecommendation: {
         copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION.IG_FEED,
         imageCrop: r("AdImageSpecCropKeys")["100x100"],
@@ -189,7 +189,7 @@ __d(
       },
     };
     function d() {
-      return r("gkx")("6500")
+      var e = r("gkx")("6500")
         ? r("immutable").OrderedSet([
             "instagram/shop_tab",
             "instagram/explore_home",
@@ -204,6 +204,7 @@ __d(
             "instagram/search",
             "threads/stream",
           ]);
+      return r("gkx")("15112") ? e.delete("threads/stream") : e;
     }
     var m = c;
     l.default = m;

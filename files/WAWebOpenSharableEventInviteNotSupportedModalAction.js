@@ -4,7 +4,6 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -18,30 +17,22 @@ __d(
     function d() {
       m();
     }
-    function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var t = yield c.load(),
-              n = t.SharableEventInviteNotSupportedModal;
-            o("WDSDialogBridge").openWDSDialog(u.jsx(n, {}));
-          } catch (t) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable-event] invite not supported notice failed to load",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("sharable-event-invite-not-supported-load-failed");
-          }
-        })),
-        p.apply(this, arguments)
-      );
+    async function m() {
+      try {
+        var t = await c.load(),
+          n = t.SharableEventInviteNotSupportedModal;
+        o("WDSDialogBridge").openWDSDialog(u.jsx(n, {}));
+      } catch (t) {
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable-event] invite not supported notice failed to load",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("sharable-event-invite-not-supported-load-failed");
+      }
     }
     l.openSharableEventInviteNotSupportedModal = d;
   },

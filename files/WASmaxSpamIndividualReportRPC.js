@@ -27,34 +27,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = _(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return { name: "IndividualReportResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "IndividualReportResponseError", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("IndividualReport", {
-              Success: a,
-              Error: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = p(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return { name: "IndividualReportResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "IndividualReportResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("IndividualReport", {
+          Success: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -91,7 +82,7 @@ __d(
           })
         : u;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -124,9 +115,9 @@ __d(
         reportIdMixin: s.success ? s.value : null,
       });
     }
-    function d(e) {
+    function c(e) {
       var t = e.messageSenderOrRecipientMixinGroupArgs,
-        n = f(
+        n = _(
           o("WASmaxOutSpamMessageMixin").mergeMessageMixin(
             o("WASmaxJsx").smax("message", null),
             e,
@@ -135,18 +126,18 @@ __d(
         );
       return n;
     }
-    function m(e) {
+    function d(e) {
       var t = o("WASmaxOutSpamCallReportMixin").mergeCallReportMixin(
         o("WASmaxJsx").smax("call", null),
         e,
       );
       return t;
     }
-    function p(e) {
-      var t = R(o("WASmaxJsx").smax("user_initiated_extension", null), e);
+    function m(e) {
+      var t = S(o("WASmaxJsx").smax("user_initiated_extension", null), e);
       return t;
     }
-    function _(e) {
+    function p(e) {
       var t,
         n = e.messageArgs,
         r = e.callArgs,
@@ -155,10 +146,10 @@ __d(
         l = e.isKnownChatMixinArgs,
         s = e.spamListJid,
         u = e.bizOptOutMixinArgs,
-        c = e.uIStateSetMixinArgs,
+        p = e.uIStateSetMixinArgs,
         _ = e.bizReportMixinArgs,
         f = e.tCTokenMixinArgs,
-        g = (t = o("WASmaxMixins")).optionalMerge(
+        h = (t = o("WASmaxMixins")).optionalMerge(
           o("WASmaxOutSpamIsKnownChatMixin").mergeIsKnownChatMixin,
           t.optionalMerge(
             o("WASmaxOutSpamFRXMixin").mergeFRXMixin,
@@ -170,11 +161,11 @@ __d(
                   "iq",
                   null,
                   t.optionalMerge(
-                    h,
+                    g,
                     t.optionalMerge(
                       o("WASmaxOutSpamBizReportMixin").mergeBizReportMixin,
                       t.optionalMerge(
-                        b,
+                        C,
                         t.optionalMerge(
                           o("WASmaxOutSpamBizOptOutMixin").mergeBizOptOutMixin,
                           o("WASmaxJsx").smax(
@@ -183,14 +174,14 @@ __d(
                               jid: o("WASmaxAttrs").OPTIONAL(o("WAWap").JID, s),
                             },
                             [].concat(
-                              o("WASmaxChildren").REPEATED_CHILD(d, n, 0, 210),
-                              o("WASmaxChildren").REPEATED_CHILD(m, r, 0, 5),
-                              o("WASmaxChildren").REPEATED_CHILD(p, a, 0, 5),
+                              o("WASmaxChildren").REPEATED_CHILD(c, n, 0, 210),
+                              o("WASmaxChildren").REPEATED_CHILD(d, r, 0, 5),
+                              o("WASmaxChildren").REPEATED_CHILD(m, a, 0, 5),
                             ),
                           ),
                           u,
                         ),
-                        c,
+                        p,
                       ),
                       _,
                     ),
@@ -204,10 +195,10 @@ __d(
           ),
           l,
         );
-      return g;
+      return h;
     }
-    function f(e, t) {
-      if (t.messageSender) return E(e, t.messageSender);
+    function _(e, t) {
+      if (t.messageSender) return L(e, t.messageSender);
       if (t.messageRecipient)
         return o(
           "WASmaxOutSpamMessageRecipientMixin",
@@ -216,13 +207,13 @@ __d(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function g(e) {
+    function f(e) {
       var t = e.tctokenT,
         n = e.privacyTokenContentsMixinArgs,
         r = o("WASmaxJsx").smax(
           "smax$any",
           null,
-          I(
+          k(
             o("WASmaxJsx").smax("tctoken", {
               t: o("WASmaxAttrs").OPTIONAL(o("WAWap").INT, t),
             }),
@@ -231,15 +222,15 @@ __d(
         );
       return r;
     }
-    function h(e, t) {
-      var n = g(t);
+    function g(e, t) {
+      var n = f(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function y() {
+    function h() {
       var e = o("WASmaxJsx").smax("uistate", { value: "spam_banner" });
       return e;
     }
-    function C(e) {
+    function y(e) {
       var t = e.hasUistate,
         n = o("WASmaxJsx").smax(
           "spam_list",
@@ -247,57 +238,57 @@ __d(
           o("WASmaxJsx").smax(
             "uistateset",
             null,
-            o("WASmaxChildren").HAS_OPTIONAL_CHILD(y, t),
+            o("WASmaxChildren").HAS_OPTIONAL_CHILD(h, t),
           ),
         );
       return n;
     }
-    function b(e, t) {
-      var n = C(t);
+    function C(e, t) {
+      var n = y(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function v(e) {
+    function b(e) {
       var t = o("WASmaxOutSpamExtensionScreenMixin").mergeExtensionScreenMixin(
         o("WASmaxJsx").smax("extension_screen", null),
         e,
       );
       return t;
     }
-    function S(e) {
+    function v(e) {
       var t = e.extensionScreenArgs,
         n = o("WASmaxJsx").smax(
           "user_initiated_extension",
           null,
-          o("WASmaxChildren").REPEATED_CHILD(v, t, 1, 100),
+          o("WASmaxChildren").REPEATED_CHILD(b, t, 1, 100),
         );
       return n;
     }
-    function R(e, t) {
-      var n = S(t);
+    function S(e, t) {
+      var n = v(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function L(e) {
+    function R(e) {
       var t = e.messageFrom,
         n = o("WASmaxJsx").smax("message", { from: o("WAWap").JID(t) });
       return n;
     }
-    function E(e, t) {
-      var n = L(t);
+    function L(e, t) {
+      var n = R(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function k(e) {
+    function E(e) {
       var t = e.anyElementValue,
         n = o("WASmaxJsx").smax("smax$any", null, t);
       return n;
     }
-    function I(e, t) {
-      var n = k(t);
+    function k(e, t) {
+      var n = E(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.sendIndividualReportRPC = e),
-      (l.parseIndividualReportResponseError = u),
-      (l.parseIndividualReportResponseSuccess = c),
-      (l.makeIndividualReportRequest = _));
+      (l.parseIndividualReportResponseError = s),
+      (l.parseIndividualReportResponseSuccess = u),
+      (l.makeIndividualReportRequest = p));
   },
   98,
 );

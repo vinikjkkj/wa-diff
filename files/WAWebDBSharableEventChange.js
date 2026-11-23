@@ -1,138 +1,87 @@
 __d(
   "WAWebDBSharableEventChange",
   [
-    "Promise",
     "WAWebDBSharableEvent",
     "WAWebModelStorageUtils",
     "WAWebSchemaSharableEventChange",
     "WAWebSharableEventChangeFlags",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
-      return u.apply(this, arguments);
+    async function e() {
+      return o("WAWebDBSharableEvent").canUseSharableEventStorage()
+        ? o("WAWebSchemaSharableEventChange")
+            .getSharableEventChangeTable()
+            .all()
+        : [];
     }
-    function u() {
+    async function s(e, t, n) {
+      if (t === 0 || !o("WAWebDBSharableEvent").canUseSharableEventStorage())
+        return null;
+      var r = null;
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebDBSharableEvent").canUseSharableEventStorage()
-            ? o("WAWebSchemaSharableEventChange")
-                .getSharableEventChangeTable()
-                .all()
-            : [];
-        })),
-        u.apply(this, arguments)
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(
+            [
+              o("WAWebDBSharableEvent").SHARABLE_EVENT_TABLE,
+              o("WAWebDBSharableEvent").SHARABLE_EVENT_CHANGE_TABLE,
+            ],
+            async function (a) {
+              var i,
+                l,
+                s = a[0],
+                u = a[1],
+                c = s,
+                d = u,
+                m = await Promise.all([c.get(e), d.get(e)]),
+                p = m[0],
+                _ = m[1];
+              if (p != null) {
+                var f = {
+                  eventId: e,
+                  changeFlags: o(
+                    "WAWebSharableEventChangeFlags",
+                  ).mergeSharableEventChangeFlags(
+                    (i = _ == null ? void 0 : _.changeFlags) != null ? i : 0,
+                    t,
+                  ),
+                  lastChangeTsUsec: Math.max(
+                    (l = _ == null ? void 0 : _.lastChangeTsUsec) != null
+                      ? l
+                      : 0,
+                    n,
+                  ),
+                };
+                (await d.createOrReplace(f), (r = f));
+              }
+            },
+          ),
+        r
       );
     }
-    function c(e, t, n) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function u(e, t) {
+      if (!o("WAWebDBSharableEvent").canUseSharableEventStorage()) return !1;
+      var n = !1;
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
-          if (
-            r === 0 ||
-            !o("WAWebDBSharableEvent").canUseSharableEventStorage()
-          )
-            return null;
-          var i = null;
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [
-                  o("WAWebDBSharableEvent").SHARABLE_EVENT_TABLE,
-                  o("WAWebDBSharableEvent").SHARABLE_EVENT_CHANGE_TABLE,
-                ],
-                (function () {
-                  var l = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (l) {
-                      var s,
-                        u,
-                        c = l[0],
-                        d = l[1],
-                        m = c,
-                        p = d,
-                        _ = yield (e || (e = n("Promise"))).all([
-                          m.get(t),
-                          p.get(t),
-                        ]),
-                        f = _[0],
-                        g = _[1];
-                      if (f != null) {
-                        var h = {
-                          eventId: t,
-                          changeFlags: o(
-                            "WAWebSharableEventChangeFlags",
-                          ).mergeSharableEventChangeFlags(
-                            (s = g == null ? void 0 : g.changeFlags) != null
-                              ? s
-                              : 0,
-                            r,
-                          ),
-                          lastChangeTsUsec: Math.max(
-                            (u = g == null ? void 0 : g.lastChangeTsUsec) !=
-                              null
-                              ? u
-                              : 0,
-                            a,
-                          ),
-                        };
-                        (yield p.createOrReplace(h), (i = h));
-                      }
-                    },
-                  );
-                  return function (e) {
-                    return l.apply(this, arguments);
-                  };
-                })(),
-              ),
-            i
-          );
-        })),
-        d.apply(this, arguments)
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(
+            [o("WAWebDBSharableEvent").SHARABLE_EVENT_CHANGE_TABLE],
+            async function (r) {
+              var o = r[0],
+                a = o,
+                i = await a.get(e);
+              i == null ||
+                i.lastChangeTsUsec > t ||
+                (await a.remove(e), (n = !0));
+            },
+          ),
+        n
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!o("WAWebDBSharableEvent").canUseSharableEventStorage())
-            return !1;
-          var r = !1;
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [o("WAWebDBSharableEvent").SHARABLE_EVENT_CHANGE_TABLE],
-                (function () {
-                  var o = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      var o = n[0],
-                        a = o,
-                        i = yield a.get(e);
-                      i == null ||
-                        i.lastChangeTsUsec > t ||
-                        (yield a.remove(e), (r = !0));
-                    },
-                  );
-                  return function (e) {
-                    return o.apply(this, arguments);
-                  };
-                })(),
-              ),
-            r
-          );
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    ((l.getSharableEventChanges = s),
-      (l.recordSharableEventChange = c),
-      (l.markSharableEventChangeSeen = m));
+    ((l.getSharableEventChanges = e),
+      (l.recordSharableEventChange = s),
+      (l.markSharableEventChangeSeen = u));
   },
   98,
 );

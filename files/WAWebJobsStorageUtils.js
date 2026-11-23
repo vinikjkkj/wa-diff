@@ -1,67 +1,50 @@
 __d(
   "WAWebJobsStorageUtils",
-  [
-    "invariant",
-    "Promise",
-    "WAWebIdb",
-    "WAWebIndexedDB",
-    "WAWebStorage",
-    "asyncToGeneratorRuntime",
-    "err",
-  ],
+  ["invariant", "WAWebIdb", "WAWebIndexedDB", "WAWebStorage", "err"],
   function (t, n, r, o, a, i, l, s) {
-    var e,
-      u = "jobs-storage",
-      c = null;
+    var e = "jobs-storage",
+      u = null;
+    async function c() {
+      var t = r("WAWebIndexedDB");
+      if ((t == null ? void 0 : t.databases) == null) return !1;
+      try {
+        var n = await t.databases();
+        return n.some(function (t) {
+          var n = t.name;
+          return n === e;
+        });
+      } catch (e) {
+        return !1;
+      }
+    }
     function d() {
-      return m.apply(this, arguments);
+      var t = new (r("WAWebIdb"))(e);
+      u = new (o("WAWebStorage").Storage)(t);
     }
     function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = r("WAWebIndexedDB");
-          if ((e == null ? void 0 : e.databases) == null) return !1;
-          try {
-            var t = yield e.databases();
-            return t.some(function (e) {
-              var t = e.name;
-              return t === u;
-            });
-          } catch (e) {
-            return !1;
-          }
-        })),
-        m.apply(this, arguments)
-      );
+      return (u != null || s(0, 56369), u);
     }
     function p() {
-      var e = new (r("WAWebIdb"))(u);
-      c = new (o("WAWebStorage").Storage)(e);
-    }
-    function _() {
-      return (c != null || s(0, 56369), c);
-    }
-    function f() {
-      return c == null
-        ? (e || (e = n("Promise"))).reject(
+      return u == null
+        ? Promise.reject(
             r("err")(
               "[jobs-storage] Storage should be created first before being destroyed",
             ),
           )
-        : c
+        : u
             .purge()
             .then(function () {
-              c = null;
+              u = null;
             })
             .catch(function (e) {
-              throw ((c = null), e);
+              throw ((u = null), e);
             });
     }
-    ((l.DATABASE_NAME = u),
-      (l.storageExists = d),
-      (l.createStorage = p),
-      (l.getStorage = _),
-      (l.destroyStorage = f));
+    ((l.DATABASE_NAME = e),
+      (l.storageExists = c),
+      (l.createStorage = d),
+      (l.getStorage = m),
+      (l.destroyStorage = p));
   },
   98,
 );

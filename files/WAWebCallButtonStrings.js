@@ -4,23 +4,19 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "Voice call");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Video call");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(
-        /*BTDS*/ "Your browser doesn't support calling. Please update your browser or try another browser.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Already in a call");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(
-        /*BTDS*/ "Something went wrong. Please refresh the page and try again.",
-      );
+      return s._(/*BTDS*/ "");
     }
     ((l.getVoiceCallLabel = e),
       (l.getVideoCallLabel = u),

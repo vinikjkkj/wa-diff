@@ -6,7 +6,6 @@ __d(
     "WATimeUtils",
     "WAWebAndroidTabletDetectionUtils",
     "WAWebUA",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -57,10 +56,10 @@ __d(
                 l.osVersion,
               )
             : (i == null ? void 0 : i.clientHintPlatform) === "Android" && u,
-        d = K(t, r, a, i);
+        d = G(t, r, a, i);
       return !c && !d
         ? null
-        : W(
+        : F(
             s.type,
             l.isOculusBrowser,
             l.parser.getUA(),
@@ -145,7 +144,7 @@ __d(
         ).getWAWebAndroidTabletRuntimeSignals(),
         s = o("WAWebUA").UA.parser.getUA(),
         u = i
-          ? Y(
+          ? K(
               a.type,
               s,
               a.model,
@@ -175,88 +174,62 @@ __d(
         "WAWebAndroidTabletDetectionUtils",
       ).isWAWebGooglebookClientHintResolutionRequired(y);
     }
-    function P() {
-      return N.apply(this, arguments);
+    async function P() {
+      var e;
+      return ((e = await N()) == null ? void 0 : e.deviceClass) === "tablet";
     }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
-          return (
-            ((e = yield M()) == null ? void 0 : e.deviceClass) === "tablet"
-          );
-        })),
-        N.apply(this, arguments)
-      );
+    async function N() {
+      if (I() || $()) {
+        var e = self.navigator.userAgentData;
+        if (e == null) return null;
+        var t = await M(e);
+        if (t == null) return null;
+        ((f = t.formFactors), (g = t.model), (y = !0));
+      }
+      return S();
     }
-    function M() {
-      return w.apply(this, arguments);
+    async function M(e) {
+      var t = o("WATimeUtils").unixTimeMs();
+      if (e.getHighEntropyValues == null) return null;
+      try {
+        var n = await o("WAPromiseTimeout").promiseTimeout(
+          e.getHighEntropyValues(["formFactors", "model"]),
+          u,
+        );
+        return (A("resolved", t), n);
+      } catch (e) {
+        throw (
+          A(
+            e instanceof o("WACustomError").TimeoutError
+              ? "timed_out"
+              : "failed",
+            t,
+          ),
+          e
+        );
+      }
     }
     function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (I() || $()) {
-            var e = self.navigator.userAgentData;
-            if (e == null) return null;
-            var t = yield A(e);
-            if (t == null) return null;
-            ((f = t.formFactors), (g = t.model), (y = !0));
-          }
-          return S();
-        })),
-        w.apply(this, arguments)
-      );
-    }
-    function A(e) {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WATimeUtils").unixTimeMs();
-          if (e.getHighEntropyValues == null) return null;
-          try {
-            var n = yield o("WAPromiseTimeout").promiseTimeout(
-              e.getHighEntropyValues(["formFactors", "model"]),
-              u,
-            );
-            return (B("resolved", t), n);
-          } catch (e) {
-            throw (
-              B(
-                e instanceof o("WACustomError").TimeoutError
-                  ? "timed_out"
-                  : "failed",
-                t,
-              ),
-              e
-            );
-          }
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    function O() {
       return h;
     }
-    function B(e, t) {
+    function A(e, t) {
       h = {
         durationMs: Math.max(0, o("WATimeUtils").unixTimeMs() - t),
         outcome: e,
       };
     }
-    function W(e, t, n, r, a, i, l, u, c, d, m) {
-      var p = Q(a, i, m),
-        _ = q(a, i, p),
-        f = U(e, n, _, l, u, d),
-        g = Z(u),
-        h = V(g, d, m, c),
-        y = G(d, p, l, g, c, h);
+    function F(e, t, n, r, a, i, l, u, c, d, m) {
+      var p = z(a, i, m),
+        _ = O(a, i, p),
+        f = B(e, n, _, l, u, d),
+        g = X(u),
+        h = W(g, d, m, c),
+        y = U(d, p, l, g, c, h);
       if (f == null || t) return null;
-      var C = j(f, y);
+      var C = H(f, y);
       return !h ||
-        !H(g, p, _) ||
-        !z(C, p) ||
+        !q(g, p, _) ||
+        !V(C, p) ||
         o("WAWebAndroidTabletDetectionUtils").isUnsupportedAndroidDevice(
           n,
           r,
@@ -270,13 +243,13 @@ __d(
             modelSource: p,
           };
     }
-    function q(e, t, n) {
+    function O(e, t, n) {
       return n === "user_agent" ? e : t == null ? void 0 : t.trim();
     }
-    function U(e, t, n, r, o, a) {
-      return a ? "desktop_mode_signals" : J(e, t, n, r, o);
+    function B(e, t, n, r, o, a) {
+      return a ? "desktop_mode_signals" : Q(e, t, n, r, o);
     }
-    function V(e, t, n, r) {
+    function W(e, t, n, r) {
       if (e !== "desktop") return !0;
       if (n && !t)
         return (
@@ -289,10 +262,10 @@ __d(
         o("WAWebAndroidTabletDetectionUtils").isTabletClassArmTouchDevice(r)
       );
     }
-    function H(e, t, n) {
+    function q(e, t, n) {
       return e !== "desktop" || _.has(t) ? !0 : n != null && m.test(n);
     }
-    function G(e, t, n, r, o, a) {
+    function U(e, t, n, r, o, a) {
       return (
         !e &&
         t === "unavailable" &&
@@ -302,43 +275,43 @@ __d(
         a
       );
     }
-    function z(e, t) {
+    function V(e, t) {
       return (
         t !== "unavailable" ||
         e === "desktop_mode_signals" ||
         e === "screen_size"
       );
     }
-    function j(e, t) {
+    function H(e, t) {
       return t ? "screen_size" : e;
     }
-    function K(e, t, n, r) {
+    function G(e, t, n, r) {
       return (
         t === !1 &&
-        Z(n) === "desktop" &&
+        X(n) === "desktop" &&
         o(
           "WAWebAndroidTabletDetectionUtils",
         ).isAndroidDesktopModeRuntimeCandidate(e, r)
       );
     }
-    function Q(e, t, n) {
-      return n ? "runtime" : X(e, t);
+    function z(e, t, n) {
+      return n ? "runtime" : j(e, t);
     }
-    function X(e, t) {
+    function j(e, t) {
       return o("WAWebAndroidTabletDetectionUtils").isResolvedAndroidModel(e)
         ? "user_agent"
         : o("WAWebAndroidTabletDetectionUtils").isResolvedAndroidModel(t)
           ? "ua_ch"
           : "unavailable";
     }
-    function Y(e, t, n, r, o) {
-      return J(e, t, n, r, o) != null;
+    function K(e, t, n, r, o) {
+      return Q(e, t, n, r, o) != null;
     }
-    function J(e, t, n, r, o) {
+    function Q(e, t, n, r, o) {
       if (r === !0 || /\bmobile\b/i.test(t)) return null;
-      var a = Z(o);
+      var a = X(o);
       return a !== "unavailable"
-        ? ee(a, r)
+        ? Y(a, r)
         : r === !1
           ? "ua_ch_mobile_false"
           : e === d
@@ -347,7 +320,7 @@ __d(
               ? "known_model_pattern"
               : null;
     }
-    function Z(e) {
+    function X(e) {
       if (e == null || e.length === 0) return "unavailable";
       var t = new Set(
         e.map(function (e) {
@@ -367,7 +340,7 @@ __d(
               ? "desktop"
               : "non_handheld";
     }
-    function ee(e, t) {
+    function Y(e, t) {
       return e === "tablet"
         ? "ua_ch_form_factor"
         : e === "desktop" && t === !1
@@ -389,9 +362,9 @@ __d(
       (l.isWAWebFeatureDetectionGooglebookCandidate = x),
       (l.isWAWebFeatureDetectionGooglebookClientHintResolutionRequired = $),
       (l.isWAWebFeatureDetectionAndroidTabletWithClientHints = P),
-      (l.getWAWebFeatureDetectionAndroidTabletInfoWithClientHints = M),
-      (l.getWAWebAndroidClientHintValues = A),
-      (l.getWAWebFeatureDetectionAndroidTabletClientHintResult = O));
+      (l.getWAWebFeatureDetectionAndroidTabletInfoWithClientHints = N),
+      (l.getWAWebAndroidClientHintValues = M),
+      (l.getWAWebFeatureDetectionAndroidTabletClientHintResult = w));
   },
   98,
 );

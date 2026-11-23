@@ -7,7 +7,6 @@ __d(
     "WAKaleidoscopeProvenanceField",
     "WAResultOrError",
     "WASI",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -60,123 +59,113 @@ __d(
       );
     }
     function b(t) {
-      var a = t.getWasmModule;
-      return (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.fields,
-            i = t.hints,
-            l = t.input,
-            p = "",
-            _,
-            f;
-          try {
-            var b,
-              v = o("WASI").createWasi(
-                C({
-                  fields: n,
-                  hints: i != null ? i : [],
-                  input: l,
-                  stderr: function (n) {
-                    ((p += n),
-                      o("WAKaleidoscopeLogger")
-                        .ksLogger()
-                        .DEBUG(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "",
-                              "",
-                            ])),
-                          n,
-                        ));
-                  },
-                  stdout: function (t) {
-                    return o("WAKaleidoscopeLogger")
+      var n = t.getWasmModule;
+      return async function (a) {
+        var t = a.fields,
+          i = a.hints,
+          l = a.input,
+          p = "",
+          _,
+          f;
+        try {
+          var b,
+            v = o("WASI").createWasi(
+              C({
+                fields: t,
+                hints: i != null ? i : [],
+                input: l,
+                stderr: function (n) {
+                  ((p += n),
+                    o("WAKaleidoscopeLogger")
                       .ksLogger()
                       .DEBUG(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
                             "",
                             "",
                           ])),
-                        t,
-                      );
-                  },
-                }),
-              ),
-              S = v.getImportObject,
-              R = v.start,
-              L = yield a(),
-              E = yield WebAssembly.instantiate(L, S()),
-              k = R(E);
-            ((_ = k.exitCode),
-              (f = (b = k.fs[g]) == null ? void 0 : b.content));
-          } catch (e) {
-            return (
-              o("WAKaleidoscopeLogger")
-                .ksLogger()
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "provenanceWrite threw: ",
-                      "",
-                    ])),
-                  r("getErrorSafe")(e).message,
-                ),
-              o("WAResultOrError").makeError("internal-error")
-            );
-          }
-          if (_ !== 0) {
-            var I = _ === h || _ === y;
-            return (
-              I
-                ? o("WAKaleidoscopeLogger")
+                        n,
+                      ));
+                },
+                stdout: function (t) {
+                  return o("WAKaleidoscopeLogger")
                     .ksLogger()
                     .DEBUG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "provenanceWrite did not write, exit code ",
-                          ": ",
-                          "",
-                        ])),
-                      _,
-                      p,
-                    )
-                : o("WAKaleidoscopeLogger")
-                    .ksLogger()
-                    .WARN(
-                      d ||
-                        (d = babelHelpers.taggedTemplateLiteralLoose([
-                          "provenanceWrite failed with exit code ",
-                          ": ",
-                          "",
-                        ])),
-                      _,
-                      p,
-                    ),
-              o("WAResultOrError").makeError(
-                I ? "invalid-media" : "internal-error",
-              )
-            );
-          }
-          return f instanceof Uint8Array
-            ? o("WAResultOrError").makeResult(
-                o("WAByteArray").uint8ArrayToBuffer(f),
-              )
-            : (o("WAKaleidoscopeLogger")
-                .ksLogger()
-                .WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "provenanceWrite produced no output",
-                    ])),
-                ),
-              o("WAResultOrError").makeError("internal-error"));
-        });
-        function i(e) {
-          return t.apply(this, arguments);
+                      s ||
+                        (s = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+                      t,
+                    );
+                },
+              }),
+            ),
+            S = v.getImportObject,
+            R = v.start,
+            L = await n(),
+            E = await WebAssembly.instantiate(L, S()),
+            k = R(E);
+          ((_ = k.exitCode), (f = (b = k.fs[g]) == null ? void 0 : b.content));
+        } catch (e) {
+          return (
+            o("WAKaleidoscopeLogger")
+              .ksLogger()
+              .WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "provenanceWrite threw: ",
+                    "",
+                  ])),
+                r("getErrorSafe")(e).message,
+              ),
+            o("WAResultOrError").makeError("internal-error")
+          );
         }
-        return i;
-      })();
+        if (_ !== 0) {
+          var I = _ === h || _ === y;
+          return (
+            I
+              ? o("WAKaleidoscopeLogger")
+                  .ksLogger()
+                  .DEBUG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "provenanceWrite did not write, exit code ",
+                        ": ",
+                        "",
+                      ])),
+                    _,
+                    p,
+                  )
+              : o("WAKaleidoscopeLogger")
+                  .ksLogger()
+                  .WARN(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "provenanceWrite failed with exit code ",
+                        ": ",
+                        "",
+                      ])),
+                    _,
+                    p,
+                  ),
+            o("WAResultOrError").makeError(
+              I ? "invalid-media" : "internal-error",
+            )
+          );
+        }
+        return f instanceof Uint8Array
+          ? o("WAResultOrError").makeResult(
+              o("WAByteArray").uint8ArrayToBuffer(f),
+            )
+          : (o("WAKaleidoscopeLogger")
+              .ksLogger()
+              .WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "provenanceWrite produced no output",
+                  ])),
+              ),
+            o("WAResultOrError").makeError("internal-error"));
+      };
     }
     var v = b({
       getWasmModule: o("WAGetKaleidoscopeWasm").getKaleidoscopeWasm,

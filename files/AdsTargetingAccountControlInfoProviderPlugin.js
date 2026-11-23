@@ -11,45 +11,61 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = function (t) {
-      return o("AdsBusinessConstraintsAccountControlInfoDataLoader")
-        .loadAccountControlInfoForAccount(t)
-        .then(function (e) {
-          var t,
-            n,
-            r,
-            o,
-            a,
-            i,
-            l =
-              (t =
-                (n = e.data) == null || (n = n[0]) == null
-                  ? void 0
-                  : n.audience_controls) != null
-                ? t
-                : {},
-            s =
-              (r =
-                (o = e.data) == null || (o = o[0]) == null
-                  ? void 0
-                  : o.placement_controls) != null
-                ? r
-                : {},
-            u =
-              (a =
-                (i = e.data) == null || (i = i[0]) == null
-                  ? void 0
-                  : i.is_age_restriction_enabled) != null
-                ? a
-                : !1;
-          return {
-            audience_controls: l,
-            placement_controls: s,
-            is_age_restriction_enabled: u,
-          };
-        });
-    };
-    function s(e, t) {
+    var e = [
+        "audience_controls",
+        "is_age_restriction_enabled",
+        "is_gender_exclusion_enabled",
+        "placement_controls",
+      ],
+      s = function (n) {
+        return o("AdsBusinessConstraintsAccountControlInfoDataLoader")
+          .loadAccountControlInfoForAccount(n, e)
+          .then(function (e) {
+            var t,
+              n,
+              r,
+              o,
+              a,
+              i,
+              l,
+              s,
+              u =
+                (t =
+                  (n = e.data) == null || (n = n[0]) == null
+                    ? void 0
+                    : n.audience_controls) != null
+                  ? t
+                  : {},
+              c =
+                (r =
+                  (o = e.data) == null || (o = o[0]) == null
+                    ? void 0
+                    : o.placement_controls) != null
+                  ? r
+                  : {},
+              d =
+                (a =
+                  (i = e.data) == null || (i = i[0]) == null
+                    ? void 0
+                    : i.is_age_restriction_enabled) != null
+                  ? a
+                  : !1,
+              m =
+                (l =
+                  (s = e.data) == null || (s = s[0]) == null
+                    ? void 0
+                    : s.is_gender_exclusion_enabled) != null
+                  ? l
+                  : !1;
+            return {
+              audience_controls: u,
+              placement_controls: c,
+              is_age_restriction_enabled: d,
+              is_gender_exclusion_enabled: m,
+            };
+          });
+      };
+    function u(e, t) {
       Array.from(e).forEach(function (e) {
         var n = t.get(e);
         if (!(!n || !n.hasError())) {
@@ -66,23 +82,23 @@ __d(
         }
       });
     }
-    var u = {
-        initialState: function (n) {
-          return r("LoadObjectMap").create(function (t) {
-            (n(function (e) {
-              return e.setLoading(t);
+    var c = {
+        initialState: function (t) {
+          return r("LoadObjectMap").create(function (e) {
+            (t(function (t) {
+              return t.setLoading(e);
             }),
               r("promiseDone")(
-                r("promiseLoadObjectsFromKeys")(t, e),
-                function (e) {
-                  (n(function (t) {
-                    return t.merge(e);
+                r("promiseLoadObjectsFromKeys")(e, s),
+                function (n) {
+                  (t(function (e) {
+                    return e.merge(n);
                   }),
-                    s(t, e),
+                    u(e, n),
                     r("AdsTargetingAccountControlInfoLoadedAction").dispatch(
                       {},
                       {
-                        line: "89",
+                        line: "104",
                         module:
                           "AdsTargetingAccountControlInfoProviderPlugin.js",
                         moduleID: i.id,
@@ -93,8 +109,8 @@ __d(
           });
         },
       },
-      c = u;
-    l.default = c;
+      d = c;
+    l.default = d;
   },
   98,
 );

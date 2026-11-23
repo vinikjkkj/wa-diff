@@ -2,114 +2,94 @@ __d(
   "WAWebBizAdCreationResolveCatalogAvailability",
   [
     "FBLogger",
-    "Promise",
     "WAFilteredCatch",
     "WAWebBackendErrors",
     "WAWebCatalogCollection",
     "WAWebNullFunc",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = null,
-      u = 15e3;
-    function c(t) {
-      var r = null,
-        o = new (e || (e = n("Promise")))(function (e) {
-          r = window.setTimeout(function () {
+    var e = null,
+      s = 15e3;
+    function u(e) {
+      var t = null,
+        n = new Promise(function (e) {
+          t = window.setTimeout(function () {
             return e(null);
-          }, u);
+          }, s);
         });
-      return e.race([t, o]).finally(function () {
-        r != null && window.clearTimeout(r);
+      return Promise.race([e, n]).finally(function () {
+        t != null && window.clearTimeout(t);
       });
     }
-    function d() {
+    function c() {
       return o("WAWebCatalogCollection").CatalogCollection.get(
         o("WAWebUserUtils").getMeUserOrThrow(),
       );
     }
-    function m(e) {
+    function d(e) {
       return e.some(function (e) {
         return !e.isHidden && e.imageCdnUrl != null && e.imageCdnUrl !== "";
       });
     }
-    function p() {
-      var e = d();
-      return e != null && m(e.productCollection.getProductModels());
+    function m() {
+      var e = c();
+      return e != null && d(e.productCollection.getProductModels());
     }
-    function _() {
-      return f.apply(this, arguments);
+    async function p() {
+      var e = c();
+      e != null &&
+        e.afterCursor &&
+        !m() &&
+        (await o(
+          "WAWebCatalogCollection",
+        ).CatalogCollection.findNextProductPage(e.id, !1),
+        await p());
+    }
+    async function _() {
+      return await Promise.resolve()
+        .then(function () {
+          return o("WAWebCatalogCollection").CatalogCollection.find(
+            o("WAWebUserUtils").getMeUserOrThrow(),
+          );
+        })
+        .then(function () {
+          return p();
+        })
+        .then(function () {
+          return m();
+        })
+        .catch(
+          o("WAFilteredCatch").filteredCatch(
+            [
+              o("WAWebBackendErrors").ServerStatusCodeError,
+              o("WAWebBackendErrors").CatalogUnknownError,
+              o("WAWebBackendErrors").AdAccountRecoveryRequiredError,
+            ],
+            o("WAWebNullFunc").returnNull,
+          ),
+        )
+        .catch(function (e) {
+          return (
+            r("FBLogger")("wa_ctwa_web")
+              .catching(r("getErrorSafe")(e))
+              .mustfix("Unexpected catalog availability error"),
+            null
+          );
+        });
     }
     function f() {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = d();
-          e != null &&
-            e.afterCursor &&
-            !p() &&
-            (yield o(
-              "WAWebCatalogCollection",
-            ).CatalogCollection.findNextProductPage(e.id, !1),
-            yield _());
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g() {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return yield (e || (e = n("Promise")))
-            .resolve()
-            .then(function () {
-              return o("WAWebCatalogCollection").CatalogCollection.find(
-                o("WAWebUserUtils").getMeUserOrThrow(),
-              );
-            })
-            .then(function () {
-              return _();
-            })
-            .then(function () {
-              return p();
-            })
-            .catch(
-              o("WAFilteredCatch").filteredCatch(
-                [
-                  o("WAWebBackendErrors").ServerStatusCodeError,
-                  o("WAWebBackendErrors").CatalogUnknownError,
-                  o("WAWebBackendErrors").AdAccountRecoveryRequiredError,
-                ],
-                o("WAWebNullFunc").returnNull,
-              ),
-            )
-            .catch(function (e) {
-              return (
-                r("FBLogger")("wa_ctwa_web")
-                  .catching(r("getErrorSafe")(e))
-                  .mustfix("Unexpected catalog availability error"),
-                null
-              );
-            });
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y() {
-      return (
-        s == null &&
-          (s = c(g()).finally(function () {
-            s = null;
+        e == null &&
+          (e = u(_()).finally(function () {
+            e = null;
           })),
-        s
+        e
       );
     }
-    l.default = y;
+    l.default = f;
   },
   98,
 );

@@ -8,73 +8,73 @@ __d(
           value: (e = o("WAWebWindowsNotificationToneOption"))
             .NotificationToneOption.Default,
           label: function () {
-            return s._(/*BTDS*/ "Default");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: e.NotificationToneOption.Alert1,
           label: function () {
-            return s._(/*BTDS*/ "Alert 1");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: e.NotificationToneOption.Alert2,
           label: function () {
-            return s._(/*BTDS*/ "Alert 2");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: e.NotificationToneOption.Alert3,
           label: function () {
-            return s._(/*BTDS*/ "Alert 3");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: e.NotificationToneOption.Alert4,
           label: function () {
-            return s._(/*BTDS*/ "Alert 4");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: e.NotificationToneOption.Alert5,
           label: function () {
-            return s._(/*BTDS*/ "Alert 5");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: e.NotificationToneOption.Alert6,
           label: function () {
-            return s._(/*BTDS*/ "Alert 6");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: e.NotificationToneOption.Alert7,
           label: function () {
-            return s._(/*BTDS*/ "Alert 7");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: e.NotificationToneOption.Alert8,
           label: function () {
-            return s._(/*BTDS*/ "Alert 8");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: e.NotificationToneOption.Alert9,
           label: function () {
-            return s._(/*BTDS*/ "Alert 9");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: e.NotificationToneOption.Alert10,
           label: function () {
-            return s._(/*BTDS*/ "Alert 10");
+            return s._(/*BTDS*/ "");
           },
         },
         {
           value: e.NotificationToneOption.None,
           label: function () {
-            return s._(/*BTDS*/ "None");
+            return s._(/*BTDS*/ "");
           },
         },
       ];

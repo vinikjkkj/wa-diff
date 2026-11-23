@@ -10,7 +10,6 @@ __d(
     "WAWebMessageQueue",
     "WAWebMexFetchGroupInfoIncludBotsJob",
     "WAWebMsgKey",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -33,123 +32,88 @@ __d(
         ? []
         : n;
     }
-    function u(e, t, n) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          var i = yield o(
-              "WAWebMexFetchGroupInfoIncludBotsJob",
-            ).mexGetGroupInfoIncludBots({
-              groupId: e.toString(),
-              queryContext: "out_of_sync_update",
+    async function u(e, t, n) {
+      var a = await o(
+          "WAWebMexFetchGroupInfoIncludBotsJob",
+        ).mexGetGroupInfoIncludBots({
+          groupId: e.toString(),
+          queryContext: "out_of_sync_update",
+        }),
+        i = a == null ? void 0 : a.groupInfo;
+      if (
+        !(i == null || (a == null ? void 0 : a.participantPhashMatch) === !0)
+      ) {
+        var l = new Set(
+            i.participants.map(function (e) {
+              var t = e.id;
+              return t.toString();
             }),
-            l = i == null ? void 0 : i.groupInfo;
-          if (
-            !(
-              l == null || (i == null ? void 0 : i.participantPhashMatch) === !0
-            )
-          ) {
-            var s = new Set(
-                l.participants.map(function (e) {
-                  var t = e.id;
-                  return t.toString();
+          ),
+          s = t.filter(function (e) {
+            return !l.has(e.toString());
+          });
+        s.length !== 0 &&
+          (await o("WAWebMessageQueue").onMessageQueue({
+            chatWid: e,
+            isOffline: !1,
+            msgCategory: null,
+            action: async function () {
+              var t = await c(e),
+                a = s.filter(function (e) {
+                  return t.has(e.toString());
+                });
+              if (a.length !== 0) {
+                var i = {
+                    actionType: o("WAWebGroupType").GROUP_ACTIONS.REMOVE,
+                    participants: a.map(function (e) {
+                      return { id: e, isAdmin: !1, isSuperAdmin: !1 };
+                    }),
+                    reason: null,
+                    isLidAddressingMode: n,
+                  },
+                  l = {
+                    externalId: await r("WAWebMsgKey").newId(),
+                    chatId: e,
+                    author: null,
+                    authorPhoneNumber: null,
+                    ts: o("WATimeUtils").unixTime(),
+                    pushname: null,
+                    actions: [i],
+                    offline: null,
+                    isLidAddressingMode: n,
+                    hasIncompleteParticipantInformation: !1,
+                  };
+                (await o("WAWebHandleGroupNotificationAction").handleAction({
+                  action: i,
+                  meta: l,
                 }),
-              ),
-              u = t.filter(function (e) {
-                return !s.has(e.toString());
-              });
-            u.length !== 0 &&
-              (yield o("WAWebMessageQueue").onMessageQueue({
-                chatWid: e,
-                isOffline: !1,
-                msgCategory: null,
-                action: (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      var t = yield d(e),
-                        n = u.filter(function (e) {
-                          return t.has(e.toString());
-                        });
-                      if (n.length !== 0) {
-                        var i = {
-                            actionType:
-                              o("WAWebGroupType").GROUP_ACTIONS.REMOVE,
-                            participants: n.map(function (e) {
-                              return { id: e, isAdmin: !1, isSuperAdmin: !1 };
-                            }),
-                            reason: null,
-                            isLidAddressingMode: a,
-                          },
-                          l = {
-                            externalId: yield r("WAWebMsgKey").newId(),
-                            chatId: e,
-                            author: null,
-                            authorPhoneNumber: null,
-                            ts: o("WATimeUtils").unixTime(),
-                            pushname: null,
-                            actions: [i],
-                            offline: null,
-                            isLidAddressingMode: a,
-                            hasIncompleteParticipantInformation: !1,
-                          };
-                        (yield o(
-                          "WAWebHandleGroupNotificationAction",
-                        ).handleAction({ action: i, meta: l }),
-                          yield p(e, n));
-                      }
-                    },
-                  );
-                  function i() {
-                    return t.apply(this, arguments);
-                  }
-                  return i;
-                })(),
-              }));
-          }
-        })),
-        c.apply(this, arguments)
+                  await d(e, a));
+              }
+            },
+          }));
+      }
+    }
+    async function c(e) {
+      var t, n;
+      return new Set(
+        (t =
+          (n = await o("WAWebGroupsParticipantsApi").getParticipants(e)) == null
+            ? void 0
+            : n.participants) != null
+          ? t
+          : [],
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, n;
-          return new Set(
-            (t =
-              (n = yield o("WAWebGroupsParticipantsApi").getParticipants(e)) ==
-              null
-                ? void 0
-                : n.participants) != null
-              ? t
-              : [],
-          );
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield d(e);
-          if (
-            t.some(function (e) {
-              return n.has(e.toString());
-            })
-          )
-            throw r("err")(
-              "removeDepartedGroupAgents: stored participants list the agent",
-            );
-        })),
-        _.apply(this, arguments)
-      );
+    async function d(e, t) {
+      var n = await c(e);
+      if (
+        t.some(function (e) {
+          return n.has(e.toString());
+        })
+      )
+        throw r("err")(
+          "removeDepartedGroupAgents: stored participants list the agent",
+        );
     }
     ((l.getNotFoundGroupAgentWids = s), (l.removeDepartedGroupAgents = u));
   },

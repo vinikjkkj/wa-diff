@@ -1,7 +1,6 @@
 __d(
   "WAWebScheduleNewsletterForwardCounter",
   [
-    "Promise",
     "WALogger",
     "WAPromiseDelays",
     "WATimeUtils",
@@ -10,15 +9,13 @@ __d(
     "WAWebRestOperations",
     "WAWebScheduledOperations",
     "WAWebSendForwardCounterIncrement",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["delaySeconds"],
       s,
-      u,
-      c = 1e3;
-    function d(e) {
+      u = 1e3;
+    function c(e) {
       if (!o("WAWebRestOperations").isRestOperationGateEnabled()) {
         o("WAWebPersistedJobManagerWorkerCompatible")
           .getJobManager()
@@ -34,7 +31,7 @@ __d(
           );
         return;
       }
-      m(e).catch(function (e) {
+      d(e).catch(function (e) {
         o("WALogger")
           .ERROR(
             s ||
@@ -47,32 +44,24 @@ __d(
           .sendLogs("forward-counter-schedule-error");
       });
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    async function d(t) {
+      var n = t.delaySeconds,
+        r = babelHelpers.objectWithoutPropertiesLoose(t, e);
+      (await o("WAPromiseDelays").delayMs(n * u),
+        await o("WAWebScheduledOperations").scheduleOperation(
+          o("WAWebScheduledOperations").ScheduledOperation
+            .INCREMENT_NEWSLETTER_FORWARD_COUNTER,
+          function () {
+            return (
+              o("WAWebSendForwardCounterIncrement").sendForwardCounterIncrement(
+                r,
+              ),
+              Promise.resolve()
+            );
+          },
+        ));
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.delaySeconds,
-            a = babelHelpers.objectWithoutPropertiesLoose(t, e);
-          (yield o("WAPromiseDelays").delayMs(r * c),
-            yield o("WAWebScheduledOperations").scheduleOperation(
-              o("WAWebScheduledOperations").ScheduledOperation
-                .INCREMENT_NEWSLETTER_FORWARD_COUNTER,
-              function () {
-                return (
-                  o(
-                    "WAWebSendForwardCounterIncrement",
-                  ).sendForwardCounterIncrement(a),
-                  (u || (u = n("Promise"))).resolve()
-                );
-              },
-            ));
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    l.scheduleForwardCounterIncrement = d;
+    l.scheduleForwardCounterIncrement = c;
   },
   98,
 );

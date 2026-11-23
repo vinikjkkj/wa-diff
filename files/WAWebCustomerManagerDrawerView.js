@@ -19,7 +19,7 @@ __d(
         {
           value: e,
           label: function () {
-            return s._(/*BTDS*/ "List view");
+            return s._(/*BTDS*/ "");
           },
           Icon: r("WDSIconIcFormatListBulleted.react"),
           testid: "customer-manager-view-list",
@@ -27,7 +27,7 @@ __d(
         {
           value: u,
           label: function () {
-            return s._(/*BTDS*/ "Pipeline view");
+            return s._(/*BTDS*/ "");
           },
           Icon: r("WDSIconIcSpaceDashboard.react"),
           testid: "customer-manager-view-pipeline",

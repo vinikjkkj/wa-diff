@@ -427,10 +427,8 @@ __d(
       }
     }
     function P(e) {
-      var t = $(e)
-          ? s._(/*BTDS*/ "We're currently *open*")
-          : s._(/*BTDS*/ "We're currently *closed*"),
-        n = s._(/*BTDS*/ "Our business hours are:"),
+      var t = $(e) ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
+        n = s._(/*BTDS*/ ""),
         a = o("WAWebSmbUtils").getBusinessHours(e, !0),
         i = a
           .map(function (e) {

@@ -9,7 +9,6 @@ __d(
     "WAWebCustomerManagerProfileRequest",
     "WAWebCustomerProfileBirthday",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,83 +22,57 @@ __d(
       d = 21,
       m = (d - 1) * c,
       p = { cursor: null, records: [] };
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(e) {
+      return f(await g(e), e.candidateLids != null);
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return g(yield h(e), e.candidateLids != null);
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
+    function f(e, t) {
       if (e == null && t)
         throw r("err")(
           "[CustomerManager] fetchCustomerProfilePage: no scoped profile response",
         );
       return e != null ? e : p;
     }
+    async function g(e) {
+      if (e.candidateLids != null && e.candidateLids.length === 0) return p;
+      var t = await S(e);
+      return t == null ? null : { cursor: t.cursor, records: b(t) };
+    }
     function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.candidateLids != null && e.candidateLids.length === 0) return p;
-          var t = yield E(e);
-          return t == null ? null : { cursor: t.cursor, records: R(t) };
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return v(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
+      return C(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
         function (e) {
           return e.records;
         },
       );
     }
-    function b(e) {
-      return v(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
+    function y(e) {
+      return C(e != null ? e : {}, e == null ? void 0 : e.cursor, 0, []).then(
         function (e) {
           return e.isComplete ? e.records : null;
         },
       );
     }
-    function v(e, t, n, r) {
-      return S.apply(this, arguments);
+    async function C(e, t, n, r) {
+      var a = await g(babelHelpers.extends({}, e, { cursor: t }));
+      return a == null
+        ? { isComplete: !1, records: r }
+        : (r.push.apply(r, a.records),
+          a.cursor == null
+            ? { isComplete: !0, records: r }
+            : n + 1 >= d
+              ? (o("WALogger")
+                  .WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[CustomerManager] fetchCustomerProfileRecords: stopped at ",
+                        " pages with a cursor still open",
+                      ])),
+                    d,
+                  )
+                  .sendLogs("customer_manager_profiles_page_cap_hit"),
+                { isComplete: !1, records: r })
+              : C(e, a.cursor, n + 1, r));
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield h(babelHelpers.extends({}, e, { cursor: t }));
-            return a == null
-              ? { isComplete: !1, records: r }
-              : (r.push.apply(r, a.records),
-                a.cursor == null
-                  ? { isComplete: !0, records: r }
-                  : n + 1 >= d
-                    ? (o("WALogger")
-                        .WARN(
-                          s ||
-                            (s = babelHelpers.taggedTemplateLiteralLoose([
-                              "[CustomerManager] fetchCustomerProfileRecords: stopped at ",
-                              " pages with a cursor still open",
-                            ])),
-                          d,
-                        )
-                        .sendLogs("customer_manager_profiles_page_cap_hit"),
-                      { isComplete: !1, records: r })
-                    : v(e, a.cursor, n + 1, r));
-          },
-        )),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
+    function b(e) {
       var t = [];
       for (var n of (r = e == null ? void 0 : e.profiles) != null ? r : []) {
         var r,
@@ -118,7 +91,7 @@ __d(
             ),
             birthdayIso: n.dob,
             chatJid: a,
-            customFieldValues: L(n.custom_field_values),
+            customFieldValues: v(n.custom_field_values),
             email: n.email,
             lastOrderDescription: n.last_order,
             leadStage: o(
@@ -137,7 +110,7 @@ __d(
       }
       return t;
     }
-    function L(e) {
+    function v(e) {
       var t = [];
       for (var n of e != null ? e : []) {
         var r,
@@ -190,64 +163,54 @@ __d(
       }
       return t;
     }
-    function E(e) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebCustomerManagerProfileRequest",
-          ).runCustomerProfileRequest(
-            "fetchCustomerProfiles",
-            function (t) {
-              var n, r, a, i;
-              return o("WAWebRelayClient").fetchQuery(
-                u,
-                {
-                  input: {
-                    candidate_lids: (n = e.candidateLids) != null ? n : [],
-                    custom_field_filters: ((r = e.customFieldFilters) != null
-                      ? r
-                      : []
-                    ).map(function (e) {
-                      return {
-                        custom_field_id: e.custom_field_id,
-                        date_value: e.date_value,
-                        enum_option_key: e.enum_option_key,
-                        money_amount: e.money_amount,
-                        numeric_value: e.numeric_value,
-                        text_value: e.text_value,
-                      };
-                    }),
-                    filters: ((a = e.filters) != null ? a : []).map(
-                      function (e) {
-                        var t = e.fieldName,
-                          n = e.filterText;
-                        return { field_name: t, filter_text: n };
-                      },
-                    ),
-                    sort_column: e.sortColumn,
-                    sort_descending: e.sortDescending === !0,
-                    page_size: (i = e.pageSize) != null ? i : c,
-                    cursor: e.cursor,
-                  },
-                  includeCustomFields: e.includeCustomFields === !0,
-                },
-                t,
-              );
+    async function S(e) {
+      var t = await o(
+        "WAWebCustomerManagerProfileRequest",
+      ).runCustomerProfileRequest(
+        "fetchCustomerProfiles",
+        function (t) {
+          var n, r, a, i;
+          return o("WAWebRelayClient").fetchQuery(
+            u,
+            {
+              input: {
+                candidate_lids: (n = e.candidateLids) != null ? n : [],
+                custom_field_filters: ((r = e.customFieldFilters) != null
+                  ? r
+                  : []
+                ).map(function (e) {
+                  return {
+                    custom_field_id: e.custom_field_id,
+                    date_value: e.date_value,
+                    enum_option_key: e.enum_option_key,
+                    money_amount: e.money_amount,
+                    numeric_value: e.numeric_value,
+                    text_value: e.text_value,
+                  };
+                }),
+                filters: ((a = e.filters) != null ? a : []).map(function (e) {
+                  var t = e.fieldName,
+                    n = e.filterText;
+                  return { field_name: t, filter_text: n };
+                }),
+                sort_column: e.sortColumn,
+                sort_descending: e.sortDescending === !0,
+                page_size: (i = e.pageSize) != null ? i : c,
+                cursor: e.cursor,
+              },
+              includeCustomFields: e.includeCustomFields === !0,
             },
-            { rateLimitSurface: "read" },
+            t,
           );
-          return t == null ? void 0 : t.xfb_wa_customer_profiles;
-        })),
-        k.apply(this, arguments)
+        },
+        { rateLimitSurface: "read" },
       );
+      return t == null ? void 0 : t.xfb_wa_customer_profiles;
     }
     ((l.MAX_COMPLETE_PROFILE_RECORDS = m),
       (l.fetchCustomerProfilePage = _),
-      (l.fetchCustomerProfileRecords = C),
-      (l.fetchCompleteCustomerProfileRecords = b));
+      (l.fetchCustomerProfileRecords = h),
+      (l.fetchCompleteCustomerProfileRecords = y));
   },
   98,
 );

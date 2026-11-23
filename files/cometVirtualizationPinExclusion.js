@@ -1,6 +1,6 @@
 __d(
   "cometVirtualizationPinExclusion",
-  ["FocusManager", "WeakRefApiUtils", "react", "react-compiler-runtime"],
+  ["FocusManager", "WeakRefApiUtils", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -30,43 +30,35 @@ __d(
         "treeitem",
       ]);
     function f() {
-      return g;
+      return s(function (e) {
+        e != null && d.add(e);
+      }, []);
     }
-    function g(e) {
-      e != null && d.add(e);
+    function g() {
+      return s(function (e) {
+        e != null && m.add(e);
+      }, []);
     }
-    function h() {
-      return y;
-    }
-    function y(e) {
-      e != null && m.add(e);
-    }
-    function C(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n;
-      return (
-        t[0] !== e
-          ? ((n = function (n) {
-              n != null && p.set(n, e);
-            }),
-            (t[0] = e),
-            (t[1] = n))
-          : (n = t[1]),
-        n
+    function h(e) {
+      return s(
+        function (t) {
+          t != null && p.set(t, e);
+        },
+        [e],
       );
     }
-    function b(e) {
+    function y(e) {
       if (e.localName !== "a") return !1;
       var t = e.getAttribute("href");
       return t != null && t !== "" && !t.startsWith("#");
     }
-    function v(e) {
+    function C(e) {
       for (
         var t = e instanceof Element ? e : null, n = !1, r = null;
         t != null;
       ) {
         var o;
-        if (((r = r != null ? r : p.get(t)), (n = n || b(t)), d.has(t)))
+        if (((r = r != null ? r : p.get(t)), (n = n || y(t)), d.has(t)))
           return { excluded: !0, reason: r != null ? r : "other" };
         if (n && m.has(t))
           return { excluded: !0, reason: r != null ? r : "other" };
@@ -74,10 +66,10 @@ __d(
       }
       return { excluded: !1, reason: r != null ? r : "other" };
     }
-    function S(e) {
-      return v(e).excluded;
+    function b(e) {
+      return C(e).excluded;
     }
-    function R(e) {
+    function v(e) {
       var t = e.getAttribute("role");
       return (t != null && _.has(t)) ||
         e.localName === "a" ||
@@ -90,7 +82,7 @@ __d(
         ? !0
         : e instanceof HTMLElement && (e.isContentEditable || e.tabIndex >= 0);
     }
-    function L(e, t, n) {
+    function S(e, t, n) {
       if (
         e !== "click" ||
         !(t instanceof Element) ||
@@ -99,16 +91,16 @@ __d(
       )
         return !1;
       for (var r = t; r != null; ) {
-        if (R(r)) return !1;
+        if (v(r)) return !1;
         if (r === n) return !0;
         r = r.parentElement;
       }
       return !1;
     }
-    function E(e) {
-      return v(e).reason;
+    function R(e) {
+      return C(e).reason;
     }
-    function k(e, t, n) {
+    function L(e, t, n) {
       return (
         e === "focus" &&
         t instanceof Node &&
@@ -116,12 +108,12 @@ __d(
         !n.contains(t)
       );
     }
-    function I(e) {
+    function E(e) {
       return e === "focus" && o("FocusManager").isFocusingWithoutUserIntent();
     }
-    function T(e, t) {
+    function k(e, t) {
       var n = window.setTimeout(function () {
-        var n = v(e);
+        var n = C(e);
         n.excluded || t(n.reason);
       }, 0);
       return function () {
@@ -129,15 +121,15 @@ __d(
       };
     }
     ((l.usePinExclusionRef = f),
-      (l.useLinkPinExclusionRef = h),
-      (l.useInteractionPinReasonRef = C),
-      (l.getInteractionPinDecision = v),
-      (l.isInteractionExcludedFromPin = S),
-      (l.isNonInteractiveClickExcludedFromPin = L),
-      (l.getInteractionPinReason = E),
-      (l.isPortalFocusExcludedFromPin = k),
-      (l.isProgrammaticFocusExcludedFromPin = I),
-      (l.schedulePinAfterPendingHydration = T));
+      (l.useLinkPinExclusionRef = g),
+      (l.useInteractionPinReasonRef = h),
+      (l.getInteractionPinDecision = C),
+      (l.isInteractionExcludedFromPin = b),
+      (l.isNonInteractiveClickExcludedFromPin = S),
+      (l.getInteractionPinReason = R),
+      (l.isPortalFocusExcludedFromPin = L),
+      (l.isProgrammaticFocusExcludedFromPin = E),
+      (l.schedulePinAfterPendingHydration = k));
   },
   98,
 );

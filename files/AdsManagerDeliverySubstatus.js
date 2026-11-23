@@ -140,8 +140,12 @@ __d(
         "common_campaign_marketing_message_character_limit_exceeded_some",
       COMMON_CAMPAIGN_MARKETING_MESSAGE_DEFAULT_PHONE_NUMBER_REMOVED:
         "common_campaign_marketing_message_default_phone_number_removed",
+      COMMON_CAMPAIGN_MARKETING_MESSAGE_DIRECT_WHATSAPP_LINK:
+        "common_campaign_marketing_message_direct_whatsapp_link",
       COMMON_CAMPAIGN_MARKETING_MESSAGE_DISABLED:
         "common_campaign_marketing_message_disabled",
+      COMMON_CAMPAIGN_MARKETING_MESSAGE_DUPLICATE_BUTTON_TEXT:
+        "common_campaign_marketing_message_duplicate_button_text",
       COMMON_CAMPAIGN_MARKETING_MESSAGE_EMPTY_SUBSCRIBER_POOL:
         "common_campaign_marketing_message_empty_subscriber_pool",
       COMMON_CAMPAIGN_MARKETING_MESSAGE_IN_REVIEW:
@@ -158,6 +162,8 @@ __d(
         "common_campaign_marketing_message_missing_field_greeting",
       COMMON_CAMPAIGN_MARKETING_MESSAGE_PAUSED:
         "common_campaign_marketing_message_paused",
+      COMMON_CAMPAIGN_MARKETING_MESSAGE_PENDING_ADMIN_APPROVAL:
+        "common_campaign_marketing_message_pending_admin_approval",
       COMMON_CAMPAIGN_MARKETING_MESSAGE_PHONE_NUMBER_REMOVED:
         "common_campaign_marketing_message_phone_number_removed",
       COMMON_CAMPAIGN_MARKETING_MESSAGE_PHONE_NUMBER_UNAVAILABLE:
@@ -192,6 +198,13 @@ __d(
       COST_LIMITED_LEARNING_SUCCESS: "cost_limited_learning_success",
       CREATIVE_FATIGUE: "creative_fatigue",
       CREATIVE_FATIGUE_PREDICTION: "creative_fatigue_prediction",
+      CTX_RESTRICTED_DATA_WARNING: "ctx_restricted_data_warning",
+      CTX_RESTRICTED_DATA_WARNING_FB_PAGE:
+        "ctx_restricted_data_warning_fb_page",
+      CTX_RESTRICTED_DATA_WARNING_IG_PROFILE:
+        "ctx_restricted_data_warning_ig_profile",
+      CTX_RESTRICTED_DATA_WARNING_PAGE_AND_IG:
+        "ctx_restricted_data_warning_page_and_ig",
       CUSTOM_AUDIENCE_RESTRICTED: "custom_audience_restricted",
       CUSTOM_CONVERSION_RESTRICTED: "custom_conversion_restricted",
       DELETED: "deleted",
@@ -316,11 +329,16 @@ __d(
       SOME_ADS_IN_ERROR: "some_ads_in_error",
       TEXT_PENALTY: "text_penalty",
       TEXT_PENALTY_HIGH: "text_penalty_high",
+      THIRD_PARTY_SOCIAL_BLOCK_PARTIAL_DELIVERY:
+        "third_party_social_block_partial_delivery",
+      UNCONFIRMED_DATA_SOURCE_CATEGORIES: "unconfirmed_data_source_categories",
       UPDATING_CONVERSION_EVENT: "updating_conversion_event",
       WEB_ONLY_DEPRECATION_WARNING: "web_only_deprecation_warning",
       WITH_ISSUES: "with_issues",
       YOUTH_ADS_PAUSE_YOUTH_ONLY_ERROR: "youth_ads_pause_youth_only_error",
       YOUTH_ADS_PAUSE_YOUTH_ONLY_WARNING: "youth_ads_pause_youth_only_warning",
+      YOUTH_DEVICE_MODEL_ERROR: "youth_device_model_error",
+      YOUTH_DEVICE_MODEL_WARNING: "youth_device_model_warning",
     });
     i.default = e;
   },

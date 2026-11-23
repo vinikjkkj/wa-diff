@@ -1,0 +1,70 @@
+__d(
+  "MAWArmadilloReceiptTablesSchema.pb",
+  ["WAProtoConst"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = {},
+      u = {},
+      c = {},
+      d = {},
+      m = {},
+      p = {},
+      _ = {};
+    ((s.name = "DbUserStatusTsProto"),
+      (s.internalSpec = {
+        deliveredTs: [1, (e = o("WAProtoConst")).TYPES.INT64],
+        readTs: [2, e.TYPES.INT64],
+      }),
+      (u.name = "StatusTsPerUserProto"),
+      (u.internalSpec = {
+        userJid: [1, e.TYPES.STRING],
+        dbUserStatusTs: [2, e.TYPES.MESSAGE, s],
+      }),
+      (c.name = "IdentitiesPerDeviceProto"),
+      (c.internalSpec = {
+        deviceJid: [1, e.TYPES.STRING],
+        serializedPubKey: [2, e.TYPES.BYTES],
+        baseKey: [3, e.TYPES.BYTES],
+      }),
+      (d.name = "RetryCountPerDeviceProto"),
+      (d.internalSpec = {
+        deviceJid: [1, e.TYPES.STRING],
+        count: [2, e.TYPES.INT32],
+      }),
+      (m.name = "ReceiptsTableSchemaProto"),
+      (m.internalSpec = {
+        msgId: [1, e.TYPES.STRING],
+        statusTsPerUser: [2, e.FLAGS.REPEATED | e.TYPES.MESSAGE, u],
+        permittedIdentitiesPerDevice: [
+          3,
+          e.FLAGS.REPEATED | e.TYPES.MESSAGE,
+          c,
+        ],
+        recipientDevices: [4, e.FLAGS.REPEATED | e.TYPES.STRING],
+        retryCountsPerDevice: [5, e.FLAGS.REPEATED | e.TYPES.MESSAGE, d],
+        waMsgId: [6, e.TYPES.STRING],
+      }),
+      (p.name = "Receipts"),
+      (p.internalSpec = {
+        device: [1, e.TYPES.STRING],
+        ts: [2, e.TYPES.INT64],
+      }),
+      (_.name = "PendingReceiptsTableSchemaProto"),
+      (_.internalSpec = {
+        pendingReceiptId: [1, e.TYPES.STRING],
+        thread: [2, e.TYPES.STRING],
+        externalId: [3, e.TYPES.STRING],
+        author: [4, e.TYPES.STRING],
+        deliveryReceipts: [5, e.FLAGS.REPEATED | e.TYPES.MESSAGE, p],
+        readReceipts: [6, e.FLAGS.REPEATED | e.TYPES.MESSAGE, p],
+      }),
+      (l.DbUserStatusTsProtoSpec = s),
+      (l.StatusTsPerUserProtoSpec = u),
+      (l.IdentitiesPerDeviceProtoSpec = c),
+      (l.RetryCountPerDeviceProtoSpec = d),
+      (l.ReceiptsTableSchemaProtoSpec = m),
+      (l.ReceiptsSpec = p),
+      (l.PendingReceiptsTableSchemaProtoSpec = _));
+  },
+  98,
+);

@@ -15,7 +15,6 @@ __d(
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "isEmptyObject",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,8 +25,8 @@ __d(
       d = "message_row_id";
     function m(e) {
       if (e == null) return { kind: "error" };
-      var t = C(e, c),
-        n = C(e, s);
+      var t = h(e, c),
+        n = h(e, s);
       return t == null || n == null
         ? { kind: "error" }
         : {
@@ -35,7 +34,7 @@ __d(
             chatJid: t,
             body: n,
             paramsJson: p(e[u]),
-            messageRowId: C(e, d),
+            messageRowId: h(e, d),
           };
     }
     function p(e) {
@@ -51,43 +50,35 @@ __d(
         return null;
       }
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(t) {
+      var n = t.body,
+        r = t.chatJid,
+        a = t.messageRowId,
+        i = t.paramsJson,
+        l = o("WAWebChatCollection").ChatCollection.get(
+          o("WAWebWidFactory").createWid(r),
+        );
+      if (l == null) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "A2uiReplyAction: chat not found for the hosting message",
+              ])),
+          )
+          .sendLogs("a2ui-reply-action-chat-not-found");
+        return;
+      }
+      var s = f(l, a);
+      if (i == null) {
+        await o("WAWebSendTextMsgChatAction").sendTextMsgToChat(l, n, {
+          quotedMsg: s,
+        });
+        return;
+      }
+      await g({ body: n, chat: l, paramsJson: i, quotedMsg: s });
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.body,
-            r = t.chatJid,
-            a = t.messageRowId,
-            i = t.paramsJson,
-            l = o("WAWebChatCollection").ChatCollection.get(
-              o("WAWebWidFactory").createWid(r),
-            );
-          if (l == null) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "A2uiReplyAction: chat not found for the hosting message",
-                  ])),
-              )
-              .sendLogs("a2ui-reply-action-chat-not-found");
-            return;
-          }
-          var s = g(l, a);
-          if (i == null) {
-            yield o("WAWebSendTextMsgChatAction").sendTextMsgToChat(l, n, {
-              quotedMsg: s,
-            });
-            return;
-          }
-          yield h({ body: n, chat: l, paramsJson: i, quotedMsg: s });
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
+    function f(e, t) {
       var n;
       if (!(t == null || t === "")) {
         var a = new (r("WAWebMsgKey"))({ fromMe: !1, remote: e.id, id: t });
@@ -96,60 +87,51 @@ __d(
           : void 0;
       }
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    async function g(e) {
+      var t = e.body,
+        n = e.chat,
+        a = e.paramsJson,
+        i = e.quotedMsg,
+        l = o("WAWebUserUtils").getMeLidUserOrThrow(),
+        s = babelHelpers.extends(
+          {
+            type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
+            kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
+            ack: o("WAWebAck").ACK.CLOCK,
+            to: n.id,
+            from: l,
+            id: new (r("WAWebMsgKey"))({
+              id: await r("WAWebMsgKey").newId(),
+              from: l,
+              to: n.id,
+              participant: void 0,
+              selfDir: "out",
+            }),
+            local: !0,
+            isNewMsg: !0,
+            t: o("WATimeUtils").unixTime(),
+            interactivePayload: {
+              type: r("WAWebInteractiveMessageType").NATIVE_FLOW,
+              name: String(
+                r("WAWebInteractiveMessagesNativeFlowName").A2UI_REPLY_ACTION,
+              ),
+              description: "A2UI Reply",
+              paramsJson: a,
+              version: 1,
+            },
+            nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
+              .A2UI_REPLY_ACTION,
+            interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
+            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+            body: t,
+          },
+          i != null ? i.msgContextInfo(n.id) : null,
+        ),
+        u = o("WAWebSendMsgChatAction").addAndSendMsgToChat(n, s),
+        c = u[1];
+      await c;
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.body,
-            n = e.chat,
-            a = e.paramsJson,
-            i = e.quotedMsg,
-            l = o("WAWebUserUtils").getMeLidUserOrThrow(),
-            s = babelHelpers.extends(
-              {
-                type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE_RESPONSE,
-                kind: o("WAWebMsgType").MsgKind.InteractiveResponse,
-                ack: o("WAWebAck").ACK.CLOCK,
-                to: n.id,
-                from: l,
-                id: new (r("WAWebMsgKey"))({
-                  id: yield r("WAWebMsgKey").newId(),
-                  from: l,
-                  to: n.id,
-                  participant: void 0,
-                  selfDir: "out",
-                }),
-                local: !0,
-                isNewMsg: !0,
-                t: o("WATimeUtils").unixTime(),
-                interactivePayload: {
-                  type: r("WAWebInteractiveMessageType").NATIVE_FLOW,
-                  name: String(
-                    r("WAWebInteractiveMessagesNativeFlowName")
-                      .A2UI_REPLY_ACTION,
-                  ),
-                  description: "A2UI Reply",
-                  paramsJson: a,
-                  version: 1,
-                },
-                nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName")
-                  .A2UI_REPLY_ACTION,
-                interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
-                viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-                body: t,
-              },
-              i != null ? i.msgContextInfo(n.id) : null,
-            ),
-            u = o("WAWebSendMsgChatAction").addAndSendMsgToChat(n, s),
-            c = u[1];
-          yield c;
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e, t) {
+    function h(e, t) {
       var n = e[t];
       return typeof n == "string" && n !== "" ? n : null;
     }

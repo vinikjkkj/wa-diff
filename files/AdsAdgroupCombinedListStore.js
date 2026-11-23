@@ -82,7 +82,10 @@ __d(
             return t.prototype.__getForAll.call(this, n, "campaign", r);
           }),
           (a.getForCampaign = function (t, n) {
-            return this.getForCampaigns(t, [n]).get(n);
+            var e;
+            return (e = this.getForCampaigns(t, [n]).get(n)) != null
+              ? e
+              : this.getLoadingList();
           }),
           (a.getForCampaignGroups = function (n, r) {
             return t.prototype.__getForAll.call(this, n, "campaignGroup", r);

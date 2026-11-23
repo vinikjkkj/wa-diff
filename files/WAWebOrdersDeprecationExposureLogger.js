@@ -2,7 +2,6 @@ __d(
   "WAWebOrdersDeprecationExposureLogger",
   [
     "$InternalEnum",
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
@@ -15,112 +14,83 @@ __d(
     "WAWebMsgModelFromData",
     "WAWebOrderFetcher",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = n("$InternalEnum").Mirrored(["OrdersDeprecationExposureLastCheckTs"]),
-      c = 20,
-      d = 10;
-    function m() {
-      return p.apply(this, arguments);
+      s = n("$InternalEnum").Mirrored(["OrdersDeprecationExposureLastCheckTs"]),
+      u = 20,
+      c = 10;
+    async function d() {
+      try {
+        await m();
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "logOrdersDeprecationExposure failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("orders-deprecation-exposure-failed");
+      }
+    }
+    async function m() {
+      !o("WAWebMobilePlatforms").isSMB() ||
+        p() ||
+        (r("WAWebUserPrefsStore").set(
+          s.OrdersDeprecationExposureLastCheckTs,
+          o("WATimeUtils").unixTime(),
+        ),
+        (await _()) &&
+          o("WAWebABProps").getABPropConfigValue(
+            "orders_deprecation_exposure",
+          ));
     }
     function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            yield _();
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "logOrdersDeprecationExposure failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("orders-deprecation-exposure-failed");
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _() {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          !o("WAWebMobilePlatforms").isSMB() ||
-            g() ||
-            (r("WAWebUserPrefsStore").set(
-              u.OrdersDeprecationExposureLastCheckTs,
-              o("WATimeUtils").unixTime(),
-            ),
-            (yield h()) &&
-              o("WAWebABProps").getABPropConfigValue(
-                "orders_deprecation_exposure",
-              ));
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g() {
       var e = r("WAWebUserPrefsStore").get(
-        u.OrdersDeprecationExposureLastCheckTs,
+        s.OrdersDeprecationExposureLastCheckTs,
       );
       if (typeof e != "number") return !1;
       var t = o("WATimeUtils").unixTime() - e;
       return t >= 0 && t < o("WATimeUtils").DAY_SECONDS;
     }
-    function h() {
-      return y().reduce(
-        function (e, t) {
-          return e.then(function (e) {
-            return e || C(t, { remote: t.id }, d);
-          });
-        },
-        (s || (s = n("Promise"))).resolve(!1),
-      );
+    function _() {
+      return f().reduce(function (e, t) {
+        return e.then(function (e) {
+          return e || g(t, { remote: t.id }, c);
+        });
+      }, Promise.resolve(!1));
     }
-    function y() {
+    function f() {
       return o("WAWebChatCollection")
         .ChatCollection.toArray()
         .sort(function (e, t) {
           var n, r;
           return ((n = t.t) != null ? n : 0) - ((r = e.t) != null ? r : 0);
         })
-        .slice(0, c);
+        .slice(0, u);
     }
-    function C(e, t, n) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield (
-              o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebMessageQueryService").MessageQueryService,
-                  ).msgFindBefore
-                : o("WAWebDBMessageFindLocal").msgFindBefore
-            )({ anchor: t, count: o("WAWebCollectionConstants").PAGE_SIZE }),
-            a = r.messages,
-            i = r.status;
-          return i >= 400 || a.length === 0
+    async function g(e, t, n) {
+      var r = await (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebMessageQueryService").MessageQueryService,
+              ).msgFindBefore
+            : o("WAWebDBMessageFindLocal").msgFindBefore
+        )({ anchor: t, count: o("WAWebCollectionConstants").PAGE_SIZE }),
+        a = r.messages,
+        i = r.status;
+      return i >= 400 || a.length === 0
+        ? !1
+        : h(e, a)
+          ? !0
+          : a.length < o("WAWebCollectionConstants").PAGE_SIZE || n <= 1
             ? !1
-            : v(e, a)
-              ? !0
-              : a.length < o("WAWebCollectionConstants").PAGE_SIZE || n <= 1
-                ? !1
-                : C(e, a[0].id, n - 1);
-        })),
-        b.apply(this, arguments)
-      );
+            : g(e, a[0].id, n - 1);
     }
-    function v(e, t) {
+    function h(e, t) {
       var n = t
         .filter(function (e) {
           return e.nativeFlowName != null;
@@ -137,7 +107,7 @@ __d(
         i = r.ordersStatusInfo;
       return a.length > 0 || i.length > 0;
     }
-    l.logOrdersDeprecationExposure = m;
+    l.logOrdersDeprecationExposure = d;
   },
   98,
 );

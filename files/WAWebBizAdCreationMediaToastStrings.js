@@ -5,10 +5,10 @@ __d(
     "use strict";
     var e = "biz_native_ads_partial_upload_failure";
     function u() {
-      return s._(/*BTDS*/ "Couldn't load media");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Some media couldn't be uploaded and were removed");
+      return s._(/*BTDS*/ "");
     }
     ((l.PARTIAL_UPLOAD_FAILURE_TOAST_ID = e),
       (l.getMediaLoadFailedText = u),

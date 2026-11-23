@@ -1,153 +1,121 @@
 __d(
   "WAWebMediaStoreLruImpl",
   [
-    "Promise",
     "WALogger",
     "WAPromiseQueue",
     "WAWeb-dexie",
     "WAWebAbstractStore",
     "WAWebMediaStoreMetaInfo",
     "WAWebStorageErrorHandlingUtils",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = (function (t) {
-        function a(i) {
-          var l;
-          ((l = t.call(this) || this),
-            (l._queueMap = new (o("WAPromiseQueue").PromiseQueueMap)()),
-            (l.updateMaxSizeInterval = null),
-            (l._dispose = function (e, t) {
-              return l._bufferStore.del(e);
+      s = (function (t) {
+        function n(a) {
+          var i;
+          ((i = t.call(this) || this),
+            (i._queueMap = new (o("WAPromiseQueue").PromiseQueueMap)()),
+            (i.updateMaxSizeInterval = null),
+            (i._dispose = function (e, t) {
+              return i._bufferStore.del(e);
             }),
-            (l.doPut = function (t, i) {
-              return l._queueMap.enqueue(
-                t,
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+            (i.doPut = function (t, a) {
+              return i._queueMap.enqueue(t, async function () {
+                if (
+                  a.byteLength > i.$LruMediaStore$p_1() ||
+                  a.byteLength > n.SINGLE_ITEM_SIZE_LIMIT_IN_BYTES
+                )
+                  return a;
+                var l = { id: t, timestamp: Date.now(), size: a.byteLength };
+                try {
+                  return (
+                    await i._metaInfoStore.putObject(l),
+                    i._bufferStore.put(t, a)
+                  );
+                } catch (t) {
                   if (
-                    i.byteLength > l.$LruMediaStore$p_1() ||
-                    i.byteLength > a.SINGLE_ITEM_SIZE_LIMIT_IN_BYTES
-                  )
-                    return i;
-                  var n = { id: t, timestamp: Date.now(), size: i.byteLength };
-                  try {
-                    return (
-                      yield l._metaInfoStore.putObject(n),
-                      l._bufferStore.put(t, i)
-                    );
-                  } catch (t) {
-                    if (
-                      t instanceof r("WAWeb-dexie").AbortError &&
-                      t.message.includes("QuotaExceededError")
-                    ) {
-                      (o("WALogger").LOG(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "[LruMediaStore] QuotaExceededError, shrinking",
-                          ])),
-                      ),
-                        l.setMaxSize(r("nullthrows")(l.getCurrentSize()) / 2),
-                        o(
-                          "WAWebStorageErrorHandlingUtils",
-                        ).reportQuotaExceededError(t, {
-                          op: "put",
-                          db: "lru-media-store",
-                          writeSize: i.byteLength,
-                        }));
-                      return;
-                    }
-                    throw t;
+                    t instanceof r("WAWeb-dexie").AbortError &&
+                    t.message.includes("QuotaExceededError")
+                  ) {
+                    (o("WALogger").LOG(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[LruMediaStore] QuotaExceededError, shrinking",
+                        ])),
+                    ),
+                      i.setMaxSize(r("nullthrows")(i.getCurrentSize()) / 2),
+                      o(
+                        "WAWebStorageErrorHandlingUtils",
+                      ).reportQuotaExceededError(t, {
+                        op: "put",
+                        db: "lru-media-store",
+                        writeSize: a.byteLength,
+                      }));
+                    return;
                   }
-                }),
-              );
+                  throw t;
+                }
+              });
             }),
-            (l.doDel = function (e) {
-              return l._queueMap.enqueue(e, function () {
-                return l._metaInfoStore.del(e);
+            (i.doDel = function (e) {
+              return i._queueMap.enqueue(e, function () {
+                return i._metaInfoStore.del(e);
               });
             }));
-          var s = i.arrayBufferStore,
-            u = i.maxSize;
+          var l = a.arrayBufferStore,
+            s = a.maxSize;
           return (
-            (l.name = s.name),
-            (l._bufferStore = s),
-            (l._metaInfoStore = new (r("WAWebMediaStoreMetaInfo"))(
-              u,
-              l._dispose,
+            (i.name = l.name),
+            (i._bufferStore = l),
+            (i._metaInfoStore = new (r("WAWebMediaStoreMetaInfo"))(
+              s,
+              i._dispose,
             )),
-            l
+            i
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.doGet = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this._bufferStore.get(e);
-                return (t != null && this.put(e, t), t);
-              },
+          (a.doGet = async function (t) {
+            var e = await this._bufferStore.get(t);
+            return (e != null && this.put(t, e), e);
+          }),
+          (a.doClear = async function () {
+            return (
+              await this._bufferStore.clear(),
+              this._metaInfoStore.clear()
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.doClear = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return (
-                yield this._bufferStore.clear(),
-                this._metaInfoStore.clear()
-              );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.doCount = function () {
+          }),
+          (a.doCount = function () {
             return this._metaInfoStore.count();
           }),
-          (i.doOpen = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              yield (s || (s = n("Promise"))).all([
-                this._metaInfoStore.open(),
-                this._bufferStore.open(),
-              ]);
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.doClose = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              yield (s || (s = n("Promise"))).all([
-                this._metaInfoStore.close(),
-                this._bufferStore.close(),
-              ]);
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getCurrentSize = function () {
+          (a.doOpen = async function () {
+            await Promise.all([
+              this._metaInfoStore.open(),
+              this._bufferStore.open(),
+            ]);
+          }),
+          (a.doClose = async function () {
+            await Promise.all([
+              this._metaInfoStore.close(),
+              this._bufferStore.close(),
+            ]);
+          }),
+          (a.getCurrentSize = function () {
             return this._metaInfoStore.getCurrentSize();
           }),
-          (i.$LruMediaStore$p_1 = function () {
+          (a.$LruMediaStore$p_1 = function () {
             return this._metaInfoStore.getMaxSize();
           }),
-          (i.setMaxSize = function (t) {
+          (a.setMaxSize = function (t) {
             return this._metaInfoStore.setMaxSize(t);
           }),
-          a
+          n
         );
       })(r("WAWebAbstractStore"));
-    ((u.SINGLE_ITEM_SIZE_LIMIT_IN_BYTES = 3e7), (l.default = u));
+    ((s.SINGLE_ITEM_SIZE_LIMIT_IN_BYTES = 3e7), (l.default = s));
   },
   98,
 );

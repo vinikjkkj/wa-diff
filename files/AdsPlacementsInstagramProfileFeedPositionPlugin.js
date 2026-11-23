@@ -43,7 +43,7 @@ __d(
         type: "placements/position",
         key: "instagram/profile_feed",
         name: r("AdsPlacementPositionLabelConstant").profile_feed,
-        nameWithPlatform: s._(/*BTDS*/ "Instagram profile feed"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         adsetValidators: [
           r("AdsCampaignInstagramProfileFeedPositionValidator"),
         ],

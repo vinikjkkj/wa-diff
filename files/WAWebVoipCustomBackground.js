@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipCustomBackground",
   [
-    "Promise",
     "WALogger",
     "WAPromiseTimeout",
     "WAWebNoop",
@@ -9,7 +8,6 @@ __d(
     "WAWebVoipBackgroundPreview",
     "WAWebVoipCustomBackgroundPicture",
     "WAWebVoipVideoEffectsODS",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -20,21 +18,28 @@ __d(
       u,
       c,
       d,
-      m,
-      p = "custom-",
-      _ = 3e4,
-      f = 1e4,
-      g = 2e3,
+      m = "custom-",
+      p = 3e4,
+      _ = 1e4,
+      f = 2e3,
+      g = null,
       h = null,
-      y = null,
-      C = 0,
-      b = new Set(),
-      v = new Set();
-    function S(e) {
-      return e.startsWith(p);
+      y = 0,
+      C = new Set(),
+      b = new Set();
+    function v(e) {
+      return e.startsWith(m);
     }
-    function R() {
-      return y;
+    function S() {
+      return h;
+    }
+    function R(e) {
+      return (
+        C.add(e),
+        function () {
+          C.delete(e);
+        }
+      );
     }
     function L(e) {
       return (
@@ -44,134 +49,108 @@ __d(
         }
       );
     }
-    function E(e) {
-      return (
-        v.add(e),
-        function () {
-          v.delete(e);
-        }
-      );
-    }
-    function k() {
-      var e = M();
+    function E() {
+      var e = $();
       e.then(function (t) {
-        h === e && t != null && w(t.id) && A(t);
+        g === e && t != null && P(t.id) && N(t);
       }, r("WAWebNoop"));
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAPromiseTimeout").promiseTimeout(
-            M(),
-            g,
-            "took over " + g + " ms to read",
-          );
-          return t != null && t.id === e
-            ? { columns: 1, rows: 1, tiles: [t.picture] }
-            : null;
-        })),
-        T.apply(this, arguments)
+    async function k(e) {
+      var t = await o("WAPromiseTimeout").promiseTimeout(
+        $(),
+        f,
+        "took over " + f + " ms to read",
       );
+      return t != null && t.id === e
+        ? { columns: 1, rows: 1, tiles: [t.picture] }
+        : null;
     }
-    function D(e) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          try {
-            t = yield o("WAPromiseTimeout").promiseTimeout(
-              o("WAWebVoipCustomBackgroundPicture").makeCustomBackgroundPicture(
-                e,
-              ),
-              _,
-              "took over " + _ + " ms",
-            );
-          } catch (e) {
-            (o("WALogger").WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [effects] could not make a custom background: ",
-                  "",
-                ])),
-              r("getErrorSafe")(e).message,
-            ),
-              (t = { status: "unreadable" }));
-          }
-          return (
-            t.status !== "made" &&
-              (o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [effects] custom background turned down: ",
-                    "",
-                  ])),
-                t.status,
-              ),
-              o("WAWebVoipVideoEffectsODS").logVideoEffects(
-                t.status === "not_a_picture"
-                  ? "custom_background_rejected_not_a_picture"
-                  : t.status === "too_large"
-                    ? "custom_background_rejected_too_large"
-                    : t.status === "too_many_pixels"
-                      ? "custom_background_rejected_too_many_pixels"
-                      : t.status === "unreadable"
-                        ? "custom_background_rejected_unreadable"
-                        : (function () {
-                            throw Error(
-                              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                                t.status,
-                            );
-                          })(),
-              )),
-            t
-          );
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(t) {
-      C = Math.max(Date.now(), C + 1);
-      var r = { id: "" + p + C, picture: t };
-      return (
-        (h = (m || (m = n("Promise"))).resolve(r)),
-        A(r),
-        o("WALogger").LOG(
+    async function I(t) {
+      var n;
+      try {
+        n = await o("WAPromiseTimeout").promiseTimeout(
+          o("WAWebVoipCustomBackgroundPicture").makeCustomBackgroundPicture(t),
+          p,
+          "took over " + p + " ms",
+        );
+      } catch (t) {
+        (o("WALogger").WARN(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [effects] could not make a custom background: ",
+              "",
+            ])),
+          r("getErrorSafe")(t).message,
+        ),
+          (n = { status: "unreadable" }));
+      }
+      return (
+        n.status !== "made" &&
+          (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [effects] custom background turned down: ",
+                "",
+              ])),
+            n.status,
+          ),
+          o("WAWebVoipVideoEffectsODS").logVideoEffects(
+            n.status === "not_a_picture"
+              ? "custom_background_rejected_not_a_picture"
+              : n.status === "too_large"
+                ? "custom_background_rejected_too_large"
+                : n.status === "too_many_pixels"
+                  ? "custom_background_rejected_too_many_pixels"
+                  : n.status === "unreadable"
+                    ? "custom_background_rejected_unreadable"
+                    : (function () {
+                        throw Error(
+                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                            n.status,
+                        );
+                      })(),
+          )),
+        n
+      );
+    }
+    function T(e) {
+      y = Math.max(Date.now(), y + 1);
+      var t = { id: "" + m + y, picture: e };
+      return (
+        (g = Promise.resolve(t)),
+        N(t),
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [effects] custom background ",
               " added",
             ])),
-          r.id,
+          t.id,
         ),
         o("WAWebVoipVideoEffectsODS").logVideoEffects(
           "custom_background_added",
         ),
         o("WAWebVoipBackgroundImageStore")
-          .storeCustomBackground(r.id, r.picture)
+          .storeCustomBackground(t.id, t.picture)
           .then(function (e) {
             e ||
               o("WAWebVoipVideoEffectsODS").logVideoEffects(
                 "custom_background_not_kept",
               );
           }),
-        r.id
+        t.id
       );
     }
-    function P(e) {
-      var t = y;
+    function D(e) {
+      var t = h;
       t == null ||
         t.id !== e ||
         (t.preview.state === "ready" && URL.revokeObjectURL(t.preview.url),
-        (h = (m || (m = n("Promise"))).resolve(null)),
-        F(null),
+        (g = Promise.resolve(null)),
+        M(null),
         o("WALogger").LOG(
-          s ||
-            (s = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [effects] custom background ",
               " removed",
             ])),
@@ -189,47 +168,47 @@ __d(
               );
           }));
     }
-    function N(e, t) {
+    function x(e, t) {
       var n,
         r,
-        o = (n = y) == null ? void 0 : n.preview;
-      ((r = y) == null ? void 0 : r.id) === e &&
+        o = (n = h) == null ? void 0 : n.preview;
+      ((r = h) == null ? void 0 : r.id) === e &&
         (o == null ? void 0 : o.state) === "ready" &&
         o.url === t &&
-        (URL.revokeObjectURL(t), F({ id: e, preview: { state: "failed" } }));
+        (URL.revokeObjectURL(t), M({ id: e, preview: { state: "failed" } }));
     }
-    function M() {
-      if (h != null) return h;
+    function $() {
+      if (g != null) return g;
       var e = o("WAWebVoipBackgroundImageStore")
         .readStoredCustomBackground()
         .then(function (t) {
           if (t.status === "unreadable")
             throw (
-              h === e && (h = null),
+              g === e && (g = null),
               r("err")("custom background: the device could not be read")
             );
           return t.status === "kept" ? { id: t.id, picture: t.picture } : null;
         });
       return (
-        (h = e),
+        (g = e),
         e.then(function (t) {
           t != null &&
-            h === e &&
-            v.forEach(function (e) {
+            g === e &&
+            b.forEach(function (e) {
               return e(t.id);
             });
         }, r("WAWebNoop")),
         e
       );
     }
-    function w(e) {
-      return y == null || y.id !== e || y.preview.state === "failed";
+    function P(e) {
+      return h == null || h.id !== e || h.preview.state === "failed";
     }
-    function A(e) {
+    function N(e) {
       var t,
-        n = (t = y) == null ? void 0 : t.preview;
+        n = (t = h) == null ? void 0 : t.preview;
       ((n == null ? void 0 : n.state) === "ready" && URL.revokeObjectURL(n.url),
-        F({ id: e.id, preview: { state: "loading" } }),
+        M({ id: e.id, preview: { state: "loading" } }),
         o("WAPromiseTimeout")
           .promiseTimeout(
             o("WAWebVoipBackgroundPreview").makeBackgroundPreview({
@@ -237,14 +216,14 @@ __d(
               rows: 1,
               tiles: [e.picture],
             }),
-            f,
-            "took over " + f + " ms",
+            _,
+            "took over " + _ + " ms",
           )
           .then(
             function (t) {
               var n;
-              ((n = y) == null ? void 0 : n.id) === e.id &&
-                F({
+              ((n = h) == null ? void 0 : n.id) === e.id &&
+                M({
                   id: e.id,
                   preview: { state: "ready", url: URL.createObjectURL(t) },
                 });
@@ -252,8 +231,8 @@ __d(
             function (t) {
               var n;
               (o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [effects] could not make custom background ",
                     "'s preview: ",
                     "",
@@ -261,27 +240,27 @@ __d(
                 e.id,
                 r("getErrorSafe")(t).message,
               ),
-                ((n = y) == null ? void 0 : n.id) === e.id &&
-                  F({ id: e.id, preview: { state: "failed" } }));
+                ((n = h) == null ? void 0 : n.id) === e.id &&
+                  M({ id: e.id, preview: { state: "failed" } }));
             },
           ));
     }
-    function F(e) {
-      ((y = e),
-        b.forEach(function (e) {
+    function M(e) {
+      ((h = e),
+        C.forEach(function (e) {
           return e();
         }));
     }
-    ((l.isCustomBackgroundId = S),
-      (l.getCustomBackground = R),
-      (l.subscribeToCustomBackground = L),
-      (l.subscribeToCustomBackgroundRead = E),
-      (l.loadCustomBackground = k),
-      (l.getCustomBackgroundImage = I),
-      (l.makeCustomBackground = D),
-      (l.addCustomBackground = $),
-      (l.removeCustomBackground = P),
-      (l.failCustomBackgroundPreview = N));
+    ((l.isCustomBackgroundId = v),
+      (l.getCustomBackground = S),
+      (l.subscribeToCustomBackground = R),
+      (l.subscribeToCustomBackgroundRead = L),
+      (l.loadCustomBackground = E),
+      (l.getCustomBackgroundImage = k),
+      (l.makeCustomBackground = I),
+      (l.addCustomBackground = T),
+      (l.removeCustomBackground = D),
+      (l.failCustomBackgroundPreview = x));
   },
   98,
 );

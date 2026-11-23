@@ -1,7 +1,6 @@
 __d(
   "WAWebSendTestNotificationAction",
   [
-    "Promise",
     "WALogger",
     "WAWebABProps",
     "WAWebAdaptiveLayoutGatingUtils",
@@ -15,7 +14,6 @@ __d(
     "WAWebSettingsConst",
     "WAWebSettingsFlowLoadable",
     "WAWebUserPrefsNotifications",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -28,9 +26,8 @@ __d(
       m,
       p,
       _,
-      f,
-      g = f || (f = o("react"));
-    function h() {
+      f = _ || (_ = o("react"));
+    function g() {
       (o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -46,7 +43,7 @@ __d(
                 initialStep:
                   o("WAWebSettingsConst").SettingsSteps.Notifications,
               }
-            : g.jsx(o("WAWebSettingsFlowLoadable").SettingsFlowLoadable, {
+            : f.jsx(o("WAWebSettingsFlowLoadable").SettingsFlowLoadable, {
                 onEnd: o("WAWebDrawerManager").closeDrawerLeft,
                 initialStep:
                   o("WAWebSettingsConst").SettingsSteps.Notifications,
@@ -54,148 +51,121 @@ __d(
         ),
         o("WAWebCoreActionsODS").logNotificationTestCompleted());
     }
-    function y() {
-      return C.apply(this, arguments);
+    async function h() {
+      try {
+        return await C();
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[notification-test] permission request failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("notification-test-permission-failed"),
+          !1
+        );
+      }
     }
-    function C() {
+    async function y() {
+      var e;
+      if (
+        ((e = window.Notification) == null ? void 0 : e.permission) !==
+        o("WAWebNotificationConstants").PERMISSION_ALLOWED
+      )
+        return (
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[notification-test] no permission, nothing shown",
+              ])),
+          ),
+          !1
+        );
+      try {
+        return (
+          await o("WAWebNotificationBackend").showTestNotification(g),
+          !0
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[notification-test] example notification failed to send",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("notification-test-send-failed"),
+          !1
+        );
+      }
+    }
+    async function C() {
+      if (window.Notification == null)
+        return (
+          o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "[notification-test] no Notification API in this browser",
+              ])),
+          ),
+          !1
+        );
+      if (
+        (o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "[notification-test] requested, permission=",
+              "",
+            ])),
+          window.Notification.permission,
+        ),
+        window.Notification.permission ===
+          o("WAWebNotificationConstants").PERMISSION_ALLOWED)
+      )
+        return !0;
+      var e = o("WAWebABProps").getABPropConfigValue(
+          "web_notifications_banner_new_logic_enabled",
+        ),
+        t = window.Notification.permission,
+        n = o("WAWebPushNotificationsGatingUtils").canShowNotificationsBanner(
+          t,
+          e,
+        );
+      if (t === o("WAWebNotificationConstants").PERMISSION_DENIED)
+        return (
+          n &&
+            o("WAWebNotificationsOptInModalController").openOwnedGuidePopup(e),
+          !1
+        );
+      var r = n
+          ? o("WAWebNotificationsOptInModalController").openOwnedGuidePopup(e)
+          : null,
+        a;
+      try {
+        a = await b();
+      } finally {
+        r == null || r({ close: !0 });
+      }
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            return yield S();
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[notification-test] permission request failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("notification-test-permission-failed"),
-              !1
-            );
-          }
-        })),
-        C.apply(this, arguments)
+        o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "[notification-test] permission prompt resolved as ",
+              "",
+            ])),
+          a,
+        ),
+        o("WAWebCmd").Cmd.onNotificationPermissionChange(),
+        a === o("WAWebNotificationConstants").PERMISSION_ALLOWED
       );
     }
     function b() {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
-          if (
-            ((e = window.Notification) == null ? void 0 : e.permission) !==
-            o("WAWebNotificationConstants").PERMISSION_ALLOWED
-          )
-            return (
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[notification-test] no permission, nothing shown",
-                  ])),
-              ),
-              !1
-            );
-          try {
-            return (
-              yield o("WAWebNotificationBackend").showTestNotification(h),
-              !0
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[notification-test] example notification failed to send",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("notification-test-send-failed"),
-              !1
-            );
-          }
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S() {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (window.Notification == null)
-            return (
-              o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[notification-test] no Notification API in this browser",
-                  ])),
-              ),
-              !1
-            );
-          if (
-            (o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[notification-test] requested, permission=",
-                  "",
-                ])),
-              window.Notification.permission,
-            ),
-            window.Notification.permission ===
-              o("WAWebNotificationConstants").PERMISSION_ALLOWED)
-          )
-            return !0;
-          var e = o("WAWebABProps").getABPropConfigValue(
-              "web_notifications_banner_new_logic_enabled",
-            ),
-            t = window.Notification.permission,
-            n = o(
-              "WAWebPushNotificationsGatingUtils",
-            ).canShowNotificationsBanner(t, e);
-          if (t === o("WAWebNotificationConstants").PERMISSION_DENIED)
-            return (
-              n &&
-                o("WAWebNotificationsOptInModalController").openOwnedGuidePopup(
-                  e,
-                ),
-              !1
-            );
-          var r = n
-              ? o("WAWebNotificationsOptInModalController").openOwnedGuidePopup(
-                  e,
-                )
-              : null,
-            a;
-          try {
-            a = yield L();
-          } finally {
-            r == null || r({ close: !0 });
-          }
-          return (
-            o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[notification-test] permission prompt resolved as ",
-                  "",
-                ])),
-              a,
-            ),
-            o("WAWebCmd").Cmd.onNotificationPermissionChange(),
-            a === o("WAWebNotificationConstants").PERMISSION_ALLOWED
-          );
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L() {
-      return new (_ || (_ = n("Promise")))(function (e, t) {
+      return new Promise(function (e, t) {
         try {
           var n,
             r =
@@ -208,9 +178,9 @@ __d(
         }
       });
     }
-    ((l.handleTestNotificationClick = h),
-      (l.ensureNotificationPermission = y),
-      (l.sendTestNotification = b));
+    ((l.handleTestNotificationClick = g),
+      (l.ensureNotificationPermission = h),
+      (l.sendTestNotification = y));
   },
   98,
 );

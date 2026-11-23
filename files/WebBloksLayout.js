@@ -6,7 +6,6 @@ __d(
     "WebBloksModel",
     "WebBloksUtils",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -94,502 +93,421 @@ __d(
       we = o("WebBloksModel").defineWebBloksAttributeKey("E"),
       Ae = o("WebBloksModel").defineWebBloksAttributeKey("F");
     function Fe(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
-        r = n.isRtl,
-        a;
-      t[0] !== e
-        ? ((a = e.get(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY)),
-          (t[0] = e),
-          (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l;
-      t[2] !== e
-        ? ((l = e.get(o("WebBloksConstants").ALPHA_ATTRIBUTE_KEY)),
-          (t[2] = e),
-          (t[3] = l))
-        : (l = t[3]);
-      var s = l,
-        u;
-      t[4] !== i
-        ? ((u = o("WebBloksUtils").isStyle(i, c)), (t[4] = i), (t[5] = u))
-        : (u = t[5]);
-      var Fe = u,
-        qe;
-      if (t[6] !== s || t[7] !== r || t[8] !== i || t[9] !== Fe) {
-        if (((qe = {}), s != null && (qe.opacity = s), Fe)) {
-          var Ue = o("WebBloksUtils").nullthrows(i);
-          Oe(Ue, qe);
-          for (var Ve of Ue.entries()) {
-            var He = Ve[0],
-              Ge = Ve[1];
-            if (!Be(He))
-              e: switch (He) {
-                case y: {
-                  qe.flexGrow = String(Ge);
-                  break e;
+      var t = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
+        n = t.isRtl,
+        r = e.get(o("WebBloksConstants").STYLE_ATTRIBUTE_KEY),
+        a = e.get(o("WebBloksConstants").ALPHA_ATTRIBUTE_KEY);
+      return s(
+        function () {
+          var e = o("WebBloksUtils").isStyle(r, c),
+            t = {};
+          if ((a != null && (t.opacity = a), e)) {
+            var i = o("WebBloksUtils").nullthrows(r);
+            Oe(i, t);
+            for (var l of i.entries()) {
+              var s = l[0],
+                u = l[1];
+              if (!Be(s))
+                switch (s) {
+                  case y:
+                    t.flexGrow = String(u);
+                    break;
+                  case B:
+                    t.flexShrink = String(u);
+                    break;
+                  case _:
+                    t.alignSelf = o("WebBloksUtils").toHyphen(String(u));
+                    break;
+                  case V:
+                    t.flexBasis = o("WebBloksUtils").toPx(String(u));
+                    break;
+                  case o("WebBloksConstants")
+                    .YOGA_JUSTIFY_CONTENT_ATTRIBUTE_KEY:
+                    t.justifyContent = o("WebBloksUtils").toHyphen(String(u));
+                    break;
+                  case F:
+                    t.position = String(u);
+                    break;
+                  case g:
+                    ((t.bottom = o("WebBloksUtils").toPx(String(u))),
+                      (t.position = "absolute"));
+                    break;
+                  case b:
+                    ((t.left = o("WebBloksUtils").toPx(String(u))),
+                      (t.position = "absolute"));
+                    break;
+                  case O:
+                    ((t.right = o("WebBloksUtils").toPx(String(u))),
+                      (t.position = "absolute"));
+                    break;
+                  case q:
+                    ((t.top = o("WebBloksUtils").toPx(String(u))),
+                      (t.position = "absolute"));
+                    break;
+                  case W:
+                    (n
+                      ? (t.right = o("WebBloksUtils").toPx(String(u)))
+                      : (t.left = o("WebBloksUtils").toPx(String(u))),
+                      (t.position = "absolute"));
+                    break;
+                  case h:
+                    (n
+                      ? (t.left = o("WebBloksUtils").toPx(String(u)))
+                      : (t.right = o("WebBloksUtils").toPx(String(u))),
+                      (t.position = "absolute"));
+                    break;
+                  case f:
+                    break;
+                  case U:
+                    t.width = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case C:
+                    t.height = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case D:
+                    t.minHeight = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case I:
+                    t.maxHeight = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case x:
+                    t.minWidth = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case T:
+                    t.maxWidth = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case k:
+                    t.marginTop = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case L:
+                    t.marginRight = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case v:
+                    t.marginBottom = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case R:
+                    t.marginLeft = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case E:
+                  case S:
+                  case w:
+                  case P:
+                    break;
+                  case A:
+                    t.paddingTop = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case M:
+                    t.paddingRight = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case $:
+                    t.paddingBottom = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case N:
+                    t.paddingLeft = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(u)),
+                    );
+                    break;
+                  case o("WebBloksConstants").MARGIN_ATTRIBUTE_KEY:
+                  case o("WebBloksConstants").MARGIN_HORIZONTAL_ATTRIBUTE_KEY:
+                  case o("WebBloksConstants").MARGIN_VERTICAL_ATTRIBUTE_KEY:
+                    break;
+                  case o("WebBloksConstants").TRANSFORM_ATTRIBUTE_KEY:
+                    t.transform = String(u);
+                    break;
+                  default:
+                    break;
                 }
-                case B: {
-                  qe.flexShrink = String(Ge);
-                  break e;
-                }
-                case _: {
-                  qe.alignSelf = o("WebBloksUtils").toHyphen(String(Ge));
-                  break e;
-                }
-                case V: {
-                  qe.flexBasis = o("WebBloksUtils").toPx(String(Ge));
-                  break e;
-                }
-                case o("WebBloksConstants")
-                  .YOGA_JUSTIFY_CONTENT_ATTRIBUTE_KEY: {
-                  qe.justifyContent = o("WebBloksUtils").toHyphen(String(Ge));
-                  break e;
-                }
-                case F: {
-                  qe.position = String(Ge);
-                  break e;
-                }
-                case g: {
-                  ((qe.bottom = o("WebBloksUtils").toPx(String(Ge))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case b: {
-                  ((qe.left = o("WebBloksUtils").toPx(String(Ge))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case O: {
-                  ((qe.right = o("WebBloksUtils").toPx(String(Ge))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case q: {
-                  ((qe.top = o("WebBloksUtils").toPx(String(Ge))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case W: {
-                  (r
-                    ? (qe.right = o("WebBloksUtils").toPx(String(Ge)))
-                    : (qe.left = o("WebBloksUtils").toPx(String(Ge))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case h: {
-                  (r
-                    ? (qe.left = o("WebBloksUtils").toPx(String(Ge)))
-                    : (qe.right = o("WebBloksUtils").toPx(String(Ge))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case f:
-                  break e;
-                case U: {
-                  qe.width = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case C: {
-                  qe.height = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case D: {
-                  qe.minHeight = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case I: {
-                  qe.maxHeight = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case x: {
-                  qe.minWidth = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case T: {
-                  qe.maxWidth = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case k: {
-                  qe.marginTop = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case L: {
-                  qe.marginRight = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case v: {
-                  qe.marginBottom = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case R: {
-                  qe.marginLeft = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case E:
-                case S:
-                case w:
-                case P:
-                  break e;
-                case A: {
-                  qe.paddingTop = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case M: {
-                  qe.paddingRight = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case $: {
-                  qe.paddingBottom = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case N: {
-                  qe.paddingLeft = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(Ge)),
-                  );
-                  break e;
-                }
-                case o("WebBloksConstants").MARGIN_ATTRIBUTE_KEY:
-                case o("WebBloksConstants").MARGIN_HORIZONTAL_ATTRIBUTE_KEY:
-                case o("WebBloksConstants").MARGIN_VERTICAL_ATTRIBUTE_KEY:
-                  break e;
-                case o("WebBloksConstants").TRANSFORM_ATTRIBUTE_KEY: {
-                  qe.transform = String(Ge);
-                  break e;
-                }
-                default:
-              }
+            }
+            var Fe = n ? i.get(P) : i.get(w);
+            if (Fe != null) {
+              var qe = o("WebBloksUtils").toPx(
+                o("WebBloksUtils").toHyphen(String(Fe)),
+              );
+              qe != null && (t.paddingLeft = qe);
+            }
+            var Ue = n ? i.get(w) : i.get(P);
+            if (Ue != null) {
+              var Ve = o("WebBloksUtils").toPx(
+                o("WebBloksUtils").toHyphen(String(Ue)),
+              );
+              Ve != null && (t.paddingRight = Ve);
+            }
+            var He = n ? i.get(S) : i.get(E);
+            if (He != null) {
+              var Ge = o("WebBloksUtils").toPx(
+                o("WebBloksUtils").toHyphen(String(He)),
+              );
+              Ge != null && (t.marginLeft = Ge);
+            }
+            var ze = n ? i.get(E) : i.get(S);
+            if (ze != null) {
+              var je = o("WebBloksUtils").toPx(
+                o("WebBloksUtils").toHyphen(String(ze)),
+              );
+              je != null && (t.marginRight = je);
+            }
           }
-          var ze = r ? Ue.get(P) : Ue.get(w);
-          if (ze != null) {
-            var je = o("WebBloksUtils").toPx(
-              o("WebBloksUtils").toHyphen(String(ze)),
-            );
-            je != null && (qe.paddingLeft = je);
+          var Ke = o("WebBloksUtils").isStyle(r, d);
+          if (Ke) {
+            var Qe = o("WebBloksUtils").nullthrows(r);
+            for (var Xe of Qe.entries()) {
+              var Ye = Xe[0],
+                Je = Xe[1];
+              if (!Be(Ye))
+                switch (Ye) {
+                  case G:
+                    Je === !0 && (t.position = "sticky");
+                    break;
+                  case z:
+                  case j:
+                    break;
+                  case le:
+                    break;
+                  case H:
+                    t.height = o("WebBloksUtils").toPx(String(Je));
+                    break;
+                  case K:
+                    t.width = o("WebBloksUtils").toPx(String(Je));
+                    break;
+                  case Q:
+                    t.alignSelf = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(Je)),
+                    );
+                    break;
+                  case X:
+                    We(t, "aspectRatio", Je);
+                    break;
+                  case Y:
+                    t.maxHeight = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(Je)),
+                    );
+                    break;
+                  case J:
+                    t.maxWidth = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(Je)),
+                    );
+                    break;
+                  case Z:
+                    t.minHeight = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(Je)),
+                    );
+                    break;
+                  case ee:
+                    t.minWidth = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(Je)),
+                    );
+                    break;
+                  case ie:
+                    t.marginTop = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(Je)),
+                    );
+                    break;
+                  case oe:
+                    t.marginRight = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(Je)),
+                    );
+                    break;
+                  case te:
+                    t.marginBottom = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(Je)),
+                    );
+                    break;
+                  case re:
+                    t.marginLeft = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(Je)),
+                    );
+                    break;
+                  case ae:
+                    n
+                      ? (t.marginRight = o("WebBloksUtils").toPx(
+                          o("WebBloksUtils").toHyphen(String(Je)),
+                        ))
+                      : (t.marginLeft = o("WebBloksUtils").toPx(
+                          o("WebBloksUtils").toHyphen(String(Je)),
+                        ));
+                    break;
+                  case ne:
+                    n
+                      ? (t.marginLeft = o("WebBloksUtils").toPx(
+                          o("WebBloksUtils").toHyphen(String(Je)),
+                        ))
+                      : (t.marginRight = o("WebBloksUtils").toPx(
+                          o("WebBloksUtils").toHyphen(String(Je)),
+                        ));
+                    break;
+                  default:
+                    break;
+                }
+            }
           }
-          var Ke = r ? Ue.get(w) : Ue.get(P);
-          if (Ke != null) {
-            var Qe = o("WebBloksUtils").toPx(
-              o("WebBloksUtils").toHyphen(String(Ke)),
-            );
-            Qe != null && (qe.paddingRight = Qe);
+          var Ze = o("WebBloksUtils").isStyle(r, m);
+          if (Ze) {
+            var et = o("WebBloksUtils").nullthrows(r);
+            Oe(et, t);
+            for (var tt of et.entries()) {
+              var nt = tt[0],
+                rt = tt[1];
+              if (!Be(nt))
+                switch (nt) {
+                  case $e:
+                    t.flexGrow = String(rt);
+                    break;
+                  case Pe:
+                    t.flexShrink = String(rt);
+                    break;
+                  case Ae:
+                    t.flexBasis = o("WebBloksUtils").toPx(String(rt));
+                    break;
+                  case De:
+                    t.alignSelf = o("WebBloksUtils").toHyphen(String(rt));
+                    break;
+                  case Re:
+                    t.position = String(rt);
+                    break;
+                  case ue:
+                    ((t.bottom = o("WebBloksUtils").toPx(String(rt))),
+                      (t.position = "absolute"));
+                    break;
+                  case me:
+                    ((t.left = o("WebBloksUtils").toPx(String(rt))),
+                      (t.position = "absolute"));
+                    break;
+                  case Le:
+                    ((t.right = o("WebBloksUtils").toPx(String(rt))),
+                      (t.position = "absolute"));
+                    break;
+                  case ke:
+                    ((t.top = o("WebBloksUtils").toPx(String(rt))),
+                      (t.position = "absolute"));
+                    break;
+                  case Ee:
+                    (n
+                      ? (t.right = o("WebBloksUtils").toPx(String(rt)))
+                      : (t.left = o("WebBloksUtils").toPx(String(rt))),
+                      (t.position = "absolute"));
+                    break;
+                  case ce:
+                    (n
+                      ? (t.left = o("WebBloksUtils").toPx(String(rt)))
+                      : (t.right = o("WebBloksUtils").toPx(String(rt))),
+                      (t.position = "absolute"));
+                    break;
+                  case se:
+                    break;
+                  case Te:
+                    t.zIndex = Number(rt);
+                    break;
+                  case xe:
+                  case Me:
+                  case Ne:
+                  case we:
+                    break;
+                  case Ie:
+                    t.width = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(rt)),
+                    );
+                    break;
+                  case de:
+                    t.height = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(rt)),
+                    );
+                    break;
+                  case ve:
+                    t.minHeight = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(rt)),
+                    );
+                    break;
+                  case Ce:
+                    t.maxHeight = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(rt)),
+                    );
+                    break;
+                  case Se:
+                    t.minWidth = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(rt)),
+                    );
+                    break;
+                  case be:
+                    t.maxWidth = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(rt)),
+                    );
+                    break;
+                  case ye:
+                    t.marginTop = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(rt)),
+                    );
+                    break;
+                  case ge:
+                    t.marginRight = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(rt)),
+                    );
+                    break;
+                  case pe:
+                    t.marginBottom = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(rt)),
+                    );
+                    break;
+                  case fe:
+                    t.marginLeft = o("WebBloksUtils").toPx(
+                      o("WebBloksUtils").toHyphen(String(rt)),
+                    );
+                    break;
+                  case he:
+                  case _e:
+                    break;
+                  case o("WebBloksConstants").MARGIN_ATTRIBUTE_KEY:
+                  case o("WebBloksConstants").MARGIN_HORIZONTAL_ATTRIBUTE_KEY:
+                  case o("WebBloksConstants").MARGIN_VERTICAL_ATTRIBUTE_KEY:
+                    break;
+                  default:
+                    break;
+                }
+            }
+            var ot = n ? et.get(_e) : et.get(he);
+            if (ot != null) {
+              var at = o("WebBloksUtils").toPx(
+                o("WebBloksUtils").toHyphen(String(ot)),
+              );
+              at != null && (t.marginLeft = at);
+            }
+            var it = n ? et.get(he) : et.get(_e);
+            if (it != null) {
+              var lt = o("WebBloksUtils").toPx(
+                o("WebBloksUtils").toHyphen(String(it)),
+              );
+              lt != null && (t.marginRight = lt);
+            }
           }
-          var Xe = r ? Ue.get(S) : Ue.get(E);
-          if (Xe != null) {
-            var Ye = o("WebBloksUtils").toPx(
-              o("WebBloksUtils").toHyphen(String(Xe)),
-            );
-            Ye != null && (qe.marginLeft = Ye);
-          }
-          var Je = r ? Ue.get(E) : Ue.get(S);
-          if (Je != null) {
-            var Ze = o("WebBloksUtils").toPx(
-              o("WebBloksUtils").toHyphen(String(Je)),
-            );
-            Ze != null && (qe.marginRight = Ze);
-          }
-        }
-        var et = o("WebBloksUtils").isStyle(i, d);
-        if (et) {
-          var tt = o("WebBloksUtils").nullthrows(i);
-          for (var nt of tt.entries()) {
-            var rt = nt[0],
-              ot = nt[1];
-            if (!Be(rt))
-              e: switch (rt) {
-                case G: {
-                  ot === !0 && (qe.position = "sticky");
-                  break e;
-                }
-                case z:
-                case j:
-                  break e;
-                case le:
-                  break e;
-                case H: {
-                  qe.height = o("WebBloksUtils").toPx(String(ot));
-                  break e;
-                }
-                case K: {
-                  qe.width = o("WebBloksUtils").toPx(String(ot));
-                  break e;
-                }
-                case Q: {
-                  qe.alignSelf = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ot)),
-                  );
-                  break e;
-                }
-                case X: {
-                  We(qe, "aspectRatio", ot);
-                  break e;
-                }
-                case Y: {
-                  qe.maxHeight = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ot)),
-                  );
-                  break e;
-                }
-                case J: {
-                  qe.maxWidth = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ot)),
-                  );
-                  break e;
-                }
-                case Z: {
-                  qe.minHeight = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ot)),
-                  );
-                  break e;
-                }
-                case ee: {
-                  qe.minWidth = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ot)),
-                  );
-                  break e;
-                }
-                case ie: {
-                  qe.marginTop = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ot)),
-                  );
-                  break e;
-                }
-                case oe: {
-                  qe.marginRight = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ot)),
-                  );
-                  break e;
-                }
-                case te: {
-                  qe.marginBottom = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ot)),
-                  );
-                  break e;
-                }
-                case re: {
-                  qe.marginLeft = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ot)),
-                  );
-                  break e;
-                }
-                case ae: {
-                  r
-                    ? (qe.marginRight = o("WebBloksUtils").toPx(
-                        o("WebBloksUtils").toHyphen(String(ot)),
-                      ))
-                    : (qe.marginLeft = o("WebBloksUtils").toPx(
-                        o("WebBloksUtils").toHyphen(String(ot)),
-                      ));
-                  break e;
-                }
-                case ne: {
-                  r
-                    ? (qe.marginLeft = o("WebBloksUtils").toPx(
-                        o("WebBloksUtils").toHyphen(String(ot)),
-                      ))
-                    : (qe.marginRight = o("WebBloksUtils").toPx(
-                        o("WebBloksUtils").toHyphen(String(ot)),
-                      ));
-                  break e;
-                }
-                default:
-              }
-          }
-        }
-        var at = o("WebBloksUtils").isStyle(i, m);
-        if (at) {
-          var it = o("WebBloksUtils").nullthrows(i);
-          Oe(it, qe);
-          for (var lt of it.entries()) {
-            var st = lt[0],
-              ut = lt[1];
-            if (!Be(st))
-              e: switch (st) {
-                case $e: {
-                  qe.flexGrow = String(ut);
-                  break e;
-                }
-                case Pe: {
-                  qe.flexShrink = String(ut);
-                  break e;
-                }
-                case Ae: {
-                  qe.flexBasis = o("WebBloksUtils").toPx(String(ut));
-                  break e;
-                }
-                case De: {
-                  qe.alignSelf = o("WebBloksUtils").toHyphen(String(ut));
-                  break e;
-                }
-                case Re: {
-                  qe.position = String(ut);
-                  break e;
-                }
-                case ue: {
-                  ((qe.bottom = o("WebBloksUtils").toPx(String(ut))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case me: {
-                  ((qe.left = o("WebBloksUtils").toPx(String(ut))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case Le: {
-                  ((qe.right = o("WebBloksUtils").toPx(String(ut))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case ke: {
-                  ((qe.top = o("WebBloksUtils").toPx(String(ut))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case Ee: {
-                  (r
-                    ? (qe.right = o("WebBloksUtils").toPx(String(ut)))
-                    : (qe.left = o("WebBloksUtils").toPx(String(ut))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case ce: {
-                  (r
-                    ? (qe.left = o("WebBloksUtils").toPx(String(ut)))
-                    : (qe.right = o("WebBloksUtils").toPx(String(ut))),
-                    (qe.position = "absolute"));
-                  break e;
-                }
-                case se:
-                  break e;
-                case Te: {
-                  qe.zIndex = Number(ut);
-                  break e;
-                }
-                case xe:
-                case Me:
-                case Ne:
-                case we:
-                  break e;
-                case Ie: {
-                  qe.width = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ut)),
-                  );
-                  break e;
-                }
-                case de: {
-                  qe.height = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ut)),
-                  );
-                  break e;
-                }
-                case ve: {
-                  qe.minHeight = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ut)),
-                  );
-                  break e;
-                }
-                case Ce: {
-                  qe.maxHeight = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ut)),
-                  );
-                  break e;
-                }
-                case Se: {
-                  qe.minWidth = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ut)),
-                  );
-                  break e;
-                }
-                case be: {
-                  qe.maxWidth = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ut)),
-                  );
-                  break e;
-                }
-                case ye: {
-                  qe.marginTop = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ut)),
-                  );
-                  break e;
-                }
-                case ge: {
-                  qe.marginRight = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ut)),
-                  );
-                  break e;
-                }
-                case pe: {
-                  qe.marginBottom = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ut)),
-                  );
-                  break e;
-                }
-                case fe: {
-                  qe.marginLeft = o("WebBloksUtils").toPx(
-                    o("WebBloksUtils").toHyphen(String(ut)),
-                  );
-                  break e;
-                }
-                case he:
-                case _e:
-                  break e;
-                case o("WebBloksConstants").MARGIN_ATTRIBUTE_KEY:
-                case o("WebBloksConstants").MARGIN_HORIZONTAL_ATTRIBUTE_KEY:
-                case o("WebBloksConstants").MARGIN_VERTICAL_ATTRIBUTE_KEY:
-                  break e;
-                default:
-              }
-          }
-          var ct = r ? it.get(_e) : it.get(he);
-          if (ct != null) {
-            var dt = o("WebBloksUtils").toPx(
-              o("WebBloksUtils").toHyphen(String(ct)),
-            );
-            dt != null && (qe.marginLeft = dt);
-          }
-          var mt = r ? it.get(he) : it.get(_e);
-          if (mt != null) {
-            var pt = o("WebBloksUtils").toPx(
-              o("WebBloksUtils").toHyphen(String(mt)),
-            );
-            pt != null && (qe.marginRight = pt);
-          }
-        }
-        (o("WebBloksUtils").isStyle(i, p) && (qe.width = "100%"),
-          (t[6] = s),
-          (t[7] = r),
-          (t[8] = i),
-          (t[9] = Fe),
-          (t[10] = qe));
-      } else qe = t[10];
-      return qe;
+          return (o("WebBloksUtils").isStyle(r, p) && (t.width = "100%"), t);
+        },
+        [a, n, r],
+      );
     }
     function Oe(e, t) {
       var n = e.getUntyped(o("WebBloksConstants").MARGIN_ATTRIBUTE_KEY);

@@ -18,13 +18,11 @@ __d(
       var n, a, i;
       return (
         e === "fanout"
-          ? ((n = s._(/*BTDS*/ "Waiting for this message. Check your phone.")),
+          ? ((n = s._(/*BTDS*/ "")),
             (a = o("WAWebFaqUrl").getFanoutPlaceholderFaqUrl()),
             (i = u.jsx(r("WDSIconIcSchedule.react"), {})))
           : e === "bot_unavailable_fanout" || e === "hosted_unavailable_fanout"
-            ? ((n = s._(
-                /*BTDS*/ "This message can't be displayed here. Please open WhatsApp on your phone to view the message.",
-              )),
+            ? ((n = s._(/*BTDS*/ "")),
               (i = u.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
                 testid: "unknown",
                 height: 24,
@@ -32,12 +30,8 @@ __d(
               })))
             : e === "view_once_unavailable_fanout"
               ? (t === !0
-                  ? (n = s._(
-                      /*BTDS*/ "You sent a view once message from another device.",
-                    ))
-                  : ((n = s._(
-                      /*BTDS*/ "You received a view once message. For added privacy, you can only open it on your phone.",
-                    )),
+                  ? (n = s._(/*BTDS*/ ""))
+                  : ((n = s._(/*BTDS*/ "")),
                     (a =
                       o("WAWebFaqUrl").getViewOnceScreenshotProtectionUrl())),
                 (i = u.jsx(r("WDSIconWdsIcViewOnce.react"), {})))
@@ -53,9 +47,7 @@ __d(
                     height: 24,
                     width: 24,
                   })))
-                : ((n = s._(
-                    /*BTDS*/ "Waiting for this message. This may take a while.",
-                  )),
+                : ((n = s._(/*BTDS*/ "")),
                   (a = o("WAWebFaqUrl").getCiphertextFaqUrl()),
                   (i = u.jsx(r("WDSIconIcSchedule.react"), {}))),
         { placeholderMsg: n, placeholderIcon: i, externalLink: a }

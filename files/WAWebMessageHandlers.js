@@ -28,7 +28,6 @@ __d(
     "WDSButtonGroup.react",
     "WDSDialog.react",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -49,18 +48,11 @@ __d(
         m = o("WAWebFrontendMsgGetters").getIsUnsentMedia(r),
         p = o("WAWebFrontendMsgGetters").getAsRevoked(r),
         _ = o("WAWebMsgGetters").getType(r),
-        f = o("WAWebGetDisplayType").getDisplayType(r.unsafe()),
-        h = o("WAWebDisplayType").isConversationDisplay(f);
-      if (_ === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT)
-        c = s._(
-          /*BTDS*/ "Wait until this message is fully delivered before forwarding.",
-        );
-      else if (p) c = s._(/*BTDS*/ "Couldn't forward unsent message.");
-      else if (m)
-        c = s._(
-          /*BTDS*/ '_j{"*":"Wait until the messages finish sending and displays a checkmark before forwarding.","_1":"Wait until the message finishes sending and displays a checkmark before forwarding."}',
-          [s._plural(1)],
-        );
+        g = o("WAWebGetDisplayType").getDisplayType(r.unsafe()),
+        h = o("WAWebDisplayType").isConversationDisplay(g);
+      if (_ === o("WAWebMsgType").MSG_TYPE.CIPHERTEXT) c = s._(/*BTDS*/ "");
+      else if (p) c = s._(/*BTDS*/ "");
+      else if (m) c = s._(/*BTDS*/ "", [s._plural(1)]);
       else {
         if (a && h) {
           n && n(o("WAWebMultiSelectBarConstants").MultiSelectMode.FORWARD);
@@ -100,7 +92,7 @@ __d(
         return;
       }
       (o("WAWebModalManager").closeModalManager(),
-        o("WDSDialogBridge").openWDSDialog(d.jsx(g, { description: c })));
+        o("WDSDialogBridge").openWDSDialog(d.jsx(f, { description: c })));
     }
     function p(e, t, n, r) {
       if (!o("WAWebDeactivatedContactUtils").isDeactivatedChatReplyBlocked(e))
@@ -129,58 +121,50 @@ __d(
             ).QuotedMessageUserJourneyLogger.quotedMessageAdded(e.id, n, t));
         }
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(t) {
+      o("WAWebModalManager").closeModalManager();
+      try {
+        t.shouldHideQuotedMsgAuthor = !0;
+        var n = o("WAWebStateUtils").unproxy(t),
+          r = await o("WAWebBotFrontendUtils").getMetaAiChat();
+        if (r == null) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[handleAskMetaAi] Failed to get Meta AI chat - chat is null",
+                ])),
+            )
+            .sendLogs("ask-meta-ai-null-chat");
+          return;
+        }
+        r.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(n);
+        var a = t.id.remote,
+          i = a.isGroup(),
+          l = i
+            ? o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAIGroup
+            : o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI1on1;
+        o("WAWebBotGating").isAiChatThreadsEnabled()
+          ? o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(
+              r,
+              i ? { type: "AskMetaAiGroup" } : { type: "AskMetaAi1on1" },
+            )
+          : await o("WAWebCmd").Cmd.openChatBottom({
+              chat: r,
+              chatEntryPoint: l,
+            });
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[handleAskMetaAi] Failed to handle Ask Meta AI action",
+              ])),
+          )
+          .sendLogs("ask-meta-ai-error");
+      }
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          o("WAWebModalManager").closeModalManager();
-          try {
-            t.shouldHideQuotedMsgAuthor = !0;
-            var n = o("WAWebStateUtils").unproxy(t),
-              r = yield o("WAWebBotFrontendUtils").getMetaAiChat();
-            if (r == null) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[handleAskMetaAi] Failed to get Meta AI chat - chat is null",
-                    ])),
-                )
-                .sendLogs("ask-meta-ai-null-chat");
-              return;
-            }
-            r.composeQuotedMsg = o("WAWebMsgModelUtils").createMsgSnapshot(n);
-            var a = t.id.remote,
-              i = a.isGroup(),
-              l = i
-                ? o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAIGroup
-                : o("WAWebChatEntryPoint").ChatEntryPoint.AskMetaAI1on1;
-            o("WAWebBotGating").isAiChatThreadsEnabled()
-              ? o("WAWebBotFrontendUtils").runMetaAiThreadsFlow(
-                  r,
-                  i ? { type: "AskMetaAiGroup" } : { type: "AskMetaAi1on1" },
-                )
-              : yield o("WAWebCmd").Cmd.openChatBottom({
-                  chat: r,
-                  chatEntryPoint: l,
-                });
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[handleAskMetaAi] Failed to handle Ask Meta AI action",
-                  ])),
-              )
-              .sendLogs("ask-meta-ai-error");
-          }
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
+    function f(e) {
       var t = e.description;
       return (
         o("WAWebTimeSpentLoggingNavigation").useTsNavigation({
@@ -205,11 +189,11 @@ __d(
           open: !0,
           size: "sm",
           testid: "confirm-popup",
-          title: s._(/*BTDS*/ "Can't forward"),
+          title: s._(/*BTDS*/ ""),
         })
       );
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"),
+    ((f.displayName = f.name + " [from " + i.id + "]"),
       (l.handleOpenForwardFlow = m),
       (l.handleMessageReply = p),
       (l.handleAskMetaAi = _));

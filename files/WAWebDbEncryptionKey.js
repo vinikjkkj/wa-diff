@@ -2,7 +2,6 @@ __d(
   "WAWebDbEncryptionKey",
   [
     "invariant",
-    "Promise",
     "WABase64",
     "WALogger",
     "WAResolvable",
@@ -13,7 +12,6 @@ __d(
     "WAWebDexieObservability",
     "WAWebPageLoadLogging",
     "WAWebStorageCmd",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -21,59 +19,49 @@ __d(
     var e,
       u,
       c,
-      d,
-      m = "wawc_db_enc",
-      p = "keys",
-      _ = 128,
-      f = { name: "HKDF" },
-      g = { hash: "SHA-256" },
-      h = o("WATimeUtils").WEEK_MILLISECONDS * 4 * 24,
-      y = "fts_hmac_keys",
-      C = "worm_ear_keys",
-      b = 256,
-      v = "worm-ear-v1",
-      S = "AES-CBC",
-      R = (function () {
+      d = "wawc_db_enc",
+      m = "keys",
+      p = 128,
+      _ = { name: "HKDF" },
+      f = { hash: "SHA-256" },
+      g = o("WATimeUtils").WEEK_MILLISECONDS * 4 * 24,
+      h = "fts_hmac_keys",
+      y = "worm_ear_keys",
+      C = 256,
+      b = "worm-ear-v1",
+      v = "AES-CBC",
+      S = (function () {
         function t() {
           var t = this,
-            a;
-          ((this.$8 = new (a = o("WAResolvable")).Resolvable()),
-            (this.$9 = new a.Resolvable()),
-            (this.$10 = new a.Resolvable()),
-            (this.$12 = new a.Resolvable()),
+            n;
+          ((this.$8 = new (n = o("WAResolvable")).Resolvable()),
+            (this.$9 = new n.Resolvable()),
+            (this.$10 = new n.Resolvable()),
+            (this.$12 = new n.Resolvable()),
             (this.$14 = function (e) {
               return t
                 .$13()
                 .keys.orderBy("id")
                 .toArray()
-                .then(function (r) {
-                  if (!r || r.length === 0) return t.$17(e);
-                  var o = r[r.length - 1]._expiration;
-                  if (o != null && o <= Date.now()) return t.$17(e);
+                .then(function (n) {
+                  if (!n || n.length === 0) return t.$17(e);
+                  var r = n[n.length - 1]._expiration;
+                  if (r != null && r <= Date.now()) return t.$17(e);
                   t.$11 = e;
-                  var a = r.map(
-                    (function () {
-                      var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (t) {
-                          var n = yield self.crypto.subtle.deriveKey(
-                            babelHelpers.extends({}, f, g, {
-                              salt: e,
-                              info: new Uint8Array(1),
-                            }),
-                            t.key,
-                            { name: S, length: _ },
-                            !1,
-                            ["encrypt", "decrypt"],
-                          );
-                          return babelHelpers.extends({}, t, { key: n });
-                        },
-                      );
-                      return function (e) {
-                        return t.apply(this, arguments);
-                      };
-                    })(),
-                  );
-                  return (d || (d = n("Promise"))).all(a).then(function (e) {
+                  var o = n.map(async function (t) {
+                    var n = await self.crypto.subtle.deriveKey(
+                      babelHelpers.extends({}, _, f, {
+                        salt: e,
+                        info: new Uint8Array(1),
+                      }),
+                      t.key,
+                      { name: v, length: p },
+                      !1,
+                      ["encrypt", "decrypt"],
+                    );
+                    return babelHelpers.extends({}, t, { key: n });
+                  });
+                  return Promise.all(o).then(function (e) {
                     t.$2 = e;
                   });
                 });
@@ -81,7 +69,7 @@ __d(
             (this.$15 = function () {
               return t
                 .$13()
-                [y].orderBy("id")
+                [h].orderBy("id")
                 .toArray()
                 .then(function (e) {
                   if (!e || e.length === 0) return t.$18();
@@ -91,20 +79,20 @@ __d(
                 });
             }),
             (this.$17 = function (e) {
-              return L().then(function (n) {
+              return R().then(function (n) {
                 return t
                   .$13()
-                  .keys.add({ key: n, _expiration: Date.now() + h })
+                  .keys.add({ key: n, _expiration: Date.now() + g })
                   .then(function () {
                     return t.$14(e);
                   });
               });
             }),
             (this.$18 = function () {
-              return L().then(function (e) {
+              return R().then(function (e) {
                 return t
                   .$13()
-                  [y].add({ key: e })
+                  [h].add({ key: e })
                   .then(function () {
                     return t.$15();
                   });
@@ -113,7 +101,7 @@ __d(
             (this.$16 = function () {
               return t
                 .$13()
-                [C].orderBy("id")
+                [y].orderBy("id")
                 .toArray()
                 .then(function (e) {
                   if (!e || e.length === 0) return t.$19();
@@ -121,23 +109,22 @@ __d(
                 });
             }),
             (this.$19 = function () {
-              return E().then(function (e) {
+              return L().then(function (e) {
                 return t
                   .$13()
-                  [C].add({ key: e })
+                  [y].add({ key: e })
                   .then(function () {
                     return t.$16();
                   });
               });
             }),
-            (this.generateFinalDbEncryptionAndFtsKey = function (a) {
-              if (t.$3 != null || t.$11 == null)
-                return (d || (d = n("Promise"))).resolve();
-              var i = o("WABase64").decodeB64(a);
+            (this.generateFinalDbEncryptionAndFtsKey = function (n) {
+              if (t.$3 != null || t.$11 == null) return Promise.resolve();
+              var a = o("WABase64").decodeB64(n);
               return (
-                t.$20(i),
-                t.$21(i),
-                t.$22(i).catch(function (n) {
+                t.$20(a),
+                t.$21(a),
+                t.$22(a).catch(function (n) {
                   (o("WALogger")
                     .ERROR(
                       e ||
@@ -149,197 +136,169 @@ __d(
                     .sendLogs("worm-ear-key-derive-failed"),
                     t.$10.resolve());
                 }),
-                (d || (d = n("Promise"))).resolve()
+                Promise.resolve()
               );
             }),
-            (this.$22 = (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var n = t.$6;
-                  if (n == null)
-                    throw (
-                      o("WALogger")
-                        .ERROR(
-                          u ||
-                            (u = babelHelpers.taggedTemplateLiteralLoose([
-                              "Base wormEarKey is null in generateFinalWormEarKey",
-                            ])),
-                        )
-                        .sendLogs("worm-ear-key-base-missing"),
-                      new (o("WAWebDbErrors").DbEncKeyNotLoaded)(C)
-                    );
-                  ((t.$7 = yield globalThis.crypto.subtle.deriveBits(
-                    babelHelpers.extends({}, f, g, {
-                      salt: e,
-                      info: new TextEncoder().encode(v),
-                    }),
-                    n,
-                    b,
-                  )),
-                    t.$10.resolve());
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })()),
+            (this.$22 = async function (e) {
+              var n = t.$6;
+              if (n == null)
+                throw (
+                  o("WALogger")
+                    .ERROR(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "Base wormEarKey is null in generateFinalWormEarKey",
+                        ])),
+                    )
+                    .sendLogs("worm-ear-key-base-missing"),
+                  new (o("WAWebDbErrors").DbEncKeyNotLoaded)(y)
+                );
+              ((t.$7 = await globalThis.crypto.subtle.deriveBits(
+                babelHelpers.extends({}, _, f, {
+                  salt: e,
+                  info: new TextEncoder().encode(b),
+                }),
+                n,
+                C,
+              )),
+                t.$10.resolve());
+            }),
             (this.$21 = function (e) {
               o("WAWebPageLoadLogging").startPageLoadQplMeasure(
                 "generateFinalDbMsgEncryptionKey",
               );
-              var r = t
+              var n = t
                 .$13()
                 .keys.orderBy("id")
                 .toArray()
-                .then(function (r) {
-                  var o = r.map(
-                    (function () {
-                      var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (n) {
-                          t.$11 != null || s(0, 56319);
-                          var r;
-                          try {
-                            r = yield self.crypto.subtle.deriveKey(
-                              babelHelpers.extends({}, f, g, {
-                                salt: e,
-                                info: new Uint8Array(t.$11 || 0),
-                              }),
-                              n.key,
-                              { name: S, length: _ },
-                              !1,
-                              ["encrypt", "decrypt"],
-                            );
-                          } catch (e) {
-                            throw ((t.$11 = null), e);
-                          }
-                          return babelHelpers.extends({}, n, { key: r });
-                        },
+                .then(function (n) {
+                  var r = n.map(async function (n) {
+                    t.$11 != null || s(0, 56319);
+                    var r;
+                    try {
+                      r = await self.crypto.subtle.deriveKey(
+                        babelHelpers.extends({}, _, f, {
+                          salt: e,
+                          info: new Uint8Array(t.$11 || 0),
+                        }),
+                        n.key,
+                        { name: v, length: p },
+                        !1,
+                        ["encrypt", "decrypt"],
                       );
-                      return function (e) {
-                        return r.apply(this, arguments);
-                      };
-                    })(),
-                  );
-                  return (d || (d = n("Promise"))).all(o).then(function (e) {
+                    } catch (e) {
+                      throw ((t.$11 = null), e);
+                    }
+                    return babelHelpers.extends({}, n, { key: r });
+                  });
+                  return Promise.all(r).then(function (e) {
                     ((t.$11 = null), (t.$3 = e), t.$8.resolve());
                   });
                 });
-              return r.finally(function () {
+              return n.finally(function () {
                 (o("WAWebPageLoadLogging").endPageLoadQplMeasure(
                   "generateFinalDbMsgEncryptionKey",
                 ),
                   (t.$11 = null));
               });
             }),
-            (this.$20 = (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  if (!t.$4 || t.$4.key == null || t.$4.id == null)
-                    throw (
-                      o("WALogger").LOG(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "Base ftsHMACKey is null in _generateFinalFtsHmacKey",
-                          ])),
-                      ),
-                      new (o("WAWebDbErrors").DBInvalidFtsHMACKey)()
-                    );
-                  var n = [t.$4.id, t.$4.key],
-                    r = n[0],
-                    a = n[1],
-                    i = yield self.crypto.subtle.deriveKey(
-                      babelHelpers.extends({}, f, g, {
-                        salt: e,
-                        info: new Uint8Array(0),
-                      }),
-                      a,
-                      { name: "HMAC", hash: "SHA-256" },
-                      !1,
-                      ["sign"],
-                    );
-                  ((t.$5 = { id: r, key: i }), t.$9.resolve());
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })()));
+            (this.$20 = async function (e) {
+              if (!t.$4 || t.$4.key == null || t.$4.id == null)
+                throw (
+                  o("WALogger").LOG(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "Base ftsHMACKey is null in _generateFinalFtsHmacKey",
+                      ])),
+                  ),
+                  new (o("WAWebDbErrors").DBInvalidFtsHMACKey)()
+                );
+              var n = [t.$4.id, t.$4.key],
+                r = n[0],
+                a = n[1],
+                i = await self.crypto.subtle.deriveKey(
+                  babelHelpers.extends({}, _, f, {
+                    salt: e,
+                    info: new Uint8Array(0),
+                  }),
+                  a,
+                  { name: "HMAC", hash: "SHA-256" },
+                  !1,
+                  ["sign"],
+                );
+              ((t.$5 = { id: r, key: i }), t.$9.resolve());
+            }));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.init = function (t) {
+          (n.init = function (t) {
             var e,
+              n,
               a,
-              i,
-              l = this;
-            if (this.$1) return (d || (d = n("Promise"))).resolve();
-            ((this.$1 = new (r("WAWeb-dexie"))(m, {
+              i = this;
+            if (this.$1) return Promise.resolve();
+            ((this.$1 = new (r("WAWeb-dexie"))(d, {
               chromeTransactionDurability: "relaxed",
               addons: [],
             })),
               o("WAWebDexieObservability").dropDexieObservability(this.$1),
-              o("WAWebStorageCmd").notifyOnVersionChange(this.$13(), m),
+              o("WAWebStorageCmd").notifyOnVersionChange(this.$13(), d),
               this.$13()
                 .version(1)
                 .stores(
-                  ((e = {}), (e[p] = "++id, _expirtation"), (e[y] = "++id"), e),
+                  ((e = {}), (e[m] = "++id, _expirtation"), (e[h] = "++id"), e),
                 ),
               this.$13()
                 .version(2)
-                .stores(((a = {}), (a[p] = "++id"), (a[y] = "++id"), a)),
+                .stores(((n = {}), (n[m] = "++id"), (n[h] = "++id"), n)),
               this.$13()
                 .version(3)
                 .stores(
-                  ((i = {}),
-                  (i[p] = "++id"),
-                  (i[y] = "++id"),
-                  (i[C] = "++id"),
-                  i),
+                  ((a = {}),
+                  (a[m] = "++id"),
+                  (a[h] = "++id"),
+                  (a[y] = "++id"),
+                  a),
                 ));
-            var s = t.buffer.slice(t.byteOffset, t.byteLength + t.byteOffset);
+            var l = t.buffer.slice(t.byteOffset, t.byteLength + t.byteOffset);
             return o("WAWebDexieCastTypes")
               .dexieCastToPromise(this.$13().open())
               .then(function () {
-                return (d || (d = n("Promise"))).all([
-                  l.$14(s),
-                  l.$15(),
-                  l.$16(),
-                ]);
+                return Promise.all([i.$14(l), i.$15(), i.$16()]);
               })
               .then(function () {
-                return l.$12.resolve();
+                return i.$12.resolve();
               });
           }),
-          (a.$13 = function () {
+          (n.$13 = function () {
             if (this.$1 == null)
               throw r("err")("[db_encryption_key] db is not initialized");
             return this.$1;
           }),
-          (a.deleteKeys = function () {
+          (n.deleteKeys = function () {
             var e = this;
-            return (d || (d = n("Promise")))
-              .all([
-                this.$13().table(p).clear(),
-                this.$13().table(y).clear(),
-                this.$13().table(C).clear(),
-              ])
+            return Promise.all([
+              this.$13().table(m).clear(),
+              this.$13().table(h).clear(),
+              this.$13().table(y).clear(),
+            ])
               .then(function () {})
               .finally(function () {
                 return (
                   (e.$1 = null),
                   o("WAWebDexieCastTypes")
-                    .dexieCastToPromise(r("WAWeb-dexie").delete(m))
+                    .dexieCastToPromise(r("WAWeb-dexie").delete(d))
                     .catch(function () {
-                      return r("WAWeb-dexie").delete(m);
+                      return r("WAWeb-dexie").delete(d);
                     })
                 );
               });
           }),
-          (a.resetDB = function () {
+          (n.resetDB = function () {
             var e;
             ((e = this.$1) == null || e.close(), (this.$1 = null));
           }),
-          (a.deleteKeyCache = function () {
+          (n.deleteKeyCache = function () {
             var e;
             ((this.$2 = null),
               (this.$4 = null),
@@ -353,60 +312,60 @@ __d(
               (this.$11 = null),
               (this.$12 = new e.Resolvable()));
           }),
-          (a.setFinalDbMsgEncKeys_TESTONLY = function (t) {
+          (n.setFinalDbMsgEncKeys_TESTONLY = function (t) {
             this.$3 = t;
           }),
-          (a.setKeys_TESTONLY = function (t) {
+          (n.setKeys_TESTONLY = function (t) {
             this.$2 = t;
           }),
-          (a.waitForFinalDbMsgEncKey = function () {
+          (n.waitForFinalDbMsgEncKey = function () {
             return this.$8.promise;
           }),
-          (a.waitForFinalFtsHmacKey = function () {
+          (n.waitForFinalFtsHmacKey = function () {
             return this.$9.promise;
           }),
-          (a.waitForWormEarKey = function () {
+          (n.waitForWormEarKey = function () {
             return this.$10.promise;
           }),
-          (a.waitForInit = function () {
+          (n.waitForInit = function () {
             return this.$12.promise;
           }),
-          (a.getEncKeys = function () {
-            if (!this.$2) throw new (o("WAWebDbErrors").DbEncKeyNotLoaded)(p);
+          (n.getEncKeys = function () {
+            if (!this.$2) throw new (o("WAWebDbErrors").DbEncKeyNotLoaded)(m);
             return this.$2;
           }),
-          (a.getDbMsgEncKeys = function (t) {
+          (n.getDbMsgEncKeys = function (t) {
             if (!this.$3)
               throw new (o("WAWebDbErrors").DbMsgEncKeyNotLoaded)(t.tableName);
             return this.$3;
           }),
-          (a.getFtsHMACKey = function () {
-            if (!this.$5) throw new (o("WAWebDbErrors").DbEncKeyNotLoaded)(y);
+          (n.getFtsHMACKey = function () {
+            if (!this.$5) throw new (o("WAWebDbErrors").DbEncKeyNotLoaded)(h);
             return this.$5;
           }),
-          (a.getWormEarKey = function () {
-            if (!this.$7) throw new (o("WAWebDbErrors").DbEncKeyNotLoaded)(C);
+          (n.getWormEarKey = function () {
+            if (!this.$7) throw new (o("WAWebDbErrors").DbEncKeyNotLoaded)(y);
             return this.$7;
           }),
           t
         );
       })();
-    function L() {
-      var e = new Uint8Array(_);
+    function R() {
+      var e = new Uint8Array(p);
       return (
         self.crypto.getRandomValues(e),
-        self.crypto.subtle.importKey("raw", e, f, !1, ["deriveKey"])
+        self.crypto.subtle.importKey("raw", e, _, !1, ["deriveKey"])
       );
     }
-    function E() {
-      var e = new Uint8Array(_);
+    function L() {
+      var e = new Uint8Array(p);
       return (
         globalThis.crypto.getRandomValues(e),
-        globalThis.crypto.subtle.importKey("raw", e, f.name, !1, ["deriveBits"])
+        globalThis.crypto.subtle.importKey("raw", e, _.name, !1, ["deriveBits"])
       );
     }
-    var k = new R();
-    ((l.DB_ENCRYPTION_CIPHER = S), (l.DbEncKeyStore = k));
+    var E = new S();
+    ((l.DB_ENCRYPTION_CIPHER = v), (l.DbEncKeyStore = E));
   },
   98,
 );

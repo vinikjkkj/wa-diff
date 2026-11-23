@@ -1,0 +1,50 @@
+__d(
+  "MAIBACampaignPlanCardDataTypes",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = [
+        "APP_INSTALLS",
+        "OUTCOME_AWARENESS",
+        "OUTCOME_ENGAGEMENT",
+        "OUTCOME_SALES",
+        "OUTCOME_LEADS",
+        "LINK_CLICKS",
+      ],
+      l = [
+        "APP_INSTALLS",
+        "REACH",
+        "AD_RECALL_LIFT",
+        "CONVERSATIONS",
+        "OFFSITE_CONVERSIONS",
+        "VALUE",
+        "LEAD_GENERATION",
+        "LANDING_PAGE_VIEWS",
+      ],
+      s = ["APP", "MESSENGER", "WHATSAPP", "WEBSITE", "ON_AD", "UNDEFINED"],
+      u = ["outcome", "quote"],
+      c = ["daily", "lifetime"],
+      d = ["kilometer", "mile"],
+      m = ["men", "women"],
+      p = [
+        "budget",
+        "optimization",
+        "audience",
+        "schedule",
+        "funnel",
+        "structure",
+        "other",
+      ],
+      _ = ["declined", "model", "rationale"];
+    ((i.OBJECTIVES = e),
+      (i.OPTIMIZATION_GOALS = l),
+      (i.DESTINATION_TYPES = s),
+      (i.GOAL_KINDS = u),
+      (i.BUDGET_TYPES = c),
+      (i.RADIUS_UNITS = d),
+      (i.GENDERS = m),
+      (i.WHY_TOPICS = p),
+      (i.WHY_SOURCES = _));
+  },
+  66,
+);

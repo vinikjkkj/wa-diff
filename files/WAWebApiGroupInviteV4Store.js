@@ -1,11 +1,6 @@
 __d(
   "WAWebApiGroupInviteV4Store",
-  [
-    "WATimeUtils",
-    "WAWebSchemaGroupInviteV4",
-    "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WATimeUtils", "WAWebSchemaGroupInviteV4", "WAWebUserUtils"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
       return o("WAWebSchemaGroupInviteV4")
@@ -17,39 +12,31 @@ __d(
         .getGroupInviteV4Table()
         .bulkCreateOrMerge(e);
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    async function u(e) {
+      var t = e.expiration,
+        n = e.from,
+        r = e.groupId,
+        a = e.to,
+        i = await o("WAWebSchemaGroupInviteV4")
+          .getGroupInviteV4Table()
+          .equals(["from", "to", "groupId"], [n, a, r])
+          .then(function (e) {
+            return e.filter(function (e) {
+              return !e.expired && e.expiration <= t;
+            });
+          });
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.expiration,
-            n = e.from,
-            r = e.groupId,
-            a = e.to,
-            i = yield o("WAWebSchemaGroupInviteV4")
-              .getGroupInviteV4Table()
-              .equals(["from", "to", "groupId"], [n, a, r])
-              .then(function (e) {
-                return e.filter(function (e) {
-                  return !e.expired && e.expiration <= t;
-                });
-              });
-          return (
-            yield o("WAWebSchemaGroupInviteV4")
-              .getGroupInviteV4Table()
-              .bulkCreateOrReplace(
-                i.map(function (e) {
-                  return babelHelpers.extends({}, e, { expired: !0 });
-                }),
-              ),
-            i
-          );
-        })),
-        c.apply(this, arguments)
+        await o("WAWebSchemaGroupInviteV4")
+          .getGroupInviteV4Table()
+          .bulkCreateOrReplace(
+            i.map(function (e) {
+              return babelHelpers.extends({}, e, { expired: !0 });
+            }),
+          ),
+        i
       );
     }
-    function d(e) {
+    function c(e) {
       var t = o("WAWebUserUtils").getMeLidUserOrThrow().toString();
       return o("WAWebSchemaGroupInviteV4")
         .getGroupInviteV4Table()
@@ -68,7 +55,7 @@ __d(
     ((l.persistGroupInviteV4Msg = e),
       (l.persistGroupInviteV4Msgs = s),
       (l.revokeGroupInvites = u),
-      (l.getPendingParticipantsDB = d));
+      (l.getPendingParticipantsDB = c));
   },
   98,
 );

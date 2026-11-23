@@ -7,7 +7,6 @@ __d(
     "WAWebClearFalcoBufferApi",
     "WAWebEnvironment",
     "WAWebLocalStorage",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -86,147 +85,121 @@ __d(
       (e.searchParams.set(g, "1"),
         window.history.replaceState(null, "", e.toString()));
     }
-    function v() {
-      return S.apply(this, arguments);
+    async function v() {
+      var e,
+        t,
+        n = await o("WAStorageEstimator").estimateStorage(),
+        r = n.success,
+        a = n.value;
+      if (!r || !a || a.quota <= 0) return !1;
+      var i =
+          ((e = a.usage) != null ? e : NaN) / ((t = a.quota) != null ? t : NaN),
+        l = a.quota - a.usage,
+        s = 5 * _;
+      return i >= 0.95 || l < s;
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t,
-            n = yield o("WAStorageEstimator").estimateStorage(),
-            r = n.success,
-            a = n.value;
-          if (!r || !a || a.quota <= 0) return !1;
-          var i =
-              ((e = a.usage) != null ? e : NaN) /
-              ((t = a.quota) != null ? t : NaN),
-            l = a.quota - a.usage,
-            s = 5 * _;
-          return i >= 0.95 || l < s;
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
+    function S(e) {
       return (
         e.name === "QuotaExceededError" ||
         e.message.includes("QuotaExceededError")
       );
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (R(e) && !h) {
-            h = !0;
-            var n = "",
-              a = "";
-            try {
-              var i = yield k();
-              (i &&
-                (n = JSON.stringify(
-                  babelHelpers.extends({}, i, {
-                    win: r("WAWebEnvironment").isWindows,
-                    didReload: C(),
-                  }),
-                )),
-                (a = JSON.stringify(t != null ? t : {})),
-                yield o("WAWebClearFalcoBufferApi").clearFalcoBuffer({
-                  force: !0,
-                }));
-            } catch (e) {
-              o("WALogger").ERROR(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[quota-exceeded] Failed to prepare error data: ",
-                    "",
-                  ])),
-                e,
-              );
-            }
-            var l =
-              o("WAWebAppTracker").AppTracker.getAppContextWithLookback(5e3);
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[quota-exceeded] App Context: ",
-                  "",
-                ])),
-              l != null ? l : "null",
-            );
-            var s =
-              "[quota-exceeded] Quota: " +
-              (n != null ? n : "Error") +
-              ", Context: " +
-              a;
-            if (r("WAWebEnvironment").isWindows) {
-              o("WALogger")
-                .ERROR(
-                  m || (m = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                  s,
-                )
-                .sendLogs("win-hybrid-storage-quota-exceeded");
-              return;
-            }
-            o("WALogger")
-              .ERROR(
-                p || (p = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
-                s,
-              )
-              .sendLogs("storage-quota-exceeded", { sampling: 0.01 });
-          }
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k() {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t,
-            n,
-            r,
-            a = yield o("WAStorageEstimator").estimateStorage(),
-            i = a.success,
-            l = a.value;
-          if (!i || !l) return null;
-          var s = {},
-            u = {
-              quota: l.quota,
-              usage: l.usage,
-              sw:
-                (e = l.usageDetails) == null
-                  ? void 0
-                  : e.serviceWorkerRegistrations,
-              caches: (t = l.usageDetails) == null ? void 0 : t.caches,
-              idb: (n = l.usageDetails) == null ? void 0 : n.indexedDB,
-              ls: (r = l.usageDetails) == null ? void 0 : r.localStorage,
-            };
-          return (
-            Object.entries(u).forEach(function (e) {
-              var t = e[0],
-                n = e[1];
-              typeof n == "number" && (s[t] = Number((n / f).toFixed(4)));
-            }),
-            s
+    async function R(e, t) {
+      if (S(e) && !h) {
+        h = !0;
+        var n = "",
+          a = "";
+        try {
+          var i = await L();
+          (i &&
+            (n = JSON.stringify(
+              babelHelpers.extends({}, i, {
+                win: r("WAWebEnvironment").isWindows,
+                didReload: C(),
+              }),
+            )),
+            (a = JSON.stringify(t != null ? t : {})),
+            await o("WAWebClearFalcoBufferApi").clearFalcoBuffer({
+              force: !0,
+            }));
+        } catch (e) {
+          o("WALogger").ERROR(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[quota-exceeded] Failed to prepare error data: ",
+                "",
+              ])),
+            e,
           );
-        })),
-        I.apply(this, arguments)
+        }
+        var l = o("WAWebAppTracker").AppTracker.getAppContextWithLookback(5e3);
+        o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "[quota-exceeded] App Context: ",
+              "",
+            ])),
+          l != null ? l : "null",
+        );
+        var s =
+          "[quota-exceeded] Quota: " +
+          (n != null ? n : "Error") +
+          ", Context: " +
+          a;
+        if (r("WAWebEnvironment").isWindows) {
+          o("WALogger")
+            .ERROR(
+              m || (m = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+              s,
+            )
+            .sendLogs("win-hybrid-storage-quota-exceeded");
+          return;
+        }
+        o("WALogger")
+          .ERROR(
+            p || (p = babelHelpers.taggedTemplateLiteralLoose(["", ""])),
+            s,
+          )
+          .sendLogs("storage-quota-exceeded", { sampling: 0.01 });
+      }
+    }
+    async function L() {
+      var e,
+        t,
+        n,
+        r,
+        a = await o("WAStorageEstimator").estimateStorage(),
+        i = a.success,
+        l = a.value;
+      if (!i || !l) return null;
+      var s = {},
+        u = {
+          quota: l.quota,
+          usage: l.usage,
+          sw:
+            (e = l.usageDetails) == null
+              ? void 0
+              : e.serviceWorkerRegistrations,
+          caches: (t = l.usageDetails) == null ? void 0 : t.caches,
+          idb: (n = l.usageDetails) == null ? void 0 : n.indexedDB,
+          ls: (r = l.usageDetails) == null ? void 0 : r.localStorage,
+        };
+      return (
+        Object.entries(u).forEach(function (e) {
+          var t = e[0],
+            n = e[1];
+          typeof n == "number" && (s[t] = Number((n / f).toFixed(4)));
+        }),
+        s
       );
     }
     ((l.persistAppReloadMarker = y),
       (l.didReloadAppForStorageRecovery = C),
       (l.markAppReloadForStorageRecovery = b),
       (l.isQuotaActuallyExceeded = v),
-      (l.isQuotaExceededError = R),
-      (l.reportQuotaExceededError = L),
-      (l.estimateStorageLogFormatted = k));
+      (l.isQuotaExceededError = S),
+      (l.reportQuotaExceededError = R),
+      (l.estimateStorageLogFormatted = L));
   },
   98,
 );

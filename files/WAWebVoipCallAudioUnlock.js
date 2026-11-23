@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipCallAudioUnlock",
-  ["Promise", "WALogger", "WAWebUA", "asyncToGeneratorRuntime", "getErrorSafe"],
+  ["WALogger", "WAWebUA", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -11,21 +11,20 @@ __d(
       m,
       p,
       _,
-      f,
-      g = 16e3,
-      h = 6e4,
-      y = null,
-      C = null;
-    function b() {
-      y = o("WAWebUA").UA.isWebkit ? new Audio() : null;
+      f = 16e3,
+      g = 6e4,
+      h = null,
+      y = null;
+    function C() {
+      h = o("WAWebUA").UA.isWebkit ? new Audio() : null;
     }
-    function v() {
-      var t = y != null ? y : new Audio();
-      S();
-      var n = D(t);
+    function b() {
+      var t = h != null ? h : new Audio();
+      v();
+      var n = T(t);
       n != null &&
-        ((C = n),
-        M(n).catch(function (t) {
+        ((y = n),
+        N(n).catch(function (t) {
           o("WALogger")
             .WARN(
               e ||
@@ -36,11 +35,11 @@ __d(
             .catching(r("getErrorSafe")(t));
         }));
     }
-    function S() {
-      ((y = null), N());
+    function v() {
+      ((h = null), P());
     }
-    function R(e, t) {
-      var n = C,
+    function S(e, t) {
+      var n = y,
         r = n == null ? void 0 : n[e];
       return n == null || r == null
         ? null
@@ -59,7 +58,7 @@ __d(
             ),
             null)
           : ((n[e] = null),
-            A(n),
+            M(n),
             o("WALogger").LOG(
               u ||
                 (u = babelHelpers.taggedTemplateLiteralLoose([
@@ -70,13 +69,13 @@ __d(
             ),
             r);
     }
-    function L() {
-      var e = C,
+    function R() {
+      var e = y,
         t = e == null ? void 0 : e.playbackElement;
       return e == null || t == null
         ? null
         : ((e.playbackElement = null),
-          A(e),
+          M(e),
           o("WALogger").LOG(
             c ||
               (c = babelHelpers.taggedTemplateLiteralLoose([
@@ -85,13 +84,13 @@ __d(
           ),
           t);
     }
-    function E() {
+    function L() {
       var e;
-      return (e = L()) != null ? e : new Audio();
+      return (e = R()) != null ? e : new Audio();
     }
-    function k() {
+    function E() {
       var e, t, n;
-      if (((e = C) == null ? void 0 : e.isStarted) === !0) return !0;
+      if (((e = y) == null ? void 0 : e.isStarted) === !0) return !0;
       var r =
           ((t = navigator.userActivation) == null ? void 0 : t.isActive) === !0,
         a =
@@ -112,30 +111,30 @@ __d(
           ),
           !1);
     }
+    function k() {
+      o("WAWebUA").UA.isWebkit && (C(), b());
+    }
     function I() {
-      o("WAWebUA").UA.isWebkit && (b(), v());
-    }
-    function T() {
-      var e = C;
+      var e = y;
       e != null &&
-        (self.clearTimeout(e.releaseTimeoutId), (e.releaseTimeoutId = P()));
+        (self.clearTimeout(e.releaseTimeoutId), (e.releaseTimeoutId = $()));
     }
-    function D(e) {
+    function T(e) {
       var t = null;
       try {
         return (
-          (t = x()),
+          (t = D()),
           {
             capture: t,
             isStarted: !1,
-            playback: x(),
+            playback: D(),
             playbackElement: e,
-            releaseTimeoutId: P(),
+            releaseTimeoutId: $(),
           }
         );
       } catch (e) {
         return (
-          $(t),
+          x(t),
           o("WALogger")
             .WARN(
               m ||
@@ -148,10 +147,10 @@ __d(
         );
       }
     }
-    function x() {
-      return new AudioContext({ sampleRate: g, latencyHint: "interactive" });
+    function D() {
+      return new AudioContext({ sampleRate: f, latencyHint: "interactive" });
     }
-    function $(e) {
+    function x(e) {
       e == null ||
         e.close().catch(function (e) {
           o("WALogger")
@@ -164,55 +163,47 @@ __d(
             .catching(r("getErrorSafe")(e));
         });
     }
-    function P() {
-      return self.setTimeout(N, h);
+    function $() {
+      return self.setTimeout(P, g);
     }
-    function N() {
-      var e = C;
+    function P() {
+      var e = y;
       e != null &&
-        ((C = null),
+        ((y = null),
         self.clearTimeout(e.releaseTimeoutId),
-        $(e.capture),
-        $(e.playback));
+        x(e.capture),
+        x(e.playback));
+    }
+    async function N(e) {
+      var t = e.capture,
+        n = e.playback;
+      (await Promise.all([
+        t == null ? void 0 : t.resume(),
+        n == null ? void 0 : n.resume(),
+      ]),
+        (e.isStarted = !0),
+        o("WALogger").LOG(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [AV] started call audio at the click",
+            ])),
+        ));
     }
     function M(e) {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.capture,
-            r = e.playback;
-          (yield (f || (f = n("Promise"))).all([
-            t == null ? void 0 : t.resume(),
-            r == null ? void 0 : r.resume(),
-          ]),
-            (e.isStarted = !0),
-            o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [AV] started call audio at the click",
-                ])),
-            ));
-        })),
-        w.apply(this, arguments)
-      );
-    }
-    function A(e) {
       e.capture == null &&
         e.playback == null &&
         e.playbackElement == null &&
-        (self.clearTimeout(e.releaseTimeoutId), (C = null));
+        (self.clearTimeout(e.releaseTimeoutId), (y = null));
     }
-    ((l.prepareCallAudioElement = b),
-      (l.unlockCallAudio = v),
-      (l.releaseCallAudioUnlock = S),
-      (l.takeUnlockedAudioContext = R),
-      (l.takeUnlockedPlaybackElement = L),
-      (l.createCallPlaybackElement = E),
-      (l.canStartCallAudio = k),
-      (l.startCallAudioInClick = I),
-      (l.holdUnlockedCallAudio = T));
+    ((l.prepareCallAudioElement = C),
+      (l.unlockCallAudio = b),
+      (l.releaseCallAudioUnlock = v),
+      (l.takeUnlockedAudioContext = S),
+      (l.takeUnlockedPlaybackElement = R),
+      (l.createCallPlaybackElement = L),
+      (l.canStartCallAudio = E),
+      (l.startCallAudioInClick = k),
+      (l.holdUnlockedCallAudio = I));
   },
   98,
 );

@@ -8,9 +8,7 @@ __d(
     function c(e) {
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Couldn't connect {connector name}. Try again.", [
-            s._param("connector name", e),
-          ]),
+          msg: s._(/*BTDS*/ "", [s._param("connector name", e)]),
         }),
       );
     }

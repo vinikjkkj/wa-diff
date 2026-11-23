@@ -18,7 +18,6 @@ __d(
     "WDSIconIcInfo.react",
     "WDSMenuItem.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebMuteValues",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -69,53 +68,35 @@ __d(
     }
     f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      var t = o("react-compiler-runtime").c(7),
-        n = e.chatId,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [o("WAWebMuteGetters").getIsMuted]), (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebMuteValues").useMuteValues(n, a),
-        l = i[0],
-        s;
-      t[1] !== n
-        ? ((s = function (t) {
-            var e = o("WAWebGetMaybeChatById").getMaybeChatById(n);
-            if (e == null) {
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[broadcast-thread-menu] mute skipped, chat left the collection",
-                  ])),
-              );
-              return;
-            }
-            o("WAWebCmd").Cmd.muteChatFromEntryPoint(
-              e,
-              t,
-              o("WAWebWamEnumMuteEntryPoint").MUTE_ENTRY_POINT
-                .CONVERSATION_SCREEN,
+      var t = e.chatId,
+        n = o("useWAWebMuteValues").useMuteValues(t, [
+          o("WAWebMuteGetters").getIsMuted,
+        ]),
+        a = n[0];
+      return p.jsx(r("WAWebMuteMenuItem.react"), {
+        onMute: function (n) {
+          var e = o("WAWebGetMaybeChatById").getMaybeChatById(t);
+          if (e == null) {
+            o("WALogger").WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[broadcast-thread-menu] mute skipped, chat left the collection",
+                ])),
             );
-          }),
-          (t[1] = n),
-          (t[2] = s))
-        : (s = t[2]);
-      var c;
-      return (
-        t[3] !== n || t[4] !== l || t[5] !== s
-          ? ((c = p.jsx(r("WAWebMuteMenuItem.react"), {
-              onMute: s,
-              chatId: n,
-              isMuted: l,
-            })),
-            (t[3] = n),
-            (t[4] = l),
-            (t[5] = s),
-            (t[6] = c))
-          : (c = t[6]),
-        c
-      );
+            return;
+          }
+          o("WAWebCmd").Cmd.muteChatFromEntryPoint(
+            e,
+            n,
+            o("WAWebWamEnumMuteEntryPoint").MUTE_ENTRY_POINT
+              .CONVERSATION_SCREEN,
+          );
+        },
+        chatId: t,
+        isMuted: a,
+      });
     }
+    g.displayName = g.name + " [from " + i.id + "]";
     function h(e) {
       return p.jsx(
         r("WDSMenuItem.react"),
@@ -135,7 +116,7 @@ __d(
             o("WAWebCmd").Cmd.closeChat(t);
           },
           Icon: r("WDSIconIcCancel.react"),
-          title: s._(/*BTDS*/ "Close chat"),
+          title: s._(/*BTDS*/ ""),
         },
         "close",
       );

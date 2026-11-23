@@ -1,6 +1,6 @@
 __d(
   "AeadAes128Gcm",
-  ["Hpke", "asyncToGeneratorRuntime"],
+  ["Hpke"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = window.crypto || window.msCrypto,
@@ -14,48 +14,32 @@ __d(
             (this.internalCryptoProvider = null),
             (this.internalCryptoProvider = t));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.seal = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var o = yield this.internalCryptoProvider.importKey(
-                    "raw",
-                    e,
-                    { name: "AES-GCM" },
-                    !0,
-                    ["encrypt"],
-                  ),
-                  a = { name: "AES-GCM", iv: t, additionalData: n },
-                  i = yield this.internalCryptoProvider.encrypt(a, o, r);
-                return new Uint8Array(i);
-              },
-            );
-            function t(t, n, r, o) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.open = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n, r) {
-                var o = yield this.internalCryptoProvider.importKey(
-                    "raw",
-                    e,
-                    { name: "AES-GCM" },
-                    !0,
-                    ["decrypt"],
-                  ),
-                  a = { name: "AES-GCM", iv: t, additionalData: n },
-                  i = yield this.internalCryptoProvider.decrypt(a, o, r);
-                return new Uint8Array(i);
-              },
-            );
-            function t(t, n, r, o) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          (n.seal = async function (t, n, r, o) {
+            var e = await this.internalCryptoProvider.importKey(
+                "raw",
+                t,
+                { name: "AES-GCM" },
+                !0,
+                ["encrypt"],
+              ),
+              a = { name: "AES-GCM", iv: n, additionalData: r },
+              i = await this.internalCryptoProvider.encrypt(a, e, o);
+            return new Uint8Array(i);
+          }),
+          (n.open = async function (t, n, r, o) {
+            var e = await this.internalCryptoProvider.importKey(
+                "raw",
+                t,
+                { name: "AES-GCM" },
+                !0,
+                ["decrypt"],
+              ),
+              a = { name: "AES-GCM", iv: n, additionalData: r },
+              i = await this.internalCryptoProvider.decrypt(a, e, o);
+            return new Uint8Array(i);
+          }),
           t
         );
       })();

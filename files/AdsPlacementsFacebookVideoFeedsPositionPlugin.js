@@ -39,7 +39,7 @@ __d(
     "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
     "immutable",
     "react",
-    "react-compiler-runtime",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l, s, u) {
     "use strict";
@@ -47,37 +47,45 @@ __d(
       c,
       d = c || (c = o("react")),
       m = r("immutable").Set([r("AdsBuyingTypes").AUCTION]);
-    function p(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = { className: "x1jstp8q x14vqqas x2b8uid" }), (t[0] = a))
-        : (a = t[0]);
-      var i;
+    function p(e, t, n) {
+      return o("AdsPlacementAPISpecReaderUtils").isOnlyActiveDevicePlatform(
+        e.spec,
+        r("AdsAPIDevicePlatform").DESKTOP,
+      )
+        ? o("AdsSuggestedVideoConfig").WATCH_HOME_ELIGIBLE_OBJECTIVES.has(t)
+          ? e.containsDCO === !0
+            ? o("AdsPlacementIneligibilityReason").createDCOReason()
+            : m.includes(e.buyingType)
+              ? null
+              : o("AdsPlacementIneligibilityReason").createBuyingTypeReason(
+                  e.buyingType,
+                  n,
+                )
+          : o("AdsPlacementIneligibilityReason").createObjectiveReason(
+              e.objective,
+            )
+        : null;
+    }
+    function _(e) {
+      var t = e.children;
       return (
-        t[1] !== n
-          ? ((i = d.jsx(
-              "div",
-              babelHelpers.extends({}, a, {
-                children: d.jsx(r("GeoBaseText.react"), {
-                  color: "placeholder",
-                  size: "value",
-                  children: n,
-                }),
-              }),
-            )),
-            (t[1] = n),
-            (t[2] = i))
-          : (i = t[2]),
-        i
+        r("vulture")("LoPVbH1a_Jxc_kQjqsVU8h_9kmY="),
+        d.jsx("div", {
+          className: "x14vqqas x2b8uid",
+          children: d.jsx(r("GeoBaseText.react"), {
+            color: "placeholder",
+            size: "value",
+            children: t,
+          }),
+        })
       );
     }
-    var _ = {
+    _.displayName = _.name + " [from " + i.id + "]";
+    var f = {
         type: "placements/position",
         key: "facebook/video_feeds",
         name: r("AdsPlacementPositionLabelConstant").video_feeds,
-        nameWithPlatform: s._(/*BTDS*/ "Facebook video feeds"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           imageCrop: r("AdImageSpecCropKeys")["100x100"],
           videoCrop: "1:1",
@@ -88,22 +96,19 @@ __d(
         placementPreviewVideo: "10150008661171993",
         platformKey: "facebook",
         getPlacementSpecificPreviewInfo: function (n) {
-          var t = d.jsx(p, {
-            children: s._(
-              /*BTDS*/ "Ads can appear in feeds of video-only content across Facebook, including Facebook Watch. {=m1}",
-              [
-                s._implicitParam(
-                  "=m1",
-                  d.jsx(r("GeoLink.react"), {
-                    href: new (e || (e = r("URI")))(
-                      "/business/help/1559984974021610",
-                    ),
-                    target: "_blank",
-                    children: s._(/*BTDS*/ "Learn more."),
-                  }),
-                ),
-              ],
-            ),
+          var t = d.jsx(_, {
+            children: s._(/*BTDS*/ "", [
+              s._implicitParam(
+                "=m1",
+                d.jsx(r("GeoLink.react"), {
+                  href: new (e || (e = r("URI")))(
+                    "/business/help/1559984974021610",
+                  ),
+                  target: "_blank",
+                  children: s._(/*BTDS*/ ""),
+                }),
+              ),
+            ]),
           });
           return { description: t };
         },
@@ -129,7 +134,7 @@ __d(
           if (e) return e;
           var n = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(_, t);
+          ).getSOOBundleParentIneligibilityReason(f, t);
           if (n != null) return n;
           if (t.isReelsTrendingAds === !0)
             return o(
@@ -320,28 +325,8 @@ __d(
             return o(
               "AdsPlacementIneligibilityReason",
             ).createInstagramLiveReason();
-          if (
-            o("AdsPlacementAPISpecReaderUtils").isOnlyActiveDevicePlatform(
-              t.spec,
-              r("AdsAPIDevicePlatform").DESKTOP,
-            )
-          ) {
-            if (
-              !o("AdsSuggestedVideoConfig").WATCH_HOME_ELIGIBLE_OBJECTIVES.has(
-                a,
-              )
-            )
-              return o("AdsPlacementIneligibilityReason").createObjectiveReason(
-                t.objective,
-              );
-            if (t.containsDCO === !0)
-              return o("AdsPlacementIneligibilityReason").createDCOReason();
-            if (!m.includes(t.buyingType))
-              return o(
-                "AdsPlacementIneligibilityReason",
-              ).createBuyingTypeReason(t.buyingType, _.key);
-          }
-          return null;
+          var s = p(t, a, f.key);
+          return s != null ? s : null;
         },
         isActive: function (t) {
           return (
@@ -396,7 +381,7 @@ __d(
         },
         adsetReducer: function (t, n) {
           var e = n.action;
-          if (!_.isEnabled(e.eligibilityInformation.capabilities)) return t;
+          if (!f.isEnabled(e.eligibilityInformation.capabilities)) return t;
           switch (e.type) {
             case o("AdsUEditorCampaignPlacementSetActionFlux").actionType:
               return e.removeGroups.includes("facebook/video_feeds")
@@ -448,8 +433,8 @@ __d(
           return t;
         },
       },
-      f = _;
-    l.default = f;
+      g = f;
+    l.default = g;
   },
   226,
 );

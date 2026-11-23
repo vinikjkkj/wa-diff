@@ -1,30 +1,17 @@
 __d(
   "WAWebSetChatOpenedAction",
-  [
-    "WAWebBackendRuntime",
-    "WAWebChatStoreService",
-    "WAWebDBUpdateChatTable",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebBackendRuntime", "WAWebChatStoreService", "WAWebDBUpdateChatTable"],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = { hasOpened: !0 };
-          (yield (
-            o("WAWebBackendRuntime").isWebDiBackendEnabled()
-              ? o("WAWebBackendRuntime").runtime(
-                  o("WAWebChatStoreService").ChatStoreService,
-                ).updateChatTable
-              : o("WAWebDBUpdateChatTable").updateChatTable
-          )(e.id, t),
-            e.set(t));
-        })),
-        s.apply(this, arguments)
-      );
+    async function e(e) {
+      var t = { hasOpened: !0 };
+      (await (
+        o("WAWebBackendRuntime").isWebDiBackendEnabled()
+          ? o("WAWebBackendRuntime").runtime(
+              o("WAWebChatStoreService").ChatStoreService,
+            ).updateChatTable
+          : o("WAWebDBUpdateChatTable").updateChatTable
+      )(e.id, t),
+        e.set(t));
     }
     l.setChatHasOpened = e;
   },

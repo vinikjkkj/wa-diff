@@ -91,7 +91,7 @@ __d(
                 className:
                   "x889kno xf159sx x1a8lsjc xmzvs34 x6prxxf xhslqc4 x1yc453h x78zum5 x1qughib x6s0dn4",
                 children: [
-                  d.jsx("span", { children: s._(/*BTDS*/ "Quick replies") }),
+                  d.jsx("span", { children: s._(/*BTDS*/ "") }),
                   d.jsx(r("WDSButton.react"), {
                     variant: "borderless",
                     type: "default",
@@ -109,7 +109,7 @@ __d(
                         ),
                       );
                     },
-                    "aria-label": s._(/*BTDS*/ "Edit Quick Replies"),
+                    "aria-label": s._(/*BTDS*/ ""),
                   }),
                 ],
               },

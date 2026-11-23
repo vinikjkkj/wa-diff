@@ -2,85 +2,71 @@ __d(
   "WAWebVoipLazyVideoEffectsProcessor",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WAPromiseTimeout",
     "WAWebUserPrefsVoip",
     "WAWebVoipWaitForRequiredModule",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
+      s = 1e3,
       u = 1e3,
-      c = 1e3,
-      d = 15e3,
-      m = 1e4,
-      p = null,
-      _ = !1,
-      f = "none",
+      c = 15e3,
+      d = 1e4,
+      m = null,
+      p = !1,
+      _ = "none",
+      f = -1 / 0,
       g = -1 / 0,
-      h = -1 / 0,
-      y = {
+      h = {
         shouldProcess: function () {
-          if (p != null) return p.shouldProcess();
+          if (m != null) return m.shouldProcess();
           var e = self.performance.now();
-          return ((h = e), !_ && e - g >= u && ((g = e), b() && C()), !1);
+          return ((g = e), !p && e - f >= s && ((f = e), C() && y()), !1);
         },
         process: function (t) {
-          return p != null
-            ? p.process(t)
-            : (s || (s = n("Promise"))).resolve(t);
+          return m != null ? m.process(t) : Promise.resolve(t);
         },
         recordCallEnd: function () {
           var e;
-          (e = p) == null || e.recordCallEnd();
+          (e = m) == null || e.recordCallEnd();
         },
         recordCallStart: function () {
           var e;
-          (e = p) == null || e.recordCallStart();
+          (e = m) == null || e.recordCallStart();
         },
       };
-    function C() {
+    function y() {
       var t = r("JSResourceForInteraction")(
           "WAWebVoipVideoEffectsProcessor",
         ).__setRef("WAWebVoipLazyVideoEffectsProcessor"),
-        a = t.getModuleIfRequired();
-      if (a != null) {
-        p = a.videoEffectsProcessor;
+        n = t.getModuleIfRequired();
+      if (n != null) {
+        m = n.videoEffectsProcessor;
         return;
       }
-      if (f !== "none") {
-        S();
+      if (_ !== "none") {
+        v();
         return;
       }
-      ((_ = !0),
+      ((p = !0),
         o("WAPromiseTimeout")
-          .promiseTimeout(t.load(), d)
-          .catch(
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var n = yield o(
-                    "WAWebVoipWaitForRequiredModule",
-                  ).waitForRequiredModule(t, m);
-                  if (n == null) throw e;
-                  return n;
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-          )
+          .promiseTimeout(t.load(), c)
+          .catch(async function (e) {
+            var n = await o(
+              "WAWebVoipWaitForRequiredModule",
+            ).waitForRequiredModule(t, d);
+            if (n == null) throw e;
+            return n;
+          })
           .then(function (e) {
-            p = e.videoEffectsProcessor;
+            m = e.videoEffectsProcessor;
           })
           .catch(function (t) {
-            ((_ = !1),
-              (f = "unreported"),
+            ((p = !1),
+              (_ = "unreported"),
               o("WALogger")
                 .ERROR(
                   e ||
@@ -92,12 +78,12 @@ __d(
                 .sendLogs("voip-effects-processor-load-failed", {
                   sampling: 0.1,
                 }),
-              self.performance.now() - h <= c && S());
+              self.performance.now() - g <= u && v());
           }));
     }
-    function b() {
+    function C() {
       var e,
-        t = v(),
+        t = b(),
         n =
           t != null
             ? t.isVideoEffectsRequested()
@@ -110,19 +96,19 @@ __d(
         ? e
         : !0;
     }
-    function v() {
+    function b() {
       return r("JSResourceForInteraction")("WAWebVoipVideoEffectsState")
         .__setRef("WAWebVoipLazyVideoEffectsProcessor")
         .getModuleIfRequired();
     }
-    function S() {
-      var e = v();
+    function v() {
+      var e = b();
       e == null ||
-        !b() ||
-        (e.stopVideoEffects("start_error", { isRepeat: f === "reported" }),
-        (f = "reported"));
+        !C() ||
+        (e.stopVideoEffects("start_error", { isRepeat: _ === "reported" }),
+        (_ = "reported"));
     }
-    l.lazyVideoEffectsProcessor = y;
+    l.lazyVideoEffectsProcessor = h;
   },
   98,
 );

@@ -21,7 +21,6 @@ __d(
     "WDSIconIcSwitchAccount.react",
     "WDSTooltip.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebChatValues",
     "useWAWebEventTargetValue",
   ],
@@ -37,7 +36,7 @@ __d(
         }),
         type: o("WAWebDropdown.react").MenuType.DropdownMenu,
         role: "menu",
-        ariaLabel: s._(/*BTDS*/ "Add to list"),
+        ariaLabel: s._(/*BTDS*/ ""),
         autoFocus: !0,
         findFirstItem: !0,
         dirX: r("WAWebL10N").isRTL()
@@ -61,54 +60,31 @@ __d(
       );
     }
     function p(e) {
-      var t = o("react-compiler-runtime").c(12),
-        n = e.chat,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [o("WAWebChatGetters").getLabels]), (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebChatValues").useChatValues(n.id, a),
-        l = i[0],
-        s;
-      t[1] !== l
-        ? ((s = l != null ? l : []), (t[1] = l), (t[2] = s))
-        : (s = t[2]);
-      var u;
-      t[3] !== s ? ((u = s.map(_)), (t[3] = s), (t[4] = u)) : (u = t[4]);
-      var c, d;
-      t[5] !== l
-        ? ((c = function () {
-            return f(l);
-          }),
-          (d = [l]),
-          (t[5] = l),
-          (t[6] = c),
-          (t[7] = d))
-        : ((c = t[6]), (d = t[7]));
-      var m = r("useWAWebEventTargetValue")(
+      var t = e.chat,
+        n = o("useWAWebChatValues").useChatValues(t.id, [
+          o("WAWebChatGetters").getLabels,
+        ]),
+        a = n[0],
+        i = r("useWAWebEventTargetValue")(
           o("WAWebLabelCollection").LabelCollection,
-          u,
-          c,
-          d,
-        ),
-        p;
-      return (
-        t[8] !== n || t[9] !== m || t[10] !== l
-          ? ((p = g(n, l, m)), (t[8] = n), (t[9] = m), (t[10] = l), (t[11] = p))
-          : (p = t[11]),
-        p
-      );
+          (a != null ? a : []).map(function (e) {
+            return "label_updated_" + e;
+          }),
+          function () {
+            return _(a);
+          },
+          [a],
+        );
+      return f(t, a, i);
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      return "label_updated_" + e;
-    }
-    function f(e) {
       return (e != null ? e : []).map(function (e) {
         var t = o("WAWebLabelCollection").LabelCollection.get(e);
         return t != null ? o("WAWebLabelGetters").getHexColor(t) : void 0;
       });
     }
-    function g(e, t, n) {
+    function f(e, t, n) {
       if (
         !o("WAWebMobilePlatforms").isSMB() ||
         r("WAWebEnvironment").isGuest ||
@@ -149,7 +125,7 @@ __d(
                     }),
                   });
                 })(),
-                title: s._(/*BTDS*/ "Lists"),
+                title: s._(/*BTDS*/ ""),
                 dropdownMenu: c(e),
               }),
             })
@@ -157,12 +133,12 @@ __d(
               chat: e,
             });
       return u.jsx(r("WDSTooltip.react"), {
-        label: s._(/*BTDS*/ "Add to list"),
+        label: s._(/*BTDS*/ ""),
         shortcut: o("WAWebActions").Action.LABEL_CHAT,
         children: a,
       });
     }
-    ((g.displayName = g.name + " [from " + i.id + "]"),
+    ((f.displayName = f.name + " [from " + i.id + "]"),
       (l.createLabelsDropdownMenu = c),
       (l.isCommunityRelatedChat = d),
       (l.isCommunityRelatedChatFor = m),

@@ -9,8 +9,8 @@ __d(
         a = t.safe();
       if (a.type === o("WAWebMsgType").MSG_TYPE.IMAGE && a.isViewOnce)
         return o("WAWebViewOnceState").isViewed(a)
-          ? s._(/*BTDS*/ "Opened")
-          : s._(/*BTDS*/ "Photo");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
       var i = o("WAWebFormatMsgTextUtils").maybeAddFooter(t.caption, t);
       return i != null && i !== ""
         ? r !== !0
@@ -20,7 +20,7 @@ __d(
               i,
               n,
             )
-        : s._(/*BTDS*/ "Photo");
+        : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

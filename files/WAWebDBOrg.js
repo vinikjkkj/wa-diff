@@ -1,429 +1,271 @@
 __d(
   "WAWebDBOrg",
   [
-    "Promise",
     "WAJids",
     "WAWebModelStorageUtils",
     "WAWebOrgOrder",
     "WAWebSchemaOrg",
     "WAWebSchemaOrgContact",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["memberListTsUsec"],
-      s,
-      u = "org",
-      c = "org-contacts",
-      d = "/",
-      m = ":";
-    function p() {
+      s = "org",
+      u = "org-contacts",
+      c = "/",
+      d = ":";
+    function m() {
       return o("WAWebSchemaOrg").getOrgTable().all();
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
+    async function p(e) {
+      if (e.length === 0) return [];
+      var t = [];
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length === 0) return [];
-          var t = [];
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [u],
-                (function () {
-                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      var r = n[0],
-                        o = r,
-                        a = yield o.bulkGet(
-                          e.map(function (e) {
-                            return e.orgId;
-                          }),
-                        );
-                      ((t = e.map(function (e, t) {
-                        return H(e, a[t]);
-                      })),
-                        yield o.bulkCreateOrReplace(t));
-                    },
-                  );
-                  return function (e) {
-                    return r.apply(this, arguments);
-                  };
-                })(),
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock([s], async function (n) {
+            var r = n[0],
+              o = r,
+              a = await o.bulkGet(
+                e.map(function (e) {
+                  return e.orgId;
+                }),
+              );
+            ((t = e.map(function (e, t) {
+              return P(e, a[t]);
+            })),
+              await o.bulkCreateOrReplace(t));
+          }),
+        t
+      );
+    }
+    async function _(e) {
+      var t = [];
+      return (
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock([s, u], async function (n) {
+            var r = n[0],
+              o = n[1],
+              a = r,
+              i = o,
+              l = await a.all(),
+              s = new Set(
+                e.map(function (e) {
+                  return e.orgId;
+                }),
               ),
-            t
-          );
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [];
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [u, c],
-                (function () {
-                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (r) {
-                      var o = r[0],
-                        a = r[1],
-                        i = o,
-                        l = a,
-                        u = yield i.all(),
-                        c = new Set(
-                          e.map(function (e) {
-                            return e.orgId;
-                          }),
-                        ),
-                        d = new Map(
-                          u.map(function (e) {
-                            return [e.orgId, e];
-                          }),
-                        ),
-                        m = u
-                          .map(function (e) {
-                            return e.orgId;
-                          })
-                          .filter(function (e) {
-                            return !c.has(e);
-                          });
-                      ((t = e.map(function (e) {
-                        return H(e, d.get(e.orgId));
-                      })),
-                        t.length > 0 && (yield i.bulkCreateOrReplace(t)),
-                        yield (s || (s = n("Promise"))).all(
-                          m.map(function (e) {
-                            return (s || (s = n("Promise"))).all([
-                              i.remove(e),
-                              q(l, e),
-                            ]);
-                          }),
-                        ));
-                    },
-                  );
-                  return function (e) {
-                    return r.apply(this, arguments);
-                  };
-                })(),
+              u = new Map(
+                l.map(function (e) {
+                  return [e.orgId, e];
+                }),
               ),
-            t
-          );
-        })),
-        h.apply(this, arguments)
+              c = l
+                .map(function (e) {
+                  return e.orgId;
+                })
+                .filter(function (e) {
+                  return !s.has(e);
+                });
+            ((t = e.map(function (e) {
+              return P(e, u.get(e.orgId));
+            })),
+              t.length > 0 && (await a.bulkCreateOrReplace(t)),
+              await Promise.all(
+                c.map(function (e) {
+                  return Promise.all([a.remove(e), x(i, e)]);
+                }),
+              ));
+          }),
+        t
       );
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    async function f(e) {
+      await o("WAWebModelStorageUtils")
+        .getStorage()
+        .lock([s, u], async function (t) {
+          var n = t[0],
+            r = t[1],
+            o = n,
+            a = r;
+          (await o.remove(e), await x(a, e));
+        });
     }
-    function C() {
+    async function g(e) {
+      if (e.length === 0) return [];
+      var t = [];
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAWebModelStorageUtils")
-            .getStorage()
-            .lock(
-              [u, c],
-              (function () {
-                var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (t) {
-                    var n = t[0],
-                      r = t[1],
-                      o = n,
-                      a = r;
-                    (yield o.remove(e), yield q(a, e));
-                  },
-                );
-                return function (e) {
-                  return t.apply(this, arguments);
-                };
-              })(),
-            );
-        })),
-        C.apply(this, arguments)
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock([s, u], async function (n) {
+            var r = n[0],
+              o = n[1],
+              a = r,
+              i = o,
+              l = await a.bulkGet(e);
+            ((t = l.filter(Boolean).map(R)),
+              await a.bulkCreateOrReplace(t),
+              await Promise.all(
+                e.map(function (e) {
+                  return x(i, e);
+                }),
+              ));
+          }),
+        t
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length === 0) return [];
-          var t = [];
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [u, c],
-                (function () {
-                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (r) {
-                      var o = r[0],
-                        a = r[1],
-                        i = o,
-                        l = a,
-                        u = yield i.bulkGet(e);
-                      ((t = u.filter(Boolean).map(P)),
-                        yield i.bulkCreateOrReplace(t),
-                        yield (s || (s = n("Promise"))).all(
-                          e.map(function (e) {
-                            return q(l, e);
-                          }),
-                        ));
-                    },
-                  );
-                  return function (e) {
-                    return r.apply(this, arguments);
-                  };
-                })(),
-              ),
-            t
-          );
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
+    function h(e) {
       return o("WAWebSchemaOrgContact")
         .getOrgContactTable()
-        .between(["orgId", "lid"], [e, d], [e, m]);
+        .between(["orgId", "lid"], [e, c], [e, d]);
     }
-    function R(e) {
+    function y(e) {
       return e.length === 0
-        ? (s || (s = n("Promise"))).resolve([])
+        ? Promise.resolve([])
         : o("WAWebSchemaOrgContact").getOrgContactTable().anyOf(["lid"], e);
     }
-    function L(e, t, n, r, o) {
-      return E.apply(this, arguments);
-    }
-    function E() {
+    async function C(e, t, n, a, i) {
+      var l = { org: null, rows: [] };
       return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l) {
-            var s = { org: null, rows: [] };
-            return (
-              yield o("WAWebModelStorageUtils")
-                .getStorage()
-                .lock(
-                  [u, c],
-                  (function () {
-                    var o = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (n) {
-                        var o = n[0],
-                          u = n[1],
-                          c = o,
-                          p = u,
-                          _ = yield c.bulkGet([e]),
-                          f = _[0];
-                        if (f == null)
-                          throw r("err")(
-                            "Cannot complete roster for missing org " + e,
-                          );
-                        var g = yield p.between(
-                            ["orgId", "lid"],
-                            [e, d],
-                            [e, m],
-                          ),
-                          h = new Map(
-                            g.map(function (e) {
-                              return [e.lid, e];
-                            }),
-                          );
-                        (yield q(p, e),
-                          yield p.bulkCreateOrReplace(
-                            t.map(function (t) {
-                              return w(
-                                babelHelpers.extends({}, t, { orgId: e }),
-                                h.get(t.lid),
-                              );
-                            }),
-                          ));
-                        var y = N(
-                          babelHelpers.extends({}, f, {
-                            directoryIsComplete: i,
-                            memberCount: a,
-                          }),
-                          l,
-                        );
-                        yield c.bulkCreateOrReplace([y]);
-                        var C = new Set(
-                          [].concat(
-                            g.map(function (e) {
-                              return e.lid;
-                            }),
-                            t.map(function (e) {
-                              return e.lid;
-                            }),
-                          ),
-                        );
-                        s = { org: y, rows: yield M(p, Array.from(C)) };
-                      },
-                    );
-                    return function (e) {
-                      return o.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              s
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock([s, u], async function (o) {
+            var s = o[0],
+              u = o[1],
+              m = s,
+              p = u,
+              _ = await m.bulkGet([e]),
+              f = _[0];
+            if (f == null)
+              throw r("err")("Cannot complete roster for missing org " + e);
+            var g = await p.between(["orgId", "lid"], [e, c], [e, d]),
+              h = new Map(
+                g.map(function (e) {
+                  return [e.lid, e];
+                }),
+              );
+            (await x(p, e),
+              await p.bulkCreateOrReplace(
+                t.map(function (t) {
+                  return k(
+                    babelHelpers.extends({}, t, { orgId: e }),
+                    h.get(t.lid),
+                  );
+                }),
+              ));
+            var y = L(
+              babelHelpers.extends({}, f, {
+                directoryIsComplete: a,
+                memberCount: n,
+              }),
+              i,
             );
-          },
-        )),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = Array.from(e.keys());
-          if (t.length === 0) return [];
-          var r = [];
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [c],
-                (function () {
-                  var o = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      var o = n[0],
-                        a = o,
-                        i = new Map(
-                          (yield a.anyOf(["lid"], t)).map(function (e) {
-                            return [A(e.orgId, e.lid), e];
-                          }),
-                        );
-                      ((r = Array.from(e).flatMap(function (e) {
-                        var t = e[0],
-                          n = e[1];
-                        return n.map(function (e) {
-                          return w(
-                            babelHelpers.extends({}, e, { lid: t }),
-                            i.get(A(e.orgId, t)),
-                          );
-                        });
-                      })),
-                        yield a.bulkRemoveByIndex(["lid"], t),
-                        r.length > 0 && (yield a.bulkCreateOrReplace(r)));
-                    },
-                  );
-                  return function (e) {
-                    return o.apply(this, arguments);
-                  };
-                })(),
+            await m.bulkCreateOrReplace([y]);
+            var C = new Set(
+              [].concat(
+                g.map(function (e) {
+                  return e.lid;
+                }),
+                t.map(function (e) {
+                  return e.lid;
+                }),
               ),
-            r
-          );
-        })),
-        I.apply(this, arguments)
+            );
+            l = { org: y, rows: await E(p, Array.from(C)) };
+          }),
+        l
       );
     }
-    function T(e) {
-      return D.apply(this, arguments);
-    }
-    function D() {
+    async function b(e) {
+      var t = Array.from(e.keys());
+      if (t.length === 0) return [];
+      var n = [];
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length === 0) return [];
-          var t = [];
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [c],
-                (function () {
-                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      var r = n[0],
-                        o = r,
-                        a = Array.from(
-                          new Set(
-                            e.map(function (e) {
-                              return e.lid;
-                            }),
-                          ),
-                        ),
-                        i = new Map(
-                          (yield o.anyOf(["lid"], a)).map(function (e) {
-                            return [A(e.orgId, e.lid), e];
-                          }),
-                        );
-                      (yield o.bulkCreateOrReplace(
-                        e.map(function (e) {
-                          return w(e, i.get(A(e.orgId, e.lid)));
-                        }),
-                      ),
-                        (t = yield M(o, a)));
-                    },
-                  );
-                  return function (e) {
-                    return r.apply(this, arguments);
-                  };
-                })(),
-              ),
-            t
-          );
-        })),
-        D.apply(this, arguments)
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock([u], async function (r) {
+            var o = r[0],
+              a = o,
+              i = new Map(
+                (await a.anyOf(["lid"], t)).map(function (e) {
+                  return [I(e.orgId, e.lid), e];
+                }),
+              );
+            ((n = Array.from(e).flatMap(function (e) {
+              var t = e[0],
+                n = e[1];
+              return n.map(function (e) {
+                return k(
+                  babelHelpers.extends({}, e, { lid: t }),
+                  i.get(I(e.orgId, t)),
+                );
+              });
+            })),
+              await a.bulkRemoveByIndex(["lid"], t),
+              n.length > 0 && (await a.bulkCreateOrReplace(n)));
+          }),
+        n
       );
     }
-    function x(e, t, n) {
-      return $.apply(this, arguments);
-    }
-    function $() {
+    async function v(e) {
+      if (e.length === 0) return [];
+      var t = [];
       return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = !1;
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [u],
-                (function () {
-                  var o = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      var o = n[0],
-                        i = o,
-                        l = yield i.get(e);
-                      (l == null ? void 0 : l.directoryIsComplete) !== !0 ||
-                        l.memberUpdatedTsUsec !== t ||
-                        (yield i.createOrReplace(
-                          babelHelpers.extends({}, l, {
-                            memberCount: r,
-                            memberListTsUsec: t,
-                          }),
-                        ),
-                        (a = !0));
-                    },
-                  );
-                  return function (e) {
-                    return o.apply(this, arguments);
-                  };
-                })(),
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock([u], async function (n) {
+            var r = n[0],
+              o = r,
+              a = Array.from(
+                new Set(
+                  e.map(function (e) {
+                    return e.lid;
+                  }),
+                ),
               ),
-            a
-          );
-        })),
-        $.apply(this, arguments)
+              i = new Map(
+                (await o.anyOf(["lid"], a)).map(function (e) {
+                  return [I(e.orgId, e.lid), e];
+                }),
+              );
+            (await o.bulkCreateOrReplace(
+              e.map(function (e) {
+                return k(e, i.get(I(e.orgId, e.lid)));
+              }),
+            ),
+              (t = await E(o, a)));
+          }),
+        t
       );
     }
-    function P(t) {
+    async function S(e, t, n) {
+      var r = !1;
+      return (
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock([s], async function (o) {
+            var a = o[0],
+              i = a,
+              l = await i.get(e);
+            (l == null ? void 0 : l.directoryIsComplete) !== !0 ||
+              l.memberUpdatedTsUsec !== t ||
+              (await i.createOrReplace(
+                babelHelpers.extends({}, l, {
+                  memberCount: n,
+                  memberListTsUsec: t,
+                }),
+              ),
+              (r = !0));
+          }),
+        r
+      );
+    }
+    function R(t) {
       var n = t.memberListTsUsec,
         r = babelHelpers.objectWithoutPropertiesLoose(t, e);
       return babelHelpers.extends({}, r, { directoryIsComplete: !1 });
     }
-    function N(e, t) {
+    function L(e, t) {
       if (t == null) return e;
       var n =
         e.memberUpdatedTsUsec == null ||
@@ -438,12 +280,10 @@ __d(
         memberUpdatedTsUsec: n,
       });
     }
-    function M(e, t) {
-      return t.length === 0
-        ? (s || (s = n("Promise"))).resolve([])
-        : e.anyOf(["lid"], t);
+    function E(e, t) {
+      return t.length === 0 ? Promise.resolve([]) : e.anyOf(["lid"], t);
     }
-    function w(e, t) {
+    function k(e, t) {
       var n,
         r,
         o,
@@ -454,7 +294,7 @@ __d(
                 firstName: (n = t.firstName) != null ? n : "",
               })
             : e;
-      return V({
+      return $({
         firstName: i.firstName,
         lastName: i.lastName,
         lid: e.lid,
@@ -468,133 +308,84 @@ __d(
           (a = e.username) != null ? a : t == null ? void 0 : t.username,
       });
     }
-    function A(e, t) {
+    function I(e, t) {
       return e + "" + t;
     }
-    function F(e, t, n, r) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a) {
-            var i = !1,
-              l = o("WAWebModelStorageUtils")
-                .getStorage()
-                .lock(
-                  [u, c],
-                  (function () {
-                    var o = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (n) {
-                        var o = n[0],
-                          l = n[1],
-                          s = o,
-                          u = l,
-                          c = yield s.get(e),
-                          d = yield u.get([e, t]);
-                        if (
-                          (d != null &&
-                            (yield u.createOrReplace(
-                              babelHelpers.extends({}, d, { role: r }),
-                            )),
-                          !(c == null || a == null))
-                        ) {
-                          if (c.memberCount !== a) {
-                            yield s.createOrReplace(
-                              babelHelpers.extends({}, c, {
-                                directoryIsComplete: !1,
-                                memberCount: a,
-                              }),
-                            );
-                            return;
-                          }
-                          i = d != null;
-                        }
-                      },
-                    );
-                    return function (e) {
-                      return o.apply(this, arguments);
-                    };
-                  })(),
+    async function T(e, t, n, r) {
+      var a = !1,
+        i = o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock([s, u], async function (o) {
+            var i = o[0],
+              l = o[1],
+              s = i,
+              u = l,
+              c = await s.get(e),
+              d = await u.get([e, t]);
+            if (
+              (d != null &&
+                (await u.createOrReplace(
+                  babelHelpers.extends({}, d, { role: n }),
+                )),
+              !(c == null || r == null))
+            ) {
+              if (c.memberCount !== r) {
+                await s.createOrReplace(
+                  babelHelpers.extends({}, c, {
+                    directoryIsComplete: !1,
+                    memberCount: r,
+                  }),
                 );
-            return (yield l, i);
-          },
-        )),
-        O.apply(this, arguments)
-      );
+                return;
+              }
+              a = d != null;
+            }
+          });
+      return (await i, a);
     }
-    function B(e, t, n) {
-      return W.apply(this, arguments);
+    async function D(e, t, n) {
+      var r = !1,
+        a = o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock([s, u], async function (o) {
+            var a = o[0],
+              i = o[1],
+              l = a,
+              s = i,
+              u = await l.get(e),
+              c = await s.get([e, t]),
+              d =
+                (u == null ? void 0 : u.memberCount) == null || c == null
+                  ? null
+                  : Math.max(0, u.memberCount - 1),
+              m = n != null && n !== d,
+              p = c == null ? null : n != null ? n : d;
+            (await s.remove([e, t]),
+              u != null && c == null && n != null
+                ? await l.createOrReplace(
+                    babelHelpers.extends({}, u, {
+                      directoryIsComplete: !1,
+                      memberCount: n,
+                    }),
+                  )
+                : u != null &&
+                  p != null &&
+                  (await l.createOrReplace(
+                    m
+                      ? babelHelpers.extends({}, u, {
+                          directoryIsComplete: !1,
+                          memberCount: p,
+                        })
+                      : babelHelpers.extends({}, u, { memberCount: p }),
+                  )),
+              (r = n != null && n === d));
+          });
+      return (await a, r);
     }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = !1,
-            i = o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [u, c],
-                (function () {
-                  var o = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      var o = n[0],
-                        i = n[1],
-                        l = o,
-                        s = i,
-                        u = yield l.get(e),
-                        c = yield s.get([e, t]),
-                        d =
-                          (u == null ? void 0 : u.memberCount) == null ||
-                          c == null
-                            ? null
-                            : Math.max(0, u.memberCount - 1),
-                        m = r != null && r !== d,
-                        p = c == null ? null : r != null ? r : d;
-                      (yield s.remove([e, t]),
-                        u != null && c == null && r != null
-                          ? yield l.createOrReplace(
-                              babelHelpers.extends({}, u, {
-                                directoryIsComplete: !1,
-                                memberCount: r,
-                              }),
-                            )
-                          : u != null &&
-                            p != null &&
-                            (yield l.createOrReplace(
-                              m
-                                ? babelHelpers.extends({}, u, {
-                                    directoryIsComplete: !1,
-                                    memberCount: p,
-                                  })
-                                : babelHelpers.extends({}, u, {
-                                    memberCount: p,
-                                  }),
-                            )),
-                        (a = r != null && r === d));
-                    },
-                  );
-                  return function (e) {
-                    return o.apply(this, arguments);
-                  };
-                })(),
-              );
-          return (yield i, a);
-        })),
-        W.apply(this, arguments)
-      );
+    async function x(e, t) {
+      await e.bulkDeleteRange(["orgId", "lid"], [t, c], [t, d]);
     }
-    function q(e, t) {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield e.bulkDeleteRange(["orgId", "lid"], [t, d], [t, m]);
-        })),
-        U.apply(this, arguments)
-      );
-    }
-    function V(e) {
+    function $(e) {
       var t = {
         orgId: e.orgId,
         lid: e.lid,
@@ -610,13 +401,13 @@ __d(
         t
       );
     }
-    function H(e, t) {
+    function P(e, t) {
       var n = { orgId: e.orgId, name: e.name };
-      (G(n, e), z(n, e, t));
-      var r = X(e, t);
+      (N(n, e), M(n, e, t));
+      var r = O(e, t);
       return (r != null && (n.directoryIsComplete = r), n);
     }
-    function G(e, t) {
+    function N(e, t) {
       (t.description != null && (e.description = t.description),
         t.isMemberDirectoryEnabled != null &&
           (e.isMemberDirectoryEnabled = t.isMemberDirectoryEnabled),
@@ -627,34 +418,34 @@ __d(
         t.iconFullUrl != null && (e.iconFullUrl = t.iconFullUrl),
         t.viewerRole != null && (e.viewerRole = t.viewerRole));
     }
-    function z(e, t, n) {
-      var r = Q(t.orgUpdatedTsUsec, n == null ? void 0 : n.orgUpdatedTsUsec);
+    function M(e, t, n) {
+      var r = F(t.orgUpdatedTsUsec, n == null ? void 0 : n.orgUpdatedTsUsec);
       r != null && (e.orgUpdatedTsUsec = r);
-      var o = Q(
+      var o = F(
         t.memberUpdatedTsUsec,
         n == null ? void 0 : n.memberUpdatedTsUsec,
       );
       o != null && (e.memberUpdatedTsUsec = o);
-      var a = Q(t.memberListTsUsec, n == null ? void 0 : n.memberListTsUsec);
+      var a = F(t.memberListTsUsec, n == null ? void 0 : n.memberListTsUsec);
       a != null && (e.memberListTsUsec = a);
-      var i = Q(j(t.managedGroups), n == null ? void 0 : n.managedGroups);
+      var i = F(w(t.managedGroups), n == null ? void 0 : n.managedGroups);
       i != null && (e.managedGroups = i);
-      var l = Q(t.managedChannels, n == null ? void 0 : n.managedChannels);
+      var l = F(t.managedChannels, n == null ? void 0 : n.managedChannels);
       l != null && (e.managedChannels = l);
     }
-    function j(e) {
-      return e == null ? e : e.map(K);
+    function w(e) {
+      return e == null ? e : e.map(A);
     }
-    function K(e) {
+    function A(e) {
       var t = o("WAJids").validateGroupJid(e);
       if (t == null)
         throw r("err")("Org managedGroups entry is not a group jid");
       return t;
     }
-    function Q(e, t) {
+    function F(e, t) {
       return e === void 0 ? t : e;
     }
-    function X(e, t) {
+    function O(e, t) {
       if (
         e.directoryIsComplete != null ||
         (t == null ? void 0 : t.directoryIsComplete) == null
@@ -666,24 +457,24 @@ __d(
           e.isMemberDirectoryEnabled !== t.isMemberDirectoryEnabled;
       return n || r ? !1 : t.directoryIsComplete;
     }
-    ((l.ORG_TABLE = u),
-      (l.ORG_CONTACT_TABLE = c),
-      (l.getOrgs = p),
-      (l.putOrgs = _),
-      (l.replaceOrgs = g),
-      (l.removeOrg = y),
-      (l.clearOrgDirectories = b),
-      (l.getOrgContacts = S),
-      (l.getOrgContactsByLids = R),
-      (l.replaceCompleteOrgRoster = L),
-      (l.replaceOrgMembershipsForLids = k),
-      (l.mergeOrgContacts = T),
-      (l.markOrgDirectoryFresh = x),
-      (l.readRowsByLids = M),
-      (l.mergeOrgContactRow = w),
-      (l.updateOrgMemberRole = F),
-      (l.removeOrgMember = B),
-      (l.removeOrgRoster = q));
+    ((l.ORG_TABLE = s),
+      (l.ORG_CONTACT_TABLE = u),
+      (l.getOrgs = m),
+      (l.putOrgs = p),
+      (l.replaceOrgs = _),
+      (l.removeOrg = f),
+      (l.clearOrgDirectories = g),
+      (l.getOrgContacts = h),
+      (l.getOrgContactsByLids = y),
+      (l.replaceCompleteOrgRoster = C),
+      (l.replaceOrgMembershipsForLids = b),
+      (l.mergeOrgContacts = v),
+      (l.markOrgDirectoryFresh = S),
+      (l.readRowsByLids = E),
+      (l.mergeOrgContactRow = k),
+      (l.updateOrgMemberRole = T),
+      (l.removeOrgMember = D),
+      (l.removeOrgRoster = x));
   },
   98,
 );

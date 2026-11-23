@@ -1,88 +1,77 @@
 __d(
   "WAWebInitChatThreadLogging",
   [
-    "Promise",
     "WALogger",
     "WAWebChatThreadLogging",
     "WAWebChatThreadLoggingEventStore",
     "WAWebChatThreadLoggingLocalstorageMetadataHandler",
     "WAWebUserPrefsMultiDevice",
-    "asyncToGeneratorRuntime",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = r("requireDeferred")("WAWebChatThreadLoggingEventUploader").__setRef(
+      s = r("requireDeferred")("WAWebChatThreadLoggingEventUploader").__setRef(
         "WAWebInitChatThreadLogging",
       );
-    function c(e) {
-      return d.apply(this, arguments);
+    async function u(t) {
+      t === void 0 && (t = !0);
+      var n = t;
+      (await o(
+        "WAWebUserPrefsMultiDevice",
+      ).getChatThreadLoggingLastUploadedStartTs()) == null &&
+        (await o(
+          "WAWebUserPrefsMultiDevice",
+        ).setChatThreadLoggingLastUploadedStartTs(0));
+      var r = new (o(
+          "WAWebChatThreadLoggingLocalstorageMetadataHandler",
+        ).ChatThreadLoggingMetadataLocalStorage)(),
+        a = n
+          ? new (o(
+              "WAWebChatThreadLoggingEventStore",
+            ).ChatThreadLoggingEventStoreImpl)(r)
+          : {
+              handleMessages: function () {
+                return Promise.resolve();
+              },
+              getEvent: function () {
+                return Promise.resolve();
+              },
+              getBeforeInclusive: function () {
+                return Promise.resolve([]);
+              },
+              deleteBeforeInclusive: function () {
+                return Promise.resolve(0);
+              },
+            },
+        i = n
+          ? c(r, a)
+          : {
+              uploadEvents: function () {
+                return Promise.resolve(0);
+              },
+            },
+        l = await r.getOffset();
+      (l != null && o("WAWebChatThreadLogging").initUploadTimer(l),
+        o("WAWebChatThreadLogging").setChatThreadLoggingState({
+          metadataStore: r,
+          eventStore: a,
+          eventUploader: i,
+        }),
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "chat thread logging initialized",
+            ])),
+        ));
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          t === void 0 && (t = !0);
-          var r = t;
-          (yield o(
-            "WAWebUserPrefsMultiDevice",
-          ).getChatThreadLoggingLastUploadedStartTs()) == null &&
-            (yield o(
-              "WAWebUserPrefsMultiDevice",
-            ).setChatThreadLoggingLastUploadedStartTs(0));
-          var a = new (o(
-              "WAWebChatThreadLoggingLocalstorageMetadataHandler",
-            ).ChatThreadLoggingMetadataLocalStorage)(),
-            i = r
-              ? new (o(
-                  "WAWebChatThreadLoggingEventStore",
-                ).ChatThreadLoggingEventStoreImpl)(a)
-              : {
-                  handleMessages: function () {
-                    return (s || (s = n("Promise"))).resolve();
-                  },
-                  getEvent: function () {
-                    return (s || (s = n("Promise"))).resolve();
-                  },
-                  getBeforeInclusive: function () {
-                    return (s || (s = n("Promise"))).resolve([]);
-                  },
-                  deleteBeforeInclusive: function () {
-                    return (s || (s = n("Promise"))).resolve(0);
-                  },
-                },
-            l = r
-              ? m(a, i)
-              : {
-                  uploadEvents: function () {
-                    return (s || (s = n("Promise"))).resolve(0);
-                  },
-                },
-            u = yield a.getOffset();
-          (u != null && o("WAWebChatThreadLogging").initUploadTimer(u),
-            o("WAWebChatThreadLogging").setChatThreadLoggingState({
-              metadataStore: a,
-              eventStore: i,
-              eventUploader: l,
-            }),
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "chat thread logging initialized",
-                ])),
-            ));
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e, t) {
+    function c(e, t) {
       var n = null;
       return {
         uploadEvents: function (o) {
           var r = o == null ? void 0 : babelHelpers.extends({}, o);
           return (
             n != null ||
-              (n = u
+              (n = s
                 .load()
                 .then(function (n) {
                   var r = n.ChatThreadLoggingEventUploaderImpl;
@@ -98,7 +87,7 @@ __d(
         },
       };
     }
-    l.initChatThreadLogging = c;
+    l.initChatThreadLogging = u;
   },
   98,
 );

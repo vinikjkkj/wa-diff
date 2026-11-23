@@ -1,22 +1,16 @@
 __d(
   "WAWebGroupMembershipFormPlainAnswersEncoder",
-  ["WAWebGroupMembershipFormProto", "asyncToGeneratorRuntime"],
+  ["WAWebGroupMembershipFormProto"],
   function (t, n, r, o, a, i, l) {
     var e = {
-      encode: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return {
-            encryptedPayload: o(
-              "WAWebGroupMembershipFormProto",
-            ).encodeGroupMembershipFormSubmission(e),
-            reportingToken: null,
-          };
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
+      encode: async function (t) {
+        return {
+          encryptedPayload: o(
+            "WAWebGroupMembershipFormProto",
+          ).encodeGroupMembershipFormSubmission(t),
+          reportingToken: null,
+        };
+      },
     };
     l.plainGroupMembershipFormAnswersEncoder = e;
   },

@@ -4,24 +4,22 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "Privacy screen");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(
-        /*BTDS*/ "Blur messages and media on screen. Hover to reveal content.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Turn on");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Blur level for general items");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(/*BTDS*/ "Blur level for media");
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(/*BTDS*/ "Strong");
+      return s._(/*BTDS*/ "");
     }
     ((l.privacyScreenModeTitle = e),
       (l.privacyScreenModeDescription = u),

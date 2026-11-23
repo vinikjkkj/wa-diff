@@ -1,7 +1,6 @@
 __d(
   "WAWebLidContactSync",
   [
-    "Promise",
     "WAJids",
     "WALogger",
     "WATimeUtils",
@@ -21,7 +20,6 @@ __d(
     "WAWebUsernameGatingUtils",
     "WAWebUsernameTypes",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -32,9 +30,8 @@ __d(
       d,
       m,
       p,
-      _,
-      f = (function (t) {
-        function a() {
+      _ = (function (t) {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -45,262 +42,243 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.getVersion = function () {
+          (a.getVersion = function () {
             return 1;
           }),
-          (i.getAction = function () {
+          (a.getAction = function () {
             return o("WAWebSyncdConst").Actions.LidContact;
           }),
-          (i.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, a, i) {
-                var l = this;
-                i === void 0 && (i = !1);
-                var f = o(
-                    "WAWebUsernameGatingUtils",
-                  ).usernameDisplayedEnabled(),
-                  g = [],
-                  h = [],
-                  y = [],
-                  C = 0,
-                  b = 0,
-                  v = 0,
-                  S = 0,
-                  R = yield (_ || (_ = n("Promise"))).all(
-                    t.map(function (e) {
-                      try {
-                        var t = e.indexParts,
-                          n = t[1];
-                        if (r("isStringNullOrEmpty")(n))
-                          return l.malformedActionIndex();
-                        var a = o("WAWebWidFactory").createUserWidOrThrow(n);
-                        if (!a.isLid()) return (C++, l.malformedActionIndex());
-                        if (e.operation === "set") {
-                          var i,
-                            s = e.value.lidContactAction;
-                          if (!s)
-                            return (
-                              b++,
-                              o("WAWebSyncdIndexUtils").malformedActionValue(
-                                l.collectionName,
-                              )
-                            );
-                          var u = s.birthday,
-                            c = s.firstName,
-                            d = s.fullName,
-                            m = s.username,
-                            p = o("WAWebUsernameTypes").asMaybeUsername(m),
-                            _ = babelHelpers.extends(
-                              {
-                                id: n,
-                                name: d != null ? d : "",
-                                shortName:
-                                  (i =
-                                    c != null
-                                      ? c
-                                      : o("WAWebContactShortName").getShortName(
-                                          c,
-                                        )) != null
-                                    ? i
-                                    : "",
-                                username: p != null ? p : void 0,
-                                type: "in",
-                                isAddressBookContact: 1,
-                                isContactSyncCompleted: 0,
-                                isUsernameContact: p != null,
-                              },
-                              o(
-                                "WAWebContactBirthday",
-                              ).getContactSyncBirthdayFields(u),
-                            );
-                          return (
-                            f &&
-                              p != null &&
-                              y.push({ userId: a, username: p }),
-                            g.push(_),
-                            o("WAWebSyncNewContact").syncNewContact(a),
-                            v++,
-                            {
-                              actionState:
-                                o("WAWebSyncdConst").SyncActionState.Success,
-                            }
-                          );
-                        }
-                        return e.operation === "remove"
-                          ? (h.push(a),
-                            {
-                              actionState:
-                                o("WAWebSyncdConst").SyncActionState.Success,
-                            })
-                          : (S++,
-                            {
-                              actionState:
-                                o("WAWebSyncdConst").SyncActionState
-                                  .Unsupported,
-                            });
-                      } catch (e) {
-                        return {
+          (a.applyMutations = async function (n, a, i) {
+            var t = this;
+            i === void 0 && (i = !1);
+            var l = o("WAWebUsernameGatingUtils").usernameDisplayedEnabled(),
+              _ = [],
+              f = [],
+              g = [],
+              h = 0,
+              y = 0,
+              C = 0,
+              b = 0,
+              v = await Promise.all(
+                n.map(function (e) {
+                  try {
+                    var n = e.indexParts,
+                      a = n[1];
+                    if (r("isStringNullOrEmpty")(a))
+                      return t.malformedActionIndex();
+                    var i = o("WAWebWidFactory").createUserWidOrThrow(a);
+                    if (!i.isLid()) return (h++, t.malformedActionIndex());
+                    if (e.operation === "set") {
+                      var s,
+                        u = e.value.lidContactAction;
+                      if (!u)
+                        return (
+                          y++,
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            t.collectionName,
+                          )
+                        );
+                      var c = u.birthday,
+                        d = u.firstName,
+                        m = u.fullName,
+                        p = u.username,
+                        v = o("WAWebUsernameTypes").asMaybeUsername(p),
+                        S = babelHelpers.extends(
+                          {
+                            id: a,
+                            name: m != null ? m : "",
+                            shortName:
+                              (s =
+                                d != null
+                                  ? d
+                                  : o("WAWebContactShortName").getShortName(
+                                      d,
+                                    )) != null
+                                ? s
+                                : "",
+                            username: v != null ? v : void 0,
+                            type: "in",
+                            isAddressBookContact: 1,
+                            isContactSyncCompleted: 0,
+                            isUsernameContact: v != null,
+                          },
+                          o(
+                            "WAWebContactBirthday",
+                          ).getContactSyncBirthdayFields(c),
+                        );
+                      return (
+                        l && v != null && g.push({ userId: i, username: v }),
+                        _.push(S),
+                        o("WAWebSyncNewContact").syncNewContact(i),
+                        C++,
+                        {
                           actionState:
-                            o("WAWebSyncdConst").SyncActionState.Failed,
-                        };
-                      }
-                    }),
-                  );
-                (C > 0 &&
+                            o("WAWebSyncdConst").SyncActionState.Success,
+                        }
+                      );
+                    }
+                    return e.operation === "remove"
+                      ? (f.push(i),
+                        {
+                          actionState:
+                            o("WAWebSyncdConst").SyncActionState.Success,
+                        })
+                      : (b++,
+                        {
+                          actionState:
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
+                        });
+                  } catch (e) {
+                    return {
+                      actionState: o("WAWebSyncdConst").SyncActionState.Failed,
+                    };
+                  }
+                }),
+              );
+            (h > 0 &&
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[syncd] lid contact sync received ",
+                      " non-lid jids",
+                    ])),
+                  h,
+                )
+                .sendLogs("lid-contact-sync-received-non-lid-jid", {
+                  sampling: 0.1,
+                }),
+              y > 0 &&
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[syncd] lid contact sync: ",
+                        " mutations w/o action value",
+                      ])),
+                    y,
+                  )
+                  .sendLogs(
+                    "lid-contact-sync-mutation-has-no-syncd-action-value",
+                    { sampling: 0.1 },
+                  ),
+              C > 0 &&
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[syncd] lid contact sync - ",
+                      " set operations processed",
+                    ])),
+                  C,
+                ),
+              b > 0 &&
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "contact sync: ",
+                      " operations not supported",
+                    ])),
+                  b,
+                ),
+              o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[syncd] lid sync mutations processed",
+                  ])),
+              ),
+              await o("WAWebApiContact").createOrMergeAddressBookContacts(_),
+              o("WAWebSyncdOrphan")
+                .checkOrphanUserStatusMutes(
+                  _.map(function (e) {
+                    return e.id;
+                  }),
+                )
+                .catch(function () {
                   o("WALogger")
                     .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd] lid contact sync received ",
-                          " non-lid jids",
+                      m ||
+                        (m = babelHelpers.taggedTemplateLiteralLoose([
+                          "[syncd][contact sync] failed to check orphan status mutes",
                         ])),
-                      C,
                     )
-                    .sendLogs("lid-contact-sync-received-non-lid-jid", {
+                    .sendLogs("failed-to-check-orphan-user-status-mutes", {
                       sampling: 0.1,
-                    }),
-                  b > 0 &&
+                    });
+                }));
+            var S = [],
+              R = await r("WAWebLidAwareContactsDB").bulkGet(
+                f.map(function (e) {
+                  return e.toJid();
+                }),
+              );
+            if (
+              (R.forEach(function (e, t) {
+                e && e.isUsernameContact === !0 && S.push(f[t]);
+              }),
+              S.length > 0)
+            ) {
+              var L = S.map(function (e) {
+                return o("WAJids").toLidUserJid(e.user);
+              });
+              (await o("WAWebApiContact").setNotAddressBookContacts(L),
+                o("WAWebBackendApi")
+                  .frontendSendAndReceive("clearStatusForRemovedContact", {})
+                  .catch(function () {
                     o("WALogger")
                       .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "[syncd] lid contact sync: ",
-                            " mutations w/o action value",
+                        p ||
+                          (p = babelHelpers.taggedTemplateLiteralLoose([
+                            "[syncd] lid contact sync: clear removed contacts status -",
                           ])),
-                        b,
                       )
                       .sendLogs(
-                        "lid-contact-sync-mutation-has-no-syncd-action-value",
-                        { sampling: 0.1 },
-                      ),
-                  v > 0 &&
-                    o("WALogger").WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[syncd] lid contact sync - ",
-                          " set operations processed",
-                        ])),
-                      v,
-                    ),
-                  S > 0 &&
-                    o("WALogger").WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "contact sync: ",
-                          " operations not supported",
-                        ])),
-                      S,
-                    ),
-                  o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[syncd] lid sync mutations processed",
-                      ])),
-                  ),
-                  yield o("WAWebApiContact").createOrMergeAddressBookContacts(
-                    g,
-                  ),
-                  o("WAWebSyncdOrphan")
-                    .checkOrphanUserStatusMutes(
-                      g.map(function (e) {
-                        return e.id;
-                      }),
-                    )
-                    .catch(function () {
-                      o("WALogger")
-                        .ERROR(
-                          m ||
-                            (m = babelHelpers.taggedTemplateLiteralLoose([
-                              "[syncd][contact sync] failed to check orphan status mutes",
-                            ])),
-                        )
-                        .sendLogs("failed-to-check-orphan-user-status-mutes", {
-                          sampling: 0.1,
-                        });
-                    }));
-                var L = [],
-                  E = yield r("WAWebLidAwareContactsDB").bulkGet(
-                    h.map(function (e) {
-                      return e.toJid();
-                    }),
-                  );
-                if (
-                  (E.forEach(function (e, t) {
-                    e && e.isUsernameContact === !0 && L.push(h[t]);
-                  }),
-                  L.length > 0)
-                ) {
-                  var k = L.map(function (e) {
-                    return o("WAJids").toLidUserJid(e.user);
-                  });
-                  (yield o("WAWebApiContact").setNotAddressBookContacts(k),
-                    o("WAWebBackendApi")
-                      .frontendSendAndReceive(
-                        "clearStatusForRemovedContact",
-                        {},
-                      )
-                      .catch(function () {
-                        o("WALogger")
-                          .ERROR(
-                            p ||
-                              (p = babelHelpers.taggedTemplateLiteralLoose([
-                                "[syncd] lid contact sync: clear removed contacts status -",
-                              ])),
-                          )
-                          .sendLogs(
-                            "failed-to-clear-status-for-removed-lid-contacts",
-                          );
-                      }));
-                }
-                f &&
-                  y.length > 0 &&
-                  (yield o("WAWebSetUsernameJob").setUsernamesJob(y));
-                var I = g.map(function (e) {
-                  return babelHelpers.extends(
-                    {
-                      id: e.id,
-                      name: e.name,
-                      shortName: e.shortName,
-                      type: "in",
-                      syncToAddressbook: e.syncToAddressbook === !0,
-                      isAddressBookContact: 1,
-                      isContactSyncCompleted: 0,
-                      username: o("WAWebUsernameTypes").serializeMaybeUsername(
-                        e.username,
-                      ),
-                      isUsernameContact: !0,
-                    },
-                    o("WAWebContactBirthday").pickContactBirthdayFields(e),
-                  );
-                });
-                return (
-                  I.length > 0 &&
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "bulkAddContactToCollection",
-                      { contacts: I },
-                    ),
-                  L.length > 0 &&
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "setContactsNotMyUsernameContacts",
-                      {
-                        usernameContactIdsToRemove: L.map(function (e) {
-                          return e.toString();
-                        }),
-                      },
-                    ),
-                  R
-                );
-              },
-            );
-            function a(e, n, r) {
-              return t.apply(this, arguments);
+                        "failed-to-clear-status-for-removed-lid-contacts",
+                      );
+                  }));
             }
-            return a;
-          })()),
-          (i.getLidContactSyncMutation = function (t) {
+            l &&
+              g.length > 0 &&
+              (await o("WAWebSetUsernameJob").setUsernamesJob(g));
+            var E = _.map(function (e) {
+              return babelHelpers.extends(
+                {
+                  id: e.id,
+                  name: e.name,
+                  shortName: e.shortName,
+                  type: "in",
+                  syncToAddressbook: e.syncToAddressbook === !0,
+                  isAddressBookContact: 1,
+                  isContactSyncCompleted: 0,
+                  username: o("WAWebUsernameTypes").serializeMaybeUsername(
+                    e.username,
+                  ),
+                  isUsernameContact: !0,
+                },
+                o("WAWebContactBirthday").pickContactBirthdayFields(e),
+              );
+            });
+            return (
+              E.length > 0 &&
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "bulkAddContactToCollection",
+                  { contacts: E },
+                ),
+              S.length > 0 &&
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "setContactsNotMyUsernameContacts",
+                  {
+                    usernameContactIdsToRemove: S.map(function (e) {
+                      return e.toString();
+                    }),
+                  },
+                ),
+              v
+            );
+          }),
+          (a.getLidContactSyncMutation = function (t) {
             var e = t.contactId,
               n = t.firstName,
               r = t.fullName,
@@ -324,11 +302,11 @@ __d(
               action: this.getAction(),
             });
           }),
-          a
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
-      g = new f();
-    l.default = g;
+      f = new _();
+    l.default = f;
   },
   98,
 );

@@ -3,6 +3,8 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     var e = Object.freeze({
+      AD_EXTENSIONS: "ad_extensions",
+      COLLECTION: "collection",
       DETAILS_TO_AD_LAYOUT: "details_to_ad_layout",
       REVEAL_DETAILS: "reveal_details",
       SHOW_SPOTLIGHTS: "show_spotlights",

@@ -29,10 +29,10 @@ __d(
         color: "orange",
         text: "required",
         getDescription: function () {
-          return s._(/*BTDS*/ "Remind only you, while WhatsApp Web is open");
+          return s._(/*BTDS*/ "");
         },
         getTextPrompt: function () {
-          return s._(/*BTDS*/ "Type what to remind you about");
+          return s._(/*BTDS*/ "");
         },
         getRunLabel: o("WAWebSlashCommandScheduling").getPickTimeLabel,
         isAvailable: function () {
@@ -159,11 +159,11 @@ __d(
       return e === "scheduled" || e === "disabled"
         ? null
         : e === "empty_text"
-          ? s._(/*BTDS*/ "Add what you want to be reminded about")
+          ? s._(/*BTDS*/ "")
           : e === "invalid_time"
-            ? s._(/*BTDS*/ "Pick a different time for your reminder")
+            ? s._(/*BTDS*/ "")
             : e === "unavailable" || e === "failed"
-              ? s._(/*BTDS*/ "Couldn't set reminder")
+              ? s._(/*BTDS*/ "")
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

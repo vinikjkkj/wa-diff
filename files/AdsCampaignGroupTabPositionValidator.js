@@ -81,9 +81,7 @@ __d(
                   new (r("AdsError"))(
                     2490144,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "To use Facebook Groups Feed, please also select the Facebook News Feed placement.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       level: r("AdsError").Level.WARN,

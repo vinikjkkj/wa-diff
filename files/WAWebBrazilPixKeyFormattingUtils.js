@@ -40,15 +40,15 @@ __d(
             : o("WAWebUserPrefsTypes").PixKeyType.PHONE;
       switch (n) {
         case o("WAWebUserPrefsTypes").PixKeyType.CPF:
-          return s._(/*BTDS*/ "CPF");
+          return s._(/*BTDS*/ "");
         case o("WAWebUserPrefsTypes").PixKeyType.CNPJ:
-          return s._(/*BTDS*/ "CNPJ");
+          return s._(/*BTDS*/ "");
         case o("WAWebUserPrefsTypes").PixKeyType.PHONE:
-          return s._(/*BTDS*/ "Phone");
+          return s._(/*BTDS*/ "");
         case o("WAWebUserPrefsTypes").PixKeyType.EMAIL:
-          return s._(/*BTDS*/ "Email");
+          return s._(/*BTDS*/ "");
         case o("WAWebUserPrefsTypes").PixKeyType.EVP:
-          return s._(/*BTDS*/ "EVP");
+          return s._(/*BTDS*/ "");
       }
     }
     function h(t) {

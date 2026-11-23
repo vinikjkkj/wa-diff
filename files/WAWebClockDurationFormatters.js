@@ -20,33 +20,25 @@ __d(
       n -= a * t.HOUR_SECONDS;
       var i = Math.floor(n / t.MINUTE_SECONDS),
         l = Math.floor(n % t.MINUTE_SECONDS),
-        u = s._(/*BTDS*/ '_j{"*":"{days} days","_1":"1 day"}', [
-          s._plural(r, "days"),
-        ]),
-        c = s._(/*BTDS*/ '_j{"*":"{hours} hours","_1":"1 hour"}', [
-          s._plural(a, "hours"),
-        ]),
-        d = s._(/*BTDS*/ '_j{"*":"{minutes} minutes","_1":"1 minute"}', [
-          s._plural(i, "minutes"),
-        ]),
-        m = s._(/*BTDS*/ '_j{"*":"{seconds} seconds","_1":"1 second"}', [
-          s._plural(l, "seconds"),
-        ]);
+        u = s._(/*BTDS*/ "", [s._plural(r, "days")]),
+        c = s._(/*BTDS*/ "", [s._plural(a, "hours")]),
+        d = s._(/*BTDS*/ "", [s._plural(i, "minutes")]),
+        m = s._(/*BTDS*/ "", [s._plural(l, "seconds")]);
       return r > 0
-        ? s._(/*BTDS*/ "{x days} {x hours} {x minutes} {x seconds}", [
+        ? s._(/*BTDS*/ "", [
             s._param("x days", u),
             s._param("x hours", c),
             s._param("x minutes", d),
             s._param("x seconds", m),
           ])
         : a > 0
-          ? s._(/*BTDS*/ "{x hours} {x minutes} {x seconds}", [
+          ? s._(/*BTDS*/ "", [
               s._param("x hours", c),
               s._param("x minutes", d),
               s._param("x seconds", m),
             ])
           : i > 0
-            ? s._(/*BTDS*/ "{x minutes} {x seconds}", [
+            ? s._(/*BTDS*/ "", [
                 s._param("x minutes", d),
                 s._param("x seconds", m),
               ])
@@ -63,44 +55,22 @@ __d(
         l = r * 24 + a,
         u = Math.floor(e / t.MINUTE_SECONDS);
       return r >= 1
-        ? s._(/*BTDS*/ '_j{"*":"{days} days","_1":"1 day"}', [
-            s._plural(r, "days"),
-          ])
+        ? s._(/*BTDS*/ "", [s._plural(r, "days")])
         : l >= 1
-          ? s._(/*BTDS*/ '_j{"*":"{hours} hours","_1":"1 hour"}', [
-              s._plural(l, "hours"),
-            ])
+          ? s._(/*BTDS*/ "", [s._plural(l, "hours")])
           : u >= 1
-            ? s._(/*BTDS*/ '_j{"*":"{minutes} minutes","_1":"1 minute"}', [
-                s._plural(u, "minutes"),
-              ])
-            : s._(/*BTDS*/ '_j{"*":"{seconds} seconds","_1":"1 second"}', [
-                s._plural(i, "seconds"),
-              ]);
+            ? s._(/*BTDS*/ "", [s._plural(u, "minutes")])
+            : s._(/*BTDS*/ "", [s._plural(i, "seconds")]);
     }
     function d(e) {
       var t = Math.floor(e / 86400);
-      if (t > 0)
-        return s._(/*BTDS*/ '_j{"*":"{days}d"}', [
-          s._plural(t),
-          s._param("days", t),
-        ]);
+      if (t > 0) return s._(/*BTDS*/ "", [s._plural(t), s._param("days", t)]);
       var n = Math.floor(e / 3600);
-      if (n > 0)
-        return s._(/*BTDS*/ '_j{"*":"{hours}h"}', [
-          s._plural(n),
-          s._param("hours", n),
-        ]);
+      if (n > 0) return s._(/*BTDS*/ "", [s._plural(n), s._param("hours", n)]);
       var r = Math.floor(e / 60);
       return r > 0
-        ? s._(/*BTDS*/ '_j{"*":"{minutes}m"}', [
-            s._plural(r),
-            s._param("minutes", r),
-          ])
-        : s._(/*BTDS*/ '_j{"*":"{seconds}s"}', [
-            s._plural(e),
-            s._param("seconds", e),
-          ]);
+        ? s._(/*BTDS*/ "", [s._plural(r), s._param("minutes", r)])
+        : s._(/*BTDS*/ "", [s._plural(e), s._param("seconds", e)]);
     }
     function m(e) {
       var t = Math.floor(e / 3600),
@@ -108,14 +78,12 @@ __d(
         r = e % 60;
       if (t > 24 || (t === 24 && (n > 0 || r > 0))) {
         var o = Math.ceil(e / 86400);
-        return s._(/*BTDS*/ '_j{"*":"{days} days","_1":"1 day"}', [
-          s._plural(o, "days"),
-        ]);
+        return s._(/*BTDS*/ "", [s._plural(o, "days")]);
       }
       var a = t.toString().padStart(2, "0"),
         i = n.toString().padStart(2, "0"),
         l = r.toString().padStart(2, "0");
-      return s._(/*BTDS*/ "{x hours}:{x minutes}:{x seconds}", [
+      return s._(/*BTDS*/ "", [
         s._param("x hours", a),
         s._param("x minutes", i),
         s._param("x seconds", l),
@@ -125,9 +93,7 @@ __d(
       var t = Math.max(0, Math.floor(e));
       if (t > o("WATimeUtils").DAY_SECONDS) {
         var n = Math.ceil(t / o("WATimeUtils").DAY_SECONDS);
-        return s._(/*BTDS*/ '_j{"*":"{days} days","_1":"1 day"}', [
-          s._plural(n, "days"),
-        ]);
+        return s._(/*BTDS*/ "", [s._plural(n, "days")]);
       }
       var r = Math.floor(t / o("WATimeUtils").HOUR_SECONDS),
         a = Math.floor(
@@ -138,13 +104,13 @@ __d(
         u = i.toString().padStart(2, "0");
       if (r > 0) {
         var c = r.toString().padStart(2, "0");
-        return s._(/*BTDS*/ "{x hours}:{x minutes}:{x seconds}", [
+        return s._(/*BTDS*/ "", [
           s._param("x hours", c),
           s._param("x minutes", l),
           s._param("x seconds", u),
         ]);
       }
-      return s._(/*BTDS*/ "{x minutes}:{x seconds}", [
+      return s._(/*BTDS*/ "", [
         s._param("x minutes", l),
         s._param("x seconds", u),
       ]);
@@ -152,55 +118,43 @@ __d(
     function _(e) {
       var t = Math.floor(e / 86400);
       if (t > 0) {
-        var n = s._(/*BTDS*/ '_j{"*":"{days} days","_1":"{days} day"}', [
-          s._plural(t),
-          s._param("days", t),
-        ]);
-        return s._(/*BTDS*/ "Try again in {time}.", [s._param("time", n)]);
+        var n = s._(/*BTDS*/ "", [s._plural(t), s._param("days", t)]);
+        return s._(/*BTDS*/ "", [s._param("time", n)]);
       }
       var r = Math.floor(e / 3600);
       if (r > 0) {
-        var o = s._(/*BTDS*/ '_j{"*":"{hours} hours","_1":"{hours} hour"}', [
-          s._plural(r),
-          s._param("hours", r),
-        ]);
-        return s._(/*BTDS*/ "Try again in {time}.", [s._param("time", o)]);
+        var o = s._(/*BTDS*/ "", [s._plural(r), s._param("hours", r)]);
+        return s._(/*BTDS*/ "", [s._param("time", o)]);
       }
       var a = Math.floor(e / 60);
       if (a > 0) {
-        var i = s._(
-          /*BTDS*/ '_j{"*":"{minutes} minutes","_1":"{minutes} minute"}',
-          [s._plural(a), s._param("minutes", a)],
-        );
-        return s._(/*BTDS*/ "Try again in {time}.", [s._param("time", i)]);
+        var i = s._(/*BTDS*/ "", [s._plural(a), s._param("minutes", a)]);
+        return s._(/*BTDS*/ "", [s._param("time", i)]);
       }
-      var l = s._(
-        /*BTDS*/ '_j{"*":"{seconds} seconds","_1":"{seconds} second"}',
-        [s._plural(e), s._param("seconds", e)],
-      );
-      return s._(/*BTDS*/ "Try again in {time}.", [s._param("time", l)]);
+      var l = s._(/*BTDS*/ "", [s._plural(e), s._param("seconds", e)]);
+      return s._(/*BTDS*/ "", [s._param("time", l)]);
     }
     function f(e) {
       if (e < 0) throw r("err")("negative duration");
-      if (e === 0) return s._(/*BTDS*/ "Now");
+      if (e === 0) return s._(/*BTDS*/ "");
       var t = r("WAWeb-moment")().subtract(e, "seconds").year(),
         n = r("WAWeb-moment")().year();
       if (n !== t) {
         var o = r("WAWeb-moment")()
           .subtract(e, "seconds")
           .format("MMM DD, YYYY");
-        return s._(/*BTDS*/ "{formattedDate}", [s._param("formattedDate", o)]);
+        return s._(/*BTDS*/ "", [s._param("formattedDate", o)]);
       }
       var a = Math.floor(e / 86400);
       if (a > 7) {
         var i = r("WAWeb-moment")().subtract(e, "seconds").format("MMM DD");
-        return s._(/*BTDS*/ "{formattedDate}", [s._param("formattedDate", i)]);
+        return s._(/*BTDS*/ "", [s._param("formattedDate", i)]);
       }
-      return e < 60 ? s._(/*BTDS*/ "Just now") : d(e);
+      return e < 60 ? s._(/*BTDS*/ "") : d(e);
     }
     function g(e) {
       var t = d(e);
-      return s._(/*BTDS*/ "{time} left", [s._param("time", t)]);
+      return s._(/*BTDS*/ "", [s._param("time", t)]);
     }
     function h(e, t) {
       var n = e,

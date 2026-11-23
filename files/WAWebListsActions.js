@@ -2,7 +2,6 @@ __d(
   "WAWebListsActions",
   [
     "fbt",
-    "Promise",
     "WALogger",
     "WASmaxInBizSettingsEnums",
     "WATimeUtils",
@@ -40,7 +39,6 @@ __d(
     "WAWebWamEnumUpdateEntryPoint",
     "WAWebWamLabelEventReporter",
     "WAWebWamSmbListEventReporter",
-    "asyncToGeneratorRuntime",
     "nullthrows",
     "react",
   ],
@@ -61,9 +59,8 @@ __d(
       v,
       S,
       R,
-      L,
-      E = L || (L = o("react"));
-    function k(e, t, n) {
+      L = R || (R = o("react"));
+    function E(e, t, n) {
       if (
         e.length !== 0 &&
         !(
@@ -88,7 +85,7 @@ __d(
           ));
       }
     }
-    function I(t, n) {
+    function k(t, n) {
       var r = n.customListTitle,
         a = n.entryPoint,
         i = n.listId,
@@ -151,473 +148,397 @@ __d(
         };
       for (var c of t) u(c);
     }
-    function T(e) {
-      return D.apply(this, arguments);
-    }
-    function D() {
+    async function I(e) {
+      var t = e.chats,
+        n = e.color,
+        r = e.entryPoint,
+        a = e.name,
+        i;
+      try {
+        i = await o("WAWebBizLabelEditingAction").labelAddAction(a, n);
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[Lists] createNewList: failed to add new empty list",
+              ])),
+          )
+          .tags("lists")
+          .sendLogs("create-new-list-failed");
+        return;
+      }
+      if (t.length > 0) {
+        var l = { id: String(i), type: "add" };
+        try {
+          o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels([l], t, {
+            listUpdateMode: o("WAWebLabelCollection").ListUpdateMode.CREATE,
+          });
+        } catch (e) {
+          o("WALogger")
+            .ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Lists] createNewList: failed to assign label to chats",
+                ])),
+            )
+            .tags("lists")
+            .sendLogs("create-new-list-failed");
+          return;
+        }
+      }
       return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chats,
-            n = e.color,
-            r = e.entryPoint,
-            a = e.name,
-            i;
-          try {
-            i = yield o("WAWebBizLabelEditingAction").labelAddAction(a, n);
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Lists] createNewList: failed to add new empty list",
-                  ])),
-              )
-              .tags("lists")
-              .sendLogs("create-new-list-failed");
-            return;
-          }
-          if (t.length > 0) {
-            var l = { id: String(i), type: "add" };
-            try {
-              o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
-                [l],
-                t,
-                {
-                  listUpdateMode: o("WAWebLabelCollection").ListUpdateMode
-                    .CREATE,
-                },
-              );
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Lists] createNewList: failed to assign label to chats",
-                    ])),
-                )
-                .tags("lists")
-                .sendLogs("create-new-list-failed");
-              return;
-            }
-          }
+        i != null &&
+          (o("WAWebListsLogging").logListUpdate({
+            listId: i,
+            listAction: o("WAWebWamEnumListAction").LIST_ACTION.CREATE,
+            entryPoint: r,
+            chatsBeforeUpdate: [],
+            addedChats: t,
+            removedChats: [],
+          }),
+          o("WAWebWamSmbListEventReporter").logSmbListEvent({
+            labelOperation: o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS
+              .ADD,
+            updateEntryPoint: r,
+            listId: i,
+            customListTitle: a,
+          }),
+          o("WAWebWamSmbListEventReporter").logSmbListEvent({
+            labelOperation: o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS
+              .VIEW,
+            updateEntryPoint: r,
+            listId: i,
+            smbListSurface: o("WAWebWamEnumSmbListSurfaceType")
+              .SMB_LIST_SURFACE_TYPE.NEW_LIST,
+            smbListFeatureName: o("WAWebWamEnumSmbListFeatureNameType")
+              .SMB_LIST_FEATURE_NAME_TYPE.LISTS_CREATION,
+            extraAttributes: JSON.stringify({ new_list_is_visible: !0 }),
+          }),
+          o("WAWebWamLabelEventReporter").logLabelOperationEvent(
+            o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS.ADD,
+            void 0,
+            o("WAWebWamEnumLabelTargets").LABEL_TARGETS.LABEL,
+          ),
+          k(t, {
+            entryPoint: r,
+            listId: i,
+            customListTitle: a,
+            listsApplied: String(i),
+          }),
+          E(t, i)),
+        o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "[Lists] created list id=",
+              " color=",
+              " chats=",
+              "",
+            ])),
+          i,
+          n,
+          t.length,
+        ),
+        i
+      );
+    }
+    async function T(e) {
+      var t = e.entryPoint,
+        n = e.labelModel,
+        r = e.newColor,
+        a = e.newName,
+        i = e.updatedAssociatedChats,
+        l = n.name !== a,
+        s = n.colorIndex !== r;
+      try {
+        (l || s) &&
+          (await o("WAWebBizLabelEditingAction").labelEditAction(
+            n.id,
+            a,
+            o("WAWebLabelConstants").mapLabelNameToPredefinedId(a),
+            r,
+            n.isActive,
+            n.type,
+          ));
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "[Lists] editListAction: failed to edit list properties",
+              ])),
+          )
+          .tags("lists")
+          .sendLogs("edit-list-failed");
+        return;
+      }
+      var u = o("WAWebListsUtil").getAllChatsInList(n),
+        c = o("WAWebListsUtil").getTwoArraysDifference(u, i),
+        d = c.addedItems,
+        f = c.removedItems,
+        g = l || s,
+        h = d.length > 0,
+        y = f.length > 0;
+      try {
+        if (h) {
+          var C = { id: String(n.id), type: "add" };
+          o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels([C], d, {
+            suppressSuccessToast: g || y,
+          });
+        }
+        if (y) {
+          var b = { id: String(n.id), type: "remove" };
+          o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels([b], f, {
+            suppressSuccessToast: g,
+          });
+        }
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "[Lists] editListAction: failed to edit list chats",
+              ])),
+          )
+          .tags("lists")
+          .sendLogs("edit-list-failed");
+        return;
+      }
+      if (
+        (l &&
+          (o("WAWebListsLogging").logListUpdate({
+            listId: Number(n.id),
+            listAction: o("WAWebWamEnumListAction").LIST_ACTION.RENAME,
+            entryPoint: t,
+          }),
+          o("WAWebWamSmbListEventReporter").logSmbListEvent({
+            labelOperation: o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS
+              .RENAME,
+            updateEntryPoint: t,
+            listId: Number(n.id),
+            customListTitle: a,
+          })),
+        s &&
+          o("WAWebWamSmbListEventReporter").logSmbListEvent({
+            labelOperation: o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS
+              .UPDATED_COLOR,
+            updateEntryPoint: t,
+            listId: Number(n.id),
+          }),
+        d.length !== 0 || f.length !== 0)
+      ) {
+        o("WAWebListsLogging").logListUpdate({
+          listId: Number(n.id),
+          listAction: o("WAWebWamEnumListAction").LIST_ACTION.UPDATE_MEMBERS,
+          entryPoint: t,
+          chatsBeforeUpdate: u,
+          addedChats: d,
+          removedChats: f,
+        });
+        var v = Number(n.id),
+          S = String(v);
+        (k(d, {
+          entryPoint: t,
+          listId: v,
+          customListTitle: n.name,
+          listsApplied: S,
+        }),
+          k(f, {
+            entryPoint: t,
+            listId: v,
+            customListTitle: n.name,
+            listsRemoved: S,
+          }),
+          E(d, v));
+      }
+      ((l || s) &&
+        o("WAWebWamLabelEventReporter").logLabelOperationEvent(
+          o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS.EDIT,
+          void 0,
+          o("WAWebWamEnumLabelTargets").LABEL_TARGETS.EDIT_LABEL_DIALOG,
+        ),
+        o("WALogger").LOG(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "[Lists] saved list id=",
+              " color=",
+              " chats=",
+              "",
+            ])),
+          n.id,
+          r,
+          i.length,
+        ));
+    }
+    async function D(e, t, n) {
+      try {
+        var r,
+          a = o("WAWebLabelCollection").LabelCollection.get(e);
+        if (a == null)
           return (
-            i != null &&
-              (o("WAWebListsLogging").logListUpdate({
-                listId: i,
-                listAction: o("WAWebWamEnumListAction").LIST_ACTION.CREATE,
-                entryPoint: r,
-                chatsBeforeUpdate: [],
-                addedChats: t,
-                removedChats: [],
-              }),
-              o("WAWebWamSmbListEventReporter").logSmbListEvent({
-                labelOperation: o("WAWebWamEnumLabelOperations")
-                  .LABEL_OPERATIONS.ADD,
-                updateEntryPoint: r,
-                listId: i,
-                customListTitle: a,
-              }),
-              o("WAWebWamSmbListEventReporter").logSmbListEvent({
-                labelOperation: o("WAWebWamEnumLabelOperations")
-                  .LABEL_OPERATIONS.VIEW,
-                updateEntryPoint: r,
-                listId: i,
-                smbListSurface: o("WAWebWamEnumSmbListSurfaceType")
-                  .SMB_LIST_SURFACE_TYPE.NEW_LIST,
-                smbListFeatureName: o("WAWebWamEnumSmbListFeatureNameType")
-                  .SMB_LIST_FEATURE_NAME_TYPE.LISTS_CREATION,
-                extraAttributes: JSON.stringify({ new_list_is_visible: !0 }),
-              }),
-              o("WAWebWamLabelEventReporter").logLabelOperationEvent(
-                o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS.ADD,
-                void 0,
-                o("WAWebWamEnumLabelTargets").LABEL_TARGETS.LABEL,
-              ),
-              I(t, {
-                entryPoint: r,
-                listId: i,
-                customListTitle: a,
-                listsApplied: String(i),
-              }),
-              k(t, i)),
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Lists] created list id=",
-                  " color=",
-                  " chats=",
+            o("WALogger").WARN(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Lists] deleteListAction: label not found id=",
                   "",
                 ])),
-              i,
-              n,
-              t.length,
+              e,
             ),
-            i
+            Promise.resolve()
           );
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.entryPoint,
-            n = e.labelModel,
-            r = e.newColor,
-            a = e.newName,
-            i = e.updatedAssociatedChats,
-            l = n.name !== a,
-            s = n.colorIndex !== r;
-          try {
-            (l || s) &&
-              (yield o("WAWebBizLabelEditingAction").labelEditAction(
-                n.id,
-                a,
-                o("WAWebLabelConstants").mapLabelNameToPredefinedId(a),
-                r,
-                n.isActive,
-                n.type,
-              ));
-          } catch (e) {
+        if (o("WAWebListUtils").hasFixedIdentity(a))
+          return (
             o("WALogger")
               .ERROR(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Lists] editListAction: failed to edit list properties",
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "[Lists] deleteListAction: refusing to delete app-owned list id=",
+                    " type=",
+                    "",
                   ])),
+                e,
+                String(a.type),
               )
               .tags("lists")
-              .sendLogs("edit-list-failed");
-            return;
-          }
-          var u = o("WAWebListsUtil").getAllChatsInList(n),
-            c = o("WAWebListsUtil").getTwoArraysDifference(u, i),
-            d = c.addedItems,
-            f = c.removedItems,
-            g = l || s,
-            h = d.length > 0,
-            y = f.length > 0;
-          try {
-            if (h) {
-              var C = { id: String(n.id), type: "add" };
-              o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
-                [C],
-                d,
-                { suppressSuccessToast: g || y },
-              );
-            }
-            if (y) {
-              var b = { id: String(n.id), type: "remove" };
-              o("WAWebLabelCollection").LabelCollection.addOrRemoveLabels(
-                [b],
-                f,
-                { suppressSuccessToast: g },
-              );
-            }
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Lists] editListAction: failed to edit list chats",
-                  ])),
-              )
-              .tags("lists")
-              .sendLogs("edit-list-failed");
-            return;
-          }
-          if (
-            (l &&
-              (o("WAWebListsLogging").logListUpdate({
-                listId: Number(n.id),
-                listAction: o("WAWebWamEnumListAction").LIST_ACTION.RENAME,
-                entryPoint: t,
-              }),
-              o("WAWebWamSmbListEventReporter").logSmbListEvent({
-                labelOperation: o("WAWebWamEnumLabelOperations")
-                  .LABEL_OPERATIONS.RENAME,
-                updateEntryPoint: t,
-                listId: Number(n.id),
-                customListTitle: a,
-              })),
-            s &&
-              o("WAWebWamSmbListEventReporter").logSmbListEvent({
-                labelOperation: o("WAWebWamEnumLabelOperations")
-                  .LABEL_OPERATIONS.UPDATED_COLOR,
-                updateEntryPoint: t,
-                listId: Number(n.id),
-              }),
-            d.length !== 0 || f.length !== 0)
-          ) {
-            o("WAWebListsLogging").logListUpdate({
-              listId: Number(n.id),
-              listAction: o("WAWebWamEnumListAction").LIST_ACTION
-                .UPDATE_MEMBERS,
-              entryPoint: t,
-              chatsBeforeUpdate: u,
-              addedChats: d,
-              removedChats: f,
-            });
-            var v = Number(n.id),
-              S = String(v);
-            (I(d, {
-              entryPoint: t,
-              listId: v,
-              customListTitle: n.name,
-              listsApplied: S,
-            }),
-              I(f, {
-                entryPoint: t,
-                listId: v,
-                customListTitle: n.name,
-                listsRemoved: S,
-              }),
-              k(d, v));
-          }
-          ((l || s) &&
-            o("WAWebWamLabelEventReporter").logLabelOperationEvent(
-              o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS.EDIT,
-              void 0,
-              o("WAWebWamEnumLabelTargets").LABEL_TARGETS.EDIT_LABEL_DIALOG,
-            ),
-            o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Lists] saved list id=",
-                  " color=",
-                  " chats=",
-                  "",
-                ])),
-              n.id,
-              r,
-              i.length,
+              .sendLogs("delete-app-owned-list-blocked"),
+            Promise.resolve()
+          );
+        (await o("WAWebBizLabelEditingAction").labelDeleteAction({
+          color: a.colorIndex,
+          labelId: a.id,
+          name: a.name,
+        }),
+          o("WAWebListsLogging").logListUpdate({
+            listId: Number(e),
+            listAction: o("WAWebWamEnumListAction").LIST_ACTION.DELETE,
+            entryPoint: n,
+          }),
+          o("WAWebWamSmbListEventReporter").logSmbListEvent({
+            labelOperation: o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS
+              .DELETE,
+            updateEntryPoint: n,
+            listId: Number(e),
+            customListTitle: a.name,
+            predefinedId: (r = a.predefinedId) != null ? r : void 0,
+          }),
+          o("WAWebToastManager").ToastManager.open(
+            L.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+          ),
+          o("WALogger").LOG(
+            h ||
+              (h = babelHelpers.taggedTemplateLiteralLoose([
+                '[Lists] Successfully deleted list: id: "',
+                '"',
+              ])),
+            e,
+          ));
+      } catch (t) {
+        (o("WALogger")
+          .ERROR(
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
+                '[Lists] deleteListAction: Failed deleting list with id:"',
+                '"',
+              ])),
+            e,
+          )
+          .tags("lists")
+          .sendLogs("delete-list-failed"),
+          o("WAWebToastManager").ToastManager.open(
+            L.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+          ));
+      } finally {
+        t();
+      }
+    }
+    async function x(e) {
+      await r("nullthrows")(
+        await o("WAWebListUtils").loadMetaAiList(),
+      ).updateMetaAiListActive(e);
+    }
+    async function $(e) {
+      try {
+        if (o("WAWebListUtils").isDeviceLocalList(e)) {
+          (await x(!0),
+            o("WAWebToastManager").ToastManager.open(
+              L.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
             ));
-        })),
-        $.apply(this, arguments)
-      );
+          return;
+        }
+        var t = o("WAWebLabelCollection").LabelCollection.getNextOrderIndex();
+        (await o("WAWebBizLabelEditingAction").labelEditAction(
+          e.id,
+          e.name,
+          e.predefinedId,
+          e.colorIndex,
+          !0,
+          e.type,
+        ),
+          (e.orderIndex = t),
+          o("WAWebToastManager").ToastManager.open(
+            L.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+          ));
+      } catch (e) {
+        (o("WALogger")
+          .ERROR(
+            C ||
+              (C = babelHelpers.taggedTemplateLiteralLoose([
+                "[Lists] activatePresetList: failed to activate preset list",
+              ])),
+          )
+          .tags("lists")
+          .sendLogs("activate-preset-list-failed"),
+          o("WAWebToastManager").ToastManager.open(
+            L.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+          ));
+      }
     }
-    function P(e, t, n) {
-      return N.apply(this, arguments);
+    async function P(e) {
+      if (!o("WAWebListUtils").isDisableablePresetList(e.type)) {
+        o("WALogger").ERROR(
+          b ||
+            (b = babelHelpers.taggedTemplateLiteralLoose([
+              "[Lists] deactivatePresetList: not a disableable preset list",
+            ])),
+        );
+        return;
+      }
+      try {
+        var t;
+        if (o("WAWebListUtils").isDeviceLocalList(e)) {
+          (await x(!1),
+            o("WAWebToastManager").ToastManager.open(
+              L.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+            ));
+          return;
+        }
+        (await o("WAWebBizLabelEditingAction").labelEditAction(
+          e.id,
+          (t = e.name) != null ? t : "",
+          e.predefinedId,
+          e.colorIndex,
+          !1,
+          e.type,
+        ),
+          o("WAWebToastManager").ToastManager.open(
+            L.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+          ));
+      } catch (e) {
+        (o("WALogger")
+          .ERROR(
+            v ||
+              (v = babelHelpers.taggedTemplateLiteralLoose([
+                "[Lists] deactivatePresetList: deactivate failed",
+              ])),
+          )
+          .tags("lists")
+          .sendLogs("deactivate-preset-list-failed"),
+          o("WAWebToastManager").ToastManager.open(
+            L.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+          ));
+      }
     }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          try {
-            var a,
-              i = o("WAWebLabelCollection").LabelCollection.get(e);
-            if (i == null)
-              return (
-                o("WALogger").WARN(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Lists] deleteListAction: label not found id=",
-                      "",
-                    ])),
-                  e,
-                ),
-                (R || (R = n("Promise"))).resolve()
-              );
-            if (o("WAWebListUtils").hasFixedIdentity(i))
-              return (
-                o("WALogger")
-                  .ERROR(
-                    g ||
-                      (g = babelHelpers.taggedTemplateLiteralLoose([
-                        "[Lists] deleteListAction: refusing to delete app-owned list id=",
-                        " type=",
-                        "",
-                      ])),
-                    e,
-                    String(i.type),
-                  )
-                  .tags("lists")
-                  .sendLogs("delete-app-owned-list-blocked"),
-                (R || (R = n("Promise"))).resolve()
-              );
-            (yield o("WAWebBizLabelEditingAction").labelDeleteAction({
-              color: i.colorIndex,
-              labelId: i.id,
-              name: i.name,
-            }),
-              o("WAWebListsLogging").logListUpdate({
-                listId: Number(e),
-                listAction: o("WAWebWamEnumListAction").LIST_ACTION.DELETE,
-                entryPoint: r,
-              }),
-              o("WAWebWamSmbListEventReporter").logSmbListEvent({
-                labelOperation: o("WAWebWamEnumLabelOperations")
-                  .LABEL_OPERATIONS.DELETE,
-                updateEntryPoint: r,
-                listId: Number(e),
-                customListTitle: i.name,
-                predefinedId: (a = i.predefinedId) != null ? a : void 0,
-              }),
-              o("WAWebToastManager").ToastManager.open(
-                E.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "List deleted"),
-                }),
-              ),
-              o("WALogger").LOG(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    '[Lists] Successfully deleted list: id: "',
-                    '"',
-                  ])),
-                e,
-              ));
-          } catch (t) {
-            (o("WALogger")
-              .ERROR(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    '[Lists] deleteListAction: Failed deleting list with id:"',
-                    '"',
-                  ])),
-                e,
-              )
-              .tags("lists")
-              .sendLogs("delete-list-failed"),
-              o("WAWebToastManager").ToastManager.open(
-                E.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Couldn't delete list"),
-                }),
-              ));
-          } finally {
-            t();
-          }
-        })),
-        N.apply(this, arguments)
-      );
-    }
-    function M(e) {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield r("nullthrows")(
-            yield o("WAWebListUtils").loadMetaAiList(),
-          ).updateMetaAiListActive(e);
-        })),
-        w.apply(this, arguments)
-      );
-    }
-    function A(e) {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            if (o("WAWebListUtils").isDeviceLocalList(e)) {
-              (yield M(!0),
-                o("WAWebToastManager").ToastManager.open(
-                  E.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "List enabled"),
-                  }),
-                ));
-              return;
-            }
-            var t = o(
-              "WAWebLabelCollection",
-            ).LabelCollection.getNextOrderIndex();
-            (yield o("WAWebBizLabelEditingAction").labelEditAction(
-              e.id,
-              e.name,
-              e.predefinedId,
-              e.colorIndex,
-              !0,
-              e.type,
-            ),
-              (e.orderIndex = t),
-              o("WAWebToastManager").ToastManager.open(
-                E.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "List enabled"),
-                }),
-              ));
-          } catch (e) {
-            (o("WALogger")
-              .ERROR(
-                C ||
-                  (C = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Lists] activatePresetList: failed to activate preset list",
-                  ])),
-              )
-              .tags("lists")
-              .sendLogs("activate-preset-list-failed"),
-              o("WAWebToastManager").ToastManager.open(
-                E.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Couldn't enable list"),
-                }),
-              ));
-          }
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    function O(e) {
-      return B.apply(this, arguments);
-    }
-    function B() {
-      return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!o("WAWebListUtils").isDisableablePresetList(e.type)) {
-            o("WALogger").ERROR(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "[Lists] deactivatePresetList: not a disableable preset list",
-                ])),
-            );
-            return;
-          }
-          try {
-            var t;
-            if (o("WAWebListUtils").isDeviceLocalList(e)) {
-              (yield M(!1),
-                o("WAWebToastManager").ToastManager.open(
-                  E.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "List disabled"),
-                  }),
-                ));
-              return;
-            }
-            (yield o("WAWebBizLabelEditingAction").labelEditAction(
-              e.id,
-              (t = e.name) != null ? t : "",
-              e.predefinedId,
-              e.colorIndex,
-              !1,
-              e.type,
-            ),
-              o("WAWebToastManager").ToastManager.open(
-                E.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "List disabled"),
-                }),
-              ));
-          } catch (e) {
-            (o("WALogger")
-              .ERROR(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Lists] deactivatePresetList: deactivate failed",
-                  ])),
-              )
-              .tags("lists")
-              .sendLogs("deactivate-preset-list-failed"),
-              o("WAWebToastManager").ToastManager.open(
-                E.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Couldn't disable list"),
-                }),
-              ));
-          }
-        })),
-        B.apply(this, arguments)
-      );
-    }
-    function W(e) {
+    function N(e) {
       (e.forEach(function (e) {
         var t = e.id,
           n = e.orderIndex,
@@ -626,112 +547,98 @@ __d(
       }),
         o("WAWebLabelCollection").LabelCollection.trigger("reorder"));
     }
-    function q(e) {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebListsGatingUtils").isLabelReorderEnabled()) {
-            var t = e.filter(function (e) {
-              return String(e) !== o("WAWebListUtils").META_AI_LIST_ID;
+    async function M(e) {
+      if (o("WAWebListsGatingUtils").isLabelReorderEnabled()) {
+        var t = e.filter(function (e) {
+          return String(e) !== o("WAWebListUtils").META_AI_LIST_ID;
+        });
+        if (t.length !== 0) {
+          var n = []
+            .concat(t, [Number(o("WAWebListUtils").META_AI_LIST_ID)])
+            .map(function (e) {
+              var t,
+                n = o("WAWebLabelCollection").LabelCollection.get(String(e));
+              return {
+                id: String(e),
+                orderIndex:
+                  (t = n == null ? void 0 : n.orderIndex) != null ? t : 0,
+              };
             });
-            if (t.length !== 0) {
-              var n = []
-                .concat(t, [Number(o("WAWebListUtils").META_AI_LIST_ID)])
-                .map(function (e) {
-                  var t,
-                    n = o("WAWebLabelCollection").LabelCollection.get(
-                      String(e),
-                    );
-                  return {
-                    id: String(e),
-                    orderIndex:
-                      (t = n == null ? void 0 : n.orderIndex) != null ? t : 0,
-                  };
-                });
-              (o("WAWebBIzLabelReorderAction").reorderLabelsAction(e),
-                o("WAWebWamSmbListEventReporter").logSmbListEvent({
-                  labelOperation: o("WAWebWamEnumLabelOperations")
-                    .LABEL_OPERATIONS.REORDER,
-                  updateEntryPoint: o("WAWebWamEnumUpdateEntryPoint")
-                    .UPDATE_ENTRY_POINT.LIST_SETTINGS,
-                  currentListState: t.join("+"),
-                }));
-              try {
-                var a = o("WAWebSyncdActionUtils").buildPendingMutation({
-                    collection: o("WAWebSyncdConst").CollectionName.Regular,
-                    indexArgs: [],
-                    value: { labelReorderingAction: { sortedLabelIds: t } },
-                    version: r("WAWebLabelReorderingSync").getVersion(),
-                    operation: o("WAWebProtobufsServerSync.pb")
-                      .SyncdMutation$SyncdOperation.SET,
-                    timestamp: o("WATimeUtils").unixTimeMs(),
-                    action: r("WAWebLabelReorderingSync").getAction(),
+          (o("WAWebBIzLabelReorderAction").reorderLabelsAction(e),
+            o("WAWebWamSmbListEventReporter").logSmbListEvent({
+              labelOperation: o("WAWebWamEnumLabelOperations").LABEL_OPERATIONS
+                .REORDER,
+              updateEntryPoint: o("WAWebWamEnumUpdateEntryPoint")
+                .UPDATE_ENTRY_POINT.LIST_SETTINGS,
+              currentListState: t.join("+"),
+            }));
+          try {
+            var a = o("WAWebSyncdActionUtils").buildPendingMutation({
+                collection: o("WAWebSyncdConst").CollectionName.Regular,
+                indexArgs: [],
+                value: { labelReorderingAction: { sortedLabelIds: t } },
+                version: r("WAWebLabelReorderingSync").getVersion(),
+                operation: o("WAWebProtobufsServerSync.pb")
+                  .SyncdMutation$SyncdOperation.SET,
+                timestamp: o("WATimeUtils").unixTimeMs(),
+                action: r("WAWebLabelReorderingSync").getAction(),
+              }),
+              i = await o(
+                "WAWebDBLabelsReorder",
+              ).loadMetaAiListOrderForReorder();
+            await o("WAWebSyncdCoreApi").lockForSync(
+              ["label"],
+              [a],
+              function () {
+                return o("WAWebDBLabelsReorder").writeLabelsSortOrder(t, i);
+              },
+            );
+            var l = e.indexOf(Number(o("WAWebListUtils").META_AI_LIST_ID));
+            if (l !== -1) {
+              var s = await (i == null
+                ? void 0
+                : i.placeMetaAiListAfter(e.slice(0, l).reverse().map(String)));
+              (s == null ? void 0 : s.orderIndex) == null &&
+                N(
+                  n.filter(function (e) {
+                    var t = e.id;
+                    return t === o("WAWebListUtils").META_AI_LIST_ID;
                   }),
-                  i = yield o(
-                    "WAWebDBLabelsReorder",
-                  ).loadMetaAiListOrderForReorder();
-                yield o("WAWebSyncdCoreApi").lockForSync(
-                  ["label"],
-                  [a],
-                  function () {
-                    return o("WAWebDBLabelsReorder").writeLabelsSortOrder(t, i);
-                  },
                 );
-                var l = e.indexOf(Number(o("WAWebListUtils").META_AI_LIST_ID));
-                if (l !== -1) {
-                  var s = yield i == null
-                    ? void 0
-                    : i.placeMetaAiListAfter(
-                        e.slice(0, l).reverse().map(String),
-                      );
-                  (s == null ? void 0 : s.orderIndex) == null &&
-                    W(
-                      n.filter(function (e) {
-                        var t = e.id;
-                        return t === o("WAWebListUtils").META_AI_LIST_ID;
-                      }),
-                    );
-                  var u =
-                    s == null
-                      ? o("WAWebListUtils").isMetaAiListEnabled()
-                      : !s.moved;
-                  u && V();
-                }
-              } catch (e) {
-                (W(n),
-                  V(),
-                  o("WALogger")
-                    .ERROR(
-                      S ||
-                        (S = babelHelpers.taggedTemplateLiteralLoose([
-                          "[Lists] persistLabelReorder: failed to persist order",
-                        ])),
-                    )
-                    .sendLogs("lists-reorder-persist-failed"));
-              }
+              var u =
+                s == null
+                  ? o("WAWebListUtils").isMetaAiListEnabled()
+                  : !s.moved;
+              u && w();
             }
+          } catch (e) {
+            (N(n),
+              w(),
+              o("WALogger")
+                .ERROR(
+                  S ||
+                    (S = babelHelpers.taggedTemplateLiteralLoose([
+                      "[Lists] persistLabelReorder: failed to persist order",
+                    ])),
+                )
+                .sendLogs("lists-reorder-persist-failed"));
           }
-        })),
-        U.apply(this, arguments)
-      );
+        }
+      }
     }
-    function V() {
+    function w() {
       o("WAWebToastManager").ToastManager.open(
-        E.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Could not reorder lists"),
-        }),
+        L.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
-    ((l.logCtwaSignalsForChats = k),
-      (l.logUpdateMembersPerChat = I),
-      (l.createNewListAction = T),
-      (l.editListAction = x),
-      (l.deleteListAction = P),
-      (l.activatePresetList = A),
-      (l.deactivatePresetList = O),
-      (l.persistLabelReorder = q));
+    ((l.logCtwaSignalsForChats = E),
+      (l.logUpdateMembersPerChat = k),
+      (l.createNewListAction = I),
+      (l.editListAction = T),
+      (l.deleteListAction = D),
+      (l.activatePresetList = $),
+      (l.deactivatePresetList = P),
+      (l.persistLabelReorder = M));
   },
   226,
 );

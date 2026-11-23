@@ -1,6 +1,6 @@
 __d(
   "WAWebHatchAttestationBytes",
-  ["asyncToGeneratorRuntime", "err"],
+  ["err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -41,16 +41,8 @@ __d(
     function m(e) {
       return new Uint8Array(e).buffer;
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return new Uint8Array(yield crypto.subtle.digest("SHA-256", m(e)));
-        })),
-        _.apply(this, arguments)
-      );
+    async function p(e) {
+      return new Uint8Array(await crypto.subtle.digest("SHA-256", m(e)));
     }
     ((l.bytesEqual = e),
       (l.bytesToHex = s),

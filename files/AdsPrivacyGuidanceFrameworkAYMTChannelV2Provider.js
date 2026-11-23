@@ -6,6 +6,13 @@ __d(
     a.exports = n("Laminar").__createProvider(
       n("AdsPrivacyGuidanceFrameworkAYMTChannelV2ProviderPlugin"),
       "AdsPrivacyGuidanceFrameworkAYMTChannelV2ProviderPlugin",
+      void 0,
+      void 0,
+      function (e) {
+        return function (n, r) {
+          e(n, r);
+        };
+      },
     );
   },
   null,

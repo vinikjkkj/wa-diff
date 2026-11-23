@@ -21,22 +21,22 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c() {
-      return s._(/*BTDS*/ "Amount spent");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Conversations");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(/*BTDS*/ "Cost per conversation");
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(/*BTDS*/ "Reach");
+      return s._(/*BTDS*/ "");
     }
     function _() {
-      return s._(/*BTDS*/ "Status");
+      return s._(/*BTDS*/ "");
     }
     function f() {
-      return s._(/*BTDS*/ "Your ads");
+      return s._(/*BTDS*/ "");
     }
     var g = "\u2014";
     function h() {
@@ -79,7 +79,7 @@ __d(
                 colorName: "contentDeemphasized",
                 maxLines: 1,
                 type: "Body1",
-                children: s._(/*BTDS*/ "Draft"),
+                children: s._(/*BTDS*/ ""),
               })
             : u.jsx(r("WAWebBizAdManagementStatusCell.react"), {
                 boostingStatus: e.boostingStatus,

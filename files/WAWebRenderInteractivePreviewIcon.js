@@ -10,7 +10,6 @@ __d(
     "WDSIconIcShoppingBagFill.react",
     "WDSIconWdsIcUnsupportedMessage.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -25,90 +24,57 @@ __d(
         marginTop2: { marginTop: "xfl633f", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.msg,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [
-            o("WAWebMsgGetters").getInteractiveType,
-            o("WAWebMsgGetters").getNativeFlowName,
-          ]),
-          (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebMsgValues").useMsgValues(n.id, a),
-        l = i[0],
-        c = i[1];
-      if (l === r("WAWebInteractiveMessageType").SHOPS_STOREFRONT) {
-        var d;
-        return (
-          t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((d = s.jsx(r("WDSIconIcShoppingBagFill.react"), {
+      var t = e.msg,
+        n = o("useWAWebMsgValues").useMsgValues(t.id, [
+          o("WAWebMsgGetters").getInteractiveType,
+          o("WAWebMsgGetters").getNativeFlowName,
+        ]),
+        a = n[0],
+        i = n[1];
+      return a === r("WAWebInteractiveMessageType").SHOPS_STOREFRONT
+        ? s.jsx(r("WDSIconIcShoppingBagFill.react"), {
+            xstyle: [u.container, u.marginTop2],
+            width: 14,
+            height: 14,
+          })
+        : a === r("WAWebInteractiveMessageType").NATIVE_FLOW
+          ? i === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
+            ? s.jsx(r("WDSIconIcReceipt.react"), {
                 xstyle: [u.container, u.marginTop2],
-                width: 14,
-                height: 14,
-              })),
-              (t[1] = d))
-            : (d = t[1]),
-          d
-        );
-      }
-      if (l === r("WAWebInteractiveMessageType").NATIVE_FLOW) {
-        var m;
-        return (
-          t[2] !== c
-            ? ((m =
-                c === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
-                  ? s.jsx(r("WDSIconIcReceipt.react"), {
-                      xstyle: [u.container, u.marginTop2],
-                      width: 13,
-                      height: 13,
-                      testid: "order_details_preview_icon",
-                    })
-                  : c ===
-                      r("WAWebInteractiveMessagesNativeFlowName")
-                        .BOOKING_CONFIRMATION
-                    ? o(
-                        "WAWebBookingConfirmationGating",
-                      ).isBookingConfirmationEnabled()
-                      ? s.jsx(r("WDSIconIcEventFilled.react"), {
-                          iconXstyle: [u.container, u.marginTop2],
-                          width: 14,
-                          height: 14,
-                          testid: "booking-confirmation-preview-icon",
-                        })
-                      : s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
-                          width: 20,
-                          height: 20,
-                          testid: "message-fail",
-                        })
-                    : c ===
-                        r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
-                      ? null
-                      : s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
-                          width: 20,
-                          height: 20,
-                          testid: "message-fail",
-                        })),
-              (t[2] = c),
-              (t[3] = m))
-            : (m = t[3]),
-          m
-        );
-      }
-      var p;
-      return (
-        t[4] === Symbol.for("react.memo_cache_sentinel")
-          ? ((p = s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+                width: 13,
+                height: 13,
+                testid: "order_details_preview_icon",
+              })
+            : i ===
+                r("WAWebInteractiveMessagesNativeFlowName").BOOKING_CONFIRMATION
+              ? o(
+                  "WAWebBookingConfirmationGating",
+                ).isBookingConfirmationEnabled()
+                ? s.jsx(r("WDSIconIcEventFilled.react"), {
+                    iconXstyle: [u.container, u.marginTop2],
+                    width: 14,
+                    height: 14,
+                    testid: "booking-confirmation-preview-icon",
+                  })
+                : s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+                    width: 20,
+                    height: 20,
+                    testid: "message-fail",
+                  })
+              : i === r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_INFO
+                ? null
+                : s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+                    width: 20,
+                    height: 20,
+                    testid: "message-fail",
+                  })
+          : s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
               width: 20,
               height: 20,
               testid: "message-fail",
-            })),
-            (t[4] = p))
-          : (p = t[4]),
-        p
-      );
+            });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

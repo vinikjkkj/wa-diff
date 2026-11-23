@@ -1,6 +1,8 @@
 __d(
   "CTWAAdsOptimizationStoreUtils",
   [
+    "AdCampaignDestination",
+    "AdsAPIObjectives",
     "AdsAPIOptimizationGoals",
     "AdsInterfacesLogger",
     "AdsPageStore",
@@ -8,34 +10,10 @@ __d(
     "ClickToWhatsAppAdsLoggerUtils",
     "gkx",
     "qex",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      var t,
-        n =
-          e != null
-            ? (t = r("AdsPageStore").getLoadObject(e)) == null
-              ? void 0
-              : t.getValue()
-            : null;
-      r("vulture")("Hx_7ASq6BmdOJf7U1wN8TESOm9w=");
-      var o =
-        n == null
-          ? void 0
-          : n.is_ctwa_purchase_optimization_dfo_everywhere_zero_outcome_eligible;
-      if (o !== !0) return (r("vulture")("Hx_7ASq6BmdOJf7U1wN8TESOm9w="), !1);
-      var a = r("gkx")("17920"),
-        i =
-          (n == null
-            ? void 0
-            : n.is_ctwa_purchase_conversions_optimization_goal_eligible) === !0;
-      if (i && !a) return !1;
-      var l = r("qex")._("860");
-      return (r("vulture")("Hx_7ASq6BmdOJf7U1wN8TESOm9w="), l === !0);
-    }
-    function s(e, t) {
+    function e(e, t) {
       var n,
         o,
         a =
@@ -44,8 +22,8 @@ __d(
               ? void 0
               : n.getValue()
             : null;
-      if (
-        (r("AdsInterfacesLogger").logOnce({
+      return (
+        r("AdsInterfacesLogger").logOnce({
           eventName: "ctwa_purchase_optimization_goal_eligibility_check",
           data: {
             page_id: e != null ? e : "",
@@ -60,49 +38,141 @@ __d(
                 : !1,
           },
         }),
-        r("gkx")("4930"))
-      )
-        return (
-          r("AdsInterfacesLogger").logOnce({
-            eventName: "ctwa_purchase_optimization_goal_eligibility_check",
-            data: {
-              page_id: e != null ? e : "",
-              sub_event: "gk_override_eligible",
-              is_eligible_gk: !0,
-            },
-          }),
-          !0
-        );
+        r("gkx")("4930")
+          ? (r("AdsInterfacesLogger").logOnce({
+              eventName: "ctwa_purchase_optimization_goal_eligibility_check",
+              data: {
+                page_id: e != null ? e : "",
+                sub_event: "gk_override_eligible",
+                is_eligible_gk: !0,
+              },
+            }),
+            !0)
+          : (a == null
+                ? void 0
+                : a.is_ctwa_purchase_conversions_optimization_goal_eligible) ===
+              !0
+            ? s(e, t)
+            : u(e, t)
+              ? (r("AdsInterfacesLogger").logOnce({
+                  eventName:
+                    "ctwa_purchase_optimization_goal_eligibility_check",
+                  data: {
+                    page_id: e != null ? e : "",
+                    sub_event: "group2_do_one_plus_eligible",
+                    is_eligible_gk: !0,
+                  },
+                }),
+                !0)
+              : (r("AdsInterfacesLogger").logOnce({
+                  eventName:
+                    "ctwa_purchase_optimization_goal_eligibility_check",
+                  data: {
+                    page_id: e != null ? e : "",
+                    sub_event: "ineligible",
+                    is_eligible_gk: !1,
+                  },
+                }),
+                !1)
+      );
+    }
+    function s(e, t) {
+      var n,
+        o =
+          e != null
+            ? (n = r("AdsPageStore").getLoadObject(e)) == null
+              ? void 0
+              : n.getValue()
+            : null;
       if (
-        (a == null
+        (o == null
           ? void 0
-          : a.is_ctwa_purchase_conversions_optimization_goal_eligible) !== !0
+          : o.is_ctwa_purchase_conversions_optimization_goal_eligible) !== !0
       )
-        return (
-          r("AdsInterfacesLogger").logOnce({
-            eventName: "ctwa_purchase_optimization_goal_eligibility_check",
-            data: {
-              page_id: e != null ? e : "",
-              sub_event: "ineligible",
-              is_eligible_gk: !1,
-            },
-          }),
-          !1
-        );
-      var i = t ? r("gkx")("10069") : r("gkx")("15248");
+        return !1;
+      var a = t ? r("gkx")("10069") : r("gkx")("15248");
       return (
         r("AdsInterfacesLogger").logOnce({
           eventName: "ctwa_purchase_optimization_goal_eligibility_check",
           data: {
             page_id: e != null ? e : "",
             sub_event: "page_eligible",
-            is_eligible_gk: i,
+            is_eligible_gk: a,
           },
         }),
-        i
+        a
       );
     }
     function u(e, t) {
+      var n,
+        o =
+          e != null
+            ? (n = r("AdsPageStore").getLoadObject(e)) == null
+              ? void 0
+              : n.getValue()
+            : null;
+      return (o == null
+        ? void 0
+        : o.is_ctwa_purchase_optimization_goal_eligible_with_group2_one_plus) ===
+        !0
+        ? t
+          ? r("qex")._("2010") === !0
+          : r("qex")._("2043") === !0
+        : !1;
+    }
+    function c(e, t, n, o) {
+      return (
+        t === r("AdCampaignDestination").WHATSAPP &&
+        n === r("AdsAPIObjectives").OUTCOME_LEADS &&
+        o === r("AdsAPIOptimizationGoals").LEAD_GENERATION &&
+        p(e, !1)
+      );
+    }
+    function d(e) {
+      var t,
+        n =
+          e != null
+            ? (t = r("AdsPageStore").getLoadObject(e)) == null
+              ? void 0
+              : t.getValue()
+            : null;
+      return (
+        (n == null ? void 0 : n.is_ctwa_lead_optimization_goal_eligible) ===
+          !0 ||
+        (n == null
+          ? void 0
+          : n.is_ctwa_lead_optimization_goal_eligible_with_important_labels_flows) ===
+          !0 ||
+        (n == null
+          ? void 0
+          : n.is_ctwa_lead_optimization_eligible_with_one_lead) === !0 ||
+        _(e, !1)
+      );
+    }
+    function m(e, t) {
+      var n,
+        o =
+          e != null
+            ? (n = r("AdsPageStore").getLoadObject(e)) == null
+              ? void 0
+              : n.getValue()
+            : null;
+      return (o == null
+        ? void 0
+        : o.is_ctwa_lead_optimization_goal_eligible) !== !0 &&
+        (o == null
+          ? void 0
+          : o.is_ctwa_lead_optimization_goal_eligible_with_important_labels_flows) !==
+          !0 &&
+        (o == null
+          ? void 0
+          : o.is_ctwa_lead_optimization_eligible_with_one_lead) !== !0
+        ? !1
+        : t
+          ? r("gkx")("19464")
+          : r("gkx")("19465");
+    }
+    function p(e, t) {
       var n,
         o,
         a =
@@ -141,7 +211,7 @@ __d(
           i
         );
       }
-      return c(e, t)
+      return f(e, t)
         ? (r("AdsInterfacesLogger").logOnce({
             eventName: "ctwa_lead_optimization_goal_eligibility_check",
             data: {
@@ -151,7 +221,7 @@ __d(
             },
           }),
           !0)
-        : d(e, t)
+        : g(e, t)
           ? (r("AdsInterfacesLogger").logOnce({
               eventName: "ctwa_lead_optimization_goal_eligibility_check",
               data: {
@@ -161,17 +231,51 @@ __d(
               },
             }),
             !0)
-          : (r("AdsInterfacesLogger").logOnce({
-              eventName: "ctwa_lead_optimization_goal_eligibility_check",
-              data: {
-                page_id: e != null ? e : "",
-                sub_event: "ineligible",
-                is_eligible_gk: !1,
-              },
-            }),
-            !1);
+          : (a == null
+                ? void 0
+                : a.is_ctwa_lead_optimization_goal_eligible_with_important_labels_flows) !==
+                !0 &&
+              (a == null
+                ? void 0
+                : a.is_ctwa_lead_optimization_eligible_with_one_lead) !== !0 &&
+              _(e, t)
+            ? (r("AdsInterfacesLogger").logOnce({
+                eventName: "ctwa_lead_optimization_goal_eligibility_check",
+                data: {
+                  page_id: e != null ? e : "",
+                  sub_event: "group2_one_plus_eligible",
+                  is_eligible_gk: !0,
+                },
+              }),
+              !0)
+            : (r("AdsInterfacesLogger").logOnce({
+                eventName: "ctwa_lead_optimization_goal_eligibility_check",
+                data: {
+                  page_id: e != null ? e : "",
+                  sub_event: "ineligible",
+                  is_eligible_gk: !1,
+                },
+              }),
+              !1);
     }
-    function c(e, t) {
+    function _(e, t) {
+      var n,
+        o =
+          e != null
+            ? (n = r("AdsPageStore").getLoadObject(e)) == null
+              ? void 0
+              : n.getValue()
+            : null;
+      return (o == null
+        ? void 0
+        : o.is_ctwa_lead_optimization_goal_eligible_with_group2_important_labels_flows_one_plus) !==
+        !0
+        ? !1
+        : t
+          ? r("qex")._("6037") === !0
+          : r("qex")._("6038") === !0;
+    }
+    function f(e, t) {
       var n,
         o =
           e != null
@@ -188,7 +292,7 @@ __d(
           : r("gkx")("19465")
         : !1;
     }
-    function d(e, t) {
+    function g(e, t) {
       var n,
         o =
           e != null
@@ -204,7 +308,7 @@ __d(
           : r("gkx")("19465")
         : !1;
     }
-    function m(e, t, n, a, i) {
+    function h(e, t, n, a, i) {
       var l =
         a === r("AdsAPIOptimizationGoals").MESSAGING_PURCHASE_CONVERSION
           ? "ctwa_purchase_optimization_defaulting_client_check"
@@ -216,7 +320,7 @@ __d(
           o(
             "ClickToWhatsAppAdsLoggerUtils",
           ).logClickToWhatsAppAdsUnifiedEventDetails(
-            new (r("ClickToWhatsAppAdsDetails"))({
+            o("ClickToWhatsAppAdsDetails").makeClickToWhatsAppAdsDetails({
               event: l,
               eventInfo: i,
               pageID: e,
@@ -230,7 +334,7 @@ __d(
         i
       );
     }
-    function p(e, t) {
+    function y(e, t) {
       var n, o;
       if (e == null || t == null) return !1;
       var a =
@@ -245,38 +349,40 @@ __d(
               });
       return (i == null ? void 0 : i.whatsapp_smb_device) === "CAPI";
     }
-    function _(e, t, n) {
-      var o = {
+    function C(t, n, o) {
+      var a = {
         isRequired: !1,
         optimizationGoal: null,
         pageWhatsAppNumberID: null,
       };
-      if (r("gkx")("23590") !== !0) return o;
-      var a =
-          n == null ||
-          n === r("AdsAPIOptimizationGoals").MESSAGING_PURCHASE_CONVERSION,
-        i = n == null || n === r("AdsAPIOptimizationGoals").LEAD_GENERATION;
-      return a && s(e, !1) && r("qex")._("899") === !0
+      if (r("gkx")("23590") !== !0) return a;
+      var i =
+          o == null ||
+          o === r("AdsAPIOptimizationGoals").MESSAGING_PURCHASE_CONVERSION,
+        l = o == null || o === r("AdsAPIOptimizationGoals").LEAD_GENERATION;
+      return i && e(t, !1) && r("qex")._("899") === !0
         ? {
             isRequired: !0,
             optimizationGoal: r("AdsAPIOptimizationGoals")
               .MESSAGING_PURCHASE_CONVERSION,
-            pageWhatsAppNumberID: t,
+            pageWhatsAppNumberID: n,
           }
-        : i && u(e, !1) && r("qex")._("4077") === !0
+        : l && p(t, !1) && r("qex")._("4077") === !0
           ? {
               isRequired: !0,
               optimizationGoal: r("AdsAPIOptimizationGoals").LEAD_GENERATION,
-              pageWhatsAppNumberID: t,
+              pageWhatsAppNumberID: n,
             }
-          : o;
+          : a;
     }
-    ((l.getIsCTWAPurchaseOptimizationDFOEverywhereZeroOutcomeEligible = e),
-      (l.getIsCTWAPurchaseConversionsOptimizationGoalEligible = s),
-      (l.getIsCTWALeadOptimizationGoalEligible = u),
-      (l.logCTWADFODefaultingEvent = m),
-      (l.getIsWhatsAppNumberCloudAPI = p),
-      (l.getCTWADataSharingTooltipStatus = _));
+    ((l.getIsCTWAPurchaseConversionsOptimizationGoalEligible = e),
+      (l.getIsCTWALeadExistingPostEligible = c),
+      (l.getIsPageEligibleForCTWALeadOptimization = d),
+      (l.getIsCTWALeadOptimizationGoalEligibleWithExistingSignals = m),
+      (l.getIsCTWALeadOptimizationGoalEligible = p),
+      (l.logCTWADFODefaultingEvent = h),
+      (l.getIsWhatsAppNumberCloudAPI = y),
+      (l.getCTWADataSharingTooltipStatus = C));
   },
   98,
 );

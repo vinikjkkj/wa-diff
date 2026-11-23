@@ -6,7 +6,6 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebPushNotificationsGatingUtils",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "fbs",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -23,31 +22,23 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.shouldShowBanner = function () {
+          (n.shouldShowBanner = function () {
             return !0;
           }),
-          (r.buildKey = function () {
+          (n.buildKey = function () {
             return "test-notification:" + this.creationAt;
           }),
-          (r.getChatKind = function () {
+          (n.getChatKind = function () {
             return null;
           }),
-          (r.getIcon = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return o("WAWebNotificationIconUtils").WHATSAPP_DEFAULT_ICON;
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.getBannerOptions = function () {
-            var e = s._(/*BTDS*/ "WhatsApp").toString(),
-              t = s
-                ._(/*BTDS*/ "Click here to complete the notification test")
-                .toString();
+          (n.getIcon = async function () {
+            return o("WAWebNotificationIconUtils").WHATSAPP_DEFAULT_ICON;
+          }),
+          (n.getBannerOptions = function () {
+            var e = s._(/*BTDS*/ "").toString(),
+              t = s._(/*BTDS*/ "").toString();
             return babelHelpers.extends(
               {
                 wid: o("WAWebUserUtils").getMeUserOrThrow(),
@@ -71,9 +62,7 @@ __d(
         ? {}
         : {
             showViaServiceWorker: !0,
-            actions: [
-              { action: e, title: r("fbs")._(/*BTDS*/ "Confirm").toString() },
-            ],
+            actions: [{ action: e, title: r("fbs")._(/*BTDS*/ "").toString() }],
           };
     }
     l.WATestNotification = u;

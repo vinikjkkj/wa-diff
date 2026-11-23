@@ -5,11 +5,11 @@ __d(
     function e(e) {
       var t = e.msg,
         n = t.safe(),
-        r = s._(/*BTDS*/ "Voice message"),
+        r = s._(/*BTDS*/ ""),
         a = o("WAWebClock").Clock.durationStr(t.duration);
       return n.type === o("WAWebMsgType").MSG_TYPE.PTT && n.isViewOnce
         ? o("WAWebViewOnceState").isViewed(n)
-          ? s._(/*BTDS*/ "Opened")
+          ? s._(/*BTDS*/ "")
           : r
         : a || r;
     }

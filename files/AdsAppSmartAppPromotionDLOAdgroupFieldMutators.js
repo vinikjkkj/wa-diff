@@ -4,37 +4,34 @@ __d(
     "invariant",
     "AdsAdgroupRecordAccessors",
     "AdsDLOAdgroupFieldUtils",
-    "AdsDLOFieldToAdlabelsMapping",
     "AdsDLOLanguageMutators",
     "AdsDLOLanguageUtils",
-    "AdsImageIDUtils",
     "AdsVideoStore",
     "immutable",
     "vulture",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    function e(e, t, n, a) {
-      var i;
+    function e(e, t, n) {
+      var a;
       r("vulture")("BS9BSlyI_Qceauq3-CjMQdJUOzI=");
-      var l = o("AdsDLOLanguageUtils").languageCodeToLabelForAsset(
+      var i = o("AdsDLOLanguageUtils").languageCodeToLabelForAsset(
         e,
         t,
         "body_label",
       );
-      if (l == null) return e;
-      var u = (i = e.creative) == null ? void 0 : i.asset_feed_spec;
-      u != null || s(0, 38319);
-      var c = r("immutable").List([r("immutable").Map().set("name", l)]),
-        d = [
-          ["adlabels", c],
+      if (i == null) return e;
+      var l = (a = e.creative) == null ? void 0 : a.asset_feed_spec;
+      l != null || s(0, 38319);
+      var u = r("immutable").List([r("immutable").Map().set("name", i)]),
+        c = [
+          ["adlabels", u],
           ["text", n],
-        ];
-      a != null && d.push(["translation_confidence", a]);
-      var m = r("immutable").Map(d),
-        p = u.bodies || r("immutable").List();
+        ],
+        d = r("immutable").Map(c),
+        m = l.bodies || r("immutable").List();
       return r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.bodies.set(
-        p.push(m),
+        m.push(d),
         e,
       );
     }
@@ -61,33 +58,33 @@ __d(
         );
       };
     };
-    function d(t, n, a, i, l, d) {
-      var m,
-        p = o("AdsDLOLanguageUtils").languageCodeToLabelForAsset(
+    function d(t, n, a, i, l) {
+      var d,
+        m = o("AdsDLOLanguageUtils").languageCodeToLabelForAsset(
           t,
           n,
           "body_label",
         ),
-        _ = t;
-      p == null &&
-        ((p = n),
-        (_ = o("AdsDLOLanguageMutators").addRuleLabelForLanguage(
-          _,
+        p = t;
+      m == null &&
+        ((m = n),
+        (p = o("AdsDLOLanguageMutators").addRuleLabelForLanguage(
+          p,
           "body_label",
           n,
           n,
         )),
-        n === a && (_ = b(_, a, n, "body_label")));
-      var f = (m = _.creative) == null ? void 0 : m.asset_feed_spec;
-      f != null || s(0, 38319);
-      var g = f.bodies || r("immutable").List(),
-        h = u(g, c(p), i);
-      if (h === -1) return e(_, n, l, d);
-      var y = g.setIn([h, "text"], l),
-        C = [h, "translation_confidence"];
-      return (
-        d == null ? (y = y.deleteIn(C)) : (y = y.setIn(C, d)),
-        r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.bodies.set(y, _)
+        n === a && (p = b(p, a, n, "body_label")));
+      var _ = (d = p.creative) == null ? void 0 : d.asset_feed_spec;
+      _ != null || s(0, 38319);
+      var f = _.bodies || r("immutable").List(),
+        g = u(f, c(m), i);
+      if (g === -1) return e(p, n, l);
+      var h = f.setIn([g, "text"], l),
+        y = [g, "translation_confidence"];
+      return r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.bodies.set(
+        h.deleteIn(y),
+        p,
       );
     }
     function m(e, t, n) {
@@ -109,56 +106,55 @@ __d(
             e,
           );
     }
-    function p(e, t, n, a) {
-      var i,
-        l = o("AdsDLOLanguageUtils").languageCodeToLabelForAsset(
+    function p(e, t, n) {
+      var a,
+        i = o("AdsDLOLanguageUtils").languageCodeToLabelForAsset(
           e,
           t,
           "title_label",
         );
-      if (l == null) return e;
-      var u = (i = e.creative) == null ? void 0 : i.asset_feed_spec;
-      u != null || s(0, 38319);
-      var c = r("immutable").List([r("immutable").Map().set("name", l)]),
-        d = [
-          ["adlabels", c],
+      if (i == null) return e;
+      var l = (a = e.creative) == null ? void 0 : a.asset_feed_spec;
+      l != null || s(0, 38319);
+      var u = r("immutable").List([r("immutable").Map().set("name", i)]),
+        c = [
+          ["adlabels", u],
           ["text", n],
-        ];
-      a != null && d.push(["translation_confidence", a]);
-      var m = r("immutable").Map(d),
-        p = u.titles || r("immutable").List();
+        ],
+        d = r("immutable").Map(c),
+        m = l.titles || r("immutable").List();
       return r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.titles.set(
-        p.push(m),
+        m.push(d),
         e,
       );
     }
-    function _(e, t, n, a, i, l) {
-      var d,
-        m = o("AdsDLOLanguageUtils").languageCodeToLabelForAsset(
+    function _(e, t, n, a, i) {
+      var l,
+        d = o("AdsDLOLanguageUtils").languageCodeToLabelForAsset(
           e,
           t,
           "title_label",
         ),
-        _ = e;
-      m == null &&
-        ((m = t),
-        (_ = o("AdsDLOLanguageMutators").addRuleLabelForLanguage(
-          _,
+        m = e;
+      d == null &&
+        ((d = t),
+        (m = o("AdsDLOLanguageMutators").addRuleLabelForLanguage(
+          m,
           "title_label",
           t,
           t,
         )),
-        t === n && (_ = b(_, n, t, "title_label")));
-      var f = (d = _.creative) == null ? void 0 : d.asset_feed_spec;
-      f != null || s(0, 38319);
-      var g = f.titles || r("immutable").List(),
-        h = u(g, c(m), a);
-      if (h === -1) return p(_, t, i, l);
-      var y = g.setIn([h, "text"], i),
-        C = [h, "translation_confidence"];
-      return (
-        l == null ? (y = y.deleteIn(C)) : (y = y.setIn(C, l)),
-        r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.titles.set(y, _)
+        t === n && (m = b(m, n, t, "title_label")));
+      var _ = (l = m.creative) == null ? void 0 : l.asset_feed_spec;
+      _ != null || s(0, 38319);
+      var f = _.titles || r("immutable").List(),
+        g = u(f, c(d), a);
+      if (g === -1) return p(m, t, i);
+      var h = f.setIn([g, "text"], i),
+        y = [g, "translation_confidence"];
+      return r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.titles.set(
+        h.deleteIn(y),
+        m,
       );
     }
     function f(e, t, n) {
@@ -278,16 +274,7 @@ __d(
         c
       );
     }
-    function S(e, t, n, a, i) {
-      var l = r("immutable").OrderedSet(
-        o("AdsDLOAdgroupFieldUtils").getImageIDs(e, n, t).values(),
-      );
-      return v(e, n, a, i, l, "images", function (e) {
-        var t = o("AdsImageIDUtils").getImageHashFromID(e);
-        return t != null ? r("immutable").Map({ hash: t }) : null;
-      });
-    }
-    function R(e, t, n, a) {
+    function S(e, t, n, a) {
       var i = r("immutable").OrderedSet(
           o("AdsDLOAdgroupFieldUtils").getVideoIDs(e, t),
         ),
@@ -310,27 +297,7 @@ __d(
         },
       );
     }
-    function L(t, n, r, o) {
-      for (var a = t, i; a !== i; ) ((i = a), (a = m(a, n, 0)));
-      return (
-        r.forEach(function (t, r) {
-          var i = o && o[r];
-          a = e(a, n, t, i);
-        }),
-        a
-      );
-    }
-    function E(e, t, n, r) {
-      for (var o = e, a; o !== a; ) ((a = o), (o = f(o, t, 0)));
-      return (
-        n.forEach(function (e, n) {
-          var a = r && r[n];
-          o = p(o, t, e, a);
-        }),
-        o
-      );
-    }
-    function k(e, t, n) {
+    function R(e, t, n) {
       if (t === n || t == null || n == null) return e;
       var r = ["image_label", "video_label"],
         a = ["images", "videos"],
@@ -348,55 +315,12 @@ __d(
         i
       );
     }
-    function I(e) {
-      var t = ["images", "videos"],
-        n = e;
-      return (
-        t.forEach(function (e) {
-          var t,
-            o = (t = n.creative) == null ? void 0 : t.asset_feed_spec;
-          o != null || s(0, 38319);
-          var a = o.get(e),
-            i = r("AdsDLOFieldToAdlabelsMapping").get(e);
-          i != null || s(0, 45981);
-          var l = r("immutable").List();
-          (a == null ||
-            a.forEach(function (e) {
-              var t = e.get(i);
-              t !== void 0 &&
-                t instanceof r("immutable").List &&
-                t.size &&
-                t.forEach(function (t) {
-                  var n = r("immutable").Map.isMap(t) ? t.get("name") : null;
-                  n != null &&
-                    (l = l.push(e.set(i, r("immutable").List().push(t))));
-                });
-            }),
-            l.size > 0 &&
-              (n = r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.set(
-                o.set(e, l),
-                n,
-              )));
-        }),
-        n
-      );
-    }
-    ((l.addBodyText = e),
-      (l.updateBodyText = d),
+    ((l.updateBodyText = d),
       (l.deleteBodyText = m),
-      (l.addTitleText = p),
       (l.updateTitleText = _),
       (l.deleteTitleText = f),
-      (l.deleteAsset = g),
-      (l.addMediaForLanguage = h),
-      (l.removeAssets = y),
-      (l.copyMediaAssets = C),
-      (l.updateImages = S),
-      (l.updateVideos = R),
-      (l.replaceBodies = L),
-      (l.replaceTitles = E),
-      (l.replaceMediaAssets = k),
-      (l.expandMediaAssets = I));
+      (l.updateVideos = S),
+      (l.replaceMediaAssets = R));
   },
   98,
 );

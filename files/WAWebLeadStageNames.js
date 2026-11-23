@@ -4,13 +4,13 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       return e === 0
-        ? s._(/*BTDS*/ "New lead")
+        ? s._(/*BTDS*/ "")
         : e === 2
-          ? s._(/*BTDS*/ "Qualified")
+          ? s._(/*BTDS*/ "")
           : e === 3
-            ? s._(/*BTDS*/ "Converted")
+            ? s._(/*BTDS*/ "")
             : e === 5
-              ? s._(/*BTDS*/ "Not qualified")
+              ? s._(/*BTDS*/ "")
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -19,29 +19,27 @@ __d(
                 })();
     }
     function u() {
-      return s._(/*BTDS*/ "None");
+      return s._(/*BTDS*/ "");
     }
     function c(e, t) {
       return t == null
         ? e
-        : s._(/*BTDS*/ "{picker name}: {current value}", [
+        : s._(/*BTDS*/ "", [
             s._param("picker name", e),
             s._param("current value", t),
           ]);
     }
     function d(e, t) {
-      return t
-        ? s._(/*BTDS*/ "{option name}, selected", [s._param("option name", e)])
-        : e;
+      return t ? s._(/*BTDS*/ "", [s._param("option name", e)]) : e;
     }
     function m(t, n) {
-      return s._(/*BTDS*/ "{lead list name} \u00b7 {lead stage name}", [
+      return s._(/*BTDS*/ "", [
         s._param("lead list name", t),
         s._param("lead stage name", e(n)),
       ]);
     }
     function p() {
-      return s._(/*BTDS*/ "Lead");
+      return s._(/*BTDS*/ "");
     }
     function _(t) {
       return e(t);
@@ -66,10 +64,10 @@ __d(
     var g = ["none", "lead", "intake", "lost"];
     function h() {
       return [
-        s._(/*BTDS*/ "None"),
-        s._(/*BTDS*/ "Lead"),
-        s._(/*BTDS*/ "Intake"),
-        s._(/*BTDS*/ "Lost"),
+        s._(/*BTDS*/ ""),
+        s._(/*BTDS*/ ""),
+        s._(/*BTDS*/ ""),
+        s._(/*BTDS*/ ""),
       ];
     }
     ((l.getLeadStageName = e),

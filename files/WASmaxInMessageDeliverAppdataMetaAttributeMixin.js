@@ -11,7 +11,7 @@ __d(
         n.value,
         "appdata",
         o("WASmaxInMessageDeliverEnums")
-          .ENUM_DEFAULTP_GROUPHISTORY_HISTORY_MEMBERTAG,
+          .ENUM_DEFAULTP_GROUPHISTORY_GROUPROOTKEYSHARE_HISTORY_MEMBERTAG_TEETOOLRESPONSE,
       );
       return r.success
         ? o("WAResultOrError").makeResult({ metaAppdata: r.value })

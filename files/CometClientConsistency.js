@@ -13,7 +13,6 @@ __d(
     "cometPushToast",
     "justknobx",
     "react",
-    "react-compiler-runtime",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -55,95 +54,61 @@ __d(
         return (t != null ? Date.now() - t : -1).toString();
       };
     function b(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.reason,
-        a,
-        i;
-      (t[0] !== n
-        ? ((a = function () {
+      var t = e.reason;
+      return (
+        d(
+          function () {
             ((h = Date.now()),
-              y({ action: 2, event: "impression", reason: n }));
-          }),
-          (i = [n]),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = i))
-        : ((a = t[1]), (i = t[2])),
-        d(a, i));
-      var l;
-      return (
-        t[3] === Symbol.for("react.memo_cache_sentinel")
-          ? ((l = u.jsx(r("FDSIcon.react"), {
-              color: "warning",
-              icon: r("FBNucleusCautionTriangleFilled20Icon.react"),
-              size: 20,
-            })),
-            (t[3] = l))
-          : (l = t[3]),
-        l
+              y({ action: 2, event: "impression", reason: t }));
+          },
+          [t],
+        ),
+        u.jsx(r("FDSIcon.react"), {
+          color: "warning",
+          icon: r("FBNucleusCautionTriangleFilled20Icon.react"),
+          size: 20,
+        })
       );
     }
+    b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.reason,
-        a = m(null),
-        i,
-        l;
-      (t[0] !== n
-        ? ((i = function () {
-            ((a.current = Date.now()),
-              y({ action: 3, event: "impression", reason: n }));
-          }),
-          (l = [n]),
-          (t[0] = n),
-          (t[1] = i),
-          (t[2] = l))
-        : ((i = t[1]), (l = t[2])),
-        d(i, l));
-      var c, p, _;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((c = s._(/*BTDS*/ "Refresh")),
-          (p = s._(
-            /*BTDS*/ "This page is out of date. Please refresh your browser.",
-          )),
-          (_ = s._(/*BTDS*/ "Refresh your browser")),
-          (t[3] = c),
-          (t[4] = p),
-          (t[5] = _))
-        : ((c = t[3]), (p = t[4]), (_ = t[5]));
-      var g;
+      var t = e.reason,
+        n = m(null);
       return (
-        t[6] !== n
-          ? ((g = u.jsx(r("CometExceptionDialog.react"), {
-              closeButtonText: c,
-              errorDescription: p,
-              errorSummary: _,
-              onClose: function () {
-                (y({
-                  action: 3,
-                  duration: C(a.current),
-                  event: "click",
-                  reason: n,
-                }),
-                  (f = !1),
-                  (a.current = null),
-                  window.location.reload());
-              },
-              withCloseButton: !1,
-            })),
-            (t[6] = n),
-            (t[7] = g))
-          : (g = t[7]),
-        g
+        d(
+          function () {
+            ((n.current = Date.now()),
+              y({ action: 3, event: "impression", reason: t }));
+          },
+          [t],
+        ),
+        u.jsx(r("CometExceptionDialog.react"), {
+          closeButtonText: s._(/*BTDS*/ ""),
+          errorDescription: s._(/*BTDS*/ ""),
+          errorSummary: s._(/*BTDS*/ ""),
+          onClose: function () {
+            (y({
+              action: 3,
+              duration: C(n.current),
+              event: "click",
+              reason: t,
+            }),
+              (f = !1),
+              (n.current = null),
+              window.location.reload());
+          },
+          withCloseButton: !1,
+        })
       );
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     var S = function (t) {
         f ||
           (g == null &&
             ((g = o("cometPushToast").cometPushToast(
               {
                 action: {
-                  label: s._(/*BTDS*/ "Refresh"),
+                  label: s._(/*BTDS*/ ""),
                   onPress: function () {
                     (y({
                       action: 2,
@@ -157,9 +122,7 @@ __d(
                   },
                 },
                 icon: u.jsx(b, { reason: t }),
-                message: s._(
-                  /*BTDS*/ "This page is out of date. Please refresh your browser.",
-                ),
+                message: s._(/*BTDS*/ ""),
                 withoutCloseButton: !0,
               },
               1 / 0,

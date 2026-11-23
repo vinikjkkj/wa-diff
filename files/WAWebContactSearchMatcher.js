@@ -149,7 +149,7 @@ __d(
       }
       if (o("WAWebContactGetters").getIsMe(e)) {
         var I = o("WAWebL10NAccentFold").accentFold(
-            s._(/*BTDS*/ "Me").toString(),
+            s._(/*BTDS*/ "").toString(),
           ),
           T = i(I, t);
         if (T != null) return { match: I, results: T };

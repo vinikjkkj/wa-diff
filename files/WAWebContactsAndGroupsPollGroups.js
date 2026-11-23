@@ -1,7 +1,6 @@
 __d(
   "WAWebContactsAndGroupsPollGroups",
   [
-    "Promise",
     "WAConcurrentIterate",
     "WALogger",
     "WAWebApiContact",
@@ -17,7 +16,6 @@ __d(
     "WAWebFrontendChatGetters",
     "WAWebPonyfillsIdleCallback",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
   ],
@@ -26,25 +24,24 @@ __d(
       s,
       u,
       c,
-      d,
-      m = 2,
-      p = 4,
-      _ = (d = o(
+      d = 2,
+      m = 4,
+      p = (c = o(
         "WAWebContactsAndGroupsSession",
       )).createContactsAndGroupsSessionValue(null),
-      f = d.createContactsAndGroupsSessionValue(null),
-      g = d.createContactsAndGroupsSessionValue(!1),
-      h = d.createContactsAndGroupsSessionValue(null),
-      y = new Map(),
-      C = d.createContactsAndGroupsSessionValue(y),
-      b = new (r("WAWebEventEmitter"))();
-    function v() {
-      return _.get();
+      _ = c.createContactsAndGroupsSessionValue(null),
+      f = c.createContactsAndGroupsSessionValue(!1),
+      g = c.createContactsAndGroupsSessionValue(null),
+      h = new Map(),
+      y = c.createContactsAndGroupsSessionValue(h),
+      C = new (r("WAWebEventEmitter"))();
+    function b() {
+      return p.get();
     }
-    function S(e) {
+    function v(e) {
       return e.remote.toString() + "_" + e.id;
     }
-    function R(t) {
+    function S(t) {
       var n,
         a,
         i = o(
@@ -52,38 +49,38 @@ __d(
         ).getContactsAndGroupsLastSeenBeforeThisVisit();
       if (
         !(
-          ((n = _.get()) == null ? void 0 : n.lastSeen) === i ||
-          ((a = f.get()) == null ? void 0 : a.lastSeen) === i
+          ((n = p.get()) == null ? void 0 : n.lastSeen) === i ||
+          ((a = _.get()) == null ? void 0 : a.lastSeen) === i
         )
       ) {
         var l = { lastSeen: i };
-        f.set(l);
+        _.set(l);
         var s = t - o("WAWebContactsAndGroupsThisWeek").THIS_WEEK_IN_SECONDS,
           u = o("WAWebChatCollection").ChatCollection.filter(function (e) {
             return (
               o("WAWebContactsAndGroupsThisWeek").happenedThisWeek(e.t, t) &&
-              k(e)
+              E(e)
             );
           });
         o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
-          N(u, s)
+          P(u, s)
             .then(function (e) {
-              f.get() === l &&
-                (f.set(null),
-                _.set({
+              _.get() === l &&
+                (_.set(null),
+                p.set({
                   lastSeen: i,
                   polls: new Map(
                     e.map(function (e) {
-                      return [S(e.msgKey), e];
+                      return [v(e.msgKey), e];
                     }),
                   ),
                   since: s,
                 }),
-                b.trigger("change"),
-                w());
+                C.trigger("change"),
+                N());
             })
             .catch(function (t) {
-              (f.get() === l && f.set(null),
+              (_.get() === l && _.set(null),
                 o("WALogger")
                   .WARN(
                     e ||
@@ -92,25 +89,25 @@ __d(
                       ])),
                   )
                   .catching(r("getErrorSafe")(t)),
-                w());
+                N());
             });
         });
       }
     }
-    function L(e) {
+    function R(e) {
       !e.fromMe ||
         !e.remote.isGroup() ||
-        (C.set(new Map(C.get()).set(S(e), e)), w());
+        (y.set(new Map(y.get()).set(v(e), e)), N());
     }
-    function E(e) {
+    function L(e) {
       return r("compactMap")(e, function (e) {
         var t = o("WAWebChatCollection").ChatCollection.get(e.msgKey.remote);
-        return t != null ? I(t, e) : null;
+        return t != null ? k(t, e) : null;
       }).sort(function (e, t) {
         return t.t - e.t;
       });
     }
-    function k(e) {
+    function E(e) {
       var t,
         n = (t = e.groupMetadata) == null ? void 0 : t.participants;
       return (
@@ -121,22 +118,22 @@ __d(
         r("WAWebCanUseGroupFromGroup")(n.length, n.iAmAdmin())
       );
     }
-    function I(e, t) {
+    function k(e, t) {
       var n,
         r = (n = e.groupMetadata) == null ? void 0 : n.participants;
-      if (r == null || t.hideVoterNames || !k(e)) return null;
-      var a = T(t.votes),
-        i = D(t.options, a);
+      if (r == null || t.hideVoterNames || !E(e)) return null;
+      var a = I(t.votes),
+        i = T(t.options, a);
       if (i == null || i.name.trim() === "") return null;
       var l = new Set();
       return (
         a.forEach(function (e) {
           var t = e.selectedOptionLocalIds.includes(i.localId)
-            ? x(r, e.sender)
+            ? D(r, e.sender)
             : null;
           t != null && l.add(t);
         }),
-        l.size < m || l.size >= r.filter($).length
+        l.size < d || l.size >= r.filter(x).length
           ? null
           : {
               chat: e,
@@ -151,11 +148,11 @@ __d(
             }
       );
     }
-    function T(e) {
+    function I(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
-          var n = P(e.sender),
+          var n = $(e.sender),
             r = t.get(n);
           (r == null || e.senderTimestampMs > r.senderTimestampMs) &&
             t.set(n, e);
@@ -163,7 +160,7 @@ __d(
         Array.from(t.values())
       );
     }
-    function D(e, t) {
+    function T(e, t) {
       var n = null,
         r = 0;
       return (
@@ -176,99 +173,83 @@ __d(
         n
       );
     }
-    function x(e, t) {
+    function D(e, t) {
       var n,
         r = o("WAWebApiContact").getAlternateUserWid(t),
         a = (n = e.get(t)) != null ? n : r != null ? e.get(r) : null;
-      return a != null && $(a) ? a : null;
+      return a != null && x(a) ? a : null;
     }
-    function $(e) {
+    function x(e) {
       var t = e.id;
       return !o("WAWebUserUtils").isMeAccount(t) && !t.isBot();
     }
-    function P(e) {
+    function $(e) {
       var t = e.isLid() ? e : o("WAWebApiContact").getAlternateUserWid(e);
       return (t != null ? t : e).toString();
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
-    }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAConcurrentIterate").concurrentIterate(
-            e.length,
-            function (n) {
-              return o("WAWebContactsAndGroupsDBGroupPolls")
-                .getMyGroupPollsSince(e[n].id, t)
-                .catch(function (e) {
-                  return (
-                    o("WALogger")
-                      .WARN(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "loadMyGroupPolls: reading the polls of a group failed",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e)),
-                    []
-                  );
-                });
-            },
-            p,
-          );
-          return n.flat();
-        })),
-        M.apply(this, arguments)
+    async function P(e, t) {
+      var n = await o("WAConcurrentIterate").concurrentIterate(
+        e.length,
+        function (n) {
+          return o("WAWebContactsAndGroupsDBGroupPolls")
+            .getMyGroupPollsSince(e[n].id, t)
+            .catch(function (e) {
+              return (
+                o("WALogger")
+                  .WARN(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "loadMyGroupPolls: reading the polls of a group failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e)),
+                []
+              );
+            });
+        },
+        m,
       );
+      return n.flat();
     }
-    function w() {
-      g.get() ||
-        f.get() != null ||
-        _.get() == null ||
-        C.get().size === 0 ||
-        (g.set(!0),
+    function N() {
+      f.get() ||
+        _.get() != null ||
+        p.get() == null ||
+        y.get().size === 0 ||
+        (f.set(!0),
         o("WAWebPonyfillsIdleCallback").requestIdleCallback(function () {
-          A().finally(function () {
-            (g.set(!1), w());
+          M().finally(function () {
+            (f.set(!1), N());
           });
         }));
     }
-    function A() {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (_.get() != null) {
-            var e = O(),
-              t = Array.from(C.get().values());
-            C.set(y);
-            var r = yield (c || (c = n("Promise"))).all(t.map(B)),
-              o = _.get();
-            if (!(o == null || h.get() !== e)) {
-              var a = new Map(o.polls);
-              (t.forEach(function (e, t) {
-                var n = r[t];
-                if (n != null) {
-                  var i = n.poll;
-                  i != null && i.t >= o.since ? a.set(S(e), i) : a.delete(S(e));
-                }
-              }),
-                _.set(babelHelpers.extends({}, o, { polls: a })),
-                b.trigger("change"));
+    async function M() {
+      if (p.get() != null) {
+        var e = w(),
+          t = Array.from(y.get().values());
+        y.set(h);
+        var n = await Promise.all(t.map(A)),
+          r = p.get();
+        if (!(r == null || g.get() !== e)) {
+          var o = new Map(r.polls);
+          (t.forEach(function (e, t) {
+            var a = n[t];
+            if (a != null) {
+              var i = a.poll;
+              i != null && i.t >= r.since ? o.set(v(e), i) : o.delete(v(e));
             }
-          }
-        })),
-        F.apply(this, arguments)
-      );
+          }),
+            p.set(babelHelpers.extends({}, r, { polls: o })),
+            C.trigger("change"));
+        }
+      }
     }
-    function O() {
+    function w() {
       var e,
-        t = (e = h.get()) != null ? e : {};
-      return (h.set(t), t);
+        t = (e = g.get()) != null ? e : {};
+      return (g.set(t), t);
     }
-    function B(e) {
+    function A(e) {
       return o("WAWebContactsAndGroupsDBGroupPolls")
         .getMyGroupPoll(e)
         .then(
@@ -279,8 +260,8 @@ __d(
             return (
               o("WALogger")
                 .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "refreshPendingPolls: reading a group poll failed",
                     ])),
                 )
@@ -290,12 +271,12 @@ __d(
           },
         );
     }
-    ((l.myGroupPollsChanges = b),
-      (l.getMyGroupPollsVisit = v),
-      (l.getPollGroupKey = S),
-      (l.requestMyGroupPolls = R),
-      (l.refreshMyGroupPoll = L),
-      (l.getPollGroups = E));
+    ((l.myGroupPollsChanges = C),
+      (l.getMyGroupPollsVisit = b),
+      (l.getPollGroupKey = v),
+      (l.requestMyGroupPolls = S),
+      (l.refreshMyGroupPoll = R),
+      (l.getPollGroups = L));
   },
   98,
 );

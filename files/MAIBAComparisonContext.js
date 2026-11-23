@@ -1,12 +1,6 @@
 __d(
   "MAIBAComparisonContext",
-  [
-    "RelayHooks",
-    "RelayModern",
-    "SaveResponseTonePreferenceMutation",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["RelayHooks", "RelayModern", "SaveResponseTonePreferenceMutation", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -46,133 +40,86 @@ __d(
       return d(g);
     }
     function v(e) {
-      var t = o("react-compiler-runtime").c(19),
-        n = e.children,
-        r = e.initialPreference,
-        a = _(!1),
-        i = a[0],
-        l = a[1],
-        u = _(r != null ? r : null),
-        c = u[0],
-        d = u[1],
-        m = _(!1),
-        f = m[0],
-        y = m[1],
-        C = p(null),
-        b = _(null),
-        v = b[0],
-        S = b[1],
-        R = o("RelayHooks").useRelayEnvironment(),
-        L;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = function (t) {
-            C.current = t;
-          }),
-          (t[0] = L))
-        : (L = t[0]);
-      var E = L,
-        k;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = function (t) {
-            (S(t), (h = t));
-          }),
-          (t[1] = k))
-        : (k = t[1]);
-      var I = k,
-        T;
-      t[2] !== v
-        ? ((T = function () {
+      var t = e.children,
+        n = e.initialPreference,
+        r = _(!1),
+        a = r[0],
+        i = r[1],
+        l = _(n != null ? n : null),
+        u = l[0],
+        d = l[1],
+        f = _(!1),
+        y = f[0],
+        C = f[1],
+        b = p(null),
+        v = _(null),
+        S = v[0],
+        R = v[1],
+        L = o("RelayHooks").useRelayEnvironment(),
+        E = c(function (e) {
+          b.current = e;
+        }, []),
+        k = c(function (e) {
+          (R(e), (h = e));
+        }, []),
+        I = c(
+          function () {
             return {
-              comparisonConversationId: v,
-              externalConversationId: C.current,
+              comparisonConversationId: S,
+              externalConversationId: b.current,
             };
-          }),
-          (t[2] = v),
-          (t[3] = T))
-        : (T = t[3]);
-      var D = T,
-        x;
-      t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((x = function () {
-            var e = new Uint8Array(1);
-            (crypto.getRandomValues(e), y(e[0] < 128), l(!0), d(null));
-          }),
-          (t[4] = x))
-        : (x = t[4]);
-      var $ = x,
-        P;
-      t[5] !== v || t[6] !== R
-        ? ((P = function (t, n, r) {
-            var e;
-            (d(t), l(!1));
-            var a = n != null ? n : C.current,
-              i = (e = r != null ? r : v) != null ? e : h;
+          },
+          [S],
+        ),
+        T = c(function () {
+          var e = new Uint8Array(1);
+          (crypto.getRandomValues(e), C(e[0] < 128), i(!0), d(null));
+        }, []),
+        D = c(
+          function (e, t, n) {
+            var r;
+            (d(e), i(!1));
+            var a = t != null ? t : b.current,
+              l = (r = n != null ? n : S) != null ? r : h;
             a != null &&
               o("SaveResponseTonePreferenceMutation")
                 .saveResponseTonePreferenceMutation != null &&
-              o("RelayModern").commitMutation(R, {
+              o("RelayModern").commitMutation(L, {
                 mutation: o("SaveResponseTonePreferenceMutation")
                   .saveResponseTonePreferenceMutation,
                 variables: {
-                  comparison_conversation_id: i != null ? i : void 0,
+                  comparison_conversation_id: l != null ? l : void 0,
                   external_conversation_id: a,
-                  preference: t,
+                  preference: e,
                 },
               });
-          }),
-          (t[5] = v),
-          (t[6] = R),
-          (t[7] = P))
-        : (P = t[7]);
-      var N = P,
-        M;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((M = function () {
-            (l(!1), d(null));
-          }),
-          (t[8] = M))
-        : (M = t[8]);
-      var w = M,
-        A;
-      t[9] !== v ||
-      t[10] !== D ||
-      t[11] !== i ||
-      t[12] !== c ||
-      t[13] !== N ||
-      t[14] !== f
-        ? ((A = {
-            comparisonConversationId: v,
-            dismiss: w,
-            getConversationIds: D,
-            isActive: i,
-            preference: c,
-            selectPreference: N,
-            shouldSwap: f,
-            startComparison: $,
-            updateComparisonConversationId: I,
-            updateExternalConversationId: E,
-          }),
-          (t[9] = v),
-          (t[10] = D),
-          (t[11] = i),
-          (t[12] = c),
-          (t[13] = N),
-          (t[14] = f),
-          (t[15] = A))
-        : (A = t[15]);
-      var F = A,
-        O;
-      return (
-        t[16] !== n || t[17] !== F
-          ? ((O = s.jsx(g, { value: F, children: n })),
-            (t[16] = n),
-            (t[17] = F),
-            (t[18] = O))
-          : (O = t[18]),
-        O
-      );
+          },
+          [S, L],
+        ),
+        x = c(function () {
+          (i(!1), d(null));
+        }, []),
+        $ = m(
+          function () {
+            return {
+              comparisonConversationId: S,
+              dismiss: x,
+              getConversationIds: I,
+              isActive: a,
+              preference: u,
+              selectPreference: D,
+              shouldSwap: y,
+              startComparison: T,
+              updateComparisonConversationId: k,
+              updateExternalConversationId: E,
+            };
+          },
+          [S, x, I, a, u, D, y, T, k, E],
+        );
+      return s.jsx(g, { value: $, children: t });
     }
-    ((l.getLastComparisonConversationId = y),
+    ((v.displayName = v.name + " [from " + i.id + "]"),
+      (l.getLastComparisonConversationId = y),
       (l.setLastComparisonConversationId = C),
       (l.useMAIBAComparisonContext = b),
       (l.MAIBAComparisonProvider = v));

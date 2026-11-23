@@ -87,157 +87,47 @@ __d(
         a =
           ((n = {}),
           (n[(r = o("WAWebGroupConstants")).GROUP_SETTING_TYPE.ANNOUNCEMENT] = {
-            on: [
-              s._(
-                /*BTDS*/ "Allowing all members to send messages to this group",
-              ),
-              s._(
-                /*BTDS*/ "You allowed all members to send messages to this group",
-              ),
-            ],
-            off: [
-              s._(
-                /*BTDS*/ "Allowing only admins to send messages to this group",
-              ),
-              s._(
-                /*BTDS*/ "You allowed only admins to send messages to this group",
-              ),
-            ],
+            on: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
+            off: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
           }),
           (n[r.GROUP_SETTING_TYPE.REPORT_TO_ADMIN_MODE] = {
-            on: [
-              s._(/*BTDS*/ "Allowing reports to admin in this chat"),
-              s._(/*BTDS*/ "You turned on reports to admin in this chat"),
-            ],
-            off: [
-              s._(/*BTDS*/ "Disabling reports to admin in this chat"),
-              s._(/*BTDS*/ "You turned off reports to admin in this chat"),
-            ],
+            on: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
+            off: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
           }),
           (n[r.GROUP_SETTING_TYPE.RESTRICT] = {
-            on: [
-              s._(/*BTDS*/ "Allowing all members to change this group's info"),
-              s._(
-                /*BTDS*/ "You allowed all members to change this group's info",
-              ),
-            ],
-            off: [
-              s._(/*BTDS*/ "Allowing only admins to change this group's info"),
-              s._(
-                /*BTDS*/ "You allowed only admins to change this group's info",
-              ),
-            ],
+            on: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
+            off: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
           }),
           (n[r.GROUP_SETTING_TYPE.NO_FREQUENTLY_FORWARDED] = {
-            on: [
-              s._(
-                /*BTDS*/ "Blocking members from sending messages that have been forwarded many times to this group",
-              ),
-              s._(
-                /*BTDS*/ "You blocked members from sending messages that have been forwarded many times to this group",
-              ),
-            ],
-            off: [
-              s._(
-                /*BTDS*/ "Allowing members to send messages that have been forwarded many times to this group",
-              ),
-              s._(
-                /*BTDS*/ "You allowed members to send messages that have been forwarded many times to this group",
-              ),
-            ],
+            on: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
+            off: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
           }),
           (n[r.GROUP_SETTING_TYPE.EPHEMERAL] = {
-            on: [
-              s._(/*BTDS*/ "Turning on disappearing messages in this chat"),
-              s._(/*BTDS*/ "You turned on disappearing messages in this chat"),
-            ],
-            off: [
-              s._(/*BTDS*/ "Turning off disappearing messages in this chat"),
-              s._(/*BTDS*/ "You turned off disappearing messages in this chat"),
-            ],
+            on: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
+            off: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
           }),
           (n[r.GROUP_SETTING_TYPE.MEMBERSHIP_APPROVAL_MODE] = {
-            on: [
-              s._(/*BTDS*/ "Turning on membership approval mode in this chat"),
-              s._(
-                /*BTDS*/ "You turned on membership approval mode in this chat",
-              ),
-            ],
-            off: [
-              s._(/*BTDS*/ "Turning off membership approval mode in this chat"),
-              s._(
-                /*BTDS*/ "You turned off membership approval mode in this chat",
-              ),
-            ],
+            on: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
+            off: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
           }),
           (n[r.GROUP_SETTING_TYPE.ALLOW_NON_ADMIN_SUB_GROUP_CREATION] = {
-            on: [
-              s._(
-                /*BTDS*/ "Allowing all community members to add groups in this community",
-              ),
-              s._(
-                /*BTDS*/ "You allowed all community members to add groups in this community",
-              ),
-            ],
-            off: [
-              s._(/*BTDS*/ "Allowing only community admins to add groups"),
-              s._(
-                /*BTDS*/ "You allowed only community admins to add groups in this community",
-              ),
-            ],
+            on: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
+            off: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
           }),
           (n[r.GROUP_SETTING_TYPE.MEMBER_ADD_MODE] = {
-            on: [
-              s._(/*BTDS*/ "Allowing all members to add others to this group"),
-              s._(
-                /*BTDS*/ "You allowed all members to add others to this group",
-              ),
-            ],
-            off: [
-              s._(/*BTDS*/ "Allowing only admins to add others to this group"),
-              s._(
-                /*BTDS*/ "You allowed only admins to add others to this group",
-              ),
-            ],
+            on: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
+            off: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
           }),
           (n[r.GROUP_SETTING_TYPE.MEMBER_LINK_MODE] = {
-            on: [
-              s._(
-                /*BTDS*/ "Allowing all members to share invite links to this group",
-              ),
-              s._(
-                /*BTDS*/ "You allowed all members to share invite links to this group",
-              ),
-            ],
-            off: [
-              s._(
-                /*BTDS*/ "Allowing only admins to share invite links to this group",
-              ),
-              s._(
-                /*BTDS*/ "You allowed only admins to share invite links to this group",
-              ),
-            ],
+            on: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
+            off: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
           }),
           (n[r.GROUP_SETTING_TYPE.LIMIT_SHARING] = o(
             "WAWebLimitSharingUIUtils",
           ).getLimitSharingGroupUpdateActionStrings()),
           (n[r.GROUP_SETTING_TYPE.MEMBER_SHARE_GROUP_HISTORY_MODE] = {
-            on: [
-              s._(
-                /*BTDS*/ "Allowing all members to send message history to new members in this group",
-              ),
-              s._(
-                /*BTDS*/ "You allowed all members to send message history to new members in this group",
-              ),
-            ],
-            off: [
-              s._(
-                /*BTDS*/ "Allowing only admins to send message history to new members in this group",
-              ),
-              s._(
-                /*BTDS*/ "You allowed only admins to send message history to new members in this group",
-              ),
-            ],
+            on: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
+            off: [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
           }),
           n);
       return a[e][t];
@@ -250,14 +140,8 @@ __d(
     }
     function C(e) {
       return e === "on"
-        ? [
-            s._(/*BTDS*/ "Allowing everyone to add other members"),
-            s._(/*BTDS*/ "Everyone can add other members"),
-          ]
-        : [
-            s._(/*BTDS*/ "Allowing only community admins to add other members"),
-            s._(/*BTDS*/ "Only community admins can add other members"),
-          ];
+        ? [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")]
+        : [s._(/*BTDS*/ ""), s._(/*BTDS*/ "")];
     }
     function b(t) {
       var a,
@@ -293,12 +177,12 @@ __d(
         return (c || (c = n("Promise"))).reject(
           new (o("WAWebMiscErrors").ActionError)(),
         );
-      var L = s._(/*BTDS*/ "Try again."),
+      var L = s._(/*BTDS*/ ""),
         E = function (t) {
           return (
             t === void 0 && (t = !0),
             new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Group setting could not be changed"),
+              s._(/*BTDS*/ ""),
               t
                 ? {
                     actionText: L,
@@ -449,11 +333,11 @@ __d(
                     if (e.status === 404)
                       return new (o("WAWebActionToast.react").ActionType)(
                         (r("justknobx")._("8427")
-                          ? s._(/*BTDS*/ "Group setting couldn't be changed")
-                          : s._(/*BTDS*/ "Group setting could not be changed")
+                          ? s._(/*BTDS*/ "")
+                          : s._(/*BTDS*/ "")
                         ).toString() +
                           " " +
-                          s._(/*BTDS*/ "This group has ended.").toString(),
+                          s._(/*BTDS*/ "").toString(),
                       );
                   },
                 ),

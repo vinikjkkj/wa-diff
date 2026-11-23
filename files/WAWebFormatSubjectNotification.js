@@ -17,14 +17,8 @@ __d(
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ 'You changed the community name to "{community_name}".',
-                [s._param("community_name", a)],
-              )
-            : s._(
-                /*BTDS*/ 'You changed the community\'s name to "{community_name}"',
-                [s._param("community_name", a)],
-              )
+            ? s._(/*BTDS*/ "", [s._param("community_name", a)])
+            : s._(/*BTDS*/ "", [s._param("community_name", a)])
           : n != null
             ? u(n, a)
             : c(a)
@@ -32,12 +26,8 @@ __d(
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(/*BTDS*/ 'You changed the group name to "{group_name}".', [
-                s._param("group_name", a),
-              ])
-            : s._(/*BTDS*/ 'You changed the group name to "{group_name}"', [
-                s._param("group_name", a),
-              ])
+            ? s._(/*BTDS*/ "", [s._param("group_name", a)])
+            : s._(/*BTDS*/ "", [s._param("group_name", a)])
           : n != null
             ? d(n, a)
             : m(a);
@@ -46,51 +36,32 @@ __d(
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(
-            /*BTDS*/ '{user} changed the community name to "{community_name}".',
-            [s._param("user", e), s._param("community_name", t)],
-          )
-        : s._(
-            /*BTDS*/ '{user} changed the community\'s name to "{community_name}"',
-            [s._param("user", e), s._param("community_name", t)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("user", e), s._param("community_name", t)])
+        : s._(/*BTDS*/ "", [
+            s._param("user", e),
+            s._param("community_name", t),
+          ]);
     }
     function c(e) {
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(
-            /*BTDS*/ 'A member changed the community name to "{community_name}".',
-            [s._param("community_name", e)],
-          )
-        : s._(
-            /*BTDS*/ 'A member changed the community\'s name to "{community_name}"',
-            [s._param("community_name", e)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("community_name", e)])
+        : s._(/*BTDS*/ "", [s._param("community_name", e)]);
     }
     function d(e, t) {
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ '{user} changed the group name to "{group_name}".', [
-            s._param("user", e),
-            s._param("group_name", t),
-          ])
-        : s._(/*BTDS*/ '{user} changed the group name to "{group_name}"', [
-            s._param("user", e),
-            s._param("group_name", t),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("user", e), s._param("group_name", t)])
+        : s._(/*BTDS*/ "", [s._param("user", e), s._param("group_name", t)]);
     }
     function m(e) {
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ 'A member changed the group name to "{group_name}".', [
-            s._param("group_name", e),
-          ])
-        : s._(/*BTDS*/ 'A member changed the group name to "{group_name}"', [
-            s._param("group_name", e),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("group_name", e)])
+        : s._(/*BTDS*/ "", [s._param("group_name", e)]);
     }
     l.formatSubjectNotification = e;
   },

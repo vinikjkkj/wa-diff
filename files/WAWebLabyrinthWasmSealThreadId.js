@@ -6,7 +6,6 @@ __d(
     "WAWebEBLabyrinthWaWasmReactorSingleton",
     "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,39 +26,31 @@ __d(
               ),
             );
     }
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            return yield o(
-              "WAWebEBLabyrinthWaWasmReactorSingleton",
-            ).labyrinthWaCommand(
-              {
-                InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
-                ResultSpec: o("WAWebLabyrinthWaWasm.pb").SealThreadIdOutputSpec,
-                validateResult: e,
-              },
-              {
-                sealThreadIdInput: {
-                  epochRootKey: t.epochRootKey,
-                  epochAnonId: t.epochAnonId,
-                  backupId: o("WALongInt").decimalStringToLongInt(t.backupId),
-                  threadId: t.threadId,
-                },
-              },
-            );
-          } catch (e) {
-            return o("WAResultOrError").makeError({
-              error: r("getErrorSafe")(e),
-              kind: "exception",
-            });
-          }
-        })),
-        u.apply(this, arguments)
-      );
+    async function s(t) {
+      try {
+        return await o(
+          "WAWebEBLabyrinthWaWasmReactorSingleton",
+        ).labyrinthWaCommand(
+          {
+            InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
+            ResultSpec: o("WAWebLabyrinthWaWasm.pb").SealThreadIdOutputSpec,
+            validateResult: e,
+          },
+          {
+            sealThreadIdInput: {
+              epochRootKey: t.epochRootKey,
+              epochAnonId: t.epochAnonId,
+              backupId: o("WALongInt").decimalStringToLongInt(t.backupId),
+              threadId: t.threadId,
+            },
+          },
+        );
+      } catch (e) {
+        return o("WAResultOrError").makeError({
+          error: r("getErrorSafe")(e),
+          kind: "exception",
+        });
+      }
     }
     l.sealThreadIdWasm = s;
   },

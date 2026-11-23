@@ -11,7 +11,6 @@ __d(
     "WAWebCoexProductStateStore",
     "WAWebNoop",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -54,41 +53,33 @@ __d(
       var t = R(e);
       return ((h = t), t);
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    async function R(t) {
+      var n = ++C,
+        a = "not_authoritative";
+      try {
+        a = await k(t);
+      } catch (n) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "coexStateSync/",
+                "/threw",
+              ])),
+            t,
+          )
+          .catching(r("getErrorSafe")(n))
+          .sendLogs("coex-state-sync-threw");
+      }
+      L(a, n);
+      var i = y;
+      if (((y = null), i == null)) {
+        h = null;
+        return;
+      }
+      return R(i);
     }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = ++C,
-            n = "not_authoritative";
-          try {
-            n = yield I(e);
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "coexStateSync/",
-                    "/threw",
-                  ])),
-                e,
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("coex-state-sync-threw");
-          }
-          E(n, t);
-          var a = y;
-          if (((y = null), a == null)) {
-            h = null;
-            return;
-          }
-          return R(a);
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e, t) {
+    function L(e, t) {
       var n = b;
       if (n != null) {
         if (e === "skipped" || (e === "changed" && t > n.lastPullBeforeSync)) {
@@ -96,36 +87,36 @@ __d(
           ((r = n.timer) == null || r.abort(), (b = null));
           return;
         }
-        n.timer == null && y == null && k(n, e);
+        n.timer == null && y == null && E(n, e);
       }
     }
-    function k(t, n) {
-      var a = t.delays.next();
-      if (a.done === !0) {
+    function E(e, t) {
+      var n = e.delays.next();
+      if (n.done === !0) {
         (o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
               "coexStateSync/sync_retry/gave-up/",
               "",
             ])),
-          n,
+          t,
         ),
           (b = null));
         return;
       }
-      var i = new AbortController();
-      ((t.timer = i),
+      var a = new AbortController();
+      ((e.timer = a),
         o("WAPromiseDelays")
-          .delayMs(a.value, i.signal)
+          .delayMs(n.value, a.signal)
           .then(function () {
-            return ((t.timer = null), S("sync_retry"));
+            return ((e.timer = null), S("sync_retry"));
           })
           .catch(o("WAAbortError").catchAbort(r("WAWebNoop")))
           .catch(function (e) {
             o("WALogger")
               .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "coexStateSync/sync_retry/failed",
                   ])),
               )
@@ -133,110 +124,102 @@ __d(
               .sendLogs("coex-state-sync-retry-failed");
           }));
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            r =
-              (t = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1)) == null
-                ? void 0
-                : t.toString();
-          if (r == null)
-            return (
-              o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "coexStateSync/",
-                    "/skipped/logged-out",
-                  ])),
-                e,
-              ),
-              "skipped"
-            );
-          var a = Date.now(),
-            i;
-          try {
-            i = yield o("WAPromiseTimeout").promiseTimeout(
-              o("WAWebCoexCanonicalStateQuery").fetchCoexCanonicalMembership(),
-              f,
-            );
-          } catch (t) {
-            if (t instanceof o("WACustomError").TimeoutError)
-              return (
-                o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "coexStateSync/",
-                      "/timed-out",
-                    ])),
-                  e,
-                ),
-                "not_authoritative"
-              );
-            throw t;
-          }
-          if (
-            r !==
-            ((n = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1)) == null
-              ? void 0
-              : n.toString())
-          )
-            return (
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "coexStateSync/",
-                    "/dropped/account-changed",
-                  ])),
-                e,
-              ),
-              "skipped"
-            );
-          if (i.type !== "authoritative")
-            return (
-              o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "coexStateSync/",
-                    "/",
-                    "",
-                  ])),
-                e,
-                D(i),
-              ),
-              "not_authoritative"
-            );
-          var l = o("WAWebCoexProductStateStore").saveCoexProductState({
-            surfaces: i.surfaces,
-            isBspHosted: i.isBspHosted,
-            fetchedAtMs: a,
-          })
-            ? "changed"
-            : "unchanged";
+    async function k(e) {
+      var t,
+        n,
+        r =
+          (t = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1)) == null
+            ? void 0
+            : t.toString();
+      if (r == null)
+        return (
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "coexStateSync/",
+                "/skipped/logged-out",
+              ])),
+            e,
+          ),
+          "skipped"
+        );
+      var a = Date.now(),
+        i;
+      try {
+        i = await o("WAPromiseTimeout").promiseTimeout(
+          o("WAWebCoexCanonicalStateQuery").fetchCoexCanonicalMembership(),
+          f,
+        );
+      } catch (t) {
+        if (t instanceof o("WACustomError").TimeoutError)
           return (
             o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "coexStateSync/",
-                  "/",
-                  "/",
-                  "",
+                  "/timed-out",
                 ])),
               e,
-              D(i),
-              l,
             ),
-            l
+            "not_authoritative"
           );
-        })),
-        T.apply(this, arguments)
+        throw t;
+      }
+      if (
+        r !==
+        ((n = o("WAWebUserPrefsMeUser").getMaybeMeDeviceLid(!1)) == null
+          ? void 0
+          : n.toString())
+      )
+        return (
+          o("WALogger").LOG(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "coexStateSync/",
+                "/dropped/account-changed",
+              ])),
+            e,
+          ),
+          "skipped"
+        );
+      if (i.type !== "authoritative")
+        return (
+          o("WALogger").LOG(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "coexStateSync/",
+                "/",
+                "",
+              ])),
+            e,
+            I(i),
+          ),
+          "not_authoritative"
+        );
+      var l = o("WAWebCoexProductStateStore").saveCoexProductState({
+        surfaces: i.surfaces,
+        isBspHosted: i.isBspHosted,
+        fetchedAtMs: a,
+      })
+        ? "changed"
+        : "unchanged";
+      return (
+        o("WALogger").LOG(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "coexStateSync/",
+              "/",
+              "/",
+              "",
+            ])),
+          e,
+          I(i),
+          l,
+        ),
+        l
       );
     }
-    function D(e) {
+    function I(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&

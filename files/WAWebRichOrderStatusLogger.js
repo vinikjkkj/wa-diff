@@ -2,7 +2,6 @@ __d(
   "WAWebRichOrderStatusLogger",
   [
     "$InternalEnum",
-    "Promise",
     "WATimeUtils",
     "WAWebABProps",
     "WAWebBusinessTemplateRichOrderStatusWamEvent",
@@ -22,12 +21,10 @@ __d(
     "WAWebUtilsPnhSmbLoggingHelper",
     "WAWebWamEnumChatsFolderType",
     "WAWebWamEnumContactType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = -1,
-      u = n("$InternalEnum")({
+    var e = -1,
+      s = n("$InternalEnum")({
         ORDER_TRACKING_URL_CLICK: "order_tracking_url_click",
         VIEW_ORDER_PRIMARY_CLICK: "view_order_primary_click",
         VIEW_ORDER_SECONDARY_CLICK: "view_order_secondary_click",
@@ -39,167 +36,149 @@ __d(
         MESSAGE_CTA_VIEW_ORDER_CLICK: "message_cta_view_order_click",
         MESSAGE_CTA_TRACK_ORDER_CLICK: "message_cta_track_order_click",
       });
-    function c(e, t) {
-      return d.apply(this, arguments);
+    async function u(t, n) {
+      var r;
+      if (
+        o("WAWebABProps").getABPropConfigValue(
+          "utility_order_status_logging_enabled",
+        )
+      ) {
+        var a = o("WAWebFrontendMsgGetters").getChat(t),
+          i = o("WAWebContactCollection").ContactCollection.get(a.id),
+          l = i ? o("WAWebContactGetters").getIsBusiness(i) : !1,
+          s = l
+            ? o("WAWebWamEnumContactType").CONTACT_TYPE.SMB
+            : o("WAWebWamEnumContactType").CONTACT_TYPE.ENTERPRISE,
+          u = a.archive
+            ? o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.ARCHIVED
+            : o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.INBOX,
+          c = o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId(),
+          d = o("WAWebChatGetters").getMuteExpiration(a),
+          m =
+            d === e ||
+            d > o("WATimeUtils").unixTimeWithoutClockSkewCorrection(),
+          p = i ? o("WAWebFrontendContactGetters").getIsMyContact(i) : !1,
+          _ = Date.now(),
+          f = o("WAWebMsgGetters").getT(t),
+          g = Math.round((_ - f * 1e3) / 1e3),
+          h = o("WAWebChatGetters").getId(a).toString(),
+          y = o("WAWebMsgGetters").getId(t),
+          C = await Promise.all([
+            o("WAWebChatThreadLogging").getMessageIDHMAC(y.toString()),
+            o("WAWebChatThreadLogging").getChatThreadIDHMAC(h),
+          ]),
+          b = C[0],
+          v = C[1],
+          S = o("WAWebMsgGetters").getClientReceivedTsMillis(t),
+          R = S != null ? Math.round((_ - S) / 1e3) : void 0,
+          L = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
+          E = L.readReceipts !== "none";
+        (new (o(
+          "WAWebQbmRichOrderStatusInteractionWamEvent",
+        ).QbmRichOrderStatusInteractionWamEvent)({
+          actionTypeRichOrderStatus: n,
+          chatsFolderType: u,
+          contactType: s,
+          deltaTime: g,
+          deltaTimeReceived: R,
+          isInsubContact: p,
+          isMuted: m,
+          messageIdHmac: b != null ? b : void 0,
+          readReceiptsEnabled: E,
+          threadIdHmac: v != null ? v : void 0,
+          unifiedSessionId: c != null ? c : void 0,
+        }).commit(),
+          new (o(
+            "WAWebBusinessTemplateRichOrderStatusWamEvent",
+          ).BusinessTemplateRichOrderStatusWamEvent)({
+            actionTypeRichOrderStatus: n,
+            businessJid: o("WAWebUtilsPnhSmbLoggingHelper").jidToPnString(
+              o("WAWebChatGetters").getId(a),
+            ),
+            chatsFolderType: u,
+            contactType: s,
+            isBizIntent: l,
+            isInsubContact: p,
+            isMuted: m,
+            readReceiptsEnabled: E,
+            templateId: (r = t.templateId) != null ? r : void 0,
+          }).commit());
+      }
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a;
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "utility_order_status_logging_enabled",
-            )
-          ) {
-            var i = o("WAWebFrontendMsgGetters").getChat(t),
-              l = o("WAWebContactCollection").ContactCollection.get(i.id),
-              u = l ? o("WAWebContactGetters").getIsBusiness(l) : !1,
-              c = u
-                ? o("WAWebWamEnumContactType").CONTACT_TYPE.SMB
-                : o("WAWebWamEnumContactType").CONTACT_TYPE.ENTERPRISE,
-              d = i.archive
-                ? o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.ARCHIVED
-                : o("WAWebWamEnumChatsFolderType").CHATS_FOLDER_TYPE.INBOX,
-              m = o("WAWebUnifiedSession").UnifiedSessionManager.getSessionId(),
-              p = o("WAWebChatGetters").getMuteExpiration(i),
-              _ =
-                p === s ||
-                p > o("WATimeUtils").unixTimeWithoutClockSkewCorrection(),
-              f = l ? o("WAWebFrontendContactGetters").getIsMyContact(l) : !1,
-              g = Date.now(),
-              h = o("WAWebMsgGetters").getT(t),
-              y = Math.round((g - h * 1e3) / 1e3),
-              C = o("WAWebChatGetters").getId(i).toString(),
-              b = o("WAWebMsgGetters").getId(t),
-              v = yield (e || (e = n("Promise"))).all([
-                o("WAWebChatThreadLogging").getMessageIDHMAC(b.toString()),
-                o("WAWebChatThreadLogging").getChatThreadIDHMAC(C),
-              ]),
-              S = v[0],
-              R = v[1],
-              L = o("WAWebMsgGetters").getClientReceivedTsMillis(t),
-              E = L != null ? Math.round((g - L) / 1e3) : void 0,
-              k = o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
-              I = k.readReceipts !== "none";
-            (new (o(
-              "WAWebQbmRichOrderStatusInteractionWamEvent",
-            ).QbmRichOrderStatusInteractionWamEvent)({
-              actionTypeRichOrderStatus: r,
-              chatsFolderType: d,
-              contactType: c,
-              deltaTime: y,
-              deltaTimeReceived: E,
-              isInsubContact: f,
-              isMuted: _,
-              messageIdHmac: S != null ? S : void 0,
-              readReceiptsEnabled: I,
-              threadIdHmac: R != null ? R : void 0,
-              unifiedSessionId: m != null ? m : void 0,
-            }).commit(),
-              new (o(
-                "WAWebBusinessTemplateRichOrderStatusWamEvent",
-              ).BusinessTemplateRichOrderStatusWamEvent)({
-                actionTypeRichOrderStatus: r,
-                businessJid: o("WAWebUtilsPnhSmbLoggingHelper").jidToPnString(
-                  o("WAWebChatGetters").getId(i),
-                ),
-                chatsFolderType: d,
-                contactType: c,
-                isBizIntent: u,
-                isInsubContact: f,
-                isMuted: _,
-                readReceiptsEnabled: I,
-                templateId: (a = t.templateId) != null ? a : void 0,
-              }).commit());
-          }
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "utility_order_status_logging_enabled",
-            )
-          ) {
-            var t = o("WAWebOrderStatusButton").getOrderStatusButton(e);
-            if (t) {
-              var n = o("WAWebFrontendMsgGetters").getChat(e),
-                r = o("WAWebOrderStatus").getMergedOrderStatus(n, t),
-                a = r.firstMessage;
-              if (a) {
-                var i = o("WAWebOrderStatusButton").getOrderStatusButton(a);
-                if (i) {
-                  for (
-                    var l = e.mediaData.filehash !== a.mediaData.filehash,
-                      s = t.order.items || [],
-                      u = i.order.items || [],
-                      c = t.order.currency !== i.order.currency,
-                      d = s.length !== u.length,
-                      m = !1,
-                      p = !1,
-                      _ = !1,
-                      f = !1,
-                      g = !1,
-                      h = 0;
-                    h < Math.min(s.length, u.length);
-                    h++
-                  ) {
-                    var y,
-                      C,
-                      b,
-                      v,
-                      S,
-                      R,
-                      L = s[h],
-                      E = u[h];
-                    (m || (m = L.name !== E.name),
-                      p || (p = L.quantity !== E.quantity),
-                      _ || (_ = L.variant !== E.variant),
-                      f ||
-                        (f =
-                          ((y = L.image) == null ? void 0 : y.file_sha256) !==
-                          ((C = E.image) == null ? void 0 : C.file_sha256)),
-                      g ||
-                        (g =
-                          ((b = L.amount) == null ? void 0 : b.value) !==
-                            ((v = E.amount) == null ? void 0 : v.value) ||
-                          ((S = L.amount) == null ? void 0 : S.offset) !==
-                            ((R = E.amount) == null ? void 0 : R.offset)));
-                  }
-                  new (o(
-                    "WAWebPsRichOrderStatusMessageInconsistentPayloadReceivedWamEvent",
-                  ).PsRichOrderStatusMessageInconsistentPayloadReceivedWamEvent)(
-                    {
-                      businessJid: o(
-                        "WAWebUtilsPnhSmbLoggingHelper",
-                      ).jidToPnString(o("WAWebChatGetters").getId(n)),
-                      hasCurrencyChanged: c,
-                      hasHeaderImageChanged: l,
-                      hasItemImageChanged: f,
-                      hasItemNameChanged: m,
-                      hasItemNumberChanged: d,
-                      hasItemPriceChanged: g,
-                      hasItemQuantityChanged: p,
-                      hasItemVariantChanged: _,
-                    },
-                  ).commit();
-                }
+    async function c(e) {
+      if (
+        o("WAWebABProps").getABPropConfigValue(
+          "utility_order_status_logging_enabled",
+        )
+      ) {
+        var t = o("WAWebOrderStatusButton").getOrderStatusButton(e);
+        if (t) {
+          var n = o("WAWebFrontendMsgGetters").getChat(e),
+            r = o("WAWebOrderStatus").getMergedOrderStatus(n, t),
+            a = r.firstMessage;
+          if (a) {
+            var i = o("WAWebOrderStatusButton").getOrderStatusButton(a);
+            if (i) {
+              for (
+                var l = e.mediaData.filehash !== a.mediaData.filehash,
+                  s = t.order.items || [],
+                  u = i.order.items || [],
+                  c = t.order.currency !== i.order.currency,
+                  d = s.length !== u.length,
+                  m = !1,
+                  p = !1,
+                  _ = !1,
+                  f = !1,
+                  g = !1,
+                  h = 0;
+                h < Math.min(s.length, u.length);
+                h++
+              ) {
+                var y,
+                  C,
+                  b,
+                  v,
+                  S,
+                  R,
+                  L = s[h],
+                  E = u[h];
+                (m || (m = L.name !== E.name),
+                  p || (p = L.quantity !== E.quantity),
+                  _ || (_ = L.variant !== E.variant),
+                  f ||
+                    (f =
+                      ((y = L.image) == null ? void 0 : y.file_sha256) !==
+                      ((C = E.image) == null ? void 0 : C.file_sha256)),
+                  g ||
+                    (g =
+                      ((b = L.amount) == null ? void 0 : b.value) !==
+                        ((v = E.amount) == null ? void 0 : v.value) ||
+                      ((S = L.amount) == null ? void 0 : S.offset) !==
+                        ((R = E.amount) == null ? void 0 : R.offset)));
               }
+              new (o(
+                "WAWebPsRichOrderStatusMessageInconsistentPayloadReceivedWamEvent",
+              ).PsRichOrderStatusMessageInconsistentPayloadReceivedWamEvent)({
+                businessJid: o("WAWebUtilsPnhSmbLoggingHelper").jidToPnString(
+                  o("WAWebChatGetters").getId(n),
+                ),
+                hasCurrencyChanged: c,
+                hasHeaderImageChanged: l,
+                hasItemImageChanged: f,
+                hasItemNameChanged: m,
+                hasItemNumberChanged: d,
+                hasItemPriceChanged: g,
+                hasItemQuantityChanged: p,
+                hasItemVariantChanged: _,
+              }).commit();
             }
           }
-        })),
-        p.apply(this, arguments)
-      );
+        }
+      }
     }
-    ((l.RichOrderStatusActionType = u),
-      (l.logRichOrderStatusInteraction = c),
-      (l.logRichOrderStatusInconsistencies = m));
+    ((l.RichOrderStatusActionType = s),
+      (l.logRichOrderStatusInteraction = u),
+      (l.logRichOrderStatusInconsistencies = c));
   },
   98,
 );

@@ -4,10 +4,6 @@ __d(
     "AdsAccountStore",
     "AdsAdObjectRelayIDUtils",
     "AdsAdgroupCombinedListStore",
-    "AdsCampaignCombinedListStore",
-    "AdsCampaignCombinedStore",
-    "AdsCampaignGroupCombinedStore",
-    "AdsCampaignGroupCrossValidationBootloadedStore",
     "AdsCampaignGroupDraftFragmentStore",
     "AdsEditingCampaignGroupContextUtil",
     "AdsLoadObjectUtils",
@@ -19,33 +15,38 @@ __d(
     "AdsUEditorHostIDs",
     "FBLogger",
     "LoadObject",
-    "adsAccountValidationBootloadedErrorsSelectors",
-    "adsCampaignGroupValidationBootloadedErrorsSelectors",
-    "adsCreateDynamicSelector",
+    "accountErrorsDynamicSelector",
     "adsCreateSelector",
     "adsCreateStoreSelector",
-    "adsCreateStoreThunkSelector",
     "adsEnforcePureGetStores",
     "adsStoreFlattenLists",
     "adsUEditorSlowSelectorsLogging",
+    "campaignGroupCombinedErrorsDynamicSelector",
+    "campaignGroupCrossValidationErrorsStoreThunkSelector",
+    "campaignGroupPlainObjectStoreThunkSelector",
+    "campaignGroupRecordStoreThunkSelector",
+    "campaignIDsForCampaignGroupsStoreThunkSelector",
+    "campaignRecordStoreThunkSelector",
     "immutable",
     "isFalsey",
+    "setTimeout",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = function (t) {
+    var e,
+      s = function (t) {
         var e = this;
         ((this.contextID = "unknown"),
           (this.hostID = r("AdsUEditorHostIDs").EDITING),
           (this.adObjectLevel = o(
             "AdsAdObjectRelayIDUtils",
           ).AdsUEditorAdObjectLevels.CAMPAIGN_GROUP),
-          (this.campaignGroupSelector = s),
-          (this.campaignGroupPlainObjectSelector = u),
-          (this.selectedAdAccountSelector = c),
+          (this.campaignGroupSelector = c),
+          (this.campaignGroupPlainObjectSelector = d),
+          (this.selectedAdAccountSelector = m),
           this.constructor.name === "AdsEditingCampaignGroupContext" &&
             (this.contextID = i.id),
-          window.setTimeout(function () {
+          r("setTimeout")(function () {
             e.contextID === "unknown" &&
               r("FBLogger")("relay_ads_manager").warn(
                 "Unknown context type detected in AdsEditingCampaignGroupContext",
@@ -56,15 +57,7 @@ __d(
           )),
           (this.selectedCampaignGroupsSelector = r("adsEnforcePureGetStores")(
             r("adsCreateSelector")(
-              [
-                t,
-                r("adsCreateStoreThunkSelector")(
-                  r("AdsCampaignGroupCombinedStore"),
-                  r("AdsCampaignGroupCombinedStore").getRecord.bind(
-                    r("AdsCampaignGroupCombinedStore"),
-                  ),
-                ),
-              ],
+              [t, r("campaignGroupRecordStoreThunkSelector")],
               function (t, n) {
                 return t
                   .map(function (e) {
@@ -88,15 +81,7 @@ __d(
             "adsEnforcePureGetStores",
           )(
             r("adsCreateSelector")(
-              [
-                t,
-                r("adsCreateStoreThunkSelector")(
-                  r("AdsCampaignGroupCombinedStore"),
-                  r("AdsCampaignGroupCombinedStore").get.bind(
-                    r("AdsCampaignGroupCombinedStore"),
-                  ),
-                ),
-              ],
+              [t, r("campaignGroupPlainObjectStoreThunkSelector")],
               function (t, n) {
                 return t
                   .map(function (e) {
@@ -155,7 +140,7 @@ __d(
             "adsCreateSelector",
           )(
             [
-              d,
+              p,
               t,
               o("AdsAdgroupCombinedListStore").AdsAdgroupCombinedListStore
                 .getForCampaignGroupsSelector,
@@ -202,16 +187,7 @@ __d(
             "adsEnforcePureGetStores",
           )(
             r("adsCreateSelector")(
-              [
-                d,
-                t,
-                r("adsCreateStoreThunkSelector")(
-                  r("AdsCampaignCombinedListStore"),
-                  r("AdsCampaignCombinedListStore").getForCampaignGroups.bind(
-                    r("AdsCampaignCombinedListStore"),
-                  ),
-                ),
-              ],
+              [p, t, r("campaignIDsForCampaignGroupsStoreThunkSelector")],
               function (t, n, a) {
                 if (t == null)
                   return r("LoadObject").loading({ creatorModuleID: i.id });
@@ -229,12 +205,7 @@ __d(
           )(
             [
               this.campaignIDsForSelectedCampaignGroupsSelector,
-              r("adsCreateStoreThunkSelector")(
-                r("AdsCampaignCombinedStore"),
-                r("AdsCampaignCombinedStore").getRecord.bind(
-                  r("AdsCampaignCombinedStore"),
-                ),
-              ),
+              r("campaignRecordStoreThunkSelector"),
             ],
             function (t, n) {
               return t.match({
@@ -257,14 +228,7 @@ __d(
             { name: i.id + ".campaignsForSelectedCampaignGroupsSelector" },
           )),
           (this.adAccountErrorsSelector = r("adsCreateSelector")(
-            [
-              d,
-              r("adsCreateDynamicSelector")(
-                o("adsAccountValidationBootloadedErrorsSelectors")
-                  .adsAccountValidationBootloadedErrorsSelectors
-                  .accountErrorsSelector,
-              ),
-            ],
+            [p, r("accountErrorsDynamicSelector")],
             function (t, n) {
               return t == null
                 ? r("immutable").Map()
@@ -277,14 +241,7 @@ __d(
             { name: i.id + ".adAccountErrorsSelector" },
           )),
           (this.campaignGroupCombinedErrorsSelector = r("adsCreateSelector")(
-            [
-              t,
-              r("adsCreateDynamicSelector")(
-                o("adsCampaignGroupValidationBootloadedErrorsSelectors")
-                  .adsCampaignGroupValidationBootloadedErrorsSelectors
-                  .combinedErrorsForCampaignGroupIDsSelector,
-              ),
-            ],
+            [t, r("campaignGroupCombinedErrorsDynamicSelector")],
             function (t, n) {
               return n(t);
             },
@@ -293,27 +250,24 @@ __d(
           (this.campaignGroupCrossValidationErrorsSelector = r(
             "adsCreateSelector",
           )(
-            [
-              t,
-              r("adsCreateStoreThunkSelector")(
-                r("AdsCampaignGroupCrossValidationBootloadedStore"),
-                r(
-                  "AdsCampaignGroupCrossValidationBootloadedStore",
-                ).getAllErrors.bind(
-                  r("AdsCampaignGroupCrossValidationBootloadedStore"),
-                ),
-              ),
-            ],
+            [t, r("campaignGroupCrossValidationErrorsStoreThunkSelector")],
             function (t, n) {
               return n(t);
             },
             { name: i.id + ".campaignGroupCrossValidationErrorsSelector" },
           )));
       },
-      s = r("adsEnforcePureGetStores")(
-        r("adsCreateStoreSelector")(
-          [r("AdsCampaignGroupCombinedStore")],
-          function (t) {
+      u = r("adsCreateStoreSelector")(
+        [],
+        function (t) {
+          return t;
+        },
+        { name: i.id + ".campaignGroupIDSelector" },
+      ),
+      c = r("adsEnforcePureGetStores")(
+        (e = r("adsCreateSelector"))(
+          [u, r("campaignGroupRecordStoreThunkSelector")],
+          function (t, n) {
             return r("isFalsey")(t)
               ? null
               : (o("AdsObjectIDLevelRegistry").checkIDLevel(
@@ -321,15 +275,15 @@ __d(
                   r("AdsObjectTypes").CAMPAIGN_GROUP,
                   "AdsEditingCampaignGroupContext",
                 ),
-                r("AdsCampaignGroupCombinedStore").getRecord(t).getValue());
+                n(t).getValue());
           },
           i.id + ".campaignGroupSelector",
         ),
       ),
-      u = r("adsEnforcePureGetStores")(
-        r("adsCreateStoreSelector")(
-          [r("AdsCampaignGroupCombinedStore")],
-          function (t) {
+      d = r("adsEnforcePureGetStores")(
+        e(
+          [u, r("campaignGroupPlainObjectStoreThunkSelector")],
+          function (t, n) {
             return r("isFalsey")(t)
               ? null
               : (o("AdsObjectIDLevelRegistry").checkIDLevel(
@@ -337,13 +291,13 @@ __d(
                   r("AdsObjectTypes").CAMPAIGN_GROUP,
                   "AdsEditingCampaignGroupContext",
                 ),
-                r("AdsCampaignGroupCombinedStore").get(t).getValue());
+                n(t).getValue());
           },
           i.id + ".campaignGroupPlainObjectSelector",
         ),
       ),
-      c = r("adsEnforcePureGetStores")(
-        r("adsCreateSelector")(
+      m = r("adsEnforcePureGetStores")(
+        e(
           [r("AdsAccountStore").getSelectedAccount],
           function (t) {
             return t.isLoading()
@@ -358,14 +312,14 @@ __d(
           i.id + ".selectedAdAccountSelector",
         ),
       ),
-      d = r("adsCreateSelector")(
-        [c],
+      p = e(
+        [m],
         function (t) {
           return t.account_id;
         },
         { name: i.id + ".selectedAdAccountIDSelector" },
       );
-    l.default = e;
+    l.default = s;
   },
   98,
 );

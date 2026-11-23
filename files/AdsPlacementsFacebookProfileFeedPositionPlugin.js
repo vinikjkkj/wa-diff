@@ -24,6 +24,7 @@ __d(
     "AdsPromotedObjectTypes",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
     "AdsUEditorCampaignPlacementSetActionFlux",
+    "AdsUPVPlacementExpansionUtils",
     "AdsUnifiedProfileVisitUtils",
     "IGAdsSensitiveVerticalsUtils",
     "adsIGLoginPlacementUtils",
@@ -31,14 +32,28 @@ __d(
     "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
     "gkx",
     "immutable",
+    "isConsiderationPlacementLocked",
   ],
   function (t, n, r, o, a, i, l, s, u) {
     "use strict";
-    var e = {
+    function e(e) {
+      return e === r("AdsPromotedObjectTypes").DONATION
+        ? o("AdsPlacementIneligibilityReason").createDonationReason()
+        : e === r("AdsPromotedObjectTypes").GROUP
+          ? o("AdsPlacementIneligibilityReason").createGroupPromotionReason()
+          : e === r("AdsPromotedObjectTypes").IMAGINATION
+            ? o("AdsPlacementIneligibilityReason").createImaginationReason()
+            : e === r("AdsPromotedObjectTypes").REMINDER
+              ? o(
+                  "AdsPlacementIneligibilityReason",
+                ).createReminderPromotionReason()
+              : null;
+    }
+    var c = {
         type: "placements/position",
         key: "facebook/profile_feed",
         name: r("AdsPlacementPositionLabelConstant").profile_feed,
-        nameWithPlatform: s._(/*BTDS*/ "Facebook profile feed"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION
             .FB_PROFILE_FEED,
@@ -64,7 +79,7 @@ __d(
           if (a) return a;
           var i = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(e, n);
+          ).getSOOBundleParentIneligibilityReason(c, n);
           if (i != null) return i;
           if (n.isMetaMomentMaker === !0)
             return o(
@@ -84,11 +99,11 @@ __d(
             ).createAdAccountTrustTierReason();
           var s = n.buyingType,
             u = n.optimizationGoal,
-            c = n.spec;
+            d = n.spec;
           if (
-            c.device_platforms &&
+            d.device_platforms &&
             !(
-              (t = c.device_platforms) != null &&
+              (t = d.device_platforms) != null &&
               t.includes(r("AdsAPIDevicePlatform").MOBILE)
             )
           )
@@ -103,7 +118,7 @@ __d(
             return o("AdsPlacementIneligibilityReason").createBuyingTypeReason(
               s,
             );
-          var d = o("AdsODAXUtils").maybeTranslateObjective(
+          var m = o("AdsODAXUtils").maybeTranslateObjective(
             n.objective,
             n.promotedObjectType,
             n.optimizationGoal,
@@ -120,75 +135,63 @@ __d(
             ).createDevicePlatformReason(
               r("AdsAPIDevicePlatform").CONNECTED_TV,
             );
-          var m = o(
+          var p = o(
             "AdsFacebookProfileFeedUtils",
-          ).isEligibleObjectiveForFacebookProfileFeedPlacement(d);
-          if (!m)
+          ).isEligibleObjectiveForFacebookProfileFeedPlacement(m);
+          if (!p)
             return o("AdsPlacementIneligibilityReason").createObjectiveReason(
               n.objective,
             );
-          var p = o(
+          var _ = o(
             "AdsFacebookProfileFeedUtils",
           ).isEligibleOptimizationGoalForFacebookProfileFeedPlacement(u);
-          return p
-            ? n.promotedObjectType === r("AdsPromotedObjectTypes").DONATION
-              ? o("AdsPlacementIneligibilityReason").createDonationReason()
-              : n.promotedObjectType === r("AdsPromotedObjectTypes").GROUP
+          if (!_ || r("isConsiderationPlacementLocked")(u))
+            return o(
+              "AdsPlacementIneligibilityReason",
+            ).createOptimizationGoalReason();
+          var f = e(n.promotedObjectType);
+          return f != null
+            ? f
+            : o(
+                  "adsIGLoginPlacementUtils",
+                ).getShouldDisableFBPlacementForIGLoginUsers(n.account)
+              ? o("AdsPlacementIneligibilityReason").createIGLoginReason()
+              : o(
+                    "AdsUnifiedProfileVisitUtils",
+                  ).getIsPositionAlwaysDisabledForProfileVisits(
+                    m,
+                    n.promotedObjectType,
+                  ) &&
+                  !o(
+                    "AdsUPVPlacementExpansionUtils",
+                  ).getIsFbPlacementsExpansionEnabledForUPV()
                 ? o(
-                    "AdsPlacementIneligibilityReason",
-                  ).createGroupPromotionReason()
-                : n.promotedObjectType ===
-                    r("AdsPromotedObjectTypes").IMAGINATION
+                    "AdsUnifiedProfileVisitUtils",
+                  ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
+                    n.destinationType,
+                  )
+                : n.destinationType ===
+                    r("AdCampaignDestination").INSTAGRAM_LIVE
                   ? o(
                       "AdsPlacementIneligibilityReason",
-                    ).createImaginationReason()
-                  : n.promotedObjectType ===
-                      r("AdsPromotedObjectTypes").REMINDER
+                    ).createInstagramLiveReason()
+                  : o(
+                        "AdsInstagramPlacementUtils",
+                      ).isInstagramDestinationEnabledAndSelected(
+                        babelHelpers.extends({}, n, { objective: m }),
+                      )
                     ? o(
                         "AdsPlacementIneligibilityReason",
-                      ).createReminderPromotionReason()
+                      ).createInstagramDirectReason(n.objective)
                     : o(
-                          "adsIGLoginPlacementUtils",
-                        ).getShouldDisableFBPlacementForIGLoginUsers(n.account)
+                          "AdsInstagramLeadGenPlacementUtils",
+                        ).isInstagramLeadGenDestinationSelected(
+                          babelHelpers.extends({}, n, { objective: m }),
+                        )
                       ? o(
                           "AdsPlacementIneligibilityReason",
-                        ).createIGLoginReason()
-                      : o(
-                            "AdsUnifiedProfileVisitUtils",
-                          ).getIsPositionAlwaysDisabledForProfileVisits(
-                            d,
-                            n.promotedObjectType,
-                          )
-                        ? o(
-                            "AdsUnifiedProfileVisitUtils",
-                          ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
-                            n.destinationType,
-                          )
-                        : n.destinationType ===
-                            r("AdCampaignDestination").INSTAGRAM_LIVE
-                          ? o(
-                              "AdsPlacementIneligibilityReason",
-                            ).createInstagramLiveReason()
-                          : o(
-                                "AdsInstagramPlacementUtils",
-                              ).isInstagramDestinationEnabledAndSelected(
-                                babelHelpers.extends({}, n, { objective: d }),
-                              )
-                            ? o(
-                                "AdsPlacementIneligibilityReason",
-                              ).createInstagramDirectReason(n.objective)
-                            : o(
-                                  "AdsInstagramLeadGenPlacementUtils",
-                                ).isInstagramLeadGenDestinationSelected(
-                                  babelHelpers.extends({}, n, { objective: d }),
-                                )
-                              ? o(
-                                  "AdsPlacementIneligibilityReason",
-                                ).createInstagramLeadGenReason(n.objective)
-                              : null
-            : o(
-                "AdsPlacementIneligibilityReason",
-              ).createOptimizationGoalReason();
+                        ).createInstagramLeadGenReason(n.objective)
+                      : null;
         },
         isActive: function (t) {
           return r("adsPlacementAPISpecReaderIsActiveFacebookPosition")(
@@ -264,8 +267,8 @@ __d(
         parentPlacements: r("immutable").OrderedSet(["facebook/feed"]),
         childPlacements: r("immutable").OrderedSet([]),
       },
-      c = e;
-    l.default = c;
+      d = c;
+    l.default = d;
   },
   226,
 );

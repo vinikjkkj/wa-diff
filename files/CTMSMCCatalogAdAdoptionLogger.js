@@ -131,6 +131,7 @@ __d(
       WelcomeMessageProductTestSelectorLoaded:
         "welcome_message_product_test_selector_loaded",
       ImprovedIsSMCELigibleCheck: "improved_is_smc_eligible_check",
+      CTMCreateAdM1ResolutionOutcome: "ctm_create_ad_m1_resolution_outcome",
     });
     function s(e, t, n, a, i, l, s, u, c, d) {
       var m,

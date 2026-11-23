@@ -5,7 +5,6 @@ __d(
     "WAWebHatchCvmSecretPref",
     "WAWebHatchFrontendGating",
     "WAWebHatchLinkedStatusManager",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -15,7 +14,7 @@ __d(
       u = 0;
     function c() {
       if (
-        (!r("WAWebHatchLinkedStatusManager").isLinked() && !y()) ||
+        (!r("WAWebHatchLinkedStatusManager").isLinked() && !h()) ||
         !o("WAWebHatchFrontendGating").isHatchCvmEnabled()
       )
         return null;
@@ -25,29 +24,21 @@ __d(
         a = e.isTransferring;
       return a ? "transferring" : n && (!t || u > 0) ? "pin_required" : null;
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      g(1);
+      try {
+        return await e();
+      } finally {
+        g(-1);
+      }
     }
     function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          h(1);
-          try {
-            return yield e();
-          } finally {
-            h(-1);
-          }
-        })),
-        m.apply(this, arguments)
-      );
+      return c() != null || f();
     }
     function p() {
-      return c() != null || g();
-    }
-    function _() {
       return o("WAWebHatchCvmSecretPref").peekHatchCvmVmType() === "standard";
     }
-    function f(e) {
+    function _(e) {
       var t = o("WAWebHatchCvmSecretPref").subscribeToHatchCvmSecretChanges(e),
         n = r("WAWebHatchLinkedStatusManager").subscribeToLinkedStatus(
           function () {
@@ -61,14 +52,14 @@ __d(
         }
       );
     }
-    function g() {
+    function f() {
       return (
-        (r("WAWebHatchLinkedStatusManager").isLinked() || y()) &&
+        (r("WAWebHatchLinkedStatusManager").isLinked() || h()) &&
         !o("WAWebHatchFrontendGating").isHatchCvmEnabled() &&
         o("WAWebHatchCvmSecretPref").peekHatchCvmVmType() === "confidential"
       );
     }
-    function h(t) {
+    function g(t) {
       u += t;
       for (var n of Array.from(s))
         try {
@@ -85,7 +76,7 @@ __d(
             .sendLogs("hatch-cvm-read-only-listener-failed");
         }
     }
-    function y() {
+    function h() {
       return (
         r(
           "WAWebHatchLinkedStatusManager",
@@ -94,9 +85,9 @@ __d(
     }
     ((l.getHatchCvmReadOnlyReason = c),
       (l.holdHatchCvmReadOnlyDuringPinCheck = d),
-      (l.areHatchVmFeaturesHidden = p),
-      (l.isHatchCvmTransferToConfidential = _),
-      (l.subscribeToHatchCvmReadOnly = f));
+      (l.areHatchVmFeaturesHidden = m),
+      (l.isHatchCvmTransferToConfidential = p),
+      (l.subscribeToHatchCvmReadOnly = _));
   },
   98,
 );

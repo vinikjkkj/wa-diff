@@ -98,6 +98,7 @@ __d(
                                     isFastStartEligible: l,
                                     lightweightType: u,
                                     isFromPublish: !0,
+                                    isPostPublishRecheck: !0,
                                   });
                                 });
                               return {
@@ -145,7 +146,7 @@ __d(
               n.dispatch(
                 { lightweightCreationStatus: r("filterNulls")(t.toArray()) },
                 {
-                  line: "162",
+                  line: "163",
                   module:
                     "AdsExperimentsBestPracticesEligibilityLoadedReducerPlugin.js",
                   moduleID: i.id,
@@ -175,7 +176,7 @@ __d(
                   e.dispatch(
                     { adObjectIDs: Array.from(o.keys()) },
                     {
-                      line: "180",
+                      line: "181",
                       module:
                         "AdsExperimentsBestPracticesEligibilityLoadedReducerPlugin.js",
                       moduleID: i.id,

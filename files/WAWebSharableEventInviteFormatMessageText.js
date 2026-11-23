@@ -17,17 +17,17 @@ __d(
         );
       if (n.formatAsLastMsg === !0)
         return o("WAWebMsgGetters").getIsSentByMe(t)
-          ? s._(/*BTDS*/ "sent an event invitation: {event-title}", [
+          ? s._(/*BTDS*/ "", [
               s._param("event-title", a.sharableEventInviteTitle),
             ])
-          : s._(/*BTDS*/ "invited you to an event: {event-title}", [
+          : s._(/*BTDS*/ "", [
               s._param("event-title", a.sharableEventInviteTitle),
             ]);
       var i = r("WAWebSharableEventInviteCoerceTimestampSeconds")(
         a.sharableEventInviteStartTime,
       );
       return i != null
-        ? s._(/*BTDS*/ "{event-title} \u2022 {event-time}", [
+        ? s._(/*BTDS*/ "", [
             s._param("event-title", a.sharableEventInviteTitle),
             s._param(
               "event-time",

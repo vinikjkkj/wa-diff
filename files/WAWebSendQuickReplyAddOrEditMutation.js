@@ -6,55 +6,39 @@ __d(
     "WAWebQuickRepliesSync",
     "WAWebQuickReplyGatingUtils",
     "WAWebSyncdCoreApi",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
-    function e(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.count,
-            a = e.id,
-            i = e.keywords,
-            l = e.message,
-            u = e.shortcut;
-          o("WAWebQuickReplyGatingUtils").quickRepliesManagementEnabled() ||
-            s(0, 73617);
-          var c = o("WATimeUtils").unixTime(),
-            d = r("WAWebQuickRepliesSync").getQuickReplyAddOrEditMutation({
-              count: t,
-              id: a,
-              keywords: i,
-              message: l,
-              shortcut: u,
-              timestamp: c,
-            });
-          yield o("WAWebSyncdCoreApi").lockForSync(
-            ["quick-reply"],
-            [d],
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var n = e[0];
-                  return n.createOrMerge(a, {
-                    id: a,
-                    shortcut: u,
-                    message: l,
-                    count: t,
-                    keywords: i,
-                    ts: c,
-                  });
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-          );
-        })),
-        u.apply(this, arguments)
+    async function e(e) {
+      var t = e.count,
+        n = e.id,
+        a = e.keywords,
+        i = e.message,
+        l = e.shortcut;
+      o("WAWebQuickReplyGatingUtils").quickRepliesManagementEnabled() ||
+        s(0, 73617);
+      var u = o("WATimeUtils").unixTime(),
+        c = r("WAWebQuickRepliesSync").getQuickReplyAddOrEditMutation({
+          count: t,
+          id: n,
+          keywords: a,
+          message: i,
+          shortcut: l,
+          timestamp: u,
+        });
+      await o("WAWebSyncdCoreApi").lockForSync(
+        ["quick-reply"],
+        [c],
+        async function (e) {
+          var r = e[0];
+          return r.createOrMerge(n, {
+            id: n,
+            shortcut: l,
+            message: i,
+            count: t,
+            keywords: a,
+            ts: u,
+          });
+        },
       );
     }
     l.sendQuickReplyAddOrEditMutation = e;

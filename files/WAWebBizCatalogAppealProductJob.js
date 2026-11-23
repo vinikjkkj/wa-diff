@@ -7,64 +7,40 @@ __d(
     "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a = o("WAWebUserUtils").getMeUserOrThrow(),
-            i = yield o("WAWebBizCatalogManagementAppealProduct").appealProduct(
-              {
-                jid:
-                  (n = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                    a,
-                  )) != null
-                    ? n
-                    : a.toJid(),
-                product_id: e,
-                reason: t,
-              },
-            );
-          if (i.type === "success") return i.result;
-          throw (
-            i.type === "graphql-error"
-              ? o(
-                  "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(i.error)
-              : i.type,
-            r("err")(
-              "appealProductGraphQL: error handling flow not implemented for " +
-                JSON.stringify(i),
-            )
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n,
+        a = o("WAWebUserUtils").getMeUserOrThrow(),
+        i = await o("WAWebBizCatalogManagementAppealProduct").appealProduct({
+          jid:
+            (n = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(a)) !=
+            null
+              ? n
+              : a.toJid(),
+          product_id: e,
+          reason: t,
+        });
+      if (i.type === "success") return i.result;
+      throw (
+        i.type === "graphql-error"
+          ? o(
+              "WAWebMaybeThrowCatalogErrors",
+            ).maybeThrowLocalErrorForCatalogQuery(i.error)
+          : i.type,
+        r("err")(
+          "appealProductGraphQL: error handling flow not implemented for " +
+            JSON.stringify(i),
+        )
       );
     }
-    function u(e, t) {
-      return c.apply(this, arguments);
+    async function s(t, n) {
+      if (o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
+        throw new (o("WAWebBackendErrors").E451)();
+      return e(t, n);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (
-            o(
-              "WAWebBizCatalogGatingUtils",
-            ).commerceFeaturesDisabledBySanctions()
-          )
-            throw new (o("WAWebBackendErrors").E451)();
-          return e(t, n);
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    l.appealProductMD = u;
+    l.appealProductMD = s;
   },
   98,
 );

@@ -6,7 +6,6 @@ __d(
     "WAWebDecodeLabyrinthEncryptedMessagePayload",
     "WAWebLabyrinthOpaqueTypes",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
@@ -57,26 +56,18 @@ __d(
         },
       ];
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          r("vulture")("tPFbX06dhZedpfNTE94HahzKtqk=");
-          var t = yield o("WAWebRelayClient").fetchQuery(
-            s,
-            {
-              device_id: e.ebDeviceId,
-              message_count: e.messageCount,
-              partial_thread_id: o("WABase64").encodeB64(e.partialThreadId),
-            },
-            { environmentType: "whatsapp_web" },
-          );
-          return u(t);
-        })),
-        d.apply(this, arguments)
+    async function c(e) {
+      r("vulture")("tPFbX06dhZedpfNTE94HahzKtqk=");
+      var t = await o("WAWebRelayClient").fetchQuery(
+        s,
+        {
+          device_id: e.ebDeviceId,
+          message_count: e.messageCount,
+          partial_thread_id: o("WABase64").encodeB64(e.partialThreadId),
+        },
+        { environmentType: "whatsapp_web" },
       );
+      return u(t);
     }
     l.fetchLabyrinthRangeQuery = c;
   },

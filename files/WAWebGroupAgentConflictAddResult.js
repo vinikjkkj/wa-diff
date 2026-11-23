@@ -33,21 +33,13 @@ __d(
         });
       return t == null
         ? m(e.length)
-        : s._(
-            /*BTDS*/ "Can't add {agentName}. This group has an AI agent that can't be in the same group.",
-            [s._param("agentName", t)],
-          );
+        : s._(/*BTDS*/ "", [s._param("agentName", t)]);
     }
     function m(e) {
-      return s._(
-        /*BTDS*/ '_j{"*":"Couldn\'t add {count} members.","_1":"Couldn\'t add 1 member."}',
-        [s._plural(e, "count")],
-      );
+      return s._(/*BTDS*/ "", [s._plural(e, "count")]);
     }
     function p() {
-      return s._(
-        /*BTDS*/ "Can't add to this group. A group member uses an older version of WhatsApp or AI agents aren't available in their country.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function _(e, t) {
       var n = e.toString(),

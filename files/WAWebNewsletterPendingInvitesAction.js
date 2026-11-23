@@ -7,100 +7,89 @@ __d(
     "WAWebNewsletterPendingInvitesJob",
     "WAWebNewsletterSubscriberModel",
     "WAWebNewsletterValidationUtils",
-    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n;
-          if (!o("WAWebChatGetters").getIsNewsletter(t))
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[getNewsletterPendingInvitesAction] non-newsletter chat",
-                    ])),
-                )
-                .tags("newsletter")
-                .sendLogs("pending-invites-of-non-newsletter"),
-              []
-            );
-          if (
-            !(t != null && (n = t.newsletterMetadata) != null && n.iAmOwner())
-          )
-            return (
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[getNewsletterPendingInvitesAction] owner-only access",
-                    ])),
-                )
-                .tags("newsletter")
-                .sendLogs("non-channel-owner-viewing-pending-invites"),
-              []
-            );
-          try {
-            var a,
-              i,
-              l = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
-                t.id.toJid(),
-              ),
-              c = yield o(
-                "WAWebNewsletterPendingInvitesJob",
-              ).getNewsletterPendingInvites(l),
-              d =
-                c != null
-                  ? r("compactMap")(c, function (e) {
-                      return new (o(
-                        "WAWebNewsletterSubscriberModel",
-                      ).NewsletterSubscriber)({
-                        id: e,
-                        contact: o(
-                          "WAWebContactCollection",
-                        ).ContactCollection.gadd(e),
-                        isPendingAdmin: !0,
-                      });
-                    })
-                  : void 0,
-              m = d != null ? d : [];
-            return (
-              t == null ||
-                (a = t.newsletterMetadata) == null ||
-                (a = a.pendingAdmins) == null ||
-                a.reset(),
-              t == null ||
-                (i = t.newsletterMetadata) == null ||
-                (i = i.pendingAdmins) == null ||
-                i.add(m, { sort: !1 }),
-              m.map(function (e) {
-                return e.contact;
-              })
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[getNewsletterPendingInvitesAction] fetch invites failed",
-                    ])),
-                )
-                .tags("newsletter")
-                .sendLogs("pending-invites-on-newsletter-failed"),
-              []
-            );
-          }
-        })),
-        d.apply(this, arguments)
-      );
+    async function c(t) {
+      var n;
+      if (!o("WAWebChatGetters").getIsNewsletter(t))
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[getNewsletterPendingInvitesAction] non-newsletter chat",
+                ])),
+            )
+            .tags("newsletter")
+            .sendLogs("pending-invites-of-non-newsletter"),
+          []
+        );
+      if (!(t != null && (n = t.newsletterMetadata) != null && n.iAmOwner()))
+        return (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[getNewsletterPendingInvitesAction] owner-only access",
+                ])),
+            )
+            .tags("newsletter")
+            .sendLogs("non-channel-owner-viewing-pending-invites"),
+          []
+        );
+      try {
+        var a,
+          i,
+          l = o("WAWebNewsletterValidationUtils").toNewsletterJidOrThrow(
+            t.id.toJid(),
+          ),
+          c = await o(
+            "WAWebNewsletterPendingInvitesJob",
+          ).getNewsletterPendingInvites(l),
+          d =
+            c != null
+              ? r("compactMap")(c, function (e) {
+                  return new (o(
+                    "WAWebNewsletterSubscriberModel",
+                  ).NewsletterSubscriber)({
+                    id: e,
+                    contact: o("WAWebContactCollection").ContactCollection.gadd(
+                      e,
+                    ),
+                    isPendingAdmin: !0,
+                  });
+                })
+              : void 0,
+          m = d != null ? d : [];
+        return (
+          t == null ||
+            (a = t.newsletterMetadata) == null ||
+            (a = a.pendingAdmins) == null ||
+            a.reset(),
+          t == null ||
+            (i = t.newsletterMetadata) == null ||
+            (i = i.pendingAdmins) == null ||
+            i.add(m, { sort: !1 }),
+          m.map(function (e) {
+            return e.contact;
+          })
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[getNewsletterPendingInvitesAction] fetch invites failed",
+                ])),
+            )
+            .tags("newsletter")
+            .sendLogs("pending-invites-on-newsletter-failed"),
+          []
+        );
+      }
     }
     l.getNewsletterPendingInvitesAction = c;
   },

@@ -1,12 +1,6 @@
 __d(
   "AdsLocalAwarenessUtils",
-  [
-    "AdsAdgroupSpecUtils",
-    "AdsBulkValueUtils",
-    "AdsLocalUtils",
-    "LocationConstants",
-    "adsTargetingLocationGetLocationsCount",
-  ],
+  ["AdsAdgroupSpecUtils", "AdsBulkValueUtils", "AdsLocalUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t) {
@@ -19,16 +13,7 @@ __d(
       var t = o("AdsBulkValueUtils").getUniformValue(e, null);
       return o("AdsLocalUtils").isLocalObjective(t);
     }
-    function c(e) {
-      var t = (
-          e && e[o("LocationConstants").CUSTOM_LOCATIONS]
-            ? e[o("LocationConstants").CUSTOM_LOCATIONS]
-            : []
-        ).length,
-        n = r("adsTargetingLocationGetLocationsCount")(e);
-      return t !== n ? !1 : t > 0 ? !0 : null;
-    }
-    function d(e, t) {
+    function c(e, t) {
       if (!o("AdsLocalUtils").isLocalObjective(t)) return !1;
       var r = n("AdsAdgroupSpecUtils"),
         a = r.getCallToActionType(e);
@@ -37,8 +22,7 @@ __d(
     ((l.isADLACampaign = e),
       (l.isDynamicLocalAwareness = s),
       (l.isLocalAwarenessUniformObjective = u),
-      (l.hasLocationsFiltering = c),
-      (l.isLocalAwarenessAndHasCallNowCallToAction = d));
+      (l.isLocalAwarenessAndHasCallNowCallToAction = c));
   },
   98,
 );

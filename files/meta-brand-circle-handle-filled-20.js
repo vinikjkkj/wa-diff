@@ -1,18 +1,17 @@
 __d(
   "meta-brand-circle-handle-filled-20",
-  ["ix", "cr:23429", "cr:23454", "fbicon"],
-  function (t, n, r, o, a, i, l, s) {
+  ["MetaBrandCircleHandleFilled20Icon.react"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("cr:23454") != null ? n("cr:23454") : n("cr:23429"),
-      u = e != null ? [e, 20] : null,
-      c = u != null ? u : o("fbicon")._(s("491283"), 20),
-      d = u != null ? u : o("fbicon")._(s("1002258"), 20),
-      m = u != null ? u : o("fbicon")._(s("491283"), 20),
-      p = u != null ? u : o("fbicon")._(s("666390"), 20);
-    ((l.metaBrandCircleHandleFilled20 = c),
-      (l.metaBrandCircleHandleNavMagnifyingGlassFilled20 = d),
-      (l.metaBrandCircleHandleMagnifyingGlassFilled20 = m),
-      (l.metaBrandCircleHandleNucleusMagnifyingGlassFilled20 = p));
+    var e = [r("MetaBrandCircleHandleFilled20Icon.react"), 20],
+      s = e,
+      u = e,
+      c = e,
+      d = e;
+    ((l.metaBrandCircleHandleFilled20 = s),
+      (l.metaBrandCircleHandleNavMagnifyingGlassFilled20 = u),
+      (l.metaBrandCircleHandleMagnifyingGlassFilled20 = c),
+      (l.metaBrandCircleHandleNucleusMagnifyingGlassFilled20 = d));
   },
   98,
 );

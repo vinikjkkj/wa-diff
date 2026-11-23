@@ -12,7 +12,6 @@ __d(
     "WAWebHatchVmSubscription",
     "WAWebHatchVmTransport",
     "WAWebRequestHatchBrowserTasks",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -50,7 +49,7 @@ __d(
       };
       return (
         o.add(a),
-        X(a),
+        Q(a),
         function () {
           (o.delete(a), o.size === 0 && g.get(r) === o && g.delete(r));
         }
@@ -61,7 +60,7 @@ __d(
       var r = { onUpdate: t, onAcceptedTask: n, taskID: D(e) };
       return (
         m.add(r),
-        V(r),
+        U(r),
         y == null && N(),
         function () {
           if (m.delete(r) && m.size === 0) {
@@ -81,10 +80,10 @@ __d(
       h.add(t);
       var n = p.get(t);
       if (n != null) {
-        var r = W(n);
-        (U(t, r, _.get(n)), G(t, r));
+        var r = B(n);
+        (q(t, r, _.get(n)), H(t, r));
       }
-      Q(t);
+      K(t);
     }
     function T(e) {
       return p.get(D(e));
@@ -127,11 +126,12 @@ __d(
         e == null || e.stop(),
         p.clear(),
         h.clear(),
+        o("WAWebRequestHatchBrowserTasks").resetLoggedMalformedBrowserTaskIDs(),
         o("WAWebHatchBrowserTaskSnapshotStore").resetBrowserTaskSnapshots(),
         o(
           "WAWebHatchBrowserTaskCompletionSafety",
         ).resetBrowserTaskCompletionSafety(),
-        K(),
+        j(),
         e != null && m.size > 0 && y == null && N());
     }
     function N() {
@@ -169,62 +169,58 @@ __d(
           );
         return;
       }
-      (r.malformedCount > 0 &&
+      var a = o("WAWebRequestHatchBrowserTasks").unreportedMalformedCount(
+        r.malformedCount,
+        r.malformedIDs,
+      );
+      (a > 0 &&
         o("WALogger").WARN(
           s ||
             (s = babelHelpers.taggedTemplateLiteralLoose([
               "hatch-computer/subscription-dropped malformed=",
               "",
             ])),
-          r.malformedCount,
+          a,
         ),
-        F(r.tasks, n, "stream"));
+        A(r.tasks, n, "stream"));
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    async function w(e) {
+      var t = await o("WAWebRequestHatchBrowserTasks")
+        .requestHatchBrowserTasks()
+        .catch(function (e) {
+          return (
+            o("WALogger")
+              .WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "hatch-computer/refresh-failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e)),
+            null
+          );
+        });
+      (t == null ? void 0 : t.kind) === "ok" &&
+        y === e &&
+        A(t.tasks, e, "refresh");
     }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebRequestHatchBrowserTasks")
-            .requestHatchBrowserTasks()
-            .catch(function (e) {
-              return (
-                o("WALogger")
-                  .WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "hatch-computer/refresh-failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e)),
-                null
-              );
-            });
-          (t == null ? void 0 : t.kind) === "ok" &&
-            y === e &&
-            F(t.tasks, e, "refresh");
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F(e, t, n) {
+    function A(e, t, n) {
       if (y === t) {
-        var r = H(t);
-        O(e);
-        for (var o of e) if (!q(o, t, r, n)) return;
+        var r = V(t);
+        F(e);
+        for (var o of e) if (!W(o, t, r, n)) return;
       }
     }
-    function O(e) {
+    function F(e) {
       for (var t of e)
         o(
           "WAWebHatchBrowserTaskCompletionSafety",
         ).raiseBrowserTaskVersionHighWater(D(t.browserTaskID), t.version);
     }
-    function B(e, t, n) {
+    function O(e, t, n) {
       return t != null && (e == null ? n === "refresh" : e < t);
     }
-    function W(e) {
+    function B(e) {
       return babelHelpers.extends({}, e, {
         displayState: "stopped",
         displayStatus: null,
@@ -233,37 +229,37 @@ __d(
         status: "stopped",
       });
     }
-    function q(e, t, n, r) {
+    function W(e, t, n, r) {
       var o;
       if (y !== t || !n()) return !1;
       var a = D(e.browserTaskID);
-      if (B(e.version, (o = p.get(a)) == null ? void 0 : o.version, r))
+      if (O(e.version, (o = p.get(a)) == null ? void 0 : o.version, r))
         return !0;
-      var i = h.has(a) ? W(e) : e;
-      U(a, i, e);
-      var l = H(t, i);
-      return (G(a, e, l), y !== t || !l() ? n() : (G(a, i), !0));
+      var i = h.has(a) ? B(e) : e;
+      q(a, i, e);
+      var l = V(t, i);
+      return (H(a, e, l), y !== t || !l() ? n() : (H(a, i), !0));
     }
-    function U(e, t, n) {
+    function q(e, t, n) {
       var r = p.get(e),
         o = r == null ? null : _.get(r);
       (o != null && o !== n && f.add(o), n != null && _.set(t, n), p.set(e, t));
     }
-    function V(e) {
+    function U(e) {
       var t = y,
         n = p.get(e.taskID);
       if (n != null) {
         var r = _.get(n),
-          a = H(t, n);
+          a = V(t, n);
         (r != null &&
           o("WAWebHatchBrowserTaskMessageData").browserTaskMessageTerminalState(
             r,
           ) != null &&
-          z(e, r, a),
-          a() && z(e, n));
+          G(e, r, a),
+          a() && G(e, n));
       }
     }
-    function H(e, t) {
+    function V(e, t) {
       var n = v,
         r = S,
         o = t == null ? null : _.get(t);
@@ -278,45 +274,45 @@ __d(
         );
       };
     }
-    function G(e, t, n) {
-      for (var r of Array.from(m)) r.taskID === e && z(r, t, n);
+    function H(e, t, n) {
+      for (var r of Array.from(m)) r.taskID === e && G(r, t, n);
     }
-    function z(e, t, n) {
+    function G(e, t, n) {
       try {
-        j(e, t, n);
+        z(e, t, n);
       } catch (e) {
         o("WALogger")
           .WARN(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "hatch-computer/observer-failed",
               ])),
           )
           .catching(r("getErrorSafe")(e));
       }
     }
-    function j(e, t, n) {
+    function z(e, t, n) {
       m.has(e) &&
         (n == null
           ? p.get(e.taskID) === t && e.onUpdate(t)
           : n() && (e.onAcceptedTask == null || e.onAcceptedTask(t, n)));
     }
-    function K() {
-      for (var e of Array.from(g.keys())) Q(e);
+    function j() {
+      for (var e of Array.from(g.keys())) K(e);
     }
-    function Q(e) {
+    function K(e) {
       var t = g.get(e);
       for (var n of Array.from(t != null ? t : []))
-        t != null && t.has(n) && X(n);
+        t != null && t.has(n) && Q(n);
     }
-    function X(e) {
+    function Q(e) {
       try {
         e();
       } catch (e) {
         o("WALogger")
           .WARN(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "hatch-computer/stop-observer-failed",
               ])),
           )

@@ -19,7 +19,8 @@ __d(
           kind: "LocalArgument",
           name: "offline_threading_id",
         },
-        r = [
+        r = { defaultValue: null, kind: "LocalArgument", name: "surface" },
+        o = [
           {
             fields: [
               {
@@ -37,19 +38,20 @@ __d(
                 name: "offline_threading_id",
                 variableName: "offline_threading_id",
               },
+              { kind: "Variable", name: "surface", variableName: "surface" },
             ],
             kind: "ObjectValue",
             name: "input",
           },
         ],
-        o = {
+        a = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "external_conversation_id",
           storageKey: null,
         },
-        a = {
+        i = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -58,19 +60,19 @@ __d(
         };
       return {
         fragment: {
-          argumentDefinitions: [e, t, n],
+          argumentDefinitions: [e, t, n, r],
           kind: "Fragment",
           metadata: null,
           name: "SkipStoppedMessagesMutation",
           selections: [
             {
               alias: null,
-              args: r,
+              args: o,
               concreteType: null,
               kind: "LinkedField",
               name: "xfb_maiba_exclude_stopped_messages",
               plural: !1,
-              selections: [o, a],
+              selections: [a, i],
               storageKey: null,
             },
           ],
@@ -79,13 +81,13 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [e, n, t],
+          argumentDefinitions: [e, n, t, r],
           kind: "Operation",
           name: "SkipStoppedMessagesMutation",
           selections: [
             {
               alias: null,
-              args: r,
+              args: o,
               concreteType: null,
               kind: "LinkedField",
               name: "xfb_maiba_exclude_stopped_messages",
@@ -98,8 +100,8 @@ __d(
                   name: "__typename",
                   storageKey: null,
                 },
-                o,
                 a,
+                i,
                 {
                   alias: null,
                   args: null,
@@ -113,7 +115,7 @@ __d(
           ],
         },
         params: {
-          id: "26694603500221207",
+          id: "28025517103757439",
           metadata: {},
           name: "SkipStoppedMessagesMutation",
           operationKind: "mutation",

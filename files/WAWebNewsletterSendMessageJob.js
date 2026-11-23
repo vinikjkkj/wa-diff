@@ -1,7 +1,6 @@
 __d(
   "WAWebNewsletterSendMessageJob",
   [
-    "Promise",
     "WAJobOrchestratorTypes",
     "WALogger",
     "WAWebBackendJobs.flow",
@@ -18,7 +17,6 @@ __d(
     "WAWebPollCreationUtils",
     "WAWebProtobufsE2E.pb",
     "WAWebSendMsgTypes",
-    "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "err",
     "isStringNullOrEmpty",
@@ -28,18 +26,17 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = r("requireDeferred")("WAWebNewsletterSendMessageQueryJob").__setRef(
+      c = r("requireDeferred")("WAWebNewsletterSendMessageQueryJob").__setRef(
         "WAWebNewsletterSendMessageJob",
       ),
-      m = /[?&]id=([0-9]+)(?=&|#|$)/i;
-    function p(e) {
+      d = /[?&]id=([0-9]+)(?=&|#|$)/i;
+    function m(e) {
       if (r("isStringNullOrEmpty")(e)) return null;
-      var t = e.match(m);
+      var t = e.match(d);
       return t ? t[1] : null;
     }
-    var _ = "&";
-    function f(e, t) {
+    var p = "&";
+    function _(e, t) {
       try {
         if (
           e.type !== o("WAWebMsgType").MSG_TYPE.VIDEO ||
@@ -51,26 +48,26 @@ __d(
         var n = o("WAWebMediaMetadata").mediaMetadata(e),
           a = n == null ? void 0 : n.metadataUrl;
         if (a == null) return t;
-        var i = p(a);
+        var i = m(a);
         if (r("isStringNullOrEmpty")(i)) return t;
         var l = t || "";
-        return (l && (l += _), (l += i), l);
+        return (l && (l += p), (l += i), l);
       } catch (e) {
         return t;
       }
     }
-    function g(e) {
+    function f(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "sendNewsletterMessage",
           function () {
-            return C(e);
+            return y(e);
           },
           { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }
-    function h(e) {
+    function g(e) {
       var t;
       return (o("WAWebMsgGetters").getIsNewsletterMsg(e) ||
         o("WAWebMsgGetters").getIsNewsletterStatus(e)) &&
@@ -81,7 +78,7 @@ __d(
         ? !0
         : void 0;
     }
-    function y(e, t) {
+    function h(e, t) {
       var n = e.msg,
         r = e.type,
         a = {
@@ -101,24 +98,24 @@ __d(
               ? "image"
               : "text",
         });
-      var i = h(n),
+      var i = g(n),
         l = babelHelpers.extends({}, a, {
           isQuestion: n.isQuestion,
           questionReplyQuotedMessage: n.questionReplyQuotedMessage,
           hasNewsletterAIContentMeta: i,
         });
       if (r === "media") {
-        var s = f(n, e.mediaHandle);
+        var s = _(n, e.mediaHandle);
         return babelHelpers.extends({}, l, {
           mediaHandle: s,
-          type: R(t),
-          messageAssociationTypeMixinArgs: S(n),
+          type: v(t),
+          messageAssociationTypeMixinArgs: b(n),
           contentId: e.contentId,
         });
       }
       return babelHelpers.extends({}, l, { type: r });
     }
-    function C(e) {
+    function y(e) {
       switch (
         (o("WAWebNewsletterValidationUtils").validateNewsletterJidOrThrow(
           e.newsletterJid,
@@ -130,42 +127,42 @@ __d(
               o("WAWebOutgoingMessage").OutgoingMessageOriginType.Newsletter,
               e.msg,
             ),
-            a = o("encodeProtobuf").encodeProtobuf(
+            n = o("encodeProtobuf").encodeProtobuf(
               o("WAWebProtobufsE2E.pb").MessageSpec,
               t,
             ),
-            i = e.msg.isWamoSub === !0 || void 0,
-            l = h(e.msg),
-            s = {
+            a = e.msg.isWamoSub === !0 || void 0,
+            i = g(e.msg),
+            l = {
               messageId: e.msg.id.id,
               newsletterJid: e.newsletterJid,
-              payload: a.readByteArrayView(),
-              isWamoSub: i,
-              hasNewsletterAIContentMeta: l,
+              payload: n.readByteArrayView(),
+              isWamoSub: a,
+              hasNewsletterAIContentMeta: i,
             },
-            u =
+            s =
               e.editType === "media"
-                ? babelHelpers.extends({}, s, {
+                ? babelHelpers.extends({}, l, {
                     type: "editMedia",
-                    mediaType: R(t),
+                    mediaType: v(t),
                     contentId: e.contentId,
                   })
-                : babelHelpers.extends({}, s, { type: "editText" });
-          return b(u);
+                : babelHelpers.extends({}, l, { type: "editText" });
+          return C(s);
         }
         case "pollCreation":
         case "pollResultSnapshot":
         case "text":
         case "media": {
-          var d = o("WAWebOutgoingMessage").createOutgoingMsgModelProtobuf(
+          var u = o("WAWebOutgoingMessage").createOutgoingMsgModelProtobuf(
               o("WAWebOutgoingMessage").OutgoingMessageOriginType.Newsletter,
               e.msg,
             ),
-            m = y(e, d);
-          return b(m);
+            c = h(e, u);
+          return C(c);
         }
         case "revoke":
-          return b({
+          return C({
             messageId: e.messageId,
             newsletterJid: e.newsletterJid,
             type: "revoke",
@@ -173,7 +170,7 @@ __d(
             isWamoSub: e.isWamoSub === !0 || void 0,
           });
         case "reaction":
-          return b({
+          return C({
             type: "reaction",
             newsletterJid: e.newsletterJid,
             reactionCode: e.reactionCode,
@@ -181,7 +178,7 @@ __d(
             parentMsgServerId: e.parentMsgServerId,
           });
         case "pollVote":
-          return b({
+          return C({
             type: "pollVote",
             newsletterJid: e.newsletterJid,
             votes: e.votes,
@@ -189,18 +186,18 @@ __d(
             parentMsgServerId: e.parentMsgServerId,
           });
         case "newsletterQuestionResponse": {
-          var p = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+          var d = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
             o("WAWebOutgoingMessage").OutgoingMessageOriginType.Newsletter,
             {
               type: o("WAWebSendMsgTypes").SendMessageRecordType.Addon,
               data: e.msg,
             },
           );
-          return b({
+          return C({
             messageId: e.msg.id.id,
             newsletterJid: e.newsletterJid,
             payload: o("encodeProtobuf")
-              .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, p)
+              .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, d)
               .readByteArrayView(),
             type: "newsletterQuestionResponse",
             parentMsgServerId: e.parentMsgServerId,
@@ -209,26 +206,16 @@ __d(
         default:
           return (
             e.type,
-            (c || (c = n("Promise"))).reject(
-              r("err")("Unexpected message type: " + e.type),
-            )
+            Promise.reject(r("err")("Unexpected message type: " + e.type))
           );
       }
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    async function C(e) {
+      var t = await c.load(),
+        n = t.querySendNewsletterMessage;
+      return n(e);
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield d.load(),
-            n = t.querySendNewsletterMessage;
-          return n(e);
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(t) {
+    function b(t) {
       var n = t.associationType;
       if (n == null) return null;
       switch (n) {
@@ -275,7 +262,7 @@ __d(
           );
       }
     }
-    function R(e) {
+    function v(e) {
       var t = o("WAWebBackendJobsCommon").mediaTypeFromProtobuf(e);
       if (t == null)
         throw (
@@ -326,10 +313,10 @@ __d(
           );
       }
     }
-    ((l.extractVideoIdFromMetadataUrl = p),
-      (l.maybeAddVideoIdToMediaHandle = f),
-      (l.sendNewsletterMessageJob = g),
-      (l.sendNewsletterMessage = C));
+    ((l.extractVideoIdFromMetadataUrl = m),
+      (l.maybeAddVideoIdToMediaHandle = _),
+      (l.sendNewsletterMessageJob = f),
+      (l.sendNewsletterMessage = y));
   },
   98,
 );

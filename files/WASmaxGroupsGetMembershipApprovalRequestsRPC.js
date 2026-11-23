@@ -23,46 +23,37 @@ __d(
     "WASmaxParseUtils",
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success)
-            return {
-              name: "GetMembershipApprovalRequestsResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "GetMembershipApprovalRequestsResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "GetMembershipApprovalRequestsResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "GetMembershipApprovalRequests",
-              { Success: a, ClientError: i, ServerError: l },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success)
+        return {
+          name: "GetMembershipApprovalRequestsResponseSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "GetMembershipApprovalRequestsResponseClientError",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "GetMembershipApprovalRequestsResponseServerError",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing(
+          "GetMembershipApprovalRequests",
+          { Success: a, ClientError: i, ServerError: l },
+        ),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -72,7 +63,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = g(r.value);
+      var i = f(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -81,7 +72,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -90,10 +81,10 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "membership_approval_request");
       if (!t.success) return t;
-      var n = h(e);
+      var n = g(e);
       if (!n.success) return n;
       var r = o("WASmaxInGroupsIdentityMixin").parseIdentityMixin(e);
       return o("WAResultOrError").makeResult(
@@ -102,7 +93,7 @@ __d(
         }),
       );
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -110,7 +101,7 @@ __d(
         "membership_approval_requests",
       );
       if (!r.success) return r;
-      var a = y(r.value),
+      var a = h(r.value),
         i = o("WASmaxInGroupsIQResultResponseMixin").parseIQResultResponseMixin(
           e,
           t,
@@ -124,7 +115,7 @@ __d(
           "membership_approval_request",
           0,
           19999,
-          d,
+          c,
         );
       return s.success
         ? o("WAResultOrError").makeResult(
@@ -142,14 +133,14 @@ __d(
           )
         : s;
     }
-    function p(e) {
+    function m(e) {
       var t = e.hasGetMembershipApprovalRequestsRequestorFetch,
         n = o("WASmaxOutGroupsBaseGetGroupMixin").mergeBaseGetGroupMixin(
           o("WASmaxJsx").smax(
             "iq",
             null,
             o("WASmaxMixins").optionalMerge(
-              f,
+              _,
               o("WASmaxJsx").smax("membership_approval_requests", null),
               t,
             ),
@@ -158,15 +149,15 @@ __d(
         );
       return n;
     }
-    function _() {
+    function p() {
       var e = o("WASmaxJsx").smax("smax$any", { requestor_fetch: "true" });
       return e;
     }
-    function f(e) {
-      var t = _();
+    function _(e) {
+      var t = p();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function g(e) {
+    function f(e) {
       var t = o(
         "WASmaxInGroupsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -235,7 +226,7 @@ __d(
             [t, n, r, a, i, l, s],
           );
     }
-    function h(e) {
+    function g(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "membership_approval_request");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrJidEnum(
@@ -278,7 +269,7 @@ __d(
       if (!s.success) return s;
       var u = o("WASmaxParseUtils").attrIntRange(e, "request_time", 0, void 0);
       if (!u.success) return u;
-      var c = C(e);
+      var c = y(e);
       return c.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
@@ -296,7 +287,7 @@ __d(
           )
         : c;
     }
-    function y(e) {
+    function h(e) {
       var t = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
         e,
@@ -307,7 +298,7 @@ __d(
         ? o("WAResultOrError").makeResult({ requestorFetch: t.value })
         : t;
     }
-    function C(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").attrStringEnum(
         e,
         "request_method",
@@ -318,10 +309,10 @@ __d(
         : t;
     }
     ((l.sendGetMembershipApprovalRequestsRPC = e),
-      (l.parseGetMembershipApprovalRequestsResponseClientError = u),
-      (l.parseGetMembershipApprovalRequestsResponseServerError = c),
-      (l.parseGetMembershipApprovalRequestsResponseSuccess = m),
-      (l.makeGetMembershipApprovalRequestsRequest = p));
+      (l.parseGetMembershipApprovalRequestsResponseClientError = s),
+      (l.parseGetMembershipApprovalRequestsResponseServerError = u),
+      (l.parseGetMembershipApprovalRequestsResponseSuccess = d),
+      (l.makeGetMembershipApprovalRequestsRequest = m));
   },
   98,
 );

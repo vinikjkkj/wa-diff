@@ -3,13 +3,24 @@ __d(
   [
     "AdsApplicationIDs",
     "AdsDraftFragmentStoreStateUtils",
-    "AdsPECampaignLiveTableStore",
+    "AdsPECampaignLiveSelectors",
     "adsPENavStateSelector",
     "ifRequired",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
+    var e = {
+      get: function (t) {
+        return o("AdsPECampaignLiveSelectors").getSelector()(t);
+      },
+      getCached: function (t) {
+        return o("AdsPECampaignLiveSelectors").getCachedSelector()(t);
+      },
+      getLevel: function () {
+        return "campaign";
+      },
+    };
+    function s(e, t) {
       if (r("adsPENavStateSelector")().tool === "REPORTING") return e;
       var n = e;
       return (
@@ -23,25 +34,25 @@ __d(
         n
       );
     }
-    var s = {
+    var u = {
         initialState: o("AdsDraftFragmentStoreStateUtils").create(
           "ad_set",
-          r("AdsPECampaignLiveTableStore"),
+          e,
           r("AdsApplicationIDs").ADS_POWER_EDITOR,
         ),
-        legacyFluxReduce: function (n, r) {
-          var t = n,
-            a = e(n, r);
+        legacyFluxReduce: function (t, n) {
+          var e = t,
+            r = s(t, n);
           return (
             o(
               "AdsDraftFragmentStoreStateUtils",
-            ).validateStoreStateAfterMutations(t, a, r),
-            a
+            ).validateStoreStateAfterMutations(e, r, n),
+            r
           );
         },
       },
-      u = s;
-    l.default = u;
+      c = u;
+    l.default = c;
   },
   98,
 );

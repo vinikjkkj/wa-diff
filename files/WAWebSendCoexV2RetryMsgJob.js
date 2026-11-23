@@ -1,7 +1,6 @@
 __d(
   "WAWebSendCoexV2RetryMsgJob",
   [
-    "Promise",
     "WALogger",
     "WAWap",
     "WAWebAdvSignatureApi",
@@ -24,32 +23,31 @@ __d(
     "WAWebSignalProtocolStore",
     "WAWebUserUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _, f, g, h, y, C;
-    function b(t) {
-      var r = t.msgRecord,
-        a = t.recipient,
-        i = t.retryContext,
-        l = t.retryCount,
-        s = t.to;
-      return s.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)
-        ? { kind: "applicable", result: v(r, l, a) }
-        : s.isFbidBot()
-          ? (i == null ? void 0 : i.hasAdditionalRetryTargets) !== !0
+    var e, s, u, c, d, m, p, _, f, g, h, y;
+    function C(t) {
+      var n = t.msgRecord,
+        r = t.recipient,
+        a = t.retryContext,
+        i = t.retryCount,
+        l = t.to;
+      return l.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID)
+        ? { kind: "applicable", result: b(n, i, r) }
+        : l.isFbidBot()
+          ? (a == null ? void 0 : a.hasAdditionalRetryTargets) !== !0
             ? { kind: "not_applicable" }
             : o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled()
               ? {
                   kind: "fallback",
-                  result: R({
-                    agentWid: s,
+                  result: v({
+                    agentWid: l,
                     hasAdditionalRetryTargets: !0,
-                    msgRecord: r,
-                    recipient: a,
-                    retryCount: l,
+                    msgRecord: n,
+                    recipient: r,
+                    retryCount: i,
                   }),
                 }
               : (o("WALogger")
@@ -60,366 +58,329 @@ __d(
                       ])),
                   )
                   .sendLogs("coexv2-invoked-agent-retry-flag-off"),
-                {
-                  kind: "fallback",
-                  result: (C || (C = n("Promise"))).resolve(null),
-                })
+                { kind: "fallback", result: Promise.resolve(null) })
           : { kind: "not_applicable" };
     }
-    function v(e, t, n) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (n == null)
-            return (
-              o("WALogger")
-                .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] retry: missing recipient; skipping",
-                    ])),
-                )
-                .sendLogs("coexv2-retry-missing-recipient"),
-              null
-            );
-          var a = e.data,
-            i = a.id.id;
-          if (!o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled())
-            return (
-              o("WALogger")
-                .LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] retry: send flag off; dropping bot retry for ",
-                      "",
-                    ])),
-                  i,
-                )
-                .sendLogs("coexv2-retry-flag-off"),
-              null
-            );
-          var l = yield o(
-            "WAWebApiCoexV2RelayReceiptStore",
-          ).getUndeliveredCoexV2Lids(i);
-          if (l.length === 0)
-            return (
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[coexv2] retry: no undelivered LIDs for ",
-                    "",
-                  ])),
-                i,
-              ),
-              null
-            );
-          var s = yield I(e, l),
-            u = s.selfHosted,
-            _ = s.survivors;
-          if (_.length === 0)
-            return (
-              o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "[coexv2] retry: no surviving targets for ",
-                    "",
-                  ])),
-                i,
-              ),
-              null
-            );
-          var f = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
-              o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
-              e,
-            ),
-            g = yield o("WAWebCoexV2RelayEditProto").genCoexV2RelayProtobuf(
-              f,
-              o("WAWebMsgGetters").getMessageSecret(a),
-            ),
-            h = o("WAWebSendMsgBotStanza").getIsBizBotFeedback(a, a.id.remote),
-            y = yield o(
-              "WAWebCoexV2SendContribution",
-            ).genCoexV2RelayBotNodeForTargets(
-              a,
-              g,
-              o("WAWebMsgGetters").getWamEditType(a),
-              _,
-              t,
-              u,
-              {
-                clientThreadId: null,
-                localAutomatedType: h
-                  ? null
-                  : o("WAWebBotTypes").getBotLocalAutomatedType(a.bizBotType),
-                modeSelected: null,
-                modeSelection: null,
-                type: o("WAWebSendMsgBotStanza").getBotStanzaType(a),
-              },
-            );
-          if (y == null)
-            throw r("err")(
-              "[coexv2] retry: failed to build relay bot node for " +
-                _.length +
-                " undelivered target(s)",
-            );
-          var C = o("WAWebSendMsgMetaNode").genMetaNode({
-            chatId: a.id.remote,
-            groupData: null,
-            includeAttributes: { appendHostedSenderIntent: !0 },
-            msgProtobuf: f,
-            msgRecord: e,
-          });
-          return o("WAWap").wap(
-            "message",
-            {
-              id: o("WAWap").CUSTOM_STRING(i),
-              to: o("WAWebCommsWapMd").CHAT_JID(n),
-              type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(f),
-              edit: o("WAWebSendMsgCommonApi").editAttribute(f, a.subtype),
-            },
-            y.node,
-            C,
-          );
-        })),
-        S.apply(this, arguments)
+    async function b(e, t, n) {
+      if (n == null)
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] retry: missing recipient; skipping",
+                ])),
+            )
+            .sendLogs("coexv2-retry-missing-recipient"),
+          null
+        );
+      var a = e.data,
+        i = a.id.id;
+      if (!o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled())
+        return (
+          o("WALogger")
+            .LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] retry: send flag off; dropping bot retry for ",
+                  "",
+                ])),
+              i,
+            )
+            .sendLogs("coexv2-retry-flag-off"),
+          null
+        );
+      var l = await o(
+        "WAWebApiCoexV2RelayReceiptStore",
+      ).getUndeliveredCoexV2Lids(i);
+      if (l.length === 0)
+        return (
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[coexv2] retry: no undelivered LIDs for ",
+                "",
+              ])),
+            i,
+          ),
+          null
+        );
+      var m = await R(e, l),
+        p = m.selfHosted,
+        _ = m.survivors;
+      if (_.length === 0)
+        return (
+          o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "[coexv2] retry: no surviving targets for ",
+                "",
+              ])),
+            i,
+          ),
+          null
+        );
+      var f = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+          o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
+          e,
+        ),
+        g = await o("WAWebCoexV2RelayEditProto").genCoexV2RelayProtobuf(
+          f,
+          o("WAWebMsgGetters").getMessageSecret(a),
+        ),
+        h = o("WAWebSendMsgBotStanza").getIsBizBotFeedback(a, a.id.remote),
+        y = await o(
+          "WAWebCoexV2SendContribution",
+        ).genCoexV2RelayBotNodeForTargets(
+          a,
+          g,
+          o("WAWebMsgGetters").getWamEditType(a),
+          _,
+          t,
+          p,
+          {
+            clientThreadId: null,
+            localAutomatedType: h
+              ? null
+              : o("WAWebBotTypes").getBotLocalAutomatedType(a.bizBotType),
+            modeSelected: null,
+            modeSelection: null,
+            type: o("WAWebSendMsgBotStanza").getBotStanzaType(a),
+          },
+        );
+      if (y == null)
+        throw r("err")(
+          "[coexv2] retry: failed to build relay bot node for " +
+            _.length +
+            " undelivered target(s)",
+        );
+      var C = o("WAWebSendMsgMetaNode").genMetaNode({
+        chatId: a.id.remote,
+        groupData: null,
+        includeAttributes: { appendHostedSenderIntent: !0 },
+        msgProtobuf: f,
+        msgRecord: e,
+      });
+      return o("WAWap").wap(
+        "message",
+        {
+          id: o("WAWap").CUSTOM_STRING(i),
+          to: o("WAWebCommsWapMd").CHAT_JID(n),
+          type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(f),
+          edit: o("WAWebSendMsgCommonApi").editAttribute(f, a.subtype),
+        },
+        y.node,
+        C,
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.agentWid,
-            n = e.hasAdditionalRetryTargets,
-            a = e.msgRecord,
-            i = e.recipient,
-            l = e.retryCount;
-          if (!o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled()) return null;
-          var s = a.data,
-            u = s.id.id,
-            c = i != null ? i : t;
-          if (!n)
-            return (
-              o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[coexv2] invoked-agent retry: no represented-target marker for ",
+    async function v(e) {
+      var t = e.agentWid,
+        n = e.hasAdditionalRetryTargets,
+        a = e.msgRecord,
+        i = e.recipient,
+        l = e.retryCount;
+      if (!o("WAWebCoexV2GatingUtils").isCoexV2SendEnabled()) return null;
+      var s = a.data,
+        u = s.id.id,
+        c = i != null ? i : t;
+      if (!n)
+        return (
+          o("WALogger").LOG(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "[coexv2] invoked-agent retry: no represented-target marker for ",
+                "",
+              ])),
+            u,
+          ),
+          null
+        );
+      var d = await S(u);
+      try {
+        var f = await R(a, d, !0),
+          g = f.selfHosted,
+          h = f.survivors;
+        if (h.length === 0)
+          return (
+            o("WALogger")
+              .LOG(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[coexv2] invoked-agent retry: no surviving represented targets for ",
                     "",
                   ])),
                 u,
-              ),
-              null
-            );
-          var d = yield E(u);
-          try {
-            var m = yield I(a, d, !0),
-              p = m.selfHosted,
-              h = m.survivors;
-            if (h.length === 0)
-              return (
-                o("WALogger")
-                  .LOG(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "[coexv2] invoked-agent retry: no surviving represented targets for ",
-                        "",
-                      ])),
-                    u,
-                  )
-                  .sendLogs("coexv2-invoked-agent-retry-no-surviving-targets"),
-                null
-              );
-            var y = h.map(o("WAWebWidFactory").asUserLidOrThrow),
-              C = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
-                o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
-                a,
-              ),
-              b = yield o(
+              )
+              .sendLogs("coexv2-invoked-agent-retry-no-surviving-targets"),
+            null
+          );
+        var y = h.map(o("WAWebWidFactory").asUserLidOrThrow),
+          C = o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+            o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
+            a,
+          ),
+          b = await o(
+            "WAWebCoexV2RelayEligibility",
+          ).resolveCoexV2SimpleSignalPolicy({
+            chatId: s.id.remote,
+            stanzaTo: c,
+          }),
+          v = await o(
+            "WAWebCoexV2SendContribution",
+          ).genCoexV2InvokedAgentRetryBotNode(
+            s,
+            C,
+            o("WAWebMsgGetters").getWamEditType(s),
+            {
+              agentEngagementType: o(
+                "WAWebSendMsgBotStanza",
+              ).getBotAgentEngagementType(!1, c, s),
+              agentWid: t,
+              isFeedback: o("WAWebMsgGetters").getIsBotFeedbackMessage(s),
+              representedLids: y,
+              selfHosted: g,
+              stanzaTo: c,
+              useStatelessSession: o(
                 "WAWebCoexV2RelayEligibility",
-              ).resolveCoexV2SimpleSignalPolicy({
-                chatId: s.id.remote,
-                stanzaTo: c,
-              }),
-              v = yield o(
-                "WAWebCoexV2SendContribution",
-              ).genCoexV2InvokedAgentRetryBotNode(
-                s,
-                C,
-                o("WAWebMsgGetters").getWamEditType(s),
-                {
-                  agentEngagementType: o(
-                    "WAWebSendMsgBotStanza",
-                  ).getBotAgentEngagementType(!1, c, s),
-                  agentWid: t,
-                  isFeedback: o("WAWebMsgGetters").getIsBotFeedbackMessage(s),
-                  representedLids: y,
-                  selfHosted: p,
-                  stanzaTo: c,
-                  useStatelessSession: o(
-                    "WAWebCoexV2RelayEligibility",
-                  ).shouldUseCoexV2StatelessSession(b, t),
-                },
-                l,
-              ),
-              S = v.shouldHaveIdentity
-                ? o("WAWap").wap(
-                    "device-identity",
-                    null,
-                    yield o("WAWebAdvSignatureApi").getADVEncodedIdentity(),
-                  )
-                : null,
-              R = o("WAWebSendMsgMetaNode").genMetaNode({
-                chatId: s.id.remote,
-                groupData: null,
-                includeAttributes: { appendHostedSenderIntent: y.length > 0 },
-                msgProtobuf: C,
-                msgRecord: a,
-              });
-            return (
-              yield o("WAWebSignalProtocolStore")
-                .getSignalProtocolStore()
-                .flushBufferToDiskIfNotMemOnlyMode(),
-              o("WAWap").wap(
-                "message",
-                {
-                  id: o("WAWap").CUSTOM_STRING(u),
-                  to: o("WAWebCommsWapMd").CHAT_JID(c),
-                  type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(C),
-                  edit: o("WAWebSendMsgCommonApi").editAttribute(C, s.subtype),
-                },
-                v.node,
-                S,
-                R,
+              ).shouldUseCoexV2StatelessSession(b, t),
+            },
+            l,
+          ),
+          L = v.shouldHaveIdentity
+            ? o("WAWap").wap(
+                "device-identity",
+                null,
+                await o("WAWebAdvSignatureApi").getADVEncodedIdentity(),
               )
-            );
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .WARN(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] invoked-agent retry failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("coexv2-invoked-agent-retry-failed"),
-              e
-            );
-          }
-        })),
-        L.apply(this, arguments)
-      );
+            : null,
+          E = o("WAWebSendMsgMetaNode").genMetaNode({
+            chatId: s.id.remote,
+            groupData: null,
+            includeAttributes: { appendHostedSenderIntent: y.length > 0 },
+            msgProtobuf: C,
+            msgRecord: a,
+          });
+        return (
+          await o("WAWebSignalProtocolStore")
+            .getSignalProtocolStore()
+            .flushBufferToDiskIfNotMemOnlyMode(),
+          o("WAWap").wap(
+            "message",
+            {
+              id: o("WAWap").CUSTOM_STRING(u),
+              to: o("WAWebCommsWapMd").CHAT_JID(c),
+              type: o("WAWebE2EProtoUtils").typeAttributeFromProtobuf(C),
+              edit: o("WAWebSendMsgCommonApi").editAttribute(C, s.subtype),
+            },
+            v.node,
+            L,
+            E,
+          )
+        );
+      } catch (e) {
+        throw (
+          o("WALogger")
+            .WARN(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] invoked-agent retry failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("coexv2-invoked-agent-retry-failed"),
+          e
+        );
+      }
     }
-    function E(e) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = !0;
-          try {
-            ((t = yield o(
+    async function S(e) {
+      var t,
+        n = !0;
+      try {
+        ((t = await o(
+          "WAWebApiCoexV2RelayReceiptStore",
+        ).getUndeliveredCoexV2Lids(e)),
+          t.length === 0 &&
+            (n = await o(
               "WAWebApiCoexV2RelayReceiptStore",
-            ).getUndeliveredCoexV2Lids(e)),
-              t.length === 0 &&
-                (n = yield o(
-                  "WAWebApiCoexV2RelayReceiptStore",
-                ).hasCoexV2RelayReceipt(e)));
-          } catch (e) {
-            throw (
-              o("WALogger")
-                .WARN(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] invoked-agent retry receipt read failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("coexv2-invoked-agent-retry-receipt-read-failed"),
-              e
-            );
-          }
-          if (!n)
-            throw (
-              o("WALogger")
-                .WARN(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "[coexv2] invoked-agent retry: missing relay receipt rows for ",
-                      "",
-                    ])),
-                  e,
-                )
-                .sendLogs("coexv2-invoked-agent-retry-receipt-state-missing"),
-              r("err")(
-                "[coexv2] invoked-agent retry: missing relay receipt rows for " +
-                  e,
-              )
-            );
-          return t;
-        })),
-        k.apply(this, arguments)
-      );
+            ).hasCoexV2RelayReceipt(e)));
+      } catch (e) {
+        throw (
+          o("WALogger")
+            .WARN(
+              f ||
+                (f = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] invoked-agent retry receipt read failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("coexv2-invoked-agent-retry-receipt-read-failed"),
+          e
+        );
+      }
+      if (!n)
+        throw (
+          o("WALogger")
+            .WARN(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "[coexv2] invoked-agent retry: missing relay receipt rows for ",
+                  "",
+                ])),
+              e,
+            )
+            .sendLogs("coexv2-invoked-agent-retry-receipt-state-missing"),
+          r("err")(
+            "[coexv2] invoked-agent retry: missing relay receipt rows for " + e,
+          )
+        );
+      return t;
     }
-    function I(e, t, n) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          r === void 0 && (r = !1);
-          var a = e.data.id.remote,
-            i = yield (C || (C = n("Promise"))).all([
-              o("WAWebCoexV2UserAgentEligibility").isSelfCoexV2Hosted(),
-              o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(a),
-              o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(a),
-              o("WAWebCoexV2RelayEligibility").shouldAeaStopRelayCopy(
-                a,
-                o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
-                  o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
-                  e,
-                ),
-              ),
-            ]),
-            l = i[0],
-            s = i[1],
-            u = i[2],
-            c = i[3],
-            d = [],
-            m = [];
-          for (var p of t) {
-            var _ = D(p, r);
-            _ != null &&
-              (o("WAWebUserUtils").isMeAccount(_)
-                ? l && d.push(_)
-                : s && !u && !c && m.push(_));
-          }
-          var f = yield C.all(
-              m.map(function (e) {
-                return o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(
-                  e,
-                );
-              }),
+    async function R(e, t, n) {
+      n === void 0 && (n = !1);
+      var r = e.data.id.remote,
+        a = await Promise.all([
+          o("WAWebCoexV2UserAgentEligibility").isSelfCoexV2Hosted(),
+          o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Hosted(r),
+          o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(r),
+          o("WAWebCoexV2RelayEligibility").shouldAeaStopRelayCopy(
+            r,
+            o("WAWebOutgoingMessage").createOutgoingMessageProtobuf(
+              o("WAWebOutgoingMessage").OutgoingMessageOriginType.Retry,
+              e,
             ),
-            g = m.filter(function (e, t) {
-              return !f[t];
-            }),
-            h =
-              g.length > 0
-                ? yield o(
-                    "WAWebSendMsgCommonApi",
-                  ).filterDeviceWithChangedIdentity(e, g)
-                : g;
-          return { selfHosted: l, survivors: [].concat(d, h) };
-        })),
-        T.apply(this, arguments)
-      );
+          ),
+        ]),
+        i = a[0],
+        l = a[1],
+        s = a[2],
+        u = a[3],
+        c = [],
+        d = [];
+      for (var m of t) {
+        var p = L(m, n);
+        p != null &&
+          (o("WAWebUserUtils").isMeAccount(p)
+            ? i && c.push(p)
+            : l && !s && !u && d.push(p));
+      }
+      var _ = await Promise.all(
+          d.map(function (e) {
+            return o("WAWebCoexV2HostedContactUtils").isPeerCoexV2Blocked(e);
+          }),
+        ),
+        f = d.filter(function (e, t) {
+          return !_[t];
+        }),
+        g =
+          f.length > 0
+            ? await o("WAWebSendMsgCommonApi").filterDeviceWithChangedIdentity(
+                e,
+                f,
+              )
+            : f;
+      return { selfHosted: i, survivors: [].concat(c, g) };
     }
-    function D(e, t) {
+    function L(e, t) {
       var n;
       try {
         n = o("WAWebWidFactory").createUserWidOrThrow(e);
@@ -428,8 +389,8 @@ __d(
         return (
           o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
                   "[coexv2] retry: skipping malformed undelivered LID",
                 ])),
             )
@@ -447,8 +408,8 @@ __d(
         return (
           o("WALogger")
             .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
                   "[coexv2] retry: skipping non-LID undelivered target ",
                   "",
                 ])),
@@ -460,9 +421,9 @@ __d(
       }
       return n;
     }
-    ((l.getCoexV2RetryDispatch = b),
-      (l.buildCoexV2RetryStanza = v),
-      (l.buildCoexV2InvokedAgentRetryStanza = R));
+    ((l.getCoexV2RetryDispatch = C),
+      (l.buildCoexV2RetryStanza = b),
+      (l.buildCoexV2InvokedAgentRetryStanza = v));
   },
   98,
 );

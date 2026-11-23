@@ -1,119 +1,92 @@
 __d(
   "WAWebDBOrgMemberDelta",
-  [
-    "Promise",
-    "WAWebDBOrg",
-    "WAWebModelStorageUtils",
-    "WAWebOrgOrder",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebDBOrg", "WAWebModelStorageUtils", "WAWebOrgOrder"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
+    async function e(e, t) {
+      var n = t.added,
+        r = t.memberUpdatedTsUsec,
+        a = t.removedLids,
+        i = t.removesViewer,
+        l = t.updated,
+        c = { status: "missing_org" };
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = r.added,
-            i = r.memberUpdatedTsUsec,
-            l = r.removedLids,
-            s = r.removesViewer,
-            u = r.updated,
-            m = { status: "missing_org" };
-          return (
-            yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                [o("WAWebDBOrg").ORG_TABLE, o("WAWebDBOrg").ORG_CONTACT_TABLE],
-                (function () {
-                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (r) {
-                      var p = r[0],
-                        _ = r[1],
-                        f = p,
-                        g = _,
-                        h = yield f.get(t);
-                      if (h != null) {
-                        if (!d(i, h.memberUpdatedTsUsec)) {
-                          m = { status: "stale" };
-                          return;
-                        }
-                        if (s) {
-                          (yield f.remove(t),
-                            yield o("WAWebDBOrg").removeOrgRoster(g, t),
-                            (m = {
-                              orgs: yield f.all(),
-                              status: "viewer_removed",
-                            }));
-                          return;
-                        }
-                        var y = Array.from(
-                            new Set(
-                              [].concat(
-                                a.map(function (e) {
-                                  return e.lid;
-                                }),
-                                l,
-                                u.map(function (e) {
-                                  return e.lid;
-                                }),
-                              ),
-                            ),
-                          ),
-                          C = new Map(
-                            (yield g.anyOf(["lid"], y))
-                              .filter(function (e) {
-                                return e.orgId === t;
-                              })
-                              .map(function (e) {
-                                return [e.lid, e];
-                              }),
-                          );
-                        (yield (e || (e = n("Promise"))).all(
-                          l.map(function (e) {
-                            return g.remove([t, e]);
-                          }),
-                        ),
-                          yield g.bulkCreateOrReplace(
-                            a.map(function (e) {
-                              return o("WAWebDBOrg").mergeOrgContactRow(
-                                babelHelpers.extends({}, e, { orgId: t }),
-                                C.get(e.lid),
-                              );
-                            }),
-                          ));
-                        var b = new Set(l);
-                        yield g.bulkCreateOrReplace(
-                          u.flatMap(function (e) {
-                            var t = C.get(e.lid);
-                            return t == null || b.has(e.lid) ? [] : [c(t, e)];
-                          }),
-                        );
-                        var v = babelHelpers.extends({}, h, {
-                          memberUpdatedTsUsec: i,
-                        });
-                        (yield f.createOrReplace(v),
-                          (m = {
-                            org: v,
-                            rows: yield o("WAWebDBOrg").readRowsByLids(g, y),
-                            status: "applied",
-                          }));
-                      }
-                    },
+        await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(
+            [o("WAWebDBOrg").ORG_TABLE, o("WAWebDBOrg").ORG_CONTACT_TABLE],
+            async function (t) {
+              var d = t[0],
+                m = t[1],
+                p = d,
+                _ = m,
+                f = await p.get(e);
+              if (f != null) {
+                if (!u(r, f.memberUpdatedTsUsec)) {
+                  c = { status: "stale" };
+                  return;
+                }
+                if (i) {
+                  (await p.remove(e),
+                    await o("WAWebDBOrg").removeOrgRoster(_, e),
+                    (c = { orgs: await p.all(), status: "viewer_removed" }));
+                  return;
+                }
+                var g = Array.from(
+                    new Set(
+                      [].concat(
+                        n.map(function (e) {
+                          return e.lid;
+                        }),
+                        a,
+                        l.map(function (e) {
+                          return e.lid;
+                        }),
+                      ),
+                    ),
+                  ),
+                  h = new Map(
+                    (await _.anyOf(["lid"], g))
+                      .filter(function (t) {
+                        return t.orgId === e;
+                      })
+                      .map(function (e) {
+                        return [e.lid, e];
+                      }),
                   );
-                  return function (e) {
-                    return r.apply(this, arguments);
-                  };
-                })(),
-              ),
-            m
-          );
-        })),
-        u.apply(this, arguments)
+                (await Promise.all(
+                  a.map(function (t) {
+                    return _.remove([e, t]);
+                  }),
+                ),
+                  await _.bulkCreateOrReplace(
+                    n.map(function (t) {
+                      return o("WAWebDBOrg").mergeOrgContactRow(
+                        babelHelpers.extends({}, t, { orgId: e }),
+                        h.get(t.lid),
+                      );
+                    }),
+                  ));
+                var y = new Set(a);
+                await _.bulkCreateOrReplace(
+                  l.flatMap(function (e) {
+                    var t = h.get(e.lid);
+                    return t == null || y.has(e.lid) ? [] : [s(t, e)];
+                  }),
+                );
+                var C = babelHelpers.extends({}, f, { memberUpdatedTsUsec: r });
+                (await p.createOrReplace(C),
+                  (c = {
+                    org: C,
+                    rows: await o("WAWebDBOrg").readRowsByLids(_, g),
+                    status: "applied",
+                  }));
+              }
+            },
+          ),
+        c
       );
     }
-    function c(e, t) {
+    function s(e, t) {
       var n = t.memberTag,
         r = t.role;
       return babelHelpers.extends({}, e, {
@@ -121,12 +94,12 @@ __d(
         role: r != null ? r : e.role,
       });
     }
-    function d(e, t) {
+    function u(e, t) {
       return (
         t == null || o("WAWebOrgOrder").compareUnsignedDecimalStrings(e, t) > 0
       );
     }
-    l.applyOrgMemberDelta = s;
+    l.applyOrgMemberDelta = e;
   },
   98,
 );

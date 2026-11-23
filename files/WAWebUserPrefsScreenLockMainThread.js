@@ -1,17 +1,11 @@
 __d(
   "WAWebUserPrefsScreenLockMainThread",
-  ["WAWebUserPrefsScreenLock", "asyncToGeneratorRuntime"],
+  ["WAWebUserPrefsScreenLock"],
   function (t, n, r, o, a, i, l) {
     var e = {
-      getScreenLockEnabled: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebUserPrefsScreenLock").getScreenLockEnabled();
-        });
-        function t() {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
+      getScreenLockEnabled: async function () {
+        return o("WAWebUserPrefsScreenLock").getScreenLockEnabled();
+      },
     };
     l.userPrefsScreenLockMainThread = e;
   },

@@ -1,6 +1,6 @@
 __d(
   "WAWebProfilePicThumbBridgeApi",
-  ["WAWebProfilePicThumbCollection", "asyncToGeneratorRuntime"],
+  ["WAWebProfilePicThumbCollection"],
   function (t, n, r, o, a, i, l) {
     var e = {
       removeProfilePicThumb: function (t) {
@@ -24,21 +24,15 @@ __d(
           );
         n && n.markStale();
       },
-      setProfilePicThumb: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.wid,
-            n = o(
-              "WAWebProfilePicThumbCollection",
-            ).ProfilePicThumbCollection.gadd(t);
-          yield o(
+      setProfilePicThumb: async function (t) {
+        var e = t.wid,
+          n = o(
             "WAWebProfilePicThumbCollection",
-          ).ProfilePicThumbCollection.update(n.id);
-        });
-        function t(t) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
+          ).ProfilePicThumbCollection.gadd(e);
+        await o(
+          "WAWebProfilePicThumbCollection",
+        ).ProfilePicThumbCollection.update(n.id);
+      },
     };
     l.ProfilePicThumbBridgeApi = e;
   },

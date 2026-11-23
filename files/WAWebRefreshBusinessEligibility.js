@@ -10,7 +10,6 @@ __d(
     "WAWebBizBroadcastMarketingMessagesEligibilityModel",
     "WAWebBizBroadcastProOnboardingStatus",
     "WAWebGetBusinessEligibilityJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -73,81 +72,65 @@ __d(
         },
       );
     }
-    function f() {
-      return g.apply(this, arguments);
+    async function f() {
+      try {
+        var t = await _();
+        return (m(t), t);
+      } catch (t) {
+        throw (
+          p(null),
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[bb-eligibility-refresh] (no-cache) failed: ",
+                  "",
+                ])),
+              t,
+            )
+            .sendLogs("bb-eligibility-refresh-error"),
+          t
+        );
+      }
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var t = yield _();
-            return (m(t), t);
-          } catch (t) {
-            throw (
-              p(null),
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[bb-eligibility-refresh] (no-cache) failed: ",
-                      "",
-                    ])),
-                  t,
-                )
-                .sendLogs("bb-eligibility-refresh-error"),
-              t
-            );
-          }
-        })),
-        g.apply(this, arguments)
-      );
+    async function g(e) {
+      var t = o("WAWebBizBroadcastEligibilityCache").readCache();
+      if (
+        (!e &&
+          t != null &&
+          o("WAWebBizBroadcastEligibilityCache").isCacheFresh(t)) ||
+        (!e &&
+          t != null &&
+          o("WAWebBizBroadcastEligibilityCache").isInFailureBackoff(t))
+      )
+        return (m(t.result), t.result);
+      try {
+        var n = await _();
+        return (
+          o("WAWebBizBroadcastEligibilityCache").writeCacheSuccess(n),
+          m(n),
+          n
+        );
+      } catch (e) {
+        var r;
+        throw (
+          o("WAWebBizBroadcastEligibilityCache").writeCacheFailure(),
+          p((r = t == null ? void 0 : t.result) != null ? r : null),
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[bb-eligibility-refresh] failed: ",
+                  "",
+                ])),
+              e,
+            )
+            .sendLogs("bb-eligibility-refresh-error"),
+          e
+        );
+      }
     }
     function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebBizBroadcastEligibilityCache").readCache();
-          if (
-            (!e &&
-              t != null &&
-              o("WAWebBizBroadcastEligibilityCache").isCacheFresh(t)) ||
-            (!e &&
-              t != null &&
-              o("WAWebBizBroadcastEligibilityCache").isInFailureBackoff(t))
-          )
-            return (m(t.result), t.result);
-          try {
-            var n = yield _();
-            return (
-              o("WAWebBizBroadcastEligibilityCache").writeCacheSuccess(n),
-              m(n),
-              n
-            );
-          } catch (e) {
-            var r;
-            throw (
-              o("WAWebBizBroadcastEligibilityCache").writeCacheFailure(),
-              p((r = t == null ? void 0 : t.result) != null ? r : null),
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[bb-eligibility-refresh] failed: ",
-                      "",
-                    ])),
-                  e,
-                )
-                .sendLogs("bb-eligibility-refresh-error"),
-              e
-            );
-          }
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
       var t, n;
       e === void 0 && (e = {});
       var r = e,
@@ -169,7 +152,7 @@ __d(
         var d = o(
           "WAWebBizBroadcastEligibilityCache",
         ).isEligibilityCachingEnabled()
-          ? h(i)
+          ? g(i)
           : f();
         c = d.finally(function () {
           c = null;
@@ -181,7 +164,7 @@ __d(
             return u;
           });
     }
-    l.refreshBusinessEligibilityIfNeeded = C;
+    l.refreshBusinessEligibilityIfNeeded = h;
   },
   98,
 );

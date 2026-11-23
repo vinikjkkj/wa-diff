@@ -19,9 +19,7 @@ __d(
     function d(e, t, n) {
       var r;
       n === void 0 && (n = o("WAWebActionToast.react").genId());
-      var a = new (o("WAWebActionToast.react").ActionType)(
-          s._(/*BTDS*/ "Assigning new owner\u2026"),
-        ),
+      var a = new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")),
         i = {
           group_id: e.id.toString(),
           role_updates: [
@@ -39,7 +37,7 @@ __d(
         }),
         d = function () {
           return new (o("WAWebActionToast.react").ActionType)(
-            s._(/*BTDS*/ "You assigned {contact_name} as the new owner.", [
+            s._(/*BTDS*/ "", [
               s._param(
                 "contact_name",
                 o("WAWebFrontendContactGetters").getFormattedName(t),
@@ -53,15 +51,12 @@ __d(
           })
           .catch(function () {
             return new (o("WAWebActionToast.react").ActionType)(
-              s._(
-                /*BTDS*/ "Could not assign {contact_name} as the new owner.",
-                [
-                  s._param(
-                    "contact_name",
-                    o("WAWebFrontendContactGetters").getFormattedName(t),
-                  ),
-                ],
-              ),
+              s._(/*BTDS*/ "", [
+                s._param(
+                  "contact_name",
+                  o("WAWebFrontendContactGetters").getFormattedName(t),
+                ),
+              ]),
             );
           });
       return (

@@ -5,9 +5,7 @@ __d(
     "use strict";
     var e = "voip-local-video-blocked";
     function u() {
-      return s._(
-        /*BTDS*/ "Join from the browser on your computer to share your video and more",
-      );
+      return s._(/*BTDS*/ "");
     }
     ((l.LOCAL_VIDEO_BLOCKED_TOAST_ID = e), (l.getLocalVideoBlockedMessage = u));
   },

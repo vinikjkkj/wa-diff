@@ -2,45 +2,45 @@ __d(
   "WAWebBizBroadcastProLargestListAudienceQuery",
   [
     "WAWebBizBroadcastProAudienceIdentityQuery",
+    "WAWebSchemaLabel",
     "WAWebSchemaLabelAssociation",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSchemaLabelAssociation")
-              .getLabelAssociationTable()
-              .all(),
-            n = u(t),
-            r = t.flatMap(function (e) {
-              var t = e.associationId,
-                r = e.labelId,
-                a = e.type;
-              if (
-                r !== n ||
-                a !== o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid
-              )
-                return [];
-              var i = c(t);
-              return i == null ? [] : [i];
-            }),
-            a = yield o(
-              "WAWebBizBroadcastProAudienceIdentityQuery",
-            ).resolveProAudienceLids(r),
-            i = new Set(a.values());
-          return Array.from(new Set(e)).filter(function (e) {
-            return i.has(e);
-          });
-        })),
-        s.apply(this, arguments)
+    async function e(e) {
+      var t = await o("WAWebSchemaLabelAssociation")
+          .getLabelAssociationTable()
+          .all(),
+        n = s(t),
+        r =
+          n == null ? null : await o("WAWebSchemaLabel").getLabelTable().get(n),
+        a = t.flatMap(function (e) {
+          var t = e.associationId,
+            r = e.labelId,
+            a = e.type;
+          if (
+            r !== n ||
+            a !== o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid
+          )
+            return [];
+          var i = u(t);
+          return i == null ? [] : [i];
+        }),
+        i = await o(
+          "WAWebBizBroadcastProAudienceIdentityQuery",
+        ).resolveProAudienceLids(a),
+        l = new Set(i.values());
+      return babelHelpers.extends(
+        {
+          recipientLids: Array.from(new Set(e)).filter(function (e) {
+            return l.has(e);
+          }),
+          unavailableReason: null,
+        },
+        r == null ? {} : { listName: r.name },
       );
     }
-    function u(e) {
+    function s(e) {
       var t = new Map();
       for (var n of e) {
         var r = n.associationId,
@@ -48,22 +48,22 @@ __d(
           i = n.type;
         if (
           i === o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid &&
-          c(r) != null
+          u(r) != null
         ) {
           var l;
           t.set(a, ((l = t.get(a)) != null ? l : 0) + 1);
         }
       }
       var s = null,
-        u = 0;
+        c = 0;
       for (var d of t) {
         var m = d[0],
           p = d[1];
-        p > u && ((s = m), (u = p));
+        p > c && ((s = m), (c = p));
       }
       return s;
     }
-    function c(e) {
+    function u(e) {
       try {
         return o("WAWebWidFactory").createUserWidOrThrow(e);
       } catch (e) {

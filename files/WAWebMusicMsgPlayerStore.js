@@ -70,11 +70,7 @@ __d(
                 )
               ) {
                 if (!r("WAWebNetworkStatus").online) {
-                  f(
-                    s._(
-                      /*BTDS*/ "You're offline. Check your connection to play this song.",
-                    ),
-                  );
+                  f(s._(/*BTDS*/ ""));
                   return;
                 }
                 (this.$MusicMsgPlayerStore$p_1.msg != null &&
@@ -232,7 +228,7 @@ __d(
         );
       })(r("WAWebEventEmitter"));
     function _() {
-      f(s._(/*BTDS*/ "Couldn't play this song. Try again later."));
+      f(s._(/*BTDS*/ ""));
     }
     function f(e) {
       o("WAWebToastManager").ToastManager.open(

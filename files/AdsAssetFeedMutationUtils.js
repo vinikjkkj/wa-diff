@@ -2,10 +2,8 @@ __d(
   "AdsAssetFeedMutationUtils",
   [
     "AdImageSpecCropKeys",
-    "AdsAPIAdgroupPaths",
     "AdsAdgroupRecordAccessors",
     "AdsAssetFeedConstant",
-    "AdsAssetFeedFieldUtils",
     "AdsAssetFeedUtils",
     "AdsDLOLanguageUtils",
     "AdsUEditorAdgroupAssetFeedMutators",
@@ -19,7 +17,6 @@ __d(
     "isFalsey",
     "isTruthy",
     "nullthrows",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -128,12 +125,12 @@ __d(
         throw r("FBLogger")("ads_dynamic_creative_optimization")
           .blameToPreviousFile()
           .mustfixThrow("this function must be invoked on an asset feed field");
-      for (; l && o > c.count(); )
-        if (((c = c.push(r("immutable").Map().set(a, i))), c.count() > 100))
+      for (var d = c; l && o > d.count(); )
+        if (((d = d.push(r("immutable").Map().set(a, i))), d.count() > 100))
           throw r("FBLogger")("ads_dynamic_creative_optimization")
             .blameToPreviousFile()
             .mustfixThrow("Not expect to pad more than 100");
-      if (!(c instanceof r("immutable").List))
+      if (((c = d), !(c instanceof r("immutable").List)))
         throw r("FBLogger")("ads_dynamic_creative_optimization")
           .blameToPreviousFile()
           .mustfixThrow("this function must be invoked on an asset feed field");
@@ -143,9 +140,10 @@ __d(
           .mustfixThrow(
             "assetIndex should be non-negative and no greater than the asset count",
           );
+      o === c.count() && (c = c.set(o, r("immutable").Map()));
+      var m = c;
       return (
-        o === c.count() && (c = c.set(o, r("immutable").Map())),
-        (c = c.update(o, function (e) {
+        (c = m.update(o, function (e) {
           return e.set(a, i);
         })),
         u !== void 0
@@ -169,12 +167,12 @@ __d(
         throw r("FBLogger")("ads_dynamic_creative_optimization")
           .blameToPreviousFile()
           .mustfixThrow("this function must be invoked on an asset feed field");
-      for (; l && o > c.count(); )
-        if (((c = c.push(r("immutable").Map().set(a, i))), c.count() > 100))
+      for (var d = c; l && o > d.count(); )
+        if (((d = d.push(r("immutable").Map().set(a, i))), d.count() > 100))
           throw r("FBLogger")("ads_dynamic_creative_optimization")
             .blameToPreviousFile()
             .mustfixThrow("Not expect to pad more than 100");
-      if (!(c instanceof r("immutable").List))
+      if (((c = d), !(c instanceof r("immutable").List)))
         throw r("FBLogger")("ads_dynamic_creative_optimization")
           .blameToPreviousFile()
           .mustfixThrow("this function must be invoked on an asset feed field");
@@ -312,25 +310,7 @@ __d(
           : e.setIn(n.getPathOrThrow(e, t), u)
       );
     }
-    function C(e, t, n, o, a) {
-      r("vulture")("gsMlIO0gKNXMvX7M6_XGkA-UnF4=");
-      var i = n.getValue(e, t);
-      if (
-        (i === void 0 && (i = r("immutable").List()),
-        !(i instanceof r("immutable").List))
-      )
-        throw r("FBLogger")("ads_dynamic_creative_optimization")
-          .blameToPreviousFile()
-          .mustfixThrow("this function must be invoked on an asset feed field");
-      if (o < 0 || o > i.count())
-        throw r("FBLogger")("ads_dynamic_creative_optimization")
-          .blameToPreviousFile()
-          .mustfixThrow(
-            "assetIndex should be non-negative and no greater than the asset count",
-          );
-      return ((i = i.set(o, a)), e.setIn(n.getPathOrThrow(e, t), i));
-    }
-    function b(e, t, n, o) {
+    function C(e, t, n, o) {
       var a = s.get(n.name);
       return a !== void 0
         ? r("AdsAdgroupRecordAccessors").creative.asset_feed_spec[a].set(
@@ -339,7 +319,7 @@ __d(
           )
         : e.setIn(n.getPathOrThrow(e, t), r("immutable").List(o));
     }
-    function v(e, t, n, a, i) {
+    function b(e, t, n, a, i) {
       var l = r("isTruthy")(a)
           ? { toSet: "hash", toRemove: "url", value: a }
           : { toSet: "url", toRemove: "hash", value: i },
@@ -360,7 +340,7 @@ __d(
         "adsAssetFeedSpecRemoveAssetFieldAtIndex",
       ).adsAssetFeedSpecRemoveAssetFieldAtIndex(u, "images", n, l.toRemove);
     }
-    function S(e, t, n, a) {
+    function v(e, t, n, a) {
       var i = Object.keys(a);
       return i.length === 0 ||
         (i.length === 1 && a[r("AdImageSpecCropKeys").NO_CROP])
@@ -381,7 +361,7 @@ __d(
             r("immutable").fromJS(a),
           );
     }
-    function R(e, t, n, a, i) {
+    function S(e, t, n, a, i) {
       var l = e;
       if (r("isTruthy")(a)) {
         if (
@@ -426,7 +406,7 @@ __d(
         l
       );
     }
-    function L(e, t, n) {
+    function R(e, t, n) {
       var o,
         a =
           (o = e.creative) == null || (o = o.asset_feed_spec) == null
@@ -454,100 +434,7 @@ __d(
         r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.videos.set(i, e)
       );
     }
-    function E(e, t, n, a, i, l) {
-      r("vulture")("H2rpj7OiskR-WfydEDkZClnAjJY=");
-      var u = s.get(n.name),
-        c;
-      if (
-        (u !== void 0
-          ? (c = r("AdsAdgroupRecordAccessors").creative.asset_feed_spec[u].get(
-              e,
-            ))
-          : (c = n.getValue(e, t)),
-        c == null && (c = r("immutable").List()),
-        !(c instanceof r("immutable").List))
-      )
-        throw r("FBLogger")("ads_dynamic_creative_optimization")
-          .blameToPreviousFile()
-          .mustfixThrow("this function must be invoked on an asset feed field");
-      var d = o("AdsAssetFeedFieldUtils").findAssetIndex(e, t, n, a),
-        m = e;
-      d < 0 &&
-        ((c = c.push(a)),
-        (m = m.setIn(n.getPathOrThrow(m, t), c)),
-        (d = c.size - 1));
-      var p = c.get(d);
-      if (!(p instanceof r("immutable").Map))
-        throw r("FBLogger")("ads_dynamic_creative_optimization")
-          .blameToPreviousFile()
-          .mustfixThrow("ad aset must be an immutable map");
-      var _ = null,
-        f = p.getIn([i]);
-      return (
-        f instanceof r("immutable").List &&
-          f.size > 0 &&
-          (_ = f.get(0).getIn(["name"])),
-        _ != null && _ !== ""
-          ? { adLabelName: _, mutatedAdgroup: m }
-          : ((_ = l()),
-            (m = g(m, t, n, d, _)),
-            { adLabelName: _, mutatedAdgroup: m })
-      );
-    }
-    function k(e, t, n, a, i, l) {
-      var u;
-      r("vulture")("_gVgcT2UDMwTM4VhhECRg9hD4pY=");
-      var c = s.get(n.name),
-        d;
-      c !== void 0
-        ? (d =
-            r("AdsAdgroupRecordAccessors").creative.asset_feed_spec[c].get(e) ||
-            r("immutable").List())
-        : (d = n.getValue(e, t) || r("immutable").List());
-      var p =
-        ((u = e.creative) == null || (u = u.asset_feed_spec) == null
-          ? void 0
-          : u.asset_customization_rules) || r("immutable").List();
-      if (!(d instanceof r("immutable").List))
-        throw r("FBLogger")("ads_dynamic_creative_optimization")
-          .blameToPreviousFile()
-          .mustfixThrow("this function must be invoked on an asset feed field");
-      if (!(p instanceof r("immutable").List))
-        throw r("FBLogger")("ads_dynamic_creative_optimization")
-          .blameToPreviousFile()
-          .mustfixThrow(
-            "this function must be invoked on a valid customization rules field",
-          );
-      var _ = p.some(function (e) {
-        return e.getIn([l, "name"]) === i;
-      });
-      if (_) return e;
-      var f = o("AdsAssetFeedFieldUtils").getAssetEntryForLabel(d, i).index;
-      if (f == null)
-        throw r("FBLogger")("ads_dynamic_creative_optimization")
-          .blameToPreviousFile()
-          .mustfixThrow("trying to remove asset that does not exist");
-      return m(e, t, n, f);
-    }
-    function I(e) {
-      r("vulture")("wIl1vDFUPmICei8hyh8F4ftRvWU=");
-      var t = e;
-      return (
-        (t = T(
-          t,
-          "body_label",
-          r("AdsAPIAdgroupPaths").CREATIVE.ASSET_FEED_SPEC.BODIES,
-          "bodies",
-        )),
-        T(
-          t,
-          "title_label",
-          r("AdsAPIAdgroupPaths").CREATIVE.ASSET_FEED_SPEC.TITLES,
-          "titles",
-        )
-      );
-    }
-    function T(e, t, n, o) {
+    function L(e, t, n, o) {
       var a,
         i =
           ((a = e.creative) == null || (a = a.asset_feed_spec) == null
@@ -601,7 +488,7 @@ __d(
         )
       );
     }
-    function D(t, n, o, a) {
+    function E(t, n, o, a) {
       var i = s.get(o.name),
         l;
       if (
@@ -640,7 +527,7 @@ __d(
         ? r("AdsAdgroupRecordAccessors").creative.asset_feed_spec[i].set(c, t)
         : t.setIn(o.getPathOrThrow(t, n), c);
     }
-    function x(e, t, n, o, a, i, l) {
+    function k(e, t, n, o, a, i, l) {
       l === void 0 && (l = !1);
       var u = s.get(n.name),
         c;
@@ -665,23 +552,24 @@ __d(
         p = m.get(a);
       if (p != null && p.size === 1)
         return { adgroupWithIsolatedAsset: e, isolatedAssetIndex: o };
-      var _ = c;
-      l === !0 ? (_ = c.splice(o, 0, c.get(o))) : (_ = c.push(c.get(o)));
-      var f;
+      var _ = c,
+        f = _;
+      l === !0 ? (f = _.splice(o, 0, m)) : (f = _.push(m));
+      var g;
       u !== void 0
-        ? (f = r("AdsAdgroupRecordAccessors").creative.asset_feed_spec[u].set(
-            _,
+        ? (g = r("AdsAdgroupRecordAccessors").creative.asset_feed_spec[u].set(
+            f,
             e,
           ))
-        : (f = e.setIn(n.getPathOrThrow(e, t), _));
-      var g = l === !0 ? o : _.size - 1,
-        h = l === !0 ? o + 1 : o;
+        : (g = e.setIn(n.getPathOrThrow(e, t), f));
+      var h = l === !0 ? o : f.size - 1,
+        y = l === !0 ? o + 1 : o;
       return (
-        (f = d(f, t, n, a, h, g, i)),
-        { adgroupWithIsolatedAsset: f, isolatedAssetIndex: g }
+        (g = d(g, t, n, a, y, h, i)),
+        { adgroupWithIsolatedAsset: g, isolatedAssetIndex: h }
       );
     }
-    function $(e, t, n) {
+    function I(e, t, n) {
       var o,
         a =
           (o = e.creative) == null || (o = o.asset_feed_spec) == null
@@ -689,7 +577,7 @@ __d(
             : o.asset_customization_rules;
       if (a == null) return e;
       var i = t === "image_label" ? "images" : "videos",
-        l = P(e, i, n),
+        l = T(e, i, n),
         s = a.filter(function (e) {
           var o = e.get(t);
           return o == null || !(o instanceof r("immutable").Map)
@@ -700,7 +588,7 @@ __d(
         "AdsAdgroupRecordAccessors",
       ).creative.asset_feed_spec.asset_customization_rules.set(s, l);
     }
-    function P(e, t, n) {
+    function T(e, t, n) {
       var o,
         a = (o = e.creative) == null ? void 0 : o.asset_feed_spec;
       if (a == null) return e;
@@ -722,7 +610,7 @@ __d(
         e,
       );
     }
-    function N(e, t) {
+    function D(e, t) {
       var n,
         o =
           (n = e.creative) == null || (n = n.asset_feed_spec) == null
@@ -736,7 +624,7 @@ __d(
         "AdsAdgroupRecordAccessors",
       ).creative.asset_feed_spec.asset_customization_rules.set(a, e);
     }
-    function M(e, t, n, a) {
+    function x(e, t, n, a) {
       var i = o("AdsUEditorAdgroupBodyMutators").getDefaultPlacementBodyAssets(
           e,
         ),
@@ -752,7 +640,7 @@ __d(
         "AdsUEditorAdgroupAssetFeedMutators",
       ).convertPACDoFToDoFAssetFeedSpec(s, n, t, i, l, a);
     }
-    function w(e, t, n, o, a, i, l, s) {
+    function $(e, t, n, o, a, i, l, s) {
       var u = n.getValue(e, t);
       if (
         (u == null && (u = r("immutable").List()),
@@ -774,23 +662,18 @@ __d(
       (l.setAssetAdLabelAtIndex = g),
       (l.setAssetAllAdLabelsAtIndex = h),
       (l.removeAssetAdLabelAtIndex = y),
-      (l.setAssetAtIndex = C),
-      (l.setAssetsArrayInField = b),
-      (l.setImageAssetAtIndex = v),
-      (l.setImageCropAtIndex = S),
-      (l.setVideoAssetAtIndex = R),
-      (l.setVideoCaptionAtIndex = L),
-      (l.addAssetIfNotExist = E),
-      (l.removeAssetIfNotUsed = k),
-      (l.removeTextDoFOptionsFromPACAssetFeed = I),
-      (l.removeDofOptionAssetsFromPACAssetFeed = T),
-      (l.removeDuplicateAssets = D),
-      (l.isolateAssetWithLabel = x),
-      (l.removeMediaByLabel = $),
-      (l.removeMediaAdlabelFromAsset = P),
-      (l.removeMediaLabelFromAssetCustomizationRules = N),
-      (l.convertPACDofToDofAssetFeedSpecAdgroup = M),
-      (l.insertAssetValueWithLabelAtIndex = w));
+      (l.setAssetsArrayInField = C),
+      (l.setImageAssetAtIndex = b),
+      (l.setImageCropAtIndex = v),
+      (l.setVideoAssetAtIndex = S),
+      (l.setVideoCaptionAtIndex = R),
+      (l.removeDofOptionAssetsFromPACAssetFeed = L),
+      (l.removeDuplicateAssets = E),
+      (l.isolateAssetWithLabel = k),
+      (l.removeMediaByLabel = I),
+      (l.removeMediaLabelFromAssetCustomizationRules = D),
+      (l.convertPACDofToDofAssetFeedSpecAdgroup = x),
+      (l.insertAssetValueWithLabelAtIndex = $));
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "WAWebKeptMsgCollection",
-  ["WAWebBaseCollection", "WAWebMsgModel", "asyncToGeneratorRuntime"],
+  ["WAWebBaseCollection", "WAWebMsgModel"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
       function t() {
@@ -15,19 +15,11 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var r = t.prototype;
+      var n = t.prototype;
       return (
-        (r.process = function () {}),
-        (r.sync = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* () {},
-          );
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (r.updateMsgs = function () {}),
+        (n.process = function () {}),
+        (n.sync = async function () {}),
+        (n.updateMsgs = function () {}),
         t
       );
     })(o("WAWebBaseCollection").BaseCollection);

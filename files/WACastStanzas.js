@@ -1,7 +1,6 @@
 __d(
   "WACastStanzas",
   [
-    "Promise",
     "WAArrayUtils",
     "WAComms",
     "WADanglingQueue",
@@ -12,17 +11,16 @@ __d(
     "WASendAggregatedDeliveryReceiptProtocol",
     "WAStanzaUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c;
-    function d(e, t) {
+    var e, s, u;
+    function c(e, t) {
       var n;
       ((n = o("WAComms").getComms()) == null ? void 0 : n.socketId) === t &&
         o("WAComms").castSmaxStanza(e);
     }
-    function m(t, n) {
+    function d(t, n) {
       o("WALogger").LOG(
         e ||
           (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -68,10 +66,10 @@ __d(
             o("WADanglingQueue").danglingQueueAdd({
               node: o("WAWap").encodeStanza(t),
             }),
-            n.send && d(t, r));
+            n.send && c(t, r));
         }));
       try {
-        (y(a, n), h(i, n));
+        (h(a, n), g(i, n));
       } catch (e) {
         o("WALogger").ERROR(
           s ||
@@ -97,7 +95,7 @@ __d(
             });
       }
     }
-    function p(e) {
+    function m(e) {
       return e.map(function (e) {
         var t = e.node,
           n = e.socketId;
@@ -111,7 +109,7 @@ __d(
         };
       });
     }
-    function _(e) {
+    function p(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
@@ -125,9 +123,9 @@ __d(
         t
       );
     }
-    var f = 255;
-    function g(e, t) {
-      var n = _(p(e));
+    var _ = 255;
+    function f(e, t) {
+      var n = p(m(e));
       n.forEach(function (e, n) {
         e.forEach(function (e, r) {
           e.forEach(function (e, a) {
@@ -148,16 +146,16 @@ __d(
                 o("WADanglingQueue").danglingQueueAdd({
                   node: o("WAWap").encodeStanza(i),
                 }),
-                t.send && d(i, n));
+                t.send && c(i, n));
             };
-            for (var l of o("WAArrayUtils").peekEvery(e, f)) i();
+            for (var l of o("WAArrayUtils").peekEvery(e, _)) i();
           });
         });
       });
     }
-    function h(e, t) {
+    function g(e, t) {
       if (e.length !== 0) {
-        if (e.length > 1) return g(e, t);
+        if (e.length > 1) return f(e, t);
         (t.store &&
           o("WADanglingQueue").danglingQueueAdd({
             node: o("WAWap").encodeStanza(e[0].node),
@@ -166,11 +164,11 @@ __d(
             e.forEach(function (e) {
               var t = e.node,
                 n = e.socketId;
-              d(t, n);
+              c(t, n);
             }));
       }
     }
-    function y(e, t) {
+    function h(e, t) {
       (t.store &&
         e.forEach(function (e) {
           var t = e.node;
@@ -182,64 +180,34 @@ __d(
           e.map(function (e) {
             var t = e.node,
               n = e.socketId;
-            d(t, n);
+            c(t, n);
           }));
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WADanglingQueue").danglingQueueRead();
-          (o("WAPassiveMode").passiveModeNotifier.publish({
-            type: "passive-mode-start",
-            count: e.length,
+    async function y() {
+      var e = await o("WADanglingQueue").danglingQueueRead();
+      (o("WAPassiveMode").passiveModeNotifier.publish({
+        type: "passive-mode-start",
+        count: e.length,
+      }),
+        await Promise.allSettled(
+          e.map(async function (e) {
+            var t = await o("WAWap").decodeStanza(e.node, function (e) {
+              return Promise.resolve(e);
+            });
+            return o("WAComms").castSmaxStanza(t);
           }),
-            yield (c || (c = n("Promise")))
-              .allSettled(
-                e.map(
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var t = yield o("WAWap").decodeStanza(
-                          e.node,
-                          function (e) {
-                            return (c || (c = n("Promise"))).resolve(e);
-                          },
-                        );
-                        return o("WAComms").castSmaxStanza(t);
-                      },
-                    );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                ),
-              )
-              .then(function () {}),
-            yield o("WADanglingQueue").danglingQueueClear());
-        })),
-        b.apply(this, arguments)
-      );
+        ).then(function () {}),
+        await o("WADanglingQueue").danglingQueueClear());
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
+    async function C(e, t) {
+      await d(e, {
+        send: !0,
+        store:
+          o("WAGlobals").getConfig().waDanglingQueue() &&
+          t === o("WAOfflineUtils").ServerRPCMode.OFFLINE_RESUME,
+      });
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          yield m(e, {
-            send: !0,
-            store:
-              o("WAGlobals").getConfig().waDanglingQueue() &&
-              t === o("WAOfflineUtils").ServerRPCMode.OFFLINE_RESUME,
-          });
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    ((l.castDanglingStanzas = C), (l.castStanzasToServer = v));
+    ((l.castDanglingStanzas = y), (l.castStanzasToServer = C));
   },
   98,
 );

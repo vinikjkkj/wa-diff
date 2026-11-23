@@ -226,9 +226,16 @@ __d(
               );
             }),
             h = e.some(function (e) {
-              return o(
-                "AdsPlacementAPISpecReaderUtils",
-              ).isActiveThreadsPosition(e.spec, "threads_stream");
+              return (
+                o("AdsPlacementAPISpecReaderUtils").isActiveThreadsPosition(
+                  e.spec,
+                  "threads_stream",
+                ) ||
+                o("AdsPlacementAPISpecReaderUtils").isActiveThreadsPosition(
+                  e.spec,
+                  "threads_permalink",
+                )
+              );
             }),
             y = e.some(function (e) {
               return r("adsPlacementAPISpecReaderIsActiveInstagramPosition")(
@@ -802,10 +809,15 @@ __d(
                 "reels",
               ),
               v = _(t, "facebook_reels_overlay"),
-              S = o("AdsPlacementAPISpecReaderUtils").isActiveThreadsPosition(
-                t,
-                "threads_stream",
-              ),
+              S =
+                o("AdsPlacementAPISpecReaderUtils").isActiveThreadsPosition(
+                  t,
+                  "threads_stream",
+                ) ||
+                o("AdsPlacementAPISpecReaderUtils").isActiveThreadsPosition(
+                  t,
+                  "threads_permalink",
+                ),
               R = r("adsPlacementAPISpecReaderIsActiveInstagramPosition")(
                 t,
                 "reels_overlay",

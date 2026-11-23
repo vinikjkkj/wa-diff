@@ -4,10 +4,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = {
-        B: (e = r("fbs"))._(/*BTDS*/ "B").toString(),
-        KiB: e._(/*BTDS*/ "kB").toString(),
-        MiB: e._(/*BTDS*/ "MB").toString(),
-        GiB: e._(/*BTDS*/ "GB").toString(),
+        B: (e = r("fbs"))._(/*BTDS*/ "").toString(),
+        KiB: e._(/*BTDS*/ "").toString(),
+        MiB: e._(/*BTDS*/ "").toString(),
+        GiB: e._(/*BTDS*/ "").toString(),
       };
     function u(e) {
       return r("WAWebL10N").filesizeWithParams(e, s);

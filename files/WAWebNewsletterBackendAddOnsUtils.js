@@ -1,7 +1,6 @@
 __d(
   "WAWebNewsletterBackendAddOnsUtils",
   [
-    "Promise",
     "WAWebCRUDOperationsNewsletterPollsVotes",
     "WAWebDBProcessEditProtocolMsgs",
     "WAWebModelStorageUtils",
@@ -13,219 +12,173 @@ __d(
     "WAWebSchemaMessage",
     "WAWebStoreMsgs",
     "WAWebdbCRUDOperationsNewsletterReaction",
-    "asyncToGeneratorRuntime",
     "compactMap",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.forwardsCounts,
-            a = e.ids,
-            i = e.msgs,
-            l = e.pollVotes,
-            s = e.questionResponsesCounts,
-            u = e.reactionIdsToRemove,
-            c = e.reactions,
-            d = e.timestamp,
-            m = e.viewCounts;
-          if (
-            (c.length > 0 &&
-              (yield o(
-                "WAWebdbCRUDOperationsNewsletterReaction",
-              ).createOrUpdateNewsletterReactions(
-                r("compactMap")(
-                  c,
-                  o("WAWebNewsletterReactionUtils").mapReactionDataToDbRecord,
-                ),
-              )),
-            u.length > 0 &&
-              (yield o(
-                "WAWebdbCRUDOperationsNewsletterReaction",
-              ).bulkRemoveNewsletterReactionsForParentMsg(u)),
-            l.length > 0 &&
-              (yield o(
-                "WAWebCRUDOperationsNewsletterPollsVotes",
-              ).bulkCreateOrUpdateVotes(
-                l.map(
-                  o("WAWebNewsletterPollsUtils").mapNewsletterVoteToDbRecord,
-                ),
-              )),
-            i.length > 0)
-          ) {
-            var p = new Map(
-                i.map(function (e) {
-                  return [e.id.toString(), e];
-                }),
-              ),
-              _ = [],
-              f = [],
-              g = [],
-              h = yield o("WAWebSchemaMessage")
-                .getMessageTable()
-                .bulkGet(
-                  i.map(function (e) {
-                    return e.id.toString();
-                  }),
-                );
-            (h.forEach(function (e) {
-              if (e != null) {
-                var t = p.get(e.id);
-                t != null &&
-                (t == null ? void 0 : t.kind) ===
-                  o("WAWebMsgType").MsgKind.RevokedMessage &&
-                e.type !== o("WAWebMsgType").MSG_TYPE.REVOKED
-                  ? (f.push(t), g.push(e))
-                  : (t == null ? void 0 : t.t) != null &&
-                    t.t > e.t &&
-                    _.push(t);
-              }
+    async function e(e) {
+      var t = e.forwardsCounts,
+        n = e.ids,
+        a = e.msgs,
+        i = e.pollVotes,
+        l = e.questionResponsesCounts,
+        s = e.reactionIdsToRemove,
+        u = e.reactions,
+        c = e.timestamp,
+        d = e.viewCounts;
+      if (
+        (u.length > 0 &&
+          (await o(
+            "WAWebdbCRUDOperationsNewsletterReaction",
+          ).createOrUpdateNewsletterReactions(
+            r("compactMap")(
+              u,
+              o("WAWebNewsletterReactionUtils").mapReactionDataToDbRecord,
+            ),
+          )),
+        s.length > 0 &&
+          (await o(
+            "WAWebdbCRUDOperationsNewsletterReaction",
+          ).bulkRemoveNewsletterReactionsForParentMsg(s)),
+        i.length > 0 &&
+          (await o(
+            "WAWebCRUDOperationsNewsletterPollsVotes",
+          ).bulkCreateOrUpdateVotes(
+            i.map(o("WAWebNewsletterPollsUtils").mapNewsletterVoteToDbRecord),
+          )),
+        a.length > 0)
+      ) {
+        var m = new Map(
+            a.map(function (e) {
+              return [e.id.toString(), e];
             }),
-              yield o("WAWebDBProcessEditProtocolMsgs").processEditProtocolMsgs(
-                _.map(
-                  o("WAWebNewsletterMsgEditUtils")
-                    .mapMsgToEditProtocolMsgLegacy,
-                ),
-              ),
-              yield o("WAWebSchemaMessage")
-                .getMessageTable()
-                .bulkRemove(
-                  g.map(function (e) {
-                    var t = e.id;
-                    return t.toString();
-                  }),
-                ),
-              yield o("WAWebStoreMsgs").storeMsgs(f));
+          ),
+          p = [],
+          _ = [],
+          f = [],
+          g = await o("WAWebSchemaMessage")
+            .getMessageTable()
+            .bulkGet(
+              a.map(function (e) {
+                return e.id.toString();
+              }),
+            );
+        (g.forEach(function (e) {
+          if (e != null) {
+            var t = m.get(e.id);
+            t != null &&
+            (t == null ? void 0 : t.kind) ===
+              o("WAWebMsgType").MsgKind.RevokedMessage &&
+            e.type !== o("WAWebMsgType").MSG_TYPE.REVOKED
+              ? (_.push(t), f.push(e))
+              : (t == null ? void 0 : t.t) != null && t.t > e.t && p.push(t);
           }
-          a.length > 0 &&
-            (yield o("WAWebModelStorageUtils")
-              .getStorage()
-              .lock(
-                ["message"],
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var n = e[0],
-                        r = yield n
-                          .bulkGet(
-                            a.map(function (e) {
-                              return e.toString();
-                            }),
-                          )
-                          .then(function (e) {
-                            return e.filter(Boolean);
-                          }),
-                        o = r.map(function (e) {
-                          var n,
-                            r,
-                            o,
-                            a = e.forwardsCount,
-                            i = e.id,
-                            l = e.questionResponsesCount,
-                            u = e.viewCount;
-                          return {
-                            id: i,
-                            lastUpdateFromServerTs: d,
-                            viewCount:
-                              (n = m == null ? void 0 : m.get(i)) != null
-                                ? n
-                                : u,
-                            questionResponsesCount:
-                              (r = s == null ? void 0 : s.get(i)) != null
-                                ? r
-                                : l,
-                            forwardsCount:
-                              (o = t == null ? void 0 : t.get(i)) != null
-                                ? o
-                                : a,
-                          };
-                        });
-                      return n.bulkCreateOrMerge(o);
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ));
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.ids,
-            n = e.reactionIdsToRemove,
-            r = e.reactions,
-            o = e.timestamp,
-            a = e.viewCounts;
-          t.length !== 0 &&
-            (yield s({
-              ids: t,
-              msgs: [],
-              reactions: r != null ? r : [],
-              reactionIdsToRemove: n != null ? n : [],
-              pollVotes: [],
-              timestamp: o,
-              viewCounts: a,
-              questionResponsesCounts: new Map(),
-              forwardsCounts: new Map(),
-            }));
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(t, r, a) {
-      return t.reduce(
-        (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              var n = yield e,
-                i = yield o("WAWebNewsletterMapMsgAndAddOns").mapMsgAndAddOns(
-                  t,
+        }),
+          await o("WAWebDBProcessEditProtocolMsgs").processEditProtocolMsgs(
+            p.map(
+              o("WAWebNewsletterMsgEditUtils").mapMsgToEditProtocolMsgLegacy,
+            ),
+          ),
+          await o("WAWebSchemaMessage")
+            .getMessageTable()
+            .bulkRemove(
+              f.map(function (e) {
+                var t = e.id;
+                return t.toString();
+              }),
+            ),
+          await o("WAWebStoreMsgs").storeMsgs(_));
+      }
+      n.length > 0 &&
+        (await o("WAWebModelStorageUtils")
+          .getStorage()
+          .lock(["message"], async function (e) {
+            var r = e[0],
+              o = await r
+                .bulkGet(
+                  n.map(function (e) {
+                    return e.toString();
+                  }),
+                )
+                .then(function (e) {
+                  return e.filter(Boolean);
+                }),
+              a = o.map(function (e) {
+                var n,
                   r,
-                  a,
-                );
-              if (i == null) return n;
-              var l = i.forwardsCount,
-                s = i.id,
-                u = i.msgData,
-                c = i.pollVoteData,
-                d = i.questionResponsesCount,
-                m = i.reactionData,
-                p = i.viewCount;
-              return (
-                s != null &&
-                  (u == null ? void 0 : u.kind) !==
-                    o("WAWebMsgType").MsgKind.RevokedMessage &&
-                  n.ids.push(s),
-                u != null && n.msgs.push(u),
-                p != null && s != null && n.viewCounts.set(s.toString(), p),
-                d != null &&
-                  s != null &&
-                  n.questionResponsesCounts.set(s.toString(), d),
-                l != null && s != null && n.forwardsCounts.set(s.toString(), l),
-                m == null
-                  ? s != null && n.reactionIdsToRemove.push(s.toString())
-                  : n.reactions.push(m),
-                c != null && n.pollVotes.push(c),
-                n
-              );
-            },
+                  o,
+                  a = e.forwardsCount,
+                  i = e.id,
+                  s = e.questionResponsesCount,
+                  u = e.viewCount;
+                return {
+                  id: i,
+                  lastUpdateFromServerTs: c,
+                  viewCount:
+                    (n = d == null ? void 0 : d.get(i)) != null ? n : u,
+                  questionResponsesCount:
+                    (r = l == null ? void 0 : l.get(i)) != null ? r : s,
+                  forwardsCount:
+                    (o = t == null ? void 0 : t.get(i)) != null ? o : a,
+                };
+              });
+            return r.bulkCreateOrMerge(a);
+          }));
+    }
+    async function s(t) {
+      var n = t.ids,
+        r = t.reactionIdsToRemove,
+        o = t.reactions,
+        a = t.timestamp,
+        i = t.viewCounts;
+      n.length !== 0 &&
+        (await e({
+          ids: n,
+          msgs: [],
+          reactions: o != null ? o : [],
+          reactionIdsToRemove: r != null ? r : [],
+          pollVotes: [],
+          timestamp: a,
+          viewCounts: i,
+          questionResponsesCounts: new Map(),
+          forwardsCounts: new Map(),
+        }));
+    }
+    function u(e, t, n) {
+      return e.reduce(
+        async function (e, r) {
+          var a = await e,
+            i = await o("WAWebNewsletterMapMsgAndAddOns").mapMsgAndAddOns(
+              r,
+              t,
+              n,
+            );
+          if (i == null) return a;
+          var l = i.forwardsCount,
+            s = i.id,
+            u = i.msgData,
+            c = i.pollVoteData,
+            d = i.questionResponsesCount,
+            m = i.reactionData,
+            p = i.viewCount;
+          return (
+            s != null &&
+              (u == null ? void 0 : u.kind) !==
+                o("WAWebMsgType").MsgKind.RevokedMessage &&
+              a.ids.push(s),
+            u != null && a.msgs.push(u),
+            p != null && s != null && a.viewCounts.set(s.toString(), p),
+            d != null &&
+              s != null &&
+              a.questionResponsesCounts.set(s.toString(), d),
+            l != null && s != null && a.forwardsCounts.set(s.toString(), l),
+            m == null
+              ? s != null && a.reactionIdsToRemove.push(s.toString())
+              : a.reactions.push(m),
+            c != null && a.pollVotes.push(c),
+            a
           );
-          return function (t, n) {
-            return e.apply(this, arguments);
-          };
-        })(),
-        (e || (e = n("Promise"))).resolve({
+        },
+        Promise.resolve({
           ids: [],
           reactions: [],
           reactionIdsToRemove: [],
@@ -237,9 +190,9 @@ __d(
         }),
       );
     }
-    ((l.updateAddOnDbRecords = s),
-      (l.persistNewsletterStatusInteractions = c),
-      (l.getMsgsAndAddOnsFromUpdates = m));
+    ((l.updateAddOnDbRecords = e),
+      (l.persistNewsletterStatusInteractions = s),
+      (l.getMsgsAndAddOnsFromUpdates = u));
   },
   98,
 );

@@ -12,7 +12,6 @@ __d(
     "WAWebTos",
     "WAWebUseBusinessProfile.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebBusinessProfileValues",
     "useWAWebChatValues",
     "useWAWebListener",
@@ -24,54 +23,35 @@ __d(
       c = (u || (u = o("react"))).useEffect;
     function d(e) {
       var t,
-        n = o("react-compiler-runtime").c(10),
-        r;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = [o("WAWebFrontendChatGetters").getBizBotSystemMsgType]),
-          (n[0] = r))
-        : (r = n[0]);
-      var a = o("useWAWebChatValues").useChatValues(e, r),
-        i = a[0],
-        l = o("WAWebBotBaseGating").isBizBot1pEnabled() ? e : null;
-      o("WAWebUseBusinessProfile.react").useBusinessProfile(l);
-      var s =
+        n = o("useWAWebChatValues").useChatValues(e, [
+          o("WAWebFrontendChatGetters").getBizBotSystemMsgType,
+        ]),
+        r = n[0],
+        a = o("WAWebBotBaseGating").isBizBot1pEnabled() ? e : null;
+      o("WAWebUseBusinessProfile.react").useBusinessProfile(a);
+      var i =
           (t = o(
             "useWAWebBusinessProfileValues",
-          ).useOptionalBusinessProfileValues(l, [
+          ).useOptionalBusinessProfileValues(a, [
             o("WAWebBusinessProfileGetters").getIsBizBot1p,
           ])) != null
             ? t
             : [],
-        u = s[0],
-        d = u === !0,
-        p;
-      (n[1] !== i || n[2] !== e || n[3] !== d
-        ? ((p = function () {
-            m(e, d, i);
-          }),
-          (n[1] = i),
-          (n[2] = e),
-          (n[3] = d),
-          (n[4] = p))
-        : (p = n[4]),
-        o("useWAWebListener").useListener(
-          o("WAWebTos").TosManager,
-          "change",
-          p,
+        l = i[0],
+        s = l === !0;
+      (o("useWAWebListener").useListener(
+        o("WAWebTos").TosManager,
+        "change",
+        function () {
+          m(e, s, r);
+        },
+      ),
+        c(
+          function () {
+            m(e, s, r);
+          },
+          [e, s, r],
         ));
-      var _, f;
-      (n[5] !== i || n[6] !== e || n[7] !== d
-        ? ((_ = function () {
-            m(e, d, i);
-          }),
-          (f = [e, d, i]),
-          (n[5] = i),
-          (n[6] = e),
-          (n[7] = d),
-          (n[8] = _),
-          (n[9] = f))
-        : ((_ = n[8]), (f = n[9])),
-        c(_, f));
     }
     function m(t, n, r) {
       if (

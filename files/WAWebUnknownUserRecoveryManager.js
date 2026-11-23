@@ -10,7 +10,6 @@ __d(
     "WAWebUnknownUserRecoveryStore",
     "WAWebUsernameGatingUtils",
     "WAWebWamEnumUnknownUserRecoveryPath",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -69,34 +68,26 @@ __d(
     function y(e, t) {
       return e.isLid() && t.hasUn === !1 && t.hasPn === !1;
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          try {
-            var a = yield m(t);
-            a.errored
-              ? o("WAWebUnknownUserRecoveryStore").releaseUsyncReservation(n)
-              : o("WAWebUnknownUserRecoveryStore").commitUsyncFetched(t, n);
-          } catch (t) {
-            (o("WAWebUnknownUserRecoveryStore").releaseUsyncReservation(n),
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "WAWebUnknownUserRecoveryManager: recovery usync failed",
-                    ])),
-                )
-                .sendLogs("unknown-user-recovery-usync-failed")
-                .catching(r("getErrorSafe")(t)));
-          } finally {
-            d.delete(t);
-          }
-        })),
-        b.apply(this, arguments)
-      );
+    async function C(t, n) {
+      try {
+        var a = await m(t);
+        a.errored
+          ? o("WAWebUnknownUserRecoveryStore").releaseUsyncReservation(n)
+          : o("WAWebUnknownUserRecoveryStore").commitUsyncFetched(t, n);
+      } catch (t) {
+        (o("WAWebUnknownUserRecoveryStore").releaseUsyncReservation(n),
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "WAWebUnknownUserRecoveryManager: recovery usync failed",
+                ])),
+            )
+            .sendLogs("unknown-user-recovery-usync-failed")
+            .catching(r("getErrorSafe")(t)));
+      } finally {
+        d.delete(t);
+      }
     }
     ((l.maybeRecoverUnknownUser = p),
       (l.isUsyncRecoveryInFlight = _),

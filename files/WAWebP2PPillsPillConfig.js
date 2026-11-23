@@ -18,97 +18,91 @@ __d(
       CHAT: {
         Icon: r("WDSIconWdsIcChatFilled.react"),
         getLabel: function () {
-          return s._(/*BTDS*/ "Message");
+          return s._(/*BTDS*/ "");
         },
         tapAction: "openChat",
       },
       VIEW_BUSINESS: {
         Icon: r("WDSIconIcPersonFilled.react"),
         getLabel: function () {
-          return s._(/*BTDS*/ "Profile");
+          return s._(/*BTDS*/ "");
         },
         tapAction: "openProfile",
       },
       SHOP: {
         Icon: r("WDSIconIcShoppingBagFilled.react"),
         getLabel: function () {
-          return s._(/*BTDS*/ "Shop");
+          return s._(/*BTDS*/ "");
         },
         getPrefillText: function () {
-          return s
-            ._(/*BTDS*/ "Hi, I would like to see what you have.")
-            .toString();
+          return s._(/*BTDS*/ "").toString();
         },
         tapAction: "openChat",
       },
       ORDER: {
         Icon: r("WDSIconIcRestaurant.react"),
         getLabel: function () {
-          return s._(/*BTDS*/ "Order");
+          return s._(/*BTDS*/ "");
         },
         getPrefillText: function () {
-          return s._(/*BTDS*/ "Hi, I would like to place an order.").toString();
+          return s._(/*BTDS*/ "").toString();
         },
         tapAction: "openChat",
       },
       MENU: {
         Icon: r("WDSIconIcArticleFilled.react"),
         getLabel: function () {
-          return s._(/*BTDS*/ "Menu");
+          return s._(/*BTDS*/ "");
         },
         getPrefillText: function () {
-          return s._(/*BTDS*/ "Hi, can I see your menu?").toString();
+          return s._(/*BTDS*/ "").toString();
         },
         tapAction: "openChat",
       },
       CALL: {
         Icon: r("WDSIconIcCallFilled.react"),
         getLabel: function () {
-          return s._(/*BTDS*/ "Call");
+          return s._(/*BTDS*/ "");
         },
         tapAction: "none",
       },
       BOOK_APPOINTMENT: {
         Icon: r("WDSIconIcCalendarMonth.react"),
         getLabel: function () {
-          return s._(/*BTDS*/ "Book");
+          return s._(/*BTDS*/ "");
         },
         getPrefillText: function () {
-          return s
-            ._(/*BTDS*/ "Hi, I would like to book an appointment.")
-            .toString();
+          return s._(/*BTDS*/ "").toString();
         },
         tapAction: "openChat",
       },
       OFFERS: {
         Icon: r("WDSIconIcSell.react"),
         getLabel: function () {
-          return s._(/*BTDS*/ "Offers");
+          return s._(/*BTDS*/ "");
         },
         getPrefillText: function () {
-          return s._(/*BTDS*/ "Hi, do you have any current offers?").toString();
+          return s._(/*BTDS*/ "").toString();
         },
         tapAction: "openChat",
       },
       BESTSELLERS: {
         Icon: r("WDSIconIcStarRateFilled.react"),
         getLabel: function () {
-          return s._(/*BTDS*/ "Bestsellers");
+          return s._(/*BTDS*/ "");
         },
         getPrefillText: function () {
-          return s._(/*BTDS*/ "Hi, what are your bestsellers?").toString();
+          return s._(/*BTDS*/ "").toString();
         },
         tapAction: "openChat",
       },
       ABOUT: {
         Icon: r("WDSIconIcInfo.react"),
         getLabel: function () {
-          return s._(/*BTDS*/ "About us");
+          return s._(/*BTDS*/ "");
         },
         getPrefillText: function () {
-          return s
-            ._(/*BTDS*/ "Hi, can you tell me more about your business?")
-            .toString();
+          return s._(/*BTDS*/ "").toString();
         },
         tapAction: "openChat",
       },

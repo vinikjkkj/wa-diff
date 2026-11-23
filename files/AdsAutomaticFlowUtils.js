@@ -12,7 +12,6 @@ __d(
     "AdsChildAttachmentsUtils",
     "AdsCollectionsAdUtils",
     "AdsConnectedSourcesAwarenessUtils",
-    "AdsCreativeFeaturesUtils",
     "AdsDynamicAdsUtils",
     "AdsODAXUtils",
     "AdsObjectTypeUtils",
@@ -20,6 +19,7 @@ __d(
     "AdsPromotedObjectOmnichannelUtils",
     "AdsPromotedObjectTypes",
     "AdsRegulatedCategory",
+    "AdsRegulatedCategoryUtils",
     "AdsUEditorCampaignAdObjectsUtils",
     "AdsWAImageFilteringUtils",
     "BrandedContentAdsUtils",
@@ -108,7 +108,7 @@ __d(
         return !1;
       if (
         r("justknobx")._("4143") &&
-        o("AdsCreativeFeaturesUtils").isAdsRegulatedCategory(e.campaignGroup)
+        o("AdsRegulatedCategoryUtils").isAdsRegulatedCategory(e.campaignGroup)
       ) {
         var n = e.campaignGroup.special_ad_categories,
           a =
@@ -197,13 +197,14 @@ __d(
       }
       return s;
     }
-    function y(e) {
-      var t = o("AdsDynamicAdsUtils").isDynamicAd(e);
+    function y(e, t) {
+      t === void 0 && (t = !1);
+      var n = o("AdsDynamicAdsUtils").isDynamicAd(e);
       return !(
         o("AdsCollectionsAdUtils").isCollectionsAd(e.creative) ||
         o("AdsChildAttachmentsUtils").isCarouselAd(e) ||
-        t ||
-        o("AdsAPIAdgroupRecordUtils").isExistingPostAd(e)
+        n ||
+        (!t && o("AdsAPIAdgroupRecordUtils").isExistingPostAd(e))
       );
     }
     function C(e) {
@@ -303,7 +304,7 @@ __d(
       return !(
         !o("AdsAPIAdgroupRecordUtils").isExistingPostAd(t) ||
         n.buying_type !== r("AdsBuyingTypes").AUCTION ||
-        o("AdsCreativeFeaturesUtils").isAdsRegulatedCategory(n)
+        o("AdsRegulatedCategoryUtils").isAdsRegulatedCategory(n)
       );
     }
     function I(e, t, n, a) {
@@ -314,7 +315,7 @@ __d(
         !o("AdsAPIAdgroupRecordUtils").isExistingPostAd(i) ||
         n == null ||
         (r("justknobx")._("4143") &&
-          o("AdsCreativeFeaturesUtils").isAdsRegulatedCategory(s))
+          o("AdsRegulatedCategoryUtils").isAdsRegulatedCategory(s))
       )
         return !1;
       var u = f(e),
@@ -359,39 +360,62 @@ __d(
         a = t.campaignGroup;
       return (
         !o("AdsAPIAdgroupRecordUtils").isExistingPostAd(n) &&
-        !o("AdsCreativeFeaturesUtils").isAdsRegulatedCategory(a) &&
+        !o("AdsRegulatedCategoryUtils").isAdsRegulatedCategory(a) &&
         f(e) &&
         R(r)
       );
     }
     function D(e) {
-      var t = r("getByPath")(e, ["attachments", "data", "0", "type"], "");
-      r("isFalsey")(t) && (t = r("getByPath")(e, ["type"], ""));
-      var n = t === "album" || t === "photo";
-      return t === "share" || (t && t.startsWith("video")) || n;
+      var t,
+        n,
+        o =
+          (t =
+            (n = e.attachments) == null || (n = n.data[0]) == null
+              ? void 0
+              : n.type) != null
+            ? t
+            : "";
+      r("isFalsey")(o) && (o = e.type);
+      var a = o === "album" || o === "photo";
+      return o === "share" || (o && o.startsWith("video")) || a;
     }
     function x(e) {
-      var t = e.is_instagram_post;
-      if (t) return !1;
-      var n = r("getByPath")(e, ["attachments", "data", "0", "type"], "");
-      return n === "album" || n === "photo";
+      var t,
+        n,
+        o = e.is_instagram_post;
+      if (r("isTruthy")(o)) return !1;
+      var a =
+        (t =
+          (n = e.attachments) == null || (n = n.data[0]) == null
+            ? void 0
+            : n.type) != null
+          ? t
+          : "";
+      return a === "album" || a === "photo";
     }
     function $(e) {
-      var t = "",
-        n = r("getByPath")(e, ["attachments", "data", "0", "type"], "");
-      ((t += "Orig postAttachementType=" + n + ", "),
-        n === "" && (n = r("getByPath")(e, ["postType"], "")),
-        (t += "Updated postAttachementType=" + n + ", "));
-      var a =
-        n === "photo" ||
-        n === "LIVE" ||
-        (n && n.startsWith("video")) ||
-        n === "VIDEOS" ||
-        n === "REELS" ||
-        n === "album";
+      var t,
+        n,
+        r = "",
+        a =
+          (t =
+            (n = e.attachments) == null || (n = n.data[0]) == null
+              ? void 0
+              : n.type) != null
+            ? t
+            : "";
+      ((r += "Orig postAttachementType=" + a + ", "),
+        (r += "Updated postAttachementType=" + a + ", "));
+      var i =
+        a === "photo" ||
+        a === "LIVE" ||
+        (a && a.startsWith("video")) ||
+        a === "VIDEOS" ||
+        a === "REELS" ||
+        a === "album";
       return (
         o("CTMSMCCatalogAdAdoptionLogger").logSMCProductSelectionAMEvents(
-          a
+          i
             ? o("CTMSMCCatalogAdAdoptionLogger").CtmSMCCatalogAdAdoptionMessage
                 .AdCreativeComponentProductRecommendationTriggerSupportedPage
             : o("CTMSMCCatalogAdAdoptionLogger").CtmSMCCatalogAdAdoptionMessage
@@ -401,23 +425,30 @@ __d(
           null,
           [],
           null,
-          r("getByPath")(e, ["id"], ""),
+          e.id,
           null,
           !1,
-          t,
+          r,
         ),
-        a
+        i
       );
     }
     function P(e) {
-      var t = r("getByPath")(e, ["type"], "");
-      return t === "photo" || t === "video";
+      return e === "photo" || e === "video";
     }
     function N(e) {
-      var t = r("getByPath")(e, ["attachments", "data", "0", "type"], "");
+      var t,
+        n,
+        o =
+          (t =
+            (n = e.attachments) == null || (n = n.data[0]) == null
+              ? void 0
+              : n.type) != null
+            ? t
+            : "";
       return (
-        r("isFalsey")(t) && (t = r("getByPath")(e, ["type"], "")),
-        t === "multi_share" || t === "carousel"
+        r("isFalsey")(o) && (o = e.type),
+        o === "multi_share" || o === "carousel"
       );
     }
     function M(e, t, n) {
@@ -425,7 +456,7 @@ __d(
       if (e == null) return !1;
       if (N(e)) return !0;
       var i = e.is_instagram_post,
-        l = i ? P(e) : D(e);
+        l = r("isTruthy")(i) ? P(e.type) : D(e);
       if (!l) return !1;
       var s = t.adgroup,
         u = s == null ? void 0 : s.creative,
@@ -449,7 +480,7 @@ __d(
         l = t.campaignGroup;
       return !f(e) ||
         l.buying_type !== r("AdsBuyingTypes").AUCTION ||
-        o("AdsCreativeFeaturesUtils").isAdsRegulatedCategory(l) ||
+        o("AdsRegulatedCategoryUtils").isAdsRegulatedCategory(l) ||
         !L(i) ||
         o("AdsAPIAdgroupRecordUtils").isTemplateCreative(a) ||
         o("AdsObjectTypeUtils").isDynamicProductAd(a)

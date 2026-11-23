@@ -6,7 +6,6 @@ __d(
     "WDSIconIcReceipt.react",
     "WDSIconWdsIcUnsupportedMessage.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebMsgValues",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,44 +20,26 @@ __d(
         marginTop2: { marginTop: "xfl633f", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.msg,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [o("WAWebMsgGetters").getNativeFlowName]), (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebMsgValues").useMsgValues(n.id, a),
-        l = i[0];
-      if (l === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS) {
-        var c;
-        return (
-          t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((c = s.jsx(r("WDSIconIcReceipt.react"), {
-                xstyle: [u.container, u.marginTop2],
-                width: 13,
-                height: 13,
-                "aria-hidden": !0,
-                testid: "order_details_preview_icon",
-              })),
-              (t[1] = c))
-            : (c = t[1]),
-          c
-        );
-      }
-      var d;
-      return (
-        t[2] === Symbol.for("react.memo_cache_sentinel")
-          ? ((d = s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
-              width: 20,
-              height: 20,
-              testid: "message-fail",
-            })),
-            (t[2] = d))
-          : (d = t[2]),
-        d
-      );
+      var t = e.msg,
+        n = o("useWAWebMsgValues").useMsgValues(t.id, [
+          o("WAWebMsgGetters").getNativeFlowName,
+        ]),
+        a = n[0];
+      return a === r("WAWebInteractiveMessagesNativeFlowName").ORDER_DETAILS
+        ? s.jsx(r("WDSIconIcReceipt.react"), {
+            xstyle: [u.container, u.marginTop2],
+            width: 13,
+            height: 13,
+            "aria-hidden": !0,
+            testid: "order_details_preview_icon",
+          })
+        : s.jsx(r("WDSIconWdsIcUnsupportedMessage.react"), {
+            width: 20,
+            height: 20,
+            testid: "message-fail",
+          });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

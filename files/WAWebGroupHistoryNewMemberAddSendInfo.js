@@ -9,53 +9,44 @@ __d(
     "WAWebGroupHistoryPostJoinEligibility",
     "WAWebGroupHistoryRestrictionHelper",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    function s(e, t, n) {
-      return u.apply(this, arguments);
+    async function s(t, n, a) {
+      if (!u(t, n)) return null;
+      var i = o("WAWebWidFactory").asGroupWidOrThrow(t.id);
+      if (!o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(i))
+        return null;
+      var l = o("WATimeUtils").unixTime(),
+        s;
+      try {
+        s = await o(
+          "WAWebGetGroupHistoryBundleMessagesCount",
+        ).getGroupHistoryBundleMessageCount({
+          groupWid: i,
+          targetStartMessageTime: l,
+        });
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[group-history] new-member add availability probe failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("group-history-new-member-add-probe-failed"),
+          null
+        );
+      }
+      return s === 0 || !o("WAWebABProps").getABPropConfigValue(a)
+        ? null
+        : { messagesCount: s, targetStartMessageTime: l };
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          if (!c(t, n)) return null;
-          var i = o("WAWebWidFactory").asGroupWidOrThrow(t.id);
-          if (!o("WAWebGroupHistoryGating").isGroupHistorySenderEnabled(i))
-            return null;
-          var l = o("WATimeUtils").unixTime(),
-            s;
-          try {
-            s = yield o(
-              "WAWebGetGroupHistoryBundleMessagesCount",
-            ).getGroupHistoryBundleMessageCount({
-              groupWid: i,
-              targetStartMessageTime: l,
-            });
-          } catch (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[group-history] new-member add availability probe failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("group-history-new-member-add-probe-failed"),
-              null
-            );
-          }
-          return s === 0 || !o("WAWebABProps").getABPropConfigValue(a)
-            ? null
-            : { messagesCount: s, targetStartMessageTime: l };
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e, t) {
+    function u(e, t) {
       return (
         !e.isNonAdminAndACAGJREnabled() &&
         o(

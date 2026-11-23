@@ -16,24 +16,27 @@ __d(
     function _(e, t) {
       (u.set(e, t), c.set(e, !1), p());
     }
-    function f(e) {
-      u.delete(e) && (c.delete(e), p());
+    function f(e, t) {
+      (t != null && u.get(e) !== t) || (u.delete(e) && (c.delete(e), p()));
     }
     function g(e) {
       u.has(e) && c.set(e, !0);
     }
     function h(e) {
+      return u.has(e);
+    }
+    function y(e) {
       var t;
       return (t = c.get(e)) != null ? t : !1;
     }
-    function y(e, t) {
+    function C(e, t) {
       return c.subscribe(e, t);
     }
-    function C(e) {
-      var t = u.get(e);
-      (t == null || t(), f(e));
-    }
     function b(e) {
+      var t = u.get(e);
+      (t == null || t(), f(e, t));
+    }
+    function v(e) {
       return (
         d.add(e),
         function () {
@@ -41,22 +44,25 @@ __d(
         }
       );
     }
-    function v() {
-      return s(b, R, S);
-    }
     function S() {
-      return m;
-    }
-    function R() {
-      return m;
+      return s(
+        v,
+        function () {
+          return m;
+        },
+        function () {
+          return m;
+        },
+      );
     }
     ((l.setStopInflightMessage = _),
       (l.deleteStopInflightMessage = f),
       (l.markStopInflightMessageReady = g),
-      (l.isStopInflightMessageReady = h),
-      (l.subscribeStopInflightMessageReady = y),
-      (l.stopInflightMessage = C),
-      (l.useMAIBAInFlightConversationIds = v));
+      (l.hasInflightMessage = h),
+      (l.isStopInflightMessageReady = y),
+      (l.subscribeStopInflightMessageReady = C),
+      (l.stopInflightMessage = b),
+      (l.useMAIBAInFlightConversationIds = S));
   },
   98,
 );

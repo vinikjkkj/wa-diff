@@ -180,7 +180,11 @@ __d(
             i === !0 &&
             o(
               "LifetimeDefaultDurationUtils",
-            ).isSevenDayLifetimeDurationEnabledForObjective(a)
+            ).isSevenDayLifetimeDurationEnabledForObjective(
+              a,
+              a === r("AdsAPIObjectives").OUTCOME_TRAFFIC ||
+                a === r("AdsAPIObjectives").LINK_CLICKS,
+            )
           )
             return (
               e.setDate(

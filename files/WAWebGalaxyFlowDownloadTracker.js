@@ -17,11 +17,7 @@ __d(
       m = new Map();
     function p() {
       var t = (e || (e = n("Promise"))).reject(
-        new (o("WAWebActionToast.react").ActionType)(
-          s._(
-            /*BTDS*/ "Couldn't download responses. Make sure the device linked to this account is connected to the internet and try again.",
-          ),
-        ),
+        new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")),
       );
       (t.catch(r("WAWebNoop")),
         o("WAWebToastManager").ToastManager.open(

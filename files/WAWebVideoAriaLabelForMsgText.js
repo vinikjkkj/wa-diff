@@ -5,9 +5,8 @@ __d(
     function e(e) {
       var t = e.isGif;
       return t === !0
-        ? (r("justknobx")._("8068") && s._(/*BTDS*/ "GIF")) ||
-            s._(/*BTDS*/ "Gif")
-        : s._(/*BTDS*/ "Video");
+        ? (r("justknobx")._("8068") && s._(/*BTDS*/ "")) || s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

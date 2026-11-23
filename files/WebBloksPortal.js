@@ -1,28 +1,16 @@
 __d(
   "WebBloksPortal",
-  ["ReactDOM", "react", "react-compiler-runtime"],
+  ["ReactDOM", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        r = e.target,
-        a = r === void 0 ? document.body : r;
-      if (a != null) {
-        var i;
-        return (
-          t[0] !== n || t[1] !== a
-            ? ((i = o("ReactDOM").createPortal(n, a)),
-              (t[0] = n),
-              (t[1] = a),
-              (t[2] = i))
-            : (i = t[2]),
-          i
-        );
-      }
+      var t = e.children,
+        n = e.target,
+        r = n === void 0 ? document.body : n;
+      if (r != null) return o("ReactDOM").createPortal(t, r);
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

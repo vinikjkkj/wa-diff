@@ -1,11 +1,6 @@
 __d(
   "AdsUEditorAdgroupBaseUIStore",
-  [
-    "AdsUEditorAdgroupCreateReducer",
-    "AdsUEditorHostIDs",
-    "FluxReduceStore",
-    "abstractMethod",
-  ],
+  ["AdsUEditorAdgroupCreateReducer", "AdsUEditorHostIDs", "FluxReduceStore"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function (e) {
@@ -30,12 +25,6 @@ __d(
       return (
         (n.reduce = function (t, n) {
           return this.$AdsUEditorAdgroupBaseUIStore$p_1(t, n);
-        }),
-        (n.getHandlers = function () {
-          return r("abstractMethod")(
-            "AdsUEditorAdgroupBaseUIStore",
-            "getHandlers",
-          );
         }),
         t
       );

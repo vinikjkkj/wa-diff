@@ -18,7 +18,7 @@ __d(
               ),
         );
       return a.length === 0
-        ? s._(/*BTDS*/ "Album")
+        ? s._(/*BTDS*/ "")
         : r("WAWebFbtIntlList")(
             a,
             r("WAWebFbtIntlList").CONJUNCTIONS.NONE,

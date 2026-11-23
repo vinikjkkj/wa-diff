@@ -13,54 +13,45 @@ __d(
     "WAWebSchemaFtsV2TokenPrefixes",
     "WAWebSchemaFtsV3Index",
     "WAWebSchemaManifest",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    async function u() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
-            s == null &&
-              (yield o("WAWebDbRolloutUtil").loadSchemaVersions(),
-              o("WAWebFtsStorageUtils").createStorage(),
-              o("WAWebSchemaManifest").addTable(),
-              o("WAWebSchemaFtsV1Index").deprecateTable(),
-              o("WAWebSchemaFtsV2Index").addTable(),
-              o("WAWebSchemaFtsV2TokenPrefixes").addTable(),
-              o("WAWebSchemaFtsPurgeRangeQueue").addTable(),
-              o("WAWebSchemaFtsV3Index").addTable(),
-              (s = o("WAWebFtsStorageUtils")
-                .getStorage()
-                .initialize()
-                .catch(function (t) {
-                  throw (
-                    o("WALogger")
-                      .ERROR(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "Assertion failed!",
-                          ])),
-                      )
-                      .verbose()
-                      .sendLogs("Failed to initialize fts storage", {
-                        sendLogsType:
-                          o("WALogger").SendLogsType
-                            .EXTREMELY_BAD_USER_EXPERIENCE_SAD,
-                      }),
-                    t
-                  );
-                }))),
-            s
-          );
-        })),
-        c.apply(this, arguments)
+        s == null &&
+          (await o("WAWebDbRolloutUtil").loadSchemaVersions(),
+          o("WAWebFtsStorageUtils").createStorage(),
+          o("WAWebSchemaManifest").addTable(),
+          o("WAWebSchemaFtsV1Index").deprecateTable(),
+          o("WAWebSchemaFtsV2Index").addTable(),
+          o("WAWebSchemaFtsV2TokenPrefixes").addTable(),
+          o("WAWebSchemaFtsPurgeRangeQueue").addTable(),
+          o("WAWebSchemaFtsV3Index").addTable(),
+          (s = o("WAWebFtsStorageUtils")
+            .getStorage()
+            .initialize()
+            .catch(function (t) {
+              throw (
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "Assertion failed!",
+                      ])),
+                  )
+                  .verbose()
+                  .sendLogs("Failed to initialize fts storage", {
+                    sendLogsType:
+                      o("WALogger").SendLogsType
+                        .EXTREMELY_BAD_USER_EXPERIENCE_SAD,
+                  }),
+                t
+              );
+            }))),
+        s
       );
     }
-    function d() {
+    function c() {
       return o("WAWebFtsStorageUtils")
         .destroyStorage()
         .catch(function () {
@@ -79,15 +70,15 @@ __d(
           );
         });
     }
-    function m() {
+    function d() {
       s = null;
     }
     ((l.getManifestTable = o("WAWebSchemaManifest").getTable),
       (l.getPurgeRangeQueueTable = o("WAWebSchemaFtsPurgeRangeQueue").getTable),
       (l.getIndexV3Table = o("WAWebSchemaFtsV3Index").getTable),
       (l.initialize = u),
-      (l.destroy = d),
-      (l.clearInitializePromise = m));
+      (l.destroy = c),
+      (l.clearInitializePromise = d));
   },
   98,
 );

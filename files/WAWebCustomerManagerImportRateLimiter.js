@@ -1,12 +1,6 @@
 __d(
   "WAWebCustomerManagerImportRateLimiter",
-  [
-    "invariant",
-    "WAPromiseDelays",
-    "WATimeUtils",
-    "WAWebBackendErrors",
-    "asyncToGeneratorRuntime",
-  ],
+  ["invariant", "WAPromiseDelays", "WATimeUtils", "WAWebBackendErrors"],
   function (t, n, r, o, a, i, l, s) {
     var e = 6e4,
       u = 3e5;
@@ -39,56 +33,48 @@ __d(
         e.status === 429
       );
     }
-    function m(t, r) {
-      var a, i;
-      (r === void 0 && (r = {}),
+    function m(t, n) {
+      var r, a;
+      (n === void 0 && (n = {}),
         (Number.isInteger(t) && t > 0) || s(0, 185772));
-      var l = o("WATimeUtils").monotonicTime(),
-        u =
-          (a = r.now) != null
-            ? a
+      var i = o("WATimeUtils").monotonicTime(),
+        l =
+          (r = n.now) != null
+            ? r
             : function () {
-                return o("WATimeUtils").monotonicTimeSince(l);
+                return o("WATimeUtils").monotonicTimeSince(i);
               },
-        c = (i = r.delay) != null ? i : o("WAPromiseDelays").delayMs,
-        d = e / t,
-        m = t,
-        _ = [],
-        f = 0;
-      function g(e) {
-        return h.apply(this, arguments);
+        u = (a = n.delay) != null ? a : o("WAPromiseDelays").delayMs,
+        c = e / t,
+        d = t,
+        m = [],
+        _ = 0;
+      async function f(n) {
+        (Number.isInteger(n) && n > 0 && n <= d) || s(0, 185773);
+        var r = l(),
+          o = p(m, r, _, n, t);
+        if (o > r) return (await u(Math.ceil(o - r)), f(n));
+        ((m = m.filter(function (t) {
+          return t.startedAt > r - e;
+        })),
+          m.push({ count: n, startedAt: r }),
+          (_ = r + n * c));
       }
-      function h() {
-        return (
-          (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (n) {
-            (Number.isInteger(n) && n > 0 && n <= m) || s(0, 185773);
-            var r = u(),
-              o = p(_, r, f, n, t);
-            if (o > r) return (yield c(Math.ceil(o - r)), g(n));
-            ((_ = _.filter(function (t) {
-              return t.startedAt > r - e;
-            })),
-              _.push({ count: n, startedAt: r }),
-              (f = r + n * d));
-          })),
-          h.apply(this, arguments)
-        );
-      }
-      function y(n, r, o) {
+      function g(n, r, o) {
         if (((Number.isInteger(r) && r > 0) || s(0, 192685), n === 0)) return 0;
-        var a = u(),
-          i = Math.min(r, m),
-          l = p(_, a, f, Math.min(i, n), t),
+        var a = l(),
+          i = Math.min(r, d),
+          u = p(m, a, _, Math.min(i, n), t),
           c = n % i || i,
-          d = e / (Math.floor(t / i) * i);
-        return l - a + (n - c) * Math.max(d, o) + c * o;
+          f = e / (Math.floor(t / i) * i);
+        return u - a + (n - c) * Math.max(f, o) + c * o;
       }
       return {
         batchSize: function (t) {
-          return Math.min(t, m);
+          return Math.min(t, d);
         },
-        estimateRemainingMs: y,
-        waitForBatch: g,
+        estimateRemainingMs: g,
+        waitForBatch: f,
       };
     }
     function p(t, n, r, o, a) {

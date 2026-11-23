@@ -1,6 +1,6 @@
 __d(
   "WAWebBackendWorkerInitLivenessProbe",
-  ["WALogger", "WAWebNoop", "asyncToGeneratorRuntime"],
+  ["WALogger", "WAWebNoop"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = 6e4;
@@ -9,7 +9,7 @@ __d(
         o = self.setTimeout(function () {
           c(t)
             .then(function (t) {
-              !n && e.isActive() && m(e, t);
+              !n && e.isActive() && d(e, t);
             })
             .catch(r("WAWebNoop"));
         }, s);
@@ -17,29 +17,21 @@ __d(
         ((n = !0), self.clearTimeout(o));
       };
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(e) {
+      if (globalThis.navigator.locks != null) {
+        var t = await globalThis.navigator.locks.query(),
+          n = t.held;
+        return (n == null
+          ? void 0
+          : n.some(function (t) {
+              return t.name === e;
+            })) === !0
+          ? "lock_held"
+          : "lock_free";
+      }
+      return "no_locks_api";
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (globalThis.navigator.locks != null) {
-            var t = yield globalThis.navigator.locks.query(),
-              n = t.held;
-            return (n == null
-              ? void 0
-              : n.some(function (t) {
-                  return t.name === e;
-                })) === !0
-              ? "lock_held"
-              : "lock_free";
-          }
-          return "no_locks_api";
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(t, n) {
+    function d(t, n) {
       (t.addPoint("worker_init_probe_" + n, {
         string: { worker_init_probe_result: n },
       }),

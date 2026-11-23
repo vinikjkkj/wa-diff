@@ -10,7 +10,6 @@ __d(
     "WAWebNewsletterGatingUtils",
     "WAWebOHAIClient",
     "WAWebScheduleNewsletterForwardCounter",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -20,76 +19,68 @@ __d(
       c = (656096963291760).toString(),
       d = (0x97e965c4439a).toString(),
       m = "24519724557710636";
-    function p(e, t, n) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          if (!(n <= 0)) {
-            yield r("WAWebNetworkStatus").waitIfOffline();
+    async function p(t, n, a) {
+      if (!(n <= 0)) {
+        await r("WAWebNetworkStatus").waitIfOffline();
+        try {
+          var i = _(t, a),
+            l = new Headers();
+          l.append("X-FB-Friendly-Name", m);
+          var c = await o("WAWebOHAIClient").fetchOHAI({
+            url: u,
+            project: o("WAWebACSTokenConfig").ACS_PROJECTS
+              .WA_ChannelsForwardCounter,
+            payload: i,
+            headers: l,
+          });
+        } catch (r) {
+          if (r instanceof o("WAWebHttpErrors").HttpNetworkError)
             try {
-              var i = f(t, a),
-                l = new Headers();
-              l.append("X-FB-Friendly-Name", m);
-              var c = yield o("WAWebOHAIClient").fetchOHAI({
-                url: u,
-                project: o("WAWebACSTokenConfig").ACS_PROJECTS
-                  .WA_ChannelsForwardCounter,
-                payload: i,
-                headers: l,
+              var d =
+                o("WATimeUtils").MINUTE_SECONDS *
+                Math.pow(
+                  2,
+                  Math.max(
+                    0,
+                    o("WAWebNewsletterGatingUtils")
+                      .NEWSLETTER_FORWARD_COUNTER_MAX_RETRIES - n,
+                  ),
+                );
+              o(
+                "WAWebScheduleNewsletterForwardCounter",
+              ).scheduleForwardCounterIncrement({
+                delaySeconds: d,
+                newsletterId: t,
+                retriesRemaining: n - 1,
+                serverId: a,
               });
-            } catch (r) {
-              if (r instanceof o("WAWebHttpErrors").HttpNetworkError)
-                try {
-                  var d =
-                    o("WATimeUtils").MINUTE_SECONDS *
-                    Math.pow(
-                      2,
-                      Math.max(
-                        0,
-                        o("WAWebNewsletterGatingUtils")
-                          .NEWSLETTER_FORWARD_COUNTER_MAX_RETRIES - n,
-                      ),
-                    );
-                  o(
-                    "WAWebScheduleNewsletterForwardCounter",
-                  ).scheduleForwardCounterIncrement({
-                    delaySeconds: d,
-                    newsletterId: t,
-                    retriesRemaining: n - 1,
-                    serverId: a,
-                  });
-                } catch (t) {
-                  o("WALogger")
-                    .WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[ForwardCounter][Increment] Failed to schedule the increment",
-                        ])),
-                    )
-                    .tags("newsletter-forward-counter")
-                    .sendLogs("forward-counter-schedule-error");
-                }
-              else
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[ChannelsForwardCounter] increment failed: ",
-                        "",
-                      ])),
-                    r,
-                  )
-                  .sendLogs("channels-forward-counter-error")
-                  .tags("channels", "forward-counter");
+            } catch (t) {
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[ForwardCounter][Increment] Failed to schedule the increment",
+                    ])),
+                )
+                .tags("newsletter-forward-counter")
+                .sendLogs("forward-counter-schedule-error");
             }
-          }
-        })),
-        _.apply(this, arguments)
-      );
+          else
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[ChannelsForwardCounter] increment failed: ",
+                    "",
+                  ])),
+                r,
+              )
+              .sendLogs("channels-forward-counter-error")
+              .tags("channels", "forward-counter");
+        }
+      }
     }
-    function f(e, t) {
+    function _(e, t) {
       var n = new FormData(),
         r = o("WAWebMobilePlatforms").isSMB() ? c : d,
         a = JSON.stringify({ newsletter_id: e, server_id: t });

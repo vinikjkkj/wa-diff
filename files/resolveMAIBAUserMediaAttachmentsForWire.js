@@ -1,20 +1,25 @@
 __d(
   "resolveMAIBAUserMediaAttachmentsForWire",
-  [],
-  function (t, n, r, o, a, i) {
+  ["MAIBAMediaAttachmentHelper"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
       return e == null
         ? []
         : e.map(function (e) {
-            return e.media_type === "MAIBA_INTERNAL" &&
-              e.maiba_internal_kind === "IMAGE_HASH" &&
-              e.account_id != null
-              ? babelHelpers.extends({}, e, { media_id: e.account_id })
+            var t = o("MAIBAMediaAttachmentHelper").isLocalPreviewURL(
+              e.media_url,
+            )
+              ? babelHelpers.extends({}, e, { media_url: null })
               : e;
+            return t.media_type === "MAIBA_INTERNAL" &&
+              t.maiba_internal_kind === "IMAGE_HASH" &&
+              t.account_id != null
+              ? babelHelpers.extends({}, t, { media_id: t.account_id })
+              : t;
           });
     }
-    i.default = e;
+    l.default = e;
   },
-  66,
+  98,
 );

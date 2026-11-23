@@ -59,9 +59,7 @@ __d(
                   new (r("AdsError"))(
                     2490320,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "To use Facebook Business Explore, please also select the Facebook News Feed placement.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       level: r("AdsError").Level.WARN,

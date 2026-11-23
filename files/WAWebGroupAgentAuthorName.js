@@ -55,7 +55,7 @@ __d(
         a = e.profileName,
         i = e.pushname,
         l = o("WAWebBotProduct").botProductFromServerValue(n);
-      if (m(t, l, a)) return s._(/*BTDS*/ "Muse").toString();
+      if (m(t, l, a)) return s._(/*BTDS*/ "").toString();
       var u = a == null ? void 0 : a.trim();
       if (l != null && !r("isStringNullOrEmpty")(u)) return u;
       var c = i == null ? void 0 : i.trim();

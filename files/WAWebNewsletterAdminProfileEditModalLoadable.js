@@ -6,23 +6,19 @@ __d(
     "WAWebLoadable",
     "WAWebLoadingModal.react",
     "WAWebModal.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebNewsletterAdminProfileEditModal.react",
-          )
-            .__setRef("WAWebNewsletterAdminProfileEditModalLoadable")
-            .load();
-          return e;
-        }),
-        "WAWebNewsletterAdminProfileEditModal",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebNewsletterAdminProfileEditModal.react",
+        )
+          .__setRef("WAWebNewsletterAdminProfileEditModalLoadable")
+          .load();
+        return e;
+      }, "WAWebNewsletterAdminProfileEditModal"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

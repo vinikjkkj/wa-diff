@@ -66,9 +66,7 @@ __d(
             t,
             r,
           )
-        : s._(/*BTDS*/ "A message from {agent name}", [
-            s._param("agent name", a),
-          ]);
+        : s._(/*BTDS*/ "", [s._param("agent name", a)]);
     }
     function c(e) {
       if (

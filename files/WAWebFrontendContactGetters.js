@@ -222,8 +222,8 @@ __d(
       );
     function K(e) {
       return e
-        ? r("fbs")._(/*BTDS*/ "WhatsApp Business").toString()
-        : r("fbs")._(/*BTDS*/ "WhatsApp").toString();
+        ? r("fbs")._(/*BTDS*/ "").toString()
+        : r("fbs")._(/*BTDS*/ "").toString();
     }
     var Q = m(
         function (e) {
@@ -446,7 +446,7 @@ __d(
               type: null,
             };
           if (i) {
-            var u = s._(/*BTDS*/ "{nameOrPhoneNumber} (You)", [
+            var u = s._(/*BTDS*/ "", [
               s._param("nameOrPhoneNumber", t != null ? t : n),
             ]);
             return {
@@ -490,10 +490,7 @@ __d(
             c = e[7];
           return n
             ? u
-              ? {
-                  displayName: r("fbs")._(/*BTDS*/ "You").toString(),
-                  type: null,
-                }
+              ? { displayName: r("fbs")._(/*BTDS*/ "").toString(), type: null }
               : r("WAWebWid").isPSA(n)
                 ? {
                     displayName: K(
@@ -561,7 +558,7 @@ __d(
           if (!o) return { displayName: "", type: null };
           if (a)
             return {
-              displayName: r("fbs")._(/*BTDS*/ "You").toString(),
+              displayName: r("fbs")._(/*BTDS*/ "").toString(),
               type: null,
             };
           if (t != null) return { displayName: t, type: null };
@@ -602,7 +599,7 @@ __d(
           if (!o) return { displayName: "", type: null };
           if (a)
             return {
-              displayName: r("fbs")._(/*BTDS*/ "You").toString(),
+              displayName: r("fbs")._(/*BTDS*/ "").toString(),
               type: null,
             };
           if (t != null && t !== "") return { displayName: t, type: null };

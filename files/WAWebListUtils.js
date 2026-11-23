@@ -151,67 +151,51 @@ __d(
     }
     function T(e) {
       return e === o("WAWebSchemaLabel").ListType.UNREAD
-        ? s._(/*BTDS*/ "Unread")
+        ? s._(/*BTDS*/ "")
         : e === o("WAWebSchemaLabel").ListType.GROUPS
-          ? s._(/*BTDS*/ "Groups")
+          ? s._(/*BTDS*/ "")
           : e === o("WAWebSchemaLabel").ListType.FAVORITES
-            ? s._(/*BTDS*/ "Favorites")
+            ? s._(/*BTDS*/ "")
             : e === o("WAWebSchemaLabel").ListType.COMMUNITY
-              ? s._(/*BTDS*/ "Communities")
+              ? s._(/*BTDS*/ "")
               : e === o("WAWebSchemaLabel").ListType.AI_HANDOFF
-                ? s._(/*BTDS*/ "AI handoff")
+                ? s._(/*BTDS*/ "")
                 : e === o("WAWebSchemaLabel").ListType.AI_RESPONDING
-                  ? s._(/*BTDS*/ "AI responding")
+                  ? s._(/*BTDS*/ "")
                   : e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
-                    ? s._(/*BTDS*/ "Mentions and replies")
+                    ? s._(/*BTDS*/ "")
                     : e === o("WAWebSchemaLabel").ListType.META_AI_THREAD
-                      ? s._(/*BTDS*/ "AI")
+                      ? s._(/*BTDS*/ "")
                       : null;
     }
     function D(e) {
       return e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
-        ? s._(/*BTDS*/ "Mentions\u2026")
+        ? s._(/*BTDS*/ "")
         : null;
     }
     function x(e) {
       return e === o("WAWebSchemaLabel").ListType.UNREAD
-        ? s._(
-            /*BTDS*/ "This list automatically updates with your unread chats.",
-          )
+        ? s._(/*BTDS*/ "")
         : e === o("WAWebSchemaLabel").ListType.GROUPS
-          ? s._(
-              /*BTDS*/ "This list automatically updates with your group chats.",
-            )
+          ? s._(/*BTDS*/ "")
           : e === o("WAWebSchemaLabel").ListType.FAVORITES
-            ? s._(
-                /*BTDS*/ "This list shows chats you've marked as favorites. Star a chat to add it here.",
-              )
+            ? s._(/*BTDS*/ "")
             : e === o("WAWebSchemaLabel").ListType.COMMUNITY
-              ? s._(
-                  /*BTDS*/ "This list automatically updates with your communities.",
-                )
+              ? s._(/*BTDS*/ "")
               : e === o("WAWebSchemaLabel").ListType.META_AI_THREAD
-                ? s._(
-                    /*BTDS*/ "This list automatically updates for you with all chats with AI.",
-                  )
+                ? s._(/*BTDS*/ "")
                 : e === o("WAWebSchemaLabel").ListType.AI_HANDOFF
-                  ? s._(
-                      /*BTDS*/ "Chats are added to this list when the customer needs a response from you. You can reply to the chat to remove it from this list.",
-                    )
+                  ? s._(/*BTDS*/ "")
                   : e === o("WAWebSchemaLabel").ListType.AI_RESPONDING
-                    ? s._(
-                        /*BTDS*/ "This list automatically updates for you with chats where AI agent is responding.",
-                      )
+                    ? s._(/*BTDS*/ "")
                     : e === o("WAWebSchemaLabel").ListType.MENTIONS_AND_REPLIES
-                      ? s._(
-                          /*BTDS*/ "This list automatically updates with unread chats where you were mentioned or replied to.",
-                        )
+                      ? s._(/*BTDS*/ "")
                       : null;
     }
     function $(e, t) {
       if (I(t)) {
         var n;
-        return s._(/*BTDS*/ "{listName} (preset)", [
+        return s._(/*BTDS*/ "", [
           s._param("listName", (n = T(t)) != null ? n : e),
         ]);
       }
@@ -219,8 +203,8 @@ __d(
     }
     function P(e) {
       return e === "AI_HANDOFF"
-        ? s._(/*BTDS*/ "AI handoff").toString()
-        : s._(/*BTDS*/ "AI responding").toString();
+        ? s._(/*BTDS*/ "").toString()
+        : s._(/*BTDS*/ "").toString();
     }
     function N() {
       return o(
@@ -239,12 +223,10 @@ __d(
     }
     function w() {
       var e = N();
-      return s._(/*BTDS*/ "You can't add more than {max_count} lists", [
-        s._param("max_count", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("max_count", e)]);
     }
     function A() {
-      return s._(/*BTDS*/ "You\u2019ve created the maximum number of lists.");
+      return s._(/*BTDS*/ "");
     }
     function F(e) {
       return typeof e == "function" ? e() : e;
@@ -397,10 +379,10 @@ __d(
       return null;
     }
     function G() {
-      return s._(/*BTDS*/ "Lead stage");
+      return s._(/*BTDS*/ "");
     }
     function z() {
-      return s._(/*BTDS*/ "Lead stage (preset)");
+      return s._(/*BTDS*/ "");
     }
     var j = "-1004";
     function K(e) {

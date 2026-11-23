@@ -6,7 +6,6 @@ __d(
     "WAWebDBMsgUtils",
     "WAWebProtobufSyncAction.pb",
     "WAWebSchemaActiveMessageRanges",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "nullthrows",
   ],
@@ -84,31 +83,19 @@ __d(
                             );
                           })();
     }
-    function u(e, t, n) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          var a,
-            i = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-              r,
-            ),
-            l = e(n, i),
-            s = l.actionValue,
-            u = ((a = s.messageRange) == null ? void 0 : a.messages) || [],
-            c = yield o("WAWebDBMsgUtils").filterReceivedMessagesInRange(t, u),
-            d = Math.max(0, u.length - c.length);
-          return o(
-            "WAWebApiActiveMessageRanges",
-          ).createOrReplaceActiveMessageRange(
-            babelHelpers.extends({ chatId: t }, e(n, i), {
-              remainingMessages: d,
-            }),
-          );
-        })),
-        c.apply(this, arguments)
+    async function u(t, n, r) {
+      var a,
+        i = o("decodeProtobuf").decodeProtobuf(
+          o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
+          r,
+        ),
+        l = e(n, i),
+        s = l.actionValue,
+        u = ((a = s.messageRange) == null ? void 0 : a.messages) || [],
+        c = await o("WAWebDBMsgUtils").filterReceivedMessagesInRange(t, u),
+        d = Math.max(0, u.length - c.length);
+      return o("WAWebApiActiveMessageRanges").createOrReplaceActiveMessageRange(
+        babelHelpers.extends({ chatId: t }, e(n, i), { remainingMessages: d }),
       );
     }
     l.addActiveMessageRange = u;

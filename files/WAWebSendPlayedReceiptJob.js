@@ -11,54 +11,42 @@ __d(
     "WAWebSchemaMessage",
     "WAWebSendReceiptJobCommon",
     "WAWebUserPrefsGeneral",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
+    async function e(e, t) {
+      var n = e.broadcastId || t,
+        r = e.id.id,
+        a = n.isUser() ? null : e.author,
+        i = s(t),
+        l = await o("WAWebPnlessStanzaMigration").getStanzaToFromChatId(n, i),
+        u = o("WAWap").wap("receipt", {
+          to: o("WAWebCommsWapMd").CHAT_JID(l),
+          type: i,
+          id: o("WAWap").CUSTOM_STRING(r),
+          t: o("WAWap").CUSTOM_STRING(Date.now().toString()),
+          participant: a
+            ? o("WAWebCommsWapMd").DEVICE_JID(a)
+            : o("WAWap").DROP_ATTR,
+        });
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.broadcastId || t,
-            r = e.id.id,
-            a = n.isUser() ? null : e.author,
-            i = u(t),
-            l = yield o("WAWebPnlessStanzaMigration").getStanzaToFromChatId(
-              n,
-              i,
-            ),
-            s = o("WAWap").wap("receipt", {
-              to: o("WAWebCommsWapMd").CHAT_JID(l),
-              type: i,
-              id: o("WAWap").CUSTOM_STRING(r),
-              t: o("WAWap").CUSTOM_STRING(Date.now().toString()),
-              participant: a
-                ? o("WAWebCommsWapMd").DEVICE_JID(a)
-                : o("WAWap").DROP_ATTR,
-            });
-          return (
-            yield o(
-              "WAWebDeprecatedSendIqWorkerCompatible",
-            ).deprecatedSendStanzaAndWaitForAck(
-              s,
-              o("WAWebCommsAckParser").toCoreAckTemplate({
-                id: r,
-                class: "receipt",
-                type: i,
-                from: l,
-                participant: a,
-              }),
-            ),
-            o("WAWebSchemaMessage")
-              .getMessageTable()
-              .merge(e.id.toString(), { ack: o("WAWebAck").ACK.PLAYED })
-          );
-        })),
-        s.apply(this, arguments)
+        await o(
+          "WAWebDeprecatedSendIqWorkerCompatible",
+        ).deprecatedSendStanzaAndWaitForAck(
+          u,
+          o("WAWebCommsAckParser").toCoreAckTemplate({
+            id: r,
+            class: "receipt",
+            type: i,
+            from: l,
+            participant: a,
+          }),
+        ),
+        o("WAWebSchemaMessage")
+          .getMessageTable()
+          .merge(e.id.toString(), { ack: o("WAWebAck").ACK.PLAYED })
       );
     }
-    function u(e) {
+    function s(e) {
       if (e.isGroup())
         return o("WAWebSendReceiptJobCommon").RECEIPT_TYPE.PLAYED;
       if (e.isNewsletter())

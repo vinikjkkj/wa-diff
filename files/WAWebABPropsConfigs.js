@@ -62,7 +62,6 @@ __d(
       ai_chat_meta_ai_glasses_banner_enabled: [20405, "bool", !1, !0],
       ai_chat_meta_ai_home_default_landing_enabled: [28033, "bool", !1, !1],
       ai_chat_meta_ai_home_web_enabled: [27817, "bool", !1, !1],
-      ai_chat_meta_ai_null_state_web_enabled: [32817, "bool", !1, !1],
       ai_chat_thread_capability_enabled: [22038, "bool", !1, !1],
       ai_chat_threads_export_by_threads_enabled: [34081, "bool", !1, !1],
       ai_chat_threads_historical_messages_migration_enabled: [
@@ -2031,6 +2030,7 @@ __d(
       keep_in_chat_undo_duration_limit: [1698, "int", 2592e3, 2592e3],
       kill_switch_ctwa_ml_entry_point_config: [6215, "bool", !0, !1],
       klipy_memes_enabled: [38720, "bool", !1, !1],
+      ks_aac_adts_strict_validation_enabled: [44173, "bool", !1, !0],
       ks_allow_av1_video_codec: [37900, "bool", !1, !0],
       ks_audio_claimed_type_validation_enabled: [41378, "bool", !1, !0],
       ks_claimed_type_validation_enabled: [42641, "bool", !1, !0],

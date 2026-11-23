@@ -6,7 +6,6 @@ __d(
     "WAWebNoop",
     "WAWebSWBus",
     "WAWebSWBusActions",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,24 +29,16 @@ __d(
         r("WAWebNoop"),
       );
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a = (n = navigator.serviceWorker) == null ? void 0 : n.controller;
-          if (a != null) {
-            var i = yield o("WAWebMediaVideoStreaming").videoStreamingInfo(e);
-            if (i != null) {
-              var l = { clientUrl: i.streamData.clientUrl };
-              yield r("WAWebSWBus").request(a, t, l);
-            }
-          }
-        })),
-        d.apply(this, arguments)
-      );
+    async function c(e, t) {
+      var n,
+        a = (n = navigator.serviceWorker) == null ? void 0 : n.controller;
+      if (a != null) {
+        var i = await o("WAWebMediaVideoStreaming").videoStreamingInfo(e);
+        if (i != null) {
+          var l = { clientUrl: i.streamData.clientUrl };
+          await r("WAWebSWBus").request(a, t, l);
+        }
+      }
     }
     ((l.prefetchStatusVideo = s), (l.cancelStatusVideoPrefetch = u));
   },

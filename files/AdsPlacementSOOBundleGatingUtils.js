@@ -29,23 +29,20 @@ __d(
         e ? r("qex")._("5362") === !0 : r("qex")._("4997") === !0
       );
     }
-    function _() {
-      return e();
-    }
-    function f(t) {
-      return t == null || (!b(t) && !C(t) && !y(t))
+    function _(t) {
+      return t == null || (!C(t) && !y(t) && !h(t))
         ? !1
-        : !!(e() || (y(t) && u()) || ((b(t) || C(t)) && c()));
+        : !!(e() || (h(t) && u()) || ((C(t) || y(t)) && c()));
     }
-    function g(e, t, n, r) {
-      return e || !t || n !== !1 ? !1 : h(r);
+    function f(e, t, n, r) {
+      return e || !t || n !== !1 ? !1 : g(r);
+    }
+    function g(e) {
+      return e == null || (!C(e) && !y(e) && !h(e))
+        ? !1
+        : !!(r("gkx")("18079") || (h(e) && d()) || ((C(e) || y(e)) && m()));
     }
     function h(e) {
-      return e == null || (!b(e) && !C(e) && !y(e))
-        ? !1
-        : !!(r("gkx")("18079") || (y(e) && d()) || ((b(e) || C(e)) && m()));
-    }
-    function y(e) {
       if (e == null) return !1;
       var t = [
         r("AdsAPIObjectives").OUTCOME_TRAFFIC,
@@ -62,7 +59,7 @@ __d(
       ];
       return t.includes(e);
     }
-    function C(e) {
+    function y(e) {
       if (e == null) return !1;
       var t = [
         r("AdsAPIObjectives").LEAD_GENERATION,
@@ -70,7 +67,7 @@ __d(
       ];
       return t.includes(e);
     }
-    function b(e) {
+    function C(e) {
       if (e == null) return !1;
       var t = [
         r("AdsAPIObjectives").OUTCOME_SALES,
@@ -79,23 +76,21 @@ __d(
       ];
       return t.includes(e);
     }
-    function v(e, t) {
+    function b(e, t) {
       return (
         t === void 0 && (t = !0),
-        e == null || (!b(e) && !C(e) && !y(e))
+        e == null || (!C(e) && !y(e) && !h(e))
           ? !1
-          : y(e) && (p(t) || s())
+          : h(e) && (p(t) || s())
             ? !0
-            : b(e) || C(e)
+            : C(e) || y(e)
       );
     }
     ((l.isSOOObjectiveExpansionGKEnabled = s),
       (l.isGrowthObjectivesQEEnabled = p),
-      (l.isSOOBundlePlacementEnabled = _),
-      (l.isAccountEligibleForSOOExpansionBundle = f),
-      (l.getShouldApplyStickyState = g),
-      (l.isAccountEligibleForSOOExpansionStickyState = h),
-      (l.isCampaignGroupObjectiveEligible = v));
+      (l.isAccountEligibleForSOOExpansionBundle = _),
+      (l.getShouldApplyStickyState = f),
+      (l.isCampaignGroupObjectiveEligible = b));
   },
   98,
 );

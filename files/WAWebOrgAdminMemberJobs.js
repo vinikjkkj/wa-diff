@@ -1,90 +1,47 @@
 __d(
   "WAWebOrgAdminMemberJobs",
   [
-    "Promise",
     "WAWebDBOrg",
     "WAWebOrgAdminGraphQL",
     "WAWebOrgListSyncJob",
     "WAWebSchemaOrg",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t, n) {
-      return u.apply(this, arguments);
-    }
-    function u() {
+    async function e(e, t, n) {
+      var r = await o("WAWebOrgAdminGraphQL").setOrgAdminMemberRole(e, t, n),
+        a = r.status === "success" ? r.memberCount : null,
+        i = o("WAWebSchemaOrg").OrgMemberRole.cast(n);
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield o("WAWebOrgAdminGraphQL").setOrgAdminMemberRole(
-              e,
-              t,
-              n,
-            ),
-            a = r.status === "success" ? r.memberCount : null,
-            i = o("WAWebSchemaOrg").OrgMemberRole.cast(n);
-          return (
-            i != null &&
-              (yield o("WAWebDBOrg").updateOrgMemberRole(e, t, i, a)),
-            _(e, t)
-          );
-        })),
-        u.apply(this, arguments)
+        i != null && (await o("WAWebDBOrg").updateOrgMemberRole(e, t, i, a)),
+        c(e, t)
       );
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    async function s(e, t) {
+      var n = await o("WAWebOrgAdminGraphQL").removeOrgAdminMember(e, t),
+        r = n.status === "success" ? n.memberCount : null;
+      return (await o("WAWebDBOrg").removeOrgMember(e, t, r), c(e, t));
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebOrgAdminGraphQL").removeOrgAdminMember(e, t),
-            r = n.status === "success" ? n.memberCount : null;
-          return (yield o("WAWebDBOrg").removeOrgMember(e, t, r), _(e, t));
-        })),
-        d.apply(this, arguments)
-      );
+    async function u(e, t) {
+      var n = await o("WAWebOrgAdminGraphQL").updateOrgAdminSettings(e, t);
+      return { org: n, row: await o("WAWebOrgListSyncJob").storeServerOrg(n) };
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    async function c(e, t) {
+      var n = await Promise.all([
+          o("WAWebDBOrg").getOrgContactsByLids([t]),
+          o("WAWebDBOrg").getOrgs(),
+        ]),
+        r = n[0],
+        a = n[1];
+      return {
+        org: a.find(function (t) {
+          return t.orgId === e;
+        }),
+        rows: r,
+      };
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebOrgAdminGraphQL").updateOrgAdminSettings(e, t);
-          return {
-            org: n,
-            row: yield o("WAWebOrgListSyncJob").storeServerOrg(n),
-          };
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = yield (e || (e = n("Promise"))).all([
-              o("WAWebDBOrg").getOrgContactsByLids([r]),
-              o("WAWebDBOrg").getOrgs(),
-            ]),
-            i = a[0],
-            l = a[1];
-          return {
-            org: l.find(function (e) {
-              return e.orgId === t;
-            }),
-            rows: i,
-          };
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    ((l.changeOrgMemberRole = s),
-      (l.removeOrgMember = c),
-      (l.saveOrgSettings = m));
+    ((l.changeOrgMemberRole = e),
+      (l.removeOrgMember = s),
+      (l.saveOrgSettings = u));
   },
   98,
 );

@@ -7,20 +7,16 @@ __d(
         n = o("WAWebMsgGetters").getSubtype(t);
       switch (n) {
         case "fanout":
-          return s._(/*BTDS*/ "Waiting for this message. Check your phone.");
+          return s._(/*BTDS*/ "");
         case "bot_unavailable_fanout":
         case "hosted_unavailable_fanout":
-          return s._(
-            /*BTDS*/ "This message can't be displayed here. Please open WhatsApp on your phone to view the message.",
-          );
+          return s._(/*BTDS*/ "");
         case "view_once_unavailable_fanout":
-          return s._(/*BTDS*/ "Message");
+          return s._(/*BTDS*/ "");
         case "acp_unavailable_fanout":
           return o("WAWebAcp2PlaceholderStrings").getAcp2PlaceholderText();
         default:
-          return s._(
-            /*BTDS*/ "Waiting for this message. This may take a while.",
-          );
+          return s._(/*BTDS*/ "");
       }
     }
     l.default = e;

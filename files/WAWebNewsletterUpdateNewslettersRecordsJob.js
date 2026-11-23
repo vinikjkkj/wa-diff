@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -23,33 +22,23 @@ __d(
             function () {
               return o("WAWebModelStorageUtils")
                 .getStorage()
-                .lock(
-                  ["chat"],
-                  (function () {
-                    var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var n = e[0],
-                          r = yield n.bulkGet(
-                            t.map(function (e) {
-                              var t = e.id;
-                              return t;
-                            }),
-                            !1,
-                          );
-                        yield n.bulkCreateOrMerge(
-                          t.map(function (e, t) {
-                            return r[t] == null
-                              ? babelHelpers.extends({ unreadCount: 0 }, e)
-                              : e;
-                          }),
-                        );
-                      },
+                .lock(["chat"], async function (e) {
+                  var n = e[0],
+                    r = await n.bulkGet(
+                      t.map(function (e) {
+                        var t = e.id;
+                        return t;
+                      }),
+                      !1,
                     );
-                    return function (t) {
-                      return e.apply(this, arguments);
-                    };
-                  })(),
-                );
+                  await n.bulkCreateOrMerge(
+                    t.map(function (e, t) {
+                      return r[t] == null
+                        ? babelHelpers.extends({ unreadCount: 0 }, e)
+                        : e;
+                    }),
+                  );
+                });
             },
             { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
           )

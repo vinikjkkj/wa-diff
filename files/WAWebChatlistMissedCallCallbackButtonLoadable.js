@@ -4,23 +4,19 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebChatlistMissedCallCallbackButton.react",
-          )
-            .__setRef("WAWebChatlistMissedCallCallbackButtonLoadable")
-            .load();
-          return e;
-        }),
-        "WAWebChatlistMissedCallCallbackButtonLoadable",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebChatlistMissedCallCallbackButton.react",
+        )
+          .__setRef("WAWebChatlistMissedCallCallbackButtonLoadable")
+          .load();
+        return e;
+      }, "WAWebChatlistMissedCallCallbackButtonLoadable"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

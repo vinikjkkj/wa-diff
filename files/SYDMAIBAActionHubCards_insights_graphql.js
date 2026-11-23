@@ -1,0 +1,175 @@
+__d(
+  "SYDMAIBAActionHubCards_insights.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = [
+        {
+          alias: "object_id",
+          args: null,
+          kind: "ScalarField",
+          name: "id",
+          storageKey: null,
+        },
+        {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "level",
+          storageKey: null,
+        },
+      ];
+      return {
+        argumentDefinitions: [],
+        kind: "Fragment",
+        metadata: { throwOnFieldError: !0 },
+        name: "SYDMAIBAActionHubCards_insights",
+        selections: [
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "visible_signal_ids",
+            storageKey: null,
+          },
+          {
+            alias: null,
+            args: null,
+            concreteType: "SYDMAIBAActionHubInsight",
+            kind: "LinkedField",
+            name: "items",
+            plural: !0,
+            selections: [
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "signal_id",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "kind",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "entity_level",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "headline",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "description",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "opportunity_score_lift_points",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                concreteType: "MAIBASignalEntity",
+                kind: "LinkedField",
+                name: "affected_objects",
+                plural: !0,
+                selections: e,
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                concreteType: "MAIBASignalEntity",
+                kind: "LinkedField",
+                name: "ad_objects",
+                plural: !0,
+                selections: e,
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "recommendation_priority",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                kind: "ScalarField",
+                name: "account_fix",
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                concreteType: "SYDMAIBAActionHubCardActions",
+                kind: "LinkedField",
+                name: "card_actions",
+                plural: !1,
+                selections: [
+                  {
+                    alias: null,
+                    args: null,
+                    concreteType: "MAIBASignalEntity",
+                    kind: "LinkedField",
+                    name: "objects",
+                    plural: !0,
+                    selections: e,
+                    storageKey: null,
+                  },
+                  {
+                    alias: null,
+                    args: null,
+                    kind: "ScalarField",
+                    name: "agent_message",
+                    storageKey: null,
+                  },
+                ],
+                storageKey: null,
+              },
+              {
+                alias: null,
+                args: null,
+                concreteType: "SYDMAIBAActionHubCardSubject",
+                kind: "LinkedField",
+                name: "subject",
+                plural: !1,
+                selections: [
+                  {
+                    args: null,
+                    kind: "FragmentSpread",
+                    name: "SYDMAIBAActionHubCardThumbnail_subject",
+                  },
+                ],
+                storageKey: null,
+              },
+            ],
+            storageKey: null,
+          },
+        ],
+        type: "SYDMAIBAActionHubInsights",
+        abstractKey: null,
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

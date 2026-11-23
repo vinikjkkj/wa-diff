@@ -1,7 +1,6 @@
 __d(
   "WAWebQbmMessageReadLogEvent",
   [
-    "Promise",
     "WAWebABProps",
     "WAWebChatThreadLogging",
     "WAWebInAppSignupInfoStore",
@@ -10,95 +9,69 @@ __d(
     "WAWebQBMLoggerBuilder",
     "WAWebQbmMessageReadWamEvent",
     "WAWebUserPrefsGeneral",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    async function e(e) {
+      var t = e.chat,
+        n = e.msg,
+        r = e.readSource,
+        a = o("WAWebQBMLoggerBuilder").getQbmMessageTypeStrForLogging(n);
+      o("WAWebQBMLoggerBuilder").isQbmMessageTypeLoggingEnabled(a) &&
+        (o("WAWebABProps").getABPropConfigValue(
+          "inapp_signup_m1_logging_enabled",
+        ) &&
+          (await o(
+            "WAWebInAppSignupInfoStore",
+          ).ensureInAppSignupInfoHydrated()),
+        new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(n, t)
+          .addCommonFields()
+          .addAttributionFields()
+          .addIasFields()
+          .log(async function (e) {
+            var i,
+              l,
+              s,
+              u = t.contact,
+              c = !!(
+                (i = u.id) != null &&
+                i.isUser() &&
+                (((l = u.name) != null && l.length) || u.isUsernameContact)
+              ),
+              d =
+                o("WAWebUserPrefsGeneral").getUserPrivacySettings()
+                  .readReceipts !== o("WAWebPrivacySettings").ALL_NONE.none,
+              m = t.muteExpiration != null && t.muteExpiration > 0,
+              p = await Promise.all([
+                o("WAWebChatThreadLogging").getMessageIDHMAC(n.id.toString()),
+                o("WAWebChatThreadLogging").getChatThreadIDHMAC(
+                  t.id.toString(),
+                ),
+                o("WAWebP2PPillsThreadOriginStore").getPillQbmFields(
+                  t.accountLid,
+                ),
+              ]),
+              _ = p[0],
+              f = p[1],
+              g = p[2];
+            new (o("WAWebQbmMessageReadWamEvent").QbmMessageReadWamEvent)(
+              babelHelpers.extends({}, e, g, {
+                messageTypeStr: a,
+                isInsubContact: c,
+                isMuted: m,
+                messageHasButton:
+                  e.buttonValueJsonArray != null &&
+                  e.buttonValueJsonArray !== "[]",
+                messageHasUrl: ((s = e.urlUniqueCountInt) != null ? s : 0) > 0,
+                messageIdHmac: _ != null ? _ : void 0,
+                readReceiptsEnabled: d,
+                readSource: r,
+                threadIdHmac: f != null ? f : "",
+              }),
+            ).commit();
+          }));
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.chat,
-            a = t.msg,
-            i = t.readSource,
-            l = o("WAWebQBMLoggerBuilder").getQbmMessageTypeStrForLogging(a);
-          o("WAWebQBMLoggerBuilder").isQbmMessageTypeLoggingEnabled(l) &&
-            (o("WAWebABProps").getABPropConfigValue(
-              "inapp_signup_m1_logging_enabled",
-            ) &&
-              (yield o(
-                "WAWebInAppSignupInfoStore",
-              ).ensureInAppSignupInfoHydrated()),
-            new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(a, r)
-              .addCommonFields()
-              .addAttributionFields()
-              .addIasFields()
-              .log(
-                (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t) {
-                      var s,
-                        u,
-                        c,
-                        d = r.contact,
-                        m = !!(
-                          (s = d.id) != null &&
-                          s.isUser() &&
-                          (((u = d.name) != null && u.length) ||
-                            d.isUsernameContact)
-                        ),
-                        p =
-                          o("WAWebUserPrefsGeneral").getUserPrivacySettings()
-                            .readReceipts !==
-                          o("WAWebPrivacySettings").ALL_NONE.none,
-                        _ = r.muteExpiration != null && r.muteExpiration > 0,
-                        f = yield (e || (e = n("Promise"))).all([
-                          o("WAWebChatThreadLogging").getMessageIDHMAC(
-                            a.id.toString(),
-                          ),
-                          o("WAWebChatThreadLogging").getChatThreadIDHMAC(
-                            r.id.toString(),
-                          ),
-                          o("WAWebP2PPillsThreadOriginStore").getPillQbmFields(
-                            r.accountLid,
-                          ),
-                        ]),
-                        g = f[0],
-                        h = f[1],
-                        y = f[2];
-                      new (o(
-                        "WAWebQbmMessageReadWamEvent",
-                      ).QbmMessageReadWamEvent)(
-                        babelHelpers.extends({}, t, y, {
-                          messageTypeStr: l,
-                          isInsubContact: m,
-                          isMuted: _,
-                          messageHasButton:
-                            t.buttonValueJsonArray != null &&
-                            t.buttonValueJsonArray !== "[]",
-                          messageHasUrl:
-                            ((c = t.urlUniqueCountInt) != null ? c : 0) > 0,
-                          messageIdHmac: g != null ? g : void 0,
-                          readReceiptsEnabled: p,
-                          readSource: i,
-                          threadIdHmac: h != null ? h : "",
-                        }),
-                      ).commit();
-                    },
-                  );
-                  return function (e) {
-                    return t.apply(this, arguments);
-                  };
-                })(),
-              ));
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    l.logQbmMessageRead = s;
+    l.logQbmMessageRead = e;
   },
   98,
 );

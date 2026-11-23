@@ -4,28 +4,19 @@ __d(
     "WAJobOrchestratorTypes",
     "WAWebDBNoteDatabaseApi",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chatJids;
-          return o("WAWebOrchestratorNonPersistedJob")
-            .createNonPersistedJob(
-              "getNotesByChatJids",
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                return o("WAWebDBNoteDatabaseApi").getNotesByChatJids(t);
-              }),
-              { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
-            )
-            .waitUntilCompleted();
-        })),
-        s.apply(this, arguments)
-      );
+    async function e(e) {
+      var t = e.chatJids;
+      return o("WAWebOrchestratorNonPersistedJob")
+        .createNonPersistedJob(
+          "getNotesByChatJids",
+          async function () {
+            return o("WAWebDBNoteDatabaseApi").getNotesByChatJids(t);
+          },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
+        )
+        .waitUntilCompleted();
     }
     l.getNotesByChatJidsJob = e;
   },

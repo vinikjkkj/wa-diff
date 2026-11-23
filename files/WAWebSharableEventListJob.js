@@ -12,7 +12,6 @@ __d(
     "WAWebSharableEventServerClient",
     "WAWebSharableEventServerInvitationRows",
     "WAWebSharableEventServerRows",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,120 +22,109 @@ __d(
       d = 720 * 60 * 60,
       m = 365 * 24 * 60 * 60,
       p = e !== void 0 ? e : (e = n("WAWebSharableEventListJobQuery.graphql"));
-    function _() {
-      return f.apply(this, arguments);
+    async function _() {
+      await o("WAWebSharableEventCredentials").waitForSharableEventCredentials(
+        "list",
+      );
+      var e = o("WATimeUtils").monotonicTime(),
+        t = o("WATimeUtils").unixTime(),
+        n = await o("WAWebSharableEventServerClient").querySharableEventServer(
+          p,
+          {
+            input: {
+              categories: ["UPCOMING", "PAST", "SCHEDULED_CALLS"],
+              page_size: c,
+              time_range: { start_ts_sec: t - d, end_ts_sec: t + m },
+            },
+          },
+        ),
+        a = n.reader,
+        i = n.response,
+        l = i == null ? void 0 : i.xwa_event_list;
+      if (l == null)
+        throw r("err")("[sharable_event] xwa_event_list returned no events");
+      var _ = g(a, l.upcoming),
+        b = g(a, l.past),
+        v = g(a, l.scheduled_calls),
+        S =
+          f(l.upcoming, l.past, l.scheduled_calls) -
+          _.length -
+          b.length -
+          v.length;
+      S > 0 &&
+        o("WALogger").WARN(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[sharable_event][list] dropped ",
+              " server events missing required fields",
+            ])),
+          S,
+        );
+      var R = function (n) {
+          var t = n.event;
+          return !o(
+            "WAWebDBSharableEventDeletion",
+          ).wasSharableEventDeletedSince(t.eventId, e);
+        },
+        L = h([].concat(_, b, v)).filter(R),
+        E = await o(
+          "WAWebDBSharableEventMetadata",
+        ).upsertSharableEventMetadataIfNewer(
+          L.map(function (e) {
+            var t = e.event;
+            return t;
+          }),
+          { insertMissing: !0 },
+        ),
+        k = await o("WAWebDBSharableEventInvitee").upsertSharableEventInvitees(
+          L.flatMap(function (e) {
+            var t = e.event,
+              n = e.myInvitation,
+              r =
+                n == null
+                  ? null
+                  : o(
+                      "WAWebSharableEventServerInvitationRows",
+                    ).readSharableEventInvitee(a, n);
+            return r == null
+              ? []
+              : [babelHelpers.extends({}, r, { eventId: t.eventId })];
+          }),
+        ),
+        I = await o(
+          "WAWebDBSharableEventMetadata",
+        ).updateSharableEventsScheduledCall(y(_.filter(R), v.filter(R))),
+        T = C(
+          E.map(function (e) {
+            return e.row;
+          }),
+          I,
+        );
+      (o("WALogger").LOG(
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
+            "[sharable_event][list] synced upcoming=",
+            " past=",
+            " calls=",
+            " written=",
+            " invitees=",
+            " callFlagChanges=",
+            "",
+          ])),
+        _.length,
+        b.length,
+        v.length,
+        E.length,
+        k.length,
+        I.length,
+      ),
+        (T.length > 0 || k.length > 0) &&
+          o("WAWebBackendApi").frontendFireAndForget(
+            "applySharableEventUpdate",
+            { events: T, invitees: k },
+          ));
     }
     function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          yield o(
-            "WAWebSharableEventCredentials",
-          ).waitForSharableEventCredentials("list");
-          var e = o("WATimeUtils").monotonicTime(),
-            t = o("WATimeUtils").unixTime(),
-            n = yield o(
-              "WAWebSharableEventServerClient",
-            ).querySharableEventServer(p, {
-              input: {
-                categories: ["UPCOMING", "PAST", "SCHEDULED_CALLS"],
-                page_size: c,
-                time_range: { start_ts_sec: t - d, end_ts_sec: t + m },
-              },
-            }),
-            a = n.reader,
-            i = n.response,
-            l = i == null ? void 0 : i.xwa_event_list;
-          if (l == null)
-            throw r("err")(
-              "[sharable_event] xwa_event_list returned no events",
-            );
-          var _ = h(a, l.upcoming),
-            f = h(a, l.past),
-            v = h(a, l.scheduled_calls),
-            S =
-              g(l.upcoming, l.past, l.scheduled_calls) -
-              _.length -
-              f.length -
-              v.length;
-          S > 0 &&
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[sharable_event][list] dropped ",
-                  " server events missing required fields",
-                ])),
-              S,
-            );
-          var R = function (n) {
-              var t = n.event;
-              return !o(
-                "WAWebDBSharableEventDeletion",
-              ).wasSharableEventDeletedSince(t.eventId, e);
-            },
-            L = y([].concat(_, f, v)).filter(R),
-            E = yield o(
-              "WAWebDBSharableEventMetadata",
-            ).upsertSharableEventMetadataIfNewer(
-              L.map(function (e) {
-                var t = e.event;
-                return t;
-              }),
-              { insertMissing: !0 },
-            ),
-            k = yield o(
-              "WAWebDBSharableEventInvitee",
-            ).upsertSharableEventInvitees(
-              L.flatMap(function (e) {
-                var t = e.event,
-                  n = e.myInvitation,
-                  r =
-                    n == null
-                      ? null
-                      : o(
-                          "WAWebSharableEventServerInvitationRows",
-                        ).readSharableEventInvitee(a, n);
-                return r == null
-                  ? []
-                  : [babelHelpers.extends({}, r, { eventId: t.eventId })];
-              }),
-            ),
-            I = yield o(
-              "WAWebDBSharableEventMetadata",
-            ).updateSharableEventsScheduledCall(C(_.filter(R), v.filter(R))),
-            T = b(
-              E.map(function (e) {
-                return e.row;
-              }),
-              I,
-            );
-          (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "[sharable_event][list] synced upcoming=",
-                " past=",
-                " calls=",
-                " written=",
-                " invitees=",
-                " callFlagChanges=",
-                "",
-              ])),
-            _.length,
-            f.length,
-            v.length,
-            E.length,
-            k.length,
-            I.length,
-          ),
-            (T.length > 0 || k.length > 0) &&
-              o("WAWebBackendApi").frontendFireAndForget(
-                "applySharableEventUpdate",
-                { events: T, invitees: k },
-              ));
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g() {
       for (var e = arguments.length, t = new Array(e), n = 0; n < e; n++)
         t[n] = arguments[n];
       return t.reduce(function (e, t) {
@@ -144,7 +132,7 @@ __d(
         return e + ((n = t == null ? void 0 : t.length) != null ? n : 0);
       }, 0);
     }
-    function h(e, t) {
+    function g(e, t) {
       return t == null
         ? []
         : t.flatMap(function (t) {
@@ -166,7 +154,7 @@ __d(
                 ];
           });
     }
-    function y(e) {
+    function h(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
@@ -175,7 +163,7 @@ __d(
         Array.from(t.values())
       );
     }
-    function C(e, t) {
+    function y(e, t) {
       var n = new Map(
         e.map(function (e) {
           var t = e.event;
@@ -190,7 +178,7 @@ __d(
         n
       );
     }
-    function b(e, t) {
+    function C(e, t) {
       var n = new Map();
       return (
         [].concat(e, t).forEach(function (e) {

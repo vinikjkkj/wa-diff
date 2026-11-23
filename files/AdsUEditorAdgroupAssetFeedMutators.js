@@ -31,6 +31,7 @@ __d(
     "FBLogger",
     "adsAssetFeedGetCallToActionValue",
     "adsConvertAssetCustomizationRuleToPlacementList",
+    "adsObserveRuntimeType",
     "adsPlacementAssetMutationAddCarouselFromAssetFeedSpec",
     "adsPlacementCustomizationConvertToDOFMessagingDestinationAdWithExistingPost",
     "gkx",
@@ -714,13 +715,18 @@ __d(
     }
     function k(e, t, n) {
       var r,
-        o = (r = e.creative) == null ? void 0 : r.asset_feed_spec;
-      if (o == null) return !1;
-      var a = o.get(t),
-        i =
-          a == null
+        a = (r = e.creative) == null ? void 0 : r.asset_feed_spec;
+      if (a == null) return !1;
+      o("adsObserveRuntimeType").adsObserveRuntimeType(
+        "asset_feed_mutator_asset_feed_spec",
+        "AdsAPIAdgroupRecord['creative']['asset_feed_spec']",
+        a,
+      );
+      var i = a.get(t),
+        l =
+          i == null
             ? void 0
-            : a.filter(function (e) {
+            : i.filter(function (e) {
                 var t = e.get("adlabels");
                 return (
                   t &&
@@ -729,7 +735,7 @@ __d(
                   })
                 );
               });
-      return !!i && i.count() > 0;
+      return !!l && l.count() > 0;
     }
     function I(e) {
       var t;

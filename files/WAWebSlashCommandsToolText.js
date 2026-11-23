@@ -44,7 +44,7 @@ __d(
       return e.startsWith("@") ? e : "@" + e;
     }
     function f() {
-      return s._(/*BTDS*/ "someone").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     ((l.getToolMentionName = u),
       (l.nameMessageMentions = c),

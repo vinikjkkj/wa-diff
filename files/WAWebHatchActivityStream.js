@@ -1,7 +1,6 @@
 __d(
   "WAWebHatchActivityStream",
   [
-    "Promise",
     "WALogger",
     "WAWebHatchActivityFeed",
     "WAWebHatchActivityRecord",
@@ -10,7 +9,6 @@ __d(
     "WAWebHatchVmConnection",
     "WAWebHatchVmSubscription",
     "WAWebNullFunc",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -18,203 +16,170 @@ __d(
       s,
       u,
       c,
-      d,
-      m = "activity.updated",
-      p = 3e4,
-      _ = [[], ["ACTIVITY_FEED_GOALS", "ACTIVITY_FEED_GOAL_ACTIONS_LAZY"]],
-      f = 0,
-      g = {
+      d = "activity.updated",
+      m = 3e4,
+      p = [[], ["ACTIVITY_FEED_GOALS", "ACTIVITY_FEED_GOAL_ACTIONS_LAZY"]],
+      _ = 0,
+      f = {
         feed: o("WAWebHatchActivityFeed").HATCH_ACTIVITY_EMPTY_FEED,
         syncState: "idle",
       },
-      h = [],
+      g = [],
+      h = 0,
       y = 0,
-      C = 0,
-      b = [],
-      v = !1,
-      S = new Set();
-    function R() {
-      (U(), f++, f === 1 && I());
+      C = [],
+      b = !1,
+      v = new Set();
+    function S() {
+      (F(), _++, _ === 1 && k());
       var e = !1;
       return function () {
-        e || ((e = !0), f--, f === 0 && T());
+        e || ((e = !0), _--, _ === 0 && I());
       };
     }
-    function L() {
+    function R() {
       if (
-        !(f === 0 || !o("WAWebHatchFrontendGating").isHatchActivityEnabled())
+        !(_ === 0 || !o("WAWebHatchFrontendGating").isHatchActivityEnabled())
       ) {
-        var e = ++y,
+        var e = ++h,
           t = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
           n = function () {
-            return e === y && H(t);
+            return e === h && B(t);
           };
-        (j({ syncState: "loading" }),
-          P(n).then(function (e) {
-            n() && j({ syncState: e ? "loaded" : "failed" });
+        (U({ syncState: "loading" }),
+          x(n).then(function (e) {
+            n() && U({ syncState: e ? "loaded" : "failed" });
           }));
       }
     }
-    function E() {
-      return g;
+    function L() {
+      return f;
     }
-    function k(e) {
+    function E(e) {
       var t = { listener: e };
       return (
-        S.add(t),
+        v.add(t),
         function () {
-          S.delete(t);
+          v.delete(t);
         }
       );
     }
-    function I() {
+    function k() {
       o("WAWebHatchFrontendGating").isHatchActivityEnabled() &&
-        ((h = _.map(function (e) {
+        ((g = p.map(function (e) {
           var t = new (r("WAWebHatchVmSubscription"))({
             connect: function () {
-              return D(t);
+              return T(t);
             },
             kind: e.length === 0 ? "activity" : "activity-goals",
-            onEvent: W,
-            onResubscribed: $,
+            onEvent: w,
+            onResubscribed: D,
             open: function (n, r) {
               return n.openActivitySubscription(e, r);
             },
           });
           return t;
         })),
-        h.forEach(function (e) {
+        g.forEach(function (e) {
           return e.start();
         }),
-        L());
+        R());
     }
-    function T() {
-      var e = h;
-      ((h = []),
+    function I() {
+      var e = g;
+      ((g = []),
         e.forEach(function (e) {
           return e.stop();
         }));
     }
-    function D(e) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return !h.includes(e) ||
-            !o("WAWebHatchFrontendGating").isHatchActivityEnabled()
-            ? null
-            : o("WAWebHatchVmConnection")
-                .connectHatchVmApi()
-                .catch(o("WAWebNullFunc").returnNull);
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $() {
-      var e = o("WAWebHatchVmConnection").getHatchVmAccountGeneration();
-      P(function () {
-        return H(e);
-      });
-    }
-    function P(e) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          C++;
-          var t = { complete: !1, records: [] };
-          try {
-            t = yield M();
-          } finally {
-            C--;
-          }
-          if ((e() && B(t.records), C === 0)) {
-            var n = b;
-            ((b = []),
-              n.forEach(function (e) {
-                var t = e.event,
-                  n = e.generation;
-                return q(t, n);
-              }));
-          }
-          return t.complete;
-        })),
-        N.apply(this, arguments)
-      );
-    }
-    function M() {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebHatchVmConnection")
+    async function T(e) {
+      return !g.includes(e) ||
+        !o("WAWebHatchFrontendGating").isHatchActivityEnabled()
+        ? null
+        : o("WAWebHatchVmConnection")
             .connectHatchVmApi()
             .catch(o("WAWebNullFunc").returnNull);
-          if (e == null)
-            return (
-              o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-activity/read-failed reason=session",
-                    ])),
-                )
-                .sendLogs("hatch-activity-read-failed"),
-              { complete: !1, records: [] }
-            );
-          var t = yield (d || (d = n("Promise"))).all(
-            _.map(function (t) {
-              return A(e, t);
-            }),
+    }
+    function D() {
+      var e = o("WAWebHatchVmConnection").getHatchVmAccountGeneration();
+      x(function () {
+        return B(e);
+      });
+    }
+    async function x(e) {
+      y++;
+      var t = { complete: !1, records: [] };
+      try {
+        t = await $();
+      } finally {
+        y--;
+      }
+      if ((e() && M(t.records), y === 0)) {
+        var n = C;
+        ((C = []),
+          n.forEach(function (e) {
+            var t = e.event,
+              n = e.generation;
+            return A(t, n);
+          }));
+      }
+      return t.complete;
+    }
+    async function $() {
+      var t = await o("WAWebHatchVmConnection")
+        .connectHatchVmApi()
+        .catch(o("WAWebNullFunc").returnNull);
+      if (t == null)
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-activity/read-failed reason=session",
+                ])),
+            )
+            .sendLogs("hatch-activity-read-failed"),
+          { complete: !1, records: [] }
+        );
+      var n = await Promise.all(
+        p.map(function (e) {
+          return P(t, e);
+        }),
+      );
+      return {
+        complete: n.every(Boolean),
+        records: n.flatMap(function (e) {
+          return e != null ? e : [];
+        }),
+      };
+    }
+    async function P(e, t) {
+      var n = function () {
+          return e.activityPage(
+            o("WAWebHatchActivityFeed").HATCH_ACTIVITY_MAX_ROWS,
+            t,
+            { timeoutMs: m },
           );
-          return {
-            complete: t.every(Boolean),
-            records: t.flatMap(function (e) {
-              return e != null ? e : [];
-            }),
-          };
-        })),
-        w.apply(this, arguments)
-      );
+        },
+        r = await n(),
+        a = r.kind === "Failure" ? await n() : r;
+      return a.kind !== "Ok"
+        ? (o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-activity/read-failed reason=",
+                  " goals=",
+                  "",
+                ])),
+              W(a),
+              String(t.length > 0),
+            )
+            .sendLogs("hatch-activity-read-failed"),
+          null)
+        : N(a.value);
     }
-    function A(e, t) {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = function () {
-              return e.activityPage(
-                o("WAWebHatchActivityFeed").HATCH_ACTIVITY_MAX_ROWS,
-                t,
-                { timeoutMs: p },
-              );
-            },
-            r = yield n(),
-            a = r.kind === "Failure" ? yield n() : r;
-          return a.kind !== "Ok"
-            ? (o("WALogger")
-                .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-activity/read-failed reason=",
-                      " goals=",
-                      "",
-                    ])),
-                  G(a),
-                  String(t.length > 0),
-                )
-                .sendLogs("hatch-activity-read-failed"),
-              null)
-            : O(a.value);
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    function O(e) {
+    function N(e) {
       var t;
       return (
         (t = o("WAWebHatchJsonReaders").readArray(e, "days")) != null ? t : []
@@ -226,24 +191,24 @@ __d(
           : [];
       });
     }
-    function B(t) {
-      var n = [],
-        r = g.feed;
-      for (var a of t) {
-        var i = o("WAWebHatchActivityRecord").decodeHatchActivityRecord(
-          a,
+    function M(e) {
+      var t = [],
+        n = f.feed;
+      for (var r of e) {
+        var a = o("WAWebHatchActivityRecord").decodeHatchActivityRecord(
+          r,
           null,
         );
-        i.kind === "row"
-          ? (r = o("WAWebHatchActivityFeed").applyHatchActivityRecord(
-              r,
-              i.record,
+        a.kind === "row"
+          ? (n = o("WAWebHatchActivityFeed").applyHatchActivityRecord(
+              n,
+              a.record,
             ))
-          : n.push(i.reason);
+          : t.push(a.reason);
       }
       (o("WALogger").LOG(
-        e ||
-          (e = babelHelpers.taggedTemplateLiteralLoose([
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
             "hatch-activity/applied-page records=",
             " dropped=",
             " noId=",
@@ -251,26 +216,26 @@ __d(
             " malformed=",
             "",
           ])),
+        e.length,
         t.length,
-        n.length,
-        z(n, "no_id"),
-        z(n, "no_time"),
-        z(n, "malformed"),
+        q(t, "no_id"),
+        q(t, "no_time"),
+        q(t, "malformed"),
       ),
-        j({ feed: r }));
+        U({ feed: n }));
     }
-    function W(e) {
-      if (e.name === m) {
+    function w(e) {
+      if (e.name === d) {
         var t = o("WAWebHatchVmConnection").getHatchVmAccountGeneration();
-        if (C > 0) {
-          b.push({ event: e, generation: t });
+        if (y > 0) {
+          C.push({ event: e, generation: t });
           return;
         }
-        q(e, t);
+        A(e, t);
       }
     }
-    function q(e, t) {
-      if (H(t)) {
+    function A(e, t) {
+      if (B(t)) {
         var n = e.tsMs > 0 ? e.tsMs : null,
           r = o("WAWebHatchActivityRecord").decodeHatchActivityRecord(
             o("WAWebHatchActivityRecord").unwrapHatchActivityStreamPayload(
@@ -280,8 +245,8 @@ __d(
           );
         if (r.kind === "dropped") {
           o("WALogger").WARN(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "hatch-activity/dropped-update reason=",
                 "",
               ])),
@@ -289,33 +254,33 @@ __d(
           );
           return;
         }
-        j({
+        U({
           feed: o("WAWebHatchActivityFeed").applyHatchActivityRecord(
-            g.feed,
+            f.feed,
             r.record,
           ),
         });
       }
     }
-    function U() {
-      v ||
-        ((v = !0),
-        o("WAWebHatchVmConnection").subscribeToHatchVmAccountChange(V));
+    function F() {
+      b ||
+        ((b = !0),
+        o("WAWebHatchVmConnection").subscribeToHatchVmAccountChange(O));
     }
-    function V() {
-      (T(),
-        y++,
-        (b = []),
-        j({
+    function O() {
+      (I(),
+        h++,
+        (C = []),
+        U({
           feed: o("WAWebHatchActivityFeed").HATCH_ACTIVITY_EMPTY_FEED,
           syncState: "idle",
         }),
-        f > 0 && I());
+        _ > 0 && k());
     }
-    function H(e) {
+    function B(e) {
       return e === o("WAWebHatchVmConnection").getHatchVmAccountGeneration();
     }
-    function G(e) {
+    function W(e) {
       return (function (e) {
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
@@ -351,22 +316,22 @@ __d(
         );
       })(e);
     }
-    function z(e, t) {
+    function q(e, t) {
       return e.filter(function (e) {
         return e === t;
       }).length;
     }
-    function j(e) {
-      var t = babelHelpers.extends({}, g, e);
-      if (!(t.feed === g.feed && t.syncState === g.syncState)) {
-        g = t;
-        for (var n of Array.from(S)) n.listener();
+    function U(e) {
+      var t = babelHelpers.extends({}, f, e);
+      if (!(t.feed === f.feed && t.syncState === f.syncState)) {
+        f = t;
+        for (var n of Array.from(v)) n.listener();
       }
     }
-    ((l.retainHatchActivityStream = R),
-      (l.refreshHatchActivity = L),
-      (l.getHatchActivitySnapshot = E),
-      (l.subscribeToHatchActivity = k));
+    ((l.retainHatchActivityStream = S),
+      (l.refreshHatchActivity = R),
+      (l.getHatchActivitySnapshot = L),
+      (l.subscribeToHatchActivity = E));
   },
   98,
 );

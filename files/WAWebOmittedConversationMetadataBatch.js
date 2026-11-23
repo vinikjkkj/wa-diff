@@ -5,74 +5,62 @@ __d(
     "WAWebOmittedConversationMetadataIdentity",
     "WAWebOmittedConversationMetadataStorageTypes",
     "WAWebProtobufsHistorySync.pb",
-    "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 100;
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a = e.omittedConversationMetadata;
-          if (a == null) throw r("err")("Omitted metadata envelope is missing");
-          var i = o("WALongInt").maybeNumber(a.snapshotTimestampMs),
-            l = a.batchIndex,
-            s = a.batchCount,
-            u = a.snapshotId,
-            c = a.complete;
-          if (i == null || l == null || s == null || u == null || c == null)
-            throw r("err")("Omitted metadata controls are incomplete");
-          var f = d(u);
-          (m(i, l, s, c), p(e, t, l, c), _(e, a.conversations));
-          var g = a.conversations.map(
-            o("WAWebOmittedConversationMetadataIdentity")
-              .getOmittedMetadataIdentity,
-          );
-          if (
-            o(
-              "WAWebOmittedConversationMetadataIdentity",
-            ).hasDuplicateOmittedMetadataIdentities(g)
-          )
-            throw r("err")("Omitted metadata repeats a conversation identity");
-          var h = o("encodeProtobuf")
-              .encodeProtobuf(
-                o("WAWebProtobufsHistorySync.pb").HistorySyncSpec,
-                e,
-              )
-              .readByteArrayView(),
-            y = yield self.crypto.subtle.digest("SHA-256", h);
-          return {
-            snapshotId: f,
-            timestampMs: o(
-              "WAWebOmittedConversationMetadataStorageTypes",
-            ).asOmittedMetadataSnapshotTimestampMs(i),
-            index: l,
-            count: s,
-            complete: c,
-            transportOrder: l + 1,
-            progress: (n = e.progress) != null ? n : 0,
-            fingerprint: o(
-              "WAWebOmittedConversationMetadataStorageTypes",
-            ).asOmittedMetadataFingerprint(
-              Array.from(new Uint8Array(y), function (e) {
-                return e.toString(16).padStart(2, "0");
-              }).join(""),
-            ),
-            conversations: a.conversations,
-            identities: g,
-            accounts: e.accounts,
-            phoneNumberToLidMappings: e.phoneNumberToLidMappings,
-          };
-        })),
-        u.apply(this, arguments)
+    async function s(e, t) {
+      var n,
+        a = e.omittedConversationMetadata;
+      if (a == null) throw r("err")("Omitted metadata envelope is missing");
+      var i = o("WALongInt").maybeNumber(a.snapshotTimestampMs),
+        l = a.batchIndex,
+        s = a.batchCount,
+        u = a.snapshotId,
+        _ = a.complete;
+      if (i == null || l == null || s == null || u == null || _ == null)
+        throw r("err")("Omitted metadata controls are incomplete");
+      var f = c(u);
+      (d(i, l, s, _), m(e, t, l, _), p(e, a.conversations));
+      var g = a.conversations.map(
+        o("WAWebOmittedConversationMetadataIdentity")
+          .getOmittedMetadataIdentity,
       );
+      if (
+        o(
+          "WAWebOmittedConversationMetadataIdentity",
+        ).hasDuplicateOmittedMetadataIdentities(g)
+      )
+        throw r("err")("Omitted metadata repeats a conversation identity");
+      var h = o("encodeProtobuf")
+          .encodeProtobuf(o("WAWebProtobufsHistorySync.pb").HistorySyncSpec, e)
+          .readByteArrayView(),
+        y = await self.crypto.subtle.digest("SHA-256", h);
+      return {
+        snapshotId: f,
+        timestampMs: o(
+          "WAWebOmittedConversationMetadataStorageTypes",
+        ).asOmittedMetadataSnapshotTimestampMs(i),
+        index: l,
+        count: s,
+        complete: _,
+        transportOrder: l + 1,
+        progress: (n = e.progress) != null ? n : 0,
+        fingerprint: o(
+          "WAWebOmittedConversationMetadataStorageTypes",
+        ).asOmittedMetadataFingerprint(
+          Array.from(new Uint8Array(y), function (e) {
+            return e.toString(16).padStart(2, "0");
+          }).join(""),
+        ),
+        conversations: a.conversations,
+        identities: g,
+        accounts: e.accounts,
+        phoneNumberToLidMappings: e.phoneNumberToLidMappings,
+      };
     }
-    function c(e, t, n) {
+    function u(e, t, n) {
       if (e.snapshotId !== t.snapshotId)
         throw r("err")("Omitted metadata does not match the INITIAL snapshot");
       var o = [
@@ -102,7 +90,7 @@ __d(
         );
       return !1;
     }
-    function d(e) {
+    function c(e) {
       if (
         !/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
           e,
@@ -113,7 +101,7 @@ __d(
         "WAWebOmittedConversationMetadataStorageTypes",
       ).asOmittedMetadataSnapshotId(e);
     }
-    function m(e, t, n, o) {
+    function d(e, t, n, o) {
       var a = [
         Number.isSafeInteger(e),
         e >= 0,
@@ -130,7 +118,7 @@ __d(
           "Omitted metadata completion flag does not match its batch",
         );
     }
-    function p(t, n, a, i) {
+    function m(t, n, a, i) {
       var l,
         s,
         u = [
@@ -152,7 +140,7 @@ __d(
           "Omitted metadata transport does not match its notification",
         );
     }
-    function _(e, t) {
+    function p(e, t) {
       var n = [
           e.conversations,
           e.statusV3Messages,
@@ -201,8 +189,8 @@ __d(
         throw r("err")("Omitted metadata contains a history transfer boundary");
     }
     ((l.prepareOmittedMetadataBatch = s),
-      (l.validateOmittedMetadataSession = c),
-      (l.validateOmittedMetadataSnapshotId = d));
+      (l.validateOmittedMetadataSession = u),
+      (l.validateOmittedMetadataSnapshotId = c));
   },
   98,
 );

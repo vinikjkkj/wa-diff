@@ -24,12 +24,12 @@ __d(
       o("WAWebToastManager").ToastManager.open(
         u.jsx(o("WAWebToast.react").Toast, {
           action: {
-            actionText: s._(/*BTDS*/ "View cart"),
+            actionText: s._(/*BTDS*/ ""),
             onAction: function () {
               n();
             },
           },
-          msg: s._(/*BTDS*/ "Item added to cart"),
+          msg: s._(/*BTDS*/ ""),
         }),
       );
     }

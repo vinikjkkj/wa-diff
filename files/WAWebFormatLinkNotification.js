@@ -105,29 +105,25 @@ __d(
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ 'You created the community "{community_name}".', [
-            s._param("community_name", e),
-          ])
-        : s._(/*BTDS*/ 'You created the community "{community_name}"', [
-            s._param("community_name", e),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("community_name", e)])
+        : s._(/*BTDS*/ "", [s._param("community_name", e)]);
     }
     function k() {
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ "You created the community.")
-        : s._(/*BTDS*/ "You created the community");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function I(e, t) {
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ '{author} created the community "{community_name}".', [
+        ? s._(/*BTDS*/ "", [
             s._param("author", e),
             s._param("community_name", t),
           ])
-        : s._(/*BTDS*/ '{author} created the community "{community_name}"', [
+        : s._(/*BTDS*/ "", [
             s._param("author", e),
             s._param("community_name", t),
           ]);
@@ -136,30 +132,22 @@ __d(
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ "{author} created the community.", [
-            s._param("author", e),
-          ])
-        : s._(/*BTDS*/ "{author} created the community", [
-            s._param("author", e),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("author", e)])
+        : s._(/*BTDS*/ "", [s._param("author", e)]);
     }
     function D(e) {
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ 'The community "{community_name}" was created.', [
-            s._param("community_name", e),
-          ])
-        : s._(/*BTDS*/ 'The community "{community_name}" was created', [
-            s._param("community_name", e),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("community_name", e)])
+        : s._(/*BTDS*/ "", [s._param("community_name", e)]);
     }
     function x() {
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ "The community was created.")
-        : s._(/*BTDS*/ "The community was created");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function $(e, t, n, r) {
       var a,
@@ -182,7 +170,7 @@ __d(
               o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-                ? s._(/*BTDS*/ "You deactivated the community {community}.", [
+                ? s._(/*BTDS*/ "", [
                     s._param(
                       "community",
                       o(
@@ -190,7 +178,7 @@ __d(
                       ).getCommunityNameInQuotationMarks(a, !r),
                     ),
                   ])
-                : s._(/*BTDS*/ "You deactivated the community {community}", [
+                : s._(/*BTDS*/ "", [
                     s._param(
                       "community",
                       o(
@@ -207,51 +195,41 @@ __d(
               o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-                ? s._(
-                    /*BTDS*/ "{author} deactivated the community {community}.",
-                    [
-                      s._param("author", t),
-                      s._param(
-                        "community",
-                        o(
-                          "WAWebFormatParticipantNames",
-                        ).getCommunityNameInQuotationMarks(a, !r),
-                      ),
-                    ],
-                  )
-                : s._(
-                    /*BTDS*/ "{author} deactivated the community {community}",
-                    [
-                      s._param("author", t),
-                      s._param(
-                        "community",
-                        o(
-                          "WAWebFormatParticipantNames",
-                        ).getCommunityNameInQuotationMarks(a, !r),
-                      ),
-                    ],
-                  ))
+                ? s._(/*BTDS*/ "", [
+                    s._param("author", t),
+                    s._param(
+                      "community",
+                      o(
+                        "WAWebFormatParticipantNames",
+                      ).getCommunityNameInQuotationMarks(a, !r),
+                    ),
+                  ])
+                : s._(/*BTDS*/ "", [
+                    s._param("author", t),
+                    s._param(
+                      "community",
+                      o(
+                        "WAWebFormatParticipantNames",
+                      ).getCommunityNameInQuotationMarks(a, !r),
+                    ),
+                  ]))
           : v(n)
             ? o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-              ? s._(/*BTDS*/ "You deactivated a community.")
-              : s._(/*BTDS*/ "You deactivated a community")
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "")
             : t != null
               ? o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-                ? s._(/*BTDS*/ "{author} deactivated a community.", [
-                    s._param("author", t),
-                  ])
-                : s._(/*BTDS*/ "{author} deactivated a community", [
-                    s._param("author", t),
-                  ])
+                ? s._(/*BTDS*/ "", [s._param("author", t)])
+                : s._(/*BTDS*/ "", [s._param("author", t)])
               : o(
                     "WAWebSystemMessageGatingUtils",
                   ).systemMessageTerminalPeriodsEnabled()
-                ? s._(/*BTDS*/ "A community was deactivated.")
-                : s._(/*BTDS*/ "A community was deactivated")
+                ? s._(/*BTDS*/ "")
+                : s._(/*BTDS*/ "")
       );
     }
     function P(e, t) {
@@ -273,33 +251,27 @@ __d(
           o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ "This group is no longer part of the community {community}.",
-                [
-                  s._param(
-                    "community",
-                    o(
-                      "WAWebFormatParticipantNames",
-                    ).getCommunityNameInQuotationMarks(n, !t),
-                  ),
-                ],
-              )
-            : s._(
-                /*BTDS*/ "This group is no longer part of the community {community}",
-                [
-                  s._param(
-                    "community",
-                    o(
-                      "WAWebFormatParticipantNames",
-                    ).getCommunityNameInQuotationMarks(n, !t),
-                  ),
-                ],
-              ))
+            ? s._(/*BTDS*/ "", [
+                s._param(
+                  "community",
+                  o(
+                    "WAWebFormatParticipantNames",
+                  ).getCommunityNameInQuotationMarks(n, !t),
+                ),
+              ])
+            : s._(/*BTDS*/ "", [
+                s._param(
+                  "community",
+                  o(
+                    "WAWebFormatParticipantNames",
+                  ).getCommunityNameInQuotationMarks(n, !t),
+                ),
+              ]))
         : o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-          ? s._(/*BTDS*/ "This group is no longer part of a community.")
-          : s._(/*BTDS*/ "This group is no longer part of a community");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     function N(e, t, n, r) {
       var a = babelHelpers.arrayLikeToArray(e).slice(0),
@@ -320,34 +292,28 @@ __d(
           o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ "You removed this group from the community {community}.",
-                [
-                  s._param(
-                    "community",
-                    o(
-                      "WAWebFormatParticipantNames",
-                    ).getCommunityNameInQuotationMarks(i, !t),
-                  ),
-                ],
-              )
-            : s._(
-                /*BTDS*/ "You removed this group from the community {community}",
-                [
-                  s._param(
-                    "community",
-                    o(
-                      "WAWebFormatParticipantNames",
-                    ).getCommunityNameInQuotationMarks(i, !t),
-                  ),
-                ],
-              ))
+            ? s._(/*BTDS*/ "", [
+                s._param(
+                  "community",
+                  o(
+                    "WAWebFormatParticipantNames",
+                  ).getCommunityNameInQuotationMarks(i, !t),
+                ),
+              ])
+            : s._(/*BTDS*/ "", [
+                s._param(
+                  "community",
+                  o(
+                    "WAWebFormatParticipantNames",
+                  ).getCommunityNameInQuotationMarks(i, !t),
+                ),
+              ]))
         : i == null && v(n)
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(/*BTDS*/ "You removed this group from a community.")
-            : s._(/*BTDS*/ "You removed this group from a community")
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
           : i != null && n != null
             ? (o("WALogger").LOG(
                 p ||
@@ -358,30 +324,24 @@ __d(
               o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-                ? s._(
-                    /*BTDS*/ "{author} removed this group from the community {community}.",
-                    [
-                      s._param("author", r),
-                      s._param(
-                        "community",
-                        o(
-                          "WAWebFormatParticipantNames",
-                        ).getCommunityNameInQuotationMarks(i, !t),
-                      ),
-                    ],
-                  )
-                : s._(
-                    /*BTDS*/ "{author} removed this group from the community {community}",
-                    [
-                      s._param("author", r),
-                      s._param(
-                        "community",
-                        o(
-                          "WAWebFormatParticipantNames",
-                        ).getCommunityNameInQuotationMarks(i, !t),
-                      ),
-                    ],
-                  ))
+                ? s._(/*BTDS*/ "", [
+                    s._param("author", r),
+                    s._param(
+                      "community",
+                      o(
+                        "WAWebFormatParticipantNames",
+                      ).getCommunityNameInQuotationMarks(i, !t),
+                    ),
+                  ])
+                : s._(/*BTDS*/ "", [
+                    s._param("author", r),
+                    s._param(
+                      "community",
+                      o(
+                        "WAWebFormatParticipantNames",
+                      ).getCommunityNameInQuotationMarks(i, !t),
+                    ),
+                  ]))
             : i != null && n == null
               ? (o("WALogger").LOG(
                   _ ||
@@ -392,45 +352,33 @@ __d(
                 o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-                  ? s._(
-                      /*BTDS*/ "This group was removed from the community {community}.",
-                      [
-                        s._param(
-                          "community",
-                          o(
-                            "WAWebFormatParticipantNames",
-                          ).getCommunityNameInQuotationMarks(i, !t),
-                        ),
-                      ],
-                    )
-                  : s._(
-                      /*BTDS*/ "This group was removed from the community {community}",
-                      [
-                        s._param(
-                          "community",
-                          o(
-                            "WAWebFormatParticipantNames",
-                          ).getCommunityNameInQuotationMarks(i, !t),
-                        ),
-                      ],
-                    ))
+                  ? s._(/*BTDS*/ "", [
+                      s._param(
+                        "community",
+                        o(
+                          "WAWebFormatParticipantNames",
+                        ).getCommunityNameInQuotationMarks(i, !t),
+                      ),
+                    ])
+                  : s._(/*BTDS*/ "", [
+                      s._param(
+                        "community",
+                        o(
+                          "WAWebFormatParticipantNames",
+                        ).getCommunityNameInQuotationMarks(i, !t),
+                      ),
+                    ]))
               : i == null && n != null
                 ? o(
                     "WAWebSystemMessageGatingUtils",
                   ).systemMessageTerminalPeriodsEnabled()
-                  ? s._(
-                      /*BTDS*/ "{author} removed this group from a community.",
-                      [s._param("author", r)],
-                    )
-                  : s._(
-                      /*BTDS*/ "{author} removed this group from a community",
-                      [s._param("author", r)],
-                    )
+                  ? s._(/*BTDS*/ "", [s._param("author", r)])
+                  : s._(/*BTDS*/ "", [s._param("author", r)])
                 : o(
                       "WAWebSystemMessageGatingUtils",
                     ).systemMessageTerminalPeriodsEnabled()
-                  ? s._(/*BTDS*/ "This group was removed from a community.")
-                  : s._(/*BTDS*/ "This group was removed from a community");
+                  ? s._(/*BTDS*/ "")
+                  : s._(/*BTDS*/ "");
     }
     function M(e, t, n, r) {
       var a = o(
@@ -450,38 +398,28 @@ __d(
           o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ "You added this group and its members to the community {community}.",
-                [
-                  s._param(
-                    "community",
-                    o(
-                      "WAWebFormatParticipantNames",
-                    ).getCommunityNameInQuotationMarks(a, !t),
-                  ),
-                ],
-              )
-            : s._(
-                /*BTDS*/ "You added this group and its members to the community {community}",
-                [
-                  s._param(
-                    "community",
-                    o(
-                      "WAWebFormatParticipantNames",
-                    ).getCommunityNameInQuotationMarks(a, !t),
-                  ),
-                ],
-              ))
+            ? s._(/*BTDS*/ "", [
+                s._param(
+                  "community",
+                  o(
+                    "WAWebFormatParticipantNames",
+                  ).getCommunityNameInQuotationMarks(a, !t),
+                ),
+              ])
+            : s._(/*BTDS*/ "", [
+                s._param(
+                  "community",
+                  o(
+                    "WAWebFormatParticipantNames",
+                  ).getCommunityNameInQuotationMarks(a, !t),
+                ),
+              ]))
         : S(a) && v(n)
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ "You added this group and its members to a community.",
-              )
-            : s._(
-                /*BTDS*/ "You added this group and its members to a community",
-              )
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
           : !S(a) && n != null
             ? (o("WALogger").LOG(
                 g ||
@@ -492,30 +430,24 @@ __d(
               o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-                ? s._(
-                    /*BTDS*/ "{author} added this group and its members to the community {community}.",
-                    [
-                      s._param("author", r),
-                      s._param(
-                        "community",
-                        o(
-                          "WAWebFormatParticipantNames",
-                        ).getCommunityNameInQuotationMarks(a, !t),
-                      ),
-                    ],
-                  )
-                : s._(
-                    /*BTDS*/ "{author} added this group and its members to the community {community}",
-                    [
-                      s._param("author", r),
-                      s._param(
-                        "community",
-                        o(
-                          "WAWebFormatParticipantNames",
-                        ).getCommunityNameInQuotationMarks(a, !t),
-                      ),
-                    ],
-                  ))
+                ? s._(/*BTDS*/ "", [
+                    s._param("author", r),
+                    s._param(
+                      "community",
+                      o(
+                        "WAWebFormatParticipantNames",
+                      ).getCommunityNameInQuotationMarks(a, !t),
+                    ),
+                  ])
+                : s._(/*BTDS*/ "", [
+                    s._param("author", r),
+                    s._param(
+                      "community",
+                      o(
+                        "WAWebFormatParticipantNames",
+                      ).getCommunityNameInQuotationMarks(a, !t),
+                    ),
+                  ]))
             : !S(a) && n == null
               ? (o("WALogger").LOG(
                   h ||
@@ -526,49 +458,33 @@ __d(
                 o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-                  ? s._(
-                      /*BTDS*/ "This group and its members were added to the community {community}.",
-                      [
-                        s._param(
-                          "community",
-                          o(
-                            "WAWebFormatParticipantNames",
-                          ).getCommunityNameInQuotationMarks(a, !t),
-                        ),
-                      ],
-                    )
-                  : s._(
-                      /*BTDS*/ "This group and its members were added to the community {community}",
-                      [
-                        s._param(
-                          "community",
-                          o(
-                            "WAWebFormatParticipantNames",
-                          ).getCommunityNameInQuotationMarks(a, !t),
-                        ),
-                      ],
-                    ))
+                  ? s._(/*BTDS*/ "", [
+                      s._param(
+                        "community",
+                        o(
+                          "WAWebFormatParticipantNames",
+                        ).getCommunityNameInQuotationMarks(a, !t),
+                      ),
+                    ])
+                  : s._(/*BTDS*/ "", [
+                      s._param(
+                        "community",
+                        o(
+                          "WAWebFormatParticipantNames",
+                        ).getCommunityNameInQuotationMarks(a, !t),
+                      ),
+                    ]))
               : S(a) && n != null
                 ? o(
                     "WAWebSystemMessageGatingUtils",
                   ).systemMessageTerminalPeriodsEnabled()
-                  ? s._(
-                      /*BTDS*/ "{author} added this group and its members to a community.",
-                      [s._param("author", r)],
-                    )
-                  : s._(
-                      /*BTDS*/ "{author} added this group and its members to a community",
-                      [s._param("author", r)],
-                    )
+                  ? s._(/*BTDS*/ "", [s._param("author", r)])
+                  : s._(/*BTDS*/ "", [s._param("author", r)])
                 : o(
                       "WAWebSystemMessageGatingUtils",
                     ).systemMessageTerminalPeriodsEnabled()
-                  ? s._(
-                      /*BTDS*/ "This group and its members were added to a community.",
-                    )
-                  : s._(
-                      /*BTDS*/ "This group and its members were added to a community",
-                    );
+                  ? s._(/*BTDS*/ "")
+                  : s._(/*BTDS*/ "");
     }
     function w(e, t, n, r, a) {
       var i = babelHelpers.arrayLikeToArray(e).slice(0),
@@ -583,37 +499,27 @@ __d(
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ '_j{"*":"{author} added {count} groups.","_1":"{author} added 1 group."}',
-                [s._plural(u, "count"), s._param("author", r)],
-              )
-            : s._(
-                /*BTDS*/ '_j{"*":"{author} added {count} groups","_1":"{author} added 1 group"}',
-                [s._plural(u, "count"), s._param("author", r)],
-              )
+            ? s._(/*BTDS*/ "", [s._plural(u, "count"), s._param("author", r)])
+            : s._(/*BTDS*/ "", [s._plural(u, "count"), s._param("author", r)])
           : o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ '_j{"*":"{author} added the groups {groups}.","_1":"{author} added the group {groups}."}',
-                [s._plural(u), s._param("author", r), s._param("groups", l)],
-              )
-            : s._(
-                /*BTDS*/ '_j{"*":"{author} added the groups {groups}","_1":"{author} added the group {groups}"}',
-                [s._plural(u), s._param("author", r), s._param("groups", l)],
-              )
+            ? s._(/*BTDS*/ "", [
+                s._plural(u),
+                s._param("author", r),
+                s._param("groups", l),
+              ])
+            : s._(/*BTDS*/ "", [
+                s._plural(u),
+                s._param("author", r),
+                s._param("groups", l),
+              ])
         : l == null
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ '_j{"*":"{count} groups were added.","_1":"1 group was added."}',
-                [s._plural(u, "count")],
-              )
-            : s._(
-                /*BTDS*/ '_j{"*":"{count} groups were added","_1":"1 group was added"}',
-                [s._plural(u, "count")],
-              )
+            ? s._(/*BTDS*/ "", [s._plural(u, "count")])
+            : s._(/*BTDS*/ "", [s._plural(u, "count")])
           : t
             ? o(
                 "WAWebStringsWithMultiplePluralParts",
@@ -646,37 +552,27 @@ __d(
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ '_j{"*":"{author} removed {count} groups.","_1":"{author} removed 1 group."}',
-                [s._plural(l, "count"), s._param("author", r)],
-              )
-            : s._(
-                /*BTDS*/ '_j{"*":"{author} removed {count} groups","_1":"{author} removed 1 group"}',
-                [s._plural(l, "count"), s._param("author", r)],
-              )
+            ? s._(/*BTDS*/ "", [s._plural(l, "count"), s._param("author", r)])
+            : s._(/*BTDS*/ "", [s._plural(l, "count"), s._param("author", r)])
           : o(
                 "WAWebSystemMessageGatingUtils",
               ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ '_j{"*":"{author} removed the groups {groups}.","_1":"{author} removed the group {groups}."}',
-                [s._plural(l), s._param("author", r), s._param("groups", i)],
-              )
-            : s._(
-                /*BTDS*/ '_j{"*":"{author} removed the groups {groups}","_1":"{author} removed the group {groups}"}',
-                [s._plural(l), s._param("author", r), s._param("groups", i)],
-              )
+            ? s._(/*BTDS*/ "", [
+                s._plural(l),
+                s._param("author", r),
+                s._param("groups", i),
+              ])
+            : s._(/*BTDS*/ "", [
+                s._plural(l),
+                s._param("author", r),
+                s._param("groups", i),
+              ])
         : i == null
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ '_j{"*":"{count} groups were removed.","_1":"1 group was removed."}',
-                [s._plural(l, "count")],
-              )
-            : s._(
-                /*BTDS*/ '_j{"*":"{count} groups were removed","_1":"1 group was removed"}',
-                [s._plural(l, "count")],
-              )
+            ? s._(/*BTDS*/ "", [s._plural(l, "count")])
+            : s._(/*BTDS*/ "", [s._plural(l, "count")])
           : t
             ? o(
                 "WAWebStringsWithMultiplePluralParts",
@@ -722,17 +618,13 @@ __d(
         ? o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled()
-          ? s._(/*BTDS*/ "You joined from the community.")
-          : s._(/*BTDS*/ "You joined from the community")
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "")
         : o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-          ? s._(/*BTDS*/ "{author} joined from the community.", [
-              s._param("author", t),
-            ])
-          : s._(/*BTDS*/ "{author} joined from the community", [
-              s._param("author", t),
-            ]);
+          ? s._(/*BTDS*/ "", [s._param("author", t)])
+          : s._(/*BTDS*/ "", [s._param("author", t)]);
     }
     function B(e, t, n) {
       if (e && e.length >= 2) {
@@ -747,14 +639,8 @@ __d(
           ? o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-            ? s._(
-                /*BTDS*/ "{author} added you to this group and the community.",
-                [s._param("author", n)],
-              )
-            : s._(
-                /*BTDS*/ "{author} added you to this group and the community",
-                [s._param("author", n)],
-              )
+            ? s._(/*BTDS*/ "", [s._param("author", n)])
+            : s._(/*BTDS*/ "", [s._param("author", n)])
           : (o("WALogger").LOG(
               y ||
                 (y = babelHelpers.taggedTemplateLiteralLoose([
@@ -764,36 +650,30 @@ __d(
             o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-              ? s._(
-                  /*BTDS*/ "{author} added you to this group and the community {community}.",
-                  [
-                    s._param("author", n),
-                    s._param(
-                      "community",
-                      o(
-                        "WAWebFormatParticipantNames",
-                      ).getCommunityNameInQuotationMarks(r, !t),
-                    ),
-                  ],
-                )
-              : s._(
-                  /*BTDS*/ "{author} added you to this group and the community {community}",
-                  [
-                    s._param("author", n),
-                    s._param(
-                      "community",
-                      o(
-                        "WAWebFormatParticipantNames",
-                      ).getCommunityNameInQuotationMarks(r, !t),
-                    ),
-                  ],
-                ));
+              ? s._(/*BTDS*/ "", [
+                  s._param("author", n),
+                  s._param(
+                    "community",
+                    o(
+                      "WAWebFormatParticipantNames",
+                    ).getCommunityNameInQuotationMarks(r, !t),
+                  ),
+                ])
+              : s._(/*BTDS*/ "", [
+                  s._param("author", n),
+                  s._param(
+                    "community",
+                    o(
+                      "WAWebFormatParticipantNames",
+                    ).getCommunityNameInQuotationMarks(r, !t),
+                  ),
+                ]));
       }
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ "{author} added you.", [s._param("author", n)])
-        : s._(/*BTDS*/ "{author} added you", [s._param("author", n)]);
+        ? s._(/*BTDS*/ "", [s._param("author", n)])
+        : s._(/*BTDS*/ "", [s._param("author", n)]);
     }
     function W(e, t, n, r) {
       var a,
@@ -813,8 +693,8 @@ __d(
               ? o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-                ? s._(/*BTDS*/ "You were added.")
-                : s._(/*BTDS*/ "You were added")
+                ? s._(/*BTDS*/ "")
+                : s._(/*BTDS*/ "")
               : (o("WALogger").LOG(
                   b ||
                     (b = babelHelpers.taggedTemplateLiteralLoose([
@@ -824,40 +704,34 @@ __d(
                 o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-                  ? s._(
-                      /*BTDS*/ "You were added because you joined the group {group-name}.",
-                      [
-                        s._param(
-                          "group-name",
-                          o(
-                            "WAWebFormatParticipantNames",
-                          ).getCommunityNameInQuotationMarks(a, !t),
-                        ),
-                      ],
-                    )
-                  : s._(
-                      /*BTDS*/ "You were added because you joined the group {group-name}",
-                      [
-                        s._param(
-                          "group-name",
-                          o(
-                            "WAWebFormatParticipantNames",
-                          ).getCommunityNameInQuotationMarks(a, !t),
-                        ),
-                      ],
-                    ))
+                  ? s._(/*BTDS*/ "", [
+                      s._param(
+                        "group-name",
+                        o(
+                          "WAWebFormatParticipantNames",
+                        ).getCommunityNameInQuotationMarks(a, !t),
+                      ),
+                    ])
+                  : s._(/*BTDS*/ "", [
+                      s._param(
+                        "group-name",
+                        o(
+                          "WAWebFormatParticipantNames",
+                        ).getCommunityNameInQuotationMarks(a, !t),
+                      ),
+                    ]))
             : o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-              ? s._(/*BTDS*/ "{user_name} joined.", [s._param("user_name", r)])
-              : s._(/*BTDS*/ "{user_name} joined", [s._param("user_name", r)])
+              ? s._(/*BTDS*/ "", [s._param("user_name", r)])
+              : s._(/*BTDS*/ "", [s._param("user_name", r)])
           : v(n)
             ? S(a)
               ? o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-                ? s._(/*BTDS*/ "You were added to this community.")
-                : s._(/*BTDS*/ "You were added to this community")
+                ? s._(/*BTDS*/ "")
+                : s._(/*BTDS*/ "")
               : (o("WALogger").LOG(
                   C ||
                     (C = babelHelpers.taggedTemplateLiteralLoose([
@@ -867,33 +741,27 @@ __d(
                 o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-                  ? s._(
-                      /*BTDS*/ "You were added to this community because you joined the group {group-name}.",
-                      [
-                        s._param(
-                          "group-name",
-                          o(
-                            "WAWebFormatParticipantNames",
-                          ).getCommunityNameInQuotationMarks(a, !t),
-                        ),
-                      ],
-                    )
-                  : s._(
-                      /*BTDS*/ "You were added to this community because you joined the group {group-name}",
-                      [
-                        s._param(
-                          "group-name",
-                          o(
-                            "WAWebFormatParticipantNames",
-                          ).getCommunityNameInQuotationMarks(a, !t),
-                        ),
-                      ],
-                    ))
+                  ? s._(/*BTDS*/ "", [
+                      s._param(
+                        "group-name",
+                        o(
+                          "WAWebFormatParticipantNames",
+                        ).getCommunityNameInQuotationMarks(a, !t),
+                      ),
+                    ])
+                  : s._(/*BTDS*/ "", [
+                      s._param(
+                        "group-name",
+                        o(
+                          "WAWebFormatParticipantNames",
+                        ).getCommunityNameInQuotationMarks(a, !t),
+                      ),
+                    ]))
             : o(
                   "WAWebSystemMessageGatingUtils",
                 ).systemMessageTerminalPeriodsEnabled()
-              ? s._(/*BTDS*/ "{user_name} joined.", [s._param("user_name", r)])
-              : s._(/*BTDS*/ "{user_name} joined", [s._param("user_name", r)])
+              ? s._(/*BTDS*/ "", [s._param("user_name", r)])
+              : s._(/*BTDS*/ "", [s._param("user_name", r)])
       );
     }
     ((l.formatLinkNotifAsFbt = R), (l.formatLinkNotification = L));

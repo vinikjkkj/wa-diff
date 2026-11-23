@@ -32,7 +32,6 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWid",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "err",
     "getErrorSafe",
@@ -412,41 +411,33 @@ __d(
           : null
         : e.toString();
     }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-              "WAWebHistorySyncScheduledMsgInnerProtoBuilder",
-            ).buildHistorySyncInnerProto({
-              body: e.body,
-              ephemeral: e.ephemeral,
-              sourceProto: e.sourceProto,
-            }),
-            n = o("encodeProtobuf")
-              .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, t)
-              .readByteArrayView(),
-            a = yield o("WAWebScheduledMsgCrypto").encryptWithRevealKey(
-              n,
-              e.revealKey,
-            ),
-            i = a.encIv,
-            l = a.encPayload,
-            s = yield o("WAWebScheduledMsgStore").storeScheduledMessage({
-              msgId: e.msgId,
-              chatId: e.chatId,
-              revealKeyId: e.revealKeyId,
-              revealKey: e.revealKey,
-              scheduledTimestampS: e.scheduledTimestampS,
-              encPayload: new Uint8Array(l),
-              encIv: new Uint8Array(i),
-            });
-          if (!s) throw r("err")("per-chat scheduled message limit reached");
-        })),
-        S.apply(this, arguments)
-      );
+    async function v(e) {
+      var t = o(
+          "WAWebHistorySyncScheduledMsgInnerProtoBuilder",
+        ).buildHistorySyncInnerProto({
+          body: e.body,
+          ephemeral: e.ephemeral,
+          sourceProto: e.sourceProto,
+        }),
+        n = o("encodeProtobuf")
+          .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, t)
+          .readByteArrayView(),
+        a = await o("WAWebScheduledMsgCrypto").encryptWithRevealKey(
+          n,
+          e.revealKey,
+        ),
+        i = a.encIv,
+        l = a.encPayload,
+        s = await o("WAWebScheduledMsgStore").storeScheduledMessage({
+          msgId: e.msgId,
+          chatId: e.chatId,
+          revealKeyId: e.revealKeyId,
+          revealKey: e.revealKey,
+          scheduledTimestampS: e.scheduledTimestampS,
+          encPayload: new Uint8Array(l),
+          encIv: new Uint8Array(i),
+        });
+      if (!s) throw r("err")("per-chat scheduled message limit reached");
     }
     ((l.parseWebMessageInfo = p),
       (l.getWebMessageInfoSecret = f),

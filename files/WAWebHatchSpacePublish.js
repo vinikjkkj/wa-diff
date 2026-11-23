@@ -1,7 +1,6 @@
 __d(
   "WAWebHatchSpacePublish",
   [
-    "Promise",
     "WALogger",
     "WAPromiseDelays",
     "WAWebHatchJsonReaders",
@@ -9,113 +8,91 @@ __d(
     "WAWebHatchVmConnection",
     "WAWebHatchVmTransport",
     "WAWebNullFunc",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = 6e4,
-      c = 500,
-      d = 6e3,
-      m = 2e3,
-      p = 75e3,
-      _ = [
+      s = 6e4,
+      u = 500,
+      c = 6e3,
+      d = 2e3,
+      m = 75e3,
+      p = [
         "contains_personal_information",
         "contains_chat_history",
         "contains_user_shared_media",
         "contains_secrets_or_credentials",
       ];
-    function f(e, t, n) {
-      return g.apply(this, arguments);
-    }
-    function g() {
+    async function _(t, n, r) {
+      var a = await o("WAWebHatchVmConnection")
+        .connectHatchVmApi()
+        .catch(o("WAWebNullFunc").returnNull);
+      if (r.aborted) return null;
+      var i =
+          a == null
+            ? R("no_session")
+            : await f(
+                a,
+                o("WAWebHatchVmTransport").JarvisPaths.SPACE_SHARE(t),
+                n,
+                r,
+              ),
+        l = i == null ? null : v(i);
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, r) {
-          var a = yield o("WAWebHatchVmConnection")
-            .connectHatchVmApi()
-            .catch(o("WAWebNullFunc").returnNull);
-          if (r.aborted) return null;
-          var i =
-              a == null
-                ? k("no_session")
-                : yield h(
-                    a,
-                    o("WAWebHatchVmTransport").JarvisPaths.SPACE_SHARE(t),
-                    n,
-                    r,
-                  ),
-            l = i == null ? null : L(i);
-          return (
-            (l == null ? void 0 : l.kind) === "failed" &&
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-space-publish: failed reason=",
-                      "",
-                    ])),
-                  l.reason,
-                )
-                .sendLogs("hatch-space-publish-failed"),
-            l
-          );
-        })),
-        g.apply(this, arguments)
+        (l == null ? void 0 : l.kind) === "failed" &&
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-space-publish: failed reason=",
+                  "",
+                ])),
+              l.reason,
+            )
+            .sendLogs("hatch-space-publish-failed"),
+        l
       );
     }
-    function h(e, t, r, o) {
-      var a = new b(),
-        i = { isSettled: !1 };
-      return new (s || (s = n("Promise")))(function (n) {
+    function f(e, t, n, r) {
+      var o = new h(),
+        a = { isSettled: !1 };
+      return new Promise(function (i) {
         function l(e) {
-          ((i.isSettled = !0), o.removeEventListener("abort", s), n(e));
+          ((a.isSettled = !0), r.removeEventListener("abort", u), i(e));
         }
-        function s() {
+        function u() {
           l(null);
         }
         function c(e) {
-          var t = a.settle(e);
+          var t = o.settle(e);
           t != null && l(t);
         }
-        (o.addEventListener("abort", s),
-          e.request("POST", t, { body: R(r), timeoutMs: u }).then(function (e) {
+        (r.addEventListener("abort", u),
+          e.request("POST", t, { body: b(n), timeoutMs: s }).then(function (e) {
             return c({ call: e, kind: "posted" });
           }),
-          y(
+          g(
             function () {
               return e.request("GET", t);
             },
-            i,
+            a,
             c,
             self.performance.now(),
           ));
       });
     }
-    function y(e, t, n, r) {
-      return C.apply(this, arguments);
+    async function g(e, t, n, r) {
+      var a = self.performance.now() - r;
+      if (a >= m) {
+        n({ kind: "poll_exhausted" });
+        return;
+      }
+      if ((await o("WAPromiseDelays").delayMs(a < c ? u : d), !t.isSettled)) {
+        var i = await e();
+        (n({ call: i, kind: "polled" }), await g(e, t, n, r));
+      }
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = self.performance.now() - r;
-            if (a >= p) {
-              n({ kind: "poll_exhausted" });
-              return;
-            }
-            if (
-              (yield o("WAPromiseDelays").delayMs(a < d ? c : m), !t.isSettled)
-            ) {
-              var i = yield e();
-              (n({ call: i, kind: "polled" }), yield y(e, t, n, r));
-            }
-          },
-        )),
-        C.apply(this, arguments)
-      );
-    }
-    var b = (function () {
+    var h = (function () {
       function e() {
         ((this.$1 = null), (this.$2 = null), (this.$3 = !1));
       }
@@ -155,7 +132,7 @@ __d(
           })(t);
         }),
         (t.$4 = function (t) {
-          var e = v(t);
+          var e = y(t);
           return e.kind !== "failed"
             ? e
             : ((this.$2 = e.reason),
@@ -184,57 +161,57 @@ __d(
           var e,
             t = this.$1;
           return t == null
-            ? k((e = this.$2) != null ? e : "not_confirmed")
+            ? R((e = this.$2) != null ? e : "not_confirmed")
             : { kind: "published", url: t };
         }),
         e
       );
     })();
-    function v(e) {
-      if (e.kind !== "Ok") return k(E(e));
+    function y(e) {
+      if (e.kind !== "Ok") return R(S(e));
       var t = o("WAWebHatchShareStatusDecoder").decodeHatchShareStatus(e.value);
-      if (t == null) return k("malformed");
-      var n = S(e.value);
+      if (t == null) return R("malformed");
+      var n = C(e.value);
       return n != null
         ? { kind: "needs_confirmation", token: n }
         : t.publishedUrl == null
-          ? k("not_confirmed")
+          ? R("not_confirmed")
           : { kind: "published", url: t.publishedUrl };
     }
-    function S(e) {
+    function C(e) {
       var t = o("WAWebHatchJsonReaders").readObject(
           e,
           "disclosure_confirmation",
         ),
         n = o("WAWebHatchJsonReaders").readObject(t, "disclosure");
-      return _.some(function (e) {
+      return p.some(function (e) {
         return o("WAWebHatchJsonReaders").readBool(n, e) === !0;
       })
         ? o("WAWebHatchJsonReaders").readNonEmptyString(t, "token")
         : null;
     }
-    function R(e) {
+    function b(e) {
       var t =
         e == null
           ? { require_disclosure_confirmation: !0 }
           : { disclosure_confirmation: e, require_disclosure_confirmation: !0 };
       return new TextEncoder().encode(JSON.stringify(t));
     }
-    function L(e) {
+    function v(e) {
       if (e.kind !== "published") return e;
       var t = o("WAWebHatchShareStatusDecoder").toHatchShareableUrl(e.url);
-      return t == null ? k("invalid_url") : { kind: "published", url: t };
+      return t == null ? R("invalid_url") : { kind: "published", url: t };
     }
-    function E(e) {
+    function S(e) {
       var t;
       return e.kind === "Rejected"
         ? "rejected." + ((t = e.statusCode) != null ? t : "none")
         : e.kind.toLowerCase();
     }
-    function k(e) {
+    function R(e) {
       return { kind: "failed", reason: e };
     }
-    l.publishHatchSpace = f;
+    l.publishHatchSpace = _;
   },
   98,
 );

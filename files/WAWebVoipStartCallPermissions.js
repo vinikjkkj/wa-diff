@@ -2,7 +2,6 @@ __d(
   "WAWebVoipStartCallPermissions",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WAWebBrowserPermissionSupport",
     "WAWebCallCollection",
@@ -14,7 +13,6 @@ __d(
     "WAWebVoipDevicePermissionDialogLoader.react",
     "WAWebVoipEventConstants",
     "WAWebVoipJoinWithoutCamera",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,18 +25,17 @@ __d(
       m,
       p,
       _,
-      f,
-      g = o("WAWebVoipEventConstants").getChangeEvent(
+      f = o("WAWebVoipEventConstants").getChangeEvent(
         o("WAWebVoipEventConstants").VoipCallCollectionEvents.ACTIVE_CALL,
       ),
-      h = {
+      g = {
         closeModal: o("WAWebModalManager").closeModalManager,
         openModal: function (t, n) {
           return o("WAWebModalManager").ModalManager.open(t, n);
         },
       };
-    function y() {
-      return C().catch(function (t) {
+    function h() {
+      return y().catch(function (t) {
         o("WALogger")
           .WARN(
             e ||
@@ -49,186 +46,139 @@ __d(
           .catching(r("getErrorSafe")(t));
       });
     }
-    function C() {
-      return b.apply(this, arguments);
+    async function y() {
+      if (
+        o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
+          "microphone",
+        )
+      ) {
+        var e = await o("WAWebVoipAcquireMediaStream").queryPermissionStatus(
+            !1,
+          ),
+          t = e.micPermission;
+        t !== "granted" &&
+          o(
+            "WAWebVoipDevicePermissionDialogLoader.react",
+          ).preloadDevicePermissionDialog();
+      }
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
-              "microphone",
+    async function C(e, t) {
+      var n = await R(e, t);
+      return (n == null && (await b(e, t)), n);
+    }
+    async function b(e, t) {
+      if (
+        !(
+          !o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled() || !S(t)
+        )
+      ) {
+        var n = await o("WAWebVoipAcquireMediaStream").queryPermissionStatus(e),
+          a = n.cameraPermission,
+          i = n.micPermission,
+          l = v(e, i, a);
+        if (!(l == null || !S(t)))
+          try {
+            var u = await r("JSResourceForInteraction")(
+              "WAWebCallUserJourneyCallStartBlocked",
             )
-          ) {
-            var e = yield o(
-                "WAWebVoipAcquireMediaStream",
-              ).queryPermissionStatus(!1),
-              t = e.micPermission;
-            t !== "granted" &&
-              o(
-                "WAWebVoipDevicePermissionDialogLoader.react",
-              ).preloadDevicePermissionDialog();
+              .__setRef("WAWebVoipStartCallPermissions")
+              .load();
+            S(t) && u(l);
+          } catch (e) {
+            o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [start call] blocked start logging failed to load",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e));
           }
-        })),
-        b.apply(this, arguments)
-      );
+      }
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield I(e, t);
-          return (n == null && (yield R(e, t)), n);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            !(
-              !o("WAWebCallUserJourneyGating").isCallUserJourneyM2Enabled() ||
-              !k(t)
-            )
-          ) {
-            var n = yield o(
-                "WAWebVoipAcquireMediaStream",
-              ).queryPermissionStatus(e),
-              a = n.cameraPermission,
-              i = n.micPermission,
-              l = E(e, i, a);
-            if (!(l == null || !k(t)))
-              try {
-                var s = yield r("JSResourceForInteraction")(
-                  "WAWebCallUserJourneyCallStartBlocked",
-                )
-                  .__setRef("WAWebVoipStartCallPermissions")
-                  .load();
-                k(t) && s(l);
-              } catch (e) {
-                o("WALogger")
-                  .WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [start call] blocked start logging failed to load",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e));
-              }
-          }
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e, t, n) {
+    function v(e, t, n) {
       return t !== "granted"
         ? "microphone"
         : e && n !== "granted"
           ? "camera"
           : null;
     }
-    function k(e) {
+    function S(e) {
       return !e.aborted && r("WAWebCallCollection").activeCall == null;
     }
-    function I(e, t) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var a = yield P(e),
-            i =
-              e &&
-              !(
-                (a == null ? void 0 : a.cameraPermission) === "denied" &&
-                o(
-                  "WAWebVoipBrowserPermissionButtonGating",
-                ).isBrowserPermissionButtonEnabled("microphone")
-              ),
-            l = (a == null ? void 0 : a.micPermission) === "denied",
-            s = null,
-            u = null,
-            c = yield o(
-              "WAWebVoipAcquireMediaStream",
-            ).checkVoipDevicePermissions(i, null, t, {
-              shouldOpenFailureGuide: (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var n, a;
-                    if (
-                      ((s = e === "denied" ? yield N(i) : null),
-                      ((n = s) == null ? void 0 : n.type) === "microphone")
-                    ) {
-                      var c = l ? "blocked_before" : "at_prompt";
-                      e: {
-                        if (c === "at_prompt") {
-                          r("WAWebODS").incr(
-                            "web.call.start_mic_refused.at_prompt",
-                          );
-                          break e;
-                        }
-                        if (c === "blocked_before") {
-                          r("WAWebODS").incr(
-                            "web.call.start_mic_refused.blocked_before",
-                          );
-                          break e;
-                        }
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            c,
-                        );
-                      }
-                      u = yield o(
-                        "WAWebVoipDevicePermissionDialogLoader.react",
-                      ).loadDevicePermissionDialog();
-                    }
-                    return (
-                      u == null &&
-                      ((a = s) == null ? void 0 : a.type) !== "camera" &&
-                      !t.aborted
+    async function R(e, t) {
+      var n = await k(e),
+        a =
+          e &&
+          !(
+            (n == null ? void 0 : n.cameraPermission) === "denied" &&
+            o(
+              "WAWebVoipBrowserPermissionButtonGating",
+            ).isBrowserPermissionButtonEnabled("microphone")
+          ),
+        i = (n == null ? void 0 : n.micPermission) === "denied",
+        l = null,
+        s = null,
+        c = await o("WAWebVoipAcquireMediaStream").checkVoipDevicePermissions(
+          a,
+          null,
+          t,
+          {
+            shouldOpenFailureGuide: async function (n) {
+              var e, u;
+              if (
+                ((l = n === "denied" ? await I(a) : null),
+                ((e = l) == null ? void 0 : e.type) === "microphone")
+              ) {
+                var c = i ? "blocked_before" : "at_prompt";
+                e: {
+                  if (c === "at_prompt") {
+                    r("WAWebODS").incr("web.call.start_mic_refused.at_prompt");
+                    break e;
+                  }
+                  if (c === "blocked_before") {
+                    r("WAWebODS").incr(
+                      "web.call.start_mic_refused.blocked_before",
                     );
-                  },
-                );
-                function a(t) {
-                  return e.apply(this, arguments);
+                    break e;
+                  }
+                  throw Error(
+                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                      c,
+                  );
                 }
-                return a;
-              })(),
-            });
-          if (c)
-            return e && !i
-              ? (o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [start call] camera blocked, starting the video call with the camera off",
-                    ])),
-                ),
-                B("blocked"))
-              : { cameraOff: null };
-          var d = s;
-          return t.aborted || d == null
+                s = await o(
+                  "WAWebVoipDevicePermissionDialogLoader.react",
+                ).loadDevicePermissionDialog();
+              }
+              return (
+                s == null &&
+                ((u = l) == null ? void 0 : u.type) !== "camera" &&
+                !t.aborted
+              );
+            },
+          },
+        );
+      if (c)
+        return e && !a
+          ? (o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [start call] camera blocked, starting the video call with the camera off",
+                ])),
+            ),
+            $("blocked"))
+          : { cameraOff: null };
+      var d = l;
+      return t.aborted || d == null
+        ? null
+        : d.type === "camera"
+          ? D(d.reason, t)
+          : s == null || !(await x(s, t))
             ? null
-            : d.type === "camera"
-              ? A(d.reason, t)
-              : u == null || !(yield O(u, t))
-                ? null
-                : x({
-                    asksCamera: i && l,
-                    checksCamera: i,
-                    isVideo: e,
-                    signal: t,
-                  });
-        })),
-        T.apply(this, arguments)
-      );
+            : E({ asksCamera: a && i, checksCamera: a, isVideo: e, signal: t });
     }
-    function D(e, t) {
+    function L(e, t) {
       var n = t.cameraOff;
       if (
         (o("WAWebVoipJoinWithoutCamera").setStartWithoutCamera(e, n != null),
@@ -255,200 +205,169 @@ __d(
           );
         }
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    async function E(e) {
+      var t = e.asksCamera,
+        n = e.checksCamera,
+        a = e.isVideo,
+        i = e.signal,
+        l = await o("WAWebVoipAcquireMediaStream").queryPermissionStatus(n),
+        s = l.cameraPermission,
+        u = n && (s === "granted" || (s === "prompt" && t)),
+        d = null,
+        m = await o("WAWebVoipAcquireMediaStream").checkVoipDevicePermissions(
+          u,
+          null,
+          i,
+          {
+            shouldOpenFailureGuide: async function (t) {
+              if (t !== "denied") return !0;
+              var e = await o(
+                "WAWebVoipAcquireMediaStream",
+              ).queryPermissionStatus(u);
+              return e.micPermission !== "granted"
+                ? !1
+                : u
+                  ? ((d = T(e)), !1)
+                  : !0;
+            },
+          },
+        );
+      if (m)
+        return a && !u
+          ? $(n ? "refused" : "blocked")
+          : r("WAWebCallCollection").activeCall != null
+            ? (o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [start call] another call came in during the recheck, not starting",
+                  ])),
+              ),
+              null)
+            : { cameraOff: null };
+      var p = d;
+      return p != null && !i.aborted ? D(p, i) : null;
     }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.asksCamera,
-            a = e.checksCamera,
-            i = e.isVideo,
-            l = e.signal,
-            s = yield o("WAWebVoipAcquireMediaStream").queryPermissionStatus(a),
-            u = s.cameraPermission,
-            c = a && (u === "granted" || (u === "prompt" && t)),
-            d = null,
-            m = yield o(
-              "WAWebVoipAcquireMediaStream",
-            ).checkVoipDevicePermissions(c, null, l, {
-              shouldOpenFailureGuide: (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    if (e !== "denied") return !0;
-                    var t = yield o(
-                      "WAWebVoipAcquireMediaStream",
-                    ).queryPermissionStatus(c);
-                    return t.micPermission !== "granted"
-                      ? !1
-                      : c
-                        ? ((d = w(t)), !1)
-                        : !0;
-                  },
-                );
-                function t(t) {
-                  return e.apply(this, arguments);
-                }
-                return t;
-              })(),
-            });
-          if (m)
-            return i && !c
-              ? B(a ? "refused" : "blocked")
-              : r("WAWebCallCollection").activeCall != null
-                ? (o("WALogger").LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [start call] another call came in during the recheck, not starting",
-                      ])),
-                  ),
-                  null)
-                : { cameraOff: null };
-          var _ = d;
-          return _ != null && !l.aborted ? A(_, l) : null;
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e) {
+    function k(e) {
       return o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
         "microphone",
       )
         ? o("WAWebVoipAcquireMediaStream").queryPermissionStatus(e)
-        : (f || (f = n("Promise"))).resolve(null);
+        : Promise.resolve(null);
     }
-    function N(e) {
-      return M.apply(this, arguments);
+    async function I(e) {
+      if (
+        !o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
+          "microphone",
+        )
+      )
+        return null;
+      var t = await o("WAWebVoipAcquireMediaStream").queryPermissionStatus(e);
+      return (t.micPermission === "granted" && !e) ||
+        !o(
+          "WAWebVoipBrowserPermissionButtonGating",
+        ).isBrowserPermissionButtonEnabled("microphone")
+        ? null
+        : t.micPermission !== "granted"
+          ? { type: "microphone" }
+          : { reason: T(t), type: "camera" };
     }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
-              "microphone",
-            )
-          )
-            return null;
-          var t = yield o("WAWebVoipAcquireMediaStream").queryPermissionStatus(
-            e,
-          );
-          return (t.micPermission === "granted" && !e) ||
-            !o(
-              "WAWebVoipBrowserPermissionButtonGating",
-            ).isBrowserPermissionButtonEnabled("microphone")
-            ? null
-            : t.micPermission !== "granted"
-              ? { type: "microphone" }
-              : { reason: w(t), type: "camera" };
-        })),
-        M.apply(this, arguments)
-      );
-    }
-    function w(e) {
+    function T(e) {
       return e.cameraPermission === "granted" ? "blocked_by_system" : "refused";
     }
-    function A(e, t) {
-      return F.apply(this, arguments);
-    }
-    function F() {
+    async function D(e, t) {
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (
-            o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [start call] camera ",
-                  ", starting the video call with the camera off",
-                ])),
-              e,
-            ),
-            (yield o("WAWebVoipAcquireMediaStream").checkVoipDevicePermissions(
-              !1,
-              null,
-              t,
-            ))
-              ? B(e)
-              : null
-          );
-        })),
-        F.apply(this, arguments)
+        o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [start call] camera ",
+              ", starting the video call with the camera off",
+            ])),
+          e,
+        ),
+        (await o("WAWebVoipAcquireMediaStream").checkVoipDevicePermissions(
+          !1,
+          null,
+          t,
+        ))
+          ? $(e)
+          : null
       );
     }
-    function O(e, t) {
+    function x(e, t) {
       return r("WAWebCallCollection").activeCall != null
         ? (o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [start call] another call came in before the microphone permission button",
               ])),
           ),
-          (f || (f = n("Promise"))).resolve(!1))
-        : new (f || (f = n("Promise")))(function (a) {
-            var i = new AbortController(),
-              l = null,
-              s = function () {
-                (f || (f = n("Promise"))).resolve().then(function () {
-                  return l == null ? void 0 : l(!1, "closed");
+          Promise.resolve(!1))
+        : new Promise(function (n) {
+            var a = new AbortController(),
+              i = null,
+              l = function () {
+                Promise.resolve().then(function () {
+                  return i == null ? void 0 : i(!1, "closed");
                 });
               },
-              c = function (t) {
-                (l == null || l(!1, t), i.abort());
+              s = function (t) {
+                (i == null || i(!1, t), a.abort());
               },
-              d = function () {
-                return c("cancelled with the call");
+              u = function () {
+                return s("cancelled with the call");
               },
-              m = function () {
+              c = function () {
                 r("WAWebCallCollection").activeCall != null &&
-                  c("another call came in");
+                  s("another call came in");
               };
-            ((l = function (n, i) {
-              ((l = null),
-                o("WAWebModalManager").ModalManager.off("open_modal", s),
-                o("WAWebModalManager").ModalManager.off("close_modal", s),
-                r("WAWebCallCollection").off(g, m),
-                t.removeEventListener("abort", d),
+            ((i = function (a, s) {
+              ((i = null),
+                o("WAWebModalManager").ModalManager.off("open_modal", l),
+                o("WAWebModalManager").ModalManager.off("close_modal", l),
+                r("WAWebCallCollection").off(f, c),
+                t.removeEventListener("abort", u),
                 o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [start call] microphone permission button ",
                       "",
                     ])),
-                  i,
+                  s,
                 ),
-                a(n));
+                n(a));
             }),
               o(
                 "WAWebVoipDevicePermissionDialogLoader.react",
-              ).openDevicePermissionDialog(h, e, {
+              ).openDevicePermissionDialog(g, e, {
                 action: "start",
-                cancelSignal: i.signal,
+                cancelSignal: a.signal,
                 onAllowed: function () {
-                  return l == null ? void 0 : l(!0, "allowed");
+                  return i == null ? void 0 : i(!0, "allowed");
                 },
                 onDismissed: function () {
-                  return l == null ? void 0 : l(!1, "dismissed");
+                  return i == null ? void 0 : i(!1, "dismissed");
                 },
               }),
-              o("WAWebModalManager").ModalManager.on("open_modal", s),
-              o("WAWebModalManager").ModalManager.on("close_modal", s),
-              r("WAWebCallCollection").on(g, m),
-              t.addEventListener("abort", d));
+              o("WAWebModalManager").ModalManager.on("open_modal", l),
+              o("WAWebModalManager").ModalManager.on("close_modal", l),
+              r("WAWebCallCollection").on(f, c),
+              t.addEventListener("abort", u));
           });
     }
-    function B(e) {
+    function $(e) {
       return r("WAWebCallCollection").activeCall != null
         ? (o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [start call] another call came in, not starting with the camera off",
               ])),
           ),
           null)
         : { cameraOff: e };
     }
-    ((l.preloadStartCallPermissionDialog = y),
-      (l.checkStartCallPermissions = v),
-      (l.markCallStart = D));
+    ((l.preloadStartCallPermissionDialog = h),
+      (l.checkStartCallPermissions = C),
+      (l.markCallStart = L));
   },
   98,
 );

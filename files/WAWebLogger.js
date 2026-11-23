@@ -11,7 +11,9 @@ __d(
     "cr:1106",
     "cr:35483",
     "err",
+    "fb-error",
     "gkx",
+    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -117,10 +119,34 @@ __d(
         s() && f(e.level, n);
       }
     }
-    function y(e, t, n) {
-      c(C(e, t, n));
+    function y(e, t, n, r) {
+      var o,
+        a = v(e, t, n);
+      c(
+        babelHelpers.extends({}, a, {
+          error:
+            (o = a.error) != null
+              ? o
+              : C(r, a.formatString + " (" + t + ")", a.sanitizedExpressions),
+        }),
+      );
     }
     function C(e, t, n) {
+      return b()
+        ? ((e.messageFormat = t),
+          (e.messageParams = [].concat(n)),
+          (e.name = "FBLogger"),
+          e)
+        : null;
+    }
+    function b() {
+      try {
+        return r("justknobx")._("3861");
+      } catch (e) {
+        return !1;
+      }
+    }
+    function v(e, t, n) {
       var r,
         a = e.expressions.find(function (e) {
           return e instanceof Error;
@@ -150,21 +176,21 @@ __d(
         error: a instanceof Error ? a : null,
       };
     }
-    function b(e) {
+    function S(e) {
       var t, n;
       return ((t = e.sendLogs) == null ? void 0 : t.skipFBLoggerReporting) ===
         !0 && ((n = e.sendLogs) == null ? void 0 : n.reportFreshFileLink) === !0
         ? { requireFreshFileId: !0 }
         : null;
     }
-    function v(e, t, n) {
+    function R(e, t, n) {
       return n == null
         ? r("WAWebNoop")
         : function (n) {
-            n == null || n === "" || S(C(e, t, n));
+            n == null || n === "" || L(v(e, t, n));
           };
     }
-    function S(e) {
+    function L(e) {
       c(
         babelHelpers.extends({}, e, {
           tags: [].concat(e.tags, [d]),
@@ -172,8 +198,8 @@ __d(
         }),
       );
     }
-    function R(e) {
-      var t = L(e),
+    function E(e) {
+      var t = k(e),
         n = e.formatString + " (" + e.reason + ")";
       if (e.level === "info") {
         t.info.apply(t, [n].concat(e.sanitizedExpressions));
@@ -181,21 +207,21 @@ __d(
       }
       t.mustfix.apply(t, [n].concat(e.sanitizedExpressions));
     }
-    function L(e) {
+    function k(e) {
       var t = o("WAWebFBLogger").WAWebFBLogger().tags(e.tags);
       return (
         e.error != null
           ? (t =
               e.level === "info"
-                ? t.catchingNormalizedError(E(e.error))
+                ? t.catchingNormalizedError(I(e.error))
                 : t.catching(e.error))
           : (t = t.blameToPreviousFrame().blameToPreviousFrame()),
         e.fileId != null && (t = t.addMetadata("WA_WEB", "FILE_ID", e.fileId)),
         t
       );
     }
-    function E(e) {
-      var t = k(e, 0);
+    function I(e) {
+      var t = T(e, 0);
       return (
         (t.type = "info"),
         (t.project = o("WAWebFBLogger").PROJECT[0]),
@@ -203,7 +229,7 @@ __d(
         r("ErrorNormalizeUtils").normalizeError(t)
       );
     }
-    function k(e, t) {
+    function T(e, t) {
       var n,
         o = r("err")(e.message);
       return (
@@ -238,11 +264,11 @@ __d(
         (o.deferredSource =
           e.deferredSource == null || t >= m
             ? void 0
-            : k(e.deferredSource, t + 1)),
+            : T(e.deferredSource, t + 1)),
         o
       );
     }
-    var I = {
+    var D = {
       info: function (t, n, r) {
         h(r);
       },
@@ -281,28 +307,32 @@ __d(
             m = t.expressions.find(function (e) {
               return e instanceof Error;
             }),
-            p = r("ErrorNormalizeUtils").normalizeError(
-              m != null ? m : r("err")("created for stack trace"),
-            ),
-            f = m ? [] : [o("WAWebLoggerImpl").STACK_TRACE_TAG],
-            h = o("WAWebLoggerImpl")
-              .Logger.log(d.level, t.verbose, p, !1, f)
+            p = r("err")("created for stack trace");
+          p.taalOpcodes = [
+            r("fb-error").TAALOpcode.PREVIOUS_FRAME,
+            r("fb-error").TAALOpcode.PREVIOUS_FRAME,
+            r("fb-error").TAALOpcode.PREVIOUS_FRAME,
+          ];
+          var f = r("ErrorNormalizeUtils").normalizeError(m != null ? m : p),
+            h = m ? [] : [o("WAWebLoggerImpl").STACK_TRACE_TAG],
+            C = o("WAWebLoggerImpl")
+              .Logger.log(d.level, t.verbose, f, !1, h)
               .apply(void 0, [t.template].concat(t.expressions));
-          g(t.level, h);
-          var C = o("WAWebLoggerImpl")
+          g(t.level, C);
+          var b = o("WAWebLoggerImpl")
             .Logger.log(d.level, t.verbose, void 0, !0, t.tags)
             .apply(void 0, [t.template].concat(t.expressions));
-          g(t.level, C);
-          var S =
+          g(t.level, b);
+          var v =
               (e = (n = t.sendLogs) == null ? void 0 : n.reason) != null
                 ? e
                 : "www_sendlogs_undefined",
-            R =
+            L =
               ((a = t.sendLogs) == null ? void 0 : a.skipFBLoggerReporting) ===
               !0,
-            L = b(t),
-            E = u(
-              S,
+            E = S(t),
+            k = u(
+              v,
               babelHelpers.extends(
                 {
                   sampling: (i = t.sendLogs) == null ? void 0 : i.sampling,
@@ -314,25 +344,25 @@ __d(
                   employeeSampling:
                     (c = t.sendLogs) == null ? void 0 : c.employeeSampling,
                 },
-                L,
+                E,
               ),
             );
-          if ((E.catch(function (e) {}), R)) {
-            E.then(v(t, S, L)).catch(r("WAWebNoop"));
+          if ((k.catch(function (e) {}), L)) {
+            k.then(R(t, v, E)).catch(r("WAWebNoop"));
             return;
           }
-          E.then(function (e) {
-            y(t, S, e);
+          k.then(function (e) {
+            y(t, v, e, p);
           }).catch(function () {
-            y(t, S, null);
+            y(t, v, null, p);
           });
         }
       },
     };
-    function T(e, t) {
-      ((u = e), (c = t), o("WATagsLogger").initializeWaLogger(I));
+    function x(e, t) {
+      ((u = e), (c = t), o("WATagsLogger").initializeWaLogger(D));
     }
-    ((l.logToFBLoggerLocal = R), (l.initializeWAWebLogger = T));
+    ((l.logToFBLoggerLocal = E), (l.initializeWAWebLogger = x));
   },
   98,
 );

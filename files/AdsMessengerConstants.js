@@ -31,122 +31,92 @@ __d(
       N = "UNDEFINED",
       M = "{{user_first_name}}",
       w = "{{page_name}}",
-      A = s._(
-        /*BTDS*/ "Hi {firstname}! Please let us know how we can help you.",
-        [s._param("firstname", M)],
-      ),
-      F = s._(
-        /*BTDS*/ "Hi {firstname}! Please let us know how we can help you.",
-        [s._param("firstname", M)],
-      ),
-      O = s._(/*BTDS*/ "Hi! Please let us know how we can help you."),
-      B = s._(/*BTDS*/ "Hi!"),
-      W = s._(/*BTDS*/ "Hi {firstname}!", [s._param("firstname", M)]),
-      q = s._(
-        /*BTDS*/ "Hi {firstname}, we heard you\u2019d like to get offers and updates from {pagename}.",
-        [s._param("firstname", M), s._param("pagename", w)],
-      ),
-      U = s._(
-        /*BTDS*/ "Hi {firstname}! We wanted to follow up. Do you have any questions?",
-        [s._param("firstname", M)],
-      ),
-      V = s._(/*BTDS*/ "Hi {firstname}! Take a look at all our products", [
-        s._param("firstname", M),
-      ]),
-      H = s._(
-        /*BTDS*/ "Hi {firstname}! Let us know if you have questions about our products.",
-        [s._param("firstname", M)],
-      ),
-      G = s._(
-        /*BTDS*/ "Type a welcome message, like \u201cHi, we heard you\u2019d like to get offers and updates.\u201d",
-      ),
-      z = s._(/*BTDS*/ "Chat in Messenger"),
-      j = s._(/*BTDS*/ "Get updates on Messenger"),
-      K = s._(/*BTDS*/ "Play in Messenger"),
-      Q = [
-        s._(/*BTDS*/ "Can I learn more about your business?"),
-        s._(/*BTDS*/ "Can you tell me more about your ad?"),
-        s._(/*BTDS*/ "Is anyone available to chat?"),
-      ],
-      X = s._(/*BTDS*/ "Welcome message"),
-      Y = s._(/*BTDS*/ "Call to action"),
-      J = s._(/*BTDS*/ "Please enter a valid greeting."),
-      Z = s._(/*BTDS*/ "Please enter a valid question."),
+      A = s._(/*BTDS*/ "", [s._param("firstname", M)]),
+      F = s._(/*BTDS*/ "", [s._param("firstname", M)]),
+      O = s._(/*BTDS*/ ""),
+      B = s._(/*BTDS*/ ""),
+      W = s._(/*BTDS*/ "", [s._param("firstname", M)]),
+      q = s._(/*BTDS*/ "", [s._param("firstname", M), s._param("pagename", w)]),
+      U = s._(/*BTDS*/ "", [s._param("firstname", M)]),
+      V = s._(/*BTDS*/ "", [s._param("firstname", M)]),
+      H = s._(/*BTDS*/ "", [s._param("firstname", M)]),
+      G = s._(/*BTDS*/ ""),
+      z = s._(/*BTDS*/ ""),
+      j = s._(/*BTDS*/ ""),
+      K = s._(/*BTDS*/ ""),
+      Q = [s._(/*BTDS*/ ""), s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
+      X = s._(/*BTDS*/ ""),
+      Y = s._(/*BTDS*/ ""),
+      J = s._(/*BTDS*/ ""),
+      Z = s._(/*BTDS*/ ""),
       ee = "988798384511286",
-      te = s._(/*BTDS*/ "Duplicate"),
-      ne = s._(/*BTDS*/ "Create"),
-      re = s._(/*BTDS*/ "See more"),
-      oe = s._(/*BTDS*/ "See less"),
-      ae = s._(/*BTDS*/ "Greeting"),
-      ie = s._(/*BTDS*/ "Questions and responses"),
-      le = s._(/*BTDS*/ "Frequently asked questions"),
-      se = s._(/*BTDS*/ "Pre-filled message"),
-      ue = s._(/*BTDS*/ "Buttons"),
-      ce = s._(/*BTDS*/ "Quick replies"),
-      de = s._(/*BTDS*/ "Create chat"),
-      me = s._(/*BTDS*/ "Edit"),
-      pe = s._(/*BTDS*/ "Preview in Messenger"),
-      _e = s._(/*BTDS*/ "Preview in Instagram"),
-      fe = s._(/*BTDS*/ "Select template"),
-      ge = s._(/*BTDS*/ "Messenger only"),
-      he = s._(/*BTDS*/ "Text"),
-      ye = s._(/*BTDS*/ "Create new"),
-      Ce = s._(/*BTDS*/ "New or Existing"),
-      be = s._(/*BTDS*/ "Use existing"),
-      ve = s._(/*BTDS*/ "Hello! Can I get more info on this?"),
-      Se = s._(/*BTDS*/ "You can give us a call for more information."),
-      Re = s._(/*BTDS*/ "Call now to get faster service."),
-      Le = s._(
-        /*BTDS*/ "Now it\u2019s easier to add an image to your greeting to help increase interaction with your message.",
-      );
+      te = s._(/*BTDS*/ ""),
+      ne = s._(/*BTDS*/ ""),
+      re = s._(/*BTDS*/ ""),
+      oe = s._(/*BTDS*/ ""),
+      ae = s._(/*BTDS*/ ""),
+      ie = s._(/*BTDS*/ ""),
+      le = s._(/*BTDS*/ ""),
+      se = s._(/*BTDS*/ ""),
+      ue = s._(/*BTDS*/ ""),
+      ce = s._(/*BTDS*/ ""),
+      de = s._(/*BTDS*/ ""),
+      me = s._(/*BTDS*/ ""),
+      pe = s._(/*BTDS*/ ""),
+      _e = s._(/*BTDS*/ ""),
+      fe = s._(/*BTDS*/ ""),
+      ge = s._(/*BTDS*/ ""),
+      he = s._(/*BTDS*/ ""),
+      ye = s._(/*BTDS*/ ""),
+      Ce = s._(/*BTDS*/ ""),
+      be = s._(/*BTDS*/ ""),
+      ve = s._(/*BTDS*/ ""),
+      Se = s._(/*BTDS*/ ""),
+      Re = s._(/*BTDS*/ ""),
+      Le = s._(/*BTDS*/ "");
     function Ee(e) {
       return e === r("AdCampaignDestination").WHATSAPP
-        ? s._(/*BTDS*/ "Select sequence")
-        : s._(/*BTDS*/ "Select flow");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function ke(e) {
       return e === r("AdCampaignDestination").WHATSAPP
-        ? s._(/*BTDS*/ "Message sequence")
-        : s._(/*BTDS*/ "Message flow");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
-    var Ie = s._(/*BTDS*/ "Partner app"),
-      Te = s._(/*BTDS*/ "Select app");
+    var Ie = s._(/*BTDS*/ ""),
+      Te = s._(/*BTDS*/ "");
     function De(e) {
       return e === r("AdCampaignDestination").WHATSAPP
-        ? s._(/*BTDS*/ "Select message sequence")
-        : s._(/*BTDS*/ "Select message flow");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
-    var xe = s._(
-      /*BTDS*/ "Customize your own template with JSON code in our code editor.",
-    );
+    var xe = s._(/*BTDS*/ "");
     function $e(e) {
       return e === r("AdCampaignDestination").WHATSAPP
-        ? s._(
-            /*BTDS*/ "Use an existing message sequence from a partner messaging app.",
-          )
-        : s._(
-            /*BTDS*/ "Use an existing message flow from a partner messaging app. You can select the flow or enter JSON code.",
-          );
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
-    var Pe = s._(/*BTDS*/ "Preview in"),
-      Ne = s._(/*BTDS*/ "Messenger"),
-      Me = s._(/*BTDS*/ "Instagram");
+    var Pe = s._(/*BTDS*/ ""),
+      Ne = s._(/*BTDS*/ ""),
+      Me = s._(/*BTDS*/ "");
     function we(e) {
       return e === r("AdCampaignDestination").WHATSAPP
-        ? s._(/*BTDS*/ "Select Message sequence")
-        : s._(/*BTDS*/ "Select Message flow");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
-    var Ae = s._(/*BTDS*/ "Enter JSON Code"),
-      Fe = s._(/*BTDS*/ "[Image included]"),
-      Oe = s._(/*BTDS*/ "[Video included]"),
-      Be = s._(/*BTDS*/ "Add responses"),
-      We = s._(/*BTDS*/ "Business chat"),
-      qe = s._(/*BTDS*/ "Your Messenger link"),
-      Ue = s._(/*BTDS*/ "Welcome! Please fill out the form below to sign up!"),
-      Ve = s._(
-        /*BTDS*/ "Thanks for your interest! Share more info with us to get started.",
-      ),
-      He = s._(/*BTDS*/ "Frequently asked questions are from Business Suite.");
+    var Ae = s._(/*BTDS*/ ""),
+      Fe = s._(/*BTDS*/ ""),
+      Oe = s._(/*BTDS*/ ""),
+      Be = s._(/*BTDS*/ ""),
+      We = s._(/*BTDS*/ ""),
+      qe = s._(/*BTDS*/ ""),
+      Ue = s._(/*BTDS*/ ""),
+      Ve = s._(/*BTDS*/ ""),
+      He = s._(/*BTDS*/ ""),
+      Ge = s._(/*BTDS*/ ""),
+      ze = s._(/*BTDS*/ ""),
+      je = s._(/*BTDS*/ "");
     ((l.EMPTY_MESSENGER_LINK = e),
       (l.JSON_BLOB = u),
       (l.MESSENGER_PREFIX = c),
@@ -235,7 +205,10 @@ __d(
       (l.ADS_EXTRA_MENTION_DROP_DOWN_MENU_MME_LINK_SUBTITLE = qe),
       (l.FLOWS_DEFAULT_MESSAGE = Ue),
       (l.FLOWS_GET_STARTED_DEFAULT_MESSAGE = Ve),
-      (l.INBOX_FAQS_TOOLTIP_L1_PREVIEW = He));
+      (l.INBOX_FAQS_TOOLTIP_L1_PREVIEW = He),
+      (l.AI_GEN_AUTOMATED_RESPONSE_MESSENGER_ONLY_TOOLTIP = Ge),
+      (l.AI_GEN_AUTOMATED_RESPONSE_MESSENGER_AND_INSTAGRAM_TOOLTIP = ze),
+      (l.AI_GEN_AUTOMATED_RESPONSE_INSTAGRAM_ONLY_TOOLTIP = je));
   },
   226,
 );

@@ -7,7 +7,6 @@ __d(
     "WebBloksStyle",
     "WebBloksTreeResources",
     "react",
-    "react-compiler-runtime",
     "useWebBloksAccessibilityModule",
   ],
   function (t, n, r, o, a, i, l) {
@@ -51,212 +50,119 @@ __d(
         },
       });
     function p(e) {
-      var t = o("react-compiler-runtime").c(41),
-        n = e.objectSet,
-        a = n.toastManager,
-        i;
-      t[0] !== a
-        ? ((i = function () {
-            return a.getEmptyState();
-          }),
-          (t[0] = a),
-          (t[1] = i))
-        : (i = t[1]);
-      var l = d(i),
-        u = l[0],
-        p = l[1],
-        _,
-        f;
-      (t[2] !== a
-        ? ((_ = function () {
-            var e = a.addListener(p);
-            return function () {
-              e.remove();
-            };
-          }),
-          (f = [a]),
-          (t[2] = a),
-          (t[3] = _),
-          (t[4] = f))
-        : ((_ = t[3]), (f = t[4])),
-        c(_, f));
-      var g = r("useWebBloksAccessibilityModule")(),
-        h = g.FocusRegion,
-        y = u.currentToast,
-        C = u.isToastHiding,
-        b = (y == null || C) && m.defaultInnerContainerHidden,
-        v;
-      t[5] !== b
-        ? ((v = o("WebBloksStyle").classNames(m.defaultInnerContainer, b)),
-          (t[5] = b),
-          (t[6] = v))
-        : (v = t[6]);
-      var S = v,
-        R = (y == null || C) && m.miniToastInnerContainerHidden,
-        L;
-      t[7] !== R
-        ? ((L = o("WebBloksStyle").classNames(m.miniToastInnerContainer, R)),
-          (t[7] = R),
-          (t[8] = L))
-        : (L = t[8]);
-      var E = L,
-        k = null,
-        I = null,
-        T = 0,
-        D = "ease-out";
-      if (y != null) {
-        e: switch (y.type) {
+      var t = e.objectSet,
+        n = t.toastManager,
+        a = d(function () {
+          return n.getEmptyState();
+        }),
+        i = a[0],
+        l = a[1];
+      c(
+        function () {
+          var e = n.addListener(l);
+          return function () {
+            e.remove();
+          };
+        },
+        [n],
+      );
+      var u = r("useWebBloksAccessibilityModule")(),
+        p = u.FocusRegion,
+        _ = i.currentToast,
+        f = i.isToastHiding,
+        g = o("WebBloksStyle").classNames(
+          m.defaultInnerContainer,
+          (_ == null || f) && m.defaultInnerContainerHidden,
+        ),
+        h = o("WebBloksStyle").classNames(
+          m.miniToastInnerContainer,
+          (_ == null || f) && m.miniToastInnerContainerHidden,
+        ),
+        y = null,
+        C = null,
+        b = 0,
+        v = "ease-out";
+      if (_ != null) {
+        switch (_.type) {
           case "simple": {
-            k = y.component;
-            break e;
+            y = _.component;
+            break;
           }
           case "bloksModel": {
-            var x;
-            t[9] !== y.model || t[10] !== n
-              ? ((x = o("WebBloksScreen").WebBloksScreen.fromBloksModel(
-                  n,
-                  y.model,
-                  o("WebBloksTreeResources").WebBloksTreeResources.empty(),
-                  { isModal: !1, isEmbedded: !0 },
-                )),
-                (t[9] = y.model),
-                (t[10] = n),
-                (t[11] = x))
-              : (x = t[11]);
-            var $ = x,
-              P;
-            (t[12] !== $
-              ? ((P = s.jsx(
-                  r("WebBloksScreenHost"),
-                  { screen: $ },
-                  $.screenId,
-                )),
-                (t[12] = $),
-                (t[13] = P))
-              : (P = t[13]),
-              (k = P));
-            break e;
+            var S = o("WebBloksScreen").WebBloksScreen.fromBloksModel(
+              t,
+              _.model,
+              o("WebBloksTreeResources").WebBloksTreeResources.empty(),
+              { isModal: !1, isEmbedded: !0 },
+            );
+            y = s.jsx(r("WebBloksScreenHost"), { screen: S }, S.screenId);
+            break;
           }
           case "bloksParseResult": {
-            var N;
-            t[14] !== y.parseResult || t[15] !== n
-              ? ((N = o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(
-                  n,
-                  y.parseResult,
-                  { isModal: !1, isEmbedded: !0 },
-                )),
-                (t[14] = y.parseResult),
-                (t[15] = n),
-                (t[16] = N))
-              : (N = t[16]);
-            var M = N,
-              w;
-            (t[17] !== M
-              ? ((w = s.jsx(
-                  r("WebBloksScreenHost"),
-                  { screen: M },
-                  M.screenId,
-                )),
-                (t[17] = M),
-                (t[18] = w))
-              : (w = t[18]),
-              (k = w));
-            break e;
+            var R = o("WebBloksScreen").WebBloksScreen.fromBloksParseResult(
+              t,
+              _.parseResult,
+              { isModal: !1, isEmbedded: !0 },
+            );
+            y = s.jsx(r("WebBloksScreenHost"), { screen: R }, R.screenId);
+            break;
           }
-          case "mini":
-            I = y.component;
+          case "mini": {
+            C = _.component;
+            break;
+          }
         }
-        C
-          ? ((T = y.options.showAnimationDurationMs / 1e3),
-            (D = y.options.showAnimationInterpolator))
-          : ((T = y.options.dismissAnimationDurationMs / 1e3),
-            (D = y.options.dismissAnimationInterpolator));
+        f
+          ? ((b = _.options.showAnimationDurationMs / 1e3),
+            (v = _.options.showAnimationInterpolator))
+          : ((b = _.options.dismissAnimationDurationMs / 1e3),
+            (v = _.options.dismissAnimationInterpolator));
       }
-      if (k != null) {
-        var A;
-        (t[19] !== h || t[20] !== k
-          ? ((A = s.jsx(h, {
-              autoFocusQuery: o("WebBloksFocusScopeQueries").tabbableScopeQuery,
-              autoRestoreFocus: !0,
-              containFocusQuery: o("WebBloksFocusScopeQueries")
-                .tabbableScopeQuery,
-              children: k,
-            })),
-            (t[19] = h),
-            (t[20] = k),
-            (t[21] = A))
-          : (A = t[21]),
-          (k = A));
-      }
-      if (I != null) {
-        var F;
-        (t[22] !== h || t[23] !== I
-          ? ((F = s.jsx(h, {
-              autoFocusQuery: o("WebBloksFocusScopeQueries").tabbableScopeQuery,
-              autoRestoreFocus: !0,
-              containFocusQuery: o("WebBloksFocusScopeQueries")
-                .tabbableScopeQuery,
-              children: I,
-            })),
-            (t[22] = h),
-            (t[23] = I),
-            (t[24] = F))
-          : (F = t[24]),
-          (I = F));
-      }
-      var O = C ? void 0 : "alert",
-        B = "transform " + T + "s " + D,
-        W;
-      t[25] !== B
-        ? ((W = { transition: B }), (t[25] = B), (t[26] = W))
-        : (W = t[26]);
-      var q;
-      t[27] !== k || t[28] !== S || t[29] !== W
-        ? ((q = s.jsx("div", {
-            className: m.defaultRoot,
-            children: s.jsx("div", { className: S, style: W, children: k }),
-          })),
-          (t[27] = k),
-          (t[28] = S),
-          (t[29] = W),
-          (t[30] = q))
-        : (q = t[30]);
-      var U = "opacity " + T + "s " + D,
-        V;
-      t[31] !== U
-        ? ((V = { transition: U }), (t[31] = U), (t[32] = V))
-        : (V = t[32]);
-      var H;
-      t[33] !== I || t[34] !== E || t[35] !== V
-        ? ((H = s.jsx("div", {
-            className: m.miniToastRoot,
-            children: s.jsx("div", { className: E, style: V, children: I }),
-          })),
-          (t[33] = I),
-          (t[34] = E),
-          (t[35] = V),
-          (t[36] = H))
-        : (H = t[36]);
-      var G;
       return (
-        t[37] !== q || t[38] !== H || t[39] !== O
-          ? ((G = s.jsxs("div", {
-              role: O,
-              "aria-atomic": "true",
-              name: "WebBloksToastPresenter",
-              "data-testid": void 0,
-              className: m.root,
-              children: [q, H],
-            })),
-            (t[37] = q),
-            (t[38] = H),
-            (t[39] = O),
-            (t[40] = G))
-          : (G = t[40]),
-        G
+        y != null &&
+          (y = s.jsx(p, {
+            autoFocusQuery: o("WebBloksFocusScopeQueries").tabbableScopeQuery,
+            autoRestoreFocus: !0,
+            containFocusQuery: o("WebBloksFocusScopeQueries")
+              .tabbableScopeQuery,
+            children: y,
+          })),
+        C != null &&
+          (C = s.jsx(p, {
+            autoFocusQuery: o("WebBloksFocusScopeQueries").tabbableScopeQuery,
+            autoRestoreFocus: !0,
+            containFocusQuery: o("WebBloksFocusScopeQueries")
+              .tabbableScopeQuery,
+            children: C,
+          })),
+        s.jsxs("div", {
+          role: f ? void 0 : "alert",
+          "aria-atomic": "true",
+          name: "WebBloksToastPresenter",
+          "data-testid": void 0,
+          className: m.root,
+          children: [
+            s.jsx("div", {
+              className: m.defaultRoot,
+              children: s.jsx("div", {
+                className: g,
+                style: { transition: "transform " + b + "s " + v },
+                children: y,
+              }),
+            }),
+            s.jsx("div", {
+              className: m.miniToastRoot,
+              children: s.jsx("div", {
+                className: h,
+                style: { transition: "opacity " + b + "s " + v },
+                children: C,
+              }),
+            }),
+          ],
+        })
       );
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

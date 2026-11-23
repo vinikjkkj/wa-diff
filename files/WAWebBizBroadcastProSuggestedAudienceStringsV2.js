@@ -7,13 +7,13 @@ __d(
     }
     function u(e) {
       return e === "active_chats"
-        ? r("fbs")._(/*BTDS*/ "Active chats")
+        ? r("fbs")._(/*BTDS*/ "")
         : e === "inactive_chats"
-          ? r("fbs")._(/*BTDS*/ "Inactive chats")
+          ? r("fbs")._(/*BTDS*/ "")
           : e === "largest_list"
-            ? r("fbs")._(/*BTDS*/ "Your largest list")
+            ? r("fbs")._(/*BTDS*/ "")
             : e === "all_contacts"
-              ? r("fbs")._(/*BTDS*/ "Your WhatsApp contacts")
+              ? r("fbs")._(/*BTDS*/ "")
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -28,19 +28,13 @@ __d(
             "WAWebBizBroadcastProSuggestedAudiencePresetsV2",
           ).DEFAULT_PRO_AUDIENCE_DAYS),
         e === "active_chats"
-          ? s._(
-              /*BTDS*/ '_j{"*":"People who messaged you in the last {days} days, based on chat history on this device."}',
-              [s._param("days", t, [0])],
-            )
+          ? s._(/*BTDS*/ "", [s._param("days", t, [0])])
           : e === "inactive_chats"
-            ? s._(
-                /*BTDS*/ '_j{"*":"People with chat history on this device who have not messaged you in the last {days} days."}',
-                [s._param("days", t, [0])],
-              )
+            ? s._(/*BTDS*/ "", [s._param("days", t, [0])])
             : e === "largest_list"
-              ? s._(/*BTDS*/ "People in your largest WhatsApp list.")
+              ? s._(/*BTDS*/ "")
               : e === "all_contacts"
-                ? s._(/*BTDS*/ "Contacts saved to your WhatsApp address book.")
+                ? s._(/*BTDS*/ "")
                 : (function () {
                     throw Error(
                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -51,17 +45,17 @@ __d(
     }
     function d(e) {
       return e === 7
-        ? r("fbs")._(/*BTDS*/ "Last 7 days")
+        ? r("fbs")._(/*BTDS*/ "")
         : e === 14
-          ? r("fbs")._(/*BTDS*/ "Last 14 days")
+          ? r("fbs")._(/*BTDS*/ "")
           : e === 30
-            ? r("fbs")._(/*BTDS*/ "Last 30 days")
+            ? r("fbs")._(/*BTDS*/ "")
             : e === 90
-              ? r("fbs")._(/*BTDS*/ "Last 3 months")
+              ? r("fbs")._(/*BTDS*/ "")
               : e === 180
-                ? r("fbs")._(/*BTDS*/ "Last 6 months")
+                ? r("fbs")._(/*BTDS*/ "")
                 : e === 365
-                  ? r("fbs")._(/*BTDS*/ "Last year")
+                  ? r("fbs")._(/*BTDS*/ "")
                   : (function () {
                       throw Error(
                         "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -73,60 +67,49 @@ __d(
       return o(
         "WAWebBizBroadcastProSuggestedAudiencePresetsV2",
       ).hasProAudiencePeriod(e)
-        ? s._(
-            /*BTDS*/ '_j{"*":"{number} recipients \\u00b7 {period}","_1":"1 recipient \\u00b7 {period}"}',
-            [
-              s._plural(t, "number"),
-              s._param(
-                "period",
-                d(
-                  o("WAWebBizBroadcastProSuggestedAudiencePresetsV2")
-                    .DEFAULT_PRO_AUDIENCE_DAYS,
-                ),
-              ),
-            ],
-          )
-        : s._(/*BTDS*/ '_j{"*":"{number} recipients","_1":"1 recipient"}', [
+        ? s._(/*BTDS*/ "", [
             s._plural(t, "number"),
-          ]);
+            s._param(
+              "period",
+              d(
+                o("WAWebBizBroadcastProSuggestedAudiencePresetsV2")
+                  .DEFAULT_PRO_AUDIENCE_DAYS,
+              ),
+            ),
+          ])
+        : s._(/*BTDS*/ "", [s._plural(t, "number")]);
     }
     function p(e, t) {
       var n = u(e);
       return o(
         "WAWebBizBroadcastProSuggestedAudiencePresetsV2",
       ).hasProAudiencePeriod(e)
-        ? r("fbs")._(/*BTDS*/ "{audience title} ({period})", [
+        ? r("fbs")._(/*BTDS*/ "", [
             r("fbs")._param("audience title", n),
             r("fbs")._param("period", d(t)),
           ])
         : n;
     }
     function _() {
-      return s._(/*BTDS*/ "Suggested audiences");
+      return s._(/*BTDS*/ "");
     }
     function f() {
-      return s._(/*BTDS*/ "Could not load this suggested audience.");
+      return s._(/*BTDS*/ "");
     }
     function g() {
-      return s._(/*BTDS*/ "Retry");
+      return s._(/*BTDS*/ "");
     }
     function h() {
-      return s._(/*BTDS*/ "Choose manually");
+      return s._(/*BTDS*/ "");
     }
     function y(e) {
-      return s._(
-        /*BTDS*/ "This suggested audience is unavailable. You can choose contacts manually.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(
-        /*BTDS*/ "No eligible contacts match this suggested audience. You can choose contacts manually.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function b() {
-      return s._(
-        /*BTDS*/ "Not enough eligible contacts match this suggested audience. You can choose contacts manually.",
-      );
+      return s._(/*BTDS*/ "");
     }
     ((l.getProSuggestedAudienceDisplayTitle = e),
       (l.getProSuggestedAudienceTitle = u),

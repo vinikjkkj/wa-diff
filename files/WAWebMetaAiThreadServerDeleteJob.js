@@ -8,7 +8,6 @@ __d(
     "WAWebDefinePersistedJob",
     "WAWebNetworkStatus",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -22,73 +21,49 @@ __d(
           first: o("WATimeUtils").MINUTE_MILLISECONDS,
         },
       };
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      var t = o("WAWebUserUtils").getMeLidUserOrThrow().toString(),
+        n = await s.load();
+      return n.enqueueMetaAiThreadServerDelete(e, t);
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserUtils").getMeLidUserOrThrow().toString(),
-            n = yield s.load();
-          return n.enqueueMetaAiThreadServerDelete(e, t);
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    var p = o("WAWebDefinePersistedJob")
+    var m = o("WAWebDefinePersistedJob")
       .defineWebPersistedJob()
       .finalStep("deleteOnServer", function (e) {
-        return _(e);
+        return p(e);
       })
       .end();
-    function _(e) {
-      return f.apply(this, arguments);
+    async function p(e) {
+      await r("WAWebNetworkStatus").waitIfOffline();
+      var t = await f();
+      if (t == null) {
+        _();
+        return;
+      }
+      await t.deleteOnServer(e);
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield r("WAWebNetworkStatus").waitIfOffline();
-          var t = yield h();
-          if (t == null) {
-            g();
-            return;
-          }
-          yield t.deleteOnServer(e);
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g() {
+    function _() {
       throw new (o("WAPersistedJobManager").RetryOnBackoff)(c);
     }
-    function h() {
-      return y.apply(this, arguments);
+    async function f() {
+      try {
+        return await s.load();
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[meta-ai-thread-server-delete] module-load-failed class=",
+                  "",
+                ])),
+              g(t),
+            )
+            .sendLogs("meta-ai-thread-server-delete-module-load-failed"),
+          null
+        );
+      }
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            return yield s.load();
-          } catch (t) {
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[meta-ai-thread-server-delete] module-load-failed class=",
-                      "",
-                    ])),
-                  C(t),
-                )
-                .sendLogs("meta-ai-thread-server-delete-module-load-failed"),
-              null
-            );
-          }
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
+    function g(e) {
       try {
         if (!(e instanceof Error)) return "NonError";
         var t = e.name;
@@ -99,8 +74,8 @@ __d(
     }
     ((l.JOB_TYPE = u),
       (l.enqueueMetaAiThreadServerDelete = d),
-      (l.metaAiThreadServerDeleteJob = p),
-      (l.retryOnBackoff = g));
+      (l.metaAiThreadServerDeleteJob = m),
+      (l.retryOnBackoff = _));
   },
   98,
 );

@@ -14,7 +14,6 @@ __d(
     "WAWebVoipStackInterface",
     "WAWebVoipTransferCall",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -48,164 +47,120 @@ __d(
           },
         },
       );
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()
-          ) {
-            if (o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
-              yield g(function (t) {
-                return t.openCallTransferLobby(e);
-              });
-              return;
-            }
-            yield y(e);
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
+    async function p(e) {
       if (!o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()) {
         if (o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
-          g(function (t) {
+          await f(function (t) {
+            return t.openCallTransferLobby(e);
+          });
+          return;
+        }
+        await g(e);
+      }
+    }
+    function _(e) {
+      if (!o("WAWebVoipCallBlockedModals").showNoConnectionModalIfOffline()) {
+        if (o("WAWebVoipGatingUtils").isWebCallingUiEnabled()) {
+          f(function (t) {
             return t.joinCallTransferWithoutLobby(e);
           });
           return;
         }
-        E(e);
+        b(e);
       }
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    async function f(e) {
+      var t;
+      try {
+        t = await m();
+      } catch (e) {
+        o(
+          "WAWebVoipHandleCallTransferFailed",
+        ).showCallTransferCouldNotConnectToast();
+        return;
+      }
+      e(t);
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          try {
-            t = yield m();
-          } catch (e) {
-            o(
-              "WAWebVoipHandleCallTransferFailed",
-            ).showCallTransferCouldNotConnectToast();
-            return;
-          }
-          e(t);
-        })),
-        h.apply(this, arguments)
-      );
+    async function g(e) {
+      var t = await h(),
+        n = o(
+          "WAWebVoipCallTransferEntryPointStore",
+        ).WAWebVoipCallTransferEntryPointStore.getForRootCallId(e.rootCallId);
+      if (n == null) {
+        (o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: nativeTransferLobby: entry point removed before the lobby opened",
+            ])),
+        ),
+          o(
+            "WAWebVoipHandleCallTransferFailed",
+          ).showCallTransferCouldNotConnectToast());
+        return;
+      }
+      (t != null && (await y(t, n))) || (await b(n));
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield b(),
-            n = o(
-              "WAWebVoipCallTransferEntryPointStore",
-            ).WAWebVoipCallTransferEntryPointStore.getForRootCallId(
-              e.rootCallId,
-            );
-          if (n == null) {
-            (o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: nativeTransferLobby: entry point removed before the lobby opened",
+    async function h() {
+      try {
+        return await o("WAWebVoipStackInterface").getVoipStackInterface();
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: nativeTransferLobby: loading the VoIP stack failed",
                 ])),
-            ),
-              o(
-                "WAWebVoipHandleCallTransferFailed",
-              ).showCallTransferCouldNotConnectToast());
-            return;
-          }
-          (t != null && (yield S(t, n))) || (yield E(n));
-        })),
-        C.apply(this, arguments)
-      );
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("voip-native-transfer-lobby-open-failed"),
+          null
+        );
+      }
     }
-    function b() {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            return yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: nativeTransferLobby: loading the VoIP stack failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("voip-native-transfer-lobby-open-failed"),
-              null
-            );
-          }
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e, t) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (e.type !== "windows") return !1;
-          try {
-            var n = o("WAWebContactCollection").ContactCollection.gadd(
-                o("WAWebWidFactory").asUserWidOrThrow(t.peerWid),
-                { silent: !0 },
-              ),
-              a = yield e.openCallTransferLobby({
-                rootCallId: t.rootCallId,
-                rootCallCreator: t.rootCallCreatorJid,
-                peerActiveDevice: t.peerActiveDeviceJid,
-                peerJid: t.peerWid.toString(),
-                peerName: L(n),
-                isVideoCall: t.isVideoCall,
-              });
-            if (!a) return !1;
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: nativeTransferLobby: opening the lobby failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("voip-native-transfer-lobby-open-failed"),
-              !1
-            );
-          }
-          return (
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: nativeTransferLobby: open rootCallId=",
-                  "",
+    async function y(e, t) {
+      if (e.type !== "windows") return !1;
+      try {
+        var n = o("WAWebContactCollection").ContactCollection.gadd(
+            o("WAWebWidFactory").asUserWidOrThrow(t.peerWid),
+            { silent: !0 },
+          ),
+          a = await e.openCallTransferLobby({
+            rootCallId: t.rootCallId,
+            rootCallCreator: t.rootCallCreatorJid,
+            peerActiveDevice: t.peerActiveDeviceJid,
+            peerJid: t.peerWid.toString(),
+            peerName: C(n),
+            isVideoCall: t.isVideoCall,
+          });
+        if (!a) return !1;
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: nativeTransferLobby: opening the lobby failed",
                 ])),
-              t.rootCallId,
-            ),
-            !0
-          );
-        })),
-        R.apply(this, arguments)
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("voip-native-transfer-lobby-open-failed"),
+          !1
+        );
+      }
+      return (
+        o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: nativeTransferLobby: open rootCallId=",
+              "",
+            ])),
+          t.rootCallId,
+        ),
+        !0
       );
     }
-    function L(e) {
+    function C(e) {
       var t,
         n = o("WAWebFrontendContactGetters").getFormattedName(e);
       if (n !== "") return n;
@@ -217,30 +172,22 @@ __d(
           : t.displayName;
       return r != null ? "~" + r : "";
     }
-    function E(e) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebVoipTransferCall",
-          ).transferWAWebVoipCallToThisDevice({
-            hasVideo: e.isVideoCall,
-            peerActiveDevice: e.peerActiveDeviceJid,
-            rootCallCreator: e.rootCallCreatorJid,
-            rootCallId: e.rootCallId,
-          });
-          t ||
-            o(
-              "WAWebVoipHandleCallTransferFailed",
-            ).showCallTransferCouldNotConnectToast();
-        })),
-        k.apply(this, arguments)
-      );
+    async function b(e) {
+      var t = await o(
+        "WAWebVoipTransferCall",
+      ).transferWAWebVoipCallToThisDevice({
+        hasVideo: e.isVideoCall,
+        peerActiveDevice: e.peerActiveDeviceJid,
+        rootCallCreator: e.rootCallCreatorJid,
+        rootCallId: e.rootCallId,
+      });
+      t ||
+        o(
+          "WAWebVoipHandleCallTransferFailed",
+        ).showCallTransferCouldNotConnectToast();
     }
     ((l.joinTransferableCallHere = p),
-      (l.joinTransferableCallWithoutLobby = f));
+      (l.joinTransferableCallWithoutLobby = _));
   },
   98,
 );

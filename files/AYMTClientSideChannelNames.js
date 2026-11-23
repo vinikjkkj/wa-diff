@@ -18,6 +18,8 @@ __d(
         "AYMTEventsManagerOfflineDSChannel",
       AYMT_EVENTS_MANAGER_DS_LISTING_SCREEN_CHANNEL:
         "AYMTEventsManagerDSListingScreenChannel",
+      AYMT_EVENTS_MANAGER_LEGAL_NOTICE_CHANNEL:
+        "AYMTEventsManagerLegalNoticeChannel",
       AYMT_CREATOR_STUDIO_ANNOUNCEMENT_CARD_CHANNEL:
         "AYMTCreatorStudioAnnouncementCardChannel",
       AYMT_ASSET_LIBRARY_CHANNEL: "AYMTAssetLibraryChannel",
@@ -60,6 +62,12 @@ __d(
       AYMT_BUSINESS_SUPPORT_BANNER_CHANNEL: "AYMTBusinessSupportBannerChannel",
       AYMT_UBS_WHATS_APP_SECTION_CHANNEL: "AYMTUBSWhatsAppSectionChannel",
       AYMT_PARTNER_SHOWCASE_CHANNEL: "AYMTPartnerShowcaseChannel",
+      AYMT_WHATSAPP_MANAGER_GUIDANCE_CARD_CHANNEL:
+        "AYMTWhatsAppManagerGuidanceCardChannel",
+      AYMT_WHATSAPP_MANAGER_GROWTH_CARD_CHANNEL:
+        "AYMTWhatsAppManagerGrowthCardChannel",
+      AYMT_WHATSAPP_MANAGER_PROMO_CARD_CHANNEL:
+        "AYMTWhatsAppManagerPromoCardChannel",
       AYMT_AMD_ANCHORLESS_NUX_CHANNEL: "AYMTAMDAnchorlessNUXChannel",
       AYMT_AM_MAIBA_MESSAGE_CHANNEL: "AYMTAMMAIBAMessageChannel",
       AYMT_MAIBA_IN_CHAT_CHANNEL: "AYMTMAIBAInChatChannel",

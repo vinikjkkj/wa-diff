@@ -17,7 +17,7 @@ __d(
     "AdsClickToCallAdsUtils",
     "AdsCollectionsAdUtils",
     "AdsDataAtom",
-    "AdsInstagramUserIdMigrationUtils",
+    "AdsIGIDv2MigrationAccessors",
     "AdsLocalUtils",
     "AdsMutators",
     "AdsObjectTypeUtils",
@@ -601,32 +601,32 @@ __d(
       a === void 0 && (a = null);
       var u = _(e, t),
         c = u.deletePaths,
-        d = u.overrideVideoDataFields;
-      a = (i = a || r("immutable").List([])).push.apply(i, c);
-      var m = r(
-        "AdsAdgroupRecordAccessors",
-      ).creative.object_story_spec.video_data.set(
-        new (r("AdsAPIAdgroupVideoDataRecord"))(
-          babelHelpers.extends(
-            {},
-            (l = n.creative) == null ||
-              (l = l.object_story_spec) == null ||
-              (l = l.video_data) == null
-              ? void 0
-              : l.toJS(),
-            d,
+        d = u.overrideVideoDataFields,
+        m = (i = a || r("immutable").List([])).push.apply(i, c),
+        p = r(
+          "AdsAdgroupRecordAccessors",
+        ).creative.object_story_spec.video_data.set(
+          new (r("AdsAPIAdgroupVideoDataRecord"))(
+            babelHelpers.extends(
+              {},
+              (l = n.creative) == null ||
+                (l = l.object_story_spec) == null ||
+                (l = l.video_data) == null
+                ? void 0
+                : l.toJS(),
+              d,
+            ),
           ),
-        ),
-        s,
-      );
+          s,
+        );
       return o(
         "AdsAdgroupPostTypeMutatorsUtils",
       ).convertPostTypeInAdgroupRecordUsingConfig(
         o("AdsAdgroupPostTypeMutatorsUtils").templateConversionConfig,
         o("AdsAdgroupPostTypeMutatorsUtils").videoConversionConfig,
         e,
+        p,
         m,
-        a,
       );
     }
     function v(e, t, n, a) {
@@ -640,13 +640,13 @@ __d(
             : i.template_data) || u,
         d = m(e, t, c.link),
         p = d.deletePaths,
-        _ = d.overrideDataFields;
-      a = (l = a || r("immutable").List([])).push.apply(l, p);
-      var f = babelHelpers.extends({}, c.toJS(), _),
-        g = r(
+        _ = d.overrideDataFields,
+        f = (l = a || r("immutable").List([])).push.apply(l, p),
+        g = babelHelpers.extends({}, c.toJS(), _),
+        h = r(
           "AdsAdgroupRecordAccessors",
         ).creative.object_story_spec.template_data.set(
-          new (r("AdsAPIAdgroupTemplateDataRecord"))(f),
+          new (r("AdsAPIAdgroupTemplateDataRecord"))(g),
           s,
         );
       return o(
@@ -655,8 +655,8 @@ __d(
         o("AdsAdgroupPostTypeMutatorsUtils").videoConversionConfig,
         o("AdsAdgroupPostTypeMutatorsUtils").templateConversionConfig,
         e,
-        g,
-        a,
+        h,
+        f,
       );
     }
     function S(t, n) {
@@ -840,7 +840,7 @@ __d(
               : i.page_id,
           ),
           o(
-            "AdsInstagramUserIdMigrationUtils",
+            "AdsIGIDv2MigrationAccessors",
           ).IGIDV2MigrationAccessors.creative.object_story_spec.instagram_user_id.set(
             (l = t.creative) == null || (l = l.object_story_spec) == null
               ? void 0
@@ -867,9 +867,8 @@ __d(
         )).creative.object_story_spec.template_data.set(
           new (r("AdsAPIAdgroupTemplateDataRecord"))({}),
           s,
-        );
-      return (
-        (e = o(
+        ),
+        a = o(
           "AdsAdgroupPostTypeMutatorsUtils",
         ).convertPostTypeInAdgroupRecordUsingConfig(
           o("AdsAdgroupPostTypeMutatorsUtils").linkConversionConfig,
@@ -879,13 +878,12 @@ __d(
           r("immutable").List([
             r("AdsAPIAdgroupPaths").CREATIVE.OBJECT_STORY_SPEC.LINK_DATA.path,
           ]),
-        )),
-        o("AdsMutators").chain(
-          t.creative.object_story_spec.template_data.image_hash.delete,
-          t.creative.object_story_spec.template_data.image_crops.delete,
-          t.creative.object_story_spec.template_data.picture.delete,
-        )(e)
-      );
+        );
+      return o("AdsMutators").chain(
+        t.creative.object_story_spec.template_data.image_hash.delete,
+        t.creative.object_story_spec.template_data.image_crops.delete,
+        t.creative.object_story_spec.template_data.picture.delete,
+      )(a);
     }
     function I(e, t) {
       var n = r(

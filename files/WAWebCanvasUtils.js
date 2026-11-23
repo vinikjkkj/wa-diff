@@ -1,19 +1,16 @@
 __d(
   "WAWebCanvasUtils",
   [
-    "Promise",
     "WAWebABProps",
     "WAWebDataUrlToBlob",
     "WAWebEncodeRgbaToWebp",
     "WAWebImageGeometry",
     "WAWebMediaOpaqueData",
-    "asyncToGeneratorRuntime",
     "err",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    function e(e) {
       var t = r("nullthrows")(e.getContext("2d")),
         n = t.getImageData(0, 0, e.width, e.height);
       return r("WAWebEncodeRgbaToWebp")({
@@ -23,32 +20,32 @@ __d(
         width: e.width,
       });
     }
-    function u(t, a) {
+    function s(e, t) {
       if (
-        (a === void 0 && (a = "image/jpeg"),
+        (t === void 0 && (t = "image/jpeg"),
         Object.hasOwn(HTMLCanvasElement.prototype, "toBlob"))
       ) {
-        var i =
-          a === "image/jpeg"
+        var n =
+          t === "image/jpeg"
             ? o("WAWebABProps").getABPropConfigValue("web_jpeg_quality") / 100
             : void 0;
-        return new (e || (e = n("Promise")))(function (e, n) {
-          t.toBlob(
-            function (t) {
-              t == null
-                ? n(r("err")("canvas.toBlob produced no " + a + " blob"))
-                : e(t);
+        return new Promise(function (o, a) {
+          e.toBlob(
+            function (e) {
+              e == null
+                ? a(r("err")("canvas.toBlob produced no " + t + " blob"))
+                : o(e);
             },
-            a,
-            i,
+            t,
+            n,
           );
         });
       }
-      return (e || (e = n("Promise"))).resolve(
-        o("WAWebDataUrlToBlob").dataURLtoBlob(t.toDataURL(a)),
+      return Promise.resolve(
+        o("WAWebDataUrlToBlob").dataURLtoBlob(e.toDataURL(t)),
       );
     }
-    function c(e, t, n) {
+    function u(e, t, n) {
       t === void 0 && (t = "image/jpeg");
       var r = e.toDataURL(t),
         a = o("WAWebDataUrlToBlob").dataURLtoBlob(r);
@@ -60,42 +57,34 @@ __d(
       }
       return null;
     }
-    function d(e, t, n) {
-      return m.apply(this, arguments);
+    async function c(e, t, n) {
+      for (
+        var o,
+          a,
+          i = n || {},
+          l = (o = i.mimetype) != null ? o : "image/jpeg",
+          u = (a = i.maxAttempts) != null ? a : 10,
+          c = 0.5,
+          d = e,
+          m = await s(d, l),
+          p = 0;
+        p < u && !(m.size <= t);
+        p++
+      ) {
+        var f = Math.floor(e.width * c),
+          g = Math.floor(e.height * c);
+        d = _(f, g);
+        var h = r("nullthrows")(d.getContext("2d"));
+        (h.drawImage(e, 0, 0, f, g), (m = await s(d, l)), (c *= 0.5));
+      }
+      return {
+        opaqueData: await r("WAWebMediaOpaqueData").createFromData(m, l),
+        width: d.width,
+        height: d.height,
+        dataUrl: d.toDataURL("image/jpeg"),
+      };
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          for (
-            var o,
-              a,
-              i = n || {},
-              l = (o = i.mimetype) != null ? o : "image/jpeg",
-              s = (a = i.maxAttempts) != null ? a : 10,
-              c = 0.5,
-              d = e,
-              m = yield u(d, l),
-              p = 0;
-            p < s && !(m.size <= t);
-            p++
-          ) {
-            var _ = Math.floor(e.width * c),
-              f = Math.floor(e.height * c);
-            d = g(_, f);
-            var h = r("nullthrows")(d.getContext("2d"));
-            (h.drawImage(e, 0, 0, _, f), (m = yield u(d, l)), (c *= 0.5));
-          }
-          return {
-            opaqueData: yield r("WAWebMediaOpaqueData").createFromData(m, l),
-            width: d.width,
-            height: d.height,
-            dataUrl: d.toDataURL("image/jpeg"),
-          };
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function d(e) {
       var t = r("nullthrows")(e.getContext("2d")),
         n = e.width,
         o = e.height,
@@ -106,28 +95,28 @@ __d(
         s = (i - o) / 2;
       (t.clearRect(0, 0, n, o), t.putImageData(a, l, s, 0, 0, n, o));
     }
-    function _(e, t) {
+    function m(e, t) {
       var n = r("nullthrows")(e.getContext("2d")),
-        a = h(e),
+        a = f(e),
         i = o("WAWebImageGeometry").aspectRatioScaled(e.width / e.height, t),
         l = i.height,
         s = i.width;
       ((e.width = s), (e.height = l), n.drawImage(a, 0, 0, s, l));
     }
-    function f(e) {
+    function p(e) {
       var t = r("nullthrows")(e.getContext("2d"));
       ((t.fillStyle = "rgb(247,247,247)"), t.fillRect(0, 0, e.width, e.height));
     }
-    function g(e, t) {
+    function _(e, t) {
       var n = document.createElement("canvas");
       return ((n.width = e), (n.height = t), n);
     }
-    function h(e) {
-      var t = g(e.width, e.height),
+    function f(e) {
+      var t = _(e.width, e.height),
         n = r("nullthrows")(t.getContext("2d"));
       return (n.drawImage(e, 0, 0), t);
     }
-    function y(e) {
+    function g(e) {
       var t = r("nullthrows")(e.getContext("2d")),
         n = t.getImageData(0, 0, e.width, e.height),
         o = n.data.length / 4,
@@ -138,7 +127,7 @@ __d(
       }
       return !0;
     }
-    function C(e) {
+    function h(e) {
       var t = r("nullthrows")(e.getContext("2d")),
         n = t.getImageData(0, 0, e.width, e.height),
         o = n.data.length / 4,
@@ -160,9 +149,9 @@ __d(
       }
       return { left: a, top: i, right: l, bottom: s };
     }
-    function b(e) {
-      if (!y(e)) {
-        var t = C(e),
+    function y(e) {
+      if (!g(e)) {
+        var t = h(e),
           n = t.bottom,
           o = t.left,
           a = t.right,
@@ -171,12 +160,12 @@ __d(
           s = a - o,
           u = r("nullthrows")(e.getContext("2d")),
           c = u.getImageData(o, i, s, l),
-          d = g(s, l),
+          d = _(s, l),
           m = r("nullthrows")(d.getContext("2d"));
         return (m.putImageData(c, 0, 0), d);
       }
     }
-    function v(e, t, n) {
+    function C(e, t, n) {
       n === void 0 && (n = "white");
       var o = document.createElement("canvas"),
         a = r("nullthrows")(o.getContext("2d")),
@@ -191,16 +180,16 @@ __d(
       for (var u = 0; u < s; u++) (l.drawImage(o, 0, 0), a.drawImage(i, 0, 0));
       return ((l.shadowColor = "rgba(0,0,0,0)"), l.drawImage(e, s, s), i);
     }
-    ((l.canvasToWebp = s),
-      (l.canvasToBlob = u),
-      (l.getResizedDataUrl = c),
-      (l.generateMicroThumb = d),
-      (l.square = p),
-      (l.scale = _),
-      (l.fillBackgroundWithGray = f),
-      (l.createCanvas = g),
-      (l.trim = b),
-      (l.addBorder = v));
+    ((l.canvasToWebp = e),
+      (l.canvasToBlob = s),
+      (l.getResizedDataUrl = u),
+      (l.generateMicroThumb = c),
+      (l.square = d),
+      (l.scale = m),
+      (l.fillBackgroundWithGray = p),
+      (l.createCanvas = _),
+      (l.trim = y),
+      (l.addBorder = C));
   },
   98,
 );

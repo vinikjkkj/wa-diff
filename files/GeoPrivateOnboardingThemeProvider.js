@@ -1,6 +1,6 @@
 __d(
   "GeoPrivateOnboardingThemeProvider",
-  ["GeoPrivateThemeContext", "react", "react-compiler-runtime", "useGeoTheme"],
+  ["GeoPrivateThemeContext", "react", "useGeoTheme"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -21,27 +21,21 @@ __d(
       });
     }
     function d(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.children,
-        a = r("useGeoTheme")(),
-        i;
-      t[0] !== a ? ((i = c(a)), (t[0] = a), (t[1] = i)) : (i = t[1]);
-      var l = i,
-        u;
-      return (
-        t[2] !== l || t[3] !== n
-          ? ((u = s.jsx(r("GeoPrivateThemeContext").Provider, {
-              value: l,
-              children: n,
-            })),
-            (t[2] = l),
-            (t[3] = n),
-            (t[4] = u))
-          : (u = t[4]),
-        u
-      );
+      var t = e.children,
+        n = r("useGeoTheme")(),
+        o = u(
+          function () {
+            return c(n);
+          },
+          [n],
+        );
+      return s.jsx(r("GeoPrivateThemeContext").Provider, {
+        value: o,
+        children: t,
+      });
     }
-    l.GeoPrivateOnboardingThemeProvider = d;
+    ((d.displayName = d.name + " [from " + i.id + "]"),
+      (l.GeoPrivateOnboardingThemeProvider = d));
   },
   98,
 );

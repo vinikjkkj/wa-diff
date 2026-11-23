@@ -1,10 +1,10 @@
 __d(
   "WAWebTeamLinkRemoveInvitationMutation",
   [
-    "WAWebFetchAdAccountToken",
+    "WAWebFetchWithAdAccountToken",
     "WAWebRelayClient",
+    "WAWebTeamLinkErrorResult",
     "WAWebTeamLinkRemoveInvitationMutation.graphql",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,50 +14,34 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebTeamLinkRemoveInvitationMutation.graphql"));
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebFetchAdAccountToken").fetchToken();
-          if (t.type !== "success")
-            return {
-              type: "error",
-              error: r("err")("fetchToken failed: " + t.type),
-            };
-          try {
-            var n = yield o("WAWebRelayClient").commitMutation(
+    async function u(e) {
+      try {
+        var t = await o("WAWebFetchWithAdAccountToken").fetchWithAdAccountToken(
+            function (t) {
+              return o("WAWebRelayClient").commitMutation(
                 s,
                 { lid: e },
-                { environmentType: "facebook", accessToken: t.token },
-              ),
-              a =
-                n == null
-                  ? void 0
-                  : n.whatsapp_teamlink_remove_agent_invitation;
-            return a == null
-              ? {
-                  type: "error",
-                  error: r("err")("remove invitation returned no result"),
-                }
-              : {
-                  type: "success",
-                  removed: a.removed === !0,
-                  wasOnboarded: a.was_onboarded === !0,
-                };
-          } catch (e) {
-            return {
-              type: "error",
-              error:
-                e instanceof Error
-                  ? e
-                  : r("err")("removeTeamLinkInvitation failed"),
+                { environmentType: "facebook", accessToken: t },
+              );
+            },
+          ),
+          n = t == null ? void 0 : t.whatsapp_teamlink_remove_agent_invitation;
+        return n == null
+          ? o("WAWebTeamLinkErrorResult").reportTeamLinkError(
+              "remove-invitation",
+              r("err")("remove invitation returned no result"),
+            )
+          : {
+              type: "success",
+              removed: n.removed === !0,
+              wasOnboarded: n.was_onboarded === !0,
             };
-          }
-        })),
-        c.apply(this, arguments)
-      );
+      } catch (e) {
+        return o("WAWebTeamLinkErrorResult").reportTeamLinkError(
+          "remove-invitation",
+          e,
+        );
+      }
     }
     l.removeTeamLinkInvitation = u;
   },

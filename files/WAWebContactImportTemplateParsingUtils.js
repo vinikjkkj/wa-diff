@@ -7,8 +7,8 @@ __d(
     "WAWebContactImportValidationUtils",
   ],
   function (t, n, r, o, a, i, l, s) {
-    var e = s._(/*BTDS*/ "Phone number").toString(),
-      u = s._(/*BTDS*/ "Full name").toString(),
+    var e = s._(/*BTDS*/ "").toString(),
+      u = s._(/*BTDS*/ "").toString(),
       c = ["phone", "phone number", e.toLowerCase()],
       d = new Set(c),
       m = ["name", "full name", u.toLowerCase()],

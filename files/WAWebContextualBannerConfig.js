@@ -39,11 +39,8 @@ __d(
             endT: "2025-01-01",
             startT: "2024-09-09",
             dismissable: !0,
-            title: s._(
-              /*BTDS*/ "Use app lock to lock {app-name} with a password for more security.",
-              [s._param("app-name", n)],
-            ),
-            actionText: s._(/*BTDS*/ "Try now"),
+            title: s._(/*BTDS*/ "", [s._param("app-name", n)]),
+            actionText: s._(/*BTDS*/ ""),
             showIcon: !0,
             syncEnabled: !0,
             metricField: o("WAWebWamEnumBannerTypes").BANNER_TYPES
@@ -59,10 +56,8 @@ __d(
             endT: "2025-01-01",
             startT: "2024-09-09",
             dismissable: !0,
-            title: s._(
-              /*BTDS*/ "Use background sync to load faster when you open WhatsApp Web.",
-            ),
-            actionText: s._(/*BTDS*/ "Try now"),
+            title: s._(/*BTDS*/ ""),
+            actionText: s._(/*BTDS*/ ""),
             showIcon: !0,
             syncEnabled: !0,
             metricField: o("WAWebWamEnumBannerTypes").BANNER_TYPES

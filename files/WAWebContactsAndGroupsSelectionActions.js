@@ -75,10 +75,7 @@ __d(
         n > 0 &&
           o("WAWebToastManager").ToastManager.open(
             c.jsx(o("WAWebToast.react").Toast, {
-              msg: s._(
-                /*BTDS*/ '_j{"*":"{count} contacts without a chat can\'t be added to a list","_1":"1 contact without a chat can\'t be added to a list"}',
-                [s._plural(n, "count")],
-              ),
+              msg: s._(/*BTDS*/ "", [s._plural(n, "count")]),
             }),
           );
       }
@@ -173,10 +170,7 @@ __d(
       (r > 0 &&
         o("WAWebToastManager").ToastManager.open(
           c.jsx(o("WAWebToast.react").Toast, {
-            msg: s._(
-              /*BTDS*/ '_j{"*":"{count} contacts without a phone number or username left out","_1":"1 contact without a phone number or username left out"}',
-              [s._plural(r, "count")],
-            ),
+            msg: s._(/*BTDS*/ "", [s._plural(r, "count")]),
           }),
         ),
         o("WAWebModalManager").ModalManager.open(

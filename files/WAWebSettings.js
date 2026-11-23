@@ -88,29 +88,29 @@ __d(
     function c(t) {
       switch (t) {
         case e.DataSharing: {
-          var n = s._(/*BTDS*/ "Your customers' activity");
+          var n = s._(/*BTDS*/ "");
           return n;
         }
         case e.BusinessTools:
-          return s._(/*BTDS*/ "Business tools");
+          return s._(/*BTDS*/ "");
         case e.Wallpaper:
-          return s._(/*BTDS*/ "Chat wallpaper");
+          return s._(/*BTDS*/ "");
         case e.RequestAccountInfoSettings:
-          return s._(/*BTDS*/ "Request account info");
+          return s._(/*BTDS*/ "");
         case e.Notifications:
-          return s._(/*BTDS*/ "Notifications");
+          return s._(/*BTDS*/ "");
         case e.MediaAutoDownload:
-          return s._(/*BTDS*/ "Media auto-download");
+          return s._(/*BTDS*/ "");
         case e.MediaQuality:
-          return s._(/*BTDS*/ "Media upload quality");
+          return s._(/*BTDS*/ "");
         case e.Security:
-          return s._(/*BTDS*/ "Security");
+          return s._(/*BTDS*/ "");
         case e.PrivacySettings:
-          return s._(/*BTDS*/ "Privacy");
+          return s._(/*BTDS*/ "");
         case e.DesktopSettings:
-          return s._(/*BTDS*/ "Desktop settings");
+          return s._(/*BTDS*/ "");
         case e.Help:
-          return s._(/*BTDS*/ "Help");
+          return s._(/*BTDS*/ "");
         case e.Bugnub:
           return "Report a bug (internal)";
         case e.DownloadLogs:

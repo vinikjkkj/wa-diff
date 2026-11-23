@@ -15,10 +15,14 @@ __d(
     function u(e) {
       return e.type === "WhatsApp Business Account";
     }
+    function c(e) {
+      return e.type === "WhatsApp Message Template";
+    }
     ((i.isOrganicContentAssetType = e),
       (i.isAdObjectAsset = l),
       (i.isOrganicContentAsset = s),
-      (i.isWABAAsset = u));
+      (i.isWABAAsset = u),
+      (i.isMessageTemplateAsset = c));
   },
   66,
 );

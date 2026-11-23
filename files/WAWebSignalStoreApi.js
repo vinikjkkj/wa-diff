@@ -1,7 +1,6 @@
 __d(
   "WAWebSignalStoreApi",
   [
-    "Promise",
     "WALogger",
     "WASignalKeys",
     "WAWebNoop",
@@ -15,49 +14,39 @@ __d(
     "WAWebSignalCommonUtils",
     "WAWebSignalConst",
     "WAWebSignalStorageUtils",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = 1,
-      c = (function () {
+      s = 1,
+      u = (function () {
         function t() {
           this.idToSignedPreKey = new Map();
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.getMeta = function (t) {
+          (n.getMeta = function (t) {
             var e = o("WAWebSchemaMeta").getTable();
             return e.get(t).then(function (e) {
               return e ? e.value : null;
             });
           }),
-          (a.putMeta = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("WAWebSchemaMeta").getTable(),
-                  r = e.map(function (e) {
-                    return t.createOrReplace(e);
-                  });
-                yield (s || (s = n("Promise"))).all(r);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.setServerHasPreKeys = function (t) {
+          (n.putMeta = async function (t) {
+            var e = o("WAWebSchemaMeta").getTable(),
+              n = t.map(function (t) {
+                return e.createOrReplace(t);
+              });
+            await Promise.all(n);
+          }),
+          (n.setServerHasPreKeys = function (t) {
             this.putMeta([
               { key: o("WAWebSignalConst").META_KEYS.SERVER_HAS_KEY, value: t },
             ]);
           }),
-          (a.getServerHasPreKeys = function () {
+          (n.getServerHasPreKeys = function () {
             return this.getMeta(o("WAWebSignalConst").META_KEYS.SERVER_HAS_KEY);
           }),
-          (a.putADVSignedIdentity = function (t) {
+          (n.putADVSignedIdentity = function (t) {
             return this.putMeta([
               {
                 key: o("WAWebSignalConst").META_KEYS.ADV_SIGNED_IDENTITY,
@@ -65,32 +54,32 @@ __d(
               },
             ]);
           }),
-          (a.getADVSignedIdentity = function () {
+          (n.getADVSignedIdentity = function () {
             return this.getMeta(
               o("WAWebSignalConst").META_KEYS.ADV_SIGNED_IDENTITY,
             );
           }),
-          (a.getPreKeysByRange = function (t, n) {
+          (n.getPreKeysByRange = function (t, n) {
             var e = o("WAWebSchemaPrekey").getTable();
             return e.greaterThan(["keyId"], t - 1, { limit: n });
           }),
-          (a.getPreKeyById = function (t) {
+          (n.getPreKeyById = function (t) {
             var e = o("WAWebSchemaPrekey").getTable();
             return e.get(t);
           }),
-          (a.bulkRemovePreKey = function (t) {
+          (n.bulkRemovePreKey = function (t) {
             var e = o("WAWebSchemaPrekey").getTable();
             return e.bulkRemove(t);
           }),
-          (a.putPreKeys = function (t) {
+          (n.putPreKeys = function (t) {
             var e = o("WAWebSchemaPrekey").getTable();
             return e.bulkCreateOrReplace(t);
           }),
-          (a.markPreKeyAsDirectDistribution = function (t) {
+          (n.markPreKeyAsDirectDistribution = function (t) {
             var e = o("WAWebSchemaPrekey").getTable();
             return e.merge(t, { isDirectDistribution: 1 });
           }),
-          (a.getSignedPreKey = function () {
+          (n.getSignedPreKey = function () {
             var e = this;
             return this.getMeta(
               o("WAWebSignalConst").META_KEYS.LAST_SPK_ID,
@@ -98,65 +87,53 @@ __d(
               return e.getSignedPreKeyById(t);
             });
           }),
-          (a.getSignedPreKeyById = function (t) {
+          (n.getSignedPreKeyById = function (t) {
             var e = this;
             if (this.idToSignedPreKey.has(t))
-              return (s || (s = n("Promise"))).resolve(
-                this.idToSignedPreKey.get(t),
-              );
-            var r = o("WAWebSchemaSignedPrekey").getTable();
-            return r.get(t).then(function (n) {
+              return Promise.resolve(this.idToSignedPreKey.get(t));
+            var n = o("WAWebSchemaSignedPrekey").getTable();
+            return n.get(t).then(function (n) {
               return (e.idToSignedPreKey.set(t, n), n);
             });
           }),
-          (a.putSignedPreKeys = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = o("WAWebSchemaSignedPrekey").getTable(),
-                  a = e.map(function (e) {
-                    var n = e.keyId,
-                      o = e.keyPair,
-                      a = e.signature;
-                    return t.get(n).then(function (e) {
-                      if (e)
-                        throw r("err")(
-                          "signed preKey id " + n + " already exists",
-                        );
-                      var i = { keyId: n, keyPair: o, signature: a };
-                      return t.create(i);
-                    });
-                  });
-                yield (s || (s = n("Promise"))).all(a);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.putSession = function (t, n) {
+          (n.putSignedPreKeys = async function (t) {
+            var e = o("WAWebSchemaSignedPrekey").getTable(),
+              n = t.map(function (t) {
+                var n = t.keyId,
+                  o = t.keyPair,
+                  a = t.signature;
+                return e.get(n).then(function (t) {
+                  if (t)
+                    throw r("err")("signed preKey id " + n + " already exists");
+                  var i = { keyId: n, keyPair: o, signature: a };
+                  return e.create(i);
+                });
+              });
+            await Promise.all(n);
+          }),
+          (n.putSession = function (t, n) {
             var e = o("WAWebSchemaSession").getTable();
             return e.createOrReplace({ address: t, session: n });
           }),
-          (a.bulkPutSession = function (t) {
+          (n.bulkPutSession = function (t) {
             var e = o("WAWebSchemaSession").getTable();
             return e.bulkCreateOrReplace(t);
           }),
-          (a.removeSession = function (t) {
+          (n.removeSession = function (t) {
             var e = o("WAWebSchemaSession").getTable();
             return e.remove(t);
           }),
-          (a.bulkRemoveSession = function (t) {
+          (n.bulkRemoveSession = function (t) {
             var e = o("WAWebSchemaSession").getTable();
             return e.bulkRemove(t);
           }),
-          (a.getSession = function (t) {
+          (n.getSession = function (t) {
             var e = o("WAWebSchemaSession").getTable();
             return e.get(t).then(function (e) {
               return e ? e.session : null;
             });
           }),
-          (a.bulkGetSession = function (t) {
+          (n.bulkGetSession = function (t) {
             var e = o("WAWebSchemaSession").getTable();
             return e.bulkGet(t).then(function (e) {
               return e.map(function (e) {
@@ -164,23 +141,23 @@ __d(
               });
             });
           }),
-          (a.putIdentity = function (t, n) {
+          (n.putIdentity = function (t, n) {
             var e = o("WAWebSchemaIdentity").getTable();
             return e.createOrReplace({ identifier: t, identityKey: n });
           }),
-          (a.bulkPutIdentity = function (t) {
+          (n.bulkPutIdentity = function (t) {
             var e = o("WAWebSchemaIdentity").getTable();
             return e.bulkCreateOrReplace(t);
           }),
-          (a.removeIdentity = function (t) {
+          (n.removeIdentity = function (t) {
             var e = o("WAWebSchemaIdentity").getTable();
             return e.remove(t);
           }),
-          (a.bulkRemoveIdentity = function (t) {
+          (n.bulkRemoveIdentity = function (t) {
             var e = o("WAWebSchemaIdentity").getTable();
             return e.bulkRemove(t);
           }),
-          (a.getIdentityKeyWithRowId = function (t) {
+          (n.getIdentityKeyWithRowId = function (t) {
             var e = o("WAWebSchemaIdentity").getTable();
             return e.get(t).then(function (e) {
               return e
@@ -193,7 +170,7 @@ __d(
                 : null;
             });
           }),
-          (a.bulkGetIdentityKeyWithRowId = function (t) {
+          (n.bulkGetIdentityKeyWithRowId = function (t) {
             var e = o("WAWebSchemaIdentity").getTable();
             return e.bulkGet(t).then(function (e) {
               return e.map(function (e) {
@@ -207,14 +184,14 @@ __d(
               });
             });
           }),
-          (a.getAllIdentityRows = function () {
+          (n.getAllIdentityRows = function () {
             return o("WAWebSchemaIdentity").getTable().all();
           }),
-          (a.bulkPutIdentityKeyWithRowId = function (t) {
+          (n.bulkPutIdentityKeyWithRowId = function (t) {
             var e = o("WAWebSchemaIdentity").getTable();
             return e.bulkCreateOrReplace(t);
           }),
-          (a.saveBaseKey = function (t, n, r) {
+          (n.saveBaseKey = function (t, n, r) {
             var e = o("WAWebSchemaBasekey").getTable();
             return e.createOrReplace({
               address: t,
@@ -222,7 +199,7 @@ __d(
               baseKey: r,
             });
           }),
-          (a.loadBaseKey = function (t, n) {
+          (n.loadBaseKey = function (t, n) {
             var e = o("WAWebSchemaBasekey").getTable();
             return e
               .equals(["address", "originalMsgId"], [t, n])
@@ -230,21 +207,21 @@ __d(
                 return e && e.length !== 0 ? e[0].baseKey : null;
               });
           }),
-          (a.bulkPutSenderKey = function (t) {
+          (n.bulkPutSenderKey = function (t) {
             var e = o("WAWebSchemaSenderkey").getTable();
             return e.bulkCreateOrReplace(t);
           }),
-          (a.removeSenderKey = function (t) {
+          (n.removeSenderKey = function (t) {
             var e = o("WAWebSchemaSenderkey").getTable();
             return e.remove(t);
           }),
-          (a.getSenderKey = function (t) {
+          (n.getSenderKey = function (t) {
             var e = o("WAWebSchemaSenderkey").getTable();
             return e.get(t).then(function (e) {
               return e ? e.senderKey : null;
             });
           }),
-          (a.removeSenderKeyBySenderId = function (t) {
+          (n.removeSenderKeyBySenderId = function (t) {
             var e = o("WAWebSchemaSenderkey").getTable();
             return e.equals(["senderId"], t).then(function (t) {
               return e.bulkRemove(
@@ -254,7 +231,7 @@ __d(
               );
             });
           }),
-          (a.clearCredential = function () {
+          (n.clearCredential = function () {
             ((this.registrationInfo = null), this.idToSignedPreKey.clear());
             var e = [
               o("WAWebSchemaIdentity").getTable(),
@@ -263,137 +240,117 @@ __d(
               o("WAWebSchemaSession").getTable(),
               o("WAWebSchemaSignedPrekey").getTable(),
             ];
-            return (s || (s = n("Promise")))
-              .all(
-                e.map(function (e) {
-                  return e.clear();
-                }),
-              )
-              .then(r("WAWebNoop"));
+            return Promise.all(
+              e.map(function (e) {
+                return e.clear();
+              }),
+            ).then(r("WAWebNoop"));
           }),
-          (a.getRegistrationInfo = function () {
+          (n.getRegistrationInfo = function () {
             var e = this;
             return this.registrationInfo != null
-              ? (s || (s = n("Promise"))).resolve(this.registrationInfo)
-              : (s || (s = n("Promise")))
-                  .all([
-                    this.getMeta(o("WAWebSignalConst").META_KEYS.REG_ID),
-                    this.getMeta(o("WAWebSignalConst").META_KEYS.STATIC_PUBKEY),
-                    this.getMeta(
-                      o("WAWebSignalConst").META_KEYS.STATIC_PRIVKEY,
-                    ),
-                  ])
-                  .then(function (t) {
-                    var r = t[0],
-                      a = t[1],
-                      i = t[2];
-                    if (!(!r || !a || !i))
-                      return (s || (s = n("Promise")))
-                        .all([
-                          o(
-                            "WAWebSignalCommonUtils",
-                          ).decryptRegistrationMaterial(a),
-                          o(
-                            "WAWebSignalCommonUtils",
-                          ).decryptRegistrationMaterial(i),
-                        ])
-                        .then(function (t) {
-                          var n = t[0],
-                            o = t[1];
-                          return (
-                            (e.registrationInfo = {
-                              registrationId: r,
-                              identityKeyPair: { pubKey: n, privKey: o },
-                            }),
-                            e.registrationInfo
-                          );
-                        });
-                  });
+              ? Promise.resolve(this.registrationInfo)
+              : Promise.all([
+                  this.getMeta(o("WAWebSignalConst").META_KEYS.REG_ID),
+                  this.getMeta(o("WAWebSignalConst").META_KEYS.STATIC_PUBKEY),
+                  this.getMeta(o("WAWebSignalConst").META_KEYS.STATIC_PRIVKEY),
+                ]).then(function (t) {
+                  var n = t[0],
+                    r = t[1],
+                    a = t[2];
+                  if (!(!n || !r || !a))
+                    return Promise.all([
+                      o("WAWebSignalCommonUtils").decryptRegistrationMaterial(
+                        r,
+                      ),
+                      o("WAWebSignalCommonUtils").decryptRegistrationMaterial(
+                        a,
+                      ),
+                    ]).then(function (t) {
+                      var r = t[0],
+                        o = t[1];
+                      return (
+                        (e.registrationInfo = {
+                          registrationId: n,
+                          identityKeyPair: { pubKey: r, privKey: o },
+                        }),
+                        e.registrationInfo
+                      );
+                    });
+                });
           }),
-          (a.setRegistrationInfo = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                (yield (s || (s = n("Promise")))
-                  .all([
-                    o("WAWebSignalCommonUtils").encryptRegistrationMaterial(
-                      e.identityKeyPair.pubKey,
-                    ),
-                    o("WAWebSignalCommonUtils").encryptRegistrationMaterial(
-                      e.identityKeyPair.privKey,
-                    ),
-                  ])
-                  .then(function (r) {
-                    var a = r[0],
-                      i = r[1];
-                    return (s || (s = n("Promise"))).all([
-                      t.putMeta([
-                        {
-                          key: o("WAWebSignalConst").META_KEYS.REG_ID,
-                          value: e.registrationId,
-                        },
-                        {
-                          key: o("WAWebSignalConst").META_KEYS.STATIC_PUBKEY,
-                          value: a,
-                        },
-                        {
-                          key: o("WAWebSignalConst").META_KEYS.STATIC_PRIVKEY,
-                          value: i,
-                        },
-                      ]),
-                    ]);
-                  }),
-                  (this.registrationInfo = e));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.getOrGenPreKeys = function (r, a) {
+          (n.setRegistrationInfo = async function (t) {
+            var e = this;
+            (await Promise.all([
+              o("WAWebSignalCommonUtils").encryptRegistrationMaterial(
+                t.identityKeyPair.pubKey,
+              ),
+              o("WAWebSignalCommonUtils").encryptRegistrationMaterial(
+                t.identityKeyPair.privKey,
+              ),
+            ]).then(function (n) {
+              var r = n[0],
+                a = n[1];
+              return Promise.all([
+                e.putMeta([
+                  {
+                    key: o("WAWebSignalConst").META_KEYS.REG_ID,
+                    value: t.registrationId,
+                  },
+                  {
+                    key: o("WAWebSignalConst").META_KEYS.STATIC_PUBKEY,
+                    value: r,
+                  },
+                  {
+                    key: o("WAWebSignalConst").META_KEYS.STATIC_PRIVKEY,
+                    value: a,
+                  },
+                ]),
+              ]);
+            }),
+              (this.registrationInfo = t));
+          }),
+          (n.getOrGenPreKeys = function (n, r) {
             var t = this;
             return o("WAWebSignalStorageUtils")
               .getStorage()
               .lock(["signal-meta-store", "prekey-store"], function () {
-                return (s || (s = n("Promise")))
-                  .all([
-                    t.getMeta(
-                      o("WAWebSignalConst").META_KEYS.FIRST_UNUPLOAD_PK_ID,
-                    ),
-                    t.getMeta(o("WAWebSignalConst").META_KEYS.NEXT_PK_ID),
-                  ])
-                  .then(function (n) {
-                    var i = n[0],
-                      l = n[1],
-                      s = i || u,
-                      c = l || u,
-                      m = c - s,
-                      p = r - m;
-                    if (p <= 0)
-                      return (
-                        o("WALogger").LOG(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "[getPreKeys] no gen needed avail=",
-                              " need=",
-                              "",
-                            ])),
-                          m,
-                          r,
-                        ),
-                        t.getPreKeysByRange(s, r)
-                      );
-                    var _ = d(c, c + p).map(function (e) {
-                      return a(e);
-                    });
-                    return t.savePreKeys(_).then(function () {
-                      return t.getPreKeysByRange(s, r);
-                    });
+                return Promise.all([
+                  t.getMeta(
+                    o("WAWebSignalConst").META_KEYS.FIRST_UNUPLOAD_PK_ID,
+                  ),
+                  t.getMeta(o("WAWebSignalConst").META_KEYS.NEXT_PK_ID),
+                ]).then(function (a) {
+                  var i = a[0],
+                    l = a[1],
+                    u = i || s,
+                    d = l || s,
+                    m = d - u,
+                    p = n - m;
+                  if (p <= 0)
+                    return (
+                      o("WALogger").LOG(
+                        e ||
+                          (e = babelHelpers.taggedTemplateLiteralLoose([
+                            "[getPreKeys] no gen needed avail=",
+                            " need=",
+                            "",
+                          ])),
+                        m,
+                        n,
+                      ),
+                      t.getPreKeysByRange(u, n)
+                    );
+                  var _ = c(d, d + p).map(function (e) {
+                    return r(e);
                   });
+                  return t.savePreKeys(_).then(function () {
+                    return t.getPreKeysByRange(u, n);
+                  });
+                });
               });
           }),
-          (a.getOrGenSinglePreKey = function (t) {
+          (n.getOrGenSinglePreKey = function (t) {
             return this.getOrGenPreKeys(1, t).then(function (e) {
               if (e.length !== 1)
                 throw r("err")(
@@ -402,93 +359,81 @@ __d(
               return e[0];
             });
           }),
-          (a.savePreKeys = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (e.length !== 0) {
-                  var t = e[e.length - 1];
-                  yield (s || (s = n("Promise"))).all([
-                    this.putMeta([
-                      {
-                        key: o("WAWebSignalConst").META_KEYS.NEXT_PK_ID,
-                        value: t.keyId + 1,
-                      },
-                    ]),
-                    this.putPreKeys(e),
-                  ]);
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.markKeyAsUploaded = function (t) {
-            var e = this;
-            return (s || (s = n("Promise")))
-              .all([
-                this.getMeta(
-                  o("WAWebSignalConst").META_KEYS.FIRST_UNUPLOAD_PK_ID,
-                ),
-                this.getMeta(o("WAWebSignalConst").META_KEYS.NEXT_PK_ID),
-              ])
-              .then(function (n) {
-                var a = n[0],
-                  i = n[1];
-                if (t < 0 || !i || t >= i)
-                  throw r("err")(
-                    "markKeyAsUploaded: key " + t + " is out of boundary.",
-                  );
-                var l = a ? Math.max(a, t + 1) : t + 1;
-                return e.putMeta([
+          (n.savePreKeys = async function (t) {
+            if (t.length !== 0) {
+              var e = t[t.length - 1];
+              await Promise.all([
+                this.putMeta([
                   {
-                    key: o("WAWebSignalConst").META_KEYS.FIRST_UNUPLOAD_PK_ID,
-                    value: l,
+                    key: o("WAWebSignalConst").META_KEYS.NEXT_PK_ID,
+                    value: e.keyId + 1,
                   },
-                ]);
-              });
+                ]),
+                this.putPreKeys(t),
+              ]);
+            }
           }),
-          (a.rotateSignedPreKey = function (t, r) {
+          (n.markKeyAsUploaded = function (t) {
+            var e = this;
+            return Promise.all([
+              this.getMeta(
+                o("WAWebSignalConst").META_KEYS.FIRST_UNUPLOAD_PK_ID,
+              ),
+              this.getMeta(o("WAWebSignalConst").META_KEYS.NEXT_PK_ID),
+            ]).then(function (n) {
+              var a = n[0],
+                i = n[1];
+              if (t < 0 || !i || t >= i)
+                throw r("err")(
+                  "markKeyAsUploaded: key " + t + " is out of boundary.",
+                );
+              var l = a ? Math.max(a, t + 1) : t + 1;
+              return e.putMeta([
+                {
+                  key: o("WAWebSignalConst").META_KEYS.FIRST_UNUPLOAD_PK_ID,
+                  value: l,
+                },
+              ]);
+            });
+          }),
+          (n.rotateSignedPreKey = function (t, n) {
             var e = this;
             return o("WAWebSignalStorageUtils")
               .getStorage()
               .lock(["signal-meta-store", "signed-prekey-store"], function () {
                 return e
                   .getMeta(o("WAWebSignalConst").META_KEYS.LAST_SPK_ID)
-                  .then(function (a) {
-                    var i =
-                        a == null ||
-                        a + 1 >=
+                  .then(function (r) {
+                    var a =
+                        r == null ||
+                        r + 1 >=
                           o("WASignalKeys").PRE_KEY_NON_INCLUSIVE_UPPER_BORDER
-                          ? u
-                          : a + 1,
-                      l = r(t, i);
-                    return (s || (s = n("Promise")))
-                      .all([
-                        e.putSignedPreKeys([l]),
-                        e.putMeta([
-                          {
-                            key: o("WAWebSignalConst").META_KEYS.LAST_SPK_ID,
-                            value: i,
-                          },
-                        ]),
-                      ])
-                      .then(function () {
-                        return l;
-                      });
+                          ? s
+                          : r + 1,
+                      i = n(t, a);
+                    return Promise.all([
+                      e.putSignedPreKeys([i]),
+                      e.putMeta([
+                        {
+                          key: o("WAWebSignalConst").META_KEYS.LAST_SPK_ID,
+                          value: a,
+                        },
+                      ]),
+                    ]).then(function () {
+                      return i;
+                    });
                   });
               });
           }),
           t
         );
       })();
-    function d(e, t) {
+    function c(e, t) {
       for (var n = [], r = e; r < t; r++) n.push(r);
       return n;
     }
-    var m = new c();
-    l.waSignalStore = m;
+    var d = new u();
+    l.waSignalStore = d;
   },
   98,
 );

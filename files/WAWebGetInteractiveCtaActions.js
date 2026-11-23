@@ -67,7 +67,7 @@ __d(
               name: "cta_url",
               index: u.length,
               data: {
-                label: s._(/*BTDS*/ "Visit website").toString(),
+                label: s._(/*BTDS*/ "").toString(),
                 url: p,
                 merchantUrl: p,
               },
@@ -102,9 +102,7 @@ __d(
         return null;
       }
       var g =
-          f.catalog_product_id != null
-            ? s._(/*BTDS*/ "View product")
-            : s._(/*BTDS*/ "View catalog"),
+          f.catalog_product_id != null ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
         h =
           f.catalog_product_id != null
             ? o("WAWebCatalogShortLinkUtils").createProductLink(
@@ -196,7 +194,7 @@ __d(
                   label:
                     (C = b.payNowButtonText) != null
                       ? C
-                      : s._(/*BTDS*/ "Pay now").toString(),
+                      : s._(/*BTDS*/ "").toString(),
                   paymentReminderInfo: b,
                 },
               };
@@ -210,10 +208,7 @@ __d(
             : {
                 name: "booking_confirmation",
                 index: l,
-                data: {
-                  label: s._(/*BTDS*/ "View details").toString(),
-                  bookingInfo: v,
-                },
+                data: { label: s._(/*BTDS*/ "").toString(), bookingInfo: v },
               };
         }
         case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST: {
@@ -266,10 +261,7 @@ __d(
             return {
               name: "cta_copy",
               index: l,
-              data: {
-                label: s._(/*BTDS*/ "Copy code").toString(),
-                copyCode: k,
-              },
+              data: { label: s._(/*BTDS*/ "").toString(), copyCode: k },
             };
           break;
         }
@@ -278,16 +270,16 @@ __d(
     function d() {
       return o("WAWebSignupCTAExperiment").getSignupCTAExperiment() ===
         o("WAWebSignupCTAExperiment").SignupCTAExperiment.GetOffers
-        ? s._(/*BTDS*/ "Get offers")
-        : s._(/*BTDS*/ "Sign up");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function m(e) {
       return o("WAWebOrderStatus").shouldShowTrackingInfo(e)
         ? e.order.status === o("WAWebOrderStatus").OrderStatus.Complete ||
           e.order.status === o("WAWebOrderStatus").OrderStatus.Delivered
-          ? s._(/*BTDS*/ "Delivery info")
-          : s._(/*BTDS*/ "Track parcel")
-        : s._(/*BTDS*/ "View order");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     ((l.getNativeFlowCtasFromInteractiveMsg = e),
       (l.getNativeFlowCtasFor = u),

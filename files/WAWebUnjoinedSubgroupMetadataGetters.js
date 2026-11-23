@@ -33,11 +33,7 @@ __d(
           return n ===
             o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
             (t == null || t === "")
-            ? s
-                ._(
-                  /*BTDS*/ "Get the latest announcements from the admins of this community.",
-                )
-                .toString()
+            ? s._(/*BTDS*/ "").toString()
             : t;
         },
         [f, h],

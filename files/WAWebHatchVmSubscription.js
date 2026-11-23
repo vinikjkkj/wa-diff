@@ -1,12 +1,6 @@
 __d(
   "WAWebHatchVmSubscription",
-  [
-    "WALogger",
-    "WATypeUtils",
-    "WAWebHatchJsonReaders",
-    "WAWebNullFunc",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WATypeUtils", "WAWebHatchJsonReaders", "WAWebNullFunc"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -45,47 +39,41 @@ __d(
                     return self.performance.now();
                   }));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.start = function () {
+          (n.start = function () {
             this.$3 || ((this.$3 = !0), (this.$8 = 0), this.$13());
           }),
-          (r.stop = function () {
+          (n.stop = function () {
             this.$3 && ((this.$3 = !1), this.$14(), this.$15());
           }),
-          (r.$13 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (!(!this.$3 || this.$4 != null)) {
-                var t = ++this.$5,
-                  n = yield this.$1
-                    .connect()
-                    .catch(o("WAWebNullFunc").returnNull);
-                if (!(!this.$3 || this.$4 != null || t !== this.$5)) {
-                  if (n == null) {
-                    (this.$16(
-                      o("WALogger").WARN(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "hatch-vm-subscription/session-failed kind=",
-                            "",
-                          ])),
-                        this.$1.kind,
-                      ),
-                      "hatch-vm-subscription-session-failed",
+          (n.$13 = async function () {
+            if (!(!this.$3 || this.$4 != null)) {
+              var t = ++this.$5,
+                n = await this.$1
+                  .connect()
+                  .catch(o("WAWebNullFunc").returnNull);
+              if (!(!this.$3 || this.$4 != null || t !== this.$5)) {
+                if (n == null) {
+                  (this.$16(
+                    o("WALogger").WARN(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "hatch-vm-subscription/session-failed kind=",
+                          "",
+                        ])),
+                      this.$1.kind,
                     ),
-                      this.$17());
-                    return;
-                  }
-                  this.$18(n, t);
+                    "hatch-vm-subscription-session-failed",
+                  ),
+                    this.$17());
+                  return;
                 }
+                this.$18(n, t);
               }
-            });
-            function r() {
-              return t.apply(this, arguments);
             }
-            return r;
-          })()),
-          (r.$18 = function (t, n) {
+          }),
+          (n.$18 = function (t, n) {
             var e = this,
               r = function () {
                 return n === e.$5 && e.$4 != null;
@@ -118,7 +106,7 @@ __d(
             }
             this.$4 = a;
           }),
-          (r.$21 = function (t) {
+          (n.$21 = function (t) {
             var e = this.$1.kind;
             if (t < 200 || t > 299) {
               if (
@@ -157,7 +145,7 @@ __d(
               this.$7 && this.$1.onResubscribed(),
               (this.$7 = !0));
           }),
-          (r.$20 = function (t, n) {
+          (n.$20 = function (t, n) {
             for (var e = 0, r = t.indexOf(b); r !== -1; ) {
               var o = e === 0 ? this.$11 : 0;
               if (o + r - e > y) {
@@ -170,19 +158,19 @@ __d(
             }
             this.$25(t.slice(e));
           }),
-          (r.$24 = function (t, n) {
+          (n.$24 = function (t, n) {
             var e = t.subarray(0, n);
             if (this.$10.length === 0) return e;
             var r = E([].concat(this.$10, [e]));
             return ((this.$10 = []), (this.$11 = 0), r);
           }),
-          (r.$25 = function (t) {
+          (n.$25 = function (t) {
             t.length !== 0 &&
               (this.$10.push(t),
               (this.$11 += t.length),
               this.$11 > y && this.$22(this.$11));
           }),
-          (r.$22 = function (t) {
+          (n.$22 = function (t) {
             (o("WALogger")
               .WARN(
                 d ||
@@ -198,7 +186,7 @@ __d(
               this.$15(),
               this.$17());
           }),
-          (r.$23 = function (t) {
+          (n.$23 = function (t) {
             var e,
               n = t[t.length - 1] === v ? t.subarray(0, -1) : t;
             if (n.length !== 0) {
@@ -232,7 +220,7 @@ __d(
                 });
             }
           }),
-          (r.$19 = function (t) {
+          (n.$19 = function (t) {
             !t && this.$11 > 0 && this.$23(E(this.$10));
             var e = this.$6,
               n = e != null && this.$2() - e >= h;
@@ -266,13 +254,13 @@ __d(
                 this.$8++),
               this.$26());
           }),
-          (r.$16 = function (t, n) {
+          (n.$16 = function (t, n) {
             this.$8 === 0 && t.sendLogs(n);
           }),
-          (r.$17 = function () {
+          (n.$17 = function () {
             (this.$8++, this.$26());
           }),
-          (r.$26 = function () {
+          (n.$26 = function () {
             var e = this;
             if (this.$3) {
               this.$14();
@@ -286,10 +274,10 @@ __d(
               }, t);
             }
           }),
-          (r.$14 = function () {
+          (n.$14 = function () {
             this.$9 != null && (self.clearTimeout(this.$9), (this.$9 = null));
           }),
-          (r.$15 = function () {
+          (n.$15 = function () {
             this.$5++;
             var e = this.$4;
             ((this.$4 = null),

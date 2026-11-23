@@ -71,7 +71,7 @@ __d(
                       "Prompt onbeforeunload due to pending actions",
                     ])),
                 ),
-                r("fbs")._(/*BTDS*/ "You are closing WhatsApp.").toString()
+                r("fbs")._(/*BTDS*/ "").toString()
               );
             if (t) {
               var a = 15e3;

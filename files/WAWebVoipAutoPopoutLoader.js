@@ -1,10 +1,6 @@
 __d(
   "WAWebVoipAutoPopoutLoader",
-  [
-    "JSResourceForInteraction",
-    "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
-  ],
+  ["JSResourceForInteraction", "WAWebLazyLoadedRetriable"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = r("WAWebLazyLoadedRetriable")(function () {
@@ -16,16 +12,8 @@ __d(
     function u() {
       return s;
     }
-    function c() {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          s = yield e();
-        })),
-        d.apply(this, arguments)
-      );
+    async function c() {
+      s = await e();
     }
     ((l.getAutoPopout = u), (l.loadAutoPopout = c));
   },

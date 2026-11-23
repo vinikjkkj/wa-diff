@@ -19,7 +19,7 @@ __d(
       return (
         t === void 0 && (t = ""),
         e.length === 0
-          ? s._(/*BTDS*/ "Closed")
+          ? s._(/*BTDS*/ "")
           : []
               .concat(e)
               .sort(function (e, t) {
@@ -45,20 +45,15 @@ __d(
           o("WAWebBizAiAppointmentAvailabilityNormalize").MINUTES_IN_DAY
         ? null
         : t === ""
-          ? s._(/*BTDS*/ "Open 24 hours")
-          : s._(/*BTDS*/ "Open 24 hours {time zone abbreviation}", [
-              s._param("time zone abbreviation", t),
-            ]);
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "", [s._param("time zone abbreviation", t)]);
     }
     function f(e, t) {
       var n = o("WAWebSmbUtilsTimeUtils").minutesToTime(e.startTimeMinutes),
         r = o("WAWebSmbUtilsTimeUtils").minutesToTime(e.endTimeMinutes);
       return t === ""
-        ? s._(/*BTDS*/ "{start time} - {end time}", [
-            s._param("start time", n),
-            s._param("end time", r),
-          ])
-        : s._(/*BTDS*/ "{start time} - {end time} {time zone abbreviation}", [
+        ? s._(/*BTDS*/ "", [s._param("start time", n), s._param("end time", r)])
+        : s._(/*BTDS*/ "", [
             s._param("start time", n),
             s._param("end time", r),
             s._param("time zone abbreviation", t),

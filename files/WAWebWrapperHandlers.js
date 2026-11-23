@@ -82,10 +82,7 @@ __d(
                 (l = o(
                   "WAWebEphemeralFbtKic",
                 ).getDisappearingMessageOutOfSyncDifferentBody(a)))
-              : ((i = s._(/*BTDS*/ "This message won't disappear")),
-                (l = s._(
-                  /*BTDS*/ "The sender may be using an older version of WhatsApp.",
-                ))),
+              : ((i = s._(/*BTDS*/ "")), (l = s._(/*BTDS*/ ""))),
             o("WAWebModalManager").closeModalManager(),
             o("WDSDialogBridge").openWDSDialog(
               c.jsx(m, { title: i, body: l }),

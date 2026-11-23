@@ -7,14 +7,11 @@ __d(
     "AdsAdgroupTypeUtils",
     "AdsAssetFeedUtils",
     "AdsDLOAssetFeedMutators",
-    "AdsLinkTypeUtils",
     "AdsMutators",
     "AdsUnifiedCreativeAPIFields",
-    "AdsWhatsAppDestinationUtils",
     "ApiAdObjectTypes",
     "adsPlacementAssetMutationConvertToPACSpecForAdditionalCustomizations",
     "immutable",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -53,20 +50,12 @@ __d(
       )(a);
       var i = o("AdsAssetFeedUtils").isPACAdgroupFromRecord(a);
       return i
-        ? (r("justknobx")._("3489")
-            ? ((a = r(
-                "AdsAdgroupRecordAccessors",
-              ).creative.asset_feed_spec.call_to_actions.delete(a)),
-              (a = r(
-                "AdsAdgroupRecordAccessors",
-              ).creative.asset_feed_spec.additional_data.delete(a)))
-            : o(
-                "AdsWhatsAppDestinationUtils",
-              ).isEligibleForL1WhatsAppDestination(n.pivots.objective, n) &&
-              o("AdsLinkTypeUtils").isWhatsAppLinkTypeSelected(t, n) &&
-              (a = r(
-                "AdsAdgroupRecordAccessors",
-              ).creative.asset_feed_spec.call_to_actions.delete(a)),
+        ? ((a = r(
+            "AdsAdgroupRecordAccessors",
+          ).creative.asset_feed_spec.call_to_actions.delete(a)),
+          (a = r(
+            "AdsAdgroupRecordAccessors",
+          ).creative.asset_feed_spec.additional_data.delete(a)),
           (a = e(a, "title_label")),
           e(a, "link_url_label"))
         : a;

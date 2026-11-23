@@ -8,7 +8,6 @@ __d(
     "WAWebGroupMembershipFormTypes",
     "WAWebUserPrefsStore",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "gkx",
   ],
@@ -129,7 +128,7 @@ __d(
     }
     function M(e) {
       if (!I()) return null;
-      var t = Z(),
+      var t = J(),
         n = e.toString();
       if (Object.prototype.hasOwnProperty.call(t, n)) {
         var r = t[n];
@@ -150,7 +149,7 @@ __d(
     function A(e, t, n) {
       var o;
       if (I()) {
-        var a = Z();
+        var a = J();
         ((a[e.toString()] =
           t == null
             ? null
@@ -160,11 +159,11 @@ __d(
                 schemaVersion: t.schemaVersion,
               }),
           r("WAWebUserPrefsStore").set(d, a),
-          J({ type: "formChanged", groupId: e, form: t, authorId: n }));
+          Y({ type: "formChanged", groupId: e, form: t, authorId: n }));
       }
     }
     function F() {
-      (r("WAWebUserPrefsStore").set(d, null), J({ type: "formsReset" }));
+      (r("WAWebUserPrefsStore").set(d, null), Y({ type: "formsReset" }));
     }
     function O(e, t) {
       return I();
@@ -199,37 +198,29 @@ __d(
                 })()
       );
     }
-    function W(e, t) {
-      return q.apply(this, arguments);
+    async function W(e, t) {
+      return I() ? (await o("WAPromiseDelays").delayMs(L), B()) : null;
     }
-    function q() {
-      return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return I() ? (yield o("WAPromiseDelays").delayMs(L), B()) : null;
-        })),
-        q.apply(this, arguments)
-      );
-    }
-    function U(e) {
+    function q(e) {
       return I()
         ? { record: P(), key: { keyId: b, publicKey: new Uint8Array(v) } }
         : null;
     }
-    function V() {
+    function U() {
       return r("WAWebUserPrefsStore").get(m) === !0;
     }
-    function H(e) {
+    function V(e) {
       r("WAWebUserPrefsStore").set(m, e ? !0 : null);
     }
-    function G(e) {
+    function H(e) {
       if (!I()) return null;
-      var t = ee(),
+      var t = Z(),
         n = e.toString();
       if (Object.prototype.hasOwnProperty.call(t, n)) {
         var r = t[n];
         return r == null ? null : babelHelpers.extends({}, r, { groupId: e });
       }
-      return V()
+      return U()
         ? {
             groupId: e,
             inviteCode: null,
@@ -240,9 +231,9 @@ __d(
           }
         : null;
     }
-    function z(e) {
+    function G(e) {
       if (!I()) return null;
-      var t = ee(),
+      var t = Z(),
         n = Object.keys(t).find(function (n) {
           var r;
           return ((r = t[n]) == null ? void 0 : r.inviteCode) === e;
@@ -256,10 +247,10 @@ __d(
             ),
           });
     }
-    function j(e, t) {
+    function z(e, t) {
       var n, o, a;
       if (I()) {
-        var i = ee();
+        var i = Z();
         ((i[e.toString()] =
           t == null
             ? null
@@ -282,10 +273,10 @@ __d(
           r("WAWebUserPrefsStore").set(p, i));
       }
     }
-    function K() {
+    function j() {
       r("WAWebUserPrefsStore").set(p, null);
     }
-    function Q(e) {
+    function K(e) {
       return (
         E.add(e),
         function () {
@@ -293,7 +284,7 @@ __d(
         }
       );
     }
-    function X(e, t) {
+    function Q(e, t) {
       if (!I()) throw r("err")("Turn on GMF mock mode first");
       var n = M(e),
         a = (n == null ? void 0 : n.type) === "decoded" ? n.form : $(),
@@ -308,11 +299,11 @@ __d(
         });
       return (A(e, i, t), i);
     }
-    function Y(e, t) {
+    function X(e, t) {
       if (!I()) throw r("err")("Turn on GMF mock mode first");
-      J({ type: "systemMessage", groupId: e, authorId: t });
+      Y({ type: "systemMessage", groupId: e, authorId: t });
     }
-    function J(t) {
+    function Y(t) {
       E.forEach(function (n) {
         try {
           n(t);
@@ -332,10 +323,10 @@ __d(
         }
       });
     }
-    function Z() {
+    function J() {
       var e = {};
       return (
-        ne(d, function (t, n) {
+        te(d, function (t, n) {
           if (n == null) {
             e[t] = null;
             return;
@@ -356,10 +347,10 @@ __d(
         e
       );
     }
-    function ee() {
+    function Z() {
       var e = {};
       return (
-        ne(p, function (t, n) {
+        te(p, function (t, n) {
           if (n == null) {
             e[t] = null;
             return;
@@ -369,7 +360,7 @@ __d(
             a = n.inviteCode,
             i = n.keyId,
             l = n.requestId,
-            s = te(r);
+            s = ee(r);
           s != null &&
             typeof l == "string" &&
             typeof i == "number" &&
@@ -385,7 +376,7 @@ __d(
         e
       );
     }
-    function te(e) {
+    function ee(e) {
       if (e == null || typeof e != "object") return null;
       var t = e.answers,
         n = e.memberTag,
@@ -409,7 +400,7 @@ __d(
         }
       );
     }
-    function ne(e, t) {
+    function te(e, t) {
       var n = r("WAWebUserPrefsStore").get(e);
       n == null ||
         typeof n != "object" ||
@@ -437,16 +428,16 @@ __d(
       (l.hasDevMembershipFormAnswers = O),
       (l.getDevMembershipFormDecodeResult = B),
       (l.loadDevMembershipFormAnswers = W),
-      (l.getDevInviteMembershipFormInfo = U),
-      (l.isDevStoredMembershipFormRequestFixtureEnabled = V),
-      (l.setDevStoredMembershipFormRequestFixtureEnabled = H),
-      (l.getDevStoredMembershipFormRequest = G),
-      (l.getDevStoredMembershipFormRequestByInviteCode = z),
-      (l.setDevStoredMembershipFormRequest = j),
-      (l.resetDevStoredMembershipFormRequests = K),
-      (l.subscribeToGMFDevEvents = Q),
-      (l.simulateDevMembershipFormChange = X),
-      (l.simulateDevMembershipFormSystemMessage = Y));
+      (l.getDevInviteMembershipFormInfo = q),
+      (l.isDevStoredMembershipFormRequestFixtureEnabled = U),
+      (l.setDevStoredMembershipFormRequestFixtureEnabled = V),
+      (l.getDevStoredMembershipFormRequest = H),
+      (l.getDevStoredMembershipFormRequestByInviteCode = G),
+      (l.setDevStoredMembershipFormRequest = z),
+      (l.resetDevStoredMembershipFormRequests = j),
+      (l.subscribeToGMFDevEvents = K),
+      (l.simulateDevMembershipFormChange = Q),
+      (l.simulateDevMembershipFormSystemMessage = X));
   },
   98,
 );

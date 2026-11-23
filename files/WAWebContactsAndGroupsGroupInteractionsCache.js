@@ -1,7 +1,6 @@
 __d(
   "WAWebContactsAndGroupsGroupInteractionsCache",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebChatCollection",
@@ -13,47 +12,45 @@ __d(
     "WAWebMsgCollection",
     "WAWebMuteGetters",
     "WAWebPonyfillsIdleCallback",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = 200,
+      c = 200,
+      d = new Map(),
       m = new Map(),
-      p = new Map(),
+      p = o(
+        "WAWebContactsAndGroupsSession",
+      ).createContactsAndGroupsSessionValue(d),
       _ = o(
         "WAWebContactsAndGroupsSession",
       ).createContactsAndGroupsSessionValue(m),
-      f = o(
-        "WAWebContactsAndGroupsSession",
-      ).createContactsAndGroupsSessionValue(p),
-      g = new WeakMap(),
-      h = new Set(),
-      y = null;
-    function C() {
-      return f.get();
+      f = new WeakMap(),
+      g = new Set(),
+      h = null;
+    function y() {
+      return _.get();
     }
-    function b(e) {
+    function C(e) {
       return (
-        h.add(e),
+        g.add(e),
         function () {
-          h.delete(e);
+          g.delete(e);
         }
       );
     }
-    function v(e, t) {
+    function b(e, t) {
       var n,
         r = o("WAWebContactsAndGroupsGroupInteractions").getPersonKey(e),
-        a = r == null ? null : (n = g.get(t)) == null ? void 0 : n.get(r);
+        a = r == null ? null : (n = f.get(t)) == null ? void 0 : n.get(r);
       return a == null ? null : o("WAWebChatCollection").ChatCollection.get(a);
     }
-    function S() {
+    function v() {
       var t = { cancelWait: null, isAborted: !1 };
       return (
-        E(t).catch(function (t) {
+        L(t).catch(function (t) {
           o("WALogger")
             .WARN(
               e ||
@@ -63,30 +60,30 @@ __d(
             )
             .catching(r("getErrorSafe")(t));
         }),
-        o("WAWebMsgCollection").MsgCollection.on("add", $),
-        o("WAWebChatCollection").ChatCollection.on("change:archive", R),
-        o("WAWebChatCollection").ChatCollection.on("change:isLocked", R),
-        o("WAWebChatCollection").ChatCollection.on("change:muteExpiration", R),
+        o("WAWebMsgCollection").MsgCollection.on("add", I),
+        o("WAWebChatCollection").ChatCollection.on("change:archive", S),
+        o("WAWebChatCollection").ChatCollection.on("change:isLocked", S),
+        o("WAWebChatCollection").ChatCollection.on("change:muteExpiration", S),
         function () {
           ((t.isAborted = !0),
             t.cancelWait == null || t.cancelWait(),
-            y != null && w(),
-            o("WAWebMsgCollection").MsgCollection.off("add", $),
-            o("WAWebChatCollection").ChatCollection.off("change:archive", R),
-            o("WAWebChatCollection").ChatCollection.off("change:isLocked", R),
+            h != null && $(),
+            o("WAWebMsgCollection").MsgCollection.off("add", I),
+            o("WAWebChatCollection").ChatCollection.off("change:archive", S),
+            o("WAWebChatCollection").ChatCollection.off("change:isLocked", S),
             o("WAWebChatCollection").ChatCollection.off(
               "change:muteExpiration",
-              R,
+              S,
             ));
         }
       );
     }
-    function R(e) {
+    function S(e) {
       e.id.isGroup() &&
-        _.get().has(e.id.toString()) &&
-        A(o("WATimeUtils").unixTime());
+        p.get().has(e.id.toString()) &&
+        P(o("WATimeUtils").unixTime());
     }
-    function L(e, t) {
+    function R(e, t) {
       return (
         e.id.isGroup() &&
         o("WAWebContactsAndGroupsThisWeek").happenedThisWeek(e.t, t) &&
@@ -97,91 +94,60 @@ __d(
         !o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(e)
       );
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    async function L(e) {
+      var t = o("WATimeUtils").unixTime(),
+        n = N(t)
+          .filter(function (e) {
+            var t;
+            return (
+              ((t = p.get().get(e.id.toString())) == null
+                ? void 0
+                : t.chatTime) !== e.t
+            );
+          })
+          .sort(function (e, t) {
+            var n, r;
+            return ((n = t.t) != null ? n : 0) - ((r = e.t) != null ? r : 0);
+          });
+      (await E(n, 0, t, e)) && P(t);
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WATimeUtils").unixTime(),
-            n = F(t)
-              .filter(function (e) {
-                var t;
-                return (
-                  ((t = _.get().get(e.id.toString())) == null
-                    ? void 0
-                    : t.chatTime) !== e.t
-                );
-              })
-              .sort(function (e, t) {
-                var n, r;
-                return (
-                  ((n = t.t) != null ? n : 0) - ((r = e.t) != null ? r : 0)
-                );
-              });
-          (yield I(n, 0, t, e)) && A(t);
-        })),
-        k.apply(this, arguments)
-      );
+    async function E(e, t, n, r) {
+      var a,
+        i = e[t];
+      if (i == null) return !0;
+      var l = (a = i.t) != null ? a : 0,
+        s = await k(i, null, [], n, r);
+      return s == null
+        ? !1
+        : (D(i.id.toString(), {
+            chatTime: l,
+            lastMsg: s[0],
+            times: o(
+              "WAWebContactsAndGroupsGroupInteractions",
+            ).getGroupInteractionTimes(s),
+          }),
+          E(e, t + 1, n, r));
     }
-    function I(e, t, n, r) {
-      return T.apply(this, arguments);
+    async function k(e, t, n, r, a) {
+      if ((await x(a), a.isAborted)) return null;
+      var i = await o(
+        "WAWebContactsAndGroupsGroupTimelineJob",
+      ).queryGroupTimelinePageJob({
+        beforeInternalId: t,
+        groupId: e.id,
+        limit: c,
+        sinceTs: r - o("WAWebContactsAndGroupsThisWeek").THIS_WEEK_IN_SECONDS,
+      });
+      return a.isAborted
+        ? null
+        : (n.push.apply(n, i.msgs),
+          i.nextBeforeInternalId == null
+            ? n
+            : k(e, i.nextBeforeInternalId, n, r, a));
     }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a,
-              i = e[t];
-            if (i == null) return !0;
-            var l = (a = i.t) != null ? a : 0,
-              s = yield D(i, null, [], n, r);
-            return s == null
-              ? !1
-              : (N(i.id.toString(), {
-                  chatTime: l,
-                  lastMsg: s[0],
-                  times: o(
-                    "WAWebContactsAndGroupsGroupInteractions",
-                  ).getGroupInteractionTimes(s),
-                }),
-                I(e, t + 1, n, r));
-          },
-        )),
-        T.apply(this, arguments)
-      );
-    }
-    function D(e, t, n, r, o) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a) {
-            if ((yield M(a), a.isAborted)) return null;
-            var i = yield o(
-              "WAWebContactsAndGroupsGroupTimelineJob",
-            ).queryGroupTimelinePageJob({
-              beforeInternalId: t,
-              groupId: e.id,
-              limit: d,
-              sinceTs:
-                r - o("WAWebContactsAndGroupsThisWeek").THIS_WEEK_IN_SECONDS,
-            });
-            return a.isAborted
-              ? null
-              : (n.push.apply(n, i.msgs),
-                i.nextBeforeInternalId == null
-                  ? n
-                  : D(e, i.nextBeforeInternalId, n, r, a));
-          },
-        )),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e) {
+    function I(e) {
       try {
-        P(e);
+        T(e);
       } catch (e) {
         o("WALogger")
           .WARN(
@@ -193,11 +159,11 @@ __d(
           .catching(r("getErrorSafe")(e));
       }
     }
-    function P(e) {
+    function T(e) {
       var t,
         n,
         r = e.id.remote.toString(),
-        a = e.isNewMsg ? _.get().get(r) : null;
+        a = e.isNewMsg ? p.get().get(r) : null;
       if (
         !(
           a == null ||
@@ -208,7 +174,7 @@ __d(
       ) {
         var i = o("WAWebChatCollection").ChatCollection.get(e.id.remote),
           l = o("WATimeUtils").unixTime();
-        if (!(i == null || !L(i, l))) {
+        if (!(i == null || !R(i, l))) {
           var s = {
               author: e.author,
               fromMe: e.id.fromMe,
@@ -227,21 +193,21 @@ __d(
               "WAWebContactsAndGroupsGroupInteractions",
             ).getGroupInteractionTimes(c && u != null ? [u, s] : [s]),
           ),
-            N(r, {
+            D(r, {
               chatTime: Math.max(a.chatTime, e.t),
               lastMsg: c ? s : u,
               times: d,
             }),
-            y == null &&
-              (y = o("WAWebPonyfillsIdleCallback").requestIdleCallback(w)));
+            h == null &&
+              (h = o("WAWebPonyfillsIdleCallback").requestIdleCallback($)));
         }
       }
     }
-    function N(e, t) {
-      _.set(new Map(_.get()).set(e, t));
+    function D(e, t) {
+      p.set(new Map(p.get()).set(e, t));
     }
-    function M(e) {
-      return new (c || (c = n("Promise")))(function (t) {
+    function x(e) {
+      return new Promise(function (t) {
         var n = o("WAWebPonyfillsIdleCallback").requestIdleCallback(
           function () {
             return t();
@@ -252,9 +218,9 @@ __d(
         };
       });
     }
-    function w() {
+    function $() {
       try {
-        A(o("WATimeUtils").unixTime());
+        P(o("WATimeUtils").unixTime());
       } catch (e) {
         o("WALogger")
           .WARN(
@@ -266,13 +232,13 @@ __d(
           .catching(r("getErrorSafe")(e));
       }
     }
-    function A(e) {
-      y != null &&
-        (o("WAWebPonyfillsIdleCallback").cancelIdleCallback(y), (y = null));
-      var t = _.get(),
+    function P(e) {
+      h != null &&
+        (o("WAWebPonyfillsIdleCallback").cancelIdleCallback(h), (h = null));
+      var t = p.get(),
         n = new Map(),
         r = new Map();
-      F(e).forEach(function (e) {
+      N(e).forEach(function (e) {
         var o,
           a = e.id.toString();
         (o = t.get(a)) == null ||
@@ -281,20 +247,20 @@ __d(
             e > ((o = n.get(t)) != null ? o : 0) && (n.set(t, e), r.set(t, a));
           });
       });
-      var a = f.get();
-      (!O(n, a) || !B(r, g.get(a))) &&
-        (g.set(n, r),
-        f.set(n),
-        h.forEach(function (e) {
+      var a = _.get();
+      (!M(n, a) || !w(r, f.get(a))) &&
+        (f.set(n, r),
+        _.set(n),
+        g.forEach(function (e) {
           return e();
         }));
     }
-    function F(e) {
+    function N(e) {
       return o("WAWebChatCollection").ChatCollection.filter(function (t) {
-        return L(t, e);
+        return R(t, e);
       });
     }
-    function O(e, t) {
+    function M(e, t) {
       return (
         e.size === t.size &&
         Array.from(e).every(function (e) {
@@ -304,7 +270,7 @@ __d(
         })
       );
     }
-    function B(e, t) {
+    function w(e, t) {
       return t == null
         ? e.size === 0
         : e.size === t.size &&
@@ -314,11 +280,11 @@ __d(
               return t.get(n) === r;
             });
     }
-    ((l.getGroupInteractionTimesSnapshot = C),
-      (l.subscribeToGroupInteractionTimes = b),
-      (l.getGroupOfInteraction = v),
-      (l.startGroupInteractionScan = S),
-      (l.isEligibleGroup = L));
+    ((l.getGroupInteractionTimesSnapshot = y),
+      (l.subscribeToGroupInteractionTimes = C),
+      (l.getGroupOfInteraction = b),
+      (l.startGroupInteractionScan = v),
+      (l.isEligibleGroup = R));
   },
   98,
 );

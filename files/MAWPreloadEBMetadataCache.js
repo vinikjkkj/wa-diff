@@ -6,22 +6,19 @@ __d(
     "MAWEBCombinedSwitch",
     "MAWGetLatestChatJids",
     "MpsWorkerCacheServices",
-    "Promise",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "gkx",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = r("justknobx")._("4744");
-    function u() {
-      n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+    var e = r("justknobx")._("4744");
+    function s() {
+      (async function () {
         try {
-          yield o("MAWEBCombinedSwitch").MAWEBCombinedSwitch.waitForEBEnabled();
-          var e = yield o("MAWGetLatestChatJids").getLatestChatJids(s);
-          o("EBMessageMetadataCache").preloadEBMetadataCache(e);
+          await o("MAWEBCombinedSwitch").MAWEBCombinedSwitch.waitForEBEnabled();
+          var t = await o("MAWGetLatestChatJids").getLatestChatJids(e);
+          o("EBMessageMetadataCache").preloadEBMetadataCache(t);
         } catch (e) {
           r("FBLogger")("messenger_web")
             .catching(r("getErrorSafe")(e))
@@ -29,16 +26,16 @@ __d(
         }
       })();
     }
-    function c() {
+    function u() {
       if (r("gkx")("1747")) {
-        var e = o("MAWEBCombinedSwitch").MAWEBCombinedSwitch.isEnabled();
-        if (e !== !0) {
-          var t = r("gkx")("10665") || r("gkx")("3057");
-          t &&
+        var t = o("MAWEBCombinedSwitch").MAWEBCombinedSwitch.isEnabled();
+        if (t !== !0) {
+          var n = r("gkx")("10665") || r("gkx")("3057");
+          n &&
             o("MAWGetLatestChatJids")
-              .getLatestChatJids(s)
+              .getLatestChatJids(e)
               .then(function (e) {
-                d(e);
+                c(e);
               })
               .catch(function (e) {
                 r("FBLogger")("messenger_web")
@@ -50,25 +47,23 @@ __d(
         }
       }
     }
-    function d(t) {
+    function c(e) {
       if (!r("gkx")("1706")) {
-        o("EBMessageMetadataCache").preloadEBMetadataCache(t);
+        o("EBMessageMetadataCache").preloadEBMetadataCache(e);
         return;
       }
-      (e || (e = n("Promise")))
-        .all(
-          t.map(function (e) {
-            return o("EBMessageMetadataCache").refreshCacheForThread(e);
-          }),
-        )
-        .then(function () {
-          o("MpsWorkerCacheServices")
-            .getMpsWorkerCacheServices()
-            .computeVisibilitySnippets(t);
-        });
+      Promise.all(
+        e.map(function (e) {
+          return o("EBMessageMetadataCache").refreshCacheForThread(e);
+        }),
+      ).then(function () {
+        o("MpsWorkerCacheServices")
+          .getMpsWorkerCacheServices()
+          .computeVisibilitySnippets(e);
+      });
     }
-    ((l.preloadEBMetadataCacheAfterEbEnabled = u),
-      (l.preloadEBMetadataCacheForVisibility = c));
+    ((l.preloadEBMetadataCacheAfterEbEnabled = s),
+      (l.preloadEBMetadataCacheForVisibility = u));
   },
   98,
 );

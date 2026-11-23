@@ -1,11 +1,13 @@
 __d(
   "ExplicitRegistrationDispatcherUtils",
   ["emptyFunction", "setImmediate"],
-  function (t, n, r, o, a, i) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = !1,
-      l = n("emptyFunction");
-    a.exports = { warn: l, inlineRequiresEnabled: e };
+      s = r("emptyFunction"),
+      u = e,
+      c = s;
+    ((l.inlineRequiresEnabled = u), (l.warn = c));
   },
-  null,
+  98,
 );

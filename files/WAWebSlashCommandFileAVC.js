@@ -33,8 +33,8 @@ __d(
         getTextPrompt: y,
         getRunLabel: function () {
           return o("WAWebEmployeeCommandHandoff").canHandOff("vc")
-            ? s._(/*BTDS*/ "Press Enter to add a Zoom link")
-            : s._(/*BTDS*/ "Press Enter, then create the call in Join Meeting");
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
         },
         getFollowUpPlaceholder: function (t) {
           var e = t.chat;
@@ -121,17 +121,17 @@ __d(
       return (
         l &&
           (i = o("WAWebSlashCommandHandBack").showHandBackProgressToast(
-            s._(/*BTDS*/ "Setting up your Zoom call\u2026"),
+            s._(/*BTDS*/ ""),
           )),
         l
       );
     }
     function _() {
-      return s._(/*BTDS*/ "Paste the Zoom link\u2026");
+      return s._(/*BTDS*/ "");
     }
     function f(e, t, n, r, a) {
       var i = {
-        actionText: s._(/*BTDS*/ "Open Join Meeting"),
+        actionText: s._(/*BTDS*/ ""),
         onAction: function () {
           (o("WAWebSlashCommandsUsageLogger").logFallbackOpen("fileavc", e),
             o("WAWebExternalLink.react").openExternalLink(c(t), {
@@ -142,10 +142,8 @@ __d(
       };
       if (n === "timeout") {
         o("WAWebSlashCommandHandBack").showHandBackNoAnswer({
-          noAnswer: s._(/*BTDS*/ "Join Meeting didn't answer"),
-          checkFirst: s._(
-            /*BTDS*/ "It may have been created. Check Join Meeting before trying again.",
-          ),
+          noAnswer: s._(/*BTDS*/ ""),
+          checkFirst: s._(/*BTDS*/ ""),
           lastingAction: i,
           progress: a,
         });
@@ -155,23 +153,17 @@ __d(
         fallbackOpened: r,
         progress: a,
         reason: n,
-        text: {
-          failed: s._(/*BTDS*/ "Couldn't set up the Zoom call automatically"),
-          blocked: s._(/*BTDS*/ "Finish creating it in Join Meeting"),
-          open: i,
-        },
+        text: { failed: s._(/*BTDS*/ ""), blocked: s._(/*BTDS*/ ""), open: i },
       });
     }
     function g(e, t, n, r) {
       var a = e.chat,
         i =
-          s
-            ._(/*BTDS*/ "Zoom: {meeting title}", [s._param("meeting title", t)])
-            .toString() +
+          s._(/*BTDS*/ "", [s._param("meeting title", t)]).toString() +
           "\n" +
           n,
         l = o("WAWebSlashCommandHandBack").putDraftInChat(e, i),
-        u = s._(/*BTDS*/ "Zoom call ready");
+        u = s._(/*BTDS*/ "");
       (o("WAWebSlashCommandHandBack").showHandBackOutcomeToast({
         chat: a,
         link: n,
@@ -181,9 +173,7 @@ __d(
         text: {
           added: u,
           addedInChat: function (t) {
-            return s._(/*BTDS*/ "Zoom call ready in {chat name}", [
-              s._param("chat name", t),
-            ]);
+            return s._(/*BTDS*/ "", [s._param("chat name", t)]);
           },
           ready: u,
         },
@@ -200,10 +190,10 @@ __d(
             t,
             o("WAWebEmployeeCommandLimits").HANDOFF_LIMITS.vcTitle,
           )
-        : s._(/*BTDS*/ "Quick sync").toString();
+        : s._(/*BTDS*/ "").toString();
     }
     function y() {
-      return s._(/*BTDS*/ "Add a link to a new Zoom meeting");
+      return s._(/*BTDS*/ "");
     }
     ((l.VC_START_URL = u),
       (l.getZoomCreateUrl = c),

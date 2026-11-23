@@ -5,38 +5,27 @@ __d(
     "WALogger",
     "WAWebAddonNewsletterQuestionResponseTableMode",
     "WAWebNewsletterSendMessageJob",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
+    async function s(e) {
+      var t = e.msg,
+        n = e.newsletterJid,
+        r = e.parentMsgServerId;
+      try {
+        var a = await o("WAWebNewsletterSendMessageJob").sendNewsletterMessage({
+          type: "newsletterQuestionResponse",
+          newsletterJid: n,
+          parentMsgServerId: r,
+          msg: t,
+        });
+        return (a.success && (await c(u(t, a))), a);
+      } catch (e) {
+        throw e;
+      }
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.msg,
-            n = e.newsletterJid,
-            r = e.parentMsgServerId;
-          try {
-            var a = yield o(
-              "WAWebNewsletterSendMessageJob",
-            ).sendNewsletterMessage({
-              type: "newsletterQuestionResponse",
-              newsletterJid: n,
-              parentMsgServerId: r,
-              msg: t,
-            });
-            return (a.success && (yield d(c(t, a))), a);
-          } catch (e) {
-            throw e;
-          }
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e, t) {
+    function u(e, t) {
       return babelHelpers.extends({}, e, {
         ack: o("WAAckLevel").ACK.SENT,
         t: t.ack.t,
@@ -45,31 +34,23 @@ __d(
         }),
       });
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            yield o(
-              "WAWebAddonNewsletterQuestionResponseTableMode",
-            ).newsletterQuestionResponseTableMode.bulkUpsert([t]);
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[questions] Failed to store question response",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .tags("newsletter", "questions")
-              .sendLogs("newsletter-failed-to-store-question-response");
-          }
-        })),
-        m.apply(this, arguments)
-      );
+    async function c(t) {
+      try {
+        await o(
+          "WAWebAddonNewsletterQuestionResponseTableMode",
+        ).newsletterQuestionResponseTableMode.bulkUpsert([t]);
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[questions] Failed to store question response",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .tags("newsletter", "questions")
+          .sendLogs("newsletter-failed-to-store-question-response");
+      }
     }
     l.sendAndStoreQuestionResponse = s;
   },

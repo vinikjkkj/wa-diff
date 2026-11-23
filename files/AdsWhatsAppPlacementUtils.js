@@ -1,12 +1,6 @@
 __d(
   "AdsWhatsAppPlacementUtils",
-  [
-    "AdsAPIObjectives",
-    "AdsAccountUtils",
-    "AdsPromotedObjectTypes",
-    "AdsWhatsAppFeatureGating",
-    "gkx",
-  ],
+  ["AdsAPIObjectives", "AdsAccountUtils", "AdsPromotedObjectTypes", "gkx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -24,18 +18,15 @@ __d(
             e.capabilities,
             "CAN_USE_WHATSAPP_DESTINATION_ON_LINK_CLICKS_AND_CONVERSIONS",
           ),
-        a =
+        o =
           e.promotedObjectType === r("AdsPromotedObjectTypes").WHATSAPP &&
           (e.objective === r("AdsAPIObjectives").CONVERSIONS ||
-            (e.objective === r("AdsAPIObjectives").OUTCOME_SALES &&
-              o(
-                "AdsWhatsAppFeatureGating",
-              ).isCTWASalesPlacementCleanupEnabled())) &&
+            e.objective === r("AdsAPIObjectives").OUTCOME_SALES) &&
           r("AdsAccountUtils").hasCapabilityFromList(
             e.capabilities,
             "CAN_USE_WHATSAPP_DESTINATION_ON_CONVERSIONS",
           );
-      return t || n || a;
+      return t || n || o;
     }
     function s(e) {
       return (
@@ -71,15 +62,13 @@ __d(
     var h = e,
       y = e,
       C = u,
-      b = e,
+      b = u,
       v = u,
-      S = u,
+      S = e,
       R = e,
       L = e,
       E = e,
-      k = e,
-      I = e,
-      T = e;
+      k = e;
     ((l.isWhatsAppDestinationEnabledAndSelected = e),
       (l.isCTWAFacebookPositionRequiringFeed = s),
       (l.isIneligibleForANInstreamVideo = h),
@@ -89,19 +78,17 @@ __d(
       (l.isIneligibleForFBStory = C),
       (l.isIneligibleForFBReels = _),
       (l.isIneligibleForFBReelsOverlay = g),
-      (l.isIneligibleForFBVideoFeeds = b),
-      (l.isIneligibleForFBVideoFeedsNonMobile = v),
+      (l.isIneligibleForFBVideoFeedsNonMobile = b),
       (l.isIneligibleForMarketplacePlacement = c),
       (l.isIneligibleForSearchPlacement = d),
-      (l.isIneligibleForIGFeedAndExplore = S),
+      (l.isIneligibleForIGFeedAndExplore = v),
       (l.isIneligibleForIGStory = m),
       (l.isIneligibleForIGReels = p),
-      (l.isIneligibleForIGShopTab = R),
-      (l.isIneligibleForIGExploreGrid = L),
-      (l.isIneligibleForIGSearch = E),
-      (l.isIneligibleForMessengerInbox = k),
-      (l.isIneligibleForMessengerStory = I),
-      (l.isIneligibleForThreadsFeed = T));
+      (l.isIneligibleForIGShopTab = S),
+      (l.isIneligibleForIGExploreGrid = R),
+      (l.isIneligibleForIGSearch = L),
+      (l.isIneligibleForMessengerStory = E),
+      (l.isIneligibleForThreadsFeed = k));
   },
   98,
 );

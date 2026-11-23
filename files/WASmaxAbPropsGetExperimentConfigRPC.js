@@ -17,47 +17,35 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = f(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = p(r, n);
-          if (a.success)
-            return {
-              name: "GetExperimentConfigResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "GetExperimentConfigResponseErrorNoRetry",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "GetExperimentConfigResponseErrorRetry",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("GetExperimentConfig", {
-              Success: a,
-              ErrorNoRetry: i,
-              ErrorRetry: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = _(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = m(r, n);
+      if (a.success)
+        return { name: "GetExperimentConfigResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "GetExperimentConfigResponseErrorNoRetry",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "GetExperimentConfigResponseErrorRetry",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetExperimentConfig", {
+          Success: a,
+          ErrorNoRetry: i,
+          ErrorRetry: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -66,14 +54,14 @@ __d(
         "WASmaxInAbPropsIQErrorResponseMixin",
       ).parseIQErrorResponseMixin(e, t);
       if (!a.success) return a;
-      var i = _(r.value);
+      var i = p(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, { errorNoRetryErrors: i.value }),
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -94,15 +82,15 @@ __d(
           )
         : i;
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "prop");
       if (!t.success) return t;
-      var n = g(e);
+      var n = f(e);
       return n.success
         ? o("WAResultOrError").makeResult({ configs: n.value })
         : n;
     }
-    function m(e) {
+    function d(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "erid");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").contentBytesRange(e, 1, 100);
@@ -110,12 +98,12 @@ __d(
         ? o("WAResultOrError").makeResult({ elementValue: n.value })
         : n;
     }
-    function p(e, t) {
+    function m(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "props");
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").optionalChildWithTag(e, "erid", m);
+      var a = o("WASmaxParseUtils").optionalChildWithTag(e, "erid", d);
       if (!a.success) return a;
       var i = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
@@ -144,19 +132,19 @@ __d(
         void 0,
       );
       if (!u.success) return u;
-      var c = o("WASmaxParseUtils").optional(
+      var m = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrIntRange,
         r.value,
         "refresh_id",
         0,
         void 0,
       );
-      if (!c.success) return c;
+      if (!m.success) return m;
       var p = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrStringEnum,
         r.value,
         "delta_update",
-        h,
+        g,
       );
       if (!p.success) return p;
       var _ = o(
@@ -168,7 +156,7 @@ __d(
         "prop",
         0,
         1 / 0,
-        d,
+        c,
       );
       return f.success
         ? o("WAResultOrError").makeResult(
@@ -178,7 +166,7 @@ __d(
                 propsAbKey: l.value,
                 propsHash: s.value,
                 propsRefresh: u.value,
-                propsRefreshId: c.value,
+                propsRefreshId: m.value,
                 propsDeltaUpdate: p.value,
               },
               _.value,
@@ -187,7 +175,7 @@ __d(
           )
         : f;
     }
-    function _(e) {
+    function p(e) {
       var t = o(
         "WASmaxInAbPropsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -210,7 +198,7 @@ __d(
             [t, n],
           );
     }
-    function f(e) {
+    function _(e) {
       var t = e.propsHash,
         n = e.propsRefreshId,
         r = o(
@@ -228,7 +216,7 @@ __d(
         );
       return r;
     }
-    function g(e) {
+    function f(e) {
       var t = o(
         "WASmaxInAbPropsExperimentConfigMixin",
       ).parseExperimentConfigMixin(e);
@@ -251,13 +239,13 @@ __d(
             [t, n],
           );
     }
-    var h = { false: "false", true: "true" };
+    var g = { false: "false", true: "true" };
     ((l.sendGetExperimentConfigRPC = e),
-      (l.parseGetExperimentConfigResponseErrorNoRetry = u),
-      (l.parseGetExperimentConfigResponseErrorRetry = c),
-      (l.parseGetExperimentConfigResponseSuccess = p),
-      (l.makeGetExperimentConfigRequest = f),
-      (l.ENUM_FALSE_TRUE = h));
+      (l.parseGetExperimentConfigResponseErrorNoRetry = s),
+      (l.parseGetExperimentConfigResponseErrorRetry = u),
+      (l.parseGetExperimentConfigResponseSuccess = m),
+      (l.makeGetExperimentConfigRequest = _),
+      (l.ENUM_FALSE_TRUE = g));
   },
   98,
 );

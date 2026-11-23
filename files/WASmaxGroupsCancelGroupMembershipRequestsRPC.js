@@ -23,46 +23,37 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = g(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success)
-            return {
-              name: "CancelGroupMembershipRequestsResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "CancelGroupMembershipRequestsResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "CancelGroupMembershipRequestsResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "CancelGroupMembershipRequests",
-              { Success: a, ClientError: i, ServerError: l },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = f(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success)
+        return {
+          name: "CancelGroupMembershipRequestsResponseSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "CancelGroupMembershipRequestsResponseClientError",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "CancelGroupMembershipRequestsResponseServerError",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing(
+          "CancelGroupMembershipRequests",
+          { Success: a, ClientError: i, ServerError: l },
+        ),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -72,7 +63,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = p(r.value);
+      var i = m(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -81,7 +72,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -90,14 +81,14 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrUserJid(e, "jid");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsPhoneNumberMixin").parsePhoneNumberMixin(e),
         a = o("WASmaxInGroupsUsernameAttMixin").parseUsernameAttMixin(e),
-        i = _(e);
+        i = p(e);
       return o("WAResultOrError").makeResult({
         jid: n.value,
         phoneNumberMixin: r.success ? r.value : null,
@@ -107,7 +98,7 @@ __d(
           : null,
       });
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -127,7 +118,7 @@ __d(
           "participant",
           1,
           19999,
-          d,
+          c,
         );
       return l.success
         ? o("WAResultOrError").makeResult(
@@ -138,7 +129,7 @@ __d(
           )
         : l;
     }
-    function p(e) {
+    function m(e) {
       var t = o(
         "WASmaxInGroupsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -189,8 +180,8 @@ __d(
             [t, n, r, a, i],
           );
     }
-    function _(e) {
-      var t = h(e);
+    function p(e) {
+      var t = g(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "CancelGroupMembershipRequestsParticipantRequestNotFound",
@@ -210,12 +201,12 @@ __d(
             [t, n],
           );
     }
-    function f(e) {
+    function _(e) {
       var t = e.participantJid,
         n = o("WASmaxJsx").smax("participant", { jid: o("WAWap").USER_JID(t) });
       return n;
     }
-    function g(e) {
+    function f(e) {
       var t = e.participantArgs,
         n = o("WASmaxOutGroupsBaseSetGroupMixin").mergeBaseSetGroupMixin(
           o("WASmaxJsx").smax(
@@ -224,14 +215,14 @@ __d(
             o("WASmaxJsx").smax(
               "cancel_membership_requests",
               null,
-              o("WASmaxChildren").REPEATED_CHILD(f, t, 1, 19999),
+              o("WASmaxChildren").REPEATED_CHILD(_, t, 1, 19999),
             ),
           ),
           e,
         );
       return n;
     }
-    function h(e) {
+    function g(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -245,10 +236,10 @@ __d(
         : n;
     }
     ((l.sendCancelGroupMembershipRequestsRPC = e),
-      (l.parseCancelGroupMembershipRequestsResponseClientError = u),
-      (l.parseCancelGroupMembershipRequestsResponseServerError = c),
-      (l.parseCancelGroupMembershipRequestsResponseSuccess = m),
-      (l.makeCancelGroupMembershipRequestsRequest = g));
+      (l.parseCancelGroupMembershipRequestsResponseClientError = s),
+      (l.parseCancelGroupMembershipRequestsResponseServerError = u),
+      (l.parseCancelGroupMembershipRequestsResponseSuccess = d),
+      (l.makeCancelGroupMembershipRequestsRequest = f));
   },
   98,
 );

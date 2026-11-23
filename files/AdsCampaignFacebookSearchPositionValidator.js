@@ -65,9 +65,7 @@ __d(
                   new (r("AdsError"))(
                     2490047,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "To use Facebook Search, please also select the Facebook Feeds placement.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       level: r("AdsError").Level.WARN,

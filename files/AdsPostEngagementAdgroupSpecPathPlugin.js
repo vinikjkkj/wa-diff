@@ -20,6 +20,7 @@ __d(
     "gkx",
     "immutable",
     "nullthrows",
+    "qex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -196,7 +197,10 @@ __d(
         },
         getCombinedFieldMappings: function (t) {
           var e = o("AdsAPIAdgroupRecordUtils").getObjectType(t),
-            n = r("adsConvertAdObjectRecordToPlainJS")(t),
+            n =
+              r("qex")._("3278") === !0
+                ? t
+                : r("adsConvertAdObjectRecordToPlainJS")(t),
             a =
               o("AdsAssetFeedUtils").isDofMessagingDestinationAdgroupFromSpec(
                 t,

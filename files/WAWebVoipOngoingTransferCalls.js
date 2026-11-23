@@ -8,7 +8,6 @@ __d(
     "WAWebVoipEventConstants",
     "WAWebVoipTransferredCallRegistry",
     "react",
-    "react-compiler-runtime",
     "useWAWebABPropConfigValue",
     "useWAWebEventTargetValue",
   ],
@@ -32,7 +31,7 @@ __d(
     }
     function m() {
       var e,
-        t = g(
+        t = _(
           o(
             "WAWebVoipCallTransferEntryPointStore",
           ).WAWebVoipCallTransferEntryPointStore.getEntryPoints(),
@@ -46,56 +45,44 @@ __d(
         : new Set();
     }
     function p() {
-      var e = o("react-compiler-runtime").c(9),
-        t = o("useWAWebABPropConfigValue").useABPropConfigValue(
+      var e = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "enable_1on1_call_transfer_entry_point",
         ),
-        n = r("useWAWebEventTargetValue")(
+        t = r("useWAWebEventTargetValue")(
           o("WAWebVoipCallTransferEntryPointStore")
             .WAWebVoipCallTransferEntryPointStore,
           "change",
-          f,
+          function () {
+            return o(
+              "WAWebVoipCallTransferEntryPointStore",
+            ).WAWebVoipCallTransferEntryPointStore.getEntryPoints();
+          },
         ),
-        a;
-      e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = o("WAWebVoipEventConstants").getChangeEvent(
+        n = r("useWAWebEventTargetValue")(
+          r("WAWebCallCollection"),
+          o("WAWebVoipEventConstants").getChangeEvent(
             o("WAWebVoipEventConstants").VoipCallCollectionEvents.ACTIVE_CALL,
-          )),
-          (e[0] = a))
-        : (a = e[0]);
-      var i = r("useWAWebEventTargetValue")(r("WAWebCallCollection"), a, _),
-        l;
-      e[1] !== (i == null ? void 0 : i.id)
-        ? ((l = function () {
-            return i == null ? void 0 : i.id;
-          }),
-          (e[1] = i == null ? void 0 : i.id),
-          (e[2] = l))
-        : (l = e[2]);
-      var s;
-      e[3] !== i ? ((s = [i]), (e[3] = i), (e[4] = s)) : (s = e[4]);
-      var u = r("useWAWebEventTargetValue")(i, "change:id", l, s),
-        c;
-      return (
-        e[5] !== u || e[6] !== n || e[7] !== t
-          ? ((c = t ? g(n, u) : new Set()),
-            (e[5] = u),
-            (e[6] = n),
-            (e[7] = t),
-            (e[8] = c))
-          : (c = e[8]),
-        c
+          ),
+          function () {
+            return r("WAWebCallCollection").activeCall;
+          },
+        ),
+        a = r("useWAWebEventTargetValue")(
+          n,
+          "change:id",
+          function () {
+            return n == null ? void 0 : n.id;
+          },
+          [n],
+        );
+      return u(
+        function () {
+          return e ? _(t, a) : new Set();
+        },
+        [e, t, a],
       );
     }
-    function _() {
-      return r("WAWebCallCollection").activeCall;
-    }
-    function f() {
-      return o(
-        "WAWebVoipCallTransferEntryPointStore",
-      ).WAWebVoipCallTransferEntryPointStore.getEntryPoints();
-    }
-    function g(e, t) {
+    function _(e, t) {
       var n = new Set(
           e.map(function (e) {
             var t = e.rootCallId;

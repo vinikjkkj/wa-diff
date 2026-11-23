@@ -10,116 +10,79 @@ __d(
     "WAWebVoipCameraPrewarm",
     "WAWebVoipJoinWithoutCamera",
     "WAWebVoipLocalVideoPolicy",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
       u = {
-        voipAcquireMediaStream: (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var n;
-            return t.type === "camera" &&
-              !o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
+        voipAcquireMediaStream: async function (n) {
+          var t;
+          return n.type === "camera" &&
+            !o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
+            ? (o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [AV] local video is blocked, skipping camera acquisition",
+                  ])),
+              ),
+              null)
+            : n.type === "camera" &&
+                o("WAWebVoipJoinWithoutCamera").consumeJoinWithoutCamera(
+                  (t = r("WAWebCallCollection").activeCall) == null
+                    ? void 0
+                    : t.id,
+                )
               ? (o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [AV] local video is blocked, skipping camera acquisition",
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [AV] the call joins with its camera off, skipping camera acquisition",
                     ])),
                 ),
                 null)
-              : t.type === "camera" &&
-                  o("WAWebVoipJoinWithoutCamera").consumeJoinWithoutCamera(
-                    (n = r("WAWebCallCollection").activeCall) == null
-                      ? void 0
-                      : n.id,
-                  )
-                ? (o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [AV] the call joins with its camera off, skipping camera acquisition",
-                      ])),
-                  ),
-                  null)
-                : o(
-                    "WAWebVoipBridgeMediaStreamHelpers",
-                  ).voipAcquireMediaStreamImpl(t);
+              : o(
+                  "WAWebVoipBridgeMediaStreamHelpers",
+                ).voipAcquireMediaStreamImpl(n);
+        },
+        getIsValidVideoDevice: async function (t) {
+          var e = t.deviceId,
+            n = t.isInActiveCall,
+            r = t.targetWindow;
+          return o("WAWebVoipAcquireMediaStream").getIsValidVideoDevice({
+            deviceId: e,
+            isInActiveCall: n,
+            targetWindow: r,
           });
-          function a(e) {
-            return t.apply(this, arguments);
-          }
-          return a;
-        })(),
-        getIsValidVideoDevice: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.deviceId,
-              n = e.isInActiveCall,
-              r = e.targetWindow;
-            return o("WAWebVoipAcquireMediaStream").getIsValidVideoDevice({
-              deviceId: t,
-              isInActiveCall: n,
-              targetWindow: r,
-            });
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        },
         cleanupPrewarmedCamera: function () {
           o("WAWebVoipCameraPrewarm").cleanupPrewarmedCamera();
         },
-        logCameraFingerprint: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
-              ? o("WAWebVoipCameraFingerprint").logCameraFingerprint()
-              : !1;
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        getVoipCameraPermissionState: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
-              ? o("WAWebVoipAcquireMediaStream").queryCameraPermissionStrict()
-              : null;
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        getVoipMicPermissionGranted: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return c(
-              yield o(
-                "WAWebMediaPermissionsUtils",
-              ).queryMediaPermissionStateStrict("microphone"),
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        getVoipCameraPermissionGranted: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
-              ? c(
-                  yield o(
-                    "WAWebVoipAcquireMediaStream",
-                  ).queryCameraPermissionStrict(),
-                )
-              : null;
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        logCameraFingerprint: async function () {
+          return o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
+            ? o("WAWebVoipCameraFingerprint").logCameraFingerprint()
+            : !1;
+        },
+        getVoipCameraPermissionState: async function () {
+          return o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
+            ? o("WAWebVoipAcquireMediaStream").queryCameraPermissionStrict()
+            : null;
+        },
+        getVoipMicPermissionGranted: async function () {
+          return c(
+            await o(
+              "WAWebMediaPermissionsUtils",
+            ).queryMediaPermissionStateStrict("microphone"),
+          );
+        },
+        getVoipCameraPermissionGranted: async function () {
+          return o("WAWebVoipLocalVideoPolicy").isLocalVideoAllowed()
+            ? c(
+                await o(
+                  "WAWebVoipAcquireMediaStream",
+                ).queryCameraPermissionStrict(),
+              )
+            : null;
+        },
       };
     function c(e) {
       return e === "granted"

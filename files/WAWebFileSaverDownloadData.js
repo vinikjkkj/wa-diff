@@ -1,7 +1,6 @@
 __d(
   "WAWebFileSaverDownloadData",
   [
-    "Promise",
     "WAAbortError",
     "WALogger",
     "WAWebDualUploadsAssociationTypes",
@@ -13,207 +12,181 @@ __d(
     "WAWebMsgType",
     "WAWebWamEnumWebcRmrReasonCode",
     "WAWebZipUtils",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t, n) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          try {
-            return yield a(t);
-          } catch (i) {
-            if (
-              n == null ||
-              n === t ||
-              o("WAAbortError").isAbortError(r("getErrorSafe")(i))
+    var e, s, u;
+    async function c(t, n, a) {
+      try {
+        return await a(t);
+      } catch (i) {
+        if (
+          n == null ||
+          n === t ||
+          o("WAAbortError").isAbortError(r("getErrorSafe")(i))
+        )
+          throw i;
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[file-saver] HD leg failed to download, saving the SD leg",
+                ])),
             )
-              throw i;
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[file-saver] HD leg failed to download, saving the SD leg",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(i)),
-              a(n)
-            );
-          }
-        })),
-        m.apply(this, arguments)
-      );
+            .catching(r("getErrorSafe")(i)),
+          a(n)
+        );
+      }
     }
-    function p(e, t, n) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          t === void 0 && (t = !1);
-          var i = Array.isArray(e) ? e : [e];
-          try {
-            var l = yield (c || (c = n("Promise"))).all(
-              i.map(function (e) {
-                return d(e, a == null ? void 0 : a.get(e), function (e) {
-                  return f(e, t);
-                });
-              }),
-            );
-            if (l.length > 1) {
-              var u = yield o("WAWebZipUtils").zipFiles(
-                l.map(function (e) {
-                  var t = e.blob,
-                    n = e.name,
-                    r = e.url;
-                  return { blob: t, name: n, url: r };
-                }),
-              );
-              return {
-                blob: u,
-                messages: l.flatMap(function (e) {
-                  return e.messages;
-                }),
-                name: o("WAWebFilenameManager").getDefaultName({
-                  t: Math.round(Date.now() / 1e3),
-                  type: "unknown",
-                  mimetype: "application/zip",
-                  isVcardOverMmsDocument: !1,
-                  filename: "",
-                  vcardList: [],
-                }),
-              };
-            }
-            return l[0];
-          } catch (e) {
-            var m = r("getErrorSafe")(e);
-            throw (
-              o("WAAbortError").isAbortError(m) ||
-                o("WALogger")
-                  .ERROR(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "Failed to get msg download data",
-                      ])),
-                  )
-                  .catching(m)
-                  .sendLogs("msg-download-data-failed"),
-              m
-            );
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t === void 0 && (t = !1);
-          var a = "text/vcard";
-          if (e.type === o("WAWebMsgType").MSG_TYPE.VCARD)
-            return {
-              name: o("WAWebFilenameManager").getDefaultName(e),
-              messages: [e],
-              blob: new Blob([e.body], { type: a }),
-            };
-          if (e.type === o("WAWebMsgType").MSG_TYPE.MULTI_VCARD)
-            return {
-              name: o("WAWebFilenameManager").getDefaultName(e),
-              messages: [e],
-              blob: new Blob(
-                [
-                  e.vcardList
-                    .map(function (e) {
-                      return e.vcard;
-                    })
-                    .join("\n"),
-                ],
-                { type: a },
-              ),
-            };
-          if (e.type === o("WAWebMsgType").MSG_TYPE.ALBUM) {
-            var i = o(
-              "WAWebMessageAssociationUIUtils",
-            ).getHiddenAssociatedMessages(e.id);
-            if (i.length > 0) {
-              var l = yield (c || (c = n("Promise"))).all(
-                i.map(function (e) {
-                  return d(
-                    o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsg(e),
-                    e,
-                    function (e) {
-                      return f(e, t);
-                    },
-                  );
-                }),
-              );
-              if (l.length === 1) return l[0];
-              var s = yield o("WAWebZipUtils").zipFiles(
-                l.map(function (e) {
-                  var t = e.blob,
-                    n = e.name,
-                    r = e.url;
-                  return { blob: t, name: n, url: r };
-                }),
-              );
-              return {
-                blob: s,
-                messages: l.flatMap(function (e) {
-                  return e.messages;
-                }),
-                name: o("WAWebFilenameManager").getDefaultName({
-                  t: Math.round(Date.now() / 1e3),
-                  type: "unknown",
-                  mimetype: "application/zip",
-                  isVcardOverMmsDocument: !1,
-                  filename: "",
-                  vcardList: [],
-                }),
-              };
-            }
-            throw (
-              o("WALogger")
-                .LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[debug] getMsgDownloadData Album message has no associated child messages",
-                    ])),
-                )
-                .sendLogs("msg-download-data-almum-no-children"),
-              r("err")("Album message has no associated child messages")
-            );
-          }
-          var m = h(e);
-          if (m) return babelHelpers.extends({}, m, { messages: [e] });
-          yield e.downloadMedia({
-            downloadEvenIfExpensive: !(
-              e.parentMsgKey != null &&
-              o("WAWebDualUploadsAssociationTypes").isDualUploadAssociationType(
-                e.associationType,
+    async function d(e, t, n) {
+      t === void 0 && (t = !1);
+      var a = Array.isArray(e) ? e : [e];
+      try {
+        var i = await Promise.all(
+          a.map(function (e) {
+            return c(e, n == null ? void 0 : n.get(e), function (e) {
+              return m(e, t);
+            });
+          }),
+        );
+        if (i.length > 1) {
+          var l = await o("WAWebZipUtils").zipFiles(
+            i.map(function (e) {
+              var t = e.blob,
+                n = e.name,
+                r = e.url;
+              return { blob: t, name: n, url: r };
+            }),
+          );
+          return {
+            blob: l,
+            messages: i.flatMap(function (e) {
+              return e.messages;
+            }),
+            name: o("WAWebFilenameManager").getDefaultName({
+              t: Math.round(Date.now() / 1e3),
+              type: "unknown",
+              mimetype: "application/zip",
+              isVcardOverMmsDocument: !1,
+              filename: "",
+              vcardList: [],
+            }),
+          };
+        }
+        return i[0];
+      } catch (e) {
+        var u = r("getErrorSafe")(e);
+        throw (
+          o("WAAbortError").isAbortError(u) ||
+            o("WALogger")
+              .ERROR(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "Failed to get msg download data",
+                  ])),
               )
-            ),
-            rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
-              .DOCUMENT_DOWNLOAD,
-            isUserInitiated: !0,
-            shouldThrowAbortError: t,
-          });
-          var p = h(e);
-          if (p) return babelHelpers.extends({}, p, { messages: [e] });
-          throw r("err")("Unable to download because blob cannot be found");
-        })),
-        g.apply(this, arguments)
-      );
+              .catching(u)
+              .sendLogs("msg-download-data-failed"),
+          u
+        );
+      }
     }
-    function h(e) {
+    async function m(e, t) {
+      t === void 0 && (t = !1);
+      var n = "text/vcard";
+      if (e.type === o("WAWebMsgType").MSG_TYPE.VCARD)
+        return {
+          name: o("WAWebFilenameManager").getDefaultName(e),
+          messages: [e],
+          blob: new Blob([e.body], { type: n }),
+        };
+      if (e.type === o("WAWebMsgType").MSG_TYPE.MULTI_VCARD)
+        return {
+          name: o("WAWebFilenameManager").getDefaultName(e),
+          messages: [e],
+          blob: new Blob(
+            [
+              e.vcardList.map(function (e) {
+                return e.vcard;
+              }).join(`
+`),
+            ],
+            { type: n },
+          ),
+        };
+      if (e.type === o("WAWebMsgType").MSG_TYPE.ALBUM) {
+        var a = o("WAWebMessageAssociationUIUtils").getHiddenAssociatedMessages(
+          e.id,
+        );
+        if (a.length > 0) {
+          var i = await Promise.all(
+            a.map(function (e) {
+              return c(
+                o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsg(e),
+                e,
+                function (e) {
+                  return m(e, t);
+                },
+              );
+            }),
+          );
+          if (i.length === 1) return i[0];
+          var l = await o("WAWebZipUtils").zipFiles(
+            i.map(function (e) {
+              var t = e.blob,
+                n = e.name,
+                r = e.url;
+              return { blob: t, name: n, url: r };
+            }),
+          );
+          return {
+            blob: l,
+            messages: i.flatMap(function (e) {
+              return e.messages;
+            }),
+            name: o("WAWebFilenameManager").getDefaultName({
+              t: Math.round(Date.now() / 1e3),
+              type: "unknown",
+              mimetype: "application/zip",
+              isVcardOverMmsDocument: !1,
+              filename: "",
+              vcardList: [],
+            }),
+          };
+        }
+        throw (
+          o("WALogger")
+            .LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[debug] getMsgDownloadData Album message has no associated child messages",
+                ])),
+            )
+            .sendLogs("msg-download-data-almum-no-children"),
+          r("err")("Album message has no associated child messages")
+        );
+      }
+      var s = p(e);
+      if (s) return babelHelpers.extends({}, s, { messages: [e] });
+      await e.downloadMedia({
+        downloadEvenIfExpensive: !(
+          e.parentMsgKey != null &&
+          o("WAWebDualUploadsAssociationTypes").isDualUploadAssociationType(
+            e.associationType,
+          )
+        ),
+        rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
+          .DOCUMENT_DOWNLOAD,
+        isUserInitiated: !0,
+        shouldThrowAbortError: t,
+      });
+      var d = p(e);
+      if (d) return babelHelpers.extends({}, d, { messages: [e] });
+      throw r("err")("Unable to download because blob cannot be found");
+    }
+    function p(e) {
       if (e.mediaData == null) return null;
       var t = e.mediaData,
         n = t.filehash,
@@ -236,9 +209,9 @@ __d(
           }
         : null;
     }
-    ((l.withSdLegFallback = d),
-      (l.getMultiMsgDownloadData = p),
-      (l.getMsgDownloadData = f));
+    ((l.withSdLegFallback = c),
+      (l.getMultiMsgDownloadData = d),
+      (l.getMsgDownloadData = m));
   },
   98,
 );

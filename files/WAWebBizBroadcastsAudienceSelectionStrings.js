@@ -3,73 +3,58 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Create audience");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Edit audience");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Select who you want to reach with your broadcast.");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Save audience");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(/*BTDS*/ "Send broadcast");
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(/*BTDS*/ "Choose recipients");
+      return s._(/*BTDS*/ "");
     }
     function _(e, t) {
-      return s._(/*BTDS*/ "{selected_count} of {max_count} selected", [
+      return s._(/*BTDS*/ "", [
         s._param("selected_count", e),
         s._param("max_count", t),
       ]);
     }
     function f(e, t) {
-      return s._(/*BTDS*/ "{count} of {max_count}", [
-        s._param("count", e),
-        s._param("max_count", t),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("count", e), s._param("max_count", t)]);
     }
     function g() {
-      return s._(/*BTDS*/ "Audience name");
+      return s._(/*BTDS*/ "");
     }
     function h() {
-      return s._(/*BTDS*/ "Recipients");
+      return s._(/*BTDS*/ "");
     }
     function y(e) {
-      return s._(
-        /*BTDS*/ '_j{"*":{"*":"{number_of_recipients} recipients weren\'t imported"},"_1":{"_1":"1 recipient wasn\'t imported"}}',
-        [s._plural(e, "number_of_recipients"), s._plural(e)],
-      );
+      return s._(/*BTDS*/ "", [
+        s._plural(e, "number_of_recipients"),
+        s._plural(e),
+      ]);
     }
     function C() {
-      return s._(
-        /*BTDS*/ "Update recipient errors before saving your audience.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function b(e) {
-      return s._(
-        /*BTDS*/ '_j{"*":"Remove recipients with errors","_1":"Remove recipient with an error"}',
-        [s._plural(e)],
-      );
+      return s._(/*BTDS*/ "", [s._plural(e)]);
     }
     function v(e) {
-      return s._(
-        /*BTDS*/ '_j{"*":"{number_of_recipients} recipients removed","_1":"1 recipient removed"}',
-        [s._plural(e, "number_of_recipients")],
-      );
+      return s._(/*BTDS*/ "", [s._plural(e, "number_of_recipients")]);
     }
     function S(e) {
-      return s._(/*BTDS*/ "{contact_name} deleted", [
-        s._param("contact_name", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("contact_name", e)]);
     }
     function R(e) {
-      return s._(/*BTDS*/ "{contact_name} updated", [
-        s._param("contact_name", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("contact_name", e)]);
     }
     ((l.getNewAudienceTitle = e),
       (l.getEditAudienceTitle = u),

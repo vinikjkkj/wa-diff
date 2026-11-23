@@ -15,7 +15,6 @@ __d(
     "AdsPlacementsOculusPluginUtils",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
     "AdsUEditorCampaignPlacementSetActionFlux",
-    "VultureJSDeadComponent.react",
     "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
     "immutable",
     "react",
@@ -29,7 +28,7 @@ __d(
         type: "placements/position",
         key: "oculus/vr_apps",
         name: r("AdsPlacementPositionLabelConstant").vr_apps,
-        nameWithPlatform: s._(/*BTDS*/ "Oculus in-app panels"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         apiPosition: "vr_apps",
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION.OC_VR_APPS,
@@ -41,9 +40,7 @@ __d(
         },
         getPlacementSpecificPreviewInfo: function (t) {
           r("vulture")("agZ5oKXOj2fZUKm8wRxtU9CJhMA=");
-          var e = c.jsx(r("VultureJSDeadComponent.react"), {
-            name: "OculusPlacementInfoText",
-          });
+          var e = c.jsx(c.Fragment, {});
           return { description: e };
         },
         getIneligibilityReason: function (t) {

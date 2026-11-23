@@ -9,7 +9,6 @@ __d(
     "WAWebMusicGraphQLRequest",
     "WAWebMusicParsingUtils",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -22,38 +21,28 @@ __d(
       p = 150,
       _ = "1490318767758566",
       f = "HIGHLIGHT_TIME_IN_MS";
-    function g(e) {
-      return h.apply(this, arguments);
+    async function g(e) {
+      var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+        n =
+          t != null
+            ? o("WAWebAsISOCountryCode").asISOCountryCode(
+                o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(t.user),
+              )
+            : null;
+      if (n == null) return { ok: !1, error: "no_country" };
+      var r = await o("WAWebMusicGraphQLRequest").fetchMusicGraphQL({
+        docId: d,
+        project: o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusic,
+        variables: h(e, n),
+        viaOhai: !1,
+      });
+      if (!r.ok) return { ok: !1, error: r.error.type };
+      var a = D(r.data, "xwa_music_picker");
+      return a == null || typeof a != "object"
+        ? { ok: !1, error: "invalid_response" }
+        : { ok: !0, page: b(a) };
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-            n =
-              t != null
-                ? o("WAWebAsISOCountryCode").asISOCountryCode(
-                    o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
-                      t.user,
-                    ),
-                  )
-                : null;
-          if (n == null) return { ok: !1, error: "no_country" };
-          var r = yield o("WAWebMusicGraphQLRequest").fetchMusicGraphQL({
-            docId: d,
-            project: o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusic,
-            variables: y(e, n),
-            viaOhai: !1,
-          });
-          if (!r.ok) return { ok: !1, error: r.error.type };
-          var a = x(r.data, "xwa_music_picker");
-          return a == null || typeof a != "object"
-            ? { ok: !1, error: "invalid_response" }
-            : { ok: !0, page: v(a) };
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t) {
+    function h(e, t) {
       var n = e.artistId,
         r = e.browseSessionId,
         a = e.category,
@@ -65,11 +54,11 @@ __d(
           search_text: s ? l : null,
           first: m,
           product: "WA_CHATS",
-          result_types: C(n, s),
+          result_types: y(n, s),
           browse_session_id: r,
           locale: o("WAWebL10nGetRenderedLocale").WAWebL10nGetRenderedLocale(),
         },
-        c = b(e, s);
+        c = C(e, s);
       return (
         c != null && (u.constraint = c),
         a != null && !s && (u.category_params = { category_type: a }),
@@ -77,14 +66,14 @@ __d(
         { params: u, artwork_width: p, artwork_height: p, browse_session_id: r }
       );
     }
-    function C(e, t) {
+    function y(e, t) {
       return e != null
         ? ["TRACK"]
         : t
           ? ["TRACK", "ARTIST", "TAG"]
           : ["TRACK", "ARTIST"];
     }
-    function b(e, t) {
+    function C(e, t) {
       var n = e.artistId,
         r = e.tagId;
       return n != null
@@ -93,33 +82,33 @@ __d(
           ? null
           : { id: r != null ? r : _, type: "TAG" };
     }
-    function v(t) {
+    function b(t) {
       var n = [],
         r = [],
         a = [],
         i = [],
-        l = x(t, "items");
+        l = D(t, "items");
       for (var s of Array.isArray(l) ? l : []) {
-        var u = x(s, "item"),
+        var u = D(s, "item"),
           c =
-            String(x(s, "display_type")) +
+            String(D(s, "display_type")) +
             ":" +
-            String(x(u, "display_item_type"));
+            String(D(u, "display_item_type"));
         e: {
           if (c === "ROW:TRACK") {
-            I(n, S(u));
+            k(n, v(u));
             break e;
           }
           if (c === "ROW:ARTIST") {
-            I(r, R(u));
+            k(r, S(u));
             break e;
           }
           if (c === "ROW:TAG") {
-            I(a, L(u));
+            k(a, R(u));
             break e;
           }
           if (c === "SECTION:TAG") {
-            I(i, E(u, x(s, "sub_items")));
+            k(i, L(u, D(s, "sub_items")));
             break e;
           }
           {
@@ -135,26 +124,26 @@ __d(
           }
         }
       }
-      var d = x(t, "page_info"),
-        m = x(d, "end_cursor");
+      var d = D(t, "page_info"),
+        m = D(d, "end_cursor");
       return {
         tracks: n,
         artists: r,
         tags: a,
         sections: i,
         nextCursor:
-          x(d, "has_next_page") === !0 && typeof m == "string" ? m : null,
+          D(d, "has_next_page") === !0 && typeof m == "string" ? m : null,
       };
     }
-    function S(e) {
-      var t = x(e, "display_id"),
-        n = x(e, "song_id"),
-        r = x(x(e, "display_title"), "text"),
-        a = x(x(e, "display_subtitle"), "text"),
-        i = x(e, "duration_in_ms"),
-        l = x(e, "progressive_download"),
+    function v(e) {
+      var t = D(e, "display_id"),
+        n = D(e, "song_id"),
+        r = D(D(e, "display_title"), "text"),
+        a = D(D(e, "display_subtitle"), "text"),
+        i = D(e, "duration_in_ms"),
+        l = D(e, "progressive_download"),
         u = o("WAWebMusicParsingUtils").toAllowedUri(
-          D(Array.isArray(l) ? x(l[0], "url") : null),
+          T(Array.isArray(l) ? D(l[0], "url") : null),
           "song",
         );
       return typeof t != "string" ||
@@ -180,19 +169,19 @@ __d(
             artist: typeof a == "string" ? a : "",
             durationMs: i,
             songUri: u,
-            artworkUri: k(e),
-            isExplicit: x(e, "is_explicit") === !0,
-            highlightTimesMs: T(x(e, "tags")),
-            isLyricsAvailable: x(x(e, "lyrics"), "available") === !0,
+            artworkUri: E(e),
+            isExplicit: D(e, "is_explicit") === !0,
+            highlightTimesMs: I(D(e, "tags")),
+            isLyricsAvailable: D(D(e, "lyrics"), "available") === !0,
           };
     }
-    function R(e) {
-      var t = L(e);
-      return t == null ? null : { id: t.id, name: t.name, artworkUri: k(e) };
+    function S(e) {
+      var t = R(e);
+      return t == null ? null : { id: t.id, name: t.name, artworkUri: E(e) };
     }
-    function L(e) {
-      var t = x(e, "display_id"),
-        n = x(x(e, "display_title"), "text");
+    function R(e) {
+      var t = D(e, "display_id"),
+        n = D(D(e, "display_title"), "text");
       return typeof t != "string" || t === "" || typeof n != "string"
         ? (o("WALogger").WARN(
             u ||
@@ -205,12 +194,12 @@ __d(
           null)
         : { id: t, name: n };
     }
-    function E(e, t) {
-      var n = L(e);
+    function L(e, t) {
+      var n = R(e);
       if (n == null) return null;
       var r = [];
       for (var a of Array.isArray(t) ? t : []) {
-        var i = x(a, "display_item_type");
+        var i = D(a, "display_item_type");
         if (i !== "TRACK") {
           o("WALogger").WARN(
             c ||
@@ -222,35 +211,35 @@ __d(
           );
           continue;
         }
-        I(r, S(a));
+        k(r, v(a));
       }
       return { tag: n, tracks: r };
     }
-    function k(e) {
+    function E(e) {
       return o("WAWebMusicParsingUtils").toAllowedUri(
-        D(x(x(e, "display_image"), "downloadable_uri")),
+        T(D(D(e, "display_image"), "downloadable_uri")),
         "artwork",
       );
     }
-    function I(e, t) {
+    function k(e, t) {
       t != null && e.push(t);
     }
-    function T(e) {
+    function I(e) {
       return (Array.isArray(e) ? e : [])
         .filter(function (e) {
-          return x(e, "type") === f;
+          return D(e, "type") === f;
         })
         .map(function (e) {
-          return Number(x(e, "name"));
+          return Number(D(e, "name"));
         })
         .filter(function (e) {
           return Number.isInteger(e) && e >= 0;
         });
     }
-    function D(e) {
+    function T(e) {
       return typeof e == "string" ? e : null;
     }
-    function x(e, t) {
+    function D(e, t) {
       return e != null && typeof e == "object" && !Array.isArray(e)
         ? e[t]
         : void 0;

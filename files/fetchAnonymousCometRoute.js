@@ -10,10 +10,8 @@ __d(
     "HasteResponse",
     "JSScheduler",
     "PHPQuerySerializer",
-    "Promise",
     "RelayPrefetchedStreamCache",
     "XHRRequest",
-    "asyncToGeneratorRuntime",
     "cometAsyncFetch",
     "cometAsyncRequestHeaders",
     "createChunkedResponseParser",
@@ -29,21 +27,20 @@ __d(
     var e,
       s,
       u,
-      c,
+      c = {},
       d = {},
-      m = {},
-      p = null,
-      _ = [],
-      f = 2,
-      g = 3e3,
-      h = !0;
+      m = null,
+      p = [],
+      _ = 2,
+      f = 3e3,
+      g = !0;
+    function h() {
+      g = !1;
+    }
     function y() {
-      h = !1;
+      g = !0;
     }
-    function C() {
-      h = !0;
-    }
-    function b(e) {
+    function C(e) {
       if (
         e != null &&
         typeof e == "object" &&
@@ -57,15 +54,15 @@ __d(
         (t = JSON.stringify(e)) != null ? t : "<unstringifiable>",
       );
     }
-    function v(e) {
+    function b(e) {
       e != null &&
         typeof e == "object" &&
         e.enable_bulk_route_fetch != null &&
         (e.enable_bulk_route_fetch === !0
-          ? C()
-          : e.enable_bulk_route_fetch === !1 && y());
+          ? y()
+          : e.enable_bulk_route_fetch === !1 && h());
     }
-    function S(e) {
+    function v(e) {
       return (
         e != null &&
         typeof e == "object" &&
@@ -73,62 +70,43 @@ __d(
         e.enable_bulk_route_fetch === !1
       );
     }
-    function R(e) {
+    function S(e) {
       return e != null && typeof e == "object" && Object.keys(e).length === 0;
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var o,
-            a = e == null ? void 0 : e.payloads;
-          P(
-            (o = e == null ? void 0 : e.sr_payload) != null
-              ? o
-              : Object.freeze({}),
-            t,
-            e.log_roots,
-          );
-          var i = {};
-          if (typeof a == "object" && a != null) {
-            var l = Object.keys(a).map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    i[e] = yield r("parseCometRouteFetchPayload")(a[e]);
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            );
-            yield (c || (c = n("Promise"))).all(l);
-          }
-          return i;
-        })),
-        E.apply(this, arguments)
+    async function R(e, t) {
+      var n,
+        o = e == null ? void 0 : e.payloads;
+      x(
+        (n = e == null ? void 0 : e.sr_payload) != null ? n : Object.freeze({}),
+        t,
+        e.log_roots,
       );
+      var a = {};
+      if (typeof o == "object" && o != null) {
+        var i = Object.keys(o).map(async function (e) {
+          a[e] = await r("parseCometRouteFetchPayload")(o[e]);
+        });
+        await Promise.all(i);
+      }
+      return a;
     }
-    function k(e, t) {
+    function L(e, t) {
       return (
-        t === void 0 && (t = f),
-        e().catch(function (o) {
+        t === void 0 && (t = _),
+        e().catch(function (n) {
           if (t > 0)
-            return new (c || (c = n("Promise")))(function (n, o) {
+            return new Promise(function (n, o) {
               r("setTimeout")(function () {
-                r("promiseDone")(k(e, t - 1), n, o);
-              }, g);
+                r("promiseDone")(L(e, t - 1), n, o);
+              }, f);
             });
-          throw o;
+          throw n;
         })
       );
     }
-    function I(e) {
-      if (!h)
-        return (c || (c = n("Promise"))).reject({
+    function E(e) {
+      if (!g)
+        return Promise.reject({
           error: { extras: { bulkRouteFetchStatus: "disabled" } },
         });
       var t = function () {
@@ -141,24 +119,24 @@ __d(
           shouldShowErrorDialog: !1,
         });
       };
-      return k(t).then(function (e) {
-        if (S(e)) {
+      return L(t).then(function (e) {
+        if (v(e)) {
           var t;
-          y();
-          var o = r("err")("Bulk route definition fetch disabled");
-          o.extra = babelHelpers.extends({}, (t = o.extra) != null ? t : {}, {
+          h();
+          var n = r("err")("Bulk route definition fetch disabled");
+          n.extra = babelHelpers.extends({}, (t = n.extra) != null ? t : {}, {
             bulkRouteFetchStatus: "disabled",
           });
         }
-        if (R(e))
-          return (c || (c = n("Promise"))).reject({
+        if (S(e))
+          return Promise.reject({
             extras: { bulkRouteFetchStatus: "empty_payload" },
           });
-        var a = b(e);
-        return L(a, "comet_route_fetch");
+        var o = C(e);
+        return R(o, "comet_route_fetch");
       });
     }
-    function T(e) {
+    function k(e) {
       if (e instanceof r("CometAsyncFetchError")) return e.toString();
       if (typeof e == "object") {
         var t;
@@ -168,29 +146,29 @@ __d(
       }
       return e;
     }
-    function D(t) {
-      if (m[t] != null) return m[t];
-      if (!h) return (c || (c = n("Promise"))).resolve({ error: !0 });
-      var a = new (c || (c = n("Promise")))(function (e, n) {
-        _.push({ reject: n, resolve: e, url: t });
+    function I(t) {
+      if (d[t] != null) return d[t];
+      if (!g) return Promise.resolve({ error: !0 });
+      var n = new Promise(function (e, n) {
+        p.push({ reject: n, resolve: e, url: t });
       });
       return (
-        (m[t] = a),
-        a.finally(function () {
-          return delete m[t];
+        (d[t] = n),
+        n.finally(function () {
+          return delete d[t];
         }),
-        p == null &&
-          (p = (e || (e = o("JSScheduler"))).scheduleSpeculativeCallback(
+        m == null &&
+          (m = (e || (e = o("JSScheduler"))).scheduleSpeculativeCallback(
             function () {
-              p = null;
+              m = null;
               for (
                 var e = function () {
-                  var e = _.splice(
+                  var e = p.splice(
                     0,
                     r("CometRouterConfig").bulkRouteFetchBatchSize,
                   );
                   r("promiseDone")(
-                    I(
+                    E(
                       e.map(function (e) {
                         var t = e.url;
                         return t;
@@ -234,7 +212,7 @@ __d(
                               .catching(t)
                               .mustfix(
                                 "Failed call to /ajax/bulk-route-definitions/: %s",
-                                T(t),
+                                k(t),
                               ),
                         e.forEach(function (e) {
                           var t = e.resolve;
@@ -243,15 +221,15 @@ __d(
                     },
                   );
                 };
-                _.length > 0;
+                p.length > 0;
               )
                 e();
             },
           )),
-        a
+        n
       );
     }
-    function x(e, t) {
+    function T(e, t) {
       var n = !1;
       return function (a) {
         var i,
@@ -290,7 +268,7 @@ __d(
             throw r("FBLogger")("comet_infra").mustfixThrow(
               "There cannot be two first responses to one request",
             );
-          ((n = !0), N(i), t(i.payload));
+          ((n = !0), $(i), t(i.payload));
         } else if (i.__type === "preloader") {
           var c = i.id,
             d = i.result;
@@ -303,11 +281,11 @@ __d(
         }
       };
     }
-    function $(e, t, a) {
-      if (d[e] != null) return d[e];
-      var i = function () {
-          return new (c || (c = n("Promise")))(function (n, i) {
-            var l = r("createChunkedResponseParser")(x(e, n)),
+    function D(e, t, n) {
+      if (c[e] != null) return c[e];
+      var a = function () {
+          return new Promise(function (a, i) {
+            var l = r("createChunkedResponseParser")(T(e, a)),
               c = "/ajax/route-definition/",
               d = o("cometAsyncRequestHeaders").getHeaders();
             Object.keys(d)
@@ -321,7 +299,7 @@ __d(
                     client_previous_actor_id: t !== "0" ? t : null,
                     route_url: e,
                     routing_namespace: (u || (u = r("Env"))).routing_namespace,
-                    trace_policy: a,
+                    trace_policy: n,
                   },
                   r("getAsyncParams")("POST"),
                 ),
@@ -334,25 +312,25 @@ __d(
               .send();
           });
         },
-        l = k(i).then(r("parseCometRouteFetchPayload"));
+        i = L(a).then(r("parseCometRouteFetchPayload"));
       return (
-        (d[e] = l),
-        l.finally(function () {
-          return delete d[e];
+        (c[e] = i),
+        i.finally(function () {
+          return delete c[e];
         }),
-        l
+        i
       );
     }
-    function P(e, t, n) {
+    function x(e, t, n) {
       o("HasteResponse").handle(e, {
         source: t,
         sourceDetail: JSON.stringify(n),
       });
     }
-    function N(e) {
+    function $(e) {
       var t;
       if (
-        (P(
+        (x(
           (t = e.sr_payload) != null ? t : {},
           "comet_route_first_response",
           null,
@@ -360,18 +338,18 @@ __d(
         e.preloaders && e.preloaders.length)
       )
         for (var n of e.preloaders) o("CometPreloaderInit").initPreloader(n);
-      v(e);
+      b(e);
     }
-    ((l.disableBulkRouteFetch = y),
-      (l.enableBulkRouteFetch = C),
-      (l.assertRoutingPayload = b),
-      (l.handleBulkRouteFetchToggle = v),
-      (l.isEmptyRoutingPayload = R),
-      (l.responseHandler = L),
-      (l.retryFetchOnError = k),
-      (l.fetchAnonymousCometRouteForPreload = D),
-      (l.fetchAnonymousCometRouteForTransition = $),
-      (l.handleSRandJSModules = P));
+    ((l.disableBulkRouteFetch = h),
+      (l.enableBulkRouteFetch = y),
+      (l.assertRoutingPayload = C),
+      (l.handleBulkRouteFetchToggle = b),
+      (l.isEmptyRoutingPayload = S),
+      (l.responseHandler = R),
+      (l.retryFetchOnError = L),
+      (l.fetchAnonymousCometRouteForPreload = I),
+      (l.fetchAnonymousCometRouteForTransition = D),
+      (l.handleSRandJSModules = x));
   },
   98,
 );

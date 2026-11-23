@@ -2,7 +2,6 @@ __d(
   "WAWebMediaHubMessageActionHandlers",
   [
     "fbt",
-    "Promise",
     "WALogger",
     "WAWebActionToast.react",
     "WAWebBotFrontendUtils",
@@ -29,7 +28,6 @@ __d(
     "WAWebWamEnumKicEntryPointType",
     "WAWebWamEnumMessageContextMenuOptionType",
     "WAWebWamEnumWebcRmrReasonCode",
-    "asyncToGeneratorRuntime",
     "cr:7565",
     "react",
   ],
@@ -48,86 +46,77 @@ __d(
       y,
       C,
       b,
-      v,
-      S = v || (v = o("react"));
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            (o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[MediaHub] downloadMessages ",
-                  " msg(s)",
-                ])),
-              e.length,
-            ),
-            e.length !== 0)
-          )
-            if (r("WAWebEnvironment").isWindows && n("cr:7565") != null) {
+      v = b || (b = o("react"));
+    async function S(t) {
+      if (
+        (o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[MediaHub] downloadMessages ",
+              " msg(s)",
+            ])),
+          t.length,
+        ),
+        t.length !== 0)
+      )
+        if (r("WAWebEnvironment").isWindows && n("cr:7565") != null) {
+          o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[MediaHub] Windows bulk save ",
+                " msg(s)",
+              ])),
+            t.length,
+          );
+          try {
+            (await n("cr:7565").selectFolderAndSaveFiles(t),
+              o("WALogger").LOG(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[MediaHub] Windows bulk save done ",
+                    " msg(s)",
+                  ])),
+                t.length,
+              ));
+          } catch (e) {
+            (o("WALogger")
+              .ERROR(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[MediaHub] Windows bulk save failed ",
+                    "",
+                  ])),
+                t.length,
+              )
+              .catching(e),
               o("WALogger").LOG(
                 m ||
                   (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[MediaHub] Windows bulk save ",
+                    "[MediaHub] fallback\u2192FileSaver ",
                     " msg(s)",
                   ])),
-                e.length,
-              );
-              try {
-                (yield n("cr:7565").selectFolderAndSaveFiles(e),
-                  o("WALogger").LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[MediaHub] Windows bulk save done ",
-                        " msg(s)",
-                      ])),
-                    e.length,
-                  ));
-              } catch (t) {
-                (o("WALogger")
-                  .ERROR(
-                    _ ||
-                      (_ = babelHelpers.taggedTemplateLiteralLoose([
-                        "[MediaHub] Windows bulk save failed ",
-                        "",
-                      ])),
-                    e.length,
-                  )
-                  .catching(t),
-                  o("WALogger").LOG(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "[MediaHub] fallback\u2192FileSaver ",
-                        " msg(s)",
-                      ])),
-                    e.length,
-                  ),
-                  o("WAWebFileSaver").FileSaver.initDownload(e));
-              }
-            } else {
-              var t = n("cr:7565") != null ? "yes" : "no";
-              (o("WALogger").LOG(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "[MediaHub] FileSaver ",
-                    " msg(s) win=",
-                    " helpers=",
-                    "",
-                  ])),
-                e.length,
-                r("WAWebEnvironment").isWindows,
-                t,
+                t.length,
               ),
-                o("WAWebFileSaver").FileSaver.initDownload(e));
-            }
-        })),
-        L.apply(this, arguments)
-      );
+              o("WAWebFileSaver").FileSaver.initDownload(t));
+          }
+        } else {
+          var a = n("cr:7565") != null ? "yes" : "no";
+          (o("WALogger").LOG(
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
+                "[MediaHub] FileSaver ",
+                " msg(s) win=",
+                " helpers=",
+                "",
+              ])),
+            t.length,
+            r("WAWebEnvironment").isWindows,
+            a,
+          ),
+            o("WAWebFileSaver").FileSaver.initDownload(t));
+        }
     }
-    function E(e) {
+    function R(e) {
       var t = o("WAWebFrontendMsgGetters").getChat(e),
         n = o("WAWebThreadMsgUtils").getMsgAiThread(e);
       if (n != null && o("WAWebBotGating").isAiChatThreadsEnabled()) {
@@ -159,97 +148,90 @@ __d(
               ));
           }));
     }
-    function k(t, r, a) {
-      var i = t.filter(function (e) {
+    function L(e, t, n) {
+      var r = e.filter(function (e) {
         return e.mediaData;
       });
-      if (i.length) {
-        var l = i.filter(function (e) {
+      if (r.length) {
+        var a = r.filter(function (e) {
             return !e.mediaData.isDownloadable();
           }),
-          d = function (t) {
+          i = function (t) {
             o("WAWebToastManager").ToastManager.open(
-              S.jsx(o("WAWebToast.react").Toast, {
-                msg: s._(
-                  /*BTDS*/ '_j{"*":"Downloading {number_of_messages} items","_1":"Downloading 1 item"}',
-                  [s._plural(t, "number_of_messages")],
-                ),
+              v.jsx(o("WAWebToast.react").Toast, {
+                msg: s._(/*BTDS*/ "", [s._plural(t, "number_of_messages")]),
               }),
             );
           };
-        (a === "media_hub" && d(t.length),
-          l.length > 0
-            ? (a !== "media_hub" &&
+        (n === "media_hub" && i(e.length),
+          a.length > 0
+            ? (n !== "media_hub" &&
                 o("WAWebToastManager").ToastManager.open(
-                  S.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Downloading\u2026"),
-                  }),
+                  v.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
                 ),
-              (b || (b = n("Promise")))
-                .all(
-                  l.map(function (e) {
-                    return e.downloadMedia({
-                      downloadEvenIfExpensive: !0,
-                      rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
-                        .WEBC_RMR_REASON_CODE.MULTI_SELECT_DOWNLOAD,
-                      isUserInitiated: !0,
-                    });
-                  }),
-                )
+              Promise.all(
+                a.map(function (e) {
+                  return e.downloadMedia({
+                    downloadEvenIfExpensive: !0,
+                    rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
+                      .WEBC_RMR_REASON_CODE.MULTI_SELECT_DOWNLOAD,
+                    isUserInitiated: !0,
+                  });
+                }),
+              )
                 .then(function () {
-                  var t = i.filter(function (e) {
+                  var e = r.filter(function (e) {
                     return e.mediaData.isDownloadable();
                   });
-                  (i.length > t.length &&
+                  (r.length > e.length &&
                     o("WAWebToastManager").ToastManager.open(
-                      S.jsx(o("WAWebToast.react").Toast, {
-                        msg: s._(
-                          /*BTDS*/ '_j{"*":"{count} files couldn\'t be downloaded because they\'re no longer on your phone.","_1":"1 file couldn\'t be downloaded because it\'s no longer on your phone."}',
-                          [s._plural(i.length - t.length, "count")],
-                        ),
+                      v.jsx(o("WAWebToast.react").Toast, {
+                        msg: s._(/*BTDS*/ "", [
+                          s._plural(r.length - e.length, "count"),
+                        ]),
                       }),
                     ),
-                    t.length &&
-                      R(t).catch(function (t) {
+                    e.length &&
+                      S(e).catch(function (e) {
                         o("WALogger")
                           .ERROR(
-                            e ||
-                              (e = babelHelpers.taggedTemplateLiteralLoose([
+                            _ ||
+                              (_ = babelHelpers.taggedTemplateLiteralLoose([
                                 "[MediaHub] download failed",
                               ])),
                           )
-                          .catching(t);
+                          .catching(e);
                       }));
                 })
                 .catch(function (e) {
                   o("WALogger").ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
                         "[MediaHub] phone download failed ",
                         "",
                       ])),
                     e,
                   );
                 }))
-            : R(i).catch(function (e) {
+            : S(r).catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                    g ||
+                      (g = babelHelpers.taggedTemplateLiteralLoose([
                         "[MediaHub] download failed",
                       ])),
                   )
                   .catching(e);
               }),
-          r == null || r(),
+          t == null || t(),
           o("WAWebMultiSelectUtils").logMessageActionClickMetric(
-            i,
+            r,
             o("WAWebWamEnumMessageContextMenuOptionType")
               .MESSAGE_CONTEXT_MENU_OPTION_TYPE.UNKNOWN,
           ));
       }
     }
-    function I(e) {
+    function E(e) {
       var t = o("WAWebStateUtils").unproxy(e),
         n = o("WAWebFrontendMsgGetters").getChat(t);
       (o("WAWebCmd").Cmd.sendUnstarMsgs(n, [t]),
@@ -259,77 +241,55 @@ __d(
             .MESSAGE_CONTEXT_MENU_OPTION_TYPE.STAR_OR_UNSTAR,
         ));
     }
+    async function k(e) {
+      try {
+        (await o("WAWebKeepInChatActions").runKeepInChatUX(
+          o("WAWebStateUtils").unproxy(e),
+          o("WAWebWamEnumKicEntryPointType").KIC_ENTRY_POINT_TYPE.ALL_MEDIA,
+          !0,
+        ),
+          o("WAWebToastManager").ToastManager.open(
+            v.jsx(o("WAWebToast.react").Toast, {
+              msg: s._(/*BTDS*/ "", [s._plural(1, "number_of_messages")]),
+            }),
+          ));
+      } catch (e) {
+        var t;
+        o("WALogger").LOG(
+          h ||
+            (h = babelHelpers.taggedTemplateLiteralLoose([
+              "Keep operation not complete. Reason: ",
+              "",
+            ])),
+          (t = e.reason) != null ? t : "unknown",
+        );
+      }
+    }
+    async function I(e) {
+      try {
+        (await o("WAWebKeepInChatActions").runUndoKeepInChatUX(
+          o("WAWebStateUtils").unproxy(e),
+          o("WAWebWamEnumKicEntryPointType").KIC_ENTRY_POINT_TYPE.ALL_MEDIA,
+          !0,
+        ),
+          o("WAWebToastManager").ToastManager.open(
+            v.jsx(o("WAWebToast.react").Toast, {
+              msg: s._(/*BTDS*/ "", [s._plural(1, "number_of_messages")]),
+            }),
+          ));
+      } catch (e) {
+        var t;
+        o("WALogger").LOG(
+          y ||
+            (y = babelHelpers.taggedTemplateLiteralLoose([
+              "UndoKeep operation not complete. Reason: ",
+              "",
+            ])),
+          (t = e.reason) != null ? t : "unknown",
+        );
+      }
+    }
     function T(e) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            (yield o("WAWebKeepInChatActions").runKeepInChatUX(
-              o("WAWebStateUtils").unproxy(e),
-              o("WAWebWamEnumKicEntryPointType").KIC_ENTRY_POINT_TYPE.ALL_MEDIA,
-              !0,
-            ),
-              o("WAWebToastManager").ToastManager.open(
-                S.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(
-                    /*BTDS*/ '_j{"*":"Kept {number_of_messages} items","_1":"Kept 1 item"}',
-                    [s._plural(1, "number_of_messages")],
-                  ),
-                }),
-              ));
-          } catch (e) {
-            var t;
-            o("WALogger").LOG(
-              h ||
-                (h = babelHelpers.taggedTemplateLiteralLoose([
-                  "Keep operation not complete. Reason: ",
-                  "",
-                ])),
-              (t = e.reason) != null ? t : "unknown",
-            );
-          }
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            (yield o("WAWebKeepInChatActions").runUndoKeepInChatUX(
-              o("WAWebStateUtils").unproxy(e),
-              o("WAWebWamEnumKicEntryPointType").KIC_ENTRY_POINT_TYPE.ALL_MEDIA,
-              !0,
-            ),
-              o("WAWebToastManager").ToastManager.open(
-                S.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(
-                    /*BTDS*/ '_j{"*":"Unkept {number_of_messages} items","_1":"Unkept 1 item"}',
-                    [s._plural(1, "number_of_messages")],
-                  ),
-                }),
-              ));
-          } catch (e) {
-            var t;
-            o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
-                  "UndoKeep operation not complete. Reason: ",
-                  "",
-                ])),
-              (t = e.reason) != null ? t : "unknown",
-            );
-          }
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e) {
       var t = o("WAWebStateUtils").unproxy(e),
         n = o("WAWebFrontendMsgGetters").getChat(t);
       (o("WAWebCmd").Cmd.sendStarMsgs(n, [t]),
@@ -339,7 +299,7 @@ __d(
             .MESSAGE_CONTEXT_MENU_OPTION_TYPE.STAR_OR_UNSTAR,
         ));
     }
-    function N(e, t) {
+    function D(e, t) {
       o("WAWebMessageHandlers").handleOpenForwardFlow({
         multiSelect: !1,
         msg: o("WAWebStateUtils").unproxy(e),
@@ -349,12 +309,9 @@ __d(
         },
         openAsSupportModal: !0,
         onForward: function () {
-          var e = s._(
-            /*BTDS*/ '_j{"*":"Forwarded {number_of_messages} items","_1":"Forwarded 1 item"}',
-            [s._plural(1, "number_of_messages")],
-          );
+          var e = s._(/*BTDS*/ "", [s._plural(1, "number_of_messages")]);
           o("WAWebToastManager").ToastManager.open(
-            S.jsx(o("WAWebToast.react").Toast, {
+            v.jsx(o("WAWebToast.react").Toast, {
               id: o("WAWebActionToast.react").genId(),
               msg: e,
             }),
@@ -362,70 +319,51 @@ __d(
         },
       });
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    async function x(e) {
+      var t = o("WAWebFrontendMsgGetters").getChat(e);
+      (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
+        o("WAWebCmd").Cmd.setActiveNavBarItem(
+          o("WAWebNavBarTypes").NavBarItems.Chats,
+        ));
+      var n = await o("WAWebCmd").Cmd.openChatBottom({
+        chat: t,
+        chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub,
+      });
+      if (!n) {
+        o("WALogger").ERROR(
+          C ||
+            (C = babelHelpers.taggedTemplateLiteralLoose([
+              "[MediaHub] reply failed",
+            ])),
+        );
+        return;
+      }
+      (t.set("composeQuotedMsg", o("WAWebMsgModelUtils").createMsgSnapshot(e)),
+        o("WAWebModalManager").ModalManager.close(),
+        o("WAWebComposeBoxActions").ComposeBoxActions.focus(
+          o("WAWebFrontendMsgGetters").getChat(e),
+        ));
     }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebFrontendMsgGetters").getChat(e);
-          (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
-            o("WAWebCmd").Cmd.setActiveNavBarItem(
-              o("WAWebNavBarTypes").NavBarItems.Chats,
-            ));
-          var n = yield o("WAWebCmd").Cmd.openChatBottom({
-            chat: t,
-            chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.MediaHub,
-          });
-          if (!n) {
-            o("WALogger").ERROR(
-              C ||
-                (C = babelHelpers.taggedTemplateLiteralLoose([
-                  "[MediaHub] reply failed",
-                ])),
-            );
-            return;
-          }
-          (t.set(
-            "composeQuotedMsg",
-            o("WAWebMsgModelUtils").createMsgSnapshot(e),
-          ),
-            o("WAWebModalManager").ModalManager.close(),
-            o("WAWebComposeBoxActions").ComposeBoxActions.focus(
-              o("WAWebFrontendMsgGetters").getChat(e),
-            ));
-        })),
-        w.apply(this, arguments)
-      );
+    async function $(e) {
+      (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
+        o("WAWebCmd").Cmd.setActiveNavBarItem(
+          o("WAWebNavBarTypes").NavBarItems.Chats,
+        ),
+        await r("WAWebReplyToMsgChatAction")(e),
+        o("WAWebModalManager").ModalManager.close(),
+        o("WAWebComposeBoxActions").ComposeBoxActions.focus(
+          o("WAWebFrontendMsgGetters").getChat(e),
+        ));
     }
-    function A(e) {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
-            o("WAWebCmd").Cmd.setActiveNavBarItem(
-              o("WAWebNavBarTypes").NavBarItems.Chats,
-            ),
-            yield r("WAWebReplyToMsgChatAction")(e),
-            o("WAWebModalManager").ModalManager.close(),
-            o("WAWebComposeBoxActions").ComposeBoxActions.focus(
-              o("WAWebFrontendMsgGetters").getChat(e),
-            ));
-        })),
-        F.apply(this, arguments)
-      );
-    }
-    ((l.goToMessageFromModal = E),
-      (l.handleMessageDownloadClick = k),
-      (l.handleMessageUnstarClick = I),
-      (l.handleKeepClick = T),
-      (l.handleUndoKeepClick = x),
-      (l.handleMessageStarClick = P),
-      (l.handleForwardClick = N),
-      (l.replyToMessageFromModal = M),
-      (l.replyPrivatelyToMessageFromModal = A));
+    ((l.goToMessageFromModal = R),
+      (l.handleMessageDownloadClick = L),
+      (l.handleMessageUnstarClick = E),
+      (l.handleKeepClick = k),
+      (l.handleUndoKeepClick = I),
+      (l.handleMessageStarClick = T),
+      (l.handleForwardClick = D),
+      (l.replyToMessageFromModal = x),
+      (l.replyPrivatelyToMessageFromModal = $));
   },
   226,
 );

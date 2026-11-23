@@ -44,7 +44,7 @@ __d(
       };
     function c(e, t) {
       var n = e.client_side_rendering_params;
-      return new (r("BizHomeAYMTTip"))({
+      return o("BizHomeAYMTTip").makeBizHomeAYMTTip({
         body: n.tip_body,
         channelID: r("nullthrows")(t.channel_id),
         image: n.tip_image,

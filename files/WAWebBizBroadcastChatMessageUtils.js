@@ -2,9 +2,11 @@ __d(
   "WAWebBizBroadcastChatMessageUtils",
   [
     "WALogger",
+    "WAWebBackendRuntime",
     "WAWebBizBroadcastCampaignMsgKeyUtils",
     "WAWebChatCollection",
     "WAWebChatSendDeleteMsgsBridge",
+    "WAWebMessageDeleteService",
     "WAWebWidFactory",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,8 +23,11 @@ __d(
             return e.id.id === r;
           });
           if (l == null) return;
-          o("WAWebChatSendDeleteMsgsBridge")
-            .sendDeleteMsgs([l], !1, a)
+          (o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebMessageDeleteService").MessageDeleteService,
+              ).sendDeleteMsgs
+            : o("WAWebChatSendDeleteMsgsBridge").sendDeleteMsgs)([l], !1, a)
             .then(function () {
               i.msgs.remove(l);
             })

@@ -38,14 +38,11 @@ __d(
     "WebToXDefaultingUtils",
     "adsAdgroupIsDynamicProductCarouselAd",
     "adsAssetFeedHasCallToActionValue",
-    "isAccountEligibleForThreeCOL2AdEx",
     "isAdsCanvasLink",
     "isTruthy",
     "isValidURL",
-    "justknobx",
     "nullthrows",
     "promiseDone",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -289,12 +286,11 @@ __d(
           l = t.objective,
           u = t.pages,
           c = t.promotedObjectType,
-          d = t.specPlugin;
-        r("vulture")("XzRybR1YavzpxLNJW6Z9Ph5Cayg=");
-        var m =
-          (e = n.creative) == null || (e = e.object_story_spec) == null
-            ? void 0
-            : e.page_id;
+          d = t.specPlugin,
+          m =
+            (e = n.creative) == null || (e = e.object_story_spec) == null
+              ? void 0
+              : e.page_id;
         (m && u && u.has(m)) || s(0, 2379);
         var p = r("nullthrows")(u.get(m)),
           f = o("AdsLandingViewTypeUtils").linkFromType(i, p),
@@ -322,7 +318,6 @@ __d(
           campaignGroup: a,
         });
       if (
-        r("justknobx")._("4598") &&
         (s === "" || s == null) &&
         u === r("AdsAPIObjectives").APP_INSTALLS &&
         d === r("AdsPromotedObjectTypes").MOBILE_APP
@@ -355,7 +350,6 @@ __d(
           o("AdsChildAttachmentsUtils").isStaticCarouselAd(g) &&
           r("isValidURL")(s) &&
           r("isTruthy")(s) &&
-          o("isAccountEligibleForThreeCOL2AdEx").is3coEnableCarouselFormat() &&
           (g = o(
             "AdsUEditorAdgroupMultiProductMutators",
           ).setInEachNonPlaceDataChildIfEmpty(
@@ -424,7 +418,7 @@ __d(
               r("AdsWebsiteLinkDefaultingAction").dispatch(
                 { isWeblinkDefaulted: !0 },
                 {
-                  line: "647",
+                  line: "638",
                   module: "AdsUEditorWebsiteMutators.js",
                   moduleID: i.id,
                 },
@@ -474,7 +468,7 @@ __d(
                         hostID: r("AdsUEditorHostIDs").EDITING,
                       },
                       {
-                        line: "686",
+                        line: "677",
                         module: "AdsUEditorWebsiteMutators.js",
                         moduleID: i.id,
                       },

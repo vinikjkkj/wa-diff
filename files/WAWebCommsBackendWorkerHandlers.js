@@ -1,7 +1,6 @@
 __d(
   "WAWebCommsBackendWorkerHandlers",
   [
-    "Promise",
     "WAComms",
     "WADeprecatedSendIq",
     "WAErrors",
@@ -9,16 +8,16 @@ __d(
     "WALogger",
     "WATransferableResult",
     "WAWap",
+    "WAWebBackendWorkerRegistrationState",
     "WAWebCommsConfigWorker",
     "WAWebPageLoadLogging",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u;
-    function c(t, a) {
-      var i = function (a) {
+    var e, s;
+    function u(t, n) {
+      var a = function (a) {
         a instanceof o("WAErrors").Disconnected ||
           o("WALogger")
             .ERROR(
@@ -35,307 +34,197 @@ __d(
       return function () {
         var e;
         try {
-          e = a.apply(void 0, arguments);
+          e = n.apply(void 0, arguments);
         } catch (e) {
-          throw (i(e), e);
+          throw (a(e), e);
         }
-        return e instanceof (u || (u = n("Promise")))
+        return e instanceof Promise
           ? e.catch(function (e) {
-              throw (i(e), e);
+              throw (a(e), e);
             })
           : e;
       };
     }
-    function d(e, t) {
-      var r,
-        a = o("WAWebCommsConfigWorker").createGetCommsConfigWorker(e),
-        i = function (t) {
-          return (u || (u = n("Promise"))).resolve(t);
+    function c(e, t) {
+      var n = o("WAWebCommsConfigWorker").createGetCommsConfigWorker(e),
+        r = function (t) {
+          return Promise.resolve(t);
         },
-        l = new Map(),
-        d = function () {
+        a = new Map(),
+        i = function () {
           return o("WAComms").singletonOrThrowIfUninitialized(
             "comms-worker-proxy",
           );
         };
       return {
-        sendIq: c(
-          "sendIq",
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var n = e.abortToken,
-                  r = e.attachToSocket,
-                  a = e.iq,
-                  s = e.timeoutSeconds,
-                  u = e.type;
-                yield t;
-                var c = yield o("WAWap").decodeStanza(a, i),
-                  m = new AbortController();
-                l.set(n, m);
-                try {
-                  var p = yield d().sendIq({
-                      attachToSocket: r,
-                      iq: c,
-                      signal: m.signal,
-                      timeoutSeconds: s,
-                      type: u,
-                    }),
-                    _ = o("WAWap").encodeStanza(p);
-                  return o("WATransferableResult").withTransferables(_, [
-                    _.buffer,
-                  ]);
-                } finally {
-                  l.delete(n);
-                }
-              },
+        sendIq: u("sendIq", async function (e) {
+          var n = e.abortToken,
+            l = e.attachToSocket,
+            s = e.iq,
+            u = e.timeoutSeconds,
+            c = e.type;
+          await t;
+          var d = await o("WAWap").decodeStanza(s, r),
+            m = new AbortController();
+          a.set(n, m);
+          try {
+            var p = await i().sendIq({
+                attachToSocket: l,
+                iq: d,
+                signal: m.signal,
+                timeoutSeconds: u,
+                type: c,
+              }),
+              _ = o("WAWap").encodeStanza(p);
+            return o("WATransferableResult").withTransferables(_, [_.buffer]);
+          } finally {
+            a.delete(n);
+          }
+        }),
+        abortSendIq: u("abortSendIq", async function (e) {
+          var n,
+            r = e.abortToken;
+          (await t, (n = a.get(r)) == null || n.abort());
+        }),
+        callStanza: u("callStanza", async function (e) {
+          var n = e.flags,
+            a = e.stanza;
+          await t;
+          var l = await o("WAWap").decodeStanza(a, r);
+          await i().callStanza(l, n);
+        }),
+        castStanza: u("castStanza", async function (e) {
+          var n = e.flags,
+            a = e.stanza;
+          await t;
+          var l = await o("WAWap").decodeStanza(a, r),
+            u = i();
+          if (!u.isSocketConnected()) {
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "Comms has no open socket",
+                ])),
             );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        ),
-        abortSendIq: c(
-          "abortSendIq",
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var n,
-                  r = e.abortToken;
-                (yield t, (n = l.get(r)) == null || n.abort());
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        ),
-        callStanza: c(
-          "callStanza",
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var n = e.flags,
-                  r = e.stanza;
-                yield t;
-                var a = yield o("WAWap").decodeStanza(r, i);
-                yield d().callStanza(a, n);
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        ),
-        castStanza: c(
-          "castStanza",
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var n = e.flags,
-                  r = e.stanza;
-                yield t;
-                var a = yield o("WAWap").decodeStanza(r, i),
-                  l = d();
-                if (!l.isSocketConnected()) {
-                  o("WALogger").LOG(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "Comms has no open socket",
-                      ])),
-                  );
-                  return;
-                }
-                l.castStanza(a, n);
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        ),
-        sendPing: c(
-          "sendPing",
-          (r = n("asyncToGeneratorRuntime")).asyncToGenerator(function* () {
-            return (yield t, d().sendPing());
-          }),
-        ),
-        waitForNetworkHealth: c(
-          "waitForNetworkHealth",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().waitForNetworkHealth());
-          }),
-        ),
-        startHandlingRequests: c(
-          "startHandlingRequests",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().startHandlingRequests());
-          }),
-        ),
-        socketLoopIteration: c(
-          "socketLoopIteration",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().socketLoopIteration());
-          }),
-        ),
-        softCloseSocket: c(
-          "softCloseSocket",
-          r.asyncToGenerator(function* () {
-            var e, n;
-            (yield t, (e = (n = d()).softCloseSocket) == null || e.call(n));
-          }),
-        ),
-        stopComms: c(
-          "stopComms",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().stopComms());
-          }),
-        ),
-        closeSocket: c(
-          "closeSocket",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().closeSocket());
-          }),
-        ),
-        closeSocketInDebugMode: c(
-          "closeSocketInDebugMode",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().closeSocketInDebugMode());
-          }),
-        ),
-        closeSocketAndPreventRetry: c(
+            return;
+          }
+          u.castStanza(l, n);
+        }),
+        sendPing: u("sendPing", async function () {
+          return (await t, i().sendPing());
+        }),
+        waitForNetworkHealth: u("waitForNetworkHealth", async function () {
+          return (await t, i().waitForNetworkHealth());
+        }),
+        startHandlingRequests: u("startHandlingRequests", async function () {
+          return (await t, i().startHandlingRequests());
+        }),
+        socketLoopIteration: u("socketLoopIteration", async function () {
+          return (await t, i().socketLoopIteration());
+        }),
+        trySoftCloseSocket: u("trySoftCloseSocket", async function (e) {
+          var n = e.reason;
+          return (await t, i().trySoftCloseSocket(n));
+        }),
+        stopComms: u("stopComms", async function (e) {
+          var n = e.reason;
+          return (await t, i().stopComms(n));
+        }),
+        closeSocket: u("closeSocket", async function (e) {
+          var n = e.reason;
+          return (await t, i().closeSocket(n));
+        }),
+        closeSocketInDebugMode: u("closeSocketInDebugMode", async function () {
+          return (await t, i().closeSocketInDebugMode());
+        }),
+        closeSocketAndPreventRetry: u(
           "closeSocketAndPreventRetry",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().closeSocketAndPreventRetry());
-          }),
+          async function (e) {
+            var n = e.reason;
+            return (await t, i().closeSocketAndPreventRetry(n));
+          },
         ),
-        closeSocketAndPause: c(
-          "closeSocketAndPause",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().closeSocketAndPause());
-          }),
-        ),
-        closeSocketAndResume: c(
-          "closeSocketAndResume",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().closeSocketAndResume());
-          }),
-        ),
-        openSocketLoop: c(
-          "openSocketLoop",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().openSocketLoop());
-          }),
-        ),
-        maybeResetSocketLoop: c(
-          "maybeResetSocketLoop",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().maybeResetSocketLoop());
-          }),
-        ),
-        forceResetSocketLoop: c(
-          "forceResetSocketLoop",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().forceResetSocketLoop());
-          }),
-        ),
-        forceAbortSocketConnection: c(
+        closeSocketAndPause: u("closeSocketAndPause", async function (e) {
+          var n = e.reason;
+          return (await t, i().closeSocketAndPause(n));
+        }),
+        closeSocketAndResume: u("closeSocketAndResume", async function (e) {
+          var n = e.reason;
+          return (await t, i().closeSocketAndResume(n));
+        }),
+        openSocketLoop: u("openSocketLoop", async function () {
+          return (await t, i().openSocketLoop());
+        }),
+        maybeResetSocketLoop: u("maybeResetSocketLoop", async function () {
+          return (await t, i().maybeResetSocketLoop());
+        }),
+        forceResetSocketLoop: u("forceResetSocketLoop", async function () {
+          return (await t, i().forceResetSocketLoop());
+        }),
+        forceAbortSocketConnection: u(
           "forceAbortSocketConnection",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().forceAbortSocketConnection());
-          }),
+          async function () {
+            return (await t, i().forceAbortSocketConnection());
+          },
         ),
-        onStreamErrorReceived: c(
-          "onStreamErrorReceived",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().onStreamErrorReceived());
-          }),
-        ),
-        cancelDeadSocketTimer: c(
-          "cancelDeadSocketTimer",
-          r.asyncToGenerator(function* () {
-            return (yield t, d().cancelDeadSocketTimer());
-          }),
-        ),
-        deprecatedSendStanzaAndReturnAck: c(
+        onStreamErrorReceived: u("onStreamErrorReceived", async function () {
+          return (await t, i().onStreamErrorReceived());
+        }),
+        cancelDeadSocketTimer: u("cancelDeadSocketTimer", async function () {
+          return (await t, i().cancelDeadSocketTimer());
+        }),
+        deprecatedSendStanzaAndReturnAck: u(
           "deprecatedSendStanzaAndReturnAck",
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var n = e.expectedAck,
-                  r = e.stanza;
-                yield t;
-                var a = yield o("WAWap").decodeStanza(r, i),
-                  l = yield o(
-                    "WADeprecatedSendIq",
-                  ).deprecatedSendStanzaAndReturnAck(a, n),
-                  s = o("WAWap").encodeStanza(l);
-                return o("WATransferableResult").withTransferables(s, [
-                  s.buffer,
-                ]);
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
+          async function (e) {
+            var n = e.expectedAck,
+              a = e.stanza;
+            await t;
+            var i = await o("WAWap").decodeStanza(a, r),
+              l = await o(
+                "WADeprecatedSendIq",
+              ).deprecatedSendStanzaAndReturnAck(i, n),
+              s = o("WAWap").encodeStanza(l);
+            return o("WATransferableResult").withTransferables(s, [s.buffer]);
+          },
         ),
-        createComms: c(
-          "createComms",
-          (function () {
-            var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (r) {
-                var l = r.passive,
-                  s = r.pull;
-                (o("WAWebPageLoadLogging").startPageLoadQplMeasure(
-                  "createCommsWaitForWorkerState",
-                ),
-                  yield t,
-                  o("WAWebPageLoadLogging").endPageLoadQplMeasure(
-                    "createCommsWaitForWorkerState",
-                  ));
-                var c = a({ passive: l, pull: s });
-                o("WAComms").startComms(
-                  (function () {
-                    var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (t, n, r) {
-                        var a = o("WAWap").encodeStanza(t),
-                          l = yield e.sendAndReceive(
-                            "mainthread_comms",
-                            "handleStanza",
-                            { stanza: a, socketId: n, size: r },
-                            !0,
-                            void 0,
-                            void 0,
-                            [a.buffer],
-                          );
-                        return l instanceof Uint8Array
-                          ? o("WAWap").decodeStanza(l, i)
-                          : l;
-                      },
-                    );
-                    return function (e, n, r) {
-                      return t.apply(this, arguments);
-                    };
-                  })(),
-                  c,
-                  function (e) {
-                    return (u || (u = n("Promise"))).resolve(
-                      o("WAGzip").inflate(e),
-                    );
-                  },
-                  !1,
+        createComms: u("createComms", async function (a) {
+          var i = a.passive,
+            l = a.pull;
+          (o("WAWebBackendWorkerRegistrationState").markRegistered(),
+            o("WAWebPageLoadLogging").startPageLoadQplMeasure(
+              "createCommsWaitForWorkerState",
+            ),
+            await t,
+            o("WAWebPageLoadLogging").endPageLoadQplMeasure(
+              "createCommsWaitForWorkerState",
+            ));
+          var s = n({ passive: i, pull: l });
+          o("WAComms").startComms(
+            async function (t, n, a) {
+              var i = o("WAWap").encodeStanza(t),
+                l = await e.sendAndReceive(
+                  "mainthread_comms",
+                  "handleStanza",
+                  { stanza: i, socketId: n, size: a },
+                  !0,
+                  void 0,
+                  void 0,
+                  [i.buffer],
                 );
-              },
-            );
-            return function (e) {
-              return r.apply(this, arguments);
-            };
-          })(),
-        ),
+              return l instanceof Uint8Array
+                ? o("WAWap").decodeStanza(l, r)
+                : l;
+            },
+            s,
+            function (e) {
+              return Promise.resolve(o("WAGzip").inflate(e));
+            },
+            !1,
+          );
+        }),
       };
     }
-    l.createCommsWorkerHandlers = d;
+    l.createCommsWorkerHandlers = c;
   },
   98,
 );

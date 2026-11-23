@@ -43,23 +43,15 @@ __d(
   function (t, n, r, o, a, i, l, s, u) {
     "use strict";
     function e(e) {
-      return (
-        e.isReelsTrendingAds === !0 &&
-        (r("gkx")("11580") ||
-          e.isTopicEnabledForFBReels === !0 ||
-          e.isCountryEnabledForFBReels === !0)
-      );
-    }
-    function c(t) {
-      return e(t)
-        ? babelHelpers.extends({}, t, {
+      return e.isReelsTrendingAds === !0
+        ? babelHelpers.extends({}, e, {
             capabilities: o(
               "AdsReelsTrendingAdsPlacementUtils",
-            ).getCapabilitiesWithRTAFBReelsDefault(t.capabilities),
+            ).getCapabilitiesWithRTAFBReelsDefault(e.capabilities),
           })
-        : t;
+        : e;
     }
-    function d(e, t) {
+    function c(e, t) {
       var n,
         o =
           (n = e.targeting) == null
@@ -74,11 +66,35 @@ __d(
           )
         : e;
     }
+    function d(e, t) {
+      return t
+        ? null
+        : o("AdsClickToCallAdsUtils").getIsClickToCallAdsUnderLeadGenObjective(
+              e,
+            )
+          ? o("AdsPlacementIneligibilityReason").createPhoneCallLeadReason()
+          : o(
+                "AdsClickToCallAdsUtils",
+              ).getIsCallAdsNewOptimizationUnderTrafficObjective(e)
+            ? o(
+                "AdsPlacementIneligibilityReason",
+              ).createPhoneCallTrafficReason()
+            : o(
+                  "AdsClickToCallAdsUtils",
+                ).getIsClickToCallAdsUnderConversionsOrSalesObjective(e) ||
+                (e.objective === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES &&
+                  e.optimizationGoal ===
+                    r("AdsAPIOptimizationGoals").QUALITY_CALL)
+              ? o(
+                  "AdsPlacementIneligibilityReason",
+                ).createPhoneCallConversionsOrSalesReason()
+              : null;
+    }
     var m = {
         type: "placements/position",
         key: "facebook/fb_reels",
         name: r("AdsPlacementPositionLabelConstant").facebook_reels,
-        nameWithPlatform: s._(/*BTDS*/ "Facebook Reels"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION.FB_REELS,
           imageCrop: r("AdImageSpecCropKeys")["90x160"],
@@ -93,37 +109,32 @@ __d(
             "CAN_USE_FB_REELS_POSITION",
           );
         },
-        getIneligibilityReason: function (n) {
-          var t,
+        getIneligibilityReason: function (t) {
+          var e,
+            n,
             a,
-            i,
-            l = o(
+            i = o(
               "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-            ).getSOOBundleParentIneligibilityReason(m, n);
-          if (l != null) return l;
-          var s = n.promotedObjectType,
-            u = n.spec,
-            c = e(n);
-          if (n.isReelsTrendingAds === !0 && !c)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createReelsTrendingAdsReason();
-          var d = o("AdsODAXUtils").maybeTranslateObjective(
-              n.objective,
-              n.promotedObjectType,
-              n.optimizationGoal,
+            ).getSOOBundleParentIneligibilityReason(m, t);
+          if (i != null) return i;
+          var l = t.promotedObjectType,
+            s = t.spec,
+            u = o("AdsODAXUtils").maybeTranslateObjective(
+              t.objective,
+              t.promotedObjectType,
+              t.optimizationGoal,
             ),
-            p = r("AdsAccountStore").getSelectedAccount().getValue(),
-            _ =
-              n.spec != null &&
+            c = r("AdsAccountStore").getSelectedAccount().getValue(),
+            p =
+              t.spec != null &&
               o("AdsPlacementAPISpecReaderUtils").isOnlyActiveDevicePlatform(
-                n.spec,
+                t.spec,
                 r("AdsAPIDevicePlatform").MOBILE,
               );
           if (
-            n.spec &&
+            t.spec &&
             o("AdsPlacementAPISpecReaderUtils").isOnlyActiveDevicePlatform(
-              n.spec,
+              t.spec,
               r("AdsAPIDevicePlatform").CONNECTED_TV,
             )
           )
@@ -134,74 +145,39 @@ __d(
             );
           if (
             !o("AdsFacebookReelsUtils").isEligibleObjectiveForFBReelsPlacement(
-              babelHelpers.extends({}, n, {
-                account: (t = n.account) != null ? t : p,
+              babelHelpers.extends({}, t, {
+                account: (e = t.account) != null ? e : c,
               }),
-              d,
+              u,
             )
           )
             return o("AdsPlacementIneligibilityReason").createObjectiveReason(
-              n.objective,
+              t.objective,
             );
-          if (
-            o(
-              "AdsClickToCallAdsUtils",
-            ).getIsClickToCallAdsUnderLeadGenObjective(
-              babelHelpers.extends({}, n, { objective: d }),
-            ) &&
-            !_
-          )
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createPhoneCallLeadReason();
-          if (
-            o(
-              "AdsClickToCallAdsUtils",
-            ).getIsCallAdsNewOptimizationUnderTrafficObjective(
-              babelHelpers.extends({}, n, { objective: d }),
-            ) &&
-            !_
-          )
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createPhoneCallTrafficReason();
-          if (
-            (o(
-              "AdsClickToCallAdsUtils",
-            ).getIsClickToCallAdsUnderConversionsOrSalesObjective(
-              babelHelpers.extends({}, n, { objective: d }),
-            ) &&
-              !_) ||
-            (d === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES &&
-              n.optimizationGoal ===
-                r("AdsAPIOptimizationGoals").QUALITY_CALL &&
-              !_)
-          )
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createPhoneCallConversionsOrSalesReason();
+          var _ = d(babelHelpers.extends({}, t, { objective: u }), p);
+          if (_ != null) return _;
           if (
             o(
               "adsIGLoginPlacementUtils",
-            ).getShouldDisableFBPlacementForIGLoginUsers(n.account)
+            ).getShouldDisableFBPlacementForIGLoginUsers(t.account)
           )
             return o("AdsPlacementIneligibilityReason").createIGLoginReason();
           if (
             o(
               "AdsUnifiedProfileVisitUtils",
             ).getIsFBPositionConditionallyDisabledForProfileVisits(
-              d,
-              n.promotedObjectType,
-              n.destinationType,
+              u,
+              t.promotedObjectType,
+              t.destinationType,
               "facebook_reels",
             )
           )
             return o(
               "AdsUnifiedProfileVisitUtils",
             ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
-              n.destinationType,
+              t.destinationType,
             );
-          if (n.destinationType === r("AdCampaignDestination").INSTAGRAM_LIVE)
+          if (t.destinationType === r("AdCampaignDestination").INSTAGRAM_LIVE)
             return o(
               "AdsPlacementIneligibilityReason",
             ).createInstagramLiveReason();
@@ -209,43 +185,44 @@ __d(
             "AdsReachFrequencyPlacementUtils",
           ).getReachFrequencyDisabledReason(
             m.key,
-            babelHelpers.extends({}, n, {
-              capabilities: c
-                ? o(
-                    "AdsReelsTrendingAdsPlacementUtils",
-                  ).getCapabilitiesWithRTAFBReelsDefault(n.capabilities)
-                : n.capabilities,
-              objective: d,
+            babelHelpers.extends({}, t, {
+              capabilities:
+                t.isReelsTrendingAds === !0
+                  ? o(
+                      "AdsReelsTrendingAdsPlacementUtils",
+                    ).getCapabilitiesWithRTAFBReelsDefault(t.capabilities)
+                  : t.capabilities,
+              objective: u,
             }),
           );
           return f !== null
             ? f
-            : u.device_platforms &&
+            : s.device_platforms &&
                 !(
-                  (a = u.device_platforms) != null &&
-                  a.includes(r("AdsAPIDevicePlatform").MOBILE)
+                  (n = s.device_platforms) != null &&
+                  n.includes(r("AdsAPIDevicePlatform").MOBILE)
                 ) &&
                 !r("gkx")("92")
               ? o("AdsPlacementIneligibilityReason").createDevicePlatformReason(
                   r("AdsAPIDevicePlatform").DESKTOP,
                 )
-              : s === r("AdsPromotedObjectTypes").DONATION
+              : l === r("AdsPromotedObjectTypes").DONATION
                 ? o("AdsPlacementIneligibilityReason").createDonationReason()
-                : n.promotedObjectType === r("AdsPromotedObjectTypes").GROUP
+                : t.promotedObjectType === r("AdsPromotedObjectTypes").GROUP
                   ? o(
                       "AdsPlacementIneligibilityReason",
                     ).createGroupPromotionReason()
-                  : n.promotedObjectType ===
+                  : t.promotedObjectType ===
                       r("AdsPromotedObjectTypes").IMAGINATION
                     ? o(
                         "AdsPlacementIneligibilityReason",
                       ).createImaginationReason()
-                    : n.promotedObjectType ===
+                    : t.promotedObjectType ===
                         r("AdsPromotedObjectTypes").REMINDER
                       ? o(
                           "AdsPlacementIneligibilityReason",
                         ).createReminderPromotionReason()
-                      : n.promotedObjectType ===
+                      : t.promotedObjectType ===
                           r("AdsPromotedObjectTypes").CANVAS_APP
                         ? o(
                             "AdsPlacementIneligibilityReason",
@@ -253,51 +230,51 @@ __d(
                         : o(
                               "AdsInstagramPlacementUtils",
                             ).isInstagramDestinationEnabledAndSelected(
-                              babelHelpers.extends({}, n, { objective: d }),
+                              babelHelpers.extends({}, t, { objective: u }),
                             ) &&
                             !o(
                               "ClickToMessageCTDFeatureGating",
                             ).isFBPlacementsEnabledForCTD()
                           ? o(
                               "AdsPlacementIneligibilityReason",
-                            ).createInstagramDirectReason(n.objective)
+                            ).createInstagramDirectReason(t.objective)
                           : o(
                                 "AdsInstagramLeadGenPlacementUtils",
                               ).isInstagramLeadGenDestinationSelected(
-                                babelHelpers.extends({}, n, { objective: d }),
+                                babelHelpers.extends({}, t, { objective: u }),
                               )
                             ? o(
                                 "AdsPlacementIneligibilityReason",
-                              ).createInstagramLeadGenReason(n.objective)
+                              ).createInstagramLeadGenReason(t.objective)
                             : o(
                                   "AdsWhatsAppPlacementUtils",
                                 ).isIneligibleForFBReels(
+                                  c,
+                                  babelHelpers.extends({}, t, { objective: u }),
                                   p,
-                                  babelHelpers.extends({}, n, { objective: d }),
-                                  _,
                                 )
                               ? o(
                                   "AdsPlacementIneligibilityReason",
-                                ).createWhatsAppReason(n.objective)
-                              : n.containsOffer === !0
+                                ).createWhatsAppReason(t.objective)
+                              : t.containsOffer === !0
                                 ? o(
                                     "AdsPlacementIneligibilityReason",
-                                  ).createOfferOptionReason(n.objective)
-                                : n.directInstallDevices === !0
+                                  ).createOfferOptionReason(t.objective)
+                                : t.directInstallDevices === !0
                                   ? o(
                                       "AdsPlacementIneligibilityReason",
                                     ).createDirectInstallReason()
                                   : r("AdsAppUrlUtils").isWindowsURL(
-                                        n.objectStoreURL,
+                                        t.objectStoreURL,
                                       )
                                     ? o(
                                         "AdsPlacementIneligibilityReason",
                                       ).createWindowsAppReason()
-                                    : (i = n.isClickToMPAds) != null && i
+                                    : (a = t.isClickToMPAds) != null && a
                                       ? o(
                                           "AdsPlacementIneligibilityReason",
                                         ).createGenericReason()
-                                      : n.destinationType ===
+                                      : t.destinationType ===
                                           r("AdCampaignDestination")
                                             .FACEBOOK_LIVE
                                         ? o(
@@ -313,18 +290,13 @@ __d(
           );
         },
         isInactiveByDefault: function (t) {
-          var e,
-            n =
-              t.isTopicEnabledForFBReels === !0 ||
-              t.isCountryEnabledForFBReels === !0,
-            a = r("gkx")("11580");
-          if (t.isReelsTrendingAds === !0 && n && !a) return !1;
-          if (t.isReelsTrendingAds === !0 && (n || a)) {
-            var i,
-              l = (i = t.spec) == null ? void 0 : i.facebook_positions;
-            return l != null ? !l.includes("facebook_reels") : !1;
+          var e;
+          if (t.isReelsTrendingAds === !0) {
+            var n,
+              a = (n = t.spec) == null ? void 0 : n.facebook_positions;
+            return a != null && !a.includes("facebook_reels");
           }
-          var s = o("AdsODAXUtils").maybeTranslateObjective(
+          var i = o("AdsODAXUtils").maybeTranslateObjective(
             t.objective,
             t.promotedObjectType,
             t.optimizationGoal,
@@ -337,7 +309,7 @@ __d(
                     ? e
                     : r("AdsAccountStore").getSelectedAccount().getValue(),
               }),
-              s,
+              i,
             ) &&
             !o("AdsPlacementAPISpecReaderUtils").isOnlyActiveDevicePlatform(
               t.spec,
@@ -360,6 +332,8 @@ __d(
                 .is_pharma_or_sensitive_vertical &&
               !r("IGAdsSensitiveVerticalsUtils")
                 .is_pharma_or_sensitive_vertical_by_campaign_group &&
+              !r("IGAdsSensitiveVerticalsUtils")
+                .is_pharma_or_sensitive_vertical_by_ad &&
               !r("IGAdsSensitiveVerticalsUtils").is_luxury_vertical &&
               e.push("previews/facebook_reels_in_ifu_mobile"),
             r("immutable").OrderedSet(e)
@@ -368,74 +342,73 @@ __d(
         getDefaultPreview: function () {
           return "previews/facebook_reels_mobile";
         },
-        adsetReducer: function (t, n) {
-          var e = n.action,
-            a = c(e.eligibilityInformation);
-          if (!m.isEnabled(a.capabilities)) return t;
-          switch (e.type) {
+        adsetReducer: function (n, a) {
+          var t = a.action,
+            i = e(t.eligibilityInformation);
+          if (!m.isEnabled(i.capabilities)) return n;
+          switch (t.type) {
             case o("AdsUEditorCampaignPlacementSetActionFlux").actionType:
-              if (e.removeGroups.includes("facebook/fb_reels")) {
-                var i = a.isReelsTrendingAds === !0 && r("gkx")("11580");
+              if (t.removeGroups.includes("facebook/fb_reels")) {
+                var l = i.isReelsTrendingAds === !0;
                 return o("AdsMutators").mutateEach(
-                  t,
-                  e.campaignIDs,
+                  n,
+                  t.campaignIDs,
                   function (e) {
                     var t = o("AdsPlacementAPISpecWriterUtils").removeGroup(
                       e,
                       "facebook/fb_reels",
-                      a,
+                      i,
                       r("AdsAPITargetFields").FACEBOOK_POSITIONS,
                       "facebook",
                     );
-                    return d(t, i);
+                    return c(t, l);
                   },
                 );
-              } else if (e.addGroups.includes("facebook/fb_reels"))
+              } else if (t.addGroups.includes("facebook/fb_reels"))
                 return o("AdsMutators").mutateEach(
-                  t,
-                  e.campaignIDs,
+                  n,
+                  t.campaignIDs,
                   function (e) {
                     return o("AdsPlacementAPISpecWriterUtils").addGroup(
                       e,
                       "facebook/fb_reels",
-                      a,
+                      i,
                       r("AdsAPITargetFields").FACEBOOK_POSITIONS,
                       "facebook",
                     );
                   },
                 );
-              return t;
+              return n;
             case o("AdsCampaignPlacementAddDataActionFlux").actionType:
-              return o("AdsMutators").mutateEach(t, e.ids, function (t) {
+              return o("AdsMutators").mutateEach(n, t.ids, function (e) {
                 return o("AdsPlacementAPISpecWriterUtils").addGroup(
-                  t,
-                  e.pluginKey,
-                  a,
+                  e,
+                  t.pluginKey,
+                  i,
                   r("AdsAPITargetFields").FACEBOOK_POSITIONS,
                   "facebook",
                 );
               });
             case o("AdsUEditorCampaignPlacementRemoveActionFlux").actionType:
               return o("AdsMutators").mutateEach(
-                t,
-                e.campaignIDs,
-                function (t) {
+                n,
+                t.campaignIDs,
+                function (e) {
                   var n =
-                      e.pluginKey === "facebook/fb_reels" &&
-                      a.isReelsTrendingAds === !0 &&
-                      r("gkx")("11580"),
-                    i = o("AdsPlacementAPISpecWriterUtils").removeGroup(
-                      t,
-                      e.pluginKey,
-                      a,
+                      t.pluginKey === "facebook/fb_reels" &&
+                      i.isReelsTrendingAds === !0,
+                    a = o("AdsPlacementAPISpecWriterUtils").removeGroup(
+                      e,
+                      t.pluginKey,
+                      i,
                       r("AdsAPITargetFields").FACEBOOK_POSITIONS,
                       "facebook",
                     );
-                  return d(i, n);
+                  return c(a, n);
                 },
               );
           }
-          return t;
+          return n;
         },
         parentPlacements: r("immutable").OrderedSet([]),
         childPlacements: r("immutable").OrderedSet([]),

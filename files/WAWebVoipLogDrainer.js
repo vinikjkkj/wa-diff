@@ -1,11 +1,6 @@
 __d(
   "WAWebVoipLogDrainer",
-  [
-    "WALogger",
-    "WAWebCommonTaskScheduler",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["WALogger", "WAWebCommonTaskScheduler", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -229,71 +224,63 @@ __d(
           .catching(r("getErrorSafe")(e));
       }
     }
-    function V() {
-      return H.apply(this, arguments);
-    }
-    function H() {
-      return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = N;
-          if (e != null) {
-            var t = e.dataU8,
-              n = e.headerU32,
-              a = -1,
-              i = !1;
-            try {
-              var l = Atomics.load(n, L);
-              a = Atomics.load(n, S);
-              for (var s = 0; a !== l; ) {
-                if (
-                  s > 0 &&
-                  (Atomics.store(n, S, a),
-                  yield r("WAWebCommonTaskScheduler").yield(),
-                  N !== e)
-                )
-                  return;
-                var u = q(t, a);
-                if (u === -1) {
-                  ((a = l), (i = !0));
-                  break;
-                }
-                ((a = u), (i = !0), s++);
-              }
-              var c = Atomics.load(n, R);
-              if (c > e.lastOverflowCount) {
-                var d = c - e.lastOverflowCount;
-                (o("WALogger").WARN(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [LogDrainer] ",
-                      " messages overflowed to legacy dispatch (total: ",
-                      ")",
-                    ])),
-                  d,
-                  c,
-                ),
-                  (e.lastOverflowCount = c));
-              }
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  y ||
-                    (y = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [LogDrainer] Error during drain",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e));
-            } finally {
-              if (i && N === e)
-                try {
-                  Atomics.store(n, S, a);
-                } catch (e) {}
+    async function V() {
+      var e = N;
+      if (e != null) {
+        var t = e.dataU8,
+          n = e.headerU32,
+          a = -1,
+          i = !1;
+        try {
+          var l = Atomics.load(n, L);
+          a = Atomics.load(n, S);
+          for (var s = 0; a !== l; ) {
+            if (
+              s > 0 &&
+              (Atomics.store(n, S, a),
+              await r("WAWebCommonTaskScheduler").yield(),
+              N !== e)
+            )
+              return;
+            var u = q(t, a);
+            if (u === -1) {
+              ((a = l), (i = !0));
+              break;
             }
-            A(i);
+            ((a = u), (i = !0), s++);
           }
-        })),
-        H.apply(this, arguments)
-      );
+          var c = Atomics.load(n, R);
+          if (c > e.lastOverflowCount) {
+            var d = c - e.lastOverflowCount;
+            (o("WALogger").WARN(
+              h ||
+                (h = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [LogDrainer] ",
+                  " messages overflowed to legacy dispatch (total: ",
+                  ")",
+                ])),
+              d,
+              c,
+            ),
+              (e.lastOverflowCount = c));
+          }
+        } catch (e) {
+          o("WALogger")
+            .ERROR(
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [LogDrainer] Error during drain",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e));
+        } finally {
+          if (i && N === e)
+            try {
+              Atomics.store(n, S, a);
+            } catch (e) {}
+        }
+        A(i);
+      }
     }
     ((l.startLogDrainer = M), (l.stopLogDrainer = w));
   },

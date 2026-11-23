@@ -1,7 +1,6 @@
 __d(
   "WAWebOpenLastActiveChatAction",
   [
-    "Promise",
     "WAWebBotGating",
     "WAWebBotUtils",
     "WAWebChatCollection",
@@ -9,53 +8,42 @@ __d(
     "WAWebCmd",
     "WAWebDrawerManager",
     "WAWebSideNavButtonsActivityModel",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = 0;
+    var e = 0;
+    async function s() {
+      var t = o("WAWebSideNavButtonsActivityModel").getLastActiveChat();
+      try {
+        var n =
+          t != null ? o("WAWebChatCollection").ChatCollection.get(t) : null;
+        if (
+          (o("WAWebDrawerManager").DrawerManager.closeDrawerMid(),
+          n != null && !n.isLocked)
+        ) {
+          if (
+            o("WAWebBotUtils").isMetaAiBot(n.id) &&
+            o("WAWebBotGating").isAiChatThreadsEnabled()
+          )
+            return !1;
+          var r = ++e;
+          return o("WAWebCmd").Cmd.openChatFromUnread({
+            chat: n,
+            chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab,
+            isSuperseded: function () {
+              return r !== e;
+            },
+          });
+        }
+        return Promise.resolve(!1);
+      } catch (e) {
+        return Promise.resolve(!1);
+      }
+    }
     function u() {
-      return c.apply(this, arguments);
+      e++;
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WAWebSideNavButtonsActivityModel").getLastActiveChat();
-          try {
-            var r =
-              t != null ? o("WAWebChatCollection").ChatCollection.get(t) : null;
-            if (
-              (o("WAWebDrawerManager").DrawerManager.closeDrawerMid(),
-              r != null && !r.isLocked)
-            ) {
-              if (
-                o("WAWebBotUtils").isMetaAiBot(r.id) &&
-                o("WAWebBotGating").isAiChatThreadsEnabled()
-              )
-                return !1;
-              var a = ++s;
-              return o("WAWebCmd").Cmd.openChatFromUnread({
-                chat: r,
-                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                  .ChatsTab,
-                isSuperseded: function () {
-                  return a !== s;
-                },
-              });
-            }
-            return (e || (e = n("Promise"))).resolve(!1);
-          } catch (t) {
-            return (e || (e = n("Promise"))).resolve(!1);
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d() {
-      s++;
-    }
-    ((l.openLastActiveChatIfNotLocked = u),
-      (l.cancelPendingLastActiveChatRestore = d));
+    ((l.openLastActiveChatIfNotLocked = s),
+      (l.cancelPendingLastActiveChatRestore = u));
   },
   98,
 );

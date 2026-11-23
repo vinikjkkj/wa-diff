@@ -1,6 +1,12 @@
 __d(
   "AdsPECampaignSelectors",
-  ["AdsCampaignCombinedStore", "adsCreateStoreThunkSelector"],
+  [
+    "AdsCampaignCombinedStore",
+    "AdsObjectTypes",
+    "LoadObject",
+    "adsCreateSelector",
+    "adsCreateStoreThunkSelector",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -29,9 +35,22 @@ __d(
       f = e(s, function (e, t) {
         return r("AdsCampaignCombinedStore").getAllRecords(e, t);
       }),
-      g = e(s, s.getByFields.bind(s)),
+      g = e(s, function (e, t) {
+        return r("AdsCampaignCombinedStore").getByFields(e, t, i.id);
+      }),
       h = e(s, s.getCachedByFields.bind(s)),
-      y = e(s, function (e, t) {
+      y = r("adsCreateSelector")(
+        [h],
+        function (t) {
+          return function (e, n, o) {
+            return e.fbid == null || e.type !== r("AdsObjectTypes").CAMPAIGN
+              ? r("LoadObject").empty({ creatorModuleID: i.id })
+              : t(e.fbid, n, o);
+          };
+        },
+        { name: i.id + ".getCachedByFieldsStrongIDSelector" },
+      ),
+      C = e(s, function (e, t) {
         return r("AdsCampaignCombinedStore").getAllByFields(e, t, i.id);
       });
     ((l.getCachedSelector = u),
@@ -43,7 +62,8 @@ __d(
       (l.getAllRecordsSelector = f),
       (l.getByFieldsSelector = g),
       (l.getCachedByFieldsSelector = h),
-      (l.getAllByFieldsSelector = y));
+      (l.getCachedByFieldsStrongIDSelector = y),
+      (l.getAllByFieldsSelector = C));
   },
   98,
 );

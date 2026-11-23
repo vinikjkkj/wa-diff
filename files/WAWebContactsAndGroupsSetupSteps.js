@@ -36,35 +36,33 @@ __d(
             {
               Icon: r("WDSIconIcPhotoCamera.react"),
               key: "photo",
-              label: s._(/*BTDS*/ "Add group icon"),
+              label: s._(/*BTDS*/ ""),
               onPress: i,
             },
           ],
           key: "photo",
-          title: s._(/*BTDS*/ "Add a group icon"),
-          why: s._(/*BTDS*/ "Shows next to the group's name in chat lists"),
+          title: s._(/*BTDS*/ ""),
+          why: s._(/*BTDS*/ ""),
         },
         {
           actions: [
             {
               Icon: r("WDSIconIcEdit.react"),
               key: "description",
-              label: s._(/*BTDS*/ "Add group description"),
+              label: s._(/*BTDS*/ ""),
               onPress: i,
             },
           ],
           key: "description",
-          title: s._(/*BTDS*/ "Add a description"),
-          why: s._(
-            /*BTDS*/ "Tells new members what it's for and how to join in",
-          ),
+          title: s._(/*BTDS*/ ""),
+          why: s._(/*BTDS*/ ""),
         },
         {
           actions: [
             {
               Icon: r("WDSIconIcPersonAdd.react"),
               key: "add-members",
-              label: s._(/*BTDS*/ "Add members"),
+              label: s._(/*BTDS*/ ""),
               onPress: function () {
                 var e = o("WAWebGetMaybeChatById").getMaybeChatById(t);
                 if (e == null) {
@@ -84,15 +82,15 @@ __d(
             {
               Icon: r("WDSIconIcLink.react"),
               key: "invite-link",
-              label: s._(/*BTDS*/ "Invite to group via link"),
+              label: s._(/*BTDS*/ ""),
               onPress: function () {
                 return a(o("WAWebInfoFlowStep").InfoFlowStep.GroupInviteLink);
               },
             },
           ],
           key: "invite",
-          title: s._(/*BTDS*/ "Invite people"),
-          why: s._(/*BTDS*/ "Add people from your contacts or share a link"),
+          title: s._(/*BTDS*/ ""),
+          why: s._(/*BTDS*/ ""),
         },
       ];
     }

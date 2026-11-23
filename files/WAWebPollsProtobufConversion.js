@@ -1,52 +1,39 @@
 __d(
   "WAWebPollsProtobufConversion",
-  [
-    "WALongInt",
-    "WAWebPollsCreateOptionLocalIdMap",
-    "asyncToGeneratorRuntime",
-    "nullthrows",
-  ],
+  ["WALongInt", "WAWebPollsCreateOptionLocalIdMap", "nullthrows"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
+    async function e(e, t) {
+      var n = await o(
+          "WAWebPollsCreateOptionLocalIdMap",
+        ).createOptionLocalIdMap(t),
+        r = e.selectedOptionLocalIds.map(n.getHashForLocalId);
+      return { selectedOptions: r.length === 0 ? null : r };
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o(
-              "WAWebPollsCreateOptionLocalIdMap",
-            ).createOptionLocalIdMap(t),
-            r = e.selectedOptionLocalIds.map(n.getHashForLocalId);
-          return { selectedOptions: r.length === 0 ? null : r };
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       var t = e.ack,
         n = e.allowUnresolvedOptions,
         a = n === void 0 ? !1 : n,
         i = e.optionLocalIdMap,
         l = e.parentMsgKey,
         s = e.pollVoteMsgKey,
-        u = e.read,
+        c = e.read,
         d = e.sender,
         m = e.senderTimestampMs,
         p = e.t,
         _ = e.voteProtobuf;
       return babelHelpers.extends(
         { msgKey: s, parentMsgKey: r("nullthrows")(l) },
-        c(_.selectedOptions, i, a),
+        u(_.selectedOptions, i, a),
         {
           senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(m),
           t: o("WALongInt").maybeNumberOrThrowIfTooLarge(p),
           sender: d,
           ack: t,
-          read: u,
+          read: c,
         },
       );
     }
-    function c(e, t, n) {
+    function u(e, t, n) {
       if (!n) return { selectedOptionLocalIds: e.map(t.getLocalIdForHash) };
       var r = [],
         o = [];
@@ -56,7 +43,7 @@ __d(
         ? { selectedOptionLocalIds: r, unresolvedOptionHashes: o }
         : { selectedOptionLocalIds: r };
     }
-    ((l.protobufFromVote = e), (l.voteFromProtobuf = u));
+    ((l.protobufFromVote = e), (l.voteFromProtobuf = s));
   },
   98,
 );

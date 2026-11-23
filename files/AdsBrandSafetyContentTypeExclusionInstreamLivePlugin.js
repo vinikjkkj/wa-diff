@@ -45,7 +45,7 @@ __d(
                     .ADS_BRAND_SAFETY_CONTENT_FILTER_LEVEL.FACEBOOK_STRICT ||
                 !!(
                   e.spec.excluded_brand_safety_content_types &&
-                  e.spec.excluded_brand_safety_content_types.includes(s.key)
+                  e.spec.excluded_brand_safety_content_types.includes(s.id)
                 )
               );
             }),

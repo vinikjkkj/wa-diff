@@ -16,7 +16,6 @@ __d(
     "WAWebPathfinderHeldBackSurface",
     "WAWebReloadCrashAnnotations",
     "WAWebUserPrefsInfoStore",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -79,129 +78,112 @@ __d(
         f
       );
     }
-    function C() {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (r("WAWebCallCollection").activeCall != null) {
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[screen-lock] blocked: active call in progress",
-                ])),
-            );
-            try {
-              var t = yield p.load(),
-                n = t.openLockScreenActiveCallDialog;
-              if (r("WAWebCallCollection").activeCall == null) return;
-              o("WAWebPathfinderHeldBackSurface").openHeldBack(
-                o("WAWebPathfinderHeldBackSurface").HeldBackSurface
-                  .SCREEN_LOCK_ACTIVE_CALL_BLOCKER,
-                n,
-              );
-            } catch (e) {
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[screen-lock] active-call blocker dialog failed to load",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("screen-lock-active-call-blocker-load-failed");
-            }
-            return;
-          }
-          _ == null || _();
-          var a = o("WAWebPathfinderHeldBackSurface").enterHeldBackSurface(
-            o("WAWebPathfinderHeldBackSurface").HeldBackSurface.SCREEN_LOCK,
+    async function C() {
+      if (r("WAWebCallCollection").activeCall != null) {
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[screen-lock] blocked: active call in progress",
+            ])),
+        );
+        try {
+          var t = await p.load(),
+            n = t.openLockScreenActiveCallDialog;
+          if (r("WAWebCallCollection").activeCall == null) return;
+          o("WAWebPathfinderHeldBackSurface").openHeldBack(
+            o("WAWebPathfinderHeldBackSurface").HeldBackSurface
+              .SCREEN_LOCK_ACTIVE_CALL_BLOCKER,
+            n,
           );
-          _ = a;
-          try {
-            yield v();
-          } catch (e) {
-            throw (a(), _ === a && (_ = null), e);
-          }
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v() {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            o("WAWebUserPrefsInfoStore").waNoiseInfo.cachedPasscodeDerivedKey ==
-            null
-          ) {
-            (o("WALogger")
-              .WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[screeen-lock] passcode derived key null",
-                  ])),
-              )
-              .sendLogs("[screeen-lock] passcode derived key null"),
-              o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[reload] lockScreenAndTriggerUnlockFlow: no passcode key",
-                  ])),
-              ),
-              o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
-                "lockScreenAndTriggerUnlockFlow: no passcode key",
-              ),
-              location.reload());
-            return;
-          }
-          var e = o("WAComms").getComms();
-          if (e == null) {
-            (o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[reload] lockScreenAndTriggerUnlockFlow: no comms",
+        } catch (e) {
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[screen-lock] active-call blocker dialog failed to load",
                 ])),
-            ),
-              o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
-                "lockScreenAndTriggerUnlockFlow: no comms",
-              ),
-              location.reload());
-            return;
-          }
-          var t = o("WAWebChatCollection").ChatCollection.getActive();
-          if (
-            (t && o("WAWebCmd").Cmd.closeChat(t),
-            yield o("WAWebMsgCollection").MsgCollection.encryptAndClearModels(),
-            o(
-              "WAWebUserPrefsInfoStore",
-            ).waNoiseInfo.resetCachedPasscodeDerivedKey(),
-            o("WAWebDbEncryptionKey").DbEncKeyStore.deleteKeyCache(),
-            o("WAWebDbEncryptionKey").DbEncKeyStore.resetDB(),
-            !(yield e.trySoftCloseSocket(
-              o("WAWebAppCommsCloseReason").AppCommsCloseReason.AppLock,
-            )))
-          ) {
-            (o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[reload] lockScreenAndTriggerUnlockFlow",
-                ])),
-            ),
-              o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
-                "lockScreenAndTriggerUnlockFlow",
-              ),
-              location.reload());
-            return;
-          }
-          (yield o("WAWebCryptoEncKeyHelper").initEncSalt(),
-            e.openSocketLoop());
-        })),
-        S.apply(this, arguments)
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("screen-lock-active-call-blocker-load-failed");
+        }
+        return;
+      }
+      _ == null || _();
+      var a = o("WAWebPathfinderHeldBackSurface").enterHeldBackSurface(
+        o("WAWebPathfinderHeldBackSurface").HeldBackSurface.SCREEN_LOCK,
       );
+      _ = a;
+      try {
+        await b();
+      } catch (e) {
+        throw (a(), _ === a && (_ = null), e);
+      }
+    }
+    async function b() {
+      if (
+        o("WAWebUserPrefsInfoStore").waNoiseInfo.cachedPasscodeDerivedKey ==
+        null
+      ) {
+        (o("WALogger")
+          .WARN(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[screeen-lock] passcode derived key null",
+              ])),
+          )
+          .sendLogs("[screeen-lock] passcode derived key null"),
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[reload] lockScreenAndTriggerUnlockFlow: no passcode key",
+              ])),
+          ),
+          o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+            "lockScreenAndTriggerUnlockFlow: no passcode key",
+          ),
+          location.reload());
+        return;
+      }
+      var e = o("WAComms").getComms();
+      if (e == null) {
+        (o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "[reload] lockScreenAndTriggerUnlockFlow: no comms",
+            ])),
+        ),
+          o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+            "lockScreenAndTriggerUnlockFlow: no comms",
+          ),
+          location.reload());
+        return;
+      }
+      var t = o("WAWebChatCollection").ChatCollection.getActive();
+      if (
+        (t && o("WAWebCmd").Cmd.closeChat(t),
+        await o("WAWebMsgCollection").MsgCollection.encryptAndClearModels(),
+        o(
+          "WAWebUserPrefsInfoStore",
+        ).waNoiseInfo.resetCachedPasscodeDerivedKey(),
+        o("WAWebDbEncryptionKey").DbEncKeyStore.deleteKeyCache(),
+        o("WAWebDbEncryptionKey").DbEncKeyStore.resetDB(),
+        !(await e.trySoftCloseSocket(
+          o("WAWebAppCommsCloseReason").AppCommsCloseReason.AppLock,
+        )))
+      ) {
+        (o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "[reload] lockScreenAndTriggerUnlockFlow",
+            ])),
+        ),
+          o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+            "lockScreenAndTriggerUnlockFlow",
+          ),
+          location.reload());
+        return;
+      }
+      (await o("WAWebCryptoEncKeyHelper").initEncSalt(), e.openSocketLoop());
     }
     ((l.LockScreenResolvable = h), (l.lockScreenAndTriggerUnlockFlow = y));
   },

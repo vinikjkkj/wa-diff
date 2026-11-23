@@ -46,36 +46,14 @@ __d(
                 : o("WAWebWidFormat").widToFormattedUser(i.id);
               return {
                 text: n
-                  ? s._(
-                      /*BTDS*/ "Your security code with {contactName} changed",
-                      [s._param("contactName", l)],
-                    )
-                  : s._(
-                      /*BTDS*/ "Your security code with {contactName} changed. Click to learn more",
-                      [s._param("contactName", l)],
-                    ),
+                  ? s._(/*BTDS*/ "", [s._param("contactName", l)])
+                  : s._(/*BTDS*/ "", [s._param("contactName", l)]),
               };
             } else {
               if (o("WAWebChatGetters").getIsGroup(i))
-                return {
-                  text: n
-                    ? s._(
-                        /*BTDS*/ "Your security code with all members changed",
-                      )
-                    : s._(
-                        /*BTDS*/ "Your security code with all members changed. Click to learn more",
-                      ),
-                };
+                return { text: n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "") };
               if (o("WAWebChatGetters").getIsBroadcast(i))
-                return {
-                  text: n
-                    ? s._(
-                        /*BTDS*/ "Your security code with all recipients changed",
-                      )
-                    : s._(
-                        /*BTDS*/ "Your security code with all recipients changed. Click to learn more",
-                      ),
-                };
+                return { text: n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "") };
             }
           }
           var u = a
@@ -83,13 +61,8 @@ __d(
             : o("WAWebWidFormat").widToFormattedUser(t.body);
           return {
             text: n
-              ? s._(/*BTDS*/ "Your security code with {contactName} changed", [
-                  s._param("contactName", u),
-                ])
-              : s._(
-                  /*BTDS*/ "Your security code with {contactName} changed. Click to learn more",
-                  [s._param("contactName", u)],
-                ),
+              ? s._(/*BTDS*/ "", [s._param("contactName", u)])
+              : s._(/*BTDS*/ "", [s._param("contactName", u)]),
           };
         }
         case "device":
@@ -111,13 +84,7 @@ __d(
                   text: o("WAWebSupportChatStrings").SupportChatSystemMessage(),
                 }
               : {
-                  text: n
-                    ? s._(
-                        /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them",
-                      )
-                    : s._(
-                        /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them. Click to learn more",
-                      ),
+                  text: n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
                   enumType: o("WAWebWamEnumSystemMessageTypeType")
                     .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES,
                 }
@@ -128,74 +95,40 @@ __d(
                 }
               : r("WAWebWid").isBroadcast(c)
                 ? {
-                    text: n
-                      ? s._(
-                          /*BTDS*/ "Messages you send to this broadcast list are secured with end-to-end encryption",
-                        )
-                      : s._(
-                          /*BTDS*/ "Messages you send to this broadcast list are secured with end-to-end encryption. Click to learn more",
-                        ),
+                    text: n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
                     enumType: o("WAWebWamEnumSystemMessageTypeType")
                       .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_BROADCAST_LIST,
                   }
                 : o("WAWebUserUtils").isMeAccount(c)
                   ? {
-                      text: n
-                        ? s._(
-                            /*BTDS*/ "Messages to yourself are end-to-end encrypted. No one else, not even WhatsApp, can read, listen to, or share them",
-                          )
-                        : s._(
-                            /*BTDS*/ "Messages to yourself are end-to-end encrypted. No one else, not even WhatsApp, can read, listen to, or share them. Click to learn more",
-                          ),
+                      text: n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
                       enumType: o("WAWebWamEnumSystemMessageTypeType")
                         .SYSTEM_MESSAGE_TYPE_TYPE
                         .E2E_ENCRYPTED_MESSAGE_YOURSELF,
                     }
                   : {
-                      text: n
-                        ? s._(
-                            /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them",
-                          )
-                        : s._(
-                            /*BTDS*/ "Messages and calls are end-to-end encrypted. Only people in this chat can read, listen to, or share them. Click to learn more",
-                          ),
+                      text: n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
                       enumType: o("WAWebWamEnumSystemMessageTypeType")
                         .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES,
                     };
         }
         case "encrypt_now":
           return {
-            text: n
-              ? s._(
-                  /*BTDS*/ "Messages and calls are now end-to-end encrypted. Only people in this chat can read, listen to, or share them",
-                )
-              : s._(
-                  /*BTDS*/ "Messages and calls are now end-to-end encrypted. Only people in this chat can read, listen to, or share them. Click to learn more",
-                ),
+            text: n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
             enumType: o("WAWebWamEnumSystemMessageTypeType")
               .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES_CALLS,
           };
         case "e2e_identity_unavailable":
-          return {
-            text: s._(
-              /*BTDS*/ "Security code notifications are no longer available for this chat",
-            ),
-          };
+          return { text: s._(/*BTDS*/ "") };
         case "chat_psa":
           return {
-            text: n
-              ? s._(/*BTDS*/ "This is an official account of WhatsApp")
-              : s._(
-                  /*BTDS*/ "This is an official account of WhatsApp. Click to learn more",
-                ),
+            text: n ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
             enumType: o("WAWebWamEnumSystemMessageTypeType")
               .SYSTEM_MESSAGE_TYPE_TYPE.OFFICIAL_ACCOUNT_INFO,
           };
         case "group_transition_to_tee_bot_group":
           return {
-            text: s._(
-              /*BTDS*/ "A group member added Meta AI to this chat. It's secured with Private Processing, so WhatsApp and Meta can't see the chat. Group admins can remove Meta AI at any time.",
-            ),
+            text: s._(/*BTDS*/ ""),
             enumType: o("WAWebWamEnumSystemMessageTypeType")
               .SYSTEM_MESSAGE_TYPE_TYPE.E2E_ENCRYPTED_MESSAGES_CALLS,
           };

@@ -6,7 +6,6 @@ __d(
     "WAWebFetchWithAdAccountToken",
     "WAWebNetworkStatus",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -14,44 +13,29 @@ __d(
         e !== void 0
           ? e
           : (e = n("WAWebCustomerManagerStartTrialMutation.graphql"));
-    function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = yield o("WAWebFetchWithAdAccountToken").fetchWithAdAccountToken(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    return (
-                      yield r("WAWebNetworkStatus").waitIfOffline(),
-                      o("WAWebRelayClient").commitMutation(
-                        s,
-                        { input: {} },
-                        { accessToken: e, environmentType: "facebook" },
-                      )
-                    );
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            ),
-            a =
-              t == null || (e = t.xfb_wa_start_contact_manager_trial) == null
-                ? void 0
-                : e.access_state;
-          return o(
-            "WAWebCustomerManagerAccessState",
-          ).decodeCustomerManagerAccessStateOrThrow(
-            a == null ? void 0 : a.state,
-            a == null ? void 0 : a.trial_end_time,
-          );
-        })),
-        c.apply(this, arguments)
+    async function u() {
+      var e,
+        t = await o("WAWebFetchWithAdAccountToken").fetchWithAdAccountToken(
+          async function (e) {
+            return (
+              await r("WAWebNetworkStatus").waitIfOffline(),
+              o("WAWebRelayClient").commitMutation(
+                s,
+                { input: {} },
+                { accessToken: e, environmentType: "facebook" },
+              )
+            );
+          },
+        ),
+        n =
+          t == null || (e = t.xfb_wa_start_contact_manager_trial) == null
+            ? void 0
+            : e.access_state;
+      return o(
+        "WAWebCustomerManagerAccessState",
+      ).decodeCustomerManagerAccessStateOrThrow(
+        n == null ? void 0 : n.state,
+        n == null ? void 0 : n.trial_end_time,
       );
     }
     l.startCustomerManagerTrialOnServer = u;

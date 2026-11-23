@@ -10,18 +10,18 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, a) {
-      var i = o("AdsODAXUtils").maybeTranslateObjective(
+    function e(e, t, n, r) {
+      var a = o("AdsODAXUtils").maybeTranslateObjective(
           n.objective,
           n.promotedObjectType,
           n.optimizationGoal,
         ),
-        l = o("AdsInstagramSupportedObjectives").supportedObjectives.get(t),
-        c;
+        i = o("AdsInstagramSupportedObjectives").supportedObjectives.get(t),
+        l;
       if (
         (e === "instagram" || e === "threads") &&
-        l &&
-        ((c = l.includes(i)
+        i &&
+        ((l = i.includes(a)
           ? null
           : o("AdsPlacementIneligibilityReason").createObjectiveReason(
               n.objective,
@@ -30,20 +30,9 @@ __d(
           "AdsPlacementConfigPositionPluginUtils",
         ).enableV2PlacementEligibilityCheck(t))
       )
-        return c;
-      var d = s(e, t, n, a, i);
-      return (
-        o(
-          "AdsPlacementConfigPositionPluginUtils",
-        ).shouldLogPlacementEligibility(t) &&
-          a != null &&
-          u(t === "profile_feed" ? !d : a, c, n, e, t, !0),
-        r("AdsInterfacesLogger").logOnce({
-          eventName: "running_objective_validation_v1",
-          data: { message: JSON.stringify({ placement_key: t }), objective: i },
-        }),
-        d
-      );
+        return l;
+      var u = s(e, t, n, r, a);
+      return u;
     }
     function s(e, t, n, a, i) {
       if (
@@ -69,26 +58,24 @@ __d(
           : o("AdsPlacementIneligibilityReason").createObjectiveReason(
               n.objective,
             );
-      return (a != null && u(a, m, n, e, t, !1), m);
+      return (a != null && u(a, m, n, e, t), m);
     }
-    function u(e, t, n, o, a, i) {
-      var l = { platform: o, placement: a },
-        s = t == null,
-        u = i
-          ? "ig_dev_efficiency_type_objective_v2"
-          : "ig_dev_efficiency_type_objective";
-      if (e !== s) {
-        var c = n.objective,
-          d = n.optimizationGoal,
-          m = n.promotedObjectType;
+    function u(e, t, n, o, a) {
+      var i = { platform: o, placement: a },
+        l = t == null,
+        s = "ig_dev_efficiency_type_objective";
+      if (e !== l) {
+        var u = n.objective,
+          c = n.optimizationGoal,
+          d = n.promotedObjectType;
         r("AdsInterfacesLogger").logOnce({
-          eventName: u,
+          eventName: s,
           data: {
             is_enabled: e,
-            objective: c,
-            optimization_goal: d,
+            objective: u,
+            optimization_goal: c,
             campaign_spec: JSON.stringify(
-              babelHelpers.extends({}, l, { promoted_object_type: m }),
+              babelHelpers.extends({}, i, { promoted_object_type: d }),
             ),
             message: JSON.stringify(t),
           },

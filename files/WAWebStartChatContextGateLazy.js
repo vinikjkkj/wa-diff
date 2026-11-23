@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAWebNoop",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,33 +18,25 @@ __d(
     function c() {
       u().catch(r("WAWebNoop"));
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n;
-          try {
-            n = yield o("WAPromiseTimeout").promiseTimeout(u(), s);
-          } catch (t) {
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[start-chat-context] gate load failed, opening the chat",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("start-chat-context-gate-load-failed"),
-              "open_chat"
-            );
-          }
-          return n.getStartChatContextDecision(t);
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(t) {
+      var n;
+      try {
+        n = await o("WAPromiseTimeout").promiseTimeout(u(), s);
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[start-chat-context] gate load failed, opening the chat",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("start-chat-context-gate-load-failed"),
+          "open_chat"
+        );
+      }
+      return n.getStartChatContextDecision(t);
     }
     ((l.preloadStartChatContextGate = c), (l.getStartChatContextDecision = d));
   },

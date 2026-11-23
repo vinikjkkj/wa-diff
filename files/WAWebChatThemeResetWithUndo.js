@@ -108,7 +108,7 @@ __d(
               id: t,
               msg: a,
               action: {
-                actionText: s._(/*BTDS*/ "Undo"),
+                actionText: s._(/*BTDS*/ ""),
                 testid: "chat_theme_undo_btn",
                 onAction: function () {
                   (r(), o("WAWebToastManager").ToastManager.close(t));
@@ -147,7 +147,7 @@ __d(
                 ),
                   p.restoreWallpaperValue(i));
               },
-              s._(/*BTDS*/ "Chat theme reset"),
+              s._(/*BTDS*/ ""),
             );
           }
         },
@@ -171,7 +171,7 @@ __d(
                   ),
                 );
               },
-              s._(/*BTDS*/ "Chat color reset"),
+              s._(/*BTDS*/ ""),
             );
           }
         },
@@ -206,7 +206,7 @@ __d(
                     p.applyActiveWallpaperId(null),
                   p.restoreWallpaperValue(a));
               },
-              s._(/*BTDS*/ "Wallpaper reset"),
+              s._(/*BTDS*/ ""),
             );
           }
         };

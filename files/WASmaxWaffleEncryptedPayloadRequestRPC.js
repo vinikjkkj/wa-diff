@@ -27,40 +27,28 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = _(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return {
-              name: "EncryptedPayloadRequestResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "EncryptedPayloadRequestResponseError",
-              value: i.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "EncryptedPayloadRequest",
-              { Success: a, Error: i },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = p(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return {
+          name: "EncryptedPayloadRequestResponseSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "EncryptedPayloadRequestResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("EncryptedPayloadRequest", {
+          Success: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -70,7 +58,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = f(r.value);
+      var i = _(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -79,7 +67,7 @@ __d(
           )
         : i;
     }
-    function c(e) {
+    function u(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "wf_deleted");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").contentStringEnum(
@@ -90,7 +78,7 @@ __d(
         ? o("WAResultOrError").makeResult({ elementValue: n.value })
         : n;
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -98,7 +86,7 @@ __d(
         "encryption_metadata",
       );
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").optionalChildWithTag(e, "wf_deleted", c);
+      var a = o("WASmaxParseUtils").optionalChildWithTag(e, "wf_deleted", u);
       if (!a.success) return a;
       var i = o(
         "WASmaxInWaffleRSAEncryptionMetadataMixin",
@@ -117,17 +105,17 @@ __d(
           )
         : l;
     }
-    function m(e) {
+    function d(e) {
       var t = e.androidIdElementValue,
         n = o("WASmaxJsx").smax("android_id", null, t);
       return n;
     }
-    function p(e) {
+    function m(e) {
       var t = e.iosIdElementValue,
         n = o("WASmaxJsx").smax("ios_id", null, t);
       return n;
     }
-    function _(e) {
+    function p(e) {
       var t,
         n = e.androidIdArgs,
         r = e.iosIdArgs,
@@ -155,13 +143,13 @@ __d(
             t.smax("timestamp", null, o("WAWap").INT(i)),
             t.smax("fbid", null, l),
             t.smax("action", null, s),
-            o("WASmaxChildren").OPTIONAL_CHILD(m, n),
-            o("WASmaxChildren").OPTIONAL_CHILD(p, r),
+            o("WASmaxChildren").OPTIONAL_CHILD(d, n),
+            o("WASmaxChildren").OPTIONAL_CHILD(m, r),
           ),
         );
       return u;
     }
-    function f(e) {
+    function _(e) {
       var t = o(
         "WASmaxInWaffleIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -278,9 +266,9 @@ __d(
           );
     }
     ((l.sendEncryptedPayloadRequestRPC = e),
-      (l.parseEncryptedPayloadRequestResponseError = u),
-      (l.parseEncryptedPayloadRequestResponseSuccess = d),
-      (l.makeEncryptedPayloadRequestRequest = _));
+      (l.parseEncryptedPayloadRequestResponseError = s),
+      (l.parseEncryptedPayloadRequestResponseSuccess = c),
+      (l.makeEncryptedPayloadRequestRequest = p));
   },
   98,
 );

@@ -9,7 +9,6 @@ __d(
     "WAWebUserUtils",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "isStringNullOrEmpty",
@@ -146,12 +145,12 @@ __d(
             y !== void 0 && ((this.participant = y), k.push(this.participant)),
             (this.$1 = k.join("_")));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.toString = function () {
+          (n.toString = function () {
             return this.$1;
           }),
-          (a.clone = function () {
+          (n.clone = function () {
             return new t({
               fromMe: this.fromMe,
               remote: this.remote,
@@ -159,7 +158,7 @@ __d(
               participant: this.participant,
             });
           }),
-          (a.equals = function (n) {
+          (n.equals = function (n) {
             return n instanceof t && this.toString() === n.toString();
           }),
           (t.fromString = function (n) {
@@ -187,32 +186,26 @@ __d(
               })
             );
           }),
-          (t.newId = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              try {
-                var e = yield o("WAWebMsgKeyNewId").getMsgKeyNewSHA256Id();
-                return e;
-              } catch (e) {
-                var n = r("getErrorSafe")(e);
-                return (
-                  o("WALogger")
-                    .ERROR(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
-                          "getMsgKeyNewId",
-                        ])),
-                    )
-                    .catching(n)
-                    .sendLogs("msg_key: error generating sha256 message key"),
-                  t.newId_DEPRECATED()
-                );
-              }
-            });
-            function a() {
-              return e.apply(this, arguments);
+          (t.newId = async function () {
+            try {
+              var e = await o("WAWebMsgKeyNewId").getMsgKeyNewSHA256Id();
+              return e;
+            } catch (e) {
+              var n = r("getErrorSafe")(e);
+              return (
+                o("WALogger")
+                  .ERROR(
+                    p ||
+                      (p = babelHelpers.taggedTemplateLiteralLoose([
+                        "getMsgKeyNewId",
+                      ])),
+                  )
+                  .catching(n)
+                  .sendLogs("msg_key: error generating sha256 message key"),
+                t.newId_DEPRECATED()
+              );
             }
-            return a;
-          })()),
+          }),
           (t.newId_DEPRECATED = function () {
             return "3EB0" + o("WARandomHex").randomHex(8);
           }),

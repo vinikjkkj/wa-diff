@@ -172,69 +172,33 @@ __d(
     }
     function S(e, t) {
       return e
-        ? s._(
-            /*BTDS*/ '_j{"*":"Archiving {count} groups","_1":"Archiving 1 group"}',
-            [s._plural(t, "count")],
-          )
-        : s._(
-            /*BTDS*/ '_j{"*":"Unarchiving {count} groups","_1":"Unarchiving 1 group"}',
-            [s._plural(t, "count")],
-          );
+        ? s._(/*BTDS*/ "", [s._plural(t, "count")])
+        : s._(/*BTDS*/ "", [s._plural(t, "count")]);
     }
     function R(e, t) {
       return e
-        ? s._(
-            /*BTDS*/ '_j{"*":"Archived {count} groups","_1":"Archived 1 group"}',
-            [s._plural(t, "count")],
-          )
-        : s._(
-            /*BTDS*/ '_j{"*":"Unarchived {count} groups","_1":"Unarchived 1 group"}',
-            [s._plural(t, "count")],
-          );
+        ? s._(/*BTDS*/ "", [s._plural(t, "count")])
+        : s._(/*BTDS*/ "", [s._plural(t, "count")]);
     }
     function L(e, t) {
       return e
-        ? s._(
-            /*BTDS*/ '_j{"*":"Couldn\'t archive {count} groups","_1":"Couldn\'t archive 1 group"}',
-            [s._plural(t, "count")],
-          )
-        : s._(
-            /*BTDS*/ '_j{"*":"Couldn\'t unarchive {count} groups","_1":"Couldn\'t unarchive 1 group"}',
-            [s._plural(t, "count")],
-          );
+        ? s._(/*BTDS*/ "", [s._plural(t, "count")])
+        : s._(/*BTDS*/ "", [s._plural(t, "count")]);
     }
     function E(e, t) {
       return e
-        ? s._(
-            /*BTDS*/ '_j{"*":"Marking {count} groups as read","_1":"Marking 1 group as read"}',
-            [s._plural(t, "count")],
-          )
-        : s._(
-            /*BTDS*/ '_j{"*":"Marking {count} groups as unread","_1":"Marking 1 group as unread"}',
-            [s._plural(t, "count")],
-          );
+        ? s._(/*BTDS*/ "", [s._plural(t, "count")])
+        : s._(/*BTDS*/ "", [s._plural(t, "count")]);
     }
     function k(e, t) {
       return e
-        ? s._(
-            /*BTDS*/ '_j{"*":"Marked {count} groups as read","_1":"Marked 1 group as read"}',
-            [s._plural(t, "count")],
-          )
-        : s._(
-            /*BTDS*/ '_j{"*":"Marked {count} groups as unread","_1":"Marked 1 group as unread"}',
-            [s._plural(t, "count")],
-          );
+        ? s._(/*BTDS*/ "", [s._plural(t, "count")])
+        : s._(/*BTDS*/ "", [s._plural(t, "count")]);
     }
     function I(e, t) {
       return e
-        ? s._(
-            /*BTDS*/ '_j{"*":"Couldn\'t mark {count} groups as read","_1":"Couldn\'t mark 1 group as read"}',
-            [s._plural(t, "count")],
-          )
-        : s._(
-            /*BTDS*/ '_j{"*":"Couldn\'t mark {count} groups as unread","_1":"Couldn\'t mark 1 group as unread"}',
-            [s._plural(t, "count")],
-          );
+        ? s._(/*BTDS*/ "", [s._plural(t, "count")])
+        : s._(/*BTDS*/ "", [s._plural(t, "count")]);
     }
     ((l.getBulkActionGroups = d),
       (l.shouldArchiveGroups = m),

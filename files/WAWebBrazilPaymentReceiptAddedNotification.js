@@ -11,7 +11,6 @@ __d(
     "WAWebPaymentDetailsGating",
     "WAWebPaymentDetailsStrings",
     "WAWebWidFormat",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -58,7 +57,7 @@ __d(
     function _(e) {
       var t = e[0];
       if (typeof t != "string") return null;
-      var n = h(t);
+      var n = g(t);
       return n != null &&
         o("WAWebPaymentDetailsGating").isPaymentDetailsEnabledForReceiptNotice(
           n.fromMe,
@@ -66,53 +65,44 @@ __d(
         ? n
         : null;
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    async function f(e) {
+      var t,
+        n = h(e),
+        r =
+          (t = n
+            .map(function (e) {
+              return o("WAWebMsgCollection").MsgCollection.get(e);
+            })
+            .find(Boolean)) != null
+            ? t
+            : (await o("WAWebMsgCollection").MsgCollection.getMessagesById(n))
+                .messages[0];
+      if (
+        r == null ||
+        !o("WAWebPaymentDetailsGating").isPaymentDetailsEnabledForMsg(r)
+      ) {
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[br-payment-state] receipt notice has no payment details to open",
+              ])),
+          )
+          .sendLogs("br-payment-details-notice-payment-missing");
+        return;
+      }
+      var a = await d(),
+        i = a.openPaymentDetailsFromReceiptNotice;
+      i(r);
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = y(e),
-            r =
-              (t = n
-                .map(function (e) {
-                  return o("WAWebMsgCollection").MsgCollection.get(e);
-                })
-                .find(Boolean)) != null
-                ? t
-                : (yield o("WAWebMsgCollection").MsgCollection.getMessagesById(
-                    n,
-                  )).messages[0];
-          if (
-            r == null ||
-            !o("WAWebPaymentDetailsGating").isPaymentDetailsEnabledForMsg(r)
-          ) {
-            o("WALogger")
-              .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[br-payment-state] receipt notice has no payment details to open",
-                  ])),
-              )
-              .sendLogs("br-payment-details-notice-payment-missing");
-            return;
-          }
-          var a = yield d(),
-            i = a.openPaymentDetailsFromReceiptNotice;
-          i(r);
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
+    function g(e) {
       try {
         return r("WAWebMsgKey").fromString(e);
       } catch (e) {
         return null;
       }
     }
-    function y(e) {
+    function h(e) {
       var t = o("WAWebLidMigrationUtils").getAlternateMsgKey(e);
       return t == null ? [e.toString()] : [e.toString(), t.toString()];
     }

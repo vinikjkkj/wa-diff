@@ -149,10 +149,10 @@ __d(
             ? void 0
             : t.secondaryMemberTagName;
       return n != null
-        ? s._(/*BTDS*/ "Change {field name}", [s._param("field name", n)])
+        ? s._(/*BTDS*/ "", [s._param("field name", n)])
         : e === "member_tag"
-          ? s._(/*BTDS*/ "Change member tag")
-          : s._(/*BTDS*/ "Change second member tag");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     function _(e, t) {
       return (function (e) {
@@ -165,9 +165,7 @@ __d(
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.status === "network_changed"
         )
-          return s._(
-            /*BTDS*/ "People or member tags in this organization have changed. Try again.",
-          );
+          return s._(/*BTDS*/ "");
         if (
           ((typeof e == "object" && e !== null) || typeof e == "function") &&
           e.status === "validation_error" &&
@@ -185,17 +183,14 @@ __d(
       })(e);
     }
     function f() {
-      return s._(/*BTDS*/ "Couldn't save your changes. Try again.");
+      return s._(/*BTDS*/ "");
     }
     function g(e, t, n) {
-      return s._(
-        /*BTDS*/ '_j{"*":"{field name} set to {value} for {number} people","_1":"{field name} set to {value} for 1 person"}',
-        [
-          s._plural(n, "number"),
-          s._param("field name", e),
-          s._param("value", t),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._plural(n, "number"),
+        s._param("field name", e),
+        s._param("value", t),
+      ]);
     }
     function h(e, t, n) {
       return {

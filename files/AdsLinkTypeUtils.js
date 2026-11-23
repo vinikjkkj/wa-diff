@@ -6,6 +6,8 @@ __d(
     "AdsAdgroupRecordAccessors",
     "AdsAdgroupSemanticFields",
     "AdsAssetFeedUtils",
+    "AdsCallToActionTypesUtils",
+    "AdsCampaignLiveVideoAdsUtils",
     "AppAdsPlayablesUtils",
     "immutable",
   ],
@@ -190,20 +192,27 @@ __d(
       return b(n);
     }
     function S(e, t) {
-      if (t == null) return !1;
-      var n = r("AdsAdgroupSemanticFields").callToActionType.get(t, e);
-      return n === "JOIN_LIVE_VIDEO";
+      return t == null
+        ? !1
+        : o("AdsCallToActionTypesUtils").hasJoinLiveVideoCTA(e);
     }
     function R(e, t) {
-      return C(e, t) === "INSTAGRAM_LIVE_VIDEO";
-    }
-    function L(e, t) {
       return C(e, t) === "INSTAGRAM_LIVE_WEBSITE";
     }
-    function E(e, t) {
+    function L(e, t) {
       return C(e, t) === "INSTAGRAM_LIVE_WHATSAPP";
     }
-    function k(e) {
+    function E(e) {
+      return (
+        !o("AdsCampaignLiveVideoAdsUtils").getIsCustomizableCTAIgLvaEnabled() ||
+        e == null ||
+        e === "INSTAGRAM_LIVE_VIDEO"
+      );
+    }
+    function k(e, t) {
+      return E(C(e, t));
+    }
+    function I(e) {
       var t = /\/events\/(\d+)/.exec(e);
       if (t) return t[1];
       var n = /\/(\d+)/.exec(e);
@@ -218,10 +227,11 @@ __d(
       (l.isMessagingDestination = b),
       (l.isMessagingAppsLinkTypeSelected = v),
       (l.isLiveVideoLinkTypeSelected = S),
-      (l.isInstagramLiveVideoLinkTypeSelected = R),
-      (l.isInstagramLiveWebsiteLinkTypeSelected = L),
-      (l.isInstagramLiveWhatsappLinkTypeSelected = E),
-      (l.getEventIDFromLink = k));
+      (l.isInstagramLiveWebsiteLinkTypeSelected = R),
+      (l.isInstagramLiveWhatsappLinkTypeSelected = L),
+      (l.isInstagramLiveVideoAppDestinationInEffect = E),
+      (l.isInstagramLiveVideoDestinationInEffect = k),
+      (l.getEventIDFromLink = I));
   },
   98,
 );

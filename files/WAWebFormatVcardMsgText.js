@@ -5,7 +5,7 @@ __d(
     function e(e) {
       var t = e.msg,
         n = t.vcardFormattedName;
-      return n != null && n.length ? n : s._(/*BTDS*/ "Contact");
+      return n != null && n.length ? n : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

@@ -5,7 +5,6 @@ __d(
     "WAWebPremiumMessageCollection",
     "WAWebSyncdAction",
     "WAWebSyncdConst",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
@@ -20,65 +19,51 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.getVersion = function () {
+          (n.getVersion = function () {
             return 7;
           }),
-          (a.getAction = function () {
+          (n.getAction = function () {
             return o("WAWebSyncdConst").Actions.MarketingMessageBroadcast;
           }),
-          (a.applyMutations = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  n = [],
-                  a = 0,
-                  i = e.map(function (e) {
-                    try {
-                      var r = e.indexParts,
-                        i = r[1],
-                        l = r[2];
-                      return !i || !l
-                        ? t.malformedActionIndex()
-                        : e.operation === "set"
-                          ? o(
-                              "WAWebPremiumMessageCollection",
-                            ).PremiumMessageCollection.find(i) == null
-                            ? {
-                                actionState:
-                                  o("WAWebSyncdConst").SyncActionState.Orphan,
-                              }
-                            : (n.push({ messageId: l, premiumMessageId: i }),
-                              {
-                                actionState:
-                                  o("WAWebSyncdConst").SyncActionState.Success,
-                              })
-                          : (a++,
-                            {
-                              actionState:
-                                o("WAWebSyncdConst").SyncActionState
-                                  .Unsupported,
-                            });
-                    } catch (e) {
-                      return {
-                        actionState:
-                          o("WAWebSyncdConst").SyncActionState.Failed,
-                      };
-                    }
-                  });
-                return (
-                  a > 0,
-                  yield r("WAWebPremiumMessageAddSendAction")(n),
-                  i
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          (n.applyMutations = async function (t) {
+            var e = this,
+              n = [],
+              a = 0,
+              i = t.map(function (t) {
+                try {
+                  var r = t.indexParts,
+                    i = r[1],
+                    l = r[2];
+                  return !i || !l
+                    ? e.malformedActionIndex()
+                    : t.operation === "set"
+                      ? o(
+                          "WAWebPremiumMessageCollection",
+                        ).PremiumMessageCollection.find(i) == null
+                        ? {
+                            actionState:
+                              o("WAWebSyncdConst").SyncActionState.Orphan,
+                          }
+                        : (n.push({ messageId: l, premiumMessageId: i }),
+                          {
+                            actionState:
+                              o("WAWebSyncdConst").SyncActionState.Success,
+                          })
+                      : (a++,
+                        {
+                          actionState:
+                            o("WAWebSyncdConst").SyncActionState.Unsupported,
+                        });
+                } catch (e) {
+                  return {
+                    actionState: o("WAWebSyncdConst").SyncActionState.Failed,
+                  };
+                }
+              });
+            return (a > 0, await r("WAWebPremiumMessageAddSendAction")(n), i);
+          }),
           t
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),

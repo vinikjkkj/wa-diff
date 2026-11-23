@@ -8,7 +8,6 @@ __d(
     "WAWebMediaInMemoryBlobCache",
     "WAWebMmsMediaTypes",
     "WAWebStartMediaDownloadQpl",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,180 +16,146 @@ __d(
       s,
       u = "image/jpeg",
       c = 3e4;
-    function d(e, t, n) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          try {
-            var l,
-              c = (l = t.mimetype) != null ? l : u,
-              d = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
-                t.filehash,
-              );
-            if (d != null)
-              return (
-                o("WAWebStartMediaDownloadQpl")
-                  .startMediaDownloadQpl({
-                    entryPoint: "DownloadRichResponseMedia",
-                  })
-                  .endSuccess({
-                    string: {
-                      downloadResult: "in_memory_media_blob_cache_hit",
-                    },
-                  }),
-                { blob: d, filehash: t.filehash, mimetype: c }
-              );
-            var m = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+    async function d(t, n, a) {
+      try {
+        var i,
+          l = (i = t.mimetype) != null ? i : u,
+          c = o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.get(
+            t.filehash,
+          );
+        if (c != null)
+          return (
+            o("WAWebStartMediaDownloadQpl")
+              .startMediaDownloadQpl({
                 entryPoint: "DownloadRichResponseMedia",
+              })
+              .endSuccess({
+                string: { downloadResult: "in_memory_media_blob_cache_hit" },
               }),
-              _ = yield p(
-                i,
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var n = yield o(
-                          "WAWebDownloadManager",
-                        ).downloadManager.downloadAndMaybeDecrypt({
-                          directPath: t.directPath,
-                          encFilehash: t.encFilehash,
-                          filehash: t.filehash,
-                          mediaKey: t.mediaKey,
-                          mediaKeyTimestamp: t.mediaKeyTimestamp,
-                          mimetype: t.mimetype,
-                          type: f(t.mediaType),
-                          signal: e,
-                          userDownloadAttemptCount: 0,
-                          downloadQpl: m,
-                          downloadOrigin: a,
-                        }),
-                        r = new Blob([n], { type: c });
-                      return (
-                        o(
-                          "WAWebMediaInMemoryBlobCache",
-                        ).InMemoryMediaBlobCache.put(t.filehash, r),
-                        { blob: r, filehash: t.filehash, mimetype: c }
-                      );
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              );
-            e: {
-              var g = _;
-              if (
-                ((typeof g == "object" && g !== null) ||
-                  typeof g == "function") &&
-                g.kind === "completed" &&
-                "value" in g
-              ) {
-                var h = g.value;
-                return (m.endSuccess(), h);
-                break e;
-              }
-              if (
-                ((typeof g == "object" && g !== null) ||
-                  typeof g == "function") &&
-                g.kind === "timedOut"
-              ) {
-                return (
-                  m.endFailWithError(
-                    "download_timed_out",
-                    "download_timed_out",
-                  ),
-                  null
-                );
-                break e;
-              }
-              if (
-                ((typeof g == "object" && g !== null) ||
-                  typeof g == "function") &&
-                g.kind === "callerAborted"
-              ) {
-                return (
-                  m.endFailWithError("download_aborted", "download_aborted"),
-                  null
-                );
-                break e;
-              }
-              if (
-                ((typeof g == "object" && g !== null) ||
-                  typeof g == "function") &&
-                g.kind === "failed" &&
-                "error" in g
-              ) {
-                var y = g.error;
-                return (
-                  m.endFailWithError("download_failed", y.message),
-                  o("WALogger")
-                    .WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "rich response: media download failed",
-                        ])),
-                    )
-                    .catching(y)
-                    .sendLogs("rich-response-media-download-failed"),
-                  null
-                );
-                break e;
-              }
-              throw Error(
-                "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                  g,
-              );
-            }
-          } catch (e) {
+            { blob: c, filehash: t.filehash, mimetype: l }
+          );
+        var d = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+            entryPoint: "DownloadRichResponseMedia",
+          }),
+          _ = await m(a, async function (e) {
+            var r = await o(
+                "WAWebDownloadManager",
+              ).downloadManager.downloadAndMaybeDecrypt({
+                directPath: t.directPath,
+                encFilehash: t.encFilehash,
+                filehash: t.filehash,
+                mediaKey: t.mediaKey,
+                mediaKeyTimestamp: t.mediaKeyTimestamp,
+                mimetype: t.mimetype,
+                type: p(t.mediaType),
+                signal: e,
+                userDownloadAttemptCount: 0,
+                downloadQpl: d,
+                downloadOrigin: n,
+              }),
+              a = new Blob([r], { type: l });
             return (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "rich response: unexpected error fetching media bytes",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("rich-response-media-fetch-unexpected-error"),
+              o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(
+                t.filehash,
+                a,
+              ),
+              { blob: a, filehash: t.filehash, mimetype: l }
+            );
+          });
+        e: {
+          var f = _;
+          if (
+            ((typeof f == "object" && f !== null) || typeof f == "function") &&
+            f.kind === "completed" &&
+            "value" in f
+          ) {
+            var g = f.value;
+            return (d.endSuccess(), g);
+            break e;
+          }
+          if (
+            ((typeof f == "object" && f !== null) || typeof f == "function") &&
+            f.kind === "timedOut"
+          ) {
+            return (
+              d.endFailWithError("download_timed_out", "download_timed_out"),
               null
             );
+            break e;
           }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new AbortController(),
-            a = window.setTimeout(function () {
-              n.abort();
-            }, c);
-          try {
-            var i = yield r("WARaceSignal")([e, n.signal], t);
-            return { kind: "completed", value: i };
-          } catch (t) {
-            var l = r("getErrorSafe")(t);
-            return l.name === o("WAAbortError").ABORT_ERROR
-              ? e.aborted
-                ? { kind: "callerAborted" }
-                : n.signal.aborted
-                  ? { kind: "timedOut" }
-                  : { kind: "callerAborted" }
-              : { kind: "failed", error: l };
-          } finally {
-            window.clearTimeout(a);
+          if (
+            ((typeof f == "object" && f !== null) || typeof f == "function") &&
+            f.kind === "callerAborted"
+          ) {
+            return (
+              d.endFailWithError("download_aborted", "download_aborted"),
+              null
+            );
+            break e;
           }
-        })),
-        _.apply(this, arguments)
-      );
+          if (
+            ((typeof f == "object" && f !== null) || typeof f == "function") &&
+            f.kind === "failed" &&
+            "error" in f
+          ) {
+            var h = f.error;
+            return (
+              d.endFailWithError("download_failed", h.message),
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "rich response: media download failed",
+                    ])),
+                )
+                .catching(h)
+                .sendLogs("rich-response-media-download-failed"),
+              null
+            );
+            break e;
+          }
+          throw Error(
+            "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+              f,
+          );
+        }
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "rich response: unexpected error fetching media bytes",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("rich-response-media-fetch-unexpected-error"),
+          null
+        );
+      }
     }
-    function f(e) {
+    async function m(e, t) {
+      var n = new AbortController(),
+        a = window.setTimeout(function () {
+          n.abort();
+        }, c);
+      try {
+        var i = await r("WARaceSignal")([e, n.signal], t);
+        return { kind: "completed", value: i };
+      } catch (t) {
+        var l = r("getErrorSafe")(t);
+        return l.name === o("WAAbortError").ABORT_ERROR
+          ? e.aborted
+            ? { kind: "callerAborted" }
+            : n.signal.aborted
+              ? { kind: "timedOut" }
+              : { kind: "callerAborted" }
+          : { kind: "failed", error: l };
+      } finally {
+        window.clearTimeout(a);
+      }
+    }
+    function p(e) {
       return e === "audio"
         ? o("WAWebMmsMediaTypes").MEDIA_TYPES.AUDIO
         : e === "document"

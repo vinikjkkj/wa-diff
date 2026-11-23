@@ -39,23 +39,23 @@ __d(
     function p(e, t) {
       var n, r;
       return e === "name"
-        ? s._(/*BTDS*/ "Name")
+        ? s._(/*BTDS*/ "")
         : e === "phone"
-          ? s._(/*BTDS*/ "Phone")
+          ? s._(/*BTDS*/ "")
           : e === "email"
-            ? s._(/*BTDS*/ "Email")
+            ? s._(/*BTDS*/ "")
             : e === "member_tag"
               ? (n = t == null ? void 0 : t.memberTagName) != null
                 ? n
-                : s._(/*BTDS*/ "Member tag")
+                : s._(/*BTDS*/ "")
               : e === "secondary_member_tag"
                 ? (r = t == null ? void 0 : t.secondaryMemberTagName) != null
                   ? r
-                  : s._(/*BTDS*/ "Second member tag")
+                  : s._(/*BTDS*/ "")
                 : e === "status"
-                  ? s._(/*BTDS*/ "Status")
+                  ? s._(/*BTDS*/ "")
                   : e === "groups"
-                    ? s._(/*BTDS*/ "Groups")
+                    ? s._(/*BTDS*/ "")
                     : (function () {
                         throw Error(
                           "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

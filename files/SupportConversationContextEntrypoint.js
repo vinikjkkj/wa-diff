@@ -23,10 +23,16 @@ __d(
         COMET_AI_HTS_GENPOP_IG_LRR: "comet_ai_hts_genpop_ig_lrr",
         COMET_AI_HTS_GENPOP_IG_UFAC: "comet_ai_hts_genpop_ig_ufac",
         COMET_AI_HTS_GENPOP_LRR: "comet_ai_hts_genpop_lrr",
+        COMET_AI_HTS_GENPOP_TH_UFAC: "comet_ai_hts_genpop_th_ufac",
+        COMET_AI_HTS_MVU: "comet_ai_hts_mvu",
         COMET_AI_MAISA_MV: "comet_ai_maisa_mv",
         COMET_AI_PLAYGROUND_HTS: "comet_ai_playground_hts",
         COMET_AI_PLAYGROUND_MV: "comet_ai_playground_mv",
+        DIRECT_ACCOUNT_STATUS: "direct_account_status",
         DIRECT_SUPPORT_BM: "direct_support_bm",
+        EMPOWERMENT_INSIGHTS: "empowerment_insights",
+        FACEBOOK_BILLING_FAILED_PAYMENT_AUTO_OPEN:
+          "facebook_billing_failed_payment_auto_open",
         FACEBOOK_CONTENT_TAKEDOWN_DETAIL: "facebook_content_takedown_detail",
         FACEBOOK_CREATOR_ASSISTANT: "facebook_creator_assistant",
         FACEBOOK_DEMONETIZATION_BEHAVIORAL_DETAIL:
@@ -37,6 +43,26 @@ __d(
         FACEBOOK_FEATURE_LIMIT_DETAIL: "facebook_feature_limit_detail",
         FACEBOOK_FEED_QP: "facebook_feed_qp",
         FACEBOOK_FEED_QP_CREATOR: "facebook_feed_qp_creator",
+        FACEBOOK_FEED_QP_META_ONE_AI_AGENT_REPLIES:
+          "facebook_feed_qp_meta_one_ai_agent_replies",
+        FACEBOOK_FEED_QP_META_ONE_APP_ICON:
+          "facebook_feed_qp_meta_one_app_icon",
+        FACEBOOK_FEED_QP_META_ONE_AUDIENCE_INSIGHTS:
+          "facebook_feed_qp_meta_one_audience_insights",
+        FACEBOOK_FEED_QP_META_ONE_CONSUMER:
+          "facebook_feed_qp_meta_one_consumer",
+        FACEBOOK_FEED_QP_META_ONE_CREATOR: "facebook_feed_qp_meta_one_creator",
+        FACEBOOK_FEED_QP_META_ONE_META_AI: "facebook_feed_qp_meta_one_meta_ai",
+        FACEBOOK_FEED_QP_META_ONE_POST_LINKS:
+          "facebook_feed_qp_meta_one_post_links",
+        FACEBOOK_FEED_QP_META_ONE_POST_SCHEDULING:
+          "facebook_feed_qp_meta_one_post_scheduling",
+        FACEBOOK_FEED_QP_META_ONE_PROFILE_LINKS:
+          "facebook_feed_qp_meta_one_profile_links",
+        FACEBOOK_FEED_QP_META_ONE_REEL_LINKS:
+          "facebook_feed_qp_meta_one_reel_links",
+        FACEBOOK_FEED_QP_META_ONE_VERIFIED_BADGE:
+          "facebook_feed_qp_meta_one_verified_badge",
         FACEBOOK_FEED_QP_NEW_USER: "facebook_feed_qp_new_user",
         FACEBOOK_FEED_QP_SECURITY: "facebook_feed_qp_security",
         FACEBOOK_FRX_POST_REPORT_OUTCOME: "facebook_frx_post_report_outcome",
@@ -50,7 +76,12 @@ __d(
         FACEBOOK_HELP_CENTER: "facebook_help_center",
         FACEBOOK_HELP_CENTER_LOGGED_OUT: "facebook_help_center_logged_out",
         FACEBOOK_HOME: "facebook_home",
+        FACEBOOK_JEWEL_AD_REJECT_NOTIFICATION:
+          "facebook_jewel_ad_reject_notification",
+        FACEBOOK_JEWEL_RISK_NOTIFICATION: "facebook_jewel_risk_notification",
+        FACEBOOK_LEARN_MORE: "facebook_learn_more",
         FACEBOOK_LIVE_PRODUCER: "facebook_live_producer",
+        FACEBOOK_MAISA_INBOX: "facebook_maisa_inbox",
         FACEBOOK_MARKETPLACE_GAME_SCREEN: "facebook_marketplace_game_screen",
         FACEBOOK_MARKETPLACE_REPORT_STATUS:
           "facebook_marketplace_report_status",
@@ -67,7 +98,12 @@ __d(
         FACEBOOK_NOTIF_QP_NEW_ACCOUNT_LOGIN_ISSUE:
           "facebook_notif_qp_new_account_login_issue",
         FACEBOOK_PAYOUT_HUB: "facebook_payout_hub",
+        FACEBOOK_PAYOUT_HUB_DIGEST_CARD: "facebook_payout_hub_digest_card",
         FACEBOOK_PAYOUT_HUB_OVERVIEW_CARD: "facebook_payout_hub_overview_card",
+        FACEBOOK_PAYOUT_HUB_PAGE_ADMIN_COMPROMISE_ALERT:
+          "facebook_payout_hub_page_admin_compromise_alert",
+        FACEBOOK_PAYOUT_HUB_TEXT_SELECTION:
+          "facebook_payout_hub_text_selection",
         FACEBOOK_POST_FLYTRAP_LINKOUT_TO_FB_MAISA:
           "facebook_post_flytrap_linkout_to_fb_maisa",
         FACEBOOK_POST_FLYTRAP_THANK_YOU_SCREEN:
@@ -78,9 +114,11 @@ __d(
         FACEBOOK_SETTINGS_PRIVACY_QP_BANNER:
           "facebook_settings_privacy_qp_banner",
         FACEBOOK_SUPPORT: "facebook_support",
+        FACEBOOK_VERIFICATION_HUB: "facebook_verification_hub",
         FAMILY_CENTER: "family_center",
         FB_ACCOUNTS_CENTER: "fb_accounts_center",
         FB_ACCOUNTS_CENTER_LEARN_MORE: "fb_accounts_center_learn_more",
+        FB_ACCOUNTS_CENTER_MENU_ITEM: "fb_accounts_center_menu_item",
         FB_ACCOUNTS_CENTER_NAVBAR: "fb_accounts_center_navbar",
         FB_FAMILY_CENTER: "fb_family_center",
         FB_PLUS_SUPPORT: "fb_plus_support",
@@ -141,9 +179,11 @@ __d(
         GENPOP_REPORTING_AD_SCAMS: "genpop_reporting_ad_scams",
         HATCH_SUPPORT: "hatch_support",
         IG_ACCOUNT_STATUS: "ig_account_status",
+        IG_ACCOUNT_STATUS_AI_SUMMARY: "ig_account_status_ai_summary",
         IG_ACCOUNT_STATUS_REMOVED_POST: "ig_account_status_removed_post",
         IG_ACCOUNTS_CENTER: "ig_accounts_center",
         IG_ACCOUNTS_CENTER_LEARN_MORE: "ig_accounts_center_learn_more",
+        IG_ACCOUNTS_CENTER_MENU_ITEM: "ig_accounts_center_menu_item",
         IG_ACCOUNTS_CENTER_NAVBAR: "ig_accounts_center_navbar",
         IG_COMET_AI_AXON_MV: "ig_comet_ai_axon_mv",
         IG_COMET_AI_MAISA_MV: "ig_comet_ai_maisa_mv",
@@ -151,32 +191,52 @@ __d(
         IG_FAMILY_CENTER: "ig_family_center",
         IG_FEED_QP: "ig_feed_qp",
         IG_FEED_QP_CREATOR: "ig_feed_qp_creator",
+        IG_FEED_QP_META_ONE_APP_ICON: "ig_feed_qp_meta_one_app_icon",
+        IG_FEED_QP_META_ONE_COMPETITIVE_INSIGHTS:
+          "ig_feed_qp_meta_one_competitive_insights",
+        IG_FEED_QP_META_ONE_CONSUMER: "ig_feed_qp_meta_one_consumer",
+        IG_FEED_QP_META_ONE_CREATOR: "ig_feed_qp_meta_one_creator",
+        IG_FEED_QP_META_ONE_META_AI: "ig_feed_qp_meta_one_meta_ai",
+        IG_FEED_QP_META_ONE_POST_LINKS: "ig_feed_qp_meta_one_post_links",
+        IG_FEED_QP_META_ONE_PROFILE_LINKS: "ig_feed_qp_meta_one_profile_links",
+        IG_FEED_QP_META_ONE_REEL_LINKS: "ig_feed_qp_meta_one_reel_links",
+        IG_FEED_QP_META_ONE_SHARED_ACCESS: "ig_feed_qp_meta_one_shared_access",
+        IG_FEED_QP_META_ONE_VERIFIED_BADGE:
+          "ig_feed_qp_meta_one_verified_badge",
         IG_FEED_QP_NEW_USER: "ig_feed_qp_new_user",
         IG_FEED_QP_SECURITY: "ig_feed_qp_security",
         IG_FRX_POST_REPORT_OUTCOME: "ig_frx_post_report_outcome",
+        IG_FRX_QUICK_REPORT: "ig_frx_quick_report",
         IG_GENPOP_MAISA_WITH_PLANNER_PLAYGROUND:
           "ig_genpop_maisa_with_planner_playground",
         IG_GENPOP_OMNI_ELIGIBILITY: "ig_genpop_omni_eligibility",
         IG_HELP_CENTER: "ig_help_center",
         IG_HELP_CENTER_LOGGED_OUT: "ig_help_center_logged_out",
+        IG_LEARN_MORE: "ig_learn_more",
         IG_NOTIF_QP: "ig_notif_qp",
         IG_NOTIF_QP_HELP_CENTER: "ig_notif_qp_help_center",
         IG_NOTIF_QP_NEW_ACCOUNT: "ig_notif_qp_new_account",
         IG_NOTIF_QP_NEW_ACCOUNT_LOGIN_ISSUE:
           "ig_notif_qp_new_account_login_issue",
+        IG_PAYOUT_HUB: "ig_payout_hub",
         IG_PLUS_SUPPORT: "ig_plus_support",
         IG_PRE_RAGESHAKE_MENU: "ig_pre_rageshake_menu",
         IG_PROFESSIONAL_DASHBOARD: "ig_professional_dashboard",
         IG_UNIFIED_SUPPORT_HOME: "ig_unified_support_home",
+        INSTAGRAM_MAISA_INBOX: "instagram_maisa_inbox",
         INSTAGRAM_SETTINGS: "instagram_settings",
         INSTAGRAM_SETTINGS_MORE_INFO_AND_SUPPORT:
           "instagram_settings_more_info_and_support",
         INSTAGRAM_SETTINGS_SEARCH: "instagram_settings_search",
+        MAISA_CLIPPY_AXON: "maisa_clippy_axon",
         MARKETPLACE: "marketplace",
         MESSENGER_HELP_CENTER: "messenger_help_center",
         MESSENGER_HELP_CENTER_LOGGED_OUT: "messenger_help_center_logged_out",
+        MESSENGER_LEARN_MORE: "messenger_learn_more",
+        MESSENGER_MAISA_INBOX: "messenger_maisa_inbox",
         MESSENGER_META_AI_MESSAGE_LINKOUT_TO_FB_MAISA:
           "MESSENGER_META_AI_MESSAGE_LINKOUT_TO_FB_MAISA",
+        MESSENGER_RISK_NOTIFICATION: "messenger_risk_notification",
         META_DOT_COM_HELP_CENTER: "meta_dot_com_help_center",
         META_PAYOUT_AXON_PLAYGROUND: "meta_payout_axon_playground",
         MSGR_ACCOUNTS_CENTER: "msgr_accounts_center",
@@ -194,6 +254,10 @@ __d(
         PULSE_MARKETPLACE_SELLER_WEB: "pulse_marketplace_seller_web",
         RTAI_LINKOUT_TO_FB_MAISA: "rtai_linkout_to_fb_maisa",
         TESTING: "testing",
+        THREADS_ACCOUNT_STATUS: "threads_account_status",
+        THREADS_ACCOUNT_STATUS_AI_SUMMARY: "threads_account_status_ai_summary",
+        THREADS_HELP_CENTER: "threads_help_center",
+        THREADS_HELP_CENTER_LOGGED_OUT: "threads_help_center_logged_out",
         THREADS_SETTINGS: "threads_settings",
         UNIFIED_SUPPORT_HOME: "unified_support_home",
         UNIFIED_SUPPORT_HOME_COMET: "unified_support_home_comet",

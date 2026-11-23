@@ -1,15 +1,10 @@
 __d(
   "WAWebStickersAvatarUpdatedSyncAction",
-  [
-    "WALogger",
-    "WAWebSyncdAction",
-    "WAWebSyncdConst",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAWebSyncdAction", "WAWebSyncdConst"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (function (t) {
-        function r() {
+        function n() {
           for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
           return (
@@ -19,40 +14,31 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (a.getVersion = function () {
+          (r.getVersion = function () {
             return 7;
           }),
-          (a.getAction = function () {
+          (r.getAction = function () {
             return o("WAWebSyncdConst").Actions.AvatarUpdated;
           }),
-          (a.applyMutations = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                return (
-                  o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "syncd: avatar updated sync: mutation not supported",
-                      ])),
-                  ),
-                  t.map(function () {
-                    return {
-                      actionState:
-                        o("WAWebSyncdConst").SyncActionState.Unsupported,
-                    };
-                  })
-                );
-              },
+          (r.applyMutations = async function (n) {
+            return (
+              o("WALogger").WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "syncd: avatar updated sync: mutation not supported",
+                  ])),
+              ),
+              n.map(function () {
+                return {
+                  actionState: o("WAWebSyncdConst").SyncActionState.Unsupported,
+                };
+              })
             );
-            function r(e) {
-              return t.apply(this, arguments);
-            }
-            return r;
-          })()),
-          r
+          }),
+          n
         );
       })(o("WAWebSyncdAction").AccountSyncdActionBase),
       u = new s();

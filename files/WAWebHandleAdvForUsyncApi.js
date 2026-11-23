@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebHandleAdvKeyIndexResultApi",
     "WAWebHandleAdvOmittedResultApi",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -49,22 +48,14 @@ __d(
         l,
       );
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.deviceResponse,
-            n = e.lastDeviceJobTs,
-            r = e.localDeviceRecord,
-            o = e.localPrimaryIdentity,
-            a = e.preDecodedKeyIndexList,
-            i = e.userWid;
-          return s(i, t, o, r, n, a);
-        })),
-        c.apply(this, arguments)
-      );
+    async function u(e) {
+      var t = e.deviceResponse,
+        n = e.lastDeviceJobTs,
+        r = e.localDeviceRecord,
+        o = e.localPrimaryIdentity,
+        a = e.preDecodedKeyIndexList,
+        i = e.userWid;
+      return s(i, t, o, r, n, a);
     }
     ((l.handleADVSyncResultSync = s), (l.handleADVSyncResult = u));
   },

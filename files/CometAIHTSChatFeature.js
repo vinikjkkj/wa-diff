@@ -12,6 +12,11 @@ __d(
         USE_IMPROVED_PFR_EXPERIENCE: "use_improved_pfr_experience",
         USE_POLLING_FOR_NEW_MESSAGES: "use_polling_for_new_messages",
         ENABLE_FILE_ATTACHMENTS: "enable_file_attachments",
+        ENABLE_FILE_ATTACHMENTS_AFTER_HUMAN_HANDOVER:
+          "enable_file_attachments_after_human_handover",
+        ENABLE_IG_FILE_ATTACHMENTS_AFTER_HUMAN_HANDOVER:
+          "enable_ig_file_attachments_after_human_handover",
+        ENABLE_HUMAN_HANDOVER_BANNER: "enable_human_handover_banner",
         ENABLE_SCROLL_TO_BOTTOM_BUTTON: "enable_scroll_to_bottom_button",
         ENABLE_VOICE_MODE: "enable_voice_mode",
         ENABLE_DICTATION: "enable_dictation",

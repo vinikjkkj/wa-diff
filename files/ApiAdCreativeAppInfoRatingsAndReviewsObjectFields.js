@@ -6,6 +6,7 @@ __d(
       ACTION_METADATA: "action_metadata",
       ENROLL_STATUS: "enroll_status",
       RATINGS: "ratings",
+      REVIEWS_ACTION_METADATA: "reviews_action_metadata",
       STAR_REVIEWS: "star_reviews",
       SUMMARY_RATING: "summary_rating",
       TOP_REVIEWS: "top_reviews",

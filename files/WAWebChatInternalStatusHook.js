@@ -1,30 +1,30 @@
 __d(
   "WAWebChatInternalStatusHook",
   [
-    "WAAbortError",
-    "WAPromiseRaceAbort",
-    "WAWebNoop",
-    "WAWebTextStatusCollection",
+    "WATimeUtils",
+    "WAWebContactCollection",
+    "WAWebFrontendContactGetters",
+    "WAWebTextStatusAction",
+    "WAWebTextStatusUtils",
     "err",
     "react",
-    "react-compiler-runtime",
-    "useWAWebUnmountSignal",
+    "useWAWebAsync",
+    "useWAWebContactValues",
+    "useWAWebTimeout",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = e || (e = o("react")),
       u = s.useEffect,
-      c = s.useRef,
-      d = s.useState,
-      m = { brb: "BRB", pto: "PTO", sick: "SICK" },
-      p = ["status"].concat(Object.keys(m)),
-      _ = "change:status",
-      f = /\{([^}]*)\}/g;
-    function g(e) {
+      c = s.useState,
+      d = { brb: "BRB", pto: "PTO", sick: "SICK" },
+      m = ["status"].concat(Object.keys(d)),
+      p = /\{([^}]*)\}/g;
+    function _(e) {
       var t = e,
         n = [],
-        r = e.matchAll(f);
+        r = e.matchAll(p);
       for (var o of r) {
         var a,
           i = o == null ? void 0 : o[1],
@@ -42,7 +42,7 @@ __d(
       }
       return { status: t.trim(), addons: n };
     }
-    function h(e) {
+    function f(e) {
       try {
         var t = e.split("/"),
           n = new Date(),
@@ -54,7 +54,7 @@ __d(
         throw r("err")("Invalid date format");
       }
     }
-    function y(e) {
+    function g(e) {
       try {
         var t = e == null ? void 0 : e.match(/@(\w+)\s*\{([^}]*)\}/),
           n = t == null ? void 0 : t[2];
@@ -62,112 +62,95 @@ __d(
         var r = n.split("-"),
           o = r[0],
           a = r[1],
-          i = h(o),
-          l = a === "" ? i : h(a),
+          i = f(o),
+          l = a === "" ? i : f(a),
           s = new Date();
         return i <= s && s <= l;
       } catch (e) {
         return !0;
       }
     }
-    function C(e) {
-      var t = o("react-compiler-runtime").c(18),
-        n = d(""),
-        a = n[0],
-        i = n[1],
-        l;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = []), (t[0] = l))
-        : (l = t[0]);
-      var s = d(l),
-        f = s[0],
-        h = s[1],
-        C = c(),
-        b = r("useWAWebUnmountSignal")(),
-        v,
-        S;
-      (t[1] !== e || t[2] !== b
-        ? ((v = function () {
-            if ((i(""), !!e.isRegularUser()))
-              return (
-                r("WAPromiseRaceAbort")(
-                  o("WAWebTextStatusCollection").TextStatusCollection.find(e),
-                  b,
-                )
-                  .then(function (e) {
-                    if (b.aborted) throw new (o("WAAbortError").AbortError)();
-                    var t = function () {
-                      if (!b.aborted) {
-                        var t = g(e.status),
-                          n = t.addons,
-                          r = t.status;
-                        (i(r), h(n));
-                      }
-                    };
-                    (t(),
-                      e.on(_, t),
-                      (C.current = function () {
-                        return e.off(_, t);
-                      }));
-                  })
-                  .catch(o("WAAbortError").catchAbort(r("WAWebNoop"))),
-                function () {
-                  C.current == null || C.current();
-                }
-              );
-          }),
-          (S = [e, b]),
-          (t[1] = e),
-          (t[2] = b),
-          (t[3] = v),
-          (t[4] = S))
-        : ((v = t[3]), (S = t[4])),
-        u(v, S));
-      var R, L;
-      if (t[5] !== a) {
-        var E = a == null ? void 0 : a.match(/@(\w*)\b/);
-        ((R = E == null ? void 0 : E[1].toLowerCase()),
-          (L = R != null && p.includes(R)),
-          (t[5] = a),
-          (t[6] = R),
-          (t[7] = L));
-      } else ((R = t[6]), (L = t[7]));
-      var k = L,
-        I;
-      t[8] !== k || t[9] !== a
-        ? ((I = k ? y(a) : !1), (t[8] = k), (t[9] = a), (t[10] = I))
-        : (I = t[10]);
-      var T = I,
-        D = R != null && T ? m[R] : null,
-        x = !!D,
-        $;
-      return (
-        t[11] !== f ||
-        t[12] !== T ||
-        t[13] !== x ||
-        t[14] !== k ||
-        t[15] !== D ||
-        t[16] !== a
-          ? (($ = {
-              status: a,
-              hasStatus: k,
-              hasActiveStatus: T,
-              overlay: D,
-              hasOverlay: x,
-              addons: f,
-            }),
-            (t[11] = f),
-            (t[12] = T),
-            (t[13] = x),
-            (t[14] = k),
-            (t[15] = D),
-            (t[16] = a),
-            (t[17] = $))
-          : ($ = t[17]),
-        $
+    function h(e) {
+      var t = e.isRegularUser();
+      t && o("WAWebContactCollection").ContactCollection.gadd(e);
+      var n = o("useWAWebContactValues").useOptionalContactValues(
+          t ? e : null,
+          [
+            o("WAWebFrontendContactGetters").getTextStatusString,
+            o("WAWebFrontendContactGetters").getTextStatusEmoji,
+            o("WAWebFrontendContactGetters").getTextStatusLastUpdateTime,
+            o("WAWebFrontendContactGetters").getTextStatusExpiryTs,
+            o("WAWebFrontendContactGetters").getTextStatusEphemeralDuration,
+          ],
+        ),
+        a = n != null ? n : [],
+        i = a[0],
+        l = a[1],
+        s = a[2],
+        p = a[3],
+        f = a[4];
+      r("useWAWebAsync")(
+        async function () {
+          return o("WAWebTextStatusAction").getTextStatus(e, s);
+        },
+        [e, s],
+        t && o("WAWebTextStatusUtils").isTextStatusNotFetched(s),
       );
+      var h = c(o("WATimeUtils").unixTime),
+        y = h[0],
+        C = h[1],
+        b =
+          o("WAWebTextStatusUtils").isEphemeralTextStatus(f) &&
+          p != null &&
+          p <= y,
+        v =
+          t &&
+          !o("WAWebTextStatusUtils").isTextStatusNotFetched(s) &&
+          !b &&
+          o("WAWebTextStatusUtils").shouldDisplayTextStatus({
+            textStatusString: i,
+            textStatusEmoji: l,
+            textStatusLastUpdateTime: s,
+            textStatusExpiryTs: p,
+            textStatusEphemeralDuration: f,
+          }),
+        S = o("useWAWebTimeout").useAlarm(
+          function () {
+            return C(o("WATimeUtils").unixTime());
+          },
+          o("WATimeUtils").castToUnixTime(p != null ? p : 0),
+          { isGlobal: !0 },
+        ),
+        R = S[0],
+        L = S[1];
+      u(
+        function () {
+          return (
+            v && o("WAWebTextStatusUtils").isEphemeralTextStatus(f) && R(),
+            L
+          );
+        },
+        [v, f, R, L],
+      );
+      var E = _(v && i != null ? i : ""),
+        k = E.addons,
+        I = E.status,
+        T = I == null ? void 0 : I.match(/@(\w*)\b/),
+        D = T == null ? void 0 : T[1].toLowerCase(),
+        x = D != null && m.includes(D),
+        $ = x ? g(I) : !1,
+        P = D != null && $ ? d[D] : null,
+        N = !!P;
+      return {
+        status: I,
+        hasStatus: x,
+        hasActiveStatus: $,
+        overlay: P,
+        hasOverlay: N,
+        addons: k,
+      };
     }
-    l.default = C;
+    l.default = h;
   },
   98,
 );

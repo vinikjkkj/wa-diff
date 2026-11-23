@@ -17,7 +17,6 @@ __d(
     "WAWebPDFNModal.react",
     "WAWebSideNavButtonsActivityModel",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -134,45 +133,37 @@ __d(
         }),
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chat,
-            n = e.chatEntryPoint,
-            r = e.onNewsletterOpen,
-            a = e.serverMessageId,
-            i =
-              a != null &&
-              a > 0 &&
-              o(
-                "WAWebNewsletterGatingUtils",
-              ).isNavigationToForwardedNewsletterMessageEnabled()
-                ? yield o("WAWebNewsletterOpenAtAction").openNewsletterAt({
-                    newsletterJid: o("WAJids").toNewsletterJid(t.id.toJid()),
-                    serverId: a,
-                    chatEntryPoint: n,
-                    onMessageDeleted: function () {
-                      (o("WAWebModalManager").ModalManager.close(),
-                        o("WDSDialogBridge").openWDSDialog(
-                          s.jsx(
-                            o("WAWebNewsletterInfoDialogsLoadable")
-                              .NewsletterMessageDeletedPopupLoadable,
-                            {},
-                          ),
-                        ));
-                    },
-                  })
-                : yield o("WAWebCmd").Cmd.openChatBottom({
-                    chat: t,
-                    chatEntryPoint: n,
-                  });
-          return (r == null || r(), i);
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(e) {
+      var t = e.chat,
+        n = e.chatEntryPoint,
+        r = e.onNewsletterOpen,
+        a = e.serverMessageId,
+        i =
+          a != null &&
+          a > 0 &&
+          o(
+            "WAWebNewsletterGatingUtils",
+          ).isNavigationToForwardedNewsletterMessageEnabled()
+            ? await o("WAWebNewsletterOpenAtAction").openNewsletterAt({
+                newsletterJid: o("WAJids").toNewsletterJid(t.id.toJid()),
+                serverId: a,
+                chatEntryPoint: n,
+                onMessageDeleted: function () {
+                  (o("WAWebModalManager").ModalManager.close(),
+                    o("WDSDialogBridge").openWDSDialog(
+                      s.jsx(
+                        o("WAWebNewsletterInfoDialogsLoadable")
+                          .NewsletterMessageDeletedPopupLoadable,
+                        {},
+                      ),
+                    ));
+                },
+              })
+            : await o("WAWebCmd").Cmd.openChatBottom({
+                chat: t,
+                chatEntryPoint: n,
+              });
+      return (r == null || r(), i);
     }
     l.openNewsletterPreviewChat = u;
   },

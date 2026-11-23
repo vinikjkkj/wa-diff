@@ -7,7 +7,6 @@ __d(
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e() {
@@ -60,20 +59,12 @@ __d(
           );
         },
       });
-    function p(e) {
-      return _.apply(this, arguments);
+    async function p(e) {
+      var t = { view: d.LIMITED, newsletterJid: e },
+        n = { view: d.FULL, newsletterJid: e };
+      (await m.remove(t), await m.remove(n));
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = { view: d.LIMITED, newsletterJid: e },
-            n = { view: d.FULL, newsletterJid: e };
-          (yield m.remove(t), yield m.remove(n));
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    var f = new (o("WAWebTimedCache").TimedMapCache)({
+    var _ = new (o("WAWebTimedCache").TimedMapCache)({
         mapLoad: function () {
           return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
             o("WAWebUserPrefsKeys").KEYS
@@ -93,7 +84,7 @@ __d(
           );
         },
       }),
-      g = new (o("WAWebTimedCache").TimedMapCache)({
+      f = new (o("WAWebTimedCache").TimedMapCache)({
         mapLoad: function () {
           return o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
             o("WAWebUserPrefsKeys").KEYS
@@ -120,8 +111,8 @@ __d(
       (l.ValidCachedNewsletterSubscriberKeys = d),
       (l.NewsletterSubscribersCache = m),
       (l.flushCachedNewsletterSubscribers = p),
-      (l.NewsletterDirectoryPageCache = f),
-      (l.NewsletterDirectoryCategoriesPreviewCache = g));
+      (l.NewsletterDirectoryPageCache = _),
+      (l.NewsletterDirectoryCategoriesPreviewCache = f));
   },
   98,
 );

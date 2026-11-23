@@ -1,7 +1,6 @@
 __d(
   "WAWebGroupMemberSuggestions",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebBotUtils",
@@ -10,20 +9,18 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebQueryFrequentlyContactedMsgCount",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = { contacts: [], frequentContacts: [], recentContacts: [] },
-      c = 5,
-      d = 3,
-      m = 20,
-      p = 72 * o("WATimeUtils").HOUR_SECONDS,
-      _ = 8 * o("WATimeUtils").DAY_SECONDS,
-      f = 100,
-      g = 750,
-      h = [
+      s = { contacts: [], frequentContacts: [], recentContacts: [] },
+      u = 5,
+      c = 3,
+      d = 20,
+      m = 72 * o("WATimeUtils").HOUR_SECONDS,
+      p = 8 * o("WATimeUtils").DAY_SECONDS,
+      _ = 100,
+      f = 750,
+      g = [
         function (e) {
           return o("WAWebUserUtils").isMeAccount(e.id);
         },
@@ -58,32 +55,24 @@ __d(
           );
         },
       ];
-    function y(e) {
-      return C.apply(this, arguments);
+    async function h(e) {
+      var t = function (n) {
+          return (
+            !g.some(function (e) {
+              return e(n.contact);
+            }) && !E(e, n)
+          );
+        },
+        n = o("WATimeUtils").unixTime(),
+        r = b(y(t, n - m))
+          .slice(0, d)
+          .map(function (e) {
+            return e.contact;
+          }),
+        a = await Promise.race([C(t, n - p), S(f)]);
+      return { contacts: R(r, a), frequentContacts: a, recentContacts: r };
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = function (n) {
-              return (
-                !h.some(function (e) {
-                  return e(n.contact);
-                }) && !T(e, n)
-              );
-            },
-            r = o("WATimeUtils").unixTime(),
-            a = R(b(t, r - p))
-              .slice(0, m)
-              .map(function (e) {
-                return e.contact;
-              }),
-            i = yield (s || (s = n("Promise"))).race([v(t, r - _), E(g)]);
-          return { contacts: k(a, i), frequentContacts: i, recentContacts: a };
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t) {
+    function y(e, t) {
       return o("WAWebChatCollection")
         .ChatCollection.filter(function (n) {
           var r;
@@ -99,93 +88,85 @@ __d(
           return ((n = t.t) != null ? n : 0) - ((r = e.t) != null ? r : 0);
         });
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = b(t, n).slice(0, f);
-          if (r.length === 0) return [];
-          var a = yield o("WAWebQueryFrequentlyContactedMsgCount")
-              .queryFrequentlyContactedMsgCountJob({
-                chatIds: r.map(function (e) {
-                  return e.id.toString();
-                }),
-                sinceTs: n,
-              })
-              .catch(function () {
-                return (
-                  o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "group member suggestions: frequent contacts query failed",
-                        ])),
-                    )
-                    .sendLogs("group-member-suggestions-frequent-query-failed"),
-                  new Map()
-                );
-              }),
-            i = new Map();
-          for (var l of r) {
-            var s,
-              u,
-              c = L(l);
-            i.set(
-              c,
-              ((s = i.get(c)) != null ? s : 0) +
-                ((u = a.get(l.id.toString())) != null ? u : 0),
+    async function C(t, n) {
+      var r = y(t, n).slice(0, _);
+      if (r.length === 0) return [];
+      var a = await o("WAWebQueryFrequentlyContactedMsgCount")
+          .queryFrequentlyContactedMsgCountJob({
+            chatIds: r.map(function (e) {
+              return e.id.toString();
+            }),
+            sinceTs: n,
+          })
+          .catch(function () {
+            return (
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "group member suggestions: frequent contacts query failed",
+                    ])),
+                )
+                .sendLogs("group-member-suggestions-frequent-query-failed"),
+              new Map()
             );
-          }
-          var d = function (t) {
-            var e;
-            return (e = i.get(L(t))) != null ? e : 0;
-          };
-          return R(r)
-            .filter(function (e) {
-              return d(e) > 0;
-            })
-            .sort(function (e, t) {
-              return d(t) - d(e);
-            })
-            .slice(0, m)
-            .map(function (e) {
-              return e.contact;
-            });
-        })),
-        S.apply(this, arguments)
-      );
+          }),
+        i = new Map();
+      for (var l of r) {
+        var s,
+          u,
+          c = v(l);
+        i.set(
+          c,
+          ((s = i.get(c)) != null ? s : 0) +
+            ((u = a.get(l.id.toString())) != null ? u : 0),
+        );
+      }
+      var m = function (t) {
+        var e;
+        return (e = i.get(v(t))) != null ? e : 0;
+      };
+      return b(r)
+        .filter(function (e) {
+          return m(e) > 0;
+        })
+        .sort(function (e, t) {
+          return m(t) - m(e);
+        })
+        .slice(0, d)
+        .map(function (e) {
+          return e.contact;
+        });
     }
-    function R(e) {
+    function b(e) {
       var t = new Set();
       return e.filter(function (e) {
-        var n = L(e);
+        var n = v(e);
         return t.has(n) ? !1 : (t.add(n), !0);
       });
     }
-    function L(e) {
+    function v(e) {
       var t;
       return ((t = e.accountLid) != null ? t : e.id).toString();
     }
-    function E(e) {
-      return new (s || (s = n("Promise")))(function (t) {
+    function S(e) {
+      return new Promise(function (t) {
         self.setTimeout(function () {
           return t([]);
         }, e);
       });
     }
-    function k(e, t) {
-      var n = e.slice(0, d);
-      return (I(n, t), I(n, e), n);
+    function R(e, t) {
+      var n = e.slice(0, c);
+      return (L(n, t), L(n, e), n);
     }
-    function I(e, t) {
+    function L(e, t) {
       for (var n of t) {
-        if (e.length >= c) return;
+        if (e.length >= u) return;
         e.includes(n) || e.push(n);
       }
     }
-    function T(e, t) {
+    function E(e, t) {
       return e == null
         ? !1
         : [t.id, o("WAWebLidMigrationUtils").toPn(t.id), t.accountLid].some(
@@ -194,7 +175,7 @@ __d(
             },
           );
     }
-    ((l.NO_GROUP_MEMBER_SUGGESTIONS = u), (l.getGroupMemberSuggestions = y));
+    ((l.NO_GROUP_MEMBER_SUGGESTIONS = s), (l.getGroupMemberSuggestions = h));
   },
   98,
 );

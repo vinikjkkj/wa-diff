@@ -4,71 +4,52 @@ __d(
     "WAWebMarkAddOnsAsReadJob",
     "WAWebMsgGetters",
     "WAWebSendReadReceiptJob",
-    "asyncToGeneratorRuntime",
     "nullthrows",
     "react",
-    "react-compiler-runtime",
     "useLazyRef",
     "useWAWebListener",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = (e || (e = o("react"))).useCallback;
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      if (e.length !== 0) {
+        var t = e.map(function (e) {
+          return {
+            msgKey: e.id,
+            sender: r("nullthrows")(
+              o("WAWebMsgGetters").getSender(e),
+            ).toString(),
+          };
+        });
+        (await o("WAWebSendReadReceiptJob").sendAddOnReadReceipts(t),
+          await o(
+            "WAWebMarkAddOnsAsReadJob",
+          ).markAddOnsAsReadUsingAddonInfraJob(e));
+      }
     }
     function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0) {
-            var t = e.map(function (e) {
-              return {
-                msgKey: e.id,
-                sender: r("nullthrows")(
-                  o("WAWebMsgGetters").getSender(e),
-                ).toString(),
-              };
-            });
-            (yield o("WAWebSendReadReceiptJob").sendAddOnReadReceipts(t),
-              yield o(
-                "WAWebMarkAddOnsAsReadJob",
-              ).markAddOnsAsReadUsingAddonInfraJob(e));
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d() {
-      var e = o("react-compiler-runtime").c(5),
-        t = r("useLazyRef")(m),
-        n;
-      e[0] !== t
-        ? ((n = function () {
+      var e = r("useLazyRef")(function () {
+          return [];
+        }),
+        t = s(
+          function () {
             !document.hasFocus() ||
-              t.current.length === 0 ||
-              (u(t.current), (t.current = []));
-          }),
-          (e[0] = t),
-          (e[1] = n))
-        : (n = e[1]);
-      var a = n,
-        i;
-      e[2] !== a || e[3] !== t
-        ? ((i = function (n) {
-            var e;
-            ((e = t.current).push.apply(e, n), a());
-          }),
-          (e[2] = a),
-          (e[3] = t),
-          (e[4] = i))
-        : (i = e[4]);
-      var l = i;
-      return (o("useWAWebListener").useListener(window, "focus", a), l);
+              e.current.length === 0 ||
+              (u(e.current), (e.current = []));
+          },
+          [e],
+        ),
+        n = s(
+          function (n) {
+            var r;
+            ((r = e.current).push.apply(r, n), t());
+          },
+          [t, e],
+        );
+      return (o("useWAWebListener").useListener(window, "focus", t), n);
     }
-    function m() {
-      return [];
-    }
-    l.useMarkAddonsAsRead = d;
+    l.useMarkAddonsAsRead = c;
   },
   98,
 );

@@ -15,196 +15,180 @@ __d(
     "WAWebQueryProductCollectionsQuery.graphql",
     "WAWebRelayClient",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u,
       c,
-      d = (function () {
-        var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (
-            o(
-              "WAWebBizCatalogGatingUtils",
-            ).commerceFeaturesDisabledBySanctions()
-          )
-            throw new (o("WAWebBackendErrors").E451)();
-          try {
-            var r,
-              a = t.afterCursor,
-              i = t.catalogWid,
-              l = t.height,
-              s = t.limit,
-              c = t.productsCount,
-              d = t.variantInfoFields,
-              m = t.variantThumbnailHeight,
-              p = t.variantThumbnailWidth,
-              _ = t.width,
-              f = yield o("WAWebRelayClient").fetchQuery(
-                e !== void 0
-                  ? e
-                  : (e = n("WAWebQueryProductCollectionsQuery.graphql")),
-                {
-                  request: {
-                    collections: {
-                      biz_jid:
-                        (r = o(
-                          "WAWebGetFormattedCatalogJid",
-                        ).getFormattedCatalogJid(i)) != null
-                          ? r
-                          : i.toString(),
-                      collection_limit: String(s),
-                      item_limit: String(c),
-                      after: a,
-                      width: String(_),
-                      height: String(l),
-                      variant_info_fields: d,
-                      variant_thumbnail_height: m != null ? String(m) : null,
-                      variant_thumbnail_width: p != null ? String(p) : null,
-                    },
+      d = async function (r) {
+        if (
+          o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions()
+        )
+          throw new (o("WAWebBackendErrors").E451)();
+        try {
+          var t,
+            a = r.afterCursor,
+            i = r.catalogWid,
+            l = r.height,
+            s = r.limit,
+            c = r.productsCount,
+            d = r.variantInfoFields,
+            m = r.variantThumbnailHeight,
+            p = r.variantThumbnailWidth,
+            _ = r.width,
+            f = await o("WAWebRelayClient").fetchQuery(
+              e !== void 0
+                ? e
+                : (e = n("WAWebQueryProductCollectionsQuery.graphql")),
+              {
+                request: {
+                  collections: {
+                    biz_jid:
+                      (t = o(
+                        "WAWebGetFormattedCatalogJid",
+                      ).getFormattedCatalogJid(i)) != null
+                        ? t
+                        : i.toString(),
+                    collection_limit: String(s),
+                    item_limit: String(c),
+                    after: a,
+                    width: String(_),
+                    height: String(l),
+                    variant_info_fields: d,
+                    variant_thumbnail_height: m != null ? String(m) : null,
+                    variant_thumbnail_width: p != null ? String(p) : null,
                   },
                 },
-                {
-                  eventLogger: o(
-                    "WAWebCatalogEventLogger",
-                  ).createCatalogEventLogger(
-                    o("WAWebCatalogEventLogger").GRAPHQL_CATALOG_ENDPOINT
-                      .GET_COLLECTIONS,
-                  ),
-                },
-              );
-            if (
-              (f == null ? void 0 : f.xwa_product_catalog_get_collections) ==
-              null
-            )
-              return { afterCursor: "", collections: [], catalog_type: null };
-            var g = f.xwa_product_catalog_get_collections,
-              h = g.collections,
-              y = g.paging;
-            return {
-              afterCursor: (y == null ? void 0 : y.after) || "",
-              collections: h.map(function (e) {
-                var t,
-                  n = e.id,
-                  r = e.name,
-                  a = e.products,
-                  i = e.status_info,
-                  l = i == null ? void 0 : i.status,
-                  s =
-                    (t =
-                      l != null
-                        ? o("WAWebProductTypes").asProductReviewType(l)
-                        : void 0) != null
-                      ? t
-                      : "APPROVED";
-                return {
-                  id: n || "",
-                  name: r || "",
-                  canAppeal: (i == null ? void 0 : i.can_appeal) === "true",
-                  isHidden: !1,
-                  reviewStatus: s,
-                  totalItemsCount: 0,
-                  products: a.map(
-                    o("WAWebBizParseProductGraphql").parseProductGraphQL,
-                  ),
-                  rejectReason: i == null ? void 0 : i.reject_reason,
-                  commerceUrl: i == null ? void 0 : i.commerce_url,
-                };
-              }),
-              catalog_type: null,
-            };
-          } catch (e) {
-            if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
-              var C,
-                b = ((C = e.source) == null ? void 0 : C.errors) || [],
-                v = b[0];
-              if ((v == null ? void 0 : v.code) === 2498052)
-                return { collections: [], afterCursor: "", catalog_type: null };
-              o(
-                "WAWebMaybeThrowCatalogErrors",
-              ).maybeThrowLocalErrorForCatalogQuery(e);
-            }
-            throw (
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "GraphQL: xwa_product_catalog_get_collections fetch failed",
-                  ])),
-              ),
-              new (o("WAWebBackendErrors").CatalogUnknownError)()
-            );
-          }
-        });
-        return function (n) {
-          return t.apply(this, arguments);
-        };
-      })(),
-      m = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          if (
-            o(
-              "WAWebBizCatalogGatingUtils",
-            ).commerceFeaturesDisabledBySanctions()
-          )
-            throw new (o("WAWebBackendErrors").E451)();
-          var n = e.afterCursor,
-            r = e.catalogWid,
-            a = e.height,
-            i = e.limit,
-            l = e.productsCount,
-            s = e.variantInfoFields,
-            u = e.variantThumbnailHeight,
-            d = e.variantThumbnailWidth,
-            m = e.width,
-            p = yield o(
-              "WAWebBizCatalogManagementFetchCollections",
-            ).fetchCollections({
-              collections: {
-                biz_jid:
-                  (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                    r,
-                  )) != null
-                    ? t
-                    : r.toJid(),
-                after: n,
-                collection_limit: String(i),
-                item_limit: String(l),
-                width: String(m),
-                height: String(a),
-                variant_info_fields: s,
-                variant_thumbnail_height: u != null ? String(u) : null,
-                variant_thumbnail_width: d != null ? String(d) : null,
               },
-            });
-          if (p.type === "success") return p.collectionsResult;
-          if (p.type === "graphql-error") {
-            var _;
-            if (
-              ((_ = p.error.source.errors[0]) == null ? void 0 : _.code) ===
-              2498052
-            )
+              {
+                eventLogger: o(
+                  "WAWebCatalogEventLogger",
+                ).createCatalogEventLogger(
+                  o("WAWebCatalogEventLogger").GRAPHQL_CATALOG_ENDPOINT
+                    .GET_COLLECTIONS,
+                ),
+              },
+            );
+          if (
+            (f == null ? void 0 : f.xwa_product_catalog_get_collections) == null
+          )
+            return { afterCursor: "", collections: [], catalog_type: null };
+          var g = f.xwa_product_catalog_get_collections,
+            h = g.collections,
+            y = g.paging;
+          return {
+            afterCursor: (y == null ? void 0 : y.after) || "",
+            collections: h.map(function (e) {
+              var t,
+                n = e.id,
+                r = e.name,
+                a = e.products,
+                i = e.status_info,
+                l = i == null ? void 0 : i.status,
+                s =
+                  (t =
+                    l != null
+                      ? o("WAWebProductTypes").asProductReviewType(l)
+                      : void 0) != null
+                    ? t
+                    : "APPROVED";
+              return {
+                id: n || "",
+                name: r || "",
+                canAppeal: (i == null ? void 0 : i.can_appeal) === "true",
+                isHidden: !1,
+                reviewStatus: s,
+                totalItemsCount: 0,
+                products: a.map(
+                  o("WAWebBizParseProductGraphql").parseProductGraphQL,
+                ),
+                rejectReason: i == null ? void 0 : i.reject_reason,
+                commerceUrl: i == null ? void 0 : i.commerce_url,
+              };
+            }),
+            catalog_type: null,
+          };
+        } catch (e) {
+          if (e instanceof o("WAWebGraphQLServerError").GraphQLServerError) {
+            var C,
+              b = ((C = e.source) == null ? void 0 : C.errors) || [],
+              v = b[0];
+            if ((v == null ? void 0 : v.code) === 2498052)
               return { collections: [], afterCursor: "", catalog_type: null };
             o(
               "WAWebMaybeThrowCatalogErrors",
-            ).maybeThrowLocalErrorForCatalogQuery(p.error);
-          } else p.type;
+            ).maybeThrowLocalErrorForCatalogQuery(e);
+          }
           throw (
             o("WALogger").WARN(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "queryCollectionsGraphQLByOwner: unhandled error ",
-                  "",
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "GraphQL: xwa_product_catalog_get_collections fetch failed",
                 ])),
-              JSON.stringify(p),
             ),
             new (o("WAWebBackendErrors").CatalogUnknownError)()
           );
-        });
-        return function (n) {
-          return e.apply(this, arguments);
-        };
-      })(),
+        }
+      },
+      m = async function (t) {
+        var e;
+        if (
+          o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions()
+        )
+          throw new (o("WAWebBackendErrors").E451)();
+        var n = t.afterCursor,
+          r = t.catalogWid,
+          a = t.height,
+          i = t.limit,
+          l = t.productsCount,
+          s = t.variantInfoFields,
+          u = t.variantThumbnailHeight,
+          d = t.variantThumbnailWidth,
+          m = t.width,
+          p = await o(
+            "WAWebBizCatalogManagementFetchCollections",
+          ).fetchCollections({
+            collections: {
+              biz_jid:
+                (e = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
+                  r,
+                )) != null
+                  ? e
+                  : r.toJid(),
+              after: n,
+              collection_limit: String(i),
+              item_limit: String(l),
+              width: String(m),
+              height: String(a),
+              variant_info_fields: s,
+              variant_thumbnail_height: u != null ? String(u) : null,
+              variant_thumbnail_width: d != null ? String(d) : null,
+            },
+          });
+        if (p.type === "success") return p.collectionsResult;
+        if (p.type === "graphql-error") {
+          var _;
+          if (
+            ((_ = p.error.source.errors[0]) == null ? void 0 : _.code) ===
+            2498052
+          )
+            return { collections: [], afterCursor: "", catalog_type: null };
+          o("WAWebMaybeThrowCatalogErrors").maybeThrowLocalErrorForCatalogQuery(
+            p.error,
+          );
+        } else p.type;
+        throw (
+          o("WALogger").WARN(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "queryCollectionsGraphQLByOwner: unhandled error ",
+                "",
+              ])),
+            JSON.stringify(p),
+          ),
+          new (o("WAWebBackendErrors").CatalogUnknownError)()
+        );
+      },
       p = function (t) {
         return o("WAWebUserUtils").isMeAccount(t.catalogWid) ? m(t) : d(t);
       },

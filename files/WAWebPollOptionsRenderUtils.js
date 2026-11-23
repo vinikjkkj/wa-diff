@@ -54,7 +54,7 @@ __d(
         var a = o("WAXplatTrim").trim(r.name);
         if (a !== "") {
           if (t.has(a)) {
-            n.set(r.key, s._(/*BTDS*/ "This is already an option"));
+            n.set(r.key, s._(/*BTDS*/ ""));
             continue;
           }
           t.add(a);
@@ -131,11 +131,8 @@ __d(
         p = o("WAXplatTrim").trim(d);
       if (p.length === 0)
         return m.length < u
-          ? s._(
-              /*BTDS*/ '_j{"*":"Add a question and at least {number} options.","_1":"Add a question and at least 1 option."}',
-              [s._plural(u, "number")],
-            )
-          : s._(/*BTDS*/ "Add a question.");
+          ? s._(/*BTDS*/ "", [s._plural(u, "number")])
+          : s._(/*BTDS*/ "");
       if (n) {
         var _ = r("countWhere")(a, function (e) {
           return o("WAXplatTrim").trim(e.name) === "" && !e.image;
@@ -146,31 +143,24 @@ __d(
           }) > _
         )
           return c === o("WAWebPollCreationUtils").PollType.QUIZ
-            ? s._(
-                /*BTDS*/ "For quizzes with photos, add a photo and text to each option.",
-              )
-            : s._(
-                /*BTDS*/ "For polls with photos, add a photo and text to each option.",
-              );
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
       }
       return m.length < u
-        ? s._(
-            /*BTDS*/ '_j{"*":"Add at least {number} options.","_1":"Add at least 1 option."}',
-            [s._plural(u, "number")],
-          )
+        ? s._(/*BTDS*/ "", [s._plural(u, "number")])
         : c === o("WAWebPollCreationUtils").PollType.QUIZ && t == null
-          ? s._(/*BTDS*/ "Select the right answer.")
+          ? s._(/*BTDS*/ "")
           : c === o("WAWebPollCreationUtils").PollType.QUIZ &&
               a.some(function (e) {
                 return e.key === t && o("WAXplatTrim").trim(e.name) === "";
               })
-            ? s._(/*BTDS*/ "Select the right answer.")
+            ? s._(/*BTDS*/ "")
             : l === !0 && i == null
-              ? s._(/*BTDS*/ "Add an end time.")
+              ? s._(/*BTDS*/ "")
               : l === !0 &&
                   i != null &&
                   i <= o("WAWebClock").Clock.getServerTimeMs()
-                ? s._(/*BTDS*/ "Choose a future end time.")
+                ? s._(/*BTDS*/ "")
                 : null;
     }
     function C(e, t) {

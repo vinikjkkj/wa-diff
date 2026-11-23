@@ -16,135 +16,107 @@ __d(
     "WAWebVoipGatingUtils",
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = !e.is_offline,
-            r = e.peer_jid;
+    async function s(e) {
+      var t = !e.is_offline,
+        n = e.peer_jid;
+      if (n.isUser()) {
+        var r = e.caller_pn;
+        await u({
+          jid: n,
+          phoneNumber: r != null && r.isUser() ? r : null,
+          username: e.caller_username,
+          countryCode: e.caller_country_code,
+          pushName: e.caller_push_name,
+          flushImmediately: t,
+        });
+      }
+      var a = e.group_info_updates;
+      if (a != null) {
+        for (var i = -1, l = 0; l < a.length; l++) a[l].jid.isUser() && (i = l);
+        await o("WAPromiseEach").promiseEach(a, async function (e, n) {
+          var r = e.jid;
           if (r.isUser()) {
-            var a = e.caller_pn;
-            yield c({
+            var o = e.user_pn;
+            return u({
               jid: r,
-              phoneNumber: a != null && a.isUser() ? a : null,
-              username: e.caller_username,
-              countryCode: e.caller_country_code,
-              pushName: e.caller_push_name,
-              flushImmediately: t,
+              phoneNumber: o != null && o.isUser() ? o : null,
+              username: e.username,
+              pushName: e.push_name,
+              accountKind: e.account_kind,
+              flushImmediately: t && n === i,
             });
           }
-          var i = e.group_info_updates;
-          if (i != null) {
-            for (var l = -1, s = 0; s < i.length; s++)
-              i[s].jid.isUser() && (l = s);
-            yield o("WAPromiseEach").promiseEach(
-              i,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e, n) {
-                    var r = e.jid;
-                    if (r.isUser()) {
-                      var o = e.user_pn;
-                      return c({
-                        jid: r,
-                        phoneNumber: o != null && o.isUser() ? o : null,
-                        username: e.username,
-                        pushName: e.push_name,
-                        accountKind: e.account_kind,
-                        flushImmediately: t && n === l,
-                      });
-                    }
-                  },
-                );
-                return function (t, n) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            );
+        });
+      }
+    }
+    async function u(t) {
+      var n = t.accountKind,
+        a = t.countryCode,
+        i = t.flushImmediately,
+        l = t.jid,
+        s = t.phoneNumber,
+        u = t.pushName,
+        d = t.username,
+        m = o("WAWebWidFactory").asUserWidOrThrow(l),
+        p = c(n);
+      if (
+        (p != null &&
+          o("WAWebABProps").getABPropConfigValue(
+            "web_guest_calling_representation_enabled",
+          ) &&
+          o(
+            "WAWebUpdateContactExternalUserState",
+          ).updateContactExternalUserState(l, p),
+        r("isStringNullOrEmpty")(u) ||
+          o("WAWebHandlePushnameUpdate").updatePushname(l, u, !1),
+        !!m.isLid())
+      ) {
+        if (
+          d != null &&
+          o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
+        ) {
+          var _ = o("WAWebUsernameTypes").asMaybeUsername(d);
+          if (_ != null) {
+            var f = { userId: m, username: _ };
+            if (a != null) {
+              var g = o("WAWebAsISOCountryCode").asISOCountryCode(a);
+              g != null && (f.usernameCountryCode = g);
+            }
+            if (
+              (await o("WAWebSetUsernameJob").setUsernamesJob([f]),
+              s != null &&
+                o("WAWebABProps").getABPropConfigValue(
+                  "enable_calling_phone_number_privacy",
+                ))
+            ) {
+              o("WALogger")
+                .ERROR(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip] PN+username given for LID, skip LID<>PN mapping",
+                    ])),
+                )
+                .sendLogs("voip_phone_number_privacy_enforcement_violated");
+              return;
+            }
           }
-        })),
-        u.apply(this, arguments)
-      );
+        }
+        s != null &&
+          !o("WAWebVoipGatingUtils").isGuestViewer() &&
+          (await o("WAWebDBCreateLidPnMappings").createLidPnMappings({
+            mappings: [
+              { lid: m, pn: o("WAWebWidFactory").asUserWidOrThrow(s) },
+            ],
+            write: o("WAWebLidPnMappingWrite").toLidPnMappingWrite(i),
+            learningSource: "voip-lid",
+          }));
+      }
     }
     function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.accountKind,
-            a = t.countryCode,
-            i = t.flushImmediately,
-            l = t.jid,
-            s = t.phoneNumber,
-            u = t.pushName,
-            c = t.username,
-            d = o("WAWebWidFactory").asUserWidOrThrow(l),
-            p = m(n);
-          if (
-            (p != null &&
-              o("WAWebABProps").getABPropConfigValue(
-                "web_guest_calling_representation_enabled",
-              ) &&
-              o(
-                "WAWebUpdateContactExternalUserState",
-              ).updateContactExternalUserState(l, p),
-            r("isStringNullOrEmpty")(u) ||
-              o("WAWebHandlePushnameUpdate").updatePushname(l, u, !1),
-            !!d.isLid())
-          ) {
-            if (
-              c != null &&
-              o("WAWebUsernameGatingUtils").usernameDisplayedEnabled()
-            ) {
-              var _ = o("WAWebUsernameTypes").asMaybeUsername(c);
-              if (_ != null) {
-                var f = { userId: d, username: _ };
-                if (a != null) {
-                  var g = o("WAWebAsISOCountryCode").asISOCountryCode(a);
-                  g != null && (f.usernameCountryCode = g);
-                }
-                if (
-                  (yield o("WAWebSetUsernameJob").setUsernamesJob([f]),
-                  s != null &&
-                    o("WAWebABProps").getABPropConfigValue(
-                      "enable_calling_phone_number_privacy",
-                    ))
-                ) {
-                  o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[voip] PN+username given for LID, skip LID<>PN mapping",
-                        ])),
-                    )
-                    .sendLogs("voip_phone_number_privacy_enforcement_violated");
-                  return;
-                }
-              }
-            }
-            s != null &&
-              !o("WAWebVoipGatingUtils").isGuestViewer() &&
-              (yield o("WAWebDBCreateLidPnMappings").createLidPnMappings({
-                mappings: [
-                  { lid: d, pn: o("WAWebWidFactory").asUserWidOrThrow(s) },
-                ],
-                write: o("WAWebLidPnMappingWrite").toLidPnMappingWrite(i),
-                learningSource: "voip-lid",
-              }));
-          }
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
       return (function (e) {
         if (e === o("WAWebVoipWaCallEnums").AccountKind.Guest)
           return o("WAWebContactExternalUserState").ExternalUserState.GuestUser;
@@ -156,7 +128,7 @@ __d(
       })(o("WAWebVoipWaCallEnums").wireStringToAccountKind(e));
     }
     ((l.persistAttributesAndLidMappingsForCall = s),
-      (l.attemptPersistLidMappingAndUserAttributes = c));
+      (l.attemptPersistLidMappingAndUserAttributes = u));
   },
   98,
 );

@@ -5,9 +5,7 @@ __d(
     "use strict";
     var e;
     function u(e) {
-      return e.fromMe
-        ? s._(/*BTDS*/ "Response sent")
-        : s._(/*BTDS*/ "Response received");
+      return e.fromMe ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function c(t) {
       if (

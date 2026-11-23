@@ -12,7 +12,6 @@ __d(
     "WAWebToArray",
     "err",
     "react",
-    "react-compiler-runtime",
     "useWAWebLexicalEvent",
     "useWAWebLexicalOnContentChange",
   ],
@@ -157,77 +156,51 @@ __d(
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v() {
-      var e = o("react-compiler-runtime").c(2),
-        t = C(),
-        n = t.activePlugin,
-        r;
-      return (
-        e[0] !== n
-          ? ((r =
-              n != null
-                ? s.jsx(o("WAWebFlex.react").FlexColumn, {
-                    align: "stretch",
-                    xstyle: h.pluginContainer,
-                    children: s.jsx(n.Component, {}),
-                  })
-                : null),
-            (e[0] = n),
-            (e[1] = r))
-          : (r = e[1]),
-        r
-      );
+      var e = C(),
+        t = e.activePlugin;
+      return t != null
+        ? s.jsx(o("WAWebFlex.react").FlexColumn, {
+            align: "stretch",
+            xstyle: h.pluginContainer,
+            children: s.jsx(t.Component, {}),
+          })
+        : null;
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.defaultPlugin,
-        a = e.triggeredPlugins,
-        i = f(R),
-        l = i[0],
-        u,
-        c;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((u = s.jsx(r("WAWebCommandPaletteInput.react"), {})),
-          (c = s.jsx(v, {})),
-          (t[0] = u),
-          (t[1] = c))
-        : ((u = t[0]), (c = t[1]));
-      var d;
-      t[2] !== n || t[3] !== a
-        ? ((d = s.jsxs(b, {
-            defaultPlugin: n,
-            triggeredPlugins: a,
-            children: [u, c],
-          })),
-          (t[2] = n),
-          (t[3] = a),
-          (t[4] = d))
-        : (d = t[4]);
-      var m;
-      return (
-        t[5] !== l || t[6] !== d
-          ? ((m = s.jsx(o("WAWebFlex.react").FlexColumn, {
-              align: "stretch",
-              xstyle: h.container,
-              children: s.jsx(
-                o("LexicalExtensionComposer").LexicalExtensionComposer,
-                { contentEditable: null, extension: l, children: d },
-              ),
-            })),
-            (t[5] = l),
-            (t[6] = d),
-            (t[7] = m))
-          : (m = t[7]),
-        m
-      );
-    }
-    function R() {
-      return o("Lexical").defineExtension({
-        name: "[root]",
-        namespace: "CommandPaletteInput",
-        onError: r("WAWebNoop"),
+      var t = e.defaultPlugin,
+        n = e.triggeredPlugins,
+        a = f(function () {
+          return o("Lexical").defineExtension({
+            name: "[root]",
+            namespace: "CommandPaletteInput",
+            onError: r("WAWebNoop"),
+          });
+        }),
+        i = a[0];
+      return s.jsx(o("WAWebFlex.react").FlexColumn, {
+        align: "stretch",
+        xstyle: h.container,
+        children: s.jsx(
+          o("LexicalExtensionComposer").LexicalExtensionComposer,
+          {
+            contentEditable: null,
+            extension: i,
+            children: s.jsxs(b, {
+              defaultPlugin: t,
+              triggeredPlugins: n,
+              children: [
+                s.jsx(r("WAWebCommandPaletteInput.react"), {}),
+                s.jsx(v, {}),
+              ],
+            }),
+          },
+        ),
       });
     }
-    ((l.useCommandPalette = C), (l.CommandPalette = S));
+    ((S.displayName = S.name + " [from " + i.id + "]"),
+      (l.useCommandPalette = C),
+      (l.CommandPalette = S));
   },
   98,
 );

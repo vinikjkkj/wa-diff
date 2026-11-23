@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WASmaxSmbMeteredMessagingAccountGetSMBMeteredMessagingCheckoutRPC",
     "WAWebBackendErrors",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
@@ -33,58 +32,50 @@ __d(
           (r = e.quota) == null ? void 0 : r.totalAvailableCredits,
       };
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+    async function d(t) {
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "getSMBMeteredMessagingCheckout called with args: ",
+            "",
+          ])),
+        JSON.stringify(t),
+      );
+      var n = await o(
+        "WASmaxSmbMeteredMessagingAccountGetSMBMeteredMessagingCheckoutRPC",
+      ).sendGetSMBMeteredMessagingCheckoutRPC(t);
+      if (n.name === "GetSMBMeteredMessagingCheckoutResponseSuccess") {
+        var r = c(n.value);
+        return (
           o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "getSMBMeteredMessagingCheckout called with args: ",
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "SMB metered messaging checkout request successful. Result: ",
                 "",
               ])),
-            JSON.stringify(t),
-          );
-          var n = yield o(
-            "WASmaxSmbMeteredMessagingAccountGetSMBMeteredMessagingCheckoutRPC",
-          ).sendGetSMBMeteredMessagingCheckoutRPC(t);
-          if (n.name === "GetSMBMeteredMessagingCheckoutResponseSuccess") {
-            var r = c(n.value);
-            return (
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "SMB metered messaging checkout request successful. Result: ",
-                    "",
-                  ])),
-                JSON.stringify(r),
-              ),
-              r
-            );
-          }
-          var a = n.value,
-            i = a.errorGetSmbMeteredMessagingCheckoutIqErrors,
-            l = i.value.code,
-            d = i.value.text;
-          throw (
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[SMB checkout] failed: ",
-                  " code=",
-                  " text=",
-                  "",
-                ])),
-              i.name,
-              l,
-              d,
-            ),
-            new (o("WAWebBackendErrors").ServerStatusCodeError)(l, d)
-          );
-        })),
-        m.apply(this, arguments)
+            JSON.stringify(r),
+          ),
+          r
+        );
+      }
+      var a = n.value,
+        i = a.errorGetSmbMeteredMessagingCheckoutIqErrors,
+        l = i.value.code,
+        d = i.value.text;
+      throw (
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[SMB checkout] failed: ",
+              " code=",
+              " text=",
+              "",
+            ])),
+          i.name,
+          l,
+          d,
+        ),
+        new (o("WAWebBackendErrors").ServerStatusCodeError)(l, d)
       );
     }
     l.getSMBMeteredMessagingCheckout = d;

@@ -87,31 +87,31 @@ __d(
       switch (e) {
         case o("WAWebProtobufsStatusAttributions.pb")
           .StatusAttribution$ExternalShare$Source.INSTAGRAM:
-          return s._(/*BTDS*/ "View on Instagram");
+          return s._(/*BTDS*/ "");
         case o("WAWebProtobufsStatusAttributions.pb")
           .StatusAttribution$ExternalShare$Source.FACEBOOK:
-          return s._(/*BTDS*/ "View on Facebook");
+          return s._(/*BTDS*/ "");
         case o("WAWebProtobufsStatusAttributions.pb")
           .StatusAttribution$ExternalShare$Source.MESSENGER:
-          return s._(/*BTDS*/ "View in Messenger");
+          return s._(/*BTDS*/ "");
         case o("WAWebProtobufsStatusAttributions.pb")
           .StatusAttribution$ExternalShare$Source.SPOTIFY:
-          return s._(/*BTDS*/ "Open on Spotify");
+          return s._(/*BTDS*/ "");
         case o("WAWebProtobufsStatusAttributions.pb")
           .StatusAttribution$ExternalShare$Source.APPLE_MUSIC:
-          return s._(/*BTDS*/ "Open on Apple Music");
+          return s._(/*BTDS*/ "");
         case o("WAWebProtobufsStatusAttributions.pb")
           .StatusAttribution$ExternalShare$Source.PINTEREST:
-          return s._(/*BTDS*/ "View on Pinterest");
+          return s._(/*BTDS*/ "");
         case o("WAWebProtobufsStatusAttributions.pb")
           .StatusAttribution$ExternalShare$Source.THREADS:
-          return s._(/*BTDS*/ "View on Threads");
+          return s._(/*BTDS*/ "");
         case o("WAWebProtobufsStatusAttributions.pb")
           .StatusAttribution$ExternalShare$Source.SHARECHAT:
-          return s._(/*BTDS*/ "View on ShareChat");
+          return s._(/*BTDS*/ "");
         case o("WAWebProtobufsStatusAttributions.pb")
           .StatusAttribution$ExternalShare$Source.GOOGLE_PHOTOS:
-          return s._(/*BTDS*/ "View on Google Photos");
+          return s._(/*BTDS*/ "");
         default:
           return null;
       }

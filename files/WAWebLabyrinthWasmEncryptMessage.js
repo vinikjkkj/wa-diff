@@ -7,7 +7,6 @@ __d(
     "WAWebEBLabyrinthWaWasmReactorSingleton",
     "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -46,48 +45,36 @@ __d(
         valueSecretRef: e.valueSecretRef,
       };
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield o(
-            "WAWebEBLabyrinthWaWasmReactorSingleton",
-          ).labyrinthWaCommand(
-            {
-              InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
-              ResultSpec: o("WAWebLabyrinthWaWasm.pb").EncryptMessageOutputSpec,
-              validateResult: e,
-            },
-            {
-              encryptMessageInput: {
-                backupId: o("WALongInt").decimalStringToLongInt(
-                  String(t.backupId),
-                ),
-                epochAnonId: t.epochAnonId,
-                epochId: o("WALongInt").decimalStringToLongInt(
-                  String(t.epochId),
-                ),
-                epochRootKey: t.epochRootKey,
-                mailboxRootKey: t.mailboxRootKey,
-                orfClientState: t.orfClientState,
-                plaintextPayload: t.plaintext,
-                stanzaId: t.stanzaId,
-                threadId: t.threadId,
-                timestampMs: t.timestampMs,
-                waCanonicalUserFbid: o("WALongInt").decimalStringToLongInt(
-                  String(t.waCanonicalUserFbid),
-                ),
-              },
-            },
-          );
-          return n.success
-            ? o("WAResultOrError").makeResult(s(n.value, t.threadType))
-            : n;
-        })),
-        c.apply(this, arguments)
+    async function u(t) {
+      var n = await o(
+        "WAWebEBLabyrinthWaWasmReactorSingleton",
+      ).labyrinthWaCommand(
+        {
+          InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
+          ResultSpec: o("WAWebLabyrinthWaWasm.pb").EncryptMessageOutputSpec,
+          validateResult: e,
+        },
+        {
+          encryptMessageInput: {
+            backupId: o("WALongInt").decimalStringToLongInt(String(t.backupId)),
+            epochAnonId: t.epochAnonId,
+            epochId: o("WALongInt").decimalStringToLongInt(String(t.epochId)),
+            epochRootKey: t.epochRootKey,
+            mailboxRootKey: t.mailboxRootKey,
+            orfClientState: t.orfClientState,
+            plaintextPayload: t.plaintext,
+            stanzaId: t.stanzaId,
+            threadId: t.threadId,
+            timestampMs: t.timestampMs,
+            waCanonicalUserFbid: o("WALongInt").decimalStringToLongInt(
+              String(t.waCanonicalUserFbid),
+            ),
+          },
+        },
       );
+      return n.success
+        ? o("WAResultOrError").makeResult(s(n.value, t.threadType))
+        : n;
     }
     l.encryptMessageWasm = u;
   },

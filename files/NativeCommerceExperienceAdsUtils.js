@@ -11,6 +11,7 @@ __d(
       "OFFSITE_IAB_CHECKOUT",
       "CATALOG_NOT_MATCHING",
       "CATALOG_NOT_SELECTED",
+      "CATALOG_NOT_SELECTED_NOR_FO_ENABLED",
     ]);
     function s(e) {
       return o("AdsPCAConsolidationUtils").isPCAVariation(e)

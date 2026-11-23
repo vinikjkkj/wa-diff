@@ -3,7 +3,7 @@ __d(
   [
     "WAResultOrError",
     "WASmaxInMessageDeliverEncHideDecryptionPlaceholderMixin",
-    "WASmaxInMessageDeliverEncMediaTypeMixin",
+    "WASmaxInMessageDeliverEncMediaTypeOrListMixinGroup",
     "WASmaxInMessageDeliverEncPayloadMixin",
     "WASmaxInMessageDeliverEncStateOrSessionTypeMixinGroup",
     "WASmaxInMessageDeliverEnums",
@@ -22,23 +22,25 @@ __d(
       var r = o(
           "WASmaxInMessageDeliverEncHideDecryptionPlaceholderMixin",
         ).parseEncHideDecryptionPlaceholderMixin(e),
-        a = o("WASmaxInMessageDeliverEncMediaTypeMixin").parseEncMediaTypeMixin(
-          e,
-        ),
-        i = o("WASmaxInMessageDeliverEncPayloadMixin").parseEncPayloadMixin(e);
-      if (!i.success) return i;
-      var l = o(
-        "WASmaxInMessageDeliverEncStateOrSessionTypeMixinGroup",
-      ).parseEncStateOrSessionTypeMixinGroup(e);
+        a = o("WASmaxInMessageDeliverEncPayloadMixin").parseEncPayloadMixin(e);
+      if (!a.success) return a;
+      var i = o(
+          "WASmaxInMessageDeliverEncStateOrSessionTypeMixinGroup",
+        ).parseEncStateOrSessionTypeMixinGroup(e),
+        l = o(
+          "WASmaxInMessageDeliverEncMediaTypeOrListMixinGroup",
+        ).parseEncMediaTypeOrListMixinGroup(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends(
           {
             type: n.value,
             encHideDecryptionPlaceholderMixin: r.success ? r.value : null,
-            encMediaTypeMixin: a.success ? a.value : null,
           },
-          i.value,
-          { encStateOrSessionTypeMixinGroup: l.success ? l.value : null },
+          a.value,
+          {
+            encStateOrSessionTypeMixinGroup: i.success ? i.value : null,
+            encMediaTypeOrListMixinGroup: l.success ? l.value : null,
+          },
         ),
       );
     }

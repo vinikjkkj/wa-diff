@@ -11,7 +11,6 @@ __d(
     "WAWebModelStorageUtils",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaMessage",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,9 +19,9 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "fillGroupHistoryStoredHint",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             try {
-              yield u(t);
+              await u(t);
             } catch (t) {
               o("WALogger")
                 .WARN(
@@ -34,98 +33,72 @@ __d(
                 .catching(r("getErrorSafe")(t))
                 .sendLogs("group-history-stored-hint-fill-failed");
             }
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JobPriority.LOW },
         )
         .waitUntilCompleted();
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
+    async function u(e) {
+      if (
+        o("WAWebGroupHistoryStoredHintGating").isGroupHistoryStoredHintEnabled()
+      ) {
+        var t = await o("WAWebSchemaMessage")
+            .getMessageTable()
+            .get(e.toString()),
+          n = t != null ? d(t) : null;
+        if (n != null) {
+          var r = await o(
+            "WAWebGroupHistoryCountedTimestamp",
+          ).getNewestCountedGroupHistoryTimestamp(
+            o("WAWebSchemaMessage").getMessageTable(),
+            e.remote,
+            n,
+          );
           if (
-            o(
-              "WAWebGroupHistoryStoredHintGating",
-            ).isGroupHistoryStoredHintEnabled()
+            !(
+              r == null ||
+              r ===
+                o("WAWebGroupHistoryStoredHint")
+                  .GROUP_HISTORY_NO_COUNTED_MESSAGES
+            )
           ) {
-            var t = yield o("WAWebSchemaMessage")
-                .getMessageTable()
-                .get(e.toString()),
-              n = t != null ? m(t) : null;
-            if (n != null) {
-              var r = yield o(
-                "WAWebGroupHistoryCountedTimestamp",
-              ).getNewestCountedGroupHistoryTimestamp(
-                o("WAWebSchemaMessage").getMessageTable(),
-                e.remote,
-                n,
+            var a = { internalId: n, timestamp: null };
+            (await c(e, a, r)) &&
+              o("WAWebBackendApi").frontendFireAndForget(
+                "updateStoredGroupHistoryHints",
+                {
+                  updates: [
+                    { messageKey: e, expectedTimestamp: null, timestamp: r },
+                  ],
+                },
               );
-              if (
-                !(
-                  r == null ||
-                  r ===
-                    o("WAWebGroupHistoryStoredHint")
-                      .GROUP_HISTORY_NO_COUNTED_MESSAGES
-                )
-              ) {
-                var a = { internalId: n, timestamp: null };
-                (yield d(e, a, r)) &&
-                  o("WAWebBackendApi").frontendFireAndForget(
-                    "updateStoredGroupHistoryHints",
-                    {
-                      updates: [
-                        {
-                          messageKey: e,
-                          expectedTimestamp: null,
-                          timestamp: r,
-                        },
-                      ],
-                    },
-                  );
-              }
-            }
           }
-        })),
-        c.apply(this, arguments)
-      );
+        }
+      }
     }
-    function d(e, t, r) {
+    function c(e, t, n) {
       return o("WAWebModelStorageUtils")
         .getStorage()
-        .lock(
-          ["message"],
-          (function () {
-            var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (n) {
-                var a,
-                  i = n[0],
-                  l = yield i.get(e.toString());
-                return l == null ||
-                  l.internalId !== t.internalId ||
-                  ((a = l.groupHistoryLastCountedMessageTimestamp) != null
-                    ? a
-                    : null) !== t.timestamp ||
-                  !o(
-                    "WAWebGroupHistoryStoredHint",
-                  ).isGroupHistoryStoredHintEvent(
-                    o("WAWebDBMessageSerialization").messageFromDbRow(l),
-                  )
-                  ? !1
-                  : (yield i.merge(e.toString(), {
-                      groupHistoryLastCountedMessageTimestamp: r,
-                    }),
-                    !0);
-              },
-            );
-            return function (e) {
-              return a.apply(this, arguments);
-            };
-          })(),
-        );
+        .lock(["message"], async function (r) {
+          var a,
+            i = r[0],
+            l = await i.get(e.toString());
+          return l == null ||
+            l.internalId !== t.internalId ||
+            ((a = l.groupHistoryLastCountedMessageTimestamp) != null
+              ? a
+              : null) !== t.timestamp ||
+            !o("WAWebGroupHistoryStoredHint").isGroupHistoryStoredHintEvent(
+              o("WAWebDBMessageSerialization").messageFromDbRow(l),
+            )
+            ? !1
+            : (await i.merge(e.toString(), {
+                groupHistoryLastCountedMessageTimestamp: n,
+              }),
+              !0);
+        });
     }
-    function m(e) {
+    function d(e) {
       return e.groupHistoryLastCountedMessageTimestamp != null ||
         !o("WAWebGroupHistoryStoredHint").isGroupHistoryStoredHintEvent(
           o("WAWebDBMessageSerialization").messageFromDbRow(e),

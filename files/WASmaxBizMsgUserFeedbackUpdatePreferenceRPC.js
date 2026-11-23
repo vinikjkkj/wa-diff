@@ -10,51 +10,39 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return { name: "UpdatePreferenceResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "UpdatePreferenceResponseInvalidRequest",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "UpdatePreferenceResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("UpdatePreference", {
-              Success: a,
-              InvalidRequest: i,
-              ServerError: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return { name: "UpdatePreferenceResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "UpdatePreferenceResponseInvalidRequest",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return { name: "UpdatePreferenceResponseServerError", value: l.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("UpdatePreference", {
+          Success: a,
+          InvalidRequest: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
       if (!r.success) return r;
-      var a = g(e, t);
+      var a = f(e, t);
       if (!a.success) return a;
-      var i = y(r.value);
+      var i = h(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -63,14 +51,14 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
       if (!r.success) return r;
-      var a = g(e, t);
+      var a = f(e, t);
       if (!a.success) return a;
-      var i = m(r.value);
+      var i = d(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -79,20 +67,20 @@ __d(
           )
         : i;
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
-      var r = h(e, t);
+      var r = g(e, t);
       return (r.success, r);
     }
-    function m(e) {
-      var t = _(e);
+    function d(e) {
+      var t = p(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorFeatureNotImplemented",
           value: t.value,
         });
-      var n = f(e);
+      var n = _(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorInternalServerError",
@@ -104,7 +92,7 @@ __d(
             [t, n],
           );
     }
-    function p(e) {
+    function m(e) {
       var t,
         n = e.userFeedbackAction,
         r = e.userFeedbackJid,
@@ -125,7 +113,7 @@ __d(
         );
       return i;
     }
-    function _(e) {
+    function p(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -145,7 +133,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function f(e) {
+    function _(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -165,7 +153,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function g(e, t) {
+    function f(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -194,7 +182,7 @@ __d(
       );
       return s.success ? o("WAResultOrError").makeResult({ type: s.value }) : s;
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -223,26 +211,26 @@ __d(
       );
       return s.success ? o("WAResultOrError").makeResult({ type: s.value }) : s;
     }
-    function y(e) {
-      var t = S(e);
+    function h(e) {
+      var t = v(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorNotAcceptable",
           value: t.value,
         });
-      var n = C(e);
+      var n = y(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorBadRequest",
           value: n.value,
         });
-      var r = b(e);
+      var r = C(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorForbidden",
           value: r.value,
         });
-      var a = R(e);
+      var a = S(e);
       return a.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorRateOverlimit",
@@ -259,7 +247,7 @@ __d(
             [t, n, r, a],
           );
     }
-    function C(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -279,7 +267,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function b(e) {
+    function C(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -299,7 +287,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function v(e) {
+    function b(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "field");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "name");
@@ -309,10 +297,10 @@ __d(
         ? o("WAResultOrError").makeResult({ name: n.value, reason: r.value })
         : r;
     }
-    function S(e) {
+    function v(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").optionalChildWithTag(e, "field", v);
+      var n = o("WASmaxParseUtils").optionalChildWithTag(e, "field", b);
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
@@ -335,7 +323,7 @@ __d(
           })
         : a;
     }
-    function R(e) {
+    function S(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -356,10 +344,10 @@ __d(
         : r;
     }
     ((l.sendUpdatePreferenceRPC = e),
-      (l.parseUpdatePreferenceResponseInvalidRequest = u),
-      (l.parseUpdatePreferenceResponseServerError = c),
-      (l.parseUpdatePreferenceResponseSuccess = d),
-      (l.makeUpdatePreferenceRequest = p));
+      (l.parseUpdatePreferenceResponseInvalidRequest = s),
+      (l.parseUpdatePreferenceResponseServerError = u),
+      (l.parseUpdatePreferenceResponseSuccess = c),
+      (l.makeUpdatePreferenceRequest = m));
   },
   98,
 );

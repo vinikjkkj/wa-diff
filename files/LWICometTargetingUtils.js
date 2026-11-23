@@ -187,58 +187,44 @@ __d(
       var t = r("gkx")("7981");
       switch (e) {
         case "AUTO_TARGETING":
-          return t
-            ? s._(
-                /*BTDS*/ "Details you add here help our system understand the type of people you want to reach. If you set a minimum age below 26 we\u2019ll use that as a requirement along with location. All other criteria will be used as suggestions to help find the best audience for your ad.",
-              )
-            : s._(
-                /*BTDS*/ "Select the location of people you want to reach with your ad.",
-              );
+          return t ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
         case "FANS":
         case "GROUPER":
         case "MARKETPLACE_DEFAULT":
         case "MARKETPLACE_NATIONWIDE_AUDIENCE":
         case "MARKETPLACE_SAVED_AUDIENCE":
         case "MULT_CUSTOM_AUDIENCES":
-          return s._(
-            /*BTDS*/ "Select the location of people you want to reach with your ad.",
-          );
+          return s._(/*BTDS*/ "");
         default:
-          return s._(
-            /*BTDS*/ "Select the location, age, gender and interests of {link to our people metrics explanation} you want to reach with your ad.",
-            [
-              s._param(
-                "link to our people metrics explanation",
-                u.jsx(r("FDSLink.react"), {
-                  href: o("AdsUniqueMetricsHelpID").getUniqueMetricsHelpURL(),
-                  target: "_blank",
-                  children: r("AdsFetaStatusData").is_feta_account
-                    ? s._(/*BTDS*/ "Meta Accounts")
-                    : s._(/*BTDS*/ "Accounts Center accounts"),
-                }),
-              ),
-            ],
-          );
+          return s._(/*BTDS*/ "", [
+            s._param(
+              "link to our people metrics explanation",
+              u.jsx(r("FDSLink.react"), {
+                href: o("AdsUniqueMetricsHelpID").getUniqueMetricsHelpURL(),
+                target: "_blank",
+                children: r("AdsFetaStatusData").is_feta_account
+                  ? s._(/*BTDS*/ "")
+                  : s._(/*BTDS*/ ""),
+              }),
+            ),
+          ]);
       }
     }
-    var S = s._(/*BTDS*/ "Create new"),
-      R = s._(/*BTDS*/ "Create audience"),
-      L = s._(/*BTDS*/ "Create audience manually"),
-      E = s._(/*BTDS*/ "Edit audience"),
-      k = s._(/*BTDS*/ "Edit audience manually"),
-      I = s._(/*BTDS*/ "Customize audience with AI"),
-      T = s._(/*BTDS*/ "Customize audience with AI"),
-      D = s._(/*BTDS*/ "Customize audience with AI"),
-      x = s._(
-        /*BTDS*/ "Audience-{Current date to have in default audience name}",
-        [
-          s._param(
-            "Current date to have in default audience name",
-            r("CometLocalDate").fromDate().toISOString(),
-          ),
-        ],
-      ),
-      $ = s._(/*BTDS*/ "Save audience");
+    var S = s._(/*BTDS*/ ""),
+      R = s._(/*BTDS*/ ""),
+      L = s._(/*BTDS*/ ""),
+      E = s._(/*BTDS*/ ""),
+      k = s._(/*BTDS*/ ""),
+      I = s._(/*BTDS*/ ""),
+      T = s._(/*BTDS*/ ""),
+      D = s._(/*BTDS*/ ""),
+      x = s._(/*BTDS*/ "", [
+        s._param(
+          "Current date to have in default audience name",
+          r("CometLocalDate").fromDate().toISOString(),
+        ),
+      ]),
+      $ = s._(/*BTDS*/ "");
     ((l.LWICometTargetingModalSectionTypeEnum = c),
       (l.adsTargetingIsFlexibleSpecDescriptorType = m),
       (l.adsTargetingCoerceFlexibleSpecTargetType = p),

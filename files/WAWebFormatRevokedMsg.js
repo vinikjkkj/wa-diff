@@ -21,20 +21,16 @@ __d(
     }
     function c(t, n) {
       return t
-        ? s._(/*BTDS*/ "You deleted this message as admin")
+        ? s._(/*BTDS*/ "")
         : n == null
-          ? s._(/*BTDS*/ "This message was deleted by an admin")
-          : s._(/*BTDS*/ "This message was deleted by admin {admin}", [
-              s._param("admin", e(n)),
-            ]);
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "", [s._param("admin", e(n))]);
     }
     function d(e) {
       return m(o("WAWebMsgGetters").getIsSentByMe(e));
     }
     function m(e) {
-      return e
-        ? s._(/*BTDS*/ "You deleted this message")
-        : s._(/*BTDS*/ "This message was deleted");
+      return e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function p(e) {
       var t,
@@ -65,9 +61,7 @@ __d(
       return a !== "admin" ? m(r) : t ? g(n) : c(n, o);
     }
     function g(e) {
-      return e
-        ? s._(/*BTDS*/ "You deleted this update")
-        : s._(/*BTDS*/ "This update was deleted");
+      return e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     ((l.formatRevokedComment = p),
       (l.formatRevokedMsg = _),

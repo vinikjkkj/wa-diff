@@ -27,7 +27,6 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserUtils",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "react",
     "vulture",
   ],
@@ -283,8 +282,15 @@ __d(
         t
       );
     }
-    ((N.doc =
-      "hatchSetLinked registers a debug fetcher for later linked-status requests.\nhatchSetLinked(true) returns an ACTIVE paired status.\nhatchSetLinked(false) returns a status with hasChannel and isPaired set to false.\nThe debug fetcher updates the composer and disconnect button after the request resolves.\nhatchSetLinked(true) also survives a reload and a 515 or 516 stream-error reconnect. hatchSetLinked(false) does not: a reconnect replaces its debug fetcher with the server fetcher.\nRegistering a different fetcher during an active request invalidates that response and starts a replacement request.\nCalling hatchSetLinked again replaces the debug fetcher with the new return value.\nThe resolved linked or unlinked state is also stored for the connectors load check, so it outlives a reload until a later confirmed fetch replaces it, such as another hatchSetLinked call.\nhatchLinkedStatus still reports this session's state only."),
+    ((N.doc = `hatchSetLinked registers a debug fetcher for later linked-status requests.
+hatchSetLinked(true) returns an ACTIVE paired status.
+hatchSetLinked(false) returns a status with hasChannel and isPaired set to false.
+The debug fetcher updates the composer and disconnect button after the request resolves.
+hatchSetLinked(true) also survives a reload and a 515 or 516 stream-error reconnect. hatchSetLinked(false) does not: a reconnect replaces its debug fetcher with the server fetcher.
+Registering a different fetcher during an active request invalidates that response and starts a replacement request.
+Calling hatchSetLinked again replaces the debug fetcher with the new return value.
+The resolved linked or unlinked state is also stored for the connectors load check, so it outlives a reload until a later confirmed fetch replaces it, such as another hatchSetLinked call.
+hatchLinkedStatus still reports this session's state only.`),
       (N.paramsToExecute = [!0]));
     function M(e) {
       (e === void 0 && (e = "ios"),
@@ -311,8 +317,10 @@ __d(
           from: t.id,
           to: o("WAWebUserUtils").getMeUserOrThrow(),
           type: o("WAWebMsgType").MSG_TYPE.INTERACTIVE,
-          caption:
-            "*New: Meet Muse, your personal AI agent*\nHand off everyday tasks like managing your email, booking reservations, and tracking prices right from WhatsApp.\n\nJust download the Muse app and add WhatsApp as a messaging channel.",
+          caption: `*New: Meet Muse, your personal AI agent*
+Hand off everyday tasks like managing your email, booking reservations, and tracking prices right from WhatsApp.
+
+Just download the Muse app and add WhatsApp as a messaging channel.`,
           interactiveType: r("WAWebInteractiveMessageType").NATIVE_FLOW,
           nativeFlowName: r("WAWebInteractiveMessagesNativeFlowName").CTA_URL,
           nativeFlowInteractiveMsg: !0,
@@ -343,13 +351,14 @@ __d(
         n
       );
     }
-    ((M.doc =
-      "hatchInjectMusePsa adds the Muse PSA to the open chat, in memory only: the \"Try Muse\" button carries the link the PSA campaign sends to the given primary.\n'ios' (default) is the Muse App Store link, 'android' is whatsapp://hatch. Tapping the button shows the page Web opens instead. Gone after a reload."),
+    ((M.doc = `hatchInjectMusePsa adds the Muse PSA to the open chat, in memory only: the "Try Muse" button carries the link the PSA campaign sends to the given primary.
+'ios' (default) is the Muse App Store link, 'android' is whatsapp://hatch. Tapping the button shows the page Web opens instead. Gone after a reload.`),
       (M.paramsToExecute = ["ios"]));
     var w = "https://muse.ai/peer/accept#TESTFRAGMENT",
       A =
-        "Here's your pairing invitation. Share it with the person you want to pair with.\n\n" +
-        w;
+        `Here's your pairing invitation. Share it with the person you want to pair with.
+
+` + w;
     function F(e) {
       e === void 0 && (e = "share");
       var t = o("WAWebDebugUtils").getSelectedChat(),
@@ -436,61 +445,57 @@ __d(
         a
       );
     }
-    ((F.doc =
-      "hatchInjectPairingCard adds a Muse reply carrying a pairing_launcher presentation row to the open chat, in memory only, with a fake invitation fragment.\nRun it in the Muse chat. The card needs the Jarvis renderer and ai_hatch_peer_pairing_card_enabled (on dev-web, ?ai_hatch_response_ux_parity_enabled=true&ai_hatch_peer_pairing_card_enabled=true); with either off the bubble shows the invitation text the row also carries.\nPass 'invite', 'accept' or 'confirm' to check that an action WhatsApp has no card for falls back to that text. Gone after a reload."),
+    ((F.doc = `hatchInjectPairingCard adds a Muse reply carrying a pairing_launcher presentation row to the open chat, in memory only, with a fake invitation fragment.
+Run it in the Muse chat. The card needs the Jarvis renderer and ai_hatch_peer_pairing_card_enabled (on dev-web, ?ai_hatch_response_ux_parity_enabled=true&ai_hatch_peer_pairing_card_enabled=true); with either off the bubble shows the invitation text the row also carries.
+Pass 'invite', 'accept' or 'confirm' to check that an action WhatsApp has no card for falls back to that text. Gone after a reload.`),
       (F.paramsToExecute = ["share"]));
-    function O(e) {
-      return B.apply(this, arguments);
-    }
-    function B() {
+    async function O(e) {
+      (e === void 0 &&
+        (e = o(
+          "WAWebHatchMinPrimaryVersions",
+        ).HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION),
+        r("vulture")("3UqZCxLVFzNUdi9R1eAB0VJF4i8="));
+      var t =
+        e != null
+          ? e
+          : await o("WAWebPrimaryVersion").getPrimaryCurrentVersion();
+      t != null &&
+        (await o("WAWebPrimaryVersion").storePrimaryCurrentVersion(t));
+      var n = o("WAWebPrimaryVersion").getStoredPrimaryCurrentVersion();
       return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (e === void 0 &&
-            (e = o(
-              "WAWebHatchMinPrimaryVersions",
-            ).HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION),
-            r("vulture")("3UqZCxLVFzNUdi9R1eAB0VJF4i8="));
-          var t =
-            e != null
-              ? e
-              : yield o("WAWebPrimaryVersion").getPrimaryCurrentVersion();
-          t != null &&
-            (yield o("WAWebPrimaryVersion").storePrimaryCurrentVersion(t));
-          var n = o("WAWebPrimaryVersion").getStoredPrimaryCurrentVersion();
-          return (
-            o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "[debugHatch] stored primary version ",
-                  "",
-                ])),
-              String(n),
-            ),
-            n
-          );
-        })),
-        B.apply(this, arguments)
+        o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "[debugHatch] stored primary version ",
+              "",
+            ])),
+          String(n),
+        ),
+        n
       );
     }
     ((O.doc =
-      "hatchSetPrimaryVersion overwrites the stored primary version that the Hatch min-primary-version gates read.\nDefaults to " +
+      `hatchSetPrimaryVersion overwrites the stored primary version that the Hatch min-primary-version gates read.
+Defaults to ` +
       o("WAWebHatchMinPrimaryVersions")
         .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION +
-      "; pass e.g. '2.26.40.75' to fall below it, or null to restore the version synced from the primary.\nThe value persists across reloads until the primary syncs a new version. Reload to re-render surfaces that already read the gates.\nReturns the version now stored."),
+      `; pass e.g. '2.26.40.75' to fall below it, or null to restore the version synced from the primary.
+The value persists across reloads until the primary syncs a new version. Reload to re-render surfaces that already read the gates.
+Returns the version now stored.`),
       (O.paramsToExecute = [
         o("WAWebHatchMinPrimaryVersions")
           .HATCH_OCT_12_BUNDLE_MIN_PRIMARY_VERSION,
       ]));
-    function W() {
+    function B() {
       return (
         r("vulture")("f0-7_HNyVvdpHy7eLns_q3cO2CQ="),
         o("WAWebPrimaryVersion").getStoredPrimaryCurrentVersion()
       );
     }
-    ((W.doc =
+    ((B.doc =
       "Report the stored primary version that the Hatch min-primary-version gates read"),
-      (W.paramsToExecute = []));
-    var q = {
+      (B.paramsToExecute = []));
+    var W = {
       ai_hatch_integration_enabled: !0,
       ai_hatch_ideas_enabled: !0,
       ai_hatch_video_avatars_enabled: !0,
@@ -519,72 +524,63 @@ __d(
       ai_meta_ai_muse_default_assistant_variant_2: !0,
       ai_meta_ai_muse_default_assistant_variant_3: !0,
     };
-    function U(e, t) {
-      return V.apply(this, arguments);
-    }
-    function V() {
+    async function q(e, t) {
+      var n;
+      (t === void 0 && (t = !0), r("vulture")("hgA_uhNK_Zt4I9ulb8TWA08T94w="));
+      var a = e == null || e === "all" ? Object.keys(W) : [e],
+        i = new Set(
+          (n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
+            o("WAWebUserPrefsKeys").KEYS.PRIMARY_FEATURES,
+          )) != null
+            ? n
+            : [],
+        );
+      for (var l of a) t ? i.add(l) : i.delete(l);
+      await o("WAWebPrimaryFeatures").setPrimaryFeatures(Array.from(i));
+      var s = a.filter(function (e) {
+        return o("WAWebPrimaryFeatures").primaryFeatureEnabled(e) !== t;
+      });
+      s.length > 0 &&
+        o("WALogger").WARN(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "[debugHatch] ",
+              " kept ",
+              " by the primary_features_enabled / primary_features_disabled URL params",
+            ])),
+          s.join(", "),
+          t ? "off" : "on",
+        );
+      var u = Object.keys(W).filter(function (e) {
+        return o("WAWebPrimaryFeatures").primaryFeatureEnabled(e);
+      });
       return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
-          (t === void 0 && (t = !0),
-            r("vulture")("hgA_uhNK_Zt4I9ulb8TWA08T94w="));
-          var a = e == null || e === "all" ? Object.keys(q) : [e],
-            i = new Set(
-              (n = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(
-                o("WAWebUserPrefsKeys").KEYS.PRIMARY_FEATURES,
-              )) != null
-                ? n
-                : [],
-            );
-          for (var l of a) t ? i.add(l) : i.delete(l);
-          yield o("WAWebPrimaryFeatures").setPrimaryFeatures(Array.from(i));
-          var s = a.filter(function (e) {
-            return o("WAWebPrimaryFeatures").primaryFeatureEnabled(e) !== t;
-          });
-          s.length > 0 &&
-            o("WALogger").WARN(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[debugHatch] ",
-                  " kept ",
-                  " by the primary_features_enabled / primary_features_disabled URL params",
-                ])),
-              s.join(", "),
-              t ? "off" : "on",
-            );
-          var u = Object.keys(q).filter(function (e) {
-            return o("WAWebPrimaryFeatures").primaryFeatureEnabled(e);
-          });
-          return (
-            o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[debugHatch] Hatch primary features on: ",
-                  "",
-                ])),
-              u.join(", "),
-            ),
-            u
-          );
-        })),
-        V.apply(this, arguments)
+        o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "[debugHatch] Hatch primary features on: ",
+              "",
+            ])),
+          u.join(", "),
+        ),
+        u
       );
+    }
+    ((q.doc = `hatchSetPrimaryFeature turns a Hatch primary feature on or off in the stored primary feature list, as if the primary had advertised it.
+hatchSetPrimaryFeature('ai_hatch_integration_enabled', false) turns one off; pass null or 'all' as the feature to set every Hatch primary feature at once.
+Only the Hatch features change: the rest of the list stays as the primary sent it, so the primary_features_enabled / primary_features_disabled URL params are not saved into it. Those params still win over this command, which warns when they do.
+The list persists across reloads until the primary's next feature sync overwrites it. Reload to re-render surfaces that already read the gates.
+Returns the Hatch primary features now in effect.`),
+      (q.paramsToExecute = ["all", !0]));
+    function U() {
+      return Object.keys(W).filter(function (e) {
+        return o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(e);
+      });
     }
     ((U.doc =
-      "hatchSetPrimaryFeature turns a Hatch primary feature on or off in the stored primary feature list, as if the primary had advertised it.\nhatchSetPrimaryFeature('ai_hatch_integration_enabled', false) turns one off; pass null or 'all' as the feature to set every Hatch primary feature at once.\nOnly the Hatch features change: the rest of the list stays as the primary sent it, so the primary_features_enabled / primary_features_disabled URL params are not saved into it. Those params still win over this command, which warns when they do.\nThe list persists across reloads until the primary's next feature sync overwrites it. Reload to re-render surfaces that already read the gates.\nReturns the Hatch primary features now in effect."),
-      (U.paramsToExecute = ["all", !0]));
-    function H() {
-      return (
-        r("vulture")("lzsj6Pisurtc24JYt5hzFK7_6tg="),
-        Object.keys(q).filter(function (e) {
-          return o("WAWebPrimaryFeaturesModel").PrimaryFeatures.hasFeature(e);
-        })
-      );
-    }
-    ((H.doc =
       "Report which Hatch primary features are in effect, including URL param overrides"),
-      (H.paramsToExecute = []));
-    function G() {
+      (U.paramsToExecute = []));
+    function V() {
       var e;
       return {
         isLinked: (e = r("WAWebHatchLinkedStatusManager")).isLinked(),
@@ -593,17 +589,17 @@ __d(
         status: e.getLinkedStatus(),
       };
     }
-    ((G.doc =
+    ((V.doc =
       "Report the latest Hatch linked-status fetch result and the last confirmed status."),
-      (G.paramsToExecute = []));
-    function z() {
+      (V.paramsToExecute = []));
+    function H() {
       var e = o("WAWebHatchReadinessDebug").formatHatchReadinessReport(
-        o("WAWebHatchReadinessDebug").collectHatchReadinessInputs(G()),
+        o("WAWebHatchReadinessDebug").collectHatchReadinessInputs(V()),
       );
       return (
         o("WALogger").LOG(
-          d ||
-            (d = babelHelpers.taggedTemplateLiteralLoose([
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
               "[debugHatch] ",
               "",
             ])),
@@ -612,18 +608,18 @@ __d(
         e
       );
     }
-    ((z.doc =
+    ((H.doc =
       "Explain why Muse cards may not show on this browser: a verdict line, the app version, the Muse link, the Hatch gates with their source, and the card capabilities your next Muse message from here declares. Read-only and logs no ABProp exposure. Ends with a one-line summary to paste into a thread; it holds no phone number, JID or ids."),
-      (z.paramsToExecute = []));
-    var j = {
+      (H.paramsToExecute = []));
+    var G = {
       hatchClearPayloads: S,
       hatchClearSpaces: x,
-      hatchLinkedStatus: G,
-      hatchPrimaryFeatures: H,
-      hatchPrimaryVersion: W,
-      hatchReadiness: z,
+      hatchLinkedStatus: V,
+      hatchPrimaryFeatures: U,
+      hatchPrimaryVersion: B,
+      hatchReadiness: H,
       hatchSetLinked: N,
-      hatchSetPrimaryFeature: U,
+      hatchSetPrimaryFeature: q,
       hatchSetPrimaryVersion: O,
       hatchInjectApproval: k,
       hatchInjectCheckout: I,
@@ -637,7 +633,7 @@ __d(
       injectHatchApprovals: E,
       openHatchApprovalDialog: L,
     };
-    l.default = j;
+    l.default = G;
   },
   98,
 );

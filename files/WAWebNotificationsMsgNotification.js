@@ -26,11 +26,11 @@ __d(
       var t = null;
       return (
         o("WAWebMsgGetters").getHasMentionOfMe(e) &&
-          (t = s._(/*BTDS*/ "Mentioned you").toString()),
+          (t = s._(/*BTDS*/ "").toString()),
         o("WAWebQuotedMsgModelUtils").isMyQuotedMsg(e) &&
-          (t = s._(/*BTDS*/ "Replied to you").toString()),
+          (t = s._(/*BTDS*/ "").toString()),
         o("WAWebMsgGetters").getHasMentionAll(e) &&
-          (t = s._(/*BTDS*/ "Mentioned all").toString()),
+          (t = s._(/*BTDS*/ "").toString()),
         t
       );
     }
@@ -91,11 +91,8 @@ __d(
           ? (n = f)
           : o("WAWebMsgGetters").getIsGroupMsg(e)
             ? l != null
-              ? ((n = s._(/*BTDS*/ "Message from {name}", [
-                  s._param("name", l),
-                ])),
-                (l = void 0))
-              : (n = s._(/*BTDS*/ "New message"))
+              ? ((n = s._(/*BTDS*/ "", [s._param("name", l)])), (l = void 0))
+              : (n = s._(/*BTDS*/ ""))
             : (n = o(
                 "WAWebGetNotificationStrings",
               ).getPluralMessageNotificationBody(r.unreadCount));
@@ -103,8 +100,8 @@ __d(
         e.type === o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE &&
         e.subtype === "sender_invite"
           ? e.templateParams && e.templateParams[0] === "true"
-            ? (n = s._(/*BTDS*/ "Say hello on WhatsApp!"))
-            : (n = s._(/*BTDS*/ "Say hello!"))
+            ? (n = s._(/*BTDS*/ ""))
+            : (n = s._(/*BTDS*/ ""))
           : (n = o("WAWebGetNotificationStrings").getNotificationMessageBody(
               e,
             ));
@@ -115,7 +112,7 @@ __d(
           (l != null
             ? (l = h + ": " + l)
             : n != null &&
-              (n = s._(/*BTDS*/ "{mention-label}: {message-body}", [
+              (n = s._(/*BTDS*/ "", [
                 s._param("mention-label", h),
                 s._param("message-body", n),
               ]))),

@@ -5,21 +5,17 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResource")("WAWebBizOrderCreationFlow.react")
-            .__setRef("WAWebOrderCreationFlowLoadable")
-            .load();
-          return e;
-        }),
-        "OrderCreationFlow",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResource")("WAWebBizOrderCreationFlow.react")
+          .__setRef("WAWebOrderCreationFlowLoadable")
+          .load();
+        return e;
+      }, "OrderCreationFlow"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

@@ -233,7 +233,7 @@ __d(
       var l = i.get(n);
       return l === void 0
         ? null
-        : (r("immutable").Map.isMap(l) || s(0, 13282), l.get("name"));
+        : (l instanceof r("immutable").Map || s(0, 13282), l.get("name"));
     }
     function v(e, t, n) {
       return b(e, t, n == null ? "body_label" : n);

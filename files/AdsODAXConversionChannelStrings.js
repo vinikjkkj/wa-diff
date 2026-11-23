@@ -29,12 +29,10 @@ __d(
     var e,
       u,
       c = u || (u = o("react")),
-      d = s._(/*BTDS*/ "Conversion location"),
+      d = s._(/*BTDS*/ ""),
       m = "2035196646663270";
     function p(e) {
-      var t = s._(
-        /*BTDS*/ "Select the location where you want the customer action to take place.",
-      );
+      var t = s._(/*BTDS*/ "");
       switch (e) {
         case r("AdsAPIObjectives").OUTCOME_TRAFFIC:
           return c.jsxs("span", {
@@ -42,7 +40,7 @@ __d(
               o(
                 "AdsUnificationConversionContent",
               ).getConversionLocationTrafficDescriptionStringOrDefault(
-                s._(/*BTDS*/ "Choose where you want to drive traffic."),
+                s._(/*BTDS*/ ""),
               ),
               " ",
               c.jsx(r("AdsLearnMore.react"), {
@@ -59,7 +57,7 @@ __d(
               o(
                 "AdsUnificationConversionContent",
               ).getConversionLocationEngagementDescriptionStringOrDefault(
-                s._(/*BTDS*/ "Choose where you want to drive engagement."),
+                s._(/*BTDS*/ ""),
               ),
               " ",
               c.jsx(r("AdsLearnMore.react"), {
@@ -76,7 +74,7 @@ __d(
               o(
                 "AdsUnificationConversionContent",
               ).getConversionLocationLeadsDescriptionStringOrDefault(
-                s._(/*BTDS*/ "Choose where you want to generate leads."),
+                s._(/*BTDS*/ ""),
               ),
               " ",
               c.jsx(r("AdsLearnMore.react"), {
@@ -93,7 +91,7 @@ __d(
               o(
                 "AdsUnificationConversionContent",
               ).getConversionLocationSalesDescriptionStringOrDefault(
-                s._(/*BTDS*/ "Choose where you want to drive sales."),
+                s._(/*BTDS*/ ""),
               ),
               " ",
               c.jsx(r("AdsLearnMore.react"), {
@@ -109,13 +107,9 @@ __d(
       }
     }
     p.displayName = p.name + " [from " + i.id + "]";
-    var _ = s._(
-        /*BTDS*/ "Get people to interact with your post or event, or to watch a video.",
-      ),
-      f = s._(
-        /*BTDS*/ "Get people to interact with your post, event, or group, or to watch a video.",
-      ),
-      g = s._(/*BTDS*/ "Send traffic to your Instagram profile.");
+    var _ = s._(/*BTDS*/ ""),
+      f = s._(/*BTDS*/ ""),
+      g = s._(/*BTDS*/ "");
     function h(e, t) {
       var n = o("AdsManagerIGLoginUtils").getIsIGLogin(t),
         a = o(
@@ -128,9 +122,7 @@ __d(
           )
             ? a
               ? f
-              : s._(
-                  /*BTDS*/ "Get people to watch a video or interact with your post, event or group.",
-                )
+              : s._(/*BTDS*/ "")
             : null;
         case r("AdsPromotedObjectTypes").VIDEO:
         case r("AdsPromotedObjectTypes").POST:
@@ -141,16 +133,12 @@ __d(
           )
             ? a
               ? f
-              : s._(
-                  /*BTDS*/ "Get people to watch a video or interact with your post, event or group.",
-                )
+              : s._(/*BTDS*/ "")
             : a
               ? _
-              : s._(
-                  /*BTDS*/ "Get people to watch a video or interact with your post or event.",
-                );
+              : s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").PIXEL:
-          return s._(/*BTDS*/ "Get people to engage with your website.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").MESSENGER:
         case r("AdsPromotedObjectTypes").INSTAGRAM:
         case r("AdsPromotedObjectTypes").WHATSAPP:
@@ -160,9 +148,9 @@ __d(
             : o("ClickToMessagingStrings")
                 .MESSAGING_APPS_ODAX_CONVERSION_CHANNEL_STRING_ENGAGEMENT;
         case r("AdsPromotedObjectTypes").MOBILE_APP:
-          return s._(/*BTDS*/ "Get people to engage with your app.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").PAGE:
-          return s._(/*BTDS*/ "Get people to engage with your Facebook Page.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").PHONE_CALL:
           return o(
             "AdsClickToCallFeatureGating",
@@ -170,11 +158,9 @@ __d(
             ? o("ClickToCallStrings").CALL_ADS_MULTI_DESTINATION_DESCRIPTION
             : o("ClickToCallStrings").CALL_ADS_DEFAULT_DESCRIPTION;
         case r("AdsPromotedObjectTypes").WHATSAPP_CHANNEL:
-          return s._(/*BTDS*/ "Get people to follow your WhatsApp channel.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").IG_PROFILE_AND_FB_PAGE:
-          return s._(
-            /*BTDS*/ "Get people to engage with your Instagram profile, Facebook Page or both.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").LIVE_VIDEO:
           return r("isEligibleForFBClickToWatchLive")()
             ? o("ClickToWatchLiveStrings")
@@ -190,7 +176,7 @@ __d(
       switch (e) {
         case r("AdsPromotedObjectTypes").PIXEL:
         case "PRODUCT_SET_AND_WEBSITE":
-          return s._(/*BTDS*/ "Drive sales and conversions on your website.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").MESSENGER:
         case r("AdsPromotedObjectTypes").WHATSAPP:
         case r("AdsPromotedObjectTypes").INSTAGRAM:
@@ -201,29 +187,21 @@ __d(
                 .MESSAGING_APPS_ODAX_CONVERSION_CHANNEL_STRING_SALES;
         case r("AdsPromotedObjectTypes").MOBILE_APP:
         case "PRODUCT_SET_AND_APP":
-          return s._(/*BTDS*/ "Drive sales and conversions on your app.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").IN_STORE:
-          return s._(
-            /*BTDS*/ "Drive sales and conversions in your physical stores.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").WEBSITE_AND_IN_STORE:
         case "PRODUCT_SET_AND_IN_STORE":
-          return s._(
-            /*BTDS*/ "Drive sales and conversions on your website and in physical stores.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").WEBSITE_APP_AND_IN_STORE:
         case "PRODUCT_SET_WEBSITE_APP_AND_INSTORE":
-          return s._(
-            /*BTDS*/ "Drive sales and conversions on your website, app and in physical stores.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").WEB_AND_APP:
         case r("AdsPromotedObjectTypes").PRODUCT_SET:
         case "PRODUCT_SET_AND_OMNICHANNEL":
-          return s._(
-            /*BTDS*/ "Drive sales and conversions on your website or app.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").DONATION:
-          return s._(/*BTDS*/ "Allow people to make donations from ads.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").PHONE_CALL:
           return o(
             "AdsClickToCallFeatureGating",
@@ -232,17 +210,11 @@ __d(
             : o("ClickToCallStrings").CALL_ADS_PROMOTED_DEFAULT_DESCRIPTION;
         case r("AdsPromotedObjectTypes").WEBSITE_AND_PHONE_CALL:
         case "PRODUCT_SET_AND_WEBSITE_AND_PHONE_CALL":
-          return s._(
-            /*BTDS*/ "Drive sales and conversions on your website and through calls.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").WEBSITE_AND_MESSAGES:
-          return s._(
-            /*BTDS*/ "Drive sales and conversions on your website and through messaging conversations.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").WEBSITE_AND_INSTANT_FORM:
-          return s._(
-            /*BTDS*/ "Generate sales and leads through both your website and instant forms.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").LIVE_VIDEO:
           return r("isEligibleForFBClickToWatchLive")()
             ? o("ClickToWatchLiveStrings")
@@ -256,22 +228,18 @@ __d(
     function C(e) {
       switch (e) {
         case r("AdsPromotedObjectTypes").PIXEL:
-          return s._(/*BTDS*/ "Generate leads through your website.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").PRODUCT_SET:
         case r("AdsPromotedObjectTypes").ON_AD:
-          return s._(
-            /*BTDS*/ "Generate leads by asking people to fill out a form.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").MESSENGER:
-          return s._(/*BTDS*/ "Generate leads by starting chats in Messenger.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").WHATSAPP:
-          return s._(/*BTDS*/ "Generate leads by starting chats on WhatsApp.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").LEAD_FORM_MESSENGER:
-          return s._(
-            /*BTDS*/ "Generate leads by asking people to fill out a form or by starting chats in Messenger.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").LEAD_FROM_IG_DIRECT:
-          return s._(/*BTDS*/ "Generate leads by starting chats on Instagram.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").PHONE_CALL:
           return o(
             "AdsClickToCallFeatureGating",
@@ -280,16 +248,12 @@ __d(
                 .CALL_ADS_LEAD_GEN_MULTI_DESTINATION_DESCRIPTION
             : o("ClickToCallStrings").CALL_ADS_LEAD_GEN_DEFAULT_DESCRIPTION;
         case r("AdsPromotedObjectTypes").MOBILE_APP:
-          return s._(/*BTDS*/ "Generate leads through your app.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").WEBSITE_AND_PHONE_CALL:
         case "PRODUCT_SET_AND_WEBSITE_AND_PHONE_CALL":
-          return s._(
-            /*BTDS*/ "Generate leads through both your website and calls.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").WEBSITE_AND_INSTANT_FORM:
-          return s._(
-            /*BTDS*/ "Generate leads through both your website and instant forms.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").LIVE_VIDEO:
           return r("isEligibleForFBClickToWatchLive")()
             ? o("ClickToWatchLiveStrings")
@@ -305,29 +269,23 @@ __d(
       var a = o("AdsManagerIGLoginUtils").getIsIGLogin(t);
       switch (e) {
         case r("AdsPromotedObjectTypes").WEBSITE_AND_PHONE_CALL:
-          return s._(
-            /*BTDS*/ "Send traffic to your website and get people to call your business.",
-          );
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").WEBSITE:
-          return s._(/*BTDS*/ "Send traffic to your website.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").MOBILE_APP:
-          return s._(/*BTDS*/ "Send traffic to your app.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").MESSENGER:
           return v(a);
         case r("AdsPromotedObjectTypes").WHATSAPP:
           return v(a);
         case r("AdsPromotedObjectTypes").WHATSAPP_CHANNEL:
-          return s._(/*BTDS*/ "Send traffic to WhatsApp Channel.");
+          return s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").INSTAGRAM:
           return v(a);
         case r("AdsPromotedObjectTypes").INSTAGRAM_PROFILE:
           return g;
         case r("AdsPromotedObjectTypes").IG_PROFILE_AND_FB_PAGE:
-          return r("isIABPInUPVMigration")(n)
-            ? g
-            : s._(
-                /*BTDS*/ "Send traffic to an Instagram profile, Facebook Page or both.",
-              );
+          return r("isIABPInUPVMigration")(n) ? g : s._(/*BTDS*/ "");
         case r("AdsPromotedObjectTypes").PHONE_CALL:
           return o(
             "AdsClickToCallFeatureGating",
@@ -375,9 +333,7 @@ __d(
         case "PRODUCT_SET_AND_WEBSITE":
         case "PRODUCT_SET_AND_OMNICHANNEL":
         case "PRODUCT_SET_AND_IN_STORE":
-          return s._(
-            /*BTDS*/ "For your chosen conversion location, all data sources connected to your catalog are used to track conversions.",
-          );
+          return s._(/*BTDS*/ "");
         default:
           return null;
       }
@@ -396,32 +352,27 @@ __d(
             !o(
               "isAccountEligibleForThreeCOL2AdExWithL3DA",
             ).isAccountEligibleForThreeCOL2AdExWithL3DA(t)
-            ? s._(
-                /*BTDS*/ "Choose where you want to drive sales. {learnMoreLink}",
-                [
-                  s._param(
-                    "learnMoreLink",
-                    c.jsx(
-                      "div",
-                      babelHelpers.extends(
-                        {},
-                        (e || (e = r("stylex"))).props(r("geoMargin").top8),
-                        {
-                          children: c.jsx(r("AdsLearnMore.react"), {
-                            cmsID: m,
-                            label: o(
-                              "AdsUnificationConversionContent",
-                            ).getConversionLocationLearnMoreString(),
-                          }),
-                        },
-                      ),
+            ? s._(/*BTDS*/ "", [
+                s._param(
+                  "learnMoreLink",
+                  c.jsx(
+                    "div",
+                    babelHelpers.extends(
+                      {},
+                      (e || (e = r("stylex"))).props(r("geoMargin").top8),
+                      {
+                        children: c.jsx(r("AdsLearnMore.react"), {
+                          cmsID: m,
+                          label: o(
+                            "AdsUnificationConversionContent",
+                          ).getConversionLocationLearnMoreString(),
+                        }),
+                      },
                     ),
                   ),
-                ],
-              )
-            : s._(
-                /*BTDS*/ "For your chosen conversion location, all data sources connected to your catalog are used to track conversions.",
-              );
+                ),
+              ])
+            : s._(/*BTDS*/ "");
         default:
           return null;
       }

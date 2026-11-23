@@ -1,10 +1,6 @@
 __d(
   "WAWebContactSyncLogger",
-  [
-    "WAWebBackendErrors",
-    "WAWebContactSyncEventWamEvent",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebBackendErrors", "WAWebContactSyncEventWamEvent"],
   function (t, n, r, o, a, i, l) {
     var e = {
         UNKNOWN: 0,
@@ -152,25 +148,17 @@ __d(
               });
             u.commit();
           }),
-          (t.executeWithLogging = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                try {
-                  return yield t();
-                } catch (t) {
-                  var r =
-                    t instanceof o("WAWebBackendErrors").ServerStatusCodeError
-                      ? t.statusCode
-                      : void 0;
-                  throw (this.logFailure(e, r, void 0, n), t);
-                }
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
+          (t.executeWithLogging = async function (t, n, r) {
+            try {
+              return await n();
+            } catch (n) {
+              var e =
+                n instanceof o("WAWebBackendErrors").ServerStatusCodeError
+                  ? n.statusCode
+                  : void 0;
+              throw (this.logFailure(t, e, void 0, r), n);
             }
-            return t;
-          })()),
+          }),
           e
         );
       })(),

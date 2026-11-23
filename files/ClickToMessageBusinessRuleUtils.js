@@ -24,15 +24,15 @@ __d(
           e === r("AdsAPIObjectives").OUTCOME_AWARENESS)
       );
     }
-    function u(e) {
-      return o("AdsUEditorMessagingDestinationUtils").isMessengerAndIGDirect(e)
-        ? !0
-        : o(
-            "AdsUEditorMessagingDestinationUtils",
-          ).isMultiDestinationWithMessengerAndWhatsApp(e) &&
-            o(
+    function u(e, t) {
+      return (
+        t === void 0 && (t = !1),
+        o("AdsUEditorMessagingDestinationUtils").isMessengerAndIGDirect(e)
+          ? !0
+          : o(
               "ClickToMessageCTMPerformanceFeatureGating",
-            ).shouldEnableGenAINudge(e);
+            ).shouldEnableAMMDNudgeExpansion(e, t)
+      );
     }
     ((l.eligibleForCTWADaisyChainFromIG = e),
       (l.enableCTXBuyingTypeChange = s),

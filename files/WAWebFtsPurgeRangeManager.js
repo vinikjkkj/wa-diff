@@ -1,12 +1,6 @@
 __d(
   "WAWebFtsPurgeRangeManager",
-  [
-    "WALogger",
-    "WAPromiseDelays",
-    "WAWebFtsStorage",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["WALogger", "WAPromiseDelays", "WAWebFtsStorage", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -15,26 +9,18 @@ __d(
         function t(e) {
           ((this.$2 = null), (this.$3 = null), (this.$1 = e));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.enqueue = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return (
-                  yield o("WAWebFtsStorage")
-                    .getPurgeRangeQueueTable()
-                    .createOrReplace(e),
-                  this.startDrain(),
-                  !0
-                );
-              },
+          (n.enqueue = async function (t) {
+            return (
+              await o("WAWebFtsStorage")
+                .getPurgeRangeQueueTable()
+                .createOrReplace(t),
+              this.startDrain(),
+              !0
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.startDrain = function () {
+          }),
+          (n.startDrain = function () {
             var t = [this.$2, this.$3],
               n = this.$4();
             t.includes(n) ||
@@ -50,13 +36,13 @@ __d(
                   .sendLogs("fts-purge-range-drain-failed");
               });
           }),
-          (a.drainQueue = function () {
+          (n.drainQueue = function () {
             var e, t;
             return (e = (t = this.$3) != null ? t : this.$2) != null
               ? e
               : this.$4();
           }),
-          (a.$4 = function () {
+          (n.$4 = function () {
             var e = this,
               t = this.$2;
             if (t == null) {
@@ -73,78 +59,54 @@ __d(
             }
             return this.$3;
           }),
-          (a.$5 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              for (
-                var e = new Set(), t = null, n = yield this.$6(e);
-                n.length > 0;
-              ) {
-                for (var a of n) {
-                  e.add(d(a));
-                  try {
-                    yield this.$7(a);
-                  } catch (e) {
-                    var i = r("getErrorSafe")(e);
-                    (o("WALogger").LOG(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[fts][purge-range-manager] queued chat purge failed: ",
-                          "",
-                        ])),
-                      i.name,
-                    ),
-                      t != null || (t = i));
-                  }
-                  yield o("WAPromiseDelays").delayMs(200);
-                }
-                n = yield this.$6(e);
-              }
-              if (t != null) throw t;
-              return !0;
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$7 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = self.performance.now();
-                (yield this.$1.purgeChat(e.chatId),
-                  yield this.$8(e),
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "[fts][purge-range-manager] purged queued chat in ",
-                        "ms",
+          (n.$5 = async function () {
+            for (
+              var e = new Set(), t = null, n = await this.$6(e);
+              n.length > 0;
+            ) {
+              for (var a of n) {
+                e.add(d(a));
+                try {
+                  await this.$7(a);
+                } catch (e) {
+                  var i = r("getErrorSafe")(e);
+                  (o("WALogger").LOG(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[fts][purge-range-manager] queued chat purge failed: ",
+                        "",
                       ])),
-                    self.performance.now() - t,
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+                    i.name,
+                  ),
+                    t != null || (t = i));
+                }
+                await o("WAPromiseDelays").delayMs(200);
+              }
+              n = await this.$6(e);
             }
-            return t;
-          })()),
-          (a.$6 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield o("WAWebFtsStorage")
-                  .getPurgeRangeQueueTable()
-                  .all();
-                return t.filter(function (t) {
-                  return !e.has(d(t));
-                });
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$8 = function (t) {
+            if (t != null) throw t;
+            return !0;
+          }),
+          (n.$7 = async function (t) {
+            var e = self.performance.now();
+            (await this.$1.purgeChat(t.chatId),
+              await this.$8(t),
+              o("WALogger").LOG(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "[fts][purge-range-manager] purged queued chat in ",
+                    "ms",
+                  ])),
+                self.performance.now() - e,
+              ));
+          }),
+          (n.$6 = async function (t) {
+            var e = await o("WAWebFtsStorage").getPurgeRangeQueueTable().all();
+            return e.filter(function (e) {
+              return !t.has(d(e));
+            });
+          }),
+          (n.$8 = function (t) {
             return o("WAWebFtsStorage")
               .getPurgeRangeQueueTable()
               .remove([t.chatId, t.tsOfLastMessage, t.startRowId, t.endRowId]);

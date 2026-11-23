@@ -1,7 +1,6 @@
 __d(
   "WAWebContactsAndGroupsChatMessageCountsCache",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebChatCollection",
@@ -11,52 +10,50 @@ __d(
     "WAWebMsgCollection",
     "WAWebPonyfillsIdleCallback",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = 30,
-      m = d * o("WATimeUtils").DAY_SECONDS,
-      p = { received: 0, sent: 0 },
+      c = 30,
+      d = c * o("WATimeUtils").DAY_SECONDS,
+      m = { received: 0, sent: 0 },
+      p = o(
+        "WAWebContactsAndGroupsSession",
+      ).createContactsAndGroupsSessionValue(null),
       _ = o(
         "WAWebContactsAndGroupsSession",
       ).createContactsAndGroupsSessionValue(null),
       f = o(
         "WAWebContactsAndGroupsSession",
       ).createContactsAndGroupsSessionValue(null),
-      g = o(
-        "WAWebContactsAndGroupsSession",
-      ).createContactsAndGroupsSessionValue(null),
-      h = null;
-    function y() {
-      return f.get();
+      g = null;
+    function h() {
+      return _.get();
     }
-    function C(e) {
+    function y(e) {
       var t,
-        n = (t = g.get()) != null ? t : new Set();
+        n = (t = f.get()) != null ? t : new Set();
       return (
-        g.set(n.add(e)),
+        f.set(n.add(e)),
         function () {
           n.delete(e);
         }
       );
     }
-    function b() {
-      var e = h != null ? h : { consumerCount: 0, stop: S() };
-      (e.consumerCount++, (h = e));
+    function C() {
+      var e = g != null ? g : { consumerCount: 0, stop: v() };
+      (e.consumerCount++, (g = e));
       var t = !1;
       return function () {
         t ||
           ((t = !0),
           e.consumerCount--,
-          e.consumerCount === 0 && (e.stop(), (h = null)));
+          e.consumerCount === 0 && (e.stop(), (g = null)));
       };
     }
-    function v(e, t) {
+    function b(e, t) {
       return (
         e.id.isRegularUser() &&
         !o("WAWebUserUtils").isMeAccount(e.id) &&
@@ -64,33 +61,33 @@ __d(
         o("WATimeUtils").happenedWithinAt(
           t,
           o("WATimeUtils").castToUnixTime(e.t),
-          m,
+          d,
         ) &&
         o("WAWebFrontendChatGetters").getShouldAppearInList(e)
       );
     }
-    function S() {
+    function v() {
       var e = {
           cancelWait: null,
           hasAddedChats: !1,
           isAborted: !1,
           isScanning: !1,
         },
-        t = x(function (t) {
+        t = I(function (t) {
           var n,
             r = o("WATimeUtils").unixTime();
-          v(t, r) &&
-            ((n = P(t.id.toString(), r)) == null ? void 0 : n.chatTime) ==
+          b(t, r) &&
+            ((n = D(t.id.toString(), r)) == null ? void 0 : n.chatTime) ==
               null &&
-            R(e);
+            S(e);
         }),
-        n = x(function (t) {
+        n = I(function (t) {
           var n = o("WATimeUtils").unixTime();
-          v(t, n) && k(t, n) && R(e);
+          b(t, n) && L(t, n) && S(e);
         });
       return (
-        R(e),
-        o("WAWebMsgCollection").MsgCollection.on("add", D),
+        S(e),
+        o("WAWebMsgCollection").MsgCollection.on("add", k),
         o("WAWebChatCollection")
           .ChatCollection.on("add", t)
           .on("change:t", t)
@@ -101,19 +98,19 @@ __d(
         function () {
           ((e.isAborted = !0),
             e.cancelWait == null || e.cancelWait(),
-            o("WAWebMsgCollection").MsgCollection.off("add", D),
+            o("WAWebMsgCollection").MsgCollection.off("add", k),
             o("WAWebChatCollection").ChatCollection.off(null, t).off(null, n));
         }
       );
     }
-    function R(t) {
+    function S(t) {
       if (t.isScanning) {
         t.hasAddedChats = !0;
         return;
       }
       ((t.isScanning = !0),
         (t.hasAddedChats = !1),
-        L(t)
+        R(t)
           .catch(function (t) {
             o("WALogger")
               .WARN(
@@ -125,98 +122,77 @@ __d(
               .catching(r("getErrorSafe")(t));
           })
           .finally(function () {
-            ((t.isScanning = !1), t.hasAddedChats && !t.isAborted && R(t));
+            ((t.isScanning = !1), t.hasAddedChats && !t.isAborted && S(t));
           }));
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    async function R(e) {
+      var t = o("WATimeUtils").unixTime(),
+        n = M(t)
+          .filter(function (e) {
+            return L(e, t);
+          })
+          .sort(function (e, t) {
+            var n, r;
+            return ((n = t.t) != null ? n : 0) - ((r = e.t) != null ? r : 0);
+          });
+      (await E(n, 0, t, e)) && P(t);
     }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WATimeUtils").unixTime(),
-            n = F(t)
-              .filter(function (e) {
-                return k(e, t);
-              })
-              .sort(function (e, t) {
-                var n, r;
-                return (
-                  ((n = t.t) != null ? n : 0) - ((r = e.t) != null ? r : 0)
-                );
-              });
-          (yield I(n, 0, t, e)) && w(t);
-        })),
-        E.apply(this, arguments)
-      );
-    }
-    function k(e, t) {
+    function L(e, t) {
       var n,
-        r = (n = _.get()) == null ? void 0 : n.get(e.id.toString());
+        r = (n = p.get()) == null ? void 0 : n.get(e.id.toString());
       return (
         r == null ||
         r.chatTime !== e.t ||
         t - r.countedAt > o("WATimeUtils").DAY_SECONDS
       );
     }
-    function I(e, t, n, r, o) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            var l, s;
-            i === void 0 && (i = !1);
-            var c = e[t];
-            if (c == null) return !0;
-            if ((yield M(a), a.isAborted)) return !1;
-            var d = c.id.toString(),
-              p = c.t,
-              f = (l = _.get()) == null ? void 0 : l.get(d),
-              g = yield o("WAWebContactsAndGroupsDBChatMessageCounts")
-                .countSentAndReceivedMessagesSince(
-                  c.id,
-                  o("WATimeUtils").pastUnixTime(m, n),
+    async function E(e, t, n, a, i) {
+      var l, u;
+      i === void 0 && (i = !1);
+      var c = e[t];
+      if (c == null) return !0;
+      if ((await $(a), a.isAborted)) return !1;
+      var m = c.id.toString(),
+        _ = c.t,
+        f = (l = p.get()) == null ? void 0 : l.get(m),
+        g = await o("WAWebContactsAndGroupsDBChatMessageCounts")
+          .countSentAndReceivedMessagesSince(
+            c.id,
+            o("WATimeUtils").pastUnixTime(d, n),
+          )
+          .catch(function (e) {
+            return (
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "contacts and groups: counting the messages of a 1:1 chat failed",
+                    ])),
                 )
-                .catch(function (e) {
-                  return (
-                    o("WALogger")
-                      .WARN(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "contacts and groups: counting the messages of a 1:1 chat failed",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e)),
-                    null
-                  );
-                });
-            if (a.isAborted) return !1;
-            var h = (s = _.get()) == null ? void 0 : s.get(d);
-            return h !== f
-              ? i
-                ? (h != null &&
-                    N(d, babelHelpers.extends({}, h, { chatTime: null })),
-                  I(e, t + 1, n, a))
-                : I(e, t, n, a, !0)
-              : (g != null && N(d, { chatTime: p, count: g, countedAt: n }),
-                I(e, t + 1, n, a));
-          },
-        )),
-        T.apply(this, arguments)
-      );
+                .catching(r("getErrorSafe")(e)),
+              null
+            );
+          });
+      if (a.isAborted) return !1;
+      var h = (u = p.get()) == null ? void 0 : u.get(m);
+      return h !== f
+        ? i
+          ? (h != null && x(m, babelHelpers.extends({}, h, { chatTime: null })),
+            E(e, t + 1, n, a))
+          : E(e, t, n, a, !0)
+        : (g != null && x(m, { chatTime: _, count: g, countedAt: n }),
+          E(e, t + 1, n, a));
     }
-    var D = x($);
-    function x(e) {
+    var k = I(T);
+    function I(e) {
       return function (t) {
         try {
           e(t);
         } catch (e) {
           o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "contacts and groups: updating 1:1 message counts failed",
                 ])),
             )
@@ -224,7 +200,7 @@ __d(
         }
       };
     }
-    function $(e) {
+    function T(e) {
       var t, n, r;
       if (
         !(
@@ -236,45 +212,45 @@ __d(
       ) {
         var a = o("WAWebChatCollection").ChatCollection.get(e.id.remote),
           i = o("WATimeUtils").unixTime();
-        if (!(a == null || !v(a, i))) {
+        if (!(a == null || !b(a, i))) {
           var l = a.id.toString(),
-            s = P(l, i),
-            u = (t = s == null ? void 0 : s.count) != null ? t : p,
+            s = D(l, i),
+            u = (t = s == null ? void 0 : s.count) != null ? t : m,
             c = u.received,
             d = u.sent,
-            m = e.id.fromMe
+            p = e.id.fromMe
               ? { received: c, sent: d + 1 }
               : { received: c + 1, sent: d };
-          N(l, {
+          x(l, {
             chatTime: (n = s == null ? void 0 : s.chatTime) != null ? n : null,
-            count: m,
+            count: p,
             countedAt: (r = s == null ? void 0 : s.countedAt) != null ? r : i,
           });
-          var _ = f.get();
-          _ != null && A(new Map(_).set(l, m));
+          var f = _.get();
+          f != null && N(new Map(f).set(l, p));
         }
       }
     }
-    function P(e, t) {
+    function D(e, t) {
       var n,
-        r = (n = _.get()) == null ? void 0 : n.get(e),
+        r = (n = p.get()) == null ? void 0 : n.get(e),
         a = r == null ? void 0 : r.chatTime;
       return a != null &&
         !o("WATimeUtils").happenedWithinAt(
           t,
           o("WATimeUtils").castToUnixTime(a),
-          m,
+          d,
         )
         ? null
         : r;
     }
-    function N(e, t) {
+    function x(e, t) {
       var n,
-        r = (n = _.get()) != null ? n : new Map();
-      _.set(r.set(e, t));
+        r = (n = p.get()) != null ? n : new Map();
+      p.set(r.set(e, t));
     }
-    function M(e) {
-      return new (c || (c = n("Promise")))(function (t) {
+    function $(e) {
+      return new Promise(function (t) {
         var n = o("WAWebPonyfillsIdleCallback").requestIdleCallback(
           function () {
             return t();
@@ -285,32 +261,32 @@ __d(
         };
       });
     }
-    function w(e) {
-      var t = _.get(),
+    function P(e) {
+      var t = p.get(),
         n = new Map();
-      (F(e).forEach(function (e) {
+      (M(e).forEach(function (e) {
         var r = e.id.toString(),
           o = t == null ? void 0 : t.get(r);
         o != null && n.set(r, o.count);
       }),
-        A(n));
+        N(n));
     }
-    function A(e) {
+    function N(e) {
       var t,
-        n = f.get();
-      (n != null && O(e, n)) ||
-        (f.set(e),
-        (t = g.get()) == null ||
+        n = _.get();
+      (n != null && w(e, n)) ||
+        (_.set(e),
+        (t = f.get()) == null ||
           t.forEach(function (e) {
             return e();
           }));
     }
-    function F(e) {
+    function M(e) {
       return o("WAWebChatCollection").ChatCollection.filter(function (t) {
-        return v(t, e);
+        return b(t, e);
       });
     }
-    function O(e, t) {
+    function w(e, t) {
       return (
         e.size === t.size &&
         Array.from(e).every(function (e) {
@@ -327,11 +303,11 @@ __d(
         })
       );
     }
-    ((l.COUNT_WINDOW_SECONDS = m),
-      (l.getChatMessageCountsSnapshot = y),
-      (l.subscribeToChatMessageCounts = C),
-      (l.startChatMessageCountsScan = b),
-      (l.isCountedChat = v));
+    ((l.COUNT_WINDOW_SECONDS = d),
+      (l.getChatMessageCountsSnapshot = h),
+      (l.subscribeToChatMessageCounts = y),
+      (l.startChatMessageCountsScan = C),
+      (l.isCountedChat = b));
   },
   98,
 );

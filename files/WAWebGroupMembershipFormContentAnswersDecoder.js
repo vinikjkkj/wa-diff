@@ -4,7 +4,6 @@ __d(
     "WAWebGroupMembershipFormCryptoTypes",
     "WAWebGroupMembershipFormProto",
     "WAWebProtobufsGroupEncKey.pb",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
@@ -18,15 +17,9 @@ __d(
       };
     function d(e) {
       return {
-        decode: (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            return m(t.payload) ? e.decode(t) : p(t.payload);
-          });
-          function r(e) {
-            return t.apply(this, arguments);
-          }
-          return r;
-        })(),
+        decode: async function (n) {
+          return m(n.payload) ? e.decode(n) : p(n.payload);
+        },
       };
     }
     function m(t) {

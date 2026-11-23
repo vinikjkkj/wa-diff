@@ -1,7 +1,6 @@
 __d(
   "WAWebEncryptMsgProtobuf",
   [
-    "Promise",
     "WALogger",
     "WAWebBackendJobs.flow",
     "WAWebBackendJobsCommon",
@@ -17,191 +16,160 @@ __d(
     "WAWebWamEnumE2eDestination",
     "WAWebWamEnumEditType",
     "WAWebWamMsgUtils",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c;
-    function d(e, t, n, r, o, a, i, l) {
-      return m.apply(this, arguments);
+    var e, s, u;
+    async function c(t, n, a, i, l, u, c, m) {
+      (l === void 0 && (l = o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED),
+        c === void 0 && (c = !1));
+      try {
+        var p = await o("WAWebSignal").Cipher.encryptSignalProto(
+            t,
+            o("WAWebSendMsgCommonApi").encodeAndPad(a, {
+              type: i == null ? void 0 : i.type,
+              subtype: i == null ? void 0 : i.subtype,
+            }),
+            u,
+            c,
+          ),
+          _ = p.ciphertext,
+          f = p.type;
+        return (
+          o(
+            "WAWebPostE2eMessageSendMetric",
+          ).postSuccessDirectE2eMessageSendMetric({
+            to: t,
+            retryCount: n,
+            type: f,
+            msg: i,
+            editType: l,
+            sessionScope: u,
+            coexV2SelfHosted: m,
+            isPq: d(_),
+          }),
+          { type: f, ciphertext: _ }
+        );
+      } catch (a) {
+        if (
+          (o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "encryptMsgProtobuf: encryption fail for ",
+                  ", ",
+                  "",
+                ])),
+              t.toString(),
+              r("getErrorSafe")(a),
+            )
+            .tags("messaging"),
+          o("WAWebSignalSessionApi")
+            .maybeDeleteUnconvertedSession(t, u)
+            .catch(function (e) {
+              o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "maybeDeleteUnconvertedSession: cleanup failed for ",
+                      ", ",
+                      "",
+                    ])),
+                  t.toString(),
+                  r("getErrorSafe")(e),
+                )
+                .tags("messaging");
+            }),
+          o(
+            "WAWebPostE2eMessageSendMetric",
+          ).postFailureDirectE2eMessageSendMetric({
+            to: t,
+            retryCount: n,
+            msg: i,
+            editType: l,
+            sessionScope: u,
+            coexV2SelfHosted: m,
+          }),
+          a instanceof o("WAWebHandleMsgError").MessageValidationError)
+        )
+          throw a;
+        return Promise.reject(
+          r("err")(
+            "[messaging] encryptMsgProtobuf: encryption fail for " +
+              t.toString() +
+              ", " +
+              r("getErrorSafe")(a).message,
+          ),
+        );
+      }
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, a, i, l, u, d, m, _) {
-            (u === void 0 &&
-              (u = o("WAWebWamEnumEditType").EDIT_TYPE.NOT_EDITED),
-              m === void 0 && (m = !1));
-            try {
-              var f = yield o("WAWebSignal").Cipher.encryptSignalProto(
-                  t,
-                  o("WAWebSendMsgCommonApi").encodeAndPad(i, {
-                    type: l == null ? void 0 : l.type,
-                    subtype: l == null ? void 0 : l.subtype,
-                  }),
-                  d,
-                  m,
-                ),
-                g = f.ciphertext,
-                h = f.type;
-              return (
-                o(
-                  "WAWebPostE2eMessageSendMetric",
-                ).postSuccessDirectE2eMessageSendMetric({
-                  to: t,
-                  retryCount: a,
-                  type: h,
-                  msg: l,
-                  editType: u,
-                  sessionScope: d,
-                  coexV2SelfHosted: _,
-                  isPq: p(g),
-                }),
-                { type: h, ciphertext: g }
-              );
-            } catch (i) {
-              if (
-                (o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "encryptMsgProtobuf: encryption fail for ",
-                        ", ",
-                        "",
-                      ])),
-                    t.toString(),
-                    r("getErrorSafe")(i),
-                  )
-                  .tags("messaging"),
-                o("WAWebSignalSessionApi")
-                  .maybeDeleteUnconvertedSession(t, d)
-                  .catch(function (e) {
-                    o("WALogger")
-                      .WARN(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "maybeDeleteUnconvertedSession: cleanup failed for ",
-                            ", ",
-                            "",
-                          ])),
-                        t.toString(),
-                        r("getErrorSafe")(e),
-                      )
-                      .tags("messaging");
-                  }),
-                o(
-                  "WAWebPostE2eMessageSendMetric",
-                ).postFailureDirectE2eMessageSendMetric({
-                  to: t,
-                  retryCount: a,
-                  msg: l,
-                  editType: u,
-                  sessionScope: d,
-                  coexV2SelfHosted: _,
-                }),
-                i instanceof o("WAWebHandleMsgError").MessageValidationError)
-              )
-                throw i;
-              return (c || (c = n("Promise"))).reject(
-                r("err")(
-                  "[messaging] encryptMsgProtobuf: encryption fail for " +
-                    t.toString() +
-                    ", " +
-                    r("getErrorSafe")(i).message,
-                ),
-              );
-            }
-          },
-        )),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function d(e) {
       if (e.byteLength === 0) return !1;
       var t = new Uint8Array(e, 0, 1)[0];
       return t >>> 4 === 4;
     }
-    function _(e, t, n, r) {
-      return f.apply(this, arguments);
+    async function m(e, t, n, a) {
+      var i,
+        l,
+        s = new (o("WAWebE2eMessageSendWamEvent").E2eMessageSendWamEvent)({
+          e2eSuccessful: !0,
+          e2eCiphertextType: o(
+            "WAWebBackendJobsCommon",
+          ).getMetricE2eCiphertextType(
+            o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
+          ),
+          e2eCiphertextVersion: o("WAWebBackendJobsCommon").CIPHERTEXT_VERSION,
+          e2eDestination: o("WAWebWamEnumE2eDestination").E2E_DESTINATION.GROUP,
+          messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(e),
+          retryCount: 0,
+          isLid: !!a.isLid || ((i = e.author) == null ? void 0 : i.isLid()),
+          typeOfGroup: (l = a.wamTypeOfGroup) != null ? l : void 0,
+          editType: o("WAWebMsgGetters").getWamEditType(e),
+          localAddressingMode: o(
+            "WAWebWamAddressingModeUtils",
+          ).getAddressingModeMetricsFromGroupMetadata(a),
+        }),
+        c = o("WAWebWamMsgUtils").getWamAgentEngagementType(e);
+      c != null && (s.agentEngagementType = c);
+      var d = o("WAWebUserUtils").getMeDeviceLidOrThrow();
+      try {
+        return babelHelpers.extends(
+          {},
+          await o("WAWebSignal").Cipher.encryptSenderKeyMsgSignalProto(t, d, n),
+        );
+      } catch (e) {
+        return (
+          (s.e2eSuccessful = !1),
+          (s.weight = 1),
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "encryptMsgSenderKey: encryption fail for ",
+                  ", ",
+                  "",
+                ])),
+              t.toString(),
+              r("getErrorSafe")(e),
+            )
+            .tags("messaging"),
+          Promise.reject(
+            r("err")(
+              "[messaging] encryptMsgSenderKey: encryption fail for " +
+                t.toString() +
+                ", " +
+                r("getErrorSafe")(e).message,
+            ),
+          )
+        );
+      } finally {
+        s.commit();
+      }
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i) {
-            var l,
-              s,
-              d = new (o("WAWebE2eMessageSendWamEvent").E2eMessageSendWamEvent)(
-                {
-                  e2eSuccessful: !0,
-                  e2eCiphertextType: o(
-                    "WAWebBackendJobsCommon",
-                  ).getMetricE2eCiphertextType(
-                    o("WAWebBackendJobs.flow").CiphertextType.Skmsg,
-                  ),
-                  e2eCiphertextVersion: o("WAWebBackendJobsCommon")
-                    .CIPHERTEXT_VERSION,
-                  e2eDestination: o("WAWebWamEnumE2eDestination")
-                    .E2E_DESTINATION.GROUP,
-                  messageMediaType: o("WAWebWamMsgUtils").getWamMediaType(e),
-                  retryCount: 0,
-                  isLid:
-                    !!i.isLid || ((l = e.author) == null ? void 0 : l.isLid()),
-                  typeOfGroup: (s = i.wamTypeOfGroup) != null ? s : void 0,
-                  editType: o("WAWebMsgGetters").getWamEditType(e),
-                  localAddressingMode: o(
-                    "WAWebWamAddressingModeUtils",
-                  ).getAddressingModeMetricsFromGroupMetadata(i),
-                },
-              ),
-              m = o("WAWebWamMsgUtils").getWamAgentEngagementType(e);
-            m != null && (d.agentEngagementType = m);
-            var p = o("WAWebUserUtils").getMeDeviceLidOrThrow();
-            try {
-              return babelHelpers.extends(
-                {},
-                yield o("WAWebSignal").Cipher.encryptSenderKeyMsgSignalProto(
-                  t,
-                  p,
-                  a,
-                ),
-              );
-            } catch (e) {
-              return (
-                (d.e2eSuccessful = !1),
-                (d.weight = 1),
-                o("WALogger")
-                  .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "encryptMsgSenderKey: encryption fail for ",
-                        ", ",
-                        "",
-                      ])),
-                    t.toString(),
-                    r("getErrorSafe")(e),
-                  )
-                  .tags("messaging"),
-                (c || (c = n("Promise"))).reject(
-                  r("err")(
-                    "[messaging] encryptMsgSenderKey: encryption fail for " +
-                      t.toString() +
-                      ", " +
-                      r("getErrorSafe")(e).message,
-                  ),
-                )
-              );
-            } finally {
-              d.commit();
-            }
-          },
-        )),
-        f.apply(this, arguments)
-      );
-    }
-    ((l.encryptMsgProtobuf = d),
-      (l.isPqxdhCiphertext = p),
-      (l.encryptMsgSenderKey = _));
+    ((l.encryptMsgProtobuf = c),
+      (l.isPqxdhCiphertext = d),
+      (l.encryptMsgSenderKey = m));
   },
   98,
 );

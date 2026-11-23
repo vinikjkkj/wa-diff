@@ -61,16 +61,14 @@ __d(
       color: "purple",
       text: "required",
       getDescription: function () {
-        return s._(/*BTDS*/ "Turn this text into a task");
+        return s._(/*BTDS*/ "");
       },
       getTextPrompt: function (t) {
-        return b(t) !== ""
-          ? f()
-          : s._(/*BTDS*/ "Type the task title, then press Enter");
+        return b(t) !== "" ? f() : s._(/*BTDS*/ "");
       },
       getRunLabel: function () {
         return o("WAWebEmployeeCommandHandoff").canHandOff("task")
-          ? s._(/*BTDS*/ "Press Enter to file the task and add its link")
+          ? s._(/*BTDS*/ "")
           : g();
       },
       isAvailable: function () {
@@ -108,13 +106,11 @@ __d(
     };
     function f() {
       return o("WAWebEmployeeCommandHandoff").canHandOff("task")
-        ? s._(
-            /*BTDS*/ "Press Enter to file the quoted message and add its link",
-          )
+        ? s._(/*BTDS*/ "")
         : g();
     }
     function g() {
-      return s._(/*BTDS*/ "Press Enter, then finish filing it in Tasks");
+      return s._(/*BTDS*/ "");
     }
     function h(e) {
       (o("WAWebSlashCommandsComposer").clearComposerNow(e.editor),
@@ -145,10 +141,8 @@ __d(
             ? o("WAWebSlashCommandThanksRecipient").getContactName(n)
             : null;
       return r != null
-        ? s._(/*BTDS*/ "Quoted WhatsApp message from {sender name}:", [
-            s._param("sender name", r),
-          ])
-        : s._(/*BTDS*/ "Quoted WhatsApp message from someone:");
+        ? s._(/*BTDS*/ "", [s._param("sender name", r)])
+        : s._(/*BTDS*/ "");
     }
     function b(e) {
       var t,
@@ -192,7 +186,7 @@ __d(
       return (
         l &&
           (i = o("WAWebSlashCommandHandBack").showHandBackProgressToast(
-            s._(/*BTDS*/ "Filing task\u2026"),
+            s._(/*BTDS*/ ""),
           )),
         l
       );
@@ -202,7 +196,7 @@ __d(
         i = "https://www.internalfb.com/" + n,
         l =
           s
-            ._(/*BTDS*/ "Filed {task number}: {task title}", [
+            ._(/*BTDS*/ "", [
               s._param("task number", n),
               s._param("task title", t),
             ])
@@ -217,18 +211,14 @@ __d(
         progress: r,
         testid: "slash-command-filed-task",
         text: {
-          added: s._(/*BTDS*/ "Task {task number} filed", [
-            s._param("task number", n),
-          ]),
+          added: s._(/*BTDS*/ "", [s._param("task number", n)]),
           addedInChat: function (t) {
-            return s._(/*BTDS*/ "Filed {task number} in {chat name}", [
+            return s._(/*BTDS*/ "", [
               s._param("task number", n),
               s._param("chat name", t),
             ]);
           },
-          ready: s._(/*BTDS*/ "Filed {task number}", [
-            s._param("task number", n),
-          ]),
+          ready: s._(/*BTDS*/ "", [s._param("task number", n)]),
         },
       }),
         o("WAWebSlashCommandsUsageLogger").logFileTaskResult({
@@ -239,9 +229,9 @@ __d(
     function R(e, t, n, r, a, i) {
       if ((i === void 0 && (i = !1), r === "timeout")) {
         (o("WAWebSlashCommandHandBack").showHandBackNoAnswer({
-          noAnswer: s._(/*BTDS*/ "Tasks didn't answer"),
+          noAnswer: s._(/*BTDS*/ ""),
           noAnswerAction: {
-            actionText: s._(/*BTDS*/ "Open Tasks"),
+            actionText: s._(/*BTDS*/ ""),
             onAction: function () {
               (o("WAWebSlashCommandsUsageLogger").logFallbackOpen(
                 "fileatask",
@@ -253,11 +243,9 @@ __d(
             },
             testid: "slash-command-file-task-check-tasks",
           },
-          checkFirst: s._(
-            /*BTDS*/ "It may have been filed. If it wasn't, copy your text to try again.",
-          ),
+          checkFirst: s._(/*BTDS*/ ""),
           lastingAction: {
-            actionText: s._(/*BTDS*/ "Copy text"),
+            actionText: s._(/*BTDS*/ ""),
             onAction: function () {
               o("WAWebCopyToClipboard").copyTextToClipboard(
                 t === "" ? C(e).toString() + "\n" + b(e) : n,
@@ -285,10 +273,10 @@ __d(
           progress: a,
           reason: r,
           text: {
-            failed: s._(/*BTDS*/ "Couldn't file the task automatically"),
-            blocked: s._(/*BTDS*/ "Finish filing it in Tasks"),
+            failed: s._(/*BTDS*/ ""),
+            blocked: s._(/*BTDS*/ ""),
             open: {
-              actionText: s._(/*BTDS*/ "Open Tasks"),
+              actionText: s._(/*BTDS*/ ""),
               onAction: function () {
                 (o("WAWebSlashCommandsUsageLogger").logFallbackOpen(
                   "fileatask",

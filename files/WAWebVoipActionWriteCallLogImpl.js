@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipActionWriteCallLogImpl",
   [
-    "Promise",
     "WALogger",
     "WAResolvable",
     "WAWebCallLogMsgData.flow",
@@ -32,7 +31,6 @@ __d(
     "WAWebVoipPendingCallLogOutcome",
     "WAWebVoipPhaseTracker",
     "WAWebVoipUnresolvedPlaceholderLoadable",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -59,351 +57,293 @@ __d(
       k,
       I,
       T,
-      D,
-      x = new Set(),
-      $ = 100,
-      P = new Map();
-    function N(e) {
-      if (!x.has(e)) {
-        if (x.size >= $) {
-          var t = x.values().next().value;
-          t != null && x.delete(t);
+      D = new Set(),
+      x = 100,
+      $ = new Map();
+    function P(e) {
+      if (!D.has(e)) {
+        if (D.size >= x) {
+          var t = D.values().next().value;
+          t != null && D.delete(t);
         }
-        x.add(e);
+        D.add(e);
       }
     }
-    function M(e) {
-      return x.has(e);
+    function N(e) {
+      return D.has(e);
     }
-    function w(e) {
-      return A.apply(this, arguments);
-    }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.callOutcome,
-            a = e.chatId,
-            i = e.expectedPendingOutcome,
-            l = e.msgKey,
-            s = e.screenedElsewhere,
-            f = o("WAWebVoipPhaseTracker").beginPostCallWork(),
-            g = Date.now();
-          o("WAWebVoipActivityTracker").trackUiActivity(
-            o("WAWebVoipActivityTracker").VoipUiActivity.ICCE_WRITE_CALL_LOG,
-          );
-          try {
-            yield o("WAWebMessageQueue")
-              .onMessageQueue({
-                chatWid: a,
-                isOffline: !1,
-                msgCategory: null,
-                skipOfflineWait: !0,
-                action: (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      var e,
-                        f,
-                        h = Date.now() - g;
-                      (o("WALogger").LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "[voip] call log outcome update dequeued after ",
-                            "ms",
-                          ])),
-                        h,
-                      ),
-                        o("WAWebVoipActivityTracker").trackUiActivity(
-                          o("WAWebVoipActivityTracker").VoipUiActivity
-                            .ICCE_WRITE_CALL_LOG_QUEUED,
-                        ));
-                      var y = o("WAWebMsgCollection").MsgCollection.get(l),
-                        C = ce(l),
-                        b = C
-                          ? null
-                          : (e = y == null ? void 0 : y.toJSON()) != null
-                            ? e
-                            : yield o("WAWebDBMsgUtils").getMsgByMsgKey(l);
-                      if (b == null) {
-                        if (i != null) {
-                          (o("WALogger").LOG(
-                            c ||
-                              (c = babelHelpers.taggedTemplateLiteralLoose([
-                                "[voip] deferred call log outcome skipped; row still missing for ",
-                                "",
-                              ])),
-                            l.id,
-                          ),
-                            o("WAWebVoipActivityTracker").trackUiActivity(
-                              o("WAWebVoipActivityTracker").VoipUiActivity
-                                .ICCE_WRITE_CALL_LOG_COMPLETE,
-                            ));
-                          return;
-                        }
-                        (o(
-                          "WAWebVoipPendingCallLogOutcome",
-                        ).rememberPendingCallLogOutcome(l, t, {
-                          keepAnyOutcome: C,
-                          screenedElsewhere: s,
-                        })
-                          ? o("WALogger").LOG(
-                              d ||
-                                (d = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[voip] call log outcome deferred; no row for ",
-                                  "",
-                                ])),
-                              l.id,
-                            )
-                          : o("WALogger").LOG(
-                              m ||
-                                (m = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[voip] call log outcome update skipped; no row for ",
-                                  "",
-                                ])),
-                              l.id,
-                            ),
-                          o("WAWebVoipActivityTracker").trackUiActivity(
-                            o("WAWebVoipActivityTracker").VoipUiActivity
-                              .ICCE_WRITE_CALL_LOG_COMPLETE,
-                          ));
-                        return;
-                      }
-                      if (
-                        y == null
-                          ? b.kind !== "callLog"
-                          : y.type !== o("WAWebMsgType").MSG_TYPE.CALL_LOG
-                      ) {
-                        (o("WALogger").LOG(
-                          p ||
-                            (p = babelHelpers.taggedTemplateLiteralLoose([
-                              "[voip] call log outcome update skipped; row is not a call log for ",
-                              "",
-                            ])),
-                          l.id,
-                        ),
-                          o("WAWebVoipActivityTracker").trackUiActivity(
-                            o("WAWebVoipActivityTracker").VoipUiActivity
-                              .ICCE_WRITE_CALL_LOG_COMPLETE,
-                          ));
-                        return;
-                      }
-                      var v = o(
-                        "WAWebVoipPendingCallLogOutcome",
-                      ).prepareCallLogOutcomeUpdate({
-                        existingCallOutcome:
-                          (f = y == null ? void 0 : y.callOutcome) != null
-                            ? f
-                            : b.kind === "callLog"
-                              ? b.callOutcome
-                              : null,
-                        expectedPendingOutcome: i,
-                        msgKey: l,
-                        requestedCallOutcome: t,
-                      });
-                      if (v.type === "skip") {
-                        (v.reason === "consumed" &&
-                          o("WALogger").LOG(
-                            _ ||
-                              (_ = babelHelpers.taggedTemplateLiteralLoose([
-                                "[voip] deferred call log outcome skipped; token was consumed for ",
-                                "",
-                              ])),
-                            l.id,
-                          ),
-                          o("WAWebVoipActivityTracker").trackUiActivity(
-                            o("WAWebVoipActivityTracker").VoipUiActivity
-                              .ICCE_WRITE_CALL_LOG_COMPLETE,
-                          ));
-                        return;
-                      }
-                      var S =
-                          s != null
-                            ? s
-                            : i == null
-                              ? void 0
-                              : i.screenedElsewhere,
-                        R = babelHelpers.extends(
-                          {},
-                          b,
-                          { kind: "callLog", callOutcome: v.callOutcome },
-                          S != null ? { screenedElsewhere: S } : null,
-                        );
-                      (y != null
-                        ? yield (D || (D = n("Promise"))).all([
-                            y.applyUpdate(R),
-                            o(
-                              "WAWebHandleSingleMsgWorkerCompatible",
-                            ).handleSingleMsg({
-                              chatId: a,
-                              newMsg: R,
-                              handleSingleMsgOrigin: "voipNotification",
-                              messageOverwriteOption: o("WAWebHandleMsgTypes")
-                                .MessageOverwriteOption.VOIP_CALL_LOG,
-                            }),
-                          ])
-                        : yield o(
-                            "WAWebHandleSingleMsgWorkerCompatible",
-                          ).handleSingleMsg({
-                            chatId: a,
-                            newMsg: R,
-                            handleSingleMsgOrigin: "voipNotification",
-                            messageOverwriteOption: o("WAWebHandleMsgTypes")
-                              .MessageOverwriteOption.VOIP_CALL_LOG,
-                          }),
-                        o(
-                          "WAWebVoipPendingCallLogOutcome",
-                        ).clearPendingCallLogOutcome(l, v.pendingOutcome),
-                        r("WAWebVoipCallsTabPanelManager").trigger(
-                          "onWriteCallLogMessage",
-                          y,
-                        ),
-                        o("WAWebVoipActivityTracker").trackUiActivity(
-                          o("WAWebVoipActivityTracker").VoipUiActivity
-                            .ICCE_WRITE_CALL_LOG_COMPLETE,
-                        ));
-                    },
-                  );
-                  function f() {
-                    return e.apply(this, arguments);
-                  }
-                  return f;
-                })(),
-              })
-              .catch(function (e) {
-                return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
-                  e,
-                  "voip_call_log_outcome",
-                );
+    async function M(t) {
+      var n = t.callOutcome,
+        a = t.chatId,
+        i = t.expectedPendingOutcome,
+        l = t.msgKey,
+        p = t.screenedElsewhere,
+        _ = o("WAWebVoipPhaseTracker").beginPostCallWork(),
+        f = Date.now();
+      o("WAWebVoipActivityTracker").trackUiActivity(
+        o("WAWebVoipActivityTracker").VoipUiActivity.ICCE_WRITE_CALL_LOG,
+      );
+      try {
+        await o("WAWebMessageQueue")
+          .onMessageQueue({
+            chatWid: a,
+            isOffline: !1,
+            msgCategory: null,
+            skipOfflineWait: !0,
+            action: async function () {
+              var t,
+                _,
+                g = Date.now() - f;
+              (o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[voip] call log outcome update dequeued after ",
+                    "ms",
+                  ])),
+                g,
+              ),
+                o("WAWebVoipActivityTracker").trackUiActivity(
+                  o("WAWebVoipActivityTracker").VoipUiActivity
+                    .ICCE_WRITE_CALL_LOG_QUEUED,
+                ));
+              var h = o("WAWebMsgCollection").MsgCollection.get(l),
+                y = Z(l),
+                C = y
+                  ? null
+                  : (t = h == null ? void 0 : h.toJSON()) != null
+                    ? t
+                    : await o("WAWebDBMsgUtils").getMsgByMsgKey(l);
+              if (C == null) {
+                if (i != null) {
+                  (o("WALogger").LOG(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[voip] deferred call log outcome skipped; row still missing for ",
+                        "",
+                      ])),
+                    l.id,
+                  ),
+                    o("WAWebVoipActivityTracker").trackUiActivity(
+                      o("WAWebVoipActivityTracker").VoipUiActivity
+                        .ICCE_WRITE_CALL_LOG_COMPLETE,
+                    ));
+                  return;
+                }
+                (o(
+                  "WAWebVoipPendingCallLogOutcome",
+                ).rememberPendingCallLogOutcome(l, n, {
+                  keepAnyOutcome: y,
+                  screenedElsewhere: p,
+                })
+                  ? o("WALogger").LOG(
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
+                          "[voip] call log outcome deferred; no row for ",
+                          "",
+                        ])),
+                      l.id,
+                    )
+                  : o("WALogger").LOG(
+                      c ||
+                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                          "[voip] call log outcome update skipped; no row for ",
+                          "",
+                        ])),
+                      l.id,
+                    ),
+                  o("WAWebVoipActivityTracker").trackUiActivity(
+                    o("WAWebVoipActivityTracker").VoipUiActivity
+                      .ICCE_WRITE_CALL_LOG_COMPLETE,
+                  ));
+                return;
+              }
+              if (
+                h == null
+                  ? C.kind !== "callLog"
+                  : h.type !== o("WAWebMsgType").MSG_TYPE.CALL_LOG
+              ) {
+                (o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip] call log outcome update skipped; row is not a call log for ",
+                      "",
+                    ])),
+                  l.id,
+                ),
+                  o("WAWebVoipActivityTracker").trackUiActivity(
+                    o("WAWebVoipActivityTracker").VoipUiActivity
+                      .ICCE_WRITE_CALL_LOG_COMPLETE,
+                  ));
+                return;
+              }
+              var b = o(
+                "WAWebVoipPendingCallLogOutcome",
+              ).prepareCallLogOutcomeUpdate({
+                existingCallOutcome:
+                  (_ = h == null ? void 0 : h.callOutcome) != null
+                    ? _
+                    : C.kind === "callLog"
+                      ? C.callOutcome
+                      : null,
+                expectedPendingOutcome: i,
+                msgKey: l,
+                requestedCallOutcome: n,
               });
-          } finally {
-            o("WAWebVoipPhaseTracker").endPostCallWork(f);
-          }
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F(e) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chatId,
-            r = e.msgKey,
-            a = e.update,
-            i = o("WAWebVoipPhaseTracker").beginPostCallWork();
-          o("WAWebVoipActivityTracker").trackUiActivity(
-            o("WAWebVoipActivityTracker").VoipUiActivity.ICCE_WRITE_CALL_LOG,
-          );
-          try {
-            yield o("WAWebMessageQueue")
-              .onMessageQueue({
-                chatWid: t,
-                isOffline: !1,
-                msgCategory: null,
-                skipOfflineWait: !0,
-                action: (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      var e;
-                      ((e = o("WAWebVoipActivityTracker")).trackUiActivity(
-                        e.VoipUiActivity.ICCE_WRITE_CALL_LOG_QUEUED,
-                      ),
-                        yield B({ chatId: t, msgKey: r, update: a }),
-                        e.trackUiActivity(
-                          e.VoipUiActivity.ICCE_WRITE_CALL_LOG_COMPLETE,
-                        ));
-                    },
-                  );
-                  function i() {
-                    return e.apply(this, arguments);
-                  }
-                  return i;
-                })(),
-              })
-              .catch(function (e) {
-                return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
-                  e,
-                  "voip_call_log_outcome",
+              if (b.type === "skip") {
+                (b.reason === "consumed" &&
+                  o("WALogger").LOG(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[voip] deferred call log outcome skipped; token was consumed for ",
+                        "",
+                      ])),
+                    l.id,
+                  ),
+                  o("WAWebVoipActivityTracker").trackUiActivity(
+                    o("WAWebVoipActivityTracker").VoipUiActivity
+                      .ICCE_WRITE_CALL_LOG_COMPLETE,
+                  ));
+                return;
+              }
+              var v = p != null ? p : i == null ? void 0 : i.screenedElsewhere,
+                S = babelHelpers.extends(
+                  {},
+                  C,
+                  { kind: "callLog", callOutcome: b.callOutcome },
+                  v != null ? { screenedElsewhere: v } : null,
                 );
-              });
-          } finally {
-            o("WAWebVoipPhaseTracker").endPostCallWork(i);
-          }
-        })),
-        O.apply(this, arguments)
-      );
-    }
-    function B(e) {
-      return W.apply(this, arguments);
-    }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            a = e.chatId,
-            i = e.msgKey,
-            l = e.update;
-          if (ce(i)) {
-            o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip] ongoing call log update skipped; placeholder awaiting merge for ",
-                  "",
-                ])),
-              i.id,
+              (h != null
+                ? await Promise.all([
+                    h.applyUpdate(S),
+                    o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+                      chatId: a,
+                      newMsg: S,
+                      handleSingleMsgOrigin: "voipNotification",
+                      messageOverwriteOption: o("WAWebHandleMsgTypes")
+                        .MessageOverwriteOption.VOIP_CALL_LOG,
+                    }),
+                  ])
+                : await o(
+                    "WAWebHandleSingleMsgWorkerCompatible",
+                  ).handleSingleMsg({
+                    chatId: a,
+                    newMsg: S,
+                    handleSingleMsgOrigin: "voipNotification",
+                    messageOverwriteOption: o("WAWebHandleMsgTypes")
+                      .MessageOverwriteOption.VOIP_CALL_LOG,
+                  }),
+                o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
+                  l,
+                  b.pendingOutcome,
+                ),
+                r("WAWebVoipCallsTabPanelManager").trigger(
+                  "onWriteCallLogMessage",
+                  h,
+                ),
+                o("WAWebVoipActivityTracker").trackUiActivity(
+                  o("WAWebVoipActivityTracker").VoipUiActivity
+                    .ICCE_WRITE_CALL_LOG_COMPLETE,
+                ));
+            },
+          })
+          .catch(function (e) {
+            return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+              e,
+              "voip_call_log_outcome",
             );
-            return;
-          }
-          var s = o("WAWebMsgCollection").MsgCollection.get(i),
-            u =
-              (t = s == null ? void 0 : s.toJSON()) != null
-                ? t
-                : yield o("WAWebDBMsgUtils").getMsgByMsgKey(i);
-          if (u == null || !V(s, u)) {
-            o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip] ongoing call log update skipped for ",
-                  "",
-                ])),
-              i.id,
+          });
+      } finally {
+        o("WAWebVoipPhaseTracker").endPostCallWork(_);
+      }
+    }
+    async function w(e) {
+      var t = e.chatId,
+        n = e.msgKey,
+        r = e.update,
+        a = o("WAWebVoipPhaseTracker").beginPostCallWork();
+      o("WAWebVoipActivityTracker").trackUiActivity(
+        o("WAWebVoipActivityTracker").VoipUiActivity.ICCE_WRITE_CALL_LOG,
+      );
+      try {
+        await o("WAWebMessageQueue")
+          .onMessageQueue({
+            chatWid: t,
+            isOffline: !1,
+            msgCategory: null,
+            skipOfflineWait: !0,
+            action: async function () {
+              var e;
+              ((e = o("WAWebVoipActivityTracker")).trackUiActivity(
+                e.VoipUiActivity.ICCE_WRITE_CALL_LOG_QUEUED,
+              ),
+                await A({ chatId: t, msgKey: n, update: r }),
+                e.trackUiActivity(
+                  e.VoipUiActivity.ICCE_WRITE_CALL_LOG_COMPLETE,
+                ));
+            },
+          })
+          .catch(function (e) {
+            return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+              e,
+              "voip_call_log_outcome",
             );
-            return;
-          }
-          var c = babelHelpers.extends({}, u, { kind: "callLog" }, l);
-          (yield (D || (D = n("Promise"))).all([
-            s == null ? void 0 : s.applyUpdate(c),
-            o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
-              chatId: a,
-              newMsg: c,
-              handleSingleMsgOrigin: "voipNotification",
-              messageOverwriteOption: o("WAWebHandleMsgTypes")
-                .MessageOverwriteOption.VOIP_CALL_LOG,
-            }),
-          ]),
-            r("WAWebVoipCallsTabPanelManager").trigger(
-              "onWriteCallLogMessage",
-              s,
-            ));
-        })),
-        W.apply(this, arguments)
-      );
+          });
+      } finally {
+        o("WAWebVoipPhaseTracker").endPostCallWork(a);
+      }
     }
-    function q(e) {
-      return U.apply(this, arguments);
+    async function A(e) {
+      var t,
+        n = e.chatId,
+        a = e.msgKey,
+        i = e.update;
+      if (Z(a)) {
+        o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip] ongoing call log update skipped; placeholder awaiting merge for ",
+              "",
+            ])),
+          a.id,
+        );
+        return;
+      }
+      var l = o("WAWebMsgCollection").MsgCollection.get(a),
+        s =
+          (t = l == null ? void 0 : l.toJSON()) != null
+            ? t
+            : await o("WAWebDBMsgUtils").getMsgByMsgKey(a);
+      if (s == null || !O(l, s)) {
+        o("WALogger").LOG(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip] ongoing call log update skipped for ",
+              "",
+            ])),
+          a.id,
+        );
+        return;
+      }
+      var u = babelHelpers.extends({}, s, { kind: "callLog" }, i);
+      (await Promise.all([
+        l == null ? void 0 : l.applyUpdate(u),
+        o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+          chatId: n,
+          newMsg: u,
+          handleSingleMsgOrigin: "voipNotification",
+          messageOverwriteOption: o("WAWebHandleMsgTypes")
+            .MessageOverwriteOption.VOIP_CALL_LOG,
+        }),
+      ]),
+        r("WAWebVoipCallsTabPanelManager").trigger("onWriteCallLogMessage", l));
     }
-    function U() {
+    async function F(e) {
       return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (
-            o("WAWebMsgCollection").MsgCollection.get(e) != null ||
-            (yield o("WAWebDBMsgUtils").getMsgByMsgKey(e)) != null
-          );
-        })),
-        U.apply(this, arguments)
+        o("WAWebMsgCollection").MsgCollection.get(e) != null ||
+        (await o("WAWebDBMsgUtils").getMsgByMsgKey(e)) != null
       );
     }
-    function V(e, t) {
+    function O(e, t) {
       return e != null
         ? e.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
             e.callOutcome ===
@@ -416,435 +356,355 @@ __d(
             t.finalCallOutcome !==
               o("WAWebCallLogMsgData.flow").CallOutcome.Completed;
     }
-    function H(e, t, n, r, o, a) {
-      return G.apply(this, arguments);
-    }
-    function G() {
-      return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i, l, s) {
-            (i === void 0 && (i = !1),
-              l === void 0 && (l = !1),
-              s === void 0 && (s = !1));
-            var u = e,
-              c = le(t),
-              d = o("WAWebVoipPhaseTracker").beginPostCallWork();
-            try {
-              var m,
-                p = yield o("WAWebChatGetExistingBridge").getExisting(u);
-              if (
-                (p && p.ephemeralDuration != null
-                  ? (m = babelHelpers.extends({}, t, {
-                      ephemeralDuration: p.ephemeralDuration,
-                    }))
-                  : (m = t),
-                o("WAWebVoipActivityTracker").trackUiActivity(
-                  o("WAWebVoipActivityTracker").VoipUiActivity
-                    .ICCE_WRITE_CALL_LOG,
-                ),
-                c != null && (yield c.waitForPrevious),
-                yield de(m, s))
-              )
-                return null;
-              if ((c == null || c.release(), i && !a)) {
-                var _ = o(
-                    "WAWebVoipPendingCallLogOutcome",
-                  ).mergePendingCallLogOutcome(m),
-                  f = _.callLogMessage,
-                  g = _.pendingOutcome,
-                  S =
-                    p != null
-                      ? p
-                      : (yield o("WAWebFindChatAction").findOrCreateLatestChat(
-                          u,
-                          "voipCallLog",
-                          {
-                            buildFirstIncomingMsg: function (t) {
-                              return o(
-                                "WAWebVoipCallLogMessageTarget",
-                              ).withCallLogChatId(f, t);
-                            },
-                          },
-                        )).chat;
-                ((u = S.id),
-                  (m = o("WAWebVoipCallLogMessageTarget").withCallLogChatId(
-                    f,
-                    u,
-                  )));
-                var R = o("WAWebMsgCollection").MsgCollection.get(m.id);
-                if (!R) {
-                  var L = o("WAWebMsgCollection").MsgCollection.add(
-                    babelHelpers.extends({}, m),
-                  )[0];
-                  if (L)
-                    return (
-                      o(
-                        "WAWebVoipPendingCallLogOutcome",
-                      ).clearPendingCallLogOutcome(f.id, g),
-                      o("WALogger").LOG(
-                        h ||
-                          (h = babelHelpers.taggedTemplateLiteralLoose([
-                            "[voip] call log in-mem, async IDB persist scheduled",
-                          ])),
-                      ),
-                      se({ callLogMessage: m, chat: S, msg: L }),
-                      L
-                    );
-                }
-              }
-              var E = new (o("WAResolvable").Resolvable)(),
-                k = Date.now();
-              return (
-                o("WAWebMessageQueue")
-                  .onMessageQueue({
-                    chatWid: u,
-                    isOffline: a,
-                    msgCategory: null,
-                    skipOfflineWait: !0,
-                    action: (function () {
-                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* () {
-                          var e = Date.now() - k;
-                          (o("WALogger").LOG(
-                            y ||
-                              (y = babelHelpers.taggedTemplateLiteralLoose([
-                                "[voip] call log dequeued after ",
-                                "ms queue wait",
-                              ])),
-                            e,
-                          ),
-                            o("WAWebVoipActivityTracker").trackUiActivity(
-                              o("WAWebVoipActivityTracker").VoipUiActivity
-                                .ICCE_WRITE_CALL_LOG_QUEUED,
-                            ));
-                          var t = I(m)
-                            .then(function (t) {
-                              var n = Date.now() - k,
-                                r = n - e;
-                              (o("WALogger").LOG(
-                                C ||
-                                  (C = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[voip] call log done: queue=",
-                                    "ms write=",
-                                    "ms total=",
-                                    "ms",
-                                  ])),
-                                e,
-                                r,
-                                n,
-                              ),
-                                o("WAWebVoipActivityTracker").trackUiActivity(
-                                  o("WAWebVoipActivityTracker").VoipUiActivity
-                                    .ICCE_WRITE_CALL_LOG_COMPLETE,
-                                ),
-                                E.resolve(t));
-                            })
-                            .catch(function (e) {
-                              (o("WALogger")
-                                .ERROR(
-                                  b ||
-                                    (b =
-                                      babelHelpers.taggedTemplateLiteralLoose([
-                                        "[voip] call log write failed",
-                                      ])),
-                                )
-                                .catching(r("getErrorSafe")(e))
-                                .sendLogs("voip-callog-write-failed"),
-                                E.resolve(null));
-                            });
-                          return a ? (D || (D = n("Promise"))).resolve() : t;
+    async function B(e, t, n, a, i, l) {
+      (a === void 0 && (a = !1),
+        i === void 0 && (i = !1),
+        l === void 0 && (l = !1));
+      var s = e,
+        u = Y(t),
+        c = o("WAWebVoipPhaseTracker").beginPostCallWork();
+      try {
+        var d,
+          m = await o("WAWebChatGetExistingBridge").getExisting(s);
+        if (
+          (m && m.ephemeralDuration != null
+            ? (d = babelHelpers.extends({}, t, {
+                ephemeralDuration: m.ephemeralDuration,
+              }))
+            : (d = t),
+          o("WAWebVoipActivityTracker").trackUiActivity(
+            o("WAWebVoipActivityTracker").VoipUiActivity.ICCE_WRITE_CALL_LOG,
+          ),
+          u != null && (await u.waitForPrevious),
+          await ee(d, l))
+        )
+          return null;
+        if ((u == null || u.release(), a && !n)) {
+          var p = o(
+              "WAWebVoipPendingCallLogOutcome",
+            ).mergePendingCallLogOutcome(d),
+            _ = p.callLogMessage,
+            b = p.pendingOutcome,
+            v =
+              m != null
+                ? m
+                : (
+                    await o("WAWebFindChatAction").findOrCreateLatestChat(
+                      s,
+                      "voipCallLog",
+                      {
+                        buildFirstIncomingMsg: function (t) {
+                          return o(
+                            "WAWebVoipCallLogMessageTarget",
+                          ).withCallLogChatId(_, t);
                         },
-                      );
-                      function t() {
-                        return e.apply(this, arguments);
-                      }
-                      return t;
-                    })(),
+                      },
+                    )
+                  ).chat;
+          ((s = v.id),
+            (d = o("WAWebVoipCallLogMessageTarget").withCallLogChatId(_, s)));
+          var S = o("WAWebMsgCollection").MsgCollection.get(d.id);
+          if (!S) {
+            var R = o("WAWebMsgCollection").MsgCollection.add(
+              babelHelpers.extends({}, d),
+            )[0];
+            if (R)
+              return (
+                o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
+                  _.id,
+                  b,
+                ),
+                o("WALogger").LOG(
+                  f ||
+                    (f = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip] call log in-mem, async IDB persist scheduled",
+                    ])),
+                ),
+                J({ callLogMessage: d, chat: v, msg: R }),
+                R
+              );
+          }
+        }
+        var L = new (o("WAResolvable").Resolvable)(),
+          E = Date.now();
+        return (
+          o("WAWebMessageQueue")
+            .onMessageQueue({
+              chatWid: s,
+              isOffline: n,
+              msgCategory: null,
+              skipOfflineWait: !0,
+              action: async function () {
+                var e = Date.now() - E;
+                (o("WALogger").LOG(
+                  g ||
+                    (g = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip] call log dequeued after ",
+                      "ms queue wait",
+                    ])),
+                  e,
+                ),
+                  o("WAWebVoipActivityTracker").trackUiActivity(
+                    o("WAWebVoipActivityTracker").VoipUiActivity
+                      .ICCE_WRITE_CALL_LOG_QUEUED,
+                  ));
+                var t = k(d)
+                  .then(function (t) {
+                    var n = Date.now() - E,
+                      r = n - e;
+                    (o("WALogger").LOG(
+                      h ||
+                        (h = babelHelpers.taggedTemplateLiteralLoose([
+                          "[voip] call log done: queue=",
+                          "ms write=",
+                          "ms total=",
+                          "ms",
+                        ])),
+                      e,
+                      r,
+                      n,
+                    ),
+                      o("WAWebVoipActivityTracker").trackUiActivity(
+                        o("WAWebVoipActivityTracker").VoipUiActivity
+                          .ICCE_WRITE_CALL_LOG_COMPLETE,
+                      ),
+                      L.resolve(t));
                   })
                   .catch(function (e) {
-                    return o(
-                      "WAWebMessageQueueTimeout",
-                    ).handleMessageQueueTimeout(e, "voip_call_log_write");
-                  }),
-                yield E.promise
+                    (o("WALogger")
+                      .ERROR(
+                        y ||
+                          (y = babelHelpers.taggedTemplateLiteralLoose([
+                            "[voip] call log write failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e))
+                      .sendLogs("voip-callog-write-failed"),
+                      L.resolve(null));
+                  });
+                return n ? Promise.resolve() : t;
+              },
+            })
+            .catch(function (e) {
+              return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+                e,
+                "voip_call_log_write",
               );
-            } finally {
-              (c == null || c.release(),
-                o("WAWebVoipPhaseTracker").endPostCallWork(d));
-            }
-            function I(e) {
-              return T.apply(this, arguments);
-            }
-            function T() {
-              return (
-                (T = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    a ||
-                      (yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
-                    var t = o(
-                        "WAWebVoipPendingCallLogOutcome",
-                      ).mergePendingCallLogOutcome(e),
-                      n = yield o(
-                        "WAWebVoipBackendCallLogTargetResolver",
-                      ).resolveCallLogMessageTarget(t.callLogMessage),
-                      i = n.id.remote;
-                    if (s && (yield q(n.id)))
-                      return (
-                        o("WALogger").LOG(
-                          v ||
-                            (v = babelHelpers.taggedTemplateLiteralLoose([
-                              "[voip] call log create skipped; row exists for ",
-                              "",
-                            ])),
-                          n.id.id,
-                        ),
-                        null
-                      );
-                    var u = o(
-                        "WAWebVoipPendingCallLogOutcome",
-                      ).mergePendingCallLogOutcome(n),
-                      c = u.callLogMessage,
-                      d = u.pendingOutcome;
-                    if (a)
-                      return (
-                        yield K({
-                          callLogMessage: c,
-                          chatId: i,
-                          pendingOutcome: d,
-                        }),
-                        o(
-                          "WAWebVoipPendingCallLogOutcome",
-                        ).clearPendingCallLogOutcome(e.id, t.pendingOutcome),
-                        r("WAWebVoipCallsTabPanelManager").trigger(
-                          "onWriteCallLogMessage",
-                          null,
-                        ),
-                        null
-                      );
-                    var m = yield Z({
-                        callLogMessage: c,
-                        chatId: i,
-                        pendingOutcome: d,
-                        skipIdbPersistForUpdate: l,
-                      }),
-                      p = m.msg,
-                      _ = m.surface;
-                    if (
-                      (p != null &&
-                        o(
-                          "WAWebVoipPendingCallLogOutcome",
-                        ).clearPendingCallLogOutcome(e.id, t.pendingOutcome),
-                      _ === "promoted" || (_ === "created" && !l))
-                    ) {
-                      var f, g;
-                      yield o(
-                        "WAWebVoipActionSurfaceCallLogChat",
-                      ).maybeSurfaceCallLogChatInChatList(
-                        (f = p == null ? void 0 : p.id.remote) != null ? f : i,
-                        (g = p == null ? void 0 : p.toJSON()) != null ? g : c,
-                      );
-                    }
-                    return (
-                      r("WAWebVoipCallsTabPanelManager").trigger(
-                        "onWriteCallLogMessage",
-                        p,
-                      ),
-                      p
-                    );
-                  },
-                )),
-                T.apply(this, arguments)
-              );
-            }
-          },
-        )),
-        G.apply(this, arguments)
-      );
-    }
-    function z(e, t) {
-      return j.apply(this, arguments);
-    }
-    function j() {
-      return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = le(e);
-          try {
-            return (yield n == null ? void 0 : n.waitForPrevious, yield t());
-          } finally {
-            n == null || n.release();
-          }
-        })),
-        j.apply(this, arguments)
-      );
-    }
-    function K(e) {
-      return Q.apply(this, arguments);
-    }
-    function Q() {
-      return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.callLogMessage,
-            n = e.chatId,
-            r = e.pendingOutcome;
-          (yield X(n, t, !1).stored,
-            o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
-              t.id,
-              r,
+            }),
+          await L.promise
+        );
+      } finally {
+        (u == null || u.release(),
+          o("WAWebVoipPhaseTracker").endPostCallWork(c));
+      }
+      async function k(e) {
+        n || (await o("WAWebReleaseToEventLoop").releaseToEventLoop());
+        var t = o("WAWebVoipPendingCallLogOutcome").mergePendingCallLogOutcome(
+            e,
+          ),
+          a = await o(
+            "WAWebVoipBackendCallLogTargetResolver",
+          ).resolveCallLogMessageTarget(t.callLogMessage),
+          s = a.id.remote;
+        if (l && (await F(a.id)))
+          return (
+            o("WALogger").LOG(
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip] call log create skipped; row exists for ",
+                  "",
+                ])),
+              a.id.id,
             ),
-            yield Y(n, t));
-        })),
-        Q.apply(this, arguments)
-      );
+            null
+          );
+        var u = o("WAWebVoipPendingCallLogOutcome").mergePendingCallLogOutcome(
+            a,
+          ),
+          c = u.callLogMessage,
+          d = u.pendingOutcome;
+        if (n)
+          return (
+            await q({ callLogMessage: c, chatId: s, pendingOutcome: d }),
+            o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
+              e.id,
+              t.pendingOutcome,
+            ),
+            r("WAWebVoipCallsTabPanelManager").trigger(
+              "onWriteCallLogMessage",
+              null,
+            ),
+            null
+          );
+        var m = await H({
+            callLogMessage: c,
+            chatId: s,
+            pendingOutcome: d,
+            skipIdbPersistForUpdate: i,
+          }),
+          p = m.msg,
+          _ = m.surface;
+        if (
+          (p != null &&
+            o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
+              e.id,
+              t.pendingOutcome,
+            ),
+          _ === "promoted" || (_ === "created" && !i))
+        ) {
+          var f, g;
+          await o(
+            "WAWebVoipActionSurfaceCallLogChat",
+          ).maybeSurfaceCallLogChatInChatList(
+            (f = p == null ? void 0 : p.id.remote) != null ? f : s,
+            (g = p == null ? void 0 : p.toJSON()) != null ? g : c,
+          );
+        }
+        return (
+          r("WAWebVoipCallsTabPanelManager").trigger(
+            "onWriteCallLogMessage",
+            p,
+          ),
+          p
+        );
+      }
     }
-    function X(t, a, i) {
-      var l = o("WAWebCmd").Cmd.isMainStreamReadyMd
+    async function W(e, t) {
+      var n = Y(e);
+      try {
+        return (await (n == null ? void 0 : n.waitForPrevious), await t());
+      } finally {
+        n == null || n.release();
+      }
+    }
+    async function q(e) {
+      var t = e.callLogMessage,
+        n = e.chatId,
+        r = e.pendingOutcome;
+      (await U(n, t, !1).stored,
+        o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(t.id, r),
+        await V(n, t));
+    }
+    function U(e, t, n) {
+      var a = o("WAWebCmd").Cmd.isMainStreamReadyMd
           ? o("WAWebUpdateMessageUIAction")
-              .updateUI({ chatId: t, msg: a })
-              .catch(function (t) {
+              .updateUI({ chatId: e, msg: t })
+              .catch(function (e) {
                 o("WALogger")
                   .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                    b ||
+                      (b = babelHelpers.taggedTemplateLiteralLoose([
                         "[voip] call log UI insert failed for callId=",
                         "",
                       ])),
-                    a.id.id,
+                    t.id.id,
                   )
-                  .catching(r("getErrorSafe")(t))
+                  .catching(r("getErrorSafe")(e))
                   .sendLogs("voip-call-log-ui-insert-fail");
               })
-          : (D || (D = n("Promise"))).resolve(),
-        s = o("WAWebGetMessageCache")
+          : Promise.resolve(),
+        i = o("WAWebGetMessageCache")
           .getMessageCache()
-          .addMessages([{ msg: a }], i);
-      return { shown: l, stored: s };
+          .addMessages([{ msg: t }], n);
+      return { shown: a, stored: i };
     }
-    function Y(e, t) {
-      return J.apply(this, arguments);
-    }
-    function J() {
-      return (
-        (J = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o(
-              "WAWebVoipPendingCallLogOutcome",
-            ).mergePendingCallLogOutcome(t),
-            a = n.callLogMessage,
-            i = n.pendingOutcome;
-          if (i != null) {
-            if (a === t) {
-              o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
-                t.id,
-                i,
-              );
-              return;
-            }
-            try {
-              yield w({
-                callOutcome: i.callOutcome,
-                chatId: e,
-                expectedPendingOutcome: i,
-                msgKey: t.id,
-              });
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  S ||
-                    (S = babelHelpers.taggedTemplateLiteralLoose([
-                      "[voip] deferred call log outcome replay failed for callId=",
-                      "",
-                    ])),
-                  t.id.id,
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("voip-deferred-outcome-replay-fail");
-            }
-          }
-        })),
-        J.apply(this, arguments)
-      );
-    }
-    function Z(e) {
-      return ee.apply(this, arguments);
-    }
-    function ee() {
-      return (
-        (ee = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.callLogMessage,
-            r = e.chatId,
-            a = e.pendingOutcome,
-            i = e.skipIdbPersistForUpdate,
-            l = o("WAWebMsgCollection").MsgCollection.get(t.id);
-          if (l == null) {
-            var s = yield o("WAWebSendMsgChatAction").addVoipCallLogMsgToChat(
-              r,
-              t,
-            );
-            return (
-              s != null &&
-                o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
-                  t.id,
-                  a,
-                ),
-              { msg: s, surface: s != null ? "created" : "none" }
-            );
-          }
-          var u =
-              l.viewMode ===
-                o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME ||
-              l.viewMode ===
-                o("WAWebViewMode.flow").ViewModeType
-                  .CALL_LOG_OFFLINE_RESUME_PROMOTED,
-            c = ie(u, l.viewMode, t.viewMode),
-            d = oe(l.viewMode, t.viewMode),
-            m = te(u, l.viewMode, t);
-          ae(u, l.viewMode, m.viewMode);
-          var p = pe(
-            l.t,
-            _e(
-              l.callParticipants,
-              ge(l.screenedElsewhere, fe(l.callOutcome, m)),
-            ),
+    async function V(e, t) {
+      var n = o("WAWebVoipPendingCallLogOutcome").mergePendingCallLogOutcome(t),
+        a = n.callLogMessage,
+        i = n.pendingOutcome;
+      if (i != null) {
+        if (a === t) {
+          o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
+            t.id,
+            i,
           );
-          return (
-            i
-              ? yield l.applyUpdate(p)
-              : yield (D || (D = n("Promise"))).all([
-                  l.applyUpdate(p),
-                  yield o(
-                    "WAWebHandleSingleMsgWorkerCompatible",
-                  ).handleSingleMsg({
-                    chatId: r,
-                    newMsg: p,
-                    handleSingleMsgOrigin: "voipNotification",
-                    messageOverwriteOption: o("WAWebHandleMsgTypes")
-                      .MessageOverwriteOption.VOIP_CALL_LOG,
-                  }),
-                ]),
+          return;
+        }
+        try {
+          await M({
+            callOutcome: i.callOutcome,
+            chatId: e,
+            expectedPendingOutcome: i,
+            msgKey: t.id,
+          });
+        } catch (e) {
+          o("WALogger")
+            .ERROR(
+              v ||
+                (v = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip] deferred call log outcome replay failed for callId=",
+                  "",
+                ])),
+              t.id.id,
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("voip-deferred-outcome-replay-fail");
+        }
+      }
+    }
+    async function H(e) {
+      var t = e.callLogMessage,
+        n = e.chatId,
+        r = e.pendingOutcome,
+        a = e.skipIdbPersistForUpdate,
+        i = o("WAWebMsgCollection").MsgCollection.get(t.id);
+      if (i == null) {
+        var l = await o("WAWebSendMsgChatAction").addVoipCallLogMsgToChat(n, t);
+        return (
+          l != null &&
             o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
               t.id,
-              a,
+              r,
             ),
-            d &&
-              o(
-                "WAWebVoipUnresolvedPlaceholderLoadable",
-              ).countShownPlaceholderAgainLoadable(t.id),
-            { msg: l, surface: c ? "promoted" : "none" }
-          );
-        })),
-        ee.apply(this, arguments)
+          { msg: l, surface: l != null ? "created" : "none" }
+        );
+      }
+      var s =
+          i.viewMode ===
+            o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME ||
+          i.viewMode ===
+            o("WAWebViewMode.flow").ViewModeType
+              .CALL_LOG_OFFLINE_RESUME_PROMOTED,
+        u = X(s, i.viewMode, t.viewMode),
+        c = K(i.viewMode, t.viewMode),
+        d = G(s, i.viewMode, t);
+      Q(s, i.viewMode, d.viewMode);
+      var m = te(
+        i.t,
+        ne(i.callParticipants, oe(i.screenedElsewhere, re(i.callOutcome, d))),
+      );
+      return (
+        a
+          ? await i.applyUpdate(m)
+          : await Promise.all([
+              i.applyUpdate(m),
+              await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+                chatId: n,
+                newMsg: m,
+                handleSingleMsgOrigin: "voipNotification",
+                messageOverwriteOption: o("WAWebHandleMsgTypes")
+                  .MessageOverwriteOption.VOIP_CALL_LOG,
+              }),
+            ]),
+        o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(t.id, r),
+        c &&
+          o(
+            "WAWebVoipUnresolvedPlaceholderLoadable",
+          ).countShownPlaceholderAgainLoadable(t.id),
+        { msg: i, surface: u ? "promoted" : "none" }
       );
     }
-    function te(e, t, n) {
-      var r = ne(e, t, n.viewMode);
+    function G(e, t, n) {
+      var r = z(e, t, n.viewMode);
       return r === n.viewMode
         ? n
         : babelHelpers.extends({}, n, { viewMode: r });
     }
-    function ne(e, t, n) {
+    function z(e, t, n) {
       return e && n === o("WAWebViewMode.flow").ViewModeType.VISIBLE
         ? o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME_PROMOTED
         : t != null &&
-            re(t) &&
+            j(t) &&
             !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
               o("WAWebViewMode.flow").ViewModeSurface.CHAT,
               n,
@@ -852,7 +712,7 @@ __d(
           ? t
           : n;
     }
-    function re(e) {
+    function j(e) {
       return (
         e ===
           o("WAWebViewMode.flow").ViewModeType
@@ -863,7 +723,7 @@ __d(
           ).isOfflineCallLogOrderingEnabled())
       );
     }
-    function oe(e, t) {
+    function K(e, t) {
       return (
         e ===
           o("WAWebViewMode.flow").ViewModeType
@@ -871,7 +731,7 @@ __d(
         t === o("WAWebViewMode.flow").ViewModeType.VISIBLE
       );
     }
-    function ae(e, t, n) {
+    function Q(e, t, n) {
       e &&
         n !== o("WAWebViewMode.flow").ViewModeType.CALL_LOG_OFFLINE_RESUME &&
         !o("WAWebViewModeUtils").isViewModeVisibleInSurface(
@@ -880,8 +740,8 @@ __d(
         ) &&
         o("WALogger")
           .WARN(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            S ||
+              (S = babelHelpers.taggedTemplateLiteralLoose([
                 "[writeVoipCallLogMessageImpl] placeholder ",
                 " -> non-VISIBLE ",
                 "",
@@ -892,7 +752,7 @@ __d(
           .tags("non-sad")
           .sendLogs("voip-callog-promote-non-visible");
     }
-    function ie(e, t, n) {
+    function X(e, t, n) {
       return (
         n === o("WAWebViewMode.flow").ViewModeType.VISIBLE &&
         (e ||
@@ -901,130 +761,112 @@ __d(
               .CALL_LOG_OFFLINE_RESUME_UNCOUNTED)
       );
     }
-    function le(e) {
-      var t, r;
+    function Y(e) {
+      var t, n;
       if (
         !o(
           "WAWebVoipCallLogPlaceholderTracker",
         ).isOfflineCallLogOrderingEnabled()
       )
         return null;
-      var a = (t = e.id) == null ? void 0 : t.id;
-      if (a == null) return null;
-      var i = (r = P.get(a)) != null ? r : (D || (D = n("Promise"))).resolve(),
-        l = new (o("WAResolvable").Resolvable)(),
-        s = i.then(function () {
-          return l.promise;
+      var r = (t = e.id) == null ? void 0 : t.id;
+      if (r == null) return null;
+      var a = (n = $.get(r)) != null ? n : Promise.resolve(),
+        i = new (o("WAResolvable").Resolvable)(),
+        l = a.then(function () {
+          return i.promise;
         });
-      P.set(a, s);
-      var u = !1;
+      $.set(r, l);
+      var s = !1;
       return {
-        waitForPrevious: i,
+        waitForPrevious: a,
         release: function () {
-          u ||
-            ((u = !0),
-            l.resolve(),
-            s.then(function () {
-              P.get(a) === s && P.delete(a);
+          s ||
+            ((s = !0),
+            i.resolve(),
+            l.then(function () {
+              $.get(r) === l && $.delete(r);
             }));
         },
       };
     }
-    function se(e) {
-      return ue.apply(this, arguments);
+    async function J(e) {
+      var t = e.callLogMessage,
+        n = e.chat,
+        a = e.msg,
+        i = n.id,
+        l = Date.now();
+      o("WAWebMessageQueue")
+        .onMessageQueue({
+          chatWid: i,
+          isOffline: !1,
+          msgCategory: null,
+          action: async function () {
+            var e = Date.now() - l;
+            (o("WALogger").LOG(
+              R ||
+                (R = babelHelpers.taggedTemplateLiteralLoose([
+                  "[voip] call log IDB persist dequeued after ",
+                  "ms",
+                ])),
+              e,
+            ),
+              o("WAWebVoipActivityTracker").trackUiActivity(
+                o("WAWebVoipActivityTracker").VoipUiActivity
+                  .ICCE_WRITE_CALL_LOG_QUEUED,
+              ),
+              await o("WAWebReleaseToEventLoop").releaseToEventLoop());
+            try {
+              (await o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+                chatId: i,
+                newMsg: t,
+                handleSingleMsgOrigin: "voipNotification",
+              }),
+                n.msgs.add(a),
+                o("WALogger").LOG(
+                  L ||
+                    (L = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip] call log persisted to IDB successfully",
+                    ])),
+                ));
+            } catch (e) {
+              (o("WALogger")
+                .ERROR(
+                  E ||
+                    (E = babelHelpers.taggedTemplateLiteralLoose([
+                      "[voip] call log IDB persist failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .tags("voip")
+                .sendLogs("voip: persistCallLogAsync"),
+                o("WAWebVoipActivityTracker").trackUiActivity(
+                  o("WAWebVoipActivityTracker").VoipUiActivity
+                    .ICCE_WRITE_CALL_LOG_FAILED,
+                ));
+              return;
+            }
+            (await o(
+              "WAWebVoipActionSurfaceCallLogChat",
+            ).maybeSurfaceCallLogChatInChatList(i, t),
+              o("WAWebVoipActivityTracker").trackUiActivity(
+                o("WAWebVoipActivityTracker").VoipUiActivity
+                  .ICCE_WRITE_CALL_LOG_COMPLETE,
+              ),
+              r("WAWebVoipCallsTabPanelManager").trigger(
+                "onWriteCallLogMessage",
+                a,
+              ));
+          },
+        })
+        .catch(function (e) {
+          return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+            e,
+            "voip_call_log_persist",
+          );
+        });
     }
-    function ue() {
-      return (
-        (ue = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.callLogMessage,
-            a = e.chat,
-            i = e.msg,
-            l = a.id,
-            s = Date.now();
-          o("WAWebMessageQueue")
-            .onMessageQueue({
-              chatWid: l,
-              isOffline: !1,
-              msgCategory: null,
-              action: (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* () {
-                    var e = Date.now() - s;
-                    (o("WALogger").LOG(
-                      R ||
-                        (R = babelHelpers.taggedTemplateLiteralLoose([
-                          "[voip] call log IDB persist dequeued after ",
-                          "ms",
-                        ])),
-                      e,
-                    ),
-                      o("WAWebVoipActivityTracker").trackUiActivity(
-                        o("WAWebVoipActivityTracker").VoipUiActivity
-                          .ICCE_WRITE_CALL_LOG_QUEUED,
-                      ),
-                      yield o("WAWebReleaseToEventLoop").releaseToEventLoop());
-                    try {
-                      (yield o(
-                        "WAWebHandleSingleMsgWorkerCompatible",
-                      ).handleSingleMsg({
-                        chatId: l,
-                        newMsg: t,
-                        handleSingleMsgOrigin: "voipNotification",
-                      }),
-                        a.msgs.add(i),
-                        o("WALogger").LOG(
-                          L ||
-                            (L = babelHelpers.taggedTemplateLiteralLoose([
-                              "[voip] call log persisted to IDB successfully",
-                            ])),
-                        ));
-                    } catch (e) {
-                      (o("WALogger")
-                        .ERROR(
-                          E ||
-                            (E = babelHelpers.taggedTemplateLiteralLoose([
-                              "[voip] call log IDB persist failed",
-                            ])),
-                        )
-                        .catching(r("getErrorSafe")(e))
-                        .tags("voip")
-                        .sendLogs("voip: persistCallLogAsync"),
-                        o("WAWebVoipActivityTracker").trackUiActivity(
-                          o("WAWebVoipActivityTracker").VoipUiActivity
-                            .ICCE_WRITE_CALL_LOG_FAILED,
-                        ));
-                      return;
-                    }
-                    (yield o(
-                      "WAWebVoipActionSurfaceCallLogChat",
-                    ).maybeSurfaceCallLogChatInChatList(l, t),
-                      o("WAWebVoipActivityTracker").trackUiActivity(
-                        o("WAWebVoipActivityTracker").VoipUiActivity
-                          .ICCE_WRITE_CALL_LOG_COMPLETE,
-                      ),
-                      r("WAWebVoipCallsTabPanelManager").trigger(
-                        "onWriteCallLogMessage",
-                        i,
-                      ));
-                  },
-                );
-                function u() {
-                  return e.apply(this, arguments);
-                }
-                return u;
-              })(),
-            })
-            .catch(function (e) {
-              return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
-                e,
-                "voip_call_log_persist",
-              );
-            });
-        })),
-        ue.apply(this, arguments)
-      );
-    }
-    function ce(e) {
+    function Z(e) {
       return (
         o(
           "WAWebVoipCallLogPlaceholderTracker",
@@ -1032,116 +874,106 @@ __d(
         o("WAWebVoipCallLogPlaceholderTracker").isPlaceholderPending(e.id)
       );
     }
-    function de(e, t) {
-      return me.apply(this, arguments);
-    }
-    function me() {
-      return (
-        (me = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
-          if (
-            !o(
-              "WAWebVoipCallLogPlaceholderTracker",
-            ).isOfflineCallLogOrderingEnabled()
-          )
-            return !1;
-          var a = (n = e.id) == null ? void 0 : n.id;
-          if (
-            a == null ||
-            !o("WAWebVoipCallLogPlaceholderTracker").isPlaceholderPending(a)
-          )
-            return !1;
-          if (t)
-            return (
-              o("WALogger").LOG(
-                k ||
-                  (k = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip] call log create skipped; placeholder pending for callId=",
-                    "",
-                  ])),
-                a,
-              ),
-              !0
-            );
-          try {
-            var i = o(
-                "WAWebVoipPendingCallLogOutcome",
-              ).mergePendingCallLogOutcome(e),
-              l = yield o(
-                "WAWebVoipBackendCallLogTargetResolver",
-              ).resolveCallLogMessageTarget(i.callLogMessage),
-              s = null,
-              u = null,
-              c = null;
-            if (l.kind === "callLog") {
-              var d = yield o(
-                "WAWebDBGetByParentMsgKey",
-              ).getMessageOrphansByParentMsgKey(l.id);
-              for (var m of d) {
-                var p = m.parsedMsgPayload;
-                if (p.kind === "callLog") {
-                  ((s = p.callOutcome),
-                    (u = p.screenedElsewhere),
-                    (c = p.callParticipants));
-                  break;
-                }
-              }
+    async function ee(e, t) {
+      var n;
+      if (
+        !o(
+          "WAWebVoipCallLogPlaceholderTracker",
+        ).isOfflineCallLogOrderingEnabled()
+      )
+        return !1;
+      var a = (n = e.id) == null ? void 0 : n.id;
+      if (
+        a == null ||
+        !o("WAWebVoipCallLogPlaceholderTracker").isPlaceholderPending(a)
+      )
+        return !1;
+      if (t)
+        return (
+          o("WALogger").LOG(
+            k ||
+              (k = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip] call log create skipped; placeholder pending for callId=",
+                "",
+              ])),
+            a,
+          ),
+          !0
+        );
+      try {
+        var i = o("WAWebVoipPendingCallLogOutcome").mergePendingCallLogOutcome(
+            e,
+          ),
+          l = await o(
+            "WAWebVoipBackendCallLogTargetResolver",
+          ).resolveCallLogMessageTarget(i.callLogMessage),
+          s = null,
+          u = null,
+          c = null;
+        if (l.kind === "callLog") {
+          var d = await o(
+            "WAWebDBGetByParentMsgKey",
+          ).getMessageOrphansByParentMsgKey(l.id);
+          for (var m of d) {
+            var p = m.parsedMsgPayload;
+            if (p.kind === "callLog") {
+              ((s = p.callOutcome),
+                (u = p.screenedElsewhere),
+                (c = p.callParticipants));
+              break;
             }
-            var _ = _e(c, ge(u, fe(s, l))),
-              f = o(
-                "WAWebVoipPendingCallLogOutcome",
-              ).mergePendingCallLogOutcome(_),
-              g = f.callLogMessage,
-              h = f.pendingOutcome;
-            (yield o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
-              [g],
-              function (e) {
-                return e.id;
-              },
-            ),
-              o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
-                g.id,
-                h,
-              ),
-              o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
-                e.id,
-                i.pendingOutcome,
-              ),
-              o("WALogger").LOG(
-                I ||
-                  (I = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip] orphaned for placeholder callId=",
-                    "",
-                  ])),
-                a,
-              ));
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                T ||
-                  (T = babelHelpers.taggedTemplateLiteralLoose([
-                    "[voip] storeMessageOrphans failed for callId=",
-                    "",
-                  ])),
-                a,
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("voip-orphan-store-fail");
           }
-          return !0;
-        })),
-        me.apply(this, arguments)
-      );
+        }
+        var _ = ne(c, oe(u, re(s, l))),
+          f = o("WAWebVoipPendingCallLogOutcome").mergePendingCallLogOutcome(_),
+          g = f.callLogMessage,
+          h = f.pendingOutcome;
+        (await o("WAWebDBStoreMessageOrphans").storeMessageOrphans(
+          [g],
+          function (e) {
+            return e.id;
+          },
+        ),
+          o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
+            g.id,
+            h,
+          ),
+          o("WAWebVoipPendingCallLogOutcome").clearPendingCallLogOutcome(
+            e.id,
+            i.pendingOutcome,
+          ),
+          o("WALogger").LOG(
+            I ||
+              (I = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip] orphaned for placeholder callId=",
+                "",
+              ])),
+            a,
+          ));
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            T ||
+              (T = babelHelpers.taggedTemplateLiteralLoose([
+                "[voip] storeMessageOrphans failed for callId=",
+                "",
+              ])),
+            a,
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("voip-orphan-store-fail");
+      }
+      return !0;
     }
-    function pe(e, t) {
+    function te(e, t) {
       return e != null && t.t !== e ? babelHelpers.extends({}, t, { t: e }) : t;
     }
-    function _e(e, t) {
+    function ne(e, t) {
       return e != null && t.kind === "callLog" && t.callParticipants == null
         ? babelHelpers.extends({}, t, { callParticipants: e })
         : t;
     }
-    function fe(e, t) {
+    function re(e, t) {
       return e ===
         o("WAWebCallLogMsgData.flow").CallOutcome.AcceptedElsewhere &&
         t.kind === "callLog" &&
@@ -1152,19 +984,19 @@ __d(
           })
         : t;
     }
-    function ge(e, t) {
+    function oe(e, t) {
       return e === !1 && t.kind === "callLog" && t.screenedElsewhere === !0
         ? babelHelpers.extends({}, t, { screenedElsewhere: !1 })
         : t;
     }
-    ((l.markCallIdProcessed = N),
-      (l.isCallIdAlreadyProcessed = M),
-      (l.updateVoipCallLogOutcomeImpl = w),
-      (l.updateOngoingVoipCallLogImpl = F),
-      (l.writeVoipCallLogMessageImpl = H),
-      (l.withCallLogOrphanWriteTurn = z),
-      (l.cacheCallLogMessage = X),
-      (l.replayDeferredCallLogOutcome = Y));
+    ((l.markCallIdProcessed = P),
+      (l.isCallIdAlreadyProcessed = N),
+      (l.updateVoipCallLogOutcomeImpl = M),
+      (l.updateOngoingVoipCallLogImpl = w),
+      (l.writeVoipCallLogMessageImpl = B),
+      (l.withCallLogOrphanWriteTurn = W),
+      (l.cacheCallLogMessage = U),
+      (l.replayDeferredCallLogOutcome = V));
   },
   98,
 );

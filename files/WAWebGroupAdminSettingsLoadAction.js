@@ -9,7 +9,6 @@ __d(
     "WAWebGroupQueryJob",
     "WAWebGroupQueryService",
     "WAWebGroupStoreService",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,101 +19,70 @@ __d(
       d = new Set(),
       m = new Map(),
       p = u;
-    function _(e, t) {
-      return f.apply(this, arguments);
+    async function _(e, t) {
+      var n = e.filter(function (e) {
+        return !d.has(e.id.toString());
+      });
+      n.length !== 0 &&
+        (await y(n),
+        await b(
+          n.filter(function (e) {
+            return !g(e);
+          }),
+          t,
+        ));
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.filter(function (e) {
-            return !d.has(e.id.toString());
-          });
-          n.length !== 0 &&
-            (yield b(n),
-            yield R(
-              n.filter(function (e) {
-                return !y(e);
-              }),
-              t,
-            ));
-        })),
-        f.apply(this, arguments)
+    async function f(e, t) {
+      var n = e.filter(function (e) {
+        return !h(e);
+      });
+      await o("WAConcurrentIterate").concurrentIterate(
+        n.length,
+        async function (e) {
+          t.aborted || (await v(n[e]));
+        },
+        c,
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = e.filter(function (e) {
-            return !C(e);
-          });
-          yield o("WAConcurrentIterate").concurrentIterate(
-            r.length,
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  t.aborted || (yield E(r[e]));
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-            c,
-          );
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
+    function g(e) {
       var t = o("WAWebGroupAdminSettings").getChatGroupAdminSettings(e);
       return t != null && t.addMembers != null;
     }
-    function C(e) {
+    function h(e) {
       var t;
       return (
         ((t = e.groupMetadata) == null ? void 0 : t.memberLinkMode) != null ||
         d.has(e.id.toString())
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    async function y(t) {
+      try {
+        var n = await (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebGroupStoreService").GroupStoreService,
+              ).bulkGetGroupMetadata
+            : o("WAWebDBGroupsGroupMetadata").bulkGetGroupMetadata
+        )(
+          t.map(function (e) {
+            return e.id;
+          }),
+        );
+        n.forEach(function (e, n) {
+          e != null && C(t[n], e);
+        });
+      } catch (t) {
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "loadGroupAdminSettings: failed to read stored group settings",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t));
+      }
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            var n = yield (
-              o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebGroupStoreService").GroupStoreService,
-                  ).bulkGetGroupMetadata
-                : o("WAWebDBGroupsGroupMetadata").bulkGetGroupMetadata
-            )(
-              t.map(function (e) {
-                return e.id;
-              }),
-            );
-            n.forEach(function (e, n) {
-              e != null && S(t[n], e);
-            });
-          } catch (t) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "loadGroupAdminSettings: failed to read stored group settings",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t));
-          }
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e, t) {
+    function C(e, t) {
       var n,
         r,
         o,
@@ -142,82 +110,56 @@ __d(
         }) && d.add(e.id.toString());
       }
     }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = e
-            .filter(function (e) {
-              return !m.has(e.id.toString());
-            })
-            .slice(0, p);
-          yield o("WAConcurrentIterate").concurrentIterate(
-            r.length,
-            (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  var n = r[e];
-                  t.aborted ||
-                    p === 0 ||
-                    m.has(n.id.toString()) ||
-                    (p--, yield E(n));
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
-            c,
-          );
-        })),
-        L.apply(this, arguments)
+    async function b(e, t) {
+      var n = e
+        .filter(function (e) {
+          return !m.has(e.id.toString());
+        })
+        .slice(0, p);
+      await o("WAConcurrentIterate").concurrentIterate(
+        n.length,
+        async function (e) {
+          var r = n[e];
+          t.aborted || p === 0 || m.has(r.id.toString()) || (p--, await v(r));
+        },
+        c,
       );
     }
-    function E(e) {
+    function v(e) {
       var t = e.id.toString(),
         n = m.get(t);
       if (n != null) return n;
-      var r = k(e).finally(function () {
+      var r = S(e).finally(function () {
         m.delete(t);
       });
       return (m.set(t, r), r);
     }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            (yield (
-              o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebGroupQueryService").GroupQueryService,
-                  ).queryAndUpdateGroupMetadataById
-                : o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById
-            )({ id: e.id, request: "interactive" }),
-              y(e) && d.add(e.id.toString()));
-          } catch (e) {
-            o("WALogger")
-              .WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "loadGroupAdminSettings: group query failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e));
-          }
-        })),
-        I.apply(this, arguments)
-      );
+    async function S(e) {
+      try {
+        (await (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebGroupQueryService").GroupQueryService,
+              ).queryAndUpdateGroupMetadataById
+            : o("WAWebGroupQueryJob").queryAndUpdateGroupMetadataById
+        )({ id: e.id, request: "interactive" }),
+          g(e) && d.add(e.id.toString()));
+      } catch (e) {
+        o("WALogger")
+          .WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "loadGroupAdminSettings: group query failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e));
+      }
     }
     ((l.MAX_SERVER_QUERIES_PER_SESSION = u),
       (l.loadGroupAdminSettings = _),
-      (l.loadGroupLinkModes = g),
-      (l.hasGroupAdminSettings = y),
-      (l.isGroupLinkModeKnown = C));
+      (l.loadGroupLinkModes = f),
+      (l.hasGroupAdminSettings = g),
+      (l.isGroupLinkModeKnown = h));
   },
   98,
 );

@@ -1,6 +1,6 @@
 __d(
   "MAIBAMessageContext",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -11,8 +11,12 @@ __d(
       m = u.useMemo,
       p = function () {},
       _ = Object.freeze([]),
-      f = {
+      f = Object.freeze([]),
+      g = Object.freeze([]),
+      h = Object.freeze([]),
+      y = {
         hasUserSkippedPlan: !1,
+        heldProgressStepId: null,
         isMultiCampaignPlan: !1,
         isSkipFullAnalysisButtonVisible: !1,
         lastShownProgressUpdate: null,
@@ -20,92 +24,99 @@ __d(
         progressUpdates: _,
         setLastShownProgressUpdate: p,
       },
-      g = {
+      C = {
+        actionabilityToolCalls: h,
+        botInvocationMessageOTID: null,
         botRequestId: null,
         botResponseId: null,
+        canonicalMAIBAInlineActionURLs: f,
         externalConversationId: null,
+        guardedMAIBAInlineActionLabels: g,
+        hasLoadingStateAfterText: !1,
+        hasMountedLive: !1,
+        isAxonRouted: !1,
         isFromHistory: !1,
+        isHumanAgent: !1,
         isStreaming: !1,
+        logProgressUpdateImpression: p,
         messageIndex: null,
         offlineThreadingId: null,
-        plannerContext: f,
+        plannerContext: y,
         rowIndexFromBottom: null,
         streamingState: null,
       },
-      h = c(g);
-    function y(e) {
-      var t = o("react-compiler-runtime").c(14),
-        n = e.botRequestId,
-        r = e.botResponseId,
-        a = e.children,
-        i = e.externalConversationId,
-        l = e.isFromHistory,
-        u = e.isStreaming,
-        c = e.messageIndex,
-        d = e.offlineThreadingId,
-        m = e.plannerContext,
-        p = e.rowIndexFromBottom,
-        _ = e.streamingState,
-        g = l === void 0 ? !1 : l,
-        y = u === void 0 ? !1 : u,
-        C = m === void 0 ? f : m,
-        b = _ === void 0 ? null : _,
-        v;
-      t[0] !== n ||
-      t[1] !== r ||
-      t[2] !== i ||
-      t[3] !== g ||
-      t[4] !== y ||
-      t[5] !== c ||
-      t[6] !== d ||
-      t[7] !== C ||
-      t[8] !== p ||
-      t[9] !== b
-        ? ((v = {
-            botRequestId: n,
-            botResponseId: r,
-            externalConversationId: i,
-            isFromHistory: g,
-            isStreaming: y,
-            messageIndex: c,
-            offlineThreadingId: d,
-            plannerContext: C,
-            rowIndexFromBottom: p,
-            streamingState: b,
-          }),
-          (t[0] = n),
-          (t[1] = r),
-          (t[2] = i),
-          (t[3] = g),
-          (t[4] = y),
-          (t[5] = c),
-          (t[6] = d),
-          (t[7] = C),
-          (t[8] = p),
-          (t[9] = b),
-          (t[10] = v))
-        : (v = t[10]);
-      var S = v,
-        R;
-      return (
-        t[11] !== a || t[12] !== S
-          ? ((R = s.jsx(h.Provider, { value: S, children: a })),
-            (t[11] = a),
-            (t[12] = S),
-            (t[13] = R))
-          : (R = t[13]),
-        R
-      );
+      b = c(C);
+    function v(e) {
+      var t = e.actionabilityToolCalls,
+        n = t === void 0 ? h : t,
+        r = e.botInvocationMessageOTID,
+        o = e.botRequestId,
+        a = e.botResponseId,
+        i = e.canonicalMAIBAInlineActionURLs,
+        l = i === void 0 ? f : i,
+        u = e.children,
+        c = e.externalConversationId,
+        d = e.guardedMAIBAInlineActionLabels,
+        _ = d === void 0 ? g : d,
+        C = e.hasLoadingStateAfterText,
+        v = C === void 0 ? !1 : C,
+        S = e.hasMountedLive,
+        R = S === void 0 ? !1 : S,
+        L = e.isAxonRouted,
+        E = L === void 0 ? !1 : L,
+        k = e.isFromHistory,
+        I = k === void 0 ? !1 : k,
+        T = e.isHumanAgent,
+        D = T === void 0 ? !1 : T,
+        x = e.isStreaming,
+        $ = x === void 0 ? !1 : x,
+        P = e.logProgressUpdateImpression,
+        N = P === void 0 ? p : P,
+        M = e.messageIndex,
+        w = e.offlineThreadingId,
+        A = e.plannerContext,
+        F = A === void 0 ? y : A,
+        O = e.rowIndexFromBottom,
+        B = e.streamingState,
+        W = B === void 0 ? null : B,
+        q = m(
+          function () {
+            return {
+              actionabilityToolCalls: n,
+              botInvocationMessageOTID: r,
+              botRequestId: o,
+              botResponseId: a,
+              canonicalMAIBAInlineActionURLs: l,
+              externalConversationId: c,
+              guardedMAIBAInlineActionLabels: _,
+              hasLoadingStateAfterText: v,
+              hasMountedLive: R,
+              isAxonRouted: E,
+              isFromHistory: I,
+              isHumanAgent: D,
+              isStreaming: $,
+              logProgressUpdateImpression: N,
+              messageIndex: M,
+              offlineThreadingId: w,
+              plannerContext: F,
+              rowIndexFromBottom: O,
+              streamingState: W,
+            };
+          },
+          [n, r, o, a, l, c, _, v, E, I, R, D, $, M, w, N, F, O, W],
+        );
+      return s.jsx(b.Provider, { value: q, children: u });
     }
-    function C() {
-      return d(h);
+    v.displayName = v.name + " [from " + i.id + "]";
+    function S() {
+      return d(b);
     }
-    function b() {
-      return d(h).isFromHistory;
+    function R() {
+      return d(b).isFromHistory;
     }
-    ((l.MAIBAMessageContextProvider = y),
-      (l.useMAIBAMessageContext = C),
-      (l.useIsFromHistory = b));
+    ((l.MAIBAMessageContextProvider = v),
+      (l.useMAIBAMessageContext = S),
+      (l.useIsFromHistory = R));
   },
   98,
 );

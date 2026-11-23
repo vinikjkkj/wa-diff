@@ -1,33 +1,28 @@
 __d(
   "WAWebBrowserPermissionRecovery",
-  [
-    "WALogger",
-    "WAWebBrowserPermissionSupport",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["WALogger", "WAWebBrowserPermissionSupport", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
     function u(t) {
-      var a = !1,
-        i = !1;
-      function l(n, l) {
+      var n = !1,
+        a = !1;
+      function i(i, s) {
         if (
-          l == null ||
+          s == null ||
           !o("WAWebBrowserPermissionSupport").hasBrowserPermissionButton(
             t.device,
           )
         ) {
-          (d(n), t.openGuide());
+          (u(i), t.openGuide());
           return;
         }
-        if (a || i) {
-          d(n);
+        if (n || a) {
+          u(i);
           return;
         }
-        ((a = !0),
-          u(n, l)
+        ((n = !0),
+          l(i, s)
             .catch(function (n) {
               (o("WALogger")
                 .WARN(
@@ -44,39 +39,31 @@ __d(
                 t.openGuide());
             })
             .finally(function () {
-              a = !1;
+              n = !1;
             }));
       }
-      function u(e, t) {
-        return c.apply(this, arguments);
+      async function l(e, n) {
+        var r = n.cancelSignal,
+          o = n.onAllowed,
+          i = await t.reportRefusal(e),
+          l = await c(i, r);
+        if (!a) {
+          if (l == null) {
+            t.openGuide();
+            return;
+          }
+          t.openDialog(l, {
+            cancelSignal: r,
+            onAllowed: function () {
+              r.aborted || o();
+            },
+            onOpenChange: function (t) {
+              a = t;
+            },
+          });
+        }
       }
-      function c() {
-        return (
-          (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, n) {
-            var r = n.cancelSignal,
-              o = n.onAllowed,
-              a = yield t.reportRefusal(e),
-              l = yield m(a, r);
-            if (!i) {
-              if (l == null) {
-                t.openGuide();
-                return;
-              }
-              t.openDialog(l, {
-                cancelSignal: r,
-                onAllowed: function () {
-                  r.aborted || o();
-                },
-                onOpenChange: function (t) {
-                  i = t;
-                },
-              });
-            }
-          })),
-          c.apply(this, arguments)
-        );
-      }
-      function d(e) {
+      function u(e) {
         t.reportRefusal(e).catch(function (e) {
           o("WALogger")
             .WARN(
@@ -92,25 +79,17 @@ __d(
             .catching(r("getErrorSafe")(e));
         });
       }
-      function m(e, t) {
-        return p.apply(this, arguments);
+      async function c(e, n) {
+        if (
+          (e !== "blocked" && e !== "dismissed") ||
+          n.aborted ||
+          !t.isButtonEnabled()
+        )
+          return null;
+        var r = await t.loadDialog();
+        return n.aborted ? null : r;
       }
-      function p() {
-        return (
-          (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, n) {
-            if (
-              (e !== "blocked" && e !== "dismissed") ||
-              n.aborted ||
-              !t.isButtonEnabled()
-            )
-              return null;
-            var r = yield t.loadDialog();
-            return n.aborted ? null : r;
-          })),
-          p.apply(this, arguments)
-        );
-      }
-      return l;
+      return i;
     }
     l.createBrowserPermissionRecovery = u;
   },

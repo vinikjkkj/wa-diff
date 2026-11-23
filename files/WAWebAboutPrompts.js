@@ -4,10 +4,10 @@ __d(
   function (t, n, r, o, a, i, l) {
     var e,
       s = {
-        share_thought: (e = r("fbs"))._(/*BTDS*/ "Share a thought"),
-        whats_happening: e._(/*BTDS*/ "What's happening?"),
-        current_mood: e._(/*BTDS*/ "Current mood"),
-        monday_motivation: e._(/*BTDS*/ "Monday motivation"),
+        share_thought: (e = r("fbs"))._(/*BTDS*/ ""),
+        whats_happening: e._(/*BTDS*/ ""),
+        current_mood: e._(/*BTDS*/ ""),
+        monday_motivation: e._(/*BTDS*/ ""),
       },
       u = ["share_thought", "whats_happening", "current_mood"];
     function c() {

@@ -55,18 +55,14 @@ __d(
           ) === o("WAWebGroupType").GroupType.COMMUNITY,
         y = (_ = t.groupMetadata) == null ? void 0 : _.desc,
         C = new (o("WAWebActionToast.react").ActionType)(
-          h
-            ? s._(/*BTDS*/ "Changing community description")
-            : s._(/*BTDS*/ "Changing group description"),
+          h ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
         ),
         b = g
           .then(function () {
             return new (o("WAWebActionToast.react").ActionType)(
-              h
-                ? s._(/*BTDS*/ "Community description changed")
-                : s._(/*BTDS*/ "Group description changed"),
+              h ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
               {
-                actionText: s._(/*BTDS*/ "Undo"),
+                actionText: s._(/*BTDS*/ ""),
                 actionHandler: function () {
                   return p(t, y, i);
                 },
@@ -79,9 +75,7 @@ __d(
               function (e) {
                 if (e.status >= 400)
                   return new (o("WAWebActionToast.react").ActionType)(
-                    h
-                      ? s._(/*BTDS*/ "Couldn't update community description")
-                      : s._(/*BTDS*/ "Couldn't update group description"),
+                    h ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
                   );
               },
             ),
@@ -95,11 +89,9 @@ __d(
                   ])),
               ),
               new (o("WAWebActionToast.react").ActionType)(
-                h
-                  ? s._(/*BTDS*/ "Community description change failed")
-                  : s._(/*BTDS*/ "Group description change failed"),
+                h ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
                 {
-                  actionText: s._(/*BTDS*/ "Try again."),
+                  actionText: s._(/*BTDS*/ ""),
                   actionHandler: function () {
                     return p(t, f, i);
                   },

@@ -9,6 +9,7 @@ __d(
     "AdsAdgroupRecordAccessors",
     "AdsAdgroupUnifiedCreativeAPIMigrationUtils",
     "AdsAssetFeedUtils",
+    "AdsCallToActionTypesUtils",
     "AdsChildAttachmentsUtils",
     "AdsPACSupportedLinkCTAs",
     "AdsPECampaignSelectors",
@@ -21,6 +22,7 @@ __d(
     "getErrorSafe",
     "immutable",
     "nullthrows",
+    "qex",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -329,80 +331,98 @@ __d(
             : e.dofEnabledFieldKeys
           : p;
     }
-    function Z(e, t, n, a, i, l, u, c) {
-      var d;
+    function Z(e, t, n) {
+      if (e) {
+        var r = {};
+        return (
+          Object.keys(e).forEach(function (o) {
+            if (!(e[o] === "linkURL" && t)) {
+              var a = n(e[o]);
+              a && (r[o] = a);
+            }
+          }),
+          r
+        );
+      }
+    }
+    function ee(e, t, n) {
+      var r = t[n];
+      if (r) return (!r.path || s(0, 1992, r), e.getIn(r));
+    }
+    function te(e, t, n, r, o) {
+      return e === "message" && t && (!n || r) && !o;
+    }
+    function ne(e) {
+      return e instanceof r("immutable").List
+        ? e.first()
+        : e instanceof Array
+          ? e[0]
+          : e;
+    }
+    function re(e, t, n, a, i, l, s, u) {
+      var c;
       (a === void 0 && (a = null), i === void 0 && (i = null));
-      var p = n,
-        _ = i;
-      if (e.equals(t)) return p;
-      var f = e.dataPath,
-        g = e.mapping,
-        h = t.dataPath,
-        y = t.mapping,
-        C = K(p, e, t),
-        b = Q(p, e, t),
-        v = X(e, t),
-        S = Y(e, t),
-        R =
-          ((d = p.creative) == null || (d = d.asset_feed_spec) == null
+      var d = n,
+        p = i;
+      if (e.equals(t)) return d;
+      var _ = e.dataPath,
+        f = e.mapping,
+        g = t.dataPath,
+        h = t.mapping,
+        y = K(d, e, t),
+        C = Q(d, e, t),
+        b = X(e, t),
+        v = Y(e, t),
+        S =
+          ((c = d.creative) == null || (c = c.asset_feed_spec) == null
             ? void 0
-            : d.optimization_type) ===
+            : c.optimization_type) ===
           r("ApiDynamicCreativeOptimizationTypes").DEGREES_OF_FREEDOM,
-        L = r("adsConvertAdObjectRecordToPlainJS")(p),
-        E = o(
+        R =
+          r("qex")._("3278") === !0
+            ? d
+            : r("adsConvertAdObjectRecordToPlainJS")(d),
+        L = o(
           "AdsAdgroupUnifiedCreativeAPIMigrationUtils",
-        ).isUnifiedCreativePhotoData(L),
-        k = C || b,
-        I = o("AdsChildAttachmentsUtils").isStaticCarouselAd(p),
-        T = J(e, t, C, b, I),
-        D = function (t) {
-          var e = g[t];
-          if (e) return (!e.path || s(0, 1992, e), p.getIn(e));
-        },
-        x = D("callToActionType"),
-        N =
-          x instanceof r("immutable").List
-            ? x.first()
-            : x instanceof Array
-              ? x[0]
-              : x,
-        M = j(t, e, N);
-      y.forEach(function (e, t) {
-        var n = D(t);
+        ).isUnifiedCreativePhotoData(R),
+        E = y || C,
+        k = o("AdsChildAttachmentsUtils").isStaticCarouselAd(d),
+        I = J(e, t, y, C, k),
+        T = ne(ee(d, f, "callToActionType")),
+        D = j(t, e, T);
+      h.forEach(function (e, t) {
+        var n = ee(d, f, t);
         if (
-          !(t === "message" && E && (!S || R) && !k) &&
-          !(t === "linkURL" && M) &&
+          !te(t, L, v, S, E) &&
+          !(t === "linkURL" && D) &&
           !(!e || e.path || n == null)
         ) {
-          if (k) {
-            if (!T.has(t)) return;
-            var o = g[t];
-            o && !(E && C && t === "message") && (_ = (_ || m).push(o));
+          if (E) {
+            if (!I.has(t)) return;
+            var o = f[t];
+            o && !(L && y && t === "message") && (p = (p || m).push(o));
           }
-          if (l && u) {
-            var a = u(t),
-              i;
-            (a &&
-              ((i = {}),
-              Object.keys(a).forEach(function (e) {
-                if (!(a[e] === "linkURL" && M)) {
-                  var t = D(a[e]);
-                  t && (i[e] = t);
-                }
-              })),
-              (n = l(t, n, i, c)));
-          }
-          var s = p.getSubRecordClass(e);
-          if (s && n != null)
+          l &&
+            s &&
+            (n = l(
+              t,
+              n,
+              Z(s(t), D, function (e) {
+                return ee(d, f, e);
+              }),
+              u,
+            ));
+          var a = d.getSubRecordClass(e);
+          if (a && n != null)
             try {
-              p = p.setIn(e, new s(n.toJS()));
+              d = d.setIn(e, new a(n.toJS()));
             } catch (o) {
-              var d = r("getErrorSafe")(o);
+              var i = r("getErrorSafe")(o);
               r("FBLogger")("ads")
                 .blameToPreviousFrame()
                 .warn(
                   "Error setting adgroup property | Message: ",
-                  d.message,
+                  i.message,
                   " | Key:",
                   t,
                   " | toPath:",
@@ -415,67 +435,67 @@ __d(
             }
           else
             try {
-              p = p.setIn(e, n);
+              d = d.setIn(e, n);
             } catch (e) {
-              var f = r("getErrorSafe")(e);
+              var c = r("getErrorSafe")(e);
               r("FBLogger")("ads")
                 .blameToPreviousFrame()
                 .mustfix(
                   "Error setting adgroup property | Message: ",
-                  f.message,
+                  c.message,
                   " | Key:",
                   t,
                 );
             }
         }
       });
-      var w = a && a.getIn(h);
-      if (w) {
-        var A = p.getIn(h);
-        ((A =
-          A &&
-          A.mergeDeepWith(function (e, t) {
+      var x = a && a.getIn(g);
+      if (x) {
+        var N = d.getIn(g);
+        ((N =
+          N &&
+          N.mergeDeepWith(function (e, t) {
             return t || e;
-          }, w)),
-          (p = p.setIn(h, A || w)));
+          }, x)),
+          (d = d.setIn(g, N || x)));
       }
       ((t.objectType == null && (t === $ || t === P)) ||
-        (p = r("AdsAdgroupRecordAccessors").creative.object_type.set(
+        (d = r("AdsAdgroupRecordAccessors").creative.object_type.set(
           t.objectType,
-          p,
+          d,
         )),
-        !k && !v && f && !(E && R) && (p = p.deleteIn(f) || p));
-      var F = ee(t.deletePaths, _ || m);
+        !E && !b && _ && !(L && S) && (d = d.deleteIn(_) || d));
+      var M = oe(t.deletePaths, p || m);
       return (
-        v &&
-          (F = F.filter(function (e) {
+        b &&
+          (M = M.filter(function (e) {
             return !(
-              f.length <= e.length &&
-              f.every(function (t, n) {
+              _.length <= e.length &&
+              _.every(function (t, n) {
                 return e[n] === t;
               })
             );
           })),
-        F.forEach(function (e) {
-          return (p = p.deleteIn(e));
+        M.forEach(function (e) {
+          return (d = d.deleteIn(e));
         }),
         t.resolvers.forEach(function (e) {
-          return (p = e(p, y));
+          return (d = e(d, h));
         }),
-        p
+        d
       );
     }
-    function ee(e, t) {
+    function oe(e, t) {
       return e.toSet().union(t.toSet()).toList();
     }
-    function te(e, t, n, r, o) {
+    function ae(e, t, n, r, o) {
       if ((r === void 0 && (r = null), o === void 0 && (o = null), e === t))
         return n;
       var a = G(n, e),
         i = G(n, t);
-      return Z(a, i, n, r, o);
+      return re(a, i, n, r, o);
     }
-    function ne(e, t, n) {
+    function ie(e, t, n) {
       var a;
       if (
         n === r("ApiDynamicCreativeOptimizationTypes").PLACEMENT &&
@@ -485,7 +505,8 @@ __d(
       if (
         (o("AdsAssetFeedUtils").hasPlacementCustomizationFromRecord(e) ||
           n === r("ApiDynamicCreativeOptimizationTypes").PLACEMENT) &&
-        r("adsAssetFeedAdgroupRequireCallToActionSpec")(e)
+        (r("adsAssetFeedAdgroupRequireCallToActionSpec")(e) ||
+          o("AdsCallToActionTypesUtils").hasJoinLiveVideoCTA(e))
       )
         return F;
       var l =
@@ -522,9 +543,9 @@ __d(
       (l.findTheNullableConfig = H),
       (l.findTheConfig = G),
       (l.findDOFConfig = z),
-      (l.convertPostTypeInAdgroupRecordUsingConfig = Z),
-      (l.convertPostTypeInAdgroupRecord = te),
-      (l.getConversionConfigForAdgroupAndObjective = ne));
+      (l.convertPostTypeInAdgroupRecordUsingConfig = re),
+      (l.convertPostTypeInAdgroupRecord = ae),
+      (l.getConversionConfigForAdgroupAndObjective = ie));
   },
   98,
 );

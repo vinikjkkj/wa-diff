@@ -1,6 +1,6 @@
 __d(
   "WAWebRenderOrderPreviewIcon",
-  ["WDSIconIcShoppingCart.react", "react", "react-compiler-runtime"],
+  ["WDSIconIcShoppingCart.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -13,24 +13,17 @@ __d(
         icon: { fill: "xvt3oi1", $$css: !0 },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(1),
-        n;
-      return (
-        t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = s.jsx(r("WDSIconIcShoppingCart.react"), {
-              width: 20,
-              height: 20,
-              xstyle: u.container,
-              iconXstyle: u.icon,
-              "aria-hidden": !0,
-              testid: "ic-shopping-cart",
-            })),
-            (t[0] = n))
-          : (n = t[0]),
-        n
-      );
+      var t = r("WDSIconIcShoppingCart.react");
+      return s.jsx(t, {
+        width: 20,
+        height: 20,
+        xstyle: u.container,
+        iconXstyle: u.icon,
+        "aria-hidden": !0,
+        testid: "ic-shopping-cart",
+      });
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

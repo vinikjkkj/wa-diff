@@ -6,6 +6,7 @@ __d(
       AGENTIC_CHECKOUT: "agentic_checkout",
       PRODUCT_BROWSING: "product_browsing",
       SHOP: "shop",
+      SHOPPING_EXPERIENCE: "shopping_experience",
     });
     i.default = e;
   },

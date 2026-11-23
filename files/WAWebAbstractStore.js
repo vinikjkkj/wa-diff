@@ -1,6 +1,6 @@
 __d(
   "WAWebAbstractStore",
-  ["asyncToGeneratorRuntime", "err"],
+  ["err"],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
       function e() {}
@@ -50,73 +50,27 @@ __d(
                   })),
                 this.$1);
         }),
-        (t.get = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            return (yield this.open(), this.doGet(e));
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (t.queryByIndex = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              return (yield this.open(), this.doQueryByIndex(e, t));
-            },
-          );
-          function t(t, n) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (t.getAll = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return (yield this.open(), this.doGetAll());
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (t.put = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              return (yield this.open(), this.doPut(e, t));
-            },
-          );
-          function t(t, n) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (t.del = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            return (yield this.open(), this.doDel(e));
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (t.count = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return (yield this.open(), this.doCount());
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (t.clear = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return (yield this.open(), this.doClear());
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (t.get = async function (t) {
+          return (await this.open(), this.doGet(t));
+        }),
+        (t.queryByIndex = async function (t, n) {
+          return (await this.open(), this.doQueryByIndex(t, n));
+        }),
+        (t.getAll = async function () {
+          return (await this.open(), this.doGetAll());
+        }),
+        (t.put = async function (t, n) {
+          return (await this.open(), this.doPut(t, n));
+        }),
+        (t.del = async function (t) {
+          return (await this.open(), this.doDel(t));
+        }),
+        (t.count = async function () {
+          return (await this.open(), this.doCount());
+        }),
+        (t.clear = async function () {
+          return (await this.open(), this.doClear());
+        }),
         (t.doGet = function (t) {
           throw r("err")("Not implemented");
         }),

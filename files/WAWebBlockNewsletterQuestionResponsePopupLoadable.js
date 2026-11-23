@@ -5,24 +5,20 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingModal.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebBlockNewsletterQuestionResponsePopup.react",
-          )
-            .__setRef("WAWebBlockNewsletterQuestionResponsePopupLoadable")
-            .load();
-          return e;
-        }),
-        "WAWebBlockNewsletterQuestionResponsePopupLoadable",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebBlockNewsletterQuestionResponsePopup.react",
+        )
+          .__setRef("WAWebBlockNewsletterQuestionResponsePopupLoadable")
+          .load();
+        return e;
+      }, "WAWebBlockNewsletterQuestionResponsePopupLoadable"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

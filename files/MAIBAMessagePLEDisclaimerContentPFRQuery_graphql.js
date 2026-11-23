@@ -7,17 +7,19 @@ __d(
       var e = { defaultValue: null, kind: "LocalArgument", name: "channel" },
         t = { defaultValue: null, kind: "LocalArgument", name: "clientId" },
         n = { defaultValue: null, kind: "LocalArgument", name: "options" },
-        r = { defaultValue: null, kind: "LocalArgument", name: "requestId" },
-        o = { defaultValue: null, kind: "LocalArgument", name: "scope" },
-        a = {
+        r = { defaultValue: null, kind: "LocalArgument", name: "pfrInputs" },
+        o = { defaultValue: null, kind: "LocalArgument", name: "requestId" },
+        a = { defaultValue: null, kind: "LocalArgument", name: "scope" },
+        i = {
           defaultValue: null,
           kind: "LocalArgument",
           name: "scoreSettingIds",
         },
-        i = [
+        l = [
           {
             fields: [
               { kind: "Variable", name: "channel", variableName: "channel" },
+              { kind: "Variable", name: "inputs", variableName: "pfrInputs" },
               { kind: "Variable", name: "options", variableName: "options" },
               { kind: "Variable", name: "scope", variableName: "scope" },
               {
@@ -43,7 +45,7 @@ __d(
             name: "request_context",
           },
         ],
-        l = [
+        s = [
           {
             kind: "Literal",
             name: "input",
@@ -53,42 +55,42 @@ __d(
             },
           },
         ],
-        s = {
+        u = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "recommendation_type",
           storageKey: null,
         },
-        u = {
+        c = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "recommendation_id",
           storageKey: null,
         },
-        c = {
+        d = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "text",
           storageKey: null,
         },
-        d = {
+        m = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "offset",
           storageKey: null,
         },
-        m = {
+        p = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "length",
           storageKey: null,
         },
-        p = {
+        _ = {
           alias: null,
           args: null,
           concreteType: "InlineStyleAtRange",
@@ -96,8 +98,8 @@ __d(
           name: "inline_style_ranges",
           plural: !0,
           selections: [
-            d,
             m,
+            p,
             {
               alias: null,
               args: null,
@@ -108,35 +110,25 @@ __d(
           ],
           storageKey: null,
         },
-        _ = {
+        f = {
           alias: null,
           args: null,
           concreteType: "XFBURCTextWithEntities",
           kind: "LinkedField",
           name: "title",
           plural: !1,
-          selections: [c, p],
+          selections: [d, _],
           storageKey: null,
         },
-        f = [c],
-        g = {
+        g = [d],
+        h = {
           alias: null,
           args: null,
           concreteType: "XFBURCTextWithEntities",
           kind: "LinkedField",
           name: "lift",
           plural: !1,
-          selections: f,
-          storageKey: null,
-        },
-        h = {
-          alias: null,
-          args: null,
-          concreteType: "XFBURCTextWithEntities",
-          kind: "LinkedField",
-          name: "footer",
-          plural: !1,
-          selections: f,
+          selections: g,
           storageKey: null,
         },
         y = {
@@ -144,26 +136,36 @@ __d(
           args: null,
           concreteType: "XFBURCTextWithEntities",
           kind: "LinkedField",
-          name: "title",
+          name: "footer",
           plural: !1,
-          selections: f,
+          selections: g,
           storageKey: null,
         },
         C = {
           alias: null,
           args: null,
-          kind: "ScalarField",
-          name: "url",
+          concreteType: "XFBURCTextWithEntities",
+          kind: "LinkedField",
+          name: "title",
+          plural: !1,
+          selections: g,
           storageKey: null,
         },
         b = {
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "__typename",
+          name: "url",
           storageKey: null,
         },
         v = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "__typename",
+          storageKey: null,
+        },
+        S = {
           kind: "InlineFragment",
           selections: [
             {
@@ -188,9 +190,9 @@ __d(
           type: "IconWithURIInText",
           abstractKey: null,
         },
-        S = [
-          c,
-          p,
+        R = [
+          d,
+          _,
           {
             alias: null,
             args: null,
@@ -199,8 +201,8 @@ __d(
             name: "ranges",
             plural: !0,
             selections: [
-              d,
               m,
+              p,
               {
                 alias: null,
                 args: null,
@@ -208,7 +210,7 @@ __d(
                 kind: "LinkedField",
                 name: "entity",
                 plural: !1,
-                selections: [C, b],
+                selections: [b, v],
                 storageKey: null,
               },
             ],
@@ -222,8 +224,8 @@ __d(
             name: "image_ranges",
             plural: !0,
             selections: [
-              d,
               m,
+              p,
               {
                 alias: null,
                 args: null,
@@ -231,14 +233,14 @@ __d(
                 kind: "LinkedField",
                 name: "entity_with_image",
                 plural: !1,
-                selections: [v],
+                selections: [S],
                 storageKey: null,
               },
             ],
             storageKey: null,
           },
         ],
-        R = [
+        L = [
           {
             alias: null,
             args: null,
@@ -247,15 +249,15 @@ __d(
             storageKey: null,
           },
         ],
-        L = {
+        E = {
           kind: "InlineFragment",
-          selections: R,
+          selections: L,
           type: "Node",
           abstractKey: "__isNode",
         },
-        E = [
-          c,
-          p,
+        k = [
+          d,
+          _,
           {
             alias: null,
             args: null,
@@ -264,8 +266,8 @@ __d(
             name: "ranges",
             plural: !0,
             selections: [
-              d,
               m,
+              p,
               {
                 alias: null,
                 args: null,
@@ -274,12 +276,12 @@ __d(
                 name: "entity",
                 plural: !1,
                 selections: [
-                  C,
                   b,
-                  L,
+                  v,
+                  E,
                   {
                     kind: "InlineFragment",
-                    selections: R,
+                    selections: L,
                     type: "XFBTopicTag",
                     abstractKey: null,
                   },
@@ -297,8 +299,8 @@ __d(
             name: "image_ranges",
             plural: !0,
             selections: [
-              d,
               m,
+              p,
               {
                 alias: null,
                 args: null,
@@ -307,18 +309,18 @@ __d(
                 name: "entity_with_image",
                 plural: !1,
                 selections: [
-                  b,
                   v,
-                  L,
+                  S,
+                  E,
                   {
                     kind: "InlineFragment",
-                    selections: R,
+                    selections: L,
                     type: "CatalogMarketplaceEnhancementTransformedImage",
                     abstractKey: null,
                   },
                   {
                     kind: "InlineFragment",
-                    selections: R,
+                    selections: L,
                     type: "XFBBasicMarketplaceImage",
                     abstractKey: null,
                   },
@@ -331,14 +333,14 @@ __d(
         ];
       return {
         fragment: {
-          argumentDefinitions: [e, t, n, r, o, a],
+          argumentDefinitions: [e, t, n, r, o, a, i],
           kind: "Fragment",
           metadata: null,
           name: "MAIBAMessagePLEDisclaimerContentPFRQuery",
           selections: [
             {
               alias: null,
-              args: i,
+              args: l,
               concreteType: "XFBUGPAPIGetPreFlightRecommendationsResponse",
               kind: "LinkedField",
               name: "xfb_ugp_gen_pfrs",
@@ -346,13 +348,13 @@ __d(
               selections: [
                 {
                   alias: null,
-                  args: l,
+                  args: s,
                   concreteType: "XFBURCAPIGetContentResponseObject",
                   kind: "LinkedField",
                   name: "contents",
                   plural: !0,
                   selections: [
-                    s,
+                    u,
                     {
                       alias: null,
                       args: null,
@@ -361,7 +363,7 @@ __d(
                       name: "recommendation_contents",
                       plural: !0,
                       selections: [
-                        u,
+                        c,
                         {
                           alias: null,
                           args: null,
@@ -370,9 +372,9 @@ __d(
                           name: "outcome",
                           plural: !1,
                           selections: [
-                            _,
-                            g,
+                            f,
                             h,
+                            y,
                             {
                               alias: null,
                               args: null,
@@ -381,7 +383,7 @@ __d(
                               name: "explanation",
                               plural: !1,
                               selections: [
-                                y,
+                                C,
                                 {
                                   alias: null,
                                   args: null,
@@ -389,7 +391,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "body",
                                   plural: !0,
-                                  selections: S,
+                                  selections: R,
                                   storageKey: null,
                                 },
                                 {
@@ -399,7 +401,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "footer",
                                   plural: !1,
-                                  selections: S,
+                                  selections: R,
                                   storageKey: null,
                                 },
                               ],
@@ -424,13 +426,13 @@ __d(
         },
         kind: "Request",
         operation: {
-          argumentDefinitions: [r, t, o, e, a, n],
+          argumentDefinitions: [o, t, a, e, i, n, r],
           kind: "Operation",
           name: "MAIBAMessagePLEDisclaimerContentPFRQuery",
           selections: [
             {
               alias: null,
-              args: i,
+              args: l,
               concreteType: "XFBUGPAPIGetPreFlightRecommendationsResponse",
               kind: "LinkedField",
               name: "xfb_ugp_gen_pfrs",
@@ -438,13 +440,13 @@ __d(
               selections: [
                 {
                   alias: null,
-                  args: l,
+                  args: s,
                   concreteType: "XFBURCAPIGetContentResponseObject",
                   kind: "LinkedField",
                   name: "contents",
                   plural: !0,
                   selections: [
-                    s,
+                    u,
                     {
                       alias: null,
                       args: null,
@@ -453,7 +455,7 @@ __d(
                       name: "recommendation_contents",
                       plural: !0,
                       selections: [
-                        u,
+                        c,
                         {
                           alias: null,
                           args: null,
@@ -462,9 +464,9 @@ __d(
                           name: "outcome",
                           plural: !1,
                           selections: [
-                            _,
-                            g,
+                            f,
                             h,
+                            y,
                             {
                               alias: null,
                               args: null,
@@ -473,7 +475,7 @@ __d(
                               name: "explanation",
                               plural: !1,
                               selections: [
-                                y,
+                                C,
                                 {
                                   alias: null,
                                   args: null,
@@ -481,7 +483,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "body",
                                   plural: !0,
-                                  selections: E,
+                                  selections: k,
                                   storageKey: null,
                                 },
                                 {
@@ -491,7 +493,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "footer",
                                   plural: !1,
-                                  selections: E,
+                                  selections: k,
                                   storageKey: null,
                                 },
                               ],
@@ -513,7 +515,7 @@ __d(
           ],
         },
         params: {
-          id: "26833985386252659",
+          id: "30455531394037056",
           metadata: {},
           name: "MAIBAMessagePLEDisclaimerContentPFRQuery",
           operationKind: "query",

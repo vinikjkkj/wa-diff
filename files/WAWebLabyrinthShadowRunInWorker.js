@@ -1,12 +1,6 @@
 __d(
   "WAWebLabyrinthShadowRunInWorker",
-  [
-    "WAPromiseDelays",
-    "WATimeUtils",
-    "WAWebBackendWorkerClient",
-    "asyncToGeneratorRuntime",
-    "err",
-  ],
+  ["WAPromiseDelays", "WATimeUtils", "WAWebBackendWorkerClient", "err"],
   function (t, n, r, o, a, i, l) {
     var e = 10 * o("WATimeUtils").MINUTE_MILLISECONDS;
     function s(t) {
@@ -14,17 +8,9 @@ __d(
         throw r("err")("labyrinth-shadow-worker-timeout");
       });
     }
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebBackendWorkerClient").getBackendWorkerBridge();
-          return t.sendAndReceive("labyrinthShadow", "run", e, !0);
-        })),
-        c.apply(this, arguments)
-      );
+    async function u(e) {
+      var t = await o("WAWebBackendWorkerClient").getBackendWorkerBridge();
+      return t.sendAndReceive("labyrinthShadow", "run", e, !0);
     }
     l.runLabyrinthShadowInBackendWorker = s;
   },

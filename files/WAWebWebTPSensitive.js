@@ -6,17 +6,17 @@ __d(
     var e,
       u = e || (e = o("react"));
     function c() {
-      return s._(/*BTDS*/ "Edit in Acrobat");
+      return s._(/*BTDS*/ "");
     }
     function d(e) {
       return (
         e === void 0 && (e = "control"),
         e === "open_in_acrobat"
-          ? { subtitle: m(), title: s._(/*BTDS*/ "Open in Adobe Acrobat") }
+          ? { subtitle: m(), title: s._(/*BTDS*/ "") }
           : e === "edit_in_acrobat"
-            ? { subtitle: m(), title: s._(/*BTDS*/ "Edit in Adobe Acrobat") }
+            ? { subtitle: m(), title: s._(/*BTDS*/ "") }
             : e === "edit_text_in_acrobat"
-              ? { subtitle: m(), title: s._(/*BTDS*/ "Edit text in Acrobat") }
+              ? { subtitle: m(), title: s._(/*BTDS*/ "") }
               : e === "control"
                 ? p()
                 : (function () {
@@ -28,15 +28,15 @@ __d(
       );
     }
     function m() {
-      return s._(/*BTDS*/ "Some features require a subscription");
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return { subtitle: _(), title: s._(/*BTDS*/ "Edit text & images") };
+      return { subtitle: _(), title: s._(/*BTDS*/ "") };
     }
     function _() {
       return r("WAWebEnvironment").isWindows
-        ? s._(/*BTDS*/ "Opens Acrobat in a new window.")
-        : s._(/*BTDS*/ "Opens Acrobat in a new tab.");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function f() {
       return u.jsx(r("WDSIconIcOpenInNew.react"), { height: 20, width: 20 });

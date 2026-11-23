@@ -75,9 +75,7 @@ __d(
             }),
         (l == null ? void 0 : l.participants.length) >= p)
       ) {
-        var h = s._(/*BTDS*/ "Can't add more than {max} members", [
-          s._param("max", p),
-        ]);
+        var h = s._(/*BTDS*/ "", [s._param("max", p)]);
         o("WAWebToastManager").ToastManager.open(
           c.jsx(o("WAWebToast.react").Toast, { msg: h, id: d }),
         );

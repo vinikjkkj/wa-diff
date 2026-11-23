@@ -12,52 +12,50 @@ __d(
     "WAWebWamEnumReplyEntryMethod",
     "WAWebWamEnumStatusCategory",
     "WAWebWamEnumStatusPosterContactType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
       var t = e.isGroupStatus,
-        a = e.mediaHeight,
-        i = e.mediaWidth,
-        l = e.msg,
-        s = e.quickReplySource,
-        u = e.replyType,
-        c = e.result,
-        d = e.sessionId,
-        m = e.statusContact,
-        p = e.statusContentType,
-        _ = e.viewerSessionId,
-        f = o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
+        n = e.mediaHeight,
+        a = e.mediaWidth,
+        i = e.msg,
+        l = e.quickReplySource,
+        s = e.replyType,
+        u = e.result,
+        c = e.sessionId,
+        d = e.statusContact,
+        m = e.statusContentType,
+        p = e.viewerSessionId,
+        _ = o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
           ? {
-              isPosterBiz: m.isBusiness,
+              isPosterBiz: d.isBusiness,
               isPosterInAddressBook: o(
                 "WAWebFrontendContactGetters",
-              ).getIsMyContact(m),
+              ).getIsMyContact(d),
             }
           : {},
-        g = !!o("WAWebMsgGetters").getStatusMentioned(l),
-        h = o("WAWebFrontendContactGetters").getIsMyContact(m),
-        y = t ? r("WAWebGroupMetadataCollection").get(m.id) : null,
-        C = t && y != null && y.isTrusted(),
-        b = o("WAWebWamEnumStatusPosterContactType").STATUS_POSTER_CONTACT_TYPE
+        f = !!o("WAWebMsgGetters").getStatusMentioned(i),
+        g = o("WAWebFrontendContactGetters").getIsMyContact(d),
+        h = t ? r("WAWebGroupMetadataCollection").get(d.id) : null,
+        y = t && h != null && h.isTrusted(),
+        C = o("WAWebWamEnumStatusPosterContactType").STATUS_POSTER_CONTACT_TYPE
           .UNKNOWN;
-      (h
-        ? (b = o("WAWebWamEnumStatusPosterContactType")
+      (g
+        ? (C = o("WAWebWamEnumStatusPosterContactType")
             .STATUS_POSTER_CONTACT_TYPE.CONTACT)
-        : C &&
-          (b = o("WAWebWamEnumStatusPosterContactType")
+        : y &&
+          (C = o("WAWebWamEnumStatusPosterContactType")
             .STATUS_POSTER_CONTACT_TYPE.TRUSTED_GROUP_MEMBER),
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            n = yield o("WAWebStatusLoggingUtils").statusIdForLogging(l),
-            r = new (o("WAWebStatusReplyWamEvent").StatusReplyWamEvent)(
+        (async function (e) {
+          var r = await o("WAWebStatusLoggingUtils").statusIdForLogging(i),
+            d = new (o("WAWebStatusReplyWamEvent").StatusReplyWamEvent)(
               babelHelpers.extends(
                 {
-                  isMentioned: g,
-                  mediaHeight: a,
-                  mediaWidth: i,
-                  quickReplySource: s,
+                  isMentioned: f,
+                  mediaHeight: n,
+                  mediaWidth: a,
+                  quickReplySource: l,
                   replyEntryMethod: o("WAWebWamEnumReplyEntryMethod")
                     .REPLY_ENTRY_METHOD.TAP_REPLY_BAR,
                   statusCategory: t
@@ -65,25 +63,25 @@ __d(
                         .GROUP_STATUS
                     : o("WAWebWamEnumStatusCategory").STATUS_CATEGORY
                         .REGULAR_STATUS,
-                  statusContentType: p,
-                  statusId: n,
-                  statusPosterContactType: b,
-                  statusReplyMessageType: u,
-                  statusReplyResult: c,
-                  statusSessionId: d,
-                  statusViewerSessionId: _,
+                  statusContentType: m,
+                  statusId: r,
+                  statusPosterContactType: C,
+                  statusReplyMessageType: s,
+                  statusReplyResult: u,
+                  statusSessionId: c,
+                  statusViewerSessionId: p,
                   unifiedSessionId:
                     (e = o(
                       "WAWebUnifiedSession",
                     ).UnifiedSessionManager.getSessionId()) != null
                       ? e
                       : void 0,
-                  updatesTabSessionId: d,
+                  updatesTabSessionId: c,
                 },
-                f,
+                _,
               ),
             );
-          d != null && r.commit();
+          c != null && d.commit();
         })());
     }
     l.logStatusReply = e;

@@ -7,7 +7,6 @@ __d(
     "WAWebMediaHostsUtil",
     "WAWebPonyfillsFetch",
     "WAWebURLUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -16,84 +15,63 @@ __d(
       c,
       d = "/wa/static/network_resource",
       m = "nw_media";
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          ((u = u != null ? u : new Map()), (c = c != null ? c : new Map()));
-          var t = new (r("WAConcurrentPriorityPromiseQueue"))(5, { emojis: 5 }),
-            a = yield o("WAWebMediaHostsUtil").getStaticMediaHostName(),
-            i = "" + a + d;
-          o("WAWebEmojiConst")
-            .getSupportedAnimatedEmojisAssetIdsMapping(e)
-            .forEach(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var n = e[0],
-                      a = e[1];
-                    try {
-                      var l,
-                        u = r("WAWebURLUtils").build(i, {
-                          cat: m,
-                          id: a,
-                          _nc_cat: 1,
-                        }),
-                        d = yield t.enqueue(
-                          function () {
-                            return r("WAWebPonyfillsFetch")(u);
-                          },
-                          { group: "emojis", priority: 1 },
-                        ),
-                        p = yield d.text();
-                      (l = c) == null || l.set(n, p);
-                    } catch (e) {
-                      o("WALogger").LOG(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "initAnimatedEmojiAssets: fetch failed",
-                          ])),
-                      );
-                    }
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
+    async function p(t) {
+      ((u = u != null ? u : new Map()), (c = c != null ? c : new Map()));
+      var n = new (r("WAConcurrentPriorityPromiseQueue"))(5, { emojis: 5 }),
+        a = await o("WAWebMediaHostsUtil").getStaticMediaHostName(),
+        i = "" + a + d;
+      o("WAWebEmojiConst")
+        .getSupportedAnimatedEmojisAssetIdsMapping(t)
+        .forEach(async function (t) {
+          var a = t[0],
+            l = t[1];
+          try {
+            var s,
+              u = r("WAWebURLUtils").build(i, { cat: m, id: l, _nc_cat: 1 }),
+              d = await n.enqueue(
+                function () {
+                  return r("WAWebPonyfillsFetch")(u);
+                },
+                { group: "emojis", priority: 1 },
+              ),
+              p = await d.text();
+            (s = c) == null || s.set(a, p);
+          } catch (t) {
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "initAnimatedEmojiAssets: fetch failed",
+                ])),
             );
-        })),
-        _.apply(this, arguments)
-      );
+          }
+        });
     }
-    function f(t) {
-      var n,
-        r,
-        a = (n = u) == null ? void 0 : n.get(t);
-      if (a != null) return a;
-      var i = (r = c) == null ? void 0 : r.get(t);
-      if (i != null)
+    function _(e) {
+      var t,
+        n,
+        r = (t = u) == null ? void 0 : t.get(e);
+      if (r != null) return r;
+      var a = (n = c) == null ? void 0 : n.get(e);
+      if (a != null)
         try {
-          var l,
-            s,
-            d = JSON.parse(i);
+          var i,
+            l,
+            d = JSON.parse(a);
           return (
-            (l = u) == null || l.set(t, d),
-            (s = c) == null || s.delete(t),
+            (i = u) == null || i.set(e, d),
+            (l = c) == null || l.delete(e),
             d
           );
-        } catch (t) {
+        } catch (e) {
           o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "initAnimatedEmojiAssets: parse failed",
               ])),
           );
         }
     }
-    ((l.initAnimatedEmojiAssets = p), (l.getAnimatedEmojiAsset = f));
+    ((l.initAnimatedEmojiAssets = p), (l.getAnimatedEmojiAsset = _));
   },
   98,
 );

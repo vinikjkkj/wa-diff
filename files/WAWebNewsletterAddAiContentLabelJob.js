@@ -9,21 +9,20 @@ __d(
     "WAWebNewsletterDBUtils",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaMessage",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s, u;
-    function c(t, r, a) {
+    function c(t, n, r) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "addAiContentLabel",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var n;
+          async function () {
+            var a;
             try {
-              n = yield o(
+              a = await o(
                 "WAWebMexNewsletterLabelAiContentJob",
-              ).mexNewsletterLabelAiContentJob(t, r, a);
+              ).mexNewsletterLabelAiContentJob(t, n, r);
             } catch (t) {
               return (
                 o("WALogger")
@@ -38,19 +37,19 @@ __d(
                 !1
               );
             }
-            if (n !== !0) return n;
+            if (a !== !0) return a;
             try {
               var i =
-                  a === "STATUS"
+                  r === "STATUS"
                     ? o("WAWebDBMessageUtils").InternalIdPrefix.NewsletterStatus
                     : o("WAWebDBMessageUtils").InternalIdPrefix.Default,
-                l = yield o("WAWebNewsletterDBUtils").getMessageByServerId(
-                  Number(r),
+                l = await o("WAWebNewsletterDBUtils").getMessageByServerId(
+                  Number(n),
                   t,
                   i,
                 );
               l != null
-                ? yield o("WAWebSchemaMessage")
+                ? await o("WAWebSchemaMessage")
                     .getMessageTable()
                     .bulkCreateOrMerge([
                       {
@@ -67,7 +66,7 @@ __d(
                           "[newsletter][sgi-ai-content] msg row missing after label for serverId ",
                           "",
                         ])),
-                      r,
+                      n,
                     )
                     .tags("newsletter", "sgi", "wa-ice", "wa-spice-web")
                     .sendLogs("newsletter-label-ai-content-row-missing");
@@ -79,13 +78,13 @@ __d(
                       "[newsletter][sgi-ai-content] local db merge failed after label for serverId ",
                       "",
                     ])),
-                  r,
+                  n,
                 )
                 .tags("newsletter", "sgi", "wa-ice", "wa-spice-web")
                 .sendLogs("newsletter-label-ai-content-db-merge-failed");
             }
-            return n;
-          }),
+            return a;
+          },
           { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();

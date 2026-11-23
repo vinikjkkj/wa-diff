@@ -14,7 +14,6 @@ __d(
     "WDSPaddings.stylex",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -65,161 +64,101 @@ __d(
       );
     }
     function p(e) {
-      var t = o("react-compiler-runtime").c(22),
-        n = e.isSentByMe,
-        a = e.orderInfo,
-        i = a.paymentSettings,
-        l,
-        p,
-        _,
-        f;
-      if (t[0] !== n || t[1] !== i) {
-        var g,
-          h,
-          y,
-          C,
-          b =
-            i == null || (g = i.at(0)) == null
-              ? void 0
-              : g[
-                  o("WAWebBizOrderDetailsParams").PaymentSettingType
-                    .PIX_STATIC_CODE
-                ];
-        ((l = o("WAWebBrazilPixKeyFormattingUtils").getFormattedPixKey(
-          (h = b == null ? void 0 : b.key) != null ? h : "",
-          (y = o("WAWebUserPrefsTypes").PixKeyType.cast(
-            b == null ? void 0 : b.key_type,
-          )) != null
-            ? y
-            : o("WAWebUserPrefsTypes").PixKeyType.PHONE,
-        )),
-          (_ = o("WAWebBrazilPixKeyFormattingUtils").getPixKeyTypeLabel(
-            b == null ? void 0 : b.key_type,
-          )),
-          (p = (C = b == null ? void 0 : b.merchant_name) != null ? C : ""),
-          (f = n
-            ? s._(/*BTDS*/ "Requested by you")
-            : s._(/*BTDS*/ "Requested by {merchant_name}", [
-                s._param("merchant_name", p),
-              ])),
-          (t[0] = n),
-          (t[1] = i),
-          (t[2] = l),
-          (t[3] = p),
-          (t[4] = _),
-          (t[5] = f));
-      } else ((l = t[2]), (p = t[3]), (_ = t[4]), (f = t[5]));
-      var v = f,
-        S = n ? d.bubbleOut : d.bubbleIn,
-        R;
-      t[6] !== S
-        ? ((R = [
-            d.header,
-            c.paddingTop6,
-            o("WDSPaddings.stylex").wdsPaddings.paddingBottom8,
-            o("WDSPaddings.stylex").wdsPaddings.paddingHor8,
-            o("WDSMargins.stylex").wdsMargins.marginBottom12,
-            S,
-          ]),
-          (t[6] = S),
-          (t[7] = R))
-        : (R = t[7]);
-      var L;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((L = m()
-            ? u.jsx(r("WDSIconWdsSmbPaymentsPixFilled.react"), {
-                testid: "wds-smb-payments-pix-filled",
-                height: 24,
-                width: 24,
-                xstyle: d.pixIcon,
-              })
-            : u.jsx(o("WAWebPixLogoIcon.react").PixLogoIcon, {
-                height: 48,
-                innerStyles: {
-                  background: d.iconBackground,
-                  primary: d.iconPrimary,
-                },
-              })),
-          (t[8] = L))
-        : (L = t[8]);
-      var E;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((E = [
-            d.paymentInfoContent,
-            o("WDSPaddings.stylex").wdsPaddings.paddingHor8,
-            m() && o("WDSPaddings.stylex").wdsPaddings.paddingTop4,
-          ]),
-          (t[9] = E))
-        : (E = t[9]);
-      var k;
-      t[10] !== p || t[11] !== v
-        ? ((k = m()
-            ? u.jsx(r("WDSText.react"), {
-                type: "Body2Emphasized",
-                colorName: "contentDefault",
-                children: v,
-              })
-            : u.jsx(o("WAWebText.react").WAWebTextTitle, {
-                textWrap: "ellipsis",
-                children: p,
-              })),
-          (t[10] = p),
-          (t[11] = v),
-          (t[12] = k))
-        : (k = t[12]);
-      var I;
-      t[13] !== l || t[14] !== _
-        ? ((I = m()
-            ? u.jsx(r("WDSText.react"), {
-                type: "Body3",
-                colorName: "contentDeemphasized",
-                children: l,
-              })
-            : u.jsxs(o("WAWebText.react").WAWebTextMuted, {
-                color: "secondary",
-                textWrap: "ellipsis",
-                children: [_, ": ", l],
-              })),
-          (t[13] = l),
-          (t[14] = _),
-          (t[15] = I))
-        : (I = t[15]);
-      var T;
-      t[16] !== k || t[17] !== I
-        ? ((T = u.jsx(o("WAWebFlex.react").FlexRow, {
-            xstyle: d.paymentInfo,
-            justify: "all",
-            children: u.jsxs(o("WAWebFlex.react").FlexRow, {
-              align: "center",
-              xstyle: d.paymentInfoWrapper,
-              children: [
-                L,
-                u.jsxs(o("WAWebFlex.react").FlexColumn, {
-                  xstyle: E,
-                  children: [k, I],
-                }),
+      var t,
+        n,
+        a,
+        i,
+        l = e.isSentByMe,
+        p = e.orderInfo,
+        _ = p.paymentSettings,
+        f =
+          _ == null || (t = _.at(0)) == null
+            ? void 0
+            : t[
+                o("WAWebBizOrderDetailsParams").PaymentSettingType
+                  .PIX_STATIC_CODE
               ],
-            }),
-          })),
-          (t[16] = k),
-          (t[17] = I),
-          (t[18] = T))
-        : (T = t[18]);
-      var D;
-      return (
-        t[19] !== R || t[20] !== T
-          ? ((D = u.jsx(o("WAWebFlex.react").FlexColumn, {
-              xstyle: R,
-              children: T,
-            })),
-            (t[19] = R),
-            (t[20] = T),
-            (t[21] = D))
-          : (D = t[21]),
-        D
-      );
+        g = o("WAWebBrazilPixKeyFormattingUtils").getFormattedPixKey(
+          (n = f == null ? void 0 : f.key) != null ? n : "",
+          (a = o("WAWebUserPrefsTypes").PixKeyType.cast(
+            f == null ? void 0 : f.key_type,
+          )) != null
+            ? a
+            : o("WAWebUserPrefsTypes").PixKeyType.PHONE,
+        ),
+        h = o("WAWebBrazilPixKeyFormattingUtils").getPixKeyTypeLabel(
+          f == null ? void 0 : f.key_type,
+        ),
+        y = (i = f == null ? void 0 : f.merchant_name) != null ? i : "",
+        C = l
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "", [s._param("merchant_name", y)]);
+      return u.jsx(o("WAWebFlex.react").FlexColumn, {
+        xstyle: [
+          d.header,
+          c.paddingTop6,
+          o("WDSPaddings.stylex").wdsPaddings.paddingBottom8,
+          o("WDSPaddings.stylex").wdsPaddings.paddingHor8,
+          o("WDSMargins.stylex").wdsMargins.marginBottom12,
+          l ? d.bubbleOut : d.bubbleIn,
+        ],
+        children: u.jsx(o("WAWebFlex.react").FlexRow, {
+          xstyle: d.paymentInfo,
+          justify: "all",
+          children: u.jsxs(o("WAWebFlex.react").FlexRow, {
+            align: "center",
+            xstyle: d.paymentInfoWrapper,
+            children: [
+              m()
+                ? u.jsx(r("WDSIconWdsSmbPaymentsPixFilled.react"), {
+                    testid: "wds-smb-payments-pix-filled",
+                    height: 24,
+                    width: 24,
+                    xstyle: d.pixIcon,
+                  })
+                : u.jsx(o("WAWebPixLogoIcon.react").PixLogoIcon, {
+                    height: 48,
+                    innerStyles: {
+                      background: d.iconBackground,
+                      primary: d.iconPrimary,
+                    },
+                  }),
+              u.jsxs(o("WAWebFlex.react").FlexColumn, {
+                xstyle: [
+                  d.paymentInfoContent,
+                  o("WDSPaddings.stylex").wdsPaddings.paddingHor8,
+                  m() && o("WDSPaddings.stylex").wdsPaddings.paddingTop4,
+                ],
+                children: [
+                  m()
+                    ? u.jsx(r("WDSText.react"), {
+                        type: "Body2Emphasized",
+                        colorName: "contentDefault",
+                        children: C,
+                      })
+                    : u.jsx(o("WAWebText.react").WAWebTextTitle, {
+                        textWrap: "ellipsis",
+                        children: y,
+                      }),
+                  m()
+                    ? u.jsx(r("WDSText.react"), {
+                        type: "Body3",
+                        colorName: "contentDeemphasized",
+                        children: g,
+                      })
+                    : u.jsxs(o("WAWebText.react").WAWebTextMuted, {
+                        color: "secondary",
+                        textWrap: "ellipsis",
+                        children: [h, ": ", g],
+                      }),
+                ],
+              }),
+            ],
+          }),
+        }),
+      });
     }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   226,
 );

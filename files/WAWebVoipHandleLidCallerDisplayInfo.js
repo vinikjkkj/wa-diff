@@ -1,11 +1,6 @@
 __d(
   "WAWebVoipHandleLidCallerDisplayInfo",
-  [
-    "WAPromiseEach",
-    "WAWebVoipLidUtils",
-    "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAPromiseEach", "WAWebVoipLidUtils", "WAWebWidFactory"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -63,72 +58,36 @@ __d(
         a
       );
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(e) {
+      await o("WAPromiseEach").promiseEach(e, async function (t, n) {
+        var r = n === e.length - 1,
+          a = t.accountKind,
+          i = t.displayName,
+          l = t.lid,
+          s = t.pn,
+          u = t.username;
+        await o("WAWebVoipLidUtils").attemptPersistLidMappingAndUserAttributes({
+          jid: l,
+          phoneNumber: s,
+          username: u,
+          pushName: i,
+          accountKind: a,
+          flushImmediately: r,
+        });
+      });
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          yield o("WAPromiseEach").promiseEach(
-            e,
-            (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t, n) {
-                  var r = n === e.length - 1,
-                    a = t.accountKind,
-                    i = t.displayName,
-                    l = t.lid,
-                    s = t.pn,
-                    u = t.username;
-                  yield o(
-                    "WAWebVoipLidUtils",
-                  ).attemptPersistLidMappingAndUserAttributes({
-                    jid: l,
-                    phoneNumber: s,
-                    username: u,
-                    pushName: i,
-                    accountKind: a,
-                    flushImmediately: r,
-                  });
-                },
-              );
-              return function (e, n) {
-                return t.apply(this, arguments);
-              };
-            })(),
-          );
-        })),
-        d.apply(this, arguments)
-      );
+    async function d(e) {
+      var t = s(e);
+      await c(t);
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = s(e);
-          yield c(t);
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = u(e);
-          yield c(t);
-        })),
-        f.apply(this, arguments)
-      );
+    async function m(e) {
+      var t = u(e);
+      await c(t);
     }
     ((l.parseWAWebVoipLidCallerDisplayInfoPayload = s),
       (l.parseWAWebVoipLidCallerDisplayInfoJsonPayload = u),
-      (l.handleWAWebVoipLidCallerDisplayInfo = m),
-      (l.handleWAWebVoipLidCallerDisplayInfoJson = _));
+      (l.handleWAWebVoipLidCallerDisplayInfo = d),
+      (l.handleWAWebVoipLidCallerDisplayInfoJson = m));
   },
   98,
 );

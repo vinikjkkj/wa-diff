@@ -21,16 +21,11 @@ __d(
         a = n.day,
         i = n.time;
       return a === "today"
-        ? s._(/*BTDS*/ "Reminder set for {time}", [s._param("time", i)])
+        ? s._(/*BTDS*/ "", [s._param("time", i)])
         : a === "tomorrow"
-          ? s._(/*BTDS*/ "Reminder set for tomorrow at {time}", [
-              s._param("time", i),
-            ])
+          ? s._(/*BTDS*/ "", [s._param("time", i)])
           : a === "later"
-            ? s._(/*BTDS*/ "Reminder set for {date} at {time}", [
-                s._param("date", r),
-                s._param("time", i),
-              ])
+            ? s._(/*BTDS*/ "", [s._param("date", r), s._param("time", i)])
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

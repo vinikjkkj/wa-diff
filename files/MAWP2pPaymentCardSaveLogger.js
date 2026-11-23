@@ -10,9 +10,9 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    function s(t) {
-      var n = o("FBPayUPLSessionIDGenerator").sessionIDGenerator(),
-        a = function () {
+    async function s(t, n, a) {
+      var i = o("FBPayUPLSessionIDGenerator").sessionIDGenerator(),
+        l = function () {
           return {
             actual_event_time: Math.round(
               (e || (e = r("performanceAbsoluteNow")))(),
@@ -24,24 +24,25 @@ __d(
             },
             platform: "web",
             product_type: "nmor_p2p",
-            session_id: n,
+            session_id: i,
           };
+        },
+        s = function (t) {
+          return r("ClientMutateP2pfeatureFailFalcoEvent").log(function () {
+            return babelHelpers.extends({}, l(), { error_code: t });
+          });
         };
-      return (
-        r("ClientMutateP2pfeatureInitFalcoEvent").log(a),
-        {
-          fail: function (t) {
-            return r("ClientMutateP2pfeatureFailFalcoEvent").log(function () {
-              return babelHelpers.extends({}, a(), { error_code: t });
-            });
-          },
-          success: function () {
-            return r("ClientMutateP2pfeatureSuccessFalcoEvent").log(a);
-          },
-        }
-      );
+      r("ClientMutateP2pfeatureInitFalcoEvent").log(l);
+      var u = "build_failed";
+      try {
+        var c = n();
+        ((u = "save_failed"), await a(c));
+      } catch (e) {
+        throw (s(u), e);
+      }
+      r("ClientMutateP2pfeatureSuccessFalcoEvent").log(l);
     }
-    l.startP2pPaymentCardSaveLog = s;
+    l.logP2pPaymentCardSave = s;
   },
   98,
 );

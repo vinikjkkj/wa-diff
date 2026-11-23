@@ -5,15 +5,15 @@ __d(
     "use strict";
     function e(e) {
       return e === "TEXT"
-        ? s._(/*BTDS*/ "Text")
+        ? s._(/*BTDS*/ "")
         : e === "NUMERIC"
-          ? s._(/*BTDS*/ "Number")
+          ? s._(/*BTDS*/ "")
           : e === "MONEY"
-            ? s._(/*BTDS*/ "Money")
+            ? s._(/*BTDS*/ "")
             : e === "DATE"
-              ? s._(/*BTDS*/ "Date")
+              ? s._(/*BTDS*/ "")
               : e === "ENUM"
-                ? s._(/*BTDS*/ "Dropdown")
+                ? s._(/*BTDS*/ "")
                 : (function () {
                     throw Error(
                       "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

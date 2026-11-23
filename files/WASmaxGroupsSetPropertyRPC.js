@@ -26,38 +26,29 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = D(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = p(r, n);
-          if (a.success)
-            return { name: "SetPropertyResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "SetPropertyResponseClientError", value: i.value };
-          var l = c(r, n);
-          if (l.success)
-            return { name: "SetPropertyResponseServerError", value: l.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("SetProperty", {
-              Success: a,
-              ClientError: i,
-              ServerError: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = T(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = m(r, n);
+      if (a.success)
+        return { name: "SetPropertyResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "SetPropertyResponseClientError", value: i.value };
+      var l = u(r, n);
+      if (l.success)
+        return { name: "SetPropertyResponseServerError", value: l.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("SetProperty", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -67,7 +58,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = $(r.value);
+      var i = x(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -76,7 +67,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -85,7 +76,7 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "ephemeral");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(
@@ -109,17 +100,17 @@ __d(
           })
         : r;
     }
-    function m(e) {
+    function d(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "membership_approval_mode");
       if (!t.success) return t;
-      var n = x(e);
+      var n = D(e);
       return o("WAResultOrError").makeResult({
         membershipApprovalPropertyResponseMixinMixin: n.success
           ? n.value
           : null,
       });
     }
-    function p(e, t) {
+    function m(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optionalChild(e, "locked");
@@ -128,20 +119,20 @@ __d(
       if (!a.success) return a;
       var i = o("WASmaxParseUtils").optionalChild(e, "no_frequently_forwarded");
       if (!i.success) return i;
-      var l = o("WASmaxParseUtils").optionalChildWithTag(e, "ephemeral", d);
+      var l = o("WASmaxParseUtils").optionalChildWithTag(e, "ephemeral", c);
       if (!l.success) return l;
       var s = o("WASmaxParseUtils").optionalChild(e, "unlocked");
       if (!s.success) return s;
       var u = o("WASmaxParseUtils").optionalChild(e, "not_announcement");
       if (!u.success) return u;
-      var c = o("WASmaxParseUtils").optionalChild(e, "frequently_forwarded_ok");
-      if (!c.success) return c;
+      var m = o("WASmaxParseUtils").optionalChild(e, "frequently_forwarded_ok");
+      if (!m.success) return m;
       var p = o("WASmaxParseUtils").optionalChild(e, "not_ephemeral");
       if (!p.success) return p;
       var _ = o("WASmaxParseUtils").optionalChildWithTag(
         e,
         "membership_approval_mode",
-        m,
+        d,
       );
       if (!_.success) return _;
       var f = o("WASmaxParseUtils").optionalChild(e, "allow_admin_reports");
@@ -174,7 +165,7 @@ __d(
               ephemeral: l.value,
               hasUnlocked: s.value != null,
               hasNotAnnouncement: u.value != null,
-              hasFrequentlyForwardedOk: c.value != null,
+              hasFrequentlyForwardedOk: m.value != null,
               hasNotEphemeral: p.value != null,
               membershipApprovalMode: _.value,
               hasAllowAdminReports: f.value != null,
@@ -187,19 +178,19 @@ __d(
           )
         : v;
     }
-    function _() {
+    function p() {
       var e = o("WASmaxJsx").smax("locked", null);
       return e;
     }
-    function f() {
+    function _() {
       var e = o("WASmaxJsx").smax("announcement", null);
       return e;
     }
-    function g() {
+    function f() {
       var e = o("WASmaxJsx").smax("no_frequently_forwarded", null);
       return e;
     }
-    function h(e) {
+    function g(e) {
       var t = e.ephemeralExpiration,
         n = e.ephemeralTrigger,
         r = o("WASmaxJsx").smax("ephemeral", {
@@ -208,23 +199,23 @@ __d(
         });
       return r;
     }
-    function y() {
+    function h() {
       var e = o("WASmaxJsx").smax("unlocked", null);
       return e;
     }
-    function C() {
+    function y() {
       var e = o("WASmaxJsx").smax("not_announcement", null);
       return e;
     }
-    function b() {
+    function C() {
       var e = o("WASmaxJsx").smax("frequently_forwarded_ok", null);
       return e;
     }
-    function v() {
+    function b() {
       var e = o("WASmaxJsx").smax("not_ephemeral", null);
       return e;
     }
-    function S(e) {
+    function v(e) {
       var t = o(
         "WASmaxOutGroupsMembershipApprovalGroupJoinModeMixin",
       ).mergeMembershipApprovalGroupJoinModeMixin(
@@ -233,34 +224,34 @@ __d(
       );
       return t;
     }
-    function R() {
+    function S() {
       var e = o("WASmaxJsx").smax("allow_admin_reports", null);
       return e;
     }
-    function L() {
+    function R() {
       var e = o("WASmaxJsx").smax("not_allow_admin_reports", null);
       return e;
     }
-    function E() {
+    function L() {
       var e = o("WASmaxJsx").smax("allow_non_admin_sub_group_creation", null);
       return e;
     }
-    function k() {
+    function E() {
       var e = o("WASmaxJsx").smax(
         "not_allow_non_admin_sub_group_creation",
         null,
       );
       return e;
     }
-    function I() {
+    function k() {
       var e = o("WASmaxJsx").smax("group_history", null);
       return e;
     }
-    function T() {
+    function I() {
       var e = o("WASmaxJsx").smax("no_group_history", null);
       return e;
     }
-    function D(e) {
+    function T(e) {
       var t,
         n = e.hasLocked,
         r = e.hasAnnouncement,
@@ -272,7 +263,7 @@ __d(
         c = e.hasNotEphemeral,
         d = e.membershipApprovalModeArgs,
         m = e.hasAllowAdminReports,
-        p = e.hasNotAllowAdminReports,
+        T = e.hasNotAllowAdminReports,
         D = e.hasAllowNonAdminSubGroupCreation,
         x = e.hasNotAllowNonAdminSubGroupCreation,
         $ = e.hasGroupHistory,
@@ -281,32 +272,32 @@ __d(
           o("WASmaxJsx").smax(
             "iq",
             null,
-            (t = o("WASmaxChildren")).HAS_OPTIONAL_CHILD(_, n),
-            t.HAS_OPTIONAL_CHILD(f, r),
-            t.HAS_OPTIONAL_CHILD(g, a),
-            t.OPTIONAL_CHILD(h, i),
-            t.HAS_OPTIONAL_CHILD(y, l),
-            t.HAS_OPTIONAL_CHILD(C, s),
-            t.HAS_OPTIONAL_CHILD(b, u),
-            t.HAS_OPTIONAL_CHILD(v, c),
-            t.OPTIONAL_CHILD(S, d),
-            t.HAS_OPTIONAL_CHILD(R, m),
-            t.HAS_OPTIONAL_CHILD(L, p),
-            t.HAS_OPTIONAL_CHILD(E, D),
-            t.HAS_OPTIONAL_CHILD(k, x),
-            t.HAS_OPTIONAL_CHILD(I, $),
-            t.HAS_OPTIONAL_CHILD(T, P),
+            (t = o("WASmaxChildren")).HAS_OPTIONAL_CHILD(p, n),
+            t.HAS_OPTIONAL_CHILD(_, r),
+            t.HAS_OPTIONAL_CHILD(f, a),
+            t.OPTIONAL_CHILD(g, i),
+            t.HAS_OPTIONAL_CHILD(h, l),
+            t.HAS_OPTIONAL_CHILD(y, s),
+            t.HAS_OPTIONAL_CHILD(C, u),
+            t.HAS_OPTIONAL_CHILD(b, c),
+            t.OPTIONAL_CHILD(v, d),
+            t.HAS_OPTIONAL_CHILD(S, m),
+            t.HAS_OPTIONAL_CHILD(R, T),
+            t.HAS_OPTIONAL_CHILD(L, D),
+            t.HAS_OPTIONAL_CHILD(E, x),
+            t.HAS_OPTIONAL_CHILD(k, $),
+            t.HAS_OPTIONAL_CHILD(I, P),
           ),
           e,
         );
       return N;
     }
-    function x(e) {
+    function D(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "membership_approval_mode");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "group_join");
       if (!n.success) return n;
-      var r = P(n.value);
+      var r = $(n.value);
       return r.success
         ? o("WAResultOrError").makeResult({
             groupJoinGroupJoinMembershipApprovalModeEnabledOrDisabledMixinGroup:
@@ -314,7 +305,7 @@ __d(
           })
         : r;
     }
-    function $(e) {
+    function x(e) {
       var t = o(
         "WASmaxInGroupsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -410,7 +401,7 @@ __d(
             [t, n, r, a, i, l, s, u, c, d],
           );
     }
-    function P(e) {
+    function $(e) {
       var t = o(
         "WASmaxInGroupsGroupJoinMembershipApprovalModeEnabledMixin",
       ).parseGroupJoinMembershipApprovalModeEnabledMixin(e);
@@ -419,7 +410,7 @@ __d(
           name: "GroupJoinMembershipApprovalModeEnabled",
           value: t.value,
         });
-      var n = N(e);
+      var n = P(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             name: "GroupJoinMembershipApprovalModeDisabled",
@@ -434,7 +425,7 @@ __d(
             [t, n],
           );
     }
-    function N(e) {
+    function P(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "group_join");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -448,10 +439,10 @@ __d(
         : n;
     }
     ((l.sendSetPropertyRPC = e),
-      (l.parseSetPropertyResponseClientError = u),
-      (l.parseSetPropertyResponseServerError = c),
-      (l.parseSetPropertyResponseSuccess = p),
-      (l.makeSetPropertyRequest = D));
+      (l.parseSetPropertyResponseClientError = s),
+      (l.parseSetPropertyResponseServerError = u),
+      (l.parseSetPropertyResponseSuccess = m),
+      (l.makeSetPropertyRequest = T));
   },
   98,
 );

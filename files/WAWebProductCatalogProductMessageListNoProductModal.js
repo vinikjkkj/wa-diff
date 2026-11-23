@@ -17,7 +17,7 @@ __d(
         tsNavigationData: { surface: "unknown", viewName: "no-product" },
         okText: r("WAWebFbtCommon")("OK"),
         children: u.jsx(o("WAWebEmojiText.react").EmojiText, {
-          text: s._(/*BTDS*/ "Items in this message are no longer available"),
+          text: s._(/*BTDS*/ ""),
         }),
       });
     }

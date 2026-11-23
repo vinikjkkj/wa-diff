@@ -13,11 +13,11 @@ __d(
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, a, i, l, s, u) {
-      var c = o(
+    function e(e, t, n, a, i, l, s, u, c) {
+      var d = o(
           "ClickToMessageCTMPerformanceFeatureGating",
         ).isEligibleForLeveragingInboxFAQsInAM(t, e, l, n),
-        d =
+        m =
           s != null
             ? s
             : t != null &&
@@ -27,22 +27,30 @@ __d(
               ? o(
                   "AdsUEditorMessagingDestinationUtils",
                 ).getPromotedObjectTypeForDestination(t)
-              : null;
-      return o("CTXChatBuilderFeatureGating").enableMessageTemplateForWTWA(
-        l,
+              : null,
+        p = o("CTXChatBuilderFeatureGating").enableWTMNudge(l, t, n, !1);
+      return o("CTXChatBuilderFeatureGating").enableMessageTemplateForPTWA(
+        c === !0,
         t,
-        !1,
-        n,
-      )
+      ) ||
+        o("CTXChatBuilderFeatureGating").enableMessageTemplateForWTWA(
+          l,
+          t,
+          !1,
+          n,
+        )
         ? r(
             "AdsGetStandardTemplateDefaultJSONHelperForWhatsAppAutofillMessage",
           )(e)
         : n != null &&
-            o("AdsWhatsAppFeatureGating").isAutofillEligible(t, n, i, d, u)
+            o("AdsWhatsAppFeatureGating").isAutofillEligible(t, n, i, m, u)
           ? r(
               "AdsGetStandardTemplateDefaultJSONHelperForWhatsAppAutofillMessage",
             )(e, a, i)
-          : o("ClickToMessageCTMPerformanceFeatureGating").enableCTMNudge(t) ||
+          : p ||
+              o("ClickToMessageCTMPerformanceFeatureGating").enableCTMNudge(
+                t,
+              ) ||
               o("ClickToMessageCTDFeatureGating").enableCTDNudge(t) ||
               o("ClickToMessageBusinessRuleUtils").enableCTXMDNudge(t) ||
               o("CTXChatBuilderFeatureGating").enableWTDNudge(l, t, n, !0)
@@ -52,8 +60,9 @@ __d(
                 n,
                 a,
                 i,
-                c,
+                d,
                 l,
+                p,
               )
             : r("AdsGetStandardTemplateDefaultJSONHelper")(
                 e,
@@ -61,7 +70,7 @@ __d(
                 n,
                 a,
                 i,
-                c,
+                d,
                 void 0,
                 l,
               );

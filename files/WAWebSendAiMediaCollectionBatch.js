@@ -2,7 +2,6 @@ __d(
   "WAWebSendAiMediaCollectionBatch",
   [
     "fbt",
-    "Promise",
     "WALogger",
     "WAWebActionToast.react",
     "WAWebAttachMediaConstants",
@@ -13,7 +12,6 @@ __d(
     "WAWebMsgKey",
     "WAWebSendAiMediaCollectionEnvelope",
     "WAWebToastManager",
-    "asyncToGeneratorRuntime",
     "countWhere",
     "react",
   ],
@@ -21,130 +19,118 @@ __d(
     var e,
       u,
       c,
-      d,
-      m = d || (d = o("react"));
+      d = c || (c = o("react"));
+    async function m(t) {
+      var n = t.botPersonaId,
+        a = t.chat,
+        i = t.medias,
+        l = t.onMsgKeyCreated,
+        s = t.threadId;
+      if (i.length !== 0) {
+        o("WAWebImagineActionLogger").logImagineMediaSendConfirm({
+          chat: a,
+          mediaTypes: i.map(function (e) {
+            return e.type;
+          }),
+          origins: i.map(function (e) {
+            return e.fileOrigin;
+          }),
+        });
+        var c = await r("WAWebMsgKey").newId(),
+          d = await o(
+            "WAWebCreateAiMediaCollectionMsgData",
+          ).createAiMediaCollectionMsgData({
+            botPersonaId: n,
+            collectionId: c,
+            hasGlobalCaption: !1,
+            chat: a,
+            expectedMediaCount: i.length,
+            threadId: s,
+          });
+        try {
+          await o(
+            "WAWebSendAiMediaCollectionEnvelope",
+          ).sendAiMediaCollectionEnvelope(a, d);
+        } catch (n) {
+          (o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[ai-media-collection] envelope send failed: ",
+                  "",
+                ])),
+              n,
+            )
+            .sendLogs("ai-media-collection-envelope-send-failed"),
+            p(t));
+          return;
+        }
+        var m = a.composeQuotedMsg;
+        ((a.composeQuotedMsg = null), a.setAttachMediaContents(null));
+        var _ = d.botPersonaId,
+          f = d.botMetricsMetadata,
+          g = d.aiThreadInfo,
+          h = await Promise.allSettled(
+            i.map(function (e, t) {
+              var n = {
+                type: e.type,
+                caption: e.caption,
+                addEvenWhilePreparing:
+                  o("WAWebAttachMediaGetters").getPreviewable(e) &&
+                  e.state ===
+                    o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
+                      .PROCESSING,
+                botPersonaId: _,
+                threadId: s,
+                aiMediaCollectionInfo: { collectionId: c, uploadOrderIndex: t },
+                botMetricsMetadata: f,
+                aiThreadInfo: g,
+                onMsgKeyCreated: l != null ? l : void 0,
+              };
+              return (
+                t === 0 && (n.quotedMsg = m),
+                e.sendToChat({ chat: a, options: n })
+              );
+            }),
+          ),
+          y = r("countWhere")(h, function (e) {
+            return e.status === "fulfilled";
+          });
+        y < i.length &&
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[ai-media-collection] ",
+                  "/",
+                  " child send fail; may buffer",
+                ])),
+              i.length - y,
+              i.length,
+            )
+            .sendLogs("ai-media-collection-child-send-shortfall");
+      }
+    }
     function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a = t.botPersonaId,
-            i = t.chat,
-            l = t.medias,
-            s = t.onMsgKeyCreated,
-            d = t.threadId;
-          if (l.length !== 0) {
-            o("WAWebImagineActionLogger").logImagineMediaSendConfirm({
-              chat: i,
-              mediaTypes: l.map(function (e) {
-                return e.type;
-              }),
-              origins: l.map(function (e) {
-                return e.fileOrigin;
-              }),
-            });
-            var m = yield r("WAWebMsgKey").newId(),
-              p = yield o(
-                "WAWebCreateAiMediaCollectionMsgData",
-              ).createAiMediaCollectionMsgData({
-                botPersonaId: a,
-                collectionId: m,
-                hasGlobalCaption: !1,
-                chat: i,
-                expectedMediaCount: l.length,
-                threadId: d,
-              });
-            try {
-              yield o(
-                "WAWebSendAiMediaCollectionEnvelope",
-              ).sendAiMediaCollectionEnvelope(i, p);
-            } catch (n) {
-              (o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[ai-media-collection] envelope send failed: ",
-                      "",
-                    ])),
-                  n,
-                )
-                .sendLogs("ai-media-collection-envelope-send-failed"),
-                f(t));
-              return;
-            }
-            var _ = i.composeQuotedMsg;
-            ((i.composeQuotedMsg = null), i.setAttachMediaContents(null));
-            var g = p.botPersonaId,
-              h = p.botMetricsMetadata,
-              y = p.aiThreadInfo,
-              C = yield (c || (c = n("Promise"))).allSettled(
-                l.map(function (e, t) {
-                  var n = {
-                    type: e.type,
-                    caption: e.caption,
-                    addEvenWhilePreparing:
-                      o("WAWebAttachMediaGetters").getPreviewable(e) &&
-                      e.state ===
-                        o("WAWebAttachMediaConstants").ATTACH_MEDIA_STATE
-                          .PROCESSING,
-                    botPersonaId: g,
-                    threadId: d,
-                    aiMediaCollectionInfo: {
-                      collectionId: m,
-                      uploadOrderIndex: t,
-                    },
-                    botMetricsMetadata: h,
-                    aiThreadInfo: y,
-                    onMsgKeyCreated: s != null ? s : void 0,
-                  };
-                  return (
-                    t === 0 && (n.quotedMsg = _),
-                    e.sendToChat({ chat: i, options: n })
-                  );
-                }),
-              ),
-              b = r("countWhere")(C, function (e) {
-                return e.status === "fulfilled";
-              });
-            b < l.length &&
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[ai-media-collection] ",
-                      "/",
-                      " child send fail; may buffer",
-                    ])),
-                  l.length - b,
-                  l.length,
-                )
-                .sendLogs("ai-media-collection-child-send-shortfall");
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
       var t = new (o("WAWebActionToast.react").ActionType)(
         o("WAWebBotUtils").isMetaAiBot(e.chat.id)
-          ? s._(/*BTDS*/ "Couldn't send to Meta AI.")
-          : s._(/*BTDS*/ "Couldn't send your files."),
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ ""),
         {
-          actionText: s._(/*BTDS*/ "Try again."),
+          actionText: s._(/*BTDS*/ ""),
           actionHandler: function () {
-            return p(babelHelpers.extends({}, e, { onMsgKeyCreated: void 0 }));
+            return m(babelHelpers.extends({}, e, { onMsgKeyCreated: void 0 }));
           },
         },
       );
       o("WAWebToastManager").ToastManager.open(
-        m.jsx(o("WAWebActionToast.react").ActionToast, {
+        d.jsx(o("WAWebActionToast.react").ActionToast, {
           initialAction: t,
-          pendingAction: (c || (c = n("Promise"))).resolve(t),
+          pendingAction: Promise.resolve(t),
         }),
       );
     }
-    l.sendAiMediaCollectionBatch = p;
+    l.sendAiMediaCollectionBatch = m;
   },
   226,
 );

@@ -7,59 +7,36 @@ __d(
     "WAWebPathfinderHeldBackToast",
     "WAWebToast.react",
     "WAWebToastManager",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
       c = 6e4;
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      var t = o("WAWebPathfinderHeldBackSurface").HeldBackSurface.cast(
+        o("WAWebPathfinderHeldBackSurface").captureHeldBackSurface(),
+      );
+      if (t == null) return e();
+      var n = o("WAWebPathfinderHeldBackSurface").enterHeldBackSurface(t),
+        r = window.setTimeout(n, c);
+      try {
+        await e();
+      } finally {
+        (window.clearTimeout(r), n());
+      }
     }
     function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebPathfinderHeldBackSurface").HeldBackSurface.cast(
-            o("WAWebPathfinderHeldBackSurface").captureHeldBackSurface(),
-          );
-          if (t == null) return e();
-          var n = o("WAWebPathfinderHeldBackSurface").enterHeldBackSurface(t),
-            r = window.setTimeout(n, c);
-          try {
-            yield e();
-          } finally {
-            (window.clearTimeout(r), n());
-          }
-        })),
-        m.apply(this, arguments)
-      );
+      h(u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }));
     }
     function p() {
-      y(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Couldn't save Pix key"),
-        }),
-      );
+      h(u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }));
     }
     function _() {
-      y(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Pix key saved"),
-        }),
-      );
+      h(u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }));
     }
     function f() {
-      y(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(
-            /*BTDS*/ "Couldn't update privacy settings. Please try again.",
-          ),
-        }),
-      );
-    }
-    function g() {
-      y(
+      h(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: o(
             "WAWebConsumerPixStrings",
@@ -67,14 +44,14 @@ __d(
         }),
       );
     }
-    function h() {
-      y(
+    function g() {
+      h(
         u.jsx(o("WAWebToast.react").Toast, {
           msg: o("WAWebConsumerPixStrings").getConsumerPixDeleteKeyErrorToast(),
         }),
       );
     }
-    function y(e) {
+    function h(e) {
       var t = o("WAWebPathfinderHeldBackSurface").HeldBackSurface.cast(
         o("WAWebPathfinderHeldBackSurface").captureHeldBackSurface(),
       );
@@ -87,11 +64,11 @@ __d(
       });
     }
     ((l.withinPixFlowHold = d),
-      (l.showPixKeySaveFailedToast = p),
-      (l.showPixKeySavedToast = _),
-      (l.showPixVisibilityUpdateFailedToast = f),
-      (l.showPixKeyDeletedToast = g),
-      (l.showPixKeyDeleteFailedToast = h));
+      (l.showPixKeySaveFailedToast = m),
+      (l.showPixKeySavedToast = p),
+      (l.showPixVisibilityUpdateFailedToast = _),
+      (l.showPixKeyDeletedToast = f),
+      (l.showPixKeyDeleteFailedToast = g));
   },
   226,
 );

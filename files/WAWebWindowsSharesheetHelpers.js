@@ -2,74 +2,74 @@ __d(
   "WAWebWindowsSharesheetHelpers",
   [
     "WALogger",
+    "WAWebDualUploadsPreferredMsg",
     "WAWebWindowsHybridBridgeInitiator",
     "WAWebWindowsMediaFilesHelpers",
-    "asyncToGeneratorRuntime",
     "cr:17219",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s, u, c;
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      var t = o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsg(e);
+      (await o("WAWebWindowsMediaFilesHelpers").saveMediaFile(t, {
+        isPreResolved: !0,
+      }),
+        await m(t));
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var a,
-            i = o("WAWebWindowsMediaFilesHelpers").getMediaFileInfo(t);
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[shareFile] Starting to save media file for msg ",
-                "",
-              ])),
-            t.id.toString(),
-          );
-          var l =
-            n("cr:17219") == null ||
-            (a = n("cr:17219").getWindowsBridge(
-              r("WAWebWindowsHybridBridgeInitiator")
-                .WAWebWindowsSharesheetHelpers,
-            )) == null
-              ? void 0
-              : a.sharesheetBridge;
-          l
-            ? i != null
-              ? (o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[shareFile] Sharing file for msg ",
-                      "",
-                    ])),
-                  t.id.toString(),
-                ),
-                yield l.shareFile(
-                  i == null ? void 0 : i.mediaFileHash,
-                  i == null ? void 0 : i.suggestedFileName,
-                ))
-              : (o("WALogger").ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[shareFile] Failed to get media info for msg ",
-                      "",
-                    ])),
-                  t.id.toString(),
-                ),
-                r("err")("Failed to get media info or media files bridge"))
-            : (o("WALogger").ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[shareFile] Sharesheet bridge not supported in this version",
-                  ])),
-              ),
-              r("err")("Sharesheet bridge not supported in this version"));
-        })),
-        m.apply(this, arguments)
+    async function m(t) {
+      var a,
+        i = o("WAWebWindowsMediaFilesHelpers").getMediaFileInfo(t, {
+          isPreResolved: !0,
+        });
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "[shareFile] Starting to save media file for msg ",
+            "",
+          ])),
+        t.id.toString(),
       );
+      var l =
+        n("cr:17219") == null ||
+        (a = n("cr:17219").getWindowsBridge(
+          r("WAWebWindowsHybridBridgeInitiator").WAWebWindowsSharesheetHelpers,
+        )) == null
+          ? void 0
+          : a.sharesheetBridge;
+      l
+        ? i != null
+          ? (o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[shareFile] Sharing file for msg ",
+                  "",
+                ])),
+              t.id.toString(),
+            ),
+            await l.shareFile(
+              i == null ? void 0 : i.mediaFileHash,
+              i == null ? void 0 : i.suggestedFileName,
+            ))
+          : (o("WALogger").ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[shareFile] Failed to get media info for msg ",
+                  "",
+                ])),
+              t.id.toString(),
+            ),
+            r("err")("Failed to get media info or media files bridge"))
+        : (o("WALogger").ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[shareFile] Sharesheet bridge not supported in this version",
+              ])),
+          ),
+          r("err")("Sharesheet bridge not supported in this version"));
     }
-    l.shareFile = d;
+    l.saveAndShareFile = d;
   },
   98,
 );

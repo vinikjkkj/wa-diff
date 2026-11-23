@@ -8,7 +8,6 @@ __d(
     "WAWebMetaOneSubscriptionActions",
     "WAWebSubscriptionFeatureFlagActions",
     "WAWebSubscriptionsGatingUtils",
-    "react-compiler-runtime",
     "useWAWebGetFeatureFlag",
     "useWAWebHasActiveMetaOneSubscription",
   ],
@@ -28,31 +27,21 @@ __d(
       );
     }
     function s() {
-      var e = o("react-compiler-runtime").c(4),
-        t = c(),
-        n = o(
+      var e = c(),
+        t = o(
           "WAWebCustomerManagerAccessStore",
         ).useWAWebCustomerManagerAccessState(),
-        r = o(
+        n = o(
           "WAWebCustomerManagerAccessStore",
-        ).useWAWebCustomerManagerTrialNow(n),
-        a;
+        ).useWAWebCustomerManagerTrialNow(t);
       return (
-        e[0] !== n || e[1] !== t || e[2] !== r
-          ? ((a =
-              !o(
-                "WAWebSubscriptionsGatingUtils",
-              ).customerManagerSubscriptionGatingEnabled() ||
-              t ||
-              o(
-                "WAWebCustomerManagerAccessState",
-              ).isCustomerManagerAccessAllowedByState(n, r)),
-            (e[0] = n),
-            (e[1] = t),
-            (e[2] = r),
-            (e[3] = a))
-          : (a = e[3]),
-        a
+        !o(
+          "WAWebSubscriptionsGatingUtils",
+        ).customerManagerSubscriptionGatingEnabled() ||
+        e ||
+        o(
+          "WAWebCustomerManagerAccessState",
+        ).isCustomerManagerAccessAllowedByState(t, n)
       );
     }
     function u() {

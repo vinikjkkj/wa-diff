@@ -7,6 +7,7 @@ __d(
     "AdsPromotedObjectUtilsShared",
     "adsConvertAdObjectRecordToPlainJS",
     "isMessageMarketingEnabledFromCampaign",
+    "qex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -15,7 +16,9 @@ __d(
       var y = o(
         "AdsPlacementAPISpecReaderUtilsShared",
       ).convertCampaignToPlacementSpec_LEGACY(
-        r("adsConvertAdObjectRecordToPlainJS")(e),
+        r("qex")._("3278") === !0
+          ? e
+          : r("adsConvertAdObjectRecordToPlainJS")(e),
       );
       return s(
         r("adsConvertAdObjectRecordToPlainJS")(e),
@@ -105,7 +108,7 @@ __d(
         m = o("AdsAPICampaignRecordUtilsShared").getPromotedObjectType(
           n,
           t,
-          r("adsConvertAdObjectRecordToPlainJS")(e),
+          e,
           d,
         ),
         p = e.optimization_goal,

@@ -7,6 +7,7 @@ __d(
     "AdsInterfacesLogger",
     "QE2Logger",
     "adsCallToActionIsCTASupportedByObjective",
+    "adsObserveRuntimeType",
     "getByPath",
     "getIsEligibleHighAdminCountPage",
   ],
@@ -107,7 +108,12 @@ __d(
     function y(e, t, n, a, i) {
       var l, s;
       if (
-        (r("AdsInterfacesLogger").log({
+        (o("adsObserveRuntimeType").adsObserveRuntimeType(
+          "any_type:call_prompt_wm_json",
+          "AdsMessengerJSONType",
+          a,
+        ),
+        r("AdsInterfacesLogger").log({
           eventName: "call_prompt_update_cta_eligiblility_check_started",
           data:
             ((l = {}),

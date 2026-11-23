@@ -7,17 +7,15 @@ __d(
       if (t != null && t.trim() !== "") return t;
       var n = e.percentUsed;
       return n != null
-        ? s._(/*BTDS*/ '_j{"*":"{percent used}\\u0025 used"}', [
-            s._param("percent used", n, [0]),
-          ])
+        ? s._(/*BTDS*/ "", [s._param("percent used", n, [0])])
         : e.usageState === "UNLIMITED"
-          ? s._(/*BTDS*/ "Unlimited")
+          ? s._(/*BTDS*/ "")
           : null;
     }
     function u(e) {
       return /\splan$/i.test(e)
         ? e
-        : s._(/*BTDS*/ "{plan name} plan", [s._param("plan name", e)]);
+        : s._(/*BTDS*/ "", [s._param("plan name", e)]);
     }
     function c(e) {
       var t = e.usageRowLabel;

@@ -7,33 +7,30 @@ __d(
       return e ? r("gkx")("12362") : r("gkx")("12363");
     }
     function s() {
-      return r("gkx")("18207");
-    }
-    function u() {
       return r("gkx")("13968");
     }
-    function c() {
+    function u() {
       return r("gkx")("6841");
     }
-    function d() {
+    function c() {
       return r("gkx")("14210");
     }
-    function m(e) {
+    function d(e) {
       return e == null ? !1 : e.includes("SBG");
     }
-    function p(e) {
+    function m(e) {
       return e == null ? !1 : e.includes("GBG Unmanaged");
     }
-    function _(e) {
+    function p(e) {
       return e == null ? !1 : e.includes("GBG Scaled");
     }
-    function f(e) {
+    function _(e) {
       return e == null ? !1 : e.includes("GBG In-Market");
     }
-    function g() {
+    function f() {
       return r("gkx")("4835");
     }
-    function h() {
+    function g() {
       return (
         o(
           "AdsSensitiveVerticalUtils",
@@ -44,7 +41,7 @@ __d(
         o("AdsSensitiveVerticalUtils").isAdAccountOnBig6AgencyBlocklist()
       );
     }
-    function y() {
+    function h() {
       return (
         o(
           "AdsSensitiveVerticalUtils",
@@ -53,32 +50,27 @@ __d(
         o("AdsSensitiveVerticalUtils").isAdAccountGSIVertical()
       );
     }
+    function y() {
+      return s();
+    }
     function C() {
-      return u();
+      return h() || s();
     }
     function b() {
-      return r("gkx")("15398");
-    }
-    function v() {
-      return y() || u();
-    }
-    function S() {
-      return y() || c();
+      return h() || u();
     }
     ((l.passTextOptimizationsFastTrackV2GK = e),
-      (l.passTextTranslationsFastTrackV2GK = s),
-      (l.isAccountEligbleForTextOptimizationsFastTrackV2 = d),
-      (l.isSBGSegment = m),
-      (l.isGBGUnmanagedSegment = p),
-      (l.isGBGScaleSegment = _),
-      (l.isGBGInMarketSegment = f),
-      (l.isAdAccountOnPEDACarouselBlocklist = g),
-      (l.isAccountSensitiveForFastTrackV2 = h),
-      (l.isAccountInSensitiveVerticals = y),
-      (l.isAccountOnEnhanceCTAFastTrackV2Blocklist = C),
-      (l.passEnhanceCTAFullFastTrackGK = b),
-      (l.isAdAccountSensitiveForInfoLabelGlobalish = v),
-      (l.isAdAccountSensitiveForHidePriceGlobalish = S));
+      (l.isAccountEligbleForTextOptimizationsFastTrackV2 = c),
+      (l.isSBGSegment = d),
+      (l.isGBGUnmanagedSegment = m),
+      (l.isGBGScaleSegment = p),
+      (l.isGBGInMarketSegment = _),
+      (l.isAdAccountOnPEDACarouselBlocklist = f),
+      (l.isAccountSensitiveForFastTrackV2 = g),
+      (l.isAccountInSensitiveVerticals = h),
+      (l.isAccountOnEnhanceCTAFastTrackV2Blocklist = y),
+      (l.isAdAccountSensitiveForInfoLabelGlobalish = C),
+      (l.isAdAccountSensitiveForHidePriceGlobalish = b));
   },
   98,
 );

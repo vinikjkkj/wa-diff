@@ -6,7 +6,6 @@ __d(
     "WAWebHybridMetaConfigEnabled",
     "WAWebODS",
     "WAWebWindowsHybridBridgeTrace",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -47,21 +46,15 @@ __d(
       }
       var t = e.prototype;
       return (
-        (t.initialize = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            this.$2 ||
-              ((this.$2 = !0),
-              yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
-              o("WAWebHybridMetaConfigEnabled").isHybridMetaConfigEnabled() &&
-                (this.$1.addEventListener("exposureLogged", this.$3),
-                this.$1.subscribe(null),
-                this.$4()));
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (t.initialize = async function () {
+          this.$2 ||
+            ((this.$2 = !0),
+            await o("WAWebABPropsCache").waitForABPropConfigsReady(),
+            o("WAWebHybridMetaConfigEnabled").isHybridMetaConfigEnabled() &&
+              (this.$1.addEventListener("exposureLogged", this.$3),
+              this.$1.subscribe(null),
+              this.$4()));
+        }),
         e
       );
     })();

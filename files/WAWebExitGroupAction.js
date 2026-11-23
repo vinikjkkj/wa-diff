@@ -69,13 +69,11 @@ __d(
       );
     }
     function g(t, n) {
-      var r = new (o("WAWebActionToast.react").ActionType)(
-          s._(/*BTDS*/ "Exiting group"),
-        ),
+      var r = new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")),
         a = n
           .then(function () {
             return new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Exited group"),
+              s._(/*BTDS*/ ""),
             );
           })
           .catch(
@@ -84,7 +82,7 @@ __d(
               function (e) {
                 if (e.status >= 400)
                   return new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't exit group."),
+                    s._(/*BTDS*/ ""),
                   );
               },
             ),
@@ -97,15 +95,12 @@ __d(
                     "actions:chat:sendExit dropped",
                   ])),
               ),
-              new (o("WAWebActionToast.react").ActionType)(
-                s._(/*BTDS*/ "Couldn't exit group."),
-                {
-                  actionText: s._(/*BTDS*/ "Try again."),
-                  actionHandler: function () {
-                    return p(t);
-                  },
+              new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""), {
+                actionText: s._(/*BTDS*/ ""),
+                actionHandler: function () {
+                  return p(t);
                 },
-              )
+              })
             );
           });
       o("WAWebToastManager").ToastManager.open(

@@ -13,24 +13,21 @@ __d(
     function e() {
       return r("gkx")("19550");
     }
-    function s(e) {
-      return e ? r("gkx")("16887") : r("gkx")("16888");
-    }
-    function u() {
+    function s() {
       return r("gkx")("12253");
     }
-    function c(e) {
+    function u(e) {
       return (
         !o("AdsSensitiveVerticalUtils").isAdAccountOnFastTrackBlocklist() &&
         !o("AdsSensitiveVerticalUtils").isAdAccountOnBig6AgencyBlocklist() &&
-        p(e)
+        m(e)
       );
     }
-    function d(t) {
-      var n = m(t);
+    function c(t) {
+      var n = d(t);
       return n && e();
     }
-    function m(e) {
+    function d(e) {
       var t = e == null ? void 0 : e.sales_segment_v2,
         n = o("AdsAPlusCFastTrackV2Utils").isSBGSegment(t),
         a =
@@ -45,20 +42,20 @@ __d(
         !o("AdsSensitiveVerticalUtils").isAdAccountOnBig6AgencyBlocklist()
       );
     }
-    function p(e) {
+    function m(e) {
       return (
         (e == null ? void 0 : e.source_app_id) ===
           r("AdsApplicationIDs").ADS_POWER_EDITOR ||
         (e == null ? void 0 : e.source_app_id) == null
       );
     }
+    function p(e, t) {
+      return c(e) && m(t);
+    }
     function _(e, t) {
-      return d(e) && p(t);
+      return d(e) && m(t);
     }
-    function f(e, t) {
-      return m(e) && p(t);
-    }
-    function g() {
+    function f() {
       var e = r("AdsAccountStore").getSelectedAccount().getValue(),
         t = e == null ? void 0 : e.sales_segment_v2;
       if (t == null) return !0;
@@ -66,7 +63,7 @@ __d(
         a = o("AdsAPlusCFastTrackV2Utils").isGBGUnmanagedSegment(t);
       return n || a;
     }
-    function h() {
+    function g() {
       var e =
         o(
           "AdsSensitiveVerticalUtils",
@@ -76,13 +73,13 @@ __d(
         !e &&
         !o("AdsSensitiveVerticalUtils").isAdAccountOnFastTrackBlocklist() &&
         !o("AdsSensitiveVerticalUtils").isAdAccountOnBig6AgencyBlocklist() &&
-        g()
+        f()
       );
     }
-    function y(e) {
-      return h() && p(e);
+    function h(e) {
+      return g() && m(e);
     }
-    function C(e) {
+    function y(e) {
       var t,
         n,
         r,
@@ -99,10 +96,10 @@ __d(
               "OPT_IN"
         : !1;
     }
-    function b() {
+    function C() {
       return r("gkx")("22299");
     }
-    function v() {
+    function b() {
       if (r("justknobx")._("4601")) return !0;
       var e = r("AdsAccountStore").getSelectedAccount().getValue(),
         t = e == null ? void 0 : e.sales_segment_v2;
@@ -112,20 +109,19 @@ __d(
       return n || a;
     }
     ((l.passAppInfoBackfillAdExGK = e),
-      (l.passShowDestinationBlurbsGK = s),
-      (l.isAccountInSCJFastTrackAllowlist = u),
-      (l.isEligibleForSCJAPlusCFastTrackBackfill = c),
-      (l.isAdAccountEligibleForSCJAppInfoFastTrackBackfill = d),
-      (l.isAdAccountEligibleForSCJExtensionsFastTrackBackfill = m),
-      (l.isAdCreatedFromAdsManager = p),
-      (l.isAdEligibleForSCJAppInfoFastTrackBackfill = _),
-      (l.isAdEligibleForSCJWebsiteMediaFastTrackBackfill = f),
-      (l.passWebsiteSummaryBackfillEligibility = g),
-      (l.isAdAccountEligibleForSCJWebsiteSummaryFastTrackBackfill = h),
-      (l.isAdEligibleForSCJWebsiteSummaryFastTrackBackfill = y),
-      (l.areAllAppInfoOptedIn = C),
-      (l.passNativeCommerceExperienceNonCTAGK = b),
-      (l.isAdAccountSegmentEligibleForProductBrowsingNonCTA = v));
+      (l.isAccountInSCJFastTrackAllowlist = s),
+      (l.isEligibleForSCJAPlusCFastTrackBackfill = u),
+      (l.isAdAccountEligibleForSCJAppInfoFastTrackBackfill = c),
+      (l.isAdAccountEligibleForSCJExtensionsFastTrackBackfill = d),
+      (l.isAdCreatedFromAdsManager = m),
+      (l.isAdEligibleForSCJAppInfoFastTrackBackfill = p),
+      (l.isAdEligibleForSCJWebsiteMediaFastTrackBackfill = _),
+      (l.passWebsiteSummaryBackfillEligibility = f),
+      (l.isAdAccountEligibleForSCJWebsiteSummaryFastTrackBackfill = g),
+      (l.isAdEligibleForSCJWebsiteSummaryFastTrackBackfill = h),
+      (l.areAllAppInfoOptedIn = y),
+      (l.passNativeCommerceExperienceNonCTAGK = C),
+      (l.isAdAccountSegmentEligibleForProductBrowsingNonCTA = b));
   },
   98,
 );

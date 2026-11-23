@@ -8,7 +8,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       return {
-        label: s._(/*BTDS*/ "New event"),
+        label: s._(/*BTDS*/ ""),
         onPress: function () {
           (o(
             "WAWebSharableEventListUserJourneyLogger",

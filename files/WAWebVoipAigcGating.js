@@ -23,23 +23,14 @@ __d(
         )) != null
           ? n
           : 0;
-      if (i < e)
-        return s._(
-          /*BTDS*/ "Calls with Meta AI are not available in your country.",
-        );
+      if (i < e) return s._(/*BTDS*/ "");
       var l =
         (r = o("WAWebABProps").getABPropConfigValue(
           "ai_group_call_max_version_by_platform",
         )) != null
           ? r
           : 0;
-      return l < e
-        ? s._(
-            /*BTDS*/ "Calls with Meta AI are not supported on this device. Please join on your primary mobile phone.",
-          )
-        : s._(
-            /*BTDS*/ "Update WhatsApp to the latest version to keep using calls with Meta AI.",
-          );
+      return l < e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(t, n) {

@@ -5,38 +5,21 @@ __d(
     "WDSIconIcTrophyFilled.react",
     "WDSIconWdsIcPoll.react",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react"));
     function u(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.msg;
-      if (n.pollType === o("WAWebPollCreationUtils").PollType.QUIZ) {
-        var a;
-        return (
-          t[0] === Symbol.for("react.memo_cache_sentinel")
-            ? ((a = s.jsx(r("WDSIconIcTrophyFilled.react"), { height: 20 })),
-              (t[0] = a))
-            : (a = t[0]),
-          a
-        );
-      }
-      var i;
-      return (
-        t[1] === Symbol.for("react.memo_cache_sentinel")
-          ? ((i = s.jsx(r("WDSIconWdsIcPoll.react"), {
-              width: 20,
-              testid: "poll-refreshed-thin",
-              height: 20,
-            })),
-            (t[1] = i))
-          : (i = t[1]),
-        i
-      );
+      var t = e.msg;
+      return t.pollType === o("WAWebPollCreationUtils").PollType.QUIZ
+        ? s.jsx(r("WDSIconIcTrophyFilled.react"), { height: 20 })
+        : s.jsx(r("WDSIconWdsIcPoll.react"), {
+            width: 20,
+            testid: "poll-refreshed-thin",
+            height: 20,
+          });
     }
-    l.default = u;
+    ((u.displayName = u.name + " [from " + i.id + "]"), (l.default = u));
   },
   98,
 );

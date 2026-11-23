@@ -8,7 +8,6 @@ __d(
     "WAWebCommonParsersParseBusinessProfile",
     "WAWebCommsWapMd",
     "WAWebJidToWid",
-    "asyncToGeneratorRuntime",
     "cr:17537",
   ],
   function (t, n, r, o, a, i, l) {
@@ -36,48 +35,36 @@ __d(
         );
       },
     );
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a,
-            i = (a = o("WAWap")).wap(
-              "iq",
-              {
-                to: a.S_WHATSAPP_NET,
-                xmlns: "w:biz",
-                id: a.generateId(),
-                type: "get",
-              },
-              a.wap(
-                "business_profile",
-                { v: a.INT(r) },
-                t.map(function (e) {
-                  return o("WAWap").wap("profile", {
-                    jid: o("WAWebCommsWapMd").USER_JID(e.wid),
-                    tag:
-                      e.tag != null
-                        ? o("WAWap").INT(e.tag)
-                        : o("WAWap").DROP_ATTR,
-                  });
-                }),
-              ),
-            ),
-            l = yield o("WADeprecatedSendIq").deprecatedSendIq(i, e);
-          if (l.success)
-            return (
-              n("cr:17537") == null ||
-                n("cr:17537").observeAeaBusinessAccountTypes(l.result),
-              l.result
-            );
-          throw new (o("WAWebBackendErrors").ServerStatusCodeError)(
-            l.errorCode,
-          );
-        })),
-        u.apply(this, arguments)
-      );
+    async function s(t, r) {
+      var a,
+        i = (a = o("WAWap")).wap(
+          "iq",
+          {
+            to: a.S_WHATSAPP_NET,
+            xmlns: "w:biz",
+            id: a.generateId(),
+            type: "get",
+          },
+          a.wap(
+            "business_profile",
+            { v: a.INT(r) },
+            t.map(function (e) {
+              return o("WAWap").wap("profile", {
+                jid: o("WAWebCommsWapMd").USER_JID(e.wid),
+                tag:
+                  e.tag != null ? o("WAWap").INT(e.tag) : o("WAWap").DROP_ATTR,
+              });
+            }),
+          ),
+        ),
+        l = await o("WADeprecatedSendIq").deprecatedSendIq(i, e);
+      if (l.success)
+        return (
+          n("cr:17537") == null ||
+            n("cr:17537").observeAeaBusinessAccountTypes(l.result),
+          l.result
+        );
+      throw new (o("WAWebBackendErrors").ServerStatusCodeError)(l.errorCode);
     }
     l.default = s;
   },

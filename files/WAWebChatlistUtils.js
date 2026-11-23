@@ -27,7 +27,6 @@ __d(
     "WAWebUserPrefsCTWA",
     "WAWebWamEnumLwiScreenAction",
     "WAWebWamEnumWebFlowType",
-    "asyncToGeneratorRuntime",
     "gkx",
     "react",
   ],
@@ -124,7 +123,7 @@ __d(
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, {
           action: { dismiss: !0, actionText: e },
-          msg: s._(/*BTDS*/ "Something went wrong. Please try again."),
+          msg: s._(/*BTDS*/ ""),
           id: o("WAWebToast.react").genId(),
         }),
       );
@@ -137,103 +136,98 @@ __d(
     }
     function h(e) {
       var t = e.adCreationUrlInput,
-        a = e.lwiEntryPoint,
-        i = e.waCampaignId,
-        l = t.activeAccountInfo,
-        s = t.sourceAdCreation,
-        u = l !== "not-linked" && l.hasFacebookPage,
+        n = e.lwiEntryPoint,
+        a = e.waCampaignId,
+        i = t.activeAccountInfo,
+        l = t.sourceAdCreation,
+        s = i !== "not-linked" && i.hasFacebookPage,
+        u =
+          l === "whatsapp_smb_web_catalog" ||
+          l === "whatsapp_smb_web_catalog_product",
         d =
-          s === "whatsapp_smb_web_catalog" ||
-          s === "whatsapp_smb_web_catalog_product",
-        m =
           (o("WAWebBizNativeAdsGatingUtils").nativeAdsDogfoodEnabled() ||
             o("WAWebBizNativeAdsGatingUtils").nativeAdsWebCreationEnabled()) &&
-          (!d ||
+          (!u ||
             o("WAWebBizNativeAdsGatingUtils").nativeAdsCatalogBoostEnabled()),
-        p;
+        m;
       if (
-        (m
-          ? (p = r("WAWebPonyfillsCryptoRandomUUID")())
+        (d
+          ? (m = r("WAWebPonyfillsCryptoRandomUUID")())
           : (o("WAWebUserPrefsCTWA").resetAdCreationSequenceNumber(),
-            (p = o("WAWebUserPrefsCTWA").generateAdCreationFlowId())),
+            (m = o("WAWebUserPrefsCTWA").generateAdCreationFlowId())),
         o("WAWebBizNativeAdsEntryTapLogger").logEntryTap({
-          lwiEntryPoint: a,
-          lwiExtras: JSON.stringify({ uses_native_ads: m }),
-          lwiFlowId: p,
-          userHasLinkedFbPage: u,
-          waCampaignId: i,
-          webFlowType: m
+          lwiEntryPoint: n,
+          lwiExtras: JSON.stringify({ uses_native_ads: d }),
+          lwiFlowId: m,
+          userHasLinkedFbPage: s,
+          waCampaignId: a,
+          webFlowType: d
             ? o("WAWebWamEnumWebFlowType").WEB_FLOW_TYPE.NATIVE_WEB
             : o("WAWebWamEnumWebFlowType").WEB_FLOW_TYPE.EXTERNAL_WEB,
         }),
         o("WAWebBizNativeAdsEntryTapLogger").logRoutingDecision({
-          lwiEntryPoint: a,
-          lwiFlowId: p,
-          usesNativeAds: m,
-          hasFacebookPage: u,
-          activeAccountInfoType: l === "not-linked" ? "not-linked" : l.type,
-          hasCreatedAd: l !== "not-linked" && l.hasCreatedAd,
-          sourceAdCreation: s,
+          lwiEntryPoint: n,
+          lwiFlowId: m,
+          usesNativeAds: d,
+          hasFacebookPage: s,
+          activeAccountInfoType: i === "not-linked" ? "not-linked" : i.type,
+          hasCreatedAd: i !== "not-linked" && i.hasCreatedAd,
+          sourceAdCreation: l,
         }),
-        m)
+        d)
       ) {
-        r("WAWebOpenBizNativeAdsFlow")(s, p, g(t));
+        r("WAWebOpenBizNativeAdsFlow")(l, m, g(t));
         return;
       }
-      var _ = l !== "not-linked" && l.type === "whatsapp",
-        h = o(
+      var p = i !== "not-linked" && i.type === "whatsapp",
+        _ = o(
           "WAWebAdCreationLogger",
-        ).getLwiAdsIdentityTypeFromActiveAccountInfo(l);
+        ).getLwiAdsIdentityTypeFromActiveAccountInfo(i);
       o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
         o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION.LWI_ACTION_VIEW,
-        h,
-        u,
+        _,
+        s,
       );
-      var y = (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
-            o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
-              .LWI_ACTION_NUX_CONTINUE_TAPPED,
-            h,
-            u,
+      var h = async function () {
+        o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
+          o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
+            .LWI_ACTION_NUX_CONTINUE_TAPPED,
+          _,
+          s,
+        );
+        try {
+          var e = await o(
+            "WAWebBusinessAdCreationUtils",
+          ).getWhatsappAdCreationUrl(
+            babelHelpers.extends({}, t, { flowId: m }),
           );
-          try {
-            var e = yield o(
-              "WAWebBusinessAdCreationUtils",
-            ).getWhatsappAdCreationUrl(
-              babelHelpers.extends({}, t, { flowId: p }),
-            );
-            o("WAWebExternalLink.react").openExternalLink(e, {
-              allowReferrer: !0,
-            });
-          } catch (e) {
-            f();
-          }
-        });
-        return function () {
-          return e.apply(this, arguments);
-        };
-      })();
+          o("WAWebExternalLink.react").openExternalLink(e, {
+            allowReferrer: !0,
+          });
+        } catch (e) {
+          f();
+        }
+      };
       o("WAWebModalManager").ModalManager.open(
         c.jsx(r("WAWebBizAdCreationEntryPointModal.react"), {
-          onOK: y,
+          onOK: h,
           onClose: function () {
             return o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
               o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
                 .LWI_ACTION_CANCEL_DIALOG_BUTTON_TAPPED,
-              h,
-              u,
+              _,
+              s,
             );
           },
           onLearnMore: function () {
             return o("WAWebAdCreationLogger").logLwiAdCreationNuxScreen(
               o("WAWebWamEnumLwiScreenAction").LWI_SCREEN_ACTION
                 .LWI_ACTION_LEARN_MORE_TAPPED,
-              h,
-              u,
+              _,
+              s,
             );
           },
-          isPagelessAd: _,
+          isPagelessAd: p,
         }),
       );
     }

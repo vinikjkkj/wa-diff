@@ -1,48 +1,32 @@
 __d(
   "WAWebBizAdCreationDownloadDraftMedia",
-  [
-    "FBLogger",
-    "Promise",
-    "WAWebBizAdCreationFetchMediaFile",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["FBLogger", "WAWebBizAdCreationFetchMediaFile", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e;
+    async function e(e) {
+      var t = [].concat(e).sort(function (e, t) {
+          var n, r;
+          return (
+            ((n = e.index) != null ? n : 0) - ((r = t.index) != null ? r : 0)
+          );
+        }),
+        n = await Promise.all(t.map(s)),
+        r = [];
+      for (var o of n) o != null && r.push(o);
+      return { files: r, missingCount: t.length - r.length };
+    }
     function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = [].concat(t).sort(function (e, t) {
-              var n, r;
-              return (
-                ((n = e.index) != null ? n : 0) -
-                ((r = t.index) != null ? r : 0)
-              );
-            }),
-            o = yield (e || (e = n("Promise"))).all(r.map(c)),
-            a = [];
-          for (var i of o) i != null && a.push(i);
-          return { files: a, missingCount: r.length - a.length };
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(t) {
-      var a,
-        i,
-        l,
-        s = (a = t.media) == null ? void 0 : a.url;
-      if (s == null) return (e || (e = n("Promise"))).resolve(null);
-      var u =
-        ((i = t.media) == null ? void 0 : i.type) === "video" ? "mp4" : "jpg";
+      var t,
+        n,
+        a,
+        i = (t = e.media) == null ? void 0 : t.url;
+      if (i == null) return Promise.resolve(null);
+      var l =
+        ((n = e.media) == null ? void 0 : n.type) === "video" ? "mp4" : "jpg";
       return o("WAWebBizAdCreationFetchMediaFile")
         .fetchMediaFile(
-          s,
-          "draft-media-" + ((l = t.index) != null ? l : 0) + "." + u,
+          i,
+          "draft-media-" + ((a = e.index) != null ? a : 0) + "." + l,
           "Draft media restore",
         )
         .catch(function (e) {
@@ -54,7 +38,7 @@ __d(
           );
         });
     }
-    l.downloadDraftMedia = s;
+    l.downloadDraftMedia = e;
   },
   98,
 );

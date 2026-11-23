@@ -19,7 +19,7 @@ __d(
         o = t.locale,
         a = t.startTime;
       if (a == null || r == null || (n != null && u.has(n))) return null;
-      if (r === 0) return s._(/*BTDS*/ "Until you pause it");
+      if (r === 0) return s._(/*BTDS*/ "");
       var i = a * 1e3,
         l = i + r * e,
         c = Date.now(),
@@ -30,22 +30,17 @@ __d(
         _ = l >= d.getTime() && l < m.getTime(),
         f = l >= m.getTime() && l < p.getTime(),
         g = l < c;
-      if (_)
-        return g ? s._(/*BTDS*/ "Ended today") : s._(/*BTDS*/ "Ends today");
-      if (f) return s._(/*BTDS*/ "Ends tomorrow");
+      if (_) return g ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
+      if (f) return s._(/*BTDS*/ "");
       if (g) {
         var h = new Intl.DateTimeFormat(o, {
           day: "numeric",
           month: "short",
         }).format(l);
-        return s._(/*BTDS*/ "Ended on {date}", [s._param("date", h)]);
+        return s._(/*BTDS*/ "", [s._param("date", h)]);
       }
       var y = Math.ceil((l - c) / e);
-      return y > 0
-        ? s._(/*BTDS*/ '_j{"*":"Ends in {number} days","_1":"Ends in 1 day"}', [
-            s._plural(y, "number"),
-          ])
-        : null;
+      return y > 0 ? s._(/*BTDS*/ "", [s._plural(y, "number")]) : null;
     }
     l.getAdEndDateText = c;
   },

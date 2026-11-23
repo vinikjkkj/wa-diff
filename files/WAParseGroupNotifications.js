@@ -131,15 +131,18 @@ __d(
           creator: u != null ? u : void 0,
           creationTs: o("WATimeUtils").castToUnixTime(s),
           participants: _.map(function (e) {
-            var t = e.groupInfoParticipantMixins,
-              n = e.participantNotAddressableMixin;
+            var t,
+              n = e.groupInfoParticipantMixins,
+              r = e.participantNotAddressableMixin;
             return o("WAResultOrError").makeResult({
-              addressable: (n == null ? void 0 : n.addressable) !== "false",
+              addressable: (r == null ? void 0 : r.addressable) !== "false",
               type:
-                t.name === "GroupInfoParticipantAdmin"
-                  ? t.value.type
+                n.name === "GroupInfoParticipantAdmin"
+                  ? (t = n.value.type) != null
+                    ? t
+                    : "admin"
                   : "participant",
-              user: t.value.participantMixins.value.jid,
+              user: n.value.participantMixins.value.jid,
             });
           }),
           subject: {

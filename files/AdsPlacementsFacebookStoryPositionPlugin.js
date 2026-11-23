@@ -73,12 +73,25 @@ __d(
         (e[c.LEAD_GENERATION] = "ENABLE_LEAD_GEN_FOR_FB_STORY_ADS"),
         (e[c.PRODUCT_CATALOG_SALES] = "ENBABLE_CATALOG_SALES_FOR_FB_STORY"),
         (e[c.POST_ENGAGEMENT] = "ENABLE_POST_ENGAGEMENT_FOR_FB_STORY"),
-        e),
-      _ = {
+        e);
+    function _(e, t) {
+      return !o(
+        "AdsVideoBuyingStoreUtils",
+      ).checkIfPlacementPositionValidForBuyingOption(e, "FB_stories") ||
+        (e.optimizationGoal ===
+          r("AdsAPIOptimizationGoals").INCREMENTAL_OFFSITE_CONVERSIONS &&
+          t !== r("AdsAPIObjectives").CONVERSIONS) ||
+        (t === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES &&
+          (e.optimizationGoal === r("AdsAPIOptimizationGoals").REPLIES ||
+            e.optimizationGoal === r("AdsAPIOptimizationGoals").CONVERSATIONS))
+        ? o("AdsPlacementIneligibilityReason").createOptimizationGoalReason()
+        : null;
+    }
+    var f = {
         type: "placements/position",
         key: "facebook/stories",
         name: r("AdsPlacementPositionLabelConstant").story,
-        nameWithPlatform: s._(/*BTDS*/ "Facebook Stories"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION.STORY,
           imageCrop: r("AdImageSpecCropKeys")["90x160"],
@@ -94,7 +107,7 @@ __d(
         getIneligibilityReason: function (t) {
           var e = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(_, t);
+          ).getSOOBundleParentIneligibilityReason(f, t);
           if (e != null) return e;
           var n = o("AdsODAXUtils").maybeTranslateObjective(
             t.objective,
@@ -201,26 +214,13 @@ __d(
             return o(
               "AdsPlacementIneligibilityReason",
             ).createDevicePlatformReason(r("AdsAPIDevicePlatform").DESKTOP);
-          if (
-            !o(
-              "AdsVideoBuyingStoreUtils",
-            ).checkIfPlacementPositionValidForBuyingOption(t, "FB_stories") ||
-            (t.optimizationGoal ===
-              r("AdsAPIOptimizationGoals").INCREMENTAL_OFFSITE_CONVERSIONS &&
-              n !== r("AdsAPIObjectives").CONVERSIONS) ||
-            (n === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES &&
-              (t.optimizationGoal === r("AdsAPIOptimizationGoals").REPLIES ||
-                t.optimizationGoal ===
-                  r("AdsAPIOptimizationGoals").CONVERSATIONS))
-          )
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createOptimizationGoalReason();
+          var s = _(t, n);
+          if (s != null) return s;
           if (r("AdsAppUrlUtils").isInstantGameURL(t.objectStoreURL))
             return o(
               "AdsPlacementIneligibilityReason",
             ).createInstantGameReason();
-          var s = o(
+          var u = o(
             "AdsPlacementAPISpecReaderUtils",
           ).isOnlyActiveDevicePlatform(
             t.spec,
@@ -228,7 +228,7 @@ __d(
           );
           return o("AdsWhatsAppPlacementUtils").isIneligibleForFBStory(
             babelHelpers.extends({}, t, { objective: n }),
-            s,
+            u,
           )
             ? o("AdsPlacementIneligibilityReason").createWhatsAppReason(
                 t.objective,
@@ -332,7 +332,7 @@ __d(
         adsetValidators: [r("AdsCampaignFacebookStoryPositionValidator")],
         adsetReducer: function (t, n) {
           var e = n.action;
-          if (!_.isEnabled(e.eligibilityInformation.capabilities)) return t;
+          if (!f.isEnabled(e.eligibilityInformation.capabilities)) return t;
           switch (e.type) {
             case o("AdsUEditorCampaignPlacementSetActionFlux").actionType:
               return e.removeGroups.includes("facebook/stories")
@@ -384,8 +384,8 @@ __d(
           return t;
         },
       },
-      f = _;
-    l.default = f;
+      g = f;
+    l.default = g;
   },
   226,
 );

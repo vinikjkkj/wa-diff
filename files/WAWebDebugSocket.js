@@ -20,7 +20,7 @@ __d(
     }
     s.doc = "Use this web client session over other active ones";
     function u(e) {
-      if ((r("vulture")("MNY0tGfFUUyORMrd_J5-8Q8_XB0="), e)) {
+      if (e) {
         o("WAWebSocketModel").Socket.logout(e);
         return;
       }

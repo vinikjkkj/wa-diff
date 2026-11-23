@@ -2,29 +2,26 @@ __d(
   "WAWebOpenStatusQuotedFlow",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WAWebModalManager",
     "WAWebNewsletterGatingUtils",
     "WAWebNoop",
     "WAWebStatusCollection",
     "WAWebStatusQuotedFlowLoadable",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = u || (u = o("react"));
-    function d(e) {
+      u = s || (s = o("react"));
+    function c(e) {
       var t = e.rowIndex,
         n = e.rowSection,
         r = e.status;
       r.isSyntheticFromMetadata !== !0 &&
         o("WAWebModalManager").ModalManager.openMedia(
-          c.jsx(o("WAWebStatusQuotedFlowLoadable").StatusQuotedFlowLoadable, {
+          u.jsx(o("WAWebStatusQuotedFlowLoadable").StatusQuotedFlowLoadable, {
             status: r,
             onClose: function () {
               return o("WAWebModalManager").ModalManager.closeMedia();
@@ -35,37 +32,28 @@ __d(
           { transition: "status-modal" },
         );
     }
-    var m = new Map();
-    function p(t) {
-      var a = t.newsletterJid,
-        i = t.statusModelId,
-        l = i.toString();
-      if (m.has(l)) return null;
+    var d = new Map();
+    function m(t) {
+      var n = t.newsletterJid,
+        a = t.statusModelId,
+        i = a.toString();
+      if (d.has(i)) return null;
       if (
         !o("WAWebNewsletterGatingUtils").isNewsletterStatusReceiverEnabled()
       ) {
-        var u = (s || (s = n("Promise"))).resolve().finally(function () {
-          m.delete(l);
+        var l = Promise.resolve().finally(function () {
+          d.delete(i);
         });
-        return (m.set(l, u), u);
+        return (d.set(i, l), l);
       }
-      var c = o("WAWebStatusCollection").StatusCollection.get(i);
-      c != null && (c.isLoading = !0);
-      var d = r("JSResourceForInteraction")("WAWebNewsletterStatusFetchAction")
+      var s = o("WAWebStatusCollection").StatusCollection.get(a);
+      s != null && (s.isLoading = !0);
+      var u = r("JSResourceForInteraction")("WAWebNewsletterStatusFetchAction")
         .__setRef("WAWebOpenStatusQuotedFlow")
         .load()
-        .then(
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                yield e.fetchNewsletterStatusesAndMyReactions(a);
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        )
+        .then(async function (e) {
+          await e.fetchNewsletterStatusesAndMyReactions(n);
+        })
         .catch(function (t) {
           o("WALogger")
             .ERROR(
@@ -74,20 +62,20 @@ __d(
                   "[newsletter][status] fetch statuses failed ",
                   "",
                 ])),
-              a,
+              n,
             )
             .catching(r("getErrorSafe")(t))
             .tags("newsletter", "status")
             .sendLogs("newsletter-status-ensure-load-failed");
         })
         .finally(function () {
-          m.delete(l);
-          var e = o("WAWebStatusCollection").StatusCollection.get(i);
+          d.delete(i);
+          var e = o("WAWebStatusCollection").StatusCollection.get(a);
           e != null && (e.isLoading = !1);
         });
-      return (m.set(l, d), d);
+      return (d.set(i, u), u);
     }
-    function _(e) {
+    function p(e) {
       var t,
         n = e.event,
         a = e.newsletterJid,
@@ -96,20 +84,20 @@ __d(
         s = e.statusModelId;
       (n == null || n.stopPropagation == null || n.stopPropagation(),
         n == null || n.preventDefault == null || n.preventDefault(),
-        (t = p({ newsletterJid: a, statusModelId: s })) == null ||
+        (t = m({ newsletterJid: a, statusModelId: s })) == null ||
           t
             .then(function () {
               var e = o("WAWebStatusCollection").StatusCollection.get(s);
-              e != null && f(e) && d({ status: e, rowSection: l, rowIndex: i });
+              e != null && _(e) && c({ status: e, rowSection: l, rowIndex: i });
             })
             .catch(r("WAWebNoop")));
     }
-    function f(e) {
+    function _(e) {
       return !e.isSyntheticFromMetadata && e.totalCount > 0;
     }
-    ((l.ensureNewsletterStatusLoaded = p),
-      (l.fetchAndOpenNewsletterStatus = _),
-      (l.isStatusOpenable = f));
+    ((l.ensureNewsletterStatusLoaded = m),
+      (l.fetchAndOpenNewsletterStatus = p),
+      (l.isStatusOpenable = _));
   },
   98,
 );

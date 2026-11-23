@@ -1,93 +1,80 @@
 __d(
   "WAWebVoipHandleIncomingSignalingMessage",
   [
-    "Promise",
     "WALogger",
     "WAWebBackendApi",
     "WAWebHandleVoipEncRekey",
     "WAWebVoipGatingUtils",
     "WAWebVoipPeerTcToken",
     "WAWebVoipStackInterface",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d;
-    function m(e, t, n) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (
-            (n === void 0 && (n = o("WAWebVoipGatingUtils").isCallingEnabled()),
-            n)
-          ) {
-            var r = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-            if (r) {
-              var a,
-                i = yield o("WAWebVoipPeerTcToken").fetchPeerTcToken(
-                  e.peer_jid,
-                );
-              yield r.handleIncomingSignalingMessage({
-                msgE: e.e,
-                msgOffline: (a = e.is_offline) != null ? a : !1,
-                msgPlatform: e.peer_platform,
-                msgT: e.t,
-                msgVersion: e.peer_app_version,
-                peerJid: e.peer_jid.toString(),
-                tcToken: i,
-                xmlNode: t,
-              });
-              return;
-            }
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: web-only fallback, stack interface unavailable",
-                ])),
-            );
-          } else
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: web-only fallback, voip stack unavailable",
-                ])),
-            );
-          o("WAWebBackendApi").frontendFireAndForget(
-            "handleVoipWebIncomingSignalingMessageAction",
-            { msg: e, voipNode: t },
-          );
-        })),
-        p.apply(this, arguments)
+    var e, s, u, c;
+    async function d(t, n, r) {
+      if (
+        (r === void 0 && (r = o("WAWebVoipGatingUtils").isCallingEnabled()), r)
+      ) {
+        var a = await o("WAWebVoipStackInterface").getVoipStackInterface();
+        if (a) {
+          var i,
+            l = await o("WAWebVoipPeerTcToken").fetchPeerTcToken(t.peer_jid);
+          await a.handleIncomingSignalingMessage({
+            msgE: t.e,
+            msgOffline: (i = t.is_offline) != null ? i : !1,
+            msgPlatform: t.peer_platform,
+            msgT: t.t,
+            msgVersion: t.peer_app_version,
+            peerJid: t.peer_jid.toString(),
+            tcToken: l,
+            xmlNode: n,
+          });
+          return;
+        }
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: web-only fallback, stack interface unavailable",
+            ])),
+        );
+      } else
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: web-only fallback, voip stack unavailable",
+            ])),
+        );
+      o("WAWebBackendApi").frontendFireAndForget(
+        "handleVoipWebIncomingSignalingMessageAction",
+        { msg: t, voipNode: n },
       );
     }
-    function _(t, a) {
+    function m(e, t) {
       return o("WAWebVoipGatingUtils").isCallingEnabled()
         ? (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
                 "[voip] handleVoipIncomingEncRekey enc_rekey from ",
                 "",
               ])),
-            t.peer_jid.toString(),
+            e.peer_jid.toString(),
           ),
-          o("WAWebHandleVoipEncRekey").handleVoipEncRekey(t, a))
+          o("WAWebHandleVoipEncRekey").handleVoipEncRekey(e, t))
         : (o("WALogger").ERROR(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
                 "[voip] handleVoipIncomingEncRekey: disabled, dropped ",
                 "",
               ])),
-            t.peer_jid.toString(),
+            e.peer_jid.toString(),
           ),
-          (d || (d = n("Promise"))).reject(
+          Promise.reject(
             r("err")("incoming enc rekey received but calling is not enabled"),
           ));
     }
-    ((l.handleVoipIncomingSignalingMessage = m),
-      (l.handleVoipIncomingEncRekey = _));
+    ((l.handleVoipIncomingSignalingMessage = d),
+      (l.handleVoipIncomingEncRekey = m));
   },
   98,
 );

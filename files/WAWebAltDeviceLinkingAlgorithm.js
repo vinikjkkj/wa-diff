@@ -10,7 +10,6 @@ __d(
     "WAWebAltDeviceLinkingQpl",
     "WAWebCryptoCurve25519",
     "WAWebSignalStoreApi",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -28,297 +27,213 @@ __d(
         o("WAWebAltDeviceLinkingBase32Encode").bytesToCrockford(t)
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    async function m(e, t) {
+      try {
+        return await e();
+      } catch (e) {
+        throw (o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(t), e);
+      }
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            return yield e();
-          } catch (e) {
-            throw (o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(t), e);
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          n === void 0 && (n = !1);
-          var r = new (o("WABinary").Binary)(t),
-            a = yield self.crypto.subtle.deriveKey(
-              {
-                name: "PBKDF2",
-                hash: "SHA-256",
-                salt: r.readBuffer(),
-                iterations: 2 << 16,
-              },
-              e,
-              { name: "AES-CTR", length: 256 },
-              n,
-              ["encrypt", "decrypt"],
-            );
-          return a;
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "alt pairing: encrypt companion hello",
-              ])),
-          );
-          var r = { name: "AES-CTR", length: 64, counter: t },
-            a = yield self.crypto.subtle.encrypt(r, n, e);
-          return a;
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "alt pairing: decrypt primary hello",
-              ])),
-          );
-          var r = { name: "AES-CTR", length: 64, counter: t },
-            a = yield m(function () {
-              return self.crypto.subtle.decrypt(r, n, e);
-            }, "fail decrypt primary ephemeral pub");
-          return a;
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b() {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = d(),
-            t = yield o("WAWebCryptoCurve25519").keyPair(),
-            n = new Uint8Array(32);
-          self.crypto.getRandomValues(n);
-          var r = new Uint8Array(16);
-          self.crypto.getRandomValues(r);
-          var a = yield S(e, t, n, r);
-          return babelHelpers.extends({}, a, { linkCodePairingSecret: e });
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e, t, n, r) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = yield self.crypto.subtle.importKey(
-                "raw",
-                new TextEncoder().encode(e),
-                { name: "PBKDF2" },
-                !1,
-                ["deriveKey"],
-              ),
-              i = yield _(a, n),
-              l = yield m(function () {
-                return g(t.pubKey, r, i);
-              }, "fail encrypt companion hello"),
-              s = new (o("WABinary").Binary)();
-            (s.writeByteArray(n),
-              s.writeByteArray(r),
-              s.writeByteArray(new Uint8Array(l)));
-            var u = s.readBuffer();
-            return {
-              linkCodePairingWrappedCompanionEphemeralPub: u,
-              linkCodeKey: a,
-              linkCodePairingCompanionADVEphemeralKeyPair: t,
-            };
+    async function p(e, t, n) {
+      n === void 0 && (n = !1);
+      var r = new (o("WABinary").Binary)(t),
+        a = await self.crypto.subtle.deriveKey(
+          {
+            name: "PBKDF2",
+            hash: "SHA-256",
+            salt: r.readBuffer(),
+            iterations: 2 << 16,
           },
-        )),
-        R.apply(this, arguments)
+          e,
+          { name: "AES-CTR", length: 256 },
+          n,
+          ["encrypt", "decrypt"],
+        );
+      return a;
+    }
+    async function _(e, t, n) {
+      o("WALogger").LOG(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "alt pairing: encrypt companion hello",
+          ])),
       );
+      var r = { name: "AES-CTR", length: 64, counter: t },
+        a = await self.crypto.subtle.encrypt(r, n, e);
+      return a;
     }
-    function L(e, t) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WACryptoHkdf").extractWithSaltAndExpand(
-            e,
-            t,
-            "link_code_pairing_key_bundle_encryption_key",
-            32,
-          );
-          return n;
-        })),
-        E.apply(this, arguments)
+    async function f(e, t, n) {
+      o("WALogger").LOG(
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
+            "alt pairing: decrypt primary hello",
+          ])),
       );
+      var r = { name: "AES-CTR", length: 64, counter: t },
+        a = await m(function () {
+          return self.crypto.subtle.decrypt(r, n, e);
+        }, "fail decrypt primary ephemeral pub");
+      return a;
     }
-    function k(e, t, n) {
+    async function g() {
+      var e = d(),
+        t = await o("WAWebCryptoCurve25519").keyPair(),
+        n = new Uint8Array(32);
+      self.crypto.getRandomValues(n);
+      var r = new Uint8Array(16);
+      self.crypto.getRandomValues(r);
+      var a = await h(e, t, n, r);
+      return babelHelpers.extends({}, a, { linkCodePairingSecret: e });
+    }
+    async function h(e, t, n, r) {
+      var a = await self.crypto.subtle.importKey(
+          "raw",
+          new TextEncoder().encode(e),
+          { name: "PBKDF2" },
+          !1,
+          ["deriveKey"],
+        ),
+        i = await p(a, n),
+        l = await m(function () {
+          return _(t.pubKey, r, i);
+        }, "fail encrypt companion hello"),
+        s = new (o("WABinary").Binary)();
+      (s.writeByteArray(n),
+        s.writeByteArray(r),
+        s.writeByteArray(new Uint8Array(l)));
+      var u = s.readBuffer();
+      return {
+        linkCodePairingWrappedCompanionEphemeralPub: u,
+        linkCodeKey: a,
+        linkCodePairingCompanionADVEphemeralKeyPair: t,
+      };
+    }
+    async function y(e, t) {
+      var n = await o("WACryptoHkdf").extractWithSaltAndExpand(
+        e,
+        t,
+        "link_code_pairing_key_bundle_encryption_key",
+        32,
+      );
+      return n;
+    }
+    function C(e, t, n) {
       return o("WAArrayBufferUtils").concatBuffers([
         e,
         t,
         o("WAByteArray").uint8ArrayToBuffer(n),
       ]);
     }
-    function I(e, t, n) {
-      return T.apply(this, arguments);
+    async function b(e, t, n) {
+      o("WALogger").LOG(
+        c ||
+          (c = babelHelpers.taggedTemplateLiteralLoose([
+            "alt pairing: encrypt key bundle",
+          ])),
+      );
+      var r = await self.crypto.subtle.importKey(
+          "raw",
+          e,
+          { name: "AES-GCM" },
+          !1,
+          ["encrypt"],
+        ),
+        a = { name: "AES-GCM", iv: t },
+        i = await m(function () {
+          return self.crypto.subtle.encrypt(a, r, n);
+        }, "fail encrypt wrapped key bundle");
+      return i;
     }
-    function T() {
+    async function v(e) {
+      var t = e.linkCodeKey,
+        n = e.linkCodePairingCompanionADVEphemeralKeyPair,
+        a = e.linkCodePairingWrappedPrimaryEphemeralPub,
+        i = e.primaryIdentityPublic,
+        l = await o("WAWebSignalStoreApi").waSignalStore.getRegistrationInfo();
+      if (l == null)
+        throw r("err")("alt pairing: Did not find registration info");
+      var s = new Uint8Array(32);
+      self.crypto.getRandomValues(s);
+      var u = new Uint8Array(32);
+      self.crypto.getRandomValues(u);
+      var c = new Uint8Array(12);
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "alt pairing: encrypt key bundle",
-              ])),
-          );
-          var r = yield self.crypto.subtle.importKey(
-              "raw",
-              e,
-              { name: "AES-GCM" },
-              !1,
-              ["encrypt"],
-            ),
-            a = { name: "AES-GCM", iv: t },
-            i = yield m(function () {
-              return self.crypto.subtle.encrypt(a, r, n);
-            }, "fail encrypt wrapped key bundle");
-          return i;
-        })),
-        T.apply(this, arguments)
+        self.crypto.getRandomValues(c),
+        S({
+          companionFinishIV: c,
+          companionFinishKdfSalt: u,
+          companionIdentityPrivate: l.identityKeyPair.privKey,
+          companionIdentityPublic: l.identityKeyPair.pubKey,
+          linkCodeKey: t,
+          linkCodePairingAdvRootSecret: s,
+          linkCodePairingCompanionADVEphemeralKeyPair: n,
+          linkCodePairingWrappedPrimaryEphemeralPub: a,
+          primaryIdentityPublic: i,
+        })
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.linkCodeKey,
-            n = e.linkCodePairingCompanionADVEphemeralKeyPair,
-            a = e.linkCodePairingWrappedPrimaryEphemeralPub,
-            i = e.primaryIdentityPublic,
-            l = yield o(
-              "WAWebSignalStoreApi",
-            ).waSignalStore.getRegistrationInfo();
-          if (l == null)
-            throw r("err")("alt pairing: Did not find registration info");
-          var s = new Uint8Array(32);
-          self.crypto.getRandomValues(s);
-          var u = new Uint8Array(32);
-          self.crypto.getRandomValues(u);
-          var c = new Uint8Array(12);
-          return (
-            self.crypto.getRandomValues(c),
-            $({
-              companionFinishIV: c,
-              companionFinishKdfSalt: u,
-              companionIdentityPrivate: l.identityKeyPair.privKey,
-              companionIdentityPublic: l.identityKeyPair.pubKey,
-              linkCodeKey: t,
-              linkCodePairingAdvRootSecret: s,
-              linkCodePairingCompanionADVEphemeralKeyPair: n,
-              linkCodePairingWrappedPrimaryEphemeralPub: a,
-              primaryIdentityPublic: i,
-            })
-          );
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.companionFinishIV,
-            n = e.companionFinishKdfSalt,
-            a = e.companionIdentityPrivate,
-            i = e.companionIdentityPublic,
-            l = e.linkCodeKey,
-            s = e.linkCodePairingAdvRootSecret,
-            u = e.linkCodePairingCompanionADVEphemeralKeyPair,
-            c = e.linkCodePairingWrappedPrimaryEphemeralPub,
-            d = e.primaryIdentityPublic,
-            p = new (o("WABinary").Binary)(c),
-            f = p.readByteArrayView(32),
-            g = p.readByteArrayView(16),
-            h = p.readByteArrayView(),
-            C = yield _(l, f),
-            b = yield m(function () {
-              return y(h, g, C);
-            }, "fail decrypt primary ephemeral pub");
-          if (b.byteLength === 0)
-            throw r("err")(
-              "alt pairing: linkCodePairingDecryptedPrimaryEphemeralPub is an empty buffer",
-            );
-          var v = yield m(function () {
-              return o("WAWebCryptoCurve25519").sharedSecret(b, u.privKey);
-            }, "fail generate ephemeral shared secret"),
-            S = yield L(v, n),
-            R = k(i, d, s),
-            E = yield I(S, t, R),
-            T = new (o("WABinary").Binary)();
-          (T.writeByteArray(n), T.writeByteArray(t), T.writeBuffer(E));
-          var D = yield m(function () {
-              return o("WAWebCryptoCurve25519").sharedSecret(d, a);
-            }, "fail generate identity shared secret"),
-            x = o("WAArrayBufferUtils").concatBuffers([
-              v,
-              D,
-              o("WAByteArray").uint8ArrayToBuffer(s),
-            ]),
-            $ = yield o("WACryptoHkdf").extractWithSaltAndExpand(
-              x,
-              null,
-              "adv_secret",
-              32,
-            ),
-            P = T.readBuffer();
-          return {
-            companionIdentityPublic: i,
-            linkCodePairingWrappedKeyBundle: P,
-            advSecret: $,
-          };
-        })),
-        P.apply(this, arguments)
-      );
+    async function S(e) {
+      var t = e.companionFinishIV,
+        n = e.companionFinishKdfSalt,
+        a = e.companionIdentityPrivate,
+        i = e.companionIdentityPublic,
+        l = e.linkCodeKey,
+        s = e.linkCodePairingAdvRootSecret,
+        u = e.linkCodePairingCompanionADVEphemeralKeyPair,
+        c = e.linkCodePairingWrappedPrimaryEphemeralPub,
+        d = e.primaryIdentityPublic,
+        _ = new (o("WABinary").Binary)(c),
+        g = _.readByteArrayView(32),
+        h = _.readByteArrayView(16),
+        v = _.readByteArrayView(),
+        S = await p(l, g),
+        R = await m(function () {
+          return f(v, h, S);
+        }, "fail decrypt primary ephemeral pub");
+      if (R.byteLength === 0)
+        throw r("err")(
+          "alt pairing: linkCodePairingDecryptedPrimaryEphemeralPub is an empty buffer",
+        );
+      var L = await m(function () {
+          return o("WAWebCryptoCurve25519").sharedSecret(R, u.privKey);
+        }, "fail generate ephemeral shared secret"),
+        E = await y(L, n),
+        k = C(i, d, s),
+        I = await b(E, t, k),
+        T = new (o("WABinary").Binary)();
+      (T.writeByteArray(n), T.writeByteArray(t), T.writeBuffer(I));
+      var D = await m(function () {
+          return o("WAWebCryptoCurve25519").sharedSecret(d, a);
+        }, "fail generate identity shared secret"),
+        x = o("WAArrayBufferUtils").concatBuffers([
+          L,
+          D,
+          o("WAByteArray").uint8ArrayToBuffer(s),
+        ]),
+        $ = await o("WACryptoHkdf").extractWithSaltAndExpand(
+          x,
+          null,
+          "adv_secret",
+          32,
+        ),
+        P = T.readBuffer();
+      return {
+        companionIdentityPublic: i,
+        linkCodePairingWrappedKeyBundle: P,
+        advSecret: $,
+      };
     }
     ((l.generateRandomCode = d),
-      (l.deriveKey = _),
-      (l.encryptCompanionHello = g),
-      (l.decryptPrimaryHello = y),
-      (l.companionHello = b),
-      (l.companionHelloInternal = S),
-      (l.getBundleEncryptionKey = L),
-      (l.getKeyBundle = k),
-      (l.encryptKeyBundle = I),
-      (l.companionFinish = D),
-      (l.companionFinishInternal = $));
+      (l.deriveKey = p),
+      (l.encryptCompanionHello = _),
+      (l.decryptPrimaryHello = f),
+      (l.companionHello = g),
+      (l.companionHelloInternal = h),
+      (l.getBundleEncryptionKey = y),
+      (l.getKeyBundle = C),
+      (l.encryptKeyBundle = b),
+      (l.companionFinish = v),
+      (l.companionFinishInternal = S));
   },
   98,
 );

@@ -9,7 +9,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Unknown account").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     function u(e, t, n) {
       return o("WAWebBotStaticProfiles").isStaticProfile(e) ||
@@ -41,7 +41,7 @@ __d(
               })();
     }
     function d() {
-      return s._(/*BTDS*/ "Agent").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     var m = "Meta AI";
     ((l.getUnknownAccountName = e),

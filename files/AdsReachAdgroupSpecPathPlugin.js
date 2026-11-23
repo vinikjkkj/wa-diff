@@ -26,6 +26,7 @@ __d(
     "gkx",
     "immutable",
     "nullthrows",
+    "qex",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -198,84 +199,92 @@ __d(
               o("AdsArLinkUtils").isArAdCreative(t) ||
               s == null
                 ? r("immutable").List([])
-                : r("immutable").List([s.concat("link")]);
-          t = o(
-            "AdsAdgroupPostTypeMutatorsUtils",
-          ).convertPostTypeInAdgroupRecord(
-            e ? r("ApiAdObjectTypes").SHARE : r("ApiAdObjectTypes").PHOTO,
-            r("ApiAdObjectTypes").VIDEO,
-            t,
-            n,
-            u,
-          );
-          var c = i.callToActionType;
+                : r("immutable").List([s.concat("link")]),
+            c = o(
+              "AdsAdgroupPostTypeMutatorsUtils",
+            ).convertPostTypeInAdgroupRecord(
+              e ? r("ApiAdObjectTypes").SHARE : r("ApiAdObjectTypes").PHOTO,
+              r("ApiAdObjectTypes").VIDEO,
+              t,
+              n,
+              u,
+            ),
+            d = i.callToActionType;
           if (e) {
-            var d = f.getDefaultCallToActionType(t);
-            ((t = c != null ? t.setIn(c, d) : t),
-              !o("AdsWhatsAppUtils").isWhatsAppCTAType(d) &&
+            var m = f.getDefaultCallToActionType(c);
+            ((c = d != null ? c.setIn(d, m) : c),
+              !o("AdsWhatsAppUtils").isWhatsAppCTAType(m) &&
                 s != null &&
-                (t = t.deleteIn(s.concat("whatsapp_number"))));
+                (c = c.deleteIn(s.concat("whatsapp_number"))));
           }
-          return t;
+          return c;
         },
         convertVideoToImageSpec: function (t, n) {
           var e = o("AdsAPIAdgroupRecordUtils").getObjectType(t),
-            a = o("AdsBrandAwarenessUtils").isWebsiteLinkEnabled(t);
-          n =
-            n &&
-            o("AdsAdgroupPostTypeMutatorsUtils").convertPostTypeInAdgroupRecord(
-              e,
-              a ? r("ApiAdObjectTypes").SHARE : r("ApiAdObjectTypes").PHOTO,
-              n,
-            );
-          var i =
-            a &&
-            !o("AdsCanvasAdUtils").isCanvasDestinationEnabled(t) &&
-            !o("AdsArLinkUtils").isArAdCreative(t)
-              ? r("immutable").List([
-                  r("nullthrows")(c[0].linkURL),
-                  r("nullthrows")(c[0].callToActionValue).concat("link"),
-                  r("nullthrows")(c[0].callToActionValue).concat("link_format"),
-                  r("nullthrows")(c[0].callToActionValue).concat("link_title"),
-                  r("nullthrows")(c[0].callToActionValue).concat(
-                    "link_description",
-                  ),
-                  r("nullthrows")(c[0].callToActionValue).concat(
-                    "link_caption",
-                  ),
-                ])
-              : r("immutable").List([
-                  r("nullthrows")(c[0].callToActionValue).concat("link_format"),
-                  r("nullthrows")(c[0].callToActionValue).concat("link_title"),
-                  r("nullthrows")(c[0].callToActionValue).concat(
-                    "link_description",
-                  ),
-                  r("nullthrows")(c[0].callToActionValue).concat(
-                    "link_caption",
-                  ),
-                ]);
-          if (
-            ((t = o(
+            a = o("AdsBrandAwarenessUtils").isWebsiteLinkEnabled(t),
+            i =
+              n &&
+              o(
+                "AdsAdgroupPostTypeMutatorsUtils",
+              ).convertPostTypeInAdgroupRecord(
+                e,
+                a ? r("ApiAdObjectTypes").SHARE : r("ApiAdObjectTypes").PHOTO,
+                n,
+              ),
+            l =
+              a &&
+              !o("AdsCanvasAdUtils").isCanvasDestinationEnabled(t) &&
+              !o("AdsArLinkUtils").isArAdCreative(t)
+                ? r("immutable").List([
+                    r("nullthrows")(c[0].linkURL),
+                    r("nullthrows")(c[0].callToActionValue).concat("link"),
+                    r("nullthrows")(c[0].callToActionValue).concat(
+                      "link_format",
+                    ),
+                    r("nullthrows")(c[0].callToActionValue).concat(
+                      "link_title",
+                    ),
+                    r("nullthrows")(c[0].callToActionValue).concat(
+                      "link_description",
+                    ),
+                    r("nullthrows")(c[0].callToActionValue).concat(
+                      "link_caption",
+                    ),
+                  ])
+                : r("immutable").List([
+                    r("nullthrows")(c[0].callToActionValue).concat(
+                      "link_format",
+                    ),
+                    r("nullthrows")(c[0].callToActionValue).concat(
+                      "link_title",
+                    ),
+                    r("nullthrows")(c[0].callToActionValue).concat(
+                      "link_description",
+                    ),
+                    r("nullthrows")(c[0].callToActionValue).concat(
+                      "link_caption",
+                    ),
+                  ]),
+            s = o(
               "AdsAdgroupPostTypeMutatorsUtils",
             ).convertPostTypeInAdgroupRecord(
               r("ApiAdObjectTypes").VIDEO,
               a ? r("ApiAdObjectTypes").SHARE : r("ApiAdObjectTypes").PHOTO,
               t,
-              n,
               i,
-            )),
-            a)
-          ) {
-            var l = f.getDefaultCallToActionType(t);
-            ((t = t.setIn(r("nullthrows")(c[0].callToActionType), l)),
-              o("AdsWhatsAppUtils").isWhatsAppCTAType(l) ||
-                (t = t.deleteIn(
+              l,
+            );
+          if (a) {
+            var u = f.getDefaultCallToActionType(s);
+            ((s = s.setIn(r("nullthrows")(c[0].callToActionType), u)),
+              o("AdsWhatsAppUtils").isWhatsAppCTAType(u) ||
+                (s = s.deleteIn(
                   r("nullthrows")(c[0].callToActionValue).concat(
                     "whatsapp_number",
                   ),
                 )));
           }
-          return t;
+          return s;
         },
         getDefaultCallToActionType: function (t) {
           var e,
@@ -291,7 +300,10 @@ __d(
         },
         getCombinedFieldMappings: function (t) {
           var e = o("AdsAPIAdgroupRecordUtils").getObjectType(t),
-            n = r("adsConvertAdObjectRecordToPlainJS")(t);
+            n =
+              r("qex")._("3278") === !0
+                ? t
+                : r("adsConvertAdObjectRecordToPlainJS")(t);
           if (
             o("AdsAssetFeedUtils").isDCAssetCustomizationAdgroupFromSpec(t) ||
             (o("AdsAssetFeedUtils").hasPlacementCustomizationFromRecord(t) &&

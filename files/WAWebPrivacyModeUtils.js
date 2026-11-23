@@ -5,11 +5,11 @@ __d(
     "use strict";
     function e(e) {
       return e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Off
-        ? s._(/*BTDS*/ "Off")
+        ? s._(/*BTDS*/ "")
         : e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Light
-          ? s._(/*BTDS*/ "Light")
+          ? s._(/*BTDS*/ "")
           : e === o("WAWebPrivacyModeBlurConfig").BlurPreset.Medium
-            ? s._(/*BTDS*/ "Medium")
+            ? s._(/*BTDS*/ "")
             : o("WAWebPrivacyModeSettingsFBT").privacyModePresetStrong();
     }
     l.getPresetLabel = e;

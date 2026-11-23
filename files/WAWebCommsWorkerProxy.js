@@ -1,38 +1,21 @@
 __d(
   "WAWebCommsWorkerProxy",
-  [
-    "Promise",
-    "WAComms",
-    "WAErrors",
-    "WALogger",
-    "WAWap",
-    "WAWebCommsWorkerReady",
-    "asyncToGeneratorRuntime",
-    "err",
-  ],
+  ["WAComms", "WAErrors", "WALogger", "WAWap", "WAWebCommsWorkerReady", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = (function () {
+      s = (function () {
         function e(e) {
           var t = this;
           ((this.socketId = o("WAComms").DEFAULT_SOCKET_ID),
             (this.$2 = !1),
             (this.$3 = 1),
             (this.$4 = !1),
-            (this.trySoftCloseSocket = (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  return t.$1.sendAndReceive("comms", "trySoftCloseSocket", {
-                    reason: e,
-                  });
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })()),
+            (this.trySoftCloseSocket = async function (e) {
+              return t.$1.sendAndReceive("comms", "trySoftCloseSocket", {
+                reason: e,
+              });
+            }),
             (this.handleStanza = function () {
               throw r("err")(
                 "WAWebCommsWorkerProxy.handleStanza is not supported",
@@ -124,99 +107,73 @@ __d(
               this.$1.fireAndForget("comms", "openSocketLoop"),
               o("WAWebCommsWorkerReady").setCommsWorkerReady(!0));
           }),
-          (t.sendIq = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  r = e.attachToSocket,
-                  a = e.iq,
-                  i = e.signal,
-                  l = e.timeoutSeconds,
-                  u = l === void 0 ? 0 : l,
-                  c = e.type,
-                  d = c === void 0 ? "iq" : c;
-                if (
-                  (yield o("WAWebCommsWorkerReady").waitForCommsWorker(),
-                  (i == null ? void 0 : i.aborted) === !0)
-                )
-                  throw new (o("WAErrors").Disconnected)(
-                    "aborted while waiting for the backend worker",
-                  );
-                var m = this.$3++;
-                i != null &&
-                  i.addEventListener("abort", function () {
-                    t.$1.fireAndForget("comms", "abortSendIq", {
-                      abortToken: m,
-                    });
-                  });
-                var p = o("WAWap").encodeStanza(a),
-                  _ = yield this.$1.sendAndReceive(
-                    "comms",
-                    "sendIq",
-                    {
-                      iq: p,
-                      attachToSocket: r,
-                      timeoutSeconds: u,
-                      type: d,
-                      abortToken: m,
-                    },
-                    void 0,
-                    void 0,
-                    void 0,
-                    [p.buffer],
-                  );
-                return o("WAWap").decodeStanza(_, function (e) {
-                  return (s || (s = n("Promise"))).resolve(e);
-                });
-              },
+          (t.sendIq = async function (t) {
+            var e = this,
+              n = t.attachToSocket,
+              r = t.iq,
+              a = t.signal,
+              i = t.timeoutSeconds,
+              l = i === void 0 ? 0 : i,
+              s = t.type,
+              u = s === void 0 ? "iq" : s;
+            if (
+              (await o("WAWebCommsWorkerReady").waitForCommsWorker(),
+              (a == null ? void 0 : a.aborted) === !0)
+            )
+              throw new (o("WAErrors").Disconnected)(
+                "aborted while waiting for the backend worker",
+              );
+            var c = this.$3++;
+            a != null &&
+              a.addEventListener("abort", function () {
+                e.$1.fireAndForget("comms", "abortSendIq", { abortToken: c });
+              });
+            var d = o("WAWap").encodeStanza(r),
+              m = await this.$1.sendAndReceive(
+                "comms",
+                "sendIq",
+                {
+                  iq: d,
+                  attachToSocket: n,
+                  timeoutSeconds: l,
+                  type: u,
+                  abortToken: c,
+                },
+                void 0,
+                void 0,
+                void 0,
+                [d.buffer],
+              );
+            return o("WAWap").decodeStanza(m, function (e) {
+              return Promise.resolve(e);
+            });
+          }),
+          (t.callStanza = async function (t, n) {
+            await o("WAWebCommsWorkerReady").waitForCommsWorker();
+            var e = o("WAWap").encodeStanza(t);
+            return this.$1.sendAndReceive(
+              "comms",
+              "callStanza",
+              { stanza: e, flags: n },
+              !0,
+              void 0,
+              void 0,
+              [e.buffer],
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.callStanza = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                yield o("WAWebCommsWorkerReady").waitForCommsWorker();
-                var n = o("WAWap").encodeStanza(e);
-                return this.$1.sendAndReceive(
-                  "comms",
-                  "callStanza",
-                  { stanza: n, flags: t },
-                  !0,
-                  void 0,
-                  void 0,
-                  [n.buffer],
-                );
-              },
+          }),
+          (t.castStanza = async function (t, n) {
+            await o("WAWebCommsWorkerReady").waitForCommsWorker();
+            var e = o("WAWap").encodeStanza(t);
+            return this.$1.sendAndReceive(
+              "comms",
+              "castStanza",
+              { stanza: e, flags: n },
+              !0,
+              void 0,
+              void 0,
+              [e.buffer],
             );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.castStanza = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                yield o("WAWebCommsWorkerReady").waitForCommsWorker();
-                var n = o("WAWap").encodeStanza(e);
-                return this.$1.sendAndReceive(
-                  "comms",
-                  "castStanza",
-                  { stanza: n, flags: t },
-                  !0,
-                  void 0,
-                  void 0,
-                  [n.buffer],
-                );
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          }),
           (t.sendPing = function () {
             return this.$1.sendAndReceive("comms", "sendPing");
           }),
@@ -242,38 +199,38 @@ __d(
           e
         );
       })(),
-      c = null,
-      d = null;
-    function m(e) {
-      if (d == null)
+      u = null,
+      c = null;
+    function d(e) {
+      if (c == null)
         throw r("err")("[WAWebCommsWorkerProxy] comms startup args are null");
-      e.fireAndForget("comms", "createComms", d);
-      var t = new u(e);
-      return ((c = t), o("WAWebCommsWorkerReady").setCommsWorkerReady(!0), t);
+      e.fireAndForget("comms", "createComms", c);
+      var t = new s(e);
+      return ((u = t), o("WAWebCommsWorkerReady").setCommsWorkerReady(!0), t);
     }
-    function p() {
-      var t = c;
+    function m() {
+      var t = u;
       t == null ||
-        d == null ||
+        c == null ||
         (o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
               "[comms] rebuilding comms in restarted backend worker",
             ])),
         ),
-        t.rebuildInRestartedWorker(d));
+        t.rebuildInRestartedWorker(c));
     }
-    function _(e, t) {
+    function p(e, t) {
       var n;
-      (n = c) == null || n.updateSocketState(e, t);
+      (n = u) == null || n.updateSocketState(e, t);
     }
-    function f(e) {
-      d = e;
+    function _(e) {
+      c = e;
     }
-    ((l.createCommsWorkerProxy = m),
-      (l.rebuildCommsInRestartedWorker = p),
-      (l.updateCommsProxySocketState = _),
-      (l.setStartCommsArgs = f));
+    ((l.createCommsWorkerProxy = d),
+      (l.rebuildCommsInRestartedWorker = m),
+      (l.updateCommsProxySocketState = p),
+      (l.setStartCommsArgs = _));
   },
   98,
 );

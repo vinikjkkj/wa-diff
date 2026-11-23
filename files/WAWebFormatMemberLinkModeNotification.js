@@ -18,38 +18,18 @@ __d(
       return a
         ? o("WAWebUserUtils").isMeAccount(e)
           ? t
-            ? s._(
-                /*BTDS*/ "You changed this group's setting to allow all members to share invite links to this group. You can currently only change this on your phone.",
-              )
-            : s._(
-                /*BTDS*/ "You changed this group's setting to allow all members to share invite links to this group.",
-              )
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
           : t
-            ? s._(
-                /*BTDS*/ "{author} changed this group's setting to allow all members to share invite links to this group. You can currently only change this on your phone.",
-                [s._param("author", r)],
-              )
-            : s._(
-                /*BTDS*/ "{author} changed this group's setting to allow all members to share invite links to this group.",
-                [s._param("author", r)],
-              )
+            ? s._(/*BTDS*/ "", [s._param("author", r)])
+            : s._(/*BTDS*/ "", [s._param("author", r)])
         : o("WAWebUserUtils").isMeAccount(e)
           ? t
-            ? s._(
-                /*BTDS*/ "You changed this group's setting to allow only admins to share invite links to this group. You can currently only change this on your phone.",
-              )
-            : s._(
-                /*BTDS*/ "You changed this group's setting to allow only admins to share invite links to this group.",
-              )
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "")
           : t
-            ? s._(
-                /*BTDS*/ "{author} changed this group's setting to allow only admins to share invite links to this group. You can currently only change this on your phone.",
-                [s._param("author", r)],
-              )
-            : s._(
-                /*BTDS*/ "{author} changed this group's setting to allow only admins to share invite links to this group.",
-                [s._param("author", r)],
-              );
+            ? s._(/*BTDS*/ "", [s._param("author", r)])
+            : s._(/*BTDS*/ "", [s._param("author", r)]);
     }
     l.default = e;
   },

@@ -7,6 +7,8 @@ __d(
     "JSResourceForInteraction",
     "Promise",
     "ServerTime",
+    "SupportConversationLogger.react",
+    "justknobx",
     "relay-runtime",
     "stripTopicMenuRoutingValue",
     "uuidv4",
@@ -15,16 +17,14 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
-    function u(e, t, n, r) {
-      var a = o("CometRelay").ConnectionHandler.createEdge(
+    function u(e, t, n) {
+      var r = o("CometRelay").ConnectionHandler.createEdge(
         e,
         t,
         n,
         "CometAIChatMessageThreadMessagesEdge",
       );
-      r === "start"
-        ? o("CometRelay").ConnectionHandler.insertEdgeBefore(t, a)
-        : o("CometRelay").ConnectionHandler.insertEdgeAfter(t, a);
+      o("CometRelay").ConnectionHandler.insertEdgeAfter(t, r);
     }
     function c(e) {
       var t;
@@ -189,7 +189,7 @@ __d(
         o == null &&
           ((o = e.create(n.messageID, "XFBCometAIHTSChatMessage")),
           te(e, o, n, r),
-          u(e, r, o, n.position));
+          u(e, r, o));
       }
     }
     function X(e, t, n) {
@@ -280,7 +280,7 @@ __d(
                 .setLinkedRecords([$].concat(m), "nodes_js"),
               "composed_text_v2",
             ),
-            u(e, a, i, n.position));
+            u(e, a, i));
         }
       }
     }
@@ -302,7 +302,6 @@ __d(
         i = r.url;
       Q(e, t, {
         messageID: n.messageID,
-        position: n.position,
         text: o + " [" + a + "](" + i + ")",
         userType: n.userType,
       });
@@ -552,7 +551,7 @@ __d(
                 .setLinkedRecords([T, v].concat(L), "nodes_js"),
               "composed_text_v2",
             ),
-            u(e, g, h, n.position));
+            u(e, g, h));
         }
       }
     }
@@ -610,56 +609,83 @@ __d(
     }
     function re(e, t, n, r) {
       if (r != null) {
-        var o = Ce(t, n.getValue("id")),
+        var o = Re(t, n.getValue("id")),
           a = [];
         (r.forEach(function (t) {
-          var n = t.type === "markdown_attachment" ? ve(t) : null;
-          if (!(n != null && Se(o, n))) {
-            var r = t.type === "markdown_attachment" ? ye(e, t) : oe(e, t);
+          var n = t.type === "markdown_attachment" ? Ee(t) : null;
+          if (!(n != null && ke(o, n))) {
+            var r = t.type === "markdown_attachment" ? Se(e, t) : se(e, t);
             r != null && a.push(r);
           }
         }),
           n.setLinkedRecords(a, "attachments"));
       }
     }
-    function oe(e, t) {
-      var n = ue(t.serializedUnifiedResponse);
-      if (n != null) return he(e, t.id, n);
-      var r = me(t.serializedUnifiedResponse);
-      if (r != null) {
-        var a = ye(e, {
+    var oe = 200,
+      ae = new Set();
+    function ie(e, t, n) {
+      try {
+        var a = e + ":" + t;
+        if (ae.has(a) || !r("justknobx")._("6827")) return;
+        (ae.size >= oe && ae.clear(),
+          ae.add(a),
+          o("SupportConversationLogger.react").log({
+            additional_data: {
+              attachment_id: e,
+              error_class: n instanceof Error ? n.name : typeof n,
+              fallback_shown: "false",
+              is_maisa_native: "false",
+              is_user_facing: "true",
+              stage: t,
+            },
+            event: "response_render_exception",
+          }));
+      } catch (e) {}
+    }
+    function le() {
+      ae.clear();
+    }
+    function se(e, t) {
+      var n = function (n, r) {
+          return ie(t.id, n, r);
+        },
+        r = pe(t.serializedUnifiedResponse, n);
+      if (r != null) return ve(e, t.id, r);
+      var a = ge(t.serializedUnifiedResponse, n);
+      if (a != null) {
+        var i = Se(e, {
           id: t.id,
-          markdownAttachment: r,
+          markdownAttachment: a,
           type: "markdown_attachment",
         });
-        if (a != null) return a;
+        if (i != null) return i;
       }
-      var i = ge(t.serializedUnifiedResponse);
-      if (i != null) {
-        var l = ye(e, {
+      var l = be(t.serializedUnifiedResponse, n);
+      if (l != null) {
+        var s = Se(e, {
           id: t.id,
-          markdownAttachment: i,
+          markdownAttachment: l,
           type: "markdown_attachment",
         });
-        if (l != null) return l;
+        if (s != null) return s;
       }
-      var s = e.get(t.id);
+      var u = e.get(t.id);
       return (
-        s == null &&
-          (s = e.create(t.id, "XFBCometAIHTSUnifiedResponseAttachment")),
-        s
+        u == null &&
+          (u = e.create(t.id, "XFBCometAIHTSUnifiedResponseAttachment")),
+        u
           .setValue(t.id, "id")
           .setValue(t.serializedUnifiedResponse, "serialized_unified_response"),
         o("CometRelay3DUtils").setRelay3DValue(
-          s,
+          u,
           "CometAIHTSChatMessage_message",
           W,
           q,
         ),
-        s
+        u
       );
     }
-    var ae = [
+    var ue = [
       {
         nodeType: "XFBHTSChatComposedTextSelectImpersonatorNode",
         operation: S,
@@ -689,7 +715,7 @@ __d(
         tagName: "hts-reporter-appeal-submission",
       },
     ];
-    function ie(e, t) {
+    function ce(e, t) {
       var n = e.match(new RegExp("\\b" + t + '="([^"]*)"', "i"));
       if (n == null) return null;
       var r = n[1],
@@ -698,12 +724,12 @@ __d(
         });
       return o.length === 0 ? null : o;
     }
-    function le(e) {
+    function de(e) {
       var t = e.match(/<hts-buttongroup\b[^>]*>/i);
       if (t == null) return null;
       var n = t[0],
-        r = ie(n, "labels"),
-        o = ie(n, "postback"),
+        r = ce(n, "labels"),
+        o = ce(n, "postback"),
         a = r != null ? r : o;
       return a == null
         ? null
@@ -715,7 +741,7 @@ __d(
             };
           });
     }
-    function se(e) {
+    function me(e) {
       if (e == null) return [];
       var t = e.primitive;
       if (t != null) return [t];
@@ -727,59 +753,59 @@ __d(
         ? n
         : [];
     }
-    function ue(e) {
-      var t, n;
+    function pe(e, t) {
+      var n, r;
       try {
-        n = JSON.parse(e);
+        r = JSON.parse(e);
       } catch (e) {
-        return null;
+        return (t == null || t("unified_response", e), null);
       }
-      var r = (t = n) == null ? void 0 : t.sections;
-      if (r == null || !Array.isArray(r)) return null;
-      for (var o of r) {
-        var a = se(o == null ? void 0 : o.view_model),
-          i = function () {
+      var o = (n = r) == null ? void 0 : n.sections;
+      if (o == null || !Array.isArray(o)) return null;
+      for (var a of o) {
+        var i = me(a == null ? void 0 : a.view_model),
+          l = function () {
             var e;
-            if (s.type !== "hts_button_group" || typeof s.data != "string")
+            if (u.type !== "hts_button_group" || typeof u.data != "string")
               return 0;
-            var t;
+            var n;
             try {
-              t = JSON.parse(s.data);
+              n = JSON.parse(u.data);
             } catch (e) {
-              return 0;
+              return (t == null || t("button_group", e), 0);
             }
-            var n = (e = t) == null ? void 0 : e.buttons;
-            if (n == null || !Array.isArray(n)) return 0;
-            var r = [];
+            var r = (e = n) == null ? void 0 : e.buttons;
+            if (r == null || !Array.isArray(r)) return 0;
+            var o = [];
             if (
-              (n.forEach(function (e, t) {
+              (r.forEach(function (e, t) {
                 var n = e == null ? void 0 : e.postback,
-                  o = e == null ? void 0 : e.label,
+                  r = e == null ? void 0 : e.label,
                   a = null;
                 (typeof n == "string" && n !== ""
                   ? (a = n)
-                  : typeof o == "string" && o !== "" && (a = o),
-                  a != null && r.push({ optionId: String(t), text: a }));
+                  : typeof r == "string" && r !== "" && (a = r),
+                  a != null && o.push({ optionId: String(t), text: a }));
               }),
-              r.length > 0)
+              o.length > 0)
             )
-              return { v: r };
+              return { v: o };
           },
-          l;
-        for (var s of a) if (((l = i()), l !== 0 && l)) return l.v;
+          s;
+        for (var u of i) if (((s = l()), s !== 0 && s)) return s.v;
       }
       return null;
     }
-    function ce(e) {
+    function _e(e) {
       return typeof e == "string" ? e : null;
     }
-    function de(e) {
+    function fe(e) {
       var t,
-        n = ce(e.title),
-        r = ce(e.url),
-        o = ce(e.button_text);
+        n = _e(e.title),
+        r = _e(e.url),
+        o = _e(e.button_text);
       if (n == null || r == null || o == null) return null;
-      var a = (t = ce(e.subtitle)) != null ? t : "",
+      var a = (t = _e(e.subtitle)) != null ? t : "",
         i = [],
         l = function (t, n) {
           typeof n == "string" && i.push(" " + t + '="' + n + '"');
@@ -806,48 +832,49 @@ __d(
           ">"
       );
     }
-    function me(e) {
-      var t, n, r, o;
+    function ge(e, t) {
+      var n, r, o, a;
       try {
-        o = JSON.parse(e);
+        a = JSON.parse(e);
       } catch (e) {
-        return null;
+        return (t == null || t("unified_response", e), null);
       }
       if (
-        ((t = o.metadata) == null ? void 0 : t.__typename) !==
+        ((n = a.metadata) == null ? void 0 : n.__typename) !==
           "FOAUnifiedResponseMetadataEmpty" ||
-        ((n = o.metadata) == null ? void 0 : n.placeholder) !== !1
+        ((r = a.metadata) == null ? void 0 : r.placeholder) !== !1
       )
         return null;
-      var a = (r = o) == null ? void 0 : r.sections;
-      if (a == null || !Array.isArray(a)) return null;
-      for (var i of a) {
-        var l = se(i == null ? void 0 : i.view_model);
-        for (var s of l)
-          if (!(s.type !== "hts_direct_link" || typeof s.data != "string"))
+      var i = (o = a) == null ? void 0 : o.sections;
+      if (i == null || !Array.isArray(i)) return null;
+      for (var l of i) {
+        var s = me(l == null ? void 0 : l.view_model);
+        for (var u of s)
+          if (!(u.type !== "hts_direct_link" || typeof u.data != "string"))
             try {
-              var u = de(JSON.parse(s.data));
-              if (u != null) return u;
+              var c = fe(JSON.parse(u.data));
+              if (c != null) return c;
             } catch (e) {
+              t == null || t("direct_link", e);
               continue;
             }
       }
       return null;
     }
-    function pe(e) {
+    function he(e) {
       return e.replace(/\"/g, "&quot;");
     }
-    function _e(e) {
+    function ye(e) {
       return e.replace(/&quot;/g, '"');
     }
-    function fe(e) {
+    function Ce(e) {
       var t,
-        n = ce(e.title),
-        r = ce(e.button_text),
-        o = ce(e.accounts);
+        n = _e(e.title),
+        r = _e(e.button_text),
+        o = _e(e.accounts);
       if (n == null || r == null || o == null) return null;
-      var a = (t = ce(e.subtitle)) != null ? t : "",
-        i = ce(e.setting_type),
+      var a = (t = _e(e.subtitle)) != null ? t : "",
+        i = _e(e.setting_type),
         l = i != null ? ' setting-type="' + i + '"' : "";
       return (
         '<hts-account-setting-deeplink title="' +
@@ -857,46 +884,47 @@ __d(
         '" button-text="' +
         r +
         '" accounts="' +
-        pe(o) +
+        he(o) +
         '"' +
         l +
         ">"
       );
     }
-    function ge(e) {
-      var t, n, r, o;
+    function be(e, t) {
+      var n, r, o, a;
       try {
-        o = JSON.parse(e);
+        a = JSON.parse(e);
       } catch (e) {
-        return null;
+        return (t == null || t("unified_response", e), null);
       }
       if (
-        ((t = o.metadata) == null ? void 0 : t.__typename) !==
+        ((n = a.metadata) == null ? void 0 : n.__typename) !==
           "FOAUnifiedResponseMetadataEmpty" ||
-        ((n = o.metadata) == null ? void 0 : n.placeholder) !== !1
+        ((r = a.metadata) == null ? void 0 : r.placeholder) !== !1
       )
         return null;
-      var a = (r = o) == null ? void 0 : r.sections;
-      if (a == null || !Array.isArray(a)) return null;
-      for (var i of a) {
-        var l = se(i == null ? void 0 : i.view_model);
-        for (var s of l)
+      var i = (o = a) == null ? void 0 : o.sections;
+      if (i == null || !Array.isArray(i)) return null;
+      for (var l of i) {
+        var s = me(l == null ? void 0 : l.view_model);
+        for (var u of s)
           if (
             !(
-              s.type !== "hts_account_setting_deeplink" ||
-              typeof s.data != "string"
+              u.type !== "hts_account_setting_deeplink" ||
+              typeof u.data != "string"
             )
           )
             try {
-              var u = fe(JSON.parse(s.data));
-              if (u != null) return u;
+              var c = Ce(JSON.parse(u.data));
+              if (c != null) return c;
             } catch (e) {
+              t == null || t("account_setting_deeplink", e);
               continue;
             }
       }
       return null;
     }
-    function he(e, t, n) {
+    function ve(e, t, n) {
       var r = e.get(t);
       (r == null && (r = e.create(t, "XFBCometAIHTSOptionsAttachment")),
         r.setValue(t, "id"));
@@ -917,15 +945,15 @@ __d(
         r
       );
     }
-    function ye(e, t) {
-      var n = le(t.markdownAttachment);
-      if (n != null) return he(e, t.id, n);
-      var a = Ee(e, t.markdownAttachment);
+    function Se(e, t) {
+      var n = de(t.markdownAttachment);
+      if (n != null) return ve(e, t.id, n);
+      var a = De(e, t.markdownAttachment);
       if (a == null) return null;
       var i = e.get(t.id);
       (i == null && (i = e.create(t.id, "XFBCometAIHTSMarkdownAttachment")),
         i.setValue(t.id, "id"),
-        i.setValue(be(t), p),
+        i.setValue(Le(t), p),
         o("CometRelay3DUtils").setRelay3DValue(
           i,
           "CometAIHTSChatMessage_message",
@@ -970,18 +998,19 @@ __d(
         i
       );
     }
-    function Ce(e, t) {
+    function Re(e, t) {
+      r("vulture")("wqt8fYYNiVitoKs7zROwQu0L9_k=");
       var n = new Set();
       if (e == null) return n;
-      var r = [];
+      var o = [];
       try {
-        var o;
-        r = (o = e.getLinkedRecords("edges")) != null ? o : [];
+        var a;
+        o = (a = e.getLinkedRecords("edges")) != null ? a : [];
       } catch (e) {
         return n;
       }
       return (
-        r.forEach(function (e) {
+        o.forEach(function (e) {
           var r,
             o = e == null ? void 0 : e.getLinkedRecord("node");
           if (
@@ -991,27 +1020,27 @@ __d(
             var a = (r = o.getLinkedRecords("attachments")) != null ? r : [];
             a.forEach(function (e) {
               var t = e == null ? void 0 : e.getValue(p);
-              (typeof t == "string" && n.add(t), e != null && Re(n, e));
+              (typeof t == "string" && n.add(t), e != null && Ie(n, e));
             });
           }
         }),
         n
       );
     }
-    function be(e) {
+    function Le(e) {
       return e.markdownAttachment;
     }
-    function ve(e) {
-      var t = new Set([be(e)]);
+    function Ee(e) {
+      var t = new Set([Le(e)]);
       return (
-        ae.forEach(function (n) {
+        ue.forEach(function (n) {
           (r("vulture")("JRyy3hjahdX2vniHZG69zAegBXE="),
-            Pe(e.markdownAttachment, n.tagName) && t.add(Le(n.rendererType)));
+            Ae(e.markdownAttachment, n.tagName) && t.add(Te(n.rendererType)));
         }),
         t
       );
     }
-    function Se(e, t) {
+    function ke(e, t) {
       var n = !1;
       return (
         t.forEach(function (t) {
@@ -1020,7 +1049,7 @@ __d(
         n
       );
     }
-    function Re(e, t) {
+    function Ie(e, t) {
       var n,
         r = t.getLinkedRecord("composed_text_v2"),
         o =
@@ -1030,23 +1059,23 @@ __d(
       o.forEach(function (t) {
         var n = t == null ? void 0 : t.getType();
         if (typeof n == "string") {
-          var r = ae.find(function (e) {
+          var r = ue.find(function (e) {
             return e.rendererType === n;
           });
-          r != null && e.add(Le(r.rendererType));
+          r != null && e.add(Te(r.rendererType));
         }
       });
     }
-    function Le(e) {
+    function Te(e) {
       return "renderer:" + e;
     }
-    function Ee(e, t) {
-      var n = ke(t);
-      if (n != null) return Te(e, n);
-      var a = De(t);
-      if (a != null) return xe(e, a);
-      for (var i of ae) if (Pe(t, i.tagName)) return $e(e, i);
-      var l = Ne(t);
+    function De(e, t) {
+      var n = xe(t);
+      if (n != null) return Pe(e, n);
+      var a = Ne(t);
+      if (a != null) return Me(e, a);
+      for (var i of ue) if (Ae(t, i.tagName)) return we(e, i);
+      var l = Fe(t);
       if (l != null) {
         var s = r("uuidv4")(),
           u = e
@@ -1069,36 +1098,36 @@ __d(
       }
       return null;
     }
-    function ke(e) {
+    function xe(e) {
       var t,
         n = e.match(/<hts-direct-link\b[^>]*>/i);
       if (n == null) return null;
       var r = n[0],
-        o = Ie(r, "title"),
-        a = Ie(r, "url"),
-        i = Ie(r, "button-text");
+        o = $e(r, "title"),
+        a = $e(r, "url"),
+        i = $e(r, "button-text");
       return o == null || a == null || i == null
         ? null
         : {
             button_text: i,
-            description: Ie(r, "description"),
-            fallback_url: Ie(r, "fallback-url"),
-            feature_name: Ie(r, "feature-name"),
-            page_image_uri: Ie(r, "page-image-uri"),
-            page_metadata: Ie(r, "page-metadata"),
-            page_name: Ie(r, "page-name"),
-            setting_type: Ie(r, "setting-type"),
-            status: Ie(r, "status"),
-            subtitle: (t = Ie(r, "subtitle")) != null ? t : "",
+            description: $e(r, "description"),
+            fallback_url: $e(r, "fallback-url"),
+            feature_name: $e(r, "feature-name"),
+            page_image_uri: $e(r, "page-image-uri"),
+            page_metadata: $e(r, "page-metadata"),
+            page_name: $e(r, "page-name"),
+            setting_type: $e(r, "setting-type"),
+            status: $e(r, "status"),
+            subtitle: (t = $e(r, "subtitle")) != null ? t : "",
             title: o,
             url: a,
           };
     }
-    function Ie(e, t) {
+    function $e(e, t) {
       var n = e.match(new RegExp("\\b" + t + '="([^"]*)"', "i"));
       return n == null ? null : n[1];
     }
-    function Te(e, t) {
+    function Pe(e, t) {
       var n,
         a,
         i,
@@ -1132,25 +1161,25 @@ __d(
         { childNodeKey: l, renderer: u }
       );
     }
-    function De(e) {
+    function Ne(e) {
       var t,
         n = e.match(/<hts-account-setting-deeplink\b[^>]*>/i);
       if (n == null) return null;
       var r = n[0],
-        o = Ie(r, "title"),
-        a = Ie(r, "button-text"),
-        i = Ie(r, "accounts");
+        o = $e(r, "title"),
+        a = $e(r, "button-text"),
+        i = $e(r, "accounts");
       return o == null || a == null || i == null
         ? null
         : {
-            accounts: _e(i),
+            accounts: ye(i),
             button_text: a,
-            setting_type: Ie(r, "setting-type"),
-            subtitle: (t = Ie(r, "subtitle")) != null ? t : "",
+            setting_type: $e(r, "setting-type"),
+            subtitle: (t = $e(r, "subtitle")) != null ? t : "",
             title: o,
           };
     }
-    function xe(e, t) {
+    function Me(e, t) {
       var n,
         a,
         i,
@@ -1178,7 +1207,7 @@ __d(
         { childNodeKey: s, renderer: c }
       );
     }
-    function $e(e, t) {
+    function we(e, t) {
       var n = r("uuidv4")(),
         a = e
           .create(o("relay-runtime").generateUniqueClientID(), t.nodeType)
@@ -1191,10 +1220,10 @@ __d(
         { childNodeKey: n, renderer: i }
       );
     }
-    function Pe(e, t) {
+    function Ae(e, t) {
       return new RegExp("<" + t + "(?:\\s|>|/)", "i").test(e);
     }
-    function Ne(e) {
+    function Fe(e) {
       var t,
         n,
         r = e.match(
@@ -1214,10 +1243,11 @@ __d(
       (l.createMessageWithComplianceLinkInThread = J),
       (l.createMessageWithAppealCardInThread = Z),
       (l.createMessageWithReportedContentInThread = ee),
-      (l.parseButtonGroupOptions = le),
-      (l.parseUnifiedResponseButtonGroupOptions = ue),
-      (l.parseUnifiedResponseDirectLinkMarkdown = me),
-      (l.parseUnifiedResponseAccountSettingDeeplinkMarkdown = ge));
+      (l.resetReportedRenderParseFailuresForTest = le),
+      (l.parseButtonGroupOptions = de),
+      (l.parseUnifiedResponseButtonGroupOptions = pe),
+      (l.parseUnifiedResponseDirectLinkMarkdown = ge),
+      (l.parseUnifiedResponseAccountSettingDeeplinkMarkdown = be));
   },
   98,
 );

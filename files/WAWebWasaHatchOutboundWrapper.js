@@ -13,7 +13,6 @@ __d(
     "WAWebWasaRootSecretWriter",
     "WAWebWasaUserPrefs",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "encodeProtobuf",
   ],
   function (t, n, r, o, a, i, l) {
@@ -55,131 +54,103 @@ __d(
         n !== o("WAWebCommonMsgSubtypeTypes").MsgSubtype.BotRequestWelcome
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(e) {
+      var t = e.currentStanzaId,
+        n = e.innerMessage,
+        a = await f();
+      if (a == null) throw new m();
+      var i = a.rootSecret,
+        l = a.targetId,
+        s = o("WAWebWidToJid").widToUserJid(
+          o("WAWebUserUtils").getMeLidUserOrThrow(),
+        ),
+        u = o("WAWebWidToJid").widToUserJid(
+          o("WAWebBotUtils").HATCH_BOT_FBID_WID,
+        ),
+        d = await o("WAWebBotMessageSecret").genBotMsgSecretFromMsgSecret(i),
+        p = await o("WAWebBotMessageSecret").genBotDecryptionKey({
+          decryptSecret: d,
+          messageSecretOriginalUserJid: s,
+          senderJid: u,
+          stanzaId: t,
+        }),
+        _ = self.crypto.getRandomValues(new Uint8Array(c)),
+        g = o("encodeProtobuf")
+          .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, n)
+          .readByteArrayView(),
+        h = t + "\0" + s,
+        y = await o("WACryptoAesGcm").gcmEncrypt(p, _, g, h);
+      return r("WAWebWasaGenerateSecretEncryptedMessageProto")({
+        targetMsgKey: o("WAWebWasaRootSecretDb").getWasaRootSecretMsgKeyForId(
+          o("WAWebBotUtils").HATCH_BOT_FBID_WID,
+          l,
+        ),
+        encPayload: y,
+        encIv: _,
+      });
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.currentStanzaId,
-            n = e.innerMessage,
-            a = yield g();
-          if (a == null) throw new m();
-          var i = a.rootSecret,
-            l = a.targetId,
-            s = o("WAWebWidToJid").widToUserJid(
-              o("WAWebUserUtils").getMeLidUserOrThrow(),
-            ),
-            u = o("WAWebWidToJid").widToUserJid(
-              o("WAWebBotUtils").HATCH_BOT_FBID_WID,
-            ),
-            d = yield o("WAWebBotMessageSecret").genBotMsgSecretFromMsgSecret(
-              i,
-            ),
-            p = yield o("WAWebBotMessageSecret").genBotDecryptionKey({
-              decryptSecret: d,
-              messageSecretOriginalUserJid: s,
-              senderJid: u,
-              stanzaId: t,
-            }),
-            _ = self.crypto.getRandomValues(new Uint8Array(c)),
-            f = o("encodeProtobuf")
-              .encodeProtobuf(o("WAWebProtobufsE2E.pb").MessageSpec, n)
-              .readByteArrayView(),
-            h = t + "\0" + s,
-            y = yield o("WACryptoAesGcm").gcmEncrypt(p, _, f, h);
-          return r("WAWebWasaGenerateSecretEncryptedMessageProto")({
-            targetMsgKey: o(
-              "WAWebWasaRootSecretDb",
-            ).getWasaRootSecretMsgKeyForId(
-              o("WAWebBotUtils").HATCH_BOT_FBID_WID,
-              l,
-            ),
-            encPayload: y,
-            encIv: _,
-          });
-        })),
-        f.apply(this, arguments)
+    async function f() {
+      var e = o("WAWebWasaUserPrefs").getWasaActiveTargetId(
+        o("WAWebBotUtils").HATCH_BOT_FBID_WID.user,
       );
-    }
-    function g() {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebWasaUserPrefs").getWasaActiveTargetId(
-            o("WAWebBotUtils").HATCH_BOT_FBID_WID.user,
-          );
-          if (e == null) return y("no-active-target");
-          var t = yield o("WAWebWasaRootSecretDb").getWasaRootSecretForId(
-            o("WAWebBotUtils").HATCH_BOT_FBID_WID,
-            e,
-          );
-          return t == null
-            ? y("no-root-secret-row")
-            : { rootSecret: t, targetId: e };
-        })),
-        h.apply(this, arguments)
+      if (e == null) return g("no-active-target");
+      var t = await o("WAWebWasaRootSecretDb").getWasaRootSecretForId(
+        o("WAWebBotUtils").HATCH_BOT_FBID_WID,
+        e,
       );
+      return t == null
+        ? g("no-root-secret-row")
+        : { rootSecret: t, targetId: e };
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield o(
-              "WAWebWasaRootSecretWriter",
-            ).maybeRecoverWasaActiveTargetFromStore(
-              o("WAWebBotUtils").HATCH_BOT_FBID_WID,
-            ),
-            r = n.reason,
-            a = n.stanzaId,
-            i =
-              a != null
-                ? yield o("WAWebWasaRootSecretDb").getWasaRootSecretForId(
-                    o("WAWebBotUtils").HATCH_BOT_FBID_WID,
-                    a,
-                  )
-                : null;
-          return a != null && i != null
-            ? (o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[wasa] Hatch send key rebuilt from syncd after ",
-                    ": ",
-                    "",
-                  ])),
-                t,
+    async function g(t) {
+      var n = await o(
+          "WAWebWasaRootSecretWriter",
+        ).maybeRecoverWasaActiveTargetFromStore(
+          o("WAWebBotUtils").HATCH_BOT_FBID_WID,
+        ),
+        r = n.reason,
+        a = n.stanzaId,
+        i =
+          a != null
+            ? await o("WAWebWasaRootSecretDb").getWasaRootSecretForId(
+                o("WAWebBotUtils").HATCH_BOT_FBID_WID,
                 a,
-              ),
-              { rootSecret: i, targetId: a })
-            : (t === "no-active-target"
-                ? o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[wasa] Hatch send failed: no active target id; rebuild from syncd: ",
-                          "",
-                        ])),
-                      r,
-                    )
-                    .sendLogs("wasa-hatch-no-active-target")
-                : o("WALogger")
-                    .ERROR(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[wasa] Hatch send failed: no root secret row; rebuild from syncd: ",
-                          "",
-                        ])),
-                      r,
-                    )
-                    .sendLogs("wasa-hatch-root-secret-missing"),
-              null);
-        })),
-        C.apply(this, arguments)
-      );
+              )
+            : null;
+      return a != null && i != null
+        ? (o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[wasa] Hatch send key rebuilt from syncd after ",
+                ": ",
+                "",
+              ])),
+            t,
+            a,
+          ),
+          { rootSecret: i, targetId: a })
+        : (t === "no-active-target"
+            ? o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[wasa] Hatch send failed: no active target id; rebuild from syncd: ",
+                      "",
+                    ])),
+                  r,
+                )
+                .sendLogs("wasa-hatch-no-active-target")
+            : o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[wasa] Hatch send failed: no root secret row; rebuild from syncd: ",
+                      "",
+                    ])),
+                  r,
+                )
+                .sendLogs("wasa-hatch-root-secret-missing"),
+          null);
     }
     ((l.WAWebWasaHatchWrapError = d),
       (l.WAWebWasaHatchNotPairedError = m),

@@ -5,11 +5,11 @@ __d(
     var e = 0x4b645b3cace4e;
     function u(e) {
       return e === "CONTACTS"
-        ? s._(/*BTDS*/ "My contacts")
+        ? s._(/*BTDS*/ "")
         : e === "ADS"
-          ? s._(/*BTDS*/ "People from ads")
+          ? s._(/*BTDS*/ "")
           : e === "ALL"
-            ? s._(/*BTDS*/ "Everyone else")
+            ? s._(/*BTDS*/ "")
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -27,130 +27,76 @@ __d(
         );
       var i = t + "|" + n + "|" + a;
       return i === "UNMUTED|UNMUTED|UNMUTED"
-        ? s._(
-            /*BTDS*/ "Responding to your contacts, people from ads and everyone else.",
-          )
+        ? s._(/*BTDS*/ "")
         : i === "UNMUTED|UNMUTED|SUGGESTED_REPLIES"
-          ? s._(
-              /*BTDS*/ "Responding to your contacts and people from ads, suggesting for everyone else.",
-            )
+          ? s._(/*BTDS*/ "")
           : i === "UNMUTED|UNMUTED|MUTED"
-            ? s._(
-                /*BTDS*/ "Responding to your contacts and people from ads. Off for everyone else.",
-              )
+            ? s._(/*BTDS*/ "")
             : i === "UNMUTED|SUGGESTED_REPLIES|UNMUTED"
-              ? s._(
-                  /*BTDS*/ "Responding to your contacts and everyone else, suggesting for people from ads.",
-                )
+              ? s._(/*BTDS*/ "")
               : i === "UNMUTED|SUGGESTED_REPLIES|SUGGESTED_REPLIES"
-                ? s._(
-                    /*BTDS*/ "Responding to your contacts, suggesting for people from ads and everyone else.",
-                  )
+                ? s._(/*BTDS*/ "")
                 : i === "UNMUTED|SUGGESTED_REPLIES|MUTED"
-                  ? s._(
-                      /*BTDS*/ "Responding to your contacts, suggesting for people from ads. Off for everyone else.",
-                    )
+                  ? s._(/*BTDS*/ "")
                   : i === "UNMUTED|MUTED|UNMUTED"
-                    ? s._(
-                        /*BTDS*/ "Responding to your contacts and everyone else. Off for people from ads.",
-                      )
+                    ? s._(/*BTDS*/ "")
                     : i === "UNMUTED|MUTED|SUGGESTED_REPLIES"
-                      ? s._(
-                          /*BTDS*/ "Responding to your contacts, suggesting for everyone else. Off for people from ads.",
-                        )
+                      ? s._(/*BTDS*/ "")
                       : i === "UNMUTED|MUTED|MUTED"
-                        ? s._(
-                            /*BTDS*/ "Responding to your contacts. Off for people from ads and everyone else.",
-                          )
+                        ? s._(/*BTDS*/ "")
                         : i === "SUGGESTED_REPLIES|UNMUTED|UNMUTED"
-                          ? s._(
-                              /*BTDS*/ "Responding to people from ads and everyone else, suggesting for your contacts.",
-                            )
+                          ? s._(/*BTDS*/ "")
                           : i === "SUGGESTED_REPLIES|UNMUTED|SUGGESTED_REPLIES"
-                            ? s._(
-                                /*BTDS*/ "Responding to people from ads, suggesting for your contacts and everyone else.",
-                              )
+                            ? s._(/*BTDS*/ "")
                             : i === "SUGGESTED_REPLIES|UNMUTED|MUTED"
-                              ? s._(
-                                  /*BTDS*/ "Responding to people from ads, suggesting for your contacts. Off for everyone else.",
-                                )
+                              ? s._(/*BTDS*/ "")
                               : i ===
                                   "SUGGESTED_REPLIES|SUGGESTED_REPLIES|UNMUTED"
-                                ? s._(
-                                    /*BTDS*/ "Responding to everyone else, suggesting for your contacts and people from ads.",
-                                  )
+                                ? s._(/*BTDS*/ "")
                                 : i ===
                                     "SUGGESTED_REPLIES|SUGGESTED_REPLIES|SUGGESTED_REPLIES"
-                                  ? s._(
-                                      /*BTDS*/ "Suggesting for your contacts, people from ads and everyone else.",
-                                    )
+                                  ? s._(/*BTDS*/ "")
                                   : i ===
                                       "SUGGESTED_REPLIES|SUGGESTED_REPLIES|MUTED"
-                                    ? s._(
-                                        /*BTDS*/ "Suggesting for your contacts and people from ads. Off for everyone else.",
-                                      )
+                                    ? s._(/*BTDS*/ "")
                                     : i === "SUGGESTED_REPLIES|MUTED|UNMUTED"
-                                      ? s._(
-                                          /*BTDS*/ "Responding to everyone else, suggesting for your contacts. Off for people from ads.",
-                                        )
+                                      ? s._(/*BTDS*/ "")
                                       : i ===
                                           "SUGGESTED_REPLIES|MUTED|SUGGESTED_REPLIES"
-                                        ? s._(
-                                            /*BTDS*/ "Suggesting for your contacts and everyone else. Off for people from ads.",
-                                          )
+                                        ? s._(/*BTDS*/ "")
                                         : i === "SUGGESTED_REPLIES|MUTED|MUTED"
-                                          ? s._(
-                                              /*BTDS*/ "Suggesting for your contacts. Off for people from ads and everyone else.",
-                                            )
+                                          ? s._(/*BTDS*/ "")
                                           : i === "MUTED|UNMUTED|UNMUTED"
-                                            ? s._(
-                                                /*BTDS*/ "Responding to people from ads and everyone else. Off for your contacts.",
-                                              )
+                                            ? s._(/*BTDS*/ "")
                                             : i ===
                                                 "MUTED|UNMUTED|SUGGESTED_REPLIES"
-                                              ? s._(
-                                                  /*BTDS*/ "Responding to people from ads, suggesting for everyone else. Off for your contacts.",
-                                                )
+                                              ? s._(/*BTDS*/ "")
                                               : i === "MUTED|UNMUTED|MUTED"
-                                                ? s._(
-                                                    /*BTDS*/ "Responding to people from ads. Off for your contacts and everyone else.",
-                                                  )
+                                                ? s._(/*BTDS*/ "")
                                                 : i ===
                                                     "MUTED|SUGGESTED_REPLIES|UNMUTED"
-                                                  ? s._(
-                                                      /*BTDS*/ "Responding to everyone else, suggesting for people from ads. Off for your contacts.",
-                                                    )
+                                                  ? s._(/*BTDS*/ "")
                                                   : i ===
                                                       "MUTED|SUGGESTED_REPLIES|SUGGESTED_REPLIES"
-                                                    ? s._(
-                                                        /*BTDS*/ "Suggesting for people from ads and everyone else. Off for your contacts.",
-                                                      )
+                                                    ? s._(/*BTDS*/ "")
                                                     : i ===
                                                         "MUTED|SUGGESTED_REPLIES|MUTED"
-                                                      ? s._(
-                                                          /*BTDS*/ "Suggesting for people from ads. Off for your contacts and everyone else.",
-                                                        )
+                                                      ? s._(/*BTDS*/ "")
                                                       : i ===
                                                           "MUTED|MUTED|UNMUTED"
-                                                        ? s._(
-                                                            /*BTDS*/ "Responding to everyone else. Off for your contacts and people from ads.",
-                                                          )
+                                                        ? s._(/*BTDS*/ "")
                                                         : i ===
                                                             "MUTED|MUTED|SUGGESTED_REPLIES"
-                                                          ? s._(
-                                                              /*BTDS*/ "Suggesting for everyone else. Off for your contacts and people from ads.",
-                                                            )
-                                                          : s._(
-                                                              /*BTDS*/ "Off for your contacts, people from ads and everyone else.",
-                                                            );
+                                                          ? s._(/*BTDS*/ "")
+                                                          : s._(/*BTDS*/ "");
     }
     function d(e) {
       return e === "UNMUTED"
-        ? s._(/*BTDS*/ "AI responds")
+        ? s._(/*BTDS*/ "")
         : e === "SUGGESTED_REPLIES"
-          ? s._(/*BTDS*/ "AI suggests")
+          ? s._(/*BTDS*/ "")
           : e === "MUTED"
-            ? s._(/*BTDS*/ "Off")
+            ? s._(/*BTDS*/ "")
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -160,11 +106,11 @@ __d(
     }
     function m(e) {
       return e === "UNMUTED"
-        ? s._(/*BTDS*/ "Sends replies automatically")
+        ? s._(/*BTDS*/ "")
         : e === "SUGGESTED_REPLIES"
-          ? s._(/*BTDS*/ "Drafts replies for you to approve")
+          ? s._(/*BTDS*/ "")
           : e === "MUTED"
-            ? s._(/*BTDS*/ "Won't reply")
+            ? s._(/*BTDS*/ "")
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -174,11 +120,11 @@ __d(
     }
     function p(e) {
       return e === "CONTACTS"
-        ? s._(/*BTDS*/ "When your contacts message you")
+        ? s._(/*BTDS*/ "")
         : e === "ADS"
-          ? s._(/*BTDS*/ "When people from ads message you")
+          ? s._(/*BTDS*/ "")
           : e === "ALL"
-            ? s._(/*BTDS*/ "When anyone else messages you")
+            ? s._(/*BTDS*/ "")
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -188,13 +134,11 @@ __d(
     }
     function _(e) {
       return e === "CONTACTS"
-        ? s._(/*BTDS*/ "Applies even if they first messaged you from an ad.")
+        ? s._(/*BTDS*/ "")
         : e === "ADS"
-          ? s._(/*BTDS*/ "People who tapped your ad to start a chat.")
+          ? s._(/*BTDS*/ "")
           : e === "ALL"
-            ? s._(
-                /*BTDS*/ "Anyone not in your contacts who didn't come from an ad.",
-              )
+            ? s._(/*BTDS*/ "")
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -203,36 +147,34 @@ __d(
               })();
     }
     function f() {
-      return s._(/*BTDS*/ "Exceptions");
+      return s._(/*BTDS*/ "");
     }
     function g() {
-      return s._(/*BTDS*/ "Never respond to...");
+      return s._(/*BTDS*/ "");
     }
     function h(e) {
-      return s._(/*BTDS*/ '_j{"*":"{number} excluded","_1":"1 excluded"}', [
-        s._plural(e, "number"),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(e, "number")]);
     }
     function y() {
-      return s._(/*BTDS*/ "Your AI agent never responds to these people.");
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(/*BTDS*/ "Search");
+      return s._(/*BTDS*/ "");
     }
     function b() {
-      return s._(/*BTDS*/ "Deselect all");
+      return s._(/*BTDS*/ "");
     }
     function v() {
-      return s._(/*BTDS*/ "Save");
+      return s._(/*BTDS*/ "");
     }
     function S(e) {
-      return s._(/*BTDS*/ "{name} is selected", [s._param("name", e)]);
+      return s._(/*BTDS*/ "", [s._param("name", e)]);
     }
     function R(e) {
-      return s._(/*BTDS*/ "Deselect {name}", [s._param("name", e)]);
+      return s._(/*BTDS*/ "", [s._param("name", e)]);
     }
     function L(e) {
-      return s._(/*BTDS*/ "{title}, {count}", [
+      return s._(/*BTDS*/ "", [
         s._param("title", g()),
         s._param("count", h(e)),
       ]);

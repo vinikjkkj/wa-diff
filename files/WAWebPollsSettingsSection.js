@@ -8,7 +8,6 @@ __d(
     "WDSPaddings.stylex",
     "WDSSwitch.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -32,24 +31,22 @@ __d(
         },
       };
     function m(t) {
-      var n = o("react-compiler-runtime").c(24),
-        a = t.chatId,
-        i = t.hideVoterNames,
-        l = t.isNewsletter,
-        u = t.isSingleOption,
-        m = t.onEndTimeChange,
-        p = t.onEndTimeToggle,
-        _ = t.onHideVoterNamesChange,
-        f = t.onSingleOptionChange,
-        g = t.pollEndTime,
-        h = t.pollEndTimeEnabled,
-        y = t.pollEndTimeMaxDurationMs,
-        C = t.pollType,
-        b;
-      n[0] !== a || n[1] !== u || n[2] !== f || n[3] !== C
-        ? ((b =
-            C === o("WAWebPollCreationUtils").PollType.POLL &&
-            o("WAWebPollsGatingUtils").isSingleOptionPollsSendingEnabled(a) &&
+      var n = t.chatId,
+        a = t.hideVoterNames,
+        i = t.isNewsletter,
+        l = t.isSingleOption,
+        u = t.onEndTimeChange,
+        m = t.onEndTimeToggle,
+        p = t.onHideVoterNamesChange,
+        _ = t.onSingleOptionChange,
+        f = t.pollEndTime,
+        g = t.pollEndTimeEnabled,
+        h = t.pollEndTimeMaxDurationMs,
+        y = t.pollType;
+      return c.jsxs(c.Fragment, {
+        children: [
+          y === o("WAWebPollCreationUtils").PollType.POLL &&
+            o("WAWebPollsGatingUtils").isSingleOptionPollsSendingEnabled(n) &&
             c.jsxs(
               "div",
               babelHelpers.extends(
@@ -68,33 +65,24 @@ __d(
                           d.singleOptionLabel,
                           o("WDSPaddings.stylex").wdsPaddings.paddingVer4,
                         ),
-                        { children: s._(/*BTDS*/ "Allow multiple answers") },
+                        { children: s._(/*BTDS*/ "") },
                       ),
                     ),
                     c.jsx(r("WDSSwitch.react"), {
                       id: "polls-single-option-switch",
-                      value: !u,
+                      value: !l,
                       onChange: function () {
-                        f(!u);
+                        _(!l);
                       },
                       testid: "polls-single-option-switch",
                     }),
                   ],
                 },
               ),
-            )),
-          (n[0] = a),
-          (n[1] = u),
-          (n[2] = f),
-          (n[3] = C),
-          (n[4] = b))
-        : (b = n[4]);
-      var v;
-      n[5] !== a || n[6] !== i || n[7] !== l || n[8] !== _ || n[9] !== C
-        ? ((v =
-            C === o("WAWebPollCreationUtils").PollType.POLL &&
-            !l &&
-            o("WAWebPollsGatingUtils").isPollHideVotersSendingEnabled(a) &&
+            ),
+          y === o("WAWebPollCreationUtils").PollType.POLL &&
+            !i &&
+            o("WAWebPollsGatingUtils").isPollHideVotersSendingEnabled(n) &&
             c.jsxs(
               "div",
               babelHelpers.extends(
@@ -113,71 +101,35 @@ __d(
                           d.singleOptionLabel,
                           o("WDSPaddings.stylex").wdsPaddings.paddingVer4,
                         ),
-                        { children: s._(/*BTDS*/ "Hide voter names") },
+                        { children: s._(/*BTDS*/ "") },
                       ),
                     ),
                     c.jsx(r("WDSSwitch.react"), {
                       id: "polls-hide-voter-names-switch",
-                      value: i,
+                      value: a,
                       onChange: function () {
-                        _(!i);
+                        p(!a);
                       },
                       testid: "polls-hide-voter-names-switch",
                     }),
                   ],
                 },
               ),
-            )),
-          (n[5] = a),
-          (n[6] = i),
-          (n[7] = l),
-          (n[8] = _),
-          (n[9] = C),
-          (n[10] = v))
-        : (v = n[10]);
-      var S;
-      n[11] !== a ||
-      n[12] !== l ||
-      n[13] !== m ||
-      n[14] !== p ||
-      n[15] !== g ||
-      n[16] !== h ||
-      n[17] !== y ||
-      n[18] !== C
-        ? ((S =
-            C === o("WAWebPollCreationUtils").PollType.POLL &&
-            !l &&
-            o("WAWebPollsGatingUtils").isPollEndTimeSendingEnabled(a) &&
+            ),
+          y === o("WAWebPollCreationUtils").PollType.POLL &&
+            !i &&
+            o("WAWebPollsGatingUtils").isPollEndTimeSendingEnabled(n) &&
             c.jsx(r("WAWebPollsEndTimeSection"), {
-              enabled: h,
-              maxDurationMs: y,
-              onToggle: p,
-              pollEndTime: g,
-              onEndTimeChange: m,
-            })),
-          (n[11] = a),
-          (n[12] = l),
-          (n[13] = m),
-          (n[14] = p),
-          (n[15] = g),
-          (n[16] = h),
-          (n[17] = y),
-          (n[18] = C),
-          (n[19] = S))
-        : (S = n[19]);
-      var R;
-      return (
-        n[20] !== b || n[21] !== v || n[22] !== S
-          ? ((R = c.jsxs(c.Fragment, { children: [b, v, S] })),
-            (n[20] = b),
-            (n[21] = v),
-            (n[22] = S),
-            (n[23] = R))
-          : (R = n[23]),
-        R
-      );
+              enabled: g,
+              maxDurationMs: h,
+              onToggle: m,
+              pollEndTime: f,
+              onEndTimeChange: u,
+            }),
+        ],
+      });
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

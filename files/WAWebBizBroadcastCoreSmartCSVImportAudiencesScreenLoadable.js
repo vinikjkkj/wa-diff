@@ -5,25 +5,21 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebBizBroadcastCoreSmartCSVImportAudiencesScreen.react",
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebBizBroadcastCoreSmartCSVImportAudiencesScreen.react",
+        )
+          .__setRef(
+            "WAWebBizBroadcastCoreSmartCSVImportAudiencesScreenLoadable",
           )
-            .__setRef(
-              "WAWebBizBroadcastCoreSmartCSVImportAudiencesScreenLoadable",
-            )
-            .load();
-          return e;
-        }),
-        "BusinessBroadcastCoreSmartCSVImportAudiencesScreen",
-      ),
+          .load();
+        return e;
+      }, "BusinessBroadcastCoreSmartCSVImportAudiencesScreen"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

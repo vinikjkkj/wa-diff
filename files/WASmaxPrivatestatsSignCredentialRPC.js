@@ -10,48 +10,36 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = _(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success)
-            return { name: "SignCredentialResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "SignCredentialResponseErrorNoRetry",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return { name: "SignCredentialResponseErrorRetry", value: l.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("SignCredential", {
-              Success: a,
-              ErrorNoRetry: i,
-              ErrorRetry: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = p(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success)
+        return { name: "SignCredentialResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "SignCredentialResponseErrorNoRetry", value: i.value };
+      var l = u(r, n);
+      if (l.success)
+        return { name: "SignCredentialResponseErrorRetry", value: l.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("SignCredential", {
+          Success: a,
+          ErrorNoRetry: i,
+          ErrorRetry: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
       if (!r.success) return r;
-      var a = h(e, t);
+      var a = g(e, t);
       if (!a.success) return a;
-      var i = C(r.value);
+      var i = y(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -60,14 +48,14 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
       if (!r.success) return r;
-      var a = g(r.value);
+      var a = f(r.value);
       if (!a.success) return a;
-      var i = h(e, t);
+      var i = g(e, t);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
@@ -77,17 +65,17 @@ __d(
           )
         : i;
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "config_id");
       if (!t.success) return t;
-      var n = f(e);
+      var n = _(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             emptyConfigIdOrNonEmptyConfigIdEmptyConfigIdMixinGroup: n.value,
           })
         : n;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "sign_credential");
@@ -111,15 +99,15 @@ __d(
       if (!s.success) return s;
       var u = o("WASmaxParseUtils").flattenedChildWithTag(l.value, "s");
       if (!u.success) return u;
-      var c = o("WASmaxParseUtils").flattenedChildWithTag(
+      var d = o("WASmaxParseUtils").flattenedChildWithTag(
         r.value,
         "project_name",
       );
-      if (!c.success) return c;
+      if (!d.success) return d;
       var m = o("WASmaxParseUtils").optionalChildWithTag(
         r.value,
         "config_id",
-        d,
+        c,
       );
       if (!m.success) return m;
       var p = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -157,7 +145,7 @@ __d(
       if (!v.success) return v;
       var S = o("WASmaxParseUtils").contentBytesRange(u.value, 32, 32);
       if (!S.success) return S;
-      var R = o("WASmaxParseUtils").contentString(c.value);
+      var R = o("WASmaxParseUtils").contentString(d.value);
       return R.success
         ? o("WAResultOrError").makeResult({
             type: f.value,
@@ -171,12 +159,12 @@ __d(
           })
         : R;
     }
-    function p(e) {
+    function m(e) {
       var t = e.configIdElementValue,
         n = o("WASmaxJsx").smax("config_id", null, t);
       return n;
     }
-    function _(e) {
+    function p(e) {
       var t,
         n = e.configIdArgs,
         r = e.blindedCredentialElementValue,
@@ -194,19 +182,19 @@ __d(
             { version: "2" },
             t.smax("blinded_credential", null, r),
             t.smax("project_name", null, a),
-            o("WASmaxChildren").OPTIONAL_CHILD(p, n),
+            o("WASmaxChildren").OPTIONAL_CHILD(m, n),
           ),
         );
       return i;
     }
-    function f(e) {
-      var t = b(e);
+    function _(e) {
+      var t = C(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "EmptyConfigId",
           value: t.value,
         });
-      var n = y(e);
+      var n = h(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             name: "NonEmptyConfigId",
@@ -218,7 +206,7 @@ __d(
             [t, n],
           );
     }
-    function g(e) {
+    function f(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -238,7 +226,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -267,7 +255,7 @@ __d(
       );
       return s.success ? o("WAResultOrError").makeResult({ type: s.value }) : s;
     }
-    function y(e) {
+    function h(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "config_id");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").contentBytesRange(e, 32, 32);
@@ -275,20 +263,20 @@ __d(
         ? o("WAResultOrError").makeResult({ elementValue: n.value })
         : n;
     }
-    function C(e) {
-      var t = v(e);
+    function y(e) {
+      var t = b(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorBadRequest",
           value: t.value,
         });
-      var n = S(e);
+      var n = v(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorFeatureNotImplemented",
           value: n.value,
         });
-      var r = R(e);
+      var r = S(e);
       return r.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorServiceUnavailable",
@@ -304,7 +292,7 @@ __d(
             [t, n, r],
           );
     }
-    function b(e) {
+    function C(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "config_id");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").contentBytesRange(e, 0, 0);
@@ -312,7 +300,7 @@ __d(
         ? o("WAResultOrError").makeResult({ elementValue: n.value })
         : n;
     }
-    function v(e) {
+    function b(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -332,7 +320,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function S(e) {
+    function v(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -352,7 +340,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function R(e) {
+    function S(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -373,10 +361,10 @@ __d(
         : r;
     }
     ((l.sendSignCredentialRPC = e),
-      (l.parseSignCredentialResponseErrorNoRetry = u),
-      (l.parseSignCredentialResponseErrorRetry = c),
-      (l.parseSignCredentialResponseSuccess = m),
-      (l.makeSignCredentialRequest = _));
+      (l.parseSignCredentialResponseErrorNoRetry = s),
+      (l.parseSignCredentialResponseErrorRetry = u),
+      (l.parseSignCredentialResponseSuccess = d),
+      (l.makeSignCredentialRequest = p));
   },
   98,
 );

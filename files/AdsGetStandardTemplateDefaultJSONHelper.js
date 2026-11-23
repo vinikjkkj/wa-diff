@@ -51,7 +51,7 @@ __d(
               ),
         P = [
           ((p = {}),
-          (p.title = s._(/*BTDS*/ "I'd like to learn more").toString()),
+          (p.title = s._(/*BTDS*/ "").toString()),
           (p.content_type = "text"),
           (p.response_type = null),
           p),
@@ -127,8 +127,14 @@ __d(
           z
         );
       }
-      return (
-        (T = {}),
+      return babelHelpers.extends(
+        {},
+        o(
+          "ClickToMessageCTMPerformanceFeatureGating",
+        ).enableCTMPersonalizedIcebreakers(t)
+          ? { personalized_icebreakers_enabled: !0 }
+          : {},
+        ((T = {}),
         (T.type = "VISUAL_EDITOR"),
         (T.version = 2),
         (T.landing_screen_type = r(
@@ -215,7 +221,7 @@ __d(
         (T.is_eligible_for_customized_greeting = !1),
         (T.is_user_editing = !1),
         (T.is_eligible_for_leveraging_inbox_faqs = M),
-        T
+        T),
       );
     }
     l.default = e;

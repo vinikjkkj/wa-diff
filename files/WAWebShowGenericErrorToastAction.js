@@ -3,9 +3,7 @@ __d(
   ["fbt", "WDSToastImperativeHost"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      o("WDSToastImperativeHost").showWDSToast({
-        message: s._(/*BTDS*/ "Something went wrong"),
-      });
+      o("WDSToastImperativeHost").showWDSToast({ message: s._(/*BTDS*/ "") });
     }
     l.default = e;
   },

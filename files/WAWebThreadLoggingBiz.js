@@ -1,53 +1,43 @@
 __d(
   "WAWebThreadLoggingBiz",
   [
-    "Promise",
     "WALogger",
     "WAWebThreadInteractionDataBizWamEvent",
     "WAWebThreadLoggingFalco",
     "WAWebWamEnumBizCatalogType",
     "WamThreadInteractionDataBizFalcoEvent",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i = [];
-          try {
-            (t.forEach(function (e) {
-              if (a) {
-                i.push(d(e));
-                return;
-              }
-              var t = new (o(
-                "WAWebThreadInteractionDataBizWamEvent",
-              ).ThreadInteractionDataBizWamEvent)(m(e));
-              t.commit();
-            }),
-              yield (s || (s = n("Promise"))).all(i));
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "ctlv2: error uploading Biz WAM event",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("thread-logging-biz-upload-failure");
+    var e;
+    async function s(t, n) {
+      var a = [];
+      try {
+        (t.forEach(function (e) {
+          if (n) {
+            a.push(u(e));
+            return;
           }
-        })),
-        c.apply(this, arguments)
-      );
+          var t = new (o(
+            "WAWebThreadInteractionDataBizWamEvent",
+          ).ThreadInteractionDataBizWamEvent)(c(e));
+          t.commit();
+        }),
+          await Promise.all(a));
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "ctlv2: error uploading Biz WAM event",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("thread-logging-biz-upload-failure");
+      }
     }
-    function d(e) {
-      var t = m(e);
+    function u(e) {
+      var t = c(e);
       return o("WAWebThreadLoggingFalco").logThreadInteractionFalcoEvent(
         r("WamThreadInteractionDataBizFalcoEvent"),
         function () {
@@ -73,7 +63,7 @@ __d(
         },
       );
     }
-    function m(e) {
+    function c(e) {
       var t = e.event,
         n = e.threadDs,
         r = e.threadId;
@@ -85,7 +75,7 @@ __d(
           t.bizAiSuggestedRepliesSentWithEdits,
         bizAiSuggestedRepliesSentWithoutEdits:
           t.bizAiSuggestedRepliesSentWithoutEdits,
-        bizCatalogType: p(t.bizCatalogType),
+        bizCatalogType: d(t.bizCatalogType),
         chatOrigins: t.chatOrigins,
         commerceMsgsReceived: t.commerceMsgsReceived,
         commerceMsgsSent: t.commerceMsgsSent,
@@ -97,14 +87,14 @@ __d(
         pdpViews: t.pdpViews,
       };
     }
-    function p(e) {
+    function d(e) {
       if (e === "shop")
         return o("WAWebWamEnumBizCatalogType").BIZ_CATALOG_TYPE.SHOPS;
       if (e === "native")
         return o("WAWebWamEnumBizCatalogType").BIZ_CATALOG_TYPE.NATIVE;
     }
-    ((l.ThreadInteractionBizWamTrigger = u),
-      (l.logThreadInteractionBizFalcoEvent = d));
+    ((l.ThreadInteractionBizWamTrigger = s),
+      (l.logThreadInteractionBizFalcoEvent = u));
   },
   98,
 );

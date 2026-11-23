@@ -81,6 +81,7 @@ __d(
             glimmerStyles: c.glimmerStyles,
             glimmerVariantsStyles: c.glimmerVariantsStyles,
             shimmerStyles: c.shimmerStyles,
+            brandGradientStyles: c.brandGradientStyles,
             progressElementLightStyles: c.progressElementLightStyles,
             progressElementDarkStyles: c.progressElementDarkStyles,
             outlineActiveStyles: c.outlineActiveStyles,
@@ -161,6 +162,8 @@ __d(
             transitionDurationStyles: o(
               "GeoPrivateNextTransitionGeneratedStyles",
             ).transitionDurationStyles,
+            transitionPresets: o("GeoPrivateNextTransitionGeneratedStyles")
+              .transitionPresets,
             transitionTimingStyles: o("GeoPrivateNextTransitionGeneratedStyles")
               .transitionTimingStyles,
           },

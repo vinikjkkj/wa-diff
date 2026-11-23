@@ -6,7 +6,6 @@ __d(
     "WAWebEBLabyrinthWaWasmReactorSingleton",
     "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -114,29 +113,21 @@ __d(
         mailboxRootKey: n.makeMailboxRootSalt(i),
       };
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          return yield o(
-            "WAWebEBLabyrinthWaWasmReactorSingleton",
-          ).labyrinthWaCommand(
-            {
-              InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
-              ResultSpec: o("WAWebLabyrinthWaWasm.pb").CreateBackupOutputSpec,
-              validateResult: s,
-            },
-            {
-              createBackupInput: {
-                recoveryCode: e,
-                userId: o("WALongInt").decimalStringToLongInt(t),
-              },
-            },
-          );
-        })),
-        d.apply(this, arguments)
+    async function c(t) {
+      return await o(
+        "WAWebEBLabyrinthWaWasmReactorSingleton",
+      ).labyrinthWaCommand(
+        {
+          InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
+          ResultSpec: o("WAWebLabyrinthWaWasm.pb").CreateBackupOutputSpec,
+          validateResult: s,
+        },
+        {
+          createBackupInput: {
+            recoveryCode: e,
+            userId: o("WALongInt").decimalStringToLongInt(t),
+          },
+        },
       );
     }
     l.createBackupWasm = c;

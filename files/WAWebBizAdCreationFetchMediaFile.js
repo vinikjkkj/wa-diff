@@ -1,27 +1,19 @@
 __d(
   "WAWebBizAdCreationFetchMediaFile",
-  ["FBLogger", "asyncToGeneratorRuntime"],
+  ["FBLogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 3e4;
-    function s(e, t, n) {
-      return u.apply(this, arguments);
+    async function s(e, t, n) {
+      var o = await u(e);
+      if (!o.ok)
+        throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
+          n + " fetch failed (status " + o.status + ")",
+        );
+      var a = await o.blob();
+      return new File([a], t, { type: a.type });
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var o = yield c(e);
-          if (!o.ok)
-            throw r("FBLogger")("wa_ctwa_web").mustfixThrow(
-              n + " fetch failed (status " + o.status + ")",
-            );
-          var a = yield o.blob();
-          return new File([a], t, { type: a.type });
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(t) {
+    function u(t) {
       var n = new AbortController(),
         r = window.setTimeout(function () {
           return n.abort();
@@ -30,7 +22,7 @@ __d(
         window.clearTimeout(r);
       });
     }
-    ((l.fetchMediaFile = s), (l.fetchWithTimeout = c));
+    ((l.fetchMediaFile = s), (l.fetchWithTimeout = u));
   },
   98,
 );

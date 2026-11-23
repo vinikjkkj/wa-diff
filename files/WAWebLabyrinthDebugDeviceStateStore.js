@@ -6,93 +6,58 @@ __d(
     "WAWebLabyrinthDebugRotateToEpoch",
     "WAWebLabyrinthDebugSaveNewBackup",
     "WAWebLabyrinthOwnerAccountId",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      try {
+        return (
+          await o("WAWebLabyrinthDebugSaveNewBackup").saveNewBackup(
+            babelHelpers.extends({}, e, {
+              ownerAccountId: o(
+                "WAWebLabyrinthOwnerAccountId",
+              ).getOwnerAccountId(),
+            }),
+          ),
+          o("WAResultOrError").makeResult(void 0)
+        );
+      } catch (e) {
+        return d("save", e);
+      }
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            return (
-              yield o("WAWebLabyrinthDebugSaveNewBackup").saveNewBackup(
-                babelHelpers.extends({}, e, {
-                  ownerAccountId: o(
-                    "WAWebLabyrinthOwnerAccountId",
-                  ).getOwnerAccountId(),
-                }),
-              ),
-              o("WAResultOrError").makeResult(void 0)
-            );
-          } catch (e) {
-            return f("save", e);
-          }
-        })),
-        s.apply(this, arguments)
-      );
+    async function s(e) {
+      try {
+        var t = await e(o("WAWebLabyrinthOwnerAccountId").getOwnerAccountId());
+        return t.success
+          ? o("WAResultOrError").makeResult(t.value)
+          : (await o("WAWebLabyrinthDebugClearAllState").clearAllState(),
+            o("WAResultOrError").makeResult(null));
+      } catch (e) {
+        return d("load", e);
+      }
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      try {
+        return (
+          await o("WAWebLabyrinthDebugRotateToEpoch").rotateToEpoch(e),
+          o("WAResultOrError").makeResult(void 0)
+        );
+      } catch (e) {
+        return d("rotate", e);
+      }
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield e(
-              o("WAWebLabyrinthOwnerAccountId").getOwnerAccountId(),
-            );
-            return t.success
-              ? o("WAResultOrError").makeResult(t.value)
-              : (yield o("WAWebLabyrinthDebugClearAllState").clearAllState(),
-                o("WAResultOrError").makeResult(null));
-          } catch (e) {
-            return f("load", e);
-          }
-        })),
-        c.apply(this, arguments)
-      );
+    async function c() {
+      try {
+        return (
+          await o("WAWebLabyrinthDebugClearAllState").clearAllState(),
+          o("WAResultOrError").makeResult(void 0)
+        );
+      } catch (e) {
+        return d("clear", e);
+      }
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            return (
-              yield o("WAWebLabyrinthDebugRotateToEpoch").rotateToEpoch(e),
-              o("WAResultOrError").makeResult(void 0)
-            );
-          } catch (e) {
-            return f("rotate", e);
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            return (
-              yield o("WAWebLabyrinthDebugClearAllState").clearAllState(),
-              o("WAResultOrError").makeResult(void 0)
-            );
-          } catch (e) {
-            return f("clear", e);
-          }
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t) {
+    function d(e, t) {
       return o("WAResultOrError").makeError({
         error: r("getErrorSafe")(t),
         kind: "storage-error",
@@ -100,9 +65,9 @@ __d(
       });
     }
     ((l.saveLabyrinthDebugBackup = e),
-      (l.loadOwnedState = u),
-      (l.rotateLabyrinthDebugDeviceStateToEpoch = d),
-      (l.clearLabyrinthDebugDeviceState = p));
+      (l.loadOwnedState = s),
+      (l.rotateLabyrinthDebugDeviceStateToEpoch = u),
+      (l.clearLabyrinthDebugDeviceState = c));
   },
   98,
 );

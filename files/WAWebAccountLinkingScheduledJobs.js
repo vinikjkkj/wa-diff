@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebAccountLinkingDBOperationsAPI",
     "WAWebGraphQLServerError",
-    "asyncToGeneratorRuntime",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,64 +15,54 @@ __d(
       c = o("WAWebAccountLinkingDBOperationsAPI").getAccountLinkingDBOps(
         "account_linking",
       );
-    function d() {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield c.getPingExpirationTime(),
-            n = Date.now() / 1e3;
-          if (n > t) {
-            try {
-              var r = yield u.load(),
-                a = r.ping;
-              yield a();
-            } catch (t) {
-              var i =
-                t instanceof o("WAWebGraphQLServerError").GraphQLServerError
-                  ? o("WAWebGraphQLServerError").formatGraphQLServerError(t)
-                  : t;
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[WAFFLE] ping failed: ",
-                      "",
-                    ])),
-                  i,
-                )
-                .tags("waffle", "account-linking", "ping")
-                .sendLogs("waffle-ping-failed", { sampling: 0.01 });
-              return;
-            }
-            try {
-              var l = yield u.load(),
-                d = l.fetchServiceData;
-              yield d();
-            } catch (e) {
-              var m =
-                e instanceof o("WAWebGraphQLServerError").GraphQLServerError
-                  ? o("WAWebGraphQLServerError").formatGraphQLServerError(e)
-                  : e;
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[WAFFLE] fetchServiceData failed: ",
-                      "",
-                    ])),
-                  m,
-                )
-                .tags("waffle", "account-linking", "fetch-service-data")
-                .sendLogs("waffle-fetch-service-data-failed", {
-                  sampling: 0.01,
-                });
-            }
-          }
-        })),
-        m.apply(this, arguments)
-      );
+    async function d() {
+      var t = await c.getPingExpirationTime(),
+        n = Date.now() / 1e3;
+      if (n > t) {
+        try {
+          var r = await u.load(),
+            a = r.ping;
+          await a();
+        } catch (t) {
+          var i =
+            t instanceof o("WAWebGraphQLServerError").GraphQLServerError
+              ? o("WAWebGraphQLServerError").formatGraphQLServerError(t)
+              : t;
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[WAFFLE] ping failed: ",
+                  "",
+                ])),
+              i,
+            )
+            .tags("waffle", "account-linking", "ping")
+            .sendLogs("waffle-ping-failed", { sampling: 0.01 });
+          return;
+        }
+        try {
+          var l = await u.load(),
+            d = l.fetchServiceData;
+          await d();
+        } catch (e) {
+          var m =
+            e instanceof o("WAWebGraphQLServerError").GraphQLServerError
+              ? o("WAWebGraphQLServerError").formatGraphQLServerError(e)
+              : e;
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[WAFFLE] fetchServiceData failed: ",
+                  "",
+                ])),
+              m,
+            )
+            .tags("waffle", "account-linking", "fetch-service-data")
+            .sendLogs("waffle-fetch-service-data-failed", { sampling: 0.01 });
+        }
+      }
     }
     l.scheduledWaffleJobs = d;
   },

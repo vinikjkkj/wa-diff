@@ -10,7 +10,7 @@ __d(
         var t = e.prototype;
         return (
           (t.andThen = function (t) {
-            return this;
+            return g(this.error);
           }),
           (t.map = function (t) {
             return this;

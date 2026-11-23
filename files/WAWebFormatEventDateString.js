@@ -10,7 +10,7 @@ __d(
         l = r("WAWeb-moment").unix(i);
       if (o("WATimeUtils").sameDay(n, i)) {
         var c = a.format("a") === l.format("a");
-        return s._(/*BTDS*/ "{start-date} - {end-time}", [
+        return s._(/*BTDS*/ "", [
           s._param("start-date", u(a, { maybeShowAmPm: !c })),
           s._param(
             "end-time",
@@ -18,7 +18,7 @@ __d(
           ),
         ]);
       }
-      return s._(/*BTDS*/ "{start-date} - {end-date}", [
+      return s._(/*BTDS*/ "", [
         s._param("start-date", u(a, { maybeShowAmPm: !0 })),
         s._param("end-date", u(l, { maybeShowAmPm: !0, lowercase: !0 })),
       ]);
@@ -38,13 +38,13 @@ __d(
       );
       if (u)
         return t.lowercase === !0
-          ? s._(/*BTDS*/ "yesterday, {time}", [s._param("time", e.format(l))])
-          : s._(/*BTDS*/ "Yesterday, {time}", [s._param("time", e.format(l))]);
+          ? s._(/*BTDS*/ "", [s._param("time", e.format(l))])
+          : s._(/*BTDS*/ "", [s._param("time", e.format(l))]);
       var c = o("WATimeUtils").sameDay(a, i);
       if (c)
         return t.lowercase === !0
-          ? s._(/*BTDS*/ "today, {time}", [s._param("time", e.format(l))])
-          : s._(/*BTDS*/ "Today, {time}", [s._param("time", e.format(l))]);
+          ? s._(/*BTDS*/ "", [s._param("time", e.format(l))])
+          : s._(/*BTDS*/ "", [s._param("time", e.format(l))]);
       var d = o("WATimeUtils").sameDay(
         o("WATimeUtils").castToUnixTime(
           r("WAWeb-moment")().add(1, "day").unix(),
@@ -53,18 +53,18 @@ __d(
       );
       if (d)
         return t.lowercase === !0
-          ? s._(/*BTDS*/ "tomorrow, {time}", [s._param("time", e.format(l))])
-          : s._(/*BTDS*/ "Tomorrow, {time}", [s._param("time", e.format(l))]);
+          ? s._(/*BTDS*/ "", [s._param("time", e.format(l))])
+          : s._(/*BTDS*/ "", [s._param("time", e.format(l))]);
       var m = "ddd, MMM D",
         p = "MMM D, YYYY";
       r("WAWebL10N").getLanguage() !== "en" && ((m = "LL"), (p = "LL"));
       var _ = e.isSame(r("WAWeb-moment")(), "year");
       return _
-        ? s._(/*BTDS*/ "{date}, {time}", [
+        ? s._(/*BTDS*/ "", [
             s._param("date", e.format(m)),
             s._param("time", e.format(l)),
           ])
-        : s._(/*BTDS*/ "{date}, {time}", [
+        : s._(/*BTDS*/ "", [
             s._param("date", e.format(p)),
             s._param("time", e.format(l)),
           ]);

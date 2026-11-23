@@ -7,7 +7,7 @@ __d(
       return t < n * e ? null : c(t, n);
     }
     function c(e, t) {
-      return s._(/*BTDS*/ "{current-count}\/{max-count}", [
+      return s._(/*BTDS*/ "", [
         s._param("current-count", r("WAWebL10N").n(e)),
         s._param("max-count", r("WAWebL10N").n(t)),
       ]);

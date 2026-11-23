@@ -1,7 +1,6 @@
 __d(
   "WAWebNotificationIconUtils",
   [
-    "Promise",
     "WAAbortError",
     "WACustomError",
     "WAFilteredCatch",
@@ -17,7 +16,6 @@ __d(
     "WAWebNotificationTone",
     "WAWebProfilePicThumbCollection",
     "WAWebProfilePicThumbGetters",
-    "asyncToGeneratorRuntime",
     "bx",
     "err",
   ],
@@ -25,32 +23,23 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = (c = r("bx")).getURL(c("11319")),
-      m = c.getURL(c("110728")),
-      p = c.getURL(c("9555")),
-      _ = c.getURL(c("9556")),
-      f = c.getURL(c("11370")),
-      g = 1500;
-    function h(e) {
+      c = (u = r("bx")).getURL(u("11319")),
+      d = u.getURL(u("110728")),
+      m = u.getURL(u("9555")),
+      p = u.getURL(u("9556")),
+      _ = u.getURL(u("11370")),
+      f = 1500;
+    function g(e) {
       return o("WAWebChatGetters").getIsNewsletter(e)
-        ? f
+        ? _
         : o("WAWebChatGetters").getIsGroup(e)
-          ? p
-          : _;
+          ? m
+          : p;
     }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    async function h(e, t, n) {
+      return e.isLocked ? c : y(e.id, t, n != null ? n : g(e));
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return e.isLocked ? d : b(e.id, t, n != null ? n : h(e));
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(t, n, a) {
+    function y(t, n, a) {
       return o("WAPromiseTimeout")
         .promiseTimeout(
           r("WAPromiseRaceAbort")(
@@ -59,7 +48,7 @@ __d(
             ),
             n,
           ),
-          g,
+          f,
           "showNotificationTimeout",
         )
         .then(function (e) {
@@ -90,119 +79,111 @@ __d(
           ),
         );
     }
-    var v = 192,
-      S = 8,
-      R = 160,
-      L = 24,
-      E = 76,
-      k = 17,
-      I = 4,
-      T = 250,
-      D = 5e3,
-      x = 10,
-      $ = new (o("WALRUMap").LRUMap)({ max: x }),
-      P = new Set(),
-      N = null;
-    function M(e, t) {
-      return w.apply(this, arguments);
+    var C = 192,
+      b = 8,
+      v = 160,
+      S = 24,
+      R = 76,
+      L = 17,
+      E = 4,
+      k = 250,
+      I = 5e3,
+      T = 10,
+      D = new (o("WALRUMap").LRUMap)({ max: T }),
+      x = new Set(),
+      $ = null;
+    async function P(e, t) {
+      if (r("WAWebEnvironment").isWindows || x.has(e)) return e;
+      try {
+        return await o("WAPromiseTimeout").promiseTimeout(
+          M(e),
+          Math.min(t, k),
+          "callNotificationIconBadgeTimeout",
+        );
+      } catch (t) {
+        return (
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "NotificationBackend:IconBadgeError",
+              ])),
+          ),
+          e
+        );
+      }
     }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (r("WAWebEnvironment").isWindows || P.has(e)) return e;
-          try {
-            return yield o("WAPromiseTimeout").promiseTimeout(
-              F(e),
-              Math.min(t, T),
-              "callNotificationIconBadgeTimeout",
-            );
-          } catch (t) {
-            return (
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "NotificationBackend:IconBadgeError",
-                  ])),
-              ),
-              e
-            );
-          }
-        })),
-        w.apply(this, arguments)
-      );
+    function N() {
+      r("WAWebEnvironment").isWindows || w().catch(r("WAWebNoop"));
     }
-    function A() {
-      r("WAWebEnvironment").isWindows || O().catch(r("WAWebNoop"));
-    }
-    function F(e) {
-      var t = $.get(e);
+    function M(e) {
+      var t = D.get(e);
       if (t != null) return t;
-      var r = B(e);
-      r.catch(function () {
-        P.add(e);
+      var n = A(e);
+      n.catch(function () {
+        x.add(e);
       });
-      var o = (u || (u = n("Promise"))).all([r, O()]).then(function (t) {
+      var r = Promise.all([n, w()]).then(function (t) {
         var n = t[0],
           r = t[1];
         try {
-          return W(n, r);
+          return F(n, r);
         } catch (t) {
-          throw (P.add(e), t);
+          throw (x.add(e), t);
         }
       });
       return (
-        $.set(e, o),
-        o.catch(function () {
-          $.get(e) === o && $.delete(e);
+        D.set(e, r),
+        r.catch(function () {
+          D.get(e) === r && D.delete(e);
         }),
-        o
+        r
       );
     }
-    function O() {
-      if (N != null) return N;
-      var e = B(d);
+    function w() {
+      if ($ != null) return $;
+      var e = A(c);
       return (
-        (N = e),
+        ($ = e),
         e.catch(function () {
-          N === e && (N = null);
+          $ === e && ($ = null);
         }),
         e
       );
     }
-    function B(e) {
+    function A(e) {
       return o("WAPromiseTimeout").promiseTimeout(
         o("WAWebMediaLoad").loadImage(e),
-        D,
+        I,
         "callNotificationIconLoadTimeout",
       );
     }
-    function W(e, t) {
-      var n = o("WAWebCanvasUtils").createCanvas(v, v),
+    function F(e, t) {
+      var n = o("WAWebCanvasUtils").createCanvas(C, C),
         a = n.getContext("2d");
       if (!(a instanceof CanvasRenderingContext2D))
         throw r("err")("2d canvas context is unavailable");
       if (e.width === 0 || e.height === 0 || t.width === 0 || t.height === 0)
         throw r("err")("cannot badge an image with zero width or height");
       (a.save(),
-        q(a, S, R, L),
+        O(a, b, v, S),
         a.clip(),
-        U({ context: a, dh: R, dw: R, dx: S, dy: S, img: e }),
+        B({ context: a, dh: v, dw: v, dx: b, dy: b, img: e }),
         a.restore());
-      var i = v - S - E;
+      var i = C - b - R;
       return (
         (a.globalCompositeOperation = "destination-out"),
-        q(a, i - I, E + 2 * I, k + I),
+        O(a, i - E, R + 2 * E, L + E),
         a.fill(),
         (a.globalCompositeOperation = "source-over"),
         a.save(),
-        q(a, i, E, k),
+        O(a, i, R, L),
         a.clip(),
-        U({ context: a, dh: E, dw: E, dx: i, dy: i, img: t }),
+        B({ context: a, dh: R, dw: R, dx: i, dy: i, img: t }),
         a.restore(),
         n.toDataURL("image/png")
       );
     }
-    function q(e, t, n, r) {
+    function O(e, t, n, r) {
       var o = t + n;
       (e.beginPath(),
         e.moveTo(t + r, t),
@@ -212,7 +193,7 @@ __d(
         e.arcTo(t, t, o, t, r),
         e.closePath());
     }
-    function U(e) {
+    function B(e) {
       var t = e.context,
         n = e.dh,
         r = e.dw,
@@ -224,15 +205,15 @@ __d(
         u = n / l;
       t.drawImage(i, (i.width - s) / 2, (i.height - u) / 2, s, u, o, a, r, n);
     }
-    ((l.WHATSAPP_DEFAULT_ICON = d),
-      (l.WHATSAPP_BUSINESS_DEFAULT_ICON = m),
-      (l.USER_DEFAULT_ICON = _),
-      (l.NOTIFICATION_ICON_TIMEOUT_MS = g),
-      (l.getDefaultChatNotificationIcon = h),
-      (l.getChatNotificationIcon = y),
-      (l.getNotificationIconByWid = b),
-      (l.addWhatsAppBadgeToIcon = M),
-      (l.preloadWhatsAppBadge = A));
+    ((l.WHATSAPP_DEFAULT_ICON = c),
+      (l.WHATSAPP_BUSINESS_DEFAULT_ICON = d),
+      (l.USER_DEFAULT_ICON = p),
+      (l.NOTIFICATION_ICON_TIMEOUT_MS = f),
+      (l.getDefaultChatNotificationIcon = g),
+      (l.getChatNotificationIcon = h),
+      (l.getNotificationIconByWid = y),
+      (l.addWhatsAppBadgeToIcon = P),
+      (l.preloadWhatsAppBadge = N));
   },
   98,
 );

@@ -131,6 +131,7 @@ __d(
       );
     }
     function b(e, t) {
+      if (e === t) return !0;
       var n = Object.keys(e);
       return n.length !== Object.keys(t).length
         ? !1

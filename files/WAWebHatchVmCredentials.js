@@ -6,7 +6,6 @@ __d(
     "WAWebHatchGenAbraTokenJob",
     "WAWebHatchLinkedStatusManager",
     "WAWebHatchVmCredentialsResolver",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,34 +15,22 @@ __d(
     ).WAWebHatchVmCredentialsResolver)({
       allowConfidentialConnection: o("WAWebHatchFrontendGating")
         .isHatchCvmEnabled,
-      isChannelLinked: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
-            !r("justknobx")._("7794") ||
-            (yield r(
-              "WAWebHatchLinkedStatusManager",
-            ).fetchConfirmedLinkedStatusStateIfUnknown({
-              ignoreStoredState: !0,
-            })) === "linked"
-          );
-        });
-        function t() {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
-      isCvmAccount: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
-            (yield o("WAWebHatchCvmSecretPref").readHatchCvmVmType()) ===
-            "confidential"
-          );
-        });
-        function t() {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
+      isChannelLinked: async function () {
+        return (
+          !r("justknobx")._("7794") ||
+          (await r(
+            "WAWebHatchLinkedStatusManager",
+          ).fetchConfirmedLinkedStatusStateIfUnknown({
+            ignoreStoredState: !0,
+          })) === "linked"
+        );
+      },
+      isCvmAccount: async function () {
+        return (
+          (await o("WAWebHatchCvmSecretPref").readHatchCvmVmType()) ===
+          "confidential"
+        );
+      },
       mintAbraToken: o("WAWebHatchGenAbraTokenJob").genHatchAbraToken,
     });
     l.waWebHatchVmCredentials = e;

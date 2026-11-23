@@ -10,9 +10,12 @@ __d(
       var t = e.match(r("AdsGetDirectionsActionLink").URI_REGEX);
       if (t != null) {
         var n = +t[1],
-          o = +t[2];
-        if (!isNaN(n) && !isNaN(o) && Math.abs(n) <= 90 && Math.abs(o) <= 180)
-          return new (r("GeoPlace"))(new (r("GeoCoordinates"))(n, o), t[3]);
+          a = +t[2];
+        if (!isNaN(n) && !isNaN(a) && Math.abs(n) <= 90 && Math.abs(a) <= 180)
+          return o("GeoPlace").makeGeoPlace(
+            new (r("GeoCoordinates"))(n, a),
+            t[3],
+          );
       }
     }
     function u(e) {

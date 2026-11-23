@@ -9,11 +9,7 @@ __d(
         flag: "unspecified",
         value: 0,
         label: r("intlList")(
-          [
-            s._(/*BTDS*/ "Link"),
-            s._(/*BTDS*/ "Photo"),
-            s._(/*BTDS*/ "Carousel"),
-          ],
+          [s._(/*BTDS*/ ""), s._(/*BTDS*/ ""), s._(/*BTDS*/ "")],
           r("intlList").CONJUNCTIONS.OR,
         ),
         getErrors: function () {
@@ -30,6 +26,7 @@ __d(
             "oculus/vr_apps",
             "oculus/rewarded_video",
             "threads/stream",
+            "threads/permalink",
           ];
         },
         getNewCampaignState: function (t, n, r, o, a) {

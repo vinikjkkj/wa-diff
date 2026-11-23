@@ -3,15 +3,7 @@ __d(
   ["invariant", "AdsAPIAdgroupPaths", "immutable"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e = [
-      r("AdsAPIAdgroupPaths").CREATIVE.OBJECT_STORY_SPEC.LINK_DATA
-        .CUSTOMIZATION_RULES_SPEC,
-      r("AdsAPIAdgroupPaths").CREATIVE.OBJECT_STORY_SPEC.VIDEO_DATA
-        .CUSTOMIZATION_RULES_SPEC,
-      r("AdsAPIAdgroupPaths").CREATIVE.OBJECT_STORY_SPEC.TEMPLATE_DATA
-        .CUSTOMIZATION_RULES_SPEC,
-    ];
-    function u(e) {
+    function e(e) {
       var t,
         n = (t = e.creative) == null ? void 0 : t.object_story_spec;
       return (n == null ? void 0 : n.link_data) != null
@@ -23,21 +15,21 @@ __d(
           : r("AdsAPIAdgroupPaths").CREATIVE.OBJECT_STORY_SPEC.TEMPLATE_DATA
               .CUSTOMIZATION_RULES_SPEC;
     }
-    function c(e, t) {
+    function u(e, t) {
       return e.findIndex(function (e) {
         var n = e.get("customization_spec");
         return n != null && typeof n != "string" && n.get("language") === t;
       });
     }
-    function d(e) {
-      var t = u(e);
-      return e.getIn(t) != null;
+    function c(t) {
+      var n = e(t);
+      return t.getIn(n) != null;
+    }
+    function d(t) {
+      var n = e(t);
+      return t.getIn(n) || r("immutable").List();
     }
     function m(e) {
-      var t = u(e);
-      return e.getIn(t) || r("immutable").List();
-    }
-    function p(e) {
       var t,
         n,
         r = (t = e.creative) == null ? void 0 : t.object_story_spec;
@@ -63,16 +55,16 @@ __d(
         ? void 0
         : n.customization_rules_spec;
     }
-    function _(e) {
+    function p(e) {
       return (
         e
           .filter(function (e) {
             return e != null;
           })
-          .count() === 1 && h(e) !== void 0
+          .count() === 1 && g(e) !== void 0
       );
     }
-    function f(e) {
+    function _(e) {
       var t,
         n,
         r,
@@ -92,27 +84,25 @@ __d(
           : r.customization_rules_spec;
       return i != null ? i : null;
     }
-    function g(e) {
-      var t = f(e);
+    function f(e) {
+      var t = _(e);
       return Array.isArray(t);
     }
-    function h(e) {
+    function g(e) {
       var t = (e || r("immutable").Map()).get("customization_spec");
       return (
         typeof t != "string" || s(0, 1025),
         (t || r("immutable").Map()).get("language")
       );
     }
-    ((l.AllCustomizationSpecPaths = e),
-      (l.getCustomizationSpecPathFromAdgroup = u),
-      (l.getCustomizationRuleIndexForLanguage = c),
-      (l.hasDynamicAdCustomization = d),
-      (l.getCustomizationSpecFromAdgroup = m),
-      (l.getCustomizationSpecFromAdgroupObj = p),
-      (l.isPrimaryRule = _),
-      (l.getCustomizationSpecFromCreative = f),
-      (l.hasCustomizationSpecFromCreative = g),
-      (l.getLanguageFromRule = h));
+    ((l.getCustomizationSpecPathFromAdgroup = e),
+      (l.getCustomizationRuleIndexForLanguage = u),
+      (l.hasDynamicAdCustomization = c),
+      (l.getCustomizationSpecFromAdgroup = d),
+      (l.getCustomizationSpecFromAdgroupObj = m),
+      (l.isPrimaryRule = p),
+      (l.hasCustomizationSpecFromCreative = f),
+      (l.getLanguageFromRule = g));
   },
   98,
 );

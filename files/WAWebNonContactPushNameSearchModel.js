@@ -20,7 +20,7 @@ __d(
       c = 3,
       d = Object.freeze([]);
     function m() {
-      return s._(/*BTDS*/ "In a group with you");
+      return s._(/*BTDS*/ "");
     }
     function p(e) {
       var t;

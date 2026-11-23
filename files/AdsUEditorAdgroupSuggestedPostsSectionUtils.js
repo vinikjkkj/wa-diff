@@ -1,6 +1,10 @@
 __d(
   "AdsUEditorAdgroupSuggestedPostsSectionUtils",
-  ["AdsInterfacesLogger"],
+  [
+    "AdsInterfacesLogger",
+    "AdsPagePostIDUtils",
+    "ClickToMessageDestinationTypes",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = {
@@ -90,24 +94,87 @@ __d(
             s),
         }));
     }
-    function m(e, t, n, o, a, i, l, s) {
+    function m(e, t, n, a, i, l, s) {
       var u;
+      o("ClickToMessageDestinationTypes").MESSAGING_APP_DESTINATION_TYPES.has(
+        n,
+      ) &&
+        r("AdsInterfacesLogger").log({
+          eventName: "ctx_multi_post_suggested_post_applied",
+          data:
+            ((u = {}),
+            (u.ad_account_id = e != null ? e : ""),
+            (u.campaign_destination_type = n),
+            (u.event_source = t),
+            (u.message = i),
+            (u.objective = l),
+            (u.optimization_goal = a),
+            (u.adgroup_id = s),
+            (u.object_ids = s == null ? [] : [s]),
+            u),
+        });
+    }
+    function p(e) {
+      var t, n;
+      if (e.is_instagram_post === !0) return e.id;
+      var r = (t = e.promotable_id) != null ? t : e.id;
+      return o("AdsPagePostIDUtils").isPagePostId_BROKEN(r)
+        ? (n = o("AdsPagePostIDUtils").getPostIdFromPagePostId_BROKEN(r)) !=
+          null
+          ? n
+          : ""
+        : r;
+    }
+    function _(t, n, r) {
+      if (
+        !(
+          !r.isMultiPostSelectionEnabled ||
+          t.id === "" ||
+          (n == null ? void 0 : n.has(t.id)) !== !0
+        )
+      ) {
+        var o = p(t);
+        o !== "" &&
+          m(
+            r.accountID,
+            e.MULTI_POST_PICKER_SELECT,
+            r.destinationType,
+            r.optimizationGoal,
+            o,
+            r.objective,
+            r.adgroupID,
+          );
+      }
+    }
+    function f(t, n, r, o) {
+      u(
+        t,
+        s.MULTI_POST_PV,
+        n,
+        n === e.MULTI_POST_PICKER_SELECT ? "" : r != null ? r : "",
+        "",
+        o,
+        null,
+      );
+    }
+    function g(e, t, n, o, a, i, l) {
+      var s;
       r("AdsInterfacesLogger").log({
         eventName: "existing_post_flow_funnel",
         data:
-          ((u = {}),
-          (u.campaign_destination_type = n),
-          (u.event_source = t),
-          (u.optimization_goal = o),
-          (u.objective = i),
-          (u.message = a),
-          (u.media_format = l),
-          (u.adgroup_id = s),
-          (u.accountid = e != null ? e : ""),
-          u),
+          ((s = {}),
+          (s.campaign_destination_type = n),
+          (s.event_source = t),
+          (s.optimization_goal = o),
+          (s.objective = a),
+          (s.message = null),
+          (s.media_format = i),
+          (s.adgroup_id = l),
+          (s.accountid = e != null ? e : ""),
+          s),
       });
     }
-    function p(e, t, n, o, a, i, l) {
+    function h(e, t, n, o, a, i, l) {
       var s;
       (l === void 0 && (l = null),
         r("AdsInterfacesLogger").log({
@@ -124,7 +191,7 @@ __d(
             s),
         }));
     }
-    var _ = {
+    var y = {
       POST_DATA_NOT_FOUND: "POST_DATA_NOT_FOUND",
       IG_PROFILE_FB_POST: "IG_PROFILE_FB_POST",
       ON_VIDEO_NON_VIDEO: "ON_VIDEO_NON_VIDEO",
@@ -135,7 +202,7 @@ __d(
       FB_FILTER_ERROR: "FB_FILTER_ERROR",
       POST_NOT_BOOSTABLE: "POST_NOT_BOOSTABLE",
     };
-    function f(e, t, n, o, a, i, l) {
+    function C(e, t, n, o, a, i, l) {
       var s;
       (l === void 0 && (l = null),
         r("AdsInterfacesLogger").log({
@@ -152,7 +219,7 @@ __d(
             s),
         }));
     }
-    function g(e) {
+    function b(e) {
       if (e == null) return s.DEFAULT;
       switch (e) {
         case "CTWA":
@@ -172,11 +239,15 @@ __d(
       (l.suggestedPostsLogEvent = u),
       (l.getPostFormat = c),
       (l.logCTXDefaultSuggestedPostEvent = d),
-      (l.logExistingPostFunnelEvent = m),
-      (l.logCTXSuggestedPostImpressionEvent = p),
-      (l.DebugFilterReasons = _),
-      (l.logCTXDefaultSuggestedPostDebugEvent = f),
-      (l.getEventNameFromAudienceType = g));
+      (l.logCTXMultiPostSuggestedPostAppliedEvent = m),
+      (l.getAppliedPostID = p),
+      (l.logAppliedSuggestedPost = _),
+      (l.logMultiPostPVEvent = f),
+      (l.logExistingPostFunnelEvent = g),
+      (l.logCTXSuggestedPostImpressionEvent = h),
+      (l.DebugFilterReasons = y),
+      (l.logCTXDefaultSuggestedPostDebugEvent = C),
+      (l.getEventNameFromAudienceType = b));
   },
   98,
 );

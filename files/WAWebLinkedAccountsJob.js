@@ -1,80 +1,59 @@
 __d(
   "WAWebLinkedAccountsJob",
-  ["WAPromiseRetryLoop", "WAWebLinkedAccountsGQL", "asyncToGeneratorRuntime"],
+  ["WAPromiseRetryLoop", "WAWebLinkedAccountsGQL"],
   function (t, n, r, o, a, i, l) {
     var e = 3,
       s = 250,
       u = 1e3;
     function c(t) {
-      var r = e,
-        a = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            try {
-              var n = yield t();
-              e(n);
-            } catch (e) {}
-            --r === 0 && e(null);
-          });
-          return function (n) {
-            return e.apply(this, arguments);
-          };
-        })(),
-        i = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
+      var n = e,
+        r = async function (r) {
+          try {
+            var e = await t();
+            r(e);
+          } catch (e) {}
+          --n === 0 && r(null);
+        },
+        a = new (o("WAPromiseRetryLoop").PromiseRetryLoop)({
           name: "queryLinkedAccounts",
           timer: { algo: { type: "exponential", first: s }, max: u },
-          code: a,
+          code: r,
         });
-      return (i.start(), i.promise());
+      return (a.start(), a.promise());
     }
     function d() {
       return c(o("WAWebLinkedAccountsGQL").queryLinkedAccountsResultGQL);
     }
-    function m(e) {
-      return p.apply(this, arguments);
+    async function m(e) {
+      var t = await c(o("WAWebLinkedAccountsGQL").queryLinkedAccountsGQL);
+      if (!t) return null;
+      if (t.accounts.length === 0) return "not-linked";
+      var n = t.accounts.find(function (e) {
+          return e.type === "whatsapp";
+        }),
+        r = t.accounts.find(function (e) {
+          return e.type === "facebook";
+        });
+      return n
+        ? {
+            id: n.id,
+            hasCreatedAd: n.hasCreatedAd,
+            hasFacebookPage: r != null,
+            type: n.type,
+          }
+        : r
+          ? {
+              id: r.id,
+              hasCreatedAd: r.hasCreatedAd,
+              hasFacebookPage: !0,
+              type: r.type,
+            }
+          : "not-linked";
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield c(o("WAWebLinkedAccountsGQL").queryLinkedAccountsGQL);
-          if (!t) return null;
-          if (t.accounts.length === 0) return "not-linked";
-          var n = t.accounts.find(function (e) {
-              return e.type === "whatsapp";
-            }),
-            r = t.accounts.find(function (e) {
-              return e.type === "facebook";
-            });
-          return n
-            ? {
-                id: n.id,
-                hasCreatedAd: n.hasCreatedAd,
-                hasFacebookPage: r != null,
-                type: n.type,
-              }
-            : r
-              ? {
-                  id: r.id,
-                  hasCreatedAd: r.hasCreatedAd,
-                  hasFacebookPage: !0,
-                  type: r.type,
-                }
-              : "not-linked";
-        })),
-        p.apply(this, arguments)
-      );
+    async function p() {
+      return _(await c(o("WAWebLinkedAccountsGQL").queryLinkedAccountsGQL));
     }
-    function _() {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return g(yield c(o("WAWebLinkedAccountsGQL").queryLinkedAccountsGQL));
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
+    function _(e) {
       return e == null
         ? {
             fbPageId: null,
@@ -82,9 +61,9 @@ __d(
             fbPageHasCreatedAd: !1,
             waAdsIdentityPageHasCreatedAd: !1,
           }
-        : h(e.accounts);
+        : f(e.accounts);
     }
-    function h(e) {
+    function f(e) {
       var t,
         n,
         r = e.find(function (e) {
@@ -104,9 +83,9 @@ __d(
     }
     ((l.queryLinkedAccountsResult = d),
       (l.queryActiveLinkedAccountInfo = m),
-      (l.queryLinkedPagesInfo = _),
-      (l.toLinkedPagesInfo = g),
-      (l.getLinkedPagesInfo = h));
+      (l.queryLinkedPagesInfo = p),
+      (l.toLinkedPagesInfo = _),
+      (l.getLinkedPagesInfo = f));
   },
   98,
 );

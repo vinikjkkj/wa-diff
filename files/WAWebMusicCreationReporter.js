@@ -9,7 +9,6 @@ __d(
     "WAWebMusicGraphQLRequest",
     "WAWebProtobufsE2E.pb",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
     "cr:18770",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,45 +20,34 @@ __d(
       d = "25768196902809900",
       m = 150,
       p = 4586008;
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(e) {
+      var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+        r =
+          t != null
+            ? o("WAWebAsISOCountryCode").asISOCountryCode(
+                o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(t.user),
+              )
+            : null;
+      if (r == null) return b("no_country");
+      var a = await o("WAWebMusicGraphQLRequest").fetchMusicGraphQL({
+        docId: c,
+        project: o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusicReporting,
+        variables: f(e, r),
+        viaOhai:
+          (n("cr:18770") == null
+            ? void 0
+            : n("cr:18770").isDirectCreationReportingEnabled()) !== !0,
+      });
+      if (!a.ok) return g(a.error);
+      var i = h(v(a.data, "xwa_music_creation_reporting")),
+        l = a.errors.at(0);
+      return l != null && (i == null || l.code === p)
+        ? g({ type: "graphql", code: l.code })
+        : i != null
+          ? i
+          : y(e.songId, r);
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-            r =
-              t != null
-                ? o("WAWebAsISOCountryCode").asISOCountryCode(
-                    o("WAWebL10NCountryCodes").getCountryShortcodeByPhone(
-                      t.user,
-                    ),
-                  )
-                : null;
-          if (r == null) return S("no_country");
-          var a = yield o("WAWebMusicGraphQLRequest").fetchMusicGraphQL({
-            docId: c,
-            project: o("WAWebACSTokenConfig").ACS_PROJECTS
-              .WA_ChatsMusicReporting,
-            variables: g(e, r),
-            viaOhai:
-              (n("cr:18770") == null
-                ? void 0
-                : n("cr:18770").isDirectCreationReportingEnabled()) !== !0,
-          });
-          if (!a.ok) return h(a.error);
-          var i = y(R(a.data, "xwa_music_creation_reporting")),
-            l = a.errors.at(0);
-          return l != null && (i == null || l.code === p)
-            ? h({ type: "graphql", code: l.code })
-            : i != null
-              ? i
-              : C(e.songId, r);
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
+    function f(e, t) {
       var n = e.clipDurationMs,
         r = e.songId,
         a = e.songStartTimeMs,
@@ -85,9 +73,9 @@ __d(
         browse_session_id: crypto.randomUUID(),
       };
     }
-    function h(t) {
+    function g(t) {
       return t.type !== "graphql"
-        ? S(t.type)
+        ? b(t.type)
         : t.code === p
           ? { type: "song_unavailable" }
           : (o("WALogger")
@@ -102,50 +90,40 @@ __d(
               .sendLogs("music-creation-report-graphql-error"),
             { type: "failed", reason: "graphql" });
     }
-    function y(e) {
-      var t = R(e, "music_content_media_id");
+    function h(e) {
+      var t = v(e, "music_content_media_id");
       if (typeof t != "string" || t === "") return null;
-      var n = R(e, "country_blocklist");
+      var n = v(e, "country_blocklist");
       return {
         type: "reported",
         mediaId: t,
-        countryBlocklist: v(Array.isArray(n) ? n : []),
+        countryBlocklist: C(Array.isArray(n) ? n : []),
       };
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    async function y(e, t) {
+      var n = await o("WAWebMusicGraphQLRequest").fetchMusicGraphQL({
+          docId: d,
+          project: o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusic,
+          variables: {
+            params: {
+              available_countries: [t],
+              ids: [e],
+              locale: o(
+                "WAWebL10nGetRenderedLocale",
+              ).WAWebL10nGetRenderedLocale(),
+              product: "WA_CHATS",
+            },
+            artwork_edge_size: m,
+          },
+          viaOhai: !1,
+        }),
+        r =
+          n.ok && n.errors.length === 0 ? v(n.data, "music_song_batch") : null;
+      return Array.isArray(r) && r.length === 0
+        ? { type: "song_unavailable" }
+        : b("empty_media_id");
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebMusicGraphQLRequest").fetchMusicGraphQL({
-              docId: d,
-              project: o("WAWebACSTokenConfig").ACS_PROJECTS.WA_ChatsMusic,
-              variables: {
-                params: {
-                  available_countries: [t],
-                  ids: [e],
-                  locale: o(
-                    "WAWebL10nGetRenderedLocale",
-                  ).WAWebL10nGetRenderedLocale(),
-                  product: "WA_CHATS",
-                },
-                artwork_edge_size: m,
-              },
-              viaOhai: !1,
-            }),
-            r =
-              n.ok && n.errors.length === 0
-                ? R(n.data, "music_song_batch")
-                : null;
-          return Array.isArray(r) && r.length === 0
-            ? { type: "song_unavailable" }
-            : S("empty_media_id");
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e) {
+    function C(e) {
       var t = new Set();
       for (var n of e) {
         var r =
@@ -165,7 +143,7 @@ __d(
       }
       return t;
     }
-    function S(e) {
+    function b(e) {
       return (
         o("WALogger").WARN(
           u ||
@@ -178,7 +156,7 @@ __d(
         { type: "failed", reason: e }
       );
     }
-    function R(e, t) {
+    function v(e, t) {
       return e != null && typeof e == "object" && !Array.isArray(e)
         ? e[t]
         : void 0;

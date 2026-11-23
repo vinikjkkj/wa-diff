@@ -6,7 +6,6 @@ __d(
     "WebBloksUtils",
     "WebBloksViewpoint",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -15,45 +14,26 @@ __d(
       c = u.useCallback,
       d = u.useLayoutEffect;
     function m(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.children,
-        r = e.elementRef,
-        a = e.node,
-        i = e.onAppearAttribute,
-        l = e.onDisappearAttribute,
-        u = e.onUpdateAttribute,
-        c = e.triggerOnFirstAppearOnlyAttribute;
-      if (!o("WebBloksSSRUtils").canUseDOM) return n;
-      var d;
-      return (
-        t[0] !== n ||
-        t[1] !== r ||
-        t[2] !== a ||
-        t[3] !== i ||
-        t[4] !== l ||
-        t[5] !== u ||
-        t[6] !== c
-          ? ((d = s.jsx(p, {
-              elementRef: r,
-              node: a,
-              onAppearAttribute: i,
-              onDisappearAttribute: l,
-              onUpdateAttribute: u,
-              triggerOnFirstAppearOnlyAttribute: c,
-              children: n,
-            })),
-            (t[0] = n),
-            (t[1] = r),
-            (t[2] = a),
-            (t[3] = i),
-            (t[4] = l),
-            (t[5] = u),
-            (t[6] = c),
-            (t[7] = d))
-          : (d = t[7]),
-        d
-      );
+      var t = e.children,
+        n = e.elementRef,
+        r = e.node,
+        a = e.onAppearAttribute,
+        i = e.onDisappearAttribute,
+        l = e.onUpdateAttribute,
+        u = e.triggerOnFirstAppearOnlyAttribute;
+      return o("WebBloksSSRUtils").canUseDOM
+        ? s.jsx(p, {
+            elementRef: n,
+            node: r,
+            onAppearAttribute: a,
+            onDisappearAttribute: i,
+            onUpdateAttribute: l,
+            triggerOnFirstAppearOnlyAttribute: u,
+            children: t,
+          })
+        : t;
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
       var t = e.children,
         n = e.elementRef,

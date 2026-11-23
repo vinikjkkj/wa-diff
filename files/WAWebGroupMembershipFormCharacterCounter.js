@@ -9,7 +9,7 @@ __d(
         "WAWebGroupMembershipFormLimits",
       ).countGroupMembershipFormCharacters(t);
       if (a < n * e) return {};
-      var i = s._(/*BTDS*/ "{current-count}\/{max-count}", [
+      var i = s._(/*BTDS*/ "", [
         s._param("current-count", r("WAWebL10N").n(a)),
         s._param("max-count", r("WAWebL10N").n(n)),
       ]);

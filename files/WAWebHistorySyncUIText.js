@@ -5,97 +5,79 @@ __d(
     var e,
       u = e || (e = o("react")),
       c = function (t) {
-        return s._(/*BTDS*/ "Syncing older messages. {=m2}", [
+        return s._(/*BTDS*/ "", [
           s._implicitParam(
             "=m2",
             u.jsx("button", {
               className: "x1ph7ams",
               onClick: t,
-              children: s._(/*BTDS*/ "See progress."),
+              children: s._(/*BTDS*/ ""),
             }),
           ),
         ]);
       };
     function d() {
-      return s._(/*BTDS*/ "Syncing older messages. Click to see progress.");
+      return s._(/*BTDS*/ "");
     }
     d.displayName = d.name + " [from " + i.id + "]";
     function m() {
-      return s._(/*BTDS*/ "Syncing older messages");
+      return s._(/*BTDS*/ "");
     }
     m.displayName = m.name + " [from " + i.id + "]";
     function p() {
-      return s._(
-        /*BTDS*/ "Keep WhatsApp open on your phone while syncing older messages. To see your full chat history, check your phone.",
-      );
+      return s._(/*BTDS*/ "");
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      return s._(/*BTDS*/ '_j{"*":"{percentage}\\u0025"}', [
-        s._param("percentage", e, [0]),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("percentage", e, [0])]);
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f() {
-      return s._(/*BTDS*/ "Syncing older messages");
+      return s._(/*BTDS*/ "");
     }
     f.displayName = f.name + " [from " + i.id + "]";
     function g(e) {
-      return s._(/*BTDS*/ '_j{"*":"{percentage}\\u0025 complete"}', [
-        s._param("percentage", e, [0]),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("percentage", e, [0])]);
     }
     g.displayName = g.name + " [from " + i.id + "]";
     function h() {
-      return s._(
-        /*BTDS*/ "Syncing paused. Open WhatsApp on your phone to continue syncing.",
-      );
+      return s._(/*BTDS*/ "");
     }
     h.displayName = h.name + " [from " + i.id + "]";
     function y() {
-      return s._(
-        /*BTDS*/ "Syncing paused. Open WhatsApp on your phone to continue syncing.",
-      );
+      return s._(/*BTDS*/ "");
     }
     y.displayName = y.name + " [from " + i.id + "]";
     function C() {
-      return s._(/*BTDS*/ "Syncing paused");
+      return s._(/*BTDS*/ "");
     }
     C.displayName = C.name + " [from " + i.id + "]";
     function b() {
-      return s._(/*BTDS*/ "Open WhatsApp on your phone");
+      return s._(/*BTDS*/ "");
     }
     b.displayName = b.name + " [from " + i.id + "]";
     function v() {
-      return s._(/*BTDS*/ "Syncing paused");
+      return s._(/*BTDS*/ "");
     }
     v.displayName = v.name + " [from " + i.id + "]";
     function S() {
-      return s._(
-        /*BTDS*/ "Syncing of older messages has paused. Open WhatsApp on your phone to continue syncing. You can still send and receive messages here.",
-      );
+      return s._(/*BTDS*/ "");
     }
     S.displayName = S.name + " [from " + i.id + "]";
     function R() {
-      return s._(
-        /*BTDS*/ "Syncing paused while you're on a call. It'll continue after the call ends.",
-      );
+      return s._(/*BTDS*/ "");
     }
     R.displayName = R.name + " [from " + i.id + "]";
     function L() {
-      return s._(
-        /*BTDS*/ "Syncing paused while you're on a call. It'll continue after the call ends.",
-      );
+      return s._(/*BTDS*/ "");
     }
     L.displayName = L.name + " [from " + i.id + "]";
     function E() {
-      return s._(/*BTDS*/ "Paused while you're on a call");
+      return s._(/*BTDS*/ "");
     }
     E.displayName = E.name + " [from " + i.id + "]";
     function k() {
-      return s._(
-        /*BTDS*/ "Syncing of older messages is paused while you're on a call. It'll continue after the call ends. You can still send and receive messages here.",
-      );
+      return s._(/*BTDS*/ "");
     }
     ((k.displayName = k.name + " [from " + i.id + "]"),
       (l.SYNC_IN_PROGRESS_CONTEXTUAL_DRAWER = c),

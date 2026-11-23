@@ -14,7 +14,6 @@ __d(
     "WAWebWamEnumCallFromUi",
     "WAWebWamEnumFavoritesUpdateEntryPoint",
     "WAWebWamEnumLobbyEntryPointType",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -26,66 +25,50 @@ __d(
       d,
       m = d || (d = o("react")),
       p = new Set();
-    function _(e) {
-      return f.apply(this, arguments);
+    async function _(t) {
+      var n = await o("WAWebFindChatAction")
+        .findOrCreateLatestChat(t, "chatListUtils")
+        .catch(function (t) {
+          return (
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "openContactChatFromContactsAndGroups: finding the chat failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t)),
+            null
+          );
+        });
+      n != null &&
+        (await o(
+          "WAWebContactsAndGroupsNavigationAction",
+        ).openChatFromContactsAndGroups(n.chat));
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebFindChatAction")
-            .findOrCreateLatestChat(e, "chatListUtils")
-            .catch(function (e) {
-              return (
-                o("WALogger")
-                  .WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "openContactChatFromContactsAndGroups: finding the chat failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e)),
-                null
-              );
-            });
-          t != null &&
-            (yield o(
-              "WAWebContactsAndGroupsNavigationAction",
-            ).openChatFromContactsAndGroups(t.chat));
-        })),
-        f.apply(this, arguments)
-      );
+    async function f(e) {
+      var t = await o("WAWebFindChatAction")
+        .findOrCreateLatestChat(e.id, "chatListUtils")
+        .catch(function (e) {
+          return (
+            o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "blockContactFromContactsAndGroups: finding the chat failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e)),
+            null
+          );
+        });
+      t != null &&
+        o("WAWebBlockContactUtils").handleBlock(
+          t.chat,
+          o("WAWebBlockContants").BlockEntryPoint.ChatListContextMenuBlock,
+        );
     }
     function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebFindChatAction")
-            .findOrCreateLatestChat(e.id, "chatListUtils")
-            .catch(function (e) {
-              return (
-                o("WALogger")
-                  .WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "blockContactFromContactsAndGroups: finding the chat failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e)),
-                null
-              );
-            });
-          t != null &&
-            o("WAWebBlockContactUtils").handleBlock(
-              t.chat,
-              o("WAWebBlockContants").BlockEntryPoint.ChatListContextMenuBlock,
-            );
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
       o("WAWebCmd").Cmd.favoriteChat(
         e,
         !e.isFavorite,
@@ -93,52 +76,52 @@ __d(
           .CONTACT_INFO,
       );
     }
-    function C(t) {
-      var n = t.id.toString();
-      if (!p.has(n)) {
-        p.add(n);
-        var a = o("WAWebWamEnumFavoritesUpdateEntryPoint")
+    function h(e) {
+      var t = e.id.toString();
+      if (!p.has(t)) {
+        p.add(t);
+        var n = o("WAWebWamEnumFavoritesUpdateEntryPoint")
             .FAVORITES_UPDATE_ENTRY_POINT.CONTACT_INFO,
-          i = o("WAWebContactsAndGroupsContacts").getStoredChatlessFavoriteIds(
-            t,
+          a = o("WAWebContactsAndGroupsContacts").getStoredChatlessFavoriteIds(
+            e,
           );
-        (i.length > 0
-          ? o("WAWebRemoveFromFavoritesAction").removeFromFavoritesAction(i, {
-              entryPoint: a,
+        (a.length > 0
+          ? o("WAWebRemoveFromFavoritesAction").removeFromFavoritesAction(a, {
+              entryPoint: n,
             })
-          : o("WAWebAddToFavoritesAction").addToFavoritesAction([t.id], {
-              entryPoint: a,
+          : o("WAWebAddToFavoritesAction").addToFavoritesAction([e.id], {
+              entryPoint: n,
             })
         )
-          .catch(function (t) {
+          .catch(function (e) {
             o("WALogger")
               .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
                     "toggleContactWithoutChatFavoriteFromContactsAndGroups: updating Favorites failed",
                   ])),
               )
-              .catching(r("getErrorSafe")(t));
+              .catching(r("getErrorSafe")(e));
           })
           .finally(function () {
-            p.delete(n);
+            p.delete(t);
           });
       }
     }
-    function b(e, t) {
+    function y(e, t) {
       o("WAWebBlockContactUtils").handleUnblock(
         e,
         o("WAWebBlockContants").BlockEntryPoint.ChatListContextMenuBlock,
         t,
       );
     }
-    function v(e) {
-      R(e, !0);
+    function C(e) {
+      v(e, !0);
     }
-    function S(e) {
-      R(e, !1);
+    function b(e) {
+      v(e, !1);
     }
-    function R(e, t) {
+    function v(e, t) {
       o("WAWebVoipStartCall")
         .startWAWebVoipCall(
           e.id,
@@ -152,8 +135,8 @@ __d(
         .catch(function (e) {
           o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "startCallFromContactsAndGroups: starting the call failed",
                 ])),
             )
@@ -161,12 +144,12 @@ __d(
         });
     }
     ((l.openContactChatFromContactsAndGroups = _),
-      (l.blockContactFromContactsAndGroups = g),
-      (l.toggleContactFavoriteFromContactsAndGroups = y),
-      (l.toggleContactWithoutChatFavoriteFromContactsAndGroups = C),
-      (l.unblockContactFromContactsAndGroups = b),
-      (l.startVideoCallFromContactsAndGroups = v),
-      (l.startVoiceCallFromContactsAndGroups = S));
+      (l.blockContactFromContactsAndGroups = f),
+      (l.toggleContactFavoriteFromContactsAndGroups = g),
+      (l.toggleContactWithoutChatFavoriteFromContactsAndGroups = h),
+      (l.unblockContactFromContactsAndGroups = y),
+      (l.startVideoCallFromContactsAndGroups = C),
+      (l.startVoiceCallFromContactsAndGroups = b));
   },
   98,
 );

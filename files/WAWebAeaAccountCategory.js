@@ -2,7 +2,6 @@ __d(
   "WAWebAeaAccountCategory",
   [
     "$InternalEnum",
-    "Promise",
     "WALogger",
     "WAWebAeaAccountState",
     "WAWebAeaAdvState",
@@ -12,99 +11,88 @@ __d(
     "WAWebBotUtils",
     "WAWebDBDeviceListFanout",
     "WAWebPrivacyModeSystemMsg",
-    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = n("$InternalEnum")({
+      s = n("$InternalEnum")({
         COEX: "coex",
         CAPI: "capi",
         OTHER: "other",
         ORDINARY: "ordinary",
         BOT: "bot",
       });
-    function c(e) {
+    function u(e) {
       return (
         e.isBot() ||
         e.isAiHub() ||
         e.equals(o("WAWebBotUtils").META_BOT_LID_WID)
       );
     }
-    function d(e) {
-      return e.isRegularUser() || c(e);
+    function c(e) {
+      return e.isRegularUser() || u(e);
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (c(e)) return u.BOT;
-          var r = yield (s || (s = n("Promise"))).all([
-              o("WAWebApiContact").getContactRecord(e),
-              o(
-                "WAWebApiVerifiedBusinessName",
-              ).getVerifiedBusinessNameRecordLidAware(e),
-              o("WAWebAeaAdvState").readAeaAdvState(e),
-              t != null
-                ? t
-                : o("WAWebDBDeviceListFanout").getFanOutList({
-                    wids: [e],
-                    chatWidSetToIncludeHostedInFanoutOneToOneChatOnly: e,
-                  }),
-            ]),
-            a = r[0],
-            i = r[1],
-            l = r[2],
-            d = r[3];
-          if (
-            (a == null ? void 0 : a.isHosted) === !0 ||
-            l === o("WAWebAeaAccountState").AeaAccountState.HYBRID_E2EE ||
-            d.some(function (t) {
-              return t.isHosted() && t.isSameAccountAndAddressingMode(e);
-            })
-          )
-            return u.COEX;
-          var m =
-            (i == null ? void 0 : i.privacyMode) != null
-              ? o(
-                  "WAWebApiVerifiedBusinessName",
-                ).convertPrivacyModeFromStorageType(i.privacyMode)
-              : null;
-          return (function (e) {
-            if (
-              e ===
-                o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode
-                  .HOSTED_GROUP ||
-              e === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.FB
+    async function d(e, t) {
+      if (u(e)) return s.BOT;
+      var n = await Promise.all([
+          o("WAWebApiContact").getContactRecord(e),
+          o(
+            "WAWebApiVerifiedBusinessName",
+          ).getVerifiedBusinessNameRecordLidAware(e),
+          o("WAWebAeaAdvState").readAeaAdvState(e),
+          t != null
+            ? t
+            : o("WAWebDBDeviceListFanout").getFanOutList({
+                wids: [e],
+                chatWidSetToIncludeHostedInFanoutOneToOneChatOnly: e,
+              }),
+        ]),
+        r = n[0],
+        a = n[1],
+        i = n[2],
+        l = n[3];
+      if (
+        (r == null ? void 0 : r.isHosted) === !0 ||
+        i === o("WAWebAeaAccountState").AeaAccountState.HYBRID_E2EE ||
+        l.some(function (t) {
+          return t.isHosted() && t.isSameAccountAndAddressingMode(e);
+        })
+      )
+        return s.COEX;
+      var c =
+        (a == null ? void 0 : a.privacyMode) != null
+          ? o("WAWebApiVerifiedBusinessName").convertPrivacyModeFromStorageType(
+              a.privacyMode,
             )
-              return u.CAPI;
-            if (e === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.BSP)
-              return u.OTHER;
-            if (e === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE)
-              return l === o("WAWebAeaAccountState").AeaAccountState.NON_E2EE
-                ? u.OTHER
-                : u.ORDINARY;
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                e,
-            );
-          })(o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(m));
-        })),
-        p.apply(this, arguments)
-      );
+          : null;
+      return (function (e) {
+        if (
+          e ===
+            o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.HOSTED_GROUP ||
+          e === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.FB
+        )
+          return s.CAPI;
+        if (e === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.BSP)
+          return s.OTHER;
+        if (e === o("WAWebPrivacyModeSystemMsg").ReducedPrivacyMode.E2EE)
+          return i === o("WAWebAeaAccountState").AeaAccountState.NON_E2EE
+            ? s.OTHER
+            : s.ORDINARY;
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            e,
+        );
+      })(o("WAWebPrivacyModeSystemMsg").getReducedPrivacyMode(c));
     }
-    function _(e) {
+    function m(e) {
       return o("WAWebAeaRollout").isAeaMonitoringEnabled()
-        ? e === u.COEX || e === u.ORDINARY
+        ? e === s.COEX || e === s.ORDINARY
           ? !0
-          : e === u.CAPI
+          : e === s.CAPI
             ? r("gkx")("27887")
-            : e === u.OTHER
+            : e === s.OTHER
               ? r("gkx")("27888")
-              : e === u.BOT
+              : e === s.BOT
                 ? r("gkx")("27889")
                 : (function () {
                     throw Error(
@@ -114,29 +102,19 @@ __d(
                   })()
         : !1;
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    async function p(e) {
+      return o("WAWebAeaRollout").isAeaMonitoringEnabled() ? m(await d(e)) : !1;
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebAeaRollout").isAeaMonitoringEnabled()
-            ? _(yield m(e))
-            : !1;
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
-      return !o("WAWebAeaRollout").isAeaEnforcementEnabled() || !_(e)
+    function _(e) {
+      return !o("WAWebAeaRollout").isAeaEnforcementEnabled() || !m(e)
         ? !1
-        : e === u.COEX || e === u.ORDINARY
+        : e === s.COEX || e === s.ORDINARY
           ? !0
-          : e === u.CAPI
+          : e === s.CAPI
             ? r("gkx")("27892")
-            : e === u.OTHER
+            : e === s.OTHER
               ? r("gkx")("27893")
-              : e === u.BOT
+              : e === s.BOT
                 ? r("gkx")("27895")
                 : (function () {
                     throw Error(
@@ -145,23 +123,15 @@ __d(
                     );
                   })();
     }
-    function y(e, t) {
-      return C.apply(this, arguments);
+    async function f(e, t) {
+      return o("WAWebAeaRollout").isAeaEnforcementEnabled()
+        ? _(await d(e, t))
+        : !1;
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return o("WAWebAeaRollout").isAeaEnforcementEnabled()
-            ? h(yield m(e, t))
-            : !1;
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    var b = !1;
-    function v() {
-      b ||
-        ((b = !0),
+    var g = !1;
+    function h() {
+      g ||
+        ((g = !0),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -179,23 +149,23 @@ __d(
           String(o("WAWebAeaRollout").isAeaMonitoringEnabled()),
           String(o("WAWebAeaRollout").isAeaBackfillEnabled()),
           String(o("WAWebAeaRollout").isAeaEnforcementEnabled()),
-          String(_(u.CAPI)),
-          String(_(u.OTHER)),
-          String(_(u.BOT)),
-          String(h(u.CAPI)),
-          String(h(u.OTHER)),
-          String(h(u.BOT)),
+          String(m(s.CAPI)),
+          String(m(s.OTHER)),
+          String(m(s.BOT)),
+          String(_(s.CAPI)),
+          String(_(s.OTHER)),
+          String(_(s.BOT)),
         ));
     }
-    ((l.AeaAccountCategory = u),
-      (l.isAeaBotAccount = c),
-      (l.isRegularUserOrAeaBot = d),
-      (l.getAeaAccountCategory = m),
-      (l.isAeaReceiveEnabledForCategory = _),
-      (l.isAeaReceiveEnabledForAccount = f),
-      (l.isAeaEnforcementEnabledForCategory = h),
-      (l.isAeaEnforcementEnabledForAccount = y),
-      (l.logAeaGatesOnce = v));
+    ((l.AeaAccountCategory = s),
+      (l.isAeaBotAccount = u),
+      (l.isRegularUserOrAeaBot = c),
+      (l.getAeaAccountCategory = d),
+      (l.isAeaReceiveEnabledForCategory = m),
+      (l.isAeaReceiveEnabledForAccount = p),
+      (l.isAeaEnforcementEnabledForCategory = _),
+      (l.isAeaEnforcementEnabledForAccount = f),
+      (l.logAeaGatesOnce = h));
   },
   98,
 );

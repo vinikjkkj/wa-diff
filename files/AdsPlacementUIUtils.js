@@ -13,6 +13,7 @@ __d(
     "AdsPlacementCopy",
     "AdsPlacementDevicePlatformMultiSelectLabels",
     "AdsPlacementDevicePlatformMultiSelectStrings",
+    "AdsPlacementInstreamContextualTargetingUtils",
     "AdsPlacementMobileFeedOptions",
     "AdsPlacementPluginList",
     "AdsUserDeviceTypes",
@@ -120,10 +121,14 @@ __d(
           ),
         u =
           n &&
-          o("AdsPlacementAPISpecReaderUtils").isActiveThreadsPosition(
+          (o("AdsPlacementAPISpecReaderUtils").isActiveThreadsPosition(
             e.spec,
             "threads_stream",
-          );
+          ) ||
+            o("AdsPlacementAPISpecReaderUtils").isActiveThreadsPosition(
+              e.spec,
+              "threads_permalink",
+            ));
       return !a && !i && !l && !s && !u;
     }
     function _(e, t) {
@@ -165,14 +170,11 @@ __d(
       return !t;
     }
     function v(e) {
-      var t = r("adsPlacementAPISpecReaderIsActiveFacebookPosition")(
-          e.spec,
-          "instream_video",
-        ),
-        n = o(
-          "AdsPlacementAPISpecReaderUtils",
-        ).isOnlyActiveFacebookInstreamVideosPlacement(e.spec);
-      return !t || !n || y(e);
+      return (
+        !o(
+          "AdsPlacementInstreamContextualTargetingUtils",
+        ).isInstreamContextualTargetingPlacementEligible(e.spec) || y(e)
+      );
     }
     function S(e) {
       var t,
@@ -500,7 +502,7 @@ __d(
                     );
                   })
                   .map(function (e) {
-                    return s._(/*BTDS*/ "{platformName} {groupName}", [
+                    return s._(/*BTDS*/ "", [
                       s._param("platformName", t.name),
                       s._param("groupName", e.name),
                     ]);

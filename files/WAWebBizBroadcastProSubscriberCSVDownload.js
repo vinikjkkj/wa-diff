@@ -1,131 +1,117 @@
 __d(
   "WAWebBizBroadcastProSubscriberCSVDownload",
   [
-    "Promise",
     "WAWebFileSaver",
     "WAWebFileSaverTypes",
     "WAWebFilenameManager",
-    "asyncToGeneratorRuntime",
     "err",
     "fbs",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = o("WAWebFileSaverTypes").AllowedFileExtensions.CSV.valueOf(),
-      u = s.toLowerCase(),
-      c = /^[\s.]+|[\s.]+$/g,
-      d = /^(con|prn|aux|nul|conin\$|conout\$|com[0-9¹²³]|lpt[0-9¹²³])$/i,
-      m = ["text/html", "application/json"],
-      p = "Subscriber CSV response rejected",
-      _ = "Subscribed recipients",
-      f = 65535,
-      g = 1024,
-      h = 6e4,
-      y = 3e5,
-      C = o("WAWebFilenameManager").MAX_FILENAME_LENGTH - s.length;
-    function b(e, t) {
-      return v.apply(this, arguments);
+    var e = o("WAWebFileSaverTypes").AllowedFileExtensions.CSV.valueOf(),
+      s = e.toLowerCase(),
+      u = /^[\s.]+|[\s.]+$/g,
+      c = /^(con|prn|aux|nul|conin\$|conout\$|com[0-9¹²³]|lpt[0-9¹²³])$/i,
+      d = ["text/html", "application/json"],
+      m = "Subscriber CSV response rejected",
+      p = "Subscribed recipients",
+      _ = 65535,
+      f = 1024,
+      g = 6e4,
+      h = 3e5,
+      y = o("WAWebFilenameManager").MAX_FILENAME_LENGTH - e.length;
+    async function C(e, t) {
+      var n = new AbortController(),
+        a = window.setTimeout(function () {
+          n.abort();
+        }, g);
+      try {
+        var i = await window.fetch(e, { signal: n.signal });
+        if (!i.ok)
+          throw (
+            v(i),
+            r("err")("Subscriber CSV fetch failed with status " + i.status)
+          );
+        var l = i.headers.get("content-type");
+        if (b(l))
+          throw (v(i), r("err")("Subscriber CSV fetch returned " + String(l)));
+        (window.clearTimeout(a),
+          (a = window.setTimeout(function () {
+            n.abort();
+          }, h)));
+        var s = await i.blob();
+        (window.clearTimeout(a),
+          await o("WAWebFileSaver").FileSaver.downloadData(
+            s,
+            S(t),
+            o("WAWebFileSaverTypes").AllowedFileExtensions.CSV,
+          ));
+      } finally {
+        window.clearTimeout(a);
+      }
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new AbortController(),
-            a = window.setTimeout(function () {
-              n.abort();
-            }, h);
-          try {
-            var i = yield window.fetch(e, { signal: n.signal });
-            if (!i.ok)
-              throw (
-                R(i),
-                r("err")("Subscriber CSV fetch failed with status " + i.status)
-              );
-            var l = i.headers.get("content-type");
-            if (S(l))
-              throw (
-                R(i),
-                r("err")("Subscriber CSV fetch returned " + String(l))
-              );
-            (window.clearTimeout(a),
-              (a = window.setTimeout(function () {
-                n.abort();
-              }, y)));
-            var s = yield i.blob();
-            (window.clearTimeout(a),
-              yield o("WAWebFileSaver").FileSaver.downloadData(
-                s,
-                L(t),
-                o("WAWebFileSaverTypes").AllowedFileExtensions.CSV,
-              ));
-          } finally {
-            window.clearTimeout(a);
-          }
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
+    function b(e) {
       if (e == null) return !1;
       var t = e.toLowerCase();
-      return m.some(function (e) {
+      return d.some(function (e) {
         return t.startsWith(e);
       });
     }
-    function R(t) {
-      var r = t.body;
-      if (r != null) {
-        var o = r.cancel(p);
-        o instanceof (e || (e = n("Promise"))) && o.catch(function () {});
+    function v(e) {
+      var t = e.body;
+      if (t != null) {
+        var n = t.cancel(m);
+        n instanceof Promise && n.catch(function () {});
       }
     }
-    function L(e) {
+    function S(e) {
       var t, n;
-      return (t = (n = E(e)) != null ? n : E(k())) != null ? t : _;
+      return (t = (n = R(e)) != null ? n : R(L())) != null ? t : p;
+    }
+    function R(e) {
+      if (e == null) return null;
+      var t = E(o("WAWebFilenameManager").sanitizeFileName(e));
+      return t === "" || $(t) ? null : t;
+    }
+    function L() {
+      return r("fbs")._(/*BTDS*/ "").toString();
     }
     function E(e) {
-      if (e == null) return null;
-      var t = I(o("WAWebFilenameManager").sanitizeFileName(e));
-      return t === "" || N(t) ? null : t;
+      var t = k(I(e, f));
+      return k(I(t, y));
     }
-    function k() {
-      return r("fbs")._(/*BTDS*/ "Subscribed recipients").toString();
-    }
-    function I(e) {
-      var t = T(D(e, g));
-      return T(D(t, C));
-    }
-    function T(e) {
-      for (var t = e, n = ""; t !== n; ) ((n = t), (t = P(x(t))));
+    function k(e) {
+      for (var t = e, n = ""; t !== n; ) ((n = t), (t = x(T(t))));
       return t;
     }
-    function D(e, t) {
+    function I(e, t) {
       if (e.length <= t) return e;
       for (var n = 0; n < t; ) {
         var r = e.codePointAt(n),
-          o = r != null && r > f ? 2 : 1;
+          o = r != null && r > _ ? 2 : 1;
         if (n + o > t) break;
         n += o;
       }
       return e.slice(0, n);
     }
-    function x(e) {
-      for (var t = e.trim(); $(t); ) t = t.slice(0, -u.length).trim();
+    function T(e) {
+      for (var t = e.trim(); D(t); ) t = t.slice(0, -s.length).trim();
       return t;
     }
+    function D(e) {
+      return e.slice(-s.length).toLowerCase() === s;
+    }
+    function x(e) {
+      return e.replace(u, "");
+    }
     function $(e) {
-      return e.slice(-u.length).toLowerCase() === u;
+      return c.test(e.split(".")[0].trim());
     }
-    function P(e) {
-      return e.replace(c, "");
-    }
-    function N(e) {
-      return d.test(e.split(".")[0].trim());
-    }
-    ((l.CSV_FETCH_TIMEOUT_MS = h),
-      (l.CSV_BODY_TIMEOUT_MS = y),
-      (l.MAX_DOWNLOAD_NAME_LENGTH = C),
-      (l.saveSubscriberCSV = b));
+    ((l.CSV_FETCH_TIMEOUT_MS = g),
+      (l.CSV_BODY_TIMEOUT_MS = h),
+      (l.MAX_DOWNLOAD_NAME_LENGTH = y),
+      (l.saveSubscriberCSV = C));
   },
   226,
 );

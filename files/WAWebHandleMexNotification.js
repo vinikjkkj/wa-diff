@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleMexNotification",
   [
-    "Promise",
     "WADeprecatedWapParser",
     "WALogger",
     "WAParsableWapNode",
@@ -9,21 +8,19 @@ __d(
     "WAWebMexLidChangeNotificationHandler",
     "WAWebMexNotificationPluginHandlers",
     "WAWebMexRelayEnvironment",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = new Set([
+      c = new Set([
         "NotificationLinkedProfilesUpdatesSideSub",
         "NotificationAgeCollection",
         "NotificationLinkedProfilesUpdates",
       ]),
-      m = "mexNotificationParser",
-      p = new (r("WADeprecatedWapParser"))(m, function (e) {
+      d = "mexNotificationParser",
+      m = new (r("WADeprecatedWapParser"))(d, function (e) {
         (e.assertTag("notification"), e.assertAttr("type", "mex"));
         var t = e.child("update"),
           n = e.attrString("id"),
@@ -36,7 +33,7 @@ __d(
           s = JSON.parse(l);
         } catch (e) {
           throw new (o("WAParsableWapNode").XmppParsingFailure)(
-            m,
+            d,
             "JSON parsing error: " + String(e),
           );
         }
@@ -48,91 +45,82 @@ __d(
           mexResponse: s,
         };
       });
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = p.parseOrThrow(t);
-          try {
-            var a = yield g(n);
-            return a;
-          } catch (t) {
-            if (t instanceof o("WAParsableWapNode").XmppParsingFailure) throw t;
-            if (t instanceof h)
-              if (d.has(t.operationName))
-                o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[mex] handleMexNotification: ",
-                        " unsupported, nack",
-                      ])),
-                    t.operationName,
-                  )
-                  .tags("mex", "notification");
-              else
-                throw (
-                  o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[mex] handleMexNotification: ",
-                          " unknown op, nack",
-                        ])),
-                      t.operationName,
-                    )
-                    .tags("mex", "notification")
-                    .sendLogs("mex-notification-error-" + t.operationName, {
-                      sampling: 0.01,
-                    }),
-                  t
-                );
-            else
+    async function p(t) {
+      var n = m.parseOrThrow(t);
+      try {
+        var a = await _(n);
+        return a;
+      } catch (t) {
+        if (t instanceof o("WAParsableWapNode").XmppParsingFailure) throw t;
+        if (t instanceof f)
+          if (c.has(t.operationName))
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[mex] handleMexNotification: ",
+                    " unsupported, nack",
+                  ])),
+                t.operationName,
+              )
+              .tags("mex", "notification");
+          else
+            throw (
               o("WALogger")
                 .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
                       "[mex] handleMexNotification: ",
-                      " handling failed, nack",
+                      " unknown op, nack",
                     ])),
-                  n.OperationName,
+                  t.operationName,
                 )
-                .catching(r("getErrorSafe")(t))
                 .tags("mex", "notification")
-                .sendLogs(
-                  "mex-notification-handling-failed-" + n.OperationName,
-                  { sampling: 0.1 },
-                );
-            throw new (o("WAParsableWapNode").XmppParsingFailure)(
-              m,
-              "unexpected error: " + String(t),
+                .sendLogs("mex-notification-error-" + t.operationName, {
+                  sampling: 0.01,
+                }),
+              t
             );
-          }
-        })),
-        f.apply(this, arguments)
-      );
+        else
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[mex] handleMexNotification: ",
+                  " handling failed, nack",
+                ])),
+              n.OperationName,
+            )
+            .catching(r("getErrorSafe")(t))
+            .tags("mex", "notification")
+            .sendLogs("mex-notification-handling-failed-" + n.OperationName, {
+              sampling: 0.1,
+            });
+        throw new (o("WAParsableWapNode").XmppParsingFailure)(
+          d,
+          "unexpected error: " + String(t),
+        );
+      }
     }
-    function g(e) {
+    function _(e) {
       var t = o(
         "WAWebMexNotificationPluginHandlers",
       ).getMexNotificationPluginHandler(e.OperationName);
       return t != null
-        ? y(e, t)
+        ? g(e, t)
         : e.OperationName === "MexNotificationEvent"
-          ? y(e, R)
+          ? g(e, C)
           : e.OperationName === "NotificationGroupEncryptionKeysPropertyUpdate"
-            ? y(e, v)
+            ? g(e, y)
             : e.OperationName === "LidChangeNotification"
-              ? y(
+              ? g(
                   e,
                   o("WAWebMexLidChangeNotificationHandler")
                     .mexHandleLidChangeNotification,
                 )
-              : (c || (c = n("Promise"))).reject(new h(e.OperationName));
+              : Promise.reject(new f(e.OperationName));
     }
-    var h = (function (e) {
+    var f = (function (e) {
       function t(n) {
         var r;
         return (
@@ -151,32 +139,21 @@ __d(
         t
       );
     })(babelHelpers.wrapNativeSuper(Error));
-    function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.mexResponse,
-            r = o("WAWebMexRelayEnvironment").parseFatalExtensionError(
-              n.errors,
-            );
-          if (r != null)
-            throw new (o("WAParsableWapNode").XmppParsingFailure)(
-              m,
-              "errors list in parsed json has fatal error",
-            );
-          if (n.data != null)
-            return (yield t(e, n.data), b(e.stanzaId, e.from));
-          throw new (o("WAParsableWapNode").XmppParsingFailure)(
-            m,
-            "null data in parsed json",
-          );
-        })),
-        C.apply(this, arguments)
+    async function g(e, t) {
+      var n = e.mexResponse,
+        r = o("WAWebMexRelayEnvironment").parseFatalExtensionError(n.errors);
+      if (r != null)
+        throw new (o("WAParsableWapNode").XmppParsingFailure)(
+          d,
+          "errors list in parsed json has fatal error",
+        );
+      if (n.data != null) return (await t(e, n.data), h(e.stanzaId, e.from));
+      throw new (o("WAParsableWapNode").XmppParsingFailure)(
+        d,
+        "null data in parsed json",
       );
     }
-    function b(e, t) {
+    function h(e, t) {
       return o("WAWap").wap("ack", {
         id: o("WAWap").CUSTOM_STRING(e),
         to: t,
@@ -184,29 +161,9 @@ __d(
         type: "mex",
       });
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t) {},
-        )),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t) {},
-        )),
-        L.apply(this, arguments)
-      );
-    }
-    ((l.handleMexNotification = _), (l.MissingMEXNotificationHandler = h));
+    async function y(e, t) {}
+    async function C(e, t) {}
+    ((l.handleMexNotification = p), (l.MissingMEXNotificationHandler = f));
   },
   98,
 );

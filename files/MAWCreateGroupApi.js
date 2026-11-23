@@ -7,32 +7,29 @@ __d(
     "MAWDbThreadTxns",
     "MAWFolderTypes",
     "MAWParticipantManagementTxns",
-    "Promise",
     "WATimeUtils",
-    "asyncToGeneratorRuntime",
     "isGroupInvitesEnabled",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = [
-        (s = o("MAWFolderTypes")).FOLDER_ID.ARCHIVED,
-        s.FOLDER_ID.INBOX,
-        s.FOLDER_ID.OTHER,
-        s.FOLDER_ID.PENDING,
-        s.FOLDER_ID.RESTRICTED,
-        s.FOLDER_ID.SPAM,
+      s = [
+        (e = o("MAWFolderTypes")).FOLDER_ID.ARCHIVED,
+        e.FOLDER_ID.INBOX,
+        e.FOLDER_ID.OTHER,
+        e.FOLDER_ID.PENDING,
+        e.FOLDER_ID.RESTRICTED,
+        e.FOLDER_ID.SPAM,
       ];
-    function c(e) {
+    function u(e) {
       var t;
-      return (t = u.find(function (t) {
+      return (t = s.find(function (t) {
         return t === e;
       })) != null
         ? t
         : o("MAWFolderTypes").FOLDER_ID.INBOX;
     }
-    function d(e) {
+    function c(e) {
       return {
         creationTs: e.creationTs,
         creator: e.creator,
@@ -43,7 +40,7 @@ __d(
         subject: e.subject,
       };
     }
-    function m(e) {
+    function d(e) {
       return e.participants
         .map(function (e) {
           return e.error
@@ -62,63 +59,48 @@ __d(
         })
         .filter(Boolean);
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
+    async function m(e) {
+      var t = e.extras,
+        n = e.folder,
+        r = e.groupStatus,
+        a = e.groupToCreate,
+        i = e.key,
+        l = r === "added" ? o("WATimeUtils").unixTime() : a.creationTs,
+        s = await o(
+          "MAWBulkMaybeUpsertThreadAndParticipants",
+        ).getOrCreateThreadNonTransaction({
+          clientThreadKey: t == null ? void 0 : t.clientThreadKey,
+          createTs: o("WATimeUtils").castUnixTimeToMillisTime(l),
+          deduplicationKey: i != null ? i : void 0,
+          folder: u(n),
+          jid: a.jid,
+        }),
+        m = s.created,
+        p = s.thread,
+        _ = d(a);
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.extras,
-            n = e.folder,
-            r = e.groupStatus,
-            a = e.groupToCreate,
-            i = e.key,
-            l = r === "added" ? o("WATimeUtils").unixTime() : a.creationTs,
-            s = yield o(
-              "MAWBulkMaybeUpsertThreadAndParticipants",
-            ).getOrCreateThreadNonTransaction({
-              clientThreadKey: t == null ? void 0 : t.clientThreadKey,
-              createTs: o("WATimeUtils").castUnixTimeToMillisTime(l),
-              deduplicationKey: i != null ? i : void 0,
-              folder: c(n),
-              jid: a.jid,
-            }),
-            u = s.created,
-            p = s.thread,
-            _ = m(a);
-          return (
-            u
-              ? o("MAWDbParticipantTxns").bulkAddParticipants(p.jid, _)
-              : yield o(
-                  "MAWParticipantManagementTxns",
-                ).syncParticipantListNonTransaction(p.jid, _),
-            o("MAWDbGroupInfoTxns").putGroupInfo(d(a)),
-            p.archived === !0
-              ? yield o("MAWDbThreadTxns").unarchiveThreadsNonTransaction([
-                  p.jid,
-                ])
-              : yield o("MAWDbThreadTxns").subscribeToThreadsNonTransaction([
-                  p.jid,
-                ]),
-            p.jid
-          );
-        })),
-        _.apply(this, arguments)
+        m
+          ? o("MAWDbParticipantTxns").bulkAddParticipants(p.jid, _)
+          : await o(
+              "MAWParticipantManagementTxns",
+            ).syncParticipantListNonTransaction(p.jid, _),
+        o("MAWDbGroupInfoTxns").putGroupInfo(c(a)),
+        p.archived === !0
+          ? await o("MAWDbThreadTxns").unarchiveThreadsNonTransaction([p.jid])
+          : await o("MAWDbThreadTxns").subscribeToThreadsNonTransaction([
+              p.jid,
+            ]),
+        p.jid
       );
     }
-    var f = (function () {
-      var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-        yield (e || (e = n("Promise"))).all(
-          t.map(function (e) {
-            return p(e);
-          }),
-        );
-      });
-      return function (n) {
-        return t.apply(this, arguments);
-      };
-    })();
-    l.createGroups = f;
+    var p = async function (t) {
+      await Promise.all(
+        t.map(function (e) {
+          return m(e);
+        }),
+      );
+    };
+    l.createGroups = p;
   },
   98,
 );

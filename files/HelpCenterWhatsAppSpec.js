@@ -65,7 +65,7 @@ __d(
         },
         header: {
           icon: u.jsx(r("CometImage.react"), {
-            alt: s._(/*BTDS*/ "WhatsApp"),
+            alt: s._(/*BTDS*/ ""),
             height: 32,
             src: "/images/presma/whatsapp/whatsapp_logo_green.png",
           }),

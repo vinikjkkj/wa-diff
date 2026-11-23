@@ -25,7 +25,6 @@ __d(
     "WAWebSchemaMessage",
     "WAWebUserUtils",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "nullthrows",
   ],
@@ -51,134 +50,92 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(r("WAWebBotMsgSecretError"));
-    function h(e) {
-      return y.apply(this, arguments);
+    async function h(e) {
+      var t = new (o("WABinary").Binary)(e).readByteArrayView(),
+        n = await o("WACryptoHkdf").extractAndExpand(new Uint8Array(t), f, _);
+      return n;
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new (o("WABinary").Binary)(e).readByteArrayView(),
-            n = yield o("WACryptoHkdf").extractAndExpand(
-              new Uint8Array(t),
-              f,
-              _,
-            );
-          return n;
-        })),
-        y.apply(this, arguments)
-      );
+    async function y(e, t) {
+      return t.msgInfo.author.isFbidBot() ? b(e, t) : C(e, t);
     }
-    function C(e, t) {
-      return b.apply(this, arguments);
+    async function C(t, n) {
+      var a,
+        i,
+        l = n.msgInfo,
+        s = n.msgMeta,
+        u = o("decodeProtobuf").decodeProtobuf(
+          o("WAWebProtobufsE2E.pb").MessageSecretMessageSpec,
+          t,
+        ),
+        c = s.targetSenderJid
+          ? o("WAWebUserUtils").isMeAccount(s.targetSenderJid)
+          : !0,
+        d = {
+          fromMe: c,
+          remote: (a = s.targetChatJid) != null ? a : l.chat,
+          id: r("nullthrows")(s.targetId, "decryptMsmsgBotMessage: targetId"),
+        };
+      l.chat.isGroup() && (d.participant = s.targetSenderJid);
+      var m = await L(new (r("WAWebMsgKey"))(d), l),
+        p = o("WAWebWidToJid").widToUserJid(
+          (i = s.targetSenderJid) != null
+            ? i
+            : o("WAWebUserUtils").getMeUserOrThrow(),
+        ),
+        _ = o("WAWebWidToJid").widToUserJid(
+          r("nullthrows")(l.author, "decryptMsmsgBotMessage: author"),
+        ),
+        f = null,
+        g = r("nullthrows")(u.encIv, "decryptMsmsgBotMessage: encIv"),
+        h = r("nullthrows")(u.encPayload, "decryptMsmsgBotMessage: encPayload");
+      try {
+        var y = l.externalId,
+          C = await x({
+            decryptSecret: m,
+            messageSecretOriginalUserJid: p,
+            senderJid: _,
+            stanzaId: y,
+          });
+        f = await o("WACryptoAesGcm").gcmDecrypt(C, g, h, y + "\0" + _);
+      } catch (t) {
+        var b;
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "decryptMsmsgBotMessage: fallback to botEditTargetId: ",
+              "",
+            ])),
+          t,
+        );
+        var v = r("nullthrows")(
+            (b = n.msgBotInfo) == null ? void 0 : b.botEditTargetId,
+            "decryptMsmsgBotMessage: botEditTargetId",
+          ),
+          S = await x({
+            decryptSecret: m,
+            messageSecretOriginalUserJid: p,
+            senderJid: _,
+            stanzaId: v,
+          });
+        f = await o("WACryptoAesGcm").gcmDecrypt(S, g, h, v + "\0" + _);
+      }
+      return f;
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return t.msgInfo.author.isFbidBot() ? R(e, t) : v(e, t);
-        })),
-        b.apply(this, arguments)
-      );
+    async function b(e, t) {
+      var n = t.msgInfo,
+        o = t.msgMeta,
+        a = v({
+          chat: n.chat,
+          targetId: r("nullthrows")(
+            o.targetId,
+            "decryptMsmsgFbidBotMessage: targetId",
+          ),
+          targetSenderJid: o.targetSenderJid,
+        }),
+        i = await L(a, n);
+      return S(e, t, i);
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a,
-            i,
-            l = n.msgInfo,
-            s = n.msgMeta,
-            u = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufsE2E.pb").MessageSecretMessageSpec,
-              t,
-            ),
-            c = s.targetSenderJid
-              ? o("WAWebUserUtils").isMeAccount(s.targetSenderJid)
-              : !0,
-            d = {
-              fromMe: c,
-              remote: (a = s.targetChatJid) != null ? a : l.chat,
-              id: r("nullthrows")(
-                s.targetId,
-                "decryptMsmsgBotMessage: targetId",
-              ),
-            };
-          l.chat.isGroup() && (d.participant = s.targetSenderJid);
-          var m = yield D(new (r("WAWebMsgKey"))(d), l),
-            p = o("WAWebWidToJid").widToUserJid(
-              (i = s.targetSenderJid) != null
-                ? i
-                : o("WAWebUserUtils").getMeUserOrThrow(),
-            ),
-            _ = o("WAWebWidToJid").widToUserJid(
-              r("nullthrows")(l.author, "decryptMsmsgBotMessage: author"),
-            ),
-            f = null,
-            g = r("nullthrows")(u.encIv, "decryptMsmsgBotMessage: encIv"),
-            h = r("nullthrows")(
-              u.encPayload,
-              "decryptMsmsgBotMessage: encPayload",
-            );
-          try {
-            var y = l.externalId,
-              C = yield A({
-                decryptSecret: m,
-                messageSecretOriginalUserJid: p,
-                senderJid: _,
-                stanzaId: y,
-              });
-            f = yield o("WACryptoAesGcm").gcmDecrypt(C, g, h, y + "\0" + _);
-          } catch (t) {
-            var b;
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "decryptMsmsgBotMessage: fallback to botEditTargetId: ",
-                  "",
-                ])),
-              t,
-            );
-            var v = r("nullthrows")(
-                (b = n.msgBotInfo) == null ? void 0 : b.botEditTargetId,
-                "decryptMsmsgBotMessage: botEditTargetId",
-              ),
-              S = yield A({
-                decryptSecret: m,
-                messageSecretOriginalUserJid: p,
-                senderJid: _,
-                stanzaId: v,
-              });
-            f = yield o("WACryptoAesGcm").gcmDecrypt(S, g, h, v + "\0" + _);
-          }
-          return f;
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t.msgInfo,
-            o = t.msgMeta,
-            a = E({
-              chat: n.chat,
-              targetId: r("nullthrows")(
-                o.targetId,
-                "decryptMsmsgFbidBotMessage: targetId",
-              ),
-              targetSenderJid: o.targetSenderJid,
-            }),
-            i = yield D(a, n);
-          return k(e, t, i);
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e) {
+    function v(e) {
       var t = e.chat,
         n = e.targetId,
         a = e.targetSenderJid,
@@ -191,221 +148,193 @@ __d(
       }
       return new (r("WAWebMsgKey"))(l);
     }
-    function k(e, t, n) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, a) {
-          var i,
-            l = t.msgBotInfo,
-            c = t.msgInfo,
-            d = t.msgMeta,
-            m =
-              (i = d.targetSenderJid) != null
-                ? i
-                : o("WAWebUserUtils").getMeLidUserOrThrow(),
-            p = c.externalId,
-            _ = null;
-          ((l == null ? void 0 : l.botEditType) ===
-            o("WAWebBotTypes").BotMsgEditType.INNER ||
-            (l == null ? void 0 : l.botEditType) ===
-              o("WAWebBotTypes").BotMsgEditType.LAST) &&
-            ((l == null ? void 0 : l.botEditTargetId) != null
-              ? ((p = l == null ? void 0 : l.botEditTargetId),
-                (_ = c.externalId))
-              : o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[decryptMsmsgFbidBotMessage] fallback\u2192externalId edit=",
-                      "",
-                    ])),
-                  l == null ? void 0 : l.botEditType,
-                ));
-          var f = c.metaFrom,
-            g = o("WAWebWidToJid").widToUserJid(
-              f != null &&
-                c.author != null &&
-                c.author.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
-                o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
-                ? f
-                : r("nullthrows")(
-                    c.author,
-                    "decryptMsmsgFbidBotMessage: author",
-                  ),
-            ),
-            h = o("WAWebWidToJid").widToUserJid(m),
-            y = o("decodeProtobuf").decodeProtobuf(
-              o("WAWebProtobufsE2E.pb").MessageSecretMessageSpec,
-              e,
-            ),
-            C = y.encIv,
-            b = y.encPayload,
-            v = r("nullthrows")(C, "decryptMsmsgFbidBotMessage: encIv"),
-            S = r("nullthrows")(b, "decryptMsmsgFbidBotMessage: encPayload");
-          function R(e) {
-            return L.apply(this, arguments);
-          }
-          function L() {
-            return (
-              (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-                var t = yield A({
-                  decryptSecret: a,
-                  messageSecretOriginalUserJid: h,
-                  senderJid: g,
-                  stanzaId: e,
-                });
-                return o("WACryptoAesGcm").gcmDecrypt(t, v, S, e + "\0" + g);
-              })),
-              L.apply(this, arguments)
-            );
-          }
-          try {
-            var E = yield R(p);
-            return E;
-          } catch (e) {
-            if (_ == null) throw T(e);
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[decryptMsmsgFbidBotMessage] gcmDecrypt failed primaryStanzaId=",
-                  ", fallback\u2192externalId=",
-                  ": ",
+    async function S(e, t, n) {
+      var a,
+        i = t.msgBotInfo,
+        l = t.msgInfo,
+        c = t.msgMeta,
+        d =
+          (a = c.targetSenderJid) != null
+            ? a
+            : o("WAWebUserUtils").getMeLidUserOrThrow(),
+        m = l.externalId,
+        p = null;
+      ((i == null ? void 0 : i.botEditType) ===
+        o("WAWebBotTypes").BotMsgEditType.INNER ||
+        (i == null ? void 0 : i.botEditType) ===
+          o("WAWebBotTypes").BotMsgEditType.LAST) &&
+        ((i == null ? void 0 : i.botEditTargetId) != null
+          ? ((m = i == null ? void 0 : i.botEditTargetId), (p = l.externalId))
+          : o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[decryptMsmsgFbidBotMessage] fallback\u2192externalId edit=",
                   "",
                 ])),
-              p,
-              _,
-              String(e),
-            );
-            try {
-              return yield R(_);
-            } catch (e) {
-              throw T(e);
-            }
-          }
-        })),
-        I.apply(this, arguments)
-      );
+              i == null ? void 0 : i.botEditType,
+            ));
+      var _ = l.metaFrom,
+        f = o("WAWebWidToJid").widToUserJid(
+          _ != null &&
+            l.author != null &&
+            l.author.equals(o("WAWebCoexV2BotWid").COEX_V2_BOT_FBID_WID) &&
+            o("WAWebCoexV2GatingUtils").isCoexV2RecvEnabled()
+            ? _
+            : r("nullthrows")(l.author, "decryptMsmsgFbidBotMessage: author"),
+        ),
+        g = o("WAWebWidToJid").widToUserJid(d),
+        h = o("decodeProtobuf").decodeProtobuf(
+          o("WAWebProtobufsE2E.pb").MessageSecretMessageSpec,
+          e,
+        ),
+        y = h.encIv,
+        C = h.encPayload,
+        b = r("nullthrows")(y, "decryptMsmsgFbidBotMessage: encIv"),
+        v = r("nullthrows")(C, "decryptMsmsgFbidBotMessage: encPayload");
+      async function S(e) {
+        var t = await x({
+          decryptSecret: n,
+          messageSecretOriginalUserJid: g,
+          senderJid: f,
+          stanzaId: e,
+        });
+        return o("WACryptoAesGcm").gcmDecrypt(t, b, v, e + "\0" + f);
+      }
+      try {
+        var L = await S(m);
+        return L;
+      } catch (e) {
+        if (p == null) throw R(e);
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[decryptMsmsgFbidBotMessage] gcmDecrypt failed primaryStanzaId=",
+              ", fallback\u2192externalId=",
+              ": ",
+              "",
+            ])),
+          m,
+          p,
+          String(e),
+        );
+        try {
+          return await S(p);
+        } catch (e) {
+          throw R(e);
+        }
+      }
     }
-    function T(e) {
+    function R(e) {
       return new (r("WAWebBotMsgDecryptError"))(
         "decryptMsmsgFbidBotMessage: decrypt with the message secret failed: " +
           String(e),
       );
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a = e.toString(),
-            i =
-              (n = o("WAWebLidMigrationUtils").getAlternateMsgKey(e)) == null
-                ? void 0
-                : n.toString(),
-            l = N(a, i, t);
-          if (l != null) return h(l);
-          var s = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .bulkGet([a, i].filter(Boolean)),
-            u = s[0],
-            _ = s[1],
-            f = u != null ? u : _;
-          if (f == null)
-            throw $(t)
-              ? (o("WALogger")
-                  .WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "[bot-msmsg] no target row, deferring as an orphan",
-                      ])),
-                  )
-                  .tags("messaging"),
-                new (r("WAWebOrphanBotMsgError"))(a, "no-target-row"))
-              : (o("WALogger")
-                  .WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[bot-msmsg] no target row and orphan handling is off",
-                      ])),
-                  )
-                  .tags("messaging")
-                  .sendLogs("bot-msmsg-no-target-row", { sampling: 0.01 }),
-                new g(
-                  a,
-                  "no-target-row",
-                  "decryptMsmsgBotMessage: no target row for the message secret",
-                ));
-          var y = o("WAWebDBMessageSerialization").messageFromDbRow(f);
-          if (o("WAWebCommonMsgUtils").isPlaceholderMsg(y.type)) {
-            if (!$(t))
-              throw new g(
+    async function L(e, t) {
+      var n,
+        a = e.toString(),
+        i =
+          (n = o("WAWebLidMigrationUtils").getAlternateMsgKey(e)) == null
+            ? void 0
+            : n.toString(),
+        l = I(a, i, t);
+      if (l != null) return h(l);
+      var s = await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .bulkGet([a, i].filter(Boolean)),
+        u = s[0],
+        _ = s[1],
+        f = u != null ? u : _;
+      if (f == null)
+        throw E(t)
+          ? (o("WALogger")
+              .WARN(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bot-msmsg] no target row, deferring as an orphan",
+                  ])),
+              )
+              .tags("messaging"),
+            new (r("WAWebOrphanBotMsgError"))(a, "no-target-row"))
+          : (o("WALogger")
+              .WARN(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bot-msmsg] no target row and orphan handling is off",
+                  ])),
+              )
+              .tags("messaging")
+              .sendLogs("bot-msmsg-no-target-row", { sampling: 0.01 }),
+            new g(
+              a,
+              "no-target-row",
+              "decryptMsmsgBotMessage: no target row for the message secret",
+            ));
+      var y = o("WAWebDBMessageSerialization").messageFromDbRow(f);
+      if (o("WAWebCommonMsgUtils").isPlaceholderMsg(y.type)) {
+        if (!E(t))
+          throw new g(
+            a,
+            "placeholder-target-row",
+            "decryptMsmsgBotMessage: decryptSecretBase",
+          );
+        var C =
+          u != null && _ != null
+            ? o("WAWebDBMessageSerialization").messageFromDbRow(_)
+            : null;
+        if (C == null || o("WAWebCommonMsgUtils").isPlaceholderMsg(C.type))
+          throw (
+            o("WALogger")
+              .WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bot-msmsg] placeholder target row, deferring as an orphan",
+                  ])),
+              )
+              .tags("messaging"),
+            new (r("WAWebOrphanBotMsgError"))(a, "placeholder-target-row")
+          );
+        y = C;
+      }
+      D(a, y);
+      var b = y.messageSecret;
+      if (b == null)
+        throw k(t)
+          ? (o("WALogger")
+              .WARN(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bot-msmsg] target row without a secret, deferring as an orphan",
+                  ])),
+              )
+              .tags("messaging"),
+            new (r("WAWebOrphanBotMsgError"))(a, "secretless-target-row"))
+          : y.type === o("WAWebMsgType").MSG_TYPE.REVOKED
+            ? new g(
                 a,
-                "placeholder-target-row",
+                "revoked-target-row",
+                "decryptMsmsgBotMessage: decryptSecretBase",
+              )
+            : new (r("WAWebBotMsgSecretError"))(
                 "decryptMsmsgBotMessage: decryptSecretBase",
               );
-            var C =
-              u != null && _ != null
-                ? o("WAWebDBMessageSerialization").messageFromDbRow(_)
-                : null;
-            if (C == null || o("WAWebCommonMsgUtils").isPlaceholderMsg(C.type))
-              throw (
-                o("WALogger")
-                  .WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[bot-msmsg] placeholder target row, deferring as an orphan",
-                      ])),
-                  )
-                  .tags("messaging"),
-                new (r("WAWebOrphanBotMsgError"))(a, "placeholder-target-row")
-              );
-            y = C;
-          }
-          w(a, y);
-          var b = y.messageSecret;
-          if (b == null)
-            throw P(t)
-              ? (o("WALogger")
-                  .WARN(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[bot-msmsg] target row without a secret, deferring as an orphan",
-                      ])),
-                  )
-                  .tags("messaging"),
-                new (r("WAWebOrphanBotMsgError"))(a, "secretless-target-row"))
-              : y.type === o("WAWebMsgType").MSG_TYPE.REVOKED
-                ? new g(
-                    a,
-                    "revoked-target-row",
-                    "decryptMsmsgBotMessage: decryptSecretBase",
-                  )
-                : new (r("WAWebBotMsgSecretError"))(
-                    "decryptMsmsgBotMessage: decryptSecretBase",
-                  );
-          return h(b);
-        })),
-        x.apply(this, arguments)
-      );
+      return h(b);
     }
-    function $(e) {
-      return P(e) || o("WAWebBotGating").isBotOrphanMsgEnabled();
+    function E(e) {
+      return k(e) || o("WAWebBotGating").isBotOrphanMsgEnabled();
     }
-    function P(e) {
+    function k(e) {
       return (
         e.chat.isGroup() &&
         e.author.isBot() &&
         o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
       );
     }
-    function N(e, t, n) {
-      var r = M(e, n);
-      return r != null || t == null ? r : M(t, n);
+    function I(e, t, n) {
+      var r = T(e, n);
+      return r != null || t == null ? r : T(t, n);
     }
-    function M(e, t) {
+    function T(e, t) {
       var n = o(
         "WAWebMsmsgMsgSecretCache",
       ).msmsgMsgSecretCache.getMsmsgMsgSecretFromCache(e);
@@ -427,7 +356,7 @@ __d(
       }
       return n;
     }
-    function w(e, t) {
+    function D(e, t) {
       var n,
         r = t.botGroupParticipant;
       if (
@@ -451,33 +380,21 @@ __d(
           );
       }
     }
-    function A(e) {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.decryptSecret,
-            n = e.messageSecretOriginalUserJid,
-            r = e.senderJid,
-            a = e.stanzaId,
-            i = o("WABinary").Binary.build(a, n, r).readBuffer(),
-            l = yield o("WACryptoHkdf").extractAndExpand(
-              new Uint8Array(t),
-              i,
-              _,
-            );
-          return l;
-        })),
-        F.apply(this, arguments)
-      );
+    async function x(e) {
+      var t = e.decryptSecret,
+        n = e.messageSecretOriginalUserJid,
+        r = e.senderJid,
+        a = e.stanzaId,
+        i = o("WABinary").Binary.build(a, n, r).readBuffer(),
+        l = await o("WACryptoHkdf").extractAndExpand(new Uint8Array(t), i, _);
+      return l;
     }
     ((l.RetainedBotMessageSecretLookupError = g),
       (l.genBotMsgSecretFromMsgSecret = h),
-      (l.decryptMsmsgBotMessage = C),
-      (l.getFbidBotResponseTargetMsgKey = E),
-      (l.decryptMsmsgFbidBotMessageWithBotMessageSecret = k),
-      (l.genBotDecryptionKey = A));
+      (l.decryptMsmsgBotMessage = y),
+      (l.getFbidBotResponseTargetMsgKey = v),
+      (l.decryptMsmsgFbidBotMessageWithBotMessageSecret = S),
+      (l.genBotDecryptionKey = x));
   },
   98,
 );

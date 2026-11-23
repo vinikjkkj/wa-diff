@@ -36,46 +36,44 @@ __d(
       var t,
         n =
           ((t = {
-            jabber: s._(/*BTDS*/ "Jabber"),
-            "skype-username": s._(/*BTDS*/ "Skype"),
-            skype: s._(/*BTDS*/ "Skype"),
-            msn: s._(/*BTDS*/ "Windows Live"),
-            aim: s._(/*BTDS*/ "AIM"),
-            yahoo: s._(/*BTDS*/ "Yahoo"),
-            icq: s._(/*BTDS*/ "ICQ"),
-            "wa-biz-description": s._(/*BTDS*/ "Description"),
+            jabber: s._(/*BTDS*/ ""),
+            "skype-username": s._(/*BTDS*/ ""),
+            skype: s._(/*BTDS*/ ""),
+            msn: s._(/*BTDS*/ ""),
+            aim: s._(/*BTDS*/ ""),
+            yahoo: s._(/*BTDS*/ ""),
+            icq: s._(/*BTDS*/ ""),
+            "wa-biz-description": s._(/*BTDS*/ ""),
           }),
-          (t[o("WAWebVcardParsingUtils").WA_BIZ_NAME] = s._(
-            /*BTDS*/ "Business name",
-          )),
+          (t[o("WAWebVcardParsingUtils").WA_BIZ_NAME] = s._(/*BTDS*/ "")),
           t),
         r = e.properties["X-ABLabel"] || n[e.type.toLowerCase()];
       if (r != null && r !== "")
         return o("WAWebVcardParsingUtils").clean(String(r));
       var a = {
         TEL: [
-          [["cell"], s._(/*BTDS*/ "Mobile")],
-          [["iphone"], s._(/*BTDS*/ "iPhone")],
-          [["main"], s._(/*BTDS*/ "Main")],
-          [["home", "fax"], s._(/*BTDS*/ "Home fax")],
-          [["work", "fax"], s._(/*BTDS*/ "Work fax")],
-          [["home"], s._(/*BTDS*/ "Home")],
-          [["work"], s._(/*BTDS*/ "Work")],
-          [["pager"], s._(/*BTDS*/ "Pager")],
-          [[], s._(/*BTDS*/ "Home")],
+          [["cell"], s._(/*BTDS*/ "")],
+          [["iphone"], s._(/*BTDS*/ "")],
+          [["main"], s._(/*BTDS*/ "")],
+          [["home", "fax"], s._(/*BTDS*/ "")],
+          [["work", "fax"], s._(/*BTDS*/ "")],
+          [["home"], s._(/*BTDS*/ "")],
+          [["work"], s._(/*BTDS*/ "")],
+          [["pager"], s._(/*BTDS*/ "")],
+          [[], s._(/*BTDS*/ "")],
         ],
         EMAIL: [
-          [["home"], s._(/*BTDS*/ "Home")],
-          [["work"], s._(/*BTDS*/ "Work")],
-          [["internet"], s._(/*BTDS*/ "Email")],
+          [["home"], s._(/*BTDS*/ "")],
+          [["work"], s._(/*BTDS*/ "")],
+          [["internet"], s._(/*BTDS*/ "")],
         ],
         URL: [
-          [["home"], s._(/*BTDS*/ "Home")],
-          [["work"], s._(/*BTDS*/ "Work")],
+          [["home"], s._(/*BTDS*/ "")],
+          [["work"], s._(/*BTDS*/ "")],
         ],
         ADR: [
-          [["home"], s._(/*BTDS*/ "Home")],
-          [["work"], s._(/*BTDS*/ "Work")],
+          [["home"], s._(/*BTDS*/ "")],
+          [["work"], s._(/*BTDS*/ "")],
         ],
       };
       r = e.type;
@@ -117,16 +115,14 @@ __d(
       });
       return e.length
         ? t == null || t === ""
-          ? s._(/*BTDS*/ '_j{"*":"{count} contacts","_1":"1 contact"}', [
-              s._plural(e.length, "count"),
-            ])
+          ? s._(/*BTDS*/ "", [s._plural(e.length, "count")])
           : e.length === 1
             ? t
-            : s._(
-                /*BTDS*/ '_j{"*":"{contactName} and {count} other contacts","_1":"{contactName} and 1 other contact"}',
-                [s._plural(e.length - 1, "count"), s._param("contactName", t)],
-              )
-        : s._(/*BTDS*/ "No contacts");
+            : s._(/*BTDS*/ "", [
+                s._plural(e.length - 1, "count"),
+                s._param("contactName", t),
+              ])
+        : s._(/*BTDS*/ "");
     }
     function m(e) {
       if (e.length === 0) throw r("err")("No vcards provided");

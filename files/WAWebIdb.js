@@ -2,7 +2,6 @@ __d(
   "WAWebIdb",
   [
     "invariant",
-    "Promise",
     "WALogger",
     "WAWeb-dexie",
     "WAWebAppTracker",
@@ -16,7 +15,6 @@ __d(
     "WAWebSafeCrashAnnotation",
     "WAWebStorageCmd",
     "WAWebStorageCrashAnnotations",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "nullthrows",
   ],
@@ -24,11 +22,10 @@ __d(
     var e,
       u,
       c,
-      d,
-      m = "Key already exists in the object store";
+      d = "Key already exists in the object store";
     ((r("WAWeb-dexie").Promise.PSD.onunhandled = function () {}),
       (r("WAWeb-dexie").Promise.PSD.txRelaxedDurabilityEnabled = !0));
-    var p = (function () {
+    var m = (function () {
         function t(e, t, n, r, o, a, i) {
           ((this.errorHandlers = new Map()),
             (this.updateListener = null),
@@ -48,9 +45,9 @@ __d(
             (this.packColumns = i.packColumns),
             (this.errorHandlers = i.errorHandlers || new Map()));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.$1 = function (t, n, r) {
+          (n.$1 = function (t, n, r) {
             o("WAWebIdbHelpers").logStorageError({
               error: t,
               operation: n,
@@ -70,62 +67,46 @@ __d(
               e(t, a);
             }
           }),
-          (a.asyncView = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                t === void 0 && (t = !0);
-                var n = this.$2(e),
-                  r = this.$3() && t ? yield this.$4(n) : n;
-                return this.view(r);
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$2 = function (t) {
+          (n.asyncView = async function (t, n) {
+            n === void 0 && (n = !0);
+            var e = this.$2(t),
+              r = this.$3() && n ? await this.$4(e) : e;
+            return this.view(r);
+          }),
+          (n.$2 = function (t) {
             return t;
           }),
-          (a.$5 = function (t, n) {
+          (n.$5 = function (t, n) {
             return (n === void 0 && (n = !1), t);
           }),
-          (a.$4 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                typeof e == "object" || s(0, 56350);
-                var r = Array.from(
-                  this.tableEncryptedColumns.entries(),
-                  function (n) {
-                    var r = n[0],
-                      a = n[1],
-                      i = e[r];
-                    return !(i != null && i._data) || !(i != null && i.iv)
-                      ? i
-                      : o("WAWebIdbEncryption")
-                          .decryptDbMaterial(
-                            i,
-                            { tableName: t.table.name, columnName: r },
-                            a,
-                            t.shouldUseDbMsgEncKeyForEncryptedCol,
-                          )
-                          .then(function (t) {
-                            e[r] = t;
-                          });
-                  },
-                );
-                return (yield (d || (d = n("Promise"))).all(r), e);
+          (n.$4 = async function (t) {
+            var e = this;
+            typeof t == "object" || s(0, 56350);
+            var n = Array.from(
+              this.tableEncryptedColumns.entries(),
+              function (n) {
+                var r = n[0],
+                  a = n[1],
+                  i = t[r];
+                return !(i != null && i._data) || !(i != null && i.iv)
+                  ? i
+                  : o("WAWebIdbEncryption")
+                      .decryptDbMaterial(
+                        i,
+                        { tableName: e.table.name, columnName: r },
+                        a,
+                        e.shouldUseDbMsgEncKeyForEncryptedCol,
+                      )
+                      .then(function (e) {
+                        t[r] = e;
+                      });
               },
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$6 = function (t) {
+            return (await Promise.all(n), t);
+          }),
+          (n.$6 = function (t) {
             var e = this,
-              r = Array.from(
+              n = Array.from(
                 this.tableEncryptedColumns.entries(),
                 function (n) {
                   var r = n[0],
@@ -145,77 +126,37 @@ __d(
                         });
                 },
               );
-            return (d || (d = n("Promise"))).all(r).then(function (e) {
+            return Promise.all(n).then(function (e) {
               return t;
             });
           }),
-          (a.$7 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                t === void 0 && (t = !1);
-                var n = yield this.$8(e),
-                  r = this.$5(n, t);
-                return r;
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$9 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  n = yield this.$10(e),
-                  r = n.map(function (e) {
-                    return t.$5(e);
-                  });
-                return r;
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$11 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$7(e);
-                return this.table.add(t);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$12 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$7(e);
-                return this.table.put(t);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$13 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$9(e);
-                return this.table.bulkAdd(t);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$14 = function (t) {
+          (n.$7 = async function (t, n) {
+            n === void 0 && (n = !1);
+            var e = await this.$8(t),
+              r = this.$5(e, n);
+            return r;
+          }),
+          (n.$9 = async function (t) {
+            var e = this,
+              n = await this.$10(t),
+              r = n.map(function (t) {
+                return e.$5(t);
+              });
+            return r;
+          }),
+          (n.$11 = async function (t) {
+            var e = await this.$7(t);
+            return this.table.add(e);
+          }),
+          (n.$12 = async function (t) {
+            var e = await this.$7(t);
+            return this.table.put(e);
+          }),
+          (n.$13 = async function (t) {
+            var e = await this.$9(t);
+            return this.table.bulkAdd(e);
+          }),
+          (n.$14 = function (t) {
             var e = this;
             if (this.$3())
               return r("WAWeb-dexie")
@@ -231,56 +172,46 @@ __d(
             });
             return this.table.bulkPut(n);
           }),
-          (a.$10 = function (t) {
+          (n.$10 = function (t) {
             var e = this;
             if (this.$3()) {
-              var r = [],
-                o = t.map(function (t, n) {
+              var n = [],
+                r = t.map(function (t, r) {
                   return e.$6(t).then(function (e) {
-                    r[n] = e;
+                    n[r] = e;
                   });
                 });
-              return (d || (d = n("Promise"))).all(o).then(function () {
-                return r;
+              return Promise.all(r).then(function () {
+                return n;
               });
             }
-            return (d || (d = n("Promise"))).resolve(t);
+            return Promise.resolve(t);
           }),
-          (a.$8 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (this.$3()) {
-                  var t = yield this.$6(e);
-                  return t;
-                }
-                return e;
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (n.$8 = async function (t) {
+            if (this.$3()) {
+              var e = await this.$6(t);
+              return e;
             }
             return t;
-          })()),
-          (a.asyncViewMap = function (t, a) {
+          }),
+          (n.asyncViewMap = function (t, n) {
             var e = this;
-            if ((a === void 0 && (a = !0), !this.$3() || !a))
-              return (d || (d = n("Promise"))).resolve(
+            if ((n === void 0 && (n = !0), !this.$3() || !n))
+              return Promise.resolve(
                 t.map(function (t) {
                   return t ? e.view(e.$2(t)) : null;
                 }),
               );
-            var i = t.map(function (t) {
-              return t != null
-                ? e.asyncView(t, a)
-                : (d || (d = n("Promise"))).resolve(null);
+            var a = t.map(function (t) {
+              return t != null ? e.asyncView(t, n) : Promise.resolve(null);
             });
             return o("WAWebDexieCastTypes").dexieCastToPromise(
               r("WAWeb-dexie").currentTransaction == null
-                ? (d || (d = n("Promise"))).all(i)
-                : r("WAWeb-dexie").waitFor((d || (d = n("Promise"))).all(i)),
+                ? Promise.all(a)
+                : r("WAWeb-dexie").waitFor(Promise.all(a)),
             );
           }),
-          (a.preflightEncryptSingleRecord = function (t) {
+          (n.preflightEncryptSingleRecord = function (t) {
             var e = this;
             return (
               Object.keys(t).forEach(function (n) {
@@ -289,69 +220,15 @@ __d(
               this.$6(t)
             );
           }),
-          (a.postflightDecryptSingleRecord = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = yield this.$4(e);
-                return this.view(t);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY = function (t, a) {
-            var e,
-              i = this;
-            if ((a === void 0 && (a = !1), t.length === 0))
-              return (d || (d = n("Promise"))).resolve();
-            (e = this.updateListener) == null ||
-              e.call(
-                this,
-                t.map(function (e) {
-                  return i.$15(e);
-                }),
-              );
-            var l = t.map(function (e) {
-              return i.propFilter(e);
-            });
-            o("WAWebIdbHelpers").assertAllColsAreEncrypted(
-              l,
-              this.tableEncryptedColumns,
-            );
-            var s = l.map(function (e) {
-              return i.$5(e);
-            });
-            return o("WAWebDexieCastTypes")
-              .dexieCastToPromise(this.table.bulkAdd(s))
-              .catch(function (e) {
-                var t;
-                if (
-                  o("WAWebGlobals").getAllowHistorySyncPutAllowDuplicate() ===
-                    !0 &&
-                  a === !0 &&
-                  e instanceof r("WAWeb-dexie").BulkError &&
-                  (t = e.failures) != null &&
-                  (t = t[0]) != null &&
-                  (t = t.toString()) != null &&
-                  t.includes(m)
-                )
-                  return (d || (d = n("Promise"))).resolve();
-                throw (
-                  i.$1(
-                    r("getErrorSafe")(e),
-                    "bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY",
-                    { writeData: s },
-                  ),
-                  e
-                );
-              });
+          (n.postflightDecryptSingleRecord = async function (t) {
+            var e = await this.$4(t);
+            return this.view(e);
           }),
-          (a.bulkCreateOrReplace_ALREADY_ENCRYPTED_RECORDS_ONLY = function (t) {
+          (n.bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY = function (t, n) {
             var e,
               a = this;
-            if (t.length === 0) return (d || (d = n("Promise"))).resolve();
+            if ((n === void 0 && (n = !1), t.length === 0))
+              return Promise.resolve();
             (e = this.updateListener) == null ||
               e.call(
                 this,
@@ -370,17 +247,63 @@ __d(
               return a.$5(e);
             });
             return o("WAWebDexieCastTypes")
-              .dexieCastToPromise(this.table.bulkPut(l))
+              .dexieCastToPromise(this.table.bulkAdd(l))
+              .catch(function (e) {
+                var t;
+                if (
+                  o("WAWebGlobals").getAllowHistorySyncPutAllowDuplicate() ===
+                    !0 &&
+                  n === !0 &&
+                  e instanceof r("WAWeb-dexie").BulkError &&
+                  (t = e.failures) != null &&
+                  (t = t[0]) != null &&
+                  (t = t.toString()) != null &&
+                  t.includes(d)
+                )
+                  return Promise.resolve();
+                throw (
+                  a.$1(
+                    r("getErrorSafe")(e),
+                    "bulkCreateWith_ALREADY_ENCRYPTED_RECORDS_ONLY",
+                    { writeData: l },
+                  ),
+                  e
+                );
+              });
+          }),
+          (n.bulkCreateOrReplace_ALREADY_ENCRYPTED_RECORDS_ONLY = function (t) {
+            var e,
+              n = this;
+            if (t.length === 0) return Promise.resolve();
+            (e = this.updateListener) == null ||
+              e.call(
+                this,
+                t.map(function (e) {
+                  return n.$15(e);
+                }),
+              );
+            var a = t.map(function (e) {
+              return n.propFilter(e);
+            });
+            o("WAWebIdbHelpers").assertAllColsAreEncrypted(
+              a,
+              this.tableEncryptedColumns,
+            );
+            var i = a.map(function (e) {
+              return n.$5(e);
+            });
+            return o("WAWebDexieCastTypes")
+              .dexieCastToPromise(this.table.bulkPut(i))
               .catch(function (e) {
                 throw (
-                  a.$1(r("getErrorSafe")(e), "bulkCreateOrReplace", {
-                    writeData: l,
+                  n.$1(r("getErrorSafe")(e), "bulkCreateOrReplace", {
+                    writeData: i,
                   }),
                   e
                 );
               });
           }),
-          (a.create = function (t) {
+          (n.create = function (t) {
             var e,
               n = this;
             (e = this.updateListener) == null || e.call(this, [this.$15(t)]);
@@ -405,7 +328,7 @@ __d(
                 );
               });
           }),
-          (a.createOrReplace = function (t) {
+          (n.createOrReplace = function (t) {
             var e,
               n = this;
             (e = this.updateListener) == null || e.call(this, [this.$15(t)]);
@@ -434,50 +357,40 @@ __d(
                 );
               });
           }),
-          (a.createOrMerge = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var n,
-                  a = this;
-                (n = this.updateListener) == null || n.call(this, [e], [t]);
-                var i = this.propFilter(t),
-                  l = this.$3() ? yield this.$7(i, !0) : this.$5(i, !0);
-                return o("WAWebDexieCastTypes")
-                  .dexieCastToPromise(
-                    this.db
-                      .transaction("rw", this.table, function () {
-                        return a.table
-                          .where(":id")
-                          .equals(e)
-                          .modify(function (e) {
-                            Object.entries(l).forEach(function (t) {
-                              var n = t[0],
-                                r = t[1];
-                              e[n] = r;
-                            });
-                          })
-                          .then(function (e) {
-                            if (e !== 1) return a.table.add(l);
-                          });
+          (n.createOrMerge = async function (t, n) {
+            var e,
+              a = this;
+            (e = this.updateListener) == null || e.call(this, [t], [n]);
+            var i = this.propFilter(n),
+              l = this.$3() ? await this.$7(i, !0) : this.$5(i, !0);
+            return o("WAWebDexieCastTypes")
+              .dexieCastToPromise(
+                this.db
+                  .transaction("rw", this.table, function () {
+                    return a.table
+                      .where(":id")
+                      .equals(t)
+                      .modify(function (e) {
+                        Object.entries(l).forEach(function (t) {
+                          var n = t[0],
+                            r = t[1];
+                          e[n] = r;
+                        });
                       })
-                      .then(function () {}),
-                  )
-                  .catch(function (e) {
-                    throw (
-                      a.$1(r("getErrorSafe")(e), "createOrMerge", {
-                        writeData: l,
-                      }),
-                      e
-                    );
-                  });
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.get = function (t, n) {
+                      .then(function (e) {
+                        if (e !== 1) return a.table.add(l);
+                      });
+                  })
+                  .then(function () {}),
+              )
+              .catch(function (e) {
+                throw (
+                  a.$1(r("getErrorSafe")(e), "createOrMerge", { writeData: l }),
+                  e
+                );
+              });
+          }),
+          (n.get = function (t, n) {
             var e = this;
             return (
               n === void 0 && (n = !0),
@@ -491,344 +404,282 @@ __d(
                 })
             );
           }),
-          (a.merge = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, n) {
-                var a = (n == null ? void 0 : n.usePropsFilter) === !0;
-                if (!a) {
-                  var i;
-                  (i = this.updateListener) == null || i.call(this, [e]);
-                }
-                var l = this.propFilter(t),
-                  s = this.$3() ? yield this.$7(l, !0) : this.$5(l, !0);
-                if (a) {
-                  var u;
-                  (u = this.updateListener) == null || u.call(this, [e], [t]);
-                }
-                try {
-                  if (
-                    (yield o("WAWebDexieCastTypes").dexieCastToPromise(
-                      this.table.update(e, s),
-                    ),
-                    !a)
-                  ) {
-                    var c;
-                    (c = this.updateListener) == null || c.call(this, [e]);
-                  }
-                } catch (e) {
-                  var d = r("getErrorSafe")(e);
-                  throw (this.$1(d, "merge", { writeData: s }), d);
-                }
-              },
-            );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
+          (n.merge = async function (t, n, a) {
+            var e = (a == null ? void 0 : a.usePropsFilter) === !0;
+            if (!e) {
+              var i;
+              (i = this.updateListener) == null || i.call(this, [t]);
             }
-            return t;
-          })()),
-          (a.remove = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                try {
-                  yield o("WAWebDexieCastTypes").dexieCastToPromise(
-                    this.table.delete(e),
-                  );
-                } catch (e) {
-                  var t = r("getErrorSafe")(e);
-                  throw (this.$1(t, "remove"), t);
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+            var l = this.propFilter(n),
+              s = this.$3() ? await this.$7(l, !0) : this.$5(l, !0);
+            if (e) {
+              var u;
+              (u = this.updateListener) == null || u.call(this, [t], [n]);
             }
-            return t;
-          })()),
-          (a.bulkCreate = function (t) {
+            try {
+              if (
+                (await o("WAWebDexieCastTypes").dexieCastToPromise(
+                  this.table.update(t, s),
+                ),
+                !e)
+              ) {
+                var c;
+                (c = this.updateListener) == null || c.call(this, [t]);
+              }
+            } catch (e) {
+              var d = r("getErrorSafe")(e);
+              throw (this.$1(d, "merge", { writeData: s }), d);
+            }
+          }),
+          (n.remove = async function (t) {
+            try {
+              await o("WAWebDexieCastTypes").dexieCastToPromise(
+                this.table.delete(t),
+              );
+            } catch (t) {
+              var e = r("getErrorSafe")(t);
+              throw (this.$1(e, "remove"), e);
+            }
+          }),
+          (n.bulkCreate = function (t) {
             var e,
-              a = this;
-            if (t.length === 0) return (d || (d = n("Promise"))).resolve();
+              n = this;
+            if (t.length === 0) return Promise.resolve();
             (e = this.updateListener) == null ||
               e.call(
                 this,
                 t.map(function (e) {
-                  return a.$15(e);
+                  return n.$15(e);
                 }),
               );
-            var i = t.map(function (e) {
-              return a.propFilter(e);
+            var a = t.map(function (e) {
+              return n.propFilter(e);
             });
             if (this.$3())
               return o("WAWebDexieCastTypes")
                 .dexieCastToPromise(
                   this.db.transaction("rw", this.table, function () {
-                    return a.$13(i);
+                    return n.$13(a);
                   }),
                 )
                 .catch(function (e) {
                   throw (
-                    a.$1(r("getErrorSafe")(e), "bulkCreate", { writeData: i }),
+                    n.$1(r("getErrorSafe")(e), "bulkCreate", { writeData: a }),
                     e
                   );
                 });
-            var l = i.map(function (e) {
-              return a.$5(e);
+            var i = a.map(function (e) {
+              return n.$5(e);
             });
             return o("WAWebDexieCastTypes")
-              .dexieCastToPromise(this.table.bulkAdd(l))
+              .dexieCastToPromise(this.table.bulkAdd(i))
               .catch(function (e) {
                 throw (
-                  a.$1(r("getErrorSafe")(e), "bulkCreate", { writeData: l }),
+                  n.$1(r("getErrorSafe")(e), "bulkCreate", { writeData: i }),
                   e
                 );
               });
           }),
-          (a.bulkCreateOrReplace = function (t) {
+          (n.bulkCreateOrReplace = function (t) {
             var e,
-              a = this;
-            if (t.length === 0) return (d || (d = n("Promise"))).resolve();
+              n = this;
+            if (t.length === 0) return Promise.resolve();
             (e = this.updateListener) == null ||
               e.call(
                 this,
                 t.map(function (e) {
-                  return a.$15(e);
+                  return n.$15(e);
                 }),
               );
-            var i = t.map(function (e) {
-              return a.propFilter(e);
+            var a = t.map(function (e) {
+              return n.propFilter(e);
             });
             if (this.$3())
               return o("WAWebDexieCastTypes")
                 .dexieCastToPromise(
                   this.db.transaction("rw", this.table, function () {
-                    return a.$14(i);
+                    return n.$14(a);
                   }),
                 )
                 .catch(function (e) {
                   throw (
-                    a.$1(r("getErrorSafe")(e), "bulkCreateOrReplace", {
-                      writeData: i,
+                    n.$1(r("getErrorSafe")(e), "bulkCreateOrReplace", {
+                      writeData: a,
                     }),
                     e
                   );
                 });
-            var l = i.map(function (e) {
-              return a.$5(e);
+            var i = a.map(function (e) {
+              return n.$5(e);
             });
             return o("WAWebDexieCastTypes")
-              .dexieCastToPromise(this.table.bulkPut(l))
+              .dexieCastToPromise(this.table.bulkPut(i))
               .catch(function (e) {
                 throw (
-                  a.$1(r("getErrorSafe")(e), "bulkCreateOrReplace", {
-                    writeData: l,
+                  n.$1(r("getErrorSafe")(e), "bulkCreateOrReplace", {
+                    writeData: i,
                   }),
                   e
                 );
               });
           }),
-          (a.bulkCreateOrMerge = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return this.$16(e);
-              },
+          (n.bulkCreateOrMerge = async function (t) {
+            return this.$16(t);
+          }),
+          (n.bulkMergeOnly = async function (t) {
+            return this.$16(t, !1);
+          }),
+          (n.$16 = async function (n, a) {
+            var t = this;
+            if ((a === void 0 && (a = !0), n.length === 0))
+              return Promise.resolve();
+            var i = self.performance.now(),
+              l = {
+                encrypted: null,
+                serialized: null,
+                transaction: null,
+                modified: null,
+                put: null,
+              };
+            o("WAWebAppTracker").AppTracker.start(
+              o("WAWebAppTracker").AppTrackerType.BulkCreateOrMerge,
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.bulkMergeOnly = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return this.$16(e, !1);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$16 = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t, a) {
-                var i = this;
-                if ((a === void 0 && (a = !0), t.length === 0))
-                  return (d || (d = n("Promise"))).resolve();
-                var l = self.performance.now(),
-                  c = {
-                    encrypted: null,
-                    serialized: null,
-                    transaction: null,
-                    modified: null,
-                    put: null,
-                  };
-                o("WAWebAppTracker").AppTracker.start(
-                  o("WAWebAppTracker").AppTrackerType.BulkCreateOrMerge,
+            var c = o(
+                "WAWebStorageCrashAnnotations",
+              ).annotateCrashWithBulkWriteStart(this.table, n),
+              d = new Map(),
+              m = this.$17(),
+              p = this;
+            try {
+              var _;
+              (_ = this.updateListener) == null ||
+                _.call(
+                  this,
+                  n.map(function (e) {
+                    return t.$15(e);
+                  }),
+                  n,
                 );
-                var m = o(
-                    "WAWebStorageCrashAnnotations",
-                  ).annotateCrashWithBulkWriteStart(this.table, t),
-                  p = new Map(),
-                  _ = this.$17(),
-                  f = this;
-                try {
-                  var g;
-                  (g = this.updateListener) == null ||
-                    g.call(
-                      this,
-                      t.map(function (e) {
-                        return i.$15(e);
-                      }),
-                      t,
+              var f = await this.$10(n);
+              ((l.encrypted = Math.round(self.performance.now() - i)),
+                f.forEach(function (e) {
+                  var n = t.propFilter(e),
+                    r = t.$5(n, !0);
+                  (m in r || s(0, 97881), d.set(r[m], r));
+                }),
+                (l.serialized = Math.round(self.performance.now() - i)));
+            } catch (e) {
+              throw (
+                o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
+                  "wa:appContext",
+                  function () {
+                    return o("WAWebAppTracker").AppTracker.stop(
+                      o("WAWebAppTracker").AppTrackerType.BulkCreateOrMerge,
                     );
-                  var h = yield this.$10(t);
-                  ((c.encrypted = Math.round(self.performance.now() - l)),
-                    h.forEach(function (e) {
-                      var t = i.propFilter(e),
-                        n = i.$5(t, !0);
-                      (_ in n || s(0, 97881), p.set(n[_], n));
-                    }),
-                    (c.serialized = Math.round(self.performance.now() - l)));
-                } catch (e) {
-                  throw (
-                    o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
-                      "wa:appContext",
-                      function () {
-                        return o("WAWebAppTracker").AppTracker.stop(
-                          o("WAWebAppTracker").AppTrackerType.BulkCreateOrMerge,
-                        );
-                      },
-                    ),
-                    o(
-                      "WAWebStorageCrashAnnotations",
-                    ).annotateCrashWithBulkWriteEnd(
-                      m,
-                      self.performance.now() - l,
-                    ),
-                    e
-                  );
-                }
-                function y(e) {
-                  return C.apply(this, arguments);
-                }
-                function C() {
+                  },
+                ),
+                o("WAWebStorageCrashAnnotations").annotateCrashWithBulkWriteEnd(
+                  c,
+                  self.performance.now() - i,
+                ),
+                e
+              );
+            }
+            async function g(e) {
+              var t = p.table.where(":id").anyOf(Array.from(e.keys()));
+              await t.modify(function (t) {
+                (Object.assign(t, e.get(t[m])), e.delete(t[m]));
+              });
+              var n = Array.from(e.values());
+              return n;
+            }
+            return o("WAWebDexieCastTypes")
+              .dexieCastToPromise(
+                this.db.transaction("rw", this.table, function () {
                   return (
-                    (C = n("asyncToGeneratorRuntime").asyncToGenerator(
-                      function* (e) {
-                        var t = f.table
-                          .where(":id")
-                          .anyOf(Array.from(e.keys()));
-                        yield t.modify(function (t) {
-                          (Object.assign(t, e.get(t[_])), e.delete(t[_]));
-                        });
-                        var n = Array.from(e.values());
-                        return n;
-                      },
-                    )),
-                    C.apply(this, arguments)
-                  );
-                }
-                return o("WAWebDexieCastTypes")
-                  .dexieCastToPromise(
-                    this.db.transaction("rw", this.table, function () {
-                      return (
-                        (c.transaction = Math.round(
-                          self.performance.now() - l,
-                        )),
-                        y(p).then(function (t) {
-                          if (
-                            ((c.modified = Math.round(
-                              self.performance.now() - l,
-                            )),
-                            t.length === 0 || !a)
-                          ) {
-                            t.length > 0 &&
-                              o("WALogger").LOG(
-                                e ||
-                                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                                    "bulkMaybeCreateOrMerge: skipped adding ",
-                                    " records for table ",
-                                    "",
-                                  ])),
-                                t.length,
-                                i.table.name,
-                              );
-                            return;
-                          }
-                          return i.table.bulkPut(t);
-                        })
-                      );
-                    }),
-                  )
-                  .catch(function (e) {
-                    throw (
-                      i.$1(
-                        r("getErrorSafe")(e),
-                        "bulkMaybeCreateOrMerge(shouldCreate=" +
-                          a.toString() +
-                          ")",
-                        { writeData: t },
-                      ),
-                      e
-                    );
-                  })
-                  .finally(function () {
-                    var e;
-                    o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
-                      "wa:appContext",
-                      function () {
-                        return o("WAWebAppTracker").AppTracker.stop(
-                          o("WAWebAppTracker").AppTrackerType.BulkCreateOrMerge,
-                        );
-                      },
-                    );
-                    var n = Math.round(self.performance.now() - l);
-                    ((c.put = n),
-                      o(
-                        "WAWebStorageCrashAnnotations",
-                      ).annotateCrashWithBulkWriteEnd(m, n),
-                      n > 5e3 &&
-                        (e = self.document) != null &&
-                        e.hasFocus != null &&
-                        e.hasFocus() &&
-                        o("WALogger")
-                          .WARN(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
-                                "bulkMaybeCreateOrMerge:",
-                                " chg:",
-                                " t:",
-                                "ms enc:",
-                                " ser:",
-                                " tra:",
-                                " mod:",
+                    (l.transaction = Math.round(self.performance.now() - i)),
+                    g(d).then(function (n) {
+                      if (
+                        ((l.modified = Math.round(self.performance.now() - i)),
+                        n.length === 0 || !a)
+                      ) {
+                        n.length > 0 &&
+                          o("WALogger").LOG(
+                            e ||
+                              (e = babelHelpers.taggedTemplateLiteralLoose([
+                                "bulkMaybeCreateOrMerge: skipped adding ",
+                                " records for table ",
                                 "",
                               ])),
-                            i.table.name,
-                            t.length,
-                            c.put,
-                            c.encrypted,
-                            c.serialized,
-                            c.transaction,
-                            c.modified,
-                          )
-                          .sendLogs("long-bulk-db-operation", {
-                            sampling: 0.001,
-                          }));
-                  });
-              },
-            );
-            function a(e, n) {
-              return t.apply(this, arguments);
-            }
-            return a;
-          })()),
-          (a.bulkGet = function (t, a) {
+                            n.length,
+                            t.table.name,
+                          );
+                        return;
+                      }
+                      return t.table.bulkPut(n);
+                    })
+                  );
+                }),
+              )
+              .catch(function (e) {
+                throw (
+                  t.$1(
+                    r("getErrorSafe")(e),
+                    "bulkMaybeCreateOrMerge(shouldCreate=" + a.toString() + ")",
+                    { writeData: n },
+                  ),
+                  e
+                );
+              })
+              .finally(function () {
+                var e;
+                o("WAWebSafeCrashAnnotation").runCrashAnnotationSafely(
+                  "wa:appContext",
+                  function () {
+                    return o("WAWebAppTracker").AppTracker.stop(
+                      o("WAWebAppTracker").AppTrackerType.BulkCreateOrMerge,
+                    );
+                  },
+                );
+                var r = Math.round(self.performance.now() - i);
+                ((l.put = r),
+                  o(
+                    "WAWebStorageCrashAnnotations",
+                  ).annotateCrashWithBulkWriteEnd(c, r),
+                  r > 5e3 &&
+                    (e = self.document) != null &&
+                    e.hasFocus != null &&
+                    e.hasFocus() &&
+                    o("WALogger")
+                      .WARN(
+                        u ||
+                          (u = babelHelpers.taggedTemplateLiteralLoose([
+                            "bulkMaybeCreateOrMerge:",
+                            " chg:",
+                            " t:",
+                            "ms enc:",
+                            " ser:",
+                            " tra:",
+                            " mod:",
+                            "",
+                          ])),
+                        t.table.name,
+                        n.length,
+                        l.put,
+                        l.encrypted,
+                        l.serialized,
+                        l.transaction,
+                        l.modified,
+                      )
+                      .sendLogs("long-bulk-db-operation", { sampling: 0.001 }));
+              });
+          }),
+          (n.bulkGet = function (t, n) {
             var e = this;
             return (
-              a === void 0 && (a = !0),
+              n === void 0 && (n = !0),
               t.length === 0
-                ? (d || (d = n("Promise"))).resolve([])
+                ? Promise.resolve([])
                 : o("WAWebDexieCastTypes")
                     .dexieCastToPromise(
                       this.db.transaction("r", this.table, function () {
@@ -839,17 +690,17 @@ __d(
                       }),
                     )
                     .then(function (t) {
-                      return e.asyncViewMap(t, a);
+                      return e.asyncViewMap(t, n);
                     })
                     .catch(function (t) {
                       throw (e.$1(r("getErrorSafe")(t), "bulkGet"), t);
                     })
             );
           }),
-          (a.bulkRemove = function (t) {
+          (n.bulkRemove = function (t) {
             var e = this;
             return t.length === 0
-              ? (d || (d = n("Promise"))).resolve()
+              ? Promise.resolve()
               : o("WAWebDexieCastTypes")
                   .dexieCastToPromise(
                     this.db.transaction("rw", this.table, function () {
@@ -860,10 +711,10 @@ __d(
                     throw (e.$1(r("getErrorSafe")(t), "bulkRemove"), t);
                   });
           }),
-          (a.bulkRemoveByIndex = function (t, a) {
+          (n.bulkRemoveByIndex = function (t, n) {
             var e = this;
-            return a.length === 0
-              ? (d || (d = n("Promise"))).resolve()
+            return n.length === 0
+              ? Promise.resolve()
               : o("WAWebDexieCastTypes")
                   .dexieCastToPromise(
                     this.table
@@ -873,7 +724,7 @@ __d(
                           this.tableColumns,
                         ),
                       )
-                      .anyOf(a)
+                      .anyOf(n)
                       .delete(),
                   )
                   .then(r("WAWebNoop"))
@@ -881,7 +732,7 @@ __d(
                     throw (e.$1(r("getErrorSafe")(t), "bulkRemoveByIndex"), t);
                   });
           }),
-          (a.all = function (t, n) {
+          (n.all = function (t, n) {
             var e = this,
               a = o("WAWebIdbHelpers").applyOptions(
                 this.table.orderBy(
@@ -938,7 +789,7 @@ __d(
               }),
             );
           }),
-          (a.allKeys = function (t) {
+          (n.allKeys = function (t) {
             var e = this,
               n = o("WAWebIdbHelpers").applyOptions(
                 this.table.orderBy(
@@ -963,12 +814,12 @@ __d(
                 }),
             );
           }),
-          (a.allPrimaryKeys = function () {
+          (n.allPrimaryKeys = function () {
             return o("WAWebDexieCastTypes").dexieCastToPromise(
               this.table.orderBy(":id").primaryKeys(),
             );
           }),
-          (a.count = function () {
+          (n.count = function () {
             var e = this;
             return o("WAWebDexieCastTypes")
               .dexieCastToPromise(this.table.count())
@@ -976,7 +827,7 @@ __d(
                 throw (e.$1(r("getErrorSafe")(t), "count"), t);
               });
           }),
-          (a.bulkDeleteRange = function (t, n, a, i) {
+          (n.bulkDeleteRange = function (t, n, a, i) {
             var e = this,
               l = this.table
                 .where(
@@ -996,7 +847,7 @@ __d(
                 throw (e.$1(r("getErrorSafe")(t), "bulkDeleteRange"), t);
               });
           }),
-          (a.equals = function (t, n, a) {
+          (n.equals = function (t, n, a) {
             var e = this;
             return o("WAWebDexieCastTypes")
               .dexieCastToPromise(
@@ -1021,7 +872,7 @@ __d(
                 throw (e.$1(r("getErrorSafe")(t), "equals"), t);
               });
           }),
-          (a.equalsPrimaryKeys = function (t, n, a) {
+          (n.equalsPrimaryKeys = function (t, n, a) {
             var e = this;
             return o("WAWebDexieCastTypes")
               .dexieCastToPromise(
@@ -1043,14 +894,14 @@ __d(
                 throw (e.$1(r("getErrorSafe")(t), "equalsPrimaryKeys"), t);
               });
           }),
-          (a.anyOf = function (t, a, i) {
+          (n.anyOf = function (t, n, a) {
             var e = this;
-            return a.length === 0
-              ? (d || (d = n("Promise"))).resolve([])
+            return n.length === 0
+              ? Promise.resolve([])
               : o("WAWebStorageCrashAnnotations").annotateCrashWithIdbRead(
                   this.table,
                   "anyOf",
-                  a.length,
+                  n.length,
                   o("WAWebDexieCastTypes")
                     .dexieCastToPromise(
                       o("WAWebIdbHelpers")
@@ -1062,8 +913,8 @@ __d(
                                 this.tableColumns,
                               ),
                             )
-                            .anyOf(a),
-                          i,
+                            .anyOf(n),
+                          a,
                         )
                         .distinct()
                         .toArray(),
@@ -1071,23 +922,23 @@ __d(
                     .then(function (t) {
                       return e.asyncViewMap(
                         t,
-                        i == null ? void 0 : i.shouldDecrypt,
+                        a == null ? void 0 : a.shouldDecrypt,
                       );
                     })
                     .catch(function (t) {
                       throw (e.$1(r("getErrorSafe")(t), "anyOf"), t);
                     }),
-                  a,
+                  n,
                 );
           }),
-          (a.anyOfPrimaryKeys = function (t, a, i) {
+          (n.anyOfPrimaryKeys = function (t, n, a) {
             var e = this;
-            return a.length === 0
-              ? (d || (d = n("Promise"))).resolve([])
+            return n.length === 0
+              ? Promise.resolve([])
               : o("WAWebStorageCrashAnnotations").annotateCrashWithIdbRead(
                   this.table,
                   "anyOfPrimaryKeys",
-                  a.length,
+                  n.length,
                   o("WAWebDexieCastTypes")
                     .dexieCastToPromise(
                       o("WAWebIdbHelpers")
@@ -1099,8 +950,8 @@ __d(
                                 this.tableColumns,
                               ),
                             )
-                            .anyOf(a),
-                          i,
+                            .anyOf(n),
+                          a,
                         )
                         .distinct()
                         .primaryKeys(),
@@ -1108,13 +959,13 @@ __d(
                     .catch(function (t) {
                       throw (e.$1(r("getErrorSafe")(t), "anyOfPrimaryKeys"), t);
                     }),
-                  a,
+                  n,
                 );
           }),
-          (a.inAnyRange = function (t, a, i) {
+          (n.inAnyRange = function (t, n, a) {
             var e = this;
-            return a.length === 0
-              ? (d || (d = n("Promise"))).resolve([])
+            return n.length === 0
+              ? Promise.resolve([])
               : o("WAWebDexieCastTypes")
                   .dexieCastToPromise(
                     o("WAWebIdbHelpers")
@@ -1126,8 +977,8 @@ __d(
                               this.tableColumns,
                             ),
                           )
-                          .inAnyRange(a),
-                        i,
+                          .inAnyRange(n),
+                        a,
                       )
                       .distinct()
                       .toArray(),
@@ -1135,17 +986,17 @@ __d(
                   .then(function (t) {
                     return e.asyncViewMap(
                       t,
-                      i == null ? void 0 : i.shouldDecrypt,
+                      a == null ? void 0 : a.shouldDecrypt,
                     );
                   })
                   .catch(function (t) {
                     throw (e.$1(r("getErrorSafe")(t), "inAnyRange"), t);
                   });
           }),
-          (a.startsWithAnyOf = function (t, a, i) {
+          (n.startsWithAnyOf = function (t, n, a) {
             var e = this;
-            return a.length === 0
-              ? (d || (d = n("Promise"))).resolve([])
+            return n.length === 0
+              ? Promise.resolve([])
               : o("WAWebDexieCastTypes")
                   .dexieCastToPromise(
                     o("WAWebIdbHelpers")
@@ -1157,8 +1008,8 @@ __d(
                               this.tableColumns,
                             ),
                           )
-                          .startsWithAnyOf(a),
-                        i,
+                          .startsWithAnyOf(n),
+                        a,
                       )
                       .distinct()
                       .toArray(),
@@ -1166,14 +1017,14 @@ __d(
                   .then(function (t) {
                     return e.asyncViewMap(
                       t,
-                      i == null ? void 0 : i.shouldDecrypt,
+                      a == null ? void 0 : a.shouldDecrypt,
                     );
                   })
                   .catch(function (t) {
                     throw (e.$1(r("getErrorSafe")(t), "startsWithAnyOf"), t);
                   });
           }),
-          (a.greaterThan = function (t, n, a) {
+          (n.greaterThan = function (t, n, a) {
             var e = this,
               i =
                 (a == null ? void 0 : a.inclusive) === !0
@@ -1204,7 +1055,7 @@ __d(
                 throw (e.$1(r("getErrorSafe")(t), "greaterThan"), t);
               });
           }),
-          (a.lessThan = function (t, n, a) {
+          (n.lessThan = function (t, n, a) {
             var e = this,
               i =
                 (a == null ? void 0 : a.inclusive) === !0
@@ -1235,7 +1086,7 @@ __d(
                 throw (e.$1(r("getErrorSafe")(t), "lessThan"), t);
               });
           }),
-          (a.between = function (t, n, a, i, l, s) {
+          (n.between = function (t, n, a, i, l, s) {
             var e = this,
               u = o("WAWebIdbHelpers").applyOptions(
                 this.table
@@ -1293,7 +1144,7 @@ __d(
               throw (e.$1(r("getErrorSafe")(t), "between"), t);
             });
           }),
-          (a.betweenKeys = function (t, n, a, i) {
+          (n.betweenKeys = function (t, n, a, i) {
             var e = this,
               l = o("WAWebIdbHelpers").applyOptions(
                 this.table
@@ -1310,7 +1161,7 @@ __d(
                 throw (e.$1(r("getErrorSafe")(t), "between"), t);
               });
           }),
-          (a.betweenCount = function (t, n, a, i) {
+          (n.betweenCount = function (t, n, a, i) {
             var e = this,
               l = this.table
                 .where(
@@ -1330,50 +1181,32 @@ __d(
                 throw (e.$1(r("getErrorSafe")(t), "betweenCount"), t);
               });
           }),
-          (a.forEachSortedBy = function (t, o) {
+          (n.forEachSortedBy = function (t, n) {
             var e = this;
             return this.table
               .orderBy(t)
-              .each(
-                (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t) {
-                      var n = e.$2(t),
-                        r = yield e.$4(n);
-                      return o(e.view(r));
-                    },
-                  );
-                  return function (e) {
-                    return t.apply(this, arguments);
-                  };
-                })(),
-              )
+              .each(async function (t) {
+                var r = e.$2(t),
+                  o = await e.$4(r);
+                return n(e.view(o));
+              })
               .catch(function (t) {
                 throw (e.$1(r("getErrorSafe")(t), "forEachSortedBy"), t);
               });
           }),
-          (a.forEach = function (t) {
+          (n.forEach = function (t) {
             var e = this;
             return this.table
-              .each(
-                (function () {
-                  var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (n) {
-                      var r = e.$2(n),
-                        o = yield e.$4(r);
-                      return t(e.view(o));
-                    },
-                  );
-                  return function (e) {
-                    return r.apply(this, arguments);
-                  };
-                })(),
-              )
+              .each(async function (n) {
+                var r = e.$2(n),
+                  o = await e.$4(r);
+                return t(e.view(o));
+              })
               .catch(function (t) {
                 throw (e.$1(r("getErrorSafe")(t), "forEach"), t);
               });
           }),
-          (a.clear = function () {
+          (n.clear = function () {
             var e = this;
             return o("WAWebDexieCastTypes")
               .dexieCastToPromise(this.table.clear())
@@ -1381,21 +1214,21 @@ __d(
                 throw (e.$1(r("getErrorSafe")(t), "clear"), t);
               });
           }),
-          (a.$15 = function (t) {
+          (n.$15 = function (t) {
             var e,
               n = (e = this.updateListenerField) != null ? e : this.$17();
             return n in t ? t[n] : null;
           }),
-          (a.$17 = function () {
+          (n.$17 = function () {
             return this.table.schema.primKey.name;
           }),
-          (a.$3 = function () {
+          (n.$3 = function () {
             return this.tableEncryptedColumns.size > 0;
           }),
-          (a.addHook = function (t) {
+          (n.addHook = function (t) {
             this.table.hook(t.type, t.callback);
           }),
-          (a.setUpdateListener = function (t, n) {
+          (n.setUpdateListener = function (t, n) {
             (n === void 0 && (n = null),
               o("WALogger").LOG(
                 c ||
@@ -1411,7 +1244,7 @@ __d(
           t
         );
       })(),
-      _ = (function () {
+      p = (function () {
         function e(e, t) {
           ((this.tableNames = new Map()),
             (this.tableColumns = new Map()),
@@ -1431,10 +1264,10 @@ __d(
         }
         var t = e.prototype;
         return (
-          (t.initialize = function (t, r, a, i) {
-            i && (this.errorHandlers = i);
+          (t.initialize = function (t, n, r, a) {
+            a && (this.errorHandlers = a);
             var e = o("WAWebIdbHelpers").schemasToStores({
-              schemas: r,
+              schemas: n,
               tableColumns: this.tableColumns,
               tableEncryptedColumns: this.tableEncryptedColumns,
               tableNames: this.tableNames,
@@ -1444,42 +1277,32 @@ __d(
                 .version(t + 1)
                 .stores(e)
                 .upgrade(function (e) {
-                  if (a) {
+                  if (r) {
                     var t;
-                    return (t = e[a.name]) == null
+                    return (t = e[r.name]) == null
                       ? void 0
-                      : t.toCollection().modify(a.callback);
+                      : t.toCollection().modify(r.callback);
                   }
                 }),
-              (d || (d = n("Promise"))).resolve()
+              Promise.resolve()
             );
           }),
-          (t.open = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              yield o("WAWebDexieCastTypes").dexieCastToPromise(this.db.open());
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (t.transact = function (t, r, a) {
+          (t.open = async function () {
+            await o("WAWebDexieCastTypes").dexieCastToPromise(this.db.open());
+          }),
+          (t.transact = function (t, n, r) {
             return (
-              a === void 0 && (a = "rw"),
+              r === void 0 && (r = "rw"),
               o("WAWebDexieCastTypes").dexieCastToPromise(
-                this.db.transaction(
-                  a,
-                  t,
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    var e = yield r();
-                    return e;
-                  }),
-                ),
+                this.db.transaction(r, t, async function () {
+                  var e = await n();
+                  return e;
+                }),
               )
             );
           }),
           (t.close = function () {
-            return (this.db.close(), (d || (d = n("Promise"))).resolve());
+            return (this.db.close(), Promise.resolve());
           }),
           (t.view = function (t, n, a, i) {
             (this.tableNames.has(t) || s(0, 75743, t),
@@ -1489,7 +1312,7 @@ __d(
               : function (e) {
                   return e;
                 };
-            return new p(
+            return new m(
               this.db.table(this.tableNames.get(t)),
               this.db,
               n,
@@ -1504,7 +1327,7 @@ __d(
             );
           }),
           (t.available = function () {
-            return (d || (d = n("Promise"))).resolve(!0);
+            return Promise.resolve(!0);
           }),
           (t.reset = function () {
             return (
@@ -1518,7 +1341,7 @@ __d(
           e
         );
       })();
-    l.default = _;
+    l.default = p;
   },
   98,
 );

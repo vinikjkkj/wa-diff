@@ -11,7 +11,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "AI").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     function u(t) {
       if (o("WAWebBotUtils").isHatchBot(t.id)) {
@@ -49,7 +49,7 @@ __d(
             timestamp: Date.now(),
           });
       } else if (o("WAWebBotUtils").isBusinessAssistantBot(t.id)) {
-        t.set({ name: s._(/*BTDS*/ "Business assistant").toString() });
+        t.set({ name: s._(/*BTDS*/ "").toString() });
         var l = o("WAWebMetaAiRingAssetResolver").getMetaAiProfileURL();
         o("WAWebProfilePicThumbCollection")
           .ProfilePicThumbCollection.gadd(t.id)

@@ -9,13 +9,10 @@ __d(
     }
     function u(e) {
       return e <= 0
-        ? s._(/*BTDS*/ "Ends today")
+        ? s._(/*BTDS*/ "")
         : e === 1
-          ? s._(/*BTDS*/ "Ends tomorrow")
-          : s._(
-              /*BTDS*/ '_j{"*":"Ends in {number} days","_1":"Ends in 1 day"}',
-              [s._plural(e, "number")],
-            );
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "", [s._plural(e, "number")]);
     }
     l.getOpenPollEndsLabel = e;
   },

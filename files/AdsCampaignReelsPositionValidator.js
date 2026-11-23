@@ -64,9 +64,7 @@ __d(
                   new (r("AdsError"))(
                     1443440,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "Ads placed on Instagram Reels exclusively don't support catalog sales ad. Please select Instagram Reels with at least one other placement",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       cta: r("AdsErrorsCTAStrings").EDIT_PLACEMENTS_CTA,

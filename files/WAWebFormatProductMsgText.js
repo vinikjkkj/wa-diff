@@ -16,7 +16,7 @@ __d(
               r,
               n,
             )
-        : s._(/*BTDS*/ "Product");
+        : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

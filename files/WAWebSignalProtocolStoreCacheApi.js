@@ -6,7 +6,6 @@ __d(
     "TaskSchedulerPriority",
     "WASemaphore",
     "WAWebStructuredClone",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = (function () {
@@ -51,37 +50,31 @@ __d(
             { update: t, remove: n }
           );
         }),
-        (t.$2 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = this,
-              t = [],
-              n = [],
-              a = function (a) {
-                var o = e.SessionStore.get(a);
-                o &&
-                  (o.deleted
-                    ? n.push(a)
-                    : t.push({
-                        address: a,
-                        session: r("WAWebStructuredClone")(o.session),
-                      }));
-              },
-              i = o("TaskScheduler").taskScheduler(
-                "signal",
-                { concurrency: 1 },
-                o(
-                  "NativeSchedulerTickStrategy",
-                ).makeNativeSchedulerTickStrategy(),
-              );
-            for (var l of this.Dirty.session)
-              (a(l), yield i.yield(o("TaskSchedulerPriority").HIGH_PRIORITY));
-            return { update: t, remove: n };
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (t.$2 = async function () {
+          var e = this,
+            t = [],
+            n = [],
+            a = function (a) {
+              var o = e.SessionStore.get(a);
+              o &&
+                (o.deleted
+                  ? n.push(a)
+                  : t.push({
+                      address: a,
+                      session: r("WAWebStructuredClone")(o.session),
+                    }));
+            },
+            i = o("TaskScheduler").taskScheduler(
+              "signal",
+              { concurrency: 1 },
+              o(
+                "NativeSchedulerTickStrategy",
+              ).makeNativeSchedulerTickStrategy(),
+            );
+          for (var l of this.Dirty.session)
+            (a(l), await i.yield(o("TaskSchedulerPriority").HIGH_PRIORITY));
+          return { update: t, remove: n };
+        }),
         (t.$3 = function () {
           var e = this,
             t = [];
@@ -146,25 +139,19 @@ __d(
             };
           return n;
         }),
-        (t.generateCacheUpdateThrottled = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = this.$4(),
-              t = yield this.$2(),
-              n = {
-                sessionUpdate: t.update,
-                sessionRemove: t.remove,
-                identityUpdate: e.update,
-                identityRemove: e.remove,
-                senderKeyUpdate: this.$3(),
-                preKeyRemove: this.$5(),
-              };
-            return n;
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (t.generateCacheUpdateThrottled = async function () {
+          var e = this.$4(),
+            t = await this.$2(),
+            n = {
+              sessionUpdate: t.update,
+              sessionRemove: t.remove,
+              identityUpdate: e.update,
+              identityRemove: e.remove,
+              senderKeyUpdate: this.$3(),
+              preKeyRemove: this.$5(),
+            };
+          return n;
+        }),
         (t.hasDirty = function () {
           return (
             this.Dirty.session.size > 0 ||

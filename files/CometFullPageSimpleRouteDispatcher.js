@@ -7,7 +7,6 @@ __d(
     "buildCometRouterDispatcher",
     "goForceFullPageRedirectTo",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -53,27 +52,16 @@ __d(
       return new (o("buildCometRouterDispatcher").Dispatcher)(t);
     }
     function m(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = d()), (t[0] = a))
-        : (a = t[0]);
-      var i = a,
-        l;
-      return (
-        t[1] !== n
-          ? ((l = u.jsx(r("CometRouterDispatcherContext").Provider, {
-              value: i,
-              children: n,
-            })),
-            (t[1] = n),
-            (t[2] = l))
-          : (l = t[2]),
-        l
-      );
+      var t = e.children,
+        n = c(function () {
+          return d();
+        }, []);
+      return u.jsx(r("CometRouterDispatcherContext").Provider, {
+        value: n,
+        children: t,
+      });
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

@@ -22,44 +22,29 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return { name: "SetDescriptionResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "SetDescriptionResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "SetDescriptionResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("SetDescription", {
-              Success: a,
-              ClientError: i,
-              ServerError: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return { name: "SetDescriptionResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "SetDescriptionResponseClientError", value: i.value };
+      var l = u(r, n);
+      if (l.success)
+        return { name: "SetDescriptionResponseServerError", value: l.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("SetDescription", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -69,7 +54,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = _(r.value);
+      var i = p(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -78,7 +63,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -87,7 +72,7 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optional(
@@ -107,12 +92,12 @@ __d(
           )
         : a;
     }
-    function m(e) {
+    function d(e) {
       var t = e.bodyElementValue,
         n = o("WASmaxJsx").smax("body", null, t);
       return n;
     }
-    function p(e) {
+    function m(e) {
       var t = e.bodyArgs,
         n = e.descriptionId,
         r = e.descriptionPrev,
@@ -128,14 +113,14 @@ __d(
                 prev: o("WASmaxAttrs").OPTIONAL(o("WAWap").CUSTOM_STRING, r),
                 delete: o("WASmaxAttrs").OPTIONAL_LITERAL("true", a),
               },
-              o("WASmaxChildren").OPTIONAL_CHILD(m, t),
+              o("WASmaxChildren").OPTIONAL_CHILD(d, t),
             ),
           ),
           e,
         );
       return i;
     }
-    function _(e) {
+    function p(e) {
       var t = o(
         "WASmaxInGroupsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -214,10 +199,10 @@ __d(
           );
     }
     ((l.sendSetDescriptionRPC = e),
-      (l.parseSetDescriptionResponseClientError = u),
-      (l.parseSetDescriptionResponseServerError = c),
-      (l.parseSetDescriptionResponseSuccess = d),
-      (l.makeSetDescriptionRequest = p));
+      (l.parseSetDescriptionResponseClientError = s),
+      (l.parseSetDescriptionResponseServerError = u),
+      (l.parseSetDescriptionResponseSuccess = c),
+      (l.makeSetDescriptionRequest = m));
   },
   98,
 );

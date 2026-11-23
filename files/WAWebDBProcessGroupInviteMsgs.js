@@ -6,25 +6,16 @@ __d(
     "WAWebApiGroupInviteV4Store",
     "WAWebLidMigrationUtils",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c;
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      var t = e.map(function (e) {
+        return m(e);
+      });
+      await o("WAWebApiGroupInviteV4Store").persistGroupInviteV4Msgs(t);
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.map(function (e) {
-            return p(e);
-          });
-          yield o("WAWebApiGroupInviteV4Store").persistGroupInviteV4Msgs(t);
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(t) {
+    function m(t) {
       var n = o("WAWebLidMigrationUtils").toLid(t.from),
         r = o("WAWebLidMigrationUtils").toLid(t.to);
       if (!n || !r) {

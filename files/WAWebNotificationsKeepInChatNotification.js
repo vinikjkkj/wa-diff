@@ -22,7 +22,6 @@ __d(
     "WAWebUserUtils",
     "WAWebWamEnumNotificationTypeEnum",
     "WAWebWidFormat",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -30,7 +29,7 @@ __d(
       u,
       c,
       d = (function (t) {
-        function a(n) {
+        function n(n) {
           var a,
             i = n.keepInChatMessage,
             l = n.kicSender,
@@ -72,17 +71,17 @@ __d(
             a
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.shouldPlaySound = function () {
+          (a.shouldPlaySound = function () {
             if (!t.prototype.shouldPlaySound.call(this)) return !1;
             var e = o("WAWebFrontendMsgGetters").getChat(
               this.keepInChatMessage,
             );
             return o("WAWebNotificationHelpers").shouldPlaySoundGranular(e);
           }),
-          (i.shouldShowBanner = function () {
+          (a.shouldShowBanner = function () {
             if (!t.prototype.shouldShowBanner.call(this)) return !1;
             var e = o("WAWebFrontendMsgGetters").getChat(
               this.keepInChatMessage,
@@ -91,7 +90,7 @@ __d(
               "WAWebNotificationHelpers",
             ).shouldEnableNotificationGranular(e);
           }),
-          (i.shouldMute = function (t) {
+          (a.shouldMute = function (t) {
             var e;
             return o("WAWebNotificationHelpers").shouldMuteDueToAppState(t)
               ? r("WAWebNotificationMuteReason").AppState
@@ -133,65 +132,43 @@ __d(
                     : r("WAWebNotificationMuteReason").KicOnNonOriginalMsg
                   : r("WAWebNotificationMuteReason").KicOnNonEphemeralChat;
           }),
-          (i.buildKey = function () {
+          (a.buildKey = function () {
             return "kic:" + this.parentMessage.id.toString();
           }),
-          (i.matchesChat = function (t) {
+          (a.matchesChat = function (t) {
             return o("WAWebFrontendMsgGetters")
               .getChat(this.parentMessage)
               .equals(t);
           }),
-          (i.getChatKind = function () {
+          (a.getChatKind = function () {
             return o("WAWebFrontendChatGetters").getKind(
               o("WAWebFrontendMsgGetters").getChat(this.parentMessage),
             );
           }),
-          (i.performLogging = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                (yield t.prototype.performLogging.call(this, e),
-                  o(
-                    "WAWebNotificationsDailyUtils",
-                  ).incrementNotificationDailyCount(
-                    o("WAWebNotificationsDailyUtils").NotificationDailyCountKind
-                      .KIC_NOTIFICATION,
-                    r("nullthrows")(this.getChatKind()),
-                  ));
-              },
+          (a.performLogging = async function (n) {
+            (await t.prototype.performLogging.call(this, n),
+              o("WAWebNotificationsDailyUtils").incrementNotificationDailyCount(
+                o("WAWebNotificationsDailyUtils").NotificationDailyCountKind
+                  .KIC_NOTIFICATION,
+                r("nullthrows")(this.getChatKind()),
+              ));
+          }),
+          (a.getNotificationDeliveryWamEventData = async function () {
+            return {
+              uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
+                .NOTIFICATION_TYPE_ENUM.KEEP_IN_CHAT,
+              triggeredByOfflineMessage:
+                this.keepInChatMessage.isOffline === !0,
+            };
+          }),
+          (a.getIcon = async function () {
+            var e = o("WAWebFrontendMsgGetters").getChat(this.parentMessage);
+            return o("WAWebNotificationIconUtils").getChatNotificationIcon(
+              e,
+              this.abortController.signal,
             );
-            function a(t) {
-              return e.apply(this, arguments);
-            }
-            return a;
-          })()),
-          (i.getNotificationDeliveryWamEventData = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              return {
-                uiNotificationType: o("WAWebWamEnumNotificationTypeEnum")
-                  .NOTIFICATION_TYPE_ENUM.KEEP_IN_CHAT,
-                triggeredByOfflineMessage:
-                  this.keepInChatMessage.isOffline === !0,
-              };
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getIcon = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = o("WAWebFrontendMsgGetters").getChat(this.parentMessage);
-              return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-                e,
-                this.abortController.signal,
-              );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.getBannerOptions = function () {
+          }),
+          (a.getBannerOptions = function () {
             var e = o("WAWebFrontendMsgGetters").getChat(this.parentMessage),
               t = o("WAWebGetNotificationStrings").getNotificationBody(
                 babelHelpers.extends(
@@ -212,7 +189,7 @@ __d(
               onClick: this.$WAKeepInChatNotification$p_2,
             };
           }),
-          (i.afterBannerShown = function (t) {
+          (a.afterBannerShown = function (t) {
             var e = this;
             (this.parentMessage.set("kicNotified", !0),
               this.parentMessage.on(
@@ -232,7 +209,7 @@ __d(
                   ));
               }));
           }),
-          a
+          n
         );
       })(o("WAWebBaseNotification").WABaseNotification);
     function m(e, t) {
@@ -261,16 +238,12 @@ __d(
           }
         : (e.type === o("WAWebMsgType").MSG_TYPE.CHAT &&
           !o("WAWebMsgNotificationPreview").shouldShowMsgNotificationPreview(e)
-            ? (n = s._(/*BTDS*/ "Kept your message from disappearing"))
+            ? (n = s._(/*BTDS*/ ""))
             : ((n = o("WAWebGetNotificationStrings").getNotificationMessageBody(
                 e,
               )),
-              (n = s._(/*BTDS*/ '"{originalMessageBody}"', [
-                s._param("originalMessageBody", n),
-              ])),
-              (a = s
-                ._(/*BTDS*/ "Kept your message from disappearing:")
-                .toString())),
+              (n = s._(/*BTDS*/ "", [s._param("originalMessageBody", n)])),
+              (a = s._(/*BTDS*/ "").toString())),
           { body: n.toString(), author: r, action: a });
     }
     l.WAKeepInChatNotification = d;

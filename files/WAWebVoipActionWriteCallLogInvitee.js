@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipActionWriteCallLogInvitee",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebCallCollection",
@@ -16,159 +15,117 @@ __d(
     "WAWebVoipOngoingCallCollection",
     "WAWebVoipWaCallEnums",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c, d;
-    function m(e) {
-      return p.apply(this, arguments);
+    var e, s, u, c;
+    async function d(t) {
+      var n,
+        a = (n = r("WAWebCallCollection").activeCall) == null ? void 0 : n.msg;
+      if (a == null) {
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: invitee call log skipped, no active call log",
+            ])),
+        );
+        return;
+      }
+      await p(t, a);
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n,
-            a =
-              (n = r("WAWebCallCollection").activeCall) == null
-                ? void 0
-                : n.msg;
-          if (a == null) {
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: invitee call log skipped, no active call log",
-                ])),
-            );
-            return;
-          }
-          yield g(t, a);
-        })),
-        p.apply(this, arguments)
-      );
+    async function m(e, t, n) {
+      await e.reduce(function (e, r) {
+        return e.then(async function () {
+          (await p(r, t)) || n(r);
+        });
+      }, Promise.resolve());
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          yield e.reduce(
-            function (e, o) {
-              return e.then(
-                n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                  (yield g(o, t)) || r(o);
-                }),
-              );
-            },
-            (d || (d = n("Promise"))).resolve(),
-          );
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (!b(t))
+    async function p(e, t) {
+      if (!f(t))
+        return (
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: invitee call log skipped, no ad hoc call log",
+              ])),
+          ),
+          !0
+        );
+      try {
+        var n = await o("WAWebCallLogUtils").get1x1CallLidOrPnDestination({
+          callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(e),
+        });
+        if (n.equals(t.id.remote)) return !0;
+        var a = await o(
+          "WAWebVoipCallLogWriteMutex",
+        ).WACallLogWriteMutex.acquire();
+        try {
+          var i;
+          if (
+            ((i = r("WAWebCallCollection").activeCall) == null
+              ? void 0
+              : i.msg) !== t &&
+            t.callOutcome ===
+              o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
+            o(
+              "WAWebVoipOngoingCallCollection",
+            ).WAWebVoipOngoingCallCollection.get(t.id) == null
+          )
             return (
               o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: invitee call log skipped, no ad hoc call log",
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: invitee call log skipped, call ending",
                   ])),
               ),
-              !0
-            );
-          try {
-            var n = yield o("WAWebCallLogUtils").get1x1CallLidOrPnDestination({
-              callDestinationWid: o("WAWebWidFactory").asUserWidOrThrow(e),
-            });
-            if (n.equals(t.id.remote)) return !0;
-            var a = yield o(
-              "WAWebVoipCallLogWriteMutex",
-            ).WACallLogWriteMutex.acquire();
-            try {
-              var i;
-              if (
-                ((i = r("WAWebCallCollection").activeCall) == null
-                  ? void 0
-                  : i.msg) !== t &&
-                t.callOutcome ===
-                  o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
-                o(
-                  "WAWebVoipOngoingCallCollection",
-                ).WAWebVoipOngoingCallCollection.get(t.id) == null
-              )
-                return (
-                  o("WALogger").LOG(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: invitee call log skipped, call ending",
-                      ])),
-                  ),
-                  !1
-                );
-              var l = yield y(n, t, !0);
-              return (
-                (l == null ? void 0 : l.callOutcome) ===
-                  o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
-                  t.callOutcome !==
-                    o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
-                  (yield y(n, t, !1)),
-                !0
-              );
-            } finally {
-              a.release();
-            }
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: invitee call log write failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("voip-invitee-call-log-failed"),
               !1
             );
-          }
-        })),
-        h.apply(this, arguments)
-      );
+          var l = await _(n, t, !0);
+          return (
+            (l == null ? void 0 : l.callOutcome) ===
+              o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
+              t.callOutcome !==
+                o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing &&
+              (await _(n, t, !1)),
+            !0
+          );
+        } finally {
+          a.release();
+        }
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: invitee call log write failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("voip-invitee-call-log-failed"),
+          !1
+        );
+      }
     }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    async function _(e, t, n) {
+      var r = g(t, e),
+        a = await o(
+          "WAWebVoipActionWriteCallLogImpl",
+        ).writeVoipCallLogMessageImpl(e, r, !1, !1, !1, n);
+      return a == null
+        ? null
+        : (r.callOutcome === o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing
+            ? o(
+                "WAWebVoipOngoingCallCollection",
+              ).WAWebVoipOngoingCallCollection.add(a, { merge: !0 })
+            : o(
+                "WAWebVoipOngoingCallCollection",
+              ).WAWebVoipOngoingCallCollection.remove(a.id),
+          a);
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = v(t, e),
-            a = yield o(
-              "WAWebVoipActionWriteCallLogImpl",
-            ).writeVoipCallLogMessageImpl(e, r, !1, !1, !1, n);
-          return a == null
-            ? null
-            : (r.callOutcome ===
-              o("WAWebCallLogMsgData.flow").CallOutcome.Ongoing
-                ? o(
-                    "WAWebVoipOngoingCallCollection",
-                  ).WAWebVoipOngoingCallCollection.add(a, { merge: !0 })
-                : o(
-                    "WAWebVoipOngoingCallCollection",
-                  ).WAWebVoipOngoingCallCollection.remove(a.id),
-              a);
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e) {
+    function f(e) {
       return (
         e.type === o("WAWebMsgType").MSG_TYPE.CALL_LOG &&
         !e.id.remote.isGroup() &&
@@ -176,7 +133,7 @@ __d(
         r("isStringNullOrEmpty")(e.callLinkToken)
       );
     }
-    function v(e, t) {
+    function g(e, t) {
       var n,
         a,
         i,
@@ -199,10 +156,10 @@ __d(
         to: t,
         t: Math.max(s ? o("WATimeUtils").unixTime() : 0, e.t + 1),
         callDuration: s ? 0 : (l = e.callDuration) != null ? l : 0,
-        callParticipants: S(e.callParticipants, t),
+        callParticipants: h(e.callParticipants, t),
       };
     }
-    function S(e, t) {
+    function h(e, t) {
       var n = [].concat(e != null ? e : []);
       return (
         n.some(function (e) {
@@ -216,7 +173,7 @@ __d(
         n
       );
     }
-    ((l.writeCallLogForInvitee = m), (l.writeCallLogsForInvitees = _));
+    ((l.writeCallLogForInvitee = d), (l.writeCallLogsForInvitees = m));
   },
   98,
 );

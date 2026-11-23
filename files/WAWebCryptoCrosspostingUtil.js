@@ -1,18 +1,10 @@
 __d(
   "WAWebCryptoCrosspostingUtil",
-  ["WAWebCryptoCurve25519", "asyncToGeneratorRuntime"],
+  ["WAWebCryptoCurve25519"],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebCryptoCurve25519").keyPair();
-          return { publicKey: e.pubKey, privateKey: e.privKey };
-        })),
-        s.apply(this, arguments)
-      );
+    async function e() {
+      var e = await o("WAWebCryptoCurve25519").keyPair();
+      return { publicKey: e.pubKey, privateKey: e.privKey };
     }
     l.generateKeys = e;
   },

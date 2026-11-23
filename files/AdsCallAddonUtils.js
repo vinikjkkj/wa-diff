@@ -1,7 +1,6 @@
 __d(
   "AdsCallAddonUtils",
   [
-    "AdCampaignDestination",
     "AdsAPIAdgroupRecordUtils",
     "AdsAPICampaignRecordUtils",
     "AdsAPIObjectives",
@@ -16,78 +15,66 @@ __d(
     "adsCampaignGetOfferStateType",
     "adsConvertAdObjectRecordToPlainJS",
     "gkx",
-    "isEmptyObject",
+    "qex",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
       return (
-        e === void 0 && (e = !0),
-        e === !1 ? r("gkx")("15177") : r("gkx")("11814")
-      );
-    }
-    function s(e) {
-      return (
         e === void 0 && (e = { logExposure: !0 }),
         e.logExposure === !1 ? r("gkx")("15878") : r("gkx")("10503")
       );
     }
-    function u(e, t, n, a, i, l) {
-      var s;
-      if (a && l !== !0) return !1;
-      var u =
+    function s(e, t, n, a, i, l) {
+      if (!u(t, n, a, i, l)) return !1;
+      var s = e.objective,
+        c = o("AdsAPICampaignRecordUtils").getPromotedObjectType(s, t),
+        d = o("AdsODAXUtils").maybeTranslateObjective(
+          s,
+          c,
+          t.optimization_goal,
+        );
+      return d === r("AdsAPIObjectives").CONVERSIONS ||
+        d === r("AdsAPIObjectives").LINK_CLICKS ||
+        (d === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES && r("gkx")("9519"))
+        ? !0
+        : e.objective === r("AdsAPIObjectives").OUTCOME_AWARENESS &&
+            r("gkx")("13126");
+    }
+    function u(e, t, n, a, i) {
+      var l;
+      if (n && i !== !0) return !1;
+      var s =
           o(
             "AdsPCAUnifiedFormatEligibilityUtils",
           ).isGKEnableForUnifiedMediaSetupFlow() &&
           o(
             "AdsPCAUnifiedFormatEligibilityUtils",
           ).isMediaSourcePCAUnifiedFormat(
-            (s = n.metadata) == null ? void 0 : s.adgroup_media_source,
+            (l = t.metadata) == null ? void 0 : l.adgroup_media_source,
           ),
-        c = o(
+        u = o(
           "AdsAPIAdgroupRecordUtils",
-        ).isFlexibleFormatAdOrCreativeAssetGroup(n);
-      if (u || c) return !1;
-      var d = e.objective,
-        m = o("AdsAPICampaignRecordUtils").getPromotedObjectType(d, t),
-        p = o("AdsODAXUtils").maybeTranslateObjective(
-          e.objective,
-          m,
-          t.optimization_goal,
-        ),
-        _ = o("AdsAPIAdgroupRecordUtils").isTemplateCreative(n),
-        f = p === r("AdsAPIObjectives").CONVERSIONS,
-        g = p === r("AdsAPIObjectives").LINK_CLICKS,
-        h =
-          r("adsCampaignGetOfferStateType")(t) === r("AdsOfferState").HAS_OFFER,
-        y = b(n),
-        C = !_ && f && !h && i && y,
-        v = !_ && g && !h && i && y;
-      return C || v;
+        ).isFlexibleFormatAdOrCreativeAssetGroup(t);
+      if (s || u) return !1;
+      var c =
+          r("adsCampaignGetOfferStateType")(e) === r("AdsOfferState").HAS_OFFER,
+        d = y(t);
+      return c || (!a && !r("gkx")("10220")) || !d
+        ? !1
+        : !o("AdsAPIAdgroupRecordUtils").isTemplateCreative(t) ||
+            r("gkx")("9519");
     }
     function c(e, t) {
       var n = e;
       return (
-        t != null && (n = f(n, t)),
+        t != null && (n = _(n, t)),
         o(
           "AdsUEditorAdgroupCallAdsConfigurationUtils",
         ).clearCallAdsConfiguration(n)
       );
     }
     function d(e) {
-      var t = r(
-        "AdsAdgroupRecordAccessors",
-      ).creative.asset_feed_spec.call_ads_configuration.phone_number.delete(e);
-      return (
-        (t = r(
-          "AdsAdgroupRecordAccessors",
-        ).creative.asset_feed_spec.call_ads_configuration.call_destination_type.delete(
-          t,
-        )),
-        t
-      );
-    }
-    function m(e) {
       var t;
       return (
         ((t = e.creative) == null ||
@@ -97,8 +84,8 @@ __d(
           : t.call_destination_type) === "WEBSITE_AND_CALL"
       );
     }
-    function p(e, t) {
-      return C()
+    function m(e, t) {
+      return h()
         ? r(
             "AdsAdgroupRecordAccessors",
           ).creative.asset_feed_spec.call_ads_configuration.call_forwarding.set(
@@ -107,7 +94,7 @@ __d(
           )
         : e;
     }
-    function _(e, t) {
+    function p(e, t) {
       var n = e;
       return (
         t != null &&
@@ -126,70 +113,54 @@ __d(
         n
       );
     }
-    function f(e, t) {
+    function _(e, t) {
       var n = e;
       return (
         (n = r("AdsAdgroupSemanticFields").phoneDataID.delete(t, n)),
-        g(n) &&
+        f(n) &&
           (n = r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.delete(
             n,
           )),
         n
       );
     }
-    function g(e) {
+    function f(e) {
       var t,
-        n = r("adsConvertAdObjectRecordToPlainJS")(e);
-      return !!(
-        (n == null || (t = n.creative) == null ? void 0 : t.asset_feed_spec) !=
-          null &&
+        n =
+          r("qex")._("3278") === !0
+            ? e
+            : r("adsConvertAdObjectRecordToPlainJS")(e),
+        a = (t = n.creative) == null ? void 0 : t.asset_feed_spec;
+      return (
+        a != null &&
         r("AdsClientAdAssetFeedSpecFields").every(function (e) {
-          var t,
-            o =
-              (t = n.creative) == null || (t = t.asset_feed_spec) == null
-                ? void 0
-                : t[e];
-          return o instanceof Array
-            ? o.length === 0
-            : o instanceof Object && r("isEmptyObject")(o)
-              ? !0
-              : o == null;
+          return o("AdsAssetFeedUtils").isEmptyAssetFeedValue(a[e]);
         })
       );
     }
-    function h() {
+    function g() {
       return r("gkx")("18063");
     }
-    function y(e) {
-      return (
-        e === r("AdCampaignDestination").WEBSITE ||
-        e === r("AdCampaignDestination").UNDEFINED ||
-        e === void 0
-      );
-    }
-    function C() {
+    function h() {
       return !1;
     }
-    function b(e) {
+    function y(e) {
       var t,
         n = (t = o("AdsAssetFeedUtils")).isDofAdgroupFromSpec(e),
         r = t.isAdgroupUsingAssetFeedFromRecord(e),
         a = t.isRegularDCOAdgroupFromRecord(e),
-        i = t.hasLanguageOrPlacementCustomizationFromRecord(e);
-      return !r || a || i || n;
+        i = t.isFormatAutomationAdgroupFromRecord(e),
+        l = t.hasLanguageOrPlacementCustomizationFromRecord(e);
+      return !r || a || i || l || n;
     }
-    ((l.isCallAddonBusinessHoursEnabled = e),
-      (l.isWebCallBusinessHoursEnabled = s),
-      (l.isCallExtensionEnabled = u),
+    ((l.isWebCallBusinessHoursEnabled = e),
+      (l.isCallExtensionEnabled = s),
       (l.clearCallExtensionFields = c),
-      (l.clearPhoneNumberAndCallDestinationType = d),
-      (l.isCallAddonSelected = m),
-      (l.setCallForwarding = p),
-      (l.setPhoneNumberAndCallDestinationType = _),
-      (l.clearPhoneDataID = f),
-      (l.isInWebsiteAndCallsL3DAFlow = h),
-      (l.isWebsiteDestinationForCallExtension = y),
-      (l.showCallInsightsSectionForCallExtension = C));
+      (l.isCallAddonSelected = d),
+      (l.setCallForwarding = m),
+      (l.setPhoneNumberAndCallDestinationType = p),
+      (l.clearPhoneDataID = _),
+      (l.isInWebsiteAndCallsL3DAFlow = g));
   },
   98,
 );

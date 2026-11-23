@@ -9,7 +9,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "{business-name} (Admin)", [
+      return s._(/*BTDS*/ "", [
         s._param("business-name", o("WAWebConnModel").Conn.pushname),
       ]);
     }

@@ -13,7 +13,6 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -164,51 +163,42 @@ __d(
         t,
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t.isSignupDeeplink === !0)
-            return f(e, {
-              type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
-              kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-              subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype
-                .ContactInfoCard,
-              templateParams: [e],
-            });
-          if (
-            (t.isEnterprise && !t.isFMXCtWA) ||
-            !e.isUser() ||
-            e.isPSA() ||
-            t.isWASupportStartingChat ||
-            (t.iAmStartingChat && !t.isFMXCtWA) ||
-            (t.isFromCTWA &&
-              !t.isFMXCtWA &&
-              o("WAWebABProps").getABPropConfigValue("fmx_ctwa_kill_switch")) ||
-            e.isBot() ||
-            e.isAiHub()
-          )
-            return null;
-          var n = yield o("WAWebApiContact").isAddressBookContact(
-            o("WAWebWidToJid").widToUserJid(
-              o("WAWebWidFactory").asUserWidOrThrow(e),
-            ),
-          );
-          return n
-            ? null
-            : f(e, {
-                type: "notification_template",
-                kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
-                subtype: "contact_info_card",
-                templateParams: [e],
-              });
-        })),
-        h.apply(this, arguments)
+    async function g(e, t) {
+      if (t.isSignupDeeplink === !0)
+        return f(e, {
+          type: o("WAWebMsgType").MSG_TYPE.NOTIFICATION_TEMPLATE,
+          kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
+          subtype: o("WAWebCommonMsgSubtypeTypes").MsgSubtype.ContactInfoCard,
+          templateParams: [e],
+        });
+      if (
+        (t.isEnterprise && !t.isFMXCtWA) ||
+        !e.isUser() ||
+        e.isPSA() ||
+        t.isWASupportStartingChat ||
+        (t.iAmStartingChat && !t.isFMXCtWA) ||
+        (t.isFromCTWA &&
+          !t.isFMXCtWA &&
+          o("WAWebABProps").getABPropConfigValue("fmx_ctwa_kill_switch")) ||
+        e.isBot() ||
+        e.isAiHub()
+      )
+        return null;
+      var n = await o("WAWebApiContact").isAddressBookContact(
+        o("WAWebWidToJid").widToUserJid(
+          o("WAWebWidFactory").asUserWidOrThrow(e),
+        ),
       );
+      return n
+        ? null
+        : f(e, {
+            type: "notification_template",
+            kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
+            subtype: "contact_info_card",
+            templateParams: [e],
+          });
     }
-    function y(e, t) {
+    function h(e, t) {
       return f(e, {
         type: "notification_template",
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
@@ -217,7 +207,7 @@ __d(
         templateParams: [],
       });
     }
-    function C(e, t) {
+    function y(e, t) {
       return f(e, {
         type: "notification_template",
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
@@ -226,7 +216,7 @@ __d(
         templateParams: [],
       });
     }
-    function b(e) {
+    function C(e) {
       return f(e, {
         type: "notification_template",
         kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
@@ -244,9 +234,9 @@ __d(
       (l.genDisappearingModeUnsupportedSystemMsg = _),
       (l.genNotificationMsg = f),
       (l.genContactInfoCardMsg = g),
-      (l.genAcp2UpdateSystemMsg = y),
-      (l.genLimitSharingUpdateSystemMsg = C),
-      (l.genMmSignalSharingSystemMsg = b));
+      (l.genAcp2UpdateSystemMsg = h),
+      (l.genLimitSharingUpdateSystemMsg = y),
+      (l.genMmSignalSharingSystemMsg = C));
   },
   98,
 );

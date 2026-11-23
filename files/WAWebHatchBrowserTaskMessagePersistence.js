@@ -5,113 +5,69 @@ __d(
     "WAWebHatchBrowserTaskMessageData",
     "WAWebHatchBrowserTaskState",
     "WAWebModelStorageUtils",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t, n, r) {
-      return s.apply(this, arguments);
+    async function e(e, t, n, r) {
+      return n.kind === "canonical" &&
+        o("WAWebHatchBrowserTaskMessageData").browserTaskMessageTerminalState(
+          n.task,
+        ) == null
+        ? !1
+        : s(e, t, n, r);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            return n.kind === "canonical" &&
-              o(
-                "WAWebHatchBrowserTaskMessageData",
-              ).browserTaskMessageTerminalState(n.task) == null
-              ? !1
-              : u(e, t, n, r);
-          },
-        )),
-        s.apply(this, arguments)
-      );
+    async function s(e, t, n, a) {
+      var i = o("WAWebModelStorageUtils").getStorage(),
+        l = e.id,
+        s = e.rowId,
+        c = o("WAWebHatchBrowserTaskMessageData").messageIdentity(e),
+        d = (function (e) {
+          if (
+            ((typeof e == "object" && e !== null) || typeof e == "function") &&
+            e.kind === "canonical" &&
+            "task" in e
+          ) {
+            var t = e.task;
+            return { kind: "canonical", task: babelHelpers.extends({}, t) };
+          }
+          return { kind: "stop" };
+        })(n),
+        m = function () {
+          return o("WAWebModelStorageUtils").getStorage() === i && a();
+        },
+        p = await i.lock(["message"], async function (e) {
+          var n = e[0],
+            a = await n.get(l, !1);
+          if (
+            (a == null ? void 0 : a.unifiedResponse) == null ||
+            !m() ||
+            (s != null && s !== a.rowId) ||
+            c !== o("WAWebHatchBrowserTaskMessageData").messageIdentity(a) ||
+            (d.kind === "canonical" &&
+              o("WAWebHatchBrowserTaskMessageData").normalizedTaskID(
+                d.task.browserTaskID,
+              ) !== o("WAWebHatchBrowserTaskMessageData").normalizedTaskID(t))
+          )
+            return null;
+          var i = o("WAWebHatchBrowserTaskMessageData").mapBrowserTasks(
+            a.unifiedResponse,
+            function (e) {
+              return o("WAWebHatchBrowserTaskMessageData").normalizedTaskID(
+                e.browser_task_id,
+              ) === o("WAWebHatchBrowserTaskMessageData").normalizedTaskID(t)
+                ? u(e, d)
+                : e;
+            },
+          );
+          if (o("WADeepEquals").deepEqual(i, a.unifiedResponse)) return null;
+          if ((await n.merge(a.id, { unifiedResponse: i }), !m()))
+            throw r("err")("Browser task message request changed");
+          return i;
+        });
+      return p != null && m();
     }
-    function u(e, t, n, r) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, a, i) {
-            var l = o("WAWebModelStorageUtils").getStorage(),
-              s = e.id,
-              u = e.rowId,
-              c = o("WAWebHatchBrowserTaskMessageData").messageIdentity(e),
-              m = (function (e) {
-                if (
-                  ((typeof e == "object" && e !== null) ||
-                    typeof e == "function") &&
-                  e.kind === "canonical" &&
-                  "task" in e
-                ) {
-                  var t = e.task;
-                  return {
-                    kind: "canonical",
-                    task: babelHelpers.extends({}, t),
-                  };
-                }
-                return { kind: "stop" };
-              })(a),
-              p = function () {
-                return o("WAWebModelStorageUtils").getStorage() === l && i();
-              },
-              _ = yield l.lock(
-                ["message"],
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var n = e[0],
-                        a = yield n.get(s, !1);
-                      if (
-                        (a == null ? void 0 : a.unifiedResponse) == null ||
-                        !p() ||
-                        (u != null && u !== a.rowId) ||
-                        c !==
-                          o("WAWebHatchBrowserTaskMessageData").messageIdentity(
-                            a,
-                          ) ||
-                        (m.kind === "canonical" &&
-                          o(
-                            "WAWebHatchBrowserTaskMessageData",
-                          ).normalizedTaskID(m.task.browserTaskID) !==
-                            o(
-                              "WAWebHatchBrowserTaskMessageData",
-                            ).normalizedTaskID(t))
-                      )
-                        return null;
-                      var i = o(
-                        "WAWebHatchBrowserTaskMessageData",
-                      ).mapBrowserTasks(a.unifiedResponse, function (e) {
-                        return o(
-                          "WAWebHatchBrowserTaskMessageData",
-                        ).normalizedTaskID(e.browser_task_id) ===
-                          o(
-                            "WAWebHatchBrowserTaskMessageData",
-                          ).normalizedTaskID(t)
-                          ? d(e, m)
-                          : e;
-                      });
-                      if (o("WADeepEquals").deepEqual(i, a.unifiedResponse))
-                        return null;
-                      if ((yield n.merge(a.id, { unifiedResponse: i }), !p()))
-                        throw r("err")("Browser task message request changed");
-                      return i;
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              );
-            return _ != null && p();
-          },
-        )),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t) {
+    function u(e, t) {
       var n;
       if (t.kind === "stop") {
         var r = e.state == null ? e.status : String(e.state);

@@ -7,7 +7,6 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebToast.react",
     "WAWebToastManager",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -37,35 +36,25 @@ __d(
           },
         },
       );
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = function () {
-              o("WAWebToastManager").ToastManager.open(
-                c.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Something went wrong. Please try again."),
-                }),
-              );
-            },
-            r;
-          try {
-            r = yield d();
-          } catch (e) {
-            n();
-            return;
-          }
-          if (((t = r) == null ? void 0 : t.openLeaveCommunityModal) == null) {
-            n();
-            return;
-          }
-          r.openLeaveCommunityModal(e);
-        })),
-        p.apply(this, arguments)
-      );
+    async function m(e) {
+      var t,
+        n = function () {
+          o("WAWebToastManager").ToastManager.open(
+            c.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+          );
+        },
+        r;
+      try {
+        r = await d();
+      } catch (e) {
+        n();
+        return;
+      }
+      if (((t = r) == null ? void 0 : t.openLeaveCommunityModal) == null) {
+        n();
+        return;
+      }
+      r.openLeaveCommunityModal(e);
     }
     l.openLeaveCommunityModal = m;
   },

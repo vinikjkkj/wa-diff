@@ -3,7 +3,7 @@ __d(
   ["fbt", "WAWebSettingsConst", "WAWebWamEnumSettingsItemType"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Show taskbar notification badge");
+      return s._(/*BTDS*/ "");
     }
     var u = {
       step: o("WAWebSettingsConst").SettingsSteps.TaskbarNotificationSettings,

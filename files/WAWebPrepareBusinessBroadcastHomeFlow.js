@@ -2,7 +2,6 @@ __d(
   "WAWebPrepareBusinessBroadcastHomeFlow",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WAWebBizBroadcastDeviceCapabilityCommon",
     "WAWebBizBroadcastProOnboardingHistoryQuery",
@@ -14,10 +13,8 @@ __d(
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
     "WAWebRefreshBusinessEligibility",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
-    "react-compiler-runtime",
     "useWAWebBizBroadcastProEligibilityState",
   ],
   function (t, n, r, o, a, i, l) {
@@ -27,19 +24,18 @@ __d(
       u,
       c,
       d,
-      m,
-      p = m || (m = o("react")),
-      _ = r("JSResourceForInteraction")(
+      m = d || (d = o("react")),
+      p = r("JSResourceForInteraction")(
         "WAWebBusinessBroadcastHomeFlow.react",
       ).__setRef("WAWebPrepareBusinessBroadcastHomeFlow"),
-      f = r("JSResourceForInteraction")(
+      _ = r("JSResourceForInteraction")(
         "WAWebPrepareBusinessBroadcastProHomeFlow",
       ).__setRef("WAWebPrepareBusinessBroadcastHomeFlow"),
-      g = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield f.load();
+      f = r("WAWebLazyLoadedRetriable")(
+        async function () {
+          var e = await _.load();
           return e.WAWebPrepareBusinessBroadcastProHomeFlow;
-        }),
+        },
         "BusinessBroadcastProHomeFlow",
         {
           onFinalFailure: function (n) {
@@ -55,210 +51,148 @@ __d(
           },
         },
       ),
-      h = r("WAWebLoadable")({
-        loader: g,
+      g = r("WAWebLoadable")({
+        loader: f,
         loading: function (t) {
-          return p.jsx(r("WAWebLoadingDrawer.react"), {
+          return m.jsx(r("WAWebLoadingDrawer.react"), {
             error: !!t.error,
             retry: t.retry,
           });
         },
       });
-    function y() {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            (o(
+    async function h() {
+      try {
+        (o(
+          "WAWebBizBroadcastProOnboardingStatus",
+        ).isBizBroadcastProNuxOnboardingStatusResolved() ||
+          (await o(
+            "WAWebRefreshBusinessEligibility",
+          ).refreshBusinessEligibilityIfNeeded({
+            force: !1,
+            rethrowOnFailure: !0,
+          })),
+          o(
+            "WAWebBizBroadcastDeviceCapabilityCommon",
+          ).isBizBroadcastProEntrypointEnabledForStatus(
+            o(
               "WAWebBizBroadcastProOnboardingStatus",
-            ).isBizBroadcastProNuxOnboardingStatusResolved() ||
-              (yield o(
-                "WAWebRefreshBusinessEligibility",
-              ).refreshBusinessEligibilityIfNeeded({
-                force: !1,
-                rethrowOnFailure: !0,
-              })),
-              o(
-                "WAWebBizBroadcastDeviceCapabilityCommon",
-              ).isBizBroadcastProEntrypointEnabledForStatus(
-                o(
-                  "WAWebBizBroadcastProOnboardingStatus",
-                ).getBizBroadcastProNuxOnboardingStatus(),
-                !0,
-              ));
-          } catch (e) {
+            ).getBizBroadcastProNuxOnboardingStatus(),
+            !0,
+          ));
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "Failed to log BB Pro exposure",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("bb-pro-exposure-failed");
+      }
+    }
+    async function y() {
+      if (
+        (o(
+          "WAWebBizBroadcastDeviceCapabilityCommon",
+        ).isBizBroadcastProExperimentCandidate() && h(),
+        !o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProEnabled())
+      )
+        return (await p.load(), b);
+      var e = o(
+        "WAWebBizBroadcastProOnboardingStatus",
+      ).isBizBroadcastProNuxOnboardingStatusResolved();
+      if (e)
+        o("useWAWebBizBroadcastProEligibilityState")
+          .forceRefreshWAWebBizBroadcastProEligibility()
+          .catch(function (e) {
             o("WALogger")
               .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "Failed to log BB Pro exposure",
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "Failed to refresh resolved BB Home product tier",
                   ])),
               )
               .catching(r("getErrorSafe")(e))
-              .sendLogs("bb-pro-exposure-failed");
-          }
-        })),
-        C.apply(this, arguments)
-      );
+              .sendLogs("bb-home-tier-refresh-failed");
+          });
+      else
+        try {
+          await o(
+            "WAWebRefreshBusinessEligibility",
+          ).refreshBusinessEligibilityIfNeeded({
+            force: !1,
+            rethrowOnFailure: !0,
+          });
+        } catch (e) {
+          throw (
+            o("WALogger")
+              .ERROR(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "Failed to resolve BB Home product tier",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("bb-home-tier-resolution-failed"),
+            e
+          );
+        }
+      return o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProUser()
+        ? (await _.load(), b)
+        : (await Promise.all([p.load(), C()]), b);
     }
-    function b() {
-      return v.apply(this, arguments);
+    async function C() {
+      var e = o(
+        "WAWebBizBroadcastProOnboardingStatus",
+      ).getBizBroadcastProNuxOnboardingStatus();
+      e !==
+        o("WAWebBizBroadcastProOnboardingStatusType").BBProOnboardingStatus
+          .ELIGIBLE_TO_ONBOARD ||
+        !o(
+          "WAWebBizBroadcastDeviceCapabilityCommon",
+        ).isBizBroadcastProEntrypointEnabledForStatus(e) ||
+        o(
+          "WAWebBizBroadcastProOnboardingStatus",
+        ).getBizBroadcastProHasOnboardingHistory() != null ||
+        (await r("WAWebBizBroadcastProOnboardingHistoryQuery")());
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            (o(
-              "WAWebBizBroadcastDeviceCapabilityCommon",
-            ).isBizBroadcastProExperimentCandidate() && y(),
-            !o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProEnabled())
-          )
-            return (yield _.load(), L);
-          var e = o(
-            "WAWebBizBroadcastProOnboardingStatus",
-          ).isBizBroadcastProNuxOnboardingStatusResolved();
-          if (e)
-            o("useWAWebBizBroadcastProEligibilityState")
-              .forceRefreshWAWebBizBroadcastProEligibility()
-              .catch(function (e) {
-                o("WALogger")
-                  .ERROR(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "Failed to refresh resolved BB Home product tier",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("bb-home-tier-refresh-failed");
-              });
-          else
-            try {
-              yield o(
-                "WAWebRefreshBusinessEligibility",
-              ).refreshBusinessEligibilityIfNeeded({
-                force: !1,
-                rethrowOnFailure: !0,
-              });
-            } catch (e) {
-              throw (
-                o("WALogger")
-                  .ERROR(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "Failed to resolve BB Home product tier",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("bb-home-tier-resolution-failed"),
-                e
-              );
-            }
-          return o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProUser()
-            ? (yield f.load(), L)
-            : (yield (d || (d = n("Promise"))).all([_.load(), S()]), L);
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S() {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o(
-            "WAWebBizBroadcastProOnboardingStatus",
-          ).getBizBroadcastProNuxOnboardingStatus();
-          e !==
-            o("WAWebBizBroadcastProOnboardingStatusType").BBProOnboardingStatus
-              .ELIGIBLE_TO_ONBOARD ||
-            !o(
-              "WAWebBizBroadcastDeviceCapabilityCommon",
-            ).isBizBroadcastProEntrypointEnabledForStatus(e) ||
-            o(
-              "WAWebBizBroadcastProOnboardingStatus",
-            ).getBizBroadcastProHasOnboardingHistory() != null ||
-            (yield r("WAWebBizBroadcastProOnboardingHistoryQuery")());
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.entryPoint,
-        a = e.initialTab,
-        i = e.onClose,
-        l = e.openBroadcastSettings,
-        s = e.openContactImport,
-        u = e.openCustomerBasePanel,
-        c = e.openDataSharingPanel,
-        d = o(
+    function b(e) {
+      var t = e.entryPoint,
+        n = e.initialTab,
+        a = e.onClose,
+        i = e.openBroadcastSettings,
+        l = e.openContactImport,
+        s = e.openCustomerBasePanel,
+        u = e.openDataSharingPanel,
+        c = o(
           "useWAWebBizBroadcastProEligibilityState",
         ).useWAWebBizBroadcastProEligibilityState(),
-        m = d.onboardingStatus,
-        _;
-      t[0] !== n ||
-      t[1] !== a ||
-      t[2] !== i ||
-      t[3] !== l ||
-      t[4] !== s ||
-      t[5] !== u ||
-      t[6] !== c
-        ? ((_ = {
-            entryPoint: n,
-            initialTab: a,
-            onClose: i,
-            openBroadcastSettings: l,
-            openCustomerBasePanel: u,
-            openDataSharingPanel: c,
-            openContactImport: s,
-          }),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = i),
-          (t[3] = l),
-          (t[4] = s),
-          (t[5] = u),
-          (t[6] = c),
-          (t[7] = _))
-        : (_ = t[7]);
-      var f = _;
-      if (
-        o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProEnabled() &&
-        m == null
-      ) {
-        var g;
-        return (
-          t[8] === Symbol.for("react.memo_cache_sentinel")
-            ? ((g = p.jsx(r("WAWebLoadingDrawer.react"), { error: !1 })),
-              (t[8] = g))
-            : (g = t[8]),
-          g
-        );
-      }
-      var y;
-      return (
-        t[9] !== f
-          ? ((y =
-              o(
-                "WAWebBusinessBroadcastsGatingUtils",
-              ).isBizBroadcastProEnabled() &&
-              o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProUser()
-                ? p.jsx(h, babelHelpers.extends({}, f))
-                : p.jsx(
-                    o("WAWebBusinessBroadcastHomeFlowLoadable")
-                      .WAWebBusinessBroadcastCoreHomeFlowLoadable,
-                    babelHelpers.extends({}, f),
-                  )),
-            (t[9] = f),
-            (t[10] = y))
-          : (y = t[10]),
-        y
-      );
+        d = c.onboardingStatus,
+        p = {
+          entryPoint: t,
+          initialTab: n,
+          onClose: a,
+          openBroadcastSettings: i,
+          openCustomerBasePanel: s,
+          openDataSharingPanel: u,
+          openContactImport: l,
+        };
+      return o(
+        "WAWebBusinessBroadcastsGatingUtils",
+      ).isBizBroadcastProEnabled() && d == null
+        ? m.jsx(r("WAWebLoadingDrawer.react"), { error: !1 })
+        : o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProEnabled() &&
+            o("WAWebBusinessBroadcastsGatingUtils").isBizBroadcastProUser()
+          ? m.jsx(g, babelHelpers.extends({}, p))
+          : m.jsx(
+              o("WAWebBusinessBroadcastHomeFlowLoadable")
+                .WAWebBusinessBroadcastCoreHomeFlowLoadable,
+              babelHelpers.extends({}, p),
+            );
     }
-    l.loadBusinessBroadcastHomeFlow = b;
+    ((b.displayName = b.name + " [from " + i.id + "]"),
+      (l.loadBusinessBroadcastHomeFlow = y));
   },
   98,
 );

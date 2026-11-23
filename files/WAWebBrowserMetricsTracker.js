@@ -1,12 +1,6 @@
 __d(
   "WAWebBrowserMetricsTracker",
-  [
-    "WALogger",
-    "WAShiftTimer",
-    "WAWebAppTracker",
-    "WAWebWamMemoryStat",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAShiftTimer", "WAWebAppTracker", "WAWebWamMemoryStat"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -43,9 +37,9 @@ __d(
             (this.active = !1),
             (this.logTag = e));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.start = function () {
+          (n.start = function () {
             if (this.active) {
               o("WALogger").LOG(
                 e ||
@@ -80,23 +74,17 @@ __d(
               a,
             );
           }),
-          (r.stop = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              this.active &&
-                ((this.active = !1),
-                this.pressureObserverPromise != null &&
-                  (yield this.pressureObserverPromise,
-                  (this.pressureObserverPromise = null)),
-                this.stopPressureObserver(),
-                this.memoryTimer != null &&
-                  (this.memoryTimer.cancel(), (this.memoryTimer = null)));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.reset = function () {
+          (n.stop = async function () {
+            this.active &&
+              ((this.active = !1),
+              this.pressureObserverPromise != null &&
+                (await this.pressureObserverPromise,
+                (this.pressureObserverPromise = null)),
+              this.stopPressureObserver(),
+              this.memoryTimer != null &&
+                (this.memoryTimer.cancel(), (this.memoryTimer = null)));
+          }),
+          (n.reset = function () {
             var e = self.performance.now();
             for (var t of f) this.pressureTimeBuckets[t] = 0;
             ((this.pressureStartTime = e),
@@ -106,17 +94,17 @@ __d(
               (this.aggregatedUsedMb = 0),
               (this.memorySampleCount = 0));
           }),
-          (r.isActive = function () {
+          (n.isActive = function () {
             return this.active;
           }),
-          (r.getCapabilities = function () {
+          (n.getCapabilities = function () {
             return {
               browserCpuPressureSupported: this.canUsePressureObserver(),
               browserMemorySupported:
                 o("WAWebWamMemoryStat").isPerformanceMemoryApiSupported(),
             };
           }),
-          (r.sampleMemory = function () {
+          (n.sampleMemory = function () {
             var e = o("WAWebWamMemoryStat").readMemoryInfo();
             if (e != null) {
               var t = e.usedJsHeapSize;
@@ -135,7 +123,7 @@ __d(
                 (this.wasMemoryPressureHigh = n));
             }
           }),
-          (r.finalizePressurePcts = function () {
+          (n.finalizePressurePcts = function () {
             var e = self.performance.now();
             this.pressureTimeBuckets[this.currentPressureState] +=
               e - this.lastPressureChangeTime;
@@ -155,7 +143,7 @@ __d(
               criticalPct: Math.round((n.critical / t) * 100),
             };
           }),
-          (r.finalizeMemoryStats = function () {
+          (n.finalizeMemoryStats = function () {
             return this.memorySampleCount === 0
               ? {
                   avgUsedMb: null,
@@ -174,7 +162,7 @@ __d(
                   totalMb: this.lastTotalMb,
                 };
           }),
-          (r.canUsePressureObserver = function () {
+          (n.canUsePressureObserver = function () {
             var e;
             if (self.PressureObserver == null) return !1;
             var t =
@@ -185,7 +173,7 @@ __d(
               ? t.allowsFeature("compute-pressure")
               : !0;
           }),
-          (r.scheduleMemorySampling = function () {
+          (n.scheduleMemorySampling = function () {
             var e = this;
             ((this.memoryTimer = new (o("WAShiftTimer").ShiftTimer)(
               function () {
@@ -194,7 +182,7 @@ __d(
             )),
               this.memoryTimer.onOrAfter(m));
           }),
-          (r.onPressureChange = function (t) {
+          (n.onPressureChange = function (t) {
             var e = self.performance.now();
             ((this.pressureTimeBuckets[this.currentPressureState] +=
               e - this.lastPressureChangeTime),
@@ -208,63 +196,56 @@ __d(
               ),
               (this.wasCpuPressureHigh = n));
           }),
-          (r.startPressureObserver = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this,
-                t = self.PressureObserver;
-              if (!(t == null || !this.canUsePressureObserver()))
-                try {
-                  var n = new t(function (t) {
-                    for (var n of t) e.onPressureChange(n.state);
-                  });
-                  if (
-                    (yield n.observe("cpu", { sampleInterval: p }),
-                    !this.active)
-                  ) {
-                    (n.disconnect(),
-                      o("WALogger").LOG(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "",
-                            " PressureObserver started but already stopped, disconnecting",
-                          ])),
-                        this.logTag,
-                      ));
-                    return;
-                  }
-                  ((this.pressureObserver = n),
+          (n.startPressureObserver = async function () {
+            var e = this,
+              t = self.PressureObserver;
+            if (!(t == null || !this.canUsePressureObserver()))
+              try {
+                var n = new t(function (t) {
+                  for (var n of t) e.onPressureChange(n.state);
+                });
+                if (
+                  (await n.observe("cpu", { sampleInterval: p }), !this.active)
+                ) {
+                  (n.disconnect(),
                     o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
+                      u ||
+                        (u = babelHelpers.taggedTemplateLiteralLoose([
                           "",
-                          " PressureObserver started",
+                          " PressureObserver started but already stopped, disconnecting",
                         ])),
                       this.logTag,
                     ));
-                } catch (e) {
+                  return;
+                }
+                ((this.pressureObserver = n),
                   o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
                         "",
-                        " PressureObserver failed to start: ",
-                        "",
+                        " PressureObserver started",
                       ])),
                     this.logTag,
-                    e,
-                  );
-                }
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (r.stopPressureObserver = function () {
+                  ));
+              } catch (e) {
+                o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "",
+                      " PressureObserver failed to start: ",
+                      "",
+                    ])),
+                  this.logTag,
+                  e,
+                );
+              }
+          }),
+          (n.stopPressureObserver = function () {
             this.pressureObserver != null &&
               (this.pressureObserver.disconnect(),
               (this.pressureObserver = null));
           }),
-          (r.resetState = function () {
+          (n.resetState = function () {
             ((this.pressureObserver = null),
               (this.pressureObserverPromise = null),
               (this.pressureStartTime = 0),

@@ -44,46 +44,31 @@ __d(
         }),
       });
     function _() {
-      return s._(/*BTDS*/ "Orders tool is going away");
+      return s._(/*BTDS*/ "");
     }
     function f() {
-      return s._(
-        /*BTDS*/ "Orders will not be available starting {end_date}. Customers will still be able to send orders via chat.",
-        [s._param("end_date", L())],
-      );
+      return s._(/*BTDS*/ "", [s._param("end_date", L())]);
     }
     function g() {
-      return s._(/*BTDS*/ "Orders tool is gone");
+      return s._(/*BTDS*/ "");
     }
     function h() {
-      return s._(
-        /*BTDS*/ "Complete accepted orders by {end_date}. You can't accept new orders but you can still manage them in chat.",
-        [s._param("end_date", E(m))],
-      );
+      return s._(/*BTDS*/ "", [s._param("end_date", E(m))]);
     }
     function y() {
-      return s._(/*BTDS*/ "Charges function is going away");
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(
-        /*BTDS*/ "Charges will not be available starting {end_date}. Customers will still be able to send charges via chat.",
-        [s._param("end_date", L())],
-      );
+      return s._(/*BTDS*/ "", [s._param("end_date", L())]);
     }
     function b() {
-      return s._(
-        /*BTDS*/ "Charges function will not be available starting {end_date}. Customers will still be able to send charges via chat.",
-        [s._param("end_date", L())],
-      );
+      return s._(/*BTDS*/ "", [s._param("end_date", L())]);
     }
     function v() {
-      return s._(/*BTDS*/ "Charges function is gone");
+      return s._(/*BTDS*/ "");
     }
     function S(e) {
-      return s._(
-        /*BTDS*/ "Complete accepted charges by {complete_by_date}. You can't accept new charges but you can still manage them in chat.",
-        [s._param("complete_by_date", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("complete_by_date", e)]);
     }
     function R() {
       return S(E(m));

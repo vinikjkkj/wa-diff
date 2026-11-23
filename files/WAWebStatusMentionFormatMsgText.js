@@ -14,21 +14,16 @@ __d(
       var n = t.safe(),
         a = n.id.fromMe,
         i = n.subtype === "status_group_mention_message";
-      if (i)
-        return a
-          ? s._(/*BTDS*/ "\u0040 You mentioned this group.")
-          : s._(/*BTDS*/ "\u0040 This group was mentioned.");
+      if (i) return a ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
       if (a) {
         var l = o("WAWebContactCollection").ContactCollection.get(n.id.remote),
           u =
             (l == null ? void 0 : l.name) ||
             (l == null ? void 0 : l.pushname) ||
             "";
-        return s._(/*BTDS*/ "\u0040 You mentioned {name}", [
-          s._param("name", u),
-        ]);
+        return s._(/*BTDS*/ "", [s._param("name", u)]);
       }
-      return s._(/*BTDS*/ "\u0040 You were mentioned.");
+      return s._(/*BTDS*/ "");
     }
     l.default = e;
   },

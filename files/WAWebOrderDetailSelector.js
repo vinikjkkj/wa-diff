@@ -11,7 +11,6 @@ __d(
     "WDSFontTokenStyles",
     "WDSPaddings.stylex",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -43,146 +42,97 @@ __d(
         },
       };
     function p(t) {
-      var n = o("react-compiler-runtime").c(19),
-        a = t["aria-label"],
-        i = t.defaultIndex,
+      var n = t["aria-label"],
+        a = t.defaultIndex,
+        i = a === void 0 ? 0 : a,
         l = t.onChange,
         s = t.options,
-        p = i === void 0 ? 0 : i,
-        f = c(null),
-        g = f[0],
-        h = f[1],
-        y = c(!1),
-        C = y[0],
-        b = y[1],
-        v = c(p),
-        S = v[0],
-        R = v[1],
-        L;
-      if (n[0] !== l || n[1] !== s || n[2] !== S) {
-        var E;
-        (n[4] !== l || n[5] !== S
-          ? ((E = function (n, a) {
-              var t = n.id,
-                i = n.label;
-              return u.jsx(
-                o("WAWebDropdownItem.react").DropdownItem,
-                {
-                  testid: "mi-" + t,
-                  action: function () {
-                    (l(n), R(a));
+        p = c(null),
+        _ = p[0],
+        f = p[1],
+        g = c(!1),
+        h = g[0],
+        y = g[1],
+        C = c(i),
+        b = C[0],
+        v = C[1],
+        S = s.map(function (t, n) {
+          var a = t.id,
+            i = t.label;
+          return u.jsx(
+            o("WAWebDropdownItem.react").DropdownItem,
+            {
+              testid: "mi-" + a,
+              action: function () {
+                (l(t), v(n));
+              },
+              children: u.jsx(
+                "div",
+                babelHelpers.extends(
+                  {},
+                  (e || (e = r("stylex"))).props([
+                    m.option,
+                    o("WDSPaddings.stylex").wdsPaddings.paddingStart24,
+                    d.paddingTop13,
+                  ]),
+                  {
+                    role: "button",
+                    "aria-label": i,
+                    children:
+                      n === b
+                        ? u.jsx(
+                            "span",
+                            babelHelpers.extends(
+                              { "data-testid": "order-detail-selected-option" },
+                              (e || (e = r("stylex"))).props(
+                                o("WDSFontTokenStyles").WDSFontTokenStyles
+                                  .Body2Emphasized,
+                                o("WDSColorStyles.stylex").WDSColorStyles
+                                  .contentDefault,
+                              ),
+                              { children: i },
+                            ),
+                          )
+                        : i,
                   },
-                  children: u.jsx(
-                    "div",
-                    babelHelpers.extends(
-                      {},
-                      (e || (e = r("stylex"))).props([
-                        m.option,
-                        o("WDSPaddings.stylex").wdsPaddings.paddingStart24,
-                        d.paddingTop13,
-                      ]),
-                      {
-                        role: "button",
-                        "aria-label": i,
-                        children:
-                          a === S
-                            ? u.jsx(
-                                "span",
-                                babelHelpers.extends(
-                                  {
-                                    "data-testid":
-                                      "order-detail-selected-option",
-                                  },
-                                  (e || (e = r("stylex"))).props(
-                                    o("WDSFontTokenStyles").WDSFontTokenStyles
-                                      .Body2Emphasized,
-                                    o("WDSColorStyles.stylex").WDSColorStyles
-                                      .contentDefault,
-                                  ),
-                                  { children: i },
-                                ),
-                              )
-                            : i,
-                      },
-                    ),
-                  ),
-                },
-                t,
-              );
-            }),
-            (n[4] = l),
-            (n[5] = S),
-            (n[6] = E))
-          : (E = n[6]),
-          (L = s.map(E)),
-          (n[0] = l),
-          (n[1] = s),
-          (n[2] = S),
-          (n[3] = L));
-      } else L = n[3];
-      var k = L,
-        I;
-      n[7] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = r("WAWebL10N").isRTL() && m.chipButtonRTL), (n[7] = I))
-        : (I = n[7]);
-      var T = s[S],
-        D;
-      n[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((D = function () {
-            return b(_);
-          }),
-          (n[8] = D))
-        : (D = n[8]);
-      var x;
-      n[9] !== a || n[10] !== T.value
-        ? ((x = u.jsx(r("WAWebChipButton.react"), {
-            xstyle: I,
-            "aria-label": a,
+                ),
+              ),
+            },
+            a,
+          );
+        });
+      return u.jsxs("div", {
+        ref: f,
+        children: [
+          u.jsx(r("WAWebChipButton.react"), {
+            xstyle: r("WAWebL10N").isRTL() && m.chipButtonRTL,
+            "aria-label": n,
             PostfixIcon: o("WAWebChevronCustomIcons").ChevronDownCustomIcon,
-            label: T.value,
-            onClick: D,
-          })),
-          (n[9] = a),
-          (n[10] = T.value),
-          (n[11] = x))
-        : (x = n[11]);
-      var $;
-      n[12] !== g || n[13] !== k || n[14] !== C
-        ? (($ =
-            C &&
-            g != null &&
+            label: s[b].value,
+            onClick: function () {
+              return y(function (e) {
+                return !e;
+              });
+            },
+          }),
+          h &&
+            _ != null &&
             u.jsx(o("WAWebUimUie.react").UIE, {
               displayName: "ValuePicker",
               escapable: !0,
               popable: !0,
               dismissOnWindowResize: !0,
               requestDismiss: function () {
-                return b(!1);
+                return y(!1);
               },
               children: u.jsx(r("WAWebUimUieMenu.react"), {
-                contextMenu: { anchor: g, menu: k },
+                contextMenu: { anchor: _, menu: S },
               }),
-            })),
-          (n[12] = g),
-          (n[13] = k),
-          (n[14] = C),
-          (n[15] = $))
-        : ($ = n[15]);
-      var P;
-      return (
-        n[16] !== x || n[17] !== $
-          ? ((P = u.jsxs("div", { ref: h, children: [x, $] })),
-            (n[16] = x),
-            (n[17] = $),
-            (n[18] = P))
-          : (P = n[18]),
-        P
-      );
+            }),
+        ],
+      });
     }
-    function _(e) {
-      return !e;
-    }
-    l.default = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = p));
   },
   98,
 );

@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAPromiseTimeout",
     "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,41 +16,33 @@ __d(
           .__setRef("WAWebMediaSendMetadataWriterLoadable")
           .load();
       }, "WAWebMediaSendMetadataWriter");
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.isChannel,
-            a = t.media,
-            i = t.resolveSystemProvenance;
-          if (!n) return a;
-          var l;
-          try {
-            l = yield o("WAPromiseTimeout").promiseTimeout(u(), s);
-          } catch (t) {
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[media-sgi] provenance marker not written: metadata writer failed to load",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("media-sgi-provenance-marker-failed"),
-              a
-            );
-          }
-          return l.writeMediaMetadataForSend({
-            isChannel: n,
-            media: a,
-            resolveSystemProvenance: i,
-          });
-        })),
-        d.apply(this, arguments)
-      );
+    async function c(t) {
+      var n = t.isChannel,
+        a = t.media,
+        i = t.resolveSystemProvenance;
+      if (!n) return a;
+      var l;
+      try {
+        l = await o("WAPromiseTimeout").promiseTimeout(u(), s);
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[media-sgi] provenance marker not written: metadata writer failed to load",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("media-sgi-provenance-marker-failed"),
+          a
+        );
+      }
+      return l.writeMediaMetadataForSend({
+        isChannel: n,
+        media: a,
+        resolveSystemProvenance: i,
+      });
     }
     ((l.WRITER_LOAD_DEADLINE_MS = s), (l.writeMediaMetadataForSend = c));
   },

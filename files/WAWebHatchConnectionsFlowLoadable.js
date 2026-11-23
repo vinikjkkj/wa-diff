@@ -4,7 +4,6 @@ __d(
     "JSResourceForInteraction",
     "WAWebHatchLoadingDrawer.react",
     "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
     "react",
     "react-loadable",
   ],
@@ -12,17 +11,14 @@ __d(
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebHatchConnectionsFlow.react",
-          )
-            .__setRef("WAWebHatchConnectionsFlowLoadable")
-            .load();
-          return e;
-        }),
-        "WAWebHatchConnectionsFlow",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebHatchConnectionsFlow.react",
+        )
+          .__setRef("WAWebHatchConnectionsFlowLoadable")
+          .load();
+        return e;
+      }, "WAWebHatchConnectionsFlow"),
       c = r("react-loadable")({
         loader: u,
         loading: function (t) {

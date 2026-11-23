@@ -13,7 +13,6 @@ __d(
     "WAWebLabyrinthParseBinary",
     "WAWebLabyrinthParseEpochAnonId",
     "WAWebRelayClient",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,43 +25,35 @@ __d(
           ? e
           : (e = n("WAWebDebugLabyrinthRestorePageJobQuery.graphql")),
       d = { epochEdges: [], messages: [], nextCursor: null };
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = {
-              after: e.after,
-              device_id: e.ebDeviceId,
-              locally_available_epoch_ids: [e.locallyAvailableEpochId],
-              message_count: s,
-              partial_thread_id: o("WABase64").encodeB64(e.partialThreadId),
-            },
-            n;
-          try {
-            n = yield o("WAWebRelayClient").fetchQuery(c, t, {
-              environment: e.environment,
-              environmentType: "whatsapp_web",
-              fetchPolicy: "network-only",
-              networkCacheConfig: { force: !0 },
+    async function m(e) {
+      var t = {
+          after: e.after,
+          device_id: e.ebDeviceId,
+          locally_available_epoch_ids: [e.locallyAvailableEpochId],
+          message_count: s,
+          partial_thread_id: o("WABase64").encodeB64(e.partialThreadId),
+        },
+        n;
+      try {
+        n = await o("WAWebRelayClient").fetchQuery(c, t, {
+          environment: e.environment,
+          environmentType: "whatsapp_web",
+          fetchPolicy: "network-only",
+          networkCacheConfig: { force: !0 },
+        });
+      } catch (e) {
+        return h(e)
+          ? o("WAResultOrError").makeResult(d)
+          : o("WAResultOrError").makeError({
+              error: r("getErrorSafe")(e),
+              kind: "network-error",
             });
-          } catch (e) {
-            return y(e)
-              ? o("WAResultOrError").makeResult(d)
-              : o("WAResultOrError").makeError({
-                  error: r("getErrorSafe")(e),
-                  kind: "network-error",
-                });
-          }
-          return n == null
-            ? o("WAResultOrError").makeError({ kind: "empty-response" })
-            : _(n);
-        })),
-        p.apply(this, arguments)
-      );
+      }
+      return n == null
+        ? o("WAResultOrError").makeError({ kind: "empty-response" })
+        : p(n);
     }
-    function _(e) {
+    function p(e) {
       var t = e.get_WAMessagingViewerThreadByORF;
       if (t == null) return o("WAResultOrError").makeResult(d);
       var n = t.messages;
@@ -93,12 +84,12 @@ __d(
       for (var s of n.edges.entries()) {
         var u = s[0],
           c = s[1],
-          m = f(c, u);
+          m = _(c, u);
         if (!m.success) return m;
         l.push(m.value);
       }
       return o("WAResultOrError").makeResult({
-        epochEdges: n.epoch_derivation_set.map(g),
+        epochEdges: n.epoch_derivation_set.map(f),
         messages: l,
         nextCursor:
           i && a != null
@@ -106,7 +97,7 @@ __d(
             : null,
       });
     }
-    function f(e, t) {
+    function _(e, t) {
       var n = e.node;
       if (n == null)
         return o("WAResultOrError").makeError({
@@ -143,7 +134,7 @@ __d(
         timestampMs: o("WATimeUtils").decimalStringToMillisTime(n.timestamp_ms),
       });
     }
-    function g(e) {
+    function f(e) {
       var t = e.backward_edge,
         n = e.forward_edge,
         r = e.from_epoch,
@@ -171,11 +162,11 @@ __d(
                   "WAWebDecodeLabyrinthEncryptedEntropy",
                 ).decodeLabyrinthEncryptedEntropy(n.encrypted_entropy),
               },
-        fromEpoch: h(r),
-        toEpoch: h(a),
+        fromEpoch: g(r),
+        toEpoch: g(a),
       };
     }
-    function h(e) {
+    function g(e) {
       return e == null
         ? null
         : {
@@ -188,7 +179,7 @@ __d(
                 : o("WAWebLabyrinthOpaqueTypes").makeEpochId(e.epoch_id),
           };
     }
-    function y(e) {
+    function h(e) {
       return (
         e instanceof o("WAWebGraphQLServerError").GraphQLServerError &&
         e.source.errors.some(function (e) {

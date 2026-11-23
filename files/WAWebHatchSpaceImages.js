@@ -1,11 +1,6 @@
 __d(
   "WAWebHatchSpaceImages",
-  [
-    "WALruCache",
-    "WAWebHatchSpaceImageLoader",
-    "WAWebHatchVmTransport",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALruCache", "WAWebHatchSpaceImageLoader", "WAWebHatchVmTransport"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 4,
@@ -20,10 +15,10 @@ __d(
           return t.bytes;
         },
         onEvict: function (t, n) {
-          (m.delete(n.route), M(n), (p = !0));
+          (m.delete(n.route), $(n), (p = !0));
         },
         onPurge: function () {
-          p && ((p = !1), A());
+          p && ((p = !1), N());
         },
         shouldEvict: function (t, n) {
           return n.refs === 0;
@@ -61,8 +56,8 @@ __d(
     }
     function S() {
       (y++, (g = []));
-      for (var e of m.values()) (e.refs === 0 && M(e), w(e));
-      (m.clear(), _.clear(), A());
+      for (var e of m.values()) (e.refs === 0 && $(e), P(e));
+      (m.clear(), _.clear(), N());
     }
     function R(e) {
       var t = {
@@ -78,10 +73,10 @@ __d(
     function L(e) {
       if ((e.refs--, !(e.refs > 0))) {
         if (e.generation !== y) {
-          M(e);
+          $(e);
           return;
         }
-        (N(e), e.image.kind === "ready" && _.schedulePurge());
+        (x(e), e.image.kind === "ready" && _.schedulePurge());
       }
     }
     function E() {
@@ -94,7 +89,7 @@ __d(
               : (h++,
                 k(e)
                   .catch(function () {
-                    e.generation === y && P(e, d);
+                    e.generation === y && D(e, d);
                   })
                   .finally(function () {
                     (h--, E());
@@ -105,79 +100,52 @@ __d(
       )
         if (((n = t()), n)) return n.v;
     }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebHatchSpaceImageLoader").loadHatchSpaceImage(
-            e.route,
-          );
-          e.generation === y &&
-            (t.kind === "failed"
-              ? P(e, t.permanent ? c : d)
-              : yield T(e, t.bytes, t.mimetype));
-        })),
-        I.apply(this, arguments)
+    async function k(e) {
+      var t = await o("WAWebHatchSpaceImageLoader").loadHatchSpaceImage(
+        e.route,
       );
+      e.generation === y &&
+        (t.kind === "failed"
+          ? D(e, t.permanent ? c : d)
+          : await I(e, t.bytes, t.mimetype));
     }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
+    async function I(e, t, n) {
+      var r = window.URL.createObjectURL(new Blob([t], { type: n }));
+      e.decodingUrl = r;
+      var a = await T(r),
+        i = e.decodingUrl === r;
+      if (((e.decodingUrl = null), e.generation === y && a)) {
+        ((e.bytes = t.byteLength),
+          D(e, { kind: "ready", url: r }),
+          _.put(o("WAWebHatchVmTransport").serializeJarvisPath(e.route), e));
+        return;
+      }
+      (i && window.URL.revokeObjectURL(r), e.generation === y && D(e, c));
     }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = window.URL.createObjectURL(new Blob([t], { type: n }));
-          e.decodingUrl = r;
-          var a = yield x(r),
-            i = e.decodingUrl === r;
-          if (((e.decodingUrl = null), e.generation === y && a)) {
-            ((e.bytes = t.byteLength),
-              P(e, { kind: "ready", url: r }),
-              _.put(
-                o("WAWebHatchVmTransport").serializeJarvisPath(e.route),
-                e,
-              ));
-            return;
-          }
-          (i && window.URL.revokeObjectURL(r), e.generation === y && P(e, c));
-        })),
-        D.apply(this, arguments)
-      );
+    async function T(e) {
+      var t = new Image();
+      t.src = e;
+      try {
+        return (await t.decode(), !0);
+      } catch (e) {
+        return !1;
+      }
+    }
+    function D(e, t) {
+      ((e.image = t), x(e), N());
     }
     function x(e) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Image();
-          t.src = e;
-          try {
-            return (yield t.decode(), !0);
-          } catch (e) {
-            return !1;
-          }
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e, t) {
-      ((e.image = t), N(e), A());
-    }
-    function N(e) {
       e.refs === 0 && e.image === d && m.delete(e.route);
     }
-    function M(e) {
+    function $(e) {
       var t = e.image;
       t.kind === "ready" && window.URL.revokeObjectURL(t.url);
     }
-    function w(e) {
+    function P(e) {
       e.decodingUrl != null &&
         (window.URL.revokeObjectURL(e.decodingUrl), (e.decodingUrl = null));
     }
-    function A() {
+    function N() {
       for (var e of Array.from(f)) {
         var t = e.listener;
         t();

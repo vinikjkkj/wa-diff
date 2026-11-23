@@ -17,54 +17,42 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = g(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success)
-            return {
-              name: "UpdateOptOutListResponseSuccessWithMatch",
-              value: a.value,
-            };
-          var i = _(r, n);
-          if (i.success)
-            return {
-              name: "UpdateOptOutListResponseSuccessWithMismatch",
-              value: i.value,
-            };
-          var l = u(r, n);
-          if (l.success)
-            return {
-              name: "UpdateOptOutListResponseInvalidRequest",
-              value: l.value,
-            };
-          var s = c(r, n);
-          if (s.success)
-            return {
-              name: "UpdateOptOutListResponseServerError",
-              value: s.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("UpdateOptOutList", {
-              SuccessWithMatch: a,
-              SuccessWithMismatch: i,
-              InvalidRequest: l,
-              ServerError: s,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = f(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success)
+        return {
+          name: "UpdateOptOutListResponseSuccessWithMatch",
+          value: a.value,
+        };
+      var i = p(r, n);
+      if (i.success)
+        return {
+          name: "UpdateOptOutListResponseSuccessWithMismatch",
+          value: i.value,
+        };
+      var l = s(r, n);
+      if (l.success)
+        return {
+          name: "UpdateOptOutListResponseInvalidRequest",
+          value: l.value,
+        };
+      var c = u(r, n);
+      if (c.success)
+        return { name: "UpdateOptOutListResponseServerError", value: c.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("UpdateOptOutList", {
+          SuccessWithMatch: a,
+          SuccessWithMismatch: i,
+          InvalidRequest: l,
+          ServerError: c,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -73,7 +61,7 @@ __d(
         "WASmaxInBlocklistsIQErrorResponseMixin",
       ).parseIQErrorResponseMixin(e, t);
       if (!a.success) return a;
-      var i = f(r.value);
+      var i = _(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -82,7 +70,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -98,7 +86,7 @@ __d(
           )
         : i;
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o(
@@ -106,12 +94,12 @@ __d(
       ).parseBizOptOutResponseMixin(e);
       return (n.success, n);
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "item", d);
+      var a = o("WASmaxParseUtils").optionalChildWithTag(r.value, "item", c);
       if (!a.success) return a;
       var i = o("WASmaxParseReference").attrStringFromReference(t, ["to"]);
       if (!i.success) return i;
@@ -131,13 +119,13 @@ __d(
       if (!s.success) return s;
       var u = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
       if (!u.success) return u;
-      var c = o("WASmaxParseUtils").literal(
+      var d = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
         e,
         "id",
         u.value,
       );
-      if (!c.success) return c;
+      if (!d.success) return d;
       var m = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
         r.value,
@@ -155,7 +143,7 @@ __d(
           })
         : p;
     }
-    function p(e) {
+    function m(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o(
@@ -163,7 +151,7 @@ __d(
       ).parseBizOptOutResponseMixin(e);
       return (n.success, n);
     }
-    function _(e, t) {
+    function p(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
@@ -205,13 +193,13 @@ __d(
         "dhash",
       ]);
       if (!d.success) return d;
-      var m = o("WASmaxParseUtils").optionalLiteral(
+      var p = o("WASmaxParseUtils").optionalLiteral(
         o("WASmaxParseUtils").attrString,
         r.value,
         "c_dhash",
         d.value,
       );
-      if (!m.success) return m;
+      if (!p.success) return p;
       var _ = o("WASmaxParseUtils").attrString(r.value, "dhash");
       if (!_.success) return _;
       var f = o("WASmaxParseUtils").optionalLiteral(
@@ -226,20 +214,20 @@ __d(
         "item",
         0,
         64e3,
-        p,
+        m,
       );
       return g.success
         ? o("WAResultOrError").makeResult({
             type: l.value,
             listMatched: c.value,
-            hasListCDhash: m.value != null,
+            hasListCDhash: p.value != null,
             listDhash: _.value,
             listAddressingMode: f.value,
             listItem: g.value,
           })
         : g;
     }
-    function f(e) {
+    function _(e) {
       var t = o(
         "WASmaxInBlocklistsIQErrorNotAcceptableMixin",
       ).parseIQErrorNotAcceptableMixin(e);
@@ -283,7 +271,7 @@ __d(
             [t, n, r, a],
           );
     }
-    function g(e) {
+    function f(e) {
       var t,
         n,
         r = e.itemJid,
@@ -316,11 +304,11 @@ __d(
       return m;
     }
     ((l.sendUpdateOptOutListRPC = e),
-      (l.parseUpdateOptOutListResponseInvalidRequest = u),
-      (l.parseUpdateOptOutListResponseServerError = c),
-      (l.parseUpdateOptOutListResponseSuccessWithMatch = m),
-      (l.parseUpdateOptOutListResponseSuccessWithMismatch = _),
-      (l.makeUpdateOptOutListRequest = g));
+      (l.parseUpdateOptOutListResponseInvalidRequest = s),
+      (l.parseUpdateOptOutListResponseServerError = u),
+      (l.parseUpdateOptOutListResponseSuccessWithMatch = d),
+      (l.parseUpdateOptOutListResponseSuccessWithMismatch = p),
+      (l.makeUpdateOptOutListRequest = f));
   },
   98,
 );

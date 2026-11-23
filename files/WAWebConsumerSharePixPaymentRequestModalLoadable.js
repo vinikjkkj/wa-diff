@@ -5,24 +5,20 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingModal.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebSendPixPaymentRequestHybridModal.react",
-          )
-            .__setRef("WAWebConsumerSharePixPaymentRequestModalLoadable")
-            .load();
-          return e.WAWebSendPixPaymentRequestHybridModal;
-        }),
-        "WAWebSendPixPaymentRequestHybridModal",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebSendPixPaymentRequestHybridModal.react",
+        )
+          .__setRef("WAWebConsumerSharePixPaymentRequestModalLoadable")
+          .load();
+        return e.WAWebSendPixPaymentRequestHybridModal;
+      }, "WAWebSendPixPaymentRequestHybridModal"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

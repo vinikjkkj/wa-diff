@@ -1,6 +1,6 @@
 __d(
   "WADanglingQueue",
-  ["WALogger", "WAPersistedQueue", "asyncToGeneratorRuntime", "err"],
+  ["WALogger", "WAPersistedQueue", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -37,19 +37,11 @@ __d(
     function _(e) {
       u.push(e);
     }
-    function f() {
-      return g.apply(this, arguments);
+    async function f() {
+      var e = u;
+      ((u = []), await d().addAndCommit(e));
     }
     function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = u;
-          ((u = []), yield d().addAndCommit(e));
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h() {
       return d().clear();
     }
     ((l.initDanglingQueue = c),
@@ -57,7 +49,7 @@ __d(
       (l.danglingQueueRead = p),
       (l.danglingQueueAdd = _),
       (l.danglingQueueCommit = f),
-      (l.danglingQueueClear = h));
+      (l.danglingQueueClear = g));
   },
   98,
 );

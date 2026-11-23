@@ -27,14 +27,10 @@ __d(
           .then(function (e) {
             e
               ? o("WAWebToastManager").ToastManager.open(
-                  p.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Link copied to clipboard"),
-                  }),
+                  p.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
                 )
               : o("WAWebToastManager").ToastManager.open(
-                  p.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(/*BTDS*/ "Couldn't copy to clipboard"),
-                  }),
+                  p.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
                 );
           })
           .catch(function () {
@@ -114,9 +110,7 @@ __d(
         .then(function (e) {
           e
             ? o("WAWebToastManager").ToastManager.open(
-                p.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(/*BTDS*/ "Embed code copied to clipboard"),
-                }),
+                p.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
               )
             : b();
         })
@@ -136,9 +130,7 @@ __d(
     }
     function b() {
       o("WAWebToastManager").ToastManager.open(
-        p.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Couldn't copy to clipboard"),
-        }),
+        p.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     ((l.handleNewsletterMessageLinkCopyClick = _),

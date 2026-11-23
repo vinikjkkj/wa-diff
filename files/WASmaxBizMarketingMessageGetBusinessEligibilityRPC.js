@@ -12,47 +12,35 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = E(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = g(r, n);
-          if (a.success)
-            return {
-              name: "GetBusinessEligibilityResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "GetBusinessEligibilityResponseError",
-              value: i.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "GetBusinessEligibility",
-              { Success: a, Error: i },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = L(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = f(r, n);
+      if (a.success)
+        return {
+          name: "GetBusinessEligibilityResponseSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "GetBusinessEligibilityResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetBusinessEligibility", {
+          Success: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
       if (!r.success) return r;
-      var a = h(e, t);
+      var a = g(e, t);
       if (!a.success) return a;
-      var i = C(r.value);
+      var i = y(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -62,16 +50,16 @@ __d(
           )
         : i;
     }
-    function c(e) {
+    function u(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "meta_verified");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", $);
+      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", x);
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrStringEnum,
         e,
         "should_show_privacy_interstitial_to_new_users",
-        P,
+        $,
       );
       if (!r.success) return r;
       var a = o("WASmaxParseUtils").optional(
@@ -87,10 +75,10 @@ __d(
           })
         : a;
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "marketing_messages");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", x);
+      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", D);
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrIntRange,
@@ -106,16 +94,16 @@ __d(
           })
         : r;
     }
-    function m(e) {
+    function d(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "genai");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", $);
+      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", x);
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrStringEnum,
         e,
         "v1_enabled",
-        P,
+        $,
       );
       return r.success
         ? o("WAResultOrError").makeResult({
@@ -124,31 +112,31 @@ __d(
           })
         : r;
     }
-    function p(e) {
+    function m(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "genai_image");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", $);
+      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", x);
       return n.success
         ? o("WAResultOrError").makeResult({ status: n.value })
         : n;
     }
-    function _(e) {
+    function p(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "meta_one");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", $);
+      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", x);
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrStringEnum,
         e,
         "skip_pi",
-        P,
+        $,
       );
       if (!r.success) return r;
       var a = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrStringEnum,
         e,
         "verification_eligibility",
-        T,
+        I,
       );
       return a.success
         ? o("WAResultOrError").makeResult({
@@ -158,34 +146,34 @@ __d(
           })
         : a;
     }
-    function f(e) {
+    function _(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "bb_pro");
       if (!t.success) return t;
-      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", D);
+      var n = o("WASmaxParseUtils").attrStringEnum(e, "status", T);
       return n.success
         ? o("WAResultOrError").makeResult({ status: n.value })
         : n;
     }
-    function g(e, t) {
+    function f(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
-      var r = o("WASmaxParseUtils").optionalChildWithTag(e, "meta_verified", c);
+      var r = o("WASmaxParseUtils").optionalChildWithTag(e, "meta_verified", u);
       if (!r.success) return r;
       var a = o("WASmaxParseUtils").optionalChildWithTag(
         e,
         "marketing_messages",
-        d,
+        c,
       );
       if (!a.success) return a;
-      var i = o("WASmaxParseUtils").optionalChildWithTag(e, "genai", m);
+      var i = o("WASmaxParseUtils").optionalChildWithTag(e, "genai", d);
       if (!i.success) return i;
-      var l = o("WASmaxParseUtils").optionalChildWithTag(e, "genai_image", p);
+      var l = o("WASmaxParseUtils").optionalChildWithTag(e, "genai_image", m);
       if (!l.success) return l;
-      var s = o("WASmaxParseUtils").optionalChildWithTag(e, "meta_one", _);
+      var s = o("WASmaxParseUtils").optionalChildWithTag(e, "meta_one", p);
       if (!s.success) return s;
-      var u = o("WASmaxParseUtils").optionalChildWithTag(e, "bb_pro", f);
-      if (!u.success) return u;
-      var g = y(e, t);
+      var f = o("WASmaxParseUtils").optionalChildWithTag(e, "bb_pro", _);
+      if (!f.success) return f;
+      var g = h(e, t);
       return g.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, g.value, {
@@ -194,10 +182,26 @@ __d(
               genai: i.value,
               genaiImage: l.value,
               metaOne: s.value,
-              bbPro: u.value,
+              bbPro: f.value,
             }),
           )
         : g;
+    }
+    function g(e, t) {
+      var n = o("WASmaxParseUtils").assertTag(e, "iq");
+      if (!n.success) return n;
+      var r = o("WASmaxParseUtils").optional(
+        o("WASmaxParseJid").attrUserJid,
+        e,
+        "to",
+      );
+      if (!r.success) return r;
+      var a = v(e, t);
+      return a.success
+        ? o("WAResultOrError").makeResult(
+            babelHelpers.extends({ to: r.value }, a.value),
+          )
+        : a;
     }
     function h(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
@@ -208,49 +212,33 @@ __d(
         "to",
       );
       if (!r.success) return r;
-      var a = S(e, t);
+      var a = R(e, t);
       return a.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({ to: r.value }, a.value),
           )
         : a;
     }
-    function y(e, t) {
-      var n = o("WASmaxParseUtils").assertTag(e, "iq");
-      if (!n.success) return n;
-      var r = o("WASmaxParseUtils").optional(
-        o("WASmaxParseJid").attrUserJid,
-        e,
-        "to",
-      );
-      if (!r.success) return r;
-      var a = L(e, t);
-      return a.success
-        ? o("WAResultOrError").makeResult(
-            babelHelpers.extends({ to: r.value }, a.value),
-          )
-        : a;
-    }
-    function C(e) {
-      var t = N(e);
+    function y(e) {
+      var t = P(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorBadRequest",
           value: t.value,
         });
-      var n = b(e);
+      var n = C(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorForbidden",
           value: n.value,
         });
-      var r = v(e);
+      var r = b(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorInternalServerError",
           value: r.value,
         });
-      var a = R(e);
+      var a = S(e);
       return a.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorServiceUnavailable",
@@ -267,7 +255,7 @@ __d(
             [t, n, r, a],
           );
     }
-    function b(e) {
+    function C(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -287,7 +275,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function v(e) {
+    function b(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -307,7 +295,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function S(e, t) {
+    function v(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -336,7 +324,7 @@ __d(
       );
       return s.success ? o("WAResultOrError").makeResult({ type: s.value }) : s;
     }
-    function R(e) {
+    function S(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -356,7 +344,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function L(e, t) {
+    function R(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -385,7 +373,7 @@ __d(
       );
       return s.success ? o("WAResultOrError").makeResult({ type: s.value }) : s;
     }
-    function E(e) {
+    function L(e) {
       var t,
         n,
         r = e.featuresMetaVerified,
@@ -394,7 +382,7 @@ __d(
         l = e.featuresGenaiImage,
         s = e.featuresMetaOne,
         u = e.featuresBbPro,
-        c = I(
+        c = k(
           o("WASmaxJsx").smax(
             "iq",
             { xmlns: "w:biz", smax_id: (t = o("WAWap")).INT(139) },
@@ -414,9 +402,9 @@ __d(
         );
       return c;
     }
-    function k(e) {
+    function E(e) {
       var t = e.iqFrom,
-        n = w(
+        n = M(
           o("WASmaxJsx").smax("iq", {
             from: o("WASmaxAttrs").OPTIONAL(o("WAWap").USER_JID, t),
             to: o("WAWap").S_WHATSAPP_NET,
@@ -424,25 +412,25 @@ __d(
         );
       return n;
     }
-    function I(e, t) {
-      var n = k(t);
+    function k(e, t) {
+      var n = E(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    var T = { EBV: "EBV", NONE: "NONE", SBV: "SBV" },
-      D = {
+    var I = { EBV: "EBV", NONE: "NONE", SBV: "SBV" },
+      T = {
         ELIGIBLE_TO_ONBOARD: "ELIGIBLE_TO_ONBOARD",
         NOT_ELIGIBLE: "NOT_ELIGIBLE",
         ONBOARDED: "ONBOARDED",
       },
-      x = {
+      D = {
         FAIL: "FAIL",
         PAUSED: "PAUSED",
         SUCCESS: "SUCCESS",
         WARNING: "WARNING",
       },
-      $ = { FAIL: "FAIL", SUCCESS: "SUCCESS" },
-      P = { false: "false", true: "true" };
-    function N(e) {
+      x = { FAIL: "FAIL", SUCCESS: "SUCCESS" },
+      $ = { false: "false", true: "true" };
+    function P(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -462,26 +450,26 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function M() {
+    function N() {
       var e = o("WASmaxJsx").smax("iq", {
         id: o("WAWap").generateId(),
         type: "get",
       });
       return e;
     }
-    function w(e) {
-      var t = M();
+    function M(e) {
+      var t = N();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
     ((l.sendGetBusinessEligibilityRPC = e),
-      (l.parseGetBusinessEligibilityResponseError = u),
-      (l.parseGetBusinessEligibilityResponseSuccess = g),
-      (l.makeGetBusinessEligibilityRequest = E),
-      (l.ENUM_EBV_NONE_SBV = T),
-      (l.ENUM_ELIGIBLETOONBOARD_NOTELIGIBLE_ONBOARDED = D),
-      (l.ENUM_FAIL_PAUSED_SUCCESS_WARNING = x),
-      (l.ENUM_FAIL_SUCCESS = $),
-      (l.ENUM_FALSE_TRUE = P));
+      (l.parseGetBusinessEligibilityResponseError = s),
+      (l.parseGetBusinessEligibilityResponseSuccess = f),
+      (l.makeGetBusinessEligibilityRequest = L),
+      (l.ENUM_EBV_NONE_SBV = I),
+      (l.ENUM_ELIGIBLETOONBOARD_NOTELIGIBLE_ONBOARDED = T),
+      (l.ENUM_FAIL_PAUSED_SUCCESS_WARNING = D),
+      (l.ENUM_FAIL_SUCCESS = x),
+      (l.ENUM_FALSE_TRUE = $));
   },
   98,
 );

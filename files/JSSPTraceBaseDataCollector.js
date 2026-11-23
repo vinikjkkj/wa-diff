@@ -1,48 +1,24 @@
 __d(
   "JSSPTraceBaseDataCollector",
-  ["FBLogger", "asyncToGeneratorRuntime"],
+  ["FBLogger"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function () {
       function e() {}
       var t = e.prototype;
       return (
-        (t.onProfilerStarts = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              t === void 0 && (t = null);
-            },
+        (t.onProfilerStarts = async function (t, n) {
+          n === void 0 && (n = null);
+        }),
+        (t.onProfilerEnds = async function (t, n, o, a) {
+          return (
+            r("FBLogger")("JSSelfProfiler").warn(
+              "JSSP base data collector onProfilerEnds should be overridden.",
+            ),
+            o
           );
-          function t(t, n) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (t.onProfilerEnds = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n, o) {
-              return (
-                r("FBLogger")("JSSelfProfiler").warn(
-                  "JSSP base data collector onProfilerEnds should be overridden.",
-                ),
-                n
-              );
-            },
-          );
-          function t(t, n, r, o) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (t.onProfilerAborts = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {},
-          );
-          function t(t, n) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        }),
+        (t.onProfilerAborts = async function (t, n) {}),
         e
       );
     })();

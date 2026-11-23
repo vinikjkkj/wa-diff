@@ -4,29 +4,20 @@ __d(
     "WAWebWamEnumLogType",
     "WAWebWamRuntimeProvider",
     "WAWebWebcMinorEventLogWamEvent",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      var t = o("WAWebWamRuntimeProvider").getWamRuntime();
+      if (t == null) return !1;
+      var n = u(e);
+      return (n.runPreCommitValidation(), await t.commit(n, !1), !0);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebWamRuntimeProvider").getWamRuntime();
-          if (t == null) return !1;
-          var n = c(e);
-          return (n.runPreCommitValidation(), yield t.commit(n, !1), !0);
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(t) {
+    function s(t) {
       var n = t.count,
         r = t.metric;
       return e({ count: n, metric: r, realm: "dedicated" });
     }
-    function c(e) {
+    function u(e) {
       var t = e.count,
         n = e.metric,
         r = e.realm;
@@ -40,8 +31,8 @@ __d(
       });
     }
     ((l.commitSuspiciousLinkMetric = e),
-      (l.commitDedicatedSuspiciousLinkMetric = u),
-      (l.createSuspiciousLinkMetricEvent = c));
+      (l.commitDedicatedSuspiciousLinkMetric = s),
+      (l.createSuspiciousLinkMetricEvent = u));
   },
   98,
 );

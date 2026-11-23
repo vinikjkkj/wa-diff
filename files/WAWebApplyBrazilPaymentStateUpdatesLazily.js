@@ -4,7 +4,6 @@ __d(
     "JSResourceForInteraction",
     "WALogger",
     "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "uniqueBy",
   ],
@@ -17,38 +16,30 @@ __d(
           .__setRef("WAWebApplyBrazilPaymentStateUpdatesLazily")
           .load();
       }, "WAWebApplyBrazilPaymentStateUpdates");
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (t.length === 0) return !0;
-          try {
-            var n = yield s(),
-              a = n.applyBrazilPaymentStateUpdates;
-            return yield a(
-              r("uniqueBy")(t, function (e) {
-                return e.id.toString();
-              }),
-            );
-          } catch (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[br-payment-state] could not apply the updates",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("br-payment-state-handler-load-failed"),
-              !1
-            );
-          }
-        })),
-        c.apply(this, arguments)
-      );
+    async function u(t) {
+      if (t.length === 0) return !0;
+      try {
+        var n = await s(),
+          a = n.applyBrazilPaymentStateUpdates;
+        return await a(
+          r("uniqueBy")(t, function (e) {
+            return e.id.toString();
+          }),
+        );
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[br-payment-state] could not apply the updates",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("br-payment-state-handler-load-failed"),
+          !1
+        );
+      }
     }
     l.applyBrazilPaymentStateUpdatesLazily = u;
   },

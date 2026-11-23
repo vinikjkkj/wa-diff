@@ -10,6 +10,8 @@ __d(
           eventName: "marketing_message_traffic_lpv_eligibility_outcome",
           data:
             ((t = {}),
+            (t.campaign_id = e.campaignID),
+            (t.optimization_goal = e.optimizationGoal),
             (t.subsequent_data = JSON.stringify({
               campaign_id: e.campaignID,
               gk_enabled: !0,

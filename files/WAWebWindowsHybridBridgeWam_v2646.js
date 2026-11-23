@@ -1,7 +1,6 @@
 __d(
   "WAWebWindowsHybridBridgeWam.v2646",
   [
-    "Promise",
     "WALogger",
     "WAWebAppTracker",
     "WAWebCrashContextUtils",
@@ -15,7 +14,6 @@ __d(
     "WAWebWamGlobals",
     "WAWebWindowsBackgroundRunLogger",
     "WAWebWindowsHybridBridgeTrace",
-    "asyncToGeneratorRuntime",
     "chunkArray",
     "getErrorSafe",
   ],
@@ -34,9 +32,8 @@ __d(
       y,
       C,
       b,
-      v,
-      S = 100,
-      R = function (a) {
+      v = 100,
+      S = function (n) {
         var t = this;
         ((this.$2 = !1),
           (this.$3 = null),
@@ -82,63 +79,60 @@ __d(
               t.$3 = n;
             }
           }),
-          (this.$5 = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* () {
-              var e;
-              if (
-                ((e = t.$1) == null
-                  ? void 0
-                  : e.getBackgroundRunRecordsAsync) != null
-              )
-                try {
-                  var a = yield o(
-                    "WAWebWindowsHybridBridgeTrace",
-                  ).traceBridgeCall(
-                    {
-                      bridge: "wam",
-                      method: "getBackgroundRunRecordsAsync",
-                      type: "async",
-                    },
-                    function () {
-                      return t.$1.getBackgroundRunRecordsAsync == null
-                        ? void 0
-                        : t.$1.getBackgroundRunRecordsAsync();
-                    },
-                  );
-                  if (a == null) return;
-                  var i = o(
-                    "WAWebWindowsBackgroundRunLogger",
-                  ).logBackgroundRunRecords(a);
-                  yield (v || (v = n("Promise"))).all(
-                    r("chunkArray")(i, S).map(function (e) {
-                      return o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
-                        {
-                          bridge: "wam",
-                          method: "markBackgroundRunRecordsSent",
-                          type: "async",
-                        },
-                        function () {
-                          return t.$1.markBackgroundRunRecordsSent == null
-                            ? void 0
-                            : t.$1.markBackgroundRunRecordsSent(
-                                JSON.stringify(e),
-                              );
-                        },
-                      );
-                    }),
-                  );
-                } catch (e) {
-                  o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "[WindowsHybridBridgeWam] background run records upload failed",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e));
-                }
-            },
-          )),
+          (this.$5 = async function () {
+            var e;
+            if (
+              ((e = t.$1) == null ? void 0 : e.getBackgroundRunRecordsAsync) !=
+              null
+            )
+              try {
+                var n = await o(
+                  "WAWebWindowsHybridBridgeTrace",
+                ).traceBridgeCall(
+                  {
+                    bridge: "wam",
+                    method: "getBackgroundRunRecordsAsync",
+                    type: "async",
+                  },
+                  function () {
+                    return t.$1.getBackgroundRunRecordsAsync == null
+                      ? void 0
+                      : t.$1.getBackgroundRunRecordsAsync();
+                  },
+                );
+                if (n == null) return;
+                var a = o(
+                  "WAWebWindowsBackgroundRunLogger",
+                ).logBackgroundRunRecords(n);
+                await Promise.all(
+                  r("chunkArray")(a, v).map(function (e) {
+                    return o("WAWebWindowsHybridBridgeTrace").traceBridgeCall(
+                      {
+                        bridge: "wam",
+                        method: "markBackgroundRunRecordsSent",
+                        type: "async",
+                      },
+                      function () {
+                        return t.$1.markBackgroundRunRecordsSent == null
+                          ? void 0
+                          : t.$1.markBackgroundRunRecordsSent(
+                              JSON.stringify(e),
+                            );
+                      },
+                    );
+                  }),
+                );
+              } catch (e) {
+                o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[WindowsHybridBridgeWam] background run records upload failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e));
+              }
+          }),
           (this.handleEvents = function (e) {
             if (!t.$2) {
               o("WALogger").ERROR(
@@ -241,7 +235,7 @@ __d(
               }
             });
             var i = a.pop();
-            (a.forEach(L), i != null && E(i));
+            (a.forEach(R), i != null && L(i));
           }),
           (this.$4 = function (e) {
             var t;
@@ -267,11 +261,11 @@ __d(
               );
               return;
             }
-            for (var n of Object.keys(t)) k(n, t[n]);
+            for (var n of Object.keys(t)) E(n, t[n]);
           }),
-          (this.$1 = a));
+          (this.$1 = n));
       };
-    function L(e) {
+    function R(e) {
       try {
         e.commit();
       } catch (t) {
@@ -287,7 +281,7 @@ __d(
           .catching(r("getErrorSafe")(t));
       }
     }
-    function E(e) {
+    function L(e) {
       var t;
       try {
         t = e.commitAndWaitForFlush(!0);
@@ -315,7 +309,7 @@ __d(
           .catching(r("getErrorSafe")(e));
       });
     }
-    function k(e, t) {
+    function E(e, t) {
       if (!o("WAWebWamCodegenUtils").metrics.hasGlobal(e)) {
         o("WALogger").ERROR(
           C ||
@@ -343,7 +337,7 @@ __d(
           .catching(r("getErrorSafe")(t));
       }
     }
-    l.WindowsHybridBridgeWam_v2646 = R;
+    l.WindowsHybridBridgeWam_v2646 = S;
   },
   98,
 );

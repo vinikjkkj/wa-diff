@@ -12,8 +12,6 @@ __d(
     "AdsUnifiedCreativeAPIFields",
     "FBLogger",
     "immutable",
-    "justknobx",
-    "nullthrows",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -80,8 +78,8 @@ __d(
       var i = p(e);
       if (!i) return e;
       var l = e;
-      if (
-        ((l = o("AdsAssetFeedMutationUtils").setAssetFieldAtIndex(
+      return (
+        (l = o("AdsAssetFeedMutationUtils").setAssetFieldAtIndex(
           e,
           t,
           r("AdsUnifiedCreativeAPIFields").message,
@@ -89,26 +87,13 @@ __d(
           "text",
           a.get("text"),
         )),
-        r("justknobx")._("3917"))
-      )
-        l = R(l, t, a, i.index);
-      else {
-        var s = a.get("asset_source");
-        s != null &&
-          (l = o("AdsAssetFeedMutationUtils").setAssetFieldAtIndex(
-            l,
-            t,
-            r("AdsUnifiedCreativeAPIFields").message,
-            i.index,
-            "asset_source",
-            s,
-          ));
-      }
-      return o("AdsAssetFeedMutationUtils").removeDuplicateAssets(
-        l,
-        t,
-        r("AdsUnifiedCreativeAPIFields").message,
-        "adlabels",
+        (l = R(l, t, a, i.index)),
+        o("AdsAssetFeedMutationUtils").removeDuplicateAssets(
+          l,
+          t,
+          r("AdsUnifiedCreativeAPIFields").message,
+          "adlabels",
+        )
       );
     }
     function m(e, t, n, a, i) {
@@ -159,18 +144,7 @@ __d(
               "text",
               a,
             )),
-            e instanceof r("immutable").Map &&
-              (r("justknobx")._("3917")
-                ? (d = R(d, t, e, l))
-                : e.get("asset_source") != null &&
-                  (d = o("AdsAssetFeedMutationUtils").setAssetFieldAtIndex(
-                    d,
-                    t,
-                    r("AdsUnifiedCreativeAPIFields").message,
-                    l,
-                    "asset_source",
-                    e.get("asset_source"),
-                  ))),
+            e instanceof r("immutable").Map && (d = R(d, t, e, l)),
             (d = o("AdsAssetFeedMutationUtils").setAssetAdLabelAtIndex(
               d,
               t,
@@ -265,20 +239,9 @@ __d(
             ? void 0
             : a.bodies,
         c = o("AdsAssetFeedFieldUtils").getAssetEntryForLabel(e(u), s, "text");
-      return r("justknobx")._("5055")
-        ? c == null || c.fieldValue == null || c.index == null
-          ? null
-          : { bodyText: c.fieldValue, index: c.index }
-        : {
-            bodyText: r("nullthrows")(
-              c.fieldValue,
-              "[PAC] Default rule should always have its body asset defined",
-            ),
-            index: r("nullthrows")(
-              c.index,
-              "[PAC] Default rule should always have its body asset defined",
-            ),
-          };
+      return c == null || c.fieldValue == null || c.index == null
+        ? null
+        : { bodyText: c.fieldValue, index: c.index };
     }
     function _(t) {
       var n,
@@ -468,17 +431,16 @@ __d(
         i
       );
     }
-    function L(e, t, n) {
-      (n === void 0 && (n = !1),
-        e != null &&
-          o(
-            "AdsAssetFeedMutationUtils",
-          ).PAC_DOF_TO_DOF_ALLOWED_BODY_ASSET_FIELDS.forEach(function (r) {
-            if (!(r in t && !n)) {
-              var o = e.get(r);
-              o != null && typeof o == "string" && (t[r] = o);
-            }
-          }));
+    function L(e, t) {
+      e != null &&
+        o(
+          "AdsAssetFeedMutationUtils",
+        ).PAC_DOF_TO_DOF_ALLOWED_BODY_ASSET_FIELDS.forEach(function (n) {
+          if (!(n in t)) {
+            var r = e.get(n);
+            r != null && typeof r == "string" && (t[n] = r);
+          }
+        });
     }
     ((l.addPlacementCustomizationBody = u),
       (l.removePlacementCustomizationBody = c),

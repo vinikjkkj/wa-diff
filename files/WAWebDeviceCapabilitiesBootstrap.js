@@ -11,96 +11,80 @@ __d(
     "WAWebProtobufsDeviceCapabilities.pb",
     "WAWebUserPrefsDeviceCapabilities",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = !1;
-    function c() {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!u) {
-            u = !0;
-            var t = {
-                chatLockSupportLevel: o("WAWebProtobufsDeviceCapabilities.pb")
-                  .DeviceCapabilities$ChatLockSupportLevel.FULL,
-                aiThread: {
-                  supportLevel: o("WAWebABProps").getABPropConfigValue(
-                    "ai_chat_thread_capability_enabled",
-                  )
-                    ? o("WAWebProtobufsDeviceCapabilities.pb")
-                        .DeviceCapabilities$AiThread$SupportLevel.INFRA
-                    : o("WAWebProtobufsDeviceCapabilities.pb")
-                        .DeviceCapabilities$AiThread$SupportLevel.NONE,
-                },
-              },
-              n = o(
-                "WAWebUserPrefsDeviceCapabilities",
-              ).mergeDeviceCapabilitiesToStorage(t, "self");
-            (yield o(
-              "WAWebBizBroadcastsDeviceCapability",
-            ).bootstrapBizBroadcastPrimaryCapability(),
-              yield m());
-            var a = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() != null;
-            if (
-              (a && (yield r("WAWebDeviceCapabilitiesSync").sendMutation(n)),
-              !a ||
-                o("WAWebABProps").getABPropConfigValue(
-                  "device_capabilities_v2_sync_enabled",
-                ))
-            )
-              try {
-                yield r("WAWebDeviceCapabilitiesV2Sync").sendMutation(n);
-              } catch (t) {
-                o("WALogger")
-                  .WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "[bootstrapDeviceCapabilities] v2 dual-write failed; v1 record is unaffected",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(t));
-              }
-          }
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o(
-            "WAWebPrimaryDeviceCapabilities",
-          ).getPrimaryDeviceCapabilities();
-          if (e == null) {
-            o("WALogger").WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[bootstrapPrimaryDeviceCapabilities] primary caps null",
-                ])),
-            );
-            return;
-          }
-          var t = o(
+    async function c() {
+      if (!u) {
+        u = !0;
+        var t = {
+            chatLockSupportLevel: o("WAWebProtobufsDeviceCapabilities.pb")
+              .DeviceCapabilities$ChatLockSupportLevel.FULL,
+            aiThread: {
+              supportLevel: o("WAWebABProps").getABPropConfigValue(
+                "ai_chat_thread_capability_enabled",
+              )
+                ? o("WAWebProtobufsDeviceCapabilities.pb")
+                    .DeviceCapabilities$AiThread$SupportLevel.INFRA
+                : o("WAWebProtobufsDeviceCapabilities.pb")
+                    .DeviceCapabilities$AiThread$SupportLevel.NONE,
+            },
+          },
+          n = o(
             "WAWebUserPrefsDeviceCapabilities",
-          ).mapProtobufToAllDeviceCapabilities(e);
-          (o(
-            "WAWebUserPrefsDeviceCapabilities",
-          ).mergeDeviceCapabilitiesToStorage(t, "primary"),
-            yield o(
-              "WAWebNewsletterChatsMigrationForwarder",
-            ).forwardPrimaryNewsletterChatsMigration(e));
-        })),
-        p.apply(this, arguments)
-      );
+          ).mergeDeviceCapabilitiesToStorage(t, "self");
+        (await o(
+          "WAWebBizBroadcastsDeviceCapability",
+        ).bootstrapBizBroadcastPrimaryCapability(),
+          await d());
+        var a = o("WAWebUserPrefsMeUser").getMaybeMeDevicePn() != null;
+        if (
+          (a && (await r("WAWebDeviceCapabilitiesSync").sendMutation(n)),
+          !a ||
+            o("WAWebABProps").getABPropConfigValue(
+              "device_capabilities_v2_sync_enabled",
+            ))
+        )
+          try {
+            await r("WAWebDeviceCapabilitiesV2Sync").sendMutation(n);
+          } catch (t) {
+            o("WALogger")
+              .WARN(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "[bootstrapDeviceCapabilities] v2 dual-write failed; v1 record is unaffected",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(t));
+          }
+      }
+    }
+    async function d() {
+      var e = await o(
+        "WAWebPrimaryDeviceCapabilities",
+      ).getPrimaryDeviceCapabilities();
+      if (e == null) {
+        o("WALogger").WARN(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[bootstrapPrimaryDeviceCapabilities] primary caps null",
+            ])),
+        );
+        return;
+      }
+      var t = o(
+        "WAWebUserPrefsDeviceCapabilities",
+      ).mapProtobufToAllDeviceCapabilities(e);
+      (o("WAWebUserPrefsDeviceCapabilities").mergeDeviceCapabilitiesToStorage(
+        t,
+        "primary",
+      ),
+        await o(
+          "WAWebNewsletterChatsMigrationForwarder",
+        ).forwardPrimaryNewsletterChatsMigration(e));
     }
     l.bootstrapDeviceCapabilities = c;
   },

@@ -1,50 +1,39 @@
 __d(
   "WAWebCooldownBatcher",
-  ["WABatcher", "WAPromiseDelays", "asyncToGeneratorRuntime"],
+  ["WABatcher", "WAPromiseDelays"],
   function (t, n, r, o, a, i, l) {
     function e(e, t) {
-      var r = o("WABatcher").createBatcher(function (e) {
+      var n = o("WABatcher").createBatcher(function (e) {
           return t(e).then(function (t) {
             for (var n = new Map(), r = 0; r < e.length; r++) n.set(e[r], t[r]);
             return n;
           });
         }),
-        a = !1,
+        r = !1,
+        a = 0,
         i = 0,
-        l = 0,
-        s = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var n = Date.now();
-            if (!(n - t >= e.maxWindowMs)) {
-              var r = e.windowMs - (n - i);
-              if (!(r <= 0)) {
-                var a = e.maxWindowMs - (n - t);
-                (yield o("WAPromiseDelays").delayMs(Math.min(r, a)),
-                  yield s(t));
-              }
+        l = async function (n) {
+          var t = Date.now();
+          if (!(t - n >= e.maxWindowMs)) {
+            var r = e.windowMs - (t - a);
+            if (!(r <= 0)) {
+              var i = e.maxWindowMs - (t - n);
+              (await o("WAPromiseDelays").delayMs(Math.min(r, i)), await l(n));
             }
-          });
-          return function (n) {
-            return t.apply(this, arguments);
-          };
-        })(),
-        u = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            ((a = !0), yield s(Date.now()));
-            var t = Date.now() - l;
-            (t < e.cooldownMs &&
-              (yield o("WAPromiseDelays").delayMs(e.cooldownMs - t)),
-              (l = Date.now()),
-              (a = !1),
-              r.runActiveBatch());
-          });
-          return function () {
-            return t.apply(this, arguments);
-          };
-        })();
+          }
+        },
+        s = async function () {
+          ((r = !0), await l(Date.now()));
+          var t = Date.now() - i;
+          (t < e.cooldownMs &&
+            (await o("WAPromiseDelays").delayMs(e.cooldownMs - t)),
+            (i = Date.now()),
+            (r = !1),
+            n.runActiveBatch());
+        };
       return function (e) {
-        var t = r.accept(e);
-        return ((i = Date.now()), a || u(), t);
+        var t = n.accept(e);
+        return ((a = Date.now()), r || s(), t);
       };
     }
     l.createCooldownBatcher = e;

@@ -10,6 +10,7 @@ __d(
       REEL: "Reel",
       STORY: "Story",
       WABA: "WhatsApp Business Account",
+      MESSAGE_TEMPLATE: "WhatsApp Message Template",
     });
     i.default = e;
   },

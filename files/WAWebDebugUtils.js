@@ -3,7 +3,6 @@ __d(
   ["err", "vulture"],
   function (t, n, r, o, a, i, l) {
     function e() {
-      r("vulture")("N6A9Rjm5620YXkzZ_0T0puW6L8M=");
       var e = window.chat;
       if (!e) throw r("err")("Please open a chat");
       return e;

@@ -1,41 +1,23 @@
 __d(
   "WAWebShortcakeLinkingHandoffProof",
-  ["WACryptoHkdf", "WACryptoHmac", "asyncToGeneratorRuntime", "err"],
+  ["WACryptoHkdf", "WACryptoHmac", "err"],
   function (t, n, r, o, a, i, l) {
     var e = "shortcake-passkey-handoff-v1",
       s = 32,
       u = 300 * 1e3;
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(t) {
+      if (t.byteLength === 0)
+        throw r("err")(
+          "Shortcake handoff: priorAttemptSecret must be non-empty",
+        );
+      return o("WACryptoHkdf").extractAndExpand(t, e, s);
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (t.byteLength === 0)
-            throw r("err")(
-              "Shortcake handoff: priorAttemptSecret must be non-empty",
-            );
-          return o("WACryptoHkdf").extractAndExpand(t, e, s);
-        })),
-        d.apply(this, arguments)
-      );
+    async function d(e, t) {
+      if (e.byteLength !== s)
+        throw r("err")("Shortcake handoff: hmacKey must be " + s + " bytes");
+      return o("WACryptoHmac").hmacSha256(e, t);
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (e.byteLength !== s)
-            throw r("err")(
-              "Shortcake handoff: hmacKey must be " + s + " bytes",
-            );
-          return o("WACryptoHmac").hmacSha256(e, t);
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    var _ = (function () {
+    var m = (function () {
         function e(e, t) {
           (e === void 0 &&
             (e = function () {
@@ -74,14 +56,14 @@ __d(
           e
         );
       })(),
-      f = new _();
-    function g() {
-      return f;
+      p = new m();
+    function _() {
+      return p;
     }
     ((l.derivePairingHandoffHmacKey = c),
-      (l.computePairingHandoffProof = m),
-      (l.PairingHandoffKeyHolder = _),
-      (l.getHandoffKeyHolder = g));
+      (l.computePairingHandoffProof = d),
+      (l.PairingHandoffKeyHolder = m),
+      (l.getHandoffKeyHolder = _));
   },
   98,
 );

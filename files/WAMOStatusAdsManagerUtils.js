@@ -3,17 +3,22 @@ __d(
   [
     "AdsAPIObjectives",
     "AdsAPIOptimizationGoals",
+    "AdsAppUrlUtils",
+    "AdsPromotedObjectTypes",
     "AdsWAMOSensitiveAdvertisersUtils",
     "AdsWAMOSupportedCatalogVerticals",
     "AdsWAMOSupportedDestinationTypes",
     "AdsWAMOSupportedObjectives",
     "AdsWAMOSupportedOptimizationGoals",
     "AdsWAMOSupportedPromotedObjectTypes",
+    "DeepRecordUtils",
+    "ads-app-platforms",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e() {
+    var e;
+    function s() {
       var e;
       return (e = o("AdsWAMOSupportedObjectives").WAMOSupportedObjectives.get(
         "status",
@@ -21,7 +26,7 @@ __d(
         ? e
         : [];
     }
-    function s(e) {
+    function u(e) {
       var t, n;
       return (t =
         (n = o(
@@ -32,7 +37,7 @@ __d(
         ? t
         : [];
     }
-    function u(e) {
+    function c(e) {
       var t, n;
       return (t =
         (n = o(
@@ -43,7 +48,7 @@ __d(
         ? t
         : [];
     }
-    function c(e) {
+    function d(e) {
       var t,
         n,
         a,
@@ -99,50 +104,50 @@ __d(
           return [];
       }
     }
-    function d() {
-      var e = m(),
+    function m() {
+      var e = p(),
         t = r("AdsWAMOSensitiveAdvertisersUtils").is_default_off_accounts;
       return e && !t;
     }
-    function m() {
+    function p() {
       return (
         r("gkx")("931") &&
         !r("AdsWAMOSensitiveAdvertisersUtils")
           .is_sensitive_vertical_restricted_account
       );
     }
-    function p() {
+    function _() {
       return r("gkx")("7161");
     }
-    function _() {
+    function f() {
       return r("gkx")("8445");
     }
-    function f() {
+    function g() {
       return r("gkx")("13619");
     }
-    function g() {
+    function h() {
       return r("gkx")("12402");
     }
-    function h(e) {
-      if (_()) return !0;
+    function y(e) {
+      if (f()) return !0;
       var t =
         e === r("AdsAPIOptimizationGoals").REACH ||
         e === r("AdsAPIOptimizationGoals").IMPRESSIONS;
-      return t ? f() : !1;
-    }
-    function y() {
-      return r("gkx")("21300");
+      return t ? g() : !1;
     }
     function C() {
-      return r("gkx")("11863");
+      return r("gkx")("21300");
     }
     function b() {
-      return r("gkx")("9268");
+      return r("gkx")("11863");
     }
     function v() {
-      return m() && b() && r("gkx")("12582");
+      return r("gkx")("9268");
     }
-    function S(e) {
+    function S() {
+      return p() && v() && r("gkx")("12582");
+    }
+    function R(e) {
       if (e == null) return !1;
       var t = e.toLowerCase();
       return Array.from(
@@ -151,28 +156,83 @@ __d(
         return e.toLowerCase() === t;
       });
     }
-    function R() {
+    function L() {
       return r("gkx")("24679");
     }
-    function L() {
+    function E() {
       return r("gkx")("8203");
     }
-    function E(e) {
-      return e === r("AdsAPIOptimizationGoals").OFFSITE_CONVERSIONS && L();
-    }
-    function k() {
-      return m() && r("gkx")("22304");
+    function k(e) {
+      return e === r("AdsAPIOptimizationGoals").OFFSITE_CONVERSIONS && E();
     }
     function I() {
-      return m() && r("gkx")("14366");
+      return p() && r("gkx")("22304");
     }
     function T() {
-      return m() && r("gkx")("18157");
+      return p() && r("gkx")("14366");
     }
     function D() {
-      return m();
+      return p() && r("gkx")("18157");
     }
     function x(e) {
+      return e === r("AdsAPIObjectives").APP_INSTALLS && D();
+    }
+    function $(e) {
+      return x(e.objective)
+        ? e.objectStoreURL != null && e.objectStoreURL !== ""
+          ? !r("AdsAppUrlUtils").isGooglePlayURL(e.objectStoreURL) &&
+            !r("AdsAppUrlUtils").isItunesURL(e.objectStoreURL)
+          : e.selectedAppStore != null &&
+            e.selectedAppStore !==
+              o("ads-app-platforms").MOBILE_STORE.GOOGLE_PLAY &&
+            e.selectedAppStore !== o("ads-app-platforms").MOBILE_STORE.ITUNES
+        : !1;
+    }
+    var P =
+      ((e = {}),
+      (e[r("AdsAPIOptimizationGoals").VALUE] = {
+        supportsConversionLocation: function (t) {
+          return (
+            t === r("AdsPromotedObjectTypes").PIXEL ||
+            t === r("AdsPromotedObjectTypes").WEBSITE ||
+            t === r("AdsPromotedObjectTypes").PRODUCT_SET
+          );
+        },
+        purchaseOnly: !0,
+      }),
+      (e[r("AdsAPIOptimizationGoals").LANDING_PAGE_VIEWS] = {
+        supportsConversionLocation: function (t) {
+          return (
+            t !== r("AdsPromotedObjectTypes").MOBILE_APP &&
+            t !== r("AdsPromotedObjectTypes").WEB_AND_APP
+          );
+        },
+        purchaseOnly: !1,
+      }),
+      e);
+    function N(e) {
+      return typeof e != "object" || e == null || !("custom_event_type" in e)
+        ? !1
+        : e.custom_event_type === "PURCHASE" &&
+            (!("custom_conversion_id" in e) || e.custom_conversion_id == null);
+    }
+    function M(e) {
+      var t,
+        n = e.optimizationGoal != null ? P[e.optimizationGoal] : null;
+      return n == null
+        ? null
+        : n.supportsConversionLocation(
+              (t = e.conversionLocations) != null ? t : e.promotedObjectType,
+            )
+          ? n.purchaseOnly && !N(e.promotedObject)
+            ? "CONVERSION_EVENT"
+            : null
+          : "CONVERSION_LOCATION";
+    }
+    function w() {
+      return p();
+    }
+    function A(e) {
       var t, n;
       return !!(
         e != null &&
@@ -183,9 +243,9 @@ __d(
         n.includes("status")
       );
     }
-    function $(e) {
+    function F(e) {
       var t, n, r, o, a, i, l, s, u, c, d, m, p, _;
-      return !x(e) ||
+      return !A(e) ||
         (e == null || (t = e.whatsapp_positions) == null
           ? void 0
           : t.length) !== 1
@@ -231,7 +291,7 @@ __d(
               ? p
               : 0) === 0;
     }
-    function P(e) {
+    function O(e) {
       var t,
         n,
         r = e.campaign.targeting,
@@ -257,45 +317,45 @@ __d(
         (p == null || (Array.isArray(p) ? p.length === 0 : p.size === 0))
       );
     }
-    function N(e) {
+    function B(e) {
       return e == null || e.length === 0
         ? !1
         : e.every(function (e) {
-            return $(e);
+            return F(e);
           });
     }
-    function M(e) {
+    function W(e) {
       return e == null || e.length === 0
         ? !1
         : e.every(function (e) {
-            return x(e);
+            return A(e);
           });
     }
-    function w(e) {
+    function q(e) {
       return e == null || e.length === 0
         ? !1
         : e.some(function (e) {
-            return x(e);
+            return A(e);
           });
     }
-    function A(e) {
-      return w(e) && I();
+    function U(e) {
+      return q(e) && T();
     }
-    function F(e) {
+    function V(e) {
       var t,
         n,
         r = (t = e.targeting.publisher_platforms) != null ? t : [],
         o = (n = e.targeting.whatsapp_positions) != null ? n : [];
       return r.includes("whatsapp") && o.includes("status");
     }
-    function O(e) {
+    function H(e) {
       var t,
         n,
         r = (t = e.targeting.publisher_platforms) != null ? t : [],
         o = (n = e.targeting.whatsapp_positions) != null ? n : [];
       return r.includes("whatsapp") && o.includes("marketing_messages");
     }
-    function B(e) {
+    function G(e) {
       var t, n;
       if (e == null || e.targeting == null) return !1;
       var r = (t = e.targeting.publisher_platforms) != null ? t : [],
@@ -306,27 +366,55 @@ __d(
         a === 1 && i === 1 && r.includes("whatsapp") && o.includes("status")
       );
     }
-    function W(e) {
-      return x(e == null ? void 0 : e.spec);
+    function z(e) {
+      return A(e == null ? void 0 : e.spec);
     }
-    function q(e) {
-      return $(e == null ? void 0 : e.spec);
+    function j(e) {
+      return F(e == null ? void 0 : e.spec);
     }
-    var U = ["external", "messaging_apps", "messenger", "whatsapp"];
-    function V(e, t) {
-      return !e || t == null ? !1 : !U.includes(t);
+    var K = ["external", "messaging_apps", "messenger", "whatsapp"];
+    function Q(e, t) {
+      return !e || t == null ? !1 : !K.includes(t);
     }
-    function H(e) {
-      return !D() && !G() ? !1 : F(e) || (G() && K(e));
+    function X(e) {
+      return !w() && !Y() ? !1 : V(e) || ee(e);
     }
-    function G() {
+    function Y() {
       return (
         r("gkx")("19165") &&
         !r("AdsWAMOSensitiveAdvertisersUtils")
           .is_sensitive_vertical_restricted_account
       );
     }
-    function z(e) {
+    var J = [r("AdsAPIOptimizationGoals").LINK_CLICKS];
+    function Z(e) {
+      return e != null && J.includes(e);
+    }
+    function ee(e) {
+      return (
+        Y() && ie(e) && Z(e.optimization_goal) && !ne(e.placement_soft_opt_out)
+      );
+    }
+    var te = [
+      "facebook_positions",
+      "audience_network_positions",
+      "instagram_positions",
+      "messenger_positions",
+      "whatsapp_positions",
+      "oculus_positions",
+      "threads_positions",
+      "streaming_services_positions",
+    ];
+    function ne(e) {
+      var t = o("DeepRecordUtils").maybeToPlainObject(e);
+      return t == null
+        ? !1
+        : te.some(function (e) {
+            var n = t[e];
+            return Array.isArray(n) && n.length > 0;
+          });
+    }
+    function re(e) {
       var t, n, r, o;
       return !!(
         (e == null || (t = e.publisher_platforms) == null
@@ -343,10 +431,13 @@ __d(
         o.includes("marketing_messages")
       );
     }
-    function j(e) {
-      return z(e == null ? void 0 : e.spec);
+    function oe(e) {
+      return re(e == null ? void 0 : e.spec);
     }
-    function K(e) {
+    function ae(e) {
+      return oe(e) && !ne(e == null ? void 0 : e.softOptOutSpec);
+    }
+    function ie(e) {
       var t, n;
       if (e == null || e.targeting == null) return !1;
       var r = (t = e.targeting.publisher_platforms) != null ? t : [],
@@ -360,47 +451,54 @@ __d(
         o.includes("marketing_messages")
       );
     }
-    ((l.getWAMOStatusEligibleObjectives = e),
-      (l.getWAMOStatusEligibleDestinationTypes = s),
-      (l.getWAMOStatusEligiblePromotedObjectTypes = u),
-      (l.getWAMOStatusEligibleOptimizationGoal = c),
-      (l.isWAMOStatusEligibleByDefault = d),
-      (l.isAdAccountEligibleForWAMOStatus = m),
-      (l.isAdAccountEligibleForEUExpansion = p),
-      (l.isAdAccountAllowedWhatsAppStatusOnly = _),
-      (l.isAdAccountInWAMOStatusOnlyReachImpExpansion = f),
-      (l.isAdAccountEligibleForUAUsabilityH1_26 = g),
-      (l.canSkipWAMOStatusOnlyBundlingCheck = h),
-      (l.isAdAccountEligibleForCarouselExpansion = y),
-      (l.isAdAccountEligibleForPartnershipAdsExpansion = C),
-      (l.isAdAccountEligibleForCTWEBExpansion = b),
-      (l.isAdAccountEligibleForDPACreation = v),
-      (l.isCatalogVerticalSupportedForDPACreation = S),
-      (l.isAdAccountEligibleForOCExpansion = R),
-      (l.isAdAccountOnOCHoldoutBiglist = L),
-      (l.isAPlusPBlockedForOCHoldout = E),
-      (l.isAdAccountEligibleForLPVExpansion = k),
-      (l.isAdAccountEligibleForLeadGenExpansion = I),
-      (l.isAdAccountEligibleForAppAdsExpansion = T),
-      (l.isAdAccountEligibleForUnknownAge = D),
-      (l.isWAMOStatusSelectedFromSpec = x),
-      (l.isOnlyWAMOStatusSelectedFromSpec = $),
-      (l.isOnlyWAMOStatusSelectedFromAdObjects = P),
-      (l.isOnlyWAMOStatusSelectedFromSpecs = N),
-      (l.isWAMOStatusSelectedFromSpecs = M),
-      (l.isWAMOStatusSelectedFromAnySpec = w),
-      (l.shouldShowWAMOStatusLeadFormPreview = A),
-      (l.isWAMOStatusSelectedFromCampaign = F),
-      (l.isMarketingMessagesSelectedFromCampaign = O),
-      (l.isOnlyWAMOStatusSelectedFromCampaign = B),
-      (l.isWAMOStatusSelected = W),
-      (l.isOnlyWAMOStatusSelected = q),
-      (l.isDestinationDisabledForWAMOStatusOnly = V),
-      (l.shouldShowUnknownAgeForCampaign = H),
-      (l.isAdAccountEligibleForWAMMUnknownAge = G),
-      (l.isOnlyMarketingMessagesSelectedFromSpec = z),
-      (l.isOnlyMarketingMessagesSelected = j),
-      (l.isOnlyMarketingMessagesSelectedFromCampaign = K));
+    ((l.getWAMOStatusEligibleObjectives = s),
+      (l.getWAMOStatusEligibleDestinationTypes = u),
+      (l.getWAMOStatusEligiblePromotedObjectTypes = c),
+      (l.getWAMOStatusEligibleOptimizationGoal = d),
+      (l.isWAMOStatusEligibleByDefault = m),
+      (l.isAdAccountEligibleForWAMOStatus = p),
+      (l.isAdAccountEligibleForEUExpansion = _),
+      (l.isAdAccountAllowedWhatsAppStatusOnly = f),
+      (l.isAdAccountInWAMOStatusOnlyReachImpExpansion = g),
+      (l.isAdAccountEligibleForUAUsabilityH1_26 = h),
+      (l.canSkipWAMOStatusOnlyBundlingCheck = y),
+      (l.isAdAccountEligibleForCarouselExpansion = C),
+      (l.isAdAccountEligibleForPartnershipAdsExpansion = b),
+      (l.isAdAccountEligibleForCTWEBExpansion = v),
+      (l.isAdAccountEligibleForDPACreation = S),
+      (l.isCatalogVerticalSupportedForDPACreation = R),
+      (l.isAdAccountEligibleForOCExpansion = L),
+      (l.isAdAccountOnOCHoldoutBiglist = E),
+      (l.isAPlusPBlockedForOCHoldout = k),
+      (l.isAdAccountEligibleForLPVExpansion = I),
+      (l.isAdAccountEligibleForLeadGenExpansion = T),
+      (l.isAdAccountEligibleForAppAdsExpansion = D),
+      (l.isWAMOStatusAppPromotion = x),
+      (l.isUnsupportedAppStoreForWAMOStatus = $),
+      (l.getWAMOStatusGoalLimitViolation = M),
+      (l.isAdAccountEligibleForUnknownAge = w),
+      (l.isWAMOStatusSelectedFromSpec = A),
+      (l.isOnlyWAMOStatusSelectedFromSpec = F),
+      (l.isOnlyWAMOStatusSelectedFromAdObjects = O),
+      (l.isOnlyWAMOStatusSelectedFromSpecs = B),
+      (l.isWAMOStatusSelectedFromSpecs = W),
+      (l.isWAMOStatusSelectedFromAnySpec = q),
+      (l.shouldShowWAMOStatusLeadFormPreview = U),
+      (l.isWAMOStatusSelectedFromCampaign = V),
+      (l.isMarketingMessagesSelectedFromCampaign = H),
+      (l.isOnlyWAMOStatusSelectedFromCampaign = G),
+      (l.isWAMOStatusSelected = z),
+      (l.isOnlyWAMOStatusSelected = j),
+      (l.isDestinationDisabledForWAMOStatusOnly = Q),
+      (l.shouldShowUnknownAgeForCampaign = X),
+      (l.isAdAccountEligibleForWAMMUnknownAge = Y),
+      (l.isWAMMUnknownAgeEligibleOptimizationGoal = Z),
+      (l.isWAMMUnknownAgeEligibleForCampaign = ee),
+      (l.isSoftOptOutConfigured = ne),
+      (l.isOnlyMarketingMessagesSelectedFromSpec = re),
+      (l.isOnlyMarketingMessagesSelected = oe),
+      (l.isWAMMUnknownAgeEligiblePlacement = ae),
+      (l.isOnlyMarketingMessagesSelectedFromCampaign = ie));
   },
   98,
 );

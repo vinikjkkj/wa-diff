@@ -4,30 +4,21 @@ __d(
     "WAJobOrchestratorTypes",
     "WAWebLeadStageSublistSelector",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chatJid;
-          return o("WAWebOrchestratorNonPersistedJob")
-            .createNonPersistedJob(
-              "getLeadStageByChatJid",
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                return o(
-                  "WAWebLeadStageSublistSelector",
-                ).getLeadStageForChatFromSublist(t);
-              }),
-              { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
-            )
-            .waitUntilCompleted();
-        })),
-        s.apply(this, arguments)
-      );
+    async function e(e) {
+      var t = e.chatJid;
+      return o("WAWebOrchestratorNonPersistedJob")
+        .createNonPersistedJob(
+          "getLeadStageByChatJid",
+          async function () {
+            return o(
+              "WAWebLeadStageSublistSelector",
+            ).getLeadStageForChatFromSublist(t);
+          },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
+        )
+        .waitUntilCompleted();
     }
     l.getLeadStageByChatJidJob = e;
   },

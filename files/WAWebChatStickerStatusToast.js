@@ -6,9 +6,7 @@ __d(
       u = e || (e = o("react"));
     function c() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Couldn't post to your status. Try again."),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     l.showChatStickerStatusFailedToast = c;

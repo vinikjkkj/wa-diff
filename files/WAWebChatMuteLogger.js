@@ -9,7 +9,6 @@ __d(
     "WAWebUserPrefsMeUser",
     "WAWebWamEnumActionConducted",
     "WAWebWamEnumMuteChatType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -56,7 +55,7 @@ __d(
         babelHelpers.extends(
           {},
           n,
-          { muteChatType: y(t) },
+          { muteChatType: g(t) },
           l
             ? {
                 muteGroupSize:
@@ -72,69 +71,53 @@ __d(
         ),
       ).commit();
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
+    async function _(e, t, n) {
+      var r,
+        a,
+        i =
+          (r = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
+            ? void 0
+            : r.toString(),
+        l = await f(e, n);
+      if (
+        ((a = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
+          ? void 0
+          : a.toString()) !== i
+      ) {
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[chat-mute] account-changed",
+            ])),
+        );
+        return;
+      }
+      var u = new (o("WAWebChatMuteWamEvent").ChatMuteWamEvent)(
+        babelHelpers.extends({}, t, {
+          muteChatType: o("WAWebWamEnumMuteChatType").MUTE_CHAT_TYPE[n],
+        }),
+      );
+      (l != null && (u.conversationThreadId = l), u.commit());
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r,
-            a,
-            i =
-              (r = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
-                ? void 0
-                : r.toString(),
-            l = yield g(e, n);
-          if (
-            ((a = o("WAWebUserPrefsMeUser").getMaybeMeLidUser()) == null
-              ? void 0
-              : a.toString()) !== i
-          ) {
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[chat-mute] account-changed",
+    async function f(e, t) {
+      try {
+        var n = await c.load();
+        return await n.getMetaAiConversationThreadId(e.id, t);
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[chat-mute] thread-id-read-failed",
                 ])),
-            );
-            return;
-          }
-          var u = new (o("WAWebChatMuteWamEvent").ChatMuteWamEvent)(
-            babelHelpers.extends({}, t, {
-              muteChatType: o("WAWebWamEnumMuteChatType").MUTE_CHAT_TYPE[n],
-            }),
-          );
-          (l != null && (u.conversationThreadId = l), u.commit());
-        })),
-        f.apply(this, arguments)
-      );
+            )
+            .sendLogs("chat-mute-thread-id-read-failed"),
+          null
+        );
+      }
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n = yield c.load();
-            return yield n.getMetaAiConversationThreadId(e.id, t);
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[chat-mute] thread-id-read-failed",
-                    ])),
-                )
-                .sendLogs("chat-mute-thread-id-read-failed"),
-              null
-            );
-          }
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
+    function g(e) {
       return o("WAWebChatGetters").getIsGroup(e)
         ? o("WAWebWamEnumMuteChatType").MUTE_CHAT_TYPE.GROUP
         : o("WAWebWamEnumMuteChatType").MUTE_CHAT_TYPE.ONE_ON_ONE;

@@ -3,29 +3,21 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e = s._(/*BTDS*/ "Beginning account review"),
-      u = s._(/*BTDS*/ "We\u2019re checking your eligibility"),
-      c = s._(/*BTDS*/ "Please resolve my ad account's restriction"),
-      d = s._(/*BTDS*/ "Please resolve my ad account's risk restriction"),
-      m = s._(/*BTDS*/ "Reviewing your restriction"),
-      p = s._(
-        /*BTDS*/ "Please help me understand and resolve this policy restriction",
-      ),
+    var e = s._(/*BTDS*/ ""),
+      u = s._(/*BTDS*/ ""),
+      c = s._(/*BTDS*/ ""),
+      d = s._(/*BTDS*/ ""),
+      m = s._(/*BTDS*/ ""),
+      p = s._(/*BTDS*/ ""),
       _ = "845314383606101",
       f = _,
-      g = s._(/*BTDS*/ "Please review the daily spend limit of my ad account"),
-      h = s._(/*BTDS*/ "Checking your account balance"),
-      y = s._(
-        /*BTDS*/ "Please resolve my failed payment and outstanding balance",
-      ),
-      C = s._(/*BTDS*/ "Reviewing your ad rejection"),
-      b = s._(
-        /*BTDS*/ "Review the selected rejected ad(s) and restore them if eligible.",
-      ),
-      v = s._(/*BTDS*/ "Checking on your case"),
-      S = s._(
-        /*BTDS*/ "Please show me the details and latest update on my support case",
-      );
+      g = s._(/*BTDS*/ ""),
+      h = s._(/*BTDS*/ ""),
+      y = s._(/*BTDS*/ ""),
+      C = s._(/*BTDS*/ ""),
+      b = s._(/*BTDS*/ ""),
+      v = s._(/*BTDS*/ ""),
+      S = s._(/*BTDS*/ "");
     ((l.DORA_ADMIN_TEXT = e),
       (l.DSL_ADMIN_TEXT = u),
       (l.DORA_INPUT_TEXT = c),

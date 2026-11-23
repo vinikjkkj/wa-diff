@@ -1,24 +1,21 @@
 __d(
   "WAWebVoipWebTransportDataChannelThread",
   [
-    "Promise",
     "WAWebNoop",
     "WAWebVoipJsWorkerCreation",
     "WAWebVoipPerfOptimizations",
     "WAWebVoipWebTransportSendRingBuffer",
     "WAWebVoipWebTransportSessionEndODS",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = {
+    var e = {
         incomingMaxBufferedDatagrams: 512,
         outgoingMaxBufferedDatagrams: 64,
         outgoingMaxAgeMs: 0,
       },
-      u = (function () {
+      s = (function () {
         function t(e) {
           ((this.$3 = o("WAWebVoipPerfOptimizations").isPerfOptimizationEnabled(
             o("WAWebVoipPerfOptimizations").PerfOptimizationFlag
@@ -33,22 +30,14 @@ __d(
             (this.$10 = new Map()),
             (this.$2 = e));
         }
-        t.create = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var n = yield o("WAWebVoipJsWorkerCreation").createJsWorkerThread(
-                e,
-              ),
-              r = new t(n);
-            return (r.$1(), r);
-          });
-          function r(t) {
-            return e.apply(this, arguments);
-          }
-          return r;
-        })();
-        var a = t.prototype;
+        t.create = async function (n) {
+          var e = await o("WAWebVoipJsWorkerCreation").createJsWorkerThread(n),
+            r = new t(e);
+          return (r.$1(), r);
+        };
+        var n = t.prototype;
         return (
-          (a.$1 = function () {
+          (n.$1 = function () {
             var e = this;
             this.$2.worker.addMessageListener(
               "webTransportState",
@@ -57,7 +46,7 @@ __d(
               },
             );
           }),
-          (a.$11 = function (t) {
+          (n.$11 = function (t) {
             var e,
               n = t.event === "closed" || t.event === "error",
               r = this.$8.get(t.connectionId);
@@ -89,11 +78,11 @@ __d(
                     ),
                   )));
           }),
-          (a.$12 = function (t, n) {
+          (n.$12 = function (t, n) {
             var e = this.$10.get(t);
             e != null && e.attemptId === n && this.$10.delete(t);
           }),
-          (a.$13 = function (t) {
+          (n.$13 = function (t) {
             var e = this.$6.get(t.connectionId);
             return e == null || e.attemptId !== t.attemptId
               ? !1
@@ -108,7 +97,7 @@ __d(
                 e.resolve(),
                 !0);
           }),
-          (a.$15 = function (t) {
+          (n.$15 = function (t) {
             var e,
               n = this.$6.get(t.connectionId);
             return n == null || n.attemptId !== t.attemptId
@@ -121,68 +110,66 @@ __d(
                 ),
                 !0);
           }),
-          (a.$14 = function (t, n) {
+          (n.$14 = function (t, n) {
             this.$8.get(t) === n && this.$8.delete(t);
             var e = this.$7.get(t);
             e != null && e.attemptId === n && (this.$7.delete(t), e.resolve());
           }),
-          (a.registerStateHandler = function (t) {
+          (n.registerStateHandler = function (t) {
             this.$9 = t;
           }),
-          (a.connect = function (a, i, l, u, c, d) {
+          (n.connect = function (n, a, i, l, s, u) {
             var t = this;
             return (
-              d === void 0 && (d = s),
+              u === void 0 && (u = e),
               this.$4
-                ? this.$6.has(a)
-                  ? (e || (e = n("Promise"))).reject(
-                      r("err")("WebTransport connection already pending: " + a),
+                ? this.$6.has(n)
+                  ? Promise.reject(
+                      r("err")("WebTransport connection already pending: " + n),
                     )
-                  : new (e || (e = n("Promise")))(function (e, n) {
-                      var r = ++t.$5,
-                        s = t.$3
+                  : new Promise(function (e, r) {
+                      var c = ++t.$5,
+                        d = t.$3
                           ? o(
                               "WAWebVoipWebTransportSendRingBuffer",
                             ).createWebTransportSendRing()
                           : null,
                         m = {
-                          attemptId: r,
-                          reject: n,
+                          attemptId: c,
+                          reject: r,
                           resolve: e,
-                          sendRing: s == null ? void 0 : s.producer,
+                          sendRing: d == null ? void 0 : d.producer,
                         };
-                      (t.$6.set(a, m), t.$8.set(a, r));
+                      (t.$6.set(n, m), t.$8.set(n, c));
                       try {
                         t.$16(
+                          n,
                           a,
                           i,
                           l,
-                          u,
+                          s,
                           c,
-                          r,
-                          d,
-                          s == null ? void 0 : s.ringBuffer,
+                          u,
+                          d == null ? void 0 : d.ringBuffer,
                         );
                         return;
                       } catch (e) {
-                        if (s == null) {
-                          t.$17(a, r, n, e);
+                        if (d == null) {
+                          t.$17(n, c, r, e);
                           return;
                         }
                         ((t.$3 = !1), (m.sendRing = null));
                       }
                       try {
-                        t.$16(a, i, l, u, c, r, d);
+                        t.$16(n, a, i, l, s, c, u);
                       } catch (e) {
-                        t.$17(a, r, n, e);
+                        t.$17(n, c, r, e);
                       }
                     })
-                : (e || (e = n("Promise"))).reject(
-                    r("err")("WebTransport worker is not active"),
-                  )
+                : Promise.reject(r("err")("WebTransport worker is not active"))
             );
           }),
-          (a.$16 = function (t, n, r, o, a, i, l, s) {
+          (n.$16 = function (t, n, r, o, a, i, l, s) {
             this.$2.worker.postMessage({
               type: "cmd",
               cmd: "jsWorkerCmd",
@@ -197,12 +184,12 @@ __d(
               sendRing: s,
             });
           }),
-          (a.$17 = function (t, n, o, a) {
+          (n.$17 = function (t, n, o, a) {
             (this.$6.delete(t),
               this.$8.get(t) === n && this.$8.delete(t),
               o(r("err")(String(a))));
           }),
-          (a.resetDatagramHealth = function (t) {
+          (n.resetDatagramHealth = function (t) {
             this.$4 &&
               this.$2.worker.postMessage({
                 type: "cmd",
@@ -211,7 +198,7 @@ __d(
                 relayGeneration: t,
               });
           }),
-          (a.send = function (t, n) {
+          (n.send = function (t, n) {
             if (!this.$4 || this.$6.has(t)) return !1;
             var e = this.$10.get(t);
             if (e != null) return e.producer.write(n);
@@ -233,79 +220,65 @@ __d(
               return !1;
             }
           }),
-          (a.close = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var r = this;
-                if (this.$4) {
-                  if (t == null) {
-                    yield (e || (e = n("Promise"))).all(
-                      Array.from(this.$8.keys()).map(function (e) {
-                        return r.$18(e);
-                      }),
-                    );
-                    return;
-                  }
-                  return this.$18(t);
-                }
-              },
-            );
-            function r(e) {
-              return t.apply(this, arguments);
+          (n.close = async function (t) {
+            var e = this;
+            if (this.$4) {
+              if (t == null) {
+                await Promise.all(
+                  Array.from(this.$8.keys()).map(function (t) {
+                    return e.$18(t);
+                  }),
+                );
+                return;
+              }
+              return this.$18(t);
             }
-            return r;
-          })()),
-          (a.$18 = function (o) {
-            this.$10.delete(o);
-            var t = this.$8.get(o),
-              a = this.$7.get(o);
-            if (a != null && a.attemptId === t) return a.promise;
-            var i = this.$6.get(o);
+          }),
+          (n.$18 = function (t) {
+            this.$10.delete(t);
+            var e = this.$8.get(t),
+              n = this.$7.get(t);
+            if (n != null && n.attemptId === e) return n.promise;
+            var o = this.$6.get(t);
             if (
-              (i != null &&
-                (this.$6.delete(o),
-                i.reject(r("err")("WebTransport connect aborted"))),
-              t == null)
+              (o != null &&
+                (this.$6.delete(t),
+                o.reject(r("err")("WebTransport connect aborted"))),
+              e == null)
             )
-              return (e || (e = n("Promise"))).resolve();
-            a == null || a.resolve();
-            var l = r("WAWebNoop"),
-              s = new (e || (e = n("Promise")))(function (e) {
-                l = function () {
+              return Promise.resolve();
+            n == null || n.resolve();
+            var a = r("WAWebNoop"),
+              i = new Promise(function (e) {
+                a = function () {
                   return e();
                 };
               });
             return (
-              this.$7.set(o, { attemptId: t, promise: s, resolve: l }),
+              this.$7.set(t, { attemptId: e, promise: i, resolve: a }),
               this.$2.worker.postMessage({
                 type: "cmd",
                 cmd: "jsWorkerCmd",
                 jsWorkerCmd: "closeWebTransport",
-                connectionId: o,
+                connectionId: t,
               }),
-              s
+              i
             );
           }),
-          (a.isActive = function () {
+          (n.isActive = function () {
             return this.$4;
           }),
-          (a.shutdown = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              this.$4 &&
-                (yield this.close(),
-                (this.$4 = !1),
-                yield this.$2.shutdown(),
-                (this.$9 = null));
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          (n.shutdown = async function () {
+            this.$4 &&
+              (await this.close(),
+              (this.$4 = !1),
+              await this.$2.shutdown(),
+              (this.$9 = null));
+          }),
           t
         );
       })();
-    l.default = u;
+    l.default = s;
   },
   98,
 );

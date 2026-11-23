@@ -1,7 +1,6 @@
 __d(
   "WAWebNewsletterStatusProcessingUtils",
   [
-    "Promise",
     "WATimeUtils",
     "WAWebAck",
     "WAWebJidToWid",
@@ -13,11 +12,9 @@ __d(
     "WAWebNewsletterStatusReactionTaps",
     "WAWebNewsletterUpdateMsgsRecordsJob",
     "WAWebStatusCollection",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t) {
+    function e(e, t) {
       (o("WAWebNewsletterMetadataJob").updateNewsletterMetadata({
         id: e,
         lastFilledStatusServerId: t,
@@ -31,7 +28,7 @@ __d(
             { merge: !0 },
           ));
     }
-    function u(e, t, n) {
+    function s(e, t, n) {
       var a,
         i,
         l,
@@ -60,13 +57,13 @@ __d(
             ));
       }
     }
-    function c(e) {
+    function u(e) {
       return e.reduce(function (e, t) {
         var n;
         return Math.max(e, (n = t.serverId) != null ? n : 0);
       }, 0);
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WAWebStatusCollection").StatusCollection.get(e);
       return o("WAWebMsgCollection").MsgCollection.processMultipleMessages(
         e,
@@ -76,35 +73,25 @@ __d(
         n == null ? void 0 : n.msgs,
       );
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          o("WAWebStatusCollection").StatusCollection.add(
-            {
-              id: t,
-              t: r.reduce(function (e, t) {
-                var n;
-                return Math.max(e, (n = t.t) != null ? n : 0);
-              }, 0),
-            },
-            { merge: !0 },
-          );
-          var a = o("WAWebStatusCollection").StatusCollection.get(t);
-          (a != null && (a.isSyntheticFromMetadata = !1),
-            yield (e || (e = n("Promise"))).all([
-              o("WAWebNewsletterUpdateMsgsRecordsJob").addNewsletterMsgsRecords(
-                r,
-              ),
-              d(t, r),
-            ]));
-        })),
-        p.apply(this, arguments)
+    async function d(e, t) {
+      o("WAWebStatusCollection").StatusCollection.add(
+        {
+          id: e,
+          t: t.reduce(function (e, t) {
+            var n;
+            return Math.max(e, (n = t.t) != null ? n : 0);
+          }, 0),
+        },
+        { merge: !0 },
       );
+      var n = o("WAWebStatusCollection").StatusCollection.get(e);
+      (n != null && (n.isSyntheticFromMetadata = !1),
+        await Promise.all([
+          o("WAWebNewsletterUpdateMsgsRecordsJob").addNewsletterMsgsRecords(t),
+          c(e, t),
+        ]));
     }
-    function _(e, t, n) {
+    function m(e, t, n) {
       var r = o("WAWebStatusCollection").StatusCollection.get(e);
       if (r != null) {
         var a = new Map();
@@ -118,7 +105,7 @@ __d(
         });
       }
     }
-    function f(e) {
+    function p(e) {
       var t = e.reactionsByServerId,
         n = e.reactionServerTs,
         r = e.requestedAt,
@@ -153,50 +140,44 @@ __d(
       }
       return { ids: l, reactionIdsToRemove: c, reactions: u, viewCounts: s };
     }
-    function g(e) {
-      return h.apply(this, arguments);
+    async function _(e) {
+      var t = e.from,
+        n = e.reactionsByServerId,
+        r = e.requestedAt,
+        a = e.serverTimestamp,
+        i = e.viewsByServerId,
+        l = o("WAWebStatusCollection").StatusCollection.get(t);
+      if (l != null) {
+        var s = p({
+            reactionServerTs: a != null ? a : o("WATimeUtils").unixTime(),
+            reactionsByServerId: n,
+            requestedAt: r,
+            statusModel: l,
+            viewsByServerId: i,
+          }),
+          u = s.ids,
+          c = s.reactionIdsToRemove,
+          d = s.reactions,
+          m = s.viewCounts;
+        u.length !== 0 &&
+          (await o(
+            "WAWebNewsletterBackendAddOnsUtils",
+          ).persistNewsletterStatusInteractions({
+            ids: u,
+            reactionIdsToRemove: c,
+            reactions: d,
+            timestamp: Date.now(),
+            viewCounts: m,
+          }),
+          n != null &&
+            (await o("WAWebNewsletterBridgeMsgAddOnsUtils").updateReactions({
+              ids: u,
+              reactionIdsToRemove: c,
+              reactions: d,
+            })));
+      }
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.from,
-            n = e.reactionsByServerId,
-            r = e.requestedAt,
-            a = e.serverTimestamp,
-            i = e.viewsByServerId,
-            l = o("WAWebStatusCollection").StatusCollection.get(t);
-          if (l != null) {
-            var s = f({
-                reactionServerTs: a != null ? a : o("WATimeUtils").unixTime(),
-                reactionsByServerId: n,
-                requestedAt: r,
-                statusModel: l,
-                viewsByServerId: i,
-              }),
-              u = s.ids,
-              c = s.reactionIdsToRemove,
-              d = s.reactions,
-              m = s.viewCounts;
-            u.length !== 0 &&
-              (yield o(
-                "WAWebNewsletterBackendAddOnsUtils",
-              ).persistNewsletterStatusInteractions({
-                ids: u,
-                reactionIdsToRemove: c,
-                reactions: d,
-                timestamp: Date.now(),
-                viewCounts: m,
-              }),
-              n != null &&
-                (yield o("WAWebNewsletterBridgeMsgAddOnsUtils").updateReactions(
-                  { ids: u, reactionIdsToRemove: c, reactions: d },
-                )));
-          }
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t, n) {
+    function f(e, t, n) {
       var r = [],
         o = [];
       for (var a of e) {
@@ -212,7 +193,7 @@ __d(
       }
       return { reactions: r, reactionIdsToRemove: o };
     }
-    function C(e) {
+    function g(e) {
       var t = o("WAWebStatusCollection").StatusCollection.get(e);
       if (t != null) {
         var n = t.msgs.countWhere(function (e) {
@@ -221,14 +202,14 @@ __d(
         t.set({ totalCount: t.msgs.length, unreadCount: n });
       }
     }
-    ((l.syncFilledStatusCursor = s),
-      (l.syncStatusMetadata = u),
-      (l.computeMaxServerId = c),
-      (l.addAndPersistStatusMessages = m),
-      (l.updateStatusViewCounts = _),
-      (l.applyAndPersistInteractions = g),
-      (l.prepareReactionsForPersist = y),
-      (l.updateStatusUnreadCount = C));
+    ((l.syncFilledStatusCursor = e),
+      (l.syncStatusMetadata = s),
+      (l.computeMaxServerId = u),
+      (l.addAndPersistStatusMessages = d),
+      (l.updateStatusViewCounts = m),
+      (l.applyAndPersistInteractions = _),
+      (l.prepareReactionsForPersist = f),
+      (l.updateStatusUnreadCount = g));
   },
   98,
 );

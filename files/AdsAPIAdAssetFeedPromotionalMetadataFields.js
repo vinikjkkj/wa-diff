@@ -8,6 +8,7 @@ __d(
       COUPON_CODES: "coupon_codes",
       EXCLUDED_OFFERS: "excluded_offers",
       IS_AUTO_UPDATE_ALLOWED: "is_auto_update_allowed",
+      MANUAL_CODELESS_OFFER_IDS: "manual_codeless_offer_ids",
       MANUAL_COUPON_CODES: "manual_coupon_codes",
       OFFER_DETAILS: "offer_details",
       PRE_CLICK_AD_CONTAINERS: "pre_click_ad_containers",

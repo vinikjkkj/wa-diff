@@ -10,7 +10,6 @@ __d(
     "WAWebContactImportTemplateParsingUtils",
     "WAWebContactImportTypedError",
     "WAWebCustomerManagerImportTargets",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -204,73 +203,63 @@ __d(
         },
       );
     }
-    function L(e) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            if (
-              u(t) === o("WAWebContactImportFileTypeValidator").FileType.EXCEL
-            ) {
-              var n = yield t.arrayBuffer(),
-                a = yield r("JSResourceForInteraction")("xlsx")
-                  .__setRef("WAWebCustomerManagerImportMappingUtils")
-                  .load(),
-                i = a.read(n, { type: "array" }),
-                l = i.Sheets[i.SheetNames[0]],
-                s = a.utils
-                  .sheet_to_json(l, { header: 1, raw: !1 })
-                  .map(function (e) {
-                    return e.map(function (e) {
-                      return e != null ? String(e) : "";
-                    });
-                  });
-              return C(s);
-            }
-            var c = yield t.text(),
-              d = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(c),
-              m = yield o(
-                "WAWebContactImportCSVValidation",
-              ).recoverUndetectableCSVDelimiter(c, d, v, { fullFileProbe: !0 }),
-              p = m.result;
-            o("WAWebContactImportCSVValidation").validateCSVParseResult(c, p);
-            var _ = C(p.data);
-            return (
-              _ != null &&
-                o("WAWebContactImportCSVValidation").validateCSVColumnCounts(
-                  c,
-                  p,
-                  _.headerIndex,
-                  m.separator,
-                ),
-              _
-            );
-          } catch (t) {
-            if (
-              t instanceof
-              o("WAWebContactImportTypedError").WAWebContactImportTypedError
+    async function L(t) {
+      try {
+        if (u(t) === o("WAWebContactImportFileTypeValidator").FileType.EXCEL) {
+          var n = await t.arrayBuffer(),
+            a = await r("JSResourceForInteraction")("xlsx")
+              .__setRef("WAWebCustomerManagerImportMappingUtils")
+              .load(),
+            i = a.read(n, { type: "array" }),
+            l = i.Sheets[i.SheetNames[0]],
+            s = a.utils
+              .sheet_to_json(l, { header: 1, raw: !1 })
+              .map(function (e) {
+                return e.map(function (e) {
+                  return e != null ? String(e) : "";
+                });
+              });
+          return C(s);
+        }
+        var c = await t.text(),
+          d = await o("WAWebContactImportCSVParsingUtils").loadPapaParse(c),
+          m = await o(
+            "WAWebContactImportCSVValidation",
+          ).recoverUndetectableCSVDelimiter(c, d, v, { fullFileProbe: !0 }),
+          p = m.result;
+        o("WAWebContactImportCSVValidation").validateCSVParseResult(c, p);
+        var _ = C(p.data);
+        return (
+          _ != null &&
+            o("WAWebContactImportCSVValidation").validateCSVColumnCounts(
+              c,
+              p,
+              _.headerIndex,
+              m.separator,
+            ),
+          _
+        );
+      } catch (t) {
+        if (
+          t instanceof
+          o("WAWebContactImportTypedError").WAWebContactImportTypedError
+        )
+          throw t;
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] header extraction failed",
+                ])),
             )
-              throw t;
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] header extraction failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("cm-import-extract-headers-failed"),
-              null
-            );
-          }
-        })),
-        E.apply(this, arguments)
-      );
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("cm-import-extract-headers-failed"),
+          null
+        );
+      }
     }
-    function k(e, t) {
+    function E(e, t) {
       var n = new Map();
       for (var r of o("WAWebCustomerManagerImportTargets").TARGET_ORDER) {
         var a = t[r];
@@ -284,12 +273,12 @@ __d(
               ? t
               : o(
                     "WAWebContactImportTemplateParsingUtils",
-                  ).isParsedNameOrPhoneFieldName(e) || I(e)
+                  ).isParsedNameOrPhoneFieldName(e) || k(e)
                 ? ""
                 : e;
           });
     }
-    function I(e) {
+    function k(e) {
       return o("WAWebCustomerManagerImportTargets").MATCH_TARGET_ORDER.some(
         function (t) {
           return o(
@@ -301,97 +290,68 @@ __d(
         },
       );
     }
-    function T(e) {
+    function I(e) {
       return /[\",\n\r]/.test(e) ? '"' + e.replace(/\"/g, '""') + '"' : e;
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield e.text(),
-            r = yield o("WAWebContactImportCSVParsingUtils").loadPapaParse(n),
-            a = yield o(
-              "WAWebContactImportCSVValidation",
-            ).recoverUndetectableCSVDelimiter(n, r, v, { fullFileProbe: !0 }),
-            i = a.result;
-          o("WAWebContactImportCSVValidation").validateCSVParseResult(n, i);
-          var l = i.data.map(function (e) {
-              return e.map(function (e) {
-                return e != null ? String(e) : "";
-              });
-            }),
-            s = C(l);
-          if (s == null) return e;
-          (o("WAWebContactImportCSVValidation").validateCSVColumnCounts(
-            n,
-            i,
-            s.headerIndex,
-            a.separator,
-          ),
-            (l[s.headerIndex] = [].concat(k(l[s.headerIndex], t))));
-          var u = l
-            .map(function (e) {
-              return e.map(T).join(",");
-            })
-            .join("\n");
-          return new File([u], e.name, { type: "text/csv" });
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e, t) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield e.arrayBuffer(),
-            o = yield r("JSResourceForInteraction")("xlsx")
-              .__setRef("WAWebCustomerManagerImportMappingUtils")
-              .load(),
-            a = o.read(n, { type: "array" }),
-            i = a.SheetNames[0],
-            l = a.Sheets[i],
-            s = l["!ref"],
-            u =
-              typeof s == "string" ? o.utils.decode_range(s).s : { c: 0, r: 0 },
-            c = o.utils
-              .sheet_to_json(l, { header: 1, raw: !1 })
-              .map(function (e) {
-                return e.map(function (e) {
-                  return e != null ? String(e) : "";
-                });
-              }),
-            d = C(c);
-          if (d == null) return e;
-          o.utils.sheet_add_aoa(l, [[].concat(k(c[d.headerIndex], t))], {
-            origin: { c: u.c, r: u.r + d.headerIndex },
+    async function T(e, t) {
+      var n = await e.text(),
+        r = await o("WAWebContactImportCSVParsingUtils").loadPapaParse(n),
+        a = await o(
+          "WAWebContactImportCSVValidation",
+        ).recoverUndetectableCSVDelimiter(n, r, v, { fullFileProbe: !0 }),
+        i = a.result;
+      o("WAWebContactImportCSVValidation").validateCSVParseResult(n, i);
+      var l = i.data.map(function (e) {
+          return e.map(function (e) {
+            return e != null ? String(e) : "";
           });
-          var m = o.write(a, { bookType: "xlsx", type: "array" });
-          return new File([m], e.name, {
-            type:
-              e.type ||
-              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        }),
+        s = C(l);
+      if (s == null) return e;
+      (o("WAWebContactImportCSVValidation").validateCSVColumnCounts(
+        n,
+        i,
+        s.headerIndex,
+        a.separator,
+      ),
+        (l[s.headerIndex] = [].concat(E(l[s.headerIndex], t))));
+      var u = l.map(function (e) {
+        return e.map(I).join(",");
+      }).join(`
+`);
+      return new File([u], e.name, { type: "text/csv" });
+    }
+    async function D(e, t) {
+      var n = await e.arrayBuffer(),
+        o = await r("JSResourceForInteraction")("xlsx")
+          .__setRef("WAWebCustomerManagerImportMappingUtils")
+          .load(),
+        a = o.read(n, { type: "array" }),
+        i = a.SheetNames[0],
+        l = a.Sheets[i],
+        s = l["!ref"],
+        u = typeof s == "string" ? o.utils.decode_range(s).s : { c: 0, r: 0 },
+        c = o.utils.sheet_to_json(l, { header: 1, raw: !1 }).map(function (e) {
+          return e.map(function (e) {
+            return e != null ? String(e) : "";
           });
-        })),
-        P.apply(this, arguments)
-      );
+        }),
+        d = C(c);
+      if (d == null) return e;
+      o.utils.sheet_add_aoa(l, [[].concat(E(c[d.headerIndex], t))], {
+        origin: { c: u.c, r: u.r + d.headerIndex },
+      });
+      var m = o.write(a, { bookType: "xlsx", type: "array" });
+      return new File([m], e.name, {
+        type:
+          e.type ||
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      });
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
-    }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return u(e) ===
-            o("WAWebContactImportFileTypeValidator").FileType.EXCEL
-            ? $(e, t)
-            : D(e, t);
-        })),
-        M.apply(this, arguments)
-      );
+    async function x(e, t) {
+      return u(e) === o("WAWebContactImportFileTypeValidator").FileType.EXCEL
+        ? D(e, t)
+        : T(e, t);
     }
     ((l.TARGET_ORDER = o("WAWebCustomerManagerImportTargets").TARGET_ORDER),
       (l.getCustomerManagerImportFileType = u),
@@ -403,8 +363,8 @@ __d(
       (l.findHeaderRowInMatrix = C),
       (l.findCustomerManagerHeaderRowForDelimiterRecovery = v),
       (l.extractImportHeaders = L),
-      (l.renameHeaderRow = k),
-      (l.applyMappingToFile = N));
+      (l.renameHeaderRow = E),
+      (l.applyMappingToFile = x));
   },
   98,
 );

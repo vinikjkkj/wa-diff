@@ -20,10 +20,9 @@ __d(
       var t = e.conflictingFields;
       return e.errorType === u.MERGE_CONFLICT && t != null && t.length > 0
         ? s
-            ._(
-              /*BTDS*/ "Conflicting saved values: {fields with different values}",
-              [s._param("fields with different values", t.join(", "))],
-            )
+            ._(/*BTDS*/ "", [
+              s._param("fields with different values", t.join(", ")),
+            ])
             .toString()
         : c(e.errorType);
     }
@@ -43,45 +42,45 @@ __d(
     }
     function p(t) {
       return t === u.MERGE_CONFLICT
-        ? s._(/*BTDS*/ "Conflicting saved values").toString()
+        ? s._(/*BTDS*/ "").toString()
         : t === u.CUSTOMER_DATA_LOOKUP_FAILED
-          ? s._(/*BTDS*/ "Couldn't check saved customer").toString()
+          ? s._(/*BTDS*/ "").toString()
           : t === u.PHONE_DATA_OWNER_UNVERIFIED
-            ? s._(/*BTDS*/ "Review contact before importing").toString()
+            ? s._(/*BTDS*/ "").toString()
             : t === e.INVALID_LEAD_STAGE_AND_ACQUISITION_SOURCE
-              ? s._(/*BTDS*/ "Unknown lead stage and source").toString()
+              ? s._(/*BTDS*/ "").toString()
               : t === e.INVALID_LEAD_STAGE
-                ? s._(/*BTDS*/ "Unknown lead stage").toString()
+                ? s._(/*BTDS*/ "").toString()
                 : t === e.INVALID_ACQUISITION_SOURCE
-                  ? s._(/*BTDS*/ "Unknown source").toString()
+                  ? s._(/*BTDS*/ "").toString()
                   : t ===
                       o("WAWebContactImportTypedError").DateError.INVALID_DATE
-                    ? s._(/*BTDS*/ "Invalid date").toString()
+                    ? s._(/*BTDS*/ "").toString()
                     : null;
     }
     function _(e) {
       return e === o("WAWebContactImportTypedError").PhoneError.DUPLICATE
-        ? s._(/*BTDS*/ "Duplicate number").toString()
+        ? s._(/*BTDS*/ "").toString()
         : e === o("WAWebContactImportTypedError").PhoneError.INVALID
-          ? s._(/*BTDS*/ "Invalid number").toString()
+          ? s._(/*BTDS*/ "").toString()
           : e === o("WAWebContactImportTypedError").PhoneError.NOT_WHATSAPP_USER
-            ? s._(/*BTDS*/ "Not on WhatsApp").toString()
+            ? s._(/*BTDS*/ "").toString()
             : e === o("WAWebContactImportTypedError").NameError.EMPTY ||
                 e === o("WAWebContactImportTypedError").NameError.INVALID
-              ? s._(/*BTDS*/ "Invalid name").toString()
+              ? s._(/*BTDS*/ "").toString()
               : e === o("WAWebContactImportTypedError").UsernameError.DUPLICATE
-                ? s._(/*BTDS*/ "Duplicate username").toString()
+                ? s._(/*BTDS*/ "").toString()
                 : e === o("WAWebContactImportTypedError").UsernameError.MISMATCH
-                  ? s._(/*BTDS*/ "Username does not match number").toString()
+                  ? s._(/*BTDS*/ "").toString()
                   : e ===
                       o("WAWebContactImportTypedError").UsernameError
                         .REQUIRES_PHONE
-                    ? s._(/*BTDS*/ "Add a phone number").toString()
+                    ? s._(/*BTDS*/ "").toString()
                     : e ===
                         o("WAWebContactImportTypedError").ExistingContactError
                           .ALREADY_EXISTS
-                      ? s._(/*BTDS*/ "Already a customer").toString()
-                      : s._(/*BTDS*/ "Invalid contact").toString();
+                      ? s._(/*BTDS*/ "").toString()
+                      : s._(/*BTDS*/ "").toString();
     }
     ((l.CustomerManagerImportEnumError = e),
       (l.CustomerManagerImportConflictError = u),

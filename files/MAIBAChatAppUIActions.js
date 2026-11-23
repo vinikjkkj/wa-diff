@@ -10,6 +10,7 @@ __d(
     "MAIBAChatConstants",
     "gkx",
     "promiseDone",
+    "requestIdleCallback",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -24,17 +25,41 @@ __d(
             }),
         );
     }
-    function s(e) {
+    function s() {
+      r("promiseDone")(
+        r("JSResource")("MAIBAWarmCacheImpl")
+          .__setRef("MAIBAChatAppUIActions")
+          .load()
+          .then(function (e) {
+            return e.fireBusinessContext();
+          }),
+      );
+    }
+    function u(e) {
+      (e == null ? void 0 : e.pendingUserInput) != null ||
+        !r("gkx")("27470") ||
+        r("requestIdleCallback")(function () {
+          r("promiseDone")(
+            r("JSResource")("MAIBAAxonSessionWarmupImpl")
+              .__setRef("MAIBAChatAppUIActions")
+              .load()
+              .then(function (e) {
+                return e.startOnPanelOpen();
+              }),
+          );
+        });
+    }
+    function c(e) {
       o("MAIBAChatAppStore").shouldUseLaminarForMAIBA()
         ? (r("MAIBAChatAppAction").dispatch(e, {
-            line: "43",
+            line: "78",
             module: "MAIBAChatAppUIActions.js",
             moduleID: i.id,
           }),
           o("MAIBAChatAppStore").dispatch(e))
-        : (o("MAIBAChatAppStore").dispatch(e), y());
+        : (o("MAIBAChatAppStore").dispatch(e), b());
     }
-    function u(e) {
+    function d(e) {
       if (
         o("MAIBAChatAppStore").getState().surfaceMode !== "canvas" ||
         !o("MAIBACanvasExitGuard").hasCanvasExitGuard()
@@ -50,7 +75,7 @@ __d(
           }),
       );
     }
-    function c(t, n, r) {
+    function m(t, n, r) {
       if (
         !o("AdsAIUtils").getIsAdsAIBetaM2AvailableOnCurrentSurface(
           "toggleMAIBAChatAppOpen:" + (n != null ? n : "unknown"),
@@ -67,9 +92,10 @@ __d(
         );
         return;
       }
-      (o("MAIBAChatAppStore").getState().isMAIBAChatAppOpen || e(),
-        u(function () {
-          s({
+      (s(),
+        o("MAIBAChatAppStore").getState().isMAIBAChatAppOpen || (e(), u(t)),
+        d(function () {
+          c({
             windowAction: { actionType: "toggle" },
             chatAction: {
               actionType: "open",
@@ -79,13 +105,13 @@ __d(
           });
         }));
     }
-    function d() {
-      u(function () {
-        s({ windowAction: { actionType: "close" } });
+    function p() {
+      d(function () {
+        c({ windowAction: { actionType: "close" } });
       });
     }
-    function m(t, n, r, a) {
-      var i;
+    function _(t, n, r, a, i, l) {
+      var m;
       if (
         !o("AdsAIUtils").getIsAdsAIBetaM2AvailableOnCurrentSurface(
           "openMAIBAChatThread:" + (r != null ? r : "unknown"),
@@ -103,31 +129,34 @@ __d(
           ),
           !1
         );
-      o("MAIBAChatAppStore").getState().isMAIBAChatAppOpen || e();
-      var l = function () {
-          s({
-            chatAction: {
-              actionType: "open",
-              entrypoint: r,
-              selectedChatState: t,
-            },
-            windowAction: {
-              actionType: "open",
-              isFullScreen: n == null ? void 0 : n.isFullScreen,
-              shouldAutoExpandThreadList:
-                n == null ? void 0 : n.shouldAutoExpandThreadList,
-            },
-          });
+      (s(),
+        o("MAIBAChatAppStore").getState().isMAIBAChatAppOpen || (e(), u(t)));
+      var p = function () {
+          (i == null || i(),
+            c({
+              igBoostLoggingSource: l != null ? l : null,
+              chatAction: {
+                actionType: "open",
+                entrypoint: r,
+                selectedChatState: t,
+              },
+              windowAction: {
+                actionType: "open",
+                isFullScreen: n == null ? void 0 : n.isFullScreen,
+                shouldAutoExpandThreadList:
+                  n == null ? void 0 : n.shouldAutoExpandThreadList,
+              },
+            }));
         },
-        c =
+        _ =
           t.externalConversationId !==
-          ((i = o("MAIBAChatAppStore").getState().selectedChatState) == null
+          ((m = o("MAIBAChatAppStore").getState().selectedChatState) == null
             ? void 0
-            : i.externalConversationId);
-      return (c ? u(l) : l(), !0);
+            : m.externalConversationId);
+      return (_ ? d(p) : p(), !0);
     }
-    function p(e) {
-      s({
+    function f(e) {
+      c({
         windowAction: {
           actionType: "resize",
           chatWindowWidth:
@@ -135,9 +164,9 @@ __d(
         },
       });
     }
-    function _(e) {
+    function g(e) {
       var t = function () {
-        s({
+        c({
           windowAction: {
             actionType: "resize",
             chatWindowWidth: o("MAIBAChatConstants").DEFAULT_CHAT_WINDOW_WIDTH,
@@ -146,10 +175,10 @@ __d(
           },
         });
       };
-      e ? t() : u(t);
+      e ? t() : d(t);
     }
-    function f() {
-      s({
+    function h() {
+      c({
         windowAction: {
           actionType: "resize",
           chatWindowWidth: o("MAIBAChatConstants").DEFAULT_CHAT_WINDOW_WIDTH,
@@ -159,8 +188,8 @@ __d(
         },
       });
     }
-    function g() {
-      s({
+    function y() {
+      c({
         windowAction: {
           actionType: "resize",
           isFullScreen: !1,
@@ -169,8 +198,8 @@ __d(
         },
       });
     }
-    function h(e) {
-      s({
+    function C(e) {
+      c({
         windowAction: babelHelpers.extends(
           { actionType: "resize", surfaceMode: e ? "canvas" : "none" },
           e
@@ -179,7 +208,7 @@ __d(
         ),
       });
     }
-    function y() {
+    function b() {
       var e = o("MAIBAChatAppStore").getState();
       r("MAIBAChatAppAction").dispatch(
         {
@@ -192,24 +221,24 @@ __d(
             surfaceMode: e.surfaceMode,
           },
         },
-        { line: "259", module: "MAIBAChatAppUIActions.js", moduleID: i.id },
+        { line: "302", module: "MAIBAChatAppUIActions.js", moduleID: i.id },
       );
     }
-    function C() {
+    function v() {
       r("JSResource")("MAIBAThreadsInbox.react")
         .__setRef("MAIBAChatAppUIActions")
         .preload();
     }
-    ((l.toggleMAIBAChatAppOpen = c),
-      (l.closeMAIBAChatApp = d),
-      (l.openMAIBAChatThread = m),
-      (l.updateMAIBAChatWindowWidth = p),
-      (l.toggleMAIBAChatAppFullScreen = _),
-      (l.resetMAIBAChatWindowStateOnClose = f),
-      (l.enterMAIBAWorkspaceMode = g),
-      (l.toggleMAIBAChatCanvasMode = h),
-      (l.noopUpdater = y),
-      (l.preloadMAIBAChatApp = C));
+    ((l.toggleMAIBAChatAppOpen = m),
+      (l.closeMAIBAChatApp = p),
+      (l.openMAIBAChatThread = _),
+      (l.updateMAIBAChatWindowWidth = f),
+      (l.toggleMAIBAChatAppFullScreen = g),
+      (l.resetMAIBAChatWindowStateOnClose = h),
+      (l.enterMAIBAWorkspaceMode = y),
+      (l.toggleMAIBAChatCanvasMode = C),
+      (l.noopUpdater = b),
+      (l.preloadMAIBAChatApp = v));
   },
   98,
 );

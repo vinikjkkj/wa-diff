@@ -260,9 +260,9 @@ __d(
     }
     function T(e) {
       return e > o("WAWebBizAiAppointmentAvailabilityNormalize").MINUTES_IN_DAY
-        ? s._(/*BTDS*/ "Duration cannot exceed 24 hours")
+        ? s._(/*BTDS*/ "")
         : e > 0 && e < d
-          ? s._(/*BTDS*/ "Duration must be at least 10 minutes")
+          ? s._(/*BTDS*/ "")
           : null;
     }
     function D(e, t, n, r) {
@@ -357,21 +357,21 @@ __d(
         {
           enabled: !0,
           id: "name",
-          label: s._(/*BTDS*/ "Name"),
+          label: s._(/*BTDS*/ ""),
           locked: !1,
           omitIdOnSubmit: !1,
         },
         {
           enabled: !0,
           id: "email",
-          label: s._(/*BTDS*/ "Email"),
+          label: s._(/*BTDS*/ ""),
           locked: !1,
           omitIdOnSubmit: !1,
         },
         {
           enabled: !1,
           id: "address",
-          label: s._(/*BTDS*/ "Address"),
+          label: s._(/*BTDS*/ ""),
           locked: !1,
           omitIdOnSubmit: !1,
         },
@@ -381,7 +381,7 @@ __d(
       return {
         enabled: !0,
         id: "phone_number",
-        label: s._(/*BTDS*/ "Phone number"),
+        label: s._(/*BTDS*/ ""),
         locked: !0,
         omitIdOnSubmit: !1,
       };

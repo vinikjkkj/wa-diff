@@ -16,10 +16,8 @@ __d(
         type: "reach_frequency_ad_formats",
         key: "STORIES_CAROUSEL",
         adFormatType: "stories_carousel",
-        label: s._(/*BTDS*/ "Stories carousel"),
-        description: s._(
-          /*BTDS*/ "Vertical images or videos for Instagram Stories only",
-        ),
+        label: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         iconWhenSelected: "/images/ads/createflow/Carousel_Fullscreen_Blue.png",
         iconWhenUnselected: "/images/ads/createflow/Carousel_Fullscreen.png",
         getAdFormatsCards: function (t, n) {
@@ -79,6 +77,7 @@ __d(
             "oculus/vr_apps",
             "oculus/rewarded_video",
             "threads/stream",
+            "threads/permalink",
           ];
         },
         getMutuallyExclusiveAdFormats: function () {

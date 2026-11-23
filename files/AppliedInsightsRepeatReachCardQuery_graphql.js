@@ -1,0 +1,222 @@
+__d(
+  "AppliedInsightsRepeatReachCardQuery.graphql",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = (function () {
+      var e = [
+          { defaultValue: null, kind: "LocalArgument", name: "params" },
+          { defaultValue: null, kind: "LocalArgument", name: "shouldQuery" },
+        ],
+        t = [{ kind: "Variable", name: "params", variableName: "params" }],
+        n = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "current_saturation",
+          storageKey: null,
+        },
+        r = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "value",
+          storageKey: null,
+        },
+        o = [
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "key",
+            storageKey: null,
+          },
+          r,
+        ],
+        a = {
+          alias: null,
+          args: null,
+          concreteType: "XFBAppliedInsightsRepeatReachMapEntry",
+          kind: "LinkedField",
+          name: "historical_saturation",
+          plural: !0,
+          selections: o,
+          storageKey: null,
+        },
+        i = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "cumulative_reach",
+          storageKey: null,
+        },
+        l = [
+          {
+            alias: null,
+            args: null,
+            kind: "ScalarField",
+            name: "timestamp",
+            storageKey: null,
+          },
+          r,
+        ],
+        s = [
+          {
+            kind: "InlineDataFragmentSpread",
+            name: "AppliedInsightsRepeatReachUtils_timeseriesPoint",
+            selections: l,
+            args: null,
+            argumentDefinitions: [],
+          },
+        ],
+        u = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "average_cost_per_result",
+          storageKey: null,
+        };
+      return {
+        fragment: {
+          argumentDefinitions: e,
+          kind: "Fragment",
+          metadata: null,
+          name: "AppliedInsightsRepeatReachCardQuery",
+          selections: [
+            {
+              condition: "shouldQuery",
+              kind: "Condition",
+              passingValue: !0,
+              selections: [
+                {
+                  alias: null,
+                  args: t,
+                  concreteType: "XFBAppliedInsightsRepeatReach",
+                  kind: "LinkedField",
+                  name: "xfb_applied_insights_repeat_reach",
+                  plural: !1,
+                  selections: [
+                    n,
+                    a,
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBAppliedInsightsRepeatReachMapEntry",
+                      kind: "LinkedField",
+                      name: "saturation_thresholds",
+                      plural: !0,
+                      selections: [
+                        {
+                          kind: "InlineDataFragmentSpread",
+                          name: "AppliedInsightsRepeatReachUtils_highThreshold",
+                          selections: o,
+                          args: null,
+                          argumentDefinitions: [],
+                        },
+                      ],
+                      storageKey: null,
+                    },
+                    i,
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBAppliedInsightsHistoricalMetricValue",
+                      kind: "LinkedField",
+                      name: "daily_reach",
+                      plural: !0,
+                      selections: s,
+                      storageKey: null,
+                    },
+                    u,
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBAppliedInsightsHistoricalMetricValue",
+                      kind: "LinkedField",
+                      name: "daily_cost_per_result",
+                      plural: !0,
+                      selections: s,
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+            },
+          ],
+          type: "Query",
+          abstractKey: null,
+        },
+        kind: "Request",
+        operation: {
+          argumentDefinitions: e,
+          kind: "Operation",
+          name: "AppliedInsightsRepeatReachCardQuery",
+          selections: [
+            {
+              condition: "shouldQuery",
+              kind: "Condition",
+              passingValue: !0,
+              selections: [
+                {
+                  alias: null,
+                  args: t,
+                  concreteType: "XFBAppliedInsightsRepeatReach",
+                  kind: "LinkedField",
+                  name: "xfb_applied_insights_repeat_reach",
+                  plural: !1,
+                  selections: [
+                    n,
+                    a,
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBAppliedInsightsRepeatReachMapEntry",
+                      kind: "LinkedField",
+                      name: "saturation_thresholds",
+                      plural: !0,
+                      selections: o,
+                      storageKey: null,
+                    },
+                    i,
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBAppliedInsightsHistoricalMetricValue",
+                      kind: "LinkedField",
+                      name: "daily_reach",
+                      plural: !0,
+                      selections: l,
+                      storageKey: null,
+                    },
+                    u,
+                    {
+                      alias: null,
+                      args: null,
+                      concreteType: "XFBAppliedInsightsHistoricalMetricValue",
+                      kind: "LinkedField",
+                      name: "daily_cost_per_result",
+                      plural: !0,
+                      selections: l,
+                      storageKey: null,
+                    },
+                  ],
+                  storageKey: null,
+                },
+              ],
+            },
+          ],
+        },
+        params: {
+          id: "29172559595737748",
+          metadata: {},
+          name: "AppliedInsightsRepeatReachCardQuery",
+          operationKind: "query",
+          text: null,
+        },
+      };
+    })();
+    a.exports = e;
+  },
+  null,
+);

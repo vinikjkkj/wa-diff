@@ -26,7 +26,6 @@ __d(
     "adsConvertAdObjectRecordToPlainJS",
     "immutable",
     "isTruthy",
-    "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -39,7 +38,7 @@ __d(
     function u(e, t) {
       var n = r("AdsAdgroupSemanticFields").phoneDataID.get(t, e);
       return o("AdsAssetFeedUtils").isAdgroupUsingAssetFeedFromRecord(e) ||
-        ce(e)
+        ue(e)
         ? o("AdsAssetFeedFieldUtils").getAssetAtIndex(
             n,
             "id",
@@ -52,7 +51,7 @@ __d(
     }
     function c(e, t) {
       var n = "";
-      if (Ie(e)) {
+      if (Ee(e)) {
         var a = r(
           "AdsAdgroupRecordAccessors",
         ).creative.call_to_action.value.link_caption.get(e);
@@ -111,14 +110,14 @@ __d(
       });
     }
     function y(e, t) {
-      return ce(e) ? C(e) : t();
+      return ue(e) ? C(e) : t();
     }
     function C(e) {
-      if (!ce(e)) return null;
+      if (!ue(e)) return null;
       if (o("AdsAssetFeedUtils").isMCAAdgroupFromRecord(e)) return R(e);
       var t = L(e);
       if (r("isTruthy")(t)) return t;
-      if (X(e)) return k(e);
+      if (Q(e)) return k(e);
       var n = A(e),
         a = k(e);
       return r("isTruthy")(a)
@@ -126,7 +125,7 @@ __d(
         : o("AdsPagePostUtils").getPageIdFromPagePostId_BROKEN(n);
     }
     function b(e, t) {
-      return ce(e) ? S(e) : r("AdsAdgroupSemanticFields").pageID.get(t, e);
+      return ue(e) ? S(e) : r("AdsAdgroupSemanticFields").pageID.get(t, e);
     }
     function v(e, t) {
       var n = b(e, t),
@@ -144,8 +143,8 @@ __d(
       );
     }
     function S(e) {
-      if (!ce(e)) return null;
-      if (X(e)) return k(e);
+      if (!ue(e)) return null;
+      if (Q(e)) return k(e);
       var t = A(e),
         n = k(e);
       return r("isTruthy")(n)
@@ -163,7 +162,7 @@ __d(
     function L(e) {
       var t;
       if (
-        ce(e) &&
+        ue(e) &&
         ((t = e.creative) == null
           ? void 0
           : t.branded_content_boosting_type) === "SPONSOR_BOOST"
@@ -238,41 +237,24 @@ __d(
           : t.getIn([0, "type"]);
     }
     function w(e) {
-      var t = N(e);
-      if (r("justknobx")._("746")) {
-        var n = null;
-        if (t != null)
-          if (Array.isArray(t)) {
-            var o;
-            n =
-              t.length > 0
-                ? (o = t[0].value) == null
-                  ? void 0
-                  : o.link
-                : null;
-          } else n = t.getIn([0, "value", "link"]);
-        if (n == null) {
-          var a;
-          n =
-            (a = e.creative) == null ||
-            (a = a.call_to_action) == null ||
-            (a = a.value) == null
-              ? void 0
-              : a.link;
-        }
-        return n;
-      } else {
-        if (t == null) return null;
+      var t = N(e),
+        n = null;
+      if (t != null)
         if (Array.isArray(t)) {
-          var i;
-          return t.length > 0
-            ? (i = t[0].value) == null
-              ? void 0
-              : i.link
-            : null;
-        }
-        return t.getIn([0, "value", "link"]);
+          var r;
+          n =
+            t.length > 0 ? ((r = t[0].value) == null ? void 0 : r.link) : null;
+        } else n = t.getIn([0, "value", "link"]);
+      if (n == null) {
+        var o;
+        n =
+          (o = e.creative) == null ||
+          (o = o.call_to_action) == null ||
+          (o = o.value) == null
+            ? void 0
+            : o.link;
       }
+      return n;
     }
     function A(e) {
       var t;
@@ -327,19 +309,6 @@ __d(
       return t === "INSTAGRAM_DIRECT";
     }
     function K(e) {
-      if (e != null) {
-        if (Array.isArray(e))
-          return e.some(function (e) {
-            return e.type === "messenger";
-          });
-        if (o("immutable").List.isList(e))
-          return e.some(function (e) {
-            return e.get("type") === "messenger";
-          });
-      }
-      return !1;
-    }
-    function Q(e) {
       var t,
         n =
           (t = e.creative) == null || (t = t.asset_feed_spec) == null
@@ -357,7 +326,7 @@ __d(
       }
       return !1;
     }
-    function X(e) {
+    function Q(e) {
       var t,
         n,
         r,
@@ -366,37 +335,18 @@ __d(
         i = (r = e.creative) == null ? void 0 : r.object_id;
       return !!(o != null ? o : a) && !!i;
     }
-    function Y(e) {
+    function X(e) {
       return o(
         "AdsAdgroupCreativeAssetGroupsSpecOriginMutators",
       ).hasSpecificOrigin(e, "flexible_format");
     }
-    function J(e) {
+    function Y(e) {
       return o("AdsAdgroupCreativeAssetGroupsSpecOriginMutators").hasAnyOrigins(
         e,
         ["flexible_format", "creative_asset_groups"],
       );
     }
-    function Z(e) {
-      var t, n, r;
-      return (
-        ((t =
-          e == null ||
-          (n = e.creative) == null ||
-          (n = n.object_story_spec) == null ||
-          (n = n.link_data) == null
-            ? void 0
-            : n.image_hash) != null
-          ? t
-          : e == null ||
-              (r = e.creative) == null ||
-              (r = r.object_story_spec) == null ||
-              (r = r.link_data) == null
-            ? void 0
-            : r.picture) == null
-      );
-    }
-    function ee(e) {
+    function J(e) {
       return o("AdsAdgroupCreativeAssetGroupsSpecOriginMutators").hasAnyOrigins(
         e,
         [
@@ -405,7 +355,7 @@ __d(
         ],
       );
     }
-    function te(e, t) {
+    function Z(e, t) {
       var n = q(e, t),
         o = W(e, t);
       return (
@@ -415,32 +365,32 @@ __d(
           (o == null ? void 0 : o.isEmpty()) === !1)
       );
     }
-    function ne(e) {
+    function ee(e) {
       var t, n;
-      return re(
+      return te(
         (t = e.semantic_fields) == null ? void 0 : t.retailer_item_ids,
         (n = e.semantic_fields) == null ? void 0 : n.collection_thumbnails,
       );
     }
-    function re(e, t) {
+    function te(e, t) {
       return (
         (e == null ? void 0 : e.isEmpty()) === !1 ||
         (t == null ? void 0 : t.isEmpty()) === !1
       );
     }
-    function oe(e, t) {
-      return e instanceof r("AdsAPIAdgroupRecord") ? te(e, t) : ne(e);
+    function ne(e, t) {
+      return e instanceof r("AdsAPIAdgroupRecord") ? Z(e, t) : ee(e);
     }
-    function ae(e, t) {
-      return Y(e) || ee(e)
+    function re(e, t) {
+      return X(e) || J(e)
         ? r("AdsLinkPostFormat").FLEXIBLE
-        : oe(e, t)
+        : ne(e, t)
           ? r("AdsLinkPostFormat").COLLECTIONS
           : o("AdsChildAttachmentsUtils").isCarouselAd(e)
             ? r("AdsLinkPostFormat").MULTIPLE
             : r("AdsLinkPostFormat").SINGLE;
     }
-    function ie(e, t) {
+    function oe(e, t) {
       return e !== null
         ? o("AdsMessageMarketingSetupSource").AdsMessageMarketingSetupSource
             .EXISTING_AD
@@ -450,21 +400,29 @@ __d(
           : o("AdsMessageMarketingSetupSource").AdsMessageMarketingSetupSource
               .MANUAL;
     }
-    function le(e) {
+    function ae(e) {
       return n("AdsAdgroupSpecUtils").isTemplateCreative(e);
     }
-    function se(e) {
+    function ie(e) {
       var t;
       return (
-        ce(e) &&
+        ue(e) &&
         ((t = e.creative) == null ? void 0 : t.object_type) ===
           r("ApiAdObjectTypes").SHARE
       );
     }
-    function ue(e) {
+    function le(e) {
+      var t;
+      return (
+        ke(e) &&
+        ((t = e.creative) == null ? void 0 : t.object_type) ===
+          r("ApiAdObjectTypes").SHARE
+      );
+    }
+    function se(e) {
       var t, n, o;
       return (
-        ce(e) &&
+        ue(e) &&
         ((t = e.creative) == null ? void 0 : t.media_type) ===
           "EXISTING_POST" &&
         (((n = e.creative) == null ? void 0 : n.object_type) ===
@@ -473,8 +431,15 @@ __d(
             r("ApiAdObjectTypes").STATUS)
       );
     }
-    function ce(e) {
+    function ue(e) {
       var t = e == null ? void 0 : e.creative;
+      if (
+        e instanceof r("AdsAPIAdgroupRecord") &&
+        r("AdsAdgroupRecordAccessors").creative.source_threads_media_id.get(
+          e,
+        ) != null
+      )
+        return !0;
       if (o("AdsAssetFeedUtils").isPACAdgroupFromRecord(e))
         return (
           (t == null ? void 0 : t.object_story_spec) == null &&
@@ -551,7 +516,7 @@ __d(
           ).isAdgroupUsingPartnerAppFlowsInAssetFeedFromRecord(c))
       );
     }
-    function de(e) {
+    function ce(e) {
       var t,
         n,
         o,
@@ -582,44 +547,44 @@ __d(
               r("ApiAdObjectTypes").VIDEO);
       return c || d;
     }
-    function me(e) {
+    function de(e) {
       var t;
       return (t = e.creative) == null ? void 0 : t.mockup_id;
     }
-    function pe(e) {
-      return me(e) != null;
+    function me(e) {
+      return de(e) != null;
     }
-    function _e(e, t) {
-      return ve(e)
+    function pe(e, t) {
+      return be(e)
         ? r("AdsEditorPostEditMode").USE_SCHEDULED_LIVE_VIDEO
-        : Se(e)
+        : ve(e)
           ? r("AdsEditorPostEditMode").USE_INSTAGRAM_LIVE_VIDEO
-          : ce(e)
+          : ue(e)
             ? r("AdsEditorPostEditMode").EXISTING
-            : pe(e)
+            : me(e)
               ? r("AdsEditorPostEditMode").USE_MOCKUP
               : r("AdsEditorPostEditMode").INLINE;
     }
-    function fe(e, t) {
+    function _e(e, t) {
       var n = r("AdsAdgroupSemanticFields").callToActionValue.get(t, e);
       return n ? n.get("lead_gen_form_id") : null;
     }
-    function ge(e, t) {
+    function fe(e, t) {
       var n = r("AdsAdgroupSemanticFields").linkURL.get(t, e);
       if (n == null) return null;
       var a = o("AdsAssetFeedUtils").isAdgroupUsingNonDofAssetFeedSpec(e)
         ? o("AdsAssetFeedFieldUtils").getAssetAtIndex(n, "website_url", 0)
         : n;
-      return o("AdsCanvasAdUtils").getCanvasID(a);
+      return o("AdsCanvasAdUtils").getCanvasID(typeof a == "string" ? a : null);
     }
-    function he(e, t) {
+    function ge(e, t) {
       var n = r("AdsAdgroupSemanticFields").callToActionValue.get(t, e);
       return n ? n.get("app_link") : null;
     }
-    function ye(e, t) {
+    function he(e, t) {
       return r("AdsAdgroupSemanticFields").offerID.get(t, e);
     }
-    function Ce(e) {
+    function ye(e) {
       var t;
       return (t = e.creative) == null ||
         (t = t.object_story_spec) == null ||
@@ -627,7 +592,7 @@ __d(
         ? void 0
         : t.link;
     }
-    function be(e) {
+    function Ce(e) {
       var t;
       return (
         ((t = e.creative) == null || (t = t.degrees_of_freedom_spec) == null
@@ -635,47 +600,34 @@ __d(
           : t.ad_handle_type) === "DYNAMIC"
       );
     }
-    function ve(e) {
+    function be(e) {
       var t;
       return (
         ((t = e.creative) == null ? void 0 : t.media_type) ===
         "SCHEDULED_LIVE_VIDEO"
       );
     }
-    function Se(e) {
+    function ve(e) {
       var t;
       return (
         ((t = e.creative) == null ? void 0 : t.media_type) ===
         "INSTAGRAM_LIVE_VIDEO"
       );
     }
-    function Re(e) {
+    function Se(e) {
       var t;
       return (t = e.creative) == null || (t = t.object_story_spec) == null
         ? void 0
         : t.threads_user_id;
     }
-    function Le(e, t) {
+    function Re(e, t) {
       var n = b(e, t),
         o = r(
           "AdsAdgroupRecordAccessors",
         ).creative.facebook_branded_content.sponsor_page_id.get(e);
       return { primaryPageID: n, secondaryPageID: o };
     }
-    function Ee(e, t) {
-      var n = Le(e, t),
-        o = n.primaryPageID,
-        a = n.secondaryPageID,
-        i = r(
-          "AdsAdgroupRecordAccessors",
-        ).creative.branded_content_boosting_type.get(e),
-        l =
-          o === a && (i === "SPONSOR_BOOST" || i === "SPONSOR_INLINE")
-            ? null
-            : o;
-      return { primaryPageID: l, secondaryPageID: a };
-    }
-    function ke(e, t) {
+    function Le(e, t) {
       var n = b(e, t),
         o = r(
           "AdsAdgroupRecordAccessors",
@@ -691,10 +643,10 @@ __d(
         { primaryPageID: n, secondaryPageID: o, promodePartnerPageID: i }
       );
     }
-    function Ie(e) {
+    function Ee(e) {
       var t;
       return (
-        ce(e) &&
+        ue(e) &&
         ((t = e.creative) == null ||
         (t = t.omnichannel_link_spec) == null ||
         (t = t.app) == null
@@ -702,10 +654,16 @@ __d(
           : t.application_id) != null
       );
     }
-    function Te(e) {
-      return ce(e) && X(e);
+    function ke(e) {
+      return ue(e) && Q(e);
     }
-    function De(e) {
+    function Ie(e) {
+      var t;
+      return (
+        ue(e) && ((t = e.creative) == null ? void 0 : t.object_story_id) != null
+      );
+    }
+    function Te(e) {
       var t,
         n,
         r = (t = e.creative) == null ? void 0 : t.source_instagram_media_id,
@@ -750,39 +708,37 @@ __d(
       (l.isWebsiteURLHidden = G),
       (l.isMessengerDestinationAd = z),
       (l.isInstagramDirectAppDestinationAd = j),
-      (l.isWebToMessengerAd = K),
-      (l.isWebToIGDAd = Q),
-      (l.isInstagramMedia = X),
-      (l.isFlexibleFormatAd = Y),
-      (l.isFlexibleFormatAdOrCreativeAssetGroup = J),
-      (l.isLinkDataMissing = Z),
-      (l.isCreativeAssetGroupingsAd = ee),
-      (l.isCollectionsAdPlainJS = ne),
-      (l.isCollectionsAdFromRelay = re),
-      (l.isCollectionsAd = oe),
-      (l.getLinkPostFormat = ae),
-      (l.getMessageSetupSource = ie),
-      (l.isTemplateCreative = le),
-      (l.isExistingPostMultiPhotoAd = se),
-      (l.isExistingPostMultiPhotoAdsOrPublishedStatus = ue),
-      (l.isExistingPostAd = ce),
-      (l.isExistingPostAdSingleImageOrVideo = de),
-      (l.isUseMockupAd = pe),
-      (l.getPostEditMode = _e),
-      (l.getLeadGenFormID = fe),
-      (l.getCanvasID = ge),
-      (l.getAppLink = he),
-      (l.getOfferID = ye),
-      (l.getPromotedUrl = Ce),
-      (l.isDynamicHandleAd = be),
-      (l.isScheduledLiveVideoAd = ve),
-      (l.getThreadsUserID = Re),
-      (l.getBrandedContentPageIDs = Le),
-      (l.getBrandedContentIdentityPageIDs = Ee),
-      (l.getPromodeBrandedContentPageIDs = ke),
-      (l.isWebAndAppExistingPostAd = Ie),
-      (l.isExistingPostWithInstagramMedia = Te),
-      (l.getInstagramPagePostID = De));
+      (l.isWebToIGDAd = K),
+      (l.isInstagramMedia = Q),
+      (l.isFlexibleFormatAd = X),
+      (l.isFlexibleFormatAdOrCreativeAssetGroup = Y),
+      (l.isCreativeAssetGroupingsAd = J),
+      (l.isCollectionsAdFromRelay = te),
+      (l.isCollectionsAd = ne),
+      (l.getLinkPostFormat = re),
+      (l.getMessageSetupSource = oe),
+      (l.isTemplateCreative = ae),
+      (l.isExistingPostMultiPhotoAd = ie),
+      (l.isExistingInstagramCarouselPostAd = le),
+      (l.isExistingPostMultiPhotoAdsOrPublishedStatus = se),
+      (l.isExistingPostAd = ue),
+      (l.isExistingPostAdSingleImageOrVideo = ce),
+      (l.isUseMockupAd = me),
+      (l.getPostEditMode = pe),
+      (l.getLeadGenFormID = _e),
+      (l.getCanvasID = fe),
+      (l.getAppLink = ge),
+      (l.getOfferID = he),
+      (l.getPromotedUrl = ye),
+      (l.isDynamicHandleAd = Ce),
+      (l.isScheduledLiveVideoAd = be),
+      (l.getThreadsUserID = Se),
+      (l.getBrandedContentPageIDs = Re),
+      (l.getPromodeBrandedContentPageIDs = Le),
+      (l.isWebAndAppExistingPostAd = Ee),
+      (l.isExistingPostWithInstagramMedia = ke),
+      (l.isExistingPostWithFacebookPost = Ie),
+      (l.getInstagramPagePostID = Te));
   },
   98,
 );

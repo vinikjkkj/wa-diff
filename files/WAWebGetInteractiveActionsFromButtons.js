@@ -75,7 +75,6 @@ __d(
     "WDSIconIcContentCopy.react",
     "WDSIconIcOpenInNew.react",
     "WDSIconIcReply.react",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "justknobx",
@@ -137,14 +136,14 @@ __d(
               u = D(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REMINDER:
-              u = w(s, t);
+              u = M(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName")
               .BOOKING_CONFIRMATION:
-              u = A(s, t);
+              u = w(s, t);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").PAYMENT_REQUEST:
-              u = F(s, t, n, a, i);
+              u = A(s, t, n, a, i);
               break;
             case r("WAWebInteractiveMessagesNativeFlowName").API_SIGNUP:
               u = L(s, t, n);
@@ -446,7 +445,7 @@ __d(
         if (r == null) return;
         (o("WAWebExternalLink.react").openExternalLink(r), x(t, l));
         var s = l.unsafe();
-        (U(t, s, n),
+        (W(t, s, n),
           o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
             msg: s,
             chat: n,
@@ -497,7 +496,7 @@ __d(
           onOkClick: function () {
             x(a, u);
             var e = u.unsafe();
-            (U(a, e, i),
+            (W(a, e, i),
               o("WAWebQbmMessageClickLogEvent").logQbmMessageClick({
                 msg: e,
                 chat: i,
@@ -581,9 +580,7 @@ __d(
                     return o("WAWebModalManager").ModalManager.closeAlert();
                   },
                   testid: "broadcast_quick_reply_info_alert",
-                  children: s._(
-                    /*BTDS*/ "When your receiver taps this button, they'll send you a reply message with the same text.",
-                  ),
+                  children: s._(/*BTDS*/ ""),
                 }),
               );
               return;
@@ -859,51 +856,43 @@ __d(
         }
       }
     }
-    function N(e, t) {
-      return M.apply(this, arguments);
-    }
-    function M() {
+    async function N(e, t) {
+      var n,
+        a,
+        i = r("nullthrows")(
+          o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(t),
+        ),
+        l = o("WAWebFrontendMsgGetters").getChat(i),
+        s = r("nullthrows")(
+          i.carouselCards,
+          "Parent of carousel card does not have carouselCards field.",
+        ).slice(),
+        u = s.indexOf(t);
+      if (u === -1) {
+        o("WALogger").WARN(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "sendTextMsgToChatForReplyToCarouselCard: card not found",
+            ])),
+        );
+        return;
+      }
+      var c = new (o("WAWebMsgModel").Msg)(t);
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            a,
-            i = r("nullthrows")(
-              o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(t),
-            ),
-            l = o("WAWebFrontendMsgGetters").getChat(i),
-            s = r("nullthrows")(
-              i.carouselCards,
-              "Parent of carousel card does not have carouselCards field.",
-            ).slice(),
-            u = s.indexOf(t);
-          if (u === -1) {
-            o("WALogger").WARN(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "sendTextMsgToChatForReplyToCarouselCard: card not found",
-                ])),
-            );
-            return;
-          }
-          var c = new (o("WAWebMsgModel").Msg)(t);
-          return (
-            (c.id = i.id),
-            o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
-              l,
-              (n = e.data) == null ? void 0 : n.label,
-              {
-                quotedMsg: c,
-                selectedIndex: e.index,
-                selectedId: (a = e.data) == null ? void 0 : a.selectionId,
-                selectedCarouselCardIndex: u,
-              },
-            )
-          );
-        })),
-        M.apply(this, arguments)
+        (c.id = i.id),
+        o("WAWebSendTextMsgChatAction").sendTextMsgToChat(
+          l,
+          (n = e.data) == null ? void 0 : n.label,
+          {
+            quotedMsg: c,
+            selectedIndex: e.index,
+            selectedId: (a = e.data) == null ? void 0 : a.selectionId,
+            selectedCarouselCardIndex: u,
+          },
+        )
       );
     }
-    function w(e, t) {
+    function M(e, t) {
       var n = e.data,
         a = n.label,
         i = n.paymentReminderInfo,
@@ -956,7 +945,7 @@ __d(
             },
           };
     }
-    function A(e, t) {
+    function w(e, t) {
       var n = e.data,
         r = n.bookingInfo,
         a = n.label;
@@ -983,7 +972,7 @@ __d(
             testid: "booking-confirmation-view-details-button",
           };
     }
-    function F(e, t, n, a, i) {
+    function A(e, t, n, a, i) {
       var l = n.isFromTemplate;
       if (!o("WAWebBrPaymentRequest").isPaymentRequestFeatureEnabled(l === !0))
         return null;
@@ -995,14 +984,14 @@ __d(
           return c == null
             ? null
             : {
-                label: s._(/*BTDS*/ "Copy boleto code"),
+                label: s._(/*BTDS*/ ""),
                 onClick: function () {
                   var n = h(t);
                   n != null &&
                     o("WAWebCopyTextWithToast").copyTextWithToast({
-                      failureMsg: s._(/*BTDS*/ "Couldn't copy boleto code"),
+                      failureMsg: s._(/*BTDS*/ ""),
                       onSuccess: function () {
-                        (O(
+                        (F(
                           n,
                           o("WAWebBrPaymentRequest").PaymentRequestCtaType
                             .BOLETO,
@@ -1016,14 +1005,14 @@ __d(
                             o("WAWebBrPaymentMethodKey").BrPaymentMethodKey
                               .BOLETO,
                           ),
-                          q(
+                          B(
                             e,
                             n,
                             o("WAWebWamEnumCloudApiSignalCtaAction")
                               .CLOUD_API_SIGNAL_CTA_ACTION.COPY_BOLETO_CODE,
                           ));
                       },
-                      successMsg: s._(/*BTDS*/ "Boleto code copied"),
+                      successMsg: s._(/*BTDS*/ ""),
                       text: c,
                     });
                 },
@@ -1037,16 +1026,16 @@ __d(
           return d == null
             ? null
             : {
-                label: s._(/*BTDS*/ "Copy Pix code"),
+                label: s._(/*BTDS*/ ""),
                 onClick: function () {
                   var n = h(t);
                   n != null &&
                     o("WAWebCopyTextWithToast").copyTextWithToast({
                       failureMsg: r("justknobx")._("8068")
-                        ? s._(/*BTDS*/ "Couldn't copy Pix code")
-                        : s._(/*BTDS*/ "Couldn't copy Pix Code"),
+                        ? s._(/*BTDS*/ "")
+                        : s._(/*BTDS*/ ""),
                       onSuccess: function () {
-                        (O(
+                        (F(
                           n,
                           o("WAWebBrPaymentRequest").PaymentRequestCtaType
                             .PIX_DYNAMIC_CODE,
@@ -1061,7 +1050,7 @@ __d(
                               "WAWebBrPaymentMethodKey",
                             ).getPixMethodKeyForServerOrdering(m),
                           ),
-                          q(
+                          B(
                             e,
                             n,
                             o("WAWebWamEnumCloudApiSignalCtaAction")
@@ -1069,8 +1058,8 @@ __d(
                           ));
                       },
                       successMsg: r("justknobx")._("8068")
-                        ? s._(/*BTDS*/ "Pix code copied")
-                        : s._(/*BTDS*/ "Pix Code copied"),
+                        ? s._(/*BTDS*/ "")
+                        : s._(/*BTDS*/ ""),
                       text: d,
                     });
                 },
@@ -1084,14 +1073,12 @@ __d(
             ? null
             : {
                 label:
-                  p === "mercadopago"
-                    ? s._(/*BTDS*/ "Open in Mercado Pago")
-                    : s._(/*BTDS*/ "Open payment link"),
+                  p === "mercadopago" ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
                 onClick: function () {
                   o("WAWebExternalLink.react").openExternalLink(_);
                   var n = h(t);
                   n != null &&
-                    (O(
+                    (F(
                       n,
                       o("WAWebBrPaymentRequest").PaymentRequestCtaType
                         .PAYMENT_LINK,
@@ -1105,7 +1092,7 @@ __d(
                       o("WAWebBrPaymentMethodKey").BrPaymentMethodKey
                         .PAYMENT_LINK,
                     ),
-                    q(
+                    B(
                       e,
                       n,
                       o("WAWebWamEnumCloudApiSignalCtaAction")
@@ -1119,8 +1106,8 @@ __d(
           return null;
       }
     }
-    function O(e, t, n, a) {
-      B(e)
+    function F(e, t, n, a) {
+      O(e)
         .then(function (r) {
           r
             ? t ===
@@ -1136,8 +1123,8 @@ __d(
         .catch(function (e) {
           o("WALogger")
             .WARN(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
                   "[WAM:PAYMENT_REQUEST] tap log err",
                 ])),
             )
@@ -1145,48 +1132,40 @@ __d(
             .sendLogs("payment-request-tap-log-failed");
         });
     }
-    function B(e) {
-      return W.apply(this, arguments);
+    async function O(e) {
+      if (
+        !o(
+          "WAWebBizAiPaymentRequestWamLogger",
+        ).hasBizAiPixPaymentRequestMarkers(e)
+      )
+        return !1;
+      var t = o("WAWebMsgGetters").getSender(e.unsafe());
+      if (t == null) return !1;
+      try {
+        var n = await o(
+          "WAWebApiVerifiedBusinessName",
+        ).getVerifiedBusinessNameRecordLidAware(t);
+        return o(
+          "WAWebBizAiPaymentRequestWamLogger",
+        ).isBizAiPixPaymentRequestMsg(e, n);
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "[WAM:BIZ_AI_PAYMENT_REQUEST] sender lookup err",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("biz-ai-payment-request-sender-lookup-failed"),
+          !1
+        );
+      }
     }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o(
-              "WAWebBizAiPaymentRequestWamLogger",
-            ).hasBizAiPixPaymentRequestMarkers(e)
-          )
-            return !1;
-          var t = o("WAWebMsgGetters").getSender(e.unsafe());
-          if (t == null) return !1;
-          try {
-            var n = yield o(
-              "WAWebApiVerifiedBusinessName",
-            ).getVerifiedBusinessNameRecordLidAware(t);
-            return o(
-              "WAWebBizAiPaymentRequestWamLogger",
-            ).isBizAiPixPaymentRequestMsg(e, n);
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "[WAM:BIZ_AI_PAYMENT_REQUEST] sender lookup err",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("biz-ai-payment-request-sender-lookup-failed"),
-              !1
-            );
-          }
-        })),
-        W.apply(this, arguments)
-      );
-    }
-    function q(e, t, n) {
+    function B(e, t, n) {
       var r = t.unsafe(),
-        a = H(r);
+        a = U(r);
       a != null &&
         o("WAWebCloudApiSignalLogger").logCloudApiPaymentTemplateClick({
           chat: o("WAWebFrontendMsgGetters").getChat(r),
@@ -1197,8 +1176,8 @@ __d(
             .CLOUD_API_SIGNAL_TEMPLATE_TYPE.PAYMENT_REQUEST,
         });
     }
-    function U(e, t, n) {
-      var r = V(t);
+    function W(e, t, n) {
+      var r = q(t);
       r != null &&
         o("WAWebCloudApiSignalLogger").logCloudApiUrlCtaClick({
           carouselCardIndex: r.carouselCardIndex,
@@ -1207,20 +1186,20 @@ __d(
           msg: r.signalMsg,
         });
     }
-    function V(e) {
+    function q(e) {
       if (
         e.nativeFlowName ===
         r("WAWebInteractiveMessagesNativeFlowName").INAPP_SIGNUP
       )
         return null;
-      var t = H(e);
+      var t = U(e);
       if (t == null) return null;
       var n = P(e);
       return e.isCarouselCard && n == null
         ? null
         : { carouselCardIndex: n, signalMsg: t };
     }
-    function H(e) {
+    function U(e) {
       return e.isCarouselCard
         ? o("WAWebCarouselMsgUtils").getParentMsgFromCarouselCard(e)
         : e;

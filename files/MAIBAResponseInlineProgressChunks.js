@@ -1,14 +1,14 @@
 __d(
   "MAIBAResponseInlineProgressChunks",
-  [],
-  function (t, n, r, o, a, i) {
+  ["actionabilityTools"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "response_segment",
-      l = "tool_update",
-      s = "progress_update",
-      u = "message_update",
-      c = "analysis_summarizer";
-    function d(e) {
+      s = "tool_update",
+      u = "progress_update",
+      c = "message_update",
+      d = "analysis_summarizer";
+    function m(e) {
       if (e == null) return null;
       try {
         var t = JSON.parse(e);
@@ -17,11 +17,11 @@ __d(
         return null;
       }
     }
-    function m(e) {
+    function p(e) {
       var t = e.tool_call_id;
-      if (e.tool_name !== s || t == null) return null;
-      var n = d(e.tool_result),
-        r = n == null ? void 0 : n[l];
+      if (e.tool_name !== u || t == null) return null;
+      var n = m(e.tool_result),
+        r = n == null ? void 0 : n[s];
       if (r == null || typeof r != "object" || Array.isArray(r)) return null;
       var o = r,
         a = o == null ? void 0 : o.tool_title,
@@ -36,17 +36,17 @@ __d(
             toolTitle: a,
           };
     }
-    function p(t) {
-      var n = d(t),
+    function _(t) {
+      var n = m(t),
         r = n == null ? void 0 : n[e];
       return r != null && typeof r == "object" && !Array.isArray(r);
     }
-    function _(e) {
-      return e.tool_name !== u && e.tool_name !== c
-        ? !1
-        : p(e.tool_call_args) || p(e.tool_result);
-    }
     function f(e) {
+      return e.tool_name !== c && e.tool_name !== d
+        ? !1
+        : _(e.tool_call_args) || _(e.tool_result);
+    }
+    function g(e) {
       var t = [];
       for (var n of (r = e.entity_ranges) != null ? r : []) {
         var r,
@@ -63,7 +63,7 @@ __d(
       }
       return t;
     }
-    function g(e, t, n) {
+    function h(e, t, n) {
       if (e == null || e.offset == null) return e;
       var r = e.offset,
         o = e.length;
@@ -77,7 +77,7 @@ __d(
         l = Math.min(a, n);
       return babelHelpers.extends({}, e, { length: l - i, offset: i - t });
     }
-    function h(e, t, n) {
+    function y(e, t, n) {
       var r, o, a;
       return babelHelpers.extends({}, e, {
         entity_ranges:
@@ -85,7 +85,7 @@ __d(
             ? void 0
             : r
                 .map(function (e) {
-                  return g(e, t, n);
+                  return h(e, t, n);
                 })
                 .filter(Boolean),
         inline_style_ranges:
@@ -93,15 +93,15 @@ __d(
             ? void 0
             : o
                 .map(function (e) {
-                  return g(e, t, n);
+                  return h(e, t, n);
                 })
                 .filter(Boolean),
         text: (a = e.text) == null ? void 0 : a.slice(t, n),
       });
     }
-    function y(e) {
+    function C(e) {
       var t = e.text;
-      if (typeof t != "string") return b(e);
+      if (typeof t != "string") return v(e);
       var n = t.split("");
       for (var r of (o = e.entity_ranges) != null ? o : []) {
         var o,
@@ -120,7 +120,7 @@ __d(
       }
       return n.join("").trim() !== "";
     }
-    function C(e, t) {
+    function b(e, t) {
       var n,
         r = e.text;
       if (typeof r != "string" || r === "") return [e];
@@ -176,28 +176,28 @@ __d(
           d = u == null ? void 0 : u.length;
         if (!(c == null || d == null)) {
           if (c > s) {
-            var m = h(e, s, c);
-            (y(m) || b(m)) && l.push(m);
+            var m = y(e, s, c);
+            (C(m) || v(m)) && l.push(m);
           }
           var p = Math.min(r.length, c + d),
             _ = Math.max(c, s);
-          _ >= p || (l.push(h(e, _, p)), (s = p));
+          _ >= p || (l.push(y(e, _, p)), (s = p));
         }
       }
       if (s < r.length) {
-        var f = h(e, s, r.length);
-        (y(f) || b(f)) && l.push(f);
+        var f = y(e, s, r.length);
+        (C(f) || v(f)) && l.push(f);
       }
       return l;
     }
-    function b(e) {
+    function v(e) {
       for (var t of (n = e.entity_ranges) != null ? n : []) {
         var n,
           r = t == null ? void 0 : t.entity;
         if (
           r != null &&
           (r.__typename !== "XFBToolCallObject" ||
-            !_({
+            !f({
               __typename: r.__typename,
               is_completed: r.is_completed,
               tool_call_args: r.tool_call_args,
@@ -210,14 +210,14 @@ __d(
       }
       return !1;
     }
-    function v(e) {
+    function S(e) {
       var t,
         n = (t = e.entity_ranges) != null ? t : [],
         r = n.filter(function (e) {
           var t = e == null ? void 0 : e.entity;
           return (t == null ? void 0 : t.__typename) !== "XFBToolCallObject"
             ? !0
-            : !_({
+            : !f({
                 __typename: t.__typename,
                 is_completed: t.is_completed,
                 tool_call_args: t.tool_call_args,
@@ -230,11 +230,11 @@ __d(
         ? e
         : babelHelpers.extends({}, e, { entity_ranges: r });
     }
-    function S(e) {
+    function R(e) {
       var t = e.text;
-      return (typeof t == "string" && t.trim() !== "") || b(e);
+      return (typeof t == "string" && t.trim() !== "") || v(e);
     }
-    function R(e, t) {
+    function L(e, t) {
       if (e == null || e.offset == null) return e;
       var n = e.offset,
         r = Math.max(0, n - t),
@@ -246,19 +246,38 @@ __d(
         ? null
         : babelHelpers.extends({}, e, { length: i, offset: r });
     }
-    function L(e) {
+    function E(e) {
       var t,
         n,
         r,
-        o,
-        a = e.text;
-      if (typeof a != "string") return e;
-      var i =
-        (t = (n = a.match(/^[\t\n\r ]+/)) == null ? void 0 : n[0].length) !=
-        null
-          ? t
-          : 0;
-      return i === 0
+        a,
+        i = e.text;
+      if (typeof i != "string") return e;
+      var l =
+          (t = (n = i.match(/^[\t\n\r ]+/)) == null ? void 0 : n[0].length) !=
+          null
+            ? t
+            : 0,
+        s = l;
+      for (var u of (c = e.entity_ranges) != null ? c : []) {
+        var c,
+          d = u == null ? void 0 : u.entity,
+          m = u == null ? void 0 : u.offset,
+          p = u == null ? void 0 : u.length;
+        (d == null ? void 0 : d.__typename) === "XFBToolCallObject" &&
+          m != null &&
+          p != null &&
+          p > 0 &&
+          m >= 0 &&
+          m < s &&
+          o("actionabilityTools").shouldRenderToolInActionabilitySection(
+            d.tool_name,
+            !1,
+            d.tool_result,
+          ) &&
+          (s = m);
+      }
+      return s === 0
         ? e
         : babelHelpers.extends({}, e, {
             entity_ranges:
@@ -266,142 +285,197 @@ __d(
                 ? void 0
                 : r
                     .map(function (e) {
-                      return R(e, i);
+                      return L(e, s);
                     })
                     .filter(Boolean),
             inline_style_ranges:
-              (o = e.inline_style_ranges) == null
+              (a = e.inline_style_ranges) == null
                 ? void 0
-                : o
+                : a
                     .map(function (e) {
-                      return R(e, i);
+                      return L(e, s);
                     })
                     .filter(Boolean),
-            text: a.slice(i),
+            text: i.slice(s),
           });
     }
-    function E(e, t) {
+    function k(e, t) {
       for (var n of e) {
         var r = t(n);
         if (r != null) return r;
       }
       return null;
     }
-    function k(e, t) {
+    function I(e, t, n, r) {
+      if (e == null) return r;
+      var o = t.indexOf(n),
+        a = e.findIndex(function (e) {
+          return e.toolCallId === n;
+        });
+      if (o === -1 || a === -1) return r;
+      var i = t[o + 1];
+      if (i == null) return e.slice(a);
+      var l = e.findIndex(function (e) {
+        return e.toolCallId === i;
+      });
+      return l === -1 || l <= a ? r : e.slice(a, l);
+    }
+    function T(e, t) {
       var n = [],
-        r = [],
+        r = null;
+      for (var o of e) {
+        var a = g(o),
+          i = k(a, t);
+        if (i != null) {
+          r == null && ((r = i.toolCallId), n.push(i.toolCallId));
+          continue;
+        }
+        if (r != null) {
+          if (a.some(f)) {
+            var l = S(o);
+            C(l) && (r = null);
+            continue;
+          }
+          C(o) && (r = null);
+        }
+      }
+      return n;
+    }
+    function D(e) {
+      var t = [],
+        n = [],
+        r = null;
+      for (var o of e) {
+        var a = g(o).some(function (e) {
+          return !f(e);
+        });
+        (r != null && r !== a && (t.push(n), (n = [])), n.push(o), (r = a));
+      }
+      return (n.length > 0 && t.push(n), t);
+    }
+    function x(e) {
+      var t = e[e.length - 1];
+      if ((t == null ? void 0 : t.type) === "blocks") {
+        var n = D(t.blocks);
+        if (!(n.length <= 1)) {
+          e.pop();
+          for (var r of n)
+            e.push({
+              blocks: r,
+              id: e.length === 0 || n[0] === r ? t.id : "blocks-" + e.length,
+              type: "blocks",
+            });
+        }
+      }
+    }
+    function $(e, t, n) {
+      n === void 0 && (n = !0);
+      var r = [],
         o = [],
         a = [],
-        i = new Map(
+        i = [],
+        l = new Map(
           (t != null ? t : []).map(function (e) {
             return [e.toolCallId, e];
           }),
         ),
-        l = function (t) {
+        s = function (t) {
+          if (!n) return null;
           var e = t.tool_call_id;
           if (e != null) {
-            var n = i.get(e);
-            if (n != null) return n;
+            var r = l.get(e);
+            if (r != null) return r;
           }
-          return m(t);
+          return p(t);
         },
-        s = e.flatMap(function (e) {
-          return C(e, function (e) {
-            return _(e) || l(e) != null;
+        u = e.flatMap(function (e) {
+          return b(e, function (e) {
+            return f(e) || s(e) != null;
           });
         }),
-        u = function () {
-          var e = [],
-            t = null;
-          for (var n of s) {
-            var r = f(n),
-              o = E(r, l);
-            if (o != null) {
-              t == null && ((t = o.toolCallId), e.push(o.toolCallId));
-              continue;
-            }
-            if (t != null) {
-              if (r.some(_)) {
-                var a = v(n);
-                y(a) && (t = null);
-                continue;
-              }
-              y(n) && (t = null);
-            }
-          }
-          return e;
+        c = T(u, s),
+        d = function () {
+          o.length !== 0 &&
+            (r.push({ blocks: o, id: "blocks-" + r.length, type: "blocks" }),
+            (o = []));
         },
-        c = u(),
-        d = function (n, r) {
-          if (t == null) return r;
-          var e = c.indexOf(n),
-            o = t.findIndex(function (e) {
-              return e.toolCallId === n;
-            });
-          if (e === -1 || o === -1) return r;
-          var a = c[e + 1];
-          if (a == null) return t.slice(o);
-          var i = t.findIndex(function (e) {
-            return e.toolCallId === a;
-          });
-          return i === -1 || i <= o ? r : t.slice(o, i);
-        },
-        p = function () {
-          r.length !== 0 &&
-            (n.push({ blocks: r, id: "blocks-" + n.length, type: "blocks" }),
-            (r = []));
-        },
-        g = function () {
+        m = function () {
           var e;
-          if (a.length !== 0) {
-            var t = [].concat(a);
-            a.length = 0;
-            var r = (e = t[0]) == null ? void 0 : e.toolCallId,
-              o = r != null ? d(r, t) : t,
-              i = o[0];
-            i != null &&
-              n.push({
-                id: "progress-" + i.toolCallId,
-                steps: o,
+          if (i.length !== 0) {
+            var n = [].concat(i);
+            i.length = 0;
+            var o = (e = n[0]) == null ? void 0 : e.toolCallId,
+              a = o != null ? I(t, c, o, n) : n,
+              l = a[0];
+            l != null &&
+              r.push({
+                id: "progress-" + l.toolCallId,
+                steps: a,
                 type: "progress",
               });
           }
         },
-        h = function (t) {
+        _ = function (t) {
           var e = t.text;
-          if (b(t) && (typeof e != "string" || e.trim() === "")) {
-            r.push(t);
+          if (v(t) && (typeof e != "string" || e.trim() === "")) {
+            o.push(t);
             return;
           }
-          var n = L(t);
-          S(n) && r.push(n);
+          var n = E(t);
+          R(n) && o.push(n);
         },
-        R = function () {
-          g();
-          for (var e of o) h(e);
-          o = [];
+        h = function () {
+          m();
+          for (var e of a) _(e);
+          a = [];
         };
-      for (var k of s) {
-        var I = f(k),
-          T = E(I, l);
-        if (T != null) {
-          (p(), a.push(T));
+      for (var y of u) {
+        var L = g(y),
+          D = k(L, s);
+        if (D != null) {
+          (d(), i.push(D));
           continue;
         }
-        if (I.some(_)) {
-          var D = v(k);
-          y(D) ? (R(), h(D)) : S(D) ? (a.length > 0 ? o.push(D) : h(D)) : p();
+        if (L.some(f)) {
+          var $ = S(y);
+          C($)
+            ? (h(), d(), _($))
+            : R($)
+              ? i.length > 0
+                ? a.push($)
+                : _($)
+              : d();
           continue;
         }
-        if (a.length > 0 && !y(k)) {
-          o.push(k);
+        if (i.length > 0 && !C(y)) {
+          a.push(y);
           continue;
         }
-        (R(), h(k));
+        (h(), _(y));
       }
-      return (R(), p(), n);
+      (h(), d());
+      var P = e.some(function (e) {
+        return g(e).some(function (e) {
+          return !f(e);
+        });
+      });
+      return (
+        !r.some(function (e) {
+          return e.type === "progress";
+        }) &&
+          (n || !P) &&
+          t != null &&
+          t.length > 0 &&
+          r.unshift({
+            id: "progress-" + t[0].toolCallId,
+            steps: t,
+            type: "progress",
+          }),
+        x(r),
+        r
+      );
     }
-    i.default = k;
+    l.default = $;
   },
-  66,
+  98,
 );

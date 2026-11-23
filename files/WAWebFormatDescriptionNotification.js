@@ -21,63 +21,47 @@ __d(
         ? o("WAWebSystemMessagesUtils").isMe(n)
           ? i === !0
             ? {
-                text: s._(/*BTDS*/ "You changed the community description"),
+                text: s._(/*BTDS*/ ""),
                 enumType: o("WAWebWamEnumSystemMessageTypeType")
                   .SYSTEM_MESSAGE_TYPE_TYPE.COMMUNITY_DESCRIPTION_CHANGED,
               }
             : {
-                text: s._(/*BTDS*/ "You changed the group description"),
+                text: s._(/*BTDS*/ ""),
                 enumType: o("WAWebWamEnumSystemMessageTypeType")
                   .SYSTEM_MESSAGE_TYPE_TYPE.GROUP_DESCRIPTION_CHANGED,
               }
           : r != null
             ? i === !0
               ? {
-                  text: s._(
-                    /*BTDS*/ "{user_name} changed the community description",
-                    [s._param("user_name", r)],
-                  ),
+                  text: s._(/*BTDS*/ "", [s._param("user_name", r)]),
                   enumType: o("WAWebWamEnumSystemMessageTypeType")
                     .SYSTEM_MESSAGE_TYPE_TYPE.COMMUNITY_DESCRIPTION_CHANGED,
                 }
               : {
-                  text: s._(
-                    /*BTDS*/ "{user_name} changed the group description",
-                    [s._param("user_name", r)],
-                  ),
+                  text: s._(/*BTDS*/ "", [s._param("user_name", r)]),
                   enumType: o("WAWebWamEnumSystemMessageTypeType")
                     .SYSTEM_MESSAGE_TYPE_TYPE.GROUP_DESCRIPTION_CHANGED,
                 }
             : i === !0
               ? {
-                  text: s._(
-                    /*BTDS*/ "A member changed the community description",
-                  ),
+                  text: s._(/*BTDS*/ ""),
                   enumType: o("WAWebWamEnumSystemMessageTypeType")
                     .SYSTEM_MESSAGE_TYPE_TYPE.COMMUNITY_DESCRIPTION_CHANGED,
                 }
               : {
-                  text: s._(/*BTDS*/ "A member changed the group description"),
+                  text: s._(/*BTDS*/ ""),
                   enumType: o("WAWebWamEnumSystemMessageTypeType")
                     .SYSTEM_MESSAGE_TYPE_TYPE.GROUP_DESCRIPTION_CHANGED,
                 }
         : o("WAWebSystemMessagesUtils").isMe(n)
           ? i === !0
             ? {
-                text: e
-                  ? s._(/*BTDS*/ "You changed the community description")
-                  : s._(
-                      /*BTDS*/ "You changed the community description. Click to view",
-                    ),
+                text: e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
                 enumType: o("WAWebWamEnumSystemMessageTypeType")
                   .SYSTEM_MESSAGE_TYPE_TYPE.COMMUNITY_DESCRIPTION_CHANGED,
               }
             : {
-                text: e
-                  ? s._(/*BTDS*/ "You changed the group description")
-                  : s._(
-                      /*BTDS*/ "You changed the group description. Click to view.",
-                    ),
+                text: e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
                 enumType: o("WAWebWamEnumSystemMessageTypeType")
                   .SYSTEM_MESSAGE_TYPE_TYPE.GROUP_DESCRIPTION_CHANGED,
               }
@@ -85,46 +69,26 @@ __d(
             ? i === !0
               ? {
                   text: e
-                    ? s._(
-                        /*BTDS*/ "{user_name} changed the community description",
-                        [s._param("user_name", r)],
-                      )
-                    : s._(
-                        /*BTDS*/ "{user_name} changed the community description. Click to view",
-                        [s._param("user_name", r)],
-                      ),
+                    ? s._(/*BTDS*/ "", [s._param("user_name", r)])
+                    : s._(/*BTDS*/ "", [s._param("user_name", r)]),
                   enumType: o("WAWebWamEnumSystemMessageTypeType")
                     .SYSTEM_MESSAGE_TYPE_TYPE.COMMUNITY_DESCRIPTION_CHANGED,
                 }
               : {
                   text: e
-                    ? s._(
-                        /*BTDS*/ "{user_name} changed the group description",
-                        [s._param("user_name", r)],
-                      )
-                    : s._(
-                        /*BTDS*/ "{user_name} changed the group description. Click to view",
-                        [s._param("user_name", r)],
-                      ),
+                    ? s._(/*BTDS*/ "", [s._param("user_name", r)])
+                    : s._(/*BTDS*/ "", [s._param("user_name", r)]),
                   enumType: o("WAWebWamEnumSystemMessageTypeType")
                     .SYSTEM_MESSAGE_TYPE_TYPE.GROUP_DESCRIPTION_CHANGED,
                 }
             : i === !0
               ? {
-                  text: e
-                    ? s._(/*BTDS*/ "A member changed the community description")
-                    : s._(
-                        /*BTDS*/ "A member changed the community description. Click to view",
-                      ),
+                  text: e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
                   enumType: o("WAWebWamEnumSystemMessageTypeType")
                     .SYSTEM_MESSAGE_TYPE_TYPE.COMMUNITY_DESCRIPTION_CHANGED,
                 }
               : {
-                  text: e
-                    ? s._(/*BTDS*/ "A member changed the group description")
-                    : s._(
-                        /*BTDS*/ "A member changed the group description. Click to view",
-                      ),
+                  text: e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
                   enumType: o("WAWebWamEnumSystemMessageTypeType")
                     .SYSTEM_MESSAGE_TYPE_TYPE.COMMUNITY_DESCRIPTION_CHANGED,
                 };

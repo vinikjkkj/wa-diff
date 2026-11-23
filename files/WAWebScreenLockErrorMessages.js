@@ -8,41 +8,17 @@ __d(
         o = e.onlyOneTryRemaining,
         a = e.triesExceeded;
       if (a)
-        return r("justknobx")._("8427")
-          ? s._(
-              /*BTDS*/ "Incorrect password entered too many times. You'll be logged out.",
-            )
-          : s._(
-              /*BTDS*/ "Incorrect password entered too many times. Please log out.",
-            );
+        return r("justknobx")._("8427") ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
       if (o) {
         if (t == null)
-          return r("justknobx")._("8068")
-            ? s._(
-                /*BTDS*/ "Retry limit reached. You'll be logged out if your next attempt fails.",
-              )
-            : s._(
-                /*BTDS*/ "Retry limit reached. You will be logged out if your next attempt fails.",
-              );
+          return r("justknobx")._("8068") ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
         if (t === !0)
-          return r("justknobx")._("8068")
-            ? s._(
-                /*BTDS*/ "Empty password. You'll be logged out if your next attempt fails.",
-              )
-            : s._(
-                /*BTDS*/ "Empty password. You will be logged out if your next attempt fails.",
-              );
+          return r("justknobx")._("8068") ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
         if (n && t === !1)
-          return r("justknobx")._("8068")
-            ? s._(
-                /*BTDS*/ "Incorrect password. You'll be logged out if your next attempt fails.",
-              )
-            : s._(
-                /*BTDS*/ "Incorrect password. You will be logged out if your next attempt fails.",
-              );
+          return r("justknobx")._("8068") ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
       }
-      if (t === !0) return s._(/*BTDS*/ "Empty password. Try again.");
-      if (n) return s._(/*BTDS*/ "Incorrect password. Try again.");
+      if (t === !0) return s._(/*BTDS*/ "");
+      if (n) return s._(/*BTDS*/ "");
     }
     l.getErrorMessage = e;
   },

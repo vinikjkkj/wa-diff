@@ -20,7 +20,7 @@ __d(
           id: "create_channel",
           Icon: r("WDSIconIcAdd.react"),
           label: function () {
-            return s._(/*BTDS*/ "Create channel");
+            return s._(/*BTDS*/ "");
           },
           onClick: function () {
             r("JSResourceForInteraction")("WAWebOpenNewsletterCreationFlow")
@@ -58,7 +58,7 @@ __d(
           id: "find_channels",
           Icon: r("WDSIconIcGrid.react"),
           label: function () {
-            return s._(/*BTDS*/ "Explore channels");
+            return s._(/*BTDS*/ "");
           },
           onClick: function () {
             r("JSResourceForInteraction")("WAWebOpenNewsletterDirectory")

@@ -1,7 +1,6 @@
 __d(
   "WAWebWaapiAnimate",
   [
-    "Promise",
     "WAWebNoop",
     "WAWebUimUtils",
     "WAWebWaapiAnimateEasing",
@@ -11,131 +10,117 @@ __d(
     "WAWebWaapiAnimatePresets",
     "WAWebWaapiAnimateScroll",
     "WAWebWaapiAnimateVisibility",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = 400,
-      u = new Map(),
-      c = !1,
+    var e = 400,
+      s = new Map(),
+      u = !1,
+      c = new WeakMap(),
       d = new WeakMap(),
       m = new WeakMap(),
       p = new WeakMap(),
-      _ = new WeakMap(),
-      f = new WeakMap();
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+      _ = new WeakMap();
+    async function f(e, t, n) {
+      if (e) {
+        var r = t;
+        return typeof r == "string"
+          ? M(e, r, n)
+          : (r != null &&
+              typeof r == "object" &&
+              !Array.isArray(r) &&
+              (await g(e, r, o("WAWebWaapiAnimateOptions").optionsObject(n))),
+            e);
+      }
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (e) {
-            var r = t;
-            return typeof r == "string"
-              ? O(e, r, n)
-              : (r != null &&
-                  typeof r == "object" &&
-                  !Array.isArray(r) &&
-                  (yield y(
-                    e,
-                    r,
-                    o("WAWebWaapiAnimateOptions").optionsObject(n),
-                  )),
-                e);
-          }
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(t, a, i) {
-      var l,
-        u,
-        c,
-        d = o("WAWebWaapiAnimateKeyframes").buildAnimationKeyframes(a),
-        m = d.keyframes,
-        p = d.staticStyles,
-        _ = (l = i.duration) != null ? l : s,
-        f = (u = i.delay) != null ? u : 0,
-        g = (c = i.stagger) != null ? c : 0,
-        h = o("WAWebWaapiAnimateEasing").resolveCssEasing(i.easing),
-        y = i.progress,
-        b = ae(t).map(function (e, t) {
-          var n = f + t * g;
-          return C(
+    function g(t, n, a) {
+      var i,
+        l,
+        s,
+        u = o("WAWebWaapiAnimateKeyframes").buildAnimationKeyframes(n),
+        c = u.keyframes,
+        d = u.staticStyles,
+        m = (i = a.duration) != null ? i : e,
+        p = (l = a.delay) != null ? l : 0,
+        _ = (s = a.stagger) != null ? s : 0,
+        f = o("WAWebWaapiAnimateEasing").resolveCssEasing(a.easing),
+        g = a.progress,
+        y = Z(t).map(function (e, t) {
+          var n = p + t * _;
+          return h(
             e,
-            { keyframes: m, duration: _, delay: n, easing: h },
-            p,
-            y,
-            i.queue,
+            { keyframes: c, duration: m, delay: n, easing: f },
+            d,
+            g,
+            a.queue,
           );
         });
-      return (e || (e = n("Promise"))).all(b).then(r("WAWebNoop"));
+      return Promise.all(y).then(r("WAWebNoop"));
     }
-    function C(e, t, n, r, o) {
-      return b(e, o, function () {
-        return v(e, t, n, r);
+    function h(e, t, n, r, o) {
+      return y(e, o, function () {
+        return C(e, t, n, r);
       });
     }
-    function b(t, r, o) {
-      var a, i;
-      if (r === !1) return o();
-      var l = r != null ? r : "",
-        s = (a = _.get(t)) != null ? a : new Map(),
-        u =
-          (i = s.get(l)) != null
-            ? i
-            : { generation: 0, tail: (e || (e = n("Promise"))).resolve() },
-        c = u.generation,
-        d = function () {
-          return u.generation === c ? o() : (e || (e = n("Promise"))).resolve();
+    function y(e, t, n) {
+      var r, o;
+      if (t === !1) return n();
+      var a = t != null ? t : "",
+        i = (r = p.get(e)) != null ? r : new Map(),
+        l =
+          (o = i.get(a)) != null
+            ? o
+            : { generation: 0, tail: Promise.resolve() },
+        s = l.generation,
+        u = function () {
+          return l.generation === s ? n() : Promise.resolve();
         },
-        m = u.tail.then(d, d);
-      ((u.tail = m), s.set(l, u), _.set(t, s));
-      var p = function () {
-        s.get(l) === u &&
-          u.tail === m &&
-          (s.delete(l), s.size === 0 && _.delete(t));
+        c = l.tail.then(u, u);
+      ((l.tail = c), i.set(a, l), p.set(e, i));
+      var d = function () {
+        i.get(a) === l &&
+          l.tail === c &&
+          (i.delete(a), i.size === 0 && p.delete(e));
       };
-      return (m.then(p, p), m);
+      return (c.then(d, d), c);
     }
-    function v(t, r, o, a) {
-      return new (e || (e = n("Promise")))(function (e) {
-        var n,
-          i = (n = u.get(t)) != null ? n : [];
-        (i.push({ entry: r, staticStyles: o, progress: a, resolve: e }),
-          u.set(t, i),
-          S());
+    function C(e, t, n, r) {
+      return new Promise(function (o) {
+        var a,
+          i = (a = s.get(e)) != null ? a : [];
+        (i.push({ entry: t, staticStyles: n, progress: r, resolve: o }),
+          s.set(e, i),
+          b());
       });
     }
-    function S() {
-      c || ((c = !0), (e || (e = n("Promise"))).resolve().then(R));
+    function b() {
+      u || ((u = !0), Promise.resolve().then(v));
     }
-    function R() {
-      c = !1;
-      for (var e of Array.from(u.keys())) {
-        var t = u.get(e);
-        if ((u.delete(e), t != null && t.length > 0))
+    function v() {
+      u = !1;
+      for (var e of Array.from(s.keys())) {
+        var t = s.get(e);
+        if ((s.delete(e), t != null && t.length > 0))
           try {
-            L(e, t);
+            S(e, t);
           } catch (e) {
             r("WAWebNoop")(e);
           }
       }
     }
-    function L(t, r) {
-      var o = r.map(function () {
+    function S(e, t) {
+      var n = t.map(function () {
         return [];
       });
       try {
-        E(t, r, o);
+        R(e, t, n);
       } finally {
-        r.forEach(function (t, r) {
-          (e || (e = n("Promise"))).all(o[r]).then(t.resolve, t.resolve);
+        t.forEach(function (e, t) {
+          Promise.all(n[t]).then(e.resolve, e.resolve);
         });
       }
     }
-    function E(e, t, n) {
-      for (var a of t) P(e, a.staticStyles);
+    function R(e, t, n) {
+      for (var a of t) T(e, a.staticStyles);
       (t.some(function (e) {
         return e.progress != null;
       }) && o("WAWebWaapiAnimateScroll").cancelScrollTweens(e),
@@ -162,80 +147,64 @@ __d(
       });
       for (var s of o("WAWebWaapiAnimateMerge").mergeNodeEntries(l))
         try {
-          var u = re(s.keyframes);
-          te(e, u);
-          var c = M(e, s.keyframes, {
+          var u = Y(s.keyframes);
+          Q(e, u);
+          var c = x(e, s.keyframes, {
             duration: s.duration,
             delay: s.delay,
             easing: s.easing,
             fill: s.fill,
           });
           if (c == null) {
-            A(e, s.keyframes);
+            P(e, s.keyframes);
             continue;
           }
-          Y(e, c, u, s.keyframes);
-          var d = k(e, c, s.delay + s.duration);
+          G(e, c, u, s.keyframes);
+          var d = L(e, c, s.delay + s.duration);
           for (var m of s.entryIndices) n[i[m]].push(d);
         } catch (t) {
           r("WAWebNoop")(t);
           try {
-            A(e, s.keyframes);
+            P(e, s.keyframes);
           } catch (e) {
             r("WAWebNoop")(e);
           }
         }
     }
+    async function L(e, t, n) {
+      try {
+        (await E(e, t, n), k(e, t, !0) && j(e, t));
+      } catch (n) {
+        (r("WAWebNoop")(n), j(e, t));
+      }
+    }
+    async function E(e, t, n) {
+      if (o("WAWebWaapiAnimateVisibility").isInHiddenDocument(e)) {
+        (t.finish(), await t.finished);
+        return;
+      }
+      var r = o("WAWebWaapiAnimateVisibility").settleWhenOverdue(
+        e,
+        n,
+        function () {
+          return t.finish();
+        },
+      );
+      try {
+        await t.finished;
+      } finally {
+        r();
+      }
+    }
     function k(e, t, n) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          try {
-            (yield T(e, t, n), x(e, t, !0) && Z(e, t));
-          } catch (n) {
-            (r("WAWebNoop")(n), Z(e, t));
-          }
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(e, t, n) {
-      return D.apply(this, arguments);
-    }
-    function D() {
-      return (
-        (D = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (o("WAWebWaapiAnimateVisibility").isInHiddenDocument(e)) {
-            (t.finish(), yield t.finished);
-            return;
-          }
-          var r = o("WAWebWaapiAnimateVisibility").settleWhenOverdue(
-            e,
-            n,
-            function () {
-              return t.finish();
-            },
-          );
-          try {
-            yield t.finished;
-          } finally {
-            r();
-          }
-        })),
-        D.apply(this, arguments)
-      );
-    }
-    function x(e, t, n) {
       n === void 0 && (n = !1);
       try {
-        return (t.commitStyles(), n && $(e, p.get(t)), t.cancel(), !0);
+        return (t.commitStyles(), n && I(e, m.get(t)), t.cancel(), !0);
       } catch (e) {
         return (r("WAWebNoop")(e), !1);
       }
     }
-    function $(e, t) {
+    function I(e, t) {
       if (!(t == null || !t.includes("translateZ(0px)"))) {
         var n = t.replace(/(?:^|\s)translateZ\(0px\)(?=\s|$)/g, "").trim();
         n === ""
@@ -243,239 +212,221 @@ __d(
           : (e.style.transform = n);
       }
     }
-    function P(e, t) {
-      for (var n of Object.keys(t)) e.style.setProperty(N(n), t[n]);
+    function T(e, t) {
+      for (var n of Object.keys(t)) e.style.setProperty(D(n), t[n]);
     }
-    function N(e) {
+    function D(e) {
       return e.replace(/[A-Z]/g, function (e) {
         return "-" + e.toLowerCase();
       });
     }
-    function M(e, t, n) {
+    function x(e, t, n) {
       var o;
       try {
         o = e.animate(t, n);
       } catch (e) {
         return (r("WAWebNoop")(e), null);
       }
-      return w(o) ? o : null;
+      return $(o) ? o : null;
     }
-    function w(e) {
+    function $(e) {
       return e != null && typeof e == "object";
     }
-    function A(e, t) {
+    function P(e, t) {
       var n,
         r = t[t.length - 1];
       if (r != null) {
         for (var o of Object.keys(r)) {
-          var a = J(r, o);
-          !F.has(o) && a != null && e.style.setProperty(N(o), a);
+          var a = z(r, o);
+          !N.has(o) && a != null && e.style.setProperty(D(o), a);
         }
-        $(e, (n = J(r, "transform")) != null ? n : void 0);
+        I(e, (n = z(r, "transform")) != null ? n : void 0);
       }
     }
-    var F = new Set(["offset", "easing", "composite"]);
-    function O(t, r, a) {
-      return r === "finish"
-        ? j(t, a === !0)
-        : r === "stop"
-          ? K(t, a === !0)
-          : r === "scroll"
-            ? X(t, o("WAWebWaapiAnimateOptions").optionsObject(a))
-            : o("WAWebWaapiAnimatePresets").isWaapiPreset(r)
-              ? B(t, r, o("WAWebWaapiAnimateOptions").optionsObject(a))
-              : (e || (e = n("Promise"))).resolve(t);
+    var N = new Set(["offset", "easing", "composite"]);
+    function M(e, t, n) {
+      return t === "finish"
+        ? q(e, n === !0)
+        : t === "stop"
+          ? U(e, n === !0)
+          : t === "scroll"
+            ? H(e, o("WAWebWaapiAnimateOptions").optionsObject(n))
+            : o("WAWebWaapiAnimatePresets").isWaapiPreset(t)
+              ? w(e, t, o("WAWebWaapiAnimateOptions").optionsObject(n))
+              : Promise.resolve(e);
     }
-    function B(t, r, o) {
-      var a = { duration: o.duration, easing: o.easing },
-        i = ae(t),
-        l = i.map(function (e, t) {
-          return b(e, o.queue, function () {
-            return W(e, r, a, o, t, i.length);
+    function w(e, t, n) {
+      var r = { duration: n.duration, easing: n.easing },
+        o = Z(e),
+        a = o.map(function (e, a) {
+          return y(e, n.queue, function () {
+            return A(e, t, r, n, a, o.length);
           });
         });
-      return (e || (e = n("Promise"))).all(l).then(function () {
-        return t;
+      return Promise.all(a).then(function () {
+        return e;
       });
     }
-    function W(t, r, a, i, l, s) {
-      var u;
-      (r === "slideUp" || r === "slideDown") && te(t, q);
-      var c = o("WAWebWaapiAnimatePresets").buildPreset(r, t, a);
-      if (c == null) return (e || (e = n("Promise"))).resolve();
-      P(t, c.staticStyles);
-      var d = [{ keyframes: c.keyframes, easing: c.easing }].concat(
-          (u = c.additionalAnimations) != null ? u : [],
+    function A(e, t, n, r, a, i) {
+      var l;
+      (t === "slideUp" || t === "slideDown") && Q(e, F);
+      var s = o("WAWebWaapiAnimatePresets").buildPreset(t, e, n);
+      if (s == null) return Promise.resolve();
+      T(e, s.staticStyles);
+      var u = [{ keyframes: s.keyframes, easing: s.easing }].concat(
+          (l = s.additionalAnimations) != null ? l : [],
         ),
-        m = new Set();
-      for (var p of d) for (var _ of re(p.keyframes)) m.add(_);
-      r !== "slideUp" && r !== "slideDown" && te(t, m);
-      var f = [];
-      for (var g of d) {
-        var h,
-          y,
-          C = U(c.duration, i.drag === !0, l, s),
-          b =
-            ((h = i.delay) != null ? h : 0) +
-            l * ((y = i.stagger) != null ? y : 0),
-          v = M(t, g.keyframes, {
-            duration: C,
-            delay: b,
-            easing: g.easing,
+        c = new Set();
+      for (var d of u) for (var m of Y(d.keyframes)) c.add(m);
+      t !== "slideUp" && t !== "slideDown" && Q(e, c);
+      var p = [];
+      for (var _ of u) {
+        var f,
+          g,
+          h = O(s.duration, r.drag === !0, a, i),
+          y =
+            ((f = r.delay) != null ? f : 0) +
+            a * ((g = r.stagger) != null ? g : 0),
+          C = x(e, _.keyframes, {
+            duration: h,
+            delay: y,
+            easing: _.easing,
             fill: "forwards",
           });
-        if (v == null) {
-          c.onComplete == null && A(t, g.keyframes);
+        if (C == null) {
+          s.onComplete == null && P(e, _.keyframes);
           continue;
         }
-        (Y(t, v, re(g.keyframes), g.keyframes),
-          f.push({ animation: v, endTime: b + C }));
+        (G(e, C, Y(_.keyframes), _.keyframes),
+          p.push({ animation: C, endTime: y + h }));
       }
-      return V(t, f, c.onComplete);
+      return B(e, p, s.onComplete);
     }
-    var q = new Set([
+    var F = new Set([
       "height",
       "marginTop",
       "marginBottom",
       "paddingTop",
       "paddingBottom",
     ]);
-    function U(e, t, n, r) {
+    function O(e, t, n, r) {
       return !t || r === 0 ? e : Math.max(e * ((n + 1) / r), e * 0.75, 200);
     }
-    function V(e, t, n) {
-      return H.apply(this, arguments);
-    }
-    function H() {
-      return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, o) {
-          var a =
-            o == null
-              ? null
-              : {
-                  completed: !1,
-                  onComplete: function (n) {
-                    return o(t, n);
-                  },
-                };
-          if (a != null)
-            for (var i of r) {
-              var l = i.animation;
-              f.set(l, a);
-            }
-          var s = yield (e || (e = n("Promise"))).all(
-            r.map(function (e) {
-              var n = e.animation,
-                r = e.endTime;
-              return G(t, n, r, o != null);
-            }),
-          );
-          a != null &&
-            !a.completed &&
-            ((a.completed = !0), a.onComplete(s.every(Boolean)));
-        })),
-        H.apply(this, arguments)
+    async function B(e, t, n) {
+      var r =
+        n == null
+          ? null
+          : {
+              completed: !1,
+              onComplete: function (r) {
+                return n(e, r);
+              },
+            };
+      if (r != null)
+        for (var o of t) {
+          var a = o.animation;
+          _.set(a, r);
+        }
+      var i = await Promise.all(
+        t.map(function (t) {
+          var r = t.animation,
+            o = t.endTime;
+          return W(e, r, o, n != null);
+        }),
       );
+      r != null &&
+        !r.completed &&
+        ((r.completed = !0), r.onComplete(i.every(Boolean)));
     }
-    function G(e, t, n, r) {
-      return z.apply(this, arguments);
+    async function W(e, t, n, o) {
+      try {
+        return (
+          await E(e, t, n),
+          o ? (t.cancel(), j(e, t)) : k(e, t, !0) && j(e, t),
+          !0
+        );
+      } catch (n) {
+        return (r("WAWebNoop")(n), j(e, t), !1);
+      }
     }
-    function z() {
-      return (
-        (z = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, o) {
-            try {
-              return (
-                yield T(e, t, n),
-                o ? (t.cancel(), Z(e, t)) : x(e, t, !0) && Z(e, t),
-                !0
-              );
-            } catch (n) {
-              return (r("WAWebNoop")(n), Z(e, t), !1);
-            }
-          },
-        )),
-        z.apply(this, arguments)
-      );
-    }
-    function j(t, a) {
-      (a && Q(t),
-        R(),
-        ee(t, function (e, t) {
+    function q(e, t) {
+      (t && V(e),
+        v(),
+        K(e, function (e, t) {
           return t.finish();
         }));
-      for (var i of ae(t)) o("WAWebWaapiAnimateScroll").cancelScrollTweens(i);
-      return new (e || (e = n("Promise")))(r("WAWebNoop"));
+      for (var n of Z(e)) o("WAWebWaapiAnimateScroll").cancelScrollTweens(n);
+      return new Promise(r("WAWebNoop"));
     }
-    function K(t, r) {
-      (r && Q(t),
-        R(),
-        ee(t, function (e, t) {
-          (ne(t), x(e, t));
+    function U(e, t) {
+      (t && V(e),
+        v(),
+        K(e, function (e, t) {
+          (X(t), k(e, t));
         }));
-      for (var a of ae(t)) o("WAWebWaapiAnimateScroll").cancelScrollTweens(a);
-      return (e || (e = n("Promise"))).resolve(t);
+      for (var n of Z(e)) o("WAWebWaapiAnimateScroll").cancelScrollTweens(n);
+      return Promise.resolve(e);
     }
-    function Q(e) {
-      for (var t of ae(e)) {
-        var n = _.get(t),
+    function V(e) {
+      for (var t of Z(e)) {
+        var n = p.get(t),
           r = n == null ? void 0 : n.get("");
         r != null &&
           ((r.generation += 1),
           n == null || n.delete(""),
-          (n == null ? void 0 : n.size) === 0 && _.delete(t));
+          (n == null ? void 0 : n.size) === 0 && p.delete(t));
       }
     }
-    function X(t, r) {
-      var a,
+    function H(t, n) {
+      var r,
+        a,
         i,
         l,
-        u,
-        c = Array.isArray(t) ? t[0] : t,
-        d = (a = r.container) != null ? a : document.scrollingElement;
-      if (c == null || !o("WAWebUimUtils").isCrossWindowHTMLElement(d))
-        return (e || (e = n("Promise"))).resolve(t);
-      var m = (i = r.axis) != null ? i : "y",
-        p = o("WAWebWaapiAnimateScroll").computeScrollTarget({
-          axis: m,
-          container: d,
-          node: c,
-          offset: (l = r.offset) != null ? l : 0,
+        s = Array.isArray(t) ? t[0] : t,
+        u = (r = n.container) != null ? r : document.scrollingElement;
+      if (s == null || !o("WAWebUimUtils").isCrossWindowHTMLElement(u))
+        return Promise.resolve(t);
+      var c = (a = n.axis) != null ? a : "y",
+        d = o("WAWebWaapiAnimateScroll").computeScrollTarget({
+          axis: c,
+          container: u,
+          node: s,
+          offset: (i = n.offset) != null ? i : 0,
         });
       return o("WAWebWaapiAnimateScroll")
         .tweenScroll(
+          s,
+          u,
           c,
           d,
-          m,
-          p,
-          (u = r.duration) != null ? u : s,
-          o("WAWebWaapiAnimateEasing").resolveEasingFn(r.easing),
+          (l = n.duration) != null ? l : e,
+          o("WAWebWaapiAnimateEasing").resolveEasingFn(n.easing),
         )
         .then(function () {
           return t;
         });
     }
-    function Y(e, t, n, r) {
+    function G(e, t, n, r) {
       var o,
-        a = (o = d.get(e)) != null ? o : new Set();
-      (a.add(t), d.set(e, a), m.set(t, n));
-      var i = J(r[r.length - 1], "transform");
-      typeof i == "string" && p.set(t, i);
+        a = (o = c.get(e)) != null ? o : new Set();
+      (a.add(t), c.set(e, a), d.set(t, n));
+      var i = z(r[r.length - 1], "transform");
+      typeof i == "string" && m.set(t, i);
     }
-    function J(e, t) {
+    function z(e, t) {
       var n;
       if (e == null) return null;
       var r =
         (n = Object.getOwnPropertyDescriptor(e, t)) == null ? void 0 : n.value;
       return typeof r == "string" ? r : null;
     }
-    function Z(e, t) {
-      var n = d.get(e);
-      n != null && (n.delete(t), n.size === 0 && d.delete(e));
+    function j(e, t) {
+      var n = c.get(e);
+      n != null && (n.delete(t), n.size === 0 && c.delete(e));
     }
-    function ee(e, t) {
-      for (var n of ae(e)) {
-        var o = d.get(n);
+    function K(e, t) {
+      for (var n of Z(e)) {
+        var o = c.get(n);
         if (o != null)
           for (var a of Array.from(o))
             try {
@@ -485,36 +436,36 @@ __d(
             }
       }
     }
-    function te(e, t) {
-      var n = d.get(e);
+    function Q(e, t) {
+      var n = c.get(e);
       if (n != null)
         for (var r of Array.from(n)) {
-          var o = m.get(r);
-          (o == null || oe(o, t)) && (ne(r), x(e, r));
+          var o = d.get(r);
+          (o == null || J(o, t)) && (X(r), k(e, r));
         }
     }
-    function ne(e) {
-      var t = f.get(e);
+    function X(e) {
+      var t = _.get(e);
       t == null || t.completed || ((t.completed = !0), t.onComplete(!1));
     }
-    function re(e) {
+    function Y(e) {
       var t = new Set();
       for (var n of e)
         for (var r of Object.keys(n))
           r !== "offset" && r !== "easing" && r !== "composite" && t.add(r);
       return t;
     }
-    function oe(e, t) {
+    function J(e, t) {
       var n = e.size <= t.size ? [e, t] : [t, e],
         r = n[0],
         o = n[1];
       for (var a of r) if (o.has(a)) return !0;
       return !1;
     }
-    function ae(e) {
+    function Z(e) {
       return Array.isArray(e) ? e : [e];
     }
-    l.default = g;
+    l.default = f;
   },
   98,
 );

@@ -14,8 +14,8 @@ __d(
       return n != null
         ? n
         : o("WAWebBotUtils").isMetaAiBot(e.botId)
-          ? s._(/*BTDS*/ "Meta AI")
-          : s._(/*BTDS*/ "View AI chat");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     l.getForwardedBotDisplayName = e;
   },

@@ -21,7 +21,7 @@ __d(
           (t = e.creative) == null || (t = t.asset_feed_spec) == null
             ? void 0
             : t.images;
-      if (n != null && n.length > 0) {
+      if (Array.isArray(n) && n.length > 0) {
         var r, o;
         return (r = (o = n[0]) == null ? void 0 : o.hash) != null ? r : null;
       }
@@ -33,7 +33,7 @@ __d(
           (t = e.creative) == null || (t = t.asset_feed_spec) == null
             ? void 0
             : t.images;
-      if (n != null && n.length > 0) {
+      if (Array.isArray(n) && n.length > 0) {
         var r, o;
         return (r = (o = n[0]) == null ? void 0 : o.url) != null ? r : null;
       }

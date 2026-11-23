@@ -1,7 +1,6 @@
 __d(
   "WAWebAddonDeleteForParents",
   [
-    "Promise",
     "WALogger",
     "WAWebAddonDeleteMsgs",
     "WAWebAddonGatingUtils",
@@ -13,140 +12,113 @@ __d(
     "WAWebMsgKey",
     "WAWebMsgType",
     "WAWebPollPendingUpdatesCleanup",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p, _;
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.chatId,
-            a = t.parentMsgKeys;
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "deleteAddOnsForParents started for ",
-                "",
-              ])),
-            r,
-          );
-          var i = [
-            o("WAWebAddonDeleteMsgs").deleteAddonMsgsByParentKeys({
-              parentMsgKeys: a,
-            }),
-          ];
-          (o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(
-            o("WAWebMsgType").MSG_TYPE.REACTION,
-          ) || i.push(h({ chatId: r, parentMsgKeys: a })),
-            o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(
-              o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
-            ) || i.push(C({ chatId: r, parentMsgKeys: a })),
-            i.push(
-              o(
-                "WAWebPollPendingUpdatesCleanup",
-              ).deletePollPendingUpdatesForParents(a),
-            ));
-          var l = yield (_ || (_ = n("Promise"))).allSettled(i);
-          o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "deleteAddOnsForParents finished for ",
-                "",
-              ])),
-            r,
-          );
-          for (var u of l) if (u.status === "rejected") throw u.reason;
-        })),
-        g.apply(this, arguments)
+    var e, s, u, c, d, m, p;
+    async function _(t) {
+      var n = t.chatId,
+        r = t.parentMsgKeys;
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "deleteAddOnsForParents started for ",
+            "",
+          ])),
+        n,
       );
-    }
-    function h(e) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chatId,
-            n = e.parentMsgKeys;
-          o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "Persisted: deleteReactionsV2 persisted job started for ",
-                "",
-              ])),
-            t,
-          );
-          var a = yield o("WAWebDBGetReactions").getAllReactionsFromParentMsgs(
-              n,
-            ),
-            i = a.map(function (e) {
-              return e.msgKey;
-            });
-          if (i.length === 0) {
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "Persisted: deleteReactionsV2 finished, no reactionsMsgKeys",
-                ])),
-            );
-            return;
-          }
-          var l = [];
-          (i.forEach(function (e) {
-            r("WAWebMsgKey").fromString(e).fromMe && l.push(e);
-          }),
-            l.length > 0 &&
-              (yield o("WAWebDBMessageDelete").removeMessagesFromHistory(l, {
-                deleteAssociatedMsgs: !1,
-              })));
-          var s = a.map(function (e) {
-            return [e.parentMsgKey, e.senderUserJid];
-          });
-          (yield o("WAWebDBDeleteReactions").deleteReactionsByRecords(s),
-            yield o("WAWebDeleteLastAddOnsPreview").deleteLastAddOnsPreview(n),
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "Persisted: deleteReactionsV2 finished",
-                ])),
-            ));
-        })),
-        y.apply(this, arguments)
+      var a = [
+        o("WAWebAddonDeleteMsgs").deleteAddonMsgsByParentKeys({
+          parentMsgKeys: r,
+        }),
+      ];
+      (o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(
+        o("WAWebMsgType").MSG_TYPE.REACTION,
+      ) || a.push(f({ chatId: n, parentMsgKeys: r })),
+        o("WAWebAddonGatingUtils").isUnifiedInfraEnabledForType(
+          o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
+        ) || a.push(g({ chatId: n, parentMsgKeys: r })),
+        a.push(
+          o(
+            "WAWebPollPendingUpdatesCleanup",
+          ).deletePollPendingUpdatesForParents(r),
+        ));
+      var i = await Promise.allSettled(a);
+      o("WALogger").LOG(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "deleteAddOnsForParents finished for ",
+            "",
+          ])),
+        n,
       );
+      for (var l of i) if (l.status === "rejected") throw l.reason;
     }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chatId,
-            n = e.parentMsgKeys;
-          (o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "Persisted: deletePollVotes job started for ",
-                "",
-              ])),
-            t,
-          ),
-            yield o("WAWebDBPollsDeleteVotes").deleteVotesByParentMsgKeys(n),
-            o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "Persisted: deletePollVotes job finished for ",
-                  "",
-                ])),
-              t,
-            ));
-        })),
-        b.apply(this, arguments)
+    async function f(e) {
+      var t = e.chatId,
+        n = e.parentMsgKeys;
+      o("WALogger").LOG(
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
+            "Persisted: deleteReactionsV2 persisted job started for ",
+            "",
+          ])),
+        t,
       );
+      var a = await o("WAWebDBGetReactions").getAllReactionsFromParentMsgs(n),
+        i = a.map(function (e) {
+          return e.msgKey;
+        });
+      if (i.length === 0) {
+        o("WALogger").LOG(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "Persisted: deleteReactionsV2 finished, no reactionsMsgKeys",
+            ])),
+        );
+        return;
+      }
+      var l = [];
+      (i.forEach(function (e) {
+        r("WAWebMsgKey").fromString(e).fromMe && l.push(e);
+      }),
+        l.length > 0 &&
+          (await o("WAWebDBMessageDelete").removeMessagesFromHistory(l, {
+            deleteAssociatedMsgs: !1,
+          })));
+      var s = a.map(function (e) {
+        return [e.parentMsgKey, e.senderUserJid];
+      });
+      (await o("WAWebDBDeleteReactions").deleteReactionsByRecords(s),
+        await o("WAWebDeleteLastAddOnsPreview").deleteLastAddOnsPreview(n),
+        o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "Persisted: deleteReactionsV2 finished",
+            ])),
+        ));
     }
-    ((l.deleteAddOnsForParents = f), (l.deleteReactions = h));
+    async function g(e) {
+      var t = e.chatId,
+        n = e.parentMsgKeys;
+      (o("WALogger").LOG(
+        m ||
+          (m = babelHelpers.taggedTemplateLiteralLoose([
+            "Persisted: deletePollVotes job started for ",
+            "",
+          ])),
+        t,
+      ),
+        await o("WAWebDBPollsDeleteVotes").deleteVotesByParentMsgKeys(n),
+        o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "Persisted: deletePollVotes job finished for ",
+              "",
+            ])),
+          t,
+        ));
+    }
+    ((l.deleteAddOnsForParents = _), (l.deleteReactions = f));
   },
   98,
 );

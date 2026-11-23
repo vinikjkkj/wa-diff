@@ -3,7 +3,18 @@ __d(
   ["FBLogger", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s = [
+      s = [];
+    function u(e) {
+      var t = { pathname: null, tool: e };
+      return (
+        s.push(t),
+        function () {
+          var e = s.indexOf(t);
+          e !== -1 && s.splice(e, 1);
+        }
+      );
+    }
+    var c = [
         {
           tab: "WA Messaging Audience",
           matcher: function (t) {
@@ -68,7 +79,7 @@ __d(
           },
         },
       ],
-      u = [
+      d = [
         {
           tab: "WA Messaging Campaign Creation",
           matcher: function (t) {
@@ -87,7 +98,7 @@ __d(
           },
         },
       ],
-      c = [
+      m = [
         {
           tab: "Ad Center",
           matcher: function (t) {
@@ -306,6 +317,14 @@ __d(
           },
         },
         {
+          tab: "Marketing Messages Audiences",
+          matcher: function (t) {
+            return t.pathname.includes(
+              "/latest/settings/marketing_messages_audiences",
+            );
+          },
+        },
+        {
           tab: "Meta Verified Landing",
           matcher: function (t) {
             return t.pathname.includes("/latest/meta_verified_landing");
@@ -384,7 +403,7 @@ __d(
           },
         },
       ],
-      d = [
+      p = [
         {
           tab: "BHC Article",
           matcher: function (t) {
@@ -402,7 +421,7 @@ __d(
           },
         },
       ],
-      m = [
+      _ = [
         {
           tab: "Facebook Ad Center All Ads",
           requires_querystring: !0,
@@ -426,7 +445,7 @@ __d(
           },
         },
       ],
-      p = [
+      f = [
         {
           tab: "Instagram Boost Page",
           matcher: function (t) {
@@ -439,131 +458,111 @@ __d(
             return t.pathname.includes("/ad_tools");
           },
         },
-      ],
-      _ = [
+      ];
+    function g(e, t) {
+      var n = [
+        "/organization_manager/" + t,
+        "/meta_business_admin_center/" + t,
+      ];
+      return n.some(function (t) {
+        return e.pathname === t || e.pathname.startsWith(t + "/");
+      });
+    }
+    var h = [
         {
           tab: "Orgman Admin",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/admin") ||
-              t.pathname.includes("/meta_business_admin_center/admin")
-            );
+            return g(t, "admin");
           },
         },
         {
           tab: "Orgman Claim",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/claim") ||
-              t.pathname.includes("/meta_business_admin_center/claim")
-            );
+            return g(t, "claim");
           },
         },
         {
           tab: "Orgman Diagnostics",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/diagnostics") ||
-              t.pathname.includes("/meta_business_admin_center/diagnostics")
-            );
+            return g(t, "diagnostics");
           },
         },
         {
           tab: "Orgman Direct Business Assets",
           matcher: function (t) {
-            return (
-              t.pathname.includes(
-                "/organization_manager/direct_business_assets",
-              ) ||
-              t.pathname.includes(
-                "/meta_business_admin_center/direct_business_assets",
-              )
-            );
+            return g(t, "direct_business_assets");
+          },
+        },
+        {
+          tab: "Orgman External Portfolios",
+          matcher: function (t) {
+            return g(t, "external_portfolios");
           },
         },
         {
           tab: "Orgman Get Started",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/get_started") ||
-              t.pathname.includes("/meta_business_admin_center/get_started")
-            );
+            return g(t, "get_started");
           },
         },
         {
           tab: "Orgman Hybrid Mode Users",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/hybrid_mode_users") ||
-              t.pathname.includes(
-                "/meta_business_admin_center/hybrid_mode_users",
-              )
-            );
+            return g(t, "hybrid_mode_users");
+          },
+        },
+        {
+          tab: "Orgman Migration Center",
+          matcher: function (t) {
+            return g(t, "migration_center");
           },
         },
         {
           tab: "Orgman Migration",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/migration") ||
-              t.pathname.includes("/meta_business_admin_center/migration")
-            );
+            return g(t, "migration");
           },
         },
         {
           tab: "Orgman Overview",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/overview") ||
-              t.pathname.includes("/meta_business_admin_center/overview")
-            );
+            return g(t, "overview");
           },
         },
         {
           tab: "Orgman People",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/people") ||
-              t.pathname.includes("/meta_business_admin_center/people")
-            );
+            return g(t, "people");
           },
         },
         {
           tab: "Orgman Reporting",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/reporting") ||
-              t.pathname.includes("/meta_business_admin_center/reporting")
-            );
+            return g(t, "reporting");
           },
         },
         {
           tab: "Orgman Security Controls",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/security_controls") ||
-              t.pathname.includes(
-                "/meta_business_admin_center/security_controls",
-              )
-            );
+            return g(t, "security_controls");
           },
         },
         {
           tab: "Orgman Security",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/security") ||
-              t.pathname.includes("/meta_business_admin_center/security")
-            );
+            return g(t, "security");
           },
         },
         {
           tab: "Orgman Tasks",
           matcher: function (t) {
-            return (
-              t.pathname.includes("/organization_manager/tasks") ||
-              t.pathname.includes("/meta_business_admin_center/tasks")
-            );
+            return g(t, "tasks");
+          },
+        },
+        {
+          tab: "Orgman Third Party Apps",
+          matcher: function (t) {
+            return g(t, "third_party_apps");
           },
         },
         {
@@ -576,7 +575,7 @@ __d(
           },
         },
       ],
-      f = [
+      y = [
         {
           tab: "MBS Billing Accounts",
           matcher: function (t) {
@@ -637,7 +636,7 @@ __d(
           },
         },
       ],
-      g = [
+      C = [
         {
           tab: "Billing Accounts",
           matcher: function (t) {
@@ -696,7 +695,7 @@ __d(
           },
         },
       ],
-      h = [
+      b = [
         {
           tab: "MMA Admin",
           matcher: function (t) {
@@ -763,7 +762,7 @@ __d(
           },
         },
       ],
-      y = [
+      v = [
         {
           tab: "Creator Marketing Hub Briefs",
           matcher: function (t) {
@@ -819,7 +818,17 @@ __d(
           },
         },
       ],
-      C = [
+      S = [
+        {
+          tool: "Embedded Signup",
+          requires_querystring: !0,
+          matcher: function (t) {
+            return (
+              t.pathname.includes("/dialog/oauth") &&
+              t.search.includes("whatsapp_embedded_signup")
+            );
+          },
+        },
         {
           tool: "Developer App Platform",
           matcher: function (t) {
@@ -845,15 +854,21 @@ __d(
           },
         },
         {
+          tool: "Performance Hub",
+          matcher: function (t) {
+            return /^\/adsmanager\/portfolios\/?$/.test(t.pathname);
+          },
+        },
+        {
           tool: "Billing & Payments",
-          tab_config: f,
+          tab_config: y,
           matcher: function (t) {
             return t.pathname.includes("/latest/billing_hub");
           },
         },
         {
           tool: "MMA Platform",
-          tab_config: h,
+          tab_config: b,
           matcher: function (t) {
             return (
               t.hostname === "work.meta.com" ||
@@ -863,7 +878,7 @@ __d(
         },
         {
           tool: "Organization Manager",
-          tab_config: _,
+          tab_config: h,
           matcher: function (t) {
             return (
               t.pathname.includes("/organization_manager") ||
@@ -873,28 +888,28 @@ __d(
         },
         {
           tool: "Business Help Center",
-          tab_config: d,
+          tab_config: p,
           matcher: function (t) {
             return t.pathname.includes("/business/help");
           },
         },
         {
           tool: "MBS",
-          tab_config: s,
+          tab_config: c,
           matcher: function (t) {
             return /^\/latest\/messaging_campaigns(?:\/|$)/.test(t.pathname);
           },
         },
         {
           tool: "WhatsApp Manager",
-          tab_config: u,
+          tab_config: d,
           matcher: function (t) {
             return t.pathname.includes("/latest/whatsapp_manager");
           },
         },
         {
           tool: "Creator Marketing Hub",
-          tab_config: y,
+          tab_config: v,
           matcher: function (t) {
             return (
               t.pathname.includes("/partnership_ads_hub") ||
@@ -904,7 +919,16 @@ __d(
         },
         {
           tool: "MBS",
-          tab_config: c,
+          matcher: function (t) {
+            return (
+              t.hostname.startsWith("business.") &&
+              t.pathname.startsWith("/security/twofactor/reauth")
+            );
+          },
+        },
+        {
+          tool: "MBS",
+          tab_config: m,
           matcher: function (t) {
             return t.pathname.includes("/latest");
           },
@@ -976,10 +1000,20 @@ __d(
               ? !1
               : t.pathname.includes("reporting", r + n.length);
           },
+          tab_config: [
+            {
+              tab: "Product Insights",
+              matcher: function (t) {
+                return /\/adsmanager\/reporting\/products(?:\/|$)/.test(
+                  t.pathname,
+                );
+              },
+            },
+          ],
         },
         {
           tool: "Billing & Payments",
-          tab_config: g,
+          tab_config: C,
           matcher: function (t) {
             return t.pathname.includes("/billing");
           },
@@ -1029,7 +1063,8 @@ __d(
           matcher: function (t) {
             return (
               t.pathname.includes("/accountquality") ||
-              t.pathname.includes("/business-support-home")
+              t.pathname.includes("/business-support-home") ||
+              t.pathname.includes("/business-support-chat")
             );
           },
         },
@@ -1047,7 +1082,7 @@ __d(
               (t.pathname.includes("/ad_tools") || t.pathname.includes("/b/"))
             );
           },
-          tab_config: p,
+          tab_config: f,
         },
         {
           tool: "Creative Journey",
@@ -1177,7 +1212,7 @@ __d(
               ? !1
               : t.href.includes("/ad_center");
           },
-          tab_config: m,
+          tab_config: _,
         },
         {
           tool: "Insights",
@@ -1201,6 +1236,14 @@ __d(
           matcher: function (t) {
             return t.pathname.startsWith("/pub/");
           },
+          tab_config: [
+            {
+              tab: "Monetization Manager Payouts",
+              matcher: function (t) {
+                return t.pathname.startsWith("/pub/payouts");
+              },
+            },
+          ],
         },
         {
           tool: "Page Posts",
@@ -1275,11 +1318,11 @@ __d(
           },
         },
       ],
-      b = "Unknown",
-      v = { tab: null },
-      S = new Map();
-    for (var R of C) R.tab_config && S.set(R.tool, R.tab_config);
-    function L(e) {
+      R = "Unknown",
+      L = { tab: null },
+      E = new Map();
+    for (var k of S) k.tab_config && E.set(k.tool, k.tab_config);
+    function I(e) {
       try {
         return new URL(e);
       } catch (t) {
@@ -1289,41 +1332,51 @@ __d(
         return;
       }
     }
-    function E(t) {
+    function T(t) {
       var n,
         r,
         o,
         a,
-        i = t != null ? t : L(window.location.href),
-        l = i == null ? void 0 : i.pathname,
-        s = ((n = e) == null ? void 0 : n.tool) != null ? e.tool : null;
-      if (i == null) return { page_uri: "", tool: b, tab: null };
+        i = t != null ? t : I(window.location.href);
+      if (t == null && i != null)
+        for (var l = s.length - 1; l >= 0; l--) {
+          var u,
+            c = s[l];
+          if (
+            ((u = c.pathname) != null || (c.pathname = i.pathname),
+            c.pathname === i.pathname)
+          )
+            return { page_uri: i.href, tool: c.tool, tab: null };
+        }
+      var d = i == null ? void 0 : i.pathname,
+        m = ((n = e) == null ? void 0 : n.tool) != null ? e.tool : null;
+      if (i == null) return { page_uri: "", tool: R, tab: null };
       if (
-        s != null &&
-        (((r = e) == null ? void 0 : r.page_path) === l ||
+        m != null &&
+        (((r = e) == null ? void 0 : r.page_path) === d ||
           ((o = e) == null ? void 0 : o.page_uri) === i)
       )
         return e;
-      var u = null;
-      for (var c of C)
-        if (c.matcher(i)) {
-          u = c;
+      var p = null;
+      for (var _ of S)
+        if (_.matcher(i)) {
+          p = _;
           break;
         }
-      if (u == null) return ((e = { page_uri: i.href, tool: b, tab: null }), e);
-      var d = (a = u.tab_config) != null ? a : S.get(u.tool);
-      if (d != null) {
-        var m = k(i, d);
+      if (p == null) return ((e = { page_uri: i.href, tool: R, tab: null }), e);
+      var f = (a = p.tab_config) != null ? a : E.get(p.tool);
+      if (f != null) {
+        var g = D(i, f);
         return (
           (e = {
             page_uri: i.href,
             page_path:
-              u.requires_querystring === !0 ||
-              (m == null ? void 0 : m.requires_querystring) === !0
+              p.requires_querystring === !0 ||
+              (g == null ? void 0 : g.requires_querystring) === !0
                 ? void 0
-                : l,
-            tool: u.tool,
-            tab: m == null ? void 0 : m.tab,
+                : d,
+            tool: p.tool,
+            tab: g == null ? void 0 : g.tab,
           }),
           e
         );
@@ -1331,20 +1384,20 @@ __d(
         return (
           (e = {
             page_uri: i.href,
-            page_path: u.requires_querystring === !0 ? void 0 : l,
-            tool: u.tool,
+            page_path: p.requires_querystring === !0 ? void 0 : d,
+            tool: p.tool,
             tab: null,
           }),
           e
         );
     }
-    function k(e, t) {
+    function D(e, t) {
       for (var n of t)
         if (n.matcher(e))
           return { tab: n.tab, requires_querystring: n.requires_querystring };
-      return v;
+      return L;
     }
-    l.getCurrentToolTab = E;
+    ((l.registerToolOverride = u), (l.getCurrentToolTab = T));
   },
   98,
 );

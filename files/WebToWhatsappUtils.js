@@ -17,7 +17,7 @@ __d(
     "AdsWebsiteExtensionTypeUtils",
     "ApiAdObjectTypes",
     "CTXChatBuilderFeatureGating",
-    "ClickToMessageAIGenEligibilityUtils",
+    "ClickToMessageAdCaptionEligibilityUtils",
     "WebToXFeatureGating",
     "adsMessengerValidationIsL1MessengerAd",
     "gkx",
@@ -95,12 +95,12 @@ __d(
     function m(e, t) {
       return (
         ((e == null ? void 0 : e.whatsAppNumbersInfo) != null &&
-          e.whatsAppNumbersInfo.length > 0) ||
+          e.whatsAppNumbersInfo.length > 1) ||
         (r("justknobx")._("1458") && t)
       );
     }
     function p(t, n) {
-      return m(t, n) && o("WebToXFeatureGating").checkWebToWAMultinumberQE(!1)
+      return m(t, n)
         ? e.MultiNumberConnection
         : (t == null ? void 0 : t.hasWhatsAppNumber) === !0
           ? e.AccountNotice
@@ -122,19 +122,12 @@ __d(
       return !1;
     }
     function g(e) {
-      var t;
-      return (
-        e === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT &&
-        ((t = r("qex")._("194")) != null ? t : !1)
-      );
-    }
-    function h(e) {
       return (
         e === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT &&
         r("qex")._("1265") === !0
       );
     }
-    function y(e, t, n) {
+    function h(e, t, n) {
       if ((t === void 0 && (t = !0), t === !1))
         return (
           e === r("AdsAPIObjectives").LINK_CLICKS &&
@@ -147,7 +140,7 @@ __d(
       }
       return !1;
     }
-    function C(e, t) {
+    function y(e, t) {
       if ((t === void 0 && (t = !0), t === !1)) {
         var n;
         return (
@@ -162,25 +155,18 @@ __d(
         );
       }
     }
-    function b(e, t, n) {
-      return (t === void 0 && (t = !1), C(e, t) || y(e, t, n));
+    function C(e, t, n) {
+      return (t === void 0 && (t = !1), y(e, t) || h(e, t, n));
     }
-    function v(e, t) {
-      (C(e, !0), y(e, !0, t));
+    function b(e, t) {
+      (y(e, !0), h(e, !0, t));
     }
-    function S(e) {
-      var t;
-      return (
-        e === r("AdsAPIObjectives").OUTCOME_LEADS &&
-        ((t = r("qex")._("1731")) != null ? t : !1)
-      );
-    }
-    function R(e) {
+    function v(e) {
       return (
         e === r("AdsAPIObjectives").OUTCOME_LEADS && r("qex")._("1395") === !0
       );
     }
-    function L(e) {
+    function S(e) {
       if (e === r("AdsAPIObjectives").OUTCOME_LEADS) {
         var t;
         return (t = r("qex")._("5201")) != null ? t : null;
@@ -191,7 +177,7 @@ __d(
       }
       return null;
     }
-    function E(e, t) {
+    function R(e, t) {
       return o("CTXChatBuilderFeatureGating").enableMessageTemplateForWTWA(
         o("AdsWebsiteExtensionTypeUtils").getSelectedMessageExtensiontype(e),
         null,
@@ -199,16 +185,18 @@ __d(
         t,
       );
     }
-    function k(e, t, n, a) {
+    function L(e, t, n, a) {
       return (
         t === "whatsapp" &&
         e !== r("AdCampaignDestination").WHATSAPP &&
         a === r("AdsAPIObjectives").OUTCOME_SALES &&
-        o("ClickToMessageAIGenEligibilityUtils").isAdCaptionEligibleForAIGen(n)
+        o(
+          "ClickToMessageAdCaptionEligibilityUtils",
+        ).isAdCaptionEligibleForAIGen(n)
       );
     }
-    function I(e, t, n, o) {
-      return k(e, t, n, o) ? r("qex")._("4040") === !0 : !1;
+    function E(e, t, n, o) {
+      return L(e, t, n, o) ? r("qex")._("4040") === !0 : !1;
     }
     ((l.SXWAAccountConnectionType = e),
       (l.shouldEnableWebToWhatsAppCatalogAds = s),
@@ -218,17 +206,15 @@ __d(
       (l.isWebToWAMultinumberEligible = m),
       (l.isSalesFlexibleFormatDefaultingEnabled = _),
       (l.isInAdsManagerSalesObjectiveWeblinkPrefillQE = f),
-      (l.isInAdsManagerEngagementObjectiveWeblinkPrefillQE = g),
-      (l.isInAdsManagerEngagementObjectiveWeblinkPrefillV2QE = h),
-      (l.isInAdsManagerLinkClicksObjectiveWeblinkPrefillQEWizL2Defaulting = C),
-      (l.isInAdsManagerLinkClicksObjectiveWeblinkPrefillQE = b),
-      (l.logExposureForAdsManagerLinkClicksObjectiveWeblinkPrefillQE = v),
-      (l.isInAdsManagerLeadsObjectiveWeblinkPrefillQE = S),
-      (l.isInAdsManagerLeadsObjectiveWeblinkPrefillV2QE = R),
-      (l.getAdsManagerWeblinkPrefillV2UrlSourceQE = L),
-      (l.isMessagingTemplateEnabledForWTWA = E),
-      (l.isInWTWAAIGenPrefillPopulation = k),
-      (l.shouldEnableWTWAAIGenPrefill = I));
+      (l.isInAdsManagerEngagementObjectiveWeblinkPrefillV2QE = g),
+      (l.isInAdsManagerLinkClicksObjectiveWeblinkPrefillQEWizL2Defaulting = y),
+      (l.isInAdsManagerLinkClicksObjectiveWeblinkPrefillQE = C),
+      (l.logExposureForAdsManagerLinkClicksObjectiveWeblinkPrefillQE = b),
+      (l.isInAdsManagerLeadsObjectiveWeblinkPrefillV2QE = v),
+      (l.getAdsManagerWeblinkPrefillV2UrlSourceQE = S),
+      (l.isMessagingTemplateEnabledForWTWA = R),
+      (l.isInWTWAAIGenPrefillPopulation = L),
+      (l.shouldEnableWTWAAIGenPrefill = E));
   },
   98,
 );

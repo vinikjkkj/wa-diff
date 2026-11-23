@@ -2,7 +2,6 @@ __d(
   "WAWebMediaDocumentUtils",
   [
     "fbt",
-    "Promise",
     "WAAbortError",
     "WALogger",
     "WAWebActiveIntegrityHoldout",
@@ -30,13 +29,11 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebWamEnumWebcRmrReasonCode",
-    "asyncToGeneratorRuntime",
     "cr:11804",
     "cr:7565",
     "getErrorSafe",
     "justknobx",
     "react",
-    "react-compiler-runtime",
     "useWAWebABPropConfigValue",
     "useWAWebListener",
     "useWAWebMediaDataValues",
@@ -69,136 +66,107 @@ __d(
       x,
       $,
       P,
-      N,
-      M = N || (N = o("react")),
-      w = N,
-      A = w.useCallback,
-      F = w.useEffect,
-      O = w.useState,
-      B = 100 * 1024 * 1024,
-      W = 100;
+      N = P || (P = o("react")),
+      M = P,
+      w = M.useCallback,
+      A = M.useEffect,
+      F = M.useState,
+      O = 100 * 1024 * 1024,
+      B = 100;
+    function W(e) {
+      var t = o("WAWebFilenameManager").getDefaultName(e);
+      o("WAWebToastManager").ToastManager.open(
+        N.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "", [s._param("name", t)]),
+        }),
+      );
+    }
     function q(e) {
       var t = o("WAWebFilenameManager").getDefaultName(e);
       o("WAWebToastManager").ToastManager.open(
-        M.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ '"{name}" downloaded.', [s._param("name", t)]),
+        N.jsx(o("WAWebToast.react").Toast, {
+          msg: s._(/*BTDS*/ "", [s._param("name", t)]),
         }),
       );
     }
-    function U(e) {
-      var t = o("WAWebFilenameManager").getDefaultName(e);
-      o("WAWebToastManager").ToastManager.open(
-        M.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ '"{name}" opening.', [s._param("name", t)]),
-        }),
-      );
+    async function U(e) {
+      var t =
+        r("justknobx")._("8497") &&
+        o("WAWebHarmfulFileWarningGate").shouldShowHarmfulFileWarning(
+          o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsg(e),
+        ) &&
+        !o(
+          "WAWebActiveIntegrityHoldout",
+        ).isSuppressedByActiveIntegrityHoldout();
+      (t || q(e),
+        await (n("cr:7565") == null ? void 0 : n("cr:7565").openMediaFile(e)),
+        t && q(e));
     }
     function V(e) {
-      return H.apply(this, arguments);
-    }
-    function H() {
-      return (
-        (H = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t =
-            r("justknobx")._("8497") &&
-            o("WAWebHarmfulFileWarningGate").shouldShowHarmfulFileWarning(
-              o("WAWebDualUploadsPreferredMsg").getPreferredMediaMsg(e),
-            ) &&
-            !o(
-              "WAWebActiveIntegrityHoldout",
-            ).isSuppressedByActiveIntegrityHoldout();
-          (t || U(e),
-            yield n("cr:7565") == null ? void 0 : n("cr:7565").openMediaFile(e),
-            t && U(e));
-        })),
-        H.apply(this, arguments)
-      );
-    }
-    function G(e) {
       e && (e.stopPropagation(), e.preventDefault());
     }
-    function z(e) {
-      var t,
-        n = o("react-compiler-runtime").c(11),
-        r = O(!1),
-        a = r[0],
-        i = r[1],
-        l;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = [o("WAWebFrontendMsgGetters").getMediaData]), (n[0] = l))
-        : (l = n[0]);
-      var s = o("useWAWebMsgValues").useMsgValues(e, l),
+    function H(t) {
+      var n,
+        a = F(!1),
+        i = a[0],
+        l = a[1],
+        s = o("useWAWebMsgValues").useMsgValues(t, [
+          o("WAWebFrontendMsgGetters").getMediaData,
+        ]),
         u = s[0],
         c =
-          (t = o("useWAWebMediaDataValues").useOptionalMediaDataValues(u, [
+          (n = o("useWAWebMediaDataValues").useOptionalMediaDataValues(u, [
             o("WAWebMediaDataGetters").getMediaStage,
             o("WAWebMediaDataGetters").getFilehash,
           ])) != null
-            ? t
+            ? n
             : [null, null],
         d = c[0],
         m = c[1],
-        p;
-      n[1] !== m || n[2] !== d
-        ? ((p = function () {
+        p = w(
+          function () {
             m == null ||
               d !== o("WAWebMediaTypes").MediaDataStage.INIT ||
               o("WAWebMediaStore")
                 .LruMediaStore.has(m)
                 .then(function (e) {
-                  return i(e);
+                  return l(e);
                 })
-                .catch(j);
-          }),
-          (n[1] = m),
-          (n[2] = d),
-          (n[3] = p))
-        : (p = n[3]);
-      var _ = p,
-        f;
-      n[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = ["change:filehash", "change:mediaStage"]), (n[4] = f))
-        : (f = n[4]);
-      var g;
-      (n[5] !== _ || n[6] !== (u == null ? void 0 : u.mediaStage)
-        ? ((g = function () {
-            ((u == null ? void 0 : u.mediaStage) ===
-              o("WAWebMediaTypes").MediaDataStage.INIT && i(null),
-              _());
-          }),
-          (n[5] = _),
-          (n[6] = u == null ? void 0 : u.mediaStage),
-          (n[7] = g))
-        : (g = n[7]),
-        o("useWAWebListener").useListener(u, f, g));
-      var h, y;
+                .catch(function (t) {
+                  o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "[useIsFileInCacheState] Failed to get file from cache",
+                        ])),
+                    )
+                    .catching(r("getErrorSafe")(t));
+                });
+          },
+          [m, d, l],
+        );
       return (
-        n[8] !== _
-          ? ((h = function () {
-              _();
-            }),
-            (y = [_]),
-            (n[8] = _),
-            (n[9] = h),
-            (n[10] = y))
-          : ((h = n[9]), (y = n[10])),
-        F(h, y),
-        a
+        o("useWAWebListener").useListener(
+          u,
+          ["change:filehash", "change:mediaStage"],
+          function () {
+            ((u == null ? void 0 : u.mediaStage) ===
+              o("WAWebMediaTypes").MediaDataStage.INIT && l(null),
+              p());
+          },
+        ),
+        A(
+          function () {
+            p();
+          },
+          [p],
+        ),
+        i
       );
     }
-    function j(t) {
-      o("WALogger")
-        .ERROR(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
-              "[useIsFileInCacheState] Failed to get file from cache",
-            ])),
-        )
-        .catching(r("getErrorSafe")(t));
-    }
-    function K(e) {
+    function G(e) {
       var t,
-        r = O(null),
+        r = F(null),
         a = r[0],
         i = r[1],
         l = o("useWAWebMsgValues").useMsgValues(e, [
@@ -212,7 +180,7 @@ __d(
             ? t
             : [null],
         _ = p[0],
-        f = A(
+        f = w(
           function () {
             if (n("cr:7565") != null && s != null && _ != null) {
               o("WALogger").LOG(
@@ -251,7 +219,7 @@ __d(
           },
           [s, e, _],
         ),
-        g = O(function () {
+        g = F(function () {
           return f;
         }),
         h = g[0],
@@ -295,7 +263,7 @@ __d(
               i(!1));
           },
         ),
-        F(
+        A(
           function () {
             f();
           },
@@ -304,13 +272,13 @@ __d(
         a
       );
     }
-    function Q(e, t) {
+    function z(e, t) {
       t === void 0 && (t = {});
       var a = o("useWAWebABPropConfigValue").useABPropConfigValue(
           "wa_web_loader_button_uix_improvement",
         ),
-        i = z(e),
-        l = K(e),
+        i = H(e),
+        l = G(e),
         u = o("useWAWebMsgValues").useMsgValues(e, [
           o("WAWebMsgGetters").getIsVcardOverMmsDocument,
           o("WAWebMsgGetters").getIsFailed,
@@ -328,14 +296,14 @@ __d(
         d = u[1],
         m = u[2],
         P = u[3],
-        N = u[4],
+        M = u[4],
         w = u[5],
         A = u[6],
         F = u[7],
-        O = u[8],
-        U = u[9],
-        H = u[10],
-        j = o("useWAWebMediaDataValues").useMediaDataValues(P, [
+        q = u[8],
+        z = u[9],
+        Q = u[10],
+        X = o("useWAWebMediaDataValues").useMediaDataValues(P, [
           o("WAWebMediaDataGetters").getMediaStage,
           o("WAWebMediaDataGetters").getFilename,
           o("WAWebMediaDataGetters").getSize,
@@ -343,44 +311,44 @@ __d(
           o("WAWebMediaDataGetters").getLoadedSize,
           o("WAWebMediaDataGetters").getMimetype,
         ]),
-        Q = j[0],
-        J = j[1],
-        Z = j[2],
-        ee = j[3],
-        te = j[4],
-        ne = j[5],
+        Y = X[0],
+        J = X[1],
+        Z = X[2],
+        ee = X[3],
+        te = X[4],
+        ne = X[5],
         re = o("WAWebFilenameManager").getDefaultName({
-          caption: U,
-          filename: O,
+          caption: z,
+          filename: q,
           isVcardOverMmsDocument: c,
           mimetype: A,
-          t: N,
+          t: M,
           type: w,
           vcardFormattedName: F,
-          vcardList: H,
+          vcardList: Q,
         }),
         oe = function (n) {
-          G(n);
+          V(n);
           var t = o("WAWebMsgCollection").MsgCollection.get(e);
           t != null &&
             o("WAWebModalManager").ModalManager.open(
-              M.jsx(r("WAWebMediaMissingModal.react"), { msg: t }),
+              N.jsx(r("WAWebMediaMissingModal.react"), { msg: t }),
             );
         },
         ae = function (n) {
           var t;
-          (G(n),
+          (V(n),
             (t = o("WAWebMsgCollection").MsgCollection.get(e)) == null ||
               t.cancelDownload());
         },
         ie = function (n) {
           var t;
-          (G(n),
+          (V(n),
             (t = o("WAWebMsgCollection").MsgCollection.get(e)) == null ||
               t.cancelUpload());
         },
         le = function (n) {
-          G(n);
+          V(n);
           var t = o("WAWebMsgCollection").MsgCollection.get(e);
           t != null &&
             t.resumeUpload().catch(function (e) {
@@ -396,7 +364,7 @@ __d(
             });
         },
         se = function (n) {
-          G(n);
+          V(n);
           var t = o("WAWebMsgCollection").MsgCollection.get(e);
           t != null &&
             t.resumeRemoteUpload().catch(function (e) {
@@ -411,254 +379,249 @@ __d(
                 .sendLogs("document-resume-remote-upload-failed");
             });
         },
-        ue = (function () {
-          var a = n("asyncToGeneratorRuntime").asyncToGenerator(function* (a) {
-            (o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "[downloadMediaAsync] start ",
-                  " stage=",
-                  " size=",
-                  "",
-                ])),
-              e.toString(),
-              Q,
-              Z || "unknown",
-            ),
-              G(a));
-            var s = o("WAWebMsgCollection").MsgCollection.get(e);
-            if (s != null) {
-              if (n("cr:7565") != null && l === !0)
-                o("WALogger").LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "[downloadMediaAsync] file in fs ",
-                      "",
-                    ])),
-                  e.toString(),
-                );
-              else {
-                o("WALogger").LOG(
-                  h ||
-                    (h = babelHelpers.taggedTemplateLiteralLoose([
-                      "[downloadMediaAsync] downloading ",
-                      " expensive=",
-                      "",
-                    ])),
-                  e.toString(),
-                  Z <= B,
-                );
-                try {
-                  (o(
-                    "WAWebTPPdfViewerGatingUtils",
-                  ).isWebTPPdfViewerEnabledForMimeType(ne) &&
-                    (n("cr:11804") == null ||
-                      n("cr:11804").maybePreloadWebTPIframeForPDFs(void 0, {
-                        source: "pdfPreviewClick",
-                        force: !0,
-                      })),
-                    yield s.downloadMedia({
-                      downloadEvenIfExpensive: Z <= B,
-                      rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
-                        .WEBC_RMR_REASON_CODE.MSG_CLICK,
-                      isUserInitiated: !0,
-                    }),
-                    o("WALogger").LOG(
-                      y ||
-                        (y = babelHelpers.taggedTemplateLiteralLoose([
-                          "[downloadMediaAsync] Media download completed for msg ",
-                          "",
-                        ])),
-                      e.toString(),
-                    ));
-                } catch (t) {
-                  o("WALogger").ERROR(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
-                        "[downloadMediaAsync] Failed to download media for msg ",
-                        ": ",
-                        "",
-                      ])),
-                    e.toString(),
-                    t,
-                  );
-                }
-              }
-              if (
-                (o("WALogger").LOG(
-                  b ||
-                    (b = babelHelpers.taggedTemplateLiteralLoose([
-                      "[downloadMediaAsync] Processing mediaStage ",
-                      " for msg ",
-                      "",
-                    ])),
-                  Q,
-                  e.toString(),
-                ),
-                o(
-                  "WAWebHarmfulFileWarningGate",
-                ).shouldOpenHarmfulFileWarningModal(s))
-              )
-                if (
-                  o(
-                    "WAWebActiveIntegrityHoldout",
-                  ).isSuppressedByActiveIntegrityHoldout()
-                )
-                  r("justknobx")._("8497") ||
-                    o(
-                      "WAWebHarmfulFileWarningGate",
-                    ).markUserAcceptedHarmfulFileWarning(s);
-                else {
-                  var u = yield Y();
-                  if (!u) return;
-                  o(
-                    "WAWebHarmfulFileWarningGate",
-                  ).markUserAcceptedHarmfulFileWarning(s);
-                }
-              if (
-                o(
-                  "WAWebTPPdfViewerGatingUtils",
-                ).isWebTPPdfViewerEnabledForMimeType(ne)
-              ) {
-                (yield o(
-                  "WAWebHarmfulFileWarningGate",
-                ).confirmHarmfulFileIfNeeded(s),
-                  o("WALogger").LOG(
-                    v ||
-                      (v = babelHelpers.taggedTemplateLiteralLoose([
-                        "[downloadMediaAsync] opening WebTP PDF viewer ",
-                        "",
-                      ])),
-                    e.toString(),
-                  ),
-                  o("WAWebCmd").Cmd.mediaViewerModal({
-                    msg: s,
-                    getZoomNode: t.getZoomNode,
-                    shouldShowAllMedia: !1,
-                  }));
-                return;
-              }
-              switch (Q) {
-                case o("WAWebMediaTypes").MediaDataStage.RESOLVED:
-                case o("WAWebMediaTypes").MediaDataStage.ERROR_UNSUPPORTED:
-                  if (c !== !0) {
-                    if (t.forceDownload === !0) {
-                      (o("WALogger").LOG(
-                        S ||
-                          (S = babelHelpers.taggedTemplateLiteralLoose([
-                            "[downloadMediaAsync] Force download for msg ",
-                            "",
-                          ])),
-                        e.toString(),
-                      ),
-                        q(s),
-                        yield o("WAWebFileSaver").FileSaver.downloadAsync({
-                          msg: s,
-                        }));
-                      break;
-                    }
-                    var d = n("cr:7565") != null && (l === !0 || i === !0);
-                    (o("WALogger").LOG(
-                      R ||
-                        (R = babelHelpers.taggedTemplateLiteralLoose([
-                          "[downloadMediaAsync] file check ",
-                          " canOpen=",
-                          "",
-                        ])),
-                      e.toString(),
-                      d,
-                    ),
-                      n("cr:7565") && d === !0
-                        ? (o("WALogger").LOG(
-                            L ||
-                              (L = babelHelpers.taggedTemplateLiteralLoose([
-                                "[downloadMediaAsync] Opening existing file for msg ",
-                                "",
-                              ])),
-                            e.toString(),
-                          ),
-                          yield V(s))
-                        : n("cr:7565") && d === !1
-                          ? (o("WALogger").LOG(
-                              E ||
-                                (E = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[downloadMediaAsync] saving to Windows fs ",
-                                  "",
-                                ])),
-                              e.toString(),
-                            ),
-                            q(s),
-                            yield n("cr:7565").saveMediaFile(s))
-                          : o(
-                                "WAWebHtmlViewerGatingUtils",
-                              ).isHtmlViewerEnabledForMimeType(ne, e.remote)
-                            ? o("WAWebCmd").Cmd.mediaViewerModal({
-                                msg: s,
-                                getZoomNode: t.getZoomNode,
-                                shouldShowAllMedia: !1,
-                              })
-                            : (o("WALogger").LOG(
-                                k ||
-                                  (k = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[downloadMediaAsync] Using FileSaver to download for msg ",
-                                    "",
-                                  ])),
-                                e.toString(),
-                              ),
-                              q(s),
-                              yield o("WAWebFileSaver").FileSaver.downloadAsync(
-                                { msg: s },
-                              )));
-                  }
-                  break;
-                case o("WAWebMediaTypes").MediaDataStage.NEED_POKE:
-                case o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING:
-                  (o("WALogger").LOG(
-                    I ||
-                      (I = babelHelpers.taggedTemplateLiteralLoose([
-                        "[downloadMediaAsync] Media missing, showing modal for msg ",
-                        "",
-                      ])),
-                    e.toString(),
-                  ),
-                    oe());
-                  break;
-                case o("WAWebMediaTypes").MediaDataStage.INIT:
-                  c !== !0 && n("cr:7565") != null && l === !0
-                    ? (o("WALogger").LOG(
-                        T ||
-                          (T = babelHelpers.taggedTemplateLiteralLoose([
-                            "[downloadMediaAsync] Opening existing file for msg ",
-                            "",
-                          ])),
-                        e.toString(),
-                      ),
-                      yield V(s))
-                    : o("WALogger").LOG(
-                        D ||
-                          (D = babelHelpers.taggedTemplateLiteralLoose([
-                            "[downloadMediaAsync] INIT state, awaiting download ",
-                            "",
-                          ])),
-                        e.toString(),
-                      );
-                  break;
-                default:
-              }
+        ue = async function (s) {
+          (o("WALogger").LOG(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "[downloadMediaAsync] start ",
+                " stage=",
+                " size=",
+                "",
+              ])),
+            e.toString(),
+            Y,
+            Z || "unknown",
+          ),
+            V(s));
+          var a = o("WAWebMsgCollection").MsgCollection.get(e);
+          if (a != null) {
+            if (n("cr:7565") != null && l === !0)
               o("WALogger").LOG(
-                x ||
-                  (x = babelHelpers.taggedTemplateLiteralLoose([
-                    "[downloadMediaAsync] Completed processing for msg ",
+                g ||
+                  (g = babelHelpers.taggedTemplateLiteralLoose([
+                    "[downloadMediaAsync] file in fs ",
                     "",
                   ])),
                 e.toString(),
               );
+            else {
+              o("WALogger").LOG(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "[downloadMediaAsync] downloading ",
+                    " expensive=",
+                    "",
+                  ])),
+                e.toString(),
+                Z <= O,
+              );
+              try {
+                (o(
+                  "WAWebTPPdfViewerGatingUtils",
+                ).isWebTPPdfViewerEnabledForMimeType(ne) &&
+                  (n("cr:11804") == null ||
+                    n("cr:11804").maybePreloadWebTPIframeForPDFs(void 0, {
+                      source: "pdfPreviewClick",
+                      force: !0,
+                    })),
+                  await a.downloadMedia({
+                    downloadEvenIfExpensive: Z <= O,
+                    rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
+                      .WEBC_RMR_REASON_CODE.MSG_CLICK,
+                    isUserInitiated: !0,
+                  }),
+                  o("WALogger").LOG(
+                    y ||
+                      (y = babelHelpers.taggedTemplateLiteralLoose([
+                        "[downloadMediaAsync] Media download completed for msg ",
+                        "",
+                      ])),
+                    e.toString(),
+                  ));
+              } catch (t) {
+                o("WALogger").ERROR(
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                      "[downloadMediaAsync] Failed to download media for msg ",
+                      ": ",
+                      "",
+                    ])),
+                  e.toString(),
+                  t,
+                );
+              }
             }
-          });
-          return function (t) {
-            return a.apply(this, arguments);
-          };
-        })(),
+            if (
+              (o("WALogger").LOG(
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
+                    "[downloadMediaAsync] Processing mediaStage ",
+                    " for msg ",
+                    "",
+                  ])),
+                Y,
+                e.toString(),
+              ),
+              o(
+                "WAWebHarmfulFileWarningGate",
+              ).shouldOpenHarmfulFileWarningModal(a))
+            )
+              if (
+                o(
+                  "WAWebActiveIntegrityHoldout",
+                ).isSuppressedByActiveIntegrityHoldout()
+              )
+                r("justknobx")._("8497") ||
+                  o(
+                    "WAWebHarmfulFileWarningGate",
+                  ).markUserAcceptedHarmfulFileWarning(a);
+              else {
+                var u = await K();
+                if (!u) return;
+                o(
+                  "WAWebHarmfulFileWarningGate",
+                ).markUserAcceptedHarmfulFileWarning(a);
+              }
+            if (
+              o(
+                "WAWebTPPdfViewerGatingUtils",
+              ).isWebTPPdfViewerEnabledForMimeType(ne)
+            ) {
+              (await o(
+                "WAWebHarmfulFileWarningGate",
+              ).confirmHarmfulFileIfNeeded(a),
+                o("WALogger").LOG(
+                  v ||
+                    (v = babelHelpers.taggedTemplateLiteralLoose([
+                      "[downloadMediaAsync] opening WebTP PDF viewer ",
+                      "",
+                    ])),
+                  e.toString(),
+                ),
+                o("WAWebCmd").Cmd.mediaViewerModal({
+                  msg: a,
+                  getZoomNode: t.getZoomNode,
+                  shouldShowAllMedia: !1,
+                }));
+              return;
+            }
+            switch (Y) {
+              case o("WAWebMediaTypes").MediaDataStage.RESOLVED:
+              case o("WAWebMediaTypes").MediaDataStage.ERROR_UNSUPPORTED:
+                if (c !== !0) {
+                  if (t.forceDownload === !0) {
+                    (o("WALogger").LOG(
+                      S ||
+                        (S = babelHelpers.taggedTemplateLiteralLoose([
+                          "[downloadMediaAsync] Force download for msg ",
+                          "",
+                        ])),
+                      e.toString(),
+                    ),
+                      W(a),
+                      await o("WAWebFileSaver").FileSaver.downloadAsync({
+                        msg: a,
+                      }));
+                    break;
+                  }
+                  var d = n("cr:7565") != null && (l === !0 || i === !0);
+                  (o("WALogger").LOG(
+                    R ||
+                      (R = babelHelpers.taggedTemplateLiteralLoose([
+                        "[downloadMediaAsync] file check ",
+                        " canOpen=",
+                        "",
+                      ])),
+                    e.toString(),
+                    d,
+                  ),
+                    n("cr:7565") && d === !0
+                      ? (o("WALogger").LOG(
+                          L ||
+                            (L = babelHelpers.taggedTemplateLiteralLoose([
+                              "[downloadMediaAsync] Opening existing file for msg ",
+                              "",
+                            ])),
+                          e.toString(),
+                        ),
+                        await U(a))
+                      : n("cr:7565") && d === !1
+                        ? (o("WALogger").LOG(
+                            E ||
+                              (E = babelHelpers.taggedTemplateLiteralLoose([
+                                "[downloadMediaAsync] saving to Windows fs ",
+                                "",
+                              ])),
+                            e.toString(),
+                          ),
+                          W(a),
+                          await n("cr:7565").saveMediaFile(a))
+                        : o(
+                              "WAWebHtmlViewerGatingUtils",
+                            ).isHtmlViewerEnabledForMimeType(ne, e.remote)
+                          ? o("WAWebCmd").Cmd.mediaViewerModal({
+                              msg: a,
+                              getZoomNode: t.getZoomNode,
+                              shouldShowAllMedia: !1,
+                            })
+                          : (o("WALogger").LOG(
+                              k ||
+                                (k = babelHelpers.taggedTemplateLiteralLoose([
+                                  "[downloadMediaAsync] Using FileSaver to download for msg ",
+                                  "",
+                                ])),
+                              e.toString(),
+                            ),
+                            W(a),
+                            await o("WAWebFileSaver").FileSaver.downloadAsync({
+                              msg: a,
+                            })));
+                }
+                break;
+              case o("WAWebMediaTypes").MediaDataStage.NEED_POKE:
+              case o("WAWebMediaTypes").MediaDataStage.ERROR_MISSING:
+                (o("WALogger").LOG(
+                  I ||
+                    (I = babelHelpers.taggedTemplateLiteralLoose([
+                      "[downloadMediaAsync] Media missing, showing modal for msg ",
+                      "",
+                    ])),
+                  e.toString(),
+                ),
+                  oe());
+                break;
+              case o("WAWebMediaTypes").MediaDataStage.INIT:
+                c !== !0 && n("cr:7565") != null && l === !0
+                  ? (o("WALogger").LOG(
+                      T ||
+                        (T = babelHelpers.taggedTemplateLiteralLoose([
+                          "[downloadMediaAsync] Opening existing file for msg ",
+                          "",
+                        ])),
+                      e.toString(),
+                    ),
+                    await U(a))
+                  : o("WALogger").LOG(
+                      D ||
+                        (D = babelHelpers.taggedTemplateLiteralLoose([
+                          "[downloadMediaAsync] INIT state, awaiting download ",
+                          "",
+                        ])),
+                      e.toString(),
+                    );
+                break;
+              default:
+            }
+            o("WALogger").LOG(
+              x ||
+                (x = babelHelpers.taggedTemplateLiteralLoose([
+                  "[downloadMediaAsync] Completed processing for msg ",
+                  "",
+                ])),
+              e.toString(),
+            );
+          }
+        },
         ce = function (n) {
           ue(n).catch(function (t) {
             o("WAAbortError").isAbortError(t) ||
@@ -678,29 +641,29 @@ __d(
         me = { onClick: r("WAWebNoop") },
         pe =
           l === !0 ||
-          Q === o("WAWebMediaTypes").MediaDataStage.RESOLVED ||
-          (Q === o("WAWebMediaTypes").MediaDataStage.INIT &&
+          Y === o("WAWebMediaTypes").MediaDataStage.RESOLVED ||
+          (Y === o("WAWebMediaTypes").MediaDataStage.INIT &&
             (a ? i !== !1 : i === !0)),
         _e = function () {
           return t.forceDownload === !0
-            ? s._(/*BTDS*/ 'Download "{name}"', [s._param("name", re)])
+            ? s._(/*BTDS*/ "", [s._param("name", re)])
             : pe && r("WAWebEnvironment").isWindows
-              ? s._(/*BTDS*/ 'Open "{name}"', [s._param("name", re)])
+              ? s._(/*BTDS*/ "", [s._param("name", re)])
               : o(
                     "WAWebTPPdfViewerGatingUtils",
                   ).isWebTPPdfViewerEnabledForMimeType(ne) ||
                   o(
                     "WAWebHtmlViewerGatingUtils",
                   ).isHtmlViewerEnabledForMimeType(ne, e.remote)
-                ? s._(/*BTDS*/ 'View "{name}"', [s._param("name", re)])
-                : s._(/*BTDS*/ 'Download "{name}"', [s._param("name", re)]);
+                ? s._(/*BTDS*/ "", [s._param("name", re)])
+                : s._(/*BTDS*/ "", [s._param("name", re)]);
         };
-      switch (Q) {
+      switch (Y) {
         case o("WAWebMediaTypes").MediaDataStage.RESOLVED:
         case o("WAWebMediaTypes").MediaDataStage.ERROR_UNSUPPORTED:
         case o("WAWebMediaTypes").MediaDataStage.NEED_POKE:
         case o("WAWebMediaTypes").MediaDataStage.INIT: {
-          var fe = X({
+          var fe = j({
             forceDownload: t.forceDownload,
             isMediaFileCached: pe,
             name: re,
@@ -719,7 +682,7 @@ __d(
                 ne,
                 e.remote,
               )
-                ? M.jsx(o("WAWebDocStateControls.react").Download, {
+                ? N.jsx(o("WAWebDocStateControls.react").Download, {
                     onClick: ce,
                   })
                 : null));
@@ -727,19 +690,19 @@ __d(
         }
         case o("WAWebMediaTypes").MediaDataStage.DECRYPTING:
           de = a
-            ? M.jsx(o("WAWebDocStateControls.react").Pending, {
+            ? N.jsx(o("WAWebDocStateControls.react").Pending, {
                 canCancel: !1,
                 outgoingMsg: m,
-                value: W,
+                value: B,
               })
-            : M.jsx(o("WAWebDocStateControls.react").Pending, {
+            : N.jsx(o("WAWebDocStateControls.react").Pending, {
                 outgoingMsg: m,
               });
           break;
         case o("WAWebMediaTypes").MediaDataStage.UPLOADING:
         case o("WAWebMediaTypes").MediaDataStage.FETCHING: {
-          var ge = Q === o("WAWebMediaTypes").MediaDataStage.FETCHING ? ae : ie;
-          ((de = M.jsx(o("WAWebDocStateControls.react").Pending, {
+          var ge = Y === o("WAWebMediaTypes").MediaDataStage.FETCHING ? ae : ie;
+          ((de = N.jsx(o("WAWebDocStateControls.react").Pending, {
             canCancel: !0,
             onClick: ge,
             outgoingMsg: m,
@@ -752,11 +715,11 @@ __d(
           break;
         }
         case o("WAWebMediaTypes").MediaDataStage.NEED_UPLOAD:
-          ((de = M.jsx(o("WAWebDocStateControls.react").Upload, {})),
+          ((de = N.jsx(o("WAWebDocStateControls.react").Upload, {})),
             (me.onClick = le));
           break;
         case o("WAWebMediaTypes").MediaDataStage.REMOTE_NEED_UPLOAD:
-          ((de = M.jsx(o("WAWebDocStateControls.react").Upload, {})),
+          ((de = N.jsx(o("WAWebDocStateControls.react").Upload, {})),
             (me.onClick = se));
           break;
         case o("WAWebMediaTypes").MediaDataStage.ERROR_TOO_LARGE:
@@ -771,18 +734,18 @@ __d(
         case o("WAWebMediaTypes").MediaDataStage.SENDING:
           de = d
             ? null
-            : M.jsx(o("WAWebDocStateControls.react").Pending, {
+            : N.jsx(o("WAWebDocStateControls.react").Pending, {
                 outgoingMsg: m,
               });
           break;
         default:
-          de = M.jsx(o("WAWebDocStateControls.react").Pending, {
+          de = N.jsx(o("WAWebDocStateControls.react").Pending, {
             outgoingMsg: m,
           });
       }
       return [me, de];
     }
-    function X(e) {
+    function j(e) {
       var t = e.forceDownload,
         n = e.isMediaFileCached,
         a = e.name,
@@ -795,10 +758,10 @@ __d(
         ? { onClick: null }
         : { onClick: i, title: l };
     }
-    function Y() {
-      return new (P || (P = n("Promise")))(function (e) {
+    function K() {
+      return new Promise(function (e) {
         o("WAWebModalManager").ModalManager.open(
-          M.jsx(r("WAWebHarmfulFileWarningModal.react"), {
+          N.jsx(r("WAWebHarmfulFileWarningModal.react"), {
             learnMoreUrl: o(
               "WAWebHarmfulFileWarningGate",
             ).getHarmfulFileLearnMoreUrl(),
@@ -812,12 +775,12 @@ __d(
         );
       });
     }
-    ((l.displayDownloadingToast = q),
-      (l.displayFileOpeningToast = U),
-      (l.openMediaFileWithToast = V),
-      (l.useIsFileInCacheState = z),
-      (l.useIsFileSavedOnFileSystem = K),
-      (l.useMediaAction = Q));
+    ((l.displayDownloadingToast = W),
+      (l.displayFileOpeningToast = q),
+      (l.openMediaFileWithToast = U),
+      (l.useIsFileInCacheState = H),
+      (l.useIsFileSavedOnFileSystem = G),
+      (l.useMediaAction = z));
   },
   226,
 );

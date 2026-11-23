@@ -1,11 +1,6 @@
 __d(
   "WAWebPhoneNumberSharingSettingsAction",
-  [
-    "JSResourceForInteraction",
-    "WAWebBackendRuntime",
-    "WAWebPrivacyService",
-    "asyncToGeneratorRuntime",
-  ],
+  ["JSResourceForInteraction", "WAWebBackendRuntime", "WAWebPrivacyService"],
   function (t, n, r, o, a, i, l) {
     var e = r("JSResourceForInteraction")(
         "WAWebPhoneNumberSharingSettingsUI",
@@ -16,102 +11,54 @@ __d(
       u = r("JSResourceForInteraction")(
         "WAWebUpdatePhoneNumberSharingList",
       ).__setRef("WAWebPhoneNumberSharingSettingsAction");
-    function c() {
-      return d.apply(this, arguments);
+    async function c() {
+      return o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime")
+            .runtime(o("WAWebPrivacyService").PrivacyService)
+            .isPhoneNumberSharingSettingsAvailable()
+        : (await e.load()).isPhoneNumberSharingSettingsAvailable();
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebBackendRuntime").isWebDiBackendEnabled()
-            ? o("WAWebBackendRuntime")
-                .runtime(o("WAWebPrivacyService").PrivacyService)
-                .isPhoneNumberSharingSettingsAvailable()
-            : (yield e.load()).isPhoneNumberSharingSettingsAvailable();
-        })),
-        d.apply(this, arguments)
-      );
+    async function d() {
+      return o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime")
+            .runtime(o("WAWebPrivacyService").PrivacyService)
+            .loadPhoneNumberSharingSettings()
+        : (await e.load()).loadPhoneNumberSharingSettings();
     }
-    function m() {
-      return p.apply(this, arguments);
+    async function m() {
+      return o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime")
+            .runtime(o("WAWebPrivacyService").PrivacyService)
+            .readPhoneNumberSharingSettingsSnapshot()
+        : (await e.load()).readPhoneNumberSharingSettingsSnapshot();
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebBackendRuntime").isWebDiBackendEnabled()
-            ? o("WAWebBackendRuntime")
-                .runtime(o("WAWebPrivacyService").PrivacyService)
-                .loadPhoneNumberSharingSettings()
-            : (yield e.load()).loadPhoneNumberSharingSettings();
-        })),
-        p.apply(this, arguments)
-      );
+    async function p(e) {
+      return o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime")
+            .runtime(o("WAWebPrivacyService").PrivacyService)
+            .updatePhoneNumberSharingSetting(e)
+        : (await s.load()).updatePhoneNumberSharingSetting(e);
     }
-    function _() {
-      return f.apply(this, arguments);
+    async function _(t) {
+      return o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime")
+            .runtime(o("WAWebPrivacyService").PrivacyService)
+            .readPhoneNumberSharingList(t)
+        : (await e.load()).readPhoneNumberSharingList(t);
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebBackendRuntime").isWebDiBackendEnabled()
-            ? o("WAWebBackendRuntime")
-                .runtime(o("WAWebPrivacyService").PrivacyService)
-                .readPhoneNumberSharingSettingsSnapshot()
-            : (yield e.load()).readPhoneNumberSharingSettingsSnapshot();
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return o("WAWebBackendRuntime").isWebDiBackendEnabled()
-            ? o("WAWebBackendRuntime")
-                .runtime(o("WAWebPrivacyService").PrivacyService)
-                .updatePhoneNumberSharingSetting(e)
-            : (yield s.load()).updatePhoneNumberSharingSetting(e);
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          return o("WAWebBackendRuntime").isWebDiBackendEnabled()
-            ? o("WAWebBackendRuntime")
-                .runtime(o("WAWebPrivacyService").PrivacyService)
-                .readPhoneNumberSharingList(t)
-            : (yield e.load()).readPhoneNumberSharingList(t);
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return o("WAWebBackendRuntime").isWebDiBackendEnabled()
-            ? o("WAWebBackendRuntime")
-                .runtime(o("WAWebPrivacyService").PrivacyService)
-                .updatePhoneNumberSharingList(e, t, n)
-            : (yield u.load()).updatePhoneNumberSharingList(e, t, n);
-        })),
-        v.apply(this, arguments)
-      );
+    async function f(e, t, n) {
+      return o("WAWebBackendRuntime").isWebDiBackendEnabled()
+        ? o("WAWebBackendRuntime")
+            .runtime(o("WAWebPrivacyService").PrivacyService)
+            .updatePhoneNumberSharingList(e, t, n)
+        : (await u.load()).updatePhoneNumberSharingList(e, t, n);
     }
     ((l.isPhoneNumberSharingSettingsAvailable = c),
-      (l.loadPhoneNumberSharingSettings = m),
-      (l.readPhoneNumberSharingSettingsSnapshot = _),
-      (l.updatePhoneNumberSharingSetting = g),
-      (l.readPhoneNumberSharingList = y),
-      (l.updatePhoneNumberSharingList = b));
+      (l.loadPhoneNumberSharingSettings = d),
+      (l.readPhoneNumberSharingSettingsSnapshot = m),
+      (l.updatePhoneNumberSharingSetting = p),
+      (l.readPhoneNumberSharingList = _),
+      (l.updatePhoneNumberSharingList = f));
   },
   98,
 );

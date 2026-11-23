@@ -10,6 +10,7 @@ __d(
       CATALOG: "catalog",
       DESTINATION_SCREENSHOT_SPEC: "destination_screenshot_spec",
       DUPLICATION_SOURCE: "duplication_source",
+      DYNAMIC_DATA_REFRESH_SPEC: "dynamic_data_refresh_spec",
       DYNAMIC_SITE_LINKS_SPEC: "dynamic_site_links_spec",
       ENABLE_SOCIAL_FEEDBACK_PRESERVATION:
         "enable_social_feedback_preservation",
@@ -23,6 +24,7 @@ __d(
       SITE_LINKS_DATA_CONSENTED: "site_links_data_consented",
       SITE_LINKS_SPEC: "site_links_spec",
       SOURCE_URL: "source_url",
+      UGC_SPEC: "ugc_spec",
       WEBSITE_MEDIA_SPEC: "website_media_spec",
       WEBSITE_SUMMARY_SPEC: "website_summary_spec",
     });

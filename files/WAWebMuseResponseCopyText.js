@@ -5,7 +5,6 @@ __d(
     "WAWebCopyToClipboard",
     "WAWebNoop",
     "WAWebUnifiedResponseUtils",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,43 +29,35 @@ __d(
     function m() {
       (e.load().catch(r("WAWebNoop")), s.load().catch(r("WAWebNoop")));
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function p(t) {
+      var n = t.unifiedResponse;
+      if (
+        n == null ||
+        !d(n) ||
+        !o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(t)
+      )
+        return null;
+      var r = await s.load(),
+        a = r.getHatchJarvisCopyText,
+        i = a(t);
+      if (i != null) return i;
+      var l = await e.load(),
+        u = l.getResponsePlainText;
+      return u(n);
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.unifiedResponse;
-          if (
-            n == null ||
-            !d(n) ||
-            !o("WAWebUnifiedResponseUtils").isUnifiedResponseVisible(t)
-          )
-            return null;
-          var r = yield s.load(),
-            a = r.getHatchJarvisCopyText,
-            i = a(t);
-          if (i != null) return i;
-          var l = yield e.load(),
-            u = l.getResponsePlainText;
-          return u(n);
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(t, n) {
+    function _(t, n) {
       var r = e.getModuleIfRequired();
       if (r != null) {
         var a = r.getResponsePlainText(t);
         a !== "" && o("WAWebCopyToClipboard").copyTextToClipboard(a);
         return;
       }
-      g(t, n);
+      f(t, n);
     }
-    function g(t, n) {
+    function f(t, n) {
       var o;
       if (typeof window.ClipboardItem != "function") {
-        h(n);
+        g(n);
         return;
       }
       var a = e.load().then(
@@ -77,21 +68,21 @@ __d(
           return new Blob([o], { type: c });
         },
         function (e) {
-          throw (h(n), e);
+          throw (g(n), e);
         },
       );
       navigator.clipboard
         .write([new window.ClipboardItem(((o = {}), (o[c] = a), o))])
         .catch(r("WAWebNoop"));
     }
-    function h(e) {
+    function g(e) {
       var t = e();
       t != null && t !== "" && o("WAWebCopyToClipboard").copyTextToClipboard(t);
     }
     ((l.isMuseResponse = d),
       (l.preloadMuseResponseCopyText = m),
       (l.genMuseResponseCopyText = p),
-      (l.copyMuseResponseText = f));
+      (l.copyMuseResponseText = _));
   },
   98,
 );

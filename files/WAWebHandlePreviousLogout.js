@@ -10,7 +10,6 @@ __d(
     "WAWebReloadCrashAnnotations",
     "WAWebURLUtils",
     "WAWebWAWCInit",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
@@ -38,53 +37,45 @@ __d(
         window.history.replaceState({}, document.title, c);
       }
     }
-    function c() {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WAWebLocalStorageUtils").isLogoutDirtyBitSet(),
-            n = o("WAWebLocalStorageUtils").isUserLoggedOut();
-          if (t || n)
-            try {
-              (yield o("WAWebIndexedDBPurge").deleteAllIdb(),
-                yield o("WAWebWAWCInit").initWAWC());
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Preemptive db delete failed with error ",
-                      "",
-                    ])),
-                  t,
-                )
-                .tags("app-wrapper");
-            }
-          if (t) {
-            var a,
-              i = new URLSearchParams(
-                (a = window.location.search) != null ? a : "",
-              );
-            (r("WAWebLocalStorage") == null || r("WAWebLocalStorage").clear(),
-              i.set("post_logout", "1"),
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[reload] handlePreviousLogoutFailures",
-                  ])),
-              ),
-              o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
-                "handlePreviousLogoutFailures",
-              ),
-              (window.location.href =
-                window.location.pathname + "?" + i.toString()));
-          }
-          u();
-        })),
-        d.apply(this, arguments)
-      );
+    async function c() {
+      var t = o("WAWebLocalStorageUtils").isLogoutDirtyBitSet(),
+        n = o("WAWebLocalStorageUtils").isUserLoggedOut();
+      if (t || n)
+        try {
+          (await o("WAWebIndexedDBPurge").deleteAllIdb(),
+            await o("WAWebWAWCInit").initWAWC());
+        } catch (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Preemptive db delete failed with error ",
+                  "",
+                ])),
+              t,
+            )
+            .tags("app-wrapper");
+        }
+      if (t) {
+        var a,
+          i = new URLSearchParams(
+            (a = window.location.search) != null ? a : "",
+          );
+        (r("WAWebLocalStorage") == null || r("WAWebLocalStorage").clear(),
+          i.set("post_logout", "1"),
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[reload] handlePreviousLogoutFailures",
+              ])),
+          ),
+          o("WAWebReloadCrashAnnotations").annotateCrashWithReloadReason(
+            "handlePreviousLogoutFailures",
+          ),
+          (window.location.href =
+            window.location.pathname + "?" + i.toString()));
+      }
+      u();
     }
     ((l.processLogoutReasonAndCleanupUrl = u),
       (l.handlePreviousLogoutFailures = c));

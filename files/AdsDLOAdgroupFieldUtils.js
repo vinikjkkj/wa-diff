@@ -4,6 +4,7 @@ __d(
     "invariant",
     "AdsAssetFeedFieldToRuleLabelMapping",
     "AdsAssetFeedFieldUtils",
+    "AdsDLOAssetLookupUtils",
     "AdsDLOFieldToAdlabelsMapping",
     "AdsDLOLanguageUtils",
     "AdsImageIDUtils",
@@ -25,7 +26,7 @@ __d(
           }));
     }
     function u(e, t) {
-      return m(e, t, null);
+      return o("AdsDLOAssetLookupUtils").getAssetsIndicesForLabel(e, t, null);
     }
     function c(e, t, n, o) {
       var a;
@@ -38,50 +39,6 @@ __d(
         : (r("immutable").List.isList(l) || s(0, 13363), l.getIn([o, n]));
     }
     function d(e, t, n, o) {
-      var a,
-        i = (a = e.creative) == null ? void 0 : a.asset_feed_spec;
-      if (i == null) return { fieldValue: null, index: null };
-      var l = i.get(t);
-      if (l == null) return { fieldValue: null, index: null };
-      r("immutable").List.isList(l) || s(0, 13363);
-      var u = r("AdsDLOFieldToAdlabelsMapping").get(t),
-        c = l.findEntry(function (e) {
-          var t = e.get(u);
-          return t == null
-            ? !1
-            : t.some(function (e) {
-                return e.get("name") === o;
-              });
-        });
-      if (c == null) return { index: null, fieldValue: null };
-      var d = c[0],
-        m = c[1],
-        p = m && m.get(n) != null ? m.get(n) : null;
-      return { fieldValue: p, index: d };
-    }
-    function m(e, t, n) {
-      var o,
-        a = (o = e.creative) == null ? void 0 : o.asset_feed_spec;
-      if (a == null) return [];
-      var i = a.get(t);
-      if (i == null) return [];
-      r("immutable").List.isList(i) || s(0, 13363);
-      var l = [],
-        u = r("AdsDLOFieldToAdlabelsMapping").get(t);
-      return (
-        i.forEach(function (e, t) {
-          var r;
-          ((n == null && e.get(u) == null) ||
-            ((r = e.get(u)) != null &&
-              r.some(function (e) {
-                return e.get("name") === n;
-              }))) &&
-            l.push(t);
-        }),
-        l
-      );
-    }
-    function p(e, t, n, o) {
       var a,
         i = (a = e.creative) == null ? void 0 : a.asset_feed_spec;
       if (i == null) return [];
@@ -106,7 +63,7 @@ __d(
         c
       );
     }
-    function _(t, n) {
+    function m(t, n) {
       if (n == null) {
         var r = e(t, "titles"),
           a = c(t, "titles", "text", r);
@@ -119,9 +76,14 @@ __d(
       );
       return i == null
         ? { index: null, fieldValue: null }
-        : d(t, "titles", "text", i);
+        : o("AdsDLOAssetLookupUtils").getAssetEntryForLabel(
+            t,
+            "titles",
+            "text",
+            i,
+          );
     }
-    function f(e, t) {
+    function p(e, t) {
       if (t == null) {
         var n = u(e, "titles");
         return n.map(function (t) {
@@ -134,18 +96,23 @@ __d(
         t,
         "title_label",
       );
-      return r == null ? [] : p(e, "titles", "text", r);
+      return r == null ? [] : d(e, "titles", "text", r);
     }
-    function g(e, t, n) {
+    function _(e, t, n) {
       if (n == null) return 0;
       var a = r("AdsAssetFeedFieldToRuleLabelMapping").get(t);
       if (a == null) return 0;
       var i = o("AdsDLOLanguageUtils").languageCodeToLabelForAsset(e, n, a);
       if (i == null) return 0;
-      var l = d(e, t, "translation_confidence", i);
+      var l = o("AdsDLOAssetLookupUtils").getAssetEntryForLabel(
+        e,
+        t,
+        "translation_confidence",
+        i,
+      );
       return Number(l.fieldValue);
     }
-    function h(t, n) {
+    function f(t, n) {
       if (n == null) {
         var r = e(t, "bodies"),
           a = c(t, "bodies", "text", r);
@@ -158,9 +125,14 @@ __d(
       );
       return i == null
         ? { index: null, fieldValue: null }
-        : d(t, "bodies", "text", i);
+        : o("AdsDLOAssetLookupUtils").getAssetEntryForLabel(
+            t,
+            "bodies",
+            "text",
+            i,
+          );
     }
-    function y(e, t) {
+    function g(e, t) {
       if (t == null) {
         var n = u(e, "bodies");
         return n.map(function (t) {
@@ -173,9 +145,9 @@ __d(
         t,
         "body_label",
       );
-      return r == null ? [] : p(e, "bodies", "text", r);
+      return r == null ? [] : d(e, "bodies", "text", r);
     }
-    function C(t, n) {
+    function h(t, n) {
       if (n == null) {
         var r = e(t, "descriptions"),
           a = c(t, "descriptions", "text", r);
@@ -188,9 +160,14 @@ __d(
       );
       return i == null
         ? { index: null, fieldValue: null }
-        : d(t, "descriptions", "text", i);
+        : o("AdsDLOAssetLookupUtils").getAssetEntryForLabel(
+            t,
+            "descriptions",
+            "text",
+            i,
+          );
     }
-    function b(t, n, r) {
+    function y(t, n, r) {
       if (n == null) {
         var a = e(t, "link_urls"),
           i = c(t, "link_urls", r, a);
@@ -203,9 +180,14 @@ __d(
       );
       return l == null
         ? { index: -1, fieldValue: null }
-        : d(t, "link_urls", r, l);
+        : o("AdsDLOAssetLookupUtils").getAssetEntryForLabel(
+            t,
+            "link_urls",
+            r,
+            l,
+          );
     }
-    function v(t, n, r) {
+    function C(t, n, r) {
       if (r == null) {
         var a = e(t, "images"),
           i = c(t, "images", n, a);
@@ -218,9 +200,9 @@ __d(
       );
       return l == null
         ? { index: null, fieldValue: null }
-        : d(t, "images", n, l);
+        : o("AdsDLOAssetLookupUtils").getAssetEntryForLabel(t, "images", n, l);
     }
-    function S(e, t, n) {
+    function b(e, t, n) {
       if (n == null) {
         var r = u(e, "images");
         return r.map(function (n) {
@@ -233,9 +215,9 @@ __d(
         n,
         "image_label",
       );
-      return a == null ? [] : p(e, "images", t, a);
+      return a == null ? [] : d(e, "images", t, a);
     }
-    function R(t, n) {
+    function v(t, n) {
       var a,
         i = {
           index: null,
@@ -255,7 +237,12 @@ __d(
           "video_label",
         );
         if (u == null) return i;
-        l = d(t, "videos", "video_id", u).index;
+        l = o("AdsDLOAssetLookupUtils").getAssetEntryForLabel(
+          t,
+          "videos",
+          "video_id",
+          u,
+        ).index;
       }
       var c =
         (a = t.creative) == null || (a = a.asset_feed_spec) == null
@@ -274,7 +261,7 @@ __d(
             },
           });
     }
-    function L(e, t) {
+    function S(e, t) {
       var n,
         a = null;
       if (
@@ -287,7 +274,11 @@ __d(
         a == null)
       )
         return [];
-      var i = m(e, "videos", a),
+      var i = o("AdsDLOAssetLookupUtils").getAssetsIndicesForLabel(
+          e,
+          "videos",
+          a,
+        ),
         l =
           (n = e.creative) == null || (n = n.asset_feed_spec) == null
             ? void 0
@@ -303,15 +294,15 @@ __d(
         u
       );
     }
-    function E(e) {
+    function R(e) {
       var t,
         n = (t = e.creative) == null ? void 0 : t.asset_feed_spec;
       return n == null
         ? !1
         : n.get("images") != null || n.get("videos") != null;
     }
-    function k(e, t) {
-      var n = L(e, t);
+    function L(e, t) {
+      var n = S(e, t);
       return n
         .map(function (e) {
           var t;
@@ -326,10 +317,10 @@ __d(
           return !!e;
         });
     }
-    function I(e, t, n) {
+    function E(e, t, n) {
       var a = ["url", "hash"].map(function (n) {
           return r("immutable").Map(
-            S(e, n, t).map(function (e) {
+            b(e, n, t).map(function (e) {
               var t = e.fieldValue,
                 n = e.index;
               return ["" + (n != null ? n : -1), { fieldValue: t }];
@@ -353,44 +344,48 @@ __d(
         r("immutable").OrderedMap(s)
       );
     }
-    function T(e, t, n) {
+    function k(e, t, n) {
       return !1;
     }
-    function D(e, t) {
+    function I(e, t) {
       var n = o("AdsDLOLanguageUtils").getAddedLanguaguesFromAdgroup(e);
       return t != null ? n.concat(t) : n;
     }
-    function x(e, t, n) {
-      var o = D(e, t);
+    function T(e, t, n) {
+      var o = I(e, t);
       return o.reduce(function (t, r) {
-        return t.union(I(e, r, n).values());
+        return t.union(E(e, r, n).values());
       }, r("immutable").OrderedSet([]));
     }
-    function $(e, t) {
-      var n = D(e, t);
+    function D(e, t) {
+      var n = I(e, t);
       return n.reduce(function (t, n) {
-        return t.union(k(e, n));
+        return t.union(L(e, n));
       }, r("immutable").OrderedSet([]));
     }
     ((l.getUnlabeledAssetIndexForField = e),
       (l.getUnlabeledAssetsIndicesForField = u),
-      (l.getAssetEntryForLabel = d),
-      (l.getAssetsIndicesForLabel = m),
-      (l.getHeadlineValue = _),
-      (l.getHeadlinesValue = f),
-      (l.getTranslationConfidence = g),
-      (l.getMessageValue = h),
-      (l.getMessagesValue = y),
-      (l.getLinkDescriptionValue = C),
-      (l.getLinkUrlValue = b),
-      (l.getImageValue = v),
-      (l.getVideoValue = R),
-      (l.hasMedia = E),
-      (l.getVideoIDs = k),
-      (l.getImageIDs = I),
-      (l.isLanguageMediaSyncedToPrimaryLanguage = T),
-      (l.getUniqueImageAssets = x),
-      (l.getUniqueVideoAssets = $));
+      (l.getAssetEntryForLabel = o(
+        "AdsDLOAssetLookupUtils",
+      ).getAssetEntryForLabel),
+      (l.getAssetsIndicesForLabel = o(
+        "AdsDLOAssetLookupUtils",
+      ).getAssetsIndicesForLabel),
+      (l.getHeadlineValue = m),
+      (l.getHeadlinesValue = p),
+      (l.getTranslationConfidence = _),
+      (l.getMessageValue = f),
+      (l.getMessagesValue = g),
+      (l.getLinkDescriptionValue = h),
+      (l.getLinkUrlValue = y),
+      (l.getImageValue = C),
+      (l.getVideoValue = v),
+      (l.hasMedia = R),
+      (l.getVideoIDs = L),
+      (l.getImageIDs = E),
+      (l.isLanguageMediaSyncedToPrimaryLanguage = k),
+      (l.getUniqueImageAssets = T),
+      (l.getUniqueVideoAssets = D));
   },
   98,
 );

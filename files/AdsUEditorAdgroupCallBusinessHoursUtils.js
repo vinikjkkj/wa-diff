@@ -90,9 +90,7 @@ __d(
       var t = e[0];
       return t == null ? !0 : t.end_minute > t.start_minute;
     }
-    ((l.DEFAULT_START_MINUTE = s),
-      (l.DEFAULT_END_MINUTE = u),
-      (l.BUSINESS_HOURS_DAY_OPTIONS = d),
+    ((l.BUSINESS_HOURS_DAY_OPTIONS = d),
       (l.getDefaultBusinessHours = m),
       (l.getSelectedDays = p),
       (l.setSelectedDays = _),

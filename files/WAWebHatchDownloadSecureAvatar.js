@@ -8,7 +8,6 @@ __d(
     "WAWebMediaInMemoryBlobCache",
     "WAWebMmsMediaTypes",
     "WAWebStartMediaDownloadQpl",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,106 +16,87 @@ __d(
       s = "image/webp",
       u = "video/mp4",
       c = 3e4;
-    function d(e, t, n) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          var l = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-            entryPoint: "DownloadHatchAvatar",
-          });
-          if (
-            o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(
+    async function d(t, n, a) {
+      var i = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+        entryPoint: "DownloadHatchAvatar",
+      });
+      if (
+        o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.has(t.filehash)
+      )
+        return (
+          i.endSuccess({
+            string: { downloadResult: "in_memory_media_blob_cache_hit" },
+          }),
+          o(
+            "WAWebMediaInMemoryBlobCache",
+          ).InMemoryMediaBlobCache.getOrCreateURL(t.filehash)
+        );
+      i.addPoint("in_memory_media_blob_cache_miss");
+      var l = t.mediaType === "video",
+        d = l
+          ? o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO
+          : o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE,
+        m = new AbortController(),
+        p = !1,
+        _ = window.setTimeout(function () {
+          ((p = !0), m.abort());
+        }, c);
+      try {
+        return await r("WARaceSignal")([n, m.signal], async function (e) {
+          var n,
+            r = await o(
+              "WAWebDownloadManager",
+            ).downloadManager.downloadAndMaybeDecrypt({
+              directPath: t.directPath,
+              encFilehash: t.encFilehash,
+              filehash: t.filehash,
+              mediaKey: t.mediaKey,
+              mimetype: t.mimeType,
+              staticUrl: t.staticUrl,
+              type: d,
+              signal: e,
+              userDownloadAttemptCount: 0,
+              downloadQpl: i,
+              downloadOrigin: a,
+            }),
+            c = (n = t.mimeType) != null ? n : l ? u : s,
+            m = new Blob([r], { type: c });
+          (i.addPoint("in_memory_media_blob_cache_write_start"),
+            o("WAWebMediaInMemoryBlobCache").InMemoryMediaBlobCache.put(
               t.filehash,
+              m,
+            ));
+          var p = o(
+            "WAWebMediaInMemoryBlobCache",
+          ).InMemoryMediaBlobCache.getOrCreateURL(t.filehash);
+          return (
+            i.addPoint("in_memory_media_blob_cache_write_end"),
+            i.endSuccess(),
+            p
+          );
+        });
+      } catch (t) {
+        var f = r("getErrorSafe")(t);
+        if (f.name === o("WAAbortError").ABORT_ERROR) {
+          var g = p ? "download_timed_out" : "download_aborted";
+          return (i.endFailWithError(g, g), null);
+        }
+        return (
+          i.endFailWithError("download_failed", f.message),
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch: secure avatar download failed",
+                ])),
             )
-          )
-            return (
-              l.endSuccess({
-                string: { downloadResult: "in_memory_media_blob_cache_hit" },
-              }),
-              o(
-                "WAWebMediaInMemoryBlobCache",
-              ).InMemoryMediaBlobCache.getOrCreateURL(t.filehash)
-            );
-          l.addPoint("in_memory_media_blob_cache_miss");
-          var d = t.mediaType === "video",
-            m = d
-              ? o("WAWebMmsMediaTypes").MEDIA_TYPES.VIDEO
-              : o("WAWebMmsMediaTypes").MEDIA_TYPES.IMAGE,
-            p = new AbortController(),
-            _ = !1,
-            f = window.setTimeout(function () {
-              ((_ = !0), p.abort());
-            }, c);
-          try {
-            return yield r("WARaceSignal")(
-              [a, p.signal],
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var n,
-                      r = yield o(
-                        "WAWebDownloadManager",
-                      ).downloadManager.downloadAndMaybeDecrypt({
-                        directPath: t.directPath,
-                        encFilehash: t.encFilehash,
-                        filehash: t.filehash,
-                        mediaKey: t.mediaKey,
-                        mimetype: t.mimeType,
-                        staticUrl: t.staticUrl,
-                        type: m,
-                        signal: e,
-                        userDownloadAttemptCount: 0,
-                        downloadQpl: l,
-                        downloadOrigin: i,
-                      }),
-                      a = (n = t.mimeType) != null ? n : d ? u : s,
-                      c = new Blob([r], { type: a });
-                    (l.addPoint("in_memory_media_blob_cache_write_start"),
-                      o(
-                        "WAWebMediaInMemoryBlobCache",
-                      ).InMemoryMediaBlobCache.put(t.filehash, c));
-                    var p = o(
-                      "WAWebMediaInMemoryBlobCache",
-                    ).InMemoryMediaBlobCache.getOrCreateURL(t.filehash);
-                    return (
-                      l.addPoint("in_memory_media_blob_cache_write_end"),
-                      l.endSuccess(),
-                      p
-                    );
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            );
-          } catch (t) {
-            var g = r("getErrorSafe")(t);
-            if (g.name === o("WAAbortError").ABORT_ERROR) {
-              var h = _ ? "download_timed_out" : "download_aborted";
-              return (l.endFailWithError(h, h), null);
-            }
-            return (
-              l.endFailWithError("download_failed", g.message),
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch: secure avatar download failed",
-                    ])),
-                )
-                .catching(g)
-                .sendLogs("hatch-secure-avatar-download-failed"),
-              null
-            );
-          } finally {
-            window.clearTimeout(f);
-          }
-        })),
-        m.apply(this, arguments)
-      );
+            .catching(f)
+            .sendLogs("hatch-secure-avatar-download-failed"),
+          null
+        );
+      } finally {
+        window.clearTimeout(_);
+      }
     }
     l.downloadHatchSecureMedia = d;
   },

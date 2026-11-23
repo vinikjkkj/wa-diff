@@ -9,7 +9,6 @@ __d(
     "WAWebMexGetTypename",
     "WAWebUsernameGatingUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -32,82 +31,66 @@ __d(
         s !== void 0
           ? s
           : (s = n("WAWebMexFetchGroupInviteInfoJobAddRequestQuery.graphql"));
-    function v(e) {
-      return S.apply(this, arguments);
+    async function v(e) {
+      var t = await o("WAWebMexClient").fetchQuery(C, {
+          invite_code: e,
+          include_username: o(
+            "WAWebUsernameGatingUtils",
+          ).usernameDisplayedEnabled(),
+        }),
+        n = t.xwa2_group_query_by_id;
+      if (n == null)
+        throw (
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[MEX][GROUP] invite info has no group and no error",
+                ])),
+            )
+            .tags("GQL", "MEX")
+            .sendLogs("mex-group-invite-info-no-group"),
+          new (o("WAWebBackendErrors").ServerStatusCodeError)(y)
+        );
+      return R(n);
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebMexClient").fetchQuery(C, {
-              invite_code: e,
-              include_username: o(
-                "WAWebUsernameGatingUtils",
-              ).usernameDisplayedEnabled(),
-            }),
-            n = t.xwa2_group_query_by_id;
-          if (n == null)
-            throw (
-              o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[MEX][GROUP] invite info has no group and no error",
-                    ])),
-                )
-                .tags("GQL", "MEX")
-                .sendLogs("mex-group-invite-info-no-group"),
-              new (o("WAWebBackendErrors").ServerStatusCodeError)(y)
-            );
-          return E(n);
-        })),
-        S.apply(this, arguments)
-      );
+    async function S(e) {
+      var t = e.admin,
+        n = e.code,
+        r = e.expiration,
+        a = e.groupJid,
+        i;
+      try {
+        i = await o("WAWebMexClient").fetchQuery(b, {
+          group_jid: a,
+          add_request: { admin: t, code: n, expiration: r },
+          include_username: o(
+            "WAWebUsernameGatingUtils",
+          ).usernameDisplayedEnabled(),
+        });
+      } catch (e) {
+        throw e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
+          e.status === g
+          ? new (o("WAWebBackendErrors").ServerStatusCodeError)(h)
+          : e;
+      }
+      var l = i.xwa2_group_query_by_id;
+      if (l == null)
+        throw (
+          o("WALogger")
+            .WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[MEX][GROUP] add request info has no group and no error",
+                ])),
+            )
+            .tags("GQL", "MEX")
+            .sendLogs("mex-group-add-request-info-no-group"),
+          new (o("WAWebBackendErrors").ServerStatusCodeError)(y)
+        );
+      return R(l);
     }
     function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.admin,
-            n = e.code,
-            r = e.expiration,
-            a = e.groupJid,
-            i;
-          try {
-            i = yield o("WAWebMexClient").fetchQuery(b, {
-              group_jid: a,
-              add_request: { admin: t, code: n, expiration: r },
-              include_username: o(
-                "WAWebUsernameGatingUtils",
-              ).usernameDisplayedEnabled(),
-            });
-          } catch (e) {
-            throw e instanceof o("WAWebBackendErrors").ServerStatusCodeError &&
-              e.status === g
-              ? new (o("WAWebBackendErrors").ServerStatusCodeError)(h)
-              : e;
-          }
-          var l = i.xwa2_group_query_by_id;
-          if (l == null)
-            throw (
-              o("WALogger")
-                .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[MEX][GROUP] add request info has no group and no error",
-                    ])),
-                )
-                .tags("GQL", "MEX")
-                .sendLogs("mex-group-add-request-info-no-group"),
-              new (o("WAWebBackendErrors").ServerStatusCodeError)(y)
-            );
-          return E(l);
-        })),
-        L.apply(this, arguments)
-      );
-    }
-    function E(e) {
       var t,
         n,
         r,
@@ -175,7 +158,7 @@ __d(
           (b == null ? void 0 : b.creation_time) != null
             ? Number(b.creation_time)
             : void 0,
-        participants: I(e.participants.edges),
+        participants: E(e.participants.edges),
         size: e.total_participants_count,
         restrict: !1,
         announce: !1,
@@ -192,7 +175,7 @@ __d(
             : void 0,
         membershipApprovalMode:
           (v == null ? void 0 : v.membership_approval_mode_enabled) === !0,
-        membershipApprovalRequest: k(e, y),
+        membershipApprovalRequest: L(e, y),
         isLidAddressingMode: R == null || R === f,
         isParentGroup: y === d,
         numSubgroups: e.num_sub_groups,
@@ -212,7 +195,7 @@ __d(
           e.missing_participant_identification === !0,
       };
     }
-    function k(e, t) {
+    function L(e, t) {
       if (t === p) return e.membership_approval_request === !0;
       if (t === _) {
         var n, r;
@@ -227,7 +210,7 @@ __d(
       }
       return !1;
     }
-    function I(e) {
+    function E(e) {
       return e.map(function (e) {
         var t,
           n,
@@ -253,7 +236,7 @@ __d(
       });
     }
     ((l.mexFetchGroupInviteInfoJob = v),
-      (l.mexFetchGroupAddRequestInfoJob = R));
+      (l.mexFetchGroupAddRequestInfoJob = S));
   },
   98,
 );

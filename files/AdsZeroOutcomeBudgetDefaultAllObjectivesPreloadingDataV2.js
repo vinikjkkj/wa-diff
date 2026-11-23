@@ -10,7 +10,7 @@ __d(
     function s(t) {
       e = t;
     }
-    ((i.getBudgetDefaultDataV2 = l), (i.setBudgetDefaultDataV2 = s));
+    ((i.getBudgetDefaultTiersV2 = l), (i.setBudgetDefaultTiersV2 = s));
   },
   66,
 );

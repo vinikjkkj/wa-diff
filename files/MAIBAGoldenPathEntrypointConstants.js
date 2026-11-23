@@ -1,0 +1,36 @@
+__d(
+  "MAIBAGoldenPathEntrypointConstants",
+  ["fbt"],
+  function (t, n, r, o, a, i, l, s) {
+    "use strict";
+    var e = s._(/*BTDS*/ ""),
+      u = s._(/*BTDS*/ ""),
+      c = s._(/*BTDS*/ ""),
+      d = s._(/*BTDS*/ ""),
+      m = s._(/*BTDS*/ ""),
+      p = s._(/*BTDS*/ ""),
+      _ = s._(/*BTDS*/ ""),
+      f = s._(/*BTDS*/ ""),
+      g = s._(/*BTDS*/ ""),
+      h = "GP1",
+      y = "GP3",
+      C = "GP4",
+      b = "GP6",
+      v = "NON_MFR";
+    ((l.MAIBA_GUIDANCE_PROMPT = e),
+      (l.MAIBA_PFR_GUIDANCE_PROMPT = u),
+      (l.MAIBA_GP4_GUIDANCE_PROMPT = c),
+      (l.MAIBA_GP6_PCR_GUIDANCE_PROMPT = d),
+      (l.GP_AM_TABLE_BUTTON_LABEL = m),
+      (l.GP_IN_SITU_CARD_TITLE = p),
+      (l.MAIBA_GP4_SIGNALS_GROWTH_CAPI_V2_MFR_PROMPT = _),
+      (l.MAIBA_GP4_CAPI_EVENT_COVERAGE_PROMPT = f),
+      (l.MAIBA_GP4_PIXEL_UPSELL_PROMPT = g),
+      (l.GOLDEN_PATH_GP1 = h),
+      (l.GOLDEN_PATH_GP3 = y),
+      (l.GOLDEN_PATH_GP4 = C),
+      (l.GOLDEN_PATH_GP6 = b),
+      (l.RECOMMENDATION_STAGE_NON_MFR = v));
+  },
+  226,
+);

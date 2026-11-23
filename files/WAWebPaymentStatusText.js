@@ -13,17 +13,14 @@ __d(
       return u(e, t, null);
     }
     function d(t, n) {
-      if (t == null) return s._(/*BTDS*/ "Pending");
+      if (t == null) return s._(/*BTDS*/ "");
       var o = n * 1e3,
         a = t * 1e3;
       if (a - o > e) {
         var i = r("WAWeb-moment")(o).to(r("WAWeb-moment")(a));
-        return s._(/*BTDS*/ "Pending (expires {timeSpan})", [
-          s._param("timeSpan", i),
-        ]);
-      } else if (a - o > 0)
-        return s._(/*BTDS*/ "Pending (expires in less than 1 minute)");
-      return s._(/*BTDS*/ "Pending (expiring)");
+        return s._(/*BTDS*/ "", [s._param("timeSpan", i)]);
+      } else if (a - o > 0) return s._(/*BTDS*/ "");
+      return s._(/*BTDS*/ "");
     }
     function m(e, t, n) {
       var r = null,
@@ -31,31 +28,31 @@ __d(
       if (e != null)
         switch (e) {
           case o("WAWebProtobufsWeb.pb").PaymentInfo$Status.PROCESSING:
-            ((r = s._(/*BTDS*/ "Processing")), (a = "pending"));
+            ((r = s._(/*BTDS*/ "")), (a = "pending"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$Status.COMPLETE:
-            ((r = s._(/*BTDS*/ "Completed")), (a = "success"));
+            ((r = s._(/*BTDS*/ "")), (a = "success"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$Status.SENT:
-            ((r = s._(/*BTDS*/ "Pending")), (a = "pending"));
+            ((r = s._(/*BTDS*/ "")), (a = "pending"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$Status.NEED_TO_ACCEPT:
             ((r = d(t, n)), (a = "pending"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$Status.COULD_NOT_COMPLETE:
-            ((r = s._(/*BTDS*/ "Failed")), (a = "failed"));
+            ((r = s._(/*BTDS*/ "")), (a = "failed"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$Status.REFUNDED:
-            ((r = s._(/*BTDS*/ "Failed")), (a = "failed"));
+            ((r = s._(/*BTDS*/ "")), (a = "failed"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$Status.EXPIRED:
-            ((r = s._(/*BTDS*/ "Expired")), (a = "failed"));
+            ((r = s._(/*BTDS*/ "")), (a = "failed"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$Status.REJECTED:
-            ((r = s._(/*BTDS*/ "Declined")), (a = "failed"));
+            ((r = s._(/*BTDS*/ "")), (a = "failed"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$Status.CANCELLED:
-            ((r = s._(/*BTDS*/ "Canceled")), (a = "failed"));
+            ((r = s._(/*BTDS*/ "")), (a = "failed"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$Status.WAITING_FOR_PAYER:
             ((r = d(t, n)), (a = "pending"));
@@ -83,7 +80,7 @@ __d(
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus
             .PENDING_RECEIVER_SETUP:
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.COLLECT_INIT:
-            ((r = s._(/*BTDS*/ "Pending")), (a = "pending"));
+            ((r = s._(/*BTDS*/ "")), (a = "pending"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.INIT:
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus
@@ -91,11 +88,11 @@ __d(
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus
             .FAILED_RECEIVER_PROCESSING:
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.FAILED_DA:
-            ((r = s._(/*BTDS*/ "Processing")), (a = "pending"));
+            ((r = s._(/*BTDS*/ "")), (a = "pending"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.SUCCESS:
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.COMPLETED:
-            ((r = s._(/*BTDS*/ "Completed")), (a = "success"));
+            ((r = s._(/*BTDS*/ "")), (a = "success"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.FAILED:
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.FAILED_RISK:
@@ -116,25 +113,25 @@ __d(
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.REVERSAL_SUCCESS:
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.REVERSAL_PENDING:
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.REFUND_PENDING:
-            ((r = s._(/*BTDS*/ "Failed")), (a = "failed"));
+            ((r = s._(/*BTDS*/ "")), (a = "failed"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.EXPIRED_TXN:
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.COLLECT_EXPIRED:
-            ((r = s._(/*BTDS*/ "Expired")), (a = "pending"));
+            ((r = s._(/*BTDS*/ "")), (a = "pending"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.COLLECT_SUCCESS:
             ((r = d(t, n)), (a = "pending"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.COLLECT_REJECTED:
-            ((r = s._(/*BTDS*/ "Declined")), (a = "pending"));
+            ((r = s._(/*BTDS*/ "")), (a = "pending"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.COLLECT_CANCELED:
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus
             .COLLECT_CANCELLING:
-            ((r = s._(/*BTDS*/ "Canceled")), (a = "pending"));
+            ((r = s._(/*BTDS*/ "")), (a = "pending"));
             break;
           case o("WAWebProtobufsWeb.pb").PaymentInfo$TxnStatus.IN_REVIEW:
-            ((r = s._(/*BTDS*/ "In review")), (a = "pending"));
+            ((r = s._(/*BTDS*/ "")), (a = "pending"));
             break;
         }
       return { str: r, themeClassName: a };

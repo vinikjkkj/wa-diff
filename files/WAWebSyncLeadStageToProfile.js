@@ -10,7 +10,6 @@ __d(
     "WAWebLidMigrationUtils",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,14 +18,11 @@ __d(
       u,
       c,
       d,
-      m = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")("WAWebCustomerDataFieldSaver")
-            .__setRef("WAWebSyncLeadStageToProfile")
-            .load();
-        }),
-        "CustomerProfileLeadStage",
-      );
+      m = r("WAWebLazyLoadedRetriable")(async function () {
+        return r("JSResourceForInteraction")("WAWebCustomerDataFieldSaver")
+          .__setRef("WAWebSyncLeadStageToProfile")
+          .load();
+      }, "CustomerProfileLeadStage");
     function p(e) {
       var t;
       if (!e.id.isUser()) return null;

@@ -2,7 +2,6 @@ __d(
   "WAWebUprWamLogger",
   [
     "$InternalEnum",
-    "Promise",
     "WALogger",
     "WAWebBuyerEventLogger",
     "WAWebChatGetters",
@@ -13,68 +12,55 @@ __d(
     "WAWebWamEnumInteractionType",
     "WAWebWamEnumMediaType",
     "WAWebWamEnumStructuredMessageClass",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
       u,
-      c,
-      d = "receiver_log_key",
-      m = "upr_message_id",
-      p = "universal_payment_request",
-      _ = "upr_payment_bubble",
-      f = "upr_payment_options",
-      g = 200,
-      h = new Set(),
-      y = "individual",
-      C = "group",
-      b = "broadcast",
-      v = "newsletter",
-      S = n("$InternalEnum")({
+      c = "receiver_log_key",
+      d = "upr_message_id",
+      m = "universal_payment_request",
+      p = "upr_payment_bubble",
+      _ = "upr_payment_options",
+      f = 200,
+      g = new Set(),
+      h = "individual",
+      y = "group",
+      C = "broadcast",
+      b = "newsletter",
+      v = n("$InternalEnum")({
         OPEN_PAYMENT_LINK: "open_payment_link",
         COPY_PAYMENT_KEY: "copy_payment_key",
         VIEW_PAYMENT_OPTIONS: "view_payment_options",
         VIEW_DETAILS: "view_details",
       }),
-      R = Object.freeze(
+      S = Object.freeze(
         ((e = {}),
-        (e[S.OPEN_PAYMENT_LINK] = (c = o(
+        (e[v.OPEN_PAYMENT_LINK] = (u = o(
           "WAWebWamEnumInteractionType",
         )).INTERACTION_TYPE.USER_OPEN_BROWSER),
-        (e[S.COPY_PAYMENT_KEY] = c.INTERACTION_TYPE.CLICK_COPY_PAYMENT_KEY),
-        (e[S.VIEW_PAYMENT_OPTIONS] = c.INTERACTION_TYPE.CLICK_PAYMENT_DETAILS),
-        (e[S.VIEW_DETAILS] = c.INTERACTION_TYPE.CLICK_ORDER_SUMMARY),
+        (e[v.COPY_PAYMENT_KEY] = u.INTERACTION_TYPE.CLICK_COPY_PAYMENT_KEY),
+        (e[v.VIEW_PAYMENT_OPTIONS] = u.INTERACTION_TYPE.CLICK_PAYMENT_DETAILS),
+        (e[v.VIEW_DETAILS] = u.INTERACTION_TYPE.CLICK_ORDER_SUMMARY),
         e),
       );
-    function L(e) {
+    function R(e) {
       return o("WAWebChatGetters").getIsGroup(e)
-        ? C
+        ? y
         : o("WAWebChatGetters").getIsBroadcast(e)
-          ? b
+          ? C
           : o("WAWebChatGetters").getIsNewsletter(e)
-            ? v
-            : y;
+            ? b
+            : h;
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    async function L(e, t) {
+      var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(e, t),
+        r = await n.genFunnelInfo(),
+        a = r.funnel_id;
+      return a;
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
-              e,
-              t,
-            ),
-            r = yield n.genFunnelInfo(),
-            a = r.funnel_id;
-          return a;
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e) {
+    function E(e) {
       var t,
         n,
         r = e.buyerAttributes,
@@ -88,7 +74,7 @@ __d(
             : (n = o("WAWebMsgGetters").getSender(u)) == null
               ? void 0
               : n.toJid();
-      w({
+      N({
         buyerAttributes: r,
         businessOwnerJid: c,
         interaction: a,
@@ -105,177 +91,166 @@ __d(
         );
       });
     }
-    function T(e) {
+    function k(e) {
       var t = e.chat,
         n = e.cta,
         r = e.identifierType,
         o = e.info,
         a = e.msg,
         i = e.paymentMethodChoice,
-        l = R[n],
-        s = L(t),
+        l = S[n],
+        s = R(t),
         u = r == null ? void 0 : r.toLowerCase(),
         c = {
-          cta: p,
+          cta: m,
           is_upr: !0,
           payment_method_choice: i,
           identifier_type: u,
           is_single_option: o.paymentOptions.length === 1,
           chat_type: s,
           currency: o.currency,
-          order_amount: x(o),
+          order_amount: T(o),
         },
         d = {
-          cta: p,
+          cta: m,
           isUpr: !0,
           paymentMethodChoice: i,
           identifierType: u,
           chatType: s,
           currency: o.currency,
         };
-      I({ buyerAttributes: d, interaction: l, msg: a, psAttributes: c });
+      E({ buyerAttributes: d, interaction: l, msg: a, psAttributes: c });
     }
-    function D(e) {
+    function I(e) {
       var t = e.direction,
         n = e.msg;
-      if (!h.has(n.id.id)) {
-        if (h.size >= g) {
-          var r = h.values().next().value;
-          r != null && h.delete(r);
+      if (!g.has(n.id.id)) {
+        if (g.size >= f) {
+          var r = g.values().next().value;
+          r != null && g.delete(r);
         }
-        (h.add(n.id.id),
-          I({
+        (g.add(n.id.id),
+          E({
             msg: n,
             interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
               .USER_VIEW,
-            psAttributes: { direction: t, is_upr: !0, screen: _ },
+            psAttributes: { direction: t, is_upr: !0, screen: p },
           }));
       }
     }
-    function x(e) {
+    function T(e) {
       var t = e.totalAmount;
       if (!(t == null || t.offset === 0)) return t.value / t.offset;
     }
-    function $(e) {
+    function D(e) {
       var t = e.msg;
-      I({
+      E({
         msg: t,
         interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
           .USER_VIEW,
-        psAttributes: { is_upr: !0, screen: f },
-        buyerAttributes: { isUpr: !0, screen: f },
+        psAttributes: { is_upr: !0, screen: _ },
+        buyerAttributes: { isUpr: !0, screen: _ },
       });
     }
-    function P(e, t) {
+    function x(e, t) {
       var n = e.info,
         r = e.msg,
         a = t.identifierType.toLowerCase(),
         i = n.currency === "" ? void 0 : n.currency;
-      I({
+      E({
         msg: r,
         interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
           .CLICK_COPY_PAYMENT_KEY,
         psAttributes: {
           is_upr: !0,
-          screen: f,
+          screen: _,
           method_type: t.accountType,
           identifier_type: a,
-          order_amount: x(n),
+          order_amount: T(n),
           currency: i,
         },
         buyerAttributes: {
           isUpr: !0,
-          screen: f,
+          screen: _,
           methodType: t.accountType,
           identifierType: a,
           currency: i,
         },
       });
     }
-    function N(e) {
+    function $(e) {
       var t = e.info,
         n = e.msg,
         r = t.currency === "" ? void 0 : t.currency;
-      I({
+      E({
         msg: n,
         interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
           .USER_OPEN_BROWSER,
         psAttributes: {
           is_upr: !0,
-          screen: f,
+          screen: _,
           method_type: "payment_link",
-          order_amount: x(t),
+          order_amount: T(t),
           currency: r,
         },
         buyerAttributes: {
           isUpr: !0,
-          screen: f,
+          screen: _,
           methodType: "payment_link",
           currency: r,
         },
       });
     }
-    function M(e) {
+    function P(e) {
       var t = e.msg;
-      I({
+      E({
         msg: t,
         interaction: o("WAWebWamEnumInteractionType").INTERACTION_TYPE
           .USER_CANCEL,
-        psAttributes: { is_upr: !0, screen: f },
-        buyerAttributes: { isUpr: !0, screen: f },
+        psAttributes: { is_upr: !0, screen: _ },
+        buyerAttributes: { isUpr: !0, screen: _ },
       });
     }
-    function w(e) {
-      return A.apply(this, arguments);
-    }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.businessOwnerJid,
-            r = e.buyerAttributes,
-            a = e.interaction,
-            i = e.msg,
-            l = e.psAttributes,
-            s = i.id.id + i.to.toJid(),
-            c = yield (u || (u = n("Promise"))).all([E(d, s), E(m, i.id.id)]),
-            p = c[0],
-            _ = c[1];
-          (new (o(
-            "WAWebPsStructuredMessageInteractionWamEvent",
-          ).PsStructuredMessageInteractionWamEvent)({
+    async function N(e) {
+      var t = e.businessOwnerJid,
+        n = e.buyerAttributes,
+        r = e.interaction,
+        a = e.msg,
+        i = e.psAttributes,
+        l = a.id.id + a.to.toJid(),
+        s = await Promise.all([L(c, l), L(d, a.id.id)]),
+        u = s[0],
+        m = s[1];
+      (new (o(
+        "WAWebPsStructuredMessageInteractionWamEvent",
+      ).PsStructuredMessageInteractionWamEvent)({
+        bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
+        businessOwnerJid: t,
+        messageClass: o("WAWebWamEnumStructuredMessageClass")
+          .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
+        messageClassAttributes: JSON.stringify(
+          babelHelpers.extends({}, i, { message_id: m, order_funnel_id: u }),
+        ),
+        messageInteraction: r,
+        messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
+      }).commit(),
+        n != null &&
+          !a.id.fromMe &&
+          (await o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
+            attributes: babelHelpers.extends({}, n, { messageId: m }),
             bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
-            businessOwnerJid: t,
-            messageClass: o("WAWebWamEnumStructuredMessageClass")
-              .STRUCTURED_MESSAGE_CLASS.BUTTON_NFM,
-            messageClassAttributes: JSON.stringify(
-              babelHelpers.extends({}, l, {
-                message_id: _,
-                order_funnel_id: p,
-              }),
-            ),
-            messageInteraction: a,
-            messageMediaType: o("WAWebWamEnumMediaType").MEDIA_TYPE.NONE,
-          }).commit(),
-            r != null &&
-              !i.id.fromMe &&
-              (yield o("WAWebBuyerEventLogger").submitBuyerInteractionEvent({
-                attributes: babelHelpers.extends({}, r, { messageId: _ }),
-                bizPlatform: o("WAWebWamEnumBizPlatform").BIZ_PLATFORM.CLOUDAPI,
-                interaction: a,
-                isLoggingEnabled: !0,
-                psFunnelId: p,
-              })));
-        })),
-        A.apply(this, arguments)
-      );
+            interaction: r,
+            isLoggingEnabled: !0,
+            psFunnelId: u,
+          })));
     }
-    ((l.UprCtaType = S),
-      (l.logUprInteractionWAMEvent = T),
-      (l.logUprBubbleViewWAMEvent = D),
-      (l.logUprPaymentOptionsViewWAMEvent = $),
-      (l.logUprPaymentOptionCopyWAMEvent = P),
-      (l.logUprPaymentOptionOpenLinkWAMEvent = N),
-      (l.logUprPaymentOptionsDismissWAMEvent = M));
+    ((l.UprCtaType = v),
+      (l.logUprInteractionWAMEvent = k),
+      (l.logUprBubbleViewWAMEvent = I),
+      (l.logUprPaymentOptionsViewWAMEvent = D),
+      (l.logUprPaymentOptionCopyWAMEvent = x),
+      (l.logUprPaymentOptionOpenLinkWAMEvent = $),
+      (l.logUprPaymentOptionsDismissWAMEvent = P));
   },
   98,
 );

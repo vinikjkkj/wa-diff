@@ -1,30 +1,21 @@
 __d(
   "WAWebNewsletterInfoDialogsLoadable",
-  ["JSResourceForInteraction", "WAWebModalLoadable", "asyncToGeneratorRuntime"],
+  ["JSResourceForInteraction", "WAWebModalLoadable"],
   function (t, n, r, o, a, i, l) {
     var e = function () {
         return r("JSResourceForInteraction")("WAWebNewsletterInfoDialogs.react")
           .__setRef("WAWebNewsletterInfoDialogsLoadable")
           .load();
       },
-      s = r("WAWebModalLoadable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (yield e()).NewsletterMessageNotFoundPopup;
-        }),
-        "NewsletterMessageNotFoundPopup",
-      ),
-      u = r("WAWebModalLoadable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (yield e()).NewsletterMessageDeletedPopup;
-        }),
-        "NewsletterMessageDeletedPopup",
-      ),
-      c = r("WAWebModalLoadable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (yield e()).NewsletterPinTooOldPopup;
-        }),
-        "NewsletterPinTooOldPopup",
-      );
+      s = r("WAWebModalLoadable")(async function () {
+        return (await e()).NewsletterMessageNotFoundPopup;
+      }, "NewsletterMessageNotFoundPopup"),
+      u = r("WAWebModalLoadable")(async function () {
+        return (await e()).NewsletterMessageDeletedPopup;
+      }, "NewsletterMessageDeletedPopup"),
+      c = r("WAWebModalLoadable")(async function () {
+        return (await e()).NewsletterPinTooOldPopup;
+      }, "NewsletterPinTooOldPopup");
     ((l.NewsletterMessageNotFoundPopupLoadable = s),
       (l.NewsletterMessageDeletedPopupLoadable = u),
       (l.NewsletterPinTooOldPopupLoadable = c));

@@ -23,7 +23,7 @@ __d(
             {},
           ),
           title: function () {
-            return s._(/*BTDS*/ "Create new ad");
+            return s._(/*BTDS*/ "");
           },
         }),
         (e[o("WAWebBizNativeAdsFlowTypes").BizNativeAdsFlowSteps.AdManagement] =
@@ -35,7 +35,7 @@ __d(
               {},
             ),
             title: function () {
-              return s._(/*BTDS*/ "Advertise");
+              return s._(/*BTDS*/ "");
             },
           }),
         e);

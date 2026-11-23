@@ -1,53 +1,38 @@
 __d(
   "WAWebOmittedConversationMetadataPairing",
   [
-    "Promise",
     "WAWebOmittedConversationMetadataStorageTypes",
     "WAWebSignalCommonUtils",
     "WAWebSignalConst",
     "WAWebSignalStoreApi",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s() {
-      return u.apply(this, arguments);
+    async function e() {
+      var e = o("WAWebUserUtils").getMeDeviceLidOrThrow().toString(),
+        t = await Promise.all([
+          o("WAWebSignalStoreApi").waSignalStore.getMeta(
+            o("WAWebSignalConst").META_KEYS.REG_ID,
+          ),
+          o("WAWebSignalStoreApi").waSignalStore.getMeta(
+            o("WAWebSignalConst").META_KEYS.STATIC_PUBKEY,
+          ),
+        ]),
+        n = t[0],
+        a = t[1];
+      if (typeof n != "number" || a == null)
+        throw r("err")("Omitted metadata pairing credentials are unavailable");
+      var i = await o("WAWebSignalCommonUtils").decryptRegistrationMaterial(a),
+        l = await self.crypto.subtle.digest("SHA-256", i),
+        s = Array.from(new Uint8Array(l), function (e) {
+          return e.toString(16).padStart(2, "0");
+        }).join("");
+      return o(
+        "WAWebOmittedConversationMetadataStorageTypes",
+      ).asOmittedMetadataPairingId(e + ":" + n + ":" + s);
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = o("WAWebUserUtils").getMeDeviceLidOrThrow().toString(),
-            a = yield (e || (e = n("Promise"))).all([
-              o("WAWebSignalStoreApi").waSignalStore.getMeta(
-                o("WAWebSignalConst").META_KEYS.REG_ID,
-              ),
-              o("WAWebSignalStoreApi").waSignalStore.getMeta(
-                o("WAWebSignalConst").META_KEYS.STATIC_PUBKEY,
-              ),
-            ]),
-            i = a[0],
-            l = a[1];
-          if (typeof i != "number" || l == null)
-            throw r("err")(
-              "Omitted metadata pairing credentials are unavailable",
-            );
-          var s = yield o("WAWebSignalCommonUtils").decryptRegistrationMaterial(
-              l,
-            ),
-            u = yield self.crypto.subtle.digest("SHA-256", s),
-            c = Array.from(new Uint8Array(u), function (e) {
-              return e.toString(16).padStart(2, "0");
-            }).join("");
-          return o(
-            "WAWebOmittedConversationMetadataStorageTypes",
-          ).asOmittedMetadataPairingId(t + ":" + i + ":" + c);
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    l.getOmittedMetadataPairingId = s;
+    l.getOmittedMetadataPairingId = e;
   },
   98,
 );

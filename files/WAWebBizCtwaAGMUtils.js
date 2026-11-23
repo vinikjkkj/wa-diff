@@ -12,7 +12,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e) {
-      return s._(/*BTDS*/ "{ad source} ad", [s._param("ad source", e)]);
+      return s._(/*BTDS*/ "", [s._param("ad source", e)]);
     }
     function u(e) {
       return r("WAWebURLUtils").withoutWww(r("WAWebURLUtils").hostname(e));
@@ -24,12 +24,10 @@ __d(
       return n === "fb" ? "facebook" : n;
     }
     function d(e) {
-      return s._(/*BTDS*/ "{ad source} Ad image preview", [
-        s._param("ad source", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("ad source", e)]);
     }
     function m() {
-      return s._(/*BTDS*/ "Error loading photo");
+      return s._(/*BTDS*/ "");
     }
     function p(e) {
       var t = e.isAGMShown,

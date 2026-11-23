@@ -1,22 +1,15 @@
 __d(
   "WAWebOnKeyDownPlugin",
-  ["LexicalComposerContext", "react-compiler-runtime", "useWAWebLexicalEvent"],
+  ["LexicalComposerContext", "useWAWebLexicalEvent"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.onKeyDown,
-        r = o("LexicalComposerContext").useLexicalComposerContext(),
-        a = r[0],
-        i;
+      var t = e.onKeyDown,
+        n = o("LexicalComposerContext").useLexicalComposerContext(),
+        r = n[0];
       return (
-        t[0] !== n
-          ? ((i = function (t) {
-              n == null || n(t);
-            }),
-            (t[0] = n),
-            (t[1] = i))
-          : (i = t[1]),
-        o("useWAWebLexicalEvent").useLexicalKeydownEvent(a, null, i),
+        o("useWAWebLexicalEvent").useLexicalKeydownEvent(r, null, function (e) {
+          t == null || t(e);
+        }),
         null
       );
     }

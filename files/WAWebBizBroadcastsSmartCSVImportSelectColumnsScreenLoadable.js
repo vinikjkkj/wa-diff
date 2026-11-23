@@ -4,37 +4,25 @@ __d(
     "JSResourceForInteraction",
     "WAWebLazyLoadedRetriable",
     "WAWebModalManager",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebBizBroadcastsSmartCSVImportSelectColumnsScreen.react",
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebBizBroadcastsSmartCSVImportSelectColumnsScreen.react",
+        )
+          .__setRef(
+            "WAWebBizBroadcastsSmartCSVImportSelectColumnsScreenLoadable",
           )
-            .__setRef(
-              "WAWebBizBroadcastsSmartCSVImportSelectColumnsScreenLoadable",
-            )
-            .load();
-          return e;
-        }),
-        "BusinessBroadcastSmartCSVImportSelectColumnsScreen",
-      );
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield u();
-          o("WAWebModalManager").ModalManager.open(
-            s.jsx(t, babelHelpers.extends({}, e)),
-          );
-        })),
-        d.apply(this, arguments)
+          .load();
+        return e;
+      }, "BusinessBroadcastSmartCSVImportSelectColumnsScreen");
+    async function c(e) {
+      var t = await u();
+      o("WAWebModalManager").ModalManager.open(
+        s.jsx(t, babelHelpers.extends({}, e)),
       );
     }
     l.openSmartCSVImportSelectColumnsScreenLoadable = c;

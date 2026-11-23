@@ -17,18 +17,12 @@ __d(
           (t = o(
             "WAWebBusinessProfileTypes",
           )).businessTypeOptions.limitedLiabilityPartnership
-        ] = s._(/*BTDS*/ "Limited liability partnership")),
-        (e[t.businessTypeOptions.soleProprietorship] = s._(
-          /*BTDS*/ "Sole proprietorship",
-        )),
-        (e[t.businessTypeOptions.partnership] = s._(/*BTDS*/ "Partnership")),
-        (e[t.businessTypeOptions.publicCompany] = s._(
-          /*BTDS*/ "Public company",
-        )),
-        (e[t.businessTypeOptions.privateCompany] = s._(
-          /*BTDS*/ "Private company",
-        )),
-        (e[t.businessTypeOptions.other] = s._(/*BTDS*/ "Other")),
+        ] = s._(/*BTDS*/ "")),
+        (e[t.businessTypeOptions.soleProprietorship] = s._(/*BTDS*/ "")),
+        (e[t.businessTypeOptions.partnership] = s._(/*BTDS*/ "")),
+        (e[t.businessTypeOptions.publicCompany] = s._(/*BTDS*/ "")),
+        (e[t.businessTypeOptions.privateCompany] = s._(/*BTDS*/ "")),
+        (e[t.businessTypeOptions.other] = s._(/*BTDS*/ "")),
         e
       );
     };
@@ -49,10 +43,7 @@ __d(
           o("WAWebBusinessProfileTypes").businessTypeOptions.partnership,
           o("WAWebBusinessProfileTypes").businessTypeOptions.other,
         ].includes(r) &&
-          (c =
-            i != null && i
-              ? s._(/*BTDS*/ "Registered business")
-              : s._(/*BTDS*/ "Not registered business")),
+          (c = i != null && i ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "")),
         "" + u.toString() + (c ? " (" + c.toString() + ")" : "")
       );
     }

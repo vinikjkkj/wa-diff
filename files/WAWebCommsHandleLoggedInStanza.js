@@ -54,7 +54,6 @@ __d(
     "WAWebShortcakeLinkingHandlePasskeyPrologueRequest",
     "WAWebWid",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "requireDeferred",
   ],
@@ -80,269 +79,230 @@ __d(
             .handleIndividualChatState,
         },
       });
-    function f(e, t) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.attrs;
-          switch (e.tag) {
-            case "receipt":
-              try {
-                if (n.type === "retry" || n.type === "enc_rekey_retry")
-                  return yield o(
-                    "WAWebHandleMessageRetryRequest",
-                  ).handleMessageRetryRequest(e);
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "Unhandled receipt stanza: type: '",
-                      "', id: '",
-                      "'",
-                    ])),
-                  n.type,
-                  n.id,
-                );
-                break;
-              } catch (t) {
-                return t instanceof o("WAParsableWapNode").XmppParsingFailure
-                  ? (o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(
-                      e,
-                    ),
-                    o("WAWebCreateNackFromStanza").createNackFromStanza(
-                      e,
-                      o("WAWebCreateNackFromStanza").NackReason.ParsingError,
-                    ))
-                  : o("WAWebCreateNackFromStanza").createNackFromStanza(
-                      e,
-                      o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
-                    );
-              }
-            case "notification":
-              try {
-                switch (n.type) {
-                  case "server_sync":
-                    return yield o(
-                      "WAWebHandleServerSyncNotification",
-                    ).handleServerSyncNotification(e);
-                  case "picture":
-                    return yield o(
-                      "WAWebHandleProfilePicNotification",
-                    ).handleProfilePicNotificationJob(e);
-                  case "business":
-                    return yield o(
-                      "WAWebHandleBusinessNotification",
-                    ).handleBusinessNotificationJob(e);
-                  case "digital_commerce_subscription":
-                    return yield o(
-                      "WAWebHandleDigitalCommerceSubscriptionNotification",
-                    ).handleDigitalCommerceSubscriptionNotificationJob(e);
-                  case "contacts": {
-                    var a = e.content;
-                    if (!Array.isArray(a) || !a.length) break;
-                    var i = a[0].tag;
-                    if (i === "invite") break;
-                    return yield r("WAWebHandleContactNotification")(e);
-                  }
-                  case "devices":
-                    return yield o(
-                      "WAWebHandleDeviceNotification",
-                    ).handleDevicesNotification(e);
-                  case "disappearing_mode":
-                    return yield o(
-                      "WAWebHandleDisappearingModeNotification",
-                    ).handleDisappearingModeNotificationJob(e);
-                  case "mediaretry": {
-                    var l = yield r("WAWebHandleMediaRetryNotification")(e);
-                    return l;
-                  }
-                  case "encrypt": {
-                    var d = e.content;
-                    if (!Array.isArray(d) || !d.length) break;
-                    var f = d[0].tag;
-                    switch (f) {
-                      case "count":
-                      case "pq_count":
-                        return yield r("WAWebHandlePreKeyLow")(e, t);
-                      case "digest":
-                        return yield r("WAWebHandleDigestKey")(e);
-                    }
-                    break;
-                  }
-                  case "server":
-                    return yield o(
-                      "WAWebHandleServerNotification",
-                    ).handleServerNotification(e);
-                  case "status":
-                    return yield o(
-                      "WAWebHandleAboutNotification",
-                    ).handleAboutNotification(e);
-                  case "account_sync":
-                    return yield o(
-                      "WAWebHandleAccountSyncNotification",
-                    ).handleAccountSyncNotification(e);
-                  case "pay":
-                    return yield o(
-                      "WAWebPaymentNotificationHandler",
-                    ).handlePaymentNotification(e);
-                  case "psa":
-                    if (
-                      n.from != null &&
-                      n.from.toString() === o("WAJids").PSA_JID
-                    ) {
-                      var g = e.content;
-                      if (!Array.isArray(g) || !g.length) break;
-                      var C = g[0].tag;
-                      return C === "surfaces"
-                        ? yield o(
-                            "WAWebHandleQPSurfacesNotification",
-                          ).handleQPSurfacesNotification(e)
-                        : C === "reset_smb_last_qp_prefetch_timestamp"
-                          ? o(
-                              "WAWebHandleQPPrefetchTimestampNotification",
-                            ).handleQPPrefetchTimestampNotification(e)
-                          : yield r("WAWebHandleWaChat")(e);
-                    }
-                    return yield r("WAWebHandlePsa")(e);
-                  case "privacy_token":
-                    return yield r("WAWebHandlePrivacyTokensNotification")(e);
-                  case "link_code_companion_reg":
-                    return yield o(
-                      "WAWebAltDeviceLinkingHandleNotification",
-                    ).handleAltDeviceLinkingNotification(e);
-                  case "newsletter":
-                    return yield r("WAWebHandleNewsletterNotification")(e);
-                  case "w:growth":
-                    return yield r("WAWebHandleGrowthNotification")(e);
-                  case "registration":
-                    return yield r("WAWebHandleDeviceSwitchingNotification")(e);
-                  case "mex":
-                    return yield o(
-                      "WAWebHandleMexNotification",
-                    ).handleMexNotification(e);
-                  case "companion_reg_refresh":
-                    return yield o(
-                      "WAWebHandleCompanionReqRefreshNotification",
-                    ).handleCompanionReqRefreshNotification(e);
-                  case "waffle":
-                    return yield o(
-                      "WAWebAccountLinkingNotificationHandler",
-                    ).handleAccountLinkingNotification(e);
-                  case "fb:update":
-                    return yield o(
-                      "WAWebHandleBotProfileNotification",
-                    ).handleBotProfileNotification(e);
-                  case "hosted":
-                    return yield o(
-                      "WAWebHandleHostedNotification",
-                    ).handleHostedNotification(e);
-                }
-                if (n.type != null && String(n.type) === "biz_thread_data") {
-                  var b = yield p.load(),
-                    v = b.handleBizThreadDataNotification;
-                  return v(e);
-                }
-                if (
-                  n.type != null &&
-                  String(n.type) === "biz_thread_data_bulk"
-                ) {
-                  var S = yield m.load(),
-                    R = S.handleBizThreadDataBulkNotification;
-                  return R(e);
-                }
-                if (
-                  n.type != null &&
-                  String(n.type) === "passkey_prologue_request"
-                )
-                  return yield o(
-                    "WAWebShortcakeLinkingHandlePasskeyPrologueRequest",
-                  ).handlePasskeyPrologueRequestNotification(e);
-                if (n.type != null && String(n.type) === "crsc_continuation")
-                  return o(
-                    "WAWebShortcakeLinkingHandleNotification",
-                  ).handleShortcakeLinkingNotification(e);
-              } catch (t) {
-                return t instanceof o("WAParsableWapNode").XmppParsingFailure
-                  ? (o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(
-                      e,
-                    ),
-                    o("WAWebCreateNackFromStanza").createNackFromStanza(
-                      e,
-                      o("WAWebCreateNackFromStanza").NackReason.ParsingError,
-                    ))
-                  : t instanceof
-                      o("WAWebHandleMexNotification")
-                        .MissingMEXNotificationHandler
-                    ? h(e)
-                    : o("WAWebCreateNackFromStanza").createNackFromStanza(
-                        e,
-                        o("WAWebCreateNackFromStanza").NackReason
-                          .UnhandledError,
-                      );
-              }
-              return h(e);
-            case "chatstate": {
-              var L = y(e);
-              if (L != null) return L;
-              var E = o(
-                "WAWebHandleCoexV2ChatState",
-              ).maybeHandleCoexV2ChatStateStanza(e);
-              return E != null
-                ? E
-                : o("WAHandleDecisionTreeResult").handleDecisionTreeResult(
-                    e,
-                    _(e),
-                  );
-            }
-            case "presence":
-              return r("WAWebHandlePresence")(e);
-            case "ib":
-              return r("WAWebHandleInfoBulletin")(e);
-            case "stream:error":
-              return r("WAWebHandleStreamError")(e);
-            case "failure":
-              return r("WAWebHandleFailure")(e);
-            case "success":
-              return r("WAWebHandleSuccess")(e);
-            case "call":
-              return o("WAWebHandleVoipCall").handleCall(e);
-            case "error":
-              return o("WABackendHandleError").handleError(e);
-            case "xmlstreamend":
-              return (
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Comms.handleStanza received xmlstreamend, return NO_ACK",
-                    ])),
-                ),
-                "NO_ACK"
-              );
-          }
-          return (
-            o("WALogger").DEV_XMPP(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "Comms.handleStanza unrecognized stanza ",
-                  "",
+    async function f(t, n) {
+      var a = t.attrs;
+      switch (t.tag) {
+        case "receipt":
+          try {
+            if (a.type === "retry" || a.type === "enc_rekey_retry")
+              return await o(
+                "WAWebHandleMessageRetryRequest",
+              ).handleMessageRetryRequest(t);
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Unhandled receipt stanza: type: '",
+                  "', id: '",
+                  "'",
                 ])),
-              e,
+              a.type,
+              a.id,
+            );
+            break;
+          } catch (e) {
+            return e instanceof o("WAParsableWapNode").XmppParsingFailure
+              ? (o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(t),
+                o("WAWebCreateNackFromStanza").createNackFromStanza(
+                  t,
+                  o("WAWebCreateNackFromStanza").NackReason.ParsingError,
+                ))
+              : o("WAWebCreateNackFromStanza").createNackFromStanza(
+                  t,
+                  o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
+                );
+          }
+        case "notification":
+          try {
+            switch (a.type) {
+              case "server_sync":
+                return await o(
+                  "WAWebHandleServerSyncNotification",
+                ).handleServerSyncNotification(t);
+              case "picture":
+                return await o(
+                  "WAWebHandleProfilePicNotification",
+                ).handleProfilePicNotificationJob(t);
+              case "business":
+                return await o(
+                  "WAWebHandleBusinessNotification",
+                ).handleBusinessNotificationJob(t);
+              case "digital_commerce_subscription":
+                return await o(
+                  "WAWebHandleDigitalCommerceSubscriptionNotification",
+                ).handleDigitalCommerceSubscriptionNotificationJob(t);
+              case "contacts": {
+                var i = t.content;
+                if (!Array.isArray(i) || !i.length) break;
+                var l = i[0].tag;
+                if (l === "invite") break;
+                return await r("WAWebHandleContactNotification")(t);
+              }
+              case "devices":
+                return await o(
+                  "WAWebHandleDeviceNotification",
+                ).handleDevicesNotification(t);
+              case "disappearing_mode":
+                return await o(
+                  "WAWebHandleDisappearingModeNotification",
+                ).handleDisappearingModeNotificationJob(t);
+              case "mediaretry": {
+                var c = await r("WAWebHandleMediaRetryNotification")(t);
+                return c;
+              }
+              case "encrypt": {
+                var d = t.content;
+                if (!Array.isArray(d) || !d.length) break;
+                var f = d[0].tag;
+                switch (f) {
+                  case "count":
+                  case "pq_count":
+                    return await r("WAWebHandlePreKeyLow")(t, n);
+                  case "digest":
+                    return await r("WAWebHandleDigestKey")(t);
+                }
+                break;
+              }
+              case "server":
+                return await o(
+                  "WAWebHandleServerNotification",
+                ).handleServerNotification(t);
+              case "status":
+                return await o(
+                  "WAWebHandleAboutNotification",
+                ).handleAboutNotification(t);
+              case "account_sync":
+                return await o(
+                  "WAWebHandleAccountSyncNotification",
+                ).handleAccountSyncNotification(t);
+              case "pay":
+                return await o(
+                  "WAWebPaymentNotificationHandler",
+                ).handlePaymentNotification(t);
+              case "psa":
+                if (
+                  a.from != null &&
+                  a.from.toString() === o("WAJids").PSA_JID
+                ) {
+                  var y = t.content;
+                  if (!Array.isArray(y) || !y.length) break;
+                  var C = y[0].tag;
+                  return C === "surfaces"
+                    ? await o(
+                        "WAWebHandleQPSurfacesNotification",
+                      ).handleQPSurfacesNotification(t)
+                    : C === "reset_smb_last_qp_prefetch_timestamp"
+                      ? o(
+                          "WAWebHandleQPPrefetchTimestampNotification",
+                        ).handleQPPrefetchTimestampNotification(t)
+                      : await r("WAWebHandleWaChat")(t);
+                }
+                return await r("WAWebHandlePsa")(t);
+              case "privacy_token":
+                return await r("WAWebHandlePrivacyTokensNotification")(t);
+              case "link_code_companion_reg":
+                return await o(
+                  "WAWebAltDeviceLinkingHandleNotification",
+                ).handleAltDeviceLinkingNotification(t);
+              case "newsletter":
+                return await r("WAWebHandleNewsletterNotification")(t);
+              case "w:growth":
+                return await r("WAWebHandleGrowthNotification")(t);
+              case "registration":
+                return await r("WAWebHandleDeviceSwitchingNotification")(t);
+              case "mex":
+                return await o(
+                  "WAWebHandleMexNotification",
+                ).handleMexNotification(t);
+              case "companion_reg_refresh":
+                return await o(
+                  "WAWebHandleCompanionReqRefreshNotification",
+                ).handleCompanionReqRefreshNotification(t);
+              case "waffle":
+                return await o(
+                  "WAWebAccountLinkingNotificationHandler",
+                ).handleAccountLinkingNotification(t);
+              case "fb:update":
+                return await o(
+                  "WAWebHandleBotProfileNotification",
+                ).handleBotProfileNotification(t);
+              case "hosted":
+                return await o(
+                  "WAWebHandleHostedNotification",
+                ).handleHostedNotification(t);
+            }
+            if (a.type != null && String(a.type) === "biz_thread_data") {
+              var b = await p.load(),
+                v = b.handleBizThreadDataNotification;
+              return v(t);
+            }
+            if (a.type != null && String(a.type) === "biz_thread_data_bulk") {
+              var S = await m.load(),
+                R = S.handleBizThreadDataBulkNotification;
+              return R(t);
+            }
+            if (a.type != null && String(a.type) === "passkey_prologue_request")
+              return await o(
+                "WAWebShortcakeLinkingHandlePasskeyPrologueRequest",
+              ).handlePasskeyPrologueRequestNotification(t);
+            if (a.type != null && String(a.type) === "crsc_continuation")
+              return o(
+                "WAWebShortcakeLinkingHandleNotification",
+              ).handleShortcakeLinkingNotification(t);
+          } catch (e) {
+            return e instanceof o("WAParsableWapNode").XmppParsingFailure
+              ? (o("WAWebPostUnknownStanzaMetric").postUnknownStanzaMetric(t),
+                o("WAWebCreateNackFromStanza").createNackFromStanza(
+                  t,
+                  o("WAWebCreateNackFromStanza").NackReason.ParsingError,
+                ))
+              : e instanceof
+                  o("WAWebHandleMexNotification").MissingMEXNotificationHandler
+                ? g(t)
+                : o("WAWebCreateNackFromStanza").createNackFromStanza(
+                    t,
+                    o("WAWebCreateNackFromStanza").NackReason.UnhandledError,
+                  );
+          }
+          return g(t);
+        case "chatstate": {
+          var L = h(t);
+          if (L != null) return L;
+          var E = o(
+            "WAWebHandleCoexV2ChatState",
+          ).maybeHandleCoexV2ChatStateStanza(t);
+          return E != null
+            ? E
+            : o("WAHandleDecisionTreeResult").handleDecisionTreeResult(t, _(t));
+        }
+        case "presence":
+          return r("WAWebHandlePresence")(t);
+        case "ib":
+          return r("WAWebHandleInfoBulletin")(t);
+        case "stream:error":
+          return r("WAWebHandleStreamError")(t);
+        case "failure":
+          return r("WAWebHandleFailure")(t);
+        case "success":
+          return r("WAWebHandleSuccess")(t);
+        case "call":
+          return o("WAWebHandleVoipCall").handleCall(t);
+        case "error":
+          return o("WABackendHandleError").handleError(t);
+        case "xmlstreamend":
+          return (
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "Comms.handleStanza received xmlstreamend, return NO_ACK",
+                ])),
             ),
-            o("WAWebCreateNackFromStanza").createNackFromStanza(
-              e,
-              o("WAWebCreateNackFromStanza").NackReason.UnrecognizedStanza,
-            )
+            "NO_ACK"
           );
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(t) {
+      }
       return (
         o("WALogger").DEV_XMPP(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
               "Comms.handleStanza unrecognized stanza ",
               "",
             ])),
@@ -354,53 +314,59 @@ __d(
         )
       );
     }
-    function y(e) {
-      var t,
-        n = v((t = e.attrs.from) == null ? void 0 : t.toString());
-      if (n == null) return null;
-      var r = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(n);
-      return r == null ? null : C(e, r);
-    }
-    function C(e, t) {
-      return b.apply(this, arguments);
-    }
-    function b() {
+    function g(e) {
       return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n = o(
-                "WASmaxChatstateServerNotificationRPC",
-              ).receiveServerNotificationRPC(e),
-              a = n.parsedRequest.stateTypes,
-              i = o("WAHandleChatStateProtocol").parseChatStatus(a);
-            return (
-              yield o("WAWebHandleChatState").handleIndividualChatState({
-                jid: o("WAWebWidToJid").widToUserJid(t),
-                status: i,
-              }),
-              "NO_ACK"
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "Failed to handle MAIBA AI Hub chatstate",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("maiba-ai-hub-chatstate-handle-fail", {
-                  sampling: 0.1,
-                }),
-              "NO_ACK"
-            );
-          }
-        })),
-        b.apply(this, arguments)
+        o("WALogger").DEV_XMPP(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "Comms.handleStanza unrecognized stanza ",
+              "",
+            ])),
+          e,
+        ),
+        o("WAWebCreateNackFromStanza").createNackFromStanza(
+          e,
+          o("WAWebCreateNackFromStanza").NackReason.UnrecognizedStanza,
+        )
       );
     }
-    function v(e) {
+    function h(e) {
+      var t,
+        n = C((t = e.attrs.from) == null ? void 0 : t.toString());
+      if (n == null) return null;
+      var r = o("WAWebMaibaWASSMigration").getMaibaAiHubLidForFbidThread(n);
+      return r == null ? null : y(e, r);
+    }
+    async function y(e, t) {
+      try {
+        var n = o(
+            "WASmaxChatstateServerNotificationRPC",
+          ).receiveServerNotificationRPC(e),
+          a = n.parsedRequest.stateTypes,
+          i = o("WAHandleChatStateProtocol").parseChatStatus(a);
+        return (
+          await o("WAWebHandleChatState").handleIndividualChatState({
+            jid: o("WAWebWidToJid").widToUserJid(t),
+            status: i,
+          }),
+          "NO_ACK"
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "Failed to handle MAIBA AI Hub chatstate",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("maiba-ai-hub-chatstate-handle-fail", { sampling: 0.1 }),
+          "NO_ACK"
+        );
+      }
+    }
+    function C(e) {
       var t = o("WAWebDecodeJid").decodeJid(e);
       return t instanceof r("WAWebWid") ? t : null;
     }

@@ -43,9 +43,7 @@ __d(
       return !o("WAWebChatGetters").getIsGroup(e) && c();
     }
     function p() {
-      return s._(
-        /*BTDS*/ "Adding an amount helps customers pay the correct price",
-      );
+      return s._(/*BTDS*/ "");
     }
     ((l.PixPaymentRequestVariant = e),
       (l.getPixPaymentRequestVariant = u),

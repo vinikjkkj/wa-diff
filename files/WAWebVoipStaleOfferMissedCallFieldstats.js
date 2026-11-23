@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipStaleOfferMissedCallFieldstats",
   [
-    "Promise",
     "WALogger",
     "WAWebBackendApi",
     "WAWebCallWamEvent",
@@ -13,18 +12,16 @@ __d(
     "WAWebWamEnumCallTermReason",
     "WAWebWamEnumCallWakeupSource",
     "WAWebWamEnumFieldStatsRowType",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = 1e3,
-      m = 27,
-      p = 127,
-      _ = new Set([
+      c = 1e3,
+      d = 27,
+      m = 127,
+      p = new Set([
         "android",
         "capi",
         "ios_tablet",
@@ -43,33 +40,33 @@ __d(
         "windows_electron",
         "wp",
       ]),
-      f = new Map([
+      _ = new Map([
         [
           "accepted_elsewhere",
-          (c = o("WAWebWamEnumCallTermReason")).CALL_TERM_REASON
+          (u = o("WAWebWamEnumCallTermReason")).CALL_TERM_REASON
             .ACCEPTED_ELSEWHERE,
         ],
-        ["call_is_full", c.CALL_TERM_REASON.CALL_IS_FULL],
-        ["device_switch", c.CALL_TERM_REASON.DEVICE_SWITCH],
-        ["group_call_ended", c.CALL_TERM_REASON.GROUP_CALL_ENDED],
-        ["heartbeat", c.CALL_TERM_REASON.HEARTBEAT_TERMINATE],
-        ["media_rx_timeout", c.CALL_TERM_REASON.MEDIA_TX_RX_TIMEOUT],
-        ["media_tx_timeout", c.CALL_TERM_REASON.MEDIA_TX_RX_TIMEOUT],
-        ["rejected_elsewhere", c.CALL_TERM_REASON.REJECTED_ELSEWHERE],
-        ["relay_bind_failed", c.CALL_TERM_REASON.RELAY_BIND_FAILED],
-        ["screened_elsewhere", c.CALL_TERM_REASON.ACCEPTED_ELSEWHERE],
-        ["setup_failed", c.CALL_TERM_REASON.SETUP_FAILED],
-        ["timeout", c.CALL_TERM_REASON.RINGING_TIMEOUT],
-        ["user_invisible", c.CALL_TERM_REASON.USER_INVISIBLE],
-        ["user_removed", c.CALL_TERM_REASON.USER_REMOVED],
+        ["call_is_full", u.CALL_TERM_REASON.CALL_IS_FULL],
+        ["device_switch", u.CALL_TERM_REASON.DEVICE_SWITCH],
+        ["group_call_ended", u.CALL_TERM_REASON.GROUP_CALL_ENDED],
+        ["heartbeat", u.CALL_TERM_REASON.HEARTBEAT_TERMINATE],
+        ["media_rx_timeout", u.CALL_TERM_REASON.MEDIA_TX_RX_TIMEOUT],
+        ["media_tx_timeout", u.CALL_TERM_REASON.MEDIA_TX_RX_TIMEOUT],
+        ["rejected_elsewhere", u.CALL_TERM_REASON.REJECTED_ELSEWHERE],
+        ["relay_bind_failed", u.CALL_TERM_REASON.RELAY_BIND_FAILED],
+        ["screened_elsewhere", u.CALL_TERM_REASON.ACCEPTED_ELSEWHERE],
+        ["setup_failed", u.CALL_TERM_REASON.SETUP_FAILED],
+        ["timeout", u.CALL_TERM_REASON.RINGING_TIMEOUT],
+        ["user_invisible", u.CALL_TERM_REASON.USER_INVISIBLE],
+        ["user_removed", u.CALL_TERM_REASON.USER_REMOVED],
       ]);
-    function g(t, n, a) {
+    function f(t, n, a) {
       if (n.hasChild("uploadfieldstat")) {
         var i = !1,
           l = function () {
             i ||
               ((i = !0),
-              y(t, n, a).catch(function (t) {
+              h(t, n, a).catch(function (t) {
                 o("WALogger")
                   .ERROR(
                     e ||
@@ -89,98 +86,88 @@ __d(
               }));
           };
         (o("WAWebPonyfillsIdleCallback").requestIdleCallback(l),
-          self.setTimeout(l, d));
+          self.setTimeout(l, c));
       }
     }
-    function h(e, t, n, r) {
+    function g(e, t, n, r) {
       return t === "terminate"
-        ? k(e, n, r)
+        ? L(e, n, r)
         : t === "accept"
-          ? I(
+          ? E(
               e,
               o("WAWebWamEnumCallTermReason").CALL_TERM_REASON
                 .ACCEPTED_ELSEWHERE,
             )
           : t === "reject"
-            ? I(
+            ? E(
                 e,
                 o("WAWebWamEnumCallTermReason").CALL_TERM_REASON
                   .REJECTED_ELSEWHERE,
               )
             : e;
     }
-    function y(e, t, n) {
-      return C.apply(this, arguments);
+    async function h(e, t, n) {
+      var r = await Promise.all([
+          o("WAWebBackendApi").frontendSendAndReceive("getUnifiedSessionId"),
+          o("WAWebVoipClosedTabCallRingFields").takeClosedTabCallRingFields(
+            e.call_id,
+          ),
+        ]),
+        a = r[0],
+        i = r[1],
+        l = y(e, n());
+      (new (o("WAWebCallWamEvent").CallWamEvent)(
+        babelHelpers.extends(
+          {
+            callOfferElapsedT: e.e,
+            callPeerAppVersion: e.peer_app_version.slice(0, d),
+            callPeerPlatform: p.has(e.peer_platform)
+              ? e.peer_platform
+              : "unknown",
+            callRandomId: o(
+              "WAWebVoipNativeMissedCallRandomId",
+            ).getNativeMissedCallRandomId(Date.now()),
+            callReplayerId: "",
+            callResult: b(l),
+            callSide: o("WAWebWamEnumCallSide").CALL_SIDE.CALLEE,
+            callTermReason: l,
+            callTestBucket: v(t),
+            callWakeupSource: o("WAWebWamEnumCallWakeupSource")
+              .CALL_WAKEUP_SOURCE.NONE,
+            fieldStatsRowType: o("WAWebWamEnumFieldStatsRowType")
+              .FIELD_STATS_ROW_TYPE.BOTH,
+            isLidCall: e.call_creator.isLid() ? !0 : null,
+            videoEnabled: e.isVideoCall === !0,
+          },
+          a == null ? null : { unifiedSessionId: a },
+          i,
+        ),
+      ).commit(),
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [deferred-boot] stale offer missed call WAM event committed",
+            ])),
+        ));
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          var a = yield (u || (u = n("Promise"))).all([
-              o("WAWebBackendApi").frontendSendAndReceive(
-                "getUnifiedSessionId",
-              ),
-              o("WAWebVoipClosedTabCallRingFields").takeClosedTabCallRingFields(
-                e.call_id,
-              ),
-            ]),
-            i = a[0],
-            l = a[1],
-            c = b(e, r());
-          (new (o("WAWebCallWamEvent").CallWamEvent)(
-            babelHelpers.extends(
-              {
-                callOfferElapsedT: e.e,
-                callPeerAppVersion: e.peer_app_version.slice(0, m),
-                callPeerPlatform: _.has(e.peer_platform)
-                  ? e.peer_platform
-                  : "unknown",
-                callRandomId: o(
-                  "WAWebVoipNativeMissedCallRandomId",
-                ).getNativeMissedCallRandomId(Date.now()),
-                callReplayerId: "",
-                callResult: S(c),
-                callSide: o("WAWebWamEnumCallSide").CALL_SIDE.CALLEE,
-                callTermReason: c,
-                callTestBucket: R(t),
-                callWakeupSource: o("WAWebWamEnumCallWakeupSource")
-                  .CALL_WAKEUP_SOURCE.NONE,
-                fieldStatsRowType: o("WAWebWamEnumFieldStatsRowType")
-                  .FIELD_STATS_ROW_TYPE.BOTH,
-                isLidCall: e.call_creator.isLid() ? !0 : null,
-                videoEnabled: e.isVideoCall === !0,
-              },
-              i == null ? null : { unifiedSessionId: i },
-              l,
-            ),
-          ).commit(),
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [deferred-boot] stale offer missed call WAM event committed",
-                ])),
-            ));
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b(e, t) {
+    function y(e, t) {
       var n,
         r = t == null ? void 0 : t.terminated;
       return r != null
         ? r
         : e.is_call_ended === !0
-          ? v(e.terminate_reason)
+          ? C(e.terminate_reason)
           : (n = t == null ? void 0 : t.answered) != null
             ? n
             : o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.RINGING_TIMEOUT;
     }
-    function v(e) {
+    function C(e) {
       var t;
-      return (t = f.get(e != null ? e : "")) != null
+      return (t = _.get(e != null ? e : "")) != null
         ? t
         : o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.ENDED_BY_PEER;
     }
-    function S(e) {
+    function b(e) {
       return e ===
         o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.ACCEPTED_ELSEWHERE ||
         e === o("WAWebWamEnumCallTermReason").CALL_TERM_REASON.DEVICE_SWITCH
@@ -190,40 +177,40 @@ __d(
           ? o("WAWebWamEnumCallResultType").CALL_RESULT_TYPE.REJECTED_ELSEWHERE
           : o("WAWebWamEnumCallResultType").CALL_RESULT_TYPE.MISSED_NO_RECEIPT;
     }
-    function R(e) {
+    function v(e) {
       try {
         var t = e.maybeChild("voip_settings");
         if (t == null) return "";
-        var n = E(JSON.parse(L(t)));
-        return n == null ? "" : n.slice(0, p);
+        var n = R(JSON.parse(S(t)));
+        return n == null ? "" : n.slice(0, m);
       } catch (e) {
         return "";
       }
     }
-    function L(e) {
+    function S(e) {
       var t = e.contentBytes();
       return t instanceof Uint8Array ? new TextDecoder().decode(t) : String(t);
     }
-    function E(e) {
+    function R(e) {
       if (e == null || typeof e != "object") return null;
       var t = e.test;
       if (t == null || typeof t != "object") return null;
       var n = t.name;
       return typeof n == "string" ? n : null;
     }
-    function k(e, t, n) {
+    function L(e, t, n) {
       return e.terminated != null || n.maybeAttrString("joinable") === "1"
         ? e
-        : babelHelpers.extends({}, e, { terminated: v(t.terminate_reason) });
+        : babelHelpers.extends({}, e, { terminated: C(t.terminate_reason) });
     }
-    function I(e, t) {
+    function E(e, t) {
       return e.answered == null
         ? babelHelpers.extends({}, e, { answered: t })
         : e;
     }
-    ((l.logStaleOfferMissedCallFieldstats = g),
-      (l.applyFollowUpStanza = h),
-      (l.getStaleOfferCallTermReason = b));
+    ((l.logStaleOfferMissedCallFieldstats = f),
+      (l.applyFollowUpStanza = g),
+      (l.getStaleOfferCallTermReason = y));
   },
   98,
 );

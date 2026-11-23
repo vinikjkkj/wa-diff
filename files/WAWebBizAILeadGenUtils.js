@@ -27,17 +27,17 @@ __d(
     }
     function m(e, t) {
       t === void 0 && (t = new Date());
-      var n = r("fbs")._(/*BTDS*/ "Custom moment"),
+      var n = r("fbs")._(/*BTDS*/ ""),
         o =
           e === "NEW_CHAT_BEGINS"
-            ? r("fbs")._(/*BTDS*/ "As soon as a new chat begins")
+            ? r("fbs")._(/*BTDS*/ "")
             : e === "READY_TO_BUY"
-              ? r("fbs")._(/*BTDS*/ "When someone is ready to buy")
+              ? r("fbs")._(/*BTDS*/ "")
               : n,
         a = String(t.getMonth() + 1).padStart(2, "0"),
         i = String(t.getDate()).padStart(2, "0"),
         l = a + "-" + i + "-" + t.getFullYear(),
-        s = r("fbs")._(/*BTDS*/ "WhatsApp {moment} Response {date}", [
+        s = r("fbs")._(/*BTDS*/ "", [
           r("fbs")._param("moment", o),
           r("fbs")._param("date", l),
         ]);

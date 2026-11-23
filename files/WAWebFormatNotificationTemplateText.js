@@ -51,112 +51,73 @@ __d(
       var a = e.templateParams,
         i = e.subtype;
       return i === "non_verified_transition"
-        ? s._(
-            /*BTDS*/ "The business account you were chatting with is now a standard account. Click for more info.",
-          )
+        ? s._(/*BTDS*/ "")
         : i === "unverified_transition"
-          ? s._(
-              /*BTDS*/ "The business account you're chatting with is now unverified. Click for more info.",
-            )
+          ? s._(/*BTDS*/ "")
           : i === "verified_transition"
-            ? s._(
-                /*BTDS*/ "The business account you're chatting with is now verified. Click for more info.",
-              )
+            ? s._(/*BTDS*/ "")
             : i === "verified_low_unknown"
-              ? s._(
-                  /*BTDS*/ "This chat is with an unverified business account. Click for more info.",
-                )
+              ? s._(/*BTDS*/ "")
               : i === "verified_high"
-                ? s._(
-                    /*BTDS*/ "This chat is with a verified business account. Click for more info.",
-                  )
+                ? s._(/*BTDS*/ "")
                 : i === "verified_initial_unknown"
-                  ? s._(
-                      /*BTDS*/ "This chat may be with a business account. Click for more info.",
-                    )
+                  ? s._(/*BTDS*/ "")
                   : i === "verified_initial_low"
-                    ? s._(
-                        /*BTDS*/ 'This chat is with the business account for "{businessName}". Click for more info.',
-                        [
+                    ? s._(/*BTDS*/ "", [
+                        s._param(
+                          "businessName",
+                          r("WAWebGetBusinessNameFromMsg")(e),
+                        ),
+                      ])
+                    : i === "verified_initial_high"
+                      ? s._(/*BTDS*/ "", [
                           s._param(
                             "businessName",
                             r("WAWebGetBusinessNameFromMsg")(e),
                           ),
-                        ],
-                      )
-                    : i === "verified_initial_high"
-                      ? s._(
-                          /*BTDS*/ 'This chat is with the verified business account for "{businessName}". Click for more info.',
-                          [
-                            s._param(
-                              "businessName",
-                              r("WAWebGetBusinessNameFromMsg")(e),
-                            ),
-                          ],
-                        )
+                        ])
                       : i === "verified_transition_any_to_none"
-                        ? s._(
-                            /*BTDS*/ "This business account has now registered as a standard account. Click for more info.",
-                          )
+                        ? s._(/*BTDS*/ "")
                         : i === "verified_transition_any_to_high"
-                          ? s._(
-                              /*BTDS*/ 'The business account you\'re chatting with is now verified as "{businessName}". Click for more info.',
-                              [
+                          ? s._(/*BTDS*/ "", [
+                              s._param(
+                                "businessName",
+                                r("WAWebGetBusinessNameFromMsg")(e),
+                              ),
+                            ])
+                          : i === "verified_transition_high_to_low"
+                            ? s._(/*BTDS*/ "", [
                                 s._param(
                                   "businessName",
                                   r("WAWebGetBusinessNameFromMsg")(e),
                                 ),
-                              ],
-                            )
-                          : i === "verified_transition_high_to_low"
-                            ? s._(
-                                /*BTDS*/ 'The business account you\'re chatting with is no longer verified as "{businessName}". Click for more info.',
-                                [
+                              ])
+                            : i === "verified_transition_high_to_unknown"
+                              ? s._(/*BTDS*/ "", [
                                   s._param(
                                     "businessName",
                                     r("WAWebGetBusinessNameFromMsg")(e),
                                   ),
-                                ],
-                              )
-                            : i === "verified_transition_high_to_unknown"
-                              ? s._(
-                                  /*BTDS*/ 'The business account you\'re chatting with is no longer verified as "{businessName}". Click for more info.',
-                                  [
+                                ])
+                              : i === "verified_transition_unknown_to_low"
+                                ? s._(/*BTDS*/ "", [
                                     s._param(
                                       "businessName",
                                       r("WAWebGetBusinessNameFromMsg")(e),
                                     ),
-                                  ],
-                                )
-                              : i === "verified_transition_unknown_to_low"
-                                ? s._(
-                                    /*BTDS*/ 'The business account you\'re chatting with belongs to "{businessName}".',
-                                    [
+                                  ])
+                                : i === "verified_transition_low_to_unknown"
+                                  ? s._(/*BTDS*/ "", [
                                       s._param(
                                         "businessName",
                                         r("WAWebGetBusinessNameFromMsg")(e),
                                       ),
-                                    ],
-                                  )
-                                : i === "verified_transition_low_to_unknown"
-                                  ? s._(
-                                      /*BTDS*/ 'The business account you\'re chatting with is no longer confirmed as "{businessName}". Click for more info.',
-                                      [
-                                        s._param(
-                                          "businessName",
-                                          r("WAWebGetBusinessNameFromMsg")(e),
-                                        ),
-                                      ],
-                                    )
+                                    ])
                                   : i === "verified_transition_none_to_low"
-                                    ? s._(
-                                        /*BTDS*/ "This account has registered as a business account. Click for more info.",
-                                      )
+                                    ? s._(/*BTDS*/ "")
                                     : i ===
                                         "verified_transition_none_to_unknown"
-                                      ? s._(
-                                          /*BTDS*/ "This chat may be with a business account. Click for more info.",
-                                        )
+                                      ? s._(/*BTDS*/ "")
                                       : i === "change_number"
                                         ? m(e, a)
                                         : i === "sender_invite"
@@ -164,23 +125,33 @@ __d(
                                           : i === "receiver_invite"
                                             ? _(e)
                                             : i === "masked_thread_created"
-                                              ? s._(
-                                                  /*BTDS*/ "Your phone number is not shared in this chat. Businesses who have your number in their contacts will be able to see it. Click to learn more",
-                                                )
+                                              ? s._(/*BTDS*/ "")
                                               : i === "pnh_thread_promotion"
-                                                ? s._(
-                                                    /*BTDS*/ "Sending a message shares your phone number.",
-                                                  )
+                                                ? s._(/*BTDS*/ "")
                                                 : i ===
                                                     "cag_masked_thread_created"
-                                                  ? s._(
-                                                      /*BTDS*/ "This chat has added privacy for your phone number. Click to learn more.",
-                                                    )
+                                                  ? s._(/*BTDS*/ "")
                                                   : i ===
                                                       "payment_transaction_status_update_failed"
-                                                    ? s._(
-                                                        /*BTDS*/ "Your payment to {receiverName} {relativeTime} couldn't complete.",
-                                                        [
+                                                    ? s._(/*BTDS*/ "", [
+                                                        s._param(
+                                                          "receiverName",
+                                                          r(
+                                                            "WAWebWidToFormattedNameOrNumber",
+                                                          )(a[0]),
+                                                        ),
+                                                        s._param(
+                                                          "relativeTime",
+                                                          o(
+                                                            "WAWebClock",
+                                                          ).Clock.paymentTimestampStr(
+                                                            e.t,
+                                                          ),
+                                                        ),
+                                                      ])
+                                                    : i ===
+                                                        "payment_transaction_status_update_refunded"
+                                                      ? s._(/*BTDS*/ "", [
                                                           s._param(
                                                             "receiverName",
                                                             r(
@@ -195,13 +166,10 @@ __d(
                                                               e.t,
                                                             ),
                                                           ),
-                                                        ],
-                                                      )
-                                                    : i ===
-                                                        "payment_transaction_status_update_refunded"
-                                                      ? s._(
-                                                          /*BTDS*/ "Your payment to {receiverName} was refunded {relativeTime}.",
-                                                          [
+                                                        ])
+                                                      : i ===
+                                                          "payment_transaction_status_update_refund_failed"
+                                                        ? s._(/*BTDS*/ "", [
                                                             s._param(
                                                               "receiverName",
                                                               r(
@@ -216,29 +184,7 @@ __d(
                                                                 e.t,
                                                               ),
                                                             ),
-                                                          ],
-                                                        )
-                                                      : i ===
-                                                          "payment_transaction_status_update_refund_failed"
-                                                        ? s._(
-                                                            /*BTDS*/ "Your payment to {receiverName} {relativeTime} couldn't complete.",
-                                                            [
-                                                              s._param(
-                                                                "receiverName",
-                                                                r(
-                                                                  "WAWebWidToFormattedNameOrNumber",
-                                                                )(a[0]),
-                                                              ),
-                                                              s._param(
-                                                                "relativeTime",
-                                                                o(
-                                                                  "WAWebClock",
-                                                                ).Clock.paymentTimestampStr(
-                                                                  e.t,
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          )
+                                                          ])
                                                         : i ===
                                                             "payment_transaction_request_cancelled"
                                                           ? f(e, a)
@@ -257,7 +203,7 @@ __d(
                                                                   : i ===
                                                                       "biz_verified_transition_top_to_bottom"
                                                                     ? s._(
-                                                                        /*BTDS*/ "{businessName} is no longer a verified account. Click to learn more.",
+                                                                        /*BTDS*/ "",
                                                                         [
                                                                           s._param(
                                                                             "businessName",
@@ -272,7 +218,7 @@ __d(
                                                                     : i ===
                                                                         "biz_verified_transition_bottom_to_top"
                                                                       ? s._(
-                                                                          /*BTDS*/ "{businessName} is now a verified account. Click to learn more.",
+                                                                          /*BTDS*/ "",
                                                                           [
                                                                             s._param(
                                                                               "businessName",
@@ -290,7 +236,7 @@ __d(
                                                                         : i ===
                                                                             "biz_intro_bottom"
                                                                           ? s._(
-                                                                              /*BTDS*/ "This chat is with a business account. Click for more info.",
+                                                                              /*BTDS*/ "",
                                                                             )
                                                                           : i ===
                                                                               "biz_name_change"
@@ -300,12 +246,12 @@ __d(
                                                                             : i ===
                                                                                 "biz_move_to_consumer_app"
                                                                               ? s._(
-                                                                                  /*BTDS*/ "This business account has now registered as a standard account. Click for more info.",
+                                                                                  /*BTDS*/ "",
                                                                                 )
                                                                               : i ===
                                                                                   "biz_two_tier_migration_top"
                                                                                 ? s._(
-                                                                                    /*BTDS*/ "This chat is with {businessName}'s verified account. Click for more info.",
+                                                                                    /*BTDS*/ "",
                                                                                     [
                                                                                       s._param(
                                                                                         "businessName",
@@ -320,12 +266,12 @@ __d(
                                                                                 : i ===
                                                                                     "biz_two_tier_migration_bottom"
                                                                                   ? s._(
-                                                                                      /*BTDS*/ "This chat is with a business account. Click for more info.",
+                                                                                      /*BTDS*/ "",
                                                                                     )
                                                                                   : i ===
                                                                                       "blue_msg_bsp_fb_to_bsp_premise"
                                                                                     ? s._(
-                                                                                        /*BTDS*/ "{businessName} no longer uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
+                                                                                        /*BTDS*/ "",
                                                                                         [
                                                                                           s._param(
                                                                                             "businessName",
@@ -340,7 +286,7 @@ __d(
                                                                                     : i ===
                                                                                         "blue_msg_bsp_fb_to_self_fb"
                                                                                       ? s._(
-                                                                                          /*BTDS*/ "{businessName} now only uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
+                                                                                          /*BTDS*/ "",
                                                                                           [
                                                                                             s._param(
                                                                                               "businessName",
@@ -355,7 +301,7 @@ __d(
                                                                                       : i ===
                                                                                           "blue_msg_bsp_fb_to_self_premise"
                                                                                         ? s._(
-                                                                                            /*BTDS*/ "{businessName} no longer uses Facebook or other companies to manage its WhatsApp conversations.",
+                                                                                            /*BTDS*/ "",
                                                                                             [
                                                                                               s._param(
                                                                                                 "businessName",
@@ -370,7 +316,7 @@ __d(
                                                                                         : i ===
                                                                                             "blue_msg_bsp_fb_unverified"
                                                                                           ? s._(
-                                                                                              /*BTDS*/ "This chat is with a business account that uses Facebook and other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
+                                                                                              /*BTDS*/ "",
                                                                                             )
                                                                                           : i ===
                                                                                               "blue_msg_bsp_fb_unverified_to_bsp_premise_verified"
@@ -385,7 +331,7 @@ __d(
                                                                                               : i ===
                                                                                                   "blue_msg_bsp_fb_unverified_to_self_premise_verified"
                                                                                                 ? s._(
-                                                                                                    /*BTDS*/ "{businessName} is now a verified account. This business no longer uses Meta or other companies to manage its WhatsApp conversations. Click to learn more.",
+                                                                                                    /*BTDS*/ "",
                                                                                                     [
                                                                                                       s._param(
                                                                                                         "businessName",
@@ -420,7 +366,7 @@ __d(
                                                                                                         : i ===
                                                                                                             "blue_msg_bsp_premise_to_self_premise"
                                                                                                           ? s._(
-                                                                                                              /*BTDS*/ "{businessName} no longer uses other companies to manage its WhatsApp conversations.",
+                                                                                                              /*BTDS*/ "",
                                                                                                               [
                                                                                                                 s._param(
                                                                                                                   "businessName",
@@ -435,12 +381,12 @@ __d(
                                                                                                           : i ===
                                                                                                               "blue_msg_bsp_premise_unverified"
                                                                                                             ? s._(
-                                                                                                                /*BTDS*/ "This chat is with a business account that uses other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
+                                                                                                                /*BTDS*/ "",
                                                                                                               )
                                                                                                             : i ===
                                                                                                                 "blue_msg_bsp_premise_unverified_to_self_premise_verified"
                                                                                                               ? s._(
-                                                                                                                  /*BTDS*/ "{businessName} is now a verified account and no longer uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                  /*BTDS*/ "",
                                                                                                                   [
                                                                                                                     s._param(
                                                                                                                       "businessName",
@@ -470,7 +416,7 @@ __d(
                                                                                                                     : i ===
                                                                                                                         "blue_msg_consumer_to_bsp_premise_unverified"
                                                                                                                       ? s._(
-                                                                                                                          /*BTDS*/ "{businessName} is now registered as a business account that uses other companies to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
+                                                                                                                          /*BTDS*/ "",
                                                                                                                           [
                                                                                                                             s._param(
                                                                                                                               "businessName",
@@ -485,7 +431,7 @@ __d(
                                                                                                                       : i ===
                                                                                                                           "blue_msg_consumer_to_self_fb_unverified"
                                                                                                                         ? s._(
-                                                                                                                            /*BTDS*/ "{businessName} is now registered as a business account that uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
+                                                                                                                            /*BTDS*/ "",
                                                                                                                             [
                                                                                                                               s._param(
                                                                                                                                 "businessName",
@@ -500,7 +446,7 @@ __d(
                                                                                                                         : i ===
                                                                                                                             "blue_msg_consumer_to_self_premise_unverified"
                                                                                                                           ? s._(
-                                                                                                                              /*BTDS*/ "{businessName} is now registered as a business account. Click to learn more.",
+                                                                                                                              /*BTDS*/ "",
                                                                                                                               [
                                                                                                                                 s._param(
                                                                                                                                   "businessName",
@@ -515,7 +461,7 @@ __d(
                                                                                                                           : i ===
                                                                                                                               "blue_msg_self_fb_to_bsp_premise"
                                                                                                                             ? s._(
-                                                                                                                                /*BTDS*/ "{businessName} now uses other companies instead of Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
+                                                                                                                                /*BTDS*/ "",
                                                                                                                                 [
                                                                                                                                   s._param(
                                                                                                                                     "businessName",
@@ -530,7 +476,7 @@ __d(
                                                                                                                             : i ===
                                                                                                                                 "blue_msg_self_fb_to_self_premise"
                                                                                                                               ? s._(
-                                                                                                                                  /*BTDS*/ "{businessName} no longer uses Facebook to manage its WhatsApp conversations.",
+                                                                                                                                  /*BTDS*/ "",
                                                                                                                                   [
                                                                                                                                     s._param(
                                                                                                                                       "businessName",
@@ -545,7 +491,7 @@ __d(
                                                                                                                               : i ===
                                                                                                                                   "blue_msg_self_fb_unverified"
                                                                                                                                 ? s._(
-                                                                                                                                    /*BTDS*/ "This chat is with a business account that uses Facebook to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
+                                                                                                                                    /*BTDS*/ "",
                                                                                                                                   )
                                                                                                                                 : i ===
                                                                                                                                     "blue_msg_self_fb_unverified_to_bsp_premise_verified"
@@ -565,7 +511,7 @@ __d(
                                                                                                                                       : i ===
                                                                                                                                           "blue_msg_self_fb_verified_to_bsp_premise_unverified"
                                                                                                                                         ? s._(
-                                                                                                                                            /*BTDS*/ "{businessName} is no longer a verified account. The account uses other companies instead of Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                                            /*BTDS*/ "",
                                                                                                                                             [
                                                                                                                                               s._param(
                                                                                                                                                 "businessName",
@@ -580,7 +526,7 @@ __d(
                                                                                                                                         : i ===
                                                                                                                                             "blue_msg_self_fb_verified_to_self_premise_unverified"
                                                                                                                                           ? s._(
-                                                                                                                                              /*BTDS*/ "{businessName} is no longer a verified account and no longer uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                                              /*BTDS*/ "",
                                                                                                                                               [
                                                                                                                                                 s._param(
                                                                                                                                                   "businessName",
@@ -595,7 +541,7 @@ __d(
                                                                                                                                           : i ===
                                                                                                                                               "blue_msg_self_premise_to_bsp_premise"
                                                                                                                                             ? s._(
-                                                                                                                                                /*BTDS*/ "{businessName} now uses other companies to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
+                                                                                                                                                /*BTDS*/ "",
                                                                                                                                                 [
                                                                                                                                                   s._param(
                                                                                                                                                     "businessName",
@@ -610,12 +556,12 @@ __d(
                                                                                                                                             : i ===
                                                                                                                                                 "blue_msg_self_premise_unverified"
                                                                                                                                               ? s._(
-                                                                                                                                                  /*BTDS*/ "This chat is with a business account. Click to learn more.",
+                                                                                                                                                  /*BTDS*/ "",
                                                                                                                                                 )
                                                                                                                                               : i ===
                                                                                                                                                   "blue_msg_self_premise_verified"
                                                                                                                                                 ? s._(
-                                                                                                                                                    /*BTDS*/ "This chat is with {businessName}'s verified account. Click to learn more.",
+                                                                                                                                                    /*BTDS*/ "",
                                                                                                                                                     [
                                                                                                                                                       s._param(
                                                                                                                                                         "businessName",
@@ -630,7 +576,7 @@ __d(
                                                                                                                                                 : i ===
                                                                                                                                                     "blue_msg_to_bsp_fb"
                                                                                                                                                   ? s._(
-                                                                                                                                                      /*BTDS*/ "{businessName} now uses Facebook and other companies to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
+                                                                                                                                                      /*BTDS*/ "",
                                                                                                                                                       [
                                                                                                                                                         s._param(
                                                                                                                                                           "businessName",
@@ -645,7 +591,7 @@ __d(
                                                                                                                                                   : i ===
                                                                                                                                                       "blue_msg_to_consumer"
                                                                                                                                                     ? s._(
-                                                                                                                                                        /*BTDS*/ "{businessName} is no longer registered as a business account.",
+                                                                                                                                                        /*BTDS*/ "",
                                                                                                                                                         [
                                                                                                                                                           s._param(
                                                                                                                                                             "businessName",
@@ -660,7 +606,7 @@ __d(
                                                                                                                                                     : i ===
                                                                                                                                                         "blue_msg_to_self_fb"
                                                                                                                                                       ? s._(
-                                                                                                                                                          /*BTDS*/ "{businessName} now uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
+                                                                                                                                                          /*BTDS*/ "",
                                                                                                                                                           [
                                                                                                                                                             s._param(
                                                                                                                                                               "businessName",
@@ -695,7 +641,7 @@ __d(
                                                                                                                                                               : i ===
                                                                                                                                                                   "blue_msg_verified_to_bsp_fb_unverified"
                                                                                                                                                                 ? s._(
-                                                                                                                                                                    /*BTDS*/ "{businessName} is no longer a verified account and now uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                                                                    /*BTDS*/ "",
                                                                                                                                                                     [
                                                                                                                                                                       s._param(
                                                                                                                                                                         "businessName",
@@ -710,7 +656,7 @@ __d(
                                                                                                                                                                 : i ===
                                                                                                                                                                     "blue_msg_verified_to_bsp_premise_unverified"
                                                                                                                                                                   ? s._(
-                                                                                                                                                                      /*BTDS*/ "{businessName} is no longer a verified account and now uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                                                                      /*BTDS*/ "",
                                                                                                                                                                       [
                                                                                                                                                                         s._param(
                                                                                                                                                                           "businessName",
@@ -725,7 +671,7 @@ __d(
                                                                                                                                                                   : i ===
                                                                                                                                                                       "blue_msg_verified_to_self_fb_unverified"
                                                                                                                                                                     ? s._(
-                                                                                                                                                                        /*BTDS*/ "{businessName} is no longer a verified account and now uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
+                                                                                                                                                                        /*BTDS*/ "",
                                                                                                                                                                         [
                                                                                                                                                                           s._param(
                                                                                                                                                                             "businessName",
@@ -740,7 +686,7 @@ __d(
                                                                                                                                                                     : i ===
                                                                                                                                                                         "blue_msg_verified_to_unverified"
                                                                                                                                                                       ? s._(
-                                                                                                                                                                          /*BTDS*/ "{businessName} is no longer a verified account. Click to learn more.",
+                                                                                                                                                                          /*BTDS*/ "",
                                                                                                                                                                           [
                                                                                                                                                                             s._param(
                                                                                                                                                                               "businessName",
@@ -768,12 +714,12 @@ __d(
                                                                                                                                                                             : i ===
                                                                                                                                                                                 "biz_privacy_mode_init_bsp"
                                                                                                                                                                               ? s._(
-                                                                                                                                                                                  /*BTDS*/ "This business works with other companies to manage this chat. Click to learn more.",
+                                                                                                                                                                                  /*BTDS*/ "",
                                                                                                                                                                                 )
                                                                                                                                                                               : i ===
                                                                                                                                                                                   "biz_privacy_mode_to_bsp"
                                                                                                                                                                                 ? s._(
-                                                                                                                                                                                    /*BTDS*/ "This business is now working with other companies to manage this chat. Click to learn more.",
+                                                                                                                                                                                    /*BTDS*/ "",
                                                                                                                                                                                   )
                                                                                                                                                                                 : i ===
                                                                                                                                                                                     "block_contact"
@@ -828,7 +774,7 @@ __d(
                                                                                                                                                                                                     : i ===
                                                                                                                                                                                                         "biz_bot_3p_disclosure"
                                                                                                                                                                                                       ? s._(
-                                                                                                                                                                                                          /*BTDS*/ "This AI is from a third-party developer. Meta receives your AI chats to improve its AI quality. Tap to learn more.",
+                                                                                                                                                                                                          /*BTDS*/ "",
                                                                                                                                                                                                         )
                                                                                                                                                                                                       : i ===
                                                                                                                                                                                                           "change_lid"
@@ -847,42 +793,42 @@ __d(
                                                                                                                                                                                                           : i ===
                                                                                                                                                                                                               "saga_init"
                                                                                                                                                                                                             ? s._(
-                                                                                                                                                                                                                /*BTDS*/ "Messages may be generated by AI and may be inaccurate or inappropriate. Click to learn more.",
+                                                                                                                                                                                                                /*BTDS*/ "",
                                                                                                                                                                                                               )
                                                                                                                                                                                                             : i ===
                                                                                                                                                                                                                 "biz_account_type_changed_to_hosted"
                                                                                                                                                                                                               ? s._(
-                                                                                                                                                                                                                  /*BTDS*/ "This business is now using a secure service from Meta to manage this chat. Click to learn more.",
+                                                                                                                                                                                                                  /*BTDS*/ "",
                                                                                                                                                                                                                 )
                                                                                                                                                                                                               : i ===
                                                                                                                                                                                                                   "biz_me_account_type_is_hosted"
                                                                                                                                                                                                                 ? s._(
-                                                                                                                                                                                                                    /*BTDS*/ "Your business uses a secure service from Meta to manage this chat. Click to learn more.",
+                                                                                                                                                                                                                    /*BTDS*/ "",
                                                                                                                                                                                                                   )
                                                                                                                                                                                                                 : i ===
                                                                                                                                                                                                                     "biz_account_type_is_hosted"
                                                                                                                                                                                                                   ? s._(
-                                                                                                                                                                                                                      /*BTDS*/ "This business uses a secure service from Meta to manage this chat. Click to learn more.",
+                                                                                                                                                                                                                      /*BTDS*/ "",
                                                                                                                                                                                                                     )
                                                                                                                                                                                                                   : i ===
                                                                                                                                                                                                                       "biz_me_account_type_is_hosted_transition"
                                                                                                                                                                                                                     ? s._(
-                                                                                                                                                                                                                        /*BTDS*/ "Your business is now using a secure service from Meta to manage this chat. Click to learn more.",
+                                                                                                                                                                                                                        /*BTDS*/ "",
                                                                                                                                                                                                                       )
                                                                                                                                                                                                                     : i ===
                                                                                                                                                                                                                         "marketing_messages_from_business_stopped"
                                                                                                                                                                                                                       ? s._(
-                                                                                                                                                                                                                          /*BTDS*/ "Offers and announcements stopped. Click to resume.",
+                                                                                                                                                                                                                          /*BTDS*/ "",
                                                                                                                                                                                                                         )
                                                                                                                                                                                                                       : i ===
                                                                                                                                                                                                                           "marketing_messages_from_business_resumed"
                                                                                                                                                                                                                         ? s._(
-                                                                                                                                                                                                                            /*BTDS*/ "Offers and announcements resumed. Click to stop.",
+                                                                                                                                                                                                                            /*BTDS*/ "",
                                                                                                                                                                                                                           )
                                                                                                                                                                                                                         : i ===
                                                                                                                                                                                                                             "marketing_messages_post_send_opt_out"
                                                                                                                                                                                                                           ? s._(
-                                                                                                                                                                                                                              /*BTDS*/ "You are getting offers and announcements from {businessName}",
+                                                                                                                                                                                                                              /*BTDS*/ "",
                                                                                                                                                                                                                               [
                                                                                                                                                                                                                                 s._param(
                                                                                                                                                                                                                                   "businessName",
@@ -947,7 +893,7 @@ __d(
                                                                                                                                                                                                                                                 a,
                                                                                                                                                                                                                                               )
                                                                                                                                                                                                                                             : s._(
-                                                                                                                                                                                                                                                /*BTDS*/ "You received a message on your phone, but your version of {app name} doesn't support it.",
+                                                                                                                                                                                                                                                /*BTDS*/ "",
                                                                                                                                                                                                                                                 [
                                                                                                                                                                                                                                                   s._param(
                                                                                                                                                                                                                                                     "app name",
@@ -960,29 +906,17 @@ __d(
     }
     function c() {
       return o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()
-        ? s._(
-            /*BTDS*/ "This chat started from an ad on Meta. Click to learn more",
-          )
-        : s._(
-            /*BTDS*/ "This chat started from an ad on Facebook or Instagram. Click to learn more",
-          );
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function d(e) {
       return o("WAWebCTWAGatingUtils").shouldShowMetaAdSourceCopy()
         ? e
-          ? s._(
-              /*BTDS*/ "This chat started from an ad on Meta. Data sharing for customer-related activities is turned on",
-            )
-          : s._(
-              /*BTDS*/ "This chat started from an ad on Meta. Data sharing for customer-related activities is turned off",
-            )
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "")
         : e
-          ? s._(
-              /*BTDS*/ "This chat started from an ad on Facebook or Instagram. Data sharing for customer-related activities is turned on",
-            )
-          : s._(
-              /*BTDS*/ "This chat started from an ad on Facebook or Instagram. Data sharing for customer-related activities is turned off",
-            );
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     function m(e, t) {
       var n = r("nullthrows")(
@@ -1001,41 +935,27 @@ __d(
         u = r("WAWebWid").equals(o("WAWebFrontendMsgGetters").getChat(e).id, a),
         c = r("WAWebWid").equals(o("WAWebFrontendMsgGetters").getChat(e).id, i);
       return u || c
-        ? s._(/*BTDS*/ "{name} changed their phone number to a new number.", [
-            s._param("name", l),
-          ])
-        : s._(
-            /*BTDS*/ "{name} changed their phone number. You're currently chatting with their new number.",
-            [s._param("name", l)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("name", l)])
+        : s._(/*BTDS*/ "", [s._param("name", l)]);
     }
     function p(e, t) {
       var n = o("WAWebFormatParticipantNames").getFormattedName({
         jid: e.from,
       });
       return t.length > 0 && t[0] === "true"
-        ? s._(
-            /*BTDS*/ "{receiver_name} accepted your invite to join WhatsApp",
-            [s._param("receiver_name", n)],
-          )
+        ? s._(/*BTDS*/ "", [s._param("receiver_name", n)])
         : o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-          ? s._(/*BTDS*/ "{receiver_name} is new to WhatsApp.", [
-              s._param("receiver_name", n),
-            ])
-          : s._(/*BTDS*/ "{receiver_name} is new to WhatsApp", [
-              s._param("receiver_name", n),
-            ]);
+          ? s._(/*BTDS*/ "", [s._param("receiver_name", n)])
+          : s._(/*BTDS*/ "", [s._param("receiver_name", n)]);
     }
     function _(e) {
       var t = o("WAWebFormatParticipantNames").getFormattedName({
         clickable: !1,
         jid: e.from,
       });
-      return s._(/*BTDS*/ "We let {sender_name} know you joined!", [
-        s._param("sender_name", t),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("sender_name", t)]);
     }
     function f(e, t) {
       var n = r("nullthrows")(
@@ -1058,41 +978,29 @@ __d(
         ? o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled()
-          ? s._(
-              /*BTDS*/ '_j{"*":"You canceled your payment request to {contactName} for {currencyAndAmount}."}',
-              [
-                s._plural(c / 1e3),
-                s._param("contactName", u),
-                s._param("currencyAndAmount", d),
-              ],
-            )
-          : s._(
-              /*BTDS*/ '_j{"*":"You canceled your payment request to {contactName} for {currencyAndAmount}"}',
-              [
-                s._plural(c / 1e3),
-                s._param("contactName", u),
-                s._param("currencyAndAmount", d),
-              ],
-            )
+          ? s._(/*BTDS*/ "", [
+              s._plural(c / 1e3),
+              s._param("contactName", u),
+              s._param("currencyAndAmount", d),
+            ])
+          : s._(/*BTDS*/ "", [
+              s._plural(c / 1e3),
+              s._param("contactName", u),
+              s._param("currencyAndAmount", d),
+            ])
         : o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-          ? s._(
-              /*BTDS*/ '_j{"*":"{contactName} canceled their payment request for {currencyAndAmount}."}',
-              [
-                s._plural(c / 1e3),
-                s._param("contactName", u),
-                s._param("currencyAndAmount", d),
-              ],
-            )
-          : s._(
-              /*BTDS*/ '_j{"*":"{contactName} canceled their payment request for {currencyAndAmount}"}',
-              [
-                s._plural(c / 1e3),
-                s._param("contactName", u),
-                s._param("currencyAndAmount", d),
-              ],
-            );
+          ? s._(/*BTDS*/ "", [
+              s._plural(c / 1e3),
+              s._param("contactName", u),
+              s._param("currencyAndAmount", d),
+            ])
+          : s._(/*BTDS*/ "", [
+              s._plural(c / 1e3),
+              s._param("contactName", u),
+              s._param("currencyAndAmount", d),
+            ]);
     }
     function g(e) {
       var t = r("nullthrows")(
@@ -1111,14 +1019,11 @@ __d(
           amount: u,
           currency: a,
         });
-      return s._(
-        /*BTDS*/ '_j{"*":"{senderName} sent you {currencyAndAmount}. Use WhatsApp on your phone to accept this transaction."}',
-        [
-          s._plural(u / 1e3),
-          s._param("senderName", l),
-          s._param("currencyAndAmount", c),
-        ],
-      );
+      return s._(/*BTDS*/ "", [
+        s._plural(u / 1e3),
+        s._param("senderName", l),
+        s._param("currencyAndAmount", c),
+      ]);
     }
     function h(e, t) {
       var n = r("nullthrows")(
@@ -1138,22 +1043,16 @@ __d(
           currency: i,
         });
       return e.id.fromMe
-        ? s._(
-            /*BTDS*/ '_j{"*":"You declined {contactName}\'s payment request for {currencyAndAmount}."}',
-            [
-              s._plural(c / 1e3),
-              s._param("contactName", u),
-              s._param("currencyAndAmount", d),
-            ],
-          )
-        : s._(
-            /*BTDS*/ '_j{"*":"{contactName} declined your payment request for {currencyAndAmount}."}',
-            [
-              s._plural(c / 1e3),
-              s._param("contactName", u),
-              s._param("currencyAndAmount", d),
-            ],
-          );
+        ? s._(/*BTDS*/ "", [
+            s._plural(c / 1e3),
+            s._param("contactName", u),
+            s._param("currencyAndAmount", d),
+          ])
+        : s._(/*BTDS*/ "", [
+            s._plural(c / 1e3),
+            s._param("contactName", u),
+            s._param("currencyAndAmount", d),
+          ]);
     }
     function y(e) {
       var t = r("nullthrows")(
@@ -1175,22 +1074,16 @@ __d(
           currency: i,
         });
       return o("WAWebUserUtils").isMeAccount(n)
-        ? s._(
-            /*BTDS*/ '_j{"*":"Your payment request to {receiverName} for {currencyAndAmount} expired."}',
-            [
-              s._plural(d / 1e3),
-              s._param("receiverName", c),
-              s._param("currencyAndAmount", m),
-            ],
-          )
-        : s._(
-            /*BTDS*/ '_j{"*":"{senderName}\'s payment request for {currencyAndAmount} to you expired."}',
-            [
-              s._plural(d / 1e3),
-              s._param("senderName", u),
-              s._param("currencyAndAmount", m),
-            ],
-          );
+        ? s._(/*BTDS*/ "", [
+            s._plural(d / 1e3),
+            s._param("receiverName", c),
+            s._param("currencyAndAmount", m),
+          ])
+        : s._(/*BTDS*/ "", [
+            s._plural(d / 1e3),
+            s._param("senderName", u),
+            s._param("currencyAndAmount", m),
+          ]);
     }
     function C(e) {
       var t = r("nullthrows")(
@@ -1204,10 +1097,10 @@ __d(
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ "{invitee} has set up payments.", [
+        ? s._(/*BTDS*/ "", [
             s._param("invitee", r("WAWebWidToFormattedNameOrNumber")(n)),
           ])
-        : s._(/*BTDS*/ "{invitee} has set up payments", [
+        : s._(/*BTDS*/ "", [
             s._param("invitee", r("WAWebWidToFormattedNameOrNumber")(n)),
           ]);
     }
@@ -1215,118 +1108,79 @@ __d(
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? s._(/*BTDS*/ "{businessName} is no longer a verified account.", [
-            s._param("businessName", n),
-          ])
-        : s._(
-            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This business no longer uses Facebook to manage its WhatsApp conversations. Click to learn how this changes privacy in this chat.",
-            [s._param("businessName", n)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("businessName", n)])
+        : s._(/*BTDS*/ "", [s._param("businessName", n)]);
     }
     function v(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? s._(
-            /*BTDS*/ "{businessName} is now a verified account and only uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", n)],
-          )
-        : s._(
-            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This business only uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", n)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("businessName", n)])
+        : s._(/*BTDS*/ "", [s._param("businessName", n)]);
     }
     function S(e) {
       var t = e.id.remote;
       return r("WAWebWid").isOfficialBizAccount(t)
-        ? s._(
-            /*BTDS*/ "This chat is with WhatsApp's verified account. Click for more info.",
-          )
-        : s._(
-            /*BTDS*/ "This chat is with {businessName}'s verified account. Click for more info.",
-            [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-          );
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "", [
+            s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e)),
+          ]);
     }
     function R(e) {
-      return s._(
-        /*BTDS*/ 'This business changed its name to "{businessName}". Click for more info.',
-        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e)),
+      ]);
     }
     function L(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? s._(
-            /*BTDS*/ "This chat is with {businessName}'s verified account. This account uses Meta and other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-            [s._param("businessName", n)],
-          )
-        : s._(
-            /*BTDS*/ "This chat is with {businessName}'s verified account, but it's saved as a different name in your contacts. This business uses Meta and other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-            [s._param("businessName", n)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("businessName", n)])
+        : s._(/*BTDS*/ "", [s._param("businessName", n)]);
     }
     function E(e) {
-      return s._(
-        /*BTDS*/ "{businessName} is no longer a verified account and no longer uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e)),
+      ]);
     }
     function k(e) {
-      return s._(
-        /*BTDS*/ "{businessName} is no longer a verified account and now only uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e)),
+      ]);
     }
     function I(e) {
-      return s._(
-        /*BTDS*/ "{businessName} is no longer a verified account and no longer uses Meta or other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e)),
+      ]);
     }
     function T(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? s._(
-            /*BTDS*/ "This chat is with {businessName}'s verified account. This account uses other companies to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-            [s._param("businessName", n)],
-          )
-        : s._(
-            /*BTDS*/ "This chat is with {businessName}'s verified account, but it's saved as a different name in your contacts. This account uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", n)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("businessName", n)])
+        : s._(/*BTDS*/ "", [s._param("businessName", n)]);
     }
     function D(e) {
-      return s._(
-        /*BTDS*/ "{businessName} is no longer a verified account and no longer uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e)),
+      ]);
     }
     function x(e) {
-      return s._(
-        /*BTDS*/ "{businessName} is now a verified account that uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e)),
+      ]);
     }
     function $(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? s._(
-            /*BTDS*/ "{businessName} is now a verified account and now uses other companies instead of Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", n)],
-          )
-        : s._(
-            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This account now uses other companies instead of Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", n)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("businessName", n)])
+        : s._(/*BTDS*/ "", [s._param("businessName", n)]);
     }
     function P(e) {
-      return s._(
-        /*BTDS*/ "{businessName} is now a verified account and no longer uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e)),
+      ]);
     }
     function N(e) {
       var t = e.id,
@@ -1336,75 +1190,42 @@ __d(
         );
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
         ? a
-          ? s._(
-              /*BTDS*/ "This chat is with the official account of {businessName}. This account uses Facebook to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "This chat is with the official business account of {businessName}. This business uses Facebook to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-              [s._param("businessName", n)],
-            )
+          ? s._(/*BTDS*/ "", [s._param("businessName", n)])
+          : s._(/*BTDS*/ "", [s._param("businessName", n)])
         : a
-          ? s._(
-              /*BTDS*/ "This chat is with the official account of {businessName}, but it's saved as a different name in your contacts. This account uses Facebook to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-              [s._param("businessName", n)],
-            )
-          : s._(
-              /*BTDS*/ "This chat is with the official business account of {businessName}, but it's saved as a different name in your contacts. This business uses Facebook to manage its WhatsApp conversations. Click to learn more about privacy in this chat.",
-              [s._param("businessName", n)],
-            );
+          ? s._(/*BTDS*/ "", [s._param("businessName", n)])
+          : s._(/*BTDS*/ "", [s._param("businessName", n)]);
     }
     function M(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? s._(
-            /*BTDS*/ "{businessName} is now a verified account that uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", n)],
-          )
-        : s._(
-            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This account uses Meta and other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more",
-            [s._param("businessName", n)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("businessName", n)])
+        : s._(/*BTDS*/ "", [s._param("businessName", n)]);
     }
     function w(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? s._(
-            /*BTDS*/ "{businessName} is now a verified account that uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click to learn more.",
-            [s._param("businessName", n)],
-          )
-        : s._(
-            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This business uses other companies to manage its WhatsApp conversations. This changes privacy in this chat. Click here to learn more.",
-            [s._param("businessName", n)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("businessName", n)])
+        : s._(/*BTDS*/ "", [s._param("businessName", n)]);
     }
     function A(e) {
       var t = e.id,
         n = r("WAWebGetBusinessNameFromMsg")(e);
       return r("WAWebDisplayedNameIsBizName")(t.remote, n)
-        ? s._(
-            /*BTDS*/ "{businessName} is now a verified account that uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click here to learn more.",
-            [s._param("businessName", n)],
-          )
-        : s._(
-            /*BTDS*/ "{businessName} is now a verified account, but it's saved as a different name in your contacts. This account uses Meta to manage its WhatsApp conversations. This changes privacy in this chat. Click here to learn more.",
-            [s._param("businessName", n)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("businessName", n)])
+        : s._(/*BTDS*/ "", [s._param("businessName", n)]);
     }
     function F(e) {
-      return s._(
-        /*BTDS*/ "{businessName} is now a verified account. Click to learn more.",
-        [s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e))],
-      );
+      return s._(/*BTDS*/ "", [
+        s._param("businessName", r("WAWebGetBusinessNameFromMsg")(e)),
+      ]);
     }
     function O(e) {
       return o("WAWebMsgGetters").getIsCAPISupport(e)
         ? o("WAWebSupportChatStrings").SupportChatSystemMessage()
-        : s._(
-            /*BTDS*/ "This business uses a secure service from Meta to manage this chat. Click to learn more.",
-          );
+        : s._(/*BTDS*/ "");
     }
     function B() {
       return o("WAWebSupportChatStrings").SupportChatSystemMessage();
@@ -1414,35 +1235,27 @@ __d(
         ? (o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled() &&
-            s._(/*BTDS*/ "You blocked this person.")) ||
-            s._(/*BTDS*/ "You blocked this person")
+            s._(/*BTDS*/ "")) ||
+            s._(/*BTDS*/ "")
         : (o(
             "WAWebSystemMessageGatingUtils",
           ).systemMessageTerminalPeriodsEnabled() &&
-            s._(/*BTDS*/ "You unblocked this person.")) ||
-            s._(/*BTDS*/ "You unblocked this person");
+            s._(/*BTDS*/ "")) ||
+            s._(/*BTDS*/ "");
     }
     function q() {
       return o("WAWebABProps").getABPropConfigValue("biz_ai_tos_variant") === 3
-        ? s._(
-            /*BTDS*/ "AI from Meta receives and generates messages for this business. Click to learn more.",
-          )
+        ? s._(/*BTDS*/ "")
         : o("WAWebCTWAGatingUtils").isUpdatedConsumerDisclosureUiBrazilEnabled()
-          ? s._(
-              /*BTDS*/ "AI from Meta receives messages and may use them to improve AI quality and generate messages for this business. Click to learn more.",
-            )
+          ? s._(/*BTDS*/ "")
           : o(
                 "WAWebCTWAGatingUtils",
               ).isUpdatedConsumerDisclosureUiRowEnabled() ||
               o(
                 "WAWebCTWAGatingUtils",
               ).isUpdatedConsumerDisclosureUiIndiaEnabled()
-            ? s._(
-                /*BTDS*/ "AI from Meta receives messages to improve AI quality and generate messages for this business. Click to learn more.",
-              )
-            : s._(
-                /*BTDS*/ "AI from Meta receives chats and generates messages for this business. Click to learn more.",
-              );
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "");
     }
     function U(e, t) {
       var n = r("nullthrows")(
@@ -1454,71 +1267,45 @@ __d(
         ),
         a = n[0];
       return o("WAWebChatAssignmentUtils").shouldUseChatAssignmentCTA(t)
-        ? s._(/*BTDS*/ "Chat assigned to {agent_name}. Click to change", [
-            s._param("agent_name", a),
-          ])
-        : s._(/*BTDS*/ "Chat assigned to {agent_name}", [
-            s._param("agent_name", a),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("agent_name", a)])
+        : s._(/*BTDS*/ "", [s._param("agent_name", a)]);
     }
     function V(e) {
       return o("WAWebChatAssignmentUtils").shouldUseChatAssignmentCTA(e)
-        ? s._(/*BTDS*/ "Chat was unassigned. Click to change")
+        ? s._(/*BTDS*/ "")
         : o(
               "WAWebSystemMessageGatingUtils",
             ).systemMessageTerminalPeriodsEnabled()
-          ? s._(/*BTDS*/ "Chat was unassigned.")
-          : s._(/*BTDS*/ "Chat was unassigned");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     function H() {
       return o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
-        ? s._(
-            /*BTDS*/ "Charges and payments will not disappear from this chat. Click to learn more",
-          )
-        : s._(
-            /*BTDS*/ "Orders and payments will not disappear from this chat. Click to learn more",
-          );
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function G(e) {
       return o("WAWebMsgGetters").getIsIAS(e)
-        ? s._(
-            /*BTDS*/ "WhatsApp Surveys uses a secure service from Meta to manage this chat. Click to learn more.",
-          )
-        : s._(
-            /*BTDS*/ "This business is now using a secure service from Meta to manage this chat. Click to learn more.",
-          );
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function z(e, t) {
       var n = o("WAWebResolveBotProfile").resolveBotSupportInput(e.id.remote);
       return o("WAWebBotExposedName").isBotProfileViewOnly(n) ||
         o("WAWebBotSupportGating").isThirdPartyAgent(n)
-        ? s._(
-            /*BTDS*/ "Messages in this chat are sent through a secure Meta service. Learn more about how these chats work.",
-          )
+        ? s._(/*BTDS*/ "")
         : o("WAWebBotUtils").isBotChannelFBID(e.id.remote)
-          ? s._(
-              /*BTDS*/ "Messages are generated by AI. Some may be inaccurate or inappropriate. Learn more.",
-            )
+          ? s._(/*BTDS*/ "")
           : t === o("WAWebBotTypes").BotPosingAsProfessionalType.YES
-            ? s._(
-                /*BTDS*/ "This is an AI, not a real expert who\u2019s trained or has a license to help people. It is for self-help and can\u2019t replace professional advice, diagnosis, or services. Messages are generated by AI. Some may be inaccurate or inappropriate. Click to learn more.",
-              )
+            ? s._(/*BTDS*/ "")
             : o("WAWebBotUtils").isBusinessAssistantBot(e.id.remote)
-              ? s._(
-                  /*BTDS*/ "Messages are generated by Meta AI business assistant. Some may be inaccurate or inappropriate.",
-                )
-              : s._(
-                  /*BTDS*/ "Messages are generated by AI from Meta. Some may be inaccurate or inappropriate. You can improve the quality by sending feedback. Click to learn more.",
-                );
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "");
     }
     function j() {
       return o("WAWebBotBaseGating").isBotEnabled()
-        ? s._(
-            /*BTDS*/ "Only messages that mention or people share with \u0040Meta AI can be read by Meta. Meta can't read any other messages in this chat. Some responses may be inaccurate or inappropriate. Click to learn more.",
-          )
-        : s._(
-            /*BTDS*/ "Only messages that mention \u0040Meta AI are sent to Meta. Meta can't read any other messages in this chat. Some responses may be inaccurate or inappropriate. Click to learn more.",
-          );
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function K(e) {
       var t,
@@ -1536,12 +1323,10 @@ __d(
         n = "";
       return (
         t === o("WAWebLabelConstants").PREDEFINED_LABEL_IDS.DO_NEW_ORDER
-          ? (n = s._(/*BTDS*/ "new order"))
+          ? (n = s._(/*BTDS*/ ""))
           : t === o("WAWebLabelConstants").PREDEFINED_LABEL_IDS.DO_LEAD &&
-            (n = s._(/*BTDS*/ "lead")),
-        s._(/*BTDS*/ "Chat automatically added to {labelName}", [
-          s._param("labelName", n),
-        ])
+            (n = s._(/*BTDS*/ "")),
+        s._(/*BTDS*/ "", [s._param("labelName", n)])
       );
     }
     function X(e) {
@@ -1551,7 +1336,7 @@ __d(
             e,
           )
         : t === "group_transition_to_bot_group" && Y(e.templateParams)
-          ? s._(/*BTDS*/ "Learn more")
+          ? s._(/*BTDS*/ "")
           : null;
     }
     function Y(e) {
@@ -1599,40 +1384,18 @@ __d(
                 o("WAWebGroupAgentPrivacyNoticeKind")
                   .GroupAgentPrivacyNoticeKind.GENERIC
             ? te(i)
-            : s._(
-                /*BTDS*/ "A group member added Meta AI to this chat. Meta can read new messages. Group admins can remove Meta AI at any time. Click to learn more.",
-              );
+            : s._(/*BTDS*/ "");
     }
     function Z(e, t) {
-      return t != null
-        ? ee(e, t)
-        : e
-          ? s._(
-              /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat. The Muse owner or admins can remove it anytime",
-            )
-          : s._(
-              /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat. The Muse owner or admins can remove it anytime. Learn more",
-            );
+      return t != null ? ee(e, t) : e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function ee(e, t) {
       return e
-        ? s._(
-            /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat and the message history shared with {museName}. The Muse owner or admins can remove it anytime",
-            [s._param("museName", t)],
-          )
-        : s._(
-            /*BTDS*/ "A member added their Muse, an AI agent by Meta. Meta can read new messages in this chat and the message history shared with {museName}. The Muse owner or admins can remove it anytime. Learn more",
-            [s._param("museName", t)],
-          );
+        ? s._(/*BTDS*/ "", [s._param("museName", t)])
+        : s._(/*BTDS*/ "", [s._param("museName", t)]);
     }
     function te(e) {
-      return e
-        ? s._(
-            /*BTDS*/ "A member added an AI agent to this chat. Messages are sent through a secure Meta service. Admins can remove it anytime",
-          )
-        : s._(
-            /*BTDS*/ "A member added an AI agent to this chat. Messages are sent through a secure Meta service. Admins can remove it anytime. Learn more",
-          );
+      return e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function ne(e) {
       var t,
@@ -1641,11 +1404,11 @@ __d(
           null
             ? void 0
             : t.name,
-        r = n != null && n !== "" ? n : s._(/*BTDS*/ "Unknown account");
-      return s._(
-        /*BTDS*/ "A group member added {agent_name} to this chat. Meta can read new messages. Group admins can remove {agent_name_repeat} at any time.",
-        [s._param("agent_name", r), s._param("agent_name_repeat", r)],
-      );
+        r = n != null && n !== "" ? n : s._(/*BTDS*/ "");
+      return s._(/*BTDS*/ "", [
+        s._param("agent_name", r),
+        s._param("agent_name_repeat", r),
+      ]);
     }
     l.default = e;
   },

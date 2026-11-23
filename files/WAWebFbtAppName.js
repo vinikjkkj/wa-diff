@@ -1,6 +1,6 @@
 __d(
   "WAWebFbtAppName",
-  ["WAWebEnvironment", "WAWebFbtCommon", "react-compiler-runtime"],
+  ["WAWebEnvironment", "WAWebFbtCommon"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
@@ -9,14 +9,7 @@ __d(
         : r("WAWebFbtCommon")("WhatsApp Web");
     }
     function s() {
-      var t = o("react-compiler-runtime").c(1),
-        n;
-      return (
-        t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((n = e()), (t[0] = n))
-          : (n = t[0]),
-        n
-      );
+      return e();
     }
     function u() {
       return r("WAWebEnvironment").isWindows
@@ -24,14 +17,7 @@ __d(
         : r("WAWebFbtCommon")("WhatsApp Web");
     }
     function c() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = u()), (e[0] = t))
-          : (t = e[0]),
-        t
-      );
+      return u();
     }
     ((l.fbtWAWebAppShortName = e),
       (l.WAWebAppShortName = s),

@@ -3,27 +3,27 @@ __d(
   ["fbt", "WAWebPaymentDetailsModels"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Payment details");
+      return s._(/*BTDS*/ "");
     }
     function u(e) {
       return e ===
         o("WAWebPaymentDetailsModels").PaymentDetailsStatus.NOT_CONFIRMED
-        ? s._(/*BTDS*/ "Not confirmed")
+        ? s._(/*BTDS*/ "")
         : e ===
             o("WAWebPaymentDetailsModels").PaymentDetailsStatus.MARKED_AS_PAID
-          ? s._(/*BTDS*/ "Marked as paid")
+          ? s._(/*BTDS*/ "")
           : e ===
               o("WAWebPaymentDetailsModels").PaymentDetailsStatus.NOT_PAID_YET
-            ? s._(/*BTDS*/ "Not paid yet")
+            ? s._(/*BTDS*/ "")
             : e === o("WAWebPaymentDetailsModels").PaymentDetailsStatus.PENDING
-              ? s._(/*BTDS*/ "Pending")
+              ? s._(/*BTDS*/ "")
               : e ===
                   o("WAWebPaymentDetailsModels").PaymentDetailsStatus
                     .PAYMENT_SENT
-                ? s._(/*BTDS*/ "Payment sent")
+                ? s._(/*BTDS*/ "")
                 : e ===
                     o("WAWebPaymentDetailsModels").PaymentDetailsStatus.FAILED
-                  ? s._(/*BTDS*/ "Failed")
+                  ? s._(/*BTDS*/ "")
                   : (function () {
                       throw Error(
                         "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -32,170 +32,139 @@ __d(
                     })();
     }
     function c() {
-      return s._(/*BTDS*/ "Requested by you");
+      return s._(/*BTDS*/ "");
     }
     function d(e) {
-      return s._(/*BTDS*/ "Requested by {merchant_name}", [
-        s._param("merchant_name", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("merchant_name", e)]);
     }
     function m() {
-      return s._(
-        /*BTDS*/ "Payment in a third-party app can only be confirmed by the receiver.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function p(e) {
-      return s._(/*BTDS*/ "You marked this as paid on {date_time}.", [
-        s._param("date_time", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("date_time", e)]);
     }
     function _(e, t) {
-      return s._(/*BTDS*/ "{name} marked this as paid on {date_time}.", [
-        s._param("name", e),
-        s._param("date_time", t),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("name", e), s._param("date_time", t)]);
     }
     function f(e) {
-      return s._(/*BTDS*/ "This was sent to you on {date_time}.", [
-        s._param("date_time", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("date_time", e)]);
     }
     function g(e, t) {
-      return s._(/*BTDS*/ "This was sent to {name} on {date_time}.", [
-        s._param("name", e),
-        s._param("date_time", t),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("name", e), s._param("date_time", t)]);
     }
     function h(e) {
-      return s._(/*BTDS*/ "The payment didn't go through on {date_time}.", [
-        s._param("date_time", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("date_time", e)]);
     }
     function y() {
-      return s._(/*BTDS*/ "Copy code");
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(/*BTDS*/ "Mark as paid");
+      return s._(/*BTDS*/ "");
     }
     function b() {
-      return s._(/*BTDS*/ "Mark this as paid?");
+      return s._(/*BTDS*/ "");
     }
     function v(e) {
-      return s._(
-        /*BTDS*/ "Make sure the money is in your bank account. {name} will see that you marked this as paid.",
-        [s._param("name", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("name", e)]);
     }
     function S() {
-      return s._(/*BTDS*/ "Add receipt");
+      return s._(/*BTDS*/ "");
     }
     function R() {
-      return s._(/*BTDS*/ "Add receipt (optional)");
+      return s._(/*BTDS*/ "");
     }
     function L(e) {
-      return s._(
-        /*BTDS*/ "Share proof with {name}. This doesn't confirm payment.",
-        [s._param("name", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("name", e)]);
     }
     function E(e) {
-      return s._(/*BTDS*/ "Adding a receipt will notify {name} in chat.", [
-        s._param("name", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("name", e)]);
     }
     function k() {
-      return s._(/*BTDS*/ "Take photo");
+      return s._(/*BTDS*/ "");
     }
     function I() {
-      return s._(/*BTDS*/ "Choose photo");
+      return s._(/*BTDS*/ "");
     }
     function T() {
-      return s._(/*BTDS*/ "Couldn't add the receipt. Try again.");
+      return s._(/*BTDS*/ "");
     }
     function D() {
-      return s._(/*BTDS*/ "Couldn't mark this as paid. Try again.");
+      return s._(/*BTDS*/ "");
     }
     function x() {
-      return s._(/*BTDS*/ "Couldn't remove the receipt. Try again.");
+      return s._(/*BTDS*/ "");
     }
     function $() {
-      return s._(/*BTDS*/ "Share");
+      return s._(/*BTDS*/ "");
     }
     function P() {
-      return s._(/*BTDS*/ "Couldn't share the payment details. Try again.");
+      return s._(/*BTDS*/ "");
     }
     function N() {
-      return s._(/*BTDS*/ "Couldn't download the payment details. Try again.");
+      return s._(/*BTDS*/ "");
     }
     function M() {
-      return s._(/*BTDS*/ "Payment receipt");
+      return s._(/*BTDS*/ "");
     }
     function w() {
-      return s._(/*BTDS*/ "Couldn't load this receipt. Try again.");
+      return s._(/*BTDS*/ "");
     }
     function A(e) {
-      return s._(/*BTDS*/ "Added by you on {date}", [s._param("date", e)]);
+      return s._(/*BTDS*/ "", [s._param("date", e)]);
     }
     function F(e, t) {
-      return s._(/*BTDS*/ "Added by {name} on {date}", [
-        s._param("name", e),
-        s._param("date", t),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("name", e), s._param("date", t)]);
     }
     function O() {
-      return s._(/*BTDS*/ "Only you can confirm payment.");
+      return s._(/*BTDS*/ "");
     }
     function B(e) {
-      return s._(/*BTDS*/ "Only {name} can confirm payment.", [
-        s._param("name", e),
-      ]);
+      return s._(/*BTDS*/ "", [s._param("name", e)]);
     }
     function W() {
-      return s._(/*BTDS*/ "Delete this receipt?");
+      return s._(/*BTDS*/ "");
     }
     function q() {
-      return s._(
-        /*BTDS*/ "This removes it from these payment details for both of you. You can add another one.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function U() {
-      return s._(/*BTDS*/ "Delete");
+      return s._(/*BTDS*/ "");
     }
     function V() {
-      return s._(/*BTDS*/ "Delete receipt");
+      return s._(/*BTDS*/ "");
     }
     function H() {
-      return s._(/*BTDS*/ "Sent from");
+      return s._(/*BTDS*/ "");
     }
     function G() {
-      return s._(/*BTDS*/ "Paid to");
+      return s._(/*BTDS*/ "");
     }
     function z() {
-      return s._(/*BTDS*/ "You");
+      return s._(/*BTDS*/ "");
     }
     function j() {
-      return s._(/*BTDS*/ "Recipient details");
+      return s._(/*BTDS*/ "");
     }
     function K() {
-      return s._(/*BTDS*/ "Payment information");
+      return s._(/*BTDS*/ "");
     }
     function Q() {
-      return s._(/*BTDS*/ "Sent using");
+      return s._(/*BTDS*/ "");
     }
     function X() {
-      return s._(/*BTDS*/ "Transaction ID");
+      return s._(/*BTDS*/ "");
     }
     function Y() {
-      return s._(/*BTDS*/ "Recipient");
+      return s._(/*BTDS*/ "");
     }
     function J() {
-      return s._(/*BTDS*/ "Pix key");
+      return s._(/*BTDS*/ "");
     }
     function Z(e) {
-      return s._(/*BTDS*/ "{name} added a receipt.", [s._param("name", e)]);
+      return s._(/*BTDS*/ "", [s._param("name", e)]);
     }
     function ee() {
-      return s._(/*BTDS*/ "View details");
+      return s._(/*BTDS*/ "");
     }
     ((l.getPaymentDetailsTitle = e),
       (l.getPaymentStatusLabel = u),

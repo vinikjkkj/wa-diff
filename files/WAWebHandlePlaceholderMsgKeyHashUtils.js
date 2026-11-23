@@ -5,7 +5,6 @@ __d(
     "WACryptoHmac",
     "WAWebMessageKeyHashInput",
     "WAWebUserPrefsMultiDevice",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = null,
@@ -24,20 +23,12 @@ __d(
         e
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield c();
-          if (!t) return null;
-          var n = u(o("WAWebMessageKeyHashInput").getMessageKeyHashInput(e.id)),
-            r = yield o("WACryptoHmac").hmacSha256(t, n);
-          return o("WABase64").encodeB64(r);
-        })),
-        m.apply(this, arguments)
-      );
+    async function d(e) {
+      var t = await c();
+      if (!t) return null;
+      var n = u(o("WAWebMessageKeyHashInput").getMessageKeyHashInput(e.id)),
+        r = await o("WACryptoHmac").hmacSha256(t, n);
+      return o("WABase64").encodeB64(r);
     }
     l.getMessageKeyHash = d;
   },

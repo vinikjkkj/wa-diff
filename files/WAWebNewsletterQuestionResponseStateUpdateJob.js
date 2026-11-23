@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebMexNewsletterQuestionResponseStateUpdateJob",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -14,7 +13,7 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "updateNewsletterQuestionResponseState",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             try {
               return o(
                 "WAWebMexNewsletterQuestionResponseStateUpdateJob",
@@ -37,7 +36,7 @@ __d(
                 t
               );
             }
-          }),
+          },
           { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();

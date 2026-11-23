@@ -132,11 +132,20 @@ __d(
             return !1;
           });
     }
+    function y(e, t, n, r, o) {
+      return (
+        g(e, t, n, r, o) &&
+        !t.some(function (t) {
+          return h(e, [t], n, r, o);
+        })
+      );
+    }
     ((i.HIDE_ON_DEAD_ACTIONS = c),
       (i.isAccountBlocked = _),
       (i.isAnyAdIGBoosted = f),
       (i.isEveryAdObjectDead = g),
-      (i.isEveryAdObjectNonDuplicatable = h));
+      (i.isEveryAdObjectNonDuplicatable = h),
+      (i.isEveryAdObjectInactiveButDuplicatable = y));
   },
   66,
 );

@@ -4,13 +4,11 @@ __d(
     "WATimeUtils",
     "WAWebMsgKey",
     "WAWebMsgType",
-    "WAWebUserPrefsMeUser",
+    "WAWebUserUtils",
     "WAWebViewMode.flow",
-    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e, t, n) {
-      r("vulture")("Y5aLXrPDBIKnNq0hwDM8Yh45OMk=");
       var a = new (r("WAWebMsgKey"))({
         fromMe: !0,
         remote: e,
@@ -23,7 +21,7 @@ __d(
         kind: o("WAWebMsgType").MsgKind.Debug,
         viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
         from: e,
-        to: o("WAWebUserPrefsMeUser").getMeLidUserOrThrow(),
+        to: o("WAWebUserUtils").getMeLidUserOrThrow(),
         body: t,
         caption: n,
       };

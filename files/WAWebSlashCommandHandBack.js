@@ -92,7 +92,7 @@ __d(
           C(
             u != null ? l.addedInChat(u) : l.added,
             {
-              actionText: s._(/*BTDS*/ "Open chat"),
+              actionText: s._(/*BTDS*/ ""),
               onAction: function () {
                 return y(t);
               },
@@ -106,7 +106,7 @@ __d(
           C(
             l.ready,
             {
-              actionText: s._(/*BTDS*/ "Copy link"),
+              actionText: s._(/*BTDS*/ ""),
               onAction: function () {
                 o("WAWebCopyToClipboard").copyTextToClipboard(n);
               },
@@ -166,7 +166,7 @@ __d(
       (r !== "popup_blocked" && C(o.failed, null, n), R(o.blocked, o.open));
     }
     function v(e) {
-      C(s._(/*BTDS*/ "Finish in the tab that opened"), null, e);
+      C(s._(/*BTDS*/ ""), null, e);
     }
     function S(e) {
       var t = e.checkFirst,

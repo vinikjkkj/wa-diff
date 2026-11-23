@@ -51,52 +51,43 @@ __d(
         C,
         b,
         v,
-        S,
-        R,
-        L = a == null || (f = a.explanation) == null ? void 0 : f.body,
-        E = n === "budget_limited",
-        k =
+        S = a == null || (f = a.explanation) == null ? void 0 : f.body,
+        R = n === "budget_limited",
+        L =
           (a == null || (g = a.lift) == null || (g = g.urc_qe_info) == null
             ? void 0
             : g.qe_universe_name) != null,
-        I =
-          (L == null || (h = L[0]) == null ? void 0 : h.urc_variant_name) ===
+        E =
+          (S == null || (h = S[0]) == null ? void 0 : h.urc_variant_name) ===
           "URCCIBExplanationBodyV2Variant",
-        T = o(
+        k = o(
           "AdsInsightsCloseTheLoopExpansionUtil",
         ).isCloseTheLoopMFRExpansionEnabled(
           a == null || (y = a.title) == null ? void 0 : y.urc_variant_name,
         ),
-        D = l == null ? void 0 : l.close_the_loop,
-        x =
-          Math.ceil(
-            (C = l == null || (b = l.mr_ple) == null ? void 0 : b.delta) != null
-              ? C
-              : 0,
-          ) > 0 &&
-          o("SYDExperimentationUtils").getShouldSeePLEV2ImprovementsFromInfos(
-            a == null || (v = a.title) == null ? void 0 : v.urc_qe_infos,
-          ),
-        $,
-        P;
-      if ((k || I) && L != null && L.length > 2) {
-        var N, M, w, A, F, O, B, W, q;
-        $ = u.jsx(r("HeroInteractionIgnoreWithDiv.react"), {
+        I = l == null ? void 0 : l.close_the_loop,
+        T = o("SYDExperimentationUtils").getPLEInsight(l),
+        D = Math.ceil((C = T == null ? void 0 : T.delta) != null ? C : 0) > 0,
+        x,
+        $;
+      if ((L || E) && S != null && S.length > 2) {
+        var P, N, M, w, A, F, O, B, W, q;
+        x = u.jsx(r("HeroInteractionIgnoreWithDiv.react"), {
           children: u.jsx(r("CometPlaceholder.react"), {
             fallback: null,
             name: i.id,
             children:
-              I === !0
+              E === !0
                 ? u.jsx(d, {
                     logInsightsEvent: e,
-                    tooltipTextItems: L.map(function (e) {
+                    tooltipTextItems: S.map(function (e) {
                       var t;
                       return (t = e == null ? void 0 : e.text) != null ? t : "";
                     }),
                   })
                 : u.jsx(c, {
                     logInsightsEvent: e,
-                    tooltipTextItems: L.map(function (e) {
+                    tooltipTextItems: S.map(function (e) {
                       var t;
                       return (t = e == null ? void 0 : e.text) != null ? t : "";
                     }),
@@ -109,15 +100,15 @@ __d(
           defaultSize: "valueDescription",
           image_ranges: [],
           inline_style_ranges:
-            a == null || (N = a.title) == null ? void 0 : N.inline_style_ranges,
+            a == null || (P = a.title) == null ? void 0 : P.inline_style_ranges,
           ranges: [],
           text:
-            (M = a == null || (w = a.title) == null ? void 0 : w.text) != null
-              ? M
+            (N = a == null || (M = a.title) == null ? void 0 : M.text) != null
+              ? N
               : "",
         });
-        P =
-          a != null
+        $ =
+          (a == null || (w = a.lift) == null ? void 0 : w.text) != null
             ? u.jsx(r("AdsMgmtRecommendationIncentiveSection.react"), {
                 expectedOutcome:
                   (A = (F = a.lift) == null ? void 0 : F.text) != null ? A : "",
@@ -139,15 +130,15 @@ __d(
                       : q.text) != null
                     ? W
                     : "",
-                useCustomTooltipText: $,
+                useCustomTooltipText: x,
               })
             : null;
       } else if (
-        E &&
-        (a == null || (S = a.explanation) == null ? void 0 : S.body) != null &&
-        (a == null || (R = a.explanation) == null || (R = R.body) == null
+        R &&
+        (a == null || (b = a.explanation) == null ? void 0 : b.body) != null &&
+        (a == null || (v = a.explanation) == null || (v = v.body) == null
           ? void 0
-          : R.length) === 2
+          : v.length) === 2
       ) {
         var V,
           H,
@@ -157,58 +148,59 @@ __d(
           K,
           Q,
           X,
-          Y = a.explanation.body,
-          J = Y[0],
-          Z = Y[1];
-        (($ = u.jsx(m, {
+          Y,
+          J = a.explanation.body,
+          Z = J[0],
+          ee = J[1];
+        ((x = u.jsx(m, {
           currencyCode: t != null ? t : "",
-          day7ActualCPR: parseFloat(r("isTruthy")(J.text) ? J.text : "0"),
-          day7PredictedCPR: parseFloat(r("isTruthy")(Z.text) ? Z.text : "0"),
+          day7ActualCPR: parseFloat(r("isTruthy")(Z.text) ? Z.text : "0"),
+          day7PredictedCPR: parseFloat(r("isTruthy")(ee.text) ? ee.text : "0"),
           guidanceName: "budget_limited",
         })),
-          (P =
-            a != null
+          ($ =
+            (a == null || (V = a.lift) == null ? void 0 : V.text) != null
               ? u.jsx(r("AdsMgmtRecommendationIncentiveSection.react"), {
                   expectedOutcome:
-                    (V = (H = a.lift) == null ? void 0 : H.text) != null
-                      ? V
+                    (H = (G = a.lift) == null ? void 0 : G.text) != null
+                      ? H
                       : "",
                   isTableVariant: !0,
                   useCustomCurrentStatus: u.jsx(r("GeoBaseText.react"), {
                     color: "placeholder",
                     size: "accent",
                     children:
-                      (G = (z = a.footer) == null ? void 0 : z.text) != null
-                        ? G
+                      (z = (j = a.footer) == null ? void 0 : j.text) != null
+                        ? z
                         : "",
                   }),
                   useCustomHeading:
-                    (j = (K = a.title) == null ? void 0 : K.text) != null
-                      ? j
+                    (K = (Q = a.title) == null ? void 0 : Q.text) != null
+                      ? K
                       : "",
                   useCustomTooltipHeading:
-                    (Q =
-                      (X = a.explanation) == null || (X = X.title) == null
+                    (X =
+                      (Y = a.explanation) == null || (Y = Y.title) == null
                         ? void 0
-                        : X.text) != null
-                      ? Q
+                        : Y.text) != null
+                      ? X
                       : "",
-                  useCustomTooltipText: $,
+                  useCustomTooltipText: x,
                 })
               : null));
-      } else if (T && D != null) {
-        var ee, te, ne, re, oe, ae, ie;
-        (($ = u.jsx(r("HeroInteractionIgnoreWithDiv.react"), {
+      } else if (k && I != null) {
+        var te, ne, re, oe, ae, ie, le;
+        ((x = u.jsx(r("HeroInteractionIgnoreWithDiv.react"), {
           children: u.jsxs(r("CometPlaceholder.react"), {
             fallback: null,
             name: i.id,
             children: [
-              u.jsx(p, { ctlData: D, currencyCode: t != null ? t : void 0 }),
+              u.jsx(p, { ctlData: I, currencyCode: t != null ? t : void 0 }),
               a == null ||
-              (ee = a.explanation) == null ||
-              (ee = ee.body) == null
+              (te = a.explanation) == null ||
+              (te = te.body) == null
                 ? void 0
-                : ee.map(function (e, t) {
+                : te.map(function (e, t) {
                     var n;
                     return u.jsx(
                       r("GeoFlexbox.react"),
@@ -224,7 +216,7 @@ __d(
                       t,
                     );
                   }),
-              a != null && (te = a.explanation) != null && te.footer
+              a != null && (ne = a.explanation) != null && ne.footer
                 ? u.jsxs(r("GeoFlexbox.react"), {
                     alignItems: "center",
                     xstyle: r("geoMargin").top20,
@@ -239,30 +231,30 @@ __d(
                       u.jsx(r("URCTextWithRanges.react"), {
                         image_ranges:
                           a == null ||
-                          (ne = a.explanation) == null ||
-                          (ne = ne.footer) == null
-                            ? void 0
-                            : ne.image_ranges,
-                        inline_style_ranges:
-                          a == null ||
                           (re = a.explanation) == null ||
                           (re = re.footer) == null
                             ? void 0
-                            : re.inline_style_ranges,
-                        ranges:
+                            : re.image_ranges,
+                        inline_style_ranges:
                           a == null ||
                           (oe = a.explanation) == null ||
                           (oe = oe.footer) == null
                             ? void 0
-                            : oe.ranges,
+                            : oe.inline_style_ranges,
+                        ranges:
+                          a == null ||
+                          (ae = a.explanation) == null ||
+                          (ae = ae.footer) == null
+                            ? void 0
+                            : ae.ranges,
                         text:
-                          (ae =
+                          (ie =
                             a == null ||
-                            (ie = a.explanation) == null ||
-                            (ie = ie.footer) == null
+                            (le = a.explanation) == null ||
+                            (le = le.footer) == null
                               ? void 0
-                              : ie.text) != null
-                            ? ae
+                              : le.text) != null
+                            ? ie
                             : "",
                       }),
                     ],
@@ -271,10 +263,9 @@ __d(
             ],
           }),
         })),
-          (P = null));
-      } else if (x) {
-        var le,
-          se,
+          ($ = null));
+      } else if (D) {
+        var se,
           ue,
           ce,
           de,
@@ -294,15 +285,9 @@ __d(
           Ee = o(
             "PerformanceTrendsDataVizUtil",
           ).getPerformanceTrendValueFormatter(t != null ? t : ""),
-          ke = Number(
-            l == null || (le = l.mr_ple) == null
-              ? void 0
-              : le.base_metric_reading,
-          ),
-          Ie = Number(
-            l == null || (se = l.mr_ple) == null ? void 0 : se.metric_reading,
-          );
-        (($ = u.jsxs(u.Fragment, {
+          ke = Number(T == null ? void 0 : T.base_metric_reading),
+          Ie = Number(T == null ? void 0 : T.metric_reading);
+        ((x = u.jsxs(u.Fragment, {
           children: [
             u.jsxs(r("GeoFlexbox.react"), {
               direction: "column",
@@ -311,7 +296,7 @@ __d(
                   color: "value",
                   size: "value",
                   children:
-                    a == null || (ue = a.footer) == null ? void 0 : ue.text,
+                    a == null || (se = a.footer) == null ? void 0 : se.text,
                 }),
                 u.jsxs(r("GeoFlexbox.react"), {
                   direction: "row",
@@ -323,7 +308,7 @@ __d(
                         u.jsx(r("GeoBaseText.react"), {
                           color: "placeholder",
                           size: "accent",
-                          children: s._(/*BTDS*/ "Current"),
+                          children: s._(/*BTDS*/ ""),
                         }),
                         u.jsx(r("GeoBaseText.react"), {
                           color: "value",
@@ -339,7 +324,7 @@ __d(
                         u.jsx(r("GeoBaseText.react"), {
                           color: "placeholder",
                           size: "accent",
-                          children: s._(/*BTDS*/ "With recommendation"),
+                          children: s._(/*BTDS*/ ""),
                         }),
                         u.jsx(r("GeoBaseText.react"), {
                           color: "success",
@@ -352,9 +337,9 @@ __d(
                 }),
               ],
             }),
-            a == null || (ce = a.explanation) == null || (ce = ce.body) == null
+            a == null || (ue = a.explanation) == null || (ue = ue.body) == null
               ? void 0
-              : ce.map(function (e, t) {
+              : ue.map(function (e, t) {
                   var n;
                   return u.jsx(
                     r("GeoFlexbox.react"),
@@ -370,45 +355,45 @@ __d(
                     t,
                   );
                 }),
-            a != null && (de = a.explanation) != null && de.footer
+            a != null && (ce = a.explanation) != null && ce.footer
               ? u.jsx(r("GeoFlexbox.react"), {
                   alignItems: "center",
                   xstyle: r("geoMargin").top12,
                   children: u.jsx(r("URCTextWithRanges.react"), {
                     image_ranges:
                       a == null ||
+                      (de = a.explanation) == null ||
+                      (de = de.footer) == null
+                        ? void 0
+                        : de.image_ranges,
+                    inline_style_ranges:
+                      a == null ||
                       (me = a.explanation) == null ||
                       (me = me.footer) == null
                         ? void 0
-                        : me.image_ranges,
-                    inline_style_ranges:
+                        : me.inline_style_ranges,
+                    ranges:
                       a == null ||
                       (pe = a.explanation) == null ||
                       (pe = pe.footer) == null
                         ? void 0
-                        : pe.inline_style_ranges,
-                    ranges:
-                      a == null ||
-                      (_e = a.explanation) == null ||
-                      (_e = _e.footer) == null
-                        ? void 0
-                        : _e.ranges,
+                        : pe.ranges,
                     text:
-                      (fe =
+                      (_e =
                         a == null ||
-                        (ge = a.explanation) == null ||
-                        (ge = ge.footer) == null
+                        (fe = a.explanation) == null ||
+                        (fe = fe.footer) == null
                           ? void 0
-                          : ge.text) != null
-                        ? fe
+                          : fe.text) != null
+                        ? _e
                         : "",
                   }),
                 })
               : null,
           ],
         })),
-          (P =
-            a != null
+          ($ =
+            (a == null || (ge = a.lift) == null ? void 0 : ge.text) != null
               ? u.jsx(r("AdsMgmtRecommendationIncentiveSection.react"), {
                   expectedOutcome:
                     (he = (ye = a.lift) == null ? void 0 : ye.text) != null
@@ -436,12 +421,12 @@ __d(
                         : Le.text) != null
                       ? Re
                       : "",
-                  useCustomTooltipText: $,
+                  useCustomTooltipText: x,
                 })
               : null));
       } else {
-        var Te, De, xe, $e, Pe, Ne, Me, we, Ae, Fe, Oe, Be, We, qe, Ue;
-        (($ = u.jsxs(u.Fragment, {
+        var Te, De, xe, $e, Pe, Ne, Me, we, Ae, Fe, Oe, Be, We, qe, Ue, Ve;
+        ((x = u.jsxs(u.Fragment, {
           children: [
             a == null || (Te = a.explanation) == null || (Te = Te.body) == null
               ? void 0
@@ -507,40 +492,40 @@ __d(
               : null,
           ],
         })),
-          (P =
-            a != null
+          ($ =
+            (a == null || (we = a.lift) == null ? void 0 : we.text) != null
               ? u.jsx(r("AdsMgmtRecommendationIncentiveSection.react"), {
                   expectedOutcome:
-                    (we = (Ae = a.lift) == null ? void 0 : Ae.text) != null
-                      ? we
+                    (Ae = (Fe = a.lift) == null ? void 0 : Fe.text) != null
+                      ? Ae
                       : "",
                   isTableVariant: !0,
                   useCustomCurrentStatus: u.jsx(r("GeoBaseText.react"), {
                     color: "placeholder",
                     size: "accent",
                     children:
-                      (Fe = (Oe = a.footer) == null ? void 0 : Oe.text) != null
-                        ? Fe
+                      (Oe = (Be = a.footer) == null ? void 0 : Be.text) != null
+                        ? Oe
                         : "",
                   }),
                   useCustomHeading:
-                    (Be = (We = a.title) == null ? void 0 : We.text) != null
-                      ? Be
+                    (We = (qe = a.title) == null ? void 0 : qe.text) != null
+                      ? We
                       : "",
                   useCustomTooltipHeading:
-                    (qe =
+                    (Ue =
                       a == null ||
-                      (Ue = a.explanation) == null ||
-                      (Ue = Ue.title) == null
+                      (Ve = a.explanation) == null ||
+                      (Ve = Ve.title) == null
                         ? void 0
-                        : Ue.text) != null
-                      ? qe
+                        : Ve.text) != null
+                      ? Ue
                       : "",
-                  useCustomTooltipText: $,
+                  useCustomTooltipText: x,
                 })
               : null));
       }
-      return { toolTipText: $, potentialOutcome: P };
+      return { toolTipText: x, potentialOutcome: $ };
     }
     l.generateUrcToolTipAndPotentialOutcome = _;
   },

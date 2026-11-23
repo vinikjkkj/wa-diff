@@ -5,23 +5,19 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WDSSpinner.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebOrgAdminGroupChatRows.react",
-          )
-            .__setRef("WAWebOrgAdminGroupChatRowsLoadable")
-            .load();
-          return e;
-        }),
-        "OrgAdminGroupChatRows",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebOrgAdminGroupChatRows.react",
+        )
+          .__setRef("WAWebOrgAdminGroupChatRowsLoadable")
+          .load();
+        return e;
+      }, "OrgAdminGroupChatRows"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function () {

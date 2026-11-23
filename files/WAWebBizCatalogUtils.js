@@ -1,50 +1,39 @@
 __d(
   "WAWebBizCatalogUtils",
   [
-    "Promise",
     "WATypeUtils",
     "WAWebCatalogCollection",
     "WAWebFrontendConstants",
     "WAWebNonEmptyString",
     "WAWebQplFlowWrapper",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "qpl",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = r("qpl")._(774780089, "3436"),
-      u = r("qpl")._(774781666, "3445"),
-      c = r("qpl")._(774768970, "3447"),
-      d = 3;
-    function m(e, t) {
-      return p.apply(this, arguments);
+    var e = r("qpl")._(774780089, "3436"),
+      s = r("qpl")._(774781666, "3445"),
+      u = r("qpl")._(774768970, "3447"),
+      c = 3;
+    async function d(e, t) {
+      var n = e.getData().length || 0,
+        r = !e.getCanLoadMore() || !g(n, e.listItemHeight);
+      if (
+        (t &&
+          o("WAWebQplFlowWrapper").QPL.markerAnnotate(t, {
+            bool: {
+              IsCached: r,
+              IsConsumer: !o("WAWebUserUtils").isMeAccount(e.catalog.id),
+            },
+          }),
+        r)
+      )
+        return !0;
+      await e.loadMore(!0);
+      var a = e.getData().length || 0;
+      return g(a, e.listItemHeight) ? e.loadInitialItems() : !0;
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.getData().length || 0,
-            r = !e.getCanLoadMore() || !y(n, e.listItemHeight);
-          if (
-            (t &&
-              o("WAWebQplFlowWrapper").QPL.markerAnnotate(t, {
-                bool: {
-                  IsCached: r,
-                  IsConsumer: !o("WAWebUserUtils").isMeAccount(e.catalog.id),
-                },
-              }),
-            r)
-          )
-            return !0;
-          yield e.loadMore(!0);
-          var a = e.getData().length || 0;
-          return y(a, e.listItemHeight) ? e.loadInitialItems() : !0;
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    var _ = (function () {
+    var m = (function () {
         function t(e, t, n, o) {
           if (
             ((this.loading = null),
@@ -66,15 +55,14 @@ __d(
                 : !0;
           }
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.loadMore = function (a) {
+          (n.loadMore = function (n) {
             var t = this;
             if (this.loading) return this.loading;
-            if (!this.getCanLoadMore())
-              return (e || (e = n("Promise"))).resolve();
-            var i = this.collectionId;
-            if (r("isStringNullOrEmpty")(i))
+            if (!this.getCanLoadMore()) return Promise.resolve();
+            var a = this.collectionId;
+            if (r("isStringNullOrEmpty")(a))
               this.loading = o("WAWebCatalogCollection")
                 .CatalogCollection.update(this.catalog.id)
                 .then(function () {
@@ -82,32 +70,32 @@ __d(
                     (t.loading = null));
                 });
             else {
-              var l = a === !0 ? s : void 0;
+              var i = n === !0 ? e : void 0;
               this.loading = this.catalog.collections
                 .findCollectionProducts({
                   forCatalogManager: !1,
                   catalogWid: this.catalog.id,
-                  collectionId: i,
-                  markerId: l,
+                  collectionId: a,
+                  markerId: i,
                 })
                 .then(function () {
                   var e;
                   ((t.canLoadMoreCollectionItems = !!(
-                    (e = t.catalog.collections.get(i)) != null && e.afterCursor
+                    (e = t.catalog.collections.get(a)) != null && e.afterCursor
                   )),
                     (t.loading = null));
                 });
             }
             return this.loading;
           }),
-          (a.loadInitialItems = function () {
-            var e = s;
-            return m(this, e);
+          (n.loadInitialItems = function () {
+            var t = e;
+            return d(this, t);
           }),
-          (a.getCanLoadMore = function () {
+          (n.getCanLoadMore = function () {
             return this.canLoadMoreCollectionItems || this.canLoadMoreAllItems;
           }),
-          (a.getData = function () {
+          (n.getData = function () {
             var e = this.collectionId,
               t;
             if (r("isStringNullOrEmpty")(e))
@@ -131,8 +119,8 @@ __d(
           t
         );
       })(),
-      f = (function () {
-        function t(e) {
+      p = (function () {
+        function e(e) {
           var t = e.canLogQpl,
             n = e.catalog,
             r = e.forCatalogManager,
@@ -149,44 +137,43 @@ __d(
               n.productCollection.length > 0 ? !!this.catalog.afterCursor : !0),
             (this.canLogQpl = t));
         }
-        var r = t.prototype;
+        var t = e.prototype;
         return (
-          (r.loadMore = function (r) {
-            var t = this;
+          (t.loadMore = function (t) {
+            var e = this;
             if (this.loading) return this.loading;
-            if (!this.getCanLoadMore())
-              return (e || (e = n("Promise"))).resolve();
+            if (!this.getCanLoadMore()) return Promise.resolve();
             if (this.canLoadMoreCollections) {
-              var a = this.canLogQpl && r === !0 ? u : void 0;
+              var n = this.canLogQpl && t === !0 ? s : void 0;
               this.loading = this.catalog.collections
                 .findCollectionsList(
                   this.catalog.id,
-                  d,
+                  c,
                   this.forCatalogManager,
-                  a,
+                  n,
                 )
                 .then(function () {
-                  ((t.canLoadMoreCollections =
-                    !!t.catalog.collections.afterCursor),
-                    (t.loading = null));
+                  ((e.canLoadMoreCollections =
+                    !!e.catalog.collections.afterCursor),
+                    (e.loading = null));
                 });
             } else
               this.loading = o("WAWebCatalogCollection")
                 .CatalogCollection.update(this.catalog.id)
                 .then(function () {
-                  ((t.canLoadMoreCatalog = !!t.catalog.afterCursor),
-                    (t.loading = null));
+                  ((e.canLoadMoreCatalog = !!e.catalog.afterCursor),
+                    (e.loading = null));
                 });
             return this.loading;
           }),
-          (r.loadInitialItems = function () {
-            var e = this.canLogQpl ? u : void 0;
-            return m(this, e);
+          (t.loadInitialItems = function () {
+            var e = this.canLogQpl ? s : void 0;
+            return d(this, e);
           }),
-          (r.getCanLoadMore = function () {
+          (t.getCanLoadMore = function () {
             return this.canLoadMoreCollections || this.canLoadMoreCatalog;
           }),
-          (r.getData = function () {
+          (t.getData = function () {
             var e = this,
               t = this.catalog.collections.getCollectionModels(
                 this.forCatalogManager,
@@ -199,7 +186,7 @@ __d(
                 if (r.length !== 0) {
                   var o;
                   (t.push({ collection: n, product: void 0 }),
-                    r.length > d && (r.length = d),
+                    r.length > c && (r.length = c),
                     (o = t).push.apply(
                       o,
                       r.map(function (e) {
@@ -219,11 +206,11 @@ __d(
               });
             return (n.push.apply(n, o), n);
           }),
-          t
+          e
         );
       })(),
-      g = (function () {
-        function t(e, t, n, r) {
+      _ = (function () {
+        function e(e, t, n, r) {
           ((this.loading = null),
             (this.canLoadMoreCollections = !0),
             (this.catalog = e),
@@ -231,38 +218,37 @@ __d(
             (this.listItemHeight = n),
             (this.canLogQpl = r));
         }
-        var r = t.prototype;
+        var t = e.prototype;
         return (
-          (r.loadMore = function (r) {
-            var t = this;
+          (t.loadMore = function (t) {
+            var e = this;
             if (this.loading) return this.loading;
-            if (!this.getCanLoadMore())
-              return (e || (e = n("Promise"))).resolve();
+            if (!this.getCanLoadMore()) return Promise.resolve();
             if (this.canLoadMoreCollections) {
-              var o = this.canLogQpl && r === !0 ? c : void 0;
+              var n = this.canLogQpl && t === !0 ? u : void 0;
               this.loading = this.catalog.collections
                 .findCollectionsList(
                   this.catalog.id,
-                  d,
+                  c,
                   this.forCatalogManager,
-                  o,
+                  n,
                 )
                 .then(function () {
-                  ((t.canLoadMoreCollections =
-                    !!t.catalog.collections.afterCursor),
-                    (t.loading = null));
+                  ((e.canLoadMoreCollections =
+                    !!e.catalog.collections.afterCursor),
+                    (e.loading = null));
                 });
             }
-            return this.loading || (e || (e = n("Promise"))).resolve();
+            return this.loading || Promise.resolve();
           }),
-          (r.loadInitialItems = function () {
-            var e = this.canLogQpl ? c : void 0;
-            return m(this, e);
+          (t.loadInitialItems = function () {
+            var e = this.canLogQpl ? u : void 0;
+            return d(this, e);
           }),
-          (r.getCanLoadMore = function () {
+          (t.getCanLoadMore = function () {
             return this.canLoadMoreCollections;
           }),
-          (r.resetData = function () {
+          (t.resetData = function () {
             var e;
             ((e = this.catalog) != null &&
               e.collections &&
@@ -270,18 +256,18 @@ __d(
               (this.catalog.collections.afterCursor = "")),
               (this.canLoadMoreCollections = !0));
           }),
-          (r.getData = function () {
+          (t.getData = function () {
             return this.catalog.collections
               .getCollectionModels(this.forCatalogManager)
               .map(function (e) {
                 return { collection: e, product: void 0 };
               });
           }),
-          t
+          e
         );
       })(),
-      h = (function () {
-        function t(e, t, n) {
+      f = (function () {
+        function e(e, t, n) {
           ((this.loading = null),
             (this.canLoadMore = !0),
             (this.catalog = e),
@@ -293,10 +279,10 @@ __d(
               n,
             )));
         }
-        var a = t.prototype;
+        var t = e.prototype;
         return (
-          (a.loadMore = function () {
-            var t = this;
+          (t.loadMore = function () {
+            var e = this;
             return this.loading
               ? this.loading
               : this.getCanLoadMore()
@@ -305,8 +291,8 @@ __d(
                       ? (this.loading = o("WAWebCatalogCollection")
                           .CatalogCollection.update(this.catalog.id)
                           .then(function () {
-                            ((t.canLoadMore = !!t.catalog.afterCursor),
-                              (t.loading = null));
+                            ((e.canLoadMore = !!e.catalog.afterCursor),
+                              (e.loading = null));
                           }))
                       : (this.loading = o("WAWebCatalogCollection")
                           .CatalogCollection.findCollectionMembership(
@@ -314,32 +300,32 @@ __d(
                             this.collectionId,
                           )
                           .then(function () {
-                            ((t.canLoadMore = !!t.catalog.afterCursor),
-                              (t.loading = null));
+                            ((e.canLoadMore = !!e.catalog.afterCursor),
+                              (e.loading = null));
                           }))),
-                  this.loading || (e || (e = n("Promise"))).resolve())
-                : (e || (e = n("Promise"))).resolve();
+                  this.loading || Promise.resolve())
+                : Promise.resolve();
           }),
-          (a.loadInitialItems = function () {
-            return m(this);
+          (t.loadInitialItems = function () {
+            return d(this);
           }),
-          (a.getCanLoadMore = function () {
+          (t.getCanLoadMore = function () {
             return this.canLoadMore;
           }),
-          (a.getData = function () {
+          (t.getData = function () {
             return this.catalog.productCollection
               .getProductModels(!0)
               .map(function (e) {
                 return { product: e, collection: void 0 };
               });
           }),
-          t
+          e
         );
       })();
-    function y(e, t) {
+    function g(e, t) {
       return e * t < window.innerHeight;
     }
-    var C = (function () {
+    var h = (function () {
       function e(e) {
         this.dataSource = e;
       }
@@ -354,25 +340,17 @@ __d(
         (t.willLoadMore = function (t) {
           return !!(this.dataSource.loading || this.isScrollAtBottom(t));
         }),
-        (t.onScroll = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              return this.dataSource.loading
-                ? (yield this.dataSource.loading, !0)
-                : this.isScrollAtBottom(t)
-                  ? (yield this.dataSource.loadMore(), !0)
-                  : !1;
-            },
-          );
-          function t(t, n) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        (t.onScroll = async function (t, n) {
+          return this.dataSource.loading
+            ? (await this.dataSource.loading, !0)
+            : this.isScrollAtBottom(n)
+              ? (await this.dataSource.loadMore(), !0)
+              : !1;
+        }),
         e
       );
     })();
-    function b(e, t, n) {
+    function y(e, t, n) {
       var a = o("WAWebCatalogCollection").CatalogCollection.get(e),
         i,
         l;
@@ -404,12 +382,12 @@ __d(
         };
       }
     }
-    ((l.SingleCollectionDataSource = _),
-      (l.CatalogWithCollectionsDataSource = f),
-      (l.CollectionsDataSource = g),
-      (l.CollectionsContentDataSource = h),
-      (l.CatalogListItemScrollHelper = C),
-      (l.getProductStatsInFetched = b));
+    ((l.SingleCollectionDataSource = m),
+      (l.CatalogWithCollectionsDataSource = p),
+      (l.CollectionsDataSource = _),
+      (l.CollectionsContentDataSource = f),
+      (l.CatalogListItemScrollHelper = h),
+      (l.getProductStatsInFetched = y));
   },
   98,
 );

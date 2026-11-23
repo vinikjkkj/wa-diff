@@ -6,7 +6,6 @@ __d(
     "WAWebABPropsCache",
     "WAWebEnvironment",
     "WAWebProtobufsWa6.pb",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -35,64 +34,56 @@ __d(
         ) === "1"
       );
     }
-    function C() {
-      return b.apply(this, arguments);
+    async function C() {
+      if (h()) return null;
+      try {
+        return (
+          await o("WAWebABPropsCache").waitForABPropConfigsReady(),
+          o("WAWebABProps").getABPropConfigValue(
+            "win_hybrid_background_message_sync",
+          ),
+          o("WAWebABPropsCache").getABPropExpoKey(
+            "win_hybrid_background_message_sync",
+          )
+        );
+      } catch (t) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "WindowsBackgroundRun: background message sync exposure failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("windows-bgrun-exposure-failed"),
+          null
+        );
+      }
     }
     function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (h()) return null;
-          try {
-            return (
-              yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
-              o("WAWebABProps").getABPropConfigValue(
-                "win_hybrid_background_message_sync",
-              ),
-              o("WAWebABPropsCache").getABPropExpoKey(
-                "win_hybrid_background_message_sync",
-              )
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "WindowsBackgroundRun: background message sync exposure failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("windows-bgrun-exposure-failed"),
-              null
-            );
-          }
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v() {
       return h() ? m : null;
     }
-    function S(e) {
+    function v(e) {
       var t = c[e];
       return t == null ? !1 : ((m = t), !0);
     }
-    function R() {
+    function S() {
       ((d = !0),
-        g.forEach(function (t) {
+        g.forEach(function (e) {
           try {
-            t();
-          } catch (t) {
+            e();
+          } catch (e) {
             o("WALogger").WARN(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
                   "[background-run] end listener failed",
                 ])),
             );
           }
         }));
     }
-    function L(e) {
+    function R(e) {
       return (
         g.add(e),
         function () {
@@ -100,24 +91,24 @@ __d(
         }
       );
     }
-    function E(e) {
+    function L(e) {
       ((p = e), (_ = Date.now()), f++);
     }
-    function k() {
+    function E() {
       return f;
     }
-    function I() {
+    function k() {
       var e;
       return (
         p != null &&
         p !==
-          ((e = v()) != null
+          ((e = b()) != null
             ? e
             : o("WAWebProtobufsWa6.pb").ClientPayload$ConnectReason
                 .USER_ACTIVATED)
       );
     }
-    function T() {
+    function I() {
       var e = _;
       return {
         lastLoginAgeMs: e == null ? null : Date.now() - e,
@@ -130,14 +121,14 @@ __d(
     ((l.isWindowsBackgroundRun = h),
       (l.wasPageLoadedForWindowsBackgroundRun = y),
       (l.logBackgroundMessageSyncExposureInUserSession = C),
-      (l.getWindowsBackgroundRunConnectReason = v),
-      (l.applyWindowsBackgroundRunConnectReason = S),
-      (l.endWindowsBackgroundRun = R),
-      (l.onWindowsBackgroundRunEnd = L),
-      (l.recordWindowsLoginConnectReason = E),
-      (l.getWindowsLoginCount = k),
-      (l.hasLoggedInWithOtherConnectReason = I),
-      (l.getWindowsBackgroundRunLogContext = T));
+      (l.getWindowsBackgroundRunConnectReason = b),
+      (l.applyWindowsBackgroundRunConnectReason = v),
+      (l.endWindowsBackgroundRun = S),
+      (l.onWindowsBackgroundRunEnd = R),
+      (l.recordWindowsLoginConnectReason = L),
+      (l.getWindowsLoginCount = E),
+      (l.hasLoggedInWithOtherConnectReason = k),
+      (l.getWindowsBackgroundRunLogContext = I));
   },
   98,
 );

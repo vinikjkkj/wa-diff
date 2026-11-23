@@ -3,33 +3,25 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Official Support Account");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(
-        /*BTDS*/ "This chat is with the official account of WhatsApp Support. Click to learn more.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Learn more about chats with WhatsApp Support.");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(
-        /*BTDS*/ "WhatsApp secures your messages and calls with this account.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(
-        /*BTDS*/ "This is the official chat of WhatsApp Support. More than 2 billion people in over 180 countries use WhatsApp to stay in touch with friends and family, anytime and anywhere. WhatsApp is free and offers simple, secure and reliable messaging and calling, available on phones all over the world.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(/*BTDS*/ "Start chat");
+      return s._(/*BTDS*/ "");
     }
     function _() {
-      return s._(
-        /*BTDS*/ "By clicking Send, you acknowledge WhatsApp may review diagnostic and performance information and the metadata associated with your account to try to troubleshoot and solve your reported issue.",
-      );
+      return s._(/*BTDS*/ "");
     }
     ((l.SupportChatSubtitle = e),
       (l.SupportChatSystemMessage = u),

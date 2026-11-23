@@ -19,7 +19,7 @@ __d(
             : o("WAWebHatchJsonReaders").trimToNull(t);
       return i == null
         ? d(n)
-        : s._(/*BTDS*/ "{headline}", [
+        : s._(/*BTDS*/ "", [
             s._param(
               "headline",
               u.jsx(r("WAWebHatchAgentText.react"), { text: i }),
@@ -29,17 +29,11 @@ __d(
     c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
       var t = u.jsx(r("WAWebHatchBotName.react"), {}),
-        n = u.jsx("span", {
-          className: "xfjzk2p",
-          children: s._(/*BTDS*/ "place an order"),
-        });
+        n = u.jsx("span", { className: "xfjzk2p", children: s._(/*BTDS*/ "") });
       if (e == null)
-        return s._(/*BTDS*/ "{name} wants to {action}", [
-          s._param("name", t),
-          s._param("action", n),
-        ]);
+        return s._(/*BTDS*/ "", [s._param("name", t), s._param("action", n)]);
       var o = u.jsx("span", { className: "xfjzk2p", children: e });
-      return s._(/*BTDS*/ "{name} wants to {action} at {merchant}", [
+      return s._(/*BTDS*/ "", [
         s._param("name", t),
         s._param("action", n),
         s._param("merchant", o),

@@ -21,7 +21,6 @@ __d(
     "WAWebSignalProtocolStore",
     "WAWebVerifyProtobufMsgObjectKeys",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "encodeProtobuf",
     "err",
     "justknobx",
@@ -192,157 +191,133 @@ __d(
     function b(e) {
       return e.device == null || e.device === o("WAJids").DEFAULT_DEVICE_ID;
     }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.data.id;
-          if (e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon) {
-            var r = yield o("WAWebAddonRetryRequestUtils").hasSentAddonMsg(n);
-            if (r != null)
-              return o("WAWebSignalProtocolStore")
-                .getPersistSignalProtocolStore()
-                .updateIdentityRangeAfterEncryption(
-                  "sentAddonRowId",
-                  r.rowId,
-                  t.map(function (e) {
-                    return o("WAWebSignalCommonUtils")
-                      .createSignalAddress(e)
-                      .toString();
-                  }),
-                );
-          } else if (
-            e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
-          ) {
-            var a = yield o("WAWebSchemaMessage")
-                .getMessageTable()
-                .get(String(n), !1),
-              i = a == null ? void 0 : a.rowId;
-            if (i != null)
-              return o("WAWebSignalProtocolStore")
-                .getPersistSignalProtocolStore()
-                .updateIdentityRangeAfterEncryption(
-                  "rowId",
-                  i,
-                  t.map(function (e) {
-                    return o("WAWebSignalCommonUtils")
-                      .createSignalAddress(e)
-                      .toString();
-                  }),
-                );
-          }
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.data.id;
-          if (t.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon) {
-            var r = yield o("WAWebAddonRetryRequestUtils").hasSentAddonMsg(n);
-            return (
-              r ||
-                o("WALogger").WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "filterDeviceWithChangedIdentity: addon not found: ",
-                      "",
-                    ])),
-                  n,
-                ),
-              r == null ? void 0 : r.rowId
+    async function v(e, t) {
+      var n = e.data.id;
+      if (e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon) {
+        var r = await o("WAWebAddonRetryRequestUtils").hasSentAddonMsg(n);
+        if (r != null)
+          return o("WAWebSignalProtocolStore")
+            .getPersistSignalProtocolStore()
+            .updateIdentityRangeAfterEncryption(
+              "sentAddonRowId",
+              r.rowId,
+              t.map(function (e) {
+                return o("WAWebSignalCommonUtils")
+                  .createSignalAddress(e)
+                  .toString();
+              }),
             );
-          } else if (
-            t.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
-          ) {
-            var a = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .get(String(n), !1);
-            return (
-              a ||
-                o("WALogger").WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "filterDeviceWithChangedIdentity: message not found: ",
-                      "",
-                    ])),
-                  n,
-                ),
-              a == null ? void 0 : a.rowId
+      } else if (
+        e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
+      ) {
+        var a = await o("WAWebSchemaMessage")
+            .getMessageTable()
+            .get(String(n), !1),
+          i = a == null ? void 0 : a.rowId;
+        if (i != null)
+          return o("WAWebSignalProtocolStore")
+            .getPersistSignalProtocolStore()
+            .updateIdentityRangeAfterEncryption(
+              "rowId",
+              i,
+              t.map(function (e) {
+                return o("WAWebSignalCommonUtils")
+                  .createSignalAddress(e)
+                  .toString();
+              }),
             );
-          }
-        })),
-        L.apply(this, arguments)
-      );
+      }
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    async function S(t) {
+      var n = t.data.id;
+      if (t.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon) {
+        var r = await o("WAWebAddonRetryRequestUtils").hasSentAddonMsg(n);
+        return (
+          r ||
+            o("WALogger").WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "filterDeviceWithChangedIdentity: addon not found: ",
+                  "",
+                ])),
+              n,
+            ),
+          r == null ? void 0 : r.rowId
+        );
+      } else if (
+        t.type === o("WAWebSendMsgTypes").SendMessageRecordType.Message
+      ) {
+        var a = await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .get(String(n), !1);
+        return (
+          a ||
+            o("WALogger").WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "filterDeviceWithChangedIdentity: message not found: ",
+                  "",
+                ])),
+              n,
+            ),
+          a == null ? void 0 : a.rowId
+        );
+      }
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield R(e);
-          if (n == null)
-            throw (
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[filterDeviceWithChangedIdentity] no rowId msg=",
-                    " type=",
-                    "",
-                  ])),
-                e.data.id,
-                e.data.type,
-              ),
-              r("err")(
-                "filterDeviceWithChangedIdentity: cannot determine message rowId",
-              )
-            );
-          var a = new Map();
-          t.forEach(function (e) {
-            a.set(o("WAWebDeviceListPk").createDeviceListPK(e), e);
-          });
-          var i = Array.from(a.values(), function (e) {
-              return o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
-                e.user,
-                e.server,
-                o("WAJids").DEFAULT_DEVICE_ID,
-              );
-            }),
-            l = yield o("WAWebSignalProtocolStore")
-              .getPersistSignalProtocolStore()
-              .bulkGetIdentityWithRowId(
-                i.map(function (e) {
-                  return o("WAWebSignalCommonUtils").createSignalAddress(e);
-                }),
-              ),
-            s = new Set();
-          return (
-            l.forEach(function (t, r) {
-              var a =
-                  e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon
-                    ? t == null
-                      ? void 0
-                      : t.sentAddonRowId
-                    : t == null
-                      ? void 0
-                      : t.rowId,
-                l = i[r];
-              (a == null || a > n) &&
-                s.add(o("WAWebDeviceListPk").createDeviceListPK(l));
-            }),
-            t.filter(function (e) {
-              return !s.has(o("WAWebDeviceListPk").createDeviceListPK(e));
-            })
+    async function R(e, t) {
+      var n = await S(e);
+      if (n == null)
+        throw (
+          o("WALogger").WARN(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[filterDeviceWithChangedIdentity] no rowId msg=",
+                " type=",
+                "",
+              ])),
+            e.data.id,
+            e.data.type,
+          ),
+          r("err")(
+            "filterDeviceWithChangedIdentity: cannot determine message rowId",
+          )
+        );
+      var a = new Map();
+      t.forEach(function (e) {
+        a.set(o("WAWebDeviceListPk").createDeviceListPK(e), e);
+      });
+      var i = Array.from(a.values(), function (e) {
+          return o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
+            e.user,
+            e.server,
+            o("WAJids").DEFAULT_DEVICE_ID,
           );
-        })),
-        k.apply(this, arguments)
+        }),
+        l = await o("WAWebSignalProtocolStore")
+          .getPersistSignalProtocolStore()
+          .bulkGetIdentityWithRowId(
+            i.map(function (e) {
+              return o("WAWebSignalCommonUtils").createSignalAddress(e);
+            }),
+          ),
+        s = new Set();
+      return (
+        l.forEach(function (t, r) {
+          var a =
+              e.type === o("WAWebSendMsgTypes").SendMessageRecordType.Addon
+                ? t == null
+                  ? void 0
+                  : t.sentAddonRowId
+                : t == null
+                  ? void 0
+                  : t.rowId,
+            l = i[r];
+          (a == null || a > n) &&
+            s.add(o("WAWebDeviceListPk").createDeviceListPK(l));
+        }),
+        t.filter(function (e) {
+          return !s.has(o("WAWebDeviceListPk").createDeviceListPK(e));
+        })
       );
     }
     ((l.getResendTimeoutInSeconds = d),
@@ -354,7 +329,7 @@ __d(
       (l.sendMsgAckSyncParser = C),
       (l.isPrimaryDevice = b),
       (l.updateIdentityRange = v),
-      (l.filterDeviceWithChangedIdentity = E));
+      (l.filterDeviceWithChangedIdentity = R));
   },
   98,
 );

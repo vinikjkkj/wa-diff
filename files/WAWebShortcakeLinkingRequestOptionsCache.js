@@ -1,11 +1,6 @@
 __d(
   "WAWebShortcakeLinkingRequestOptionsCache",
-  [
-    "WALogger",
-    "WAWebABProps",
-    "WAWebShortcakeLinkingIq",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAWebABProps", "WAWebShortcakeLinkingIq"],
   function (t, n, r, o, a, i, l) {
     var e, s;
     function u() {
@@ -29,36 +24,26 @@ __d(
     function _() {
       return c;
     }
-    function f() {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = _();
-          if (t != null && Date.now() - d < u())
-            return (
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Shortcake prologue: using cached PasskeyRequestOptions",
-                  ])),
-              ),
-              t
-            );
+    async function f() {
+      var t = _();
+      if (t != null && Date.now() - d < u())
+        return (
           o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
-                "[shortcake] fetching fresh PasskeyRequestOptions",
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Shortcake prologue: using cached PasskeyRequestOptions",
               ])),
-          );
-          var n = yield o(
-            "WAWebShortcakeLinkingIq",
-          ).requestPasskeyRequestOptions();
-          return (m(n), n);
-        })),
-        g.apply(this, arguments)
+          ),
+          t
+        );
+      o("WALogger").LOG(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "[shortcake] fetching fresh PasskeyRequestOptions",
+          ])),
       );
+      var n = await o("WAWebShortcakeLinkingIq").requestPasskeyRequestOptions();
+      return (m(n), n);
     }
     ((l.setCachedRequestOptions = m),
       (l.clearCachedRequestOptions = p),

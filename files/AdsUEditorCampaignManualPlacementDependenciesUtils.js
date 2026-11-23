@@ -2,7 +2,6 @@ __d(
   "AdsUEditorCampaignManualPlacementDependenciesUtils",
   [
     "AdsPlacementDependentPlatformGatingUtils",
-    "FacebookReelsOverlayStoreUtils",
     "WAMOStatusAdsManagerUtils",
     "gkx",
     "immutable",
@@ -48,7 +47,7 @@ __d(
           ],
         ],
       ]);
-      if (r("gkx")("5514")) {
+      if (r("gkx")("5514") || r("gkx")("15112")) {
         var n = t.get("instagram/stream");
         n &&
           ((n = n.filter(function (e) {
@@ -56,27 +55,19 @@ __d(
           })),
           t.set("instagram/stream", n));
       }
-      if (o("FacebookReelsOverlayStoreUtils").instreamSkipBundleCheckGK()) {
-        var a = t.get("facebook/feed");
-        a &&
-          ((a = a.filter(function (e) {
-            return e !== "facebook/instream_video";
-          })),
-          t.set("facebook/feed", a));
-      }
       if (
         o("WAMOStatusAdsManagerUtils").isAdAccountAllowedWhatsAppStatusOnly()
       ) {
-        var i = t.get("instagram/story");
-        i &&
-          ((i = i.filter(function (e) {
+        var a = t.get("instagram/story");
+        a &&
+          ((a = a.filter(function (e) {
             return e !== "whatsapp/status";
           })),
-          i.length === 0
+          a.length === 0
             ? t.delete("instagram/story")
-            : t.set("instagram/story", i));
+            : t.set("instagram/story", a));
       }
-      var l = new Map();
+      var i = new Map();
       return (
         t.forEach(function (t, n) {
           var r = t.filter(function (t) {
@@ -84,9 +75,9 @@ __d(
               "AdsPlacementDependentPlatformGatingUtils",
             ).shouldSkipPlacementParentDependency(t, n, e);
           });
-          r.length > 0 && l.set(n, r);
+          r.length > 0 && i.set(n, r);
         }),
-        r("immutable").Map(l)
+        r("immutable").Map(i)
       );
     }
     function c(e) {
@@ -107,9 +98,7 @@ __d(
         ["audience_network/instream_video", ["facebook/feed"]],
         ["audience_network/rewarded_video", ["facebook/feed"]],
       ]);
-      (r("gkx")("5514") && t.delete("threads/stream"),
-        o("FacebookReelsOverlayStoreUtils").instreamSkipBundleCheckGK() &&
-          t.delete("facebook/instream_video"),
+      ((r("gkx")("5514") || r("gkx")("15112")) && t.delete("threads/stream"),
         o("WAMOStatusAdsManagerUtils").isAdAccountAllowedWhatsAppStatusOnly() &&
           t.delete("whatsapp/status"));
       var n = new Map();

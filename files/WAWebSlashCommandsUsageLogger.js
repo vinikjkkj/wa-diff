@@ -1,7 +1,6 @@
 __d(
   "WAWebSlashCommandsUsageLogger",
   [
-    "Promise",
     "WALogger",
     "WAWebEmployeeCommandExtensionTransport",
     "WAWebEnvironment",
@@ -10,15 +9,13 @@ __d(
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserUtils",
     "WaWebEmployeeSlashCommandFalcoEvent",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = new Set([
+      c = new Set([
         "remindus",
         "delay",
         "remindme",
@@ -27,12 +24,12 @@ __d(
         "thanks",
         "fileatask",
       ]),
-      m = "WASlashCommandUsageDays",
-      p = 1200 * 1e3,
-      _ = 2e3,
-      f = { task: "fileatask", thanks: "thanks", vc: "fileavc" },
-      g = new Set(Object.values(f)),
-      h = [
+      d = "WASlashCommandUsageDays",
+      m = 1200 * 1e3,
+      p = 2e3,
+      _ = { task: "fileatask", thanks: "thanks", vc: "fileavc" },
+      f = new Set(Object.values(_)),
+      g = [
         [1e3, "under_1s"],
         [3e3, "under_3s"],
         [1e4, "under_10s"],
@@ -40,21 +37,21 @@ __d(
         [6e4, "under_1m"],
         [3e5, "under_5m"],
       ],
-      y = [],
-      C = (c || (c = n("Promise"))).resolve();
-    function b(t) {
+      h = [],
+      y = Promise.resolve();
+    function C(t) {
       var n,
         a,
         i = (n = t.command) != null ? n : "none",
-        l = i === "none" || d.has(i);
+        l = i === "none" || c.has(i);
       if (!(!l || !o("WAWebSelfReminderGating").isSelfReminderEnabled())) {
         var s =
             t.prefilled != null
               ? t.action + ":" + i + ":" + t.prefilled
               : t.action + ":" + i,
-          u = (a = t.transport) != null ? a : x(t),
-          c = F();
-        B(s)
+          u = (a = t.transport) != null ? a : D(t),
+          d = A();
+        O(s)
           .catch(function (t) {
             return (
               o("WALogger")
@@ -72,7 +69,7 @@ __d(
           .then(function (e) {
             e != null &&
               r("WaWebEmployeeSlashCommandFalcoEvent").log(function () {
-                return babelHelpers.extends({}, c, {
+                return babelHelpers.extends({}, d, {
                   action: t.action,
                   command: i,
                   is_first_today: e.isFirstToday,
@@ -91,9 +88,9 @@ __d(
           });
       }
     }
-    function v(e, t) {
+    function b(e, t) {
       try {
-        b({
+        C({
           action: e,
           command: o("WAWebUserUtils").isMeAccount(t.id)
             ? "remindme"
@@ -112,11 +109,11 @@ __d(
           .sendLogs("slash-command-reminder-usage-failed");
       }
     }
-    function S(e, t, n, r) {
+    function v(e, t, n, r) {
       r === void 0 && (r = "popup");
       try {
-        y = [].concat(
-          y.filter(function (n) {
+        h = [].concat(
+          h.filter(function (n) {
             return n.command !== e || !n.chat.id.equals(t.id);
           }),
           [
@@ -126,49 +123,49 @@ __d(
               prefilled: n,
               transport: r,
               startedAt: Date.now(),
-              until: Date.now() + p,
+              until: Date.now() + m,
             },
           ],
         );
       } catch (e) {
-        D(e);
+        T(e);
       }
     }
-    function R(e, t) {
-      var n = f[e],
-        r = y.filter(function (e) {
+    function S(e, t) {
+      var n = _[e],
+        r = h.filter(function (e) {
           return e.command === n;
         }),
         o = r[r.length - 1];
       o != null &&
-        (y = y.map(function (e) {
+        (h = h.map(function (e) {
           return e === o ? babelHelpers.extends({}, o, { transport: t }) : e;
         }));
     }
-    function L(e, t) {
+    function R(e, t) {
       try {
-        b({ action: "fallback_open", command: e, chat: t });
+        C({ action: "fallback_open", command: e, chat: t });
       } catch (e) {
-        D(e);
+        T(e);
       }
     }
+    function L(e) {
+      I("fileatask", e);
+    }
     function E(e) {
-      T("fileatask", e);
+      I("thanks", e);
     }
     function k(e) {
-      T("thanks", e);
+      I("fileavc", e);
     }
-    function I(e) {
-      T("fileavc", e);
-    }
-    function T(e, t) {
+    function I(e, t) {
       try {
         var n = t.chat,
           r = Date.now();
-        y = y.filter(function (e) {
+        h = h.filter(function (e) {
           return e.until >= r;
         });
-        var o = y.find(function (t) {
+        var o = h.find(function (t) {
             return t.command === e && t.chat.id.equals(n.id);
           }),
           a = {
@@ -176,30 +173,30 @@ __d(
             chat: n,
             prefilled: o == null ? void 0 : o.prefilled,
             transport: o == null ? void 0 : o.transport,
-            latency: o != null ? $(r - o.startedAt) : void 0,
+            latency: o != null ? x(r - o.startedAt) : void 0,
           };
         t.outcome != null
-          ? ((y = y.filter(function (e) {
+          ? ((h = h.filter(function (e) {
               return e !== o;
             })),
-            b(
+            C(
               babelHelpers.extends({}, a, {
                 action: "command_followup_done",
                 handback: t.outcome,
               }),
             ))
-          : b(
+          : C(
               babelHelpers.extends({}, a, {
                 action: "command_fallback",
                 fallbackReason: t.fallbackReason,
-                fallbackKind: P(t.fallbackReason, t.fallbackOpened === !0),
+                fallbackKind: $(t.fallbackReason, t.fallbackOpened === !0),
               }),
             );
       } catch (e) {
-        D(e);
+        T(e);
       }
     }
-    function D(e) {
+    function T(e) {
       o("WALogger")
         .ERROR(
           u ||
@@ -210,28 +207,28 @@ __d(
         .catching(r("getErrorSafe")(e))
         .sendLogs("slash-command-hand-back-logging-failed");
     }
-    function x(e) {
+    function D(e) {
       var t = e.chat,
         n = e.command;
       if (
         !(
           e.action !== "command_done" ||
           t == null ||
-          !g.has(n != null ? n : "")
+          !f.has(n != null ? n : "")
         )
       ) {
-        var r = y.find(function (e) {
+        var r = h.find(function (e) {
           return e.command === n && e.chat.id.equals(t.id);
         });
-        return r != null && Date.now() - r.startedAt < _
+        return r != null && Date.now() - r.startedAt < p
           ? r.transport
           : "prefilled_page";
       }
     }
-    function $(e) {
+    function x(e) {
       var t, n;
       return (t =
-        (n = h.find(function (t) {
+        (n = g.find(function (t) {
           var n = t[0];
           return e < n;
         })) == null
@@ -240,38 +237,38 @@ __d(
         ? t
         : "over_5m";
     }
-    function P(e, t) {
+    function $(e, t) {
       return e === "timeout"
         ? "check_first"
         : t
           ? "tab_opened"
           : "open_offered";
     }
-    var N = {
+    var P = {
         chrome: "chrome",
         edge: "edge",
         firefox: "firefox",
         safari: "safari",
       },
-      M = { "mac os": "mac", windows: "windows", "chromium os": "chromeos" },
-      w = { prod: "web", intern: "dev_web", dev: "dev_build" },
-      A = { web: "browser_tab", pwa: "pwa", win_hybrid: "windows_app" };
-    function F() {
+      N = { "mac os": "mac", windows: "windows", "chromium os": "chromeos" },
+      M = { prod: "web", intern: "dev_web", dev: "dev_build" },
+      w = { web: "browser_tab", pwa: "pwa", win_hybrid: "windows_app" };
+    function A() {
       var e,
         t = parseInt(o("WAWebUA").UA.browserVersion, 10);
       return {
-        browser: (e = N[o("WAWebUA").UA.browser]) != null ? e : "other",
+        browser: (e = P[o("WAWebUA").UA.browser]) != null ? e : "other",
         browser_major: t > 0 ? String(t) : null,
-        os: O(),
-        client_tier: w[r("WAWebEnvironment").getEnvironment()],
-        app_shell: A[r("WAWebEnvironment").getSubPlatform()],
+        os: F(),
+        client_tier: M[r("WAWebEnvironment").getEnvironment()],
+        app_shell: w[r("WAWebEnvironment").getSubPlatform()],
         extension_state: o(
           "WAWebEmployeeCommandExtensionTransport",
         ).getEmployeeCommandExtensionState(),
       };
     }
-    function O() {
-      var e = M[o("WAWebUA").UA.os];
+    function F() {
+      var e = N[o("WAWebUA").UA.os];
       return e != null
         ? e
         : o("WAWebUA").UA.os !== "android" &&
@@ -279,44 +276,42 @@ __d(
           ? "linux"
           : "other";
     }
-    function B(e) {
-      var t = C.then(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t;
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
-          var n =
-              (t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(m)) !=
-              null
-                ? t
-                : {},
-            r = W(new Date()),
-            a = n[e];
-          if (a !== r) {
-            var i;
-            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-              m,
-              babelHelpers.extends({}, n, ((i = {}), (i[e] = r), i)),
-            );
-          }
-          return { isFirstToday: a !== r, isFirstEver: a == null };
-        }),
-      );
-      return ((C = t.catch(function () {})), t);
+    function O(e) {
+      var t = y.then(async function () {
+        var t;
+        await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init();
+        var n =
+            (t = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(d)) !=
+            null
+              ? t
+              : {},
+          r = B(new Date()),
+          a = n[e];
+        if (a !== r) {
+          var i;
+          await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+            d,
+            babelHelpers.extends({}, n, ((i = {}), (i[e] = r), i)),
+          );
+        }
+        return { isFirstToday: a !== r, isFirstEver: a == null };
+      });
+      return ((y = t.catch(function () {})), t);
     }
-    function W(e) {
+    function B(e) {
       var t = String(e.getMonth() + 1).padStart(2, "0"),
         n = String(e.getDate()).padStart(2, "0");
       return e.getFullYear() + "-" + t + "-" + n;
     }
-    ((l.LOGGED_COMMAND_NAMES = d),
-      (l.logSlashCommandUsage = b),
-      (l.logReminderUsage = v),
-      (l.expectHandBack = S),
-      (l.noteHandOffTransport = R),
-      (l.logFallbackOpen = L),
-      (l.logFileTaskResult = E),
-      (l.logThanksResult = k),
-      (l.logFileAVCResult = I));
+    ((l.LOGGED_COMMAND_NAMES = c),
+      (l.logSlashCommandUsage = C),
+      (l.logReminderUsage = b),
+      (l.expectHandBack = v),
+      (l.noteHandOffTransport = S),
+      (l.logFallbackOpen = R),
+      (l.logFileTaskResult = L),
+      (l.logThanksResult = E),
+      (l.logFileAVCResult = k));
   },
   98,
 );

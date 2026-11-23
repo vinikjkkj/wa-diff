@@ -5,87 +5,68 @@ __d(
     "WAWebOrgAdminGroupCandidate",
     "WAWebOrgAdminGroupParticipantsAction",
     "WAWebOrgManagedGroupsRepository",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = ["runParticipantFollowUp"];
-    function u(e, t, n) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a, i) {
-          var l,
-            u = new Set(
-              (l = a.participants) == null
-                ? void 0
-                : l.map(function (e) {
-                    return e.lid;
-                  }),
-            ),
-            c = i.filter(function (e) {
-              var t = o(
-                "WAWebOrgAdminGroupCandidate",
-              ).getOrgAdminGroupCandidateLID(e);
-              return t == null || !u.has(t);
-            }),
-            d = i.length - c.length;
-          if (c.length === 0)
-            return {
-              addedMemberCount: 0,
-              alreadyMemberCount: d,
-              failedMemberCount: 0,
-              invitedMemberCount: 0,
-              runParticipantFollowUp: null,
-            };
-          try {
-            var m = yield o(
-                "WAWebOrgManagedGroupsRepository",
-              ).runOrgManagedGroupsMutation(
-                t,
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      var t = e.refreshGroupAfterMutation,
-                        n = yield o(
-                          "WAWebOrgAdminGroupParticipantsAction",
-                        ).addOrgGroupCandidatesToGroup(a.gid, c);
-                      return (yield t(a.gid), n);
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-              p = m.runParticipantFollowUp,
-              _ = babelHelpers.objectWithoutPropertiesLoose(m, s);
-            return babelHelpers.extends(
-              {},
-              o(
+    async function u(t, n, a) {
+      var i,
+        l = new Set(
+          (i = n.participants) == null
+            ? void 0
+            : i.map(function (e) {
+                return e.lid;
+              }),
+        ),
+        u = a.filter(function (e) {
+          var t = o("WAWebOrgAdminGroupCandidate").getOrgAdminGroupCandidateLID(
+            e,
+          );
+          return t == null || !l.has(t);
+        }),
+        c = a.length - u.length;
+      if (u.length === 0)
+        return {
+          addedMemberCount: 0,
+          alreadyMemberCount: c,
+          failedMemberCount: 0,
+          invitedMemberCount: 0,
+          runParticipantFollowUp: null,
+        };
+      try {
+        var d = await o(
+            "WAWebOrgManagedGroupsRepository",
+          ).runOrgManagedGroupsMutation(t, async function (e) {
+            var t = e.refreshGroupAfterMutation,
+              r = await o(
                 "WAWebOrgAdminGroupParticipantsAction",
-              ).getOrgAdminGroupParticipantOutcomeCounts(c.length, _),
-              { alreadyMemberCount: d, runParticipantFollowUp: p },
-            );
-          } catch (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[org-admin] adding members to a group failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("org-admin-add-members-to-group-failed"),
-              null
-            );
-          }
-        })),
-        c.apply(this, arguments)
-      );
+              ).addOrgGroupCandidatesToGroup(n.gid, u);
+            return (await t(n.gid), r);
+          }),
+          m = d.runParticipantFollowUp,
+          p = babelHelpers.objectWithoutPropertiesLoose(d, s);
+        return babelHelpers.extends(
+          {},
+          o(
+            "WAWebOrgAdminGroupParticipantsAction",
+          ).getOrgAdminGroupParticipantOutcomeCounts(u.length, p),
+          { alreadyMemberCount: c, runParticipantFollowUp: m },
+        );
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[org-admin] adding members to a group failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("org-admin-add-members-to-group-failed"),
+          null
+        );
+      }
     }
     l.addOrgAdminMembersToGroup = u;
   },

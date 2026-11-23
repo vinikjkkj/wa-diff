@@ -1,55 +1,51 @@
 __d(
   "WAWebMediaDownloadMsg",
   [
-    "Promise",
     "WALogger",
     "WAWebExperienceIdWamFields",
     "WAWebMediaGetDownloadOriginForMsg",
     "WAWebMediaMmsV4Download",
     "WAWebMmsMediaTypes",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(t) {
-      var a = t.chatWid,
-        i = t.downloadEvenIfExpensive,
-        l = t.isAutoDownload,
-        u = t.isUserClick,
-        c = t.mode,
-        d = t.msg,
-        m = t.rmrData,
-        p = t.rmrReason,
-        _ = t.shouldSequenceDownload,
-        f = t.shouldThrowAbortError,
-        g = d.mediaObject;
-      if (g) {
-        var h = g.getPendingProcess("fromDisk");
-        return h.then(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            (u && g.userDownloadAttemptCount++,
-              yield o("WAWebMediaMmsV4Download").downloadMedia({
-                mimetype: d.mimetype,
-                mediaObject: g,
-                downloadEvenIfExpensive: i,
-                mediaType: o("WAWebMmsMediaTypes").getMsgMediaType(d),
-                rmrReason: p,
-                rmrData: m,
-                downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(d),
-                isVcardOverMmsDocument: d.isVcardOverMmsDocument,
-                mode: c,
-                isAutoDownload: l,
-                isViewOnce: !!d.isViewOnce,
-                chatWid: a,
-                shouldSequenceDownload: _,
-                shouldThrow: f,
-                experienceIds: o("WAWebExperienceIdWamFields").getExperienceIds(
-                  d,
-                ),
-              }),
-              (g.userDownloadAttemptCount = 0));
-          }),
-        );
+    var e;
+    function s(t) {
+      var n = t.chatWid,
+        a = t.downloadEvenIfExpensive,
+        i = t.isAutoDownload,
+        l = t.isUserClick,
+        s = t.mode,
+        u = t.msg,
+        c = t.rmrData,
+        d = t.rmrReason,
+        m = t.shouldSequenceDownload,
+        p = t.shouldThrowAbortError,
+        _ = u.mediaObject;
+      if (_) {
+        var f = _.getPendingProcess("fromDisk");
+        return f.then(async function () {
+          (l && _.userDownloadAttemptCount++,
+            await o("WAWebMediaMmsV4Download").downloadMedia({
+              mimetype: u.mimetype,
+              mediaObject: _,
+              downloadEvenIfExpensive: a,
+              mediaType: o("WAWebMmsMediaTypes").getMsgMediaType(u),
+              rmrReason: d,
+              rmrData: c,
+              downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(u),
+              isVcardOverMmsDocument: u.isVcardOverMmsDocument,
+              mode: s,
+              isAutoDownload: i,
+              isViewOnce: !!u.isViewOnce,
+              chatWid: n,
+              shouldSequenceDownload: m,
+              shouldThrow: p,
+              experienceIds: o("WAWebExperienceIdWamFields").getExperienceIds(
+                u,
+              ),
+            }),
+            (_.userDownloadAttemptCount = 0));
+        });
       }
       return (
         o("WALogger")
@@ -60,14 +56,14 @@ __d(
                 " type: ",
                 "",
               ])),
-            d.id.toString(),
-            d.type,
+            u.id.toString(),
+            u.type,
           )
           .sendLogs("media-fault: downloadMsg msg without mediaObject"),
-        (s || (s = n("Promise"))).resolve()
+        Promise.resolve()
       );
     }
-    l.downloadMsg = u;
+    l.downloadMsg = s;
   },
   98,
 );

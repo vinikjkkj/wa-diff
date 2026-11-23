@@ -1,7 +1,6 @@
 __d(
   "WAWebHandleVoipCallReceipt",
   [
-    "Promise",
     "WADeprecatedWapParser",
     "WALogger",
     "WAParsableWapNode",
@@ -14,14 +13,12 @@ __d(
     "WAWebVoipInitEventEmitter",
     "WAWebVoipPeerTcToken",
     "WAWebVoipStackInterface",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = new (r("WADeprecatedWapParser"))("callReceiptParser", function (e) {
+      c = new (r("WADeprecatedWapParser"))("callReceiptParser", function (e) {
         e.assertTag("receipt");
         var t =
           e.maybeChild("offer") ||
@@ -34,59 +31,51 @@ __d(
           from: o("WAWebJidToWid").jidWithTypeToWid(e.attrJidWithType("from")),
         };
       });
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = d.parse(e);
-          if (t.error)
-            return (
-              o("WALogger").ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                t.error.toString(),
-              ),
-              (c || (c = n("Promise"))).reject(t.error)
-            );
-          var r = t.success,
-            a = r.from,
-            i = r.stanzaId,
-            l = r.type;
-          if (_()) {
-            var s = yield (c || (c = n("Promise"))).all([
-                o("WAWebVoipStackInterface").getVoipStackInterface(),
-                o("WAWebVoipPeerTcToken").fetchPeerTcToken(a),
-              ]),
-              m = s[0],
-              p = s[1];
-            yield m == null
-              ? void 0
-              : m.handleIncomingSignalingReceipt(
-                  new (o("WAParsableWapNode").ParsableWapNode)("receipt", e),
-                  a.toString({ legacy: !0, formatIncludeDevice: !0 }),
-                  p,
-                );
-          }
-          return o("WAWap").wap("ack", {
-            id: o("WAWap").CUSTOM_STRING(i),
-            to: o("WAWebCommsWapMd").JID(a),
-            class: "receipt",
-            type: o("WAWap").MAYBE_CUSTOM_STRING(l),
-          });
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _() {
-      return o("WAWebRuntimeEnvironmentUtils").isWorker()
-        ? (o("WALogger").LOG(
+    async function d(t) {
+      var n = c.parse(t);
+      if (n.error)
+        return (
+          o("WALogger").ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            n.error.toString(),
+          ),
+          Promise.reject(n.error)
+        );
+      var r = n.success,
+        a = r.from,
+        i = r.stanzaId,
+        l = r.type;
+      if (m()) {
+        var s = await Promise.all([
+            o("WAWebVoipStackInterface").getVoipStackInterface(),
+            o("WAWebVoipPeerTcToken").fetchPeerTcToken(a),
+          ]),
+          u = s[0],
+          d = s[1];
+        await (u == null
+          ? void 0
+          : u.handleIncomingSignalingReceipt(
+              new (o("WAParsableWapNode").ParsableWapNode)("receipt", t),
+              a.toString({ legacy: !0, formatIncludeDevice: !0 }),
+              d,
+            ));
+      }
+      return o("WAWap").wap("ack", {
+        id: o("WAWap").CUSTOM_STRING(i),
+        to: o("WAWebCommsWapMd").JID(a),
+        class: "receipt",
+        type: o("WAWap").MAYBE_CUSTOM_STRING(l),
+      });
+    }
+    function m() {
+      return o("WAWebRuntimeEnvironmentUtils").isWorker()
+        ? (o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: call receipt dropped reason=worker_realm",
               ])),
           ),
@@ -99,8 +88,8 @@ __d(
           : (o("WAWebVoipDeferredBootLogging").safelyLogVoipDeferredBootEvent(
               function () {
                 o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [deferred-boot] receipt dropped reason=not_inited",
                     ])),
                 );
@@ -108,7 +97,7 @@ __d(
             ),
             !1);
     }
-    l.handleCallReceipt = m;
+    l.handleCallReceipt = d;
   },
   98,
 );

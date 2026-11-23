@@ -18,36 +18,19 @@ __d(
                 l,
                 r.formattedTitle,
               )
-            : s._(
-                /*BTDS*/ '_j{"*":"{count} messages couldn\'t be forwarded because the file is missing.","_1":"1 message couldn\'t be forwarded because the file is missing."}',
-                [s._plural(l, "count")],
-              )
+            : s._(/*BTDS*/ "", [s._plural(l, "count")])
           : o(
               "WAWebStringsWithMultiplePluralParts",
             ).getCannotForwardCapabilityContactString(l, r.formattedTitle)
         : a.length
           ? n.length
             ? o("WAWebChatGetters").getIsUser(r)
-              ? s._(
-                  /*BTDS*/ "No messages could be forwarded because the file is missing or {contact} is on a version of WhatsApp that doesn't support them.",
-                  [s._param("contact", r.formattedTitle)],
-                )
-              : s._(
-                  /*BTDS*/ "No messages could be forwarded because the file is missing or {contact} is on a version of WhatsApp that doesn't support them.",
-                  [s._param("contact", r.formattedTitle)],
-                )
-            : s._(
-                /*BTDS*/ "No messages could be forwarded because the file is missing.",
-              )
+              ? s._(/*BTDS*/ "", [s._param("contact", r.formattedTitle)])
+              : s._(/*BTDS*/ "", [s._param("contact", r.formattedTitle)])
+            : s._(/*BTDS*/ "")
           : o("WAWebChatGetters").getIsUser(r)
-            ? s._(
-                /*BTDS*/ "No messages could be forwarded because {contact} is on a version of WhatsApp that doesn't support them.",
-                [s._param("contact", r.formattedTitle)],
-              )
-            : s._(
-                /*BTDS*/ "No messages could be forwarded because {contact} is on a version of WhatsApp that doesn't support them.",
-                [s._param("contact", r.formattedTitle)],
-              );
+            ? s._(/*BTDS*/ "", [s._param("contact", r.formattedTitle)])
+            : s._(/*BTDS*/ "", [s._param("contact", r.formattedTitle)]);
     }
     l.default = e;
   },

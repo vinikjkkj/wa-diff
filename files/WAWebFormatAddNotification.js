@@ -24,22 +24,20 @@ __d(
         ? c
         : t
           ? o("WAWebSystemMessagesUtils").isMe(t)
-            ? s._(/*BTDS*/ "You added {names}", [s._param("names", a)])
+            ? s._(/*BTDS*/ "", [s._param("names", a)])
             : o("WAWebSystemMessagesUtils").isMe(l)
               ? n != null
-                ? s._(/*BTDS*/ "{user_name} added you", [
-                    s._param("user_name", n),
-                  ])
-                : s._(/*BTDS*/ "A member added you")
+                ? s._(/*BTDS*/ "", [s._param("user_name", n)])
+                : s._(/*BTDS*/ "")
               : n != null
-                ? s._(/*BTDS*/ "{user_name} added {names}", [
+                ? s._(/*BTDS*/ "", [
                     s._param("user_name", n),
                     s._param("names", a),
                   ])
-                : s._(/*BTDS*/ "A member added {names}", [s._param("names", a)])
+                : s._(/*BTDS*/ "", [s._param("names", a)])
           : o("WAWebSystemMessagesUtils").isMe(l)
-            ? s._(/*BTDS*/ "You were added")
-            : s._(/*BTDS*/ "{user_name} was added", [s._param("user_name", u)]);
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "", [s._param("user_name", u)]);
     }
     l.formatAddNotification = e;
   },

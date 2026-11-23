@@ -9,7 +9,6 @@ __d(
     "WAWebHatchVmConnection",
     "WAWebPonyfillsCryptoRandomUUID",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -18,67 +17,59 @@ __d(
       u,
       c = n("$InternalEnum").Mirrored(["HatchVmClientId"]),
       d = c.HatchVmClientId;
-    function m() {
-      return p.apply(this, arguments);
+    async function m() {
+      try {
+        var t = await o("WAWebHatchVmConnection").connectHatchVmApi();
+        if (t == null) return { kind: "NoSession" };
+        var n = p(),
+          r = n.capabilities.rendering.supported_presentations,
+          a = await t.registerCapabilities(n);
+        return (
+          a.kind === "Ok"
+            ? o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "hatch-capabilities: registered presentations=",
+                    "",
+                  ])),
+                r.join(","),
+              )
+            : o("WALogger")
+                .WARN(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-capabilities: register failed kind=",
+                      "",
+                    ])),
+                  a.kind,
+                )
+                .sendLogs("hatch-capabilities-register-failed"),
+          { call: a, kind: "Sent", presentations: r }
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "hatch-capabilities: register threw",
+                ])),
+            )
+            .sendLogs("hatch-capabilities-register-threw"),
+          { kind: "Threw" }
+        );
+      }
     }
     function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var t = yield o("WAWebHatchVmConnection").connectHatchVmApi();
-            if (t == null) return { kind: "NoSession" };
-            var n = _(),
-              r = n.capabilities.rendering.supported_presentations,
-              a = yield t.registerCapabilities(n);
-            return (
-              a.kind === "Ok"
-                ? o("WALogger").LOG(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "hatch-capabilities: registered presentations=",
-                        "",
-                      ])),
-                    r.join(","),
-                  )
-                : o("WALogger")
-                    .WARN(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "hatch-capabilities: register failed kind=",
-                          "",
-                        ])),
-                      a.kind,
-                    )
-                    .sendLogs("hatch-capabilities-register-failed"),
-              { call: a, kind: "Sent", presentations: r }
-            );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-capabilities: register threw",
-                    ])),
-                )
-                .sendLogs("hatch-capabilities-register-threw"),
-              { kind: "Threw" }
-            );
-          }
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _() {
       return {
-        capabilities: { rendering: { supported_presentations: f() } },
-        client_id: "whatsapp:" + g(),
+        capabilities: { rendering: { supported_presentations: _() } },
+        client_id: "whatsapp:" + f(),
         display_name: "WhatsApp Web",
         platform: "whatsapp",
         version: o("WAWebBuildConstants").VERSION_STR,
       };
     }
-    function f() {
+    function _() {
       return [].concat(
         o("WAWebHatchFrontendGating").isHatchConnectorsEnabled()
           ? ["connector_action_card"]
@@ -99,7 +90,7 @@ __d(
           : [],
       );
     }
-    function g() {
+    function f() {
       var e = r("WAWebUserPrefsStore").get(d);
       if (typeof e == "string" && e !== "") return e;
       var t = r("WAWebPonyfillsCryptoRandomUUID")();

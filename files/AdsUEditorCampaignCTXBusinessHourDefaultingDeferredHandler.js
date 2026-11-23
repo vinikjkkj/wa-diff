@@ -63,7 +63,6 @@ __d(
                   ).getCTXBusinessHourCreationDefault(
                     r("adsUEditorAdObjectsForSelectedCampaignsSelector")(e),
                     t,
-                    !0,
                   );
                   n != null &&
                     (n.campaignGroupIDs.length > 0 &&
@@ -77,7 +76,7 @@ __d(
                           useDayParting: !0,
                         },
                         {
-                          line: "77",
+                          line: "76",
                           module:
                             "AdsUEditorCampaignCTXBusinessHourDefaultingDeferredHandler.js",
                           moduleID: i.id,
@@ -93,7 +92,7 @@ __d(
                         pacingType: ["day_parting"],
                       },
                       {
-                        line: "84",
+                        line: "83",
                         module:
                           "AdsUEditorCampaignCTXBusinessHourDefaultingDeferredHandler.js",
                         moduleID: i.id,

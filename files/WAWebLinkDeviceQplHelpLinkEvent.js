@@ -11,7 +11,6 @@ __d(
     "WAWebQplFlowWrapper",
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
     "isWAWebFeatureDetectionAndroidTablet",
     "qpl",
   ],
@@ -68,51 +67,42 @@ __d(
       }),
       u = r("qpl")._(891430409, "3269"),
       c = /^[A-Z]{2}$/;
-    function d(e, t, n, r, o, a) {
-      return m.apply(this, arguments);
+    async function d(t, n, a, i, l, s) {
+      try {
+        if (!r("WAWebEnvironment").isWeb) return;
+        var c = m(t, i, l, s),
+          d = babelHelpers.extends({}, c, {
+            md_link_device_experience_id: o(
+              "WAWebLinkDeviceExperience",
+            ).getWebCompanionLinkDeviceExperienceId(n),
+          }),
+          p = {
+            source_type: t,
+            code_type: o("WAWebAltDeviceLinkingApi").getPairingType(),
+          };
+        (a != null && (p.surface = a),
+          c != null &&
+            (e || (e = r("QuickPerformanceLogger"))).setAlwaysOnSampleRate(
+              u,
+              1,
+            ),
+          i != null &&
+            ((p.android_tablet_detection_source = i.detectionSource),
+            (p.android_tablet_device_class = i.deviceClass),
+            (p.android_tablet_model_source = i.modelSource)));
+        var _ = o("WAWebQplFlowWrapper").QPL.markerStart(u, {
+          annotations: { int: d, string: p },
+        });
+        _.end(2);
+      } catch (e) {
+        o("WAWebQplFlowWrapper").QPL.markerEnd(u, 3);
+      }
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i, l, s) {
-            try {
-              if (!r("WAWebEnvironment").isWeb) return;
-              var c = p(t, i, l, s),
-                d = babelHelpers.extends({}, c, {
-                  md_link_device_experience_id: o(
-                    "WAWebLinkDeviceExperience",
-                  ).getWebCompanionLinkDeviceExperienceId(n),
-                }),
-                m = {
-                  source_type: t,
-                  code_type: o("WAWebAltDeviceLinkingApi").getPairingType(),
-                };
-              (a != null && (m.surface = a),
-                c != null &&
-                  (
-                    e || (e = r("QuickPerformanceLogger"))
-                  ).setAlwaysOnSampleRate(u, 1),
-                i != null &&
-                  ((m.android_tablet_detection_source = i.detectionSource),
-                  (m.android_tablet_device_class = i.deviceClass),
-                  (m.android_tablet_model_source = i.modelSource)));
-              var _ = o("WAWebQplFlowWrapper").QPL.markerStart(u, {
-                annotations: { int: d, string: m },
-              });
-              _.end(2);
-            } catch (e) {
-              o("WAWebQplFlowWrapper").QPL.markerEnd(u, 3);
-            }
-          },
-        )),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t, n, r) {
+    function m(e, t, n, r) {
       return t != null
         ? babelHelpers.extends(
             {},
-            _(
+            p(
               e,
               t.detectorVersion,
               o("WAWebAndroidTabletVisitId").getOrCreateAndroidTabletVisitId(),
@@ -123,7 +113,7 @@ __d(
         : r != null
           ? babelHelpers.extends(
               {},
-              _(
+              p(
                 e,
                 o("isWAWebFeatureDetectionAndroidTablet")
                   .ANDROID_TABLET_DETECTOR_VERSION,
@@ -136,22 +126,22 @@ __d(
             )
           : null;
     }
-    function _(e, t, n, r) {
+    function p(e, t, n, r) {
       var a = {
-          android_tablet_browser_linked_before: g() ? 1 : 0,
+          android_tablet_browser_linked_before: f() ? 1 : 0,
           android_tablet_detector_version: t,
           android_tablet_visit_id: n,
         },
-        i = f(e);
+        i = _(e);
       i != null && (a.android_tablet_overlay_event = i);
-      var l = h(r);
+      var l = g(r);
       l != null && (a.android_tablet_country = l);
       var s = o(
         "isWAWebFeatureDetectionAndroidTablet",
       ).getWAWebFeatureDetectionAndroidTabletScreenClass();
       return (s != null && (a.android_tablet_screen_class = s), a);
     }
-    function f(e) {
+    function _(e) {
       return e === s.ANDROID_TABLET_OVERLAY_SCREEN_LOADED
         ? 1
         : e === s.ANDROID_TABLET_OVERLAY_DOWNLOAD_APP
@@ -172,14 +162,14 @@ __d(
                         ? 9
                         : null;
     }
-    function g() {
+    function f() {
       var e = r("WAWebUserPrefsStore").get(
         o("WAWebUserPrefsKeys").KEYS.PRESERVED_USER_KEYS,
         { storage: r("WAWebPermanentStorage") },
       );
       return Array.isArray(e) && e.length > 0;
     }
-    function h(e) {
+    function g(e) {
       return e == null || !c.test(e)
         ? null
         : e.charCodeAt(0) * 256 + e.charCodeAt(1);

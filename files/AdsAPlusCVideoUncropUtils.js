@@ -1,6 +1,6 @@
 __d(
   "AdsAPlusCVideoUncropUtils",
-  ["$InternalEnum", "compactMap", "gkx", "immutable"],
+  ["$InternalEnum", "compactMap", "gkx", "immutable", "justknobx"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = n("$InternalEnum").Mirrored([
@@ -98,24 +98,38 @@ __d(
         t
       );
     }
-    function c(e) {
-      return e ? r("gkx")("11407") : r("gkx")("11408");
+    function c() {
+      return r("gkx")("11407");
     }
-    function d(e) {
-      return s
-        .filter(function (t) {
-          return (
-            t.adCreativeOptimizationOptionValue ===
-              e.adCreativeOptimizationOptionValue &&
-            t.adCreativeOptimizationType === e.adCreativeOptimizationType &&
-            t.apiFormat === e.apiFormat
-          );
-        })
-        .keys()
-        .next().value;
+    function d(t) {
+      return t.adCreativeOptimizationType === 227 &&
+        t.adCreativeOptimizationOptionValue === 2270104 &&
+        t.apiFormat === "INSTAGRAM_STANDARD"
+        ? e.IG_FEED
+        : t.adCreativeOptimizationType === 340 &&
+            t.adCreativeOptimizationOptionValue === 3400002 &&
+            t.apiFormat === "FACEBOOK_REELS_MOBILE"
+          ? e.FB_REELS
+          : s
+              .filter(function (e) {
+                return (
+                  e.adCreativeOptimizationOptionValue ===
+                    t.adCreativeOptimizationOptionValue &&
+                  e.adCreativeOptimizationType ===
+                    t.adCreativeOptimizationType &&
+                  e.apiFormat === t.apiFormat
+                );
+              })
+              .keys()
+              .next().value;
     }
-    function m(e) {
-      return s.get(e);
+    function m(t) {
+      var n = s.get(t);
+      return n != null && t === e.FB_REELS && r("justknobx")._("7246")
+        ? babelHelpers.extends({}, n, {
+            adCreativeOptimizationOptionValue: 3400002,
+          })
+        : n;
     }
     function p() {
       var e = r("compactMap")(u(), function (e) {
@@ -181,8 +195,7 @@ __d(
     function y(e) {
       return e ? r("gkx")("10129") : r("gkx")("12679");
     }
-    ((l.VideoUncropVariations = e),
-      (l.passVideoUncropLivePreviewGk = c),
+    ((l.passVideoUncropLivePreviewGk = c),
       (l.getVideoUncropVariationFromOptInfo = d),
       (l.getVideoUncropACOInfoListForAdgroup = p),
       (l.getVideoAutoCropACOInfoList = h),

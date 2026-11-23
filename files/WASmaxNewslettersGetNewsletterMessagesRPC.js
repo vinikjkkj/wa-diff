@@ -22,56 +22,45 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = m(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return {
-              name: "GetNewsletterMessagesResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "GetNewsletterMessagesResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "GetNewsletterMessagesResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "GetNewsletterMessages",
-              { Success: a, ClientError: i, ServerError: l },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = d(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return { name: "GetNewsletterMessagesResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "GetNewsletterMessagesResponseClientError",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "GetNewsletterMessagesResponseServerError",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetNewsletterMessages", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
-      var r = h(e, t);
+      var r = g(e, t);
       return r.success
         ? o("WAResultOrError").makeResult({
             getNewsletterMessagesClientErrors: r.value,
           })
         : r;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -110,7 +99,7 @@ __d(
           })
         : u;
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "messages");
@@ -149,11 +138,11 @@ __d(
           })
         : u;
     }
-    function m(e) {
-      var t = _(o("WASmaxJsx").smax("iq", null), e);
+    function d(e) {
+      var t = p(o("WASmaxJsx").smax("iq", null), e);
       return t;
     }
-    function p(e) {
+    function m(e) {
       var t = e.queryNewsletterParamsMixinArgs,
         n = e.newsletterMessageRequestPayloadMixinArgs,
         r = o(
@@ -162,7 +151,7 @@ __d(
           o("WASmaxJsx").smax(
             "iq",
             null,
-            g(
+            f(
               o(
                 "WASmaxOutNewslettersQueryNewsletterParamsMixin",
               ).mergeQueryNewsletterParamsMixin(
@@ -175,25 +164,25 @@ __d(
         );
       return r;
     }
-    function _(e, t) {
-      var n = p(t);
+    function p(e, t) {
+      var n = m(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function f(e) {
+    function _(e) {
       var t = e.messagesCount,
         n = e.messageDirectionsArgs,
         r = o("WASmaxMixins").optionalMerge(
-          y,
+          h,
           o("WASmaxJsx").smax("messages", { count: o("WAWap").INT(t) }),
           n,
         );
       return r;
     }
-    function g(e, t) {
-      var n = f(t);
+    function f(e, t) {
+      var n = _(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = o(
         "WASmaxInNewslettersBadRequestIQErrorResponseMixin",
       ).parseBadRequestIQErrorResponseMixin(e, t);
@@ -255,36 +244,36 @@ __d(
             [n, r, a, i, l, s],
           );
     }
-    function y(e, t) {
-      if (t.beforeMixin) return S(e, t.beforeMixin);
-      if (t.afterMixin) return b(e, t.afterMixin);
+    function h(e, t) {
+      if (t.beforeMixin) return v(e, t.beforeMixin);
+      if (t.afterMixin) return C(e, t.afterMixin);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function C(e) {
+    function y(e) {
       var t = e.messagesAfter,
         n = o("WASmaxJsx").smax("messages", { after: o("WAWap").INT(t) });
       return n;
     }
-    function b(e, t) {
-      var n = C(t);
+    function C(e, t) {
+      var n = y(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function v(e) {
+    function b(e) {
       var t = e.messagesBefore,
         n = o("WASmaxJsx").smax("messages", { before: o("WAWap").INT(t) });
       return n;
     }
-    function S(e, t) {
-      var n = v(t);
+    function v(e, t) {
+      var n = b(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.sendGetNewsletterMessagesRPC = e),
-      (l.parseGetNewsletterMessagesResponseClientError = u),
-      (l.parseGetNewsletterMessagesResponseServerError = c),
-      (l.parseGetNewsletterMessagesResponseSuccess = d),
-      (l.makeGetNewsletterMessagesRequest = m));
+      (l.parseGetNewsletterMessagesResponseClientError = s),
+      (l.parseGetNewsletterMessagesResponseServerError = u),
+      (l.parseGetNewsletterMessagesResponseSuccess = c),
+      (l.makeGetNewsletterMessagesRequest = d));
   },
   98,
 );

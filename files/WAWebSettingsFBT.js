@@ -11,417 +11,391 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Chat wallpaper");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Default chat theme");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Request account info");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Channels reports");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(/*BTDS*/ "Business tools");
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(/*BTDS*/ "Quick replies, labels, catalog");
+      return s._(/*BTDS*/ "");
     }
     function _() {
-      return s._(/*BTDS*/ "Payments");
+      return s._(/*BTDS*/ "");
     }
     function f() {
-      return s._(/*BTDS*/ "Transactions, payment info");
+      return s._(/*BTDS*/ "");
     }
     function g() {
       return o("WAWebBizAiStrings").getBizAiHubTitle();
     }
     function h() {
-      return s._(/*BTDS*/ "Your Meta Business Agent");
+      return s._(/*BTDS*/ "");
     }
     function y() {
-      return s._(/*BTDS*/ "Business profile");
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(/*BTDS*/ "Catalog");
+      return s._(/*BTDS*/ "");
     }
     function b() {
-      return s._(/*BTDS*/ "Orders");
+      return s._(/*BTDS*/ "");
     }
     function v() {
-      return s._(/*BTDS*/ "Advertise");
+      return s._(/*BTDS*/ "");
     }
     function S() {
-      return s._(/*BTDS*/ "Quick replies");
+      return s._(/*BTDS*/ "");
     }
     function R() {
-      return s._(/*BTDS*/ "Lists");
+      return s._(/*BTDS*/ "");
     }
     function L() {
-      return s._(/*BTDS*/ "Business Help Center");
+      return s._(/*BTDS*/ "");
     }
     function E() {
-      return s._(/*BTDS*/ "Notifications");
+      return s._(/*BTDS*/ "");
     }
     function k() {
       var e = o("WAWebABProps").getABPropConfigValue(
         "wa_web_enable_granular_notifications",
       );
-      return e
-        ? s._(/*BTDS*/ "Messages, groups, sounds")
-        : s._(/*BTDS*/ "Message notifications");
+      return e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function I() {
-      return s._(/*BTDS*/ "Language");
+      return s._(/*BTDS*/ "");
     }
     function T() {
-      return s._(/*BTDS*/ "Media auto-download");
+      return s._(/*BTDS*/ "");
     }
     function D() {
-      return s._(/*BTDS*/ "Media upload quality");
+      return s._(/*BTDS*/ "");
     }
     function x() {
-      return s._(/*BTDS*/ "Auto-download quality");
+      return s._(/*BTDS*/ "");
     }
     function $() {
-      return s._(
-        /*BTDS*/ "Photos will be automatically downloaded in HD quality, but videos will not.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function P() {
-      return s._(/*BTDS*/ "Auto");
+      return s._(/*BTDS*/ "");
     }
     function N() {
-      return s._(
-        /*BTDS*/ "Photos and videos will be automatically downloaded in HD quality.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function M() {
-      return s._(
-        /*BTDS*/ "Photos will be automatically downloaded in HD quality.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function w() {
-      return s._(
-        /*BTDS*/ "You can choose which photos or videos to download in HD quality.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function A() {
-      return s._(
-        /*BTDS*/ "You can choose which photos to download in HD quality.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function F() {
-      return s._(/*BTDS*/ "HD quality");
+      return s._(/*BTDS*/ "");
     }
     function O() {
-      return s._(/*BTDS*/ "Standard quality");
+      return s._(/*BTDS*/ "");
     }
     function B() {
-      return s._(/*BTDS*/ "Spell check");
+      return s._(/*BTDS*/ "");
     }
     function W() {
-      return s._(/*BTDS*/ "Check spelling while typing");
+      return s._(/*BTDS*/ "");
     }
     function q() {
-      return s._(/*BTDS*/ "Replace text with emoji");
+      return s._(/*BTDS*/ "");
     }
     function U() {
-      return s._(/*BTDS*/ "Emoji will replace specific text as you type");
+      return s._(/*BTDS*/ "");
     }
     function V() {
-      return s._(/*BTDS*/ "Enter is send");
+      return s._(/*BTDS*/ "");
     }
     function H() {
-      return s._(/*BTDS*/ "Enter key will send your message");
+      return s._(/*BTDS*/ "");
     }
     function G() {
-      return s._(/*BTDS*/ "Security");
+      return s._(/*BTDS*/ "");
     }
     function z() {
-      return s._(/*BTDS*/ "Privacy");
+      return s._(/*BTDS*/ "");
     }
     function j() {
-      return s._(/*BTDS*/ "Blocked contacts, disappearing messages");
+      return s._(/*BTDS*/ "");
     }
     function K() {
-      return s._(/*BTDS*/ "Help and feedback");
+      return s._(/*BTDS*/ "");
     }
     function Q() {
-      return s._(/*BTDS*/ "Help center, contact us, privacy policy");
+      return s._(/*BTDS*/ "");
     }
     function X() {
-      return s._(/*BTDS*/ "Keyboard shortcuts");
+      return s._(/*BTDS*/ "");
     }
     function Y() {
-      return s._(/*BTDS*/ "Quick actions");
+      return s._(/*BTDS*/ "");
     }
     function J() {
-      return s._(/*BTDS*/ "Developer");
+      return s._(/*BTDS*/ "");
     }
     function Z() {
-      return s._(/*BTDS*/ "Internal tools, feature flags, debug options");
+      return s._(/*BTDS*/ "");
     }
     function ee() {
-      return s._(/*BTDS*/ "AB Props");
+      return s._(/*BTDS*/ "");
     }
     function te() {
-      return s._(/*BTDS*/ "Group AB Props");
+      return s._(/*BTDS*/ "");
     }
     function ne() {
-      return s._(/*BTDS*/ "Infra Settings");
+      return s._(/*BTDS*/ "");
     }
     function re() {
-      return s._(/*BTDS*/ "Canonical");
+      return s._(/*BTDS*/ "");
     }
     function oe() {
-      return s._(/*BTDS*/ "Labyrinth debug");
+      return s._(/*BTDS*/ "");
     }
     function ae() {
-      return s._(/*BTDS*/ "Message notifications");
+      return s._(/*BTDS*/ "");
     }
     function ie() {
-      return s._(/*BTDS*/ "Show notifications for new messages");
+      return s._(/*BTDS*/ "");
     }
     function le() {
-      return s._(/*BTDS*/ "Show previews");
+      return s._(/*BTDS*/ "");
     }
     function se() {
-      return s._(
-        /*BTDS*/ "Get faster performance by syncing messages in the background.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function ue() {
-      return s._(/*BTDS*/ "Play sounds for outgoing messages");
+      return s._(/*BTDS*/ "");
     }
     function ce() {
-      return s._(/*BTDS*/ "Show reaction notifications");
+      return s._(/*BTDS*/ "");
     }
     function de() {
-      return s._(/*BTDS*/ "Call notifications");
+      return s._(/*BTDS*/ "");
     }
     function me() {
-      return s._(/*BTDS*/ "Get call notifications when WhatsApp is closed");
+      return s._(/*BTDS*/ "");
     }
     function pe() {
-      return s._(/*BTDS*/ "Show notifications for incoming calls");
+      return s._(/*BTDS*/ "");
     }
     function _e() {
-      return s._(/*BTDS*/ "Incoming calls");
+      return s._(/*BTDS*/ "");
     }
     function fe() {
-      return s._(/*BTDS*/ "Play sounds for incoming calls");
+      return s._(/*BTDS*/ "");
     }
     function ge() {
-      return s._(/*BTDS*/ "Incoming sounds");
+      return s._(/*BTDS*/ "");
     }
     function he() {
-      return s._(/*BTDS*/ "Play sounds for incoming messages");
+      return s._(/*BTDS*/ "");
     }
     function ye() {
-      return s._(/*BTDS*/ "Last seen and online");
+      return s._(/*BTDS*/ "");
     }
     function Ce() {
-      return s._(/*BTDS*/ "Profile picture");
+      return s._(/*BTDS*/ "");
     }
     function be() {
-      return s._(/*BTDS*/ "About");
+      return s._(/*BTDS*/ "");
     }
     function ve() {
-      return s._(/*BTDS*/ "Read receipts");
+      return s._(/*BTDS*/ "");
     }
     function Se() {
-      return s._(/*BTDS*/ "Turn off link previews");
+      return s._(/*BTDS*/ "");
     }
     function Re() {
-      return s._(/*BTDS*/ "Block unknown account messages");
+      return s._(/*BTDS*/ "");
     }
     function Le() {
-      return s._(/*BTDS*/ "Disappearing messages");
+      return s._(/*BTDS*/ "");
     }
     function Ee() {
-      return s._(/*BTDS*/ "Default message timer");
+      return s._(/*BTDS*/ "");
     }
     function ke() {
-      return s._(/*BTDS*/ "Groups");
+      return s._(/*BTDS*/ "");
     }
     function Ie() {
-      return s._(/*BTDS*/ "Calls");
+      return s._(/*BTDS*/ "");
     }
     function Te() {
-      return s._(/*BTDS*/ "Blocked contacts");
+      return s._(/*BTDS*/ "");
     }
     function De() {
-      return s._(/*BTDS*/ "App lock");
+      return s._(/*BTDS*/ "");
     }
     function xe() {
-      return s._(/*BTDS*/ "Density");
+      return s._(/*BTDS*/ "");
     }
     function $e() {
-      return s._(/*BTDS*/ "Default");
+      return s._(/*BTDS*/ "");
     }
     function Pe() {
-      return s._(/*BTDS*/ "Compact");
+      return s._(/*BTDS*/ "");
     }
     function Ne() {
-      return s._(/*BTDS*/ "Single line");
+      return s._(/*BTDS*/ "");
     }
     function Me() {
-      return s._(/*BTDS*/ "Show community name");
+      return s._(/*BTDS*/ "");
     }
     function we() {
-      return s._(/*BTDS*/ "Theme");
+      return s._(/*BTDS*/ "");
     }
     function Ae() {
-      return s._(/*BTDS*/ "App theme");
+      return s._(/*BTDS*/ "");
     }
     function Fe() {
-      return s._(/*BTDS*/ "Light");
+      return s._(/*BTDS*/ "");
     }
     function Oe() {
-      return s._(/*BTDS*/ "Dark");
+      return s._(/*BTDS*/ "");
     }
     function Be() {
-      return s._(/*BTDS*/ "System default");
+      return s._(/*BTDS*/ "");
     }
     function We() {
-      return s._(/*BTDS*/ "System");
+      return s._(/*BTDS*/ "");
     }
     function qe() {
-      return s._(/*BTDS*/ "Help Center");
+      return s._(/*BTDS*/ "");
     }
     function Ue() {
-      return s._(/*BTDS*/ "Frequently asked questions");
+      return s._(/*BTDS*/ "");
     }
     function Ve() {
-      return s._(/*BTDS*/ "Contact us");
+      return s._(/*BTDS*/ "");
     }
     function He() {
-      return s._(/*BTDS*/ "Chat with support to get answers");
+      return s._(/*BTDS*/ "");
     }
     function Ge() {
-      return s._(/*BTDS*/ "Rate the app");
+      return s._(/*BTDS*/ "");
     }
     function ze() {
-      return s._(/*BTDS*/ "Send feedback");
+      return s._(/*BTDS*/ "");
     }
     function je() {
       return o("WAWebConnGetters").getIsSMB(o("WAWebConnModel").Conn)
-        ? s._(/*BTDS*/ "Privacy Policy")
-        : s._(/*BTDS*/ "Terms and Privacy Policy");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function Ke() {
-      return s._(/*BTDS*/ "Terms of Service");
+      return s._(/*BTDS*/ "");
     }
     function Qe() {
-      var e = s._(/*BTDS*/ "Your customers' activity");
+      var e = s._(/*BTDS*/ "");
       return e;
     }
     function Xe() {
-      return s._(/*BTDS*/ "Lists");
+      return s._(/*BTDS*/ "");
     }
     function Ye() {
-      return s._(/*BTDS*/ "Agents");
+      return s._(/*BTDS*/ "");
     }
     function Je() {
-      return s._(/*BTDS*/ "Agents connected to this account");
+      return s._(/*BTDS*/ "");
     }
     function Ze() {
-      return s._(/*BTDS*/ "Manage people and groups");
+      return s._(/*BTDS*/ "");
     }
     function et() {
-      return s._(/*BTDS*/ "Log out");
+      return s._(/*BTDS*/ "");
     }
     function tt() {
-      return s._(/*BTDS*/ "Account");
+      return s._(/*BTDS*/ "");
     }
     function nt() {
-      return s._(/*BTDS*/ "Security notifications, account info");
+      return s._(/*BTDS*/ "");
     }
     function rt() {
-      return s._(/*BTDS*/ "Profile");
+      return s._(/*BTDS*/ "");
     }
     function ot() {
       return o(
         "WAWebUsernameWorkerCompatibleGatingUtils",
       ).usernameCreationOrReservationEnabled()
-        ? s._(/*BTDS*/ "Name, profile picture, username")
-        : s._(/*BTDS*/ "Name, profile picture");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function at() {
-      return s._(/*BTDS*/ "Chats");
+      return s._(/*BTDS*/ "");
     }
     function it() {
       return o("WAWebSettingGatingUtils").isAppearanceSettingsEnabled()
-        ? s._(/*BTDS*/ "Media, spell check, chat settings")
-        : s._(/*BTDS*/ "Theme, wallpaper, chat settings");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function lt() {
-      return s._(/*BTDS*/ "Appearance");
+      return s._(/*BTDS*/ "");
     }
     function st() {
-      return s._(/*BTDS*/ "Chat theme, app icon, app theme");
+      return s._(/*BTDS*/ "");
     }
     function ut() {
-      return s._(/*BTDS*/ "How to delete my account");
+      return s._(/*BTDS*/ "");
     }
     function ct() {
-      return s._(
-        /*BTDS*/ "To protect your account and improve device performance, WhatsApp will block messages from unknown accounts if they exceed a certain volume.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function dt() {
-      return s._(/*BTDS*/ "Protect IP address in calls");
+      return s._(/*BTDS*/ "");
     }
     function mt() {
-      return s._(
-        /*BTDS*/ "To make it harder for people to infer your location, calls on this device will be securely relayed through WhatsApp servers. This will reduce call quality.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function pt() {
-      return s._(/*BTDS*/ "Silence unknown callers");
+      return s._(/*BTDS*/ "");
     }
     function _t() {
-      return s._(
-        /*BTDS*/ "Calls from unknown numbers will be silenced. They will still be shown in the Calls tab and in your notifications.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function ft() {
-      return s._(/*BTDS*/ "Calls from unknown numbers");
+      return s._(/*BTDS*/ "");
     }
     function gt() {
-      return s._(
-        /*BTDS*/ "Call screening can only be viewed on your primary phone.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function ht() {
-      return s._(/*BTDS*/ "Ring");
+      return s._(/*BTDS*/ "");
     }
     function yt() {
-      return s._(/*BTDS*/ "Calls will ring and notify you as usual.");
+      return s._(/*BTDS*/ "");
     }
     function Ct() {
-      return s._(/*BTDS*/ "Screen calls");
+      return s._(/*BTDS*/ "");
     }
     function bt() {
-      return s._(
-        /*BTDS*/ "Automatically ask people why they're calling. You can read the response before answering. Doesn't apply to video or group calls.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function vt() {
-      return s._(/*BTDS*/ "Silence");
+      return s._(/*BTDS*/ "");
     }
     function St() {
-      return s._(
-        /*BTDS*/ "Calls won't ring. You'll still see them in the Calls tab and your notifications.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function Rt() {
-      return s._(/*BTDS*/ "Status ad");
+      return s._(/*BTDS*/ "");
     }
     function Lt() {
-      return s._(/*BTDS*/ "View details on your phone");
+      return s._(/*BTDS*/ "");
     }
     ((l.wallpaperTitle = e),
       (l.chatThemeTitle = u),

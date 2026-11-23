@@ -14,7 +14,6 @@ __d(
     "WDSIconIcDownload.react",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebGdprDelete",
     "useWAWebGdprDownload",
   ],
@@ -33,215 +32,117 @@ __d(
         },
       };
     function m(e) {
-      var t = o("react-compiler-runtime").c(38),
-        n = e.gdprStatus,
-        a = e.onDeleteSuccess,
-        i = e.report,
-        l = n.creation,
-        m = n.documentMessage,
-        p = n.expiration,
-        _ = o("WALongInt").maybeNumberOrThrowIfTooLarge(m.fileLength),
-        f = o("useWAWebGdprDownload").useGdprDownload(),
-        g = f[0],
-        h = f[1],
-        y = o("useWAWebGdprDelete").useGdprDelete(i),
-        C = y[0],
-        b = y[1],
-        v;
-      t[0] !== p
-        ? ((v = s._(
-            /*BTDS*/ "Your report is available to download until {availability_date}",
-            [
-              s._param(
-                "availability_date",
-                r("WAWeb-moment").unix(p).format("MMMM D, YYYY"),
-              ),
-            ],
-          )),
-          (t[0] = p),
-          (t[1] = v))
-        : (v = t[1]);
-      var S = v,
-        R;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((R = {
+      var t = e.gdprStatus,
+        n = t.creation,
+        a = t.documentMessage,
+        i = t.expiration,
+        l = e.onDeleteSuccess,
+        m = e.report,
+        p = o("WALongInt").maybeNumberOrThrowIfTooLarge(a.fileLength),
+        _ = o("useWAWebGdprDownload").useGdprDownload(),
+        f = _[0],
+        g = _[1],
+        h = o("useWAWebGdprDelete").useGdprDelete(m),
+        y = h[0],
+        C = h[1],
+        b = s._(/*BTDS*/ "", [
+          s._param(
+            "availability_date",
+            r("WAWeb-moment").unix(i).format("MMMM D, YYYY"),
+          ),
+        ]);
+      return u.jsxs(u.Fragment, {
+        children: [
+          u.jsx("div", {
             className: "x178xt8z x13fuv20 xx42vgk xso031l x1q0q8m5 x120ee7l",
+            children: u.jsxs(o("WAWebDrawerButton.react").DrawerButtonSimple, {
+              color: "dark",
+              disabled: f,
+              icon: u.jsx(r("WDSIconIcDownload.react"), {
+                width: 24,
+                height: 24,
+              }),
+              onClick: function () {
+                return g(a, m);
+              },
+              children: [
+                u.jsx(r("WDSText.react"), {
+                  type: "Body2",
+                  colorName: "contentDefault",
+                  testid: "gdpr-available-download-label",
+                  children: s._(/*BTDS*/ ""),
+                }),
+                u.jsx(o("WAWebText.react").WAWebTextMuted, {
+                  children:
+                    p != null
+                      ? s._(/*BTDS*/ "", [
+                          s._param(
+                            "availability_date",
+                            r("WAWeb-moment").unix(n).format("MMMM D, YYYY"),
+                          ),
+                          s._param(
+                            "file_size",
+                            o("WAWebL10nFilesize").getL10nFilesize(p),
+                          ),
+                        ])
+                      : s._(/*BTDS*/ "", [
+                          s._param(
+                            "availability_date",
+                            r("WAWeb-moment").unix(n).format("MMMM D, YYYY"),
+                          ),
+                        ]),
+                }),
+              ],
+            }),
           }),
-          (t[2] = R))
-        : (R = t[2]);
-      var L = o("WAWebDrawerButton.react").DrawerButtonSimple,
-        E = "dark",
-        k;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((k = u.jsx(r("WDSIconIcDownload.react"), { width: 24, height: 24 })),
-          (t[3] = k))
-        : (k = t[3]);
-      var I;
-      t[4] !== m || t[5] !== h || t[6] !== i
-        ? ((I = function () {
-            return h(m, i);
-          }),
-          (t[4] = m),
-          (t[5] = h),
-          (t[6] = i),
-          (t[7] = I))
-        : (I = t[7]);
-      var T;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((T = u.jsx(r("WDSText.react"), {
-            type: "Body2",
-            colorName: "contentDefault",
-            testid: "gdpr-available-download-label",
-            children: s._(/*BTDS*/ "Download report"),
-          })),
-          (t[8] = T))
-        : (T = t[8]);
-      var D = o("WAWebText.react").WAWebTextMuted,
-        x =
-          _ != null
-            ? s._(/*BTDS*/ "{availability_date} \u00b7 {file_size}", [
-                s._param(
-                  "availability_date",
-                  r("WAWeb-moment").unix(l).format("MMMM D, YYYY"),
-                ),
-                s._param(
-                  "file_size",
-                  o("WAWebL10nFilesize").getL10nFilesize(_),
-                ),
-              ])
-            : s._(/*BTDS*/ "{availability_date}", [
-                s._param(
-                  "availability_date",
-                  r("WAWeb-moment").unix(l).format("MMMM D, YYYY"),
-                ),
-              ]),
-        $;
-      t[9] !== D || t[10] !== x
-        ? (($ = u.jsx(D, { children: x })),
-          (t[9] = D),
-          (t[10] = x),
-          (t[11] = $))
-        : ($ = t[11]);
-      var P;
-      t[12] !== L ||
-      t[13] !== g ||
-      t[14] !== k ||
-      t[15] !== I ||
-      t[16] !== T ||
-      t[17] !== $
-        ? ((P = u.jsxs(L, {
-            color: E,
-            disabled: g,
-            icon: k,
-            onClick: I,
-            children: [T, $],
-          })),
-          (t[12] = L),
-          (t[13] = g),
-          (t[14] = k),
-          (t[15] = I),
-          (t[16] = T),
-          (t[17] = $),
-          (t[18] = P))
-        : (P = t[18]);
-      var N;
-      t[19] !== P || t[20] !== R
-        ? ((N = u.jsx("div", babelHelpers.extends({}, R, { children: P }))),
-          (t[19] = P),
-          (t[20] = R),
-          (t[21] = N))
-        : (N = t[21]);
-      var M;
-      t[22] === Symbol.for("react.memo_cache_sentinel")
-        ? ((M = { className: "xso031l x1q0q8m5 x120ee7l" }), (t[22] = M))
-        : (M = t[22]);
-      var w;
-      t[23] === Symbol.for("react.memo_cache_sentinel")
-        ? ((w = u.jsx(r("WDSIconIcDelete.react"), {})), (t[23] = w))
-        : (w = t[23]);
-      var A;
-      t[24] !== b || t[25] !== C || t[26] !== a
-        ? ((A = function () {
-            o("WAWebModalManager").ModalManager.open(
-              u.jsx(
-                r("WAWebGdprRequestAccountInfoSettingsDrawerConfirmPopup"),
-                {
-                  okDisabled: C,
-                  okSpinner: C,
-                  onCancel: o("WAWebModalManager").closeModalManager,
-                  onOK: function () {
-                    return b().then(function (e) {
-                      e.success &&
-                        (o("WAWebModalManager").ModalManager.close(), a());
-                    });
-                  },
-                },
-              ),
-            );
-          }),
-          (t[24] = b),
-          (t[25] = C),
-          (t[26] = a),
-          (t[27] = A))
-        : (A = t[27]);
-      var F;
-      t[28] === Symbol.for("react.memo_cache_sentinel")
-        ? ((F = u.jsx(r("WDSText.react"), {
-            type: "Body2",
-            colorName: "contentDefault",
-            testid: "gdpr-available-delete-label",
-            children: s._(/*BTDS*/ "Delete and request new report"),
-          })),
-          (t[28] = F))
-        : (F = t[28]);
-      var O;
-      t[29] !== C || t[30] !== A
-        ? ((O = u.jsx(
-            "div",
-            babelHelpers.extends({}, M, {
-              children: u.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
-                color: "dark",
-                disabled: C,
-                icon: w,
-                onClick: A,
-                children: F,
+          u.jsx("div", {
+            className: "xso031l x1q0q8m5 x120ee7l",
+            children: u.jsx(o("WAWebDrawerButton.react").DrawerButtonSimple, {
+              color: "dark",
+              disabled: y,
+              icon: u.jsx(r("WDSIconIcDelete.react"), {}),
+              onClick: function () {
+                o("WAWebModalManager").ModalManager.open(
+                  u.jsx(
+                    r("WAWebGdprRequestAccountInfoSettingsDrawerConfirmPopup"),
+                    {
+                      okDisabled: y,
+                      okSpinner: y,
+                      onCancel: o("WAWebModalManager").closeModalManager,
+                      onOK: function () {
+                        return C().then(function (e) {
+                          e.success &&
+                            (o("WAWebModalManager").ModalManager.close(), l());
+                        });
+                      },
+                    },
+                  ),
+                );
+              },
+              children: u.jsx(r("WDSText.react"), {
+                type: "Body2",
+                colorName: "contentDefault",
+                testid: "gdpr-available-delete-label",
+                children: s._(/*BTDS*/ ""),
               }),
             }),
-          )),
-          (t[29] = C),
-          (t[30] = A),
-          (t[31] = O))
-        : (O = t[31]);
-      var B;
-      t[32] !== S
-        ? ((B = o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
+          }),
+          o("WAWebNewsletterCommonGatingUtils").isNewsletterEnabled()
             ? u.jsx(r("WDSText.react"), {
                 type: "Body1",
                 colorName: "contentDeemphasized",
                 testid: "gdpr-available-expiration",
                 xstyle: [d.availability, c.marginTop18],
-                children: S,
+                children: b,
               })
             : u.jsx(o("WAWebText.react").WAWebTextMuted, {
                 xstyle: [d.availability, c.marginTop30],
-                children: S,
-              })),
-          (t[32] = S),
-          (t[33] = B))
-        : (B = t[33]);
-      var W;
-      return (
-        t[34] !== N || t[35] !== O || t[36] !== B
-          ? ((W = u.jsxs(u.Fragment, { children: [N, O, B] })),
-            (t[34] = N),
-            (t[35] = O),
-            (t[36] = B),
-            (t[37] = W))
-          : (W = t[37]),
-        W
-      );
+                children: b,
+              }),
+        ],
+      });
     }
-    l.default = m;
+    ((m.displayName = m.name + " [from " + i.id + "]"), (l.default = m));
   },
   226,
 );

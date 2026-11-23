@@ -1,17 +1,14 @@
 __d(
   "WAWebCallReachability",
   [
-    "Promise",
     "WAWebMediaPermissionsUtils",
     "WAWebWamEnumWebPermissionState",
     "WAWebWamEnumWebSettingState",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = 2e3;
-    function u(e) {
+    var e = 2e3;
+    function s(e) {
       return e === "granted"
         ? o("WAWebWamEnumWebPermissionState").WEB_PERMISSION_STATE.GRANTED
         : e === "denied"
@@ -22,7 +19,7 @@ __d(
             : o("WAWebWamEnumWebPermissionState").WEB_PERMISSION_STATE
                 .UNSUPPORTED;
     }
-    function c(e) {
+    function u(e) {
       return e === "granted"
         ? o("WAWebWamEnumWebPermissionState").WEB_PERMISSION_STATE.GRANTED
         : e === "denied"
@@ -33,66 +30,55 @@ __d(
             : o("WAWebWamEnumWebPermissionState").WEB_PERMISSION_STATE
                 .UNSUPPORTED;
     }
-    function d(e) {
+    function c(e) {
       return e === !0
         ? o("WAWebWamEnumWebSettingState").WEB_SETTING_STATE.ON
         : e === !1
           ? o("WAWebWamEnumWebSettingState").WEB_SETTING_STATE.OFF
           : o("WAWebWamEnumWebSettingState").WEB_SETTING_STATE.UNKNOWN;
     }
-    function m() {
+    function d() {
       var e;
-      return c((e = globalThis.Notification) == null ? void 0 : e.permission);
+      return u((e = globalThis.Notification) == null ? void 0 : e.permission);
     }
-    function p(t, r) {
-      return new (e || (e = n("Promise")))(function (e) {
-        var n = self.setTimeout(function () {
-          return e(
+    function m(t, n) {
+      return new Promise(function (r) {
+        var a = self.setTimeout(function () {
+          return r(
             o("WAWebWamEnumWebPermissionState").WEB_PERMISSION_STATE
               .UNSUPPORTED,
           );
-        }, s);
+        }, e);
         o("WAWebMediaPermissionsUtils")
-          .queryMediaPermissionStateStrict(t, r)
+          .queryMediaPermissionStateStrict(t, n)
           .catch(function () {
             return "unknown";
           })
-          .then(function (t) {
-            (self.clearTimeout(n), e(u(t)));
+          .then(function (e) {
+            (self.clearTimeout(a), r(s(e)));
           });
       });
     }
-    function _(e) {
-      return f.apply(this, arguments);
+    async function p(e) {
+      var t = await Promise.all([m("camera"), m("microphone")]),
+        n = t[0],
+        r = t[1];
+      return {
+        webAtCallPermissionCamera: n,
+        webAtCallPermissionMic: r,
+        webAtCallPermissionNotification: d(),
+        webAtCallSettingBackgroundSync: c(e.backgroundSync),
+        webAtCallSettingCallNotifications: c(e.callNotifications),
+        webAtCallSettingCallSound: c(e.callSound),
+      };
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = yield (e || (e = n("Promise"))).all([
-              p("camera"),
-              p("microphone"),
-            ]),
-            o = r[0],
-            a = r[1];
-          return {
-            webAtCallPermissionCamera: o,
-            webAtCallPermissionMic: a,
-            webAtCallPermissionNotification: m(),
-            webAtCallSettingBackgroundSync: d(t.backgroundSync),
-            webAtCallSettingCallNotifications: d(t.callNotifications),
-            webAtCallSettingCallSound: d(t.callSound),
-          };
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    ((l.PERMISSION_QUERY_TIMEOUT_MS = s),
-      (l.toMediaWebPermissionState = u),
-      (l.toNotificationWebPermissionState = c),
-      (l.toWebSettingState = d),
-      (l.readNotificationWebPermissionState = m),
-      (l.readMediaWebPermissionState = p),
-      (l.readCallReachability = _));
+    ((l.PERMISSION_QUERY_TIMEOUT_MS = e),
+      (l.toMediaWebPermissionState = s),
+      (l.toNotificationWebPermissionState = u),
+      (l.toWebSettingState = c),
+      (l.readNotificationWebPermissionState = d),
+      (l.readMediaWebPermissionState = m),
+      (l.readCallReachability = p));
   },
   98,
 );

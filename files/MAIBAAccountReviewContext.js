@@ -1,6 +1,6 @@
 __d(
   "MAIBAAccountReviewContext",
-  ["emptyFunction", "react", "react-compiler-runtime"],
+  ["emptyFunction", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -16,35 +16,24 @@ __d(
       },
       _ = s.createContext(p);
     function f(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.children,
-        r = m(null),
-        a = r[0],
-        i = r[1],
-        l = a === "IN_REVIEW",
-        u;
-      t[0] !== a || t[1] !== l
-        ? ((u = {
-            accountReviewStatus: a,
-            isAccountReviewInFlight: l,
-            setAccountReviewStatus: i,
-          }),
-          (t[0] = a),
-          (t[1] = l),
-          (t[2] = u))
-        : (u = t[2]);
-      var c = u,
-        d;
-      return (
-        t[3] !== n || t[4] !== c
-          ? ((d = s.jsx(_.Provider, { value: c, children: n })),
-            (t[3] = n),
-            (t[4] = c),
-            (t[5] = d))
-          : (d = t[5]),
-        d
-      );
+      var t = e.children,
+        n = m(null),
+        r = n[0],
+        o = n[1],
+        a = d(
+          function () {
+            var e = r === "IN_REVIEW";
+            return {
+              accountReviewStatus: r,
+              isAccountReviewInFlight: e,
+              setAccountReviewStatus: o,
+            };
+          },
+          [r, o],
+        );
+      return s.jsx(_.Provider, { value: a, children: t });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g() {
       return c(_);
     }

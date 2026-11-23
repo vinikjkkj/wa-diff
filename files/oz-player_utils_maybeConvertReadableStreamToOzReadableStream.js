@@ -1,6 +1,6 @@
 __d(
   "oz-player/utils/maybeConvertReadableStreamToOzReadableStream",
-  ["asyncToGeneratorRuntime", "oz-player/shims/OzStreams"],
+  ["oz-player/shims/OzStreams"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
@@ -8,20 +8,14 @@ __d(
         return e;
       var t = e.getReader();
       return new (o("oz-player/shims/OzStreams").OzReadableStream)({
-        start: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            for (;;) {
-              var n = yield t.read();
-              if (n.done) break;
-              e.enqueue(n.value);
-            }
-            e.close();
-          });
-          function r(t) {
-            return e.apply(this, arguments);
+        start: async function (n) {
+          for (;;) {
+            var e = await t.read();
+            if (e.done) break;
+            n.enqueue(e.value);
           }
-          return r;
-        })(),
+          n.close();
+        },
       });
     }
     l.default = e;

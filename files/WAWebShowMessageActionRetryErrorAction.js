@@ -17,7 +17,7 @@ __d(
       ),
         r("WAWebShowMessageActionFallbackErrorAction")({
           title: r("WAWebFbtCommon")("Try again"),
-          body: s._(/*BTDS*/ "Something went wrong."),
+          body: s._(/*BTDS*/ ""),
         }));
     }
     l.default = u;

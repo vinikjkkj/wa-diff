@@ -1,7 +1,6 @@
 __d(
   "WAWebChatLinkMsgsCollection",
   [
-    "Promise",
     "WAFilteredCatch",
     "WALogger",
     "WAPromiseLoop",
@@ -13,119 +12,105 @@ __d(
     "WAWebMsgQueryUtils",
     "WAWebNoop",
     "WAWebThreadMsgUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = (function (t) {
-        function a() {
-          for (var a, i = arguments.length, l = new Array(i), s = 0; s < i; s++)
-            l[s] = arguments[s];
+      c = (function (t) {
+        function n() {
+          for (var n, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
+            i[l] = arguments[l];
           return (
-            (a = t.call.apply(t, [this].concat(l)) || this),
-            (a.hasLinkBefore = !0),
-            (a.$ChatLinkMsgsCollection$p_1 = null),
-            (a.$ChatLinkMsgsCollection$p_2 = 0),
-            (a.$ChatLinkMsgsCollection$p_3 = !1),
-            (a.$ChatLinkMsgsCollection$p_4 = null),
-            (a.$ChatLinkMsgsCollection$p_5 = null),
-            (a.$ChatLinkMsgsCollection$p_6 = 0),
-            (a.count = (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t, n) {
-                  var i;
-                  if (
-                    (a.$ChatLinkMsgsCollection$p_3 ||
-                      ((a.$ChatLinkMsgsCollection$p_3 = !0),
-                      a.refreshCountAfterBackfill(t)),
-                    n && !n.equals(a.$ChatLinkMsgsCollection$p_4))
-                  )
-                    ((a.$ChatLinkMsgsCollection$p_1 = null),
-                      (a.$ChatLinkMsgsCollection$p_4 = n));
-                  else if (a.$ChatLinkMsgsCollection$p_1 != null)
-                    return a.$ChatLinkMsgsCollection$p_1;
-                  var l =
-                      n != null
-                        ? t.msgs.filter(function (e) {
-                            return (
-                              o("WAWebMsgLinks").hasLinkGalleryLinks(e) &&
-                              o("WAWebThreadMsgUtils").isMsgInThread(e, n)
-                            );
-                          })
-                        : t.msgs.filter(function (e) {
-                            return o("WAWebMsgLinks").hasLinkGalleryLinks(e);
-                          }),
-                    s = (i = l[0]) != null ? i : t.msgs.head();
-                  if (s == null) return 0;
-                  var u = a.$ChatLinkMsgsCollection$p_2;
-                  try {
-                    var c = yield o("WAWebMsgQueryUtils").queryMedia(
-                        s.id.remote,
-                        1 / 0,
-                        "before",
-                        s.id,
-                        "url",
-                      ),
-                      d = c.filter(o("WAWebMsgLinks").shouldListLinkIndexMsg),
-                      m =
-                        n != null
-                          ? d.filter(function (e) {
-                              return o("WAWebThreadMsgUtils").isMsgInThread(
-                                e,
-                                n,
-                              );
-                            })
-                          : d;
-                    if (u !== a.$ChatLinkMsgsCollection$p_2)
-                      return a.count(t, n);
-                    var p =
-                      l.length > 0 &&
-                      m.some(function (e) {
-                        return e.id.equals(s.id);
+            (n = t.call.apply(t, [this].concat(i)) || this),
+            (n.hasLinkBefore = !0),
+            (n.$ChatLinkMsgsCollection$p_1 = null),
+            (n.$ChatLinkMsgsCollection$p_2 = 0),
+            (n.$ChatLinkMsgsCollection$p_3 = !1),
+            (n.$ChatLinkMsgsCollection$p_4 = null),
+            (n.$ChatLinkMsgsCollection$p_5 = null),
+            (n.$ChatLinkMsgsCollection$p_6 = 0),
+            (n.count = async function (t, a) {
+              var i;
+              if (
+                (n.$ChatLinkMsgsCollection$p_3 ||
+                  ((n.$ChatLinkMsgsCollection$p_3 = !0),
+                  n.refreshCountAfterBackfill(t)),
+                a && !a.equals(n.$ChatLinkMsgsCollection$p_4))
+              )
+                ((n.$ChatLinkMsgsCollection$p_1 = null),
+                  (n.$ChatLinkMsgsCollection$p_4 = a));
+              else if (n.$ChatLinkMsgsCollection$p_1 != null)
+                return n.$ChatLinkMsgsCollection$p_1;
+              var l =
+                  a != null
+                    ? t.msgs.filter(function (e) {
+                        return (
+                          o("WAWebMsgLinks").hasLinkGalleryLinks(e) &&
+                          o("WAWebThreadMsgUtils").isMsgInThread(e, a)
+                        );
                       })
-                        ? 1
-                        : 0;
-                    return (
-                      (a.$ChatLinkMsgsCollection$p_1 = m.length + l.length - p),
-                      a.$ChatLinkMsgsCollection$p_1
-                    );
-                  } catch (n) {
-                    return (
-                      o("WALogger")
-                        .ERROR(
-                          e ||
-                            (e = babelHelpers.taggedTemplateLiteralLoose([
-                              "Failed to count medias for chat ",
-                              "",
-                            ])),
-                          t.id,
-                        )
-                        .verbose()
-                        .sendLogs(
-                          "md-failed-medias-count: " +
-                            r("getErrorSafe")(n).message,
-                        ),
-                      null
-                    );
-                  }
-                },
-              );
-              return function (e, n) {
-                return t.apply(this, arguments);
-              };
-            })()),
-            babelHelpers.assertThisInitialized(a) ||
-              babelHelpers.assertThisInitialized(a)
+                    : t.msgs.filter(function (e) {
+                        return o("WAWebMsgLinks").hasLinkGalleryLinks(e);
+                      }),
+                s = (i = l[0]) != null ? i : t.msgs.head();
+              if (s == null) return 0;
+              var u = n.$ChatLinkMsgsCollection$p_2;
+              try {
+                var c = await o("WAWebMsgQueryUtils").queryMedia(
+                    s.id.remote,
+                    1 / 0,
+                    "before",
+                    s.id,
+                    "url",
+                  ),
+                  d = c.filter(o("WAWebMsgLinks").shouldListLinkIndexMsg),
+                  m =
+                    a != null
+                      ? d.filter(function (e) {
+                          return o("WAWebThreadMsgUtils").isMsgInThread(e, a);
+                        })
+                      : d;
+                if (u !== n.$ChatLinkMsgsCollection$p_2) return n.count(t, a);
+                var p =
+                  l.length > 0 &&
+                  m.some(function (e) {
+                    return e.id.equals(s.id);
+                  })
+                    ? 1
+                    : 0;
+                return (
+                  (n.$ChatLinkMsgsCollection$p_1 = m.length + l.length - p),
+                  n.$ChatLinkMsgsCollection$p_1
+                );
+              } catch (n) {
+                return (
+                  o("WALogger")
+                    .ERROR(
+                      e ||
+                        (e = babelHelpers.taggedTemplateLiteralLoose([
+                          "Failed to count medias for chat ",
+                          "",
+                        ])),
+                      t.id,
+                    )
+                    .verbose()
+                    .sendLogs(
+                      "md-failed-medias-count: " + r("getErrorSafe")(n).message,
+                    ),
+                  null
+                );
+              }
+            }),
+            babelHelpers.assertThisInitialized(n) ||
+              babelHelpers.assertThisInitialized(n)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.delete = function () {
+          (a.delete = function () {
             (t.prototype.delete.call(this),
               this.stopListening(),
               this.reset(),
@@ -136,38 +121,38 @@ __d(
               (this.$ChatLinkMsgsCollection$p_1 = null),
               this.$ChatLinkMsgsCollection$p_2++);
           }),
-          (i.add = function (n, r) {
+          (a.add = function (n, r) {
             return (
               (this.$ChatLinkMsgsCollection$p_1 = null),
               t.prototype.add.call(this, n, r)
             );
           }),
-          (i.remove = function (n, r) {
+          (a.remove = function (n, r) {
             return (
               (this.$ChatLinkMsgsCollection$p_1 = null),
               t.prototype.remove.call(this, n, r)
             );
           }),
-          (i.queryLinks = function (t, a) {
+          (a.queryLinks = function (t, n) {
             var e = this;
-            if (a) {
+            if (n) {
               if (this.queryLinkBefore) return this.queryLinkBefore;
-              var i =
+              var a =
                   this.$ChatLinkMsgsCollection$p_5 != null &&
-                  this.$ChatLinkMsgsCollection$p_5.t < a.t
+                  this.$ChatLinkMsgsCollection$p_5.t < n.t
                     ? this.$ChatLinkMsgsCollection$p_5
-                    : a,
-                l = this.$ChatLinkMsgsCollection$p_6,
-                s = (this.queryLinkBefore = o("WAWebMsgQueryUtils")
+                    : n,
+                i = this.$ChatLinkMsgsCollection$p_6,
+                l = (this.queryLinkBefore = o("WAWebMsgQueryUtils")
                   .queryMedia(
-                    i.id.remote,
+                    a.id.remote,
                     o("WAWebMsgCollection").MEDIA_QUERY_LIMIT,
                     "before",
-                    i.id,
+                    a.id,
                     "url",
                   )
                   .then(function (t) {
-                    l === e.$ChatLinkMsgsCollection$p_6 &&
+                    i === e.$ChatLinkMsgsCollection$p_6 &&
                       ((!t ||
                         t.length < o("WAWebMsgCollection").MEDIA_QUERY_LIMIT) &&
                         (e.hasLinkBefore = !1),
@@ -191,114 +176,91 @@ __d(
                     ),
                   )
                   .finally(function () {
-                    (e.queryLinkBefore === s && (e.queryLinkBefore = null),
+                    (e.queryLinkBefore === l && (e.queryLinkBefore = null),
                       e.trigger("query_link_before"));
                   }));
-              return (this.trigger("query_link_before"), s);
+              return (this.trigger("query_link_before"), l);
             }
-            var u = t.msgs.getModelsArray();
+            var s = t.msgs.getModelsArray();
             if (this.length === 0) {
-              if (!u || u.length === 0)
-                return (
-                  (this.hasLinkBefore = !1),
-                  (c || (c = n("Promise"))).resolve()
-                );
+              if (!s || s.length === 0)
+                return ((this.hasLinkBefore = !1), Promise.resolve());
               (this.add(
-                u.filter(function (e) {
+                s.filter(function (e) {
                   return o("WAWebMsgLinks").hasLinkGalleryLinks(e);
                 }),
                 { at: 0 },
               ),
-                this.createLinksAndAddMsgs(u),
+                this.createLinksAndAddMsgs(s),
                 this.addBackfilledLinks(t));
             }
             if (t.msgs.msgLoadState.noEarlierMsgs)
-              return (
-                (this.hasLinkBefore = !1),
-                (c || (c = n("Promise"))).resolve()
-              );
+              return ((this.hasLinkBefore = !1), Promise.resolve());
             if (this.length <= 2 * o("WAWebMsgCollection").MEDIA_QUERY_LIMIT) {
-              var d = this.length === 0 ? t.msgs.head() : this.head();
-              return this.queryLinks(t, d);
+              var u = this.length === 0 ? t.msgs.head() : this.head();
+              return this.queryLinks(t, u);
             }
-            return (c || (c = n("Promise"))).resolve();
+            return Promise.resolve();
           }),
-          (i.addBackfilledLinks = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                try {
-                  var n = yield o(
-                    "WAWebMsgQueryUtils",
-                  ).backfillGroupAgentRichResponseLinks(e.id);
-                  yield this.queryLinkBefore;
-                  var a = n.filter(function (n) {
-                    return (
-                      o("WAWebMsgLinks").hasLinkGalleryLinks(n) &&
-                      !t.$ChatLinkMsgsCollection$p_7(e, n)
-                    );
-                  });
-                  a.length > 0 &&
-                    (this.add(a), this.trigger("query_link_before"));
-                } catch (t) {
-                  o("WALogger")
-                    .ERROR(
-                      s ||
-                        (s = babelHelpers.taggedTemplateLiteralLoose([
-                          "Failed to backfill links for chat ",
-                          "",
-                        ])),
-                      e.id,
-                    )
-                    .catching(r("getErrorSafe")(t))
-                    .sendLogs("link-index-backfill-failed");
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (a.addBackfilledLinks = async function (t) {
+            var e = this;
+            try {
+              var n = await o(
+                "WAWebMsgQueryUtils",
+              ).backfillGroupAgentRichResponseLinks(t.id);
+              await this.queryLinkBefore;
+              var a = n.filter(function (n) {
+                return (
+                  o("WAWebMsgLinks").hasLinkGalleryLinks(n) &&
+                  !e.$ChatLinkMsgsCollection$p_7(t, n)
+                );
+              });
+              a.length > 0 && (this.add(a), this.trigger("query_link_before"));
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "Failed to backfill links for chat ",
+                      "",
+                    ])),
+                  t.id,
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("link-index-backfill-failed");
             }
-            return t;
-          })()),
-          (i.$ChatLinkMsgsCollection$p_7 = function (t, n) {
+          }),
+          (a.$ChatLinkMsgsCollection$p_7 = function (t, n) {
             var e,
               r = (e = this.head()) != null ? e : t.msgs.head();
             return this.hasLinkBefore && r != null && n.t < r.t;
           }),
-          (i.refreshCountAfterBackfill = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                try {
-                  var t = yield o(
-                    "WAWebMsgQueryUtils",
-                  ).backfillGroupAgentRichResponseLinks(e.id);
-                  t.some(function (e) {
-                    return o("WAWebMsgLinks").hasLinkGalleryLinks(e);
-                  }) &&
-                    ((this.$ChatLinkMsgsCollection$p_1 = null),
-                    this.$ChatLinkMsgsCollection$p_2++,
-                    this.trigger("link_index_backfill"));
-                } catch (t) {
-                  o("WALogger")
-                    .ERROR(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "Failed to backfill links for count in chat ",
-                          "",
-                        ])),
-                      e.id,
-                    )
-                    .catching(r("getErrorSafe")(t))
-                    .sendLogs("link-index-backfill-count-failed");
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (a.refreshCountAfterBackfill = async function (t) {
+            try {
+              var e = await o(
+                "WAWebMsgQueryUtils",
+              ).backfillGroupAgentRichResponseLinks(t.id);
+              e.some(function (e) {
+                return o("WAWebMsgLinks").hasLinkGalleryLinks(e);
+              }) &&
+                ((this.$ChatLinkMsgsCollection$p_1 = null),
+                this.$ChatLinkMsgsCollection$p_2++,
+                this.trigger("link_index_backfill"));
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "Failed to backfill links for count in chat ",
+                      "",
+                    ])),
+                  t.id,
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("link-index-backfill-count-failed");
             }
-            return t;
-          })()),
-          (i.createLinksAndAddMsgs = function (t) {
+          }),
+          (a.createLinksAndAddMsgs = function (t) {
             var e = this,
               n = [];
             o("WAPromiseLoop")
@@ -316,14 +278,14 @@ __d(
                 (e.add(n), e.trigger("query_link_before"));
               });
           }),
-          a
+          n
         );
       })(o("WAWebBaseCollection").BaseCollection);
-    ((d.model = o("WAWebMsgModel").Msg),
-      (d.comparator = function (e, t) {
+    ((c.model = o("WAWebMsgModel").Msg),
+      (c.comparator = function (e, t) {
         return e.t - t.t;
       }),
-      (l.default = d));
+      (l.default = c));
   },
   98,
 );

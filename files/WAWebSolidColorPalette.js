@@ -9,7 +9,7 @@ __d(
             dark: "#2E7B80",
             doodleOpacity: 0.5,
             getColorName: function () {
-              return s._(/*BTDS*/ "Soft teal");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -17,7 +17,7 @@ __d(
             dark: "#587D6B",
             doodleOpacity: 0.52,
             getColorName: function () {
-              return s._(/*BTDS*/ "Soft mint");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -25,7 +25,7 @@ __d(
             dark: "#39765D",
             doodleOpacity: 0.3,
             getColorName: function () {
-              return s._(/*BTDS*/ "Sage");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -33,7 +33,7 @@ __d(
             dark: "#30726E",
             doodleOpacity: 0.35,
             getColorName: function () {
-              return s._(/*BTDS*/ "Pale teal");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -41,7 +41,7 @@ __d(
             dark: "#0F6E72",
             doodleOpacity: 0.3,
             getColorName: function () {
-              return s._(/*BTDS*/ "Sky cyan");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -49,7 +49,7 @@ __d(
             dark: "#297A8B",
             doodleOpacity: 0.26,
             getColorName: function () {
-              return s._(/*BTDS*/ "Muted cyan");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -57,7 +57,7 @@ __d(
             dark: "#2E7553",
             doodleOpacity: 0.22,
             getColorName: function () {
-              return s._(/*BTDS*/ "Emerald");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -65,7 +65,7 @@ __d(
             dark: "#327C3D",
             doodleOpacity: 0.22,
             getColorName: function () {
-              return s._(/*BTDS*/ "Soft green");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -73,7 +73,7 @@ __d(
             dark: "#657C34",
             doodleOpacity: 0.3,
             getColorName: function () {
-              return s._(/*BTDS*/ "Olive");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -81,7 +81,7 @@ __d(
             dark: "#767932",
             doodleOpacity: 0.36,
             getColorName: function () {
-              return s._(/*BTDS*/ "Pale olive");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -89,7 +89,7 @@ __d(
             dark: "#686543",
             doodleOpacity: 0.4,
             getColorName: function () {
-              return s._(/*BTDS*/ "Warm tan");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -97,7 +97,7 @@ __d(
             dark: "#846F0C",
             doodleOpacity: 0.5,
             getColorName: function () {
-              return s._(/*BTDS*/ "Pale yellow");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -105,7 +105,7 @@ __d(
             dark: "#817E00",
             doodleOpacity: 0.5,
             getColorName: function () {
-              return s._(/*BTDS*/ "Yellow green");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -113,7 +113,7 @@ __d(
             dark: "#A54733",
             doodleOpacity: 0.38,
             getColorName: function () {
-              return s._(/*BTDS*/ "Peach");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -121,7 +121,7 @@ __d(
             dark: "#933F2E",
             doodleOpacity: 0.42,
             getColorName: function () {
-              return s._(/*BTDS*/ "Blush");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -129,7 +129,7 @@ __d(
             dark: "#9D315E",
             doodleOpacity: 0.38,
             getColorName: function () {
-              return s._(/*BTDS*/ "Rose blush");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -137,7 +137,7 @@ __d(
             dark: "#5F4FAF",
             doodleOpacity: 0.34,
             getColorName: function () {
-              return s._(/*BTDS*/ "Lavender");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -145,7 +145,7 @@ __d(
             dark: "#3F70AC",
             doodleOpacity: 0.34,
             getColorName: function () {
-              return s._(/*BTDS*/ "Periwinkle");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -153,7 +153,7 @@ __d(
             dark: "#8F329E",
             doodleOpacity: 0.3,
             getColorName: function () {
-              return s._(/*BTDS*/ "Orchid");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -161,7 +161,7 @@ __d(
             dark: "#6E2A38",
             doodleOpacity: 0.34,
             getColorName: function () {
-              return s._(/*BTDS*/ "Baby pink");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -169,7 +169,7 @@ __d(
             dark: "#63202B",
             doodleOpacity: 0.28,
             getColorName: function () {
-              return s._(/*BTDS*/ "Coral");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -177,7 +177,7 @@ __d(
             dark: "#4D0808",
             doodleOpacity: 0.2,
             getColorName: function () {
-              return s._(/*BTDS*/ "Salmon");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -185,7 +185,7 @@ __d(
             dark: "#5A1916",
             doodleOpacity: 0.17,
             getColorName: function () {
-              return s._(/*BTDS*/ "Warm red");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -193,7 +193,7 @@ __d(
             dark: "#570F1D",
             doodleOpacity: 0.18,
             getColorName: function () {
-              return s._(/*BTDS*/ "Rose red");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -201,7 +201,7 @@ __d(
             dark: "#571800",
             doodleOpacity: 0.16,
             getColorName: function () {
-              return s._(/*BTDS*/ "Terracotta");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -209,7 +209,7 @@ __d(
             dark: "#36263A",
             doodleOpacity: 0.06,
             getColorName: function () {
-              return s._(/*BTDS*/ "Dark plum");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -217,7 +217,7 @@ __d(
             dark: "#2A2627",
             doodleOpacity: 0.09,
             getColorName: function () {
-              return s._(/*BTDS*/ "Gray brown");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -225,7 +225,7 @@ __d(
             dark: "#2C3136",
             doodleOpacity: 0.12,
             getColorName: function () {
-              return s._(/*BTDS*/ "Steel blue");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -233,7 +233,7 @@ __d(
             dark: "#2C2A63",
             doodleOpacity: 0.12,
             getColorName: function () {
-              return s._(/*BTDS*/ "Indigo");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -241,7 +241,7 @@ __d(
             dark: "#122747",
             doodleOpacity: 0.09,
             getColorName: function () {
-              return s._(/*BTDS*/ "Royal blue");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -249,7 +249,7 @@ __d(
             dark: "#00405E",
             doodleOpacity: 0.16,
             getColorName: function () {
-              return s._(/*BTDS*/ "Sky blue");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -257,7 +257,7 @@ __d(
             dark: "#003C40",
             doodleOpacity: 0.16,
             getColorName: function () {
-              return s._(/*BTDS*/ "Deep teal");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -265,7 +265,7 @@ __d(
             dark: "#1E262F",
             doodleOpacity: 0.09,
             getColorName: function () {
-              return s._(/*BTDS*/ "Blue gray");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -273,7 +273,7 @@ __d(
             dark: "#4E4B4B",
             doodleOpacity: 0.3,
             getColorName: function () {
-              return s._(/*BTDS*/ "Light gray");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -281,7 +281,7 @@ __d(
             dark: "#6D6D6E",
             doodleOpacity: 0.45,
             getColorName: function () {
-              return s._(/*BTDS*/ "Silver");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -289,7 +289,7 @@ __d(
             dark: "#1B262D",
             doodleOpacity: 0.06,
             getColorName: function () {
-              return s._(/*BTDS*/ "Charcoal");
+              return s._(/*BTDS*/ "");
             },
           },
           {
@@ -297,7 +297,7 @@ __d(
             dark: "#0A0A0A",
             doodleOpacity: 1,
             getColorName: function () {
-              return s._(/*BTDS*/ "Default");
+              return s._(/*BTDS*/ "");
             },
           },
         ],
@@ -344,7 +344,7 @@ __d(
     }
     function h(t) {
       var n = _(t);
-      return n === -1 ? s._(/*BTDS*/ "Color") : e[n].getColorName();
+      return n === -1 ? s._(/*BTDS*/ "") : e[n].getColorName();
     }
     function y(t) {
       var n = t.toUpperCase(),

@@ -11,7 +11,6 @@ __d(
     "WAWebBackendEventBusTypes",
     "WAWebEventsWaitForOfflineDeliveryEnd",
     "WAWebWindowsBackgroundRun",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -33,91 +32,74 @@ __d(
           },
         ));
     }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          t === void 0 && (t = 0);
-          var n = function () {
-            return (
-              _ === o("WAWebWindowsBackgroundRun").getWindowsLoginCount() &&
-              o("WAWebWindowsBackgroundRun").getWindowsLoginCount() >= t
-            );
+    async function g(t) {
+      t === void 0 && (t = 0);
+      var n = function () {
+        return (
+          _ === o("WAWebWindowsBackgroundRun").getWindowsLoginCount() &&
+          o("WAWebWindowsBackgroundRun").getWindowsLoginCount() >= t
+        );
+      };
+      if (!n()) {
+        var r = new (o("WAResolvable").Resolvable)(),
+          a = function () {
+            n() && r.resolve();
           };
-          if (!n()) {
-            var r = new (o("WAResolvable").Resolvable)(),
-              a = function () {
-                n() && r.resolve();
-              };
-            o("WAWebBackendEventBus").BackendEventBus.onOfflineDeliveryEnd(a);
-            try {
-              yield o("WAPromiseTimeout").promiseTimeout(
-                r.promise,
-                o("WAWebEventsWaitForOfflineDeliveryEnd")
-                  .OFFLINE_RESUME_WAIT_TIMEOUT,
-              );
-            } catch (t) {
-              if (!(t instanceof o("WACustomError").TimeoutError)) throw t;
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "WindowsLoginOfflineDelivery: offline delivery end not seen in time",
-                  ])),
-              );
-            } finally {
-              o("WAWebBackendEventBus").BackendEventBus.off(
-                o("WAWebBackendEventBusTypes").BackendEvent
-                  .OFFLINE_DELIVERY_END,
-                a,
-              );
-            }
-          }
-        })),
-        h.apply(this, arguments)
-      );
+        o("WAWebBackendEventBus").BackendEventBus.onOfflineDeliveryEnd(a);
+        try {
+          await o("WAPromiseTimeout").promiseTimeout(
+            r.promise,
+            o("WAWebEventsWaitForOfflineDeliveryEnd")
+              .OFFLINE_RESUME_WAIT_TIMEOUT,
+          );
+        } catch (t) {
+          if (!(t instanceof o("WACustomError").TimeoutError)) throw t;
+          o("WALogger").WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "WindowsLoginOfflineDelivery: offline delivery end not seen in time",
+              ])),
+          );
+        } finally {
+          o("WAWebBackendEventBus").BackendEventBus.off(
+            o("WAWebBackendEventBusTypes").BackendEvent.OFFLINE_DELIVERY_END,
+            a,
+          );
+        }
+      }
     }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e === void 0 && (e = c);
-          var t = o("WAComms").getComms();
-          if (!(t == null || !t.isSocketConnected())) {
-            try {
-              if (yield o("WAPromiseTimeout").promiseTimeout(t.sendPing(), m))
-                return;
-            } catch (e) {
-              if (!(e instanceof o("WACustomError").TimeoutError)) throw e;
-              o("WALogger").WARN(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "WindowsLoginOfflineDelivery: ping answer timed out",
-                  ])),
-              );
-              return;
-            }
-            if (e <= 1) {
-              o("WALogger").WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "WindowsLoginOfflineDelivery: no ping answer",
-                  ])),
-              );
-              return;
-            }
-            (yield o("WAPromiseDelays").delayMs(d), yield y(e - 1));
-          }
-        })),
-        C.apply(this, arguments)
-      );
+    async function h(e) {
+      e === void 0 && (e = c);
+      var t = o("WAComms").getComms();
+      if (!(t == null || !t.isSocketConnected())) {
+        try {
+          if (await o("WAPromiseTimeout").promiseTimeout(t.sendPing(), m))
+            return;
+        } catch (e) {
+          if (!(e instanceof o("WACustomError").TimeoutError)) throw e;
+          o("WALogger").WARN(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "WindowsLoginOfflineDelivery: ping answer timed out",
+              ])),
+          );
+          return;
+        }
+        if (e <= 1) {
+          o("WALogger").WARN(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "WindowsLoginOfflineDelivery: no ping answer",
+              ])),
+          );
+          return;
+        }
+        (await o("WAPromiseDelays").delayMs(d), await h(e - 1));
+      }
     }
     ((l.startTrackingWindowsLoginOfflineDelivery_v2646 = f),
       (l.waitForLatestLoginOfflineDeliveryEnd_v2646 = g),
-      (l.waitForPingAnswer_v2646 = y));
+      (l.waitForPingAnswer_v2646 = h));
   },
   98,
 );

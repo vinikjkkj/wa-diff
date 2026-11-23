@@ -2,12 +2,10 @@ __d(
   "WAWebOpenHatchCustomConnectLink",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WAWebHatchCustomConnectorFlows",
     "WAWebOpenHatchConnectFailedToast",
     "WAWebTakeHatchCustomConnectLink",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "promiseDone",
   ],
@@ -16,20 +14,19 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = (c = r("JSResourceForInteraction"))(
+      c = (u = r("JSResourceForInteraction"))(
         "WAWebReadHatchCustomConnectLink",
       ).__setRef("WAWebOpenHatchCustomConnectLink"),
-      m = c("WAWebHatchCustomConnectorConsentDialog.react").__setRef(
+      d = u("WAWebHatchCustomConnectorConsentDialog.react").__setRef(
         "WAWebOpenHatchCustomConnectLink",
       ),
-      p = c("WAWebOpenHatchCustomConnectorAddDialog").__setRef(
+      m = u("WAWebOpenHatchCustomConnectorAddDialog").__setRef(
         "WAWebOpenHatchCustomConnectLink",
       ),
-      _ = c("WAWebOpenHatchCustomOAuthConnectorDialog").__setRef(
+      p = u("WAWebOpenHatchCustomOAuthConnectorDialog").__setRef(
         "WAWebOpenHatchCustomConnectLink",
       );
-    function f(t, n) {
+    function _(t, n) {
       if (!o("WAWebTakeHatchCustomConnectLink").takesHatchCustomConnectLink(t))
         return !1;
       var a = o(
@@ -38,7 +35,7 @@ __d(
       return (
         a == null ||
           r("promiseDone")(
-            g(t),
+            f(t),
             function (t) {
               if (t.kind === "invalid") {
                 var r;
@@ -53,7 +50,7 @@ __d(
                         ])),
                     )
                     .sendLogs("hatch-custom-connector-link-invalid"),
-                  y(
+                  g(
                     (r = t.displayName) != null
                       ? r
                       : n == null
@@ -62,9 +59,9 @@ __d(
                   ));
                 return;
               }
-              b(t, a, (n == null ? void 0 : n.fromCard) === !0).catch(
+              y(t, a, (n == null ? void 0 : n.fromCard) === !0).catch(
                 function (e) {
-                  (C(a, e),
+                  (h(a, e),
                     o(
                       "WAWebOpenHatchConnectFailedToast",
                     ).openHatchConnectFailedToast(t.displayName));
@@ -72,32 +69,24 @@ __d(
               );
             },
             function (e) {
-              (C(a, e), y(n == null ? void 0 : n.fallbackName));
+              (h(a, e), g(n == null ? void 0 : n.fallbackName));
             },
           ),
         !0
       );
     }
+    async function f(e) {
+      var t = await c.load(),
+        n = t.readHatchCustomConnectLink;
+      return n(e);
+    }
     function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield d.load(),
-            n = t.readHatchCustomConnectLink;
-          return n(e);
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
       var t,
         n = (t = e == null ? void 0 : e.trim()) != null ? t : "";
       n !== "" &&
         o("WAWebOpenHatchConnectFailedToast").openHatchConnectFailedToast(n);
     }
-    function C(e, t) {
+    function h(e, t) {
       (o("WAWebHatchCustomConnectorFlows").endHatchCustomConnectorFlow(e),
         o("WALogger")
           .ERROR(
@@ -109,36 +98,24 @@ __d(
           .catching(r("getErrorSafe")(t))
           .sendLogs("hatch-custom-connector-dialog-open-failed"));
     }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
+    async function y(e, t, n) {
+      if (e.kind === "oauth") {
+        var r = await Promise.all([d.load(), p.load()]),
+          a = r[0],
+          i = r[1].openHatchCustomOAuthConnectorDialog;
+        (await a.confirmHatchCustomConnectorConsent(e.request.name))
+          ? i(e.request, t)
+          : o("WAWebHatchCustomConnectorFlows").endHatchCustomConnectorFlow(t);
+        return;
+      }
+      var l = await Promise.all([d.load(), m.load()]),
+        s = l[0],
+        u = l[1].openHatchCustomConnectorAddDialog;
+      (await s.confirmHatchCustomConnectorConsent(e.request.name))
+        ? u(e.request, t, { fromCard: n })
+        : o("WAWebHatchCustomConnectorFlows").endHatchCustomConnectorFlow(t);
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          if (e.kind === "oauth") {
-            var a = yield (u || (u = n("Promise"))).all([m.load(), _.load()]),
-              i = a[0],
-              l = a[1].openHatchCustomOAuthConnectorDialog;
-            (yield i.confirmHatchCustomConnectorConsent(e.request.name))
-              ? l(e.request, t)
-              : o("WAWebHatchCustomConnectorFlows").endHatchCustomConnectorFlow(
-                  t,
-                );
-            return;
-          }
-          var s = yield (u || (u = n("Promise"))).all([m.load(), p.load()]),
-            c = s[0],
-            d = s[1].openHatchCustomConnectorAddDialog;
-          (yield c.confirmHatchCustomConnectorConsent(e.request.name))
-            ? d(e.request, t, { fromCard: r })
-            : o("WAWebHatchCustomConnectorFlows").endHatchCustomConnectorFlow(
-                t,
-              );
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    l.openHatchCustomConnectLink = f;
+    l.openHatchCustomConnectLink = _;
   },
   98,
 );

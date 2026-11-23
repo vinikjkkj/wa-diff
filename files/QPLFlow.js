@@ -1,6 +1,6 @@
 __d(
   "QPLFlow",
-  ["QPLUserFlow", "Random", "asyncToGeneratorRuntime", "getErrorSafe"],
+  ["QPLUserFlow", "Random", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = 0,
@@ -114,28 +114,20 @@ __d(
     function _(e, t, n) {
       return o("Random").coinflip(t) ? c(e, n) : p();
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
+    async function f(e, t) {
+      try {
+        var n = await t();
+        return (e.endSuccess(), n);
+      } catch (t) {
+        throw (
+          e.endFail("error", {
+            string: { error_name: r("getErrorSafe")(t).name },
+          }),
+          t
+        );
+      }
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            var n = yield t();
-            return (e.endSuccess(), n);
-          } catch (t) {
-            throw (
-              e.endFail("error", {
-                string: { error_name: r("getErrorSafe")(t).name },
-              }),
-              t
-            );
-          }
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    var h = (function () {
+    var g = (function () {
       function e(e, t) {
         ((this.qplFlow = e), (this.subspanName = t));
       }
@@ -162,23 +154,15 @@ __d(
           var t = new e(n, r);
           return (t.start(), t);
         }),
-        (e.wrapInSubspan = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (t, n, r) {
-              var o = e.start(t, n);
-              try {
-                var a = yield r();
-                return (o.end(), a);
-              } catch (e) {
-                throw (o.endFail(), e);
-              }
-            },
-          );
-          function r(e, n, r) {
-            return t.apply(this, arguments);
+        (e.wrapInSubspan = async function (n, r, o) {
+          var t = e.start(n, r);
+          try {
+            var a = await o();
+            return (t.end(), a);
+          } catch (e) {
+            throw (t.endFail(), e);
           }
-          return r;
-        })()),
+        }),
         e
       );
     })();
@@ -188,7 +172,7 @@ __d(
       (l.startNoopQPLFlow = p),
       (l.startQplFlowWithCoinflip = _),
       (l.endWith = f),
-      (l.QplSubspan = h));
+      (l.QplSubspan = g));
   },
   98,
 );

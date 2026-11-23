@@ -1,36 +1,30 @@
 __d(
   "WAConcurrentIterate",
-  ["Promise", "asyncToGeneratorRuntime"],
+  [],
   function (t, n, r, o, a, i) {
     "use strict";
-    var e;
-    function l(t, r, o) {
+    function e(e, t, n) {
       for (
-        var a = [],
-          i = [],
-          l = 0,
-          s = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              for (; l < t; ) {
-                var e = l;
-                (l++, (i[e] = yield r(e)));
-              }
-            });
-            return function () {
-              return e.apply(this, arguments);
-            };
-          })(),
-          u = Math.min(t, o),
-          c = 0;
-        c < u;
-        c++
+        var r = [],
+          o = [],
+          a = 0,
+          i = async function () {
+            for (; a < e; ) {
+              var n = a;
+              (a++, (o[n] = await t(n)));
+            }
+          },
+          l = Math.min(e, n),
+          s = 0;
+        s < l;
+        s++
       )
-        a.push(s());
-      return (e || (e = n("Promise"))).all(a).then(function () {
-        return i;
+        r.push(i());
+      return Promise.all(r).then(function () {
+        return o;
       });
     }
-    i.concurrentIterate = l;
+    i.concurrentIterate = e;
   },
   66,
 );

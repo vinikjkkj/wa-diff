@@ -8,6 +8,7 @@ __d(
     "FacebookPartnershipAdsViewerFalcoEvent",
     "gkx",
     "qex",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -67,104 +68,7 @@ __d(
           t),
       });
     }
-    function m(e, t, n, o, a) {
-      var i;
-      r("AdsInterfacesLogger").log({
-        eventName: "fb_reel_with_copyright_music_video_upload",
-        data:
-          ((i = {}),
-          (i.page_post_id = e == null ? void 0 : e.id),
-          (i.is_edit = e == null ? void 0 : e.has_fb_copy),
-          (i.adgroup_id = n),
-          (i.metadata = JSON.stringify(
-            babelHelpers.extends(
-              {
-                status: "success",
-                new_post_id: o,
-                music_selection_mode: a,
-                is_reswap:
-                  (e == null ? void 0 : e.has_audio_swapped_fb_copy) === !0,
-              },
-              t,
-            ),
-          )),
-          i),
-      });
-    }
-    function p(e, t, n, o) {
-      var a;
-      r("AdsInterfacesLogger").log({
-        eventName: "fb_reel_with_copyright_music_video_upload",
-        data:
-          ((a = {}),
-          (a.page_post_id = e == null ? void 0 : e.id),
-          (a.is_edit = e == null ? void 0 : e.has_fb_copy),
-          (a.adgroup_id = n),
-          (a.metadata = JSON.stringify(
-            babelHelpers.extends(
-              {
-                status: "failure",
-                is_reswap:
-                  (e == null ? void 0 : e.has_audio_swapped_fb_copy) === !0,
-                error_message: o,
-              },
-              t,
-            ),
-          )),
-          a),
-      });
-    }
-    function _(e, t, n) {
-      var o;
-      r("AdsInterfacesLogger").log({
-        eventName: "fb_reel_with_copyright_music_video_upload",
-        data:
-          ((o = {}),
-          (o.page_post_id = e == null ? void 0 : e.id),
-          (o.is_edit = e == null ? void 0 : e.has_fb_copy),
-          (o.adgroup_id = n),
-          (o.metadata = JSON.stringify(
-            babelHelpers.extends(
-              {
-                status: "retry",
-                is_reswap:
-                  (e == null ? void 0 : e.has_audio_swapped_fb_copy) === !0,
-              },
-              t,
-            ),
-          )),
-          o),
-      });
-    }
-    function f(e, t) {
-      var n;
-      (t === void 0 && (t = "post_picker"),
-        r("AdsInterfacesLogger").log({
-          eventName: "fb_reel_with_copyright_music_open_audio_swap_modal",
-          data:
-            ((n = {}),
-            (n.page_post_id = e == null ? void 0 : e.id),
-            (n.is_edit = e == null ? void 0 : e.has_audio_swapped_fb_copy),
-            (n.metadata = JSON.stringify({ entry_point: t })),
-            n),
-        }));
-    }
-    function g(e, t) {
-      var n;
-      r("AdsInterfacesLogger").log({
-        eventName: "fb_reel_with_copyright_music_save_music",
-        data:
-          ((n = {}),
-          (n.page_post_id = e == null ? void 0 : e.id),
-          (n.metadata = JSON.stringify({
-            music_selection_mode: t,
-            is_reswap:
-              (e == null ? void 0 : e.has_audio_swapped_fb_copy) === !0,
-          })),
-          n),
-      });
-    }
-    function h(e) {
+    function m(e) {
       var t;
       r("AdsInterfacesLogger").logOnce({
         eventName: "fb_reel_with_copyright_music_visible_in_post_picker",
@@ -177,20 +81,7 @@ __d(
           t),
       });
     }
-    function y(e) {
-      var t;
-      r("AdsInterfacesLogger").logOnce({
-        eventName: "fb_reel_with_audio_swapped_copy_visible_in_post_picker",
-        data:
-          ((t = {}),
-          (t.page_post_id = e == null ? void 0 : e.id),
-          (t.metadata = JSON.stringify({
-            is_audioswapped: e.has_audio_swapped_fb_copy,
-          })),
-          t),
-      });
-    }
-    function C(e, t) {
+    function p(e, t) {
       var n;
       r("AdsInterfacesLogger").logOnce({
         eventName: "fb_reel_audio_swap_debug",
@@ -198,20 +89,25 @@ __d(
           ((n = {}), (n.page_post_id = e), (n.metadata = JSON.stringify(t)), n),
       });
     }
-    function b(e, t) {
-      ((e.has_audio_swapped_fb_copy || e.has_licensed_fb_reel_music) &&
-        C(e.id, {
+    function _(e, t) {
+      ((e.has_audio_swapped_fb_copy === !0 ||
+        e.has_licensed_fb_reel_music === !0) &&
+        p(e.id, {
           callsite: t,
           has_audio_swapped_fb_copy: e.has_audio_swapped_fb_copy,
           has_licensed_fb_reel_music: e.has_licensed_fb_reel_music,
         }),
-        u(e, !0) ? h(e) : c(e, !0) && y(e),
-        o("AdsInstagramReelErrorUtils").isReelWithCopyrightMusic(e) &&
+        u(e, !0)
+          ? m(e)
+          : c(e, !0) && r("vulture")("-oeWHPL2ASn2mhRsmk8tUWVuMkg="),
+        o("AdsInstagramReelErrorUtils").isReelWithCopyrightMusic(
+          e == null ? void 0 : e.boost_eligibility,
+        ) &&
           o(
             "AdsInstagramReelErrorUtils",
           ).logIGReelWithCopyrightMusicVisibleInPostPicker(e));
     }
-    function v(t, n, a, i, l) {
+    function f(t, n, a, i, l) {
       var s, u, c, d;
       if (!o("AdsPagePostUtils").isIGPost(l)) {
         var m = e(l),
@@ -262,13 +158,13 @@ __d(
         });
       }
     }
-    function S(e, t, n, r, o) {
-      L("success", e, t, n, r, o);
+    function g(e, t, n, r, o) {
+      y("success", e, t, n, r, o);
     }
-    function R(e, t, n, r, o) {
-      L("failure", e, t, n, r, o);
+    function h(e, t, n, r) {
+      y("failure", e, t, n, r);
     }
-    function L(t, n, o, a, i, l) {
+    function y(t, n, o, a, i, l) {
       var s,
         u,
         c,
@@ -320,7 +216,7 @@ __d(
         };
       });
     }
-    function E(t) {
+    function C(t) {
       var n,
         o,
         a,
@@ -370,17 +266,12 @@ __d(
     ((l.isFBReelWithCopyrightMusic = u),
       (l.isFBAudioSwappedCopy = c),
       (l.logFBReelWithCopyrightMusicSelectPost = d),
-      (l.logFBReelAudioSwapSuccess = m),
-      (l.logFBReelAudioSwapFailure = p),
-      (l.logFBReelAudioSwapRetry = _),
-      (l.logFBReelWithCopyrightMusicOpenAudioSwapModal = f),
-      (l.logFBReelWithCopyrightMusicSaveMusic = g),
-      (l.logFBReelAudioSwapDebug = C),
-      (l.logReelLicensedMusicExposure = b),
-      (l.logFBBrandedContentPostNextClicked = v),
-      (l.logFBPartnershipAdsReelAudioSwapSuccess = S),
-      (l.logFBPartnershipAdsReelAudioSwapFailure = R),
-      (l.logFBPAReelWithCopyrightMusicOpenAudioSwapModal = E));
+      (l.logFBReelAudioSwapDebug = p),
+      (l.logReelLicensedMusicExposure = _),
+      (l.logFBBrandedContentPostNextClicked = f),
+      (l.logFBPartnershipAdsReelAudioSwapSuccess = g),
+      (l.logFBPartnershipAdsReelAudioSwapFailure = h),
+      (l.logFBPAReelWithCopyrightMusicOpenAudioSwapModal = C));
   },
   98,
 );

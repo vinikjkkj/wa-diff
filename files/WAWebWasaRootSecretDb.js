@@ -9,7 +9,6 @@ __d(
     "WAWebSchemaMessage",
     "WAWebUserUtils",
     "WAWebViewMode.flow",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -40,99 +39,54 @@ __d(
         messageSecret: r,
       };
     }
-    function c(e, t, n) {
-      return d.apply(this, arguments);
+    async function c(e, t, n) {
+      await o("WAWebSchemaMessage")
+        .getMessageTable()
+        .createOrReplace(
+          o("WAWebDBMessageSerialization").dbRowFromMessage(u(e, s(e, t), n)),
+        );
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          yield o("WAWebSchemaMessage")
-            .getMessageTable()
-            .createOrReplace(
-              o("WAWebDBMessageSerialization").dbRowFromMessage(
-                u(e, s(e, t), n),
-              ),
-            );
-        })),
-        d.apply(this, arguments)
-      );
+    async function d(e, t) {
+      t.length !== 0 &&
+        (await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .bulkCreateOrReplace(
+            t.map(function (t) {
+              var n = t.secret,
+                r = t.stanzaId;
+              return o("WAWebDBMessageSerialization").dbRowFromMessage(
+                u(e, s(e, r), n),
+              );
+            }),
+          ));
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
+    async function m(e, t) {
+      var n = s(e, t),
+        r = await o("WAWebSchemaMessage").getMessageTable().get(n.toString());
+      return r == null
+        ? null
+        : o("WAWebDBMessageSerialization").messageFromDbRow(r).messageSecret;
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t.length !== 0 &&
-            (yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .bulkCreateOrReplace(
-                t.map(function (t) {
-                  var n = t.secret,
-                    r = t.stanzaId;
-                  return o("WAWebDBMessageSerialization").dbRowFromMessage(
-                    u(e, s(e, r), n),
-                  );
-                }),
-              ));
-        })),
-        p.apply(this, arguments)
-      );
+    async function p(e, t) {
+      var n = s(e, t);
+      await o("WAWebSchemaMessage").getMessageTable().remove(n.toString());
     }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = s(e, t),
-            r = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .get(n.toString());
-          return r == null
-            ? null
-            : o("WAWebDBMessageSerialization").messageFromDbRow(r)
-                .messageSecret;
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = s(e, t);
-          yield o("WAWebSchemaMessage").getMessageTable().remove(n.toString());
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          t.length !== 0 &&
-            (yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .bulkRemove(
-                t.map(function (t) {
-                  return s(e, t).toString();
-                }),
-              ));
-        })),
-        C.apply(this, arguments)
-      );
+    async function _(e, t) {
+      t.length !== 0 &&
+        (await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .bulkRemove(
+            t.map(function (t) {
+              return s(e, t).toString();
+            }),
+          ));
     }
     ((l.getWasaRootSecretMsgKeyForId = s),
       (l.upsertWasaRootSecretForId = c),
-      (l.upsertWasaRootSecretsForIds = m),
-      (l.getWasaRootSecretForId = _),
-      (l.removeWasaRootSecretForId = g),
-      (l.removeWasaRootSecretsForIds = y));
+      (l.upsertWasaRootSecretsForIds = d),
+      (l.getWasaRootSecretForId = m),
+      (l.removeWasaRootSecretForId = p),
+      (l.removeWasaRootSecretsForIds = _));
   },
   98,
 );

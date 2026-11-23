@@ -5,7 +5,6 @@ __d(
     "WAWebBizAiAgentStatusUtils",
     "WAWebBizAiWebSmartComposerAiListsGateModel",
     "WAWebMobilePlatforms",
-    "react-compiler-runtime",
     "useWAWebBizAiWebSmartComposerAiListsGateEnabled",
   ],
   function (t, n, r, o, a, i, l) {
@@ -21,13 +20,7 @@ __d(
       );
     }
     function c() {
-      var e = o("react-compiler-runtime").c(2),
-        t = r("useWAWebBizAiWebSmartComposerAiListsGateEnabled")(),
-        n;
-      return (
-        e[0] !== t ? ((n = _(t)), (e[0] = t), (e[1] = n)) : (n = e[1]),
-        n
-      );
+      return _(r("useWAWebBizAiWebSmartComposerAiListsGateEnabled")());
     }
     function d(e) {
       return (

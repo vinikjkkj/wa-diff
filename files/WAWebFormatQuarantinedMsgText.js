@@ -8,8 +8,8 @@ __d(
       return n != null && n !== ""
         ? n
         : r("justknobx")._("8068")
-          ? s._(/*BTDS*/ "Attachment blocked by strict account settings")
-          : s._(/*BTDS*/ "Attachment blocked by Strict account settings");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

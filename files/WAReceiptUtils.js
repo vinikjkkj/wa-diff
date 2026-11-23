@@ -3,58 +3,41 @@ __d(
   [
     "WACryptoManagerUtils",
     "WADeprecatedSendIq",
+    "WAMapWithDefault",
+    "WAMsg",
     "WAPreKeysStanzaUtils",
     "WARequestPreKeyDigest",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      return s.apply(this, arguments);
+    async function e(e, t) {
+      var n = e.retryCount,
+        r = n + 1;
+      r >= 3 &&
+        (await o("WARequestPreKeyDigest").requestPreKeyDigestFn(function (e) {
+          return e(t);
+        }));
+      var a = null;
+      r >= 2 &&
+        (a = await o("WACryptoManagerUtils").getSignalInfoForRetry(
+          t.cryptoManager,
+        ));
+      var i = t.cryptoManager.regInfo.regId;
+      return u(e, r, i, a);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.retryCount,
-            r = n + 1;
-          r >= 3 &&
-            (yield o("WARequestPreKeyDigest").requestPreKeyDigestFn(
-              function (e) {
-                return e(t);
-              },
-            ));
-          var a = null;
-          r >= 2 &&
-            (a = yield o("WACryptoManagerUtils").getSignalInfoForRetry(
-              t.cryptoManager,
-            ));
-          var i = t.cryptoManager.regInfo.regId;
-          return d(e, r, i, a);
-        })),
-        s.apply(this, arguments)
-      );
+    async function s(t, n) {
+      var r = t.externalId,
+        a = t.from,
+        i = t.participant,
+        l;
+      (a.type === "group" ? (l = a.groupJid) : (a.type, (l = a.deviceJid)),
+        await o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
+          await e(t, n),
+          { id: r, class: "receipt", from: l, participant: i },
+        ));
     }
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var r = t.externalId,
-            a = t.from,
-            i = t.participant,
-            l;
-          (a.type === "group" ? (l = a.groupJid) : (a.type, (l = a.deviceJid)),
-            yield o("WADeprecatedSendIq").deprecatedSendStanzaAndWaitForAck(
-              yield e(t, n),
-              { id: r, class: "receipt", from: l, participant: i },
-            ));
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t, n, r) {
+    function u(e, t, n, r) {
       var a = null;
       if (r != null) {
         var i = r.keyType,
@@ -114,7 +97,36 @@ __d(
         )
       );
     }
-    ((l.makeRetryReceipt = e), (l.sendRetryReceipt = u));
+    function c(e) {
+      var t = new (o("WAMapWithDefault").MapWithDefault)(function (e) {
+        return new Set();
+      });
+      for (var n of e) {
+        var r = n.receipt;
+        if (r.receiptType === "group" || r.receiptType === "user")
+          for (var a of r.externalIds)
+            t.get(
+              o("WAMsg").craftWAMsgIdString({
+                author: r.messageAuthor,
+                chat: r.chat,
+                externalId: a,
+              }),
+            ).add(r.from.author);
+        else if (r.receiptType === "group-server-agg")
+          for (var i of r.receivers)
+            t.get(
+              o("WAMsg").craftWAMsgIdString({
+                author: r.messageAuthor,
+                chat: r.chat,
+                externalId: r.externalId,
+              }),
+            ).add(i.device);
+      }
+      return t.toMap();
+    }
+    ((l.makeRetryReceipt = e),
+      (l.sendRetryReceipt = s),
+      (l.calculateIdentitiesToDelete = c));
   },
   98,
 );

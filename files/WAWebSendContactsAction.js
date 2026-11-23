@@ -21,7 +21,6 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebVcardUtils",
-    "asyncToGeneratorRuntime",
     "nullthrows",
     "react",
   ],
@@ -51,8 +50,8 @@ __d(
           d,
           { type: m },
         ),
-        f = p.size / 1024;
-      if (f > o("WAWebServerPropConstants").VCARD_AS_DOCUMENT_SIZE_KB) {
+        g = p.size / 1024;
+      if (g > o("WAWebServerPropConstants").VCARD_AS_DOCUMENT_SIZE_KB) {
         _(p, a.length, n, s, i).catch(function (t) {
           o("WALogger").LOG(
             e ||
@@ -65,101 +64,91 @@ __d(
         });
         return;
       }
-      g(u, a, l, n, f, s, i);
+      f(u, a, l, n, g, s, i);
     }
-    function _(e, t, n, r, o) {
-      return f.apply(this, arguments);
+    async function _(e, t, n, a, i) {
+      var l = {
+          file: e,
+          type: o("WAWebMsgType").MSG_TYPE.DOCUMENT,
+          filename: e.name,
+          mimetype: m,
+          isVcardOverMmsDocument: !0,
+          documentPageCount: t,
+        },
+        u = new (r("WAWebAttachMediaCollection"))({
+          chatParticipantCount: n.getParticipantCount(),
+        });
+      await u.processAttachmentsForChat([l], void 0, n);
+      var c = u.uiProcessMsgs(1, null),
+        p = c.errorMsgs;
+      if (p) {
+        o("WAWebToastManager").ToastManager.open(
+          d.jsx(o("WAWebToast.react").Toast, { msg: p }),
+        );
+        return;
+      }
+      var _ = r("nullthrows")(u.getValidMedias()[0]);
+      try {
+        await _.sendToChat({
+          chat: n,
+          options: { quotedMsg: a, ctwaContext: i },
+        });
+      } catch (e) {
+        throw (
+          o("WALogger").LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "Error sending contact: ",
+                "",
+              ])),
+            e,
+          ),
+          e
+        );
+      }
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i) {
-            var l = {
-                file: e,
-                type: o("WAWebMsgType").MSG_TYPE.DOCUMENT,
-                filename: e.name,
-                mimetype: m,
-                isVcardOverMmsDocument: !0,
-                documentPageCount: t,
-              },
-              s = new (r("WAWebAttachMediaCollection"))({
-                chatParticipantCount: n.getParticipantCount(),
-              });
-            yield s.processAttachmentsForChat([l], void 0, n);
-            var c = s.uiProcessMsgs(1, null),
-              p = c.errorMsgs;
-            if (p) {
-              o("WAWebToastManager").ToastManager.open(
-                d.jsx(o("WAWebToast.react").Toast, { msg: p }),
-              );
-              return;
-            }
-            var _ = r("nullthrows")(s.getValidMedias()[0]);
-            try {
-              yield _.sendToChat({
-                chat: n,
-                options: { quotedMsg: a, ctwaContext: i },
-              });
-            } catch (e) {
-              throw (
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "Error sending contact: ",
-                      "",
-                    ])),
-                  e,
-                ),
-                e
-              );
-            }
-          },
-        )),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e, t, a, i, l, u, c) {
-      var d,
-        m,
-        p = u && u.msgContextInfo(i.id),
-        _ = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
-          i,
+    function f(e, t, n, a, i, l, s) {
+      var c,
+        d,
+        m = l && l.msgContextInfo(a.id),
+        p = o("WAWebLidMeUserForChat").getMeUserLidOrJidForChat(
+          a,
           o("WAWebMsgKeyUtils").TranslateMsgKeyType.Message,
         ),
-        f = babelHelpers.extends(
+        _ = babelHelpers.extends(
           {
             ack: o("WAWebAck").ACK.CLOCK,
-            from: _,
+            from: p,
             id: new (r("WAWebMsgKey"))({
-              from: _,
-              to: i.id,
+              from: p,
+              to: a.id,
               id: r("WAWebMsgKey").newId_DEPRECATED(),
-              participant: o("WAWebChatGetters").getIsGroup(i) ? _ : void 0,
+              participant: o("WAWebChatGetters").getIsGroup(a) ? p : void 0,
               selfDir: "out",
             }),
             local: !0,
             isNewMsg: !0,
             t: o("WATimeUtils").unixTime(),
-            to: i.id,
+            to: a.id,
           },
-          p,
-          { ctwaContext: c },
+          m,
+          { ctwaContext: s },
         ),
-        g =
-          o("WAWebBotUtils").isHatchBot(i.id) || i.id.isSupportAgentBot()
+        f =
+          o("WAWebBotUtils").isHatchBot(a.id) || a.id.isSupportAgentBot()
             ? self.crypto.getRandomValues(new Uint8Array(32))
             : void 0,
-        h =
-          o("WAWebBotUtils").isHatchBot(i.id) &&
-          (d =
-            (m = o("WAWebBotProfileCollection").BotProfileCollection.get(
-              i.id,
+        g =
+          o("WAWebBotUtils").isHatchBot(a.id) &&
+          (c =
+            (d = o("WAWebBotProfileCollection").BotProfileCollection.get(
+              a.id,
             )) == null
               ? void 0
-              : m.personaId) != null
-            ? d
+              : d.personaId) != null
+            ? c
             : void 0,
-        y =
+        h =
           e.length === 1
             ? babelHelpers.extends(
                 {
@@ -167,35 +156,35 @@ __d(
                   vcardFormattedName: e[0].displayName.toString(),
                   body: e[0].vcard,
                 },
-                f,
+                _,
                 o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(
-                  i,
+                  a,
                 ),
-                { messageSecret: g, botPersonaId: h },
+                { messageSecret: f, botPersonaId: g },
               )
             : babelHelpers.extends(
                 { type: "multi_vcard", vcardList: e },
-                f,
+                _,
                 o("WAWebGetEphemeralFieldsMsgActionsUtils").getEphemeralFields(
-                  i,
+                  a,
                 ),
-                { messageSecret: g, botPersonaId: h },
+                { messageSecret: f, botPersonaId: g },
               );
-      n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+      (async function () {
         try {
           var e = o("WAWebP2PPillsContactShareRequireBundle")
-            .getContactCardPillsForSend(t, i, a)
+            .getContactCardPillsForSend(t, a, n)
             .then(function (e) {
               return e != null
-                ? babelHelpers.extends({}, y, { businessInteractionPills: e })
-                : y;
+                ? babelHelpers.extends({}, h, { businessInteractionPills: e })
+                : h;
             });
-          yield o("WAWebSendMsgChatAction").addAndSendMsgToChat(i, e)[1];
+          await o("WAWebSendMsgChatAction").addAndSendMsgToChat(a, e)[1];
         } catch (e) {
           throw (
             o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "Error sending contact: ",
                   "",
                 ])),

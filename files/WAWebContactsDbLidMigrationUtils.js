@@ -7,22 +7,21 @@ __d(
     "WAWebWidError",
     "WAWebWidFactory",
     "WAWebWidValidator",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = ["phoneNumber", "phoneNumberCreatedAt", "pnContactHash"],
-      s = ["contactHash", "statusMute"],
-      u = [
+      s = [
         "contactHash",
-        "displayNameLID",
+        "id",
         "phoneNumber",
         "phoneNumberCreatedAt",
         "pnContactHash",
         "statusMute",
       ],
+      u = ["contactHash", "statusMute"],
       c = [
         "contactHash",
-        "id",
+        "displayNameLID",
         "phoneNumber",
         "phoneNumberCreatedAt",
         "pnContactHash",
@@ -72,69 +71,57 @@ __d(
         i = babelHelpers.objectWithoutPropertiesLoose(t, e);
       return babelHelpers.extends({}, i, { id: n, contactHash: a });
     }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
+    async function g(e) {
+      var t = new Map(),
+        n = new Map();
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Map(),
-            n = new Map();
-          return (
-            e == null ||
-              e.forEach(function (e) {
-                n.set(e.id, e);
-              }),
-            e == null ||
-              e.forEach(function (e) {
-                if (r("WAWebWid").isStringLid(e.id)) {
-                  var a = e.contactHash,
-                    i = e.id,
-                    l = e.phoneNumber,
-                    s = e.phoneNumberCreatedAt,
-                    u = e.pnContactHash,
-                    d = e.statusMute,
-                    m = babelHelpers.objectWithoutPropertiesLoose(e, c);
-                  t.set(e.id, e);
-                  var p = o("WAWebApiContact").getPnIfLidIsLatestMapping(
-                    o("WAWebWidFactory").createUserLidOrThrow(i),
-                  );
-                  if (p != null) {
-                    var _,
-                      f = p.toJid(),
-                      g = n.get(f);
-                    t.set(
-                      f,
-                      babelHelpers.extends({}, m, {
-                        id: f,
-                        contactHash: e.pnContactHash,
-                        statusMute:
-                          (_ = g == null ? void 0 : g.statusMute) != null
-                            ? _
-                            : !1,
-                      }),
-                    );
-                  }
-                }
-              }),
-            e == null ||
-              e.forEach(function (e) {
-                return (
-                  !r("WAWebWid").isStringLid(e.id) &&
-                  !t.has(e.id) &&
-                  t.set(e.id, e)
+        e == null ||
+          e.forEach(function (e) {
+            n.set(e.id, e);
+          }),
+        e == null ||
+          e.forEach(function (e) {
+            if (r("WAWebWid").isStringLid(e.id)) {
+              var a = e.contactHash,
+                i = e.id,
+                l = e.phoneNumber,
+                u = e.phoneNumberCreatedAt,
+                c = e.pnContactHash,
+                d = e.statusMute,
+                m = babelHelpers.objectWithoutPropertiesLoose(e, s);
+              t.set(e.id, e);
+              var p = o("WAWebApiContact").getPnIfLidIsLatestMapping(
+                o("WAWebWidFactory").createUserLidOrThrow(i),
+              );
+              if (p != null) {
+                var _,
+                  f = p.toJid(),
+                  g = n.get(f);
+                t.set(
+                  f,
+                  babelHelpers.extends({}, m, {
+                    id: f,
+                    contactHash: e.pnContactHash,
+                    statusMute:
+                      (_ = g == null ? void 0 : g.statusMute) != null ? _ : !1,
+                  }),
                 );
-              }),
-            Array.from(t.values())
-          );
-        })),
-        h.apply(this, arguments)
+              }
+            }
+          }),
+        e == null ||
+          e.forEach(function (e) {
+            return (
+              !r("WAWebWid").isStringLid(e.id) && !t.has(e.id) && t.set(e.id, e)
+            );
+          }),
+        Array.from(t.values())
       );
     }
-    function y(e, t) {
+    function h(e, t) {
       var n = t.contactHash,
         r = t.statusMute,
-        a = babelHelpers.objectWithoutPropertiesLoose(t, s),
+        a = babelHelpers.objectWithoutPropertiesLoose(t, u),
         i = e.toString();
       return n != null
         ? babelHelpers.extends({}, a, {
@@ -144,28 +131,28 @@ __d(
           })
         : babelHelpers.extends({}, a, { id: i });
     }
-    function C(e, t) {
+    function y(e, t) {
       var n = t.contactHash,
         r = t.displayNameLID,
         o = t.phoneNumber,
         a = t.phoneNumberCreatedAt,
         i = t.pnContactHash,
         l = t.statusMute,
-        s = babelHelpers.objectWithoutPropertiesLoose(t, u),
-        c = e.toJid();
+        s = babelHelpers.objectWithoutPropertiesLoose(t, c),
+        u = e.toJid();
       return i != null
-        ? babelHelpers.extends({}, s, { contactHash: i, id: c })
-        : babelHelpers.extends({}, s, { id: c });
+        ? babelHelpers.extends({}, s, { contactHash: i, id: u })
+        : babelHelpers.extends({}, s, { id: u });
     }
-    function b(e, t) {
+    function C(e, t) {
       try {
         var n = o("WAWebWidFactory").createUserWidOrThrow(e);
         if (n.isLid()) {
           var r = o("WAWebApiContact").getPnIfLidIsLatestMapping(n);
-          return r != null ? C(r, t) : null;
+          return r != null ? y(r, t) : null;
         }
         var a = o("WAWebApiContact").getCurrentLid(n);
-        return a != null ? y(a, t) : null;
+        return a != null ? h(a, t) : null;
       } catch (t) {
         if (t instanceof o("WAWebWidError").InvalidWidError) {
           var i = "@" + o("WAWebWidValidator").Domains.S_WHATSAPP_NET;
@@ -203,8 +190,8 @@ __d(
     ((l.maybeReplacePhoneNumbersWithLatestLids = _),
       (l.removeLidOnlyCols = f),
       (l.replacePnRowsWithLidData = g),
-      (l.createContactLidRowFromPnRow = y),
-      (l.getAlternateRowUpdates = b));
+      (l.createContactLidRowFromPnRow = h),
+      (l.getAlternateRowUpdates = C));
   },
   98,
 );

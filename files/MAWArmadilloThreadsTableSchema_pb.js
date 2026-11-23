@@ -1,0 +1,36 @@
+__d(
+  "MAWArmadilloThreadsTableSchema.pb",
+  ["WAProtoConst"],
+  function (t, n, r, o, a, i, l) {
+    var e,
+      s = {};
+    ((s.name = "ThreadsTableSchemaProto"),
+      (s.internalSpec = {
+        jid: [1, (e = o("WAProtoConst")).TYPES.STRING],
+        threadOrder: [2, e.TYPES.STRING],
+        folder: [4, e.TYPES.INT32],
+        newestMsg: [5, e.TYPES.STRING],
+        oldestMsg: [6, e.TYPES.STRING],
+        lastReadMsg: [7, e.TYPES.STRING],
+        lastReadMsgReceiptSent: [8, e.TYPES.STRING],
+        lastReadMsgTs: [9, e.TYPES.INT64],
+        newestMsgTs: [10, e.TYPES.INT64],
+        muteExpireTimeMs: [11, e.TYPES.INT64],
+        muteCallsExpireTimeMs: [12, e.TYPES.INT64],
+        archived: [13, e.TYPES.BOOL],
+        cannotReplyReason: [14, e.TYPES.STRING],
+        chatId: [15, e.TYPES.INT32],
+        optimisticThreadKey: [16, e.TYPES.STRING],
+        isMigratedLocally: [17, e.TYPES.BOOL],
+        snippetMsg: [18, e.TYPES.STRING],
+        deduplicationKey: [19, e.TYPES.STRING],
+        authoritativeThreadKey: [20, e.TYPES.STRING],
+        snippetMsgTs: [21, e.TYPES.INT64],
+        didInsertDualThreadCutoverAdminMsg: [22, e.TYPES.BOOL],
+        unbumpFromTs: [23, e.TYPES.INT64],
+        unbumpToTs: [24, e.TYPES.INT64],
+      }),
+      (l.ThreadsTableSchemaProtoSpec = s));
+  },
+  98,
+);

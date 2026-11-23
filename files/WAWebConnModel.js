@@ -12,7 +12,6 @@ __d(
     "WAWebWamGlobals",
     "WAWebWebcRawPlatformsWamEvent",
     "WAWebWorkFeature",
-    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -24,7 +23,7 @@ __d(
       );
     }
     var u = (function (t) {
-      function a() {
+      function n() {
         for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
           r[a] = arguments[a];
         return (
@@ -53,38 +52,35 @@ __d(
             babelHelpers.assertThisInitialized(e)
         );
       }
-      babelHelpers.inheritsLoose(a, t);
-      var i = a.prototype;
+      babelHelpers.inheritsLoose(n, t);
+      var a = n.prototype;
       return (
-        (i.initialize = function () {
+        (a.initialize = function () {
           var e = this;
           (o("WAWebBaseModel").BaseModel.prototype.initialize.call(this),
             this.listenTo(this, "change:phone", function () {
               c(e.phone);
             }),
             this.listenTo(this, "change:platform", this.$ConnImpl$p_1),
-            this.on(
-              "me_ready",
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                (yield o("WAWebABPropsCache").waitForABPropConfigsReady(),
-                  yield o(
-                    "WAWebVoipBackendLoadable",
-                  ).initializeVoipFromBootGate("me_ready"));
-              }),
-            ));
+            this.on("me_ready", async function () {
+              (await o("WAWebABPropsCache").waitForABPropConfigsReady(),
+                await o("WAWebVoipBackendLoadable").initializeVoipFromBootGate(
+                  "me_ready",
+                ));
+            }));
         }),
-        (i.delete = function () {
+        (a.delete = function () {
           (o("WAWebUserPrefsGeneral").setPushname(),
             this.clear(),
             o("WAWebConnGetters").clearConnGetterCacheFor(this));
         }),
-        (i.canSetMyPushname = function () {
+        (a.canSetMyPushname = function () {
           return (
             !o("WAWebConnGetters").getIsSMB(this) &&
             !o("WAWebWorkFeature").isWork()
           );
         }),
-        (i.$ConnImpl$p_1 = function () {
+        (a.$ConnImpl$p_1 = function () {
           (o("WALogger").LOG(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -102,10 +98,10 @@ __d(
                 { webcRawPlatform: this.platform },
               ).commit());
         }),
-        (i.shouldSaveToCache = function () {
+        (a.shouldSaveToCache = function () {
           return o("WAWebUserUtils").hasLoggedIn() && !!this.id;
         }),
-        a
+        n
       );
     })(o("WAWebBaseModel").BaseModel);
     u.Proxy = "conn";

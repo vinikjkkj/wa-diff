@@ -1,38 +1,25 @@
 __d(
   "WAWebUnifiedResponseScrollSettle",
   [
-    "Promise",
     "WALogger",
     "WAWebBoolFunc",
     "WAWebDocumentFlushed",
     "WAWebNoop",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = 12,
-      d = 5e3,
-      m = 2e3,
-      p = 24;
-    function _(e, t, n, r) {
-      return f.apply(this, arguments);
+      u = 12,
+      c = 5e3,
+      d = 2e3,
+      m = 24;
+    async function p(e, t, n, r) {
+      var o = e.scrollHeight,
+        a = await f(t(), c, n);
+      return !a || r() ? !1 : h(e, o, u, Date.now() + d, n, r);
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var o = e.scrollHeight,
-              a = yield h(t(), d, n);
-            return !a || r() ? !1 : C(e, o, c, Date.now() + m, n, r);
-          },
-        )),
-        f.apply(this, arguments)
-      );
-    }
-    function g(t) {
+    function _(t) {
       o("WALogger")
         .ERROR(
           e ||
@@ -43,36 +30,33 @@ __d(
         .catching(r("getErrorSafe")(t))
         .sendLogs("ur-scroll-settle-failed");
     }
-    function h(e, t, a) {
-      if (a.aborted)
-        return (e.catch(r("WAWebNoop")), (u || (u = n("Promise"))).resolve(!1));
-      var i,
-        l = r("WAWebNoop"),
-        s = !1,
-        c = new (u || (u = n("Promise")))(function (e) {
-          var n = function () {
-            ((s = !0), e(!1));
+    function f(e, t, n) {
+      if (n.aborted) return (e.catch(r("WAWebNoop")), Promise.resolve(!1));
+      var a,
+        i = r("WAWebNoop"),
+        l = !1,
+        s = new Promise(function (e) {
+          var r = function () {
+            ((l = !0), e(!1));
           };
-          ((i = self.setTimeout(n, t)),
-            (l = n),
-            a.addEventListener("abort", l));
+          ((a = self.setTimeout(r, t)),
+            (i = r),
+            n.addEventListener("abort", i));
         });
-      return u
-        .race([
-          e.then(o("WAWebBoolFunc").returnTrue, function (e) {
-            return s || a.aborted ? !1 : y(e);
-          }),
-          c,
-        ])
-        .then(function (e) {
-          return (
-            i != null && self.clearTimeout(i),
-            a.removeEventListener("abort", l),
-            e && !a.aborted
-          );
-        });
+      return Promise.race([
+        e.then(o("WAWebBoolFunc").returnTrue, function (e) {
+          return l || n.aborted ? !1 : g(e);
+        }),
+        s,
+      ]).then(function (e) {
+        return (
+          a != null && self.clearTimeout(a),
+          n.removeEventListener("abort", i),
+          e && !n.aborted
+        );
+      });
     }
-    function y(e) {
+    function g(e) {
       return (
         o("WALogger")
           .ERROR(
@@ -86,27 +70,17 @@ __d(
         !1
       );
     }
-    function C(e, t, n, r, o, a) {
-      return b.apply(this, arguments);
+    async function h(e, t, n, r, a, i) {
+      return n === 0 ||
+        (await o("WAWebDocumentFlushed").documentFlushed({ signal: a }),
+        i() || Date.now() > r)
+        ? !1
+        : e.scrollHeight >= t + m
+          ? !0
+          : h(e, t, n - 1, r, a, i);
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r, a, i) {
-            return n === 0 ||
-              (yield o("WAWebDocumentFlushed").documentFlushed({ signal: a }),
-              i() || Date.now() > r)
-              ? !1
-              : e.scrollHeight >= t + p
-                ? !0
-                : C(e, t, n - 1, r, a, i);
-          },
-        )),
-        b.apply(this, arguments)
-      );
-    }
-    ((l.shouldReapplyScrollAfterUnifiedResponseLoad = _),
-      (l.reportScrollSettleFailure = g));
+    ((l.shouldReapplyScrollAfterUnifiedResponseLoad = p),
+      (l.reportScrollSettleFailure = _));
   },
   98,
 );

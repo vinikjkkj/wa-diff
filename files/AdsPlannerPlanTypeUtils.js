@@ -15,23 +15,16 @@ __d(
         "PREMIUM_FACEBOOK_INSTREAM_VIDEO_TRP",
         "REACH_AND_FREQUENCY_INSERTION_ORDER",
       ];
-      return t.includes(e);
+      return !t.includes(e);
     }
     function s(e) {
       var t = [
-        "PREMIUM_FACEBOOK_INSTREAM_VIDEO_TRP",
-        "REACH_AND_FREQUENCY_INSERTION_ORDER",
-      ];
-      return !t.includes(e);
-    }
-    function u(e) {
-      var t = [
         "REACH_AND_FREQUENCY_INSERTION_ORDER",
         "PREMIUM_FACEBOOK_INSTREAM_VIDEO_TRP",
       ];
       return t.includes(e);
     }
-    function c(e) {
+    function u(e) {
       var t = [
         "TRP",
         "PREMIUM_FACEBOOK_INSTREAM_VIDEO_TRP",
@@ -40,16 +33,23 @@ __d(
       ];
       return t.includes(e);
     }
-    function d(e) {
+    function c(e) {
       var t = ["TRP", "PREMIUM_FACEBOOK_INSTREAM_VIDEO_TRP"];
       return t.includes(e);
     }
-    function m(e) {
+    function d(e) {
       var t = ["REACH_AND_FREQUENCY_INSERTION_ORDER"];
       return t.includes(e);
     }
-    function p(e) {
+    function m(e) {
       var t = ["REACH_AND_FREQUENCY_INSERTION_ORDER_GENERAL"];
+      return t.includes(e);
+    }
+    function p(e) {
+      var t = [
+        "PREMIUM_FACEBOOK_INSTREAM_VIDEO_TRP",
+        "REACH_AND_FREQUENCY_INSERTION_ORDER",
+      ];
       return t.includes(e);
     }
     function _(e) {
@@ -59,23 +59,15 @@ __d(
       ];
       return t.includes(e);
     }
-    function f(e) {
-      var t = [
-        "PREMIUM_FACEBOOK_INSTREAM_VIDEO_TRP",
-        "REACH_AND_FREQUENCY_INSERTION_ORDER",
-      ];
-      return t.includes(e);
-    }
-    ((i.getDoesPlanSupportContentAndPublisherExclusions = e),
-      (i.getDoesPlanSupportContentPackaging = l),
-      (i.getDoesPlanSupportNonVideoFormats = s),
-      (i.getIsPlanClassifiedUnderInstream = u),
-      (i.getIsPlanTypeBasedOnIO = c),
-      (i.getIsPlanTypeBasedOnTRP = d),
-      (i.getIsReachAndFrequencyIOInstream = m),
-      (i.getIsReachAndFrequencyIOGeneral = p),
-      (i.getShouldDisableInstagramAccount = _),
-      (i.getShouldUseRestrictedNielsenTargeting = f));
+    ((i.getDoesPlanSupportContentPackaging = e),
+      (i.getDoesPlanSupportNonVideoFormats = l),
+      (i.getIsPlanClassifiedUnderInstream = s),
+      (i.getIsPlanTypeBasedOnIO = u),
+      (i.getIsPlanTypeBasedOnTRP = c),
+      (i.getIsReachAndFrequencyIOInstream = d),
+      (i.getIsReachAndFrequencyIOGeneral = m),
+      (i.getShouldDisableInstagramAccount = p),
+      (i.getShouldUseRestrictedNielsenTargeting = _));
   },
   66,
 );

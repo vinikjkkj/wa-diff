@@ -55,7 +55,7 @@ __d(
                 r > 0
                   ? c.jsxs(c.Fragment, {
                       children: [
-                        s._(/*BTDS*/ "View responses"),
+                        s._(/*BTDS*/ ""),
                         c.jsx(o("WAWebChatUnreadCount.react").UnreadCount, {
                           count: r,
                           theme: o("WAWebChatUnreadCount.react")
@@ -63,8 +63,8 @@ __d(
                         }),
                       ],
                     })
-                  : s._(/*BTDS*/ "View responses"))
-            : (_ = s._(/*BTDS*/ "Respond"));
+                  : s._(/*BTDS*/ ""))
+            : (_ = s._(/*BTDS*/ ""));
           var f = p ? "view-question-responses-cta" : "respond-to-question-cta",
             g = function () {
               var n = o("WAWebMsgCollection").MsgCollection.get(t);
@@ -106,7 +106,7 @@ __d(
       return t == null
         ? null
         : {
-            label: s._(/*BTDS*/ "View your responses"),
+            label: s._(/*BTDS*/ ""),
             testid: "view-your-question-responses-cta",
             onClick: function () {
               return o("WAWebModalManager").ModalManager.open(t);
@@ -120,39 +120,35 @@ __d(
     function _(e) {
       switch (e) {
         case o("WAWebQuestions.flow").ResponsesFilterType.ALL:
-          return s._(/*BTDS*/ "All");
+          return s._(/*BTDS*/ "");
         case o("WAWebQuestions.flow").ResponsesFilterType.CONTACTS:
-          return s._(/*BTDS*/ "Contacts");
+          return s._(/*BTDS*/ "");
         case o("WAWebQuestions.flow").ResponsesFilterType.REPLIED:
-          return s._(/*BTDS*/ "Replied");
+          return s._(/*BTDS*/ "");
         case o("WAWebQuestions.flow").ResponsesFilterType.STARRED:
-          return s._(/*BTDS*/ "Starred");
+          return s._(/*BTDS*/ "");
       }
     }
     function f(e) {
       switch (e) {
         case o("WAWebQuestions.flow").QuestionType.Question:
-          return s._(/*BTDS*/ "Create question");
+          return s._(/*BTDS*/ "");
         case o("WAWebQuestions.flow").QuestionType.Reply:
-          return s._(/*BTDS*/ "Reply");
+          return s._(/*BTDS*/ "");
         case o("WAWebQuestions.flow").QuestionType.Response:
-          return s._(/*BTDS*/ "Respond");
+          return s._(/*BTDS*/ "");
       }
     }
     function g(e) {
       var t = o("WAWebToast.react").genId(),
-        n = e
-          ? s._(/*BTDS*/ "Couldn't star response. Please try again.")
-          : s._(/*BTDS*/ "Couldn't unstar response. Please try again.");
+        n = e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, { msg: n, id: t }),
       );
     }
     function h(e, t) {
       var n = o("WAWebToast.react").genId(),
-        a = e
-          ? s._(/*BTDS*/ "Couldn't like response")
-          : s._(/*BTDS*/ "Couldn't unlike response"),
+        a = e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ ""),
         i =
           t == null
             ? null

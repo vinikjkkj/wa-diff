@@ -3,9 +3,7 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(
-        /*BTDS*/ "Attract new customers with ads that lead to WhatsApp",
-      );
+      return s._(/*BTDS*/ "");
     }
     l.getAdvertiseAttractNewCustomersSubcontent = e;
   },

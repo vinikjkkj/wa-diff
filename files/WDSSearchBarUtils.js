@@ -149,7 +149,7 @@ __d(
                 children: c.jsx(r("WDSButton.react"), {
                   platform: "iOS",
                   variant: "borderless",
-                  label: s._(/*BTDS*/ "Cancel"),
+                  label: s._(/*BTDS*/ ""),
                   onPress: a,
                 }),
               }),

@@ -10,7 +10,6 @@ __d(
     "WAWebVoipPthreadGlueFailureTracker",
     "WAWebVoipWasmGlueSkewObserver",
     "WAWebVoipWebWasmMemory",
-    "asyncToGeneratorRuntime",
     "cr:12201",
   ],
   function (t, n, r, o, a, i, l) {
@@ -89,87 +88,71 @@ __d(
             wasmMemory: n,
           };
     }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
+    async function R(e) {
+      o(
+        "WAWebCoreActionsODS",
+      ).logCallVoipInitWasmArtifactUnversionedLoadAttempt();
+      var t = await r("JSResourceForInteraction")("WAWebVoipWebWasmLoader")
+          .__setRef("WAWebVoipWebWasmVariantLoader")
+          .load(),
+        n = await t(e != null ? e : S());
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o(
-            "WAWebCoreActionsODS",
-          ).logCallVoipInitWasmArtifactUnversionedLoadAttempt();
-          var t = yield r("JSResourceForInteraction")("WAWebVoipWebWasmLoader")
-              .__setRef("WAWebVoipWebWasmVariantLoader")
-              .load(),
-            n = yield t(e != null ? e : S());
-          return (
-            o(
-              "WAWebCoreActionsODS",
-            ).logCallVoipInitWasmArtifactUnversionedLoadSuccess(),
-            n
-          );
-        })),
-        L.apply(this, arguments)
+        o(
+          "WAWebCoreActionsODS",
+        ).logCallVoipInitWasmArtifactUnversionedLoadSuccess(),
+        n
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
-    }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
+    async function L(e, t) {
+      o(
+        "WAWebCoreActionsODS",
+      ).logCallVoipInitWasmArtifactContentAddressedLoadAttempt();
+      var n = await r("JSResourceForInteraction")(
+          "WAWebVoipWebWasmLoader_ContentAddressed_internal",
+        )
+          .__setRef("WAWebVoipWebWasmVariantLoader")
+          .load(),
+        a = Reflect.get(n, "PINNED_WORKER_GLUE_BX_ERROR"),
+        i = e && a == null;
+      e && !i
+        ? (o(
+            "WAWebCoreActionsODS",
+          ).logCallVoipInitWasmArtifactWorkerGlueBxLookupFailure(),
           o(
             "WAWebCoreActionsODS",
-          ).logCallVoipInitWasmArtifactContentAddressedLoadAttempt();
-          var n = yield r("JSResourceForInteraction")(
-              "WAWebVoipWebWasmLoader_ContentAddressed_internal",
-            )
-              .__setRef("WAWebVoipWebWasmVariantLoader")
-              .load(),
-            a = Reflect.get(n, "PINNED_WORKER_GLUE_BX_ERROR"),
-            i = e && a == null;
-          e && !i
-            ? (o(
-                "WAWebCoreActionsODS",
-              ).logCallVoipInitWasmArtifactWorkerGlueBxLookupFailure(),
-              o(
-                "WAWebCoreActionsODS",
-              ).logCallVoipInitWasmArtifactWorkerGlueUnpinnedFallback(),
-              o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: pinned worker glue bx lookup failed; loading unpinned: ",
-                    "",
-                  ])),
-                String(a),
-              ))
-            : i &&
-              (o(
-                "WAWebCoreActionsODS",
-              ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadAttempt(),
-              T(Reflect.get(n, "PINNED_WORKER_GLUE_URL")));
-          var l = yield n(
-            babelHelpers.extends({}, t != null ? t : S(), { pinWorkerGlue: i }),
-          );
-          return (
-            o(
-              "WAWebCoreActionsODS",
-            ).logCallVoipInitWasmArtifactContentAddressedLoadSuccess(),
-            l
-          );
-        })),
-        k.apply(this, arguments)
+          ).logCallVoipInitWasmArtifactWorkerGlueUnpinnedFallback(),
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: pinned worker glue bx lookup failed; loading unpinned: ",
+                "",
+              ])),
+            String(a),
+          ))
+        : i &&
+          (o(
+            "WAWebCoreActionsODS",
+          ).logCallVoipInitWasmArtifactWorkerGluePinnedLoadAttempt(),
+          k(Reflect.get(n, "PINNED_WORKER_GLUE_URL")));
+      var l = await n(
+        babelHelpers.extends({}, t != null ? t : S(), { pinWorkerGlue: i }),
+      );
+      return (
+        o(
+          "WAWebCoreActionsODS",
+        ).logCallVoipInitWasmArtifactContentAddressedLoadSuccess(),
+        l
       );
     }
-    var I = new Set();
-    function T(e) {
+    var E = new Set();
+    function k(e) {
       if (typeof e != "string") {
         (o(
           "WAWebCoreActionsODS",
         ).logCallVoipInitWasmArtifactWorkerGluePrefetchSkipped(),
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: pinned worker glue prefetch skipped; URL export is ",
                 "",
               ])),
@@ -177,8 +160,8 @@ __d(
           ));
         return;
       }
-      I.has(e) ||
-        (I.add(e),
+      E.has(e) ||
+        (E.add(e),
         o(
           "WAWebCoreActionsODS",
         ).logCallVoipInitWasmArtifactWorkerGluePrefetchAttempt(),
@@ -195,8 +178,8 @@ __d(
               "WAWebCoreActionsODS",
             ).logCallVoipInitWasmArtifactWorkerGluePrefetchFailed(),
               o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: pinned worker glue prefetch failed: ",
                     "",
                   ])),
@@ -204,15 +187,15 @@ __d(
               ));
           }));
     }
-    function D(e) {
+    function I(e) {
       if (typeof e == "string") {
         for (var t of y) if (e === t) return t;
       }
       return (
         e !== h &&
           o("WALogger").ERROR(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
+            p ||
+              (p = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: Invalid WASM variant '",
                 "', falling back to '",
                 "'",
@@ -223,7 +206,7 @@ __d(
         h
       );
     }
-    function x(e) {
+    function T(e) {
       switch (e) {
         case "prod-nonlab":
           return null;
@@ -235,89 +218,70 @@ __d(
           return null;
       }
     }
-    function $(e, t, n, r) {
-      return P.apply(this, arguments);
+    async function D(e, t, n, r) {
+      return t ? L(n, r) : R(r);
     }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            return t ? E(n, r) : R(r);
-          },
-        )),
-        P.apply(this, arguments)
-      );
-    }
-    function N(e, t) {
-      return M.apply(this, arguments);
-    }
-    function M() {
-      return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (e === void 0 && (e = !1), t === void 0 && (t = !1));
-          var r = o("WAWebABPropsConfigs").ABPropConfigs
-            .web_voip_load_wasm_variant;
-          if (r == null) return $(h, e, t);
-          var a = null;
-          try {
-            a = o("WAWebABProps").getABPropConfigValue(
-              "web_voip_load_wasm_variant",
-            );
-          } catch (n) {
-            return $(h, e, t);
-          }
-          if (a == null) return $(h, e, t);
-          var i = D(a);
-          if (
-            (o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: AB prop set to '",
-                  "', validated variant: '",
-                  "'",
+    async function x(e, t) {
+      (e === void 0 && (e = !1), t === void 0 && (t = !1));
+      var r = o("WAWebABPropsConfigs").ABPropConfigs.web_voip_load_wasm_variant;
+      if (r == null) return D(h, e, t);
+      var a = null;
+      try {
+        a = o("WAWebABProps").getABPropConfigValue(
+          "web_voip_load_wasm_variant",
+        );
+      } catch (n) {
+        return D(h, e, t);
+      }
+      if (a == null) return D(h, e, t);
+      var i = I(a);
+      if (
+        (o("WALogger").LOG(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: AB prop set to '",
+              "', validated variant: '",
+              "'",
+            ])),
+          String(a),
+          i,
+        ),
+        !y.has(i))
+      )
+        return (
+          o("WALogger").LOG(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: Variant '",
+                "' not available, using default loader",
+              ])),
+            i,
+          ),
+          D(h, e, t)
+        );
+      var l = S(),
+        s = T(i);
+      if (s != null && n("cr:12201") != null)
+        try {
+          return await n("cr:12201").tryLoadLabVariant(s, l);
+        } catch (n) {
+          return (
+            o("WALogger").ERROR(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: Failed to load variant '",
+                  "': ",
+                  ", falling back to default",
                 ])),
-              String(a),
               i,
+              String(n),
             ),
-            !y.has(i))
-          )
-            return (
-              o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: Variant '",
-                    "' not available, using default loader",
-                  ])),
-                i,
-              ),
-              $(h, e, t)
-            );
-          var l = S(),
-            s = x(i);
-          if (s != null && n("cr:12201") != null)
-            try {
-              return yield n("cr:12201").tryLoadLabVariant(s, l);
-            } catch (n) {
-              return (
-                o("WALogger").ERROR(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: Failed to load variant '",
-                      "': ",
-                      ", falling back to default",
-                    ])),
-                  i,
-                  String(n),
-                ),
-                $(h, e, t)
-              );
-            }
-          return $(i, e, t, l);
-        })),
-        M.apply(this, arguments)
-      );
+            D(h, e, t)
+          );
+        }
+      return D(i, e, t, l);
     }
-    l.loadVoipWasmVariant = N;
+    l.loadVoipWasmVariant = x;
   },
   98,
 );

@@ -38,7 +38,7 @@ __d(
       type: "placements/position",
       key: "instagram/explore",
       name: r("AdsPlacementPositionLabelConstant").explore,
-      nameWithPlatform: s._(/*BTDS*/ "Instagram Explore"),
+      nameWithPlatform: s._(/*BTDS*/ ""),
       mediaRecommendation: {
         imageCrop: r("AdImageSpecCropKeys")["100x100"],
         videoCrop: "1:1",

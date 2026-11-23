@@ -80,33 +80,33 @@ __d(
     function c(e) {
       switch (e) {
         case o("WAWebOrderStatus").OrderStatus.Pending:
-          return s._(/*BTDS*/ "Order pending");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.Canceled:
-          return s._(/*BTDS*/ "Order canceled");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.PartiallyShipped:
-          return s._(/*BTDS*/ "Order partially shipped");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.Complete:
-          return s._(/*BTDS*/ "Order completed \ud83c\udf89");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.Shipped:
-          return s._(/*BTDS*/ "Order shipped");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.Processing:
-          return s._(/*BTDS*/ "Order processing");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.PaymentRequested:
-          return s._(/*BTDS*/ "Payment requested");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.PreparingToShip:
-          return s._(/*BTDS*/ "Order preparing to ship");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.Delivered:
-          return s._(/*BTDS*/ "Order delivered \ud83c\udf89");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.Confirmed:
-          return s._(/*BTDS*/ "Order confirmed");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.Delayed:
-          return s._(/*BTDS*/ "Order delayed");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.OutForDelivery:
-          return s._(/*BTDS*/ "Order out for delivery");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.Failed:
-          return s._(/*BTDS*/ "Order failed");
+          return s._(/*BTDS*/ "");
         case o("WAWebOrderStatus").OrderStatus.Refunded:
-          return s._(/*BTDS*/ "Order refunded");
+          return s._(/*BTDS*/ "");
       }
     }
     function d(e) {
@@ -119,9 +119,7 @@ __d(
         var a = c(n).toString(),
           i = e.caption,
           l = o("WAWebGetInteractiveFooterText").getInteractiveFooterText(e),
-          u = s._(/*BTDS*/ "Order #{order-id}", [
-            s._param("order-id", r.reference_id),
-          ]);
+          u = s._(/*BTDS*/ "", [s._param("order-id", r.reference_id)]);
         return [a, u, i, l].filter(Boolean).join("\n");
       }
       return m(e);
@@ -154,7 +152,7 @@ __d(
         a = o("WAWebOrderDetails").getOrderInfo(e);
       if (a == null) return null;
       var i = a.paymentSettings,
-        l = s._(/*BTDS*/ "Pix"),
+        l = s._(/*BTDS*/ ""),
         u =
           i == null || (t = i.at(0)) == null
             ? void 0
@@ -193,46 +191,46 @@ __d(
       var n = "";
       switch (t) {
         case o("WAWebOrderStatus").OrderStatus.Pending:
-          n = s._(/*BTDS*/ "Status: Pending");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.Canceled:
-          n = s._(/*BTDS*/ "Status: Canceled");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.PartiallyShipped:
-          n = s._(/*BTDS*/ "Status: Partially shipped");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.Complete:
-          n = s._(/*BTDS*/ "Status: Complete");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.Shipped:
-          n = s._(/*BTDS*/ "Status: Shipped");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.Processing:
-          n = s._(/*BTDS*/ "Status: Processing");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.PaymentRequested:
-          n = s._(/*BTDS*/ "Status: Payment requested");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.PreparingToShip:
-          n = s._(/*BTDS*/ "Status: Preparing to ship");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.Delivered:
-          n = s._(/*BTDS*/ "Status: Delivered");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.Confirmed:
-          n = s._(/*BTDS*/ "Status: Confirmed");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.Delayed:
-          n = s._(/*BTDS*/ "Status: Delayed");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.OutForDelivery:
-          n = s._(/*BTDS*/ "Status: Out for delivery");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.Failed:
-          n = s._(/*BTDS*/ "Status: Failed");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderStatus").OrderStatus.Refunded:
-          n = s._(/*BTDS*/ "Status: Refunded");
+          n = s._(/*BTDS*/ "");
           break;
       }
       return e != null && e.toLowerCase().includes(n.toString().toLowerCase())
@@ -243,13 +241,13 @@ __d(
       var n = "";
       switch (t) {
         case o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured:
-          n = s._(/*BTDS*/ "Payment: Paid");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderPaymentStatus").OrderPaymentStatus.Pending:
-          n = s._(/*BTDS*/ "Payment: Pending");
+          n = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderPaymentStatus").OrderPaymentStatus.Failed:
-          n = s._(/*BTDS*/ "Payment: Failed");
+          n = s._(/*BTDS*/ "");
           break;
       }
       return (n.toString() + "\n" + (e != null ? e : "")).trim();
@@ -258,10 +256,10 @@ __d(
       var t = "";
       switch (e) {
         case o("WAWebOrderPaymentStatus").OrderPaymentMethod.PaymentInstruction:
-          t = s._(/*BTDS*/ "Paying outside WhatsApp");
+          t = s._(/*BTDS*/ "");
           break;
         case o("WAWebOrderPaymentStatus").OrderPaymentMethod.Confirm:
-          t = s._(/*BTDS*/ "Order confirmed");
+          t = s._(/*BTDS*/ "");
           break;
       }
       return t.toString();

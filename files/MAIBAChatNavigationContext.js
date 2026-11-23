@@ -1,6 +1,6 @@
 __d(
   "MAIBAChatNavigationContext",
-  ["emptyFunction", "react", "react-compiler-runtime"],
+  ["emptyFunction", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -16,25 +16,17 @@ __d(
       },
       p = s.createContext(m);
     function _(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.children,
-        r = e.navState,
-        a;
-      t[0] !== r
-        ? ((a = babelHelpers.extends({}, r)), (t[0] = r), (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l;
-      return (
-        t[2] !== n || t[3] !== i
-          ? ((l = s.jsx(p.Provider, { value: i, children: n })),
-            (t[2] = n),
-            (t[3] = i),
-            (t[4] = l))
-          : (l = t[4]),
-        l
-      );
+      var t = e.children,
+        n = e.navState,
+        r = d(
+          function () {
+            return babelHelpers.extends({}, n);
+          },
+          [n],
+        );
+      return s.jsx(p.Provider, { value: r, children: t });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f() {
       return c(p);
     }

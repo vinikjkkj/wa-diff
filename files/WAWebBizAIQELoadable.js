@@ -10,8 +10,6 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebMobilePlatforms",
     "WAWebNoop",
-    "asyncToGeneratorRuntime",
-    "react-compiler-runtime",
     "useWAWebEventTargetValue",
     "useWAWebSourceSnapshot",
   ],
@@ -22,15 +20,12 @@ __d(
       ],
       s = new (r("WAWebEventEmitter"))(),
       u = { count: 0, params: [] },
-      c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")("WAWebBizAIQE")
-            .__setRef("WAWebBizAIQELoadable")
-            .load();
-          return e.prefetchBizAIQEWithoutExposure;
-        }),
-        "WAWebBizAIQE",
-      );
+      c = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")("WAWebBizAIQE")
+          .__setRef("WAWebBizAIQELoadable")
+          .load();
+        return e.prefetchBizAIQEWithoutExposure;
+      }, "WAWebBizAIQE");
     function d(t) {
       (t === void 0 && (t = e),
         !(
@@ -56,28 +51,15 @@ __d(
         : null;
     }
     function p(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.param,
-        a = e.universe,
-        i,
-        l;
-      return (
-        t[0] !== n || t[1] !== a
-          ? ((i = function () {
-              return m({ universe: a, param: n });
-            }),
-            (l = [a, n]),
-            (t[0] = n),
-            (t[1] = a),
-            (t[2] = i),
-            (t[3] = l))
-          : ((i = t[2]), (l = t[3])),
-        r("useWAWebEventTargetValue")(
-          o("WAWebBizAIQEEventBus").BizAIQEEventBus,
-          "updated",
-          i,
-          l,
-        )
+      var t = e.param,
+        n = e.universe;
+      return r("useWAWebEventTargetValue")(
+        o("WAWebBizAIQEEventBus").BizAIQEEventBus,
+        "updated",
+        function () {
+          return m({ universe: n, param: t });
+        },
+        [n, t],
       );
     }
     function _(e) {
@@ -98,10 +80,9 @@ __d(
       }
     }
     function f() {
-      return r("useWAWebSourceSnapshot")(s, "updated", g);
-    }
-    function g() {
-      return u;
+      return r("useWAWebSourceSnapshot")(s, "updated", function () {
+        return u;
+      });
     }
     ((l.prefetchBizAIQEAtLaunch = d),
       (l.getLoadedBizAIQEValue = m),

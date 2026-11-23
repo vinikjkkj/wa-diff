@@ -14,38 +14,29 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success)
-            return { name: "SetResultResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "SetResultResponseClientError", value: i.value };
-          var l = c(r, n);
-          if (l.success)
-            return { name: "SetResultResponseServerError", value: l.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("SetResult", {
-              Success: a,
-              ClientError: i,
-              ServerError: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success)
+        return { name: "SetResultResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "SetResultResponseClientError", value: i.value };
+      var l = u(r, n);
+      if (l.success)
+        return { name: "SetResultResponseServerError", value: l.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("SetResult", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -54,7 +45,7 @@ __d(
         "WASmaxInUserNoticeIQErrorResponseMixin",
       ).parseIQErrorResponseMixin(e, t);
       if (!a.success) return a;
-      var i = _(r.value);
+      var i = p(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -63,7 +54,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -84,7 +75,7 @@ __d(
           )
         : i;
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "trackable");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(e, "id", 1, void 0);
@@ -94,10 +85,10 @@ __d(
         ? o("WAResultOrError").makeResult({ id: n.value, result: r.value })
         : r;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
-      var r = o("WASmaxParseUtils").optionalChildWithTag(e, "trackable", d);
+      var r = o("WASmaxParseUtils").optionalChildWithTag(e, "trackable", c);
       if (!r.success) return r;
       var a = o(
         "WASmaxInUserNoticeIQResultResponseMixin",
@@ -108,7 +99,7 @@ __d(
           )
         : a;
     }
-    function p(e) {
+    function m(e) {
       var t = e.trackableId,
         n = e.trackableResult,
         r = o(
@@ -125,7 +116,7 @@ __d(
         );
       return r;
     }
-    function _(e) {
+    function p(e) {
       var t = o(
         "WASmaxInUserNoticeIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -149,10 +140,10 @@ __d(
           );
     }
     ((l.sendSetResultRPC = e),
-      (l.parseSetResultResponseClientError = u),
-      (l.parseSetResultResponseServerError = c),
-      (l.parseSetResultResponseSuccess = m),
-      (l.makeSetResultRequest = p));
+      (l.parseSetResultResponseClientError = s),
+      (l.parseSetResultResponseServerError = u),
+      (l.parseSetResultResponseSuccess = d),
+      (l.makeSetResultRequest = m));
   },
   98,
 );

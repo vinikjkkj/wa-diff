@@ -4,7 +4,6 @@ __d(
     "WATimeUtils",
     "WAWebLabyrinthLoadCompanionOnboarding",
     "WAWebLabyrinthPendingAddPeerPayload",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -15,51 +14,42 @@ __d(
       nextAttemptAtMs: null,
       testMessage: null,
     };
-    function s() {
-      return u.apply(this, arguments);
+    async function s() {
+      if (o("WAWebLabyrinthPendingAddPeerPayload").hasAddPeerPayload())
+        return babelHelpers.extends({}, e, { state: "captured" });
+      var t = await o(
+        "WAWebLabyrinthLoadCompanionOnboarding",
+      ).loadLabyrinthCompanionOnboarding();
+      if (!t.success)
+        return babelHelpers.extends({}, e, {
+          lastFailure: t.error.kind,
+          state: "unreadable",
+        });
+      var n = t.value;
+      if (n == null) return babelHelpers.extends({}, e, { state: "none" });
+      var r = n.nextAttemptAt;
+      return {
+        attemptCount: n.attemptCount,
+        capturedAtMs: o("WATimeUtils").fromMillisTime(n.capturedAt),
+        lastFailure: n.lastFailure,
+        nextAttemptAtMs: r == null ? null : o("WATimeUtils").fromMillisTime(r),
+        state:
+          n.step.kind === "captured" || n.step.kind === "prepared"
+            ? "persisted"
+            : n.step.kind === "registered"
+              ? "registered"
+              : n.step.kind === "abandoned"
+                ? "abandoned"
+                : (function () {
+                    throw Error(
+                      "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                        n.step.kind,
+                    );
+                  })(),
+        testMessage: n.testMessage == null ? null : u(n.testMessage),
+      };
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (o("WAWebLabyrinthPendingAddPeerPayload").hasAddPeerPayload())
-            return babelHelpers.extends({}, e, { state: "captured" });
-          var t = yield o(
-            "WAWebLabyrinthLoadCompanionOnboarding",
-          ).loadLabyrinthCompanionOnboarding();
-          if (!t.success)
-            return babelHelpers.extends({}, e, {
-              lastFailure: t.error.kind,
-              state: "unreadable",
-            });
-          var n = t.value;
-          if (n == null) return babelHelpers.extends({}, e, { state: "none" });
-          var r = n.nextAttemptAt;
-          return {
-            attemptCount: n.attemptCount,
-            capturedAtMs: o("WATimeUtils").fromMillisTime(n.capturedAt),
-            lastFailure: n.lastFailure,
-            nextAttemptAtMs:
-              r == null ? null : o("WATimeUtils").fromMillisTime(r),
-            state:
-              n.step.kind === "captured" || n.step.kind === "prepared"
-                ? "persisted"
-                : n.step.kind === "registered"
-                  ? "registered"
-                  : n.step.kind === "abandoned"
-                    ? "abandoned"
-                    : (function () {
-                        throw Error(
-                          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                            n.step.kind,
-                        );
-                      })(),
-            testMessage: n.testMessage == null ? null : c(n.testMessage),
-          };
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e) {
+    function u(e) {
       var t = e.attemptCount,
         n = e.checkedAt,
         r = e.outcome;

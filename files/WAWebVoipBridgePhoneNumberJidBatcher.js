@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipBridgePhoneNumberJidBatcher",
-  ["WALogger", "asyncToGeneratorRuntime"],
+  ["WALogger"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -18,9 +18,9 @@ __d(
             }),
             (this.$1 = e));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.send = function (t) {
+          (n.send = function (t) {
             if (this.$2 || !this.$5()) {
               this.$1.sendReply(t);
               return;
@@ -28,29 +28,21 @@ __d(
             (this.$3.push(t),
               this.$4 || ((this.$4 = !0), self.setTimeout(this.$6, 0)));
           }),
-          (r.$5 = function () {
+          (n.$5 = function () {
             try {
               return this.$1.isEnabled();
             } catch (e) {
               return (this.$7("gate", e), !1);
             }
           }),
-          (r.$8 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                try {
-                  yield this.$1.sendReplies(e);
-                } catch (t) {
-                  (this.$7("batch", t), this.$9(e));
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (n.$8 = async function (t) {
+            try {
+              await this.$1.sendReplies(t);
+            } catch (e) {
+              (this.$7("batch", e), this.$9(t));
             }
-            return t;
-          })()),
-          (r.$9 = function (n) {
+          }),
+          (n.$9 = function (n) {
             var t = 0,
               r = null;
             for (var a of n)
@@ -71,7 +63,7 @@ __d(
                 )
                 .sendLogs(u);
           }),
-          (r.$7 = function (t, n) {
+          (n.$7 = function (t, n) {
             ((this.$2 = !0),
               o("WALogger")
                 .ERROR(

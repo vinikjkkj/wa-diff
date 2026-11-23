@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebMexNewsletterBlockUserJob",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -14,7 +13,7 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "blockNewsletterUser",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             try {
               return o("WAWebMexNewsletterBlockUserJob").mexNewsletterBlockUser(
                 {
@@ -36,8 +35,8 @@ __d(
                 t
               );
             }
-          }),
-          { priority: o("WAJobOrchestratorTypes").JOB_PRIORITY.UI_ACTION },
+          },
+          { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
         .waitUntilCompleted();
     }

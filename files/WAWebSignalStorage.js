@@ -15,57 +15,48 @@ __d(
     "WAWebSchemaSession",
     "WAWebSchemaSignedPrekey",
     "WAWebSignalStorageUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    async function u() {
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return (
-            s == null &&
-              (yield o("WAWebDbRolloutUtil").loadSchemaVersions(),
-              o("WAWebSignalStorageUtils").createStorage(),
-              o("WAWebSchemaBasekey").addTable(),
-              o("WAWebSchemaIdentity").addTable(),
-              o("WAWebSchemaMeta").addTable(),
-              o("WAWebSchemaPrekey").addTable(),
-              o("WAWebSchemaSenderkey").addTable(),
-              o("WAWebSchemaSession").addTable(),
-              o("WAWebSchemaSignedPrekey").addTable(),
-              o("WAWebSchemaKyberPrekey").addTable(),
-              o("WAWebSchemaKyberLastResortKey").addTable(),
-              (s = o("WAWebSignalStorageUtils")
-                .getStorage()
-                .initialize()
-                .catch(function (t) {
-                  throw (
-                    o("WALogger")
-                      .ERROR(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "Assertion failed!",
-                          ])),
-                      )
-                      .verbose()
-                      .sendLogs("Failed to initialize signal storage", {
-                        sendLogsType:
-                          o("WALogger").SendLogsType
-                            .CRASH_OR_UNRECOVERABLE_ERROR_SAD,
-                      }),
-                    t
-                  );
-                }))),
-            s
-          );
-        })),
-        c.apply(this, arguments)
+        s == null &&
+          (await o("WAWebDbRolloutUtil").loadSchemaVersions(),
+          o("WAWebSignalStorageUtils").createStorage(),
+          o("WAWebSchemaBasekey").addTable(),
+          o("WAWebSchemaIdentity").addTable(),
+          o("WAWebSchemaMeta").addTable(),
+          o("WAWebSchemaPrekey").addTable(),
+          o("WAWebSchemaSenderkey").addTable(),
+          o("WAWebSchemaSession").addTable(),
+          o("WAWebSchemaSignedPrekey").addTable(),
+          o("WAWebSchemaKyberPrekey").addTable(),
+          o("WAWebSchemaKyberLastResortKey").addTable(),
+          (s = o("WAWebSignalStorageUtils")
+            .getStorage()
+            .initialize()
+            .catch(function (t) {
+              throw (
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "Assertion failed!",
+                      ])),
+                  )
+                  .verbose()
+                  .sendLogs("Failed to initialize signal storage", {
+                    sendLogsType:
+                      o("WALogger").SendLogsType
+                        .CRASH_OR_UNRECOVERABLE_ERROR_SAD,
+                  }),
+                t
+              );
+            }))),
+        s
       );
     }
-    function d() {
+    function c() {
       return o("WAWebSignalStorageUtils")
         .destroyStorage()
         .catch(function () {
@@ -79,7 +70,7 @@ __d(
           s = null;
         });
     }
-    ((l.initialize = u), (l.destroy = d));
+    ((l.initialize = u), (l.destroy = c));
   },
   98,
 );

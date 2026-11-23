@@ -17,13 +17,13 @@ __d(
                 n,
               )
             : i
-          : t.loc || s._(/*BTDS*/ "Location");
+          : t.loc || s._(/*BTDS*/ "");
       }
       return t.isLive
         ? t.comment != null && t.comment !== ""
           ? t.comment
-          : s._(/*BTDS*/ "Live location")
-        : t.loc || s._(/*BTDS*/ "Location");
+          : s._(/*BTDS*/ "")
+        : t.loc || s._(/*BTDS*/ "");
     }
     l.default = e;
   },

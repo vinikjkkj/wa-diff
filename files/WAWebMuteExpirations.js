@@ -5,21 +5,21 @@ __d(
     var e = [
       {
         getLabel: function () {
-          return s._(/*BTDS*/ "8 hours");
+          return s._(/*BTDS*/ "");
         },
         duration: 8,
         radioId: "8-hours",
       },
       {
         getLabel: function () {
-          return s._(/*BTDS*/ "1 week");
+          return s._(/*BTDS*/ "");
         },
         duration: 168,
         radioId: "1-week",
       },
       {
         getLabel: function () {
-          return s._(/*BTDS*/ "Always");
+          return s._(/*BTDS*/ "");
         },
         duration: Number.POSITIVE_INFINITY,
         radioId: "always",

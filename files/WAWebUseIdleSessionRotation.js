@@ -5,7 +5,6 @@ __d(
     "WAWebUseUnifiedSession",
     "justknobx",
     "react",
-    "react-compiler-runtime",
     "useWAWebListener",
     "useWAWebTimeout",
   ],
@@ -27,62 +26,39 @@ __d(
       return r("justknobx")._("3246");
     }
     function h(e) {
-      var t = o("react-compiler-runtime").c(10),
-        n = o("WAWebUseUnifiedSession").useUnifiedSession(e),
-        r = d(!1),
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = function () {
-            g() && (r.current = !0);
-          }),
-          (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebTimeout").useManualTimeout(a),
-        l = i[0],
-        s = i[1],
-        u;
-      t[1] !== s || t[2] !== n || t[3] !== l
-        ? ((u = function () {
+      var t = o("WAWebUseUnifiedSession").useUnifiedSession(e),
+        n = d(!1),
+        r = o("useWAWebTimeout").useManualTimeout(function () {
+          g() && (n.current = !0);
+        }),
+        a = r[0],
+        i = r[1],
+        l = u(
+          function () {
             if (!g()) {
-              (s(), (r.current = !1));
+              (i(), (n.current = !1));
               return;
             }
-            (r.current &&
+            (n.current &&
               document.hasFocus() &&
-              ((r.current = !1),
-              n(o("WAWebUnifiedSession").UnifiedSessionGenReason.IdleTimeout)),
-              l(f()));
-          }),
-          (t[1] = s),
-          (t[2] = n),
-          (t[3] = l),
-          (t[4] = u))
-        : (u = t[4]);
-      var m = u,
-        p,
-        _;
-      (t[5] !== m
-        ? ((p = function () {
-            m();
-          }),
-          (_ = [m]),
-          (t[5] = m),
-          (t[6] = p),
-          (t[7] = _))
-        : ((p = t[6]), (_ = t[7])),
-        c(p, _));
-      var h;
-      t[8] !== m
-        ? ((h = function () {
-            ((r.current = !1), m());
-          }),
-          (t[8] = m),
-          (t[9] = h))
-        : (h = t[9]);
-      var y = h;
-      (o("useWAWebListener").useListener(window, "focus", y),
-        o("useWAWebListener").useListener(window, "mousedown", m),
-        o("useWAWebListener").useListener(window, "keydown", m));
+              ((n.current = !1),
+              t(o("WAWebUnifiedSession").UnifiedSessionGenReason.IdleTimeout)),
+              a(f()));
+          },
+          [i, t, a],
+        );
+      c(
+        function () {
+          l();
+        },
+        [l],
+      );
+      var s = function () {
+        ((n.current = !1), l());
+      };
+      (o("useWAWebListener").useListener(window, "focus", s),
+        o("useWAWebListener").useListener(window, "mousedown", l),
+        o("useWAWebListener").useListener(window, "keydown", l));
     }
     l.useIdleSessionRotation = h;
   },

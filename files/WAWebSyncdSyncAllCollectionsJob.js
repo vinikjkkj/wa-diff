@@ -8,7 +8,6 @@ __d(
     "WAWebSyncd",
     "WAWebSyncdConst",
     "WAWebUserPrefsAppStateSync",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
@@ -16,24 +15,24 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "syncdSyncAllCollections",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             (o("WALogger").LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
                   "syncd: periodic sync for all collection",
                 ])),
             ),
-              yield o("WAWebSyncd").markCollectionsForSync([
+              await o("WAWebSyncd").markCollectionsForSync([
                 o("WAWebSyncdConst").CollectionName.CriticalBlock,
                 o("WAWebSyncdConst").CollectionName.CriticalUnblockLow,
                 o("WAWebSyncdConst").CollectionName.Regular,
                 o("WAWebSyncdConst").CollectionName.RegularLow,
                 o("WAWebSyncdConst").CollectionName.RegularHigh,
               ]),
-              yield o(
+              await o(
                 "WAWebUserPrefsAppStateSync",
               ).setLastPeriodicAppStateSyncTs(o("WATimeUtils").unixTime()));
-          }),
+          },
           {
             priority: o("WAJobOrchestratorTypes").JobPriority.LOW,
             maxTimeoutMs: 1e3 * 30,

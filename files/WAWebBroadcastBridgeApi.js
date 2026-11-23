@@ -2,7 +2,6 @@ __d(
   "WAWebBroadcastBridgeApi",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WAJids",
     "WALogger",
     "WAWebBizBroadcastCampaignAPI",
@@ -17,7 +16,6 @@ __d(
     "WAWebCmd",
     "WAWebContactCollection",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -30,24 +28,17 @@ __d(
       p,
       _,
       f,
-      g,
-      h = r("JSResourceForInteraction")(
+      g = r("JSResourceForInteraction")(
         "WAWebBizBroadcastProLocalCampaignCardAction",
       ).__setRef("WAWebBroadcastBridgeApi"),
-      y = r("JSResourceForInteraction")(
+      h = r("JSResourceForInteraction")(
         "WAWebBizBroadcastProCampaignStatusCollection",
       ).__setRef("WAWebBroadcastBridgeApi"),
-      C = {
-        createBizBroadcastProLocalCampaignCards: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.campaigns;
-            yield (g || (g = n("Promise"))).all(t.map(b));
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+      y = {
+        createBizBroadcastProLocalCampaignCards: async function (t) {
+          var e = t.campaigns;
+          await Promise.all(e.map(C));
+        },
         invalidateBizBroadcastProCampaign: function (t) {
           var e,
             n = t.campaignId;
@@ -67,7 +58,7 @@ __d(
               .catching(r("getErrorSafe")(e))
               .sendLogs("bb-pro-campaign-invalidation-listener-error");
           }
-          (e = y.getModuleIfRequired()) == null ||
+          (e = h.getModuleIfRequired()) == null ||
             (e = e.get(n)) == null ||
             e.markStale();
         },
@@ -150,56 +141,47 @@ __d(
         },
         syncBroadcastCampaignsToCollection: function (t) {
           var e = t.removedCampaignIds,
-            a = t.upsertedCampaignIds;
-          for (var i of e) r("WAWebBizBroadcastCampaignCollection").remove(i);
-          if (a.length > 0) {
-            var l = o("WAWebUserUtils")
+            n = t.upsertedCampaignIds;
+          for (var a of e) r("WAWebBizBroadcastCampaignCollection").remove(a);
+          if (n.length > 0) {
+            var i = o("WAWebUserUtils")
               .getMeDevicePnOrThrow_DO_NOT_USE()
               .getDeviceId();
-            (g || (g = n("Promise"))).all(
-              a.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      try {
-                        var t = yield o(
-                          "WAWebBizBroadcastCampaignAPI",
-                        ).getBizBroadcastCampaignByKey(e);
-                        if (t == null) return;
-                        var n = o(
-                            "WAWebBizBroadcastCampaignAPI",
-                          ).filterCampaignsByDevice([t], l),
-                          a = n[0];
-                        if (a == null) {
-                          r("WAWebBizBroadcastCampaignCollection").remove(e);
-                          return;
-                        }
-                        var i = a.campaignId,
-                          u = babelHelpers.objectWithoutPropertiesLoose(a, s);
-                        r("WAWebBizBroadcastCampaignCollection").add(
-                          babelHelpers.extends({ id: i }, u),
-                          { merge: !0 },
-                        );
-                      } catch (t) {
-                        o("WALogger")
-                          .ERROR(
-                            p ||
-                              (p = babelHelpers.taggedTemplateLiteralLoose([
-                                "[BroadcastBridgeApi] sync campaign ",
-                                " failed",
-                              ])),
-                            e,
-                          )
-                          .catching(r("getErrorSafe")(t))
-                          .sendLogs("bb-sync-campaign-collection-failure");
-                      }
-                    },
+            Promise.all(
+              n.map(async function (e) {
+                try {
+                  var t = await o(
+                    "WAWebBizBroadcastCampaignAPI",
+                  ).getBizBroadcastCampaignByKey(e);
+                  if (t == null) return;
+                  var n = o(
+                      "WAWebBizBroadcastCampaignAPI",
+                    ).filterCampaignsByDevice([t], i),
+                    a = n[0];
+                  if (a == null) {
+                    r("WAWebBizBroadcastCampaignCollection").remove(e);
+                    return;
+                  }
+                  var l = a.campaignId,
+                    u = babelHelpers.objectWithoutPropertiesLoose(a, s);
+                  r("WAWebBizBroadcastCampaignCollection").add(
+                    babelHelpers.extends({ id: l }, u),
+                    { merge: !0 },
                   );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
+                } catch (t) {
+                  o("WALogger")
+                    .ERROR(
+                      p ||
+                        (p = babelHelpers.taggedTemplateLiteralLoose([
+                          "[BroadcastBridgeApi] sync campaign ",
+                          " failed",
+                        ])),
+                      e,
+                    )
+                    .catching(r("getErrorSafe")(t))
+                    .sendLogs("bb-sync-campaign-collection-failure");
+                }
+              }),
             );
           }
         },
@@ -256,50 +238,42 @@ __d(
               ));
         },
       };
-    function b(e) {
-      return v.apply(this, arguments);
+    async function C(e) {
+      var t = e.broadcastJid,
+        n = e.campaignId,
+        a = e.campaignTimestamp,
+        i = e.messageId,
+        l = o("WAJids").validateBroadcastJid(t);
+      if (l == null) {
+        o("WALogger").ERROR(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "[bb-pro-local-card] invalid broadcast JID",
+            ])),
+        );
+        return;
+      }
+      try {
+        var s = await g.load();
+        await s({
+          broadcastJid: l,
+          campaignId: n,
+          campaignTimestamp: a,
+          messageId: i,
+        });
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "BB Pro local campaign card creation failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("bb-pro-local-campaign-card-creation-failed");
+      }
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.broadcastJid,
-            n = e.campaignId,
-            a = e.campaignTimestamp,
-            i = e.messageId,
-            l = o("WAJids").validateBroadcastJid(t);
-          if (l == null) {
-            o("WALogger").ERROR(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[bb-pro-local-card] invalid broadcast JID",
-                ])),
-            );
-            return;
-          }
-          try {
-            var s = yield h.load();
-            yield s({
-              broadcastJid: l,
-              campaignId: n,
-              campaignTimestamp: a,
-              messageId: i,
-            });
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "BB Pro local campaign card creation failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("bb-pro-local-campaign-card-creation-failed");
-          }
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    l.BroadcastBridgeApi = C;
+    l.BroadcastBridgeApi = y;
   },
   98,
 );

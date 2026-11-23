@@ -1,49 +1,46 @@
 __d(
   "WAWebNewsletterAdminNotificationJob",
   [
-    "Promise",
     "WAJobOrchestratorTypes",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaNewsletterMetadata",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(t) {
-      var r = t.countryCodes,
-        a = t.newsletterJid,
-        i = t.priority,
-        l = i === void 0 ? o("WAJobOrchestratorTypes").JobPriority.LOW : i,
-        s = t.toAdd;
+    function e(e) {
+      var t = e.countryCodes,
+        n = e.newsletterJid,
+        r = e.priority,
+        a = r === void 0 ? o("WAJobOrchestratorTypes").JobPriority.LOW : r,
+        i = e.toAdd;
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "updateGeosuspendedCountry",
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var t = yield o("WAWebSchemaNewsletterMetadata")
+          async function () {
+            var e = await o("WAWebSchemaNewsletterMetadata")
               .getNewsletterMetadataTable()
-              .get(a);
-            if (t == null) return (e || (e = n("Promise"))).resolve();
-            var i = t.geosuspendedCountries,
-              l = i === void 0 ? new Map() : i;
+              .get(n);
+            if (e == null) return Promise.resolve();
+            var r = e.geosuspendedCountries,
+              a = r === void 0 ? new Map() : r;
             return (
-              s
-                ? r.forEach(function (e) {
-                    l == null || l.set(e, { geosuspended: !0 });
+              i
+                ? t.forEach(function (e) {
+                    a == null || a.set(e, { geosuspended: !0 });
                   })
-                : r.forEach(function (e) {
-                    l == null || l.delete(e);
+                : t.forEach(function (e) {
+                    a == null || a.delete(e);
                   }),
-              (t.geosuspendedCountries = l),
+              (e.geosuspendedCountries = a),
               o("WAWebSchemaNewsletterMetadata")
                 .getNewsletterMetadataTable()
-                .merge(a, t)
+                .merge(n, e)
             );
-          }),
-          { priority: l },
+          },
+          { priority: a },
         )
         .waitUntilCompleted();
     }
-    function u(e, t) {
+    function s(e, t) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "updateNewsletterAdminProfile",
@@ -56,7 +53,7 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function c(e, t) {
+    function u(e, t) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "updateNewsletterAdminProfile",
@@ -69,7 +66,7 @@ __d(
         )
         .waitUntilCompleted();
     }
-    function d(e) {
+    function c(e) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "updateProfilePictureDeletion",
@@ -82,10 +79,10 @@ __d(
         )
         .waitUntilCompleted();
     }
-    ((l.updateGeosuspendedCountry = s),
-      (l.updateNewsletterAdminProfile = u),
-      (l.updateNewsletterAdminProfileSettings = c),
-      (l.updateProfilePictureDeletionAlertState = d));
+    ((l.updateGeosuspendedCountry = e),
+      (l.updateNewsletterAdminProfile = s),
+      (l.updateNewsletterAdminProfileSettings = u),
+      (l.updateProfilePictureDeletionAlertState = c));
   },
   98,
 );

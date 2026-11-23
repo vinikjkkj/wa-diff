@@ -1,6 +1,6 @@
 __d(
   "AdsAplusCAnimationUtils",
-  ["$InternalEnum", "getByPath", "gkx", "immutable", "isTruthy"],
+  ["$InternalEnum", "first", "gkx", "immutable", "isTruthy"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = n("$InternalEnum")({
@@ -19,7 +19,7 @@ __d(
       var t = [];
       for (var n of e.members())
         (n === e.AVG_V1_ANIMATION && !d("silent")) ||
-          (n === e.AVG_V2_ANIMATION && !m("silent")) ||
+          (n === e.AVG_V2_ANIMATION && !m()) ||
           t.push(n);
       return (
         t.sort(function (e, t) {
@@ -38,21 +38,27 @@ __d(
     function d(e) {
       return e ? r("gkx")("810") : r("gkx")("1885");
     }
-    function m(e) {
-      return e ? r("gkx")("9087") : r("gkx")("9853");
+    function m() {
+      return r("gkx")("9087");
     }
     function p(e, t) {
-      return Array.from(e.values()).filter(function (e) {
-        return t.includes(e);
-      }).length;
+      return e == null ? !1 : r("isTruthy")(t) ? h(e) : y(e);
     }
-    function _() {
-      return r("gkx")("17067");
+    function _(e) {
+      var t,
+        n = e == null ? null : r("first")(e),
+        o =
+          n == null ||
+          (t = n.creative) == null ||
+          (t = t.object_story_spec) == null ||
+          (t = t.link_data) == null
+            ? void 0
+            : t.child_attachments;
+      if (o == null || o.length < 2) return null;
+      var a = o[0].image_hash;
+      return a == null || a === "" ? null : a;
     }
-    function f(e, t) {
-      return e == null ? !1 : r("isTruthy")(t) ? y(e) : C(e);
-    }
-    function g(t, n) {
+    function f(t, n) {
       if ((n === void 0 && (n = !1), n && t === e.AVG_V1_ANIMATION))
         return {
           adCreativeOptimizationType: 319,
@@ -82,44 +88,39 @@ __d(
         shouldUsePreloader: !0,
       };
     }
-    function h(e) {
+    function g(e) {
       e === void 0 && (e = !1);
       var t = u(),
         n = t.map(function (t) {
-          return g(t, e);
+          return f(t, e);
         });
       return r("immutable").List(n);
     }
+    function h(e) {
+      if (e == null) return !1;
+      var t = C(e, !0);
+      return t === "photo";
+    }
     function y(e) {
       if (e == null) return !1;
-      var t = b(e, !0);
+      var t = C(e, !1);
       return t === "photo";
     }
-    function C(e) {
-      if (e == null) return !1;
-      var t = b(e, !1);
-      return t === "photo";
-    }
-    function b(e, t) {
-      var n;
-      return (n = r("getByPath")(
-        e,
-        t ? ["type"] : ["attachments", "data", "0", "type"],
-        "",
-      )) != null
+    function C(e, t) {
+      var n, r;
+      return (n = t
+        ? e.type
+        : (r = e.attachments) == null || (r = r.data[0]) == null
+          ? void 0
+          : r.type) != null
         ? n
         : "";
     }
-    ((l.AnimationVariations = e),
-      (l.PREVIEW_RENDER_PRIORITY = s),
-      (l.getEligibleAnimationVariationForPreview = u),
-      (l.passAnimationUnificationGK = c),
+    ((l.passAnimationUnificationGK = c),
       (l.passAnimationModelUpgradeTransparencyGK = d),
-      (l.passImageAnimationAvg2ModelRolloutGK = m),
-      (l.countAnimationPreviewStatuses = p),
-      (l.isAnimationUnificationPreviewNuxTooltipEnabled = _),
-      (l.isSupportedExistingPostForAnimation = f),
-      (l.getAddAnimationOptimizationInfoListForAdgroup = h));
+      (l.isSupportedExistingPostForAnimation = p),
+      (l.getCarouselFirstCardImageHash = _),
+      (l.getAddAnimationOptimizationInfoListForAdgroup = g));
   },
   98,
 );

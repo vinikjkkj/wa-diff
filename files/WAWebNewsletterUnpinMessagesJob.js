@@ -5,47 +5,39 @@ __d(
     "WALogger",
     "WAWebMexNewsletterUnpinMessagesJob",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    function s(t, a) {
+    function s(t, n) {
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "unpinNewsletterMessages",
-          (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                try {
-                  return yield o(
-                    "WAWebMexNewsletterUnpinMessagesJob",
-                  ).mexNewsletterUnpinMessages(t.newsletterJid, t.messageIds);
-                } catch (t) {
-                  throw (
-                    o("WALogger")
-                      .ERROR(
-                        e ||
-                          (e = babelHelpers.taggedTemplateLiteralLoose([
-                            "[MEX][NEWSLETTER] unpin messages failed",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(t))
-                      .tags("GQL", "MEX", "NEWSLETTER", "PIN")
-                      .sendLogs("newsletter-unpin-job-failed"),
-                    t
-                  );
-                }
-              },
-            );
-            return function (e) {
-              return t.apply(this, arguments);
-            };
-          })(),
+          async function (t) {
+            try {
+              return await o(
+                "WAWebMexNewsletterUnpinMessagesJob",
+              ).mexNewsletterUnpinMessages(t.newsletterJid, t.messageIds);
+            } catch (t) {
+              throw (
+                o("WALogger")
+                  .ERROR(
+                    e ||
+                      (e = babelHelpers.taggedTemplateLiteralLoose([
+                        "[MEX][NEWSLETTER] unpin messages failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(t))
+                  .tags("GQL", "MEX", "NEWSLETTER", "PIN")
+                  .sendLogs("newsletter-unpin-job-failed"),
+                t
+              );
+            }
+          },
           { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
         )
-        .waitUntilCompleted({ newsletterJid: t, messageIds: a });
+        .waitUntilCompleted({ newsletterJid: t, messageIds: n });
     }
     l.unpinNewsletterMessages = s;
   },

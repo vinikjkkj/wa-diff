@@ -1,118 +1,102 @@
 __d(
   "WAWebSharableEventQRCodeImage",
-  [
-    "Promise",
-    "WALogger",
-    "WAWebSharableEventFailureLogger",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WALogger", "WAWebSharableEventFailureLogger"],
   function (t, n, r, o, a, i, l) {
     var e,
-      s,
-      u = 2,
-      c = 360,
-      d = 24,
-      m = 60,
-      p = 106,
-      _ = 12,
-      f = 16,
-      g = 12,
-      h = 22,
-      y = 2,
-      C = 18,
-      b = 16;
-    function v(e, t) {
-      return S.apply(this, arguments);
+      s = 2,
+      u = 360,
+      c = 24,
+      d = 60,
+      m = 106,
+      p = 12,
+      _ = 16,
+      f = 12,
+      g = 22,
+      h = 2,
+      y = 18,
+      C = 16;
+    async function b(t, n) {
+      var r = t.card,
+        a = R(t);
+      if (a == null) return null;
+      try {
+        var i = await Promise.all([
+            E(n),
+            a.placeholder != null ? k(a.placeholder.icon) : null,
+            k(a.logo),
+          ]),
+          l = i[0],
+          s = i[1],
+          u = i[2],
+          c = document.createElement("canvas"),
+          d = c.getContext("2d");
+        return d == null
+          ? null
+          : (v(d, c, r, a, {
+              cover: l,
+              coverIcon: l == null ? s : null,
+              logo: u,
+            }),
+            await new Promise(function (e) {
+              return c.toBlob(e, "image/png");
+            }));
+      } catch (t) {
+        return (
+          o("WALogger").WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[sharable_event][qr-code] image failed: ",
+                "",
+              ])),
+            o("WAWebSharableEventFailureLogger").describeSharableEventError(t),
+          ),
+          null
+        );
+      }
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r) {
-          var a = t.card,
-            i = E(t);
-          if (i == null) return null;
-          try {
-            var l = yield (s || (s = n("Promise"))).all([
-                I(r),
-                i.placeholder != null ? D(i.placeholder.icon) : null,
-                D(i.logo),
-              ]),
-              u = l[0],
-              c = l[1],
-              d = l[2],
-              m = document.createElement("canvas"),
-              p = m.getContext("2d");
-            return p == null
-              ? null
-              : (R(p, m, a, i, {
-                  cover: u,
-                  coverIcon: u == null ? c : null,
-                  logo: d,
-                }),
-                yield new s(function (e) {
-                  return m.toBlob(e, "image/png");
-                }));
-          } catch (t) {
-            return (
-              o("WALogger").WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[sharable_event][qr-code] image failed: ",
-                    "",
-                  ])),
-                o("WAWebSharableEventFailureLogger").describeSharableEventError(
-                  t,
-                ),
-              ),
-              null
-            );
-          }
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e, t, n, r, o) {
+    function v(e, t, n, r, o) {
       var a = getComputedStyle(r.name);
       e.font = a.font;
-      var i = N(r.name.textContent, c - 2 * d, function (t) {
+      var i = D(r.name.textContent, u - 2 * c, function (t) {
           return e.measureText(t).width;
         }),
         l = r.qrCode.width,
-        s = o.cover != null || o.coverIcon != null,
-        p = s ? m + g : 0,
-        _ = d + p + i.length * h + C + b + l + d;
-      ((t.width = c * u),
-        (t.height = _ * u),
-        e.scale(u, u),
+        m = o.cover != null || o.coverIcon != null,
+        p = m ? d + f : 0,
+        h = c + p + i.length * g + y + C + l + c;
+      ((t.width = u * s),
+        (t.height = h * s),
+        e.scale(s, s),
         (e.fillStyle = getComputedStyle(n).backgroundColor),
-        w(e, 0, 0, c, _, f),
+        $(e, 0, 0, u, h, _),
         o.cover != null
-          ? $(e, o.cover, d)
+          ? I(e, o.cover, c)
           : o.coverIcon != null &&
             r.placeholder != null &&
-            P(e, r.placeholder, o.coverIcon, d));
-      var y = d + p;
+            T(e, r.placeholder, o.coverIcon, c));
+      var b = c + p;
       ((e.font = a.font),
         (e.textAlign = "center"),
         (e.textBaseline = "top"),
         (e.fillStyle = a.color));
-      for (var v of i) (e.fillText(v, c / 2, y), (y += h));
-      var S = getComputedStyle(r.subtitle);
-      ((e.font = S.font),
-        (e.fillStyle = S.color),
-        e.fillText(r.subtitle.textContent, c / 2, y),
-        (y += C + b),
-        L(e, r, o.logo, y));
+      for (var v of i) (e.fillText(v, u / 2, b), (b += g));
+      var R = getComputedStyle(r.subtitle);
+      ((e.font = R.font),
+        (e.fillStyle = R.color),
+        e.fillText(r.subtitle.textContent, u / 2, b),
+        (b += y + C),
+        S(e, r, o.logo, b));
     }
-    function L(e, t, n, r) {
+    function S(e, t, n, r) {
       var o = t.qrCode.width,
-        a = (c - o) / 2;
+        a = (u - o) / 2;
       ((e.imageSmoothingEnabled = !1),
         e.drawImage(t.qrCode, a, r, o, o),
         (e.imageSmoothingEnabled = !0));
       var i = t.logo.getBoundingClientRect().width;
       e.drawImage(n, a + (o - i) / 2, r + (o - i) / 2, i, i);
     }
-    function E(e) {
+    function R(e) {
       var t,
         n,
         r = e.qrCode.querySelector("canvas"),
@@ -122,75 +106,59 @@ __d(
         : {
             logo: o,
             name: (t = e.name.firstElementChild) != null ? t : e.name,
-            placeholder: k(e.cover),
+            placeholder: L(e.cover),
             qrCode: r,
             subtitle:
               (n = e.subtitle.firstElementChild) != null ? n : e.subtitle,
           };
     }
-    function k(e) {
+    function L(e) {
       if (e.querySelector("img") != null) return null;
       var t = e.firstElementChild,
         n = t == null ? void 0 : t.querySelector("svg");
       return t != null && n != null ? { circle: t, icon: n } : null;
     }
-    function I(e) {
-      return T.apply(this, arguments);
+    async function E(e) {
+      if (e == null || e === "") return null;
+      try {
+        var t = await window.fetch(e);
+        return t.ok ? await createImageBitmap(await t.blob()) : null;
+      } catch (e) {
+        return null;
+      }
     }
-    function T() {
+    async function k(e) {
+      var t = e.cloneNode(!0);
+      t instanceof Element &&
+        (t.setAttribute("color", getComputedStyle(e).color),
+        t.setAttribute("xmlns", "http://www.w3.org/2000/svg"));
+      var n = new Image();
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e == null || e === "") return null;
-          try {
-            var t = yield window.fetch(e);
-            return t.ok ? yield createImageBitmap(yield t.blob()) : null;
-          } catch (e) {
-            return null;
-          }
-        })),
-        T.apply(this, arguments)
+        (n.src =
+          "data:image/svg+xml;charset=utf-8," +
+          encodeURIComponent(new XMLSerializer().serializeToString(t))),
+        await n.decode(),
+        n
       );
     }
-    function D(e) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.cloneNode(!0);
-          t instanceof Element &&
-            (t.setAttribute("color", getComputedStyle(e).color),
-            t.setAttribute("xmlns", "http://www.w3.org/2000/svg"));
-          var n = new Image();
-          return (
-            (n.src =
-              "data:image/svg+xml;charset=utf-8," +
-              encodeURIComponent(new XMLSerializer().serializeToString(t))),
-            yield n.decode(),
-            n
-          );
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e, t, n) {
-      var r = (c - p) / 2;
-      (e.save(), A(e, r, n, p, m, _), e.clip());
-      var o = Math.max(p / t.width, m / t.height),
+    function I(e, t, n) {
+      var r = (u - m) / 2;
+      (e.save(), P(e, r, n, m, d, p), e.clip());
+      var o = Math.max(m / t.width, d / t.height),
         a = t.width * o,
         i = t.height * o;
-      (e.drawImage(t, r + (p - a) / 2, n + (m - i) / 2, a, i), e.restore());
+      (e.drawImage(t, r + (m - a) / 2, n + (d - i) / 2, a, i), e.restore());
     }
-    function P(e, t, n, r) {
-      var o = m / 2;
+    function T(e, t, n, r) {
+      var o = d / 2;
       ((e.fillStyle = getComputedStyle(t.circle).backgroundColor),
         e.beginPath(),
-        e.arc(c / 2, r + o, o, 0, 2 * Math.PI),
+        e.arc(u / 2, r + o, o, 0, 2 * Math.PI),
         e.fill());
       var a = t.icon.getBoundingClientRect().width;
-      e.drawImage(n, (c - a) / 2, r + o - a / 2, a, a);
+      e.drawImage(n, (u - a) / 2, r + o - a / 2, a, a);
     }
-    function N(e, t, n) {
+    function D(e, t, n) {
       var r = Array.from(e),
         o = [],
         a = [0],
@@ -209,13 +177,13 @@ __d(
             a.push(r + 1 - Array.from(i).length));
         }),
         o.push(i),
-        o.length <= y)
+        o.length <= h)
       )
         return o;
-      var l = r.slice(a[y - 1]).join("");
-      return [].concat(o.slice(0, y - 1), [M(l.trim(), t, n)]);
+      var l = r.slice(a[h - 1]).join("");
+      return [].concat(o.slice(0, h - 1), [x(l.trim(), t, n)]);
     }
-    function M(e, t, n) {
+    function x(e, t, n) {
       for (
         var r = Array.from(e.trimEnd());
         r.length > 0 && n(r.join("") + "\u2026") > t;
@@ -223,10 +191,10 @@ __d(
         r.pop();
       return r.join("") + "\u2026";
     }
-    function w(e, t, n, r, o, a) {
-      (A(e, t, n, r, o, a), e.fill());
+    function $(e, t, n, r, o, a) {
+      (P(e, t, n, r, o, a), e.fill());
     }
-    function A(e, t, n, r, o, a) {
+    function P(e, t, n, r, o, a) {
       (e.beginPath(),
         e.moveTo(t + a, n),
         e.arcTo(t + r, n, t + r, n + o, a),
@@ -235,9 +203,9 @@ __d(
         e.arcTo(t, n, t + r, n, a),
         e.closePath());
     }
-    ((l.renderSharableEventQRCodeImage = v),
-      (l.getSharableEventQRCodeCardParts = E),
-      (l.wrapSharableEventQRCodeName = N));
+    ((l.renderSharableEventQRCodeImage = b),
+      (l.getSharableEventQRCodeCardParts = R),
+      (l.wrapSharableEventQRCodeName = D));
   },
   98,
 );

@@ -13,38 +13,45 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success) return { name: "SetResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "SetResponseBadRequest", value: i.value };
-          var l = d(r, n);
-          if (l.success)
-            return { name: "SetResponseInternalServerError", value: l.value };
-          var s = c(r, n);
-          if (s.success) return { name: "SetResponseConflict", value: s.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("Set", {
-              Success: a,
-              BadRequest: i,
-              InternalServerError: l,
-              Conflict: s,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success) return { name: "SetResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success) return { name: "SetResponseBadRequest", value: i.value };
+      var l = c(r, n);
+      if (l.success)
+        return { name: "SetResponseInternalServerError", value: l.value };
+      var p = u(r, n);
+      if (p.success) return { name: "SetResponseConflict", value: p.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("Set", {
+          Success: a,
+          BadRequest: i,
+          InternalServerError: l,
+          Conflict: p,
+        }),
       );
+    }
+    function s(e, t) {
+      var n = o("WASmaxParseUtils").assertTag(e, "iq");
+      if (!n.success) return n;
+      var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
+      if (!r.success) return r;
+      var a = _(r.value);
+      if (!a.success) return a;
+      var i = h(e, t);
+      return i.success
+        ? o("WAResultOrError").makeResult(
+            babelHelpers.extends(
+              { errorIQErrorBadRequestMixin: a.value },
+              i.value,
+            ),
+          )
+        : i;
     }
     function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
@@ -53,11 +60,11 @@ __d(
       if (!r.success) return r;
       var a = f(r.value);
       if (!a.success) return a;
-      var i = y(e, t);
+      var i = h(e, t);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
-              { errorIQErrorBadRequestMixin: a.value },
+              { errorIQErrorConflictMixin: a.value },
               i.value,
             ),
           )
@@ -70,24 +77,7 @@ __d(
       if (!r.success) return r;
       var a = g(r.value);
       if (!a.success) return a;
-      var i = y(e, t);
-      return i.success
-        ? o("WAResultOrError").makeResult(
-            babelHelpers.extends(
-              { errorIQErrorConflictMixin: a.value },
-              i.value,
-            ),
-          )
-        : i;
-    }
-    function d(e, t) {
-      var n = o("WASmaxParseUtils").assertTag(e, "iq");
-      if (!n.success) return n;
-      var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
-      if (!r.success) return r;
-      var a = h(r.value);
-      if (!a.success) return a;
-      var i = y(e, t);
+      var i = h(e, t);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
@@ -97,16 +87,16 @@ __d(
           )
         : i;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
-      var r = C(e, t);
+      var r = y(e, t);
       return (r.success, r);
     }
-    function p(e) {
+    function m(e) {
       var t = e.setSetConfigOrSetClearMixinGroupArgs,
-        n = _(
-          v(
+        n = p(
+          b(
             o("WASmaxJsx").smax("iq", {
               to: o("WAWap").S_WHATSAPP_NET,
               xmlns: "urn:xmpp:whatsapp:push",
@@ -116,14 +106,14 @@ __d(
         );
       return n;
     }
-    function _(e, t) {
-      if (t.setSetConfig) return E(e, t.setSetConfig);
-      if (t.setClear) return R(e, t.setClear);
+    function p(e, t) {
+      if (t.setSetConfig) return L(e, t.setSetConfig);
+      if (t.setClear) return S(e, t.setClear);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function f(e) {
+    function _(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -143,7 +133,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function g(e) {
+    function f(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -163,7 +153,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function h(e) {
+    function g(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -183,7 +173,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function y(e, t) {
+    function h(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -212,7 +202,7 @@ __d(
       );
       return s.success ? o("WAResultOrError").makeResult({ type: s.value }) : s;
     }
-    function C(e, t) {
+    function y(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -241,18 +231,18 @@ __d(
       );
       return s.success ? o("WAResultOrError").makeResult({ type: s.value }) : s;
     }
-    function b() {
+    function C() {
       var e = o("WASmaxJsx").smax("iq", {
         id: o("WAWap").generateId(),
         type: "set",
       });
       return e;
     }
-    function v(e) {
-      var t = b();
+    function b(e) {
+      var t = C();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function S(e) {
+    function v(e) {
       var t = e.clearPlatform,
         n = o("WASmaxJsx").smax(
           "iq",
@@ -263,35 +253,35 @@ __d(
         );
       return n;
     }
-    function R(e, t) {
-      var n = S(t);
+    function S(e, t) {
+      var n = v(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function L(e) {
+    function R(e) {
       var t = e.configMixinsArgs,
         n = o("WASmaxJsx").smax(
           "iq",
           null,
-          k(o("WASmaxJsx").smax("config", null), t),
+          E(o("WASmaxJsx").smax("config", null), t),
         );
       return n;
     }
-    function E(e, t) {
-      var n = L(t);
+    function L(e, t) {
+      var n = R(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function k(e, t) {
-      if (t.fBClient) return x(e, t.fBClient);
-      if (t.androidClient) return F(e, t.androidClient);
-      if (t.appleClient) return W(e, t.appleClient);
-      if (t.wNSClient) return P(e, t.wNSClient);
-      if (t.enterpriseClient) return T(e, t.enterpriseClient);
-      if (t.webClient) return M(e, t.webClient);
+    function E(e, t) {
+      if (t.fBClient) return D(e, t.fBClient);
+      if (t.androidClient) return A(e, t.androidClient);
+      if (t.appleClient) return B(e, t.appleClient);
+      if (t.wNSClient) return $(e, t.wNSClient);
+      if (t.enterpriseClient) return I(e, t.enterpriseClient);
+      if (t.webClient) return N(e, t.webClient);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function I(e) {
+    function k(e) {
       var t = e.configId,
         n = o("WASmaxJsx").smax("config", {
           platform: "ent",
@@ -299,11 +289,11 @@ __d(
         });
       return n;
     }
-    function T(e, t) {
-      var n = I(t);
+    function I(e, t) {
+      var n = k(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function D(e) {
+    function T(e) {
       var t = e.configAppid,
         n = e.configDeviceid,
         r = e.configFbid,
@@ -315,11 +305,11 @@ __d(
         });
       return a;
     }
-    function x(e, t) {
-      var n = D(t);
+    function D(e, t) {
+      var n = T(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function $(e) {
+    function x(e) {
       var t,
         n = e.configVersion,
         r = e.configId,
@@ -334,11 +324,11 @@ __d(
         });
       return l;
     }
-    function P(e, t) {
-      var n = $(t);
+    function $(e, t) {
+      var n = x(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function N(e) {
+    function P(e) {
       var t,
         n = e.configEndpoint,
         r = e.configAuth,
@@ -357,11 +347,11 @@ __d(
         });
       return u;
     }
-    function M(e, t) {
-      var n = N(t);
+    function N(e, t) {
+      var n = P(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function w(e) {
+    function M(e) {
       var t = e.itemJid,
         n = e.itemMute,
         r = o("WASmaxJsx").smax("item", {
@@ -370,23 +360,23 @@ __d(
         });
       return r;
     }
-    function A(e) {
+    function w(e) {
       var t = e.itemArgs,
-        n = U(
+        n = q(
           o("WASmaxJsx").smax(
             "config",
             null,
-            o("WASmaxChildren").REPEATED_CHILD(w, t, 0, 1 / 0),
+            o("WASmaxChildren").REPEATED_CHILD(M, t, 0, 1 / 0),
           ),
           e,
         );
       return n;
     }
-    function F(e, t) {
-      var n = A(t);
+    function A(e, t) {
+      var n = w(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function O(e) {
+    function F(e) {
       var t,
         n = e.itemJid,
         r = e.itemMute,
@@ -400,7 +390,7 @@ __d(
         });
       return l;
     }
-    function B(e) {
+    function O(e) {
       var t,
         n,
         r = e.itemArgs,
@@ -456,15 +446,15 @@ __d(
             apple_watch_id: n.OPTIONAL(t.CUSTOM_STRING, I),
             apple_watch_pkey: n.OPTIONAL(t.CUSTOM_STRING, T),
           },
-          o("WASmaxChildren").REPEATED_CHILD(O, r, 0, 1 / 0),
+          o("WASmaxChildren").REPEATED_CHILD(F, r, 0, 1 / 0),
         );
       return D;
     }
-    function W(e, t) {
-      var n = B(t);
+    function B(e, t) {
+      var n = O(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function q(e) {
+    function W(e) {
       var t,
         n,
         r = e.configPlatform,
@@ -487,16 +477,16 @@ __d(
         });
       return m;
     }
-    function U(e, t) {
-      var n = q(t);
+    function q(e, t) {
+      var n = W(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.sendSetRPC = e),
-      (l.parseSetResponseBadRequest = u),
-      (l.parseSetResponseConflict = c),
-      (l.parseSetResponseInternalServerError = d),
-      (l.parseSetResponseSuccess = m),
-      (l.makeSetRequest = p));
+      (l.parseSetResponseBadRequest = s),
+      (l.parseSetResponseConflict = u),
+      (l.parseSetResponseInternalServerError = c),
+      (l.parseSetResponseSuccess = d),
+      (l.makeSetRequest = m));
   },
   98,
 );

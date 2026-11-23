@@ -115,9 +115,7 @@ __d(
                     new (r("AdsError"))(
                       4399008,
                       u._(function (e, t) {
-                        return e._(
-                          /*BTDS*/ "Instagram Stories required for WhatsApp Status: To use the WhatsApp Status placement, you\u2019ll need to include Instagram Stories.",
-                        );
+                        return e._(/*BTDS*/ "");
                       }, {}),
                       {
                         cta: r("AdsErrorsCTAStrings").EDIT_PLACEMENTS_CTA,

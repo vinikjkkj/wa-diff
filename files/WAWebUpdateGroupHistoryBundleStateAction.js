@@ -1,20 +1,12 @@
 __d(
   "WAWebUpdateGroupHistoryBundleStateAction",
-  ["WAWebMsgCollection", "asyncToGeneratorRuntime"],
+  ["WAWebMsgCollection"],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
+    async function e(e, t) {
+      var n = o("WAWebMsgCollection").MsgCollection.get(e);
+      n == null || n.groupHistoryBundleMetadata == null || s(n, t);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebMsgCollection").MsgCollection.get(e);
-          n == null || n.groupHistoryBundleMetadata == null || u(n, t);
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e, t) {
+    function s(e, t) {
       e.groupHistoryBundleMetadata != null &&
         e.set({
           groupHistoryBundleMetadata: babelHelpers.extends(

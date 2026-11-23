@@ -6,50 +6,33 @@ __d(
     "WAWebRecoverableQueue",
     "WAWebScheduledOperations",
     "WAWormQueueDef",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = Number.POSITIVE_INFINITY,
       s = null;
     function u() {
-      _().start();
+      m().start();
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
+    async function c(e, t) {
+      (await d(e)) || (await m().addAndDrain({ botFbid: e, meLid: t }));
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (yield m(e)) || (yield _().addAndDrain({ botFbid: e, meLid: t }));
-        })),
-        d.apply(this, arguments)
-      );
+    async function d(e) {
+      if (
+        !o(
+          "WAWebMetaAiThreadServerDeleteQueueDef",
+        ).META_AI_THREAD_SERVER_DELETE_QUEUE.isReady()
+      )
+        return !1;
+      var t = await o(
+        "WAWebMetaAiThreadServerDeleteQueueDef",
+      ).META_AI_THREAD_SERVER_DELETE_QUEUE.read({
+        limit: o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT,
+      });
+      return t.some(function (t) {
+        return t.botFbid === e;
+      });
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o(
-              "WAWebMetaAiThreadServerDeleteQueueDef",
-            ).META_AI_THREAD_SERVER_DELETE_QUEUE.isReady()
-          )
-            return !1;
-          var t = yield o(
-            "WAWebMetaAiThreadServerDeleteQueueDef",
-          ).META_AI_THREAD_SERVER_DELETE_QUEUE.read({
-            limit: o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT,
-          });
-          return t.some(function (t) {
-            return t.botFbid === e;
-          });
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _() {
+    function m() {
       return (
         s == null &&
           (s = new (o("WAWebRecoverableQueue").WAWebRecoverableQueue)({

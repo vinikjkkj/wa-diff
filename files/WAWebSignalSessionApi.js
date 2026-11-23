@@ -1,7 +1,6 @@
 __d(
   "WAWebSignalSessionApi",
   [
-    "Promise",
     "WAJids",
     "WALogger",
     "WAWebABProps",
@@ -17,7 +16,6 @@ __d(
     "WAWebSignalProtocolStore",
     "WAWebSignalStoreApi",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "err",
     "gkx",
   ],
@@ -34,97 +32,84 @@ __d(
       g,
       h,
       y,
-      C,
-      b = [
+      C = [
         o("WAWebSessionScope").SessionScope.DEFAULT,
         o("WAWebSessionScope").SessionScope.STATUS,
         o("WAWebSessionScope").SessionScope.PQ,
       ];
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.deviceIdentity,
-            a = e.identity,
-            i = e.wid;
-          if (
-            (r("gkx")("9092")
-              ? o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "Signal::createSignalSession with ",
-                      " sessionScope=",
-                      "",
-                    ])),
-                  i.toString({ legacy: !0 }),
-                  t != null ? t : "default",
-                )
-              : o("WALogger").LOG(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "Signal::createSignalSession sessionScope=",
-                      "",
-                    ])),
-                  t != null ? t : "default",
-                ),
-            i.device != null && i.device !== o("WAJids").DEFAULT_DEVICE_ID)
-          ) {
-            if (!n)
-              throw r("err")(
-                "Signal::createSignalSession: expected device-identity in keyBundle for companion device",
-              );
-            var l = yield o("WAWebAdvSignatureApi").validateADVwithIdentityKey(
-              i,
-              n,
-              a,
-            );
-            if (!l)
-              throw r("err")(
-                "Signal::createSignalSession: invalid identityKey fetched",
-              );
-          }
-          return o("WAWebCryptoLibrarySessionApi").createSignalSession(
-            R(e),
-            i,
-            t,
+    async function b(t, n) {
+      var a = t.deviceIdentity,
+        i = t.identity,
+        l = t.wid;
+      if (
+        (r("gkx")("9092")
+          ? o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "Signal::createSignalSession with ",
+                  " sessionScope=",
+                  "",
+                ])),
+              l.toString({ legacy: !0 }),
+              n != null ? n : "default",
+            )
+          : o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "Signal::createSignalSession sessionScope=",
+                  "",
+                ])),
+              n != null ? n : "default",
+            ),
+        l.device != null && l.device !== o("WAJids").DEFAULT_DEVICE_ID)
+      ) {
+        if (!a)
+          throw r("err")(
+            "Signal::createSignalSession: expected device-identity in keyBundle for companion device",
           );
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(t) {
-      var n, r, a;
-      try {
-        n = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
-          t.identity.slice().buffer,
+        var u = await o("WAWebAdvSignatureApi").validateADVwithIdentityKey(
+          l,
+          a,
+          i,
         );
-      } catch (t) {
+        if (!u)
+          throw r("err")(
+            "Signal::createSignalSession: invalid identityKey fetched",
+          );
+      }
+      return o("WAWebCryptoLibrarySessionApi").createSignalSession(v(t), l, n);
+    }
+    function v(e) {
+      var t, n, r;
+      try {
+        t = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
+          e.identity.slice().buffer,
+        );
+      } catch (e) {
         throw (
           o("WALogger")
             .ERROR(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "Assertion failed!",
                 ])),
             )
             .sendLogs(
               "Signal::createSignalSession: invalid identityKey fetched",
             ),
-          t
+          e
         );
       }
       try {
-        r = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
-          t.skey.pubkey.slice().buffer,
+        n = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
+          e.skey.pubkey.slice().buffer,
         );
       } catch (e) {
         throw (
           o("WALogger")
             .ERROR(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
                   "Assertion failed!",
                 ])),
             )
@@ -134,43 +119,43 @@ __d(
           e
         );
       }
-      if (t.key)
+      if (e.key)
         try {
-          a = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
-            t.key.pubkey.slice().buffer,
+          r = o("WAWebCryptoCurve25519").toSignalCurvePubKey(
+            e.key.pubkey.slice().buffer,
           );
         } catch (e) {
           o("WALogger")
             .ERROR(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
                   "Assertion failed!",
                 ])),
             )
             .sendLogs("Signal::createSignalSession: invalid preKey fetched");
         }
-      var i = {
-        registrationId: t.regId,
-        identityKey: n,
+      var a = {
+        registrationId: e.regId,
+        identityKey: t,
         signedPreKey: {
-          keyId: t.skey.id,
-          publicKey: r,
-          signature: t.skey.signature.slice().buffer,
+          keyId: e.skey.id,
+          publicKey: n,
+          signature: e.skey.signature.slice().buffer,
         },
       };
-      t.key && a && (i.preKey = { keyId: t.key.id, publicKey: a });
-      var l = t.kyberKey;
+      e.key && r && (a.preKey = { keyId: e.key.id, publicKey: r });
+      var i = e.kyberKey;
       return (
-        l != null &&
-          (i.kyberKey = {
-            keyId: l.id,
-            publicKey: new Uint8Array(l.publicKey).buffer,
-            signature: new Uint8Array(l.signature).buffer,
+        i != null &&
+          (a.kyberKey = {
+            keyId: i.id,
+            publicKey: new Uint8Array(i.publicKey).buffer,
+            signature: new Uint8Array(i.signature).buffer,
           }),
-        i
+        a
       );
     }
-    function L(e, t) {
+    function S(e, t) {
       return (
         o("WAWebApiContact").checkPnToLidMapping(
           e,
@@ -188,255 +173,184 @@ __d(
           )
       );
     }
-    function E(e, t) {
-      return k.apply(this, arguments);
+    async function R(e, t) {
+      var n = await o("WAWebCryptoLibrarySessionApi").getRemoteRegId(e, t);
+      return n != null || t === o("WAWebSessionScope").SessionScope.DEFAULT
+        ? n
+        : o("WAWebCryptoLibrarySessionApi").getRemoteRegId(
+            e,
+            o("WAWebSessionScope").SessionScope.DEFAULT,
+          );
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebCryptoLibrarySessionApi").getRemoteRegId(e, t);
-          return n != null || t === o("WAWebSessionScope").SessionScope.DEFAULT
-            ? n
-            : o("WAWebCryptoLibrarySessionApi").getRemoteRegId(
-                e,
-                o("WAWebSessionScope").SessionScope.DEFAULT,
-              );
-        })),
-        k.apply(this, arguments)
+    async function L(e) {
+      o("WAWebApiContact").checkPnToLidMapping(
+        [e],
+        o("WAWebApiContact").CheckPnToLidMappingCaller
+          .WAWEB_SIGNAL_SESSION_DELETE_REMOTE_INFO,
       );
+      var t = o("WAWebSignalCommonUtils").createSignalAddress(e).toString();
+      o("WALogger").LOG(
+        m ||
+          (m = babelHelpers.taggedTemplateLiteralLoose([
+            "[session] deleteRemoteInfo",
+          ])),
+      );
+      var n = [
+        o("WAWebSignalProtocolStore")
+          .getSignalProtocolStore()
+          .removeIdentity(t),
+      ].concat(
+        C.map(function (t) {
+          return o("WAWebSignalProtocolStore")
+            .getSignalProtocolStore()
+            .removeSession(
+              o("WAWebSignalCommonUtils").createSignalAddress(e, t).toString(),
+            );
+        }),
+      );
+      await Promise.all(n);
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebApiContact").checkPnToLidMapping(
-            [e],
-            o("WAWebApiContact").CheckPnToLidMappingCaller
-              .WAWEB_SIGNAL_SESSION_DELETE_REMOTE_INFO,
-          );
-          var t = o("WAWebSignalCommonUtils").createSignalAddress(e).toString();
-          o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "[session] deleteRemoteInfo",
-              ])),
-          );
-          var r = [
-            o("WAWebSignalProtocolStore")
+    async function E(e, t) {
+      o("WAWebApiContact").checkPnToLidMapping(
+        [e],
+        o("WAWebApiContact").CheckPnToLidMappingCaller
+          .WAWEB_SIGNAL_SESSION_DELETE_REMOTE_SESSION,
+      );
+      var n = t != null ? [t] : C;
+      (o("WALogger").LOG(
+        p ||
+          (p = babelHelpers.taggedTemplateLiteralLoose([
+            "[session] deleteRemoteSession scope=",
+            "",
+          ])),
+        t != null ? t : "all",
+      ),
+        await Promise.all(
+          n.map(function (t) {
+            return o("WAWebSignalProtocolStore")
               .getSignalProtocolStore()
-              .removeIdentity(t),
-          ].concat(
-            b.map(function (t) {
-              return o("WAWebSignalProtocolStore")
-                .getSignalProtocolStore()
-                .removeSession(
-                  o("WAWebSignalCommonUtils")
-                    .createSignalAddress(e, t)
-                    .toString(),
-                );
-            }),
-          );
-          yield (C || (C = n("Promise"))).all(r);
-        })),
-        T.apply(this, arguments)
-      );
+              .removeSession(
+                o("WAWebSignalCommonUtils")
+                  .createSignalAddress(e, t)
+                  .toString(),
+              );
+          }),
+        ));
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          o("WAWebApiContact").checkPnToLidMapping(
-            [e],
-            o("WAWebApiContact").CheckPnToLidMappingCaller
-              .WAWEB_SIGNAL_SESSION_DELETE_REMOTE_SESSION,
-          );
-          var r = t != null ? [t] : b;
-          (o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
-                "[session] deleteRemoteSession scope=",
-                "",
-              ])),
-            t != null ? t : "all",
-          ),
-            yield (C || (C = n("Promise"))).all(
-              r.map(function (t) {
-                return o("WAWebSignalProtocolStore")
-                  .getSignalProtocolStore()
-                  .removeSession(
-                    o("WAWebSignalCommonUtils")
-                      .createSignalAddress(e, t)
-                      .toString(),
-                  );
-              }),
-            ));
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e, t) {
+    function k(e, t) {
       var n = o("WAWebSignalCommonUtils").createSignalAddress(e, t).toString();
       return o("WAWebSignalProtocolStore")
         .getPersistSignalProtocolStore()
         .maybeCleanUpUnconvertedSession(n);
     }
-    function P(e, t) {
-      return N.apply(this, arguments);
+    async function I(e, t) {
+      var n = o("WAWebCryptoLibraryDbCallbacksApi").getCryptoDbCallbacks(),
+        a = o("WAJids").unsafeCoerceToDeviceJid(e.toJid()),
+        i = await r("WAWebCryptoLibraryUtilsApi").getSessionAliceBaseKey(
+          a,
+          o("WAWebCryptoLibraryDbCallbacksApi").selectLoadSession(n, t),
+        );
+      return i.success === !0 ? i.value : null;
     }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebCryptoLibraryDbCallbacksApi").getCryptoDbCallbacks(),
-            a = o("WAJids").unsafeCoerceToDeviceJid(e.toJid()),
-            i = yield r("WAWebCryptoLibraryUtilsApi").getSessionAliceBaseKey(
-              a,
-              o("WAWebCryptoLibraryDbCallbacksApi").selectLoadSession(n, t),
-            );
-          return i.success === !0 ? i.value : null;
-        })),
-        N.apply(this, arguments)
+    async function T(e, t, n) {
+      o("WAWebApiContact").checkPnToLidMapping(
+        [e],
+        o("WAWebApiContact").CheckPnToLidMappingCaller
+          .WAWEB_SIGNAL_SESSION_SAVE_SESSION_BASE_KEY,
       );
-    }
-    function M(e, t, n) {
-      return w.apply(this, arguments);
-    }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          o("WAWebApiContact").checkPnToLidMapping(
-            [e],
-            o("WAWebApiContact").CheckPnToLidMappingCaller
-              .WAWEB_SIGNAL_SESSION_SAVE_SESSION_BASE_KEY,
+      var r = o("WAWebSignalCommonUtils").createSignalAddress(e, n),
+        a = await I(e, n);
+      a
+        ? await o("WAWebSignalStoreApi").waSignalStore.saveBaseKey(
+            r.toString(),
+            t,
+            a,
+          )
+        : o("WALogger").LOG(
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
+                "saveSessionBaseKey: for ",
+                ", no basekey provided",
+              ])),
+            t,
           );
-          var r = o("WAWebSignalCommonUtils").createSignalAddress(e, n),
-            a = yield P(e, n);
-          a
-            ? yield o("WAWebSignalStoreApi").waSignalStore.saveBaseKey(
-                r.toString(),
-                t,
-                a,
-              )
-            : o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "saveSessionBaseKey: for ",
-                    ", no basekey provided",
-                  ])),
-                t,
-              );
-        })),
-        w.apply(this, arguments)
+    }
+    async function D(e, t, n) {
+      o("WAWebApiContact").checkPnToLidMapping(
+        [e],
+        o("WAWebApiContact").CheckPnToLidMappingCaller
+          .WAWEB_SIGNAL_SESSION_HAS_SAME_BASE_KEY,
       );
-    }
-    function A(e, t, n) {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          o("WAWebApiContact").checkPnToLidMapping(
-            [e],
-            o("WAWebApiContact").CheckPnToLidMappingCaller
-              .WAWEB_SIGNAL_SESSION_HAS_SAME_BASE_KEY,
-          );
-          var a = o("WAWebSignalCommonUtils").createSignalAddress(e, r),
-            i = yield (C || (C = n("Promise"))).all([
-              P(e, r),
-              o("WAWebSignalStoreApi").waSignalStore.loadBaseKey(
-                a.toString(),
-                t,
-              ),
-            ]),
-            l = i[0],
-            s = i[1];
-          return s
-            ? l
-              ? o("WAWebSignalCommonUtils").bufferEqual(s, l)
-                ? (o("WALogger").LOG(
-                    y ||
-                      (y = babelHelpers.taggedTemplateLiteralLoose([
-                        "hasSameBaseKey: ",
-                        ", baseKey match",
-                      ])),
-                    t,
-                  ),
-                  !0)
-                : (o("WALogger").LOG(
-                    h ||
-                      (h = babelHelpers.taggedTemplateLiteralLoose([
-                        "hasSameBaseKey: ",
-                        ", baseKey mismatch",
-                      ])),
-                    t,
-                  ),
-                  !1)
-              : (o("WALogger").LOG(
-                  g ||
-                    (g = babelHelpers.taggedTemplateLiteralLoose([
-                      "hasSameBaseKey: ",
-                      ", no saved session",
-                    ])),
-                  t,
-                ),
-                !1)
-            : (o("WALogger").LOG(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
+      var r = o("WAWebSignalCommonUtils").createSignalAddress(e, n),
+        a = await Promise.all([
+          I(e, n),
+          o("WAWebSignalStoreApi").waSignalStore.loadBaseKey(r.toString(), t),
+        ]),
+        i = a[0],
+        l = a[1];
+      return l
+        ? i
+          ? o("WAWebSignalCommonUtils").bufferEqual(l, i)
+            ? (o("WALogger").LOG(
+                y ||
+                  (y = babelHelpers.taggedTemplateLiteralLoose([
                     "hasSameBaseKey: ",
-                    ", no saved baseKey",
+                    ", baseKey match",
                   ])),
                 t,
               ),
-              !1);
-        })),
-        F.apply(this, arguments)
+              !0)
+            : (o("WALogger").LOG(
+                h ||
+                  (h = babelHelpers.taggedTemplateLiteralLoose([
+                    "hasSameBaseKey: ",
+                    ", baseKey mismatch",
+                  ])),
+                t,
+              ),
+              !1)
+          : (o("WALogger").LOG(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "hasSameBaseKey: ",
+                  ", no saved session",
+                ])),
+              t,
+            ),
+            !1)
+        : (o("WALogger").LOG(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "hasSameBaseKey: ",
+                ", no saved baseKey",
+              ])),
+            t,
+          ),
+          !1);
+    }
+    async function x(e, t, n) {
+      return o("WAWebCryptoLibrarySessionApi").createGroupSenderSignalSession(
+        o("WAWebWidFactory").createWid(t),
+        e,
+        n,
       );
     }
-    function O(e, t, n) {
-      return B.apply(this, arguments);
+    async function $(e, t) {
+      return o("WAWebCryptoLibrary").getGroupSenderKeyInfo(e, t);
     }
-    function B() {
-      return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          return o(
-            "WAWebCryptoLibrarySessionApi",
-          ).createGroupSenderSignalSession(
-            o("WAWebWidFactory").createWid(t),
-            e,
-            n,
-          );
-        })),
-        B.apply(this, arguments)
-      );
-    }
-    function W(e, t) {
-      return q.apply(this, arguments);
-    }
-    function q() {
-      return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return o("WAWebCryptoLibrary").getGroupSenderKeyInfo(e, t);
-        })),
-        q.apply(this, arguments)
-      );
-    }
-    function U(e, t) {
+    function P(e, t) {
       return o("WAWebABProps").getABPropConfigValue(
         "web_sender_key_rotation_fix_enabled",
       )
-        ? V(e, t)
-        : o("WAWebSignalStoreApi").waSignalStore.removeSenderKey(H(e, t));
+        ? N(e, t)
+        : o("WAWebSignalStoreApi").waSignalStore.removeSenderKey(M(e, t));
     }
-    function V(e, t) {
+    function N(e, t) {
       return o("WAWebSignalProtocolStore")
         .getPersistSignalProtocolStore()
-        .removeOwnSenderKey(H(e, t));
+        .removeOwnSenderKey(M(e, t));
     }
-    function H(e, t) {
+    function M(e, t) {
       o("WAWebApiContact").checkPnToLidMapping(
         [t],
         o("WAWebApiContact").CheckPnToLidMappingCaller
@@ -445,7 +359,7 @@ __d(
       var n = o("WAWebSignalCommonUtils").createSignalAddress(t);
       return e.toString({ legacy: !0 }) + "::" + n.toString();
     }
-    function G(e) {
+    function w(e) {
       o("WAWebApiContact").checkPnToLidMapping(
         [e],
         o("WAWebApiContact").CheckPnToLidMappingCaller
@@ -456,20 +370,20 @@ __d(
         t,
       );
     }
-    ((l.createSignalSession = v),
-      (l.toSignalPrekeyBundle = R),
-      (l.hasSignalSessions = L),
-      (l.getRemoteRegId = E),
-      (l.deleteRemoteInfo = I),
-      (l.deleteRemoteSession = D),
-      (l.maybeDeleteUnconvertedSession = $),
-      (l.saveSessionBaseKey = M),
-      (l.hasSameBaseKey = A),
-      (l.createGroupSignalSession = O),
-      (l.getGroupSenderKeyInfo = W),
-      (l.deleteGroupSenderKeyInfo = U),
-      (l.deleteOwnSenderKey = V),
-      (l.deleteDeviceSenderKey = G));
+    ((l.createSignalSession = b),
+      (l.toSignalPrekeyBundle = v),
+      (l.hasSignalSessions = S),
+      (l.getRemoteRegId = R),
+      (l.deleteRemoteInfo = L),
+      (l.deleteRemoteSession = E),
+      (l.maybeDeleteUnconvertedSession = k),
+      (l.saveSessionBaseKey = T),
+      (l.hasSameBaseKey = D),
+      (l.createGroupSignalSession = x),
+      (l.getGroupSenderKeyInfo = $),
+      (l.deleteGroupSenderKeyInfo = P),
+      (l.deleteOwnSenderKey = N),
+      (l.deleteDeviceSenderKey = w));
   },
   98,
 );

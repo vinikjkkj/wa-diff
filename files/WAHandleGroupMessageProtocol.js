@@ -130,7 +130,7 @@ __d(
         case "GroupRegular":
           return (
             e.name,
-            b(e.value.encEncVersion.value, e.value.encEncSenderType.value)
+            S(e.value.encEncVersion.value, e.value.encEncSenderType.value)
           );
         default:
           return (
@@ -150,36 +150,67 @@ __d(
           var t = e.value.enc,
             n = t[0],
             r = t[1];
-          return {
-            senderKeyDistributionEnc: b(
-              n.encVersion.value,
-              n.encSenderType.value,
-            ),
-            senderKeyMessageEnc: b(r.encVersion.value, r.encSenderType.value),
-          };
+          return { senderKeyDistributionEnc: b(n), senderKeyMessageEnc: b(r) };
         }
         default: {
           e.name;
           var o = e.value.enc,
             a = o[0],
             i = o[1];
-          return {
-            senderKeyDistributionEnc: b(
-              a.encVersion.value,
-              a.encSenderIndividualTypes.value,
-            ),
-            senderKeyMessageEnc: b(
-              i.encVersion.value,
-              i.encSenderIndividualTypes.value,
-            ),
-          };
+          return { senderKeyDistributionEnc: v(a), senderKeyMessageEnc: v(i) };
         }
       }
     }
-    function b(e, t) {
+    function b(e) {
+      var t = e.encTypeSenderKeyOrOneTimeSenderKeyOrIndividualMixinGroup;
+      switch (t.name) {
+        case "EncTypeSenderKey":
+        case "EncTypeIndividual":
+          return S(e.encVersion.value, t.value);
+        default:
+          throw (
+            t.name,
+            new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+              "unsupported-group-message-type",
+            )
+          );
+      }
+    }
+    function v(e) {
+      var t = e.encSenderIndividualTypes;
+      switch (t.name) {
+        case "EncTypeIndividual":
+          return S(e.encVersion.value, t.value);
+        case "EncTypeSenderKeyAndGroupMedia":
+        case "EncTypeSenderKeyWithoutMediatype": {
+          var n =
+            t.value
+              .encTypeEncTypeSenderKeyOrEncTypeOneTimeSenderKeySenderKeyMixinGroup;
+          switch (n.name) {
+            case "EncTypeSenderKey":
+              return S(e.encVersion.value, n.value);
+            default:
+              throw (
+                n.name,
+                new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+                  "unsupported-group-message-type",
+                )
+              );
+          }
+        }
+        default:
+          throw (
+            t.name,
+            new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+              "unrecognized-group-message-type",
+            )
+          );
+      }
+    }
+    function S(e, t) {
       return { encVersion: e.v, ciphertext: t.elementValue, encType: t.type };
     }
-    function v(e, t) {
+    function R(e, t) {
       switch (e.type) {
         case "DualEnc": {
           var n = e.author,
@@ -187,7 +218,7 @@ __d(
             a = e.from,
             i = e.senderKeyDistributionEnc,
             l = e.senderKeyMessageEnc;
-          return S(i, a, r, t)
+          return L(i, a, r, t)
             .then(function (e) {
               var n;
               if (!e.success) return e;
@@ -227,7 +258,7 @@ __d(
                     .saveSenderKeySession(r, a, new Uint8Array(_), t)
                     .then(function (e) {
                       return e.success
-                        ? S(l, a, r, t)
+                        ? L(l, a, r, t)
                         : (o("WALogger").ERROR(
                             m ||
                               (m = babelHelpers.taggedTemplateLiteralLoose([
@@ -268,7 +299,7 @@ __d(
             u = e.chat,
             p = e.enc,
             _ = e.from;
-          return S(p, _, u, t).then(function (e) {
+          return L(p, _, u, t).then(function (e) {
             if (!e.success) {
               var t;
               return {
@@ -293,7 +324,7 @@ __d(
         }
       }
     }
-    function S(e, t, r, a) {
+    function L(e, t, r, a) {
       var i;
       return (
         e.encType === "msg" || e.encType === "pkmsg"
@@ -332,7 +363,7 @@ __d(
         })
       );
     }
-    var R = function (t, n) {
+    var E = function (t, n) {
       var e = t.author,
         r = t.chat,
         a = t.deviceIdentity,
@@ -361,7 +392,7 @@ __d(
         )
       );
     };
-    ((l.parseGroupMessage = h), (l.makeGrouplMessageRetryReceipt = R));
+    ((l.parseGroupMessage = h), (l.makeGrouplMessageRetryReceipt = E));
   },
   98,
 );

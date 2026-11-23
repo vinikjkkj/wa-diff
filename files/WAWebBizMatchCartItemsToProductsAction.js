@@ -12,7 +12,6 @@ __d(
     "WAWebProductModel",
     "WAWebProductSelectors",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "react",
     "sumBy",
   ],
@@ -91,9 +90,7 @@ __d(
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: o("WAWebModalManager").closeModalManager,
-          children: s._(
-            /*BTDS*/ "One or more items in your cart have been updated",
-          ),
+          children: s._(/*BTDS*/ ""),
         }),
       );
     }
@@ -148,60 +145,50 @@ __d(
         }),
       );
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
-    }
-    function v() {
+    async function b(e, t) {
+      var n = o("WAWebCatalogCollection").CatalogCollection.get(
+          o("WAWebWidFactory").createWid(e.id),
+        ),
+        a = [],
+        i = [],
+        l = !0;
       return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebCatalogCollection").CatalogCollection.get(
-              o("WAWebWidFactory").createWid(e.id),
-            ),
-            a = [],
-            i = [],
-            l = !0;
-          return (
-            n
-              ? e.cartItemCollection.forEach(function (r) {
-                  var o = n.productCollection.get(r.id),
-                    s =
-                      t &&
-                      t.products.find(function (e) {
-                        return e.id === r.id;
-                      });
-                  if (((s = _(s, n)), !t && o)) {
-                    var u = m(r, o);
-                    ((l = l && u), a.push({ product: o, cartItem: r }));
-                  } else if (s) {
-                    var c = p(r, s);
-                    ((l = l && c),
-                      a.push({ product: C(s, e.id), cartItem: r }));
-                  } else ((l = !1), i.push(r.id));
-                })
-              : t
-                ? e.cartItemCollection.forEach(function (n) {
-                    var r = t.products.find(function (e) {
-                      return e.id === n.id;
-                    });
-                    if (r && r.status !== "deleted") {
-                      var o = p(n, r);
-                      ((l = l && o),
-                        a.push({ product: C(r, e.id), cartItem: n }));
-                    } else ((l = !1), i.push(n.id));
-                  })
-                : yield r("WAWebBizClearCartAction")(e),
-            l ||
-              (i.length && e.cartItemCollection.remove(i),
-              e.trigger("change:cartItemCollection"),
-              f()),
-            yield o("WAWebBizCartBridge").updateCart(e),
-            a
-          );
-        })),
-        v.apply(this, arguments)
+        n
+          ? e.cartItemCollection.forEach(function (r) {
+              var o = n.productCollection.get(r.id),
+                s =
+                  t &&
+                  t.products.find(function (e) {
+                    return e.id === r.id;
+                  });
+              if (((s = _(s, n)), !t && o)) {
+                var u = m(r, o);
+                ((l = l && u), a.push({ product: o, cartItem: r }));
+              } else if (s) {
+                var c = p(r, s);
+                ((l = l && c), a.push({ product: C(s, e.id), cartItem: r }));
+              } else ((l = !1), i.push(r.id));
+            })
+          : t
+            ? e.cartItemCollection.forEach(function (n) {
+                var r = t.products.find(function (e) {
+                  return e.id === n.id;
+                });
+                if (r && r.status !== "deleted") {
+                  var o = p(n, r);
+                  ((l = l && o), a.push({ product: C(r, e.id), cartItem: n }));
+                } else ((l = !1), i.push(n.id));
+              })
+            : await r("WAWebBizClearCartAction")(e),
+        l ||
+          (i.length && e.cartItemCollection.remove(i),
+          e.trigger("change:cartItemCollection"),
+          f()),
+        await o("WAWebBizCartBridge").updateCart(e),
+        a
       );
     }
-    function S(e) {
+    function v(e) {
       return r("sumBy")(e, function (e) {
         return (
           e.cartItem.quantity * o("WAWebProductSelectors").getSavings(e.product)
@@ -212,7 +199,7 @@ __d(
       (l.isPriceMatch = y),
       (l.createProductFromRefreshCartItem = C),
       (l.matchCartItemsToProducts = b),
-      (l.getSavingsFromCartItemsAndProducts = S));
+      (l.getSavingsFromCartItemsAndProducts = v));
   },
   226,
 );

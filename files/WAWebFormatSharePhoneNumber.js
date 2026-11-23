@@ -4,10 +4,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e(e, t, n) {
       var r;
-      if (n)
-        return s._(
-          /*BTDS*/ "You shared your phone number. Click to learn more.",
-        );
+      if (n) return s._(/*BTDS*/ "");
       var a = o("WAWebContactCollection").ContactCollection.gadd(e),
         i =
           (r = o("WAWebFrontendContactGetters").getShownOrgMemberName(a)) !=
@@ -16,10 +13,7 @@ __d(
             : o("WAWebFrontendContactGetters").getIsMyContact(a)
               ? o("WAWebFrontendContactGetters").getFormattedName(a)
               : o("WAWebFrontendContactGetters").getFormattedUsernameOrPhone(a);
-      return s._(
-        /*BTDS*/ "{contact-name} shared their phone number. Click to learn more.",
-        [s._param("contact-name", i)],
-      );
+      return s._(/*BTDS*/ "", [s._param("contact-name", i)]);
     }
     l.default = e;
   },

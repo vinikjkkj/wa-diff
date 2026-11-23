@@ -9,115 +9,106 @@ __d(
     "AdsMetadataConnectedSourcesUtils",
     "AdsPromotedObjectTypes",
     "AdsWhatsAppFeatureGating",
-    "ClickToMessageDestinationTypes",
+    "ClickToMessageAdDestinationUtils",
     "ODS",
     "adsTargetingLocationEpdAreLocationsEU",
     "isTruthy",
-    "qex",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
       u,
       c,
-      d = new Set(["WHATSAPP_MESSAGE", "INSTAGRAM_MESSAGE", "MESSAGE_PAGE"]);
-    function m(e) {
-      return e != null && d.has(e);
-    }
-    function p(e) {
-      return (
-        e != null &&
-        o("ClickToMessageDestinationTypes").MESSAGING_APP_DESTINATION_TYPES.has(
-          e,
-        )
-      );
-    }
+      d,
+      m,
+      p = new Set(["WHATSAPP_MESSAGE", "INSTAGRAM_MESSAGE", "MESSAGE_PAGE"]);
     function _(e) {
+      return e != null && p.has(e);
+    }
+    function f(e) {
       return (
         e == null ||
         e === r("AdCampaignDestination").UNDEFINED ||
         e === r("AdCampaignDestination").WEBSITE
       );
     }
-    function f(e) {
-      return (
-        e === r("AdCampaignDestination").MESSAGING_MESSENGER_WHATSAPP ||
-        e === r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_MESSENGER ||
-        e === r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_WHATSAPP ||
-        e ===
-          r("AdCampaignDestination")
-            .MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP
-      );
-    }
-    function g(e) {
-      return (
-        e === r("AdCampaignDestination").MESSENGER ||
-        e === r("AdCampaignDestination").INSTAGRAM_DIRECT ||
-        e === r("AdCampaignDestination").WHATSAPP
-      );
-    }
+    var g = new Set([
+      (c = r("AdCampaignDestination")).MESSENGER,
+      c.INSTAGRAM_DIRECT,
+      c.WHATSAPP,
+    ]);
     function h(e) {
-      return (
-        f(e) &&
-        e !== r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_WHATSAPP
-      );
+      return g.has(e);
     }
     function y(e) {
       return (
-        f(e) &&
-        e !== r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_MESSENGER
+        o("ClickToMessageAdDestinationUtils").isMultiDestination(e) &&
+        e !== r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_WHATSAPP
       );
     }
     function C(e) {
-      return y(e) || e === r("AdCampaignDestination").WHATSAPP;
+      return (
+        o("ClickToMessageAdDestinationUtils").isMultiDestination(e) &&
+        e !== r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_MESSENGER
+      );
     }
     function b(e) {
-      return (
-        f(e) && e !== r("AdCampaignDestination").MESSAGING_MESSENGER_WHATSAPP
-      );
+      return C(e) || e === r("AdCampaignDestination").WHATSAPP;
     }
     function v(e) {
       return (
-        e === r("AdCampaignDestination").MESSAGING_MESSENGER_WHATSAPP ||
-        e ===
-          r("AdCampaignDestination")
-            .MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP
+        o("ClickToMessageAdDestinationUtils").isMultiDestination(e) &&
+        e !== r("AdCampaignDestination").MESSAGING_MESSENGER_WHATSAPP
       );
     }
     function S(e) {
       return (
-        b(e) ||
-        e === r("AdCampaignDestination").INSTAGRAM_DIRECT ||
-        e === r("AdCampaignDestination").LEAD_FROM_IG_DIRECT
+        e === r("AdCampaignDestination").MESSAGING_MESSENGER_WHATSAPP ||
+        e ===
+          r("AdCampaignDestination")
+            .MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP
       );
     }
     function R(e) {
       return (
-        h(e) ||
+        v(e) ||
+        e === r("AdCampaignDestination").INSTAGRAM_DIRECT ||
+        e === r("AdCampaignDestination").LEAD_FROM_IG_DIRECT
+      );
+    }
+    function L(e) {
+      return (
+        y(e) ||
         e === r("AdCampaignDestination").MESSENGER ||
         e === r("AdCampaignDestination").WEBSITE_AND_MESSAGES
       );
     }
-    function L(e) {
+    function E(e, t) {
+      return (
+        t === "MESSAGE_PAGE" &&
+        !o("ClickToMessageAdDestinationUtils").isClickToMessageAdDestination(e)
+      );
+    }
+    function k(e) {
       return (
         e === r("AdCampaignDestination").WHATSAPP ||
         e === r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_WHATSAPP
       );
     }
-    function E(e) {
+    function I(e) {
       return (
         e === r("AdCampaignDestination").MESSENGER ||
         e === r("AdCampaignDestination").INSTAGRAM_DIRECT ||
         e === r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_MESSENGER
       );
     }
-    function k(e) {
+    function T(e) {
       return (
         e === r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_MESSENGER
       );
     }
-    var I = {
-      MSGR: (c = r("AdCampaignDestination")).MESSENGER,
+    var D = {
+      MSGR: c.MESSENGER,
       WA: c.WHATSAPP,
       IGD: c.INSTAGRAM_DIRECT,
       "MSGR+WA": c.MESSAGING_MESSENGER_WHATSAPP,
@@ -125,14 +116,14 @@ __d(
       "WA+IGD": c.MESSAGING_INSTAGRAM_DIRECT_WHATSAPP,
       "MSGR+WA+IGD": c.MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP,
     };
-    function T(e, t, n) {
+    function x(e, t, n) {
       var o,
         a = [e ? "MSGR" : null, t ? "WA" : null, n ? "IGD" : null]
           .filter(Boolean)
           .join("+");
-      return (o = I[a]) != null ? o : r("AdCampaignDestination").MESSENGER;
+      return (o = D[a]) != null ? o : r("AdCampaignDestination").MESSENGER;
     }
-    var D = new Map([
+    var $ = new Map([
       [c.INSTAGRAM_DIRECT, c.MESSAGING_INSTAGRAM_DIRECT_WHATSAPP],
       [
         c.MESSAGING_INSTAGRAM_DIRECT_MESSENGER,
@@ -140,11 +131,16 @@ __d(
       ],
       [c.MESSENGER, c.MESSAGING_MESSENGER_WHATSAPP],
     ]);
-    function x(e) {
+    function P(e) {
       var t;
-      return e == null || !p(e) ? null : (t = D.get(e)) != null ? t : e;
+      return e == null ||
+        !o("ClickToMessageAdDestinationUtils").isClickToMessageAdDestination(e)
+        ? null
+        : (t = $.get(e)) != null
+          ? t
+          : e;
     }
-    function $(e, t) {
+    function N(e, t) {
       return (
         t === void 0 && (t = !1),
         (e === r("AdCampaignDestination").WHATSAPP ||
@@ -153,8 +149,8 @@ __d(
           !t
       );
     }
-    function P(e, t, n) {
-      var r = R(e) || n === "MESSAGE_PAGE";
+    function M(e, t, n) {
+      var r = L(e) || n === "MESSAGE_PAGE";
       if (t.length > 0) {
         var a = t[0],
           i = a.campaign,
@@ -165,95 +161,92 @@ __d(
       }
       return r;
     }
-    var N = function (t) {
+    var w = function (t) {
         return t === r("AdCampaignDestination").MESSENGER;
       },
-      M = function (t) {
+      A = function (t) {
         return t === r("AdCampaignDestination").WHATSAPP;
       },
-      w = function (t) {
+      F = function (t) {
         return t === r("AdCampaignDestination").INSTAGRAM_DIRECT;
       },
-      A = function (t) {
+      O = function (t) {
         return (
           t === r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_MESSENGER
         );
       },
-      F = function (t) {
-        return N(t) || h(t);
+      B = function (t) {
+        return w(t) || O(t);
       },
-      O = function (t) {
+      W = function (t) {
         return t === r("AdCampaignDestination").ON_AD;
       };
-    function B(e) {
-      return R(e)
+    function q(e) {
+      return L(e)
         ? ["MESSENGER"]
-        : C(e)
+        : b(e)
           ? ["WHATSAPP"]
-          : e === r("AdCampaignDestination").INSTAGRAM_DIRECT || b(e)
+          : e === r("AdCampaignDestination").INSTAGRAM_DIRECT || v(e)
             ? ["INSTAGRAM_DIRECT"]
             : [];
     }
-    function W(e) {
-      return e === r("AdCampaignDestination").WHATSAPP || !C(e);
+    function U(e) {
+      return e === r("AdCampaignDestination").WHATSAPP || !b(e);
     }
-    function q(e) {
-      switch (e) {
-        case r("AdCampaignDestination").WHATSAPP:
-        case r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_WHATSAPP:
-          return r("AdsPromotedObjectTypes").WHATSAPP;
-        case r("AdCampaignDestination").INSTAGRAM_DIRECT:
-          return r("AdsPromotedObjectTypes").INSTAGRAM;
-        case r("AdCampaignDestination").LEAD_FROM_IG_DIRECT:
-          return r("AdsPromotedObjectTypes").LEAD_FROM_IG_DIRECT;
-        case r("AdCampaignDestination").MESSENGER:
-        case r("AdCampaignDestination").MESSAGING_MESSENGER_WHATSAPP:
-        case r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_MESSENGER:
-        case r("AdCampaignDestination")
-          .MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP:
-          return r("AdsPromotedObjectTypes").MESSENGER;
-        default:
-          s(0, 42080);
-      }
+    var V = new Map([
+      [c.WHATSAPP, (m = r("AdsPromotedObjectTypes")).WHATSAPP],
+      [c.MESSAGING_INSTAGRAM_DIRECT_WHATSAPP, m.WHATSAPP],
+      [c.INSTAGRAM_DIRECT, m.INSTAGRAM],
+      [c.LEAD_FROM_IG_DIRECT, m.LEAD_FROM_IG_DIRECT],
+      [c.MESSENGER, m.MESSENGER],
+      [c.MESSAGING_MESSENGER_WHATSAPP, m.MESSENGER],
+      [c.MESSAGING_INSTAGRAM_DIRECT_MESSENGER, m.MESSENGER],
+      [c.MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP, m.MESSENGER],
+    ]);
+    function H(e) {
+      var t = V.get(e);
+      return (t != null || s(0, 42080), t);
     }
-    var U =
+    var G =
       ((e = {}),
       (e.INSTAGRAM_MESSAGE = c.INSTAGRAM_DIRECT),
       (e.MESSAGE_PAGE = c.MESSENGER),
       (e.WHATSAPP_MESSAGE = c.WHATSAPP),
       e);
-    function V(e, t) {
+    function z(e, t) {
       if (r("isTruthy")(t) && t !== r("AdCampaignDestination").UNDEFINED)
         return t;
       if (e != null) {
-        var n = U[e];
+        var n = G[e];
         if (n != null) return n;
       }
       return t != null ? t : null;
     }
-    function H(e) {
-      if (
-        ((u || (u = o("ODS"))).bumpEntityKey(
+    function j(e) {
+      return (
+        (u || (u = o("ODS"))).bumpEntityKey(
           1967,
           "ctwa",
           "eu_dcmo_should_bypass_check_entered",
         ),
-        y(e))
-      )
-        return !o("AdsWhatsAppFeatureGating").isCtwaMdDcmoEnabled(e, !1);
-      var t = M(e) && !r("qex")._("4675");
-      return (
-        u.bumpEntityKey(
-          1967,
-          "ctwa",
-          t
-            ? "eu_dcmo_bypassed_switch_to_link_click"
-            : "eu_dcmo_did_not_bypass_switch_to_link_click",
-        ),
-        t
+        C(e)
+          ? !o("AdsWhatsAppFeatureGating").isCtwaMdDcmoEnabled(e, !1)
+          : (u.bumpEntityKey(
+              1967,
+              "ctwa",
+              "eu_dcmo_did_not_bypass_switch_to_link_click",
+            ),
+            !1)
       );
     }
-    function G(e, t) {
+    var K = new Set([
+      (d = r("AdsAPIObjectives")).LINK_CLICKS,
+      d.OUTCOME_ENGAGEMENT,
+      d.OUTCOME_SALES,
+      d.OUTCOME_LEADS,
+      d.OUTCOME_AWARENESS,
+    ]);
+    function Q(e, t) {
       var n = t.campaignID,
         a = t.objectiveMap,
         i = t.previouslySelectedLocations,
@@ -263,7 +256,7 @@ __d(
         o("adsTargetingLocationEpdAreLocationsEU").adsTargetingLocationEpdOrTba(
           l,
         ) &&
-        y(e.destination_type) &&
+        C(e.destination_type) &&
         e.optimization_goal === r("AdsAPIOptimizationGoals").CONVERSATIONS &&
         o("AdsWhatsAppFeatureGating").isCtwaMdDcmoEnabled(
           e.destination_type,
@@ -275,7 +268,7 @@ __d(
           o(
             "adsTargetingLocationEpdAreLocationsEU",
           ).adsTargetingLocationEpdOrTba(l) &&
-          C(e.destination_type) &&
+          b(e.destination_type) &&
           e.optimization_goal === r("AdsAPIOptimizationGoals").CONVERSATIONS,
         c =
           !o(
@@ -284,25 +277,20 @@ __d(
           o(
             "adsTargetingLocationEpdAreLocationsEU",
           ).adsTargetingLocationEpdOrTba(i) &&
-          p(e.destination_type),
+          o("ClickToMessageAdDestinationUtils").isClickToMessageAdDestination(
+            e.destination_type,
+          ),
         d = a.get(n, r("AdsAPIObjectives").NONE),
-        m =
-          d === r("AdsAPIObjectives").LINK_CLICKS ||
-          d === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT ||
-          d === r("AdsAPIObjectives").OUTCOME_SALES ||
-          d === r("AdsAPIObjectives").OUTCOME_LEADS ||
-          d === r("AdsAPIObjectives").OUTCOME_AWARENESS;
+        m = K.has(d);
       return (
-        u && m && H(e.destination_type)
+        u && m && j(e.destination_type)
           ? (s = r("AdsCampaignRecordAccessors").optimization_goal.set(
               r("AdsAPIOptimizationGoals").LINK_CLICKS,
               e,
             ))
           : c &&
-            (a.get(n, r("AdsAPIObjectives").NONE) ===
-              r("AdsAPIObjectives").LINK_CLICKS ||
-              a.get(n, r("AdsAPIObjectives").NONE) ===
-                r("AdsAPIObjectives").OUTCOME_ENGAGEMENT) &&
+            (d === r("AdsAPIObjectives").LINK_CLICKS ||
+              d === r("AdsAPIObjectives").OUTCOME_ENGAGEMENT) &&
             (s = r("AdsCampaignRecordAccessors").optimization_goal.set(
               r("AdsAPIOptimizationGoals").CONVERSATIONS,
               e,
@@ -310,37 +298,42 @@ __d(
         s
       );
     }
-    ((l.isCTXCTAType = m),
-      (l.isClickToMessageAdDestination = p),
-      (l.isWebsiteAdDestination = _),
-      (l.isMultiDestination = f),
-      (l.isSingleDestination = g),
-      (l.isMultiDestinationWithMessenger = h),
-      (l.isMultiDestinationWithWhatsApp = y),
-      (l.destinationIncludesWhatsApp = C),
-      (l.isMultiDestinationWithInstagram = b),
-      (l.isMultiDestinationWithMessengerAndWhatsApp = v),
-      (l.destinationIncludesInstagram = S),
-      (l.destinationIncludesMessenger = R),
-      (l.isWhatsAppOrWhatsAppAndIGComboDestination = L),
-      (l.isMessengerOrInstagramOrComboDestination = E),
-      (l.isMultiDestinationWithMessengerAndInstagram = k),
-      (l.getDestinationTypeForCheckboxStatus = T),
-      (l.getNewDestinationTypeWithWhatsAppDestination = x),
-      (l.shouldAddWhatsAppCTAField = $),
-      (l.isCTMAd = P),
-      (l.isCTM = N),
-      (l.isWA = M),
-      (l.isIGDirect = w),
-      (l.isMessengerAndIGDirect = A),
-      (l.isGenAINudgeEligibleDestination = F),
-      (l.isOnAd = O),
-      (l.getAppDestinationsFromCampaignDestination = B),
-      (l.shouldRenderAdvancedSetup = W),
-      (l.getPromotedObjectTypeForDestination = q),
-      (l.getDestinationForCallToActionType = V),
-      (l.shouldSwitchToLinkClicksForEPDTargeting = H),
-      (l.mayBeUpdateCampaignOptimizationGoalForCTXTargetingEPD = G));
+    ((l.isClickToMessageAdDestination = o(
+      "ClickToMessageAdDestinationUtils",
+    ).isClickToMessageAdDestination),
+      (l.isMultiDestination = o(
+        "ClickToMessageAdDestinationUtils",
+      ).isMultiDestination),
+      (l.isCTXCTAType = _),
+      (l.isWebsiteAdDestination = f),
+      (l.isSingleDestination = h),
+      (l.isMultiDestinationWithMessenger = y),
+      (l.isMultiDestinationWithWhatsApp = C),
+      (l.destinationIncludesWhatsApp = b),
+      (l.isMultiDestinationWithInstagram = v),
+      (l.isMultiDestinationWithMessengerAndWhatsApp = S),
+      (l.destinationIncludesInstagram = R),
+      (l.destinationIncludesMessenger = L),
+      (l.isMessagePageCTAOnNonMessagingDestination = E),
+      (l.isWhatsAppOrWhatsAppAndIGComboDestination = k),
+      (l.isMessengerOrInstagramOrComboDestination = I),
+      (l.isMultiDestinationWithMessengerAndInstagram = T),
+      (l.getDestinationTypeForCheckboxStatus = x),
+      (l.getNewDestinationTypeWithWhatsAppDestination = P),
+      (l.shouldAddWhatsAppCTAField = N),
+      (l.isCTMAd = M),
+      (l.isCTM = w),
+      (l.isWA = A),
+      (l.isIGDirect = F),
+      (l.isMessengerAndIGDirect = O),
+      (l.isGenAINudgeEligibleDestination = B),
+      (l.isOnAd = W),
+      (l.getAppDestinationsFromCampaignDestination = q),
+      (l.shouldRenderAdvancedSetup = U),
+      (l.getPromotedObjectTypeForDestination = H),
+      (l.getDestinationForCallToActionType = z),
+      (l.shouldSwitchToLinkClicksForEPDTargeting = j),
+      (l.mayBeUpdateCampaignOptimizationGoalForCTXTargetingEPD = Q));
   },
   98,
 );

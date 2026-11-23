@@ -2,7 +2,6 @@ __d(
   "WAWebLazyPersistedQueue",
   [
     "JSResourceForInteraction",
-    "Promise",
     "QPLFlow",
     "WALogger",
     "WAWebBackendEventBus",
@@ -10,134 +9,116 @@ __d(
     "WAWebJobsMigrationGating",
     "WAWebLazyLoadedRetriable",
     "WAWebPersistedQueueQpl",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = r("WAWebLazyLoadedRetriable")(function () {
+      s = r("WAWebLazyLoadedRetriable")(function () {
         return r("JSResourceForInteraction")("WAWebPersistedQueues")
           .__setRef("WAWebLazyPersistedQueue")
           .load();
       }, "WAWebPersistedQueues"),
-      c = 1e3,
-      d = 6e4,
-      m = null,
-      p = 0,
-      _ = !1,
-      f = null,
-      g = !1,
-      h = !1;
-    function y(e) {
+      u = 1e3,
+      c = 6e4,
+      d = null,
+      m = 0,
+      p = !1,
+      _ = null,
+      f = !1,
+      g = !1;
+    function h(e) {
       return o("QPLFlow").QplSubspan.wrapInSubspan(
         e,
         "wait_ready",
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+        async function () {
           return (
-            !_ &&
+            !p &&
               !o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd &&
-              (yield o("QPLFlow").QplSubspan.wrapInSubspan(
+              (await o("QPLFlow").QplSubspan.wrapInSubspan(
                 e,
                 "wait_offline_delivery_end",
-                v,
+                b,
               )),
-            (_ = !0),
-            S(e)
+            (p = !0),
+            v(e)
           );
-        }),
+        },
       );
     }
-    function C(e) {
+    function y(e) {
       return (
-        g || ((g = !0), h && (m = null)),
+        f || ((f = !0), g && (d = null)),
         o("QPLFlow").QplSubspan.wrapInSubspan(e, "wait_ready", function () {
-          return S(e);
+          return v(e);
         })
       );
     }
-    function b() {
-      return _ || o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd
-        ? (s || (s = n("Promise"))).resolve()
-        : v();
+    function C() {
+      return p || o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd
+        ? Promise.resolve()
+        : b();
     }
-    function v() {
+    function b() {
       return (
-        f == null &&
-          (f = o("WAWebEventsWaitForOfflineDeliveryEnd")
+        _ == null &&
+          (_ = o("WAWebEventsWaitForOfflineDeliveryEnd")
             .waitForOfflineDeliveryEnd({ ignoreInit: !0 })
             .finally(function () {
-              _ = !0;
+              p = !0;
             })),
-        f
+        _
       );
     }
-    function S(e) {
-      if (m != null) return m;
-      var t = R(e);
+    function v(e) {
+      if (d != null) return d;
+      var t = S(e);
       return (
-        (m = t),
+        (d = t),
         t.then(
           function () {
-            p = 0;
+            m = 0;
           },
           function () {
-            if (!g) {
-              h = !0;
+            if (!f) {
+              g = !0;
               return;
             }
-            (p++,
+            (m++,
               globalThis.setTimeout(
                 function () {
-                  m === t && (m = null);
+                  d === t && (d = null);
                 },
-                Math.min(c * Math.pow(2, p - 1), d),
+                Math.min(u * Math.pow(2, m - 1), c),
               ));
           },
         ),
         t
       );
     }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
+    async function S(e) {
+      var t = await o("QPLFlow").QplSubspan.wrapInSubspan(e, "bundle_fetch", s);
       return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("QPLFlow").QplSubspan.wrapInSubspan(
-            e,
-            "bundle_fetch",
-            u,
-          );
-          return (
-            yield o("QPLFlow").QplSubspan.wrapInSubspan(
-              e,
-              "db_open",
-              function () {
-                return t.ensurePersistedQueuesOpen(_);
-              },
-            ),
-            t
-          );
-        })),
-        L.apply(this, arguments)
+        await o("QPLFlow").QplSubspan.wrapInSubspan(e, "db_open", function () {
+          return t.ensurePersistedQueuesOpen(p);
+        }),
+        t
       );
     }
-    function E() {
+    function R() {
       if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled()) {
         if (o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd) {
-          k("immediate");
+          L("immediate");
           return;
         }
         o("WAWebBackendEventBus").BackendEventBus.onceOfflineDeliveryEnd(
           function () {
-            return k("offline_delivery_end");
+            return L("offline_delivery_end");
           },
         );
       }
     }
-    function k(t) {
+    function L(t) {
       var n = o("QPLFlow").startQPLFlow(
         o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
         {
@@ -150,7 +131,7 @@ __d(
       );
       o("QPLFlow")
         .endWith(n, function () {
-          return y(n);
+          return h(n);
         })
         .catch(function (t) {
           o("WALogger")
@@ -165,10 +146,10 @@ __d(
             .sendLogs("persisted-queues-preload-failed");
         });
     }
-    ((l.whenPersistedQueuesReady = y),
-      (l.whenPersistedQueuesReadyDuringResume = C),
-      (l.whenPersistedQueuesMayOpen = b),
-      (l.schedulePersistedQueuesPreload = E));
+    ((l.whenPersistedQueuesReady = h),
+      (l.whenPersistedQueuesReadyDuringResume = y),
+      (l.whenPersistedQueuesMayOpen = C),
+      (l.schedulePersistedQueuesPreload = R));
   },
   98,
 );

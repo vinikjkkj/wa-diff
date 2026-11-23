@@ -12,7 +12,6 @@ __d(
     "WDSIconIcGroup.react",
     "WDSIconIcInfo.react",
     "WDSIconIcSettings.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -24,7 +23,7 @@ __d(
           id: "community_info",
           Icon: r("WDSIconIcInfo.react"),
           label: function () {
-            return s._(/*BTDS*/ "Info");
+            return s._(/*BTDS*/ "");
           },
           onClick: function (t) {
             var e = t.chat;
@@ -35,7 +34,7 @@ __d(
           id: "community_members",
           Icon: r("WDSIconIcGroup.react"),
           label: function () {
-            return s._(/*BTDS*/ "Members");
+            return s._(/*BTDS*/ "");
           },
           isVisible: function (t) {
             var e = t.isAdmin,
@@ -64,7 +63,7 @@ __d(
           id: "community_settings",
           Icon: r("WDSIconIcSettings.react"),
           label: function () {
-            return s._(/*BTDS*/ "Settings");
+            return s._(/*BTDS*/ "");
           },
           isVisible: function (t) {
             var e = t.isAdmin,
@@ -80,7 +79,7 @@ __d(
           id: "community_new_group",
           Icon: r("WDSIconIcGroup.react"),
           label: function () {
-            return s._(/*BTDS*/ "New group");
+            return s._(/*BTDS*/ "");
           },
           isVisible: function (t) {
             var e = t.allowNonAdminSubGroupCreation,
@@ -103,7 +102,7 @@ __d(
           id: "community_add_existing_group",
           Icon: r("WDSIconIcGroup.react"),
           label: function () {
-            return s._(/*BTDS*/ "Existing group");
+            return s._(/*BTDS*/ "");
           },
           isVisible: function (t) {
             var e = t.allowNonAdminSubGroupCreation,
@@ -117,38 +116,30 @@ __d(
           },
         },
       ];
-    function d(e, t) {
-      return m.apply(this, arguments);
+    async function d(e, t) {
+      var n;
+      try {
+        n = await t;
+      } catch (e) {
+        return;
+      }
+      if (n != null) {
+        o("WAWebCmd").Cmd.openCommunityHome(e);
+        var r = await o("WAWebFindChatAction").findOrCreateLatestChat(
+            n,
+            "communityHome",
+          ),
+          a = r.chat,
+          i = await o("WAWebCmd").Cmd.openChatBottom({
+            chat: a,
+            chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
+              .CommunityNewGroupCreation,
+          });
+        i && o("WAWebComposeBoxActions").ComposeBoxActions.focus(a);
+      }
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
-          try {
-            n = yield t;
-          } catch (e) {
-            return;
-          }
-          if (n != null) {
-            o("WAWebCmd").Cmd.openCommunityHome(e);
-            var r = yield o("WAWebFindChatAction").findOrCreateLatestChat(
-                n,
-                "communityHome",
-              ),
-              a = r.chat,
-              i = yield o("WAWebCmd").Cmd.openChatBottom({
-                chat: a,
-                chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint
-                  .CommunityNewGroupCreation,
-              });
-            i && o("WAWebComposeBoxActions").ComposeBoxActions.focus(a);
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    var p = c;
-    l.default = p;
+    var m = c;
+    l.default = m;
   },
   226,
 );

@@ -69,7 +69,7 @@ __d(
             (f =
               h +
               ((m && r("WAWebUnformatMsg")(e, e.caption)) ||
-                r("fbs")._(/*BTDS*/ "Photo").toString())));
+                r("fbs")._(/*BTDS*/ "").toString())));
           break;
         }
         case "product": {
@@ -81,7 +81,7 @@ __d(
                 e,
                 o("WAWebFrontendMsgGetters").getText(e),
               )) ||
-              s._(/*BTDS*/ "Product").toString());
+              s._(/*BTDS*/ "").toString());
           break;
         }
         case "interactive": {
@@ -198,9 +198,7 @@ __d(
           );
         case "sticker": {
           var N = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC9F" : "";
-          f = s._(/*BTDS*/ "{stickerIcon} Sticker", [
-            s._param("stickerIcon", N),
-          ]);
+          f = s._(/*BTDS*/ "", [s._param("stickerIcon", N)]);
           break;
         }
         case "video": {
@@ -213,7 +211,7 @@ __d(
                 (M = _.isViewOnce ? "1\uFE0F\u20E3 " : "\uD83C\uDFA5 "),
               (w =
                 (m && r("WAWebUnformatMsg")(e, e.caption)) ||
-                r("fbs")._(/*BTDS*/ "Video").toString()),
+                r("fbs")._(/*BTDS*/ "").toString()),
               _.isViewOnce ||
                 (w =
                   w +
@@ -225,9 +223,7 @@ __d(
         }
         case "ptv": {
           var A = o("WAWebUA").UA.hasEmoji ? "\uD83C\uDFA5 " : "",
-            F =
-              (m && r("WAWebUnformatMsg")(e, e.caption)) ||
-              s._(/*BTDS*/ "Video note"),
+            F = (m && r("WAWebUnformatMsg")(e, e.caption)) || s._(/*BTDS*/ ""),
             O =
               F.toString() +
               " (" +
@@ -244,7 +240,7 @@ __d(
           break;
         case "ptt": {
           var B = "",
-            W = s._(/*BTDS*/ "Voice message").toString();
+            W = s._(/*BTDS*/ "").toString();
           (o("WAWebUA").UA.hasEmoji &&
             (B = _.isViewOnce ? "1\uFE0F\u20E3 " : "\uD83C\uDFA4 "),
             _.isViewOnce ||
@@ -258,7 +254,7 @@ __d(
           f =
             q +
             " " +
-            r("fbs")._(/*BTDS*/ "Audio").toString() +
+            r("fbs")._(/*BTDS*/ "").toString() +
             " (" +
             o("WAWebClock").Clock.durationStr(e.duration) +
             ")";
@@ -270,16 +266,16 @@ __d(
           (e.isLive
             ? (V =
                 (m && r("WAWebUnformatMsg")(e, e.comment)) ||
-                s._(/*BTDS*/ "Live location").toString())
-            : (V = (m && e.loc) || r("fbs")._(/*BTDS*/ "Location").toString()),
+                s._(/*BTDS*/ "").toString())
+            : (V = (m && e.loc) || r("fbs")._(/*BTDS*/ "").toString()),
             (f = U + " " + V));
           break;
         }
         case "groups_v4_invite":
-          f = s._(/*BTDS*/ "WhatsApp group invite");
+          f = s._(/*BTDS*/ "");
           break;
         case "newsletter_admin_invite":
-          f = s._(/*BTDS*/ "WhatsApp channel admin invite");
+          f = s._(/*BTDS*/ "");
           break;
         case "gp2":
           f = r("WAWebFormatGroupNotification")(e, !0);
@@ -294,7 +290,7 @@ __d(
           break;
         case "vcard": {
           var H = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC64 " : "";
-          f = H + (e.subtype || r("fbs")._(/*BTDS*/ "Contact").toString());
+          f = H + (e.subtype || r("fbs")._(/*BTDS*/ "").toString());
           break;
         }
         case "multi_vcard": {
@@ -308,11 +304,7 @@ __d(
             f =
               z +
               (e.filename ||
-                s
-                  ._(/*BTDS*/ '_j{"*":"{count} contacts","_1":"1 contact"}', [
-                    s._plural(e.pageCount, "count"),
-                  ])
-                  .toString());
+                s._(/*BTDS*/ "", [s._plural(e.pageCount, "count")]).toString());
             break;
           }
           var j = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC4 " : "",
@@ -321,7 +313,7 @@ __d(
             (f =
               j +
               ((m && r("WAWebUnformatMsg")(e, K)) ||
-                r("fbs")._(/*BTDS*/ "Document").toString())));
+                r("fbs")._(/*BTDS*/ "").toString())));
           break;
         }
         case "e2e_notification":
@@ -331,7 +323,7 @@ __d(
           f = r("WAWebFormatCallLog")({ msg: e, options: {} });
           break;
         case "ciphertext":
-          f = s._(/*BTDS*/ "Waiting for this message. This may take a while.");
+          f = s._(/*BTDS*/ "");
           break;
         case "revoked":
           f = o("WAWebFormatRevokedMsg").formatRevokedMsg(_);
@@ -377,26 +369,23 @@ __d(
                     (Y = e.eventEndTime) != null ? Y : void 0,
                   )
                 : null;
-          f = s._(
-            /*BTDS*/ "{eventIcon} Invited you to an event: {eventName} {eventTime}",
-            [
-              s._param("eventIcon", J),
-              s._param("eventName", e.eventName),
-              s._param("eventTime", Z),
-            ],
-          );
+          f = s._(/*BTDS*/ "", [
+            s._param("eventIcon", J),
+            s._param("eventName", e.eventName),
+            s._param("eventTime", Z),
+          ]);
           break;
         }
         case "sharable_event_invite": {
           var ee = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCC6 " : "";
-          f = s._(/*BTDS*/ "{eventIcon} Invited you to an event: {eventName}", [
+          f = s._(/*BTDS*/ "", [
             s._param("eventIcon", ee),
             s._param("eventName", _.sharableEventInviteTitle),
           ]);
           break;
         }
         case "music":
-          f = s._(/*BTDS*/ "Sent music");
+          f = s._(/*BTDS*/ "");
           break;
         case "album": {
           var te = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDCF7 " : "",
@@ -404,7 +393,7 @@ __d(
               msg: e,
               options: {},
             });
-          f = s._(/*BTDS*/ "{albumIcon}{photoAndVideoCountText}", [
+          f = s._(/*BTDS*/ "", [
             s._param("albumIcon", te),
             s._param("photoAndVideoCountText", ne),
           ]);
@@ -412,24 +401,19 @@ __d(
         }
         case "order": {
           var re = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDED2 " : "";
-          f = s._(
-            /*BTDS*/ '_j{"*":"{shoppingCartIcon}{count} items{message}","_1":"{shoppingCartIcon}1 item{message}"}',
-            [
-              s._plural(e.itemCount, "count"),
-              s._param("shoppingCartIcon", re),
-              s._param(
-                "message",
-                e.message != null && e.message !== "" ? "\n" + e.message : "",
-              ),
-            ],
-          );
+          f = s._(/*BTDS*/ "", [
+            s._plural(e.itemCount, "count"),
+            s._param("shoppingCartIcon", re),
+            s._param(
+              "message",
+              e.message != null && e.message !== "" ? "\n" + e.message : "",
+            ),
+          ]);
           break;
         }
         case "sticker-pack": {
           var oe = o("WAWebUA").UA.hasEmoji ? "\uD83D\uDC9F " : "";
-          f = s._(/*BTDS*/ "{stickerPackIcon} Sticker Pack", [
-            s._param("stickerPackIcon", oe),
-          ]);
+          f = s._(/*BTDS*/ "", [s._param("stickerPackIcon", oe)]);
           break;
         }
         case "quarantined": {
@@ -438,9 +422,7 @@ __d(
               e.quarantineExtractedText != null &&
               e.quarantineExtractedText !== ""
                 ? e.quarantineExtractedText
-                : s
-                    ._(/*BTDS*/ "Attachment blocked by Strict account settings")
-                    .toString();
+                : s._(/*BTDS*/ "").toString();
           f = "" + ae + ie;
           break;
         }
@@ -555,11 +537,9 @@ __d(
       if (e.subtype === "invite")
         return o("WAWebFormatPaymentMsg").formatPaymentInviteMessageText(e.id);
       var t = e.paymentCurrency && e.paymentAmount1000;
-      if (!t) return s._(/*BTDS*/ "Payment message \u2022 Amount unavailable");
+      if (!t) return s._(/*BTDS*/ "");
       if (e.subtype !== "send" && e.subtype !== "request")
-        return s._(
-          /*BTDS*/ "Payment message. Open WhatsApp on your phone to view.",
-        );
+        return s._(/*BTDS*/ "");
       var n,
         a = o("WAWebCurrencyUtils").formatAmount1000({
           amount: e.paymentAmount1000,
@@ -577,48 +557,35 @@ __d(
         e.subtype === "send"
           ? o("WAWebMsgGetters").getIsGroupMsg(e)
             ? (n = d
-                ? s._(/*BTDS*/ '_j{"*":"{senderName} sent {amount} to you"}', [
+                ? s._(/*BTDS*/ "", [
                     s._param("amount", a, [0, m]),
                     s._param("senderName", l),
                   ])
-                : s._(
-                    /*BTDS*/ '_j{"*":"{senderName} sent {amount} to {receiverName}"}',
-                    [
-                      s._param("amount", a, [0, m]),
-                      s._param("senderName", l),
-                      s._param("receiverName", u),
-                    ],
-                  ))
-            : (n = s._(/*BTDS*/ '_j{"*":"Sent {amount} to you"}', [
-                s._param("amount", a, [0, m]),
-              ]))
+                : s._(/*BTDS*/ "", [
+                    s._param("amount", a, [0, m]),
+                    s._param("senderName", l),
+                    s._param("receiverName", u),
+                  ]))
+            : (n = s._(/*BTDS*/ "", [s._param("amount", a, [0, m])]))
           : o("WAWebMsgGetters").getIsGroupMsg(e)
             ? (n = d
-                ? s._(
-                    /*BTDS*/ '_j{"*":"{senderName} requested {amount} from you"}',
-                    [s._param("amount", a, [0, m]), s._param("senderName", l)],
-                  )
-                : s._(
-                    /*BTDS*/ '_j{"*":"{senderName} requested {amount} from {receiverName}"}',
-                    [
-                      s._param("amount", a, [0, m]),
-                      s._param("senderName", l),
-                      s._param("receiverName", u),
-                    ],
-                  ))
-            : (n = s._(/*BTDS*/ '_j{"*":"Requested {amount} from you"}', [
-                s._param("amount", a, [0, m]),
-              ])),
+                ? s._(/*BTDS*/ "", [
+                    s._param("amount", a, [0, m]),
+                    s._param("senderName", l),
+                  ])
+                : s._(/*BTDS*/ "", [
+                    s._param("amount", a, [0, m]),
+                    s._param("senderName", l),
+                    s._param("receiverName", u),
+                  ]))
+            : (n = s._(/*BTDS*/ "", [s._param("amount", a, [0, m])])),
         n
       );
     }
     function h(e) {
       return (
         e === void 0 && (e = 1),
-        s._(
-          /*BTDS*/ '_j{"*":"{newMessageCount} new messages","_1":"1 new message"}',
-          [s._plural(e, "newMessageCount")],
-        )
+        s._(/*BTDS*/ "", [s._plural(e, "newMessageCount")])
       );
     }
     ((h.displayName = h.name + " [from " + i.id + "]"),

@@ -7,14 +7,13 @@ __d(
     "WAWebPersistedJobDefinitions",
     "WAWebPersistedJobManagerWorkerCompatible",
     "WAWebPersistedQueueQpl",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e, t, n) {
       if (o("WAWebJobsMigrationGating").isPersistedQueuesEnabled())
         return s(e, t, n);
-      var r = c(!1);
+      var r = u(!1);
       return o("QPLFlow").endWith(r, function () {
         return o("WAWebPersistedJobManagerWorkerCompatible")
           .getJobManager()
@@ -25,28 +24,15 @@ __d(
           );
       });
     }
-    function s(e, t, n) {
-      return u.apply(this, arguments);
+    async function s(e, t, n) {
+      await o("WAWebLazyPersistedQueue").whenPersistedQueuesMayOpen();
+      var r = u(!0);
+      await o("QPLFlow").endWith(r, async function () {
+        var a = await o("WAWebLazyPersistedQueue").whenPersistedQueuesReady(r);
+        await a.requestKeyShareNow(e, t, n);
+      });
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, r) {
-          yield o("WAWebLazyPersistedQueue").whenPersistedQueuesMayOpen();
-          var a = c(!0);
-          yield o("QPLFlow").endWith(
-            a,
-            n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var n = yield o(
-                "WAWebLazyPersistedQueue",
-              ).whenPersistedQueuesReady(a);
-              yield n.requestKeyShareNow(e, t, r);
-            }),
-          );
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e) {
+    function u(e) {
       return o("QPLFlow").startQPLFlow(
         o("WAWebPersistedQueueQpl").PERSISTED_QUEUE_EVENT,
         {

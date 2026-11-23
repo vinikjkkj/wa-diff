@@ -1,11 +1,6 @@
 __d(
   "WAWebMusicQuotedMsgThumbnailIcon",
-  [
-    "WAWebMusicPlaybackUtils",
-    "WDSIconIcMusicNote.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["WAWebMusicPlaybackUtils", "WDSIconIcMusicNote.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -13,87 +8,44 @@ __d(
       c = 24,
       d = { fallbackIcon: { color: "xhslqc4", $$css: !0 } };
     function m(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n = e.msg,
-        r = n.musicData,
-        a =
-          r != null &&
-          o("WAWebMusicPlaybackUtils").getMusicMessageUnplayableReason(r) ==
+      var t = e.msg,
+        n = t.musicData,
+        r =
+          n != null &&
+          o("WAWebMusicPlaybackUtils").getMusicMessageUnplayableReason(n) ==
             null
-            ? r.artworkUri
-            : null,
-        i;
-      return (
-        t[0] !== a
-          ? ((i = s.jsx(p, { artworkUri: a }, a)), (t[0] = a), (t[1] = i))
-          : (i = t[1]),
-        i
-      );
+            ? n.artworkUri
+            : null;
+      return s.jsx(p, { artworkUri: r }, r);
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.artworkUri,
-        a = u(!1),
-        i = a[0],
-        l = a[1];
-      if (n == null || i) {
-        var m;
-        t[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((m = {
-              className: "x78zum5 x6s0dn4 xl56j7k xh8yej3 x5yr21d x4wrhlh",
+      var t = e.artworkUri,
+        n = u(!1),
+        o = n[0],
+        a = n[1];
+      return t == null || o
+        ? s.jsx("div", {
+            className: "x78zum5 x6s0dn4 xl56j7k xh8yej3 x5yr21d x4wrhlh",
+            "data-testid": "music-quoted-cover-fallback",
+            children: s.jsx(r("WDSIconIcMusicNote.react"), {
+              height: c,
+              width: c,
+              iconXstyle: d.fallbackIcon,
             }),
-            (t[0] = m))
-          : (m = t[0]);
-        var p;
-        return (
-          t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((p = s.jsx(
-                "div",
-                babelHelpers.extends({}, m, {
-                  "data-testid": "music-quoted-cover-fallback",
-                  children: s.jsx(r("WDSIconIcMusicNote.react"), {
-                    height: c,
-                    width: c,
-                    iconXstyle: d.fallbackIcon,
-                  }),
-                }),
-              )),
-              (t[1] = p))
-            : (p = t[1]),
-          p
-        );
-      }
-      var _;
-      t[2] === Symbol.for("react.memo_cache_sentinel")
-        ? ((_ = { className: "xh8yej3 x5yr21d xl1xv1r" }), (t[2] = _))
-        : (_ = t[2]);
-      var f;
-      t[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((f = function () {
-            return l(!0);
-          }),
-          (t[3] = f))
-        : (f = t[3]);
-      var g;
-      return (
-        t[4] !== n
-          ? ((g = s.jsx(
-              "img",
-              babelHelpers.extends({}, _, {
-                alt: "",
-                crossOrigin: "anonymous",
-                "data-testid": "music-quoted-cover",
-                src: n,
-                onError: f,
-              }),
-            )),
-            (t[4] = n),
-            (t[5] = g))
-          : (g = t[5]),
-        g
-      );
+          })
+        : s.jsx("img", {
+            className: "xh8yej3 x5yr21d xl1xv1r",
+            alt: "",
+            crossOrigin: "anonymous",
+            "data-testid": "music-quoted-cover",
+            src: t,
+            onError: function () {
+              return a(!0);
+            },
+          });
     }
-    l.default = m;
+    ((p.displayName = p.name + " [from " + i.id + "]"), (l.default = m));
   },
   98,
 );

@@ -6,12 +6,10 @@ __d(
     "fbt",
     "AdsAPIAdgroupPaths",
     "AdsAPIObjectives",
-    "AdsAPIPromotablePostPaths",
     "AdsError",
     "AdsMutators",
     "AdsPlacementAPISpecWriterUtils",
     "AdsReachFrequencyODAXHelper",
-    "getByPath",
   ],
   function (t, n, r, o, a, i, l, s, u, c) {
     "use strict";
@@ -20,15 +18,13 @@ __d(
         key: "VIDEO",
         flag: "videoFlag",
         value: 128,
-        label: c._(/*BTDS*/ "Video"),
+        label: c._(/*BTDS*/ ""),
         getErrors: function () {
           return [
             new (r("AdsError"))(
               1487878,
               u._(function (e, t) {
-                return e._(
-                  /*BTDS*/ "When creating your ad set, you didn't select that your ad format would include video. Your reach and frequency prediction will change when your ad includes a video. To use a video, create a new ad set, or edit the existing one if it hasn't started yet.",
-                );
+                return e._(/*BTDS*/ "");
               }, {}),
               {
                 level: r("AdsError").Level.WARN,
@@ -65,10 +61,11 @@ __d(
             "messenger/story",
             "instagram/shop_tab",
             "threads/stream",
+            "threads/permalink",
           ];
         },
         isIncompatibleWithPost: function (t) {
-          var e = r("getByPath")(t, r("AdsAPIPromotablePostPaths").TYPE);
+          var e = t.type;
           return e === "video";
         },
         isRequired: function (t, n, a) {

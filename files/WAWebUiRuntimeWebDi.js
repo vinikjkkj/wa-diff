@@ -1,26 +1,13 @@
 __d(
   "WAWebUiRuntimeWebDi",
-  [
-    "WAWebReactionUiServiceWebLive",
-    "WebDi.Fx",
-    "WebDi.Run",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebReactionUiServiceWebLive", "WebDi.Fx", "WebDi.Run"],
   function (t, n, r, o, a, i, l) {
     var e = null;
-    function s(e, t) {
-      return u.apply(this, arguments);
+    async function s(e, t) {
+      var n = await u();
+      return (await n.run(o("WebDi.Fx").flatMap(t)(e))).getOrThrow();
     }
     function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield c();
-          return (yield n.run(o("WebDi.Fx").flatMap(t)(e))).getOrThrow();
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c() {
       return (
         e == null &&
           (e = o("WebDi.Run")

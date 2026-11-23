@@ -32,7 +32,6 @@ __d(
     "WDSMargins.stylex",
     "WDSPaddings.stylex",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebIsChatAcp2Restricted",
     "useWAWebMsgValues",
@@ -89,250 +88,141 @@ __d(
         warningIcon: { color: "x1kt8ij1", $$css: !0 },
       };
     function b(e) {
-      var t = o("react-compiler-runtime").c(36),
+      var t,
         n,
-        a;
-      t[0] !== e
-        ? ((n = e.msgKey),
-          (a = babelHelpers.objectWithoutPropertiesLoose(e, u)),
-          (t[0] = e),
-          (t[1] = n),
-          (t[2] = a))
-        : ((n = t[1]), (a = t[2]));
-      var i = a,
+        a = e.msgKey,
+        i = babelHelpers.objectWithoutPropertiesLoose(e, u),
         l = i.associatedMessages,
         s = i.optionsToResults,
-        c;
-      if (t[3] === Symbol.for("react.memo_cache_sentinel")) {
-        var d;
-        ((c = [
-          (d = o("WAWebMsgGetters")).getPollInvalidated,
-          d.getPollSelectableOptionsCount,
-          d.getIsNewsletterMsg,
-          d.getPollHideVoterNames,
-          d.getPollOptions,
-          d.getPollType,
-          d.getIsSentByMe,
-        ]),
-          (t[3] = c));
-      } else c = t[3];
-      var m = o("useWAWebMsgValues").useMsgValues(
-          n,
+        c = o("useWAWebMsgValues").useMsgValues(
+          a,
           r("WAWebCastToPollCreationMsg"),
-          c,
+          [
+            (n = o("WAWebMsgGetters")).getPollInvalidated,
+            n.getPollSelectableOptionsCount,
+            n.getIsNewsletterMsg,
+            n.getPollHideVoterNames,
+            n.getPollOptions,
+            n.getPollType,
+            n.getIsSentByMe,
+          ],
         ),
-        _ = m[0],
-        f = m[1],
-        g = m[2],
-        h = m[3],
-        y = m[4],
-        C = m[5],
-        b = m[6],
-        v = o("useWAWebPollEndTime").useWAWebPollEndTime(n),
-        R = v.isPollEnded,
-        L = v.pollEndTime,
-        E = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(n, g),
-        k = r("useWAWebIsChatAcp2Restricted")(E == null ? void 0 : E.id),
-        I = R || k,
-        T = r("useWAWebUIM")(),
-        x = r("useWAWebQuizOptionOrderExposure")(n),
-        $;
-      t[4] !== s
-        ? (($ = o("WAWebPollOptionsRenderUtils").getVotedForOptions(s)),
-          (t[4] = s),
-          (t[5] = $))
-        : ($ = t[5]);
-      var P = $,
-        N =
-          !g ||
-          (E != null &&
+        d = c[0],
+        m = c[1],
+        _ = c[2],
+        f = c[3],
+        h = c[4],
+        y = c[5],
+        C = c[6],
+        b = o("useWAWebPollEndTime").useWAWebPollEndTime(a),
+        v = b.isPollEnded,
+        R = b.pollEndTime,
+        L = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(a, _),
+        E = r("useWAWebIsChatAcp2Restricted")(L == null ? void 0 : L.id),
+        k = v || E,
+        I = r("useWAWebUIM")(),
+        D = r("useWAWebQuizOptionOrderExposure")(a),
+        x = g(
+          function () {
+            return o("WAWebPollOptionsRenderUtils").getVotedForOptions(s);
+          },
+          [s],
+        ),
+        $ =
+          !_ ||
+          (L != null &&
             o(
               "WAWebNewsletterExtendedGatingUtils",
-            ).isNewsletterPollsVotersEnabledForChat(E)),
-        M,
-        w,
-        A;
-      if (
-        t[6] !== l ||
-        t[7] !== n ||
-        t[8] !== (y == null ? void 0 : y.length) ||
-        t[9] !== f ||
-        t[10] !== T ||
-        t[11] !== P
-      ) {
-        var F;
-        M = function (t) {
+            ).isNewsletterPollsVotersEnabledForChat(L)),
+        P = function (t) {
           o("WAWebPollOptionsRenderUtils").toggleOption({
             optionLocalId: t,
-            votedForOptions: P,
-            selectableOptionsCount: A,
-            msgKey: n,
+            votedForOptions: x,
+            selectableOptionsCount: M,
+            msgKey: a,
           });
-        };
-        var O;
-        (t[15] !== l || t[16] !== n || t[17] !== T
-          ? ((O = function () {
-              var e = D(n);
-              e != null &&
-                (o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),
-                self.setTimeout(function () {
-                  o("WAWebDrawerManager").DrawerManager.openDrawerRight(
-                    p.jsx(
-                      r("WAWebPollsDetailsFlow"),
-                      { msg: e, associatedMessages: l },
-                      n.toString(),
-                    ),
-                    {
-                      transition: "slide-left",
-                      uim: T,
-                      focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
-                      noFocus: !0,
-                    },
-                  );
-                }, 150));
-            }),
-            (t[15] = l),
-            (t[16] = n),
-            (t[17] = T),
-            (t[18] = O))
-          : (O = t[18]),
-          (w = O),
-          (A =
-            f == null || f === 0
-              ? (F = y == null ? void 0 : y.length) != null
-                ? F
-                : 0
-              : f),
-          (t[6] = l),
-          (t[7] = n),
-          (t[8] = y == null ? void 0 : y.length),
-          (t[9] = f),
-          (t[10] = T),
-          (t[11] = P),
-          (t[12] = M),
-          (t[13] = w),
-          (t[14] = A));
-      } else ((M = t[12]), (w = t[13]), (A = t[14]));
-      var B = I ? r("WAWebNoop") : M,
-        W = h === !0,
-        q = C !== o("WAWebPollCreationUtils").PollType.QUIZ || !b ? f : null,
-        U;
-      t[19] !== I ||
-      t[20] !== R ||
-      t[21] !== n ||
-      t[22] !== w ||
-      t[23] !== L ||
-      t[24] !== _ ||
-      t[25] !== a ||
-      t[26] !== A ||
-      t[27] !== N ||
-      t[28] !== B ||
-      t[29] !== W ||
-      t[30] !== q ||
-      t[31] !== P
-        ? ((U = p.jsx(
-            S,
-            babelHelpers.extends({}, a, {
-              msgKey: n,
-              onOptionToggle: B,
-              onViewVotesAction: w,
-              isPollInvalid: _,
-              isPollEnded: R,
-              pollEndTime: L,
-              pollHideVoterNames: W,
-              pollSelectableOptionsCount: q,
-              votedForOptions: P,
-              showViewVotesButton: N,
-              selectableOptionsCount: A,
-              testid: "poll-bubble",
-              readonly: I,
-            }),
-          )),
-          (t[19] = I),
-          (t[20] = R),
-          (t[21] = n),
-          (t[22] = w),
-          (t[23] = L),
-          (t[24] = _),
-          (t[25] = a),
-          (t[26] = A),
-          (t[27] = N),
-          (t[28] = B),
-          (t[29] = W),
-          (t[30] = q),
-          (t[31] = P),
-          (t[32] = U))
-        : (U = t[32]);
-      var V = U,
-        H;
-      return (
-        t[33] !== V || t[34] !== x
-          ? ((H = x == null ? V : p.jsx("div", { ref: x, children: V })),
-            (t[33] = V),
-            (t[34] = x),
-            (t[35] = H))
-          : (H = t[35]),
-        H
-      );
+        },
+        N = function () {
+          var e = T(a);
+          e != null &&
+            (o("WAWebDrawerManager").DrawerManager.closeDrawerRight(),
+            self.setTimeout(function () {
+              o("WAWebDrawerManager").DrawerManager.openDrawerRight(
+                p.jsx(
+                  r("WAWebPollsDetailsFlow"),
+                  { msg: e, associatedMessages: l },
+                  a.toString(),
+                ),
+                {
+                  transition: "slide-left",
+                  uim: I,
+                  focusType: o("WAWebKeyboardTabUtils").FocusType.TABBABLE,
+                  noFocus: !0,
+                },
+              );
+            }, 150));
+        },
+        M =
+          m == null || m === 0
+            ? (t = h == null ? void 0 : h.length) != null
+              ? t
+              : 0
+            : m,
+        w = p.jsx(
+          S,
+          babelHelpers.extends({}, i, {
+            msgKey: a,
+            onOptionToggle: k ? r("WAWebNoop") : P,
+            onViewVotesAction: N,
+            isPollInvalid: d,
+            isPollEnded: v,
+            pollEndTime: R,
+            pollHideVoterNames: f === !0,
+            pollSelectableOptionsCount:
+              y !== o("WAWebPollCreationUtils").PollType.QUIZ || !C ? m : null,
+            votedForOptions: x,
+            showViewVotesButton: $,
+            selectableOptionsCount: M,
+            testid: "poll-bubble",
+            readonly: k,
+          }),
+        );
+      return D == null ? w : p.jsx("div", { ref: D, children: w });
     }
+    b.displayName = b.name + " [from " + i.id + "]";
     function v(e) {
       var t,
-        n = o("react-compiler-runtime").c(9),
-        a,
-        i;
-      n[0] !== e
-        ? ((a = e.msgKey),
-          (i = babelHelpers.objectWithoutPropertiesLoose(e, c)),
-          (n[0] = e),
-          (n[1] = a),
-          (n[2] = i))
-        : ((a = n[1]), (i = n[2]));
-      var l;
-      n[3] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = [o("WAWebMsgGetters").getPollVotesSnapshot]), (n[3] = l))
-        : (l = n[3]);
-      var s = o("useWAWebMsgValues").useMsgValues(
-          a,
+        n = e.msgKey,
+        a = babelHelpers.objectWithoutPropertiesLoose(e, c),
+        i = o("useWAWebMsgValues").useMsgValues(
+          n,
           o("WAWebMsgCasts").castToPollResultSnapshotMsg,
-          l,
+          [o("WAWebMsgGetters").getPollVotesSnapshot],
         ),
-        u = s[0],
-        d;
-      n[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((d = new Set()), (n[4] = d))
-        : (d = n[4]);
-      var m = (t = u == null ? void 0 : u.pollVotes.length) != null ? t : 0,
-        _;
-      return (
-        n[5] !== a || n[6] !== i || n[7] !== m
-          ? ((_ = p.jsx(
-              S,
-              babelHelpers.extends({}, i, {
-                msgKey: a,
-                onOptionToggle: r("WAWebNoop"),
-                onViewVotesAction: r("WAWebNoop"),
-                isPollInvalid: !1,
-                isPollEnded: !1,
-                pollEndTime: null,
-                pollHideVoterNames: !1,
-                pollSelectableOptionsCount: null,
-                votedForOptions: d,
-                showViewVotesButton: !1,
-                selectableOptionsCount: m,
-                testid: "poll-snapshot-bubble",
-                readonly: !0,
-              }),
-            )),
-            (n[5] = a),
-            (n[6] = i),
-            (n[7] = m),
-            (n[8] = _))
-          : (_ = n[8]),
-        _
+        l = i[0];
+      return p.jsx(
+        S,
+        babelHelpers.extends({}, a, {
+          msgKey: n,
+          onOptionToggle: r("WAWebNoop"),
+          onViewVotesAction: r("WAWebNoop"),
+          isPollInvalid: !1,
+          isPollEnded: !1,
+          pollEndTime: null,
+          pollHideVoterNames: !1,
+          pollSelectableOptionsCount: null,
+          votedForOptions: new Set(),
+          showViewVotesButton: !1,
+          selectableOptionsCount:
+            (t = l == null ? void 0 : l.pollVotes.length) != null ? t : 0,
+          testid: "poll-snapshot-bubble",
+          readonly: !0,
+        }),
       );
     }
+    v.displayName = v.name + " [from " + i.id + "]";
     function S(e) {
-      var t = o("react-compiler-runtime").c(97),
+      var t,
         n = e.associatedMessages,
         a = e.displayAuthor,
         i = e.displayType,
@@ -341,115 +231,83 @@ __d(
         c = e.msgKey,
         m = e.onOptionToggle,
         _ = e.onViewVotesAction,
-        f = e.optionsToResults,
-        g = e.pollEndTime,
-        b = e.pollHideVoterNames,
-        v = e.pollSelectableOptionsCount,
-        S = e.quotedMsg,
-        L = e.readonly,
-        E = e.selectableOptionsCount,
-        k = e.showViewVotesButton,
-        I = e.testid,
-        x = e.trusted,
-        $ = e.votedForOptions,
-        P;
-      if (t[0] === Symbol.for("react.memo_cache_sentinel")) {
-        var N;
-        ((P = [
-          (N = o("WAWebMsgGetters")).getPollName,
-          N.getT,
-          N.getIsSentByMe,
-          N.getForwardedNewsletterMessageInfo,
-          N.getPollCorrectOptionIndex,
-          N.getPollType,
-          N.getCtwaContext,
-          N.getIsDynamicReplyButtonsMsg,
+        b = e.optionsToResults,
+        v = e.pollEndTime,
+        S = e.pollHideVoterNames,
+        R = e.pollSelectableOptionsCount,
+        L = e.quotedMsg,
+        E = e.readonly,
+        k = e.selectableOptionsCount,
+        D = e.showViewVotesButton,
+        x = e.testid,
+        $ = e.trusted,
+        P = e.votedForOptions,
+        N = o("useWAWebMsgValues").useMsgValues(c, [
+          (t = o("WAWebMsgGetters")).getPollName,
+          t.getT,
+          t.getIsSentByMe,
+          t.getForwardedNewsletterMessageInfo,
+          t.getPollCorrectOptionIndex,
+          t.getPollType,
+          t.getCtwaContext,
+          t.getIsDynamicReplyButtonsMsg,
           o("WAWebFrontendMsgGetters").getSenderObj,
-          N.getSender,
-          N.getIsPSA,
-          N.getNotifyName,
-          N.getIsNewsletterMsg,
+          t.getSender,
+          t.getIsPSA,
+          t.getNotifyName,
+          t.getIsNewsletterMsg,
         ]),
-          (t[0] = P));
-      } else P = t[0];
-      var M = o("useWAWebMsgValues").useMsgValues(c, P),
-        w = M[0],
-        A = M[1],
-        F = M[2],
-        O = M[3],
-        B = M[4],
-        W = M[5],
-        q = M[6],
-        U = M[7],
-        V = M[8],
-        H = M[9],
-        G = M[10],
-        z = M[11],
-        j = M[12],
-        K;
-      t[1] !== W
-        ? ((K =
-            W === o("WAWebPollCreationUtils").PollType.QUIZ
-              ? s._(/*BTDS*/ "View responses")
-              : s._(/*BTDS*/ "View votes")),
-          (t[1] = W),
-          (t[2] = K))
-        : (K = t[2]);
-      var Q = K,
-        X;
-      t[3] !== f
-        ? ((X = f.values().every(R)), (t[3] = f), (t[4] = X))
-        : (X = t[4]);
-      var Y = X,
-        J;
-      t[5] !== w ? ((J = w.slice(0, y)), (t[5] = w), (t[6] = J)) : (J = t[6]);
-      var Z = J,
-        ee;
-      t[7] !== f
-        ? ((ee = o("WAWebPollsUseResults").getOptionWithCount(f)),
-          (t[7] = f),
-          (t[8] = ee))
-        : (ee = t[8]);
-      var te = ee,
-        ne;
-      t[9] !== n ||
-      t[10] !== B ||
-      t[11] !== l ||
-      t[12] !== u ||
-      t[13] !== _ ||
-      t[14] !== L ||
-      t[15] !== x
-        ? ((ne = {
-            trusted: x,
-            isPollEnded: l,
-            isPollInvalid: u,
-            onDetailImageClick: _,
-            readonly: L,
-            associatedMessages: n,
-            correctOptionIndex: B,
-          }),
-          (t[9] = n),
-          (t[10] = B),
-          (t[11] = l),
-          (t[12] = u),
-          (t[13] = _),
-          (t[14] = L),
-          (t[15] = x),
-          (t[16] = ne))
-        : (ne = t[16]);
-      var re = ne,
-        oe;
-      t[17] !== F ||
-      t[18] !== c ||
-      t[19] !== Z ||
-      t[20] !== re ||
-      t[21] !== g ||
-      t[22] !== b ||
-      t[23] !== E
-        ? ((oe = function () {
+        M = N[0],
+        w = N[1],
+        A = N[2],
+        F = N[3],
+        O = N[4],
+        B = N[5],
+        W = N[6],
+        q = N[7],
+        U = N[8],
+        V = N[9],
+        H = N[10],
+        G = N[11],
+        z = N[12],
+        j =
+          B === o("WAWebPollCreationUtils").PollType.QUIZ
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ ""),
+        K = g(
+          function () {
+            return b.values().every(function (e) {
+              return e.count === 0;
+            });
+          },
+          [b],
+        ),
+        Q = M.slice(0, y),
+        X = g(
+          function () {
+            return o("WAWebPollsUseResults").getOptionWithCount(b);
+          },
+          [b],
+        ),
+        Y = g(
+          function () {
+            return {
+              trusted: $,
+              isPollEnded: l,
+              isPollInvalid: u,
+              onDetailImageClick: _,
+              readonly: E,
+              associatedMessages: n,
+              correctOptionIndex: O,
+            };
+          },
+          [$, l, u, _, E, n, O],
+        ),
+        J = f(
+          function () {
             var e,
               t,
-              n = D(c);
+              n = T(c);
             n != null &&
               o("WAWebDrawerManager").DrawerManager.openDrawerRight(
                 p.jsx(
@@ -466,346 +324,185 @@ __d(
                             : t.name) != null
                           ? e
                           : "",
-                      isSentByMe: F,
-                      selectableOptionsCount: E,
-                      pollName: Z,
-                      pollEndTime: g,
-                      pollHideVoterNames: b,
+                      isSentByMe: A,
+                      selectableOptionsCount: k,
+                      pollName: Q,
+                      pollEndTime: v,
+                      pollHideVoterNames: S,
                     },
-                    re,
+                    Y,
                   ),
                 ),
                 { transition: "slide-left" },
               );
+          },
+          [A, c, Q, Y, v, S, k],
+        );
+      return p.jsx(r("WAWebMessageTextBubble.react"), {
+        msgKey: c,
+        displayType: i,
+        displayAuthor: a,
+        authorRole: "button",
+        hideMeta: !0,
+        ariaLabel: I({
+          authorDisplayName: o("WAWebMsgModelUtils").getMsgDisplayNameFor({
+            chat: o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(c, z),
+            isPSA: H,
+            notifyName: G,
+            sender: V,
+            senderObj: U,
           }),
-          (t[17] = F),
-          (t[18] = c),
-          (t[19] = Z),
-          (t[20] = re),
-          (t[21] = g),
-          (t[22] = b),
-          (t[23] = E),
-          (t[24] = oe))
-        : (oe = t[24]);
-      var ae = oe,
-        ie;
-      t[25] !== j ||
-      t[26] !== G ||
-      t[27] !== l ||
-      t[28] !== F ||
-      t[29] !== c ||
-      t[30] !== Z ||
-      t[31] !== z ||
-      t[32] !== te ||
-      t[33] !== g ||
-      t[34] !== b ||
-      t[35] !== H ||
-      t[36] !== V ||
-      t[37] !== A
-        ? ((ie = T({
-            authorDisplayName: o("WAWebMsgModelUtils").getMsgDisplayNameFor({
-              chat: o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(c, j),
-              isPSA: G,
-              notifyName: z,
-              sender: H,
-              senderObj: V,
-            }),
-            commaSeparatedOptionsAndResults: te,
-            isPollEnded: l,
-            isSentByMe: F,
-            pollEndTime: g,
-            pollHideVoterNames: b,
-            pollName: Z,
-            t: A,
-          })),
-          (t[25] = j),
-          (t[26] = G),
-          (t[27] = l),
-          (t[28] = F),
-          (t[29] = c),
-          (t[30] = Z),
-          (t[31] = z),
-          (t[32] = te),
-          (t[33] = g),
-          (t[34] = b),
-          (t[35] = H),
-          (t[36] = V),
-          (t[37] = A),
-          (t[38] = ie))
-        : (ie = t[38]);
-      var le;
-      t[39] !== q || t[40] !== i || t[41] !== c
-        ? ((le =
-            !q &&
-            p.jsx(o("WAWebBizSuspiciousLabel.react").SuspiciousLabel, {
-              msgKey: c,
-              displayType: i,
-            })),
-          (t[39] = q),
-          (t[40] = i),
-          (t[41] = c),
-          (t[42] = le))
-        : (le = t[42]);
-      var se;
-      t[43] !== l ||
-      t[44] !== F ||
-      t[45] !== c ||
-      t[46] !== Z ||
-      t[47] !== g ||
-      t[48] !== b ||
-      t[49] !== v ||
-      t[50] !== x
-        ? ((se = p.jsx(r("WAWebPollMessageHeader"), {
-            isPollEnded: l,
-            pollSelectableOptionsCount: v,
-            pollEndTime: g,
-            pollHideVoterNames: b,
-            name: Z,
-            msgKey: c,
-            isSentByMe: F,
-            trusted: x,
-          })),
-          (t[43] = l),
-          (t[44] = F),
-          (t[45] = c),
-          (t[46] = Z),
-          (t[47] = g),
-          (t[48] = b),
-          (t[49] = v),
-          (t[50] = x),
-          (t[51] = se))
-        : (se = t[51]);
-      var ue;
-      t[52] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ue = (d || (d = r("stylex"))).props(
-            o("WDSPaddings.stylex").wdsPaddings.padding4,
-          )),
-          (t[52] = ue))
-        : (ue = t[52]);
-      var ce;
-      t[53] !== ae ||
-      t[54] !== c ||
-      t[55] !== m ||
-      t[56] !== re ||
-      t[57] !== f ||
-      t[58] !== E ||
-      t[59] !== $
-        ? ((ce = p.jsx(
-            r("WAWebPollsOptions"),
-            babelHelpers.extends(
-              {
+          commaSeparatedOptionsAndResults: X,
+          isPollEnded: l,
+          isSentByMe: A,
+          pollEndTime: v,
+          pollHideVoterNames: S,
+          pollName: Q,
+          t: w,
+        }),
+        useFixedWidth: q,
+        testid: x,
+        children: p.jsxs(r("WAWebMessageBubbleHiddenText.react"), {
+          contact: U,
+          msgKey: c,
+          children: [
+            !W &&
+              p.jsx(o("WAWebBizSuspiciousLabel.react").SuspiciousLabel, {
                 msgKey: c,
-                options: f,
-                checkedOptionLocalIds: $,
-                onOptionToggle: m,
-                selectableOptionsCount: E,
-                onPhotoThumbClick: ae,
-                view: "message",
-              },
-              re,
-            ),
-          )),
-          (t[53] = ae),
-          (t[54] = c),
-          (t[55] = m),
-          (t[56] = re),
-          (t[57] = f),
-          (t[58] = E),
-          (t[59] = $),
-          (t[60] = ce))
-        : (ce = t[60]);
-      var de;
-      t[61] !== u || t[62] !== F
-        ? ((de =
-            u &&
-            p.jsxs(o("WAWebFlex.react").FlexRow, {
-              xstyle: [
-                C.invalidPollWarning,
-                F
-                  ? C.invalidPollWarningBorderSender
-                  : C.invalidPollWarningBorderReceiver,
-                o("WDSMargins.stylex").wdsMargins.marginBottom4,
-                o("WDSPaddings.stylex").wdsPaddings.paddingVer8,
-                h.paddingInlineStart14,
-                o("WDSPaddings.stylex").wdsPaddings.paddingEnd12,
-              ],
-              children: [
-                p.jsx(r("WDSIconIcWarning.react"), {
-                  iconXstyle: C.warningIcon,
-                }),
-                p.jsx(
-                  "span",
-                  babelHelpers.extends(
-                    {},
-                    (d || (d = r("stylex"))).props(
-                      C.spanText,
-                      o("WDSMargins.stylex").wdsMargins.marginStart8,
-                    ),
-                    {
-                      "data-testid": "invalid-poll-bubble-warning",
-                      children: s._(
-                        /*BTDS*/ "You can only see votes made before you left.",
-                      ),
-                    },
-                  ),
-                ),
-              ],
-            })),
-          (t[61] = u),
-          (t[62] = F),
-          (t[63] = de))
-        : (de = t[63]);
-      var me;
-      t[64] !== O || t[65] !== W
-        ? ((me =
-            O != null &&
-            p.jsx(o("WAWebFlex.react").FlexRow, {
-              xstyle: [
-                o("WDSPaddings.stylex").wdsPaddings.paddingTop8,
-                o("WDSPaddings.stylex").wdsPaddings.paddingBottom12,
-              ],
-              children: p.jsx("span", {
-                className: "x1pg5gke x1d3mw78 xhslqc4",
-                "data-testid": "see-votes-in-channel",
-                children:
-                  W === o("WAWebPollCreationUtils").PollType.QUIZ
-                    ? s._(/*BTDS*/ "View channel to answer.")
-                    : s._(/*BTDS*/ "See the latest votes in the channel."),
+                displayType: i,
               }),
-            })),
-          (t[64] = O),
-          (t[65] = W),
-          (t[66] = me))
-        : (me = t[66]);
-      var pe;
-      t[67] !== n || t[68] !== c
-        ? ((pe = p.jsx(o("WAWebFlex.react").FlexRow, {
-            justify: "end",
-            children: p.jsx(o("WAWebMessageMeta.react").Meta, {
+            L,
+            p.jsx(r("WAWebPollMessageHeader"), {
+              isPollEnded: l,
+              pollSelectableOptionsCount: R,
+              pollEndTime: v,
+              pollHideVoterNames: S,
+              name: Q,
               msgKey: c,
-              associatedMessages: n,
+              isSentByMe: A,
+              trusted: $,
             }),
-          })),
-          (t[67] = n),
-          (t[68] = c),
-          (t[69] = pe))
-        : (pe = t[69]);
-      var _e;
-      t[70] !== ce || t[71] !== de || t[72] !== me || t[73] !== pe
-        ? ((_e = p.jsxs(
-            "div",
-            babelHelpers.extends({}, ue, { children: [ce, de, me, pe] }),
-          )),
-          (t[70] = ce),
-          (t[71] = de),
-          (t[72] = me),
-          (t[73] = pe),
-          (t[74] = _e))
-        : (_e = t[74]);
-      var fe;
-      t[75] !== Y || t[76] !== F || t[77] !== _ || t[78] !== k || t[79] !== Q
-        ? ((fe =
-            k &&
-            p.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
-              theme: F
-                ? o("WAWebMessageBubbleActions.react").BubbleActionsTheme
-                    .POLL_SENDER
-                : o("WAWebMessageBubbleActions.react").BubbleActionsTheme
-                    .POLL_RECEIVER,
-              items: [
+            p.jsxs(
+              "div",
+              babelHelpers.extends(
+                {},
+                (d || (d = r("stylex"))).props(
+                  o("WDSPaddings.stylex").wdsPaddings.padding4,
+                ),
                 {
-                  label: Q,
-                  title: Q,
-                  onClick: _,
-                  disabled: Y,
-                  testid: "poll-view-votes",
+                  children: [
+                    p.jsx(
+                      r("WAWebPollsOptions"),
+                      babelHelpers.extends(
+                        {
+                          msgKey: c,
+                          options: b,
+                          checkedOptionLocalIds: P,
+                          onOptionToggle: m,
+                          selectableOptionsCount: k,
+                          onPhotoThumbClick: J,
+                          view: "message",
+                        },
+                        Y,
+                      ),
+                    ),
+                    u &&
+                      p.jsxs(o("WAWebFlex.react").FlexRow, {
+                        xstyle: [
+                          C.invalidPollWarning,
+                          A
+                            ? C.invalidPollWarningBorderSender
+                            : C.invalidPollWarningBorderReceiver,
+                          o("WDSMargins.stylex").wdsMargins.marginBottom4,
+                          o("WDSPaddings.stylex").wdsPaddings.paddingVer8,
+                          h.paddingInlineStart14,
+                          o("WDSPaddings.stylex").wdsPaddings.paddingEnd12,
+                        ],
+                        children: [
+                          p.jsx(r("WDSIconIcWarning.react"), {
+                            iconXstyle: C.warningIcon,
+                          }),
+                          p.jsx(
+                            "span",
+                            babelHelpers.extends(
+                              {},
+                              (d || (d = r("stylex"))).props(
+                                C.spanText,
+                                o("WDSMargins.stylex").wdsMargins.marginStart8,
+                              ),
+                              {
+                                "data-testid": "invalid-poll-bubble-warning",
+                                children: s._(/*BTDS*/ ""),
+                              },
+                            ),
+                          ),
+                        ],
+                      }),
+                    F != null &&
+                      p.jsx(o("WAWebFlex.react").FlexRow, {
+                        xstyle: [
+                          o("WDSPaddings.stylex").wdsPaddings.paddingTop8,
+                          o("WDSPaddings.stylex").wdsPaddings.paddingBottom12,
+                        ],
+                        children: p.jsx("span", {
+                          className: "x1pg5gke x1d3mw78 xhslqc4",
+                          "data-testid": "see-votes-in-channel",
+                          children:
+                            B === o("WAWebPollCreationUtils").PollType.QUIZ
+                              ? s._(/*BTDS*/ "")
+                              : s._(/*BTDS*/ ""),
+                        }),
+                      }),
+                    p.jsx(o("WAWebFlex.react").FlexRow, {
+                      justify: "end",
+                      children: p.jsx(o("WAWebMessageMeta.react").Meta, {
+                        msgKey: c,
+                        associatedMessages: n,
+                      }),
+                    }),
+                  ],
                 },
-              ],
-            })),
-          (t[75] = Y),
-          (t[76] = F),
-          (t[77] = _),
-          (t[78] = k),
-          (t[79] = Q),
-          (t[80] = fe))
-        : (fe = t[80]);
-      var ge;
-      t[81] !== c ||
-      t[82] !== S ||
-      t[83] !== V ||
-      t[84] !== se ||
-      t[85] !== _e ||
-      t[86] !== fe ||
-      t[87] !== le
-        ? ((ge = p.jsxs(r("WAWebMessageBubbleHiddenText.react"), {
-            contact: V,
-            msgKey: c,
-            children: [le, S, se, _e, fe],
-          })),
-          (t[81] = c),
-          (t[82] = S),
-          (t[83] = V),
-          (t[84] = se),
-          (t[85] = _e),
-          (t[86] = fe),
-          (t[87] = le),
-          (t[88] = ge))
-        : (ge = t[88]);
-      var he;
-      return (
-        t[89] !== a ||
-        t[90] !== i ||
-        t[91] !== U ||
-        t[92] !== c ||
-        t[93] !== ge ||
-        t[94] !== ie ||
-        t[95] !== I
-          ? ((he = p.jsx(r("WAWebMessageTextBubble.react"), {
-              msgKey: c,
-              displayType: i,
-              displayAuthor: a,
-              authorRole: "button",
-              hideMeta: !0,
-              ariaLabel: ie,
-              useFixedWidth: U,
-              testid: I,
-              children: ge,
-            })),
-            (t[89] = a),
-            (t[90] = i),
-            (t[91] = U),
-            (t[92] = c),
-            (t[93] = ge),
-            (t[94] = ie),
-            (t[95] = I),
-            (t[96] = he))
-          : (he = t[96]),
-        he
-      );
+              ),
+            ),
+            D &&
+              p.jsx(o("WAWebMessageBubbleActions.react").BubbleActions, {
+                theme: A
+                  ? o("WAWebMessageBubbleActions.react").BubbleActionsTheme
+                      .POLL_SENDER
+                  : o("WAWebMessageBubbleActions.react").BubbleActionsTheme
+                      .POLL_RECEIVER,
+                items: [
+                  {
+                    label: j,
+                    title: j,
+                    onClick: _,
+                    disabled: K,
+                    testid: "poll-view-votes",
+                  },
+                ],
+              }),
+          ],
+        }),
+      });
     }
-    function R(e) {
-      return e.count === 0;
-    }
-    var L = 1e3,
-      E = 3600,
-      k = 24 * E;
-    function I(e, t) {
+    S.displayName = S.name + " [from " + i.id + "]";
+    var R = 1e3,
+      L = 3600,
+      E = 24 * L;
+    function k(e, t) {
       if (t == null) return "";
-      if (e) return s._(/*BTDS*/ "Poll ended");
+      if (e) return s._(/*BTDS*/ "");
       var n = t - o("WAWebClock").Clock.getServerTimeMs(),
-        r = Math.max(0, Math.ceil(n / L));
-      if (r < E) return s._(/*BTDS*/ "Ends in less than 1h");
-      if (r < k) {
-        var a = Math.floor(r / E);
-        return s._(/*BTDS*/ "Ends in {hours}h", [s._param("hours", a)]);
+        r = Math.max(0, Math.ceil(n / R));
+      if (r < L) return s._(/*BTDS*/ "");
+      if (r < E) {
+        var a = Math.floor(r / L);
+        return s._(/*BTDS*/ "", [s._param("hours", a)]);
       }
-      var i = Math.floor(r / k);
-      return s._(
-        /*BTDS*/ '_j{"*":"Ends in {days} days","_1":"Ends in {days} day"}',
-        [s._plural(i), s._param("days", i)],
-      );
+      var i = Math.floor(r / E);
+      return s._(/*BTDS*/ "", [s._plural(i), s._param("days", i)]);
     }
-    function T(e) {
+    function I(e) {
       var t = e.authorDisplayName,
         n = e.commaSeparatedOptionsAndResults,
         r = e.isPollEnded,
@@ -814,33 +511,27 @@ __d(
         l = e.pollHideVoterNames,
         u = e.pollName,
         c = e.t,
-        d = l ? s._(/*BTDS*/ "Voter names hidden") : "",
-        m = I(r, i);
+        d = l ? s._(/*BTDS*/ "") : "",
+        m = k(r, i);
       return a
-        ? s._(
-            /*BTDS*/ "Poll from you {time} {poll-name} {hidden-voter-names} {end-time} Top vote counts: {poll-results}.",
-            [
-              s._param("time", o("WAWebClock").Clock.timestampStr(c)),
-              s._param("poll-name", u),
-              s._param("hidden-voter-names", d),
-              s._param("end-time", m),
-              s._param("poll-results", n),
-            ],
-          )
-        : s._(
-            /*BTDS*/ "Poll from {poll-author-name-not-you} {time} {poll-name} {hidden-voter-names} {end-time} Top vote counts: {poll-results}.",
-            [
-              s._param("poll-author-name-not-you", t),
-              s._param("time", o("WAWebClock").Clock.timestampStr(c)),
-              s._param("poll-name", u),
-              s._param("hidden-voter-names", d),
-              s._param("end-time", m),
-              s._param("poll-results", n),
-            ],
-          );
+        ? s._(/*BTDS*/ "", [
+            s._param("time", o("WAWebClock").Clock.timestampStr(c)),
+            s._param("poll-name", u),
+            s._param("hidden-voter-names", d),
+            s._param("end-time", m),
+            s._param("poll-results", n),
+          ])
+        : s._(/*BTDS*/ "", [
+            s._param("poll-author-name-not-you", t),
+            s._param("time", o("WAWebClock").Clock.timestampStr(c)),
+            s._param("poll-name", u),
+            s._param("hidden-voter-names", d),
+            s._param("end-time", m),
+            s._param("poll-results", n),
+          ]);
     }
-    T.displayName = T.name + " [from " + i.id + "]";
-    function D(t) {
+    I.displayName = I.name + " [from " + i.id + "]";
+    function T(t) {
       var n,
         r =
           (n = o("WAWebMsgCollection").MsgCollection.get(t)) == null

@@ -11,6 +11,13 @@ __d(
         return [];
       },
       "CAMPAIGN.LIST.BATCH_LOADED",
+      void 0,
+      void 0,
+      function (e) {
+        return function (n, r) {
+          e(n, r);
+        };
+      },
     );
     a.exports = e;
   },

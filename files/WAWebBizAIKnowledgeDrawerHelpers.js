@@ -40,27 +40,27 @@ __d(
       if (e == null) return null;
       switch (e) {
         case "DESCRIPTION":
-          return s._(/*BTDS*/ "Description");
+          return s._(/*BTDS*/ "");
         case "ADDRESS":
-          return s._(/*BTDS*/ "Address");
+          return s._(/*BTDS*/ "");
         case "BUSINESS_HOURS":
-          return s._(/*BTDS*/ "Business hours");
+          return s._(/*BTDS*/ "");
         case "WEBSITE":
-          return s._(/*BTDS*/ "Website");
+          return s._(/*BTDS*/ "");
         case "EMAIL":
-          return s._(/*BTDS*/ "Email");
+          return s._(/*BTDS*/ "");
         case "PAYMENT_METHODS":
-          return s._(/*BTDS*/ "Payment methods");
+          return s._(/*BTDS*/ "");
         case "IS_NATIVE_PAYMENT_ENABLED":
-          return s._(/*BTDS*/ "Native payments");
+          return s._(/*BTDS*/ "");
         case "RETURN_POLICY":
-          return s._(/*BTDS*/ "Return policy");
+          return s._(/*BTDS*/ "");
         case "DISCOUNT_POLICY":
-          return s._(/*BTDS*/ "Discounts");
+          return s._(/*BTDS*/ "");
         case "SHIPPING_POLICY":
-          return s._(/*BTDS*/ "Shipping");
+          return s._(/*BTDS*/ "");
         case "PURCHASE_INFO":
-          return s._(/*BTDS*/ "Purchase info");
+          return s._(/*BTDS*/ "");
         default:
           return null;
       }

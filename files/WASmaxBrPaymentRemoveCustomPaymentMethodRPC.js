@@ -17,40 +17,31 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = d(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return {
-              name: "RemoveCustomPaymentMethodResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "RemoveCustomPaymentMethodResponseError",
-              value: i.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing(
-              "RemoveCustomPaymentMethod",
-              { Success: a, Error: i },
-            ),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = c(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return {
+          name: "RemoveCustomPaymentMethodResponseSuccess",
+          value: a.value,
+        };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "RemoveCustomPaymentMethodResponseError",
+          value: i.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing(
+          "RemoveCustomPaymentMethod",
+          { Success: a, Error: i },
+        ),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -58,12 +49,12 @@ __d(
       ).parseIQErrorGenericResponseMixin(e, t);
       return (r.success, r);
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "account");
       if (!r.success) return r;
-      var a = h(r.value, t);
+      var a = g(r.value, t);
       if (!a.success) return a;
       var i = o(
         "WASmaxInBrPaymentIQResultResponseMixin",
@@ -77,7 +68,7 @@ __d(
           )
         : i;
     }
-    function d(e) {
+    function c(e) {
       var t = e.accountCredentialId,
         n = e.signedChallengeMixinArgs,
         r = o("WASmaxOutBrPaymentSetIQMixin").mergeSetIQMixin(
@@ -98,31 +89,31 @@ __d(
         );
       return r;
     }
-    function m(e) {
+    function d(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "card");
-      if (!t.success) return t;
-      var n = b(e);
-      return (n.success, n);
-    }
-    function p(e) {
-      var t = o("WASmaxParseUtils").assertTag(e, "bank");
       if (!t.success) return t;
       var n = C(e);
       return (n.success, n);
     }
-    function _(e) {
-      var t = o("WASmaxParseUtils").assertTag(e, "merchant");
-      if (!t.success) return t;
-      var n = v(e);
-      return (n.success, n);
-    }
-    function f(e) {
-      var t = o("WASmaxParseUtils").assertTag(e, "alias");
+    function m(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "bank");
       if (!t.success) return t;
       var n = y(e);
       return (n.success, n);
     }
-    function g(e) {
+    function p(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "merchant");
+      if (!t.success) return t;
+      var n = b(e);
+      return (n.success, n);
+    }
+    function _(e) {
+      var t = o("WASmaxParseUtils").assertTag(e, "alias");
+      if (!t.success) return t;
+      var n = h(e);
+      return (n.success, n);
+    }
+    function f(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "custom_payment_method");
       if (!t.success) return t;
       var n = o(
@@ -130,7 +121,7 @@ __d(
       ).parseCustomPaymentMethodMixin(e);
       return (n.success, n);
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "account");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, [
@@ -165,26 +156,26 @@ __d(
         "wa-support-phone-number",
       );
       if (!s.success) return s;
-      var u = o("WASmaxParseUtils").mapChildrenWithTag(e, "card", 0, 1 / 0, m);
+      var u = o("WASmaxParseUtils").mapChildrenWithTag(e, "card", 0, 1 / 0, d);
       if (!u.success) return u;
-      var c = o("WASmaxParseUtils").mapChildrenWithTag(e, "bank", 0, 1 / 0, p);
+      var c = o("WASmaxParseUtils").mapChildrenWithTag(e, "bank", 0, 1 / 0, m);
       if (!c.success) return c;
-      var d = o("WASmaxParseUtils").mapChildrenWithTag(
+      var g = o("WASmaxParseUtils").mapChildrenWithTag(
         e,
         "merchant",
         0,
         1 / 0,
-        _,
+        p,
       );
-      if (!d.success) return d;
-      var h = o("WASmaxParseUtils").mapChildrenWithTag(e, "alias", 0, 100, f);
+      if (!g.success) return g;
+      var h = o("WASmaxParseUtils").mapChildrenWithTag(e, "alias", 0, 100, _);
       if (!h.success) return h;
       var y = o("WASmaxParseUtils").mapChildrenWithTag(
         e,
         "custom_payment_method",
         0,
         5,
-        g,
+        f,
       );
       return y.success
         ? o("WAResultOrError").makeResult({
@@ -193,13 +184,13 @@ __d(
             waSupportPhoneNumber: s.value,
             card: u.value,
             bank: c.value,
-            merchant: d.value,
+            merchant: g.value,
             alias: h.value,
             customPaymentMethod: y.value,
           })
         : y;
     }
-    function y(e) {
+    function h(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "alias");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -208,34 +199,34 @@ __d(
         "type",
       );
       if (!n.success) return n;
-      var r = S(e);
+      var r = v(e);
       return r.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({ type: n.value }, r.value),
           )
         : r;
     }
-    function C(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "bank");
       if (!t.success) return t;
-      var n = R(e);
+      var n = S(e);
       return (n.success, n);
     }
-    function b(e) {
+    function C(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "card");
       if (!t.success) return t;
-      var n = k(e);
+      var n = E(e);
       return n.success
         ? o("WAResultOrError").makeResult({ bROrMXOrESCardMixinGroup: n.value })
         : n;
     }
-    function v(e) {
+    function b(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "merchant");
       if (!t.success) return t;
-      var n = E(e);
+      var n = L(e);
       return (n.success, n);
     }
-    function S(e) {
+    function v(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "alias");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "alias_value");
@@ -264,7 +255,7 @@ __d(
           })
         : i;
     }
-    function R(e) {
+    function S(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "bank");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -417,7 +408,7 @@ __d(
           .ENUM_QRSHAREANDPAY_QRSHAREANDPAYDORMANT_QRSHAREANDPAYNEVERACTIVATED_QRSHAREANDPAYUNREGISTERED_REFERRAL,
       );
       if (!D.success) return D;
-      var x = A(e);
+      var x = w(e);
       return x.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
@@ -455,17 +446,17 @@ __d(
           )
         : x;
     }
-    function L(e) {
+    function R(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "payout");
       if (!t.success) return t;
-      var n = x(e);
+      var n = D(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             payoutBankOrPrepaidCardMixinGroup: n.value,
           })
         : n;
     }
-    function E(e) {
+    function L(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "merchant");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -501,14 +492,14 @@ __d(
         50,
       );
       if (!l.success) return l;
-      var s = D(e);
+      var s = T(e);
       if (!s.success) return s;
       var u = o("WASmaxParseUtils").mapChildrenWithTag(
         e,
         "payout",
         0,
         1 / 0,
-        L,
+        R,
       );
       return u.success
         ? o("WAResultOrError").makeResult(
@@ -526,20 +517,20 @@ __d(
           )
         : u;
     }
-    function k(e) {
-      var t = P(e);
+    function E(e) {
+      var t = $(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "BRCard",
           value: t.value,
         });
-      var n = T(e);
+      var n = I(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "MXCard",
           value: n.value,
         });
-      var r = I(e);
+      var r = k(e);
       return r.success
         ? o("WAResultOrError").makeResult({ name: "ESCard", value: r.value })
         : o("WASmaxParseUtils").errorMixinDisjunction(
@@ -548,25 +539,25 @@ __d(
             [t, n, r],
           );
     }
-    function I(e) {
+    function k(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "card");
       if (!t.success) return t;
-      var n = N(e);
+      var n = P(e);
       return (n.success, n);
     }
-    function T(e) {
+    function I(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "card");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "image");
       if (!n.success) return n;
-      var r = N(e);
+      var r = P(e);
       return r.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({ image: n.value }, r.value),
           )
         : r;
     }
-    function D(e) {
+    function T(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "merchant");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -640,14 +631,14 @@ __d(
           )
         : d;
     }
-    function x(e) {
-      var t = F(e);
+    function D(e) {
+      var t = A(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "PayoutBank",
           value: t.value,
         });
-      var n = $(e);
+      var n = x(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             name: "PayoutPrepaidCard",
@@ -659,7 +650,7 @@ __d(
             [t, n],
           );
     }
-    function $(e) {
+    function x(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "payout");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -678,7 +669,7 @@ __d(
           )
         : a;
     }
-    function P(e) {
+    function $(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "card");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "image-content-id");
@@ -718,9 +709,9 @@ __d(
         o("WASmaxInBrPaymentEnums").ENUM_0_1,
       );
       if (!u.success) return u;
-      var c = N(e);
+      var c = P(e);
       if (!c.success) return c;
-      var d = w(e);
+      var d = M(e);
       return o("WAResultOrError").makeResult(
         babelHelpers.extends(
           {
@@ -737,7 +728,7 @@ __d(
         ),
       );
     }
-    function N(e) {
+    function P(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "card");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "last4");
@@ -761,9 +752,9 @@ __d(
         o("WASmaxInBrPaymentEnums").ENUM_ACTIVE_EXPIRED_SUSPENDED_VOIDED,
       );
       if (!s.success) return s;
-      var u = A(e);
+      var u = w(e);
       if (!u.success) return u;
-      var c = M(e);
+      var c = N(e);
       return c.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
@@ -781,7 +772,7 @@ __d(
           )
         : c;
     }
-    function M(e) {
+    function N(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "card");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "capabilities");
@@ -855,7 +846,7 @@ __d(
           })
         : m;
     }
-    function w(e) {
+    function M(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "card");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(e, "capabilities");
@@ -878,7 +869,7 @@ __d(
           })
         : a;
     }
-    function A(e) {
+    function w(e) {
       var t = o("WASmaxParseUtils").attrStringEnum(
         e,
         "default-credit",
@@ -936,7 +927,7 @@ __d(
           )
         : s;
     }
-    function F(e) {
+    function A(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "payout");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -983,9 +974,9 @@ __d(
         : s;
     }
     ((l.sendRemoveCustomPaymentMethodRPC = e),
-      (l.parseRemoveCustomPaymentMethodResponseError = u),
-      (l.parseRemoveCustomPaymentMethodResponseSuccess = c),
-      (l.makeRemoveCustomPaymentMethodRequest = d));
+      (l.parseRemoveCustomPaymentMethodResponseError = s),
+      (l.parseRemoveCustomPaymentMethodResponseSuccess = u),
+      (l.makeRemoveCustomPaymentMethodRequest = c));
   },
   98,
 );

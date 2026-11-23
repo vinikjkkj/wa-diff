@@ -55,29 +55,38 @@ __d(
                 "threads_stream",
                 c,
                 a,
+              ),
+              p = r("gkx")("15112"),
+              _ =
+                p &&
+                o(
+                  "AdsPlacementSoftOptOutValidatorsUtils",
+                ).isFacebookPositionActiveInSpecOrSoftOptOut(i, "feed", c, a);
+            if (m && !d && !_ && !s) {
+              var f = {
+                cta: r("AdsErrorsCTAStrings").EDIT_PLACEMENTS_CTA,
+                level: r("AdsError").Level.WARN,
+                path: r("AdsAPICampaignPaths").TARGETING.THREADS_POSITIONS,
+              };
+              l.push(
+                p
+                  ? new (r("AdsError"))(
+                      2490603,
+                      u._(function (e, t) {
+                        return e._(/*BTDS*/ "");
+                      }, {}),
+                      f,
+                    )
+                  : new (r("AdsError"))(
+                      2490494,
+                      u._(function (e, t) {
+                        return e._(/*BTDS*/ "");
+                      }, {}),
+                      f,
+                    ),
               );
-            return (
-              m &&
-                !d &&
-                !s &&
-                l.push(
-                  new (r("AdsError"))(
-                    2490494,
-                    u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "If you would like your ad shown on the feed section of Threads, you will also need to select Instagram Feed as a placement.",
-                      );
-                    }, {}),
-                    {
-                      cta: r("AdsErrorsCTAStrings").EDIT_PLACEMENTS_CTA,
-                      level: r("AdsError").Level.WARN,
-                      path: r("AdsAPICampaignPaths").TARGETING
-                        .THREADS_POSITIONS,
-                    },
-                  ),
-                ),
-              l
-            );
+            }
+            return l;
           }),
           t
         );

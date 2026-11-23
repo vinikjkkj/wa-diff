@@ -7,8 +7,10 @@ __d(
     "AdsPEAdgroupSelectors",
     "AdsPECampaignGroupSelectors",
     "AdsPECampaignSelectors",
+    "AdsPFRCampaignStructureSelectors",
     "DateTime",
     "ObjectTypeToIDsMapSelector",
+    "computeIsInEditing",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -48,24 +50,29 @@ __d(
         ),
         L = d(R);
       if (L.length === 0 || S.length === 0 || b.length === 0) return p;
-      var E = S,
-        k = b;
+      var E = o(
+          "AdsPFRCampaignStructureSelectors",
+        ).getFlatTreeItemsFastPlainPFRSelector(),
+        k = E.length === 0 ? null : !r("computeIsInEditing")(E);
+      p = babelHelpers.extends({}, p, { isCampaignInCreation: k });
+      var I = S,
+        T = b;
       if (e != null) {
-        E = S.slice(0, e);
-        var I = E.map(function (e) {
+        I = S.slice(0, e);
+        var D = I.map(function (e) {
           return e.id;
         });
-        k = h(I, b, t != null ? t : Number.MAX_SAFE_INTEGER);
+        T = h(D, b, t != null ? t : Number.MAX_SAFE_INTEGER);
       }
       return (
         L.length > 0 &&
           (p = babelHelpers.extends({}, p, {
             campaign_group_info_from_selector: L,
           })),
-        E.length > 0 &&
-          (p = babelHelpers.extends({}, p, { campaign_info_from_selector: E })),
-        k.length > 0 &&
-          (p = babelHelpers.extends({}, p, { adgroup_info_from_selector: k })),
+        I.length > 0 &&
+          (p = babelHelpers.extends({}, p, { campaign_info_from_selector: I })),
+        T.length > 0 &&
+          (p = babelHelpers.extends({}, p, { adgroup_info_from_selector: T })),
         p
       );
     }

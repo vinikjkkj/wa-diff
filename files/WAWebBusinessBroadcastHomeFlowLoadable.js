@@ -6,7 +6,6 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -17,17 +16,14 @@ __d(
       c = r("JSResourceForInteraction")(
         "WAWebPrepareBusinessBroadcastHomeFlow",
       ).__setRef("WAWebBusinessBroadcastHomeFlowLoadable"),
-      d = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebBusinessBroadcastHomeFlow.react",
-          )
-            .__setRef("WAWebBusinessBroadcastHomeFlowLoadable")
-            .load();
-          return e;
-        }),
-        "BusinessBroadcastHomeFlow",
-      ),
+      d = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebBusinessBroadcastHomeFlow.react",
+        )
+          .__setRef("WAWebBusinessBroadcastHomeFlowLoadable")
+          .load();
+        return e;
+      }, "BusinessBroadcastHomeFlow"),
       m = r("WAWebLoadable")({
         loader: d,
         loading: function (t) {
@@ -37,19 +33,11 @@ __d(
           });
         },
       });
-    function p() {
-      return _.apply(this, arguments);
+    async function p() {
+      var e = await c.load();
+      return await e.loadBusinessBroadcastHomeFlow();
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield c.load();
-          return yield e.loadBusinessBroadcastHomeFlow();
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    var f = r("WAWebLazyLoadedRetriable")(
+    var _ = r("WAWebLazyLoadedRetriable")(
         p,
         "RoutedBusinessBroadcastHomeFlow",
         {
@@ -66,8 +54,8 @@ __d(
           },
         },
       ),
-      g = r("WAWebLoadable")({
-        loader: f,
+      f = r("WAWebLoadable")({
+        loader: _,
         loading: function (t) {
           return u.jsx(r("WAWebLoadingDrawer.react"), {
             error: !!t.error,
@@ -77,7 +65,7 @@ __d(
       });
     ((l.WAWebBusinessBroadcastCoreHomeFlowLoadable = m),
       (l.loadRoutedBusinessBroadcastHomeFlow = p),
-      (l.WAWebBusinessBroadcastHomeFlowLoadable = g));
+      (l.WAWebBusinessBroadcastHomeFlowLoadable = f));
   },
   98,
 );

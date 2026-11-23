@@ -1,41 +1,25 @@
 __d(
   "WAWebGroupMembershipFormGemPlaceholders",
-  [
-    "WAWebGroupMembershipFormCryptoTypes",
-    "WAWebGroupMembershipFormTypes",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebGroupMembershipFormCryptoTypes", "WAWebGroupMembershipFormTypes"],
   function (t, n, r, o, a, i, l) {
     var e = {
-        encode: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            throw new (o(
-              "WAWebGroupMembershipFormTypes",
-            ).GroupMembershipFormJoinError)(
-              o("WAWebGroupMembershipFormTypes")
-                .GroupMembershipFormJoinErrorCode.NOT_SUPPORTED,
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        encode: async function () {
+          throw new (o(
+            "WAWebGroupMembershipFormTypes",
+          ).GroupMembershipFormJoinError)(
+            o("WAWebGroupMembershipFormTypes").GroupMembershipFormJoinErrorCode
+              .NOT_SUPPORTED,
+          );
+        },
       },
       s = {
-        decode: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return {
-              type: "failure",
-              error: o("WAWebGroupMembershipFormCryptoTypes")
-                .GroupMembershipFormDecodeError.NO_KEY,
-            };
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        decode: async function () {
+          return {
+            type: "failure",
+            error: o("WAWebGroupMembershipFormCryptoTypes")
+              .GroupMembershipFormDecodeError.NO_KEY,
+          };
+        },
       };
     function u() {
       return null;

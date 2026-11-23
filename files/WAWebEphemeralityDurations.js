@@ -57,12 +57,12 @@ __d(
       t.sort(function (e, t) {
         return e.value - t.value;
       });
-      var n = { type: "default", value: 0, label: r("fbs")._(/*BTDS*/ "Off") };
+      var n = { type: "default", value: 0, label: r("fbs")._(/*BTDS*/ "") };
       if (o("WAWebAfterReadUtils").isAfterReadEnabled()) {
         var a = {
           type: "after_reading",
           value: c,
-          label: r("fbs")._(/*BTDS*/ "After reading"),
+          label: r("fbs")._(/*BTDS*/ ""),
           disabled: !o("WAWebAfterReadUtils").isAfterReadOptionAvailable(),
         };
         (t.unshift(a), t.unshift(n));
@@ -92,7 +92,7 @@ __d(
       );
     }
     function g(e) {
-      if (e == null) return s._(/*BTDS*/ "Off");
+      if (e == null) return s._(/*BTDS*/ "");
       var t = p().find(function (t) {
         return t.value === e;
       });
@@ -101,9 +101,7 @@ __d(
           return t.value === e;
         })),
         t != null)
-        ? s._(/*BTDS*/ "{after_read_duration}", [
-            s._param("after_read_duration", t.label),
-          ])
+        ? s._(/*BTDS*/ "", [s._param("after_read_duration", t.label)])
         : t == null
           ? (o("WALogger")
               .ERROR(
@@ -115,7 +113,7 @@ __d(
                 e,
               )
               .sendLogs("No matching duration label"),
-            s._(/*BTDS*/ "On"))
+            s._(/*BTDS*/ ""))
           : t.label;
     }
     ((l.AFTER_READING_VALUE = c),

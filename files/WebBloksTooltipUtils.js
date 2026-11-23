@@ -1,101 +1,76 @@
 __d(
   "WebBloksTooltipUtils",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
       u = s.useLayoutEffect,
       c = s.useState;
     function d(e, t) {
-      var n = o("react-compiler-runtime").c(5),
-        r;
-      n[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = { left: 0, top: 0, transform: "" }), (n[0] = r))
-        : (r = n[0]);
-      var a = c(r),
-        i = a[0],
-        l = a[1],
-        s,
-        d;
+      var n = c({ left: 0, top: 0, transform: "" }),
+        r = n[0],
+        o = n[1];
       return (
-        n[1] !== e || n[2] !== t
-          ? ((s = function () {
-              var n,
-                r,
-                o =
-                  (n = document.documentElement) == null
-                    ? void 0
-                    : n.getBoundingClientRect(),
-                a =
-                  e == null || (r = e.current) == null
-                    ? void 0
-                    : r.getBoundingClientRect();
-              if (!(o == null || a == null)) {
-                var i = a.x + a.width / 2,
-                  s = t === "top" ? a.y - o.y : a.y - o.y + a.height,
-                  u = "translate(-50%, " + (t === "top" ? "-100%" : "0%") + ")";
-                l({ left: i, top: s, transform: u });
-              }
-            }),
-            (d = [e, t]),
-            (n[1] = e),
-            (n[2] = t),
-            (n[3] = s),
-            (n[4] = d))
-          : ((s = n[3]), (d = n[4])),
-        u(s, d),
-        i
+        u(
+          function () {
+            var n,
+              r,
+              a =
+                (n = document.documentElement) == null
+                  ? void 0
+                  : n.getBoundingClientRect(),
+              i =
+                e == null || (r = e.current) == null
+                  ? void 0
+                  : r.getBoundingClientRect();
+            if (!(a == null || i == null)) {
+              var l = i.x + i.width / 2,
+                s = t === "top" ? i.y - a.y : i.y - a.y + i.height,
+                u = "translate(-50%, " + (t === "top" ? "-100%" : "0%") + ")";
+              o({ left: l, top: s, transform: u });
+            }
+          },
+          [e, t],
+        ),
+        r
       );
     }
     function m(e, t, n) {
-      var r = o("react-compiler-runtime").c(8),
-        a = c("center"),
-        i = a[0],
-        l = a[1],
-        s = c(t),
-        d = s[0],
-        m = s[1],
-        p,
-        _;
-      (r[0] !== e || r[1] !== n || r[2] !== t
-        ? ((p = function () {
+      var r = c("center"),
+        o = r[0],
+        a = r[1],
+        i = c(t),
+        l = i[0],
+        s = i[1];
+      return (
+        u(
+          function () {
             var r,
               o,
-              a =
+              i =
                 (r = document.documentElement) == null
                   ? void 0
                   : r.getBoundingClientRect(),
-              i =
+              l =
                 e == null || (o = e.current) == null
                   ? void 0
                   : o.getBoundingClientRect();
-            if (!(a == null || i == null)) {
+            if (!(i == null || l == null)) {
               if (n === "shark-fin") {
-                var s = a.x + a.width / 2,
-                  u = i.x + i.width / 2;
-                u > s ? l("right") : l("left");
+                var u = i.x + i.width / 2,
+                  c = l.x + l.width / 2;
+                c > u ? a("right") : a("left");
               }
               if (t == null) {
-                var c = a.y + a.height / 2,
-                  d = i.y + i.height / 2;
-                d > c ? m("top") : m("bottom");
+                var d = i.y + i.height / 2,
+                  m = l.y + l.height / 2;
+                m > d ? s("top") : s("bottom");
               }
             }
-          }),
-          (_ = [n, t, e]),
-          (r[0] = e),
-          (r[1] = n),
-          (r[2] = t),
-          (r[3] = p),
-          (r[4] = _))
-        : ((p = r[3]), (_ = r[4])),
-        u(p, _));
-      var f;
-      return (
-        r[5] !== i || r[6] !== d
-          ? ((f = [i, d]), (r[5] = i), (r[6] = d), (r[7] = f))
-          : (f = r[7]),
-        f
+          },
+          [n, t, e],
+        ),
+        [o, l]
       );
     }
     function p(e) {

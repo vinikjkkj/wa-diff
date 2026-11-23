@@ -9,7 +9,6 @@ __d(
     "WebBloksTheme",
     "WebBloksUtils",
     "react",
-    "react-compiler-runtime",
     "useClickablePropsForWebBloks",
   ],
   function (t, n, r, o, a, i, l) {
@@ -79,132 +78,98 @@ __d(
     function T(e) {
       var t,
         n,
-        a = o("react-compiler-runtime").c(26),
-        i = e.externalStyle,
-        l = e.node,
-        u;
-      a[0] !== l
-        ? ((u = l.getExpression(h)), (a[0] = l), (a[1] = u))
-        : (u = a[1]);
-      var c = u,
-        d;
-      a[2] !== l ? ((d = l.get(C)), (a[2] = l), (a[3] = d)) : (d = a[3]);
-      var m = d,
-        T = l.get(b),
-        D = l.get(R),
-        x = l.get(L),
-        $ = l.getSubNode(E),
-        P = l.get(v),
-        N = l.get(p),
-        M = l.get(y),
-        w = l.getSubNode(S),
-        A;
-      a[4] !== l ? ((A = l.get(k)), (a[4] = l), (a[5] = A)) : (A = a[5]);
-      var F = A,
-        O = l.get(_),
-        B = l.get(f),
-        W = l.get(g),
-        q = o("WebBloksStyle").useStyle(l, i, c != null),
-        U = q.ref,
-        V = q.style,
-        H = q.wrapper,
-        G = q.wrapperProps,
-        z = o("WebBloksTheme").useTheme().getTheme(),
-        j =
-          (P != null &&
+        a = e.externalStyle,
+        i = e.node,
+        l = i.getExpression(h),
+        u = i.get(C),
+        c = i.get(b),
+        d = i.get(R),
+        m = i.get(L),
+        T = i.getSubNode(E),
+        D = i.get(v),
+        x = i.get(p),
+        $ = i.get(y),
+        P = i.getSubNode(S),
+        N = i.get(k),
+        M = i.get(_),
+        w = i.get(f),
+        A = i.get(g),
+        F = o("WebBloksStyle").useStyle(i, a, l != null),
+        O = F.ref,
+        B = F.style,
+        W = F.wrapper,
+        q = F.wrapperProps,
+        U = o("WebBloksTheme").useTheme().getTheme(),
+        V =
+          (D != null &&
             o("WebBloksUtils").convertRGBArrToString(
-              o("WebBloksUtils").convertRGBOrHexStringToArr(P),
+              o("WebBloksUtils").convertRGBOrHexStringToArr(D),
             )) ||
-          ($ && o("WebBloksUtils").getRGBColorWithTheme($, z)),
-        K = r("useClickablePropsForWebBloks")(l, c),
-        Q = o("WebBloksComponentContext").useWebBloksContext(),
-        X = Q.bloksContext,
-        Y = Q.renderNode,
-        J = X.objectSet.environment.fontFamilyMappings,
-        Z =
-          w != null
-            ? Y(w)
-            : m == null
-              ? m
-              : m === " "
+          (T && o("WebBloksUtils").getRGBColorWithTheme(T, U)),
+        H = r("useClickablePropsForWebBloks")(i, l),
+        G = o("WebBloksComponentContext").useWebBloksContext(),
+        z = G.bloksContext,
+        j = G.renderNode,
+        K = z.objectSet.environment.fontFamilyMappings,
+        Q =
+          P != null
+            ? j(P)
+            : u == null
+              ? u
+              : u === " "
                 ? s.jsx(s.Fragment, { children: "\xA0" })
-                : m;
-      I(U, F, Z);
-      var ee = o("WebBloksUtils").toPx(O),
-        te = ee != null ? ee : o("WebBloksTextStyle").getLineHeight(B),
-        ne = o("WebBloksTextStyle").getLineClampStyle(W),
-        re = o("WebBloksTextStyle").getTextStyle(x),
-        oe = o("WebBloksTextStyle").getVerticalSpacingStyles(te),
-        ae = o("WebBloksUtils").toPx(D),
-        ie =
-          (t = o("WebBloksTextStyle").getFontFamily(N, J)) != null ? t : void 0,
-        le =
-          (n = o("WebBloksTextStyle").getFontVariationSettings(N, J, z, V)) !=
-          null
-            ? n
-            : void 0,
-        se = o("WebBloksUtils").toHyphen(T),
-        ue = o("WebBloksBooleanUtils").isTrue(M) ? "line-through" : "",
-        ce = j != null ? j : void 0,
-        de;
-      a[6] !== te ||
-      a[7] !== V ||
-      a[8] !== se ||
-      a[9] !== ue ||
-      a[10] !== ce ||
-      a[11] !== ne ||
-      a[12] !== re ||
-      a[13] !== oe ||
-      a[14] !== ae ||
-      a[15] !== ie ||
-      a[16] !== le
-        ? ((de = babelHelpers.extends({}, V, ne, re, oe, {
-            lineHeight: te,
-            fontSize: ae,
-            fontFamily: ie,
-            fontVariationSettings: le,
-            textAlign: se,
-            textDecoration: ue,
-            color: ce,
-            whiteSpace: "pre-wrap",
-            overflowWrap: "break-word",
-            padding: "unset",
-            maxWidth: "100%",
-          })),
-          (a[6] = te),
-          (a[7] = V),
-          (a[8] = se),
-          (a[9] = ue),
-          (a[10] = ce),
-          (a[11] = ne),
-          (a[12] = re),
-          (a[13] = oe),
-          (a[14] = ae),
-          (a[15] = ie),
-          (a[16] = le),
-          (a[17] = de))
-        : (de = a[17]);
-      var me;
-      a[18] !== K || a[19] !== de || a[20] !== Z || a[21] !== G
-        ? ((me = s.jsx(
-            "span",
-            babelHelpers.extends({}, G, { style: de }, K, { children: Z }),
-          )),
-          (a[18] = K),
-          (a[19] = de),
-          (a[20] = Z),
-          (a[21] = G),
-          (a[22] = me))
-        : (me = a[22]);
-      var pe;
-      return (
-        a[23] !== me || a[24] !== H
-          ? ((pe = H(me)), (a[23] = me), (a[24] = H), (a[25] = pe))
-          : (pe = a[25]),
-        pe
+                : u;
+      I(O, N, Q);
+      var X = o("WebBloksUtils").toPx(M),
+        Y = X != null ? X : o("WebBloksTextStyle").getLineHeight(w);
+      return W(
+        s.jsx(
+          "span",
+          babelHelpers.extends(
+            {},
+            q,
+            {
+              style: babelHelpers.extends(
+                {},
+                B,
+                o("WebBloksTextStyle").getLineClampStyle(A),
+                o("WebBloksTextStyle").getTextStyle(m),
+                o("WebBloksTextStyle").getVerticalSpacingStyles(Y),
+                {
+                  lineHeight: Y,
+                  fontSize: o("WebBloksUtils").toPx(d),
+                  fontFamily:
+                    (t = o("WebBloksTextStyle").getFontFamily(x, K)) != null
+                      ? t
+                      : void 0,
+                  fontVariationSettings:
+                    (n = o("WebBloksTextStyle").getFontVariationSettings(
+                      x,
+                      K,
+                      U,
+                      B,
+                    )) != null
+                      ? n
+                      : void 0,
+                  textAlign: o("WebBloksUtils").toHyphen(c),
+                  textDecoration: o("WebBloksBooleanUtils").isTrue($)
+                    ? "line-through"
+                    : "",
+                  color: V != null ? V : void 0,
+                  whiteSpace: "pre-wrap",
+                  overflowWrap: "break-word",
+                  padding: "unset",
+                  maxWidth: "100%",
+                },
+              ),
+            },
+            H,
+            { children: Q },
+          ),
+        ),
       );
     }
-    l.default = T;
+    ((T.displayName = T.name + " [from " + i.id + "]"), (l.default = T));
   },
   98,
 );

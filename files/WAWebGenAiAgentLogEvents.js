@@ -7,7 +7,6 @@ __d(
     "WAWebWamEnumSmbUserActionTypeEnum",
     "WAWebWamEnumSurfaceType",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -106,76 +105,30 @@ __d(
       });
     }
     function b() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      (e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = []), (e[0] = t))
-        : (t = e[0]),
-        u(v, t));
+      u(function () {
+        y();
+      }, []);
     }
     function v() {
-      y();
+      u(function () {
+        g();
+      }, []);
     }
-    function S() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      (e[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((t = []), (e[0] = t))
-        : (t = e[0]),
-        u(R, t));
+    function S(e) {
+      var t = c(function () {
+        _(e);
+      });
+      u(function () {
+        t();
+      }, []);
     }
-    function R() {
-      g();
-    }
-    function L(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n;
-      t[0] !== e
-        ? ((n = function () {
-            _(e);
-          }),
-          (t[0] = e),
-          (t[1] = n))
-        : (n = t[1]);
-      var r = c(n),
-        a;
-      t[2] !== r
-        ? ((a = function () {
-            r();
-          }),
-          (t[2] = r),
-          (t[3] = a))
-        : (a = t[3]);
-      var i;
-      (t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = []), (t[4] = i))
-        : (i = t[4]),
-        u(a, i));
-    }
-    function E(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n;
-      t[0] !== e
-        ? ((n = function () {
-            f(e);
-          }),
-          (t[0] = e),
-          (t[1] = n))
-        : (n = t[1]);
-      var r = c(n),
-        a;
-      t[2] !== r
-        ? ((a = function () {
-            r();
-          }),
-          (t[2] = r),
-          (t[3] = a))
-        : (a = t[3]);
-      var i;
-      (t[4] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = []), (t[4] = i))
-        : (i = t[4]),
-        u(a, i));
+    function R(e) {
+      var t = c(function () {
+        f(e);
+      });
+      u(function () {
+        t();
+      }, []);
     }
     ((l.WAWebGenAIAgentUserActionTargetEnum = d),
       (l.logGenAiAgentAutoReplyConfirmationDialogEvent = m),
@@ -186,9 +139,9 @@ __d(
       (l.logClickGenAiAgentAutoReplyBlockingBar = h),
       (l.logClickGenAiAgentAutoReplyFab = C),
       (l.useLogViewGenAiAgentAutoReplyFab = b),
-      (l.useLogViewGenAiAgentAutoReplyBlockingBar = S),
-      (l.useLogViewGenAiAgentAutoReplyConfirmationDialog = L),
-      (l.useLogViewGenAiAgentAutoReplyErrorDialog = E));
+      (l.useLogViewGenAiAgentAutoReplyBlockingBar = v),
+      (l.useLogViewGenAiAgentAutoReplyConfirmationDialog = S),
+      (l.useLogViewGenAiAgentAutoReplyErrorDialog = R));
   },
   98,
 );

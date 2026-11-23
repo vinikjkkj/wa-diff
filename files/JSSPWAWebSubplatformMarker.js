@@ -1,11 +1,6 @@
 __d(
   "JSSPWAWebSubplatformMarker",
-  [
-    "JSSPTraceBaseTransformer",
-    "JSSelfProfilerUtils",
-    "WAWebEnvironment",
-    "asyncToGeneratorRuntime",
-  ],
+  ["JSSPTraceBaseTransformer", "JSSelfProfilerUtils", "WAWebEnvironment"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = (function (e) {
@@ -13,27 +8,15 @@ __d(
         return e.apply(this, arguments) || this;
       }
       babelHelpers.inheritsLoose(t, e);
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.transform = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
-              var a = r("WAWebEnvironment").isWindows ? "hybrid" : "web";
-              return (
-                o("JSSelfProfilerUtils").addAnnotationToTrace(
-                  e,
-                  "subplatform",
-                  a,
-                ),
-                e
-              );
-            },
+        (n.transform = async function (t, n, a) {
+          var e = r("WAWebEnvironment").isWindows ? "hybrid" : "web";
+          return (
+            o("JSSelfProfilerUtils").addAnnotationToTrace(t, "subplatform", e),
+            t
           );
-          function t(t, n, r) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
+        }),
         t
       );
     })(r("JSSPTraceBaseTransformer"));

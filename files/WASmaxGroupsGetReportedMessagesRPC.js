@@ -19,47 +19,35 @@ __d(
     "WASmaxParseUtils",
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = _(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = p(r, n);
-          if (a.success)
-            return {
-              name: "GetReportedMessagesResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "GetReportedMessagesResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "GetReportedMessagesResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("GetReportedMessages", {
-              Success: a,
-              ClientError: i,
-              ServerError: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = p(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = m(r, n);
+      if (a.success)
+        return { name: "GetReportedMessagesResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return {
+          name: "GetReportedMessagesResponseClientError",
+          value: i.value,
+        };
+      var l = u(r, n);
+      if (l.success)
+        return {
+          name: "GetReportedMessagesResponseServerError",
+          value: l.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetReportedMessages", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -69,7 +57,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = f(r.value);
+      var i = _(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -78,7 +66,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -87,7 +75,7 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "reporter");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrUserJid(e, "jid");
@@ -101,7 +89,7 @@ __d(
         identityMixin: a.success ? a.value : null,
       });
     }
-    function m(e) {
+    function d(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "report");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrStanzaId(e, "message_id");
@@ -111,7 +99,7 @@ __d(
         "reporter",
         1,
         19999,
-        d,
+        c,
       );
       return r.success
         ? o("WAResultOrError").makeResult({
@@ -120,7 +108,7 @@ __d(
           })
         : r;
     }
-    function p(e, t) {
+    function m(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "reports");
@@ -137,7 +125,7 @@ __d(
           "report",
           0,
           1e4,
-          m,
+          d,
         );
       return l.success
         ? o("WAResultOrError").makeResult(
@@ -148,14 +136,14 @@ __d(
           )
         : l;
     }
-    function _(e) {
+    function p(e) {
       var t = o("WASmaxOutGroupsBaseGetGroupMixin").mergeBaseGetGroupMixin(
         o("WASmaxJsx").smax("iq", null, o("WASmaxJsx").smax("reports", null)),
         e,
       );
       return t;
     }
-    function f(e) {
+    function _(e) {
       var t = o(
         "WASmaxInGroupsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -207,10 +195,10 @@ __d(
           );
     }
     ((l.sendGetReportedMessagesRPC = e),
-      (l.parseGetReportedMessagesResponseClientError = u),
-      (l.parseGetReportedMessagesResponseServerError = c),
-      (l.parseGetReportedMessagesResponseSuccess = p),
-      (l.makeGetReportedMessagesRequest = _));
+      (l.parseGetReportedMessagesResponseClientError = s),
+      (l.parseGetReportedMessagesResponseServerError = u),
+      (l.parseGetReportedMessagesResponseSuccess = m),
+      (l.makeGetReportedMessagesRequest = p));
   },
   98,
 );

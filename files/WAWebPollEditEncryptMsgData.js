@@ -14,7 +14,6 @@ __d(
     "WAWebViewMode.flow",
     "WAWebWamEnumE2eFailureReason",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -67,75 +66,67 @@ __d(
     function d(e, t) {
       return t ? { pollCreationMessageV6: e } : { pollCreationMessageV3: e };
     }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          var a,
-            i,
-            l = self.crypto.getRandomValues(new Uint8Array(12)),
-            u = o("WAWebMsgGetters").getOriginalSender(n),
-            m = n.messageSecret,
-            p = o("WALongInt").maybeNumberOrThrowIfTooLarge(
-              t.latestEditSenderTimestampMs,
-            );
-          e(m, u, p);
-          var _ = (i = r("nullthrows"))(m),
-            f = i(u),
-            g = i(p),
-            h = s(n),
-            y = c(n, t, h),
-            C = {
-              type: o("WAWebMsgType").MsgKind.PollEditDecrypted,
-              encode: {
-                protocolMessage: {
-                  key: o("WAWebE2EProtoUtils").encodeKey(n.id),
-                  type: o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
-                    .MESSAGE_EDIT,
-                  timestampMs: g,
-                  editedMessage: d(y, h),
-                },
-              },
+    async function m(t, n) {
+      var a,
+        i,
+        l = self.crypto.getRandomValues(new Uint8Array(12)),
+        u = o("WAWebMsgGetters").getOriginalSender(n),
+        m = n.messageSecret,
+        p = o("WALongInt").maybeNumberOrThrowIfTooLarge(
+          t.latestEditSenderTimestampMs,
+        );
+      e(m, u, p);
+      var _ = (i = r("nullthrows"))(m),
+        f = i(u),
+        g = i(p),
+        h = s(n),
+        y = c(n, t, h),
+        C = {
+          type: o("WAWebMsgType").MsgKind.PollEditDecrypted,
+          encode: {
+            protocolMessage: {
+              key: o("WAWebE2EProtoUtils").encodeKey(n.id),
+              type: o("WAWebProtobufsE2E.pb").Message$ProtocolMessage$Type
+                .MESSAGE_EDIT,
+              timestampMs: g,
+              editedMessage: d(y, h),
             },
-            b = yield o("WAWebAddonEncryption").encryptAddOn(C, {
-              messageSecret: _,
-              iv: l,
-              stanzaId: n.id.id,
-              originalMessageSender: f,
-              addOnSender: o("WAWebWidFactory").asUserWidOrThrow(
-                i(o("WAWebMsgGetters").getSender(t)),
-              ),
-            }),
-            v = b.encPayload,
-            S = b.reportingTokenContentInfo;
-          return babelHelpers.extends(
-            { id: t.id },
-            o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
-              t.id,
-              o("WAWebMsgKeyUtils").TranslateMsgKeyType.EditMessage,
-            ),
-            {
-              type: o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED,
-              kind: o("WAWebMsgType").MsgKind.PollEditEncrypted,
-              t: Math.floor(g / 1e3),
-              ack: (a = t.ack) != null ? a : o("WAWebAck").ACK.CLOCK,
-              targetMessageKey: n.id,
-              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-              encPayload: v,
-              encIv: l.buffer,
-              messageSecret: _,
-              reportingTokenContentInfo: S,
-            },
-            t.id.remote.isGroup()
-              ? yield o(
-                  "WAWebMessageEditBotGroupMetadata",
-                ).getOwnEditBotGroupMetadata(t)
-              : null,
-          );
-        })),
-        p.apply(this, arguments)
+          },
+        },
+        b = await o("WAWebAddonEncryption").encryptAddOn(C, {
+          messageSecret: _,
+          iv: l,
+          stanzaId: n.id.id,
+          originalMessageSender: f,
+          addOnSender: o("WAWebWidFactory").asUserWidOrThrow(
+            i(o("WAWebMsgGetters").getSender(t)),
+          ),
+        }),
+        v = b.encPayload,
+        S = b.reportingTokenContentInfo;
+      return babelHelpers.extends(
+        { id: t.id },
+        o("WAWebMsgKeyUtils").msgKeyToTargetInfo(
+          t.id,
+          o("WAWebMsgKeyUtils").TranslateMsgKeyType.EditMessage,
+        ),
+        {
+          type: o("WAWebMsgType").MSG_TYPE.POLL_EDIT_ENCRYPTED,
+          kind: o("WAWebMsgType").MsgKind.PollEditEncrypted,
+          t: Math.floor(g / 1e3),
+          ack: (a = t.ack) != null ? a : o("WAWebAck").ACK.CLOCK,
+          targetMessageKey: n.id,
+          viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+          encPayload: v,
+          encIv: l.buffer,
+          messageSecret: _,
+          reportingTokenContentInfo: S,
+        },
+        t.id.remote.isGroup()
+          ? await o(
+              "WAWebMessageEditBotGroupMetadata",
+            ).getOwnEditBotGroupMetadata(t)
+          : null,
       );
     }
     l.createEncryptedPollEditMsgData = m;

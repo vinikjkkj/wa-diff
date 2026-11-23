@@ -15,52 +15,39 @@ __d(
       CREDIT: {
         icon: o("meta-brand-credit-card-outline-20")
           .metaBrandCreditCardCardOutline20,
-        name: s._(/*BTDS*/ "Credit"),
-        subText: s._(
-          /*BTDS*/ "Ads for credit card offers, auto loans, long-term financing or other related opportunities.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        subText: s._(/*BTDS*/ ""),
       },
       EDUCATION: {
         icon: o("meta-brand-graduation-cap-outline-20")
           .metaBrandGraduationCapOutline20,
-        name: s._(/*BTDS*/ "Education"),
-        subText: s._(/*BTDS*/ "Ads for educational opportunities"),
+        name: s._(/*BTDS*/ ""),
+        subText: s._(/*BTDS*/ ""),
       },
       EMPLOYMENT: {
         icon: o("meta-brand-rectangle-handle-outline-20")
           .metaBrandRectangleHandleBriefcaseOutline20,
-        name: s._(/*BTDS*/ "Employment"),
-        subText: s._(
-          /*BTDS*/ "Ads for job offers, internships, professional certification programs or other related opportunities.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        subText: s._(/*BTDS*/ ""),
       },
       FINANCIAL_PRODUCTS_SERVICES: {
         icon: o("meta-brand-discs-stacked-outline-20")
           .metaBrandDiscsStackedCoinStackOutline20,
-        name: s._(/*BTDS*/ "Financial products and services"),
-        subText: s._(
-          /*BTDS*/ "Ads for credit cards, loans, bank accounts, investing, insurance and other financial products and services.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        subText: s._(/*BTDS*/ ""),
       },
       HOUSING: {
         icon: o("meta-brand-house-outline-20").metaBrandHouseHouseOutline20,
-        name: s._(/*BTDS*/ "Housing"),
-        subText: s._(
-          /*BTDS*/ "Ads for real estate listings, homeowners insurance, mortgage loans or other related opportunities.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        subText: s._(/*BTDS*/ ""),
       },
       ISSUES_ELECTIONS_POLITICS: {
         icon: o("meta-brand-bullhorn-outline-20")
           .metaBrandBullhornMegaphoneOutline20,
-        name: s._(/*BTDS*/ "Social issues, elections or politics"),
-        subText: s._(
-          /*BTDS*/ "Ads about social issues (such as the economy, or civil and social rights), elections, or political figures or campaigns.",
-        ),
+        name: s._(/*BTDS*/ ""),
+        subText: s._(/*BTDS*/ ""),
       },
-      NONE: {
-        name: s._(/*BTDS*/ "No category selected"),
-        subText: s._(/*BTDS*/ "No category selected"),
-      },
+      NONE: { name: s._(/*BTDS*/ ""), subText: s._(/*BTDS*/ "") },
     };
     l.ADS_REGULATED_CATEGORY_CONSTANT_MAP = e;
   },

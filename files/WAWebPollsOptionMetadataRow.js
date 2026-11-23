@@ -11,7 +11,6 @@ __d(
     "WAWebTextSizeUtils",
     "WDSMargins.stylex",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -103,85 +102,40 @@ __d(
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
-      var t = o("react-compiler-runtime").c(8),
-        n = e.count,
-        r = e.isCurrentLeader,
-        a;
-      t[0] !== r
-        ? ((a = r
-            ? [
-                o("WAWebTag.react").TagTheme.Primary,
-                o("WAWebTag.react").TagIconName.STAR,
-              ]
-            : [o("WAWebTag.react").TagTheme.Secondary, null]),
-          (t[0] = r),
-          (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l = i[0],
-        u = i[1],
-        d;
-      t[2] !== n
-        ? ((d = s._(/*BTDS*/ '_j{"*":"{vote} votes","_1":"1 vote"}', [
-            s._plural(n, "vote"),
-          ])),
-          (t[2] = n),
-          (t[3] = d))
-        : (d = t[3]);
-      var m;
-      return (
-        t[4] !== u || t[5] !== d || t[6] !== l
-          ? ((m = c.jsx(o("WAWebTag.react").Tag, {
-              theme: l,
-              icon: u,
-              children: d,
-            })),
-            (t[4] = u),
-            (t[5] = d),
-            (t[6] = l),
-            (t[7] = m))
-          : (m = t[7]),
-        m
-      );
+      var t = e.count,
+        n = e.isCurrentLeader,
+        r = n
+          ? [
+              o("WAWebTag.react").TagTheme.Primary,
+              o("WAWebTag.react").TagIconName.STAR,
+            ]
+          : [o("WAWebTag.react").TagTheme.Secondary, null],
+        a = r[0],
+        i = r[1];
+      return c.jsx(o("WAWebTag.react").Tag, {
+        theme: a,
+        icon: i,
+        children: s._(/*BTDS*/ "", [s._plural(t, "vote")]),
+      });
     }
+    _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
-      var t = o("react-compiler-runtime").c(6),
-        n = e.count,
-        r = e.isCorrectOption,
-        a;
-      t[0] !== r
-        ? ((a = r
-            ? [
-                o("WAWebTag.react").TagTheme.Primary,
-                o("WAWebTag.react").TagIconName.CHECK,
-              ]
-            : [
-                o("WAWebTag.react").TagTheme.Secondary,
-                o("WAWebTag.react").TagIconName.CLOSE,
-              ]),
-          (t[0] = r),
-          (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l = i[0],
-        s = i[1],
-        u;
-      return (
-        t[2] !== n || t[3] !== s || t[4] !== l
-          ? ((u = c.jsx(o("WAWebTag.react").Tag, {
-              theme: l,
-              icon: s,
-              children: n,
-            })),
-            (t[2] = n),
-            (t[3] = s),
-            (t[4] = l),
-            (t[5] = u))
-          : (u = t[5]),
-        u
-      );
+      var t = e.count,
+        n = e.isCorrectOption,
+        r = n
+          ? [
+              o("WAWebTag.react").TagTheme.Primary,
+              o("WAWebTag.react").TagIconName.CHECK,
+            ]
+          : [
+              o("WAWebTag.react").TagTheme.Secondary,
+              o("WAWebTag.react").TagIconName.CLOSE,
+            ],
+        a = r[0],
+        i = r[1];
+      return c.jsx(o("WAWebTag.react").Tag, { theme: a, icon: i, children: t });
     }
-    l.default = p;
+    ((f.displayName = f.name + " [from " + i.id + "]"), (l.default = p));
   },
   226,
 );

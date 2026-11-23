@@ -3,8 +3,10 @@ __d(
   [
     "ALChannel",
     "AdsALEAUtils",
+    "AdsExperimentsFunnelLogger",
     "AdsExperimentsToolbarTestButtonModalAction",
     "AdsHelpTrayIPChatUILogger",
+    "ExecutionEnvironment",
     "FBLogger",
     "JSResource",
     "MAIBAActionabilityConstants",
@@ -15,36 +17,36 @@ __d(
     "MAIBAVisualContextSurfaceData",
     "adsUserSettingsIsAdsAIConsentedSelector",
     "isStringNullOrEmpty",
-    "justknobx",
     "uuidv4",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = [],
-      u = !1,
-      c = [],
-      d = !1,
-      m = new Set([
-        (e = o("MAIBAActionabilityConstants")).ACTION_HIGHLIGHT,
-        e.ACTION_CLICK,
-        e.ACTION_OPEN,
-      ]),
+      s,
+      u = [],
+      c = !1,
+      d = [],
+      m = !1,
       p = new Set([
-        e.SURFACE_MAIBA_CHAT,
-        e.SURFACE_AB_TEST_MODAL,
-        e.SURFACE_AM_AB_TEST_TOOLBAR_BUTTON,
-        e.SURFACE_AM_OPEN_CREATE_MODAL,
+        (s = o("MAIBAActionabilityConstants")).ACTION_HIGHLIGHT,
+        s.ACTION_CLICK,
+        s.ACTION_OPEN,
       ]),
       _ = new Set([
+        s.SURFACE_MAIBA_CHAT,
+        s.SURFACE_AB_TEST_MODAL,
+        s.SURFACE_AM_AB_TEST_TOOLBAR_BUTTON,
+        s.SURFACE_AM_OPEN_CREATE_MODAL,
+      ]),
+      f = new Set([
         "prompt_text",
         "prompt_id",
         "recommendation_hash",
         "hide_user_message",
         "dl_token",
       ]),
-      f = new Set(["prompt_text", "hide_user_message"]);
-    function g(e) {
+      g = new Set(["prompt_text", "hide_user_message"]);
+    function h(e) {
       if (r("isStringNullOrEmpty")(e) || e.length > 4096) return !1;
       var t = [
         /<script/i,
@@ -57,68 +59,74 @@ __d(
       ];
       for (var n of t) if (n.test(e)) return !1;
       var o = e.split(",");
-      for (var a of o) if (!h(a)) return !1;
+      for (var a of o) if (!y(a)) return !1;
       return !0;
     }
-    function h(e) {
+    function y(e) {
       if (r("isStringNullOrEmpty")(e)) return !1;
       var t = e.split(">"),
         n = t[0],
         o = t[1];
       if (r("isStringNullOrEmpty")(n) || r("isStringNullOrEmpty")(o)) return !1;
-      var a = I(n),
+      var a = D(n),
         i = a.surface;
-      if (!p.has(i)) return !1;
+      if (!_.has(i)) return !1;
       var l = o.split("?"),
         s = l[0];
-      return !!m.has(s);
+      return !!p.has(s);
     }
-    function y() {
-      d ||
-        ((d = !0),
-        (u = !1),
-        C(),
+    function C() {
+      m ||
+        ((m = !0),
+        (c = !1),
+        b(),
         r("ALChannel").addListener("al_surface_mutation_event", function (e) {
           var t = e.event,
             n = e.surface;
           switch (t) {
             case "mount_component":
-              b(n);
+              S(n);
               break;
             case "unmount_component":
               break;
           }
         }));
     }
-    function C() {
-      var e = new URLSearchParams(window.location.search),
-        t = e.get("maiba_actions");
-      if (!r("isStringNullOrEmpty")(t)) {
-        if (!g(t)) {
-          (r("FBLogger")("maiba_actionability").warn(
+    function b() {
+      if ((e || (e = r("ExecutionEnvironment"))).canUseDOM) {
+        var t = new URLSearchParams(window.location.search),
+          n = t.get("maiba_actions");
+        r("isStringNullOrEmpty")(n) ||
+          (v(n), o("MAIBAActionabilityURLUtils").removeMAIBAActionsFromURL());
+      }
+    }
+    function v(e) {
+      if (!h(e))
+        return (
+          r("FBLogger")("maiba_actionability").warn(
             "Invalid, unsupported, or potentially malicious maiba_actions parameter detected",
           ),
-            o("MAIBAActionabilityURLUtils").removeMAIBAActionsFromURL());
-          return;
-        }
-        var n = L(t);
-        (r("isStringNullOrEmpty")(n) || v(n),
-          o("MAIBAActionabilityURLUtils").removeMAIBAActionsFromURL());
+          !1
+        );
+      var t = k(e);
+      return r("isStringNullOrEmpty")(t) ? !1 : (R(t), !0);
+    }
+    function S(e) {
+      T(e);
+    }
+    function R(t, n, o) {
+      var a = t == null ? void 0 : t.split(",");
+      if (
+        (c ? (u = a) : (u = a.length > 0 ? [a[0]] : []),
+        n != null && (e || (e = r("ExecutionEnvironment"))).canUseDOM)
+      ) {
+        var i = new URL(window.location.href);
+        (i.searchParams.set("bot_response_id", n),
+          window.history.replaceState({}, "", i));
       }
+      T(void 0, o);
     }
-    function b(e) {
-      k(e);
-    }
-    function v(e, t, n) {
-      var r = e == null ? void 0 : e.split(",");
-      if ((u ? (s = r) : (s = r.length > 0 ? [r[0]] : []), t != null)) {
-        var o = new URL(window.location.href);
-        (o.searchParams.set("bot_response_id", t),
-          window.history.replaceState({}, "", o));
-      }
-      k(void 0, n);
-    }
-    function S(e, t) {
+    function L(e, t) {
       return r("isStringNullOrEmpty")(e)
         ? ""
         : e
@@ -130,24 +138,24 @@ __d(
             })
             .join(",");
     }
-    function R(e) {
-      return S(e, _);
+    function E(e) {
+      return L(e, f);
     }
-    function L(e) {
-      return S(e, f);
+    function k(e) {
+      return L(e, g);
     }
-    function E(e, t) {
-      var n = R(e);
-      r("isStringNullOrEmpty")(n) || v(n, t);
+    function I(e, t) {
+      var n = E(e);
+      r("isStringNullOrEmpty")(n) || R(n, t);
     }
-    function k(e, t) {
+    function T(e, t) {
       var n, a;
-      if (s.length !== 0) {
-        var l = (n = s) == null ? void 0 : n.at(0),
-          u = (a = l == null ? void 0 : l.split(">")) != null ? a : ["", ""],
-          c = u[0],
-          d = u[1],
-          m = I(c),
+      if (u.length !== 0) {
+        var l = (n = u) == null ? void 0 : n.at(0),
+          s = (a = l == null ? void 0 : l.split(">")) != null ? a : ["", ""],
+          c = s[0],
+          d = s[1],
+          m = D(c),
           p = m.specifiers,
           _ = m.surface;
         if (
@@ -193,7 +201,7 @@ __d(
                 : h.surface) != null
               ? g
               : "";
-          (o("AdsHelpTrayIPChatUILogger").logAdsAIEntrypointClick({
+          o("AdsHelpTrayIPChatUILogger").logAdsAIEntrypointClick({
             act: p.act,
             channel: p.channel,
             entrypoint: "DEEPLINK_AM",
@@ -202,79 +210,95 @@ __d(
             recommendationHashString: p.recommendation_hash,
             surface: L,
             tip_name: p.tip_name,
-          }),
-            o("MAIBAChatAppUIActions").openMAIBAChatThread(
-              { showConsentDisclaimer: !y },
-              void 0,
-              "DEEPLINK_AM",
-              L,
-            ),
-            s.shift(),
-            k());
+          });
+          var E = p.thread_key;
+          (o("MAIBAChatAppUIActions").openMAIBAChatThread(
+            E != null
+              ? {
+                  externalConversationId: E,
+                  linkedAdAccountId: p.act,
+                  showConsentDisclaimer: !y,
+                }
+              : { showConsentDisclaimer: !y },
+            void 0,
+            "DEEPLINK_AM",
+            L,
+          ),
+            u.shift(),
+            T());
           return;
         }
         if (
           _ === o("MAIBAActionabilityConstants").SURFACE_AB_TEST_MODAL &&
           d === o("MAIBAActionabilityConstants").ACTION_OPEN
         ) {
-          (r("AdsExperimentsToolbarTestButtonModalAction").dispatch(
-            { showModal: !0, source: "MAIBA" },
-            {
-              line: "432",
-              module: "MAIBAActionabilityManager.js",
-              moduleID: i.id,
-            },
-          ),
-            s.shift(),
-            k(void 0, t));
+          (r("AdsExperimentsFunnelLogger").logCreationAction({
+            entryPoint: "MAIBA",
+            firstComponentName: "ads_manager_test_toolbar_dialog",
+            funnelEntranceAction: "AM_TEST_TOOLBAR_DIALOG_CLICK",
+            name: "ENTER_FUNNEL",
+            testType: "CAMPAIGN_COMPARISON",
+          }),
+            r("AdsExperimentsToolbarTestButtonModalAction").dispatch(
+              { showModal: !0, source: "MAIBA" },
+              {
+                line: "465",
+                module: "MAIBAActionabilityManager.js",
+                moduleID: i.id,
+              },
+            ),
+            u.shift(),
+            T(void 0, t));
           return;
         }
         if (!(e != null && e !== _)) {
-          var E = $(_, t),
-            T =
-              E == null
+          var k = P(_, t),
+            I =
+              k == null
                 ? void 0
-                : E.map(function (e) {
-                    return P(e, p);
-                  }).find(Boolean);
-          if (T != null) {
-            var D = d.split("?"),
-              M = D[0];
+                : k
+                    .map(function (e) {
+                      return N(e, p);
+                    })
+                    .find(Boolean);
+          if (I != null) {
+            var x = d.split("?"),
+              w = x[0];
             switch (
-              (T == null || T.scrollIntoView == null || T.scrollIntoView(), M)
+              (I == null || I.scrollIntoView == null || I.scrollIntoView(), w)
             ) {
               case o("MAIBAActionabilityConstants").ACTION_HIGHLIGHT:
-                N(T);
+                M(I);
                 break;
               case o("MAIBAActionabilityConstants").ACTION_CLICK:
-                T == null || T.click();
+                I == null || I.click();
                 break;
               case o("MAIBAActionabilityConstants").ACTION_SCROLL:
                 t === !0 &&
-                  (T == null ||
-                    T.scrollIntoView == null ||
-                    T.scrollIntoView({ behavior: "smooth", block: "center" }));
+                  (I == null ||
+                    I.scrollIntoView == null ||
+                    I.scrollIntoView({ behavior: "smooth", block: "center" }));
                 break;
               case o("MAIBAActionabilityConstants").ACTION_FILL: {
-                if (!x(_, t)) break;
-                var w = d.split("?"),
-                  O = w[1];
-                if (O != null && T instanceof HTMLInputElement) {
-                  var B = O.startsWith("value=") ? O.slice(6) : O,
-                    W = A(B);
-                  F(T, W);
+                if (!$(_, t)) break;
+                var A = d.split("?"),
+                  B = A[1];
+                if (B != null && I instanceof HTMLInputElement) {
+                  var W = B.startsWith("value=") ? B.slice(6) : B,
+                    q = F(W);
+                  O(I, q);
                 }
                 break;
               }
               default:
                 break;
             }
-            (s.shift(), k(void 0, t));
+            (u.shift(), T(void 0, t));
           }
         }
       }
     }
-    function I(e) {
+    function D(e) {
       var t = { surface: e, specifiers: {} },
         n = e.match(/\[(.*?)\]/g);
       return (
@@ -351,42 +375,38 @@ __d(
         t
       );
     }
-    function T() {
-      u = !0;
+    function x() {
+      c = !0;
     }
-    function D() {
-      ((d = !1), (u = !1), (c = []), (s = []));
-    }
-    function x(e, t) {
+    function $(e, t) {
       return (
         t === !0 &&
         o("MAIBAActionabilityConstants").FILL_ELIGIBLE_SURFACES.has(e)
       );
     }
-    function $(e, t) {
+    function P(e, t) {
       var n,
         r = o("AdsALEAUtils").buildSurfaceMap();
-      return !u && t !== !0 && !p.has(e) ? [] : (n = r.get(e)) != null ? n : [];
+      return !c && t !== !0 && !_.has(e) ? [] : (n = r.get(e)) != null ? n : [];
     }
-    function P(e, t) {
+    function N(e, t) {
       if (Object.keys(t).length === 0) return e;
       var n = e.querySelectorAll('[role="button"], input');
       return Array.from(n).find(function (e) {
         var n = o("MAIBAVisualContextSurfaceData").extractInputElementData(e);
         if (
           (t.label == null || n.label === t.label) &&
-          (t.inputRole == null ||
-            (r("justknobx")._("3465") ? n.role : n.inputRole) === t.inputRole)
+          (t.inputRole == null || n.role === t.inputRole)
         )
           return !0;
       });
     }
-    function N(e) {
+    function M(e) {
       var t = e;
       (e instanceof HTMLInputElement &&
         e.parentElement instanceof HTMLElement &&
         (t = e.parentElement),
-        c.push(t),
+        d.push(t),
         t.style.setProperty("transition", "box-shadow 1s ease-in-out"),
         t.style.setProperty(
           "box-shadow",
@@ -399,7 +419,7 @@ __d(
           t.style.setProperty("box-shadow", "0 0 0 0px rgba(24, 119, 242, 1)");
         }));
     }
-    function M(e) {
+    function w(e) {
       var t = e.actionType,
         n = e.fillValue,
         r = e.inputRole,
@@ -416,17 +436,17 @@ __d(
           return (e === "fill" && n != null && (t += "?value=" + n), t);
         }),
         u = s.join(",");
-      v(u, null, !0);
+      I(u);
     }
-    function w() {
-      for (var e of c)
+    function A() {
+      for (var e of d)
         (e.style.setProperty("box-shadow", ""),
           e.style.setProperty("transition", ""),
           (e.onfocus = null),
           (e.onclick = null));
-      c = [];
+      d = [];
     }
-    function A(e) {
+    function F(e) {
       var t = e.replace(/<[^>]*>/g, "");
       return (
         (t = t.replace(/on\w+\s*=\s*[\"\'][^\"\']*[\"\']/gi, "")),
@@ -435,42 +455,39 @@ __d(
         t
       );
     }
-    function F(e, t) {
+    function O(e, t) {
       var n,
         r = e.value,
-        o =
-          (n = Object.getOwnPropertyDescriptor(
-            window.HTMLInputElement.prototype,
-            "value",
-          )) == null
-            ? void 0
-            : n.set;
-      o == null || o.call(e, t);
-      var a = new Event("input", { bubbles: !0 }),
-        i = e._valueTracker;
-      (i && i.setValue(r), e.dispatchEvent(a));
+        o = e.ownerDocument.defaultView,
+        a =
+          o != null
+            ? (n = Object.getOwnPropertyDescriptor(
+                o.HTMLInputElement.prototype,
+                "value",
+              )) == null
+              ? void 0
+              : n.set
+            : void 0;
+      a == null || a.call(e, t);
+      var i = new Event("input", { bubbles: !0 }),
+        l = e._valueTracker;
+      (l && l.setValue(r), e.dispatchEvent(i));
     }
-    ((l.init = y),
-      (l.componentMouted = b),
-      (l.runActions = v),
-      (l.sanitizeUntrustedActions = R),
-      (l.sanitizeUrlBorneActions = L),
-      (l.runUntrustedActions = E),
-      (l.parseSurfaceString = I),
+    ((l.init = C),
+      (l.runURLBorneActions = v),
+      (l.runActions = R),
+      (l.sanitizeUrlBorneActions = k),
+      (l.runUntrustedActions = I),
+      (l.parseSurfaceString = D),
       (l.clearPendingDeeplinkPrompt = o(
         "MAIBADeeplinkPromptStore",
       ).clearPendingDeeplinkPrompt),
       (l.getAndClearPendingDeeplinkPrompt = o(
         "MAIBADeeplinkPromptStore",
       ).getAndClearPendingDeeplinkPrompt),
-      (l.getPendingDeeplinkPrompt = o(
-        "MAIBADeeplinkPromptStore",
-      ).getPendingDeeplinkPrompt),
-      (l.testOnlyEnableAllSurfaces = T),
-      (l.testOnlyResetState = D),
-      (l.isServerDrivenFillAllowed = x),
-      (l.runActionFromAttributes = M),
-      (l.clearAllHighlights = w));
+      (l.testOnlyEnableAllSurfaces = x),
+      (l.runActionFromAttributes = w),
+      (l.clearAllHighlights = A));
   },
   98,
 );

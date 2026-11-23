@@ -6,7 +6,6 @@ __d(
     "WAWebNoop",
     "WAWebRequestHatchConnectors",
     "WAWebWriteHatchConnectors",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -24,7 +23,7 @@ __d(
       }
     }
     function f(t) {
-      var n = y(t);
+      var n = h(t);
       if (n != null) {
         var a = o("WAWebHatchOAuthAttempts").consumeHatchOAuthAttempt(n.state);
         if (a == null) {
@@ -55,51 +54,43 @@ __d(
         g(babelHelpers.extends({ code: i, state: u }, s), a);
       }
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
+    async function g(e, t) {
+      var n = await o("WAWebWriteHatchConnectors")
+        .completeHatchConnectorOAuth(e)
+        .catch(function () {
+          return "failed";
+        });
+      (o("WAWebRequestHatchConnectors")
+        .requestHatchConnectors()
+        .catch(r("WAWebNoop")),
+        t.onSettled(),
+        n === "failed" && t.onFailed());
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o("WAWebWriteHatchConnectors")
-            .completeHatchConnectorOAuth(e)
-            .catch(function () {
-              return "failed";
-            });
-          (o("WAWebRequestHatchConnectors")
-            .requestHatchConnectors()
-            .catch(r("WAWebNoop")),
-            t.onSettled(),
-            n === "failed" && t.onFailed());
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
+    function h(e) {
       var t = e.data;
       if (
         e.origin !== window.location.origin ||
         typeof t != "object" ||
         t == null ||
         t.message !== u ||
-        !C(t.state) ||
-        (t.iss != null && !C(t.iss))
+        !y(t.state) ||
+        (t.iss != null && !y(t.iss))
       )
         return null;
       var n = t.code,
         r = t.error,
         o = t.iss,
         a = t.state,
-        i = C(o) ? { iss: o } : {};
+        i = y(o) ? { iss: o } : {};
       return r != null
         ? typeof r == "string" && d.test(r)
           ? { code: null, error: r, issuer: i, state: a }
           : null
-        : C(n)
+        : y(n)
           ? { code: n, error: null, issuer: i, state: a }
           : null;
     }
-    function C(e) {
+    function y(e) {
       return typeof e == "string" && e.length > 0 && e.length <= c;
     }
     ((l.ensureHatchOAuthCallbackReceiver = _),

@@ -10,48 +10,49 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e, s;
-    function u(e, t, n, r, o, a, i, l, s) {
-      var u = L(e, r);
-      if (u == null) return null;
-      var c = p(e, o, a, r, t, i, l, s);
-      S(u, e, c);
-      var d = m(e, r, n);
-      return (S(u, e, d), u);
+    function u(e, t, n, r, o, a, i, l, s, u, c) {
+      var d = E(e, r);
+      if (d == null) return null;
+      var _ = p(e, o, a, r, t, i, l, s, u, c);
+      R(d, e, _);
+      var f = m(e, r, n, u);
+      return (R(d, e, f), d);
     }
-    function c(e, t, n) {
-      var r = L(e, n);
-      if (r == null) return null;
-      var o = m(e, n, t);
-      return (S(r, e, o), r);
+    function c(e, t, n, r) {
+      var o = E(e, n);
+      if (o == null) return null;
+      var a = m(e, n, t, r);
+      return (R(o, e, a), o);
     }
-    function d(e, t, n, r, o, a, i, l) {
-      var s = L(e, n);
-      if (s == null) return null;
-      var u = p(e, r, o, n, t, a, i, l);
-      return (S(s, e, u), s);
+    function d(e, t, n, r, o, a, i, l, s, u) {
+      var c = E(e, n);
+      if (c == null) return null;
+      var d = p(e, r, o, n, t, a, i, l, s, u);
+      return (R(c, e, d), c);
     }
-    function m(e, t, n) {
-      var r = _(e, t, n, "assistant");
-      return (h(e, r), g(e, r, null, "ASSISTANT"), r);
+    function m(e, t, n, r) {
+      var o = _(e, t, n, "assistant", r);
+      return (h(e, o), g(e, o, null, "ASSISTANT"), o);
     }
-    function p(e, t, n, o, a, i, l, u) {
-      var c = _(e, o, a, "user");
+    function p(e, t, n, o, a, i, l, u, c, d) {
+      var m = _(e, o, a, "user", c);
       return (
-        f(e, c),
-        g(e, c, t, "USER"),
-        l != null && y(e, c, l),
-        i != null && C(e, c, i),
-        n != null && !(s || (s = r("isEmpty")))(n) && b(e, c, n),
-        u != null && v(e, c, u),
-        c
+        f(e, m),
+        g(e, m, t, "USER"),
+        b(e, m, d != null ? d : []),
+        l != null && y(e, m, l),
+        i != null && C(e, m, i),
+        n != null && !(s || (s = r("isEmpty")))(n) && v(e, m, n),
+        u != null && S(e, m, u),
+        m
       );
     }
-    function _(e, t, n, r) {
-      var o = t + "_" + n + "_" + r,
-        a = e
-          .create(o, "XFBMAIBAMessage")
-          .setValue(o, "id")
-          .setValue(Date.now(), "created_timestamp")
+    function _(e, t, n, r, o) {
+      var a = t + "_" + n + "_" + r,
+        i = e
+          .create(a, "XFBMAIBAMessage")
+          .setValue(a, "id")
+          .setValue(o, "created_timestamp")
           .setValue(t, "external_conversation_id")
           .setValue(r.toUpperCase(), "role")
           .setValue(n, "offline_threading_id")
@@ -60,13 +61,13 @@ __d(
             r === "user" ? "OVERALL_DONE" : "CLIENT_INIT",
             "streaming_state",
           ),
-        i = e
+        l = e
           .getRoot()
           .getLinkedRecord("fetch__XFBMAIBAConversation", { id: t });
       return (
-        i != null && a.setLinkedRecord(i, "conversation"),
-        e.getRoot().setLinkedRecord(a, "fetch__XFBMAIBAMessage", { id: o }),
-        a
+        l != null && i.setLinkedRecord(l, "conversation"),
+        e.getRoot().setLinkedRecord(i, "fetch__XFBMAIBAMessage", { id: a }),
+        i
       );
     }
     function f(e, t) {
@@ -129,6 +130,24 @@ __d(
     }
     function b(e, t, n) {
       var r = n.map(function (n, r) {
+        return e
+          .create(
+            o("relay-runtime").generateClientID(
+              t.getDataID(),
+              "context_chips",
+              r,
+            ),
+            "XFBMAIBAContextChip",
+          )
+          .setValue(n.entity_type, "entity_type")
+          .setValue(n.entity_id, "entity_id")
+          .setValue(n.display_name, "display_name")
+          .setValue(n.matched_text, "matched_text");
+      });
+      t.setLinkedRecords(r, "context_chips");
+    }
+    function v(e, t, n) {
+      var r = n.map(function (n, r) {
         var a = n.account_id,
           i = n.file_metadata,
           l = n.image_hash,
@@ -170,7 +189,7 @@ __d(
       });
       t.setLinkedRecords(r, "user_media_attachments");
     }
-    function v(e, t, n) {
+    function S(e, t, n) {
       var r = e.create(
         o("relay-runtime").generateClientID(t.getDataID(), "selected_text"),
         "XFBMAIBASelectedTextOutput",
@@ -179,44 +198,60 @@ __d(
         n.source != null && r.setValue(n.source, "source"),
         t.setLinkedRecord(r, "selected_text"));
     }
-    function S(e, t, n) {
-      var r = t.get(e);
-      if (r) {
-        var a = r.getLinkedRecords("edges"),
-          i =
-            a != null &&
-            a.some(function (e) {
-              var t;
-              return (
-                (e == null || (t = e.getLinkedRecord("node")) == null
-                  ? void 0
-                  : t.getDataID()) === n.getDataID()
-              );
-            });
-        if (!i) {
-          var l = o("react-relay").ConnectionHandler.createEdge(
-            t,
-            r,
-            n,
-            "XFBMAIBAGenAICharmanderConversationMaibaMessageListEdge",
-          );
-          o("react-relay").ConnectionHandler.insertEdgeAfter(r, l);
-        }
-      }
-    }
     function R(e, t, n) {
+      var r = t.get(e);
+      if (!r) return "connection_missing";
+      var a = r.getLinkedRecords("edges"),
+        i =
+          a != null &&
+          a.some(function (e) {
+            var t;
+            return (
+              (e == null || (t = e.getLinkedRecord("node")) == null
+                ? void 0
+                : t.getDataID()) === n.getDataID()
+            );
+          });
+      if (i) return "already_present";
+      var l = o("react-relay").ConnectionHandler.createEdge(
+        t,
+        r,
+        n,
+        "XFBMAIBAGenAICharmanderConversationMaibaMessageListEdge",
+      );
+      return (
+        o("react-relay").ConnectionHandler.insertEdgeAfter(r, l),
+        "inserted"
+      );
+    }
+    function L(e, t, n, r) {
       if (t != null) {
-        var r = e.get(t);
-        if (r) {
-          var o = r.getLinkedRecords("edges");
-          if (o && o.length > 0) {
-            var a = o[o.length - 1];
-            n(a == null ? void 0 : a.getLinkedRecord("node"));
+        var o = e.get(t);
+        if (o) {
+          var a = o.getLinkedRecords("edges");
+          if (r != null) {
+            var i =
+              a == null
+                ? void 0
+                : a.find(function (e) {
+                    var t;
+                    return (
+                      (e == null || (t = e.getLinkedRecord("node")) == null
+                        ? void 0
+                        : t.getValue("offline_threading_id")) === r
+                    );
+                  });
+            n(i == null ? void 0 : i.getLinkedRecord("node"));
+            return;
+          }
+          if (a && a.length > 0) {
+            var l = a[a.length - 1];
+            n(l == null ? void 0 : l.getLinkedRecord("node"));
           }
         }
       }
     }
-    function L(e, t) {
+    function E(e, t) {
       var n = e
         .getRoot()
         .getLinkedRecord("fetch__XFBMAIBAConversation", { id: t });
@@ -228,8 +263,8 @@ __d(
         return r;
       }
     }
-    function E(t, n, a, i) {
-      R(t, n, function (n) {
+    function k(t, n, a, i) {
+      L(t, n, function (n) {
         var l, s;
         if (n != null) {
           if (
@@ -279,10 +314,10 @@ __d(
     ((l.insertNewUserAndBotMessages = u),
       (l.insertBotMessageOnly = c),
       (l.insertUserMessageOnly = d),
-      (l.insertMessage = S),
-      (l.updateLastBotResponseRecord = R),
-      (l.getMessageListConnectionID = L),
-      (l.updateErrorDetailsForMessage = E));
+      (l.insertMessage = R),
+      (l.updateLastBotResponseRecord = L),
+      (l.getMessageListConnectionID = E),
+      (l.updateErrorDetailsForMessage = k));
   },
   98,
 );

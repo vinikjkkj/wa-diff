@@ -5,23 +5,19 @@ __d(
     "WAWebHatchLoadingDrawer.react",
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebHatchWorkspaceMediaViewer.react",
-          )
-            .__setRef("WAWebHatchWorkspaceMediaViewerLoadable")
-            .load();
-          return e;
-        }),
-        "WAWebHatchWorkspaceMediaViewer",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebHatchWorkspaceMediaViewer.react",
+        )
+          .__setRef("WAWebHatchWorkspaceMediaViewerLoadable")
+          .load();
+        return e;
+      }, "WAWebHatchWorkspaceMediaViewer"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

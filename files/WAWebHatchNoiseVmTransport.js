@@ -1,14 +1,12 @@
 __d(
   "WAWebHatchNoiseVmTransport",
   [
-    "Promise",
     "WALogger",
     "WAWebBoolFunc",
     "WAWebHatchNoiseFramer",
     "WAWebHatchNoiseServiceCodec",
     "WAWebHatchVmTransport",
     "WAWebNoop",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -16,15 +14,14 @@ __d(
     "use strict";
     var e,
       s,
-      u,
-      c = new Uint8Array(0),
-      d = 16 * 1024 * 1024,
-      m = 4294967295,
-      p = 1024 * 1024,
-      _ = 1,
-      f = 2,
-      g = 3;
-    function h(e) {
+      u = new Uint8Array(0),
+      c = 16 * 1024 * 1024,
+      d = 4294967295,
+      m = 1024 * 1024,
+      p = 1,
+      _ = 2,
+      f = 3;
+    function g(e) {
       return e === "authd"
         ? o("WAWebHatchNoiseServiceCodec").WAWebHatchNoiseService.AUTHD
         : e === "sentinel"
@@ -38,19 +35,19 @@ __d(
                 );
               })();
     }
-    var y = (function () {
-      function t(e, t, r, a) {
+    var h = (function () {
+      function t(e, t, n, r) {
         ((this.$1 = null),
           (this.$2 = new (o("WAWebHatchNoiseFramer").FrameDecoder)()),
           (this.$3 = 1),
           (this.$4 = new Map()),
           (this.$5 = new Map()),
           (this.$8 = !1),
-          (this.$10 = (u || (u = n("Promise"))).resolve()),
+          (this.$10 = Promise.resolve()),
           (this.$1 = e),
           (this.$6 = t),
-          (this.$7 = r),
-          (this.$9 = a));
+          (this.$7 = n),
+          (this.$9 = r));
       }
       t.create = function (n, r, o, a) {
         var e = new t(n, r, o, a);
@@ -71,50 +68,50 @@ __d(
           e
         );
       };
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.send = function (t) {
+        (n.send = function (t) {
           var e = this;
           if (this.$8)
-            return (u || (u = n("Promise"))).resolve({
+            return Promise.resolve({
               detail: "Noise channel is unavailable",
               kind: "failure",
               reason: "NO_CHANNEL",
             });
-          var r = this.$13();
-          if (r == null)
+          var n = this.$13();
+          if (n == null)
             return (
               this.$11("Noise stream ID space exhausted"),
-              (u || (u = n("Promise"))).resolve({
+              Promise.resolve({
                 detail: "Noise stream ID space exhausted",
                 kind: "failure",
                 reason: "TRANSPORT",
               })
             );
-          var o = h(t.service);
-          return new (u || (u = n("Promise")))(function (n) {
+          var r = g(t.service);
+          return new Promise(function (o) {
             var a = self.setTimeout(function () {
               var t,
-                a = ((t = e.$4.get(r)) == null ? void 0 : t.isWritten) === !0;
-              (e.$4.delete(r),
-                n({
+                a = ((t = e.$4.get(n)) == null ? void 0 : t.isWritten) === !0;
+              (e.$4.delete(n),
+                o({
                   detail: "VM request timed out",
                   kind: "failure",
                   reason: "TIMEOUT",
                 }),
-                a && e.$14(r, o, f, "timeout"));
+                a && e.$14(n, r, _, "timeout"));
             }, t.timeoutMs);
-            (e.$4.set(r, {
+            (e.$4.set(n, {
               bodyParts: [],
               bodySize: 0,
               isWritten: !1,
-              resolve: n,
-              service: o,
+              resolve: o,
+              service: r,
               statusCode: null,
               timeout: a,
             }),
-              e.$15(r, t, o).catch(function () {
-                e.$16(r, {
+              e.$15(n, t, r).catch(function () {
+                e.$16(n, {
                   detail: "Noise request send failed",
                   kind: "failure",
                   reason: "TRANSPORT",
@@ -122,14 +119,14 @@ __d(
               }));
           });
         }),
-        (a.openStream = function (t, n) {
+        (n.openStream = function (t, n) {
           var e,
             r = this;
           if (this.$8) return null;
           var a = this.$13();
           if (a == null)
             return (this.$11("Noise stream ID space exhausted"), null);
-          var i = h(t.service),
+          var i = g(t.service),
             l = {
               handlers: n,
               isBodyEnded: t.body != null,
@@ -148,7 +145,7 @@ __d(
                 value: {
                   body: (e = t.body) != null ? e : new Uint8Array(0),
                   endBody: l.isBodyEnded,
-                  headers: b(this.$6, this.$7, t),
+                  headers: C(this.$6, this.$7, t),
                   path: o("WAWebHatchVmTransport").serializeJarvisPath(t.path),
                   verb: t.method,
                 },
@@ -169,7 +166,7 @@ __d(
                       {
                         kind: "reset",
                         streamId: a,
-                        value: { code: _, reason: "cancelled" },
+                        value: { code: p, reason: "cancelled" },
                       },
                       function () {
                         return l.isWritten;
@@ -185,12 +182,12 @@ __d(
             }
           );
         }),
-        (a.$19 = function (t, n, r) {
+        (n.$19 = function (t, n, r) {
           var e = this;
           if (
             this.$5.get(t) !== n ||
             n.isBodyEnded ||
-            r.length > p - n.queuedBytes
+            r.length > m - n.queuedBytes
           )
             return !1;
           var o = r.slice();
@@ -217,7 +214,7 @@ __d(
             !0
           );
         }),
-        (a.$15 = function (t, n, r) {
+        (n.$15 = function (t, n, r) {
           var e,
             a = this;
           return this.$17(
@@ -228,7 +225,7 @@ __d(
               value: {
                 body: (e = n.body) != null ? e : new Uint8Array(0),
                 endBody: !0,
-                headers: C(this.$6, this.$7, n.method),
+                headers: y(this.$6, this.$7, n.method),
                 path: o("WAWebHatchVmTransport").serializeJarvisPath(n.path),
                 verb: n.method,
               },
@@ -238,11 +235,11 @@ __d(
             },
           );
         }),
-        (a.$20 = function (t) {
+        (n.$20 = function (t) {
           var e = this.$4.get(t);
           return e == null ? !1 : ((e.isWritten = !0), !0);
         }),
-        (a.$14 = function (t, n, r, a) {
+        (n.$14 = function (t, n, r, a) {
           var e = this;
           this.$17(
             n,
@@ -252,190 +249,168 @@ __d(
             return e.$11("Noise reset send failed");
           });
         }),
-        (a.$17 = function (t, n, o) {
+        (n.$17 = function (t, n, o) {
           var e = this,
             a = this.$10.then(function () {
               return e.$21(t, n, o);
             });
           return ((this.$10 = a.then(r("WAWebNoop"), r("WAWebNoop"))), a);
         }),
-        (a.$21 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, a) {
+        (n.$21 = async function (t, n, a) {
+          if (this.$8)
+            throw r("err")("WAWebHatchNoiseVmTransport: channel failed");
+          if (a()) {
+            var e = this.$22(),
+              i = o("WAWebHatchNoiseFramer").encodeFrames(
+                o("WAWebHatchNoiseServiceCodec").encodeServiceRequest(
+                  t,
+                  o("WAWebHatchNoiseServiceCodec").encodeServiceFrame(n),
+                ),
+              );
+            try {
+              var l = await Promise.all(
+                i.map(function (t) {
+                  return e.encryptCipher.encryptWithAd(u, t);
+                }),
+              );
               if (this.$8)
                 throw r("err")("WAWebHatchNoiseVmTransport: channel failed");
-              if (a()) {
-                var i = this.$22(),
-                  l = o("WAWebHatchNoiseFramer").encodeFrames(
-                    o("WAWebHatchNoiseServiceCodec").encodeServiceRequest(
-                      e,
-                      o("WAWebHatchNoiseServiceCodec").encodeServiceFrame(t),
-                    ),
-                  );
-                try {
-                  var s = yield (u || (u = n("Promise"))).all(
-                    l.map(function (e) {
-                      return i.encryptCipher.encryptWithAd(c, e);
-                    }),
-                  );
-                  if (this.$8)
-                    throw r("err")(
-                      "WAWebHatchNoiseVmTransport: channel failed",
-                    );
-                  for (var d of s) i.socket.send(d);
-                } catch (e) {
-                  throw (this.$11("Noise request send failed"), e);
-                }
-              }
-            },
-          );
-          function t(t, n, r) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.$12 = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            if (!(e instanceof ArrayBuffer))
-              throw r("err")(
-                "WAWebHatchNoiseVmTransport: expected binary data",
-              );
-            var t = yield this.$22().decryptCipher.decryptWithAd(
-                c,
-                new Uint8Array(e),
-              ),
-              n = this.$2.decode(t);
-            if (n != null) {
-              var a = o("WAWebHatchNoiseServiceCodec").decodeServiceFrame(
-                o("WAWebHatchNoiseServiceCodec").decodeServiceResponse(n),
-              );
-              if (a.kind === "request")
-                throw r("err")(
-                  "WAWebHatchNoiseVmTransport: unexpected request frame",
-                );
-              var i = this.$5.get(a.streamId);
-              if (i != null) {
-                e: {
-                  var l = a;
-                  if (
-                    ((typeof l == "object" && l !== null) ||
-                      typeof l == "function") &&
-                    l.kind === "response" &&
-                    "streamId" in l &&
-                    "value" in l
-                  ) {
-                    var s = l.streamId,
-                      u = l.value;
-                    this.$23(s, i, u);
-                    break e;
-                  }
-                  if (
-                    ((typeof l == "object" && l !== null) ||
-                      typeof l == "function") &&
-                    l.kind === "bodyChunk" &&
-                    "streamId" in l &&
-                    "value" in l
-                  ) {
-                    var d = l.streamId,
-                      m = l.value;
-                    if (i.statusCode == null) {
-                      this.$24(d, i, "VM response body arrived before headers");
-                      return;
-                    }
-                    this.$25(d, i, m.data, m.endBody);
-                    break e;
-                  }
-                  if (
-                    ((typeof l == "object" && l !== null) ||
-                      typeof l == "function") &&
-                    l.kind === "reset" &&
-                    "streamId" in l &&
-                    "value" in l
-                  ) {
-                    var p = l.streamId,
-                      _ = l.value;
-                    this.$18(p, _.reason);
-                    break e;
-                  }
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      l,
-                  );
-                }
-                return;
-              }
-              var f = this.$4.get(a.streamId);
-              if (f != null)
-                e: {
-                  var h = a;
-                  if (
-                    ((typeof h == "object" && h !== null) ||
-                      typeof h == "function") &&
-                    h.kind === "response" &&
-                    "streamId" in h &&
-                    "value" in h
-                  ) {
-                    var y = h.streamId,
-                      C = h.value;
-                    if (f.statusCode != null) {
-                      this.$26(
-                        y,
-                        "VM sent a second response for one request",
-                        g,
-                      );
-                      return;
-                    }
-                    if (((f.statusCode = C.status), !this.$27(y, f, C.body)))
-                      return;
-                    C.endBody && this.$28(y, f);
-                    break e;
-                  }
-                  if (
-                    ((typeof h == "object" && h !== null) ||
-                      typeof h == "function") &&
-                    h.kind === "bodyChunk" &&
-                    "streamId" in h &&
-                    "value" in h
-                  ) {
-                    var b = h.streamId,
-                      v = h.value;
-                    if (f.statusCode == null) {
-                      this.$26(b, "VM response body arrived before headers", g);
-                      return;
-                    }
-                    if (!this.$27(b, f, v.data)) return;
-                    v.endBody && this.$28(b, f);
-                    break e;
-                  }
-                  if (
-                    ((typeof h == "object" && h !== null) ||
-                      typeof h == "function") &&
-                    h.kind === "reset" &&
-                    "streamId" in h &&
-                    "value" in h
-                  ) {
-                    var S = h.streamId,
-                      R = h.value;
-                    this.$16(S, {
-                      detail: R.reason,
-                      kind: "failure",
-                      reason: "TRANSPORT",
-                    });
-                    break e;
-                  }
-                  throw Error(
-                    "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                      h,
-                  );
-                }
+              for (var s of l) e.socket.send(s);
+            } catch (e) {
+              throw (this.$11("Noise request send failed"), e);
             }
-          });
-          function t(t) {
-            return e.apply(this, arguments);
           }
-          return t;
-        })()),
-        (a.$23 = function (t, n, r) {
+        }),
+        (n.$12 = async function (t) {
+          if (!(t instanceof ArrayBuffer))
+            throw r("err")("WAWebHatchNoiseVmTransport: expected binary data");
+          var e = await this.$22().decryptCipher.decryptWithAd(
+              u,
+              new Uint8Array(t),
+            ),
+            n = this.$2.decode(e);
+          if (n != null) {
+            var a = o("WAWebHatchNoiseServiceCodec").decodeServiceFrame(
+              o("WAWebHatchNoiseServiceCodec").decodeServiceResponse(n),
+            );
+            if (a.kind === "request")
+              throw r("err")(
+                "WAWebHatchNoiseVmTransport: unexpected request frame",
+              );
+            var i = this.$5.get(a.streamId);
+            if (i != null) {
+              e: {
+                var l = a;
+                if (
+                  ((typeof l == "object" && l !== null) ||
+                    typeof l == "function") &&
+                  l.kind === "response" &&
+                  "streamId" in l &&
+                  "value" in l
+                ) {
+                  var s = l.streamId,
+                    c = l.value;
+                  this.$23(s, i, c);
+                  break e;
+                }
+                if (
+                  ((typeof l == "object" && l !== null) ||
+                    typeof l == "function") &&
+                  l.kind === "bodyChunk" &&
+                  "streamId" in l &&
+                  "value" in l
+                ) {
+                  var d = l.streamId,
+                    m = l.value;
+                  if (i.statusCode == null) {
+                    this.$24(d, i, "VM response body arrived before headers");
+                    return;
+                  }
+                  this.$25(d, i, m.data, m.endBody);
+                  break e;
+                }
+                if (
+                  ((typeof l == "object" && l !== null) ||
+                    typeof l == "function") &&
+                  l.kind === "reset" &&
+                  "streamId" in l &&
+                  "value" in l
+                ) {
+                  var p = l.streamId,
+                    _ = l.value;
+                  this.$18(p, _.reason);
+                  break e;
+                }
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    l,
+                );
+              }
+              return;
+            }
+            var g = this.$4.get(a.streamId);
+            if (g != null)
+              e: {
+                var h = a;
+                if (
+                  ((typeof h == "object" && h !== null) ||
+                    typeof h == "function") &&
+                  h.kind === "response" &&
+                  "streamId" in h &&
+                  "value" in h
+                ) {
+                  var y = h.streamId,
+                    C = h.value;
+                  if (g.statusCode != null) {
+                    this.$26(y, "VM sent a second response for one request", f);
+                    return;
+                  }
+                  if (((g.statusCode = C.status), !this.$27(y, g, C.body)))
+                    return;
+                  C.endBody && this.$28(y, g);
+                  break e;
+                }
+                if (
+                  ((typeof h == "object" && h !== null) ||
+                    typeof h == "function") &&
+                  h.kind === "bodyChunk" &&
+                  "streamId" in h &&
+                  "value" in h
+                ) {
+                  var b = h.streamId,
+                    v = h.value;
+                  if (g.statusCode == null) {
+                    this.$26(b, "VM response body arrived before headers", f);
+                    return;
+                  }
+                  if (!this.$27(b, g, v.data)) return;
+                  v.endBody && this.$28(b, g);
+                  break e;
+                }
+                if (
+                  ((typeof h == "object" && h !== null) ||
+                    typeof h == "function") &&
+                  h.kind === "reset" &&
+                  "streamId" in h &&
+                  "value" in h
+                ) {
+                  var S = h.streamId,
+                    R = h.value;
+                  this.$16(S, {
+                    detail: R.reason,
+                    kind: "failure",
+                    reason: "TRANSPORT",
+                  });
+                  break e;
+                }
+                throw Error(
+                  "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+                    h,
+                );
+              }
+          }
+        }),
+        (n.$23 = function (t, n, r) {
           if (n.statusCode != null) {
             this.$24(t, n, "VM sent a second response for one request");
             return;
@@ -445,7 +420,7 @@ __d(
               return n.handlers.onResponse(r.status);
             }) && this.$25(t, n, r.body, r.endBody));
         }),
-        (a.$25 = function (t, n, r, o) {
+        (n.$25 = function (t, n, r, o) {
           (r.length > 0 &&
             this.$5.get(t) === n &&
             this.$29(t, n, function () {
@@ -454,9 +429,9 @@ __d(
             o &&
               this.$5.get(t) === n &&
               (this.$18(t, null),
-              n.isBodyEnded || this.$14(t, n.service, _, "cancelled")));
+              n.isBodyEnded || this.$14(t, n.service, p, "cancelled")));
         }),
-        (a.$29 = function (n, a, i) {
+        (n.$29 = function (n, a, i) {
           try {
             return (i(), !0);
           } catch (t) {
@@ -475,10 +450,10 @@ __d(
             );
           }
         }),
-        (a.$24 = function (t, n, r) {
-          (this.$18(t, r), this.$14(t, n.service, g, r));
+        (n.$24 = function (t, n, r) {
+          (this.$18(t, r), this.$14(t, n.service, f, r));
         }),
-        (a.$18 = function (t, n) {
+        (n.$18 = function (t, n) {
           var e = this.$5.get(t);
           if (e != null) {
             this.$5.delete(t);
@@ -497,12 +472,12 @@ __d(
             }
           }
         }),
-        (a.$27 = function (t, n, r) {
-          return r.length > d - n.bodySize
-            ? (this.$26(t, "VM response exceeds size limit", _), !1)
+        (n.$27 = function (t, n, r) {
+          return r.length > c - n.bodySize
+            ? (this.$26(t, "VM response exceeds size limit", p), !1)
             : ((n.bodySize += r.length), n.bodyParts.push(r.slice()), !0);
         }),
-        (a.$28 = function (t, n) {
+        (n.$28 = function (t, n) {
           var e = n.statusCode;
           if (e == null) {
             this.$16(t, {
@@ -517,18 +492,18 @@ __d(
           for (var a of n.bodyParts) (r.set(a, o), (o += a.length));
           this.$16(t, { body: r, kind: "response", statusCode: e });
         }),
-        (a.$26 = function (t, n, r) {
+        (n.$26 = function (t, n, r) {
           var e,
             o = (e = this.$4.get(t)) == null ? void 0 : e.service;
           (this.$16(t, { detail: n, kind: "failure", reason: "TRANSPORT" }),
             o != null && this.$14(t, o, r, n));
         }),
-        (a.$16 = function (t, n) {
+        (n.$16 = function (t, n) {
           var e = this.$4.get(t);
           e != null &&
             (this.$4.delete(t), self.clearTimeout(e.timeout), e.resolve(n));
         }),
-        (a.$11 = function (t) {
+        (n.$11 = function (t) {
           var e;
           if (!this.$8) {
             this.$8 = !0;
@@ -540,7 +515,7 @@ __d(
             (e = this.$9) == null || e.call(this);
           }
         }),
-        (a.$22 = function () {
+        (n.$22 = function () {
           var e = this.$1;
           if (e == null)
             throw r("err")(
@@ -548,16 +523,16 @@ __d(
             );
           return e;
         }),
-        (a.$13 = function () {
-          if (this.$3 > m) return null;
+        (n.$13 = function () {
+          if (this.$3 > d) return null;
           var e = this.$3;
           return ((this.$3 += 1), e);
         }),
         t
       );
     })();
-    function C(e, t, n) {
-      var r = [v(e)];
+    function y(e, t, n) {
+      var r = [b(e)];
       return (
         n !== "GET" &&
           r.push({ key: "Content-Type", value: "application/json" }),
@@ -565,8 +540,8 @@ __d(
         r
       );
     }
-    function b(e, t, n) {
-      var r = [v(e)];
+    function C(e, t, n) {
+      var r = [b(e)];
       return (
         n.body != null &&
           r.push({ key: "Content-Type", value: "application/json" }),
@@ -575,10 +550,10 @@ __d(
         r
       );
     }
-    function v(e) {
+    function b(e) {
       return { key: "Authorization", value: "Bearer " + e };
     }
-    l.default = y;
+    l.default = h;
   },
   98,
 );

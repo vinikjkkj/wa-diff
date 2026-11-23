@@ -6,93 +6,62 @@ __d(
     "WAWebNewsletterEnforcementAlertCollection",
     "WAWebNewsletterQuestionResponseCollection",
     "WAWebNewsletterReportCollection",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = {
-        updateNewsletterReports: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.reports;
-            (o(
-              "WAWebNewsletterReportCollection",
-            ).NewsletterReportCollection.reset(),
-              o(
-                "WAWebNewsletterReportCollection",
-              ).NewsletterReportCollection.add(t));
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        updateNewsletterReport: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.report;
+        updateNewsletterReports: async function (t) {
+          var e = t.reports;
+          (o(
+            "WAWebNewsletterReportCollection",
+          ).NewsletterReportCollection.reset(),
             o("WAWebNewsletterReportCollection").NewsletterReportCollection.add(
-              t,
-              { merge: !0 },
-            );
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        updateNewsletterEnforcementAlerts: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.enforcementAlerts;
-            (o(
+              e,
+            ));
+        },
+        updateNewsletterReport: async function (t) {
+          var e = t.report;
+          o("WAWebNewsletterReportCollection").NewsletterReportCollection.add(
+            e,
+            { merge: !0 },
+          );
+        },
+        updateNewsletterEnforcementAlerts: async function (t) {
+          var e = t.enforcementAlerts;
+          (o(
+            "WAWebNewsletterEnforcementAlertCollection",
+          ).NewsletterEnforcementAlertCollection.reset(),
+            o(
               "WAWebNewsletterEnforcementAlertCollection",
-            ).NewsletterEnforcementAlertCollection.reset(),
-              o(
-                "WAWebNewsletterEnforcementAlertCollection",
-              ).NewsletterEnforcementAlertCollection.add(t));
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        updateNewsletterQuestionResponses: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = e.append,
-              n = e.responses;
-            (t ||
-              o(
-                "WAWebNewsletterQuestionResponseCollection",
-              ).QuestionResponseCollection.reset(),
-              o(
-                "WAWebNewsletterQuestionResponseCollection",
-              ).QuestionResponseCollection.add(n));
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        hideNewsletterQuestionResponse: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t,
-              n = e.questionServerId,
-              r = e.responseServerId,
-              a = yield (t = o(
-                "WAWebNewsletterQuestionResponseCollection",
-              ).QuestionResponseCollection.filter(function (e) {
-                return e.responseServerId === r && e.questionServerId === n;
-              })) == null
-                ? void 0
-                : t[0];
-            a != null &&
-              o(
-                "WAWebNewsletterQuestionResponseCollection",
-              ).QuestionResponseCollection.remove(a);
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+            ).NewsletterEnforcementAlertCollection.add(e));
+        },
+        updateNewsletterQuestionResponses: async function (t) {
+          var e = t.append,
+            n = t.responses;
+          (e ||
+            o(
+              "WAWebNewsletterQuestionResponseCollection",
+            ).QuestionResponseCollection.reset(),
+            o(
+              "WAWebNewsletterQuestionResponseCollection",
+            ).QuestionResponseCollection.add(n));
+        },
+        hideNewsletterQuestionResponse: async function (t) {
+          var e,
+            n = t.questionServerId,
+            r = t.responseServerId,
+            a = await ((e = o(
+              "WAWebNewsletterQuestionResponseCollection",
+            ).QuestionResponseCollection.filter(function (e) {
+              return e.responseServerId === r && e.questionServerId === n;
+            })) == null
+              ? void 0
+              : e[0]);
+          a != null &&
+            o(
+              "WAWebNewsletterQuestionResponseCollection",
+            ).QuestionResponseCollection.remove(a);
+        },
         updateNewsletterInsights: function (n) {
           var t = n.insights,
             r = n.newsletter,
@@ -113,26 +82,20 @@ __d(
               ).NewsletterAdminInsights)(t))
             : i.set(babelHelpers.extends({}, t));
         },
-        updateNewsletterQuestionResponseStarredState: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t,
-              n = e.questionServerId,
-              r = e.responseServerId,
-              a = e.starred,
-              i = yield (t = o(
-                "WAWebNewsletterQuestionResponseCollection",
-              ).QuestionResponseCollection.filter(function (e) {
-                return e.responseServerId === r && e.questionServerId === n;
-              })) == null
-                ? void 0
-                : t[0];
-            i != null && i.set("starred", a);
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        updateNewsletterQuestionResponseStarredState: async function (t) {
+          var e,
+            n = t.questionServerId,
+            r = t.responseServerId,
+            a = t.starred,
+            i = await ((e = o(
+              "WAWebNewsletterQuestionResponseCollection",
+            ).QuestionResponseCollection.filter(function (e) {
+              return e.responseServerId === r && e.questionServerId === n;
+            })) == null
+              ? void 0
+              : e[0]);
+          i != null && i.set("starred", a);
+        },
       };
     l.NewsletterRouteBridgeApi = s;
   },

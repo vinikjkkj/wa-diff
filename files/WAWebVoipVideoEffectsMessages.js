@@ -7,27 +7,21 @@ __d(
     function u(e) {
       switch (e) {
         case "start_timeout":
-          return s._(
-            /*BTDS*/ "Effects took too long to start and were turned off",
-          );
+          return s._(/*BTDS*/ "");
         case "start_error":
-          return s._(/*BTDS*/ "Effects couldn't start and were turned off");
+          return s._(/*BTDS*/ "");
         case "start_failed":
-          return s._(/*BTDS*/ "Couldn't turn on effects");
+          return s._(/*BTDS*/ "");
         case "failed":
-          return s._(/*BTDS*/ "Effects stopped working and were turned off");
+          return s._(/*BTDS*/ "");
         case "overloaded":
-          return s._(
-            /*BTDS*/ "Effects were turned off to keep your video smooth",
-          );
+          return s._(/*BTDS*/ "");
         case "too_slow":
-          return s._(
-            /*BTDS*/ "Effects can't run smoothly on this computer and were turned off",
-          );
+          return s._(/*BTDS*/ "");
       }
     }
     function c() {
-      return s._(/*BTDS*/ "Turn back on");
+      return s._(/*BTDS*/ "");
     }
     ((l.VIDEO_EFFECTS_STOPPED_TOAST_ID = e),
       (l.getVideoEffectsStoppedMessage = u),

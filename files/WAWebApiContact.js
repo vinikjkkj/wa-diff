@@ -20,7 +20,6 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -48,7 +47,7 @@ __d(
               username: r,
               isAddressBookContact: 0,
               type: "out",
-              contactHash: S(e),
+              contactHash: v(e),
               isUsernameContact: !1,
               birthday: null,
             };
@@ -65,24 +64,16 @@ __d(
         "ApiContact.createOrMergeAddressBookContacts",
       );
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    async function b(e) {
+      var t = await r("WAWebLidAwareContactsDB").get(e);
+      return (t == null ? void 0 : t.isAddressBookContact) === 1;
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield r("WAWebLidAwareContactsDB").get(e);
-          return (t == null ? void 0 : t.isAddressBookContact) === 1;
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
+    function v(e) {
       var t = o("WAWebWidFactory").createWid(e).user,
         n = o("WABase64").decodeB64(o("WAMd5").md5(t + "WA_ADD_NOTIF"));
       return o("WABase64").encodeB64(n.slice(0, 3));
     }
-    function R(e) {
+    function S(e) {
       return o("WAWebModelStorageUtils")
         .getStorage()
         .lock(["contact"], function () {
@@ -97,105 +88,97 @@ __d(
           );
         });
     }
-    function L(e, t, n) {
+    function R(e, t, n) {
       g.add(e, { lid: e, phoneNumber: t, phoneNumberCreatedAt: n });
     }
-    var E;
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t;
-          if (E != null)
-            return (
-              o("WALogger").LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "warmUpAllLidPnMappings: already warmed up",
-                  ])),
-              ),
-              E.promise
-            );
-          var n = self.performance.now();
-          E = new (o("WAResolvable").Resolvable)();
-          try {
-            var a = e;
-            a == null
-              ? ((a = yield o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
-                  .getContactTable()
-                  .all()),
-                o("WALogger").LOG(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "warmUpAllLidPnMappings: queried DB, ",
-                      " records in ",
-                      "",
-                    ])),
-                  a.length,
-                  o("WAWebPerformanceUtils").getElapsedTimeMs(n),
-                ))
-              : o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "warmUpAllLidPnMappings: warming up ",
-                      " contacts",
-                    ])),
-                  a.length,
-                );
-            for (var i of a) {
-              var l = i.id,
-                p = i.phoneNumber,
-                _ = i.phoneNumberCreatedAt;
-              r("WAWebWid").isStringLid(l) &&
-                p != null &&
-                _ != null &&
-                L(
-                  o("WAWebWidFactory").createUserLidOrThrow(l),
-                  o("WAWebWidFactory").createUserWidOrThrow(p),
-                  _,
-                );
-            }
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "warmUpAllLidPnMappings: error",
-                  ])),
-              )
-              .sendLogs("warmup-all-lid-pn-mappings-error");
-          }
-          (o("WALogger").LOG(
-            m ||
-              (m = babelHelpers.taggedTemplateLiteralLoose([
-                "warmUpAllLidPnMappings: finished in ",
-                "",
+    var L;
+    async function E(t) {
+      var n;
+      if (L != null)
+        return (
+          o("WALogger").LOG(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "warmUpAllLidPnMappings: already warmed up",
               ])),
-            o("WAWebPerformanceUtils").getElapsedTimeMs(n),
           ),
-            (t = E) == null || t.resolve());
-        })),
-        I.apply(this, arguments)
-      );
+          L.promise
+        );
+      var a = self.performance.now();
+      L = new (o("WAResolvable").Resolvable)();
+      try {
+        var i = t;
+        i == null
+          ? ((i = await o("WAWebSchemaContact_DO_NOT_USE_DIRECTLY")
+              .getContactTable()
+              .all()),
+            o("WALogger").LOG(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "warmUpAllLidPnMappings: queried DB, ",
+                  " records in ",
+                  "",
+                ])),
+              i.length,
+              o("WAWebPerformanceUtils").getElapsedTimeMs(a),
+            ))
+          : o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "warmUpAllLidPnMappings: warming up ",
+                  " contacts",
+                ])),
+              i.length,
+            );
+        for (var l of i) {
+          var m = l.id,
+            p = l.phoneNumber,
+            _ = l.phoneNumberCreatedAt;
+          r("WAWebWid").isStringLid(m) &&
+            p != null &&
+            _ != null &&
+            R(
+              o("WAWebWidFactory").createUserLidOrThrow(m),
+              o("WAWebWidFactory").createUserWidOrThrow(p),
+              _,
+            );
+        }
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "warmUpAllLidPnMappings: error",
+              ])),
+          )
+          .sendLogs("warmup-all-lid-pn-mappings-error");
+      }
+      (o("WALogger").LOG(
+        d ||
+          (d = babelHelpers.taggedTemplateLiteralLoose([
+            "warmUpAllLidPnMappings: finished in ",
+            "",
+          ])),
+        o("WAWebPerformanceUtils").getElapsedTimeMs(a),
+      ),
+        (n = L) == null || n.resolve());
     }
-    function T(e) {
+    function k(e) {
       if (e.device != null)
         throw r("err")(
           "getAlternateUserWid - Invalid get call using deviceWid",
         );
-      return e.isLid() ? w(e) : M(e);
+      return e.isLid() ? N(e) : P(e);
     }
-    function D() {
+    function I() {
       var e = [],
         t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
       t != null && e.push(t);
       var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return (n != null && e.push(n), e);
     }
-    function x(e) {
-      var t = T(o("WAWebWidFactory").asUserWidOrThrow(e));
+    function T(e) {
+      var t = k(o("WAWebWidFactory").asUserWidOrThrow(e));
       if (t != null) {
         var n;
         return o("WAWebWidFactory").createDeviceWidFromUserAndDevice(
@@ -205,92 +188,84 @@ __d(
         );
       }
     }
-    function $(e) {
-      var t = w(e);
-      return t ? M(t) : e;
+    function D(e) {
+      var t = N(e);
+      return t ? P(t) : e;
     }
-    function P(e) {
-      var t = $(e);
+    function x(e) {
+      var t = D(e);
       return t != null && !e.equals(t) ? t : null;
     }
-    function N(e) {
-      return P(e) != null;
+    function $(e) {
+      return x(e) != null;
     }
-    function M(e) {
+    function P(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
         n = o("WAWebUserPrefsMeUser").getMaybeMeLidUser();
       return n != null && t != null && e.equals(t) ? n : g.getCurrentLid(e);
     }
-    function w(e) {
+    function N(e) {
       var t = o("WAWebUserPrefsMeUser").getMaybeMeLidUser(),
         n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
       return n != null && t != null && e.equals(t) ? n : g.getPhoneNumber(e);
     }
-    function A(e) {
-      var t = w(e);
+    function M(e) {
+      var t = N(e);
       if (t != null) {
-        var n = M(t);
+        var n = P(t);
         if (e.equals(n)) return t;
       }
     }
-    function F() {
+    function w() {
       (g.clear(), h.clear());
     }
-    function O(e) {
+    function A(e) {
       return r("WAWebLidAwareContactsDB").get(e.toJid());
     }
-    function B(e) {
+    function F(e) {
       return r("WAWebLidAwareContactsDB").bulkGet(
         e.map(function (e) {
           return e.toJid();
         }),
       );
     }
-    function W(e, t) {
-      return q.apply(this, arguments);
+    async function O(e, t) {
+      if (t != null) {
+        t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
+          (o("WALogger").LOG(
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "updateContactAdvHostedType: check coex cache for ",
+                "",
+              ])),
+            e == null ? void 0 : e.toLogString(),
+          ),
+          o(
+            "WAWebBizCoexHostedAddVerification",
+          ).assertThrowsWidAdvTypeFromVerificationCache(e));
+        var n = o("WAWebWidToJid").widToUserJid(e),
+          a = t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED;
+        await r("WAWebLidAwareContactsDB")
+          .merge(
+            n,
+            a ? { isHosted: !0, isOrHasBeenHosted: !0 } : { isHosted: !1 },
+          )
+          .catch(function (e) {
+            throw (
+              o("WALogger")
+                .ERROR(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "updateContactAdvHostedTypefailed",
+                    ])),
+                )
+                .verbose(),
+              e
+            );
+          });
+      }
     }
-    function q() {
-      return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (t != null) {
-            t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED &&
-              (o("WALogger").LOG(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "updateContactAdvHostedType: check coex cache for ",
-                    "",
-                  ])),
-                e == null ? void 0 : e.toLogString(),
-              ),
-              o(
-                "WAWebBizCoexHostedAddVerification",
-              ).assertThrowsWidAdvTypeFromVerificationCache(e));
-            var n = o("WAWebWidToJid").widToUserJid(e),
-              a = t === o("WAWebProtobufsAdv.pb").ADVEncryptionType.HOSTED;
-            yield r("WAWebLidAwareContactsDB")
-              .merge(
-                n,
-                a ? { isHosted: !0, isOrHasBeenHosted: !0 } : { isHosted: !1 },
-              )
-              .catch(function (e) {
-                throw (
-                  o("WALogger")
-                    .ERROR(
-                      _ ||
-                        (_ = babelHelpers.taggedTemplateLiteralLoose([
-                          "updateContactAdvHostedTypefailed",
-                        ])),
-                    )
-                    .verbose(),
-                  e
-                );
-              });
-          }
-        })),
-        q.apply(this, arguments)
-      );
-    }
-    var U = n("$InternalEnum")({
+    var B = n("$InternalEnum")({
       WAWEB_SIGNAL_SESSION_HAS_SIGNAL_SESSIONS: "waweb-ss-has-signal-sessions",
       WAWEB_SIGNAL_SESSION_DELETE_REMOTE_INFO: "waweb-ss-delete-remote-info",
       WAWEB_SIGNAL_SESSION_DELETE_REMOTE_SESSION:
@@ -320,111 +295,79 @@ __d(
       WAWEB_API_DEVICE_LIST_BULK_CREATE_OR_REPLACE_DEVICE_RECORD:
         "waweb-adl-bulk-create-or-replace-device-record",
     });
-    function V(t, n) {
-      var r = new Set();
-      t.forEach(function (e) {
+    function W(e, t) {
+      var n = new Set();
+      e.forEach(function (e) {
         e.isBot() ||
           e.isHosted() ||
           e.isLid() ||
-          r.add(o("WAWebWidFactory").asUserWidOrThrow(e).toString());
+          n.add(o("WAWebWidFactory").asUserWidOrThrow(e).toString());
       });
-      var a = new Set();
-      r.forEach(function (e) {
-        var t = M(o("WAWebWidFactory").createUserWidOrThrow(e));
-        t == null && a.add(e);
+      var r = new Set();
+      n.forEach(function (e) {
+        var t = P(o("WAWebWidFactory").createUserWidOrThrow(e));
+        t == null && r.add(e);
       });
-      var i = n != null ? n : "unknown";
-      a.size > 0 &&
+      var a = t != null ? t : "unknown";
+      r.size > 0 &&
         o("WALogger")
           .WARN(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
+            _ ||
+              (_ = babelHelpers.taggedTemplateLiteralLoose([
                 "LID null - ",
                 " PNs, missing: ",
                 ", caller: ",
                 "",
               ])),
+            n.size,
             r.size,
-            a.size,
-            i,
+            a,
           )
-          .sendLogs("lidInfraAccount-" + i, { sampling: 0 });
+          .sendLogs("lidInfraAccount-" + a, { sampling: 0 });
     }
-    var H = 1e4,
-      G = null;
-    function z() {
-      G == null && (G = new (o("WAResolvable").Resolvable)());
+    var q = 1e4,
+      U = null;
+    function V() {
+      U == null && (U = new (o("WAResolvable").Resolvable)());
     }
-    function j() {
+    function H() {
       var e;
-      (e = G) == null || e.resolve();
+      (e = U) == null || e.resolve();
     }
-    function K(e) {
-      return Q.apply(this, arguments);
+    async function G(e) {
+      var t = await z(e);
+      if (t != null) return t;
+      var n = await j();
+      if (n) return z(e);
     }
-    function Q() {
-      return (
-        (Q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield X(e);
-          if (t != null) return t;
-          var n = yield J();
-          if (n) return X(e);
-        })),
-        Q.apply(this, arguments)
-      );
+    async function z(e) {
+      var t = await r("WAWebLidAwareContactsDB").equals(["contactHash"], e);
+      if (t.length > 0) return t[0];
     }
-    function X(e) {
-      return Y.apply(this, arguments);
+    async function j() {
+      var e = U;
+      if (e == null || e.resolveWasCalled()) return !1;
+      try {
+        await o("WAPromiseTimeout").promiseTimeout(e.promise, q);
+      } catch (e) {
+        if (!(e instanceof o("WACustomError").TimeoutError)) throw e;
+        o("WALogger")
+          .WARN(
+            f ||
+              (f = babelHelpers.taggedTemplateLiteralLoose([
+                "getContactRecordByHash: timed out waiting for contact hash repair",
+              ])),
+          )
+          .sendLogs("contact-hash-repair-wait-timeout", { sampling: 0.1 });
+      }
+      return !0;
     }
-    function Y() {
-      return (
-        (Y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield r("WAWebLidAwareContactsDB").equals(["contactHash"], e);
-          if (t.length > 0) return t[0];
-        })),
-        Y.apply(this, arguments)
-      );
-    }
-    function J() {
-      return Z.apply(this, arguments);
-    }
-    function Z() {
-      return (
-        (Z = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = G;
-          if (e == null || e.resolveWasCalled()) return !1;
-          try {
-            yield o("WAPromiseTimeout").promiseTimeout(e.promise, H);
-          } catch (e) {
-            if (!(e instanceof o("WACustomError").TimeoutError)) throw e;
-            o("WALogger")
-              .WARN(
-                f ||
-                  (f = babelHelpers.taggedTemplateLiteralLoose([
-                    "getContactRecordByHash: timed out waiting for contact hash repair",
-                  ])),
-              )
-              .sendLogs("contact-hash-repair-wait-timeout", { sampling: 0.1 });
-          }
-          return !0;
-        })),
-        Z.apply(this, arguments)
-      );
-    }
-    function ee(e) {
-      return te.apply(this, arguments);
-    }
-    function te() {
-      return (
-        (te = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = [];
-          for (var n of e) t.push({ id: n.id, contactHash: n.contactHash });
-          yield r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
-            t,
-            "ApiContact.updateContactsHashes",
-          );
-        })),
-        te.apply(this, arguments)
+    async function K(e) {
+      var t = [];
+      for (var n of e) t.push({ id: n.id, contactHash: n.contactHash });
+      await r("WAWebLidAwareContactsDB").bulkCreateOrMerge(
+        t,
+        "ApiContact.updateContactsHashes",
       );
     }
     ((l.lidPnCache = g),
@@ -432,29 +375,29 @@ __d(
       (l.setNotAddressBookContacts = y),
       (l.createOrMergeAddressBookContacts = C),
       (l.isAddressBookContact = b),
-      (l.getContactHash = S),
-      (l.updateLidMetadata = R),
-      (l.warmUpLidPnMapping = L),
-      (l.warmUpAllLidPnMappings = k),
-      (l.getAlternateUserWid = T),
-      (l.getMeUserWids = D),
-      (l.getAlternateDeviceWid = x),
-      (l.getLatestLid = $),
-      (l.getDeprecatedLidLatestLid = P),
-      (l.isDeprecatedLid = N),
-      (l.getCurrentLid = M),
-      (l.getPhoneNumber = w),
-      (l.getPnIfLidIsLatestMapping = A),
-      (l.clearLidPnMappingCache = F),
-      (l.getContactRecord = O),
-      (l.bulkGetContactRecord = B),
-      (l.updateContactAdvHostedType = W),
-      (l.CheckPnToLidMappingCaller = U),
-      (l.checkPnToLidMapping = V),
-      (l.armContactHashRepairWait = z),
-      (l.markContactHashRepairComplete = j),
-      (l.getContactRecordByHash = K),
-      (l.updateContactsHashes = ee));
+      (l.getContactHash = v),
+      (l.updateLidMetadata = S),
+      (l.warmUpLidPnMapping = R),
+      (l.warmUpAllLidPnMappings = E),
+      (l.getAlternateUserWid = k),
+      (l.getMeUserWids = I),
+      (l.getAlternateDeviceWid = T),
+      (l.getLatestLid = D),
+      (l.getDeprecatedLidLatestLid = x),
+      (l.isDeprecatedLid = $),
+      (l.getCurrentLid = P),
+      (l.getPhoneNumber = N),
+      (l.getPnIfLidIsLatestMapping = M),
+      (l.clearLidPnMappingCache = w),
+      (l.getContactRecord = A),
+      (l.bulkGetContactRecord = F),
+      (l.updateContactAdvHostedType = O),
+      (l.CheckPnToLidMappingCaller = B),
+      (l.checkPnToLidMapping = W),
+      (l.armContactHashRepairWait = V),
+      (l.markContactHashRepairComplete = H),
+      (l.getContactRecordByHash = G),
+      (l.updateContactsHashes = K));
   },
   98,
 );

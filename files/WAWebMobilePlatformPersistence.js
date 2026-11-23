@@ -4,7 +4,6 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebUserPrefsIndexedDBStorage",
     "WAWebUserPrefsKeys",
-    "asyncToGeneratorRuntime",
     "cr:22408",
     "objectValues",
   ],
@@ -24,20 +23,12 @@ __d(
           ? void 0
           : n("cr:22408").castPlatform(t);
     }
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e != null &&
-            (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-              o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.MOBILE_PLATFORM,
-              e,
-            ));
-        })),
-        u.apply(this, arguments)
-      );
+    async function s(e) {
+      e != null &&
+        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+          o("WAWebUserPrefsKeys").BACKEND_ONLY_KEYS.MOBILE_PLATFORM,
+          e,
+        ));
     }
     ((l.getLastMobilePlatform = e), (l.setLastMobilePlatform = s));
   },

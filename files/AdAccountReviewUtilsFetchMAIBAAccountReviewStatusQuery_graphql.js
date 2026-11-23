@@ -11,14 +11,15 @@ __d(
             name: "accountReviewTrackerId",
           },
         ],
-        t = [
+        t = { vultureHash: "URaveYuE-1HcY_H1mtqrkS4GCbs=" },
+        n = [
           {
             kind: "Variable",
             name: "id",
             variableName: "accountReviewTrackerId",
           },
         ],
-        n = {
+        r = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -29,17 +30,17 @@ __d(
         fragment: {
           argumentDefinitions: e,
           kind: "Fragment",
-          metadata: null,
+          metadata: t,
           name: "AdAccountReviewUtilsFetchMAIBAAccountReviewStatusQuery",
           selections: [
             {
               alias: null,
-              args: t,
+              args: n,
               concreteType: "XFBMAIBAAccountStatusReview",
               kind: "LinkedField",
               name: "xfb_maiba_account_status_review",
               plural: !1,
-              selections: [n],
+              selections: [r],
               storageKey: null,
             },
           ],
@@ -54,13 +55,13 @@ __d(
           selections: [
             {
               alias: null,
-              args: t,
+              args: n,
               concreteType: "XFBMAIBAAccountStatusReview",
               kind: "LinkedField",
               name: "xfb_maiba_account_status_review",
               plural: !1,
               selections: [
-                n,
+                r,
                 {
                   alias: null,
                   args: null,
@@ -75,7 +76,7 @@ __d(
         },
         params: {
           id: "27373577375583160",
-          metadata: {},
+          metadata: t,
           name: "AdAccountReviewUtilsFetchMAIBAAccountReviewStatusQuery",
           operationKind: "query",
           text: null,

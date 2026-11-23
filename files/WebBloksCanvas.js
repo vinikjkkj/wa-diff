@@ -8,7 +8,6 @@ __d(
     "WebBloksTheme",
     "WebBloksUtils",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -17,91 +16,66 @@ __d(
       c = u.useLayoutEffect,
       d = u.useRef;
     function m(e) {
-      var t = o("react-compiler-runtime").c(17),
-        n = e.externalStyle,
-        a = e.node,
-        i = o("WebBloksStyle").useStyle(a, n),
-        l = i.style,
-        u = i.wrapper,
-        m = i.wrapperProps,
-        _ = o("WebBloksTheme").useTheme(),
-        f;
-      t[0] !== _ ? ((f = _.getTheme()), (t[0] = _), (t[1] = f)) : (f = t[1]);
-      var g = f,
-        h = d(null),
-        y,
-        C;
-      (t[2] !== a
-        ? ((y = function () {
-            var e = h.current,
+      var t = e.externalStyle,
+        n = e.node,
+        a = o("WebBloksStyle").useStyle(n, t),
+        i = a.style,
+        l = a.wrapper,
+        u = a.wrapperProps,
+        m = o("WebBloksTheme").useTheme().getTheme(),
+        _ = d(null);
+      return (
+        c(
+          function () {
+            var e = _.current,
               t = e == null ? void 0 : e.getContext("2d");
             if (!(e == null || t == null)) {
-              var n = o("WebBloksUtils").toPx(
-                  a.get(o("WebBloksCanvasMinificationKeys").CANVAS_WIDTH),
+              var r = o("WebBloksUtils").toPx(
+                  n.get(o("WebBloksCanvasMinificationKeys").CANVAS_WIDTH),
                 ),
-                r = o("WebBloksUtils").toPx(
-                  a.get(o("WebBloksCanvasMinificationKeys").CANVAS_HEIGHT),
+                a = o("WebBloksUtils").toPx(
+                  n.get(o("WebBloksCanvasMinificationKeys").CANVAS_HEIGHT),
                 );
-              if (!(n == null || r == null)) {
-                ((e.style.width = n), (e.style.height = r));
+              if (!(r == null || a == null)) {
+                ((e.style.width = r), (e.style.height = a));
                 var i = window.devicePixelRatio;
-                ((e.width = p(n, t.canvas.clientWidth, i)),
-                  (e.height = p(r, t.canvas.clientHeight, i)),
+                ((e.width = p(r, t.canvas.clientWidth, i)),
+                  (e.height = p(a, t.canvas.clientHeight, i)),
                   t.scale(i, i));
               }
             }
-          }),
-          (C = [a]),
-          (t[2] = a),
-          (t[3] = y),
-          (t[4] = C))
-        : ((y = t[3]), (C = t[4])),
-        c(y, C));
-      var b, v;
-      (t[5] !== a || t[6] !== g
-        ? ((b = function () {
+          },
+          [n],
+        ),
+        c(
+          function () {
             var e,
-              t = (e = h.current) == null ? void 0 : e.getContext("2d");
+              t = (e = _.current) == null ? void 0 : e.getContext("2d");
             if (t != null) {
-              var n = a.getSubNodes(
+              var a = n.getSubNodes(
                 o("WebBloksConstants").CHILDREN_ATTRIBUTE_KEY,
               );
-              if (n != null)
-                for (var i of n)
+              if (a != null)
+                for (var i of a)
                   (t.save(),
-                    r("WebBloksCanvasDrawToContext")(i, t, g),
+                    r("WebBloksCanvasDrawToContext")(i, t, m),
                     t.restore());
             }
-          }),
-          (v = [a, g]),
-          (t[5] = a),
-          (t[6] = g),
-          (t[7] = b),
-          (t[8] = v))
-        : ((b = t[7]), (v = t[8])),
-        c(b, v));
-      var S;
-      t[9] !== l
-        ? ((S = babelHelpers.extends({}, l)), (t[9] = l), (t[10] = S))
-        : (S = t[10]);
-      var R;
-      t[11] !== S || t[12] !== m
-        ? ((R = s.jsx(
+          },
+          [n, m],
+        ),
+        l(
+          s.jsx(
             "canvas",
-            babelHelpers.extends({}, m, { ref: h, style: S }),
-          )),
-          (t[11] = S),
-          (t[12] = m),
-          (t[13] = R))
-        : (R = t[13]);
-      var L;
-      return (
-        t[14] !== R || t[15] !== u
-          ? ((L = u(R)), (t[14] = R), (t[15] = u), (t[16] = L))
-          : (L = t[16]),
-        L
+            babelHelpers.extends({}, u, {
+              ref: _,
+              style: babelHelpers.extends({}, i),
+            }),
+          ),
+        )
       );
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e, t, n) {
       return (
         n === void 0 && (n = 1),

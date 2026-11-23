@@ -1,8 +1,10 @@
 __d(
   "AdsMetadataConnectedSourcesSetSiteLinksSpecAction",
   [
+    "AdsCFAdgroupDataProvider",
     "AdsConnectedSourcesSiteLinksNoticeDataProvider",
     "AdsConnectedSourcesSiteLinksNoticeReducerPlugins",
+    "AdsMetadataConnectedSourcesSetSiteLinksSpecLoggerPlugin",
     "Laminar",
     "ifRequired_FOR_LAMINAR_CODEGEN",
   ],
@@ -32,9 +34,33 @@ __d(
         ];
       },
       function () {
-        return [];
+        return [
+          n("Laminar").__createLogger(
+            "AdsMetadataConnectedSourcesSetSiteLinksSpecLoggerPlugin",
+            n("AdsMetadataConnectedSourcesSetSiteLinksSpecLoggerPlugin"),
+            { adgroupState: n("AdsCFAdgroupDataProvider") },
+          ),
+          n("ifRequired_FOR_LAMINAR_CODEGEN")(
+            "SEFormatConsentSetSiteLinksSpecLoggerPlugin",
+            function (e) {
+              return n("Laminar").__createLogger(
+                "SEFormatConsentSetSiteLinksSpecLoggerPlugin",
+                e,
+                {},
+                ["AdsMgmtRegistry"],
+              );
+            },
+          ),
+        ];
       },
       "AdsMetadataConnectedSourcesSetSiteLinksSpecAction",
+      void 0,
+      void 0,
+      function (e) {
+        return function (n, r) {
+          e(n, r);
+        };
+      },
     );
     a.exports = e;
   },

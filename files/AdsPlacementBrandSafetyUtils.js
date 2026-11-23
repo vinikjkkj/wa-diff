@@ -7,36 +7,34 @@ __d(
       var t = e.canSeeAdsManagerNewsFeedIf,
         n = e.canSeeAdsManagerThreadsFeedIf;
       return n && t
-        ? s._(
-            /*BTDS*/ "To use this filter, select the Facebook feed, Facebook Reels feed, Instagram feed, Instagram reels feed or Threads feed placement.",
-          )
+        ? s._(/*BTDS*/ "")
         : t
-          ? s._(
-              /*BTDS*/ "To use this filter, select the Facebook feed, Facebook Reels feed, Instagram feed, or Instagram reels feed placement.",
-            )
-          : s._(
-              /*BTDS*/ "To use this filter, select the Facebook or Instagram feed placement.",
-            );
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     function u() {
       var e = r("gkx")("21511");
       return e;
     }
     function c() {
+      return r("gkx")("620");
+    }
+    function d() {
       var e = r("gkx")("8081");
       return e;
     }
-    function d() {
+    function m() {
       var t = u(),
-        n = c();
+        n = d();
       return e({
         canSeeAdsManagerNewsFeedIf: t,
         canSeeAdsManagerThreadsFeedIf: n,
       });
     }
     ((l.isAdsManagerFeedIfAlphaBeta = u),
-      (l.isThreadsFeedIfAdAccount = c),
-      (l.getDisabledFeedFBT = d));
+      (l.isFeedSelectEnabledForAdAccount = c),
+      (l.isThreadsFeedIfAdAccount = d),
+      (l.getDisabledFeedFBT = m));
   },
   226,
 );

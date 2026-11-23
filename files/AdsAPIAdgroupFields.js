@@ -41,6 +41,7 @@ __d(
       ADSET: "adset",
       ADSET_ID: "adset_id",
       ADSET_SPEC: "adset_spec",
+      AFFILIATE_OPO_METADATA_ID: "affiliate_opo_metadata_id",
       API_IDEMPOTENCY_KEY: "idempotency_key",
       APP_CUSTOM_EVENT_FB_MOBILE_ACHIEVEMENT_UNLOCKED:
         "ad.app_custom_event.fb_mobile_achievement_unlocked",
@@ -133,6 +134,7 @@ __d(
         "ad.click_to_call_native_60s_call_connect",
       CLICK_TO_CALL_NATIVE_CALL_PLACED: "ad.click_to_call_native_call_placed",
       CLICKS: "ad.clicks",
+      CLIENT_IDEMPOTENCY_KEY: "client_idempotency_key",
       CLUSTER_ID: "cluster_id",
       CONFIGURED_STATUS: "configured_status",
       CONVERSION_DOMAIN: "conversion_domain",
@@ -179,6 +181,8 @@ __d(
       COST_PER_OMNI_TUTORIAL_COMPLETION:
         "ad.cost_per_action_type:omni_tutorial_completion",
       COST_PER_OMNI_VIEW_CONTENT: "ad.cost_per_action_type:omni_view_content",
+      COST_PER_ONSITE_CONVERSION_ENGAGED_PAGE_VIEW:
+        "ad.cost_per_action_type:onsite_conversion.engaged_page_view",
       COST_PER_ONSITE_CONVERSION_FLOW_COMPLETE:
         "ad.cost_per_action_type:onsite_conversion.flow_complete",
       COST_PER_ONSITE_CONVERSION_MESSAGING_CONVERSATION_STARTED_7D:
@@ -256,6 +260,7 @@ __d(
       CREDIT_SPENT: "ad.credit_spent",
       CREDIT_SPENT_VALUES: "ad.action_values:credit_spent",
       CTR: "ad.ctr",
+      CTV_WEBSITE_URL: "ctv_website_url",
       DATASET_SPLIT_SPECS: "dataset_split_specs",
       DATE_FORMAT: "date_format",
       DCO_REVIEW_FEEDBACK: "dco_review_feedback",
@@ -314,6 +319,7 @@ __d(
       IS_CREATIVE_FLEX_FEATURE_AWARE: "is_creative_flex_feature_aware",
       IS_DRAFT_ONLY: "is_draft_only",
       IS_ELIGIBLE_FOR_MESSAGE_EDITING: "is_eligible_for_message_editing",
+      IS_F2_MD_WEBSITE_ENTRY_POINT: "is_f2_md_website_entry_point",
       IS_MESSAGE_CAMPAIGN: "is_message_campaign",
       IS_MESSAGE_MARKETING: "is_message_marketing",
       IS_ORGANIC_AD_JOINT_OPTIMIZED: "is_organic_ad_joint_optimized",
@@ -348,6 +354,7 @@ __d(
       MOBILE_APP_INSTALL: "ad.mobile_app_install",
       MOBILE_APP_PURCHASE_ROAS:
         "ad.mobile_app_purchase_roas:app_custom_event.fb_mobile_purchase",
+      MRL_SETTINGS: "mrl_settings",
       NAME: "name",
       NAMING_TEMPLATE_CUSTOM_FIELDS: "naming_template_custom_fields",
       OBJECTIVE: "objective",
@@ -458,6 +465,8 @@ __d(
       ONSITE_CONVERSION_ADD_TO_CART: "ad.onsite_conversion.add_to_cart",
       ONSITE_CONVERSION_ADD_TO_WISHLIST_VALUES:
         "ad.action_values:onsite_conversion.add_to_wishlist",
+      ONSITE_CONVERSION_ENGAGED_PAGE_VIEW:
+        "ad.actions:onsite_conversion.engaged_page_view",
       ONSITE_CONVERSION_FLOW_COMPLETE_VALUES:
         "ad.action_values:onsite_conversion.flow_complete",
       ONSITE_CONVERSION_LEAD_GROUPED_VALUES:

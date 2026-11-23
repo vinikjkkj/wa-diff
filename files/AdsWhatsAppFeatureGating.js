@@ -120,10 +120,7 @@ __d(
         "ctwa",
         "check_allow_conversations_in_optimization_dropdown",
       );
-      var n =
-        (t === r("AdCampaignDestination").WHATSAPP &&
-          r("qex")._("4675") === !0) ||
-        L(t);
+      var n = t === r("AdCampaignDestination").WHATSAPP || L(t);
       return (
         e.bumpEntityKey(
           1967,
@@ -145,15 +142,15 @@ __d(
             .MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP;
       return n ? (t ? r("gkx")("25149") : r("gkx")("25869")) : !1;
     }
-    function E(e, t, n) {
+    function E() {
+      return r("qex")._("3061") === !0;
+    }
+    function k(e, t, n) {
       return (n === void 0 && (n = !1), !(n || !e || t !== !0));
     }
-    function k() {
+    function I() {
       var e = r("gkx")("22256");
       return e;
-    }
-    function I() {
-      return r("gkx")("26073");
     }
     function T(t, n, a, i, l) {
       if (t !== r("AdCampaignDestination").WHATSAPP) return !1;
@@ -185,33 +182,24 @@ __d(
         !0
       );
     }
-    function D(e, t) {
-      var n;
-      if (e.length !== 1) return !1;
-      var o = r("firstx")(e),
-        a =
-          (n = o.campaign) == null || (n = n.promoted_object) == null
-            ? void 0
-            : n.page_id;
-      if (a == null) return !1;
-      var i = t(a);
-      return (i == null ? void 0 : i.has_whatsapp_number) === !0;
-    }
-    function x(e, t, n) {
+    function D(e, t, n) {
       return e !== r("AdsAPIObjectives").OUTCOME_LEADS ||
         n !== r("AdCampaignDestination").WHATSAPP ||
         t !== r("AdsAPIOptimizationGoals").LEAD_GENERATION
         ? !1
         : r("gkx")("339");
     }
-    function $() {
+    function x() {
       return r("qex")._("2465") === !0;
     }
+    function $() {
+      return r("qex")._("280") === !0;
+    }
     function P() {
-      return r("qex")._("201") === !0 ? !0 : $();
+      return r("qex")._("201") === !0 ? !0 : x();
     }
     function N() {
-      return r("gkx")("19408") ? !0 : $();
+      return r("gkx")("19408") ? !0 : x();
     }
     ((l.canUseWhatsAppCTAMessagesObjectiveLWI = s),
       (l.isConversationEnabledForTrafficObjectiveWhatsappForNonEU = u),
@@ -228,13 +216,13 @@ __d(
       (l.shouldWaiveBizRequirement = v),
       (l.isEPDAdvertiserInConversationsExperiment = R),
       (l.isCtwaMdDcmoEnabled = L),
-      (l.isCTWAIcebreakerAutoRepliesSupportEnabled = E),
-      (l.shouldSalesObjectiveWhatsAppDefaultConversations = k),
-      (l.isCTWASalesPlacementCleanupEnabled = I),
+      (l.shouldApplyCtwaMdDcmoDefaultingFix = E),
+      (l.isCTWAIcebreakerAutoRepliesSupportEnabled = k),
+      (l.shouldSalesObjectiveWhatsAppDefaultConversations = I),
       (l.isAutofillEligible = T),
-      (l.adUsesWhatsappAccount = D),
-      (l.hideCTWATosLead = x),
-      (l.shouldApplyPWANMismatchFixBundle = $),
+      (l.hideCTWATosLead = D),
+      (l.shouldApplyPWANMismatchFixBundle = x),
+      (l.shouldKeepWhatsAppDestinationCheckedAfterLinking = $),
       (l.shouldClearPWANOnPageSwitch = P),
       (l.shouldSkipCrossPageWANAutoSelect = N));
   },

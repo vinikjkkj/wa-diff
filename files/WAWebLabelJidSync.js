@@ -2,7 +2,6 @@ __d(
   "WAWebLabelJidSync",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebABProps",
@@ -31,7 +30,6 @@ __d(
     "WAWebWamLabelSyncTrackingReporter",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -39,123 +37,93 @@ __d(
       s,
       u,
       c,
-      d,
-      m = r("JSResourceForInteraction")(
+      d = r("JSResourceForInteraction")(
         "WAWebLabelAssociationModelMetadata",
       ).__setRef("WAWebLabelJidSync"),
-      p = r("JSResourceForInteraction")("WAWebAEOnboarded").__setRef(
+      m = r("JSResourceForInteraction")("WAWebAEOnboarded").__setRef(
         "WAWebLabelJidSync",
       );
-    function _(e) {
-      return f.apply(this, arguments);
+    async function p(e) {
+      var t = e.associationId,
+        n = e.chatExists,
+        r = e.labelId,
+        a = e.mutationTimestamp;
+      if (!o("WAWebMobilePlatforms").isSMB()) return !1;
+      var i = await m.load(),
+        l = i.getCanonicalAEOnboardedStatus,
+        s = l();
+      if (s == null)
+        return o("WAWebUserPrefsGeneral").getDetectedOutcomeOnboardingStatus();
+      var u = o("WAWebUserPrefsMultiDevice").getPairingTimestamp();
+      return !s ||
+        !n ||
+        u == null ||
+        o("WATimeUtils").castMilliSecondsToUnixTime(a) <=
+          o("WATimeUtils").castToUnixTime(u)
+        ? !1
+        : !(await _(r, t));
     }
-    function f() {
+    async function _(e, t) {
       return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.associationId,
-            n = e.chatExists,
-            r = e.labelId,
-            a = e.mutationTimestamp;
-          if (!o("WAWebMobilePlatforms").isSMB()) return !1;
-          var i = yield p.load(),
-            l = i.getCanonicalAEOnboardedStatus,
-            s = l();
-          if (s == null)
-            return o(
-              "WAWebUserPrefsGeneral",
-            ).getDetectedOutcomeOnboardingStatus();
-          var u = o("WAWebUserPrefsMultiDevice").getPairingTimestamp();
-          return !s ||
-            !n ||
-            u == null ||
-            o("WATimeUtils").castMilliSecondsToUnixTime(a) <=
-              o("WATimeUtils").castToUnixTime(u)
-            ? !1
-            : !(yield g(r, t));
-        })),
-        f.apply(this, arguments)
+        (await o("WAWebSchemaLabelAssociation")
+          .getLabelAssociationTable()
+          .get([
+            e,
+            t,
+            o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid,
+          ])) != null
       );
     }
-    function g(e, t) {
-      return h.apply(this, arguments);
-    }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return (
-            (yield o("WAWebSchemaLabelAssociation")
-              .getLabelAssociationTable()
-              .get([
-                e,
-                t,
-                o("WAWebSchemaLabelAssociation").LabelAssociationType.Jid,
-              ])) != null
-          );
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e) {
-      return C.apply(this, arguments);
-    }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.associationId,
-            n = e.chatExists,
-            a = e.isDetectedOutcome,
-            i = e.labelCollectionAddition,
-            l = e.labelId,
-            s = e.modelMetaData,
-            u = e.predefinedId,
-            c = e.queuedEmissions,
-            d = e.wid;
+    async function f(e) {
+      var t = e.associationId,
+        n = e.chatExists,
+        a = e.isDetectedOutcome,
+        i = e.labelCollectionAddition,
+        l = e.labelId,
+        s = e.modelMetaData,
+        u = e.predefinedId,
+        c = e.queuedEmissions,
+        m = e.wid;
+      if (
+        !(
+          !n ||
+          u == null ||
+          !a ||
+          r("WAWebSyncBootstrap").isSyncDBootstrapInProcess() ||
+          !o("WAWebABProps").getABPropConfigValue(
+            "ctwa_3pd_conversion_on_ae_detection",
+          )
+        )
+      ) {
+        var p = JSON.stringify([l, m]);
+        if (!c.has(p) && (c.add(p), !(await _(l, t)))) {
+          var f =
+            u === o("WAWebDetectedOutcomeLabelConstants").DO_LEAD_PREDEFINED_ID;
           if (
-            !(
-              !n ||
-              u == null ||
-              !a ||
-              r("WAWebSyncBootstrap").isSyncDBootstrapInProcess() ||
-              !o("WAWebABProps").getABPropConfigValue(
-                "ctwa_3pd_conversion_on_ae_detection",
-              )
+            s == null ||
+            !o("WAWebABProps").getABPropConfigValue(
+              "ctwa_ae_model_meta_data_enabled",
             )
           ) {
-            var p = JSON.stringify([l, d]);
-            if (!c.has(p) && (c.add(p), !(yield g(l, t)))) {
-              var _ =
-                u ===
-                o("WAWebDetectedOutcomeLabelConstants").DO_LEAD_PREDEFINED_ID;
-              if (
-                s == null ||
-                !o("WAWebABProps").getABPropConfigValue(
-                  "ctwa_ae_model_meta_data_enabled",
-                )
-              ) {
-                i.detectedOutcomeSignalEmission = { lead: _ };
-                return;
-              }
-              var f = yield m.load(),
-                h = f.parseLabelAssociationModelMetadata,
-                y = h(s);
-              i.detectedOutcomeSignalEmission =
-                y.length === 0
-                  ? { lead: _ }
-                  : {
-                      lead: _,
-                      metadata: JSON.stringify(
-                        _
-                          ? { ae_model_data: y }
-                          : { paid: !1, ae_model_data: y },
-                      ),
-                    };
-            }
+            i.detectedOutcomeSignalEmission = { lead: f };
+            return;
           }
-        })),
-        C.apply(this, arguments)
-      );
+          var g = await d.load(),
+            h = g.parseLabelAssociationModelMetadata,
+            y = h(s);
+          i.detectedOutcomeSignalEmission =
+            y.length === 0
+              ? { lead: f }
+              : {
+                  lead: f,
+                  metadata: JSON.stringify(
+                    f ? { ae_model_data: y } : { paid: !1, ae_model_data: y },
+                  ),
+                };
+        }
+      }
     }
-    function b(t) {
+    function g(t) {
       var n = t.direction,
         a = t.isLabeled,
         i = t.jid,
@@ -190,7 +158,7 @@ __d(
             .sendLogs("label-jid-sync-wam-error");
         });
     }
-    function v(e, t) {
+    function h(e, t) {
       (t ===
         o("WAWebWamLabelSyncTrackingReporter").LABEL_SYNC_RESULT_TYPE
           .FAILED_ORPHANED &&
@@ -199,7 +167,7 @@ __d(
           e.labelId,
           { chatJid: e.jid, isLabeled: e.labeled, timestampMs: e.timestampMs },
         ),
-        b({
+        g({
           direction: o("WAWebWamLabelSyncTrackingReporter")
             .LABEL_SYNC_DIRECTION_TYPE.RECEIVER,
           isLabeled: e.labeled,
@@ -210,13 +178,13 @@ __d(
           timestampMs: e.timestampMs,
         }));
     }
-    function S(e) {
+    function y(e) {
       (e.labeled ||
         o("WAWebWamLabelSyncTrackingReporter").removeDeferredLabelAssociation(
           e.labelId,
           e.jid,
         ),
-        v(
+        h(
           e,
           e.isOrphaned
             ? o("WAWebWamLabelSyncTrackingReporter").LABEL_SYNC_RESULT_TYPE
@@ -225,7 +193,7 @@ __d(
                 .SUCCESS,
         ));
     }
-    var R = (function (e) {
+    var C = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
             r[a] = arguments[a];
@@ -238,430 +206,373 @@ __d(
           );
         }
         babelHelpers.inheritsLoose(t, e);
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.getVersion = function () {
+          (n.getVersion = function () {
             return o("WAWebSyncdConst").LABEL_ASSOCIATION_SYNC_VERSION;
           }),
-          (a.getAction = function () {
+          (n.getAction = function () {
             return o("WAWebSyncdConst").Actions.LabelJid;
           }),
-          (a.applyMutations = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  a = new Map(),
-                  i = [],
-                  l = [],
-                  m = [],
-                  p = [],
-                  f = [],
-                  g = new Set(),
-                  h = 0,
-                  C = 0,
-                  R = yield (d || (d = n("Promise"))).all(
-                    e.map(
-                      (function () {
-                        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                          function* (e) {
-                            try {
-                              if (e.operation === "set") {
-                                var n,
-                                  u,
-                                  c = e.indexParts,
-                                  d = e.value,
-                                  v = c[1],
-                                  S = c[2];
-                                if (!v || !S) return t.malformedActionIndex();
-                                var R =
-                                  (n = d.labelAssociationAction) == null
-                                    ? void 0
-                                    : n.labeled;
-                                if (R == null)
-                                  return (
-                                    h++,
-                                    b({
-                                      direction: o(
-                                        "WAWebWamLabelSyncTrackingReporter",
-                                      ).LABEL_SYNC_DIRECTION_TYPE.RECEIVER,
-                                      isLabeled: !1,
-                                      jid: S,
-                                      labelId: v,
-                                      result: o(
-                                        "WAWebWamLabelSyncTrackingReporter",
-                                      ).LABEL_SYNC_RESULT_TYPE
-                                        .FAILED_MISSING_ACTION,
-                                      timestampMs: Date.now(),
-                                    }),
-                                    o(
-                                      "WAWebSyncdIndexUtils",
-                                    ).malformedActionValue(t.collectionName)
-                                  );
-                                var L =
-                                  (u = d.labelAssociationAction) == null
-                                    ? void 0
-                                    : u.modelMetaData;
-                                if (!r("WAWebWid").isWid(S))
-                                  return (
-                                    b({
-                                      direction: o(
-                                        "WAWebWamLabelSyncTrackingReporter",
-                                      ).LABEL_SYNC_DIRECTION_TYPE.RECEIVER,
-                                      isLabeled: R,
-                                      jid: S,
-                                      labelId: v,
-                                      result: o(
-                                        "WAWebWamLabelSyncTrackingReporter",
-                                      ).LABEL_SYNC_RESULT_TYPE
-                                        .FAILED_INVALID_JID,
-                                      timestampMs: Date.now(),
-                                    }),
-                                    t.malformedActionIndex()
-                                  );
-                                var E = o("WAWebWidFactory").createWid(S),
-                                  k =
-                                    yield o(
-                                      "WAWebSyncdGetChat",
-                                    ).resolveChatForMutationIndex(E);
-                                if (k.success === !0)
-                                  E = o("WAWebWidFactory").createWid(k.chat.id);
-                                else if ((k.success, E.isLid())) {
-                                  var I =
-                                    o("WAWebApiContact").getPhoneNumber(E);
-                                  I != null && (E = I);
-                                }
-                                var T = E.toString(),
-                                  D = {
-                                    labelId: v,
-                                    associationId: T,
-                                    type: o("WAWebSchemaLabelAssociation")
-                                      .LabelAssociationType.Jid,
-                                  },
-                                  x = null,
-                                  $ = !1;
-                                if (R) {
-                                  var P,
-                                    N,
-                                    M = yield o("WAWebSchemaLabel")
-                                      .getLabelTable()
-                                      .get(v);
-                                  ((x = M == null ? void 0 : M.predefinedId),
-                                    ($ = M == null));
-                                  var w =
-                                      x ===
-                                        o("WAWebDetectedOutcomeLabelConstants")
-                                          .DO_NEW_ORDER_PREDEFINED_ID ||
-                                      x ===
-                                        o("WAWebDetectedOutcomeLabelConstants")
-                                          .DO_LEAD_PREDEFINED_ID,
-                                    A = a.has(T);
-                                  if (!A) {
-                                    var F = yield o("WAWebSchemaChat")
-                                      .getChatTable()
-                                      .get(T, !1);
-                                    if (F) {
-                                      var O;
-                                      (a.set(
-                                        T,
-                                        o(
-                                          "WAWebUserPrefsLabelAssociationsLidMigration",
-                                        ).isLabelAssociationsMigrationComplete() &&
-                                          (O = F.accountLid) != null
-                                          ? O
-                                          : T,
-                                      ),
-                                        (A = !0));
-                                    }
-                                  }
-                                  i.push(D);
-                                  var B = {
-                                    parentId: T,
-                                    labels: [v],
-                                    parentType:
-                                      A || !E.isUser()
-                                        ? o("WAWebListItemParentType")
-                                            .LabelItemParentType.Chat
-                                        : o("WAWebListItemParentType")
-                                            .LabelItemParentType.Contact,
-                                  };
-                                  if (
-                                    (m.push(B),
-                                    x != null &&
-                                      w &&
-                                      (yield _({
-                                        associationId:
-                                          (P = a.get(T)) != null ? P : T,
-                                        chatExists: A,
-                                        labelId: v,
-                                        mutationTimestamp: e.timestamp,
-                                      })))
-                                  ) {
-                                    var W = o(
-                                      "WAWebContactSystemMsg",
-                                    ).genNotificationMsg(E, {
-                                      type: "notification_template",
-                                      kind: o("WAWebMsgType").MsgKind
-                                        .NotificationTemplate,
-                                      subtype:
-                                        "biz_automatically_labeled_chat_system_message",
-                                      templateParams: [x.toString()],
-                                    });
-                                    yield o(
-                                      "WAWebHandleSingleMsgWorkerCompatible",
-                                    ).handleSingleMsg({
-                                      chatId: E,
-                                      newMsg: W,
-                                      handleSingleMsgOrigin:
-                                        "detectedOutcomeNotification",
-                                      preserveOrder: !1,
-                                    });
-                                  }
-                                  yield y({
-                                    associationId:
-                                      (N = a.get(T)) != null ? N : T,
-                                    chatExists: A,
-                                    isDetectedOutcome: w,
-                                    labelCollectionAddition: B,
-                                    labelId: v,
-                                    modelMetaData: L,
-                                    predefinedId: x,
-                                    queuedEmissions: g,
-                                    wid: T,
-                                  });
-                                } else
-                                  (l.push(
-                                    o(
-                                      "WAWebSchemaLabelAssociation",
-                                    ).createLabelAssociationPrimaryKey(D),
-                                  ),
-                                    p.push({
-                                      parentId: T,
-                                      labelId: v,
-                                      parentType: o("WAWebListItemParentType")
-                                        .LabelItemParentType.Chat,
-                                    }));
-                                return (
-                                  f.push({
-                                    labelId: v,
-                                    jid: S,
-                                    labeled: R,
-                                    isOrphaned: $,
-                                    predefinedId: x,
-                                    timestampMs: Date.now(),
-                                  }),
-                                  {
-                                    actionState:
-                                      o("WAWebSyncdConst").SyncActionState
-                                        .Success,
-                                  }
-                                );
-                              }
-                              return (
-                                C++,
-                                {
-                                  actionState:
-                                    o("WAWebSyncdConst").SyncActionState
-                                      .Unsupported,
-                                }
-                              );
-                            } catch (e) {
-                              return (
-                                o("WALogger")
-                                  .ERROR(
-                                    s ||
-                                      (s =
-                                        babelHelpers.taggedTemplateLiteralLoose(
-                                          [
-                                            "Failed to apply label JID sync mutation",
-                                          ],
-                                        )),
-                                  )
-                                  .catching(r("getErrorSafe")(e))
-                                  .sendLogs("label-jid-sync-apply-error"),
-                                {
-                                  actionState:
-                                    o("WAWebSyncdConst").SyncActionState.Failed,
-                                }
-                              );
-                            }
-                          },
+          (n.applyMutations = async function (t) {
+            var e = this,
+              n = new Map(),
+              a = [],
+              i = [],
+              l = [],
+              d = [],
+              m = [],
+              _ = new Set(),
+              C = 0,
+              b = 0,
+              v = await Promise.all(
+                t.map(async function (t) {
+                  try {
+                    if (t.operation === "set") {
+                      var u,
+                        c,
+                        h = t.indexParts,
+                        y = t.value,
+                        v = h[1],
+                        S = h[2];
+                      if (!v || !S) return e.malformedActionIndex();
+                      var R =
+                        (u = y.labelAssociationAction) == null
+                          ? void 0
+                          : u.labeled;
+                      if (R == null)
+                        return (
+                          C++,
+                          g({
+                            direction: o("WAWebWamLabelSyncTrackingReporter")
+                              .LABEL_SYNC_DIRECTION_TYPE.RECEIVER,
+                            isLabeled: !1,
+                            jid: S,
+                            labelId: v,
+                            result: o("WAWebWamLabelSyncTrackingReporter")
+                              .LABEL_SYNC_RESULT_TYPE.FAILED_MISSING_ACTION,
+                            timestampMs: Date.now(),
+                          }),
+                          o("WAWebSyncdIndexUtils").malformedActionValue(
+                            e.collectionName,
+                          )
                         );
-                        return function (t) {
-                          return e.apply(this, arguments);
-                        };
-                      })(),
-                    ),
-                  );
-                (h > 0 &&
-                  o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "label jid sync: ",
-                        " malformed mutations",
-                      ])),
-                    h,
-                  ),
-                  C > 0 &&
-                    o("WALogger").WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "label jid sync: ",
-                          " unsupported operations",
-                        ])),
-                      C,
-                    ));
-                var L = f.filter(function (e) {
-                    return !e.labeled;
-                  }),
-                  E = f.filter(function (e) {
-                    return e.labeled;
-                  });
-                try {
-                  yield o(
-                    "WAWebDBLabelAssociationDatabaseApi",
-                  ).removeLabelAssociations(l);
-                } catch (e) {
-                  throw (
-                    L.forEach(function (e) {
-                      v(
-                        e,
-                        o("WAWebWamLabelSyncTrackingReporter")
-                          .LABEL_SYNC_RESULT_TYPE.FAILED_DB_UPDATE,
-                      );
-                    }),
-                    e
-                  );
-                }
-                try {
-                  yield o(
-                    "WAWebDBLabelAssociationDatabaseApi",
-                  ).mergeReceivedLabelAssociations(i);
-                } catch (e) {
-                  throw (
-                    L.forEach(S),
-                    E.forEach(function (e) {
-                      v(
-                        e,
-                        o("WAWebWamLabelSyncTrackingReporter")
-                          .LABEL_SYNC_RESULT_TYPE.FAILED_DB_UPDATE,
-                      );
-                    }),
-                    e
-                  );
-                }
-                return (
-                  f.forEach(S),
-                  (p.length > 0 || m.length > 0) &&
-                    o("WAWebBackendApi").frontendFireAndForget(
-                      "applyLabelAssociationChanges",
-                      { removals: p, additions: m },
-                    ),
-                  R
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.createLabelAssociationMutations = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                var r = this,
-                  a = o("WATimeUtils").unixTimeMs(),
-                  i = [];
-                e.forEach(function (e) {
-                  var n = e.id,
-                    l = e.type;
-                  t.forEach(function (e) {
-                    var t = e.mutationIndexSegments,
-                      s = { labelAssociationAction: { labeled: l === "add" } };
-                    i.push({
-                      timestamp: a,
-                      collection: r.collectionName,
-                      operation: o("WAWebProtobufsServerSync.pb")
-                        .SyncdMutation$SyncdOperation.SET,
-                      indexArgs: [n].concat(t),
-                      version:
-                        o("WAWebSyncdConst").LABEL_ASSOCIATION_SYNC_VERSION,
-                      value: s,
-                      action: o("WAWebSyncdConst").Actions.LabelJid,
-                    });
-                  });
-                });
-                var l = yield (d || (d = n("Promise"))).all(
-                  i.map(
-                    (function () {
-                      var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* (e) {
-                          var t = e.indexArgs,
-                            r = t[0],
-                            a = babelHelpers.arrayLikeToArray(t).slice(1),
-                            i = yield (d || (d = n("Promise"))).all(
-                              a.map(
-                                (function () {
-                                  var e = n(
-                                    "asyncToGeneratorRuntime",
-                                  ).asyncToGenerator(function* (e) {
-                                    var t = o("WAWebWidFactory").createWid(e);
-                                    return o(
-                                      "WAWebSyncdGetChat",
-                                    ).getWidMutationIndexForWid(t);
-                                  });
-                                  return function (t) {
-                                    return e.apply(this, arguments);
-                                  };
-                                })(),
-                              ),
-                            );
-                          return babelHelpers.extends({}, e, {
-                            indexArgs: [r].concat(i),
-                          });
+                      var L =
+                        (c = y.labelAssociationAction) == null
+                          ? void 0
+                          : c.modelMetaData;
+                      if (!r("WAWebWid").isWid(S))
+                        return (
+                          g({
+                            direction: o("WAWebWamLabelSyncTrackingReporter")
+                              .LABEL_SYNC_DIRECTION_TYPE.RECEIVER,
+                            isLabeled: R,
+                            jid: S,
+                            labelId: v,
+                            result: o("WAWebWamLabelSyncTrackingReporter")
+                              .LABEL_SYNC_RESULT_TYPE.FAILED_INVALID_JID,
+                            timestampMs: Date.now(),
+                          }),
+                          e.malformedActionIndex()
+                        );
+                      var E = o("WAWebWidFactory").createWid(S),
+                        k =
+                          await o(
+                            "WAWebSyncdGetChat",
+                          ).resolveChatForMutationIndex(E);
+                      if (k.success === !0)
+                        E = o("WAWebWidFactory").createWid(k.chat.id);
+                      else if ((k.success, E.isLid())) {
+                        var I = o("WAWebApiContact").getPhoneNumber(E);
+                        I != null && (E = I);
+                      }
+                      var T = E.toString(),
+                        D = {
+                          labelId: v,
+                          associationId: T,
+                          type: o("WAWebSchemaLabelAssociation")
+                            .LabelAssociationType.Jid,
                         },
+                        x = null,
+                        $ = !1;
+                      if (R) {
+                        var P,
+                          N,
+                          M = await o("WAWebSchemaLabel")
+                            .getLabelTable()
+                            .get(v);
+                        ((x = M == null ? void 0 : M.predefinedId),
+                          ($ = M == null));
+                        var w =
+                            x ===
+                              o("WAWebDetectedOutcomeLabelConstants")
+                                .DO_NEW_ORDER_PREDEFINED_ID ||
+                            x ===
+                              o("WAWebDetectedOutcomeLabelConstants")
+                                .DO_LEAD_PREDEFINED_ID,
+                          A = n.has(T);
+                        if (!A) {
+                          var F = await o("WAWebSchemaChat")
+                            .getChatTable()
+                            .get(T, !1);
+                          if (F) {
+                            var O;
+                            (n.set(
+                              T,
+                              o(
+                                "WAWebUserPrefsLabelAssociationsLidMigration",
+                              ).isLabelAssociationsMigrationComplete() &&
+                                (O = F.accountLid) != null
+                                ? O
+                                : T,
+                            ),
+                              (A = !0));
+                          }
+                        }
+                        a.push(D);
+                        var B = {
+                          parentId: T,
+                          labels: [v],
+                          parentType:
+                            A || !E.isUser()
+                              ? o("WAWebListItemParentType").LabelItemParentType
+                                  .Chat
+                              : o("WAWebListItemParentType").LabelItemParentType
+                                  .Contact,
+                        };
+                        if (
+                          (l.push(B),
+                          x != null &&
+                            w &&
+                            (await p({
+                              associationId: (P = n.get(T)) != null ? P : T,
+                              chatExists: A,
+                              labelId: v,
+                              mutationTimestamp: t.timestamp,
+                            })))
+                        ) {
+                          var W = o("WAWebContactSystemMsg").genNotificationMsg(
+                            E,
+                            {
+                              type: "notification_template",
+                              kind: o("WAWebMsgType").MsgKind
+                                .NotificationTemplate,
+                              subtype:
+                                "biz_automatically_labeled_chat_system_message",
+                              templateParams: [x.toString()],
+                            },
+                          );
+                          await o(
+                            "WAWebHandleSingleMsgWorkerCompatible",
+                          ).handleSingleMsg({
+                            chatId: E,
+                            newMsg: W,
+                            handleSingleMsgOrigin:
+                              "detectedOutcomeNotification",
+                            preserveOrder: !1,
+                          });
+                        }
+                        await f({
+                          associationId: (N = n.get(T)) != null ? N : T,
+                          chatExists: A,
+                          isDetectedOutcome: w,
+                          labelCollectionAddition: B,
+                          labelId: v,
+                          modelMetaData: L,
+                          predefinedId: x,
+                          queuedEmissions: _,
+                          wid: T,
+                        });
+                      } else
+                        (i.push(
+                          o(
+                            "WAWebSchemaLabelAssociation",
+                          ).createLabelAssociationPrimaryKey(D),
+                        ),
+                          d.push({
+                            parentId: T,
+                            labelId: v,
+                            parentType: o("WAWebListItemParentType")
+                              .LabelItemParentType.Chat,
+                          }));
+                      return (
+                        m.push({
+                          labelId: v,
+                          jid: S,
+                          labeled: R,
+                          isOrphaned: $,
+                          predefinedId: x,
+                          timestampMs: Date.now(),
+                        }),
+                        {
+                          actionState:
+                            o("WAWebSyncdConst").SyncActionState.Success,
+                        }
                       );
-                      return function (t) {
-                        return e.apply(this, arguments);
-                      };
-                    })(),
-                  ),
-                );
-                for (var s of l)
-                  if (s.action === o("WAWebSyncdConst").Actions.LabelJid) {
-                    var u = s.indexArgs,
-                      c = u[0],
-                      m = babelHelpers.arrayLikeToArray(u).slice(1),
-                      p = m[0];
-                    if (c != null && p != null) {
-                      var _;
-                      b({
-                        direction: o("WAWebWamLabelSyncTrackingReporter")
-                          .LABEL_SYNC_DIRECTION_TYPE.SENDER,
-                        isLabeled:
-                          ((_ = s.value.labelAssociationAction) == null
-                            ? void 0
-                            : _.labeled) === !0,
-                        jid: p,
-                        labelId: c,
-                        result: o("WAWebWamLabelSyncTrackingReporter")
-                          .LABEL_SYNC_RESULT_TYPE.SUCCESS,
-                        timestampMs: a,
-                      });
                     }
+                    return (
+                      b++,
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Unsupported,
+                      }
+                    );
+                  } catch (e) {
+                    return (
+                      o("WALogger")
+                        .ERROR(
+                          s ||
+                            (s = babelHelpers.taggedTemplateLiteralLoose([
+                              "Failed to apply label JID sync mutation",
+                            ])),
+                        )
+                        .catching(r("getErrorSafe")(e))
+                        .sendLogs("label-jid-sync-apply-error"),
+                      {
+                        actionState:
+                          o("WAWebSyncdConst").SyncActionState.Failed,
+                      }
+                    );
                   }
-                return l.map(o("WAWebSyncdActionUtils").buildPendingMutation);
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
+                }),
+              );
+            (C > 0 &&
+              o("WALogger").WARN(
+                u ||
+                  (u = babelHelpers.taggedTemplateLiteralLoose([
+                    "label jid sync: ",
+                    " malformed mutations",
+                  ])),
+                C,
+              ),
+              b > 0 &&
+                o("WALogger").WARN(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "label jid sync: ",
+                      " unsupported operations",
+                    ])),
+                  b,
+                ));
+            var S = m.filter(function (e) {
+                return !e.labeled;
+              }),
+              R = m.filter(function (e) {
+                return e.labeled;
+              });
+            try {
+              await o(
+                "WAWebDBLabelAssociationDatabaseApi",
+              ).removeLabelAssociations(i);
+            } catch (e) {
+              throw (
+                S.forEach(function (e) {
+                  h(
+                    e,
+                    o("WAWebWamLabelSyncTrackingReporter")
+                      .LABEL_SYNC_RESULT_TYPE.FAILED_DB_UPDATE,
+                  );
+                }),
+                e
+              );
             }
-            return t;
-          })()),
+            try {
+              await o(
+                "WAWebDBLabelAssociationDatabaseApi",
+              ).mergeReceivedLabelAssociations(a);
+            } catch (e) {
+              throw (
+                S.forEach(y),
+                R.forEach(function (e) {
+                  h(
+                    e,
+                    o("WAWebWamLabelSyncTrackingReporter")
+                      .LABEL_SYNC_RESULT_TYPE.FAILED_DB_UPDATE,
+                  );
+                }),
+                e
+              );
+            }
+            return (
+              m.forEach(y),
+              (d.length > 0 || l.length > 0) &&
+                o("WAWebBackendApi").frontendFireAndForget(
+                  "applyLabelAssociationChanges",
+                  { removals: d, additions: l },
+                ),
+              v
+            );
+          }),
+          (n.createLabelAssociationMutations = async function (t, n) {
+            var e = this,
+              r = o("WATimeUtils").unixTimeMs(),
+              a = [];
+            t.forEach(function (t) {
+              var i = t.id,
+                l = t.type;
+              n.forEach(function (t) {
+                var n = t.mutationIndexSegments,
+                  s = { labelAssociationAction: { labeled: l === "add" } };
+                a.push({
+                  timestamp: r,
+                  collection: e.collectionName,
+                  operation: o("WAWebProtobufsServerSync.pb")
+                    .SyncdMutation$SyncdOperation.SET,
+                  indexArgs: [i].concat(n),
+                  version: o("WAWebSyncdConst").LABEL_ASSOCIATION_SYNC_VERSION,
+                  value: s,
+                  action: o("WAWebSyncdConst").Actions.LabelJid,
+                });
+              });
+            });
+            var i = await Promise.all(
+              a.map(async function (e) {
+                var t = e.indexArgs,
+                  n = t[0],
+                  r = babelHelpers.arrayLikeToArray(t).slice(1),
+                  a = await Promise.all(
+                    r.map(async function (e) {
+                      var t = o("WAWebWidFactory").createWid(e);
+                      return o("WAWebSyncdGetChat").getWidMutationIndexForWid(
+                        t,
+                      );
+                    }),
+                  );
+                return babelHelpers.extends({}, e, {
+                  indexArgs: [n].concat(a),
+                });
+              }),
+            );
+            for (var l of i)
+              if (l.action === o("WAWebSyncdConst").Actions.LabelJid) {
+                var s = l.indexArgs,
+                  u = s[0],
+                  c = babelHelpers.arrayLikeToArray(s).slice(1),
+                  d = c[0];
+                if (u != null && d != null) {
+                  var m;
+                  g({
+                    direction: o("WAWebWamLabelSyncTrackingReporter")
+                      .LABEL_SYNC_DIRECTION_TYPE.SENDER,
+                    isLabeled:
+                      ((m = l.value.labelAssociationAction) == null
+                        ? void 0
+                        : m.labeled) === !0,
+                    jid: d,
+                    labelId: u,
+                    result: o("WAWebWamLabelSyncTrackingReporter")
+                      .LABEL_SYNC_RESULT_TYPE.SUCCESS,
+                    timestampMs: r,
+                  });
+                }
+              }
+            return i.map(o("WAWebSyncdActionUtils").buildPendingMutation);
+          }),
           t
         );
       })(o("WAWebSyncdAction").ChatOrContactSyncdActionBase),
-      L = new R();
-    l.default = L;
+      b = new C();
+    l.default = b;
   },
   98,
 );

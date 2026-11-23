@@ -1,6 +1,12 @@
 __d(
   "AdsCreativeFlexAssetUtils",
-  ["DeepRecordUtils", "emptyArray", "immutable", "memoizeWithArgsWeak"],
+  [
+    "DeepRecordUtils",
+    "emptyArray",
+    "immutable",
+    "justknobx",
+    "memoizeWithArgsWeak",
+  ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = ["related_media"];
@@ -60,7 +66,7 @@ __d(
     function g(e) {
       var t,
         n,
-        r = T(e, "related_media");
+        r = D(e, "related_media");
       return {
         mssImageSpecs: (t = r == null ? void 0 : r.images) != null ? t : [],
         mssVideoSpecs: (n = r == null ? void 0 : r.videos) != null ? n : [],
@@ -75,19 +81,29 @@ __d(
       return e.image_crops != null;
     }
     function C(e, t) {
-      return h(e) || b(e, t);
+      return h(e) || v(e, t);
     }
-    function b(e, t) {
+    function b(e) {
+      return [].concat(
+        e.filter(function (t) {
+          return C(t, e);
+        }),
+        e.filter(function (t) {
+          return !C(t, e);
+        }),
+      );
+    }
+    function v(e, t) {
       if (h(e)) return !1;
       var n = t.find(function (n) {
-        return R(e, n) && !v(e, t);
+        return L(e, n) && !S(e, t);
       });
       return n === e;
     }
-    function v(e, t) {
-      return S(t).has(e.original_video_id);
+    function S(e, t) {
+      return R(t).has(e.original_video_id);
     }
-    var S = r("memoizeWithArgsWeak")(function (e) {
+    var R = r("memoizeWithArgsWeak")(function (e) {
       return new Set(
         e.filter(h).map(function (e) {
           var t = e.video_id;
@@ -95,12 +111,12 @@ __d(
         }),
       );
     });
-    function R(e, t) {
+    function L(e, t) {
       return e.original_video_id === t.original_video_id;
     }
-    function L(t, n) {
-      var r = N(t, "images", n),
-        o = N(t, "videos", n),
+    function E(t, n) {
+      var r = w(t, "images", n),
+        o = w(t, "videos", n),
         a = t.related_media,
         i = babelHelpers.objectWithoutPropertiesLoose(t, e);
       return babelHelpers.extends({}, i, {
@@ -108,7 +124,7 @@ __d(
         videos: [].concat(o),
       });
     }
-    function E(e) {
+    function k(e) {
       return e == null
         ? null
         : Array.isArray(e)
@@ -121,16 +137,16 @@ __d(
               })
             : null;
     }
-    function k(e) {
+    function I(e) {
       return e == null
         ? e
         : e.map(function (e) {
             return babelHelpers.extends({}, e, {
-              placement_exclusions: E(e.placement_exclusions),
+              placement_exclusions: k(e.placement_exclusions),
             });
           });
     }
-    function I(e) {
+    function T(e) {
       var t, n;
       return e == null
         ? e
@@ -140,7 +156,7 @@ __d(
                 ? void 0
                 : t.map(function (e) {
                     return babelHelpers.extends({}, e, {
-                      placement_customizations: k(e.placement_customizations),
+                      placement_customizations: I(e.placement_customizations),
                     });
                   }),
             videos:
@@ -148,39 +164,64 @@ __d(
                 ? void 0
                 : n.map(function (e) {
                     return babelHelpers.extends({}, e, {
-                      placement_customizations: k(e.placement_customizations),
+                      placement_customizations: I(e.placement_customizations),
                     });
                   }),
           });
     }
-    function T(e, t) {
+    function D(e, t) {
       var n,
-        r = I(
+        r = T(
           o("DeepRecordUtils").maybeToPlainObject(
             (n = e.creative) == null ? void 0 : n.media_sourcing_spec,
           ),
         );
-      return r == null ? {} : L(r, t);
+      return r == null ? {} : E(r, t);
     }
-    function D(e, t) {
-      return P(e, "images", t).length + P(e, "videos", t).length > 1;
+    function x(e) {
+      var t,
+        n = T(
+          o("DeepRecordUtils").maybeToPlainObject(
+            r("immutable").fromJS(
+              (t = e.creative) == null ? void 0 : t.media_sourcing_spec,
+            ),
+          ),
+        );
+      return n == null
+        ? !1
+        : w(n, "images", "multi_media").length +
+            w(n, "videos", "multi_media").length >
+            1;
     }
-    function x(e, t) {
-      return $(e, "images", t) || $(e, "videos", t);
+    function $(e, t) {
+      return N(e, "images", t) || N(e, "videos", t);
     }
-    function $(e, t, n) {
-      return P(e, t, n).length > 0;
+    function P(e) {
+      var t, n, a;
+      if ($(e, "multi_media")) return !0;
+      if (!r("justknobx")._("6210")) return !1;
+      var i = o("DeepRecordUtils").maybeToPlainObject(
+        (t = e.creative) == null ? void 0 : t.media_sourcing_spec,
+      );
+      return (
+        ((n = i == null || (a = i.posts) == null ? void 0 : a.length) != null
+          ? n
+          : 0) > 0
+      );
     }
-    function P(e, t, n) {
+    function N(e, t, n) {
+      return M(e, t, n).length > 0;
+    }
+    function M(e, t, n) {
       var a,
-        i = I(
+        i = T(
           o("DeepRecordUtils").maybeToPlainObject(
             (a = e.creative) == null ? void 0 : a.media_sourcing_spec,
           ),
         );
-      return i == null ? r("emptyArray") : N(i, t, n);
+      return i == null ? r("emptyArray") : w(i, t, n);
     }
-    function N(e, t, n) {
+    function w(e, t, n) {
       var o,
         a = e == null ? void 0 : e[t],
         i =
@@ -207,7 +248,7 @@ __d(
       }
       return i;
     }
-    function M(e) {
+    function A(e) {
       return (
         !h(e) ||
         y(e) ||
@@ -222,16 +263,18 @@ __d(
       (l.getCreativeFlexImageAndVideoFromMSS = g),
       (l.isOriginalMediaAsset = h),
       (l.isOriginalVideoOrFirstRepresentative = C),
-      (l.isFirstRepresentativeOfCroppedVideo = b),
-      (l.getFilteredMediaSourcingSpecBySource = L),
-      (l.coercePlacementExclusionsToArray = E),
-      (l.normalizePlacementCustomizations = k),
-      (l.normalizeMediaSourcingSpecPlacementExclusions = I),
-      (l.getFilteredMediaSourcingSpecBySourceFromAdgroup = T),
-      (l.isMultiMediaAdWithMultipleAssetsOfSource = D),
-      (l.hasMultiMediaAssetsOfSource = x),
-      (l.getMultiMediaAssetsOfTypeAndSource = P),
-      (l.isMultiMediaAssetCustomized = M));
+      (l.orderVideosForCagGroup = b),
+      (l.isFirstRepresentativeOfCroppedVideo = v),
+      (l.getFilteredMediaSourcingSpecBySource = E),
+      (l.coercePlacementExclusionsToArray = k),
+      (l.normalizePlacementCustomizations = I),
+      (l.normalizeMediaSourcingSpecPlacementExclusions = T),
+      (l.getFilteredMediaSourcingSpecBySourceFromAdgroup = D),
+      (l.isMultiMediaAdWithMultipleAssetsOfSource = x),
+      (l.hasMultiMediaAssetsOfSource = $),
+      (l.hasMultiMediaOrPostInMSS = P),
+      (l.getMultiMediaAssetsOfTypeAndSource = M),
+      (l.isMultiMediaAssetCustomized = A));
   },
   98,
 );

@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipSctpConnectionManager",
   [
-    "Promise",
     "WALogger",
     "WAWebCoreActionsODS",
     "WAWebODS",
@@ -26,7 +25,6 @@ __d(
     "WAWebVoipSctpWarmStandby",
     "WAWebVoipTransportFallbackTracker",
     "WAWebVoipTsLogger",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
   ],
@@ -88,35 +86,34 @@ __d(
       ie,
       le,
       se,
-      ue,
-      ce = 1e4,
-      de = 1e4;
-    function me() {
-      return 2 * ce;
+      ue = 1e4,
+      ce = 1e4;
+    function de() {
+      return 2 * ue;
     }
-    var pe = !1;
+    var me = !1;
+    function pe() {
+      o("WAWebVoipSctpWarmStandby").cleanupWebTransportSctpWarmStandby(Ie);
+    }
     function _e() {
-      o("WAWebVoipSctpWarmStandby").cleanupWebTransportSctpWarmStandby(Te);
-    }
-    function fe() {
       o(
         "WAWebVoipSctpWarmStandby",
-      ).resetWebTransportSctpWarmStandbyAtCallBoundary(Te);
+      ).resetWebTransportSctpWarmStandbyAtCallBoundary(Ie);
     }
-    function ge(e) {
+    function fe(e) {
       return o(
         "WAWebVoipSctpWarmStandby",
-      ).activateWebTransportSctpWarmStandbyForRelayList(e, Te);
+      ).activateWebTransportSctpWarmStandbyForRelayList(e, Ie);
     }
-    var he = 0,
-      ye = 0,
-      Ce = !1;
-    function be() {
-      Ce = !0;
+    var ge = 0,
+      he = 0,
+      ye = !1;
+    function Ce() {
+      ye = !0;
     }
-    var ve = new Set(),
-      Se = new Set();
-    function Re(e) {
+    var be = new Set(),
+      ve = new Set();
+    function Se(e) {
       (r("WAWebODS").incr("web.call.sctp.data_channel_relay_error"),
         e === "no_first_response_timeout"
           ? r("WAWebODS").incr(
@@ -134,19 +131,19 @@ __d(
                   "web.call.sctp.data_channel_relay_error.onerror",
                 ));
     }
-    function Le(e) {
-      ve.delete(e) &&
+    function Re(e) {
+      be.delete(e) &&
         o("WAWebCoreActionsODS").logCallSctpObsoleteRelayEvent(
           "reconnect_succeeded",
         );
     }
-    function Ee(e) {
-      ve.delete(e) &&
+    function Le(e) {
+      be.delete(e) &&
         o("WAWebCoreActionsODS").logCallSctpObsoleteRelayEvent(
           "reconnect_exhausted",
         );
     }
-    function ke() {
+    function Ee() {
       var e = [];
       for (var t of o("WAWebVoipSctpConnectionState").sctpConnections) {
         var n = t[0],
@@ -157,7 +154,7 @@ __d(
       }
       return e;
     }
-    function Ie(t, n, r, a) {
+    function ke(t, n, r, a) {
       var i,
         l,
         c,
@@ -215,11 +212,11 @@ __d(
         g
       );
     }
-    function Te(e) {
+    function Ie(e) {
       var t = o("WAWebVoipSctpConnectionState").sctpConnections.get(e);
       if (t)
         try {
-          ut(e);
+          nt(e);
         } catch (t) {
           o("WALogger").ERROR(
             c ||
@@ -233,54 +230,42 @@ __d(
           );
         }
     }
-    function De(e, t, n, r) {
-      return xe.apply(this, arguments);
+    async function Te(e, t, n, r) {
+      (n === void 0 && (n = !1), r === void 0 && (r = !1));
+      var a = "wa-web-call",
+        i = o("WAWebVoipSctpConnectionState").sctpConnections.get(e.id);
+      if (
+        i &&
+        (i.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.Open ||
+          i.state ===
+            o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting)
+      ) {
+        Fe(e.id);
+        return;
+      }
+      (i &&
+        i.state !== o("WAWebVoipRelayConnectionUtils").ConnectionState.None &&
+        et(e.id),
+        await Ye({
+          channelLabel: a,
+          isEarlyPacketRelayReconnect: n,
+          isWebTransportWarmStandby: r,
+          origin: t,
+          relayConnectionInfo: e,
+        }));
     }
-    function xe() {
-      return (
-        (xe = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            (n === void 0 && (n = !1), r === void 0 && (r = !1));
-            var a = "wa-web-call",
-              i = o("WAWebVoipSctpConnectionState").sctpConnections.get(e.id);
-            if (
-              i &&
-              (i.state ===
-                o("WAWebVoipRelayConnectionUtils").ConnectionState.Open ||
-                i.state ===
-                  o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting)
-            ) {
-              Be(e.id);
-              return;
-            }
-            (i &&
-              i.state !==
-                o("WAWebVoipRelayConnectionUtils").ConnectionState.None &&
-              lt(e.id),
-              yield rt({
-                channelLabel: a,
-                isEarlyPacketRelayReconnect: n,
-                isWebTransportWarmStandby: r,
-                origin: t,
-                relayConnectionInfo: e,
-              }));
-          },
-        )),
-        xe.apply(this, arguments)
-      );
-    }
-    function $e(e, t, n) {
+    function De(e, t, n) {
       var a = r("justknobx")._("1929");
       o("WAWebVoipSctpSendData").sendData({
         callbacks: {
-          failConnection: st,
+          failConnection: tt,
           getIceRestartRxInactivityMs: function () {
-            return de;
+            return ce;
           },
           getSctpConnectionTimeoutMs: function () {
-            return me();
+            return de();
           },
-          restartIceProcess: _t,
+          restartIceProcess: lt,
         },
         data_: e,
         ip: t,
@@ -290,7 +275,7 @@ __d(
               .TRUE_WEB_CLIENT_RELAY_PORT,
       });
     }
-    function Pe(e) {
+    function xe(e) {
       var t = o("WAWebVoipSctpConnectionState").sctpConnections.get(e);
       if (t == null) {
         o("WALogger").WARN(
@@ -308,7 +293,7 @@ __d(
         ((t.state = o("WAWebVoipRelayConnectionUtils").ConnectionState.Open),
         (t.stats.connectionReadyTime = Date.now()),
         (t.isReconnecting = !1),
-        Le(e),
+        Re(e),
         t.isWebTransportWarmStandby !== !0 &&
           (o(
             "WAWebVoipSctpFallbackFamilyOutcome",
@@ -324,7 +309,7 @@ __d(
         ),
         o("WAWebVoipSctpStatsInstrumentation").addConnectionSource(
           "relay",
-          ke,
+          Ee,
           o("WAWebVoipSctpDataChannelThreadManager").getDataChannelThread,
         ),
         t.connectionTimeout != null &&
@@ -338,9 +323,9 @@ __d(
         }),
         t.isWebTransportWarmStandby !== !0 &&
           o("WAWebVoipSctpBufferDrain").drainBuffer(e),
-        Be(e));
+        Fe(e));
     }
-    function Ne(e, t, n, r) {
+    function $e(e, t, n, r) {
       var a,
         i = e.id;
       if (
@@ -351,7 +336,7 @@ __d(
         )
       ) {
         if (e.isWebTransportWarmStandby === !0) {
-          st(e, t);
+          tt(e, t);
           return;
         }
         var l = o("WAWebVoipSctpConnectionState").currentRelayState.get(i),
@@ -365,7 +350,7 @@ __d(
               ? a
               : 0;
         if (
-          !pe &&
+          !me &&
           c != null &&
           d <
             o("WAWebVoipSctpConnectionManagerConstants")
@@ -373,8 +358,8 @@ __d(
         ) {
           var m;
           (u &&
-            !ve.has(i) &&
-            (ve.add(i),
+            !be.has(i) &&
+            (be.add(i),
             o("WAWebCoreActionsODS").logCallSctpObsoleteRelayEvent(
               "transport_failed",
             )),
@@ -406,32 +391,32 @@ __d(
               .MAX_SAME_PATH_RECONNECT_ATTEMPTS,
             h,
           ),
-            st(e, n, !0));
+            tt(e, n, !0));
           var y = function (n) {
             if (
               (n != null &&
                 o(
                   "WAWebVoipSctpConnectionState",
                 ).pendingReconnectTimeouts.delete(n),
-              !pe)
+              !me)
             ) {
               var e = o("WAWebVoipSctpConnectionState").currentRelayState.get(
                   i,
                 ),
                 a = e == null;
               (a
-                ? (ve.has(i) ||
-                    (ve.add(i),
+                ? (be.has(i) ||
+                    (be.add(i),
                     o("WAWebCoreActionsODS").logCallSctpObsoleteRelayEvent(
                       "transport_failed",
                     )),
                   o("WAWebCoreActionsODS").logCallSctpObsoleteRelayEvent(
                     "reconnect_attempted",
                   ))
-                : ve.delete(i),
-                De(e != null ? e : c, "same_path_reconnect").catch(
+                : be.delete(i),
+                Te(e != null ? e : c, "same_path_reconnect").catch(
                   function (e) {
-                    (a && Ee(i),
+                    (a && Le(i),
                       o("WALogger").ERROR(
                         _ ||
                           (_ = babelHelpers.taggedTemplateLiteralLoose([
@@ -457,7 +442,7 @@ __d(
             o("WAWebVoipSctpConnectionState").pendingReconnectTimeouts.add(C);
           } else y(null);
         } else
-          (pe ||
+          (me ||
             (c == null
               ? o("WALogger").LOG(
                   f ||
@@ -471,7 +456,7 @@ __d(
                   i,
                   d,
                 )
-              : (u && Ee(i),
+              : (u && Le(i),
                 o("WALogger").LOG(
                   g ||
                     (g = babelHelpers.taggedTemplateLiteralLoose([
@@ -487,34 +472,34 @@ __d(
                   o("WAWebVoipSctpConnectionManagerConstants")
                     .MAX_SAME_PATH_RECONNECT_ATTEMPTS,
                 ))),
-            st(e, t));
+            tt(e, t));
       }
     }
-    function Me(e) {
+    function Pe(e) {
       var t = e.id;
       o("WAWebVoipSctpConnectionState").sctpConnections.get(t) === e &&
-        Ne(
+        $e(
           e,
           "data_channel_error",
           "data_channel_error_reconnecting",
           "[DCThread]",
         );
     }
-    function we(e) {
-      Ne(
+    function Ne(e) {
+      $e(
         e,
         "ice_connection_failed",
         "ice_connection_failed_reconnecting",
         "[SCTP]",
       );
     }
-    function Ae(e) {
+    function Me(e) {
       var t = function (t) {
         var e = o("WAWebVoipSctpConnectionState").currentRelayState.get(t);
-        if (pe || e == null) return 1;
-        (ut(t),
+        if (me || e == null) return 1;
+        (nt(t),
           o("WAWebVoipSctpConnectionState").samePathReconnectAttempts.delete(t),
-          De(e, "same_path_reconnect").catch(function (e) {
+          Te(e, "same_path_reconnect").catch(function (e) {
             o("WALogger").ERROR(
               h ||
                 (h = babelHelpers.taggedTemplateLiteralLoose([
@@ -529,7 +514,7 @@ __d(
       };
       for (var n of e) t(n);
     }
-    function Fe(e, t) {
+    function we(e, t) {
       var n = o("WAWebVoipSctpConnectionState").sctpConnections.get(e);
       if (n == null) {
         o("WALogger").WARN(
@@ -551,7 +536,7 @@ __d(
             ])),
           e,
         ),
-        Re(t),
+        Se(t),
         (t === "no_first_response_timeout" || t === "rx_stall_timeout") &&
           n.peerConnection != null)
       ) {
@@ -585,18 +570,18 @@ __d(
                 .catching(r("getErrorSafe")(t));
             })
             .finally(function () {
-              Me(n);
+              Pe(n);
             }));
         return;
       }
-      Me(n);
+      Pe(n);
     }
-    function Oe(e) {
-      return new (ue || (ue = n("Promise")))(function (t) {
+    function Ae(e) {
+      return new Promise(function (t) {
         o("WAWebVoipSctpConnectionState").connectionOpenedResolvers.set(e, t);
       });
     }
-    function Be(e) {
+    function Fe(e) {
       var t = o("WAWebVoipSctpConnectionState").connectionOpenedResolvers.get(
         e,
       );
@@ -604,76 +589,66 @@ __d(
         (t(),
         o("WAWebVoipSctpConnectionState").connectionOpenedResolvers.delete(e));
     }
-    function We() {
-      return qe.apply(this, arguments);
+    async function Oe() {
+      ((me = !0), ge++, he++);
+      try {
+        o("WAWebVoipSctpStatsInstrumentation").removeConnectionSource("relay");
+        var e = Array.from(
+          o("WAWebVoipSctpConnectionState").sctpConnections.keys(),
+        );
+        (o("WALogger").LOG(
+          S ||
+            (S = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [SctpConnectionManager] Cleaning up ",
+              " connections",
+            ])),
+          e.length,
+        ),
+          await o(
+            "WAWebVoipSctpDataChannelThreadManager",
+          ).stopDataChannelWorker());
+        for (var t of e) Ie(t);
+        (o("WAWebVoipSctpConnectionState").currentRelayState.clear(),
+          o("WAWebVoipTsLogger").cleanup(),
+          o("WALogger").LOG(
+            R ||
+              (R = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SctpConnectionManager] All connections and relay state cleared",
+              ])),
+          ));
+      } finally {
+        (We(),
+          o("WAWebVoipRelayConnectQpl").resetVoipRelayConnectQpl(),
+          o(
+            "WAWebVoipSctpWarmStandby",
+          ).resetWebTransportSctpWarmStandbyAtCallBoundary(Ie),
+          o("WAWebVoipSctpIceTcpFallback").resetIceTcpFallback(),
+          (ye = !1),
+          (me = !1));
+      }
     }
-    function qe() {
-      return (
-        (qe = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          ((pe = !0), he++, ye++);
-          try {
-            o("WAWebVoipSctpStatsInstrumentation").removeConnectionSource(
-              "relay",
-            );
-            var e = Array.from(
-              o("WAWebVoipSctpConnectionState").sctpConnections.keys(),
-            );
-            (o("WALogger").LOG(
-              V ||
-                (V = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [SctpConnectionManager] Cleaning up ",
-                  " connections",
-                ])),
-              e.length,
-            ),
-              yield o(
-                "WAWebVoipSctpDataChannelThreadManager",
-              ).stopDataChannelWorker());
-            for (var t of e) Te(t);
-            (o("WAWebVoipSctpConnectionState").currentRelayState.clear(),
-              o("WAWebVoipTsLogger").cleanup(),
-              o("WALogger").LOG(
-                H ||
-                  (H = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SctpConnectionManager] All connections and relay state cleared",
-                  ])),
-              ));
-          } finally {
-            (Ve(),
-              o("WAWebVoipRelayConnectQpl").resetVoipRelayConnectQpl(),
-              o(
-                "WAWebVoipSctpWarmStandby",
-              ).resetWebTransportSctpWarmStandbyAtCallBoundary(Te),
-              o("WAWebVoipSctpIceTcpFallback").resetIceTcpFallback(),
-              (Ce = !1),
-              (pe = !1));
-          }
-        })),
-        qe.apply(this, arguments)
-      );
-    }
-    function Ue() {
-      (he++, ye++);
+    function Be() {
+      (ge++, he++);
       var e = Array.from(
         o("WAWebVoipSctpConnectionState").sctpConnections.values(),
       );
       o("WALogger").LOG(
-        S ||
-          (S = babelHelpers.taggedTemplateLiteralLoose([
+        L ||
+          (L = babelHelpers.taggedTemplateLiteralLoose([
             "voip: [SctpConnectionManager] Closing ",
             " connections, call continues",
           ])),
         e.length,
       );
-      for (var t of e) ((t.isReconnecting = !1), Te(t.id));
+      for (var t of e) ((t.isReconnecting = !1), Ie(t.id));
       (o("WAWebVoipSctpConnectionState").currentRelayState.clear(),
-        Ve(),
+        We(),
         o(
           "WAWebVoipSctpWarmStandby",
-        ).resetWebTransportSctpWarmStandbyAtCallBoundary(Te),
+        ).resetWebTransportSctpWarmStandbyAtCallBoundary(Ie),
         o("WAWebVoipSctpIceTcpFallback").resetIceTcpFallbackRelayState());
     }
-    function Ve() {
+    function We() {
       for (var e of o("WAWebVoipSctpConnectionState").pendingReconnectTimeouts)
         window.clearTimeout(e);
       o("WAWebVoipSctpConnectionState").pendingReconnectTimeouts.clear();
@@ -683,74 +658,56 @@ __d(
         t();
       (o("WAWebVoipSctpConnectionState").connectionOpenedResolvers.clear(),
         o("WAWebVoipSctpConnectionState").samePathReconnectAttempts.clear(),
-        ve.clear(),
-        Se.clear());
+        be.clear(),
+        ve.clear());
     }
-    function He(e, t) {
-      return Ge.apply(this, arguments);
+    async function qe(e, t) {
+      var n = ge;
+      (o("WALogger").LOG(
+        E ||
+          (E = babelHelpers.taggedTemplateLiteralLoose([
+            "voip: [SctpConnectionManager] Staggered creation: ",
+            " connections",
+          ])),
+        e.length,
+      ),
+        await Ue(e, 0, n, t));
     }
-    function Ge() {
-      return (
-        (Ge = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = he;
-          (o("WALogger").LOG(
-            G ||
-              (G = babelHelpers.taggedTemplateLiteralLoose([
-                "voip: [SctpConnectionManager] Staggered creation: ",
-                " connections",
+    async function Ue(e, t, n, r) {
+      if (!(t >= e.length) && !(me || ge !== n)) {
+        var a = e[t];
+        if (a != null) {
+          var i = a.isEarlyPacketRelayReconnect,
+            l = a.isWebTransportWarmStandby,
+            s = a.relayConnectionInfo;
+          o("WALogger").LOG(
+            k ||
+              (k = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SctpConnectionManager] Starting staggered connection ",
+                "/",
+                ": ",
+                "",
               ])),
+            t + 1,
             e.length,
-          ),
-            yield ze(e, 0, n, t));
-        })),
-        Ge.apply(this, arguments)
-      );
+            s.id,
+          );
+          var u = Ae(s.id);
+          if ((Te(s, r, i, l), t < e.length - 1)) {
+            var c = new Promise(function (e) {
+              window.setTimeout(
+                e,
+                o("WAWebVoipSctpConnectionManagerConstants")
+                  .PER_CONNECTION_STAGGER_DELAY_MS,
+              );
+            });
+            await Promise.race([u, c]);
+          }
+          await Ue(e, t + 1, n, r);
+        }
+      }
     }
-    function ze(e, t, n, r) {
-      return je.apply(this, arguments);
-    }
-    function je() {
-      return (
-        (je = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a) {
-            if (!(t >= e.length) && !(pe || he !== r)) {
-              var i = e[t];
-              if (i != null) {
-                var l = i.isEarlyPacketRelayReconnect,
-                  s = i.isWebTransportWarmStandby,
-                  u = i.relayConnectionInfo;
-                o("WALogger").LOG(
-                  z ||
-                    (z = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [SctpConnectionManager] Starting staggered connection ",
-                      "/",
-                      ": ",
-                      "",
-                    ])),
-                  t + 1,
-                  e.length,
-                  u.id,
-                );
-                var c = Oe(u.id);
-                if ((De(u, a, l, s), t < e.length - 1)) {
-                  var d = new (ue || (ue = n("Promise")))(function (e) {
-                    window.setTimeout(
-                      e,
-                      o("WAWebVoipSctpConnectionManagerConstants")
-                        .PER_CONNECTION_STAGGER_DELAY_MS,
-                    );
-                  });
-                  yield ue.race([c, d]);
-                }
-                yield ze(e, t + 1, r, a);
-              }
-            }
-          },
-        )),
-        je.apply(this, arguments)
-      );
-    }
-    function Ke(e, t, n) {
+    function Ve(e, t, n) {
       !o("WAWebVoipSctpConnectionState").currentRelayState.has(e) ||
         t == null ||
         t.state !== o("WAWebVoipRelayConnectionUtils").ConnectionState.None ||
@@ -758,7 +715,7 @@ __d(
         ((t.hasLoggedEarlyPacketRelayEligible = !0),
         o("WAWebCoreActionsODS").logCallSctpEarlyPacketRelayEligible(n));
     }
-    function Qe(e, t, n) {
+    function He(e, t, n) {
       return (
         !o("WAWebVoipSctpConnectionState").currentRelayState.has(e) ||
         t == null ||
@@ -766,132 +723,119 @@ __d(
           t.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.None)
       );
     }
-    function Xe(e, t) {
-      return Ye.apply(this, arguments);
-    }
-    function Ye() {
-      return (
-        (Ye = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = (t == null ? void 0 : t.webTransportWarmStandby) === !0;
-          if (
-            !(
-              r &&
-              !(yield o(
-                "WAWebVoipSctpWarmStandby",
-              ).prepareWebTransportSctpWarmStandby())
-            )
-          ) {
-            ((ce = Je()), (de = Ze(ce)));
-            var a =
-              o("WAWebVoipSctpConnectionState").currentRelayState.size === 0 ||
-              Ce
-                ? "initial"
-                : "mid_call_relay_update";
-            ((Ce = !1), he++);
-            var i = o(
-                "WAWebVoipSctpWarmStandby",
-              ).getWebTransportSctpWarmStandbyRelayState(e),
-              l = o("WAWebVoipGatingUtils").isCurrentCallGroup(),
-              s = e.enable_web_group_early_packet_relay_reconnect === !0;
-            for (var u of o("WAWebVoipSctpConnectionState").currentRelayState) {
-              var c = u[0],
-                d = u[1];
-              if (!i.has(c)) {
-                var m = o("WAWebVoipSctpConnectionState").sctpConnections.get(
-                  c,
-                );
-                o("WAWebVoipSctpConnectionManagerConstants")
-                  .SctpConnectionConfig.CLOSE_OLD_CONNECTION_BEFORE_CALL_END ||
-                (r && (m == null ? void 0 : m.isWebTransportWarmStandby) === !0)
-                  ? Te(c)
-                  : m != null &&
-                    m.state !==
-                      o("WAWebVoipRelayConnectionUtils").ConnectionState
-                        .Failed &&
-                    m.state !==
-                      o("WAWebVoipRelayConnectionUtils").ConnectionState
-                        .Closed &&
-                    ((m.relayConnectionInfo = d),
-                    o("WAWebCoreActionsODS").logCallSctpObsoleteRelayEvent(
-                      "retained",
-                    ));
-              }
-            }
-            var p = [];
-            for (var _ of i) {
-              var f = _[0],
-                g = _[1],
-                h = o("WAWebVoipSctpConnectionState").sctpConnections.get(f);
-              Ke(f, h, l);
-              var y =
-                s &&
-                o("WAWebVoipSctpConnectionState").currentRelayState.has(f) &&
-                (h == null ? void 0 : h.state) ===
-                  o("WAWebVoipRelayConnectionUtils").ConnectionState.None;
-              Qe(f, h, s) &&
-                p.push({
-                  relayConnectionInfo: g,
-                  isEarlyPacketRelayReconnect: y,
-                  isWebTransportWarmStandby: r,
-                });
-            }
-            o("WAWebVoipSctpConnectionState").currentRelayState.clear();
-            for (var C of i) {
-              var b = C[0],
-                v = C[1];
-              o("WAWebVoipSctpConnectionState").currentRelayState.set(b, v);
-            }
-            o("WAWebVoipSctpIceTcpFallback").armIceTcpFallback(
-              {
-                getRelays: function () {
-                  return o(
-                    "WAWebVoipSctpConnectionState",
-                  ).currentRelayState.values();
-                },
-                moveToIceTcp: Ae,
-                moveBackToUdp: Ae,
-              },
-              r,
-            );
-            var S = t == null ? void 0 : t.connectionLimit,
-              R =
-                S != null && r
-                  ? o(
-                      "WAWebVoipSctpWarmStandby",
-                    ).getWebTransportSctpWarmStandbyConnectionSlots(S)
-                  : S,
-              L = R == null ? p : p.slice(0, R);
-            if (L.length > 0) {
-              o("WAWebVoipRelayConnectQpl").maybeStartVoipRelayConnectQpl(!r);
-              var E =
-                e.enable_web_relay_connection_stagger === !0 &&
-                (t == null ? void 0 : t.bypassConnectionStagger) !== !0;
-              E
-                ? yield He(L, a)
-                : yield (ue || (ue = n("Promise"))).all(
-                    L.map(function (e) {
-                      return De(
-                        e.relayConnectionInfo,
-                        a,
-                        e.isEarlyPacketRelayReconnect,
-                        e.isWebTransportWarmStandby,
-                      );
-                    }),
-                  );
-            }
+    async function Ge(e, t) {
+      var n = (t == null ? void 0 : t.webTransportWarmStandby) === !0;
+      if (
+        !(
+          n &&
+          !(await o(
+            "WAWebVoipSctpWarmStandby",
+          ).prepareWebTransportSctpWarmStandby())
+        )
+      ) {
+        ((ue = ze()), (ce = je(ue)));
+        var r =
+          o("WAWebVoipSctpConnectionState").currentRelayState.size === 0 || ye
+            ? "initial"
+            : "mid_call_relay_update";
+        ((ye = !1), ge++);
+        var a = o(
+            "WAWebVoipSctpWarmStandby",
+          ).getWebTransportSctpWarmStandbyRelayState(e),
+          i = o("WAWebVoipGatingUtils").isCurrentCallGroup(),
+          l = e.enable_web_group_early_packet_relay_reconnect === !0;
+        for (var s of o("WAWebVoipSctpConnectionState").currentRelayState) {
+          var u = s[0],
+            c = s[1];
+          if (!a.has(u)) {
+            var d = o("WAWebVoipSctpConnectionState").sctpConnections.get(u);
+            o("WAWebVoipSctpConnectionManagerConstants").SctpConnectionConfig
+              .CLOSE_OLD_CONNECTION_BEFORE_CALL_END ||
+            (n && (d == null ? void 0 : d.isWebTransportWarmStandby) === !0)
+              ? Ie(u)
+              : d != null &&
+                d.state !==
+                  o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed &&
+                d.state !==
+                  o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed &&
+                ((d.relayConnectionInfo = c),
+                o("WAWebCoreActionsODS").logCallSctpObsoleteRelayEvent(
+                  "retained",
+                ));
           }
-        })),
-        Ye.apply(this, arguments)
-      );
+        }
+        var m = [];
+        for (var p of a) {
+          var _ = p[0],
+            f = p[1],
+            g = o("WAWebVoipSctpConnectionState").sctpConnections.get(_);
+          Ve(_, g, i);
+          var h =
+            l &&
+            o("WAWebVoipSctpConnectionState").currentRelayState.has(_) &&
+            (g == null ? void 0 : g.state) ===
+              o("WAWebVoipRelayConnectionUtils").ConnectionState.None;
+          He(_, g, l) &&
+            m.push({
+              relayConnectionInfo: f,
+              isEarlyPacketRelayReconnect: h,
+              isWebTransportWarmStandby: n,
+            });
+        }
+        o("WAWebVoipSctpConnectionState").currentRelayState.clear();
+        for (var y of a) {
+          var C = y[0],
+            b = y[1];
+          o("WAWebVoipSctpConnectionState").currentRelayState.set(C, b);
+        }
+        o("WAWebVoipSctpIceTcpFallback").armIceTcpFallback(
+          {
+            getRelays: function () {
+              return o(
+                "WAWebVoipSctpConnectionState",
+              ).currentRelayState.values();
+            },
+            moveToIceTcp: Me,
+            moveBackToUdp: Me,
+          },
+          n,
+        );
+        var v = t == null ? void 0 : t.connectionLimit,
+          S =
+            v != null && n
+              ? o(
+                  "WAWebVoipSctpWarmStandby",
+                ).getWebTransportSctpWarmStandbyConnectionSlots(v)
+              : v,
+          R = S == null ? m : m.slice(0, S);
+        if (R.length > 0) {
+          o("WAWebVoipRelayConnectQpl").maybeStartVoipRelayConnectQpl(!n);
+          var L =
+            e.enable_web_relay_connection_stagger === !0 &&
+            (t == null ? void 0 : t.bypassConnectionStagger) !== !0;
+          L
+            ? await qe(R, r)
+            : await Promise.all(
+                R.map(function (e) {
+                  return Te(
+                    e.relayConnectionInfo,
+                    r,
+                    e.isEarlyPacketRelayReconnect,
+                    e.isWebTransportWarmStandby,
+                  );
+                }),
+              );
+        }
+      }
     }
-    function Je() {
+    function ze() {
       try {
         return r("justknobx")._("5402") || 1e4;
       } catch (e) {
         return (
           o("WALogger").WARN(
-            R ||
-              (R = babelHelpers.taggedTemplateLiteralLoose([
+            I ||
+              (I = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [SCTP] timeout JK unavailable, using fallback=10000: ",
                 "",
               ])),
@@ -901,14 +845,14 @@ __d(
         );
       }
     }
-    function Ze(e) {
+    function je(e) {
       try {
         return r("justknobx")._("5558") || e;
       } catch (t) {
         return (
           o("WALogger").WARN(
-            L ||
-              (L = babelHelpers.taggedTemplateLiteralLoose([
+            T ||
+              (T = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [SCTP] ICE restart RX inactivity JK unavailable, using fallback=",
                 ": ",
                 "",
@@ -920,14 +864,14 @@ __d(
         );
       }
     }
-    function et(e, t, n) {
+    function Ke(e, t, n) {
       (n === void 0 && (n = !1),
         !n &&
           ((e.onopen = function (n) {
-            gt(n, t.id, e);
+            st(n, t.id, e);
           }),
           (e.onclose = function (e) {
-            ht(e, t.id);
+            ut(e, t.id);
           }),
           (e.onmessage = function (e) {
             o("WAWebVoipSctpInboundMessageHandler").handleSctpChannelMessage(
@@ -937,8 +881,8 @@ __d(
           }),
           (e.onerror = function (n) {
             o("WALogger").ERROR(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
+              D ||
+                (D = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [SctpConnectionManager] Data channel error for ",
                   ":",
                 ])),
@@ -947,8 +891,8 @@ __d(
             var r = o("WAWebVoipSctpConnectionState").sctpConnections.get(t.id);
             if (r != null && r.channel === e) {
               var a = r;
-              (Re(),
-                Ne(
+              (Se(),
+                $e(
                   a,
                   "data_channel_error",
                   "data_channel_error_reconnecting",
@@ -957,7 +901,7 @@ __d(
             }
           })));
     }
-    function tt(e) {
+    function Qe(e) {
       var t = e.connection,
         n = e.context,
         r = e.peerConnection,
@@ -977,26 +921,26 @@ __d(
         ).shouldUseMainThreadForWebTransportSctp() ||
         o("WAWebVoipRelayConnectionUtils").isDcTransferDisabled()
           ? o("WALogger").LOG(
-              k ||
-                (k = babelHelpers.taggedTemplateLiteralLoose([
+              x ||
+                (x = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [DCThread] DC transfer disabled for ",
                   "",
                 ])),
               a.id,
             )
-          : (u = Ie(s, t, a.id, n)),
+          : (u = ke(s, t, a.id, n)),
         (t.channel = s),
-        et(s, a, u),
+        Ke(s, a, u),
         s
       );
     }
-    function nt(e, t, n) {
+    function Xe(e, t, n) {
       var r = n != null ? " " + n : "";
       ((e.oniceconnectionstatechange = function () {
         var n = e.iceConnectionState;
         o("WALogger").LOG(
-          I ||
-            (I = babelHelpers.taggedTemplateLiteralLoose([
+          $ ||
+            ($ = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [SCTP] ICE state->",
               " ",
               "",
@@ -1024,8 +968,8 @@ __d(
               if (n !== "connected") {
                 var i = Date.now() - a.iceConnectedTime;
                 (o("WALogger").WARN(
-                  T ||
-                    (T = babelHelpers.taggedTemplateLiteralLoose([
+                  P ||
+                    (P = babelHelpers.taggedTemplateLiteralLoose([
                       "voip: [SCTP] DTLS stall: ICE connected ",
                       "ms ago (threshold=",
                       "ms) but PC state is '",
@@ -1034,7 +978,7 @@ __d(
                       "",
                     ])),
                   i,
-                  ce,
+                  ue,
                   n,
                   t,
                   r,
@@ -1042,21 +986,21 @@ __d(
                   o(
                     "WAWebVoipSctpOdsPortLogging",
                   ).logCallDtlsFailedStallForPort(a.relayPort),
-                  Ne(a, "dtls_stall", "dtls_stall_reconnecting", "[SCTP]"));
+                  $e(a, "dtls_stall", "dtls_stall_reconnecting", "[SCTP]"));
               }
-            }, ce))),
+            }, ue))),
           n === "failed" &&
             (o("WAWebVoipSctpOdsPortLogging").logCallIceFailedForPort(
               a.relayPort,
             ),
-            we(a))),
+            Ne(a))),
           o("WAWebVoipSctpIceTcpFallback").noteRelayIceState(t, n));
       }),
         (e.onconnectionstatechange = function () {
           var n = e.connectionState;
           o("WALogger").LOG(
-            D ||
-              (D = babelHelpers.taggedTemplateLiteralLoose([
+            N ||
+              (N = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [SCTP] PC state->",
                 " ",
                 "",
@@ -1080,8 +1024,8 @@ __d(
             ) {
               var i = Date.now() - a.iceConnectedTime;
               o("WALogger").LOG(
-                x ||
-                  (x = babelHelpers.taggedTemplateLiteralLoose([
+                M ||
+                  (M = babelHelpers.taggedTemplateLiteralLoose([
                     "voip: [SCTP] DTLS handshake completed in ",
                     "ms for ",
                     "",
@@ -1115,257 +1059,242 @@ __d(
           o("WAWebVoipSctpIceTcpFallback").noteRelayConnectionState(n);
         }));
     }
-    function rt(e) {
-      return ot.apply(this, arguments);
-    }
-    function ot() {
-      return (
-        (ot = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.channelLabel,
-            n = e.isEarlyPacketRelayReconnect,
-            r = e.isWebTransportWarmStandby,
-            a = e.origin,
-            i = e.relayConnectionInfo,
-            l = o("WAWebVoipSctpConnectionState").sctpConnections.get(i.id);
-          (l &&
-          l.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.None
-            ? ((l.isEarlyPacketRelayReconnect = n),
-              (l.isWebTransportWarmStandby = r),
-              (l.hasLoggedEarlyPacketRelayReconnectConnected = !1),
-              (l.state = o(
-                "WAWebVoipRelayConnectionUtils",
-              ).ConnectionState.Connecting),
-              (l.connectionStartTime = Date.now()),
-              (l.relayConnectionInfo = i),
-              (l.relayId = i.relayId),
-              (l.relayIp = i.ip),
-              (l.relayPort = i.port),
-              l.connectionTimeout != null &&
-                l.connectionTimeout !== 0 &&
-                (window.clearTimeout(l.connectionTimeout),
-                (l.connectionTimeout = null)),
-              o("WALogger").LOG(
-                j ||
-                  (j = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SCTP] early conn->connecting ",
-                    " buf=",
-                    "",
-                  ])),
-                i.id,
-                l.packetBuffer.bufferedBytes,
-              ))
-            : ((l = {
-                state: o("WAWebVoipRelayConnectionUtils").ConnectionState
-                  .Connecting,
-                channel: null,
-                peerConnection: null,
-                packetBuffer: o(
-                  "WAWebVoipRelayConnectionUtils",
-                ).createPacketBuffer(),
-                id: i.id,
-                relayConnectionInfo: i,
-                connectionTimeout: null,
-                hasReceivedFirstPacket: !1,
-                hasNonStunPacketSent: !1,
-                lastRxPacketTime: 0,
-                stats: o(
-                  "WAWebVoipRelayConnectionUtils",
-                ).createEmptyConnectionStats(),
-                isReconnecting: !1,
-                sentMedia: !1,
-                connectionStartTime: Date.now(),
-                channelTransferred: !1,
-                relayId: i.relayId,
-                relayIp: i.ip,
-                relayPort: i.port,
-                iceConnectedTime: 0,
-                dtlsStallTimeout: null,
-                isEarlyPacketRelayReconnect: n,
-                hasLoggedEarlyPacketRelayReconnectConnected: !1,
-                isWebTransportWarmStandby: r,
-              }),
-              r ||
-                o(
-                  "WAWebVoipSctpFallbackFamilyOutcome",
-                ).recordSctpFallbackFamilyAttempt(l.relayIp),
-              o("WAWebVoipSctpConnectionState").sctpConnections.set(l.id, l)),
-            n &&
-              o(
-                "WAWebCoreActionsODS",
-              ).logCallSctpEarlyPacketRelayReconnectEvent("attempted"));
-          var s = l;
-          l.connectionTimeout = window.setTimeout(function () {
-            s.state ===
-              o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting &&
-              (o("WALogger").WARN(
-                K ||
-                  (K = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SCTP] Connection timeout (",
-                    "ms) in Connecting state for ",
-                    "",
-                  ])),
-                me(),
-                i.id,
-              ),
-              st(s, "connection_timeout"));
-          }, me());
-          var u = !1;
-          if (
-            (!o(
-              "WAWebVoipSctpWarmStandby",
-            ).shouldUseMainThreadForWebTransportSctp() &&
-              !o("WAWebVoipRelayConnectionUtils").isDcTransferDisabled() &&
-              (u = yield yt({
-                withRing: o(
-                  "WAWebVoipSctpWarmStandby",
-                ).shouldStartSctpSendRing(),
-              })),
-            pe)
-          )
-            return (lt(i.id), Be(i.id), !1);
-          (o("WAWebVoipTsLogger").logIceConnectionStart({
+    async function Ye(e) {
+      var t = e.channelLabel,
+        n = e.isEarlyPacketRelayReconnect,
+        r = e.isWebTransportWarmStandby,
+        a = e.origin,
+        i = e.relayConnectionInfo,
+        l = o("WAWebVoipSctpConnectionState").sctpConnections.get(i.id);
+      (l && l.state === o("WAWebVoipRelayConnectionUtils").ConnectionState.None
+        ? ((l.isEarlyPacketRelayReconnect = n),
+          (l.isWebTransportWarmStandby = r),
+          (l.hasLoggedEarlyPacketRelayReconnectConnected = !1),
+          (l.state = o(
+            "WAWebVoipRelayConnectionUtils",
+          ).ConnectionState.Connecting),
+          (l.connectionStartTime = Date.now()),
+          (l.relayConnectionInfo = i),
+          (l.relayId = i.relayId),
+          (l.relayIp = i.ip),
+          (l.relayPort = i.port),
+          l.connectionTimeout != null &&
+            l.connectionTimeout !== 0 &&
+            (window.clearTimeout(l.connectionTimeout),
+            (l.connectionTimeout = null)),
+          o("WALogger").LOG(
+            w ||
+              (w = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SCTP] early conn->connecting ",
+                " buf=",
+                "",
+              ])),
+            i.id,
+            l.packetBuffer.bufferedBytes,
+          ))
+        : ((l = {
+            state: o("WAWebVoipRelayConnectionUtils").ConnectionState
+              .Connecting,
+            channel: null,
+            peerConnection: null,
+            packetBuffer: o(
+              "WAWebVoipRelayConnectionUtils",
+            ).createPacketBuffer(),
+            id: i.id,
+            relayConnectionInfo: i,
+            connectionTimeout: null,
+            hasReceivedFirstPacket: !1,
+            hasNonStunPacketSent: !1,
+            lastRxPacketTime: 0,
+            stats: o(
+              "WAWebVoipRelayConnectionUtils",
+            ).createEmptyConnectionStats(),
+            isReconnecting: !1,
+            sentMedia: !1,
+            connectionStartTime: Date.now(),
+            channelTransferred: !1,
             relayId: i.relayId,
-            ip: i.ip,
-            port: i.port,
+            relayIp: i.ip,
+            relayPort: i.port,
+            iceConnectedTime: 0,
+            dtlsStallTimeout: null,
+            isEarlyPacketRelayReconnect: n,
+            hasLoggedEarlyPacketRelayReconnectConnected: !1,
+            isWebTransportWarmStandby: r,
           }),
-            o("WAWebVoipSctpOdsPortLogging").logCallIceStartedForPort(i.port));
-          try {
-            var c,
-              d,
-              m = {};
-            if (
-              ((m.certificates = [
-                yield o("WAWebVoipDtlsCertAcquire").acquireDtlsCert(a),
-              ]),
-              yield o("WAWebReleaseToEventLoop").releaseToEventLoop(),
-              pe)
-            )
-              return (lt(i.id), Be(i.id), !1);
-            if (it(l))
-              return (
-                o("WALogger").WARN(
-                  Q ||
-                    (Q = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [SctpConnectionManager] Aborting stale connect for ",
-                      " after certificate acquisition",
-                    ])),
-                  i.id,
-                ),
-                o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(l),
-                !1
-              );
-            var p = Date.now(),
-              _ = new RTCPeerConnection(m),
-              f = Date.now() - p;
-            (f >
-              o("WAWebVoipSctpConnectionManagerConstants")
-                .SLOW_WEBRTC_SETUP_THRESHOLD_MS &&
-              o("WALogger").WARN(
-                X ||
-                  (X = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SCTP] slow RTCPeerConnection ctor ",
-                    ": ",
-                    "ms",
-                  ])),
-                i.id,
-                f,
-              ),
-              (l.peerConnection = _),
-              (_.onicecandidate = function (e) {
-                e.candidate ||
-                  o("WALogger").LOG(
-                    Y ||
-                      (Y = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [SctpConnectionManager] ICE gathering complete for ",
-                        "",
-                      ])),
-                    i.id,
-                  );
-              }),
-              nt(_, i.id),
-              tt({ connection: l, peerConnection: _, relayConnectionInfo: i }));
-            var g = Date.now(),
-              h = yield _.createOffer();
-            yield _.setLocalDescription(h);
-            var y = h.sdp || "",
-              C = o("WAWebVoipSctpIceTcpFallback").createRelayAnswerSdp(y, i);
-            if (
-              (yield _.setRemoteDescription({ sdp: C, type: "answer" }), it(l))
-            )
-              return (
-                o("WALogger").WARN(
-                  J ||
-                    (J = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [SctpConnectionManager] Aborting stale connect for ",
-                      " after setRemoteDescription",
-                    ])),
-                  i.id,
-                ),
-                o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(l),
-                o("WAWebVoipSctpConnectionTeardown").closeConnectionDataChannel(
-                  l,
-                ),
-                o(
-                  "WAWebVoipSctpConnectionTeardown",
-                ).detachPeerConnectionHandlers(_),
-                _.close(),
-                (l.peerConnection = null),
-                !1
-              );
-            o("WAWebVoipSctpIceTcpFallback").noteRelayIceStarted(me());
-            var b = Date.now() - g;
-            b >
-              o("WAWebVoipSctpConnectionManagerConstants")
-                .SLOW_WEBRTC_SETUP_THRESHOLD_MS &&
-              o("WALogger").WARN(
-                Z ||
-                  (Z = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SctpConnectionManager] Slow SDP negotiation for ",
-                    ": ",
-                    "ms",
-                  ])),
-                i.id,
-                b,
-              );
-            var v = _.iceConnectionState,
-              S =
-                (c = (d = l.channel) == null ? void 0 : d.readyState) != null
-                  ? c
-                  : "unknown";
-            return (
+          r ||
+            o(
+              "WAWebVoipSctpFallbackFamilyOutcome",
+            ).recordSctpFallbackFamilyAttempt(l.relayIp),
+          o("WAWebVoipSctpConnectionState").sctpConnections.set(l.id, l)),
+        n &&
+          o("WAWebCoreActionsODS").logCallSctpEarlyPacketRelayReconnectEvent(
+            "attempted",
+          ));
+      var s = l;
+      l.connectionTimeout = window.setTimeout(function () {
+        s.state ===
+          o("WAWebVoipRelayConnectionUtils").ConnectionState.Connecting &&
+          (o("WALogger").WARN(
+            A ||
+              (A = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SCTP] Connection timeout (",
+                "ms) in Connecting state for ",
+                "",
+              ])),
+            de(),
+            i.id,
+          ),
+          tt(s, "connection_timeout"));
+      }, de());
+      var u = !1;
+      if (
+        (!o(
+          "WAWebVoipSctpWarmStandby",
+        ).shouldUseMainThreadForWebTransportSctp() &&
+          !o("WAWebVoipRelayConnectionUtils").isDcTransferDisabled() &&
+          (u = await ct({
+            withRing: o("WAWebVoipSctpWarmStandby").shouldStartSctpSendRing(),
+          })),
+        me)
+      )
+        return (et(i.id), Fe(i.id), !1);
+      (o("WAWebVoipTsLogger").logIceConnectionStart({
+        relayId: i.relayId,
+        ip: i.ip,
+        port: i.port,
+      }),
+        o("WAWebVoipSctpOdsPortLogging").logCallIceStartedForPort(i.port));
+      try {
+        var c,
+          d,
+          m = {};
+        if (
+          ((m.certificates = [
+            await o("WAWebVoipDtlsCertAcquire").acquireDtlsCert(a),
+          ]),
+          await o("WAWebReleaseToEventLoop").releaseToEventLoop(),
+          me)
+        )
+          return (et(i.id), Fe(i.id), !1);
+        if (Ze(l))
+          return (
+            o("WALogger").WARN(
+              F ||
+                (F = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [SctpConnectionManager] Aborting stale connect for ",
+                  " after certificate acquisition",
+                ])),
+              i.id,
+            ),
+            o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(l),
+            !1
+          );
+        var p = Date.now(),
+          _ = new RTCPeerConnection(m),
+          f = Date.now() - p;
+        (f >
+          o("WAWebVoipSctpConnectionManagerConstants")
+            .SLOW_WEBRTC_SETUP_THRESHOLD_MS &&
+          o("WALogger").WARN(
+            O ||
+              (O = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SCTP] slow RTCPeerConnection ctor ",
+                ": ",
+                "ms",
+              ])),
+            i.id,
+            f,
+          ),
+          (l.peerConnection = _),
+          (_.onicecandidate = function (e) {
+            e.candidate ||
               o("WALogger").LOG(
-                ee ||
-                  (ee = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SCTP] SDP done ",
-                    " DC=",
-                    " ICE=",
+                B ||
+                  (B = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [SctpConnectionManager] ICE gathering complete for ",
                     "",
                   ])),
                 i.id,
-                S,
-                v,
-              ),
-              !0
-            );
-          } catch (e) {
-            return (
-              o("WALogger").ERROR(
-                te ||
-                  (te = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SCTP] createDataChannel failed: ",
-                    "",
-                  ])),
-                e,
-              ),
-              st(l, "channel_creation_failed"),
-              !1
-            );
-          }
-        })),
-        ot.apply(this, arguments)
-      );
+              );
+          }),
+          Xe(_, i.id),
+          Qe({ connection: l, peerConnection: _, relayConnectionInfo: i }));
+        var g = Date.now(),
+          h = await _.createOffer();
+        await _.setLocalDescription(h);
+        var y = h.sdp || "",
+          C = o("WAWebVoipSctpIceTcpFallback").createRelayAnswerSdp(y, i);
+        if ((await _.setRemoteDescription({ sdp: C, type: "answer" }), Ze(l)))
+          return (
+            o("WALogger").WARN(
+              W ||
+                (W = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [SctpConnectionManager] Aborting stale connect for ",
+                  " after setRemoteDescription",
+                ])),
+              i.id,
+            ),
+            o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(l),
+            o("WAWebVoipSctpConnectionTeardown").closeConnectionDataChannel(l),
+            o("WAWebVoipSctpConnectionTeardown").detachPeerConnectionHandlers(
+              _,
+            ),
+            _.close(),
+            (l.peerConnection = null),
+            !1
+          );
+        o("WAWebVoipSctpIceTcpFallback").noteRelayIceStarted(de());
+        var b = Date.now() - g;
+        b >
+          o("WAWebVoipSctpConnectionManagerConstants")
+            .SLOW_WEBRTC_SETUP_THRESHOLD_MS &&
+          o("WALogger").WARN(
+            q ||
+              (q = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SctpConnectionManager] Slow SDP negotiation for ",
+                ": ",
+                "ms",
+              ])),
+            i.id,
+            b,
+          );
+        var v = _.iceConnectionState,
+          S =
+            (c = (d = l.channel) == null ? void 0 : d.readyState) != null
+              ? c
+              : "unknown";
+        return (
+          o("WALogger").LOG(
+            U ||
+              (U = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SCTP] SDP done ",
+                " DC=",
+                " ICE=",
+                "",
+              ])),
+            i.id,
+            S,
+            v,
+          ),
+          !0
+        );
+      } catch (e) {
+        return (
+          o("WALogger").ERROR(
+            V ||
+              (V = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SCTP] createDataChannel failed: ",
+                "",
+              ])),
+            e,
+          ),
+          tt(l, "channel_creation_failed"),
+          !1
+        );
+      }
     }
-    function at(e) {
+    function Je(e) {
       var t,
         n,
         r = e.stats,
@@ -1382,8 +1311,8 @@ __d(
           ? t
           : "N/A";
       (o("WALogger").LOG(
-        $ ||
-          ($ = babelHelpers.taggedTemplateLiteralLoose([
+        H ||
+          (H = babelHelpers.taggedTemplateLiteralLoose([
             "voip: [SCTP] stats relay=",
             " id=",
             " txPkt=",
@@ -1400,8 +1329,8 @@ __d(
         r.receivedBytes,
       ),
         o("WALogger").LOG(
-          P ||
-            (P = babelHelpers.taggedTemplateLiteralLoose([
+          G ||
+            (G = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [SCTP] stats bufB=",
               " bindT=",
               "ms",
@@ -1410,12 +1339,12 @@ __d(
           a,
         ));
     }
-    function it(e) {
+    function Ze(e) {
       return (
-        pe || o("WAWebVoipSctpConnectionState").sctpConnections.get(e.id) !== e
+        me || o("WAWebVoipSctpConnectionState").sctpConnections.get(e.id) !== e
       );
     }
-    function lt(e) {
+    function et(e) {
       var t = o("WAWebVoipSctpConnectionState").sctpConnections.get(e);
       if (t) {
         (o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(t),
@@ -1426,7 +1355,7 @@ __d(
           (o("WAWebVoipSctpConnectionTeardown").detachPeerConnectionHandlers(n),
           n.close(),
           (t.peerConnection = null)),
-          at(t),
+          Je(t),
           o("WAWebVoipRelayConnectionUtils").clearPacketBuffer(t.packetBuffer),
           (t.isReconnecting == null || !t.isReconnecting) &&
             (o(
@@ -1442,17 +1371,17 @@ __d(
               )));
       }
     }
-    function st(e, t, n) {
+    function tt(e, t, n) {
       (n === void 0 && (n = !1),
         e &&
           e.state !==
             o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed &&
           e.state !==
             o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed &&
-          (n || Ee(e.id),
+          (n || Le(e.id),
           o("WALogger").LOG(
-            N ||
-              (N = babelHelpers.taggedTemplateLiteralLoose([
+            z ||
+              (z = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [SctpConnectionManager] Failing (closing) connection for ",
                 ", reason: ",
                 "",
@@ -1469,28 +1398,28 @@ __d(
               1,
             ),
           (e.state = o("WAWebVoipRelayConnectionUtils").ConnectionState.Failed),
-          lt(e.id),
-          Be(e.id)));
+          et(e.id),
+          Fe(e.id)));
     }
-    function ut(e) {
+    function nt(e) {
       var t = o("WAWebVoipSctpConnectionState").sctpConnections.get(e);
       t &&
         (t.isReconnecting == null || !t.isReconnecting) &&
         ((t.state = o("WAWebVoipRelayConnectionUtils").ConnectionState.Closed),
-        lt(e),
-        Be(e));
+        et(e),
+        Fe(e));
     }
-    function ct(e, t) {
-      return it(e) || ye !== t;
+    function rt(e, t) {
+      return Ze(e) || he !== t;
     }
-    function dt(e) {
+    function ot(e) {
       var t = e.connection,
         n = e.replacementPeerConnection,
         r = e.stage;
       if (
         (o("WALogger").WARN(
-          M ||
-            (M = babelHelpers.taggedTemplateLiteralLoose([
+          j ||
+            (j = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [SctpConnectionManager] Aborting stale ICE restart for ",
               " at ",
               "",
@@ -1503,7 +1432,7 @@ __d(
         o("WAWebVoipSctpConnectionTeardown").clearConnectionTimers(t),
         o("WAWebVoipSctpConnectionState").sctpConnections.get(t.id) === t)
       ) {
-        (lt(t.id), mt(t.id));
+        (et(t.id), at(t.id));
         return;
       }
       (o("WAWebVoipSctpConnectionTeardown").closeConnectionDataChannel(t),
@@ -1512,22 +1441,22 @@ __d(
           n.close()),
         (t.peerConnection = null));
     }
-    function mt(e) {
+    function at(e) {
       var t = o("WAWebVoipSctpConnectionState").currentRelayState.get(e);
-      pe ||
+      me ||
         t == null ||
         (o("WALogger").LOG(
-          w ||
-            (w = babelHelpers.taggedTemplateLiteralLoose([
+          K ||
+            (K = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [SctpConnectionManager] Reconnecting ",
               " after aborted ICE restart",
             ])),
           e,
         ),
-        De(t, "same_path_reconnect").catch(function (t) {
+        Te(t, "same_path_reconnect").catch(function (t) {
           o("WALogger").ERROR(
-            A ||
-              (A = babelHelpers.taggedTemplateLiteralLoose([
+            Q ||
+              (Q = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [SctpConnectionManager] Reconnect after aborted ICE restart failed for ",
                 ": ",
                 "",
@@ -1537,12 +1466,12 @@ __d(
           );
         }));
     }
-    function pt(e) {
-      Se.has(e) ||
-        (Se.add(e),
+    function it(e) {
+      ve.has(e) ||
+        (ve.add(e),
         o("WALogger").WARN(
-          F ||
-            (F = babelHelpers.taggedTemplateLiteralLoose([
+          X ||
+            (X = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [SCTP] ICE restart skip: cleanup in progress ",
               "",
             ])),
@@ -1552,182 +1481,167 @@ __d(
           "web.call.sctp.ice_restart.skipped_cleanup_in_progress",
         ));
     }
-    function _t(e) {
-      return ft.apply(this, arguments);
-    }
-    function ft() {
-      return (
-        (ft = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.isReconnecting !== !0) {
-            if (pe) {
-              pt(e.id);
-              return;
-            }
-            var t = ye;
-            if (
-              (o("WALogger").LOG(
-                ne ||
-                  (ne = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SctpConnectionManager] Restarting ICE process for connection ",
-                    "",
-                  ])),
-                e.id,
+    async function lt(e) {
+      if (e.isReconnecting !== !0) {
+        if (me) {
+          it(e.id);
+          return;
+        }
+        var t = he;
+        if (
+          (o("WALogger").LOG(
+            Y ||
+              (Y = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SctpConnectionManager] Restarting ICE process for connection ",
+                "",
+              ])),
+            e.id,
+          ),
+          !e.hasNonStunPacketSent)
+        ) {
+          o("WALogger").WARN(
+            J ||
+              (J = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SCTP] ICE restart skip: no non-STUN sent ",
+                "",
+              ])),
+            e.id,
+          );
+          return;
+        }
+        var n = o("WAWebVoipSctpConnectionState").currentRelayState.get(e.id);
+        if (!n) {
+          o("WALogger").WARN(
+            Z ||
+              (Z = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SCTP] ICE restart skip: no relay info ",
+                "",
+              ])),
+            e.id,
+          );
+          return;
+        }
+        var r = e.peerConnection;
+        if (!r) {
+          o("WALogger").WARN(
+            ee ||
+              (ee = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SCTP] ICE restart skip: no PC ",
+                "",
+              ])),
+            e.id,
+          );
+          return;
+        }
+        var a = e.packetBuffer;
+        if (
+          ((e.isReconnecting = !0),
+          (e.state = o(
+            "WAWebVoipRelayConnectionUtils",
+          ).ConnectionState.Connecting),
+          e.peerConnection)
+        ) {
+          var i;
+          (o("WALogger").LOG(
+            te ||
+              (te = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SctpConnectionManager] Closing previous connection for ",
+                "",
+              ])),
+            e.id,
+          ),
+            window.clearTimeout((i = e.connectionTimeout) != null ? i : void 0),
+            (e.connectionTimeout = null),
+            o("WAWebVoipSctpConnectionTeardown").closeConnectionDataChannel(e));
+          var l = e.peerConnection;
+          l &&
+            (o("WAWebVoipSctpConnectionTeardown").detachPeerConnectionHandlers(
+              l,
+            ),
+            l.close());
+        }
+        try {
+          ((e.hasReceivedFirstPacket = !1), (e.sentMedia = !1));
+          var s = {};
+          if (
+            ((s.certificates = [
+              await o("WAWebVoipDtlsCertAcquire").acquireDtlsCert(
+                "ice_restart",
               ),
-              !e.hasNonStunPacketSent)
-            ) {
-              o("WALogger").WARN(
-                re ||
-                  (re = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SCTP] ICE restart skip: no non-STUN sent ",
-                    "",
-                  ])),
-                e.id,
-              );
-              return;
-            }
-            var n = o("WAWebVoipSctpConnectionState").currentRelayState.get(
-              e.id,
-            );
-            if (!n) {
-              o("WALogger").WARN(
-                oe ||
-                  (oe = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SCTP] ICE restart skip: no relay info ",
-                    "",
-                  ])),
-                e.id,
-              );
-              return;
-            }
-            var r = e.peerConnection;
-            if (!r) {
-              o("WALogger").WARN(
-                ae ||
-                  (ae = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SCTP] ICE restart skip: no PC ",
-                    "",
-                  ])),
-                e.id,
-              );
-              return;
-            }
-            var a = e.packetBuffer;
-            if (
-              ((e.isReconnecting = !0),
-              (e.state = o(
-                "WAWebVoipRelayConnectionUtils",
-              ).ConnectionState.Connecting),
-              e.peerConnection)
-            ) {
-              var i;
-              (o("WALogger").LOG(
-                ie ||
-                  (ie = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SctpConnectionManager] Closing previous connection for ",
-                    "",
-                  ])),
-                e.id,
-              ),
-                window.clearTimeout(
-                  (i = e.connectionTimeout) != null ? i : void 0,
-                ),
-                (e.connectionTimeout = null),
-                o("WAWebVoipSctpConnectionTeardown").closeConnectionDataChannel(
-                  e,
-                ));
-              var l = e.peerConnection;
-              l &&
-                (o(
-                  "WAWebVoipSctpConnectionTeardown",
-                ).detachPeerConnectionHandlers(l),
-                l.close());
-            }
-            try {
-              ((e.hasReceivedFirstPacket = !1), (e.sentMedia = !1));
-              var s = {};
-              if (
-                ((s.certificates = [
-                  yield o("WAWebVoipDtlsCertAcquire").acquireDtlsCert(
-                    "ice_restart",
-                  ),
-                ]),
-                ct(e, t))
-              ) {
-                dt({
-                  connection: e,
-                  replacementPeerConnection: null,
-                  stage: "cert_acquire",
-                });
-                return;
-              }
-              var u = new RTCPeerConnection(s);
-              ((e.peerConnection = u),
-                (e.iceConnectedTime = 0),
-                e.dtlsStallTimeout != null &&
-                  (window.clearTimeout(e.dtlsStallTimeout),
-                  (e.dtlsStallTimeout = null)),
-                nt(u, e.id, "(ICE restart)"),
-                tt({
-                  connection: e,
-                  context: "ICE restart",
-                  peerConnection: u,
-                  relayConnectionInfo: n,
-                }),
-                (e.packetBuffer = a),
-                e.isWebTransportWarmStandby !== !0 &&
-                  o(
-                    "WAWebVoipSctpFallbackFamilyOutcome",
-                  ).recordSctpFallbackFamilyAttempt(e.relayIp),
-                o("WAWebVoipSctpConnectionState").sctpConnections.set(e.id, e));
-              var c = yield u.createOffer({ iceRestart: !1 });
-              yield u.setLocalDescription(c);
-              var d = c.sdp || "",
-                m = o("WAWebVoipSctpIceTcpFallback").createRelayAnswerSdp(d, n);
-              if (
-                (yield u.setRemoteDescription({ sdp: m, type: "answer" }),
-                ct(e, t))
-              ) {
-                dt({
-                  connection: e,
-                  replacementPeerConnection: u,
-                  stage: "negotiation",
-                });
-                return;
-              }
-              o("WALogger").LOG(
-                le ||
-                  (le = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SctpConnectionManager] ICE restart completed for connection ",
-                    "",
-                  ])),
-                e.id,
-              );
-            } catch (t) {
-              (o("WALogger").ERROR(
-                se ||
-                  (se = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [SctpConnectionManager] ICE restart failed for connection ",
-                    ": ",
-                    "",
-                  ])),
-                e.id,
-                t,
-              ),
-                st(e, "ice_restart_failed"));
-            }
+            ]),
+            rt(e, t))
+          ) {
+            ot({
+              connection: e,
+              replacementPeerConnection: null,
+              stage: "cert_acquire",
+            });
+            return;
           }
-        })),
-        ft.apply(this, arguments)
-      );
+          var u = new RTCPeerConnection(s);
+          ((e.peerConnection = u),
+            (e.iceConnectedTime = 0),
+            e.dtlsStallTimeout != null &&
+              (window.clearTimeout(e.dtlsStallTimeout),
+              (e.dtlsStallTimeout = null)),
+            Xe(u, e.id, "(ICE restart)"),
+            Qe({
+              connection: e,
+              context: "ICE restart",
+              peerConnection: u,
+              relayConnectionInfo: n,
+            }),
+            (e.packetBuffer = a),
+            e.isWebTransportWarmStandby !== !0 &&
+              o(
+                "WAWebVoipSctpFallbackFamilyOutcome",
+              ).recordSctpFallbackFamilyAttempt(e.relayIp),
+            o("WAWebVoipSctpConnectionState").sctpConnections.set(e.id, e));
+          var c = await u.createOffer({ iceRestart: !1 });
+          await u.setLocalDescription(c);
+          var d = c.sdp || "",
+            m = o("WAWebVoipSctpIceTcpFallback").createRelayAnswerSdp(d, n);
+          if (
+            (await u.setRemoteDescription({ sdp: m, type: "answer" }), rt(e, t))
+          ) {
+            ot({
+              connection: e,
+              replacementPeerConnection: u,
+              stage: "negotiation",
+            });
+            return;
+          }
+          o("WALogger").LOG(
+            ne ||
+              (ne = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SctpConnectionManager] ICE restart completed for connection ",
+                "",
+              ])),
+            e.id,
+          );
+        } catch (t) {
+          (o("WALogger").ERROR(
+            re ||
+              (re = babelHelpers.taggedTemplateLiteralLoose([
+                "voip: [SctpConnectionManager] ICE restart failed for connection ",
+                ": ",
+                "",
+              ])),
+            e.id,
+            t,
+          ),
+            tt(e, "ice_restart_failed"));
+        }
+      }
     }
-    function gt(e, t, n) {
+    function st(e, t, n) {
       var r = o("WAWebVoipSctpConnectionState").sctpConnections.get(t);
       if (r) {
         var a, i;
         if (r.channel == null || r.channel !== n) {
           o("WALogger").WARN(
-            O ||
-              (O = babelHelpers.taggedTemplateLiteralLoose([
+            oe ||
+              (oe = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [SctpConnectionManager] Ignoring stale DataChannel open for ",
                 "",
               ])),
@@ -1737,8 +1651,8 @@ __d(
             n.close();
           } catch (e) {
             o("WALogger").WARN(
-              B ||
-                (B = babelHelpers.taggedTemplateLiteralLoose([
+              ae ||
+                (ae = babelHelpers.taggedTemplateLiteralLoose([
                   "voip: [SctpConnectionManager] Error closing stale DataChannel for ",
                   ": ",
                   "",
@@ -1757,7 +1671,7 @@ __d(
         ((r.state = o("WAWebVoipRelayConnectionUtils").ConnectionState.Open),
           (r.stats.connectionReadyTime = Date.now()),
           (r.isReconnecting = !1),
-          Le(t),
+          Re(t),
           r.isWebTransportWarmStandby !== !0 &&
             (o(
               "WAWebVoipSctpFallbackFamilyOutcome",
@@ -1771,7 +1685,7 @@ __d(
             (r.connectionTimeout = null)),
           o("WAWebVoipSctpStatsInstrumentation").addConnectionSource(
             "relay",
-            ke,
+            Ee,
             o("WAWebVoipSctpDataChannelThreadManager").getDataChannelThread,
           ));
         var l =
@@ -1786,8 +1700,8 @@ __d(
               ? a
               : "N/A";
         (o("WALogger").LOG(
-          W ||
-            (W = babelHelpers.taggedTemplateLiteralLoose([
+          ie ||
+            (ie = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [SCTP] DC opened ",
               " relay=",
               " ",
@@ -1798,8 +1712,8 @@ __d(
           l,
         ),
           o("WALogger").LOG(
-            q ||
-              (q = babelHelpers.taggedTemplateLiteralLoose([
+            le ||
+              (le = babelHelpers.taggedTemplateLiteralLoose([
                 "voip: [SCTP] ICE done id=",
                 " ip=",
                 " port=",
@@ -1816,27 +1730,27 @@ __d(
           }),
           r.isWebTransportWarmStandby !== !0 &&
             o("WAWebVoipSctpBufferDrain").drainBuffer(t),
-          Be(t));
+          Fe(t));
       }
     }
-    function ht(e, t) {
+    function ut(e, t) {
       var n = o("WAWebVoipSctpConnectionState").sctpConnections.get(t);
       n &&
         (o("WALogger").LOG(
-          U ||
-            (U = babelHelpers.taggedTemplateLiteralLoose([
+          se ||
+            (se = babelHelpers.taggedTemplateLiteralLoose([
               "voip: [SctpConnectionManager] DataChannel closed by relay for ",
               ", reconnecting",
             ])),
           t,
         ),
-        Re("remote_close"),
-        Ne(n, "remote_close", "remote_close_reconnecting", "[SCTP]"));
+        Se("remote_close"),
+        $e(n, "remote_close", "remote_close_reconnecting", "[SCTP]"));
     }
-    function yt(e) {
+    function ct(e) {
       return o("WAWebVoipSctpDataChannelThreadManager").initDataChannelWorker(
         function () {
-          return ce;
+          return ue;
         },
         e,
       );
@@ -1854,16 +1768,16 @@ __d(
         "WAWebVoipSctpConnectionStats",
       ).getSctpRelayDebugSummary),
       (l.mergeWorkerStats = o("WAWebVoipSctpConnectionStats").mergeWorkerStats),
-      (l.cleanupWebTransportSctpWarmStandby = _e),
-      (l.resetWebTransportSctpWarmStandbyAtCallBoundary = fe),
-      (l.activateWebTransportSctpWarmStandbyForRelayList = ge),
-      (l.markSctpCallIdentityChanged = be),
-      (l.sendWAWebVoipDataToRelay = $e),
-      (l.handleDataChannelOpened = Pe),
-      (l.handleDataChannelErrored = Fe),
-      (l.cleanupAllConnections = We),
-      (l.closeAllRelayConnections = Ue),
-      (l.handleRelayListUpdate = Xe));
+      (l.cleanupWebTransportSctpWarmStandby = pe),
+      (l.resetWebTransportSctpWarmStandbyAtCallBoundary = _e),
+      (l.activateWebTransportSctpWarmStandbyForRelayList = fe),
+      (l.markSctpCallIdentityChanged = Ce),
+      (l.sendWAWebVoipDataToRelay = De),
+      (l.handleDataChannelOpened = xe),
+      (l.handleDataChannelErrored = we),
+      (l.cleanupAllConnections = Oe),
+      (l.closeAllRelayConnections = Be),
+      (l.handleRelayListUpdate = Ge));
   },
   98,
 );

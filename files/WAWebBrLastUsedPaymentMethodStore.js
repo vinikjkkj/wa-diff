@@ -1,19 +1,17 @@
 __d(
   "WAWebBrLastUsedPaymentMethodStore",
   [
-    "Promise",
     "WALogger",
     "WAWebBrLastUsedPaymentMethodCache",
     "WAWebFrontendMsgGetters",
     "WAWebPaymentsGatingUtils",
     "WAWebUserPrefsIndexedDBStorage",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u = "WABrLastUsedPaymentMethods",
-      c = (s || (s = n("Promise"))).resolve();
+      c = Promise.resolve();
     function d() {
       var e = o(
         "WAWebBrLastUsedPaymentMethodCache",
@@ -23,7 +21,7 @@ __d(
         o("WAWebBrLastUsedPaymentMethodCache").brLastUsedPaymentMethodCache
           .loaded
       )
-        return (s || (s = n("Promise"))).resolve();
+        return Promise.resolve();
       if (
         o("WAWebBrLastUsedPaymentMethodCache").brLastUsedPaymentMethodCache
           .pendingWarm != null
@@ -34,100 +32,96 @@ __d(
         .brLastUsedPaymentMethodCache.generation;
       o(
         "WAWebBrLastUsedPaymentMethodCache",
-      ).brLastUsedPaymentMethodCache.pendingWarm = _(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            !(
-              o(
-                "WAWebBrLastUsedPaymentMethodCache",
-              ).prepareLastUsedBrPaymentMethodAccount() !== e ||
-              t !==
-                o("WAWebBrLastUsedPaymentMethodCache")
-                  .brLastUsedPaymentMethodCache.generation ||
+      ).brLastUsedPaymentMethodCache.pendingWarm = _(async function () {
+        (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+          !(
+            o(
+              "WAWebBrLastUsedPaymentMethodCache",
+            ).prepareLastUsedBrPaymentMethodAccount() !== e ||
+            t !==
               o("WAWebBrLastUsedPaymentMethodCache")
-                .brLastUsedPaymentMethodCache.loaded
-            ) &&
-              ((o(
-                "WAWebBrLastUsedPaymentMethodCache",
-              ).brLastUsedPaymentMethodCache.entries = g({
-                now: Date.now(),
-                stored: f(
-                  o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(u),
-                  e,
-                ),
-              })),
-              (o(
-                "WAWebBrLastUsedPaymentMethodCache",
-              ).brLastUsedPaymentMethodCache.loaded = !0)));
-        }),
-      );
-      var r = o("WAWebBrLastUsedPaymentMethodCache")
+                .brLastUsedPaymentMethodCache.generation ||
+            o("WAWebBrLastUsedPaymentMethodCache").brLastUsedPaymentMethodCache
+              .loaded
+          ) &&
+            ((o(
+              "WAWebBrLastUsedPaymentMethodCache",
+            ).brLastUsedPaymentMethodCache.entries = g({
+              now: Date.now(),
+              stored: f(
+                o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(u),
+                e,
+              ),
+            })),
+            (o(
+              "WAWebBrLastUsedPaymentMethodCache",
+            ).brLastUsedPaymentMethodCache.loaded = !0)));
+      });
+      var n = o("WAWebBrLastUsedPaymentMethodCache")
         .brLastUsedPaymentMethodCache.pendingWarm;
       return (
-        r.finally(function () {
+        n.finally(function () {
           t ===
             o("WAWebBrLastUsedPaymentMethodCache").brLastUsedPaymentMethodCache
               .generation &&
             o("WAWebBrLastUsedPaymentMethodCache").brLastUsedPaymentMethodCache
-              .pendingWarm === r &&
+              .pendingWarm === n &&
             (o(
               "WAWebBrLastUsedPaymentMethodCache",
             ).brLastUsedPaymentMethodCache.pendingWarm = null);
         }),
-        r
+        n
       );
     }
     function m(e, t) {
       if (!(t.trim() === "" || t === "UNKNOWN")) {
-        var r = o("WAWebBrLastUsedPaymentMethodCache").getMerchantLid(e);
+        var n = o("WAWebBrLastUsedPaymentMethodCache").getMerchantLid(e);
         if (
           !(
-            r == null ||
+            n == null ||
             !o("WAWebPaymentsGatingUtils").isBrazilToBrazilOrder(
               o("WAWebFrontendMsgGetters").getChat(e.unsafe()),
             )
           )
         ) {
-          var a = o(
+          var r = o(
             "WAWebBrLastUsedPaymentMethodCache",
           ).prepareLastUsedBrPaymentMethodAccount();
-          if (a != null) {
-            var i = Date.now(),
-              l = o("WAWebBrLastUsedPaymentMethodCache")
+          if (r != null) {
+            var a = Date.now(),
+              i = o("WAWebBrLastUsedPaymentMethodCache")
                 .brLastUsedPaymentMethodCache.generation;
-            _(
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                (yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-                  !(
-                    o(
-                      "WAWebBrLastUsedPaymentMethodCache",
-                    ).prepareLastUsedBrPaymentMethodAccount() !== a ||
-                    l !==
-                      o("WAWebBrLastUsedPaymentMethodCache")
-                        .brLastUsedPaymentMethodCache.generation
-                  ) &&
-                    ((o(
-                      "WAWebBrLastUsedPaymentMethodCache",
-                    ).brLastUsedPaymentMethodCache.entries = p(
-                      f(
-                        o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(u),
-                        a,
-                      ),
-                      a + "|" + r,
-                      t,
-                      i,
-                      Date.now(),
-                    )),
-                    (o(
-                      "WAWebBrLastUsedPaymentMethodCache",
-                    ).brLastUsedPaymentMethodCache.loaded = !0),
-                    yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-                      u,
-                      o("WAWebBrLastUsedPaymentMethodCache")
-                        .brLastUsedPaymentMethodCache.entries,
-                    )));
-              }),
-            );
+            _(async function () {
+              (await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+                !(
+                  o(
+                    "WAWebBrLastUsedPaymentMethodCache",
+                  ).prepareLastUsedBrPaymentMethodAccount() !== r ||
+                  i !==
+                    o("WAWebBrLastUsedPaymentMethodCache")
+                      .brLastUsedPaymentMethodCache.generation
+                ) &&
+                  ((o(
+                    "WAWebBrLastUsedPaymentMethodCache",
+                  ).brLastUsedPaymentMethodCache.entries = p(
+                    f(
+                      o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(u),
+                      r,
+                    ),
+                    r + "|" + n,
+                    t,
+                    a,
+                    Date.now(),
+                  )),
+                  (o(
+                    "WAWebBrLastUsedPaymentMethodCache",
+                  ).brLastUsedPaymentMethodCache.loaded = !0),
+                  await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+                    u,
+                    o("WAWebBrLastUsedPaymentMethodCache")
+                      .brLastUsedPaymentMethodCache.entries,
+                  )));
+            });
           }
         }
       }
@@ -214,14 +208,13 @@ __d(
         ? null
         : { m: n, t: r };
     }
-    ((l.MAX_MERCHANTS = o("WAWebBrLastUsedPaymentMethodCache").MAX_MERCHANTS),
-      (l.RETENTION_MS = o("WAWebBrLastUsedPaymentMethodCache").RETENTION_MS),
-      (l.resetLastUsedBrPaymentMethodCache = o(
-        "WAWebBrLastUsedPaymentMethodCache",
-      ).resetLastUsedBrPaymentMethodCache),
-      (l.getCachedLastUsedBrPaymentMethod = o(
-        "WAWebBrLastUsedPaymentMethodCache",
-      ).getCachedLastUsedBrPaymentMethod),
+    ((l.MAX_MERCHANTS = (s = o(
+      "WAWebBrLastUsedPaymentMethodCache",
+    )).MAX_MERCHANTS),
+      (l.RETENTION_MS = s.RETENTION_MS),
+      (l.resetLastUsedBrPaymentMethodCache =
+        s.resetLastUsedBrPaymentMethodCache),
+      (l.getCachedLastUsedBrPaymentMethod = s.getCachedLastUsedBrPaymentMethod),
       (l.warmLastUsedBrPaymentMethodCache = d),
       (l.recordLastUsedBrPaymentMethod = m),
       (l.updateLastUsedPaymentMethods = p));

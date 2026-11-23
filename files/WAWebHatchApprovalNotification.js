@@ -12,7 +12,6 @@ __d(
     "WAWebNotificationHelpers",
     "WAWebNotificationIconUtils",
     "WAWebNotificationMuteReason",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
@@ -21,7 +20,7 @@ __d(
       return "hatchApproval:" + e;
     }
     var _ = (function (t) {
-      function a(e, n) {
+      function n(e, n) {
         var r;
         return (
           (r = t.call(this) || this),
@@ -30,13 +29,13 @@ __d(
           r
         );
       }
-      babelHelpers.inheritsLoose(a, t);
-      var i = a.prototype;
+      babelHelpers.inheritsLoose(n, t);
+      var a = n.prototype;
       return (
-        (i.buildKey = function () {
+        (a.buildKey = function () {
           return p(this.notification.subjectId);
         }),
-        (i.shouldMute = function (n) {
+        (a.shouldMute = function (n) {
           var t = this.$WAWebHatchApprovalNotification$p_2(n);
           return (
             o("WALogger").LOG(
@@ -52,7 +51,7 @@ __d(
             t
           );
         }),
-        (i.$WAWebHatchApprovalNotification$p_2 = function (t) {
+        (a.$WAWebHatchApprovalNotification$p_2 = function (t) {
           if (h(t))
             return r("WAWebNotificationMuteReason").HatchApprovalChatOnScreen;
           var e = y();
@@ -62,7 +61,7 @@ __d(
               ? r("WAWebNotificationMuteReason").ArchivedChat
               : null;
         }),
-        (i.shouldShowBanner = function () {
+        (a.shouldShowBanner = function () {
           if (
             this.$WAWebHatchApprovalNotification$p_1(
               this.notification.subjectId,
@@ -97,7 +96,7 @@ __d(
             t
           );
         }),
-        (i.shouldPlaySound = function () {
+        (a.shouldPlaySound = function () {
           var e = y();
           return (
             this.shouldShowBanner() &&
@@ -106,7 +105,7 @@ __d(
             t.prototype.shouldPlaySound.call(this)
           );
         }),
-        (i.getBannerOptions = function () {
+        (a.getBannerOptions = function () {
           var e = y(),
             t =
               !o("WAWebMuteCollection").MuteCollection.getGlobalPreviews() ||
@@ -131,56 +130,48 @@ __d(
             }
           );
         }),
-        (i.getIcon = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = y();
-            if (e == null) return "";
-            var t = yield o(
-              "WAWebNotificationIconUtils",
-            ).getChatNotificationIcon(
-              e,
-              this.abortController.signal,
-              o("WAWebNotificationIconUtils").getDefaultChatNotificationIcon(e),
-            );
-            return (
-              this.$WAWebHatchApprovalNotification$p_1(
-                this.notification.subjectId,
-              ) &&
-                (o("WALogger").LOG(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "hatch-approval-notif: aborting ",
-                      ", withdrawn while building",
-                    ])),
-                  this.$WAWebHatchApprovalNotification$p_3(),
-                ),
-                this.abortController.abort()),
-              t
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (i.getChatKind = function () {
+        (a.getIcon = async function () {
+          var e = y();
+          if (e == null) return "";
+          var t = await o("WAWebNotificationIconUtils").getChatNotificationIcon(
+            e,
+            this.abortController.signal,
+            o("WAWebNotificationIconUtils").getDefaultChatNotificationIcon(e),
+          );
+          return (
+            this.$WAWebHatchApprovalNotification$p_1(
+              this.notification.subjectId,
+            ) &&
+              (o("WALogger").LOG(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "hatch-approval-notif: aborting ",
+                    ", withdrawn while building",
+                  ])),
+                this.$WAWebHatchApprovalNotification$p_3(),
+              ),
+              this.abortController.abort()),
+            t
+          );
+        }),
+        (a.getChatKind = function () {
           var e = y();
           return e == null ? null : o("WAWebFrontendChatGetters").getKind(e);
         }),
-        (i.matchesChat = function (t) {
+        (a.matchesChat = function (t) {
           return o("WAWebBotUtils").isHatchBot(t.id);
         }),
-        (i.$WAWebHatchApprovalNotification$p_3 = function () {
+        (a.$WAWebHatchApprovalNotification$p_3 = function () {
           return this.notification.subjectId;
         }),
-        a
+        n
       );
     })(o("WAWebBaseNotification").WABaseNotification);
     function f() {
-      return s._(/*BTDS*/ "Approval needed").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     function g() {
-      return s._(/*BTDS*/ "A task needs your approval").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     function h(e) {
       var t,

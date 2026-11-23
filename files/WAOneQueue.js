@@ -2,7 +2,6 @@ __d(
   "WAOneQueue",
   [
     "NativeSchedulerTickStrategy",
-    "Promise",
     "TaskScheduler",
     "TaskSchedulerPriority",
     "WAComms",
@@ -11,7 +10,6 @@ __d(
     "WAResolvable",
     "WAShiftTimer",
     "WATagsLogger",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -29,10 +27,9 @@ __d(
       h,
       y,
       C,
-      b,
-      v = 6e4,
-      S = o("WATagsLogger").TAGS(["OneQueue"]),
-      R = (function () {
+      b = 6e4,
+      v = o("WATagsLogger").TAGS(["OneQueue"]),
+      S = (function () {
         function t(t) {
           var n = this;
           ((this.$1 = o("WAPubSub").simplePubSub()),
@@ -52,7 +49,7 @@ __d(
             c = t.pullMode;
           ((this.$14 = t.scheduler
             ? t.scheduler
-            : L(
+            : R(
                 t.schedulerName,
                 t.promotionTimeoutMs,
                 t.schedulerLifecycleListener,
@@ -73,7 +70,7 @@ __d(
                   { name: "flush_by_timer" },
                 )
                 .promise.catch(function (t) {
-                  S.ERROR(
+                  v.ERROR(
                     e ||
                       (e = babelHelpers.taggedTemplateLiteralLoose([
                         "Error while processing flush_by_timer: ",
@@ -84,14 +81,14 @@ __d(
                 });
             })));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.$19 = function (t) {
+          (n.$19 = function (t) {
             var e = t.fn,
               n = t.name,
               r = t.priority;
             return (
-              S.LOG(
+              v.LOG(
                 s ||
                   (s = babelHelpers.taggedTemplateLiteralLoose([
                     "Enqueuing ",
@@ -109,13 +106,13 @@ __d(
               ).promise
             );
           }),
-          (a.subscribe = function (t) {
+          (n.subscribe = function (t) {
             return this.$1.subscribe(t);
           }),
-          (a.getMode = function () {
+          (n.getMode = function () {
             return this.$4;
           }),
-          (a.handleStanza = function (t, n) {
+          (n.handleStanza = function (t, n) {
             var e = this,
               r = this.$10;
             return (
@@ -134,23 +131,23 @@ __d(
               })
             );
           }),
-          (a.handleOfflineStartStanza = function (t) {
+          (n.handleOfflineStartStanza = function (t) {
             t.count !== 0 &&
               (this.$13.resolveWasCalled() &&
                 (this.$13 = new (o("WAResolvable").Resolvable)()),
               (this.$4 = o("WAOfflineUtils").ServerRPCMode.OFFLINE_RESUME),
               this.$1.publish({ type: "offline-start", offlineStats: t }),
               (this.$9 = t.count),
-              this.$5.onOrAfter(v),
+              this.$5.onOrAfter(b),
               this.$6.offlineStart());
           }),
-          (a.handleOfflineEndStanza = function (t) {
+          (n.handleOfflineEndStanza = function (t) {
             var e = this;
             return this.$19({
               fn: function () {
                 var n;
                 return t != null && t !== e.$10
-                  ? (S.LOG(
+                  ? (v.LOG(
                       u ||
                         (u = babelHelpers.taggedTemplateLiteralLoose([
                           "Offline queue end of a replaced connection",
@@ -163,14 +160,14 @@ __d(
                     ((n = o("WAComms").getComms()) == null
                       ? void 0
                       : n.socketId)
-                      ? (S.LOG(
+                      ? (v.LOG(
                           c ||
                             (c = babelHelpers.taggedTemplateLiteralLoose([
                               "Offline queue end received while the connection gets dropped",
                             ])),
                         ),
                         e.$18("endOfOQ"))
-                      : (S.LOG(
+                      : (v.LOG(
                           d ||
                             (d = babelHelpers.taggedTemplateLiteralLoose([
                               "Offline queue end",
@@ -193,64 +190,50 @@ __d(
                 }));
             });
           }),
-          (a.$21 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              try {
-                yield this.$16.clear();
-              } catch (e) {
-                S.ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "Error while clearing the dangling queue: ",
-                      "",
-                    ])),
-                  e,
-                );
-              }
-            });
-            function t() {
-              return e.apply(this, arguments);
+          (n.$21 = async function () {
+            try {
+              await this.$16.clear();
+            } catch (e) {
+              v.ERROR(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "Error while clearing the dangling queue: ",
+                    "",
+                  ])),
+                e,
+              );
             }
-            return t;
-          })()),
-          (a.waitForWAInfraOfflineSyncEnd = function () {
+          }),
+          (n.waitForWAInfraOfflineSyncEnd = function () {
             return this.$13.promise;
           }),
-          (a.newConnection = function () {
+          (n.newConnection = function () {
             var e;
             this.$10 =
               (e = o("WAComms").getComms()) == null ? void 0 : e.socketId;
           }),
-          (a.connectionDropped = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                (S.WARN(
-                  p ||
-                    (p = babelHelpers.taggedTemplateLiteralLoose([
-                      "Drop offline queue as per loosing connection",
-                    ])),
-                ),
-                  (this.$10 = null),
-                  this.$6.clear(),
-                  yield this.$19({
-                    name: "flush_on_connection_drop",
-                    fn: function () {
-                      return t.$18();
-                    },
-                    priority: o("TaskSchedulerPriority").BLOCKING_PRIORITY,
-                  }),
-                  this.$1.publish(
-                    babelHelpers.extends({ type: "connection-lost" }, e),
-                  ));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$22 = function (t, n) {
+          (n.connectionDropped = async function (t) {
+            var e = this;
+            (v.WARN(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "Drop offline queue as per loosing connection",
+                ])),
+            ),
+              (this.$10 = null),
+              this.$6.clear(),
+              await this.$19({
+                name: "flush_on_connection_drop",
+                fn: function () {
+                  return e.$18();
+                },
+                priority: o("TaskSchedulerPriority").BLOCKING_PRIORITY,
+              }),
+              this.$1.publish(
+                babelHelpers.extends({ type: "connection-lost" }, t),
+              ));
+          }),
+          (n.$22 = function (t, n) {
             t != null &&
               (this.$1.publish({
                 type: "offline-entity",
@@ -259,83 +242,79 @@ __d(
               }),
               this.$6.stanzaReceived(t),
               this.$5.cancel(),
-              this.$5.onOrAfter(v));
+              this.$5.onOrAfter(b));
           }),
-          (a.$20 = function (t, r, o) {
+          (n.$20 = function (t, n, r) {
             var e,
-              a = this,
-              i = r.offline,
-              l = r.serverTs,
-              s = r.tag;
+              o = this,
+              a = n.offline,
+              i = n.serverTs,
+              l = n.tag;
             return (
-              this.$22(i, l),
-              S.LOG(
+              this.$22(a, i),
+              v.LOG(
                 _ ||
                   (_ = babelHelpers.taggedTemplateLiteralLoose([
                     "Processing stanza with tag ",
                     "",
                   ])),
-                s,
+                l,
               ),
-              (this.$7[s] = ((e = this.$7[s]) != null ? e : 0) + 1),
-              (b || (b = n("Promise")))
-                .resolve(t(this.$11))
+              (this.$7[l] = ((e = this.$7[l]) != null ? e : 0) + 1),
+              Promise.resolve(t(this.$11))
                 .then(function (e) {
                   return (
-                    S.LOG(
+                    v.LOG(
                       f ||
                         (f = babelHelpers.taggedTemplateLiteralLoose([
                           "Processing stanza with tag ",
                           " is done",
                         ])),
-                      s,
+                      l,
                     ),
-                    E(e)
-                      ? a.$2.push({ response: e, socketId: o })
-                      : a.$2.push({ response: e, socketId: o }),
+                    L(e)
+                      ? o.$2.push({ response: e, socketId: r })
+                      : o.$2.push({ response: e, socketId: r }),
                     e
                   );
                 })
                 .then(function () {
-                  return (i != null && a.$6.stanzaProcessed(), a.$23());
+                  return (a != null && o.$6.stanzaProcessed(), o.$23());
                 })
             );
           }),
-          (a.$23 = function () {
+          (n.$23 = function () {
             return this.$4 === o("WAOfflineUtils").ServerRPCMode.OFFLINE_RESUME
               ? this.$6.shouldFlash()
                 ? this.$18()
-                : (b || (b = n("Promise"))).resolve()
+                : Promise.resolve()
               : this.$18();
           }),
-          (a.$18 = function (t) {
+          (n.$18 = function (t) {
             var e = this;
-            S.LOG(
+            v.LOG(
               g ||
                 (g = babelHelpers.taggedTemplateLiteralLoose([
                   "Flushing protocol queue",
                 ])),
             );
-            var r = 0;
+            var n = 0;
             return (
               Object.entries(this.$7).forEach(function (e) {
                 var t = e[0],
-                  n = e[1];
-                r += n;
+                  r = e[1];
+                n += r;
               }),
               (this.$7 = {}),
               this.$12
-                .reduce(
-                  function (n, r) {
-                    return n.then(function () {
-                      return r.flush(e.$11, S, e.$4, t);
-                    });
-                  },
-                  (b || (b = n("Promise"))).resolve(),
-                )
+                .reduce(function (n, r) {
+                  return n.then(function () {
+                    return r.flush(e.$11, v, e.$4, t);
+                  });
+                }, Promise.resolve())
                 .then(function () {
                   return (
-                    S.LOG(
+                    v.LOG(
                       h ||
                         (h = babelHelpers.taggedTemplateLiteralLoose([
                           "Acking",
@@ -346,60 +325,54 @@ __d(
                 })
                 .finally(function () {
                   e.$4 === o("WAOfflineUtils").ServerRPCMode.OFFLINE_RESUME &&
-                    e.$1.publish({ type: "offline-processed", count: r });
+                    e.$1.publish({ type: "offline-processed", count: n });
                 })
             );
           }),
-          (a.isPendingAcksEmpty = function () {
+          (n.isPendingAcksEmpty = function () {
             return this.$2.length === 0 && this.$3.length === 0;
           }),
-          (a.$24 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = [].concat(this.$3, this.$2);
-              (S.LOG(
-                y ||
-                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                    "Cast stanzas ",
-                    "",
-                  ])),
-                e.length,
-              ),
-                (this.$2 = []),
-                (this.$3 = []));
-              try {
-                yield this.$17(e, this.$4);
-              } catch (e) {
-                var t = r("getErrorSafe")(e);
-                throw (
-                  S.ERROR(
-                    C ||
-                      (C = babelHelpers.taggedTemplateLiteralLoose([
-                        "Error while casting ack: ",
-                        "",
-                      ])),
-                    t.toString(),
-                  ),
-                  t
-                );
-              }
-              return (b || (b = n("Promise"))).resolve();
-            });
-            function t() {
-              return e.apply(this, arguments);
+          (n.$24 = async function () {
+            var e = [].concat(this.$3, this.$2);
+            (v.LOG(
+              y ||
+                (y = babelHelpers.taggedTemplateLiteralLoose([
+                  "Cast stanzas ",
+                  "",
+                ])),
+              e.length,
+            ),
+              (this.$2 = []),
+              (this.$3 = []));
+            try {
+              await this.$17(e, this.$4);
+            } catch (e) {
+              var t = r("getErrorSafe")(e);
+              throw (
+                v.ERROR(
+                  C ||
+                    (C = babelHelpers.taggedTemplateLiteralLoose([
+                      "Error while casting ack: ",
+                      "",
+                    ])),
+                  t.toString(),
+                ),
+                t
+              );
             }
-            return t;
-          })()),
-          (a.enqueue = function (t, r) {
+            return Promise.resolve();
+          }),
+          (n.enqueue = function (t, n) {
             var e = this,
-              a = r.afterInit,
-              i = a === void 0 ? !1 : a,
-              l = r.flush,
-              s = r.operationType,
-              u = r.priority,
-              c = u === void 0 ? this.$15 : u,
-              d = function () {
+              r = n.afterInit,
+              a = r === void 0 ? !1 : r,
+              i = n.flush,
+              l = n.operationType,
+              s = n.priority,
+              u = s === void 0 ? this.$15 : s,
+              c = function () {
                 return e.$19({
-                  name: s,
+                  name: l,
                   fn: (function (e) {
                     function t() {
                       return e.apply(this, arguments);
@@ -410,36 +383,34 @@ __d(
                       }),
                       t
                     );
-                  })(
-                    n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                      var n = yield t(e.$11);
-                      return (l && (yield e.$18()), n);
-                    }),
-                  ),
-                  priority: c,
+                  })(async function () {
+                    var n = await t(e.$11);
+                    return (i && (await e.$18()), n);
+                  }),
+                  priority: u,
                 });
               };
-            if (i && this.$4 !== o("WAOfflineUtils").ServerRPCMode.ONLINE) {
-              var m = new (o("WAResolvable").Resolvable)();
+            if (a && this.$4 !== o("WAOfflineUtils").ServerRPCMode.ONLINE) {
+              var d = new (o("WAResolvable").Resolvable)();
               return (
                 this.$8.push(function () {
-                  d()
+                  c()
                     .then(function (e) {
-                      return m.resolve(e);
+                      return d.resolve(e);
                     })
                     .catch(function (e) {
-                      return m.reject(e);
+                      return d.reject(e);
                     });
                 }),
-                m.promise
+                d.promise
               );
             }
-            return d();
+            return c();
           }),
           t
         );
       })();
-    function L(e, t, n) {
+    function R(e, t, n) {
       var r = o("TaskScheduler").taskScheduler(
         e,
         {
@@ -452,10 +423,10 @@ __d(
       );
       return (r.setLifecycleListener(n), r);
     }
-    function E(e) {
+    function L(e) {
       return !(e === "NO_ACK" || e === "CLOSE_SOCKET");
     }
-    l.WAOneQueue = R;
+    l.WAOneQueue = S;
   },
   98,
 );

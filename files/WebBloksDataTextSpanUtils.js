@@ -9,7 +9,6 @@ __d(
     "WebBloksTheme",
     "WebBloksUtils",
     "react",
-    "react-compiler-runtime",
     "useClickablePropsForWebBloks",
   ],
   function (t, n, r, o, a, i, l) {
@@ -36,45 +35,36 @@ __d(
       I = o("WebBloksModel").defineWebBloksAttributeKey(","),
       T = o("WebBloksModel").defineWebBloksAttributeKey("#");
     function D(e, t, n, a) {
-      var i = o("react-compiler-runtime").c(9),
-        l = o("WebBloksStyle").useStyle(t, n),
-        s = l.style,
-        c = o("WebBloksComponentContext").useWebBloksContext(),
-        d = c.bloksContext,
+      var i = o("WebBloksStyle").useStyle(t, n),
+        l = i.style,
+        s = o("WebBloksComponentContext").useWebBloksContext(),
+        d = s.bloksContext,
         m = o("WebBloksTheme").useTheme().getTheme(),
         p = u(r("WebBloksRichTextContext")),
         _ = p.isRootFontSizeEnabled,
         f = d.objectSet.environment.fontFamilyMappings,
         g = x(a, m, f, _),
-        h;
-      i[0] !== a ? ((h = $(a)), (i[0] = a), (i[1] = h)) : (h = i[1]);
-      var y = r("useClickablePropsForWebBloks")(t, h),
-        C;
-      i[2] !== g || i[3] !== s
-        ? ((C = babelHelpers.extends(
-            {},
-            s,
+        h = r("useClickablePropsForWebBloks")(t, $(a));
+      return c(
+        function () {
+          return babelHelpers.extends(
             {
-              display: "inline",
-              whiteSpace: "pre-wrap",
-              overflowWrap: "break-word",
+              "aria-label": e,
+              style: babelHelpers.extends(
+                {},
+                l,
+                {
+                  display: "inline",
+                  whiteSpace: "pre-wrap",
+                  overflowWrap: "break-word",
+                },
+                g,
+              ),
             },
-            g,
-          )),
-          (i[2] = g),
-          (i[3] = s),
-          (i[4] = C))
-        : (C = i[4]);
-      var b;
-      return (
-        i[5] !== e || i[6] !== y || i[7] !== C
-          ? ((b = babelHelpers.extends({ "aria-label": e, style: C }, y)),
-            (i[5] = e),
-            (i[6] = y),
-            (i[7] = C),
-            (i[8] = b))
-          : (b = i[8]),
-        b
+            h,
+          );
+        },
+        [e, l, g, h],
       );
     }
     function x(e, t, n, r) {

@@ -3,6 +3,7 @@ __d(
   [
     "MAIBAObservabilityUtils",
     "MAIBAWorkspaceCanvasLifecycleLogger",
+    "MAIBAWorkspaceCanvasOpenTiming",
     "MAIBAWorkspaceTypes",
   ],
   function (t, n, r, o, a, i, l) {
@@ -94,30 +95,46 @@ __d(
         },
       );
     }
-    function f(e, t, n) {
-      if (
-        (s(t) != null &&
+    function f(e, t, n, r) {
+      if (s(t) != null) {
+        if (
           (o("MAIBAObservabilityUtils").addMAIBAWorkspaceLoadAnnotation(
             "failure_reason",
             n,
           ),
-          o("MAIBAObservabilityUtils").failMAIBAWorkspaceLoadInteraction(n)),
-        t != null)
-      ) {
-        var r = o("MAIBAWorkspaceTypes").parseAttributesJSON(t.attributes_json);
+          r != null)
+        )
+          for (var a of Object.keys(r))
+            o("MAIBAObservabilityUtils").addMAIBAWorkspaceLoadAnnotation(
+              a,
+              r[a],
+            );
+        o("MAIBAObservabilityUtils").failMAIBAWorkspaceLoadInteraction(n);
+      }
+      if (t != null) {
+        o("MAIBAWorkspaceCanvasOpenTiming").completeMAIBACanvasOpenTiming(
+          e,
+          t,
+          "failure",
+        );
+        var i = o("MAIBAWorkspaceTypes").parseAttributesJSON(t.attributes_json);
         o(
           "MAIBAWorkspaceCanvasLifecycleLogger",
-        ).logMAIBAWorkspaceCanvasLifecycle({
-          botResponseId: t.request_id,
-          conversationId: e,
-          outcome: "error",
-          product: r.product,
-          reason: n,
-          stage: "canvas_failed",
-          workspaceInstanceId: t.workspace_id,
-          workspaceType: t.workspace_type,
-          workspaceVersion: t.version,
-        });
+        ).logMAIBAWorkspaceCanvasLifecycle(
+          babelHelpers.extends(
+            { botResponseId: t.request_id, conversationId: e },
+            r != null ? { diagnostics: r } : null,
+            {
+              outcome: "error",
+              product: i.product,
+              reason: n,
+              stage: "canvas_failed",
+              workspaceInstanceId: t.workspace_id,
+              workspaceType: t.workspace_type,
+              workspaceVersion: t.version,
+            },
+          ),
+        );
       }
     }
     function g(t, n, r, a) {

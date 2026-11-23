@@ -1,6 +1,6 @@
 __d(
   "WAWebCacheStorage",
-  ["asyncToGeneratorRuntime"],
+  [],
   function (t, n, r, o, a, i) {
     var e = "web-cache-storage-testing";
     function l() {
@@ -13,24 +13,16 @@ __d(
         o = new Response(n);
       return t.put(r, o);
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    async function u(e) {
+      var t = e.cache,
+        n = e.key,
+        r = await t.match(n);
+      return r.arrayBuffer();
     }
     function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.cache,
-            n = e.key,
-            r = yield t.match(n);
-          return r.arrayBuffer();
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d() {
       return caches.delete(e).then(function () {});
     }
-    function m(e) {
+    function d(e) {
       var t = e.cache;
       return t.keys().then(function (e) {
         return e.length;
@@ -39,8 +31,8 @@ __d(
     ((i.prepareCache = l),
       (i.writeToCache = s),
       (i.readFromCache = u),
-      (i.cleanupCache = d),
-      (i.getCacheCount = m));
+      (i.cleanupCache = c),
+      (i.getCacheCount = d));
   },
   66,
 );

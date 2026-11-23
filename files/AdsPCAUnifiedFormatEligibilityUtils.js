@@ -6,6 +6,7 @@ __d(
     "AdsPromotedObjectTypes",
     "gkx",
     "justknobx",
+    "observeRuntimeType",
     "qex",
   ],
   function (t, n, r, o, a, i, l) {
@@ -75,20 +76,24 @@ __d(
     }
     function S(e, t) {
       if (
+        (r("observeRuntimeType")(
+          e,
+          "AdsPCAUnifiedFormatEligibilityUtils.isEligiblePCAUnifiedL1EvenIfMissingSentinel.campaignGroup",
+        ),
         y() ||
-        !o("AdsAPICampaignGroupRecordUtils").isSalesObjective(e) ||
-        !v(t == null ? void 0 : t.conversion_locations)
+          !o("AdsAPICampaignGroupRecordUtils").isSalesObjective(e) ||
+          !v(t == null ? void 0 : t.conversion_locations))
       )
         return !1;
       var n =
           o(
             "AdsPCAUnificationUtils",
           ).isPcaUnificationEnabledAndL3CatalogSelected(e) && u(),
-        r =
+        a =
           o(
             "AdsPCAUnificationUtils",
           ).isPcaUnificationDisabledAndL3CatalogNotSelected(e) && d();
-      return n || r;
+      return n || a;
     }
     function R(e) {
       var t;

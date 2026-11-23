@@ -7,21 +7,21 @@ __d(
         value: o("WAWebWindowsShowNotificationBannerOption")
           .ShowNotificationBannerOption.Always,
         label: function () {
-          return s._(/*BTDS*/ "Always");
+          return s._(/*BTDS*/ "");
         },
       },
       {
         value: o("WAWebWindowsShowNotificationBannerOption")
           .ShowNotificationBannerOption.Never,
         label: function () {
-          return s._(/*BTDS*/ "Never");
+          return s._(/*BTDS*/ "");
         },
       },
       {
         value: o("WAWebWindowsShowNotificationBannerOption")
           .ShowNotificationBannerOption.OnlyWhenAppIsOpen,
         label: function () {
-          return s._(/*BTDS*/ "Only when app is open");
+          return s._(/*BTDS*/ "");
         },
       },
     ];

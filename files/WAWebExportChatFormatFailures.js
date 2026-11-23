@@ -24,7 +24,7 @@ __d(
           .sendLogs("export-chat-format-message");
     }
     function d() {
-      return s._(/*BTDS*/ "This message could not be exported").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     ((l.recordFailure = u),
       (l.reportFormatFailures = c),

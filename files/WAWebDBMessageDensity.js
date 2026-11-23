@@ -1,87 +1,69 @@
 __d(
   "WAWebDBMessageDensity",
-  [
-    "Promise",
-    "WAWebDBMessageRangeIndex",
-    "WAWebSchemaMessage",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebDBMessageRangeIndex", "WAWebSchemaMessage"],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t, n) {
-      return u.apply(this, arguments);
+    async function e(e, t, n) {
+      for (
+        var r = new Map(),
+          a = o("WAWebSchemaMessage").getMessageTable(),
+          i = [],
+          l = new Date(t.getFullYear(), t.getMonth(), t.getDate()),
+          s = new Date(n.getFullYear(), n.getMonth(), n.getDate()),
+          u = async function () {
+            var t,
+              n = l.getDate(),
+              s = Math.floor(l.getTime() / 1e3),
+              u = s + 86400 - 1,
+              c = (t = o("WAWebDBMessageRangeIndex")).craftMessageRangeIndex({
+                chatId: e,
+                isIncoming: !0,
+                isSystemMessage: !1,
+                timestamp: s,
+              }),
+              d = t.craftMessageRangeIndex({
+                chatId: e,
+                isIncoming: !0,
+                isSystemMessage: !1,
+                timestamp: u,
+              }),
+              m = t.craftMessageRangeIndex({
+                chatId: e,
+                isIncoming: !1,
+                isSystemMessage: !1,
+                timestamp: s,
+              }),
+              p = t.craftMessageRangeIndex({
+                chatId: e,
+                isIncoming: !1,
+                isSystemMessage: !1,
+                timestamp: u,
+              }),
+              _ = n;
+            (i.push(
+              Promise.all([
+                a.betweenCount(["messageRangeIndex"], c, d, {
+                  lowerInclusive: !0,
+                  upperInclusive: !0,
+                }),
+                a.betweenCount(["messageRangeIndex"], m, p, {
+                  lowerInclusive: !0,
+                  upperInclusive: !0,
+                }),
+              ]).then(function (e) {
+                var t = e[0],
+                  n = e[1],
+                  o = t + n;
+                o > 0 && r.set(_, o);
+              }),
+            ),
+              l.setDate(l.getDate() + 1));
+          };
+        l <= s;
+      )
+        await u();
+      return (await Promise.all(i), r);
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
-          for (
-            var i = new Map(),
-              l = o("WAWebSchemaMessage").getMessageTable(),
-              s = [],
-              u = new Date(r.getFullYear(), r.getMonth(), r.getDate()),
-              c = new Date(a.getFullYear(), a.getMonth(), a.getDate()),
-              d = function* () {
-                var r,
-                  a = u.getDate(),
-                  c = Math.floor(u.getTime() / 1e3),
-                  d = c + 86400 - 1,
-                  m = (r = o(
-                    "WAWebDBMessageRangeIndex",
-                  )).craftMessageRangeIndex({
-                    chatId: t,
-                    isIncoming: !0,
-                    isSystemMessage: !1,
-                    timestamp: c,
-                  }),
-                  p = r.craftMessageRangeIndex({
-                    chatId: t,
-                    isIncoming: !0,
-                    isSystemMessage: !1,
-                    timestamp: d,
-                  }),
-                  _ = r.craftMessageRangeIndex({
-                    chatId: t,
-                    isIncoming: !1,
-                    isSystemMessage: !1,
-                    timestamp: c,
-                  }),
-                  f = r.craftMessageRangeIndex({
-                    chatId: t,
-                    isIncoming: !1,
-                    isSystemMessage: !1,
-                    timestamp: d,
-                  }),
-                  g = a;
-                (s.push(
-                  (e || (e = n("Promise")))
-                    .all([
-                      l.betweenCount(["messageRangeIndex"], m, p, {
-                        lowerInclusive: !0,
-                        upperInclusive: !0,
-                      }),
-                      l.betweenCount(["messageRangeIndex"], _, f, {
-                        lowerInclusive: !0,
-                        upperInclusive: !0,
-                      }),
-                    ])
-                    .then(function (e) {
-                      var t = e[0],
-                        n = e[1],
-                        r = t + n;
-                      r > 0 && i.set(g, r);
-                    }),
-                ),
-                  u.setDate(u.getDate() + 1));
-              };
-            u <= c;
-          )
-            yield* d();
-          return (yield (e || (e = n("Promise"))).all(s), i);
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    l.getMessageCountsForDateRange = s;
+    l.getMessageCountsForDateRange = e;
   },
   98,
 );

@@ -7,63 +7,39 @@ __d(
     "WAWebGetFormattedCatalogJid",
     "WAWebMaybeThrowCatalogErrors",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = o("WAWebUserUtils").getMeUserOrThrow(),
-            a = yield o("WAWebBizCatalogManagementDeleteProduct").deleteProduct(
-              {
-                biz_jid:
-                  (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(
-                    n,
-                  )) != null
-                    ? t
-                    : n.toJid(),
-                product_ids: e,
-              },
-            );
-          if (a.type === "success") return a.deleteResult;
-          throw (
-            a.type === "graphql-error"
-              ? o(
-                  "WAWebMaybeThrowCatalogErrors",
-                ).maybeThrowLocalErrorForCatalogQuery(a.error)
-              : a.type,
-            r("err")(
-              "deleteProductsGraphQL: error handling flow not implemented for " +
-                JSON.stringify(a),
-            )
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e) {
+      var t,
+        n = o("WAWebUserUtils").getMeUserOrThrow(),
+        a = await o("WAWebBizCatalogManagementDeleteProduct").deleteProduct({
+          biz_jid:
+            (t = o("WAWebGetFormattedCatalogJid").getFormattedCatalogJid(n)) !=
+            null
+              ? t
+              : n.toJid(),
+          product_ids: e,
+        });
+      if (a.type === "success") return a.deleteResult;
+      throw (
+        a.type === "graphql-error"
+          ? o(
+              "WAWebMaybeThrowCatalogErrors",
+            ).maybeThrowLocalErrorForCatalogQuery(a.error)
+          : a.type,
+        r("err")(
+          "deleteProductsGraphQL: error handling flow not implemented for " +
+            JSON.stringify(a),
+        )
       );
     }
-    function u(e) {
-      return c.apply(this, arguments);
+    async function s(t) {
+      if (o("WAWebBizCatalogGatingUtils").commerceFeaturesDisabledBySanctions())
+        throw new (o("WAWebBackendErrors").E451)();
+      return e(t);
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          if (
-            o(
-              "WAWebBizCatalogGatingUtils",
-            ).commerceFeaturesDisabledBySanctions()
-          )
-            throw new (o("WAWebBackendErrors").E451)();
-          return e(t);
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    l.deleteProductsMD = u;
+    l.deleteProductsMD = s;
   },
   98,
 );

@@ -1,16 +1,13 @@
 __d(
   "WAWebVoipDtlsCertCache",
   [
-    "Promise",
     "WAWebVoipCallStateUtils",
     "WAWebVoipDtlsCertCacheMode",
     "WAWebVoipLocalCallStateStore",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = (function (e) {
+    var e = (function (e) {
         function t(t) {
           var n;
           return (
@@ -25,96 +22,86 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      u = null,
-      c = o("WAWebVoipDtlsCertCacheMode").DtlsCertCacheMode.OFF,
-      d = null,
-      m = !1,
-      p = !1;
-    function _(e, t) {
-      e !== u && ((u = e), (c = t), (d = null), (m = !1), (p = !1));
+      s = null,
+      u = o("WAWebVoipDtlsCertCacheMode").DtlsCertCacheMode.OFF,
+      c = null,
+      d = !1,
+      m = !1;
+    function p(e, t) {
+      e !== s && ((s = e), (u = t), (c = null), (d = !1), (m = !1));
     }
-    function f(e) {
-      e === u &&
-        ((u = null),
-        (c = o("WAWebVoipDtlsCertCacheMode").DtlsCertCacheMode.OFF),
-        (d = null),
-        (m = !1),
-        (p = !1));
+    function _(e) {
+      e === s &&
+        ((s = null),
+        (u = o("WAWebVoipDtlsCertCacheMode").DtlsCertCacheMode.OFF),
+        (c = null),
+        (d = !1),
+        (m = !1));
     }
-    function g() {
-      return u;
+    function f() {
+      return s;
     }
-    function h(e) {
-      return e === u
-        ? c
+    function g(e) {
+      return e === s
+        ? u
         : o("WAWebVoipDtlsCertCacheMode").DtlsCertCacheMode.OFF;
     }
-    function y(e) {
+    function h(e) {
       return (
-        e === u &&
+        e === s &&
         !o("WAWebVoipCallStateUtils").isCallTerminal(
           o("WAWebVoipLocalCallStateStore").getLocalCallState(),
         )
       );
     }
+    function y(e) {
+      return e === s;
+    }
     function C(e) {
-      return e === u;
+      return e !== s || m ? !1 : ((m = !0), !0);
     }
     function b(e) {
-      return e !== u || p ? !1 : ((p = !0), !0);
+      e === s && c == null && (m = !1);
     }
-    function v(e) {
-      e === u && d == null && (p = !1);
-    }
-    function S() {
+    function v() {
       return RTCPeerConnection.generateCertificate({
         name: "ECDSA",
         namedCurve: "P-256",
       });
     }
-    function R(t, r) {
-      t !== u ||
-        d != null ||
-        ((d = (e || (e = n("Promise"))).resolve(r)), (m = !0));
+    function S(e, t) {
+      e !== s || c != null || ((c = Promise.resolve(t)), (d = !0));
     }
-    function L(e) {
-      return e !== u || d == null ? "empty" : m ? "ready" : "pending";
+    function R(e) {
+      return e !== s || c == null ? "empty" : d ? "ready" : "pending";
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    async function L(t) {
+      if (t !== s) throw new e("cache");
+      if (c == null) {
+        var n = v()
+          .then(function (e) {
+            return (t === s && c === n && (d = !0), e);
+          })
+          .catch(function (e) {
+            throw (t === s && c === n && ((c = null), (d = !1)), e);
+          });
+        c = n;
+      }
+      return c;
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e !== u) throw new s("cache");
-          if (d == null) {
-            var t = S()
-              .then(function (n) {
-                return (e === u && d === t && (m = !0), n);
-              })
-              .catch(function (n) {
-                throw (e === u && d === t && ((d = null), (m = !1)), n);
-              });
-            d = t;
-          }
-          return d;
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    ((l.StaleDtlsCertCallError = s),
-      (l.beginDtlsCertCall = _),
-      (l.endDtlsCertCall = f),
-      (l.getActiveDtlsCertCallToken = g),
-      (l.getDtlsCertCallMode = h),
-      (l.isDtlsCertCallLive = y),
-      (l.isDtlsCertCallRegistered = C),
-      (l.claimDtlsCertSeed = b),
-      (l.releaseDtlsCertSeed = v),
-      (l.generateDtlsCert = S),
-      (l.storeDtlsCert = R),
-      (l.getDtlsCertCacheState = L),
-      (l.getOrCreateDtlsCert = E));
+    ((l.StaleDtlsCertCallError = e),
+      (l.beginDtlsCertCall = p),
+      (l.endDtlsCertCall = _),
+      (l.getActiveDtlsCertCallToken = f),
+      (l.getDtlsCertCallMode = g),
+      (l.isDtlsCertCallLive = h),
+      (l.isDtlsCertCallRegistered = y),
+      (l.claimDtlsCertSeed = C),
+      (l.releaseDtlsCertSeed = b),
+      (l.generateDtlsCert = v),
+      (l.storeDtlsCert = S),
+      (l.getDtlsCertCacheState = R),
+      (l.getOrCreateDtlsCert = L));
   },
   98,
 );

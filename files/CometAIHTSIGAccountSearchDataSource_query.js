@@ -4,12 +4,11 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = 32,
-      u =
+      s =
         e !== void 0
           ? e
           : (e = n("CometAIHTSIGAccountSearchDataSourceQuery.graphql"));
-    function c(e) {
+    function u(e) {
       var t = e == null ? void 0 : e.xig_search_users;
       return t == null
         ? []
@@ -27,7 +26,7 @@ __d(
                     rawData: {
                       category: null,
                       fanCount: null,
-                      iconSize: s,
+                      iconSize: 32,
                       iconUrl: (t = e.profile_image_uri) != null ? t : "",
                       verifiedStatus: null,
                     },
@@ -36,7 +35,7 @@ __d(
             })
             .filter(Boolean);
     }
-    ((l.ICON_SIZE = s), (l.query = u), (l.normalize = c));
+    ((l.query = s), (l.normalize = u));
   },
   98,
 );

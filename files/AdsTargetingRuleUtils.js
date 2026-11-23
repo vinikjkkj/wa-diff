@@ -65,21 +65,10 @@ __d(
       }
       return { index: null, value: null };
     }
-    function g(e, t, n) {
-      var o;
-      if (e) {
-        (t >= 0 && t < e.size) || s(0, 4995);
-        var a = (o = e.get(t)) == null ? void 0 : o.get(n);
-        if (a)
-          return (a instanceof r("immutable").Map || s(0, 4996), a.get("name"));
-      }
-    }
     ((l.TARGETING_POSITION_FIELDS_TO_PLATFORMS = d),
       (l.PLATFORMS_TO_TARGETING_POSITION_FIELDS = m),
-      (l.PLATFORMS_TO_POSITION_VALUES = p),
       (l.assertValidPositionForPlatform = _),
-      (l.getTargetingRuleEntryForLabel = f),
-      (l.getTargetingRuleLabelAtIndex = g));
+      (l.getTargetingRuleEntryForLabel = f));
   },
   98,
 );

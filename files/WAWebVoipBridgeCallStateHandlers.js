@@ -36,7 +36,6 @@ __d(
     "WAWebVoipVideoRendererRegistry",
     "WAWebVoipVideoStateUtils",
     "WAWebVoipWaCallEnums",
-    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
     "justknobx",
     "react",
@@ -104,351 +103,343 @@ __d(
       }
     }
     var w = {
-        setCallState: (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var n,
-              a = t.callInfo,
-              i = t.callState;
+        setCallState: async function (n) {
+          var t,
+            a = n.callInfo,
+            i = n.callState;
+          if (
+            (o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
+              O(a.callId, a.linkToken, r("WAWebCallCollection").activeCall),
+            (!r("WAWebEnvironment").isWindows ||
+              o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()) &&
+              o("WAWebVoipUiManager").setupVoipActiveCallChangeListener(),
+            o("WAWebCallBackgroundPauseController").setupCallBackgroundPause(),
+            r("WAWebCallCollection").activeCall == null &&
+              o("WAWebVoipCallStateUtils").isCallTerminal(i))
+          ) {
+            o("WALogger").LOG(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: Ignoring terminal setCallState with no active call",
+                ])),
+            );
+            return;
+          }
+          var l = o(
+              "WAWebVoipOngoingCallCollection",
+            ).WAWebVoipOngoingCallCollection.getByCallId(a.callId),
+            s = N(a.linkToken, l),
+            h = s != null && s !== "";
+          if (r("WAWebCallCollection").activeCall == null) {
+            (o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: Creating new call model for call state",
+                ])),
+            ),
+              a.isCaller ||
+                o("WAWebVoipActivityTracker").trackActivity(
+                  o("WAWebVoipActivityTracker").VoipActivity
+                    .INCOMING_CALL_MODEL_CREATING,
+                ));
+            var y = new (r("WAWebCallModel"))();
             if (
-              (o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
-                O(a.callId, a.linkToken, r("WAWebCallCollection").activeCall),
-              (!r("WAWebEnvironment").isWindows ||
-                o("WAWebVoipGatingUtils").isWinHybridPlusEnabled()) &&
-                o("WAWebVoipUiManager").setupVoipActiveCallChangeListener(),
-              o(
-                "WAWebCallBackgroundPauseController",
-              ).setupCallBackgroundPause(),
-              r("WAWebCallCollection").activeCall == null &&
-                o("WAWebVoipCallStateUtils").isCallTerminal(i))
+              ((y.id = a.callId),
+              (y.peerJid = a.peerJid),
+              (y.isVideo = a.videoEnabled),
+              (y.isGroup = a.isGroupCall),
+              (y.groupJid = a.groupJid),
+              (y.outgoing = a.isCaller),
+              (y.isBotGroupCall = a.isBotGroupCall),
+              (y.isVoiceChat = a.isLightweight),
+              a.isGroupCall && a.participants)
             ) {
-              o("WALogger").LOG(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: Ignoring terminal setCallState with no active call",
-                  ])),
-              );
-              return;
+              var C = [],
+                b = [],
+                v = new Map();
+              for (var S of a.participants)
+                (C.push(S.jid),
+                  v.set(S.jid.toString(), S.state),
+                  S.state ===
+                    o("WAWebVoipWaCallEnums").CallParticipantState.Connected &&
+                    b.push(S.jid));
+              ((y.groupCallParticipants = C),
+                (y.groupCallParticipantsConnected = b),
+                (y.groupCallParticipantStates = v));
             }
-            var l = o(
-                "WAWebVoipOngoingCallCollection",
-              ).WAWebVoipOngoingCallCollection.getByCallId(a.callId),
-              s = N(a.linkToken, l),
-              h = s != null && s !== "";
-            if (r("WAWebCallCollection").activeCall == null) {
-              (o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: Creating new call model for call state",
-                  ])),
-              ),
-                a.isCaller ||
-                  o("WAWebVoipActivityTracker").trackActivity(
-                    o("WAWebVoipActivityTracker").VoipActivity
-                      .INCOMING_CALL_MODEL_CREATING,
-                  ));
-              var y = new (r("WAWebCallModel"))();
+            if (
+              (a.videoEnabled
+                ? ((y.selfVideoState = o(
+                    "WAWebVoipWaCallEnums",
+                  ).VideoState.Enabled),
+                  (y.peerVideoState = o(
+                    "WAWebVoipWaCallEnums",
+                  ).VideoState.Enabled))
+                : ((y.selfVideoState = o(
+                    "WAWebVoipWaCallEnums",
+                  ).VideoState.Disabled),
+                  (y.peerVideoState = o(
+                    "WAWebVoipWaCallEnums",
+                  ).VideoState.Disabled)),
+              h)
+            )
               if (
-                ((y.id = a.callId),
-                (y.peerJid = a.peerJid),
-                (y.isVideo = a.videoEnabled),
-                (y.isGroup = a.isGroupCall),
-                (y.groupJid = a.groupJid),
-                (y.outgoing = a.isCaller),
-                (y.isBotGroupCall = a.isBotGroupCall),
-                (y.isVoiceChat = a.isLightweight),
-                a.isGroupCall && a.participants)
+                ((y.isCallLink = !0),
+                (y.callLinkToken = s),
+                (y.isGuestEligible = a.isGuestEligible),
+                l != null && o("WAWebMsgGetters").getIsCallLink(l) === !0)
               ) {
-                var C = [],
-                  b = [],
-                  v = new Map();
-                for (var S of a.participants)
-                  (C.push(S.jid),
-                    v.set(S.jid.toString(), S.state),
-                    S.state ===
-                      o("WAWebVoipWaCallEnums").CallParticipantState
-                        .Connected && b.push(S.jid));
-                ((y.groupCallParticipants = C),
-                  (y.groupCallParticipantsConnected = b),
-                  (y.groupCallParticipantStates = v));
-              }
-              if (
-                (a.videoEnabled
-                  ? ((y.selfVideoState = o(
-                      "WAWebVoipWaCallEnums",
-                    ).VideoState.Enabled),
-                    (y.peerVideoState = o(
-                      "WAWebVoipWaCallEnums",
-                    ).VideoState.Enabled))
-                  : ((y.selfVideoState = o(
-                      "WAWebVoipWaCallEnums",
-                    ).VideoState.Disabled),
-                    (y.peerVideoState = o(
-                      "WAWebVoipWaCallEnums",
-                    ).VideoState.Disabled)),
-                h)
-              )
-                if (
-                  ((y.isCallLink = !0),
-                  (y.callLinkToken = s),
-                  (y.isGuestEligible = a.isGuestEligible),
-                  l != null && o("WAWebMsgGetters").getIsCallLink(l) === !0)
-                ) {
-                  var R = o("WAWebMsgGetters").getSender(l);
-                  (R == null &&
-                    o("WALogger").LOG(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: setCallState: joinable call-link Msg for ",
-                          " has no sender, callLinkCreatorJid stays null",
-                        ])),
-                      a.callId,
-                    ),
-                    (y.callLinkCreatorJid = R),
-                    R != null &&
-                      o("WAWebUserUtils").isMeAccount(R) &&
-                      (y.isSelfCallLinkAdmin = !0));
-                } else
+                var R = o("WAWebMsgGetters").getSender(l);
+                (R == null &&
                   o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: setCallState: no joinable call-link Msg for ",
-                        "",
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: setCallState: joinable call-link Msg for ",
+                        " has no sender, callLinkCreatorJid stays null",
                       ])),
                     a.callId,
-                  );
-              (r("WAWebCallCollection").setActiveCall(y),
-                h &&
-                  y.callLinkCreatorJid != null &&
-                  y.trigger(
-                    o("WAWebVoipEventConstants").getChangeEvent(
-                      o("WAWebVoipEventConstants").VoipCallModelEvents
-                        .CALL_LINK_CREATOR_JID,
-                    ),
                   ),
-                h &&
-                  y.isSelfCallLinkAdmin &&
-                  y.trigger(
+                  (y.callLinkCreatorJid = R),
+                  R != null &&
+                    o("WAWebUserUtils").isMeAccount(R) &&
+                    (y.isSelfCallLinkAdmin = !0));
+              } else
+                o("WALogger").LOG(
+                  d ||
+                    (d = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: setCallState: no joinable call-link Msg for ",
+                      "",
+                    ])),
+                  a.callId,
+                );
+            (r("WAWebCallCollection").setActiveCall(y),
+              h &&
+                y.callLinkCreatorJid != null &&
+                y.trigger(
+                  o("WAWebVoipEventConstants").getChangeEvent(
+                    o("WAWebVoipEventConstants").VoipCallModelEvents
+                      .CALL_LINK_CREATOR_JID,
+                  ),
+                ),
+              h &&
+                y.isSelfCallLinkAdmin &&
+                y.trigger(
+                  o("WAWebVoipEventConstants").getChangeEvent(
+                    o("WAWebVoipEventConstants").VoipCallModelEvents
+                      .IS_SELF_CALL_LINK_ADMIN,
+                  ),
+                ));
+          }
+          r("WAWebCallCollection").activeCall != null &&
+            a.isGroupCall &&
+            !r("WAWebCallCollection").activeCall.isGroup &&
+            ((r("WAWebCallCollection").activeCall.isGroup = a.isGroupCall),
+            r("WAWebCallCollection").activeCall.trigger(
+              o("WAWebVoipEventConstants").getChangeEvent(
+                o("WAWebVoipEventConstants").VoipCallModelEvents.IS_GROUP,
+              ),
+            ));
+          var L = r("WAWebCallCollection").activeCall,
+            E = a.peerJid,
+            k = (L == null ? void 0 : L.id) === a.callId,
+            I =
+              !o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
+              (L == null ? void 0 : L.id) === s;
+          if (L != null && h && (k || I)) {
+            if (
+              (L.isCallLink ||
+                ((L.isCallLink = !0),
+                (L.callLinkToken = s),
+                L.trigger(
+                  o("WAWebVoipEventConstants").getChangeEvent(
+                    o("WAWebVoipEventConstants").VoipCallModelEvents
+                      .CALL_LINK_STATE,
+                  ),
+                )),
+              L.isGuestEligible !== a.isGuestEligible &&
+                ((L.isGuestEligible = a.isGuestEligible),
+                L.trigger(
+                  o("WAWebVoipEventConstants").getChangeEvent(
+                    o("WAWebVoipEventConstants").VoipCallModelEvents
+                      .CALL_LINK_STATE,
+                  ),
+                )),
+              a.callId != null &&
+                L.id !== a.callId &&
+                L.id === s &&
+                (o("WALogger").LOG(
+                  m ||
+                    (m = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: Updating call.id from linkToken to actual callId: ",
+                      "",
+                    ])),
+                  a.callId,
+                ),
+                (L.id = a.callId),
+                L.trigger("change:id")),
+              E != null)
+            ) {
+              var T = L.peerJid == null || L.peerJid.toJid() !== E.toJid();
+              T &&
+                (o("WALogger").LOG(
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: Updating peerJid for call link: ",
+                      "",
+                    ])),
+                  E.toJid(),
+                ),
+                (L.peerJid = E),
+                L.trigger(
+                  o("WAWebVoipEventConstants").getChangeEvent(
+                    o("WAWebVoipEventConstants").VoipCallModelEvents.PEER_JID,
+                  ),
+                ));
+            }
+            if (a.participants) {
+              var D = a.participants.find(function (e) {
+                return (
+                  e.userType === o("WAWebVoipWaCallEnums").CallUserType.Admin
+                );
+              });
+              if (D != null) {
+                var x = L.callLinkCreatorJid;
+                ((L.callLinkCreatorJid = D.jid),
+                  (x == null || x.toJid() !== D.jid.toJid()) &&
+                    L.trigger(
+                      o("WAWebVoipEventConstants").getChangeEvent(
+                        o("WAWebVoipEventConstants").VoipCallModelEvents
+                          .CALL_LINK_CREATOR_JID,
+                      ),
+                    ));
+                var $ = a.participants.some(function (e) {
+                  return (
+                    e.userType ===
+                      o("WAWebVoipWaCallEnums").CallUserType.Admin &&
+                    o("WAWebUserUtils").isMeAccount(e.jid)
+                  );
+                });
+                L.isSelfCallLinkAdmin !== $ &&
+                  ((L.isSelfCallLinkAdmin = $),
+                  L.trigger(
                     o("WAWebVoipEventConstants").getChangeEvent(
                       o("WAWebVoipEventConstants").VoipCallModelEvents
                         .IS_SELF_CALL_LINK_ADMIN,
                     ),
                   ));
+              }
             }
-            r("WAWebCallCollection").activeCall != null &&
-              a.isGroupCall &&
-              !r("WAWebCallCollection").activeCall.isGroup &&
-              ((r("WAWebCallCollection").activeCall.isGroup = a.isGroupCall),
-              r("WAWebCallCollection").activeCall.trigger(
+          }
+          L != null &&
+            a.callId != null &&
+            L.id !== a.callId &&
+            o("WAWebVoipCallStateUtils").isCallActive(i) &&
+            o("WAWebVoipCallStateUtils").isCallOutgoing(L.getState()) &&
+            (o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: Updating call.id during auto-connect: ",
+                  "",
+                ])),
+              a.callId,
+            ),
+            (L.id = a.callId),
+            (L.outgoing = a.isCaller),
+            L.trigger("change:id"));
+          var P =
+            ((t = r("WAWebCallCollection").activeCall) == null
+              ? void 0
+              : t.id) === a.callId;
+          if (P && L != null)
+            ((L.isWaitingRoomEnabled = a.isWaitingRoomEnabled),
+              (L.isWaitingRoomAdmin = a.isWaitingRoomAdmin),
+              (L.waitingRoomFilter = a.waitingRoomFilter),
+              (L.isInWaitingRoom = a.isInWaitingRoom),
+              (L.waitingRoomUsers = a.waitingRoomUsers),
+              (L.waitingRoomUsersCount = a.waitingRoomUsersCount),
+              (L.isDualStreamSsEnabled = a.isDualStreamSsEnabled),
+              (L.isCapiCall = a.participants.some(function (e) {
+                return (
+                  e.isSelf !== !0 &&
+                  e.devicePlatform ===
+                    o("WAWebVoipWaCallEnums").ClientPlatform.CAPI
+                );
+              })),
+              L.trigger(
                 o("WAWebVoipEventConstants").getChangeEvent(
-                  o("WAWebVoipEventConstants").VoipCallModelEvents.IS_GROUP,
+                  o("WAWebVoipEventConstants").VoipCallModelEvents
+                    .WAITING_ROOM_STATE,
                 ),
-              ));
-            var L = r("WAWebCallCollection").activeCall,
-              E = a.peerJid,
-              k = (L == null ? void 0 : L.id) === a.callId,
-              I =
-                !o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
-                (L == null ? void 0 : L.id) === s;
-            if (L != null && h && (k || I)) {
-              if (
-                (L.isCallLink ||
-                  ((L.isCallLink = !0),
-                  (L.callLinkToken = s),
-                  L.trigger(
-                    o("WAWebVoipEventConstants").getChangeEvent(
-                      o("WAWebVoipEventConstants").VoipCallModelEvents
-                        .CALL_LINK_STATE,
-                    ),
-                  )),
-                L.isGuestEligible !== a.isGuestEligible &&
-                  ((L.isGuestEligible = a.isGuestEligible),
-                  L.trigger(
-                    o("WAWebVoipEventConstants").getChangeEvent(
-                      o("WAWebVoipEventConstants").VoipCallModelEvents
-                        .CALL_LINK_STATE,
-                    ),
-                  )),
-                a.callId != null &&
-                  L.id !== a.callId &&
-                  L.id === s &&
-                  (o("WALogger").LOG(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: Updating call.id from linkToken to actual callId: ",
-                        "",
-                      ])),
-                    a.callId,
-                  ),
-                  (L.id = a.callId),
-                  L.trigger("change:id")),
-                E != null)
-              ) {
-                var T = L.peerJid == null || L.peerJid.toJid() !== E.toJid();
-                T &&
-                  (o("WALogger").LOG(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: Updating peerJid for call link: ",
-                        "",
-                      ])),
-                    E.toJid(),
-                  ),
-                  (L.peerJid = E),
-                  L.trigger(
-                    o("WAWebVoipEventConstants").getChangeEvent(
-                      o("WAWebVoipEventConstants").VoipCallModelEvents.PEER_JID,
-                    ),
-                  ));
-              }
-              if (a.participants) {
-                var D = a.participants.find(function (e) {
-                  return (
-                    e.userType === o("WAWebVoipWaCallEnums").CallUserType.Admin
-                  );
-                });
-                if (D != null) {
-                  var x = L.callLinkCreatorJid;
-                  ((L.callLinkCreatorJid = D.jid),
-                    (x == null || x.toJid() !== D.jid.toJid()) &&
-                      L.trigger(
-                        o("WAWebVoipEventConstants").getChangeEvent(
-                          o("WAWebVoipEventConstants").VoipCallModelEvents
-                            .CALL_LINK_CREATOR_JID,
-                        ),
-                      ));
-                  var $ = a.participants.some(function (e) {
-                    return (
-                      e.userType ===
-                        o("WAWebVoipWaCallEnums").CallUserType.Admin &&
-                      o("WAWebUserUtils").isMeAccount(e.jid)
-                    );
-                  });
-                  L.isSelfCallLinkAdmin !== $ &&
-                    ((L.isSelfCallLinkAdmin = $),
-                    L.trigger(
-                      o("WAWebVoipEventConstants").getChangeEvent(
-                        o("WAWebVoipEventConstants").VoipCallModelEvents
-                          .IS_SELF_CALL_LINK_ADMIN,
-                      ),
-                    ));
-                }
-              }
-            }
-            L != null &&
-              a.callId != null &&
-              L.id !== a.callId &&
-              o("WAWebVoipCallStateUtils").isCallActive(i) &&
-              o("WAWebVoipCallStateUtils").isCallOutgoing(L.getState()) &&
-              (o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: Updating call.id during auto-connect: ",
+              ),
+              o("WALogger").LOG(
+                f ||
+                  (f = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: Setting call state to ",
                     "",
                   ])),
-                a.callId,
-              ),
-              (L.id = a.callId),
-              (L.outgoing = a.isCaller),
-              L.trigger("change:id"));
-            var P =
-              ((n = r("WAWebCallCollection").activeCall) == null
-                ? void 0
-                : n.id) === a.callId;
-            if (P && L != null)
-              ((L.isWaitingRoomEnabled = a.isWaitingRoomEnabled),
-                (L.isWaitingRoomAdmin = a.isWaitingRoomAdmin),
-                (L.waitingRoomFilter = a.waitingRoomFilter),
-                (L.isInWaitingRoom = a.isInWaitingRoom),
-                (L.waitingRoomUsers = a.waitingRoomUsers),
-                (L.waitingRoomUsersCount = a.waitingRoomUsersCount),
-                (L.isDualStreamSsEnabled = a.isDualStreamSsEnabled),
-                (L.isCapiCall = a.participants.some(function (e) {
-                  return (
-                    e.isSelf !== !0 &&
-                    e.devicePlatform ===
-                      o("WAWebVoipWaCallEnums").ClientPlatform.CAPI
-                  );
-                })),
-                L.trigger(
-                  o("WAWebVoipEventConstants").getChangeEvent(
-                    o("WAWebVoipEventConstants").VoipCallModelEvents
-                      .WAITING_ROOM_STATE,
-                  ),
-                ),
-                o("WALogger").LOG(
-                  f ||
-                    (f = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: Setting call state to ",
-                      "",
-                    ])),
-                  i,
-                ),
-                L.setState(i),
-                r("WAWebCallCollection").setIsInConnectedCall(
-                  o("WAWebVoipCallStateUtils").isCallConnected(i),
-                ));
-            else if (!o("WAWebVoipCallStateUtils").isCallTerminal(i)) {
-              var M;
-              o("WALogger").WARN(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: Dropped non-terminal state update ",
-                    " (activeCall.id=",
-                    " !== callInfo.callId=",
-                    ")",
-                  ])),
                 i,
-                String(
-                  (M = r("WAWebCallCollection").activeCall) == null
-                    ? void 0
-                    : M.id,
-                ),
-                String(a.callId),
+              ),
+              L.setState(i),
+              r("WAWebCallCollection").setIsInConnectedCall(
+                o("WAWebVoipCallStateUtils").isCallConnected(i),
+              ));
+          else if (!o("WAWebVoipCallStateUtils").isCallTerminal(i)) {
+            var M;
+            o("WALogger").WARN(
+              g ||
+                (g = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: Dropped non-terminal state update ",
+                  " (activeCall.id=",
+                  " !== callInfo.callId=",
+                  ")",
+                ])),
+              i,
+              String(
+                (M = r("WAWebCallCollection").activeCall) == null
+                  ? void 0
+                  : M.id,
+              ),
+              String(a.callId),
+            );
+          }
+          if (
+            (o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
+              P &&
+              (o(
+                "WAWebInCallWaitingRoomNotificationHelper",
+              ).closeInCallWaitingRoomNotification(a.callId),
+              r("WAWebCallCollection").setActiveCall(null),
+              r("WAWebCallCollection").setIsInConnectedCall(!1)),
+            !o("WAWebVoipGatingUtils").isGuestViewer())
+          ) {
+            a.isCaller ||
+              o("WAWebVoipActivityTracker").trackActivity(
+                o("WAWebVoipActivityTracker").VoipActivity
+                  .INCOMING_CALL_MSG_GENERATING,
               );
-            }
-            if (
-              (o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
-                P &&
-                (o(
-                  "WAWebInCallWaitingRoomNotificationHelper",
-                ).closeInCallWaitingRoomNotification(a.callId),
-                r("WAWebCallCollection").setActiveCall(null),
-                r("WAWebCallCollection").setIsInConnectedCall(!1)),
-              !o("WAWebVoipGatingUtils").isGuestViewer())
-            ) {
-              a.isCaller ||
+            var w = await o(
+                "WAWebVoipActionWriteCallLogCallStateChanged",
+              ).generateCallLogFromCallStateChangedEvent(a),
+              B = r("WAWebCallCollection").activeCall;
+            (w != null &&
+              B != null &&
+              B.id === a.callId &&
+              (a.isCaller ||
                 o("WAWebVoipActivityTracker").trackActivity(
                   o("WAWebVoipActivityTracker").VoipActivity
-                    .INCOMING_CALL_MSG_GENERATING,
-                );
-              var w = yield o(
-                  "WAWebVoipActionWriteCallLogCallStateChanged",
-                ).generateCallLogFromCallStateChangedEvent(a),
-                B = r("WAWebCallCollection").activeCall;
-              (w != null &&
-                B != null &&
-                B.id === a.callId &&
-                (a.isCaller ||
-                  o("WAWebVoipActivityTracker").trackActivity(
-                    o("WAWebVoipActivityTracker").VoipActivity
-                      .INCOMING_CALL_MSG_READY,
-                  ),
-                (B.msg = w),
-                B.trigger(
-                  o("WAWebVoipEventConstants").getChangeEvent(
-                    o("WAWebVoipEventConstants").VoipCallModelEvents.MSG,
-                  ),
-                )),
-                w != null && a.isCaller && !h && F(a.callId, w),
-                o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
-                  A.delete(a.callId));
-            }
-          });
-          function a(e) {
-            return t.apply(this, arguments);
+                    .INCOMING_CALL_MSG_READY,
+                ),
+              (B.msg = w),
+              B.trigger(
+                o("WAWebVoipEventConstants").getChangeEvent(
+                  o("WAWebVoipEventConstants").VoipCallModelEvents.MSG,
+                ),
+              )),
+              w != null && a.isCaller && !h && F(a.callId, w),
+              o("WAWebVoipCallStateUtils").isCallTerminal(i) &&
+                A.delete(a.callId));
           }
-          return a;
-        })(),
+        },
         handleVideoStateChange: function (t) {
           var e = t.videoStateData,
             n = r("WAWebCallCollection").activeCall;
@@ -505,9 +496,12 @@ __d(
               (o("WALogger").LOG(
                 h ||
                   (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "voip: [A/V switch] Call media state changed,\n        selfVideoState: ",
-                    ",\n        peerVideoState: ",
-                    ",\n        isVideoCall: ",
+                    `voip: [A/V switch] Call media state changed,
+        selfVideoState: `,
+                    `,
+        peerVideoState: `,
+                    `,
+        isVideoCall: `,
                     "",
                   ])),
                 n.selfVideoState,
@@ -802,11 +796,7 @@ __d(
                 o("WAWebVoipWaCallEnums").ScreenShareEndReason.TakeOver &&
                 (e.setSelfScreenShareRejected(!0),
                 o("WAWebToastManager").ToastManager.open(
-                  P.jsx(o("WAWebToast.react").Toast, {
-                    msg: s._(
-                      /*BTDS*/ "Another participant is already sharing their screen",
-                    ),
-                  }),
+                  P.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
                 ))),
               !n &&
                 t.state ===
@@ -997,12 +987,8 @@ __d(
             o("WAWebToastManager").ToastManager.open(
               P.jsx(o("WAWebToast.react").Toast, {
                 msg: r("justknobx")._("8068")
-                  ? s._(
-                      /*BTDS*/ "Your request to join the call wasn't approved. Contact the call creator for help.",
-                    )
-                  : s._(
-                      /*BTDS*/ "Your request to join the call was not approved.",
-                    ),
+                  ? s._(/*BTDS*/ "")
+                  : s._(/*BTDS*/ ""),
               }),
             ));
           var e = r("WAWebCallCollection").activeCall;

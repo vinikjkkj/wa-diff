@@ -4,7 +4,7 @@ __d(
     "AdCampaignDestination",
     "AdsAPIObjectives",
     "CTDDefaultCTAConstants",
-    "ClickToMessageAIGenEligibilityUtils",
+    "ClickToMessageAdCaptionEligibilityUtils",
     "ClickToMessageCTDAdPreviewGating",
     "ClickToMessageCTDHeadlineGating",
     "CtxAdvertiserQeHbtExposureFalcoEvent",
@@ -18,17 +18,18 @@ __d(
     "use strict";
     var e, s;
     function u(e) {
-      var t;
-      if ((e === void 0 && (e = !1), e)) {
-        var n;
-        return (n = r("gkx")("11140")) != null ? n : !1;
-      }
-      return (t = r("gkx")("11154")) != null ? t : !1;
+      return (
+        e === void 0 && (e = !1),
+        e ? r("qex")._("5872") === !0 : r("qex")._("5873") === !0
+      );
     }
     function c(e, t) {
       return (
         t === void 0 && (t = !1),
-        e === r("AdCampaignDestination").INSTAGRAM_DIRECT && u(t)
+        (e === r("AdCampaignDestination").INSTAGRAM_DIRECT ||
+          e ===
+            r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_WHATSAPP) &&
+          u(t)
       );
     }
     function d(e, t) {
@@ -41,19 +42,21 @@ __d(
       );
     }
     function m() {
-      return r("justknobx")._("1488");
+      return !0;
     }
     function p(e, t) {
       return (
         e === r("AdCampaignDestination").INSTAGRAM_DIRECT &&
-        o("ClickToMessageAIGenEligibilityUtils").isAdCaptionEligibleForAIGen(
-          t,
-        ) &&
+        o(
+          "ClickToMessageAdCaptionEligibilityUtils",
+        ).isAdCaptionEligibleForAIGen(t) &&
         r("justknobx")._("2143")
       );
     }
     function _(e) {
-      return e === r("AdCampaignDestination").INSTAGRAM_DIRECT;
+      return r("justknobx")._("5320")
+        ? e === r("AdCampaignDestination").INSTAGRAM_DIRECT
+        : !1;
     }
     var f = new Set([
         (e = r("AdsAPIObjectives")).OUTCOME_SALES,
@@ -194,7 +197,7 @@ __d(
           : r("qex")._("3465") === !0
         : !1;
     }
-    ((l.isWelcomeMessageCTAGKEnabled = u),
+    ((l.isWelcomeMessageCTAEnabled = u),
       (l.enableCTDWelcomeMessageCTA = c),
       (l.enableCTXMinBudgetAMQE = d),
       (l.isFBPlacementsEnabledForCTD = m),

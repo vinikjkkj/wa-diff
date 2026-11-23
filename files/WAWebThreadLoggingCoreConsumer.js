@@ -1,55 +1,45 @@
 __d(
   "WAWebThreadLoggingCoreConsumer",
   [
-    "Promise",
     "WALogger",
     "WAWebGroupType",
     "WAWebThreadInteractionDataCoreConsumerWamEvent",
     "WAWebThreadLoggingFalco",
     "WAWebWamEnumChatMutedType",
     "WamThreadInteractionDataCoreConsumerFalcoEvent",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s;
-    function u(e, t) {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          var i = [];
-          try {
-            (t.forEach(function (e) {
-              if (a) {
-                i.push(d(e));
-                return;
-              }
-              var t = new (o(
-                "WAWebThreadInteractionDataCoreConsumerWamEvent",
-              ).ThreadInteractionDataCoreConsumerWamEvent)(m(e));
-              t.commit();
-            }),
-              yield (s || (s = n("Promise"))).all(i));
-          } catch (t) {
-            var l = t instanceof Error ? t : r("err")(String(t));
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "ctlv2: error uploading Core Consumer WAM event",
-                  ])),
-              )
-              .catching(l)
-              .sendLogs("thread-logging-core-consumer-upload-failure");
+    var e;
+    async function s(t, n) {
+      var a = [];
+      try {
+        (t.forEach(function (e) {
+          if (n) {
+            a.push(u(e));
+            return;
           }
-        })),
-        c.apply(this, arguments)
-      );
+          var t = new (o(
+            "WAWebThreadInteractionDataCoreConsumerWamEvent",
+          ).ThreadInteractionDataCoreConsumerWamEvent)(c(e));
+          t.commit();
+        }),
+          await Promise.all(a));
+      } catch (t) {
+        var i = t instanceof Error ? t : r("err")(String(t));
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "ctlv2: error uploading Core Consumer WAM event",
+              ])),
+          )
+          .catching(i)
+          .sendLogs("thread-logging-core-consumer-upload-failure");
+      }
     }
-    function d(e) {
-      var t = m(e);
+    function u(e) {
+      var t = c(e);
       return o("WAWebThreadLoggingFalco").logThreadInteractionFalcoEvent(
         r("WamThreadInteractionDataCoreConsumerFalcoEvent"),
         function () {
@@ -122,7 +112,7 @@ __d(
         },
       );
     }
-    function m(e) {
+    function c(e) {
       var t,
         n = e.event,
         r = e.threadDs,
@@ -201,8 +191,8 @@ __d(
         afterReadTurnedOff: n.afterReadTurnedOff ? !0 : void 0,
       };
     }
-    ((l.ThreadInteractionCoreConsumerWamTrigger = u),
-      (l.logThreadInteractionCoreConsumerFalcoEvent = d));
+    ((l.ThreadInteractionCoreConsumerWamTrigger = s),
+      (l.logThreadInteractionCoreConsumerFalcoEvent = u));
   },
   98,
 );

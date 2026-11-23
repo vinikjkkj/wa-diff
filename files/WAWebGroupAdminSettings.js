@@ -37,11 +37,11 @@ __d(
     function c(e, t) {
       return e === "approveNewMembers"
         ? t
-          ? s._(/*BTDS*/ "Turn on approval")
-          : s._(/*BTDS*/ "Turn off approval")
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "")
         : t
-          ? s._(/*BTDS*/ "Allow everyone")
-          : s._(/*BTDS*/ "Allow only admins");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     function d(e, t) {
       return e === "approveNewMembers"
@@ -77,13 +77,13 @@ __d(
     }
     function m(e) {
       return e === "approveNewMembers"
-        ? s._(/*BTDS*/ "Approve new members")
+        ? s._(/*BTDS*/ "")
         : e === "sendMessages"
-          ? s._(/*BTDS*/ "Send new messages")
+          ? s._(/*BTDS*/ "")
           : e === "editGroupSettings"
-            ? s._(/*BTDS*/ "Edit group settings")
+            ? s._(/*BTDS*/ "")
             : e === "addMembers"
-              ? s._(/*BTDS*/ "Add other members")
+              ? s._(/*BTDS*/ "")
               : (function () {
                   throw Error(
                     "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
@@ -94,11 +94,11 @@ __d(
     function p(e, t) {
       return e === "approveNewMembers"
         ? t
-          ? s._(/*BTDS*/ "On")
-          : s._(/*BTDS*/ "Off")
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "")
         : t
-          ? s._(/*BTDS*/ "Everyone")
-          : s._(/*BTDS*/ "Only admins");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     ((l.getGroupAdminSettings = e),
       (l.getChatGroupAdminSettings = u),

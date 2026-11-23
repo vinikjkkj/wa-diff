@@ -11,6 +11,7 @@ __d(
     "AdsAdgroupSemanticFieldMappingUtils",
     "AdsAssetFeedUtils",
     "AdsBrandAwarenessUtils",
+    "AdsCallToActionTypesUtils",
     "AdsChildAttachmentsUtils",
     "AdsDefaultAdgroupSpecPathPlugin",
     "ApiAdObjectTypes",
@@ -117,7 +118,8 @@ __d(
             t,
           ) ||
             (o("AdsAssetFeedUtils").hasPlacementCustomizationFromRecord(t) &&
-              r("adsAssetFeedAdgroupRequireCallToActionSpec")(t))
+              (r("adsAssetFeedAdgroupRequireCallToActionSpec")(t) ||
+                o("AdsCallToActionTypesUtils").hasJoinLiveVideoCTA(t)))
             ? o("AdsAPIAdgroupRecordUtils").isExistingPostAd(t)
               ? r("AdsAdgroupCombinedFieldMappings")
                   .ASSET_FEED_MAPPING_WITH_CTA_EXISTING_POST

@@ -13,52 +13,43 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = y(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = _(r, n);
-          if (a.success)
-            return { name: "GetResponseSuccessPictureURL", value: a.value };
-          var i = d(r, n);
-          if (i.success)
-            return { name: "GetResponseSuccessAvatarURLs", value: i.value };
-          var l = p(r, n);
-          if (l.success)
-            return { name: "GetResponseSuccessPictureBlob", value: l.value };
-          var s = m(r, n);
-          if (s.success)
-            return { name: "GetResponseSuccessNoData", value: s.value };
-          var c = u(r, n);
-          if (c.success) return { name: "GetResponseError", value: c.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("Get", {
-              SuccessPictureURL: a,
-              SuccessAvatarURLs: i,
-              SuccessPictureBlob: l,
-              SuccessNoData: s,
-              Error: c,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = h(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = p(r, n);
+      if (a.success)
+        return { name: "GetResponseSuccessPictureURL", value: a.value };
+      var i = c(r, n);
+      if (i.success)
+        return { name: "GetResponseSuccessAvatarURLs", value: i.value };
+      var l = m(r, n);
+      if (l.success)
+        return { name: "GetResponseSuccessPictureBlob", value: l.value };
+      var u = d(r, n);
+      if (u.success)
+        return { name: "GetResponseSuccessNoData", value: u.value };
+      var _ = s(r, n);
+      if (_.success) return { name: "GetResponseError", value: _.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("Get", {
+          SuccessPictureURL: a,
+          SuccessAvatarURLs: i,
+          SuccessPictureBlob: l,
+          SuccessNoData: u,
+          Error: _,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
       if (!r.success) return r;
-      var a = f(e, t);
+      var a = _(e, t);
       if (!a.success) return a;
-      var i = h(r.value);
+      var i = g(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -67,7 +58,7 @@ __d(
           )
         : i;
     }
-    function c(e) {
+    function u(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "avatar");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrString(e, "url");
@@ -87,25 +78,25 @@ __d(
           })
         : a;
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
-      var r = g(e, t);
+      var r = f(e, t);
       if (!r.success) return r;
-      var a = o("WASmaxParseUtils").mapChildrenWithTag(e, "avatar", 1, 4, c);
+      var a = o("WASmaxParseUtils").mapChildrenWithTag(e, "avatar", 1, 4, u);
       return a.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, r.value, { avatar: a.value }),
           )
         : a;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
-      var r = g(e, t);
+      var r = f(e, t);
       return (r.success, r);
     }
-    function p(e, t) {
+    function m(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "picture");
@@ -127,7 +118,7 @@ __d(
       if (!l.success) return l;
       var s = o("WASmaxParseUtils").contentBytesRange(r.value, 1, void 0);
       if (!s.success) return s;
-      var u = g(e, t);
+      var u = f(e, t);
       return u.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
@@ -142,7 +133,7 @@ __d(
           )
         : u;
     }
-    function _(e, t) {
+    function p(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "picture");
@@ -172,7 +163,7 @@ __d(
         o("WASmaxInProfilePictureEnums").ENUM_FALSE_TRUE,
       );
       if (!c.success) return c;
-      var d = g(e, t);
+      var d = f(e, t);
       return d.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends(
@@ -189,7 +180,7 @@ __d(
           )
         : d;
     }
-    function f(e, t) {
+    function _(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -218,7 +209,7 @@ __d(
       );
       return s.success ? o("WAResultOrError").makeResult({ type: s.value }) : s;
     }
-    function g(e, t) {
+    function f(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
@@ -247,44 +238,44 @@ __d(
       );
       return s.success ? o("WAResultOrError").makeResult({ type: s.value }) : s;
     }
-    function h(e) {
-      var t = v(e);
+    function g(e) {
+      var t = b(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorBadRequest",
           value: t.value,
         });
-      var n = E(e);
+      var n = L(e);
       if (n.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorNotAuthorized",
           value: n.value,
         });
-      var r = L(e);
+      var r = R(e);
       if (r.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorItemNotFound",
           value: r.value,
         });
-      var a = k(e);
+      var a = E(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorRateOverlimit",
           value: a.value,
         });
-      var i = R(e);
+      var i = S(e);
       if (i.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorInternalServerError",
           value: i.value,
         });
-      var l = S(e);
+      var l = v(e);
       if (l.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorFeatureNotImplemented",
           value: l.value,
         });
-      var s = I(e);
+      var s = k(e);
       return s.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorServiceUnavailable",
@@ -304,7 +295,7 @@ __d(
             [t, n, r, a, i, l, s],
           );
     }
-    function y(e) {
+    function h(e) {
       var t,
         n,
         r = e.pictureType,
@@ -317,17 +308,17 @@ __d(
         d = e.addRequestMixinArgs,
         m = e.tCTokenMixinArgs,
         p = e.avatarMixinArgs,
-        _ = O(
-          M(
+        _ = F(
+          N(
             o("WASmaxJsx").smax(
               "iq",
               null,
               o("WASmaxMixins").optionalMerge(
-                P,
+                $,
                 o("WASmaxMixins").optionalMerge(
-                  b,
+                  C,
                   o("WASmaxMixins").optionalMerge(
-                    D,
+                    T,
                     o("WASmaxJsx").smax("picture", {
                       type: (t = o("WASmaxAttrs")).OPTIONAL(
                         (n = o("WAWap")).CUSTOM_STRING,
@@ -352,13 +343,13 @@ __d(
         );
       return _;
     }
-    function C(e) {
+    function y(e) {
       var t = e.tctokenT,
         n = e.privacyTokenContentsMixinArgs,
         r = o("WASmaxJsx").smax(
           "smax$any",
           null,
-          W(
+          B(
             o("WASmaxJsx").smax("tctoken", {
               t: o("WASmaxAttrs").OPTIONAL(o("WAWap").INT, t),
             }),
@@ -367,11 +358,11 @@ __d(
         );
       return r;
     }
-    function b(e, t) {
-      var n = C(t);
+    function C(e, t) {
+      var n = y(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function v(e) {
+    function b(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -391,7 +382,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function S(e) {
+    function v(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -411,7 +402,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function R(e) {
+    function S(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -431,7 +422,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function L(e) {
+    function R(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -451,7 +442,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function E(e) {
+    function L(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -471,7 +462,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function k(e) {
+    function E(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -491,7 +482,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function I(e) {
+    function k(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -511,7 +502,7 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function T(e) {
+    function I(e) {
       var t = e.addRequestCode,
         n = e.addRequestAdmin,
         r = e.addRequestExpiration,
@@ -526,82 +517,82 @@ __d(
         );
       return a;
     }
-    function D(e, t) {
-      var n = T(t);
+    function T(e, t) {
+      var n = I(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function x(e) {
+    function D(e) {
       var t = e.avatarPoseId,
         n = o("WASmaxJsx").smax("avatar", {
           pose_id: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function $(e) {
+    function x(e) {
       var t = e.avatarArgs,
         n = o("WASmaxJsx").smax(
           "picture",
           { type: "avatar" },
-          o("WASmaxChildren").REPEATED_CHILD(x, t, 0, 4),
+          o("WASmaxChildren").REPEATED_CHILD(D, t, 0, 4),
         );
       return n;
     }
-    function P(e, t) {
-      var n = $(t);
+    function $(e, t) {
+      var n = x(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function N() {
-      var e = A(o("WASmaxJsx").smax("iq", { xmlns: "w:profile:picture" }));
+    function P() {
+      var e = w(o("WASmaxJsx").smax("iq", { xmlns: "w:profile:picture" }));
       return e;
     }
-    function M(e) {
-      var t = N();
+    function N(e) {
+      var t = P();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function w() {
+    function M() {
       var e = o("WASmaxJsx").smax("iq", {
         id: o("WAWap").generateId(),
         type: "get",
       });
       return e;
     }
-    function A(e) {
-      var t = w();
+    function w(e) {
+      var t = M();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function F(e) {
+    function A(e) {
       var t = e.iqTarget,
-        n = U(o("WASmaxJsx").smax("iq", { target: o("WAWap").JID(t) }));
+        n = q(o("WASmaxJsx").smax("iq", { target: o("WAWap").JID(t) }));
       return n;
     }
-    function O(e, t) {
-      var n = F(t);
+    function F(e, t) {
+      var n = A(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function B(e) {
+    function O(e) {
       var t = e.anyElementValue,
         n = o("WASmaxJsx").smax("smax$any", null, t);
       return n;
     }
-    function W(e, t) {
-      var n = B(t);
+    function B(e, t) {
+      var n = O(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function q() {
+    function W() {
       var e = o("WASmaxJsx").smax("iq", { to: o("WAWap").S_WHATSAPP_NET });
       return e;
     }
-    function U(e) {
-      var t = q();
+    function q(e) {
+      var t = W();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
     ((l.sendGetRPC = e),
-      (l.parseGetResponseError = u),
-      (l.parseGetResponseSuccessAvatarURLs = d),
-      (l.parseGetResponseSuccessNoData = m),
-      (l.parseGetResponseSuccessPictureBlob = p),
-      (l.parseGetResponseSuccessPictureURL = _),
-      (l.makeGetRequest = y));
+      (l.parseGetResponseError = s),
+      (l.parseGetResponseSuccessAvatarURLs = c),
+      (l.parseGetResponseSuccessNoData = d),
+      (l.parseGetResponseSuccessPictureBlob = m),
+      (l.parseGetResponseSuccessPictureURL = p),
+      (l.makeGetRequest = h));
   },
   98,
 );

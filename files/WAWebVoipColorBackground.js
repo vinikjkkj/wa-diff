@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipColorBackground",
-  ["WALogger", "WAPromiseTimeout", "asyncToGeneratorRuntime", "err"],
+  ["WALogger", "WAPromiseTimeout", "err"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -74,10 +74,10 @@ __d(
       return "" + c + e;
     }
     function R(e) {
-      return v(e) ? D(e.slice(c.length)) : null;
+      return v(e) ? T(e.slice(c.length)) : null;
     }
     function L(e) {
-      var t = x(e),
+      var t = D(e),
         n = t.center,
         r = t.edge,
         o = t.middle,
@@ -116,53 +116,45 @@ __d(
     function k() {
       b.clear();
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
+    async function I(t) {
+      var n = self.performance.now(),
+        a = self.OffscreenCanvas;
+      if (typeof a != "function")
+        throw r("err")("color background: no OffscreenCanvas");
+      var i = new a(d, m),
+        l = i.getContext("2d");
+      if (l == null) throw r("err")("color background: no 2d context");
+      var s = D(t),
+        u = s.center,
+        c = s.edge,
+        _ = s.middle,
+        g = m * p;
+      (l.translate(d / 2, g),
+        l.scale((Math.SQRT2 * d) / 2, Math.SQRT2 * (m - g)));
+      var y = l.createRadialGradient(0, 0, 0, 0, 0, 1);
+      (y.addColorStop(0, u),
+        y.addColorStop(f, _),
+        y.addColorStop(1, c),
+        (l.fillStyle = y),
+        l.fillRect(-1, -1, 2, 2));
+      var C = await i.convertToBlob({ quality: h, type: "image/jpeg" });
       return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = self.performance.now(),
-            a = self.OffscreenCanvas;
-          if (typeof a != "function")
-            throw r("err")("color background: no OffscreenCanvas");
-          var i = new a(d, m),
-            l = i.getContext("2d");
-          if (l == null) throw r("err")("color background: no 2d context");
-          var s = x(t),
-            u = s.center,
-            c = s.edge,
-            _ = s.middle,
-            g = m * p;
-          (l.translate(d / 2, g),
-            l.scale((Math.SQRT2 * d) / 2, Math.SQRT2 * (m - g)));
-          var y = l.createRadialGradient(0, 0, 0, 0, 0, 1);
-          (y.addColorStop(0, u),
-            y.addColorStop(f, _),
-            y.addColorStop(1, c),
-            (l.fillStyle = y),
-            l.fillRect(-1, -1, 2, 2));
-          var C = yield i.convertToBlob({ quality: h, type: "image/jpeg" });
-          return (
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: [effects] color background ",
-                  ": ",
-                  " ms, ",
-                  " bytes",
-                ])),
-              t,
-              Math.round(self.performance.now() - n),
-              C.size,
-            ),
-            { columns: 1, rows: 1, tiles: [C] }
-          );
-        })),
-        T.apply(this, arguments)
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: [effects] color background ",
+              ": ",
+              " ms, ",
+              " bytes",
+            ])),
+          t,
+          Math.round(self.performance.now() - n),
+          C.size,
+        ),
+        { columns: 1, rows: 1, tiles: [C] }
       );
     }
-    function D(e) {
+    function T(e) {
       var t;
       return (t = s.find(function (t) {
         return t === e;
@@ -170,11 +162,11 @@ __d(
         ? t
         : null;
     }
-    function x(e) {
+    function D(e) {
       var t = u[e];
-      return { center: $(t, 255, _), edge: $(t, 0, g), middle: t };
+      return { center: x(t, 255, _), edge: x(t, 0, g), middle: t };
     }
-    function $(e, t, n) {
+    function x(e, t, n) {
       var r = C.map(function (r) {
         var o = parseInt(e.slice(r, r + 2), 16);
         return Math.round(o + (t - o) * n)

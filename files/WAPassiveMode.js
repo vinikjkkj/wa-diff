@@ -7,7 +7,6 @@ __d(
     "WAPubSub",
     "WASendPassiveModeProtocol",
     "WATagsLogger",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -21,8 +20,8 @@ __d(
       o("WAGlobals")
         .getWaOneQueue()
         .enqueue(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var n = yield o("WADanglingQueue").isDanglingQueueEmpty();
+          async function () {
+            var n = await o("WADanglingQueue").isDanglingQueueEmpty();
             (c.LOG(
               e ||
                 (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -33,9 +32,9 @@ __d(
             ),
               !n &&
                 ((t = !0),
-                yield o("WACastStanzas").castDanglingStanzas(),
+                await o("WACastStanzas").castDanglingStanzas(),
                 d.publish({ type: "passive-mode-end" })));
-          }),
+          },
           { operationType: "dangling_receipts", flush: !1 },
         )
         .catch(function (e) {

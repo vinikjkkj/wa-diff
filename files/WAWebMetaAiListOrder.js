@@ -5,7 +5,6 @@ __d(
     "WAWebLeadListConstants",
     "WAWebListUtils",
     "WAWebSchemaLabel",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -82,25 +81,17 @@ __d(
       });
       return a == null ? null : d(a) + 0.5;
     }
-    function g(e, t, n) {
-      return h.apply(this, arguments);
+    async function g(e, t, n) {
+      if (!o("WAWebListUtils").isMetaAiListEnabled()) {
+        await t();
+        return;
+      }
+      var r = _(await e());
+      await t();
+      var a = f(r, await e());
+      a != null && (await n(a));
     }
-    function h() {
-      return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (!o("WAWebListUtils").isMetaAiListEnabled()) {
-            yield t();
-            return;
-          }
-          var r = _(yield e());
-          yield t();
-          var a = f(r, yield e());
-          a != null && (yield n(a));
-        })),
-        h.apply(this, arguments)
-      );
-    }
-    function y(e, t, n) {
+    function h(e, t, n) {
       var r, a;
       if (o("WAWebListUtils").isMetaAiListEnabled()) {
         var i =
@@ -124,7 +115,7 @@ __d(
       (l.getMetaAiPredecessorId = _),
       (l.getReanchoredMetaAiOrderIndex = f),
       (l.keepMetaAiListInPlace = g),
-      (l.reanchorMetaAiListInMemory = y));
+      (l.reanchorMetaAiListInMemory = h));
   },
   98,
 );

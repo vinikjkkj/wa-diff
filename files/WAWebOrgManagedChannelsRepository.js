@@ -1,18 +1,13 @@
 __d(
   "WAWebOrgManagedChannelsRepository",
-  [
-    "WALogger",
-    "WAWebOrgAdminGraphQL",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["WALogger", "WAWebOrgAdminGraphQL", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = [],
       u = new Set(),
       c = new Map(),
       d = new Set(),
-      m = T();
+      m = I();
     function p() {
       return m;
     }
@@ -40,31 +35,31 @@ __d(
     function g(e, t) {
       return C(
         e,
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var n = yield t();
+        async function () {
+          var n = await t();
           if (n.status !== "success") return n;
-          yield v(e);
-          var r = E(e).channels.find(function (e) {
+          await v(e);
+          var r = L(e).channels.find(function (e) {
             return e.id === n.channel.id;
           });
           return (r == null && y(e, n.channel), n);
-        }),
+        },
         !0,
       );
     }
     function h(e, t) {
       d.add(t);
-      var n = E(e);
-      k(e, babelHelpers.extends({}, n, { channels: L(n.channels) }));
+      var n = L(e);
+      E(e, babelHelpers.extends({}, n, { channels: R(n.channels) }));
     }
     function y(e, t) {
-      var n = E(e),
+      var n = L(e),
         r = [t].concat(
           n.channels.filter(function (e) {
             return e.id !== t.id;
           }),
         );
-      k(e, babelHelpers.extends({}, n, { channels: r }));
+      E(e, babelHelpers.extends({}, n, { channels: r }));
     }
     function C(e, t, n) {
       var r;
@@ -112,9 +107,9 @@ __d(
       }
     }
     function v(e) {
-      var t = E(e);
+      var t = L(e);
       return (
-        k(e, {
+        E(e, {
           channels: t.channels,
           error: null,
           status: t.channels.length === 0 ? "loading" : "refreshing",
@@ -122,61 +117,53 @@ __d(
         S(e)
       );
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    async function S(t) {
+      try {
+        var n = await o("WAWebOrgAdminGraphQL").loadOrgAdminChannels(t);
+        E(t, { channels: R(n), error: null, status: "ready" });
+      } catch (n) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[org-admin] managed channels request failed: ",
+                "",
+              ])),
+            o("WAWebOrgAdminGraphQL").getOrgAdminServerFailureReason(n),
+          )
+          .catching(r("getErrorSafe")(n))
+          .sendLogs("org-admin-managed-channels-load-failed");
+        var a = L(t);
+        E(t, {
+          channels: a.channels,
+          error: r("getErrorSafe")(n),
+          status: "error",
+        });
+      }
     }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            var n = yield o("WAWebOrgAdminGraphQL").loadOrgAdminChannels(t);
-            k(t, { channels: L(n), error: null, status: "ready" });
-          } catch (n) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[org-admin] managed channels request failed: ",
-                    "",
-                  ])),
-                o("WAWebOrgAdminGraphQL").getOrgAdminServerFailureReason(n),
-              )
-              .catching(r("getErrorSafe")(n))
-              .sendLogs("org-admin-managed-channels-load-failed");
-            var a = E(t);
-            k(t, {
-              channels: a.channels,
-              error: r("getErrorSafe")(n),
-              status: "error",
-            });
-          }
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e) {
+    function R(e) {
       return e.filter(function (e) {
         return !d.has(e.id);
       });
     }
-    function E(e) {
+    function L(e) {
       var t;
       return (t = m.listStateByOrgID.get(e)) != null
         ? t
         : { channels: s, error: null, status: "idle" };
     }
-    function k(e, t) {
+    function E(e, t) {
       var n = new Map(m.listStateByOrgID);
       (n.set(e, t),
         (m = babelHelpers.extends({}, m, { listStateByOrgID: n })),
-        I());
+        k());
     }
-    function I() {
+    function k() {
       u.forEach(function (e) {
         return e();
       });
     }
-    function T() {
+    function I() {
       return { listStateByOrgID: new Map() };
     }
     ((l.getOrgManagedChannelsRepositorySnapshot = p),

@@ -11,7 +11,6 @@ __d(
     "LoadObject",
     "MarketingMessagesHighTrustDataStore",
     "cr:11285",
-    "cr:8858",
     "isFalsey",
     "shallowEqual",
   ],
@@ -37,24 +36,6 @@ __d(
       };
     }
     function u(e) {
-      return function (t) {
-        var n = e
-            ? r("AdsPECampaignRawCombinedTableStore").getObject(t)
-            : r("AdsPECampaignRawCombinedTableStore").getCachedObject(t),
-          o = n.map(function (t) {
-            var n = t.campaign_id;
-            if (r("isFalsey")(n)) {
-              var o = {};
-              return r("LoadObject").withValue(o, { creatorModuleID: i.id });
-            }
-            return e
-              ? r("AdsCampaignGroupCombinedStore").getObject(n)
-              : r("AdsCampaignGroupCombinedStore").getCachedObject(n);
-          });
-        return [n, o];
-      };
-    }
-    function c(e) {
       var t,
         n = r("AdsAccountStore").getSelectedAccountID();
       if (n == null) return null;
@@ -63,18 +44,7 @@ __d(
         : r("MarketingMessagesHighTrustDataStore").getCached(n);
       return (t = o.getValue()) == null ? void 0 : t.isBusinessHighTrustForMM;
     }
-    function d(e) {
-      var t = r("AdsAccountStore").getSelectedAccountID();
-      if (t == null || n("cr:8858") == null)
-        return r("LoadObject").withValue(!1, { creatorModuleID: i.id });
-      var o = e ? n("cr:8858").get(t) : n("cr:8858").getCached(t);
-      return o.mapValue(function (e) {
-        return (
-          (e == null ? void 0 : e.hasRecentMessengerStoryAdPlacement) === !0
-        );
-      });
-    }
-    var m = (function (e) {
+    var c = (function (e) {
       function t() {
         for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
           r[o] = arguments[o];
@@ -94,9 +64,8 @@ __d(
             r("AdsAccountStore"),
             r("AdsCampaignGroupCombinedStore"),
             r("MarketingMessagesHighTrustDataStore"),
+            r("AdsPECampaignRawCombinedTableStore"),
           ].concat(
-            n("cr:8858") != null ? [n("cr:8858")] : [],
-            [r("AdsPECampaignRawCombinedTableStore")],
             n("cr:11285") != null
               ? n("cr:11285").getAccountPlacementExclusionStores()
               : [],
@@ -120,11 +89,7 @@ __d(
               t,
               this.$AdsPECampaignPlacementStore$p_1,
             ),
-            {
-              accountPlacementExclusions: i,
-              hasRecentMessengerStoryAdPlacementLoadObject: d(!0),
-              isBusinessHighTrustForMM: c(!0),
-            },
+            { accountPlacementExclusions: i, isBusinessHighTrustForMM: u(!0) },
           );
         }),
         (a.__getCachedData = function (t) {
@@ -141,11 +106,7 @@ __d(
               t,
               this.$AdsPECampaignPlacementStore$p_2,
             ),
-            {
-              accountPlacementExclusions: i,
-              hasRecentMessengerStoryAdPlacementLoadObject: d(!1),
-              isBusinessHighTrustForMM: c(!1),
-            },
+            { accountPlacementExclusions: i, isBusinessHighTrustForMM: u(!1) },
           );
         }),
         (a.__computeResult = function (t, n) {
@@ -159,9 +120,9 @@ __d(
         t
       );
     })(r("FluxDerivedStore"));
-    m.__moduleID = i.id;
-    var p = new m(e || (e = r("AdsDataAtom")));
-    l.default = p;
+    c.__moduleID = i.id;
+    var d = new c(e || (e = r("AdsDataAtom")));
+    l.default = d;
   },
   98,
 );

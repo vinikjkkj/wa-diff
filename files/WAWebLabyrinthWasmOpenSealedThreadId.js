@@ -6,7 +6,6 @@ __d(
     "WAWebEBLabyrinthWaWasmReactorSingleton",
     "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -34,47 +33,39 @@ __d(
             kind: "wasm-output-error",
           });
     }
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            return yield o(
-              "WAWebEBLabyrinthWaWasmReactorSingleton",
-            ).labyrinthWaCommand(
-              {
-                InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
-                ResultSpec: o("WAWebLabyrinthWaWasm.pb")
-                  .OpenSealedThreadIdOutputSpec,
-                validateResult: e,
-              },
-              {
-                openSealedThreadIdInput: {
-                  backupId: o("WALongInt").decimalStringToLongInt(t.backupId),
-                  sealedThreadId: t.sealedThreadId,
-                  epochs: t.epochs.map(function (e) {
-                    return {
-                      serverEpochId: o("WALongInt").decimalStringToLongInt(
-                        e.serverEpochId,
-                      ),
-                      epochAnonId: e.epochAnonId,
-                      epochRootKey: e.epochRootKey,
-                    };
-                  }),
-                },
-              },
-            );
-          } catch (e) {
-            return o("WAResultOrError").makeError({
-              error: r("getErrorSafe")(e),
-              kind: "exception",
-            });
-          }
-        })),
-        u.apply(this, arguments)
-      );
+    async function s(t) {
+      try {
+        return await o(
+          "WAWebEBLabyrinthWaWasmReactorSingleton",
+        ).labyrinthWaCommand(
+          {
+            InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
+            ResultSpec: o("WAWebLabyrinthWaWasm.pb")
+              .OpenSealedThreadIdOutputSpec,
+            validateResult: e,
+          },
+          {
+            openSealedThreadIdInput: {
+              backupId: o("WALongInt").decimalStringToLongInt(t.backupId),
+              sealedThreadId: t.sealedThreadId,
+              epochs: t.epochs.map(function (e) {
+                return {
+                  serverEpochId: o("WALongInt").decimalStringToLongInt(
+                    e.serverEpochId,
+                  ),
+                  epochAnonId: e.epochAnonId,
+                  epochRootKey: e.epochRootKey,
+                };
+              }),
+            },
+          },
+        );
+      } catch (e) {
+        return o("WAResultOrError").makeError({
+          error: r("getErrorSafe")(e),
+          kind: "exception",
+        });
+      }
     }
     l.openSealedThreadIdWasm = s;
   },

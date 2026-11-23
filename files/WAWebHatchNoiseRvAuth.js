@@ -4,7 +4,6 @@ __d(
     "WAWebHatchAttestationProtobufReader",
     "WAWebHatchNoiseBytes",
     "WAWebHatchNoiseProtobuf",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -118,134 +117,80 @@ __d(
         ? !1
         : ((n.state = e.int32()), !0);
     }
-    function M(e) {
-      return w.apply(this, arguments);
+    async function M(t) {
+      var n = t.challenge,
+        a = t.clientNonce,
+        i = t.message1Hash,
+        l = t.message2Hash,
+        u = t.notaryToken,
+        c = t.rvKey;
+      if (n.state !== "provisioned") throw new E("cvm_enrollment_required");
+      var d = u.trim();
+      if (
+        d === "" ||
+        a.length !== e ||
+        c.length !== s ||
+        i.length !== s ||
+        l.length !== s
+      )
+        throw r("err")("WAWebHatchNoiseRvAuth: invalid message 3 inputs");
+      var m = n.vmNonce,
+        p = await w({ clientNonce: a, messageHash: i, rvKey: c, vmNonce: m }),
+        _ = o("WAWebHatchNoiseBytes").constantTimeEqual(p, n.vmProof);
+      if ((o("WAWebHatchNoiseBytes").zeroBytes(p), !_))
+        throw new E("cvm_key_rejected");
+      var f = await A({ clientNonce: a, messageHash: l, rvKey: c, vmNonce: m });
+      try {
+        var g = new (o("WAWebHatchNoiseProtobuf").WAWebHatchNoiseProtoWriter)();
+        return (g.writeString(h, d), g.writeBytes(y, f), g.finish());
+      } finally {
+        o("WAWebHatchNoiseBytes").zeroBytes(f);
+      }
     }
-    function w() {
-      return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.challenge,
-            a = t.clientNonce,
-            i = t.message1Hash,
-            l = t.message2Hash,
-            u = t.notaryToken,
-            c = t.rvKey;
-          if (n.state !== "provisioned") throw new E("cvm_enrollment_required");
-          var d = u.trim();
-          if (
-            d === "" ||
-            a.length !== e ||
-            c.length !== s ||
-            i.length !== s ||
-            l.length !== s
-          )
-            throw r("err")("WAWebHatchNoiseRvAuth: invalid message 3 inputs");
-          var m = n.vmNonce,
-            p = yield A({
-              clientNonce: a,
-              messageHash: i,
-              rvKey: c,
-              vmNonce: m,
-            }),
-            _ = o("WAWebHatchNoiseBytes").constantTimeEqual(p, n.vmProof);
-          if ((o("WAWebHatchNoiseBytes").zeroBytes(p), !_))
-            throw new E("cvm_key_rejected");
-          var f = yield O({
-            clientNonce: a,
-            messageHash: l,
-            rvKey: c,
-            vmNonce: m,
-          });
-          try {
-            var g = new (o(
-              "WAWebHatchNoiseProtobuf",
-            ).WAWebHatchNoiseProtoWriter)();
-            return (g.writeString(h, d), g.writeBytes(y, f), g.finish());
-          } finally {
-            o("WAWebHatchNoiseBytes").zeroBytes(f);
-          }
-        })),
-        w.apply(this, arguments)
-      );
+    async function w(e) {
+      var t = e.clientNonce,
+        n = e.messageHash,
+        r = e.rvKey,
+        a = e.vmNonce;
+      return F(r, v, o("WAWebHatchNoiseBytes").concat(R, n, t, a));
     }
-    function A(e) {
-      return F.apply(this, arguments);
+    async function A(e) {
+      var t = e.clientNonce,
+        n = e.messageHash,
+        r = e.rvKey,
+        a = e.vmNonce;
+      return F(r, S, o("WAWebHatchNoiseBytes").concat(L, n, a, t));
     }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.clientNonce,
-            n = e.messageHash,
-            r = e.rvKey,
-            a = e.vmNonce;
-          return W(r, v, o("WAWebHatchNoiseBytes").concat(R, n, t, a));
-        })),
-        F.apply(this, arguments)
-      );
+    async function F(e, t, n) {
+      var r = await O(e, o("WAWebHatchNoiseBytes").concat(b, t));
+      try {
+        return await O(r, n);
+      } finally {
+        o("WAWebHatchNoiseBytes").zeroBytes(r);
+      }
     }
-    function O(e) {
-      return B.apply(this, arguments);
-    }
-    function B() {
-      return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.clientNonce,
-            n = e.messageHash,
-            r = e.rvKey,
-            a = e.vmNonce;
-          return W(r, S, o("WAWebHatchNoiseBytes").concat(L, n, a, t));
-        })),
-        B.apply(this, arguments)
-      );
-    }
-    function W(e, t, n) {
-      return q.apply(this, arguments);
-    }
-    function q() {
-      return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = yield U(e, o("WAWebHatchNoiseBytes").concat(b, t));
-          try {
-            return yield U(r, n);
-          } finally {
-            o("WAWebHatchNoiseBytes").zeroBytes(r);
-          }
-        })),
-        q.apply(this, arguments)
-      );
-    }
-    function U(e, t) {
-      return V.apply(this, arguments);
-    }
-    function V() {
-      return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.slice();
-          try {
-            var r = yield crypto.subtle.importKey(
-              "raw",
-              n,
-              { hash: "SHA-256", name: "HMAC" },
-              !1,
-              ["sign"],
-            );
-            return new Uint8Array(
-              yield crypto.subtle.sign("HMAC", r, t.slice()),
-            );
-          } finally {
-            o("WAWebHatchNoiseBytes").zeroBytes(n);
-          }
-        })),
-        V.apply(this, arguments)
-      );
+    async function O(e, t) {
+      var n = e.slice();
+      try {
+        var r = await crypto.subtle.importKey(
+          "raw",
+          n,
+          { hash: "SHA-256", name: "HMAC" },
+          !1,
+          ["sign"],
+        );
+        return new Uint8Array(await crypto.subtle.sign("HMAC", r, t.slice()));
+      } finally {
+        o("WAWebHatchNoiseBytes").zeroBytes(n);
+      }
     }
     ((l.WAWebHatchNoiseRvError = E),
       (l.createNoiseClientNonce = k),
       (l.encodeRvMessage1 = I),
       (l.decodeRvChallenge = T),
       (l.buildRvMessage3 = M),
-      (l.createVmProof = A),
-      (l.createClientProof = O));
+      (l.createVmProof = w),
+      (l.createClientProof = A));
   },
   98,
 );

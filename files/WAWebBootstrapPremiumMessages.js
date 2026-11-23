@@ -1,41 +1,30 @@
 __d(
   "WAWebBootstrapPremiumMessages",
   [
-    "Promise",
     "WAWebDebounce",
     "WAWebMiscGatingUtils",
     "WAWebMsgCollection",
     "WAWebPremiumMessageCollection",
     "WAWebPremiumMessageSchema",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = 250;
+    var e = 250;
+    async function s() {
+      if (!o("WAWebMiscGatingUtils").isRambutanEnabled())
+        return Promise.resolve();
+      var e = await o("WAWebPremiumMessageSchema")
+        .getPremiumMessageTable()
+        .all();
+      o(
+        "WAWebPremiumMessageCollection",
+      ).PremiumMessageCollection.initializeFromCache(e);
+    }
     function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!o("WAWebMiscGatingUtils").isRambutanEnabled())
-            return (e || (e = n("Promise"))).resolve();
-          var t = yield o("WAWebPremiumMessageSchema")
-            .getPremiumMessageTable()
-            .all();
-          o(
-            "WAWebPremiumMessageCollection",
-          ).PremiumMessageCollection.initializeFromCache(t);
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d() {
       o("WAWebMiscGatingUtils").isRambutanEnabled() &&
         (o("WAWebMsgCollection").MsgCollection.listenTo(
           o("WAWebMsgCollection").MsgCollection,
           "add",
-          r("WAWebDebounce")(m, s, { leading: !0 }),
+          r("WAWebDebounce")(c, e, { leading: !0 }),
         ),
         o("WAWebPremiumMessageCollection").PremiumMessageCollection.listenTo(
           o("WAWebPremiumMessageCollection").PremiumMessageCollection,
@@ -45,14 +34,14 @@ __d(
           },
         ));
     }
-    function m() {
+    function c() {
       o("WAWebPremiumMessageCollection")
         .PremiumMessageCollection.getModelsArray()
         .forEach(function (e) {
           e.hydrateMessages();
         });
     }
-    ((l.restorePremiumMessages = u), (l.bindPremiumMessageListeners = d));
+    ((l.restorePremiumMessages = s), (l.bindPremiumMessageListeners = u));
   },
   98,
 );

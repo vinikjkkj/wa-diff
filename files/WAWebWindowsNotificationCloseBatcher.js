@@ -1,6 +1,6 @@
 __d(
   "WAWebWindowsNotificationCloseBatcher",
-  ["WALogger", "asyncToGeneratorRuntime"],
+  ["WALogger"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -17,9 +17,9 @@ __d(
             }),
             (this.$1 = e));
         }
-        var r = t.prototype;
+        var n = t.prototype;
         return (
-          (r.send = function (t) {
+          (n.send = function (t) {
             var e = this;
             if (this.$2 || !this.$6()) {
               this.$1.sendClose(t);
@@ -33,34 +33,26 @@ __d(
               this.$4.push(t),
               this.$5 || ((this.$5 = !0), self.setTimeout(this.$7, 0)));
           }),
-          (r.flush = function () {
+          (n.flush = function () {
             var e = this.$4;
             ((this.$4 = []),
               e.length > 1 && !this.$2 ? this.$8(e) : this.$9(e));
           }),
-          (r.$6 = function () {
+          (n.$6 = function () {
             try {
               return this.$1.isEnabled();
             } catch (e) {
               return (this.$10("gate", e), !1);
             }
           }),
-          (r.$8 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                try {
-                  yield this.$1.sendCloses(e);
-                } catch (t) {
-                  (this.$10("batch", t), this.$9(e));
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (n.$8 = async function (t) {
+            try {
+              await this.$1.sendCloses(t);
+            } catch (e) {
+              (this.$10("batch", e), this.$9(t));
             }
-            return t;
-          })()),
-          (r.$9 = function (n) {
+          }),
+          (n.$9 = function (n) {
             var t = 0,
               r = null;
             for (var a of n)
@@ -81,7 +73,7 @@ __d(
                 )
                 .sendLogs(u);
           }),
-          (r.$10 = function (t, n) {
+          (n.$10 = function (t, n) {
             ((this.$2 = !0),
               o("WALogger")
                 .ERROR(

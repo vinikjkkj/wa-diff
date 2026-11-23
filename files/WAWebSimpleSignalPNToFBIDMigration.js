@@ -8,7 +8,6 @@ __d(
     "WAWebBotUtils",
     "WAWebSchemaBotProfile",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -269,7 +268,7 @@ __d(
       return e;
     }
     function h(e) {
-      return !e.isFbidBot() || R(e)
+      return !e.isFbidBot() || v(e)
         ? null
         : o("WAWebBotUtils").isMetaAiBot(e) ||
             o("WAWebBotUtils").isBusinessAssistantBot(e)
@@ -278,45 +277,29 @@ __d(
             ? o("WAWebBotTypes").BotPersonaType.FIRST_PARTY_CHARACTER
             : o("WAWebBotTypes").BotPersonaType.UGC;
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    async function y(e) {
+      var t = h(e);
+      return t !== o("WAWebBotTypes").BotPersonaType.UGC
+        ? t
+        : (await C(e))
+          ? o("WAWebBotTypes").BotPersonaType.DEFAULT
+          : t;
     }
-    function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = h(e);
-          return t !== o("WAWebBotTypes").BotPersonaType.UGC
-            ? t
-            : (yield b(e))
-              ? o("WAWebBotTypes").BotPersonaType.DEFAULT
-              : t;
-        })),
-        C.apply(this, arguments)
-      );
+    async function C(e) {
+      try {
+        var t = await o("WAWebSchemaBotProfile")
+          .getBotProfileTable()
+          .get(e.toString());
+        return (
+          o("WAWebBotProduct").botProductFromServerValue(
+            t == null ? void 0 : t.product,
+          ) === o("WAWebBotProduct").BotProduct.META_AI_THREAD
+        );
+      } catch (e) {
+        return (b(), !1);
+      }
     }
-    function b(e) {
-      return v.apply(this, arguments);
-    }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o("WAWebSchemaBotProfile")
-              .getBotProfileTable()
-              .get(e.toString());
-            return (
-              o("WAWebBotProduct").botProductFromServerValue(
-                t == null ? void 0 : t.product,
-              ) === o("WAWebBotProduct").BotProduct.META_AI_THREAD
-            );
-          } catch (e) {
-            return (S(), !1);
-          }
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S() {
+    function b() {
       try {
         o("WALogger")
           .WARN(
@@ -328,13 +311,13 @@ __d(
           .sendLogs("bot-persona-profile-read-failed");
       } catch (e) {}
     }
-    function R(e) {
+    function v(e) {
       return (
         o("WAWebBotUtils").isHatchBot(e) ||
         o("WAWebBotUtils").isSideChatBotWid(e)
       );
     }
-    function L(e, t) {
+    function S(e, t) {
       if (e.type !== "addon") {
         var n = e.data,
           r = n.get(t);
@@ -344,7 +327,7 @@ __d(
         }
       }
     }
-    function E(e) {
+    function R(e) {
       var t = e.data.to;
       if (_(t)) {
         var n = p(t);
@@ -361,8 +344,8 @@ __d(
       (l.maybeReplaceFbidWithDeprecatedBotPn = g),
       (l.getFbidBotPersonaType = h),
       (l.genFbidBotPersonaType = y),
-      (l.maybeReplaceWidWithFbIdForInvoke = L),
-      (l.maybeReplaceWidWithFbIdForBotSend = E));
+      (l.maybeReplaceWidWithFbIdForInvoke = S),
+      (l.maybeReplaceWidWithFbIdForBotSend = R));
   },
   98,
 );

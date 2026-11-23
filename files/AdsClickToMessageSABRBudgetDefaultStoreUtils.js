@@ -14,7 +14,37 @@ __d(
     "isTruthy",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
+    var e,
+      s = new Set([
+        (e = r("AdCampaignDestination")).INSTAGRAM_DIRECT,
+        e.MESSENGER,
+        e.WHATSAPP,
+        e.MESSAGING_MESSENGER_WHATSAPP,
+        e.MESSAGING_INSTAGRAM_DIRECT_MESSENGER,
+        e.MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP,
+        e.MESSAGING_INSTAGRAM_DIRECT_WHATSAPP,
+      ]);
+    function u(e, t, n, a) {
+      var i =
+        (s.has(n) ||
+          o("AdsClickToMessageBudgetGuidanceUtils").RELAY_ZO_DESTINATIONS.has(
+            n,
+          )) &&
+        e != null &&
+        e !== "" &&
+        t != null &&
+        t !== "" &&
+        o("AdsClickToMessageBudgetGuidanceUtils").isCTXOptimizationGoal(a);
+      return {
+        accountID: e != null ? e : "",
+        pageID: t != null ? t : "",
+        destinationType:
+          i && n != null ? n : r("AdCampaignDestination").INSTAGRAM_DIRECT,
+        optimizationGoal: n === r("AdCampaignDestination").MESSENGER ? a : null,
+        enabled: i,
+      };
+    }
+    function c(e, t) {
       var n;
       t === void 0 && (t = !1);
       var a = o(
@@ -96,140 +126,144 @@ __d(
         { budget: e.budget, reported_conversion: e.reported_conversion }
       );
     }
-    function s(e, t, n) {
+    function d(e, t, n, a, i) {
       if (!r("isTruthy")(t)) return null;
       if (o("AdsDFOBudgetGuidanceUtils").isEligibleCampaignForDFOSABRZO(t, n)) {
-        var a = o(
+        var l = o(
           "AdsDFOBudgetGuidanceUtils",
-        ).getDFOSABRBudgetRecommendationByPageID(e, t, n);
+        ).getDFOSABRBudgetRecommendationByPageID(e, t, n, !1, i);
         if (
-          a != null &&
+          l != null &&
           o("AdsDFOBudgetGuidanceUtils").enableDFOSabrZoQE(t, n, !1)
         )
-          return a;
+          return l;
       }
-      var i = e != null ? r("AdsPageStore").get(e) : null;
+      var u = e != null ? r("AdsPageStore").get(e) : null;
       if (!o("AdsClickToMessageBudgetGuidanceUtils").isCTXOptimizationGoal(n))
         return null;
+      if (a !== void 0 && s.has(t)) return a;
       switch (t) {
         case r("AdCampaignDestination").MESSENGER:
           return n ===
             r("AdsAPIOptimizationGoals").MESSAGING_PURCHASE_CONVERSION
-            ? i == null
+            ? u == null
               ? void 0
-              : i.ctm_similar_advertiser_budget_recommendation_purchase_optimization
-            : i == null
+              : u.ctm_similar_advertiser_budget_recommendation_purchase_optimization
+            : u == null
               ? void 0
-              : i.ctm_similar_advertiser_budget_recommendation_conversations;
+              : u.ctm_similar_advertiser_budget_recommendation_conversations;
         case r("AdCampaignDestination").INSTAGRAM_DIRECT:
-          return i == null
+          return u == null
             ? void 0
-            : i.ctd_similar_advertiser_budget_recommendation;
+            : u.ctd_similar_advertiser_budget_recommendation;
         case r("AdCampaignDestination").MESSAGING_MESSENGER_WHATSAPP:
-          return i == null
+          return u == null
             ? void 0
-            : i.ctxmd_mwa_similar_advertiser_budget_recommendation;
+            : u.ctxmd_mwa_similar_advertiser_budget_recommendation;
         case r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_MESSENGER:
-          return i == null
+          return u == null
             ? void 0
-            : i.ctxmd_md_similar_advertiser_budget_recommendation;
+            : u.ctxmd_md_similar_advertiser_budget_recommendation;
         case r("AdCampaignDestination")
           .MESSAGING_INSTAGRAM_DIRECT_MESSENGER_WHATSAPP:
-          return i == null
+          return u == null
             ? void 0
-            : i.ctxmd_mdwa_similar_advertiser_budget_recommendation;
+            : u.ctxmd_mdwa_similar_advertiser_budget_recommendation;
         case r("AdCampaignDestination").MESSAGING_INSTAGRAM_DIRECT_WHATSAPP:
-          return i == null
+          return u == null
             ? void 0
-            : i.ctxmd_dwa_similar_advertiser_budget_recommendation;
+            : u.ctxmd_dwa_similar_advertiser_budget_recommendation;
         case r("AdCampaignDestination").WHATSAPP:
-          return i == null
+          return u == null
             ? void 0
-            : i.ctwa_similar_advertiser_budget_recommendation;
+            : u.ctwa_similar_advertiser_budget_recommendation;
         default:
           return null;
       }
     }
-    function u(e) {
+    function m(e) {
       var t = e != null ? r("AdsPageStore").get(e) : null;
       return new Set(
         t == null ? void 0 : t.ctx_account_based_default_source,
       ).has("has_ctx_ads_in_past_28_days");
     }
-    function c(t, n, a, i) {
-      var l = s(t, n, a),
-        u =
-          r("isTruthy")(n) &&
-          o("AdsClickToMessageBudgetGuidanceUtils").isCTXOptimizationGoal(a),
-        c = e(l, u),
-        d = c.budget,
-        m = Number(d);
-      if (r("isTruthy")(m)) {
-        var p = o(
+    function p(e, t, n, a, i) {
+      var l = d(e, t, n, i),
+        s =
+          r("isTruthy")(t) &&
+          o("AdsClickToMessageBudgetGuidanceUtils").isCTXOptimizationGoal(n),
+        u = c(l, s),
+        m = u.budget,
+        p = Number(m);
+      if (r("isTruthy")(p)) {
+        var _ = o(
             "AdsMessagesCampaignBudgetPluginSimilarAdvertiserRecommendationCommon",
-          ).getBudgetNumberInUSDbyCurrencyMultiplier(m),
-          _ = r("adsCampaignConvertUSDBudgetToCurrency")(i, p);
+          ).getBudgetNumberInUSDbyCurrencyMultiplier(p),
+          f = r("adsCampaignConvertUSDBudgetToCurrency")(a, _);
         return o(
           "SABRBudgetRoundDownMarketingAdoptionUtils",
         ).isInSabrBudgetRoundDownMarketingAdoption(!0)
           ? o(
               "SABRBudgetRoundDownMarketingAdoptionUtils",
-            ).applyMarketingRoundDown(_)
-          : _;
+            ).applyMarketingRoundDown(f)
+          : f;
       }
       return null;
     }
-    function d(e, t, n, a, i) {
-      var l = c(e, t, n, i);
-      if (r("isTruthy")(l) && r("isTruthy")(a)) {
-        var s = l * a,
-          u = Math.ceil(s / 100) * 100;
+    function _(e, t, n, a, i, l) {
+      var s = p(e, t, n, i, l);
+      if (r("isTruthy")(s) && r("isTruthy")(a)) {
+        var u = s * a,
+          c = Math.ceil(u / 100) * 100;
         return o(
           "SABRBudgetRoundDownMarketingAdoptionUtils",
         ).isInSabrBudgetRoundDownMarketingAdoption(!0)
           ? o(
               "SABRBudgetRoundDownMarketingAdoptionUtils",
-            ).applyMarketingRoundDown(Math.round(u))
-          : u;
+            ).applyMarketingRoundDown(Math.round(c))
+          : c;
       }
       return null;
     }
-    function m(t, n, r, a, i) {
-      var l,
+    function f(e, t, n, r, a, i, l) {
+      var s,
         u,
         m,
-        p,
-        _ = (l = c(t, n, r, i)) != null ? l : 0,
-        f = (u = d(t, n, r, a, i)) != null ? u : 0,
-        g =
+        f,
+        g = (s = p(e, t, n, a, i)) != null ? s : 0,
+        h = (u = _(e, t, n, r, a, i)) != null ? u : 0,
+        y =
           (m = o(
             "AdsClickToMessageBudgetGuidanceUtils",
-          ).getBudgetRecommendationByModeForZO("daily", a, i, n, t, r)) != null
+          ).getBudgetRecommendationByModeForZO("daily", r, a, t, e, n, l)) !=
+          null
             ? m
             : 0,
-        h =
-          (p = o(
+        C =
+          (f = o(
             "AdsClickToMessageBudgetGuidanceUtils",
-          ).getBudgetRecommendationByModeForZO("lifetime", a, i, n, t, r)) !=
+          ).getBudgetRecommendationByModeForZO("lifetime", r, a, t, e, n, l)) !=
           null
-            ? p
+            ? f
             : 0,
-        y = s(t, n, r),
-        C = e(y),
-        b = C.reported_conversion,
-        v = b != null ? b : 0;
+        b = d(e, t, n, i),
+        v = c(b),
+        S = v.reported_conversion,
+        R = S != null ? S : 0;
       return {
-        reported_conversions: v,
-        sabr_daily_budget_recommendation_advertiser_currency: _,
-        sabr_lifetime_budget_recommendation_advertiser_currency: f,
-        zo_daily_budget_recommendation_advertiser_currency: g,
-        zo_lifetime_budget_recommendation_advertiser_currency: h,
+        reported_conversions: R,
+        sabr_daily_budget_recommendation_advertiser_currency: g,
+        sabr_lifetime_budget_recommendation_advertiser_currency: h,
+        zo_daily_budget_recommendation_advertiser_currency: y,
+        zo_lifetime_budget_recommendation_advertiser_currency: C,
       };
     }
-    ((l.getSabrBudgetAndConversionForExperiment = e),
-      (l.getCTXSimilarAdvertiserBudgetRecommendationByDestination = s),
-      (l.hasCtxAdsInL28 = u),
-      (l.getCtxSabrBudgetInputParamsForUGP = m));
+    ((l.RELAY_SABR_DESTINATIONS = s),
+      (l.getCTXBudgetRecommendationQueryVariables = u),
+      (l.getSabrBudgetAndConversionForExperiment = c),
+      (l.getCTXSimilarAdvertiserBudgetRecommendationByDestination = d),
+      (l.hasCtxAdsInL28 = m),
+      (l.getCtxSabrBudgetInputParamsForUGP = f));
   },
   98,
 );

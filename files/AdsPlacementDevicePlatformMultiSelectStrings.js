@@ -3,7 +3,7 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     "use strict";
-    var e = s._(/*BTDS*/ "Select at least one device type.");
+    var e = s._(/*BTDS*/ "");
     l.MIN_SELECT = e;
   },
   226,

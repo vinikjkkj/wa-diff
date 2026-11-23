@@ -11,7 +11,6 @@ __d(
     "WAWebToast.react",
     "WAWebToastManager",
     "WAWebVoipActionRequestOpenChat",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -21,63 +20,44 @@ __d(
       c = u || (u = o("react")),
       d = "audio/ogg; codecs=opus",
       m = 64;
-    function p(e) {
-      return _.apply(this, arguments);
+    async function p(e) {
+      var t = await _(e);
+      t != null && g(t);
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield f(e);
-          t != null && y(t);
-        })),
-        _.apply(this, arguments)
-      );
+    async function _(t) {
+      var n = t.audio,
+        a = t.durationMs,
+        i = t.peerJid,
+        l = t.waveformLevels;
+      try {
+        var s = await o("WAWebFindChatAction").findOrCreateLatestChat(
+            i,
+            "voipCallLog",
+          ),
+          u = s.chat,
+          c = r("WAWebMediaOpaqueData").createFromData(n, d),
+          m = o("WAWebPrepRawMedia").prepRawMedia(c, {
+            isPtt: !0,
+            precomputedFields: { duration: Math.ceil(a / 1e3), waveform: f(l) },
+          });
+        return (await m.sendToChat({ chat: u, options: {} }), u);
+      } catch (t) {
+        return (
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: could not send the screening voicemail",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("voip-screening-voicemail-send-failed"),
+          h(),
+          null
+        );
+      }
     }
     function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.audio,
-            a = t.durationMs,
-            i = t.peerJid,
-            l = t.waveformLevels;
-          try {
-            var s = yield o("WAWebFindChatAction").findOrCreateLatestChat(
-                i,
-                "voipCallLog",
-              ),
-              u = s.chat,
-              c = r("WAWebMediaOpaqueData").createFromData(n, d),
-              m = o("WAWebPrepRawMedia").prepRawMedia(c, {
-                isPtt: !0,
-                precomputedFields: {
-                  duration: Math.ceil(a / 1e3),
-                  waveform: h(l),
-                },
-              });
-            return (yield m.sendToChat({ chat: u, options: {} }), u);
-          } catch (t) {
-            return (
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: could not send the screening voicemail",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("voip-screening-voicemail-send-failed"),
-              C(),
-              null
-            );
-          }
-        })),
-        g.apply(this, arguments)
-      );
-    }
-    function h(e) {
       return new Uint8Array(
         r("WAPttComposerScaleWaveform")(
           Array.from(e, function (e) {
@@ -89,14 +69,14 @@ __d(
         }),
       );
     }
-    function y(e) {
+    function g(e) {
       o("WAWebToastManager").ToastManager.open(
         c.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Voicemail sent"),
+          msg: s._(/*BTDS*/ ""),
           action: o("WAWebFrontendChatGetters").getActive(e)
             ? null
             : {
-                actionText: s._(/*BTDS*/ "View in chat"),
+                actionText: s._(/*BTDS*/ ""),
                 onAction: function () {
                   return o("WAWebVoipActionRequestOpenChat").requestOpenChat(
                     e.id,
@@ -107,11 +87,9 @@ __d(
         }),
       );
     }
-    function C() {
+    function h() {
       o("WAWebToastManager").ToastManager.open(
-        c.jsx(o("WAWebToast.react").Toast, {
-          msg: s._(/*BTDS*/ "Couldn't send voicemail"),
-        }),
+        c.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
       );
     }
     l.sendScreeningVoicemail = p;

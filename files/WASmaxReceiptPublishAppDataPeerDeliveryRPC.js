@@ -2,25 +2,39 @@ __d(
   "WASmaxReceiptPublishAppDataPeerDeliveryRPC",
   [
     "WAComms",
-    "WASmaxOutReceiptPublishAppDataPeerDeliveryRequest",
-    "asyncToGeneratorRuntime",
+    "WASmaxJsx",
+    "WASmaxMixins",
+    "WASmaxOutReceiptIndividualDeviceMixin",
+    "WASmaxOutReceiptSingleMixin",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e) {
-      return s.apply(this, arguments);
+    async function e(e) {
+      var t = s(e);
+      await o("WAComms").castSmaxStanza(t);
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o(
-            "WASmaxOutReceiptPublishAppDataPeerDeliveryRequest",
-          ).makePublishAppDataPeerDeliveryRequest(e);
-          yield o("WAComms").castSmaxStanza(t);
-        })),
-        s.apply(this, arguments)
+    function s(e) {
+      var t = c(
+        o("WASmaxOutReceiptSingleMixin").mergeSingleMixin(
+          o("WASmaxOutReceiptIndividualDeviceMixin").mergeIndividualDeviceMixin(
+            o("WASmaxJsx").smax("receipt", null),
+            e,
+          ),
+          e,
+        ),
       );
+      return t;
     }
-    l.sendPublishAppDataPeerDeliveryRPC = e;
+    function u() {
+      var e = o("WASmaxJsx").smax("receipt", { category: "peer_appdata" });
+      return e;
+    }
+    function c(e) {
+      var t = u();
+      return o("WASmaxMixins").mergeStanzas(e, t);
+    }
+    ((l.sendPublishAppDataPeerDeliveryRPC = e),
+      (l.makePublishAppDataPeerDeliveryRequest = s),
+      (l.mergeAppDataPeerCategoryMixin = c));
   },
   98,
 );

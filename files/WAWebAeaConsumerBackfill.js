@@ -1,7 +1,6 @@
 __d(
   "WAWebAeaConsumerBackfill",
   [
-    "Promise",
     "WALogger",
     "WAWebAeaAccountCategory",
     "WAWebAeaAccountState",
@@ -24,7 +23,6 @@ __d(
     "WAWebWamEnumPrekeysFetchContext",
     "WAWebWidFactory",
     "WAWebWidFromSignalAddress",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "gkx",
     "justknobx",
@@ -44,246 +42,228 @@ __d(
       y,
       C,
       b,
-      v,
-      S = 50,
-      R = 50;
-    function L() {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (!o("WAWebAeaRollout").isAeaBackfillEnabled())
-            return (
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[aea][backfill] status=disabled",
-                  ])),
-              ),
-              { status: "disabled" }
-            );
-          if (
-            (o("WAWebAeaAccountCategory").logAeaGatesOnce(),
-            yield o(
-              "WAWebEventsWaitForOfflineDeliveryEnd",
-            ).waitForOfflineDeliveryEnd(),
-            !o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd())
-          )
-            return k("offline_delivery_timeout", {
-              incompleteReason: o("WAWebAeaConsumerBackfillRunHistory")
-                .AeaBackfillRunResult.OFFLINE_DELIVERY_NOT_READY,
-            });
-          yield o(
-            "WAWebAeaIdentityChangeBaseline",
-          ).restoreAeaIdentityChangeBaselines();
-          var e = yield I(),
-            t = e.suspectedNonE2eeAccounts,
-            r = yield x(t, new Set());
+      v = 50,
+      S = 50;
+    async function R() {
+      if (!o("WAWebAeaRollout").isAeaBackfillEnabled())
+        return (
           o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
-                "[aea][backfill] suspected_non_e2ee=",
-                " to_refetch=",
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[aea][backfill] status=disabled",
+              ])),
+          ),
+          { status: "disabled" }
+        );
+      if (
+        (o("WAWebAeaAccountCategory").logAeaGatesOnce(),
+        await o(
+          "WAWebEventsWaitForOfflineDeliveryEnd",
+        ).waitForOfflineDeliveryEnd(),
+        !o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd())
+      )
+        return L("offline_delivery_timeout", {
+          incompleteReason: o("WAWebAeaConsumerBackfillRunHistory")
+            .AeaBackfillRunResult.OFFLINE_DELIVERY_NOT_READY,
+        });
+      await o(
+        "WAWebAeaIdentityChangeBaseline",
+      ).restoreAeaIdentityChangeBaselines();
+      var t = await E(),
+        n = t.suspectedNonE2eeAccounts,
+        r = await I(n, new Set());
+      o("WALogger").LOG(
+        s ||
+          (s = babelHelpers.taggedTemplateLiteralLoose([
+            "[aea][backfill] suspected_non_e2ee=",
+            " to_refetch=",
+            "",
+          ])),
+        String(n.length),
+        String(r.length),
+      );
+      var a = await D(
+          r.map(function (e) {
+            var t = e.user;
+            return t;
+          }),
+        ),
+        i = a.refetchedLids,
+        l = a.unavailableLids,
+        c = await E(),
+        d = c.contactSyncedLids,
+        m = c.suspectedNonE2eeAccounts,
+        p = await Promise.all([I(m, i, l), x(T(m))]),
+        _ = p[0],
+        f = p[1],
+        g = f.identityCount,
+        h = f.unsetIdentities,
+        y = h.filter(function (e) {
+          var t = e.accountLid;
+          return !d.has(t);
+        });
+      if (!o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd())
+        return L("offline_delivery_reset", {
+          incompleteReason: o("WAWebAeaConsumerBackfillRunHistory")
+            .AeaBackfillRunResult.OFFLINE_DELIVERY_NOT_READY,
+        });
+      var C = {
+        unconfirmedCount: _.length,
+        leftUnsetCount: y.length,
+        suspectedCount: m.length,
+        accountCount: g,
+      };
+      return _.length > 0 || y.length > 0
+        ? L(
+            "unconfirmed_non_e2ee=" +
+              String(_.length) +
+              " left_unset=" +
+              String(y.length),
+            babelHelpers.extends(
+              {
+                incompleteReason:
+                  _.length > 0
+                    ? o("WAWebAeaConsumerBackfillRunHistory")
+                        .AeaBackfillRunResult.PREKEY_FETCH_FAILED
+                    : o("WAWebAeaConsumerBackfillRunHistory")
+                        .AeaBackfillRunResult.CONTACTS_NOT_SYNCED,
+              },
+              C,
+            ),
+          )
+        : (o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[aea][backfill] status=complete suspected_non_e2ee=",
                 "",
               ])),
-            String(t.length),
-            String(r.length),
-          );
-          var a = yield N(
-              r.map(function (e) {
-                var t = e.user;
-                return t;
-              }),
-            ),
-            i = a.refetchedLids,
-            l = a.unavailableLids,
-            s = yield I(),
-            u = s.contactSyncedLids,
-            c = s.suspectedNonE2eeAccounts,
-            d = yield (v || (v = n("Promise"))).all([x(c, i, l), w(P(c))]),
-            f = d[0],
-            g = d[1],
-            h = g.identityCount,
-            y = g.unsetIdentities,
-            C = y.filter(function (e) {
-              var t = e.accountLid;
-              return !u.has(t);
-            });
-          if (!o("WAWebEventsWaitForOfflineDeliveryEnd").isOfflineDeliveryEnd())
-            return k("offline_delivery_reset", {
-              incompleteReason: o("WAWebAeaConsumerBackfillRunHistory")
-                .AeaBackfillRunResult.OFFLINE_DELIVERY_NOT_READY,
-            });
-          var b = {
-            unconfirmedCount: f.length,
-            leftUnsetCount: C.length,
-            suspectedCount: c.length,
-            accountCount: h,
-          };
-          return f.length > 0 || C.length > 0
-            ? k(
-                "unconfirmed_non_e2ee=" +
-                  String(f.length) +
-                  " left_unset=" +
-                  String(C.length),
-                babelHelpers.extends(
-                  {
-                    incompleteReason:
-                      f.length > 0
-                        ? o("WAWebAeaConsumerBackfillRunHistory")
-                            .AeaBackfillRunResult.PREKEY_FETCH_FAILED
-                        : o("WAWebAeaConsumerBackfillRunHistory")
-                            .AeaBackfillRunResult.CONTACTS_NOT_SYNCED,
-                  },
-                  b,
-                ),
-              )
-            : (o("WALogger").LOG(
-                _ ||
-                  (_ = babelHelpers.taggedTemplateLiteralLoose([
-                    "[aea][backfill] status=complete suspected_non_e2ee=",
-                    "",
-                  ])),
-                String(t.length),
-              ),
-              babelHelpers.extends({ status: "complete" }, b));
-        })),
-        E.apply(this, arguments)
-      );
+            String(n.length),
+          ),
+          babelHelpers.extends({ status: "complete" }, C));
     }
-    function k(t, n) {
+    function L(e, t) {
       return (
         o("WALogger").LOG(
-          e ||
-            (e = babelHelpers.taggedTemplateLiteralLoose([
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
               "[aea][backfill] status=incomplete reason=",
               "",
             ])),
-          t,
+          e,
         ),
-        o("WAWebAeaTelemetry").reportAeaBackfillFailure(t),
-        babelHelpers.extends({ status: "incomplete" }, n)
+        o("WAWebAeaTelemetry").reportAeaBackfillFailure(e),
+        babelHelpers.extends({ status: "incomplete" }, t)
       );
     }
-    function I() {
-      return T.apply(this, arguments);
+    async function E() {
+      var e = await Promise.all([
+          r("WAWebLidAwareContactsDB").all(),
+          o("WAWebApiDeviceList").getAllDeviceLists(),
+          o("WAWebSchemaVerifiedBusinessName")
+            .getVerifiedBusinessNameTable()
+            .all(),
+        ]),
+        t = e[0],
+        n = e[1],
+        a = e[2],
+        i = new Map(),
+        l = new Set(),
+        s = new Set();
+      for (var u of n) {
+        var c,
+          m = k(
+            u.id,
+            "device_list",
+            o("WAWebWidFactory").createUserWidFromDeviceListPk,
+          );
+        if (!(m == null || !m.isRegularUser())) {
+          var p = o("WAWebLidMigrationUtils").toUserLid(m);
+          if (p != null) {
+            var _ = p.toString(),
+              f = o("WAWebAeaAdvState").aeaStateFromDeviceListRow(u);
+            f != null &&
+              (l.add(_),
+              o("WAWebAeaAccountState").isAeaNonE2eeAccountState(f) &&
+                ((c = i.get(_)) == null ? void 0 : c.suspectedState) !==
+                  o("WAWebAeaAccountState").AeaAccountState.NON_E2EE &&
+                i.set(_, { user: p, suspectedState: f }));
+          }
+        }
+      }
+      for (var g of t) {
+        var h = g.id,
+          y = g.isContactSyncCompleted,
+          C = g.isHosted;
+        {
+          var b = k(h, "contact", o("WAWebWidFactory").createWid);
+          if (b == null || !b.isRegularUser()) continue;
+          var v = o("WAWebLidMigrationUtils").toUserLid(b);
+          if (v == null) continue;
+          var S = v.toString();
+          if ((y === 1 && s.add(S), C !== !0)) continue;
+          l.has(S) ||
+            i.set(S, {
+              user: v,
+              suspectedState: o("WAWebAeaAccountState").AeaAccountState
+                .HYBRID_E2EE,
+            });
+        }
+      }
+      for (var R of a) {
+        var L = R.id,
+          E = R.privacyMode;
+        {
+          if (!o("WAWebAeaSendRules").isNonE2eeBusinessPrivacyMode(E)) continue;
+          var I = void 0;
+          try {
+            I = o("WAWebWidFactory").createUserWidOrThrow(L);
+          } catch (e) {
+            o("WALogger")
+              .WARN(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[aea][backfill] skipped unparseable business row",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e))
+              .sendLogs("aea-consumer-backfill-bad-business-row");
+            continue;
+          }
+          if (!I.isRegularUser()) continue;
+          var T = o("WAWebLidMigrationUtils").toUserLid(I);
+          T != null &&
+            !i.has(T.toString()) &&
+            i.set(T.toString(), {
+              user: T,
+              suspectedState: o("WAWebAeaAccountState").AeaAccountState
+                .NON_E2EE,
+            });
+        }
+      }
+      return {
+        suspectedNonE2eeAccounts: Array.from(i.values()),
+        contactSyncedLids: s,
+      };
     }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (v || (v = n("Promise"))).all([
-              r("WAWebLidAwareContactsDB").all(),
-              o("WAWebApiDeviceList").getAllDeviceLists(),
-              o("WAWebSchemaVerifiedBusinessName")
-                .getVerifiedBusinessNameTable()
-                .all(),
-            ]),
-            t = e[0],
-            a = e[1],
-            i = e[2],
-            l = new Map(),
-            s = new Set(),
-            u = new Set();
-          for (var c of a) {
-            var d,
-              m = D(
-                c.id,
-                "device_list",
-                o("WAWebWidFactory").createUserWidFromDeviceListPk,
-              );
-            if (!(m == null || !m.isRegularUser())) {
-              var p = o("WAWebLidMigrationUtils").toUserLid(m);
-              if (p != null) {
-                var _ = p.toString(),
-                  g = o("WAWebAeaAdvState").aeaStateFromDeviceListRow(c);
-                g != null &&
-                  (s.add(_),
-                  o("WAWebAeaAccountState").isAeaNonE2eeAccountState(g) &&
-                    ((d = l.get(_)) == null ? void 0 : d.suspectedState) !==
-                      o("WAWebAeaAccountState").AeaAccountState.NON_E2EE &&
-                    l.set(_, { user: p, suspectedState: g }));
-              }
-            }
-          }
-          for (var h of t) {
-            var y = h.id,
-              C = h.isContactSyncCompleted,
-              b = h.isHosted;
-            {
-              var S = D(y, "contact", o("WAWebWidFactory").createWid);
-              if (S == null || !S.isRegularUser()) continue;
-              var R = o("WAWebLidMigrationUtils").toUserLid(S);
-              if (R == null) continue;
-              var L = R.toString();
-              if ((C === 1 && u.add(L), b !== !0)) continue;
-              s.has(L) ||
-                l.set(L, {
-                  user: R,
-                  suspectedState: o("WAWebAeaAccountState").AeaAccountState
-                    .HYBRID_E2EE,
-                });
-            }
-          }
-          for (var E of i) {
-            var k = E.id,
-              I = E.privacyMode;
-            {
-              if (!o("WAWebAeaSendRules").isNonE2eeBusinessPrivacyMode(I))
-                continue;
-              var T = void 0;
-              try {
-                T = o("WAWebWidFactory").createUserWidOrThrow(k);
-              } catch (e) {
-                o("WALogger")
-                  .WARN(
-                    f ||
-                      (f = babelHelpers.taggedTemplateLiteralLoose([
-                        "[aea][backfill] skipped unparseable business row",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e))
-                  .sendLogs("aea-consumer-backfill-bad-business-row");
-                continue;
-              }
-              if (!T.isRegularUser()) continue;
-              var x = o("WAWebLidMigrationUtils").toUserLid(T);
-              x != null &&
-                !l.has(x.toString()) &&
-                l.set(x.toString(), {
-                  user: x,
-                  suspectedState: o("WAWebAeaAccountState").AeaAccountState
-                    .NON_E2EE,
-                });
-            }
-          }
-          return {
-            suspectedNonE2eeAccounts: Array.from(l.values()),
-            contactSyncedLids: u,
-          };
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    function D(e, t, n) {
+    function k(e, t, n) {
       try {
         return n(e);
       } catch (n) {
         return (
           o("WALogger").LOG(
-            s ||
-              (s = babelHelpers.taggedTemplateLiteralLoose([
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
                 "[aea][backfill] unparseable ",
                 " row identifier=",
                 "",
               ])),
             t,
-            O(e),
+            P(e),
           ),
           o("WALogger")
             .WARN(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
                   "[aea][backfill] skipped unparseable ",
                   " row",
                 ])),
@@ -294,39 +274,31 @@ __d(
         );
       }
     }
-    function x(e, t, n) {
-      return $.apply(this, arguments);
+    async function I(e, t, n) {
+      n === void 0 && (n = new Set());
+      var r = await N(e, function (e) {
+          var t = e.user;
+          return t;
+        }),
+        a = await o("WAWebAeaAccountStateStore").readAeaStoredAccounts(
+          r.map(function (e) {
+            var t = e.user;
+            return t;
+          }),
+        );
+      return r.filter(function (e, r) {
+        var i = e.suspectedState,
+          l = e.user,
+          s = a[r],
+          u = s.accountState,
+          c = s.identityKey;
+        return c == null || u === i || n.has(l.toString())
+          ? !1
+          : u === o("WAWebAeaAccountState").AeaAccountState.NOT_SET ||
+              !t.has(l.toString());
+      });
     }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          n === void 0 && (n = new Set());
-          var r = yield B(e, function (e) {
-              var t = e.user;
-              return t;
-            }),
-            a = yield o("WAWebAeaAccountStateStore").readAeaStoredAccounts(
-              r.map(function (e) {
-                var t = e.user;
-                return t;
-              }),
-            );
-          return r.filter(function (e, r) {
-            var i = e.suspectedState,
-              l = e.user,
-              s = a[r],
-              u = s.accountState,
-              c = s.identityKey;
-            return c == null || u === i || n.has(l.toString())
-              ? !1
-              : u === o("WAWebAeaAccountState").AeaAccountState.NOT_SET ||
-                  !t.has(l.toString());
-          });
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e) {
+    function T(e) {
       return new Set(
         e.map(function (e) {
           var t = e.user;
@@ -334,180 +306,155 @@ __d(
         }),
       );
     }
-    function N(e) {
-      return M.apply(this, arguments);
-    }
-    function M() {
+    async function D(e) {
+      var t = new Set(),
+        n = new Set();
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Set(),
-            a = new Set();
-          return (
-            yield o("WAWebRunInBatches").runInBatches(
-              e,
-              (function () {
-                var i = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (i) {
-                    o("WALogger").LOG(
-                      g ||
-                        (g = babelHelpers.taggedTemplateLiteralLoose([
-                          "[aea][backfill] prekey batch size=",
-                          " total=",
-                          "",
-                        ])),
-                      String(i.length),
-                      String(e.length),
+        await o("WAWebRunInBatches").runInBatches(
+          e,
+          async function (a) {
+            o("WALogger").LOG(
+              _ ||
+                (_ = babelHelpers.taggedTemplateLiteralLoose([
+                  "[aea][backfill] prekey batch size=",
+                  " total=",
+                  "",
+                ])),
+              String(a.length),
+              String(e.length),
+            );
+            try {
+              var i = await o("WAWebFetchPrekeysJob").fetchPrekeys(
+                  a,
+                  !1,
+                  o("WAWebWamEnumPrekeysFetchContext").PREKEYS_FETCH_CONTEXT
+                    .AEA_CONSUMER_BACKFILL,
+                  { pqSupport: !0 },
+                ),
+                l = i.errors,
+                s = i.prekeyBundles;
+              l.length > 0 &&
+                o("WALogger")
+                  .WARN(
+                    f ||
+                      (f = babelHelpers.taggedTemplateLiteralLoose([
+                        "[aea][backfill] prekey errors=",
+                        "",
+                      ])),
+                    String(l.length),
+                  )
+                  .sendLogs("aea-consumer-backfill-prekey-error");
+              var u = s.filter(function (e) {
+                  return !e.wid.isCompanion();
+                }),
+                c = await Promise.allSettled(
+                  u.map(function (e) {
+                    return o("WAWebAeaRefresh").processAeaPrimaryBundle(
+                      e,
+                      o("WAWebWamEnumPrekeysFetchContext").PREKEYS_FETCH_CONTEXT
+                        .AEA_CONSUMER_BACKFILL,
                     );
-                    try {
-                      var l = yield o("WAWebFetchPrekeysJob").fetchPrekeys(
-                          i,
-                          !1,
-                          o("WAWebWamEnumPrekeysFetchContext")
-                            .PREKEYS_FETCH_CONTEXT.AEA_CONSUMER_BACKFILL,
-                          { pqSupport: !0 },
-                        ),
-                        s = l.errors,
-                        u = l.prekeyBundles;
-                      s.length > 0 &&
-                        o("WALogger")
-                          .WARN(
-                            h ||
-                              (h = babelHelpers.taggedTemplateLiteralLoose([
-                                "[aea][backfill] prekey errors=",
-                                "",
-                              ])),
-                            String(s.length),
-                          )
-                          .sendLogs("aea-consumer-backfill-prekey-error");
-                      var c = u.filter(function (e) {
-                          return !e.wid.isCompanion();
-                        }),
-                        d = yield (v || (v = n("Promise"))).allSettled(
-                          c.map(function (e) {
-                            return o("WAWebAeaRefresh").processAeaPrimaryBundle(
-                              e,
-                              o("WAWebWamEnumPrekeysFetchContext")
-                                .PREKEYS_FETCH_CONTEXT.AEA_CONSUMER_BACKFILL,
-                            );
-                          }),
-                        );
-                      if (
-                        (d.forEach(function (e, n) {
-                          var i = o("WAWebWidFactory")
-                            .asUserWidOrThrow(c[n].wid)
-                            .toString();
-                          if (e.status === "rejected") {
-                            o("WALogger")
-                              .WARN(
-                                y ||
-                                  (y = babelHelpers.taggedTemplateLiteralLoose([
-                                    "[aea][backfill] processing a primary bundle failed",
-                                  ])),
-                              )
-                              .catching(r("getErrorSafe")(e.reason))
-                              .sendLogs("aea-consumer-backfill-bundle-fail");
-                            return;
-                          }
-                          e.value ===
-                          o("WAWebAeaRefresh").AeaPrimaryBundleOutcome.RESOLVED
-                            ? t.add(i)
-                            : e.value ===
-                                o("WAWebAeaRefresh").AeaPrimaryBundleOutcome
-                                  .IDENTITY_CHANGED && a.add(i);
-                        }),
-                        s.length > 0)
-                      )
-                        return;
-                      var m = new Set(
-                        c.map(function (e) {
-                          return o("WAWebWidFactory")
-                            .asUserWidOrThrow(e.wid)
-                            .toString();
-                        }),
-                      );
-                      i.filter(function (e) {
-                        return !m.has(e.toString());
-                      }).forEach(function (e) {
-                        return a.add(e.toString());
-                      });
-                    } catch (e) {
-                      if (
-                        e instanceof o("WAWebFetchPrekeysJob").EmptyKeyInfoError
-                      ) {
-                        i.forEach(function (e) {
-                          return a.add(e.toString());
-                        });
-                        return;
-                      }
-                      o("WALogger")
-                        .WARN(
-                          C ||
-                            (C = babelHelpers.taggedTemplateLiteralLoose([
-                              "[aea][backfill] prekey batch failed",
-                            ])),
-                        )
-                        .catching(r("getErrorSafe")(e))
-                        .sendLogs("aea-consumer-backfill-prekey-fetch-failed");
-                    }
-                  },
+                  }),
                 );
-                return function (e) {
-                  return i.apply(this, arguments);
-                };
-              })(),
-              { batchSize: S },
-            ),
-            a.size > 0 &&
-              o("WALogger").LOG(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
-                    "[aea][backfill] unavailable=",
-                    "",
-                  ])),
-                String(a.size),
-              ),
-            { refetchedLids: t, unavailableLids: a }
-          );
-        })),
-        M.apply(this, arguments)
+              if (
+                (c.forEach(function (e, a) {
+                  var i = o("WAWebWidFactory")
+                    .asUserWidOrThrow(u[a].wid)
+                    .toString();
+                  if (e.status === "rejected") {
+                    o("WALogger")
+                      .WARN(
+                        g ||
+                          (g = babelHelpers.taggedTemplateLiteralLoose([
+                            "[aea][backfill] processing a primary bundle failed",
+                          ])),
+                      )
+                      .catching(r("getErrorSafe")(e.reason))
+                      .sendLogs("aea-consumer-backfill-bundle-fail");
+                    return;
+                  }
+                  e.value ===
+                  o("WAWebAeaRefresh").AeaPrimaryBundleOutcome.RESOLVED
+                    ? t.add(i)
+                    : e.value ===
+                        o("WAWebAeaRefresh").AeaPrimaryBundleOutcome
+                          .IDENTITY_CHANGED && n.add(i);
+                }),
+                l.length > 0)
+              )
+                return;
+              var d = new Set(
+                u.map(function (e) {
+                  return o("WAWebWidFactory")
+                    .asUserWidOrThrow(e.wid)
+                    .toString();
+                }),
+              );
+              a.filter(function (e) {
+                return !d.has(e.toString());
+              }).forEach(function (e) {
+                return n.add(e.toString());
+              });
+            } catch (e) {
+              if (e instanceof o("WAWebFetchPrekeysJob").EmptyKeyInfoError) {
+                a.forEach(function (e) {
+                  return n.add(e.toString());
+                });
+                return;
+              }
+              o("WALogger")
+                .WARN(
+                  h ||
+                    (h = babelHelpers.taggedTemplateLiteralLoose([
+                      "[aea][backfill] prekey batch failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("aea-consumer-backfill-prekey-fetch-failed");
+            }
+          },
+          { batchSize: v },
+        ),
+        n.size > 0 &&
+          o("WALogger").LOG(
+            y ||
+              (y = babelHelpers.taggedTemplateLiteralLoose([
+                "[aea][backfill] unavailable=",
+                "",
+              ])),
+            String(n.size),
+          ),
+        { refetchedLids: t, unavailableLids: n }
       );
     }
-    function w(e) {
-      return A.apply(this, arguments);
+    async function x(e) {
+      var t = await o("WAWebSignalProtocolStore")
+          .getPersistSignalProtocolStore()
+          .getAllIdentityRows(),
+        n = [],
+        r = 0;
+      for (var a of t) {
+        var i = $(a);
+        i != null &&
+          (r++,
+          a.accountEncryptionState == null &&
+            !e.has(i.toString()) &&
+            n.push({ row: a, accountLid: i }));
+      }
+      var l = await N(n, function (e) {
+        var t = e.accountLid;
+        return t;
+      });
+      return {
+        unsetIdentities: l.map(function (e) {
+          var t = e.accountLid,
+            n = e.row;
+          return { row: n, accountLid: t.toString() };
+        }),
+        identityCount: r,
+      };
     }
-    function A() {
-      return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSignalProtocolStore")
-              .getPersistSignalProtocolStore()
-              .getAllIdentityRows(),
-            n = [],
-            r = 0;
-          for (var a of t) {
-            var i = F(a);
-            i != null &&
-              (r++,
-              a.accountEncryptionState == null &&
-                !e.has(i.toString()) &&
-                n.push({ row: a, accountLid: i }));
-          }
-          var l = yield B(n, function (e) {
-            var t = e.accountLid;
-            return t;
-          });
-          return {
-            unsetIdentities: l.map(function (e) {
-              var t = e.accountLid,
-                n = e.row;
-              return { row: n, accountLid: t.toString() };
-            }),
-            identityCount: r,
-          };
-        })),
-        A.apply(this, arguments)
-      );
-    }
-    function F(e) {
+    function $(e) {
       if (e.identifier.includes("@hosted")) return null;
       try {
         var t = o("WAWebWidFromSignalAddress").widFromSignalAddress(
@@ -524,17 +471,17 @@ __d(
         return (
           e.accountEncryptionState == null &&
             (o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
                   "[aea][backfill] unparseable identity row identifier=",
                   "",
                 ])),
-              O(e.identifier),
+              P(e.identifier),
             ),
             o("WALogger")
               .WARN(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                b ||
+                  (b = babelHelpers.taggedTemplateLiteralLoose([
                     "[aea][backfill] skipped unparseable identity row",
                   ])),
               )
@@ -547,48 +494,33 @@ __d(
         );
       }
     }
-    function O(e) {
+    function P(e) {
       var t = r("justknobx")._("7009") ? r("gkx")("9092") : !r("gkx")("26258");
       return t ? e : e.replace(/\d+/g, "#");
     }
-    function B(e, t) {
-      return W.apply(this, arguments);
-    }
-    function W() {
+    async function N(e, t) {
+      var n = [];
       return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var r = [];
-          return (
-            yield o("WAWebRunInBatches").runInBatches(
-              e,
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var a = yield (v || (v = n("Promise"))).all(
-                      e.map(function (e) {
-                        return o(
-                          "WAWebAeaAccountCategory",
-                        ).isAeaReceiveEnabledForAccount(t(e));
-                      }),
-                    );
-                    e.forEach(function (e, t) {
-                      a[t] && r.push(e);
-                    });
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-              { batchSize: R },
-            ),
-            r
-          );
-        })),
-        W.apply(this, arguments)
+        await o("WAWebRunInBatches").runInBatches(
+          e,
+          async function (e) {
+            var r = await Promise.all(
+              e.map(function (e) {
+                return o(
+                  "WAWebAeaAccountCategory",
+                ).isAeaReceiveEnabledForAccount(t(e));
+              }),
+            );
+            e.forEach(function (e, t) {
+              r[t] && n.push(e);
+            });
+          },
+          { batchSize: S },
+        ),
+        n
       );
     }
-    ((l.runAeaConsumerBackfill = L), (l.aeaIdentifierForLog = O));
+    ((l.runAeaConsumerBackfill = R), (l.aeaIdentifierForLog = P));
   },
   98,
 );

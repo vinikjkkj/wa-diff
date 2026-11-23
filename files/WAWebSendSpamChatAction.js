@@ -102,12 +102,12 @@ __d(
     }
     function v() {
       return {
-        couldNotSendReportMsg: s._(/*BTDS*/ "Couldn't send report"),
-        sendingReportMsg: s._(/*BTDS*/ "Sending report"),
-        reportSentMsg: s._(/*BTDS*/ "Report sent"),
-        reportSentMsgV2: s._(/*BTDS*/ "Thank you for reporting."),
-        reportNotSentMsg: s._(/*BTDS*/ "Report not sent"),
-        tryAgainMsg: s._(/*BTDS*/ "Try again."),
+        couldNotSendReportMsg: s._(/*BTDS*/ ""),
+        sendingReportMsg: s._(/*BTDS*/ ""),
+        reportSentMsg: s._(/*BTDS*/ ""),
+        reportSentMsgV2: s._(/*BTDS*/ ""),
+        reportNotSentMsg: s._(/*BTDS*/ ""),
+        tryAgainMsg: s._(/*BTDS*/ ""),
       };
     }
     function S(t) {

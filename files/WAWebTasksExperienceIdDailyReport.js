@@ -9,74 +9,63 @@ __d(
     "WAWebFalcoCanonicalMdId",
     "WAWebWamGlobals",
     "WamExperienceIdDailyFalcoEvent",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u() {
-      return c.apply(this, arguments);
-    }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = yield o(
-              "WAWebDBExperienceIdCounts",
-            ).getReceivedExperienceIdCounts();
-            if (e == null) return;
-            (r("justknobx")._("6387") &&
-              o(
-                "WAWebExperienceIdGatingUtils",
-              ).isExperienceIdReceiveEnabled() &&
-              e.aggregates.forEach(d),
-              yield o("WAWebDBExperienceIdCounts").removeReportedExperienceIds(
-                e.msgKeys,
-              ));
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "reportExperienceIdDailyStats: keeping rows for the next run",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("experience-id-daily-report-failed");
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(t) {
+    async function u() {
       try {
-        var n = r("WAWebFalcoCanonicalMdId")();
-        r("WamExperienceIdDailyFalcoEvent").log(function () {
-          var e;
-          return {
-            ab_key2: r("WAWebFalcoCanonicalAbKey2")(),
-            app_version: r("WAWebFalcoCanonicalAppVersion")(),
-            expo_key:
-              o("WAWebWamGlobals").Global == null ||
-              (e = o("WAWebWamGlobals").Global.all) == null
-                ? void 0
-                : e.expoKey,
-            md_id: n != null ? String(n) : null,
-            experience_id: String(t.experienceId),
-            unique_message_count: String(t.uniqueMessageCount),
-            unique_sender_count: String(t.uniqueSenderCount),
-          };
-        });
+        var t = await o(
+          "WAWebDBExperienceIdCounts",
+        ).getReceivedExperienceIdCounts();
+        if (t == null) return;
+        (r("justknobx")._("6387") &&
+          o("WAWebExperienceIdGatingUtils").isExperienceIdReceiveEnabled() &&
+          t.aggregates.forEach(c),
+          await o("WAWebDBExperienceIdCounts").removeReportedExperienceIds(
+            t.msgKeys,
+          ));
       } catch (t) {
         o("WALogger")
           .ERROR(
             e ||
               (e = babelHelpers.taggedTemplateLiteralLoose([
-                "reportExperienceIdDailyStats: dropping one id",
+                "reportExperienceIdDailyStats: keeping rows for the next run",
               ])),
           )
           .catching(r("getErrorSafe")(t))
+          .sendLogs("experience-id-daily-report-failed");
+      }
+    }
+    function c(e) {
+      try {
+        var t = r("WAWebFalcoCanonicalMdId")();
+        r("WamExperienceIdDailyFalcoEvent").log(function () {
+          var n;
+          return {
+            ab_key2: r("WAWebFalcoCanonicalAbKey2")(),
+            app_version: r("WAWebFalcoCanonicalAppVersion")(),
+            expo_key:
+              o("WAWebWamGlobals").Global == null ||
+              (n = o("WAWebWamGlobals").Global.all) == null
+                ? void 0
+                : n.expoKey,
+            md_id: t != null ? String(t) : null,
+            experience_id: String(e.experienceId),
+            unique_message_count: String(e.uniqueMessageCount),
+            unique_sender_count: String(e.uniqueSenderCount),
+          };
+        });
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "reportExperienceIdDailyStats: dropping one id",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
           .sendLogs("experience-id-daily-event-failed");
       }
     }

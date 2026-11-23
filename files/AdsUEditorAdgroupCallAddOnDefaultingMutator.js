@@ -13,8 +13,7 @@ __d(
       s = r("requireDeferred")(
         "AdsUEditorAdgroupCallBusinessHoursStoreUtils",
       ).__setRef("AdsUEditorAdgroupCallAddOnDefaultingMutator");
-    o("AdsCallAddonUtils").isCallAddonBusinessHoursEnabled(!1) &&
-      (e.load(), s.load());
+    (e.load(), s.load());
     function u(t, n, r, a) {
       var i = o(
         "AdsUEditorAdgroupWebsiteExtensionTypesMutator",
@@ -23,8 +22,7 @@ __d(
       var l = e.getModuleIfRequired(),
         u = s.getModuleIfRequired();
       return (
-        o("AdsCallAddonUtils").isCallAddonBusinessHoursEnabled(!1) &&
-          l != null &&
+        l != null &&
           u != null &&
           (i = l.setBusinessHours(i, u.getDefaultBusinessHoursForPage(r))),
         i

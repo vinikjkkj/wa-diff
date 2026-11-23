@@ -2,23 +2,22 @@ __d(
   "WAWebDebugCommandPalettePlugin",
   [
     "WALogger",
-    "WAWebActionCheckCircleIcon.react",
-    "WAWebAlertErrorIcon.react",
     "WAWebCellV2.react",
-    "WAWebChevronIcon.react",
     "WAWebCommandPaletteController",
-    "WAWebCopyIcon.react",
     "WAWebDebugCommandSearchModel",
     "WAWebDeveloperMenuUtils",
-    "WAWebInfoFilledIcon.react",
     "WAWebLexicalWAWebMenu.react",
     "WAWebMenuItems.react",
     "WAWebText.react",
-    "asyncToGeneratorRuntime",
+    "WDSIconIcCheckCircleFilled.react",
+    "WDSIconIcChevronRight.react",
+    "WDSIconIcContentCopy.react",
+    "WDSIconIcErrorFilled.react",
+    "WDSIconIcInfo.react",
     "getErrorSafe",
     "react",
-    "react-compiler-runtime",
     "useWAWebLexicalSearchModelQuery",
+    "vulture",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
@@ -26,101 +25,99 @@ __d(
       u = s || (s = o("react")),
       c = s.useState;
     function d(t) {
-      var a = t.command,
-        i = o("WAWebCommandPaletteController").useCommandPalette(),
-        l = c(),
-        s = l[0],
-        d = l[1],
-        m = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var t = i.input.trim(),
-              n = t.split(","),
-              l = n
-                .map(function (e) {
-                  switch (e) {
-                    case "":
-                      return;
-                    default:
-                      try {
-                        return JSON.parse(e.trim());
-                      } catch (e) {
-                        var t = r("getErrorSafe")(e);
-                        throw (
-                          d({
-                            success: !1,
-                            result:
-                              "Failure parsing argument list: " + t.message,
-                          }),
-                          t
-                        );
-                      }
-                  }
-                })
-                .filter(function (e) {
-                  return e !== void 0;
-                });
-            l.length === 0 &&
-              a.paramsToExecute != null &&
-              (l = a.paramsToExecute);
-            try {
-              var s = yield a.func.apply(a, l),
-                u;
-              if (typeof s == "string") u = s;
-              else {
-                var c;
-                u = (c = JSON.stringify(s)) != null ? c : "undefined";
-              }
-              (r("WAWebDeveloperMenuUtils").copyToClipboard(
-                u,
-                'Copied return value "' + u.substr(0, 20) + '" to clipboard',
-              ),
-                o("WALogger").LOG(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "Debug Command Result",
-                    ])),
-                ),
-                d({ success: !0, result: u }));
-            } catch (e) {
-              d({ success: !1, result: r("getErrorSafe")(e).message });
+      var n = t.command,
+        a = o("WAWebCommandPaletteController").useCommandPalette(),
+        i = c(),
+        l = i[0],
+        s = i[1],
+        d = async function () {
+          r("vulture")("nIW11uK5LRU3yrO-BbBVGmnK_bo=");
+          var t = a.input.trim(),
+            i = t.split(","),
+            l = i
+              .map(function (e) {
+                switch (e) {
+                  case "":
+                    return;
+                  default:
+                    try {
+                      return JSON.parse(e.trim());
+                    } catch (e) {
+                      var t = r("getErrorSafe")(e);
+                      throw (
+                        s({
+                          success: !1,
+                          result: "Failure parsing argument list: " + t.message,
+                        }),
+                        t
+                      );
+                    }
+                }
+              })
+              .filter(function (e) {
+                return e !== void 0;
+              });
+          l.length === 0 &&
+            n.paramsToExecute != null &&
+            (l = n.paramsToExecute);
+          try {
+            var u = await n.func.apply(n, l),
+              c;
+            if (typeof u == "string") c = u;
+            else {
+              var d;
+              c = (d = JSON.stringify(u)) != null ? d : "undefined";
             }
-          });
-          return function () {
-            return t.apply(this, arguments);
-          };
-        })(),
-        p = function () {
-          r("WAWebDeveloperMenuUtils").copyToClipboard(
-            "Debug." + a.id,
-            'Copied "Debug.' + a.id + '" to clipboard',
-          );
+            (o("WAWebDeveloperMenuUtils").copyToClipboard({
+              successText:
+                'Copied return value "' + c.substr(0, 20) + '" to clipboard',
+              text: c,
+            }),
+              o("WALogger").LOG(
+                e ||
+                  (e = babelHelpers.taggedTemplateLiteralLoose([
+                    "Debug Command Result",
+                  ])),
+              ),
+              s({ success: !0, result: c }));
+          } catch (e) {
+            s({ success: !1, result: r("getErrorSafe")(e).message });
+          }
+        },
+        m = function () {
+          (r("vulture")("cVrI54-MaTMjfNhCdpGoK1lmESI="),
+            o("WAWebDeveloperMenuUtils").copyToClipboard({
+              successText: 'Copied "Debug.' + n.id + '" to clipboard',
+              text: "Debug." + n.id,
+            }));
         };
       return u.jsxs(o("WAWebLexicalWAWebMenu.react").LexicalWAWebMenu, {
         forceSelection: !0,
         children: [
-          s != null &&
+          l != null &&
             u.jsxs(u.Fragment, {
               children: [
                 u.jsx(r("WAWebCellV2.react"), {
                   size: "medium",
                   interactive: !1,
-                  detailLeft: s.success
-                    ? u.jsx(
-                        o("WAWebActionCheckCircleIcon.react")
-                          .ActionCheckCircleIcon,
-                        { width: 24, height: 24 },
-                      )
-                    : u.jsx(o("WAWebAlertErrorIcon.react").AlertErrorIcon, {
+                  detailLeft: l.success
+                    ? u.jsx(r("WDSIconIcCheckCircleFilled.react"), {
                         width: 24,
                         height: 24,
+                        colorName: "accent",
+                      })
+                    : u.jsx(r("WDSIconIcErrorFilled.react"), {
+                        width: 29,
+                        height: 29,
+                        colorName: "secondaryNegative",
                       }),
                   primary: u.jsx(o("WAWebText.react").WAWebTextTitle, {
-                    children: s.success ? "Success" : "Error",
+                    children: l.success ? "Success" : "Error",
                   }),
                   secondary: u.jsx(o("WAWebText.react").WAWebTextMuted, {
-                    children: s.success
-                      ? "Return value: " + s.result
-                      : s.result,
+                    children: l.success
+                      ? "Return value: " + l.result
+                      : l.result,
                   }),
                 }),
                 u.jsx(o("WAWebMenuItems.react").MenuSeparator, {}),
@@ -130,24 +127,28 @@ __d(
             optionId: "execute",
             primary: "Execute",
             secondary: u.jsx("code", {
-              children: a.id + "(" + a.params.join(", ") + ")",
+              children: n.id + "(" + n.params.join(", ") + ")",
             }),
-            detailRight: u.jsx(o("WAWebChevronIcon.react").ChevronIcon, {}),
-            onSelect: m,
+            detailRight: u.jsx(r("WDSIconIcChevronRight.react"), {
+              height: 30,
+              width: 30,
+            }),
+            onSelect: d,
           }),
           u.jsx(o("WAWebMenuItems.react").ActionMenuItem, {
             optionId: "copy",
             primary: "Copy",
             secondary: "Copy the function to your clipboard",
-            detailRight: u.jsx(o("WAWebCopyIcon.react").CopyIcon, {}),
-            onSelect: p,
+            detailRight: u.jsx(r("WDSIconIcContentCopy.react"), {}),
+            onSelect: m,
           }),
           u.jsx(o("WAWebMenuItems.react").MenuSeparator, {}),
           u.jsx(r("WAWebCellV2.react"), {
             size: "medium",
             interactive: !1,
-            detailLeft: u.jsx(o("WAWebInfoFilledIcon.react").InfoFilledIcon, {
+            detailLeft: u.jsx(r("WDSIconIcInfo.react"), {
               width: 24,
+              height: 24,
             }),
             secondary: u.jsx(o("WAWebText.react").WAWebTextSmall, {
               textWrap: "wrap",
@@ -183,60 +184,49 @@ __d(
     }
     d.displayName = d.name + " [from " + i.id + "]";
     function m() {
-      var e = o("react-compiler-runtime").c(5),
-        t = o("WAWebCommandPaletteController").useCommandPalette(),
-        n = o("useWAWebLexicalSearchModelQuery").useLexicalSearchModelQuery(p),
-        r = n.results,
-        a;
-      e[0] !== t
-        ? ((a = function (n) {
-            t.pushPlugin({
-              id: "DebugCommandActionsMenu",
-              shortName: n.id,
-              placeholder: "Enter a comma-separated list of params",
-              Component: function () {
-                return u.jsx(d, { command: n });
-              },
+      r("vulture")("Mt4mag4Yt0IA8ijyFfln9YRGuxg=");
+      var e = o("WAWebCommandPaletteController").useCommandPalette(),
+        t = 8,
+        n = o("useWAWebLexicalSearchModelQuery").useLexicalSearchModelQuery(
+          function () {
+            return new (o("WAWebDebugCommandSearchModel").DebugCommandSearch)({
+              maxPageLength: t,
             });
-          }),
-          (e[0] = t),
-          (e[1] = a))
-        : (a = e[1]);
-      var i = a,
-        l;
+          },
+        ),
+        a = n.results,
+        i = function (n) {
+          e.pushPlugin({
+            id: "DebugCommandActionsMenu",
+            shortName: n.id,
+            placeholder: "Enter a comma-separated list of params",
+            Component: function () {
+              return u.jsx(d, { command: n });
+            },
+          });
+        };
       return (
-        e[2] !== i || e[3] !== r
-          ? ((l =
-              r != null &&
-              u.jsx(o("WAWebLexicalWAWebMenu.react").LexicalWAWebMenu, {
-                children: r.results.map(function (e) {
-                  return u.jsx(
-                    o("WAWebMenuItems.react").ActionMenuItem,
-                    {
-                      optionId: e.id,
-                      primary: e.data.id,
-                      secondary: e.data.doc,
-                      onSelect: function () {
-                        return i(e.data);
-                      },
-                    },
-                    e.id,
-                  );
-                }),
-              })),
-            (e[2] = i),
-            (e[3] = r),
-            (e[4] = l))
-          : (l = e[4]),
-        l
+        a != null &&
+        u.jsx(o("WAWebLexicalWAWebMenu.react").LexicalWAWebMenu, {
+          children: a.results.map(function (e) {
+            return u.jsx(
+              o("WAWebMenuItems.react").ActionMenuItem,
+              {
+                optionId: e.id,
+                primary: e.data.id,
+                secondary: e.data.doc,
+                onSelect: function () {
+                  return i(e.data);
+                },
+              },
+              e.id,
+            );
+          }),
+        })
       );
     }
-    function p() {
-      return new (o("WAWebDebugCommandSearchModel").DebugCommandSearch)({
-        maxPageLength: 8,
-      });
-    }
-    var _ = {
+    m.displayName = m.name + " [from " + i.id + "]";
+    var p = {
       plugin: {
         id: "DebugCommandPalettePlugin",
         placeholder: "Search debug commands",
@@ -251,7 +241,7 @@ __d(
         description: "Search and execute debug commands",
       },
     };
-    l.DebugCommandPalettePlugin = _;
+    l.DebugCommandPalettePlugin = p;
   },
   98,
 );

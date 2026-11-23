@@ -13,7 +13,6 @@ __d(
     "WAWebNotificationIconUtils",
     "WAWebParticipantListUtils",
     "WAWebWidFormat",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
@@ -28,9 +27,9 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var r = t.prototype;
+      var n = t.prototype;
       return (
-        (r.buildKey = function () {
+        (n.buildKey = function () {
           return (
             "newslowner:" +
             this.chat.id.toString() +
@@ -40,19 +39,19 @@ __d(
             o("WATimeUtils").unixTime().toString()
           );
         }),
-        (r.shouldPlaySound = function () {
+        (n.shouldPlaySound = function () {
           return e.prototype.shouldPlaySound.call(this)
             ? o("WAWebNotificationHelpers").shouldPlaySoundGranular(this.chat)
             : !1;
         }),
-        (r.shouldShowBanner = function () {
+        (n.shouldShowBanner = function () {
           return e.prototype.shouldShowBanner.call(this)
             ? o("WAWebNotificationHelpers").shouldEnableNotificationGranular(
                 this.chat,
               )
             : !1;
         }),
-        (r.getBannerOptions = function () {
+        (n.getBannerOptions = function () {
           var e = this,
             t = this.updates.some(function (e) {
               var t = e.item;
@@ -69,32 +68,26 @@ __d(
             },
           };
         }),
-        (r.getNotificationBody = function () {
+        (n.getNotificationBody = function () {
           var e = this.getActor();
           return c(e, this.updates).toString();
         }),
-        (r.getActor = function () {
+        (n.getActor = function () {
           var e = o("WAWebContactCollection").ContactCollection.get(this.user);
           return e != null
             ? o("WAWebParticipantListUtils").getFirstNameForContact(e)
             : o("WAWebWidFormat").widToFormattedUser(this.user);
         }),
-        (r.getIcon = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o("WAWebNotificationIconUtils").getChatNotificationIcon(
-              this.chat,
-              this.abortController.signal,
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (r.matchesChat = function (t) {
+        (n.getIcon = async function () {
+          return o("WAWebNotificationIconUtils").getChatNotificationIcon(
+            this.chat,
+            this.abortController.signal,
+          );
+        }),
+        (n.matchesChat = function (t) {
           return t.equals(this.chat);
         }),
-        (r.getChatKind = function () {
+        (n.getChatKind = function () {
           return o("WAWebChatFlowTypes").ChatKindType.Newsletter;
         }),
         t
@@ -103,22 +96,22 @@ __d(
     function u(e) {
       switch (e) {
         case "name":
-          return s._(/*BTDS*/ "name");
+          return s._(/*BTDS*/ "");
         case "description":
-          return s._(/*BTDS*/ "description");
+          return s._(/*BTDS*/ "");
         case "profile_picture":
-          return s._(/*BTDS*/ "profile picture");
+          return s._(/*BTDS*/ "");
         case "reaction_setting":
-          return s._(/*BTDS*/ "reaction settings");
+          return s._(/*BTDS*/ "");
       }
     }
     function c(e, t) {
       if (t.length === 1 && t[0].item === "name") {
         var n = t[0].value;
-        return s._(
-          /*BTDS*/ '{actor} changed the channel name to "{updateValue}".',
-          [s._param("actor", e), s._param("updateValue", n)],
-        );
+        return s._(/*BTDS*/ "", [
+          s._param("actor", e),
+          s._param("updateValue", n),
+        ]);
       }
       var o = t.map(function (e) {
           var t = e.item;
@@ -129,7 +122,7 @@ __d(
           r("WAWebFbtIntlList").CONJUNCTIONS.AND,
           r("WAWebFbtIntlList").DELIMITERS.COMMA,
         );
-      return s._(/*BTDS*/ "{actor} changed the channel {update}.", [
+      return s._(/*BTDS*/ "", [
         s._param("actor", e),
         s._param("update", a.toString()),
       ]);

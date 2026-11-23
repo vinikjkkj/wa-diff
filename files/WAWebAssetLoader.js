@@ -2,7 +2,6 @@ __d(
   "WAWebAssetLoader",
   [
     "invariant",
-    "Promise",
     "WAAbortError",
     "WABackoffUtils",
     "WADeepEquals",
@@ -20,7 +19,6 @@ __d(
     "WAWebNoop",
     "WAWebWamEnumWebcAssetCacheTypeCode",
     "WAWebWebcAssetLoadWamEvent",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
     "gkx",
@@ -36,8 +34,7 @@ __d(
       _,
       f,
       g,
-      h,
-      y = {
+      h = {
         INITIAL_EMOJI_LOAD: 1,
         INITIAL_ASSET_LOAD: 2,
         THEME_ASSET_LOAD: 2,
@@ -45,7 +42,7 @@ __d(
         LAZY_LOAD_EMOJI: 2,
         NOTIFICATION_ICON: 2,
       },
-      C = (function () {
+      y = (function () {
         function t(e) {
           var t = this;
           (e === void 0 && (e = 90),
@@ -68,19 +65,19 @@ __d(
                   t.$13(e, n);
                 }),
                 t
-                  .$11(Object.values(t.$2), y.INITIAL_EMOJI_LOAD, {
+                  .$11(Object.values(t.$2), h.INITIAL_EMOJI_LOAD, {
                     forceCheck: !1,
                   })
                   .catch(o("WAAbortError").catchAbort(r("WAWebNoop"))));
             }),
             (this.$8 = e));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.initEmojiAsset = function (t) {
+          (n.initEmojiAsset = function (t) {
             this.$4 = t;
           }),
-          (a.loadInitialAssets = function (n) {
+          (n.loadInitialAssets = function (n) {
             var t = new (o("WAWebWebcAssetLoadWamEvent").WebcAssetLoadWamEvent)(
               {
                 webcAssetName: "initial-assets",
@@ -89,7 +86,7 @@ __d(
                   .WEBC_ASSET_CACHE_TYPE_CODE.UNCACHED,
               },
             );
-            this.$11(n, y.INITIAL_ASSET_LOAD, { estimateStorage: !0 })
+            this.$11(n, h.INITIAL_ASSET_LOAD, { estimateStorage: !0 })
               .then(function () {
                 (t.markWebcAssetLoadT(), t.commit());
                 var n = t.webcAssetLoadT;
@@ -113,15 +110,15 @@ __d(
                 }),
               );
           }),
-          (a.loadEmoji = function (t, a) {
+          (n.loadEmoji = function (t, n) {
             if (this.$4 && this.$5) {
               var e = this.$4(this.$5),
-                i = o("WAWebEmoji").EmojiUtil.getBucket(t),
-                l = this.$12(),
-                s = e.get(l + "b" + i),
-                u = this.$6;
-              return s
-                ? this.loadAsset(s, a, !1).catch(
+                a = o("WAWebEmoji").EmojiUtil.getBucket(t),
+                i = this.$12(),
+                l = e.get(i + "b" + a),
+                s = this.$6;
+              return l
+                ? this.loadAsset(l, n, !1).catch(
                     o("WAAbortError").catchAbort(function () {
                       o("WALogger").LOG(
                         c ||
@@ -130,20 +127,20 @@ __d(
                             "-",
                             "",
                           ])),
-                        s.id,
-                        u,
+                        l.id,
+                        s,
                       );
                     }),
                   )
-                : (h || (h = n("Promise"))).reject(
+                : Promise.reject(
                     r("err")("The given emoji glyph id was not found"),
                   );
             }
-            return (h || (h = n("Promise"))).reject(
+            return Promise.reject(
               r("err")("emojiForPlatform or currentPlatform are not set"),
             );
           }),
-          (a.loadEmojis = function () {
+          (n.loadEmojis = function () {
             var e = r("nullthrows")(this.$5);
             this.$4 != null || s(0, 56365);
             var t = Array.from(this.$4(e).values()),
@@ -153,7 +150,7 @@ __d(
                 webcAssetCacheType: o("WAWebWamEnumWebcAssetCacheTypeCode")
                   .WEBC_ASSET_CACHE_TYPE_CODE.UNCACHED,
               });
-            this.$11(t, y.INITIAL_EMOJI_LOAD, { estimateStorage: !0 })
+            this.$11(t, h.INITIAL_EMOJI_LOAD, { estimateStorage: !0 })
               .then(function () {
                 (n.markWebcAssetLoadT(), n.commit());
                 var e = n.webcAssetLoadT;
@@ -177,27 +174,32 @@ __d(
                 }),
               );
           }),
-          (a.loadAsset = function (t, a, i) {
+          (n.loadAsset = function (t, n, a) {
             var e = this;
-            i === void 0 && (i = !0);
-            var l = t.id,
-              s = r("WAWebAssetLoaderDpiChangeDispatch").currentRes,
-              u = this.$2[l];
-            if (u && !o("WADeepEquals").deepEqual(t, u)) {
-              var c = ["Attempted to load an asset using an already used ID"];
-              return (h || (h = n("Promise"))).reject(r("err")(c.join("\n")));
+            a === void 0 && (a = !0);
+            var i = t.id,
+              l = r("WAWebAssetLoaderDpiChangeDispatch").currentRes,
+              s = this.$2[i];
+            if (s && !o("WADeepEquals").deepEqual(t, s)) {
+              var u = ["Attempted to load an asset using an already used ID"];
+              return Promise.reject(
+                r("err")(
+                  u.join(`
+`),
+                ),
+              );
             }
-            ((this.$2[l] = t), (this.$3[l] = this.$3[l] || {}));
-            var d = s === "high" ? "low" : "high";
-            this.$13(l, d);
-            var m = this.$3[l][s];
-            if (m && !i) return m.promise;
-            var _ = new (r("WAWebAssetToLoad"))(t, s, a),
-              f = new AbortController(),
-              g = f.signal,
-              y = this.$14(_, f)
+            ((this.$2[i] = t), (this.$3[i] = this.$3[i] || {}));
+            var c = l === "high" ? "low" : "high";
+            this.$13(i, c);
+            var d = this.$3[i][l];
+            if (d && !a) return d.promise;
+            var m = new (r("WAWebAssetToLoad"))(t, l, n),
+              _ = new AbortController(),
+              f = _.signal,
+              g = this.$14(m, _)
                 .then(function (n) {
-                  if (g.aborted) throw new (o("WAAbortError").AbortError)();
+                  if (f.aborted) throw new (o("WAAbortError").AbortError)();
                   var r = t.selectors;
                   return (
                     r &&
@@ -209,10 +211,10 @@ __d(
                 })
                 .catch(function (t) {
                   var n = r("getErrorSafe")(t),
-                    a = e.$3[l][s],
-                    i = C !== a;
+                    a = e.$3[i][l],
+                    s = h !== a;
                   if (
-                    (i || (e.$3[l][s] = null),
+                    (s || (e.$3[i][l] = null),
                     n.name === o("WAAbortError").ABORT_ERROR &&
                       (o("WALogger").LOG(
                         p ||
@@ -221,31 +223,31 @@ __d(
                             "-",
                             "",
                           ])),
+                        i,
                         l,
-                        s,
                       ),
-                      i && a))
+                      s && a))
                   )
                     return a.promise;
                   throw t;
                 });
-            _.setConsumerPromise(y);
-            var C = {
-              promise: y,
+            m.setConsumerPromise(g);
+            var h = {
+              promise: g,
               abort: function (n) {
-                e.abortUrlPromise(_, n);
+                e.abortUrlPromise(m, n);
               },
             };
-            return ((this.$3[l][s] = C), m && m.abort(!1), this.$15(), y);
+            return ((this.$3[i][l] = h), d && d.abort(!1), this.$15(), g);
           }),
-          (a.$14 = function (t, o) {
+          (n.$14 = function (t, n) {
             var e = this,
-              a = new (h || (h = n("Promise")))(function (n) {
-                (t.setConsumerPromiseResolve(n, o), e.$9.push(t));
+              o = new Promise(function (r) {
+                (t.setConsumerPromiseResolve(r, n), e.$9.push(t));
               });
-            return r("WAPromiseRaceAbort")(a, o.signal);
+            return r("WAPromiseRaceAbort")(o, n.signal);
           }),
-          (a.$15 = function () {
+          (n.$15 = function () {
             var e = this;
             if (!(this.$7 >= this.$8)) {
               for (
@@ -320,7 +322,7 @@ __d(
                 if (((n = t()), n)) return n.v;
             }
           }),
-          (a.abortUrlPromise = function (t, n) {
+          (n.abortUrlPromise = function (t, n) {
             n === void 0 && (n = !0);
             var e = t.getLoadUrlPromise();
             if (e) {
@@ -330,12 +332,12 @@ __d(
             }
             this.$15();
           }),
-          (a.$13 = function (t, n) {
+          (n.$13 = function (t, n) {
             var e,
               r = (e = this.$3[t]) == null ? void 0 : e[n];
             r && ((this.$3[t][n] = null), r.abort(!0));
           }),
-          (a.setPlatform = function (t) {
+          (n.setPlatform = function (t) {
             var e = this,
               n = this.$5;
             if (t !== n) {
@@ -356,16 +358,16 @@ __d(
                 this.$4 != null)
               ) {
                 var s = Array.from(this.$4(t).values());
-                this.$11(s, y.INITIAL_EMOJI_LOAD, { forceCheck: !1 }).catch(
+                this.$11(s, h.INITIAL_EMOJI_LOAD, { forceCheck: !1 }).catch(
                   o("WAAbortError").catchAbort(r("WAWebNoop")),
                 );
               }
             }
           }),
-          (a.isAssetLoaded = function (t) {
+          (n.isAssetLoaded = function (t) {
             return this.$2[t] != null;
           }),
-          (a.$12 = function () {
+          (n.$12 = function () {
             var e = o("WAWebEmojiAssetLoader").getEmojiTypeFromPlatform(
               this.$5,
             );
@@ -373,32 +375,24 @@ __d(
               ? "emoji-apple-"
               : "emoji-wa-";
           }),
-          (a.$11 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t, o) {
-                var a = this,
-                  i = (o == null ? void 0 : o.forceCheck) !== !1,
-                  l = (o == null ? void 0 : o.estimateStorage) === !0,
-                  s = yield (h || (h = n("Promise"))).all(
-                    e.map(function (e) {
-                      return a.loadAsset(e, t, i);
-                    }),
-                  );
-                return (
-                  r("WAWebCleanAssets")({
-                    keep: Object.values(this.$2),
-                    estimateStorage: l,
-                  }),
-                  s
-                );
-              },
+          (n.$11 = async function (t, n, o) {
+            var e = this,
+              a = (o == null ? void 0 : o.forceCheck) !== !1,
+              i = (o == null ? void 0 : o.estimateStorage) === !0,
+              l = await Promise.all(
+                t.map(function (t) {
+                  return e.loadAsset(t, n, a);
+                }),
+              );
+            return (
+              r("WAWebCleanAssets")({
+                keep: Object.values(this.$2),
+                estimateStorage: i,
+              }),
+              l
             );
-            function t(t, n, r) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.decrementCurrentlyLoadingCount = function () {
+          }),
+          (n.decrementCurrentlyLoadingCount = function () {
             (this.$7 <= 0 &&
               !this.$10 &&
               ((this.$10 = !0),
@@ -417,7 +411,7 @@ __d(
           t
         );
       })();
-    ((l.LOAD_PRIORITY = y), (l.AssetLoaderImpl = C));
+    ((l.LOAD_PRIORITY = h), (l.AssetLoaderImpl = y));
   },
   98,
 );

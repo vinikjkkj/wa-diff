@@ -30,20 +30,18 @@ __d(
       switch (n) {
         case d.COLOR:
           return t == null
-            ? s._(/*BTDS*/ "Color")
-            : s._(/*BTDS*/ '_j{"*":"{number} Colors","_1":"Color"}', [
-                s._plural(t, "number"),
-              ]);
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "", [s._plural(t, "number")]);
         case d.SIZE:
-          return s._(/*BTDS*/ "Size");
+          return s._(/*BTDS*/ "");
         case d.MATERIAL:
-          return s._(/*BTDS*/ "Material");
+          return s._(/*BTDS*/ "");
         case d.PATTERN:
-          return s._(/*BTDS*/ "Pattern");
+          return s._(/*BTDS*/ "");
         case d.GENDER:
-          return s._(/*BTDS*/ "Gender");
+          return s._(/*BTDS*/ "");
         case d.AGE_GROUP:
-          return s._(/*BTDS*/ "Age group");
+          return s._(/*BTDS*/ "");
       }
     }
     ((l.VARIANT_THUMBNAIL_IMAGE_SIZE = e),

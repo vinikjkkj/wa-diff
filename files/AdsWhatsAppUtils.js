@@ -1,7 +1,6 @@
 __d(
   "AdsWhatsAppUtils",
   [
-    "fbt",
     "AdCampaignDestination",
     "AdsAPIObjectives",
     "AdsAccountUtils",
@@ -24,7 +23,6 @@ __d(
     "ClickToMessageCTXMDFeatureGating",
     "URI",
     "WebStorage",
-    "WhatsAppPhoneNumberMentionsSourceUtils",
     "getByPath",
     "gkx",
     "igAccessAdsManagerUtils",
@@ -32,25 +30,27 @@ __d(
     "isStringNullOrEmpty",
     "vulture",
   ],
-  function (t, n, r, o, a, i, l, s) {
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      u,
-      c = "https://www.whatsapp.com/business/",
-      d = "https://www.whatsapp.com/download/",
-      m = function () {
+      s,
+      u = "https://www.whatsapp.com/business/",
+      c = function () {
         return o("AdsWhatsAppConstants").WHATSAPP_API_LINK;
       },
-      p = function (n, a) {
+      d = function (n, a) {
         return r("isFalsey")(a)
           ? null
-          : (n == null ? void 0 : n.whatsapp_page_settings_link) != null
-            ? new (e || (e = r("URI")))(n.whatsapp_page_settings_link)
+          : n != null
+            ? new (e || (e = r("URI")))(n)
             : o("BizSiteIdentifier.brands")
                 .createBusinessURL("/" + a + "/settings")
                 .addQueryData({ tab: "whatsapp_management" });
       },
-      _ = function (t) {
+      m = function (t, n) {
+        return d(t == null ? void 0 : t.whatsapp_page_settings_link, n);
+      },
+      p = function (t) {
         var e, n;
         return (
           ((e = t.creative) == null ||
@@ -71,6 +71,12 @@ __d(
             "WHATSAPP"
         );
       },
+      _ = function (t) {
+        return (
+          o("AdsDestinationUtils").getAppDestinationForAdgroupSpec(t) ===
+          "INSTAGRAM_LIVE_WHATSAPP"
+        );
+      },
       f = function (t) {
         return t !== null && t !== "" && t === "WHATSAPP_MESSAGE";
       },
@@ -85,7 +91,7 @@ __d(
             e.hasWhatsAppNumberInLocationStructure(t),
           isPageAdmin: e.isAdmin(t),
           pageLoadState: t.loadState,
-          pageSettingsLink: p(t, t.id),
+          pageSettingsLink: m(t, t.id),
           pageToken: r("getByPath")(t, r("ApiPagePaths").PAGE_TOKEN),
           pageWhatsAppNumberID: e.getPageWhatsAppNumberID(t),
           prefillWhatsAppCountryCode: r("AdsCurrentUser").countryCode,
@@ -95,57 +101,32 @@ __d(
           whatsAppSmbDevice: e.getWhatsAppSmbDevice(t),
         };
       },
-      h = function (t, n) {
-        var e,
-          r = g(n(t)),
-          a = (e = r == null ? void 0 : r.whatsAppNumber) != null ? e : "",
-          i = r == null ? void 0 : r.pageWhatsAppNumberID,
-          l = r == null ? void 0 : r.whatsAppNumberFormatted,
-          s = [];
-        a !== "" &&
-          i != null &&
-          s.push({ id: i, phone_number: a, phone_number_formated: l });
-        var u = o(
-          "WhatsAppPhoneNumberMentionsSourceUtils",
-        ).getSearchableWhatsAppPhoneNumbersList(s);
-        return u;
-      };
-    function y(e) {
-      return "@[" + e.getUniqueID() + ":" + e.getTitle() + "] ";
-    }
-    function C(e) {
-      var t = y(e),
-        n = s._(/*BTDS*/ "Chat with us on WhatsApp at {WhatsApp number}", [
-          s._param("WhatsApp number", t),
-        ]);
-      return n.toString();
-    }
-    var b = function (t) {
+      h = function (t) {
         var e = t.payload;
         e.response === "success"
           ? r(
               "AdsWhatsAppConnectAccountDialogSendDownloadLinkSuccessAction",
             ).dispatch(
               {},
-              { line: "199", module: "AdsWhatsAppUtils.js", moduleID: i.id },
+              { line: "166", module: "AdsWhatsAppUtils.js", moduleID: i.id },
             )
           : r(
               "AdsWhatsAppConnectAccountDialogSendDownloadLinkFailureAction",
             ).dispatch(
               {},
-              { line: "201", module: "AdsWhatsAppUtils.js", moduleID: i.id },
+              { line: "168", module: "AdsWhatsAppUtils.js", moduleID: i.id },
             );
       },
-      v = function () {
+      y = function () {
         var e = r("AdsPERouterHelper").getRouter().getQueryParams();
         return e.whatsapp_linking_page_id;
       },
-      S = function () {
+      C = function () {
         r("AdsPERouterHelper")
           .getRouter()
           .updateParams({ whatsapp_linking_page_id: null });
       };
-    function R(e, t, n, a) {
+    function b(e, t, n, a) {
       return !(
         t !== r("AdsAPIObjectives").LINK_CLICKS ||
         a ||
@@ -156,19 +137,46 @@ __d(
         o("AdsUEditorMessagingDestinationUtils").destinationIncludesWhatsApp(n)
       );
     }
-    function L(e, t) {
+    function v(e, t) {
       return (e != null ? e : "") + "_" + (t != null ? t : "");
     }
-    function E(e, t) {
+    function S(e, t) {
       return (e != null ? e : "") + "_" + (t != null ? t : "");
     }
-    function k(e) {
+    var R = new Set([
+      "ctx_missing_message_cta_qualification",
+      "ctx_missing_message_cta_condition",
+      "ctx_missing_message_cta_candidate",
+    ]);
+    function L(e) {
       if (e == null) return null;
-      var t = {};
-      for (var n of e) n.key != null && (t[n.key] = n.value);
-      return t;
+      var t = {},
+        n = !1;
+      for (var r of e) {
+        var o = r.key;
+        o != null && (R.has(o) ? (n = !0) : (t[o] = r.value));
+      }
+      return n && Object.keys(t).length === 0 ? null : t;
     }
-    function I(e, t, n, r, a, i, l, s, u) {
+    function E(e) {
+      var t = new Map(
+          e == null
+            ? void 0
+            : e.map(function (e) {
+                return [e.key, e.value];
+              }),
+        ),
+        n = t.get("ctx_missing_message_cta_qualification"),
+        r = t.get("ctx_missing_message_cta_condition");
+      return t.get("ctx_missing_message_cta_candidate") !== "MESSAGE_PAGE"
+        ? null
+        : n === "centralized_eligible" && (r === "test" || r === "control")
+          ? { centralizedEligible: !0, condition: r }
+          : n === "centralized_excluded" && r === "not_enrolled"
+            ? { centralizedEligible: !1, condition: r }
+            : null;
+    }
+    function k(e, t, n, r, a, i, l, s, u) {
       return (
         a === void 0 && (a = !1),
         i === void 0 && (i = !1),
@@ -188,13 +196,10 @@ __d(
               (a &&
                 (s === "ad_set" ||
                   (s === "ad" &&
-                    (u
-                      ? o(
-                          "ClickToMessageCTXMDFeatureGating",
-                        ).enableCTWADaisyChainLeadNurturing()
-                      : o(
-                          "ClickToMessageCTXMDFeatureGating",
-                        ).enableCTWAL1Switching()))))
+                    (!u ||
+                      o(
+                        "ClickToMessageCTXMDFeatureGating",
+                      ).enableCTWADaisyChainLeadNurturing()))))
             ? o("AdsWhatsAppTypes").WAAccountConnectionType
                 .MultiNumberConnection
             : n
@@ -206,7 +211,7 @@ __d(
                 : o("AdsWhatsAppTypes").WAAccountConnectionType.NoConnection
       );
     }
-    var T = function (t) {
+    var I = function (t) {
         return t == null
           ? void 0
           : t.filter(function (e) {
@@ -215,7 +220,7 @@ __d(
               );
             });
       },
-      D = function (t, n) {
+      T = function (t, n) {
         var e;
         return (
           n === void 0 && (n = "linked"),
@@ -229,7 +234,7 @@ __d(
             : !1
         );
       };
-    function x(e, t, n) {
+    function D(e, t, n) {
       var a = o("AdsWhatsAppFeatureGating").isWaBusinessUpsellEligible(e, t);
       return (
         o("AdsWhatsAppFeatureGating").isWASMBEnforcingEnabled(e, null, n) ||
@@ -240,20 +245,20 @@ __d(
           t !== r("AdsAPIObjectives").OUTCOME_SALES)
       );
     }
-    function $(e, t) {
+    function x(e, t) {
       var n = e == null ? void 0 : e.whatsAppNumber;
       return !r("isStringNullOrEmpty")(n) && e != null && t != null;
     }
-    function P(e) {
-      var t = T(e);
+    function $(e) {
+      var t = I(e);
       return t != null && t.length > 0;
     }
-    function N(e, t) {
+    function P(e, t) {
       var n =
         (t == null ? void 0 : t.hasWhatsAppNumberInLocationStructure) === !0;
       return e && n;
     }
-    var M = function (t, n, r, o, a, i, l, s, u, c, d) {
+    var N = function (t, n, r, o, a, i, l, s, u, c, d) {
       (l === void 0 && (l = !1),
         s === void 0 && (s = !1),
         u === void 0 && (u = !1),
@@ -261,18 +266,18 @@ __d(
         d === void 0 && (d = !1));
       var e = r ? g(r) : null,
         m = o.getValue(),
-        p = x(t, n, i),
+        p = D(t, n, i),
         _ = e == null ? void 0 : e.whatsAppNumber,
-        f = $(e, r),
-        h = P(m),
-        y = N(a, e);
+        f = x(e, r),
+        h = $(m),
+        y = P(a, e);
       return {
         businessWhatsAppBusinessAccounts: m,
         canUseWANumberInLocationStructure: y,
         isBusinessNumberRequired: p,
         pageHasValidWAAccount: f,
         validPageWhatsAppNumber: _,
-        whatsAppAccountConnectionType: I(
+        whatsAppAccountConnectionType: k(
           h,
           y,
           f,
@@ -285,16 +290,16 @@ __d(
         ),
       };
     };
-    function w(e, t) {
-      var n = P(e),
+    function M(e, t) {
+      var n = $(e),
         r = t != null ? g(t) : null,
-        o = $(r, t),
+        o = x(r, t),
         a = (r == null ? void 0 : r.whatsAppNumbersInfo) != null,
         i =
           (r == null ? void 0 : r.hasWhatsAppNumberInLocationStructure) === !0;
       return n || o || a || i;
     }
-    var A = function (t) {
+    var w = function (t) {
         var e, n;
         return (
           ((e =
@@ -305,27 +310,27 @@ __d(
             : 0) > 0
         );
       },
-      F = function (t) {
+      A = function (t) {
         if (t != null) {
           var e = g(t);
           return e.hasWhatsAppBusinessNumber === !0;
         }
         return !1;
       },
-      O = function (t) {
-        return t == null ? !1 : t.has_whatsapp_number || F(t);
+      F = function (t) {
+        return t == null ? !1 : t.has_whatsapp_number || A(t);
       },
-      B = function (t) {
+      O = function (t) {
         return t.every(function (e) {
           return (
             o(
               "AdsUEditorMessagingDestinationUtils",
             ).destinationIncludesWhatsApp(e.campaign.destination_type) ||
-            _(e.adgroup)
+            p(e.adgroup)
           );
         });
       };
-    function W(e, t, n) {
+    function B(e, t, n) {
       if (n != null && r("gkx")("13743")) return !0;
       var o = t == null ? void 0 : t.whatsapp_numbers_info;
       return o == null
@@ -336,7 +341,7 @@ __d(
             return r === e && n;
           });
     }
-    function q(e) {
+    function W(e) {
       if (e == null) return !1;
       var t = o("AdsWhatsAppNumberUtils").getWhatsAppNumberFormatted(e),
         n = e == null ? void 0 : e.whatsapp_numbers_info,
@@ -348,7 +353,7 @@ __d(
               });
       return (r == null ? void 0 : r.is_business_number) === !0;
     }
-    function U(e, t, n, a) {
+    function q(e, t, n, a) {
       return (
         t ||
         n ||
@@ -356,21 +361,21 @@ __d(
           "AdsUnifiedProfileVisitUtils",
         ).getUnifiedProfileVisitsDestinationContainsIG(e) ||
         o("AdsInstagramDefaultingUtils").shouldDefaultIGFAToIGTab() ||
-        G(e, a) ||
+        H(e, a) ||
         e === r("AdCampaignDestination").INSTAGRAM_LIVE
       );
     }
-    function V(e, t) {
+    function U(e, t) {
       return t === !1 && e !== r("AdCampaignDestination").FACEBOOK_PAGE;
     }
-    function H(e, t, n, r, a, i) {
+    function V(e, t, n, r, a, i) {
       return (
-        V(t, i) &&
+        U(t, i) &&
         (o("AdsWhatsAppGKUtils").shouldDefaultToIGForSMBBrazil(e, a) ||
-          U(t, n, r, a))
+          q(t, n, r, a))
       );
     }
-    function G(e, t) {
+    function H(e, t) {
       var n = (t == null ? void 0 : t.is_instagram_account_backed_page) === !0;
       return (
         (n &&
@@ -379,13 +384,13 @@ __d(
         (n && o("igAccessAdsManagerUtils").isIGAccessParityEnabled())
       );
     }
-    function z(e, t) {
-      var n = (u || (u = r("WebStorage"))).getLocalStorage();
+    function G(e, t) {
+      var n = (s || (s = r("WebStorage"))).getLocalStorage();
       n == null ||
         n.setItem(e, JSON.stringify({ exposed: t, timestamp: Date.now() }));
     }
-    function j(e) {
-      var t = (u || (u = r("WebStorage"))).getLocalStorageForRead(),
+    function z(e) {
+      var t = (s || (s = r("WebStorage"))).getLocalStorageForRead(),
         n;
       try {
         n = t == null ? void 0 : t.getItem(e);
@@ -398,46 +403,44 @@ __d(
             a = o.exposed;
           if (a) return !0;
         } catch (t) {
-          (r("vulture")("r0RtsVfrsOatscJqXg8bQOBQ-Gc="), K(e));
+          (r("vulture")("r0RtsVfrsOatscJqXg8bQOBQ-Gc="), j(e));
         }
       return !1;
     }
-    function K(e) {
-      var t = (u || (u = r("WebStorage"))).getLocalStorage();
+    function j(e) {
+      var t = (s || (s = r("WebStorage"))).getLocalStorage();
       t == null || t.removeItem(e);
     }
-    ((l.whatsAppBusinessLink = c),
-      (l.whatsAppLink = d),
-      (l.getDefaultCTALink = m),
-      (l.getPageSettingsLink = p),
-      (l.isWhatsAppDestinationAd = _),
+    ((l.whatsAppBusinessLink = u),
+      (l.getDefaultCTALink = c),
+      (l.getPageSettingsLinkFromValue = d),
+      (l.isWhatsAppDestinationAd = p),
+      (l.isInstagramLiveWhatsAppDestinationAd = _),
       (l.isWhatsAppCTAType = f),
       (l.getPageWhatsAppData = g),
-      (l.getSearchableWhatsAppPhoneNumbersListFromPageID = h),
-      (l.getDefaultPrimaryTextWithWhatsAppDeeplinkMentionForCTWA = C),
-      (l.handleSendDownloadLinkCallback = b),
-      (l.getPageIdFromPreAdCreation = v),
-      (l.clearPageIdFromPreAdCreation = S),
-      (l.shouldValidateCTWAErrorLinkClicks = R),
-      (l.getPagePostIdforInstagramPost = L),
-      (l.getPagePostIdforFacebookPost = E),
-      (l.getCTADefaultingObject = k),
-      (l.getWAAccountConnectionType = I),
-      (l.getConnectedBusinessWhatsAppAccounts = T),
-      (l.isAnyConnectedWhatsappBusinessNumberStatusTypeCheck = D),
-      (l.getInfoForLocalPagesCTWAAds = M),
-      (l.hasAnyWhatsAppNumberAvailable = w),
-      (l.isParentPage = A),
-      (l.hasSMBNumberConnected = F),
-      (l.hasWhatsAppNumberConnected = O),
-      (l.hasWAselectedAsDestination = B),
-      (l.getIsSelectedPageMultiNumberBusiness = W),
-      (l.getIsPrimaryNumberBusinessNumber = q),
-      (l.shouldDefaultToIGTab = H),
-      (l.isPagelessAd = G),
-      (l.addExposureFlagInLocalStorage = z),
-      (l.getExposureFlagInLocalStorage = j),
-      (l.deleteExposureFlagInLocalStorage = K));
+      (l.handleSendDownloadLinkCallback = h),
+      (l.getPageIdFromPreAdCreation = y),
+      (l.clearPageIdFromPreAdCreation = C),
+      (l.shouldValidateCTWAErrorLinkClicks = b),
+      (l.getPagePostIdforInstagramPost = v),
+      (l.getPagePostIdforFacebookPost = S),
+      (l.getCTADefaultingObject = L),
+      (l.getExistingPostCTAQualification = E),
+      (l.getConnectedBusinessWhatsAppAccounts = I),
+      (l.isAnyConnectedWhatsappBusinessNumberStatusTypeCheck = T),
+      (l.getInfoForLocalPagesCTWAAds = N),
+      (l.hasAnyWhatsAppNumberAvailable = M),
+      (l.isParentPage = w),
+      (l.hasSMBNumberConnected = A),
+      (l.hasWhatsAppNumberConnected = F),
+      (l.hasWAselectedAsDestination = O),
+      (l.getIsSelectedPageMultiNumberBusiness = B),
+      (l.getIsPrimaryNumberBusinessNumber = W),
+      (l.shouldDefaultToIGTab = V),
+      (l.isPagelessAd = H),
+      (l.addExposureFlagInLocalStorage = G),
+      (l.getExposureFlagInLocalStorage = z),
+      (l.deleteExposureFlagInLocalStorage = j));
   },
-  226,
+  98,
 );

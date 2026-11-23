@@ -26,37 +26,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = d(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return {
-              name: "RefreshAccessTokensResponseSuccess",
-              value: a.value,
-            };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "RefreshAccessTokensResponseError", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("RefreshAccessTokens", {
-              Success: a,
-              Error: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = c(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return { name: "RefreshAccessTokensResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "RefreshAccessTokensResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("RefreshAccessTokens", {
+          Success: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -66,7 +54,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = m(r.value);
+      var i = d(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -75,7 +63,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -99,7 +87,7 @@ __d(
           )
         : i;
     }
-    function d(e) {
+    function c(e) {
       var t,
         n =
           e.rSAEncryptionMetadataRSAEncryptionMetadataOrRSAEncryptionMetadataV2MixinGroupArgs,
@@ -127,7 +115,7 @@ __d(
         );
       return i;
     }
-    function m(e) {
+    function d(e) {
       var t = o(
         "WASmaxInWaffleIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -208,13 +196,13 @@ __d(
           name: "IQErrorWFNotFound",
           value: d.value,
         });
-      var m = o(
+      var p = o(
         "WASmaxInWaffleIQErrorWFSuspendedMixin",
       ).parseIQErrorWFSuspendedMixin(e);
-      if (m.success)
+      if (p.success)
         return o("WAResultOrError").makeResult({
           name: "IQErrorWFSuspended",
-          value: m.value,
+          value: p.value,
         });
       var _ = o(
         "WASmaxInWaffleIQErrorWFStateMismatchMixin",
@@ -232,7 +220,7 @@ __d(
           name: "IQErrorWFNotAuthorizedInvalidPassword",
           value: f.value,
         });
-      var g = p(e);
+      var g = m(e);
       return g.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorWFNotAuthorizedInvalidNonce",
@@ -256,10 +244,10 @@ __d(
               "IQErrorWFNotAuthorizedInvalidPassword",
               "IQErrorWFNotAuthorizedInvalidNonce",
             ],
-            [t, n, r, a, i, l, s, u, c, d, m, _, f, g],
+            [t, n, r, a, i, l, s, u, c, d, p, _, f, g],
           );
     }
-    function p(e) {
+    function m(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -280,9 +268,9 @@ __d(
         : r;
     }
     ((l.sendRefreshAccessTokensRPC = e),
-      (l.parseRefreshAccessTokensResponseError = u),
-      (l.parseRefreshAccessTokensResponseSuccess = c),
-      (l.makeRefreshAccessTokensRequest = d));
+      (l.parseRefreshAccessTokensResponseError = s),
+      (l.parseRefreshAccessTokensResponseSuccess = u),
+      (l.makeRefreshAccessTokensRequest = c));
   },
   98,
 );

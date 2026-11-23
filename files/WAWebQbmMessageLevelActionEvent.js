@@ -1,7 +1,6 @@
 __d(
   "WAWebQbmMessageLevelActionEvent",
   [
-    "Promise",
     "WAWebABProps",
     "WAWebChatThreadLogging",
     "WAWebFrontendContactGetters",
@@ -10,100 +9,75 @@ __d(
     "WAWebQBMLoggerBuilder",
     "WAWebQbmMessageLevelActionWamEvent",
     "WAWebWamEnumContactType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = [
-        "chatsFolderType",
-        "deltaTime",
-        "hsmTagStr",
-        "messageTypeStr",
-        "qbmFlag",
-      ],
-      s;
-    function u(e) {
-      return c.apply(this, arguments);
+      "chatsFolderType",
+      "deltaTime",
+      "hsmTagStr",
+      "messageTypeStr",
+      "qbmFlag",
+    ];
+    async function s(t) {
+      var n = t.chat,
+        r = t.messageActionEntryPoint,
+        a = t.messageLevelAction,
+        i = t.msg;
+      o("WAWebABProps").getABPropConfigValue(
+        "web_biz_quality_telemetry_message_level_actions_enabled",
+      ) &&
+        (o("WAWebABProps").getABPropConfigValue(
+          "inapp_signup_m1_logging_enabled",
+        ) &&
+          (await o(
+            "WAWebInAppSignupInfoStore",
+          ).ensureInAppSignupInfoHydrated()),
+        new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(i, n)
+          .addCommonFields()
+          .addAttributionFields()
+          .addIasFields()
+          .log(async function (t) {
+            var l,
+              s,
+              u = o("WAWebFrontendContactGetters").getIsMyContact(n.contact),
+              c = await Promise.all([
+                o("WAWebChatThreadLogging").getMessageIDHMAC(i.id.toString()),
+                o("WAWebChatThreadLogging").getChatThreadIDHMAC(
+                  n.id.toString(),
+                ),
+                o("WAWebP2PPillsThreadOriginStore").getPillQbmFields(
+                  n.accountLid,
+                ),
+              ]),
+              d = c[0],
+              m = c[1],
+              p = c[2],
+              _ = t.chatsFolderType,
+              f = t.deltaTime,
+              g = t.hsmTagStr,
+              h = t.messageTypeStr,
+              y = t.qbmFlag,
+              C = babelHelpers.objectWithoutPropertiesLoose(t, e);
+            new (o(
+              "WAWebQbmMessageLevelActionWamEvent",
+            ).QbmMessageLevelActionWamEvent)(
+              babelHelpers.extends({}, C, p, {
+                contactType:
+                  (l = C.contactType) != null
+                    ? l
+                    : o("WAWebWamEnumContactType").CONTACT_TYPE.CONSUMER,
+                messageActionEntryPoint: r,
+                messageLevelAction: a,
+                messageHasUrl: ((s = t.urlUniqueCountInt) != null ? s : 0) > 0,
+                isInsubContact: u,
+                messageIdHmac: d != null ? d : void 0,
+                threadIdHmac: m != null ? m : "",
+              }),
+            ).commit();
+          }));
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = t.chat,
-            a = t.messageActionEntryPoint,
-            i = t.messageLevelAction,
-            l = t.msg;
-          o("WAWebABProps").getABPropConfigValue(
-            "web_biz_quality_telemetry_message_level_actions_enabled",
-          ) &&
-            (o("WAWebABProps").getABPropConfigValue(
-              "inapp_signup_m1_logging_enabled",
-            ) &&
-              (yield o(
-                "WAWebInAppSignupInfoStore",
-              ).ensureInAppSignupInfoHydrated()),
-            new (o("WAWebQBMLoggerBuilder").QBMLoggerBuilder)(l, r)
-              .addCommonFields()
-              .addAttributionFields()
-              .addIasFields()
-              .log(
-                (function () {
-                  var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (t) {
-                      var u,
-                        c,
-                        d = o("WAWebFrontendContactGetters").getIsMyContact(
-                          r.contact,
-                        ),
-                        m = yield (s || (s = n("Promise"))).all([
-                          o("WAWebChatThreadLogging").getMessageIDHMAC(
-                            l.id.toString(),
-                          ),
-                          o("WAWebChatThreadLogging").getChatThreadIDHMAC(
-                            r.id.toString(),
-                          ),
-                          o("WAWebP2PPillsThreadOriginStore").getPillQbmFields(
-                            r.accountLid,
-                          ),
-                        ]),
-                        p = m[0],
-                        _ = m[1],
-                        f = m[2],
-                        g = t.chatsFolderType,
-                        h = t.deltaTime,
-                        y = t.hsmTagStr,
-                        C = t.messageTypeStr,
-                        b = t.qbmFlag,
-                        v = babelHelpers.objectWithoutPropertiesLoose(t, e);
-                      new (o(
-                        "WAWebQbmMessageLevelActionWamEvent",
-                      ).QbmMessageLevelActionWamEvent)(
-                        babelHelpers.extends({}, v, f, {
-                          contactType:
-                            (u = v.contactType) != null
-                              ? u
-                              : o("WAWebWamEnumContactType").CONTACT_TYPE
-                                  .CONSUMER,
-                          messageActionEntryPoint: a,
-                          messageLevelAction: i,
-                          messageHasUrl:
-                            ((c = t.urlUniqueCountInt) != null ? c : 0) > 0,
-                          isInsubContact: d,
-                          messageIdHmac: p != null ? p : void 0,
-                          threadIdHmac: _ != null ? _ : "",
-                        }),
-                      ).commit();
-                    },
-                  );
-                  return function (e) {
-                    return t.apply(this, arguments);
-                  };
-                })(),
-              ));
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    l.logQbmMessageLevelAction = u;
+    l.logQbmMessageLevelAction = s;
   },
   98,
 );

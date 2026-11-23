@@ -32,21 +32,19 @@ __d(
       return o("WAWebChatGetters").getIsNewsletter(e)
         ? t
           ? {
-              inProgress: s._(/*BTDS*/ "Archiving channel"),
-              done: s._(/*BTDS*/ "Channel archived"),
-              failed: s._(/*BTDS*/ "Couldn't archive channel."),
+              inProgress: s._(/*BTDS*/ ""),
+              done: s._(/*BTDS*/ ""),
+              failed: s._(/*BTDS*/ ""),
             }
           : {
-              inProgress: s._(/*BTDS*/ "Unarchiving channel"),
-              done: s._(/*BTDS*/ "Channel unarchived"),
-              failed: s._(/*BTDS*/ "Couldn't unarchive channel."),
+              inProgress: s._(/*BTDS*/ ""),
+              done: s._(/*BTDS*/ ""),
+              failed: s._(/*BTDS*/ ""),
             }
         : null;
     }
     function _(e) {
-      return e
-        ? s._(/*BTDS*/ "Couldn't archive chat.")
-        : s._(/*BTDS*/ "Couldn't unarchive chat.");
+      return e ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function f(t) {
       var a,
@@ -78,8 +76,8 @@ __d(
           (i = R == null ? void 0 : R.inProgress) != null
             ? i
             : l
-              ? s._(/*BTDS*/ "Archiving chat")
-              : s._(/*BTDS*/ "Unarchiving chat"),
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ ""),
         ),
         k = S.then(function (e) {
           if (v.aborted) throw new (o("WAAbortError").AbortError)();
@@ -87,13 +85,11 @@ __d(
           if (e.status === 200) {
             var n;
             return (
-              (t = l
-                ? s._(/*BTDS*/ "Chat archived")
-                : s._(/*BTDS*/ "Chat unarchived")),
+              (t = l ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "")),
               new (o("WAWebActionToast.react").ActionType)(
                 (n = R == null ? void 0 : R.done) != null ? n : t,
                 {
-                  actionText: s._(/*BTDS*/ "Undo"),
+                  actionText: s._(/*BTDS*/ ""),
                   actionHandler: function () {
                     return f({
                       archive: !l,
@@ -118,7 +114,7 @@ __d(
                   ])),
               ),
               new (o("WAWebActionToast.react").ActionType)(L, {
-                actionText: s._(/*BTDS*/ "Try again."),
+                actionText: s._(/*BTDS*/ ""),
                 actionHandler: function () {
                   return f({ archive: l, chat: c, showToast: m, toastId: h });
                 },

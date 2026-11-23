@@ -4,157 +4,148 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "New broadcast");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "New broadcast");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Create broadcast");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "Duplicate broadcast");
+      return s._(/*BTDS*/ "");
     }
     function m(e) {
-      return e ? p() : s._(/*BTDS*/ "Send now");
+      return e ? p() : s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(/*BTDS*/ "Sending...");
+      return s._(/*BTDS*/ "");
     }
     function _() {
-      return s._(/*BTDS*/ "Audience");
+      return s._(/*BTDS*/ "");
     }
     function f() {
-      return s._(/*BTDS*/ "Choose audience");
+      return s._(/*BTDS*/ "");
     }
     function g() {
-      return s._(/*BTDS*/ "Add audience");
+      return s._(/*BTDS*/ "");
     }
     function h() {
-      return s._(/*BTDS*/ "Create audience");
+      return s._(/*BTDS*/ "");
     }
     function y() {
-      return s._(/*BTDS*/ "Import audience");
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(/*BTDS*/ "Existing audiences");
+      return s._(/*BTDS*/ "");
     }
     function b() {
-      return s._(/*BTDS*/ "Select who you want to reach with your broadcast.");
+      return s._(/*BTDS*/ "");
     }
     function v() {
-      return s._(/*BTDS*/ "Selected audiences");
+      return s._(/*BTDS*/ "");
     }
     function S(e) {
-      return s._(/*BTDS*/ '_j{"*":"{number} recipients","_1":"1 recipient"}', [
-        s._plural(e, "number"),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(e, "number")]);
     }
     function R(e) {
-      return s._(
-        /*BTDS*/ "{count} people are in multiple audiences, so they'll get this broadcast more than once.",
-        [s._param("count", e)],
-      );
+      return s._(/*BTDS*/ "", [s._param("count", e)]);
     }
     function L() {
-      return s._(/*BTDS*/ "Imported");
+      return s._(/*BTDS*/ "");
     }
     function E() {
-      return s._(/*BTDS*/ "Audience imported");
+      return s._(/*BTDS*/ "");
     }
     function k() {
-      return s._(/*BTDS*/ "Audience created");
+      return s._(/*BTDS*/ "");
     }
     function I() {
-      return s._(/*BTDS*/ "Audience updated");
+      return s._(/*BTDS*/ "");
     }
     function T() {
-      return s._(/*BTDS*/ "Message");
+      return s._(/*BTDS*/ "");
     }
     function D() {
-      return s._(/*BTDS*/ "Attachment");
+      return s._(/*BTDS*/ "");
     }
     function x() {
-      return s._(
-        /*BTDS*/ "Include an attachment to help your message stand out.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function $() {
-      return s._(/*BTDS*/ "Optional");
+      return s._(/*BTDS*/ "");
     }
     function P() {
-      return s._(/*BTDS*/ "Edit media");
+      return s._(/*BTDS*/ "");
     }
     function N() {
-      return s._(/*BTDS*/ "Remove media");
+      return s._(/*BTDS*/ "");
     }
     function M() {
-      return s._(/*BTDS*/ "Catalog");
+      return s._(/*BTDS*/ "");
     }
     function w() {
-      return s._(/*BTDS*/ "Preview");
+      return s._(/*BTDS*/ "");
     }
     function A() {
-      return s._(/*BTDS*/ "Your message will display here.");
+      return s._(/*BTDS*/ "");
     }
     function F(e) {
-      return s._(/*BTDS*/ '_j{"*":"{number} pages","_1":"1 page"}', [
-        s._plural(e, "number"),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(e, "number")]);
     }
     function O() {
-      return s._(/*BTDS*/ "Details");
+      return s._(/*BTDS*/ "");
     }
     function B() {
-      return s._(/*BTDS*/ "Summary");
+      return s._(/*BTDS*/ "");
     }
     function W() {
-      return s._(/*BTDS*/ "Total recipients");
+      return s._(/*BTDS*/ "");
     }
     function q() {
-      return s._(/*BTDS*/ "Estimated cost");
+      return s._(/*BTDS*/ "");
     }
     function U() {
-      return s._(/*BTDS*/ "Estimated tax");
+      return s._(/*BTDS*/ "");
     }
     function V() {
-      return s._(/*BTDS*/ "Estimated total");
+      return s._(/*BTDS*/ "");
     }
     function H() {
-      return s._(/*BTDS*/ "Credits used");
+      return s._(/*BTDS*/ "");
     }
     function G() {
-      return s._(/*BTDS*/ "Available credits");
+      return s._(/*BTDS*/ "");
     }
     function z() {
-      return s._(/*BTDS*/ "Existing audiences");
+      return s._(/*BTDS*/ "");
     }
     function j(e) {
-      return s._(/*BTDS*/ "{count} recipients", [s._param("count", e)]);
+      return s._(/*BTDS*/ "", [s._param("count", e)]);
     }
     function K() {
-      return s._(/*BTDS*/ "Save");
+      return s._(/*BTDS*/ "");
     }
     function Q() {
-      return s._(/*BTDS*/ "Audience info");
+      return s._(/*BTDS*/ "");
     }
     function X() {
-      return s._(/*BTDS*/ "Continue without saving?");
+      return s._(/*BTDS*/ "");
     }
     function Y() {
-      return s._(/*BTDS*/ "Your progress will be lost.");
+      return s._(/*BTDS*/ "");
     }
     function J() {
-      return s._(/*BTDS*/ "Continue");
+      return s._(/*BTDS*/ "");
     }
     function Z() {
-      return s._(/*BTDS*/ "Payment pending");
+      return s._(/*BTDS*/ "");
     }
     function ee() {
-      return s._(/*BTDS*/ "Choose audience");
+      return s._(/*BTDS*/ "");
     }
     function te() {
-      return s._(/*BTDS*/ "Message can't be empty");
+      return s._(/*BTDS*/ "");
     }
     function ne(e) {
       var t = e.broadcastJidIsNull,
@@ -171,35 +162,24 @@ __d(
         : t
           ? ee()
           : c
-            ? s._(/*BTDS*/ "Loading...")
+            ? s._(/*BTDS*/ "")
             : l
               ? a < 2
                 ? r("justknobx")._("8068")
-                  ? s._(/*BTDS*/ "Add at least 2 recipients to send a message")
-                  : s._(
-                      /*BTDS*/ "You need to add at least two recipients to send a message.",
-                    )
+                  ? s._(/*BTDS*/ "")
+                  : s._(/*BTDS*/ "")
                 : a > m
-                  ? s._(
-                      /*BTDS*/ "Broadcast to a maximum of {recipientLimit} people at a time.",
-                      [s._param("recipientLimit", m)],
-                    )
+                  ? s._(/*BTDS*/ "", [s._param("recipientLimit", m)])
                   : i
                     ? Z()
                     : d
                       ? te()
                       : n
                         ? r("justknobx")._("8427")
-                          ? s._(
-                              /*BTDS*/ "Couldn't load pricing. Please try again later.",
-                            )
-                          : s._(
-                              /*BTDS*/ "Something went wrong. Please try again later.",
-                            )
+                          ? s._(/*BTDS*/ "")
+                          : s._(/*BTDS*/ "")
                         : null
-              : s._(
-                  /*BTDS*/ "Account data missing. Check your payment details and try again.",
-                );
+              : s._(/*BTDS*/ "");
     }
     ((l.getNewBroadcastButtonLabel = e),
       (l.getNewBroadcastDrawerTitle = u),

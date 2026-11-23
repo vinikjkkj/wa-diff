@@ -67,9 +67,7 @@ __d(
                   new (r("AdsError"))(
                     2490406,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "If you would like your ad shown on the search section of Instagram, you will also need to select Instagram Feed as a placement.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       cta: r("AdsErrorsCTAStrings").EDIT_PLACEMENTS_CTA,

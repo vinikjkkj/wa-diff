@@ -5,22 +5,18 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return r("JSResourceForInteraction")(
-            "WAWebSharableEventInviteMoreGuestsStep.react",
-          )
-            .__setRef("WAWebSharableEventInviteMoreGuestsStepLoadable")
-            .load();
-        }),
-        "WAWebSharableEventInviteMoreGuestsStep",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        return r("JSResourceForInteraction")(
+          "WAWebSharableEventInviteMoreGuestsStep.react",
+        )
+          .__setRef("WAWebSharableEventInviteMoreGuestsStepLoadable")
+          .load();
+      }, "WAWebSharableEventInviteMoreGuestsStep"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

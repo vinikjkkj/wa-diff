@@ -1,31 +1,24 @@
 __d(
   "WAWebVoipCallTransferEntryPointStore",
-  [
-    "Promise",
-    "WAWebChatCollection",
-    "WAWebEventEmitter",
-    "WAWebNoop",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebChatCollection", "WAWebEventEmitter", "WAWebNoop"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e,
-      s = (function (t) {
-        function a() {
-          for (var e, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
+    var e = (function (e) {
+        function t() {
+          for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
           return (
-            (e = t.call.apply(t, [this].concat(r)) || this),
-            (e.$CallTransferEntryPointStore$p_1 = new Map()),
-            (e.$CallTransferEntryPointStore$p_2 = []),
-            babelHelpers.assertThisInitialized(e) ||
-              babelHelpers.assertThisInitialized(e)
+            (t = e.call.apply(e, [this].concat(r)) || this),
+            (t.$CallTransferEntryPointStore$p_1 = new Map()),
+            (t.$CallTransferEntryPointStore$p_2 = []),
+            babelHelpers.assertThisInitialized(t) ||
+              babelHelpers.assertThisInitialized(t)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(t, e);
+        var n = t.prototype;
         return (
-          (i.applyChange = function (t) {
+          (n.applyChange = function (t) {
             var e = t.enabled,
               n = t.isVideoCall,
               r = t.peerActiveDeviceJid,
@@ -47,20 +40,20 @@ __d(
               }),
               this.$CallTransferEntryPointStore$p_3());
           }),
-          (i.remove = function (t, n) {
+          (n.remove = function (t, n) {
             this.$CallTransferEntryPointStore$p_1.delete(t + "|" + n) &&
               this.$CallTransferEntryPointStore$p_3();
           }),
-          (i.$CallTransferEntryPointStore$p_3 = function () {
+          (n.$CallTransferEntryPointStore$p_3 = function () {
             ((this.$CallTransferEntryPointStore$p_2 = Array.from(
               this.$CallTransferEntryPointStore$p_1.values(),
             )),
               this.trigger("change"));
           }),
-          (i.getEntryPoints = function () {
+          (n.getEntryPoints = function () {
             return this.$CallTransferEntryPointStore$p_2;
           }),
-          (i.getForChatId = function (t) {
+          (n.getForChatId = function (t) {
             for (var e of this.$CallTransferEntryPointStore$p_1.values()) {
               var n;
               if (
@@ -74,45 +67,37 @@ __d(
             }
             return null;
           }),
-          (i.getForRootCallId = function (t) {
+          (n.getForRootCallId = function (t) {
             for (var e of this.$CallTransferEntryPointStore$p_1.values())
               if (e.rootCallId === t) return e;
             return null;
           }),
-          (i.waitForEntryPoint = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var o = this,
-                  a = this.$CallTransferEntryPointStore$p_2.at(-1);
-                if (a != null) return a;
-                var i = r("WAWebNoop"),
-                  l;
-                try {
-                  return yield new (e || (e = n("Promise")))(function (e) {
-                    ((i = function () {
-                      var t = o.$CallTransferEntryPointStore$p_2.at(-1);
-                      t != null && e(t);
-                    }),
-                      (l = self.setTimeout(function () {
-                        return e(null);
-                      }, t)),
-                      o.on("change", i));
-                  });
-                } finally {
-                  (self.clearTimeout(l), this.off("change", i));
-                }
-              },
-            );
-            function o(e) {
-              return t.apply(this, arguments);
+          (n.waitForEntryPoint = async function (t) {
+            var e = this,
+              n = this.$CallTransferEntryPointStore$p_2.at(-1);
+            if (n != null) return n;
+            var o = r("WAWebNoop"),
+              a;
+            try {
+              return await new Promise(function (n) {
+                ((o = function () {
+                  var t = e.$CallTransferEntryPointStore$p_2.at(-1);
+                  t != null && n(t);
+                }),
+                  (a = self.setTimeout(function () {
+                    return n(null);
+                  }, t)),
+                  e.on("change", o));
+              });
+            } finally {
+              (self.clearTimeout(a), this.off("change", o));
             }
-            return o;
-          })()),
-          a
+          }),
+          t
         );
       })(r("WAWebEventEmitter")),
-      u = new s();
-    l.WAWebVoipCallTransferEntryPointStore = u;
+      s = new e();
+    l.WAWebVoipCallTransferEntryPointStore = s;
   },
   98,
 );

@@ -5,13 +5,9 @@ __d(
     "use strict";
     function e(e) {
       return e === "blocked_by_sac"
-        ? s._(
-            /*BTDS*/ "This type of ad can't be recreated on web. To recreate it, use the iOS app.",
-          )
+        ? s._(/*BTDS*/ "")
         : e === "blocked_by_goal"
-          ? s._(
-              /*BTDS*/ "This type of ad can't be recreated on web. To recreate it, use the WhatsApp Business app on your phone.",
-            )
+          ? s._(/*BTDS*/ "")
           : (function () {
               throw Error(
                 "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

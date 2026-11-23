@@ -1,7 +1,6 @@
 __d(
   "WAWebChatMedia",
   [
-    "Promise",
     "WAWebCarouselMsgUtils",
     "WAWebChatMediaMsgsCollection",
     "WAWebFrontendMsgGetters",
@@ -10,32 +9,22 @@ __d(
     "WAWebMsgLinks",
     "WAWebStateUtils",
     "WAWebViewMode.flow",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
+    async function e(e) {
+      var t = o("WAWebStateUtils").unproxy(e),
+        n = t.docMsgs,
+        r = t.linkMsgs,
+        a = t.mediaMsgs,
+        i = t.productMsgs,
+        l = [];
+      (a && (a.delete(), l.push(a.queryMedia({ chat: t }))),
+        r && (r.delete(), l.push(r.queryLinks(t))),
+        n && (n.delete(), l.push(n.queryDocs(t))),
+        i && (i.delete(), l.push(i.queryProducts(t))),
+        await Promise.allSettled(l));
+    }
     function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var r = o("WAWebStateUtils").unproxy(t),
-            a = r.docMsgs,
-            i = r.linkMsgs,
-            l = r.mediaMsgs,
-            s = r.productMsgs,
-            u = [];
-          (l && (l.delete(), u.push(l.queryMedia({ chat: r }))),
-            i && (i.delete(), u.push(i.queryLinks(r))),
-            a && (a.delete(), u.push(a.queryDocs(r))),
-            s && (s.delete(), u.push(s.queryProducts(r))),
-            yield (e || (e = n("Promise"))).allSettled(u));
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e) {
       return (
         o("WAWebMsgGetters").getIsMedia(e) &&
         !e.isViewOnce &&
@@ -43,7 +32,7 @@ __d(
         e.viewMode !== o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE
       );
     }
-    function d(e, t, n) {
+    function u(e, t, n) {
       if (t) {
         var r = o("WAWebStateUtils").unproxy(e),
           a = o("WAWebCarouselMsgUtils").flattenMsgs(
@@ -51,13 +40,13 @@ __d(
           ),
           i = [],
           l = [],
-          s = [],
-          u = [];
+          u = [],
+          c = [];
         a.forEach(function (e) {
-          (c(e) && i.push(e),
-            o("WAWebFrontendMsgGetters").getAsDoc(e) && s.push(e),
+          (s(e) && i.push(e),
+            o("WAWebFrontendMsgGetters").getAsDoc(e) && u.push(e),
             o("WAWebMsgLinks").getGalleryLinks(e).length && l.push(e),
-            o("WAWebFrontendMsgGetters").getAsProduct(e) != null && u.push(e));
+            o("WAWebFrontendMsgGetters").getAsProduct(e) != null && c.push(e));
         });
         var d = r.mediaMsgs;
         if (d && i.length) {
@@ -65,11 +54,11 @@ __d(
           d.add(i, m);
         }
         (r.linkMsgs && l.length && r.linkMsgs.add(l, n),
-          r.docMsgs && s.length && r.docMsgs.add(s, n),
-          r.productMsgs && u.length && r.productMsgs.add(u, n));
+          r.docMsgs && u.length && r.docMsgs.add(u, n),
+          r.productMsgs && c.length && r.productMsgs.add(c, n));
       }
     }
-    function m(e, t) {
+    function c(e, t) {
       var n = o("WAWebStateUtils").unproxy(e),
         a = new (r("WAWebChatMediaMsgsCollection"))(),
         i = n
@@ -84,16 +73,16 @@ __d(
         !i.includes(t))
       ) {
         var l = t.getMsgChunk(),
-          s = l != null ? l.slice() : [t],
-          u = s.filter(
+          u = l != null ? l.slice() : [t],
+          c = u.filter(
             o("WAWebMessageAssociationUIUtils").shouldDisplayOrphanMessage,
           ),
-          d = o("WAWebCarouselMsgUtils").flattenMsgs(u);
-        a.add(d.filter(c));
+          d = o("WAWebCarouselMsgUtils").flattenMsgs(c);
+        a.add(d.filter(s));
       }
       return a;
     }
-    ((l.resetMediaMsgs = s), (l.addMediaMsgs = d), (l.constructMediaMsgs = m));
+    ((l.resetMediaMsgs = e), (l.addMediaMsgs = u), (l.constructMediaMsgs = c));
   },
   98,
 );

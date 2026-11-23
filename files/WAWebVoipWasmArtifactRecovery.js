@@ -11,7 +11,6 @@ __d(
     "WAWebVoipInitReliabilityGates",
     "WAWebVoipInitReloadRecovery",
     "WAWebVoipWasmArtifactRecoveryODS",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -26,8 +25,8 @@ __d(
       f = "idle";
     function g(e) {
       if (!(f !== "idle" || !h(e) || !y())) {
-        if (D() == null) {
-          R("unsupported");
+        if (k() == null) {
+          S("unsupported");
           return;
         }
         (o(
@@ -66,7 +65,7 @@ __d(
     function C(e) {
       var t = d[e];
       if (t == null) {
-        R("exhausted");
+        S("exhausted");
         return;
       }
       ((f = "armed"),
@@ -80,7 +79,7 @@ __d(
                   ])),
               )
               .catching(r("getErrorSafe")(e)),
-              R("attempt_error"));
+              S("attempt_error"));
           });
         }, b(t)));
     }
@@ -89,100 +88,74 @@ __d(
         ? e
         : Math.round(e * (1 + (o("Random").random() * 2 - 1) * p));
     }
-    function v(e) {
-      return S.apply(this, arguments);
+    async function v(e) {
+      if (
+        o("WAWebVoipInitEventEmitter").VoipInitEventEmitter.getIsVoipInited()
+      ) {
+        S("not_needed");
+        return;
+      }
+      ((f = "attempting"),
+        o(
+          "WAWebVoipWasmArtifactRecoveryODS",
+        ).logCallVoipInitWasmArtifactRecovery("attempt"));
+      var t = await R(e);
+      if (t == null) {
+        S("unsupported");
+        return;
+      }
+      if (!t.wasm) {
+        (o(
+          "WAWebVoipWasmArtifactRecoveryODS",
+        ).logCallVoipInitWasmArtifactRecovery("unresolved"),
+          C(e + 1));
+        return;
+      }
+      if (
+        (o(
+          "WAWebVoipWasmArtifactRecoveryODS",
+        ).logCallVoipInitWasmArtifactRecovery("resolved"),
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "voip: WASM artifact keys recovered in page attempt=",
+              " glue=",
+              "",
+            ])),
+          e + 1,
+          String(t.glue),
+        ),
+        await T(e + 1))
+      ) {
+        f = "recovered";
+        return;
+      }
+      C(e + 1);
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            o(
-              "WAWebVoipInitEventEmitter",
-            ).VoipInitEventEmitter.getIsVoipInited()
-          ) {
-            R("not_needed");
-            return;
-          }
-          ((f = "attempting"),
-            o(
-              "WAWebVoipWasmArtifactRecoveryODS",
-            ).logCallVoipInitWasmArtifactRecovery("attempt"));
-          var t = yield L(e);
-          if (t == null) {
-            R("unsupported");
-            return;
-          }
-          if (!t.wasm) {
-            (o(
-              "WAWebVoipWasmArtifactRecoveryODS",
-            ).logCallVoipInitWasmArtifactRecovery("unresolved"),
-              C(e + 1));
-            return;
-          }
-          if (
-            (o(
-              "WAWebVoipWasmArtifactRecoveryODS",
-            ).logCallVoipInitWasmArtifactRecovery("resolved"),
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "voip: WASM artifact keys recovered in page attempt=",
-                  " glue=",
-                  "",
-                ])),
-              e + 1,
-              String(t.glue),
-            ),
-            yield $(e + 1))
-          ) {
-            f = "recovered";
-            return;
-          }
-          C(e + 1);
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
+    function S(e) {
       ((f = "stopped"),
         o(
           "WAWebVoipWasmArtifactRecoveryODS",
         ).logCallVoipInitWasmArtifactRecovery(e));
     }
-    function L(e) {
-      return E.apply(this, arguments);
+    async function R(e) {
+      var t = I();
+      return t == null || t.wasm ? t : (await L(e), I());
     }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = x();
-          return t == null || t.wasm ? t : (yield k(e), x());
-        })),
-        E.apply(this, arguments)
-      );
+    async function L(e) {
+      try {
+        await o("WAPromiseTimeout").promiseTimeout(E(e), _);
+      } catch (e) {
+        o(
+          "WAWebVoipWasmArtifactRecoveryODS",
+        ).logCallVoipInitWasmArtifactRecovery(
+          e instanceof o("WACustomError").TimeoutError
+            ? "carrier_timeout"
+            : "carrier_failure",
+        );
+      }
     }
-    function k(e) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            yield o("WAPromiseTimeout").promiseTimeout(T(e), _);
-          } catch (e) {
-            o(
-              "WAWebVoipWasmArtifactRecoveryODS",
-            ).logCallVoipInitWasmArtifactRecovery(
-              e instanceof o("WACustomError").TimeoutError
-                ? "carrier_timeout"
-                : "carrier_failure",
-            );
-          }
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(e) {
+    function E(e) {
       return e === 0
         ? r("JSResourceForInteraction")("WAWebVoipWebWasmBxRefsCarrier1")
             .__setRef("WAWebVoipWasmArtifactRecovery")
@@ -211,7 +184,7 @@ __d(
                     .__setRef("WAWebVoipWasmArtifactRecovery")
                     .load();
     }
-    function D() {
+    function k() {
       var e = r("JSResourceForInteraction")(
         "WAWebVoipWebWasmLoader_ContentAddressed_internal",
       )
@@ -221,9 +194,9 @@ __d(
       var t = Reflect.get(e, "RESOLVE_ARTIFACTS");
       return typeof t == "function" ? t : null;
     }
-    function x() {
+    function I() {
       var e,
-        t = (e = D()) == null ? void 0 : e();
+        t = (e = k()) == null ? void 0 : e();
       return t == null || typeof t != "object"
         ? null
         : {
@@ -231,43 +204,35 @@ __d(
             wasm: Reflect.get(t, "wasm") === !0,
           };
     }
-    function $(e) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o(
-            "WAWebVoipInitReloadRecovery",
-          ).clearVoipWasmArtifactUnavailableForRecovery();
-          var t = yield o("WAWebVoipBackendLoadable")
-            .requireVoipJsBackend()
-            .then(function (t) {
-              return t.WAWebVoipInit.restartVoipInitAfterArtifactRecovery(e);
-            })
-            .catch(function (e) {
-              return (
-                o("WALogger")
-                  .WARN(
-                    c ||
-                      (c = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: VoIP init restart after artifact recovery failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(e)),
-                !1
-              );
-            });
+    async function T(e) {
+      o(
+        "WAWebVoipInitReloadRecovery",
+      ).clearVoipWasmArtifactUnavailableForRecovery();
+      var t = await o("WAWebVoipBackendLoadable")
+        .requireVoipJsBackend()
+        .then(function (t) {
+          return t.WAWebVoipInit.restartVoipInitAfterArtifactRecovery(e);
+        })
+        .catch(function (e) {
           return (
-            o(
-              "WAWebVoipWasmArtifactRecoveryODS",
-            ).logCallVoipInitWasmArtifactRecovery(
-              t ? "restart_init_success" : "restart_init_failure",
-            ),
-            t
+            o("WALogger")
+              .WARN(
+                c ||
+                  (c = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: VoIP init restart after artifact recovery failed",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(e)),
+            !1
           );
-        })),
-        P.apply(this, arguments)
+        });
+      return (
+        o(
+          "WAWebVoipWasmArtifactRecoveryODS",
+        ).logCallVoipInitWasmArtifactRecovery(
+          t ? "restart_init_success" : "restart_init_failure",
+        ),
+        t
       );
     }
     l.armVoipWasmArtifactRecovery = g;

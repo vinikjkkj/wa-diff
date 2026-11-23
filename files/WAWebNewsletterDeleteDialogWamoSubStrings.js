@@ -1,61 +1,35 @@
 __d(
   "WAWebNewsletterDeleteDialogWamoSubStrings",
-  [
-    "fbt",
-    "WDSIconIcAttachMoney.react",
-    "WDSIconIcHistory.react",
-    "react",
-    "react-compiler-runtime",
-  ],
+  ["fbt", "WDSIconIcAttachMoney.react", "WDSIconIcHistory.react", "react"],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react"));
     function c(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n;
-      return (
-        t[0] !== e
-          ? ((n = u.jsx(
-              r("WDSIconIcHistory.react"),
-              babelHelpers.extends({}, e, { colorName: "contentDeemphasized" }),
-            )),
-            (t[0] = e),
-            (t[1] = n))
-          : (n = t[1]),
-        n
+      return u.jsx(
+        r("WDSIconIcHistory.react"),
+        babelHelpers.extends({}, e, { colorName: "contentDeemphasized" }),
       );
     }
+    c.displayName = c.name + " [from " + i.id + "]";
     function d(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n;
-      return (
-        t[0] !== e
-          ? ((n = u.jsx(
-              r("WDSIconIcAttachMoney.react"),
-              babelHelpers.extends({}, e, { colorName: "contentDeemphasized" }),
-            )),
-            (t[0] = e),
-            (t[1] = n))
-          : (n = t[1]),
-        n
+      return u.jsx(
+        r("WDSIconIcAttachMoney.react"),
+        babelHelpers.extends({}, e, { colorName: "contentDeemphasized" }),
       );
     }
+    d.displayName = d.name + " [from " + i.id + "]";
     function m() {
       return {
-        title: s._(/*BTDS*/ "Subscribers will be refunded"),
-        description: s._(
-          /*BTDS*/ "Subscriptions will be canceled, and active subscribers will get a refund for this month's subscription fees.",
-        ),
+        title: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         Icon: d,
         key: "subscribers-will-be-refunded",
       };
     }
     function p() {
       return {
-        title: s._(/*BTDS*/ "Past activity will be visible"),
-        description: s._(
-          /*BTDS*/ "Past channel activity will still be visible to your followers and subscribers.",
-        ),
+        title: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
         Icon: c,
         key: "past-activity-will-be-visible",
       };

@@ -1,7 +1,7 @@
 __d(
   "AdsBaseValidator",
-  ["abstractMethod"],
-  function (t, n, r, o, a, i, l) {
+  [],
+  function (t, n, r, o, a, i) {
     "use strict";
     var e = (function () {
       function e() {
@@ -12,16 +12,10 @@ __d(
         (t.getName = function () {
           return this.$1;
         }),
-        (t.getDependencies = function () {
-          return r("abstractMethod")("AdsBaseValidator", "getDependencies");
-        }),
-        (t.shouldValidate = function (t) {
-          return r("abstractMethod")("AdsBaseValidator", "shouldValidate");
-        }),
         e
       );
     })();
-    l.default = e;
+    i.default = e;
   },
-  98,
+  66,
 );

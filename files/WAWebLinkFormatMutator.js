@@ -13,7 +13,6 @@ __d(
     "WAWebSuspiciousLinkChecksState",
     "WAWebSuspiciousLinkMutatorComponent.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebCollectionValues",
   ],
@@ -54,45 +53,29 @@ __d(
         [r("WAWebSpoilerFormatMutator"), g],
       ])));
     function m(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = [
+      var t = o("useWAWebCollectionValues").useModelGetterValues(
+          o("WAWebSuspiciousLinkChecksState").SuspiciousLinkChecksState,
+          [
             o("WAWebSuspiciousLinkChecksState")
               .getSuspiciousLinkChecksInitialized,
-          ]),
-          (t[0] = n))
-        : (n = t[0]);
-      var r = o("useWAWebCollectionValues").useModelGetterValues(
-          o("WAWebSuspiciousLinkChecksState").SuspiciousLinkChecksState,
-          n,
+          ],
         ),
-        a = r[0],
-        i;
-      return (
-        t[1] !== a || t[2] !== e
-          ? ((i = a ? o("WAWebLinkify").reclassifySuspiciousLink(e) : e),
-            (t[1] = a),
-            (t[2] = e),
-            (t[3] = i))
-          : (i = t[3]),
-        i
+        n = t[0];
+      return c(
+        function () {
+          return n ? o("WAWebLinkify").reclassifySuspiciousLink(e) : e;
+        },
+        [n, e],
       );
     }
     function p(e) {
-      var t = o("react-compiler-runtime").c(4),
-        n = e.children,
-        r = e.link,
-        a = e.opts,
-        i = m(r),
-        l;
-      return (
-        t[0] !== n || t[1] !== i || t[2] !== a
-          ? ((l = _(n, i, a)), (t[0] = n), (t[1] = i), (t[2] = a), (t[3] = l))
-          : (l = t[3]),
-        l
-      );
+      var t = e.children,
+        n = e.link,
+        r = e.opts,
+        o = m(n);
+      return _(t, o, r);
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(t, n, o) {
       var a,
         i = o.dataTab,

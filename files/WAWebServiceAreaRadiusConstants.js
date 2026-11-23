@@ -6,49 +6,49 @@ __d(
     var e = [
         {
           label: function () {
-            return s._(/*BTDS*/ "Exact location");
+            return s._(/*BTDS*/ "");
           },
           value: 0,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "1 KM");
+            return s._(/*BTDS*/ "");
           },
           value: 1e3,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "5 KM");
+            return s._(/*BTDS*/ "");
           },
           value: 5e3,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "10 KM");
+            return s._(/*BTDS*/ "");
           },
           value: 1e4,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "20 KM");
+            return s._(/*BTDS*/ "");
           },
           value: 2e4,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "50 KM");
+            return s._(/*BTDS*/ "");
           },
           value: 5e4,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "100 KM");
+            return s._(/*BTDS*/ "");
           },
           value: 1e5,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "200 KM");
+            return s._(/*BTDS*/ "");
           },
           value: 2e5,
         },
@@ -56,49 +56,49 @@ __d(
       u = [
         {
           label: function () {
-            return s._(/*BTDS*/ "Exact location");
+            return s._(/*BTDS*/ "");
           },
           value: 0,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "\u003C 1 MI");
+            return s._(/*BTDS*/ "");
           },
           value: 1e3,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "5 MI");
+            return s._(/*BTDS*/ "");
           },
           value: 5e3,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "10 MI");
+            return s._(/*BTDS*/ "");
           },
           value: 1e4,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "20 MI");
+            return s._(/*BTDS*/ "");
           },
           value: 2e4,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "30 MI");
+            return s._(/*BTDS*/ "");
           },
           value: 5e4,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "50 MI");
+            return s._(/*BTDS*/ "");
           },
           value: 1e5,
         },
         {
           label: function () {
-            return s._(/*BTDS*/ "100+ MI");
+            return s._(/*BTDS*/ "");
           },
           value: 2e5,
         },

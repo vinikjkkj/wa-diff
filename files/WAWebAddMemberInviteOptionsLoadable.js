@@ -6,40 +6,26 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingModal.react",
-    "asyncToGeneratorRuntime",
     "react",
-    "react-compiler-runtime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebAddMemberInviteOptions.react",
-          )
-            .__setRef("WAWebAddMemberInviteOptionsLoadable")
-            .load();
-          return e;
-        }),
-        "AddMemberInviteOptions",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebAddMemberInviteOptions.react",
+        )
+          .__setRef("WAWebAddMemberInviteOptionsLoadable")
+          .load();
+        return e;
+      }, "AddMemberInviteOptions"),
       c = p(1),
       d = p(2);
     function m(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.variant === 2 ? d : c,
-        r;
-      return (
-        t[0] !== n || t[1] !== e
-          ? ((r = s.jsx(n, babelHelpers.extends({}, e))),
-            (t[0] = n),
-            (t[1] = e),
-            (t[2] = r))
-          : (r = t[2]),
-        r
-      );
+      var t = e.variant === 2 ? d : c;
+      return s.jsx(t, babelHelpers.extends({}, e));
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
       return r("WAWebLoadable")({
         loader: u,

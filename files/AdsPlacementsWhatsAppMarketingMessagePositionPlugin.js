@@ -15,12 +15,10 @@ __d(
     "AdsPlacementAPISpecReaderUtils",
     "AdsPlacementAPISpecWriterUtils",
     "AdsPlacementIneligibilityReason",
-    "AdsTargetingAccountControlInfoProvider",
     "AdsUEditorAdgroupMarketingMessagesMessageOnlyUtils",
     "AdsUEditorAdgroupMessageMarketingLiquidityUtils",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
     "AdsUEditorCampaignPlacementSetActionFlux",
-    "AdsValidationConsts",
     "JSResource",
     "Promise",
     "WAMOStatusAdsManagerUtils",
@@ -39,6 +37,8 @@ __d(
     "logTrafficLpvEligibilityOutcome",
     "promiseDone",
     "setUserAgeUnknownMutator",
+    "shouldDefaultMMOnlyUnknownAgeToOn",
+    "showMarketingMessagesUnknownAgeModal",
   ],
   function (t, n, r, o, a, i, l, s, u) {
     "use strict";
@@ -50,36 +50,7 @@ __d(
       m = r("JSResource")(
         "messageMarketingSubscriberPoolGroupListItem",
       ).__setRef("AdsPlacementsWhatsAppMarketingMessagePositionPlugin");
-    function p(e) {
-      var t, n, a;
-      if (
-        !o(
-          "WAMOStatusAdsManagerUtils",
-        ).isAdAccountEligibleForWAMMUnknownAge() ||
-        !o(
-          "WAMOStatusAdsManagerUtils",
-        ).isOnlyMarketingMessagesSelectedFromCampaign(e)
-      )
-        return !1;
-      var i = r("AdsAccountStore").getSelectedAccount().getValue(),
-        l = r("AdsTargetingAccountControlInfoProvider")
-          .toFluxStore()
-          .getState()
-          .get((t = i == null ? void 0 : i.account_id) != null ? t : ""),
-        s =
-          (n =
-            l == null ||
-            (a = l.getValue()) == null ||
-            (a = a.audience_controls) == null
-              ? void 0
-              : a.age_min) != null
-            ? n
-            : r("AdsValidationConsts").minWAMOStatusAge;
-      return s !== r("AdsValidationConsts").minWAMOStatusAge
-        ? !1
-        : e.targeting.user_age_unknown == null;
-    }
-    function _(e, t, n) {
+    function p(e, t, n) {
       return o("AdsMutators").mutateEach(e, t, function (e) {
         return o("AdsPlacementAPISpecWriterUtils").addGroup(
           e,
@@ -91,6 +62,15 @@ __d(
       });
     }
     (d.preload(), m.preload());
+    function _(e, t, n, a) {
+      var i = 0,
+        l = o("AdsMutators").mutateEach(e, t, function (e) {
+          return r("shouldDefaultMMOnlyUnknownAgeToOn")(e, n)
+            ? (i++, r("setUserAgeUnknownMutator")(e, !0))
+            : e;
+        });
+      return (r("showMarketingMessagesUnknownAgeModal")(i, a), l);
+    }
     function f(t, a, i, l) {
       return (
         (c || (c = r("AdsDataAtom"))).addPostDispatchCallback(function () {
@@ -117,8 +97,8 @@ __d(
     var g = {
         type: "placements/position",
         key: "whatsapp/marketing_messages",
-        name: s._(/*BTDS*/ "Marketing messages"),
-        nameWithPlatform: s._(/*BTDS*/ "Marketing messages on WhatsApp"),
+        name: s._(/*BTDS*/ ""),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           imageCrop: r("AdImageSpecCropKeys")["191x100"],
           videoCrop: "16:9",
@@ -181,17 +161,15 @@ __d(
             )
           )
             return (
-              o(
-                "logTrafficLpvEligibilityOutcome",
-              ).logTrafficLpvEligibilityOutcome({
-                campaignID: t.campaignID,
-                isEligible: !1,
-                optimizationGoal: "landing_page_views",
-                reasonCode:
-                  t.isBusinessHighTrustForMM == null
-                    ? "high_trust_unknown"
-                    : "not_high_trust",
-              }),
+              t.isBusinessHighTrustForMM != null &&
+                o(
+                  "logTrafficLpvEligibilityOutcome",
+                ).logTrafficLpvEligibilityOutcome({
+                  campaignID: t.campaignID,
+                  isEligible: !1,
+                  optimizationGoal: "landing_page_views",
+                  reasonCode: "not_high_trust",
+                }),
               o("AdsPlacementIneligibilityReason").createMMNotHighTrustReason()
             );
           var l = o(
@@ -301,36 +279,34 @@ __d(
                         : r("setUserAgeUnknownMutator")(e, null);
                     })
                   : a;
-              } else if (e.addGroups.includes("whatsapp/marketing_messages")) {
-                var i = _(t, e.campaignIDs, e.eligibilityInformation);
-                return o("AdsMutators").mutateEach(
-                  i,
+              } else if (e.addGroups.includes("whatsapp/marketing_messages"))
+                return _(
+                  p(t, e.campaignIDs, e.eligibilityInformation),
                   e.campaignIDs,
-                  function (e) {
-                    return p(e) ? r("setUserAgeUnknownMutator")(e, !0) : e;
-                  },
+                  e.eligibilityInformation,
+                  e.eventSource,
                 );
-              }
               return t;
-            case o("AdsCampaignPlacementAddDataActionFlux").actionType: {
-              var l = _(t, e.ids, e.eligibilityInformation);
-              return o("AdsMutators").mutateEach(l, e.ids, function (e) {
-                return p(e) ? r("setUserAgeUnknownMutator")(e, !0) : e;
-              });
-            }
+            case o("AdsCampaignPlacementAddDataActionFlux").actionType:
+              return _(
+                p(t, e.ids, e.eligibilityInformation),
+                e.ids,
+                e.eligibilityInformation,
+                e.eventSource,
+              );
             case o("AdsUEditorCampaignPlacementRemoveActionFlux").actionType: {
-              var s = f(t, e.campaignIDs, e.eligibilityInformation, e.hostID);
+              var i = f(t, e.campaignIDs, e.eligibilityInformation, e.hostID);
               return o(
                 "WAMOStatusAdsManagerUtils",
               ).isAdAccountEligibleForWAMMUnknownAge()
-                ? o("AdsMutators").mutateEach(s, e.campaignIDs, function (e) {
+                ? o("AdsMutators").mutateEach(i, e.campaignIDs, function (e) {
                     return o(
                       "WAMOStatusAdsManagerUtils",
                     ).isWAMOStatusSelectedFromCampaign(e)
                       ? e
                       : r("setUserAgeUnknownMutator")(e, null);
                   })
-                : s;
+                : i;
             }
           }
           return t;

@@ -25,18 +25,11 @@ __d(
             ? n
             : o("WAWebFrontendContactGetters").getFormattedName(r);
       return e(t)
-        ? s._(
-            /*BTDS*/ "{contactName} changed their phone number to a new number",
-            [s._param("contactName", a)],
-          )
-        : s._(/*BTDS*/ "{contactName} updated their contact info", [
-            s._param("contactName", a),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("contactName", a)])
+        : s._(/*BTDS*/ "", [s._param("contactName", a)]);
     }
     function c(t) {
-      return e(t)
-        ? s._(/*BTDS*/ "Message or add the new number")
-        : s._(/*BTDS*/ "Message");
+      return e(t) ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     ((l.formatChangeLidLeadTemplateText = u),
       (l.formatChangeLidCtaTemplateText = c));

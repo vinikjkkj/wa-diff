@@ -40,7 +40,7 @@ __d(
     }
     function _(e, t) {
       var n;
-      return y(
+      return h(
         e,
         (n = e.creative) == null || (n = n.degrees_of_freedom_spec) == null
           ? void 0
@@ -49,21 +49,11 @@ __d(
       );
     }
     function f(e, t) {
-      var n;
-      return y(
-        e,
-        (n = e.creative) == null || (n = n.degrees_of_freedom_spec) == null
-          ? void 0
-          : n.stories_transformation_types,
-        t,
-      );
-    }
-    function g(e, t) {
       var n,
         r = (n = e.creative) == null ? void 0 : n.degrees_of_freedom_spec;
       return r != null && t != null ? r.degrees_of_freedom_type === t : !!r;
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = o("AdsAPICampaignRecordUtils").getPromotedObjectType(e, t);
       return [
         r("AdsAPIObjectives").LINK_CLICKS,
@@ -72,13 +62,13 @@ __d(
         o("AdsODAXUtils").maybeTranslateObjective(e, n, t.optimization_goal),
       );
     }
-    function y(e, t, n) {
-      return g(e, "USER_ENROLLED_NON_DCO") && t != null ? t.includes(n) : !1;
+    function h(e, t, n) {
+      return f(e, "USER_ENROLLED_NON_DCO") && t != null ? t.includes(n) : !1;
+    }
+    function y(e) {
+      return o("AdsAssetFeedUtils").isAutomaticFlowLiteAdgroup(e) || C(e);
     }
     function C(e) {
-      return o("AdsAssetFeedUtils").isAutomaticFlowLiteAdgroup(e) || b(e);
-    }
-    function b(e) {
       var t, n;
       return (t =
         (n = e.creative) == null ||
@@ -93,11 +83,10 @@ __d(
       (l.isEligibleForDegreesOfFreedom = c),
       (l.isDoFOptimizationType = p),
       (l.hasDoFImageOptimization = _),
-      (l.hasDoFStoriesOptimization = f),
-      (l.isSpecUsingDegreeOfFreedomSpec = g),
-      (l.isObjectiveEligibleForStandardFlowTextLiquidity = h),
-      (l.hasODAXSupportedDOF = C),
-      (l.isTextLiquidityEnabled = b));
+      (l.isSpecUsingDegreeOfFreedomSpec = f),
+      (l.isObjectiveEligibleForStandardFlowTextLiquidity = g),
+      (l.hasODAXSupportedDOF = y),
+      (l.isTextLiquidityEnabled = C));
   },
   98,
 );

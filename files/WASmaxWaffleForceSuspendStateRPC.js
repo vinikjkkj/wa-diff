@@ -21,34 +21,25 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = d(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = c(r, n);
-          if (a.success)
-            return { name: "ForceSuspendStateResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "ForceSuspendStateResponseError", value: i.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("ForceSuspendState", {
-              Success: a,
-              Error: i,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = c(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = u(r, n);
+      if (a.success)
+        return { name: "ForceSuspendStateResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "ForceSuspendStateResponseError", value: i.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("ForceSuspendState", {
+          Success: a,
+          Error: i,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -58,7 +49,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = m(r.value);
+      var i = d(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -67,7 +58,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "npr");
@@ -86,7 +77,7 @@ __d(
           )
         : i;
     }
-    function d(e) {
+    function c(e) {
       var t = e.timestampElementValue,
         n = o(
           "WASmaxOutWaffleBaseIQGetRequestMixin",
@@ -103,7 +94,7 @@ __d(
         );
       return n;
     }
-    function m(e) {
+    function d(e) {
       var t = o(
         "WASmaxInWaffleIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -193,9 +184,9 @@ __d(
           );
     }
     ((l.sendForceSuspendStateRPC = e),
-      (l.parseForceSuspendStateResponseError = u),
-      (l.parseForceSuspendStateResponseSuccess = c),
-      (l.makeForceSuspendStateRequest = d));
+      (l.parseForceSuspendStateResponseError = s),
+      (l.parseForceSuspendStateResponseSuccess = u),
+      (l.makeForceSuspendStateRequest = c));
   },
   98,
 );

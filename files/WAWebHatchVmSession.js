@@ -1,21 +1,19 @@
 __d(
   "WAWebHatchVmSession",
   [
-    "Promise",
     "WALogger",
     "WAWebHatchNoiseBytes",
     "WAWebHatchNoiseChannel",
     "WAWebHatchNoiseVmTransport",
     "WAWebHatchVmApi",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e, s, u, c;
-    function d() {
-      return (c || (c = n("Promise"))).resolve(!1);
+    var e, s, u;
+    function c() {
+      return Promise.resolve(!1);
     }
-    var m = (function () {
+    var d = (function () {
       function t(e) {
         (e === void 0 &&
           (e = function (t) {
@@ -30,15 +28,15 @@ __d(
           (this.$6 = null),
           (this.$5 = e));
       }
-      var a = t.prototype;
+      var n = t.prototype;
       return (
-        (a.connectedApi = function () {
+        (n.connectedApi = function () {
           return this.$1;
         }),
-        (a.connectedVmId = function () {
+        (n.connectedVmId = function () {
           return this.$6;
         }),
-        (a.disconnect = function () {
+        (n.disconnect = function () {
           var e;
           ((this.$3 += 1),
             (e = this.$2) == null || e.close(),
@@ -46,87 +44,66 @@ __d(
             (this.$1 = null),
             (this.$6 = null));
         }),
-        (a.connect = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            this.disconnect();
-            var t = this.$3,
-              n = this.$5(this.$7(e.credentials.vmId)),
-              r;
-            try {
-              r = yield n.connect({
-                abraToken: e.credentials.vmAuthToken,
-                notaryToken: e.credentials.notaryToken,
-                vmId: e.credentials.vmId,
+        (n.connect = async function (t) {
+          this.disconnect();
+          var e = this.$3,
+            n = this.$5(this.$7(t.credentials.vmId)),
+            r;
+          try {
+            r = await n.connect({
+              abraToken: t.credentials.vmAuthToken,
+              notaryToken: t.credentials.notaryToken,
+              vmId: t.credentials.vmId,
+            });
+          } catch (e) {
+            throw (n.close(), e);
+          }
+          return e !== this.$3
+            ? (n.close(),
+              {
+                cause: "superseded",
+                detail: "Connection was superseded",
+                kind: "Failure",
+              })
+            : this.$8({
+                acceptLanguage: t.acceptLanguage,
+                channel: n,
+                connected: r,
+                credentials: t.credentials,
+                generation: e,
               });
-            } catch (e) {
-              throw (n.close(), e);
-            }
-            return t !== this.$3
-              ? (n.close(),
-                {
-                  cause: "superseded",
-                  detail: "Connection was superseded",
-                  kind: "Failure",
-                })
-              : this.$8({
-                  acceptLanguage: e.acceptLanguage,
-                  channel: n,
-                  connected: r,
-                  credentials: e.credentials,
-                  generation: t,
-                });
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (a.$7 = function (t) {
-          var e = this;
-          return (function () {
-            var r = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (n) {
-                try {
-                  yield e.$9(t, n);
-                } catch (e) {
-                  p(e);
-                }
-                return !0;
-              },
-            );
-            return function (e) {
-              return r.apply(this, arguments);
-            };
-          })();
         }),
-        (a.$9 = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (t, n) {
-              var r = o("WAWebHatchNoiseBytes").bytesToHex(
-                  new Uint8Array(
-                    yield crypto.subtle.digest("SHA-256", n.slice().buffer),
-                  ),
-                ),
-                a = this.$4.get(t);
-              (this.$4.set(t, r),
-                a != null &&
-                  a !== r &&
-                  o("WALogger")
-                    .WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "hatch-vm: VM key changed",
-                        ])),
-                    )
-                    .sendLogs("hatch-vm-key-changed"));
-            },
-          );
-          function r(e, n) {
-            return t.apply(this, arguments);
-          }
-          return r;
-        })()),
-        (a.$10 = function (t) {
+        (n.$7 = function (t) {
+          var e = this;
+          return async function (n) {
+            try {
+              await e.$9(t, n);
+            } catch (e) {
+              m(e);
+            }
+            return !0;
+          };
+        }),
+        (n.$9 = async function (n, r) {
+          var t = o("WAWebHatchNoiseBytes").bytesToHex(
+              new Uint8Array(
+                await crypto.subtle.digest("SHA-256", r.slice().buffer),
+              ),
+            ),
+            a = this.$4.get(n);
+          (this.$4.set(n, t),
+            a != null &&
+              a !== t &&
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "hatch-vm: VM key changed",
+                    ])),
+                )
+                .sendLogs("hatch-vm-key-changed"));
+        }),
+        (n.$10 = function (t) {
           t === this.$3 &&
             (this.disconnect(),
             o("WALogger").WARN(
@@ -136,43 +113,37 @@ __d(
                 ])),
             ));
         }),
-        (a.connectConfidential = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            this.disconnect();
-            var t = this.$3,
-              n = this.$5(d),
-              r;
-            try {
-              r = yield n.connect({
-                abraToken: e.credentials.vmAuthToken,
-                notaryToken: e.credentials.notaryToken,
-                privateAuth: e.privateAuth,
-                vmId: e.credentials.vmId,
-              });
-            } catch (e) {
-              throw (n.close(), e);
-            }
-            return t !== this.$3
-              ? (n.close(),
-                {
-                  cause: "superseded",
-                  detail: "Connection was superseded",
-                  kind: "Failure",
-                })
-              : this.$8({
-                  acceptLanguage: e.acceptLanguage,
-                  channel: n,
-                  connected: r,
-                  credentials: e.credentials,
-                  generation: t,
-                });
-          });
-          function t(t) {
-            return e.apply(this, arguments);
+        (n.connectConfidential = async function (t) {
+          this.disconnect();
+          var e = this.$3,
+            n = this.$5(c),
+            r;
+          try {
+            r = await n.connect({
+              abraToken: t.credentials.vmAuthToken,
+              notaryToken: t.credentials.notaryToken,
+              privateAuth: t.privateAuth,
+              vmId: t.credentials.vmId,
+            });
+          } catch (e) {
+            throw (n.close(), e);
           }
-          return t;
-        })()),
-        (a.$8 = function (t) {
+          return e !== this.$3
+            ? (n.close(),
+              {
+                cause: "superseded",
+                detail: "Connection was superseded",
+                kind: "Failure",
+              })
+            : this.$8({
+                acceptLanguage: t.acceptLanguage,
+                channel: n,
+                connected: r,
+                credentials: t.credentials,
+                generation: e,
+              });
+        }),
+        (n.$8 = function (t) {
           var e = this,
             n = t.acceptLanguage,
             a = t.channel,
@@ -207,7 +178,7 @@ __d(
         t
       );
     })();
-    function p(e) {
+    function m(e) {
       try {
         o("WALogger")
           .WARN(
@@ -219,8 +190,8 @@ __d(
           .sendLogs("hatch-vm-key-check-failed");
       } catch (e) {}
     }
-    var _ = new m();
-    ((l.WAWebHatchVmSession = m), (l.waWebHatchVmSession = _));
+    var p = new d();
+    ((l.WAWebHatchVmSession = d), (l.waWebHatchVmSession = p));
   },
   98,
 );

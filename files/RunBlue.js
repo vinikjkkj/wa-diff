@@ -97,7 +97,7 @@ __d(
         n = window;
       if (e.addEventListener) {
         var o = /AppleWebKit.(\d+)/.exec(navigator.userAgent);
-        if (o && o[1] < 525)
+        if (o && Number(o[1]) < 525)
           var a = t.setInterval(function () {
             /loaded|complete/.test(e.readyState) && (v(), t.clearInterval(a));
           }, 10);

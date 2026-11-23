@@ -13,29 +13,15 @@ __d(
         var e;
         switch (t) {
           case "objective":
-            return s._(
-              /*BTDS*/ "Marketing messages is not available for the campaign objective you selected. To use marketing messages in your campaign, select either Traffic, Sales or Leads campaign objectives.",
-            );
+            return s._(/*BTDS*/ "");
           case "promotedObjectType":
-            return s._(
-              /*BTDS*/ "Marketing messages is not available for the conversion location you selected.",
-            );
+            return s._(/*BTDS*/ "");
           case "optimizationGoal":
-            return r("gkx")("3260")
-              ? s._(
-                  /*BTDS*/ "Marketing messages are not available with your performance goal. To include marketing messages in your campaign, select link clicks, landing page views, number of conversions, or value of conversions.",
-                )
-              : s._(
-                  /*BTDS*/ "Marketing messages are not available with your performance goal. To include marketing messages in your campaign, select link clicks, number of conversions, or value of conversions.",
-                );
+            return r("gkx")("3260") ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
           case "dynamicCreative":
-            return s._(
-              /*BTDS*/ "Marketing messages are not available when dynamic creative is turned on. To include marketing messages in your campaign, turn off dynamic creative.",
-            );
+            return s._(/*BTDS*/ "");
           case "specialAdCategories":
-            return s._(
-              /*BTDS*/ "Marketing messages are not available when a Special Ad Category is selected.",
-            );
+            return s._(/*BTDS*/ "");
           default:
             return (
               r("AdsInterfacesLogger").log({
@@ -56,29 +42,17 @@ __d(
         var e;
         switch (t) {
           case "objective":
-            return s._(
-              /*BTDS*/ "Marketing messages is not available for the campaign objective you selected. To use marketing messages in your campaign, select the Sales campaign objective.",
-            );
+            return s._(/*BTDS*/ "");
           case "promotedObjectType":
-            return s._(
-              /*BTDS*/ "Marketing messages is not available with your selected conversion event. If you\u2019d like to include marketing messages in your campaign, select Website as your conversion event.",
-            );
+            return s._(/*BTDS*/ "");
           case "optimizationGoal":
-            return s._(
-              /*BTDS*/ "Marketing messages is not available with your selected performance goal. If you\u2019d like to include marketing messages in your campaign, select number of conversions as your performance goal.",
-            );
+            return s._(/*BTDS*/ "");
           case "dynamicCreative":
-            return s._(
-              /*BTDS*/ "Marketing messages are not available when dynamic creative is turned on. If you\u2019d like to include marketing messages in your campaign, turn off dynamic creative.",
-            );
+            return s._(/*BTDS*/ "");
           case "specialAdCategories":
-            return s._(
-              /*BTDS*/ "Messenger marketing messages are not available when a Special Ad Category is selected.",
-            );
+            return s._(/*BTDS*/ "");
           case "hasProductCatalog":
-            return s._(
-              /*BTDS*/ "Marketing messages are not available when Advantage+ catalog ads is turned on. If you'd like to include marketing messages in your campaign, turn off Advantage+ catalog ads.",
-            );
+            return s._(/*BTDS*/ "");
           default:
             return (
               r("AdsInterfacesLogger").log({

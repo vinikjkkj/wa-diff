@@ -9,7 +9,6 @@ __d(
     "WAWebAsISOCountryCode",
     "WAWebLidMigrationUtils",
     "WAWebUserPrefsMeUser",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -40,58 +39,42 @@ __d(
         }
       return null;
     }
-    function d() {
-      return m.apply(this, arguments);
+    async function d() {
+      var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
+        t =
+          e != null
+            ? u(e.user)
+            : await o(
+                "WAWebApiContactUsernameFields",
+              ).getOrFetchMeContactUsernameCountryCode();
+      return t;
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
-            t =
-              e != null
-                ? u(e.user)
-                : yield o(
-                    "WAWebApiContactUsernameFields",
-                  ).getOrFetchMeContactUsernameCountryCode();
-          return t;
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e,
-              t = yield d(),
-              n = t == null ? null : (e = r("WAIsoToCc")[t]) != null ? e : null;
-            return n == null ? null : String(n);
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "failed to get my calling code, error: ",
-                      "",
-                    ])),
-                  e,
-                )
-                .sendLogs("failed-to-get-my-calling-code", { sampling: 0.01 }),
-              null
-            );
-          }
-        })),
-        _.apply(this, arguments)
-      );
+    async function m() {
+      try {
+        var e,
+          t = await d(),
+          n = t == null ? null : (e = r("WAIsoToCc")[t]) != null ? e : null;
+        return n == null ? null : String(n);
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "failed to get my calling code, error: ",
+                  "",
+                ])),
+              e,
+            )
+            .sendLogs("failed-to-get-my-calling-code", { sampling: 0.01 }),
+          null
+        );
+      }
     }
     ((l.pnToCountryCodeString = u),
       (l.getCountryCodeFromPn = c),
       (l.getMyCountryCode = d),
-      (l.getMyCallingCode = p));
+      (l.getMyCallingCode = m));
   },
   98,
 );

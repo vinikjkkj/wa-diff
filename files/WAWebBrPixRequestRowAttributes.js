@@ -5,13 +5,12 @@ __d(
     "WAWebOrderPaymentStatus",
     "WAWebP2XFunnelIdGenerator",
     "WAWebWamEnumMessageChatType",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = "receiver_event_log_key";
     function s(e, t, n) {
       return e
-        ? f(t, n)
+        ? _(t, n)
         : {
             cta: "copy_pix_key",
             is_cta_available: !0,
@@ -27,7 +26,7 @@ __d(
     }
     function u(e, t) {
       return e
-        ? g(t)
+        ? f(t)
         : {
             cta: "copy_pix_key",
             isCtaAvailable: !0,
@@ -42,7 +41,7 @@ __d(
     }
     function c(e, t, n, r) {
       return e
-        ? f(t, n)
+        ? _(t, n)
         : {
             cta: "order_details",
             p2m_type: o("WAWebOrderPaymentStatus").OrderP2MType.P2M_PRO,
@@ -61,7 +60,7 @@ __d(
     }
     function d(e, t) {
       return e
-        ? g(t)
+        ? f(t)
         : {
             cta: "order_details",
             p2mType: o("WAWebOrderPaymentStatus").OrderP2MType.P2M_PRO,
@@ -82,23 +81,15 @@ __d(
         o("WAWebGetMessageChatTypeFromWid").getMessageChatTypeFromWid(e.id)
       ].toLowerCase();
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    async function p(e, t) {
+      var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
+          t,
+          e.id.id + e.to.toJid(),
+        ),
+        r = await n.genFunnelInfo();
+      return r.funnel_id;
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new (o("WAWebP2XFunnelIdGenerator").P2XFunnelIdGenerator)(
-              t,
-              e.id.id + e.to.toJid(),
-            ),
-            r = yield n.genFunnelInfo();
-          return r.funnel_id;
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t) {
+    function _(e, t) {
       return {
         cta: "p2p_pix",
         flow: "P2P",
@@ -110,7 +101,7 @@ __d(
         referral: "chat_attachment",
       };
     }
-    function g(e) {
+    function f(e) {
       return {
         cta: "p2p_pix",
         flow: "P2P",

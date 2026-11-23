@@ -1,6 +1,6 @@
 __d(
   "WAWebWrapperMessageActionButtonsRow",
-  ["WAWebFlex.react", "WAWebFlexItem.react", "react", "react-compiler-runtime"],
+  ["WAWebFlex.react", "WAWebFlexItem.react", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -42,73 +42,43 @@ __d(
         },
       };
     function c(e) {
-      var t = o("react-compiler-runtime").c(16),
-        n = e.isMsgGallery,
-        a = e.isOutgoingMsg,
-        i = e.messageActionButtons,
-        l = e.positionLeft,
-        c = e.positionRight,
-        d = e.transparentGaps,
-        m = d === void 0 ? !1 : d,
-        p;
-      if (t[0] !== n || t[1] !== a || t[2] !== i || t[3] !== m) {
-        var _;
-        (t[5] !== n || t[6] !== m
-          ? ((_ = function (t, o) {
-              return t && !n
-                ? s.jsx(
-                    r("WAWebFlexItem.react"),
-                    {
-                      xstyle: [u.buttonWrapper, m && u.interactiveButton],
-                      children: t,
-                    },
-                    o,
-                  )
-                : t;
-            }),
-            (t[5] = n),
-            (t[6] = m),
-            (t[7] = _))
-          : (_ = t[7]),
-          (p = i.map(_)),
-          a && p.reverse(),
-          (t[0] = n),
-          (t[1] = a),
-          (t[2] = i),
-          (t[3] = m),
-          (t[4] = p));
-      } else p = t[4];
-      var f = "end";
-      !n && !a && (f = "start");
-      var g = l && u.positionLeft,
-        h = c && u.positionRight,
-        y = m && u.transparentContainer,
-        C;
-      t[8] !== g || t[9] !== h || t[10] !== y
-        ? ((C = [u.container, g, h, y]),
-          (t[8] = g),
-          (t[9] = h),
-          (t[10] = y),
-          (t[11] = C))
-        : (C = t[11]);
-      var b;
+      var t = e.isMsgGallery,
+        n = e.isOutgoingMsg,
+        a = e.messageActionButtons,
+        i = e.positionLeft,
+        l = e.positionRight,
+        c = e.transparentGaps,
+        d = c === void 0 ? !1 : c,
+        m = a.map(function (e, n) {
+          return e && !t
+            ? s.jsx(
+                r("WAWebFlexItem.react"),
+                {
+                  xstyle: [u.buttonWrapper, d && u.interactiveButton],
+                  children: e,
+                },
+                n,
+              )
+            : e;
+        });
+      n && m.reverse();
+      var p = "end";
       return (
-        t[12] !== f || t[13] !== C || t[14] !== p
-          ? ((b = s.jsx(o("WAWebFlex.react").FlexRow, {
-              justify: f,
-              align: "center",
-              xstyle: C,
-              children: p,
-            })),
-            (t[12] = f),
-            (t[13] = C),
-            (t[14] = p),
-            (t[15] = b))
-          : (b = t[15]),
-        b
+        !t && !n && (p = "start"),
+        s.jsx(o("WAWebFlex.react").FlexRow, {
+          justify: p,
+          align: "center",
+          xstyle: [
+            u.container,
+            i && u.positionLeft,
+            l && u.positionRight,
+            d && u.transparentContainer,
+          ],
+          children: m,
+        })
       );
     }
-    l.default = c;
+    ((c.displayName = c.name + " [from " + i.id + "]"), (l.default = c));
   },
   98,
 );

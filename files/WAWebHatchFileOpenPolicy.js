@@ -72,7 +72,7 @@ __d(
         (i = i
           .slice(0, o("WAWebFilenameManager").MAX_FILENAME_LENGTH - n.length)
           .replace(/[\uD800-\uDBFF]$/, "")),
-        i === "" ? r("fbs")._(/*BTDS*/ "Untitled").toString() : i
+        i === "" ? r("fbs")._(/*BTDS*/ "").toString() : i
       );
     }
     function m(e, t) {

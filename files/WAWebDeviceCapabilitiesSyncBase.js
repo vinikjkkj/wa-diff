@@ -1,7 +1,6 @@
 __d(
   "WAWebDeviceCapabilitiesSyncBase",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebBackendApi",
@@ -18,7 +17,6 @@ __d(
     "WAWebSyncdDb",
     "WAWebUserPrefsDeviceCapabilities",
     "WAWebWorkerSafeBackendApi",
-    "asyncToGeneratorRuntime",
     "decodeProtobuf",
     "err",
   ],
@@ -26,16 +24,15 @@ __d(
     var e = ["bizAiWebOnboarding", "newsletterChatsMigration"],
       s,
       u,
-      c,
-      d = "0",
-      m = 1;
-    function p(e) {
+      c = "0",
+      d = 1;
+    function m(e) {
       var t = e.indexOf(":"),
         n = e.indexOf("@");
       return t === -1 || n === -1 || t >= n ? null : e.substring(t + 1, n);
     }
-    var _ = (function (t) {
-      function a() {
+    var p = (function (t) {
+      function n() {
         for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
           r[a] = arguments[a];
         return (
@@ -45,26 +42,26 @@ __d(
             babelHelpers.assertThisInitialized(e)
         );
       }
-      babelHelpers.inheritsLoose(a, t);
-      var i = a.prototype;
+      babelHelpers.inheritsLoose(n, t);
+      var a = n.prototype;
       return (
-        (i.getVersion = function () {
+        (a.getVersion = function () {
           return 7;
         }),
-        (i.getAction = function () {
+        (a.getAction = function () {
           throw r("err")(
             "DeviceCapabilitiesSyncBase.getAction must be overridden by a subclass",
           );
         }),
-        (i.getJidIndex = function () {
+        (a.getJidIndex = function () {
           throw r("err")(
             "DeviceCapabilitiesSyncBase.getJidIndex must be overridden by a subclass",
           );
         }),
-        (i.getValueField = function () {
+        (a.getValueField = function () {
           return "deviceCapabilities";
         }),
-        (i.getCapabilitiesFromValue = function (t) {
+        (a.getCapabilitiesFromValue = function (t) {
           return this.getValueField() === "deviceCapabilitiesV2"
             ? t == null
               ? void 0
@@ -73,142 +70,129 @@ __d(
               ? void 0
               : t.deviceCapabilities;
         }),
-        (i.capabilitiesHaveChanged = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = this,
-              n = yield o("WAWebSyncdDb").getSyncActionsRows(
-                ["index"],
-                [e.index],
+        (a.capabilitiesHaveChanged = async function (t) {
+          var e = this,
+            n = await o("WAWebSyncdDb").getSyncActionsRows(
+              ["index"],
+              [t.index],
+            ),
+            r = n.reduce(function (t, n) {
+              if (
+                n.actionState === o("WAWebSyncdConst").SyncActionState.Success
+              ) {
+                var r = o("decodeProtobuf").decodeProtobuf(
+                    o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
+                    n.binarySyncData,
+                  ),
+                  a = r.value,
+                  i = e.getCapabilitiesFromValue(a);
+                if (i) return i;
+              }
+            }, {}),
+            a = this.getCapabilitiesFromValue(
+              o("decodeProtobuf").decodeProtobuf(
+                o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
+                t.binarySyncAction,
               ),
-              r = n.reduce(function (e, n) {
-                if (
-                  n.actionState === o("WAWebSyncdConst").SyncActionState.Success
-                ) {
-                  var r = o("decodeProtobuf").decodeProtobuf(
-                      o("WAWebProtobufSyncAction.pb").SyncActionDataSpec,
-                      n.binarySyncData,
-                    ),
-                    a = r.value,
-                    i = t.getCapabilitiesFromValue(a);
-                  if (i) return i;
-                }
-              }, {}),
-              a = this.getCapabilitiesFromValue(
-                o("decodeProtobuf").decodeProtobuf(
-                  o("WAWebProtobufSyncAction.pb").SyncActionValueSpec,
-                  e.binarySyncAction,
-                ),
-              );
-            return {
-              hasChanged: JSON.stringify(r) !== JSON.stringify(a),
-              currentCapabilities: r,
-              newCapabilities: a,
-            };
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (i.applyMutations = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            var t = this,
-              r = 0,
-              a = [],
-              i = e.map(function (e) {
-                if (e.operation === "set") {
-                  var n = t.getCapabilitiesFromValue(e.value);
-                  if (n != null) {
-                    var i = e.indexParts[m],
-                      l = i != null ? p(i) : null;
-                    if (l === d) {
-                      var s,
-                        u = o(
-                          "WAWebUserPrefsDeviceCapabilities",
-                        ).mapProtobufToAllDeviceCapabilities(n);
-                      (o(
+            );
+          return {
+            hasChanged: JSON.stringify(r) !== JSON.stringify(a),
+            currentCapabilities: r,
+            newCapabilities: a,
+          };
+        }),
+        (a.applyMutations = async function (t) {
+          var e = this,
+            n = 0,
+            r = [],
+            a = t.map(function (t) {
+              if (t.operation === "set") {
+                var a = e.getCapabilitiesFromValue(t.value);
+                if (a != null) {
+                  var i = t.indexParts[d],
+                    l = i != null ? m(i) : null;
+                  if (l === c) {
+                    var s,
+                      u = o(
                         "WAWebUserPrefsDeviceCapabilities",
-                      ).mergeDeviceCapabilitiesToStorage(u, "primary"),
-                        a.push(
-                          o(
-                            "WAWebNewsletterChatsMigrationForwarder",
-                          ).forwardPrimaryNewsletterChatsMigration(n),
-                        ),
-                        r++);
-                      var c =
-                        (s = u.aiThread) == null ? void 0 : s.supportLevel;
-                      if (
-                        ((c ===
+                      ).mapProtobufToAllDeviceCapabilities(a);
+                    (o(
+                      "WAWebUserPrefsDeviceCapabilities",
+                    ).mergeDeviceCapabilitiesToStorage(u, "primary"),
+                      r.push(
+                        o(
+                          "WAWebNewsletterChatsMigrationForwarder",
+                        ).forwardPrimaryNewsletterChatsMigration(a),
+                      ),
+                      n++);
+                    var p = (s = u.aiThread) == null ? void 0 : s.supportLevel;
+                    if (
+                      ((p ===
+                        o("WAWebProtobufsDeviceCapabilities.pb")
+                          .DeviceCapabilities$AiThread$SupportLevel.INFRA ||
+                        p ===
                           o("WAWebProtobufsDeviceCapabilities.pb")
-                            .DeviceCapabilities$AiThread$SupportLevel.INFRA ||
-                          c ===
-                            o("WAWebProtobufsDeviceCapabilities.pb")
-                              .DeviceCapabilities$AiThread$SupportLevel.FULL) &&
-                          o("WAWebBackendApi").frontendFireAndForget(
-                            "initializeMetaAiBotAiThreads",
-                            {},
-                          ),
-                        o("WAWebMobilePlatforms").isSMB())
-                      ) {
-                        var _ = n.businessBroadcast,
-                          f =
-                            !!(_ != null && _.companionSupportEnabled) &&
-                            !!(_ != null && _.campaignSyncEnabled),
-                          g = o(
-                            "WAWebBizBroadcastDeviceCapabilityCommon",
-                          ).getPrimarySupportsBusinessBroadcast();
-                        (f !== g &&
-                          (o(
-                            "WAWebBizBroadcastDeviceCapabilityCommon",
-                          ).saveBizBroadcastCapabilityToStorage(f),
-                          f &&
-                            o(
-                              "WAWebWorkerSafeBackendApi",
-                            ).workerSafeFireAndForget("loadQuickPromotions", {
-                              trigger: "prefetch",
-                            })),
+                            .DeviceCapabilities$AiThread$SupportLevel.FULL) &&
+                        o("WAWebBackendApi").frontendFireAndForget(
+                          "initializeMetaAiBotAiThreads",
+                          {},
+                        ),
+                      o("WAWebMobilePlatforms").isSMB())
+                    ) {
+                      var _ = a.businessBroadcast,
+                        f =
+                          !!(_ != null && _.companionSupportEnabled) &&
+                          !!(_ != null && _.campaignSyncEnabled),
+                        g = o(
+                          "WAWebBizBroadcastDeviceCapabilityCommon",
+                        ).getPrimarySupportsBusinessBroadcast();
+                      (f !== g &&
+                        (o(
+                          "WAWebBizBroadcastDeviceCapabilityCommon",
+                        ).saveBizBroadcastCapabilityToStorage(f),
+                        f &&
                           o(
-                            "WAWebBizBroadcastDeviceCapabilityCommon",
-                          ).saveBizBroadcastProCapabilityToStorage(
-                            _ == null ? void 0 : _.proCompanionSupportEnabled,
-                          ),
-                          o("WAWebBackendApi").frontendFireAndForget(
-                            "refreshBizBroadcastProEligibility",
-                            {},
-                          ),
-                          o(
-                            "WAWebBizBroadcastDeviceCapabilityCommon",
-                          ).saveBizBroadcastRecipientLimitToStorage(
-                            _ == null ? void 0 : _.recipientLimit,
-                          ));
-                      }
+                            "WAWebWorkerSafeBackendApi",
+                          ).workerSafeFireAndForget("loadQuickPromotions", {
+                            trigger: "prefetch",
+                          })),
+                        o(
+                          "WAWebBizBroadcastDeviceCapabilityCommon",
+                        ).saveBizBroadcastProCapabilityToStorage(
+                          _ == null ? void 0 : _.proCompanionSupportEnabled,
+                        ),
+                        o("WAWebBackendApi").frontendFireAndForget(
+                          "refreshBizBroadcastProEligibility",
+                          {},
+                        ),
+                        o(
+                          "WAWebBizBroadcastDeviceCapabilityCommon",
+                        ).saveBizBroadcastRecipientLimitToStorage(
+                          _ == null ? void 0 : _.recipientLimit,
+                        ));
                     }
                   }
                 }
-                return {
-                  actionState: o("WAWebSyncdConst").SyncActionState.Success,
-                };
-              });
-            return (
-              r > 0 &&
-                o("WALogger").LOG(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[DeviceCapabilitiesSync] primary caps updated ",
-                      "x",
-                    ])),
-                  r,
-                ),
-              yield (c || (c = n("Promise"))).all(a),
-              i
-            );
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (i.getMutation = function (t, n) {
+              }
+              return {
+                actionState: o("WAWebSyncdConst").SyncActionState.Success,
+              };
+            });
+          return (
+            n > 0 &&
+              o("WALogger").LOG(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[DeviceCapabilitiesSync] primary caps updated ",
+                    "x",
+                  ])),
+                n,
+              ),
+            await Promise.all(r),
+            a
+          );
+        }),
+        (a.getMutation = function (t, n) {
           return o("WAWebSyncdActionUtils").buildPendingMutation({
             collection: this.collectionName,
             indexArgs: [this.getJidIndex()],
@@ -223,35 +207,29 @@ __d(
             action: this.getAction(),
           });
         }),
-        (i.sendMutation = (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            var r = t.bizAiWebOnboarding,
-              a = t.newsletterChatsMigration,
-              i = babelHelpers.objectWithoutPropertiesLoose(t, e),
-              l = this.getMutation(o("WATimeUtils").unixTimeMs(), i),
-              s = yield this.capabilitiesHaveChanged(l);
-            if (!s.hasChanged) {
-              o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[DeviceCapabilitiesSync] skip sync, no change",
-                  ])),
-              );
-              return;
-            }
-            yield o("WAWebSyncdCoreApi").lockForSync([], [l], function () {
-              return (c || (c = n("Promise"))).resolve();
-            });
-          });
-          function r(e) {
-            return t.apply(this, arguments);
+        (a.sendMutation = async function (n) {
+          var t = n.bizAiWebOnboarding,
+            r = n.newsletterChatsMigration,
+            a = babelHelpers.objectWithoutPropertiesLoose(n, e),
+            i = this.getMutation(o("WATimeUtils").unixTimeMs(), a),
+            l = await this.capabilitiesHaveChanged(i);
+          if (!l.hasChanged) {
+            o("WALogger").LOG(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[DeviceCapabilitiesSync] skip sync, no change",
+                ])),
+            );
+            return;
           }
-          return r;
-        })()),
-        a
+          await o("WAWebSyncdCoreApi").lockForSync([], [i], function () {
+            return Promise.resolve();
+          });
+        }),
+        n
       );
     })(o("WAWebSyncdAction").AccountSyncdActionBase);
-    l.default = _;
+    l.default = p;
   },
   98,
 );

@@ -5,6 +5,7 @@ __d(
     var e = Object.freeze({
       DESTINATION_TYPE: "destination_type",
       GUIDANCE_METADATA: "guidance_metadata",
+      INSTAGRAM_SHORT_FORM_DRAMA: "instagram_short_form_drama",
       LIVE_VIDEO_DESTINATION: "live_video_destination",
       MESSAGE_DESTINATION: "message_destination",
       NATIVE_COMMERCE_EXPERIENCE: "native_commerce_experience",

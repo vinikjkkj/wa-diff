@@ -22,68 +22,56 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = b(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = f(r, n);
-          if (a.success)
-            return {
-              name: "UpdateBlockListResponseSuccessWithMatch",
-              value: a.value,
-            };
-          var i = h(r, n);
-          if (i.success)
-            return {
-              name: "UpdateBlockListResponseSuccessWithMismatch",
-              value: i.value,
-            };
-          var l = p(r, n);
-          if (l.success)
-            return {
-              name: "UpdateBlockListResponseMigratedSuccessWithMismatch",
-              value: l.value,
-            };
-          var s = c(r, n);
-          if (s.success)
-            return {
-              name: "UpdateBlockListResponseCAPISuccessWithMismatch",
-              value: s.value,
-            };
-          var u = d(r, n);
-          if (u.success)
-            return {
-              name: "UpdateBlockListResponseInvalidRequest",
-              value: u.value,
-            };
-          var m = _(r, n);
-          if (m.success)
-            return {
-              name: "UpdateBlockListResponseServerError",
-              value: m.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("UpdateBlockList", {
-              SuccessWithMatch: a,
-              SuccessWithMismatch: i,
-              MigratedSuccessWithMismatch: l,
-              CAPISuccessWithMismatch: s,
-              InvalidRequest: u,
-              ServerError: m,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = C(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = _(r, n);
+      if (a.success)
+        return {
+          name: "UpdateBlockListResponseSuccessWithMatch",
+          value: a.value,
+        };
+      var i = g(r, n);
+      if (i.success)
+        return {
+          name: "UpdateBlockListResponseSuccessWithMismatch",
+          value: i.value,
+        };
+      var l = m(r, n);
+      if (l.success)
+        return {
+          name: "UpdateBlockListResponseMigratedSuccessWithMismatch",
+          value: l.value,
+        };
+      var s = u(r, n);
+      if (s.success)
+        return {
+          name: "UpdateBlockListResponseCAPISuccessWithMismatch",
+          value: s.value,
+        };
+      var d = c(r, n);
+      if (d.success)
+        return {
+          name: "UpdateBlockListResponseInvalidRequest",
+          value: d.value,
+        };
+      var f = p(r, n);
+      if (f.success)
+        return { name: "UpdateBlockListResponseServerError", value: f.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("UpdateBlockList", {
+          SuccessWithMatch: a,
+          SuccessWithMismatch: i,
+          MigratedSuccessWithMismatch: l,
+          CAPISuccessWithMismatch: s,
+          InvalidRequest: d,
+          ServerError: f,
+        }),
       );
     }
-    function u(e) {
+    function s(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -108,7 +96,7 @@ __d(
           )
         : a;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
@@ -129,13 +117,13 @@ __d(
         "result",
       );
       if (!l.success) return l;
-      var s = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
-      if (!s.success) return s;
+      var u = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
+      if (!u.success) return u;
       var c = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
         e,
         "id",
-        s.value,
+        u.value,
       );
       if (!c.success) return c;
       var d = o("WASmaxParseUtils").literal(
@@ -171,7 +159,7 @@ __d(
         "item",
         0,
         64e3,
-        u,
+        s,
       );
       return g.success
         ? o("WAResultOrError").makeResult({
@@ -184,7 +172,7 @@ __d(
           })
         : g;
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -193,14 +181,14 @@ __d(
         o("WASmaxParseUtils").attrStringEnum,
         r.value,
         "addressing_mode",
-        v,
+        b,
       );
       if (!a.success) return a;
       var i = o(
         "WASmaxInBlocklistsIQErrorResponseMixin",
       ).parseIQErrorResponseMixin(e, t);
       if (!i.success) return i;
-      var l = y(r.value);
+      var l = h(r.value);
       return l.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({ errorAddressingMode: a.value }, i.value, {
@@ -209,7 +197,7 @@ __d(
           )
         : l;
     }
-    function m(e) {
+    function d(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrLidUserJid(e, "jid");
@@ -230,7 +218,7 @@ __d(
           )
         : a;
     }
-    function p(e, t) {
+    function m(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
@@ -267,16 +255,16 @@ __d(
         "false",
       );
       if (!c.success) return c;
-      var d = o("WASmaxParseReference").optionalAttrStringFromReference(t, [
+      var m = o("WASmaxParseReference").optionalAttrStringFromReference(t, [
         "item",
         "dhash",
       ]);
-      if (!d.success) return d;
+      if (!m.success) return m;
       var p = o("WASmaxParseUtils").optionalLiteral(
         o("WASmaxParseUtils").attrString,
         r.value,
         "c_dhash",
-        d.value,
+        m.value,
       );
       if (!p.success) return p;
       var _ = o("WASmaxParseUtils").attrString(r.value, "dhash");
@@ -293,7 +281,7 @@ __d(
         "item",
         0,
         64e3,
-        m,
+        d,
       );
       return g.success
         ? o("WAResultOrError").makeResult({
@@ -306,7 +294,7 @@ __d(
           })
         : g;
     }
-    function _(e, t) {
+    function p(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -322,7 +310,7 @@ __d(
           )
         : i;
     }
-    function f(e, t) {
+    function _(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
@@ -368,7 +356,7 @@ __d(
           })
         : d;
     }
-    function g(e) {
+    function f(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrUserJid(e, "jid");
@@ -379,7 +367,7 @@ __d(
         displayNameMixin: r.success ? r.value : null,
       });
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
@@ -437,25 +425,25 @@ __d(
         "pn",
       );
       if (!_.success) return _;
-      var f = o("WASmaxParseUtils").mapChildrenWithTag(
+      var g = o("WASmaxParseUtils").mapChildrenWithTag(
         r.value,
         "item",
         0,
         64e3,
-        g,
+        f,
       );
-      return f.success
+      return g.success
         ? o("WAResultOrError").makeResult({
             type: l.value,
             listMatched: c.value,
             hasListCDhash: m.value != null,
             listDhash: p.value,
             listAddressingMode: _.value,
-            listItem: f.value,
+            listItem: g.value,
           })
-        : f;
+        : g;
     }
-    function y(e) {
+    function h(e) {
       var t = o(
         "WASmaxInBlocklistsIQErrorNotAcceptableMixin",
       ).parseIQErrorNotAcceptableMixin(e);
@@ -488,7 +476,7 @@ __d(
           name: "IQErrorRateOverlimit",
           value: a.value,
         });
-      var i = S(e);
+      var i = v(e);
       return i.success
         ? o("WAResultOrError").makeResult({
             name: "IQErrorNotAllowed",
@@ -506,7 +494,7 @@ __d(
             [t, n, r, a, i],
           );
     }
-    function C(e) {
+    function y(e) {
       var t,
         n,
         r = e.bizOptOutReason,
@@ -530,13 +518,13 @@ __d(
         });
       return d;
     }
-    function b(e) {
+    function C(e) {
       var t = e.bizOptOutArgs,
         n = e.updateBlockListReportBlockEntryPointMixinArgs,
         r = e.itemDhash,
         a = e.updateBlockListBlockOrUpdateBlockListUnblockItemMixinGroupArgs,
         i = o("WASmaxMixins").optionalMerge(
-          E,
+          L,
           o("WASmaxJsx").smax(
             "iq",
             {
@@ -545,13 +533,13 @@ __d(
               type: "set",
               id: o("WAWap").generateId(),
             },
-            R(
+            S(
               o("WASmaxJsx").smax(
                 "item",
                 {
                   dhash: o("WASmaxAttrs").OPTIONAL(o("WAWap").CUSTOM_STRING, r),
                 },
-                o("WASmaxChildren").OPTIONAL_CHILD(C, t),
+                o("WASmaxChildren").OPTIONAL_CHILD(y, t),
               ),
               a,
             ),
@@ -560,8 +548,8 @@ __d(
         );
       return i;
     }
-    var v = { lid: "lid", pn: "pn" };
-    function S(e) {
+    var b = { lid: "lid", pn: "pn" };
+    function v(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "error");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -581,15 +569,15 @@ __d(
         ? o("WAResultOrError").makeResult({ text: n.value, code: r.value })
         : r;
     }
-    function R(e, t) {
-      if (t.updateBlockListBlockItem) return D(e, t.updateBlockListBlockItem);
+    function S(e, t) {
+      if (t.updateBlockListBlockItem) return T(e, t.updateBlockListBlockItem);
       if (t.updateBlockListUnblockItem)
-        return I(e, t.updateBlockListUnblockItem);
+        return k(e, t.updateBlockListUnblockItem);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function L(e) {
+    function R(e) {
       var t = e.entryPointSource,
         n = o("WASmaxJsx").smax(
           "iq",
@@ -600,11 +588,11 @@ __d(
         );
       return n;
     }
-    function E(e, t) {
-      var n = L(t);
+    function L(e, t) {
+      var n = R(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function k(e) {
+    function E(e) {
       var t = e.itemJid,
         n = o("WASmaxJsx").smax("item", {
           action: "unblock",
@@ -612,51 +600,51 @@ __d(
         });
       return n;
     }
-    function I(e, t) {
-      var n = k(t);
+    function k(e, t) {
+      var n = E(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function T(e) {
+    function I(e) {
       var t =
           e.updateBlockListOrUpdateBlockListNonMigratedBlockItemMixinGroupArgs,
-        n = x(o("WASmaxJsx").smax("item", { action: "block" }), t);
+        n = D(o("WASmaxJsx").smax("item", { action: "block" }), t);
       return n;
     }
-    function D(e, t) {
-      var n = T(t);
+    function T(e, t) {
+      var n = I(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function x(e, t) {
+    function D(e, t) {
       if (t.updateBlockListMigratedBlockItem)
-        return P(e, t.updateBlockListMigratedBlockItem);
+        return $(e, t.updateBlockListMigratedBlockItem);
       if (t.updateBlockListNonMigratedBlockItem)
-        return M(e, t.updateBlockListNonMigratedBlockItem);
+        return N(e, t.updateBlockListNonMigratedBlockItem);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function $(e) {
+    function x(e) {
       var t = e.itemJid,
-        n = A(o("WASmaxJsx").smax("item", { jid: o("WAWap").JID(t) }), e);
+        n = w(o("WASmaxJsx").smax("item", { jid: o("WAWap").JID(t) }), e);
       return n;
     }
-    function P(e, t) {
-      var n = $(t);
+    function $(e, t) {
+      var n = x(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function N(e) {
+    function P(e) {
       var t = e.itemJid,
         n = o("WASmaxJsx").smax("item", { jid: o("WAWap").USER_JID(t) });
       return n;
     }
-    function M(e, t) {
-      var n = N(t);
+    function N(e, t) {
+      var n = P(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function w(e) {
+    function M(e) {
       var t = e.anyCountryCode,
         n = e.blocklistIdsArgs,
-        r = F(
+        r = A(
           o("WASmaxJsx").smax("smax$any", {
             country_code: o("WASmaxAttrs").OPTIONAL(
               o("WAWap").CUSTOM_STRING,
@@ -667,88 +655,88 @@ __d(
         );
       return r;
     }
-    function A(e, t) {
-      var n = w(t);
+    function w(e, t) {
+      var n = M(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function F(e, t) {
-      if (t.username) return j(e, t.username);
-      if (t.pnJid) return V(e, t.pnJid);
-      if (t.guestNameAndDisplayName) return B(e, t.guestNameAndDisplayName);
-      if (t.displayName) return Q(e, t.displayName);
-      if (t.guestName) return q(e, t.guestName);
-      if (t.isUnknownIdentifier) return G(e);
+    function A(e, t) {
+      if (t.username) return z(e, t.username);
+      if (t.pnJid) return U(e, t.pnJid);
+      if (t.guestNameAndDisplayName) return O(e, t.guestNameAndDisplayName);
+      if (t.displayName) return K(e, t.displayName);
+      if (t.guestName) return W(e, t.guestName);
+      if (t.isUnknownIdentifier) return H(e);
       throw new (o(
         "WASmaxMixinGroupExhaustiveError",
       ).SmaxMixinGroupExhaustiveError)();
     }
-    function O(e) {
-      var t = q(Q(o("WASmaxJsx").smax("smax$any", null), e), e);
+    function F(e) {
+      var t = W(K(o("WASmaxJsx").smax("smax$any", null), e), e);
       return t;
     }
-    function B(e, t) {
-      var n = O(t);
+    function O(e, t) {
+      var n = F(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function W(e) {
+    function B(e) {
       var t = e.anyGuestName,
         n = o("WASmaxJsx").smax("smax$any", {
           guest_name: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function q(e, t) {
-      var n = W(t);
+    function W(e, t) {
+      var n = B(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function U(e) {
+    function q(e) {
       var t = e.anyPnJid,
         n = o("WASmaxJsx").smax("smax$any", { pn_jid: o("WAWap").JID(t) });
       return n;
     }
-    function V(e, t) {
-      var n = U(t);
+    function U(e, t) {
+      var n = q(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function H() {
+    function V() {
       var e = o("WASmaxJsx").smax("smax$any", { unknown_identifier: "true" });
       return e;
     }
-    function G(e) {
-      var t = H();
+    function H(e) {
+      var t = V();
       return o("WASmaxMixins").mergeStanzas(e, t);
     }
-    function z(e) {
+    function G(e) {
       var t = e.anyUsername,
         n = o("WASmaxJsx").smax("smax$any", {
           username: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function j(e, t) {
-      var n = z(t);
+    function z(e, t) {
+      var n = G(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function K(e) {
+    function j(e) {
       var t = e.anyDisplayName,
         n = o("WASmaxJsx").smax("smax$any", {
           display_name: o("WAWap").CUSTOM_STRING(t),
         });
       return n;
     }
-    function Q(e, t) {
-      var n = K(t);
+    function K(e, t) {
+      var n = j(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.sendUpdateBlockListRPC = e),
-      (l.parseUpdateBlockListResponseCAPISuccessWithMismatch = c),
-      (l.parseUpdateBlockListResponseInvalidRequest = d),
-      (l.parseUpdateBlockListResponseMigratedSuccessWithMismatch = p),
-      (l.parseUpdateBlockListResponseServerError = _),
-      (l.parseUpdateBlockListResponseSuccessWithMatch = f),
-      (l.parseUpdateBlockListResponseSuccessWithMismatch = h),
-      (l.makeUpdateBlockListRequest = b),
-      (l.ENUM_LID_PN = v));
+      (l.parseUpdateBlockListResponseCAPISuccessWithMismatch = u),
+      (l.parseUpdateBlockListResponseInvalidRequest = c),
+      (l.parseUpdateBlockListResponseMigratedSuccessWithMismatch = m),
+      (l.parseUpdateBlockListResponseServerError = p),
+      (l.parseUpdateBlockListResponseSuccessWithMatch = _),
+      (l.parseUpdateBlockListResponseSuccessWithMismatch = g),
+      (l.makeUpdateBlockListRequest = C),
+      (l.ENUM_LID_PN = b));
   },
   98,
 );

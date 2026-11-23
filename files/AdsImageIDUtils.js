@@ -14,7 +14,6 @@ __d(
     "AdsImageIDClasses",
     "FBLogger",
     "ShutterstockImageUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "immutable",
     "isFalsey",
@@ -63,7 +62,7 @@ __d(
     function c(e, t) {
       var n = o("AdsAdgroupImageUtils").getImageHash(e),
         r = o("AdsAdgroupImageUtils").getImageURL(e);
-      return v(t, n, r);
+      return b(t, n, r);
     }
     function d(e, t) {
       var n,
@@ -82,7 +81,7 @@ __d(
         a.length > 0 &&
           a.forEach(function (e) {
             if ((e == null ? void 0 : e.source) === "multi_media") {
-              var n = v(
+              var n = b(
                 t,
                 e == null ? void 0 : e.hash,
                 e == null ? void 0 : e.url,
@@ -111,7 +110,7 @@ __d(
             n != null &&
               n.length > 0 &&
               n.forEach(function (e) {
-                var n = v(t, e.hash, e.url);
+                var n = b(t, e.hash, e.url);
                 n && o.push(n);
               });
           }),
@@ -121,13 +120,13 @@ __d(
     function p(e, t, n) {
       var r = o("AdsAdgroupImageUtils").getImageHashWithPlugin(e, n),
         a = o("AdsAdgroupImageUtils").getImageURLWithPlugin(e, n);
-      return v(t, r, a);
+      return b(t, r, a);
     }
     function _(e, t, n) {
       var r = o("AdsAdgroupSpecUtils").getPlatformCustomizations(e, n),
         a = r == null ? void 0 : r.image_hash,
         i = r == null ? void 0 : r.image_url;
-      return v(t, a, i);
+      return b(t, a, i);
     }
     function f(e, t) {
       var n;
@@ -155,7 +154,7 @@ __d(
         l = Array.isArray(s) ? s : Object.values(s);
       }
       return l.map(function (e) {
-        return v(t, e.image_hash, e.picture);
+        return b(t, e.image_hash, e.picture);
       });
     }
     function g(e, t, n) {
@@ -170,42 +169,34 @@ __d(
           (a = a.video_data) == null
             ? void 0
             : a.image_hash;
-      return v(t, l, i);
+      return b(t, l, i);
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    async function h(e) {
+      try {
+        var t = await o("AdsGraphAPI")
+            .get(i.id)
+            .object("video", e)
+            .edge("thumbnails")
+            .batched()
+            .get(),
+          n = t.data;
+        if (n.length === 0) return null;
+        var a = n.find(function (e) {
+            return e.is_preferred;
+          }),
+          l = a == null ? n[0].uri : a.uri;
+        return b(null, null, l);
+      } catch (t) {
+        var s = r("getErrorSafe")(t);
+        return (
+          r("FBLogger")("ads_image_utils")
+            .catching(s)
+            .warn("Could not download thumbnail of video " + e),
+          null
+        );
+      }
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = yield o("AdsGraphAPI")
-                .get(i.id)
-                .object("video", e)
-                .edge("thumbnails")
-                .batched()
-                .get(),
-              n = t.data;
-            if (n.length === 0) return null;
-            var a = n.find(function (e) {
-                return e.is_preferred;
-              }),
-              l = a == null ? n[0].uri : a.uri;
-            return v(null, null, l);
-          } catch (t) {
-            var s = r("getErrorSafe")(t);
-            return (
-              r("FBLogger")("ads_image_utils")
-                .catching(s)
-                .warn("Could not download thumbnail of video " + e),
-              null
-            );
-          }
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
+    function y(e) {
       var t,
         n,
         r =
@@ -220,15 +211,15 @@ __d(
           ? void 0
           : n.video_id;
     }
-    function b(e) {
+    function C(e) {
       var t = e.accountID,
         n = e.hash,
         a = e.stockImageID,
         i = e.url,
         l = r("isTruthy")(a) ? o("ShutterstockImageUtils").idToURL(a) : i;
-      return v(t, n, l);
+      return b(t, n, l);
     }
-    function v(e, t, n) {
+    function b(e, t, n) {
       return r("isTruthy")(e) && r("isTruthy")(t)
         ? o("AdsImageIDClasses").AdsImageID.fromAcountAndHash(e, t)
         : r("isFalsey")(n)
@@ -237,7 +228,7 @@ __d(
             ? o("AdsImageIDClasses").AdsImageID.fromShutterstockURL(n)
             : o("AdsImageIDClasses").AdsImageID.fromExternalURL(n);
     }
-    function S(e, t) {
+    function v(e, t) {
       if (typeof t.hash == "string")
         return o("AdsImageIDClasses").AdsImageID.fromAcountAndHash(e, t.hash);
       if (typeof t.stockImageID == "string") {
@@ -251,25 +242,25 @@ __d(
             "ImageInfo must have one of accountID & hash, stockImageID, url.",
           );
     }
-    function R(e, t) {
-      return b({
+    function S(e, t) {
+      return C({
         accountID: e,
         hash: t.getAdAccountHash(),
         stockImageID: t.getStockImageID(),
         url: t.getUrl(),
       });
     }
-    function L(e, t) {
+    function R(e, t) {
       var n = r("immutable").OrderedSet();
       return (
         t.forEach(function (t) {
-          var r = S(e, t);
+          var r = v(e, t);
           n = n.add(r);
         }),
         n
       );
     }
-    function E(e, t, n) {
+    function L(e, t, n) {
       return r("isTruthy")(n)
         ? o("ShutterstockImageUtils").isStockImageURL(n)
           ? o("AdsImageIDClasses").AdsImageID.fromShutterstockURL(n)
@@ -278,7 +269,7 @@ __d(
           ? o("AdsImageIDClasses").AdsImageID.fromAcountAndHash(e, t)
           : null;
     }
-    function k(e) {
+    function E(e) {
       return e instanceof o("AdsImageIDClasses").AdsAccountImageID ||
         e instanceof o("AdsImageIDClasses").AdsBusinessImageID ||
         e instanceof o("AdsImageIDClasses").AdsExternalImageWithHashID
@@ -293,14 +284,14 @@ __d(
       (l.getMPAImageIDs = f),
       (l.getVideoThumbnail = g),
       (l.getVideoThumbnailFromVideoID = h),
-      (l.getFirstVideoID = C),
-      (l.getImageID = b),
-      (l._getImageID = v),
-      (l.getImageIDFromValidImageInfo = S),
-      (l.getImageIDFromLegacyImage = R),
-      (l.getImageIDsFromImageInfoArray = L),
-      (l.getImageIDPrimarilyFromURL = E),
-      (l.getImageHashFromID = k));
+      (l.getFirstVideoID = y),
+      (l.getImageID = C),
+      (l._getImageID = b),
+      (l.getImageIDFromValidImageInfo = v),
+      (l.getImageIDFromLegacyImage = S),
+      (l.getImageIDsFromImageInfoArray = R),
+      (l.getImageIDPrimarilyFromURL = L),
+      (l.getImageHashFromID = E));
   },
   98,
 );

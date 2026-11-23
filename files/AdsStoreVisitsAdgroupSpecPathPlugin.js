@@ -46,10 +46,11 @@ __d(
           var e = o("AdsAPIAdgroupRecordUtils").getObjectType(t);
           e === r("ApiAdObjectTypes").SHARE || s(0, 2224, e);
           var a = o("AdsAdgroupSpecUtils").getCallToAction(t),
-            i = r("getByPath")(a, r("AdsAPICallToActionPaths").TYPE);
+            i = r("getByPath")(a, r("AdsAPICallToActionPaths").TYPE),
+            l = n;
           return (
             ["GET_OFFER_VIEW", "SHOP_NOW", "ORDER_NOW"].includes(i) &&
-              (n = n.deleteIn(
+              (l = l.deleteIn(
                 r("nullthrows")(
                   r("AdsUnifiedCreativeAPIFieldMappings").VIDEO_MAPPING
                     .callToActionType,
@@ -58,7 +59,7 @@ __d(
             o("AdsAdgroupPostTypeMutators").convertTemplatePostToVideoPost(
               t,
               r("AdsAPIObjectives").STORE_VISITS,
-              n,
+              l,
             )
           );
         },

@@ -10,7 +10,6 @@ __d(
     "WAWebMediaProvenanceWriteGate",
     "WAWebMediaTypes",
     "WAWebMediaWorkerProxy",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -87,111 +86,82 @@ __d(
         }),
       );
     }
-    function b(e, t, n) {
-      return v.apply(this, arguments);
+    async function b(e, t, n) {
+      var r = y(e);
+      if (r == null) return e;
+      var a = e.mimetype,
+        i = await o("WAWebMediaWorkerProxy").writeMediaMetadataInWorker({
+          fields: t,
+          hints: a != null && a !== "" ? [a] : [],
+          input: await r.arrayBuffer(),
+          timeoutMs: h(e.type),
+        });
+      if (n.current) return e;
+      if (!i.success) return (g(i.error), e);
+      var l = new Blob([i.value], { type: r.type }),
+        s = await o("WAWebCryptoCalculateFilehash").calculateFilehashFromBlob(
+          l,
+        );
+      return s == null || s === ""
+        ? (f("filehash of the marked media was empty"), e)
+        : n.current
+          ? e
+          : (o("WALogger").LOG(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[media-sgi] embedded provenance marker type=",
+                  "",
+                ])),
+              e.type,
+            ),
+            C(e, l, s));
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var r = y(e);
-          if (r == null) return e;
-          var a = e.mimetype,
-            i = yield o("WAWebMediaWorkerProxy").writeMediaMetadataInWorker({
-              fields: t,
-              hints: a != null && a !== "" ? [a] : [],
-              input: yield r.arrayBuffer(),
-              timeoutMs: h(e.type),
-            });
-          if (n.current) return e;
-          if (!i.success) return (g(i.error), e);
-          var l = new Blob([i.value], { type: r.type }),
-            s = yield o(
-              "WAWebCryptoCalculateFilehash",
-            ).calculateFilehashFromBlob(l);
-          return s == null || s === ""
-            ? (f("filehash of the marked media was empty"), e)
-            : n.current
-              ? e
-              : (o("WALogger").LOG(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[media-sgi] embedded provenance marker type=",
-                      "",
-                    ])),
-                  e.type,
-                ),
-                C(e, l, s));
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.isChannel,
-            a = e.media,
-            i = e.resolveSystemProvenance;
-          if (
-            !t ||
-            !o("WAWebMediaProvenanceWriteGate").isMarkableMediaType(a.type)
-          )
-            return a;
-          var l = { current: !1 },
-            s = (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* () {
-                  var e = yield i();
-                  return l.current ? null : e;
-                },
-              );
-              return function () {
-                return e.apply(this, arguments);
-              };
-            })(),
-            u = "verdict";
-          try {
-            var c = yield o("WAPromiseTimeout").promiseTimeout(
-              o("WAWebMediaProvenanceWriteGate").fieldsToEmbed({
-                isChannel: t,
-                mediaType: a.type,
-                resolveSystemProvenance: s,
-              }),
-              m,
-            );
-            return c == null
-              ? a
-              : ((u = "write"),
-                yield o("WAPromiseTimeout").promiseTimeout(
-                  b(a, c, l),
-                  h(a.type),
-                ));
-          } catch (e) {
-            return e instanceof o("WACustomError").TimeoutError
-              ? ((l.current = !0),
-                o("WALogger")
-                  .WARN(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "[media-sgi] provenance marker not written: ",
-                        " deadline exceeded",
-                      ])),
-                    u,
-                  )
-                  .sendLogs("media-sgi-provenance-marker-failed"),
-                a)
-              : (f("unexpected exception", r("getErrorSafe")(e)), a);
-          }
-        })),
-        R.apply(this, arguments)
-      );
+    async function v(e) {
+      var t = e.isChannel,
+        n = e.media,
+        a = e.resolveSystemProvenance;
+      if (!t || !o("WAWebMediaProvenanceWriteGate").isMarkableMediaType(n.type))
+        return n;
+      var i = { current: !1 },
+        l = async function () {
+          var e = await a();
+          return i.current ? null : e;
+        },
+        s = "verdict";
+      try {
+        var u = await o("WAPromiseTimeout").promiseTimeout(
+          o("WAWebMediaProvenanceWriteGate").fieldsToEmbed({
+            isChannel: t,
+            mediaType: n.type,
+            resolveSystemProvenance: l,
+          }),
+          m,
+        );
+        return u == null
+          ? n
+          : ((s = "write"),
+            await o("WAPromiseTimeout").promiseTimeout(b(n, u, i), h(n.type)));
+      } catch (e) {
+        return e instanceof o("WACustomError").TimeoutError
+          ? ((i.current = !0),
+            o("WALogger")
+              .WARN(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "[media-sgi] provenance marker not written: ",
+                    " deadline exceeded",
+                  ])),
+                s,
+              )
+              .sendLogs("media-sgi-provenance-marker-failed"),
+            n)
+          : (f("unexpected exception", r("getErrorSafe")(e)), n);
+      }
     }
     ((l.VERDICT_DEADLINE_MS = m),
       (l.IMAGE_WRITE_DEADLINE_MS = p),
       (l.VIDEO_WRITE_DEADLINE_MS = _),
-      (l.writeMediaMetadataForSend = S));
+      (l.writeMediaMetadataForSend = v));
   },
   98,
 );

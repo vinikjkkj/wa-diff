@@ -12,39 +12,29 @@ __d(
     "WAWebNullFunc",
     "WAWebWamEnumDownloadOriginType",
     "WAWebWamEnumWebcRmrReasonCode",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u;
-    function c(t, a) {
+    function c(t, n) {
       return t
         .waitForPrep()
-        .then(
-          (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = a.provenanceDetectionPromise;
-                return t == null
-                  ? e
-                  : o(
-                      "WAWebMediaSendMetadataWriterLoadable",
-                    ).writeMediaMetadataForSend({
-                      isChannel:
-                        a.isNewsletterMsg === !0 || a.isNewsletterStatus === !0,
-                      media: e,
-                      resolveSystemProvenance: function () {
-                        return t.then(function (e) {
-                          return e.systemProvenance;
-                        }, o("WAWebNullFunc").returnNull);
-                      },
-                    });
-              },
-            );
-            return function (t) {
-              return e.apply(this, arguments);
-            };
-          })(),
-        )
+        .then(async function (e) {
+          var t = n.provenanceDetectionPromise;
+          return t == null
+            ? e
+            : o(
+                "WAWebMediaSendMetadataWriterLoadable",
+              ).writeMediaMetadataForSend({
+                isChannel:
+                  n.isNewsletterMsg === !0 || n.isNewsletterStatus === !0,
+                media: e,
+                resolveSystemProvenance: function () {
+                  return t.then(function (e) {
+                    return e.systemProvenance;
+                  }, o("WAWebNullFunc").returnNull);
+                },
+              });
+        })
         .then(function (e) {
           var t = e.mediaBlob;
           return t && !(t instanceof r("WAWebMediaOpaqueData"))
@@ -56,7 +46,7 @@ __d(
             : e;
         })
         .then(function (t) {
-          var n,
+          var a,
             i,
             l = t.filehash;
           l ||
@@ -70,7 +60,7 @@ __d(
               .sendLogs("media-fault: sendToChat filehash undefined");
           var c = t.mediaBlob instanceof r("WAWebMediaOpaqueData"),
             d = l != null ? l : "none",
-            m = (n = a.forwardedFromWeb) != null ? n : !1;
+            m = (a = n.forwardedFromWeb) != null ? a : !1;
           o("WALogger").LOG(
             s ||
               (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -131,22 +121,22 @@ __d(
               mediaType: o("WAWebMmsMediaTypes").msgToMediaType({
                 type: t.type,
                 isGif: t.isGif,
-                isNewsletter: a.isNewsletterMsg === !0,
+                isNewsletter: n.isNewsletterMsg === !0,
               }),
               rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
                 .SEND_TO_CHAT,
               downloadOrigin:
-                (i = a.downloadOrigin) != null
+                (i = n.downloadOrigin) != null
                   ? i
                   : o("WAWebWamEnumDownloadOriginType").DOWNLOAD_ORIGIN_TYPE
                       .CHAT_PERSONAL,
               mode: "manual",
-              chatWid: a.chatWid,
+              chatWid: n.chatWid,
             }));
           var v = babelHelpers.extends({}, p.msgProps(t));
           return (
-            (v.caption = a.caption),
-            a.isViewOnce === !0 && (v.isViewOnce = !0),
+            (v.caption = n.caption),
+            n.isViewOnce === !0 && (v.isViewOnce = !0),
             v
           );
         });

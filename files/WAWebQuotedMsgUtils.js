@@ -53,32 +53,22 @@ __d(
     function m(e) {
       var t = e.vcardList.length;
       return t > 0
-        ? s._(/*BTDS*/ '_j{"*":"{count} contacts","_1":"1 contact"}', [
-            s._plural(t, "count"),
-          ])
-        : s._(/*BTDS*/ "No contacts");
+        ? s._(/*BTDS*/ "", [s._plural(t, "count")])
+        : s._(/*BTDS*/ "");
     }
     function p(e) {
       var t;
       if (e.mediaData.parsedVcards) {
         var n = e.mediaData.parsedVcards;
         return n.length > 1
-          ? s
-              ._(/*BTDS*/ '_j{"*":"{count} contacts","_1":"1 contact"}', [
-                s._plural(n.length, "count"),
-              ])
-              .toString()
+          ? s._(/*BTDS*/ "", [s._plural(n.length, "count")]).toString()
           : o("WAWebVcardGetNameFromParsed").vcardGetNameFromParsed(n[0]) ||
-              r("fbs")._(/*BTDS*/ "Contact").toString();
+              r("fbs")._(/*BTDS*/ "").toString();
       } else if (e.pageCount != null)
-        return s
-          ._(/*BTDS*/ '_j{"*":"{count} contacts","_1":"1 contact"}', [
-            s._plural(e.pageCount, "count"),
-          ])
-          .toString();
+        return s._(/*BTDS*/ "", [s._plural(e.pageCount, "count")]).toString();
       return (
         ((t = e.mediaData) == null ? void 0 : t.filename) ||
-        r("fbs")._(/*BTDS*/ "Document").toString()
+        r("fbs")._(/*BTDS*/ "").toString()
       );
     }
     function _(e) {
@@ -123,7 +113,7 @@ __d(
         var r,
           a,
           i,
-          l = s._(/*BTDS*/ "Pix"),
+          l = s._(/*BTDS*/ ""),
           u = t.paymentSettings,
           c =
             u == null || (r = u.at(0)) == null
@@ -155,19 +145,16 @@ __d(
           ) +
             "\n" +
             s
-              ._(
-                /*BTDS*/ "Quantity {order_items_quantity} \u2022 {order_total_price}",
-                [
-                  s._param("order_items_quantity", t.quantity),
-                  s._param(
-                    "order_total_price",
-                    o("WAWebCurrencyUtils").formatAmount({
-                      amount: t.totalAmount,
-                      currency: t.currency,
-                    }),
-                  ),
-                ],
-              )
+              ._(/*BTDS*/ "", [
+                s._param("order_items_quantity", t.quantity),
+                s._param(
+                  "order_total_price",
+                  o("WAWebCurrencyUtils").formatAmount({
+                    amount: t.totalAmount,
+                    currency: t.currency,
+                  }),
+                ),
+              ])
               .toString();
     }
     function g(t) {

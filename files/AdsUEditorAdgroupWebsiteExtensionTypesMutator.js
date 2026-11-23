@@ -10,22 +10,62 @@ __d(
     "AdsAssetFeedUtils",
     "AdsAudienceDirectConfig",
     "AdsCallAddonUtils",
+    "AdsGetStandardTemplateDefaultJSONForWTM",
     "AdsGetStandardTemplateDefaultJSONHelperForWhatsAppAutofillMessage",
     "AdsInstagramBrandedContentUtils",
-    "AdsInterfacesLogger",
+    "AdsInstantBookUtils",
     "AdsMessengerVisualEditorUtils",
     "AdsMutators",
     "AdsObjectTypeUtils",
     "AdsPageUtils",
     "AdsUEditorAdgroupMessageExtensionTypesCommonMutator",
     "AdsUEditorUnifiedCreationAdgroupMutators",
+    "AdsWTWAInstantExperienceGatingUtils",
     "CTXChatBuilderFeatureGating",
+    "WAMOStatusAdsManagerUtils",
+    "WebToMessengerUtils",
+    "WebToXDefaultingUtils",
     "gkx",
     "immutable",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
+    function e(e, t, n, a, i, l) {
+      var u;
+      if (
+        o("WAMOStatusAdsManagerUtils").isOnlyWAMOStatusSelectedFromCampaign(t)
+      )
+        return e;
+      var c = r(
+        "AdsAdgroupRecordAccessors",
+      ).creative.asset_feed_spec.message_extensions.get(e);
+      return (c != null && c.count() > 0) ||
+        o(
+          "AdsWTWAInstantExperienceGatingUtils",
+        ).getWTWAInstantExperienceArmWithoutExposure() !==
+          o("AdsWTWAInstantExperienceGatingUtils").WTWAInstantExperienceArm
+            .DEFAULTED ||
+        !(
+          r("gkx")("2532") ||
+          o(
+            "WebToXDefaultingUtils",
+          ).shouldDefaultToWhatsAppForInstantExperienceAds(
+            a,
+            n,
+            t,
+            e,
+            i,
+            (u = t.toJS()) == null ||
+              (u = u.targeting) == null ||
+              (u = u.geo_locations) == null
+              ? void 0
+              : u.countries,
+          )
+        )
+        ? e
+        : s(e, l);
+    }
+    function s(e, t) {
       var n,
         r = e;
       return (
@@ -39,11 +79,11 @@ __d(
         ).setMessageExtensionTypeCommon(r, "whatsapp")
       );
     }
-    function s(e, t) {
+    function u(e, t) {
       var n,
         r = e;
       return (
-        (r = _(r)),
+        (r = g(r)),
         (r = o("AdsCallAddonUtils").clearCallExtensionFields(r, t)),
         ((n = r.creative) == null ? void 0 : n.branded_content) != null &&
           (r = o("AdsInstagramBrandedContentUtils").setPromotedPageIDforL1Ads(
@@ -54,11 +94,11 @@ __d(
         ).setMessageExtensionTypeCommon(r, "messenger")
       );
     }
-    function u(e, t) {
+    function c(e, t) {
       var n,
         r = e;
       return (
-        (r = _(r)),
+        (r = g(r)),
         (r = o("AdsCallAddonUtils").clearCallExtensionFields(r, t)),
         ((n = r.creative) == null ? void 0 : n.branded_content) != null &&
           (r = o("AdsInstagramBrandedContentUtils").setPromotedPageIDforL1Ads(
@@ -69,10 +109,10 @@ __d(
         ).setMessageExtensionTypeCommon(r, "instagram_message")
       );
     }
-    function c(e, t, n, r) {
+    function d(e, t, n, r) {
       var a,
         i = e;
-      ((i = _(i)),
+      ((i = g(i)),
         (i = o("AdsCallAddonUtils").clearCallExtensionFields(i, n)),
         ((a = i.creative) == null ? void 0 : a.branded_content) != null &&
           (i = o("AdsInstagramBrandedContentUtils").setPromotedPageIDforL1Ads(
@@ -93,7 +133,7 @@ __d(
                 : t[0] === "whatsapp"
                   ? "whatsapp"
                   : null;
-          i = f(i, l, s, r);
+          i = h(i, l, s, r);
         }
         return o(
           "AdsUEditorAdgroupMessageExtensionTypesCommonMutator",
@@ -103,7 +143,16 @@ __d(
         "AdsUEditorAdgroupMessageExtensionTypesCommonMutator",
       ).setMessageExtensionTypeCommon(i, "none");
     }
-    function d(e, t) {
+    function m(e, t) {
+      var n = p(e, t);
+      return r(
+        "AdsAdgroupRecordAccessors",
+      ).creative.asset_feed_spec.instant_book_configuration.is_enabled.set(
+        !0,
+        n,
+      );
+    }
+    function p(e, t) {
       var n,
         a = e;
       if (((n = a.creative) == null ? void 0 : n.branded_content) != null) {
@@ -115,75 +164,68 @@ __d(
             : i.promoted_page_id.delete(a);
       }
       return (
-        (a = _(a)),
+        (a = g(a)),
         (a = o("AdsCallAddonUtils").clearCallExtensionFields(a, t)),
         o(
           "AdsUEditorAdgroupMessageExtensionTypesCommonMutator",
         ).cleanMessageExtensionFieldsCommon(a)
       );
     }
-    function m(e, t, n, a) {
-      var i,
-        l = o("AdsAssetFeedUtils").isPACAdgroupFromRecord(e),
-        s = o("AdsAssetFeedUtils").isDLOAdgroupFromRecord(e),
-        u = o("AdsAssetFeedUtils").isRegularDCOAdgroupFromRecord(e),
-        c = o("AdsObjectTypeUtils").isTemplateCreative(e),
-        d = o(
+    function _(e, t, n, a, i) {
+      var l,
+        s = o("AdsAssetFeedUtils").isPACAdgroupFromRecord(e),
+        u = o("AdsAssetFeedUtils").isDLOAdgroupFromRecord(e),
+        c = o("AdsAssetFeedUtils").isRegularDCOAdgroupFromRecord(e),
+        d = o("AdsObjectTypeUtils").isTemplateCreative(e),
+        m = o(
           "AdsAPIAdgroupRecordUtils",
         ).isFlexibleFormatAdOrCreativeAssetGroup(e);
-      if (l || s || u || d || c) return e;
-      var m = e,
-        p =
-          (i = e.creative) == null || (i = i.object_story_spec) == null
+      if (s || u || c || m || d) return e;
+      var p = e,
+        _ =
+          (l = e.creative) == null || (l = l.object_story_spec) == null
             ? void 0
-            : i.video_data;
+            : l.video_data;
       return (
-        p
-          ? ((m = r(
+        _
+          ? ((p = r(
               "AdsAdgroupRecordAccessors",
             ).creative.object_story_spec.video_data.call_to_action.value.link.set(
               t,
-              m,
+              p,
             )),
             r(
               "AdsAdgroupRecordAccessors",
             ).creative.object_story_spec.video_data.call_to_action.type.get(
-              m,
+              p,
             ) == null &&
-              (m = r(
+              (p = r(
                 "AdsAdgroupRecordAccessors",
               ).creative.object_story_spec.video_data.call_to_action.type.set(
                 r("gkx")("14839") ? "SEE_DETAILS" : "LEARN_MORE",
-                m,
+                p,
               )))
-          : ((m = r(
+          : ((p = r(
               "AdsAdgroupRecordAccessors",
-            ).creative.object_story_spec.link_data.link.set(t, m)),
+            ).creative.object_story_spec.link_data.link.set(t, p)),
             r(
               "AdsAdgroupRecordAccessors",
-            ).creative.object_story_spec.link_data.call_to_action.type.get(m) ==
+            ).creative.object_story_spec.link_data.call_to_action.type.get(p) ==
               null &&
-              (m = r(
+              (p = r(
                 "AdsAdgroupRecordAccessors",
               ).creative.object_story_spec.link_data.call_to_action.type.set(
                 r("gkx")("14839") ? "SEE_DETAILS" : "LEARN_MORE",
-                m,
+                p,
               ))),
         o("AdsAdgroupConnectedSourcesMutators").syncSourceUrlIfUnsetMutator(
-          m,
+          p,
           t,
+          i,
         )
       );
     }
-    function p(e, t, n, a, i, l) {
-      r("AdsInterfacesLogger").log({
-        eventName: "website_flexible_format_defaulting",
-        data: {
-          adgroup_id: e.id,
-          ad_account_id: e.account_id,
-          message: l != null ? l : "null",
-        },
-      });
+    function f(e, t, n, a, i, l) {
       var s = r("AdsAdgroupSpecPathPluginResolver").resolve({
           accountType: r("AdsAudienceDirectConfig").accountType,
           objective: a,
@@ -228,7 +270,7 @@ __d(
         )(e)
       );
     }
-    function _(e) {
+    function g(e) {
       var t,
         n = e;
       if (
@@ -248,7 +290,8 @@ __d(
       }
       return n;
     }
-    function f(e, t, n, a) {
+    function h(e, t, n, a, i) {
+      if (o("WebToMessengerUtils").isWebsiteAndMessagesCampaign(i)) return e;
       switch (n) {
         case "messaging_apps":
           return e;
@@ -261,19 +304,12 @@ __d(
               a,
             )
           ) {
-            var i = JSON.stringify(
-              o("AdsMessengerVisualEditorUtils").getStandardTemplateDefaultJSON(
-                t,
-                null,
-                null,
-                !1,
-                n,
-                a,
-              ),
+            var l = JSON.stringify(
+              r("AdsGetStandardTemplateDefaultJSONForWTM")(t, a),
             );
             return o(
               "AdsUEditorUnifiedCreationAdgroupMutators",
-            ).setWelcomeMessageForAdgroup(e, i);
+            ).setWelcomeMessageForAdgroup(e, l);
           }
           break;
         case "whatsapp":
@@ -285,14 +321,14 @@ __d(
               a,
             )
           ) {
-            var l = JSON.stringify(
+            var s = JSON.stringify(
               r(
                 "AdsGetStandardTemplateDefaultJSONHelperForWhatsAppAutofillMessage",
               )(t),
             );
             return o(
               "AdsUEditorUnifiedCreationAdgroupMutators",
-            ).setWelcomeMessageForAdgroup(e, l);
+            ).setWelcomeMessageForAdgroup(e, s);
           }
           break;
         case "instagram_direct":
@@ -304,7 +340,7 @@ __d(
               a,
             )
           ) {
-            var s = JSON.stringify(
+            var u = JSON.stringify(
               o("AdsMessengerVisualEditorUtils").getStandardTemplateDefaultJSON(
                 t,
                 null,
@@ -316,7 +352,7 @@ __d(
             );
             return o(
               "AdsUEditorUnifiedCreationAdgroupMutators",
-            ).setWelcomeMessageForAdgroup(e, s);
+            ).setWelcomeMessageForAdgroup(e, u);
           }
           break;
         default:
@@ -345,15 +381,42 @@ __d(
           )
         : e;
     }
-    ((l.setWhatsAppWebsiteExtensionType = e),
-      (l.setMessengerWebsiteExtensionType = s),
-      (l.setInstagramDirectWebsiteExtensionType = u),
-      (l.setMessagingAppsWebsiteExtensionType = c),
-      (l.cleanWebsiteExtensionFields = d),
-      (l.setStickyWeblinkPrefill = m),
-      (l.setFlexibleFormatFields = p),
-      (l.cleanWhatsAppExtensionMultiNumberFields = _),
-      (l.setPageWelcomeMessageOnWebsiteExtensionTypeSelection = f));
+    function y(e) {
+      var t;
+      return (
+        ((t = e.creative) == null || (t = t.asset_feed_spec) == null
+          ? void 0
+          : t.message_extensions) != null ||
+        o("AdsCallAddonUtils").isCallAddonSelected(e) ||
+        o("AdsInstantBookUtils").isInstantBookSelected(e)
+      );
+    }
+    function C(e, t) {
+      if (!y(e)) return t;
+      var n = r("AdsAdgroupRecordAccessors").creative.asset_feed_spec,
+        o = t,
+        a = n.message_extensions.get(e);
+      a != null && (o = n.message_extensions.set(a, o));
+      var i = n.additional_data.page_whatsapp_number_id.get(e);
+      i != null && (o = n.additional_data.page_whatsapp_number_id.set(i, o));
+      var l = n.call_ads_configuration.get(e);
+      l != null && (o = n.call_ads_configuration.set(l, o));
+      var s = n.instant_book_configuration.get(e);
+      return (s != null && (o = n.instant_book_configuration.set(s, o)), o);
+    }
+    ((l.maybeDefaultWhatsAppAddOnForWTWAIX = e),
+      (l.setWhatsAppWebsiteExtensionType = s),
+      (l.setMessengerWebsiteExtensionType = u),
+      (l.setInstagramDirectWebsiteExtensionType = c),
+      (l.setMessagingAppsWebsiteExtensionType = d),
+      (l.setInstantBookWebsiteExtensionType = m),
+      (l.cleanWebsiteExtensionFields = p),
+      (l.setStickyWeblinkPrefill = _),
+      (l.setFlexibleFormatFields = f),
+      (l.cleanWhatsAppExtensionMultiNumberFields = g),
+      (l.setPageWelcomeMessageOnWebsiteExtensionTypeSelection = h),
+      (l.hasBrowserAddOn = y),
+      (l.restoreBrowserAddOn = C));
   },
   98,
 );

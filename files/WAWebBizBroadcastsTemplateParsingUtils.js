@@ -7,7 +7,7 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
-      var t = s._(/*BTDS*/ "Add a phone number here").toString();
+      var t = s._(/*BTDS*/ "").toString();
       if (e)
         return (
           c() +
@@ -16,7 +16,7 @@ __d(
           "\n\n" +
           t
         );
-      var n = s._(/*BTDS*/ "Add a name here").toString();
+      var n = s._(/*BTDS*/ "").toString();
       return (
         u() +
         "\n\n" +
@@ -31,28 +31,22 @@ __d(
     }
     function u() {
       return s
-        ._(
-          /*BTDS*/ "Enter each recipient's full name and phone number on a separate row. You can add up to {recipient-limit} recipients to an audience.",
-          [
-            s._param(
-              "recipient-limit",
-              o("WAWebBizBroadcastsRecipientUtils").getRecipientLimit(),
-            ),
-          ],
-        )
+        ._(/*BTDS*/ "", [
+          s._param(
+            "recipient-limit",
+            o("WAWebBizBroadcastsRecipientUtils").getRecipientLimit(),
+          ),
+        ])
         .toString();
     }
     function c() {
       return s
-        ._(
-          /*BTDS*/ "Enter each recipient's phone number on a separate row. You can add up to {recipient-limit} recipients to an audience.",
-          [
-            s._param(
-              "recipient-limit",
-              o("WAWebBizBroadcastsRecipientUtils").getRecipientLimit(),
-            ),
-          ],
-        )
+        ._(/*BTDS*/ "", [
+          s._param(
+            "recipient-limit",
+            o("WAWebBizBroadcastsRecipientUtils").getRecipientLimit(),
+          ),
+        ])
         .toString();
     }
     function d(t) {

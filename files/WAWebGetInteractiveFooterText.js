@@ -53,19 +53,11 @@ __d(
           ) {
             if (m == null) return null;
             var f = e.format(Number(m) * 1e3);
-            return s
-              ._(/*BTDS*/ "Placed on {order_date}", [s._param("order_date", f)])
-              .toString();
+            return s._(/*BTDS*/ "", [s._param("order_date", f)]).toString();
           }
           if (_) return _.courier_name + " \u2022 " + _.tracking_ref;
-          var g = r("isStringNullOrEmpty")(p)
-            ? s._(/*BTDS*/ "Not available")
-            : p;
-          return s
-            ._(/*BTDS*/ "Shipping method: {shipping_method}", [
-              s._param("shipping_method", g),
-            ])
-            .toString();
+          var g = r("isStringNullOrEmpty")(p) ? s._(/*BTDS*/ "") : p;
+          return s._(/*BTDS*/ "", [s._param("shipping_method", g)]).toString();
         }
       }
       return n;

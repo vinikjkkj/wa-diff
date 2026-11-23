@@ -7,21 +7,21 @@ __d(
         value: o("WAWebWindowsTaskbarNotificationOption")
           .TaskbarNotificationOption.Always,
         label: function () {
-          return s._(/*BTDS*/ "Always");
+          return s._(/*BTDS*/ "");
         },
       },
       {
         value: o("WAWebWindowsTaskbarNotificationOption")
           .TaskbarNotificationOption.Never,
         label: function () {
-          return s._(/*BTDS*/ "Never");
+          return s._(/*BTDS*/ "");
         },
       },
       {
         value: o("WAWebWindowsTaskbarNotificationOption")
           .TaskbarNotificationOption.OnlyWhenAppIsOpen,
         label: function () {
-          return s._(/*BTDS*/ "Only when app is open");
+          return s._(/*BTDS*/ "");
         },
       },
     ];

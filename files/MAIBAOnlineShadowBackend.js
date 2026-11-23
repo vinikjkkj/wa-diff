@@ -1,62 +1,56 @@
 __d(
   "MAIBAOnlineShadowBackend",
-  ["MAIBAGKUtils", "asyncToGeneratorRuntime"],
+  ["MAIBAGKUtils"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      return s.apply(this, arguments);
+    async function e(e, t) {
+      return e != null ? e : await t();
     }
     function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return e != null ? e : yield t();
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u() {
       var e = [];
       return (
         o("MAIBAGKUtils").isMAIBAR23BoostV1MuseShadowEnabled() &&
           e.push({ backend: "MUSE", museVariant: "v1_muse" }),
-        o("MAIBAGKUtils").isMAIBAR23BoostV2MuseShadowEnabled() &&
-          e.push({ backend: "MUSE", museVariant: "v2_muse" }),
+        o("MAIBAGKUtils").isMAIBAR23BoostV1MuseLowShadowEnabled() &&
+          e.push({ backend: "MUSE", museVariant: "v1_muse_low" }),
         e
       );
     }
-    function c(e, t, n, r) {
-      var o,
-        a = e.inlined_context;
-      if (a == null) return null;
-      var i = (o = a.entrypoint_client_context) != null ? o : {},
-        l = i.additional_info,
-        s = {};
-      if (l != null)
+    function u(e, t, n, r, o, a) {
+      var i,
+        l = e.inlined_context;
+      if (l == null) return null;
+      var s = (i = l.entrypoint_client_context) != null ? i : {},
+        u = s.additional_info,
+        c = {};
+      if (u != null)
         try {
-          var u = JSON.parse(l);
-          typeof u == "object" && u != null && !Array.isArray(u)
-            ? (s = u)
-            : (s = { original_additional_info: l });
+          var d = JSON.parse(u);
+          typeof d == "object" && d != null && !Array.isArray(d)
+            ? (c = d)
+            : (c = { original_additional_info: u });
         } catch (e) {
-          s = { original_additional_info: l };
+          c = { original_additional_info: u };
         }
       return (
-        (s.is_online_shadow_mirror = !0),
-        (s.online_shadow_backend = t),
-        r != null && (s.muse_shadow_variant = r),
-        n != null && (s.online_shadow_parent_conversation_id = n),
+        (c.is_online_shadow_mirror = !0),
+        (c.online_shadow_backend = t),
+        r != null && (c.muse_shadow_variant = r),
+        n != null && (c.online_shadow_parent_conversation_id = n),
+        o != null && (c.original_message_otid = o),
+        a != null && (c.original_message_conversation_id = a),
         babelHelpers.extends({}, e, {
-          inlined_context: babelHelpers.extends({}, a, {
-            entrypoint_client_context: babelHelpers.extends({}, i, {
-              additional_info: JSON.stringify(s),
+          inlined_context: babelHelpers.extends({}, l, {
+            entrypoint_client_context: babelHelpers.extends({}, s, {
+              additional_info: JSON.stringify(c),
             }),
           }),
         })
       );
     }
     ((l.resolveOnlineShadowBaseClientContext = e),
-      (l.getEnabledBoostMuseShadowLegs = u),
-      (l.addOnlineShadowMarkerToClientContext = c));
+      (l.getEnabledBoostMuseShadowLegs = s),
+      (l.addOnlineShadowMarkerToClientContext = u));
   },
   98,
 );

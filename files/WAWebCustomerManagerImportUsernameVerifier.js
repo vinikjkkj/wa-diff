@@ -5,85 +5,71 @@ __d(
     "WAWebContactImportTypedError",
     "WAWebCustomerManagerImportTemplateUtils",
     "WAWebCustomerManagerUsernamesQuery",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
+    async function s(t) {
+      var n = t.map(c),
+        a = [],
+        i = new Set();
+      if (
+        (n.forEach(function (e) {
+          e != null &&
+            !i.has(e.lid) &&
+            (i.add(e.lid), a.push({ lid: e.lid, expectedUsername: e.typed }));
+        }),
+        a.length === 0)
+      )
+        return { errorList: [], validContacts: t };
+      var l;
+      try {
+        l = await o("WAWebCustomerManagerUsernamesQuery").fetchUsernamesByLid(
+          a,
+        );
+      } catch (n) {
+        return (
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] username lookup failed for ",
+                  " rows; importing without username verification",
+                ])),
+              a.length,
+            )
+            .catching(r("getErrorSafe")(n))
+            .sendLogs("cm-import-username-lookup-failed"),
+          { errorList: [], validContacts: t }
+        );
+      }
+      var s = [],
+        m = [];
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.map(d),
-            a = [],
-            i = new Set();
-          if (
-            (n.forEach(function (e) {
-              e != null &&
-                !i.has(e.lid) &&
-                (i.add(e.lid),
-                a.push({ lid: e.lid, expectedUsername: e.typed }));
-            }),
-            a.length === 0)
-          )
-            return { errorList: [], validContacts: t };
-          var l;
-          try {
-            l = yield o(
-              "WAWebCustomerManagerUsernamesQuery",
-            ).fetchUsernamesByLid(a);
-          } catch (n) {
-            return (
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] username lookup failed for ",
-                      " rows; importing without username verification",
-                    ])),
-                  a.length,
-                )
-                .catching(r("getErrorSafe")(n))
-                .sendLogs("cm-import-username-lookup-failed"),
-              { errorList: [], validContacts: t }
-            );
+        t.forEach(function (e, t) {
+          var r,
+            a = n[t];
+          if (a == null || !l.has(a.lid)) {
+            s.push(e);
+            return;
           }
-          var s = [],
-            u = [];
-          return (
-            t.forEach(function (e, t) {
-              var r,
-                a = n[t];
-              if (a == null || !l.has(a.lid)) {
-                s.push(e);
-                return;
-              }
-              var i = l.get(a.lid);
-              if (i != null && m(i) === m(a.typed)) {
-                s.push(c(e, i));
-                return;
-              }
-              u.push({
-                errorType: o("WAWebContactImportTypedError").UsernameError
-                  .MISMATCH,
-                rowData: babelHelpers.extends(
-                  {},
-                  (r = e.rawRow) != null ? r : {},
-                ),
-                rowIndex: e.rowIndex,
-                contactIndex: null,
-                type: "error",
-              });
-            }),
-            { errorList: u, validContacts: s }
-          );
-        })),
-        u.apply(this, arguments)
+          var i = l.get(a.lid);
+          if (i != null && d(i) === d(a.typed)) {
+            s.push(u(e, i));
+            return;
+          }
+          m.push({
+            errorType: o("WAWebContactImportTypedError").UsernameError.MISMATCH,
+            rowData: babelHelpers.extends({}, (r = e.rawRow) != null ? r : {}),
+            rowIndex: e.rowIndex,
+            contactIndex: null,
+            type: "error",
+          });
+        }),
+        { errorList: m, validContacts: s }
       );
     }
-    function c(e, t) {
+    function u(e, t) {
       var n,
         r = e.rawRow;
       if (r == null) return e;
@@ -103,14 +89,14 @@ __d(
             rawRow: babelHelpers.extends({}, r, ((n = {}), (n[a] = t), n)),
           });
     }
-    function d(e) {
+    function c(e) {
       var t = o(
           "WAWebCustomerManagerImportTemplateUtils",
         ).readCustomerManagerImportColumn(e, "username"),
         n = e.lid;
       return t == null || n == null ? null : { lid: n, typed: t };
     }
-    function m(e) {
+    function d(e) {
       return e.trim().replace(/^@/, "").toLowerCase();
     }
     l.detectUsernameMismatches = s;

@@ -7,6 +7,7 @@ __d(
     "AdsAPIObjectives",
     "AdsAPITargetFields",
     "AdsBuyingTypes",
+    "AdsCTVUtils",
     "AdsCampaignCtvInstreamVideoPositionValidator",
     "AdsCampaignPlacementAddDataActionFlux",
     "AdsMutators",
@@ -27,19 +28,27 @@ __d(
         r("AdsAPIObjectives").OUTCOME_SALES,
         r("AdsAPIObjectives").OUTCOME_AWARENESS,
       ]),
-      c = {
+      c = o("AdsCTVUtils").isCTVBetaEnabled() ? s._(/*BTDS*/ "") : null,
+      d = {
         type: "placements/position",
-        key: "audience_network/ctv_instream_video",
-        name: r("AdsPlacementPositionLabelConstant").ctv_instream_video,
-        nameWithPlatform: r("AdsPlacementPositionLabelWithPlatformConstant")
-          .audience_network.ctv_instream_video,
-        platformKey: "audience_network",
+        key: "streaming_services/ctv_instream_video",
+        name:
+          c != null
+            ? c
+            : r("AdsPlacementPositionLabelConstant").ctv_instream_video,
+        nameWithPlatform:
+          c != null
+            ? c
+            : r("AdsPlacementPositionLabelWithPlatformConstant")
+                .streaming_services.ctv_instream_video,
+        platformKey: "streaming_services",
         apiPosition: "ctv_instream_video",
         placementImage: u("1177090"),
         placementPreviewImage: u("1177090"),
-        placementInfo: s._(
-          /*BTDS*/ "Reach people streaming content on TV screens.",
-        ),
+        placementInfo: o("AdsCTVUtils").isCTVBetaEnabled()
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ ""),
+        isNewPlacement: o("AdsCTVUtils").isCTVBetaEnabled(),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION
             .AN_CTV_INSTREAM_VIDEO,
@@ -47,6 +56,12 @@ __d(
         },
         isEnabled: function (t) {
           return r("gkx")("23904");
+        },
+        shouldHideInPlacementUI: function (n) {
+          return (
+            !e.includes(n.objective) ||
+            n.buyingType !== r("AdsBuyingTypes").AUCTION
+          );
         },
         getIneligibilityReason: function (n) {
           if (!r("gkx")("23904"))
@@ -58,7 +73,7 @@ __d(
           if (n.buyingType !== r("AdsBuyingTypes").AUCTION)
             return o("AdsPlacementIneligibilityReason").createBuyingTypeReason(
               n.buyingType,
-              c.key,
+              d.key,
             );
           if (
             n.spec != null &&
@@ -82,7 +97,7 @@ __d(
         isActive: function (t) {
           return r("AdsPlacementAPISpecReaderUtils").isActivePosition(
             t,
-            "audience_network",
+            "streaming_services",
             "ctv_instream_video",
           );
         },
@@ -107,25 +122,25 @@ __d(
           switch (e.type) {
             case o("AdsUEditorCampaignPlacementSetActionFlux").actionType:
               return e.removeGroups.includes(
-                "audience_network/ctv_instream_video",
+                "streaming_services/ctv_instream_video",
               )
                 ? o("AdsMutators").mutateEach(t, e.campaignIDs, function (t) {
                     return o("AdsPlacementAPISpecWriterUtils").removeGroup(
                       t,
-                      "audience_network/ctv_instream_video",
+                      "streaming_services/ctv_instream_video",
                       e.eligibilityInformation,
-                      r("AdsAPITargetFields").AUDIENCE_NETWORK_POSITIONS,
-                      "audience_network",
+                      r("AdsAPITargetFields").STREAMING_SERVICES_POSITIONS,
+                      "streaming_services",
                     );
                   })
-                : e.addGroups.includes("audience_network/ctv_instream_video")
+                : e.addGroups.includes("streaming_services/ctv_instream_video")
                   ? o("AdsMutators").mutateEach(t, e.campaignIDs, function (t) {
                       return o("AdsPlacementAPISpecWriterUtils").addGroup(
                         t,
-                        "audience_network/ctv_instream_video",
+                        "streaming_services/ctv_instream_video",
                         e.eligibilityInformation,
-                        r("AdsAPITargetFields").AUDIENCE_NETWORK_POSITIONS,
-                        "audience_network",
+                        r("AdsAPITargetFields").STREAMING_SERVICES_POSITIONS,
+                        "streaming_services",
                       );
                     })
                   : t;
@@ -135,8 +150,8 @@ __d(
                   t,
                   e.pluginKey,
                   e.eligibilityInformation,
-                  r("AdsAPITargetFields").AUDIENCE_NETWORK_POSITIONS,
-                  "audience_network",
+                  r("AdsAPITargetFields").STREAMING_SERVICES_POSITIONS,
+                  "streaming_services",
                 );
               });
             case o("AdsUEditorCampaignPlacementRemoveActionFlux").actionType:
@@ -148,8 +163,8 @@ __d(
                     t,
                     e.pluginKey,
                     e.eligibilityInformation,
-                    r("AdsAPITargetFields").AUDIENCE_NETWORK_POSITIONS,
-                    "audience_network",
+                    r("AdsAPITargetFields").STREAMING_SERVICES_POSITIONS,
+                    "streaming_services",
                   );
                 },
               );
@@ -157,8 +172,8 @@ __d(
           return t;
         },
       },
-      d = c;
-    l.default = d;
+      m = d;
+    l.default = m;
   },
   226,
 );

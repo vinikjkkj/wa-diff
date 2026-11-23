@@ -7,7 +7,6 @@ __d(
     "WAWebOmittedConversationMetadataLookup",
     "WAWebOrchestratorNonPersistedJob",
     "WAWebSchemaChat",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     function e(e) {
@@ -22,34 +21,24 @@ __d(
         )
         .waitUntilCompleted({ chatId: e });
     }
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (
-            !o(
-              "WAWebOmittedConversationMetadataGating",
-            ).isOmittedConversationMetadataEnabled() ||
-            !o(
-              "WAWebOmittedConversationMetadataCapabilities",
-            ).canReadOmittedMetadata()
-          )
-            return { status: "none" };
-          var t = yield o("WAWebSchemaChat")
-            .getChatTable()
-            .get(e.toString(), !1);
-          if (t == null) return { status: "none" };
-          var n = yield o(
-            "WAWebOmittedConversationMetadataLookup",
-          ).getOmittedMetadataIdentityForChat(t);
-          return n == null
-            ? { status: "none" }
-            : { status: "available", historyJid: n.historyId };
-        })),
-        u.apply(this, arguments)
-      );
+    async function s(e) {
+      if (
+        !o(
+          "WAWebOmittedConversationMetadataGating",
+        ).isOmittedConversationMetadataEnabled() ||
+        !o(
+          "WAWebOmittedConversationMetadataCapabilities",
+        ).canReadOmittedMetadata()
+      )
+        return { status: "none" };
+      var t = await o("WAWebSchemaChat").getChatTable().get(e.toString(), !1);
+      if (t == null) return { status: "none" };
+      var n = await o(
+        "WAWebOmittedConversationMetadataLookup",
+      ).getOmittedMetadataIdentityForChat(t);
+      return n == null
+        ? { status: "none" }
+        : { status: "available", historyJid: n.historyId };
     }
     ((l.getOmittedMetadataIndication = e),
       (l.readOmittedMetadataIndication = s));

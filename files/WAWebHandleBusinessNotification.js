@@ -28,7 +28,6 @@ __d(
     "WAWebProductTypes",
     "WAWebSubscriptionNotificationDelivery",
     "WAWebSubscriptions",
-    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -211,33 +210,25 @@ __d(
       }
       return babelHelpers.extends({ type: "unknown" }, t);
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function c(t) {
+      var n = s.parse(t);
+      if (n.error)
+        throw (
+          o("WALogger").ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "Parsing Error: ",
+                "",
+              ])),
+            n.error.toString(),
+          ),
+          n.error
+        );
+      var r = n.success,
+        a = await p(r);
+      return f(r.stanzaId, r.from, a);
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = s.parse(t);
-          if (n.error)
-            throw (
-              o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "Parsing Error: ",
-                    "",
-                  ])),
-                n.error.toString(),
-              ),
-              n.error
-            );
-          var r = n.success,
-            a = yield _(r);
-          return h(r.stanzaId, r.from, a);
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e) {
+    function d(e) {
       var t = o("WAWebBackendJobsCommon").getNonCriticalNotificationPriority(
         !!e.attrs.offline,
       );
@@ -251,237 +242,214 @@ __d(
         )
         .waitUntilCompleted({ node: e });
     }
-    var p = n("$InternalEnum").Mirrored(["Handled", "SideListOutOfDate"]);
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          e: {
-            var t = e;
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "verified_name_hash"
-            ) {
-              var n = t,
-                r = yield o(
-                  "WAWebHandleBusinessNameChange",
-                ).handleVerifiedBusinessNameNotificationHash(n);
-              return g(r);
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "verified_name_jid"
-            ) {
-              var a = t;
-              return (
-                yield o(
-                  "WAWebHandleBusinessNameChange",
-                ).handleVerifiedBusinessNameNotificationContact(a),
-                p.Handled
-              );
-              break e;
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "remove_hash"
-            ) {
-              var i = t,
-                l = yield o(
-                  "WAWebHandleBusinessRemoval",
-                ).handleBusinessRemovalNotificationHash(i);
-              return g(l);
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "remove_jid"
-            ) {
-              var s = t;
-              return (
-                yield o(
-                  "WAWebHandleBusinessRemoval",
-                ).handleBusinessRemovalNotificationContact(s),
-                p.Handled
-              );
-              break e;
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "profile"
-            ) {
-              var u = t;
-              return (
-                yield o("WAWebHandleBusinessProfile").handleBusinessProfile(u),
-                p.Handled
-              );
-              break e;
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "profile_hash"
-            ) {
-              var c = t,
-                d = yield o(
-                  "WAWebHandleBusinessProfile",
-                ).handleBusinessProfileHash(c);
-              return g(d);
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "product"
-            ) {
-              var m = t;
-              return (
-                yield o(
-                  "WAWebHandleBusinessProductCatalogNotification",
-                ).handleProductNotification(m.productsIds),
-                p.Handled
-              );
-              break e;
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "collection"
-            ) {
-              var _ = t;
-              return (
-                yield o(
-                  "WAWebHandleBusinessProductCatalogNotification",
-                ).handleCollectionNotification(_),
-                p.Handled
-              );
-              break e;
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "subscriptions"
-            ) {
-              var f = t;
-              yield o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
-                f.subscriptions,
-                f.featureFlags,
-                "update",
-              );
-              var h = f.uiNotification;
-              return (
-                h != null &&
-                  o(
-                    "WAWebSubscriptionNotificationDelivery",
-                  ).deliverSubscriptionNotification(h),
-                p.Handled
-              );
-              break e;
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "ctwa_suggestion"
-            ) {
-              var y = t;
-              return (
-                yield o("WAWebHandleCTWASuggestion").handleCTWASuggestion(
-                  y.suggestion,
-                ),
-                p.Handled
-              );
-              break e;
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "privacy"
-            ) {
-              var C = t;
-              return (
-                o(
-                  "WAWebHandlePrivacySettingsNotification",
-                ).handleSmbDataSharingSettingNotification(
-                  C.privacy.smbDataSharingSetting,
-                  C.privacy.smbDataSharingVersion,
-                ),
-                p.Handled
-              );
-              break e;
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "wa_ad_account_nonce"
-            ) {
-              var b = t;
-              return (
-                o(
-                  "WAWebCTWABizAccessTokenNonceManager",
-                ).setNonceFromPushNotification(b.nonce),
-                p.Handled
-              );
-              break e;
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "mm_campaign"
-            ) {
-              var v = t;
-              return (
-                o(
-                  "WAWebHandleBizBroadcastMarketingCampaignNotification",
-                ).handleMarketingCampaignNotification(v),
-                p.Handled
-              );
-              break e;
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "bb_pro_campaign"
-            ) {
-              var S = t;
-              return (
-                o(
-                  "WAWebHandleBizBroadcastProCampaignNotification",
-                ).handleBizBroadcastProCampaignNotification(S.campaignId),
-                p.Handled
-              );
-              break e;
-            }
-            if (
-              ((typeof t == "object" && t !== null) ||
-                typeof t == "function") &&
-              t.type === "unknown"
-            )
-              return p.Handled;
-            throw Error(
-              "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
-                t,
+    var m = n("$InternalEnum").Mirrored(["Handled", "SideListOutOfDate"]);
+    async function p(e) {
+      e: {
+        var t = e;
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "verified_name_hash"
+        ) {
+          var n = t,
+            r = await o(
+              "WAWebHandleBusinessNameChange",
+            ).handleVerifiedBusinessNameNotificationHash(n);
+          return _(r);
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "verified_name_jid"
+        ) {
+          var a = t;
+          return (
+            await o(
+              "WAWebHandleBusinessNameChange",
+            ).handleVerifiedBusinessNameNotificationContact(a),
+            m.Handled
+          );
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "remove_hash"
+        ) {
+          var i = t,
+            l = await o(
+              "WAWebHandleBusinessRemoval",
+            ).handleBusinessRemovalNotificationHash(i);
+          return _(l);
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "remove_jid"
+        ) {
+          var s = t;
+          return (
+            await o(
+              "WAWebHandleBusinessRemoval",
+            ).handleBusinessRemovalNotificationContact(s),
+            m.Handled
+          );
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "profile"
+        ) {
+          var u = t;
+          return (
+            await o("WAWebHandleBusinessProfile").handleBusinessProfile(u),
+            m.Handled
+          );
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "profile_hash"
+        ) {
+          var c = t,
+            d = await o("WAWebHandleBusinessProfile").handleBusinessProfileHash(
+              c,
             );
-          }
-        })),
-        f.apply(this, arguments)
-      );
+          return _(d);
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "product"
+        ) {
+          var p = t;
+          return (
+            await o(
+              "WAWebHandleBusinessProductCatalogNotification",
+            ).handleProductNotification(p.productsIds),
+            m.Handled
+          );
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "collection"
+        ) {
+          var f = t;
+          return (
+            await o(
+              "WAWebHandleBusinessProductCatalogNotification",
+            ).handleCollectionNotification(f),
+            m.Handled
+          );
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "subscriptions"
+        ) {
+          var g = t;
+          await o("WAWebSubscriptions").applySubscriptionsAndFeatureFlags(
+            g.subscriptions,
+            g.featureFlags,
+            "update",
+          );
+          var h = g.uiNotification;
+          return (
+            h != null &&
+              o(
+                "WAWebSubscriptionNotificationDelivery",
+              ).deliverSubscriptionNotification(h),
+            m.Handled
+          );
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "ctwa_suggestion"
+        ) {
+          var y = t;
+          return (
+            await o("WAWebHandleCTWASuggestion").handleCTWASuggestion(
+              y.suggestion,
+            ),
+            m.Handled
+          );
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "privacy"
+        ) {
+          var C = t;
+          return (
+            o(
+              "WAWebHandlePrivacySettingsNotification",
+            ).handleSmbDataSharingSettingNotification(
+              C.privacy.smbDataSharingSetting,
+              C.privacy.smbDataSharingVersion,
+            ),
+            m.Handled
+          );
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "wa_ad_account_nonce"
+        ) {
+          var b = t;
+          return (
+            o(
+              "WAWebCTWABizAccessTokenNonceManager",
+            ).setNonceFromPushNotification(b.nonce),
+            m.Handled
+          );
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "mm_campaign"
+        ) {
+          var v = t;
+          return (
+            o(
+              "WAWebHandleBizBroadcastMarketingCampaignNotification",
+            ).handleMarketingCampaignNotification(v),
+            m.Handled
+          );
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "bb_pro_campaign"
+        ) {
+          var S = t;
+          return (
+            o(
+              "WAWebHandleBizBroadcastProCampaignNotification",
+            ).handleBizBroadcastProCampaignNotification(S.campaignId),
+            m.Handled
+          );
+          break e;
+        }
+        if (
+          ((typeof t == "object" && t !== null) || typeof t == "function") &&
+          t.type === "unknown"
+        )
+          return m.Handled;
+        throw Error(
+          "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +
+            t,
+        );
+      }
     }
-    function g(e) {
-      return e ? p.Handled : p.SideListOutOfDate;
+    function _(e) {
+      return e ? m.Handled : m.SideListOutOfDate;
     }
-    function h(e, t, n) {
-      return n === p.Handled
+    function f(e, t, n) {
+      return n === m.Handled
         ? o("WAWap").wap("ack", {
             id: o("WAWap").CUSTOM_STRING(e),
             to: t,
             class: "notification",
             type: "business",
           })
-        : n === p.SideListOutOfDate
+        : n === m.SideListOutOfDate
           ? o("WAWap").wap(
               "ack",
               {
@@ -499,7 +467,7 @@ __d(
               );
             })();
     }
-    ((l.handleBusinessNotification = c), (l.handleBusinessNotificationJob = m));
+    ((l.handleBusinessNotification = c), (l.handleBusinessNotificationJob = d));
   },
   98,
 );

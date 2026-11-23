@@ -11,6 +11,7 @@ __d(
     var e = [
         "app_product_page_id",
         "audios",
+        "instant_book_configuration",
         "promotional_metadata",
         "message_extensions",
         "lead_nurture_channels",

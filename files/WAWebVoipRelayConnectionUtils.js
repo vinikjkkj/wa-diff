@@ -5,7 +5,6 @@ __d(
     "WALogger",
     "WAWebUA",
     "WAWebVoipSctpConnectionManagerConstants",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -180,30 +179,29 @@ __d(
       var t = e.replace(/a=candidate:[^\r\n]+\r?\n/g, "");
       return ((t = t.replace(/a=end-of-candidates\r?\n?/g, "")), t);
     }
-    function x(e) {
-      return $.apply(this, arguments);
+    async function x(e) {
+      return e instanceof ArrayBuffer
+        ? e
+        : e instanceof Blob
+          ? await e.arrayBuffer()
+          : null;
     }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return e instanceof ArrayBuffer
-            ? e
-            : e instanceof Blob
-              ? yield e.arrayBuffer()
-              : null;
-        })),
-        $.apply(this, arguments)
-      );
-    }
-    function P(e) {
+    function $(e) {
       var t = e.customSdp,
         n = e.iceTcpMode,
         r = e.relayConnectionInfo,
-        o = [N(r, n), "a=end-of-candidates"].join("\r\n"),
+        o = [P(r, n), "a=end-of-candidates"].join(`\r
+`),
         a = D(t);
-      return ((a += o + "\r\n"), a);
+      return (
+        (a +=
+          o +
+          `\r
+`),
+        a
+      );
     }
-    function N(e, t) {
+    function P(e, t) {
       var n = e.iceTcpPort,
         r = e.ip,
         a = e.port;
@@ -221,7 +219,7 @@ __d(
             a +
             " typ host generation 0 network-cost 5";
     }
-    function M(e, t, n) {
+    function N(e, t, n) {
       var r,
         o = t.enableEdgerayDtlsActiveMode
           ? "a=setup:active"
@@ -240,33 +238,33 @@ __d(
           /a=max-message-size:[^\r\n]+/g,
           "a=max-message-size:1500",
         )),
-        (a = P({ customSdp: a, iceTcpMode: n, relayConnectionInfo: t })),
+        (a = $({ customSdp: a, iceTcpMode: n, relayConnectionInfo: t })),
         a
       );
     }
-    var w = n("$InternalEnum").Mirrored([
+    var M = n("$InternalEnum").Mirrored([
       "STUN_ALLOC",
       "STUN_BIND",
       "STUN_STATEFUL_PING",
       "STUN_UNKNOWN",
       "NonSTUN",
     ]);
-    function A(e) {
-      if (e.byteLength < 2) return w.NonSTUN;
+    function w(e) {
+      if (e.byteLength < 2) return M.NonSTUN;
       var t = new Uint8Array(e),
         n = t[0],
         r = t[1];
       if ((n & 192) === 0) {
         var o = ((n & 63) << 8) | r;
         return o === 1
-          ? w.STUN_BIND
+          ? M.STUN_BIND
           : o === 3
-            ? w.STUN_ALLOC
+            ? M.STUN_ALLOC
             : o === 2052
-              ? w.STUN_STATEFUL_PING
-              : w.STUN_UNKNOWN;
+              ? M.STUN_STATEFUL_PING
+              : M.STUN_UNKNOWN;
       }
-      return w.NonSTUN;
+      return M.NonSTUN;
     }
     ((l.CONNECTION_TIMEOUT_MS = c),
       (l.ConnectionState = m),
@@ -286,9 +284,9 @@ __d(
       (l.replaceDtlsFingerprint = T),
       (l.removeIceCandidates = D),
       (l.dataToArrayBuffer = x),
-      (l.createAnswerSdp = M),
-      (l.PacketType = w),
-      (l.inspectPacketType = A));
+      (l.createAnswerSdp = N),
+      (l.PacketType = M),
+      (l.inspectPacketType = w));
   },
   98,
 );

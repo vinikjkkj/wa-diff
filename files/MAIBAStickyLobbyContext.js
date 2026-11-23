@@ -1,6 +1,6 @@
 __d(
   "MAIBAStickyLobbyContext",
-  ["react", "react-compiler-runtime"],
+  ["react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -10,25 +10,17 @@ __d(
       d = u.useMemo,
       m = s.createContext(null);
     function p(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.children,
-        r = e.setInlineWidgetVisible,
-        a;
-      t[0] !== r
-        ? ((a = { setInlineWidgetVisible: r }), (t[0] = r), (t[1] = a))
-        : (a = t[1]);
-      var i = a,
-        l;
-      return (
-        t[2] !== n || t[3] !== i
-          ? ((l = s.jsx(m.Provider, { value: i, children: n })),
-            (t[2] = n),
-            (t[3] = i),
-            (t[4] = l))
-          : (l = t[4]),
-        l
-      );
+      var t = e.children,
+        n = e.setInlineWidgetVisible,
+        r = d(
+          function () {
+            return { setInlineWidgetVisible: n };
+          },
+          [n],
+        );
+      return s.jsx(m.Provider, { value: r, children: t });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _() {
       return c(m);
     }

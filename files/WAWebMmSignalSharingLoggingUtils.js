@@ -33,281 +33,257 @@ __d(
     "WAWebWamEnumSpSignalNotSharedReason",
     "WAWebWid",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            a,
-            i,
-            l = e.chat,
-            s = e.linkOptions,
-            u = e.msg,
-            c = e.signal,
-            d = e.signalNativeMessageType;
-          if (
-            !o(
-              "WAWebMmSignalSharingGatingUtils",
-            ).isMmSignalSharingCollectionEnabled(l.id.toString())
-          )
-            return;
-          var m = o(
-              "WAWebMmSignalSharingGatingUtils",
-            ).getMmSignalSharingOptimizedDeliverySignalCollectionConfig(),
-            p = m.consented_types_allowlist,
-            _ = m.non_consented_types_allowlist,
-            f = o(
-              "WAWebMmSignalSharingModelUtils",
-            ).getMmSignalSharingExpirationWindowItem({ chat: l });
-          if (!f && !s && c.canceledReason == null) return;
-          var h = o(
-              "WAWebMmSignalSharingTos",
-            ).isMmSignalSharingDisclosureTosAccepted(),
-            y = p.includes(c.mmSignalType) || _.includes(c.mmSignalType),
-            v = k(c.signalTypeOrigin, c.origin),
-            S = babelHelpers.extends(
+    async function s(e) {
+      var t,
+        n,
+        a,
+        i,
+        l = e.chat,
+        s = e.linkOptions,
+        u = e.msg,
+        c = e.signal,
+        d = e.signalNativeMessageType;
+      if (
+        !o(
+          "WAWebMmSignalSharingGatingUtils",
+        ).isMmSignalSharingCollectionEnabled(l.id.toString())
+      )
+        return;
+      var m = o(
+          "WAWebMmSignalSharingGatingUtils",
+        ).getMmSignalSharingOptimizedDeliverySignalCollectionConfig(),
+        p = m.consented_types_allowlist,
+        f = m.non_consented_types_allowlist,
+        g = o(
+          "WAWebMmSignalSharingModelUtils",
+        ).getMmSignalSharingExpirationWindowItem({ chat: l });
+      if (!g && !s && c.canceledReason == null) return;
+      var C = o(
+          "WAWebMmSignalSharingTos",
+        ).isMmSignalSharingDisclosureTosAccepted(),
+        b = p.includes(c.mmSignalType) || f.includes(c.mmSignalType),
+        v = L(c.signalTypeOrigin, c.origin),
+        S = babelHelpers.extends(
+          {
+            isCompanionDevice: !0,
+            isUserDisclosed: C,
+            signalCanceledReason: c.canceledReason,
+            signalMessageState: c.messageState,
+            signalOrigin: c.origin,
+            signalTypeOrigin: v,
+            signalSurface: c.surface,
+            signalType: c.type,
+            isLatestConversionToken:
+              (t = c.postDcParams) == null ? void 0 : t.isLatestConversionToken,
+            mmConversationDepth:
+              (n = c.postDcParams) == null ? void 0 : n.mmConversationDepth,
+            mmConversationRepeat:
+              (a = c.postDcParams) == null ? void 0 : a.mmConversationRepeat,
+            mmDirectionFrom:
+              (i = c.postDcParams) == null ? void 0 : i.mmDirectionFrom,
+          },
+          u && {
+            signalMessageType:
+              (u == null ? void 0 : u.type) === o("WAWebMsgType").MSG_TYPE.HSM
+                ? o("WAWebWamEnumSignalMessageType").SIGNAL_MESSAGE_TYPE.HSM
+                : o("WAWebWamEnumSignalMessageType").SIGNAL_MESSAGE_TYPE.NFM,
+          },
+        ),
+        E = _(l.id.toString()),
+        k = R(l, s, g),
+        I = r("WAWebNetworkStatus").online,
+        T =
+          (await o("WAWebChatThreadLogging").getChatThreadIDHMAC(
+            l.id.toString(),
+          )) || "",
+        D = o("WAWebMmSignalSharingModelUtils").getMMSignalSharingData({
+          chat: l,
+          mmSignalType: c.mmSignalType,
+          deepConversationParams: {
+            isNewMessagefromMe: u == null ? void 0 : u.id.fromMe,
+          },
+        }),
+        x =
+          (g == null ? void 0 : g.disclosedToken) != null ||
+          (s == null ? void 0 : s.consentedUrl) != null;
+      function $(e, t, n, r) {
+        var a = babelHelpers.extends({}, S, {
+            onePdSignalNotSharedReason: t,
+            signalSharingStatus: r,
+            spSignalNotSharedReason: n,
+          }),
+          i = new (o(
+            "WAWebMmSignalSharingVerificationEventWamEvent",
+          ).MmSignalSharingVerificationEventWamEvent)(
+            babelHelpers.extends(
+              {},
+              a,
               {
-                isCompanionDevice: !0,
-                isUserDisclosed: h,
-                signalCanceledReason: c.canceledReason,
-                signalMessageState: c.messageState,
-                signalOrigin: c.origin,
-                signalTypeOrigin: v,
-                signalSurface: c.surface,
-                signalType: c.type,
-                isLatestConversionToken:
-                  (t = c.postDcParams) == null
-                    ? void 0
-                    : t.isLatestConversionToken,
-                mmConversationDepth:
-                  (n = c.postDcParams) == null ? void 0 : n.mmConversationDepth,
-                mmConversationRepeat:
-                  (a = c.postDcParams) == null
-                    ? void 0
-                    : a.mmConversationRepeat,
-                mmDirectionFrom:
-                  (i = c.postDcParams) == null ? void 0 : i.mmDirectionFrom,
+                businessLidOrJid: E,
+                collectionWindowId: k,
+                isNetworkAvailable: I,
+                isShimmingSignal: e,
+                signalNativeMessageType:
+                  c.type === o("WAWebWamEnumSignalType").SIGNAL_TYPE.MESSAGE &&
+                  c.postDcParams != null &&
+                  o(
+                    "WAWebMmSignalSharingGatingUtils",
+                  ).isNativeMessageTypeEnabled()
+                    ? d
+                    : void 0,
               },
-              u && {
-                signalMessageType:
-                  (u == null ? void 0 : u.type) ===
-                  o("WAWebMsgType").MSG_TYPE.HSM
-                    ? o("WAWebWamEnumSignalMessageType").SIGNAL_MESSAGE_TYPE.HSM
-                    : o("WAWebWamEnumSignalMessageType").SIGNAL_MESSAGE_TYPE
-                        .NFM,
-              },
+              (u == null ? void 0 : u.templateId) != null
+                ? { templateId: u.templateId }
+                : {},
             ),
-            R = g(l.id.toString()),
-            L = E(l, s, f),
-            I = r("WAWebNetworkStatus").online,
-            T =
-              (yield o("WAWebChatThreadLogging").getChatThreadIDHMAC(
-                l.id.toString(),
-              )) || "",
-            D = o("WAWebMmSignalSharingModelUtils").getMMSignalSharingData({
-              chat: l,
-              mmSignalType: c.mmSignalType,
-              deepConversationParams: {
-                isNewMessagefromMe: u == null ? void 0 : u.id.fromMe,
-              },
+          ),
+          l = new (o(
+            "WAWebMmSignalSharingVerificationFsEventWamEvent",
+          ).MmSignalSharingVerificationFsEventWamEvent)(
+            babelHelpers.extends({}, a, {
+              threadIdHmac: T,
+              isShimmingSignal: e,
             }),
-            x =
-              (f == null ? void 0 : f.disclosedToken) != null ||
-              (s == null ? void 0 : s.consentedUrl) != null;
-          function $(e, t, n, r) {
-            var a = babelHelpers.extends({}, S, {
-                onePdSignalNotSharedReason: t,
-                signalSharingStatus: r,
-                spSignalNotSharedReason: n,
-              }),
-              i = new (o(
-                "WAWebMmSignalSharingVerificationEventWamEvent",
-              ).MmSignalSharingVerificationEventWamEvent)(
-                babelHelpers.extends(
-                  {},
-                  a,
-                  {
-                    businessLidOrJid: R,
-                    collectionWindowId: L,
-                    isNetworkAvailable: I,
-                    isShimmingSignal: e,
-                    signalNativeMessageType:
-                      c.type ===
-                        o("WAWebWamEnumSignalType").SIGNAL_TYPE.MESSAGE &&
-                      c.postDcParams != null &&
-                      o(
-                        "WAWebMmSignalSharingGatingUtils",
-                      ).isNativeMessageTypeEnabled()
-                        ? d
-                        : void 0,
-                  },
-                  (u == null ? void 0 : u.templateId) != null
-                    ? { templateId: u.templateId }
-                    : {},
-                ),
-              ),
-              l = new (o(
-                "WAWebMmSignalSharingVerificationFsEventWamEvent",
-              ).MmSignalSharingVerificationFsEventWamEvent)(
-                babelHelpers.extends({}, a, {
-                  threadIdHmac: T,
-                  isShimmingSignal: e,
-                }),
-              ),
-              s = new (o(
-                "WAWebMmSignalSharingVerificationWithSignalDataEventWamEvent",
-              ).MmSignalSharingVerificationWithSignalDataEventWamEvent)(
-                babelHelpers.extends({}, a, {
-                  isNetworkAvailable: I,
-                  isShimmingSignal: e,
-                  mmSignalData: D,
-                  isUserMatched: x,
-                }),
-              );
-            (i.commit(), l.commit(), s.commit());
-          }
-          var P = c.type === o("WAWebWamEnumSignalType").SIGNAL_TYPE.MM_CLICK,
-            N =
-              c.isCloudApiMessage === !0
-                ? {
-                    onePdReason:
-                      o(
-                        "WAWebMmSignalSharingGatingUtils",
-                      ).isCCIComplianceEnabled() && l.contact.isContactBlocked
-                        ? o("WAWebWamEnumOnePdSignalNotSharedReason")
-                            .ONE_PD_SIGNAL_NOT_SHARED_REASON.BLOCKED
-                        : o("WAWebWamEnumOnePdSignalNotSharedReason")
-                            .ONE_PD_SIGNAL_NOT_SHARED_REASON.CLOUD_API_MESSAGE,
-                    spReason: o("WAWebWamEnumSpSignalNotSharedReason")
-                      .SP_SIGNAL_NOT_SHARED_REASON.CLOUD_API_MESSAGE,
-                    sharingStatus: o("WAWebWamEnumSignalSharingStatus")
-                      .SIGNAL_SHARING_STATUS.NOT_SHARED,
-                  }
-                : null;
-          if (P) {
-            var M =
-              N != null
-                ? N
-                : b({ chat: l, isUserDisclosed: h, linkOptions: s, signal: c });
-            if (
-              ($(!0, M.onePdReason, M.spReason, M.sharingStatus),
-              c.canceledReason == null &&
-                N == null &&
-                o(
-                  "WAWebMmSignalSharingGatingUtils",
-                ).isMmSignalSharingReplacingShimmedLinksEnabled())
-            ) {
-              var w = C({
-                chat: l,
-                isSignalAllowlisted: y,
-                isUserDisclosed: h,
-                linkOptions: s,
-                mmSignalSharingExpirationWindowItem: f,
-                signal: c,
-              });
-              $(!1, w.onePdReason, w.spReason, w.sharingStatus);
-            }
-          } else {
-            var A = C({
-              chat: l,
-              isSignalAllowlisted: y,
-              isUserDisclosed: h,
-              linkOptions: s,
-              mmSignalSharingExpirationWindowItem: f,
-              signal: c,
-            });
-            $(!1, A.onePdReason, A.spReason, A.sharingStatus);
-          }
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chat,
-            n = e.hasShownDisclosure,
-            a = e.msg,
-            i = e.signal;
-          if (
+          ),
+          s = new (o(
+            "WAWebMmSignalSharingVerificationWithSignalDataEventWamEvent",
+          ).MmSignalSharingVerificationWithSignalDataEventWamEvent)(
+            babelHelpers.extends({}, a, {
+              isNetworkAvailable: I,
+              isShimmingSignal: e,
+              mmSignalData: D,
+              isUserMatched: x,
+            }),
+          );
+        (i.commit(), l.commit(), s.commit());
+      }
+      var P = c.type === o("WAWebWamEnumSignalType").SIGNAL_TYPE.MM_CLICK,
+        N =
+          c.isCloudApiMessage === !0
+            ? {
+                onePdReason:
+                  o(
+                    "WAWebMmSignalSharingGatingUtils",
+                  ).isCCIComplianceEnabled() && l.contact.isContactBlocked
+                    ? o("WAWebWamEnumOnePdSignalNotSharedReason")
+                        .ONE_PD_SIGNAL_NOT_SHARED_REASON.BLOCKED
+                    : o("WAWebWamEnumOnePdSignalNotSharedReason")
+                        .ONE_PD_SIGNAL_NOT_SHARED_REASON.CLOUD_API_MESSAGE,
+                spReason: o("WAWebWamEnumSpSignalNotSharedReason")
+                  .SP_SIGNAL_NOT_SHARED_REASON.CLOUD_API_MESSAGE,
+                sharingStatus: o("WAWebWamEnumSignalSharingStatus")
+                  .SIGNAL_SHARING_STATUS.NOT_SHARED,
+              }
+            : null;
+      if (P) {
+        var M =
+          N != null
+            ? N
+            : y({ chat: l, isUserDisclosed: C, linkOptions: s, signal: c });
+        if (
+          ($(!0, M.onePdReason, M.spReason, M.sharingStatus),
+          c.canceledReason == null &&
+            N == null &&
             o(
               "WAWebMmSignalSharingGatingUtils",
-            ).isMmSignalSharingCollectionEnabled(t.id.toString())
-          ) {
-            var l = o(
-                "WAWebMmSignalSharingTos",
-              ).isMmSignalSharingDisclosureTosAccepted(),
-              s =
-                n === !0 &&
-                i.disclosureInteraction ===
-                  o("WAWebWamEnumDisclosureInteraction").DISCLOSURE_INTERACTION
-                    .LEARN_MORE &&
-                i.disclosureSurface ===
-                  o("WAWebWamEnumDisclosureSurface").DISCLOSURE_SURFACE
-                    .CHAT_THREAD &&
-                r("justknobx")._("6980"),
-              u = s
-                ? void 0
-                : h({
-                    chat: t,
-                    eventType: i.disclosureEventType,
-                    hasShownDisclosure: n,
-                    isDisclosureTosAccepted: l,
-                    msg: a,
-                  }),
-              c = {
-                disclosureEventType: i.disclosureEventType,
-                disclosureInteraction: i.disclosureInteraction,
-                disclosureSource: i.disclosureSource,
-                disclosureSuppressionReason: u,
-                disclosureSurface: i.disclosureSurface,
-                isCompanionDevice: !0,
-                isUserDisclosed: l,
-                mmHasDisclosedUrl: i.mmHasDisclosedUrl,
-                mmHasShowDisclosureFlag: i.mmHasShowDisclosureFlag,
-                userBecameDisclosed: i.userBecameDisclosed,
-              },
-              d = new (o(
-                "WAWebMmDisclosureStateEventWamEvent",
-              ).MmDisclosureStateEventWamEvent)(
-                babelHelpers.extends(
-                  {},
-                  c,
-                  { businessLidOrJid: g(t.id.toString()) },
-                  (a == null ? void 0 : a.templateId) != null
-                    ? { templateId: a.templateId }
-                    : {},
-                ),
-              ),
-              m = new (o(
-                "WAWebMmDisclosureStateFsEventWamEvent",
-              ).MmDisclosureStateFsEventWamEvent)(
-                babelHelpers.extends({}, c, {
-                  threadIdHmac:
-                    (yield o("WAWebChatThreadLogging").getChatThreadIDHMAC(
-                      t.id.toString(),
-                    )) || "",
-                }),
-              );
-            (d.commit(), m.commit());
-          }
-        })),
-        d.apply(this, arguments)
-      );
+            ).isMmSignalSharingReplacingShimmedLinksEnabled())
+        ) {
+          var w = h({
+            chat: l,
+            isSignalAllowlisted: b,
+            isUserDisclosed: C,
+            linkOptions: s,
+            mmSignalSharingExpirationWindowItem: g,
+            signal: c,
+          });
+          $(!1, w.onePdReason, w.spReason, w.sharingStatus);
+        }
+      } else {
+        var A = h({
+          chat: l,
+          isSignalAllowlisted: b,
+          isUserDisclosed: C,
+          linkOptions: s,
+          mmSignalSharingExpirationWindowItem: g,
+          signal: c,
+        });
+        $(!1, A.onePdReason, A.spReason, A.sharingStatus);
+      }
     }
-    function m(e) {
+    async function u(e) {
+      var t = e.chat,
+        n = e.hasShownDisclosure,
+        a = e.msg,
+        i = e.signal;
+      if (
+        o("WAWebMmSignalSharingGatingUtils").isMmSignalSharingCollectionEnabled(
+          t.id.toString(),
+        )
+      ) {
+        var l = o(
+            "WAWebMmSignalSharingTos",
+          ).isMmSignalSharingDisclosureTosAccepted(),
+          s =
+            n === !0 &&
+            i.disclosureInteraction ===
+              o("WAWebWamEnumDisclosureInteraction").DISCLOSURE_INTERACTION
+                .LEARN_MORE &&
+            i.disclosureSurface ===
+              o("WAWebWamEnumDisclosureSurface").DISCLOSURE_SURFACE
+                .CHAT_THREAD &&
+            r("justknobx")._("6980"),
+          u = s
+            ? void 0
+            : f({
+                chat: t,
+                eventType: i.disclosureEventType,
+                hasShownDisclosure: n,
+                isDisclosureTosAccepted: l,
+                msg: a,
+              }),
+          c = {
+            disclosureEventType: i.disclosureEventType,
+            disclosureInteraction: i.disclosureInteraction,
+            disclosureSource: i.disclosureSource,
+            disclosureSuppressionReason: u,
+            disclosureSurface: i.disclosureSurface,
+            isCompanionDevice: !0,
+            isUserDisclosed: l,
+            mmHasDisclosedUrl: i.mmHasDisclosedUrl,
+            mmHasShowDisclosureFlag: i.mmHasShowDisclosureFlag,
+            userBecameDisclosed: i.userBecameDisclosed,
+          },
+          d = new (o(
+            "WAWebMmDisclosureStateEventWamEvent",
+          ).MmDisclosureStateEventWamEvent)(
+            babelHelpers.extends(
+              {},
+              c,
+              { businessLidOrJid: _(t.id.toString()) },
+              (a == null ? void 0 : a.templateId) != null
+                ? { templateId: a.templateId }
+                : {},
+            ),
+          ),
+          m = new (o(
+            "WAWebMmDisclosureStateFsEventWamEvent",
+          ).MmDisclosureStateFsEventWamEvent)(
+            babelHelpers.extends({}, c, {
+              threadIdHmac:
+                (await o("WAWebChatThreadLogging").getChatThreadIDHMAC(
+                  t.id.toString(),
+                )) || "",
+            }),
+          );
+        (d.commit(), m.commit());
+      }
+    }
+    function c(e) {
       var t = e.chatWID,
         n = e.msg,
         r = e.signal;
@@ -321,7 +297,7 @@ __d(
         ).MmCollectionWindowStateEventWamEvent)(
           babelHelpers.extends(
             {
-              businessLidOrJid: g(t),
+              businessLidOrJid: _(t),
               isUserDisclosed: o(
                 "WAWebMmSignalSharingTos",
               ).isMmSignalSharingDisclosureTosAccepted(),
@@ -339,7 +315,7 @@ __d(
         a.commit();
       }
     }
-    function p(e) {
+    function d(e) {
       if (
         !o(
           "WAWebMmSignalSharingGatingUtils",
@@ -353,7 +329,7 @@ __d(
       ];
       return t.includes(e);
     }
-    function _(e) {
+    function m(e) {
       var t = e.isDisclosed,
         n = e.mmCarouselCardIndex,
         r = e.mmCtaButtonIndex,
@@ -380,7 +356,7 @@ __d(
               mmCarouselCardIndex: n,
             }).commit());
     }
-    function f(e) {
+    function p(e) {
       var t = e.chat,
         n = e.signal;
       if (
@@ -389,13 +365,13 @@ __d(
         )
       ) {
         if (
-          p(n.mmSignalType) &&
+          d(n.mmSignalType) &&
           o(
             "WAWebMmSignalSharingGatingUtils",
           ).isMmSignalSharingReplacingShimmedLinksEnabled()
         ) {
           var r;
-          _({
+          m({
             isDisclosed: (r = n.isDisclosed) != null ? r : !1,
             mmCarouselCardIndex: n.mmCarouselCardIndex,
             mmCtaButtonIndex: n.mmCtaButtonIndex,
@@ -419,7 +395,7 @@ __d(
         a.commit();
       }
     }
-    function g(t) {
+    function _(t) {
       if (!r("WAWebWid").isRegularUserNoImply(t))
         return (
           o("WALogger")
@@ -445,7 +421,7 @@ __d(
           ? a.toJid()
           : n.toString();
     }
-    function h(e) {
+    function f(e) {
       var t = e.chat,
         n = e.eventType,
         r = e.hasShownDisclosure,
@@ -477,7 +453,7 @@ __d(
         return o("WAWebWamEnumDisclosureSuppressionReason")
           .DISCLOSURE_SUPPRESSION_REASON.DISCLOSED;
     }
-    function y(e, t, n, r, a) {
+    function g(e, t, n, r, a) {
       if (
         o("WAWebMmSignalSharingGatingUtils").isCCIComplianceEnabled() &&
         e.contact.isContactBlocked
@@ -516,29 +492,29 @@ __d(
         return o("WAWebWamEnumOnePdSignalNotSharedReason")
           .ONE_PD_SIGNAL_NOT_SHARED_REASON.TOKEN_EXPIRED;
     }
-    function C(e) {
+    function h(e) {
       var t = e.chat,
         n = e.isSignalAllowlisted,
         r = e.isUserDisclosed,
         o = e.linkOptions,
         a = e.mmSignalSharingExpirationWindowItem,
         i = e.signal,
-        l = i.canceledReason != null ? void 0 : y(t, a, o, r, n),
-        s = l == null || i.canceledReason != null ? void 0 : R(a, n),
-        u = L(i.sharingStatus, n, l, s);
+        l = i.canceledReason != null ? void 0 : g(t, a, o, r, n),
+        s = l == null || i.canceledReason != null ? void 0 : v(a, n),
+        u = S(i.sharingStatus, n, l, s);
       return { onePdReason: l, spReason: s, sharingStatus: u };
     }
-    function b(e) {
+    function y(e) {
       var t = e.chat,
         n = e.isUserDisclosed,
         r = e.linkOptions,
         o = e.signal,
-        a = o.canceledReason != null ? void 0 : v(t, r, n),
-        i = a == null || o.canceledReason != null ? void 0 : S(r),
-        l = L(o.sharingStatus, !0, a, i);
+        a = o.canceledReason != null ? void 0 : C(t, r, n),
+        i = a == null || o.canceledReason != null ? void 0 : b(r),
+        l = S(o.sharingStatus, !0, a, i);
       return { onePdReason: a, spReason: i, sharingStatus: l };
     }
-    function v(e, t, n) {
+    function C(e, t, n) {
       if (
         o("WAWebMmSignalSharingGatingUtils").isCCIComplianceEnabled() &&
         e.contact.isContactBlocked
@@ -562,12 +538,12 @@ __d(
         return o("WAWebWamEnumOnePdSignalNotSharedReason")
           .ONE_PD_SIGNAL_NOT_SHARED_REASON.VALUE_NOT_AVAILABLE;
     }
-    function S(e) {
+    function b(e) {
       if (e && (e == null ? void 0 : e.unconsentedUrl) == null)
         return o("WAWebWamEnumSpSignalNotSharedReason")
           .SP_SIGNAL_NOT_SHARED_REASON.VALUE_NOT_AVAILABLE;
     }
-    function R(e, t) {
+    function v(e, t) {
       if ((e == null ? void 0 : e.undisclosedToken) == null)
         return o("WAWebWamEnumSpSignalNotSharedReason")
           .SP_SIGNAL_NOT_SHARED_REASON.VALUE_NOT_AVAILABLE;
@@ -587,7 +563,7 @@ __d(
         return o("WAWebWamEnumSpSignalNotSharedReason")
           .SP_SIGNAL_NOT_SHARED_REASON.TOKEN_EXPIRED;
     }
-    function L(e, t, n, r) {
+    function S(e, t, n, r) {
       if (!t)
         return o("WAWebWamEnumSignalSharingStatus").SIGNAL_SHARING_STATUS
           .NOT_SHARED;
@@ -604,7 +580,7 @@ __d(
         a
       );
     }
-    function E(e, t, n) {
+    function R(e, t, n) {
       if (
         !(
           e.mmSignalSharingExpirationWindow == null ||
@@ -615,15 +591,15 @@ __d(
         return btoa(String(r * 1e3));
       }
     }
-    function k(e, t) {
+    function L(e, t) {
       if (
         o(
           "WAWebMmSignalSharingGatingUtils",
         ).isMmSignalSharingVerificationNewSignalTypeOriginEnabled()
       )
-        return e != null ? e : I(t);
+        return e != null ? e : E(t);
     }
-    function I(e) {
+    function E(e) {
       if (e != null) {
         var t = Object.keys(o("WAWebWamEnumSignalOrigin").SIGNAL_ORIGIN).find(
           function (t) {
@@ -634,11 +610,11 @@ __d(
       }
     }
     ((l.logMmSignalSharingVerificationEvent = s),
-      (l.logMmSignalSharingDisclosureStateEvent = c),
-      (l.logMmSignalSharingCollectionWindowStateEvent = m),
-      (l.isClickSignalType = p),
-      (l.logMmSignalSharingClickEvent = _),
-      (l.logMmSignalSharingEvent = f));
+      (l.logMmSignalSharingDisclosureStateEvent = u),
+      (l.logMmSignalSharingCollectionWindowStateEvent = c),
+      (l.isClickSignalType = d),
+      (l.logMmSignalSharingClickEvent = m),
+      (l.logMmSignalSharingEvent = p));
   },
   98,
 );

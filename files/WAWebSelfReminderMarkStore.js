@@ -1,19 +1,16 @@
 __d(
   "WAWebSelfReminderMarkStore",
   [
-    "Promise",
     "WATimeUtils",
     "WAWebScheduledMsgConstants",
     "WAWebUserPrefsIndexedDBStorage",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
-      var t = u(e, "string");
+    function e(e) {
+      var t = s(e, "string");
       return typeof t == "symbol" ? t : t + "";
     }
-    function u(e, t) {
+    function s(e, t) {
       if (typeof e != "object" || !e) return e;
       var n =
         e[typeof Symbol == "function" ? Symbol.toPrimitive : "@@toPrimitive"];
@@ -24,109 +21,78 @@ __d(
       }
       return (t === "string" ? String : Number)(e);
     }
-    var c = "WASelfReminderMarks",
-      d =
+    var u = "WASelfReminderMarks",
+      c =
         o("WAWebScheduledMsgConstants")
           .SCHEDULED_MSG_REVEAL_KEY_RETENTION_DAYS *
         o("WATimeUtils").DAY_SECONDS,
-      m = (e || (e = n("Promise"))).resolve();
-    function p() {
-      return _.apply(this, arguments);
+      d = Promise.resolve();
+    async function m() {
+      return Object.values(await y());
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return Object.values(yield v());
-        })),
-        _.apply(this, arguments)
-      );
+    async function p(e) {
+      return (await y())[e];
     }
-    function f(e) {
-      return g.apply(this, arguments);
+    function _(e, t) {
+      return h(async function () {
+        var n,
+          r = await y();
+        await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
+          u,
+          babelHelpers.extends({}, r, ((n = {}), (n[e] = t), n)),
+        );
+      });
     }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (yield v())[e];
-        })),
-        g.apply(this, arguments)
-      );
+    function f(t) {
+      return h(async function () {
+        var n = await y();
+        if (n[t] == null) return !1;
+        var r = n[t],
+          o = babelHelpers.objectWithoutPropertiesLoose(n, [t].map(e));
+        return (await C(o), !0);
+      });
     }
-    function h(e, t) {
-      return b(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var n,
-            r = yield v();
-          yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(
-            c,
-            babelHelpers.extends({}, r, ((n = {}), (n[e] = t), n)),
+    function g(e) {
+      return h(async function () {
+        var t = await y(),
+          n = Object.fromEntries(
+            Object.entries(t).filter(function (t) {
+              var n = t[1];
+              return e - n.scheduledTimestampS <= c;
+            }),
           );
-        }),
-      );
+        Object.keys(n).length !== Object.keys(t).length && (await C(n));
+      });
     }
-    function y(e) {
-      return b(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield v();
-          if (t[e] == null) return !1;
-          var n = t[e],
-            r = babelHelpers.objectWithoutPropertiesLoose(t, [e].map(s));
-          return (yield R(r), !0);
-        }),
-      );
-    }
-    function C(e) {
-      return b(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield v(),
-            n = Object.fromEntries(
-              Object.entries(t).filter(function (t) {
-                var n = t[1];
-                return e - n.scheduledTimestampS <= d;
-              }),
-            );
-          Object.keys(n).length !== Object.keys(t).length && (yield R(n));
-        }),
-      );
-    }
-    function b(e) {
-      var t = m.then(e);
+    function h(e) {
+      var t = d.then(e);
       return (
-        (m = t.then(
+        (d = t.then(
           function () {},
           function () {},
         )),
         t
       );
     }
-    function v() {
-      return S.apply(this, arguments);
-    }
-    function S() {
+    async function y() {
+      var e;
       return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e;
-          return (
-            yield o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
-            (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(c)) !=
-            null
-              ? e
-              : {}
-          );
-        })),
-        S.apply(this, arguments)
+        await o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.init(),
+        (e = o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.get(u)) != null
+          ? e
+          : {}
       );
     }
-    function R(e) {
+    function C(e) {
       return Object.keys(e).length === 0
-        ? o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(c)
-        : o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(c, e);
+        ? o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.remove(u)
+        : o("WAWebUserPrefsIndexedDBStorage").userPrefsIdb.set(u, e);
     }
-    ((l.getSelfReminderMarks = p),
-      (l.getSelfReminderMark = f),
-      (l.addSelfReminderMark = h),
-      (l.removeSelfReminderMark = y),
-      (l.pruneExpiredSelfReminderMarks = C));
+    ((l.getSelfReminderMarks = m),
+      (l.getSelfReminderMark = p),
+      (l.addSelfReminderMark = _),
+      (l.removeSelfReminderMark = f),
+      (l.pruneExpiredSelfReminderMarks = g));
   },
   98,
 );

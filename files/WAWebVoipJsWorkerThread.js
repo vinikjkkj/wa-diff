@@ -1,7 +1,6 @@
 __d(
   "WAWebVoipJsWorkerThread",
   [
-    "Promise",
     "WACustomError",
     "WALogger",
     "WAPromiseDelays",
@@ -10,7 +9,6 @@ __d(
     "WAWebVoipPthreadHardening",
     "WAWebVoipPthreadWorkerFields",
     "WorkerMessagePort",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,18 +21,17 @@ __d(
       m,
       p,
       _,
-      f,
-      g = 0,
-      h = 10,
-      y = 28,
-      C = 71,
-      b = 4,
-      v = 100,
-      S = 1e4,
-      R = 5e3,
-      L = 10 * 6e4,
-      E = 6e4,
-      k = (function () {
+      f = 0,
+      g = 10,
+      h = 28,
+      y = 71,
+      C = 4,
+      b = 100,
+      v = 1e4,
+      S = 5e3,
+      R = 10 * 6e4,
+      L = 6e4,
+      E = (function () {
         function e() {
           ((this.$1 = self.performance.now()), (this.$2 = 0));
         }
@@ -50,14 +47,14 @@ __d(
               .then(function () {
                 var n = self.performance.now(),
                   r = n - e.$1;
-                ((e.$1 = n), (e.$2 += Math.min(Math.max(r, t), E)));
+                ((e.$1 = n), (e.$2 += Math.min(Math.max(r, t), L)));
               });
           }),
           e
         );
       })(),
-      I = (function () {
-        function a(e, t, n) {
+      k = (function () {
+        function n(e, t, n) {
           (t === void 0 && (t = "legacy-pj"),
             (this.$8 = null),
             (this.$7 = "busy"),
@@ -96,39 +93,31 @@ __d(
               "WAWebVoipPthreadHardening",
             ).isVoipWorkerLifecycleHardeningEnabled()));
         }
-        a.create = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t, n) {
-              t === void 0 && (t = "legacy-pj");
-              var r =
-                e != null
-                  ? e
-                  : yield o("WAWebBackendApi").frontendSendAndReceive(
-                      "initializeVoipWasm",
-                    );
-              return new a(r, t, n);
-            },
-          );
-          function t(t, n, r) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })();
-        var i = a.prototype;
+        n.create = async function (t, r, a) {
+          r === void 0 && (r = "legacy-pj");
+          var e =
+            t != null
+              ? t
+              : await o("WAWebBackendApi").frontendSendAndReceive(
+                  "initializeVoipWasm",
+                );
+          return new n(e, r, a);
+        };
+        var a = n.prototype;
         return (
-          (i.getWorkerID = function () {
+          (a.getWorkerID = function () {
             return o("WAWebVoipPthreadWorkerFields").getPthreadWorkerID(
               this.worker,
             );
           }),
-          (i.discardUnloadedWorker = function () {
+          (a.discardUnloadedWorker = function () {
             var t = this.$1.PThread;
             ((this.$7 = "unjoinable"),
-              (this.$8 = (f || (f = n("Promise"))).resolve()),
+              (this.$8 = Promise.resolve()),
               (this.$9 = !0),
               t.pthreads[this.$4] === this.$5 && delete t.pthreads[this.$4]);
-            var r = t.runningWorkers.indexOf(this.$5);
-            (r >= 0 && t.runningWorkers.splice(r, 1),
+            var n = t.runningWorkers.indexOf(this.$5);
+            (n >= 0 && t.runningWorkers.splice(n, 1),
               Reflect.set(this.worker, "pthread_ptr", 0));
             try {
               this.worker.close();
@@ -153,113 +142,91 @@ __d(
               String(this.getWorkerID()),
             );
           }),
-          (i.joinJsWorkerThread = function () {
+          (a.joinJsWorkerThread = function () {
             if (!this.$6) return this.$10();
-            if (this.$7 !== "busy") return (f || (f = n("Promise"))).resolve();
+            if (this.$7 !== "busy") return Promise.resolve();
             var e = this.$8;
             if (e != null) return e;
             var t = this.$11();
             return ((this.$8 = t), t);
           }),
-          (i.$10 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this;
-              this.$12() !== g &&
-                t.setTimeout(function () {
-                  e.$10();
-                }, v);
-            });
-            function r() {
-              return e.apply(this, arguments);
-            }
-            return r;
-          })()),
-          (i.$11 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = new k();
-              if ((yield this.$13(e, S, b, v), this.$7 === "busy"))
-                throw (
-                  o("WALogger").WARN(
-                    u ||
-                      (u = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [JsWorkerThread] join still busy after ",
-                        "ms; releasing callers",
-                      ])),
-                    e.elapsedMs(),
-                  ),
-                  this.$14(e).catch(function (e) {
-                    o("WALogger").WARN(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "voip: [JsWorkerThread] background reclaim failed: ",
-                          "",
-                        ])),
-                      String(e),
-                    );
-                  }),
-                  new (o("WACustomError").TimeoutError)(
-                    "voip: JsWorkerThread join timed out after " + S + "ms",
-                  )
-                );
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.$14 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (
-                  (yield e.sleep(R),
-                  yield this.$13(e, L, R, R),
-                  this.$7 !== "busy")
-                ) {
-                  o("WALogger").LOG(
-                    d ||
-                      (d = babelHelpers.taggedTemplateLiteralLoose([
-                        "voip: [JsWorkerThread] late join completed after ",
-                        "ms",
-                      ])),
-                    e.elapsedMs(),
-                  );
-                  return;
-                }
-                o("WALogger").WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "voip: [JsWorkerThread] thread never became joinable within ",
-                      "ms; abandoning",
-                    ])),
-                  L,
-                );
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i.$13 = function (t, r, o, a) {
+          (a.$10 = async function () {
             var e = this;
-            return this.$15() !== "busy" || t.elapsedMs() >= r
-              ? (f || (f = n("Promise"))).resolve()
-              : t.sleep(o).then(function () {
-                  return e.$13(t, r, Math.min(o * 2, a), a);
+            this.$12() !== f &&
+              t.setTimeout(function () {
+                e.$10();
+              }, b);
+          }),
+          (a.$11 = async function () {
+            var e = new E();
+            if ((await this.$13(e, v, C, b), this.$7 === "busy"))
+              throw (
+                o("WALogger").WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "voip: [JsWorkerThread] join still busy after ",
+                      "ms; releasing callers",
+                    ])),
+                  e.elapsedMs(),
+                ),
+                this.$14(e).catch(function (e) {
+                  o("WALogger").WARN(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "voip: [JsWorkerThread] background reclaim failed: ",
+                        "",
+                      ])),
+                    String(e),
+                  );
+                }),
+                new (o("WACustomError").TimeoutError)(
+                  "voip: JsWorkerThread join timed out after " + v + "ms",
+                )
+              );
+          }),
+          (a.$14 = async function (t) {
+            if (
+              (await t.sleep(S), await this.$13(t, R, S, S), this.$7 !== "busy")
+            ) {
+              o("WALogger").LOG(
+                d ||
+                  (d = babelHelpers.taggedTemplateLiteralLoose([
+                    "voip: [JsWorkerThread] late join completed after ",
+                    "ms",
+                  ])),
+                t.elapsedMs(),
+              );
+              return;
+            }
+            o("WALogger").WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "voip: [JsWorkerThread] thread never became joinable within ",
+                  "ms; abandoning",
+                ])),
+              R,
+            );
+          }),
+          (a.$13 = function (t, n, r, o) {
+            var e = this;
+            return this.$15() !== "busy" || t.elapsedMs() >= n
+              ? Promise.resolve()
+              : t.sleep(r).then(function () {
+                  return e.$13(t, n, Math.min(r * 2, o), o);
                 });
           }),
-          (i.$15 = function () {
+          (a.$15 = function () {
             if (this.$7 !== "busy") return this.$7;
             var e = this.$12();
-            return e === h
+            return e === g
               ? "busy"
-              : (e === g
+              : (e === f
                   ? (this.$7 = "joined")
                   : ((this.$7 = "unjoinable"), this.$16(e)),
                 this.$7);
           }),
-          (i.$16 = function (t) {
-            if (t === C || t === y) {
+          (a.$16 = function (t) {
+            if (t === y || t === h) {
               o("WALogger").LOG(
                 p ||
                   (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -279,12 +246,12 @@ __d(
               t,
             );
           }),
-          (i.$12 = function () {
+          (a.$12 = function () {
             return this.$2 === "pre-init"
               ? this.$1.tryJoinPreInitJsWorkerThread(this.$3)
               : this.$1.tryJoinJsWorkerThread(this.$3);
           }),
-          (i.shutdown = function () {
+          (a.shutdown = function () {
             return this.$6
               ? (this.$9 ||
                   ((this.$9 = !0),
@@ -296,24 +263,18 @@ __d(
                 this.joinJsWorkerThread())
               : this.$17();
           }),
-          (i.$17 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              (this.worker.postMessage({
-                type: "cmd",
-                cmd: "jsWorkerCmd",
-                jsWorkerCmd: "shutdown",
-              }),
-                yield this.$10());
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          a
+          (a.$17 = async function () {
+            (this.worker.postMessage({
+              type: "cmd",
+              cmd: "jsWorkerCmd",
+              jsWorkerCmd: "shutdown",
+            }),
+              await this.$10());
+          }),
+          n
         );
       })();
-    l.default = I;
+    l.default = k;
   },
   98,
 );

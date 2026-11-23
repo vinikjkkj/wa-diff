@@ -5,10 +5,10 @@ __d(
     function e(e, t) {
       return e.constructionStatus === "constructing" ||
         e.constructionStatus === "updating"
-        ? s._(/*BTDS*/ "Building")
+        ? s._(/*BTDS*/ "")
         : e.constructionStatus === "failed" ||
             e.constructionStatus === "interrupted"
-          ? s._(/*BTDS*/ "Needs attention")
+          ? s._(/*BTDS*/ "")
           : u(e.accessedAtMs, t);
     }
     function u(e, t) {

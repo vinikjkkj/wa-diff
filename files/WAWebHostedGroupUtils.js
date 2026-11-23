@@ -6,24 +6,18 @@ __d(
       return (
         t === void 0 && (t = !1),
         t
-          ? s._(
-              /*BTDS*/ "{ownerName} uses a secure service from Meta to manage this chat.",
-              [
-                s._param(
-                  "ownerName",
-                  o("WAWebFrontendContactGetters").getFormattedName(e),
-                ),
-              ],
-            )
-          : s._(
-              /*BTDS*/ "{ownerName} uses a secure service from Meta to manage this chat. Tap to learn more.",
-              [
-                s._param(
-                  "ownerName",
-                  o("WAWebFrontendContactGetters").getFormattedName(e),
-                ),
-              ],
-            )
+          ? s._(/*BTDS*/ "", [
+              s._param(
+                "ownerName",
+                o("WAWebFrontendContactGetters").getFormattedName(e),
+              ),
+            ])
+          : s._(/*BTDS*/ "", [
+              s._param(
+                "ownerName",
+                o("WAWebFrontendContactGetters").getFormattedName(e),
+              ),
+            ])
       );
     }
     l.getSecureServicesBannerText = e;

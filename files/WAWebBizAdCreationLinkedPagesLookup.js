@@ -1,21 +1,11 @@
 __d(
   "WAWebBizAdCreationLinkedPagesLookup",
-  ["WAWebLinkedAccountsJob", "asyncToGeneratorRuntime"],
+  ["WAWebLinkedAccountsJob"],
   function (t, n, r, o, a, i, l) {
-    function e() {
-      return s.apply(this, arguments);
+    async function e() {
+      return s(await o("WAWebLinkedAccountsJob").queryLinkedAccountsResult());
     }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return u(
-            yield o("WAWebLinkedAccountsJob").queryLinkedAccountsResult(),
-          );
-        })),
-        s.apply(this, arguments)
-      );
-    }
-    function u(e) {
+    function s(e) {
       return e == null || !e.pageInfoComplete
         ? { type: "unavailable" }
         : {
@@ -25,7 +15,7 @@ __d(
             type: "resolved",
           };
     }
-    ((l.queryLinkedPagesLookup = e), (l.toLinkedPagesLookup = u));
+    ((l.queryLinkedPagesLookup = e), (l.toLinkedPagesLookup = s));
   },
   98,
 );

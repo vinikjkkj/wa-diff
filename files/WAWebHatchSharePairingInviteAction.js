@@ -25,16 +25,14 @@ __d(
           onSendBlocked: d,
           openChatAfterSingleSend: !0,
           text: e,
-          title: s._(/*BTDS*/ "Send invitation to"),
+          title: s._(/*BTDS*/ ""),
         }),
         { transition: "modal-flow" },
       );
     }
     function d() {
       o("WDSToastImperativeHost").showWDSToast({
-        message: s._(
-          /*BTDS*/ "Sharing invites isn't available right now. Try again later.",
-        ),
+        message: s._(/*BTDS*/ ""),
         testid: "hatch_peer_invite_share_unavailable_toast",
       });
     }

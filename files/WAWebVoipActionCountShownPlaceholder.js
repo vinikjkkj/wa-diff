@@ -12,7 +12,6 @@ __d(
     "WAWebVoipActionUncountUnresolvedPlaceholder",
     "WAWebVoipCallLogPlaceholderTracker",
     "WAWebVoipPlaceholderUnreadRows",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -51,104 +50,83 @@ __d(
               .sendLogs("voip-placeholder-recount-fail");
         });
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      var t,
+        n = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(e, !1);
+      if (
+        (n == null ? void 0 : n.active) === !0 ||
+        !o(
+          "WAWebVoipCallLogPlaceholderTracker",
+        ).isOfflineCallLogOrderingEnabled() ||
+        !(await m(e))
+      ) {
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip] placeholder ",
+              ": shown without counting it again",
+            ])),
+          e.id,
+        );
+        return;
+      }
+      ((t = o("WAWebMsgCollection").MsgCollection.get(e)) == null ||
+        t.set({
+          viewMode:
+            o("WAWebViewMode.flow").ViewModeType
+              .CALL_LOG_OFFLINE_RESUME_PROMOTED,
+        }),
+        n != null &&
+          (n.set({ unreadCount: n.unreadCount + 1 || 1 }),
+          n.activeUnreadCount > 0 &&
+            n.set({ activeUnreadCount: n.activeUnreadCount + 1 })),
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip] placeholder ",
+              ": counted as unread again",
+            ])),
+          e.id,
+        ));
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = o("WAWebFrontendMsgGetters").getMaybeChatByMsgKey(e, !1);
-          if (
-            (n == null ? void 0 : n.active) === !0 ||
-            !o(
-              "WAWebVoipCallLogPlaceholderTracker",
-            ).isOfflineCallLogOrderingEnabled() ||
-            !(yield p(e))
-          ) {
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip] placeholder ",
-                  ": shown without counting it again",
-                ])),
-              e.id,
-            );
-            return;
-          }
-          ((t = o("WAWebMsgCollection").MsgCollection.get(e)) == null ||
-            t.set({
-              viewMode:
-                o("WAWebViewMode.flow").ViewModeType
-                  .CALL_LOG_OFFLINE_RESUME_PROMOTED,
-            }),
-            n != null &&
-              (n.set({ unreadCount: n.unreadCount + 1 || 1 }),
-              n.activeUnreadCount > 0 &&
-                n.set({ activeUnreadCount: n.activeUnreadCount + 1 })),
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip] placeholder ",
-                  ": counted as unread again",
-                ])),
-              e.id,
-            ));
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function m(e) {
       var t = e.toString(),
-        r = e.remote.toString();
+        n = e.remote.toString();
       return o("WAWebModelStorageUtils")
         .getStorage()
-        .lock(
-          ["message", "chat"],
-          (function () {
-            var a = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (n) {
-                var a,
-                  i,
-                  l,
-                  s = n[0],
-                  u = n[1],
-                  c = (a = yield s.get(t, !1)) == null ? void 0 : a.viewMode,
-                  d =
-                    (i =
-                      (l = yield u.get(r)) == null ? void 0 : l.unreadCount) !=
-                    null
-                      ? i
-                      : 0;
-                return !_(c, o("WAWebMsgCollection").MsgCollection.get(e)) ||
-                  o("WAWebVoipPlaceholderUnreadRows").hasTooManyUnreadToWalk(
-                    d,
-                  ) ||
-                  !(yield o("WAWebVoipPlaceholderUnreadRows").isUnreadSinceRow(
-                    s,
-                    r,
-                    t,
-                    Math.max(d, 0),
-                  ))
-                  ? !1
-                  : (yield s.merge(t, {
-                      viewMode:
-                        o("WAWebViewMode.flow").ViewModeType
-                          .CALL_LOG_OFFLINE_RESUME_PROMOTED,
-                      pendingReadReceipt:
-                        o("WAWebDBMsgUtils").PendingReadReceiptType.Message,
-                    }),
-                    yield u.merge(r, { unreadCount: d + 1 || 1 }),
-                    !0);
-              },
-            );
-            return function (e) {
-              return a.apply(this, arguments);
-            };
-          })(),
-        );
+        .lock(["message", "chat"], async function (r) {
+          var a,
+            i,
+            l,
+            s = r[0],
+            u = r[1],
+            c = (a = await s.get(t, !1)) == null ? void 0 : a.viewMode,
+            d =
+              (i = (l = await u.get(n)) == null ? void 0 : l.unreadCount) !=
+              null
+                ? i
+                : 0;
+          return !p(c, o("WAWebMsgCollection").MsgCollection.get(e)) ||
+            o("WAWebVoipPlaceholderUnreadRows").hasTooManyUnreadToWalk(d) ||
+            !(await o("WAWebVoipPlaceholderUnreadRows").isUnreadSinceRow(
+              s,
+              n,
+              t,
+              Math.max(d, 0),
+            ))
+            ? !1
+            : (await s.merge(t, {
+                viewMode:
+                  o("WAWebViewMode.flow").ViewModeType
+                    .CALL_LOG_OFFLINE_RESUME_PROMOTED,
+                pendingReadReceipt:
+                  o("WAWebDBMsgUtils").PendingReadReceiptType.Message,
+              }),
+              await u.merge(n, { unreadCount: d + 1 || 1 }),
+              !0);
+        });
     }
-    function _(e, t) {
+    function p(e, t) {
       return (
         e === o("WAWebViewMode.flow").ViewModeType.VISIBLE &&
         (t == null ||

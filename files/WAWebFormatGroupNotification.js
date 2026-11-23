@@ -116,20 +116,12 @@ __d(
               L != null &&
               o("WAWebFrontendContactGetters").getIsUsernameContact(L);
           if (E) {
-            a = s._(/*BTDS*/ "{name} updated their contact info", [
-              s._param("name", u),
-            ]);
+            a = s._(/*BTDS*/ "", [s._param("name", u)]);
             break;
           }
           ((g = o("WAWebWidFormat").widToFormattedUser(_)),
             (h = o("WAWebWidFormat").widToFormattedUser(v)),
-            (a =
-              g === u
-                ? c(u, h)
-                : s._(
-                    /*BTDS*/ "{name} changed their phone number to a new number.",
-                    [s._param("name", u)],
-                  )));
+            (a = g === u ? c(u, h) : s._(/*BTDS*/ "", [s._param("name", u)])));
           break;
         }
         case "create":
@@ -164,13 +156,8 @@ __d(
           break;
         case "revoke_invite":
           a = o("WAWebUserUtils").isMeAccount(_)
-            ? s._(
-                /*BTDS*/ "You reset this group's invite link. Click to view the new invite link.",
-              )
-            : s._(
-                /*BTDS*/ "{name} reset this group's invite link. Click to view the new invite link.",
-                [s._param("name", u)],
-              );
+            ? s._(/*BTDS*/ "")
+            : s._(/*BTDS*/ "", [s._param("name", u)]);
           break;
         case "description":
           a = o(
@@ -208,24 +195,14 @@ __d(
         case "no_frequently_forwarded":
           f === "on"
             ? (a = o("WAWebUserUtils").isMeAccount(_)
-                ? s._(
-                    /*BTDS*/ "You changed this group's settings to not allow messages that have been forwarded many times.",
-                  )
-                : s._(
-                    /*BTDS*/ "{name} changed this group's settings to not allow messages that have been forwarded many times.",
-                    [s._param("name", u)],
-                  ))
+                ? s._(/*BTDS*/ "")
+                : s._(/*BTDS*/ "", [s._param("name", u)]))
             : (a = o("WAWebUserUtils").isMeAccount(_)
-                ? s._(
-                    /*BTDS*/ "You changed this group's settings to allow messages that have been forwarded many times.",
-                  )
-                : s._(
-                    /*BTDS*/ "{name} changed this group's settings to allow messages that have been forwarded many times.",
-                    [s._param("name", u)],
-                  ));
+                ? s._(/*BTDS*/ "")
+                : s._(/*BTDS*/ "", [s._param("name", u)]));
           break;
         case "announce_msg_bounce":
-          a = s._(/*BTDS*/ "Only admins can message this group.");
+          a = s._(/*BTDS*/ "");
           break;
         case "v4_add_invite_sent":
           a = m(b);
@@ -236,14 +213,10 @@ __d(
         case "ephemeral":
           return o("WAWebFormatEphemeralSetting").formatEphemeralSetting(t);
         case "growth_locked":
-          a = s._(
-            /*BTDS*/ "Invite via link became unavailable. Click to learn more.",
-          );
+          a = s._(/*BTDS*/ "");
           break;
         case "growth_unlocked":
-          a = s._(
-            /*BTDS*/ "Invite via link became available again. Click to view the new invite link.",
-          );
+          a = s._(/*BTDS*/ "");
           break;
         case "linked_group_join":
         case "parent_group_link":
@@ -313,9 +286,7 @@ __d(
           ).formatMembershipApprovalNotification(l, _, t.templateParams);
           break;
         case "ephemeral_keep_in_chat":
-          a = s._(
-            /*BTDS*/ "Disappearing messages now support keeping messages in the chat. Click to learn more.",
-          );
+          a = s._(/*BTDS*/ "");
           break;
         case "initial_pHash_mismatch":
         case "default_sub_group_promote":
@@ -323,10 +294,8 @@ __d(
           o("WAWebChatGroupUtils").isCommunityAnnouncementGroup(
             o("WAWebFrontendMsgGetters").getChat(t),
           )
-            ? (a = s._(
-                /*BTDS*/ "Community members have changed. Click to view",
-              ))
-            : (a = s._(/*BTDS*/ "Group members have changed. Click to view"));
+            ? (a = s._(/*BTDS*/ ""))
+            : (a = s._(/*BTDS*/ ""));
           break;
         case "allow_admin_reports":
           a = o(
@@ -406,14 +375,8 @@ __d(
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s._(/*BTDS*/ "{name} changed to {new_number}.", [
-            s._param("name", e),
-            s._param("new_number", t),
-          ])
-        : s._(/*BTDS*/ "{name} changed to {new_number}", [
-            s._param("name", e),
-            s._param("new_number", t),
-          ]);
+        ? s._(/*BTDS*/ "", [s._param("name", e), s._param("new_number", t)])
+        : s._(/*BTDS*/ "", [s._param("name", e), s._param("new_number", t)]);
     }
     function d(e, t) {
       var n = o(
@@ -421,45 +384,25 @@ __d(
       ).systemMessageTerminalPeriodsEnabled();
       return e
         ? n
-          ? s._(/*BTDS*/ "You joined via an invite link.")
-          : s._(/*BTDS*/ "You joined via an invite link")
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "")
         : n
-          ? s._(/*BTDS*/ "{name} joined via an invite link.", [
-              s._param("name", t),
-            ])
-          : s._(/*BTDS*/ "{name} joined via an invite link", [
-              s._param("name", t),
-            ]);
+          ? s._(/*BTDS*/ "", [s._param("name", t)])
+          : s._(/*BTDS*/ "", [s._param("name", t)]);
     }
     function m(e) {
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s
-            ._(/*BTDS*/ "You invited {participants}.", [
-              s._param("participants", e),
-            ])
-            .toString()
-        : s
-            ._(/*BTDS*/ "You invited {participants}", [
-              s._param("participants", e),
-            ])
-            .toString();
+        ? s._(/*BTDS*/ "", [s._param("participants", e)]).toString()
+        : s._(/*BTDS*/ "", [s._param("participants", e)]).toString();
     }
     function p(e) {
       return o(
         "WAWebSystemMessageGatingUtils",
       ).systemMessageTerminalPeriodsEnabled()
-        ? s
-            ._(/*BTDS*/ "{participants} joined using your invite.", [
-              s._param("participants", e),
-            ])
-            .toString()
-        : s
-            ._(/*BTDS*/ "{participants} joined using your invite", [
-              s._param("participants", e),
-            ])
-            .toString();
+        ? s._(/*BTDS*/ "", [s._param("participants", e)]).toString()
+        : s._(/*BTDS*/ "", [s._param("participants", e)]).toString();
     }
     l.default = u;
   },

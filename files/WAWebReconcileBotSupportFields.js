@@ -1,7 +1,6 @@
 __d(
   "WAWebReconcileBotSupportFields",
   [
-    "Promise",
     "WALogger",
     "WAWebBotProduct",
     "WAWebDBBulkPersistProfilePic",
@@ -9,12 +8,11 @@ __d(
     "WAWebPersistBotProfiles",
     "WAWebSchemaBotProfile",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d;
-    function m(t, n, a) {
+    var e, s, u, c;
+    function d(t, n, a) {
       var i = [];
       for (var l of n)
         if (
@@ -44,135 +42,99 @@ __d(
         }
       return i;
     }
-    function p() {
-      return _.apply(this, arguments);
-    }
-    function _() {
+    async function m() {
+      var e = Date.now(),
+        t = await o(
+          "WAWebFetchWassBotListProfilesGQL",
+        ).fetchWassBotListProfilesGQL();
+      if (t.type !== "success") return !1;
+      if (t.profiles.length === 0) return !0;
+      var n = Date.now(),
+        a = new Set(
+          t.profiles.map(function (e) {
+            return e.botFbid;
+          }),
+        ),
+        i = await o("WAWebSchemaBotProfile").getBotProfileTable().all();
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = Date.now(),
-            t = yield o(
-              "WAWebFetchWassBotListProfilesGQL",
-            ).fetchWassBotListProfilesGQL();
-          if (t.type !== "success") return !1;
-          if (t.profiles.length === 0) return !0;
-          var a = Date.now(),
-            i = new Set(
-              t.profiles.map(function (e) {
-                return e.botFbid;
-              }),
-            ),
-            l = yield o("WAWebSchemaBotProfile").getBotProfileTable().all();
-          return (
-            yield (d || (d = n("Promise"))).all(
-              t.profiles.map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      try {
-                        yield f(e, a);
-                      } catch (e) {
-                        o("WALogger")
-                          .ERROR(
-                            s ||
-                              (s = babelHelpers.taggedTemplateLiteralLoose([
-                                "[reconcileBotSupportFields] failed to upsert a listed agent",
-                              ])),
-                          )
-                          .catching(r("getErrorSafe")(e))
-                          .sendLogs("sbp-reconcile-upsert-error");
-                      }
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            yield d.all(
-              m(i, l, e).map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      try {
-                        yield o(
-                          "WAWebPersistBotProfiles",
-                        ).mergeBotSupportFields(e, {
-                          isDeleted: !0,
-                          lastFetchedTimeMs: a,
-                        });
-                      } catch (e) {
-                        o("WALogger")
-                          .ERROR(
-                            u ||
-                              (u = babelHelpers.taggedTemplateLiteralLoose([
-                                "[reconcileBotSupportFields] failed to tombstone a delisted agent",
-                              ])),
-                          )
-                          .catching(r("getErrorSafe")(e))
-                          .sendLogs("sbp-reconcile-tombstone-error");
-                      }
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-            ),
-            !0
-          );
-        })),
-        _.apply(this, arguments)
+        await Promise.all(
+          t.profiles.map(async function (e) {
+            try {
+              await p(e, n);
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  s ||
+                    (s = babelHelpers.taggedTemplateLiteralLoose([
+                      "[reconcileBotSupportFields] failed to upsert a listed agent",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("sbp-reconcile-upsert-error");
+            }
+          }),
+        ),
+        await Promise.all(
+          d(a, i, e).map(async function (e) {
+            try {
+              await o("WAWebPersistBotProfiles").mergeBotSupportFields(e, {
+                isDeleted: !0,
+                lastFetchedTimeMs: n,
+              });
+            } catch (e) {
+              o("WALogger")
+                .ERROR(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[reconcileBotSupportFields] failed to tombstone a delisted agent",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("sbp-reconcile-tombstone-error");
+            }
+          }),
+        ),
+        !0
       );
     }
-    function f(e, t) {
-      return g.apply(this, arguments);
-    }
-    function g() {
+    async function p(e, t) {
+      var n = o("WAWebWidFactory").createWid(e.botFbid + "@bot");
+      await o("WAWebPersistBotProfiles").mergeBotSupportFields(n, {
+        creatorLid: e.creatorLid,
+        generatedEmoji: e.generatedEmoji,
+        hcaEntrypointId: e.hcaEntrypointId,
+        name: e.name,
+        product: e.product,
+        isDeprecated: e.isDeprecated,
+        isDeleted: !1,
+        lastFetchedTimeMs: t,
+      });
+      var a = o("WAWebPersistBotProfiles").setBotProfilePicUrls(
+        n,
+        e.profilePicThumbUrl,
+        e.profilePicFullUrl,
+      );
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = o("WAWebWidFactory").createWid(e.botFbid + "@bot");
-          yield o("WAWebPersistBotProfiles").mergeBotSupportFields(n, {
-            creatorLid: e.creatorLid,
-            generatedEmoji: e.generatedEmoji,
-            hcaEntrypointId: e.hcaEntrypointId,
-            name: e.name,
-            product: e.product,
-            isDeprecated: e.isDeprecated,
-            isDeleted: !1,
-            lastFetchedTimeMs: t,
-          });
-          var a = o("WAWebPersistBotProfiles").setBotProfilePicUrls(
-            n,
-            e.profilePicThumbUrl,
-            e.profilePicFullUrl,
-          );
-          return (
-            a != null &&
-              o("WAWebDBBulkPersistProfilePic")
-                .persistProfilePicBatched(a)
-                .catch(function (e) {
-                  o("WALogger")
-                    .ERROR(
-                      c ||
-                        (c = babelHelpers.taggedTemplateLiteralLoose([
-                          "[reconcileBotSupportFields] failed to persist a listed agent pic",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(e))
-                    .sendLogs("sbp-reconcile-persist-pic-error");
-                }),
-            n
-          );
-        })),
-        g.apply(this, arguments)
+        a != null &&
+          o("WAWebDBBulkPersistProfilePic")
+            .persistProfilePicBatched(a)
+            .catch(function (e) {
+              o("WALogger")
+                .ERROR(
+                  c ||
+                    (c = babelHelpers.taggedTemplateLiteralLoose([
+                      "[reconcileBotSupportFields] failed to persist a listed agent pic",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(e))
+                .sendLogs("sbp-reconcile-persist-pic-error");
+            }),
+        n
       );
     }
-    ((l.computeBotSupportTombstones = m),
-      (l.reconcileBotSupportFields = p),
-      (l.upsertListedAgentProfile = f));
+    ((l.computeBotSupportTombstones = d),
+      (l.reconcileBotSupportFields = m),
+      (l.upsertListedAgentProfile = p));
   },
   98,
 );

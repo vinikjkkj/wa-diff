@@ -5,12 +5,10 @@ __d(
     function e(e) {
       var t = o("WAWebPollAddOptionContributor").getPollAddOptionContributor(e);
       return t == null
-        ? s._(/*BTDS*/ "An option was added to the poll")
+        ? s._(/*BTDS*/ "")
         : t.kind === "me"
-          ? s._(/*BTDS*/ "You added an option to the poll")
-          : s._(/*BTDS*/ "{sender-name} added an option to the poll", [
-              s._param("sender-name", t.name),
-            ]);
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "", [s._param("sender-name", t.name)]);
     }
     l.formatPollAddOptionNotification = e;
   },

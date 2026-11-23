@@ -8,7 +8,6 @@ __d(
     "WAWebScheduleSelfReminderAction",
     "WAWebSlashCommandsUsageLogger",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e = (function (e) {
@@ -26,29 +25,23 @@ __d(
         );
       }
       babelHelpers.inheritsLoose(t, e);
-      var r = t.prototype;
+      var n = t.prototype;
       return (
-        (r.buildKey = function () {
+        (n.buildKey = function () {
           return (
             "self-reminder:" + this.$WASelfReminderNotification$p_2.toString()
           );
         }),
-        (r.getChatKind = function () {
+        (n.getChatKind = function () {
           return null;
         }),
-        (r.matchesChat = function (t) {
+        (n.matchesChat = function (t) {
           return t.id.equals(this.$WASelfReminderNotification$p_1.id);
         }),
-        (r.getIcon = (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o("WAWebNotificationIconUtils").WHATSAPP_DEFAULT_ICON;
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })()),
-        (r.getBannerOptions = function () {
+        (n.getIcon = async function () {
+          return o("WAWebNotificationIconUtils").WHATSAPP_DEFAULT_ICON;
+        }),
+        (n.getBannerOptions = function () {
           var e = this;
           return {
             wid: this.$WASelfReminderNotification$p_1.id,
@@ -62,7 +55,7 @@ __d(
               ? o("WAWebScheduleSelfReminderAction").withoutReminderPrefix(
                   this.$WASelfReminderNotification$p_3,
                 )
-              : s._(/*BTDS*/ "You have a reminder").toString(),
+              : s._(/*BTDS*/ "").toString(),
             requireInteraction: !0,
             onClick: function () {
               return o("WAWebSlashCommandsUsageLogger").logReminderUsage(
@@ -83,12 +76,8 @@ __d(
     }
     function c(e, t) {
       return t && !o("WAWebUserUtils").isMeAccount(e.id)
-        ? s
-            ._(/*BTDS*/ "Reminder \u00b7 {chat name}", [
-              s._param("chat name", e.title()),
-            ])
-            .toString()
-        : s._(/*BTDS*/ "Reminder").toString();
+        ? s._(/*BTDS*/ "", [s._param("chat name", e.title())]).toString()
+        : s._(/*BTDS*/ "").toString();
     }
     ((l.WASelfReminderNotification = e), (l.canShowReminderContent = u));
   },

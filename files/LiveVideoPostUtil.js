@@ -22,7 +22,7 @@ __d(
         (e == null ? void 0 : e.is_fb_live_videos) === !0 &&
         (e == null || (t = e.live_video_eligibility) == null
           ? void 0
-          : t.includes("ELIGIBLE_FOR_POST_ERROR_MESSAGE_IMPROVEMENT"))
+          : t.includes("ELIGIBLE_FOR_POST_ERROR_MESSAGE_IMPROVEMENT")) === !0
       );
     }
     ((l.isWasLiveVideo = e),

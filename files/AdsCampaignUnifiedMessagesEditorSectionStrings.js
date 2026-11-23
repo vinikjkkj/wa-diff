@@ -5,9 +5,7 @@ __d(
     "use strict";
     var e = o(
       "AdsUnificationConversionContent",
-    ).getMessagingAppsMessageDestinationTitleStringOrDefault(
-      s._(/*BTDS*/ "Messaging apps"),
-    );
+    ).getMessagingAppsMessageDestinationTitleStringOrDefault(s._(/*BTDS*/ ""));
     l.MESSAGING_APP_DESTINATION_LABEL = e;
   },
   226,

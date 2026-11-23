@@ -1,6 +1,6 @@
 __d(
   "WAMp4RepairMux",
-  ["WAByteArray", "WAResultOrError", "WASI", "asyncToGeneratorRuntime"],
+  ["WAByteArray", "WAResultOrError", "WASI"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e = "input",
@@ -40,36 +40,30 @@ __d(
     }
     function m(e) {
       var t = e.getWasmModule,
-        r = e.logError,
-        a = e.logMessage;
-      return (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var n,
-            i = e.input,
-            l = o("WASI").createWasi(d({ input: i, stderr: r, stdout: a })),
-            s = l.getImportObject,
-            u = l.start,
-            m = yield t(),
-            p = yield WebAssembly.instantiate(m, s()),
-            _ = u(p),
-            f = _.exitCode,
-            g = _.fs,
-            h = (n = g[c]) == null ? void 0 : n.content;
-          return f !== 0
-            ? (r("mp4repairmux failed with exit code " + f),
-              o("WAResultOrError").makeError("invalid-media"))
-            : h instanceof Uint8Array
-              ? o("WAResultOrError").makeResult(
-                  o("WAByteArray").uint8ArrayToBuffer(h),
-                )
-              : (r("mp4repairmux failed invalid result type"),
-                o("WAResultOrError").makeError("internal-error"));
-        });
-        function i(t) {
-          return e.apply(this, arguments);
-        }
-        return i;
-      })();
+        n = e.logError,
+        r = e.logMessage;
+      return async function (a) {
+        var e,
+          i = a.input,
+          l = o("WASI").createWasi(d({ input: i, stderr: n, stdout: r })),
+          s = l.getImportObject,
+          u = l.start,
+          m = await t(),
+          p = await WebAssembly.instantiate(m, s()),
+          _ = u(p),
+          f = _.exitCode,
+          g = _.fs,
+          h = (e = g[c]) == null ? void 0 : e.content;
+        return f !== 0
+          ? (n("mp4repairmux failed with exit code " + f),
+            o("WAResultOrError").makeError("invalid-media"))
+          : h instanceof Uint8Array
+            ? o("WAResultOrError").makeResult(
+                o("WAByteArray").uint8ArrayToBuffer(h),
+              )
+            : (n("mp4repairmux failed invalid result type"),
+              o("WAResultOrError").makeError("internal-error"));
+      };
     }
     l.createMp4RepairMux = m;
   },

@@ -16,28 +16,24 @@ __d(
     "WAWebProductCatalogSession",
     "WAWebUserUtils",
     "WDSToastImperativeHost",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
     var e,
       u = e || (e = o("react")),
-      c = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebBizCatalogManagementFlow.react",
-          )
-            .__setRef("WAWebCatalogManagementFlowLoadable")
-            .load();
-          return e;
-        }),
-        "CatalogManagementFlow",
-      ),
+      c = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebBizCatalogManagementFlow.react",
+        )
+          .__setRef("WAWebCatalogManagementFlowLoadable")
+          .load();
+        return e;
+      }, "CatalogManagementFlow"),
       d = r("WAWebLoadable")({
         loader: c,
         loading: function (t) {
           return u.jsx(r("WAWebLoadingDrawer.react"), {
-            title: s._(/*BTDS*/ "Catalog"),
+            title: s._(/*BTDS*/ ""),
             error: !!t.error,
           });
         },
@@ -72,9 +68,7 @@ __d(
       });
     }
     function p() {
-      o("WDSToastImperativeHost").showWDSToast({
-        message: s._(/*BTDS*/ "Couldn't load catalog"),
-      });
+      o("WDSToastImperativeHost").showWDSToast({ message: s._(/*BTDS*/ "") });
     }
     function _(e) {
       var t = o("WAWebUserUtils").getMeUserOrThrow(),

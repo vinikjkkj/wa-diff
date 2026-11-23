@@ -58,7 +58,6 @@ __d(
     "WAWebWamEnumSubSurface",
     "WDSConfirmDialog.react",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "cr:13920",
     "cr:1923",
     "getErrorSafe",
@@ -253,7 +252,7 @@ __d(
     function b() {
       var e,
         t,
-        r =
+        n =
           (e =
             (t = o("WAWebDrawerManagerGlobalContext").getGlobalDrawerManager(
               "left",
@@ -262,28 +261,19 @@ __d(
               : t.existsDrawer()) != null
             ? e
             : !1;
-      (r && o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
+      (n && o("WAWebDrawerManager").DrawerManager.closeDrawerLeft(),
         o("WAWebDrawerManager").DrawerManager.openDrawerLeft(
           o("WAWebAdaptiveLayoutGatingUtils").shouldUseDrawerDescriptor()
             ? { descriptorType: "new_group", isSubFlow: !1 }
             : f.jsx(o("WAWebNewGroupFlowLoadable").NewGroupFlowLoadable, {
                 onEnd: o("WAWebDrawerManager").closeDrawerLeft,
-                onCreateGroup: (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      try {
-                        var t = yield e;
-                        t != null &&
-                          o(
-                            "WAWebDrawerManager",
-                          ).DrawerManager.closeDrawerLeft();
-                      } catch (e) {}
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
+                onCreateGroup: async function (t) {
+                  try {
+                    var e = await t;
+                    e != null &&
+                      o("WAWebDrawerManager").DrawerManager.closeDrawerLeft();
+                  } catch (e) {}
+                },
               }),
         ));
     }
@@ -363,9 +353,9 @@ __d(
           o("WAWebSocketModel").Socket.logout());
       };
       return f.jsx(r("WDSConfirmDialog.react"), {
-        title: s._(/*BTDS*/ "Log out?"),
-        description: s._(/*BTDS*/ "Some of your messages are still sending."),
-        confirmLabel: s._(/*BTDS*/ "Log out"),
+        title: s._(/*BTDS*/ ""),
+        description: s._(/*BTDS*/ ""),
+        confirmLabel: s._(/*BTDS*/ ""),
         cancelLabel: r("WAWebFbtCommon")("Cancel"),
         destructive: !0,
         onConfirm: e,
@@ -551,35 +541,33 @@ __d(
                 .TURN_ON_CAMERA,
           o("WAWebWamEnumSubSurface").SUB_SURFACE.KEYBOARD_SHORTCUT,
         ),
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+        (async function () {
+          var t = await o("WAWebVoipStackInterface").getVoipStackInterface();
           if ((t == null ? void 0 : t.type) === "web") {
             var n = !o("WAWebVoipVideoStateUtils").isVideoEnabled(
               e.selfVideoState,
             );
-            yield t.setCallVideoMute(!n);
+            await t.setCallVideoMute(!n);
           }
         })());
     }
     function re(e) {
       var t = r("WAWebCallCollection").activeCall;
       if (t != null) {
-        var a = t.selfMicMuted;
-        n("asyncToGeneratorRuntime")
-          .asyncToGenerator(function* () {
-            var t = (e == null ? void 0 : e.isDocPip) === !0,
-              n = e == null ? void 0 : e.targetWindow,
-              r = !1,
-              i = yield o(
-                "WAWebVoipMicrophoneToggle",
-              ).toggleActiveCallMicrophone({
+        var n = t.selfMicMuted;
+        (async function () {
+          var t = (e == null ? void 0 : e.isDocPip) === !0,
+            r = e == null ? void 0 : e.targetWindow,
+            a = !1,
+            i = await o("WAWebVoipMicrophoneToggle").toggleActiveCallMicrophone(
+              {
                 onPermissionPrompt:
-                  t && n != null
+                  t && r != null
                     ? function () {
-                        r = o(
+                        a = o(
                           "WAWebVoipPopoutWindowState",
                         ).focusMainWindowForMediaPrompt(
-                          n,
+                          r,
                           "keyboard mute toggle",
                           "microphone",
                         );
@@ -587,7 +575,7 @@ __d(
                     : void 0,
                 onToggleStarted: function () {
                   return o("WAWebCallUserJourneyInCallAction").logInCallAction(
-                    a
+                    n
                       ? o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
                           .TAP_UNMUTE
                       : o("WAWebCallUserJourneyLogger").PARITY_CALL_ACTION_TYPE
@@ -595,21 +583,21 @@ __d(
                     o("WAWebWamEnumSubSurface").SUB_SURFACE.KEYBOARD_SHORTCUT,
                   );
                 },
-                targetWindow: t ? null : n,
-              });
-            i === "permission_denied" && oe(n, r);
-          })()
-          .catch(function (e) {
-            o("WALogger")
-              .ERROR(
-                p ||
-                  (p = babelHelpers.taggedTemplateLiteralLoose([
-                    "keyboard: microphone toggle failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("voip-keyboard-microphone-toggle-failed");
-          });
+                targetWindow: t ? null : r,
+              },
+            );
+          i === "permission_denied" && oe(r, a);
+        })().catch(function (e) {
+          o("WALogger")
+            .ERROR(
+              p ||
+                (p = babelHelpers.taggedTemplateLiteralLoose([
+                  "keyboard: microphone toggle failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("voip-keyboard-microphone-toggle-failed");
+        });
       }
     }
     function oe(e, t) {
@@ -636,8 +624,8 @@ __d(
     function ie() {
       var e = r("WAWebCallCollection").activeCall;
       e != null &&
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var t = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+        (async function () {
+          var t = await o("WAWebVoipStackInterface").getVoipStackInterface();
           if ((t == null ? void 0 : t.type) === "web") {
             var n = o("WAWebUserUtils").getMeLidUserOrThrow(),
               r = e.isHandRaisedForParticipant(n);
@@ -649,7 +637,7 @@ __d(
                     .TAP_RAISE_HAND,
               o("WAWebWamEnumSubSurface").SUB_SURFACE.KEYBOARD_SHORTCUT,
             ),
-              yield t.raiseHand(!r));
+              await t.raiseHand(!r));
           }
         })();
     }
@@ -665,10 +653,10 @@ __d(
               .START_SCREEN_SHARE,
             o("WAWebWamEnumSubSurface").SUB_SURFACE.KEYBOARD_SHORTCUT,
           ),
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
+          (async function () {
+            var e = await o("WAWebVoipStackInterface").getVoipStackInterface();
             (e == null ? void 0 : e.type) === "web" &&
-              (t ? yield e.stopScreenShare() : yield e.startScreenShare());
+              (t ? await e.stopScreenShare() : await e.startScreenShare());
           })());
       }
     }
@@ -682,11 +670,11 @@ __d(
         o(
           "WAWebCallScreeningJourneyLogger",
         ).CallScreeningJourneyLogger.onSelfEnded(),
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o("WAWebVoipStackInterface").getVoipStackInterface();
-          yield e == null
+        (async function () {
+          var e = await o("WAWebVoipStackInterface").getVoipStackInterface();
+          await (e == null
             ? void 0
-            : e.endCall(o("WAWebVoipSignalingEnums").EndCallReason.Self, !0);
+            : e.endCall(o("WAWebVoipSignalingEnums").EndCallReason.Self, !0));
         })());
     }
     l.default = h;

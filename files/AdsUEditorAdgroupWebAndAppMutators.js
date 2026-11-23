@@ -9,6 +9,7 @@ __d(
     "AdsUnifiedCreativeAPIFields",
     "FBLogger",
     "immutable",
+    "observeRuntimeType",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -43,12 +44,12 @@ __d(
       );
     }
     function s(e, t, n, a, i) {
-      var l,
-        s,
-        c,
-        d,
-        m,
-        p =
+      var l, s, c, d, m;
+      r("observeRuntimeType")(
+        a,
+        "AdsUEditorAdgroupWebAndAppMutators.updateOmnichannelCustomizationForNonDefaultPlacement.url",
+      );
+      var p =
           (l = e.creative) == null || (l = l.asset_feed_spec) == null
             ? void 0
             : l.link_urls,

@@ -1,7 +1,6 @@
 __d(
   "WAWebPipVideoStreaming",
   [
-    "Promise",
     "WABackoffUtils",
     "WALogger",
     "WAWebBuildConstants",
@@ -17,7 +16,6 @@ __d(
     "WAWebStartMediaDownloadQpl",
     "WAWebSuspiciousContent",
     "WAWebWamEnumWebcRmrReasonCode",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -29,9 +27,8 @@ __d(
       d,
       m,
       p,
-      _,
-      f = o("WAWebBuildConstants").WEB_PUBLIC_PATH + "stream/video",
-      g = (function () {
+      _ = o("WAWebBuildConstants").WEB_PUBLIC_PATH + "stream/video",
+      f = (function () {
         function t(t) {
           ((this.ranges = []),
             (this.buffer = []),
@@ -94,224 +91,198 @@ __d(
           t
         );
       })();
-    function h(e) {
+    function g(e) {
       var t = o("WAWebMsgCollection").MsgCollection.get(e);
       return t ? o("WAWebMediaVideoStreaming").videoStreamingInfo(t) : null;
     }
-    function y(e) {
-      return C.apply(this, arguments);
+    async function h(e) {
+      var t = o("WAWebMsgCollection").MsgCollection.get(e.key);
+      if (!t) return null;
+      throw (
+        await t.downloadMedia({
+          downloadEvenIfExpensive: !0,
+          rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
+            .VIDEO_STREAMING,
+          isUserInitiated: !0,
+        }),
+        r("err")("downloaded media instead of streaming")
+      );
     }
-    function C() {
+    var y = {};
+    async function C(e, t, n) {
+      var a = o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES;
+      try {
+        await o("WAWebDownloadManager").screenDecryptedMedia({
+          input: t,
+          type: o("WAWebMmsMediaTypes").getMsgMediaType(e),
+          mimetype: e.mimetype,
+          downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(e),
+          downloadQpl: n,
+          withStreamCheck: !0,
+          onSuspiciousContent: function (t) {
+            a = t;
+          },
+        });
+      } catch (e) {
+        var i = r("getErrorSafe")(e).message;
+        if (e instanceof o("WAWebMediaFileErrors").InvalidMediaFileType)
+          return (
+            o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[video-streaming] the first window is dangerous: ",
+                    "",
+                  ])),
+                i,
+              )
+              .tags("media", "security")
+              .sendLogs("video-stream-first-window-dangerous"),
+            o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES
+          );
+        throw (
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[video-streaming] the first window could not be screened: ",
+                  "",
+                ])),
+              i,
+            )
+            .tags("media", "security")
+            .sendLogs("video-stream-first-window-unscreenable"),
+          r("err")("the first window could not be screened")
+        );
+      }
+      if (a === o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES)
+        throw (
+          o("WALogger")
+            .WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[video-streaming] the classifier reported no verdict on the first window",
+                ])),
+            )
+            .tags("media", "security")
+            .sendLogs("video-stream-screening-did-not-run"),
+          r("err")("the classifier reported no verdict")
+        );
       return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebMsgCollection").MsgCollection.get(e.key);
-          if (!t) return null;
+        a !== o("WAWebSuspiciousContent").WAWebSuspiciousContent.NO &&
+          o("WALogger")
+            .WARN(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[video-streaming] the first window is suspicious",
+                ])),
+            )
+            .tags("media", "security")
+            .sendLogs("video-stream-first-window-suspicious"),
+        a
+      );
+    }
+    async function b(e) {
+      var t = o("WAWebMsgCollection").MsgCollection.get(e.msgKey);
+      if (t == null)
+        throw (
+          o("WALogger")
+            .WARN(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "[video-streaming] no message for the stream being screened",
+                ])),
+            )
+            .tags("media", "security")
+            .sendLogs("video-stream-screening-no-msg"),
+          r("err")("no message to screen the stream against")
+        );
+      if (
+        !o("WAWebDownloadManager").isMediaScreenedForOrigin(
+          r("WAWebMediaGetDownloadOriginForMsg")(t),
+        )
+      )
+        return !0;
+      var n = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
+          entryPoint: "ScreenStreamedVideo",
+        }),
+        a = await C(t, e.firstWindow, n).catch(function (e) {
           throw (
-            yield t.downloadMedia({
+            n.endFailWithError(
+              "stream_not_screened",
+              r("getErrorSafe")(e).message,
+            ),
+            e
+          );
+        });
+      return a === o("WAWebSuspiciousContent").WAWebSuspiciousContent.NO
+        ? (n.endSuccess(), !0)
+        : (n.endFailWithError("stream_refused", "first window not cleared"),
+          t
+            .downloadMedia({
               downloadEvenIfExpensive: !0,
               rmrReason: o("WAWebWamEnumWebcRmrReasonCode").WEBC_RMR_REASON_CODE
                 .VIDEO_STREAMING,
               isUserInitiated: !0,
-            }),
-            r("err")("downloaded media instead of streaming")
-          );
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    var b = {};
-    function v(e, t, n) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES;
-          try {
-            yield o("WAWebDownloadManager").screenDecryptedMedia({
-              input: t,
-              type: o("WAWebMmsMediaTypes").getMsgMediaType(e),
-              mimetype: e.mimetype,
-              downloadOrigin: r("WAWebMediaGetDownloadOriginForMsg")(e),
-              downloadQpl: n,
-              withStreamCheck: !0,
-              onSuspiciousContent: function (t) {
-                a = t;
-              },
-            });
-          } catch (e) {
-            var i = r("getErrorSafe")(e).message;
-            if (e instanceof o("WAWebMediaFileErrors").InvalidMediaFileType)
-              return (
-                o("WALogger")
-                  .WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[video-streaming] the first window is dangerous: ",
-                        "",
-                      ])),
-                    i,
-                  )
-                  .tags("media", "security")
-                  .sendLogs("video-stream-first-window-dangerous"),
-                o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES
-              );
-            throw (
+            })
+            .catch(function (e) {
               o("WALogger")
                 .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[video-streaming] the first window could not be screened: ",
+                  p ||
+                    (p = babelHelpers.taggedTemplateLiteralLoose([
+                      "[video-streaming] the screened download fallback failed: ",
                       "",
                     ])),
-                  i,
-                )
-                .tags("media", "security")
-                .sendLogs("video-stream-first-window-unscreenable"),
-              r("err")("the first window could not be screened")
-            );
-          }
-          if (a === o("WAWebSuspiciousContent").WAWebSuspiciousContent.YES)
-            throw (
-              o("WALogger")
-                .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[video-streaming] the classifier reported no verdict on the first window",
-                    ])),
-                )
-                .tags("media", "security")
-                .sendLogs("video-stream-screening-did-not-run"),
-              r("err")("the classifier reported no verdict")
-            );
-          return (
-            a !== o("WAWebSuspiciousContent").WAWebSuspiciousContent.NO &&
-              o("WALogger")
-                .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[video-streaming] the first window is suspicious",
-                    ])),
-                )
-                .tags("media", "security")
-                .sendLogs("video-stream-first-window-suspicious"),
-            a
-          );
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebMsgCollection").MsgCollection.get(e.msgKey);
-          if (t == null)
-            throw (
-              o("WALogger")
-                .WARN(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "[video-streaming] no message for the stream being screened",
-                    ])),
-                )
-                .tags("media", "security")
-                .sendLogs("video-stream-screening-no-msg"),
-              r("err")("no message to screen the stream against")
-            );
-          if (
-            !o("WAWebDownloadManager").isMediaScreenedForOrigin(
-              r("WAWebMediaGetDownloadOriginForMsg")(t),
-            )
-          )
-            return !0;
-          var n = o("WAWebStartMediaDownloadQpl").startMediaDownloadQpl({
-              entryPoint: "ScreenStreamedVideo",
-            }),
-            a = yield v(t, e.firstWindow, n).catch(function (e) {
-              throw (
-                n.endFailWithError(
-                  "stream_not_screened",
                   r("getErrorSafe")(e).message,
-                ),
-                e
-              );
-            });
-          return a === o("WAWebSuspiciousContent").WAWebSuspiciousContent.NO
-            ? (n.endSuccess(), !0)
-            : (n.endFailWithError("stream_refused", "first window not cleared"),
-              t
-                .downloadMedia({
-                  downloadEvenIfExpensive: !0,
-                  rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
-                    .WEBC_RMR_REASON_CODE.VIDEO_STREAMING,
-                  isUserInitiated: !0,
-                })
-                .catch(function (e) {
-                  o("WALogger")
-                    .WARN(
-                      p ||
-                        (p = babelHelpers.taggedTemplateLiteralLoose([
-                          "[video-streaming] the screened download fallback failed: ",
-                          "",
-                        ])),
-                      r("getErrorSafe")(e).message,
-                    )
-                    .tags("media", "security")
-                    .sendLogs("video-stream-fallback-download-failed");
-                }),
-              !1);
-        })),
-        L.apply(this, arguments)
-      );
+                )
+                .tags("media", "security")
+                .sendLogs("video-stream-fallback-download-failed");
+            }),
+          !1);
     }
-    function E(e) {
+    function v(e) {
       var t = e.action,
-        a = e.message;
+        n = e.message;
       switch (t) {
         case r("WAWebSWBusActions").REQUEST_STREAMING_INFO:
-          return h(a.key);
+          return g(n.key);
         case r("WAWebSWBusActions").EXP_BACKOFF:
           return o("WABackoffUtils")
-            .expDelaySec(a.generation, 60)
+            .expDelaySec(n.generation, 60)
             .then(function () {
               return r("WAWebNetworkStatus").waitIfOffline();
             });
         case r("WAWebSWBusActions").REQUEST_RMR:
-          return y(a);
+          return h(n);
         case r("WAWebSWBusActions").SCREEN_VIDEO_STREAM:
-          return R(a);
+          return b(n);
         case r("WAWebSWBusActions").SEND_STREAMING_CHUNK: {
-          var i = a.msgKey,
-            l = o("WAWebMsgCollection").MsgCollection.get(i);
-          if (!l) {
-            delete b[i.toString()];
+          var a = n.msgKey,
+            i = o("WAWebMsgCollection").MsgCollection.get(a);
+          if (!i) {
+            delete y[a.toString()];
             return;
           }
-          var s;
-          (Object.hasOwn(b, i)
-            ? (s = b[i.toString()])
-            : (b[i.toString()] = s = new g(l.size)),
-            s.push(a.data),
-            s.isComplete() &&
+          var l;
+          (Object.hasOwn(y, a)
+            ? (l = y[a.toString()])
+            : (y[a.toString()] = l = new f(i.size)),
+            l.push(n.data),
+            l.isComplete() &&
               (o("WAWebManuallySetMedia").manuallySetMedia({
-                msg: l,
-                media: s.serialize(),
+                msg: i,
+                media: l.serialize(),
                 rmrReason: o("WAWebWamEnumWebcRmrReasonCode")
                   .WEBC_RMR_REASON_CODE.VIDEO_STREAMING,
               }),
-              delete b[i.toString()]));
+              delete y[a.toString()]));
           break;
         }
         default:
-          return (_ || (_ = n("Promise"))).reject(
-            r("err")("Invalid Video Streaming Action"),
-          );
+          return Promise.reject(r("err")("Invalid Video Streaming Action"));
       }
     }
-    ((l.VIDEO_STREAM_URL = f), (l.handleVideoStreamingRequest = E));
+    ((l.VIDEO_STREAM_URL = _), (l.handleVideoStreamingRequest = v));
   },
   98,
 );

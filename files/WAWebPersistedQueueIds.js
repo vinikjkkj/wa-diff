@@ -1,13 +1,6 @@
 __d(
   "WAWebPersistedQueueIds",
-  [
-    "WALogger",
-    "WATimeUtils",
-    "WAWebODS",
-    "WAWormQueueDef",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["WALogger", "WATimeUtils", "WAWebODS", "WAWormQueueDef", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = 15,
@@ -27,48 +20,37 @@ __d(
     function g(e, t) {
       t != null && _.set(e, t);
     }
-    function h(e, t, n) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n, a) {
-          var i = _.get(t);
-          if (i != null) {
-            var l = n.filter(function (e) {
-              return e <= i;
-            });
-            if (l.length !== 0) {
-              r("WAWebODS").incr(
-                "web.persisted_queues.queue_id.behind_stored",
-                l.length,
-              );
-              var s = yield a(l).catch(function (t) {
-                return (
-                  o("WALogger")
-                    .WARN(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[persisted-queues] queue id collision lookup failed",
-                        ])),
-                    )
-                    .catching(r("getErrorSafe")(t))
-                    .sendLogs("persisted-queue-collision-lookup-failed", {
-                      sampling: d,
-                    }),
-                  0
-                );
-              });
-              s > 0 &&
-                r("WAWebODS").incr(
-                  "web.persisted_queues.queue_id.collision",
-                  s,
-                );
-            }
-          }
-        })),
-        y.apply(this, arguments)
-      );
+    async function h(t, n, a) {
+      var i = _.get(t);
+      if (i != null) {
+        var l = n.filter(function (e) {
+          return e <= i;
+        });
+        if (l.length !== 0) {
+          r("WAWebODS").incr(
+            "web.persisted_queues.queue_id.behind_stored",
+            l.length,
+          );
+          var s = await a(l).catch(function (t) {
+            return (
+              o("WALogger")
+                .WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[persisted-queues] queue id collision lookup failed",
+                    ])),
+                )
+                .catching(r("getErrorSafe")(t))
+                .sendLogs("persisted-queue-collision-lookup-failed", {
+                  sampling: d,
+                }),
+              0
+            );
+          });
+          s > 0 &&
+            r("WAWebODS").incr("web.persisted_queues.queue_id.collision", s);
+        }
+      }
     }
     ((l.nextPersistedQueueId = f),
       (l.recordNewestStoredQueueId = g),

@@ -3,10 +3,10 @@ __d(
   [
     "AdsChildAttachmentsUtils",
     "AdsCollectionsAdUtils",
-    "AdsCreativeFeaturesUtils",
     "AdsObjectTypeUtils",
     "AdsPCAUnifiedFormatEligibilityUtils",
     "AdsRegulatedCategory",
+    "AdsRegulatedCategoryUtils",
     "CatalogVertical",
     "ProductSetDataProvider",
     "adsACOVerticalValidationUtils",
@@ -28,7 +28,7 @@ __d(
         i = e.campaignGroup;
       if (
         r("justknobx")._("4143") &&
-        o("AdsCreativeFeaturesUtils").isAdsRegulatedCategory(i)
+        o("AdsRegulatedCategoryUtils").isAdsRegulatedCategory(i)
       ) {
         var l = i == null ? void 0 : i.special_ad_categories,
           s =
@@ -57,7 +57,7 @@ __d(
         i = t.campaignGroup;
       if (
         r("justknobx")._("4143") &&
-        o("AdsCreativeFeaturesUtils").isAdsRegulatedCategory(i)
+        o("AdsRegulatedCategoryUtils").isAdsRegulatedCategory(i)
       ) {
         var l = i == null ? void 0 : i.special_ad_categories,
           s =
@@ -83,7 +83,7 @@ __d(
         a = e.campaignGroup;
       if (
         r("justknobx")._("4143") &&
-        o("AdsCreativeFeaturesUtils").isAdsRegulatedCategory(a)
+        o("AdsRegulatedCategoryUtils").isAdsRegulatedCategory(a)
       ) {
         var i = a == null ? void 0 : a.special_ad_categories,
           l =
@@ -111,7 +111,7 @@ __d(
         n = e.campaignGroup;
       if (
         r("justknobx")._("4143") &&
-        o("AdsCreativeFeaturesUtils").isAdsRegulatedCategory(n)
+        o("AdsRegulatedCategoryUtils").isAdsRegulatedCategory(n)
       ) {
         var a = n == null ? void 0 : n.special_ad_categories,
           i =

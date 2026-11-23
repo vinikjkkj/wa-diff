@@ -17,7 +17,6 @@ __d(
     "WDSIconIcNotificationsFilled.react",
     "WDSIconIcScheduleFilled.react",
     "react",
-    "react-compiler-runtime",
     "useWAWebOnUnmount",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -31,16 +30,13 @@ __d(
     function m(e) {
       var t = e.isAtScheduleLimit;
       return t
-        ? s._(
-            /*BTDS*/ '_j{"*":"You can schedule up to {maximum} messages in a chat"}',
-            [
-              s._param(
-                "maximum",
-                o("WAWebScheduledMsgConstants").SCHEDULED_MSG_MAX_PER_CHAT,
-                [0],
-              ),
-            ],
-          )
+        ? s._(/*BTDS*/ "", [
+            s._param(
+              "maximum",
+              o("WAWebScheduledMsgConstants").SCHEDULED_MSG_MAX_PER_CHAT,
+              [0],
+            ),
+          ])
         : null;
     }
     var p = {
@@ -50,10 +46,10 @@ __d(
         color: "orange",
         text: "required",
         getDescription: function () {
-          return s._(/*BTDS*/ "Remind this chat at a time you pick");
+          return s._(/*BTDS*/ "");
         },
         getTextPrompt: function () {
-          return s._(/*BTDS*/ "Type the reminder");
+          return s._(/*BTDS*/ "");
         },
         getRunLabel: f,
         isAvailable: function (t) {
@@ -89,10 +85,10 @@ __d(
         color: "skyBlue",
         text: "required",
         getDescription: function () {
-          return s._(/*BTDS*/ "Send this message later");
+          return s._(/*BTDS*/ "");
         },
         getTextPrompt: function () {
-          return s._(/*BTDS*/ "Type your message");
+          return s._(/*BTDS*/ "");
         },
         getRunLabel: f,
         isAvailable: d,
@@ -102,7 +98,7 @@ __d(
         },
       };
     function f() {
-      return s._(/*BTDS*/ "Press Enter to pick a time");
+      return s._(/*BTDS*/ "");
     }
     function g(e) {
       return function (t) {
@@ -111,7 +107,7 @@ __d(
       };
     }
     function h() {
-      return s._(/*BTDS*/ "Reminder:").toString();
+      return s._(/*BTDS*/ "").toString();
     }
     function y(e, t) {
       var n = e.getEditorState();
@@ -160,66 +156,35 @@ __d(
       }
     }
     function b(e) {
-      var t = o("react-compiler-runtime").c(12),
-        n = e.chat,
-        a = e.onClosedWithoutTime,
-        i = e.onSchedule,
-        l = c(!1),
-        s;
-      (t[0] !== a
-        ? ((s = function () {
-            l.current || a();
-          }),
-          (t[0] = a),
-          (t[1] = s))
-        : (s = t[1]),
-        r("useWAWebOnUnmount")(s));
-      var d;
-      t[2] !== n
-        ? ((d = o("WAWebChatGetters").getIsGroup(n)), (t[2] = n), (t[3] = d))
-        : (d = t[3]);
-      var m;
-      t[4] !== n
-        ? ((m = function () {
-            return o(
-              "WAWebScheduledMsgActionLogger",
-            ).logScheduledMsgSelectDateTime(n);
-          }),
-          (t[4] = n),
-          (t[5] = m))
-        : (m = t[5]);
-      var p;
-      t[6] !== i
-        ? ((p = function (t) {
-            ((l.current = !0),
-              o("WAWebModalManager").closeModalManager(),
-              i(t));
-          }),
-          (t[6] = i),
-          (t[7] = p))
-        : (p = t[7]);
-      var _;
+      var t = e.chat,
+        n = e.onClosedWithoutTime,
+        a = e.onSchedule,
+        i = c(!1);
       return (
-        t[8] !== d || t[9] !== m || t[10] !== p
-          ? ((_ = u.jsx(
-              o("WAWebScheduleTimePickerLoadable")
-                .WAWebScheduleTimePickerLoadable,
-              {
-                isGroup: d,
-                onCancel: o("WAWebModalManager").closeModalManager,
-                onFirstDateTimeChange: m,
-                onSchedule: p,
-              },
-            )),
-            (t[8] = d),
-            (t[9] = m),
-            (t[10] = p),
-            (t[11] = _))
-          : (_ = t[11]),
-        _
+        r("useWAWebOnUnmount")(function () {
+          i.current || n();
+        }),
+        u.jsx(
+          o("WAWebScheduleTimePickerLoadable").WAWebScheduleTimePickerLoadable,
+          {
+            isGroup: o("WAWebChatGetters").getIsGroup(t),
+            onCancel: o("WAWebModalManager").closeModalManager,
+            onFirstDateTimeChange: function () {
+              return o(
+                "WAWebScheduledMsgActionLogger",
+              ).logScheduledMsgSelectDateTime(t);
+            },
+            onSchedule: function (t) {
+              ((i.current = !0),
+                o("WAWebModalManager").closeModalManager(),
+                a(t));
+            },
+          },
+        )
       );
     }
-    ((l.WAWebSlashCommandRemindUs = p),
+    ((b.displayName = b.name + " [from " + i.id + "]"),
+      (l.WAWebSlashCommandRemindUs = p),
       (l.WAWebSlashCommandDelay = _),
       (l.getPickTimeLabel = f));
   },

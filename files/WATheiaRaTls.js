@@ -5,7 +5,6 @@ __d(
     "WAResolvable",
     "WATheiaRaTlsWasm",
     "WAWasmModuleCache",
-    "asyncToGeneratorRuntime",
     "bx",
     "err",
   ],
@@ -57,22 +56,14 @@ __d(
         p
       );
     }
-    function y() {
-      return C.apply(this, arguments);
+    async function y() {
+      var e = await C();
+      return new S(e);
     }
     function C() {
-      return (
-        (C = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield b();
-          return new R(e);
-        })),
-        C.apply(this, arguments)
-      );
-    }
-    function b() {
       var e = new (o("WAResolvable").Resolvable)(),
         t = r("WATheiaRaTlsWasm")({
-          getRandomValue: v,
+          getRandomValue: b,
           instantiateWasm: function (n, r) {
             return (
               o("WAWasmModuleCache")
@@ -101,11 +92,11 @@ __d(
           throw e;
         });
     }
-    function v() {
+    function b() {
       var e = new Uint32Array(1);
       return (self.crypto.getRandomValues(e), e[0]);
     }
-    var S = (function () {
+    var v = (function () {
         function e(e) {
           var t = _++;
           (f.set(this, t), g.set(this, e));
@@ -113,7 +104,7 @@ __d(
         var t = e.prototype;
         return (
           (t.performHandshake = function (t, n, r) {
-            var e = E(this);
+            var e = L(this);
             try {
               var o = e.performHandshake(t, n, r);
               return o;
@@ -122,27 +113,27 @@ __d(
             }
           }),
           (t.tlsEncapsulate = function (t) {
-            var e = E(this),
+            var e = L(this),
               n = e.tlsEncapsulate(t);
             return n;
           }),
           (t.tlsDecapsulate = function (t) {
-            var e = E(this),
+            var e = L(this),
               n = e.tlsDecapsulate(t);
             return n;
           }),
           (t.getState = function () {
-            var e = E(this),
+            var e = L(this),
               t = e.getState();
             return t;
           }),
           (t.getAttestationBundles = function () {
-            var e = E(this),
+            var e = L(this),
               t = e.getAttestationBundles();
             return t;
           }),
           (t.getLocalServiceTransparencyReport = function () {
-            var e = E(this),
+            var e = L(this),
               t = e.getLocalServiceTransparencyReport();
             return t;
           }),
@@ -153,7 +144,7 @@ __d(
           e
         );
       })(),
-      R = (function () {
+      S = (function () {
         function e(e) {
           ((this.$1 = e), (this.ClientPolicy = u), (this.State = s));
         }
@@ -172,10 +163,10 @@ __d(
               c = u === void 0 ? !0 : u,
               d = e.teeSessionId,
               m = d === void 0 ? null : d,
-              p = L(t);
+              p = R(t);
             try {
               var _ = new this.$1.TheiaRaTlsSession(p, c, o, i, s, m),
-                f = new S(_);
+                f = new v(_);
               return f;
             } catch (e) {
               throw e;
@@ -184,64 +175,64 @@ __d(
           e
         );
       })();
-    function L(e) {
+    function R(e) {
       return e.valueOf();
     }
-    function E(e) {
+    function L(e) {
       var t = g.get(e);
       if (t == null) throw r("err")("WATheiaRaTlsSession is closed");
       return t;
     }
-    function k(e) {
+    function E(e) {
       return f.get(e);
     }
-    function I(e) {
+    function k(e) {
       return {
         additionalErrorCode: e.additionalErrorCode,
-        recvBuffer: D(e.recvBuffer),
-        sendBuffer: D(e.sendBuffer),
+        recvBuffer: T(e.recvBuffer),
+        sendBuffer: T(e.sendBuffer),
         state: e.state,
-        stateName: P(e.state),
-        transparencyReportDataBuffer: D(e.transparencyReportDataBuffer),
+        stateName: $(e.state),
+        transparencyReportDataBuffer: T(e.transparencyReportDataBuffer),
       };
     }
-    function T(e) {
+    function I(e) {
       return e == null
         ? { isNull: !0, length: 0, previewHex: "", previewLength: 0 }
-        : D(e);
+        : T(e);
     }
-    function D(e) {
+    function T(e) {
       var t = Math.min(e.length, d);
       if (e.length <= d)
-        return { length: e.length, previewHex: x(e, 0, t), previewLength: t };
+        return { length: e.length, previewHex: D(e, 0, t), previewLength: t };
       var n = Math.max(t, e.length - d);
       return {
         length: e.length,
-        previewHex: x(e, 0, t),
+        previewHex: D(e, 0, t),
         previewLength: t,
-        tailHex: x(e, n, e.length),
+        tailHex: D(e, n, e.length),
         tailLength: e.length - n,
         truncatedBytes: n - t,
       };
     }
-    function x(e, t, n) {
+    function D(e, t, n) {
       for (var r = [], o = t; o < n; o++)
         r.push(e[o].toString(16).padStart(2, "0"));
       return r.join("");
     }
-    function $(e) {
+    function x(e) {
       try {
         var t = e.getState();
-        return { state: t, stateName: P(t) };
+        return { state: t, stateName: $(t) };
       } catch (e) {
-        return { error: N(e), state: null, stateName: "unavailable" };
+        return { error: P(e), state: null, stateName: "unavailable" };
       }
     }
-    function P(e) {
+    function $(e) {
       var t;
       return (t = m[e]) != null ? t : "UNKNOWN";
     }
-    function N(e) {
+    function P(e) {
       return e instanceof Error
         ? { message: e.message, name: e.name, stack: e.stack }
         : { message: String(e) };
@@ -249,7 +240,7 @@ __d(
     ((l.WATheiaRaTlsState = s),
       (l.WATheiaRaTlsClientPolicy = u),
       (l.loadWATheiaRaTls = h),
-      (l.WATheiaRaTlsSession = S));
+      (l.WATheiaRaTlsSession = v));
   },
   98,
 );

@@ -9,7 +9,6 @@ __d(
     "WAWebReconcileBotSupportFields",
     "WAWebSyncBotSupportFields",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -85,106 +84,97 @@ __d(
         );
       }
     }
-    function R(e) {
-      return L.apply(this, arguments);
-    }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n,
-            r,
-            a,
-            i,
-            l =
-              (t = (n = e.attrs.id) == null ? void 0 : n.toString()) != null
-                ? t
-                : "",
-            s = (r = e.attrs.from) != null ? r : "",
-            u =
-              (a = (i = e.attrs.type) == null ? void 0 : i.toString()) != null
-                ? a
-                : f;
-          try {
-            var c = e.content,
-              y = !1;
-            if (Array.isArray(c))
-              for (var b of c) {
-                var R;
-                if (
-                  b.tag === g &&
-                  ((R = b.attrs) == null || (R = R.type) == null
-                    ? void 0
-                    : R.toString()) === h
-                ) {
-                  var L,
-                    E,
-                    k,
-                    I,
-                    T =
-                      (L = (E = b.attrs.jid) == null ? void 0 : E.toString()) !=
-                      null
-                        ? L
-                        : "",
-                    D =
-                      (k =
-                        (I = b.attrs.category) == null
-                          ? void 0
-                          : I.toString()) != null
-                        ? k
-                        : null;
-                  if (T !== "") (v(D), S(T));
-                  else {
-                    y = !0;
-                    break;
-                  }
-                }
+    async function R(e) {
+      var t,
+        n,
+        r,
+        a,
+        i,
+        l =
+          (t = (n = e.attrs.id) == null ? void 0 : n.toString()) != null
+            ? t
+            : "",
+        s = (r = e.attrs.from) != null ? r : "",
+        u =
+          (a = (i = e.attrs.type) == null ? void 0 : i.toString()) != null
+            ? a
+            : f;
+      try {
+        var c = e.content,
+          y = !1;
+        if (Array.isArray(c))
+          for (var b of c) {
+            var R;
+            if (
+              b.tag === g &&
+              ((R = b.attrs) == null || (R = R.type) == null
+                ? void 0
+                : R.toString()) === h
+            ) {
+              var L,
+                E,
+                k,
+                I,
+                T =
+                  (L = (E = b.attrs.jid) == null ? void 0 : E.toString()) !=
+                  null
+                    ? L
+                    : "",
+                D =
+                  (k =
+                    (I = b.attrs.category) == null ? void 0 : I.toString()) !=
+                  null
+                    ? k
+                    : null;
+              if (T !== "") (v(D), S(T));
+              else {
+                y = !0;
+                break;
               }
-            y &&
-              (o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[BotProfileNotification] pruned update, full bot sync",
-                  ])),
-              ),
-              o("WAWebInitializeBots")
-                .initializeBots()
-                .catch(function (e) {
-                  o("WALogger").WARN(
-                    m ||
-                      (m = babelHelpers.taggedTemplateLiteralLoose([
-                        "[BotProfileNotification] full bot sync failed: ",
-                        "",
-                      ])),
-                    String(e),
-                  );
-                }),
-              o("WAWebReconcileBotSupportFields")
-                .reconcileBotSupportFields()
-                .catch(function (e) {
-                  o("WALogger").WARN(
-                    p ||
-                      (p = babelHelpers.taggedTemplateLiteralLoose([
-                        "[BotProfileNotification] bot support reconcile failed: ",
-                        "",
-                      ])),
-                    String(e),
-                  );
-                }));
-          } catch (e) {
-            o("WALogger").WARN(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[BotProfileNotification] error processing stanza: ",
-                  "",
-                ])),
-              String(e),
-            );
+            }
           }
-          return C(l, s, u);
-        })),
-        L.apply(this, arguments)
-      );
+        y &&
+          (o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "[BotProfileNotification] pruned update, full bot sync",
+              ])),
+          ),
+          o("WAWebInitializeBots")
+            .initializeBots()
+            .catch(function (e) {
+              o("WALogger").WARN(
+                m ||
+                  (m = babelHelpers.taggedTemplateLiteralLoose([
+                    "[BotProfileNotification] full bot sync failed: ",
+                    "",
+                  ])),
+                String(e),
+              );
+            }),
+          o("WAWebReconcileBotSupportFields")
+            .reconcileBotSupportFields()
+            .catch(function (e) {
+              o("WALogger").WARN(
+                p ||
+                  (p = babelHelpers.taggedTemplateLiteralLoose([
+                    "[BotProfileNotification] bot support reconcile failed: ",
+                    "",
+                  ])),
+                String(e),
+              );
+            }));
+      } catch (e) {
+        o("WALogger").WARN(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "[BotProfileNotification] error processing stanza: ",
+              "",
+            ])),
+          String(e),
+        );
+      }
+      return C(l, s, u);
     }
     l.handleBotProfileNotification = R;
   },

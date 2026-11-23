@@ -19,22 +19,22 @@ __d(
             .LocationChanged,
         );
       return t && n && r
-        ? s._(/*BTDS*/ "Event date, time and location updated")
+        ? s._(/*BTDS*/ "")
         : t && n
-          ? s._(/*BTDS*/ "Event date and time updated")
+          ? s._(/*BTDS*/ "")
           : t && r
-            ? s._(/*BTDS*/ "Event date and location updated")
+            ? s._(/*BTDS*/ "")
             : n && r
-              ? s._(/*BTDS*/ "Event time and location updated")
+              ? s._(/*BTDS*/ "")
               : u(t, n, r);
     }
     function u(e, t, n) {
       return e
-        ? s._(/*BTDS*/ "Event date updated")
+        ? s._(/*BTDS*/ "")
         : t
-          ? s._(/*BTDS*/ "Event time updated")
+          ? s._(/*BTDS*/ "")
           : n
-            ? s._(/*BTDS*/ "Event location updated")
+            ? s._(/*BTDS*/ "")
             : null;
     }
     l.getSharableEventChangeToastText = e;

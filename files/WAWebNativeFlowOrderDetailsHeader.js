@@ -11,7 +11,6 @@ __d(
     "WDSPaddings.stylex",
     "WDSText.react",
     "react",
-    "react-compiler-runtime",
     "stylex",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -61,95 +60,67 @@ __d(
         },
       };
     function p(t) {
-      var n = o("react-compiler-runtime").c(31),
-        a = t.amount,
-        i = t.documentPreview,
-        l = t.isSentByMe,
-        u = t.numberOfItems,
-        p = t.orderId,
-        f = t.orderPaymentStatus,
-        g = t.payIcons,
-        h = t.quantity,
-        y = t.text,
-        C = t.thumbnail,
-        b = t.xstyle,
-        v = l ? m.bubbleOut : m.bubbleIn,
-        S;
-      n[0] !== v || n[1] !== b
-        ? ((S = [
-            m.header,
-            d.paddingTop6,
-            o("WDSPaddings.stylex").wdsPaddings.paddingBottom8,
-            o("WDSPaddings.stylex").wdsPaddings.paddingHor8,
-            v,
-            b,
-          ]),
-          (n[0] = v),
-          (n[1] = b),
-          (n[2] = S))
-        : (S = n[2]);
-      var R;
-      n[3] !== p
-        ? ((R = o("WAWebOrderGatingUtils").isOrderContentOptimizationEnabled()
-            ? s._(/*BTDS*/ "Charge #{order}", [s._param("order", p)])
-            : s._(/*BTDS*/ "Order #{order}", [s._param("order", p)])),
-          (n[3] = p),
-          (n[4] = R))
-        : (R = n[4]);
-      var L;
-      n[5] !== R
-        ? ((L = c.jsx("div", {
-            "data-testid": "native-flow-order-id",
-            children: c.jsx(r("WDSText.react"), {
-              type: "Body3Emphasized",
-              colorName: "contentDeemphasized",
-              testid: "native-flow-order-id-text",
-              xstyle: m.orderId,
-              children: R,
-            }),
-          })),
-          (n[5] = R),
-          (n[6] = L))
-        : (L = n[6]);
-      var E;
-      n[7] !== f
-        ? ((E =
-            f === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured &&
-            c.jsx("div", {
-              "data-testid": "order-header-payment-status-paid",
-              children: c.jsxs(r("WDSText.react"), {
-                type: "Body3Emphasized",
-                colorName: "contentDeemphasized",
-                testid: "native-flow-order-paid-text",
-                xstyle: m.orderId,
-                children: [
-                  c.jsx(r("WDSIconIcCheckCircleFilled.react"), {
-                    width: 12,
-                    displayInline: !0,
-                    colorName: "accent",
-                    xstyle: m.icon,
-                  }),
-                  s._(/*BTDS*/ "Paid"),
-                ],
-              }),
-            })),
-          (n[7] = f),
-          (n[8] = E))
-        : (E = n[8]);
-      var k;
-      n[9] !== L || n[10] !== E
-        ? ((k = c.jsxs(o("WAWebFlex.react").FlexRow, {
+      var n = t.amount,
+        a = t.documentPreview,
+        i = t.isSentByMe,
+        l = t.numberOfItems,
+        u = t.orderId,
+        p = t.orderPaymentStatus,
+        f = t.payIcons,
+        g = t.quantity,
+        h = t.text,
+        y = t.thumbnail,
+        C = t.xstyle;
+      return c.jsxs(o("WAWebFlex.react").FlexColumn, {
+        xstyle: [
+          m.header,
+          d.paddingTop6,
+          o("WDSPaddings.stylex").wdsPaddings.paddingBottom8,
+          o("WDSPaddings.stylex").wdsPaddings.paddingHor8,
+          i ? m.bubbleOut : m.bubbleIn,
+          C,
+        ],
+        children: [
+          c.jsxs(o("WAWebFlex.react").FlexRow, {
             xstyle: m.total,
             justify: "all",
-            children: [L, E],
-          })),
-          (n[9] = L),
-          (n[10] = E),
-          (n[11] = k))
-        : (k = n[11]);
-      var I;
-      n[12] === Symbol.for("react.memo_cache_sentinel")
-        ? ((I = c.jsx(
+            children: [
+              c.jsx("div", {
+                "data-testid": "native-flow-order-id",
+                children: c.jsx(r("WDSText.react"), {
+                  type: "Body3Emphasized",
+                  colorName: "contentDeemphasized",
+                  testid: "native-flow-order-id-text",
+                  xstyle: m.orderId,
+                  children: o(
+                    "WAWebOrderGatingUtils",
+                  ).isOrderContentOptimizationEnabled()
+                    ? s._(/*BTDS*/ "", [s._param("order", u)])
+                    : s._(/*BTDS*/ "", [s._param("order", u)]),
+                }),
+              }),
+              p === o("WAWebOrderPaymentStatus").OrderPaymentStatus.Captured &&
+                c.jsx("div", {
+                  "data-testid": "order-header-payment-status-paid",
+                  children: c.jsxs(r("WDSText.react"), {
+                    type: "Body3Emphasized",
+                    colorName: "contentDeemphasized",
+                    testid: "native-flow-order-paid-text",
+                    xstyle: m.orderId,
+                    children: [
+                      c.jsx(r("WDSIconIcCheckCircleFilled.react"), {
+                        width: 12,
+                        displayInline: !0,
+                        colorName: "accent",
+                        xstyle: m.icon,
+                      }),
+                      s._(/*BTDS*/ ""),
+                    ],
+                  }),
+                }),
+            ],
+          }),
+          c.jsx(
             "div",
             babelHelpers.extends(
               {},
@@ -159,60 +130,45 @@ __d(
                 o("WDSMargins.stylex").wdsMargins.marginBottom8,
               ),
             ),
-          )),
-          (n[12] = I))
-        : (I = n[12]);
-      var T;
-      n[13] !== i || n[14] !== u || n[15] !== h || n[16] !== y || n[17] !== C
-        ? ((T =
-            i != null
-              ? i
-              : c.jsxs(o("WAWebFlex.react").FlexRow, {
-                  align: "center",
-                  xstyle: m.orderInfoWrapper,
-                  children: [
-                    C != null && C !== ""
-                      ? c.jsx("div", {
-                          className: (e || (e = r("stylex")))(
-                            m.media,
-                            o("WDSMargins.stylex").wdsMargins.marginEnd8,
-                          ),
-                          style: { backgroundImage: "url(" + C + ")" },
-                        })
-                      : null,
-                    c.jsxs("div", {
-                      className: "x6ikm8r x10wlt62",
-                      children: [
-                        c.jsx(r("WAWebTextLineClamp.react"), {
-                          maxLines: 1,
-                          children: y,
+          ),
+          a != null
+            ? a
+            : c.jsxs(o("WAWebFlex.react").FlexRow, {
+                align: "center",
+                xstyle: m.orderInfoWrapper,
+                children: [
+                  y != null && y !== ""
+                    ? c.jsx("div", {
+                        className: (e || (e = r("stylex")))(
+                          m.media,
+                          o("WDSMargins.stylex").wdsMargins.marginEnd8,
+                        ),
+                        style: { backgroundImage: "url(" + y + ")" },
+                      })
+                    : null,
+                  c.jsxs("div", {
+                    className: "x6ikm8r x10wlt62",
+                    children: [
+                      c.jsx(r("WAWebTextLineClamp.react"), {
+                        maxLines: 1,
+                        children: h,
+                      }),
+                      c.jsx("p", {
+                        "data-testid":
+                          "native-flow-order-item-quantity-paragraph",
+                        children: c.jsx(r("WDSText.react"), {
+                          type: "Body2",
+                          colorName: "contentDeemphasized",
+                          testid: "native-flow-order-item-quantity",
+                          children: _(l, g),
                         }),
-                        c.jsx("p", {
-                          "data-testid":
-                            "native-flow-order-item-quantity-paragraph",
-                          children: c.jsx(r("WDSText.react"), {
-                            type: "Body2",
-                            colorName: "contentDeemphasized",
-                            testid: "native-flow-order-item-quantity",
-                            children: _(u, h),
-                          }),
-                        }),
-                      ],
-                    }),
-                  ],
-                })),
-          (n[13] = i),
-          (n[14] = u),
-          (n[15] = h),
-          (n[16] = y),
-          (n[17] = C),
-          (n[18] = T))
-        : (T = n[18]);
-      var D;
-      n[19] !== g
-        ? ((D =
-            g != null &&
-            (g == null ? void 0 : g.length) > 0 &&
+                      }),
+                    ],
+                  }),
+                ],
+              }),
+          f != null &&
+            (f == null ? void 0 : f.length) > 0 &&
             c.jsxs(c.Fragment, {
               children: [
                 c.jsx(
@@ -237,94 +193,57 @@ __d(
                         type: "Body2",
                         colorName: "contentDefault",
                         testid: "native-flow-order-pay-with",
-                        children: s._(/*BTDS*/ "Pay with"),
+                        children: s._(/*BTDS*/ ""),
                       }),
                     }),
                     c.jsx(o("WAWebFlex.react").FlexRow, {
                       xstyle: m.icon,
                       justify: "end",
-                      children: g,
+                      children: f,
                     }),
                   ],
                 }),
               ],
-            })),
-          (n[19] = g),
-          (n[20] = D))
-        : (D = n[20]);
-      var x;
-      n[21] === Symbol.for("react.memo_cache_sentinel")
-        ? ((x = c.jsx(
+            }),
+          c.jsx(
             "div",
             babelHelpers.extends(
               {},
-              (e || (e = r("stylex"))).props(
-                m.hr,
-                o("WDSMargins.stylex").wdsMargins.marginVer8,
-              ),
+              e.props(m.hr, o("WDSMargins.stylex").wdsMargins.marginVer8),
             ),
-          )),
-          (n[21] = x))
-        : (x = n[21]);
-      var $;
-      n[22] === Symbol.for("react.memo_cache_sentinel")
-        ? (($ = c.jsx("p", {
-            "data-testid": "native-flow-order-total-label-paragraph",
-            children: c.jsx(r("WDSText.react"), {
-              type: "Body1",
-              colorName: "contentDefault",
-              testid: "native-flow-order-total-label",
-              children: s._(/*BTDS*/ "Total"),
-            }),
-          })),
-          (n[22] = $))
-        : ($ = n[22]);
-      var P;
-      n[23] !== a
-        ? ((P = c.jsxs(o("WAWebFlex.react").FlexRow, {
+          ),
+          c.jsxs(o("WAWebFlex.react").FlexRow, {
             xstyle: m.total,
             justify: "all",
             children: [
-              $,
+              c.jsx("p", {
+                "data-testid": "native-flow-order-total-label-paragraph",
+                children: c.jsx(r("WDSText.react"), {
+                  type: "Body1",
+                  colorName: "contentDefault",
+                  testid: "native-flow-order-total-label",
+                  children: s._(/*BTDS*/ ""),
+                }),
+              }),
               c.jsx("p", {
                 "data-testid": "native-flow-order-total-value-paragraph",
                 children: c.jsx(r("WDSText.react"), {
                   type: "Body1Emphasized",
                   colorName: "contentDefault",
                   testid: "native-flow-order-total-value",
-                  children: a,
+                  children: n,
                 }),
               }),
             ],
-          })),
-          (n[23] = a),
-          (n[24] = P))
-        : (P = n[24]);
-      var N;
-      return (
-        n[25] !== P || n[26] !== S || n[27] !== k || n[28] !== T || n[29] !== D
-          ? ((N = c.jsxs(o("WAWebFlex.react").FlexColumn, {
-              xstyle: S,
-              children: [k, I, T, D, x, P],
-            })),
-            (n[25] = P),
-            (n[26] = S),
-            (n[27] = k),
-            (n[28] = T),
-            (n[29] = D),
-            (n[30] = N))
-          : (N = n[30]),
-        N
-      );
+          }),
+        ],
+      });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(e, t) {
       return e != null && e > 1
-        ? s._(/*BTDS*/ '_j{"*":"{number-of-items} items","_1":"1 item"}', [
-            s._plural(e, "number-of-items"),
-          ])
-        : s._(/*BTDS*/ "Quantity {item-quantity}", [
-            s._param("item-quantity", t),
-          ]);
+        ? s._(/*BTDS*/ "", [s._plural(e, "number-of-items")])
+        : s._(/*BTDS*/ "", [s._param("item-quantity", t)]);
     }
     ((_.displayName = _.name + " [from " + i.id + "]"), (l.default = p));
   },

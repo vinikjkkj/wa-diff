@@ -29,13 +29,13 @@ __d(
             );
           },
           getLabel: function () {
-            return s._(/*BTDS*/ "Share to Facebook");
+            return s._(/*BTDS*/ "");
           },
           getSuccessToastMsg: function () {
-            return s._(/*BTDS*/ "Status shared to your Facebook Story");
+            return s._(/*BTDS*/ "");
           },
           getFailureToastMsg: function () {
-            return s._(/*BTDS*/ "Couldn't share status to Facebook");
+            return s._(/*BTDS*/ "");
           },
         },
         {
@@ -55,13 +55,13 @@ __d(
             );
           },
           getLabel: function () {
-            return s._(/*BTDS*/ "Share to Instagram");
+            return s._(/*BTDS*/ "");
           },
           getSuccessToastMsg: function () {
-            return s._(/*BTDS*/ "Status shared to your Instagram Story");
+            return s._(/*BTDS*/ "");
           },
           getFailureToastMsg: function () {
-            return s._(/*BTDS*/ "Couldn't share status to Instagram");
+            return s._(/*BTDS*/ "");
           },
         },
       ];
@@ -83,34 +83,30 @@ __d(
       var t = e.includes("F"),
         n = e.includes("I");
       return t && n
-        ? s._(
-            /*BTDS*/ "Sharing status to your Facebook and Instagram stories...",
-          )
+        ? s._(/*BTDS*/ "")
         : t
-          ? s._(/*BTDS*/ "Sharing status to your Facebook story...")
-          : s._(/*BTDS*/ "Sharing status to your Instagram story...");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     p.displayName = p.name + " [from " + i.id + "]";
     function _(e) {
       var t = e.includes("F"),
         n = e.includes("I");
       return t && n
-        ? s._(/*BTDS*/ "Couldn't share status to Facebook and Instagram")
+        ? s._(/*BTDS*/ "")
         : t
-          ? s._(/*BTDS*/ "Couldn't share status to Facebook")
-          : s._(/*BTDS*/ "Couldn't share status to Instagram");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     _.displayName = _.name + " [from " + i.id + "]";
     function f(e) {
       var t = e.includes("F"),
         n = e.includes("I");
       return t && n
-        ? s._(
-            /*BTDS*/ "Status sent and shared to your Facebook and Instagram stories",
-          )
+        ? s._(/*BTDS*/ "")
         : t
-          ? s._(/*BTDS*/ "Status sent and shared to your Facebook story")
-          : s._(/*BTDS*/ "Status sent and shared to your Instagram story");
+          ? s._(/*BTDS*/ "")
+          : s._(/*BTDS*/ "");
     }
     ((f.displayName = f.name + " [from " + i.id + "]"),
       (l.CROSSPOSTING_DESTINATION_CONFIG = c),

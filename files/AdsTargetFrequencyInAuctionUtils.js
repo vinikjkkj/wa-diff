@@ -8,6 +8,7 @@ __d(
     "AdsFrequencyControlCompatibilityUtils",
     "AdsFrequencyControlGKUtils",
     "AdsODAXUtils",
+    "AdsPromotedObjectTypes",
     "DateTime",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,9 +24,13 @@ __d(
         case r("AdsAPIObjectives").REACH:
           return n === r("AdsAPIOptimizationGoals").REACH;
         case r("AdsAPIObjectives").VIDEO_VIEWS:
-          return n === r("AdsAPIOptimizationGoals").THRUPLAY || _(n);
+          return (
+            (n === r("AdsAPIOptimizationGoals").THRUPLAY &&
+              a !== r("AdsPromotedObjectTypes").LIVE_VIDEO) ||
+            f(n)
+          );
         case r("AdsAPIObjectives").BRAND_AWARENESS:
-          return _(n);
+          return f(n);
       }
       return !1;
     }
@@ -43,7 +48,10 @@ __d(
         ).isAccountEligibleForTargetFrequencyAuctionDefaulting()
       );
     }
-    function c(e) {
+    function c(e, t) {
+      return e === r("AdsAPIObjectives").OUTCOME_AWARENESS && u(t);
+    }
+    function d(e) {
       return (
         e === r("AdsAPIObjectives").OUTCOME_AWARENESS &&
         o(
@@ -51,19 +59,19 @@ __d(
         ).isAccountEligibleForTargetFrequencyAuctionDefaulting()
       );
     }
-    function d(e) {
+    function m(e) {
       return e === r("AdsAPIObjectives").OUTCOME_AWARENESS
         ? r("AdsAPIOptimizationGoals").REACH
         : r("AdsAPIOptimizationGoals").THRUPLAY;
     }
-    function m(t, n, a, i) {
+    function p(t, n, a, i) {
       return t === "TARGET"
         ? e(r("AdsBuyingTypes").AUCTION, n, a, i)
         : o(
             "AdsFrequencyControlCompatibilityUtils",
           ).isCompatibleWithFrequencyControl(n, a, i);
     }
-    function p(e, t) {
+    function _(e, t) {
       var n = r("DateTime").now(t).getUnixTimestampSeconds();
       return e.some(function (e) {
         var o;
@@ -79,7 +87,7 @@ __d(
         return a > 0 && a < n;
       });
     }
-    function _(e) {
+    function f(e) {
       return e === r("AdsAPIOptimizationGoals").AD_RECALL_LIFT
         ? o(
             "AdsFrequencyControlGKUtils",
@@ -90,7 +98,7 @@ __d(
             ).isAccountEligibleForTargetFrequencyAuctionWithAVT()
           : !1;
     }
-    function f(e) {
+    function g(e) {
       return e === r("AdsAPIOptimizationGoals").THRUPLAY
         ? !0
         : e === r("AdsAPIOptimizationGoals").SIX_SECOND_VIDEO_VIEWS
@@ -99,7 +107,7 @@ __d(
             ).isAccountEligibleForTargetFrequencyAuctionWithAVT()
           : !1;
     }
-    function g(e) {
+    function h(e) {
       return (
         e === "TARGET" &&
         o(
@@ -107,7 +115,7 @@ __d(
         ).isAccountEligibleForTargetFrequencyLookalikeFrictionMediumRock()
       );
     }
-    function h(e) {
+    function y(e) {
       return o("AdsBulkValueUtils").getUniformValueFrom(
         e != null ? e : [],
         function (e) {
@@ -119,14 +127,15 @@ __d(
     ((l.isCompatibleWithTargetFrequencyInAuction = e),
       (l.isTargetFrequencyInAuctionEligibleObjective = s),
       (l.shouldEnableTargetFrequencyByDefault = u),
-      (l.isCampaignGroupEligibleForLifetimeBudgetDefaulting = c),
-      (l.getDefaultOptimizationGoalForTargetFrequency = d),
-      (l.isCompatibleWithFrequencyControlType = m),
-      (l.isCampaignGroupMidFlightFromCombinedCampaigns = p),
-      (l.isEligibleForTargetFrequencyAuctionExpansionGoal = _),
-      (l.shouldRenderTargetFrequencyCheckbox = f),
-      (l.isEligibleForTargetFrequencyLookalikeMediumRock = g),
-      (l.getUniformFrequencyControlType = h));
+      (l.shouldEnableTargetFrequencyByDefaultForCampaign = c),
+      (l.isCampaignGroupEligibleForLifetimeBudgetDefaulting = d),
+      (l.getDefaultOptimizationGoalForTargetFrequency = m),
+      (l.isCompatibleWithFrequencyControlType = p),
+      (l.isCampaignGroupMidFlightFromCombinedCampaigns = _),
+      (l.isEligibleForTargetFrequencyAuctionExpansionGoal = f),
+      (l.shouldRenderTargetFrequencyCheckbox = g),
+      (l.isEligibleForTargetFrequencyLookalikeMediumRock = h),
+      (l.getUniformFrequencyControlType = y));
   },
   98,
 );

@@ -7,14 +7,13 @@ __d(
     "WAWebMobilePlatforms",
     "WAWebStickerGetters",
     "WAWebStickerModel",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = 32,
       u = (function (t) {
-        function a() {
+        function n() {
           for (var e, n = arguments.length, a = new Array(n), i = 0; i < n; i++)
             a[i] = arguments[i];
           return (
@@ -49,10 +48,10 @@ __d(
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.remove = function (n, r) {
+          (a.remove = function (n, r) {
             var e = t.prototype.remove.call(this, n, r);
             return (
               e.forEach(function (e) {
@@ -62,23 +61,23 @@ __d(
               e
             );
           }),
-          (i._getWeight = function (t) {
+          (a._getWeight = function (t) {
             return r("nullthrows")(this._weightMap.get(t.id));
           }),
-          (i.enqueue = function (t) {
+          (a.enqueue = function (t) {
             t.length !== 0 &&
               (o("WAWebConnModel").Conn.platform ===
               o("WAWebMobilePlatforms").PLATFORMS.ANDROID
                 ? this._enqueueAndroid(t)
                 : this._enqueueiOS(t));
           }),
-          (i.addStickerWithMediaData = function (t) {
+          (a.addStickerWithMediaData = function (t) {
             var e = new (o("WAWebStickerModel").StickerModel)(
               babelHelpers.extends({}, t, { id: t.filehash }),
             );
             this.enqueue([e]);
           }),
-          (i._enqueueAndroid = function (t) {
+          (a._enqueueAndroid = function (t) {
             var e = this;
             (t.forEach(function (t) {
               (e.get(t.id) || (e._weightMap.set(t.id, 0), e.add(t)),
@@ -90,7 +89,7 @@ __d(
             }),
               this._sortTrimScale());
           }),
-          (i._enqueueiOS = function (t) {
+          (a._enqueueiOS = function (t) {
             var e = this;
             this.forEach(function (e, t) {
               e.index = s + t;
@@ -128,40 +127,28 @@ __d(
               this.sort(),
               this.remove(this.slice(s)));
           }),
-          (i.sync = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              yield this._sync();
-            });
-            function t() {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (i._sync = (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              if (this._syncStatus !== "INPROGRESS") {
-                this._syncStatus = "INPROGRESS";
-                try {
-                  (yield this.findQuery({}, { set: !0 }),
-                    this.sort(),
-                    (this._syncStatus = "SUCCESS"));
-                } catch (t) {
-                  (o("WALogger").WARN(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "collection:recent_sticker:_sync error ",
-                      ])),
-                  ),
-                    (this._syncStatus = "FAILURE"));
-                }
+          (a.sync = async function () {
+            await this._sync();
+          }),
+          (a._sync = async function () {
+            if (this._syncStatus !== "INPROGRESS") {
+              this._syncStatus = "INPROGRESS";
+              try {
+                (await this.findQuery({}, { set: !0 }),
+                  this.sort(),
+                  (this._syncStatus = "SUCCESS"));
+              } catch (t) {
+                (o("WALogger").WARN(
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "collection:recent_sticker:_sync error ",
+                    ])),
+                ),
+                  (this._syncStatus = "FAILURE"));
               }
-            });
-            function r() {
-              return t.apply(this, arguments);
             }
-            return r;
-          })()),
-          (i.reset = function () {
+          }),
+          (a.reset = function () {
             return (
               this.forEach(o("WAWebStickerGetters").clearStickerGetterCacheFor),
               (this._syncStatus = "NONE"),
@@ -169,7 +156,7 @@ __d(
               t.prototype.reset.call(this)
             );
           }),
-          a
+          n
         );
       })(o("WAWebBaseCollection").BaseCollection);
     u.model = o("WAWebStickerModel").StickerModel;

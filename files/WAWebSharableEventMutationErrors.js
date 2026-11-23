@@ -13,56 +13,52 @@ __d(
         ? i
         : a ===
             o("WAWebSharableEventServerError").SharableEventErrorKind.Validation
-          ? s._(/*BTDS*/ "Check your event details and try again.")
+          ? s._(/*BTDS*/ "")
           : t;
     }
     function u(e) {
       return e ===
         o("WAWebSharableEventServerError").SharableEventServerCode.InvalidTitle
-        ? s._(/*BTDS*/ "Enter a valid name")
+        ? s._(/*BTDS*/ "")
         : e ===
             o("WAWebSharableEventServerError").SharableEventServerCode
               .InvalidStartTime
-          ? s._(/*BTDS*/ "Enter a valid start time")
+          ? s._(/*BTDS*/ "")
           : e ===
               o("WAWebSharableEventServerError").SharableEventServerCode
                 .InvalidEndTime
-            ? s._(/*BTDS*/ "Enter a valid end time")
+            ? s._(/*BTDS*/ "")
             : e ===
                 o("WAWebSharableEventServerError").SharableEventServerCode
                   .InvalidReminderTime
-              ? s._(/*BTDS*/ "Choose a different reminder time")
+              ? s._(/*BTDS*/ "")
               : e ===
                   o("WAWebSharableEventServerError").SharableEventServerCode
                     .InvalidCallLinkMediaType
-                ? s._(/*BTDS*/ "Choose a supported call type and try again.")
+                ? s._(/*BTDS*/ "")
                 : e ===
                     o("WAWebSharableEventServerError").SharableEventServerCode
                       .CallLinkError
-                  ? s._(
-                      /*BTDS*/ "Call link unavailable. The event call link couldn't be created.",
-                    )
+                  ? s._(/*BTDS*/ "")
                   : e ===
                         o("WAWebSharableEventServerError")
                           .SharableEventServerCode.MediaError ||
                       e ===
                         o("WAWebSharableEventServerError")
                           .SharableEventServerCode.InvalidCoverImageHandle
-                    ? s._(/*BTDS*/ "Can't use this image")
+                    ? s._(/*BTDS*/ "")
                     : e ===
                         o("WAWebSharableEventServerError")
                           .SharableEventServerCode.CoverImageTooLarge
-                      ? s._(/*BTDS*/ "Image too large. Choose a smaller image.")
+                      ? s._(/*BTDS*/ "")
                       : e ===
                           o("WAWebSharableEventServerError")
                             .SharableEventServerCode.CoverImageUploadFailed
-                        ? s._(/*BTDS*/ "Couldn't upload image")
+                        ? s._(/*BTDS*/ "")
                         : e ===
                             o("WAWebSharableEventServerError")
                               .SharableEventServerCode.CreationRateLimited
-                          ? s._(
-                              /*BTDS*/ "You've reached the daily limit for creating events. Try again tomorrow.",
-                            )
+                          ? s._(/*BTDS*/ "")
                           : null;
     }
     l.getSharableEventMutationErrorMessage = e;

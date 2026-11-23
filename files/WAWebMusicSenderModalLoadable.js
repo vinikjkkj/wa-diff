@@ -5,23 +5,19 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingModal.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebMusicSenderModal.react",
-          )
-            .__setRef("WAWebMusicSenderModalLoadable")
-            .load();
-          return e;
-        }),
-        "MusicSenderModal",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebMusicSenderModal.react",
+        )
+          .__setRef("WAWebMusicSenderModalLoadable")
+          .load();
+        return e;
+      }, "MusicSenderModal"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

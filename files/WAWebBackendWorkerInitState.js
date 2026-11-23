@@ -1,7 +1,6 @@
 __d(
   "WAWebBackendWorkerInitState",
   [
-    "Promise",
     "WALogger",
     "WAResolvable",
     "WAWebBackendEventBusWorkerCompatible",
@@ -11,7 +10,6 @@ __d(
     "WAWebJobsMigrationGating",
     "WAWebUserPrefsBase",
     "WAWebUserPrefsKeys",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -19,20 +17,19 @@ __d(
     var e,
       s,
       u,
-      c,
-      d = 3e4,
-      m = {
-        abProps: new (c = o("WAResolvable")).Resolvable(),
-        dbInit: new c.Resolvable(),
-        dbFinalKey: new c.Resolvable(),
-        jidsReady: new c.Resolvable(),
-        suspiciousHostChecksModule: new c.Resolvable(),
+      c = 3e4,
+      d = {
+        abProps: new (u = o("WAResolvable")).Resolvable(),
+        dbInit: new u.Resolvable(),
+        dbFinalKey: new u.Resolvable(),
+        jidsReady: new u.Resolvable(),
+        suspiciousHostChecksModule: new u.Resolvable(),
       },
-      p = !1,
-      _ = null;
-    function f(t) {
-      if (((_ = t), !m.abProps.resolveWasCalled())) {
-        m.abProps.resolve(t);
+      m = !1,
+      p = null;
+    function _(t) {
+      if (((p = t), !d.abProps.resolveWasCalled())) {
+        d.abProps.resolve(t);
         return;
       }
       o("WAWebBackendWorkerClient")
@@ -53,29 +50,29 @@ __d(
             .sendLogs("worker-abprop-sync-failed");
         });
     }
-    function g(e) {
-      m.suspiciousHostChecksModule.resolveWasCalled() ||
-        m.suspiciousHostChecksModule.resolve(e);
+    function f(e) {
+      d.suspiciousHostChecksModule.resolveWasCalled() ||
+        d.suspiciousHostChecksModule.resolve(e);
     }
-    function h(e) {
-      m.dbInit.resolveWasCalled() ||
-        m.dbInit.resolve(
+    function g(e) {
+      d.dbInit.resolveWasCalled() ||
+        d.dbInit.resolve(
           babelHelpers.extends({}, e, { salt: new Uint8Array(e.salt) }),
         );
     }
-    function y(e) {
-      m.dbFinalKey.resolveWasCalled() || m.dbFinalKey.resolve(e);
+    function h(e) {
+      d.dbFinalKey.resolveWasCalled() || d.dbFinalKey.resolve(e);
+    }
+    function y() {
+      d.jidsReady.resolveWasCalled() || d.jidsReady.resolve();
     }
     function C() {
-      m.jidsReady.resolveWasCalled() || m.jidsReady.resolve();
+      m || ((m = !0), self.setTimeout(b, c));
     }
     function b() {
-      p || ((p = !0), self.setTimeout(v, d));
-    }
-    function v() {
       var e = [];
-      (m.dbInit.resolveWasCalled() || e.push("dbInit"),
-        m.jidsReady.resolveWasCalled() || e.push("jidsReady"),
+      (d.dbInit.resolveWasCalled() || e.push("dbInit"),
+        d.jidsReady.resolveWasCalled() || e.push("jidsReady"),
         e.length !== 0 &&
           o("WALogger")
             .ERROR(
@@ -85,74 +82,61 @@ __d(
                   "ms, outstanding: ",
                   "",
                 ])),
-              d,
+              c,
               e.join(","),
             )
             .sendLogs("backend-worker-init-data-timeout"));
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    async function v(e) {
+      var t = await Promise.all([d.dbInit.promise, d.jidsReady.promise]),
+        n = t[0],
+        r = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
+          o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME,
+        ),
+        a = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
+          o("WAWebUserPrefsKeys").KEYS.LID,
+        ),
+        i = o("WAWebBackendEventBusWorkerCompatible").getBackendEventBus();
+      (e.fireAndForget("workerInit", "setup", {
+        globals: {
+          deviceJid: o("WAWebGlobals").getMaybeMyDeviceJid(),
+          allowHistorySyncPutAllowDuplicate:
+            o("WAWebGlobals").getAllowHistorySyncPutAllowDuplicate(),
+          lidDeviceJid: a != null ? String(a) : null,
+          displayName: r != null ? String(r) : null,
+          callsOnly: o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled(),
+          jobsMigrationGates: o(
+            "WAWebJobsMigrationGating",
+          ).getJobsMigrationGates(),
+        },
+        dbInit: babelHelpers.extends({}, n, { salt: new Uint8Array(n.salt) }),
+        eventBusSyncState: {
+          isMainStreamReadyMd: i.isMainStreamReadyMd,
+          isOfflineDeliveryEnd: i.isOfflineDeliveryEnd,
+          socketState: i.socketState,
+        },
+      }),
+        d.suspiciousHostChecksModule.promise.then(function (t) {
+          e.fireAndForget("workerInit", "setSuspiciousHostChecksModule", {
+            wasmModule: t,
+          });
+        }),
+        d.abProps.promise.then(function (t) {
+          e.fireAndForget("workerInit", "setAbProps", {
+            abProps: p != null ? p : t,
+          });
+        }),
+        d.dbFinalKey.promise.then(function (t) {
+          e.fireAndForget("workerInit", "setDbFinalKey", { dbFinalKey: t });
+        }));
     }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield (u || (u = n("Promise"))).all([
-              m.dbInit.promise,
-              m.jidsReady.promise,
-            ]),
-            r = t[0],
-            a = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
-              o("WAWebUserPrefsKeys").KEYS.ME_DISPLAY_NAME,
-            ),
-            i = o("WAWebUserPrefsBase").userPreferencesStoreBase.get(
-              o("WAWebUserPrefsKeys").KEYS.LID,
-            ),
-            l = o("WAWebBackendEventBusWorkerCompatible").getBackendEventBus();
-          (e.fireAndForget("workerInit", "setup", {
-            globals: {
-              deviceJid: o("WAWebGlobals").getMaybeMyDeviceJid(),
-              allowHistorySyncPutAllowDuplicate:
-                o("WAWebGlobals").getAllowHistorySyncPutAllowDuplicate(),
-              lidDeviceJid: i != null ? String(i) : null,
-              displayName: a != null ? String(a) : null,
-              callsOnly: o("WAWebCallsOnlyGating").isCallsOnlyModeEnabled(),
-              jobsMigrationGates: o(
-                "WAWebJobsMigrationGating",
-              ).getJobsMigrationGates(),
-            },
-            dbInit: babelHelpers.extends({}, r, {
-              salt: new Uint8Array(r.salt),
-            }),
-            eventBusSyncState: {
-              isMainStreamReadyMd: l.isMainStreamReadyMd,
-              isOfflineDeliveryEnd: l.isOfflineDeliveryEnd,
-              socketState: l.socketState,
-            },
-          }),
-            m.suspiciousHostChecksModule.promise.then(function (t) {
-              e.fireAndForget("workerInit", "setSuspiciousHostChecksModule", {
-                wasmModule: t,
-              });
-            }),
-            m.abProps.promise.then(function (t) {
-              e.fireAndForget("workerInit", "setAbProps", {
-                abProps: _ != null ? _ : t,
-              });
-            }),
-            m.dbFinalKey.promise.then(function (t) {
-              e.fireAndForget("workerInit", "setDbFinalKey", { dbFinalKey: t });
-            }));
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    ((l.recordInitAbProps = f),
-      (l.recordInitSuspiciousHostChecksModule = g),
-      (l.recordInitDbInit = h),
-      (l.recordInitDbFinalKey = y),
-      (l.resolveJidsReady = C),
-      (l.startWorkerInitDataTimeout = b),
-      (l.sendInitState = S));
+    ((l.recordInitAbProps = _),
+      (l.recordInitSuspiciousHostChecksModule = f),
+      (l.recordInitDbInit = g),
+      (l.recordInitDbFinalKey = h),
+      (l.resolveJidsReady = y),
+      (l.startWorkerInitDataTimeout = C),
+      (l.sendInitState = v));
   },
   98,
 );

@@ -9,19 +9,14 @@ __d(
         STATIC_ADS: "Static Ads",
       }),
       u = e({
-        ENTRY: "entry",
         ELIGIBILITY_CHECK: "eligibility_check",
         FEATURE_IMPRESSION: "feature_impression",
         INTERACTION: "interaction",
-        CONFIGURATION: "configuration",
-        VALIDATION: "validation",
-        PUBLISH_ATTEMPT: "publish_attempt",
         PUBLISH_SUCCESS: "publish_success",
         PUBLISH_FAILURE: "publish_failure",
       }),
       c = e({
         CLICK_TOGGLE: "click_toggle",
-        CHANGE_DESTINATION: "change_destination",
         CHANGE_LINK_TYPE: "change_link_type",
       }),
       d = e({

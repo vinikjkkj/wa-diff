@@ -49,7 +49,7 @@ __d(
         !c(d, l)
         ? null
         : {
-            label: s._(/*BTDS*/ "Update status"),
+            label: s._(/*BTDS*/ ""),
             onClick: function () {
               var t,
                 n =

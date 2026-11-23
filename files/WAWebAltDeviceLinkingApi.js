@@ -3,7 +3,6 @@ __d(
   [
     "invariant",
     "$InternalEnum",
-    "Promise",
     "WABase64",
     "WAByteArray",
     "WACryptoUtils",
@@ -18,7 +17,6 @@ __d(
     "WAWebQplFlowWrapper",
     "WAWebUserPrefsInfoStore",
     "WAWebUserPrefsMultiDevice",
-    "asyncToGeneratorRuntime",
     "err",
     "qpl",
     "requireDeferred",
@@ -32,11 +30,10 @@ __d(
       p,
       _,
       f,
-      g,
-      h = r("requireDeferred")("WAWebAltDeviceLinkingIq").__setRef(
+      g = r("requireDeferred")("WAWebAltDeviceLinkingIq").__setRef(
         "WAWebAltDeviceLinkingApi",
       ),
-      y = (function (e) {
+      h = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -49,7 +46,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      C = (function (e) {
+      y = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -62,7 +59,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      b = (function (e) {
+      C = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -75,7 +72,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      v = (function (e) {
+      b = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -88,7 +85,7 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      S = (function (e) {
+      v = (function (e) {
         function t() {
           for (var t, n = arguments.length, r = new Array(n), o = 0; o < n; o++)
             r[o] = arguments[o];
@@ -101,14 +98,14 @@ __d(
         }
         return (babelHelpers.inheritsLoose(t, e), t);
       })(babelHelpers.wrapNativeSuper(Error)),
-      R = n("$InternalEnum").Mirrored([
+      S = n("$InternalEnum").Mirrored([
         "NotStarted",
         "Initialized",
         "AfterSendCompanionHello",
         "AfterSendCompanionFinish",
       ]),
-      L = r("qpl")._(891429758, "3258"),
-      E = (function () {
+      R = r("qpl")._(891429758, "3258"),
+      L = (function () {
         function e() {
           this.clear();
         }
@@ -118,7 +115,7 @@ __d(
             ((this.helloCached = null),
               (this.ref = null),
               (this.phone = null),
-              (this.stage = R.NotStarted),
+              (this.stage = S.NotStarted),
               (this.codeGenerationTs = null),
               (this.primaryHelloAttemptCount = 0),
               o("WAWebAltDeviceLinkingQpl").clearCurrentMarker());
@@ -126,291 +123,228 @@ __d(
           e
         );
       })(),
-      k = 180,
-      I = 3,
-      T = new E(),
-      D = o("WAWebPairingType").PairingType.QR_CODE;
-    function x() {
-      return D;
+      E = 180,
+      k = 3,
+      I = new L(),
+      T = o("WAWebPairingType").PairingType.QR_CODE;
+    function D() {
+      return T;
     }
-    function $(e) {
-      D = e;
+    function x(e) {
+      T = e;
+    }
+    function $() {
+      return I.ref;
     }
     function P() {
-      return T.ref;
+      return I.helloCached;
     }
-    function N() {
-      return T.helloCached;
+    async function N() {
+      (o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "alt pairing: initialize alt linking",
+          ])),
+      ),
+        I.clear(),
+        o("WAWebAltDeviceLinkingQpl").setCurrentMarker(
+          o("WAWebQplFlowWrapper").QPL.markerStart(R),
+        ),
+        await o("WAWebUserPrefsMultiDevice").setADVSecretKey(),
+        (I.stage = S.Initialized),
+        x(o("WAWebPairingType").PairingType.ALT_DEVICE_LINKING));
     }
-    function M() {
-      return w.apply(this, arguments);
+    async function M() {
+      (o("WALogger").LOG(
+        u ||
+          (u = babelHelpers.taggedTemplateLiteralLoose([
+            "alt pairing: initialize QR linking",
+          ])),
+      ),
+        D() === o("WAWebPairingType").PairingType.ALT_DEVICE_LINKING &&
+          o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker("switch_to_qr"),
+        I.clear(),
+        await o("WAWebAdvSignatureApi").generateADVSecretKey(),
+        (I.stage = S.NotStarted),
+        x(o("WAWebPairingType").PairingType.QR_CODE));
     }
-    function w() {
+    async function w(e, t) {
+      o("WALogger").LOG(
+        c ||
+          (c = babelHelpers.taggedTemplateLiteralLoose([
+            "alt pairing: start linking flow",
+          ])),
+      );
+      var n = await o("WAWebUserPrefsInfoStore").waNoiseInfo.get();
+      if (n == null) throw new y("alt pairing: noise info is null");
       return (
-        (w = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "alt pairing: initialize alt linking",
-              ])),
+        (I.phone = e),
+        (I.codeGenerationTs = o("WATimeUtils").unixTime()),
+        A(I, n, t)
+      );
+    }
+    async function A(e, t, n) {
+      (e.stage === S.Initialized || s(0, 75727, e.stage),
+        o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
+          "generate_code_start",
+        ));
+      var r = await o("WAWebAltDeviceLinkingAlgorithm").companionHello();
+      ((e.helloCached = r),
+        o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
+          "generate_code_end",
+        ),
+        o("WALogger").LOG(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "alt pairing: completed companion hello generation",
+            ])),
+        ));
+      var a = e.phone;
+      a != null || s(0, 67482);
+      var i = await g.load(),
+        l = i.sendCompanionHello;
+      if (
+        (o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
+          "send_companion_hello_start",
+        ),
+        (e.ref = await l({
+          companionServerAuthKeyPub: t.staticKeyPair.pubKey,
+          linkCodePairingWrappedCompanionEphemeralPub:
+            r.linkCodePairingWrappedCompanionEphemeralPub,
+          phone: o("WAJids").toPhoneUserJid(a),
+          shouldPush: n,
+        })),
+        o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
+          "send_companion_hello_end",
+        ),
+        o("WALogger").LOG(
+          m ||
+            (m = babelHelpers.taggedTemplateLiteralLoose([
+              "alt pairing: sent companion hello",
+            ])),
+        ),
+        e.ref == null)
+      )
+        throw new h("alt pairing:could not get ref from companion hello");
+      return ((e.stage = S.AfterSendCompanionHello), r.linkCodePairingSecret);
+    }
+    async function F(e) {
+      (o("WALogger").LOG(
+        p ||
+          (p = babelHelpers.taggedTemplateLiteralLoose([
+            "alt pairing: handling primary hello",
+          ])),
+      ),
+        o("WAWebBackendApi").frontendFireAndForget(
+          "primaryHelloReceivedAltLinking",
+          {},
+        ));
+      try {
+        return await B(e, I, o("WATimeUtils").unixTime());
+      } catch (e) {
+        return (
+          o("WAWebBackendApi").frontendFireAndForget("errorAltLinking", {}),
+          Promise.reject(e)
+        );
+      }
+    }
+    async function O(e) {
+      (await o("WAWebAdvSignatureApi").generateADVSecretKey(),
+        (e.stage = S.AfterSendCompanionHello));
+    }
+    async function B(e, t, n) {
+      if (
+        (o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
+          "handle_primary_hello_start",
+        ),
+        t.primaryHelloAttemptCount++,
+        t.stage === S.AfterSendCompanionFinish)
+      )
+        if (t.primaryHelloAttemptCount <= k) await O(t);
+        else
+          throw new v(
+            "alt pairing: reached max allowed primary hello attempts per code",
+          );
+      if (
+        (t.stage === S.AfterSendCompanionHello || s(0, 75728, t.stage),
+        t.ref == null)
+      )
+        throw new h("alt pairing:could not get ref from companion hello");
+      if (
+        !o("WACryptoUtils").uint8ArraysEqual(
+          t.ref,
+          e.linkCodeCompanionRegLinkCodePairingRefElementValue,
+        )
+      )
+        throw new C(
+          "alt pairing: handle primary hello: received unexpected ref",
+        );
+      if (t.helloCached == null)
+        throw r("err")("alt pairing: cannot find cached hello data");
+      if (t.codeGenerationTs == null)
+        throw r("err")("alt pairing: cannot find codeGenerationTs");
+      if (n - t.codeGenerationTs > E)
+        throw new b("alt pairing: cannot process primaryHello for an old code");
+      var a = t.helloCached,
+        i = await o("WAWebAltDeviceLinkingAlgorithm").companionFinish({
+          linkCodeKey: a.linkCodeKey,
+          linkCodePairingCompanionADVEphemeralKeyPair:
+            a.linkCodePairingCompanionADVEphemeralKeyPair,
+          linkCodePairingWrappedPrimaryEphemeralPub: o(
+            "WAByteArray",
+          ).uint8ArrayToBuffer(
+            e.linkCodeCompanionRegLinkCodePairingWrappedPrimaryEphemeralPubElementValue,
           ),
-            T.clear(),
-            o("WAWebAltDeviceLinkingQpl").setCurrentMarker(
-              o("WAWebQplFlowWrapper").QPL.markerStart(L),
-            ),
-            yield o("WAWebUserPrefsMultiDevice").setADVSecretKey(),
-            (T.stage = R.Initialized),
-            $(o("WAWebPairingType").PairingType.ALT_DEVICE_LINKING));
-        })),
-        w.apply(this, arguments)
-      );
-    }
-    function A() {
-      return F.apply(this, arguments);
-    }
-    function F() {
-      return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          (o("WALogger").LOG(
-            u ||
-              (u = babelHelpers.taggedTemplateLiteralLoose([
-                "alt pairing: initialize QR linking",
-              ])),
+          primaryIdentityPublic: o("WAByteArray").uint8ArrayToBuffer(
+            e.linkCodeCompanionRegPrimaryIdentityPubElementValue,
           ),
-            x() === o("WAWebPairingType").PairingType.ALT_DEVICE_LINKING &&
-              o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
-                "switch_to_qr",
-              ),
-            T.clear(),
-            yield o("WAWebAdvSignatureApi").generateADVSecretKey(),
-            (T.stage = R.NotStarted),
-            $(o("WAWebPairingType").PairingType.QR_CODE));
-        })),
-        F.apply(this, arguments)
+        });
+      o("WALogger").LOG(
+        _ ||
+          (_ = babelHelpers.taggedTemplateLiteralLoose([
+            "alt pairing: completed companion finish local algorithm",
+          ])),
       );
-    }
-    function O(e, t) {
-      return B.apply(this, arguments);
-    }
-    function B() {
-      return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "alt pairing: start linking flow",
-              ])),
-          );
-          var n = yield o("WAWebUserPrefsInfoStore").waNoiseInfo.get();
-          if (n == null) throw new C("alt pairing: noise info is null");
-          return (
-            (T.phone = e),
-            (T.codeGenerationTs = o("WATimeUtils").unixTime()),
-            W(T, n, t)
-          );
-        })),
-        B.apply(this, arguments)
+      var l = await g.load(),
+        u = l.sendCompanionFinish;
+      await o("WAWebUserPrefsMultiDevice").setADVSecretKey(
+        o("WABase64").encodeB64(i.advSecret),
       );
+      var c = t.ref;
+      if (c == null) throw new h("alt pairing: cannot find cached ref");
+      var d = t.phone;
+      if (d == null) throw new h("alt pairing: phone is empty");
+      (await u({
+        cachedRef: c,
+        companionIdentityPublic: i.companionIdentityPublic,
+        linkCodeCompanionRegJid: o("WAJids").toPhoneUserJid(d),
+        linkCodePairingWrappedKeyBundle: i.linkCodePairingWrappedKeyBundle,
+      }),
+        o("WALogger").LOG(
+          f ||
+            (f = babelHelpers.taggedTemplateLiteralLoose([
+              "alt pairing: sent companion finish to server",
+            ])),
+        ),
+        (t.stage = S.AfterSendCompanionFinish),
+        o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
+          "handle_primary_hello_end",
+        ));
     }
-    function W(e, t, n) {
-      return q.apply(this, arguments);
-    }
-    function q() {
-      return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          (e.stage === R.Initialized || s(0, 75727, e.stage),
-            o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
-              "generate_code_start",
-            ));
-          var r = yield o("WAWebAltDeviceLinkingAlgorithm").companionHello();
-          ((e.helloCached = r),
-            o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
-              "generate_code_end",
-            ),
-            o("WALogger").LOG(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "alt pairing: completed companion hello generation",
-                ])),
-            ));
-          var a = e.phone;
-          a != null || s(0, 67482);
-          var i = yield h.load(),
-            l = i.sendCompanionHello;
-          if (
-            (o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
-              "send_companion_hello_start",
-            ),
-            (e.ref = yield l({
-              companionServerAuthKeyPub: t.staticKeyPair.pubKey,
-              linkCodePairingWrappedCompanionEphemeralPub:
-                r.linkCodePairingWrappedCompanionEphemeralPub,
-              phone: o("WAJids").toPhoneUserJid(a),
-              shouldPush: n,
-            })),
-            o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
-              "send_companion_hello_end",
-            ),
-            o("WALogger").LOG(
-              m ||
-                (m = babelHelpers.taggedTemplateLiteralLoose([
-                  "alt pairing: sent companion hello",
-                ])),
-            ),
-            e.ref == null)
-          )
-            throw new y("alt pairing:could not get ref from companion hello");
-          return (
-            (e.stage = R.AfterSendCompanionHello),
-            r.linkCodePairingSecret
-          );
-        })),
-        q.apply(this, arguments)
-      );
-    }
-    function U(e) {
-      return V.apply(this, arguments);
-    }
-    function V() {
-      return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (o("WALogger").LOG(
-            p ||
-              (p = babelHelpers.taggedTemplateLiteralLoose([
-                "alt pairing: handling primary hello",
-              ])),
-          ),
-            o("WAWebBackendApi").frontendFireAndForget(
-              "primaryHelloReceivedAltLinking",
-              {},
-            ));
-          try {
-            return yield z(e, T, o("WATimeUtils").unixTime());
-          } catch (e) {
-            return (
-              o("WAWebBackendApi").frontendFireAndForget("errorAltLinking", {}),
-              (g || (g = n("Promise"))).reject(e)
-            );
-          }
-        })),
-        V.apply(this, arguments)
-      );
-    }
-    function H(e) {
-      return G.apply(this, arguments);
-    }
-    function G() {
-      return (
-        (G = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield o("WAWebAdvSignatureApi").generateADVSecretKey(),
-            (e.stage = R.AfterSendCompanionHello));
-        })),
-        G.apply(this, arguments)
-      );
-    }
-    function z(e, t, n) {
-      return j.apply(this, arguments);
-    }
-    function j() {
-      return (
-        (j = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          if (
-            (o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
-              "handle_primary_hello_start",
-            ),
-            t.primaryHelloAttemptCount++,
-            t.stage === R.AfterSendCompanionFinish)
-          )
-            if (t.primaryHelloAttemptCount <= I) yield H(t);
-            else
-              throw new S(
-                "alt pairing: reached max allowed primary hello attempts per code",
-              );
-          if (
-            (t.stage === R.AfterSendCompanionHello || s(0, 75728, t.stage),
-            t.ref == null)
-          )
-            throw new y("alt pairing:could not get ref from companion hello");
-          if (
-            !o("WACryptoUtils").uint8ArraysEqual(
-              t.ref,
-              e.linkCodeCompanionRegLinkCodePairingRefElementValue,
-            )
-          )
-            throw new b(
-              "alt pairing: handle primary hello: received unexpected ref",
-            );
-          if (t.helloCached == null)
-            throw r("err")("alt pairing: cannot find cached hello data");
-          if (t.codeGenerationTs == null)
-            throw r("err")("alt pairing: cannot find codeGenerationTs");
-          if (n - t.codeGenerationTs > k)
-            throw new v(
-              "alt pairing: cannot process primaryHello for an old code",
-            );
-          var a = t.helloCached,
-            i = yield o("WAWebAltDeviceLinkingAlgorithm").companionFinish({
-              linkCodeKey: a.linkCodeKey,
-              linkCodePairingCompanionADVEphemeralKeyPair:
-                a.linkCodePairingCompanionADVEphemeralKeyPair,
-              linkCodePairingWrappedPrimaryEphemeralPub: o(
-                "WAByteArray",
-              ).uint8ArrayToBuffer(
-                e.linkCodeCompanionRegLinkCodePairingWrappedPrimaryEphemeralPubElementValue,
-              ),
-              primaryIdentityPublic: o("WAByteArray").uint8ArrayToBuffer(
-                e.linkCodeCompanionRegPrimaryIdentityPubElementValue,
-              ),
-            });
-          o("WALogger").LOG(
-            _ ||
-              (_ = babelHelpers.taggedTemplateLiteralLoose([
-                "alt pairing: completed companion finish local algorithm",
-              ])),
-          );
-          var l = yield h.load(),
-            u = l.sendCompanionFinish;
-          yield o("WAWebUserPrefsMultiDevice").setADVSecretKey(
-            o("WABase64").encodeB64(i.advSecret),
-          );
-          var c = t.ref;
-          if (c == null) throw new y("alt pairing: cannot find cached ref");
-          var d = t.phone;
-          if (d == null) throw new y("alt pairing: phone is empty");
-          (yield u({
-            cachedRef: c,
-            companionIdentityPublic: i.companionIdentityPublic,
-            linkCodeCompanionRegJid: o("WAJids").toPhoneUserJid(d),
-            linkCodePairingWrappedKeyBundle: i.linkCodePairingWrappedKeyBundle,
-          }),
-            o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "alt pairing: sent companion finish to server",
-                ])),
-            ),
-            (t.stage = R.AfterSendCompanionFinish),
-            o("WAWebAltDeviceLinkingQpl").addPointToCurrentMarker(
-              "handle_primary_hello_end",
-            ));
-        })),
-        j.apply(this, arguments)
-      );
-    }
-    ((l.InvalidRefError = b),
-      (l.OldCodeError = v),
-      (l.MaxPrimaryHelloError = S),
-      (l.AltPairingStage = R),
-      (l.PairingState = E),
-      (l.getPairingType = x),
-      (l.setPairingType = $),
-      (l.getCurrentRef = P),
-      (l.getCurrentHelloCached = N),
-      (l.initializeAltDeviceLinking = M),
-      (l.initializeQRLinking = A),
-      (l.startAltLinkingFlow = O),
-      (l.handlePrimaryHello = U),
-      (l.handlePrimaryHelloInternal = z));
+    ((l.InvalidRefError = C),
+      (l.OldCodeError = b),
+      (l.MaxPrimaryHelloError = v),
+      (l.AltPairingStage = S),
+      (l.PairingState = L),
+      (l.getPairingType = D),
+      (l.setPairingType = x),
+      (l.getCurrentRef = $),
+      (l.getCurrentHelloCached = P),
+      (l.initializeAltDeviceLinking = N),
+      (l.initializeQRLinking = M),
+      (l.startAltLinkingFlow = w),
+      (l.handlePrimaryHello = F),
+      (l.handlePrimaryHelloInternal = B));
   },
   98,
 );

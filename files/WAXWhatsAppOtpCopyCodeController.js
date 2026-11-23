@@ -1,0 +1,33 @@
+__d(
+  "WAXWhatsAppOtpCopyCodeController",
+  ["XController"],
+  function (t, n, r, o, a, i) {
+    a.exports = n("XController").create("/otp/code/", {
+      locale: { type: "String" },
+      helpref: { type: "String" },
+      cms_platform: { type: "Enum", enumType: 1 },
+      source_cms_id: { type: "FBID" },
+      region_hint: { type: "StringVector", defaultValue: [] },
+      ref: { type: "String" },
+      expand_folders: { type: "StringVector", defaultValue: [] },
+      cc: { type: "String" },
+      eea: { type: "String" },
+      anid: { type: "String" },
+      search_mode: { type: "Enum", enumType: 1 },
+      lg: { type: "String" },
+      lc: { type: "String" },
+      l: { type: "String" },
+      lang: { type: "String" },
+      tier: { type: "String" },
+      dl_redirect: { type: "Bool", defaultValue: !1 },
+      otp_type: { type: "Enum", enumType: 1 },
+      cta_display_name: { type: "String" },
+      package_name: { type: "String" },
+      signature_hash: { type: "String" },
+      code_expiration_minutes: { type: "Int" },
+      return_link: { type: "String" },
+      code: { type: "String", required: !0 },
+    });
+  },
+  null,
+);

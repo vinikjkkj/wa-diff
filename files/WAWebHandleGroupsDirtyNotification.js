@@ -10,112 +10,79 @@ __d(
     "WAWebQueryAndUpdateGroupsMetadataByJidsJob",
     "WAWebRestOperations",
     "WAWebScheduledOperations",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s;
-    function u(e) {
-      return c.apply(this, arguments);
-    }
-    function c() {
+    async function u(t) {
+      var n = o(
+          "WASmaxGroupsGroupsDirtyNotificationRPC",
+        ).receiveGroupsDirtyNotificationRPC(t),
+        r = n.makeGroupsDirtyNotificationResponseAck,
+        a = n.parsedRequest;
       return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = o(
-              "WASmaxGroupsGroupsDirtyNotificationRPC",
-            ).receiveGroupsDirtyNotificationRPC(t),
-            r = n.makeGroupsDirtyNotificationResponseAck,
-            a = n.parsedRequest;
-          return (
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "handleGroupsDirtyNotification: rcvd dirty bit notif",
-                ])),
-            ),
-            d(a),
-            r()
-          );
-        })),
-        c.apply(this, arguments)
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "handleGroupsDirtyNotification: rcvd dirty bit notif",
+            ])),
+        ),
+        c(a),
+        r()
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function c(e) {
+      try {
+        var t = e.groupsDirtyGroup.map(function (e) {
+          return e.jid;
+        });
+        await o("WAWebRestOperations").runRestOperation(
+          o("WAWebScheduledOperations").ScheduledOperation
+            .QUERY_AND_UPDATE_GROUPS_METADATA_BY_JIDS,
+          function () {
+            return d(t);
+          },
+          function () {
+            return m(t);
+          },
+        );
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "handleGroupsDirtyNotification: failed with ",
+                "",
+              ])),
+            e,
+          )
+          .sendLogs("handleGroupsDirtyNotificationJob");
+      }
     }
-    function m() {
+    async function d(e) {
+      (await o(
+        "WAWebEventsWaitForOfflineDeliveryEnd",
+      ).waitForOfflineDeliveryEnd(),
+        await o("WAComms").waitForConnection(),
+        await o(
+          "WAWebQueryAndUpdateGroupsMetadataByJidsJob",
+        ).queryAndUpdateDirtyGroupsMetadata(e));
+    }
+    async function m(e) {
+      var t = await o("WAWebPersistedJobManagerWorkerCompatible")
+        .getJobManager()
+        .accessors.maybeCreateJob(
+          o(
+            "WAWebPersistedJobDefinitions",
+          ).jobSerializers.queryAndUpdateGroupsMetadataByJids(e),
+        );
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            var t = e.groupsDirtyGroup.map(function (e) {
-              return e.jid;
-            });
-            yield o("WAWebRestOperations").runRestOperation(
-              o("WAWebScheduledOperations").ScheduledOperation
-                .QUERY_AND_UPDATE_GROUPS_METADATA_BY_JIDS,
-              function () {
-                return p(t);
-              },
-              function () {
-                return f(t);
-              },
-            );
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "handleGroupsDirtyNotification: failed with ",
-                    "",
-                  ])),
-                e,
-              )
-              .sendLogs("handleGroupsDirtyNotificationJob");
-          }
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield o(
-            "WAWebEventsWaitForOfflineDeliveryEnd",
-          ).waitForOfflineDeliveryEnd(),
-            yield o("WAComms").waitForConnection(),
-            yield o(
-              "WAWebQueryAndUpdateGroupsMetadataByJidsJob",
-            ).queryAndUpdateDirtyGroupsMetadata(e));
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebPersistedJobManagerWorkerCompatible")
-            .getJobManager()
-            .accessors.maybeCreateJob(
-              o(
-                "WAWebPersistedJobDefinitions",
-              ).jobSerializers.queryAndUpdateGroupsMetadataByJids(e),
-            );
-          return (
-            yield o(
-              "WAWebEventsWaitForOfflineDeliveryEnd",
-            ).waitForOfflineDeliveryEnd(),
-            yield o("WAComms").waitForConnection(),
-            o("WAWebPersistedJobManagerWorkerCompatible")
-              .getJobManager()
-              .loadAndRunJobFromId(t.id)
-          );
-        })),
-        g.apply(this, arguments)
+        await o(
+          "WAWebEventsWaitForOfflineDeliveryEnd",
+        ).waitForOfflineDeliveryEnd(),
+        await o("WAComms").waitForConnection(),
+        o("WAWebPersistedJobManagerWorkerCompatible")
+          .getJobManager()
+          .loadAndRunJobFromId(t.id)
       );
     }
     l.handleGroupsDirtyNotificationJob = u;

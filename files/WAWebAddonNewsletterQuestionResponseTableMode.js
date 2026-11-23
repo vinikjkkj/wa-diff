@@ -1,7 +1,6 @@
 __d(
   "WAWebAddonNewsletterQuestionResponseTableMode",
   [
-    "Promise",
     "WAWebAck",
     "WAWebAddonConstants",
     "WAWebAddonInfraError",
@@ -13,220 +12,154 @@ __d(
     "WAWebNullFunc",
     "WAWebSchemaMessage",
     "WAWebSchemaNewsletterQuestionResponses",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = {
-        mode: o("WAWebAddonConstants").AddonTableMode
-          .NewsletterQuestionResponse,
-        bulkUpsert: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            o(
-              "WAWebSchemaNewsletterQuestionResponses",
-            ).canUseNewsletterQuestionResponsesTable() &&
-              (yield o(
-                "WAWebNewsletterQuestionResponseStorage",
-              ).upsertNewsletterQuestionResponses(
-                e.map(function (e) {
-                  if (
-                    e.kind !==
-                    o("WAWebMsgType").MsgKind.NewsletterQuestionResponse
-                  )
-                    throw new (o("WAWebAddonInfraError").AddonInfraError)(
-                      o("WAWebAddonInfraError").AddonInfraErrorCode
-                        .UnexpectedMsgType,
-                    );
-                  return o(
-                    "WAWebDBNewsletterQuestionResponseSerialization",
-                  ).dbRowFromNewsletterQuestionResponse(e);
-                }),
-              ));
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        bulkGetByParentAndSender: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            throw new (o("WAWebAddonInfraError").AddonInfraError)(
-              o("WAWebAddonInfraError").AddonInfraErrorCode.NotSupportedFeature,
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        bulkGetByMsgKey: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            if (
-              !o(
-                "WAWebSchemaNewsletterQuestionResponses",
-              ).canUseNewsletterQuestionResponsesTable()
-            )
-              return e.map(o("WAWebNullFunc").returnNull);
-            var t = yield o("WAWebSchemaNewsletterQuestionResponses")
-              .getTable()
-              .bulkGet(
-                e.map(function (e) {
-                  return e.toString();
-                }),
-              );
-            return t.map(function (e) {
-              return e == null
-                ? e
-                : o(
-                    "WAWebDBNewsletterQuestionResponseSerialization",
-                  ).newsletterQuestionResponseFromDbRow(e);
-            });
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        bulkGetByParentMsgKey: (function () {
-          var t = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-            if (
-              !o(
-                "WAWebSchemaNewsletterQuestionResponses",
-              ).canUseNewsletterQuestionResponsesTable()
-            )
-              return [];
-            var a = yield (e || (e = n("Promise"))).all(
-                t.map(function (e) {
-                  return o(
-                    "WAWebNewsletterQuestionResponseParent",
-                  ).resolveQuestionResponseParent(
-                    e,
-                    o("WAWebSchemaMessage").getMessageTable(),
-                  );
-                }),
-              ),
-              i = new Map();
-            for (var l of a) for (var s of l.keys) i.set(s, l.id);
-            var u = yield o("WAWebSchemaNewsletterQuestionResponses")
-              .getTable()
-              .anyOf(["parentMsgKey"], Array.from(i.keys()));
-            return u.map(function (e) {
-              var t;
-              return babelHelpers.extends(
-                {},
-                o(
-                  "WAWebDBNewsletterQuestionResponseSerialization",
-                ).newsletterQuestionResponseFromDbRow(e),
-                {
-                  parentMsgKey:
-                    (t = i.get(e.parentMsgKey)) != null
-                      ? t
-                      : r("WAWebMsgKey").from(e.parentMsgKey),
-                },
-              );
-            });
-          });
-          function a(e) {
-            return t.apply(this, arguments);
-          }
-          return a;
-        })(),
-        bulkGetByChatWid: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            throw new (o("WAWebAddonInfraError").AddonInfraError)(
-              o("WAWebAddonInfraError").AddonInfraErrorCode.NotSupportedFeature,
-            );
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        bulkRemoveByMsgKey: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            o(
-              "WAWebSchemaNewsletterQuestionResponses",
-            ).canUseNewsletterQuestionResponsesTable() &&
-              (yield o(
-                "WAWebNewsletterQuestionResponseStorage",
-              ).removeNewsletterQuestionResponses(e));
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        getByMsgKey: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            if (
-              !o(
-                "WAWebSchemaNewsletterQuestionResponses",
-              ).canUseNewsletterQuestionResponsesTable()
-            )
-              return null;
-            var t = yield o("WAWebSchemaNewsletterQuestionResponses")
-              .getTable()
-              .get(e.toString());
-            return t == null
-              ? null
-              : o(
-                  "WAWebDBNewsletterQuestionResponseSerialization",
-                ).newsletterQuestionResponseFromDbRow(t);
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        updateAck: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-            function* (e, t) {
-              if (t === o("WAWebAck").ACK.PEER)
+    var e = {
+      mode: o("WAWebAddonConstants").AddonTableMode.NewsletterQuestionResponse,
+      bulkUpsert: async function (t) {
+        o(
+          "WAWebSchemaNewsletterQuestionResponses",
+        ).canUseNewsletterQuestionResponsesTable() &&
+          (await o(
+            "WAWebNewsletterQuestionResponseStorage",
+          ).upsertNewsletterQuestionResponses(
+            t.map(function (e) {
+              if (
+                e.kind !== o("WAWebMsgType").MsgKind.NewsletterQuestionResponse
+              )
                 throw new (o("WAWebAddonInfraError").AddonInfraError)(
-                  o("WAWebAddonInfraError").AddonInfraErrorCode.UnexpectedError,
+                  o("WAWebAddonInfraError").AddonInfraErrorCode
+                    .UnexpectedMsgType,
                 );
-              o(
-                "WAWebSchemaNewsletterQuestionResponses",
-              ).canUseNewsletterQuestionResponsesTable() &&
-                (yield o("WAWebSchemaNewsletterQuestionResponses")
-                  .getTable()
-                  .merge(e.id.toString(), { ack: t }));
+              return o(
+                "WAWebDBNewsletterQuestionResponseSerialization",
+              ).dbRowFromNewsletterQuestionResponse(e);
+            }),
+          ));
+      },
+      bulkGetByParentAndSender: async function () {
+        throw new (o("WAWebAddonInfraError").AddonInfraError)(
+          o("WAWebAddonInfraError").AddonInfraErrorCode.NotSupportedFeature,
+        );
+      },
+      bulkGetByMsgKey: async function (t) {
+        if (
+          !o(
+            "WAWebSchemaNewsletterQuestionResponses",
+          ).canUseNewsletterQuestionResponsesTable()
+        )
+          return t.map(o("WAWebNullFunc").returnNull);
+        var e = await o("WAWebSchemaNewsletterQuestionResponses")
+          .getTable()
+          .bulkGet(
+            t.map(function (e) {
+              return e.toString();
+            }),
+          );
+        return e.map(function (e) {
+          return e == null
+            ? e
+            : o(
+                "WAWebDBNewsletterQuestionResponseSerialization",
+              ).newsletterQuestionResponseFromDbRow(e);
+        });
+      },
+      bulkGetByParentMsgKey: async function (t) {
+        if (
+          !o(
+            "WAWebSchemaNewsletterQuestionResponses",
+          ).canUseNewsletterQuestionResponsesTable()
+        )
+          return [];
+        var e = await Promise.all(
+            t.map(function (e) {
+              return o(
+                "WAWebNewsletterQuestionResponseParent",
+              ).resolveQuestionResponseParent(
+                e,
+                o("WAWebSchemaMessage").getMessageTable(),
+              );
+            }),
+          ),
+          n = new Map();
+        for (var a of e) for (var i of a.keys) n.set(i, a.id);
+        var l = await o("WAWebSchemaNewsletterQuestionResponses")
+          .getTable()
+          .anyOf(["parentMsgKey"], Array.from(n.keys()));
+        return l.map(function (e) {
+          var t;
+          return babelHelpers.extends(
+            {},
+            o(
+              "WAWebDBNewsletterQuestionResponseSerialization",
+            ).newsletterQuestionResponseFromDbRow(e),
+            {
+              parentMsgKey:
+                (t = n.get(e.parentMsgKey)) != null
+                  ? t
+                  : r("WAWebMsgKey").from(e.parentMsgKey),
             },
           );
-          function t(t, n) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        markAsRead: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-            o(
-              "WAWebSchemaNewsletterQuestionResponses",
-            ).canUseNewsletterQuestionResponsesTable() &&
-              (yield o("WAWebSchemaNewsletterQuestionResponses")
-                .getTable()
-                .merge(e.toString(), { read: !0 }));
-          });
-          function t(t) {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-        getTableSize: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o(
-              "WAWebSchemaNewsletterQuestionResponses",
-            ).canUseNewsletterQuestionResponsesTable()
-              ? o("WAWebSchemaNewsletterQuestionResponses").getTable().count()
-              : 0;
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
-      };
-    l.newsletterQuestionResponseTableMode = s;
+        });
+      },
+      bulkGetByChatWid: async function () {
+        throw new (o("WAWebAddonInfraError").AddonInfraError)(
+          o("WAWebAddonInfraError").AddonInfraErrorCode.NotSupportedFeature,
+        );
+      },
+      bulkRemoveByMsgKey: async function (t) {
+        o(
+          "WAWebSchemaNewsletterQuestionResponses",
+        ).canUseNewsletterQuestionResponsesTable() &&
+          (await o(
+            "WAWebNewsletterQuestionResponseStorage",
+          ).removeNewsletterQuestionResponses(t));
+      },
+      getByMsgKey: async function (t) {
+        if (
+          !o(
+            "WAWebSchemaNewsletterQuestionResponses",
+          ).canUseNewsletterQuestionResponsesTable()
+        )
+          return null;
+        var e = await o("WAWebSchemaNewsletterQuestionResponses")
+          .getTable()
+          .get(t.toString());
+        return e == null
+          ? null
+          : o(
+              "WAWebDBNewsletterQuestionResponseSerialization",
+            ).newsletterQuestionResponseFromDbRow(e);
+      },
+      updateAck: async function (t, n) {
+        if (n === o("WAWebAck").ACK.PEER)
+          throw new (o("WAWebAddonInfraError").AddonInfraError)(
+            o("WAWebAddonInfraError").AddonInfraErrorCode.UnexpectedError,
+          );
+        o(
+          "WAWebSchemaNewsletterQuestionResponses",
+        ).canUseNewsletterQuestionResponsesTable() &&
+          (await o("WAWebSchemaNewsletterQuestionResponses")
+            .getTable()
+            .merge(t.id.toString(), { ack: n }));
+      },
+      markAsRead: async function (t) {
+        o(
+          "WAWebSchemaNewsletterQuestionResponses",
+        ).canUseNewsletterQuestionResponsesTable() &&
+          (await o("WAWebSchemaNewsletterQuestionResponses")
+            .getTable()
+            .merge(t.toString(), { read: !0 }));
+      },
+      getTableSize: async function () {
+        return o(
+          "WAWebSchemaNewsletterQuestionResponses",
+        ).canUseNewsletterQuestionResponsesTable()
+          ? o("WAWebSchemaNewsletterQuestionResponses").getTable().count()
+          : 0;
+      },
+    };
+    l.newsletterQuestionResponseTableMode = e;
   },
   98,
 );

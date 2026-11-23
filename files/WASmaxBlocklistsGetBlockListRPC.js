@@ -16,75 +16,60 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = v(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = C(r, n);
-          if (a.success)
-            return {
-              name: "GetBlockListResponseSuccessWithMismatch",
-              value: a.value,
-            };
-          var i = g(r, n);
-          if (i.success)
-            return {
-              name: "GetBlockListResponseMigratedSuccessWithMismatch",
-              value: i.value,
-            };
-          var l = m(r, n);
-          if (l.success)
-            return {
-              name: "GetBlockListResponseForceMigratedSuccessWithMismatch",
-              value: l.value,
-            };
-          var s = c(r, n);
-          if (s.success)
-            return {
-              name: "GetBlockListResponseCAPISuccessWithMismatch",
-              value: s.value,
-            };
-          var u = h(r, n);
-          if (u.success)
-            return {
-              name: "GetBlockListResponseSuccessWithMatch",
-              value: u.value,
-            };
-          var d = _(r, n);
-          if (d.success)
-            return {
-              name: "GetBlockListResponseInvalidRequest",
-              value: d.value,
-            };
-          var f = p(r, n);
-          if (f.success)
-            return {
-              name: "GetBlockListResponseInternalServerError",
-              value: f.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("GetBlockList", {
-              SuccessWithMismatch: a,
-              MigratedSuccessWithMismatch: i,
-              ForceMigratedSuccessWithMismatch: l,
-              CAPISuccessWithMismatch: s,
-              SuccessWithMatch: u,
-              InvalidRequest: d,
-              InternalServerError: f,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = b(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = y(r, n);
+      if (a.success)
+        return {
+          name: "GetBlockListResponseSuccessWithMismatch",
+          value: a.value,
+        };
+      var i = f(r, n);
+      if (i.success)
+        return {
+          name: "GetBlockListResponseMigratedSuccessWithMismatch",
+          value: i.value,
+        };
+      var l = d(r, n);
+      if (l.success)
+        return {
+          name: "GetBlockListResponseForceMigratedSuccessWithMismatch",
+          value: l.value,
+        };
+      var s = u(r, n);
+      if (s.success)
+        return {
+          name: "GetBlockListResponseCAPISuccessWithMismatch",
+          value: s.value,
+        };
+      var c = g(r, n);
+      if (c.success)
+        return { name: "GetBlockListResponseSuccessWithMatch", value: c.value };
+      var _ = p(r, n);
+      if (_.success)
+        return { name: "GetBlockListResponseInvalidRequest", value: _.value };
+      var h = m(r, n);
+      if (h.success)
+        return {
+          name: "GetBlockListResponseInternalServerError",
+          value: h.value,
+        };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("GetBlockList", {
+          SuccessWithMismatch: a,
+          MigratedSuccessWithMismatch: i,
+          ForceMigratedSuccessWithMismatch: l,
+          CAPISuccessWithMismatch: s,
+          SuccessWithMatch: c,
+          InvalidRequest: _,
+          InternalServerError: h,
+        }),
       );
     }
-    function u(e) {
+    function s(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -109,7 +94,7 @@ __d(
           )
         : a;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
@@ -130,13 +115,13 @@ __d(
         "result",
       );
       if (!l.success) return l;
-      var s = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
-      if (!s.success) return s;
+      var u = o("WASmaxParseReference").attrStringFromReference(t, ["id"]);
+      if (!u.success) return u;
       var c = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
         e,
         "id",
-        s.value,
+        u.value,
       );
       if (!c.success) return c;
       var d = o("WASmaxParseUtils").optional(
@@ -157,7 +142,7 @@ __d(
         "item",
         0,
         64e3,
-        u,
+        s,
       );
       return p.success
         ? o("WAResultOrError").makeResult({
@@ -168,7 +153,7 @@ __d(
           })
         : p;
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").optional(
@@ -193,7 +178,7 @@ __d(
           )
         : a;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
@@ -223,12 +208,12 @@ __d(
         s.value,
       );
       if (!u.success) return u;
-      var c = o("WASmaxParseUtils").optional(
+      var d = o("WASmaxParseUtils").optional(
         o("WASmaxParseUtils").attrString,
         r.value,
         "dhash",
       );
-      if (!c.success) return c;
+      if (!d.success) return d;
       var m = o("WASmaxParseUtils").literal(
         o("WASmaxParseUtils").attrString,
         r.value,
@@ -248,19 +233,19 @@ __d(
         "item",
         0,
         64e3,
-        d,
+        c,
       );
       return _.success
         ? o("WAResultOrError").makeResult({
             type: l.value,
-            listDhash: c.value,
+            listDhash: d.value,
             listAddressingMode: m.value,
             listDirty: p.value,
             listItem: _.value,
           })
         : _;
     }
-    function p(e, t) {
+    function m(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -276,7 +261,7 @@ __d(
           )
         : i;
     }
-    function _(e, t) {
+    function p(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -296,7 +281,7 @@ __d(
           )
         : i;
     }
-    function f(e) {
+    function _(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrLidUserJid(e, "jid");
@@ -317,7 +302,7 @@ __d(
           )
         : a;
     }
-    function g(e, t) {
+    function f(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
@@ -365,7 +350,7 @@ __d(
         "item",
         0,
         64e3,
-        f,
+        _,
       );
       return m.success
         ? o("WAResultOrError").makeResult({
@@ -376,7 +361,7 @@ __d(
           })
         : m;
     }
-    function h(e, t) {
+    function g(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseReference").attrStringFromReference(t, ["to"]);
@@ -405,7 +390,7 @@ __d(
       );
       return s.success ? o("WAResultOrError").makeResult({ type: i.value }) : s;
     }
-    function y(e) {
+    function h(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "item");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrUserJid(e, "jid");
@@ -423,7 +408,7 @@ __d(
         displayNameMixin: a.success ? a.value : null,
       });
     }
-    function C(e, t) {
+    function y(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "list");
@@ -471,7 +456,7 @@ __d(
         "item",
         0,
         64e3,
-        y,
+        h,
       );
       return m.success
         ? o("WAResultOrError").makeResult({
@@ -482,12 +467,12 @@ __d(
           })
         : m;
     }
-    function b(e) {
+    function C(e) {
       var t = e.itemDhash,
         n = o("WASmaxJsx").smax("item", { dhash: o("WAWap").CUSTOM_STRING(t) });
       return n;
     }
-    function v(e) {
+    function b(e) {
       var t = e.itemArgs,
         n = o("WASmaxJsx").smax(
           "iq",
@@ -497,19 +482,19 @@ __d(
             type: "get",
             id: o("WAWap").generateId(),
           },
-          o("WASmaxChildren").OPTIONAL_CHILD(b, t),
+          o("WASmaxChildren").OPTIONAL_CHILD(C, t),
         );
       return n;
     }
     ((l.sendGetBlockListRPC = e),
-      (l.parseGetBlockListResponseCAPISuccessWithMismatch = c),
-      (l.parseGetBlockListResponseForceMigratedSuccessWithMismatch = m),
-      (l.parseGetBlockListResponseInternalServerError = p),
-      (l.parseGetBlockListResponseInvalidRequest = _),
-      (l.parseGetBlockListResponseMigratedSuccessWithMismatch = g),
-      (l.parseGetBlockListResponseSuccessWithMatch = h),
-      (l.parseGetBlockListResponseSuccessWithMismatch = C),
-      (l.makeGetBlockListRequest = v));
+      (l.parseGetBlockListResponseCAPISuccessWithMismatch = u),
+      (l.parseGetBlockListResponseForceMigratedSuccessWithMismatch = d),
+      (l.parseGetBlockListResponseInternalServerError = m),
+      (l.parseGetBlockListResponseInvalidRequest = p),
+      (l.parseGetBlockListResponseMigratedSuccessWithMismatch = f),
+      (l.parseGetBlockListResponseSuccessWithMatch = g),
+      (l.parseGetBlockListResponseSuccessWithMismatch = y),
+      (l.makeGetBlockListRequest = b));
   },
   98,
 );

@@ -27,11 +27,9 @@ __d(
     "adsAdgroupIsDynamicProductCarouselAd",
     "adsIsNewVideoThumbnailDataModel",
     "getByPath",
-    "gkx",
     "immutable",
     "isFalsey",
     "isTruthy",
-    "qex",
     "setByPath",
     "uuidv4",
   ],
@@ -448,7 +446,7 @@ __d(
         a
           ? (a = a.splice(e, 0, r("immutable").fromJS(n)))
           : (a = r("immutable").fromJS([E(t), n])),
-        M(t, a)
+        N(t, a)
       );
     }
     function I(e) {
@@ -499,8 +497,8 @@ __d(
             var r = o("AdsChildAttachmentsUtils").getChildAttachmentType(s, e);
             return r !== t;
           })),
-          M(s, l))
-        : w(s);
+          N(s, l))
+        : M(s);
     }
     function D(e) {
       var t = e;
@@ -521,20 +519,12 @@ __d(
             })),
             n),
         }),
-          o("DAFlexibleFormatUtils").hasRelatedMedia(e) && !a
-            ? (t = N(
-                t,
-                "format_liquidity_da_flexible_format_with_related_media",
-              ))
-            : (t = o("AdsMutators").chain(
-                o("AdsAdgroupCreativeAssetGroupsSpecOriginMutators")
-                  .deleteAllOrigins,
-                r(
-                  "AdsAdgroupRecordAccessors",
-                ).creative_asset_groups_spec.groups.set(
-                  r("immutable").List([]),
-                ),
-              )(e)));
+          o("DAFlexibleFormatUtils").hasRelatedMedia(e) &&
+            !a &&
+            (t = P(
+              t,
+              "format_liquidity_da_flexible_format_with_related_media",
+            )));
       }
       return T(t, r("AdsAdgroupChildAttachmentTypes").STATIC);
     }
@@ -543,85 +533,72 @@ __d(
         "AdsAdgroupCreativeAssetGroupsSpecOriginMutators",
       ).hasSpecificOrigin(e, "format_liquidity_da_intro_card");
     }
-    function $(e) {
-      return o(
-        "AdsAdgroupCreativeAssetGroupsSpecOriginMutators",
-      ).hasSpecificOrigin(
-        e,
-        "format_liquidity_da_flexible_format_with_related_media",
-      );
-    }
-    function P(e, t) {
+    function $(e, t) {
       var n,
         a,
         i,
-        l,
-        s = o("AdsDynamicAdCustomizationAssetFeedUtils").isAssetFeedBasedMMDA(
+        l = o("AdsDynamicAdCustomizationAssetFeedUtils").isAssetFeedBasedMMDA(
           e,
         ),
-        u = s
+        s = l
           ? o("AdsDynamicAdCustomizationAssetFeedUtils").getCTAType(e)
           : o("AdsAdgroupSpecUtils").getCallToActionType(e),
-        c = s
+        u = l
           ? o("AdsDynamicAdCustomizationAssetFeedUtils").getDefaultWebsiteURL(e)
           : (n = e.creative) == null ||
               (n = n.object_story_spec) == null ||
               (n = n.template_data) == null
             ? void 0
             : n.link,
-        d = ((a = {}), (a.link = c || ""), a);
+        c = ((a = {}), (a.link = u || ""), a);
       if (
         (t
           ? (r("setByPath")(
-              d,
+              c,
               r("AdsAPIChildAttachmentPaths").TEMPLATE_VIDEO_SPEC.TEMPLATE_ID,
               r("DynamicAdsTemplateVideoShowreelTemplateConfig")
                 .default_template_id,
             ),
             r("setByPath")(
-              d,
+              c,
               r("AdsAPIChildAttachmentPaths").TEMPLATE_VIDEO_SPEC.CUSTOMIZATION,
               r("DynamicAdsTemplateVideoShowreelTemplateConfig").templates[
                 r("DynamicAdsTemplateVideoShowreelTemplateConfig")
                   .default_template_id
               ].customization,
             ))
-          : r("setByPath")(d, r("AdsAPIChildAttachmentPaths").STATIC_CARD, !0),
-        u != null)
+          : r("setByPath")(c, r("AdsAPIChildAttachmentPaths").STATIC_CARD, !0),
+        s != null)
       ) {
-        var m,
-          p = r("immutable").Map(((m = {}), (m.type = u), m)),
-          _ = r("getByPath")(
+        var d,
+          m = r("immutable").Map(((d = {}), (d.type = s), d)),
+          p = r("getByPath")(
             o("AdsAdgroupSpecUtils").getCallToAction(e),
             r("AdsAPICallToActionPaths").VALUE.LEAD_GEN_FORM_ID,
           );
-        if (_) {
-          var f;
-          p = p.set(
+        if (p) {
+          var _;
+          m = m.set(
             "value",
-            r("immutable").Map(((f = {}), (f.lead_gen_form_id = _), f)),
+            r("immutable").Map(((_ = {}), (_.lead_gen_form_id = p), _)),
           );
         }
-        d.call_to_action = p;
+        c.call_to_action = m;
       }
-      var g =
+      var f =
         (i = e.creative) == null ||
         (i = i.object_story_spec) == null ||
         (i = i.template_data) == null
           ? void 0
           : i.child_attachments;
-      g
-        ? (g = g.splice(0, 0, r("immutable").fromJS(d)))
-        : (g = r("immutable").fromJS([d, E(e)]));
-      var h = (l = r("qex")._("3966")) != null ? l : !1,
-        y = r("gkx")("20703") === !0;
-      if ((h || y) && !$(e)) {
-        var C = N(e, "format_liquidity_da_intro_card");
-        return M(C, g);
-      }
-      return M(e, g);
+      return (
+        f
+          ? (f = f.splice(0, 0, r("immutable").fromJS(c)))
+          : (f = r("immutable").fromJS([c, E(e)])),
+        N(e, f)
+      );
     }
-    function N(e, t) {
+    function P(e, t) {
       var n = r("immutable").Map().set("group_uuid", r("uuidv4")().toString());
       return o("AdsMutators").chain(
         function (e) {
@@ -634,7 +611,7 @@ __d(
         ),
       )(e);
     }
-    function M(e, t) {
+    function N(e, t) {
       var n;
       return o("AdsMutators").chain(
         (n = r("AdsAdgroupRecordAccessors")).creative.object_story_spec
@@ -653,7 +630,7 @@ __d(
         },
       )(e);
     }
-    function w(e) {
+    function M(e) {
       var t,
         n,
         a =
@@ -697,14 +674,14 @@ __d(
         },
       )(e);
     }
-    var A = {
+    var w = {
       isCardIndex: C,
       isEmptyValue: b,
       hasValue: v,
       valueNotEqualOtherField: S,
       notStaticCard: R,
     };
-    function F(e, t, n, a, i) {
+    function A(e, t, n, a, i) {
       var l = r("AdsAdgroupChildAttachmentsFields").callToActionType.get(
         e,
         a,
@@ -714,10 +691,10 @@ __d(
         ? !1
         : !o("AdsAdgroupSpecUtils").isCTALinkCustomizable(e, t, n);
     }
-    function O(e, t, n) {
+    function F(e, t, n) {
       var o = [
-        A.hasValue,
-        A.valueNotEqualOtherField(
+        w.hasValue,
+        w.valueNotEqualOtherField(
           r("AdsAdgroupChildAttachmentsFields").linkURL,
           t,
         ),
@@ -746,11 +723,11 @@ __d(
       (l.appendPlaceData = k),
       (l.removeTemplatePlaceData = I),
       (l.removeLeadingStaticCard = D),
-      (l.addLeadingStaticCard = P),
-      (l.removeAllStaticCards = w),
-      (l.childIterationConditions = A),
-      (l.shouldSyncCallToActionLinkWithLink = F),
-      (l.syncAllChildLinksWithCTALinks = O));
+      (l.addLeadingStaticCard = $),
+      (l.removeAllStaticCards = M),
+      (l.childIterationConditions = w),
+      (l.shouldSyncCallToActionLinkWithLink = A),
+      (l.syncAllChildLinksWithCTALinks = F));
   },
   98,
 );

@@ -34,7 +34,6 @@ __d(
     "WDSPaddings.stylex",
     "bx",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebAnimationFrames",
     "useWAWebDebouncedChanges",
@@ -195,43 +194,38 @@ __d(
         groupHistoryMessage: { backgroundColor: "x1fast2d", $$css: !0 },
       };
     function x(e) {
-      var t = o("react-compiler-runtime").c(128),
-        n = e.displayAuthor,
-        a = e.displayType,
-        i = e.mediaData,
-        l = e.msgKey,
-        u = e.position,
-        d = e.quotedMsg,
-        m = o("WAWebABProps").getABPropConfigValue("ptv_max_duration_seconds"),
-        h = _(null),
-        y = f(0),
-        C = y[0],
-        b = y[1],
-        v = f(!1),
-        S = v[0],
-        R = v[1],
-        L = f(null),
-        E = L[0],
-        k = L[1],
-        T = _(null),
-        x;
-      if (t[0] === Symbol.for("react.memo_cache_sentinel")) {
-        var w;
-        ((x = [
-          (w = o("WAWebMsgGetters")).getId,
-          w.getIsSentByMe,
-          w.getHasReaction,
-          w.getIsGroupHistoryMessageInOwnChat,
-          w.getIsNewsletterMsg,
-          o("WAWebFrontendMsgGetters").getSenderObj,
-          o("WAWebFrontendMsgGetters").getIsTransparentMsg,
-        ]),
-          (t[0] = x));
-      } else x = t[0];
-      var A = o("useWAWebMsgValues").useMsgValues(
-          l,
+      var t,
+        n,
+        a = e.displayAuthor,
+        i = e.displayType,
+        l = e.mediaData,
+        u = e.msgKey,
+        d = e.position,
+        h = e.quotedMsg,
+        y = o("WAWebABProps").getABPropConfigValue("ptv_max_duration_seconds"),
+        C = _(null),
+        b = f(0),
+        v = b[0],
+        S = b[1],
+        R = f(!1),
+        L = R[0],
+        E = R[1],
+        k = f(null),
+        T = k[0],
+        x = k[1],
+        w = _(null),
+        A = o("useWAWebMsgValues").useMsgValues(
+          u,
           o("WAWebMsgCasts").castToPtvMsg,
-          x,
+          [
+            (t = o("WAWebMsgGetters")).getId,
+            t.getIsSentByMe,
+            t.getHasReaction,
+            t.getIsGroupHistoryMessageInOwnChat,
+            t.getIsNewsletterMsg,
+            o("WAWebFrontendMsgGetters").getSenderObj,
+            o("WAWebFrontendMsgGetters").getIsTransparentMsg,
+          ],
         ),
         F = A[0],
         O = A[1],
@@ -240,39 +234,30 @@ __d(
         q = A[4],
         U = A[5],
         V = A[6],
-        H;
-      if (t[1] === Symbol.for("react.memo_cache_sentinel")) {
-        var G;
-        ((H = [
-          (G = o("WAWebMediaDataGetters")).getMediaStage,
-          G.getRenderableUrl,
-          G.getSize,
-          G.getPreview,
-          G.getFullPreviewData,
+        H = o("useWAWebMediaDataValues").useMediaDataValues(l, [
+          (n = o("WAWebMediaDataGetters")).getMediaStage,
+          n.getRenderableUrl,
+          n.getSize,
+          n.getPreview,
+          n.getFullPreviewData,
         ]),
-          (t[1] = H));
-      } else H = t[1];
-      var z = o("useWAWebMediaDataValues").useMediaDataValues(i, H),
-        j = z[0],
-        K = z[1],
-        Q = z[2],
-        X = C,
-        Y = E != null ? Math.min(E, m) : null,
-        J;
-      t[2] !== a || t[3] !== i
-        ? ((J = { mediaData: i, displayType: a }),
-          (t[2] = a),
-          (t[3] = i),
-          (t[4] = J))
-        : (J = t[4]);
-      var Z = o("useWAWebSendViewCount").useSendViewCount(l, J);
-      o("useWAWebMsgDownloadMedia").useMsgDownloadMedia(l);
-      var ee, te;
-      (t[5] !== l
-        ? ((ee = function () {
+        G = H[0],
+        z = H[1],
+        j = H[2],
+        K = H[3],
+        Q = H[4],
+        X = v,
+        Y = T != null ? Math.min(T, y) : null,
+        J = o("useWAWebSendViewCount").useSendViewCount(u, {
+          mediaData: l,
+          displayType: i,
+        });
+      (o("useWAWebMsgDownloadMedia").useMsgDownloadMedia(u),
+        p(
+          function () {
             var e,
               t =
-                (e = o("WAWebMsgCollection").MsgCollection.get(l)) == null
+                (e = o("WAWebMsgCollection").MsgCollection.get(u)) == null
                   ? void 0
                   : e.safe();
             t == null ||
@@ -281,234 +266,139 @@ __d(
                 msg: o("WAWebStateUtils").unproxy(t),
                 chat: o("WAWebFrontendMsgGetters").getChat(t.unsafe()),
               });
-          }),
-          (te = [l]),
-          (t[5] = l),
-          (t[6] = ee),
-          (t[7] = te))
-        : ((ee = t[6]), (te = t[7])),
-        p(ee, te));
-      var ne = f(!1),
-        re = ne[0],
-        oe = ne[1],
-        ae = _(null),
-        ie = _(null),
-        le = f(!1),
-        se = le[0],
-        ue = le[1],
-        ce;
-      t[8] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ce = function (t, n) {
-            (oe(t), $(t, n));
-          }),
-          (t[8] = ce))
-        : (ce = t[8]);
-      var de = ce,
-        me;
-      t[9] === Symbol.for("react.memo_cache_sentinel")
-        ? ((me = ["click"]), (t[9] = me))
-        : (me = t[9]);
-      var pe;
-      (t[10] !== re
-        ? ((pe = function (t) {
-            t.defaultPrevented ||
-              !re ||
-              !ie.current ||
-              (t.target instanceof Node && ie.current.contains(t.target)) ||
-              de(!1, "click-listener");
-          }),
-          (t[10] = re),
-          (t[11] = pe))
-        : (pe = t[11]),
-        o("useWAWebListener").useListener(document.body, me, pe));
-      var _e;
-      t[12] !== re
-        ? ((_e = function () {
-            var e = h.current;
+          },
+          [u],
+        ));
+      var Z = f(!1),
+        ee = Z[0],
+        te = Z[1],
+        ne = _(null),
+        re = _(null),
+        oe = f(!1),
+        ae = oe[0],
+        ie = oe[1],
+        le = m(
+          function (e, t) {
+            (te(e), $(e, t));
+          },
+          [te],
+        );
+      o("useWAWebListener").useListener(document.body, ["click"], function (e) {
+        e.defaultPrevented ||
+          !ee ||
+          !re.current ||
+          (e.target instanceof Node && re.current.contains(e.target)) ||
+          le(!1, "click-listener");
+      });
+      var se = m(
+          function () {
+            var e = C.current;
             if (e) {
-              if (re) {
+              if (ee) {
                 e.getPaused() ? e.play() : e.pause();
                 return;
               }
-              de(!0, "ptv-click");
+              le(!0, "ptv-click");
             }
-          }),
-          (t[12] = re),
-          (t[13] = _e))
-        : (_e = t[13]);
-      var fe = _e,
-        ge;
-      t[14] !== re
-        ? ((ge = function (t) {
-            t.button !== 0 || re || ue(!0);
-          }),
-          (t[14] = re),
-          (t[15] = ge))
-        : (ge = t[15]);
-      var he = ge,
-        ye;
-      (t[16] === Symbol.for("react.memo_cache_sentinel")
-        ? ((ye = function () {
-            ue(!1);
-          }),
-          (t[16] = ye))
-        : (ye = t[16]),
-        o("useWAWebListener").useListener(
-          se ? document.body : null,
-          "mouseup",
-          ye,
-        ));
-      var Ce;
-      (t[17] !== l
-        ? ((Ce = function (t) {
-            !h.current || !l.equals(t) || de(!0, "sequential-ptv-playback");
-          }),
-          (t[17] = l),
-          (t[18] = Ce))
-        : (Ce = t[18]),
+          },
+          [ee, le],
+        ),
+        ue = m(
+          function (e) {
+            e.button !== 0 || ee || ie(!0);
+          },
+          [ee, ie],
+        );
+      (o("useWAWebListener").useListener(
+        ae ? document.body : null,
+        "mouseup",
+        function () {
+          ie(!1);
+        },
+      ),
         o("useWAWebListener").useListener(
           o("WAWebCmd").Cmd,
           "sequential_ptv_playback",
-          Ce,
+          function (e) {
+            !C.current || !u.equals(e) || le(!0, "sequential-ptv-playback");
+          },
         ));
-      var be = _(0),
-        ve;
-      t[19] !== re || t[20] !== q || t[21] !== l
-        ? ((ve = function () {
-            var e = h.current;
-            if (e) {
-              if (!re) {
-                ((be.current = be.current + 1),
-                  e.seek(0),
-                  be.current < M() && e.play());
-                return;
+      var ce = _(0),
+        de = function () {
+          var e = C.current;
+          if (e) {
+            if (!ee) {
+              ((ce.current += 1), e.seek(0), ce.current < M() && e.play());
+              return;
+            }
+            (e.seek(0), e.play(), le(!1, "loop"));
+            var t = o("WAWebPttFindSequentialMsg").findSequentialPtv(u, q);
+            t && o("WAWebCmd").Cmd.playNextPtv(t.id);
+          }
+        },
+        me = r("useWAWebIntersection")({ root: null, threshold: 0 }),
+        pe = me[0],
+        _e = me[1].isIntersecting,
+        fe = _(null);
+      (p(
+        function () {
+          var e = fe.current;
+          if (((fe.current = _e), !_e && e === !0)) {
+            var t = self.setTimeout(function () {
+              var e;
+              (e = C.current) == null || e.pause("product_initiated");
+            }, 100);
+            return (
+              (ce.current = 0),
+              function () {
+                self.clearTimeout(t);
               }
-              (e.seek(0), e.play(), de(!1, "loop"));
-              var t = o("WAWebPttFindSequentialMsg").findSequentialPtv(l, q);
-              t && o("WAWebCmd").Cmd.playNextPtv(t.id);
-            }
-          }),
-          (t[19] = re),
-          (t[20] = q),
-          (t[21] = l),
-          (t[22] = ve))
-        : (ve = t[22]);
-      var Se = ve,
-        Re;
-      t[23] === Symbol.for("react.memo_cache_sentinel")
-        ? ((Re = { root: null, threshold: 0 }), (t[23] = Re))
-        : (Re = t[23]);
-      var Le = r("useWAWebIntersection")(Re),
-        Ee = Le[0],
-        ke = Le[1],
-        Ie = ke.isIntersecting,
-        Te = _(null),
-        De,
-        xe;
-      (t[24] !== Ie
-        ? ((De = function () {
-            var e = Te.current;
-            if (((Te.current = Ie), !Ie && e === !0)) {
-              var t = self.setTimeout(function () {
-                var e;
-                (e = h.current) == null || e.pause("product_initiated");
-              }, 100);
-              return (
-                (be.current = 0),
-                function () {
-                  self.clearTimeout(t);
-                }
-              );
-            }
-          }),
-          (xe = [Ie]),
-          (t[24] = Ie),
-          (t[25] = De),
-          (t[26] = xe))
-        : ((De = t[25]), (xe = t[26])),
-        p(De, xe));
-      var $e, Pe;
-      (t[27] !== re || t[28] !== l
-        ? (($e = function () {
-            var e = ae.current;
-            if (((ae.current = re), re && e === !1)) {
-              var t = h.current;
+            );
+          }
+        },
+        [_e],
+      ),
+        p(
+          function () {
+            var e = ne.current;
+            if (((ne.current = ee), ee && e === !1)) {
+              var t = C.current;
               if (t) {
                 (t.seek(0), t.play());
-                var n = o("WAWebMsgCollection").MsgCollection.get(l);
+                var n = o("WAWebMsgCollection").MsgCollection.get(u);
                 n != null &&
                   o("WAWebMarkPlayedMsgAction").canMarkPlayed(n) &&
                   o("WAWebMarkPlayedMsgAction").markPlayed(n);
               }
-              be.current = 0;
+              ce.current = 0;
             }
-          }),
-          (Pe = [re, l]),
-          (t[27] = re),
-          (t[28] = l),
-          (t[29] = $e),
-          (t[30] = Pe))
-        : (($e = t[29]), (Pe = t[30])),
-        p($e, Pe));
-      var Ne = S,
-        Me = !Ne,
-        we;
-      t[31] !== Ne || t[32] !== Me
-        ? ((we = { value: Ne, debounceMs: 100, shouldDebounce: Me }),
-          (t[31] = Ne),
-          (t[32] = Me),
-          (t[33] = we))
-        : (we = t[33]);
-      var Ae = o("useWAWebDebouncedChanges").useDebouncedChanges(we),
-        Fe = se && !re,
-        Oe,
-        Be;
-      if (
-        t[34] !== a ||
-        t[35] !== B ||
-        t[36] !== F ||
-        t[37] !== W ||
-        t[38] !== O ||
-        t[39] !== V ||
-        t[40] !== l
-      ) {
-        var We = o("WAWebMsgCollection").MsgCollection.get(F),
-          qe = W && D.groupHistoryMessage,
-          Ue;
-        t[43] !== l
-          ? ((Ue = c.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: l })),
-            (t[43] = l),
-            (t[44] = Ue))
-          : (Ue = t[44]);
-        var Ve;
-        (t[45] !== a ||
-        t[46] !== O ||
-        t[47] !== V ||
-        t[48] !== qe ||
-        t[49] !== Ue
-          ? ((Ve = c.jsx(o("WAWebMessageMeta.react").MetaWrapper, {
-              isSentByMe: O,
-              isTransparent: V,
-              displayType: a,
-              xstyle: qe,
-              children: Ue,
-            })),
-            (t[45] = a),
-            (t[46] = O),
-            (t[47] = V),
-            (t[48] = qe),
-            (t[49] = Ue),
-            (t[50] = Ve))
-          : (Ve = t[50]),
-          (Oe = Ve),
-          (Be =
-            a != null &&
+          },
+          [ee, u],
+        ));
+      var ge = L,
+        he = o("useWAWebDebouncedChanges").useDebouncedChanges({
+          value: ge,
+          debounceMs: 100,
+          shouldDebounce: !ge,
+        }),
+        ye = ae && !ee,
+        Ce = o("WAWebMsgCollection").MsgCollection.get(F),
+        be = c.jsx(o("WAWebMessageMeta.react").MetaWrapper, {
+          isSentByMe: O,
+          isTransparent: V,
+          displayType: i,
+          xstyle: W && D.groupHistoryMessage,
+          children: c.jsx(o("WAWebMessageMeta.react").Meta, { msgKey: u }),
+        }),
+        ve = c.jsx(c.Fragment, {
+          children:
+            i != null &&
             [
               o("WAWebDisplayType").DISPLAY_TYPE.CONVERSATION,
               o("WAWebDisplayType").DISPLAY_TYPE.ANNOUNCEMENT,
               o("WAWebDisplayType").DISPLAY_TYPE.NEWSLETTER,
-            ].includes(a) &&
-            We != null &&
+            ].includes(i) &&
+            Ce != null &&
             c.jsx(
               "div",
               babelHelpers.extends(
@@ -519,46 +409,24 @@ __d(
                 {
                   children: c.jsx(r("WAWebAddOnBubblesContainer.react"), {
                     isOutgoingMsg: O,
-                    displayType: a,
+                    displayType: i,
                     bubbleType: o("WAWebAddOnBubbleType").AddOnBubbleType
                       .STICKER_LIKE_MSG,
-                    parentIds: [We.id.toString()],
+                    parentIds: [Ce.id.toString()],
                     hasReaction: B,
                   }),
                 },
               ),
-            )),
-          (t[34] = a),
-          (t[35] = B),
-          (t[36] = F),
-          (t[37] = W),
-          (t[38] = O),
-          (t[39] = V),
-          (t[40] = l),
-          (t[41] = Oe),
-          (t[42] = Be));
-      } else ((Oe = t[41]), (Be = t[42]));
-      var He;
-      t[51] !== Be
-        ? ((He = c.jsx(c.Fragment, { children: Be })),
-          (t[51] = Be),
-          (t[52] = He))
-        : (He = t[52]);
-      var Ge = He,
-        ze;
-      t[53] !== n ||
-      t[54] !== a ||
-      t[55] !== W ||
-      t[56] !== O ||
-      t[57] !== l ||
-      t[58] !== u ||
-      t[59] !== U
-        ? ((ze =
-            n &&
+            ),
+        });
+      return c.jsxs("div", {
+        ref: re,
+        children: [
+          a &&
             c.jsx(
               "div",
               babelHelpers.extends(
-                { ref: T },
+                { ref: w },
                 (s || (s = r("stylex"))).props(
                   D.borderRadius,
                   D.boxShadow,
@@ -566,35 +434,23 @@ __d(
                   g.paddingInlineStart9,
                   o("WDSPaddings.stylex").wdsPaddings.paddingEnd8,
                   g.paddingBottom3,
-                  !o("WAWebDisplayType").isWideDisplay(a) && D.fitContent,
+                  !o("WAWebDisplayType").isWideDisplay(i) && D.fitContent,
                   O ? D.authorIsMe : D.authorIsNotMe,
-                  (u === o("WAWebMessagePosition").MsgPosition.FRONT ||
-                    u === o("WAWebMessagePosition").MsgPosition.SINGLE) &&
+                  (d === o("WAWebMessagePosition").MsgPosition.FRONT ||
+                    d === o("WAWebMessagePosition").MsgPosition.SINGLE) &&
                     D.isFirst,
                   W && D.groupHistoryMessage,
                 ),
                 {
                   children: c.jsx(r("WAWebMessageAuthor.react"), {
-                    msgKey: l,
+                    msgKey: u,
                     contact: U,
-                    displayType: a,
+                    displayType: i,
                   }),
                 },
               ),
-            )),
-          (t[53] = n),
-          (t[54] = a),
-          (t[55] = W),
-          (t[56] = O),
-          (t[57] = l),
-          (t[58] = u),
-          (t[59] = U),
-          (t[60] = ze))
-        : (ze = t[60]);
-      var je;
-      t[61] !== O || t[62] !== V || t[63] !== d
-        ? ((je =
-            d &&
+            ),
+          h &&
             c.jsx(
               "div",
               babelHelpers.extends(
@@ -605,284 +461,159 @@ __d(
                   o("WDSMargins.stylex").wdsMargins.marginTop12,
                   o("WDSPaddings.stylex").wdsPaddings.padding4,
                 ),
-                { children: d },
+                { children: h },
               ),
-            )),
-          (t[61] = O),
-          (t[62] = V),
-          (t[63] = d),
-          (t[64] = je))
-        : (je = t[64]);
-      var Ke = o("WAWebDisplayType").isWideDisplay(a) ? "center" : "start",
-        Qe = Fe && D.depressed,
-        Xe;
-      t[65] !== Qe
-        ? ((Xe = [D.ptvOuterContainer, Qe]), (t[65] = Qe), (t[66] = Xe))
-        : (Xe = t[66]);
-      var Ye = re && a === "MSG_INFO" && D.activePtvContainerInMsgInfo,
-        Je = re && a !== "MSG_INFO" && D.activePtvContainer,
-        Ze;
-      t[67] !== Ye || t[68] !== Je
-        ? ((Ze = [
-            D.ptvContainer,
-            D.animateDimensions,
-            o("WDSMargins.stylex").wdsMargins.marginTop12,
-            o("WDSMargins.stylex").wdsMargins.marginBottom4,
-            Ye,
-            Je,
-          ]),
-          (t[67] = Ye),
-          (t[68] = Je),
-          (t[69] = Ze))
-        : (Ze = t[69]);
-      var et;
-      t[70] === Symbol.for("react.memo_cache_sentinel")
-        ? ((et = { className: "x10l6tqk x78zum5 x1rn7vjc xb51amx x1d8287x" }),
-          (t[70] = et))
-        : (et = t[70]);
-      var tt;
-      t[71] === Symbol.for("react.memo_cache_sentinel")
-        ? ((tt = function () {
-            var e, t;
-            return (e =
-              (t = h.current) == null ? void 0 : t.getCurrentTime()) != null
-              ? e
-              : 0;
-          }),
-          (t[71] = tt))
-        : (tt = t[71]);
-      var nt;
-      t[72] !== a || t[73] !== Y || t[74] !== re || t[75] !== Ne || t[76] !== O
-        ? ((nt = c.jsx(
-            "div",
-            babelHelpers.extends({}, et, {
-              children: c.jsx(N, {
-                isActive: re,
-                getCurrentTime: tt,
-                isPlaying: Ne,
-                duration: Y,
-                isSentByMe: O,
-                displayType: a,
-              }),
-            }),
-          )),
-          (t[72] = a),
-          (t[73] = Y),
-          (t[74] = re),
-          (t[75] = Ne),
-          (t[76] = O),
-          (t[77] = nt))
-        : (nt = t[77]);
-      var rt = re && a === "MSG_INFO" && D.activeVideoContainerInMsgInfo,
-        ot = re && a !== "MSG_INFO" && D.activeVideoContainer,
-        at;
-      t[78] !== rt || t[79] !== ot
-        ? ((at = [D.videoContainer, D.animateDimensions, rt, ot]),
-          (t[78] = rt),
-          (t[79] = ot),
-          (t[80] = at))
-        : (at = t[80]);
-      var it = re ? void 0 : he,
-        lt;
-      t[81] !== i
-        ? ((lt = c.jsx(P, { mediaData: i })), (t[81] = i), (t[82] = lt))
-        : (lt = t[82]);
-      var st;
-      t[83] !== l
-        ? ((st = function () {
-            var e;
-            (e = o("WAWebMsgCollection").MsgCollection.get(l)) == null ||
-              e.forceDownloadMediaEvenIfExpensive();
-          }),
-          (t[83] = l),
-          (t[84] = st))
-        : (st = t[84]);
-      var ut;
-      t[85] !== Ae || t[86] !== j || t[87] !== Q || t[88] !== st
-        ? ((ut = c.jsx(r("WAWebPtvDownloadState.react"), {
-            mediaDataFileSize: Q,
-            mediaStage: j,
-            isPlaying: Ae,
-            onDownloadClick: st,
-          })),
-          (t[85] = Ae),
-          (t[86] = j),
-          (t[87] = Q),
-          (t[88] = st),
-          (t[89] = ut))
-        : (ut = t[89]);
-      var ct;
-      t[90] !== Fe ||
-      t[91] !== Se ||
-      t[92] !== re ||
-      t[93] !== j ||
-      t[94] !== K ||
-      t[95] !== Z
-        ? ((ct =
-            j === o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
-            c.jsx("div", {
-              ref: Z,
-              children: c.jsx(r("WAWebVideo.react"), {
-                ref: function (t) {
-                  h.current = t != null ? t : null;
-                },
-                src: K,
-                xstyle: [D.video, Fe && D.depressedVideo],
-                renderVideoPixelsFit: I,
-                muted: !re,
-                autoPlay: !1,
-                disableAutoplayManagement: !0,
-                onAudioChannelRelease: function () {
-                  de(!1, "audio-channel-release");
-                },
-                onLoadedData: function () {
-                  var e, t;
-                  k(
-                    (e = (t = h.current) == null ? void 0 : t.getDuration()) !=
-                      null
-                      ? e
-                      : null,
-                  );
-                },
-                onEnded: Se,
-                onStoppedPlaying: function () {
-                  R(!1);
-                },
-                onPlaying: function () {
-                  return R(!0);
-                },
-                onTimeUpdate: function (t) {
-                  (b(t), t >= m && Se());
-                },
-              }),
-            })),
-          (t[90] = Fe),
-          (t[91] = Se),
-          (t[92] = re),
-          (t[93] = j),
-          (t[94] = K),
-          (t[95] = Z),
-          (t[96] = ct))
-        : (ct = t[96]);
-      var dt;
-      t[97] !== X || t[98] !== Ae || t[99] !== Y || t[100] !== re
-        ? ((dt =
-            Y != null &&
-            c.jsxs(c.Fragment, {
+            ),
+          c.jsx(o("WAWebFlex.react").FlexRow, {
+            ref: pe,
+            justify: o("WAWebDisplayType").isWideDisplay(i)
+              ? "center"
+              : "start",
+            xstyle: [D.ptvOuterContainer, ye && D.depressed],
+            children: c.jsxs(o("WAWebFlex.react").FlexRow, {
+              justify: "center",
+              align: "center",
+              xstyle: [
+                D.ptvContainer,
+                D.animateDimensions,
+                o("WDSMargins.stylex").wdsMargins.marginTop12,
+                o("WDSMargins.stylex").wdsMargins.marginBottom4,
+                ee && i === "MSG_INFO" && D.activePtvContainerInMsgInfo,
+                ee && i !== "MSG_INFO" && D.activePtvContainer,
+              ],
               children: [
                 c.jsx("div", {
-                  className:
-                    "xh8yej3 x1jjfqgs x10l6tqk x1ey2m1c x2iuv4i xuzhngd xhtitgo",
+                  className: "x10l6tqk x78zum5 x1rn7vjc xb51amx x1d8287x",
+                  children: c.jsx(N, {
+                    isActive: ee,
+                    getCurrentTime: function () {
+                      var e, t;
+                      return (e =
+                        (t = C.current) == null
+                          ? void 0
+                          : t.getCurrentTime()) != null
+                        ? e
+                        : 0;
+                    },
+                    isPlaying: ge,
+                    duration: Y,
+                    isSentByMe: O,
+                    displayType: i,
+                  }),
                 }),
-                c.jsxs(o("WAWebFlex.react").FlexRow, {
-                  justify: "center",
-                  align: "center",
-                  xstyle: D.videoTimestamp,
+                c.jsxs(r("WAWebUnstyledButton.react"), {
+                  xstyle: [
+                    D.videoContainer,
+                    D.animateDimensions,
+                    ee && i === "MSG_INFO" && D.activeVideoContainerInMsgInfo,
+                    ee && i !== "MSG_INFO" && D.activeVideoContainer,
+                  ],
+                  onMouseDown: ee ? void 0 : ue,
+                  onClick: se,
                   children: [
-                    c.jsx(r("WDSIconIcVolumeOff.react"), {
-                      height: 10,
-                      testid: "muted",
-                      width: 10,
-                      xstyle: [
-                        D.muteIcon,
-                        re || !Ae
-                          ? [
-                              D.muteIconHidden,
-                              o("WDSMargins.stylex").wdsMargins.marginEnd0,
-                            ]
-                          : o("WDSMargins.stylex").wdsMargins.marginEnd4,
-                      ],
+                    c.jsx(P, { mediaData: l }),
+                    c.jsx(r("WAWebPtvDownloadState.react"), {
+                      mediaDataFileSize: j,
+                      mediaStage: G,
+                      isPlaying: he,
+                      onDownloadClick: function () {
+                        var e;
+                        (e = o("WAWebMsgCollection").MsgCollection.get(u)) ==
+                          null || e.forceDownloadMediaEvenIfExpensive();
+                      },
                     }),
-                    c.jsx("span", {
-                      children: o("WAWebClock").Clock.durationStr(re ? X : Y),
-                    }),
+                    G === o("WAWebMediaTypes").MediaDataStage.RESOLVED &&
+                      c.jsx("div", {
+                        ref: J,
+                        children: c.jsx(r("WAWebVideo.react"), {
+                          ref: function (t) {
+                            C.current = t != null ? t : null;
+                          },
+                          src: z,
+                          xstyle: [D.video, ye && D.depressedVideo],
+                          renderVideoPixelsFit: I,
+                          muted: !ee,
+                          autoPlay: !1,
+                          disableAutoplayManagement: !0,
+                          onAudioChannelRelease: function () {
+                            le(!1, "audio-channel-release");
+                          },
+                          onLoadedData: function () {
+                            var e, t;
+                            x(
+                              (e =
+                                (t = C.current) == null
+                                  ? void 0
+                                  : t.getDuration()) != null
+                                ? e
+                                : null,
+                            );
+                          },
+                          onEnded: de,
+                          onStoppedPlaying: function () {
+                            E(!1);
+                          },
+                          onPlaying: function () {
+                            return E(!0);
+                          },
+                          onTimeUpdate: function (t) {
+                            (S(t), t >= y && de());
+                          },
+                        }),
+                      }),
+                    Y != null &&
+                      c.jsxs(c.Fragment, {
+                        children: [
+                          c.jsx("div", {
+                            className:
+                              "xh8yej3 x1jjfqgs x10l6tqk x1ey2m1c x2iuv4i xuzhngd xhtitgo",
+                          }),
+                          c.jsxs(o("WAWebFlex.react").FlexRow, {
+                            justify: "center",
+                            align: "center",
+                            xstyle: D.videoTimestamp,
+                            children: [
+                              c.jsx(r("WDSIconIcVolumeOff.react"), {
+                                height: 10,
+                                testid: "muted",
+                                width: 10,
+                                xstyle: [
+                                  D.muteIcon,
+                                  ee || !he
+                                    ? [
+                                        D.muteIconHidden,
+                                        o("WDSMargins.stylex").wdsMargins
+                                          .marginEnd0,
+                                      ]
+                                    : o("WDSMargins.stylex").wdsMargins
+                                        .marginEnd4,
+                                ],
+                              }),
+                              c.jsx("span", {
+                                children: o("WAWebClock").Clock.durationStr(
+                                  ee ? X : Y,
+                                ),
+                              }),
+                            ],
+                          }),
+                        ],
+                      }),
                   ],
                 }),
               ],
-            })),
-          (t[97] = X),
-          (t[98] = Ae),
-          (t[99] = Y),
-          (t[100] = re),
-          (t[101] = dt))
-        : (dt = t[101]);
-      var mt;
-      t[102] !== fe ||
-      t[103] !== at ||
-      t[104] !== it ||
-      t[105] !== lt ||
-      t[106] !== ut ||
-      t[107] !== ct ||
-      t[108] !== dt
-        ? ((mt = c.jsxs(r("WAWebUnstyledButton.react"), {
-            xstyle: at,
-            onMouseDown: it,
-            onClick: fe,
-            children: [lt, ut, ct, dt],
-          })),
-          (t[102] = fe),
-          (t[103] = at),
-          (t[104] = it),
-          (t[105] = lt),
-          (t[106] = ut),
-          (t[107] = ct),
-          (t[108] = dt),
-          (t[109] = mt))
-        : (mt = t[109]);
-      var pt;
-      t[110] !== Ze || t[111] !== nt || t[112] !== mt
-        ? ((pt = c.jsxs(o("WAWebFlex.react").FlexRow, {
-            justify: "center",
-            align: "center",
-            xstyle: Ze,
-            children: [nt, mt],
-          })),
-          (t[110] = Ze),
-          (t[111] = nt),
-          (t[112] = mt),
-          (t[113] = pt))
-        : (pt = t[113]);
-      var _t;
-      t[114] !== Ee || t[115] !== Ke || t[116] !== Xe || t[117] !== pt
-        ? ((_t = c.jsx(o("WAWebFlex.react").FlexRow, {
-            ref: Ee,
-            justify: Ke,
-            xstyle: Xe,
-            children: pt,
-          })),
-          (t[114] = Ee),
-          (t[115] = Ke),
-          (t[116] = Xe),
-          (t[117] = pt),
-          (t[118] = _t))
-        : (_t = t[118]);
-      var ft;
-      t[119] !== Ge || t[120] !== a || t[121] !== Oe
-        ? ((ft = o("WAWebAddOnBubbleRenderUtils").isAddOnBubbleCentered(a)
+            }),
+          }),
+          o("WAWebAddOnBubbleRenderUtils").isAddOnBubbleCentered(i)
             ? c.jsxs(o("WAWebFlex.react").FlexRow, {
                 justifySelf: "center",
                 columnGap: 2,
-                children: [Ge, Oe],
+                children: [ve, be],
               })
-            : c.jsxs(o("WAWebFlex.react").FlexColumn, { children: [Oe, Ge] })),
-          (t[119] = Ge),
-          (t[120] = a),
-          (t[121] = Oe),
-          (t[122] = ft))
-        : (ft = t[122]);
-      var gt;
-      return (
-        t[123] !== ze || t[124] !== je || t[125] !== _t || t[126] !== ft
-          ? ((gt = c.jsxs("div", { ref: ie, children: [ze, je, _t, ft] })),
-            (t[123] = ze),
-            (t[124] = je),
-            (t[125] = _t),
-            (t[126] = ft),
-            (t[127] = gt))
-          : (gt = t[127]),
-        gt
-      );
+            : c.jsxs(o("WAWebFlex.react").FlexColumn, { children: [be, ve] }),
+        ],
+      });
     }
+    x.displayName = x.name + " [from " + i.id + "]";
     function $(t, n) {
       o("WALogger").LOG(
         e ||
@@ -896,122 +627,67 @@ __d(
       );
     }
     function P(e) {
-      var t = o("react-compiler-runtime").c(12),
-        n = e.mediaData,
-        a;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((a = [
-            o("WAWebMediaDataGetters").getPreview,
-            o("WAWebMediaDataGetters").getFullPreviewData,
-          ]),
-          (t[0] = a))
-        : (a = t[0]);
-      var i = o("useWAWebMediaDataValues").useMediaDataValues(n, a),
-        l = i[0],
-        s = i[1],
-        u,
-        d = !0;
-      if (s) {
-        var m;
-        (t[1] !== s
-          ? ((m = s instanceof r("WAWebMediaOpaqueData") ? s.url() : s),
-            (t[1] = s),
-            (t[2] = m))
-          : (m = t[2]),
-          (u = m),
-          (d = !1));
-      } else if (l != null) {
-        var p;
-        (t[3] !== l
-          ? ((p = l instanceof r("WAWebMediaOpaqueData") ? l.url() : l),
-            (t[3] = l),
-            (t[4] = p))
-          : (p = t[4]),
-          (u = p));
-      } else u = T;
-      var _;
-      t[5] !== d
-        ? ((_ = {
+      var t = e.mediaData,
+        n = o("useWAWebMediaDataValues").useMediaDataValues(t, [
+          o("WAWebMediaDataGetters").getPreview,
+          o("WAWebMediaDataGetters").getFullPreviewData,
+        ]),
+        a = n[0],
+        i = n[1],
+        l,
+        s = !0;
+      return (
+        i
+          ? ((l = i instanceof r("WAWebMediaOpaqueData") ? i.url() : i),
+            (s = !1))
+          : a != null
+            ? (l = a instanceof r("WAWebMediaOpaqueData") ? a.url() : a)
+            : (l = T),
+        c.jsx("div", {
+          className: {
             0: "x10l6tqk x13vifvy x1o0tod xh8yej3 x5yr21d x1xsqp64 x18d0r48 x1vjfegm",
             1: "x10l6tqk x13vifvy x1o0tod xh8yej3 x5yr21d x1xsqp64 x18d0r48 x1vjfegm x1df5jli",
-          }[!!d << 0]),
-          (t[5] = d),
-          (t[6] = _))
-        : (_ = t[6]);
-      var f = "url(" + u + ")",
-        g;
-      t[7] !== f
-        ? ((g = { backgroundImage: f }), (t[7] = f), (t[8] = g))
-        : (g = t[8]);
-      var h;
-      return (
-        t[9] !== _ || t[10] !== g
-          ? ((h = c.jsx("div", { className: _, style: g })),
-            (t[9] = _),
-            (t[10] = g),
-            (t[11] = h))
-          : (h = t[11]),
-        h
+          }[!!s << 0],
+          style: { backgroundImage: "url(" + l + ")" },
+        })
       );
     }
+    P.displayName = P.name + " [from " + i.id + "]";
     function N(e) {
-      var t = o("react-compiler-runtime").c(11),
-        n = e.displayType,
-        a = e.duration,
-        i = e.getCurrentTime,
-        l = e.isActive,
-        s = e.isPlaying,
-        u = e.isSentByMe,
-        d;
-      t[0] !== i
-        ? ((d = function () {
-            return i();
-          }),
-          (t[0] = i),
-          (t[1] = d))
-        : (d = t[1]);
-      var m = f(d),
-        p = m[0],
-        _ = m[1],
-        g = a == null ? 0 : p / a,
-        h;
-      t[2] !== i || t[3] !== p
-        ? ((h = function () {
-            var e = i();
-            p !== e && _(e);
-          }),
-          (t[2] = i),
-          (t[3] = p),
-          (t[4] = h))
-        : (h = t[4]);
-      var y = l && s,
-        b;
-      (t[5] !== y ? ((b = { active: y }), (t[5] = y), (t[6] = b)) : (b = t[6]),
-        r("useWAWebAnimationFrames")(h, b));
-      var S = C;
-      l && (S = n === "MSG_INFO" ? R : v);
-      var L = l ? g : 0,
-        E = u ? "outgoing" : "incoming",
-        k;
+      var t = e.displayType,
+        n = e.duration,
+        a = e.getCurrentTime,
+        i = e.isActive,
+        l = e.isPlaying,
+        s = e.isSentByMe,
+        u = f(function () {
+          return a();
+        }),
+        d = u[0],
+        m = u[1],
+        p = n == null ? 0 : d / n;
+      r("useWAWebAnimationFrames")(
+        function () {
+          var e = a();
+          d !== e && m(e);
+        },
+        { active: i && l },
+      );
+      var _ = C;
       return (
-        t[7] !== S || t[8] !== L || t[9] !== E
-          ? ((k = c.jsx(o("WAWebSpinner.react").Spinner, {
-              size: S,
-              value: L,
-              max: 1,
-              color: "highlight",
-              progressContainerColor: E,
-              strokeLinecap: "butt",
-              xstyle: D.animateDimensions,
-            })),
-            (t[7] = S),
-            (t[8] = L),
-            (t[9] = E),
-            (t[10] = k))
-          : (k = t[10]),
-        k
+        i && (_ = t === "MSG_INFO" ? R : v),
+        c.jsx(o("WAWebSpinner.react").Spinner, {
+          size: _,
+          value: i ? p : 0,
+          max: 1,
+          color: "highlight",
+          progressContainerColor: s ? "outgoing" : "incoming",
+          strokeLinecap: "butt",
+          xstyle: D.animateDimensions,
+        })
       );
     }
+    N.displayName = N.name + " [from " + i.id + "]";
     function M() {
       var e = o("WAWebABProps").getABPropConfigValue("ptv_autoplay_loop_limit");
       return e === 0 ? 1 / 0 : e;

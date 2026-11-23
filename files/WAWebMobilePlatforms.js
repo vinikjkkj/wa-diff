@@ -5,7 +5,6 @@ __d(
     "WAWebEnvironment",
     "WAWebInternalAccount",
     "WAWebMobilePlatformPersistence",
-    "asyncToGeneratorRuntime",
     "cr:22408",
   ],
   function (t, n, r, o, a, i, l) {
@@ -35,47 +34,36 @@ __d(
         t
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
+    async function p(e, t) {
+      (t === void 0 && (t = !0),
+        o("WAWebInternalAccount").setInternalAccount(
+          (n("cr:22408") == null ? void 0 : n("cr:22408").isWorkPlatform(e)) ===
+            !0,
+        ),
+        t &&
+          (await o("WAWebMobilePlatformPersistence").setLastMobilePlatform(e)),
+        (c = e),
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "Successfully writes platform to UserPrefs, platform: ",
+              "",
+            ])),
+          e,
+        ));
     }
     function _() {
       return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (t === void 0 && (t = !0),
-            o("WAWebInternalAccount").setInternalAccount(
-              (n("cr:22408") == null
-                ? void 0
-                : n("cr:22408").isWorkPlatform(e)) === !0,
-            ),
-            t &&
-              (yield o("WAWebMobilePlatformPersistence").setLastMobilePlatform(
-                e,
-              )),
-            (c = e),
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "Successfully writes platform to UserPrefs, platform: ",
-                  "",
-                ])),
-              e,
-            ));
-        })),
-        _.apply(this, arguments)
+        d() != null &&
+        !f() &&
+        !o("WAWebInternalAccount").isInternalAccount() &&
+        (g() || h())
       );
     }
     function f() {
-      return (
-        d() != null &&
-        !g() &&
-        !o("WAWebInternalAccount").isInternalAccount() &&
-        (h() || y())
-      );
-    }
-    function g() {
       return c === u.SMBA || c === u.SMBI;
     }
-    function h() {
+    function g() {
       return (
         c === u.ANDROID ||
         c === u.SMBA ||
@@ -84,7 +72,7 @@ __d(
           : n("cr:22408").isAndroidPlatform(c)) === !0
       );
     }
-    function y() {
+    function h() {
       return (
         c === u.IPHONE ||
         c === u.IPAD ||
@@ -96,10 +84,10 @@ __d(
       (l.getMaybeMobilePlatform = d),
       (l.getMobilePlatform = m),
       (l.setMobilePlatform = p),
-      (l.isConsumerPrimary = f),
-      (l.isSMB = g),
-      (l.isAndroidPrimary = h),
-      (l.isIOSPrimary = y));
+      (l.isConsumerPrimary = _),
+      (l.isSMB = f),
+      (l.isAndroidPrimary = g),
+      (l.isIOSPrimary = h));
   },
   98,
 );

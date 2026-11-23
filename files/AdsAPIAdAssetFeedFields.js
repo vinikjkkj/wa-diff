@@ -26,6 +26,7 @@ __d(
       DESCRIPTIONS: "descriptions",
       DISCOUNTS: "discounts",
       EVENTS: "events",
+      F2_MD_WEBSITE_ENTRY_POINT: "f2_md_website_entry_point",
       GROUPS: "groups",
       ID: "id",
       IMAGE_LAYER_SPECS: "image_layer_specs",

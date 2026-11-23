@@ -2,6 +2,7 @@ __d(
   "WAWebBackendWorkerABPropsCache",
   [
     "WAResolvable",
+    "WAWebABPropExposureCandidate",
     "WAWebABProps",
     "WAWebABPropsConfigs",
     "WAWebABPropsJestE2EReadLog",
@@ -27,22 +28,26 @@ __d(
           },
         ));
     }
-    function p(t) {
-      var n = o("WAWebABPropsConfigs").ABPropConfigs[t];
-      if (n != null) {
-        var r = f(t);
-        if (r != null) return r;
-        var a = n[0],
-          i = e.get(a);
-        if (i != null && !i.awaitingExpoKey && !s.has(a)) {
-          var l;
-          (s.add(a),
-            (l = u) == null ||
-              l.fireAndForget("abPropsExposure", "recordExposure", {
-                configCode: a,
+    function p(t, n) {
+      var r = o("WAWebABPropsConfigs").ABPropConfigs[t];
+      if (r != null) {
+        var a = f(t);
+        if (a != null) return a;
+        var i = r[0],
+          l = e.get(i),
+          c = o("WAWebABPropExposureCandidate").getABPropExposureCandidate(
+            l,
+            n,
+          );
+        if (c != null && !c.awaitingExpoKey && !s.has(i)) {
+          var d;
+          (s.add(i),
+            (d = u) == null ||
+              d.fireAndForget("abPropsExposure", "recordExposure", {
+                configCode: i,
               }));
         }
-        return i == null ? void 0 : i.configValue;
+        return l == null ? void 0 : l.configValue;
       }
     }
     function _(t) {

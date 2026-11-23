@@ -9,7 +9,7 @@ __d(
       e.campaign_group != null && (n.objective = e.campaign_group.objective);
       var r = {},
         a = e.adgroup;
-      a != null && a[0] && (r.creative = a[0].creative);
+      a != null && Array.isArray(a) && a[0] && (r.creative = a[0].creative);
       var i =
         ((t = {}),
         (t.ad_account_id = e.ad_account_id),

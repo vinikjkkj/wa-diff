@@ -49,8 +49,8 @@ __d(
     var d = {
         type: "placements/position",
         key: "messenger/marketing_messages",
-        name: s._(/*BTDS*/ "Marketing messages"),
-        nameWithPlatform: s._(/*BTDS*/ "Marketing messages on Messenger"),
+        name: s._(/*BTDS*/ ""),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           imageCrop: r("AdImageSpecCropKeys")["191x100"],
           videoCrop: "16:9",

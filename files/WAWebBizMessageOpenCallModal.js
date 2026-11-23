@@ -24,9 +24,7 @@ __d(
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebModal.react").Modal, {
           actions: [e],
-          children: s._(
-            /*BTDS*/ "Calls are not supported on WhatsApp Web. Open WhatsApp on your phone to call this business.",
-          ),
+          children: s._(/*BTDS*/ ""),
         }),
       );
     }

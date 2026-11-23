@@ -5,33 +5,30 @@ __d(
     "FBLogger",
     "JSScheduler",
     "JSSelfProfilerConfig.experimental",
-    "Promise",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "renameFunctionWithStaticName_BeCareful",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s,
-      u = ":",
-      c = null;
-    function d() {
-      if (c == null) {
+      s = ":",
+      u = null;
+    function c() {
+      if (u == null) {
         var e;
-        c =
+        u =
           (e = r("JSSelfProfilerConfig.experimental").PROFILER_CONFIG) != null
             ? e
             : [];
       }
-      return c;
+      return u;
     }
-    var m = null;
-    function p() {
-      if (m == null) {
+    var d = null;
+    function m() {
+      if (d == null) {
         var e;
-        m =
-          (e = d().find(function (e) {
+        d =
+          (e = c().find(function (e) {
             return e.app_id === "default";
           })) != null
             ? e
@@ -43,42 +40,42 @@ __d(
                 disable_when_has_referrer: !1,
               };
       }
-      return m;
+      return d;
     }
-    function _() {
+    function p() {
       var e,
         t = r("CurrentUser").getAppID(),
         n =
-          (e = d().find(function (e) {
+          (e = c().find(function (e) {
             return e.app_id === t;
           })) != null
             ? e
-            : p();
+            : m();
       return {
         sampleInterval: n.sample_interval,
         maxBufferSize: n.max_buffer_size,
       };
     }
-    function f(e, t) {
+    function _(e, t) {
       if (t === "") return e;
       if (e == null || e === "") return t;
-      if (t.includes(u))
+      if (t.includes(s))
         return (
           r("FBLogger")("JSSelfProfiler").warn(
             "addJSSPSampleMarker: marker %s contains %s the marker split character",
             t,
-            u,
+            s,
           ),
           e
         );
-      var n = new Set(e.split(u));
-      return (n.add(t), Array.from(n).sort().join(u));
+      var n = new Set(e.split(s));
+      return (n.add(t), Array.from(n).sort().join(s));
     }
-    function g(e, t) {
-      var n = f(e.marker, t);
+    function f(e, t) {
+      var n = _(e.marker, t);
       n != null && (e.marker = n);
     }
-    function h(e, t, n) {
+    function g(e, t, n) {
       var r;
       e.metadata == null && (e.metadata = {});
       var o = e.metadata;
@@ -86,11 +83,11 @@ __d(
       var a = JSON.parse(o.jsspAnnotations);
       ((a[t] = n), (o.jsspAnnotations = JSON.stringify(a, null, 0)));
     }
-    function y(e, t) {
+    function h(e, t) {
       var n = t.frames[e.frameId];
       return n == null ? void 0 : n.name;
     }
-    function C(e) {
+    function y(e) {
       var t = new Map();
       try {
         for (var n = 0; n < e.samples.length; n++) {
@@ -110,7 +107,7 @@ __d(
       }
       return t;
     }
-    function b(e) {
+    function C(e) {
       var t = new Map();
       try {
         for (var n = 0; n < e.samples.length; n++)
@@ -128,28 +125,18 @@ __d(
       }
       return t;
     }
-    function v(e, t) {
+    function b(e, t) {
       for (var n of t) e.add(n);
       return e;
     }
-    function S(e) {
-      return R.apply(this, arguments);
+    async function v(t) {
+      return await new Promise(function (n) {
+        (e || (e = o("JSScheduler"))).scheduleNormalPriCallback(function () {
+          n(t());
+        });
+      });
     }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          return yield new (s || (s = n("Promise")))(function (n) {
-            (e || (e = o("JSScheduler"))).scheduleNormalPriCallback(
-              function () {
-                n(t());
-              },
-            );
-          });
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e, t) {
+    function S(e, t) {
       var n = new Set(e);
       for (var r of t) n.add(r);
       return Array.from(n);
@@ -157,15 +144,15 @@ __d(
     ((l.renameFunctionWithStaticName_BeCareful = r(
       "renameFunctionWithStaticName_BeCareful",
     )),
-      (l.getProfilerInitConfig = _),
-      (l.addMarkerToSample = g),
-      (l.addAnnotationToTrace = h),
-      (l.getStackFrameName = y),
-      (l.getSampleIdToDepthsMap = C),
-      (l.getStackIdToSampleIdMap = b),
-      (l.mergeSets = v),
-      (l.nextEventLoop = S),
-      (l.mergeList = L));
+      (l.getProfilerInitConfig = p),
+      (l.addMarkerToSample = f),
+      (l.addAnnotationToTrace = g),
+      (l.getStackFrameName = h),
+      (l.getSampleIdToDepthsMap = y),
+      (l.getStackIdToSampleIdMap = C),
+      (l.mergeSets = b),
+      (l.nextEventLoop = v),
+      (l.mergeList = S));
   },
   98,
 );

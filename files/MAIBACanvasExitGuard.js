@@ -1,27 +1,28 @@
 __d(
   "MAIBACanvasExitGuard",
-  ["Promise"],
-  function (t, n, r, o, a, i) {
+  ["Promise", "vulture"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      l = null;
-    function s(e) {
+      s = null;
+    function u(e) {
       return (
-        (l = e),
+        r("vulture")("BNOGLLxZwGH5Ac8w7C4lh36y7gk="),
+        (s = e),
         function () {
-          l === e && (l = null);
+          s === e && (s = null);
         }
       );
     }
-    function u() {
-      return l != null;
-    }
     function c() {
-      return l != null ? l() : (e || (e = n("Promise"))).resolve(!0);
+      return s != null;
     }
-    ((i.registerCanvasExitGuard = s),
-      (i.hasCanvasExitGuard = u),
-      (i.runCanvasExitGuard = c));
+    function d() {
+      return s != null ? s() : (e || (e = n("Promise"))).resolve(!0);
+    }
+    ((l.registerCanvasExitGuard = u),
+      (l.hasCanvasExitGuard = c),
+      (l.runCanvasExitGuard = d));
   },
-  66,
+  98,
 );

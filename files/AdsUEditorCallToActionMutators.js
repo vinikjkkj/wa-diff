@@ -16,6 +16,7 @@ __d(
     "AdsAssetFeedMutationUtils",
     "AdsAssetFeedUtils",
     "AdsCallToActionGeoUtils",
+    "AdsCampaignLiveVideoAdsUtils",
     "AdsDynamicAdCustomizationAssetFeedUtils",
     "AdsEditorPostEditMode",
     "AdsInteractivePollLinkUtils",
@@ -52,106 +53,107 @@ __d(
           i = n.callToActionType,
           l = n.campaignGroupPromotedPageID,
           s = n.campaignObjective,
-          _ = n.destination,
-          y = n.eligibilityInformation,
+          y = n.destination,
+          C = n.eligibilityInformation,
           b = n.objective,
           v = n.pages,
           S = n.prefillPhoneNumber,
-          R = n.promotedObjectType,
-          L = n.specPlugin,
-          E = t,
-          k = r("AdsAccountStore").getSelectedAccount().getValue();
+          R = n.prefillPhoneNumberSource,
+          L = n.promotedObjectType,
+          E = n.specPlugin,
+          k = t,
+          I = r("AdsAccountStore").getSelectedAccount().getValue();
         if (r("isTruthy")(i)) {
-          var I,
-            T = t,
-            D =
+          var T,
+            D = t,
+            x =
               s === r("AdsAPIObjectives").OUTCOME_LEADS ||
               s === r("AdsAPIObjectives").LEAD_GENERATION;
           if (
-            ((_ === r("AdCampaignDestination").WEBSITE_AND_LEAD_FORM ||
-              (_ === r("AdCampaignDestination").ON_AD &&
+            ((y === r("AdCampaignDestination").WEBSITE_AND_LEAD_FORM ||
+              (y === r("AdCampaignDestination").ON_AD &&
                 (b === r("AdsAPIObjectives").LEAD_GENERATION ||
                   b === r("AdsAPIObjectives").OUTCOME_LEADS))) &&
-              ((E = r(
+              ((k = r(
                 "AdsAdgroupRecordAccessors",
-              ).creative.call_to_action.type.set(i, E)),
-              (E = r(
+              ).creative.call_to_action.type.set(i, k)),
+              (k = r(
                 "AdsAdgroupRecordAccessors",
-              ).creative.call_to_action_type.set(i, E))),
-            o("AdsAssetFeedUtils").isAdgroupUsingNonDofAssetFeedSpec(E) &&
-              !o("AdsAssetFeedUtils").isFormatAutomationAdgroupFromRecord(E) &&
+              ).creative.call_to_action_type.set(i, k))),
+            o("AdsAssetFeedUtils").isAdgroupUsingNonDofAssetFeedSpec(k) &&
+              !o("AdsAssetFeedUtils").isFormatAutomationAdgroupFromRecord(k) &&
               !o("AdsAssetFeedUtils").isDofMessagingDestinationAdgroupFromSpec(
                 t,
               ))
           ) {
             if (
-              ((E = r("AdsAdgroupRecordAccessors")
+              ((k = r("AdsAdgroupRecordAccessors")
                 .creative.asset_feed_spec.call_to_action_types.index(0)
-                .set(i, E)),
+                .set(i, k)),
               o("AdsDynamicAdCustomizationAssetFeedUtils").isAssetFeedBasedMMDA(
                 t,
               ))
             ) {
-              var x,
-                $ =
-                  ((x = t.creative) == null || (x = x.asset_feed_spec) == null
+              var $,
+                P =
+                  (($ = t.creative) == null || ($ = $.asset_feed_spec) == null
                     ? void 0
-                    : x.call_to_actions) || e,
-                P = $.setIn(["0", "type"], i);
-              E = r(
+                    : $.call_to_actions) || e,
+                M = P.setIn(["0", "type"], i);
+              k = r(
                 "AdsAdgroupRecordAccessors",
-              ).creative.asset_feed_spec.call_to_actions.set(P, E);
+              ).creative.asset_feed_spec.call_to_actions.set(M, k);
             }
             if (
               o("AdsAssetFeedUtils").isMCAAdgroupFromRecord(t) ||
               o("AdsAssetFeedUtils").isPACAndIGAdsFromRecord(t)
             ) {
-              var N,
-                w =
-                  ((N = t.creative) == null || (N = N.asset_feed_spec) == null
+              var w,
+                A =
+                  ((w = t.creative) == null || (w = w.asset_feed_spec) == null
                     ? void 0
-                    : N.call_to_actions) || e,
-                A = w.setIn(["0", "type"], i);
-              E = o("AdsMutators").chain(
+                    : w.call_to_actions) || e,
+                F = A.setIn(["0", "type"], i);
+              k = o("AdsMutators").chain(
                 r(
                   "AdsAdgroupRecordAccessors",
-                ).creative.asset_feed_spec.call_to_actions.set(A),
+                ).creative.asset_feed_spec.call_to_actions.set(F),
                 r("AdsAdgroupRecordAccessors").creative.call_to_action.type.set(
                   i,
                 ),
-              )(E);
+              )(k);
             }
-            var F =
+            var O =
                 o(
                   "AdsWhatsAppDestinationUtils",
-                ).isEligibleForL1WhatsAppDestination(b, L) &&
-                o("AdsLinkTypeUtils").isWhatsAppLinkTypeSelected(t, L),
-              O =
+                ).isEligibleForL1WhatsAppDestination(b, E) &&
+                o("AdsLinkTypeUtils").isWhatsAppLinkTypeSelected(t, E),
+              B =
                 r("AdsPACSupportedLinkCTAs").includes(i) ||
-                r("AdsAdgroupSemanticFields").callToAction.isSupported(L, t) ||
-                F;
-            if (O) {
-              var B,
-                W =
-                  ((B = t.creative) == null || (B = B.asset_feed_spec) == null
+                r("AdsAdgroupSemanticFields").callToAction.isSupported(E, t) ||
+                O;
+            if (B) {
+              var q,
+                U =
+                  ((q = t.creative) == null || (q = q.asset_feed_spec) == null
                     ? void 0
-                    : B.call_to_actions) || e,
-                U = W.setIn(["0", "type"], i);
-              ((_ === r("AdCampaignDestination").WHATSAPP || F) &&
-                (U = W.setIn(
+                    : q.call_to_actions) || e,
+                V = U.setIn(["0", "type"], i);
+              ((y === r("AdCampaignDestination").WHATSAPP || O) &&
+                (V = U.setIn(
                   ["0", "value", "app_destination"],
                   "WHATSAPP",
                 ).setIn(["0", "type"], i)),
-                (E = r(
+                (k = r(
                   "AdsAdgroupRecordAccessors",
-                ).creative.asset_feed_spec.call_to_actions.set(U, E)));
+                ).creative.asset_feed_spec.call_to_actions.set(V, k)));
             }
           } else
-            E = r("AdsAdgroupSemanticFields").callToActionType.isSupported(L, E)
+            k = r("AdsAdgroupSemanticFields").callToActionType.isSupported(E, k)
               ? o("AdsMutators").chain(
                   function (e) {
                     return r("AdsAdgroupSemanticFields").callToActionType.set(
-                      L,
+                      E,
                       e,
                       i,
                     );
@@ -161,37 +163,38 @@ __d(
                       "AdsAdgroupCreativeAssetGroupsSpecMutators",
                     ).setCagCallToActionType(e, i);
                   },
-                )(E)
-              : E;
+                )(k)
+              : k;
           if (
-            ((E = o(
+            ((k = o(
               "AdsUEditorAdgroupMultiProductMutators",
-            ).setInEachNonPlaceDataChild(["call_to_action", "type"], i, E)),
-            o("AdsAdgroupSpecUtils").isCTALinkCustomizable(E, b, l, null, i) ||
+            ).setInEachNonPlaceDataChild(["call_to_action", "type"], i, k)),
+            o("AdsAdgroupSpecUtils").isCTALinkCustomizable(k, b, l, null, i) ||
               o("AdsAdgroupSpecUtils").isCTALinkCustomizable(
-                T,
+                D,
                 b,
                 l,
                 null,
-                p(T, L),
+                p(D, E),
               ))
           ) {
-            var V,
-              H =
-                (V = E.creative) == null || (V = V.object_story_spec) == null
+            var G,
+              z =
+                (G = k.creative) == null || (G = G.object_story_spec) == null
                   ? void 0
-                  : V.page_id,
-              G = r("isTruthy")(H) && v && v.has(H) ? v.get(H) : null;
-            E = h({
-              account: k,
+                  : G.page_id,
+              j = r("isTruthy")(z) && v && v.has(z) ? v.get(z) : null;
+            k = h({
+              account: I,
               callToActionType: i,
               cachedCallToActionLink: a,
-              adgroup: E,
-              page: G,
+              adgroup: k,
+              page: j,
               objective: b,
-              specPlugin: L,
+              specPlugin: E,
               campaignGroupPromotedPageID: l,
               prefillPhoneNumber: S,
+              prefillPhoneNumberSource: R,
             });
           }
           (m(i, b) &&
@@ -200,26 +203,30 @@ __d(
               o("AdsUEditorAdgroupDynamicLocalAdsUtils").isDynamicLocalAdgroup(
                 t,
               ))
-              ? (E = C(E, L, "link", "https://fb.com/dynamic_get_directions"))
-              : (E = q(E, L))),
+              ? (k = _({
+                  adgroup: k,
+                  link: "https://fb.com/dynamic_get_directions",
+                  specPlugin: E,
+                }))
+              : (k = W(k, E))),
             !o("AdsWhatsAppUtils").isWhatsAppCTAType(i) &&
-              (!o("AdsWhatsAppUtils").isWhatsAppDestinationAd(E) ||
-                R !== r("AdsPromotedObjectTypes").WHATSAPP) &&
-              (E = M(E, L)),
-            (E = f(E, L, i, b, R)),
-            (E = g(E, L, i, b, R, _)));
-          var j = d(b, l, i);
-          j != null &&
-            (E = o("AdsUEditorWebsiteMutators").setLandingViewType({
-              landingViewType: j,
-              adgroup: E,
+              (!o("AdsWhatsAppUtils").isWhatsAppDestinationAd(k) ||
+                L !== r("AdsPromotedObjectTypes").WHATSAPP) &&
+              (k = N(k, E)),
+            (k = f(k, E, i, b, L)),
+            (k = g(k, E, i, b, L, y)));
+          var K = d(b, l, i);
+          K != null &&
+            (k = o("AdsUEditorWebsiteMutators").setLandingViewType({
+              landingViewType: K,
+              adgroup: k,
               pages: v,
               objective: b,
-              promotedObjectType: R,
-              specPlugin: L,
+              promotedObjectType: L,
+              specPlugin: E,
               campaignGroupPromotedPageID: l,
             }));
-          var K = o(
+          var Q = o(
             "AdsUEditorUnifiedCreationAwarenessUtils",
           ).messageTypeStringToAdCampaignDestinationType(
             o(
@@ -227,34 +234,34 @@ __d(
             ).getSelectedMessagingType(t),
           );
           if (
-            (r("isTruthy")(_) || r("isTruthy")(K)) &&
+            (r("isTruthy")(y) || r("isTruthy")(Q)) &&
             (o("AdsAssetFeedUtils").isDofMessagingDestinationAdgroupFromSpec(
               t,
             ) ||
               o("AdsUEditorUnifiedCreationUtils").isMultiDestinationPAC(t))
           ) {
-            var Q;
-            E = o("AdsUEditorUnifiedCreationAdgroupMutators").setCTAValues(
-              E,
-              o("AdsUEditorMessagingDestinationUtils").isMultiDestination(_)
-                ? _
-                : K,
+            var X;
+            k = o("AdsUEditorUnifiedCreationAdgroupMutators").setCTAValues(
+              k,
+              o("AdsUEditorMessagingDestinationUtils").isMultiDestination(y)
+                ? y
+                : Q,
               i,
               t == null ||
-                (Q = t.creative) == null ||
-                (Q = Q.object_story_spec) == null
+                (X = t.creative) == null ||
+                (X = X.object_story_spec) == null
                 ? void 0
-                : Q.page_id,
+                : X.page_id,
             );
           }
-          (D &&
-            _ === r("AdCampaignDestination").WEBSITE_AND_LEAD_FORM &&
-            ((I = E.creative) == null ||
-            (I = I.object_story_spec) == null ||
-            (I = I.video_data) == null
+          (x &&
+            y === r("AdCampaignDestination").WEBSITE_AND_LEAD_FORM &&
+            ((T = k.creative) == null ||
+            (T = T.object_story_spec) == null ||
+            (T = T.video_data) == null
               ? void 0
-              : I.call_to_action) != null &&
-            (E = o("AdsMutators").chain(
+              : T.call_to_action) != null &&
+            (k = o("AdsMutators").chain(
               r(
                 "AdsAdgroupRecordAccessors",
               ).creative.object_story_spec.video_data.call_to_action.type.set(
@@ -266,40 +273,45 @@ __d(
               r("AdsAdgroupRecordAccessors").creative.call_to_action_type.set(
                 i,
               ),
-            )(E)),
-            (E = c(E, i, b, R)));
+            )(k)),
+            (k = c(k, i, b, L)));
         } else
-          ((E = z(E, L)),
-            (E = o("AdsUEditorAdgroupMultiProductMutators").deleteInEachChild(
+          ((k = H(k, E)),
+            (k = o("AdsUEditorAdgroupMultiProductMutators").deleteInEachChild(
               ["call_to_action"],
-              E,
+              k,
             )));
         return (
           b === r("AdsAPIObjectives").APP_INSTALLS &&
             i != null &&
-            y != null &&
-            r("adsInteractivePollHasFbFeedVideoPollSpec")(E, y.spec) &&
-            (E = o("AdsInteractivePollLinkUtils").setAppInstallDisplayLink(
-              E,
+            C != null &&
+            r("adsInteractivePollHasFbFeedVideoPollSpec")(k, C.spec) &&
+            (k = o("AdsInteractivePollLinkUtils").setAppInstallDisplayLink(
+              k,
               i,
-              L,
+              E,
             )),
-          (E = u(E, L, i, _)),
-          E
+          (k = u(k, E, i, y)),
+          k
         );
       };
-    function u(e, t, n, o) {
-      var a = r("AdsAdgroupSemanticFields").callToActionValue.isSupported(t, e);
-      return a && o === r("AdCampaignDestination").FACEBOOK
+    function u(e, t, n, a) {
+      var i = r("AdsAdgroupSemanticFields").callToActionValue.isSupported(t, e);
+      return i && a === r("AdCampaignDestination").FACEBOOK
         ? L(e, t, "MARKETPLACE")
-        : a && n === "MESSAGE_PAGE"
+        : i && n === "MESSAGE_PAGE"
           ? L(e, t, "MESSENGER")
-          : a && n === "WHATSAPP_MESSAGE"
-            ? L(e, t, "WHATSAPP")
-            : a && n === "INSTAGRAM_MESSAGE"
+          : i && n === "WHATSAPP_MESSAGE"
+            ? o("AdsLinkTypeUtils").isInstagramLiveWhatsappLinkTypeSelected(
+                e,
+                t,
+              )
+              ? e
+              : L(e, t, "WHATSAPP")
+            : i && n === "INSTAGRAM_MESSAGE"
               ? L(e, t, "INSTAGRAM_DIRECT")
               : (n === "MARKETPLACE" &&
-                    o !== r("AdCampaignDestination").FACEBOOK) ||
+                    a !== r("AdCampaignDestination").FACEBOOK) ||
                   n === "CALL_NOW"
                 ? k(e, t)
                 : e;
@@ -309,9 +321,9 @@ __d(
         l,
         s,
         u =
-          n === r("AdsAPIObjectives").APP_INSTALLS ||
-          (n === r("AdsAPIObjectives").LINK_CLICKS &&
-            a === r("AdsPromotedObjectTypes").MOBILE_APP),
+          o(
+            "AdsCampaignLiveVideoAdsUtils",
+          ).getScheduledLiveVideoAppCallToActionType(n, a) != null,
         c =
           ((i = e.creative) == null ? void 0 : i.media_type) ===
             "SCHEDULED_LIVE_VIDEO" &&
@@ -418,21 +430,21 @@ __d(
               "AdsUEditorAdgroupMultiProductMutators",
             ).setInEachPlaceDataChild(
               r("AdsAPIChildAttachmentPaths").PLACE_DATA.ADDRESS_STRING,
-              u.get("name"),
+              u.name,
               i,
             )),
             (i = o(
               "AdsUEditorAdgroupMultiProductMutators",
             ).setInEachPlaceDataChild(
               r("AdsAPIChildAttachmentPaths").PLACE_DATA.LATITUDE,
-              u.get("coordinates").latitude,
+              u.coordinates.latitude,
               i,
             )),
             (i = o(
               "AdsUEditorAdgroupMultiProductMutators",
             ).setInEachPlaceDataChild(
               r("AdsAPIChildAttachmentPaths").PLACE_DATA.LONGITUDE,
-              u.get("coordinates").longitude,
+              u.coordinates.longitude,
               i,
             )));
         }
@@ -471,49 +483,60 @@ __d(
           s = t.objective,
           u = t.page,
           c = t.prefillPhoneNumber,
-          d = t.promotedObjectType,
-          m = t.specPlugin,
-          f = o("AdsAdgroupSpecUtils").isCTALinkCustomizable(
+          d = t.prefillPhoneNumberSource,
+          m = t.promotedObjectType,
+          f = t.specPlugin,
+          g = o("AdsAdgroupSpecUtils").isCTALinkCustomizable(
             n,
             s,
             l,
-            d,
-            p(n, m),
+            m,
+            p(n, f),
           );
         if (i === "DIAL_CODE" && e != null) {
-          var g = o("AdsUssdCodeUtils").getAdAccountDefaultUSSDCodeLink(
+          var h = o("AdsUssdCodeUtils").getAdAccountDefaultUSSDCodeLink(
             e.account_id,
           );
           return _({
-            link: r("isTruthy")(g) ? g : void 0,
+            link: r("isTruthy")(h) ? h : void 0,
             adgroup: n,
-            specPlugin: m,
+            specPlugin: f,
           });
         }
-        if (!f && r("isFalsey")(a))
-          return _({ link: void 0, adgroup: n, specPlugin: m });
-        if (r("isTruthy")(a)) return _({ link: a, adgroup: n, specPlugin: m });
-        var h = o("AdsLocalAwarenessUtils").isDynamicLocalAwareness(s, l);
-        if (i === "CALL_NOW" && !h) {
-          var y;
+        if (!g && r("isFalsey")(a))
+          return _({ link: void 0, adgroup: n, specPlugin: f });
+        if (r("isTruthy")(a)) return _({ link: a, adgroup: n, specPlugin: f });
+        var y = o("AdsLocalAwarenessUtils").isDynamicLocalAwareness(s, l);
+        if (i === "CALL_NOW" && !y) {
+          var C;
           if (
             (r("AdsInterfacesLogger").log({
               eventName: "call_ads_phone_number_prefill_eligible",
-              data: ((y = {}), (y.objective = s), y),
+              data: ((C = {}), (C.objective = s), C),
             }),
             r("isTruthy")(c))
           ) {
-            var C;
+            var b, v, S;
             return (
               r("AdsInterfacesLogger").log({
                 eventName: "call_ads_phone_number_prefill_success",
-                data: ((C = {}), (C.objective = s), C),
+                data: babelHelpers.extends(
+                  ((v = {}),
+                  (v.objective = s),
+                  (v.page_id =
+                    (b = n.creative) == null ||
+                    (b = b.object_story_spec) == null
+                      ? void 0
+                      : b.page_id),
+                  v),
+                  d != null ? ((S = {}), (S.source = d), S) : {},
+                ),
               }),
-              _({ link: c, adgroup: n, specPlugin: m })
+              _({ link: c, adgroup: n, specPlugin: f })
             );
           }
         }
-        return _({ link: "", adgroup: n, specPlugin: m });
+        return _({ link: "", adgroup: n, specPlugin: f });
       },
       y = function (t, n) {
         return r("isTruthy")(n)
@@ -678,19 +701,16 @@ __d(
     function I(e, t) {
       return E(e, t) ? b(e, t, "page") : e;
     }
-    function T(e, t, n) {
-      return C(e, t, "app_destination_page_id", n);
-    }
-    function D(e, t) {
+    function T(e, t) {
       return E(e, t) ? b(e, t, "app_destination_page_id") : e;
     }
-    function x(e, t, n) {
+    function D(e, t, n) {
       return C(e, t, "app_link", n);
     }
-    function $(e, t) {
+    function x(e, t) {
       return E(e, t) ? b(e, t, "app_link") : e;
     }
-    function P(e) {
+    function $(e) {
       var t, n;
       return ((t = e.creative) == null ||
       (t = t.object_story_spec) == null ||
@@ -718,43 +738,55 @@ __d(
             )
           : e;
     }
-    function N(e, t, n) {
-      return C(e, t, "whatsapp_number", n);
+    function P(e, t) {
+      var n = r("AdsAdgroupSemanticFields").callToActionValue.get(t, e);
+      if (n == null) return e;
+      var o = n.get("app_link"),
+        a = n.get("android_url");
+      return typeof o != "string" ||
+        o === "" ||
+        typeof a != "string" ||
+        a === "" ||
+        a === o ||
+        a !== n.get("ios_url")
+        ? e
+        : r("AdsAdgroupSemanticFields").callToActionValue.set(
+            t,
+            e,
+            n.set("app_link", a),
+          );
     }
-    function M(e, t) {
+    function N(e, t) {
       return E(e, t) ? b(e, t, "whatsapp_number") : e;
     }
-    function w(e, t, n) {
+    function M(e, t, n) {
       return C(e, t, "object_store_urls", n);
     }
-    function A(e, t, n) {
+    function w(e, t, n) {
       return C(e, t, "android_url", n);
     }
-    function F(e, t, n) {
+    function A(e, t, n) {
       return C(e, t, "ios_url", n);
     }
-    function O(e, t) {
+    function F(e, t) {
       return E(e, t) ? b(e, t, "object_store_urls") : e;
     }
-    function B(e, t, n) {
+    function O(e, t, n) {
       return C(e, t, "application", n);
     }
-    function W(e, t) {
+    function B(e, t) {
       return E(e, t) ? b(e, t, "application") : e;
     }
-    function q(e, t) {
+    function W(e, t) {
       return E(e, t) ? b(e, t, "link") : e;
     }
-    function U(e, t) {
+    function q(e, t) {
       return E(e, t) ? b(e, t, "page") : e;
     }
-    function V(e, t) {
-      return E(e, t) ? b(e, t, "link_caption") : e;
-    }
-    function H(e, t, n) {
+    function U(e, t, n) {
       return C(e, n, "instagram_profile_cta_destination", t);
     }
-    function G(e, t, n) {
+    function V(e, t, n) {
       var o = e;
       return (
         E(o, t) && (o = b(o, t, "instagram_profile_cta_destination")),
@@ -772,7 +804,7 @@ __d(
         o
       );
     }
-    function z(e, t) {
+    function H(e, t) {
       return o("AdsMutators").chain(
         function (e) {
           var n = e;
@@ -807,7 +839,7 @@ __d(
         },
       )(e);
     }
-    function j(e, t) {
+    function G(e, t) {
       return o("AdsMutators").chain(
         function (e) {
           var n =
@@ -862,26 +894,24 @@ __d(
       (l.setCallToActionValueAppDestination = L),
       (l.deleteCallToActionValueAppDestination = k),
       (l.deletePageLikesCallToActionValuePage = I),
-      (l.setCallToActionValueAppDestinationPageID = T),
-      (l.deleteCallToActionValueAppDestinationPageID = D),
-      (l.setCallToActionValueAppLink = x),
-      (l.deleteCallToActionValueAppLink = $),
-      (l.deleteCallToActionAppLinkField = P),
-      (l.setCallToActionValueWhatsAppNumber = N),
-      (l.deleteCallToActionValueWhatsAppNumber = M),
-      (l.setCallToActionValueObjectStoreURLs = w),
-      (l.setCallToActionValueAndroidURL = A),
-      (l.setCallToActionValueIOSURL = F),
-      (l.deleteCallToActionValueObjectStoreURLs = O),
-      (l.setCallToActionValueApplication = B),
-      (l.deleteCallToActionValueApplication = W),
-      (l.deleteCallToActionValueLink = q),
-      (l.deleteCallToActionValuePage = U),
-      (l.deleteCallToActionValueCaption = V),
-      (l.setCallToActionValueInstagramProfileDestination = H),
-      (l.deleteCallToActionValueInstagramProfileDestination = G),
-      (l.deleteCallToAction = z),
-      (l.resetCallToActionValue = j));
+      (l.deleteCallToActionValueAppDestinationPageID = T),
+      (l.setCallToActionValueAppLink = D),
+      (l.deleteCallToActionValueAppLink = x),
+      (l.deleteCallToActionAppLinkField = $),
+      (l.syncCallToActionValueAppLinkWithDeepLink = P),
+      (l.deleteCallToActionValueWhatsAppNumber = N),
+      (l.setCallToActionValueObjectStoreURLs = M),
+      (l.setCallToActionValueAndroidURL = w),
+      (l.setCallToActionValueIOSURL = A),
+      (l.deleteCallToActionValueObjectStoreURLs = F),
+      (l.setCallToActionValueApplication = O),
+      (l.deleteCallToActionValueApplication = B),
+      (l.deleteCallToActionValueLink = W),
+      (l.deleteCallToActionValuePage = q),
+      (l.setCallToActionValueInstagramProfileDestination = U),
+      (l.deleteCallToActionValueInstagramProfileDestination = V),
+      (l.deleteCallToAction = H),
+      (l.resetCallToActionValue = G));
   },
   98,
 );

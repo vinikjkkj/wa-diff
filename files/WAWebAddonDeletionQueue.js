@@ -1,28 +1,25 @@
 __d(
   "WAWebAddonDeletionQueue",
   [
-    "Promise",
     "WALogger",
     "WAWebAddonDeleteForParents",
     "WAWebAddonDeletionQueueDef",
     "WAWebScheduledOperations",
     "WAWormQueueDef",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
-      u,
-      c = !1,
-      d = !1;
-    function m() {
+      u = !1,
+      c = !1;
+    function d() {
       (o("WAWebAddonDeletionQueueDef").ADDON_DELETION_QUEUE.subscribe(
         function (e) {
           e: {
             if (e.type === "new_entities") {
-              f();
+              p();
               break e;
             }
             throw Error(
@@ -32,44 +29,36 @@ __d(
           }
         },
       ),
-        f());
+        p());
     }
-    function p(e) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (o("WAWebAddonDeletionQueueDef").ADDON_DELETION_QUEUE.isReady()) {
-            yield o("WAWebAddonDeletionQueueDef").ADDON_DELETION_QUEUE.add(e);
-            return;
-          }
-          yield o("WAWebScheduledOperations").scheduleOperation(
-            o("WAWebScheduledOperations").ScheduledOperation.DELETE_ADD_ONS,
-            function () {
-              return C(e);
-            },
-          );
-        })),
-        _.apply(this, arguments)
+    async function m(e) {
+      if (o("WAWebAddonDeletionQueueDef").ADDON_DELETION_QUEUE.isReady()) {
+        await o("WAWebAddonDeletionQueueDef").ADDON_DELETION_QUEUE.add(e);
+        return;
+      }
+      await o("WAWebScheduledOperations").scheduleOperation(
+        o("WAWebScheduledOperations").ScheduledOperation.DELETE_ADD_ONS,
+        function () {
+          return g(e);
+        },
       );
     }
-    function f() {
-      ((d = !0), c || g());
+    function p() {
+      ((c = !0), u || _());
     }
-    function g() {
-      ((c = !0),
-        (d = !1),
+    function _() {
+      ((u = !0),
+        (c = !1),
         o("WAWebScheduledOperations")
           .scheduleOperation(
             o("WAWebScheduledOperations").ScheduledOperation.DELETE_ADD_ONS,
-            h,
+            f,
           )
           .then(function (e) {
-            ((c = !1), (e || d) && g());
+            ((u = !1), (e || c) && _());
           })
           .catch(function (t) {
-            ((c = !1),
+            ((u = !1),
               o("WALogger")
                 .ERROR(
                   e ||
@@ -82,89 +71,60 @@ __d(
                 .sendLogs("addon-deletion-queue-drain-failed"));
           }));
     }
-    function h() {
-      return y.apply(this, arguments);
+    async function f() {
+      var e = await o("WAWebAddonDeletionQueueDef").ADDON_DELETION_QUEUE.read({
+        limit: o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT,
+      });
+      return e.length === 0
+        ? !1
+        : (await g(e),
+          await o("WAWebAddonDeletionQueueDef").ADDON_DELETION_QUEUE.ack(
+            e.map(function (e) {
+              return e.queueId;
+            }),
+          ),
+          e.length === o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT);
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield o(
-            "WAWebAddonDeletionQueueDef",
-          ).ADDON_DELETION_QUEUE.read({
-            limit: o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT,
-          });
-          return e.length === 0
-            ? !1
-            : (yield C(e),
-              yield o("WAWebAddonDeletionQueueDef").ADDON_DELETION_QUEUE.ack(
-                e.map(function (e) {
-                  return e.queueId;
-                }),
-              ),
-              e.length === o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT);
-        })),
-        y.apply(this, arguments)
-      );
+    async function g(e) {
+      var t = new Map();
+      for (var n of e) {
+        var r = t.get(n.chatId);
+        r == null ? t.set(n.chatId, [n]) : r.push(n);
+      }
+      await Array.from(t).reduce(function (e, t) {
+        var n = t[0],
+          r = t[1];
+        return e.then(function () {
+          return h(n, r);
+        });
+      }, Promise.resolve());
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    async function h(e, t) {
+      try {
+        await o("WAWebAddonDeleteForParents").deleteAddOnsForParents({
+          chatId: e,
+          parentMsgKeys: t.map(function (e) {
+            return e.parentMsgKey;
+          }),
+        });
+      } catch (n) {
+        o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[addon-deletion-queue] delete failed for ",
+                ", dropping ",
+                " rows",
+              ])),
+            e,
+            t.length,
+          )
+          .catching(r("getErrorSafe")(n))
+          .tags("addons", "messaging")
+          .sendLogs("addon-deletion-queue-failed");
+      }
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = new Map();
-          for (var r of e) {
-            var o = t.get(r.chatId);
-            o == null ? t.set(r.chatId, [r]) : o.push(r);
-          }
-          yield Array.from(t).reduce(
-            function (e, t) {
-              var n = t[0],
-                r = t[1];
-              return e.then(function () {
-                return v(n, r);
-              });
-            },
-            (u || (u = n("Promise"))).resolve(),
-          );
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    function v(e, t) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          try {
-            yield o("WAWebAddonDeleteForParents").deleteAddOnsForParents({
-              chatId: e,
-              parentMsgKeys: t.map(function (e) {
-                return e.parentMsgKey;
-              }),
-            });
-          } catch (n) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[addon-deletion-queue] delete failed for ",
-                    ", dropping ",
-                    " rows",
-                  ])),
-                e,
-                t.length,
-              )
-              .catching(r("getErrorSafe")(n))
-              .tags("addons", "messaging")
-              .sendLogs("addon-deletion-queue-failed");
-          }
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    ((l.startAddonDeletionQueueDrain = m), (l.recordAddonDeletions = p));
+    ((l.startAddonDeletionQueueDrain = d), (l.recordAddonDeletions = m));
   },
   98,
 );

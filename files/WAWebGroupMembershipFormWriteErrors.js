@@ -3,18 +3,10 @@ __d(
   ["fbt", "WAWebGroupMembershipFormTypes"],
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
-      return e === "save"
-        ? s._(
-            /*BTDS*/ "Couldn't save membership questions. Check your internet connection and try again.",
-          )
-        : s._(
-            /*BTDS*/ "Couldn't delete membership questions. Check your internet connection and try again.",
-          );
+      return e === "save" ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(
-        /*BTDS*/ "Your membership questions are too long. Shorten them and try again.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function c(e, t) {
       var n =
@@ -26,7 +18,7 @@ __d(
       return n ===
         o("WAWebGroupMembershipFormTypes").GroupMembershipFormSaveErrorCode
           .NOT_AVAILABLE
-        ? s._(/*BTDS*/ "Membership questions aren't available yet.")
+        ? s._(/*BTDS*/ "")
         : n ===
             o("WAWebGroupMembershipFormTypes").GroupMembershipFormSaveErrorCode
               .TOO_LARGE
@@ -35,8 +27,8 @@ __d(
               o("WAWebGroupMembershipFormTypes")
                 .GroupMembershipFormSaveErrorCode.FAILED
             ? t === "save"
-              ? s._(/*BTDS*/ "Couldn't save membership questions. Try again.")
-              : s._(/*BTDS*/ "Couldn't delete membership questions. Try again.")
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "")
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

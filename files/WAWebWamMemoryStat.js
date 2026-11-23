@@ -1,7 +1,6 @@
 __d(
   "WAWebWamMemoryStat",
   [
-    "Promise",
     "WALogger",
     "WAShiftTimer",
     "WAWebAppTracker",
@@ -15,7 +14,6 @@ __d(
     "WAWebSchemaMessage",
     "WAWebWamEnumWebcScenarioType",
     "WAWebWebcMemoryStatWamEvent",
-    "asyncToGeneratorRuntime",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,60 +21,59 @@ __d(
       s,
       u,
       c,
-      d,
-      m = self.performance.now(),
-      p = !1,
-      _ = 100,
-      f = 0;
-    function g() {
+      d = self.performance.now(),
+      m = !1,
+      p = 100,
+      _ = 0;
+    function f() {
       var e;
       return ((e = self.performance) == null ? void 0 : e.memory) != null;
     }
-    function h() {
+    function g() {
       var e,
         t = (e = self.performance) == null ? void 0 : e.memory;
       if (t)
         return (
-          (E = Math.max(E, t.usedJSHeapSize)),
-          (k += t.usedJSHeapSize),
-          I++,
-          C(t)
+          (L = Math.max(L, t.usedJSHeapSize)),
+          (E += t.usedJSHeapSize),
+          k++,
+          y(t)
         );
     }
-    function y() {
+    function h() {
       var e,
         t = (e = self.performance) == null ? void 0 : e.memory;
-      if (t) return C(t);
+      if (t) return y(t);
     }
-    function C(e) {
+    function y(e) {
       return {
-        uptime: Math.round((self.performance.now() - m) / 1e3),
+        uptime: Math.round((self.performance.now() - d) / 1e3),
         jsHeapSizeLimit: Math.round(e.jsHeapSizeLimit / 1e3 / 1e3),
         totalJsHeapSize: Math.round(e.totalJSHeapSize / 1e3 / 1e3),
         usedJsHeapSize: Math.round(e.usedJSHeapSize / 1e3 / 1e3),
       };
     }
-    function b() {
-      var e = h();
+    function C() {
+      var e = g();
       return e
-        ? (d || (d = n("Promise"))).resolve([
+        ? Promise.resolve([
             {
               label: "Main Window",
               memory: e.usedJsHeapSize,
               uptime: e.uptime,
             },
           ])
-        : (d || (d = n("Promise"))).resolve();
+        : Promise.resolve();
     }
-    var v = 5e3,
-      S = 60,
-      R = 2 * 1024,
-      L = o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
+    var b = 5e3,
+      v = 60,
+      S = 2 * 1024,
+      R = o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE,
+      L = 0,
       E = 0,
       k = 0,
-      I = 0,
-      T;
-    function D(t) {
+      I;
+    function T(t) {
       try {
         var n;
         if (
@@ -84,17 +81,17 @@ __d(
           ((n = self.performance) == null ? void 0 : n.memory) == null
         )
           return;
-        if (t !== L) {
-          if (L !== o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE) {
+        if (t !== R) {
+          if (R !== o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE) {
             var r;
-            ((r = T) == null || r.cancel(),
-              (T = null),
-              A(),
-              (m = self.performance.now()));
+            ((r = I) == null || r.cancel(),
+              (I = null),
+              w(),
+              (d = self.performance.now()));
           }
-          ((L = t), M());
+          ((R = t), N());
         }
-        T == null && N();
+        I == null && P();
       } catch (t) {
         o("WALogger")
           .ERROR(
@@ -108,15 +105,15 @@ __d(
           .sendLogs("set-memory-stat-scenario-failed", { sampling: 0.01 });
       }
     }
-    var x = null;
-    function $(e) {
-      (x != null && !x.equals(e) && P(), (x = e));
+    var D = null;
+    function x(e) {
+      (D != null && !D.equals(e) && $(), (D = e));
     }
-    function P() {
+    function $() {
       if (!o("WAWebRuntimeEnvironmentUtils").isWorker()) {
-        var e = h();
+        var e = g();
         e != null &&
-          q().then(function (t) {
+          O().then(function (t) {
             var n,
               r = new (o("WAWebWebcMemoryStatWamEvent").WebcMemoryStatWamEvent)(
                 babelHelpers.extends(
@@ -125,27 +122,27 @@ __d(
                   {
                     scenario: o("WAWebWamEnumWebcScenarioType")
                       .WEBC_SCENARIO_TYPE.CHAT_NAVIGATION,
-                    peakUsedJsHeapSize: Math.round(E / 1e3 / 1e3),
-                    usedJsHeapSize: Math.round(k / I / 1e3 / 1e3),
+                    peakUsedJsHeapSize: Math.round(L / 1e3 / 1e3),
+                    usedJsHeapSize: Math.round(E / k / 1e3 / 1e3),
                     isForeground:
                       ((n = self.document) == null
                         ? void 0
                         : n.visibilityState) === "visible",
                   },
                   t,
-                  O,
+                  A,
                 ),
               );
             (o("WAWebAppTracker").attachWAMAppContext(r), r.commit());
           });
       }
     }
-    function N() {
-      ((T = new (o("WAShiftTimer").ShiftTimer)(function () {
-        var e = h();
+    function P() {
+      ((I = new (o("WAShiftTimer").ShiftTimer)(function () {
+        var e = g();
         (e != null &&
-          (Math.abs(e.usedJsHeapSize - f) > _ &&
-            ((f = e.usedJsHeapSize),
+          (Math.abs(e.usedJsHeapSize - _) > p &&
+            ((_ = e.usedJsHeapSize),
             o("WALogger").LOG(
               s ||
                 (s = babelHelpers.taggedTemplateLiteralLoose([
@@ -158,22 +155,22 @@ __d(
             jsHeapSizeLimitMb: e.jsHeapSizeLimit,
             usedJsHeapSizeMb: e.usedJsHeapSize,
           })),
-          L === o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE &&
-            I !== 0 &&
-            I % S === 0 &&
-            (A(), M()),
-          N());
+          R === o("WAWebWamEnumWebcScenarioType").WEBC_SCENARIO_TYPE.IDLE &&
+            k !== 0 &&
+            k % v === 0 &&
+            (w(), N()),
+          P());
       })),
-        T.onOrAfter(v));
+        I.onOrAfter(b));
     }
-    function M() {
-      ((E = 0), (k = 0), (I = 0));
+    function N() {
+      ((L = 0), (E = 0), (k = 0));
     }
-    function w(e, t) {
+    function M(e, t) {
       if (r("WAWebEnvironment").isWeb) {
         var n = new (o("WAWebMemoryStatWamEvent").MemoryStatWamEvent)({
           workingSetSize: e.usedJsHeapSize * 1e3,
-          workingSetPeakSize: Math.round(E / 1e3),
+          workingSetPeakSize: Math.round(L / 1e3),
           uptime: e.uptime,
           numMessages: t.messageCollectionSize,
           processType: "main",
@@ -181,129 +178,96 @@ __d(
         (o("WAWebAppTracker").attachWAMAppContext(n), n.commit());
       }
     }
-    function A() {
-      return F.apply(this, arguments);
+    async function w() {
+      var e,
+        t = await Promise.all([O(), F()]),
+        n = t[0],
+        a = t[1],
+        i = r("nullthrows")(g()),
+        l = Math.round(E / k / 1e3 / 1e3),
+        s = new (o("WAWebWebcMemoryStatWamEvent").WebcMemoryStatWamEvent)(
+          babelHelpers.extends(
+            {},
+            i,
+            {
+              scenario: R,
+              peakUsedJsHeapSize: Math.round(L / 1e3 / 1e3),
+              usedJsHeapSize: l,
+              isForeground:
+                ((e = self.document) == null ? void 0 : e.visibilityState) ===
+                "visible",
+            },
+            n,
+            a,
+          ),
+        );
+      (o("WAWebAppTracker").attachWAMAppContext(s), s.commit(), M(i, n));
+      var d = (l / 1024).toFixed(2),
+        p = (i.usedJsHeapSize / 1024).toFixed(2),
+        _ = "average: " + d + "Gb, current: " + p + "Gb";
+      if (!m && l > S) {
+        m = !0;
+        var f = S / 1024;
+        o("WALogger")
+          .WARN(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[MemoryStat] memory usage exceeded ",
+                "Gb: ",
+                "",
+              ])),
+            f,
+            _,
+          )
+          .sendLogs("memory-usage-exceeded-" + f + "gb", { sampling: 0.01 });
+      } else {
+        var h;
+        o("WALogger").LOG(
+          c ||
+            (c = babelHelpers.taggedTemplateLiteralLoose([
+              "[MemoryStat] memory usage: ",
+              " (cores: ",
+              ")",
+            ])),
+          _,
+          (h = self.navigator) == null ? void 0 : h.hardwareConcurrency,
+        );
+      }
     }
-    function F() {
+    var A = null;
+    async function F() {
+      var e = await Promise.all([
+          o("WAWebSchemaChat").getChatTable().count(),
+          r("WAWebLidAwareContactsDB").count(),
+          o("WAWebSchemaMessage").getMessageTable().count(),
+        ]),
+        t = e[0],
+        n = e[1],
+        a = e[2];
       return (
-        (F = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e,
-            t = yield (d || (d = n("Promise"))).all([q(), B()]),
-            a = t[0],
-            i = t[1],
-            l = r("nullthrows")(h()),
-            s = Math.round(k / I / 1e3 / 1e3),
-            m = new (o("WAWebWebcMemoryStatWamEvent").WebcMemoryStatWamEvent)(
-              babelHelpers.extends(
-                {},
-                l,
-                {
-                  scenario: L,
-                  peakUsedJsHeapSize: Math.round(E / 1e3 / 1e3),
-                  usedJsHeapSize: s,
-                  isForeground:
-                    ((e = self.document) == null
-                      ? void 0
-                      : e.visibilityState) === "visible",
-                },
-                a,
-                i,
-              ),
-            );
-          (o("WAWebAppTracker").attachWAMAppContext(m), m.commit(), w(l, a));
-          var _ = (s / 1024).toFixed(2),
-            f = (l.usedJsHeapSize / 1024).toFixed(2),
-            g = "average: " + _ + "Gb, current: " + f + "Gb";
-          if (!p && s > R) {
-            p = !0;
-            var y = R / 1024;
-            o("WALogger")
-              .WARN(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[MemoryStat] memory usage exceeded ",
-                    "Gb: ",
-                    "",
-                  ])),
-                y,
-                g,
-              )
-              .sendLogs("memory-usage-exceeded-" + y + "gb", {
-                sampling: 0.01,
-              });
-          } else {
-            var C;
-            o("WALogger").LOG(
-              c ||
-                (c = babelHelpers.taggedTemplateLiteralLoose([
-                  "[MemoryStat] memory usage: ",
-                  " (cores: ",
-                  ")",
-                ])),
-              g,
-              (C = self.navigator) == null ? void 0 : C.hardwareConcurrency,
-            );
-          }
-        })),
-        F.apply(this, arguments)
+        (A = { chatDbSize: B(t), contactDbSize: B(n), messageDbSize: B(a) }),
+        A
       );
     }
-    var O = null;
-    function B() {
-      return W.apply(this, arguments);
+    async function O() {
+      var e =
+        await o("WAWebBackendApi").frontendSendAndReceive("getCollectionSizes");
+      return {
+        chatCollectionSize: B(e.chat),
+        contactCollectionSize: B(e.contact),
+        messageCollectionSize: B(e.message),
+      };
     }
-    function W() {
-      return (
-        (W = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield (d || (d = n("Promise"))).all([
-              o("WAWebSchemaChat").getChatTable().count(),
-              r("WAWebLidAwareContactsDB").count(),
-              o("WAWebSchemaMessage").getMessageTable().count(),
-            ]),
-            t = e[0],
-            a = e[1],
-            i = e[2];
-          return (
-            (O = {
-              chatDbSize: V(t),
-              contactDbSize: V(a),
-              messageDbSize: V(i),
-            }),
-            O
-          );
-        })),
-        W.apply(this, arguments)
-      );
-    }
-    function q() {
-      return U.apply(this, arguments);
-    }
-    function U() {
-      return (
-        (U = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e =
-            yield o("WAWebBackendApi").frontendSendAndReceive(
-              "getCollectionSizes",
-            );
-          return {
-            chatCollectionSize: V(e.chat),
-            contactCollectionSize: V(e.contact),
-            messageCollectionSize: V(e.message),
-          };
-        })),
-        U.apply(this, arguments)
-      );
-    }
-    function V(e) {
+    function B(e) {
       return e > 1e3 ? Math.round(e / 100) * 100 : Math.round(e / 10) * 10;
     }
-    ((l.isPerformanceMemoryApiSupported = g),
-      (l.readMemoryInfo = y),
-      (l.getMemoryTableRows = b),
-      (l.setCurrentMemoryScenario = D),
-      (l.uploadMemoryIfChatWasOpened = $),
-      (l.uploadMemoryInfoOnChatClose = P),
-      (l.roundIntForMetrics = V));
+    ((l.isPerformanceMemoryApiSupported = f),
+      (l.readMemoryInfo = h),
+      (l.getMemoryTableRows = C),
+      (l.setCurrentMemoryScenario = T),
+      (l.uploadMemoryIfChatWasOpened = x),
+      (l.uploadMemoryInfoOnChatClose = $),
+      (l.roundIntForMetrics = B));
   },
   98,
 );

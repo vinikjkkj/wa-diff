@@ -4,27 +4,22 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     function e(e) {
       return e == null
-        ? s._(/*BTDS*/ "Network")
-        : s._(
-            /*BTDS*/ '_j{"*":"Network \\u00b7 {count} members","_1":"Network \\u00b7 1 member"}',
-            [s._plural(e, "count")],
-          );
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "", [s._plural(e, "count")]);
     }
     function u(e) {
-      return s._(/*BTDS*/ '_j{"*":"{count} members","_1":"1 member"}', [
-        s._plural(e, "count"),
-      ]);
+      return s._(/*BTDS*/ "", [s._plural(e, "count")]);
     }
     function c(e) {
-      return s._(/*BTDS*/ "{your name} (You)", [s._param("your name", e)]);
+      return s._(/*BTDS*/ "", [s._param("your name", e)]);
     }
     function d(e, t) {
       return e === !0 && t
-        ? s._(/*BTDS*/ "Clear search and filters")
+        ? s._(/*BTDS*/ "")
         : e === !0
-          ? s._(/*BTDS*/ "Clear search")
+          ? s._(/*BTDS*/ "")
           : e === !1
-            ? s._(/*BTDS*/ "Clear filters")
+            ? s._(/*BTDS*/ "")
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

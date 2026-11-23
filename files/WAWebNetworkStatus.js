@@ -1,7 +1,6 @@
 __d(
   "WAWebNetworkStatus",
   [
-    "Promise",
     "WALogger",
     "WAMemoizeConcurrent",
     "WAWebBaseModel",
@@ -9,7 +8,6 @@ __d(
     "WAWebBuildConstants",
     "WAWebNetworkGetResponseIfOnline",
     "WAWebNetworkStatusStateManager",
-    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -23,25 +21,24 @@ __d(
       _,
       f,
       g,
-      h,
-      y = o("WAWebBuildConstants").DYN_ORIGIN + "status.json",
-      C = 10 * 1e3,
-      b = 0,
-      v = "socket_open",
-      S = !1,
-      R = (function (t) {
-        function a() {
-          for (var a, i = arguments.length, l = new Array(i), g = 0; g < i; g++)
-            l[g] = arguments[g];
+      h = o("WAWebBuildConstants").DYN_ORIGIN + "status.json",
+      y = 10 * 1e3,
+      C = 0,
+      b = "socket_open",
+      v = !1,
+      S = (function (t) {
+        function n() {
+          for (var n, a = arguments.length, i = new Array(a), l = 0; l < a; l++)
+            i[l] = arguments[l];
           return (
-            (a = t.call.apply(t, [this].concat(l)) || this),
-            (a.online = o("WAWebBaseModel").session(!0)),
-            (a.simulatedOfflineConditions = o("WAWebBaseModel").session(!1)),
-            (a.waitIfOffline = r("WAMemoizeConcurrent")(
+            (n = t.call.apply(t, [this].concat(i)) || this),
+            (n.online = o("WAWebBaseModel").session(!0)),
+            (n.simulatedOfflineConditions = o("WAWebBaseModel").session(!1)),
+            (n.waitIfOffline = r("WAMemoizeConcurrent")(
               function () {
                 return "all";
               },
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+              async function () {
                 var t = this;
                 if (!this.online) {
                   if (
@@ -62,7 +59,7 @@ __d(
                         "waitIfOffline: Waiting...",
                       ])),
                   ),
-                    yield new (h || (h = n("Promise")))(function (e) {
+                    await new Promise(function (e) {
                       t.listenToOnce(t, "change:online", function () {
                         (o("WALogger").LOG(
                           u ||
@@ -74,14 +71,14 @@ __d(
                       });
                     }));
                 }
-              }),
-            )),
-            (a.checkOnlineDeduped = r("WAMemoizeConcurrent")(
-              function () {
-                return String(b);
               },
-              n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                var e = v;
+            )),
+            (n.checkOnlineDeduped = r("WAMemoizeConcurrent")(
+              function () {
+                return String(C);
+              },
+              async function () {
+                var e = b;
                 if (
                   (o("WALogger").LOG(
                     c ||
@@ -89,7 +86,7 @@ __d(
                         "NetworkStatus:checkOnline checking",
                       ])),
                   ),
-                  (S || r("gkx")("26256")) && this.simulatedOfflineConditions)
+                  (v || r("gkx")("26256")) && this.simulatedOfflineConditions)
                 ) {
                   o("WALogger").LOG(
                     d ||
@@ -99,17 +96,17 @@ __d(
                   );
                   return;
                 }
-                var t = b,
+                var t = C,
                   n = new AbortController(),
                   a = self.setTimeout(function () {
                     return n.abort();
-                  }, C);
+                  }, y);
                 try {
-                  var i = yield r("WAWebNetworkGetResponseIfOnline")({
+                  var i = await r("WAWebNetworkGetResponseIfOnline")({
                     data: null,
                     method: "GET",
                     responseType: void 0,
-                    url: y,
+                    url: h,
                     signal: n.signal,
                   });
                   if (n.signal.aborted) {
@@ -121,7 +118,7 @@ __d(
                     );
                     return;
                   }
-                  if (t !== b) {
+                  if (t !== C) {
                     o("WALogger").LOG(
                       p ||
                         (p = babelHelpers.taggedTemplateLiteralLoose([
@@ -160,19 +157,19 @@ __d(
                 } finally {
                   self.clearTimeout(a);
                 }
-              }),
+              },
             )),
-            babelHelpers.assertThisInitialized(a) ||
-              babelHelpers.assertThisInitialized(a)
+            babelHelpers.assertThisInitialized(n) ||
+              babelHelpers.assertThisInitialized(n)
           );
         }
-        babelHelpers.inheritsLoose(a, t);
-        var i = a.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var a = n.prototype;
         return (
-          (i.initialize = function () {
+          (a.initialize = function () {
             this.listenTo(this, "change:online", this.$NetworkStatus$p_1);
           }),
-          (i.$NetworkStatus$p_1 = function () {
+          (a.$NetworkStatus$p_1 = function () {
             var e = this.online;
             (o("WALogger")
               .LOG(
@@ -192,25 +189,25 @@ __d(
                 e,
               ));
           }),
-          (i.isOnline = function () {
+          (a.isOnline = function () {
             return this.online;
           }),
-          (i.markOnline = function () {
-            (b++, (this.online = !0));
+          (a.markOnline = function () {
+            (C++, (this.online = !0));
           }),
-          (i.checkOnline = function (t) {
-            return ((v = t), this.checkOnlineDeduped());
+          (a.checkOnline = function (t) {
+            return ((b = t), this.checkOnlineDeduped());
           }),
-          (i.simulateNetworkStatus = function (t) {
-            (S || r("gkx")("26256")) &&
+          (a.simulateNetworkStatus = function (t) {
+            (v || r("gkx")("26256")) &&
               ((this.online = t), (this.simulatedOfflineConditions = !t));
           }),
-          a
+          n
         );
       })(o("WAWebBaseModel").BaseModel),
-      L = o("WAWebBaseModel").defineModel(R),
-      E = new L();
-    l.default = E;
+      R = o("WAWebBaseModel").defineModel(S),
+      L = new R();
+    l.default = L;
   },
   98,
 );

@@ -18,7 +18,6 @@ __d(
     "ApiAdObjectTypes",
     "gkx",
     "immutable",
-    "justknobx",
     "nullthrows",
   ],
   function (t, n, r, o, a, i, l) {
@@ -191,8 +190,7 @@ __d(
               : e === r("ApiAdObjectTypes").VIDEO
                 ? u
                 : e === r("ApiAdObjectTypes").SHARE
-                  ? o("AdsAPIAdgroupRecordUtils").isTemplateCreative(t) &&
-                    r("justknobx")._("4923")
+                  ? o("AdsAPIAdgroupRecordUtils").isTemplateCreative(t)
                     ? r("AdsAdgroupCombinedFieldMappings").TEMPLATE_MAPPING
                     : c
                   : r("AdsAdgroupCombinedFieldMappings").INVALID_MAPPING;

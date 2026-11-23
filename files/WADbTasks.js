@@ -8,11 +8,9 @@ __d(
       deleteExpiredKeys: "deleteExpiredKeys",
       generatePrekeys: "generatePrekeys",
       notifyDeviceRegistration: "notifyDeviceRegistration",
-      queryGroups: "queryGroups",
       rotateCAT: "rotateCAT",
       rotateKey: "rotateKey",
       syncAbProps: "syncAbProps",
-      syncMedia: "syncMedia",
     };
     i.Tasks = e;
   },

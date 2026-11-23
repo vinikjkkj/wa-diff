@@ -14,51 +14,38 @@ __d(
     "WAWebInboundMsgQueuePref",
     "WAWebInboundMsgQueueStore",
     "WAWebOneQueue",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s() {
-      return u.apply(this, arguments);
+    async function s() {
+      if (
+        (o("WAWebInboundMsgPersistedQueueAdapter").setInboundMsgQueueStop(u),
+        !o("WAWebInboundMsgQueueGating").isWAWebPersistedQueueEnabled())
+      ) {
+        m();
+        return;
+      }
+      if (!(await o("WAWebInboundMsgQueueStore").preloadInboundMsgQueue())) {
+        (o(
+          "WAWebInboundMsgPersistedQueueAdapter",
+        ).isInboundMsgQueueRegistrationPending() &&
+          o("WAWebInboundMsgQueueODS").logInboundMsgQueueOpenFailed(),
+          o(
+            "WAWebInboundMsgPersistedQueueAdapter",
+          ).settleInboundMsgQueueRegistration());
+        return;
+      }
+      (await o(
+        "WAWebInboundMsgLeftoverLidPnMappings",
+      ).learnLeftoverInboundMsgLidPnMappings(),
+        await d(),
+        o("WAWebInboundMsgDrain").startInboundMsgDrain(),
+        o("WAWebInboundMsgDrain").whenInboundMsgRecoveryDone().then(c),
+        o(
+          "WAWebInboundMsgPersistedQueueAdapter",
+        ).settleInboundMsgQueueRegistration());
     }
     function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          if (
-            (o("WAWebInboundMsgPersistedQueueAdapter").setInboundMsgQueueStop(
-              c,
-            ),
-            !o("WAWebInboundMsgQueueGating").isWAWebPersistedQueueEnabled())
-          ) {
-            p();
-            return;
-          }
-          if (
-            !(yield o("WAWebInboundMsgQueueStore").preloadInboundMsgQueue())
-          ) {
-            (o(
-              "WAWebInboundMsgPersistedQueueAdapter",
-            ).isInboundMsgQueueRegistrationPending() &&
-              o("WAWebInboundMsgQueueODS").logInboundMsgQueueOpenFailed(),
-              o(
-                "WAWebInboundMsgPersistedQueueAdapter",
-              ).settleInboundMsgQueueRegistration());
-            return;
-          }
-          (yield o(
-            "WAWebInboundMsgLeftoverLidPnMappings",
-          ).learnLeftoverInboundMsgLidPnMappings(),
-            yield m(),
-            o("WAWebInboundMsgDrain").startInboundMsgDrain(),
-            o("WAWebInboundMsgDrain").whenInboundMsgRecoveryDone().then(d),
-            o(
-              "WAWebInboundMsgPersistedQueueAdapter",
-            ).settleInboundMsgQueueRegistration());
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c() {
       (o("WALogger")
         .LOG(
           e ||
@@ -71,16 +58,16 @@ __d(
           o("WAWebInboundMsgPersistedQueue").stopInboundMsgCommits(),
         o("WAWebInboundMsgDrain").stopInboundMsgDrain());
     }
-    function d() {
+    function c() {
       o("WAWebInboundMsgPersistedQueue").isInboundMsgCommitInFlight() ||
         o("WAWebInboundMsgDrain").hasUndrainedInboundMsgs() ||
         o("WAWebInboundMsgQueuePref").clearInboundMsgQueueMayHaveRows();
     }
-    function m() {
+    function d() {
       return o("WAWebOneQueue")
         .getWAWebOneQueue()
         .enqueue(
-          n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
+          async function () {
             var e = !o(
               "WAWebInboundMsgPersistedQueueAdapter",
             ).hasInboundMsgQueueRegistrationTimedOut();
@@ -109,17 +96,17 @@ __d(
                 pauseDrainUntilMainStreamReady: o("WAWebInboundMsgDrain")
                   .pauseInboundMsgDrainUntilMainStreamReady,
               }));
-          }),
+          },
           { flush: !1, operationType: "wa_web_inbound_msg_queue_registration" },
         );
     }
-    function p() {
+    function m() {
       var e = function () {
         o("WAWebInboundMsgQueueStore")
           .preloadInboundMsgQueue()
           .then(function () {
             (o("WAWebInboundMsgDrain").startInboundMsgDrain(),
-              o("WAWebInboundMsgDrain").whenInboundMsgRecoveryDone().then(d));
+              o("WAWebInboundMsgDrain").whenInboundMsgRecoveryDone().then(c));
           });
       };
       if (o("WAWebBackendEventBus").BackendEventBus.isOfflineDeliveryEnd) {

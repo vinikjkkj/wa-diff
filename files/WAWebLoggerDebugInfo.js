@@ -15,7 +15,6 @@ __d(
     "WAWebUserUtils",
     "WAWebWam",
     "WAWebWamGlobals",
-    "asyncToGeneratorRuntime",
     "gkx",
   ],
   function (t, n, r, o, a, i, l) {
@@ -48,83 +47,71 @@ __d(
       ["isHistoryLidSession", "is_history_lid_session"],
       ["lidCompletedMigrations", "lid_completed_migrations"],
     ]);
-    function s(e) {
-      return u.apply(this, arguments);
+    async function s(e) {
+      o("WAWebWam").Wam.initialize();
+      var t = babelHelpers.extends({}, o("WAWebWamGlobals").Global.all, {
+        webcWebPlatform: o("WAWebCrashlogConstants").CLB_PLATFORM,
+        webcPhonePlatform: o("WAWebConnModel").Conn.platform,
+        webcProtoVersion: String(o("WAWebConnModel").Conn.protoVersion),
+      });
+      (r("WAWebEnvironment").isWindows &&
+        (t.subplatform = o("WAWebCrashlogConstants").CLB_SUBPLATFORM),
+        r("gkx")("26259")
+          ? (t.releaseChannel = "intern")
+          : r("gkx")("26258") && (t.releaseChannel = "production"),
+        o("WAWebUserUtils").hasLoggedIn() &&
+          (t.deviceID = o("WAWebUserUtils").getMeDeviceOrThrow().toString()));
+      var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
+      r("gkx")("11584") &&
+        n &&
+        ((t.saga_copy = o("WAWebABPropsSaga").getIsSagaV1Enabled().toString()),
+        (t.pn = n.user.toString()));
+      var a = {};
+      for (var i in t) {
+        var l = t[i];
+        l != null && (a[i] = l);
+      }
+      ((a.debugIsExternalBeta = await o(
+        "WAWebUserPrefsGeneral",
+      ).getWhatsAppWebExternalBetaJoinedIdb()),
+        (a.isHistoryLidSession = o(
+          "WAWebHistorySyncLidChatGating",
+        ).isForcedHistoryLidChat()));
+      var s = o("WAWebReloadReason").getLastReload();
+      s != null &&
+        ((a.lastReloadReason = s.reason),
+        (a.lastReloadAgeS = s.ageS),
+        s.msg != null && (a.lastReloadMsgCount = s.msg),
+        s.receipt != null && (a.lastReloadReceiptCount = s.receipt));
+      var c = await o("WAWebTasksDailyStatsTask").getLidMigrationStatus();
+      if (
+        (c.completedMigrations != null &&
+          (a.lidCompletedMigrations = c.completedMigrations),
+        e)
+      ) {
+        var d = e.addLanguageFields,
+          m = e.addUserAgentDetails,
+          p = e.convertFields,
+          _ = e.entityId,
+          f = e.supportTag,
+          g = e.user_review_score;
+        if (
+          (f != null && (a.context = f),
+          _ != null && (a.entityId = _),
+          g != null && (a.user_review_score = g),
+          m === !0 && (a.userAgent = o("WAWebUA").UA.parser.getUA()),
+          d === !0 &&
+            ((a.lc = r("WAWebL10N").getRegion()),
+            (a.lg = r("WAWebL10N").getLanguage())),
+          p === !0)
+        ) {
+          var h = u(a);
+          return h;
+        }
+      }
+      return a;
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          o("WAWebWam").Wam.initialize();
-          var t = babelHelpers.extends({}, o("WAWebWamGlobals").Global.all, {
-            webcWebPlatform: o("WAWebCrashlogConstants").CLB_PLATFORM,
-            webcPhonePlatform: o("WAWebConnModel").Conn.platform,
-            webcProtoVersion: String(o("WAWebConnModel").Conn.protoVersion),
-          });
-          (r("WAWebEnvironment").isWindows &&
-            (t.subplatform = o("WAWebCrashlogConstants").CLB_SUBPLATFORM),
-            r("gkx")("26259")
-              ? (t.releaseChannel = "intern")
-              : r("gkx")("26258") && (t.releaseChannel = "production"),
-            o("WAWebUserUtils").hasLoggedIn() &&
-              (t.deviceID = o("WAWebUserUtils")
-                .getMeDeviceOrThrow()
-                .toString()));
-          var n = o("WAWebUserPrefsMeUser").getMaybeMePnUser();
-          r("gkx")("11584") &&
-            n &&
-            ((t.saga_copy = o("WAWebABPropsSaga")
-              .getIsSagaV1Enabled()
-              .toString()),
-            (t.pn = n.user.toString()));
-          var a = {};
-          for (var i in t) {
-            var l = t[i];
-            l != null && (a[i] = l);
-          }
-          ((a.debugIsExternalBeta = yield o(
-            "WAWebUserPrefsGeneral",
-          ).getWhatsAppWebExternalBetaJoinedIdb()),
-            (a.isHistoryLidSession = o(
-              "WAWebHistorySyncLidChatGating",
-            ).isForcedHistoryLidChat()));
-          var s = o("WAWebReloadReason").getLastReload();
-          s != null &&
-            ((a.lastReloadReason = s.reason),
-            (a.lastReloadAgeS = s.ageS),
-            s.msg != null && (a.lastReloadMsgCount = s.msg),
-            s.receipt != null && (a.lastReloadReceiptCount = s.receipt));
-          var u = yield o("WAWebTasksDailyStatsTask").getLidMigrationStatus();
-          if (
-            (u.completedMigrations != null &&
-              (a.lidCompletedMigrations = u.completedMigrations),
-            e)
-          ) {
-            var d = e.addLanguageFields,
-              m = e.addUserAgentDetails,
-              p = e.convertFields,
-              _ = e.entityId,
-              f = e.supportTag,
-              g = e.user_review_score;
-            if (
-              (f != null && (a.context = f),
-              _ != null && (a.entityId = _),
-              g != null && (a.user_review_score = g),
-              m === !0 && (a.userAgent = o("WAWebUA").UA.parser.getUA()),
-              d === !0 &&
-                ((a.lc = r("WAWebL10N").getRegion()),
-                (a.lg = r("WAWebL10N").getLanguage())),
-              p === !0)
-            ) {
-              var h = c(a);
-              return h;
-            }
-          }
-          return a;
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    function c(t) {
+    function u(t) {
       var n = {};
       for (var r of Object.entries(t)) {
         var o,

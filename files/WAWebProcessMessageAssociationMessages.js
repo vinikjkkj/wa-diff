@@ -8,50 +8,40 @@ __d(
     "WAWebAssociationProcessorConstants",
     "WAWebMessageAssociationValidation",
     "WAWebViewMode.flow",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
     function s(e, t) {
       var n = e,
-        r = d(n, t),
+        r = c(n, t),
         o = r.nonOrphansFromCache,
         a = r.orphans;
-      return p(a, o);
+      return m(a, o);
     }
-    function u(e, t) {
-      return c.apply(this, arguments);
+    async function u(e, t) {
+      if (e.length !== 0) {
+        var n = await o("WAWebAddonProcessMsgsUtils").queryParentMsgs(e),
+          r = n[0],
+          a = n[1],
+          i = o("WAWebAddonSortUtils").collectValidAndOrphans(a, r),
+          l = i.nonOrphans,
+          s = i.orphans,
+          u = l.length + s.length === e.length;
+        if (!u)
+          throw new (o(
+            "WAWebMessageAssociationValidation",
+          ).MessageAssociationInfraError)(
+            o("WAWebMessageAssociationValidation")
+              .MessageAssociationInfraErrorCode.MESSAGE_ASSOCIATIONS_MISMATCH,
+          );
+        var c = d(s, t),
+          p = c.nonOrphansFromCache,
+          _ = c.orphans;
+        return m(_, [].concat(l, p));
+      }
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (e.length !== 0) {
-            var n = yield o("WAWebAddonProcessMsgsUtils").queryParentMsgs(e),
-              r = n[0],
-              a = n[1],
-              i = o("WAWebAddonSortUtils").collectValidAndOrphans(a, r),
-              l = i.nonOrphans,
-              s = i.orphans,
-              u = l.length + s.length === e.length;
-            if (!u)
-              throw new (o(
-                "WAWebMessageAssociationValidation",
-              ).MessageAssociationInfraError)(
-                o("WAWebMessageAssociationValidation")
-                  .MessageAssociationInfraErrorCode
-                  .MESSAGE_ASSOCIATIONS_MISMATCH,
-              );
-            var c = m(s, t),
-              d = c.nonOrphansFromCache,
-              _ = c.orphans;
-            return p(_, [].concat(l, d));
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t) {
+    function c(e, t) {
       var n = [],
         r = [];
       return (
@@ -61,7 +51,7 @@ __d(
         { orphans: n, nonOrphansFromCache: r }
       );
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = [],
         r = [];
       return (
@@ -71,7 +61,7 @@ __d(
         { orphans: n, nonOrphansFromCache: r }
       );
     }
-    function p(t, n) {
+    function m(t, n) {
       var r = [],
         a = [],
         i = 0,
@@ -116,9 +106,9 @@ __d(
     }
     ((l.classifyAssociatedMsgsFromHistorySyncUsingMissingParentsCache = s),
       (l.classifyAssociatedMsgsUsingExistingParentsCache = u),
-      (l.collectOrphansFromMissingParentsCache = d),
-      (l.collectOrphansFromExistingParentsMessagesCache = m),
-      (l.classifyAssociatedOrphansNonOrphans = p));
+      (l.collectOrphansFromMissingParentsCache = c),
+      (l.collectOrphansFromExistingParentsMessagesCache = d),
+      (l.classifyAssociatedOrphansNonOrphans = m));
   },
   98,
 );

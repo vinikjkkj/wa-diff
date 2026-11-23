@@ -8,10 +8,7 @@ __d(
       c = "hatch_decision_not_sent";
     function d() {
       o("WAWebToastManager").ToastManager.open(
-        u.jsx(o("WAWebToast.react").Toast, {
-          id: c,
-          msg: s._(/*BTDS*/ "Your answer wasn't sent. Try again."),
-        }),
+        u.jsx(o("WAWebToast.react").Toast, { id: c, msg: s._(/*BTDS*/ "") }),
       );
     }
     l.openHatchDecisionNotSentToast = d;

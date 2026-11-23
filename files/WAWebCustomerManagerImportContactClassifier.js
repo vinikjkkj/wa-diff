@@ -1,7 +1,6 @@
 __d(
   "WAWebCustomerManagerImportContactClassifier",
   [
-    "Promise",
     "WALogger",
     "WAWebContactImportTypedError",
     "WAWebContactManagerCustomerProfileQuery",
@@ -9,7 +8,6 @@ __d(
     "WAWebCustomerManagerImportErrorMessage",
     "WAWebCustomerManagerImportProfileMerge",
     "WAWebCustomerManagerImportRecordInput",
-    "asyncToGeneratorRuntime",
     "err",
     "getErrorSafe",
   ],
@@ -18,32 +16,22 @@ __d(
       s,
       u,
       c,
-      d,
-      m = 10;
-    function p(e, t) {
-      return _.apply(this, arguments);
+      d = 10;
+    async function m(e, t) {
+      var n = [],
+        r = [],
+        o = [],
+        a = new Map(t.savedNamesByContactRowId);
+      for (var i of t.physicalNamesByPhoneJid) {
+        var l = i[0],
+          s = i[1];
+        a.set(l, s);
+      }
+      await f(e, t, a, 0, o);
+      for (var u of o) u.kind === "valid" ? n.push(u.contact) : r.push(u.error);
+      return (p(o), { errorList: r, validContacts: n });
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = [],
-            r = [],
-            o = [],
-            a = new Map(t.savedNamesByContactRowId);
-          for (var i of t.physicalNamesByPhoneJid) {
-            var l = i[0],
-              s = i[1];
-            a.set(l, s);
-          }
-          yield h(e, t, a, 0, o);
-          for (var u of o)
-            u.kind === "valid" ? n.push(u.contact) : r.push(u.error);
-          return (f(o), { errorList: r, validContacts: n });
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
+    function p(e) {
       var t = new Map(),
         n = null;
       for (var r of e) {
@@ -56,9 +44,9 @@ __d(
               (n = a.error));
         }
       }
-      g(t, n);
+      _(t, n);
     }
-    function g(t, n) {
+    function _(t, n) {
       var r = function (n) {
           var e;
           return (e = t.get(n)) != null ? e : 0;
@@ -113,39 +101,96 @@ __d(
             .catching(n)
             .sendLogs("cm-import-saved-data-lookup-failed"));
     }
-    function h(e, t, n, r, o) {
-      return y.apply(this, arguments);
+    async function f(e, t, n, r, o) {
+      if (!(r >= e.length)) {
+        var a = await Promise.all(
+          e.slice(r, r + d).map(function (e) {
+            return g({ contact: e, lookup: t, savedNames: n });
+          }),
+        );
+        (o.push.apply(o, a), await f(e, t, n, r + d, o));
+      }
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, o, a) {
-            if (!(o >= e.length)) {
-              var i = yield (d || (d = n("Promise"))).all(
-                e.slice(o, o + m).map(function (e) {
-                  return C({ contact: e, lookup: t, savedNames: r });
-                }),
-              );
-              (a.push.apply(a, i), yield h(e, t, r, o + m, a));
+    async function g(e) {
+      var t = e.contact,
+        n = e.lookup,
+        a = e.savedNames,
+        i = t.lid;
+      if (i == null) return { kind: "valid", contact: t };
+      if (!n.complete)
+        return {
+          kind: "error",
+          error: o(
+            "WAWebCustomerManagerImportErrorMessage",
+          ).toCustomerManagerImportErrorItem(
+            t,
+            o("WAWebCustomerManagerImportErrorMessage")
+              .CustomerManagerImportConflictError.CUSTOMER_DATA_LOOKUP_FAILED,
+          ),
+        };
+      var l = n.leadStagesByLid.get(i);
+      if (l == null)
+        return {
+          kind: "error",
+          error: o(
+            "WAWebCustomerManagerImportErrorMessage",
+          ).toCustomerManagerImportErrorItem(
+            t,
+            o("WAWebCustomerManagerImportErrorMessage")
+              .CustomerManagerImportConflictError.CUSTOMER_DATA_LOOKUP_FAILED,
+          ),
+          diagnostic: { reason: "missing-lead-stage-result" },
+        };
+      try {
+        var s = n.profiles.get(i),
+          u = await o(
+            "WAWebCustomerManagerImportConflictDetector",
+          ).readImportedCustomerMergeState(t, i, {
+            complete: n.complete,
+            legacy: n.legacyByLid.get(i),
+            localLeadStage: l,
+            profile: s,
+            savedNames: a,
+          }),
+          c = u.conflictingFields,
+          d = u.hasMissingNote,
+          m =
+            s != null && c.length === 0
+              ? await h(t, s, n.legacyByLid.get(i), l.stage, a.get(i), d)
+              : { conflictingFields: c, hasMissingData: s == null };
+        return m.conflictingFields.length === 0 && m.hasMissingData
+          ? { kind: "valid", contact: t }
+          : {
+              kind: "error",
+              error: o(
+                "WAWebCustomerManagerImportErrorMessage",
+              ).toCustomerManagerImportErrorItem(
+                t,
+                m.conflictingFields.length > 0
+                  ? o("WAWebCustomerManagerImportErrorMessage")
+                      .CustomerManagerImportConflictError.MERGE_CONFLICT
+                  : o("WAWebContactImportTypedError").ExistingContactError
+                      .ALREADY_EXISTS,
+                m.conflictingFields,
+              ),
+            };
+      } catch (e) {
+        return e instanceof
+          o("WAWebCustomerManagerImportConflictDetector")
+            .CustomerManagerImportPhoneDataOwnershipError
+          ? {
+              kind: "error",
+              error: o(
+                "WAWebCustomerManagerImportErrorMessage",
+              ).toCustomerManagerImportErrorItem(
+                t,
+                o("WAWebCustomerManagerImportErrorMessage")
+                  .CustomerManagerImportConflictError
+                  .PHONE_DATA_OWNER_UNVERIFIED,
+              ),
+              diagnostic: { reason: e.reason },
             }
-          },
-        )),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.contact,
-            n = e.lookup,
-            a = e.savedNames,
-            i = t.lid;
-          if (i == null) return { kind: "valid", contact: t };
-          if (!n.complete)
-            return {
+          : {
               kind: "error",
               error: o(
                 "WAWebCustomerManagerImportErrorMessage",
@@ -155,146 +200,56 @@ __d(
                   .CustomerManagerImportConflictError
                   .CUSTOMER_DATA_LOOKUP_FAILED,
               ),
+              diagnostic: {
+                reason: "saved-data-lookup-failed",
+                error: r("getErrorSafe")(e),
+              },
             };
-          var l = n.leadStagesByLid.get(i);
-          if (l == null)
-            return {
-              kind: "error",
-              error: o(
-                "WAWebCustomerManagerImportErrorMessage",
-              ).toCustomerManagerImportErrorItem(
-                t,
-                o("WAWebCustomerManagerImportErrorMessage")
-                  .CustomerManagerImportConflictError
-                  .CUSTOMER_DATA_LOOKUP_FAILED,
-              ),
-              diagnostic: { reason: "missing-lead-stage-result" },
-            };
-          try {
-            var s = n.profiles.get(i),
-              u = yield o(
-                "WAWebCustomerManagerImportConflictDetector",
-              ).readImportedCustomerMergeState(t, i, {
-                complete: n.complete,
-                legacy: n.legacyByLid.get(i),
-                localLeadStage: l,
-                profile: s,
-                savedNames: a,
-              }),
-              c = u.conflictingFields,
-              d = u.hasMissingNote,
-              m =
-                s != null && c.length === 0
-                  ? yield v(t, s, n.legacyByLid.get(i), l.stage, a.get(i), d)
-                  : { conflictingFields: c, hasMissingData: s == null };
-            return m.conflictingFields.length === 0 && m.hasMissingData
-              ? { kind: "valid", contact: t }
-              : {
-                  kind: "error",
-                  error: o(
-                    "WAWebCustomerManagerImportErrorMessage",
-                  ).toCustomerManagerImportErrorItem(
-                    t,
-                    m.conflictingFields.length > 0
-                      ? o("WAWebCustomerManagerImportErrorMessage")
-                          .CustomerManagerImportConflictError.MERGE_CONFLICT
-                      : o("WAWebContactImportTypedError").ExistingContactError
-                          .ALREADY_EXISTS,
-                    m.conflictingFields,
-                  ),
-                };
-          } catch (e) {
-            return e instanceof
-              o("WAWebCustomerManagerImportConflictDetector")
-                .CustomerManagerImportPhoneDataOwnershipError
-              ? {
-                  kind: "error",
-                  error: o(
-                    "WAWebCustomerManagerImportErrorMessage",
-                  ).toCustomerManagerImportErrorItem(
-                    t,
-                    o("WAWebCustomerManagerImportErrorMessage")
-                      .CustomerManagerImportConflictError
-                      .PHONE_DATA_OWNER_UNVERIFIED,
-                  ),
-                  diagnostic: { reason: e.reason },
-                }
-              : {
-                  kind: "error",
-                  error: o(
-                    "WAWebCustomerManagerImportErrorMessage",
-                  ).toCustomerManagerImportErrorItem(
-                    t,
-                    o("WAWebCustomerManagerImportErrorMessage")
-                      .CustomerManagerImportConflictError
-                      .CUSTOMER_DATA_LOOKUP_FAILED,
-                  ),
-                  diagnostic: {
-                    reason: "saved-data-lookup-failed",
-                    error: r("getErrorSafe")(e),
-                  },
-                };
-          }
-        })),
-        b.apply(this, arguments)
-      );
+      }
     }
-    function v(e, t, n, r, o, a) {
-      return S.apply(this, arguments);
+    async function h(e, t, n, a, i, l) {
+      var s = o(
+          "WAWebCustomerManagerImportRecordInput",
+        ).buildCustomerRecordInput(e),
+        u = {
+          canBackfillLeadStage: s.leadStage != null && a != null,
+          leadStageToBackfill: a != null ? a : s.leadStage,
+          profileName:
+            i != null
+              ? i
+              : o(
+                  "WAWebCustomerManagerImportRecordInput",
+                ).getImportedCustomerName(e),
+        };
+      if (
+        !l &&
+        !o(
+          "WAWebCustomerManagerImportProfileMerge",
+        ).hasPotentialImportedProfileFields(s, t, u)
+      )
+        return { conflictingFields: [], hasMissingData: !1 };
+      var c = await o(
+        "WAWebContactManagerCustomerProfileQuery",
+      ).fetchCustomerProfile(s.chatJid);
+      if (c == null)
+        throw r("err")("[cm:import] existing customer profile unavailable");
+      var d = o(
+        "WAWebCustomerManagerImportConflictDetector",
+      ).getConflictingCustomerFieldsByValue(e, c, n, a);
+      if (d.length > 0) return { conflictingFields: d, hasMissingData: !1 };
+      var m = o(
+        "WAWebCustomerManagerImportProfileMerge",
+      ).getMissingImportedProfileFields(s, c, u);
+      return {
+        conflictingFields: d,
+        hasMissingData:
+          l ||
+          Object.values(m).some(function (e) {
+            return e != null;
+          }),
+      };
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, a, i, l) {
-            var s = o(
-                "WAWebCustomerManagerImportRecordInput",
-              ).buildCustomerRecordInput(e),
-              u = {
-                canBackfillLeadStage: s.leadStage != null && a != null,
-                leadStageToBackfill: a != null ? a : s.leadStage,
-                profileName:
-                  i != null
-                    ? i
-                    : o(
-                        "WAWebCustomerManagerImportRecordInput",
-                      ).getImportedCustomerName(e),
-              };
-            if (
-              !l &&
-              !o(
-                "WAWebCustomerManagerImportProfileMerge",
-              ).hasPotentialImportedProfileFields(s, t, u)
-            )
-              return { conflictingFields: [], hasMissingData: !1 };
-            var c = yield o(
-              "WAWebContactManagerCustomerProfileQuery",
-            ).fetchCustomerProfile(s.chatJid);
-            if (c == null)
-              throw r("err")(
-                "[cm:import] existing customer profile unavailable",
-              );
-            var d = o(
-              "WAWebCustomerManagerImportConflictDetector",
-            ).getConflictingCustomerFieldsByValue(e, c, n, a);
-            if (d.length > 0)
-              return { conflictingFields: d, hasMissingData: !1 };
-            var m = o(
-              "WAWebCustomerManagerImportProfileMerge",
-            ).getMissingImportedProfileFields(s, c, u);
-            return {
-              conflictingFields: d,
-              hasMissingData:
-                l ||
-                Object.values(m).some(function (e) {
-                  return e != null;
-                }),
-            };
-          },
-        )),
-        S.apply(this, arguments)
-      );
-    }
-    l.classifyContacts = p;
+    l.classifyContacts = m;
   },
   98,
 );

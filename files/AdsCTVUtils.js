@@ -5,6 +5,7 @@ __d(
     "AdsBulkValueUtils",
     "AdsCampaignRecordAccessors",
     "filterNulls",
+    "gkx",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -52,6 +53,19 @@ __d(
           });
     }
     function m(e) {
+      return (
+        e.length > 0 &&
+        e.every(function (e) {
+          return c(r("filterNulls")(e != null ? e : []));
+        })
+      );
+    }
+    function p(e) {
+      return e.some(function (e) {
+        return c(r("filterNulls")(e != null ? e : []));
+      });
+    }
+    function _(e) {
       switch (e) {
         case "OUTCOME_SALES":
           return "OUTCOME_SALES";
@@ -61,11 +75,17 @@ __d(
           return null;
       }
     }
+    function f() {
+      return r("gkx")("23904") && r("gkx")("28691");
+    }
     ((l.getDevicePlatformsFromArray = s),
       (l.getDevicePlatforms = u),
       (l.isCTVDevicePlatformSelected = c),
       (l.areAllCampaignsCTVOnly = d),
-      (l.getObjective = m));
+      (l.areAllCampaignsCTVOnlyFromDevicePlatforms = m),
+      (l.hasAnyCampaignCTVOnlyFromDevicePlatforms = p),
+      (l.getObjective = _),
+      (l.isCTVBetaEnabled = f));
   },
   98,
 );

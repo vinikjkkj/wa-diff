@@ -118,23 +118,23 @@ __d(
     function f(e) {
       switch (e) {
         case c.NEW_CUSTOMER:
-          return s._(/*BTDS*/ "New customer");
+          return s._(/*BTDS*/ "");
         case c.NEW_ORDER:
         case c.DO_NEW_ORDER:
-          return s._(/*BTDS*/ "New order");
+          return s._(/*BTDS*/ "");
         case c.PENDING_PAYMENT:
-          return s._(/*BTDS*/ "Pending payment");
+          return s._(/*BTDS*/ "");
         case c.PAID:
-          return s._(/*BTDS*/ "Paid");
+          return s._(/*BTDS*/ "");
         case c.ORDER_COMPLETE:
-          return s._(/*BTDS*/ "Order complete");
+          return s._(/*BTDS*/ "");
         case c.IMPORTANT:
-          return s._(/*BTDS*/ "Important");
+          return s._(/*BTDS*/ "");
         case c.FOLLOW_UP:
-          return s._(/*BTDS*/ "Follow up");
+          return s._(/*BTDS*/ "");
         case c.LEAD:
         case c.DO_LEAD:
-          return s._(/*BTDS*/ "Lead");
+          return s._(/*BTDS*/ "");
         default:
           return;
       }

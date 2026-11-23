@@ -5,9 +5,7 @@ __d(
     "use strict";
     var e = "biz_native_ads_draft_audience_replaced";
     function u() {
-      return s._(
-        /*BTDS*/ "Your audience couldn't be fully restored. Review it before publishing.",
-      );
+      return s._(/*BTDS*/ "");
     }
     ((l.DRAFT_AUDIENCE_REPLACED_TOAST_ID = e),
       (l.getDraftAudienceReplacedText = u));

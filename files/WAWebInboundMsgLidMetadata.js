@@ -1,55 +1,41 @@
 __d(
   "WAWebInboundMsgLidMetadata",
-  [
-    "WALogger",
-    "WAWebApiContact",
-    "WAWebUpdateLidMetadataJob",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-  ],
+  ["WALogger", "WAWebApiContact", "WAWebUpdateLidMetadataJob", "getErrorSafe"],
   function (t, n, r, o, a, i, l) {
-    var e,
-      s = ["displayNameLID", "shareOwnPn"];
-    function u(e) {
-      return c.apply(this, arguments);
+    var e = ["displayNameLID", "shareOwnPn"],
+      s;
+    async function u(e) {
+      var t = c(e);
+      if (t.length !== 0)
+        try {
+          var n = await o("WAWebApiContact").bulkGetContactRecord(
+              t.map(function (e) {
+                var t = e.lid;
+                return t;
+              }),
+            ),
+            a = t.flatMap(function (e, t) {
+              var r = e.data,
+                o = e.lid,
+                a = d(r, n[t]);
+              return Object.keys(a).length > 0 ? [{ data: a, lid: o }] : [];
+            });
+          a.length > 0 &&
+            (await o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(a));
+        } catch (e) {
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[inbound-msg-queue] writing the contact metadata of queued messages failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .tags("messaging")
+            .sendLogs("inbound-msg-lid-metadata-write-failed");
+        }
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = d(t);
-          if (n.length !== 0)
-            try {
-              var a = yield o("WAWebApiContact").bulkGetContactRecord(
-                  n.map(function (e) {
-                    var t = e.lid;
-                    return t;
-                  }),
-                ),
-                i = n.flatMap(function (e, t) {
-                  var n = e.data,
-                    r = e.lid,
-                    o = m(n, a[t]);
-                  return Object.keys(o).length > 0 ? [{ data: o, lid: r }] : [];
-                });
-              i.length > 0 &&
-                (yield o("WAWebUpdateLidMetadataJob").updateLidMetadataJob(i));
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[inbound-msg-queue] writing the contact metadata of queued messages failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .tags("messaging")
-                .sendLogs("inbound-msg-lid-metadata-write-failed");
-            }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e) {
+    function c(e) {
       var t = new Map();
       return (
         e.forEach(function (e) {
@@ -68,19 +54,19 @@ __d(
         Array.from(t.values())
       );
     }
-    function m(e, t) {
-      var n = e.displayNameLID,
-        r = e.shareOwnPn,
-        o = babelHelpers.objectWithoutPropertiesLoose(e, s),
-        a = babelHelpers.extends({}, o);
+    function d(t, n) {
+      var r = t.displayNameLID,
+        o = t.shareOwnPn,
+        a = babelHelpers.objectWithoutPropertiesLoose(t, e),
+        i = babelHelpers.extends({}, a);
       return (
+        o != null &&
+          o !== (n == null ? void 0 : n.shareOwnPn) &&
+          (i.shareOwnPn = o),
         r != null &&
-          r !== (t == null ? void 0 : t.shareOwnPn) &&
-          (a.shareOwnPn = r),
-        n != null &&
-          n !== (t == null ? void 0 : t.displayNameLID) &&
-          (a.displayNameLID = n),
-        a
+          r !== (n == null ? void 0 : n.displayNameLID) &&
+          (i.displayNameLID = r),
+        i
       );
     }
     l.writeInboundMsgLidMetadata = u;

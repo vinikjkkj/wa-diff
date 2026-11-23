@@ -7,7 +7,6 @@ __d(
     "WAWebEventResponseMsgDataConversion",
     "WAWebMsgType",
     "WAWebProtobufsWeb.pb",
-    "asyncToGeneratorRuntime",
     "compactMap",
     "getErrorSafe",
     "nullthrows",
@@ -40,86 +39,78 @@ __d(
               };
             });
     }
-    function c(e) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = t.parsedWebMsgInfo,
-            a = t.webMsgInfo;
+    async function c(t) {
+      var n = t.parsedWebMsgInfo,
+        a = t.webMsgInfo;
+      try {
+        var i;
+        if (
+          !(a != null && a.eventResponses) ||
+          !n ||
+          n.type !== o("WAWebMsgType").MSG_TYPE.EVENT_CREATION
+        )
+          return [];
+        var l = n,
+          c = (i = u(a.messageAddOns)) != null ? i : a.eventResponses;
+        return r("compactMap")(c, function (t) {
           try {
-            var i;
-            if (
-              !(a != null && a.eventResponses) ||
-              !n ||
-              n.type !== o("WAWebMsgType").MSG_TYPE.EVENT_CREATION
-            )
-              return [];
-            var l = n,
-              c = (i = u(a.messageAddOns)) != null ? i : a.eventResponses;
-            return r("compactMap")(c, function (t) {
-              try {
-                var n,
-                  a = (n = r("nullthrows"))(
-                    t.eventResponseMessageKey,
-                    "eventResponseMessageKey",
-                  ),
-                  i = n(t.eventResponseMessage, "eventResponseMessage"),
-                  s = n(
-                    o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({ key: a }),
-                  ),
-                  u = s.msgKey;
-                return o(
-                  "WAWebEventResponseMsgDataConversion",
-                ).protobufToEventResponseMsgData({
-                  responseProtobuf: i,
-                  id: u,
-                  parentMsgKey: l.id,
-                  senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
-                    n(i.timestampMs, "senderTimestampMs"),
-                  ),
-                  t: o("WAWebAddOnParseWebMsgInfo").getAddonServerTimestamp(
-                    t.timestampMs,
-                  ),
-                  ack: null,
-                  read: t.unread !== !0,
-                });
-              } catch (t) {
-                var c = r("getErrorSafe")(t);
-                return (
-                  o("WALogger")
-                    .ERROR(
-                      e ||
-                        (e = babelHelpers.taggedTemplateLiteralLoose([
-                          "[history sync] Failed to parse eventResponse",
-                        ])),
-                    )
-                    .catching(c)
-                    .sendLogs(
-                      "parseWebMsgInfoEventResponses-responses-parse-error",
-                    ),
-                  null
-                );
-              }
+            var n,
+              a = (n = r("nullthrows"))(
+                t.eventResponseMessageKey,
+                "eventResponseMessageKey",
+              ),
+              i = n(t.eventResponseMessage, "eventResponseMessage"),
+              s = n(
+                o("WAWebAddOnParseWebMsgInfo").buildAddonMsgKey({ key: a }),
+              ),
+              u = s.msgKey;
+            return o(
+              "WAWebEventResponseMsgDataConversion",
+            ).protobufToEventResponseMsgData({
+              responseProtobuf: i,
+              id: u,
+              parentMsgKey: l.id,
+              senderTimestampMs: o("WALongInt").numberOrThrowIfTooLarge(
+                n(i.timestampMs, "senderTimestampMs"),
+              ),
+              t: o("WAWebAddOnParseWebMsgInfo").getAddonServerTimestamp(
+                t.timestampMs,
+              ),
+              ack: null,
+              read: t.unread !== !0,
             });
-          } catch (e) {
+          } catch (t) {
+            var c = r("getErrorSafe")(t);
             return (
               o("WALogger")
                 .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[history sync] parseWebMsgInfoEventResponses",
+                  e ||
+                    (e = babelHelpers.taggedTemplateLiteralLoose([
+                      "[history sync] Failed to parse eventResponse",
                     ])),
                 )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("parseWebMsgInfoEventResponses-error"),
-              []
+                .catching(c)
+                .sendLogs(
+                  "parseWebMsgInfoEventResponses-responses-parse-error",
+                ),
+              null
             );
           }
-        })),
-        d.apply(this, arguments)
-      );
+        });
+      } catch (e) {
+        return (
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[history sync] parseWebMsgInfoEventResponses",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("parseWebMsgInfoEventResponses-error"),
+          []
+        );
+      }
     }
     l.parseWebMsgInfoEventResponses = c;
   },

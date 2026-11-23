@@ -30,128 +30,129 @@ __d(
     "use strict";
     var e;
     function s(e, t, n, a, i, l) {
+      var s = t;
       if (
-        !o("AdsAssetFeedUtils").isDofMessagingDestinationAdgroupFromSpec(t) &&
+        !o("AdsAssetFeedUtils").isDofMessagingDestinationAdgroupFromSpec(s) &&
         !o(
           "AdsAssetFeedUtils",
-        ).isUnifiedProfileVisitsDestinationAdgroupFromSpec(t) &&
-        (o("AdsAssetFeedUtils").isAdgroupUsingNonTextOnlyDofAssetFeedSpec(t) ||
+        ).isUnifiedProfileVisitsDestinationAdgroupFromSpec(s) &&
+        (o("AdsAssetFeedUtils").isAdgroupUsingNonTextOnlyDofAssetFeedSpec(s) ||
           (i != null &&
-            o("AdsUEditorAdgroupCachedUtils").hasCachedAssetFeed(i, t, e)))
+            o("AdsUEditorAdgroupCachedUtils").hasCachedAssetFeed(i, s, e)))
       )
-        return u(e, t, n, a, i, l);
+        return u(e, s, a, i, l);
       if (
-        (o("AdsMediaOverlaysUtils").hasCustomOverlaySpec(t) &&
-          (t = r(
+        (o("AdsMediaOverlaysUtils").hasCustomOverlaySpec(s) &&
+          (s = r(
             "AdsAdgroupRecordAccessors",
-          ).creative.object_story_spec.link_data.custom_overlay_spec.delete(t)),
+          ).creative.object_story_spec.link_data.custom_overlay_spec.delete(s)),
         a === r("AdsAPIObjectives").PAGE_LIKES)
       )
-        return m(e, t, n);
+        return m(e, s, n);
       switch (
-        ((t = r(
+        ((s = r(
           "AdsAdgroupRecordAccessors",
-        ).creative.platform_customizations.delete(t)),
+        ).creative.platform_customizations.delete(s)),
         e)
       ) {
         case "IMAGE":
-          return c(a, t);
+          return c(a, s);
         case "VIDEO":
-          return d(a, t, n, l);
+          return d(a, s, l);
         default:
           return (
             r("FBLogger")("ads").mustfix("Invalid media format: %s", e),
-            t
+            s
           );
       }
     }
-    function u(e, t, n, a, i, l) {
-      var s = i != null ? i.get(t.id) : null;
+    function u(e, t, n, a, i) {
+      var l = t,
+        s = a != null ? a.get(l.id) : null;
       switch (e) {
         case "IMAGE":
           return s != null && s.imageAssetFeedSpec != null
             ? r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.set(
                 s.imageAssetFeedSpec,
-                t,
+                l,
               )
-            : o("AdsAssetFeedUtils").isPACAdgroupFromRecord(t)
+            : o("AdsAssetFeedUtils").isPACAdgroupFromRecord(l)
               ? c(
-                  a,
+                  n,
                   o(
                     "AdsUEditorAdgroupAssetFeedMutators",
-                  ).convertFromAssetFeedSpec(r("ApiAdObjectTypes").VIDEO, t, a),
+                  ).convertFromAssetFeedSpec(r("ApiAdObjectTypes").VIDEO, l, n),
                 )
               : (o("AdsAssetFeedUtils").isLocalizedPlacementsAdgroupFromRecord(
-                  t,
+                  l,
                 ) &&
-                  ((t = o(
+                  ((l = o(
                     "AdsLocalizedPlacementsMutators",
-                  ).removeAllMediaInLocalizedPlacementsAdgroup(t)),
-                  (t = o(
+                  ).removeAllMediaInLocalizedPlacementsAdgroup(l)),
+                  (l = o(
                     "AdsUEditorAdgroupAssetFeedMutators",
                   ).convertLocalizedPlacementsAdgroupToDLOAdgroup(
-                    t,
+                    l,
                     "videos",
                   ))),
-                (t = r(
+                (l = r(
                   "AdsAdgroupRecordAccessors",
-                ).creative.asset_feed_spec.videos.delete(t)),
-                (t = o("AdsDLOAssetFeedMutators").removeMediaFromAdgroup(
-                  t,
+                ).creative.asset_feed_spec.videos.delete(l)),
+                (l = o("AdsDLOAssetFeedMutators").removeMediaFromAdgroup(
+                  l,
                   "videos",
                 )),
                 r(
                   "AdsAdgroupRecordAccessors",
                 ).creative.asset_feed_spec.ad_formats.set(
                   r("immutable").List.of("SINGLE_IMAGE"),
-                  t,
+                  l,
                 ));
         case "VIDEO":
           if (s != null && s.videoAssetFeedSpec != null)
             return r("AdsAdgroupRecordAccessors").creative.asset_feed_spec.set(
               s.videoAssetFeedSpec,
-              t,
+              l,
             );
-          if (o("AdsAssetFeedUtils").isPACAdgroupFromRecord(t)) {
+          if (o("AdsAssetFeedUtils").isPACAdgroupFromRecord(l)) {
             var u,
-              m = (u = t.creative) == null ? void 0 : u.object_type;
+              m = (u = l.creative) == null ? void 0 : u.object_type;
             return d(
-              a,
+              n,
               o("AdsUEditorAdgroupAssetFeedMutators").convertFromAssetFeedSpec(
                 m,
-                t,
-                a,
+                l,
+                n,
               ),
-              n,
-              l,
+              i,
             );
           }
           return (
-            o("AdsAssetFeedUtils").isLocalizedPlacementsAdgroupFromRecord(t) &&
-              ((t = o(
+            o("AdsAssetFeedUtils").isLocalizedPlacementsAdgroupFromRecord(l) &&
+              ((l = o(
                 "AdsLocalizedPlacementsMutators",
-              ).removeAllMediaInLocalizedPlacementsAdgroup(t)),
-              (t = o(
+              ).removeAllMediaInLocalizedPlacementsAdgroup(l)),
+              (l = o(
                 "AdsUEditorAdgroupAssetFeedMutators",
-              ).convertLocalizedPlacementsAdgroupToDLOAdgroup(t, "images"))),
-            (t = r(
+              ).convertLocalizedPlacementsAdgroupToDLOAdgroup(l, "images"))),
+            (l = r(
               "AdsAdgroupRecordAccessors",
-            ).creative.asset_feed_spec.images.delete(t)),
-            (t = o("AdsDLOAssetFeedMutators").removeMediaFromAdgroup(
-              t,
+            ).creative.asset_feed_spec.images.delete(l)),
+            (l = o("AdsDLOAssetFeedMutators").removeMediaFromAdgroup(
+              l,
               "images",
             )),
             r(
               "AdsAdgroupRecordAccessors",
             ).creative.asset_feed_spec.ad_formats.set(
               r("immutable").List.of("SINGLE_VIDEO"),
-              t,
+              l,
             )
           );
         default:
           return (
             r("FBLogger")("ads").mustfix("Invalid media format: %s", e),
-            t
+            l
           );
       }
     }
@@ -200,151 +201,154 @@ __d(
           );
       }
     }
-    function d(e, t, n, a) {
-      var i,
-        l,
-        s = (i = t.creative) == null ? void 0 : i.object_type;
+    function d(e, t, n) {
+      var a,
+        i,
+        l = t,
+        s = (a = l.creative) == null ? void 0 : a.object_type;
       switch (s) {
         case r("ApiAdObjectTypes").PHOTO:
-          t = o("AdsAdgroupPostTypeMutators").convertPhotoPostToVideoPost(e, t);
+          l = o("AdsAdgroupPostTypeMutators").convertPhotoPostToVideoPost(e, l);
           break;
         case r("ApiAdObjectTypes").SHARE:
           ((o("AdsBrandAwarenessUtils").isBrandObjective(e) ||
             e === r("AdsAPIObjectives").POST_ENGAGEMENT) &&
-            (t = o("AdsAdgroupCallToActionMutatorsAdapter").setCallToAction(
+            (l = o("AdsAdgroupCallToActionMutatorsAdapter").setCallToAction(
               r("gkx")("14839") ? "SEE_DETAILS" : "LEARN_MORE",
-              t,
-              a,
+              l,
+              n,
             )),
-            (t = o(
+            (l = o(
               "AdsAdgroupPostTypeMutators",
-            ).convertLinkOrTemplatePostToVideoPost(e, t)),
-            o("AdsCanvasAdUtils").isCanvasAd(t) ||
-              (t = r(
+            ).convertLinkOrTemplatePostToVideoPost(e, l)),
+            o("AdsCanvasAdUtils").isCanvasAd(l) ||
+              (l = r(
                 "AdsAdgroupRecordAccessors",
-              ).creative.product_set_id.delete(t)));
+              ).creative.product_set_id.delete(l)));
           break;
         case r("ApiAdObjectTypes").VIDEO:
           break;
         default:
           return (
             r("FBLogger")("ads").mustfix("Invalid object type: %s", s),
-            t
+            l
           );
       }
-      var u = o("AdsUEditorWebsiteUtils").getVideoLPPFormat(t, e);
+      var u = o("AdsUEditorWebsiteUtils").getVideoLPPFormat(l, e);
       return (
         e === r("AdsAPIObjectives").LINK_CLICKS &&
-          ((l = t.creative) == null ||
-          (l = l.object_story_spec) == null ||
-          (l = l.video_data) == null ||
-          (l = l.call_to_action) == null
+          ((i = l.creative) == null ||
+          (i = i.object_story_spec) == null ||
+          (i = i.video_data) == null ||
+          (i = i.call_to_action) == null
             ? void 0
-            : l.type) === "CALL_NOW" &&
+            : i.type) === "CALL_NOW" &&
           (u = null),
-        (t = o("AdsUEditorCallToActionMutators").setCallToActionLinkFormat(
-          t,
+        (l = o("AdsUEditorCallToActionMutators").setCallToActionLinkFormat(
+          l,
           u,
         )),
-        t
+        l
       );
     }
     function m(t, n, a) {
-      var i, l;
+      var i,
+        l,
+        s = n;
       (e || (e = r("AdsDataAtom"))).isDispatching() &&
         (e || (e = r("AdsDataAtom"))).waitFor([
           r("AdsAdgroupEditorStore").getDispatchToken(),
         ]);
-      var s = r("AdsAdgroupSemanticFields").pageID.get(a, n),
-        u;
+      var u = r("AdsAdgroupSemanticFields").pageID.get(a, s),
+        c;
       if (
         t === "VIDEO" &&
-        ((i = n.creative) == null ? void 0 : i.object_type) !==
+        ((i = s.creative) == null ? void 0 : i.object_type) !==
           r("ApiAdObjectTypes").SHARE
       ) {
-        var c, d;
-        ((n = o("AdsMutators").chain(
-          (d = r(
+        var d, m;
+        ((s = o("AdsMutators").chain(
+          (m = r(
             "AdsAdgroupRecordAccessors",
-          )).creative.object_story_spec.page_id.set(s),
-          d.creative.object_type.set(r("ApiAdObjectTypes").VIDEO),
-          d.creative.object_story_spec.video_data.call_to_action.value.page.set(
-            s,
+          )).creative.object_story_spec.page_id.set(u),
+          m.creative.object_type.set(r("ApiAdObjectTypes").VIDEO),
+          m.creative.object_story_spec.video_data.call_to_action.value.page.set(
+            u,
           ),
-          d.creative.object_story_spec.video_data.call_to_action.type.set(
+          m.creative.object_story_spec.video_data.call_to_action.type.set(
             "LIKE_PAGE",
           ),
-        )(n)),
-          (u = (c = n.creative) == null ? void 0 : c.body),
-          u &&
-            (n = r(
+        )(s)),
+          (c = (d = s.creative) == null ? void 0 : d.body),
+          c &&
+            (s = r(
               "AdsAdgroupRecordAccessors",
-            ).creative.object_story_spec.video_data.message.set(u, n)));
-        var m = r("AdsAdgroupEditorStore").getCachedVideoID(n.id);
-        m &&
-          (n = r(
-            "AdsAdgroupRecordAccessors",
-          ).creative.object_story_spec.video_data.video_id.set(m, n));
-        var p = r("AdsAdgroupEditorStore").getCachedVideoThumbnailURL(n.id);
+            ).creative.object_story_spec.video_data.message.set(c, s)));
+        var p = r("AdsAdgroupEditorStore").getCachedVideoID(s.id);
         p &&
-          (n = r(
+          (s = r(
             "AdsAdgroupRecordAccessors",
-          ).creative.object_story_spec.video_data.image_url.set(p, n));
-        var _ = r("AdsAdgroupEditorStore").getCachedVideoThumbnailHash(n.id);
+          ).creative.object_story_spec.video_data.video_id.set(p, s));
+        var _ = r("AdsAdgroupEditorStore").getCachedVideoThumbnailURL(s.id);
+        _ &&
+          (s = r(
+            "AdsAdgroupRecordAccessors",
+          ).creative.object_story_spec.video_data.image_url.set(_, s));
+        var f = r("AdsAdgroupEditorStore").getCachedVideoThumbnailHash(s.id);
         return (
-          _ &&
-            (n = r(
+          f &&
+            (s = r(
               "AdsAdgroupRecordAccessors",
-            ).creative.object_story_spec.video_data.image_hash.set(_, n)),
+            ).creative.object_story_spec.video_data.image_hash.set(f, s)),
           o("AdsMutators").chain(
             r("AdsAdgroupRecordAccessors").creative.image_hash.delete,
             r("AdsAdgroupRecordAccessors").creative.body.delete,
             r("AdsAdgroupRecordAccessors").creative.title.delete,
             r("AdsAdgroupRecordAccessors").creative.object_id.delete,
-          )(n)
+          )(s)
         );
       } else if (
         t === "VIDEO" &&
-        ((l = n.creative) == null ? void 0 : l.object_type) ===
+        ((l = s.creative) == null ? void 0 : l.object_type) ===
           r("ApiAdObjectTypes").SHARE
       ) {
-        var f,
-          g,
-          h =
-            (f = n.creative) == null || (f = f.asset_feed_spec) == null
+        var g,
+          h,
+          y =
+            (g = s.creative) == null || (g = g.asset_feed_spec) == null
               ? void 0
-              : f.titles;
-        (h &&
-          (n = r(
+              : g.titles;
+        (y &&
+          (s = r(
             "AdsAdgroupRecordAccessors",
-          ).creative.asset_feed_spec.titles.delete(n)),
-          (n = o("AdsMutators").chain(
-            r("AdsAdgroupRecordAccessors").creative.link_og_id.set(s),
+          ).creative.asset_feed_spec.titles.delete(s)),
+          (s = o("AdsMutators").chain(
+            r("AdsAdgroupRecordAccessors").creative.link_og_id.set(u),
             r("AdsAdgroupRecordAccessors").creative.object_type.set(
               r("ApiAdObjectTypes").VIDEO,
             ),
             r(
               "AdsAdgroupRecordAccessors",
-            ).creative.object_story_spec.page_id.set(s),
+            ).creative.object_story_spec.page_id.set(u),
             r(
               "AdsAdgroupRecordAccessors",
             ).creative.object_story_spec.video_data.call_to_action.value.page.set(
-              s,
+              u,
             ),
             r(
               "AdsAdgroupRecordAccessors",
             ).creative.object_story_spec.video_data.call_to_action.type.set(
               "LIKE_PAGE",
             ),
-          )(n)));
-        var y =
-            (g = n.creative) == null ||
-            (g = g.object_story_spec) == null ||
-            (g = g.link_data) == null
+          )(s)));
+        var C =
+            (h = s.creative) == null ||
+            (h = h.object_story_spec) == null ||
+            (h = h.link_data) == null
               ? void 0
-              : g.message,
-          C = r("AdsAdgroupEditorStore").getCachedVideoID(n.id),
-          b = r("AdsAdgroupEditorStore").getCachedVideoThumbnailURL(n.id);
+              : h.message,
+          b = r("AdsAdgroupEditorStore").getCachedVideoID(s.id),
+          v = r("AdsAdgroupEditorStore").getCachedVideoThumbnailURL(s.id);
         return o("AdsMutators").chain(
           r("AdsAdgroupRecordAccessors").creative.image_hash.delete,
           r("AdsAdgroupRecordAccessors").creative.body.delete,
@@ -355,39 +359,39 @@ __d(
           r("AdsAdgroupRecordAccessors").creative.object_story_id.delete,
           r(
             "AdsAdgroupRecordAccessors",
-          ).creative.object_story_spec.video_data.message.set(y),
+          ).creative.object_story_spec.video_data.message.set(C),
           r(
             "AdsAdgroupRecordAccessors",
-          ).creative.object_story_spec.video_data.video_id.set(C),
+          ).creative.object_story_spec.video_data.video_id.set(b),
           r(
             "AdsAdgroupRecordAccessors",
-          ).creative.object_story_spec.video_data.image_url.set(b),
-        )(n);
+          ).creative.object_story_spec.video_data.image_url.set(v),
+        )(s);
       } else if (t === "IMAGE") {
-        var v, d;
-        n = o("AdsMutators").chain(
-          (d = r("AdsAdgroupRecordAccessors")).creative.object_id.set(s),
-          d.creative.object_type.set(r("ApiAdObjectTypes").SHARE),
-          d.creative.object_story_spec.link_data.call_to_action.value.page.set(
-            s,
+        var S, m;
+        s = o("AdsMutators").chain(
+          (m = r("AdsAdgroupRecordAccessors")).creative.object_id.set(u),
+          m.creative.object_type.set(r("ApiAdObjectTypes").SHARE),
+          m.creative.object_story_spec.link_data.call_to_action.value.page.set(
+            u,
           ),
-          d.creative.object_story_spec.link_data.call_to_action.type.set(
+          m.creative.object_story_spec.link_data.call_to_action.type.set(
             "LIKE_PAGE",
           ),
-        )(n);
-        var S = r("AdsAdgroupEditorStore").getCachedImageCrops(n.id),
-          R = r("AdsAdgroupEditorStore").getCachedImageHash(n.id),
-          L = r("AdsAdgroupEditorStore").getCachedTitle(n.id),
-          E =
-            (v = n.creative) == null ||
-            (v = v.object_story_spec) == null ||
-            (v = v.video_data) == null
+        )(s);
+        var R = r("AdsAdgroupEditorStore").getCachedImageCrops(s.id),
+          L = r("AdsAdgroupEditorStore").getCachedImageHash(s.id),
+          E = r("AdsAdgroupEditorStore").getCachedTitle(s.id),
+          k =
+            (S = s.creative) == null ||
+            (S = S.object_story_spec) == null ||
+            (S = S.video_data) == null
               ? void 0
-              : v.message,
-          k = r("AdsAdgroupEditorStore").getCachedLink(n.id);
-        if (s != null && k == null) {
-          var I = r("AdsPageStore").getLoadObject(s).getValue();
-          k = I == null ? void 0 : I.link;
+              : S.message,
+          I = r("AdsAdgroupEditorStore").getCachedLink(s.id);
+        if (u != null && I == null) {
+          var T = r("AdsPageStore").getLoadObject(u).getValue();
+          I = T == null ? void 0 : T.link;
         }
         return o("AdsMutators").chain(
           r("AdsAdgroupRecordAccessors").creative.link_og_id.delete,
@@ -396,24 +400,24 @@ __d(
           r("AdsAdgroupRecordAccessors").creative.video_id.delete,
           r(
             "AdsAdgroupRecordAccessors",
-          ).creative.object_story_spec.link_data.message.set(E),
+          ).creative.object_story_spec.link_data.message.set(k),
           r(
             "AdsAdgroupRecordAccessors",
-          ).creative.object_story_spec.link_data.name.set(L),
+          ).creative.object_story_spec.link_data.name.set(E),
           r(
             "AdsAdgroupRecordAccessors",
-          ).creative.object_story_spec.link_data.image_hash.set(R),
+          ).creative.object_story_spec.link_data.image_hash.set(L),
           r(
             "AdsAdgroupRecordAccessors",
-          ).creative.object_story_spec.link_data.image_crops.set(S),
+          ).creative.object_story_spec.link_data.image_crops.set(R),
           r(
             "AdsAdgroupRecordAccessors",
-          ).creative.object_story_spec.link_data.link.set(k),
+          ).creative.object_story_spec.link_data.link.set(I),
           r("AdsAdgroupRecordAccessors").creative.object_story_spec.video_data
             .delete,
-        )(n);
+        )(s);
       } else
-        return (r("FBLogger")("ads").mustfix("Invalid media format: %s", t), n);
+        return (r("FBLogger")("ads").mustfix("Invalid media format: %s", t), s);
     }
     l.setMediaFormat = s;
   },

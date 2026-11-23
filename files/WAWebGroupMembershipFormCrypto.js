@@ -6,7 +6,6 @@ __d(
     "WAWebGroupMembershipFormGating",
     "WAWebGroupMembershipFormGemPlaceholders",
     "WAWebGroupMembershipFormPlainAnswersEncoder",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = o(
@@ -16,17 +15,11 @@ __d(
           .gemGroupMembershipFormAnswersDecoder,
       ),
       s = {
-        decode: (function () {
-          var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-            return o(
-              "WAWebGroupMembershipFormDevStore",
-            ).getDevMembershipFormDecodeResult();
-          });
-          function t() {
-            return e.apply(this, arguments);
-          }
-          return t;
-        })(),
+        decode: async function () {
+          return o(
+            "WAWebGroupMembershipFormDevStore",
+          ).getDevMembershipFormDecodeResult();
+        },
       };
     function u() {
       return o(

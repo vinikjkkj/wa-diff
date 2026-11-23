@@ -366,11 +366,7 @@ __d(
             o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP &&
           !this.canSetDescription() &&
           (this.desc == null || this.desc === "")
-            ? (this.displayedDesc = s
-                ._(
-                  /*BTDS*/ "Get the latest announcements from the admins of this community.",
-                )
-                .toString())
+            ? (this.displayedDesc = s._(/*BTDS*/ "").toString())
             : (this.displayedDesc = this.desc);
         }),
         (n.$GroupMetadata$p_4 = function () {

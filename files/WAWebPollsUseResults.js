@@ -13,7 +13,6 @@ __d(
     "WAWebUserUtils",
     "nullthrows",
     "react",
-    "react-compiler-runtime",
     "sumBy",
     "useWAWebEventTargetValue",
     "useWAWebMsgValues",
@@ -24,98 +23,59 @@ __d(
       u = s.useEffect,
       c = s.useMemo;
     function d(e) {
-      var t = o("react-compiler-runtime").c(18),
-        n;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((n = [o("WAWebMsgGetters").getPollOptions]), (t[0] = n))
-        : (n = t[0]);
-      var a = o("useWAWebMsgValues").useMsgValues(
+      var t = o("useWAWebMsgValues").useMsgValues(
           e,
           r("WAWebCastToPollCreationMsg"),
-          n,
+          [o("WAWebMsgGetters").getPollOptions],
         ),
-        i = a[0],
-        l;
-      t[1] !== i
-        ? ((l = r("nullthrows")(
-            i,
-            "Poll creation message is missing poll options",
-          )),
-          (t[1] = i),
-          (t[2] = l))
-        : (l = t[2]);
-      var s = l,
-        c;
-      t[3] !== e
-        ? ((c = o(
-            "WAWebPollsPollVoteCollection",
-          ).PollVoteCollection.getForParentAddressingModeInsensitive([e])),
-          (t[3] = e),
-          (t[4] = c))
-        : (c = t[4]);
-      var d = c,
-        f = d[0],
-        g;
-      t[5] === Symbol.for("react.memo_cache_sentinel")
-        ? ((g = ["add", "remove", "reset"]), (t[5] = g))
-        : (g = t[5]);
-      var h;
-      t[6] !== f
-        ? ((h = function () {
-            return f.toArray();
-          }),
-          (t[6] = f),
-          (t[7] = h))
-        : (h = t[7]);
-      var y = r("useWAWebEventTargetValue")(f, g, h),
-        C = o("WAWebMarkAddOnsAsReadAction").useMarkAddOnsAsRead(),
-        b,
-        v;
-      (t[8] !== e
-        ? ((b = function () {
+        n = t[0],
+        a = r("nullthrows")(n, "Poll creation message is missing poll options"),
+        i = o(
+          "WAWebPollsPollVoteCollection",
+        ).PollVoteCollection.getForParentAddressingModeInsensitive([e]),
+        l = i[0],
+        s = r("useWAWebEventTargetValue")(
+          l,
+          ["add", "remove", "reset"],
+          function () {
+            return l.toArray();
+          },
+        ),
+        d = o("WAWebMarkAddOnsAsReadAction").useMarkAddOnsAsRead();
+      return (
+        u(
+          function () {
             o("WAWebAddonHydrationUtils").hydrateAddons({
               ids: [e],
               hydrationType: o("WAWebMsgType").MSG_TYPE.POLL_UPDATE,
             });
-          }),
-          (v = [e]),
-          (t[8] = e),
-          (t[9] = b),
-          (t[10] = v))
-        : ((b = t[9]), (v = t[10])),
-        u(b, v));
-      var S, R;
-      (t[11] !== C || t[12] !== y
-        ? ((S = function () {
-            var e = y.filter(p);
+          },
+          [e],
+        ),
+        u(
+          function () {
+            var e = s.filter(function (e) {
+              return !e.read;
+            });
             e.length !== 0 &&
-              C({
+              d({
                 addOnType: o("WAWebMessageAddOnType").MessageAddOnType.PollVote,
-                addOns: e.map(m),
+                addOns: e.map(function (e) {
+                  return { msgKey: e.msgKey, sender: e.sender.toString() };
+                }),
               });
-          }),
-          (R = [y, C]),
-          (t[11] = C),
-          (t[12] = y),
-          (t[13] = S),
-          (t[14] = R))
-        : ((S = t[13]), (R = t[14])),
-        u(S, R));
-      var L;
-      return (
-        t[15] !== s || t[16] !== y
-          ? ((L = _(y, s)), (t[15] = s), (t[16] = y), (t[17] = L))
-          : (L = t[17]),
-        L
+          },
+          [s, d],
+        ),
+        c(
+          function () {
+            return m(s, a);
+          },
+          [s, a],
+        )
       );
     }
-    function m(e) {
-      return { msgKey: e.msgKey, sender: e.sender.toString() };
-    }
-    function p(e) {
-      return !e.read;
-    }
-    function _(e, t) {
+    function m(e, t) {
       var n = new Map(),
         a = new Map(
           t.map(function (e) {
@@ -165,7 +125,7 @@ __d(
           (_.count = _.votes.length));
       return n;
     }
-    function f(e) {
+    function p(e) {
       return Array.from(e.entries())
         .map(function (e) {
           var t = e[0],
@@ -182,7 +142,7 @@ __d(
         })
         .join(", ");
     }
-    ((l.useResults = d), (l.aggregateVotes = _), (l.getOptionWithCount = f));
+    ((l.useResults = d), (l.aggregateVotes = m), (l.getOptionWithCount = p));
   },
   98,
 );

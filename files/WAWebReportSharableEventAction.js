@@ -15,7 +15,6 @@ __d(
     "WDSDialogBridge",
     "WDSText.react",
     "WDSTextualLink.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -26,7 +25,7 @@ __d(
         "WAWebSharableEventInviteeUserJourneyLogger",
       ).logSharableEventInviteeReportTapped(e);
       var a = {
-          label: s._(/*BTDS*/ "Report event"),
+          label: s._(/*BTDS*/ ""),
           onPress: function () {
             (o("WDSDialogBridge").closeWDSDialog(), d(e));
           },
@@ -43,17 +42,15 @@ __d(
       o("WDSDialogBridge").openWDSDialog(
         u.jsx(r("WDSDialog.react"), {
           closeButton: !1,
-          description: s._(
-            /*BTDS*/ "This event will be sent to WhatsApp. No one in this event will be notified.",
-          ),
+          description: s._(/*BTDS*/ ""),
           footer: t
             ? u.jsx(r("WDSButtonGroup.react"), {
                 orientation: "stacked",
                 primaryButtonProps: a,
                 secondaryButtonProps: {
-                  label: s._(/*BTDS*/ "Report and leave"),
+                  label: s._(/*BTDS*/ ""),
                   onPress: function () {
-                    (o("WDSDialogBridge").closeWDSDialog(), p(e, n));
+                    (o("WDSDialogBridge").closeWDSDialog(), m(e, n));
                   },
                   testid: "sharable-event-report-dialog-report-and-leave",
                   type: "destructive",
@@ -79,90 +76,58 @@ __d(
             ? u.jsx(r("WDSText.react"), {
                 colorName: "contentDeemphasized",
                 type: "Body2",
-                children: s._(
-                  /*BTDS*/ "If you leave this event, the event will be deleted from this device but you\u2019ll still see the invitation in chats. {=m2}",
-                  [
-                    s._implicitParam(
-                      "=m2",
-                      u.jsx(r("WDSTextualLink.react"), {
-                        href: o("WAWebFaqUrl").getEventsHowToReportFaqUrl(),
-                        testid: "sharable-event-report-dialog-learn-more",
-                        textConfig: "Body2",
-                        children: s._(/*BTDS*/ "Learn more"),
-                      }),
-                    ),
-                  ],
-                ),
+                children: s._(/*BTDS*/ "", [
+                  s._implicitParam(
+                    "=m2",
+                    u.jsx(r("WDSTextualLink.react"), {
+                      href: o("WAWebFaqUrl").getEventsHowToReportFaqUrl(),
+                      testid: "sharable-event-report-dialog-learn-more",
+                      textConfig: "Body2",
+                      children: s._(/*BTDS*/ ""),
+                    }),
+                  ),
+                ]),
               })
             : null,
         }),
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      (await p(e)) &&
+        o("WAWebToastManager").ToastManager.open(
+          u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+        );
     }
-    function m() {
+    async function m(e, t) {
+      (await p(e)) &&
+        (await o("WAWebLeaveSharableEventAction").leaveSharableEventAfterReport(
+          e,
+          t,
+        ));
+    }
+    async function p(e) {
+      try {
+        await o("WAWebSharableEventReportJob").reportSharableEvent(e);
+      } catch (t) {
+        return (
+          o("WAWebSharableEventFailureLogger").logSharableEventFailure(
+            "report",
+            t,
+          ),
+          o(
+            "WAWebSharableEventInviteeUserJourneyLogger",
+          ).logSharableEventInviteeReportFailed(e, t),
+          o("WAWebToastManager").ToastManager.open(
+            u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+          ),
+          !1
+        );
+      }
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          (yield f(e)) &&
-            o("WAWebToastManager").ToastManager.open(
-              u.jsx(o("WAWebToast.react").Toast, {
-                msg: s._(/*BTDS*/ "Event reported"),
-              }),
-            );
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (yield f(e)) &&
-            (yield o(
-              "WAWebLeaveSharableEventAction",
-            ).leaveSharableEventAfterReport(e, t));
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
-      return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            yield o("WAWebSharableEventReportJob").reportSharableEvent(e);
-          } catch (t) {
-            return (
-              o("WAWebSharableEventFailureLogger").logSharableEventFailure(
-                "report",
-                t,
-              ),
-              o(
-                "WAWebSharableEventInviteeUserJourneyLogger",
-              ).logSharableEventInviteeReportFailed(e, t),
-              o("WAWebToastManager").ToastManager.open(
-                u.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(
-                    /*BTDS*/ "Something went wrong. Please try again later.",
-                  ),
-                }),
-              ),
-              !1
-            );
-          }
-          return (
-            o(
-              "WAWebSharableEventInviteeUserJourneyLogger",
-            ).logSharableEventInviteeReportCompleted(e),
-            !0
-          );
-        })),
-        g.apply(this, arguments)
+        o(
+          "WAWebSharableEventInviteeUserJourneyLogger",
+        ).logSharableEventInviteeReportCompleted(e),
+        !0
       );
     }
     l.confirmReportSharableEvent = c;

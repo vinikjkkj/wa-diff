@@ -9,7 +9,6 @@ __d(
     "WAWebLexicalTypeAheadRow.react",
     "WAWebRecentEmojiCollection",
     "react",
-    "react-compiler-runtime",
     "stylex",
     "useWAWebLexicalTypeAhead",
   ],
@@ -57,130 +56,76 @@ __d(
         : null;
     }
     function b() {
-      var t = o("react-compiler-runtime").c(17),
-        n = o("LexicalComposerContext").useLexicalComposerContext(),
-        a = n[0],
-        i;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((i = { minQueryLength: p, maxQueryLength: _, boundary: !0 }),
-          (t[0] = i))
-        : (i = t[0]);
-      var l = o("useWAWebLexicalTypeAhead").useTypeAhead(a, m, i),
-        s = l.leadOffset,
-        c = l.omitQuery,
-        g = l.query,
-        b = l.replaceQuery,
-        v;
-      e: {
-        if (g == null) {
-          var S;
-          (t[1] === Symbol.for("react.memo_cache_sentinel")
-            ? ((S = []), (t[1] = S))
-            : (S = t[1]),
-            (v = S));
-          break e;
-        }
-        var R;
-        (t[2] !== g
-          ? ((R = o("WAWebEmojiKeywordToUnicode").emojiKeywordToUnicodeSearch(
-              g,
-            )),
-            (t[2] = g),
-            (t[3] = R))
-          : (R = t[3]),
-          (v = R));
-      }
-      var L = v,
-        E;
-      t[4] !== b
-        ? ((E = function (t) {
-            (o("WAWebRecentEmojiCollection").RecentEmojiCollection.increment(t),
-              b(t));
-          }),
-          (t[4] = b),
-          (t[5] = E))
-        : (E = t[5]);
-      var k = E,
-        I;
-      t[6] !== c
-        ? ((I = function () {
-            c();
-          }),
-          (t[6] = c),
-          (t[7] = I))
-        : (I = t[7]);
-      var T = I,
-        D;
-      if (t[8] !== L || t[9] !== k) {
-        var x;
-        (t[11] !== k
-          ? ((x = function (n, o) {
-              return {
-                renderFn: function (a) {
-                  var t = C(n),
-                    i = [d.marginInline5, d.padding5];
-                  return (
-                    a && i.push(y.focused),
-                    u.jsx(
-                      "div",
-                      babelHelpers.extends(
-                        {},
-                        (e || (e = r("stylex"))).props(i),
-                        {
-                          children: u.jsx(
-                            r("WAWebEmoji.react"),
-                            {
-                              element: "span",
-                              emoji: t != null ? t : n,
-                              size: "large",
-                              "data-unicode": n,
-                              "data-variant": t,
-                              tabIndex: -1,
-                              "data-emoji-index": o,
-                            },
-                            n,
-                          ),
-                        },
-                      ),
-                    )
-                  );
-                },
-                onSelect: function () {
-                  var e = C(n);
-                  return k(e != null ? e : n);
-                },
-                skipKeyboardNav: !1,
-                ariaLabel: n,
-              };
-            }),
-            (t[11] = k),
-            (t[12] = x))
-          : (x = t[12]),
-          (D = L.map(x)),
-          (t[8] = L),
-          (t[9] = k),
-          (t[10] = D));
-      } else D = t[10];
-      var $ = D,
-        P;
-      return (
-        t[13] !== T || t[14] !== $ || t[15] !== s
-          ? ((P = u.jsx(r("WAWebLexicalTypeAheadRow.react"), {
-              items: $,
-              itemWidth: h,
-              itemHeight: f,
-              leadOffset: s,
-              onCancel: T,
-            })),
-            (t[13] = T),
-            (t[14] = $),
-            (t[15] = s),
-            (t[16] = P))
-          : (P = t[16]),
-        P
-      );
+      var t = o("LexicalComposerContext").useLexicalComposerContext(),
+        n = t[0],
+        a = o("useWAWebLexicalTypeAhead").useTypeAhead(n, m, {
+          minQueryLength: p,
+          maxQueryLength: _,
+          boundary: !0,
+        }),
+        i = a.leadOffset,
+        l = a.omitQuery,
+        s = a.query,
+        g = a.replaceQuery,
+        b = c(
+          function () {
+            return s == null
+              ? []
+              : o("WAWebEmojiKeywordToUnicode").emojiKeywordToUnicodeSearch(s);
+          },
+          [s],
+        ),
+        v = function (t) {
+          (o("WAWebRecentEmojiCollection").RecentEmojiCollection.increment(t),
+            g(t));
+        },
+        S = function () {
+          l();
+        },
+        R = b.map(function (t, n) {
+          return {
+            renderFn: function (a) {
+              var o = C(t),
+                i = [d.marginInline5, d.padding5];
+              return (
+                a && i.push(y.focused),
+                u.jsx(
+                  "div",
+                  babelHelpers.extends({}, (e || (e = r("stylex"))).props(i), {
+                    children: u.jsx(
+                      r("WAWebEmoji.react"),
+                      {
+                        element: "span",
+                        emoji: o != null ? o : t,
+                        size: "large",
+                        "data-unicode": t,
+                        "data-variant": o,
+                        tabIndex: -1,
+                        "data-emoji-index": n,
+                      },
+                      t,
+                    ),
+                  }),
+                )
+              );
+            },
+            onSelect: function () {
+              var e = C(t);
+              return v(e != null ? e : t);
+            },
+            skipKeyboardNav: !1,
+            ariaLabel: t,
+          };
+        });
+      return u.jsx(r("WAWebLexicalTypeAheadRow.react"), {
+        items: R,
+        itemWidth: h,
+        itemHeight: f,
+        leadOffset: i,
+        onCancel: S,
+      });
     }
-    l.default = b;
+    ((b.displayName = b.name + " [from " + i.id + "]"), (l.default = b));
   },
   98,
 );

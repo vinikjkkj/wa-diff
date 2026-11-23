@@ -5,50 +5,41 @@ __d(
     "WAWebBizAISettingsCategoryRegistry",
     "WAWebBizAISettingsVersionModel",
     "WAWebStaleBaseCollection",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s,
       u = (function (t) {
-        function r() {
-          for (var e, r = arguments.length, a = new Array(r), i = 0; i < r; i++)
-            a[i] = arguments[i];
+        function n() {
+          for (var e, n = arguments.length, r = new Array(n), a = 0; a < n; a++)
+            r[a] = arguments[a];
           return (
-            (e = t.call.apply(t, [this].concat(a)) || this),
-            (e.findImpl = (function () {
-              var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (t) {
-                  var n,
-                    r,
-                    a = o(
-                      "WAWebBizAISettingsCategoryRegistry",
-                    ).getCategoryHandler(t);
-                  if (a == null) return null;
-                  yield a.fetch();
-                  var i = e.get(t);
-                  return {
-                    id: t,
-                    version:
-                      (n = i == null ? void 0 : i.version) != null ? n : 0,
-                    updatedAtMs:
-                      (r = i == null ? void 0 : i.updatedAtMs) != null ? r : 0,
-                  };
-                },
-              );
-              return function (e) {
-                return t.apply(this, arguments);
+            (e = t.call.apply(t, [this].concat(r)) || this),
+            (e.findImpl = async function (t) {
+              var n,
+                r,
+                a = o("WAWebBizAISettingsCategoryRegistry").getCategoryHandler(
+                  t,
+                );
+              if (a == null) return null;
+              await a.fetch();
+              var i = e.get(t);
+              return {
+                id: t,
+                version: (n = i == null ? void 0 : i.version) != null ? n : 0,
+                updatedAtMs:
+                  (r = i == null ? void 0 : i.updatedAtMs) != null ? r : 0,
               };
-            })()),
+            }),
             babelHelpers.assertThisInitialized(e) ||
               babelHelpers.assertThisInitialized(e)
           );
         }
-        babelHelpers.inheritsLoose(r, t);
-        var a = r.prototype;
+        babelHelpers.inheritsLoose(n, t);
+        var r = n.prototype;
         return (
-          (a.handleNudge = function (n, r, a) {
+          (r.handleNudge = function (n, r, a) {
             var t,
               i,
               l = String(n),
@@ -93,17 +84,17 @@ __d(
             var m = this.gadd({ id: l, version: r, updatedAtMs: a });
             m.markStale();
           }),
-          (a.incrementVersion = function (t, n) {
+          (r.incrementVersion = function (t, n) {
             var e,
               r = String(t),
               o = this.get(r),
               a = ((e = o == null ? void 0 : o.version) != null ? e : 0) + 1;
             return (this.gadd({ id: r, version: a, updatedAtMs: n }), a);
           }),
-          (a.getByCategory = function (t) {
+          (r.getByCategory = function (t) {
             return this.get(String(t));
           }),
-          r
+          n
         );
       })(o("WAWebStaleBaseCollection").StaleBaseCollection);
     u.model = o("WAWebBizAISettingsVersionModel").BizAISettingsVersionModel;

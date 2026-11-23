@@ -6,7 +6,6 @@ __d(
     "WALogger",
     "WAWebMexClient",
     "WAWebMexGetWoasAgeSignalQuery.graphql",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -16,56 +15,48 @@ __d(
       u,
       c = e !== void 0 ? e : (e = n("WAWebMexGetWoasAgeSignalQuery.graphql")),
       d = "o18";
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t, n;
-          try {
-            n = yield o("WAWebMexClient").fetchQuery(c, {
-              input: { query_input: [{ jid: e.toJid() }] },
-            });
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[age-gating] WOAS fetch failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("subscription-age-gating-woas-fetch-failed", {
-                  sampling: 0.01,
-                }),
-              null
-            );
+    async function m(e) {
+      var t, n;
+      try {
+        n = await o("WAWebMexClient").fetchQuery(c, {
+          input: { query_input: [{ jid: e.toJid() }] },
+        });
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[age-gating] WOAS fetch failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("subscription-age-gating-woas-fetch-failed", {
+              sampling: 0.01,
+            }),
+          null
+        );
+      }
+      var a =
+        (t = n) == null ||
+        (t = t.xwa2_fetch_wa_users) == null ||
+        (t = t[0]) == null ||
+        (t = t.age_collection_info) == null
+          ? void 0
+          : t.assets;
+      if (a == null) return null;
+      for (var i of a)
+        if (!(i == null || i.name !== "WOAS")) {
+          var l = i.ttl_sec,
+            u = i.value;
+          if (!(u == null || u === "" || l == null || l <= 0)) {
+            var d = p(u);
+            if (!(d == null || d === "")) return { ttlSec: l, value: d };
           }
-          var a =
-            (t = n) == null ||
-            (t = t.xwa2_fetch_wa_users) == null ||
-            (t = t[0]) == null ||
-            (t = t.age_collection_info) == null
-              ? void 0
-              : t.assets;
-          if (a == null) return null;
-          for (var i of a)
-            if (!(i == null || i.name !== "WOAS")) {
-              var l = i.ttl_sec,
-                s = i.value;
-              if (!(s == null || s === "" || l == null || l <= 0)) {
-                var d = _(s);
-                if (!(d == null || d === "")) return { ttlSec: l, value: d };
-              }
-            }
-          return null;
-        })),
-        p.apply(this, arguments)
-      );
+        }
+      return null;
     }
-    function _(e) {
+    function p(e) {
       try {
         return new TextDecoder().decode(
           new Uint8Array(
@@ -78,8 +69,8 @@ __d(
         return (
           o("WALogger")
             .WARN(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
                   "[age-gating] WOAS asset value was not decodable",
                 ])),
             )

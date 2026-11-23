@@ -57,12 +57,8 @@ __d(
       a.pendingPic = i;
       var _ = o("WAWebUserUtils").isMeAccount(d),
         g = _
-          ? new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Setting profile picture"),
-            )
-          : new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Setting group icon"),
-            ),
+          ? new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""))
+          : new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")),
         h = p
           .catch(function (t) {
             throw (
@@ -73,12 +69,8 @@ __d(
                   ])),
               ),
               _
-                ? new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't set profile picture."),
-                  )
-                : new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't set group icon."),
-                  )
+                ? new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""))
+                : new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""))
             );
           })
           .catch(
@@ -86,11 +78,9 @@ __d(
               o("WAWebBackendErrors").ServerStatusCodeError,
               function (e) {
                 if (e.status >= 400) {
-                  var t = _
-                    ? s._(/*BTDS*/ "Couldn't set profile picture.")
-                    : s._(/*BTDS*/ "Couldn't set group icon.");
+                  var t = _ ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
                   return new (o("WAWebActionToast.react").ActionType)(t, {
-                    actionText: s._(/*BTDS*/ "Try again."),
+                    actionText: s._(/*BTDS*/ ""),
                     actionHandler: function () {
                       return f({
                         full: r,
@@ -106,12 +96,8 @@ __d(
           )
           .then(function () {
             return _
-              ? new (o("WAWebActionToast.react").ActionType)(
-                  s._(/*BTDS*/ "Profile picture set"),
-                )
-              : new (o("WAWebActionToast.react").ActionType)(
-                  s._(/*BTDS*/ "Group icon set"),
-                );
+              ? new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""))
+              : new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""));
           });
       return (
         o("WAWebToastManager").ToastManager.open(
@@ -149,12 +135,8 @@ __d(
       t.pendingPic = o("WAWebProfilePicThumbGetters").getFallbackType(t);
       var d = o("WAWebUserUtils").isMeAccount(i),
         p = d
-          ? new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Removing profile picture"),
-            )
-          : new (o("WAWebActionToast.react").ActionType)(
-              s._(/*BTDS*/ "Removing group icon"),
-            ),
+          ? new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""))
+          : new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ "")),
         _ = l
           .catch(function (e) {
             throw (
@@ -165,12 +147,8 @@ __d(
                   ])),
               ),
               d
-                ? new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't remove profile picture."),
-                  )
-                : new (o("WAWebActionToast.react").ActionType)(
-                    s._(/*BTDS*/ "Couldn't remove group icon."),
-                  )
+                ? new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""))
+                : new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""))
             );
           })
           .catch(
@@ -178,11 +156,9 @@ __d(
               o("WAWebBackendErrors").ServerStatusCodeError,
               function (e) {
                 if (e.status >= 400) {
-                  var n = d
-                    ? s._(/*BTDS*/ "Couldn't remove profile picture.")
-                    : s._(/*BTDS*/ "Couldn't remove group icon.");
+                  var n = d ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
                   return new (o("WAWebActionToast.react").ActionType)(n, {
-                    actionText: s._(/*BTDS*/ "Try again."),
+                    actionText: s._(/*BTDS*/ ""),
                     actionHandler: function () {
                       return g({ profilePicThumb: t, toastId: a });
                     },
@@ -193,12 +169,8 @@ __d(
           )
           .then(function () {
             return d
-              ? new (o("WAWebActionToast.react").ActionType)(
-                  s._(/*BTDS*/ "Profile picture removed"),
-                )
-              : new (o("WAWebActionToast.react").ActionType)(
-                  s._(/*BTDS*/ "Group icon removed"),
-                );
+              ? new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""))
+              : new (o("WAWebActionToast.react").ActionType)(s._(/*BTDS*/ ""));
           });
       return (
         o("WAWebToastManager").ToastManager.open(

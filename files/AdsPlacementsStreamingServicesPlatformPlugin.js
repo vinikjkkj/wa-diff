@@ -1,32 +1,43 @@
 __d(
   "AdsPlacementsStreamingServicesPlatformPlugin",
   [
+    "fbt",
     "AdsAPITargetFields",
+    "AdsCTVUtils",
     "AdsCampaignPlacementAddDataActionFlux",
     "AdsMutators",
     "AdsPlacementAPISpecWriterUtils",
     "AdsPlacementPlatformLabelConstant",
+    "AdsPlacementsCtvInstreamVideoPositionPlugin",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
     "AdsUEditorCampaignPlacementSetActionFlux",
     "gkx",
     "immutable",
+    "meta-brand-tv-outline-16",
+    "meta-brand-tv-outline-20",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e = {
         type: "placements/platform",
         key: "streaming_services",
         apiPublisherPlatform: "streaming_services",
         apiPositionsTargetField: function () {
-          return null;
+          return r("AdsAPITargetFields").STREAMING_SERVICES_POSITIONS;
         },
-        name: r("AdsPlacementPlatformLabelConstant")[
-          r("AdsAPITargetFields").STREAMING_SERVICES_POSITIONS
-        ],
+        name: o("AdsCTVUtils").isCTVBetaEnabled()
+          ? s._(/*BTDS*/ "")
+          : r("AdsPlacementPlatformLabelConstant")[
+              r("AdsAPITargetFields").STREAMING_SERVICES_POSITIONS
+            ],
+        glyph: o("meta-brand-tv-outline-20").metaBrandTvOutline20,
+        fbicon: o("meta-brand-tv-outline-16").metaBrandTvOutline16,
         isEnabled: function (t) {
-          return r("gkx")("10128");
+          return r("gkx")("23904");
         },
-        positions: r("immutable").OrderedSet(),
+        positions: r("immutable").OrderedSet([
+          r("AdsPlacementsCtvInstreamVideoPositionPlugin"),
+        ]),
         adsetReducer: function (t, n) {
           var e,
             r = n.action;
@@ -70,8 +81,8 @@ __d(
           return t;
         },
       },
-      s = e;
-    l.default = s;
+      u = e;
+    l.default = u;
   },
-  98,
+  226,
 );

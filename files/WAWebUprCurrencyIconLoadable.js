@@ -5,24 +5,20 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WDSIconIcPayments.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebUprCurrencyIcon.react",
-          )
-            .__setRef("WAWebUprCurrencyIconLoadable")
-            .load();
-          return e;
-        }),
-        "WAWebUprCurrencyIcon",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebUprCurrencyIcon.react",
+        )
+          .__setRef("WAWebUprCurrencyIconLoadable")
+          .load();
+        return e;
+      }, "WAWebUprCurrencyIcon"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function () {

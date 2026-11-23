@@ -56,9 +56,7 @@ __d(
                   new (r("AdsError"))(
                     2490517,
                     u._(function (e, t) {
-                      return e._(
-                        /*BTDS*/ "To use Facebook Notification, please also select Facebook Feed as a placement.",
-                      );
+                      return e._(/*BTDS*/ "");
                     }, {}),
                     {
                       level: r("AdsError").Level.WARN,

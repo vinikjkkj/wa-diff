@@ -8,7 +8,6 @@ __d(
     "AdsMutators",
     "AdsPlacementAPISpecWriterUtils",
     "AdsPlacementPlatformLabelConstant",
-    "AdsPlacementsMessengerInboxPositionPlugin",
     "AdsPlacementsMessengerMarketingMessagePositionPlugin",
     "AdsPlacementsMessengerStoryPositionPlugin",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
@@ -45,7 +44,6 @@ __d(
           return !0;
         },
         positions: r("immutable").OrderedSet([
-          r("AdsPlacementsMessengerInboxPositionPlugin"),
           r("AdsPlacementsMessengerStoryPositionPlugin"),
           r("AdsPlacementsMessengerMarketingMessagePositionPlugin"),
         ]),

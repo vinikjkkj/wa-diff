@@ -35,6 +35,15 @@ __d(
       }
       return !1;
     }
+    function a(e, t, n) {
+      var o = require("Lexical").getActiveElementDeep(e);
+      for (var _i of t) {
+        _i.focus();
+        var _t = require("Lexical").getActiveElementDeep(e);
+        if (_t !== o || (n && null !== _t && s(_i, _t))) return !0;
+      }
+      return !1;
+    }
     function u(e, t) {
       var _t$initialFocus;
       if (t === void 0) {
@@ -46,47 +55,44 @@ __d(
             : "firstFocusable",
         o = e.ownerDocument,
         u = require("Lexical").getActiveElementDeep(o),
-        a = require("Lexical").isHTMLElement(u) ? u : null,
-        l = i(e);
+        l = require("Lexical").isHTMLElement(u) ? u : null;
       return (
-        "container" === n && e.hasAttribute("tabindex")
-          ? e.focus()
-          : l.length > 0
-            ? l[0].focus()
-            : e.hasAttribute("tabindex") && e.focus(),
+        (("container" === n && e.hasAttribute("tabindex")) ||
+          (!a(o, i(e), !0) && e.hasAttribute("tabindex"))) &&
+          e.focus(),
         require("Lexical").mergeRegister(
           function () {
-            null !== a && "function" == typeof a.focus && s(o, a) && a.focus();
+            null !== l && "function" == typeof l.focus && s(o, l) && l.focus();
           },
           require("Lexical").registerEventListener(e, "keydown", function (t) {
             if ("Tab" !== t.key) return;
-            var n = i(e);
-            if (0 === n.length) return void t.preventDefault();
             t.preventDefault();
-            var u = n[0],
-              a = n[n.length - 1],
-              l = require("Lexical").getActiveElementDeep(o),
+            var n = i(e),
+              u = require("Lexical").getActiveElementDeep(o),
+              l =
+                require("Lexical").isHTMLElement(u) && s(e, u)
+                  ? n.indexOf(u)
+                  : -1,
               c =
-                require("Lexical").isHTMLElement(l) && s(e, l)
-                  ? n.indexOf(l)
-                  : -1;
-            t.shiftKey
-              ? (c <= 0 ? a : n[c - 1]).focus()
-              : (-1 === c || c === n.length - 1 ? u : n[c + 1]).focus();
+                -1 === l
+                  ? n
+                  : [].concat(
+                      Array.from(n.slice(l + 1)),
+                      Array.from(n.slice(0, l)),
+                    );
+            a(o, t.shiftKey ? c.reverse() : c, !1);
           }),
           require("Lexical").registerEventListener(o, "focusin", function (n) {
-            var o = require("Lexical").getComposedEventTarget(n);
-            if (!require("Lexical").isHTMLElement(o) || s(e, o)) return;
-            if (null != t.allowOutside && t.allowOutside(o)) return;
-            var u = i(e);
-            u.length > 0
-              ? u[0].focus()
-              : e.hasAttribute("tabindex") && e.focus();
+            var u = require("Lexical").getComposedEventTarget(n);
+            require("Lexical").isHTMLElement(u) &&
+              !s(e, u) &&
+              ((null != t.allowOutside && t.allowOutside(u)) ||
+                (!a(o, i(e), !0) && e.hasAttribute("tabindex") && e.focus()));
           }),
         )
       );
     }
-    function a(e, t) {
+    function l(e, t) {
       var _t$orientation, _t$itemSelector;
       if (t === void 0) {
         t = {};
@@ -121,11 +127,11 @@ __d(
           require("Lexical").registerEventListener(e, "keydown", function (t) {
             var o = i();
             if (0 === o.length) return;
-            var u = require("Lexical").getActiveElementDeep(e.ownerDocument),
-              a = o.findIndex(function (e) {
-                return e === u;
+            var a = require("Lexical").getActiveElementDeep(e.ownerDocument),
+              u = o.findIndex(function (e) {
+                return e === a;
               });
-            if (a < 0)
+            if (u < 0)
               return void (
                 ("ArrowRight" !== t.key &&
                   "ArrowDown" !== t.key &&
@@ -137,23 +143,23 @@ __d(
               );
             var l = "horizontal" === n || "both" === n,
               c = "vertical" === n || "both" === n;
-            var d = a;
+            var d = u;
             switch (t.key) {
               case "ArrowRight":
                 if (!l) return;
-                d = a + 1;
+                d = u + 1;
                 break;
               case "ArrowLeft":
                 if (!l) return;
-                d = a - 1;
+                d = u - 1;
                 break;
               case "ArrowDown":
                 if (!c) return;
-                d = a + 1;
+                d = u + 1;
                 break;
               case "ArrowUp":
                 if (!c) return;
-                d = a - 1;
+                d = u - 1;
                 break;
               case "Home":
                 d = 0;
@@ -177,7 +183,7 @@ __d(
         )
       );
     }
-    var l = {
+    var c = {
         build: function build(e, n, r) {
           var o = r.getInitResult();
           return babelHelpers["extends"](
@@ -202,8 +208,8 @@ __d(
           var _require_LexicalExtensionSignals;
           var s = i.getInitResult(),
             _i$getOutput = i.getOutput(),
-            u = _i$getOutput.owner,
-            a = _i$getOutput.politeness,
+            a = _i$getOutput.owner,
+            u = _i$getOutput.politeness,
             l = i.getDependency(
               require("LexicalExtensionRootElementExtension")
                 .RootElementExtension,
@@ -214,7 +220,7 @@ __d(
               );
           return require("Lexical").mergeRegister(
             _require_LexicalExtensionSignals.effect(function () {
-              var e = u.value,
+              var e = a.value,
                 t = e ? null : l.value,
                 n = e != null ? e : t ? t.ownerDocument.body : null;
               if (!n) return;
@@ -248,7 +254,7 @@ __d(
             }),
             _require_LexicalExtensionSignals.effect(function () {
               var e = c.value;
-              e && e.setAttribute("aria-live", a.value);
+              e && e.setAttribute("aria-live", u.value);
             }),
             _require_LexicalExtensionSignals.effect(function () {
               var e = s.value,
@@ -258,19 +264,19 @@ __d(
           );
         },
       },
-      c = {
+      d = {
         build: function build(e, n) {
           return require("LexicalExtensionNamedSignals").namedSignals(n);
         },
         config: { disabled: !1, redone: "Redone", undone: "Undone" },
-        dependencies: [l],
+        dependencies: [c],
         name: "@lexical/a11y/HistoryAnnounce",
         register: function register(t, n, o) {
           var _o$getOutput = o.getOutput(),
             i = _o$getOutput.disabled,
             s = _o$getOutput.redone,
-            u = _o$getOutput.undone,
-            a = o.getDependency(l).output.announce;
+            a = _o$getOutput.undone,
+            u = o.getDependency(c).output.announce;
           return require("LexicalExtensionSignals").effect(function () {
             return i.value
               ? void 0
@@ -278,14 +284,14 @@ __d(
                   t.registerCommand(
                     require("Lexical").UNDO_COMMAND,
                     function () {
-                      return (a(u.peek()), !1);
+                      return (u(a.peek()), !1);
                     },
                     require("Lexical").COMMAND_PRIORITY_LOW,
                   ),
                   t.registerCommand(
                     require("Lexical").REDO_COMMAND,
                     function () {
-                      return (a(s.peek()), !1);
+                      return (u(s.peek()), !1);
                     },
                     require("Lexical").COMMAND_PRIORITY_LOW,
                   ),
@@ -293,7 +299,7 @@ __d(
           });
         },
       },
-      d = {
+      f = {
         build: function build(e, n) {
           return require("LexicalExtensionNamedSignals").namedSignals(n);
         },
@@ -302,24 +308,24 @@ __d(
           editable: "Editor is editable",
           readOnly: "Editor is read-only",
         },
-        dependencies: [l],
+        dependencies: [c],
         name: "@lexical/a11y/EditorModeAnnounce",
         register: function register(t, n, r) {
           var _r$getOutput = r.getOutput(),
             o = _r$getOutput.disabled,
             i = _r$getOutput.editable,
             s = _r$getOutput.readOnly,
-            u = r.getDependency(l).output.announce;
+            a = r.getDependency(c).output.announce;
           return require("LexicalExtensionSignals").effect(function () {
             return o.value
               ? void 0
               : t.registerEditableListener(function (e) {
-                  u(e ? i.peek() : s.peek());
+                  a(e ? i.peek() : s.peek());
                 });
           });
         },
       },
-      f = {
+      g = {
         build: function build() {
           return require("Lexical").createRefCountedRegistry(u);
         },
@@ -330,9 +336,9 @@ __d(
           };
         },
       },
-      g = {
+      p = {
         build: function build() {
-          return require("Lexical").createRefCountedRegistry(a);
+          return require("Lexical").createRefCountedRegistry(l);
         },
         name: "@lexical/a11y/RovingTabIndex",
         register: function register(e, t, n) {
@@ -341,7 +347,7 @@ __d(
           };
         },
       },
-      p = {
+      b = {
         build: function build(e) {
           return require("Lexical").createRefCountedRegistry(function (t, n) {
             return (function (e, t, n, _n$toolbarItemSelecto) {
@@ -376,19 +382,19 @@ __d(
                     if (require("Lexical").isHTMLElement(i)) {
                       var _e = t.querySelectorAll(o);
                       var _n = !1;
-                      for (var _t of _e)
-                        if (_t === i || s(_t, i)) {
+                      for (var _t2 of _e)
+                        if (_t2 === i || s(_t2, i)) {
                           _n = !0;
                           break;
                         }
                       if (!_n) return;
                     }
-                    var u = e.getRootElement();
-                    null !== u &&
+                    var a = e.getRootElement();
+                    null !== a &&
                       (n.preventDefault(),
                       n.stopPropagation(),
                       e.focus(),
-                      u.focus());
+                      a.focus());
                   },
                 ),
               );
@@ -402,12 +408,12 @@ __d(
           };
         },
       };
-    ((exports.AriaLiveRegionExtension = l),
-      (exports.EditorModeAnnounceExtension = d),
-      (exports.FocusManagerExtension = p),
-      (exports.FocusTrapExtension = f),
-      (exports.HistoryAnnounceExtension = c),
-      (exports.RovingTabIndexExtension = g));
+    ((exports.AriaLiveRegionExtension = c),
+      (exports.EditorModeAnnounceExtension = f),
+      (exports.FocusManagerExtension = b),
+      (exports.FocusTrapExtension = g),
+      (exports.HistoryAnnounceExtension = d),
+      (exports.RovingTabIndexExtension = p));
   },
   null,
 );

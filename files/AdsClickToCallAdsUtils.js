@@ -1,7 +1,6 @@
 __d(
   "AdsClickToCallAdsUtils",
   [
-    "AdCampaignDestination",
     "AdsAPIObjectives",
     "AdsAPIOptimizationGoals",
     "AdsCTCSmartDefaultUtils",
@@ -57,10 +56,7 @@ __d(
     function _(e) {
       return e === r("AdsPromotedObjectTypes").PHONE_CALL;
     }
-    function f(e) {
-      return e === r("AdCampaignDestination").PHONE_CALL;
-    }
-    var g = "0";
+    var f = "0";
     ((l.getIsCallAdsNewOptimizationUnderTrafficObjective = s),
       (l.getIsClickToCallAdsUnderLeadGenObjective = u),
       (l.getIsClickToCallAdsUnderConversionsOrSalesObjective = c),
@@ -68,8 +64,7 @@ __d(
       (l.getIsCallAdsLeadGenObjective = m),
       (l.getDefaultFromCallAdsSource = p),
       (l.isPhoneCallPromotedObjectType = _),
-      (l.isPhoneCallCampaignDestinationType = f),
-      (l.CALL_EXTENSION_PHONE_DATA_ID_PLACEHOLDER = g));
+      (l.CALL_EXTENSION_PHONE_DATA_ID_PLACEHOLDER = f));
   },
   98,
 );

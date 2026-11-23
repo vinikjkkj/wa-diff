@@ -23,16 +23,14 @@ __d(
       IMPORT_UPLOAD_FILE_BUTTON: "import_upload_file_button",
       LAST_MESSAGE_FILTER_CHIP: "last_message_filter_chip",
       LEAD_STAGE_FILTER_CHIP: "lead_stage_filter_chip",
+      CUSTOMER_MANAGER_PIPELINE_CLICK: "customer_manager_pipeline_click",
       ROW: "row",
       ROW_CHAT_BUTTON: "row_chat_button",
       SAVE_ACTION: "save_action",
       SAVE_BUTTON: "save_button",
       SEARCH_INPUT: "search_input",
-      VIEW_CHANGE_LIST: "view_change_list",
-      VIEW_CHANGE_PIPELINE: "view_change_pipeline",
       VIEW_SWITCHER: "view_switcher",
       VIEW_TOGGLE_LIST: "view_toggle_list",
-      VIEW_TOGGLE_PIPELINE: "view_toggle_pipeline",
     };
     i.UserActionTarget = e;
   },

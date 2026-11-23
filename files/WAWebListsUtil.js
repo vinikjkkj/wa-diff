@@ -23,7 +23,6 @@ __d(
     "WAWebWamLabelEventReporter",
     "WDSConfirmDialog.react",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -37,19 +36,11 @@ __d(
         t == null ? void 0 : t,
       );
     }
-    function d(e) {
-      return m.apply(this, arguments);
+    async function d(e) {
+      var t = e.length;
+      c(t);
     }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.length;
-          c(t);
-        })),
-        m.apply(this, arguments)
-      );
-    }
-    function p(e) {
+    function m(e) {
       e: return e.type === o("WAWebSchemaLabel").ListType.FAVORITES
         ? o("WAWebFavoritesUtils").getFavoriteChats()
         : e.type === o("WAWebSchemaLabel").ListType.UNREAD
@@ -134,7 +125,7 @@ __d(
                         return (n != null && e.push(n), e);
                       }, []);
     }
-    function _(e, t) {
+    function p(e, t) {
       var n = new Set(e),
         r = new Set(t),
         o = [];
@@ -143,15 +134,13 @@ __d(
       for (var l of n) r.has(l) || i.push(l);
       return { removedItems: i, addedItems: o };
     }
-    function f(e, t, n) {
-      var a = s._(/*BTDS*/ "Delete this list?");
+    function _(e, t, n) {
+      var a = s._(/*BTDS*/ "");
       o("WDSDialogBridge").openWDSDialog(
         u.jsx(r("WDSConfirmDialog.react"), {
           title: a,
-          description: s._(
-            /*BTDS*/ "Your chats with people and groups won't be deleted.",
-          ),
-          confirmLabel: s._(/*BTDS*/ "Delete"),
+          description: s._(/*BTDS*/ ""),
+          confirmLabel: s._(/*BTDS*/ ""),
           destructive: !0,
           onConfirm: function () {
             o("WAWebListsActions")
@@ -165,13 +154,13 @@ __d(
         }),
       );
     }
-    function g(e, t) {
+    function f(e, t) {
       o("WAWebModalManager").ModalManager.open(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           testid: "disable-list-confirm-popup",
-          title: s._(/*BTDS*/ "Disable list?"),
+          title: s._(/*BTDS*/ ""),
           okButtonType: "solid-warning",
-          okText: s._(/*BTDS*/ "Disable"),
+          okText: s._(/*BTDS*/ ""),
           onOK: function () {
             o("WAWebListsActions")
               .deactivatePresetList(e)
@@ -180,13 +169,11 @@ __d(
               });
           },
           onCancel: o("WAWebModalManager").closeModalManager,
-          children: s._(
-            /*BTDS*/ "You can re-enable it from your lists settings at any time.",
-          ),
+          children: s._(/*BTDS*/ ""),
         }),
       );
     }
-    function h() {
+    function g() {
       o("WAWebModalManager").ModalManager.openAlert(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           onOK: function () {
@@ -197,7 +184,7 @@ __d(
         }),
       );
     }
-    function y() {
+    function h() {
       o("WAWebModalManager").ModalManager.openAlert(
         u.jsx(o("WAWebConfirmPopup.react").ConfirmPopup, {
           testid: "list-min-chats-alert",
@@ -205,17 +192,17 @@ __d(
             return o("WAWebModalManager").ModalManager.closeAlert();
           },
           okText: r("WAWebFbtCommon")("OK"),
-          children: s._(/*BTDS*/ "Lists must include at least 1 chat."),
+          children: s._(/*BTDS*/ ""),
         }),
       );
     }
     ((l.logLabelOperationEventsForModels = d),
-      (l.getAllChatsInList = p),
-      (l.getTwoArraysDifference = _),
-      (l.openListDeleteConfirmPopup = f),
-      (l.openListDisableConfirmPopup = g),
-      (l.showMaxListsModal = h),
-      (l.showMinChatsModal = y));
+      (l.getAllChatsInList = m),
+      (l.getTwoArraysDifference = p),
+      (l.openListDeleteConfirmPopup = _),
+      (l.openListDisableConfirmPopup = f),
+      (l.showMaxListsModal = g),
+      (l.showMinChatsModal = h));
   },
   226,
 );

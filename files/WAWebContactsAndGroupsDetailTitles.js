@@ -3,10 +3,10 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "Join requests");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Restricted chats");
+      return s._(/*BTDS*/ "");
     }
     ((l.getJoinRequestsTitle = e), (l.getRestrictedChatsTitle = u));
   },

@@ -22,29 +22,15 @@ __d(
         a)
       ) {
         case o("WAWebEphemeralConstants").DurationUnit.Seconds:
-          return r("fbs")._(
-            /*BTDS*/ '_j{"*":"{duration} seconds","_1":"1 second"}',
-            [r("fbs")._plural(n, "duration")],
-          );
+          return r("fbs")._(/*BTDS*/ "", [r("fbs")._plural(n, "duration")]);
         case o("WAWebEphemeralConstants").DurationUnit.Minutes:
-          return r("fbs")._(
-            /*BTDS*/ '_j{"*":"{duration} minutes","_1":"1 minute"}',
-            [r("fbs")._plural(n, "duration")],
-          );
+          return r("fbs")._(/*BTDS*/ "", [r("fbs")._plural(n, "duration")]);
         case o("WAWebEphemeralConstants").DurationUnit.Hours:
-          return r("fbs")._(
-            /*BTDS*/ '_j{"*":"{duration} hours","_1":"1 hour"}',
-            [r("fbs")._plural(n, "duration")],
-          );
+          return r("fbs")._(/*BTDS*/ "", [r("fbs")._plural(n, "duration")]);
         case o("WAWebEphemeralConstants").DurationUnit.Days:
-          return r("fbs")._(/*BTDS*/ '_j{"*":"{duration} days","_1":"1 day"}', [
-            r("fbs")._plural(n, "duration"),
-          ]);
+          return r("fbs")._(/*BTDS*/ "", [r("fbs")._plural(n, "duration")]);
         case o("WAWebEphemeralConstants").DurationUnit.Weeks:
-          return r("fbs")._(
-            /*BTDS*/ '_j{"*":"{duration} weeks","_1":"1 week"}',
-            [r("fbs")._plural(n, "duration")],
-          );
+          return r("fbs")._(/*BTDS*/ "", [r("fbs")._plural(n, "duration")]);
       }
     }
     function d(e, t) {

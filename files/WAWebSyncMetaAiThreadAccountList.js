@@ -2,7 +2,6 @@ __d(
   "WAWebSyncMetaAiThreadAccountList",
   [
     "$InternalEnum",
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebBotGating",
@@ -14,59 +13,57 @@ __d(
     "WAWebPersistBotProfiles",
     "WAWebUserPrefsBot",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = n("$InternalEnum")({
+      c = n("$InternalEnum")({
         RequestFailed: "request-failed",
         MissingList: "missing-list",
         AllIdsInvalid: "all-ids-invalid",
         Threw: "threw",
         PicNotStored: "pic-not-stored",
       }),
-      m = 15 * o("WATimeUtils").MINUTE_MILLISECONDS,
-      p = 3,
+      d = 15 * o("WATimeUtils").MINUTE_MILLISECONDS,
+      m = 3,
+      p = null,
       _ = null,
-      f = null,
-      g = 0,
-      h = !1;
-    function y() {
-      return _ != null
-        ? _
-        : C()
+      f = 0,
+      g = !1;
+    function h() {
+      return p != null
+        ? p
+        : y()
           ? o("WAWebCanonicalGating").isCanonicalEnabled() &&
             !o("WAWebCanonicalUtils").isCanonicalPresent()
-            ? (b(), (c || (c = n("Promise"))).resolve())
-            : ((_ = v().finally(function () {
-                _ = null;
+            ? (C(), Promise.resolve())
+            : ((p = b().finally(function () {
+                p = null;
               })),
-              _)
-          : (c || (c = n("Promise"))).resolve();
+              p)
+          : Promise.resolve();
     }
-    function C() {
-      if (!o("WAWebBotGating").isMetaAiThreadAccountListSyncEnabled() || g >= p)
+    function y() {
+      if (!o("WAWebBotGating").isMetaAiThreadAccountListSyncEnabled() || f >= m)
         return !1;
       var e = o("WATimeUtils").unixTimeMs();
-      return f != null && e - f < m
+      return _ != null && e - _ < d
         ? !1
         : e - o("WAWebUserPrefsBot").getMetaAiThreadListLastSyncTs() >=
             o("WATimeUtils").DAY_MILLISECONDS;
     }
-    function b() {
-      h ||
-        ((h = !0),
+    function C() {
+      g ||
+        ((g = !0),
         o("WAWebCanonicalUtils")
           .waitForCanonicalPresent()
           .then(
             function () {
-              ((h = !1), y());
+              ((g = !1), h());
             },
             function () {
-              ((h = !1),
+              ((g = !1),
                 o("WALogger")
                   .WARN(
                     e ||
@@ -80,71 +77,63 @@ __d(
             },
           ));
     }
-    function v() {
-      return S.apply(this, arguments);
+    async function b() {
+      try {
+        var e = await o(
+          "WAWebFetchMetaAiThreadServerListGQL",
+        ).fetchMetaAiThreadServerListGQL();
+        if (e.type === "unavailable") {
+          await o("WAWebUserPrefsBot").setMetaAiThreadListLastSyncTs(
+            o("WATimeUtils").unixTimeMs(),
+          );
+          return;
+        }
+        if (e.type !== "success") {
+          k(e.reason === "missing-list" ? c.MissingList : c.RequestFailed);
+          return;
+        }
+        var t = o("WATimeUtils").unixTimeMs(),
+          n = e.threads.flatMap(function (e) {
+            var t = v(e);
+            return t == null ? [] : [{ wid: t, thread: e }];
+          });
+        if (e.threads.length > 0 && n.length === 0) {
+          k(c.AllIdsInvalid);
+          return;
+        }
+        (await o("WAWebPersistBotProfiles").mergeBotSupportFieldsBatch(
+          n.map(function (e) {
+            var n = e.thread,
+              r = e.wid;
+            return { wid: r, fields: S(n, t) };
+          }),
+        ),
+          n.forEach(function (e) {
+            var t = e.thread,
+              n = e.wid;
+            return L(n, t);
+          }));
+        var r = new Set(
+            n.map(function (e) {
+              var t = e.wid;
+              return t.toString();
+            }),
+          ),
+          a = await E(r);
+        if (!a) {
+          k(c.PicNotStored);
+          return;
+        }
+        ((_ = null),
+          (f = 0),
+          await o("WAWebUserPrefsBot").setMetaAiThreadListLastSyncTs(
+            o("WATimeUtils").unixTimeMs(),
+          ));
+      } catch (e) {
+        k(c.Threw);
+      }
     }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = yield o(
-              "WAWebFetchMetaAiThreadServerListGQL",
-            ).fetchMetaAiThreadServerListGQL();
-            if (e.type === "unavailable") {
-              yield o("WAWebUserPrefsBot").setMetaAiThreadListLastSyncTs(
-                o("WATimeUtils").unixTimeMs(),
-              );
-              return;
-            }
-            if (e.type !== "success") {
-              D(e.reason === "missing-list" ? d.MissingList : d.RequestFailed);
-              return;
-            }
-            var t = o("WATimeUtils").unixTimeMs(),
-              n = e.threads.flatMap(function (e) {
-                var t = R(e);
-                return t == null ? [] : [{ wid: t, thread: e }];
-              });
-            if (e.threads.length > 0 && n.length === 0) {
-              D(d.AllIdsInvalid);
-              return;
-            }
-            (yield o("WAWebPersistBotProfiles").mergeBotSupportFieldsBatch(
-              n.map(function (e) {
-                var n = e.thread,
-                  r = e.wid;
-                return { wid: r, fields: L(n, t) };
-              }),
-            ),
-              n.forEach(function (e) {
-                var t = e.thread,
-                  n = e.wid;
-                return k(n, t);
-              }));
-            var r = new Set(
-                n.map(function (e) {
-                  var t = e.wid;
-                  return t.toString();
-                }),
-              ),
-              a = yield I(r);
-            if (!a) {
-              D(d.PicNotStored);
-              return;
-            }
-            ((f = null),
-              (g = 0),
-              yield o("WAWebUserPrefsBot").setMetaAiThreadListLastSyncTs(
-                o("WATimeUtils").unixTimeMs(),
-              ));
-          } catch (e) {
-            D(d.Threw);
-          }
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    function R(e) {
+    function v(e) {
       try {
         return o("WAWebWidFactory").createUserWidOrThrow(e.botFbid + "@bot");
       } catch (e) {
@@ -161,7 +150,7 @@ __d(
         );
       }
     }
-    function L(e, t) {
+    function S(e, t) {
       var n = {
         generatedEmoji: e.generatedEmoji,
         isDeleted: !1,
@@ -173,57 +162,40 @@ __d(
         ? n
         : babelHelpers.extends({}, n, { isDeprecated: e.isDeprecated });
     }
-    var E = new Map();
-    function k(e, t) {
+    var R = new Map();
+    function L(e, t) {
       var n = o("WAWebPersistBotProfiles").setBotProfilePicUrls(
         e,
         t.profilePicThumbUrl,
         t.profilePicFullUrl,
       );
-      n != null && E.set(n.id, n);
+      n != null && R.set(n.id, n);
     }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          for (var t of E) {
-            var r = t[0],
-              a = t[1];
-            o("WAWebPersistBotProfiles").isBotPicRowInMemory(a) || E.delete(r);
-          }
-          var i = yield (c || (c = n("Promise"))).allSettled(
-            Array.from(E.values())
-              .filter(function (t) {
-                return e.has(t.id);
-              })
-              .map(
-                (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* (e) {
-                      (yield o(
-                        "WAWebDBBulkPersistProfilePic",
-                      ).persistProfilePicBatched(e),
-                        E.get(e.id) === e && E.delete(e.id));
-                    },
-                  );
-                  return function (t) {
-                    return e.apply(this, arguments);
-                  };
-                })(),
-              ),
-          );
-          return i.every(function (e) {
-            return e.status === "fulfilled";
-          });
-        })),
-        T.apply(this, arguments)
+    async function E(e) {
+      for (var t of R) {
+        var n = t[0],
+          r = t[1];
+        o("WAWebPersistBotProfiles").isBotPicRowInMemory(r) || R.delete(n);
+      }
+      var a = await Promise.allSettled(
+        Array.from(R.values())
+          .filter(function (t) {
+            return e.has(t.id);
+          })
+          .map(async function (e) {
+            (await o("WAWebDBBulkPersistProfilePic").persistProfilePicBatched(
+              e,
+            ),
+              R.get(e.id) === e && R.delete(e.id));
+          }),
       );
+      return a.every(function (e) {
+        return e.status === "fulfilled";
+      });
     }
-    function D(e) {
-      ((f = o("WATimeUtils").unixTimeMs()),
-        g++,
+    function k(e) {
+      ((_ = o("WATimeUtils").unixTimeMs()),
+        f++,
         o("WALogger")
           .WARN(
             u ||
@@ -234,7 +206,7 @@ __d(
           .tags(e)
           .sendLogs("meta-ai-thread-list-sync-failed", { sampling: 0.01 }));
     }
-    l.maybeSyncMetaAiThreadAccountList = y;
+    l.maybeSyncMetaAiThreadAccountList = h;
   },
   98,
 );

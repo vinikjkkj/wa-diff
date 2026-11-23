@@ -131,8 +131,8 @@ __d(
     }
     function C(e) {
       return o("WAWebChatGetters").getIsGroup(e)
-        ? s._(/*BTDS*/ "WhatsApp group message")
-        : s._(/*BTDS*/ "WhatsApp message");
+        ? s._(/*BTDS*/ "")
+        : s._(/*BTDS*/ "");
     }
     function b(e) {
       if (e.isLocked) return r("WAWebFbtCommon")("WhatsApp").toString();
@@ -152,16 +152,8 @@ __d(
         return a != null &&
           a.templateParams &&
           (a == null ? void 0 : a.templateParams[0]) === "true"
-          ? s
-              ._(/*BTDS*/ "{receiver_name} accepted your invite", [
-                s._param("receiver_name", i),
-              ])
-              .toString()
-          : s
-              ._(/*BTDS*/ "{receiver_name} joined WhatsApp", [
-                s._param("receiver_name", i),
-              ])
-              .toString();
+          ? s._(/*BTDS*/ "", [s._param("receiver_name", i)]).toString()
+          : s._(/*BTDS*/ "", [s._param("receiver_name", i)]).toString();
       }
       var l = o("WAWebFrontendContactGetters").getFormattedNameAndType(
           e.contact,

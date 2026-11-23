@@ -8,228 +8,207 @@ __d(
     "WAWebCustomerManagerImportErrorMessage",
     "WAWebCustomerManagerImportSavedDataLookup",
     "WAWebDBCustomerDataDatabaseApi",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d;
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = new Set(),
-            r = [],
-            a = new Set(),
-            i = new Set(),
-            l = new Map(),
-            u = [],
-            c = [],
-            d = 0,
-            m = 0;
-          if (
-            (t.forEach(function (e) {
-              var t = e.lid,
-                s = o("WAWebContactImportFileProcessor").normalizePhoneNumber(
-                  e.phone,
-                );
-              if (t != null && s !== "") {
-                var p = o("WAJids").interpretAndValidateJid(
-                    o("WAJids").toPhoneUserJid(s),
+    async function m(t) {
+      var n = new Set(),
+        r = [],
+        a = new Set(),
+        i = new Set(),
+        l = new Map(),
+        u = [],
+        c = [],
+        d = 0,
+        m = 0;
+      if (
+        (t.forEach(function (e) {
+          var t = e.lid,
+            s = o("WAWebContactImportFileProcessor").normalizePhoneNumber(
+              e.phone,
+            );
+          if (t != null && s !== "") {
+            var p = o("WAJids").interpretAndValidateJid(
+                o("WAJids").toPhoneUserJid(s),
+              ),
+              _ = e.verifiedPhoneJid;
+            if (p.jidType !== "phoneUser") {
+              (d++,
+                c.push(
+                  o(
+                    "WAWebCustomerManagerImportErrorMessage",
+                  ).toCustomerManagerImportErrorItem(
+                    e,
+                    o("WAWebCustomerManagerImportErrorMessage")
+                      .CustomerManagerImportConflictError
+                      .PHONE_DATA_OWNER_UNVERIFIED,
                   ),
-                  _ = e.verifiedPhoneJid;
-                if (p.jidType !== "phoneUser") {
-                  (d++,
-                    c.push(
-                      o(
-                        "WAWebCustomerManagerImportErrorMessage",
-                      ).toCustomerManagerImportErrorItem(
-                        e,
-                        o("WAWebCustomerManagerImportErrorMessage")
-                          .CustomerManagerImportConflictError
-                          .PHONE_DATA_OWNER_UNVERIFIED,
-                      ),
-                    ));
-                  return;
-                }
-                if (_ == null) {
-                  (m++,
-                    c.push(
-                      o(
-                        "WAWebCustomerManagerImportErrorMessage",
-                      ).toCustomerManagerImportErrorItem(
-                        e,
-                        o("WAWebCustomerManagerImportErrorMessage")
-                          .CustomerManagerImportConflictError
-                          .CUSTOMER_DATA_LOOKUP_FAILED,
-                      ),
-                    ));
-                  return;
-                }
-                (l.set(e, [p.userJid, _]), a.add(s), i.add(_));
-              }
-              (u.push(e), t != null && !n.has(t) && (n.add(t), r.push(t)));
-            }),
-            d > 0 &&
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] verified phone identity malformed for ",
-                      " rows; held for review",
-                    ])),
-                  d,
-                )
-                .sendLogs("cm-import-verified-phone-identity-malformed"),
-            m > 0 &&
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] server-verified phone missing for ",
-                      " rows; held for retry",
-                    ])),
-                  m,
-                )
-                .sendLogs("cm-import-verified-phone-identity-missing"),
-            u.length === 0)
-          )
-            return {
-              errorList: c.sort(function (e, t) {
-                return e.rowIndex - t.rowIndex;
-              }),
-              validContacts: [],
-            };
-          var p =
-              r.length > 0
-                ? yield o(
-                    "WAWebCustomerManagerImportSavedDataLookup",
-                  ).loadCustomerLookup(r, Array.from(a), Array.from(i))
-                : {
-                    complete: !1,
-                    leadStagesByLid: new Map(),
-                    legacyByLid: new Map(),
-                    physicalNamesByPhoneJid: new Map(),
-                    profiles: new Map(),
-                    savedNamesByContactRowId: new Map(),
-                  },
-            f = yield o(
-              "WAWebCustomerManagerImportContactClassifier",
-            ).classifyContacts(u, p),
-            g = yield _(f.validContacts, l);
-          return {
-            errorList: []
-              .concat(c, f.errorList, g.errorList)
-              .sort(function (e, t) {
-                return e.rowIndex - t.rowIndex;
-              }),
-            validContacts: g.validContacts,
-          };
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = new Set(),
-            a = 0;
-          if (
-            (e.forEach(function (e) {
-              var r = t.get(e);
-              r != null &&
-                (a++,
-                r.forEach(function (e) {
-                  return n.add(e);
-                }));
-            }),
-            n.size === 0)
-          )
-            return { errorList: [], validContacts: e };
-          var i = Array.from(n),
-            l;
-          try {
-            l = yield o(
-              "WAWebDBCustomerDataDatabaseApi",
-            ).getCustomerDataByChatJids(i);
-          } catch (n) {
-            return (
-              o("WALogger")
-                .WARN(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] phone customer data lookup failed for ",
-                      " rows; held for retry",
-                    ])),
-                  a,
-                )
-                .catching(r("getErrorSafe")(n))
-                .sendLogs("cm-import-pn-customer-data-lookup-failed"),
-              g({
-                aliasesByContact: t,
-                contacts: e,
-                errorType: o("WAWebCustomerManagerImportErrorMessage")
-                  .CustomerManagerImportConflictError
-                  .CUSTOMER_DATA_LOOKUP_FAILED,
-                populatedAliases: null,
-              })
-            );
+                ));
+              return;
+            }
+            if (_ == null) {
+              (m++,
+                c.push(
+                  o(
+                    "WAWebCustomerManagerImportErrorMessage",
+                  ).toCustomerManagerImportErrorItem(
+                    e,
+                    o("WAWebCustomerManagerImportErrorMessage")
+                      .CustomerManagerImportConflictError
+                      .CUSTOMER_DATA_LOOKUP_FAILED,
+                  ),
+                ));
+              return;
+            }
+            (l.set(e, [p.userJid, _]), a.add(s), i.add(_));
           }
-          if (l.length !== i.length)
-            return (
-              o("WALogger")
-                .WARN(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] phone customer data lookup incomplete for ",
-                      " rows; held for retry",
-                    ])),
-                  a,
-                )
-                .sendLogs("cm-import-pn-customer-data-lookup-incomplete"),
-              g({
-                aliasesByContact: t,
-                contacts: e,
-                errorType: o("WAWebCustomerManagerImportErrorMessage")
-                  .CustomerManagerImportConflictError
-                  .CUSTOMER_DATA_LOOKUP_FAILED,
-                populatedAliases: null,
-              })
-            );
-          var s = new Set();
-          l.forEach(function (e, t) {
-            e != null && s.add(i[t]);
-          });
-          var m = g({
+          (u.push(e), t != null && !n.has(t) && (n.add(t), r.push(t)));
+        }),
+        d > 0 &&
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] verified phone identity malformed for ",
+                  " rows; held for review",
+                ])),
+              d,
+            )
+            .sendLogs("cm-import-verified-phone-identity-malformed"),
+        m > 0 &&
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] server-verified phone missing for ",
+                  " rows; held for retry",
+                ])),
+              m,
+            )
+            .sendLogs("cm-import-verified-phone-identity-missing"),
+        u.length === 0)
+      )
+        return {
+          errorList: c.sort(function (e, t) {
+            return e.rowIndex - t.rowIndex;
+          }),
+          validContacts: [],
+        };
+      var _ =
+          r.length > 0
+            ? await o(
+                "WAWebCustomerManagerImportSavedDataLookup",
+              ).loadCustomerLookup(r, Array.from(a), Array.from(i))
+            : {
+                complete: !1,
+                leadStagesByLid: new Map(),
+                legacyByLid: new Map(),
+                physicalNamesByPhoneJid: new Map(),
+                profiles: new Map(),
+                savedNamesByContactRowId: new Map(),
+              },
+        f = await o(
+          "WAWebCustomerManagerImportContactClassifier",
+        ).classifyContacts(u, _),
+        g = await p(f.validContacts, l);
+      return {
+        errorList: [].concat(c, f.errorList, g.errorList).sort(function (e, t) {
+          return e.rowIndex - t.rowIndex;
+        }),
+        validContacts: g.validContacts,
+      };
+    }
+    async function p(e, t) {
+      var n = new Set(),
+        a = 0;
+      if (
+        (e.forEach(function (e) {
+          var r = t.get(e);
+          r != null &&
+            (a++,
+            r.forEach(function (e) {
+              return n.add(e);
+            }));
+        }),
+        n.size === 0)
+      )
+        return { errorList: [], validContacts: e };
+      var i = Array.from(n),
+        l;
+      try {
+        l = await o("WAWebDBCustomerDataDatabaseApi").getCustomerDataByChatJids(
+          i,
+        );
+      } catch (n) {
+        return (
+          o("WALogger")
+            .WARN(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] phone customer data lookup failed for ",
+                  " rows; held for retry",
+                ])),
+              a,
+            )
+            .catching(r("getErrorSafe")(n))
+            .sendLogs("cm-import-pn-customer-data-lookup-failed"),
+          _({
             aliasesByContact: t,
             contacts: e,
             errorType: o("WAWebCustomerManagerImportErrorMessage")
-              .CustomerManagerImportConflictError.PHONE_DATA_OWNER_UNVERIFIED,
-            populatedAliases: s,
-          });
-          return (
-            m.errorList.length > 0 &&
-              o("WALogger")
-                .WARN(
-                  d ||
-                    (d = babelHelpers.taggedTemplateLiteralLoose([
-                      "[cm:import] saved phone customer data owner unverified for ",
-                      " rows; held for review",
-                    ])),
-                  m.errorList.length,
-                )
-                .sendLogs("cm-import-pn-customer-data-owner-unverified"),
-            m
-          );
-        })),
-        f.apply(this, arguments)
+              .CustomerManagerImportConflictError.CUSTOMER_DATA_LOOKUP_FAILED,
+            populatedAliases: null,
+          })
+        );
+      }
+      if (l.length !== i.length)
+        return (
+          o("WALogger")
+            .WARN(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] phone customer data lookup incomplete for ",
+                  " rows; held for retry",
+                ])),
+              a,
+            )
+            .sendLogs("cm-import-pn-customer-data-lookup-incomplete"),
+          _({
+            aliasesByContact: t,
+            contacts: e,
+            errorType: o("WAWebCustomerManagerImportErrorMessage")
+              .CustomerManagerImportConflictError.CUSTOMER_DATA_LOOKUP_FAILED,
+            populatedAliases: null,
+          })
+        );
+      var s = new Set();
+      l.forEach(function (e, t) {
+        e != null && s.add(i[t]);
+      });
+      var m = _({
+        aliasesByContact: t,
+        contacts: e,
+        errorType: o("WAWebCustomerManagerImportErrorMessage")
+          .CustomerManagerImportConflictError.PHONE_DATA_OWNER_UNVERIFIED,
+        populatedAliases: s,
+      });
+      return (
+        m.errorList.length > 0 &&
+          o("WALogger")
+            .WARN(
+              d ||
+                (d = babelHelpers.taggedTemplateLiteralLoose([
+                  "[cm:import] saved phone customer data owner unverified for ",
+                  " rows; held for review",
+                ])),
+              m.errorList.length,
+            )
+            .sendLogs("cm-import-pn-customer-data-owner-unverified"),
+        m
       );
     }
-    function g(e) {
+    function _(e) {
       var t = e.aliasesByContact,
         n = e.contacts,
         r = e.errorType,
@@ -254,27 +233,19 @@ __d(
         { errorList: i, validContacts: l }
       );
     }
-    function h(e) {
-      return y.apply(this, arguments);
+    async function f(e) {
+      var t = await o(
+        "WAWebCustomerManagerImportSavedDataLookup",
+      ).fetchCompleteProfileRecordsInBatches(e);
+      return t != null
+        ? new Set(
+            t.map(function (e) {
+              return e.chatJid;
+            }),
+          )
+        : null;
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o(
-            "WAWebCustomerManagerImportSavedDataLookup",
-          ).fetchCompleteProfileRecordsInBatches(e);
-          return t != null
-            ? new Set(
-                t.map(function (e) {
-                  return e.chatJid;
-                }),
-              )
-            : null;
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    ((l.detectExistingCustomers = m), (l.fetchExistingProfileLids = h));
+    ((l.detectExistingCustomers = m), (l.fetchExistingProfileLids = f));
   },
   98,
 );

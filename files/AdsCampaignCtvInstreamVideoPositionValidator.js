@@ -19,7 +19,7 @@ __d(
             var n = e.spec;
             return r("AdsPlacementAPISpecReaderUtils").isActivePosition(
               n,
-              "audience_network",
+              "streaming_services",
               "ctv_instream_video",
             );
           }),

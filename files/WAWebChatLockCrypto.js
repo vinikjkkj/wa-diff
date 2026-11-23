@@ -1,11 +1,6 @@
 __d(
   "WAWebChatLockCrypto",
-  [
-    "WACryptoUtils",
-    "WALogger",
-    "WAWebProtobufsUserPassword.pb",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WACryptoUtils", "WALogger", "WAWebProtobufsUserPassword.pb"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e;
@@ -60,48 +55,32 @@ __d(
         }
       }
     }
-    function d(e, t) {
-      return m.apply(this, arguments);
+    async function d(e, t) {
+      var n = u(t);
+      if (n != null) {
+        var r = c(e, t.encoding),
+          o = await self.crypto.subtle.importKey("raw", r, n.name, !1, [
+            "deriveBits",
+          ]);
+        return self.crypto.subtle.deriveBits(n, o, t.data.byteLength * 8);
+      }
     }
-    function m() {
+    async function m(t, n) {
+      if (n == null) return !1;
+      var r = await d(t, n);
+      if (r == null) return !1;
+      var a = s(r, n.data);
       return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = u(t);
-          if (n != null) {
-            var r = c(e, t.encoding),
-              o = yield self.crypto.subtle.importKey("raw", r, n.name, !1, [
-                "deriveBits",
-              ]);
-            return self.crypto.subtle.deriveBits(n, o, t.data.byteLength * 8);
-          }
-        })),
-        m.apply(this, arguments)
+        o("WALogger").LOG(
+          e ||
+            (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[ChatLock] comparing secret codes",
+            ])),
+        ),
+        a
       );
     }
-    function p(e, t) {
-      return _.apply(this, arguments);
-    }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, n) {
-          if (n == null) return !1;
-          var r = yield d(t, n);
-          if (r == null) return !1;
-          var a = s(r, n.data);
-          return (
-            o("WALogger").LOG(
-              e ||
-                (e = babelHelpers.taggedTemplateLiteralLoose([
-                  "[ChatLock] comparing secret codes",
-                ])),
-            ),
-            a
-          );
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    ((l._deriveBitsFromSecretCode = d), (l.validateChatLockSecretCode = p));
+    ((l._deriveBitsFromSecretCode = d), (l.validateChatLockSecretCode = m));
   },
   98,
 );

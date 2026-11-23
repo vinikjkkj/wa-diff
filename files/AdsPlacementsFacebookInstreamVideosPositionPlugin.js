@@ -29,6 +29,7 @@ __d(
     "AdsReachFrequencyPlacementUtils",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
     "AdsUEditorCampaignPlacementSetActionFlux",
+    "AdsUPVPlacementExpansionUtils",
     "AdsUnifiedProfileVisitUtils",
     "AdsVideoBuyingStoreUtils",
     "AdsWhatsAppPlacementUtils",
@@ -45,8 +46,8 @@ __d(
     var e = {
       type: "placements/position",
       key: "facebook/instream_video",
-      name: u(),
-      nameWithPlatform: c(),
+      name: c(),
+      nameWithPlatform: d(),
       apiPosition: "instream_video",
       mediaRecommendation: {
         copy: o(
@@ -110,7 +111,7 @@ __d(
             r("AdsAPIObjectives").CONVERSIONS,
             r("AdsAPIObjectives").WILDCARD_INTERNAL_ONLY,
           ]),
-          u = r("AdsAccountStore").getSelectedAccount().getValue();
+          c = r("AdsAccountStore").getSelectedAccount().getValue();
         if (
           n.spec &&
           o("AdsPlacementAPISpecReaderUtils").isOnlyActiveDevicePlatform(
@@ -134,42 +135,12 @@ __d(
           );
         if (r("AdsAppUrlUtils").isFacebookDesktopURL(n.objectStoreURL))
           return o("AdsPlacementIneligibilityReason").createGenericReason();
-        var c = o("AdsPlacementAPISpecReaderUtils").isOnlyActiveDevicePlatform(
-          n.spec,
-          r("AdsAPIDevicePlatform").MOBILE,
-        );
-        if (
-          o("AdsClickToCallAdsUtils").getIsClickToCallAdsUnderLeadGenObjective(
-            babelHelpers.extends({}, n, { objective: i }),
-          ) &&
-          !c
-        )
-          return o(
-            "AdsPlacementIneligibilityReason",
-          ).createPhoneCallLeadReason();
-        if (
-          o(
-            "AdsClickToCallAdsUtils",
-          ).getIsCallAdsNewOptimizationUnderTrafficObjective(n) &&
-          !c
-        )
-          return o(
-            "AdsPlacementIneligibilityReason",
-          ).createPhoneCallTrafficReason();
-        if (
-          (o(
-            "AdsClickToCallAdsUtils",
-          ).getIsClickToCallAdsUnderConversionsOrSalesObjective(
-            babelHelpers.extends({}, n, { objective: i }),
-          ) &&
-            !c) ||
-          (i === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES &&
-            n.optimizationGoal === r("AdsAPIOptimizationGoals").QUALITY_CALL &&
-            !c)
-        )
-          return o(
-            "AdsPlacementIneligibilityReason",
-          ).createPhoneCallConversionsOrSalesReason();
+        var d = o("AdsPlacementAPISpecReaderUtils").isOnlyActiveDevicePlatform(
+            n.spec,
+            r("AdsAPIDevicePlatform").MOBILE,
+          ),
+          m = u(n, i, d);
+        if (m) return m;
         if (
           o(
             "adsIGLoginPlacementUtils",
@@ -179,21 +150,27 @@ __d(
         if (
           o(
             "AdsUnifiedProfileVisitUtils",
-          ).getIsPositionAlwaysDisabledForProfileVisits(i, n.promotedObjectType)
+          ).getIsPositionAlwaysDisabledForProfileVisits(
+            i,
+            n.promotedObjectType,
+          ) &&
+          !o(
+            "AdsUPVPlacementExpansionUtils",
+          ).getIsFbPlacementsExpansionEnabledForUPV()
         )
           return o(
             "AdsUnifiedProfileVisitUtils",
           ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
             n.destinationType,
           );
-        var d = n.objectStoreURL;
+        var p = n.objectStoreURL;
         if (
           i === r("AdsAPIObjectives").APP_INSTALLS &&
-          r("isTruthy")(d) &&
-          typeof d == "string" &&
+          r("isTruthy")(p) &&
+          typeof p == "string" &&
           !(
-            r("AdsAppUrlUtils").isItunesURL(d) ||
-            r("AdsAppUrlUtils").isGooglePlayURL(d)
+            r("AdsAppUrlUtils").isItunesURL(p) ||
+            r("AdsAppUrlUtils").isGooglePlayURL(p)
           )
         )
           return o("AdsPlacementIneligibilityReason").createGenericReason();
@@ -207,13 +184,13 @@ __d(
           return o(
             "AdsPlacementIneligibilityReason",
           ).createDevicePlatformReason(r("AdsAPIDevicePlatform").DESKTOP);
-        var m = o(
+        var _ = o(
           "AdsReachFrequencyPlacementUtils",
         ).getReachFrequencyDisabledReason(
           e.key,
           babelHelpers.extends({}, n, { objective: i }),
         );
-        if (m !== null) return m;
+        if (_ !== null) return _;
         if (n.promotedObjectType === r("AdsPromotedObjectTypes").INSTAGRAM)
           return o(
             "AdsPlacementIneligibilityReason",
@@ -262,9 +239,9 @@ __d(
           ).createDevicePlatformReason(r("AdsAPIDevicePlatform").DESKTOP);
         if (
           o("AdsWhatsAppPlacementUtils").isIneligibleForFBInstreamVideos(
-            u,
-            babelHelpers.extends({}, n, { objective: i }),
             c,
+            babelHelpers.extends({}, n, { objective: i }),
+            d,
           )
         )
           return o("AdsPlacementIneligibilityReason").createWhatsAppReason(
@@ -294,13 +271,13 @@ __d(
           ).createFacebookLiveReason();
         if ((t = n.isClickToMPAds) != null && t)
           return o("AdsPlacementIneligibilityReason").createGenericReason();
-        var p = o("AdsInstreamVideoValidationUtils").getIsInstreamOnlyAllowed(
+        var f = o("AdsInstreamVideoValidationUtils").getIsInstreamOnlyAllowed(
             n,
           ),
-          _ = o(
+          g = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
           ).getSOOBundleParentIneligibilityReason(e, n);
-        return !p && _ != null ? _ : null;
+        return !f && g != null ? g : null;
       },
       isActive: function (t) {
         return r("adsPlacementAPISpecReaderIsActiveFacebookPosition")(
@@ -365,10 +342,7 @@ __d(
               (s.push("previews/instream_video_mobile"),
               d && s.push("previews/instream_banner_mobile")),
             s.push("previews/instream_video_fullscreen_mobile"),
-            d &&
-              (s.push("previews/instream_banner_fullscreen_mobile"),
-              r("gkx")("2702") ||
-                s.push("previews/instream_banner_fullscreen_ios")),
+            d && s.push("previews/instream_banner_fullscreen_mobile"),
             o(
               "FacebookReelsOverlayStoreUtils",
             ).incontentCreativeGuideExperiment() &&
@@ -428,6 +402,7 @@ __d(
           ),
           c = u && l.includes(e) ? "10150070703438280" : "10150013094781918";
         return {
+          imageAdsPreviewImage: s("1170718"),
           imageAdsPreviewVideo: "1302280796541250",
           videoAdsPreviewVideo: c,
           placement: "instream_video",
@@ -482,23 +457,45 @@ __d(
         }
         return n;
       },
-      parentPlacements: o(
-        "FacebookReelsOverlayStoreUtils",
-      ).instreamSkipBundleCheckGK()
-        ? r("immutable").OrderedSet([])
-        : r("immutable").OrderedSet(["facebook/feed"]),
+      parentPlacements: r("immutable").OrderedSet(["facebook/feed"]),
       childPlacements: r("immutable").OrderedSet([]),
     };
-    function u() {
-      return o("FacebookReelsOverlayStoreUtils").getReelInstreamPositionFbt();
+    function u(e, t, n) {
+      return o(
+        "AdsClickToCallAdsUtils",
+      ).getIsClickToCallAdsUnderLeadGenObjective(
+        babelHelpers.extends({}, e, { objective: t }),
+      ) && !n
+        ? o("AdsPlacementIneligibilityReason").createPhoneCallLeadReason()
+        : o(
+              "AdsClickToCallAdsUtils",
+            ).getIsCallAdsNewOptimizationUnderTrafficObjective(e) && !n
+          ? o("AdsPlacementIneligibilityReason").createPhoneCallTrafficReason()
+          : (o(
+                "AdsClickToCallAdsUtils",
+              ).getIsClickToCallAdsUnderConversionsOrSalesObjective(
+                babelHelpers.extends({}, e, { objective: t }),
+              ) &&
+                !n) ||
+              (t === r("AdsAPIObjectives").PRODUCT_CATALOG_SALES &&
+                e.optimizationGoal ===
+                  r("AdsAPIOptimizationGoals").QUALITY_CALL &&
+                !n)
+            ? o(
+                "AdsPlacementIneligibilityReason",
+              ).createPhoneCallConversionsOrSalesReason()
+            : null;
     }
     function c() {
+      return o("FacebookReelsOverlayStoreUtils").getReelInstreamPositionFbt();
+    }
+    function d() {
       return o(
         "FacebookReelsOverlayStoreUtils",
       ).getReelInstreamPlatformPositionFbt();
     }
-    var d = e;
-    l.default = d;
+    var m = e;
+    l.default = m;
   },
   98,
 );

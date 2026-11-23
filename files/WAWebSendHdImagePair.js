@@ -11,7 +11,6 @@ __d(
     "WAWebPrepRawMedia",
     "WAWebSendMsgResultAction",
     "WAWebViewMode.flow",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -94,104 +93,96 @@ __d(
         c
       );
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n,
-            a,
-            i,
-            l,
-            d = t.chat,
-            m = t.childPrep,
-            p = t.fileOrigin,
-            _ = t.options,
-            f = t.parentSend,
-            g;
-          try {
-            g = yield f;
-          } catch (t) {
-            o("WALogger")
-              .ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[dual-uploads] parent send failed, dropping the HD child",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("dual-uploads-send-parent-failed");
-            return;
-          }
-          var h = (n = g) == null || (n = n.msg) == null ? void 0 : n.id;
-          if (
-            h == null ||
-            ((a = g) == null ? void 0 : a.messageSendResult) !==
-              o("WAWebSendMsgResultAction").SendMsgResult.OK
-          ) {
-            o("WALogger")
-              .LOG(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[dual-uploads] parent send did not land, dropping the HD child",
-                  ])),
-              )
-              .sendLogs("dual-uploads-send-parent-not-acked");
-            return;
-          }
-          var y;
-          try {
-            y = yield m.sendToChat({
-              chat: d,
-              options: {
-                addEvenWhilePreparing: _.addEvenWhilePreparing,
-                associationType: o("WAWebMessageAssociation.flow")
-                  .MessageAssociationType.HD_IMAGE_DUAL_UPLOAD,
-                botPersonaId: _.botPersonaId,
-                fileOrigin: p,
-                isScheduledMsg: _.isScheduledMsg,
-                pairedMediaType: "HD_IMAGE_CHILD",
-                parentMsgKey: h,
-                scheduledTimestampS: _.scheduledTimestampS,
-                threadId: _.threadId,
-                type: o("WAWebMsgType").MSG_TYPE.IMAGE,
-                viewMode:
-                  _.isScheduledMsg === !0
-                    ? o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE
-                    : o("WAWebViewMode.flow").ViewModeType.HIDDEN,
-              },
-            });
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[dual-uploads] HD child send failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("dual-uploads-send-child-failed");
-            return;
-          }
-          ((i = y) == null ? void 0 : i.messageSendResult) !==
-            o("WAWebSendMsgResultAction").SendMsgResult.OK &&
-            o("WALogger")
-              .LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "[dual-uploads] HD child send did not land: ",
-                    "",
-                  ])),
-                String((l = y) == null ? void 0 : l.messageSendResult),
-              )
-              .sendLogs("dual-uploads-send-child-not-acked", {
-                sampling: 0.01,
-                sendLogsType: o("WALogger").SendLogsType.COUNTING_STAT,
-              });
-        })),
-        f.apply(this, arguments)
-      );
+    async function _(t) {
+      var n,
+        a,
+        i,
+        l,
+        d = t.chat,
+        m = t.childPrep,
+        p = t.fileOrigin,
+        _ = t.options,
+        f = t.parentSend,
+        g;
+      try {
+        g = await f;
+      } catch (t) {
+        o("WALogger")
+          .ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[dual-uploads] parent send failed, dropping the HD child",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("dual-uploads-send-parent-failed");
+        return;
+      }
+      var h = (n = g) == null || (n = n.msg) == null ? void 0 : n.id;
+      if (
+        h == null ||
+        ((a = g) == null ? void 0 : a.messageSendResult) !==
+          o("WAWebSendMsgResultAction").SendMsgResult.OK
+      ) {
+        o("WALogger")
+          .LOG(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[dual-uploads] parent send did not land, dropping the HD child",
+              ])),
+          )
+          .sendLogs("dual-uploads-send-parent-not-acked");
+        return;
+      }
+      var y;
+      try {
+        y = await m.sendToChat({
+          chat: d,
+          options: {
+            addEvenWhilePreparing: _.addEvenWhilePreparing,
+            associationType: o("WAWebMessageAssociation.flow")
+              .MessageAssociationType.HD_IMAGE_DUAL_UPLOAD,
+            botPersonaId: _.botPersonaId,
+            fileOrigin: p,
+            isScheduledMsg: _.isScheduledMsg,
+            pairedMediaType: "HD_IMAGE_CHILD",
+            parentMsgKey: h,
+            scheduledTimestampS: _.scheduledTimestampS,
+            threadId: _.threadId,
+            type: o("WAWebMsgType").MSG_TYPE.IMAGE,
+            viewMode:
+              _.isScheduledMsg === !0
+                ? o("WAWebViewMode.flow").ViewModeType.SCHEDULED_MESSAGE
+                : o("WAWebViewMode.flow").ViewModeType.HIDDEN,
+          },
+        });
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[dual-uploads] HD child send failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("dual-uploads-send-child-failed");
+        return;
+      }
+      ((i = y) == null ? void 0 : i.messageSendResult) !==
+        o("WAWebSendMsgResultAction").SendMsgResult.OK &&
+        o("WALogger")
+          .LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "[dual-uploads] HD child send did not land: ",
+                "",
+              ])),
+            String((l = y) == null ? void 0 : l.messageSendResult),
+          )
+          .sendLogs("dual-uploads-send-child-not-acked", {
+            sampling: 0.01,
+            sendLogsType: o("WALogger").SendLogsType.COUNTING_STAT,
+          });
     }
     ((l.shouldSendAsHdImagePair = d),
       (l.getParentPlaceholderProps = m),

@@ -3,77 +3,55 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(/*BTDS*/ "This group is suspended");
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Delete group for me");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Deactivate community");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(/*BTDS*/ "This community is suspended");
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(
-        /*BTDS*/ "No one in this group can send messages, add members, download or forward media.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(
-        /*BTDS*/ "No one in this community can send messages, add members or groups, download or forward media.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function _() {
-      return s._(
-        /*BTDS*/ "This group is end-to-end encrypted. WhatsApp can\u2019t see or read messages from this group.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function f() {
-      return s._(
-        /*BTDS*/ "This community is end-to-end encrypted. WhatsApp can\u2019t see or read messages from this community.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function g() {
-      return s._(/*BTDS*/ "This group is no longer suspended");
+      return s._(/*BTDS*/ "");
     }
     function h() {
-      return s._(/*BTDS*/ "Group suspended pending review");
+      return s._(/*BTDS*/ "");
     }
     function y() {
-      return s._(
-        /*BTDS*/ "This group will remain suspended until the review is completed.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function C() {
-      return s._(
-        /*BTDS*/ "This community will remain suspended until the review is completed.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function b() {
-      return s._(
-        /*BTDS*/ "Find out how WhatsApp keeps groups safe and why a group may get suspended.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function v() {
-      return s._(
-        /*BTDS*/ "Find out how WhatsApp keeps communities safe and why a community may get suspended.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function S() {
-      return s._(
-        /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group is no longer suspended.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function R() {
-      return s._(
-        /*BTDS*/ "An admin requested a review of this community. The review is complete, and the community is no longer suspended.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function L() {
-      return s._(
-        /*BTDS*/ "An admin requested a review of this group. The review is complete, and the group remains suspended.",
-      );
+      return s._(/*BTDS*/ "");
     }
     ((l.groupSuspendedTitle = e),
       (l.deleteGroupForMeLabel = u),

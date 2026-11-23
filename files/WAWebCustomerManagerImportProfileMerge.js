@@ -5,62 +5,51 @@ __d(
     "WAWebContactManagerCustomerProfileUpsertMutation",
     "WAWebCustomerManagerCreateCustomerRecord",
     "WAWebCustomerProfileChangeNotifier",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
     var e = 3;
-    function s(e, t, n, r) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
-            if ((i === void 0 && (i = 1), n == null))
-              throw r("err")(
-                "[CustomerManager] imported customer profile disappeared",
-              );
-            var l = d(t, n, a);
-            if (
-              Object.values(l).every(function (e) {
-                return e == null;
-              })
-            )
-              return n.leadStage;
-            if (
-              yield o(
-                "WAWebContactManagerCustomerProfileUpsertMutation",
-              ).updateCustomerProfileIfUnchanged(t.chatJid, l, n.etag)
-            ) {
-              var u;
-              return (
-                o(
-                  "WAWebCustomerProfileChangeNotifier",
-                ).notifyCustomerProfileChanged(t.chatJid),
-                (u = l.leadStage) != null ? u : n.leadStage
-              );
-            }
-            if (i >= e)
-              throw r("err")(
-                "[CustomerManager] imported customer profile changed during merge",
-              );
-            return s(
-              t,
-              yield o(
-                "WAWebContactManagerCustomerProfileQuery",
-              ).fetchCustomerProfile(t.chatJid),
-              a,
-              i + 1,
-            );
-          },
-        )),
-        u.apply(this, arguments)
+    async function s(t, n, a, i) {
+      if ((i === void 0 && (i = 1), n == null))
+        throw r("err")(
+          "[CustomerManager] imported customer profile disappeared",
+        );
+      var l = c(t, n, a);
+      if (
+        Object.values(l).every(function (e) {
+          return e == null;
+        })
+      )
+        return n.leadStage;
+      if (
+        await o(
+          "WAWebContactManagerCustomerProfileUpsertMutation",
+        ).updateCustomerProfileIfUnchanged(t.chatJid, l, n.etag)
+      ) {
+        var u;
+        return (
+          o("WAWebCustomerProfileChangeNotifier").notifyCustomerProfileChanged(
+            t.chatJid,
+          ),
+          (u = l.leadStage) != null ? u : n.leadStage
+        );
+      }
+      if (i >= e)
+        throw r("err")(
+          "[CustomerManager] imported customer profile changed during merge",
+        );
+      return s(
+        t,
+        await o("WAWebContactManagerCustomerProfileQuery").fetchCustomerProfile(
+          t.chatJid,
+        ),
+        a,
+        i + 1,
       );
     }
-    function c(e, t, n) {
+    function u(e, t, n) {
       return Object.values(
-        m(
+        d(
           o(
             "WAWebCustomerManagerCreateCustomerRecord",
           ).buildCustomerProfileFields(e, null),
@@ -72,13 +61,13 @@ __d(
         return e != null;
       });
     }
-    function d(e, t, n) {
+    function c(e, t, n) {
       var a = t.updatedFields;
       if (a == null)
         throw r("err")(
           "[CustomerManager] imported customer field provenance unavailable",
         );
-      return m(
+      return d(
         o(
           "WAWebCustomerManagerCreateCustomerRecord",
         ).buildCustomerProfileFields(e, t),
@@ -87,7 +76,7 @@ __d(
         n,
       );
     }
-    function m(e, t, n, r) {
+    function d(e, t, n, r) {
       function o(e, t, r) {
         return t && !n.includes(e) && r != null ? r : void 0;
       }
@@ -97,31 +86,31 @@ __d(
           t.acquisitionSource == null,
           e.acquisitionSource,
         ),
-        address: o("address", p(t.address), _(e.address)),
+        address: o("address", m(t.address), p(e.address)),
         birthday: o("dob", t.birthdayIso == null, e.birthday),
-        email: o("email", p(t.email), _(e.email)),
+        email: o("email", m(t.email), p(e.email)),
         lastOrderDescription: o(
           "last_order",
-          p(t.lastOrderDescription),
-          _(e.lastOrderDescription),
+          m(t.lastOrderDescription),
+          p(e.lastOrderDescription),
         ),
         leadStage: o(
           "lead_stage",
           r.canBackfillLeadStage && t.leadStage == null,
           r.leadStageToBackfill,
         ),
-        name: o("name", p(t.name), r.profileName || void 0),
+        name: o("name", m(t.name), r.profileName || void 0),
       };
     }
-    function p(e) {
+    function m(e) {
       return e == null || e.trim() === "";
     }
-    function _(e) {
-      return p(e) ? void 0 : e;
+    function p(e) {
+      return m(e) ? void 0 : e;
     }
     ((l.fillMissingImportedProfileFields = s),
-      (l.hasPotentialImportedProfileFields = c),
-      (l.getMissingImportedProfileFields = d));
+      (l.hasPotentialImportedProfileFields = u),
+      (l.getMissingImportedProfileFields = c));
   },
   98,
 );

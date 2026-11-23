@@ -709,6 +709,16 @@ __d(
               selections: [te, re, oe],
               storageKey: null,
             },
+            {
+              alias: null,
+              args: null,
+              concreteType: "XFBBrainInsight",
+              kind: "LinkedField",
+              name: "um_ple",
+              plural: !1,
+              selections: [te, oe, re],
+              storageKey: null,
+            },
           ],
           storageKey: null,
         },
@@ -758,36 +768,10 @@ __d(
           alias: null,
           args: null,
           kind: "ScalarField",
-          name: "count",
-          storageKey: null,
-        },
-        me = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
-          name: "ad_campaign_group_id",
-          storageKey: null,
-        },
-        pe = [me],
-        _e = {
-          alias: null,
-          args: null,
-          concreteType: "AdCampaignGroup",
-          kind: "LinkedField",
-          name: "nodes",
-          plural: !0,
-          selections: S,
-          storageKey: null,
-        },
-        fe = [_e],
-        ge = {
-          alias: null,
-          args: null,
-          kind: "ScalarField",
           name: "objective",
           storageKey: null,
         },
-        he = {
+        me = {
           alias: null,
           args: null,
           concreteType: "XFBAdAccountRecommendationFragmentationForGQLGen",
@@ -795,7 +779,7 @@ __d(
           name: "fragmentation",
           plural: !1,
           selections: [
-            ge,
+            de,
             {
               alias: null,
               args: null,
@@ -813,7 +797,7 @@ __d(
           ],
           storageKey: null,
         },
-        ye = {
+        pe = {
           alias: null,
           args: null,
           concreteType:
@@ -832,14 +816,14 @@ __d(
           ],
           storageKey: null,
         },
-        Ce = {
+        _e = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "campaign_id",
           storageKey: null,
         },
-        be = {
+        fe = {
           alias: null,
           args: null,
           concreteType: "XFBAdAccountRecommendationUnusedBudgetForGQLGen",
@@ -863,7 +847,7 @@ __d(
               name: "campaign_unused_budget_mappings",
               plural: !0,
               selections: [
-                Ce,
+                _e,
                 {
                   alias: null,
                   args: null,
@@ -877,28 +861,28 @@ __d(
           ],
           storageKey: null,
         },
-        ve = {
+        ge = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "campaign_ids_to_enroll",
           storageKey: null,
         },
-        Se = {
+        he = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "adgroup_id",
           storageKey: null,
         },
-        Re = {
+        ye = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "key",
           storageKey: null,
         },
-        Le = {
+        Ce = {
           alias: null,
           args: null,
           concreteType:
@@ -907,7 +891,7 @@ __d(
           name: "ad_group_sddresponses_struct",
           plural: !0,
           selections: [
-            Se,
+            he,
             {
               alias: null,
               args: null,
@@ -916,13 +900,13 @@ __d(
               kind: "LinkedField",
               name: "sdd_responses",
               plural: !0,
-              selections: [Re, H],
+              selections: [ye, H],
               storageKey: null,
             },
           ],
           storageKey: null,
         },
-        Ee = {
+        be = {
           alias: null,
           args: null,
           concreteType:
@@ -931,7 +915,7 @@ __d(
           name: "campaign_id_to_cms_id_struct",
           plural: !0,
           selections: [
-            Ce,
+            _e,
             {
               alias: null,
               args: null,
@@ -942,7 +926,7 @@ __d(
           ],
           storageKey: null,
         },
-        ke = {
+        ve = {
           alias: null,
           args: null,
           concreteType:
@@ -951,7 +935,7 @@ __d(
           name: "campaign_id_to_adgroup_ids_struct",
           plural: !0,
           selections: [
-            Ce,
+            _e,
             {
               alias: null,
               args: null,
@@ -962,71 +946,71 @@ __d(
           ],
           storageKey: null,
         },
-        Ie = {
+        Se = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "additional_budget_percent",
           storageKey: null,
         },
-        Te = {
+        Re = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "estimated_conv_lift",
           storageKey: null,
         },
-        De = {
+        Le = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "is_recommended",
           storageKey: null,
         },
-        xe = [Ie, Te, De],
-        $e = {
+        Ee = [Se, Re, Le],
+        ke = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "campaign_group_id",
           storageKey: null,
         },
-        Pe = {
+        Ie = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "daily_budget",
           storageKey: null,
         },
-        Ne = {
+        Te = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "lifetime_budget",
           storageKey: null,
         },
-        Me = {
+        De = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "rank",
           storageKey: null,
         },
-        we = {
+        xe = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "is_one_to_n_acb",
           storageKey: null,
         },
-        Ae = {
+        $e = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "is_acb",
           storageKey: null,
         },
-        Fe = {
+        Pe = {
           alias: null,
           args: null,
           concreteType:
@@ -1050,17 +1034,17 @@ __d(
                   kind: "LinkedField",
                   name: "budget_recommendation_options",
                   plural: !0,
-                  selections: xe,
+                  selections: Ee,
                   storageKey: null,
                 },
-                $e,
-                Ce,
-                Pe,
-                Ne,
-                Me,
+                ke,
+                _e,
+                Ie,
+                Te,
+                De,
                 j,
-                we,
-                Ae,
+                xe,
+                $e,
                 {
                   alias: null,
                   args: null,
@@ -1074,7 +1058,7 @@ __d(
           ],
           storageKey: null,
         },
-        Oe = {
+        Ne = {
           alias: null,
           args: null,
           concreteType: "XFBTargetSuggestionForGQLGen",
@@ -1089,7 +1073,7 @@ __d(
               name: "action_sequence",
               storageKey: null,
             },
-            Ce,
+            _e,
             {
               alias: null,
               args: null,
@@ -1107,7 +1091,7 @@ __d(
           ],
           storageKey: null,
         },
-        Be = {
+        Me = {
           alias: null,
           args: null,
           concreteType:
@@ -1130,11 +1114,11 @@ __d(
               name: "should_recommend_retargeting",
               storageKey: null,
             },
-            Oe,
+            Ne,
           ],
           storageKey: null,
         },
-        We = {
+        we = {
           alias: null,
           args: null,
           concreteType:
@@ -1142,10 +1126,10 @@ __d(
           kind: "LinkedField",
           name: "custom_audience_relaxation",
           plural: !1,
-          selections: [Oe],
+          selections: [Ne],
           storageKey: null,
         },
-        qe = {
+        Ae = {
           alias: null,
           args: null,
           concreteType: "XFBAdAccountRecommendationDeliveryErrorForGQLGen",
@@ -1163,42 +1147,42 @@ __d(
           ],
           storageKey: null,
         },
-        Ue = {
+        Fe = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "is_pcrbundle_eligible",
           storageKey: null,
         },
-        Ve = {
+        Oe = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "budgets_in_local_currency",
           storageKey: null,
         },
-        He = {
+        Be = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "recommended_budget",
           storageKey: null,
         },
-        Ge = {
+        We = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "predicted_cpas",
           storageKey: null,
         },
-        ze = {
+        qe = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "predicted_daily_conversions",
           storageKey: null,
         },
-        je = {
+        Ue = {
           alias: null,
           args: null,
           concreteType:
@@ -1214,11 +1198,11 @@ __d(
               name: "gtm_version",
               storageKey: null,
             },
-            Ue,
-            Ve,
-            He,
-            Ge,
-            ze,
+            Fe,
+            Oe,
+            Be,
+            We,
+            qe,
             {
               alias: null,
               args: null,
@@ -1236,7 +1220,7 @@ __d(
           ],
           storageKey: null,
         },
-        Ke = {
+        Ve = {
           alias: null,
           args: null,
           concreteType:
@@ -1263,21 +1247,21 @@ __d(
           ],
           storageKey: null,
         },
-        Qe = {
+        He = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "business_id",
           storageKey: null,
         },
-        Xe = {
+        Ge = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "omni_optimization_integration_status",
           storageKey: null,
         },
-        Ye = {
+        ze = {
           alias: null,
           args: null,
           concreteType:
@@ -1293,7 +1277,7 @@ __d(
               name: "datasource_id",
               storageKey: null,
             },
-            Qe,
+            He,
             {
               alias: null,
               args: null,
@@ -1301,18 +1285,18 @@ __d(
               name: "datasource_name",
               storageKey: null,
             },
-            Xe,
+            Ge,
           ],
           storageKey: null,
         },
-        Je = {
+        je = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "pixel_id",
           storageKey: null,
         },
-        Ze = {
+        Ke = {
           alias: null,
           args: null,
           concreteType:
@@ -1321,8 +1305,8 @@ __d(
           name: "omni_optimization_pcr",
           plural: !1,
           selections: [
-            Je,
-            Qe,
+            je,
+            He,
             {
               alias: null,
               args: null,
@@ -1330,7 +1314,7 @@ __d(
               name: "pixel_name",
               storageKey: null,
             },
-            Xe,
+            Ge,
             {
               alias: null,
               args: null,
@@ -1348,7 +1332,7 @@ __d(
           ],
           storageKey: null,
         },
-        et = {
+        Qe = {
           alias: null,
           args: null,
           concreteType: "XFBAdAccountRecommendationCapiCrmGuidanceForGQLGen",
@@ -1373,38 +1357,38 @@ __d(
           ],
           storageKey: null,
         },
-        tt = {
+        Xe = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "is_capig_dual_setup_eligible",
           storageKey: null,
         },
-        nt = {
+        Ye = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "best_partner",
           storageKey: null,
         },
-        rt = {
+        Je = {
           alias: null,
           args: null,
           concreteType: "XFBAdAccountRecommendationOffsiteConversionForGQLGen",
           kind: "LinkedField",
           name: "offsite_conversion",
           plural: !1,
-          selections: [Ue, Ve, He, Ge, ze],
+          selections: [Fe, Oe, Be, We, qe],
           storageKey: null,
         },
-        ot = {
+        Ze = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "guidance_type",
           storageKey: null,
         },
-        at = {
+        et = {
           alias: null,
           args: null,
           concreteType:
@@ -1413,9 +1397,9 @@ __d(
           name: "pixel_optimization_hie_precreate",
           plural: !1,
           selections: [
-            Je,
-            Qe,
-            ot,
+            je,
+            He,
+            Ze,
             {
               alias: null,
               args: null,
@@ -1445,14 +1429,14 @@ __d(
           ],
           storageKey: null,
         },
-        it = {
+        tt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "catalog_id",
           storageKey: null,
         },
-        lt = {
+        nt = {
           alias: null,
           args: null,
           concreteType:
@@ -1460,17 +1444,17 @@ __d(
           kind: "LinkedField",
           name: "advantage_plus_catalog_ads",
           plural: !1,
-          selections: [it],
+          selections: [tt],
           storageKey: null,
         },
-        st = {
+        rt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "optimization_goal",
           storageKey: null,
         },
-        ut = {
+        ot = {
           alias: null,
           args: null,
           concreteType: "XFBAdAccountRecommendationCtxPrecreateForGQLGen",
@@ -1485,18 +1469,18 @@ __d(
               name: "messaging_apps",
               storageKey: null,
             },
-            st,
+            rt,
           ],
           storageKey: null,
         },
-        ct = {
+        at = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "event_name",
           storageKey: null,
         },
-        dt = {
+        it = {
           alias: null,
           args: null,
           concreteType:
@@ -1504,10 +1488,10 @@ __d(
           kind: "LinkedField",
           name: "signals_down_funnel_event_optimization_precreate",
           plural: !1,
-          selections: [ct, Je],
+          selections: [at, je],
           storageKey: null,
         },
-        mt = {
+        lt = {
           alias: null,
           args: null,
           concreteType: "XFBAdAccountRecommendationPartnershipAdsPCRForGQLGen",
@@ -1522,52 +1506,87 @@ __d(
               name: "business_id_with_recommended_content",
               storageKey: null,
             },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "caption",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "content_id",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "creation_time",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "platform",
+              storageKey: null,
+            },
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "thumbnail",
+              storageKey: null,
+            },
           ],
           storageKey: null,
         },
-        pt = {
+        st = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "app_id",
           storageKey: null,
         },
-        _t = {
+        ut = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "app_name",
           storageKey: null,
         },
-        ft = {
+        ct = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "app_store",
           storageKey: null,
         },
-        gt = {
+        dt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "is_iaa_creation_eligible",
           storageKey: null,
         },
-        ht = {
+        mt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "logo_url",
           storageKey: null,
         },
-        yt = {
+        pt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "object_store_url",
           storageKey: null,
         },
-        Ct = {
+        _t = {
           alias: null,
           args: null,
           concreteType:
@@ -1576,8 +1595,8 @@ __d(
           name: "in_app_ad_impression_roas_android_pcr",
           plural: !1,
           selections: [
-            pt,
-            _t,
+            st,
+            ut,
             {
               alias: null,
               args: null,
@@ -1585,16 +1604,16 @@ __d(
               kind: "LinkedField",
               name: "apps",
               plural: !0,
-              selections: [pt, _t, ft, gt, ht, yt],
+              selections: [st, ut, ct, dt, mt, pt],
               storageKey: null,
             },
-            ft,
-            gt,
-            yt,
+            ct,
+            dt,
+            pt,
           ],
           storageKey: null,
         },
-        bt = [
+        ft = [
           {
             alias: null,
             args: null,
@@ -1603,7 +1622,7 @@ __d(
             storageKey: null,
           },
         ],
-        vt = {
+        gt = {
           alias: null,
           args: null,
           concreteType:
@@ -1611,17 +1630,36 @@ __d(
           kind: "LinkedField",
           name: "offsite_conversion_leads_optimization_pcr",
           plural: !1,
-          selections: bt,
+          selections: ft,
           storageKey: null,
         },
-        St = {
+        ht = {
+          alias: null,
+          args: null,
+          concreteType:
+            "AdAccountRecommendationWebsiteAndCallsUpsellPCRForGQLGen",
+          kind: "LinkedField",
+          name: "website_and_calls_upsell_pcr",
+          plural: !1,
+          selections: [
+            {
+              alias: null,
+              args: null,
+              kind: "ScalarField",
+              name: "dominant_objective",
+              storageKey: null,
+            },
+          ],
+          storageKey: null,
+        },
+        yt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "is_iap_creation_eligible",
           storageKey: null,
         },
-        Rt = {
+        Ct = {
           alias: null,
           args: null,
           concreteType: "XFBAdAccountRecommendationVoInAppPurchasePCRForGQLGen",
@@ -1629,10 +1667,10 @@ __d(
           name: "vo_in_app_purchase_pcr",
           plural: !1,
           selections: [
-            St,
-            pt,
-            _t,
             yt,
+            st,
+            ut,
+            pt,
             {
               alias: null,
               args: null,
@@ -1641,20 +1679,20 @@ __d(
               kind: "LinkedField",
               name: "apps",
               plural: !0,
-              selections: [pt, _t, ft, ht, St, yt],
+              selections: [st, ut, ct, mt, yt, pt],
               storageKey: null,
             },
           ],
           storageKey: null,
         },
-        Lt = {
+        bt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "estimated_conv",
           storageKey: null,
         },
-        Et = {
+        vt = {
           alias: null,
           args: null,
           concreteType:
@@ -1670,10 +1708,10 @@ __d(
               name: "adoption_date",
               storageKey: null,
             },
+            ke,
+            _e,
             $e,
-            Ce,
-            Ae,
-            ot,
+            Ze,
             {
               alias: null,
               args: null,
@@ -1757,10 +1795,10 @@ __d(
                   name: "recommendation_options",
                   plural: !0,
                   selections: [
-                    Ie,
-                    Lt,
-                    Te,
-                    De,
+                    Se,
+                    bt,
+                    Re,
+                    Le,
                     {
                       alias: null,
                       args: null,
@@ -1777,7 +1815,7 @@ __d(
           ],
           storageKey: null,
         },
-        kt = {
+        St = {
           alias: null,
           args: null,
           concreteType:
@@ -1810,34 +1848,7 @@ __d(
           ],
           storageKey: null,
         },
-        It = {
-          alias: null,
-          args: null,
-          concreteType:
-            "AdAccountRecommendationIncrementalAttributionMFRForGQLGen",
-          kind: "LinkedField",
-          name: "incremental_attribution_mfr",
-          plural: !1,
-          selections: [
-            {
-              alias: null,
-              args: null,
-              kind: "ScalarField",
-              name: "is_incremental_attribution_enabled",
-              storageKey: null,
-            },
-            {
-              alias: null,
-              args: null,
-              kind: "ScalarField",
-              name: "is_eligible_for_incremental_attribution",
-              storageKey: null,
-            },
-            ct,
-          ],
-          storageKey: null,
-        },
-        Tt = {
+        Rt = {
           alias: null,
           args: null,
           concreteType: "XFBAdAccountRecommendationApluscMFRForGQLGen",
@@ -1853,7 +1864,7 @@ __d(
               name: "adgroup_idto_creative_feature_names",
               plural: !0,
               selections: [
-                Se,
+                he,
                 {
                   alias: null,
                   args: null,
@@ -1867,7 +1878,7 @@ __d(
           ],
           storageKey: null,
         },
-        Dt = {
+        Lt = {
           alias: null,
           args: null,
           concreteType: "XFBAdAccountRecommendationGenMultiTextForGQLGen",
@@ -1884,7 +1895,7 @@ __d(
               name: "all_text_options",
               plural: !0,
               selections: [
-                Se,
+                he,
                 {
                   alias: null,
                   args: null,
@@ -1917,47 +1928,47 @@ __d(
           ],
           storageKey: null,
         },
-        xt = {
+        Et = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "cas_segment",
           storageKey: null,
         },
-        $t = {
+        kt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "has_spend_in_last_28_days",
           storageKey: null,
         },
-        Pt = {
+        It = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "root_cause_identifier_label",
           storageKey: null,
         },
-        Nt = {
+        Tt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "custom_event_type_enum",
           storageKey: null,
         },
-        Mt = {
+        Dt = {
           kind: "InlineFragment",
           selections: S,
           type: "Node",
           abstractKey: "__isNode",
         },
-        wt = {
+        xt = {
           kind: "InlineFragment",
           selections: S,
           type: "XFBTopicTag",
           abstractKey: null,
         },
-        At = {
+        $t = {
           alias: null,
           args: null,
           concreteType: "EntityAtRange",
@@ -1974,13 +1985,13 @@ __d(
               kind: "LinkedField",
               name: "entity",
               plural: !1,
-              selections: [y, C, b, Mt, wt],
+              selections: [y, C, b, Dt, xt],
               storageKey: null,
             },
           ],
           storageKey: null,
         },
-        Ft = {
+        Pt = {
           alias: null,
           args: null,
           concreteType: "ImageAtRange",
@@ -1998,7 +2009,7 @@ __d(
               selections: [
                 C,
                 P,
-                Mt,
+                Dt,
                 {
                   kind: "InlineFragment",
                   selections: S,
@@ -2019,7 +2030,7 @@ __d(
           ],
           storageKey: null,
         },
-        Ot = {
+        Nt = {
           kind: "InlineFragment",
           selections: [
             {
@@ -2072,104 +2083,6 @@ __d(
                   name: "string_result",
                   storageKey: null,
                 },
-                {
-                  alias: null,
-                  args: null,
-                  concreteType: "XFBUGPAdRecommendation",
-                  kind: "LinkedField",
-                  name: "recommendations",
-                  plural: !0,
-                  selections: [
-                    {
-                      alias: null,
-                      args: null,
-                      concreteType: null,
-                      kind: "LinkedField",
-                      name: "runtime_metadata",
-                      plural: !1,
-                      selections: [
-                        C,
-                        {
-                          kind: "InlineFragment",
-                          selections: [
-                            {
-                              alias: null,
-                              args: null,
-                              concreteType:
-                                "XFBUGPAdRecommendationAdObjectTree",
-                              kind: "LinkedField",
-                              name: "ad_object_tree",
-                              plural: !1,
-                              selections: [
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType:
-                                    "XFBUGPAdRecommendationAdObjectTreeAdGroupIdsConnection",
-                                  kind: "LinkedField",
-                                  name: "ad_group_ids",
-                                  plural: !1,
-                                  selections: [
-                                    {
-                                      alias: null,
-                                      args: null,
-                                      concreteType: "Adgroup",
-                                      kind: "LinkedField",
-                                      name: "nodes",
-                                      plural: !0,
-                                      selections: S,
-                                      storageKey: null,
-                                    },
-                                  ],
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType:
-                                    "XFBUGPAdRecommendationAdObjectTreeCampaignGroupIdsConnection",
-                                  kind: "LinkedField",
-                                  name: "campaign_group_ids",
-                                  plural: !1,
-                                  selections: fe,
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType:
-                                    "XFBUGPAdRecommendationAdObjectTreeCampaignsIdsConnection",
-                                  kind: "LinkedField",
-                                  name: "campaigns_ids",
-                                  plural: !1,
-                                  selections: [
-                                    {
-                                      alias: null,
-                                      args: null,
-                                      concreteType: "AdCampaign",
-                                      kind: "LinkedField",
-                                      name: "nodes",
-                                      plural: !0,
-                                      selections: S,
-                                      storageKey: null,
-                                    },
-                                  ],
-                                  storageKey: null,
-                                },
-                              ],
-                              storageKey: null,
-                            },
-                          ],
-                          type: "XFBUGPGuidanceEngineRuntimeMetadata",
-                          abstractKey: null,
-                        },
-                        h,
-                      ],
-                      storageKey: null,
-                    },
-                  ],
-                  storageKey: null,
-                },
               ],
               storageKey: null,
             },
@@ -2177,8 +2090,8 @@ __d(
           type: "XFBHasCheckedQEs",
           abstractKey: "__isXFBHasCheckedQEs",
         },
-        Bt = [c, I, T, At, w, Ft],
-        Wt = {
+        Mt = [c, I, T, $t, w, Pt],
+        wt = {
           alias: null,
           args: null,
           concreteType: "EntityAtRange",
@@ -2195,137 +2108,150 @@ __d(
               kind: "LinkedField",
               name: "entity",
               plural: !1,
-              selections: [y, b, C, Mt, wt],
+              selections: [y, b, C, Dt, xt],
               storageKey: null,
             },
           ],
           storageKey: null,
         },
-        qt = [c, I, T, Wt, w, Ft],
-        Ut = [me, h],
-        Vt = {
+        At = [c, I, T, wt, w, Pt],
+        Ft = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "is_account_owned_pixel",
+          storageKey: null,
+        },
+        Ot = {
+          alias: null,
+          args: null,
+          kind: "ScalarField",
+          name: "can_onboard_account_pixel",
+          storageKey: null,
+        },
+        Bt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "owning_business_id",
           storageKey: null,
         },
-        Ht = {
+        Wt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "match_keys",
           storageKey: null,
         },
-        Gt = {
+        qt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "data_source_id",
           storageKey: null,
         },
-        zt = {
+        Ut = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "data_source_type",
           storageKey: null,
         },
-        jt = {
+        Vt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "data_source_name",
           storageKey: null,
         },
-        Kt = {
+        Ht = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "campaign_category",
           storageKey: null,
         },
-        Qt = {
+        Gt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "suggested_budget_value",
           storageKey: null,
         },
-        Xt = {
+        zt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "base_budget_value",
           storageKey: null,
         },
-        Yt = {
+        jt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "base_budget_value_lower_bound",
           storageKey: null,
         },
-        Jt = {
+        Kt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "base_budget_value_upper_bound",
           storageKey: null,
         },
-        Zt = {
+        Qt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "additional_bid_percent",
           storageKey: null,
         },
-        en = {
+        Xt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "estimated_volume_lift_percent",
           storageKey: null,
         },
-        tn = {
+        Yt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "bid_strategy",
           storageKey: null,
         },
-        nn = {
+        Jt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "base_bid_value",
           storageKey: null,
         },
-        rn = {
+        Zt = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "child_recommendation_types",
           storageKey: null,
         },
-        on = {
+        en = {
           alias: null,
           args: null,
           concreteType: "AdPromotedObject",
           kind: "LinkedField",
           name: "promoted_object",
           plural: !1,
-          selections: [Nt, h],
+          selections: [Tt, h],
           storageKey: null,
         },
-        an = {
+        tn = {
           alias: null,
           args: null,
           kind: "ScalarField",
           name: "lifetime_budget_safe_value_str",
           storageKey: null,
         },
-        ln = {
+        nn = {
           alias: null,
           args: null,
           kind: "ScalarField",
@@ -2618,70 +2544,14 @@ __d(
                                   alias: null,
                                   args: null,
                                   concreteType:
-                                    "XFBUGPGuidanceEngineRuntimeMetadataAdGroupIdsConnection",
-                                  kind: "LinkedField",
-                                  name: "ad_group_ids",
-                                  plural: !1,
-                                  selections: [
-                                    de,
-                                    {
-                                      alias: null,
-                                      args: null,
-                                      concreteType: "Adgroup",
-                                      kind: "LinkedField",
-                                      name: "nodes",
-                                      plural: !0,
-                                      selections: pe,
-                                      storageKey: null,
-                                    },
-                                  ],
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType:
-                                    "XFBUGPGuidanceEngineRuntimeMetadataCampaignsIdsConnection",
-                                  kind: "LinkedField",
-                                  name: "campaigns_ids",
-                                  plural: !1,
-                                  selections: [
-                                    {
-                                      alias: null,
-                                      args: null,
-                                      concreteType: "AdCampaign",
-                                      kind: "LinkedField",
-                                      name: "nodes",
-                                      plural: !0,
-                                      selections: pe,
-                                      storageKey: null,
-                                    },
-                                  ],
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType:
-                                    "XFBUGPGuidanceEngineRuntimeMetadataCampaignGroupIdsConnection",
-                                  kind: "LinkedField",
-                                  name: "campaign_group_ids",
-                                  plural: !1,
-                                  selections: fe,
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType:
                                     "XFBAdAccountRecommendationExtraDataForGQLGen",
                                   kind: "LinkedField",
                                   name: "metadata",
                                   plural: !1,
                                   selections: [
-                                    he,
-                                    ye,
-                                    be,
+                                    me,
+                                    pe,
+                                    fe,
                                     {
                                       alias: null,
                                       args: null,
@@ -2690,18 +2560,18 @@ __d(
                                       kind: "LinkedField",
                                       name: "shops_ads_saoff_mfr",
                                       plural: !1,
-                                      selections: [ve, Le, Ee, ke],
+                                      selections: [ge, Ce, be, ve],
                                       storageKey: null,
                                     },
-                                    Fe,
-                                    Be,
-                                    We,
-                                    qe,
-                                    je,
+                                    Pe,
+                                    Me,
+                                    we,
+                                    Ae,
+                                    Ue,
+                                    Ve,
+                                    ze,
                                     Ke,
-                                    Ye,
-                                    Ze,
-                                    et,
+                                    Qe,
                                     {
                                       alias: null,
                                       args: null,
@@ -2710,7 +2580,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "capi_event_coverage",
                                       plural: !1,
-                                      selections: [tt],
+                                      selections: [Xe],
                                       storageKey: null,
                                     },
                                     {
@@ -2721,23 +2591,23 @@ __d(
                                       kind: "LinkedField",
                                       name: "pixel_upsell",
                                       plural: !1,
-                                      selections: [Je, Qe, nt, Ue],
+                                      selections: [je, He, Ye, Fe],
                                       storageKey: null,
                                     },
-                                    rt,
-                                    at,
+                                    Je,
+                                    et,
+                                    nt,
+                                    ot,
+                                    it,
                                     lt,
-                                    ut,
-                                    dt,
-                                    mt,
+                                    _t,
+                                    gt,
+                                    ht,
                                     Ct,
                                     vt,
+                                    St,
                                     Rt,
-                                    Et,
-                                    kt,
-                                    It,
-                                    Tt,
-                                    Dt,
+                                    Lt,
                                     {
                                       alias: null,
                                       args: null,
@@ -2746,7 +2616,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "zero_outcome_budget_mfr",
                                       plural: !1,
-                                      selections: [xt, $t],
+                                      selections: [Et, kt],
                                       storageKey: null,
                                     },
                                   ],
@@ -2760,10 +2630,10 @@ __d(
                                   kind: "LinkedField",
                                   name: "root_cause_identifier",
                                   plural: !1,
-                                  selections: [Pt],
+                                  selections: [It],
                                   storageKey: null,
                                 },
-                                st,
+                                rt,
                                 {
                                   alias: null,
                                   args: null,
@@ -2771,7 +2641,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "promoted_object",
                                   plural: !1,
-                                  selections: [Nt],
+                                  selections: [Tt],
                                   storageKey: null,
                                 },
                               ],
@@ -2879,7 +2749,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "tooltip",
                                   plural: !0,
-                                  selections: [c, At],
+                                  selections: [c, $t],
                                   storageKey: null,
                                 },
                               ],
@@ -2925,14 +2795,14 @@ __d(
                                           kind: "LinkedField",
                                           name: "entity",
                                           plural: !1,
-                                          selections: [C, b, Mt, wt],
+                                          selections: [C, b, Dt, xt],
                                           storageKey: null,
                                         },
                                       ],
                                       storageKey: null,
                                     },
-                                    Ft,
-                                    Ot,
+                                    Pt,
+                                    Nt,
                                   ],
                                   storageKey: null,
                                 },
@@ -2946,7 +2816,7 @@ __d(
                               kind: "LinkedField",
                               name: "body",
                               plural: !0,
-                              selections: Bt,
+                              selections: Mt,
                               storageKey: null,
                             },
                             {
@@ -2956,7 +2826,7 @@ __d(
                               kind: "LinkedField",
                               name: "body_more_info",
                               plural: !0,
-                              selections: Bt,
+                              selections: Mt,
                               storageKey: null,
                             },
                             {
@@ -2974,7 +2844,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "title",
                                   plural: !1,
-                                  selections: [c, I, T, x, $, f, Ot],
+                                  selections: [c, I, T, x, $, f, Nt],
                                   storageKey: null,
                                 },
                                 {
@@ -2984,7 +2854,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "lift",
                                   plural: !1,
-                                  selections: [c, I, T, Wt, w, Ft, x, Ot],
+                                  selections: [c, I, T, wt, w, Pt, x, Nt],
                                   storageKey: null,
                                 },
                                 {
@@ -2994,7 +2864,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "structured_lift",
                                   plural: !1,
-                                  selections: [O, B, W, x, Ot],
+                                  selections: [O, B, W, x, Nt],
                                   storageKey: null,
                                 },
                                 {
@@ -3004,7 +2874,7 @@ __d(
                                   kind: "LinkedField",
                                   name: "footer",
                                   plural: !1,
-                                  selections: [I, c, T, Wt, w, Ft],
+                                  selections: [I, c, T, wt, w, Pt],
                                   storageKey: null,
                                 },
                                 {
@@ -3022,7 +2892,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "title",
                                       plural: !1,
-                                      selections: qt,
+                                      selections: At,
                                       storageKey: null,
                                     },
                                     {
@@ -3032,7 +2902,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "body",
                                       plural: !0,
-                                      selections: qt,
+                                      selections: At,
                                       storageKey: null,
                                     },
                                     {
@@ -3042,7 +2912,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "footer",
                                       plural: !1,
-                                      selections: qt,
+                                      selections: At,
                                       storageKey: null,
                                     },
                                   ],
@@ -3106,71 +2976,14 @@ __d(
                                   alias: null,
                                   args: null,
                                   concreteType:
-                                    "XFBUGPGuidanceEngineRuntimeMetadataAdGroupIdsConnection",
-                                  kind: "LinkedField",
-                                  name: "ad_group_ids",
-                                  plural: !1,
-                                  selections: [
-                                    de,
-                                    {
-                                      alias: null,
-                                      args: null,
-                                      concreteType: "Adgroup",
-                                      kind: "LinkedField",
-                                      name: "nodes",
-                                      plural: !0,
-                                      selections: Ut,
-                                      storageKey: null,
-                                    },
-                                  ],
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType:
-                                    "XFBUGPGuidanceEngineRuntimeMetadataCampaignsIdsConnection",
-                                  kind: "LinkedField",
-                                  name: "campaigns_ids",
-                                  plural: !1,
-                                  selections: [
-                                    {
-                                      alias: null,
-                                      args: null,
-                                      concreteType: "AdCampaign",
-                                      kind: "LinkedField",
-                                      name: "nodes",
-                                      plural: !0,
-                                      selections: Ut,
-                                      storageKey: null,
-                                    },
-                                    de,
-                                  ],
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType:
-                                    "XFBUGPGuidanceEngineRuntimeMetadataCampaignGroupIdsConnection",
-                                  kind: "LinkedField",
-                                  name: "campaign_group_ids",
-                                  plural: !1,
-                                  selections: [_e, de],
-                                  storageKey: null,
-                                },
-                                {
-                                  alias: null,
-                                  args: null,
-                                  concreteType:
                                     "XFBAdAccountRecommendationExtraDataForGQLGen",
                                   kind: "LinkedField",
                                   name: "metadata",
                                   plural: !1,
                                   selections: [
-                                    he,
-                                    ye,
-                                    be,
+                                    me,
+                                    pe,
+                                    fe,
                                     {
                                       alias: null,
                                       args: null,
@@ -3180,10 +2993,10 @@ __d(
                                       name: "shops_ads_saoff_mfr",
                                       plural: !1,
                                       selections: [
+                                        ge,
+                                        Ce,
+                                        be,
                                         ve,
-                                        Le,
-                                        Ee,
-                                        ke,
                                         {
                                           alias: null,
                                           args: null,
@@ -3194,15 +3007,15 @@ __d(
                                       ],
                                       storageKey: null,
                                     },
-                                    Fe,
-                                    Be,
-                                    We,
-                                    qe,
-                                    je,
+                                    Pe,
+                                    Me,
+                                    we,
+                                    Ae,
+                                    Ue,
+                                    Ve,
+                                    ze,
                                     Ke,
-                                    Ye,
-                                    Ze,
-                                    et,
+                                    Qe,
                                     {
                                       alias: null,
                                       args: null,
@@ -3212,10 +3025,13 @@ __d(
                                       name: "capi_event_coverage",
                                       plural: !1,
                                       selections: [
-                                        tt,
-                                        Je,
-                                        ct,
-                                        Qe,
+                                        Xe,
+                                        Ft,
+                                        Ot,
+                                        Bt,
+                                        je,
+                                        at,
+                                        He,
                                         {
                                           alias: null,
                                           args: null,
@@ -3235,10 +3051,10 @@ __d(
                                       name: "pixel_upsell",
                                       plural: !1,
                                       selections: [
-                                        Je,
-                                        Qe,
-                                        nt,
-                                        Ue,
+                                        je,
+                                        He,
+                                        Ye,
+                                        Fe,
                                         {
                                           alias: null,
                                           args: null,
@@ -3256,20 +3072,20 @@ __d(
                                       ],
                                       storageKey: null,
                                     },
-                                    rt,
-                                    at,
+                                    Je,
+                                    et,
+                                    nt,
+                                    ot,
+                                    it,
                                     lt,
-                                    ut,
-                                    dt,
-                                    mt,
+                                    _t,
+                                    gt,
+                                    ht,
                                     Ct,
                                     vt,
+                                    St,
                                     Rt,
-                                    Et,
-                                    kt,
-                                    It,
-                                    Tt,
-                                    Dt,
+                                    Lt,
                                     {
                                       alias: null,
                                       args: null,
@@ -3279,8 +3095,8 @@ __d(
                                       name: "zero_outcome_budget_mfr",
                                       plural: !1,
                                       selections: [
-                                        xt,
-                                        $t,
+                                        Et,
+                                        kt,
                                         {
                                           alias: null,
                                           args: null,
@@ -3288,7 +3104,7 @@ __d(
                                           name: "current_budget",
                                           storageKey: null,
                                         },
-                                        Ae,
+                                        $e,
                                         {
                                           alias: null,
                                           args: null,
@@ -3296,7 +3112,7 @@ __d(
                                           name: "is_lifetime_budget",
                                           storageKey: null,
                                         },
-                                        He,
+                                        Be,
                                         {
                                           alias: null,
                                           args: null,
@@ -3333,15 +3149,15 @@ __d(
                                               kind: "LinkedField",
                                               name: "budget_recommendation_options",
                                               plural: !0,
-                                              selections: xe,
+                                              selections: Ee,
                                               storageKey: null,
                                             },
-                                            Ce,
-                                            $e,
-                                            Me,
+                                            _e,
+                                            ke,
+                                            De,
                                             j,
-                                            Ae,
-                                            we,
+                                            $e,
+                                            xe,
                                             {
                                               alias: null,
                                               args: null,
@@ -3349,8 +3165,19 @@ __d(
                                               name: "is_budget_rec_from_ll_of",
                                               storageKey: null,
                                             },
-                                            Pe,
-                                            Ne,
+                                            {
+                                              alias: null,
+                                              args: null,
+                                              concreteType:
+                                                "XFBAdAccountRecommendationExtraDataGoodCampaignBudgetRecommendationOptionForGQLGen",
+                                              kind: "LinkedField",
+                                              name: "fallback_budget_recommendation_options",
+                                              plural: !0,
+                                              selections: Ee,
+                                              storageKey: null,
+                                            },
+                                            Ie,
+                                            Te,
                                             {
                                               alias: null,
                                               args: null,
@@ -3397,7 +3224,7 @@ __d(
                                                       name: "additional_duration_in_days",
                                                       storageKey: null,
                                                     },
-                                                    Te,
+                                                    Re,
                                                     {
                                                       alias: null,
                                                       args: null,
@@ -3444,7 +3271,7 @@ __d(
                                               name: "budget_recommendation_options",
                                               plural: !0,
                                               selections: [
-                                                Ie,
+                                                Se,
                                                 {
                                                   alias: null,
                                                   args: null,
@@ -3459,16 +3286,16 @@ __d(
                                                   name: "estimated_value",
                                                   storageKey: null,
                                                 },
-                                                De,
+                                                Le,
                                               ],
                                               storageKey: null,
                                             },
-                                            Ce,
-                                            $e,
-                                            Me,
+                                            _e,
+                                            ke,
+                                            De,
                                             j,
-                                            Ae,
-                                            we,
+                                            $e,
+                                            xe,
                                           ],
                                           storageKey: null,
                                         },
@@ -3502,7 +3329,7 @@ __d(
                                               name: "budget_recommendation_options",
                                               plural: !0,
                                               selections: [
-                                                De,
+                                                Le,
                                                 {
                                                   alias: null,
                                                   args: null,
@@ -3510,18 +3337,18 @@ __d(
                                                   name: "recommended_budget_amount",
                                                   storageKey: null,
                                                 },
-                                                Te,
-                                                Lt,
+                                                Re,
+                                                bt,
                                               ],
                                               storageKey: null,
                                             },
-                                            Ae,
                                             $e,
-                                            Ce,
-                                            we,
-                                            Pe,
-                                            Ne,
-                                            st,
+                                            ke,
+                                            _e,
+                                            xe,
+                                            Ie,
+                                            Te,
+                                            rt,
                                           ],
                                           storageKey: null,
                                         },
@@ -3556,7 +3383,7 @@ __d(
                                       name: "capi_performance_match_key",
                                       plural: !1,
                                       selections: [
-                                        Vt,
+                                        Bt,
                                         {
                                           alias: null,
                                           args: null,
@@ -3566,7 +3393,7 @@ __d(
                                           name: "campaign_group_to_pixel_info",
                                           plural: !0,
                                           selections: [
-                                            $e,
+                                            ke,
                                             {
                                               alias: null,
                                               args: null,
@@ -3574,7 +3401,7 @@ __d(
                                               name: "aly_acr_percentage",
                                               storageKey: null,
                                             },
-                                            ct,
+                                            at,
                                             {
                                               alias: null,
                                               args: null,
@@ -3582,8 +3409,8 @@ __d(
                                               name: "best_pixel_id",
                                               storageKey: null,
                                             },
-                                            Qe,
-                                            Ht,
+                                            He,
+                                            Wt,
                                           ],
                                           storageKey: null,
                                         },
@@ -3598,7 +3425,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "capi_performance_match_key_v2",
                                       plural: !1,
-                                      selections: [ct, Je, Qe, Ht, Vt],
+                                      selections: [at, je, He, Wt, Bt],
                                       storageKey: null,
                                     },
                                     {
@@ -3609,7 +3436,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "capi_performance_match_key_v3_mfr",
                                       plural: !1,
-                                      selections: [ct, Je, Qe, Ht],
+                                      selections: [at, je, He, Wt],
                                       storageKey: null,
                                     },
                                     {
@@ -3685,6 +3512,9 @@ __d(
                                       name: "signals_growth_capi_v2",
                                       plural: !1,
                                       selections: [
+                                        Ft,
+                                        Ot,
+                                        Bt,
                                         {
                                           alias: null,
                                           args: null,
@@ -3692,8 +3522,8 @@ __d(
                                           name: "integration_recommendation",
                                           storageKey: null,
                                         },
-                                        Je,
-                                        Qe,
+                                        je,
+                                        He,
                                         {
                                           alias: null,
                                           args: null,
@@ -3731,7 +3561,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "signals_vo_using_co_model_mfr",
                                       plural: !1,
-                                      selections: [Gt, ct, zt, jt],
+                                      selections: [qt, at, Ut, Vt],
                                       storageKey: null,
                                     },
                                     {
@@ -3743,10 +3573,10 @@ __d(
                                       name: "value_co_campaigns_low_purchase_dq_mfr",
                                       plural: !1,
                                       selections: [
-                                        Gt,
-                                        jt,
-                                        zt,
-                                        Qe,
+                                        qt,
+                                        Vt,
+                                        Ut,
+                                        He,
                                         {
                                           alias: null,
                                           args: null,
@@ -3754,7 +3584,7 @@ __d(
                                           name: "issue_type",
                                           storageKey: null,
                                         },
-                                        ct,
+                                        at,
                                       ],
                                       storageKey: null,
                                     },
@@ -3767,8 +3597,8 @@ __d(
                                       name: "capi_crm_setup_mfr",
                                       plural: !1,
                                       selections: [
-                                        Gt,
-                                        Qe,
+                                        qt,
+                                        He,
                                         {
                                           alias: null,
                                           args: null,
@@ -3808,7 +3638,7 @@ __d(
                                       kind: "LinkedField",
                                       name: "offsite_conversion_leads_optimization_mfr",
                                       plural: !1,
-                                      selections: bt,
+                                      selections: ft,
                                       storageKey: null,
                                     },
                                     {
@@ -3828,7 +3658,7 @@ __d(
                                           kind: "LinkedField",
                                           name: "all_uncrop_options",
                                           plural: !0,
-                                          selections: [Se],
+                                          selections: [he],
                                           storageKey: null,
                                         },
                                       ],
@@ -3869,7 +3699,7 @@ __d(
                                       name: "auto_cat_selection_enhancement",
                                       plural: !1,
                                       selections: [
-                                        it,
+                                        tt,
                                         {
                                           alias: null,
                                           args: null,
@@ -3943,16 +3773,16 @@ __d(
                                           name: "autobid_to_manual_bid_mapping",
                                           plural: !0,
                                           selections: [
+                                            Ht,
+                                            ke,
+                                            _e,
+                                            Gt,
+                                            zt,
+                                            jt,
                                             Kt,
-                                            $e,
-                                            Ce,
                                             Qt,
+                                            rt,
                                             Xt,
-                                            Yt,
-                                            Jt,
-                                            Zt,
-                                            st,
-                                            en,
                                             {
                                               alias: null,
                                               args: null,
@@ -3960,7 +3790,14 @@ __d(
                                               name: "estimated_cpa_or_roas",
                                               storageKey: null,
                                             },
-                                            tn,
+                                            Yt,
+                                            {
+                                              alias: null,
+                                              args: null,
+                                              kind: "ScalarField",
+                                              name: "should_show_duplicate",
+                                              storageKey: null,
+                                            },
                                           ],
                                           storageKey: null,
                                         },
@@ -3993,11 +3830,11 @@ __d(
                                               kind: "LinkedField",
                                               name: "bid_recommendation_options",
                                               plural: !0,
-                                              selections: [Zt, nn],
+                                              selections: [Qt, Jt],
                                               storageKey: null,
                                             },
-                                            tn,
-                                            Ce,
+                                            Yt,
+                                            _e,
                                           ],
                                           storageKey: null,
                                         },
@@ -4031,8 +3868,8 @@ __d(
                                               name: "bid_recommendation_options",
                                               plural: !0,
                                               selections: [
-                                                Zt,
-                                                nn,
+                                                Qt,
+                                                Jt,
                                                 {
                                                   alias: null,
                                                   args: null,
@@ -4064,10 +3901,10 @@ __d(
                                               ],
                                               storageKey: null,
                                             },
-                                            tn,
-                                            Kt,
-                                            $e,
-                                            Ce,
+                                            Yt,
+                                            Ht,
+                                            ke,
+                                            _e,
                                           ],
                                           storageKey: null,
                                         },
@@ -4083,16 +3920,16 @@ __d(
                                       name: "manual_bidding_budget_limited_mfr",
                                       plural: !1,
                                       selections: [
-                                        Ce,
-                                        $e,
-                                        tn,
-                                        st,
-                                        Ie,
-                                        en,
-                                        Xt,
+                                        _e,
+                                        ke,
                                         Yt,
-                                        Jt,
-                                        Qt,
+                                        rt,
+                                        Se,
+                                        Xt,
+                                        zt,
+                                        jt,
+                                        Kt,
+                                        Gt,
                                       ],
                                       storageKey: null,
                                     },
@@ -4113,10 +3950,10 @@ __d(
                                           kind: "LinkedField",
                                           name: "adgroup_idto_child_recommendation_types",
                                           plural: !0,
-                                          selections: [Se, rn],
+                                          selections: [he, Zt],
                                           storageKey: null,
                                         },
-                                        rn,
+                                        Zt,
                                       ],
                                       storageKey: null,
                                     },
@@ -4132,7 +3969,7 @@ __d(
                                   name: "root_cause_identifier",
                                   plural: !1,
                                   selections: [
-                                    Pt,
+                                    It,
                                     {
                                       alias: null,
                                       args: null,
@@ -4141,14 +3978,14 @@ __d(
                                       kind: "LinkedField",
                                       name: "label_to_ad_object_ids",
                                       plural: !0,
-                                      selections: [Re],
+                                      selections: [ye],
                                       storageKey: null,
                                     },
                                   ],
                                   storageKey: null,
                                 },
-                                st,
-                                on,
+                                rt,
+                                en,
                                 {
                                   alias: null,
                                   args: null,
@@ -4174,7 +4011,7 @@ __d(
                                           kind: "LinkedField",
                                           name: "nodes",
                                           plural: !0,
-                                          selections: [h, V, st, an, ln, on],
+                                          selections: [h, V, rt, tn, nn, en],
                                           storageKey: null,
                                         },
                                       ],
@@ -4196,7 +4033,7 @@ __d(
                                           kind: "LinkedField",
                                           name: "nodes",
                                           plural: !0,
-                                          selections: [h, V, ge, an, ln],
+                                          selections: [h, V, de, tn, nn],
                                           storageKey: null,
                                         },
                                       ],
@@ -4233,7 +4070,7 @@ __d(
           ],
         },
         params: {
-          id: "27293761530320213",
+          id: "29054064560926255",
           metadata: {},
           name: "MAIBAUgpRecommendationsGraphQLQuery",
           operationKind: "query",

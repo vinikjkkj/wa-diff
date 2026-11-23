@@ -31,406 +31,373 @@ __d(
     "WAWebUserUtils",
     "WAWebViewMode.flow",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e, s, u, c, d, m, p, _, f, g, h, y, C, b, v, S, R;
-    function L(e, t) {
-      return E.apply(this, arguments);
-    }
-    function E() {
-      return (
-        (E = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, a) {
-          if (
-            o(
-              "WAWebScheduledMessagesGatingUtils",
-            ).isScheduledMessagesReceiverEnabled()
-          ) {
-            var i = a.xwa2_notify_scheduled_message_post;
-            if (i == null) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[scheduled_msg][mex][post] missing post data in notification",
-                    ])),
-                )
-                .sendLogs("mex-scheduled-msg-post-missing-data");
-              return;
-            }
-            var l = i.rkid,
-              p = i.status;
-            if (l == null) {
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[scheduled_msg][mex][post] missing rkid in notification",
-                    ])),
-                )
-                .sendLogs("mex-scheduled-msg-post-missing-rkid");
-              return;
-            }
-            if (
-              (o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][post] received rkid, status=",
-                    "",
-                  ])),
-                p,
-              ),
-              p == null)
-            ) {
-              o("WALogger")
-                .ERROR(
-                  c ||
-                    (c = babelHelpers.taggedTemplateLiteralLoose([
-                      "[scheduled_msg][mex][post] missing status in notification",
-                    ])),
-                )
-                .sendLogs("mex-scheduled-msg-post-missing-status");
-              return;
-            }
-            var _ =
-              !!t.offline &&
-              !o(
-                "WAWebOfflineHandler",
-              ).OfflineMessageHandler.isResumeFromRestartComplete();
-            yield o("WAWebMessageQueue")
-              .onMessageQueue({
-                chatWid: o("WAWebUserUtils").getMeLidUserOrThrow(),
-                isOffline: _,
-                msgCategory: null,
-                action: (function () {
-                  var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                    function* () {
-                      try {
-                        var e = yield o(
-                          "WAWebScheduledMsgRevealKeyStore",
-                        ).getRevealKeyByRevealKeyId(l);
-                        if (e == null)
-                          return (
-                            o("WALogger").WARN(
-                              d ||
-                                (d = babelHelpers.taggedTemplateLiteralLoose([
-                                  "[scheduled_msg][mex][post] no record found for rkid",
-                                ])),
-                            ),
-                            null
-                          );
-                        switch (p) {
-                          case "SUCCESS": {
-                            var t =
-                              e.revealKey.byteLength === 0
-                                ? null
-                                : yield o(
-                                    "WAWebScheduledMsgDecryptInnerProto",
-                                  ).decryptAndDecodeRevealPayload(
-                                    e.encPayload,
-                                    e.encIv,
-                                    e.revealKey,
-                                  );
-                            yield k(e, t);
-                            break;
-                          }
-                          default:
-                            yield D(e.msgId, p);
-                        }
-                      } catch (e) {
-                        o("WALogger")
-                          .ERROR(
-                            m ||
-                              (m = babelHelpers.taggedTemplateLiteralLoose([
-                                "[scheduled_msg][mex][post] handler failed",
-                              ])),
-                          )
-                          .catching(r("getErrorSafe")(e))
-                          .sendLogs("mex-scheduled-msg-post-handler-failed");
-                      }
-                      return null;
-                    },
+    async function L(t, n) {
+      if (
+        o(
+          "WAWebScheduledMessagesGatingUtils",
+        ).isScheduledMessagesReceiverEnabled()
+      ) {
+        var a = n.xwa2_notify_scheduled_message_post;
+        if (a == null) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[scheduled_msg][mex][post] missing post data in notification",
+                ])),
+            )
+            .sendLogs("mex-scheduled-msg-post-missing-data");
+          return;
+        }
+        var i = a.rkid,
+          l = a.status;
+        if (i == null) {
+          o("WALogger")
+            .ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[scheduled_msg][mex][post] missing rkid in notification",
+                ])),
+            )
+            .sendLogs("mex-scheduled-msg-post-missing-rkid");
+          return;
+        }
+        if (
+          (o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "[scheduled_msg][mex][post] received rkid, status=",
+                "",
+              ])),
+            l,
+          ),
+          l == null)
+        ) {
+          o("WALogger")
+            .ERROR(
+              c ||
+                (c = babelHelpers.taggedTemplateLiteralLoose([
+                  "[scheduled_msg][mex][post] missing status in notification",
+                ])),
+            )
+            .sendLogs("mex-scheduled-msg-post-missing-status");
+          return;
+        }
+        var p =
+          !!t.offline &&
+          !o(
+            "WAWebOfflineHandler",
+          ).OfflineMessageHandler.isResumeFromRestartComplete();
+        await o("WAWebMessageQueue")
+          .onMessageQueue({
+            chatWid: o("WAWebUserUtils").getMeLidUserOrThrow(),
+            isOffline: p,
+            msgCategory: null,
+            action: async function () {
+              try {
+                var e = await o(
+                  "WAWebScheduledMsgRevealKeyStore",
+                ).getRevealKeyByRevealKeyId(i);
+                if (e == null)
+                  return (
+                    o("WALogger").WARN(
+                      d ||
+                        (d = babelHelpers.taggedTemplateLiteralLoose([
+                          "[scheduled_msg][mex][post] no record found for rkid",
+                        ])),
+                    ),
+                    null
                   );
-                  function t() {
-                    return e.apply(this, arguments);
+                switch (l) {
+                  case "SUCCESS": {
+                    var t =
+                      e.revealKey.byteLength === 0
+                        ? null
+                        : await o(
+                            "WAWebScheduledMsgDecryptInnerProto",
+                          ).decryptAndDecodeRevealPayload(
+                            e.encPayload,
+                            e.encIv,
+                            e.revealKey,
+                          );
+                    await E(e, t);
+                    break;
                   }
-                  return t;
-                })(),
-              })
-              .catch(function (e) {
-                return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
-                  e,
-                  "scheduled_msg_post",
-                );
-              });
-          }
-        })),
-        E.apply(this, arguments)
+                  default:
+                    await I(e.msgId, l);
+                }
+              } catch (e) {
+                o("WALogger")
+                  .ERROR(
+                    m ||
+                      (m = babelHelpers.taggedTemplateLiteralLoose([
+                        "[scheduled_msg][mex][post] handler failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("mex-scheduled-msg-post-handler-failed");
+              }
+              return null;
+            },
+          })
+          .catch(function (e) {
+            return o("WAWebMessageQueueTimeout").handleMessageQueueTimeout(
+              e,
+              "scheduled_msg_post",
+            );
+          });
+      }
+    }
+    async function E(e, t) {
+      var n = e.chatId,
+        a = e.msgId;
+      if (
+        (o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "[scheduled_msg][mex][post] SUCCESS for msgId",
+            ])),
+        ),
+        t == null)
+      ) {
+        o("WALogger").WARN(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "[scheduled_msg][mex][post] no inner proto; keep reveal-key",
+            ])),
+        );
+        return;
+      }
+      var i = o(
+          "WAWebExtractMediaFieldsFromScheduledMsg",
+        ).extractMediaFieldsFromScheduledMsg(t),
+        l = o("WAWebScheduledMsgExtractText").extractScheduledMsgText(t);
+      if (i == null && l == null) {
+        o("WALogger").WARN(
+          f ||
+            (f = babelHelpers.taggedTemplateLiteralLoose([
+              "[scheduled_msg][mex][post] no renderable content; keep reveal-key",
+            ])),
+        );
+        return;
+      }
+      var s = o("WAWebWidFactory").createWid(n),
+        u = s.isGroup(),
+        c;
+      try {
+        c = await o(
+          "WAWebScheduledMsgRevealChatUtils",
+        ).resolveScheduledRevealChat(s);
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            g ||
+              (g = babelHelpers.taggedTemplateLiteralLoose([
+                "[scheduled_msg][mex][post] ensure chat failed; keep reveal-key",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("mex-scheduled-msg-post-ensure-chat-failed");
+        return;
+      }
+      var d = o("WAWebUserUtils").getMeLidUserOrThrow(),
+        m = o(
+          "WAWebScheduledMsgOutgoingMsgKey",
+        ).buildScheduledMsgOutgoingMsgKey(a, c, d),
+        R =
+          e.scheduledTimestampS > 0
+            ? e.scheduledTimestampS
+            : o("WATimeUtils").unixTime();
+      (await o("WAWebSchemaMessage").getMessageTable().remove(m.toString()),
+        await o(
+          "WAWebDBDeleteAssociatedMsgsByMsgKey",
+        ).bulkDeleteMessagesByMsgKeys([m.toString()]));
+      try {
+        await o("WAWebBackendApi").frontendSendAndReceive(
+          "removeScheduledMsgModelForReveal",
+          { msgKey: m },
+        );
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            h ||
+              (h = babelHelpers.taggedTemplateLiteralLoose([
+                "[scheduled_msg][mex][post] drop in-memory model failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("mex-scheduled-msg-post-drop-model-failed");
+      }
+      var L = o(
+          "WAWebExtractAssociationFieldsFromScheduledMsg",
+        ).extractAssociationFieldsFromScheduledMsg(t, {
+          id: m,
+          from: d,
+          to: c,
+          author: u ? d : void 0,
+          type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+          viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+        }),
+        E = babelHelpers.extends(
+          {},
+          o(
+            "WAWebExtractEphemeralFieldsFromScheduledMsg",
+          ).extractEphemeralFieldsFromScheduledMsg(t, d),
+          o(
+            "WAWebExtractMentionFieldsFromScheduledMsg",
+          ).extractMentionFieldsFromScheduledMsg(t),
+          o(
+            "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
+          ).extractLinkPreviewFieldsFromScheduledMsg(t),
+          o(
+            "WAWebExtractQuoteFieldsFromScheduledMsg",
+          ).extractQuoteFieldsFromScheduledMsg(t, m),
+          o(
+            "WAWebExtractPairedMediaTypeFromScheduledMsg",
+          ).extractPairedMediaTypeFromScheduledMsg(t),
+        ),
+        I = babelHelpers.extends(
+          {
+            id: m,
+            from: d,
+            to: c,
+            author: u ? d : void 0,
+            viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
+          },
+          E,
+          {
+            t: R,
+            ack: o("WAWebAck").ACK.RECEIVED,
+            isNewMsg: !0,
+            recvFresh: !0,
+            invis: !1,
+            isScheduledMsg: !1,
+            scheduledTimestampS: o("WATimeUtils").castToUnixTime(R),
+            messageSecret: k(t, e.outerMessageSecret),
+          },
+        ),
+        T = function () {
+          return i != null
+            ? L == null
+              ? babelHelpers.extends({}, I, i)
+              : i.kind === o("WAWebMsgType").MsgKind.Image
+                ? babelHelpers.extends({}, I, i, L, {
+                    kind: o("WAWebMsgType").MsgKind.AssociatedImage,
+                  })
+                : babelHelpers.extends({}, I, i, L, {
+                    kind: o("WAWebMsgType").MsgKind.AssociatedVideo,
+                  })
+            : L != null
+              ? babelHelpers.extends({}, I, L, {
+                  type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
+                  kind: o("WAWebMsgType").MsgKind.AssociatedUnknown,
+                })
+              : babelHelpers.extends({}, I, {
+                  type: o("WAWebMsgType").MSG_TYPE.CHAT,
+                  kind: o("WAWebMsgType").MsgKind.Chat,
+                  body: l != null ? l : "",
+                });
+        },
+        D = T(),
+        x = await o(
+          "WAWebLimitSharingAcp2HideReceivedMsgs",
+        ).hideMsgsReceivedInAcp2RestrictedChat({
+          messageType: u
+            ? o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP
+            : o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT,
+          msgs: [D],
+          proto: t,
+        });
+      if (x.length === 0) {
+        o("WALogger").LOG(
+          y ||
+            (y = babelHelpers.taggedTemplateLiteralLoose([
+              "[scheduled_msg][mex][post] hidden in ACP2-restricted chat, deleting key",
+            ])),
+        );
+        try {
+          await o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(a);
+        } catch (e) {
+          o("WALogger")
+            .ERROR(
+              C ||
+                (C = babelHelpers.taggedTemplateLiteralLoose([
+                  "[scheduled_msg][mex][post] deleteRevealKey - hidden",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("mex-scheduled-msg-post-delete-after-hide-failed");
+        }
+        return;
+      }
+      try {
+        await o("WAWebHandleSingleMsg").handleSingleMsgImpl({
+          chatId: c,
+          newMsg: D,
+          handleSingleMsgOrigin: "scheduledMsgReveal",
+        });
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            b ||
+              (b = babelHelpers.taggedTemplateLiteralLoose([
+                "[scheduled_msg][mex][post] handleSingleMsgImpl -, keep key",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("mex-scheduled-msg-post-insert-failed");
+        return;
+      }
+      await o(
+        "WAWebAttachScheduledAssociationChildren",
+      ).attachScheduledAssociationChildren(
+        m,
+        L == null ? void 0 : L.parentMsgKey,
+      );
+      try {
+        await o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(a);
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            v ||
+              (v = babelHelpers.taggedTemplateLiteralLoose([
+                "[scheduled_msg][mex][post] deleteRevealKey - post-insert",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("mex-scheduled-msg-post-delete-failed");
+      }
+      o("WALogger").LOG(
+        S ||
+          (S = babelHelpers.taggedTemplateLiteralLoose([
+            "[scheduled_msg][mex][post] posted message to chat",
+          ])),
       );
     }
     function k(e, t) {
-      return I.apply(this, arguments);
-    }
-    function I() {
-      return (
-        (I = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = e.chatId,
-            a = e.msgId;
-          if (
-            (o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg][mex][post] SUCCESS for msgId",
-                ])),
-            ),
-            t == null)
-          ) {
-            o("WALogger").WARN(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg][mex][post] no inner proto; keep reveal-key",
-                ])),
-            );
-            return;
-          }
-          var i = o(
-              "WAWebExtractMediaFieldsFromScheduledMsg",
-            ).extractMediaFieldsFromScheduledMsg(t),
-            l = o("WAWebScheduledMsgExtractText").extractScheduledMsgText(t);
-          if (i == null && l == null) {
-            o("WALogger").WARN(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg][mex][post] no renderable content; keep reveal-key",
-                ])),
-            );
-            return;
-          }
-          var s = o("WAWebWidFactory").createWid(n),
-            u = s.isGroup(),
-            c;
-          try {
-            c = yield o(
-              "WAWebScheduledMsgRevealChatUtils",
-            ).resolveScheduledRevealChat(s);
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                g ||
-                  (g = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][post] ensure chat failed; keep reveal-key",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("mex-scheduled-msg-post-ensure-chat-failed");
-            return;
-          }
-          var d = o("WAWebUserUtils").getMeLidUserOrThrow(),
-            m = o(
-              "WAWebScheduledMsgOutgoingMsgKey",
-            ).buildScheduledMsgOutgoingMsgKey(a, c, d),
-            R =
-              e.scheduledTimestampS > 0
-                ? e.scheduledTimestampS
-                : o("WATimeUtils").unixTime();
-          (yield o("WAWebSchemaMessage").getMessageTable().remove(m.toString()),
-            yield o(
-              "WAWebDBDeleteAssociatedMsgsByMsgKey",
-            ).bulkDeleteMessagesByMsgKeys([m.toString()]));
-          try {
-            yield o("WAWebBackendApi").frontendSendAndReceive(
-              "removeScheduledMsgModelForReveal",
-              { msgKey: m },
-            );
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                h ||
-                  (h = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][post] drop in-memory model failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("mex-scheduled-msg-post-drop-model-failed");
-          }
-          var L = o(
-              "WAWebExtractAssociationFieldsFromScheduledMsg",
-            ).extractAssociationFieldsFromScheduledMsg(t, {
-              id: m,
-              from: d,
-              to: c,
-              author: u ? d : void 0,
-              type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
-              viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-            }),
-            E = babelHelpers.extends(
-              {},
-              o(
-                "WAWebExtractEphemeralFieldsFromScheduledMsg",
-              ).extractEphemeralFieldsFromScheduledMsg(t, d),
-              o(
-                "WAWebExtractMentionFieldsFromScheduledMsg",
-              ).extractMentionFieldsFromScheduledMsg(t),
-              o(
-                "WAWebExtractLinkPreviewFieldsFromScheduledMsg",
-              ).extractLinkPreviewFieldsFromScheduledMsg(t),
-              o(
-                "WAWebExtractQuoteFieldsFromScheduledMsg",
-              ).extractQuoteFieldsFromScheduledMsg(t, m),
-              o(
-                "WAWebExtractPairedMediaTypeFromScheduledMsg",
-              ).extractPairedMediaTypeFromScheduledMsg(t),
-            ),
-            k = babelHelpers.extends(
-              {
-                id: m,
-                from: d,
-                to: c,
-                author: u ? d : void 0,
-                viewMode: o("WAWebViewMode.flow").ViewModeType.VISIBLE,
-              },
-              E,
-              {
-                t: R,
-                ack: o("WAWebAck").ACK.RECEIVED,
-                isNewMsg: !0,
-                recvFresh: !0,
-                invis: !1,
-                isScheduledMsg: !1,
-                scheduledTimestampS: o("WATimeUtils").castToUnixTime(R),
-                messageSecret: T(t, e.outerMessageSecret),
-              },
-            ),
-            I = function () {
-              return i != null
-                ? L == null
-                  ? babelHelpers.extends({}, k, i)
-                  : i.kind === o("WAWebMsgType").MsgKind.Image
-                    ? babelHelpers.extends({}, k, i, L, {
-                        kind: o("WAWebMsgType").MsgKind.AssociatedImage,
-                      })
-                    : babelHelpers.extends({}, k, i, L, {
-                        kind: o("WAWebMsgType").MsgKind.AssociatedVideo,
-                      })
-                : L != null
-                  ? babelHelpers.extends({}, k, L, {
-                      type: o("WAWebMsgType").MSG_TYPE.UNKNOWN,
-                      kind: o("WAWebMsgType").MsgKind.AssociatedUnknown,
-                    })
-                  : babelHelpers.extends({}, k, {
-                      type: o("WAWebMsgType").MSG_TYPE.CHAT,
-                      kind: o("WAWebMsgType").MsgKind.Chat,
-                      body: l != null ? l : "",
-                    });
-            },
-            D = I(),
-            x = yield o(
-              "WAWebLimitSharingAcp2HideReceivedMsgs",
-            ).hideMsgsReceivedInAcp2RestrictedChat({
-              messageType: u
-                ? o("WAWebHandleMsgTypes").MESSAGE_TYPE.GROUP
-                : o("WAWebHandleMsgTypes").MESSAGE_TYPE.CHAT,
-              msgs: [D],
-              proto: t,
-            });
-          if (x.length === 0) {
-            o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg][mex][post] hidden in ACP2-restricted chat, deleting key",
-                ])),
-            );
-            try {
-              yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(a);
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  C ||
-                    (C = babelHelpers.taggedTemplateLiteralLoose([
-                      "[scheduled_msg][mex][post] deleteRevealKey - hidden",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("mex-scheduled-msg-post-delete-after-hide-failed");
-            }
-            return;
-          }
-          try {
-            yield o("WAWebHandleSingleMsg").handleSingleMsgImpl({
-              chatId: c,
-              newMsg: D,
-              handleSingleMsgOrigin: "scheduledMsgReveal",
-            });
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                b ||
-                  (b = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][post] handleSingleMsgImpl -, keep key",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("mex-scheduled-msg-post-insert-failed");
-            return;
-          }
-          yield o(
-            "WAWebAttachScheduledAssociationChildren",
-          ).attachScheduledAssociationChildren(
-            m,
-            L == null ? void 0 : L.parentMsgKey,
-          );
-          try {
-            yield o("WAWebScheduledMsgRevealKeyStore").deleteRevealKey(a);
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "[scheduled_msg][mex][post] deleteRevealKey - post-insert",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("mex-scheduled-msg-post-delete-failed");
-          }
-          o("WALogger").LOG(
-            S ||
-              (S = babelHelpers.taggedTemplateLiteralLoose([
-                "[scheduled_msg][mex][post] posted message to chat",
-              ])),
-          );
-        })),
-        I.apply(this, arguments)
-      );
-    }
-    function T(e, t) {
       var n,
         r = (n = e.messageContextInfo) == null ? void 0 : n.messageSecret;
       return r != null ? new Uint8Array(r) : t != null ? t : void 0;
     }
-    function D(e, t) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          (o("WALogger")
-            .ERROR(
-              R ||
-                (R = babelHelpers.taggedTemplateLiteralLoose([
-                  "[scheduled_msg][mex][post] FAILURE for msgId status=",
-                  "",
-                ])),
-              t,
-            )
-            .sendLogs("mex-scheduled-msg-post-failure"),
-            yield o("WAWebScheduledMsgRevealKeyStore").updateRevealKeyStatus(
-              e,
-              "FAILED",
-            ));
-        })),
-        x.apply(this, arguments)
-      );
+    async function I(e, t) {
+      (o("WALogger")
+        .ERROR(
+          R ||
+            (R = babelHelpers.taggedTemplateLiteralLoose([
+              "[scheduled_msg][mex][post] FAILURE for msgId status=",
+              "",
+            ])),
+          t,
+        )
+        .sendLogs("mex-scheduled-msg-post-failure"),
+        await o("WAWebScheduledMsgRevealKeyStore").updateRevealKeyStatus(
+          e,
+          "FAILED",
+        ));
     }
     l.mexHandleScheduledMsgPost = L;
   },

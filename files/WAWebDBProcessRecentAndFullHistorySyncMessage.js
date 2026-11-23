@@ -1,7 +1,6 @@
 __d(
   "WAWebDBProcessRecentAndFullHistorySyncMessage",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebAck",
@@ -25,12 +24,11 @@ __d(
     "WAWebUserPrefsHistorySync",
     "WAWebUserPrefsTypes",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
     "justknobx",
   ],
   function (t, n, r, o, a, i, l) {
-    var e, s, u, c, d, m, p;
-    function _(e, t) {
+    var e, s, u, c, d, m;
+    function p(e, t) {
       var n = new Map();
       return (
         e.forEach(function (e, r) {
@@ -50,8 +48,8 @@ __d(
         n
       );
     }
-    var f = 10080 * 60;
-    function g(t, n) {
+    var _ = 10080 * 60;
+    function f(t, n) {
       var a = o(
         "WAWebProtobufsHistorySync.pb",
       ).HistorySync$HistorySyncType.cast(n);
@@ -79,13 +77,13 @@ __d(
                 !r("WAWebWid").isUser(d.remote) ||
                 c == null ||
                 m == null ||
-                i - m <= f
+                i - m <= _
               )
             ) {
               var p = d.remote.toString();
               if (c >= o("WAWebAck").ACK.READ) {
-                var _ = s.get(p);
-                (_ == null || m > _.t) &&
+                var f = s.get(p);
+                (f == null || m > f.t) &&
                   s.set(p, {
                     ack: c,
                     fullKey: d.toString(),
@@ -142,227 +140,195 @@ __d(
             });
         } catch (e) {}
     }
-    function h(e, t, n, r, o, a, i) {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, r, a, i, l, u) {
-            g(e, r);
-            var c = e,
-              d,
-              m;
-            if (i.length) {
-              var f;
-              if (
-                ((m = o(
-                  "WAWebProcessMessageAssociationMessages",
-                ).classifyAssociatedMsgsFromHistorySyncUsingMissingParentsCache(
-                  i,
-                  l,
-                )),
-                (f = m) != null && f.validAssociatedMsgs)
-              ) {
-                var h;
-                d = o("WAWebApiFilterAndReplaceMessages").validateMsgFn(
-                  (h = m) == null ? void 0 : h.validAssociatedMsgs,
-                );
-              }
-            }
-            try {
-              var y = yield o(
-                  "WAWebApiFilterAndReplaceMessages",
-                ).filterAndReplaceMessages(e, d),
-                b = y.newMsgs;
-              c = b;
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "filterAndReplaceMessages failed with error ",
-                      "",
-                    ])),
-                  e,
-                )
-                .tags("history-sync");
-            }
-            var S = new Map(),
-              R = [];
-            (c.forEach(function (e) {
-              e.type === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
-                R.push(
-                  o("WAWebApiGroupInviteV4Store").persistGroupInviteV4Msg(
-                    e.id.toString(),
-                    {
-                      id: e.id.toString(),
-                      from: e.from.toString(),
-                      to: e.to.toString(),
-                      groupId: e.inviteGrp,
-                      expiration: parseInt(String(e.inviteCodeExp), 10),
-                      expired:
-                        o("WATimeUtils").unixTime() >=
-                        parseInt(String(e.inviteCodeExp), 10),
-                    },
-                  ),
-                );
-              var t = e.id.remote.toString();
-              if (o("WAWebMsgGetters").getIsImportantMessage(e))
-                if (S.has(t)) {
-                  var n;
-                  (n = S.get(t)) == null || n.push(e);
-                } else S.set(t, [e]);
-            }),
-              R.length > 0 && (yield (p || (p = n("Promise"))).all(R)));
-            var L = Array.from(S.keys()),
-              E = yield o("WAWebBackendApi").frontendSendAndReceive(
-                "getPendingUnreadMentionCounts",
-                { chatIds: L },
-              ),
-              k = _(S, E),
-              I = o(
-                "WAWebQuarantineDataStore",
-              ).extractQuarantineDataFromMessages(c),
-              T = yield o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(
-                c,
-                !0,
-              );
-            (o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
-              r,
-              o("WAWebUserPrefsTypes").HistorySyncSingleChunkStatusType
-                .ENCRYPTED,
-              a,
+    async function g(e, t, n, r, a, i, l) {
+      f(e, n);
+      var u = e,
+        c,
+        d;
+      if (a.length) {
+        var m;
+        if (
+          ((d = o(
+            "WAWebProcessMessageAssociationMessages",
+          ).classifyAssociatedMsgsFromHistorySyncUsingMissingParentsCache(
+            a,
+            i,
+          )),
+          (m = d) != null && m.validAssociatedMsgs)
+        ) {
+          var _;
+          c = o("WAWebApiFilterAndReplaceMessages").validateMsgFn(
+            (_ = d) == null ? void 0 : _.validAssociatedMsgs,
+          );
+        }
+      }
+      try {
+        var g = await o(
+            "WAWebApiFilterAndReplaceMessages",
+          ).filterAndReplaceMessages(e, c),
+          C = g.newMsgs;
+        u = C;
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "filterAndReplaceMessages failed with error ",
+                "",
+              ])),
+            e,
+          )
+          .tags("history-sync");
+      }
+      var b = new Map(),
+        v = [];
+      (u.forEach(function (e) {
+        e.type === o("WAWebMsgType").MSG_TYPE.GROUPS_V4_INVITE &&
+          v.push(
+            o("WAWebApiGroupInviteV4Store").persistGroupInviteV4Msg(
+              e.id.toString(),
+              {
+                id: e.id.toString(),
+                from: e.from.toString(),
+                to: e.to.toString(),
+                groupId: e.inviteGrp,
+                expiration: parseInt(String(e.inviteCodeExp), 10),
+                expired:
+                  o("WATimeUtils").unixTime() >=
+                  parseInt(String(e.inviteCodeExp), 10),
+              },
             ),
-              yield C({
-                chatsWithRecentOrFullSyncMsgs: t,
-                encryptedMessages: T,
-                pendingUnreadMentionsMap: E,
-                quarantineTableEntries: I,
-                unreadMentionsToAdd: k,
-              }),
-              yield v(u),
-              yield o("WAWebDBProcessReplyMsgs").hydrateReplyMsgsSafely(
-                c,
-                "history-sync",
-              ),
-              yield o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(c),
-              yield o(
-                "WAWebDBAssociatedMsgsAttachDetachAPI",
-              ).attachDetachedChildrenAfterHistorySync(c));
-          },
-        )),
-        y.apply(this, arguments)
-      );
+          );
+        var t = e.id.remote.toString();
+        if (o("WAWebMsgGetters").getIsImportantMessage(e))
+          if (b.has(t)) {
+            var n;
+            (n = b.get(t)) == null || n.push(e);
+          } else b.set(t, [e]);
+      }),
+        v.length > 0 && (await Promise.all(v)));
+      var S = Array.from(b.keys()),
+        R = await o("WAWebBackendApi").frontendSendAndReceive(
+          "getPendingUnreadMentionCounts",
+          { chatIds: S },
+        ),
+        L = p(b, R),
+        E = o("WAWebQuarantineDataStore").extractQuarantineDataFromMessages(u),
+        k = await o("WAWebDBEncryptMultipleMsgs").encryptMultipleDBMsgs(u, !0);
+      (o("WAWebUserPrefsHistorySync").setRecentSyncSingleChunkStatus(
+        n,
+        o("WAWebUserPrefsTypes").HistorySyncSingleChunkStatusType.ENCRYPTED,
+        r,
+      ),
+        await h({
+          chatsWithRecentOrFullSyncMsgs: t,
+          encryptedMessages: k,
+          pendingUnreadMentionsMap: R,
+          quarantineTableEntries: E,
+          unreadMentionsToAdd: L,
+        }),
+        await y(l),
+        await o("WAWebDBProcessReplyMsgs").hydrateReplyMsgsSafely(
+          u,
+          "history-sync",
+        ),
+        await o("WAWebMsgStoreExtensions").handleStoredSyncedMsgs(u),
+        await o(
+          "WAWebDBAssociatedMsgsAttachDetachAPI",
+        ).attachDetachedChildrenAfterHistorySync(u));
     }
-    function C(e) {
-      return b.apply(this, arguments);
+    async function h(e) {
+      var t = e.chatsWithRecentOrFullSyncMsgs,
+        n = e.encryptedMessages,
+        r = e.pendingUnreadMentionsMap,
+        a = e.quarantineTableEntries,
+        i = e.unreadMentionsToAdd;
+      try {
+        if (
+          (o("WALogger").LOG(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "storeEncryptedRecentAndFullSyncMsgs: storing ",
+                " msgs: start",
+              ])),
+            n.length,
+          ),
+          await o("WAWebDBStoreEncryptedMsgs").storeEncryptedDBMessages(
+            n,
+            t,
+            !0,
+          ),
+          o("WALogger").LOG(
+            c ||
+              (c = babelHelpers.taggedTemplateLiteralLoose([
+                "storeEncryptedRecentAndFullSyncMsgs: storing ",
+                " messages: done",
+              ])),
+            n.length,
+          ),
+          await o("WAWebQuarantineDataStore").bulkCreateOrReplaceQuarantineData(
+            a,
+          ),
+          i.size > 0)
+        ) {
+          var l = await o("WAWebBackendApi").frontendSendAndReceive(
+            "getChatIdsNeedToBeDeletedFromUnreadMentionInfo",
+            { unreadMentionsToAdd: i, pendingUnreadMentionsMap: r },
+          );
+          (l.forEach(function (e) {
+            i.delete(e);
+          }),
+            i.size > 0 &&
+              o("WAWebApiChatUnreadMention").addUnreadMentionChat(i, r));
+        }
+      } catch (e) {
+        o("WALogger").WARN(
+          d ||
+            (d = babelHelpers.taggedTemplateLiteralLoose([
+              "[history sync] error storing ",
+              " recent or full sync messages: ",
+              "",
+            ])),
+          n.length,
+          e,
+        );
+      }
     }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chatsWithRecentOrFullSyncMsgs,
-            n = e.encryptedMessages,
-            r = e.pendingUnreadMentionsMap,
-            a = e.quarantineTableEntries,
-            i = e.unreadMentionsToAdd;
-          try {
-            if (
-              (o("WALogger").LOG(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "storeEncryptedRecentAndFullSyncMsgs: storing ",
-                    " msgs: start",
-                  ])),
-                n.length,
-              ),
-              yield o("WAWebDBStoreEncryptedMsgs").storeEncryptedDBMessages(
-                n,
-                t,
-                !0,
-              ),
-              o("WALogger").LOG(
-                c ||
-                  (c = babelHelpers.taggedTemplateLiteralLoose([
-                    "storeEncryptedRecentAndFullSyncMsgs: storing ",
-                    " messages: done",
-                  ])),
-                n.length,
-              ),
-              yield o(
-                "WAWebQuarantineDataStore",
-              ).bulkCreateOrReplaceQuarantineData(a),
-              i.size > 0)
-            ) {
-              var l = yield o("WAWebBackendApi").frontendSendAndReceive(
-                "getChatIdsNeedToBeDeletedFromUnreadMentionInfo",
-                { unreadMentionsToAdd: i, pendingUnreadMentionsMap: r },
-              );
-              (l.forEach(function (e) {
-                i.delete(e);
-              }),
-                i.size > 0 &&
-                  o("WAWebApiChatUnreadMention").addUnreadMentionChat(i, r));
-            }
-          } catch (e) {
-            o("WALogger").WARN(
-              d ||
-                (d = babelHelpers.taggedTemplateLiteralLoose([
-                  "[history sync] error storing ",
-                  " recent or full sync messages: ",
+    async function y(e) {
+      if (e.length !== 0)
+        try {
+          var t = o(
+            "WAWebThreadCommonModelUtils",
+          ).getAggregatedThreadDetailUpdatesFromMessages(e);
+          await o(
+            "WAWebBulkCreateOrUpdateThreadsMetadata",
+          ).bulkCreateOrUpdateThreadsMetadata(t);
+          var n = t.filter(function (e) {
+            return (
+              e.threadId.type === o("WAWebThreadUtils").ThreadType.AiThread
+            );
+          });
+          n.length > 0 &&
+            (await o("WAWebBackendApi").frontendSendAndReceive(
+              "updateChatAiThreads",
+              { aiThreads: n },
+            ));
+        } catch (e) {
+          o("WALogger")
+            .ERROR(
+              m ||
+                (m = babelHelpers.taggedTemplateLiteralLoose([
+                  "storeThreadMetadataFromHistorySyncMessages: store failed: ",
                   "",
                 ])),
-              n.length,
               e,
+            )
+            .sendLogs(
+              "failed-to-store-thread-metadata-from-history-sync-messages",
             );
-          }
-        })),
-        b.apply(this, arguments)
-      );
+        }
     }
-    function v(e) {
-      return S.apply(this, arguments);
-    }
-    function S() {
-      return (
-        (S = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (e.length !== 0)
-            try {
-              var t = o(
-                "WAWebThreadCommonModelUtils",
-              ).getAggregatedThreadDetailUpdatesFromMessages(e);
-              yield o(
-                "WAWebBulkCreateOrUpdateThreadsMetadata",
-              ).bulkCreateOrUpdateThreadsMetadata(t);
-              var n = t.filter(function (e) {
-                return (
-                  e.threadId.type === o("WAWebThreadUtils").ThreadType.AiThread
-                );
-              });
-              n.length > 0 &&
-                (yield o("WAWebBackendApi").frontendSendAndReceive(
-                  "updateChatAiThreads",
-                  { aiThreads: n },
-                ));
-            } catch (e) {
-              o("WALogger")
-                .ERROR(
-                  m ||
-                    (m = babelHelpers.taggedTemplateLiteralLoose([
-                      "storeThreadMetadataFromHistorySyncMessages: store failed: ",
-                      "",
-                    ])),
-                  e,
-                )
-                .sendLogs(
-                  "failed-to-store-thread-metadata-from-history-sync-messages",
-                );
-            }
-        })),
-        S.apply(this, arguments)
-      );
-    }
-    l.storeRecentAndFullHistSyncMessages = h;
+    l.storeRecentAndFullHistSyncMessages = g;
   },
   98,
 );

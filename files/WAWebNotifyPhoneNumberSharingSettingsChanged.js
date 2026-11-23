@@ -6,35 +6,24 @@ __d(
     "WAWebPhoneNumberSharingSettingsRefresh",
     "WAWebSchemaPrivacyDisallowedList",
     "WAWebUserPrefsGeneral",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebSchemaPrivacyDisallowedList")
-            .getPrivacyDisallowedListTable()
-            .all();
-          o("WAWebBackendApi").frontendFireAndForget(
-            "triggerAccountSyncForPrivacyFromBridge",
-            {
-              privacySettings:
-                e != null
-                  ? e
-                  : o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
-              privacyDisallowedRows: t,
-            },
-          );
-        })),
-        u.apply(this, arguments)
+    async function s(e) {
+      var t = await o("WAWebSchemaPrivacyDisallowedList")
+        .getPrivacyDisallowedListTable()
+        .all();
+      o("WAWebBackendApi").frontendFireAndForget(
+        "triggerAccountSyncForPrivacyFromBridge",
+        {
+          privacySettings:
+            e != null ? e : o("WAWebUserPrefsGeneral").getUserPrivacySettings(),
+          privacyDisallowedRows: t,
+        },
       );
     }
-    function c() {
+    function u() {
       return s().catch(function (t) {
         (o("WALogger")
           .WARN(
@@ -51,7 +40,7 @@ __d(
       });
     }
     ((l.notifyPhoneNumberSharingSettingsChanged = s),
-      (l.notifyOrRefreshPhoneNumberSharingSettings = c));
+      (l.notifyOrRefreshPhoneNumberSharingSettings = u));
   },
   98,
 );

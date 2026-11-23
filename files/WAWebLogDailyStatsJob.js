@@ -3,7 +3,6 @@ __d(
   [
     "WAJobOrchestratorTypes",
     "WAWebOrchestratorNonPersistedJob",
-    "asyncToGeneratorRuntime",
     "requireDeferred",
   ],
   function (t, n, r, o, a, i, l) {
@@ -14,18 +13,11 @@ __d(
       return o("WAWebOrchestratorNonPersistedJob")
         .createNonPersistedJob(
           "logDailyStats",
-          (function () {
-            var t = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (t) {
-                var n = yield e.load(),
-                  r = n.logDailyStats;
-                return r();
-              },
-            );
-            return function (e) {
-              return t.apply(this, arguments);
-            };
-          })(),
+          async function (t) {
+            var n = await e.load(),
+              r = n.logDailyStats;
+            return r();
+          },
           { priority: o("WAJobOrchestratorTypes").JobPriority.BEST_EFFORT },
         )
         .waitUntilCompleted();

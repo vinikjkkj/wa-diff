@@ -1,11 +1,9 @@
 __d(
   "WAWebHatchDataExport",
   [
-    "Promise",
     "WALogger",
     "WAWebHatchDataControls",
     "WAWebHatchVmConnection",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,103 +15,84 @@ __d(
       d,
       m,
       p,
-      _,
-      f = 268435456,
-      g = 3900 * 1e3,
-      h = "application/zip",
-      y = [
+      _ = 268435456,
+      f = 3900 * 1e3,
+      g = "application/zip",
+      h = [
         [80, 75, 3, 4],
         [80, 75, 5, 6],
         [80, 75, 7, 8],
       ],
-      C = [80, 75, 5, 6],
-      b = 22,
-      v = 20,
-      S = b + 65535,
-      R = { kind: "aborted" },
-      L = { kind: "account_changed" },
-      E = { kind: "failed", reason: "generic" },
-      k = { kind: "failed", reason: "offline" };
-    function I(e, t) {
-      return T.apply(this, arguments);
+      y = [80, 75, 5, 6],
+      C = 22,
+      b = 20,
+      v = C + 65535,
+      S = { kind: "aborted" },
+      R = { kind: "account_changed" },
+      L = { kind: "failed", reason: "generic" },
+      E = { kind: "failed", reason: "offline" };
+    async function k(e, t) {
+      var n = t === void 0 ? {} : t,
+        r = n.maxBytes,
+        a = r === void 0 ? _ : r,
+        i = n.timeoutMs,
+        l = i === void 0 ? f : i,
+        s = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
+        u = await o("WAWebHatchDataControls").isHatchOffline();
+      if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== s)
+        return R;
+      if (u) return E;
+      var c = await o("WAWebHatchVmConnection").connectHatchVmApiWithResult(e);
+      return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== s
+        ? R
+        : e.aborted
+          ? S
+          : c.kind !== "ready"
+            ? I(s)
+            : T(c.api, {
+                generation: s,
+                maxBytes: a,
+                signal: e,
+                timeoutMs: l,
+              }).then(function (e) {
+                return e.kind === "failed" ? I(s) : e;
+              });
     }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = t === void 0 ? {} : t,
-            r = n.maxBytes,
-            a = r === void 0 ? f : r,
-            i = n.timeoutMs,
-            l = i === void 0 ? g : i,
-            s = o("WAWebHatchVmConnection").getHatchVmAccountGeneration(),
-            u = yield o("WAWebHatchDataControls").isHatchOffline();
-          if (o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== s)
-            return L;
-          if (u) return k;
-          var c = yield o("WAWebHatchVmConnection").connectHatchVmApiWithResult(
-            e,
-          );
-          return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== s
-            ? L
-            : e.aborted
-              ? R
-              : c.kind !== "ready"
-                ? D(s)
-                : $(c.api, {
-                    generation: s,
-                    maxBytes: a,
-                    signal: e,
-                    timeoutMs: l,
-                  }).then(function (e) {
-                    return e.kind === "failed" ? D(s) : e;
-                  });
-        })),
-        T.apply(this, arguments)
-      );
+    async function I(e) {
+      var t = await o("WAWebHatchDataControls").isHatchOffline();
+      return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== e
+        ? R
+        : t
+          ? E
+          : L;
     }
-    function D(e) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebHatchDataControls").isHatchOffline();
-          return o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== e
-            ? L
-            : t
-              ? k
-              : E;
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(t, a) {
-      var i = a.generation,
-        l = a.maxBytes,
-        f = a.signal,
-        g = a.timeoutMs;
-      return new (_ || (_ = n("Promise")))(function (n) {
-        var a = [],
-          _ = 0,
+    function T(t, n) {
+      var a = n.generation,
+        i = n.maxBytes,
+        l = n.signal,
+        _ = n.timeoutMs;
+      return new Promise(function (n) {
+        var f = [],
+          h = 0,
           y = !1,
           C = !1,
           b = null,
           v = null,
-          S = null,
+          E = null,
           k = function (t) {
             var e;
             ((C = !0),
               v != null && self.clearTimeout(v),
-              S != null && f.removeEventListener("abort", S),
+              E != null && l.removeEventListener("abort", E),
               (e = b) == null || e.close(),
-              (a.length = 0),
+              (f.length = 0),
               n(t));
           },
           I = function () {
             return C
               ? !1
-              : o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== i
-                ? (k(L), !1)
+              : o("WAWebHatchVmConnection").getHatchVmAccountGeneration() !== a
+                ? (k(R), !1)
                 : !0;
           },
           T = {
@@ -128,9 +107,9 @@ __d(
                           ])),
                       )
                       .sendLogs("hatch-data-export-transport"),
-                    k(E))
-                  : P(a)
-                    ? k({ blob: new Blob(a, { type: h }), kind: "ready" })
+                    k(L))
+                  : D(f)
+                    ? k({ blob: new Blob(f, { type: g }), kind: "ready" })
                     : (o("WALogger")
                         .WARN(
                           s ||
@@ -139,11 +118,11 @@ __d(
                             ])),
                         )
                         .sendLogs("hatch-data-export-invalid-zip"),
-                      k(E)));
+                      k(L)));
             },
             onData: function (t) {
               if (I()) {
-                if (((_ += t.length), _ > l)) {
+                if (((h += t.length), h > i)) {
                   (o("WALogger")
                     .WARN(
                       u ||
@@ -152,10 +131,10 @@ __d(
                         ])),
                     )
                     .sendLogs("hatch-data-export-too-large"),
-                    k(E));
+                    k(L));
                   return;
                 }
-                a.push(t);
+                f.push(t);
               }
             },
             onResponse: function (t) {
@@ -171,7 +150,7 @@ __d(
                       t,
                     )
                     .sendLogs("hatch-data-export-status"),
-                    k(E));
+                    k(L));
                   return;
                 }
                 y = !0;
@@ -190,12 +169,12 @@ __d(
             )
             .catching(r("getErrorSafe")(e))
             .sendLogs("hatch-data-export-stream-threw"),
-            k(E));
+            k(L));
           return;
         }
         if (C) {
-          var D;
-          (D = b) == null || D.close();
+          var x;
+          (x = b) == null || x.close();
           return;
         }
         if (b == null) {
@@ -207,7 +186,7 @@ __d(
                 ])),
             )
             .sendLogs("hatch-data-export-stream-refused"),
-            k(E));
+            k(L));
           return;
         }
         ((v = self.setTimeout(function () {
@@ -220,19 +199,19 @@ __d(
                   ])),
               )
               .sendLogs("hatch-data-export-timeout"),
-            k(E));
-        }, g)),
-          (S = function () {
-            return k(R);
+            k(L));
+        }, _)),
+          (E = function () {
+            return k(S);
           }),
-          f.addEventListener("abort", S),
-          f.aborted && k(R));
+          l.addEventListener("abort", E),
+          l.aborted && k(S));
       });
     }
-    function P(e) {
-      return N(e) && M(e);
+    function D(e) {
+      return x(e) && $(e);
     }
-    function N(e) {
+    function x(e) {
       var t = [];
       for (var n of e)
         if (
@@ -240,31 +219,31 @@ __d(
           t.length === 4)
         )
           break;
-      return y.some(function (e) {
+      return h.some(function (e) {
         return e.every(function (e, n) {
           return t[n] === e;
         });
       });
     }
-    function M(e) {
-      for (var t = A(e, S), n = t.length - b; n >= 0; n--)
-        if (w(t, n)) return !0;
+    function $(e) {
+      for (var t = N(e, v), n = t.length - C; n >= 0; n--)
+        if (P(t, n)) return !0;
       return !1;
     }
-    function w(e, t) {
+    function P(e, t) {
       if (
-        !C.every(function (n, r) {
+        !y.every(function (n, r) {
           return e[t + r] === n;
         })
       )
         return !1;
       var n = new DataView(e.buffer, e.byteOffset, e.byteLength).getUint16(
-        t + v,
+        t + b,
         !0,
       );
-      return t + b + n === e.length;
+      return t + C + n === e.length;
     }
-    function A(e, t) {
+    function N(e, t) {
       for (
         var n = e.reduce(function (e, t) {
             return e + t.length;
@@ -281,7 +260,7 @@ __d(
       }
       return r;
     }
-    l.fetchHatchAgentData = I;
+    l.fetchHatchAgentData = k;
   },
   98,
 );

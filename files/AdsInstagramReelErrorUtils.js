@@ -4,10 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e(e) {
-      return (
-        (e == null ? void 0 : e.boost_eligibility) ===
-        "IS_CLIPS_WITH_COPYRIGHTED_LICENSED_MUSIC"
-      );
+      return e === "IS_CLIPS_WITH_COPYRIGHTED_LICENSED_MUSIC";
     }
     function s(e) {
       var t;

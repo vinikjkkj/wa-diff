@@ -1,12 +1,6 @@
 __d(
   "WAWebMediaAv1Support",
-  [
-    "WALogger",
-    "WAPromiseTimeout",
-    "asyncToGeneratorRuntime",
-    "getErrorSafe",
-    "once",
-  ],
+  ["WALogger", "WAPromiseTimeout", "getErrorSafe", "once"],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
@@ -82,19 +76,11 @@ __d(
     function g() {
       return (_(), c);
     }
-    function h() {
-      return y.apply(this, arguments);
-    }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = window.navigator.mediaCapabilities;
-          if (e == null) return !1;
-          var t = yield e.decodingInfo(u);
-          return t.supported && t.smooth && t.powerEfficient;
-        })),
-        y.apply(this, arguments)
-      );
+    async function h() {
+      var e = window.navigator.mediaCapabilities;
+      if (e == null) return !1;
+      var t = await e.decodingInfo(u);
+      return t.supported && t.smooth && t.powerEfficient;
     }
     ((l.av1SupportSource = f),
       (l.browserSupportsAV1 = g),

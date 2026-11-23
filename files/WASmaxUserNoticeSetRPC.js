@@ -16,37 +16,26 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = p(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success) return { name: "SetResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "SetResponseClientError", value: i.value };
-          var l = c(r, n);
-          if (l.success)
-            return { name: "SetResponseServerError", value: l.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("Set", {
-              Success: a,
-              ClientError: i,
-              ServerError: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = m(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success) return { name: "SetResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success) return { name: "SetResponseClientError", value: i.value };
+      var l = u(r, n);
+      if (l.success) return { name: "SetResponseServerError", value: l.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("Set", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -67,7 +56,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -76,7 +65,7 @@ __d(
         "WASmaxInUserNoticeIQErrorResponseMixin",
       ).parseIQErrorResponseMixin(e, t);
       if (!a.success) return a;
-      var i = g(r.value);
+      var i = f(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -85,7 +74,7 @@ __d(
           )
         : i;
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "notice");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").attrIntRange(e, "t", 0, void 0);
@@ -97,10 +86,10 @@ __d(
           )
         : r;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
-      var r = o("WASmaxParseUtils").optionalChildWithTag(e, "notice", d);
+      var r = o("WASmaxParseUtils").optionalChildWithTag(e, "notice", c);
       if (!r.success) return r;
       var a = o(
         "WASmaxInUserNoticeIQResultResponseMixin",
@@ -111,7 +100,7 @@ __d(
           )
         : a;
     }
-    function p(e) {
+    function m(e) {
       var t = e.stageMixinArgs,
         n = o(
           "WASmaxOutUserNoticeBaseIQSetRequestMixin",
@@ -119,12 +108,12 @@ __d(
           o("WASmaxJsx").smax(
             "iq",
             { to: o("WAWap").S_WHATSAPP_NET, xmlns: "tos" },
-            f(o("WASmaxJsx").smax("notice", null), t),
+            _(o("WASmaxJsx").smax("notice", null), t),
           ),
         );
       return n;
     }
-    function _(e) {
+    function p(e) {
       var t = e.noticeId,
         n = e.noticeStage,
         r = o("WASmaxJsx").smax("notice", {
@@ -133,11 +122,11 @@ __d(
         });
       return r;
     }
-    function f(e, t) {
-      var n = _(t);
+    function _(e, t) {
+      var n = p(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
-    function g(e) {
+    function f(e) {
       var t = o(
         "WASmaxInUserNoticeIQErrorInternalServerErrorMixin",
       ).parseIQErrorInternalServerErrorMixin(e);
@@ -161,10 +150,10 @@ __d(
           );
     }
     ((l.sendSetRPC = e),
-      (l.parseSetResponseClientError = u),
-      (l.parseSetResponseServerError = c),
-      (l.parseSetResponseSuccess = m),
-      (l.makeSetRequest = p));
+      (l.parseSetResponseClientError = s),
+      (l.parseSetResponseServerError = u),
+      (l.parseSetResponseSuccess = d),
+      (l.makeSetRequest = m));
   },
   98,
 );

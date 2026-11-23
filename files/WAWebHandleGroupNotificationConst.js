@@ -15,7 +15,6 @@ __d(
     "WAWebRuntimeEnvironmentUtils",
     "WAWebUserUtils",
     "WAWebWid",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     var e = Object.freeze({
@@ -67,268 +66,220 @@ __d(
       LIMIT_SHARING_ENABLED: "limit_sharing_enabled",
       MISSING_PARTICIPANT_IDENTIFICATION: "missing_participant_identification",
     });
-    function s(e, t) {
-      return u.apply(this, arguments);
-    }
-    function u() {
+    async function s(e, t) {
+      var n,
+        r = await o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
       return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
-          return (
-            !!r &&
-            r.growthLockType === t &&
-            ((n = r.growthLockExpiration) != null ? n : 0) >
-              o("WATimeUtils").unixTime()
-          );
-        })),
-        u.apply(this, arguments)
+        !!r &&
+        r.growthLockType === t &&
+        ((n = r.growthLockExpiration) != null ? n : 0) >
+          o("WATimeUtils").unixTime()
       );
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            t.actionType === o("WAWebGroupType").GROUP_ACTIONS.REVOKE_INVITE ||
-            t.actionType === o("WAWebGroupType").GROUP_ACTIONS.SUSPEND ||
-            t.actionType === o("WAWebGroupType").GROUP_ACTIONS.SUSPEND_APPEAL ||
-            t.actionType ===
-              o("WAWebGroupType").GROUP_ACTIONS.REVOKED_MEMBERSHIP_REQUESTS ||
-            t.actionType ===
-              o("WAWebGroupType").GROUP_ACTIONS.REVOKED_SUB_GROUP_SUGGESTIONS ||
-            t.actionType ===
-              o("WAWebGroupType").GROUP_ACTIONS
-                .SUBGROUP_SUGGESTIONS_CHANGE_NUMBER ||
-            t.actionType ===
-              o("WAWebGroupType").GROUP_ACTIONS.GROUP_SAFETY_CHECK
-          )
-            return !0;
-          if (
-            t.actionType === o("WAWebGroupType").GROUP_ACTIONS.GROWTH_LOCKED ||
-            t.actionType === o("WAWebGroupType").GROUP_ACTIONS.GROWTH_UNLOCKED
-          ) {
-            if (
-              t.actionType === o("WAWebGroupType").GROUP_ACTIONS.GROWTH_LOCKED
-            ) {
-              if (t.type !== "invite") return !0;
-              var n = yield s(e.chatId, t.type);
-              if (n) return !0;
-            }
-            var a = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
-              e.chatId.toString(),
-            );
-            return !a;
-          }
-          if (
-            t.actionType ===
-            o("WAWebGroupType").GROUP_ACTIONS.GROUP_REACTION_SETTINGS
-          )
-            return m(e.chatId, t.value);
-          if (
-            (t.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
-              t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE) &&
-            (yield g(e.chatId)) === !0
-          )
-            return !0;
-          if (
-            t.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
-            t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE
-          ) {
-            var i =
-              t.participants.length === 1 &&
-              o("WAWebUserUtils").isMeAccount(t.participants[0].id);
-            if (!i) return !0;
-          }
-          if (
-            t.actionType ===
-              o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE &&
-            t.participants.length === 1 &&
-            !o("WAWebUserUtils").isMeAccount(t.participants[0].id)
-          ) {
-            var l = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
-              e.chatId.toString(),
-            );
-            if (!l) return !0;
-          }
-          if (
-            t.actionType === o("WAWebGroupType").GROUP_ACTIONS.REMOVE &&
-            t.participants.length === 1 &&
-            r("WAWebWid").equals.apply(
-              r("WAWebWid"),
-              o("WAWebLidMigrationUtils").toCommonAddressingMode(
-                e.author,
-                t.participants[0].id,
-              ),
-            )
-          ) {
-            var u = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
-                e.chatId.toString(),
-              ),
-              c = o("WAWebUserUtils").isMeAccount(e.author);
-            if (!u || c) return !0;
-          }
-          if (
-            t.actionType ===
-            o("WAWebGroupType").GROUP_ACTIONS.CREATED_SUBGROUP_SUGGESTION
-          ) {
-            var d = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
-              e.chatId.toString(),
-            );
-            if (
-              !d ||
-              (t.isExistingGroup === !0 &&
-                !o(
-                  "WAWebCommunityGatingUtils",
-                ).memberSuggestedGroupsM3ReceiverEnabled())
-            )
-              return !0;
-          }
-          if (t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DELETE) {
-            var p = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(
-                e.chatId,
-              ),
-              _ =
-                p != null
-                  ? o("WAWebGroupMetadataGetters").getGroupType(p)
-                  : null;
-            return t.reason ===
-              o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT &&
-              _ === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
-              ? !1
-              : (t.reason === o("WAWebGroupType").DELETE_REASON.DELETE_PARENT &&
-                  _ === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP,
-                !0);
-          }
-          if (
-            t.actionType ===
-            o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_APPROVAL_REQUEST
-          )
-            return !0;
-          if (
-            t.actionType ===
-            o("WAWebGroupType").GROUP_ACTIONS.CREATED_MEMBERSHIP_REQUESTS
-          ) {
-            var f = yield o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
-              e.chatId.toString(),
-            );
-            if (!f) return !0;
-          }
-          if (
-            (t.actionType ===
-              o("WAWebGroupType").GROUP_ACTIONS.CREATED_MEMBERSHIP_REQUESTS &&
-              t.skipGenMsg) ||
-            (t.actionType ===
-              o("WAWebGroupType").GROUP_ACTIONS.ALLOW_ADMIN_REPORTS &&
-              t.shouldSkipGenMsg === !0) ||
-            (t.actionType ===
-              o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECEIVED &&
-              t.shouldSkipGenMsg === !0) ||
-            ((t.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
-              t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE ||
-              t.actionType === o("WAWebGroupType").GROUP_ACTIONS.MODIFY) &&
-              (yield g(e.chatId)) === !0)
-          )
-            return !0;
-          if (
-            t.actionType ===
-              o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_PROMOTE ||
-            t.actionType ===
-              o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE
-          ) {
-            var h = t.participants.every(function (e) {
-                var t = e.id;
-                return t.isLid();
-              }),
-              y = e.isLidAddressingMode === !0;
-            if (!y && h) return !0;
-          }
-          return !1;
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    function m(e, t) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n, r, a;
-          if (
-            o("WAWebABProps").getABPropConfigValue(
-              "aura_group_reactions_blocking_enabled",
-            )
-          )
-            return !0;
-          var i = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e),
-            l =
-              (n =
-                i == null || (r = i.groupReactionSettings) == null
-                  ? void 0
-                  : r.defaultReactions) != null
-                ? n
-                : [],
-            s = (a = t == null ? void 0 : t.defaultReactions) != null ? a : [];
-          return (
-            l.length === s.length &&
-            l.every(function (e, t) {
-              return e === s[t];
-            })
-          );
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _(e, t) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n, r;
-          if (!o("WAWebRuntimeEnvironmentUtils").isWorker())
-            return o("WAWebBackendApi").frontendSendAndReceive(
-              "notAlreadyInGroup",
-              { groupId: e, participants: t },
-            );
-          var a = new Set(
-            (n =
-              (r = yield o("WAWebGroupsParticipantsApi").getParticipants(e)) ==
-              null
-                ? void 0
-                : r.participants) != null
-              ? n
-              : [],
-          );
-          return t.filter(function (e) {
+    async function u(e, t) {
+      if (
+        t.actionType === o("WAWebGroupType").GROUP_ACTIONS.REVOKE_INVITE ||
+        t.actionType === o("WAWebGroupType").GROUP_ACTIONS.SUSPEND ||
+        t.actionType === o("WAWebGroupType").GROUP_ACTIONS.SUSPEND_APPEAL ||
+        t.actionType ===
+          o("WAWebGroupType").GROUP_ACTIONS.REVOKED_MEMBERSHIP_REQUESTS ||
+        t.actionType ===
+          o("WAWebGroupType").GROUP_ACTIONS.REVOKED_SUB_GROUP_SUGGESTIONS ||
+        t.actionType ===
+          o("WAWebGroupType").GROUP_ACTIONS
+            .SUBGROUP_SUGGESTIONS_CHANGE_NUMBER ||
+        t.actionType === o("WAWebGroupType").GROUP_ACTIONS.GROUP_SAFETY_CHECK
+      )
+        return !0;
+      if (
+        t.actionType === o("WAWebGroupType").GROUP_ACTIONS.GROWTH_LOCKED ||
+        t.actionType === o("WAWebGroupType").GROUP_ACTIONS.GROWTH_UNLOCKED
+      ) {
+        if (t.actionType === o("WAWebGroupType").GROUP_ACTIONS.GROWTH_LOCKED) {
+          if (t.type !== "invite") return !0;
+          var n = await s(e.chatId, t.type);
+          if (n) return !0;
+        }
+        var a = await o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
+          e.chatId.toString(),
+        );
+        return !a;
+      }
+      if (
+        t.actionType ===
+        o("WAWebGroupType").GROUP_ACTIONS.GROUP_REACTION_SETTINGS
+      )
+        return c(e.chatId, t.value);
+      if (
+        (t.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
+          t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE) &&
+        (await m(e.chatId)) === !0
+      )
+        return !0;
+      if (
+        t.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
+        t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE
+      ) {
+        var i =
+          t.participants.length === 1 &&
+          o("WAWebUserUtils").isMeAccount(t.participants[0].id);
+        if (!i) return !0;
+      }
+      if (
+        t.actionType ===
+          o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE &&
+        t.participants.length === 1 &&
+        !o("WAWebUserUtils").isMeAccount(t.participants[0].id)
+      ) {
+        var l = await o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
+          e.chatId.toString(),
+        );
+        if (!l) return !0;
+      }
+      if (
+        t.actionType === o("WAWebGroupType").GROUP_ACTIONS.REMOVE &&
+        t.participants.length === 1 &&
+        r("WAWebWid").equals.apply(
+          r("WAWebWid"),
+          o("WAWebLidMigrationUtils").toCommonAddressingMode(
+            e.author,
+            t.participants[0].id,
+          ),
+        )
+      ) {
+        var u = await o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
+            e.chatId.toString(),
+          ),
+          d = o("WAWebUserUtils").isMeAccount(e.author);
+        if (!u || d) return !0;
+      }
+      if (
+        t.actionType ===
+        o("WAWebGroupType").GROUP_ACTIONS.CREATED_SUBGROUP_SUGGESTION
+      ) {
+        var p = await o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
+          e.chatId.toString(),
+        );
+        if (
+          !p ||
+          (t.isExistingGroup === !0 &&
+            !o(
+              "WAWebCommunityGatingUtils",
+            ).memberSuggestedGroupsM3ReceiverEnabled())
+        )
+          return !0;
+      }
+      if (t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DELETE) {
+        var _ = await o("WAWebDBGroupsGroupMetadata").getGroupMetadata(
+            e.chatId,
+          ),
+          f = _ != null ? o("WAWebGroupMetadataGetters").getGroupType(_) : null;
+        return t.reason ===
+          o("WAWebGroupType").DELETE_REASON.INTEGRITY_DELETE_PARENT &&
+          f === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP
+          ? !1
+          : (t.reason === o("WAWebGroupType").DELETE_REASON.DELETE_PARENT &&
+              f === o("WAWebGroupType").GroupType.LINKED_ANNOUNCEMENT_GROUP,
+            !0);
+      }
+      if (
+        t.actionType ===
+        o("WAWebGroupType").GROUP_ACTIONS.MEMBERSHIP_APPROVAL_REQUEST
+      )
+        return !0;
+      if (
+        t.actionType ===
+        o("WAWebGroupType").GROUP_ACTIONS.CREATED_MEMBERSHIP_REQUESTS
+      ) {
+        var g = await o("WAWebApiParticipantStore").isCurrentUserGroupAdmin(
+          e.chatId.toString(),
+        );
+        if (!g) return !0;
+      }
+      if (
+        (t.actionType ===
+          o("WAWebGroupType").GROUP_ACTIONS.CREATED_MEMBERSHIP_REQUESTS &&
+          t.skipGenMsg) ||
+        (t.actionType ===
+          o("WAWebGroupType").GROUP_ACTIONS.ALLOW_ADMIN_REPORTS &&
+          t.shouldSkipGenMsg === !0) ||
+        (t.actionType ===
+          o("WAWebGroupType").GROUP_ACTIONS.ADMIN_REPORT_RECEIVED &&
+          t.shouldSkipGenMsg === !0) ||
+        ((t.actionType === o("WAWebGroupType").GROUP_ACTIONS.PROMOTE ||
+          t.actionType === o("WAWebGroupType").GROUP_ACTIONS.DEMOTE ||
+          t.actionType === o("WAWebGroupType").GROUP_ACTIONS.MODIFY) &&
+          (await m(e.chatId)) === !0)
+      )
+        return !0;
+      if (
+        t.actionType ===
+          o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_PROMOTE ||
+        t.actionType === o("WAWebGroupType").GROUP_ACTIONS.LINKED_GROUP_DEMOTE
+      ) {
+        var h = t.participants.every(function (e) {
             var t = e.id;
-            return !a.has(String(t));
-          });
-        })),
-        f.apply(this, arguments)
-      );
+            return t.isLid();
+          }),
+          y = e.isLidAddressingMode === !0;
+        if (!y && h) return !0;
+      }
+      return !1;
     }
-    function g(e) {
-      return h.apply(this, arguments);
-    }
-    function h() {
+    async function c(e, t) {
+      var n, r, a;
+      if (
+        o("WAWebABProps").getABPropConfigValue(
+          "aura_group_reactions_blocking_enabled",
+        )
+      )
+        return !0;
+      var i = await o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e),
+        l =
+          (n =
+            i == null || (r = i.groupReactionSettings) == null
+              ? void 0
+              : r.defaultReactions) != null
+            ? n
+            : [],
+        s = (a = t == null ? void 0 : t.defaultReactions) != null ? a : [];
       return (
-        (h = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = yield o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
-          return !!(t != null && t.defaultSubgroup);
-        })),
-        h.apply(this, arguments)
+        l.length === s.length &&
+        l.every(function (e, t) {
+          return e === s[t];
+        })
       );
     }
-    function y(e) {
+    async function d(e, t) {
+      var n, r;
+      if (!o("WAWebRuntimeEnvironmentUtils").isWorker())
+        return o("WAWebBackendApi").frontendSendAndReceive(
+          "notAlreadyInGroup",
+          { groupId: e, participants: t },
+        );
+      var a = new Set(
+        (n =
+          (r = await o("WAWebGroupsParticipantsApi").getParticipants(e)) == null
+            ? void 0
+            : r.participants) != null
+          ? n
+          : [],
+      );
+      return t.filter(function (e) {
+        var t = e.id;
+        return !a.has(String(t));
+      });
+    }
+    async function m(e) {
+      var t = await o("WAWebDBGroupsGroupMetadata").getGroupMetadata(e);
+      return !!(t != null && t.defaultSubgroup);
+    }
+    function p(e) {
       var t = e.author,
         n = e.authorPhoneNumber;
       return t != null ? { id: t, phoneNumber: n } : null;
     }
-    function C(t) {
+    function _(t) {
       var n,
         o,
         a =
@@ -393,11 +344,11 @@ __d(
       return i;
     }
     ((l.GROUP_NOTIFICATION_TAG = e),
-      (l.shouldSkipGenMsg = c),
-      (l.notAlreadyInGroup = _),
-      (l.getIsCagById = g),
-      (l.getAuthorLidPnFieldsFromMeta = y),
-      (l.getMappingsFromAction = C));
+      (l.shouldSkipGenMsg = u),
+      (l.notAlreadyInGroup = d),
+      (l.getIsCagById = m),
+      (l.getAuthorLidPnFieldsFromMeta = p),
+      (l.getMappingsFromAction = _));
   },
   98,
 );

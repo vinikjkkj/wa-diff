@@ -1,14 +1,12 @@
 __d(
   "WAWebRecoverableQueue",
   [
-    "Promise",
     "WALogger",
     "WATimeUtils",
     "WAWebNoop",
     "WAWebPersistedQueueIds",
     "WAWebScheduledOperations",
     "WAWormQueueDef",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -17,59 +15,48 @@ __d(
       u,
       c,
       d,
-      m,
-      p = (function () {
+      m = (function () {
         function t(e) {
-          ((this.$1 = (m || (m = n("Promise"))).resolve()),
+          ((this.$1 = Promise.resolve()),
             (this.$2 = e.maxAttempts),
             (this.$3 = e.operation),
             (this.$4 = e.queue),
             (this.$5 = e.run));
         }
-        var a = t.prototype;
+        var n = t.prototype;
         return (
-          (a.runRecorded = function (t, r) {
+          (n.runRecorded = function (t, n) {
             var e = this;
             return this.$4.isReady()
-              ? this.$6(
-                  n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                    var n = yield e.$7(t);
-                    (yield r(), yield e.$4.ack([n]));
-                  }),
-                )
-              : this.$6(r);
+              ? this.$6(async function () {
+                  var r = await e.$7(t);
+                  (await n(), await e.$4.ack([r]));
+                })
+              : this.$6(n);
           }),
-          (a.addAndDrain = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this;
-                if (!this.$4.isReady()) {
-                  var n = this.$8(e);
-                  this.$6(function () {
-                    return o("WAWebScheduledOperations").scheduleOperation(
-                      t.$3,
-                      function () {
-                        return t.$5(n);
-                      },
-                    );
-                  });
-                  return;
-                }
-                (yield this.$6(function () {
-                  return t.$7(e);
-                }),
-                  this.scheduleDrain());
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          (n.addAndDrain = async function (t) {
+            var e = this;
+            if (!this.$4.isReady()) {
+              var n = this.$8(t);
+              this.$6(function () {
+                return o("WAWebScheduledOperations").scheduleOperation(
+                  e.$3,
+                  function () {
+                    return e.$5(n);
+                  },
+                );
+              });
+              return;
             }
-            return t;
-          })()),
-          (a.start = function () {
+            (await this.$6(function () {
+              return e.$7(t);
+            }),
+              this.scheduleDrain());
+          }),
+          (n.start = function () {
             this.scheduleDrain();
           }),
-          (a.scheduleDrain = function () {
+          (n.scheduleDrain = function () {
             var e = this;
             return (
               this.$6(function () {
@@ -78,7 +65,7 @@ __d(
               this.$1
             );
           }),
-          (a.$6 = function (n) {
+          (n.$6 = function (n) {
             var t = this,
               a = this.$1.then(n);
             return (
@@ -99,37 +86,29 @@ __d(
               a
             );
           }),
-          (a.$7 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                var t = this,
-                  r = this.$8(e);
-                return (
-                  yield o("WAWebPersistedQueueIds").countQueueIdCollisions(
-                    this.$4,
-                    [r.queueId],
-                    n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-                      var e = yield t.$4.read({
-                        filter: function (t) {
-                          var e = t.queueId;
-                          return e === r.queueId;
-                        },
-                        limit: 1,
-                      });
-                      return e.length;
-                    }),
-                  ),
-                  yield this.$4.add([r]),
-                  r.queueId
-                );
-              },
+          (n.$7 = async function (t) {
+            var e = this,
+              n = this.$8(t);
+            return (
+              await o("WAWebPersistedQueueIds").countQueueIdCollisions(
+                this.$4,
+                [n.queueId],
+                async function () {
+                  var t = await e.$4.read({
+                    filter: function (t) {
+                      var e = t.queueId;
+                      return e === n.queueId;
+                    },
+                    limit: 1,
+                  });
+                  return t.length;
+                },
+              ),
+              await this.$4.add([n]),
+              n.queueId
             );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$8 = function (t) {
+          }),
+          (n.$8 = function (t) {
             var e = o("WATimeUtils").unixTimeMs();
             return babelHelpers.extends({}, t, {
               addedAtMs: e,
@@ -138,7 +117,7 @@ __d(
               queueId: o("WAWebPersistedQueueIds").nextPersistedQueueId(),
             });
           }),
-          (a.$9 = function () {
+          (n.$9 = function () {
             var e = this;
             return o("WAWebScheduledOperations")
               .scheduleOperation(this.$3, function () {
@@ -148,179 +127,126 @@ __d(
                 return t ? e.$9() : void 0;
               });
           }),
-          (a.$10 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-              var e = this,
-                t = yield this.$4.read({
-                  limit: o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT,
+          (n.$10 = async function () {
+            var e = this,
+              t = await this.$4.read({
+                limit: o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT,
+              });
+            if (t.length === 0) return !1;
+            var n = 0;
+            return (
+              await t.reduce(function (t, r) {
+                return t.then(async function () {
+                  (await e.$11(r)) && n++;
                 });
-              if (t.length === 0) return !1;
-              var r = 0;
+              }, Promise.resolve()),
+              n > 0 &&
+                t.length === o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT
+            );
+          }),
+          (n.$11 = async function (t) {
+            if (t.attempts >= this.$2) return this.$12(t);
+            var e = await this.$13(t);
+            if (e == null) return this.$14(t);
+            var n = t.attempts + 1;
+            return n >= this.$2
+              ? (o("WALogger")
+                  .ERROR(
+                    s ||
+                      (s = babelHelpers.taggedTemplateLiteralLoose([
+                        "[recoverable-queue] ",
+                        " exhausted ",
+                        " attempts, dropping row",
+                      ])),
+                    this.$3.valueOf(),
+                    n,
+                  )
+                  .catching(e)
+                  .tags("messaging")
+                  .sendLogs("recoverable-queue-row-dropped"),
+                this.$14(t))
+              : (o("WALogger")
+                  .WARN(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[recoverable-queue] ",
+                        " attempt ",
+                        " failed",
+                      ])),
+                    this.$3.valueOf(),
+                    n,
+                  )
+                  .catching(e)
+                  .tags("messaging")
+                  .sendLogs("recoverable-queue-attempt-failed"),
+                this.$15(t, n));
+          }),
+          (n.$14 = async function (t) {
+            return (await this.$12(t)) ? !0 : this.$15(t, this.$2);
+          }),
+          (n.$13 = async function (t) {
+            try {
+              return (await this.$5(t), null);
+            } catch (e) {
+              return r("getErrorSafe")(e);
+            }
+          }),
+          (n.$12 = async function (t) {
+            try {
+              return (await this.$4.ack([t.queueId]), !0);
+            } catch (e) {
               return (
-                yield t.reduce(
-                  function (t, o) {
-                    return t.then(
-                      n("asyncToGeneratorRuntime").asyncToGenerator(
-                        function* () {
-                          (yield e.$11(o)) && r++;
-                        },
-                      ),
-                    );
-                  },
-                  (m || (m = n("Promise"))).resolve(),
-                ),
-                r > 0 &&
-                  t.length === o("WAWormQueueDef").WA_WORM_QUEUE_DRAIN_LIMIT
+                o("WALogger")
+                  .WARN(
+                    c ||
+                      (c = babelHelpers.taggedTemplateLiteralLoose([
+                        "[recoverable-queue] ",
+                        " ack failed",
+                      ])),
+                    this.$3.valueOf(),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .tags("messaging")
+                  .sendLogs("recoverable-queue-ack-failed"),
+                !1
               );
-            });
-            function t() {
-              return e.apply(this, arguments);
             }
-            return t;
-          })()),
-          (a.$11 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                if (e.attempts >= this.$2) return this.$12(e);
-                var t = yield this.$13(e);
-                if (t == null) return this.$14(e);
-                var n = e.attempts + 1;
-                return n >= this.$2
-                  ? (o("WALogger")
-                      .ERROR(
-                        s ||
-                          (s = babelHelpers.taggedTemplateLiteralLoose([
-                            "[recoverable-queue] ",
-                            " exhausted ",
-                            " attempts, dropping row",
-                          ])),
-                        this.$3.valueOf(),
-                        n,
-                      )
-                      .catching(t)
-                      .tags("messaging")
-                      .sendLogs("recoverable-queue-row-dropped"),
-                    this.$14(e))
-                  : (o("WALogger")
-                      .WARN(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "[recoverable-queue] ",
-                            " attempt ",
-                            " failed",
-                          ])),
-                        this.$3.valueOf(),
-                        n,
-                      )
-                      .catching(t)
-                      .tags("messaging")
-                      .sendLogs("recoverable-queue-attempt-failed"),
-                    this.$15(e, n));
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
+          }),
+          (n.$15 = async function (t, n) {
+            try {
+              return (
+                await this.$4.add([
+                  babelHelpers.extends({}, t, {
+                    attempts: n,
+                    changedAtMs: o("WATimeUtils").unixTimeMs(),
+                  }),
+                ]),
+                !0
+              );
+            } catch (e) {
+              return (
+                o("WALogger")
+                  .WARN(
+                    d ||
+                      (d = babelHelpers.taggedTemplateLiteralLoose([
+                        "[recoverable-queue] ",
+                        " attempt ",
+                        " not recorded",
+                      ])),
+                    this.$3.valueOf(),
+                    n,
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .tags("messaging")
+                  .sendLogs("recoverable-queue-attempt-not-recorded"),
+                !1
+              );
             }
-            return t;
-          })()),
-          (a.$14 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                return (yield this.$12(e)) ? !0 : this.$15(e, this.$2);
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$13 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                try {
-                  return (yield this.$5(e), null);
-                } catch (e) {
-                  return r("getErrorSafe")(e);
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$12 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e) {
-                try {
-                  return (yield this.$4.ack([e.queueId]), !0);
-                } catch (e) {
-                  return (
-                    o("WALogger")
-                      .WARN(
-                        c ||
-                          (c = babelHelpers.taggedTemplateLiteralLoose([
-                            "[recoverable-queue] ",
-                            " ack failed",
-                          ])),
-                        this.$3.valueOf(),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .tags("messaging")
-                      .sendLogs("recoverable-queue-ack-failed"),
-                    !1
-                  );
-                }
-              },
-            );
-            function t(t) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
-          (a.$15 = (function () {
-            var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-              function* (e, t) {
-                try {
-                  return (
-                    yield this.$4.add([
-                      babelHelpers.extends({}, e, {
-                        attempts: t,
-                        changedAtMs: o("WATimeUtils").unixTimeMs(),
-                      }),
-                    ]),
-                    !0
-                  );
-                } catch (e) {
-                  return (
-                    o("WALogger")
-                      .WARN(
-                        d ||
-                          (d = babelHelpers.taggedTemplateLiteralLoose([
-                            "[recoverable-queue] ",
-                            " attempt ",
-                            " not recorded",
-                          ])),
-                        this.$3.valueOf(),
-                        t,
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .tags("messaging")
-                      .sendLogs("recoverable-queue-attempt-not-recorded"),
-                    !1
-                  );
-                }
-              },
-            );
-            function t(t, n) {
-              return e.apply(this, arguments);
-            }
-            return t;
-          })()),
+          }),
           t
         );
       })();
-    l.WAWebRecoverableQueue = p;
+    l.WAWebRecoverableQueue = m;
   },
   98,
 );

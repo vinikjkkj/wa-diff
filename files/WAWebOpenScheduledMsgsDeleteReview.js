@@ -15,7 +15,6 @@ __d(
     "WAWebToastManager",
     "WAWebUnscheduleMsgAction",
     "WAWebWamEnumScheduledMessageEntrypoint",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -26,9 +25,9 @@ __d(
       c,
       d,
       m = d || (d = o("react"));
-    function p(t, a) {
-      var i = o("WAWebGetMaybeChatById").getMaybeChatById(t);
-      if (i == null) {
+    function p(t, n) {
+      var a = o("WAWebGetMaybeChatById").getMaybeChatById(t);
+      if (a == null) {
         o("WALogger").WARN(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
@@ -37,65 +36,55 @@ __d(
         );
         return;
       }
-      var l = o("WAJids").unsafeCoerceToChatJid(t.toJid()),
-        d = m.jsx(
+      var i = o("WAJids").unsafeCoerceToChatJid(t.toJid()),
+        l = m.jsx(
           o("WAWebScheduledMessagesListLoadable")
             .WAWebScheduledMessagesListLoadable,
           {
-            chatId: l,
+            chatId: i,
             onBack: o("WAWebDrawerManager").closeDrawerRight,
             initialSelectionMode: !0,
             onDeleteSelected: function (t) {
               o(
                 "WAWebShowScheduledMsgsBulkDeleteToast",
-              ).showScheduledMsgsBulkDeleteToast(l, t, {
-                text: s._(/*BTDS*/ "Delete chat"),
-                handler: a,
+              ).showScheduledMsgsBulkDeleteToast(i, t, {
+                text: s._(/*BTDS*/ ""),
+                handler: n,
               });
             },
-            onDeleteMessage: (function () {
-              var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                function* (e) {
-                  try {
-                    yield o("WAWebUnscheduleMsgAction").unscheduleMsgAction(
-                      l,
-                      e,
-                    );
-                  } catch (e) {
-                    (o("WALogger")
-                      .ERROR(
-                        u ||
-                          (u = babelHelpers.taggedTemplateLiteralLoose([
-                            "[scheduled_msg][delete-review] unschedule failed",
-                          ])),
-                      )
-                      .catching(r("getErrorSafe")(e))
-                      .sendLogs("scheduled-msg-delete-review-unschedule-fail"),
-                      o("WAWebToastManager").ToastManager.open(
-                        m.jsx(o("WAWebToast.react").Toast, {
-                          id: o("WAWebToast.react").genId(),
-                          msg: s._(/*BTDS*/ "Couldn't delete message"),
-                        }),
-                      ));
-                  }
-                },
-              );
-              return function (t) {
-                return e.apply(this, arguments);
-              };
-            })(),
+            onDeleteMessage: async function (t) {
+              try {
+                await o("WAWebUnscheduleMsgAction").unscheduleMsgAction(i, t);
+              } catch (e) {
+                (o("WALogger")
+                  .ERROR(
+                    u ||
+                      (u = babelHelpers.taggedTemplateLiteralLoose([
+                        "[scheduled_msg][delete-review] unschedule failed",
+                      ])),
+                  )
+                  .catching(r("getErrorSafe")(e))
+                  .sendLogs("scheduled-msg-delete-review-unschedule-fail"),
+                  o("WAWebToastManager").ToastManager.open(
+                    m.jsx(o("WAWebToast.react").Toast, {
+                      id: o("WAWebToast.react").genId(),
+                      msg: s._(/*BTDS*/ ""),
+                    }),
+                  ));
+              }
+            },
           },
         );
       o("WAWebCmd")
         .Cmd.openChatFromUnread({
-          chat: i,
+          chat: a,
           chatEntryPoint: o("WAWebChatEntryPoint").ChatEntryPoint.ChatsTab,
         })
         .then(function (e) {
           e &&
-            (o("WAWebDrawerManager").DrawerManager.openDrawerRight(d),
+            (o("WAWebDrawerManager").DrawerManager.openDrawerRight(l),
             o("WAWebScheduledMsgActionLogger").logScheduledMsgViewListForChat(
-              i,
+              a,
               o("WAWebWamEnumScheduledMessageEntrypoint")
                 .SCHEDULED_MESSAGE_ENTRYPOINT.CHAT_DELETE_DIALOG,
             ));

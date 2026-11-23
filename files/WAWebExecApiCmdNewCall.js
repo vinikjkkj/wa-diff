@@ -18,7 +18,6 @@ __d(
     "WAWebVoipStartCall",
     "WAWebWamEnumCallFromUi",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "isStringNullOrEmpty",
     "react",
@@ -116,85 +115,71 @@ __d(
         });
       }
     }
-    function p(e) {
-      return _.apply(this, arguments);
+    async function p(e) {
+      var t = e.fromDefaultProtocol,
+        n = e.isVideo,
+        r = e.lookup,
+        a = e.peerWid;
+      if (
+        !o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(a, "before_ask")
+      ) {
+        o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
+        return;
+      }
+      if (
+        !(await o("WAWebVoipOutgoingCallConsent").confirmDeepLinkCall(a, n))
+      ) {
+        o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
+        return;
+      }
+      if (
+        !o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(a, "after_ask")
+      ) {
+        o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
+        return;
+      }
+      (o("WAWebCmd").Cmd.setActiveNavBarItem(
+        o("WAWebNavBarTypes").NavBarItems.Calls,
+      ),
+        o("WAWebVoipCallsTabNavigateTo").navigateToVoipCallsTab({}));
+      var i = await r();
+      if (i == null) {
+        o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !1);
+        return;
+      }
+      if (!_(a, i.wid)) {
+        (o("WAWebCoreActionsODS").logDeepLinkCallPeerMismatch(),
+          o("WALogger")
+            .ERROR(
+              u ||
+                (u = babelHelpers.taggedTemplateLiteralLoose([
+                  "New call deep link: lookup resolved a different peer than the one confirmed",
+                ])),
+            )
+            .sendLogs("new-call-deep-link-peer-mismatch"),
+          o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !1));
+        return;
+      }
+      if (
+        !o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
+          i.wid,
+          "after_ask",
+        )
+      ) {
+        o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
+        return;
+      }
+      (await o("WAWebVoipStartCall").startWAWebVoipCall(
+        i.wid,
+        n,
+        o("WAWebWamEnumCallFromUi").CALL_FROM_UI.CALL_PHONE_NUMBER_DEEPLINK,
+        0,
+        null,
+        { entryTrust: "user_gesture" },
+      ),
+        o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0));
     }
-    function _() {
-      return (
-        (_ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.fromDefaultProtocol,
-            n = e.isVideo,
-            r = e.lookup,
-            a = e.peerWid;
-          if (
-            !o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
-              a,
-              "before_ask",
-            )
-          ) {
-            o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
-            return;
-          }
-          if (
-            !(yield o("WAWebVoipOutgoingCallConsent").confirmDeepLinkCall(a, n))
-          ) {
-            o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
-            return;
-          }
-          if (
-            !o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
-              a,
-              "after_ask",
-            )
-          ) {
-            o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
-            return;
-          }
-          (o("WAWebCmd").Cmd.setActiveNavBarItem(
-            o("WAWebNavBarTypes").NavBarItems.Calls,
-          ),
-            o("WAWebVoipCallsTabNavigateTo").navigateToVoipCallsTab({}));
-          var i = yield r();
-          if (i == null) {
-            o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !1);
-            return;
-          }
-          if (!f(a, i.wid)) {
-            (o("WAWebCoreActionsODS").logDeepLinkCallPeerMismatch(),
-              o("WALogger")
-                .ERROR(
-                  u ||
-                    (u = babelHelpers.taggedTemplateLiteralLoose([
-                      "New call deep link: lookup resolved a different peer than the one confirmed",
-                    ])),
-                )
-                .sendLogs("new-call-deep-link-peer-mismatch"),
-              o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !1));
-            return;
-          }
-          if (
-            !o("WAWebVoipOutgoingCallConsent").canStartDeepLinkCall(
-              i.wid,
-              "after_ask",
-            )
-          ) {
-            o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0);
-            return;
-          }
-          (yield o("WAWebVoipStartCall").startWAWebVoipCall(
-            i.wid,
-            n,
-            o("WAWebWamEnumCallFromUi").CALL_FROM_UI.CALL_PHONE_NUMBER_DEEPLINK,
-            0,
-            null,
-            { entryTrust: "user_gesture" },
-          ),
-            o("WAWebExecApiCmdHelpers").logDefaultProtocolNavigation(t, !0));
-        })),
-        _.apply(this, arguments)
-      );
-    }
-    function f(e, t) {
+    function _(e, t) {
       if (e.equals(t)) return !0;
       var n = o("WAWebLidMigrationUtils").toLid(e);
       return n == null || n.equals(t);

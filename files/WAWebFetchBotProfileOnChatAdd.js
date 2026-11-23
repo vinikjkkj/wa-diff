@@ -9,78 +9,59 @@ __d(
     "WAWebPersistBotProfiles",
     "WAWebSchemaBotProfile",
     "WAWebSyncBotSupportFields",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+    async function s(t) {
+      if (!(!t.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(t)))
+        try {
+          var n = await o("WAWebSchemaBotProfile")
+            .getBotProfileTable()
+            .get(t.toString());
           if (
-            !(!t.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(t))
+            o("WAWebPersistBotProfiles").isStoredBotProfile(n) ||
+            o("WAWebBotProfileFetchPause").isBotProfileFetchPaused(
+              n == null ? void 0 : n.fetchPauseUntilMs,
+              o("WATimeUtils").unixTimeMs(),
+            )
           )
-            try {
-              var n = yield o("WAWebSchemaBotProfile")
-                .getBotProfileTable()
-                .get(t.toString());
-              if (
-                o("WAWebPersistBotProfiles").isStoredBotProfile(n) ||
-                o("WAWebBotProfileFetchPause").isBotProfileFetchPaused(
-                  n == null ? void 0 : n.fetchPauseUntilMs,
-                  o("WATimeUtils").unixTimeMs(),
-                )
-              )
-                return;
-              yield o("WAWebSyncBotSupportFields").syncBotSupportFields(t);
-            } catch (t) {
-              o("WALogger")
-                .WARN(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[bot] fetching a new agent profile on chat add failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("bot-chat-add-profile-fetch-failed");
-            }
-        })),
-        u.apply(this, arguments)
-      );
+            return;
+          await o("WAWebSyncBotSupportFields").syncBotSupportFields(t);
+        } catch (t) {
+          o("WALogger")
+            .WARN(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[bot] fetching a new agent profile on chat add failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("bot-chat-add-profile-fetch-failed");
+        }
     }
-    function c(e) {
-      return d.apply(this, arguments);
+    async function u(e) {
+      if (!e.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(e))
+        return "skipped";
+      var t = await o("WAWebSchemaBotProfile")
+          .getBotProfileTable()
+          .get(e.toString()),
+        n = o("WATimeUtils").unixTimeMs();
+      return o("WAWebBotProfileFetchPause").isBotProfileFetchPaused(
+        t == null ? void 0 : t.fetchPauseUntilMs,
+        n,
+      ) ||
+        ((t == null ? void 0 : t.lastFetchedTimeMs) != null &&
+          n - t.lastFetchedTimeMs <=
+            o("WAWebBotProfileFreshness").BOT_PROFILE_TTL_MS)
+        ? "skipped"
+        : (await o("WAWebSyncBotSupportFields").syncBotSupportFields(e, {
+              tombstoneOnMissing: !1,
+            }))
+          ? "fetched"
+          : "failed";
     }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          if (!e.isFbidBot() || o("WAWebBotStaticProfiles").isStaticProfile(e))
-            return "skipped";
-          var t = yield o("WAWebSchemaBotProfile")
-              .getBotProfileTable()
-              .get(e.toString()),
-            n = o("WATimeUtils").unixTimeMs();
-          return o("WAWebBotProfileFetchPause").isBotProfileFetchPaused(
-            t == null ? void 0 : t.fetchPauseUntilMs,
-            n,
-          ) ||
-            ((t == null ? void 0 : t.lastFetchedTimeMs) != null &&
-              n - t.lastFetchedTimeMs <=
-                o("WAWebBotProfileFreshness").BOT_PROFILE_TTL_MS)
-            ? "skipped"
-            : (yield o("WAWebSyncBotSupportFields").syncBotSupportFields(e, {
-                  tombstoneOnMissing: !1,
-                }))
-              ? "fetched"
-              : "failed";
-        })),
-        d.apply(this, arguments)
-      );
-    }
-    ((l.fetchBotProfileOnChatAdd = s), (l.fetchUnresolvedBotProfile = c));
+    ((l.fetchBotProfileOnChatAdd = s), (l.fetchUnresolvedBotProfile = u));
   },
   98,
 );

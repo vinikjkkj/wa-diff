@@ -7,44 +7,35 @@ __d(
     "WAWebSendMsgDatabaseJob",
     "WAWebSessionScope",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e;
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          try {
-            var n = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
-              a = yield o("WAWebSendMsgDatabaseJob").getFanOutListJob(
-                t != null ? [t, n] : [n],
-              );
-            yield o("WAWebManageE2ESessionsJob").ensureE2ESessions({
-              identityChanged: !1,
-              sessionScope:
-                (t == null ? void 0 : t.isUser()) === !0
-                  ? o("WAWebPQGatingUtils").getOneToOneChatSessionScope()
-                  : o("WAWebSessionScope").SessionScope.DEFAULT,
-              wids: a,
-            });
-          } catch (t) {
-            o("WALogger")
-              .WARN(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[security-code] identity key prefetch failed",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(t))
-              .sendLogs("security-code-identity-key-prefetch-failed");
-          }
-        })),
-        u.apply(this, arguments)
-      );
+    async function s(t) {
+      try {
+        var n = o("WAWebUserUtils").getMeDeviceLidOrThrow(),
+          a = await o("WAWebSendMsgDatabaseJob").getFanOutListJob(
+            t != null ? [t, n] : [n],
+          );
+        await o("WAWebManageE2ESessionsJob").ensureE2ESessions({
+          identityChanged: !1,
+          sessionScope:
+            (t == null ? void 0 : t.isUser()) === !0
+              ? o("WAWebPQGatingUtils").getOneToOneChatSessionScope()
+              : o("WAWebSessionScope").SessionScope.DEFAULT,
+          wids: a,
+        });
+      } catch (t) {
+        o("WALogger")
+          .WARN(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[security-code] identity key prefetch failed",
+              ])),
+          )
+          .catching(r("getErrorSafe")(t))
+          .sendLogs("security-code-identity-key-prefetch-failed");
+      }
     }
     l.prefetchIdentityKeysForSecurityCode = s;
   },

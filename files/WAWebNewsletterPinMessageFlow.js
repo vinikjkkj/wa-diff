@@ -11,7 +11,6 @@ __d(
     "WAWebNewsletterPinDisplay",
     "WAWebNewsletterPinMessageAction",
     "WDSDialogBridge",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l, s) {
@@ -25,141 +24,105 @@ __d(
         ? null
         : t;
     }
-    function m() {
-      return p.apply(this, arguments);
+    async function m() {
+      return o("WAWebConfirmPopup.react").waitForConfirmPopup({
+        title: s._(/*BTDS*/ ""),
+        children: s._(/*BTDS*/ ""),
+        okText: s._(/*BTDS*/ ""),
+        cancelText: s._(/*BTDS*/ ""),
+        testid: "channel-pin-retry",
+      });
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          return o("WAWebConfirmPopup.react").waitForConfirmPopup({
-            title: s._(/*BTDS*/ "Couldn't update pin"),
-            children: s._(/*BTDS*/ "Check your connection and try again."),
-            okText: s._(/*BTDS*/ "Retry"),
-            cancelText: s._(/*BTDS*/ "Cancel"),
-            testid: "channel-pin-retry",
-          });
-        })),
-        p.apply(this, arguments)
-      );
+    async function p(e, t, n) {
+      try {
+        await e(t, n);
+      } catch (r) {
+        (await m()) && (await p(e, t, n));
+      }
     }
-    function _(e, t, n) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          try {
-            yield e(t, n);
-          } catch (r) {
-            (yield m()) && (yield _(e, t, n));
-          }
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(e) {
+    function _(e) {
       var t = o("WATimeUtils").castToUnixTime(
         e.t +
           o("WAWebNewsletterPinDisplay")
             .NEWSLETTER_MAX_PINNABLE_MSG_AGE_SECONDS,
       );
       return o("WATimeUtils").sameDay(o("WATimeUtils").unixTime(), t)
-        ? s._(
-            /*BTDS*/ "This update will be pinned until {expiry} today. You can unpin at any time.",
-            [s._param("expiry", o("WAWebClock").Clock.timestampStr(t))],
-          )
-        : s._(
-            /*BTDS*/ "This update will be pinned until {expiry}. You can unpin at any time.",
-            [s._param("expiry", o("WAWebClock").Clock.monthDayStr(t))],
+        ? s._(/*BTDS*/ "", [
+            s._param("expiry", o("WAWebClock").Clock.timestampStr(t)),
+          ])
+        : s._(/*BTDS*/ "", [
+            s._param("expiry", o("WAWebClock").Clock.monthDayStr(t)),
+          ]);
+    }
+    async function f(e, t) {
+      var n,
+        r,
+        a = d(t);
+      if (a != null) {
+        if (o("WAWebNewsletterPinDisplay").isNewsletterMsgTooOldToPin(t)) {
+          (o("WAWebModalManager").ModalManager.close(),
+            o("WDSDialogBridge").openWDSDialog(
+              u.jsx(
+                o("WAWebNewsletterInfoDialogsLoadable")
+                  .NewsletterPinTooOldPopupLoadable,
+                {},
+              ),
+            ));
+          return;
+        }
+        var i =
+            o("WAWebNewsletterPinDisplay").filterActiveNewsletterPins(
+              (n =
+                (r = e.newsletterMetadata) == null
+                  ? void 0
+                  : r.pinnedMessages) != null
+                ? n
+                : [],
+              o("WATimeUtils").unixTime(),
+            ).length >= c,
+          l = await o("WAWebConfirmPopup.react").waitForConfirmPopup(
+            i
+              ? {
+                  title: s._(/*BTDS*/ ""),
+                  children: s._(/*BTDS*/ ""),
+                  okText: s._(/*BTDS*/ ""),
+                  cancelText: s._(/*BTDS*/ ""),
+                  testid: "channel-pin-replace-confirm",
+                }
+              : {
+                  children: _(t),
+                  okText: s._(/*BTDS*/ ""),
+                  cancelText: s._(/*BTDS*/ ""),
+                  testid: "channel-pin-confirm",
+                },
           );
+        l &&
+          (await p(
+            o("WAWebNewsletterPinMessageAction").pinNewsletterMessage,
+            e,
+            a,
+          ));
+      }
     }
-    function h(e, t) {
-      return y.apply(this, arguments);
+    async function g(e, t) {
+      var n = d(t);
+      if (n != null) {
+        var r = await o("WAWebConfirmPopup.react").waitForConfirmPopup({
+          title: s._(/*BTDS*/ ""),
+          okText: s._(/*BTDS*/ ""),
+          cancelText: s._(/*BTDS*/ ""),
+          testid: "channel-unpin-confirm",
+        });
+        r &&
+          (await p(
+            o("WAWebNewsletterPinMessageAction").unpinNewsletterMessage,
+            e,
+            n,
+          ));
+      }
     }
-    function y() {
-      return (
-        (y = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n,
-            r,
-            a = d(t);
-          if (a != null) {
-            if (o("WAWebNewsletterPinDisplay").isNewsletterMsgTooOldToPin(t)) {
-              (o("WAWebModalManager").ModalManager.close(),
-                o("WDSDialogBridge").openWDSDialog(
-                  u.jsx(
-                    o("WAWebNewsletterInfoDialogsLoadable")
-                      .NewsletterPinTooOldPopupLoadable,
-                    {},
-                  ),
-                ));
-              return;
-            }
-            var i =
-                o("WAWebNewsletterPinDisplay").filterActiveNewsletterPins(
-                  (n =
-                    (r = e.newsletterMetadata) == null
-                      ? void 0
-                      : r.pinnedMessages) != null
-                    ? n
-                    : [],
-                  o("WATimeUtils").unixTime(),
-                ).length >= c,
-              l = yield o("WAWebConfirmPopup.react").waitForConfirmPopup(
-                i
-                  ? {
-                      title: s._(/*BTDS*/ "Replace oldest pin?"),
-                      children: s._(
-                        /*BTDS*/ "Your new pin will replace the oldest pinned update.",
-                      ),
-                      okText: s._(/*BTDS*/ "Pin"),
-                      cancelText: s._(/*BTDS*/ "Cancel"),
-                      testid: "channel-pin-replace-confirm",
-                    }
-                  : {
-                      children: g(t),
-                      okText: s._(/*BTDS*/ "Pin"),
-                      cancelText: s._(/*BTDS*/ "Cancel"),
-                      testid: "channel-pin-confirm",
-                    },
-              );
-            l &&
-              (yield _(
-                o("WAWebNewsletterPinMessageAction").pinNewsletterMessage,
-                e,
-                a,
-              ));
-          }
-        })),
-        y.apply(this, arguments)
-      );
-    }
-    function C(e, t) {
-      return b.apply(this, arguments);
-    }
-    function b() {
-      return (
-        (b = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = d(t);
-          if (n != null) {
-            var r = yield o("WAWebConfirmPopup.react").waitForConfirmPopup({
-              title: s._(/*BTDS*/ "Unpin this update?"),
-              okText: s._(/*BTDS*/ "Unpin"),
-              cancelText: s._(/*BTDS*/ "Cancel"),
-              testid: "channel-unpin-confirm",
-            });
-            r &&
-              (yield _(
-                o("WAWebNewsletterPinMessageAction").unpinNewsletterMessage,
-                e,
-                n,
-              ));
-          }
-        })),
-        b.apply(this, arguments)
-      );
-    }
-    ((l.runPinNewsletterMessageFlow = h),
-      (l.runUnpinNewsletterMessageFlow = C));
+    ((l.runPinNewsletterMessageFlow = f),
+      (l.runUnpinNewsletterMessageFlow = g));
   },
   226,
 );

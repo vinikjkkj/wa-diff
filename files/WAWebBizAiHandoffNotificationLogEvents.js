@@ -6,7 +6,6 @@ __d(
     "WAWebBizAiHandoffNotificationWamEvent",
     "WAWebChatThreadLogging",
     "WAWebWamEnumHandoffNotifActionType",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,43 +21,33 @@ __d(
         n,
       );
     }
-    function c(e, t, n, r) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (t, n, a, i) {
-            if (o("WAWebBizAiAgentGating").isHandoffRemovalTimingSyncEnabled())
-              try {
-                var l = yield o("WAWebChatThreadLogging").getChatThreadID(
-                  t.id.toJid(),
-                  i,
-                );
-                if (l == null) return;
-                new (o(
-                  "WAWebBizAiHandoffNotificationWamEvent",
-                ).BizAiHandoffNotificationWamEvent)({
-                  handoffNotifAction: n,
-                  handoffNotifVersion: s,
-                  notificationId: a,
-                  threadId: l,
-                }).commit();
-              } catch (t) {
-                o("WALogger")
-                  .ERROR(
-                    e ||
-                      (e = babelHelpers.taggedTemplateLiteralLoose([
-                        "biz ai handoff notification logging failed",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(t))
-                  .sendLogs("biz-ai-handoff-notification-wam");
-              }
-          },
-        )),
-        d.apply(this, arguments)
-      );
+    async function c(t, n, a, i) {
+      if (o("WAWebBizAiAgentGating").isHandoffRemovalTimingSyncEnabled())
+        try {
+          var l = await o("WAWebChatThreadLogging").getChatThreadID(
+            t.id.toJid(),
+            i,
+          );
+          if (l == null) return;
+          new (o(
+            "WAWebBizAiHandoffNotificationWamEvent",
+          ).BizAiHandoffNotificationWamEvent)({
+            handoffNotifAction: n,
+            handoffNotifVersion: s,
+            notificationId: a,
+            threadId: l,
+          }).commit();
+        } catch (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "biz ai handoff notification logging failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("biz-ai-handoff-notification-wam");
+        }
     }
     ((l.logAiHandoffNotificationClick = u),
       (l.logAiHandoffNotificationAction = c));

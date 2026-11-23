@@ -9,7 +9,7 @@ __d(
     function e(e) {
       var t = e.id;
       return {
-        label: s._(/*BTDS*/ "View shop"),
+        label: s._(/*BTDS*/ ""),
         onClick: function () {
           if (t == null)
             return void r("WAWebShowMessageActionFallbackErrorAction")();

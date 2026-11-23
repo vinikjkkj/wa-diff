@@ -1,29 +1,17 @@
 __d(
   "WAWebMessageCacheOneQueueFlushable",
-  [
-    "WAWebGetMessageCache",
-    "WAWebSignalProtocolStore",
-    "asyncToGeneratorRuntime",
-  ],
+  ["WAWebGetMessageCache", "WAWebSignalProtocolStore"],
   function (t, n, r, o, a, i, l) {
     var e = {
-      flush: (function () {
-        var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-          function* (e, t, n, r) {
-            var a = o("WAWebGetMessageCache").getMessageCache();
-            (a.createSnapshot(),
-              (r === "endOfOQ" ||
-                o("WAWebSignalProtocolStore")
-                  .getSignalProtocolStore()
-                  .hasPendingPersistWrites()) &&
-                (yield a.checkpointQueueWait()));
-          },
-        );
-        function t(t, n, r, o) {
-          return e.apply(this, arguments);
-        }
-        return t;
-      })(),
+      flush: async function (t, n, r, a) {
+        var e = o("WAWebGetMessageCache").getMessageCache();
+        (e.createSnapshot(),
+          (a === "endOfOQ" ||
+            o("WAWebSignalProtocolStore")
+              .getSignalProtocolStore()
+              .hasPendingPersistWrites()) &&
+            (await e.checkpointQueueWait()));
+      },
     };
     l.messageCacheOneQueueFlushable = e;
   },

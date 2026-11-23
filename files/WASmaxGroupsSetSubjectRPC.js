@@ -20,38 +20,29 @@ __d(
     "WASmaxParseUtils",
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = m(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = d(r, n);
-          if (a.success)
-            return { name: "SetSubjectResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return { name: "SetSubjectResponseClientError", value: i.value };
-          var l = c(r, n);
-          if (l.success)
-            return { name: "SetSubjectResponseServerError", value: l.value };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("SetSubject", {
-              Success: a,
-              ClientError: i,
-              ServerError: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = d(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = c(r, n);
+      if (a.success)
+        return { name: "SetSubjectResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "SetSubjectResponseClientError", value: i.value };
+      var l = u(r, n);
+      if (l.success)
+        return { name: "SetSubjectResponseServerError", value: l.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("SetSubject", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -61,7 +52,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = p(r.value);
+      var i = m(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -70,7 +61,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -79,7 +70,7 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e, t) {
+    function c(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o(
@@ -87,8 +78,8 @@ __d(
       ).parseIQResultResponseMixin(e, t);
       return (r.success, r);
     }
-    function m(e) {
-      var t = f(
+    function d(e) {
+      var t = _(
         o("WASmaxOutGroupsBaseSetGroupMixin").mergeBaseSetGroupMixin(
           o("WASmaxJsx").smax("iq", null),
           e,
@@ -97,7 +88,7 @@ __d(
       );
       return t;
     }
-    function p(e) {
+    function m(e) {
       var t = o(
         "WASmaxInGroupsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -175,7 +166,7 @@ __d(
             [t, n, r, a, i, l, s, u],
           );
     }
-    function _(e) {
+    function p(e) {
       var t = e.subjectElementValue,
         n = o("WASmaxJsx").smax(
           "iq",
@@ -184,15 +175,15 @@ __d(
         );
       return n;
     }
-    function f(e, t) {
-      var n = _(t);
+    function _(e, t) {
+      var n = p(t);
       return o("WASmaxMixins").mergeStanzas(e, n);
     }
     ((l.sendSetSubjectRPC = e),
-      (l.parseSetSubjectResponseClientError = u),
-      (l.parseSetSubjectResponseServerError = c),
-      (l.parseSetSubjectResponseSuccess = d),
-      (l.makeSetSubjectRequest = m));
+      (l.parseSetSubjectResponseClientError = s),
+      (l.parseSetSubjectResponseServerError = u),
+      (l.parseSetSubjectResponseSuccess = c),
+      (l.makeSetSubjectRequest = d));
   },
   98,
 );

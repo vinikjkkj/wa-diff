@@ -1,14 +1,13 @@
 __d(
   "meta-brand-oculus-outline-20",
-  ["ix", "cr:26282", "cr:30096", "fbicon"],
-  function (t, n, r, o, a, i, l, s) {
+  ["MetaBrandOculusOutline20Icon.react"],
+  function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = n("cr:26282") != null ? n("cr:26282") : n("cr:30096"),
-      u = e != null ? [e, 20] : null,
-      c = u != null ? u : o("fbicon")._(s("783281"), 20),
-      d = u != null ? u : o("fbicon")._(s("783281"), 20);
-    ((l.metaBrandOculusAppOculusOutline20 = c),
-      (l.metaBrandOculusOutline20 = d));
+    var e = [r("MetaBrandOculusOutline20Icon.react"), 20],
+      s = e,
+      u = e;
+    ((l.metaBrandOculusAppOculusOutline20 = s),
+      (l.metaBrandOculusOutline20 = u));
   },
   98,
 );

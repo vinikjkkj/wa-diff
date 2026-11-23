@@ -9,7 +9,6 @@ __d(
     "WAWebWid",
     "WAWebWidFactory",
     "WAWebWidToJid",
-    "asyncToGeneratorRuntime",
     "isStringNullOrEmpty",
   ],
   function (t, n, r, o, a, i, l) {
@@ -61,35 +60,27 @@ __d(
       QuarantineWithoutText: m,
       QuarantineWithText: p,
     };
-    function f(e) {
-      return g.apply(this, arguments);
-    }
-    function g() {
+    async function f(e) {
       return (
-        (g = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          return (
-            r("WAWebWid").isUser(e) &&
-            !o("WAWebUserUtils").isMeAccount(e) &&
-            !o("WAWebBotUtils").isMetaOperatedAccount(e) &&
-            !(yield o("WAWebApiContact").isAddressBookContact(
-              o("WAWebWidToJid").widToUserJid(
-                o("WAWebWidFactory").asUserWidOrThrow(e),
-              ),
-            ))
-          );
-        })),
-        g.apply(this, arguments)
+        r("WAWebWid").isUser(e) &&
+        !o("WAWebUserUtils").isMeAccount(e) &&
+        !o("WAWebBotUtils").isMetaOperatedAccount(e) &&
+        !(await o("WAWebApiContact").isAddressBookContact(
+          o("WAWebWidToJid").widToUserJid(
+            o("WAWebWidFactory").asUserWidOrThrow(e),
+          ),
+        ))
       );
     }
-    function h(e) {
+    function g(e) {
       return e.type === "QuarantineWithText" ? e.text : null;
     }
-    function y(e) {
+    function h(e) {
       return r("isStringNullOrEmpty")(e)
         ? _.QuarantineWithoutText
         : _.QuarantineWithText(e);
     }
-    function C(e) {
+    function y(e) {
       var t;
       return e == null
         ? !1
@@ -101,24 +92,24 @@ __d(
               ? void 0
               : t.thumbnail) != null;
     }
-    function b(e, t) {
+    function C(e, t) {
       return (
         t === void 0 && (t = 0),
-        e == null ? !0 : t > s ? !1 : v(e.hydratedHsm, t + 1)
+        e == null ? !0 : t > s ? !1 : b(e.hydratedHsm, t + 1)
       );
     }
-    function v(e, t) {
+    function b(e, t) {
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (t > s) return !1;
       var n = t + 1;
       return !(
-        !L(e.interactiveMessageTemplate, n) ||
-        !S(e.fourRowTemplate, n) ||
-        !R(e.hydratedFourRowTemplate, n) ||
-        !R(e.hydratedTemplate, n)
+        !R(e.interactiveMessageTemplate, n) ||
+        !v(e.fourRowTemplate, n) ||
+        !S(e.hydratedFourRowTemplate, n) ||
+        !S(e.hydratedTemplate, n)
       );
     }
-    function S(e, t) {
+    function v(e, t) {
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (
         t > s ||
@@ -130,18 +121,18 @@ __d(
         return !1;
       var n = t + 1;
       if (
-        !b(e.highlyStructuredMessage, n) ||
-        !b(e.content, n) ||
-        !b(e.footer, n)
+        !C(e.highlyStructuredMessage, n) ||
+        !C(e.content, n) ||
+        !C(e.footer, n)
       )
         return !1;
       var r = e.buttons;
       if (r != null) {
-        for (var o of r) if (!E(o, n)) return !1;
+        for (var o of r) if (!L(o, n)) return !1;
       }
       return !0;
     }
-    function R(e, t) {
+    function S(e, t) {
       return (
         t === void 0 && (t = 0),
         e == null
@@ -155,7 +146,7 @@ __d(
             )
       );
     }
-    function L(e, t) {
+    function R(e, t) {
       var n;
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (t > s) return !1;
@@ -174,24 +165,24 @@ __d(
         return !1;
       var o = (n = e.carouselMessage) == null ? void 0 : n.cards;
       if (o != null) {
-        for (var a of o) if (!L(a, t + 1)) return !1;
+        for (var a of o) if (!R(a, t + 1)) return !1;
       }
       return !0;
     }
-    function E(e, t) {
+    function L(e, t) {
       var n, r, o, a, i;
       if ((t === void 0 && (t = 0), e == null)) return !0;
       if (t > s) return !1;
       var l = t + 1;
       return !(
-        !b((n = e.quickReplyButton) == null ? void 0 : n.displayText, l) ||
-        !b((r = e.urlButton) == null ? void 0 : r.displayText, l) ||
-        !b((o = e.urlButton) == null ? void 0 : o.url, l) ||
-        !b((a = e.callButton) == null ? void 0 : a.displayText, l) ||
-        !b((i = e.callButton) == null ? void 0 : i.phoneNumber, l)
+        !C((n = e.quickReplyButton) == null ? void 0 : n.displayText, l) ||
+        !C((r = e.urlButton) == null ? void 0 : r.displayText, l) ||
+        !C((o = e.urlButton) == null ? void 0 : o.url, l) ||
+        !C((a = e.callButton) == null ? void 0 : a.displayText, l) ||
+        !C((i = e.callButton) == null ? void 0 : i.phoneNumber, l)
       );
     }
-    function k(t) {
+    function E(t) {
       var n = t.$$unknownFieldCount,
         r = t.associatedChildMessage,
         o = t.bcallMessage,
@@ -230,34 +221,34 @@ __d(
         })
       );
     }
-    function I(e) {
-      if (k(e)) return _.NoQuarantine;
+    function k(e) {
+      if (E(e)) return _.NoQuarantine;
       var t = e.extendedTextMessage;
       return t != null
-        ? C(t)
-          ? y(t.text)
+        ? y(t)
+          ? h(t.text)
           : _.NoQuarantine
         : e.imageMessage != null
-          ? y(e.imageMessage.caption)
+          ? h(e.imageMessage.caption)
           : e.videoMessage != null
-            ? y(e.videoMessage.caption)
+            ? h(e.videoMessage.caption)
             : e.documentMessage != null
-              ? y(e.documentMessage.caption)
-              : T(e)
+              ? h(e.documentMessage.caption)
+              : I(e)
                 ? _.NoQuarantine
                 : e.highlyStructuredMessage != null ||
                     e.templateMessage != null ||
                     e.interactiveMessage != null
-                  ? b(e.highlyStructuredMessage) &&
-                    v(e.templateMessage) &&
-                    L(e.interactiveMessage)
+                  ? C(e.highlyStructuredMessage) &&
+                    b(e.templateMessage) &&
+                    R(e.interactiveMessage)
                     ? _.NoQuarantine
                     : _.QuarantineWithoutText
                   : e.callLogMesssage != null
                     ? _.NoQuarantine
                     : _.QuarantineWithoutText;
     }
-    function T(e) {
+    function I(e) {
       return (
         e.conversation != null ||
         e.protocolMessage != null ||
@@ -269,7 +260,7 @@ __d(
         e.albumMessage != null
       );
     }
-    function D(e) {
+    function T(e) {
       switch (e.type) {
         case "NoQuarantine":
           return 0;
@@ -281,13 +272,13 @@ __d(
           return 0;
       }
     }
-    function x(e, t) {
-      return D(t) > D(e) ? t : e;
+    function D(e, t) {
+      return T(t) > T(e) ? t : e;
     }
-    function $(e, t) {
+    function x(e, t) {
       var n, r;
       t === void 0 && (t = 0);
-      var a = I(e),
+      var a = k(e),
         i =
           (n = o("WAWebFutureproofProtoUtils").maybeGetFutureproofMessage(e)) ==
           null
@@ -296,28 +287,20 @@ __d(
         l = (r = e.protocolMessage) == null ? void 0 : r.editedMessage,
         s = o("WAWebFutureproofProtoUtils").hasGatedOffFutureproofWrapper(e);
       return t >= u && (i != null || l != null || s)
-        ? x(a, _.QuarantineWithoutText)
+        ? D(a, _.QuarantineWithoutText)
         : (t >= u ||
-            (i != null && (a = x(a, $(i, t + 1))),
-            s && (a = x(a, _.QuarantineWithoutText)),
-            l != null && (a = x(a, $(l, t + 1)))),
+            (i != null && (a = D(a, x(i, t + 1))),
+            s && (a = D(a, _.QuarantineWithoutText)),
+            l != null && (a = D(a, x(l, t + 1)))),
           a);
     }
-    function P(e, t) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          return e == null || !c() || !(yield f(t)) ? _.NoQuarantine : $(e);
-        })),
-        N.apply(this, arguments)
-      );
+    async function $(e, t) {
+      return e == null || !c() || !(await f(t)) ? _.NoQuarantine : x(e);
     }
     ((l.MESSAGE_MAX_INSPECTION_DEPTH = u),
       (l.QuarantineAction = _),
-      (l.maybeGetQuarantineText = h),
-      (l.getQuarantineAction = P));
+      (l.maybeGetQuarantineText = g),
+      (l.getQuarantineAction = $));
   },
   98,
 );

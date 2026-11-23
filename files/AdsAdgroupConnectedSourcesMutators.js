@@ -2,29 +2,80 @@ __d(
   "AdsAdgroupConnectedSourcesMutators",
   [
     "AdsAPIAdgroupRecordGetWebsiteURL",
+    "AdsAPIAdgroupRecordUtils",
+    "AdsAPICampaignRecordUtils",
     "AdsAPlusCStickyOptOutUtils",
     "AdsAdgroupRecordAccessors",
+    "AdsAssetFeedUtils",
+    "AdsConnectedSourcesProductsOptOutUtils",
+    "AdsCreativeEnrollmentDefaultOnStoreUtils",
+    "AdsGovernedCreativeFeaturesMutators",
     "AdsMetadataConnectedSourcesUtils",
+    "AdsMetadataSpecBuilderMutators",
     "AdsMutators",
     "AdsProductExtensionsUtil",
+    "AdsSiteLinksComparableDomain",
     "AdsUEditorWebsiteMutators",
     "AdsWebsiteMediaSpecMutators",
     "FBLogger",
+    "ODS",
     "ProductSetOptimizationSettingForAdgroupAPI",
     "SEFunnelLogger",
+    "adsCallToActionGetDefaultCallToActionType",
+    "catalogEnrollTypesToIgnoreForPE",
     "getErrorSafe",
+    "gkx",
     "immutable",
     "isEmpty",
+    "isSEScaledAlphaEnabled",
+    "isSiteLinksManuallyOn",
+    "isValidURL",
     "justknobx",
     "requireDeferred",
+    "toSiteLinksSpecToWrite",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = r("requireDeferred")("AdsCreativeSiteLinksAPICallUtils").__setRef(
+      s,
+      u = r("requireDeferred")("AdsCreativeSiteLinksAPICallUtils").__setRef(
         "AdsAdgroupConnectedSourcesMutators",
       );
-    function u(e) {
+    function c(e, t) {
+      var n,
+        a =
+          (n = e.creative) == null ||
+          (n = n.creative_sourcing_spec) == null ||
+          (n = n.catalog) == null ||
+          (n = n.action_metadata) == null
+            ? void 0
+            : n.type;
+      return !r("gkx")("29360") ||
+        !o(
+          "AdsMetadataConnectedSourcesUtils",
+        ).isConnectedSourcesOptInForAdgroup(e) ||
+        a === "MANUAL" ||
+        (a != null &&
+          o(
+            "catalogEnrollTypesToIgnoreForPE",
+          ).CATALOG_ENROLL_TYPES_TO_IGNORE.includes(a))
+        ? t
+        : o("AdsMutators").chain(
+            r(
+              "AdsAdgroupRecordAccessors",
+            ).creative.creative_sourcing_spec.catalog.enroll_status.set(
+              "OPT_OUT",
+            ),
+            r(
+              "AdsAdgroupRecordAccessors",
+            ).creative.creative_sourcing_spec.catalog.action_metadata.type.set(
+              "MANUAL",
+            ),
+            r("AdsAdgroupRecordAccessors").creative.creative_sourcing_spec
+              .associated_product_set_id.delete,
+          )(t);
+    }
+    function d(e) {
       return o("AdsMutators").chain(
         r("AdsAdgroupRecordAccessors").creative.degrees_of_freedom_spec
           .creative_features_spec.product_extensions.delete,
@@ -34,16 +85,166 @@ __d(
           .associated_product_set_id.delete,
       )(e);
     }
-    function c(e, t, n, r, o, a, i, l, s, u, c, p, _) {
-      (s === void 0 && (s = !1),
-        u === void 0 && (u = null),
-        c === void 0 && (c = null),
-        p === void 0 && (p = null),
-        _ === void 0 && (_ = !1));
-      var f = r != null ? r : "MANUAL";
-      return n ? d(e, t, f, o, a, i, l, s, u, c, p, _) : m(e, f, o, a, u, c, p);
+    function m(e) {
+      var t;
+      return o("AdsMutators").chain(
+        (t = r("AdsAdgroupRecordAccessors")).creative.degrees_of_freedom_spec
+          .creative_features_spec.site_extensions.delete,
+        t.creative.creative_sourcing_spec.site_links_spec.delete,
+        t.creative.creative_sourcing_spec.site_links_data_consented.delete,
+        t.creative.creative_sourcing_spec.dynamic_site_links_spec.delete,
+      )(e);
     }
-    function d(e, t, a, i, l, s, u, c, d, m, p, _) {
+    function p(e) {
+      var t = r("AdsAdgroupRecordAccessors").creative.creative_sourcing_spec
+          .site_links_data_consented,
+        n = r("AdsAdgroupRecordAccessors").creative.degrees_of_freedom_spec
+          .creative_features_spec.site_extensions,
+        o = e;
+      return (
+        t.enroll_status.get(e) !== "OPT_OUT" &&
+          (o = t.action_metadata.type.set(
+            "DEFAULT",
+            t.enroll_status.set("OPT_OUT", o),
+          )),
+        n.enroll_status.get(e) !== "OPT_OUT" &&
+          (o = n.action_metadata.type.set(
+            "DEFAULT_OFF",
+            n.enroll_status.set("OPT_OUT", o),
+          )),
+        o
+      );
+    }
+    function _(e) {
+      var t;
+      return o("AdsMutators").chain(
+        (t = r(
+          "AdsAdgroupRecordAccessors",
+        )).creative.creative_sourcing_spec.site_links_data_consented.enroll_status.set(
+          "OPT_OUT",
+        ),
+        t.creative.creative_sourcing_spec.site_links_data_consented.action_metadata.type.set(
+          "MANUAL",
+        ),
+        t.creative.degrees_of_freedom_spec.creative_features_spec.site_extensions.enroll_status.set(
+          "OPT_OUT",
+        ),
+        t.creative.degrees_of_freedom_spec.creative_features_spec.site_extensions.action_metadata.type.set(
+          "MANUAL",
+        ),
+      )(e);
+    }
+    function f(e, t) {
+      return t == null || t.isEmpty()
+        ? e
+        : r(
+            "AdsAdgroupRecordAccessors",
+          ).creative.creative_sourcing_spec.site_links_spec.set(
+            r("toSiteLinksSpecToWrite")(t),
+            e,
+          );
+    }
+    function g(e, t) {
+      var n,
+        a = o("AdsSiteLinksComparableDomain").getSiteLinksComparableDomain(t);
+      return a == null ||
+        !r("isValidURL")(t) ||
+        r("isSEScaledAlphaEnabled")({ silent: !0 }) ||
+        o("AdsAPIAdgroupRecordUtils").isExistingPostAd(e) ||
+        o("AdsAssetFeedUtils").isAdgroupUsingNonDofAssetFeedSpec(e) ||
+        a !==
+          o("AdsSiteLinksComparableDomain").getSiteLinksComparableDomain(
+            (n = e.creative) == null || (n = n.creative_sourcing_spec) == null
+              ? void 0
+              : n.source_url,
+          ) ||
+        o("AdsSiteLinksComparableDomain").isRetailerMode(e)
+        ? e
+        : C(e, a);
+    }
+    function h() {
+      return !r("justknobx")._("7002");
+    }
+    function y(e) {
+      var t;
+      return (
+        ((t = e.creative) == null ||
+        (t = t.creative_sourcing_spec) == null ||
+        (t = t.site_links_data_consented) == null
+          ? void 0
+          : t.enroll_status) === "OPT_IN"
+      );
+    }
+    function C(e, t) {
+      var n,
+        a =
+          (n = e.creative) == null || (n = n.creative_sourcing_spec) == null
+            ? void 0
+            : n.site_links_spec,
+        i =
+          a == null
+            ? void 0
+            : a.filter(function (e) {
+                var n = o("AdsSiteLinksComparableDomain").readStoredSiteLink(e);
+                return (
+                  o("AdsSiteLinksComparableDomain").isKeptSiteLink(n) ||
+                  o(
+                    "AdsSiteLinksComparableDomain",
+                  ).getSiteLinksComparableDomain(n.site_link_url) === t
+                );
+              });
+      if (i == null || i.size === (a == null ? void 0 : a.size)) return e;
+      var l = r(
+        "AdsAdgroupRecordAccessors",
+      ).creative.creative_sourcing_spec.site_links_spec.set(i, e);
+      return i.size > 0 || r("isSiteLinksManuallyOn")(l) || (y(l) && h())
+        ? l
+        : p(l);
+    }
+    function b(e, t) {
+      return (
+        t != null &&
+        t !== "MANUAL" &&
+        !o(
+          "catalogEnrollTypesToIgnoreForPE",
+        ).CATALOG_ENROLL_TYPES_TO_IGNORE.includes(t) &&
+        o(
+          "AdsConnectedSourcesProductsOptOutUtils",
+        ).shouldSkipDefaultCatalogForStickyProductsOptOut(e)
+      );
+    }
+    function v(e, t, n, r, a, i, l, u, c, d, m, p, _, f) {
+      (c === void 0 && (c = !1),
+        d === void 0 && (d = null),
+        m === void 0 && (m = null),
+        p === void 0 && (p = null),
+        _ === void 0 && (_ = !1),
+        f === void 0 && (f = null));
+      var g = r != null ? r : "MANUAL";
+      return n &&
+        g !== "MANUAL" &&
+        o(
+          "AdsGovernedCreativeFeaturesMutators",
+        ).isCreativeSetupGovernanceEnabled() &&
+        o(
+          "AdsCreativeEnrollmentDefaultOnStoreUtils",
+        ).isCreativeEnrollmentDefaultOnVetoedForSelectedAccount("catalog")
+        ? e
+        : n && b(e, r)
+          ? ((s || (s = o("ODS"))).bumpEntityKey(
+              8427,
+              "AdsAdgroupConnectedSourcesMutators",
+              "default_catalog_skipped_for_products_opt_out",
+            ),
+            e)
+          : n
+            ? R(e, t, g, a, i, l, u, c, d, m, p, _)
+            : L(e, g, a, i, d, m, p, f);
+    }
+    function S(e) {
+      return e === !0 || !r("gkx")("27623");
+    }
+    function R(e, t, a, i, l, s, u, c, d, m, p, _) {
       (a === void 0 && (a = "DEFAULT"),
         c === void 0 && (c = !1),
         d === void 0 && (d = null),
@@ -68,9 +269,14 @@ __d(
       var g =
           _ ||
           (a !== "MANUAL" &&
-            o("AdsAPlusCStickyOptOutUtils").isAPlusCFeatureStickyOptedOut(
+            (o("AdsAPlusCStickyOptOutUtils").isAPlusCFeatureStickyOptedOut(
               "product_extensions",
-            )),
+            ) ||
+              o(
+                "AdsCreativeEnrollmentDefaultOnStoreUtils",
+              ).isCreativeEnrollmentDefaultOnVetoedForSelectedAccount(
+                "product_extensions",
+              ))),
         h = n("immutable"),
         y =
           s != null && s.length > 0
@@ -143,42 +349,29 @@ __d(
         );
       return o("AdsMutators").chain.apply(o("AdsMutators"), C)(e);
     }
-    function m(e, t, n, a, i, l, s) {
+    function L(e, t, n, a, i, l, s, u) {
       (i === void 0 && (i = null),
         l === void 0 && (l = null),
-        s === void 0 && (s = null));
-      var u = e.account_id;
+        s === void 0 && (s = null),
+        u === void 0 && (u = null));
+      var c = e.account_id;
       return (
-        r("justknobx")._("1384")
-          ? u != null &&
-            n != null &&
-            t === "MANUAL" &&
-            o(
-              "AdsMetadataConnectedSourcesUtils",
-            ).updateConnectedSourceCatalogOptOutTimestamp(
-              a,
-              u,
-              null,
-              n,
-              i,
-              l,
-              s,
-              e.id,
-            )
-          : u != null &&
-            n != null &&
-            o(
-              "AdsMetadataConnectedSourcesUtils",
-            ).updateConnectedSourceCatalogOptOutTimestamp(
-              a,
-              u,
-              null,
-              n,
-              i,
-              l,
-              s,
-              e.id,
-            ),
+        c != null &&
+          n != null &&
+          t === "MANUAL" &&
+          S(u) &&
+          o(
+            "AdsMetadataConnectedSourcesUtils",
+          ).updateConnectedSourceCatalogOptOutTimestamp(
+            a,
+            c,
+            null,
+            n,
+            i,
+            l,
+            s,
+            e.id,
+          ),
         o("AdsMutators").chain(
           r(
             "AdsAdgroupRecordAccessors",
@@ -207,105 +400,108 @@ __d(
         )(e)
       );
     }
-    function p(e, t) {
+    function E(e, t) {
       return o("AdsMutators").chain(
         r(
           "AdsAdgroupRecordAccessors",
         ).creative.creative_sourcing_spec.source_url.set(t),
       )(e);
     }
-    function _(e, t) {
-      var n;
+    function k(e, t, n) {
+      var r;
       if (t == null || t === "") return e;
-      var r =
-        (n = e.creative) == null || (n = n.creative_sourcing_spec) == null
+      var a =
+        (r = e.creative) == null || (r = r.creative_sourcing_spec) == null
           ? void 0
-          : n.source_url;
-      if (r != null && r !== "") return e;
-      var a = e,
-        i = !1;
-      ((a = p(e, t)), (i = !0));
-      var l = e.account_id;
+          : r.source_url;
+      if (a != null && a !== "") return e;
+      var i = e,
+        l = !1;
+      ((i = E(e, t)), (l = !0));
+      var s = e.account_id;
       return (
         o("SEFunnelLogger").logL1SourceUrlSync(
           {
-            ad_account_id: l != null ? String(l) : null,
+            ad_account_id: s != null ? String(s) : null,
             adgroup_id: e.id != null ? String(e.id) : null,
             object_level: "ad_level",
+            raw_object_creation_source: n,
           },
-          { gk_passed: !0, source_url_updated: i },
+          { gk_passed: !0, source_url_updated: l },
         ),
-        a
+        i
       );
     }
-    function f(e, t, n) {
+    function I(e, t, n, r) {
       return {
         ad_account_id: n != null ? String(n) : null,
         adgroup_id: e.id != null ? String(e.id) : null,
         campaign_id: (t == null ? void 0 : t.id) != null ? String(t.id) : null,
         object_level: "ad_level",
+        raw_object_creation_source: r,
       };
     }
-    function g(e, t, n, a) {
-      var i = r("justknobx")._("3523");
+    function T(e, t, n, a, i) {
+      var l = r("justknobx")._("3523");
       return (
-        i ||
-          o("SEFunnelLogger").logL1DefaultingTrigger(f(e, t, n), {
+        l ||
+          o("SEFunnelLogger").logL1DefaultingTrigger(I(e, t, n, i), {
             caller: a,
             skip_reason: "weblink_prefill_jk_off",
             triggered: !1,
           }),
-        i
+        l
       );
     }
-    function h(e, t, n, a, i, l, u, c, d) {
-      var m,
-        p = function (r, i) {
-          o("SEFunnelLogger").logL1DefaultingTrigger(f(e, n, a), {
+    function D(e, t, n, a, i, l, s, c, d, m) {
+      var p,
+        _ = function (r, i) {
+          o("SEFunnelLogger").logL1DefaultingTrigger(I(e, n, a, m), {
             caller: d,
             skip_reason: i,
             triggered: r,
           });
         };
       if (!r("justknobx")._("4840")) {
-        p(!1, "jk_off");
+        _(!1, "jk_off");
         return;
       }
       if (t == null || t === "") {
-        p(!1, "no_weblink");
+        _(!1, "no_weblink");
         return;
       }
       if (n == null || a == null) {
-        p(!1, "missing_context");
+        _(!1, "missing_context");
         return;
       }
       if (c) {
-        p(!1, "default_on");
+        _(!1, "default_on");
         return;
       }
-      var _ =
-        (m = e.creative) == null || (m = m.creative_sourcing_spec) == null
+      var f =
+        (p = e.creative) == null || (p = p.creative_sourcing_spec) == null
           ? void 0
-          : m.site_links_spec;
-      if (_ != null && _.size > 0) {
-        p(!1, "has_site_links");
+          : p.site_links_spec;
+      if (f != null && f.size > 0) {
+        _(!1, "has_site_links");
         return;
       }
-      (p(!0, null),
-        s
+      (_(!0, null),
+        u
           .load()
           .then(function (r) {
             return r.loadSiteLinksWithMutation(
               n,
               t,
-              null,
               a,
               e.id,
               i,
               d,
               l != null ? [].concat(l) : null,
-              u,
+              s,
+              e,
               null,
+              m,
             );
           })
           .catch(function (e) {
@@ -314,7 +510,27 @@ __d(
               .mustfix("Site-links defaulting orchestrator trigger failed");
           }));
     }
-    function y(e, t) {
+    function x(e, t) {
+      var n,
+        a,
+        i = r("AdsAdgroupRecordAccessors").creative.creative_sourcing_spec
+          .website_media_spec,
+        l = i.enroll_status.get(e) === "OPT_OUT";
+      return t
+        ? l &&
+          ((n = (a = i.media.get(e)) == null ? void 0 : a.size) != null
+            ? n
+            : 0) === 0
+          ? i.action_metadata.type.delete(i.enroll_status.delete(e))
+          : $(e, "website_media")
+        : l
+          ? e
+          : o("AdsMutators").chain(
+              i.enroll_status.set("OPT_OUT"),
+              i.action_metadata.type.set("MANUAL"),
+            )(e);
+    }
+    function $(e, t) {
       var n,
         a,
         i,
@@ -325,124 +541,144 @@ __d(
         d,
         m,
         p,
-        _ = (n = e.creative) == null ? void 0 : n.creative_sourcing_spec,
-        f = r("AdsAdgroupRecordAccessors").creative.creative_sourcing_spec;
+        _,
+        f,
+        g,
+        h,
+        y = (n = e.creative) == null ? void 0 : n.creative_sourcing_spec,
+        C = r("AdsAdgroupRecordAccessors").creative.creative_sourcing_spec;
       switch (t) {
         case "website_media":
           return ((a =
-            _ == null ||
-            (i = _.website_media_spec) == null ||
+            y == null ||
+            (i = y.website_media_spec) == null ||
             (i = i.media) == null
               ? void 0
               : i.size) != null
             ? a
             : 0) === 0 ||
-            (_ == null || (l = _.website_media_spec) == null
+            (y == null || (l = y.website_media_spec) == null
               ? void 0
               : l.enroll_status) === "OPT_IN"
             ? e
-            : o("AdsMutators").chain(
-                f.website_media_spec.enroll_status.set("OPT_IN"),
-                f.website_media_spec.action_metadata.type.set("MANUAL"),
-              )(e);
-        case "app_info":
-          return ((_ == null ||
-          (s = _.app_info_spec) == null ||
-          (s = s.media) == null
-            ? void 0
-            : s.enroll_status) !== "OPT_IN" &&
-            (_ == null ||
-            (u = _.app_info_spec) == null ||
-            (u = u.app_information) == null
-              ? void 0
-              : u.enroll_status) !== "OPT_IN" &&
-            (_ == null ||
-            (c = _.app_info_spec) == null ||
-            (c = c.ratings_and_reviews) == null
+            : r("justknobx")._("7643")
+              ? o(
+                  "AdsMetadataSpecBuilderMutators",
+                ).WebsiteMediaSpecBuilder.withEnrollment(
+                  o(
+                    "AdsMetadataSpecBuilderMutators",
+                  ).WebsiteMediaSpecBuilder.markDataAvailable(e),
+                  "OPT_IN",
+                  "MANUAL",
+                )
+              : o("AdsMutators").chain(
+                  C.website_media_spec.enroll_status.set("OPT_IN"),
+                  C.website_media_spec.action_metadata.type.set("MANUAL"),
+                )(e);
+        case "site_links":
+          return (((s =
+            y == null || (u = y.site_links_spec) == null ? void 0 : u.size) !=
+          null
+            ? s
+            : 0) === 0 &&
+            (y == null || (c = y.dynamic_site_links_spec) == null
               ? void 0
               : c.enroll_status) !== "OPT_IN") ||
-            (_ == null || (d = _.app_info_spec) == null
+            (y == null || (d = y.site_links_data_consented) == null
               ? void 0
-              : d.enroll_status) === "OPT_IN"
+              : d.enroll_status) === "OPT_IN" ||
+            !r("justknobx")._("7268")
             ? e
             : o("AdsMutators").chain(
-                f.app_info_spec.enroll_status.set("OPT_IN"),
-                f.app_info_spec.action_metadata.type.set("MANUAL"),
+                C.site_links_data_consented.enroll_status.set("OPT_IN"),
+                C.site_links_data_consented.action_metadata.type.set("MANUAL"),
+                C.site_links_data_consented.scope.set("DATA_CONSENT_ELIGIBLE"),
+              )(e);
+        case "app_info":
+          return ((y == null ||
+          (m = y.app_info_spec) == null ||
+          (m = m.media) == null
+            ? void 0
+            : m.enroll_status) !== "OPT_IN" &&
+            (y == null ||
+            (p = y.app_info_spec) == null ||
+            (p = p.app_information) == null
+              ? void 0
+              : p.enroll_status) !== "OPT_IN" &&
+            (y == null ||
+            (_ = y.app_info_spec) == null ||
+            (_ = _.ratings_and_reviews) == null
+              ? void 0
+              : _.enroll_status) !== "OPT_IN") ||
+            (y == null || (f = y.app_info_spec) == null
+              ? void 0
+              : f.enroll_status) === "OPT_IN"
+            ? e
+            : o("AdsMutators").chain(
+                C.app_info_spec.enroll_status.set("OPT_IN"),
+                C.app_info_spec.action_metadata.type.set("MANUAL"),
               )(e);
         case "app_reviews":
-          return (_ == null ||
-          (m = _.app_info_spec) == null ||
-          (m = m.ratings_and_reviews) == null
+          return (y == null ||
+          (g = y.app_info_spec) == null ||
+          (g = g.ratings_and_reviews) == null
             ? void 0
-            : m.enroll_status) === "OPT_IN"
+            : g.enroll_status) === "OPT_IN"
             ? e
             : o("AdsMutators").chain(
-                f.app_info_spec.ratings_and_reviews.enroll_status.set("OPT_IN"),
-                f.app_info_spec.ratings_and_reviews.action_metadata.type.set(
+                C.app_info_spec.ratings_and_reviews.enroll_status.set("OPT_IN"),
+                C.app_info_spec.ratings_and_reviews.action_metadata.type.set(
                   "MANUAL",
                 ),
               )(e);
         case "products":
-          return (_ == null || (p = _.catalog) == null
+          return (y == null || (h = y.catalog) == null
             ? void 0
-            : p.enroll_status) === "OPT_IN"
+            : h.enroll_status) === "OPT_IN"
             ? e
             : o("AdsMutators").chain(
-                f.catalog.enroll_status.set("OPT_IN"),
-                f.catalog.action_metadata.type.set("MANUAL"),
+                C.catalog.enroll_status.set("OPT_IN"),
+                C.catalog.action_metadata.type.set("MANUAL"),
               )(e);
         default:
           return e;
       }
     }
-    function C(e, t) {
-      var n,
-        a,
-        i = e;
-      if (
-        (((n = e.creative) == null || (n = n.creative_sourcing_spec) == null
+    function P(e) {
+      var t,
+        n,
+        a = e;
+      return (
+        ((t = e.creative) == null || (t = t.creative_sourcing_spec) == null
           ? void 0
-          : n.featured_offering_spec) != null &&
-          ((i = r(
+          : t.featured_offering_spec) != null &&
+          ((a = r(
             "AdsAdgroupRecordAccessors",
           ).creative.creative_sourcing_spec.featured_offering_spec.media.delete(
-            i,
+            a,
           )),
-          (i = r(
+          (a = r(
             "AdsAdgroupRecordAccessors",
           ).creative.creative_sourcing_spec.featured_offering_spec.featured_offering_asset_id.delete(
-            i,
+            a,
           )),
-          (i = r(
+          (a = r(
             "AdsAdgroupRecordAccessors",
           ).creative.creative_sourcing_spec.featured_offering_spec.mgenai_website_entity_id.delete(
-            i,
+            a,
           ))),
-        ((a = e.creative) == null || (a = a.creative_sourcing_spec) == null
+        ((n = e.creative) == null || (n = n.creative_sourcing_spec) == null
           ? void 0
-          : a.website_media_spec) != null &&
-          (i = o("AdsWebsiteMediaSpecMutators").resetWebsiteMediaSpec(i)),
-        t === !0)
-      ) {
-        var l, s;
-        (((l = e.creative) == null || (l = l.creative_sourcing_spec) == null
-          ? void 0
-          : l.site_links_spec) != null &&
-          (i = o("AdsMutators").chain(
-            r("AdsAdgroupRecordAccessors").creative.creative_sourcing_spec
-              .site_links_spec.delete,
-          )(i)),
-          ((s = e.creative) == null || (s = s.creative_sourcing_spec) == null
-            ? void 0
-            : s.site_links_data_consented) != null &&
-            (i = o("AdsMutators").chain(
-              r("AdsAdgroupRecordAccessors").creative.creative_sourcing_spec
-                .site_links_data_consented.delete,
-            )(i)));
-      }
-      return i;
+          : n.website_media_spec) != null &&
+          (a = r("justknobx")._("7643")
+            ? o(
+                "AdsMetadataSpecBuilderMutators",
+              ).WebsiteMediaSpecBuilder.buildNeverFetchedSpec(a)
+            : o("AdsWebsiteMediaSpecMutators").resetWebsiteMediaSpec(a)),
+        a
+      );
     }
-    function b(e) {
+    function N(e) {
       var t,
         n =
           (t = e.creative) == null ||
@@ -462,7 +698,7 @@ __d(
               .creative_features_spec.product_extensions.delete,
           )(e);
     }
-    function v(e) {
+    function M(e) {
       var t,
         n =
           (t = e.creative) == null || (t = t.creative_sourcing_spec) == null
@@ -474,27 +710,85 @@ __d(
             "AdsAdgroupRecordAccessors",
           ).creative.creative_sourcing_spec.app_info_spec.delete(e);
     }
-    function S(t, n, a, i, l) {
+    function w(t, n, a, i, l) {
+      var s,
+        u,
+        c,
+        d,
+        m,
+        p =
+          (s = t.creative) == null ||
+          (s = s.call_to_action) == null ||
+          (s = s.value) == null
+            ? void 0
+            : s.link;
+      if (
+        !o("AdsProductExtensionsUtil").isFromExistingPost(
+          r("AdsAdgroupRecordAccessors").creative.call_to_action.delete(t),
+        ) ||
+        (!(e || (e = r("isEmpty")))(p) && p !== l) ||
+        o("AdsAssetFeedUtils").hasAssetFeedSpecWithoutOnlyOnsiteDestinations(t)
+      )
+        return null;
+      var _ = a == null ? void 0 : a.objective,
+        f =
+          (u =
+            (c =
+              (d = t.creative) == null || (d = d.call_to_action) == null
+                ? void 0
+                : d.type) != null
+              ? c
+              : (m = t.creative) == null
+                ? void 0
+                : m.call_to_action_type) != null
+            ? u
+            : _ != null
+              ? r("adsCallToActionGetDefaultCallToActionType")(
+                  _,
+                  o("AdsAPICampaignRecordUtils").getPromotedObjectType(_, n),
+                )
+              : null;
+      return f == null
+        ? null
+        : o("AdsMutators").chain(
+            r("AdsAdgroupRecordAccessors").creative.call_to_action_type.set(f),
+            r("AdsAdgroupRecordAccessors").creative.call_to_action.type.set(f),
+            r(
+              "AdsAdgroupRecordAccessors",
+            ).creative.call_to_action.value.link.set(i),
+          )(t);
+    }
+    function A(t, n, a, i, l, s) {
+      var u;
+      s === void 0 && (s = !1);
+      var c =
+        (u = t.creative) == null || (u = u.creative_sourcing_spec) == null
+          ? void 0
+          : u.source_url;
       return o("AdsMutators").chain(
         r(
           "AdsAdgroupRecordAccessors",
         ).creative.creative_sourcing_spec.source_url.set(l),
         function (t) {
+          if (s && !(e || (e = r("isEmpty")))(l)) {
+            var u = w(t, n, a, l, c);
+            if (u != null) return u;
+          }
           if (
             n != null &&
             a != null &&
             i != null &&
             !o("AdsProductExtensionsUtil").isFromExistingPost(t)
           ) {
-            var s = r("AdsAPIAdgroupRecordGetWebsiteURL")(t, i);
-            if ((e || (e = r("isEmpty")))(s) && !(e || (e = r("isEmpty")))(l)) {
-              var u, c;
+            var d = r("AdsAPIAdgroupRecordGetWebsiteURL")(t, i);
+            if ((e || (e = r("isEmpty")))(d) && !(e || (e = r("isEmpty")))(l)) {
+              var m, p;
               return (
                 o(
                   "AdsMetadataConnectedSourcesUtils",
                 ).logPESourceUrlFallbackUrlSynced(
-                  (u = t.account_id) != null ? u : null,
-                  (c = t.id) != null ? c : null,
+                  (m = t.account_id) != null ? m : null,
+                  (p = t.id) != null ? p : null,
                   l,
                 ),
                 o("AdsUEditorWebsiteMutators").setWebsiteURLReducerUtil({
@@ -511,42 +805,57 @@ __d(
         },
       )(t);
     }
-    function R(e, t, n, a, i) {
-      var l,
-        s =
-          a != null && (l = r("AdsAPIAdgroupRecordGetWebsiteURL")(e, a)) != null
-            ? l
-            : "",
-        u = e;
+    function F(e, t, n, a, i, l) {
+      var s,
+        u =
+          l !== void 0
+            ? l != null
+              ? l
+              : ""
+            : a != null &&
+                (s = r("AdsAPIAdgroupRecordGetWebsiteURL")(e, a)) != null
+              ? s
+              : "",
+        c = e;
       return (
         t != null &&
           n != null &&
           a != null &&
-          (u = o("AdsUEditorWebsiteMutators").setWebsiteURLReducerUtil({
+          (c = o("AdsUEditorWebsiteMutators").setWebsiteURLReducerUtil({
             adgroup: e,
             campaign: t,
             campaignGroup: n,
             specPlugin: a,
             websiteURL: i,
           })),
-        !o("AdsProductExtensionsUtil").isFromExistingPost(u) &&
-          i !== s &&
-          (u = p(u, i)),
-        u
+        !o("AdsProductExtensionsUtil").isFromExistingPost(c) &&
+          i !== u &&
+          (c = E(c, i)),
+        c
       );
     }
-    ((l.adsDeleteConnectedSourceCatalogMutator = u),
-      (l.setConnectedSourcesCatalogEnrollStatusMutator = c),
-      (l.setSourceUrlMutator = p),
-      (l.syncSourceUrlIfUnsetMutator = _),
-      (l.isSiteLinksTriggerOnWeblinkPrefillEnabled = g),
-      (l.triggerSiteLinksIfEligible = h),
-      (l.upwardGrantConnectedSourceConsentMutator = y),
-      (l.clearStaleWebsiteHighlightsMutator = C),
-      (l.clearDefaultSourcedCatalogMutator = b),
-      (l.clearStaleAppInfoMutator = v),
-      (l.setSourceUrlAndDestinationUrlMutator = S),
-      (l.setDestinationUrlAndSourceUrlMutator = R));
+    ((l.withdrawDefaultedCatalogConsentMutator = c),
+      (l.adsDeleteConnectedSourceCatalogMutator = d),
+      (l.adsDeleteConnectedSourceSiteExtensionsMutator = m),
+      (l.setEmptySiteLinksOffMutator = p),
+      (l.setKeptSiteLinksManualOffMutator = _),
+      (l.setKeptSiteLinksSpecMutator = f),
+      (l.prepareSiteLinksDomainChangeMutator = g),
+      (l.isKeepSiteLinksOnThroughDomainRefreshEnabled = h),
+      (l.clearStaleSiteLinksForDomainMutator = C),
+      (l.isAutomaticCatalogOptInSkipped = b),
+      (l.setConnectedSourcesCatalogEnrollStatusMutator = v),
+      (l.setSourceUrlMutator = E),
+      (l.syncSourceUrlIfUnsetMutator = k),
+      (l.isSiteLinksTriggerOnWeblinkPrefillEnabled = T),
+      (l.triggerSiteLinksIfEligible = D),
+      (l.toggleWebsiteMediaConsentMutator = x),
+      (l.upwardGrantConnectedSourceConsentMutator = $),
+      (l.clearStaleWebsiteHighlightsMutator = P),
+      (l.clearDefaultSourcedCatalogMutator = N),
+      (l.clearStaleAppInfoMutator = M),
+      (l.setSourceUrlAndDestinationUrlMutator = A),
+      (l.setDestinationUrlAndSourceUrlMutator = F));
   },
   98,
 );

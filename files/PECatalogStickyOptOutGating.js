@@ -4,7 +4,7 @@ __d(
   function (t, n, r, o, a, i, l) {
     "use strict";
     function e() {
-      return r("gkx")("17854") || r("gkx")("17891");
+      return r("gkx")("17854");
     }
     function s(e) {
       return r("gkx")("17854");

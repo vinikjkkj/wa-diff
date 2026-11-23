@@ -4,49 +4,43 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e() {
-      return s._(/*BTDS*/ "Download recipients");
+      return s._(/*BTDS*/ "");
     }
     function u(e, t) {
-      return s._(/*BTDS*/ "{name} ({phone number})", [
+      return s._(/*BTDS*/ "", [
         s._param("name", e),
         s._param("phone number", t),
       ]);
     }
     function c(e) {
-      return s._(/*BTDS*/ '_j{"*":"{count}"}', [s._param("count", e, [0])]);
+      return s._(/*BTDS*/ "", [s._param("count", e, [0])]);
     }
     function d(e, t) {
-      return s._(/*BTDS*/ '_j{"*":{"*":"{lower bound} - {upper bound}"}}', [
+      return s._(/*BTDS*/ "", [
         s._param("lower bound", e, [0]),
         s._param("upper bound", t, [0]),
       ]);
     }
     function m() {
-      return s._(
-        /*BTDS*/ "There's nothing to download yet. Your customer base has no subscribed recipients.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(
-        /*BTDS*/ "Your last download is still being prepared. Try again once it's ready.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function _() {
-      return s._(/*BTDS*/ "Your file is ready");
+      return s._(/*BTDS*/ "");
     }
     function f() {
-      return s._(
-        /*BTDS*/ "Your file with subscribed recipients is ready to download.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function g() {
-      return s._(/*BTDS*/ "Couldn't prepare your file");
+      return s._(/*BTDS*/ "");
     }
     function h() {
-      return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
+      return s._(/*BTDS*/ "");
     }
     function y() {
-      return s._(/*BTDS*/ "Something went wrong. Try downloading again.");
+      return s._(/*BTDS*/ "");
     }
     ((l.getPreparingFileLabel = r(
       "WAWebBizBroadcastProDownloadPreparingFileLabel",

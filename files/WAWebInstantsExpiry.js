@@ -1,9 +1,9 @@
 __d(
   "WAWebInstantsExpiry",
-  ["WATimeUtils", "WAWebABProps", "WAWebMsgType"],
+  ["WATimeUtils", "WAWebInstantMsgTypes"],
   function (t, n, r, o, a, i, l) {
     function e(e) {
-      return e.type !== o("WAWebMsgType").MSG_TYPE.INSTANT_IMAGE ||
+      return !o("WAWebInstantMsgTypes").isInstantMsgType(e.type) ||
         e.t == null ||
         e.t <= 0
         ? null
@@ -14,7 +14,7 @@ __d(
       return (
         r != null &&
         n >= r &&
-        o("WAWebABProps").getABPropConfigValue("instants_receiver_enabled")
+        o("WAWebInstantMsgTypes").isInstantTypeReceiverEnabled(t.type)
       );
     }
     function u(e) {

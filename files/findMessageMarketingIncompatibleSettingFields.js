@@ -20,24 +20,26 @@ __d(
             return a[e] !== void 0;
           })
           .filter(function (e) {
-            var n;
             if (e === "specialAdCategories") {
-              var i;
+              var n;
               return !(
-                (i = a[e]) != null &&
-                i.some(function (n) {
+                (n = a[e]) != null &&
+                n.some(function (n) {
                   return n == null
                     ? void 0
                     : n.equals(o("immutable").List(t[e]));
                 })
               );
             }
-            return (e === "appHasUnsupportedMMP" &&
-              t.promotedObjectType !==
-                r("AdsPromotedObjectTypes").MOBILE_APP) ||
+            if (
+              (e === "appHasUnsupportedMMP" &&
+                t.promotedObjectType !==
+                  r("AdsPromotedObjectTypes").MOBILE_APP) ||
               (r("gkx")("1075") && t[e] === void 0)
-              ? !1
-              : !((n = a[e]) != null && n.includes(t[e]));
+            )
+              return !1;
+            var i = a[e];
+            return !(i != null && i.includes(t[e]));
           })
       );
     };

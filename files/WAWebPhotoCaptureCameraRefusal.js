@@ -4,7 +4,6 @@ __d(
     "WALogger",
     "WAWebMediaPermissionRefusal",
     "WAWebPhotoCaptureCameraPermissionODS",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -22,33 +21,27 @@ __d(
           .catching(r("getErrorSafe")(t));
       });
     }
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    async function c(e, t) {
+      var n = await o("WAWebMediaPermissionRefusal").getMediaPermissionRefusal(
+        e,
+        "camera",
+      );
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o(
-            "WAWebMediaPermissionRefusal",
-          ).getMediaPermissionRefusal(e, "camera");
-          return (
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "photo capture: camera refused from ",
-                  ": ",
-                  "",
-                ])),
-              t,
-              n,
-            ),
-            o(
-              "WAWebPhotoCaptureCameraPermissionODS",
-            ).logPhotoCaptureCameraRefusal(t, n),
-            n
-          );
-        })),
-        d.apply(this, arguments)
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
+              "photo capture: camera refused from ",
+              ": ",
+              "",
+            ])),
+          t,
+          n,
+        ),
+        o("WAWebPhotoCaptureCameraPermissionODS").logPhotoCaptureCameraRefusal(
+          t,
+          n,
+        ),
+        n
       );
     }
     ((l.countPhotoCaptureCameraRefusal = u),

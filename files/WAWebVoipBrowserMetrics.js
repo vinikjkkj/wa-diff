@@ -1,6 +1,6 @@
 __d(
   "WAWebVoipBrowserMetrics",
-  ["WALogger", "WAWebBrowserMetricsTracker", "asyncToGeneratorRuntime"],
+  ["WALogger", "WAWebBrowserMetricsTracker"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -10,35 +10,27 @@ __d(
     function d() {
       ((c = null), u.start());
     }
-    function m() {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          u.isActive() &&
-            ((c = _()),
-            yield u.stop(),
-            o("WALogger").LOG(
-              s ||
-                (s = babelHelpers.taggedTemplateLiteralLoose([
-                  "[voip:browserMetrics] stopped",
-                ])),
-            ));
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    function _() {
-      if (!u.isActive()) return c;
-      u.sampleMemory();
-      var t = u.finalizePressurePcts(),
-        n = u.finalizeMemoryStats(),
-        r = u.getCapabilities();
-      return (
+    async function m() {
+      u.isActive() &&
+        ((c = p()),
+        await u.stop(),
         o("WALogger").LOG(
           e ||
             (e = babelHelpers.taggedTemplateLiteralLoose([
+              "[voip:browserMetrics] stopped",
+            ])),
+        ));
+    }
+    function p() {
+      if (!u.isActive()) return c;
+      u.sampleMemory();
+      var e = u.finalizePressurePcts(),
+        t = u.finalizeMemoryStats(),
+        n = u.getCapabilities();
+      return (
+        o("WALogger").LOG(
+          s ||
+            (s = babelHelpers.taggedTemplateLiteralLoose([
               "[voip:browserMetrics] snapshot: cpu nominal=",
               "% fair=",
               "% serious=",
@@ -47,38 +39,38 @@ __d(
               "MB peak=",
               "MB",
             ])),
-          String(t.nominalPct),
-          String(t.fairPct),
-          String(t.seriousPct),
-          String(t.criticalPct),
-          String(n.avgUsedMb),
-          String(n.peakUsedMb),
+          String(e.nominalPct),
+          String(e.fairPct),
+          String(e.seriousPct),
+          String(e.criticalPct),
+          String(t.avgUsedMb),
+          String(t.peakUsedMb),
         ),
         {
-          browserCpuPressureSupported: r.browserCpuPressureSupported,
-          browserCpuPressureNominalPct: t.nominalPct,
-          browserCpuPressureFairPct: t.fairPct,
-          browserCpuPressureSeriousPct: t.seriousPct,
-          browserCpuPressureCriticalPct: t.criticalPct,
-          browserMemorySupported: r.browserMemorySupported,
-          browserAvgUsedJsHeapSizeMb: n.avgUsedMb,
-          browserPeakUsedJsHeapSizeMb: n.peakUsedMb,
-          browserJsHeapSizeLimitMb: n.limitMb,
-          browserTotalJsHeapSizeMb: n.totalMb,
+          browserCpuPressureSupported: n.browserCpuPressureSupported,
+          browserCpuPressureNominalPct: e.nominalPct,
+          browserCpuPressureFairPct: e.fairPct,
+          browserCpuPressureSeriousPct: e.seriousPct,
+          browserCpuPressureCriticalPct: e.criticalPct,
+          browserMemorySupported: n.browserMemorySupported,
+          browserAvgUsedJsHeapSizeMb: t.avgUsedMb,
+          browserPeakUsedJsHeapSizeMb: t.peakUsedMb,
+          browserJsHeapSizeLimitMb: t.limitMb,
+          browserTotalJsHeapSizeMb: t.totalMb,
         }
       );
     }
-    function f() {
+    function _() {
       u.reset();
     }
-    function g() {
+    function f() {
       return u.getCapabilities();
     }
     ((l.startBrowserMetrics = d),
       (l.stopBrowserMetrics = m),
-      (l.snapshotBrowserMetrics = _),
-      (l.resetBrowserMetrics = f),
-      (l.getBrowserMetricsCapabilities = g));
+      (l.snapshotBrowserMetrics = p),
+      (l.resetBrowserMetrics = _),
+      (l.getBrowserMetricsCapabilities = f));
   },
   98,
 );

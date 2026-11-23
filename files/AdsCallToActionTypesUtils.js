@@ -148,7 +148,40 @@ __d(
           ? String(i.first())
           : null;
     }
-    function d(e, t, n) {
+    function d(e) {
+      var t,
+        n,
+        r,
+        o,
+        a,
+        i = (t = e.creative) == null ? void 0 : t.object_story_spec;
+      return (i == null ||
+      (n = i.link_data) == null ||
+      (n = n.call_to_action) == null
+        ? void 0
+        : n.type) === "JOIN_LIVE_VIDEO" ||
+        (i == null ||
+        (r = i.video_data) == null ||
+        (r = r.call_to_action) == null
+          ? void 0
+          : r.type) === "JOIN_LIVE_VIDEO" ||
+        ((o = e.creative) == null ||
+        (o = o.asset_feed_spec) == null ||
+        (o = o.call_to_action_types) == null
+          ? void 0
+          : o.some(function (e) {
+              return e === "JOIN_LIVE_VIDEO";
+            })) === !0
+        ? !0
+        : ((a = e.creative) == null ||
+          (a = a.asset_feed_spec) == null ||
+          (a = a.call_to_actions) == null
+            ? void 0
+            : a.some(function (e) {
+                return e.get("type") === "JOIN_LIVE_VIDEO";
+              })) === !0;
+    }
+    function m(e, t, n) {
       var a = null;
       if (
         o("AdsBrandAwarenessUtils").isBrandObjective(t) &&
@@ -202,35 +235,32 @@ __d(
       }
       return !1;
     }
-    function m(e, t) {
-      var n,
-        o,
+    function p(e) {
+      var t,
+        n,
+        o =
+          (t = r("AdsCallToActionTypes").TYPES.BOOK_TRAVEL) == null
+            ? void 0
+            : t.name,
         a =
-          (n = r("AdsCallToActionTypes").TYPES.BOOK_TRAVEL) == null
+          (n = r("AdsCallToActionTypes").TYPES.GET_IN_TOUCH) == null
             ? void 0
-            : n.name,
-        i =
-          (o = r("AdsCallToActionTypes").TYPES.GET_IN_TOUCH) == null
-            ? void 0
-            : o.name;
-      if (!a || !i) return t;
-      var l = r("gkx")("2158");
-      if (l) {
-        var s = t.findIndex(function (e) {
-          return e.name === a;
-        });
-        s !== -1 &&
-          (t.splice(s, 1), t.push(r("AdsCallToActionTypes").TYPES.BOOK_TRAVEL));
-      } else if (e !== i)
-        return t.filter(function (e) {
-          return e.name !== i;
-        });
-      return t;
+            : n.name;
+      if (!o || !a) return e;
+      var i = e.findIndex(function (e) {
+        return e.name === o;
+      });
+      return (
+        i !== -1 &&
+          (e.splice(i, 1), e.push(r("AdsCallToActionTypes").TYPES.BOOK_TRAVEL)),
+        e
+      );
     }
     ((l.typesForObjective = u),
       (l.getCTATypeFromAdgroup = c),
-      (l.isWhatsAppDestinationTypeForAwareness = d),
-      (l.handleLeadgenCtaReplacementTypes = m));
+      (l.hasJoinLiveVideoCTA = d),
+      (l.isWhatsAppDestinationTypeForAwareness = m),
+      (l.handleLeadgenCtaReplacementTypes = p));
   },
   98,
 );

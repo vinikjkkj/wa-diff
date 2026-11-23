@@ -26,6 +26,7 @@ __d(
     "AdsReachFrequencyPlacementUtils",
     "AdsUEditorCampaignPlacementRemoveActionFlux",
     "AdsUEditorCampaignPlacementSetActionFlux",
+    "AdsUPVPlacementExpansionUtils",
     "AdsUnifiedProfileVisitUtils",
     "adsIGLoginPlacementUtils",
     "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
@@ -33,11 +34,24 @@ __d(
   ],
   function (t, n, r, o, a, i, l, s, u) {
     "use strict";
-    var e = {
+    function e(e) {
+      return e === r("AdsPromotedObjectTypes").DONATION
+        ? o("AdsPlacementIneligibilityReason").createDonationReason()
+        : e === r("AdsPromotedObjectTypes").GROUP
+          ? o("AdsPlacementIneligibilityReason").createGroupPromotionReason()
+          : e === r("AdsPromotedObjectTypes").IMAGINATION
+            ? o("AdsPlacementIneligibilityReason").createImaginationReason()
+            : e === r("AdsPromotedObjectTypes").REMINDER
+              ? o(
+                  "AdsPlacementIneligibilityReason",
+                ).createReminderPromotionReason()
+              : null;
+    }
+    var c = {
         type: "placements/position",
         key: "facebook/biz_disco_feed",
         name: r("AdsPlacementPositionLabelConstant").biz_disco_feed,
-        nameWithPlatform: s._(/*BTDS*/ "Facebook Business Explore"),
+        nameWithPlatform: s._(/*BTDS*/ ""),
         mediaRecommendation: {
           copy: r("AdsPlacementCopy").POSITION_MEDIA_RECOMMENDATION
             .BIZ_DISCO_FEED,
@@ -56,7 +70,7 @@ __d(
           if (t) return t;
           var a = o(
             "getFilteredPositionsWithParentEligibleParentPlacementAndSoftOptOut",
-          ).getSOOBundleParentIneligibilityReason(e, n);
+          ).getSOOBundleParentIneligibilityReason(c, n);
           if (a != null) return a;
           if (n.isReelsTrendingAds === !0)
             return o(
@@ -104,24 +118,10 @@ __d(
             ).isEnglishSpeakingCountryIncluded(n)
           )
             return o("AdsPlacementIneligibilityReason").createCustomReason(
-              s._(
-                /*BTDS*/ "This placement isn't available for one or more of the countries you selected.",
-              ),
+              s._(/*BTDS*/ ""),
             );
-          if (n.promotedObjectType === r("AdsPromotedObjectTypes").DONATION)
-            return o("AdsPlacementIneligibilityReason").createDonationReason();
-          if (n.promotedObjectType === r("AdsPromotedObjectTypes").GROUP)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createGroupPromotionReason();
-          if (n.promotedObjectType === r("AdsPromotedObjectTypes").IMAGINATION)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createImaginationReason();
-          if (n.promotedObjectType === r("AdsPromotedObjectTypes").REMINDER)
-            return o(
-              "AdsPlacementIneligibilityReason",
-            ).createReminderPromotionReason();
+          var u = e(n.promotedObjectType);
+          if (u) return u;
           if (n.destinationType === r("AdCampaignDestination").INSTAGRAM_LIVE)
             return o(
               "AdsPlacementIneligibilityReason",
@@ -136,14 +136,14 @@ __d(
             return o(
               "AdsPlacementIneligibilityReason",
             ).createPhoneCallTrafficReason();
-          var u = o(
+          var d = o(
             "AdsReachFrequencyPlacementUtils",
           ).getReachFrequencyDisabledReason(
             "facebook/biz_disco_feed",
             babelHelpers.extends({}, n, { objective: i }),
           );
-          return u !== null
-            ? u
+          return d !== null
+            ? d
             : o(
                   "AdsClickToCallAdsUtils",
                 ).getIsClickToCallAdsUnderLeadGenObjective(
@@ -184,7 +184,10 @@ __d(
                           ).getIsPositionAlwaysDisabledForProfileVisits(
                             i,
                             n.promotedObjectType,
-                          )
+                          ) &&
+                          !o(
+                            "AdsUPVPlacementExpansionUtils",
+                          ).getIsFbPlacementsExpansionEnabledForUPV()
                         ? o(
                             "AdsUnifiedProfileVisitUtils",
                           ).getUnifiedProfileVisitsAdsPlacementIneligibilityReason(
@@ -227,64 +230,64 @@ __d(
           return r("AdsPreviewsBizDiscoFeedMobilePlugin").key;
         },
         adsetValidators: [r("AdsCampaignBizDiscoFeedPositionValidator")],
-        adsetReducer: function (n, a) {
-          var t = a.action;
-          if (!e.isEnabled(t.eligibilityInformation.capabilities)) return n;
-          switch (t.type) {
+        adsetReducer: function (t, n) {
+          var e = n.action;
+          if (!c.isEnabled(e.eligibilityInformation.capabilities)) return t;
+          switch (e.type) {
             case r("AdsUEditorCampaignPlacementSetActionFlux").actionType:
-              return t.removeGroups.includes("facebook/biz_disco_feed")
-                ? o("AdsMutators").mutateEach(n, t.campaignIDs, function (e) {
+              return e.removeGroups.includes("facebook/biz_disco_feed")
+                ? o("AdsMutators").mutateEach(t, e.campaignIDs, function (t) {
                     return o("AdsPlacementAPISpecWriterUtils").removeGroup(
-                      e,
+                      t,
                       "facebook/biz_disco_feed",
-                      t.eligibilityInformation,
+                      e.eligibilityInformation,
                       r("AdsAPITargetFields").FACEBOOK_POSITIONS,
                       "facebook",
                     );
                   })
-                : t.addGroups.includes("facebook/biz_disco_feed")
-                  ? o("AdsMutators").mutateEach(n, t.campaignIDs, function (e) {
+                : e.addGroups.includes("facebook/biz_disco_feed")
+                  ? o("AdsMutators").mutateEach(t, e.campaignIDs, function (t) {
                       return o("AdsPlacementAPISpecWriterUtils").addGroup(
-                        e,
+                        t,
                         "facebook/biz_disco_feed",
-                        t.eligibilityInformation,
+                        e.eligibilityInformation,
                         r("AdsAPITargetFields").FACEBOOK_POSITIONS,
                         "facebook",
                       );
                     })
-                  : n;
+                  : t;
             case r("AdsCampaignPlacementAddDataActionFlux").actionType:
-              return o("AdsMutators").mutateEach(n, t.ids, function (e) {
+              return o("AdsMutators").mutateEach(t, e.ids, function (t) {
                 return o("AdsPlacementAPISpecWriterUtils").addGroup(
-                  e,
-                  t.pluginKey,
-                  t.eligibilityInformation,
+                  t,
+                  e.pluginKey,
+                  e.eligibilityInformation,
                   r("AdsAPITargetFields").FACEBOOK_POSITIONS,
                   "facebook",
                 );
               });
             case r("AdsUEditorCampaignPlacementRemoveActionFlux").actionType:
               return o("AdsMutators").mutateEach(
-                n,
-                t.campaignIDs,
-                function (e) {
+                t,
+                e.campaignIDs,
+                function (t) {
                   return o("AdsPlacementAPISpecWriterUtils").removeGroup(
-                    e,
-                    t.pluginKey,
-                    t.eligibilityInformation,
+                    t,
+                    e.pluginKey,
+                    e.eligibilityInformation,
                     r("AdsAPITargetFields").FACEBOOK_POSITIONS,
                     "facebook",
                   );
                 },
               );
           }
-          return n;
+          return t;
         },
         parentPlacements: r("immutable").OrderedSet(["facebook/feed"]),
         childPlacements: r("immutable").OrderedSet([]),
       },
-      c = e;
-    l.default = c;
+      d = c;
+    l.default = d;
   },
   226,
 );

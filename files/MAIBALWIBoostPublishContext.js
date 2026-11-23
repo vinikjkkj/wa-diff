@@ -1,6 +1,6 @@
 __d(
   "MAIBALWIBoostPublishContext",
-  ["emptyFunction", "react", "react-compiler-runtime"],
+  ["emptyFunction", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
@@ -12,29 +12,19 @@ __d(
       p = { isPublishInFlight: !1, setIsPublishInFlight: r("emptyFunction") },
       _ = s.createContext(p);
     function f(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n = e.children,
-        r = m(!1),
-        a = r[0],
-        i = r[1],
-        l;
-      t[0] !== a
-        ? ((l = { isPublishInFlight: a, setIsPublishInFlight: i }),
-          (t[0] = a),
-          (t[1] = l))
-        : (l = t[1]);
-      var u = l,
-        c;
-      return (
-        t[2] !== n || t[3] !== u
-          ? ((c = s.jsx(_.Provider, { value: u, children: n })),
-            (t[2] = n),
-            (t[3] = u),
-            (t[4] = c))
-          : (c = t[4]),
-        c
-      );
+      var t = e.children,
+        n = m(!1),
+        r = n[0],
+        o = n[1],
+        a = d(
+          function () {
+            return { isPublishInFlight: r, setIsPublishInFlight: o };
+          },
+          [r, o],
+        );
+      return s.jsx(_.Provider, { value: a, children: t });
     }
+    f.displayName = f.name + " [from " + i.id + "]";
     function g() {
       return c(_);
     }

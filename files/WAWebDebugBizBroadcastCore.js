@@ -1,7 +1,6 @@
 __d(
   "WAWebDebugBizBroadcastCore",
   [
-    "Promise",
     "WATimeUtils",
     "WAWebBizBroadcastCampaignAPI",
     "WAWebBizBroadcastDeviceCapabilityCommon",
@@ -14,21 +13,19 @@ __d(
     "WAWebSchemaBusinessBroadcastCampaign",
     "WAWebTos",
     "WAWebUserUtils",
-    "asyncToGeneratorRuntime",
     "err",
     "vulture",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e) {
+    function e(e) {
       (r("vulture")("dNGA_beVGuQq5WS9ViAkNJJnz6g="),
         o(
           "WAWebBizBroadcastDeviceCapabilityCommon",
         ).saveBizBroadcastCapabilityToStorage(e));
     }
-    s.doc =
+    e.doc =
       "Override primary device Business Broadcast capability (true/false)";
-    function u() {
+    function s() {
       (r("vulture")("UfCFjaN9pGU-nr_TnYvinnGZiIo="),
         o("WAWebTos").TosManager.setState(
           o("WAWebBizBroadcastTos").getBizBroadcastTosId(),
@@ -36,128 +33,96 @@ __d(
           o("WATimeUtils").unixTime(),
         ));
     }
-    ((u.doc = "Accept BB TOS locally (skips server RPC, bypasses TOS modal)"),
-      (u.paramsToExecute = []));
-    function c(e, t) {
-      return d.apply(this, arguments);
-    }
-    function d() {
+    ((s.doc = "Accept BB TOS locally (skips server RPC, bypasses TOS modal)"),
+      (s.paramsToExecute = []));
+    async function u(e, t) {
+      if (t.length < o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS)
+        throw r("err")(
+          'createBizBroadcastAudience("' +
+            e +
+            '") needs at least ' +
+            o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS +
+            " recipients, got " +
+            t.length,
+        );
+      var n = await o("WAWebBroadcastListAction").createBroadcastListAction({
+        broadcastListName: e,
+        contacts: t.map(function (e) {
+          return { lid: e + "@lid", phone: e };
+        }),
+      });
       return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            t.length < o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS
-          )
-            throw r("err")(
-              'createBizBroadcastAudience("' +
-                e +
-                '") needs at least ' +
-                o("WAWebBizBroadcastRecipientLimitCommon").MIN_RECIPIENTS +
-                " recipients, got " +
-                t.length,
-            );
-          var n = yield o("WAWebBroadcastListAction").createBroadcastListAction(
-            {
-              broadcastListName: e,
-              contacts: t.map(function (e) {
-                return { lid: e + "@lid", phone: e };
-              }),
-            },
-          );
-          return (
-            yield o("WAWebDebugBizBroadcastChatUtils").whenBroadcastChatVisible(
-              n,
-            ),
-            n
-          );
-        })),
-        d.apply(this, arguments)
+        await o("WAWebDebugBizBroadcastChatUtils").whenBroadcastChatVisible(n),
+        n
       );
     }
-    c.doc = "Create a BB audience from a name and phone numbers, no UI (E2E)";
-    function m() {
-      return p.apply(this, arguments);
+    u.doc = "Create a BB audience from a name and phone numbers, no UI (E2E)";
+    async function c() {
+      var e = o("WAWebDebugBizBroadcastChatUtils").getActiveBroadcastJid(),
+        t = r("WAWebPonyfillsCryptoRandomUUID")(),
+        n = o("WAWebUserUtils").getMeDevicePnOrThrow_DO_NOT_USE().getDeviceId();
+      (await o("WAWebBizBroadcastCampaignAPI").createBizBroadcastCampaign({
+        adGroupId: "test_adgroup_" + t,
+        adId: null,
+        broadcastJid: e,
+        campaignId: t,
+        campaignName: "Test Campaign " + t,
+        createdTimestamp: Date.now(),
+        deviceId: n,
+        msgId: null,
+        pendingBroadcastMessageId: null,
+        reservedQuota: null,
+        scheduledTimestamp: null,
+        status: o("WAWebSchemaBusinessBroadcastCampaign")
+          .BusinessBroadcastCampaignStatus.PROCESSING,
+      }),
+        await o(
+          "WAWebBizBroadcastSystemMessageManager",
+        ).updateBizBroadcastSystemMessage(e));
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          r("vulture")("9B3P7T0Qee3i5KkBAFG2iMCYBcM=");
-          var e = o("WAWebDebugBizBroadcastChatUtils").getActiveBroadcastJid(),
-            t = r("WAWebPonyfillsCryptoRandomUUID")(),
-            n = o("WAWebUserUtils")
-              .getMeDevicePnOrThrow_DO_NOT_USE()
-              .getDeviceId();
-          (yield o("WAWebBizBroadcastCampaignAPI").createBizBroadcastCampaign({
-            adGroupId: "test_adgroup_" + t,
-            adId: null,
-            broadcastJid: e,
-            campaignId: t,
-            campaignName: "Test Campaign " + t,
-            createdTimestamp: Date.now(),
-            deviceId: n,
-            msgId: null,
-            pendingBroadcastMessageId: null,
-            reservedQuota: null,
-            scheduledTimestamp: null,
-            status: o("WAWebSchemaBusinessBroadcastCampaign")
-              .BusinessBroadcastCampaignStatus.PROCESSING,
-          }),
-            yield o(
-              "WAWebBizBroadcastSystemMessageManager",
-            ).updateBizBroadcastSystemMessage(e));
-        })),
-        p.apply(this, arguments)
-      );
-    }
-    ((m.doc =
+    ((c.doc =
       "Create a test PROCESSING campaign for the active broadcast chat (E2E)"),
-      (m.paramsToExecute = []));
-    function _() {
-      return f.apply(this, arguments);
+      (c.paramsToExecute = []));
+    async function d() {
+      r("vulture")("xtFM8UIjKS2O9QInZyOXgIZvjr4=");
+      var e = o("WAWebDebugBizBroadcastChatUtils").getActiveBroadcastJid(),
+        t = await o(
+          "WAWebBizBroadcastCampaignAPI",
+        ).getBizBroadcastCampaignsByBroadcastJid(e);
+      (await Promise.all(
+        t
+          .filter(function (e) {
+            return (
+              e.status ===
+              o("WAWebSchemaBusinessBroadcastCampaign")
+                .BusinessBroadcastCampaignStatus.PROCESSING
+            );
+          })
+          .map(function (e) {
+            return o("WAWebBizBroadcastCampaignAPI").updateBizBroadcastCampaign(
+              e.campaignId,
+              {
+                status: o("WAWebSchemaBusinessBroadcastCampaign")
+                  .BusinessBroadcastCampaignStatus.SENT,
+              },
+            );
+          }),
+      ),
+        await o(
+          "WAWebBizBroadcastSystemMessageManager",
+        ).updateBizBroadcastSystemMessage(e));
     }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          r("vulture")("xtFM8UIjKS2O9QInZyOXgIZvjr4=");
-          var t = o("WAWebDebugBizBroadcastChatUtils").getActiveBroadcastJid(),
-            a = yield o(
-              "WAWebBizBroadcastCampaignAPI",
-            ).getBizBroadcastCampaignsByBroadcastJid(t);
-          (yield (e || (e = n("Promise"))).all(
-            a
-              .filter(function (e) {
-                return (
-                  e.status ===
-                  o("WAWebSchemaBusinessBroadcastCampaign")
-                    .BusinessBroadcastCampaignStatus.PROCESSING
-                );
-              })
-              .map(function (e) {
-                return o(
-                  "WAWebBizBroadcastCampaignAPI",
-                ).updateBizBroadcastCampaign(e.campaignId, {
-                  status: o("WAWebSchemaBusinessBroadcastCampaign")
-                    .BusinessBroadcastCampaignStatus.SENT,
-                });
-              }),
-          ),
-            yield o(
-              "WAWebBizBroadcastSystemMessageManager",
-            ).updateBizBroadcastSystemMessage(t));
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    ((_.doc =
+    ((d.doc =
       "Complete all PROCESSING campaigns for the active broadcast chat (E2E)"),
-      (_.paramsToExecute = []));
-    var g = {
-      acceptBizBroadcastTos: u,
-      completeTestCampaignsForActiveChat: _,
-      createBizBroadcastAudience: c,
-      createTestProcessingCampaignForActiveChat: m,
-      setBizBroadcastDeviceCapability: s,
+      (d.paramsToExecute = []));
+    var m = {
+      acceptBizBroadcastTos: s,
+      completeTestCampaignsForActiveChat: d,
+      createBizBroadcastAudience: u,
+      createTestProcessingCampaignForActiveChat: c,
+      setBizBroadcastDeviceCapability: e,
     };
-    l.default = g;
+    l.default = m;
   },
   98,
 );

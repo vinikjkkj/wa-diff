@@ -13,9 +13,7 @@ __d(
         o("WAWebBotSessionTransparencyNotice").BotSessionTransparencyType
           .AiSafetyDisclaimer
         ? {
-            text: s._(
-              /*BTDS*/ "Just a reminder that you\u2019re chatting with an AI, not a real person. It\u2019s been 3 hours\u2014time for a break? Click to learn more.",
-            ),
+            text: s._(/*BTDS*/ ""),
             handleClick: function () {
               o("WAWebExternalLink.react").openExternalLink(
                 o("WAWebFaqUrl").getBotSessionTransparencyUrl(),

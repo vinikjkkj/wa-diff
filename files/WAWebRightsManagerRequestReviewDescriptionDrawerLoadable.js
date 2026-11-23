@@ -5,25 +5,19 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingDrawer.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebRightsManagerRequestReviewDescriptionDrawer.react",
-          )
-            .__setRef(
-              "WAWebRightsManagerRequestReviewDescriptionDrawerLoadable",
-            )
-            .load();
-          return e;
-        }),
-        "RightsManagerRequestReviewDescriptionDrawer",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebRightsManagerRequestReviewDescriptionDrawer.react",
+        )
+          .__setRef("WAWebRightsManagerRequestReviewDescriptionDrawerLoadable")
+          .load();
+        return e;
+      }, "RightsManagerRequestReviewDescriptionDrawer"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

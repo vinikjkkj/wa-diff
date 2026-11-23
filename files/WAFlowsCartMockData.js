@@ -1,0 +1,88 @@
+__d(
+  "WAFlowsCartMockData",
+  [],
+  function (t, n, r, o, a, i) {
+    "use strict";
+    var e = [
+        {
+          id: "item_id_1",
+          catalogItemId: "item_id_1",
+          quantity: 5,
+          labels: [
+            { name: "Color", value: "Red" },
+            { name: "Size", value: "UK-9" },
+          ],
+          name: "Product 1 Old",
+          retailerId: "1",
+          price: 89,
+          salePrice: 80,
+          currency: "USD",
+          maxAvailable: 10,
+          media: { id: "img1", url: "" },
+        },
+        {
+          id: "item_id_2",
+          catalogItemId: "item_id_2",
+          retailerId: "2",
+          quantity: 1,
+          labels: [],
+          name: "Product 2",
+          price: 99,
+          salePrice: 80,
+          currency: "USD",
+          maxAvailable: 10,
+          media: { id: "img1", url: "" },
+        },
+        {
+          id: "item_id_3",
+          catalogItemId: "item_id_3",
+          retailerId: "3",
+          quantity: 2,
+          labels: [{ name: "Color", value: "Red" }],
+          name: "Product 3",
+          price: 99,
+          salePrice: 80,
+          currency: "USD",
+          maxAvailable: 10,
+          media: { id: "img1", url: "" },
+        },
+      ],
+      l = {
+        cart: [
+          {
+            id: "item_id_1",
+            quantity: 5,
+            title: "Product 1",
+            price_1000: 128e3,
+            currency_code: "USD",
+            max_available: 10,
+            image_id: "img1",
+            scaled_image_url: "url1",
+          },
+          {
+            id: "item_id_2",
+            quantity: 1,
+            title: "Product 2",
+            price_1000: 25e3,
+            sale_price_1000: 19990,
+            currency_code: "USD",
+            max_available: 2,
+            image_id: "img1",
+            scaled_image_url: "url1",
+          },
+          {
+            id: "item_id_3",
+            quantity: 2,
+            title: "Product 3",
+            price_1000: 99990,
+            currency_code: "USD",
+            max_available: 0,
+            image_id: "img1",
+            scaled_image_url: "url1",
+          },
+        ],
+      };
+    ((i.cartMockData = e), (i.nativeCartMockData = l));
+  },
+  66,
+);

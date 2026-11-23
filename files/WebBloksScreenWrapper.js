@@ -10,7 +10,6 @@ __d(
     "WebBloksTheme",
     "WebBloksTreeResources",
     "react",
-    "react-compiler-runtime",
     "useWebBloksAccessibilityModule",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,29 +19,22 @@ __d(
       c = u.useEffect,
       d = u.useState;
     function m() {
-      var e = o("react-compiler-runtime").c(1),
-        t;
-      return (
-        e[0] === Symbol.for("react.memo_cache_sentinel")
-          ? ((t = s.jsx(
-              "div",
-              babelHelpers.extends(
-                {},
-                o("WebBloksStyle").getStyleProps({
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flex: 1,
-                }),
-                { children: s.jsx(r("WebBloksIconSpinner"), {}) },
-              ),
-            )),
-            (e[0] = t))
-          : (t = e[0]),
-        t
+      return s.jsx(
+        "div",
+        babelHelpers.extends(
+          {},
+          o("WebBloksStyle").getStyleProps({
+            alignItems: "center",
+            justifyContent: "center",
+            flex: 1,
+          }),
+          { children: s.jsx(r("WebBloksIconSpinner"), {}) },
+        ),
       );
     }
+    m.displayName = m.name + " [from " + i.id + "]";
     function p(e) {
-      var t = o("react-compiler-runtime").c(32),
+      var t,
         n = e.externalVariables,
         a = e.screen,
         i = o("WebBloksEnvironmentContext").useWebBloksEnvironment(),
@@ -53,144 +45,84 @@ __d(
         h = g.FocusRegion,
         y = d(a.value),
         C = y[0],
-        b = y[1],
-        v;
-      t[0] !== a.stateChangeListener
-        ? ((v = function () {
-            return (
-              a.stateChangeListener.on(b),
-              function () {
-                a.stateChangeListener.off(b);
-              }
-            );
-          }),
-          (t[0] = a.stateChangeListener),
-          (t[1] = v))
-        : (v = t[1]);
-      var S;
-      (t[2] !== a ? ((S = [a]), (t[2] = a), (t[3] = S)) : (S = t[3]), c(v, S));
-      var R = a.objectSet,
-        L = a.options,
-        E = L.initialTreeResources,
-        k = L.loadingNavbar,
-        I = L.loadingScreen,
-        T = L.ownerContext,
-        D = R.environment.navigationTrackingUtils,
-        x;
-      t[4] !== a
-        ? ((x = a.getIsOverlay()), (t[4] = a), (t[5] = x))
-        : (x = t[5]);
-      var $ = x,
-        P = !u && $ !== !0 && f.rootBackground,
-        N = $ === !0 && f.rootOverlay,
-        M;
-      t[6] !== P || t[7] !== N
-        ? ((M = o("WebBloksStyle").classNames(
+        b = y[1];
+      c(
+        function () {
+          return (
+            a.stateChangeListener.on(b),
+            function () {
+              a.stateChangeListener.off(b);
+            }
+          );
+        },
+        [a],
+      );
+      var v = a.objectSet,
+        S = a.options,
+        R = S.initialTreeResources,
+        L = S.loadingNavbar,
+        E = S.loadingScreen,
+        k = S.ownerContext,
+        I = v.environment.navigationTrackingUtils,
+        T = a.getIsOverlay();
+      return s.jsx(h, {
+        autoRestoreFocus: !0,
+        containFocusQuery: o("WebBloksFocusScopeQueries").tabbableScopeQuery,
+        children: s.jsx("div", {
+          className: o("WebBloksStyle").classNames(
             o("WebBloksStyle").WebBloksStyles.container,
             f.root,
-            P,
-            N,
-          )),
-          (t[6] = P),
-          (t[7] = N),
-          (t[8] = M))
-        : (M = t[8]);
-      var w = l === !0 ? "visible" : "hidden",
-        A;
-      t[9] !== w
-        ? ((A = o("WebBloksStyle").getStyleProps({
-            display: "block",
-            flexBasis: "100%",
-            flexGrow: 1,
-            flexShrink: 1,
-            overflow: w,
-          })),
-          (t[9] = w),
-          (t[10] = A))
-        : (A = t[10]);
-      var F;
-      if (
-        t[11] !== C.error ||
-        t[12] !== C.state ||
-        t[13] !== n ||
-        t[14] !== E ||
-        t[15] !== p ||
-        t[16] !== k ||
-        t[17] !== I ||
-        t[18] !== (D == null ? void 0 : D.loadingIndicatorTrackingComponent) ||
-        t[19] !== R ||
-        t[20] !== T ||
-        t[21] !== a
-      ) {
-        var O;
-        ((F =
-          C.state === "ready"
-            ? s.jsx(
-                r("WebBloksScreenHost"),
-                { screen: a, externalVariables: n },
-                a.screenId,
-              )
-            : C.state === "error"
-              ? s.jsxs(s.Fragment, {
-                  children: [
-                    k && _(R, k, E, T),
-                    s.jsx("div", {
-                      style: { marginTop: 44, textAlign: "center" },
-                      children:
-                        (O = C.error.summary) != null ? O : "Failed to load",
-                    }),
-                  ],
-                })
-              : s.jsxs(s.Fragment, {
-                  children: [
-                    D == null ? void 0 : D.loadingIndicatorTrackingComponent,
-                    k && _(R, k, E, T),
-                    I ? _(R, I, E, T) : p != null ? p : s.jsx(m, {}),
-                  ],
-                })),
-          (t[11] = C.error),
-          (t[12] = C.state),
-          (t[13] = n),
-          (t[14] = E),
-          (t[15] = p),
-          (t[16] = k),
-          (t[17] = I),
-          (t[18] = D == null ? void 0 : D.loadingIndicatorTrackingComponent),
-          (t[19] = R),
-          (t[20] = T),
-          (t[21] = a),
-          (t[22] = F));
-      } else F = t[22];
-      var B;
-      t[23] !== F || t[24] !== A
-        ? ((B = s.jsx("div", babelHelpers.extends({}, A, { children: F }))),
-          (t[23] = F),
-          (t[24] = A),
-          (t[25] = B))
-        : (B = t[25]);
-      var W;
-      t[26] !== B || t[27] !== M
-        ? ((W = s.jsx("div", { className: M, children: B })),
-          (t[26] = B),
-          (t[27] = M),
-          (t[28] = W))
-        : (W = t[28]);
-      var q;
-      return (
-        t[29] !== h || t[30] !== W
-          ? ((q = s.jsx(h, {
-              autoRestoreFocus: !0,
-              containFocusQuery: o("WebBloksFocusScopeQueries")
-                .tabbableScopeQuery,
-              children: W,
-            })),
-            (t[29] = h),
-            (t[30] = W),
-            (t[31] = q))
-          : (q = t[31]),
-        q
-      );
+            !u && T !== !0 && f.rootBackground,
+            T === !0 && f.rootOverlay,
+          ),
+          children: s.jsx(
+            "div",
+            babelHelpers.extends(
+              {},
+              o("WebBloksStyle").getStyleProps({
+                display: "block",
+                flexBasis: "100%",
+                flexGrow: 1,
+                flexShrink: 1,
+                overflow: l === !0 ? "visible" : "hidden",
+              }),
+              {
+                children:
+                  C.state === "ready"
+                    ? s.jsx(
+                        r("WebBloksScreenHost"),
+                        { screen: a, externalVariables: n },
+                        a.screenId,
+                      )
+                    : C.state === "error"
+                      ? s.jsxs(s.Fragment, {
+                          children: [
+                            L && _(v, L, R, k),
+                            s.jsx("div", {
+                              style: { marginTop: 44, textAlign: "center" },
+                              children:
+                                (t = C.error.summary) != null
+                                  ? t
+                                  : "Failed to load",
+                            }),
+                          ],
+                        })
+                      : s.jsxs(s.Fragment, {
+                          children: [
+                            I == null
+                              ? void 0
+                              : I.loadingIndicatorTrackingComponent,
+                            L && _(v, L, R, k),
+                            E ? _(v, E, R, k) : p != null ? p : s.jsx(m, {}),
+                          ],
+                        }),
+              },
+            ),
+          ),
+        }),
+      });
     }
+    p.displayName = p.name + " [from " + i.id + "]";
     function _(e, t, n, a) {
       return s.jsx(r("WebBloksScreenHost"), {
         isLoadingNode: !0,

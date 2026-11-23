@@ -49,44 +49,29 @@ __d(
     "WASmaxParsingFailure",
     "WASmaxRpcUtils",
     "WAWap",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
-      return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = _(e),
-            r = yield o("WAComms").sendSmaxStanza(n, t),
-            a = m(r, n);
-          if (a.success)
-            return { name: "AddParticipantsResponseSuccess", value: a.value };
-          var i = u(r, n);
-          if (i.success)
-            return {
-              name: "AddParticipantsResponseClientError",
-              value: i.value,
-            };
-          var l = c(r, n);
-          if (l.success)
-            return {
-              name: "AddParticipantsResponseServerError",
-              value: l.value,
-            };
-          throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
-            o("WASmaxRpcUtils").errorMessageRpcParsing("AddParticipants", {
-              Success: a,
-              ClientError: i,
-              ServerError: l,
-            }),
-          );
-        })),
-        s.apply(this, arguments)
+    async function e(e, t) {
+      var n = p(e),
+        r = await o("WAComms").sendSmaxStanza(n, t),
+        a = d(r, n);
+      if (a.success)
+        return { name: "AddParticipantsResponseSuccess", value: a.value };
+      var i = s(r, n);
+      if (i.success)
+        return { name: "AddParticipantsResponseClientError", value: i.value };
+      var l = u(r, n);
+      if (l.success)
+        return { name: "AddParticipantsResponseServerError", value: l.value };
+      throw new (o("WASmaxParsingFailure").SmaxParsingFailure)(
+        o("WASmaxRpcUtils").errorMessageRpcParsing("AddParticipants", {
+          Success: a,
+          ClientError: i,
+          ServerError: l,
+        }),
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "error");
@@ -96,7 +81,7 @@ __d(
         t,
       );
       if (!a.success) return a;
-      var i = f(r.value);
+      var i = _(r.value);
       return i.success
         ? o("WAResultOrError").makeResult(
             babelHelpers.extends({}, a.value, {
@@ -105,7 +90,7 @@ __d(
           )
         : i;
     }
-    function c(e, t) {
+    function u(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxInGroupsBaseServerErrorMixin").parseBaseServerErrorMixin(
@@ -114,10 +99,10 @@ __d(
       );
       return (r.success, r);
     }
-    function d(e) {
+    function c(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
-      var n = g(e);
+      var n = f(e);
       return n.success
         ? o("WAResultOrError").makeResult({
             addParticipantsParticipantAddedOrNonRegisteredWaUserParticipantErrorLidResponseMixinGroup:
@@ -125,7 +110,7 @@ __d(
           })
         : n;
     }
-    function m(e, t) {
+    function d(e, t) {
       var n = o("WASmaxParseUtils").assertTag(e, "iq");
       if (!n.success) return n;
       var r = o("WASmaxParseUtils").flattenedChildWithTag(e, "add");
@@ -155,7 +140,7 @@ __d(
         s.value,
       );
       if (!u.success) return u;
-      var c = o(
+      var d = o(
           "WASmaxInGroupsGroupAddressingModeMixin",
         ).parseGroupAddressingModeMixin(e),
         m = o("WASmaxParseUtils").mapChildrenWithTag(
@@ -163,17 +148,17 @@ __d(
           "participant",
           1,
           19999,
-          d,
+          c,
         );
       return m.success
         ? o("WAResultOrError").makeResult({
             type: l.value,
-            groupAddressingModeMixin: c.success ? c.value : null,
+            groupAddressingModeMixin: d.success ? d.value : null,
             addParticipant: m.value,
           })
         : m;
     }
-    function p(e) {
+    function m(e) {
       var t = e.participantJid,
         n = e.participantPhoneNumber,
         r = e.participantUsername,
@@ -189,7 +174,7 @@ __d(
         );
       return i;
     }
-    function _(e) {
+    function p(e) {
       var t = e.participantArgs,
         n = o("WASmaxOutGroupsBaseSetGroupMixin").mergeBaseSetGroupMixin(
           o("WASmaxJsx").smax(
@@ -198,14 +183,14 @@ __d(
             o("WASmaxJsx").smax(
               "add",
               null,
-              o("WASmaxChildren").REPEATED_CHILD(p, t, 1, 1024),
+              o("WASmaxChildren").REPEATED_CHILD(m, t, 1, 1024),
             ),
           ),
           e,
         );
       return n;
     }
-    function f(e) {
+    function _(e) {
       var t = o(
         "WASmaxInGroupsIQErrorBadRequestMixin",
       ).parseIQErrorBadRequestMixin(e);
@@ -301,8 +286,8 @@ __d(
             [t, n, r, a, i, l, s, u, c, d],
           );
     }
-    function g(e) {
-      var t = h(e);
+    function f(e) {
+      var t = g(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "AddParticipantsParticipantAddedResponse",
@@ -325,7 +310,7 @@ __d(
             [t, n],
           );
     }
-    function h(e) {
+    function g(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseJid").attrJidEnum(
@@ -344,7 +329,7 @@ __d(
       if (!r.success) return r;
       var a = o("WASmaxInGroupsPhoneNumberMixin").parsePhoneNumberMixin(e),
         i = o("WASmaxInGroupsUsernameAttMixin").parseUsernameAttMixin(e),
-        l = y(e);
+        l = h(e);
       return o("WAResultOrError").makeResult({
         jid: n.value,
         joinTime: r.value,
@@ -353,8 +338,8 @@ __d(
         addParticipantsParticipantMixins: l.success ? l.value : null,
       });
     }
-    function y(e) {
-      var t = C(e);
+    function h(e) {
+      var t = y(e);
       if (t.success)
         return o("WAResultOrError").makeResult({
           name: "ParticipantGroupJoinRequest",
@@ -376,7 +361,7 @@ __d(
           name: "ParticipantNotAuthorized",
           value: r.value,
         });
-      var a = b(e);
+      var a = C(e);
       if (a.success)
         return o("WAResultOrError").makeResult({
           name: "ParticipantInBanList",
@@ -478,13 +463,13 @@ __d(
           name: "ParticipantBotIncompatibleVersion",
           value: h.value,
         });
-      var y = o(
+      var b = o(
         "WASmaxInGroupsParticipantBotAlreadyExistsMixin",
       ).parseParticipantBotAlreadyExistsMixin(e);
-      if (y.success)
+      if (b.success)
         return o("WAResultOrError").makeResult({
           name: "ParticipantBotAlreadyExists",
-          value: y.value,
+          value: b.value,
         });
       var v = o(
         "WASmaxInGroupsParticipantParentLinkedGroupsResourceConstraintMixin",
@@ -525,10 +510,10 @@ __d(
               "ParticipantParentLinkedGroupsResourceConstraint",
               "ParticipantForbidden",
             ],
-            [t, n, r, a, i, l, s, u, c, d, m, p, _, f, g, h, y, v, S],
+            [t, n, r, a, i, l, s, u, c, d, m, p, _, f, g, h, b, v, S],
           );
     }
-    function C(e) {
+    function y(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").flattenedChildWithTag(
@@ -556,7 +541,7 @@ __d(
           })
         : a;
     }
-    function b(e) {
+    function C(e) {
       var t = o("WASmaxParseUtils").assertTag(e, "participant");
       if (!t.success) return t;
       var n = o("WASmaxParseUtils").literal(
@@ -570,10 +555,10 @@ __d(
         : n;
     }
     ((l.sendAddParticipantsRPC = e),
-      (l.parseAddParticipantsResponseClientError = u),
-      (l.parseAddParticipantsResponseServerError = c),
-      (l.parseAddParticipantsResponseSuccess = m),
-      (l.makeAddParticipantsRequest = _));
+      (l.parseAddParticipantsResponseClientError = s),
+      (l.parseAddParticipantsResponseServerError = u),
+      (l.parseAddParticipantsResponseSuccess = d),
+      (l.makeAddParticipantsRequest = p));
   },
   98,
 );

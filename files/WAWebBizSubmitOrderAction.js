@@ -7,36 +7,27 @@ __d(
     "WAWebMediaOpaqueData",
     "WAWebSendOrderChatAction",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    function e(e, t, n) {
-      return s.apply(this, arguments);
-    }
-    function s() {
+    async function e(e, t, n) {
+      var a = await o("WAWebBizOrderAction").createOrder(
+        t.id,
+        e.cartItemCollection.toArray(),
+      );
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          var a = yield o("WAWebBizOrderAction").createOrder(
-            t.id,
-            e.cartItemCollection.toArray(),
-          );
-          return (
-            yield r("WAWebSendOrderChatAction")({
-              catalogType: n == null ? void 0 : n.getCatalogType(),
-              chat: t,
-              itemCount: e.itemCount,
-              message: e.message,
-              order: a,
-              thumbnail: u(e),
-            }),
-            o("WAWebBizCartBridge").updateCart(e),
-            a.id
-          );
-        })),
-        s.apply(this, arguments)
+        await r("WAWebSendOrderChatAction")({
+          catalogType: n == null ? void 0 : n.getCatalogType(),
+          chat: t,
+          itemCount: e.itemCount,
+          message: e.message,
+          order: a,
+          thumbnail: s(e),
+        }),
+        o("WAWebBizCartBridge").updateCart(e),
+        a.id
       );
     }
-    function u(e) {
+    function s(e) {
       var t,
         n,
         a = e.cartItemCollection.at(0);

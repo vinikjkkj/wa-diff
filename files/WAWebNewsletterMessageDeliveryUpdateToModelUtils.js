@@ -1,85 +1,54 @@
 __d(
   "WAWebNewsletterMessageDeliveryUpdateToModelUtils",
   [
-    "Promise",
     "WAWebNewsletterDBUtils",
     "WAWebNewsletterGetMessagesJob",
     "WAWebNewsletterUpdateMsgsRecordsJob",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
-    var e;
-    function s(e, t, n) {
-      return u.apply(this, arguments);
+    async function e(e, t, n) {
+      var r = await o("WAWebNewsletterDBUtils").bulkGetMessagesByServerIds(
+          t.map(function (e) {
+            return e.id;
+          }),
+          e,
+        ),
+        a = [],
+        i = t.map(async function (t) {
+          var n = t.id,
+            i = r.get(t.id);
+          if (i == null) {
+            var l = await o(
+                "WAWebNewsletterGetMessagesJob",
+              ).getNewsletterMessages(e, 1, { after: n - 1 }),
+              s = l.msgs[0];
+            if (s == null) return null;
+            ((i = s), a.push(i));
+          }
+          return babelHelpers.extends({}, t, {
+            msgData: i,
+            serverId: t.id,
+            id: i.id,
+          });
+        });
+      a.length > 0 &&
+        (await o(
+          "WAWebNewsletterUpdateMsgsRecordsJob",
+        ).addNewsletterMsgsRecords(a));
+      var l = await o("WAWebNewsletterDBUtils").bulkGetMessagesByServerIds(
+          n,
+          e,
+        ),
+        s = n.map(async function (e) {
+          var t = l.get(e);
+          return t == null ? null : t.id;
+        });
+      return {
+        modelUpdatesToAdd: (await Promise.all(i)).filter(Boolean),
+        modelUpdatesToRemove: (await Promise.all(s)).filter(Boolean),
+      };
     }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t, r, a) {
-          var i = yield o("WAWebNewsletterDBUtils").bulkGetMessagesByServerIds(
-              r.map(function (e) {
-                return e.id;
-              }),
-              t,
-            ),
-            l = [],
-            s = r.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var n = e.id,
-                      r = i.get(e.id);
-                    if (r == null) {
-                      var a = yield o(
-                          "WAWebNewsletterGetMessagesJob",
-                        ).getNewsletterMessages(t, 1, { after: n - 1 }),
-                        s = a.msgs[0];
-                      if (s == null) return null;
-                      ((r = s), l.push(r));
-                    }
-                    return babelHelpers.extends({}, e, {
-                      msgData: r,
-                      serverId: e.id,
-                      id: r.id,
-                    });
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            );
-          l.length > 0 &&
-            (yield o(
-              "WAWebNewsletterUpdateMsgsRecordsJob",
-            ).addNewsletterMsgsRecords(l));
-          var u = yield o("WAWebNewsletterDBUtils").bulkGetMessagesByServerIds(
-              a,
-              t,
-            ),
-            c = a.map(
-              (function () {
-                var e = n("asyncToGeneratorRuntime").asyncToGenerator(
-                  function* (e) {
-                    var t = u.get(e);
-                    return t == null ? null : t.id;
-                  },
-                );
-                return function (t) {
-                  return e.apply(this, arguments);
-                };
-              })(),
-            );
-          return {
-            modelUpdatesToAdd: (yield (e || (e = n("Promise"))).all(s)).filter(
-              Boolean,
-            ),
-            modelUpdatesToRemove: (yield e.all(c)).filter(Boolean),
-          };
-        })),
-        u.apply(this, arguments)
-      );
-    }
-    l.getMessageDeliveryUpdatesModelToUpdate = s;
+    l.getMessageDeliveryUpdatesModelToUpdate = e;
   },
   98,
 );

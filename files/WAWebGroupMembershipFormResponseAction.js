@@ -2,7 +2,6 @@ __d(
   "WAWebGroupMembershipFormResponseAction",
   [
     "JSResourceForInteraction",
-    "Promise",
     "WALogger",
     "WAWebBackendRuntime",
     "WAWebGroupMembershipFormCryptoTypes",
@@ -10,44 +9,42 @@ __d(
     "WAWebGroupMembershipFormGating",
     "WAWebGroupMembershipRequestsService",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
       u,
-      c,
-      d = 1e4,
-      m = r("JSResourceForInteraction")(
+      c = 1e4,
+      d = r("JSResourceForInteraction")(
         "WAWebGroupMembershipFormAnswersJob",
       ).__setRef("WAWebGroupMembershipFormResponseAction"),
-      p = new WeakMap();
-    function _(e, t) {
+      m = new WeakMap();
+    function p(e, t) {
       if (
         !(
           t.membershipFormResponse != null ||
-          !L(e, t) ||
+          !v(e, t) ||
           !o(
             "WAWebGroupMembershipFormGating",
           ).isGroupMembershipFormReviewEnabled()
         )
       ) {
-        var n = p.get(t);
+        var n = m.get(t);
         if (n != null) {
           t.set({ membershipFormResponse: n });
           return;
         }
-        b(e, t);
+        C(e, t);
       }
     }
-    function f(e, t) {
-      (g(t), _(e, t));
+    function _(e, t) {
+      (f(t), p(e, t));
     }
-    function g(e) {
-      (p.delete(e), e.set({ membershipFormResponse: void 0 }));
+    function f(e) {
+      (m.delete(e), e.set({ membershipFormResponse: void 0 }));
     }
-    function h(t) {
+    function g(t) {
       var n = o("WAWebBackendRuntime").isWebDiBackendEnabled()
         ? o("WAWebBackendRuntime")
             .runtime(
@@ -55,7 +52,7 @@ __d(
                 .GroupMembershipRequestsService,
             )
             .scheduleGroupMembershipFormAnswersRefetch(t, { debounced: !1 })
-        : m.load().then(function (e) {
+        : d.load().then(function (e) {
             return e.scheduleGroupMembershipFormAnswersRefetch(t, {
               debounced: !1,
             });
@@ -72,88 +69,72 @@ __d(
           .sendLogs("gmf-answers-refetch-load-failed");
       });
     }
-    function y(e, t) {
+    function h(e, t) {
       var n;
       ((n = t.membershipFormResponse) == null ? void 0 : n.type) !== "failed" ||
-        p.has(t) ||
-        b(e, t);
+        m.has(t) ||
+        C(e, t);
     }
-    function C(e) {
-      var t = p.get(e);
+    function y(e) {
+      var t = m.get(e);
       t != null &&
         e.membershipFormResponse === t &&
         e.set({ membershipFormResponse: void 0 });
     }
-    function b(e, t) {
-      return v.apply(this, arguments);
+    async function C(e, t) {
+      var n = { type: "loading" };
+      (m.set(t, n), t.set({ membershipFormResponse: n }));
+      var a = null,
+        i = null,
+        l = !1;
+      try {
+        a = await b(S(e, t));
+      } catch (e) {
+        ((l = !0), (i = e));
+      }
+      if (m.get(t) === n && (m.delete(t), t.membershipFormResponse === n)) {
+        var c;
+        (l
+          ? (o("WALogger")
+              .WARN(
+                s ||
+                  (s = babelHelpers.taggedTemplateLiteralLoose([
+                    "[GMF] membership form answers failed to load",
+                  ])),
+              )
+              .catching(r("getErrorSafe")(i))
+              .sendLogs("gmf-responses-load-failed"),
+            (c = { type: "failed" }))
+          : a == null
+            ? (o("WALogger")
+                .WARN(
+                  u ||
+                    (u = babelHelpers.taggedTemplateLiteralLoose([
+                      "[GMF] membership form answers timed out",
+                    ])),
+                )
+                .sendLogs("gmf-responses-load-timeout"),
+              (c = { type: "failed" }))
+            : (c = o(
+                "WAWebGroupMembershipFormCryptoTypes",
+              ).getGroupMembershipFormResponseState(a)),
+          t.set({ membershipFormResponse: c }));
+      }
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = { type: "loading" };
-          (p.set(t, n), t.set({ membershipFormResponse: n }));
-          var a = null,
-            i = null,
-            l = !1;
-          try {
-            a = yield S(E(e, t));
-          } catch (e) {
-            ((l = !0), (i = e));
-          }
-          if (p.get(t) === n && (p.delete(t), t.membershipFormResponse === n)) {
-            var c;
-            (l
-              ? (o("WALogger")
-                  .WARN(
-                    s ||
-                      (s = babelHelpers.taggedTemplateLiteralLoose([
-                        "[GMF] membership form answers failed to load",
-                      ])),
-                  )
-                  .catching(r("getErrorSafe")(i))
-                  .sendLogs("gmf-responses-load-failed"),
-                (c = { type: "failed" }))
-              : a == null
-                ? (o("WALogger")
-                    .WARN(
-                      u ||
-                        (u = babelHelpers.taggedTemplateLiteralLoose([
-                          "[GMF] membership form answers timed out",
-                        ])),
-                    )
-                    .sendLogs("gmf-responses-load-timeout"),
-                  (c = { type: "failed" }))
-                : (c = o(
-                    "WAWebGroupMembershipFormCryptoTypes",
-                  ).getGroupMembershipFormResponseState(a)),
-              t.set({ membershipFormResponse: c }));
-          }
-        })),
-        v.apply(this, arguments)
-      );
+    async function b(e) {
+      var t,
+        n = new Promise(function (e) {
+          t = self.setTimeout(function () {
+            return e(null);
+          }, c);
+        });
+      try {
+        return await Promise.race([e, n]);
+      } finally {
+        self.clearTimeout(t);
+      }
     }
-    function S(e) {
-      return R.apply(this, arguments);
-    }
-    function R() {
-      return (
-        (R = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            r = new (c || (c = n("Promise")))(function (e) {
-              t = self.setTimeout(function () {
-                return e(null);
-              }, d);
-            });
-          try {
-            return yield (c || (c = n("Promise"))).race([e, r]);
-          } finally {
-            self.clearTimeout(t);
-          }
-        })),
-        R.apply(this, arguments)
-      );
-    }
-    function L(e, t) {
+    function v(e, t) {
       return o("WAWebGroupMembershipFormDevStore").isGMFDevMode()
         ? e.isUser() || !t.id.isUser()
           ? !1
@@ -163,7 +144,7 @@ __d(
             )
         : t.hasMembershipFormAnswers;
     }
-    function E(e, t) {
+    function S(e, t) {
       return o("WAWebGroupMembershipFormDevStore").isGMFDevMode()
         ? o("WAWebGroupMembershipFormDevStore")
             .loadDevMembershipFormAnswers(
@@ -186,16 +167,16 @@ __d(
                   .GroupMembershipRequestsService,
               )
               .decodeStoredGroupMembershipFormAnswers(e, t.id)
-          : m.load().then(function (n) {
+          : d.load().then(function (n) {
               return n.decodeStoredGroupMembershipFormAnswers(e, t.id);
             });
     }
-    ((l.maybeLoadGroupMembershipFormResponse = _),
-      (l.reloadGroupMembershipFormResponse = f),
-      (l.dropGroupMembershipFormResponse = g),
-      (l.refetchGroupMembershipFormAnswers = h),
-      (l.retryGroupMembershipFormResponse = y),
-      (l.cancelGroupMembershipFormResponseLoad = C));
+    ((l.maybeLoadGroupMembershipFormResponse = p),
+      (l.reloadGroupMembershipFormResponse = _),
+      (l.dropGroupMembershipFormResponse = f),
+      (l.refetchGroupMembershipFormAnswers = g),
+      (l.retryGroupMembershipFormResponse = h),
+      (l.cancelGroupMembershipFormResponseLoad = y));
   },
   98,
 );

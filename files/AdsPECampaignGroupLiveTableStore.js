@@ -1,11 +1,10 @@
 __d(
   "AdsPECampaignGroupLiveTableStore",
   [
+    "invariant",
     "AdsAPICampaignGroupRecord",
-    "AdsCampaignGroupLiveFields",
     "AdsManagerAdObjectTableDataSpecUtils",
     "AdsManagerLiveData",
-    "AdsPEAdObjectTableDataManager",
     "AdsPEBaseLiveTableStore_RELAY",
     "AdsPECampaignGroupLiveTableStoreNamespacedLoadedIDsQuery.graphql",
     "AdsPECampaignGroupLiveTableStoreNamespacedLoadedQuery.graphql",
@@ -23,16 +22,13 @@ __d(
     "readClientFragment",
     "readClientQuery",
   ],
-  function (t, n, r, o, a, i, l) {
+  function (t, n, r, o, a, i, l, s) {
     "use strict";
     var e,
-      s,
       u,
       c,
       d,
-      m = r("AdsCampaignGroupLiveFields").cheapFields.filter(function (e) {
-        return e !== "campaign_structure_tree";
-      }),
+      m,
       p =
         e !== void 0
           ? e
@@ -40,32 +36,38 @@ __d(
               "AdsPECampaignGroupLiveTableStoreRELAYNEWLoadedIDsQuery.graphql",
             )),
       _ =
-        s !== void 0
-          ? s
-          : (s = n(
-              "AdsPECampaignGroupLiveTableStoreRELAYNEWLoadedQuery.graphql",
-            )),
-      f =
         u !== void 0
           ? u
           : (u = n(
-              "AdsPECampaignGroupLiveTableStoreNamespacedLoadedIDsQuery.graphql",
+              "AdsPECampaignGroupLiveTableStoreRELAYNEWLoadedQuery.graphql",
             )),
-      g =
+      f =
         c !== void 0
           ? c
           : (c = n(
-              "AdsPECampaignGroupLiveTableStoreNamespacedLoadedQuery.graphql",
+              "AdsPECampaignGroupLiveTableStoreNamespacedLoadedIDsQuery.graphql",
             )),
-      h =
+      g =
         d !== void 0
           ? d
           : (d = n(
+              "AdsPECampaignGroupLiveTableStoreNamespacedLoadedQuery.graphql",
+            )),
+      h =
+        m !== void 0
+          ? m
+          : (m = n(
               "AdsPECampaignGroupLiveTableStoreRELAYNEWCampaignGroupFragment.graphql",
             )),
       y = (function (e) {
         function t() {
-          return e.apply(this, arguments) || this;
+          return (
+            e.call(this, function (e) {
+              return function (n, r) {
+                e(n, r);
+              };
+            }) || this
+          );
         }
         babelHelpers.inheritsLoose(t, e);
         var n = t.prototype;
@@ -80,12 +82,7 @@ __d(
               });
             n.length !== 0 &&
               r("promiseDone")(
-                o("AdsPEAdObjectTableDataManager").getAdObjects(
-                  n,
-                  "campaignGroup",
-                  m,
-                  !0,
-                ),
+                this.$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_2(n),
                 function (n) {
                   var o = Object.keys(
                     r("filterObject")(n, function (e) {
@@ -100,6 +97,35 @@ __d(
               );
           }),
           (n.$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_2 = function (t) {
+            var e = Array.from(t);
+            return o("AdsManagerAdObjectTableDataSpecUtils")
+              .fetchCampaignGroupSpec(t)
+              .then(
+                function (t) {
+                  var n = t == null ? void 0 : t.response;
+                  n != null || s(0, 64065);
+                  var o = e.length,
+                    a = Object.keys(n).length;
+                  return (
+                    a !== o &&
+                      r("FBLogger")("ads").warn(
+                        "Tried to load %s adtable_campaignGroup IDs, but received %s! This indicates a problem on the backend. IDs: %s",
+                        o,
+                        a,
+                        e.join(","),
+                      ),
+                    e.forEach(function (e) {
+                      n[e] == null && (n[e] = void 0);
+                    }),
+                    n
+                  );
+                },
+                function (e) {
+                  throw e;
+                },
+              );
+          }),
+          (n.$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_3 = function (t) {
             var e = t.getRoot().getLinkedRecord("ads_manager_loaded_objects");
             return (
               e == null &&
@@ -111,9 +137,9 @@ __d(
               e
             );
           }),
-          (n.$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_3 = function (t, n) {
+          (n.$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_4 = function (t, n) {
             var e,
-              r = this.$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_2(t),
+              r = this.$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_3(t),
               o = (e = r.getLinkedRecords("campaign_groups")) != null ? e : [],
               a = function (n) {
                 var e = t.get(n);
@@ -146,7 +172,7 @@ __d(
               ? o("RelayModern").commitLocalUpdate(
                   this.getRelayEnvironment(),
                   function (n) {
-                    return e.$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_3(
+                    return e.$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_4(
                       n,
                       t,
                     );
@@ -197,7 +223,7 @@ __d(
                       var o;
                       n =
                         (o = e
-                          .$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_2(t)
+                          .$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_3(t)
                           .getLinkedRecords("campaign_groups")) != null
                           ? o
                           : [];
@@ -244,7 +270,7 @@ __d(
                     }),
                       r("gkx")("15786")
                         ? e
-                            .$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_2(t)
+                            .$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_3(t)
                             .setLinkedRecords(n, "campaign_groups")
                         : t
                             .getRoot()
@@ -316,7 +342,7 @@ __d(
                   "AdsManagerAdObjectTableDataSpecUtils",
                 ).refetchAdObjects(n, t, "AdCampaignGroup");
                 (r("gkx")("15786")
-                  ? e.$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_3(n, a)
+                  ? e.$AdsPECampaignGroupLiveTableStore_RELAY_NEW$p_4(n, a)
                   : o(
                       "AdsManagerAdObjectTableDataSpecUtils",
                     ).updateCampaignGroupLink(n, a),

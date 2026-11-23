@@ -3,41 +3,37 @@ __d(
   ["fbt"],
   function (t, n, r, o, a, i, l, s) {
     function e() {
-      return s._(
-        /*BTDS*/ "Your message limit is the number of unique customers you can message in a 24-hour period",
-      );
+      return s._(/*BTDS*/ "");
     }
     function u() {
-      return s._(/*BTDS*/ "Verify your business");
+      return s._(/*BTDS*/ "");
     }
     function c() {
-      return s._(/*BTDS*/ "Finish verification...");
+      return s._(/*BTDS*/ "");
     }
     function d() {
-      return s._(
-        /*BTDS*/ "Pick up where you left off to verify your business.",
-      );
+      return s._(/*BTDS*/ "");
     }
     function m() {
-      return s._(/*BTDS*/ "More info needed");
+      return s._(/*BTDS*/ "");
     }
     function p() {
-      return s._(/*BTDS*/ "More information needed to verify your business.");
+      return s._(/*BTDS*/ "");
     }
     function _() {
-      return s._(/*BTDS*/ "Verification in review...");
+      return s._(/*BTDS*/ "");
     }
     function f() {
-      return s._(/*BTDS*/ "Verification complete");
+      return s._(/*BTDS*/ "");
     }
     function g() {
-      return s._(/*BTDS*/ "Get started");
+      return s._(/*BTDS*/ "");
     }
     function h(e) {
-      return s._(/*BTDS*/ "Submitted on {date}", [s._param("date", e)]);
+      return s._(/*BTDS*/ "", [s._param("date", e)]);
     }
     function y(e) {
-      return s._(/*BTDS*/ "Verified on {date}", [s._param("date", e)]);
+      return s._(/*BTDS*/ "", [s._param("date", e)]);
     }
     ((l.getDailyConversationsInfo = e),
       (l.getVerifyYourBusinessLabel = u),

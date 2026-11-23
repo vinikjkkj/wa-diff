@@ -36,7 +36,7 @@ __d(
       m = d || (d = o("react"));
     function p(e, t) {
       return {
-        label: s._(/*BTDS*/ "Copy Pix key"),
+        label: s._(/*BTDS*/ ""),
         onClick: function () {
           var n = o("WAWebBrPaymentSettingsUtils").getFirstPixStaticKey(e),
             r = o("WAWebUserPrefsTypes").PixKeyType.cast(
@@ -47,11 +47,11 @@ __d(
               n == null
                 ? null
                 : o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(n, r),
-            failureMsg: s._(/*BTDS*/ "Couldn't copy Pix key"),
+            failureMsg: s._(/*BTDS*/ ""),
             onCopy: function () {
               _(t);
             },
-            successMsg: s._(/*BTDS*/ "Pix key copied"),
+            successMsg: s._(/*BTDS*/ ""),
           });
         },
         Icon: r("WDSIconIcContentCopy.react"),
@@ -113,11 +113,11 @@ __d(
             : a,
         l = e.paymentMethodSnapshot;
       return {
-        label: s._(/*BTDS*/ "Open payment link"),
+        label: s._(/*BTDS*/ ""),
         onClick: function () {
           var e = o("WAWebBrPaymentSettingsUtils").getPaymentLinkUri(n);
           if (e == null) {
-            S(s._(/*BTDS*/ "Couldn't open payment link"));
+            S(s._(/*BTDS*/ ""));
             return;
           }
           o("WAWebExternalLink.react").openExternalLink(e);
@@ -153,11 +153,11 @@ __d(
             : a,
         l = e.paymentMethodSnapshot;
       return {
-        label: s._(/*BTDS*/ "Copy boleto code"),
+        label: s._(/*BTDS*/ ""),
         onClick: function () {
           R({
             code: o("WAWebBrPaymentSettingsUtils").getBoletoCode(n),
-            failureMsg: s._(/*BTDS*/ "Couldn't copy boleto code"),
+            failureMsg: s._(/*BTDS*/ ""),
             onCopy: function () {
               var e = f(t);
               e != null &&
@@ -178,7 +178,7 @@ __d(
                   o("WAWebBrPaymentMethodKey").BrPaymentMethodKey.BOLETO,
                 ));
             },
-            successMsg: s._(/*BTDS*/ "Boleto code copied"),
+            successMsg: s._(/*BTDS*/ ""),
           });
         },
         Icon: r("WDSIconIcContentCopy.react"),
@@ -188,7 +188,7 @@ __d(
       return b(t) == null
         ? null
         : {
-            label: s._(/*BTDS*/ "Copy Pix code"),
+            label: s._(/*BTDS*/ ""),
             onClick: function () {
               C(t, function () {
                 var n = f(e);
@@ -204,9 +204,9 @@ __d(
     function C(e, t) {
       R({
         code: e != null ? b(e) : null,
-        failureMsg: s._(/*BTDS*/ "Could not copy Pix code"),
+        failureMsg: s._(/*BTDS*/ ""),
         onCopy: t,
-        successMsg: s._(/*BTDS*/ "Pix code copied"),
+        successMsg: s._(/*BTDS*/ ""),
       });
     }
     function b(e) {
@@ -238,7 +238,7 @@ __d(
             : a,
         l = e.paymentMethodSnapshot;
       return {
-        label: s._(/*BTDS*/ "Copy Pix code"),
+        label: s._(/*BTDS*/ ""),
         onClick: function () {
           var e = o("WAWebBrPaymentSettingsUtils").getDynamicPixCode(n);
           R({
@@ -247,8 +247,8 @@ __d(
                 ? null
                 : o("WAWebBrazilPixKeyFormattingUtils").getCopiedPixKey(e),
             failureMsg: r("justknobx")._("8068")
-              ? s._(/*BTDS*/ "Couldn't copy Pix code")
-              : s._(/*BTDS*/ "Couldn't copy Pix Code"),
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ ""),
             onCopy: function () {
               var e = f(t);
               e != null &&
@@ -274,8 +274,8 @@ __d(
                 ));
             },
             successMsg: r("justknobx")._("8068")
-              ? s._(/*BTDS*/ "Pix code copied")
-              : s._(/*BTDS*/ "Pix Code copied"),
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ ""),
           });
         },
         Icon: r("WDSIconIcContentCopy.react"),

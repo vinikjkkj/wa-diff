@@ -1,34 +1,17 @@
 __d(
   "WAWebVoipRecoverMicrophoneLoadable",
-  [
-    "JSResourceForInteraction",
-    "WAWebLazyLoadedRetriable",
-    "asyncToGeneratorRuntime",
-  ],
+  ["JSResourceForInteraction", "WAWebLazyLoadedRetriable"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    var e = r("WAWebLazyLoadedRetriable")(
-      n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-        var e = yield r("JSResourceForInteraction")(
-          "WAWebVoipRecoverMicrophone",
-        )
-          .__setRef("WAWebVoipRecoverMicrophoneLoadable")
-          .load();
-        return e.prepareMicrophoneForUnmute;
-      }),
-      "WAWebVoipRecoverMicrophone",
-    );
-    function s(e) {
-      return u.apply(this, arguments);
-    }
-    function u() {
-      return (
-        (u = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield e();
-          return n(t);
-        })),
-        u.apply(this, arguments)
-      );
+    var e = r("WAWebLazyLoadedRetriable")(async function () {
+      var e = await r("JSResourceForInteraction")("WAWebVoipRecoverMicrophone")
+        .__setRef("WAWebVoipRecoverMicrophoneLoadable")
+        .load();
+      return e.prepareMicrophoneForUnmute;
+    }, "WAWebVoipRecoverMicrophone");
+    async function s(t) {
+      var n = await e();
+      return n(t);
     }
     l.prepareMicrophoneForUnmuteLoadable = s;
   },

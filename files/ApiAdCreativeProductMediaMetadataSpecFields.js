@@ -8,6 +8,7 @@ __d(
       HEADLINE: "headline",
       IMAGE_LAYER_SPECS: "image_layer_specs",
       IMAGE_TEMPLATE_ID: "image_template_id",
+      IMAGE_TEMPLATE_SPEC: "image_template_spec",
       MESSAGE: "message",
       MULTI_SHARE_END_CARD: "multi_share_end_card",
       PINNED_PRODUCT_IDS: "pinned_product_ids",

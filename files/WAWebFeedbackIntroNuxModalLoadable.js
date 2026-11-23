@@ -5,23 +5,19 @@ __d(
     "WAWebLazyLoadedRetriable",
     "WAWebLoadable",
     "WAWebLoadingConfirmPopup.react",
-    "asyncToGeneratorRuntime",
     "react",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
-      u = r("WAWebLazyLoadedRetriable")(
-        n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          var e = yield r("JSResourceForInteraction")(
-            "WAWebFeedbackIntroNuxModal.react",
-          )
-            .__setRef("WAWebFeedbackIntroNuxModalLoadable")
-            .load();
-          return e;
-        }),
-        "FeedbackIntroNuxModal",
-      ),
+      u = r("WAWebLazyLoadedRetriable")(async function () {
+        var e = await r("JSResourceForInteraction")(
+          "WAWebFeedbackIntroNuxModal.react",
+        )
+          .__setRef("WAWebFeedbackIntroNuxModalLoadable")
+          .load();
+        return e;
+      }, "FeedbackIntroNuxModal"),
       c = r("WAWebLoadable")({
         loader: u,
         loading: function (t) {

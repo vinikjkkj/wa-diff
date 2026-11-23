@@ -9,7 +9,6 @@ __d(
     "WAWebResolveAccountTypeAndAdPage",
     "WAWebToast.react",
     "WAWebToastManager",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "react",
   ],
@@ -17,40 +16,28 @@ __d(
     "use strict";
     var e,
       u = e || (e = o("react"));
-    function c(e, t, n) {
-      return d.apply(this, arguments);
-    }
-    function d() {
-      return (
-        (d = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t, n) {
-          try {
-            var a = yield r("WAWebGetAccessTokenFromOIDCCode")(e, t),
-              i = o("WAWebCommonAdsTypes").asAdAccountToken({
-                bp_id: a.bp_id,
-                token: a.token,
-                type: "FB",
-              });
-            (o("WAWebBizNativeAdsStoredFBIdentityStore").storeFBIdentity(i),
-              o(
-                "WAWebResolveAccountTypeAndAdPage",
-              ).clearSavedOIDCLoginPreference(i),
-              n != null && n(i));
-          } catch (e) {
-            (r("FBLogger")("wa_ctwa_web")
-              .catching(r("getErrorSafe")(e))
-              .mustfix("OIDC flow failed to get access token"),
-              o("WAWebToastManager").ToastManager.open(
-                u.jsx(o("WAWebToast.react").Toast, {
-                  msg: s._(
-                    /*BTDS*/ "Couldn't get access token. Please try again later.",
-                  ),
-                }),
-                o("WAWebToastManager").ToastPosition.LEFT,
-              ));
-          }
-        })),
-        d.apply(this, arguments)
-      );
+    async function c(e, t, n) {
+      try {
+        var a = await r("WAWebGetAccessTokenFromOIDCCode")(e, t),
+          i = o("WAWebCommonAdsTypes").asAdAccountToken({
+            bp_id: a.bp_id,
+            token: a.token,
+            type: "FB",
+          });
+        (o("WAWebBizNativeAdsStoredFBIdentityStore").storeFBIdentity(i),
+          o("WAWebResolveAccountTypeAndAdPage").clearSavedOIDCLoginPreference(
+            i,
+          ),
+          n != null && n(i));
+      } catch (e) {
+        (r("FBLogger")("wa_ctwa_web")
+          .catching(r("getErrorSafe")(e))
+          .mustfix("OIDC flow failed to get access token"),
+          o("WAWebToastManager").ToastManager.open(
+            u.jsx(o("WAWebToast.react").Toast, { msg: s._(/*BTDS*/ "") }),
+            o("WAWebToastManager").ToastPosition.LEFT,
+          ));
+      }
     }
     l.exchangeOIDCToken = c;
   },

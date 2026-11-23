@@ -12,7 +12,6 @@ __d(
     "CometRouterRouteTopNavTypeContext",
     "CometRouterStateContext",
     "CometRouterUIComponentContext",
-    "asyncToGeneratorRuntime",
     "cr:5632",
     "getTopMostRoute",
     "react",
@@ -32,51 +31,51 @@ __d(
       h = [],
       y = { loading: !1 },
       C = (e = n("cr:5632")) != null ? e : u.Fragment;
-    function b(e, t, o) {
-      var a = o.disableReactTransition,
-        l = a === void 0 ? !1 : a,
-        s = o.uiComponents,
-        c = o.useLegacyHidden;
-      function b(o) {
-        var a,
+    function b(e, t, n) {
+      var o = n.disableReactTransition,
+        a = o === void 0 ? !1 : o,
+        l = n.uiComponents,
+        s = n.useLegacyHidden;
+      function c(n) {
+        var o,
           i,
-          b = f(function () {
+          c = f(function () {
             return e.getCurrentRouterState();
           }),
-          v = b[0],
-          S = b[1],
-          R = f(function () {
+          b = c[0],
+          v = c[1],
+          S = f(function () {
             return e.getMaintainedRouteState();
           }),
-          L = R[0],
-          E = R[1],
-          k = t(),
-          I = k[0],
-          T = g(),
-          D = T[0],
-          x = T[1],
-          $ = _(v),
-          P = $[0],
-          N = $[1],
-          M = _(!1),
-          w = M[0],
-          A = M[1];
+          R = S[0],
+          L = S[1],
+          E = t(),
+          k = E[0],
+          I = g(),
+          T = I[0],
+          D = I[1],
+          x = _(b),
+          $ = x[0],
+          P = x[1],
+          N = _(!1),
+          M = N[0],
+          w = N[1];
         (d(
           function () {
             var t = e.getCurrentRouterState(),
               n = e.getMaintainedRouteState();
-            (S(t), E(n));
+            (v(t), L(n));
             var r = e.listen(function (t, n, r) {
                 var o = e.getCurrentRouterState(),
                   a = e.getMaintainedRouteState();
                 t === !0
-                  ? x(function () {
-                      (N(o), S(o), E(a), n == null || n(!0), r == null || r());
+                  ? D(function () {
+                      (P(o), v(o), L(a), n == null || n(!0), r == null || r());
                     })
-                  : (S(o), E(a), n == null || n(!0));
+                  : (v(o), L(a), n == null || n(!0));
               }),
               o = e.setUnloadListener(function (e, t, n, r, o, a, i) {
-                I({
+                k({
                   body: a,
                   cancel: n,
                   confirm: e,
@@ -90,80 +89,72 @@ __d(
               (r.cancel(), o.cancel());
             };
           },
-          [x, N, I],
+          [D, P, k],
         ),
           m(
             function () {
-              e.markNavigationAsCommitted_INTERNAL_ONLY(v.routeKey);
+              e.markNavigationAsCommitted_INTERNAL_ONLY(b.routeKey);
             },
-            [v.routeKey],
+            [b.routeKey],
           ));
-        var F = e.dispatcher,
-          O = p(
+        var A = e.dispatcher,
+          F = p(
             function () {
-              return l
-                ? F
-                : F.withOverrides(function (e) {
+              return a
+                ? A
+                : A.withOverrides(function (e) {
                     return {
-                      go: function (r, o) {
-                        x(
-                          n("asyncToGeneratorRuntime").asyncToGenerator(
-                            function* () {
-                              ((o == null
-                                ? void 0
-                                : o.hidePageTransitioningLoadingState) === !0 &&
-                                A(!0),
-                                yield e.goAsync(r, o));
-                            },
-                          ),
-                        );
+                      go: function (n, r) {
+                        D(async function () {
+                          ((r == null
+                            ? void 0
+                            : r.hidePageTransitioningLoadingState) === !0 &&
+                            w(!0),
+                            await e.goAsync(n, r));
+                        });
                       },
-                      goTo: function (r, o) {
-                        x(
-                          n("asyncToGeneratorRuntime").asyncToGenerator(
-                            function* () {
-                              ((o == null
-                                ? void 0
-                                : o.hidePageTransitioningLoadingState) === !0 &&
-                                A(!0),
-                                yield e.goToAsync(r, o));
-                            },
-                          ),
-                        );
+                      goTo: function (n, r) {
+                        D(async function () {
+                          ((r == null
+                            ? void 0
+                            : r.hidePageTransitioningLoadingState) === !0 &&
+                            w(!0),
+                            await e.goToAsync(n, r));
+                        });
                       },
                     };
                   });
             },
-            [F, A, x],
+            [A, w, D],
           ),
-          B = p(
+          O = p(
             function () {
-              return l
+              return a
                 ? y
-                : P == null || P === v
-                  ? { hidePageTransitioningLoadingState: w, loading: D }
+                : $ == null || $ === b
+                  ? { hidePageTransitioningLoadingState: M, loading: T }
                   : {
-                      currentState: v,
-                      hidePageTransitioningLoadingState: w,
-                      loading: D,
-                      nextState: P,
+                      currentState: b,
+                      hidePageTransitioningLoadingState: M,
+                      loading: T,
+                      nextState: $,
                     };
             },
-            [w, P, v, D],
+            [M, $, b, T],
           ),
-          W = o.children;
+          B = n.children;
         return u.jsx(r("CometHiddenAPIContextProvider"), {
-          hiddenAPIOverride: c,
+          hiddenAPIOverride: s,
           children: u.jsx(r("CometRouterUIComponentContext").Provider, {
-            value: s,
+            value: l,
             children: u.jsx(r("CometRouterDispatcherContext").Provider, {
-              value: O,
+              value: F,
               children: u.jsx(
                 r("CometRouterLoadingContextInternals_DO_NOT_USE").Provider,
                 {
-                  value: B,
+                  value: O,
                   children: u.jsx(r("CometRouterStateContext").Provider, {
-                    value: v,
+                    value: b,
                     children: u.jsx(
                       r("CometPassiveGetRouterStateContext").Provider,
                       {
@@ -176,12 +167,12 @@ __d(
                               r("CometRouterMaintainedRoutesStateContext")
                                 .Provider,
                               {
-                                value: L,
+                                value: R,
                                 children: u.jsx(
                                   r("CometRouterPushViewStackContext").Provider,
                                   {
                                     value:
-                                      (a = v.pushViewStack) != null ? a : h,
+                                      (o = b.pushViewStack) != null ? o : h,
                                     children: u.jsx(
                                       r("CometRouteStoreContext").Provider,
                                       {
@@ -193,15 +184,15 @@ __d(
                                             value:
                                               (i =
                                                 r("getTopMostRoute")(
-                                                  v,
+                                                  b,
                                                 ).topNavType) != null
                                                 ? i
                                                 : "default",
                                             children: u.jsx(C, {
                                               children:
-                                                typeof W == "function"
-                                                  ? W(v)
-                                                  : W,
+                                                typeof B == "function"
+                                                  ? B(b)
+                                                  : B,
                                             }),
                                           },
                                         ),
@@ -222,7 +213,7 @@ __d(
           }),
         });
       }
-      return ((b.displayName = b.name + " [from " + i.id + "]"), b);
+      return ((c.displayName = c.name + " [from " + i.id + "]"), c);
     }
     l.default = b;
   },

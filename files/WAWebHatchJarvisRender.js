@@ -534,10 +534,7 @@ __d(
         "WAWebHatchPeerInvitationLinkText",
       ).withoutHatchPeerInvitationLinks(e);
       return [
-        {
-          text: t !== "" ? t : s._(/*BTDS*/ "Pairing invitation").toString(),
-          type: "markdown",
-        },
+        { text: t !== "" ? t : s._(/*BTDS*/ "").toString(), type: "markdown" },
       ];
     }
     function P(e, t) {

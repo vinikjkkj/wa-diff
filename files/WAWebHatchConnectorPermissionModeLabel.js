@@ -5,11 +5,11 @@ __d(
     "use strict";
     function e(e) {
       return e === "allow"
-        ? s._(/*BTDS*/ "Allow")
+        ? s._(/*BTDS*/ "")
         : e === "ask"
-          ? s._(/*BTDS*/ "Ask")
+          ? s._(/*BTDS*/ "")
           : e === "deny"
-            ? s._(/*BTDS*/ "Deny")
+            ? s._(/*BTDS*/ "")
             : (function () {
                 throw Error(
                   "Match: No case succesfully matched. Make exhaustive or add a wildcard case using '_'. Argument: " +

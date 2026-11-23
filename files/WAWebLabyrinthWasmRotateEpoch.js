@@ -7,7 +7,6 @@ __d(
     "WAWebEBLabyrinthWaWasmReactorSingleton",
     "WAWebLabyrinthOpaqueTypes",
     "WAWebLabyrinthWaWasm.pb",
-    "asyncToGeneratorRuntime",
   ],
   function (t, n, r, o, a, i, l) {
     "use strict";
@@ -76,64 +75,56 @@ __d(
             failReason: a.error.message,
           });
     }
-    function m(e) {
-      return p.apply(this, arguments);
-    }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          var n = yield o(
-            "WAWebEBLabyrinthWaWasmReactorSingleton",
-          ).labyrinthWaCommand(
-            {
-              InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
-              ResultSpec: o("WAWebLabyrinthWaWasm.pb").RotateEpochOutputSpec,
-              validateResult: d,
-            },
-            {
-              rotateEpochInput: {
-                currentEpochRootKey: t.currentEpochRootKey,
-                currentEpochAnonId: t.currentEpochAnonId,
-                currentEpochFbid: o("WALongInt").decimalStringToLongInt(
-                  t.currentEpochFbid,
-                ),
-                epochStorageAuthPrivateKey: t.epochStorageAuthPrivateKey,
-                members: t.members.map(function (e) {
-                  return {
-                    deviceId: o("WALongInt").decimalStringToLongInt(e.deviceId),
-                    epochStoragePublicKey: e.epochStoragePublicKey,
-                    devicePublicKey: e.devicePublicKey,
-                    epochStoragePublicKeySig: e.epochStoragePublicKeySig,
-                    prevDeviceEpochHmac: e.prevDeviceEpochHmac,
-                  };
-                }),
-              },
-            },
-          );
-          if (n.success) return n;
-          var r = n.error;
-          return r.errorName === "wasm-error"
-            ? (o("WALogger").ERROR(
-                e ||
-                  (e = babelHelpers.taggedTemplateLiteralLoose([
-                    "[Labyrinth] rotateEpochWasm failed: ",
-                    "",
-                  ])),
-                r.failReason,
-              ),
-              o("WAResultOrError").makeError("wasm-error"))
-            : r.errorName === "missing-output"
-              ? (o("WALogger").ERROR(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[Labyrinth] rotateEpochWasm returned an incomplete output",
-                    ])),
-                ),
-                o("WAResultOrError").makeError("missing-output"))
-              : o("WAResultOrError").makeError(r);
-        })),
-        p.apply(this, arguments)
+    async function m(t) {
+      var n = await o(
+        "WAWebEBLabyrinthWaWasmReactorSingleton",
+      ).labyrinthWaCommand(
+        {
+          InputSpec: o("WAWebLabyrinthWaWasm.pb").LabyrinthWaCommandSpec,
+          ResultSpec: o("WAWebLabyrinthWaWasm.pb").RotateEpochOutputSpec,
+          validateResult: d,
+        },
+        {
+          rotateEpochInput: {
+            currentEpochRootKey: t.currentEpochRootKey,
+            currentEpochAnonId: t.currentEpochAnonId,
+            currentEpochFbid: o("WALongInt").decimalStringToLongInt(
+              t.currentEpochFbid,
+            ),
+            epochStorageAuthPrivateKey: t.epochStorageAuthPrivateKey,
+            members: t.members.map(function (e) {
+              return {
+                deviceId: o("WALongInt").decimalStringToLongInt(e.deviceId),
+                epochStoragePublicKey: e.epochStoragePublicKey,
+                devicePublicKey: e.devicePublicKey,
+                epochStoragePublicKeySig: e.epochStoragePublicKeySig,
+                prevDeviceEpochHmac: e.prevDeviceEpochHmac,
+              };
+            }),
+          },
+        },
       );
+      if (n.success) return n;
+      var r = n.error;
+      return r.errorName === "wasm-error"
+        ? (o("WALogger").ERROR(
+            e ||
+              (e = babelHelpers.taggedTemplateLiteralLoose([
+                "[Labyrinth] rotateEpochWasm failed: ",
+                "",
+              ])),
+            r.failReason,
+          ),
+          o("WAResultOrError").makeError("wasm-error"))
+        : r.errorName === "missing-output"
+          ? (o("WALogger").ERROR(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[Labyrinth] rotateEpochWasm returned an incomplete output",
+                ])),
+            ),
+            o("WAResultOrError").makeError("missing-output"))
+          : o("WAResultOrError").makeError(r);
     }
     l.rotateEpochWasm = m;
   },

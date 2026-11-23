@@ -11,7 +11,6 @@ __d(
     "WAWebUserPrefsStore",
     "WAWebWamEnumTsSurface",
     "react",
-    "react-compiler-runtime",
     "useWAWebStableCallback",
   ],
   function (t, n, r, o, a, i, l) {
@@ -214,33 +213,20 @@ __d(
       f,
       g = [];
     function h(e) {
-      var t = o("react-compiler-runtime").c(5),
-        n;
-      t[0] !== e
-        ? ((n = function () {
-            if (e != null) {
-              var t = y(e);
-              return function () {
-                return b(t);
-              };
-            }
-          }),
-          (t[0] = e),
-          (t[1] = n))
-        : (n = t[1]);
-      var a = r("useWAWebStableCallback")(n),
-        i,
-        l;
-      (t[2] !== a
-        ? ((i = function () {
-            return a();
-          }),
-          (l = [a]),
-          (t[2] = a),
-          (t[3] = i),
-          (t[4] = l))
-        : ((i = t[3]), (l = t[4])),
-        p(i, l));
+      var t = r("useWAWebStableCallback")(function () {
+        if (e != null) {
+          var t = y(e);
+          return function () {
+            return b(t);
+          };
+        }
+      });
+      p(
+        function () {
+          return t();
+        },
+        [t],
+      );
     }
     function y(e) {
       var t,

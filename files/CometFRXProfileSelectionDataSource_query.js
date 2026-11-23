@@ -1,15 +1,17 @@
 __d(
   "CometFRXProfileSelectionDataSource.query",
-  ["CometFRXProfileSelectionDataSourceQuery.graphql"],
+  ["CometFRXProfileSelectionDataSourceQuery.graphql", "react"],
   function (t, n, r, o, a, i, l) {
     "use strict";
     var e,
-      s = 32,
-      u =
+      s,
+      u = s || (s = o("react")),
+      c = 32,
+      d =
         e !== void 0
           ? e
           : (e = n("CometFRXProfileSelectionDataSourceQuery.graphql"));
-    function c(e) {
+    function m(e) {
       var t = e == null ? void 0 : e.cix_frx_evidence_profile_search;
       return t == null
         ? []
@@ -28,7 +30,7 @@ __d(
                     rawData: {
                       category: e.category,
                       fanCount: e.fan_count,
-                      iconSize: s,
+                      iconSize: c,
                       iconUrl: o,
                       verifiedStatus: e.verified_status,
                     },
@@ -37,7 +39,7 @@ __d(
             })
             .filter(Boolean);
     }
-    ((l.ICON_SIZE = s), (l.query = u), (l.normalize = c));
+    ((l.ICON_SIZE = c), (l.query = d), (l.normalize = m));
   },
   98,
 );

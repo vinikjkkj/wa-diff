@@ -1,7 +1,6 @@
 __d(
   "WAWebGroupAgentPrivacyNotice",
   [
-    "Promise",
     "WALogger",
     "WAWebBotGroupGatingUtils",
     "WAWebBotProduct",
@@ -19,21 +18,19 @@ __d(
     "WAWebSchemaChat",
     "WAWebUserUtils",
     "WAWebWidFactory",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
     var e,
       s,
-      u,
-      c = "privacynotice",
-      d = "genericprivacynotice",
-      m = "thirdpartyprivacynotice",
-      p = "metaaiopennotice",
-      _ = "metaaiteenotice",
-      f = { hasAgentWithoutProfile: !1, hasMuse: !1, thirdPartyAgent: null };
-    function g(e, t) {
-      return B(
+      u = "privacynotice",
+      c = "genericprivacynotice",
+      d = "thirdpartyprivacynotice",
+      m = "metaaiopennotice",
+      p = "metaaiteenotice",
+      _ = { hasAgentWithoutProfile: !1, hasMuse: !1, thirdPartyAgent: null };
+    function f(e, t) {
+      return x(
         o("WAWebContactSystemMsg").genNotificationMsg(e, {
           type: "notification_template",
           kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
@@ -45,11 +42,11 @@ __d(
           ],
         }),
         t,
-        c,
+        u,
       );
     }
-    function h(e, t) {
-      return B(
+    function g(e, t) {
+      return x(
         o("WAWebContactSystemMsg").genNotificationMsg(e, {
           type: "notification_template",
           kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
@@ -61,11 +58,11 @@ __d(
           ],
         }),
         t,
-        d,
+        c,
       );
     }
-    function y(e, t, n) {
-      return B(
+    function h(e, t, n) {
+      return x(
         o("WAWebContactSystemMsg").genNotificationMsg(e, {
           type: "notification_template",
           kind: o("WAWebMsgType").MsgKind.NotificationTemplate,
@@ -78,10 +75,10 @@ __d(
           ],
         }),
         n,
-        m,
+        d,
       );
     }
-    function C(e) {
+    function y(e) {
       var t = e.meta,
         n = e.participants,
         r = o("WAWebBotUtils").participantListIncludeOpenOrTeeGroupBotWid(n),
@@ -94,7 +91,7 @@ __d(
                 msg: o(
                   "WAWebGroupSystemMsg",
                 ).genGroupTransitionToBotGroupNotificationMsg(t.chatId),
-                suffix: p,
+                suffix: m,
               }
             : null,
           o("WAWebBotGroupGatingUtils").isTEEGroupBotParticipantAddEnabled() &&
@@ -103,7 +100,7 @@ __d(
                 msg: o(
                   "WAWebGroupSystemMsg",
                 ).genGroupTransitionToTeeBotGroupNotificationMsg(t.chatId),
-                suffix: _,
+                suffix: p,
               }
             : null,
         ].filter(Boolean);
@@ -111,267 +108,205 @@ __d(
         var n = e.msg,
           r = e.suffix;
         return o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
-          ? B(n, t, r)
+          ? x(n, t, r)
           : n;
       });
     }
-    function b(e) {
-      return v.apply(this, arguments);
+    async function C(e) {
+      var t,
+        n = e.addedParticipants,
+        r = e.meta;
+      if (
+        !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
+        !n.some(function (e) {
+          var t = e.id;
+          return o("WAWebUserUtils").isMeAccount(t);
+        })
+      )
+        return y({ meta: r, participants: n });
+      var a = await o("WAWebGroupsParticipantsApi").getParticipants(r.chatId),
+        i = ((t = a == null ? void 0 : a.participants) != null ? t : []).map(
+          function (e) {
+            return {
+              id: o("WAWebWidFactory").createWid(e),
+              isAdmin: !1,
+              isSuperAdmin: !1,
+            };
+          },
+        );
+      return y({ meta: r, participants: [].concat(n, i) });
     }
-    function v() {
-      return (
-        (v = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.addedParticipants,
-            r = e.meta;
-          if (
-            !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
-            !n.some(function (e) {
-              var t = e.id;
-              return o("WAWebUserUtils").isMeAccount(t);
-            })
-          )
-            return C({ meta: r, participants: n });
-          var a = yield o("WAWebGroupsParticipantsApi").getParticipants(
-              r.chatId,
-            ),
-            i = (
-              (t = a == null ? void 0 : a.participants) != null ? t : []
-            ).map(function (e) {
-              return {
-                id: o("WAWebWidFactory").createWid(e),
-                isAdmin: !1,
-                isSuperAdmin: !1,
-              };
-            });
-          return C({ meta: r, participants: [].concat(n, i) });
-        })),
-        v.apply(this, arguments)
-      );
-    }
-    function S(e, t) {
+    function b(e, t) {
       return o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
         ? [].concat(e, t)
         : [].concat(t, e);
     }
-    function R(e) {
-      return L.apply(this, arguments);
+    async function v(e) {
+      var t = e.meta,
+        n = e.participants;
+      if (!o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled())
+        return [];
+      var r = await R({
+        chatId: t.chatId,
+        meta: t,
+        participantIds: n.map(function (e) {
+          var t = e.id;
+          return t;
+        }),
+      });
+      return [].concat(r, y({ meta: t, participants: n }));
     }
-    function L() {
-      return (
-        (L = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.meta,
-            n = e.participants;
-          if (!o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled())
-            return [];
-          var r = yield I({
-            chatId: t.chatId,
-            meta: t,
-            participantIds: n.map(function (e) {
-              var t = e.id;
-              return t;
-            }),
+    async function S(e) {
+      var t,
+        n = e.addedParticipantIds,
+        r = e.chatId,
+        a = e.meta;
+      if (!o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled())
+        return [];
+      var i = await o("WAWebGroupsParticipantsApi").getParticipants(r),
+        l = new Set(
+          n.map(function (e) {
+            return e.toString();
+          }),
+        ),
+        s = ((t = i == null ? void 0 : i.participants) != null ? t : [])
+          .filter(function (e) {
+            return !l.has(e);
+          })
+          .map(function (e) {
+            return o("WAWebWidFactory").createWid(e);
           });
-          return [].concat(r, C({ meta: t, participants: n }));
-        })),
-        L.apply(this, arguments)
-      );
+      return k({ addedIds: n, chatId: r, meta: a, prevIds: s });
     }
-    function E(e) {
-      return k.apply(this, arguments);
+    async function R(e) {
+      var t = e.chatId,
+        n = e.meta,
+        r = e.participantIds;
+      if (!o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled())
+        return [];
+      var a = await D(r);
+      return [
+        T({ chatId: t, meta: n, types: a }),
+        a.thirdPartyAgent != null ? h(t, a.thirdPartyAgent, n) : null,
+      ].filter(Boolean);
     }
-    function k() {
-      return (
-        (k = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.addedParticipantIds,
-            r = e.chatId,
-            a = e.meta;
-          if (!o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled())
-            return [];
-          var i = yield o("WAWebGroupsParticipantsApi").getParticipants(r),
-            l = new Set(
-              n.map(function (e) {
-                return e.toString();
-              }),
-            ),
-            s = ((t = i == null ? void 0 : i.participants) != null ? t : [])
-              .filter(function (e) {
-                return !l.has(e);
-              })
-              .map(function (e) {
-                return o("WAWebWidFactory").createWid(e);
-              });
-          return N({ addedIds: n, chatId: r, meta: a, prevIds: s });
-        })),
-        k.apply(this, arguments)
-      );
-    }
-    function I(e) {
-      return T.apply(this, arguments);
-    }
-    function T() {
-      return (
-        (T = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chatId,
-            n = e.meta,
-            r = e.participantIds;
-          if (!o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled())
-            return [];
-          var a = yield F(r);
-          return [
-            A({ chatId: t, meta: n, types: a }),
-            a.thirdPartyAgent != null ? y(t, a.thirdPartyAgent, n) : null,
-          ].filter(Boolean);
-        })),
-        T.apply(this, arguments)
-      );
-    }
-    function D(e) {
-      return x.apply(this, arguments);
-    }
-    function x() {
-      return (
-        (x = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
+    async function L(t) {
+      if (
+        !(
+          !t.isGroup() ||
+          !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
+        )
+      )
+        try {
+          var n,
+            a = await Promise.all([
+              o("WAWebGroupsParticipantsApi").getParticipants(t),
+              o("WAWebSchemaChat").getChatTable().get(t.toString()),
+            ]),
+            i = a[0],
+            l = a[1];
           if (
-            !(
-              !t.isGroup() ||
-              !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled()
-            )
+            !o(
+              "WAWebGroupsParticipantsApi",
+            ).checkMyMembershipForParticipantRecord(i) ||
+            (l == null ? void 0 : l.isReadOnly) === !0
           )
-            try {
-              var a,
-                i = yield (u || (u = n("Promise"))).all([
-                  o("WAWebGroupsParticipantsApi").getParticipants(t),
-                  o("WAWebSchemaChat").getChatTable().get(t.toString()),
-                ]),
-                l = i[0],
-                s = i[1];
-              if (
-                !o(
-                  "WAWebGroupsParticipantsApi",
-                ).checkMyMembershipForParticipantRecord(l) ||
-                (s == null ? void 0 : s.isReadOnly) === !0
-              )
-                return;
-              var c = (
-                  (a = l == null ? void 0 : l.participants) != null ? a : []
-                ).map(function (e) {
-                  return o("WAWebWidFactory").createWid(e);
-                }),
-                d = c.map(function (e) {
-                  return { id: e, isAdmin: !1, isSuperAdmin: !1 };
-                }),
-                m = yield I({ chatId: t, participantIds: c }),
-                p = [].concat(
-                  m,
-                  C({ meta: { author: null, chatId: t }, participants: d }),
-                );
-              yield u.all(
-                p.map(function (e) {
-                  return o(
-                    "WAWebHandleSingleMsgWorkerCompatible",
-                  ).handleSingleMsg({
-                    chatId: t,
-                    newMsg: e,
-                    handleSingleMsgOrigin: "botGroup",
-                  });
-                }),
-              );
-            } catch (t) {
-              o("WALogger")
-                .ERROR(
-                  e ||
-                    (e = babelHelpers.taggedTemplateLiteralLoose([
-                      "[groupAgentPrivacyNotice] insert after clear chat failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(t))
-                .sendLogs("group-agent-privacy-notice-clear-chat-error");
-            }
-        })),
-        x.apply(this, arguments)
-      );
-    }
-    function $(e) {
-      return P.apply(this, arguments);
-    }
-    function P() {
-      return (
-        (P = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.currentParticipantIds,
-            r = e.groupWid,
-            a = e.prevParticipantIds;
-          if (
-            !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
-            a == null
-          )
-            return !1;
-          var i = new Set(a),
-            l = t.filter(function (e) {
-              return !i.has(e.toString());
-            });
-          if (l.length === 0) return !1;
-          var s = yield N({
-            addedIds: l,
-            chatId: r,
-            prevIds: a.map(function (e) {
+            return;
+          var s = (
+              (n = i == null ? void 0 : i.participants) != null ? n : []
+            ).map(function (e) {
               return o("WAWebWidFactory").createWid(e);
             }),
-          });
-          return (
-            yield (u || (u = n("Promise"))).all(
-              s.map(function (e) {
-                return o(
-                  "WAWebHandleSingleMsgWorkerCompatible",
-                ).handleSingleMsg({
-                  chatId: r,
-                  newMsg: e,
-                  handleSingleMsgOrigin: "botGroup",
-                });
-              }),
-            ),
-            s.length > 0
+            u = s.map(function (e) {
+              return { id: e, isAdmin: !1, isSuperAdmin: !1 };
+            }),
+            c = await R({ chatId: t, participantIds: s }),
+            d = [].concat(
+              c,
+              y({ meta: { author: null, chatId: t }, participants: u }),
+            );
+          await Promise.all(
+            d.map(function (e) {
+              return o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+                chatId: t,
+                newMsg: e,
+                handleSingleMsgOrigin: "botGroup",
+              });
+            }),
           );
-        })),
-        P.apply(this, arguments)
-      );
+        } catch (t) {
+          o("WALogger")
+            .ERROR(
+              e ||
+                (e = babelHelpers.taggedTemplateLiteralLoose([
+                  "[groupAgentPrivacyNotice] insert after clear chat failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(t))
+            .sendLogs("group-agent-privacy-notice-clear-chat-error");
+        }
     }
-    function N(e) {
-      return M.apply(this, arguments);
-    }
-    function M() {
+    async function E(e) {
+      var t = e.currentParticipantIds,
+        n = e.groupWid,
+        r = e.prevParticipantIds;
+      if (
+        !o("WAWebBotGroupGatingUtils").isStandardBotProfileGroupEnabled() ||
+        r == null
+      )
+        return !1;
+      var a = new Set(r),
+        i = t.filter(function (e) {
+          return !a.has(e.toString());
+        });
+      if (i.length === 0) return !1;
+      var l = await k({
+        addedIds: i,
+        chatId: n,
+        prevIds: r.map(function (e) {
+          return o("WAWebWidFactory").createWid(e);
+        }),
+      });
       return (
-        (M = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.addedIds,
-            r = e.chatId,
-            a = e.meta,
-            i = e.prevIds,
-            l = yield (u || (u = n("Promise"))).all([F(t), F(i)]),
-            s = l[0],
-            c = l[1],
-            d =
-              t.some(function (e) {
-                return o("WAWebUserUtils").isMeAccount(e);
-              }) &&
-              !i.some(function (e) {
-                return o("WAWebUserUtils").isMeAccount(e);
-              }),
-            m = w({ addedTypes: s, addsMe: d, prevTypes: c }),
-            p =
-              s.thirdPartyAgent != null && c.thirdPartyAgent == null
-                ? s.thirdPartyAgent
-                : null,
-            _ = p != null ? p : d ? c.thirdPartyAgent : null;
-          return [
-            A({ chatId: r, meta: a, types: m }),
-            _ != null ? y(r, _, a) : null,
-          ].filter(Boolean);
-        })),
-        M.apply(this, arguments)
+        await Promise.all(
+          l.map(function (e) {
+            return o("WAWebHandleSingleMsgWorkerCompatible").handleSingleMsg({
+              chatId: n,
+              newMsg: e,
+              handleSingleMsgOrigin: "botGroup",
+            });
+          }),
+        ),
+        l.length > 0
       );
     }
-    function w(e) {
+    async function k(e) {
+      var t = e.addedIds,
+        n = e.chatId,
+        r = e.meta,
+        a = e.prevIds,
+        i = await Promise.all([D(t), D(a)]),
+        l = i[0],
+        s = i[1],
+        u =
+          t.some(function (e) {
+            return o("WAWebUserUtils").isMeAccount(e);
+          }) &&
+          !a.some(function (e) {
+            return o("WAWebUserUtils").isMeAccount(e);
+          }),
+        c = I({ addedTypes: l, addsMe: u, prevTypes: s }),
+        d =
+          l.thirdPartyAgent != null && s.thirdPartyAgent == null
+            ? l.thirdPartyAgent
+            : null,
+        m = d != null ? d : u ? s.thirdPartyAgent : null;
+      return [
+        T({ chatId: n, meta: r, types: c }),
+        m != null ? h(n, m, r) : null,
+      ].filter(Boolean);
+    }
+    function I(e) {
       var t = e.addedTypes,
         n = e.addsMe,
         r = e.prevTypes;
@@ -383,70 +318,62 @@ __d(
             thirdPartyAgent: null,
           }
         : r.hasMuse
-          ? f
+          ? _
           : t;
     }
-    function A(e) {
+    function T(e) {
       var t = e.chatId,
         n = e.meta,
         r = e.types;
-      return r.hasMuse ? g(t, n) : r.hasAgentWithoutProfile ? h(t, n) : null;
+      return r.hasMuse ? f(t, n) : r.hasAgentWithoutProfile ? g(t, n) : null;
     }
-    function F(e) {
-      return O.apply(this, arguments);
-    }
-    function O() {
-      return (
-        (O = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.filter(function (e) {
-            return o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e);
-          });
-          if (t.length === 0) return f;
-          try {
-            var n = yield o("WAWebSchemaBotProfile")
-                .getBotProfileTable()
-                .bulkGet(
-                  t.map(function (e) {
-                    return e.toString();
-                  }),
-                ),
-              a = !1,
-              i = !1,
-              l = null;
-            return (
-              n.forEach(function (e, n) {
-                var r = o("WAWebBotProduct").botProductFromServerValue(
-                  e == null ? void 0 : e.product,
-                );
-                (e == null ? void 0 : e.product) == null || e.product === ""
-                  ? (a = !0)
-                  : o("WAWebBotProduct").isMuseAgentProduct(t[n], r)
-                    ? (i = !0)
-                    : r === o("WAWebBotProduct").BotProduct.THIRD_PARTY &&
-                      l == null &&
-                      (l = t[n]);
+    async function D(e) {
+      var t = e.filter(function (e) {
+        return o("WAWebBotUtils").isWidStandardGroupAgentFbidWid(e);
+      });
+      if (t.length === 0) return _;
+      try {
+        var n = await o("WAWebSchemaBotProfile")
+            .getBotProfileTable()
+            .bulkGet(
+              t.map(function (e) {
+                return e.toString();
               }),
-              { hasAgentWithoutProfile: a, hasMuse: i, thirdPartyAgent: l }
+            ),
+          a = !1,
+          i = !1,
+          l = null;
+        return (
+          n.forEach(function (e, n) {
+            var r = o("WAWebBotProduct").botProductFromServerValue(
+              e == null ? void 0 : e.product,
             );
-          } catch (e) {
-            return (
-              o("WALogger")
-                .WARN(
-                  s ||
-                    (s = babelHelpers.taggedTemplateLiteralLoose([
-                      "[groupAgentPrivacyNotice] bot profile read failed",
-                    ])),
-                )
-                .catching(r("getErrorSafe")(e))
-                .sendLogs("group-agent-privacy-notice-profile-read-failed"),
-              babelHelpers.extends({}, f, { hasAgentWithoutProfile: !0 })
-            );
-          }
-        })),
-        O.apply(this, arguments)
-      );
+            (e == null ? void 0 : e.product) == null || e.product === ""
+              ? (a = !0)
+              : o("WAWebBotProduct").isMuseAgentProduct(t[n], r)
+                ? (i = !0)
+                : r === o("WAWebBotProduct").BotProduct.THIRD_PARTY &&
+                  l == null &&
+                  (l = t[n]);
+          }),
+          { hasAgentWithoutProfile: a, hasMuse: i, thirdPartyAgent: l }
+        );
+      } catch (e) {
+        return (
+          o("WALogger")
+            .WARN(
+              s ||
+                (s = babelHelpers.taggedTemplateLiteralLoose([
+                  "[groupAgentPrivacyNotice] bot profile read failed",
+                ])),
+            )
+            .catching(r("getErrorSafe")(e))
+            .sendLogs("group-agent-privacy-notice-profile-read-failed"),
+          babelHelpers.extends({}, _, { hasAgentWithoutProfile: !0 })
+        );
+      }
     }
-    function B(e, t, n) {
+    function x(e, t, n) {
       var a = t == null ? void 0 : t.externalId;
       if (t == null || a == null) return e;
       var i = t.chatId,
@@ -464,14 +391,14 @@ __d(
         t: l != null ? l : e.t,
       });
     }
-    ((l.genMetaAiGroupNoticeMsgs = C),
-      (l.genMetaAiGroupNoticeMsgsForAdd = b),
-      (l.orderGroupAgentNoticesAndRows = S),
-      (l.genGroupAgentNoticeMsgsForCreate = R),
-      (l.genGroupAgentPrivacyNoticeMsgsForAdd = E),
-      (l.genGroupAgentPrivacyNoticeMsgsForParticipants = I),
-      (l.insertGroupAgentPrivacyNoticeAfterClearIfRequired = D),
-      (l.insertGroupAgentPrivacyNoticeForMetadataIfRequired = $));
+    ((l.genMetaAiGroupNoticeMsgs = y),
+      (l.genMetaAiGroupNoticeMsgsForAdd = C),
+      (l.orderGroupAgentNoticesAndRows = b),
+      (l.genGroupAgentNoticeMsgsForCreate = v),
+      (l.genGroupAgentPrivacyNoticeMsgsForAdd = S),
+      (l.genGroupAgentPrivacyNoticeMsgsForParticipants = R),
+      (l.insertGroupAgentPrivacyNoticeAfterClearIfRequired = L),
+      (l.insertGroupAgentPrivacyNoticeForMetadataIfRequired = E));
   },
   98,
 );

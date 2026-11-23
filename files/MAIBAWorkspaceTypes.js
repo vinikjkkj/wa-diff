@@ -3,7 +3,15 @@ __d(
   [],
   function (t, n, r, o, a, i) {
     "use strict";
-    function e(e) {
+    function e(t) {
+      var n,
+        r = t.children;
+      return babelHelpers.extends({}, t, {
+        children: (r != null ? r : []).map(e),
+        text: (n = t.text) != null ? n : null,
+      });
+    }
+    function l(e) {
       if (e == null || e === "") return {};
       try {
         var t = JSON.parse(e);
@@ -11,19 +19,19 @@ __d(
       } catch (e) {}
       return {};
     }
-    function l(e) {
-      if (e == null || e === "") return [];
+    function s(t) {
+      if (t == null || t === "") return [];
       try {
-        var t = JSON.parse(e);
-        if (Array.isArray(t)) return t;
+        var n = JSON.parse(t);
+        if (Array.isArray(n)) return n.map(e);
       } catch (e) {}
       return [];
     }
-    function s(e) {
+    function u(e) {
       return e.workspace_type != null && e.workspace_type !== "";
     }
-    var u = "__implicit__";
-    function c(e) {
+    var c = "__implicit__";
+    function d(e) {
       var t = {},
         n = null;
       function r(e, o) {
@@ -52,16 +60,16 @@ __d(
       if (n == null) {
         var a,
           i = {
-            attrs: { id: u, kind: "campaign" },
+            attrs: { id: c, kind: "campaign" },
             children: e,
             tag: "ws-view",
             text: null,
           };
-        return { rootViewId: u, viewMap: ((a = {}), (a[u] = i), a) };
+        return { rootViewId: c, viewMap: ((a = {}), (a[c] = i), a) };
       }
       return { rootViewId: n, viewMap: t };
     }
-    function d(e, t, n, r) {
+    function m(e, t, n, r) {
       var o = function (t) {
           return {
             attrs: { kind: t },
@@ -146,12 +154,12 @@ __d(
         },
       ];
     }
-    ((i.parseAttributesJSON = e),
-      (i.parseBlocksJSON = l),
-      (i.isWorkspaceEnvelopeComplete = s),
-      (i.IMPLICIT_VIEW_ID = u),
-      (i.getViewStackFromBlocks = c),
-      (i.buildAdDraftEditorBlocks = d));
+    ((i.parseAttributesJSON = l),
+      (i.parseBlocksJSON = s),
+      (i.isWorkspaceEnvelopeComplete = u),
+      (i.IMPLICIT_VIEW_ID = c),
+      (i.getViewStackFromBlocks = d),
+      (i.buildAdDraftEditorBlocks = m));
   },
   66,
 );

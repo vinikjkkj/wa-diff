@@ -83,10 +83,10 @@ __d(
         ? f.apiPositionsTargetField(n.capabilities)
         : null;
       if (!g) return p;
-      var h = u(p, t, n),
-        C = c((s = h.targeting) == null ? void 0 : s.get(g), f, n, a);
-      if (C.size === 0) return ((p = y(p, t, n, l)), p);
-      p = h.updateIn(["targeting", g], function (e) {
+      var y = u(p, t, n),
+        C = c((s = y.targeting) == null ? void 0 : s.get(g), f, n, a);
+      if (C.size === 0) return ((p = h(p, t, n, l)), p);
+      p = y.updateIn(["targeting", g], function (e) {
         return C;
       });
       var b = r("AdsTargetingAccountControlInfoProvider")
@@ -118,11 +118,14 @@ __d(
         d(e, t, n, !1, !1, o)
       );
     }
-    function p(e, t, n, o) {
-      return (
-        o === void 0 &&
-          (o = r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL),
-        d(e, t, n, !0, !0, o)
+    function p(e, t, n) {
+      return d(
+        e,
+        t,
+        n,
+        !0,
+        !0,
+        r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL,
       );
     }
     function _(e, t, n, a) {
@@ -150,34 +153,36 @@ __d(
                     return e.isActive(t.spec);
                   }),
                 ).reduce(function (e, a) {
-                  return n.includes(a.key) ? e : k(e, a.key, t, r, o);
+                  return n.includes(a.key) ? e : E(e, a.key, t, r, o);
                 }, i);
               }
             })),
         i
       );
     }
-    function f(e, t, n) {
-      n === void 0 &&
-        (n = r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL);
-      var a = e.spec,
-        i = o(
+    function f(e, t) {
+      var n = e.spec,
+        a = o(
           "AdsCampaignRawSpecUtils",
-        ).handleAutomaticPlacementForPlacementSpec(a, e, n);
-      if (i === "JUST_RETURN") return a;
-      a = i;
-      var l = babelHelpers.extends({}, a);
+        ).handleAutomaticPlacementForPlacementSpec(
+          n,
+          e,
+          r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL,
+        );
+      if (a === "JUST_RETURN") return n;
+      n = a;
+      var i = babelHelpers.extends({}, n);
       return (
-        (l[r("AdsAPITargetFields").PUBLISHER_PLATFORMS] = [t]),
+        (i[r("AdsAPITargetFields").PUBLISHER_PLATFORMS] = [t]),
         o("AdsPlacementPluginList")
           .getOrderedPlatforms(e)
           .forEach(function (n) {
             var r = n.apiPositionsTargetField
               ? n.apiPositionsTargetField(e.capabilities)
               : null;
-            n.apiPublisherPlatform !== t && r && delete l[r];
+            n.apiPublisherPlatform !== t && r && delete i[r];
           }),
-        l
+        i
       );
     }
     function g(e, t, n, a, i, l) {
@@ -198,47 +203,22 @@ __d(
         c != null &&
           c[r("AdsAPITargetFields").PUBLISHER_PLATFORMS] != null &&
           c[r("AdsAPITargetFields").PUBLISHER_PLATFORMS].forEach(function (e) {
-            s = y(s, e, t);
+            s = h(s, e, t);
           }),
-        S(s, n, t, a, i, l)
+        v(s, n, t, a, i, l)
       );
     }
-    function h(e, t, n, a, i, l) {
-      l === void 0 &&
-        (l = r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL);
-      var s = e,
-        u = o("AdsCampaignRawSpecUtils").handleAutomaticPlacementForCampaign(
-          s,
-          t,
-          l,
-        );
-      if (u === "JUST_RETURN") return s;
-      s = u;
-      var c = o(
-        "adsPlacementAPISpecReaderConvertCampaignRecordToPlacementSpec",
-      ).convertCampaignRecordToPlacementSpec(s);
-      return (
-        c != null &&
-          c[r("AdsAPITargetFields").PUBLISHER_PLATFORMS] != null &&
-          c[r("AdsAPITargetFields").PUBLISHER_PLATFORMS].forEach(function (e) {
-            s = y(s, e, t);
-          }),
-        n.reduce(function (e, n) {
-          return S(e, n, t, a, i, l);
-        }, s)
-      );
-    }
-    function y(e, t, n, a) {
+    function h(e, t, n, a) {
       a === void 0 &&
         (a = r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL);
-      var i = C(e, t, n, a);
+      var i = y(e, t, n, a);
       return o(
         "AdsPlacementDependentPlatformGatingUtils",
       ).isOrphanedDependentPlatformRemovalEnabled()
-        ? b(i, n, a)
+        ? C(i, n, a)
         : i;
     }
-    function C(e, t, n, a) {
+    function y(e, t, n, a) {
       var i = e,
         l = o("AdsCampaignRawSpecUtils").handleAutomaticPlacementForCampaign(
           i,
@@ -276,7 +256,7 @@ __d(
           )
         : i;
     }
-    function b(e, t, n) {
+    function C(e, t, n) {
       for (
         var a = o(
             "AdsUEditorCampaignManualPlacementDependenciesUtils",
@@ -323,7 +303,7 @@ __d(
                 );
               });
             if (m != null) {
-              var p = C(s, m.apiPublisherPlatform, t, n);
+              var p = y(s, m.apiPublisherPlatform, t, n);
               p !== s && ((s = p), (u = !0));
             }
           };
@@ -331,7 +311,7 @@ __d(
       );
       return s;
     }
-    function v(e, t) {
+    function b(e, t) {
       return o("AdsPlacementPluginList")
         .getPositions(t)
         .filter(function (n) {
@@ -345,7 +325,7 @@ __d(
           return e.apiPosition;
         });
     }
-    function S(e, t, n, a, i, l) {
+    function v(e, t, n, a, i, l) {
       l === void 0 &&
         (l = r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL);
       var s = e,
@@ -356,7 +336,7 @@ __d(
         );
       if (c === "JUST_RETURN") return s;
       s = c;
-      var d = v(t, n);
+      var d = b(t, n);
       return d.size === 0
         ? (r("FBLogger")("ads").warn(
             "Trying to add ineligible position: %s in %s",
@@ -369,7 +349,7 @@ __d(
             return t.union(d);
           });
     }
-    function R(e) {
+    function S(e) {
       return o("AdsPlacementPluginList")
         .getAllPositions()
         .filter(function (t) {
@@ -379,7 +359,7 @@ __d(
           return e.apiPosition;
         });
     }
-    function L(e, t, n, a, i, l) {
+    function R(e, t, n, a, i, l) {
       var s;
       l === void 0 &&
         (l = r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL);
@@ -392,12 +372,12 @@ __d(
       if (c === "JUST_RETURN") return u;
       ((u = c),
         (u = u.updateIn(["targeting", a], function (e) {
-          return !e || e.size === 0 ? e : e.toSet().subtract(R(t));
+          return !e || e.size === 0 ? e : e.toSet().subtract(S(t));
         })));
       var d = (s = u.targeting) == null ? void 0 : s.get(a);
-      return !d || d.size === 0 ? y(u, i, n, l) : u;
+      return !d || d.size === 0 ? h(u, i, n, l) : u;
     }
-    function E(e, t, n) {
+    function L(e, t, n) {
       return n !== r("AdsAPITargetFields").FACEBOOK_POSITIONS ||
         !o("AdsWhatsAppPlacementUtils").isWhatsAppDestinationEnabledAndSelected(
           t,
@@ -413,7 +393,7 @@ __d(
                 });
           });
     }
-    function k(e, t, n, a, i, l) {
+    function E(e, t, n, a, i, l) {
       var s;
       l === void 0 &&
         (l = r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL);
@@ -426,13 +406,13 @@ __d(
       if (c === "JUST_RETURN") return u;
       ((u = c),
         (u = u.updateIn(["targeting", a], function (e) {
-          return !e || e.size === 0 ? e : e.toSet().subtract(v(t, n));
+          return !e || e.size === 0 ? e : e.toSet().subtract(b(t, n));
         })),
-        (u = E(u, n, a)));
+        (u = L(u, n, a)));
       var d = (s = u.targeting) == null ? void 0 : s.get(a);
-      return !d || d.size === 0 ? y(u, i, n, l) : u;
+      return !d || d.size === 0 ? h(u, i, n, l) : u;
     }
-    function I(e, t, n) {
+    function k(e, t, n) {
       return function (r, a) {
         var i = a.action.pluginKey === t && a.action.pluginType === e;
         return a.action.type ===
@@ -441,47 +421,45 @@ __d(
           : r;
       };
     }
-    function T(e, t, n) {
+    function I(e, t, n) {
       if (t(e)) {
         var r = n(e);
-        if (r) return { reduce: I(e.type, e.key, r) };
+        if (r) return { reduce: k(e.type, e.key, r) };
       }
       return null;
     }
-    function D(e, t, n, a) {
-      a === void 0 &&
-        (a = r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL);
-      var i = e,
-        l = o("AdsCampaignRawSpecUtils").handleAutomaticPlacementForCampaign(
-          i,
-          t,
+    function T(e, t, n) {
+      var a = e,
+        i = o("AdsCampaignRawSpecUtils").handleAutomaticPlacementForCampaign(
           a,
+          t,
+          r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL,
         );
-      if (l === "JUST_RETURN") return i;
-      i = l;
-      var s = o(
+      if (i === "JUST_RETURN") return a;
+      a = i;
+      var l = o(
           "AdsPlacementEligibilityInfoUtils",
         ).buildEligibilityInformationFromCampaignSpec(
-          i,
+          a,
           t.buyingType,
           t.capabilities,
           t.objective,
           t.accountBlockLists,
         ),
-        u = o("AdsPlacementAPISpecReaderUtils").getDisabledDeviceTypes(s, n),
-        c = r("immutable").Set(
-          (s.spec[r("AdsAPITargetFields").USER_OS] || []).concat(
-            s.spec[r("AdsAPITargetFields").USER_DEVICE] || [],
+        s = o("AdsPlacementAPISpecReaderUtils").getDisabledDeviceTypes(l, n),
+        u = r("immutable").Set(
+          (l.spec[r("AdsAPITargetFields").USER_OS] || []).concat(
+            l.spec[r("AdsAPITargetFields").USER_DEVICE] || [],
           ),
         );
-      return c.intersect(u).size > 0
+      return u.intersect(s).size > 0
         ? o("AdsMutators").chain(
             r("AdsCampaignRecordAccessors").targeting.user_os.delete,
             r("AdsCampaignRecordAccessors").targeting.user_device.delete,
-          )(i)
-        : i;
+          )(a)
+        : a;
     }
-    function x(e, t) {
+    function D(e, t) {
       return o("AdsPlacementConstants")
         .PLACEMENT_FIELD_TO_AD_SET_PATHS.valueSeq()
         .reduce(function (t, n) {
@@ -511,44 +489,16 @@ __d(
             : t;
         }, t);
     }
-    function $(e, t, n) {
-      n === void 0 &&
-        (n = r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL);
-      var a = t,
-        i = o(
-          "AdsCampaignRawSpecUtils",
-        ).handleAutomaticPlacementForPlacementSpec(a, e, n);
-      if (i === "JUST_RETURN") return a;
-      a = i;
-      var l = babelHelpers.extends({}, a);
-      return l;
-    }
-    function P(e, t, n) {
-      n === void 0 &&
-        (n = r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL);
-      var a = e,
-        i = o("AdsCampaignRawSpecUtils").handleAutomaticPlacementForCampaign(
-          a,
-          t,
+    function x(e, t) {
+      var n = e,
+        a = o("AdsCampaignRawSpecUtils").handleAutomaticPlacementForCampaign(
           n,
+          t,
+          r("AdsAutomaticPlacementMutationBehavior").CONVERT_TO_MANUAL,
         );
-      return (i === "JUST_RETURN" || (a = i), a);
+      return (a === "JUST_RETURN" || (n = a), n);
     }
-    function N(e, t) {
-      return e.withMutations(
-        o("AdsMutators").chain(
-          r("AdsCampaignRecordAccessors").placement.set(
-            r("immutable").fromJS(
-              o(
-                "AdsPlacementAPISpecReaderUtils",
-              ).convertCampaignToPlacementSpec_LEGACY(e),
-            ),
-          ),
-          r("AdsCampaignRecordAccessors").saved_audience_id.set(t),
-        ),
-      );
-    }
-    function M(t, n, r) {
+    function $(t, n, r) {
       var o = e(r, n.eligibilityInformation);
       return o.reduce(function (e, t) {
         return t.adsetReducer != null
@@ -558,7 +508,7 @@ __d(
           : e;
       }, t);
     }
-    function w(t, n, a) {
+    function P(t, n, a) {
       var i = o("AdsPlacementPositionGroupPluginList")
           .getOrderedPositionGroups(n.eligibilityInformation)
           .filter(function (e) {
@@ -586,19 +536,16 @@ __d(
       (l.keepOnlyCompatiblePlacements = _),
       (l.keepOnlyOnePublisherPlatformInPlacementSpec = f),
       (l.removeAllPlacementsExceptOneInCampaign = g),
-      (l.removeAllPlacementsExceptSpecificOnesInCampaign = h),
-      (l.removePublisherPlatform = y),
-      (l.addGroup = S),
-      (l.removeGroupAnyway = L),
-      (l.removeGroup = k),
-      (l.createMutator = T),
-      (l.resetDevicesIfIneligible = D),
-      (l.aggregateCampaignPlacementSpecs = x),
-      (l.addAllElgiblePlatforms = $),
-      (l.removeMessengerThreadPlacement = P),
-      (l.updatePlacementSpec = N),
-      (l.addOrRemovePositionGroup = M),
-      (l.removeAllPositionGroupsExceptSpecifiedOnes = w));
+      (l.removePublisherPlatform = h),
+      (l.addGroup = v),
+      (l.removeGroupAnyway = R),
+      (l.removeGroup = E),
+      (l.createMutator = I),
+      (l.resetDevicesIfIneligible = T),
+      (l.aggregateCampaignPlacementSpecs = D),
+      (l.removeMessengerThreadPlacement = x),
+      (l.addOrRemovePositionGroup = $),
+      (l.removeAllPositionGroupsExceptSpecifiedOnes = P));
   },
   98,
 );

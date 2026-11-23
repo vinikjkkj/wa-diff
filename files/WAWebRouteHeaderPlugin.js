@@ -1,6 +1,6 @@
 __d(
   "WAWebRouteHeaderPlugin",
-  ["WAWebRoutePluginSlot", "react", "react-compiler-runtime"],
+  ["WAWebRoutePluginSlot", "react"],
   function (t, n, r, o, a, i, l) {
     var e,
       s = e || (e = o("react")),
@@ -9,25 +9,15 @@ __d(
       d = u.useState,
       m = c(null);
     function p(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n = e.children,
-        r = d(_),
-        a = r[0],
-        i;
-      return (
-        t[0] !== n || t[1] !== a
-          ? ((i = s.jsx(m, { value: a, children: n })),
-            (t[0] = n),
-            (t[1] = a),
-            (t[2] = i))
-          : (i = t[2]),
-        i
-      );
+      var t = e.children,
+        n = d(function () {
+          return o("WAWebRoutePluginSlot").WAWebRoutePluginSlot();
+        }),
+        r = n[0];
+      return s.jsx(m, { value: r, children: t });
     }
-    function _() {
-      return o("WAWebRoutePluginSlot").WAWebRoutePluginSlot();
-    }
-    l.WAWebRouteHeaderPluginProvider = p;
+    ((p.displayName = p.name + " [from " + i.id + "]"),
+      (l.WAWebRouteHeaderPluginProvider = p));
   },
   98,
 );

@@ -7,7 +7,6 @@ __d(
     "WAWebMsgGetters",
     "WAWebUseBusinessProfile.react",
     "WAWebUserUtils",
-    "react-compiler-runtime",
     "useWAWebBusinessProfileValues",
     "useWAWebMsgValues",
     "useWAWebOptionalBotProfileValues",
@@ -36,25 +35,18 @@ __d(
       return a;
     }
     function u(e) {
-      var t = o("react-compiler-runtime").c(2),
-        n;
-      e.id.remote.isBot() ? (n = e.id.remote) : (n = e.invokedBotWid);
-      var r;
-      t[0] === Symbol.for("react.memo_cache_sentinel")
-        ? ((r = [o("WAWebMsgGetters").getIsBotQuery]), (t[0] = r))
-        : (r = t[0]);
-      var a = o("useWAWebMsgValues").useMsgValues(e.id, r),
-        i = a[0],
-        l;
-      t[1] === Symbol.for("react.memo_cache_sentinel")
-        ? ((l = [o("WAWebBotProfileGetters").getCommands]), (t[1] = l))
-        : (l = t[1]);
-      var s = o("useWAWebOptionalBotProfileValues").useOptionalBotProfileValues(
-          n,
-          l,
+      var t;
+      e.id.remote.isBot() ? (t = e.id.remote) : (t = e.invokedBotWid);
+      var n = o("useWAWebMsgValues").useMsgValues(e.id, [
+          o("WAWebMsgGetters").getIsBotQuery,
+        ]),
+        r = n[0],
+        a = o("useWAWebOptionalBotProfileValues").useOptionalBotProfileValues(
+          t,
+          [o("WAWebBotProfileGetters").getCommands],
         ),
-        u = s[0];
-      return !o("WAWebBotBaseGating").isBotEnabled() || !i ? null : u;
+        i = a[0];
+      return !o("WAWebBotBaseGating").isBotEnabled() || !r ? null : i;
     }
     l.useBotCommands = e;
   },

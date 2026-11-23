@@ -1,35 +1,18 @@
 __d(
   "MAWParticipantManagementTxns",
-  [
-    "MAWDbParticipantTxns",
-    "MAWDbThreadTxns",
-    "MAWUserJidWrapper",
-    "asyncToGeneratorRuntime",
-  ],
+  ["MAWDbParticipantTxns", "MAWDbThreadTxns", "MAWUserJidWrapper"],
   function (t, n, r, o, a, i, l) {
     "use strict";
-    function e(e, t) {
-      return s.apply(this, arguments);
-    }
-    function s() {
+    async function e(e, t) {
+      var n = s(e, t),
+        r = n.mustArchiveThread,
+        a = n.result;
       return (
-        (s = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = u(e, t),
-            r = n.mustArchiveThread,
-            a = n.result;
-          return (
-            r &&
-              (yield o("MAWDbThreadTxns").archiveThreadsNonTransaction(
-                [e],
-                !0,
-              )),
-            a
-          );
-        })),
-        s.apply(this, arguments)
+        r && (await o("MAWDbThreadTxns").archiveThreadsNonTransaction([e], !0)),
+        a
       );
     }
-    function u(e, t) {
+    function s(e, t) {
       var n = o("MAWDbParticipantTxns").getParticipantsInThread(e);
       if (t.length === 0 && n.length === 0)
         return {

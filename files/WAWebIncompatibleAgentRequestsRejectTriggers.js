@@ -6,7 +6,6 @@ __d(
     "WAWebBackendEventBus",
     "WAWebRuntimeEnvironmentUtils",
     "WAWebSentGroupAgentRequests",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
   ],
   function (t, n, r, o, a, i, l) {
@@ -20,12 +19,12 @@ __d(
           return e.isFbidBot();
         });
         o.length > 0 &&
-          _(function (t) {
+          p(function (t) {
             return t.rejectIncompatibleAgentRequestsOfJoinedAgents(e, o);
           });
         return;
       }
-      _(function (o) {
+      p(function (o) {
         return o.rejectIncompatibleAgentRequestsAfterAnswer(e, t, n, r);
       });
     }
@@ -34,7 +33,7 @@ __d(
         !t.some(function (e) {
           return e.isFbidBot();
         }) ||
-        _(function (n) {
+        p(function (n) {
           return n.rejectIncompatibleAgentRequestsAfterAddNotification(e, t);
         });
     }
@@ -46,43 +45,27 @@ __d(
           },
         );
     }
-    function m() {
-      return p.apply(this, arguments);
+    async function m() {
+      try {
+        var e = await o(
+          "WAWebSentGroupAgentRequests",
+        ).getSentGroupAgentRequestGroupWids();
+        e.length > 0 &&
+          (await p(function (t) {
+            return t.rejectIncompatibleAgentRequestsOfStoredSentAgents(e);
+          }));
+      } catch (e) {
+        _(e);
+      }
     }
-    function p() {
-      return (
-        (p = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = yield o(
-              "WAWebSentGroupAgentRequests",
-            ).getSentGroupAgentRequestGroupWids();
-            e.length > 0 &&
-              (yield _(function (t) {
-                return t.rejectIncompatibleAgentRequestsOfStoredSentAgents(e);
-              }));
-          } catch (e) {
-            g(e);
-          }
-        })),
-        p.apply(this, arguments)
-      );
+    async function p(e) {
+      try {
+        await e(await s.load());
+      } catch (e) {
+        _(e);
+      }
     }
-    function _(e) {
-      return f.apply(this, arguments);
-    }
-    function f() {
-      return (
-        (f = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          try {
-            yield e(yield s.load());
-          } catch (e) {
-            g(e);
-          }
-        })),
-        f.apply(this, arguments)
-      );
-    }
-    function g(t) {
+    function _(t) {
       o("WALogger")
         .ERROR(
           e ||

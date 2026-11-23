@@ -37,7 +37,6 @@ __d(
     "WAWebUpdateEphemeralSettingChatAction",
     "WAWebUserUtils",
     "WAWebWamEnumEsrFailureReasonType",
-    "asyncToGeneratorRuntime",
     "err",
     "gkx",
   ],
@@ -50,308 +49,280 @@ __d(
       (o("WAWebABProps").getABPropConfigValue("ephemeral_sync_response"),
         o("WAWebABProps").getABPropConfigValue("dm_reliability_logging"));
     }
-    function x(e) {
-      return $.apply(this, arguments);
-    }
-    function $() {
-      return (
-        ($ = n("asyncToGeneratorRuntime").asyncToGenerator(function* (t) {
-          o("WALogger").LOG(
-            e ||
-              (e = babelHelpers.taggedTemplateLiteralLoose([
-                "[DMResolve] setting ephemeralOutOfSync on msg",
-              ])),
-          );
-          var n = { ephemeralOutOfSync: !0 };
-          (T() &&
-            (yield (
-              o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                ? o("WAWebBackendRuntime").runtime(
-                    o("WAWebMessageStoreService").MessageStoreService,
-                  ).updateMessageTable
-                : o("WAWebDBUpdateMessageTable").updateMessageTable
-            )(t.id, n)),
-            (t.ephemeralOutOfSync = !0));
-          var r = o("WAWebMsgCollection").MsgCollection.get(t.id);
-          r && r.set(n);
-        })),
-        $.apply(this, arguments)
+    async function x(t) {
+      o("WALogger").LOG(
+        e ||
+          (e = babelHelpers.taggedTemplateLiteralLoose([
+            "[DMResolve] setting ephemeralOutOfSync on msg",
+          ])),
       );
+      var n = { ephemeralOutOfSync: !0 };
+      (T() &&
+        (await (
+          o("WAWebBackendRuntime").isWebDiBackendEnabled()
+            ? o("WAWebBackendRuntime").runtime(
+                o("WAWebMessageStoreService").MessageStoreService,
+              ).updateMessageTable
+            : o("WAWebDBUpdateMessageTable").updateMessageTable
+        )(t.id, n)),
+        (t.ephemeralOutOfSync = !0));
+      var r = o("WAWebMsgCollection").MsgCollection.get(t.id);
+      r && r.set(n);
     }
-    function P(e) {
-      return N.apply(this, arguments);
-    }
-    function N() {
-      return (
-        (N = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = o("WAWebChatCollection").ChatCollection.get(e.id.remote);
-          if (!t)
-            throw r("err")("[DMResolve] chat model not found for ESR message");
-          if (o("WAWebChatGetters").getIsGroup(t)) {
-            o("WALogger")
-              .ERROR(
-                s ||
-                  (s = babelHelpers.taggedTemplateLiteralLoose([
-                    "[DMResolve] ESR not supported for groups ",
-                    "",
-                  ])),
-                t.id.toLogString(),
-              )
-              .sendLogs("handle-ephemeral-sync-response");
-            return;
-          }
-          if ((D(), !T())) {
+    async function $(e) {
+      var t = o("WAWebChatCollection").ChatCollection.get(e.id.remote);
+      if (!t)
+        throw r("err")("[DMResolve] chat model not found for ESR message");
+      if (o("WAWebChatGetters").getIsGroup(t)) {
+        o("WALogger")
+          .ERROR(
+            s ||
+              (s = babelHelpers.taggedTemplateLiteralLoose([
+                "[DMResolve] ESR not supported for groups ",
+                "",
+              ])),
+            t.id.toLogString(),
+          )
+          .sendLogs("handle-ephemeral-sync-response");
+        return;
+      }
+      if ((D(), !T())) {
+        o(
+          "WAWebEphemeralSyncResponseWAM",
+        ).sendEphemeralSyncResponseReceiveWamEvent({
+          chat: t,
+          failureReason: o("WAWebWamEnumEsrFailureReasonType")
+            .ESR_FAILURE_REASON_TYPE.ESR_ABPROP_OFF,
+        });
+        return;
+      }
+      if (t.contact.isEnterprise) {
+        o("WALogger").LOG(
+          u ||
+            (u = babelHelpers.taggedTemplateLiteralLoose([
+              "[DMResolve] ESR skip: enterprise contact ",
+              "",
+            ])),
+          t.id.toLogString(),
+        );
+        return;
+      }
+      o("WALogger").LOG(
+        c ||
+          (c = babelHelpers.taggedTemplateLiteralLoose([
+            "[DMResolve] processing EPHEMERAL_SYNC_RESPONSE",
+          ])),
+      );
+      var n = {
+          id: e.id,
+          type: e.type,
+          kind: e.kind,
+          ephemeralDuration: e.ephemeralDuration,
+          ephemeralSettingTimestamp: e.ephemeralSettingTimestamp,
+          disappearingModeInitiator: e.disappearingModeInitiator,
+          disappearingModeTrigger: e.disappearingModeTrigger,
+          disappearingModeInitiatedByMe: e.disappearingModeInitiatedByMe,
+        },
+        a = o("WAWebMsgEphemerality").getMsgEphemeralitySettings(n);
+      if (a != null) {
+        if (
+          !o("WAWebEphemeralIsDurationAllowed").isEphemeralDurationAllowed(
+            a.duration,
+          )
+        ) {
+          (o("WALogger").LOG(
+            d ||
+              (d = babelHelpers.taggedTemplateLiteralLoose([
+                "[DMResolve] ESR invalid duration ",
+                "s for ",
+                "",
+              ])),
+            a.duration,
+            t.id.toLogString(),
+          ),
             o(
               "WAWebEphemeralSyncResponseWAM",
             ).sendEphemeralSyncResponseReceiveWamEvent({
               chat: t,
               failureReason: o("WAWebWamEnumEsrFailureReasonType")
-                .ESR_FAILURE_REASON_TYPE.ESR_ABPROP_OFF,
-            });
-            return;
-          }
-          if (t.contact.isEnterprise) {
-            o("WALogger").LOG(
-              u ||
-                (u = babelHelpers.taggedTemplateLiteralLoose([
-                  "[DMResolve] ESR skip: enterprise contact ",
-                  "",
-                ])),
-              t.id.toLogString(),
-            );
-            return;
-          }
+                .ESR_FAILURE_REASON_TYPE.INVALID_EPHEMERAL_DURATION,
+            }));
+          return;
+        }
+        var i = o("WAWebChatEphemerality").getChatEphemeralityFields(t);
+        if (o("WAWebEphemeralityResolver").compareEphemeralityFields(i, a)) {
           o("WALogger").LOG(
-            c ||
-              (c = babelHelpers.taggedTemplateLiteralLoose([
-                "[DMResolve] processing EPHEMERAL_SYNC_RESPONSE",
+            m ||
+              (m = babelHelpers.taggedTemplateLiteralLoose([
+                "[DMResolve] ESR received, settings already in sync",
               ])),
           );
-          var n = {
-              id: e.id,
-              type: e.type,
-              kind: e.kind,
-              ephemeralDuration: e.ephemeralDuration,
-              ephemeralSettingTimestamp: e.ephemeralSettingTimestamp,
-              disappearingModeInitiator: e.disappearingModeInitiator,
-              disappearingModeTrigger: e.disappearingModeTrigger,
-              disappearingModeInitiatedByMe: e.disappearingModeInitiatedByMe,
-            },
-            a = o("WAWebMsgEphemerality").getMsgEphemeralitySettings(n);
-          if (a != null) {
-            if (
-              !o("WAWebEphemeralIsDurationAllowed").isEphemeralDurationAllowed(
-                a.duration,
-              )
-            ) {
-              (o("WALogger").LOG(
-                d ||
-                  (d = babelHelpers.taggedTemplateLiteralLoose([
-                    "[DMResolve] ESR invalid duration ",
-                    "s for ",
-                    "",
-                  ])),
-                a.duration,
-                t.id.toLogString(),
-              ),
-                o(
-                  "WAWebEphemeralSyncResponseWAM",
-                ).sendEphemeralSyncResponseReceiveWamEvent({
-                  chat: t,
-                  failureReason: o("WAWebWamEnumEsrFailureReasonType")
-                    .ESR_FAILURE_REASON_TYPE.INVALID_EPHEMERAL_DURATION,
-                }));
-              return;
-            }
-            var i = o("WAWebChatEphemerality").getChatEphemeralityFields(t);
-            if (
-              o("WAWebEphemeralityResolver").compareEphemeralityFields(i, a)
-            ) {
-              o("WALogger").LOG(
-                m ||
-                  (m = babelHelpers.taggedTemplateLiteralLoose([
-                    "[DMResolve] ESR received, settings already in sync",
-                  ])),
-              );
-              return;
-            }
-            (o("WALogger").LOG(
-              p ||
-                (p = babelHelpers.taggedTemplateLiteralLoose([
-                  "[DMResolve] Updating chat due to EPHEMERAL_SYNC_RESPONSE",
-                ])),
-            ),
-              (t.ephemeralDuration = a.duration),
-              (t.ephemeralSettingTimestamp = o(
-                "WAWebEphemeralityResolver",
-              ).resolveSettingTimestamp(a.settingTimestamp)));
-            var l = o(
-                "WAWebEphemeralityResolver",
-              ).resolveDisappearingModeTrigger(a.disappearingModeTrigger),
-              _ = o(
-                "WAWebEphemeralityResolver",
-              ).resolveDisappearingModeInitiator(a.initiator);
-            ((t.disappearingModeInitiator = _),
-              (t.disappearingModeTrigger = l),
-              (t.disappearingModeInitiatedByMe = o(
-                "WAWebEphemeralityResolver",
-              ).resolveDisappearingModeInitiatedByMe(
-                a.initiatedByMe,
-                a.initiator,
-              )),
-              yield (
-                o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                  ? o("WAWebBackendRuntime").runtime(
-                      o("WAWebChatStoreService").ChatStoreService,
-                    ).updateChatTable
-                  : o("WAWebDBUpdateChatTable").updateChatTable
-              )(t.id, {
-                ephemeralDuration: t.ephemeralDuration,
-                ephemeralSettingTimestamp: t.ephemeralSettingTimestamp,
-                disappearingModeInitiator: _,
-                disappearingModeTrigger: l,
-                disappearingModeInitiatedByMe: t.disappearingModeInitiatedByMe,
-              }),
-              o(
-                "WAWebDBChatEphemeralExemptionData",
-              ).updateEphemeralDurationCache(t.id, t.ephemeralDuration));
-            var f =
-              o("WAWebEphemeralityResolver").resolveEphermalityDuration(
-                i == null ? void 0 : i.duration,
-              ) !==
-              o("WAWebEphemeralityResolver").resolveEphermalityDuration(
-                a == null ? void 0 : a.duration,
-              );
-            (f &&
-              (yield o(
-                "WAWebEphemeralGenerateSystemMessage",
-              ).generateEphemeralNotificationTemplateSystemMessage(
-                t,
-                a.duration,
-                null,
-              )),
-              o(
-                "WAWebEphemeralSyncResponseWAM",
-              ).sendEphemeralSyncResponseReceiveWamEvent({
-                chat: t,
-                incomingESRSettings: a,
-                localChatSettings: i,
-              }));
-          }
-        })),
-        N.apply(this, arguments)
-      );
+          return;
+        }
+        (o("WALogger").LOG(
+          p ||
+            (p = babelHelpers.taggedTemplateLiteralLoose([
+              "[DMResolve] Updating chat due to EPHEMERAL_SYNC_RESPONSE",
+            ])),
+        ),
+          (t.ephemeralDuration = a.duration),
+          (t.ephemeralSettingTimestamp = o(
+            "WAWebEphemeralityResolver",
+          ).resolveSettingTimestamp(a.settingTimestamp)));
+        var l = o("WAWebEphemeralityResolver").resolveDisappearingModeTrigger(
+            a.disappearingModeTrigger,
+          ),
+          _ = o("WAWebEphemeralityResolver").resolveDisappearingModeInitiator(
+            a.initiator,
+          );
+        ((t.disappearingModeInitiator = _),
+          (t.disappearingModeTrigger = l),
+          (t.disappearingModeInitiatedByMe = o(
+            "WAWebEphemeralityResolver",
+          ).resolveDisappearingModeInitiatedByMe(a.initiatedByMe, a.initiator)),
+          await (
+            o("WAWebBackendRuntime").isWebDiBackendEnabled()
+              ? o("WAWebBackendRuntime").runtime(
+                  o("WAWebChatStoreService").ChatStoreService,
+                ).updateChatTable
+              : o("WAWebDBUpdateChatTable").updateChatTable
+          )(t.id, {
+            ephemeralDuration: t.ephemeralDuration,
+            ephemeralSettingTimestamp: t.ephemeralSettingTimestamp,
+            disappearingModeInitiator: _,
+            disappearingModeTrigger: l,
+            disappearingModeInitiatedByMe: t.disappearingModeInitiatedByMe,
+          }),
+          o("WAWebDBChatEphemeralExemptionData").updateEphemeralDurationCache(
+            t.id,
+            t.ephemeralDuration,
+          ));
+        var f =
+          o("WAWebEphemeralityResolver").resolveEphermalityDuration(
+            i == null ? void 0 : i.duration,
+          ) !==
+          o("WAWebEphemeralityResolver").resolveEphermalityDuration(
+            a == null ? void 0 : a.duration,
+          );
+        (f &&
+          (await o(
+            "WAWebEphemeralGenerateSystemMessage",
+          ).generateEphemeralNotificationTemplateSystemMessage(
+            t,
+            a.duration,
+            null,
+          )),
+          o(
+            "WAWebEphemeralSyncResponseWAM",
+          ).sendEphemeralSyncResponseReceiveWamEvent({
+            chat: t,
+            incomingESRSettings: a,
+            localChatSettings: i,
+          }));
+      }
     }
-    var M = new (o("WAWebBackoff").BackoffCache)(
+    var P = new (o("WAWebBackoff").BackoffCache)(
       [1e3 * 60 * 3, 1e3 * 60 * 15, 1 / 0],
       { resetInterval: o("WATimeUtils").DAY_SECONDS },
     );
-    function w(e) {
-      return A.apply(this, arguments);
-    }
-    function A() {
+    async function N(e) {
+      var t,
+        n = e.changes,
+        a = e.incomingMsgSettings,
+        i = e.localChatSettings,
+        l = e.to;
+      if ((D(), !T() || !l.isUser() || l.isPSA() || l.isBot())) {
+        o("WALogger").LOG(
+          _ ||
+            (_ = babelHelpers.taggedTemplateLiteralLoose([
+              "[DMResolve] skip sending ESR: disabled or unsupported chat",
+            ])),
+        );
+        return;
+      }
+      if (r("gkx")("26256")) {
+        var s;
+        window.esrCount = ((s = window.esrCount) != null ? s : 0) + 1;
+      }
+      var u = l.toString();
+      if (P.test(u)) {
+        var c;
+        o("WALogger").LOG(
+          f ||
+            (f = babelHelpers.taggedTemplateLiteralLoose([
+              "[DMResolve] Not sending ESR to ",
+              " due to back off limit",
+            ])),
+          l,
+        );
+        var d = (c = P.get(u)) == null ? void 0 : c.attempts;
+        d != null &&
+          o(
+            "WAWebEphemeralSyncResponseWAM",
+          ).sendEphemeralSyncResponseSendErrorWamEvent({
+            to: l,
+            error: o("WAWebWamEnumEsrFailureReasonType").ESR_FAILURE_REASON_TYPE
+              .ATTEMPTS_EXHAUSTED,
+            attempts: d,
+          });
+        return;
+      }
+      var m = n.duration,
+        p = n.initiator,
+        h = n.settingTimestamp,
+        y = o("WAWebUserUtils").getMeUserOrThrow(),
+        C = new (r("WAWebMsgKey"))({
+          fromMe: !0,
+          remote: l,
+          id: await r("WAWebMsgKey").newId(),
+          participant: void 0,
+        }),
+        b = {
+          id: C,
+          from: y,
+          to: l,
+          t: o("WATimeUtils").unixTime(),
+          type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
+          subtype: "ephemeral_sync_response",
+          ephemeralDuration: m,
+          ephemeralSettingTimestamp: h,
+          disappearingModeInitiator: p,
+        },
+        v = new (o("WAWebMsgModel").Msg)(b);
       return (
-        (A = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t,
-            n = e.changes,
-            a = e.incomingMsgSettings,
-            i = e.localChatSettings,
-            l = e.to;
-          if ((D(), !T() || !l.isUser() || l.isPSA() || l.isBot())) {
-            o("WALogger").LOG(
-              _ ||
-                (_ = babelHelpers.taggedTemplateLiteralLoose([
-                  "[DMResolve] skip sending ESR: disabled or unsupported chat",
-                ])),
-            );
-            return;
-          }
-          if (r("gkx")("26256")) {
-            var s;
-            window.esrCount = ((s = window.esrCount) != null ? s : 0) + 1;
-          }
-          var u = l.toString();
-          if (M.test(u)) {
-            var c;
-            o("WALogger").LOG(
-              f ||
-                (f = babelHelpers.taggedTemplateLiteralLoose([
-                  "[DMResolve] Not sending ESR to ",
-                  " due to back off limit",
-                ])),
-              l,
-            );
-            var d = (c = M.get(u)) == null ? void 0 : c.attempts;
-            d != null &&
-              o(
-                "WAWebEphemeralSyncResponseWAM",
-              ).sendEphemeralSyncResponseSendErrorWamEvent({
-                to: l,
-                error: o("WAWebWamEnumEsrFailureReasonType")
-                  .ESR_FAILURE_REASON_TYPE.ATTEMPTS_EXHAUSTED,
-                attempts: d,
-              });
-            return;
-          }
-          var m = n.duration,
-            p = n.initiator,
-            h = n.settingTimestamp,
-            y = o("WAWebUserUtils").getMeUserOrThrow(),
-            C = new (r("WAWebMsgKey"))({
-              fromMe: !0,
-              remote: l,
-              id: yield r("WAWebMsgKey").newId(),
-              participant: void 0,
-            }),
-            b = {
-              id: C,
-              from: y,
-              to: l,
-              t: o("WATimeUtils").unixTime(),
-              type: o("WAWebMsgType").MSG_TYPE.PROTOCOL,
-              subtype: "ephemeral_sync_response",
-              ephemeralDuration: m,
-              ephemeralSettingTimestamp: h,
-              disappearingModeInitiator: p,
+        o("WALogger").LOG(
+          g ||
+            (g = babelHelpers.taggedTemplateLiteralLoose([
+              "[DMResolve] Sending out EPHEMERAL_SYNC_RESPONSE",
+            ])),
+        ),
+        o(
+          "WAWebEphemeralSyncResponseWAM",
+        ).sendEphemeralSyncResponseSendWamEvent({
+          to: l,
+          changes: n,
+          incomingMsgSettings: a,
+          localChatSettings: i,
+          attempts: (t = P.get(u)) == null ? void 0 : t.attempts,
+        }),
+        o("WAWebOrchestratorNonPersistedJob")
+          .createNonPersistedJob(
+            "sendMessage",
+            function () {
+              return (
+                o("WAWebBackendRuntime").isWebDiBackendEnabled()
+                  ? o("WAWebBackendRuntime").runtime(
+                      o("WAWebMessageSendService").MessageSendService,
+                    ).sendMsgRecord
+                  : o("WAWebSendMsgRecordAction").sendMsgRecord
+              )(v);
             },
-            v = new (o("WAWebMsgModel").Msg)(b);
-          return (
-            o("WALogger").LOG(
-              g ||
-                (g = babelHelpers.taggedTemplateLiteralLoose([
-                  "[DMResolve] Sending out EPHEMERAL_SYNC_RESPONSE",
-                ])),
-            ),
-            o(
-              "WAWebEphemeralSyncResponseWAM",
-            ).sendEphemeralSyncResponseSendWamEvent({
-              to: l,
-              changes: n,
-              incomingMsgSettings: a,
-              localChatSettings: i,
-              attempts: (t = M.get(u)) == null ? void 0 : t.attempts,
-            }),
-            o("WAWebOrchestratorNonPersistedJob")
-              .createNonPersistedJob(
-                "sendMessage",
-                function () {
-                  return (
-                    o("WAWebBackendRuntime").isWebDiBackendEnabled()
-                      ? o("WAWebBackendRuntime").runtime(
-                          o("WAWebMessageSendService").MessageSendService,
-                        ).sendMsgRecord
-                      : o("WAWebSendMsgRecordAction").sendMsgRecord
-                  )(v);
-                },
-                { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
-              )
-              .waitUntilCompleted()
-          );
-        })),
-        A.apply(this, arguments)
+            { priority: o("WAJobOrchestratorTypes").JobPriority.UI_ACTION },
+          )
+          .waitUntilCompleted()
       );
     }
-    function F(e, t) {
+    function M(e, t) {
       return !!(
         o("WAWebChatGetters").getIsUser(t) &&
         !t.contact.isEnterprise &&
@@ -359,252 +330,225 @@ __d(
         o("WAWebMsgEphemerality").messageSupportsEphemerality(e.type)
       );
     }
-    function O(e, t) {
-      return B.apply(this, arguments);
-    }
-    function B() {
-      return (
-        (B = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n;
-          o("WALogger").LOG(
-            h ||
-              (h = babelHelpers.taggedTemplateLiteralLoose([
-                "logEphemeralOutOfSync",
-              ])),
-          );
-          var r =
-              (n = o("WAWebChatEphemerality").getEphemeralSetting(t)) != null
-                ? n
-                : 0,
-            a = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
-              o("WAWebContactCollection").ContactCollection.getMeContact(),
-            ),
-            i = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
-              t.contact,
-            );
-          new (o(
-            "WAWebEphemeralOutOfSyncInfoWamEvent",
-          ).EphemeralOutOfSyncInfoWamEvent)({
-            incomingMessageEphemeralityDuration: e != null ? e : 0,
-            isAGroup: o("WAWebChatGetters").getIsGroup(t),
-            threadEphemeralityDuration: r,
-            otherDefaultModeDuration: i != null ? i : 0,
-            userDefaultModeDuration: a != null ? a : 0,
-            threadId: yield o("WAWebChatThreadLogging").getChatThreadID(
-              t.id.toJid(),
-            ),
-            isNewThreadForUser: t.msgs.length === 0,
-          }).commit();
-        })),
-        B.apply(this, arguments)
+    async function w(e, t) {
+      var n;
+      o("WALogger").LOG(
+        h ||
+          (h = babelHelpers.taggedTemplateLiteralLoose([
+            "logEphemeralOutOfSync",
+          ])),
       );
+      var r =
+          (n = o("WAWebChatEphemerality").getEphemeralSetting(t)) != null
+            ? n
+            : 0,
+        a = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
+          o("WAWebContactCollection").ContactCollection.getMeContact(),
+        ),
+        i = o("WAWebEphemeralityResolver").getEphemeralDurationForUser(
+          t.contact,
+        );
+      new (o(
+        "WAWebEphemeralOutOfSyncInfoWamEvent",
+      ).EphemeralOutOfSyncInfoWamEvent)({
+        incomingMessageEphemeralityDuration: e != null ? e : 0,
+        isAGroup: o("WAWebChatGetters").getIsGroup(t),
+        threadEphemeralityDuration: r,
+        otherDefaultModeDuration: i != null ? i : 0,
+        userDefaultModeDuration: a != null ? a : 0,
+        threadId: await o("WAWebChatThreadLogging").getChatThreadID(
+          t.id.toJid(),
+        ),
+        isNewThreadForUser: t.msgs.length === 0,
+      }).commit();
     }
-    function W(e, t) {
-      return q.apply(this, arguments);
-    }
-    function q() {
-      return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n =
-            e.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
-            e.subtype === "ephemeral_setting";
-          if (!F(e, t) && !n) {
-            o("WALogger").LOG(
-              y ||
-                (y = babelHelpers.taggedTemplateLiteralLoose([
-                  "[DMResolve] dropping msg from ephemeral sync",
-                ])),
-            );
-            return;
-          }
-          var r = o("WAWebMsgEphemerality").getMsgEphemeralitySettings(e),
-            a = o("WAWebChatEphemerality").getChatEphemeralityFields(t);
-          o("WALogger").LOG(
-            C ||
-              (C = babelHelpers.taggedTemplateLiteralLoose([
-                "[DMResolve] resolving ephemerality with chat DM settings",
+    async function A(e, t) {
+      var n =
+        e.type === o("WAWebMsgType").MSG_TYPE.PROTOCOL &&
+        e.subtype === "ephemeral_setting";
+      if (!M(e, t) && !n) {
+        o("WALogger").LOG(
+          y ||
+            (y = babelHelpers.taggedTemplateLiteralLoose([
+              "[DMResolve] dropping msg from ephemeral sync",
+            ])),
+        );
+        return;
+      }
+      var r = o("WAWebMsgEphemerality").getMsgEphemeralitySettings(e),
+        a = o("WAWebChatEphemerality").getChatEphemeralityFields(t);
+      o("WALogger").LOG(
+        C ||
+          (C = babelHelpers.taggedTemplateLiteralLoose([
+            "[DMResolve] resolving ephemerality with chat DM settings",
+          ])),
+      );
+      var i = o("WAWebEphemeralityResolver").resolveExistingChatDMSettings(
+        r,
+        a,
+      );
+      if (
+        o(
+          "WAWebEphemeralityUtils",
+        ).isEphemeralityDisabledForMessagingWithContact(t.contact)
+      )
+        return F({
+          chat: t,
+          localChatSettings: a,
+          incomingMsgSettings: r,
+          msg: e,
+        });
+      var l = o("WAWebEphemeralityResolver").compareEphemeralityFields(a, i),
+        s = o("WAWebEphemeralityResolver").compareEphemeralityFields(r, i);
+      if (i == null || (l && s))
+        (o("WALogger").LOG(
+          b ||
+            (b = babelHelpers.taggedTemplateLiteralLoose([
+              "[DMResolve] neither party is out-of-sync",
+            ])),
+        ),
+          P.remove(t.id.toString()));
+      else {
+        if (
+          (o("WALogger").LOG(
+            v ||
+              (v = babelHelpers.taggedTemplateLiteralLoose([
+                "[DMResolve] ESR resolution details: ",
+                "",
               ])),
-          );
-          var i = o("WAWebEphemeralityResolver").resolveExistingChatDMSettings(
-            r,
-            a,
-          );
-          if (
-            o(
-              "WAWebEphemeralityUtils",
-            ).isEphemeralityDisabledForMessagingWithContact(t.contact)
-          )
-            return U({
-              chat: t,
-              localChatSettings: a,
+            JSON.stringify({
+              msgId: e.id.toString(),
+              resolution: i,
               incomingMsgSettings: r,
-              msg: e,
-            });
-          var l = o("WAWebEphemeralityResolver").compareEphemeralityFields(
-              a,
-              i,
-            ),
-            s = o("WAWebEphemeralityResolver").compareEphemeralityFields(r, i);
-          if (i == null || (l && s))
-            (o("WALogger").LOG(
-              b ||
-                (b = babelHelpers.taggedTemplateLiteralLoose([
-                  "[DMResolve] neither party is out-of-sync",
-                ])),
-            ),
-              M.remove(t.id.toString()));
-          else {
-            if (
+              localChatSettings: a,
+            }),
+          ),
+          !l)
+        ) {
+          var u;
+          (o("WALogger").LOG(
+            S ||
+              (S = babelHelpers.taggedTemplateLiteralLoose([
+                "[DMResolve] local out-of-sync, updating chat DM settings",
+              ])),
+          ),
+            await o(
+              "WAWebUpdateEphemeralSettingChatAction",
+            ).updateChatEphemeralSettings(t, {
+              ephemeralSettingTimestamp: i.settingTimestamp,
+              ephemeralDuration: i.duration,
+              disappearingModeInitiator: i.initiator,
+              disappearingModeTrigger: i.disappearingModeTrigger,
+              disappearingModeInitiatedByMe: i.initiatedByMe,
+              afterReadDuration: i.afterReadDuration,
+            }),
+            !n &&
+              i.duration !==
+                ((u = a == null ? void 0 : a.duration) != null ? u : 0) &&
               (o("WALogger").LOG(
-                v ||
-                  (v = babelHelpers.taggedTemplateLiteralLoose([
-                    "[DMResolve] ESR resolution details: ",
-                    "",
-                  ])),
-                JSON.stringify({
-                  msgId: e.id.toString(),
-                  resolution: i,
-                  incomingMsgSettings: r,
-                  localChatSettings: a,
-                }),
-              ),
-              !l)
-            ) {
-              var u;
-              (o("WALogger").LOG(
-                S ||
-                  (S = babelHelpers.taggedTemplateLiteralLoose([
-                    "[DMResolve] local out-of-sync, updating chat DM settings",
+                R ||
+                  (R = babelHelpers.taggedTemplateLiteralLoose([
+                    "[DMResolve] rendering DM sysmsg: duration changed",
                   ])),
               ),
-                yield o(
-                  "WAWebUpdateEphemeralSettingChatAction",
-                ).updateChatEphemeralSettings(t, {
-                  ephemeralSettingTimestamp: i.settingTimestamp,
-                  ephemeralDuration: i.duration,
-                  disappearingModeInitiator: i.initiator,
-                  disappearingModeTrigger: i.disappearingModeTrigger,
-                  disappearingModeInitiatedByMe: i.initiatedByMe,
-                  afterReadDuration: i.afterReadDuration,
-                }),
-                !n &&
-                  i.duration !==
-                    ((u = a == null ? void 0 : a.duration) != null ? u : 0) &&
-                  (o("WALogger").LOG(
-                    R ||
-                      (R = babelHelpers.taggedTemplateLiteralLoose([
-                        "[DMResolve] rendering DM sysmsg: duration changed",
-                      ])),
-                  ),
-                  yield o(
-                    "WAWebEphemeralGenerateSystemMessage",
-                  ).generateEphemeralNotificationTemplateSystemMessage(
-                    t,
-                    i.duration,
-                    null,
-                    i.afterReadDuration,
-                  )));
-            }
-            if (
-              !s &&
-              (o("WALogger").LOG(
-                L ||
-                  (L = babelHelpers.taggedTemplateLiteralLoose([
-                    "[DMResolve] other party out-of-sync, sending ESR",
-                  ])),
-              ),
-              !o("WAWebCommonMsgUtils").isNotificationType(e.type, e.subtype))
-            ) {
-              var c,
-                d = (c = r == null ? void 0 : r.duration) != null ? c : 0;
-              (i.duration !== d &&
-                (yield x(e), O(r == null ? void 0 : r.duration, t)),
-                w({
-                  changes: i,
-                  incomingMsgSettings: r,
-                  localChatSettings: a,
-                  to: e.from,
-                }));
-            }
-          }
-        })),
-        q.apply(this, arguments)
-      );
+              await o(
+                "WAWebEphemeralGenerateSystemMessage",
+              ).generateEphemeralNotificationTemplateSystemMessage(
+                t,
+                i.duration,
+                null,
+                i.afterReadDuration,
+              )));
+        }
+        if (
+          !s &&
+          (o("WALogger").LOG(
+            L ||
+              (L = babelHelpers.taggedTemplateLiteralLoose([
+                "[DMResolve] other party out-of-sync, sending ESR",
+              ])),
+          ),
+          !o("WAWebCommonMsgUtils").isNotificationType(e.type, e.subtype))
+        ) {
+          var c,
+            d = (c = r == null ? void 0 : r.duration) != null ? c : 0;
+          (i.duration !== d &&
+            (await x(e), w(r == null ? void 0 : r.duration, t)),
+            N({
+              changes: i,
+              incomingMsgSettings: r,
+              localChatSettings: a,
+              to: e.from,
+            }));
+        }
+      }
     }
-    function U(e) {
-      return V.apply(this, arguments);
-    }
-    function V() {
-      return (
-        (V = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e) {
-          var t = e.chat,
-            n = e.incomingMsgSettings,
-            r = e.localChatSettings,
-            a = e.msg;
-          if (
-            (o("WALogger").LOG(
-              E ||
-                (E = babelHelpers.taggedTemplateLiteralLoose([
-                  "[DMResolve] Ephemerality disabled and not synced",
-                ])),
-            ),
-            n != null &&
-              n.duration > 0 &&
-              (yield o(
-                "WAWebDBEphemeralMessage",
-              ).convertMessageNotEphemeralForContactWithEphmeralityDisabled({
-                messageId: a.id.toString(),
-                contactId: t.contact.id.toString(),
-              }),
-              (a.ephemeralDuration = 0),
-              (a.ephemeralStartTimestamp = void 0),
-              (a.ephemeralSettingTimestamp = void 0),
-              (a.ephemeralOutOfSync = void 0),
-              (a.ephemeralSettingUser = void 0)),
-            r == null || r.duration === 0)
-          ) {
-            o("WALogger").LOG(
-              k ||
-                (k = babelHelpers.taggedTemplateLiteralLoose([
-                  "[DMResolve] disabled ephemerality: local chat not eph",
-                ])),
-            );
-            return;
-          }
-          if (n == null || n.duration === 0) {
-            o("WALogger").LOG(
-              I ||
-                (I = babelHelpers.taggedTemplateLiteralLoose([
-                  "[DMResolve] disabled ephemerality: incoming msg not eph",
-                ])),
-            );
-            return;
-          }
-          (yield o(
-            "WAWebUpdateEphemeralSettingChatAction",
-          ).updateChatEphemeralSettings(t, {
-            ephemeralSettingTimestamp: o(
-              "WAWebEphemeralityResolver",
-            ).resolveSettingTimestamp(n.settingTimestamp),
-            ephemeralDuration: 0,
-            disappearingModeInitiator: o("WAWebEphemeralityTypes")
-              .DisappearingModeInitiator.InitiatedByOther,
-            disappearingModeTrigger: o("WAWebEphemeralityTypes")
-              .DisappearingModeTrigger.Unknown,
-            disappearingModeInitiatedByMe: !1,
+    async function F(e) {
+      var t = e.chat,
+        n = e.incomingMsgSettings,
+        r = e.localChatSettings,
+        a = e.msg;
+      if (
+        (o("WALogger").LOG(
+          E ||
+            (E = babelHelpers.taggedTemplateLiteralLoose([
+              "[DMResolve] Ephemerality disabled and not synced",
+            ])),
+        ),
+        n != null &&
+          n.duration > 0 &&
+          (await o(
+            "WAWebDBEphemeralMessage",
+          ).convertMessageNotEphemeralForContactWithEphmeralityDisabled({
+            messageId: a.id.toString(),
+            contactId: t.contact.id.toString(),
           }),
-            yield o(
-              "WAWebEphemeralGenerateSystemMessage",
-            ).generateEphemeralNotificationTemplateSystemMessage(
-              t,
-              0,
-              t.contact.id,
-            ));
-        })),
-        V.apply(this, arguments)
-      );
+          (a.ephemeralDuration = 0),
+          (a.ephemeralStartTimestamp = void 0),
+          (a.ephemeralSettingTimestamp = void 0),
+          (a.ephemeralOutOfSync = void 0),
+          (a.ephemeralSettingUser = void 0)),
+        r == null || r.duration === 0)
+      ) {
+        o("WALogger").LOG(
+          k ||
+            (k = babelHelpers.taggedTemplateLiteralLoose([
+              "[DMResolve] disabled ephemerality: local chat not eph",
+            ])),
+        );
+        return;
+      }
+      if (n == null || n.duration === 0) {
+        o("WALogger").LOG(
+          I ||
+            (I = babelHelpers.taggedTemplateLiteralLoose([
+              "[DMResolve] disabled ephemerality: incoming msg not eph",
+            ])),
+        );
+        return;
+      }
+      (await o(
+        "WAWebUpdateEphemeralSettingChatAction",
+      ).updateChatEphemeralSettings(t, {
+        ephemeralSettingTimestamp: o(
+          "WAWebEphemeralityResolver",
+        ).resolveSettingTimestamp(n.settingTimestamp),
+        ephemeralDuration: 0,
+        disappearingModeInitiator: o("WAWebEphemeralityTypes")
+          .DisappearingModeInitiator.InitiatedByOther,
+        disappearingModeTrigger: o("WAWebEphemeralityTypes")
+          .DisappearingModeTrigger.Unknown,
+        disappearingModeInitiatedByMe: !1,
+      }),
+        await o(
+          "WAWebEphemeralGenerateSystemMessage",
+        ).generateEphemeralNotificationTemplateSystemMessage(
+          t,
+          0,
+          t.contact.id,
+        ));
     }
-    ((l.processEphemeralSyncResponse = P), (l.syncEphemeralSetting = W));
+    ((l.processEphemeralSyncResponse = $), (l.syncEphemeralSetting = A));
   },
   98,
 );

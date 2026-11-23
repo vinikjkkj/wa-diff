@@ -31,9 +31,9 @@ __d(
                 o("WAWebCxtUrl").getCommunityNotAvailableFaqUrl(),
               ));
           },
-          okText: s._(/*BTDS*/ "Dismiss"),
-          cancelText: s._(/*BTDS*/ "Learn more"),
-          title: s._(/*BTDS*/ "This community is no longer available."),
+          okText: s._(/*BTDS*/ ""),
+          cancelText: s._(/*BTDS*/ ""),
+          title: s._(/*BTDS*/ ""),
         }),
         { transition: "modal-flow" },
       );

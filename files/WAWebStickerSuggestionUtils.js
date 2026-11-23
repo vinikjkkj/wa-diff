@@ -7,7 +7,6 @@ __d(
     "WAWebCmd",
     "WAWebEmoji",
     "WAWebUserPrefsStore",
-    "react-compiler-runtime",
     "useWAWebEventTargetValue",
   ],
   function (t, n, r, o, a, i, l) {
@@ -81,28 +80,16 @@ __d(
         : null;
     }
     function g(e) {
-      var t = o("react-compiler-runtime").c(3),
-        n,
-        a;
-      return (
-        t[0] !== e
-          ? ((n = function () {
-              return o("WAWebABProps").getABPropConfigValue(
-                "sticker_suggestion_enabled",
-                e ? void 0 : { suppressExposure: !0 },
-              );
-            }),
-            (a = [e]),
-            (t[0] = e),
-            (t[1] = n),
-            (t[2] = a))
-          : ((n = t[1]), (a = t[2])),
-        r("useWAWebEventTargetValue")(
-          o("WAWebCmd").Cmd,
-          "on_ab_props_update_from_bridge",
-          n,
-          a,
-        )
+      return r("useWAWebEventTargetValue")(
+        o("WAWebCmd").Cmd,
+        "on_ab_props_update_from_bridge",
+        function () {
+          return o("WAWebABProps").getABPropConfigValue(
+            "sticker_suggestion_enabled",
+            e ? void 0 : { suppressExposure: !0 },
+          );
+        },
+        [e],
       );
     }
     function h() {

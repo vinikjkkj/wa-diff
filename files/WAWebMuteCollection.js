@@ -14,7 +14,6 @@ __d(
     "WAWebUserPrefsKeys",
     "WAWebUserPrefsNotifications",
     "WAWebUserPrefsStore",
-    "asyncToGeneratorRuntime",
     "getErrorSafe",
     "gkx",
   ],
@@ -248,7 +247,7 @@ __d(
           }),
           (a.$MuteCollectionImpl$p_4 = function () {
             var e = this;
-            U();
+            q();
             var t = p;
             if (!(m || t == null)) {
               var n = Math.max(
@@ -262,7 +261,7 @@ __d(
             }
           }),
           (a.$MuteCollectionImpl$p_2 = function () {
-            (U(),
+            (q(),
               (p = null),
               o(
                 "WAWebUserPrefsNotifications",
@@ -430,32 +429,24 @@ __d(
         .__setRef("WAWebMuteCollection")
         .load();
     }, "SettingsSyncBridge");
-    function W() {
-      return q.apply(this, arguments);
+    async function W() {
+      try {
+        var e = await B(),
+          t = e.sendSettingChange;
+        await t("isCallsNotificationEnabled", !0);
+      } catch (e) {
+        o("WALogger")
+          .ERROR(
+            u ||
+              (u = babelHelpers.taggedTemplateLiteralLoose([
+                "Failed to sync call notifications turning back on",
+              ])),
+          )
+          .catching(r("getErrorSafe")(e))
+          .sendLogs("calls-notification-unmute-sync-failed");
+      }
     }
     function q() {
-      return (
-        (q = n("asyncToGeneratorRuntime").asyncToGenerator(function* () {
-          try {
-            var e = yield B(),
-              t = e.sendSettingChange;
-            yield t("isCallsNotificationEnabled", !0);
-          } catch (e) {
-            o("WALogger")
-              .ERROR(
-                u ||
-                  (u = babelHelpers.taggedTemplateLiteralLoose([
-                    "Failed to sync call notifications turning back on",
-                  ])),
-              )
-              .catching(r("getErrorSafe")(e))
-              .sendLogs("calls-notification-unmute-sync-failed");
-          }
-        })),
-        q.apply(this, arguments)
-      );
-    }
-    function U() {
       f != null && (self.clearTimeout(f), (f = null));
     }
     l.MuteCollection = A;

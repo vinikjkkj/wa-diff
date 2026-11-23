@@ -241,7 +241,7 @@ __d(
               type: n.type,
             })
           ? {
-              label: s._(/*BTDS*/ "View Pix key"),
+              label: s._(/*BTDS*/ ""),
               onClick: function () {
                 o(
                   "WAWebBrAddPixKeyMessageGating",
@@ -253,7 +253,7 @@ __d(
               testid: "br_view_pix_key_message_action",
             }
           : {
-              label: s._(/*BTDS*/ "Add Pix key"),
+              label: s._(/*BTDS*/ ""),
               onClick: function () {
                 var n = o("WAWebMsgCollection").MsgCollection.get(t);
                 if (
@@ -372,10 +372,10 @@ __d(
     }
     function b() {
       return {
-        label: s._(/*BTDS*/ "Pay with card"),
+        label: s._(/*BTDS*/ ""),
         onClick: function () {
           r("WAWebShowMessageActionFallbackErrorAction")({
-            title: s._(/*BTDS*/ "Charges can't be paid with cards on {=m1}", [
+            title: s._(/*BTDS*/ "", [
               s._implicitParam(
                 "=m1",
                 m.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
@@ -383,9 +383,7 @@ __d(
                 }),
               ),
             ]),
-            body: s._(
-              /*BTDS*/ "Use WhatsApp on your phone to pay for this charge with a card.",
-            ),
+            body: s._(/*BTDS*/ ""),
           });
         },
       };
@@ -395,13 +393,13 @@ __d(
         l = t.sender,
         c = function () {
           return i || a
-            ? s._(/*BTDS*/ "View details")
+            ? s._(/*BTDS*/ "")
             : o("WAWebPaymentsGatingUtils").isWidInPaymentsCountry(l) &&
                 o("WAWebPaymentsGatingUtils").isWidInPaymentsCountry(
                   o("WAWebUserPrefsMeUser").getMaybeMePnUser(),
                 )
-              ? s._(/*BTDS*/ "Review and pay")
-              : s._(/*BTDS*/ "View details");
+              ? s._(/*BTDS*/ "")
+              : s._(/*BTDS*/ "");
         };
       return {
         label: c(),
@@ -436,7 +434,7 @@ __d(
             );
           } else
             r("WAWebShowMessageActionFallbackErrorAction")({
-              title: s._(/*BTDS*/ "Orders can't be viewed on {=m1}", [
+              title: s._(/*BTDS*/ "", [
                 s._implicitParam(
                   "=m1",
                   m.jsx(o("WAWebFbtAppName").WAWebAppShortName, {
@@ -444,9 +442,7 @@ __d(
                   }),
                 ),
               ]),
-              body: s._(
-                /*BTDS*/ "Use WhatsApp on your phone to view this order.",
-              ),
+              body: s._(/*BTDS*/ ""),
             });
         },
       };

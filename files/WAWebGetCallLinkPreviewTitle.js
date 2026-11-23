@@ -4,9 +4,7 @@ __d(
   function (t, n, r, o, a, i, l, s) {
     "use strict";
     function e(e) {
-      return e === "video"
-        ? s._(/*BTDS*/ "Video call")
-        : s._(/*BTDS*/ "Voice call");
+      return e === "video" ? s._(/*BTDS*/ "") : s._(/*BTDS*/ "");
     }
     l.default = e;
   },

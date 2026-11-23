@@ -11,7 +11,6 @@ __d(
     "WAWebQuestions.flow",
     "WAWebSchemaMessage",
     "WAWebSchemaNewsletterQuestionResponses",
-    "asyncToGeneratorRuntime",
     "err",
   ],
   function (t, n, r, o, a, i, l) {
@@ -34,79 +33,60 @@ __d(
         });
       return (e.set(r, i), i);
     }
-    function u(e, t) {
-      return c.apply(this, arguments);
+    async function u(e, t) {
+      if (
+        o(
+          "WAWebSchemaNewsletterQuestionResponses",
+        ).canUseNewsletterQuestionResponsesTable()
+      ) {
+        var n = await o("WAWebSchemaMessage")
+          .getMessageTable()
+          .get(t.toString());
+        n == null ||
+          n.myQuestionResponsesChecked === !0 ||
+          (await o(
+            "WAWebNewsletterQuestionResponseStorage",
+          ).reconcileMyQuestionResponses(t, function () {
+            return c(e, t);
+          }),
+          await o("WAWebSchemaMessage")
+            .getMessageTable()
+            .merge(t.toString(), { myQuestionResponsesChecked: !0 }));
+      }
     }
-    function c() {
-      return (
-        (c = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          if (
-            o(
-              "WAWebSchemaNewsletterQuestionResponses",
-            ).canUseNewsletterQuestionResponsesTable()
-          ) {
-            var n = yield o("WAWebSchemaMessage")
-              .getMessageTable()
-              .get(t.toString());
-            n == null ||
-              n.myQuestionResponsesChecked === !0 ||
-              (yield o(
-                "WAWebNewsletterQuestionResponseStorage",
-              ).reconcileMyQuestionResponses(t, function () {
-                return d(e, t);
-              }),
-              yield o("WAWebSchemaMessage")
-                .getMessageTable()
-                .merge(t.toString(), { myQuestionResponsesChecked: !0 }));
-          }
-        })),
-        c.apply(this, arguments)
-      );
-    }
-    function d(e, t) {
-      return m.apply(this, arguments);
-    }
-    function m() {
-      return (
-        (m = n("asyncToGeneratorRuntime").asyncToGenerator(function* (e, t) {
-          var n = yield o(
-            "WAWebNewsletterGetMyQuestionResponsesQuery",
-          ).getMyQuestionResponsesQuery(e);
-          if (n.myQuestionResponsesServerId !== e.myQuestionResponsesServerId)
-            throw r("err")(
-              "my question responses returned for another question",
-            );
-          return n.myQuestionResponsesQuestionResponse.map(function (e) {
-            var a = o(
-                "WAWebNewsletterQuestionResponsesUtils",
-              ).mapQuestionResponseMsgStanza({
-                fetchedResponse: e,
-                newsletterJid: n.from,
-                questionId: t,
-                questionServerId: n.myQuestionResponsesServerId,
-              }),
-              i = a.questionResponseInfo;
-            return o(
-              "WAWebDBNewsletterQuestionResponseSerialization",
-            ).dbRowFromNewsletterQuestionResponse(
-              babelHelpers.extends({}, a, {
-                id: new (r("WAWebMsgKey"))({
-                  fromMe: !0,
-                  remote: a.id.remote,
-                  id: a.id.id,
-                }),
-                questionResponseInfo: babelHelpers.extends({}, i, {
-                  likeSeen:
-                    i.reactionCode ===
-                    o("WAWebQuestions.flow")
-                      .QUESTION_RESPONSE_LIKE_REACTION_CODE,
-                }),
-              }),
-            );
-          });
-        })),
-        m.apply(this, arguments)
-      );
+    async function c(e, t) {
+      var n = await o(
+        "WAWebNewsletterGetMyQuestionResponsesQuery",
+      ).getMyQuestionResponsesQuery(e);
+      if (n.myQuestionResponsesServerId !== e.myQuestionResponsesServerId)
+        throw r("err")("my question responses returned for another question");
+      return n.myQuestionResponsesQuestionResponse.map(function (e) {
+        var a = o(
+            "WAWebNewsletterQuestionResponsesUtils",
+          ).mapQuestionResponseMsgStanza({
+            fetchedResponse: e,
+            newsletterJid: n.from,
+            questionId: t,
+            questionServerId: n.myQuestionResponsesServerId,
+          }),
+          i = a.questionResponseInfo;
+        return o(
+          "WAWebDBNewsletterQuestionResponseSerialization",
+        ).dbRowFromNewsletterQuestionResponse(
+          babelHelpers.extends({}, a, {
+            id: new (r("WAWebMsgKey"))({
+              fromMe: !0,
+              remote: a.id.remote,
+              id: a.id.id,
+            }),
+            questionResponseInfo: babelHelpers.extends({}, i, {
+              likeSeen:
+                i.reactionCode ===
+                o("WAWebQuestions.flow").QUESTION_RESPONSE_LIKE_REACTION_CODE,
+            }),
+          }),
+        );
+      });
     }
     l.checkMyNewsletterQuestionResponses = s;
   },

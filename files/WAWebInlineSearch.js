@@ -3,14 +3,18 @@ __d(
   ["WAWebSearchModel", "WAWebSearchUtils"],
   function (t, n, r, o, a, i, l) {
     var e = (function (e) {
-      function t(t, n, r, o) {
-        var a;
+      function t(t) {
+        var n,
+          r = t.filterFn,
+          o = t.items,
+          a = t.options,
+          i = t.type;
         return (
-          (a = e.call(this, o) || this),
-          (a.type = t),
-          (a.items = n),
-          (a.filterFn = r),
-          a
+          (n = e.call(this, a) || this),
+          (n.type = i),
+          (n.items = o),
+          (n.filterFn = r),
+          n
         );
       }
       babelHelpers.inheritsLoose(t, e);
@@ -44,7 +48,7 @@ __d(
         r = t.items,
         o = t.options,
         a = t.type;
-      return new e(a, r, n, o);
+      return new e({ filterFn: n, items: r, options: o, type: a });
     }
     l.inlineSearchModel = s;
   },

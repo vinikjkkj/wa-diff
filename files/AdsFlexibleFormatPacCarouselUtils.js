@@ -98,11 +98,7 @@ __d(
       );
     }
     function _(e) {
-      if (
-        r("justknobx")._("2021") ||
-        o("AdsSensitiveVerticalUtils").isAdAccountOnBig6AgencyBlocklist()
-      )
-        return !1;
+      if (r("justknobx")._("2021")) return !1;
       if (e === !0) {
         if (!r("gkx")("19787")) return !1;
       } else if (!r("gkx")("19795")) return !1;
